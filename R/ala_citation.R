@@ -10,8 +10,8 @@ ala_citation <- function(data) {
          `mint_doi = TRUE` and then use `ala_citation.")
   }
   paste0("ALA occurrence download ", attributes(data)$doi, 
-         ". Accessed from R with ALA4R",
-         " (https://github.com/AtlasOfLivingAustralia/ALA4R/) on ",
+         ". Accessed from R with koala",
+         " (https://github.com/AtlasOfLivingAustralia/koala/) on ",
          Sys.Date(), ".")
   
 }

@@ -1,20 +1,14 @@
-Package: ALA4R
+Package: koala
 Type: Package
 Title: Atlas of Living Australia (ALA) Data and Resources in R
-Version: 2.0.0
+Version: 1.0.0
 Authors@R: c(person("Matilda", "Stevenson", email="matilda.stevenson@csiro.au",role=c("aut","cre")),
              person("Martin", "Westgate", email="martin.westgate@csiro.au", role="aut"),
-             person("Peggy", "Newman", email="peggy.newman@csiro.au", role="aut"),
-             person("Ben", "Raymond", email="ben_ala@untan.gl", role="aut"),
-             person("Jeremy", "VanDerWal", role="aut"),
-             person("Lee", "Belbin", role="aut"),
-             person("Michael", "Sumner", role="ctb"),
-             person("Tom", "August", role="ctb"),
-             person("John", "Baumgartner", role="ctb"))
+             person("Peggy", "Newman", email="peggy.newman@csiro.au", role="aut"))
 Description: The Atlas of Living Australia (ALA) provides tools to enable users
     of biodiversity information to find, access, combine and visualise data on
     Australian plants and animals; these have been made available from
-    <https://ala.org.au/>. ALA4R provides a subset of the tools to be
+    <https://ala.org.au/>. <code>koala</code> provides a subset of the tools to be
     directly used within R. It enables the R community to directly access data
     and resources hosted by the ALA.
 Imports:
@@ -41,8 +35,8 @@ Suggests:
     tidyr,
     vegan
 License: MPL-2.0
-URL: https://github.com/AtlasOfLivingAustralia/ALA4R
-BugReports: https://github.com/AtlasOfLivingAustralia/ALA4R/issues
+URL: https://github.com/AtlasOfLivingAustralia/koala
+BugReports: https://github.com/AtlasOfLivingAustralia/koala/issues
 Maintainer: Matilda Stevenson <matilda.stevenson@csiro.au>
 LazyLoad: yes
 LazyData: yes

@@ -56,7 +56,7 @@ build_taxa_query <- function(ids) {
 # this is only relevant for ala_counts and ala_occurrences
 cached_query <- function(taxa_query, filter_query, area_query,
                          columns = NULL) {
-  url <- getOption("ALA4R_server_config")$base_url_biocache
+  url <- getOption("koala_server_config")$base_url_biocache
   resp <- ala_POST(url, path = "ws/webportal/params",
                    body = list(wkt = area_query, fq = taxa_query,
                                fields = columns))
@@ -97,9 +97,9 @@ build_columns <- function(col_df) {
 user_agent_string <- function() {
   version_string <- "version unknown"
   suppressWarnings(
-    try(version_string <- utils::packageDescription("ALA4R")[["Version"]],
-        silent = TRUE)) ## get the ALA4R version, if we can
-  paste0("ALA4R ", version_string)
+    try(version_string <- utils::packageDescription("koala")[["Version"]],
+        silent = TRUE)) ## get the koala version, if we can
+  paste0("koala ", version_string)
 }
 
 

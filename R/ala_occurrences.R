@@ -23,7 +23,7 @@
 ala_occurrences <- function(taxon_id, filters, geometry, columns,
                             mint_doi = FALSE) {
 
-  config_verbose <- getOption("ALA4R_config")$verbose
+  config_verbose <- getOption("koala_config")$verbose
   assert_that(is.logical(mint_doi))
   assert_that(is.logical(config_verbose))
   query <- list()
@@ -75,10 +75,10 @@ ala_occurrences <- function(taxon_id, filters, geometry, columns,
   # look for file to download- if it doesn't exist, continue on
   # use base_url_biocache as the filename? otherwise won't be found
   # create cache file with the original query
-  caching <- getOption("ALA4R_config")$caching
+  caching <- getOption("koala_config")$caching
   
   if (caching) {
-    cache_file <- cache_filename(c(getOption("ALA4R_server_config")$
+    cache_file <- cache_filename(c(getOption("koala_server_config")$
                                    base_url_biocache,
                                    path = "ws/occurrences/offline/download",
                                    params = unlist(query)), ext = ".zip")
@@ -112,7 +112,7 @@ ala_occurrences <- function(taxon_id, filters, geometry, columns,
   query$emailNotify <- email_notify()
 
   # Get data
-  url <- getOption("ALA4R_server_config")$base_url_biocache
+  url <- getOption("koala_server_config")$base_url_biocache
   query <- c(query, email = user_email(), reasonTypeId = download_reason(),
              dwcHeaders = "true")
 
@@ -190,7 +190,7 @@ check_count <- function(count, config_verbose) {
 }
 
 download_reason <- function() {
-  reason <- getOption("ALA4R_config")$download_reason_id
+  reason <- getOption("koala_config")$download_reason_id
   if (reason == "") {
     reason <- 4
   }
@@ -199,7 +199,7 @@ download_reason <- function() {
 
 
 email_notify <- function() {
-  notify <- as.logical(getOption("ALA4R_config")$send_email)
+  notify <- as.logical(getOption("koala_config")$send_email)
   if (is.na(notify)) {
     notify <- FALSE
   }
@@ -208,7 +208,7 @@ email_notify <- function() {
 }
 
 user_email <- function() {
-  email <- getOption("ALA4R_config")$email
+  email <- getOption("koala_config")$email
   if (email == "") {
     email <- Sys.getenv("email")
   }

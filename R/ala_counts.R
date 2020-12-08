@@ -70,7 +70,7 @@ ala_counts <- function(taxon_id, filters, geometry, breakdown,
   breakdown <- dwc_to_ala(breakdown)
   query$facets <- breakdown
   
-  url <- getOption("ALA4R_server_config")$base_url_biocache
+  url <- getOption("koala_server_config")$base_url_biocache
   path <- "ws/occurrence/facets"
   cache_file <- cache_filename(args = c(url, path, unlist(query), limit,
                                         breakdown),
@@ -123,7 +123,7 @@ ala_counts <- function(taxon_id, filters, geometry, breakdown,
 # handle too long queries in here?
 record_count <- function(query) {
   query$pageSize <- 0
-  url <- getOption("ALA4R_server_config")$base_url_biocache
+  url <- getOption("koala_server_config")$base_url_biocache
   resp <- ala_GET(url, "ws/occurrences/search", query)
   resp$totalRecords
 }

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atlas of Living Australia (ALA) Data and Resources in R • ALA4R</title>
+<title>Atlas of Living Australia (ALA) Data and Resources in R • koala</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -15,7 +15,7 @@
 <meta property="og:description" content="The Atlas of Living Australia (ALA) provides tools to enable users
     of biodiversity information to find, access, combine and visualise data on
     Australian plants and animals; these have been made available from
-    &lt;https://ala.org.au/&gt;. ALA4R provides a subset of the tools to be
+    &lt;https://ala.org.au/&gt;. &lt;code&gt;koala&lt;/code&gt; provides a subset of the tools to be
     directly used within R. It enables the R community to directly access data
     and resources hosted by the ALA.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -35,8 +35,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">ALA4R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <a class="navbar-link" href="index.html">koala</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -49,7 +49,7 @@
   </a>
 </li>
 <li>
-  <a href="articles/ALA4R.html">Get started</a>
+  <a href="articles/koala.html">Get started</a>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
@@ -60,7 +60,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/AtlasOfLivingAustralia/ALA4R/">
+  <a href="https://github.com/AtlasOfLivingAustralia/koala/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -77,40 +77,34 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="ala4r" class="section level1">
+<div id="koala" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#ala4r" class="anchor"></a>ALA4R</h1></div>
+<a href="#koala" class="anchor"></a>koala</h1></div>
 
-<p>The Atlas of Living Australia (ALA) provides tools to enable users of biodiversity information to find, access, combine and visualise data on Australian plants and animals; these have been made available from <a href="https://www.ala.org.au/" class="uri">https://www.ala.org.au/</a>. Here we provide a subset of the tools to be directly used within R.</p>
-<p>ALA4R enables the R community to directly access data and resources hosted by the ALA.</p>
-<p><strong>NOTE:</strong> The next release of ALA4R will be version 2.0.0. This will be a major update to simplify the process of downloading data, make behaviour across functions consistent, and remove redundant functionality.<br>
-In the coming weeks, you will be able to test out the new functionality in the <a href="https://github.com/AtlasOfLivingAustralia/ALA4R/tree/dev">dev branch</a>. If you have any questions or suggestions, please <a href="mailto:support@ala.org.au">contact us</a>.</p>
-<p>View the package vignette using <code><a href="articles/ALA4R.html">vignette("ALA4R")</a></code>, or <a href="https://atlasoflivingaustralia.github.io/ALA4R/articles/ALA4R.html">browse it online</a>.</p>
-<div id="citing-ala4r" class="section level2">
+<p><code>koala</code> enables the R community to directly access data hosted by the Atlas of Living Australia (ALA).</p>
+<p>The ALA aggregates Australian biodiversity data from a range of sources, and makes the data freely available for scientists, policy makers, industry and the general public.</p>
+<p>If you have any questions or suggestions, please <a href="mailto:support@ala.org.au">contact us</a>.</p>
+<div id="citing-koala" class="section level2">
 <h2 class="hasAnchor">
-<a href="#citing-ala4r" class="anchor"></a>Citing ALA4R</h2>
-<p>To generate a citation for ALA4R run:</p>
+<a href="#citing-koala" class="anchor"></a>Citing koala</h2>
+<p>To generate a citation for koala run:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"ALA4R"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"koala"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="installing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installing" class="anchor"></a>Installing</h2>
-<p>Stable version from CRAN:</p>
+<p>To install the development version from GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ALA4R"</span><span class="op">)</span></code></pre></div>
-<p>Or the development version from GitHub:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"AtlasOfLivingAustralia/ALA4R"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"AtlasOfLivingAustralia/koala"</span><span class="op">)</span></code></pre></div>
 <p>On Linux you will first need to ensure that <code>libcurl</code> and <code>v8</code> (version &lt;= 3.15) are installed on your system — e.g. on Ubuntu/Debian, open a terminal and do:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">sudo</span> apt-get install libcurl4-openssl-dev libv8-3.14-dev</span></code></pre></div>
-<p>or install via the Software Centre.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="fu">sudo</span> apt-get install libcurl4-openssl-dev libv8-3.14-dev</a></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>See the online documentation at <a href="https://atlasoflivingaustralia.github.io/ALA4R/" class="uri">https://atlasoflivingaustralia.github.io/ALA4R/</a> including the <a href="https://atlasoflivingaustralia.github.io/ALA4R/articles/ALA4R.html">package vignette</a>.</p>
+<p>See the online documentation at <a href="https://atlasoflivingaustralia.github.io/koala/" class="uri">https://atlasoflivingaustralia.github.io/koala/</a> including the <a href="https://atlasoflivingaustralia.github.io/koala/articles/koala.html">package vignette</a>.</p>
 </div>
 </div>
   </div>
@@ -119,11 +113,9 @@ In the coming weeks, you will be able to test out the new functionality in the <
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=ALA4R">https://​cloud.r-project.org/​package=ALA4R</a>
+<li>Browse source code at <br><a href="https://github.com/AtlasOfLivingAustralia/koala/">https://​github.com/​AtlasOfLivingAustralia/​koala/​</a>
 </li>
-<li>Browse source code at <br><a href="https://github.com/AtlasOfLivingAustralia/ALA4R/">https://​github.com/​AtlasOfLivingAustralia/​ALA4R/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/AtlasOfLivingAustralia/ALA4R/issues">https://​github.com/​AtlasOfLivingAustralia/​ALA4R/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/AtlasOfLivingAustralia/koala/issues">https://​github.com/​AtlasOfLivingAustralia/​koala/​issues</a>
 </li>
 </ul>
 </div>
@@ -136,7 +128,7 @@ In the coming weeks, you will be able to test out the new functionality in the <
 <div class="citation">
 <h2>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html">Citing ALA4R</a></li>
+<li><a href="authors.html">Citing koala</a></li>
 </ul>
 </div>
 <div class="developers">
@@ -145,21 +137,15 @@ In the coming weeks, you will be able to test out the new functionality in the <
 <li>Matilda Stevenson <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Martin Westgate <br><small class="roles"> Author </small>  </li>
 <li>Peggy Newman <br><small class="roles"> Author </small>  </li>
-<li>Ben Raymond <br><small class="roles"> Author </small>  </li>
-<li>Jeremy VanDerWal <br><small class="roles"> Author </small>  </li>
-<li>Lee Belbin <br><small class="roles"> Author </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.com/AtlasOfLivingAustralia/ALA4R"><img src="https://travis-ci.com/AtlasOfLivingAustralia/ALA4R.svg?branch=master" alt="Travis-CI Build Status"></a></li>
+<li><a href="https://travis-ci.com/AtlasOfLivingAustralia/koala"><img src="https://travis-ci.com/AtlasOfLivingAustralia/koala.svg?branch=master" alt="Travis-CI Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/PeggyNewman/ala4r/branch/master"><img src="https://ci.appveyor.com/api/projects/status/g9pudc4l7053w4vn/branch/master?svg=true" alt="AppVeyor Build status"></a></li>
-<li><a href="https://codecov.io/gh/AtlasOfLivingAustralia/ALA4R"><img src="https://codecov.io/gh/AtlasOfLivingAustralia/ALA4R/branch/master/graph/badge.svg" alt="codecov"></a></li>
-<li><a href="https://www.r-pkg.org/pkg/ALA4R"><img src="https://www.r-pkg.org/badges/version/ALA4R" alt="CRAN Status"></a></li>
-<li><a href="https://cran.r-project.org/package=ALA4R"><img src="https://cranlogs.r-pkg.org/badges/grand-total/ALA4R" alt="CRAN Downloads"></a></li>
+<li><a href="https://codecov.io/gh/AtlasOfLivingAustralia/koala"><img src="https://codecov.io/gh/AtlasOfLivingAustralia/koala/branch/master/graph/badge.svg" alt="codecov"></a></li>
 </ul>
 </div>
 </div>
@@ -167,7 +153,7 @@ In the coming weeks, you will be able to test out the new functionality in the <
 
 
       <footer><div class="copyright">
-  <p>Developed by Matilda Stevenson, Martin Westgate, Peggy Newman, Ben Raymond, Jeremy VanDerWal, Lee Belbin.</p>
+  <p>Developed by Matilda Stevenson, Martin Westgate, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown">

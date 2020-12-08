@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • ALA4R</title>
+<title>Changelog • koala</title>
 
 
 <!-- jquery -->
@@ -70,8 +70,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">ALA4R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <a class="navbar-link" href="../index.html">koala</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/ALA4R.html">Get started</a>
+  <a href="../articles/koala.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -95,7 +95,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/AtlasOfLivingAustralia/ALA4R/">
+  <a href="https://github.com/AtlasOfLivingAustralia/koala/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -114,168 +114,13 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/AtlasOfLivingAustralia/ALA4R/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      <small>Source: <a href='https://github.com/AtlasOfLivingAustralia/koala/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="ala4r-190" class="section level1">
-<h1 class="page-header" data-toc-text="1.9.0">
-<a href="#ala4r-190" class="anchor"></a>ALA4R 1.9.0<small> 2020-11-01 </small>
-</h1>
-<ul>
-<li>Add ability to generate a DOI for data downloads in <code>occurrences()</code> with <code>generate_doi</code> parameter</li>
-<li>Add <code>email_notify</code> parameter to <code>occurrences()</code>, set to <code>FALSE</code> by default</li>
-<li>Set default download reason as “scientific research”</li>
-</ul>
-</div>
-    <div id="ala4r-180" class="section level1">
-<h1 class="page-header" data-toc-text="1.8.0">
-<a href="#ala4r-180" class="anchor"></a>ALA4R 1.8.0<small> 2020-04-04 </small>
-</h1>
-<ul>
-<li>remove <code>method</code> parameter for <code>occurrences()</code> and only use <code>offline</code> method to make download more stable</li>
-<li>rename <code>image_info()</code> to <code>images()</code> and add option to download images</li>
-<li>
-<code>images()</code> makes use of new ALA images web service</li>
-<li>added <code>occurrence_images()</code> function to retrieve image information and download images using occurrence ids</li>
-</ul>
-</div>
-    <div id="ala4r-170" class="section level1">
-<h1 class="page-header" data-toc-text="1.7.0">
-<a href="#ala4r-170" class="anchor"></a>ALA4R 1.7.0<small> 2019-04-02 </small>
-</h1>
-<ul>
-<li>remove dependency on RCurl</li>
-</ul>
-</div>
-    <div id="ala4r-163" class="section level1">
-<h1 class="page-header" data-toc-text="1.6.3">
-<a href="#ala4r-163" class="anchor"></a>ALA4R 1.6.3<small> Unreleased </small>
-</h1>
-<ul>
-<li>changes to API urls (http to https)</li>
-<li>handle new sites_by_species web service</li>
-</ul>
-</div>
-    <div id="ala4r-162" class="section level1">
-<h1 class="page-header" data-toc-text="1.6.2">
-<a href="#ala4r-162" class="anchor"></a>ALA4R 1.6.2<small> 2019-02-13 </small>
-</h1>
-<ul>
-<li>updates to handle ALA API field changes</li>
-<li>update vignette to be more robust to server outage</li>
-</ul>
-</div>
-    <div id="ala4r-160" class="section level1">
-<h1 class="page-header" data-toc-text="1.6.0">
-<a href="#ala4r-160" class="anchor"></a>ALA4R 1.6.0<small> 2018-05-22 </small>
-</h1>
-<ul>
-<li>added workaround for <code>occurrences(..., method="offline")</code> to cope with server-side bug (see <a href="https://github.com/AtlasOfLivingAustralia/biocache-service/issues/221" class="uri">https://github.com/AtlasOfLivingAustralia/biocache-service/issues/221</a>)</li>
-<li>package documentation via <code>pkgdown</code> (<a href="https://atlasoflivingaustralia.github.io/ALA4R/" class="uri">https://atlasoflivingaustralia.github.io/ALA4R/</a>)</li>
-<li>refreshed package vignette</li>
-<li>change of package maintainer</li>
-</ul>
-</div>
-    <div id="ala4r-1510" class="section level1">
-<h1 class="page-header" data-toc-text="1.5.10">
-<a href="#ala4r-1510" class="anchor"></a>ALA4R 1.5.10<small> Unreleased </small>
-</h1>
-<ul>
-<li>bugfixes</li>
-</ul>
-</div>
-    <div id="ala4r-156" class="section level1">
-<h1 class="page-header" data-toc-text="1.5.6">
-<a href="#ala4r-156" class="anchor"></a>ALA4R 1.5.6<small> 2017-02-18 </small>
-</h1>
-<ul>
-<li>added <code>biocache_version</code> parameter to server configuration, to support use of ALA4R with other server instances (e.g. other national installations using the ALA server infrastructure)</li>
-<li>minor bugfixes</li>
-</ul>
-</div>
-    <div id="ala4r-15" class="section level1">
-<h1 class="page-header" data-toc-text="1.5">
-<a href="#ala4r-15" class="anchor"></a>ALA4R 1.5<small> Unreleased </small>
-</h1>
-<ul>
-<li>updated code,examples and vignette for new ALA taxonomic backbone</li>
-<li>“offline” method added to <code>occurrences()</code>, allowing download of larger datasets with more fields</li>
-<li>
-<code>fieldguide()</code> function added</li>
-<li>fields=“all” option added to <code>taxinfo_download()</code>
-</li>
-<li>
-<code>ala_list()</code> and <code>ala_lists()</code> functions added</li>
-</ul>
-</div>
-    <div id="ala4r-124" class="section level1">
-<h1 class="page-header" data-toc-text="1.24">
-<a href="#ala4r-124" class="anchor"></a>ALA4R 1.24<small> Unreleased </small>
-</h1>
-<ul>
-<li>better handling of text encoding (<a href="https://github.com/AtlasOfLivingAustralia/ALA4R/issues/15" class="uri">https://github.com/AtlasOfLivingAustralia/ALA4R/issues/15</a>)</li>
-</ul>
-</div>
-    <div id="ala4r-123" class="section level1">
-<h1 class="page-header" data-toc-text="1.23">
-<a href="#ala4r-123" class="anchor"></a>ALA4R 1.23<small> Unreleased </small>
-</h1>
-<ul>
-<li>added <code>image_number</code> parameter to <code>image_info()</code>
-</li>
-</ul>
-</div>
-    <div id="ala4r-121" class="section level1">
-<h1 class="page-header" data-toc-text="1.21">
-<a href="#ala4r-121" class="anchor"></a>ALA4R 1.21<small> Unreleased </small>
-</h1>
-<ul>
-<li><p>added <code>image_info()</code> and <code>occurrence_details()</code> functions</p></li>
-<li><p>added <code>extra="all"</code> and <code>qa="all"</code> options to <code>occurrences()</code></p></li>
-</ul>
-</div>
-    <div id="ala4r-120" class="section level1">
-<h1 class="page-header" data-toc-text="1.20">
-<a href="#ala4r-120" class="anchor"></a>ALA4R 1.20<small> Unreleased </small>
-</h1>
-<ul>
-<li><p>fixed <code>as_is</code> behaviour in <code><a href="../reference/ala_fields.html">ala_fields()</a></code>.</p></li>
-<li><p>usage of stringr functions now compatible with stringr v1.0.</p></li>
-<li><p>parameter <code>occurrence_count</code> added to <code>search_names()</code>.</p></li>
-<li><p>tests added to tests/testthat.</p></li>
-</ul>
-</div>
-    <div id="ala4r-1191" class="section level1">
-<h1 class="page-header" data-toc-text="1.191">
-<a href="#ala4r-1191" class="anchor"></a>ALA4R 1.191<small> Unreleased </small>
-</h1>
-<ul>
-<li>improved parsing of field names in internal function <code>check_fq()</code> (<a href="https://github.com/AtlasOfLivingAustralia/ALA4R/issues/13" class="uri">https://github.com/AtlasOfLivingAustralia/ALA4R/issues/13</a>).</li>
-</ul>
-</div>
-    <div id="ala4r-119" class="section level1">
-<h1 class="page-header" data-toc-text="1.19">
-<a href="#ala4r-119" class="anchor"></a>ALA4R 1.19<small> Unreleased </small>
-</h1>
-<ul>
-<li>internal function <code>check_fq()</code> throws a warning not an error if it thinks there is a problem with the <code>fq</code> string (<a href="https://github.com/AtlasOfLivingAustralia/ALA4R/issues/13" class="uri">https://github.com/AtlasOfLivingAustralia/ALA4R/issues/13</a>).</li>
-</ul>
-</div>
-    <div id="ala4r-118" class="section level1">
-<h1 class="page-header" data-toc-text="1.18">
-<a href="#ala4r-118" class="anchor"></a>ALA4R 1.18<small> Unreleased </small>
-</h1>
-<ul>
-<li>for improperly classified taxa, the <code>result$classification</code> object returned by <code>species_info()</code> is now a data.frame (<a href="https://github.com/AtlasOfLivingAustralia/ALA4R/issues/11" class="uri">https://github.com/AtlasOfLivingAustralia/ALA4R/issues/11</a>).</li>
-</ul>
-</div>
-    <div id="ala4r-118-1" class="section level1">
-<h1 class="page-header" data-toc-text="1.18">
-<a href="#ala4r-118-1" class="anchor"></a>ALA4R 1.18<small> Unreleased </small>
-</h1>
-<ul>
-<li>bugfix in <code>species_info()</code> (<a href="https://github.com/AtlasOfLivingAustralia/ALA4R/issues/11" class="uri">https://github.com/AtlasOfLivingAustralia/ALA4R/issues/11</a>).</li>
-</ul>
+    <div id="koala-1-0-0" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#koala-1-0-0" class="anchor"></a>koala 1.0.0</h1>
+<p>First version of <code>koala</code>, built on earlier functionality from the <code>ALA4R</code> package.</p>
 </div>
   </div>
 
@@ -290,7 +135,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Matilda Stevenson, Martin Westgate, Peggy Newman, Ben Raymond, Jeremy VanDerWal, Lee Belbin.</p>
+  <p>Developed by Matilda Stevenson, Martin Westgate, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown">

@@ -3,7 +3,7 @@ context("Test ala_config")
 test_that("ala config sets default options", {
   skip_on_cran()
   # set to null
-  options(ALA4R_config = NULL)
+  options(koala_config = NULL)
   # check that defaults are used
   expect_equal(ala_config()$verbose, FALSE)
 })

@@ -3,7 +3,7 @@
 \name{ala_config}
 \alias{ala_config}
 \alias{ala_reasons}
-\title{Get or set configuration options that control ALA4R behaviour}
+\title{Get or set configuration options that control koala behaviour}
 \usage{
 ala_config(..., preserve = FALSE)
 
@@ -25,13 +25,13 @@ ala_reasons()
     within an R session and cleared automatically when the user exits R.
     The user may wish to set this to a non-temporary directory for
     caching across sessions. The directory must exist on the file system.
-  \item verbose logical: should ALA4R give verbose output to assist
+  \item verbose logical: should koala give verbose output to assist
   debugging? (default = FALSE)
   \item warn_on_empty logical: should a warning be issued if a request
   returns an empty result set? (default = FALSE)
   \item user_agent string: the user-agent string used with all web requests
   to the ALA servers.
-    Default = "ALA4R" with version number
+    Default = "koala" with version number
   \item text_encoding string: text encoding assumed when reading cached
   files from local disk (default = "UTF-8")
   \item download_reason_id numeric or string: the "download reason" required
@@ -49,7 +49,7 @@ For ala_config(), a list of all options. When ala_config(...) is
 called with arguments, nothing is returned but the configuration is set.
 }
 \description{
-Get or set configuration options that control ALA4R behaviour
+Get or set configuration options that control koala behaviour
 }
 \examples{
 \dontrun{

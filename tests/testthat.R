@@ -1,6 +1,6 @@
 library(testthat)
-library(ALA4R)
+library(koala)
 
 ala_config(cache_directory = tempdir(), email = "ala4r@ala.org.au",
            caching = FALSE)
-test_check("ALA4R")
+test_check("koala")

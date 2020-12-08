@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Download occurrence data from the ALA. — ala_occurrences • ALA4R</title>
+<title>Download occurrence data from the ALA. — ala_occurrences • koala</title>
 
 
 <!-- jquery -->
@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Download occurrence data from the ALA. — ala_occurrences" />
-<meta property="og:description" content="Download occurrence data from the ALA." />
+<meta property="og:description" content="If `verbose = TRUE` is set in `ala_config()`, a progress bar will be
+displayed for the download." />
 
 
 
@@ -71,8 +72,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">ALA4R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <a class="navbar-link" href="../index.html">koala</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -85,7 +86,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/ALA4R.html">Get started</a>
+  <a href="../articles/koala.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -96,7 +97,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/AtlasOfLivingAustralia/ALA4R/">
+  <a href="https://github.com/AtlasOfLivingAustralia/koala/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -115,12 +116,13 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Download occurrence data from the ALA.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/ALA4R/blob/master/R/ala_occurrences.R'><code>R/ala_occurrences.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/koala/blob/master/R/ala_occurrences.R'><code>R/ala_occurrences.R</code></a></small>
     <div class="hidden name"><code>ala_occurrences.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Download occurrence data from the ALA.</p>
+    <p>If `verbose = TRUE` is set in `ala_config()`, a progress bar will be
+displayed for the download.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ala_occurrences</span><span class='op'>(</span><span class='va'>taxon_id</span>, <span class='va'>filters</span>, <span class='va'>geometry</span>, <span class='va'>columns</span>, mint_doi <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
@@ -176,7 +178,7 @@ true if you intend to use the data in a publication or similar</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Matilda Stevenson, Martin Westgate, Peggy Newman, Ben Raymond, Jeremy VanDerWal, Lee Belbin.</p>
+  <p>Developed by Matilda Stevenson, Martin Westgate, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown">

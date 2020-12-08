@@ -8,7 +8,7 @@
 # should id be exposed to the user?
 ala_data_profiles <- function() {
   # return only enabled profiles?
-  url <- getOption("ALA4R_server_config")$base_url_data_quality
+  url <- getOption("koala_server_config")$base_url_data_quality
   resp <- ala_GET(url, "api/v1/profiles", list(enabled = "true"))
   return(resp[wanted_columns(type = "profile")])
 }
@@ -43,7 +43,7 @@ ala_quality_filters <- function(profile) {
           `ala_data_profiles` to list valid profiles.")
   }
 
-  url <- getOption("ALA4R_server_config")$base_url_data_quality
+  url <- getOption("koala_server_config")$base_url_data_quality
   resp <- ala_GET(url, "api/v1/quality/activeProfile",
                   list(profileName = short_name))
   filters <- data.table::rbindlist(resp$categories$qualityFilters)

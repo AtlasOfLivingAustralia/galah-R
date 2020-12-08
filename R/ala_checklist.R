@@ -17,7 +17,7 @@
 ala_checklist <- function(taxon_id, filters, geometry, caching = FALSE) {
   # Use facet search with additional options
 
-  url <- getOption("ALA4R_server_config")$base_url_biocache
+  url <- getOption("koala_server_config")$base_url_biocache
 
   query <- list()
 
