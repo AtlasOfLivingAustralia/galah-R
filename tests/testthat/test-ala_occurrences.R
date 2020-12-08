@@ -1,0 +1,108 @@
+context("Get occurrence data")
+
+ala_config(email = "ala4r@ala.org.au")
+
+test_that("ala_occurrences check inputs", {
+  skip_on_cran()
+  expect_error(ala_occurrences(filters =
+                                 c(state = "Australian Capital Territory")))
+  expect_error(ala_occurrences())
+})
+
+test_that("ala_occurrences gives a nice error for invalid emails", {
+  skip_on_cran()
+  ala_config(email = "test@test.org.au")
+  expect_error(ala_occurrences(taxon_id = ala_taxa("Wurmbea dioica")),
+  regexp = "Status code 403 was returned for this occurrence download request. This may be because
+  the email you provided is not registered with the ALA. Please check and try again.")
+  
+  ala_config(email = "")
+  expect_error(ala_occurrences(taxon_id = ala_taxa("Wurmbea dioica")))
+  ala_config(email = "ala4r@ala.org.au")
+})
+
+test_that("ala_occurrences handles filters correctly", {
+  # can handle multiword filters
+  skip_on_cran()
+  expect_equal(
+    unique(ala_occurrences(filters = ala_filters(
+      list(state = "Australian Capital Territory",
+           basis_of_record = "FossilSpecimen")),
+      columns = ala_columns("basic", "state"))$state),
+    "Australian Capital Territory")
+  expect_error(ala_occurrences(filters = c("FossilSpecimen")))
+
+  # handles year filters
+  expect_true(unique(ala_occurrences(filters = ala_filters(
+    list(year = seq(1971, 1981),
+    basis_of_record = "FossilSpecimen")),
+    columns = ala_columns("basic", "year"))$year %in% seq(1971, 1981)))
+})
+
+test_that("ala occurrences gives an error for too many filters", {
+  skip_on_cran()
+  # generate a query longer than 2000 characters
+  assertions <- rep(TRUE, nrow(ala_fields("assertion")))
+  names(assertions) <- ala_fields("assertion")$name
+  filters <- ala_filters(filters = assertions)
+  expect_error(ala_occurrences(filters = filters,
+                               "Too many filters provided."))
+
+})
+test_that("ala occurrences returns requested columns", {
+  skip_on_cran()
+  expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
+                     "scientificName", "taxonConceptID", "recordID",
+                     "data_resource")
+  id <- ala_taxa("Polytelis swainsonii")$taxon_concept_id
+  expect_equal(sort(names(ala_occurrences(taxon_id = id,
+                                     filters = ala_filters(
+                                       list(occurrence_decade_i = 1930)),
+                                     columns = ala_columns("basic")))),
+               sort(expected_cols))
+
+  cols <- ala_columns(extra = c("occurrence_status", "latitude", "longitude"))
+  expect_equal(names(ala_occurrences(taxon_id = id,
+                                     filters = ala_filters(
+                                       list(occurrence_decade_i = 1930)),
+                                     columns = cols)), c("occurrenceStatus",
+                                                         "decimalLatitude",
+                                                         "decimalLongitude"))
+})
+
+test_that("ala occurrences handles assertion columns and works with data.frame
+          input", {
+  skip_on_cran()
+  id <- ala_taxa("Paraparatrechina minutula")
+  cols <- ala_columns(extra = c("zeroLatitude", "zeroLongitude", "eventDate"))
+  expect_equal(names(ala_occurrences(taxon_id = id, columns = cols)),
+               c("eventDate", "zeroLatitude", "zeroLongitude"))
+})
+
+test_that("ala_occurrences handles wkt area inputs", {
+  # invalid wkt
+  skip_on_cran()
+  valid_wkt <- "POINT(147.08005201710293 -34.48290525355578)"
+
+  wkt <- readLines("../testdata/long_act_wkt.txt")
+
+  geometry <- ala_geometry(readLines("../testdata/short_act_wkt.txt"))
+  cols <- ala_columns("basic", extra = "state")
+  filters <- ala_filters(list(basis_of_record = "MachineObservation"))
+  expect_equal(unique(ala_occurrences(geometry = geometry,
+                                      filters = filters,
+                                      columns = cols)$stateProvince),
+               "Australian Capital Territory")
+})
+
+test_that("ala_occurrences handles sf polygon inputs", {
+  skip_on_cran()
+  # convert wkt to sfc
+  act_shp <- st_as_sfc(readLines("../testdata/short_act_wkt.txt"))
+  geometry <- ala_geometry(area = act_shp)
+  filters <- ala_filters(list(basis_of_record = "MachineObservation"))
+  expect_equal(unique(ala_occurrences(geometry = geometry, filters = filters,
+                                      columns = ala_columns("basic",
+                                                  "state"))$stateProvince),
+               "Australian Capital Territory")
+})

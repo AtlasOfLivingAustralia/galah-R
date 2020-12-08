@@ -4,7 +4,7 @@
 # ALA4R
 
 [![Travis-CI Build
-Status](https://travis-ci.org/AtlasOfLivingAustralia/ALA4R.svg?branch=master)](https://travis-ci.org/AtlasOfLivingAustralia/ALA4R)
+Status](https://travis-ci.com/AtlasOfLivingAustralia/ALA4R.svg?branch=master)](https://travis-ci.com/AtlasOfLivingAustralia/ALA4R)
 [![AppVeyor Build
 status](https://ci.appveyor.com/api/projects/status/g9pudc4l7053w4vn/branch/master?svg=true)](https://ci.appveyor.com/project/PeggyNewman/ala4r/branch/master)
 [![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/ALA4R/branch/master/graph/badge.svg)](https://codecov.io/gh/AtlasOfLivingAustralia/ALA4R)
@@ -13,14 +13,12 @@ Status](https://www.r-pkg.org/badges/version/ALA4R)](https://www.r-pkg.org/pkg/A
 [![CRAN
 Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ALA4R)](https://cran.r-project.org/package=ALA4R)
 
-The Atlas of Living Australia (ALA) provides tools to enable users of
-biodiversity information to find, access, combine and visualise data on
-Australian plants and animals; these have been made available from
-<https://www.ala.org.au/>. Here we provide a subset of the tools to be
-directly used within R.
+ALA4R enables the R community to directly access data hosted by the
+Atlas of Living Australia (ALA).
 
-ALA4R enables the R community to directly access data and resources
-hosted by the ALA.
+The ALA aggregates Australian biodiversity data from a range of sources,
+and makes the data freely available for scientists, policy makers,
+industry and the general public.
 
 **NOTE:** The next release of ALA4R will be version 2.0.0. This will be
 a major update to simplify the process of downloading data, make
@@ -31,12 +29,6 @@ in the [dev
 branch](https://github.com/AtlasOfLivingAustralia/ALA4R/tree/dev). If
 you have any questions or suggestions, please [contact
 us](mailto:support@ala.org.au).
-
-The use-examples presented at the [2014 ALA Science
-Symposium](https://www.ala.org.au/blogs-news/2014-atlas-of-living-australia-science-symposium/)
-are available in the package vignette, via (in R): `vignette("ALA4R")`,
-or [browse it
-online](https://atlasoflivingaustralia.github.io/ALA4R/articles/ALA4R.html).
 
 ## Citing ALA4R
 
@@ -68,8 +60,6 @@ terminal and do:
 ``` sh
 sudo apt-get install libcurl4-openssl-dev libv8-3.14-dev
 ```
-
-or install via the Software Centre.
 
 ## Usage
 

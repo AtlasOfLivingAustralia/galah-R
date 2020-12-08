@@ -5,7 +5,7 @@
 \alias{ala_reasons}
 \title{Get or set configuration options that control ALA4R behaviour}
 \usage{
-ala_config(...)
+ala_config(..., preserve = FALSE)
 
 ala_reasons()
 }
@@ -41,6 +41,8 @@ ala_reasons()
   download_reason_id code, either specified here or directly to the
   associated R function.
 }}
+
+\item{preserve}{logical: store config for future sessions?}
 }
 \value{
 For ala_config(), a list of all options. When ala_config(...) is

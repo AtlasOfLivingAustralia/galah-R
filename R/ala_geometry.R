@@ -1,0 +1,44 @@
+#' Build a WKT string from a spatial object or verify an existing string.
+#' 
+#' Used by `ala_occurrences() to restrict search to an area.`
+#'
+#' @param wkt string: wkt to be verified. WKT strings longer than 10000
+#' characters will not be accepted by the ALA- see the vignette for how to
+#' work around this.
+#' @param area sf object: area to be converted to wkt
+#' @return WKT string representing area provided
+#' @export ala_geometry
+
+ala_geometry <- function(wkt, area) {
+  if (nargs() > 1) {
+    stop("Only one of wkt and area can be provided to this function")
+  }
+  if (!missing(wkt)) {
+    validate_wkt(wkt)
+  }
+  if (!missing(area)) {
+    wkt <- build_wkt(area)
+  }
+  attr(wkt, "ala") <- "geometry"
+  return(wkt)
+}
+
+# build a valid wkt string from a spatial polygon
+build_wkt <- function(polygon) {
+  wkt <- st_as_text(st_geometry(polygon))
+  if (nchar(wkt) > 10000) {
+    stop("The area provided is too complex. Please simplify it and try again.")
+  }
+  wkt
+}
+
+validate_wkt <- function(wkt) {
+  max_char <- 10000
+  if (nchar(wkt) > max_char) {
+    stop("The WKT string provided is greater than ", max_char,
+         " characters , please simplify and try again.")
+  }
+  if (!wellknown::lint(wkt)) {
+    stop("The WKT provided is invalid.")
+  }
+}

@@ -1,6 +1,6 @@
 ---
 title: "ALA4R"
-author: "Ben Raymond"
+author: "Matilda Stevenson"
 date: '`r Sys.Date()`'
 output: rmarkdown::html_vignette
 vignette: >
@@ -16,23 +16,17 @@ library(knitr)
 options(width=120)
 ```
 
-The Atlas of Living Australia (ALA) provides tools to enable users of biodiversity information to find, access, combine and visualise data on Australian plants and animals; these have been made available from https://www.ala.org.au/. Here we provide a subset of the tools to be directly used within R.
+ALA4R enables the R community to directly access data hosted by the Atlas of Living Australia (ALA).
 
-ALA4R enables the R community to directly access data and resources hosted by the ALA. 
+The ALA aggregates Australian biodiversity data from a range of sources, and makes the data freely available for scientists, policy makers, industry and the general public.
 
 ## Installing ALA4R
 
-Stable version from CRAN:
-
-```{r eval=FALSE}
-install.packages("ALA4R")
-```
-
-Or the development version from GitHub:
+Development version from GitHub:
 
 ```{r eval=FALSE}
 install.packages("devtools")
-devtools::install_github("AtlasOfLivingAustralia/ALA4R")
+devtools::install_github("AtlasOfLivingAustralia/ALA4R@dev")
 ```
 
 On Linux you will first need to ensure that `libcurl` and `v8` (version <= 3.15) are installed on your system --- e.g. on Ubuntu/Debian, open a terminal and do:
@@ -51,7 +45,164 @@ The ALA4R package must be loaded for each new R session:
 library(ALA4R)
 ```
 
-## Customizing
+
+## Example usage
+
+First, check that we have some additional packages that we'll use in the examples, and install them if necessary.
+```{r message=FALSE}
+to_install <- c("dplyr", "ggplot2", "ozmaps", "sf")
+to_install <- to_install[!sapply(to_install, requireNamespace, quietly=TRUE)]
+if(length(to_install)>0)
+    install.packages(to_install, repos="http://cran.us.r-project.org")
+
+## In these examples we use the `dplyr` package to help with data manipulation.
+library(dplyr)
+library(ggplot2)
+library(ozmaps)
+library(sf)
+```
+
+## Taxon information
+Retrieve information for a taxon or taxa. For each taxon, provide a scientific name at one or more ranks, or an ALA taxon id.
+
+The output of `ala_taxa()` can be used as the `taxon_id` parameter in other functions. 
+```{r}
+# A single taxa
+ala_taxa("Dasyurus viverrinus")
+```
+
+`ala_taxa` can optionally include record counts for a taxon, and the child concepts of the supplied taxon.
+```{r}
+banksia <- ala_taxa(list(genus = "Banksia"), return_children = TRUE, include_counts = TRUE)
+
+# Select only the species-level taxa, sort by count, and display the top 5
+top5_banksia <- banksia %>% filter(rank == "species") %>%
+  arrange(desc(count)) %>%
+  select(scientific_name, taxon_concept_id, count) %>%
+  head(n = 5)
+
+top5_banksia
+```
+
+
+Use `ala_taxa` to lookup a taxon id
+```{r}
+id <- "urn:lsid:biodiversity.org.au:afd.taxon:d315deea-822c-4f2c-b439-da33d6af5fd6"
+ala_taxa(term = id, term_type = "identifier")
+```
+
+## Occurrence data
+Download occurrence data for a taxon. To download occurrence data you will need to specify your email in `ala_config()`. This email must be associated with an active ALA account.
+To save your email for future sessions, set `preserve = TRUE`
+```{r}
+ala_config(email = "ala4r@ala.org.au", preserve = TRUE)
+```
+
+```{r include = FALSE}
+occ <- read.csv("banksia.csv")
+```
+
+Download occurrence records for 5 Banksia species
+```{r eval = FALSE}
+occ <- ala_occurrences(taxon_id = top5_banksia)
+```
+
+```{r}
+head(occ)
+```
+
+
+```{r eval = FALSE}
+# build filters and columns
+cols <- ala_columns(group = "basic", extra = "country")
+filters <- ala_filters(list(year = seq(2000, 2020)))
+occ <- ala_occurrences(taxon_id = top5_banksia,
+                       columns = cols, filters = filters)
+```
+
+
+```{r}
+filtered_occ <- occ %>% filter(country == "Australia")
+head(filtered_occ)
+```
+
+Plot occurrence data using `ggplot`
+```{r warning=FALSE, out.width="100%", fig.width=100, eval = FALSE}
+ggplot() + geom_sf(data = ozmap_country) +
+  geom_point(filtered_occ, mapping = aes(x = decimalLongitude, y = decimalLatitude,
+                                         colour = scientificName),size = .3)
+
+```
+
+
+## Customising searches
+Occurrence searches can be narrowed down by area, a variety of filters, and data quality tests. 
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+# Find all reptiles within a shapefile
+id <- ala_taxa("Ornithorhynchus anatinus")
+simple_shp <- st_cast(st_read('act_rect.shp'), "MULTIPOLYGON")
+
+occ <- ala_occurrences(taxon_id = id, geometry = ala_geometry(area = simple_shp))
+```
+
+```{r include = FALSE}
+occ <- read.csv("ornithorhynchus_anatinus.csv")
+simple_shp <- st_cast(st_read('act_rect.shp'), "MULTIPOLYGON")
+```
+
+```{r}
+ggplot() + geom_sf(data = simple_shp) +
+  geom_point(data = occ, mapping = aes(x = decimalLongitude, y = decimalLatitude))
+
+```
+
+### Environmental layers
+```{r}
+# Get all layers relating to precipitation
+layers <- ala_layers()
+layers[grepl("precipitation", tolower(layers$description)),]$name
+
+```
+
+### Fields and categories
+`ala_fields()` displays all the fields available for filtering and 
+
+### Data quality profile
+By default, the data quality profile is set to the ALA general.
+```{r}
+# List available data quality profiles
+ala_data_profiles()
+
+# List filters for a profile
+ala_quality_filters("CSDM")
+```
+
+## Summary statistics
+```{r}
+# Total number of records in the ALA (with no data quality filters)
+ala_counts()
+
+# Total number of records, broken down by kindgom
+ala_counts(breakdown = "kingdom")
+```
+
+
+## Media downloads
+```{r warning=FALSE, message=FALSE, eval = FALSE}
+# Search for occurrences with images
+filters <- ala_filters(list("multimedia" = "Image",
+                                      basis_of_record = "HumanObservation"))
+occ <- ala_occurrences(quoll$taxon_concept_id,
+                       filters = filters)
+images <- ala_media(head(occ$recordID, n = 5), download_dir = 'data/',
+                    identifier_type = "occurrence")
+
+# filter by licence type
+images %>% filter(recognisedLicence == "CC BY-NC 4.0")
+```
+
+
+## Config
 
 Various aspects of the ALA4R package can be customized.
 
@@ -61,7 +212,7 @@ ALA4R can cache most results to local files. This means that if the same code is
 By default, this caching is session-based, meaning that the local files are stored in a temporary directory that is automatically deleted when the R session is ended. This behaviour can be altered so that caching is permanent, by setting the caching directory to a non-temporary location. For example, under Windows, use something like:
 
 ```{r eval=FALSE}
-ala_config(cache_directory="c:/mydata/ala_cache") ## use forward slashes, not \
+ala_config(cache_directory="c:/mydata/ala_cache")
 ```
 
 or for Linux:
@@ -72,32 +223,18 @@ ala_config(cache_directory="~/mydata/ala_cache")
 
 Note that this directory must exist (you need to create it yourself).
 
-
 All results will be stored in that cache directory and will be used from one session to the next. They won't be re-downloaded from the server unless the user specifically deletes those files or changes the caching setting to "refresh".
 
 If you change the cache_directory to a permanent location, you may wish to add something like this to your .Rprofile file, so that it happens automatically each time the ALA4R package is loaded:
 
-```{r eval=FALSE}
-setHook(packageEvent("ALA4R", "attach"), function(...)
-    ala_config(cache_directory=file.path("~", "mydata", "ala_cache")))
-```
-
 Caching can also be turned off entirely by:
 
 ```{r eval=FALSE}
-ala_config(caching="off")
+ala_config(caching=FALSE)
 ```
 
 or set to "refresh", meaning that the cached results will re-downloaded from the ALA servers and the cache updated. (This will happen for as long as caching is set to "refresh" --- so you may wish to switch back to normal "on" caching behaviour once you have updated your cache with the data you are working on).
 
-### User-agent string
-Each request to the ALA servers is accompanied by a "user-agent" string that identifies the software making the request. This is a standard behaviour used by web browsers as well. The user-agent identifies the user requests to the ALA, helping the ALA to adapt and enhance the services that it provides. By default, the ALA4R user-agent string is set to "ALA4R" plus the ALA4R version number (e.g. "ALA4R 1.5.2").
-
-*NO* personal identification information is sent. You can see all configuration settings, including the the user-agent string that is being used, with the command:
-
-```{r eval=FALSE}
-ala_config()
-```
 
 ### Debugging
 If things aren't working as expected, more detail (particularly about web requests and caching behaviour) can be obtained by setting the `verbose` configuration option:
@@ -107,427 +244,8 @@ ala_config(verbose=TRUE)
 ```
 
 ### Setting the download reason
-ALA requires that you provide a reason when downloading occurrence data (via the ALA4R `occurrences()` function). You can provide this as a parameter directly to each call of `occurrences()`, or you can set it once per session using:
+ALA requires that you provide a reason when downloading occurrence data (via the ALA4R `ala_occurrences()` function). The reason is set as "scientific research" by default, but you can change this using `ala_config`. See `ala_reasons()` for valid download reasons.
 
 ```{r eval=FALSE}
 ala_config(download_reason_id=your_reason_id)
-```
-
-(See `ala_reasons()` for valid download reasons)
-
-
-### Other options
-If you make a request that returns an empty result set (e.g. an un-matched name), by default you will simply get an empty data structure returned to you without any special notification. If you would like to be warned about empty result sets, you can use:
-
-```{r eval=FALSE}
-ala_config(warn_on_empty=TRUE)
-```
-
-## Example usage
-
-First, check that we have some additional packages that we'll use in the examples, and install them if necessary.
-```{r message=FALSE}
-to_install <- c("ape", "dplyr", "ggplot2", "jpeg", "maps", "mapdata",
-                "maptools", "phytools", "tidyr", "vegan")
-to_install <- to_install[!sapply(to_install, requireNamespace, quietly=TRUE)]
-if(length(to_install)>0)
-    install.packages(to_install, repos="http://cran.us.r-project.org")
-
-## In these examples we use the `dplyr` package to help with data manipulation.
-library(dplyr)
-```
-
-
-### Example 1: Name searching and taxonomic trees
-
-```{r message=FALSE}
-library(ape)
-library(phytools)
-```
-
-Let's say that we want to look at the taxonomic tree of penguins but we don't know what the correct scientific name is. Start by searching for it:
-
-```{r}
-sx <- search_fulltext("penguins")
-sx$data %>% dplyr::select(name, rank, commonName, family)
-```
-
-We can see that penguins correspond to the family "SPHENISCIDAE". Now we can download the taxonomic data (note that the search is case-sensitive):
-
-```{r}
-tx <- taxinfo_download("rk_family:SPHENISCIDAE", fields=c("guid", "rk_genus", "scientificName", "rank"))
-  
-## keep only species and subspecies records
-tx <- tx %>% dplyr::filter(rank %in% c("species","subspecies"))
-```
-
-We can make a taxonomic tree plot using the `phytools` package:
-```{r}
-## as.phylo requires the taxonomic columns to be factors
-tx <- tx %>% mutate_all(as.factor)
-
-## create phylo object of Scientific.Name nested within Genus
-ax <- as.phylo(~genus/scientificName, data=tx)
-
-plotTree(ax, type="fan", fsize=0.7) ## plot it
-```
-
-
-We can also plot the tree with images of the different penguin species. We can first extract a species profile for each species identifier (guid) in our results:
-
-```{r}
-  s <- search_guids(tx$guid)
-```
-
-For each of those species profiles, download the thumbnail image and store it in our data cache:
-
-```{r}
-imfiles <- sapply(s$thumbnailUrl, function(z) {
-  ifelse(!is.na(z), ALA4R:::cached_get(z, type="binary_filename"), "")
-})
-```
-
-
-And finally, plot the tree:
-```{r results="hide", fig.width=7.5, fig.height=7.5, dev.args=if (.Platform$OS.type=="unix") list(png=list(colortype="pseudo.cube")) else list()}
-## plot tree without labels
-plotTree(ax, type="fan", ftype="off")
-
-## get the tree plot object
-tr <- get("last_plot.phylo", envir = .PlotPhyloEnv)
-
-## add each image
-library(jpeg)
-for (k in which(nchar(imfiles)>0))
-        rasterImage(readJPEG(imfiles[k]), tr$xx[k]-1/10, tr$yy[k]-1/10, tr$xx[k]+1/10, tr$yy[k]+1/10)
-```
-
-
-A number of species may have no image (mostly, these are extinct species) and others are images of eggs rather than animals, but you get the idea.
-
-
-### Example 2: Area report: what listed species exist in a given area?
-
-First download an example shapefile of South Australian conservation reserve boundaries: see https://data.sa.gov.au/dataset/conservation-reserve-boundaries. We use the ALA4R's caching mechanism here, but you could equally download this file directly.
-
-```{r eval=FALSE}
-library(maptools)
-shape_filename <- "https://data.environment.sa.gov.au/NatureMaps/Documents/CONSERVATION_Npwsa_Reserves_shp.zip"
-
-## download to temporary file and unzip it to the ALA4R cache directory
-tf <- tempfile()
-download.file(shape_filename, tf)
-unzip(tf, exdir=ala_config()$cache_directory)
-
-shape <- readShapePoly(file.path(ala_config()$cache_directory, "CONSERVATION_NpwsaReserves.shp"))
-
-## extract just the Morialta Conservation Park polygon
-shape <- shape[shape$RESNAME=="Morialta", ]
-```
-
-```{r include=FALSE}
-## use local file to speed up vignette and avoid download each build
-library(maptools)
-## this is the code to fetch that data and save it locally
-#shape_filename <- "https://data.environment.sa.gov.au/NatureMaps/Documents/CONSERVATION_Npwsa_Reserves_shp.zip"
-#tf <- tempfile()
-#download.file(shape_filename, tf)
-#unzip(tf, exdir=ala_config()$cache_directory)
-#shape <- maptools::readShapePoly(file.path(ala_config()$cache_directory, "CONSERVATION_NpwsaReserves.shp"))
-#shape <- shape[shape$RESNAME=="Morialta", ]
-#saveRDS(shape, file="vignette_morialta_shape.rds")
-shape <- readRDS("vignette_morialta_shape.rds")
-```
-
-We could create the WKT string using the `rgeos` library:
-```{r eval=FALSE}
-library(rgeos)
-wkt <- writeWKT(shape)
-```
-
-Unfortunately, in this instance this gives a WKT string that is too long and won't be accepted by the ALA web service. Instead, let's construct the WKT string directly, which gives us a little more control over its format:
-```{r}
-lonlat <- shape@polygons[[1]]@Polygons[[1]]@coords ## extract the polygon coordinates
-
-## extract the convex hull of the polygon to reduce the length of the WKT string
-temp <- chull(lonlat)
-lonlat <- lonlat[c(temp, temp[1]), ]
-
-## create WKT string
-## first join each lon-lat coordinate pair
-temp <- apply(lonlat, 1, function(z) paste(z, collapse=" "))
-
-## now build the WKT string
-wkt <- paste("POLYGON((", paste(temp, collapse=","), "))", sep="")
-```
-
-Now extract the species list in this polygon, filtering to only include those with a conservation status:
-```{r eval=FALSE}
-specieslist(wkt=wkt, fq="state_conservation:*") %>%
-    dplyr::arrange(desc(occurrenceCount)) %>%
-    dplyr::select(speciesName, commonName, occurrenceCount) %>%
-    head(10)
-```
-
-```{r echo=FALSE}
-tryCatch({
-specieslist(wkt=wkt, fq="state_conservation:*") %>%
-    dplyr::arrange(desc(occurrenceCount)) %>%
-    dplyr::select(speciesName, commonName, occurrenceCount) %>%
-    head(10)
-}, error = function(e) { print(e$message)})
-```
-
-### Example 3: Quality assertions
-
-Data quality assertions are a suite of fields that are the result of a set of tests peformed on ALA data. Download occurrence data for the golden bowerbird (you should adjust the `download_reason_id` to match your purposes if using this function for your own analyses; see `ala_reasons()`):
-
-```{r eval=FALSE}
-x <- occurrences(taxon="taxon_name:\"Amblyornis newtonianus\"", download_reason_id="testing", email="ala4r@ala.org.au")
-summary(x)
-```
-
-```{r echo=FALSE}
-tryCatch({
-  x <- occurrences(taxon="taxon_name:\"Amblyornis newtonianus\"", download_reason_id="testing", email="ala4r@ala.org.au")
-  summary(x)
-},warning = function(w) {print(w$message)}
- ,error = function(e) { print(e$message)})
-```
-
-You can see that some of the points have assertions that are considered "fatal" (i.e. the occurrence record in question is unlikely to be suitable for subsequent analysis). We can use the `occurrences_plot` function to create a PDF file with a plot of this data, showing the points with fatal assertions (this will create an "Rplots.pdf" file in your working directory; not run here):
-
-```{r eval=FALSE}
-occurrences_plot(x, qa="fatal")
-```
-
-There are many other ways of producing spatial plots in R. The `leaflet` package provides a simple method of producing browser-based maps iwth panning, zooming, and background layers (again, not run here):
-
-```{r eval=FALSE}
-library(leaflet)
-
-## drop any records with missing lat/lon values
-x$data <- x$data[!is.na(x$data$longitude) & !is.na(x$data$latitude), ]
-xa <- check_assertions(x)
-
-## columns of x corresponding to a fatal assertion
-x_afcols <- which(names(x$data) %in% xa$occurColnames[xa$fatal])
-
-## rows of x that have a fatal assertion
-x_afrows <- apply(x$data[, x_afcols], 1, any)
-
-## which fatal assertions are present in this data?
-these_assertions <- names(x$data)[x_afcols]
-
-## make a link to th web page for each occurrence
-popup_link <- paste0("<a href=\"https://biocache.ala.org.au/occurrences/", x$data$id, "\">Link to occurrence record</a>")
-
-## colour palette
-pal <- c(sub("FF$", "", heat.colors(length(these_assertions))))
-
-## map each data row to colour, depending on its assertions
-marker_colour <- rep("#00FF00", nrow(x$data))
-if (length(these_assertions)>0) {
-  for (k in 1:length(these_assertions)) marker_colour[x$data[, x_afcols[k]]] <- pal[k]
-}
-
-## blank map, with imagery background
-m <- addProviderTiles(leaflet(), "Esri.WorldImagery")
-
-## add markers
-m <- addCircleMarkers(m, x$data$longitude, x$data$latitude, col=marker_colour, popup=popup_link)
-
-print(m)
-```
-
-
-### Example 4: Community composition and turnover
-
-```{r message=FALSE}
-library(vegan)
-```
-
-Define our area of interest as a transect running westwards from the Sydney region, and download the occurrences of legumes (Fabaceae; a large family of flowering plants) in this area:
-```{r eval=FALSE}
-wkt <- "POLYGON((152.5 -35,152.5 -32,140 -32,140 -35,152.5 -35))"
-
-## define some environmental layers of interest [see ala_fields()]
-env_layers <- c("Precipitation - annual","Temperature - annual max mean")
-
-## Download the data.  We use the `occurrences()` function, adding environmental
-##   data via the 'extra' parameter. Note that method="offline" supports
-##   unlimited download size and more fields (but is slower).
-
-## You should adjust the `download_reason_id` to match your purposes if using
-##   this function for your own analyses; see `ala_reasons()`
-
-x <- occurrences(taxon="family:Fabaceae", wkt=wkt, qa="none",
-                 download_reason_id="testing", extra=env_layers,
-                 email="ala4r@ala.org.au")
-```
-
-Convert this to a sites-by-species data.frame:
-
-```{r include=FALSE}
-## load data from a local copy so that vignette building doesn't require downloading a big chunk of data and slow sites-by-species processing
-## this file generated by running the above unevaluated code blocks, then
-## saveRDS(xgridded, file="vignette_fabaceae.rds")
-xgridded <- readRDS("vignette_fabaceae.rds")
-sppcols <- setdiff(names(xgridded), c("longitude", "latitude", "precipitationAnnual", "temperatureAnnualMaxMean", "richness"))
-```
-
-```{r eval=FALSE}
-xgridded <- x$data %>%
-    ## discard genus- and higher-level records
-    dplyr::filter(rank %in%
-                  c("species", "subspecies", "variety", "form", "cultivar")) %>%
-
-    ## bin into 0.5-degree bins
-    mutate(longitude=round(longitude*2)/2, latitude=round(latitude*2)/2) %>%
-
-    ## average environmental vars within each bin
-    group_by(longitude,latitude) %>%
-    mutate(precipitationAnnual=mean(precipitationAnnual, na.rm=TRUE),
-           temperatureAnnualMaxMean=mean(temperatureAnnualMaxMean, na.rm=TRUE)) %>%
-
-    ## subset to vars of interest
-    dplyr::select(longitude, latitude, scientificName, precipitationAnnual,
-                  temperatureAnnualMaxMean) %>%
-
-    ## take one row per cell per species (presence)
-    distinct() %>%
-
-    ## calculate species richness
-    mutate(richness=n()) %>%
-
-    ## convert to wide format (sites by species)
-    mutate(present=1) %>%
-    do(tidyr::spread(data=., key=scientificName, value=present, fill=0)) %>%
-    ungroup()
-
-## where a species was not present, it will have NA: convert these to 0
-sppcols <- setdiff(names(xgridded),
-                   c("longitude", "latitude", "precipitationAnnual", "temperatureAnnualMaxMean",
-                     "richness"))
-xgridded <- xgridded %>% mutate_at(sppcols, function(z) ifelse(is.na(z), 0, z))
-```
-
-The end result:
-```{r}
-xgridded
-```
-
-Now we can start to examine the patterns in the data. Let's plot richness as a function of longitude:
-```{r warning=FALSE}
-library(ggplot2)
-ggplot(xgridded, aes(longitude, richness)) + geom_point() + theme_bw()
-```
-
-The number of species is highest at the eastern end of the transect (the Sydney/Blue Mountains area). This probably reflects both higher species richness as well as greater sampling effort in this area compared to the western end of the transect.
-
-Species richness as a function of environment:
-```{r warning=FALSE}
-ggplot(xgridded, aes(temperatureAnnualMaxMean, precipitationAnnual, colour=richness)) +
-    scale_colour_distiller(palette="Spectral") + geom_point(size=8) + theme_bw()
-```
-
-Higher species richness in cooler, wetter areas (i.e. the Blue Mountains).
-
-How does the community composition change along the transect? Use clustering:
-
-```{r fig.width=6, fig.height=6}
-## Bray-Curtis dissimilarity
-D <- vegdist(xgridded[, sppcols], "bray")
-
-## UPGMA clustering
-cl <- hclust(D, method="ave")
-
-## plot the dendrogram
-plot(cl)
-
-## extract group labels at the 20-group level
-grp <- cutree(cl, 20)
-
-## coalesce small (outlier) groups into a single catch-all group
-sing <- which(table(grp)<5)
-grp[grp %in% sing] <- 21 ## put these in a new combined group
-grp <- sapply(grp, function(z)which(unique(grp)==z)) ## renumber groups
-xgridded$grp <- as.factor(grp)
-
-## plot
-## colours for clusters
-thiscol <- c("#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2",
-             "#7f7f7f", "#bcbd22", "#17becf")
-ggplot(xgridded, aes(longitude, latitude, colour=grp)) + geom_point(size=5) +
-    scale_colour_manual(values=thiscol) + theme_bw()
-
-## or a slightly nicer map plot
-library(maps)
-library(mapdata)
-map("worldHires", "Australia", xlim=c(105, 155), ylim=c(-45, -10), col="gray90", fill=TRUE)
-with(xgridded, points(longitude, latitude, pch=21, col=thiscol[grp], bg=thiscol[grp], cex=0.75))
-```
-
-### Example 5: Search and download species occurrence records with images
-
-We can download images from the ALA's image service using the id field, which is the ALA's 
-occurrence record identifier. We would first search occurrences() using facets to filter the records we want, in this case, magpie occurrences with an associated image and an open licence.
-
-```{r eval=FALSE}
-magpie_occs <- ALA4R::occurrences(taxon="taxon_name:\"Gymnorhina tibicen\"",
-                            fq=c("multimedia:Image","license:\"CC0\""))
-```
-
-The top 5 records:
-
-```{r eval=FALSE}
-magpie_occs_top5 <- magpie_occs$data %>% 
-    dplyr::select(id,basisOfRecord,dataResourceName,state,licence,eventDate) %>% 
-    head(5)
-```
-
-
-```{r eval=FALSE, echo=FALSE}
-tryCatch({
-  magpie_occs <- ALA4R::occurrences(taxon="taxon_name:\"Gymnorhina tibicen\"",
-                            fq=c("multimedia:Image","license:\"CC0\""), 
-                            email = "ala4r@ala.org.au", download_reason_id = "testing")
-  # retain 5
-  magpie_occs_top5 <- magpie_occs$data %>% dplyr::arrange(desc(eventDate)) %>% 
-    dplyr::mutate(occId=paste0(substring(id,0,10),"...")) %>%
-    dplyr::select(id,occId,basisOfRecord,dataResourceName,state,licence,eventDate) %>% 
-    head(5)
-  
-  # display
-  if (!is.null(dim(magpie_occs_top5))) { magpie_occs_top5 %>% 
-      dplyr::select(occId,basisOfRecord,dataResourceName,state,licence,eventDate)}   
-
-},warning = function(w) {print(w$message)}
- ,error = function(e) { print(e$message)})
-```  
-
-We then call the occurrence_images() function to query the image service using the occurrence ids.
-
-```{r eval=FALSE}
-magpie_occ_images <- ALA4R::occurrence_images(magpie_occs_top5 %>% 
-    dplyr::pull(id), download=FALSE)
-```
-
-```{r echo=FALSE,warning=FALSE, eval=FALSE}
-tryCatch({
-  magpie_occ_images <- ALA4R::occurrence_images(magpie_occs_top5 %>% dplyr::pull(id), download=FALSE)
-  
-  if (!is.null(dim(magpie_occ_images))) {
-    magpie_occ_images %>% dplyr::mutate(occurrenceID=paste0(substring(occurrenceID,0,10),"..."), imageID = paste0(substring(imageIdentifier,0,10),"...")) %>%
-      dplyr::select(occurrenceID, imageID, format, fileSize, width, height)
-  }
-},error = function(e) { print(e$message)})
-
-```
-
-Set the download flag in the occurrence_images() function and optionally specify a file path to download the images to local disk. The image download is rate limited to 1 image/second to minimise server load.
-
-```{r eval=FALSE}
-magpie_occ_images <- ALA4R::occurrence_images(magpie_occs_top5 %>% 
-    dplyr::pull(id), download=TRUE, download_path = "my/local/directory")
 ```

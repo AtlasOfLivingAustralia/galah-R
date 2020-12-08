@@ -1,8 +1,9 @@
 Package: ALA4R
 Type: Package
 Title: Atlas of Living Australia (ALA) Data and Resources in R
-Version: 1.9.0
+Version: 2.0.0
 Authors@R: c(person("Matilda", "Stevenson", email="matilda.stevenson@csiro.au",role=c("aut","cre")),
+             person("Martin", "Westgate", email="martin.westgate@csiro.au", role="aut"),
              person("Peggy", "Newman", email="peggy.newman@csiro.au", role="aut"),
              person("Ben", "Raymond", email="ben_ala@untan.gl", role="aut"),
              person("Jeremy", "VanDerWal", role="aut"),
@@ -18,24 +19,23 @@ Description: The Atlas of Living Australia (ALA) provides tools to enable users
     and resources hosted by the ALA.
 Imports:
     assertthat,
+    crul,
     data.table,
     digest,
     httr,
     jsonlite (>= 0.9.8),
+    sf,
     sp,
     stringr (>= 1.0.0),
+    utils,
     wellknown
 Suggests:
     ape,
     covr,
     dplyr,
     ggplot2,
-    jpeg,
     knitr,
-    mapdata,
-    maps,
-    maptools,
-    phytools,
+    ozmaps,
     rmarkdown,
     testthat,
     tidyr,
@@ -47,5 +47,5 @@ Maintainer: Matilda Stevenson <matilda.stevenson@csiro.au>
 LazyLoad: yes
 LazyData: yes
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Encoding: UTF-8

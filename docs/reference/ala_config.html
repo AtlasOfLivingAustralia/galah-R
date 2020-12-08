@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ALA4R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -123,9 +123,9 @@
     <p>Get or set configuration options that control ALA4R behaviour</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ala_config</span>(<span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>ala_config</span><span class='op'>(</span><span class='va'>...</span>, preserve <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>ala_reasons</span>()</pre>
+<span class='fu'>ala_reasons</span><span class='op'>(</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,6 +163,10 @@
   associated R function.</p></li>
 </ul></td>
     </tr>
+    <tr>
+      <th>preserve</th>
+      <td><p>logical: store config for future sessions?</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -180,13 +184,14 @@ current values of the options.</p>
 valid options for <code>download_reason_id</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
- <span class='fu'>ala_config</span>()
- <span class='fu'>ala_config</span>(<span class='kw'>caching</span> <span class='kw'>=</span> <span class='st'>"off"</span>)
- <span class='fu'>ala_reasons</span>()
- <span class='fu'>ala_config</span>(<span class='kw'>download_reason_id</span> <span class='kw'>=</span> <span class='fl'>0</span>,<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
- <span class='fu'>ala_config</span>(<span class='st'>"reset"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+ <span class='fu'>ala_config</span><span class='op'>(</span><span class='op'>)</span>
+ <span class='fu'>ala_config</span><span class='op'>(</span>caching <span class='op'>=</span> <span class='st'>"off"</span><span class='op'>)</span>
+ <span class='fu'>ala_reasons</span><span class='op'>(</span><span class='op'>)</span>
+ <span class='fu'>ala_config</span><span class='op'>(</span>download_reason_id <span class='op'>=</span> <span class='fl'>0</span>,verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+ <span class='fu'>ala_config</span><span class='op'>(</span><span class='st'>"reset"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -198,11 +203,11 @@ valid options for <code>download_reason_id</code></p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Matilda Stevenson, Peggy Newman, Ben Raymond, Jeremy VanDerWal, Lee Belbin.</p>
+  <p>Developed by Matilda Stevenson, Martin Westgate, Peggy Newman, Ben Raymond, Jeremy VanDerWal, Lee Belbin.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

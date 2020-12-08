@@ -13,7 +13,8 @@
 #' @name ALA4R
 #' @docType package
 #' @references \url{https://api.ala.org.au/}
-#' @import assertthat httr sp
+#' @import assertthat sp sf httr
+#' @importFrom crul HttpClient Paginator
 #' @importFrom digest digest
 #' @importFrom grDevices dev.off pdf rainbow
 #' @importFrom graphics image legend points title
@@ -21,7 +22,8 @@
 #' @importFrom stats aggregate na.omit
 #' @importFrom stringr regex str_c str_detect str_extract str_locate 
 #' str_match str_match_all
-#' @importFrom stringr str_replace str_replace_all str_split str_trim
-#' @importFrom utils data packageVersion read.csv read.table str unzip URLencode
+#' @importFrom stringr str_replace str_replace_all str_split str_trim str_match
+#' @importFrom utils data packageVersion read.csv write.csv read.table str
+#' unzip URLencode download.file setTxtProgressBar txtProgressBar
 #' @importFrom wellknown lint
 NULL

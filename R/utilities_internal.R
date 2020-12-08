@@ -1,315 +1,105 @@
-## some utility functions used internally within the ALA4R library: not
-## exported
-
-##-----------------------------------------------------------------------------
-
-empty <- function(x) is.null(x) || nrow(x) < 1 || ncol(x) < 1
-
-is.notempty.string <- function(x) {
-    is.string(x) && !is.na(x) && nchar(x) > 0
-}
-
-##-----------------------------------------------------------------------------
-
-## internal function for converting chr data types to numeric or logical
-convert_dt <- function(x, test_numeric = TRUE) {
-    ## set test_numeric to FALSE to skip checking for numeric columns - might
-    ## be a little faster if not needed
-    assert_that(is.flag(test_numeric))
-    if (see_if(is.character(x))) {
-        ux <- unique(x)
-        ## non-valid encoding of strings here will cause failure
-        encoding_ok <- function(s) {
-            ## will be TRUE if successful, or an error message if not
-            temp <- try({
-                nchar(s); TRUE
-                }, silent = TRUE)
-            is.logical(temp) && temp
-        }
-        if (!encoding_ok(ux)) {
-            x <- enc2utf8(x) ## force to utf8
-            ux <- unique(x)
-        }
-        if (all(nchar(ux) < 1)) {
-            ## all empty strings - leave as is
-        } else if (all(ux %in% c("true", "false", "TRUE", "FALSE", "", "NA"))) {
-            x <- as.logical(x)
-        } else if (test_numeric) {
-            if (all(nchar(ux) < 1 | ux == "NA" |
-                    !is.na(suppressWarnings(as.numeric(ux))))) {
-                x <- as.numeric(x)
-            }
-        }
-    }
-    x
-}
-
-##-----------------------------------------------------------------------------
-
-clean_string <- function(x) {
-    ## only used in search_names and search_partial_name
-
-    ## characters causes problems with hyphenated names and seems likely not to
-    ## behave well with internationalisation anyway
-    x <- str_trim(x) ## remove leading and trailing whitespaces
-    gsub("\\s+", " ", x) ## replace multiple whitespaces with single
-}
-
-##-----------------------------------------------------------------------------
-
-##convert to camel case ... modified from help forum example
-## not exported for users: internal ALA4R use only
-tocamel <- function(x, delim = "[^[:alnum:]]", upper = FALSE, sep = "") {
-    assert_that(is.character(x))
-    assert_that(is.string(delim))
-    s <- strsplit(x, delim)
-    tfun <- function(y) {
-        if (any(is.na(y))) {
-            y
-        } else {
-            first <- substring(y, 1, 1)
-            if (isTRUE(upper))
-                first <- toupper(first)
-            else first[-1] <- toupper(first[-1])
-            paste(first, substring(y, 2), sep = "", collapse = sep)
-        }
-    }
-    vapply(s, tfun, FUN.VALUE = "", USE.NAMES = FALSE)
-}
-
-##-----------------------------------------------------------------------------
-
-## define column names that we will remove from the results because we don't
-## think they will be useful in the ALA4R context
-unwanted_columns <- function(type) {
-    type <- match.arg(tolower(type), c("general", "layers", "occurrence",
-                                       "occurrence_stored",
-                                       "occurrence_indexed", "assertions"))
+wanted_columns <- function(type) {
     switch(type,
-           "general" = c("rawRank", "rawRankString", "rankId", "rankID",
-                         "left", "right", "idxType", "highlight",
-                         "linkIdentifier", "isExcluded"),
-             ## rawRank appears to be a duplicate of rank or rankString
-           "layers" = c("pid", "path", "path_orig", "path_1km", "enabled",
-                        "uid", "licence_level", "lookuptablepath", "mdhrlv",
-                        "mddatest", "datalang", "grid", "shape", "enabled",
-                        "indb", "spid", "sid", "sdesc", "sname",
-                        "defaultlayer", "namesearch", "intersect",
-                        "layerbranch", "analysis", "addtomap"),
-             ## datalang appears to be all "eng" "Eng" "enu" "" or NA
-             ## (2x"enu" records appear to be in English and from DEH/DEWHA)
-             ## grid is redundant: all env layers are grid==TRUE, all
-             ## contextual layers are grid==NA
-             ## ditto for shape: all contextual are TRUE, all grid are NA
-             ## mddatest is an internal metadata testing date of some sort?
-             ## enabled appears to be all TRUE
-             ## spid is redundant with id
-             ## no idea what sid,sname, or sdesc are, but don't look
-             ## particularly useful in our context
-           "occurrence_stored"=,
-           "occurrence_indexed"=,
-           "occurrence" = c("lft", "rgt", "rankId"),
-             ## lft and rgt look the same as left and right in general fields
-           c("")
-           )
+           "taxa" = c("search_term", "scientific_name",
+                      "scientific_name_authorship", "taxon_concept_id", "rank",
+                      "match_type", "kingdom", "phylum", "class", "order",
+                      "family", "genus", "species", "issues"),
+           "profile" = c("id", "name", "shortName", "description"),
+           "media" = c("rightsHolder", "imageIdentifier", "format",
+                       "occurrenceID", "recognisedLicence", "license",
+                       "creator", "title", "rights", "mimeType",
+                       "media_id"),
+           "layer" = c("layer_id", "name", "source_link", "description"),
+           "fields" = c("name", "data_type", "info", "class"),
+           "assertions" = c("name", "data_type", "info", "class"),
+           "quality_filter" = c("description", "filter"),
+           "reasons" = c("id", "name"))
 }
 
-##-----------------------------------------------------------------------------
-
-rename_variables <- function(varnames, type, verbose = ala_config()$verbose) {
-    if (length(varnames) < 1) {
-        ## catch in case names from empty data frame were passed
-        return(varnames)
+# rename specific columns, and convert camelCase to snake_case
+rename_columns <- function(varnames, type) {
+    if (type == "media") {
+        varnames[varnames == "mimeType"] <- "format"
+        varnames[varnames == "imageIdentifier"] <- "media_id"
     }
-    assert_that(is.character(varnames))
-    assert_that(is.string(type))
-    ## use "other" to make no variable name substitutions, just enforce
-    ## case/separator conventions
-    type <- match.arg(tolower(type), c("general", "layers", "occurrence",
-                                       "occurrence_stored",
-                                       "occurrence_indexed", "assertions",
-                                       "other"))
-
-    ## change all to camelCase
-    varnames <- tocamel(make.names(varnames))
-    ## try to convert some all-lowercase names to camel, e.g.
-    ## environmentalvaluemax minlatitude minlongitude
-    for (kw in c("longitude", "latitude", "value", "units")) {
-        varnames <- str_replace_all(varnames, kw,
-                                    paste(toupper(substring(kw, 1, 1)),
-                                          substring(kw, 2), sep = ""))
-    }
-    ## some that only seem to appear at the ends of variable names, so be
-    ## conservative with these replacements
-    for (kw in c("min", "max", "path")) {
-        varnames <- str_replace_all(varnames, paste(kw, "$", sep = ""),
-                                    paste(toupper(substr(kw, 1, 1)),
-                                          substring(kw, 2), sep = ""))
-    }
-    ## enforce first letter lowercase
-    varnames <- paste(tolower(substr(varnames, 1, 1)),
-                      substring(varnames, 2), sep = "")
-    ## some global re-naming by data type
-    if (type == "general") {
-        ## general names, from e.g. name searching
-        varnames[varnames == "occCount"] <- "occurrenceCount"
+    else if (type == "taxa") {
         varnames[varnames == "classs"] <- "class"
-        if (!any(varnames == "commonName")) {
-            ## taxinfo_download provides "vernacularName", others "commonName"
-            varnames[varnames == "vernacularName"] <- "commonName"
-            ## search_guids provides "commonNameSingle", others "commonName"
-            varnames[varnames == "commonNameSingle"] <- "commonName"
-        }
-        varnames <- str_replace_all(varnames, "conservationStatusInAustralia",
-                                    "conservationStatusAUS")
-        varnames <- str_replace_all(varnames, "conservationStatusIn",
-                                    "conservationStatus")
-        ## taxinfo_download returns the former, but should be the latter for
-        ## consistency elsewhere
-        varnames <- str_replace_all(varnames,
-                                    "scientificNameForAcceptedConcept",
-                                    "acceptedConceptName")
-
-        if (any(varnames == "rank") & any(varnames == "rankString")) {
-            if (verbose) {
-                warning("data contains both \"rank\" and \"rankString\" columns,
-                        not renaming \"rankString\"")
-            }
-        } else {
-            ## returned as "rank" by some services and "rankString" by others
-            varnames[varnames == "rankString"] <- "rank"
-        }
-        ## ditto for taxonRank
-        if (any(varnames == "rank") & any(varnames == "taxonRank")) {
-            if (verbose) {
-                warning("data contains both \"rank\" and \"taxonRank\" columns,
-                        not renaming \"taxonRank\"")
-            }
-        } else {
-            ## returned as "Taxon.Rank" (camelcased to "taxonRank") by
-            ## taxinfo_download
-            varnames[varnames == "taxonRank"] <- "rank"
-        }
-    } else if (type == "layers") {
-        varnames[varnames == "desc"] <- "description"
-    } else if (type %in% c("occurrence", "occurrence_stored",
-                           "occurrence_indexed")) {
-        ## old columns: Scientific Name, Matched Scientific Name
-        ## new columns: Scientific Name - original, Scientific Name
-        varnames[varnames == "recordID"] <- "id"
-        varnames[varnames == "xVersion"] <- "version"
-        varnames <- str_replace_all(varnames, regex("axonconceptguid",
-                                                    ignore_case = TRUE),
-                                    "axonConceptLsid")
-        varnames <- str_replace_all(varnames, "vernacularName", "commonName")
-        varnames <- str_replace_all(varnames, "taxonRank", "rank")
-        ## rawSomething to somethingOriginal
-        ## first-letter lowercase will be lost here but gets fixed below
-        varnames <- str_replace_all(varnames, "^raw(.*)$", "\\1Original")
-        ## dump "matched", "processed", and "parsed"
-        varnames <- str_replace_all(varnames,
-                                    regex("(matched|processed|parsed)",
-                                          ignore_case = TRUE), "")
+    } else if (type == "layer") {
+        varnames[varnames == "displayname"] <- "name"
+    } else if (type == "fields") {
+      varnames[varnames == "classs"] <- "class"
+      varnames[varnames == "dataType"] <- "data_type"
     } else if (type == "assertions") {
-        a <- ala_fields("assertions", as_is = TRUE)
-        ## want all assertion field names to match those in a$name
-        ## but some may be camelCased versions of the description
-        ## use "other" here to avoid this renaming code block, just apply
-        ## camelCasing etc
-        a$description <- rename_variables(a$description, type = "other")
-        varnames <- vapply(varnames, function(z) {
-            ifelse(z %in% a$name, z, ifelse(sum(z == a$description) == 1,
-                                           a$name[a$description == z], z))
-            }, FUN.VALUE = "", USE.NAMES = FALSE)
+      varnames[varnames == "description"] <- "info"
     }
-    ## do this again, it may have been lost in the processing: enforce first
-    ## letter lowercase
-    varnames <- paste(tolower(substr(varnames, 1, 1)), substring(varnames, 2),
-                      sep = "")
-    if (type %in% c("layers", "occurrence", "occurrence_stored",
-                    "occurrence_indexed")) {
-        ## but some acronyms in layer names should remain all-uppercase
-        ## currently this list is:
-        ## c("iBRA", "iMCRA", "aCTTAMS", "gER", "nZ", "nSW", "lGA", "nRM",
-        ## "rAMSAR", "nDVI", "nPP", "aSRI", "gEOMACS")
-        ## but since these all occur at the start of variable names, we can
-        ## catch them with a regular expression and not need to hardcode a list
-        idx <- str_detect(varnames, "^[a-z][A-Z]")
-        temp <- varnames[idx]
-        varnames[idx] <- paste(toupper(substr(temp, 1, 1)), substring(temp, 2),
-                               sep = "")
-        ## "seaWIFS" to "SeaWIFS"
-        varnames <- str_replace_all(varnames, "seaWIFS", "SeaWIFS")
+    # change all to snake case?
+    if (type == "taxa") {
+        varnames <- tolower(gsub("([a-z])([A-Z])", "\\1_\\L\\2", varnames,
+                         perl = TRUE))
+    } else if (type == "checklist") {
+      varnames <- tolower(gsub("\\.", "_", varnames))
+    } else if (type == "occurrence") {
+      # change dots to camel case
+      varnames <- gsub("\\.(\\w?)", "\\U\\1", varnames, perl = TRUE)
+      # replace first letters with lowercase
+      substr(varnames, 1, 1) <- tolower(substr(varnames, 1, 1))
     }
-
-    if (type == "assertions") { ###hardcoded assertion variable name changes
-        ## these assertions come back from the ALA service with the wrong names
-        if ("coordinatesAreOutOfRangeForSpecies" %in% varnames) {
-            varnames[varnames == "coordinatesAreOutOfRangeForSpecies"] <-
-                "coordinatesOutOfRange"
-        }
-        if ("collectionDateMissing" %in% varnames) {
-            varnames[varnames == "collectionDateMissing"] <-
-                "missingCollectionDate"
-        }
-        if ("coordinateUncertaintyNotSpecified" %in% varnames) {
-            varnames[varnames == "coordinateUncertaintyNotSpecified"] <-
-                "uncertaintyNotSpecified"
-        }
-    }
-    ##return the varnames
     varnames
 }
 
-## construct url path, taking care to remove multiple forward slashes,
-## leading slash
-clean_path <- function(..., sep = "/") {
-    ## collapse individual arguments
-    path1 <- vapply(list(...), function(z) paste(z, sep = sep, collapse = sep),
-                    FUN.VALUE = "", USE.NAMES = FALSE)
-    ## workaround to avoid replacing "http://" with "http:/", since this is
-    ## now used in GUID strings (July 2016)
-    path <- paste(path1, sep = sep, collapse = sep) ## paste parts together
-    path <- gsub("http://", "http:@@", path, fixed = TRUE)
-    path <- gsub(paste0("[", sep, "]+"), sep, path) ## remove multiple slashes
-    path <- gsub("http:@@", "http://", path, fixed = TRUE)
-    sub(paste0("^", sep), "", path) ## remove leading slash
+build_taxa_query <- function(ids) {
+    # order filters so cached file can be found
+    ids <- ids[order(ids)]
+    paste0("(lsid:", paste(ids, collapse = " OR lsid:"), ")")
 }
 
-## convenience function for building urls
-## pass path in one of several ways
-##  as single string: build_url_from_parts(base_url,"path/to/thing")
-##  as a character vector or list: build_url_from_parts(base_url,
-## c("path", "to", "thing"))
-##  or a combination
-build_url_from_parts <- function(base_url, path = NULL, query = list()) {
-    this_url <- parse_url(base_url)
-    this_url$path <- clean_path(this_url$path, path)
-    if (length(query) > 0) {
-        this_url$query <- query
-    }
-    build_url(this_url)
+# this is only relevant for ala_counts and ala_occurrences
+cached_query <- function(taxa_query, filter_query, area_query,
+                         columns = NULL) {
+  url <- getOption("ALA4R_server_config")$base_url_biocache
+  resp <- ala_POST(url, path = "ws/webportal/params",
+                   body = list(wkt = area_query, fq = taxa_query,
+                               fields = columns))
+  list(fq = filter_query, q = paste0("qid:", resp))
+}
+
+# Check whether caching of some url parameters is required.
+# Note: it is only possible to cache one fq so filters can't be cached
+check_for_caching <- function(taxa_query, filter_query, area_query,
+                              columns = NULL) {
+  if (nchar(paste(filter_query, collapse = "&fq=")) > 1948) {
+    stop("Too many filters provided.")
+  }
+  if (sum(nchar(taxa_query), nchar(filter_query), nchar(area_query),
+          nchar(paste(columns$name, collapse = ",")), na.rm = TRUE) > 1948) {
+    # caching of taxa query and area query required
+    return(TRUE)
+  }
+  return(FALSE)
+}
+
+# convert true/false to logical values
+fix_assertion_cols <- function(df, assertion_cols) {
+  for (col in assertion_cols) {
+    df[, col] <- as.logical(df[, col])
+  }
+  df
+}
+
+build_columns <- function(col_df) {
+  if (nrow(col_df) == 0) {
+    return("")
+  }
+  ala_cols <- dwc_to_ala(col_df$name)
+  paste0(ala_cols, collapse = ",")
+}
+
+user_agent_string <- function() {
+  version_string <- "version unknown"
+  suppressWarnings(
+    try(version_string <- utils::packageDescription("ALA4R")[["Version"]],
+        silent = TRUE)) ## get the ALA4R version, if we can
+  paste0("ALA4R ", version_string)
 }
 
 
-## wrapper around read.csv but suppressing "incomplete final line" warning
-read_csv_quietly <- function(...) {
-    read_warnings <- NULL
-    w_handler <- function(w) {
-        if (!grepl("incomplete final line", as.character(w),
-                   ignore.case = TRUE)) {
-            read_warnings <<- c(read_warnings, list(w))
-                            invokeRestart("muffleWarning")
-        }
-    }
-    out <- withCallingHandlers({
-        read.csv(...)
-        }, warning = w_handler)
-    ## now throw any warnings that got collected, because they weren't about a
-    ## final missing line break
-    for (w in read_warnings) warning(w)
-    out
-}
-
-replace_nonbreaking_spaces <- function(s)
-    gsub("\ua0", " ", s)

@@ -42,17 +42,8 @@ retrieval functions — ala_fields • ALA4R</title>
 
 <meta property="og:title" content="Retrieves a list of all field names that can be used with data
 retrieval functions — ala_fields" />
-<meta property="og:description" content="Note for occurrence fields: only fields that are indexed in the ALA
-database can be queried (e.g. used in the fq parameter in
-occurrences. These fields are identified by the indexed
-column in ala_fields(&quot;occurrence&quot;). Only fields that are stored in
-the database can be returned as part of an occurrences call. These
-fields are identified by the stored column in
-ala_fields(&quot;occurrence&quot;). The calling syntaxes
-ala_fields(&quot;occurrence_stored&quot;) and
-ala_fields(&quot;occurrence_indexed&quot;) are for convenience, and are
-equivalent to subset(ala_fields(&quot;occurrence&quot;),stored) and
-subset(ala_fields(&quot;occurrence&quot;),indexed)." />
+<meta property="og:description" content="The field names are in Darwin Core format, apart from the fields
+which have no DwC equivalent, such as record assertions." />
 
 
 
@@ -84,7 +75,7 @@ subset(ala_fields(&quot;occurrence&quot;),indexed)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ALA4R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -133,113 +124,40 @@ retrieval functions</h1>
     </div>
 
     <div class="ref-description">
-    <p>Note for occurrence fields: only fields that are indexed in the ALA
-database can be queried (e.g. used in the <code>fq</code> parameter in
-<code><a href='occurrences.html'>occurrences</a></code>. These fields are identified by the <code>indexed</code>
-column in <code>ala_fields("occurrence")</code>. Only fields that are stored in
-the database can be returned as part of an <code>occurrences</code> call. These
-fields are identified by the <code>stored</code> column in
-<code>ala_fields("occurrence")</code>. The calling syntaxes
-<code>ala_fields("occurrence_stored")</code> and
-<code>ala_fields("occurrence_indexed")</code> are for convenience, and are
-equivalent to <code><a href='https://rdrr.io/r/base/subset.html'>subset(ala_fields("occurrence"),stored)</a></code> and
-<code><a href='https://rdrr.io/r/base/subset.html'>subset(ala_fields("occurrence"),indexed)</a></code>.</p>
+    <p>The field names are in Darwin Core format, apart from the fields
+which have no DwC equivalent, such as record assertions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ala_fields</span>(<span class='kw'>fields_type</span> <span class='kw'>=</span> <span class='st'>"occurrence"</span>, <span class='kw'>as_is</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>field_info</span>(<span class='no'>field_id</span>, <span class='kw'>maxrows</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>record_count_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>ala_fields</span><span class='op'>(</span>class <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fields_type</th>
-      <td><p>text: one of the following</p><ul>
-<li><p>"general" - for searching taxa, datasets, layers, and collections
-metadata</p></li>
-<li><p>"occurrence" - for species occurrence records</p></li>
-<li><p>"occurrence_stored" - can be returned as part of a species occurrence
-record search (equivalent to <code><a href='https://rdrr.io/r/base/subset.html'>subset(ala_fields("occurrences"),stored)</a></code>)</p></li>
-<li><p>"occurrence_indexed" - can be queried as part of a species occurrence
-record search (equivalent to
-<code><a href='https://rdrr.io/r/base/subset.html'>subset(ala_fields("occurrences"),indexed)</a></code>)</p></li>
-<li><p>"layers" - fields associated with the environmental and contextual
-layers. For additional information
-on layers, including metadata and licensing, see <code><a href='search_layers.html'>search_layers</a></code></p></li>
-<li><p>"assertions" - potential issues flagged on one or more occurrence
-record fields</p></li>
-<li><p>"images - for image search</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>as_is</th>
-      <td><p>logical: if TRUE, leave the field names as they are returned
-from the ALA web services. Arguments that are passed directly to the ALA's
-web services (e.g. parameter <code>fq</code> in <code><a href='occurrences.html'>occurrences</a></code>) should
-use field names in this format. If <code>as_is</code> is FALSE, the returned
-$names entries will be modified to make them consistent with the
-corresponding column names in R data.frames returned by e.g.
-<code><a href='occurrences.html'>occurrences</a></code>. <code>as_is = FALSE</code> has no effect when
-<code>fields_type</code> is "layers". Note that prior to v1.20,
-<code>as_is = FALSE</code>
-did not work correctly.</p></td>
-    </tr>
-    <tr>
-      <th>field_id</th>
-      <td><p>text: id of environmental/contextual layer field for which
-to look up information
-Prepend "el" for "environmental" (gridded) layers and "cl" for "contextual"
-(polygonal) layers</p></td>
-    </tr>
-    <tr>
-      <th>maxrows</th>
-      <td><p>integer: maximum number of records to download. Some
-contextual layers (those with <code>field_id</code>s starting with "cl") have a
-very large number of records and attempting to download the full set can
-cause R to crash. Specifying -1 for maxrows will download the full set of
-records for that field</p></td>
-    </tr>
-    <tr>
-      <th>record_count_only</th>
-      <td><p>logical: if TRUE, return just the count of records
-that would be downloaded, but don't download them. This really only makes
-sense for contextual layers, because environmental layers have only one
-record per layer</p></td>
+      <th>class</th>
+      <td><p>string: class of fields to return e.g. "Assertion"</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If <code>record_count_only</code> is TRUE, the number of records is
-returned as numeric. Otherwise, a data frame containing the field name and
-various attributes; an empty data frame is returned if no match is found</p>
+    <p>data.frame of all fields.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Relevant ALA web services:</p><ul>
-<li><p>for fields_type "occurrence": https://api.ala.org.au/#ws72</p></li>
-<li><p>for fields_type "general": https://api.ala.org.au/#ws88</p></li>
-<li><p>for fields_type "layers": https://api.ala.org.au/#ws11
-(see also descriptions of the spatial layers:
- <a href='https://spatial.ala.org.au/ws/layers/index'>https://spatial.ala.org.au/ws/layers/index</a>)</p></li>
-<li><p>for fields_type "assertions": https://api.ala.org.au/#ws81</p></li>
+<li><p>for occurrence fields: <a href='https://api.ala.org.au/#ws72'>https://api.ala.org.au/#ws72</a></p></li>
+<li><p>for assertions <a href='https://api.ala.org.au/#ws81'>https://api.ala.org.au/#ws81</a></p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='search_layers.html'>search_layers</a></code> to search for spatial layers</p></div>
+    <div class='dont-index'><p><code><a href='ala_layers.html'>ala_layers</a></code> to search for spatial layers</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
- <span class='no'>l</span> <span class='kw'>&lt;-</span> <span class='fu'>ala_fields</span>(<span class='st'>"layers"</span>)
- <span class='no'>l</span>[, <span class='fl'>4</span>]
- <span class='no'>o</span> <span class='kw'>&lt;-</span> <span class='fu'>ala_fields</span>(<span class='st'>"occurrence"</span>)
- <span class='no'>o</span>[<span class='fl'>1</span>:<span class='fl'>13</span>, ]
- <span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'>ala_fields</span>(<span class='st'>"assertions"</span>)
- <span class='no'>a</span>$<span class='no'>description</span>
- <span class='fu'>field_info</span>(<span class='st'>"cl22"</span>)
- <span class='fu'>field_info</span>(<span class='st'>"el767"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+ <span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'>ala_fields</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -251,11 +169,11 @@ various attributes; an empty data frame is returned if no match is found</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Matilda Stevenson, Peggy Newman, Ben Raymond, Jeremy VanDerWal, Lee Belbin.</p>
+  <p>Developed by Matilda Stevenson, Martin Westgate, Peggy Newman, Ben Raymond, Jeremy VanDerWal, Lee Belbin.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

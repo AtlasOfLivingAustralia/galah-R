@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ALA4R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -119,11 +119,11 @@
 
     <div id="ala4r-190" class="section level1">
 <h1 class="page-header" data-toc-text="1.9.0">
-<a href="#ala4r-190" class="anchor"></a>ALA4R 1.9.0<small> Unreleased </small>
+<a href="#ala4r-190" class="anchor"></a>ALA4R 1.9.0<small> 2020-11-01 </small>
 </h1>
 <ul>
-<li>Add ability to generate a DOI for data downloads in <code><a href="../reference/occurrences.html">occurrences()</a></code> with <code>generate_doi</code> parameter</li>
-<li>Add <code>email_notify</code> parameter to <code><a href="../reference/occurrences.html">occurrences()</a></code>, set to <code>FALSE</code> by default</li>
+<li>Add ability to generate a DOI for data downloads in <code>occurrences()</code> with <code>generate_doi</code> parameter</li>
+<li>Add <code>email_notify</code> parameter to <code>occurrences()</code>, set to <code>FALSE</code> by default</li>
 <li>Set default download reason as “scientific research”</li>
 </ul>
 </div>
@@ -132,11 +132,11 @@
 <a href="#ala4r-180" class="anchor"></a>ALA4R 1.8.0<small> 2020-04-04 </small>
 </h1>
 <ul>
-<li>remove <code>method</code> parameter for <code><a href="../reference/occurrences.html">occurrences()</a></code> and only use <code>offline</code> method to make download more stable</li>
-<li>rename <code>image_info()</code> to <code><a href="../reference/images.html">images()</a></code> and add option to download images</li>
+<li>remove <code>method</code> parameter for <code>occurrences()</code> and only use <code>offline</code> method to make download more stable</li>
+<li>rename <code>image_info()</code> to <code>images()</code> and add option to download images</li>
 <li>
-<code><a href="../reference/images.html">images()</a></code> makes use of new ALA images web service</li>
-<li>added <code><a href="../reference/occurrence_images.html">occurrence_images()</a></code> function to retrieve image information and download images using occurrence ids</li>
+<code>images()</code> makes use of new ALA images web service</li>
+<li>added <code>occurrence_images()</code> function to retrieve image information and download images using occurrence ids</li>
 </ul>
 </div>
     <div id="ala4r-170" class="section level1">
@@ -170,7 +170,7 @@
 <a href="#ala4r-160" class="anchor"></a>ALA4R 1.6.0<small> 2018-05-22 </small>
 </h1>
 <ul>
-<li>added workaround for <code><a href="../reference/occurrences.html">occurrences(..., method="offline")</a></code> to cope with server-side bug (see <a href="https://github.com/AtlasOfLivingAustralia/biocache-service/issues/221" class="uri">https://github.com/AtlasOfLivingAustralia/biocache-service/issues/221</a>)</li>
+<li>added workaround for <code>occurrences(..., method="offline")</code> to cope with server-side bug (see <a href="https://github.com/AtlasOfLivingAustralia/biocache-service/issues/221" class="uri">https://github.com/AtlasOfLivingAustralia/biocache-service/issues/221</a>)</li>
 <li>package documentation via <code>pkgdown</code> (<a href="https://atlasoflivingaustralia.github.io/ALA4R/" class="uri">https://atlasoflivingaustralia.github.io/ALA4R/</a>)</li>
 <li>refreshed package vignette</li>
 <li>change of package maintainer</li>
@@ -199,13 +199,13 @@
 </h1>
 <ul>
 <li>updated code,examples and vignette for new ALA taxonomic backbone</li>
-<li>“offline” method added to <code><a href="../reference/occurrences.html">occurrences()</a></code>, allowing download of larger datasets with more fields</li>
+<li>“offline” method added to <code>occurrences()</code>, allowing download of larger datasets with more fields</li>
 <li>
-<code><a href="../reference/fieldguide.html">fieldguide()</a></code> function added</li>
-<li>fields=“all” option added to <code><a href="../reference/taxinfo_download.html">taxinfo_download()</a></code>
+<code>fieldguide()</code> function added</li>
+<li>fields=“all” option added to <code>taxinfo_download()</code>
 </li>
 <li>
-<code><a href="../reference/ala_list.html">ala_list()</a></code> and <code><a href="../reference/ala_lists.html">ala_lists()</a></code> functions added</li>
+<code>ala_list()</code> and <code>ala_lists()</code> functions added</li>
 </ul>
 </div>
     <div id="ala4r-124" class="section level1">
@@ -230,8 +230,8 @@
 <a href="#ala4r-121" class="anchor"></a>ALA4R 1.21<small> Unreleased </small>
 </h1>
 <ul>
-<li><p>added <code>image_info()</code> and <code><a href="../reference/occurrence_details.html">occurrence_details()</a></code> functions</p></li>
-<li><p>added <code>extra="all"</code> and <code>qa="all"</code> options to <code><a href="../reference/occurrences.html">occurrences()</a></code></p></li>
+<li><p>added <code>image_info()</code> and <code>occurrence_details()</code> functions</p></li>
+<li><p>added <code>extra="all"</code> and <code>qa="all"</code> options to <code>occurrences()</code></p></li>
 </ul>
 </div>
     <div id="ala4r-120" class="section level1">
@@ -241,7 +241,7 @@
 <ul>
 <li><p>fixed <code>as_is</code> behaviour in <code><a href="../reference/ala_fields.html">ala_fields()</a></code>.</p></li>
 <li><p>usage of stringr functions now compatible with stringr v1.0.</p></li>
-<li><p>parameter <code>occurrence_count</code> added to <code><a href="../reference/search_names.html">search_names()</a></code>.</p></li>
+<li><p>parameter <code>occurrence_count</code> added to <code>search_names()</code>.</p></li>
 <li><p>tests added to tests/testthat.</p></li>
 </ul>
 </div>
@@ -266,7 +266,7 @@
 <a href="#ala4r-118" class="anchor"></a>ALA4R 1.18<small> Unreleased </small>
 </h1>
 <ul>
-<li>for improperly classified taxa, the <code>result$classification</code> object returned by <code><a href="../reference/species_info.html">species_info()</a></code> is now a data.frame (<a href="https://github.com/AtlasOfLivingAustralia/ALA4R/issues/11" class="uri">https://github.com/AtlasOfLivingAustralia/ALA4R/issues/11</a>).</li>
+<li>for improperly classified taxa, the <code>result$classification</code> object returned by <code>species_info()</code> is now a data.frame (<a href="https://github.com/AtlasOfLivingAustralia/ALA4R/issues/11" class="uri">https://github.com/AtlasOfLivingAustralia/ALA4R/issues/11</a>).</li>
 </ul>
 </div>
     <div id="ala4r-118-1" class="section level1">
@@ -274,7 +274,7 @@
 <a href="#ala4r-118-1" class="anchor"></a>ALA4R 1.18<small> Unreleased </small>
 </h1>
 <ul>
-<li>bugfix in <code><a href="../reference/species_info.html">species_info()</a></code> (<a href="https://github.com/AtlasOfLivingAustralia/ALA4R/issues/11" class="uri">https://github.com/AtlasOfLivingAustralia/ALA4R/issues/11</a>).</li>
+<li>bugfix in <code>species_info()</code> (<a href="https://github.com/AtlasOfLivingAustralia/ALA4R/issues/11" class="uri">https://github.com/AtlasOfLivingAustralia/ALA4R/issues/11</a>).</li>
 </ul>
 </div>
   </div>
@@ -290,11 +290,11 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Matilda Stevenson, Peggy Newman, Ben Raymond, Jeremy VanDerWal, Lee Belbin.</p>
+  <p>Developed by Matilda Stevenson, Martin Westgate, Peggy Newman, Ben Raymond, Jeremy VanDerWal, Lee Belbin.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

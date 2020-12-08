@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ALA4R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -145,11 +145,27 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="ala_cache_filename.html">ala_cache_filename()</a></code> </p>
+          <p><code><a href="ala_categories.html">ala_categories()</a></code> </p>
         </td>
-        <td><p>Returns the name of the cache file associated with a given URL.
-Note that this file may not actually exist, this function just provides
-the mapping from URL to filename</p></td>
+        <td><p>List valid options for a categorical field</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ala_checklist.html">ala_checklist()</a></code> </p>
+        </td>
+        <td><p>List species matching criteria</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ala_citation.html">ala_citation()</a></code> </p>
+        </td>
+        <td><p>Generate a citation for occurrence data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ala_columns.html">ala_columns()</a></code> </p>
+        </td>
+        <td><p>Build dataframe of columns to keep</p></td>
       </tr><tr>
         
         <td>
@@ -159,139 +175,71 @@ the mapping from URL to filename</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="ala_fields.html">ala_fields()</a></code> <code><a href="ala_fields.html">field_info()</a></code> </p>
+          <p><code><a href="ala_counts.html">ala_counts()</a></code> </p>
+        </td>
+        <td><p>Counts for ALA records</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ala_data_profiles.html">ala_data_profiles()</a></code> </p>
+        </td>
+        <td><p>Data quality profiles</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ala_fields.html">ala_fields()</a></code> </p>
         </td>
         <td><p>Retrieves a list of all field names that can be used with data
 retrieval functions</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="ala_list.html">ala_list()</a></code> </p>
+          <p><code><a href="ala_filters.html">ala_filters()</a></code> </p>
         </td>
-        <td><p>Species lists</p></td>
+        <td><p>Build a dataframe from a filter list</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="ala_lists.html">ala_lists()</a></code> </p>
+          <p><code><a href="ala_geometry.html">ala_geometry()</a></code> </p>
         </td>
-        <td><p>Find ALA species lists</p></td>
+        <td><p>Build a WKT string from a spatial object or verify an existing string.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="aus.html">aus</a></code> </p>
+          <p><code><a href="ala_layers.html">ala_layers()</a></code> </p>
         </td>
-        <td><p>Basic Australia raster for visualization
-A basic raster dataset in SpatialGridDataFrame (package sp) representing
-Australia at 0.05 degree (~5km) resolution.</p></td>
+        <td><p>Search ALA spatial layers</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="check_assertions.html">check_assertions()</a></code> </p>
+          <p><code><a href="ala_media.html">ala_media()</a></code> </p>
         </td>
-        <td><p>Check assertions in occurrences object</p></td>
+        <td><p>Download images and sounds from the ALA.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="fieldguide.html">fieldguide()</a></code> </p>
+          <p><code><a href="ala_occurrences.html">ala_occurrences()</a></code> </p>
         </td>
-        <td><p>Generate a PDF field guide using the ALA's field guide generator</p></td>
+        <td><p>Download occurrence data from the ALA.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="images.html">images()</a></code> </p>
+          <p><code><a href="ala_quality_filters.html">ala_quality_filters()</a></code> </p>
         </td>
-        <td><p>Retrieve image information using image ids, with an option to download</p></td>
+        <td><p>Get data filters for a  data quality profile</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="intersect_points.html">intersect_points()</a></code> </p>
+          <p><code><a href="ala_taxa.html">ala_taxa()</a></code> </p>
         </td>
-        <td><p>Intersect environmental or contextual layers at a given a set of points
-(coordinates)</p></td>
+        <td><p>Function to lookup species information from ALA, given names or unique
+identifiers.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="occurrence_details.html">occurrence_details()</a></code> </p>
+          <p><code><a href="exclude.html">exclude()</a></code> </p>
         </td>
-        <td><p>Retrieve the full details of occurrence records</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="occurrence_images.html">occurrence_images()</a></code> </p>
-        </td>
-        <td><p>Find images using occurrence ids</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="occurrences.html">occurrences()</a></code> </p>
-        </td>
-        <td><p>Get occurrence data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="occurrences_plot.html">occurrences_plot()</a></code> </p>
-        </td>
-        <td><p>Quick geographic plot of occurrence data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="occurrences_s3.html">summary(<i>&lt;occurrences&gt;</i>)</a></code> <code><a href="occurrences_s3.html">unique(<i>&lt;occurrences&gt;</i>)</a></code> <code><a href="occurrences_s3.html">subset(<i>&lt;occurrences&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Summarize, filter and subset occurrence data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="search_fulltext.html">search_fulltext()</a></code> </p>
-        </td>
-        <td><p>Full text search</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="search_guids.html">search_guids()</a></code> </p>
-        </td>
-        <td><p>Lookup of species identifiers</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="search_layers.html">search_layers()</a></code> </p>
-        </td>
-        <td><p>Search for environmental and contextual data layers</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="search_names.html">search_names()</a></code> </p>
-        </td>
-        <td><p>Lookup of taxonomic names</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="search_partial_name.html">search_partial_name()</a></code> </p>
-        </td>
-        <td><p>Partial-name search</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sites_by_species.html">sites_by_species()</a></code> </p>
-        </td>
-        <td><p>Sites by species</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="species_info.html">species_info()</a></code> </p>
-        </td>
-        <td><p>Fetch a taxon profile given a scientific name or LSID (GUID)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="specieslist.html">specieslist()</a></code> </p>
-        </td>
-        <td><p>Get list of taxa and their occurrence counts</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="taxinfo_download.html">taxinfo_download()</a></code> </p>
-        </td>
-        <td><p>Download taxonomic data</p></td>
+        <td><p>Negate a filter value</p></td>
       </tr>
     </tbody>
     </table>
@@ -307,11 +255,11 @@ Australia at 0.05 degree (~5km) resolution.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Matilda Stevenson, Peggy Newman, Ben Raymond, Jeremy VanDerWal, Lee Belbin.</p>
+  <p>Developed by Matilda Stevenson, Martin Westgate, Peggy Newman, Ben Raymond, Jeremy VanDerWal, Lee Belbin.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
