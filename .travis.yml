@@ -49,4 +49,4 @@ after_success:
 - if [[ "${R_CODECOV}" ]]; then travis_wait 20 Rscript -e 'covr::codecov()'; fi
 notifications:
   slack:
-secure: "PGhowadCkFSLSmiBLbR5CZ6Bdkiaijz3PJ9GtBa6kLGtLtKIMkvK+9LrDkIdJuElNUNBz6iz4wqBlTaLOo83HEHt6Sf8nL1WcJfGQCaQMo0Xn/ivU0slwdjA08u9Trcr9UySNJGFbbwu3vzEevd6DityFRibEP4vm8t38tNttKM="
+    secure: "PGhowadCkFSLSmiBLbR5CZ6Bdkiaijz3PJ9GtBa6kLGtLtKIMkvK+9LrDkIdJuElNUNBz6iz4wqBlTaLOo83HEHt6Sf8nL1WcJfGQCaQMo0Xn/ivU0slwdjA08u9Trcr9UySNJGFbbwu3vzEevd6DityFRibEP4vm8t38tNttKM="
