@@ -22,8 +22,8 @@
 #'   \item\code{samplingEffort}
 #'   \item\code{samplingProtocol}
 #' }
-#' @export ala_columns
-ala_columns <- function(group, extra) {
+#' @export select_columns
+select_columns <- function(group, extra) {
   if (!missing(group)) {
     group_cols <- data.table::rbindlist(lapply(group, function(x) {
       data.frame(name = preset_cols(x), type = "field",
@@ -32,7 +32,7 @@ ala_columns <- function(group, extra) {
       group_cols <- NULL
     }
 
-  assertions <- ala_fields("assertion")$name
+  assertions <- find_fields("assertion")$name
   if (!missing(extra)) {
     extra_cols <- data.table::rbindlist(lapply(extra, function(x) {
       type <- ifelse(x %in% assertions, "assertions", "field")

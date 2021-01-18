@@ -7,9 +7,9 @@
 #' work around this.
 #' @param area sf object: area to be converted to wkt
 #' @return WKT string representing area provided
-#' @export ala_geometry
+#' @export select_location
 
-ala_geometry <- function(wkt, area) {
+select_location <- function(wkt, area) {
   if (nargs() > 1) {
     stop("Only one of wkt and area can be provided to this function")
   }
@@ -39,7 +39,7 @@ validate_wkt <- function(wkt) {
          " characters , please simplify and try again.")
   }
   if (!wellknown::lint(wkt)) {
-    stop("The WKT provided is invalid.")
+    warning("The WKT provided may be invalid.")
   }
   # check that first and last point of match if object is a polygon
   sf_obj <- st_as_sfc(wkt)

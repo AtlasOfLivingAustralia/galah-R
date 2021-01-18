@@ -6,7 +6,7 @@
 
 # this will return names and descriptions of data profiles
 # should id be exposed to the user?
-ala_data_profiles <- function() {
+find_data_profiles <- function() {
   # return only enabled profiles?
   url <- getOption("koala_server_config")$base_url_data_quality
   resp <- ala_GET(url, "api/v1/profiles", list(enabled = "true"))
@@ -19,8 +19,8 @@ ala_data_profiles <- function() {
 #' See `ala_data_profiles` for valid filters
 #' @export ala_quality_filters
 
-ala_quality_filters <- function(profile) {
-  valid_profiles <- ala_data_profiles()
+find_profile_filters <- function(profile) {
+  valid_profiles <- find_data_profiles()
   # check if is numeric or can be converted to numeric
   short_name <- NA
   if (suppressWarnings(!is.na(as.numeric(profile)))) {

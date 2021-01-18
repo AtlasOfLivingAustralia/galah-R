@@ -8,10 +8,10 @@ test_that("ala counts checks inputs", {
   expect_error(ala_counts(breakdown = "bad_facet"))
   
   # invalid filter
-  expect_error(ala_counts(filters = ala_filters(list(bad_facet = 'test'))))
+  expect_error(ala_counts(filters = select_filters(list(bad_facet = 'test'))))
   
   # too many filters
-  filters <- ala_filters(sapply(ala_fields("assertion")$name,
+  filters <- select_filters(sapply(find_fields("assertion")$name,
                                 function(x){ return(TRUE) }))
   expect_error(ala_counts(filters))
 })
@@ -30,7 +30,7 @@ test_that("ala counts returns expected outputs", {
 
 test_that("ala counts works with filters", {
   skip_on_cran()
-  expect_lt(ala_counts(filters = ala_filters(list(year = 2000))),
+  expect_lt(ala_counts(filters = select_filters(list(year = 2000))),
             ala_counts())
 })
 
@@ -38,12 +38,12 @@ test_that("ala_counts handles wkt area inputs", {
   # invalid wkt
   skip_on_cran()
   wkt <- readLines('../testdata/short_act_wkt.txt')
-  expect_lt(ala_counts(geometry = ala_geometry(wkt)), ala_counts())
+  expect_lt(ala_counts(geometry = select_geometry(wkt)), ala_counts())
 })
 
 test_that("ala counts handles queries with no records", {
   skip_on_cran()
-  filters <- ala_filters(list(kingdom = 'non-existent'))
+  filters <- select_filters(list(kingdom = 'non-existent'))
   expect_s3_class(ala_counts(filters = filters,
                              breakdown = 'basis_of_record'), "data.frame")
 })
@@ -51,13 +51,13 @@ test_that("ala counts handles queries with no records", {
 test_that("ala_counts works with long queries", {
   skip_on_cran()
   taxa <- ala_taxa("Hymenoptera", return_children = TRUE)
-  filters <- ala_filters(data_quality_profile = "ALA")
+  filters <- select_filters(data_quality_profile = "ALA")
   expect_gt(ala_counts(taxa, filters), 0)
 })
 
 test_that("ala occurrences handles long queries with pagination", {
   skip_on_cran()
   taxa <- ala_taxa("Hymenoptera", return_children = TRUE)
-  filters <- ala_filters(data_quality_profile = "ALA")
+  filters <- select_filters(data_quality_profile = "ALA")
   expect_equal(nrow(ala_counts(breakdown = "eventDate", limit = 101)), 101)
 })

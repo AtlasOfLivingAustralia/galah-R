@@ -8,9 +8,9 @@
 #' @return dataframe of filter values
 #' @export ala_filters
 
-ala_filters <- function(filters = NULL, data_quality_profile = NULL) {
+select_filters <- function(filters = NULL, data_quality_profile = NULL) {
   if (!is.null(data_quality_profile)) {
-    dq_filters <- ala_quality_filters(data_quality_profile)
+    dq_filters <- find_profile_filters(data_quality_profile)
     dq_filter_rows <- data.table::rbindlist(lapply(dq_filters$filter,
                                                    function(filter) {
       split <- strsplit(filter, ":")[[1]]
@@ -30,7 +30,7 @@ ala_filters <- function(filters = NULL, data_quality_profile = NULL) {
   }
   
   
-  assertions <- ala_fields("assertion")$name
+  assertions <- find_fields("assertion")$name
   validate_filters(filters)
   filter_rows <- data.table::rbindlist(lapply(names(filters), function(x) {
     if (x %in% assertions) {
@@ -56,15 +56,15 @@ validate_filters <- function(filters) {
   # filters are provided in a dataframe
   # key should be a valid field name and value should be a valid category for
   # that field
-  # valid options is a combination of ala_layers and ala_fields?
+  # valid options is a combination of find_layers and find_fields?
   
   invalid_filters <- names(filters)[!names(filters) %in%
-                                      c(ala_fields()$name,
+                                      c(find_fields()$name,
                                         "assertion", all_fields()$name)]
   if (length(invalid_filters) > 0) {
     stop("The following filters are invalid: ",
          paste(invalid_filters, collapse = ", "),
-         ". Use `ala_fields()` to get a list of valid options")
+         ". Use `find_fields()` to get a list of valid options")
   }
 }
 

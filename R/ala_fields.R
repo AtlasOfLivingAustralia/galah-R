@@ -13,13 +13,13 @@
 #' @return data.frame of all fields. 
 #' @examples
 #' \dontrun{
-#'  l <- ala_fields()
+#'  l <- find_fields()
 #' }
-#' @export ala_fields
+#' @export find_fields
 
-ala_fields <- function(class = "all") {
+find_fields <- function(class = "all") {
   # Difference in behaviour from original ALA fields: 
-  # don't need to return layer information- this is handled by `ala_layers`
+  # don't need to return layer information- this is handled by `find_layers`
   # assertions and other fields are treated the same- but the type for assertions is 'logical'
   # if there is a DwC term for a field, this will be returned: not the ALA name
   

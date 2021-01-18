@@ -219,9 +219,9 @@ validate_option <- function(name, value) {
       stop("Email must be a string")
     }
   } else if (name == "download_reason_id") {
-    if (!(value %in% ala_reasons()$id)) {
+    if (!(value %in% find_reasons()$id)) {
       stop("Download reason must be a valid reason id or name ",
-           "See `ala_reasons()` for valid reasons.")
+           "See `find_reasons()` for valid reasons.")
     }
   } else {
     stop("\"", name, "\"", "is not a valid option name.")
@@ -230,7 +230,7 @@ validate_option <- function(name, value) {
 
 #' @rdname ala_config
 #' @export
-ala_reasons <- function() {
+find_reasons <- function() {
     ## return list of valid "reasons for use" codes
     out <- ala_GET(getOption("koala_server_config")$base_url_logger,
                            path = "service/logger/reasons")

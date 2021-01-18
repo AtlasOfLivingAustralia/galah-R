@@ -2,23 +2,23 @@
 #'
 #' Used for checking filter values for `ala_occurrences` and `ala_counts` are
 #' valid
-#' @param field string: field to return the categories for. Use `ala_fields`
+#' @param field string: field to return the categories for. Use `find_fields`
 #' to view valid fields.
 #' @param limit numeric: maximum number of categories to return. 20 by default.
 #' @return a dataframe of field name and category name.
 #' @examples
-#' ala_categories("basis_of_record")
-#' ala_categories("state")
-#' @export ala_categories
+#' find_categories("basis_of_record")
+#' find_categories("state")
+#' @export find_categories
 
-ala_categories <- function(field, limit = 20) {
+find_categories <- function(field, limit = 20) {
   if (missing(field)) {
-    stop("`ala_categories` requires a field to search for")
+    stop("`find_categories` requires a field to search for")
   }
   field <- dwc_to_ala(field)
   if (!(field %in% all_fields()$name)) {
     stop("\"", field,
-         "\" is not a valid field. See valid fields with `ala_fields()`.")
+         "\" is not a valid field. See valid fields with `find_fields()`.")
   }
   assert_that(is.numeric(limit))
   url <- getOption("koala_server_config")$base_url_biocache
