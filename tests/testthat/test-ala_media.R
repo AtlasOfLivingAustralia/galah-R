@@ -1,4 +1,5 @@
 context("Test ALA media")
+teardown(unlink("test_media"))
 
 test_that("ala media check inputs", {
   image_id <- "24fbddc4-a95e-4e97-b588-e76321c9cc73"
