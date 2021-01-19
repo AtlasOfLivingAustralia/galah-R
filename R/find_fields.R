@@ -54,6 +54,7 @@ find_fields <- function(class = "all") {
 
 # function to keep backwards compatibility
 # takes field list and converts back to ALA name
+# TODO: Fix for scientific names which map to multiple ALA names
 dwc_to_ala <- function(dwc_names) {
   fields <- all_fields()
   # get relevant cols

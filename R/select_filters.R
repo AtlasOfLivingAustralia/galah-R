@@ -6,7 +6,7 @@
 #' records. See `ala_data_profiles()` for valid profiles. By default, no
 #' profile is applied.
 #' @return dataframe of filter values
-#' @export ala_filters
+#' @export select_filters
 
 select_filters <- function(filters = NULL, data_quality_profile = NULL) {
   if (!is.null(data_quality_profile)) {

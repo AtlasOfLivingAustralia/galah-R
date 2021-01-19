@@ -5,19 +5,19 @@
 #' @param wkt string: wkt to be verified. WKT strings longer than 10000
 #' characters will not be accepted by the ALA- see the vignette for how to
 #' work around this.
-#' @param area sf object: area to be converted to wkt
+#' @param sf sf object: area to be converted to wkt
 #' @return WKT string representing area provided
-#' @export select_location
+#' @export select_locations
 
-select_location <- function(wkt, area) {
+select_locations <- function(wkt, sf) {
   if (nargs() > 1) {
-    stop("Only one of wkt and area can be provided to this function")
+    stop("Only one of wkt and sf can be provided to this function")
   }
   if (!missing(wkt)) {
     validate_wkt(wkt)
   }
-  if (!missing(area)) {
-    wkt <- build_wkt(area)
+  if (!missing(sf)) {
+    wkt <- build_wkt(sf)
   }
   attr(wkt, "ala") <- "geometry"
   return(wkt)

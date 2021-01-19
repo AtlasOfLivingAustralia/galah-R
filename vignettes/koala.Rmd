@@ -114,8 +114,8 @@ head(occ)
 
 ```{r eval = FALSE}
 # build filters and columns
-cols <- ala_columns(group = "basic", extra = "country")
-filters <- ala_filters(list(year = seq(2000, 2020)))
+cols <- select_columns(group = "basic", extra = "country")
+filters <- select_filters(list(year = seq(2000, 2020)))
 occ <- ala_occurrences(taxon_id = top5_banksia,
                        columns = cols, filters = filters)
 ```
@@ -142,7 +142,7 @@ Occurrence searches can be narrowed down by area, a variety of filters, and data
 id <- ala_taxa("Ornithorhynchus anatinus")
 simple_shp <- st_cast(st_read('act_rect.shp'), "MULTIPOLYGON")
 
-occ <- ala_occurrences(taxon_id = id, geometry = ala_geometry(area = simple_shp))
+occ <- ala_occurrences(taxon_id = id, geometry = select_location(area = simple_shp))
 ```
 
 ```{r include = FALSE}
@@ -171,10 +171,10 @@ layers[grepl("precipitation", tolower(layers$description)),]$name
 By default, the data quality profile is set to the ALA general.
 ```{r}
 # List available data quality profiles
-ala_data_profiles()
+find_data_profiles()
 
 # List filters for a profile
-ala_quality_filters("CSDM")
+find_profile_filters("CSDM")
 ```
 
 ## Summary statistics
@@ -184,13 +184,34 @@ ala_counts()
 
 # Total number of records, broken down by kindgom
 ala_counts(breakdown = "kingdom")
+
+# Bivariate record counts
+# Currently the ALA APIs can only breakdown by one type of variable. How much extra effort is to do two?
+state_counts <- ala_counts(breakdown = "state")
+states <- state_counts %>% pull(name)
+
+provider_counts <- bind_rows(lapply(states, function(s) {
+  filt <- ala_filters(list(state = s))
+  counts <- ala_counts(filters = filt, breakdown = "data_provider", limit = 10)
+  counts$state <- s
+  counts
+}))
+
+# tidy up columns
+provider_counts <- provider_counts %>% rename(data_provider = name) %>%
+  relocate(state, data_provider, count)
+
+# plot as a stacked bar chart
+ggplot(provider_counts) +
+  geom_bar(mapping = aes(x = state, y = count, fill = data_provider),
+           position = "stack", stat = "identity") + theme(legend.position = "none")
 ```
 
 
 ## Media downloads
 ```{r warning=FALSE, message=FALSE, eval = FALSE}
 # Search for occurrences with images
-filters <- ala_filters(list("multimedia" = "Image",
+filters <- select_filters(list("multimedia" = "Image",
                                       basis_of_record = "HumanObservation"))
 occ <- ala_occurrences(quoll$taxon_concept_id,
                        filters = filters)

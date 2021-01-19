@@ -2,7 +2,7 @@
 #'
 #' List available profiles for data filtering 
 #'
-#' @export ala_data_profiles
+#' @export find_data_profiles
 
 # this will return names and descriptions of data profiles
 # should id be exposed to the user?
@@ -17,7 +17,7 @@ find_data_profiles <- function() {
 #'
 #' @param profile string: a data quality profile name, short name or id.
 #' See `ala_data_profiles` for valid filters
-#' @export ala_quality_filters
+#' @export find_profile_filters
 
 find_profile_filters <- function(profile) {
   valid_profiles <- find_data_profiles()

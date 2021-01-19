@@ -29,7 +29,7 @@ ala_media <- function(identifier, download_dir, identifier_type = "media",
   assert_that(!missing(download_dir), msg = "Directory to download media to is
               required")
   assert_that(file.exists(download_dir))
-  
+
   media_data <- data.table::rbindlist(lapply(identifier, function(id) {
     if (identifier_type == "media") {
       # get the media specified

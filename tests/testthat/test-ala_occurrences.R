@@ -86,7 +86,7 @@ test_that("ala_occurrences handles wkt area inputs", {
 
   wkt <- readLines("../testdata/long_act_wkt.txt")
 
-  geometry <- select_location(readLines("../testdata/short_act_wkt.txt"))
+  geometry <- select_locations(readLines("../testdata/short_act_wkt.txt"))
   cols <- select_columns("basic", extra = "state")
   filters <- select_filters(list(basis_of_record = "MachineObservation"))
   expect_equal(unique(ala_occurrences(geometry = geometry,
@@ -99,7 +99,7 @@ test_that("ala_occurrences handles sf polygon inputs", {
   skip_on_cran()
   # convert wkt to sfc
   act_shp <- st_as_sfc(readLines("../testdata/short_act_wkt.txt"))
-  geometry <- select_location(area = act_shp)
+  geometry <- select_locations(area = act_shp)
   filters <- select_filters(list(basis_of_record = "MachineObservation"))
   expect_equal(unique(ala_occurrences(geometry = geometry, filters = filters,
                                       columns = select_columns("basic",
