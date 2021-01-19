@@ -4,14 +4,14 @@
 \alias{select_locations}
 \title{Build a WKT string from a spatial object or verify an existing string.}
 \usage{
-select_locations(wkt, area)
+select_locations(wkt, sf)
 }
 \arguments{
 \item{wkt}{string: wkt to be verified. WKT strings longer than 10000
 characters will not be accepted by the ALA- see the vignette for how to
 work around this.}
 
-\item{area}{sf object: area to be converted to wkt}
+\item{sf}{sf object: area to be converted to wkt}
 }
 \value{
 WKT string representing area provided

@@ -16,7 +16,7 @@ find_data_profiles <- function() {
 #' Get data filters for a  data quality profile
 #'
 #' @param profile string: a data quality profile name, short name or id.
-#' See `ala_data_profiles` for valid filters
+#' See `find_data_profiles` for valid filters
 #' @export find_profile_filters
 
 find_profile_filters <- function(profile) {
@@ -40,7 +40,7 @@ find_profile_filters <- function(profile) {
   }
   if (is.na(short_name)) {
     stop(profile, " is not a valid data quality id, short name or name. Use
-          `ala_data_profiles` to list valid profiles.")
+          `find_data_profiles` to list valid profiles.")
   }
 
   url <- getOption("koala_server_config")$base_url_data_quality

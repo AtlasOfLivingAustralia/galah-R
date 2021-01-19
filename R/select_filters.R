@@ -3,7 +3,7 @@
 #' @param filters string: a list to narrow down the search, in the form
 #' `list(field = value)`.
 #' @param data_quality_profile string: a data quality profile to apply to the
-#' records. See `ala_data_profiles()` for valid profiles. By default, no
+#' records. See `find_data_profiles()` for valid profiles. By default, no
 #' profile is applied.
 #' @return dataframe of filter values
 #' @export select_filters

@@ -244,14 +244,14 @@ find_reasons <- function() {
 convert_reason <- function(reason) {
   ## unexported function to convert string reason to numeric id
   if (is.character(reason)) {
-    valid_reasons <- ala_reasons()
+    valid_reasons <- find_reasons()
     tryCatch({
       reason <- match.arg(tolower(reason), valid_reasons$name)
       reason <- valid_reasons$id[valid_reasons$name == reason]
     },
     error = function(e) {
       stop("could not match download_reason_id string \"", reason,
-           "\" to valid reason id: see ala_reasons() for valid reasons")
+           "\" to valid reason id: see find_reasons() for valid reasons")
     })
   }
   reason

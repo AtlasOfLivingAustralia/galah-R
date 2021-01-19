@@ -11,7 +11,7 @@ select_filters(filters = NULL, data_quality_profile = NULL)
 `list(field = value)`.}
 
 \item{data_quality_profile}{string: a data quality profile to apply to the
-records. See `ala_data_profiles()` for valid profiles. By default, no
+records. See `find_data_profiles()` for valid profiles. By default, no
 profile is applied.}
 }
 \value{
