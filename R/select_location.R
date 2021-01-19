@@ -38,16 +38,18 @@ validate_wkt <- function(wkt) {
     stop("The WKT string provided is greater than ", max_char,
          " characters , please simplify and try again.")
   }
-  if (!wellknown::lint(wkt)) {
+  else if (!wellknown::lint(wkt)) {
     warning("The WKT provided may be invalid.")
   }
   # check that first and last point of match if object is a polygon
-  sf_obj <- st_as_sfc(wkt)
-  if (st_geometry_type(sf_obj) == "POLYGON") {
-    first_coord <- trimws(str_split(str_split(wkt, "\\(\\(")[[1]][2], ",")[[1]][1])
-    last_coord <- gsub("\\)\\)", "",trimws(tail(str_split(wkt, ",")[[1]], n = 1)))
-    if (isFALSE(first_coord == last_coord)) {
-      warning("The first and last coordinates of the polygon provided may not be the same.")
+  else {
+    sf_obj <- st_as_sfc(wkt)
+    if (st_geometry_type(sf_obj) == "POLYGON") {
+      first_coord <- trimws(str_split(str_split(wkt, "\\(\\(")[[1]][2], ",")[[1]][1])
+      last_coord <- gsub("\\)\\)", "",trimws(tail(str_split(wkt, ",")[[1]], n = 1)))
+      if (isFALSE(first_coord == last_coord)) {
+        warning("The first and last coordinates of the polygon provided may not be the same.")
+      }
     }
   }
 }
