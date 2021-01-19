@@ -1,7 +1,7 @@
 #' Counts for ALA records
 #'
 #' Takes filters in the same format as `ala_occurrences`, with an
-#' additional break down by `breakdown`
+#' additional break down by `group_by`
 #'
 #' @param taxon_id string: single species ID or vector of species ids. Use
 #' `ala_taxa()` to lookup species id.
@@ -12,9 +12,9 @@
 #' If limit is NULL, all results are returned. For some categories this will
 #' take a while. 
 #' @param caching logical: should the results be cached/use cache? Only used if
-#' `breakdown` is supplied.
+#' `group_by` is supplied.
 #' @return either single integer of total counts, or a dataframe of counts by
-#' `breakdown` field, if specified.
+#' `group_by` field, if specified.
 #' @examples
 #' # Count of records in the ALA
 #' ala_counts()

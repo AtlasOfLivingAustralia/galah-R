@@ -5,7 +5,7 @@ test_that("ala counts checks inputs", {
   # ALA counts with no arguments gives the total number of records in the ALA
   expect_gt(ala_counts(), 90000000)
   # invalid facet
-  expect_error(ala_counts(breakdown = "bad_facet"))
+  expect_error(ala_counts(group_by = "bad_facet"))
   
   # invalid filter
   expect_error(ala_counts(filters = select_filters(list(bad_facet = 'test'))))
@@ -23,9 +23,9 @@ test_that("ala counts returns expected outputs", {
     "integer")
   expect_equal(class(ala_counts(
     taxon_id = "https://id.biodiversity.org.au/taxon/apni/51302291",
-                                breakdown = "basis_of_record")), "data.frame")
+                                group_by = "basis_of_record")), "data.frame")
   
-  expect_warning(ala_counts(breakdown = 'phylum'))
+  expect_warning(ala_counts(group_by = 'phylum'))
 })
 
 test_that("ala counts works with filters", {
@@ -45,7 +45,7 @@ test_that("ala counts handles queries with no records", {
   skip_on_cran()
   filters <- select_filters(list(kingdom = 'non-existent'))
   expect_s3_class(ala_counts(filters = filters,
-                             breakdown = 'basis_of_record'), "data.frame")
+                             group_by = 'basis_of_record'), "data.frame")
 })
 
 test_that("ala_counts works with long queries", {
@@ -59,5 +59,5 @@ test_that("ala occurrences handles long queries with pagination", {
   skip_on_cran()
   taxa <- ala_taxa("Hymenoptera", return_children = TRUE)
   filters <- select_filters(data_quality_profile = "ALA")
-  expect_equal(nrow(ala_counts(breakdown = "eventDate", limit = 101)), 101)
+  expect_equal(nrow(ala_counts(group_by = "eventDate", limit = 101)), 101)
 })
