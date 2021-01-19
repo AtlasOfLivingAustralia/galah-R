@@ -159,7 +159,7 @@ ggplot() + geom_sf(data = simple_shp) +
 ### Environmental layers
 ```{r}
 # Get all layers relating to precipitation
-layers <- ala_layers()
+layers <- find_layers()
 layers[grepl("precipitation", tolower(layers$description)),]$name
 
 ```
@@ -183,16 +183,16 @@ find_profile_filters("CSDM")
 ala_counts()
 
 # Total number of records, broken down by kindgom
-ala_counts(breakdown = "kingdom")
+ala_counts(group_by = "kingdom")
 
 # Bivariate record counts
 # Currently the ALA APIs can only breakdown by one type of variable. How much extra effort is to do two?
-state_counts <- ala_counts(breakdown = "state")
+state_counts <- ala_counts(group_by = "state")
 states <- state_counts %>% pull(name)
 
 provider_counts <- bind_rows(lapply(states, function(s) {
-  filt <- ala_filters(list(state = s))
-  counts <- ala_counts(filters = filt, breakdown = "data_provider", limit = 10)
+  filt <- select_filters(list(state = s))
+  counts <- ala_counts(filters = filt, group_by = "data_provider", limit = 10)
   counts$state <- s
   counts
 }))

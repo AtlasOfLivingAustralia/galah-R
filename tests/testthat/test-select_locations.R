@@ -4,7 +4,7 @@ test_that("select_locations checks inputs", {
   skip_on_cran()
   poly_path <- "../test_data/act_state_polygon_shp/ACT_STATE_POLYGON_shp.shp"
   expect_error(
-    select_locations(area = st_read(poly_path),
+    select_locations(sf = st_read(poly_path),
                  wkt = readLines("../testdata/short_act_wkt.txt")))
   expect_error(select_locations(sf =
                                  st_read(poly_path)))
