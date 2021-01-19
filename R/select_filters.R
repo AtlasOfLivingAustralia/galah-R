@@ -2,15 +2,15 @@
 #'
 #' @param filters string: a list to narrow down the search, in the form
 #' `list(field = value)`.
-#' @param data_quality_profile string: a data quality profile to apply to the
+#' @param profile string: a data quality profile to apply to the
 #' records. See `find_data_profiles()` for valid profiles. By default, no
 #' profile is applied.
 #' @return dataframe of filter values
 #' @export select_filters
 
-select_filters <- function(filters = NULL, data_quality_profile = NULL) {
-  if (!is.null(data_quality_profile)) {
-    dq_filters <- find_profile_filters(data_quality_profile)
+select_filters <- function(filters = NULL, profile = NULL) {
+  if (!is.null(profile)) {
+    dq_filters <- find_profile_filters(profile)
     dq_filter_rows <- data.table::rbindlist(lapply(dq_filters$filter,
                                                    function(filter) {
       split <- strsplit(filter, ":")[[1]]
