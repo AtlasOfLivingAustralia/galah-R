@@ -38,7 +38,7 @@ test_that("ala_counts handles wkt area inputs", {
   # invalid wkt
   skip_on_cran()
   wkt <- readLines('../testdata/short_act_wkt.txt')
-  expect_lt(ala_counts(geometry = select_geometry(wkt)), ala_counts())
+  expect_lt(ala_counts(geometry = select_location(wkt)), ala_counts())
 })
 
 test_that("ala counts handles queries with no records", {

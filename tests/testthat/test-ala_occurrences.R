@@ -36,7 +36,7 @@ test_that("ala_occurrences handles filters correctly", {
   expect_true(unique(ala_occurrences(filters = select_filters(
     list(year = seq(1971, 1981),
     basis_of_record = "FossilSpecimen")),
-    columns = ala_columns("basic", "year"))$year %in% seq(1971, 1981)))
+    columns = select_columns("basic", "year"))$year %in% seq(1971, 1981)))
 })
 
 test_that("ala occurrences gives an error for too many filters", {

@@ -129,7 +129,7 @@ record_count <- function(query) {
 }
 
 validate_facet <- function(facet) {
-  if (!facet %in% c(ala_fields()$name, all_fields()$name)) {
+  if (!facet %in% c(find_fields()$name, all_fields()$name)) {
     stop("\"", facet, "\" is not a valid breakdown field. ",
          "Use `ala_fields()` to get a list of valid options")
   }
