@@ -2,12 +2,12 @@
 % Please edit documentation in R/ala_config.R
 \name{ala_config}
 \alias{ala_config}
-\alias{ala_reasons}
+\alias{find_reasons}
 \title{Get or set configuration options that control koala behaviour}
 \usage{
 ala_config(..., preserve = FALSE)
 
-ala_reasons()
+find_reasons()
 }
 \arguments{
 \item{\dots}{Options can be defined using name = value. Valid options are:
