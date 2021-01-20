@@ -12,12 +12,12 @@ test_that("ala_occurrences check inputs", {
 test_that("ala_occurrences gives a nice error for invalid emails", {
   skip_on_cran()
   ala_config(email = "test@test.org.au")
-  expect_error(ala_occurrences(taxon_id = ala_taxa("Wurmbea dioica")),
+  expect_error(ala_occurrences(taxa = ala_taxa("Wurmbea dioica")),
   regexp = "Status code 403 was returned for this occurrence download request. This may be because
   the email you provided is not registered with the ALA. Please check and try again.")
   
   ala_config(email = "")
-  expect_error(ala_occurrences(taxon_id = ala_taxa("Wurmbea dioica")))
+  expect_error(ala_occurrences(taxa = ala_taxa("Wurmbea dioica")))
   ala_config(email = "ala4r@ala.org.au")
 })
 
@@ -55,14 +55,14 @@ test_that("ala occurrences returns requested columns", {
                      "scientificName", "taxonConceptID", "recordID",
                      "data_resource")
   id <- ala_taxa("Polytelis swainsonii")$taxon_concept_id
-  expect_equal(sort(names(ala_occurrences(taxon_id = id,
+  expect_equal(sort(names(ala_occurrences(taxa = id,
                                      filters = select_filters(
                                        list(occurrence_decade_i = 1930)),
                                      columns = select_columns("basic")))),
                sort(expected_cols))
 
   cols <- select_columns(extra = c("occurrence_status", "latitude", "longitude"))
-  expect_equal(names(ala_occurrences(taxon_id = id,
+  expect_equal(names(ala_occurrences(taxa = id,
                                      filters = select_filters(
                                        list(occurrence_decade_i = 1930)),
                                      columns = cols)), c("occurrenceStatus",
@@ -75,7 +75,7 @@ test_that("ala occurrences handles assertion columns and works with data.frame
   skip_on_cran()
   id <- ala_taxa("Paraparatrechina minutula")
   cols <- select_columns(extra = c("zeroLatitude", "zeroLongitude", "eventDate"))
-  expect_equal(names(ala_occurrences(taxon_id = id, columns = cols)),
+  expect_equal(names(ala_occurrences(taxa = id, columns = cols)),
                c("eventDate", "zeroLatitude", "zeroLongitude"))
 })
 
@@ -86,10 +86,10 @@ test_that("ala_occurrences handles wkt area inputs", {
 
   wkt <- readLines("../testdata/long_act_wkt.txt")
 
-  geometry <- select_locations(readLines("../testdata/short_act_wkt.txt"))
+  locations <- select_locations(readLines("../testdata/short_act_wkt.txt"))
   cols <- select_columns("basic", extra = "state")
   filters <- select_filters(list(basis_of_record = "MachineObservation"))
-  expect_equal(unique(ala_occurrences(geometry = geometry,
+  expect_equal(unique(ala_occurrences(locations = locations,
                                       filters = filters,
                                       columns = cols)$stateProvince),
                "Australian Capital Territory")
@@ -99,9 +99,9 @@ test_that("ala_occurrences handles sf polygon inputs", {
   skip_on_cran()
   # convert wkt to sfc
   act_shp <- st_as_sfc(readLines("../testdata/short_act_wkt.txt"))
-  geometry <- select_locations(sf = act_shp)
+  locations <- select_locations(sf = act_shp)
   filters <- select_filters(list(basis_of_record = "MachineObservation"))
-  expect_equal(unique(ala_occurrences(geometry = geometry, filters = filters,
+  expect_equal(unique(ala_occurrences(locations = locations, filters = filters,
                                       columns = select_columns("basic",
                                                   "state"))$stateProvince),
                "Australian Capital Territory")

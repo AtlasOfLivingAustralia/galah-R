@@ -19,7 +19,7 @@ select_locations <- function(wkt, sf) {
   if (!missing(sf)) {
     wkt <- build_wkt(sf)
   }
-  attr(wkt, "ala") <- "geometry"
+  #attr(wkt, "ala") <- "location"
   return(wkt)
 }
 

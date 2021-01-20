@@ -8,7 +8,7 @@
 #' \item for occurrence fields: \url{https://api.ala.org.au/#ws72}
 #' \item for assertions \url{https://api.ala.org.au/#ws81}
 #' }
-#' @seealso \code{\link{ala_layers}} to search for spatial layers
+#' @seealso \code{\link{find_layers}} to search for spatial layers
 #' @param class string: class of fields to return e.g. "Assertion"
 #' @return data.frame of all fields. 
 #' @examples

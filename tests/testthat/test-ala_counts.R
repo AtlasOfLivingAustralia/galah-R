@@ -19,10 +19,10 @@ test_that("ala counts checks inputs", {
 test_that("ala counts returns expected outputs", {
   skip_on_cran()
   expect_type(ala_counts(
-    taxon_id = "https://id.biodiversity.org.au/taxon/apni/51302291"),
+    taxa = "https://id.biodiversity.org.au/taxon/apni/51302291"),
     "integer")
   expect_equal(class(ala_counts(
-    taxon_id = "https://id.biodiversity.org.au/taxon/apni/51302291",
+    taxa = "https://id.biodiversity.org.au/taxon/apni/51302291",
                                 group_by = "basis_of_record")), "data.frame")
   
   expect_warning(ala_counts(group_by = 'phylum'))
@@ -38,7 +38,7 @@ test_that("ala_counts handles wkt area inputs", {
   # invalid wkt
   skip_on_cran()
   wkt <- readLines('../testdata/short_act_wkt.txt')
-  expect_lt(ala_counts(geometry = select_locations(wkt)), ala_counts())
+  expect_lt(ala_counts(locations = select_locations(wkt)), ala_counts())
 })
 
 test_that("ala counts handles queries with no records", {

@@ -29,5 +29,5 @@ Relevant ALA web services: \itemize{
 }
 }
 \seealso{
-\code{\link{ala_layers}} to search for spatial layers
+\code{\link{find_layers}} to search for spatial layers
 }

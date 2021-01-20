@@ -104,7 +104,7 @@ occ <- read.csv("banksia.csv")
 
 Download occurrence records for 5 Banksia species
 ```{r eval = FALSE}
-occ <- ala_occurrences(taxon_id = top5_banksia)
+occ <- ala_occurrences(taxa = top5_banksia)
 ```
 
 ```{r}
@@ -116,7 +116,7 @@ head(occ)
 # build filters and columns
 cols <- select_columns(group = "basic", extra = "country")
 filters <- select_filters(list(year = seq(2000, 2020)))
-occ <- ala_occurrences(taxon_id = top5_banksia,
+occ <- ala_occurrences(taxa = top5_banksia,
                        columns = cols, filters = filters)
 ```
 
@@ -142,7 +142,7 @@ Occurrence searches can be narrowed down by area, a variety of filters, and data
 id <- ala_taxa("Ornithorhynchus anatinus")
 simple_shp <- st_cast(st_read('act_rect.shp'), "MULTIPOLYGON")
 
-occ <- ala_occurrences(taxon_id = id, geometry = select_location(area = simple_shp))
+occ <- ala_occurrences(taxa = id, locations = select_locations(area = simple_shp))
 ```
 
 ```{r include = FALSE}

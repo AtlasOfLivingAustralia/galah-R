@@ -4,13 +4,13 @@
 \alias{select_filters}
 \title{Build a dataframe from a filter list}
 \usage{
-select_filters(filters = NULL, data_quality_profile = NULL)
+select_filters(filters = NULL, profile = NULL)
 }
 \arguments{
 \item{filters}{string: a list to narrow down the search, in the form
 `list(field = value)`.}
 
-\item{data_quality_profile}{string: a data quality profile to apply to the
+\item{profile}{string: a data quality profile to apply to the
 records. See `find_data_profiles()` for valid profiles. By default, no
 profile is applied.}
 }

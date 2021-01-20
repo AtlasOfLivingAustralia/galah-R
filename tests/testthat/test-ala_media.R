@@ -17,6 +17,7 @@ test_that("ala media check inputs", {
 test_that("ala media handles a single image id", {
   skip_on_cran()
   media_dir <- "test_media"
+  unlink(media_dir)
   dir.create(media_dir)
   expect_error(ala_media(identifier = "bad_id", identifier_type = "media",
                          download_dir = media_dir))
