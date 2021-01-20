@@ -6,7 +6,7 @@ ala_download <- function(url, path, params = list(), ext = ".csv",
   cli <- HttpClient$new(
     url = url,
     headers = list(
-      useragent = user_agent_string()
+      "User-Agent" = user_agent_string()
     )
   )
 

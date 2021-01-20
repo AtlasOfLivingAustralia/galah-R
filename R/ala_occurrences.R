@@ -151,6 +151,7 @@ ala_occurrences <- function(taxa, filters, locations, columns,
 wait_for_download <- function(url, query, verbose) {
   status <- ala_GET(url, "ws/occurrences/offline/download",
                     params = query, on_error = occ_error_handler)
+  print(query)
   status_url <- parse_url(status$statusUrl)
   status <- ala_GET(url, path = status_url$path)
 
