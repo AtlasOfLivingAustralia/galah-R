@@ -31,9 +31,6 @@ ala_GET <- function(url, path, params = list(), on_error = NULL,
       return(res)
     }
     res <- cli$get(path = path, query = params, encode = "json")
-    print(res$url)
-    print(res$request_headers)
-    print(names(res))
   }
   
   #print(res$request$url)
