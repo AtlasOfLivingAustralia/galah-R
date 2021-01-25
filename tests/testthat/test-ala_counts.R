@@ -8,7 +8,7 @@ test_that("ala counts checks inputs", {
   expect_error(ala_counts(group_by = "bad_facet"))
   
   # invalid filter
-  expect_error(ala_counts(filters = select_filters(list(bad_facet = 'test'))))
+  expect_error(ala_counts(filters = select_filters(bad_facet = 'test')))
   
   # too many filters
   filters <- select_filters(sapply(find_fields("assertion")$name,
@@ -30,7 +30,7 @@ test_that("ala counts returns expected outputs", {
 
 test_that("ala counts works with filters", {
   skip_on_cran()
-  expect_lt(ala_counts(filters = select_filters(list(year = 2000))),
+  expect_lt(ala_counts(filters = select_filters(year = 2000)),
             ala_counts())
 })
 
@@ -43,7 +43,7 @@ test_that("ala_counts handles wkt area inputs", {
 
 test_that("ala counts handles queries with no records", {
   skip_on_cran()
-  filters <- select_filters(list(kingdom = 'non-existent'))
+  filters <- select_filters(kingdom = 'non-existent')
   expect_s3_class(ala_counts(filters = filters,
                              group_by = 'basis_of_record'), "data.frame")
 })
@@ -59,5 +59,6 @@ test_that("ala occurrences handles long queries with pagination", {
   skip_on_cran()
   taxa <- ala_taxa("Hymenoptera", return_children = TRUE)
   filters <- select_filters(profile = "ALA")
-  expect_equal(nrow(ala_counts(group_by = "eventDate", limit = 101)), 101)
+  expect_warning(expect_equal(nrow(ala_counts(group_by = "eventDate",
+                                              limit = 101)), 101))
 })
