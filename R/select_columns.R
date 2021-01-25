@@ -1,7 +1,11 @@
 #' Build dataframe of columns to keep
+#' 
+#' The result of `select_columns` can be passed to the `columns` argument in
+#' \code{\link{ala_occurrences}}.
+#' 
+#' @param ... individual column names to return
 #' @param group string: name of column group to include (either \code{'basic'}
 #' or \code{'event'})
-#' @param extra string: additional column names to return
 #' @details
 #' Calling the argument \code{group = 'basic'} returns the following columns:
 #' \itemize{
@@ -23,7 +27,7 @@
 #'   \item\code{samplingProtocol}
 #' }
 #' @export select_columns
-select_columns <- function(group, extra) {
+select_columns <- function(..., group) {
   if (!missing(group)) {
     group_cols <- data.table::rbindlist(lapply(group, function(x) {
       data.frame(name = preset_cols(x), type = "field",
@@ -33,8 +37,9 @@ select_columns <- function(group, extra) {
     }
 
   assertions <- find_fields("assertion")$name
-  if (!missing(extra)) {
-    extra_cols <- data.table::rbindlist(lapply(extra, function(x) {
+  cols <- list(...)
+  if (length(cols) > 0) {
+    extra_cols <- data.table::rbindlist(lapply(cols, function(x) {
       type <- ifelse(x %in% assertions, "assertions", "field")
       data.frame(name = x, type = type, stringsAsFactors = FALSE)
     }))} else {

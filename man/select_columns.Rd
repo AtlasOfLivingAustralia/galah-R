@@ -4,16 +4,17 @@
 \alias{select_columns}
 \title{Build dataframe of columns to keep}
 \usage{
-select_columns(group, extra)
+select_columns(..., group)
 }
 \arguments{
+\item{...}{individual column names to return}
+
 \item{group}{string: name of column group to include (either \code{'basic'}
 or \code{'event'})}
-
-\item{extra}{string: additional column names to return}
 }
 \description{
-Build dataframe of columns to keep
+The result of `select_columns` can be passed to the `columns` argument in
+\code{\link{ala_occurrences}}.
 }
 \details{
 Calling the argument \code{group = 'basic'} returns the following columns:
