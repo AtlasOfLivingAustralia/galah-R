@@ -1,18 +1,30 @@
 #' Download images and sounds from the ALA.
 #' 
-#' @param identifier string: a single or vector of identifiers, of type
-#' specified by `identifier_type`
-#' @param download_dir string: path to directory for downloading media
-#' @param identifier_type string: one of `c("occurrence", "media")`
+#' \code{\link{ala_occurrences}} returns a `recordID` field- passing this
+#' to `ala_media` will return images and sounds for all the records.
+#' 
+#' @param identifier string: a single or vector of occurrence or media
+#' identifiers. The type is specified by `identifier_type`
+#' @param identifier_type string: one of `c("occurrence", "media")`. Defaults
+#' to "media".
+#' @param download_dir string: path to directory to store the downloaded media
+#' in
 #' @param media_type string: type of media to download, one or both of 
-#' `c("image", "sound")`
+#' `c("image", "sound")`. Defaults to both.
 #' @return dataframe of media information
+#' @examples
+#' \dontrun{
+#' # Occurrences of koalas with sound recordings
+#' occ <- ala_occurrences(taxa = ala_taxa("Phascolarctos cinereus"),
+#'                        filters = select_filters(multimedia = "Sound"))
+#' sounds <- ala_media(occ$recordID, identifier_type = "occurrence",
+#'                     download_dir = tempdir())
+#' }
 #' @export ala_media
 
-# should sounds be downloaded by default?
-# which fields should be kept?
-ala_media <- function(identifier, download_dir, identifier_type = "media",
+ala_media <- function(identifier, identifier_type = "media", download_dir,
                       media_type = c("image", "sound")) {
+  config_verbose <- getOption("koala_config")$verbose
   assert_that(!missing(identifier),
               msg = "Please provide at least one identifier")
   assert_that(is.character(identifier))
@@ -46,6 +58,9 @@ ala_media <- function(identifier, download_dir, identifier_type = "media",
   # should add output path to out data?
   d <- mapply(download_media, media_data$media_id, media_data$format,
               download_dir)
+  if (config_verbose) {
+    message(nrow(media_data), " files were downloaded to ", download_dir)
+  }
   media_data
 }
 
@@ -89,7 +104,11 @@ download_media <- function(id, type, download_dir) {
   url$path <- c("image", as.character(id), "original")
   ext <- switch (type,
     "image/jpeg" = ".jpg",
-    "image/png" = ".png"
+    "image/png" = ".png",
+    "audio/mpeg" = ".mpg",
+    "audio/x-wav" = ".wav",
+    "audio/mp4" = ".mp4",
+    "audio/vnd.wave" = ".wav"
   )
   out_path <- file.path(download_dir, paste0(id, ext))
   download.file(build_url(url), destfile = out_path, quiet = TRUE)

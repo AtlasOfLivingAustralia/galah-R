@@ -6,25 +6,37 @@
 \usage{
 ala_media(
   identifier,
-  download_dir,
   identifier_type = "media",
+  download_dir,
   media_type = c("image", "sound")
 )
 }
 \arguments{
-\item{identifier}{string: a single or vector of identifiers, of type
-specified by `identifier_type`}
+\item{identifier}{string: a single or vector of occurrence or media
+identifiers. The type is specified by `identifier_type`}
 
-\item{download_dir}{string: path to directory for downloading media}
+\item{identifier_type}{string: one of `c("occurrence", "media")`. Defaults
+to "media".}
 
-\item{identifier_type}{string: one of `c("occurrence", "media")`}
+\item{download_dir}{string: path to directory to store the downloaded media
+in}
 
 \item{media_type}{string: type of media to download, one or both of 
-`c("image", "sound")`}
+`c("image", "sound")`. Defaults to both.}
 }
 \value{
 dataframe of media information
 }
 \description{
-Download images and sounds from the ALA.
+\code{\link{ala_occurrences}} returns a `recordID` field- passing this
+to `ala_media` will return images and sounds for all the records.
+}
+\examples{
+\dontrun{
+# Occurrences of koalas with sound recordings
+occ <- ala_occurrences(taxa = ala_taxa("Phascolarctos cinereus"),
+                       filters = select_filters(multimedia = "Sound"))
+sounds <- ala_media(occ$recordID, identifier_type = "occurrence",
+                    download_dir = tempdir())
+}
 }
