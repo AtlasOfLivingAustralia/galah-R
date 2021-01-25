@@ -114,8 +114,8 @@ head(occ)
 
 ```{r eval = FALSE}
 # build filters and columns
-cols <- select_columns(group = "basic", extra = "country")
-filters <- select_filters(list(year = seq(2000, 2020)))
+cols <- select_columns("country", group = "basic")
+filters <- select_filters(year = seq(2000, 2020))
 occ <- ala_occurrences(taxa = top5_banksia,
                        columns = cols, filters = filters)
 ```
@@ -191,7 +191,7 @@ state_counts <- ala_counts(group_by = "state")
 states <- state_counts %>% pull(name)
 
 provider_counts <- bind_rows(lapply(states, function(s) {
-  filt <- select_filters(list(state = s))
+  filt <- select_filters(state = s)
   counts <- ala_counts(filters = filt, group_by = "data_provider", limit = 10)
   counts$state <- s
   counts
@@ -211,8 +211,8 @@ ggplot(provider_counts) +
 ## Media downloads
 ```{r warning=FALSE, message=FALSE, eval = FALSE}
 # Search for occurrences with images
-filters <- select_filters(list("multimedia" = "Image",
-                                      basis_of_record = "HumanObservation"))
+filters <- select_filters(multimedia = "Image",
+                          basis_of_record = "HumanObservation")
 occ <- ala_occurrences(quoll$taxon_concept_id,
                        filters = filters)
 images <- ala_media(head(occ$recordID, n = 5), download_dir = 'data/',
