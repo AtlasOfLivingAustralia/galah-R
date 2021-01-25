@@ -14,11 +14,8 @@ find_reasons()
 \itemize{
   \item reset: \code{ala_config("reset")} will reset the options to their
   default values
-  \item caching string: caching can be
-    "on" (results will be cached, and any cached results will be re-used),
-    "refresh" (cached results will be refreshed and the new results stored
-    in the cache), or
-    "off" (no caching, default).
+  \item caching logical: if TRUE, results will be cached, and any cached
+    results will be re-used). If FALSE, data will be downloaded.
   \item cache_directory string: the directory to use for the cache.
     By default this is a temporary directory, which means that results will
     only be cached
@@ -29,7 +26,7 @@ find_reasons()
   debugging? (default = FALSE)
   \item download_reason_id numeric or string: the "download reason" required
   by some ALA services, either as a numeric ID (currently 0--11)
-  or a string (see \code{ala_reasons()} for a list of valid ID codes and
+  or a string (see \code{find_reasons()} for a list of valid ID codes and
   names). By default this is NA. Some ALA services require a valid
   download_reason_id code, either specified here or directly to the
   associated R function.
@@ -42,26 +39,18 @@ For ala_config(), a list of all options. When ala_config(...) is
 called with arguments, nothing is returned but the configuration is set.
 }
 \description{
-Get or set configuration options that control koala behaviour
+Invoking \code{ala_config()} with no arguments returns a list with the
+current values of the options.
+}
+\details{
+\code{find_reasons()} returns a data frame with information describing the
+valid options for \code{download_reason_id}
 }
 \examples{
 \dontrun{
  ala_config()
- ala_config(caching = "off")
+ ala_config(caching = FALSE)
  ala_reasons()
  ala_config(download_reason_id = 0,verbose = TRUE)
- ala_config("reset")
 }
-}
-\references{
-\url{https://api.ala.org.au/}
-
-\url{https://spatial.ala.org.au/layers-service/} this will
-eventually move to the api link
-
-Invoking \code{ala_config()} with no arguments returns a list with the
-current values of the options.
-
-\code{ala_reasons()} returns a data frame with information describing the
-valid options for \code{download_reason_id}
 }
