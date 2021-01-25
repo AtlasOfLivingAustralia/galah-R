@@ -1,6 +1,7 @@
 #' Build a WKT string from a spatial object or verify an existing string.
 #' 
-#' Used by `ala_occurrences() to restrict search to an area.`
+#' Used by \code{\link{ala_occurrences}} to restrict search to an area.
+#' Provide either a wkt, or an sf object.
 #'
 #' @param wkt string: wkt to be verified. WKT strings longer than 10000
 #' characters will not be accepted by the ALA- see the vignette for how to

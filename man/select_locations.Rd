@@ -17,5 +17,6 @@ work around this.}
 WKT string representing area provided
 }
 \description{
-Used by `ala_occurrences() to restrict search to an area.`
+Used by \code{\link{ala_occurrences}} to restrict search to an area.
+Provide either a wkt, or an sf object.
 }

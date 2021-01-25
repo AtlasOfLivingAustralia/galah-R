@@ -165,7 +165,12 @@ layers[grepl("precipitation", tolower(layers$description)),]$name
 ```
 
 ### Fields and categories
-`ala_fields()` displays all the fields available for filtering and
+```{r eval=FALSE}
+# View all available fields
+find_fields()
+# View values for a given field
+find_categories('basisOfRecord')
+```
 
 ### Data quality profile
 By default, the data quality profile is set to the ALA general.

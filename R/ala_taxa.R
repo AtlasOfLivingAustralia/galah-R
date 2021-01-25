@@ -1,27 +1,32 @@
-#' Function to lookup species information from ALA, given names or unique
-#' identifiers.
+#' Lookup taxon information 
 #'
-#' Uses ALA name matching service. Species ids from this function can be
-#' used to search `ala_occurrences`
+#' The resulting dataframe of taxon information can be passed directly to
+#' \code{\link{ala_occurrences}} to filter records to the specified taxa.
 #'
 #' @param term string, named list or dataframe: search term(s)
 #' @param term_type string: specifies which type of terms are provided in
-#' `term`. One of name `c('name', 'identifier')`
+#' `term`. One of name `c('name', 'identifier')`. Default behaviour is to
+#' search by `name`. `identifier` refers to the unique identifier for a taxon. 
 #' @param return_children logical: return child concepts for the provided
-#' term(s)
-#' @param include_counts logical: return occurrence counts for all species
-#' returned
-#' @param caching logical: should the results be cached?
+#' term(s)?
+#' @param include_counts logical: return occurrence counts for all taxa
+#' found? FALSE by default
+#' @param caching logical: should the results be cached? FALSE by default
 #' @return dataframe of taxon information
 #' @examples
 #' \dontrun{
+#' # Search using a single term
 #' ala_taxa(term = "Reptilia")
+#' 
+#' # Search with multiple ranks. This is required if a single term is a homonym.
 #' ala_taxa(list(kingdom = "Plantae", genus = "Microseris"),
-#' return_children = TRUE, include_counts = TRUE)
+#'          return_children = TRUE, include_counts = TRUE)
+#' 
+#' # Search using an unique taxon identifier
+#' ala_taxa(term = "https://id.biodiversity.org.au/node/apni/2914510",
+#'          term_type = "identifier")
 #' }
 #' @export ala_taxa
-
-## TODO: Fix the adjust colnames function
 
 ala_taxa <- function(term, term_type = "name", return_children = FALSE,
                          include_counts = FALSE, caching = FALSE) {
