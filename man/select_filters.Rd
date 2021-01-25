@@ -2,21 +2,21 @@
 % Please edit documentation in R/select_filters.R
 \name{select_filters}
 \alias{select_filters}
-\title{Build a dataframe from a filter list}
+\title{Select filters to narrow down occurrence queries}
 \usage{
-select_filters(filters = NULL, profile = NULL)
+select_filters(..., profile = NULL)
 }
 \arguments{
-\item{filters}{string: a list to narrow down the search, in the form
-`list(field = value)`.}
+\item{...}{filters, in the form field = value}
 
-\item{profile}{string: a data quality profile to apply to the
-records. See `find_data_profiles()` for valid profiles. By default, no
-profile is applied.}
+\item{profile}{string: (optional) a data quality profile to apply to the
+records. See \code{\link{find_data_profiles}} for valid profiles. By default
+no profile is applied.}
 }
 \value{
 dataframe of filter values
 }
 \description{
-Build a dataframe from a filter list
+The result of `select_filters` can be passed to the `filters` argument in
+\code{\link{ala_occurrences}} and \code{\link{ala_counts}}
 }

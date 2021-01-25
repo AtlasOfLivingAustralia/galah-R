@@ -10,13 +10,13 @@ test_that("select_filters builds data quality filters", {
 
 test_that("select_filters handles assertion filters", {
   expect_true("assertions" %in%
-                select_filters(list(zeroCoordinates = FALSE,
-                                 habitatMismatch = FALSE))$name)
+                select_filters(zeroCoordinates = FALSE,
+                                 habitatMismatch = FALSE)$name)
 })
 
 test_that("select_filters handles exclusion filters", {
-  expect_false(select_filters(list(basis_of_record =
-                                  exclude("HumanObservation")))$include)
+  expect_false(select_filters(basis_of_record =
+                                  exclude("HumanObservation"))$include)
 })
 
 test_that("select_filters validates filters", {
@@ -24,6 +24,6 @@ test_that("select_filters validates filters", {
 })
 
 test_that("select_filters converts logical to string", {
-  expect_equal(unlist(select_filters(list(geospatial_kosher = TRUE))$value),
+  expect_equal(unlist(select_filters(geospatial_kosher = TRUE)$value),
                "true")
 })

@@ -1,14 +1,17 @@
-#' Build a dataframe from a filter list
+#' Select filters to narrow down occurrence queries
+#' 
+#' The result of `select_filters` can be passed to the `filters` argument in
+#' \code{\link{ala_occurrences}} and \code{\link{ala_counts}}
 #'
-#' @param filters string: a list to narrow down the search, in the form
-#' `list(field = value)`.
-#' @param profile string: a data quality profile to apply to the
-#' records. See `find_data_profiles()` for valid profiles. By default, no
-#' profile is applied.
+#' @param ... filters, in the form field = value
+#' @param profile string: (optional) a data quality profile to apply to the
+#' records. See \code{\link{find_data_profiles}} for valid profiles. By default
+#' no profile is applied.
 #' @return dataframe of filter values
 #' @export select_filters
 
-select_filters <- function(filters = NULL, profile = NULL) {
+select_filters <- function(..., profile = NULL) {
+  filters <- list(...)
   if (!is.null(profile)) {
     dq_filters <- find_profile_filters(profile)
     dq_filter_rows <- data.table::rbindlist(lapply(dq_filters$filter,
