@@ -15,7 +15,6 @@ knitr::opts_chunk$set(
 # galah
 
 [![Travis-CI Build Status](https://travis-ci.com/AtlasOfLivingAustralia/galah.svg?branch=master)](https://travis-ci.com/AtlasOfLivingAustralia/galah)
-[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/g9pudc4l7053w4vn/branch/master?svg=true)](https://ci.appveyor.com/project/PeggyNewman/ala4r/branch/master)
 [![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/galah/branch/master/graph/badge.svg)](https://codecov.io/gh/AtlasOfLivingAustralia/galah)
 
 <code>galah</code> enables the R community to directly access data hosted by the Atlas of Living Australia (ALA).
