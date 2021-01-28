@@ -17,9 +17,9 @@ find_profiles <- function() {
 #'
 #' @param profile string: a data quality profile name, short name or id.
 #' See `find_profiles` for valid filters
-#' @export find_profile_filters
+#' @export find_profile_attributes
 
-find_profile_filters <- function(profile) {
+find_profile_attributes <- function(profile) {
   valid_profiles <- find_profiles()
   # check if is numeric or can be converted to numeric
   short_name <- NA

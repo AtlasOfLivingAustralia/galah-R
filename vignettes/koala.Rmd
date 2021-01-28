@@ -179,7 +179,7 @@ By default, the data quality profile is set to the ALA general.
 find_profiles()
 
 # List filters for a profile
-find_profile_filters("CSDM")
+find_profile_attributes("CSDM")
 ```
 
 ## Summary statistics

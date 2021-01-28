@@ -13,7 +13,7 @@
 select_filters <- function(..., profile = NULL) {
   filters <- list(...)
   if (!is.null(profile)) {
-    dq_filters <- find_profile_filters(profile)
+    dq_filters <- find_profile_attributes(profile)
     dq_filter_rows <- data.table::rbindlist(lapply(dq_filters$filter,
                                                    function(filter) {
       split <- strsplit(filter, ":")[[1]]
