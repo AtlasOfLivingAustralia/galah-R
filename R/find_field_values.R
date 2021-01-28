@@ -7,13 +7,13 @@
 #' @param limit numeric: maximum number of categories to return. 20 by default.
 #' @return a dataframe of field name and category name.
 #' @examples
-#' find_categories("basis_of_record")
-#' find_categories("state")
-#' @export find_categories
+#' find_field_values("basis_of_record")
+#' find_field_values("state")
+#' @export find_field_values
 
-find_categories <- function(field, limit = 20) {
+find_field_values <- function(field, limit = 20) {
   if (missing(field)) {
-    stop("`find_categories` requires a field to search for")
+    stop("`find_field_values` requires a field to search for")
   }
   field <- dwc_to_ala(field)
   if (!(field %in% all_fields()$name)) {

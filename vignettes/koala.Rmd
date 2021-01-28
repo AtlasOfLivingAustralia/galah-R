@@ -169,7 +169,7 @@ layers[grepl("precipitation", tolower(layers$description)),]$name
 # View all available fields
 find_fields()
 # View values for a given field
-find_categories('basisOfRecord')
+find_field_values('basisOfRecord')
 ```
 
 ### Data quality profile
