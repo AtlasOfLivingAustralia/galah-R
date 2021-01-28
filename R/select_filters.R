@@ -5,7 +5,7 @@
 #'
 #' @param ... filters, in the form field = value
 #' @param profile string: (optional) a data quality profile to apply to the
-#' records. See \code{\link{find_data_profiles}} for valid profiles. By default
+#' records. See \code{\link{find_profiles}} for valid profiles. By default
 #' no profile is applied.
 #' @return dataframe of filter values
 #' @export select_filters

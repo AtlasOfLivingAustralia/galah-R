@@ -2,11 +2,11 @@
 #'
 #' List available profiles for data filtering 
 #'
-#' @export find_data_profiles
+#' @export find_profiles
 
 # this will return names and descriptions of data profiles
 # should id be exposed to the user?
-find_data_profiles <- function() {
+find_profiles <- function() {
   # return only enabled profiles?
   url <- getOption("koala_server_config")$base_url_data_quality
   resp <- ala_GET(url, "api/v1/profiles", list(enabled = "true"))
@@ -16,11 +16,11 @@ find_data_profiles <- function() {
 #' Get data filters for a  data quality profile
 #'
 #' @param profile string: a data quality profile name, short name or id.
-#' See `find_data_profiles` for valid filters
+#' See `find_profiles` for valid filters
 #' @export find_profile_filters
 
 find_profile_filters <- function(profile) {
-  valid_profiles <- find_data_profiles()
+  valid_profiles <- find_profiles()
   # check if is numeric or can be converted to numeric
   short_name <- NA
   if (suppressWarnings(!is.na(as.numeric(profile)))) {
@@ -40,7 +40,7 @@ find_profile_filters <- function(profile) {
   }
   if (is.na(short_name)) {
     stop(profile, " is not a valid data quality id, short name or name. Use
-          `find_data_profiles` to list valid profiles.")
+          `find_profiles` to list valid profiles.")
   }
 
   url <- getOption("koala_server_config")$base_url_data_quality

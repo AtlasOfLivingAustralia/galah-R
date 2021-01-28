@@ -1,8 +1,8 @@
 context("Test ALA data profiles")
 
 test_that("ALA data profiles behaves as expected", {
-  expect_equal(class(find_data_profiles()), "data.frame")
-  expect_equal(ncol(find_data_profiles()), 4)
+  expect_equal(class(find_profiles()), "data.frame")
+  expect_equal(ncol(find_profiles()), 4)
 })
 
 test_that("find_profile_filters checks input", {

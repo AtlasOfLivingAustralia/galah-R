@@ -10,7 +10,7 @@ select_filters(..., profile = NULL)
 \item{...}{filters, in the form field = value}
 
 \item{profile}{string: (optional) a data quality profile to apply to the
-records. See \code{\link{find_data_profiles}} for valid profiles. By default
+records. See \code{\link{find_profiles}} for valid profiles. By default
 no profile is applied.}
 }
 \value{

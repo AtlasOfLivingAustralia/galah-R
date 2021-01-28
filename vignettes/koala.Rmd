@@ -176,7 +176,7 @@ find_categories('basisOfRecord')
 By default, the data quality profile is set to the ALA general.
 ```{r}
 # List available data quality profiles
-find_data_profiles()
+find_profiles()
 
 # List filters for a profile
 find_profile_filters("CSDM")
