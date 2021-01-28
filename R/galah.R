@@ -1,14 +1,14 @@
-#' \pkg{koala}
+#' \pkg{galah}
 #'
 #' This project enables the R community to access data and tools hosted by the
 #' Atlas of Living Australia. The goal of the project is
 #' to enable basic species and related information to be queried and output in
-#' standard formats for R. koala is based around the extensive web services
+#' standard formats for R. galah is based around the extensive web services
 #' provided by the Atlas; see the API link below.
 #'
 #' If you have any questions or suggestions, please email support@ala.org.au.
 #'
-#' @name koala
+#' @name galah
 #' @docType package
 #' @references \url{https://api.ala.org.au/}
 #' @import assertthat sp sf httr

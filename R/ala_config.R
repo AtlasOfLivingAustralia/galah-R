@@ -1,4 +1,4 @@
-#' Get or set configuration options that control koala behaviour
+#' Get or set configuration options that control galah behaviour
 #'
 #' Invoking \code{ala_config()} with no arguments returns a list with the
 #' current values of the options.
@@ -20,7 +20,7 @@
 #'     within an R session and cleared automatically when the user exits R.
 #'     The user may wish to set this to a non-temporary directory for
 #'     caching across sessions. The directory must exist on the file system.
-#'   \item verbose logical: should koala give verbose output to assist
+#'   \item verbose logical: should galah give verbose output to assist
 #'   debugging? (default = FALSE)
 #'   \item download_reason_id numeric or string: the "download reason" required
 #'   by some ALA services, either as a numeric ID (currently 0--11)
@@ -43,7 +43,7 @@
 #' @export ala_config
 
 ala_config <- function(..., preserve = FALSE) {
-  ala_option_name <- "koala_config"
+  ala_option_name <- "galah_config"
   current_options <- getOption(ala_option_name)
   
   assert_that(is.logical(preserve))
@@ -62,7 +62,7 @@ ala_config <- function(..., preserve = FALSE) {
     return(current_options)
   }
   if (is.null(current_options)) {
-    ## koala options have not been set yet, so set them to the defaults
+    ## galah options have not been set yet, so set them to the defaults
     current_options <- default_options
     if (!dir.exists(current_options$cache_directory)) {
       dir.create(current_options$cache_directory)
@@ -120,7 +120,7 @@ save_config <- function(profile_path, new_options) {
     # try one bracket and two brackets
     existing_options <- read_options(old_profile)
   }
-  existing_options[["koala_config"]] <- new_options
+  existing_options[["galah_config"]] <- new_options
   
   options_to_write <- paste0(
     "options(",paste(
@@ -217,7 +217,7 @@ validate_option <- function(name, value) {
 #' @export
 find_reasons <- function() {
     ## return list of valid "reasons for use" codes
-    out <- ala_GET(getOption("koala_server_config")$base_url_logger,
+    out <- ala_GET(getOption("galah_server_config")$base_url_logger,
                            path = "service/logger/reasons")
     if (any(names(out) == "deprecated")) out <- out[!out$deprecated, ]
     out <- out[wanted_columns("reasons")]

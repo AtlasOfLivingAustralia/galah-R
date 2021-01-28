@@ -27,7 +27,7 @@ find_fields <- function(class = "all") {
   
   # for backwards compatibility, should allow a user to get the ALA names for a field?
 
-  url <- getOption("koala_server_config")$base_url_biocache
+  url <- getOption("galah_server_config")$base_url_biocache
   
   fields <- ala_GET(url, path = "ws/index/fields")
   
@@ -68,6 +68,6 @@ dwc_to_ala <- function(dwc_names) {
 }
 
 all_fields <- function() {
-  url <- getOption("koala_server_config")$base_url_biocache
+  url <- getOption("galah_server_config")$base_url_biocache
   ala_GET(url, path = "ws/index/fields")
 }

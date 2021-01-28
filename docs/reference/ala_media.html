@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Download images and sounds from the ALA. — ala_media • koala</title>
+<title>Download images and sounds from the ALA. — ala_media • galah</title>
 
 
 <!-- jquery -->
@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Download images and sounds from the ALA. — ala_media" />
-<meta property="og:description" content="Download images and sounds from the ALA." />
+<meta property="og:description" content="ala_occurrences returns a `recordID` field- passing this
+to `ala_media` will return images and sounds for all the records." />
 
 
 
@@ -71,7 +72,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">koala</a>
+        <a class="navbar-link" href="../index.html">galah</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
@@ -80,12 +81,12 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../articles/koala.html">Get started</a>
+  <a href="../articles/galah.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -96,8 +97,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/AtlasOfLivingAustralia/koala/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/AtlasOfLivingAustralia/galah/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -115,18 +116,19 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Download images and sounds from the ALA.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/koala/blob/master/R/ala_media.R'><code>R/ala_media.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/ala_media.R'><code>R/ala_media.R</code></a></small>
     <div class="hidden name"><code>ala_media.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Download images and sounds from the ALA.</p>
+    <p><code><a href='ala_occurrences.html'>ala_occurrences</a></code> returns a `recordID` field- passing this
+to `ala_media` will return images and sounds for all the records.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ala_media</span><span class='op'>(</span>
   <span class='va'>identifier</span>,
-  <span class='va'>download_dir</span>,
   identifier_type <span class='op'>=</span> <span class='st'>"media"</span>,
+  <span class='va'>download_dir</span>,
   media_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"image"</span>, <span class='st'>"sound"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -135,21 +137,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>identifier</th>
-      <td><p>string: a single or vector of identifiers, of type
-specified by `identifier_type`</p></td>
-    </tr>
-    <tr>
-      <th>download_dir</th>
-      <td><p>string: path to directory for downloading media</p></td>
+      <td><p>string: a single or vector of occurrence or media
+identifiers. The type is specified by `identifier_type`</p></td>
     </tr>
     <tr>
       <th>identifier_type</th>
-      <td><p>string: one of `c("occurrence", "media")`</p></td>
+      <td><p>string: one of `c("occurrence", "media")`. Defaults
+to "media".</p></td>
+    </tr>
+    <tr>
+      <th>download_dir</th>
+      <td><p>string: path to directory to store the downloaded media
+in</p></td>
     </tr>
     <tr>
       <th>media_type</th>
       <td><p>string: type of media to download, one or both of 
-`c("image", "sound")`</p></td>
+`c("image", "sound")`. Defaults to both.</p></td>
     </tr>
     </table>
 
@@ -157,6 +161,15 @@ specified by `identifier_type`</p></td>
 
     <p>dataframe of media information</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'># Occurrences of galahs with sound recordings</span>
+<span class='va'>occ</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ala_occurrences.html'>ala_occurrences</a></span><span class='op'>(</span>taxa <span class='op'>=</span> <span class='fu'><a href='ala_taxa.html'>ala_taxa</a></span><span class='op'>(</span><span class='st'>"Phascolarctos cinereus"</span><span class='op'>)</span>,
+                       filters <span class='op'>=</span> <span class='fu'><a href='select_filters.html'>select_filters</a></span><span class='op'>(</span>multimedia <span class='op'>=</span> <span class='st'>"Sound"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>sounds</span> <span class='op'>&lt;-</span> <span class='fu'>ala_media</span><span class='op'>(</span><span class='va'>occ</span><span class='op'>$</span><span class='va'>recordID</span>, identifier_type <span class='op'>=</span> <span class='st'>"occurrence"</span>,
+                    download_dir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

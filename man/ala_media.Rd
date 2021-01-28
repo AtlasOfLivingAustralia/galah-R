@@ -33,7 +33,7 @@ to `ala_media` will return images and sounds for all the records.
 }
 \examples{
 \dontrun{
-# Occurrences of koalas with sound recordings
+# Occurrences of galahs with sound recordings
 occ <- ala_occurrences(taxa = ala_taxa("Phascolarctos cinereus"),
                        filters = select_filters(multimedia = "Sound"))
 sounds <- ala_media(occ$recordID, identifier_type = "occurrence",

@@ -13,7 +13,7 @@ addons:
     - gcc-8
     - g++-8
     - gfortran-8
-    
+
 matrix:
   include:
   - os: linux
@@ -44,7 +44,7 @@ warnings_are_errors: true
 script:
 - |
   R CMD build .
-  travis_wait 20 R CMD check koala*tar.gz
+  travis_wait 20 R CMD check galah*tar.gz
 after_success:
 - if [[ "${R_CODECOV}" ]]; then travis_wait 20 Rscript -e 'covr::codecov()'; fi
 notifications:

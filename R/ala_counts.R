@@ -71,7 +71,7 @@ ala_counts <- function(taxa, filters, locations, group_by,
   group_by <- dwc_to_ala(group_by)
   query$facets <- group_by
   
-  url <- getOption("koala_server_config")$base_url_biocache
+  url <- getOption("galah_server_config")$base_url_biocache
   path <- "ws/occurrence/facets"
   cache_file <- cache_filename(args = c(url, path, unlist(query), limit,
                                         group_by),
@@ -128,7 +128,7 @@ ala_counts <- function(taxa, filters, locations, group_by,
 # handle too long queries in here?
 record_count <- function(query) {
   query$pageSize <- 0
-  url <- getOption("koala_server_config")$base_url_biocache
+  url <- getOption("galah_server_config")$base_url_biocache
   resp <- ala_GET(url, "ws/occurrences/search", query)
   resp$totalRecords
 }

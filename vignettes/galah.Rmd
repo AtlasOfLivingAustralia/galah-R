@@ -1,32 +1,32 @@
 ---
-title: "koala"
+title: "galah"
 author: "Matilda Stevenson"
 date: '`r Sys.Date()`'
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{koala}
+  %\VignetteIndexEntry{galah}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-# koala
+# galah
 
 ```{r setup, include=FALSE}
 library(knitr)
 options(width=120)
 ```
 
-koala enables the R community to directly access data hosted by the Atlas of Living Australia (ALA).
+galah enables the R community to directly access data hosted by the Atlas of Living Australia (ALA).
 
 The ALA aggregates Australian biodiversity data from a range of sources, and makes the data freely available for scientists, policy makers, industry and the general public.
 
-## Installing koala
+## Installing galah
 
 Development version from GitHub:
 
 ```{r eval=FALSE}
 install.packages("remotes")
-remotes::install_github("AtlasOfLivingAustralia/koala")
+remotes::install_github("AtlasOfLivingAustralia/galah")
 ```
 
 On Linux you will first need to ensure that `libcurl` and `v8` (version <= 3.15) are installed on your system --- e.g. on Ubuntu/Debian, open a terminal and do:
@@ -37,12 +37,12 @@ sudo apt-get install libcurl4-openssl-dev libv8-3.14-dev
 or install via the Software Centre.
 
 
-## Using koala
+## Using galah
 
-The koala package must be loaded for each new R session:
+The galah package must be loaded for each new R session:
 
 ```{r}
-library(koala)
+library(galah)
 ```
 
 
@@ -230,10 +230,10 @@ images %>% filter(recognisedLicence == "CC BY-NC 4.0")
 
 ## Config
 
-Various aspects of the koala package can be customized.
+Various aspects of the galah package can be customized.
 
 ### Caching
-koala can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster. This will also reduce load on the ALA servers.
+galah can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster. This will also reduce load on the ALA servers.
 
 By default, this caching is session-based, meaning that the local files are stored in a temporary directory that is automatically deleted when the R session is ended. This behaviour can be altered so that caching is permanent, by setting the caching directory to a non-temporary location. For example, under Windows, use something like:
 
@@ -251,7 +251,7 @@ Note that this directory must exist (you need to create it yourself).
 
 All results will be stored in that cache directory and will be used from one session to the next. They won't be re-downloaded from the server unless the user specifically deletes those files or changes the caching setting to "refresh".
 
-If you change the cache_directory to a permanent location, you may wish to add something like this to your .Rprofile file, so that it happens automatically each time the koala package is loaded:
+If you change the cache_directory to a permanent location, you may wish to add something like this to your .Rprofile file, so that it happens automatically each time the galah package is loaded:
 
 Caching can also be turned off entirely by:
 
@@ -270,7 +270,7 @@ ala_config(verbose=TRUE)
 ```
 
 ### Setting the download reason
-ALA requires that you provide a reason when downloading occurrence data (via the koala `ala_occurrences()` function). The reason is set as "scientific research" by default, but you can change this using `ala_config`. See `ala_reasons()` for valid download reasons.
+ALA requires that you provide a reason when downloading occurrence data (via the galah `ala_occurrences()` function). The reason is set as "scientific research" by default, but you can change this using `ala_config`. See `ala_reasons()` for valid download reasons.
 
 ```{r eval=FALSE}
 ala_config(download_reason_id=your_reason_id)

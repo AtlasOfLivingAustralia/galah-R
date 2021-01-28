@@ -21,7 +21,7 @@ find_field_values <- function(field, limit = 20) {
          "\" is not a valid field. See valid fields with `find_fields()`.")
   }
   assert_that(is.numeric(limit))
-  url <- getOption("koala_server_config")$base_url_biocache
+  url <- getOption("galah_server_config")$base_url_biocache
   resp <- ala_GET(url, "ws/occurrence/facets",
                     params = list(facets = field, flimit = limit))
 

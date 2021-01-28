@@ -1,13 +1,13 @@
 year <- format(Sys.Date(), "%Y")
 note <- sprintf("R package version %s", meta$Version)
 
-citHeader("To cite koala in publications use:")
+citHeader("To cite galah in publications use:")
 
 bibentry(bibtype = "Manual",
-    "title" = "koala: Atlas of Living Australia (ALA) Data and Resources in R",
+    "title" = "galah: Atlas of Living Australia (ALA) Data and Resources in R",
     author = c(person("Matilda", "Stevenson"),
              person("Martin", "Westgate"),
              person("Peggy", "Newman")),
      year = year,
      note = note,
-     url = "https://CRAN.R-project.org/package=koala")
+     url = "https://CRAN.R-project.org/package=galah")

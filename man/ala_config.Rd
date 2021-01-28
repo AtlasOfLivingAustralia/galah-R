@@ -3,7 +3,7 @@
 \name{ala_config}
 \alias{ala_config}
 \alias{find_reasons}
-\title{Get or set configuration options that control koala behaviour}
+\title{Get or set configuration options that control galah behaviour}
 \usage{
 ala_config(..., preserve = FALSE)
 
@@ -22,7 +22,7 @@ find_reasons()
     within an R session and cleared automatically when the user exits R.
     The user may wish to set this to a non-temporary directory for
     caching across sessions. The directory must exist on the file system.
-  \item verbose logical: should koala give verbose output to assist
+  \item verbose logical: should galah give verbose output to assist
   debugging? (default = FALSE)
   \item download_reason_id numeric or string: the "download reason" required
   by some ALA services, either as a numeric ID (currently 0--11)

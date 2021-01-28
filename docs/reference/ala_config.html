@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get or set configuration options that control koala behaviour — ala_config • koala</title>
+<title>Get or set configuration options that control galah behaviour — ala_config • galah</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Get or set configuration options that control koala behaviour — ala_config" />
-<meta property="og:description" content="Get or set configuration options that control koala behaviour" />
+<meta property="og:title" content="Get or set configuration options that control galah behaviour — ala_config" />
+<meta property="og:description" content="Invoking ala_config() with no arguments returns a list with the
+current values of the options." />
 
 
 
@@ -71,7 +72,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">koala</a>
+        <a class="navbar-link" href="../index.html">galah</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
@@ -80,12 +81,12 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../articles/koala.html">Get started</a>
+  <a href="../articles/galah.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -96,8 +97,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/AtlasOfLivingAustralia/koala/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/AtlasOfLivingAustralia/galah/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -114,18 +115,19 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get or set configuration options that control koala behaviour</h1>
-    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/koala/blob/master/R/ala_config.R'><code>R/ala_config.R</code></a></small>
+    <h1>Get or set configuration options that control galah behaviour</h1>
+    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/ala_config.R'><code>R/ala_config.R</code></a></small>
     <div class="hidden name"><code>ala_config.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get or set configuration options that control koala behaviour</p>
+    <p>Invoking <code>ala_config()</code> with no arguments returns a list with the
+current values of the options.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ala_config</span><span class='op'>(</span><span class='va'>...</span>, preserve <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>ala_reasons</span><span class='op'>(</span><span class='op'>)</span></pre>
+<span class='fu'>find_reasons</span><span class='op'>(</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -135,29 +137,19 @@
       <td><p>Options can be defined using name = value. Valid options are:</p><ul>
 <li><p>reset: <code>ala_config("reset")</code> will reset the options to their
   default values</p></li>
-<li><p>caching string: caching can be
-    "on" (results will be cached, and any cached results will be re-used),
-    "refresh" (cached results will be refreshed and the new results stored
-    in the cache), or
-    "off" (no caching, default).</p></li>
+<li><p>caching logical: if TRUE, results will be cached, and any cached
+    results will be re-used). If FALSE, data will be downloaded.</p></li>
 <li><p>cache_directory string: the directory to use for the cache.
     By default this is a temporary directory, which means that results will
     only be cached
     within an R session and cleared automatically when the user exits R.
     The user may wish to set this to a non-temporary directory for
     caching across sessions. The directory must exist on the file system.</p></li>
-<li><p>verbose logical: should koala give verbose output to assist
+<li><p>verbose logical: should galah give verbose output to assist
   debugging? (default = FALSE)</p></li>
-<li><p>warn_on_empty logical: should a warning be issued if a request
-  returns an empty result set? (default = FALSE)</p></li>
-<li><p>user_agent string: the user-agent string used with all web requests
-  to the ALA servers.
-    Default = "koala" with version number</p></li>
-<li><p>text_encoding string: text encoding assumed when reading cached
-  files from local disk (default = "UTF-8")</p></li>
 <li><p>download_reason_id numeric or string: the "download reason" required
   by some ALA services, either as a numeric ID (currently 0--11)
-  or a string (see <code>ala_reasons()</code> for a list of valid ID codes and
+  or a string (see <code>find_reasons()</code> for a list of valid ID codes and
   names). By default this is NA. Some ALA services require a valid
   download_reason_id code, either specified here or directly to the
   associated R function.</p></li>
@@ -173,23 +165,17 @@
 
     <p>For ala_config(), a list of all options. When ala_config(...) is
 called with arguments, nothing is returned but the configuration is set.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><a href='https://api.ala.org.au/'>https://api.ala.org.au/</a></p>
-<p><a href='https://spatial.ala.org.au/layers-service/'>https://spatial.ala.org.au/layers-service/</a> this will
-eventually move to the api link</p>
-<p>Invoking <code>ala_config()</code> with no arguments returns a list with the
-current values of the options.</p>
-<p><code>ala_reasons()</code> returns a data frame with information describing the
+    <p><code>find_reasons()</code> returns a data frame with information describing the
 valid options for <code>download_reason_id</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
  <span class='fu'>ala_config</span><span class='op'>(</span><span class='op'>)</span>
- <span class='fu'>ala_config</span><span class='op'>(</span>caching <span class='op'>=</span> <span class='st'>"off"</span><span class='op'>)</span>
+ <span class='fu'>ala_config</span><span class='op'>(</span>caching <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
  <span class='fu'>ala_reasons</span><span class='op'>(</span><span class='op'>)</span>
  <span class='fu'>ala_config</span><span class='op'>(</span>download_reason_id <span class='op'>=</span> <span class='fl'>0</span>,verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
- <span class='fu'>ala_config</span><span class='op'>(</span><span class='st'>"reset"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

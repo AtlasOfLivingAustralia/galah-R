@@ -5,7 +5,7 @@
 
 find_layers <- function() {
   # web service returns all layers so might as well do that
-  url <- getOption("koala_server_config")$base_url_spatial
+  url <- getOption("galah_server_config")$base_url_spatial
   result <- ala_GET(url, "ws/layers")
   layer_id <- mapply(build_layer_id, result$type, result$id,
                       USE.NAMES = FALSE)

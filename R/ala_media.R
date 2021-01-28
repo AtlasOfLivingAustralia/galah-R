@@ -14,7 +14,7 @@
 #' @return dataframe of media information
 #' @examples
 #' \dontrun{
-#' # Occurrences of koalas with sound recordings
+#' # Occurrences of galahs with sound recordings
 #' occ <- ala_occurrences(taxa = ala_taxa("Phascolarctos cinereus"),
 #'                        filters = select_filters(multimedia = "Sound"))
 #' sounds <- ala_media(occ$recordID, identifier_type = "occurrence",
@@ -24,7 +24,7 @@
 
 ala_media <- function(identifier, identifier_type = "media", download_dir,
                       media_type = c("image", "sound")) {
-  config_verbose <- getOption("koala_config")$verbose
+  config_verbose <- getOption("galah_config")$verbose
   assert_that(!missing(identifier),
               msg = "Please provide at least one identifier")
   assert_that(is.character(identifier))
@@ -68,7 +68,7 @@ ala_media <- function(identifier, identifier_type = "media", download_dir,
 # handle the case when an occurrence record has more images than the limit?
 # is there a limit?
 occurrence_media <- function(occurrence_id) {
-  url <- getOption("koala_server_config")$base_url_images
+  url <- getOption("galah_server_config")$base_url_images
   resp <- ala_GET(url, "ws/search",
                   list(q = paste0("occurrenceID:", "\"", occurrence_id, "\"")))
 
@@ -83,7 +83,7 @@ occurrence_media <- function(occurrence_id) {
 
 # what to do if no media found? create error for now
 media <- function(media_id) {
-  url <- getOption("koala_server_config")$base_url_images
+  url <- getOption("galah_server_config")$base_url_images
   tryCatch(
     resp <- ala_GET(url, paste0("ws/image/", media_id)),
     error = function(e) {
@@ -100,7 +100,7 @@ media <- function(media_id) {
 }
 
 download_media <- function(id, type, download_dir) {
-  url <- parse_url(getOption("koala_server_config")$base_url_images)
+  url <- parse_url(getOption("galah_server_config")$base_url_images)
   url$path <- c("image", as.character(id), "original")
   ext <- switch (type,
     "image/jpeg" = ".jpg",

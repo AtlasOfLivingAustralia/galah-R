@@ -1,4 +1,4 @@
-Package: koala
+Package: galah
 Type: Package
 Title: Atlas of Living Australia (ALA) Data and Resources in R
 Version: 1.0.0
@@ -8,7 +8,7 @@ Authors@R: c(person("Matilda", "Stevenson", email="matilda.stevenson@csiro.au",r
 Description: The Atlas of Living Australia (ALA) provides tools to enable users
     of biodiversity information to find, access, combine and visualise data on
     Australian plants and animals; these have been made available from
-    <https://ala.org.au/>. <code>koala</code> provides a subset of the tools to be
+    <https://ala.org.au/>. <code>galah</code> provides a subset of the tools to be
     directly used within R. It enables the R community to directly access data
     and resources hosted by the ALA.
 Imports:
@@ -35,8 +35,8 @@ Suggests:
     tidyr,
     vegan
 License: MPL-2.0
-URL: https://github.com/AtlasOfLivingAustralia/koala
-BugReports: https://github.com/AtlasOfLivingAustralia/koala/issues
+URL: https://github.com/AtlasOfLivingAustralia/galah
+BugReports: https://github.com/AtlasOfLivingAustralia/galah/issues
 Maintainer: Matilda Stevenson <matilda.stevenson@csiro.au>
 LazyLoad: yes
 LazyData: yes
