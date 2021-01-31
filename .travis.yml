@@ -10,6 +10,8 @@ addons:
     - libudunits2-dev
     - libgdal-dev
     - libnetcdf-dev
+    - libharfbuzz-dev
+    - libfribidi-dev
     - gcc-8
     - g++-8
     - gfortran-8
