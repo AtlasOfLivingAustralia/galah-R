@@ -30,6 +30,7 @@ Suggests:
     ggplot2,
     knitr,
     ozmaps,
+    pkgdown,
     rmarkdown,
     testthat,
     tidyr,
