@@ -2,7 +2,7 @@
 % Please edit documentation in R/ala_taxa.R
 \name{ala_taxa}
 \alias{ala_taxa}
-\title{Lookup taxon information}
+\title{Taxon information}
 \usage{
 ala_taxa(
   term,
@@ -13,22 +13,24 @@ ala_taxa(
 )
 }
 \arguments{
-\item{term}{string, named list or dataframe: search term(s)}
+\item{term}{string: named list or dataframe: search term(s)}
 
 \item{term_type}{string: specifies which type of terms are provided in
-`term`. One of name `c('name', 'identifier')`. Default behaviour is to
-search by `name`. `identifier` refers to the unique identifier for a taxon.}
+`term`. One of name \code{`c('name', 'identifier')`}. Default behaviour is
+to search by `name`. `identifier` refers to the unique identifier for a
+taxon.}
 
 \item{return_children}{logical: return child concepts for the provided
 term(s)?}
 
 \item{include_counts}{logical: return occurrence counts for all taxa
-found? FALSE by default}
+found? \code{FALSE} by default}
 
-\item{caching}{logical: should the results be cached? FALSE by default}
+\item{caching}{logical: should the results be cached? \code{FALSE} by
+default}
 }
 \value{
-dataframe of taxon information
+data.frame of taxon information
 }
 \description{
 The resulting dataframe of taxon information can be passed directly to

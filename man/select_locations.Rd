@@ -2,7 +2,7 @@
 % Please edit documentation in R/select_locations.R
 \name{select_locations}
 \alias{select_locations}
-\title{Build a WKT string from a spatial object or verify an existing string.}
+\title{Build a WKT string from an sf spatial object or verify an existing WKT}
 \usage{
 select_locations(wkt, sf)
 }

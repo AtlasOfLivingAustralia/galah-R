@@ -1,9 +1,9 @@
-#' Build dataframe of columns to keep
+#' Specify columns for occurrence download
 #' 
-#' The result of `select_columns` can be passed to the `columns` argument in
-#' \code{\link{ala_occurrences}}.
+#' The result of \code{select_columns} can be passed to the \code{columns}
+#' argument in \code{\link{ala_occurrences}}.
 #' 
-#' @param ... individual column names to return
+#' @param ... zero or more individual column names to return
 #' @param group string: name of column group to include (either \code{'basic'}
 #' or \code{'event'})
 #' @details

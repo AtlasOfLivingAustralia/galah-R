@@ -1,4 +1,4 @@
-#' Build a WKT string from a spatial object or verify an existing string.
+#' Build a WKT string from an sf spatial object or verify an existing WKT
 #' 
 #' Used by \code{\link{ala_occurrences}} to restrict search to an area.
 #' Provide either a wkt, or an sf object.

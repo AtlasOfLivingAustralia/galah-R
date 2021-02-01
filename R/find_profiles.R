@@ -3,6 +3,9 @@
 #' List available profiles for data filtering 
 #'
 #' @export find_profiles
+#' @return data.frame of available profiles
+#' @examples
+#' find_profiles()
 
 # this will return names and descriptions of data profiles
 # should id be exposed to the user?
@@ -18,6 +21,9 @@ find_profiles <- function() {
 #' @param profile string: a data quality profile name, short name or id.
 #' See `find_profiles` for valid filters
 #' @export find_profile_attributes
+#' @return data.frame of profile attributes
+#' @examples
+#' find_profile_attributes("CSDM")
 
 find_profile_attributes <- function(profile) {
   valid_profiles <- find_profiles()

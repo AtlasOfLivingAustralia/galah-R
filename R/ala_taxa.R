@@ -1,18 +1,20 @@
-#' Lookup taxon information 
+#' Taxon information
 #'
 #' The resulting dataframe of taxon information can be passed directly to
 #' \code{\link{ala_occurrences}} to filter records to the specified taxa.
 #'
-#' @param term string, named list or dataframe: search term(s)
+#' @param term string: named list or dataframe: search term(s)
 #' @param term_type string: specifies which type of terms are provided in
-#' `term`. One of name `c('name', 'identifier')`. Default behaviour is to
-#' search by `name`. `identifier` refers to the unique identifier for a taxon. 
+#' `term`. One of name \code{`c('name', 'identifier')`}. Default behaviour is
+#' to search by `name`. `identifier` refers to the unique identifier for a
+#' taxon. 
 #' @param return_children logical: return child concepts for the provided
 #' term(s)?
 #' @param include_counts logical: return occurrence counts for all taxa
-#' found? FALSE by default
-#' @param caching logical: should the results be cached? FALSE by default
-#' @return dataframe of taxon information
+#' found? \code{FALSE} by default
+#' @param caching logical: should the results be cached? \code{FALSE} by
+#' default
+#' @return data.frame of taxon information
 #' @examples
 #' \dontrun{
 #' # Search using a single term

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ala_media.R
 \name{ala_media}
 \alias{ala_media}
-\title{Download images and sounds from the ALA.}
+\title{Image and sound downlaod}
 \usage{
 ala_media(
   identifier,
@@ -13,23 +13,23 @@ ala_media(
 }
 \arguments{
 \item{identifier}{string: a single or vector of occurrence or media
-identifiers. The type is specified by `identifier_type`}
+identifiers. The type is specified by \code{identifier_type}}
 
-\item{identifier_type}{string: one of `c("occurrence", "media")`. Defaults
-to "media".}
+\item{identifier_type}{string: one of \code{c("occurrence", "media")}.
+Defaults to "media".}
 
 \item{download_dir}{string: path to directory to store the downloaded media
 in}
 
 \item{media_type}{string: type of media to download, one or both of 
-`c("image", "sound")`. Defaults to both.}
+\code{c("image", "sound")}`. Defaults to both.}
 }
 \value{
 dataframe of media information
 }
 \description{
-\code{\link{ala_occurrences}} returns a `recordID` field- passing this
-to `ala_media` will return images and sounds for all the records.
+\code{\link{ala_occurrences}} returns a \code{recordID} field- passing this
+to \code{ala_media} will return images and sounds for all the records.
 }
 \examples{
 \dontrun{

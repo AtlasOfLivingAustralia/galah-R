@@ -2,19 +2,19 @@
 % Please edit documentation in R/select_columns.R
 \name{select_columns}
 \alias{select_columns}
-\title{Build dataframe of columns to keep}
+\title{Specify columns for occurrence download}
 \usage{
 select_columns(..., group)
 }
 \arguments{
-\item{...}{individual column names to return}
+\item{...}{zero or more individual column names to return}
 
 \item{group}{string: name of column group to include (either \code{'basic'}
 or \code{'event'})}
 }
 \description{
-The result of `select_columns` can be passed to the `columns` argument in
-\code{\link{ala_occurrences}}.
+The result of \code{select_columns} can be passed to the \code{columns}
+argument in \code{\link{ala_occurrences}}.
 }
 \details{
 Calling the argument \code{group = 'basic'} returns the following columns:

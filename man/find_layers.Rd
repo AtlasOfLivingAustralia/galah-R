@@ -7,8 +7,16 @@
 find_layers()
 }
 \value{
-dataframe of all spatial layers held by the ALA
+data.frame of all spatial layers held by the ALA
 }
 \description{
-Search ALA spatial layers
+To return layer values with occurrence records, pass the required layer
+names to \code{\link{select_columns}}.
+}
+\examples{
+\dontrun{
+# Find all precipitation-related layers
+layers <- find_layers()
+layers[grepl("Precipitation", layers$name),]
+}
 }

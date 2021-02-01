@@ -7,16 +7,22 @@
 select_filters(..., profile = NULL)
 }
 \arguments{
-\item{...}{filters, in the form field = value}
+\item{...}{filters, in the form \code{field = value}}
 
 \item{profile}{string: (optional) a data quality profile to apply to the
 records. See \code{\link{find_profiles}} for valid profiles. By default
 no profile is applied.}
 }
 \value{
-dataframe of filter values
+data.frame of filter values
 }
 \description{
-The result of `select_filters` can be passed to the `filters` argument in
-\code{\link{ala_occurrences}} and \code{\link{ala_counts}}
+The result of \code{select_filters} can be passed to the `filters`
+argument in \code{\link{ala_occurrences}} and \code{\link{ala_counts}}
+}
+\examples{
+# Create custom filters with the default ALA data quality profile
+filters <- select_filters(basisOfRecord = "HumanObservation", year = 2020,
+            stateProvince = "New South Wales", profile = "ALA")
+
 }

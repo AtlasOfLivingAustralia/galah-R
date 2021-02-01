@@ -1,7 +1,16 @@
 #' Search ALA spatial layers
 #' 
-#' @return dataframe of all spatial layers held by the ALA
+#' To return layer values with occurrence records, pass the required layer
+#' names to \code{\link{select_columns}}.
+#' 
+#' @return data.frame of all spatial layers held by the ALA
 #' @export find_layers
+#' @examples
+#' \dontrun{
+#' # Find all precipitation-related layers
+#' layers <- find_layers()
+#' layers[grepl("Precipitation", layers$name),]
+#' }
 
 find_layers <- function() {
   # web service returns all layers so might as well do that

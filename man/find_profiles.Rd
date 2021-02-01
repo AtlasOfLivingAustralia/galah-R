@@ -6,6 +6,12 @@
 \usage{
 find_profiles()
 }
+\value{
+data.frame of available profiles
+}
 \description{
 List available profiles for data filtering
+}
+\examples{
+find_profiles()
 }

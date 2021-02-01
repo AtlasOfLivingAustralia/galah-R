@@ -7,17 +7,17 @@
 find_field_values(field, limit = 20)
 }
 \arguments{
-\item{field}{string: field to return the categories for. Use `find_fields`
-to view valid fields.}
+\item{field}{string: field to return the categories for. Use
+\code{\link{find_fields}} to view valid fields.}
 
 \item{limit}{numeric: maximum number of categories to return. 20 by default.}
 }
 \value{
-a dataframe of field name and category name.
+a data.frame of field name and category name.
 }
 \description{
-Used for checking filter values for `ala_occurrences` and `ala_counts` are
-valid
+Used for checking filter values for \code{\link{ala_occurrences}} and
+\code{ala_counts} are valid
 }
 \examples{
 find_field_values("basis_of_record")

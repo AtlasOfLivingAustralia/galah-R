@@ -1,11 +1,11 @@
 #' List valid options for a categorical field
 #'
-#' Used for checking filter values for `ala_occurrences` and `ala_counts` are
-#' valid
-#' @param field string: field to return the categories for. Use `find_fields`
-#' to view valid fields.
+#' Used for checking filter values for \code{\link{ala_occurrences}} and
+#' \code{ala_counts} are valid
+#' @param field string: field to return the categories for. Use
+#' \code{\link{find_fields}} to view valid fields.
 #' @param limit numeric: maximum number of categories to return. 20 by default.
-#' @return a dataframe of field name and category name.
+#' @return a data.frame of field name and category name.
 #' @examples
 #' find_field_values("basis_of_record")
 #' find_field_values("state")

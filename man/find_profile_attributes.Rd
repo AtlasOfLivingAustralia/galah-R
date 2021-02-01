@@ -10,6 +10,12 @@ find_profile_attributes(profile)
 \item{profile}{string: a data quality profile name, short name or id.
 See `find_profiles` for valid filters}
 }
+\value{
+data.frame of profile attributes
+}
 \description{
 Get data filters for a  data quality profile
+}
+\examples{
+find_profile_attributes("CSDM")
 }

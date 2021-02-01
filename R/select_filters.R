@@ -1,14 +1,19 @@
 #' Select filters to narrow down occurrence queries
 #' 
-#' The result of `select_filters` can be passed to the `filters` argument in
-#' \code{\link{ala_occurrences}} and \code{\link{ala_counts}}
+#' The result of \code{select_filters} can be passed to the `filters`
+#' argument in \code{\link{ala_occurrences}} and \code{\link{ala_counts}}
 #'
-#' @param ... filters, in the form field = value
+#' @param ... filters, in the form \code{field = value}
 #' @param profile string: (optional) a data quality profile to apply to the
 #' records. See \code{\link{find_profiles}} for valid profiles. By default
 #' no profile is applied.
-#' @return dataframe of filter values
+#' @return data.frame of filter values
 #' @export select_filters
+#' @examples 
+#' # Create custom filters with the default ALA data quality profile
+#' filters <- select_filters(basisOfRecord = "HumanObservation", year = 2020,
+#'             stateProvince = "New South Wales", profile = "ALA")
+#' 
 
 select_filters <- function(..., profile = NULL) {
   filters <- list(...)
@@ -111,6 +116,7 @@ filter_value <- function(val) {
 }
 
 #' Negate a filter value
+#' @rdname exclude
 #' @param value string: filter value(s) to be excluded
 #' @return value with class "exclude"
 #' @export exclude

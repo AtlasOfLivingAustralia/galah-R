@@ -16,10 +16,6 @@ library(knitr)
 options(width=120)
 ```
 
-galah enables the R community to directly access data hosted by the Atlas of Living Australia (ALA).
-
-The ALA aggregates Australian biodiversity data from a range of sources, and makes the data freely available for scientists, policy makers, industry and the general public.
-
 ## Installing galah
 
 Development version from GitHub:
@@ -34,8 +30,6 @@ On Linux you will first need to ensure that `libcurl` and `v8` (version <= 3.15)
 ```{sh eval=FALSE}
 sudo apt-get install libcurl4-openssl-dev libv8-3.14-dev
 ```
-or install via the Software Centre.
-
 
 ## Using galah
 
@@ -63,15 +57,17 @@ library(sf)
 ```
 
 ## Taxon information
-Retrieve information for a taxon or taxa. For each taxon, provide a scientific name at one or more ranks, or an ALA taxon id.
+`ala_taxa` provides information on one or more taxa. It can take either a
+scientific name (default), or a unqiue taxon identifier. 
+The output of `ala_taxa()` can be used as the `taxa` parameter in `ala_counts()` and `ala_occurrences()`.
 
-The output of `ala_taxa()` can be used as the `taxon_id` parameter in other functions.
+
 ```{r}
 # A single taxa
 ala_taxa("Dasyurus viverrinus")
 ```
 
-`ala_taxa` can optionally include record counts for a taxon, and the child concepts of the supplied taxon.
+`ala_taxa()` can return record counts for taxa with `include_counts = TRUE`, and the child concepts for taxa with `return_children = TRUE`.
 ```{r}
 banksia <- ala_taxa(list(genus = "Banksia"), return_children = TRUE, include_counts = TRUE)
 
@@ -85,7 +81,7 @@ top5_banksia
 ```
 
 
-Use `ala_taxa` to lookup a taxon id
+Use `ala_taxa()` to lookup a taxon id
 ```{r}
 id <- "urn:lsid:biodiversity.org.au:afd.taxon:d315deea-822c-4f2c-b439-da33d6af5fd6"
 ala_taxa(term = id, term_type = "identifier")
@@ -94,8 +90,12 @@ ala_taxa(term = id, term_type = "identifier")
 ## Occurrence data
 Download occurrence data for a taxon. To download occurrence data you will need to specify your email in `ala_config()`. This email must be associated with an active ALA account.
 To save your email for future sessions, set `preserve = TRUE`
-```{r}
+```{r include = FALSE}
 ala_config(email = "ala4r@ala.org.au", preserve = TRUE)
+```
+
+```{r eval = FALSE}
+ala_config(email = your_email_here, preserve = TRUE)
 ```
 
 ```{r include = FALSE}
@@ -145,16 +145,6 @@ simple_shp <- st_cast(st_read('act_rect.shp'), "MULTIPOLYGON")
 occ <- ala_occurrences(taxa = id, locations = select_locations(area = simple_shp))
 ```
 
-```{r include = FALSE}
-occ <- read.csv("ornithorhynchus_anatinus.csv")
-simple_shp <- st_cast(st_read('act_rect.shp'), "MULTIPOLYGON")
-```
-
-```{r}
-ggplot() + geom_sf(data = simple_shp) +
-  geom_point(data = occ, mapping = aes(x = decimalLongitude, y = decimalLatitude))
-
-```
 
 ### Environmental layers
 ```{r}
@@ -230,10 +220,16 @@ images %>% filter(recognisedLicence == "CC BY-NC 4.0")
 
 ## Config
 
-Various aspects of the galah package can be customized.
+Various aspects of the galah package can be customized. To preserve
+configuration for future sessions, set `preserve = TRUE`. This will write the
+config to your `.Renviron` file.
+
+### Email
+To download occurrence records, you will need to provide an email address
+registered with the ALA. You can create an account [here](https://auth.ala.org.au/userdetails/registration/createAccount)
 
 ### Caching
-galah can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster. This will also reduce load on the ALA servers.
+`galah` can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster. This will also reduce load on the ALA servers.
 
 By default, this caching is session-based, meaning that the local files are stored in a temporary directory that is automatically deleted when the R session is ended. This behaviour can be altered so that caching is permanent, by setting the caching directory to a non-temporary location. For example, under Windows, use something like:
 
