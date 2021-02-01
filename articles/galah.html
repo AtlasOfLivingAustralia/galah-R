@@ -313,50 +313,11 @@
 ## 8    Archaea     1102
 ## 9  Eukaryota      735
 ## 10     Virus      294</code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Bivariate record counts</span>
-<span class="co"># Currently the ALA APIs can only breakdown by one type of variable. How much extra effort is to do two?</span>
-<span class="va">state_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span>group_by <span class="op">=</span> <span class="st">"state"</span><span class="op">)</span>
-<span class="va">states</span> <span class="op">&lt;-</span> <span class="va">state_counts</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>
-
-<span class="va">provider_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">states</span>, <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">filt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_filters.html">select_filters</a></span><span class="op">(</span>state <span class="op">=</span> <span class="va">s</span><span class="op">)</span>
-  <span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span>filters <span class="op">=</span> <span class="va">filt</span>, group_by <span class="op">=</span> <span class="st">"data_provider"</span>, limit <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
-  <span class="va">counts</span><span class="op">$</span><span class="va">state</span> <span class="op">&lt;-</span> <span class="va">s</span>
-  <span class="va">counts</span>
-<span class="op">}</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning in ala_counts(filters = filt, group_by = "data_provider", limit = 10): This field has 35 values. 10 will be
-## returned. Change `limit` to return more values.</code></pre>
-<pre><code>## Warning in ala_counts(filters = filt, group_by = "data_provider", limit = 10): This field has 32 values. 10 will be
-## returned. Change `limit` to return more values.</code></pre>
-<pre><code>## Warning in ala_counts(filters = filt, group_by = "data_provider", limit = 10): This field has 31 values. 10 will be
-## returned. Change `limit` to return more values.</code></pre>
-<pre><code>## Warning in ala_counts(filters = filt, group_by = "data_provider", limit = 10): This field has 27 values. 10 will be
-## returned. Change `limit` to return more values.
-
-## Warning in ala_counts(filters = filt, group_by = "data_provider", limit = 10): This field has 27 values. 10 will be
-## returned. Change `limit` to return more values.</code></pre>
-<pre><code>## Warning in ala_counts(filters = filt, group_by = "data_provider", limit = 10): This field has 24 values. 10 will be
-## returned. Change `limit` to return more values.</code></pre>
-<pre><code>## Warning in ala_counts(filters = filt, group_by = "data_provider", limit = 10): This field has 21 values. 10 will be
-## returned. Change `limit` to return more values.</code></pre>
-<pre><code>## Warning in ala_counts(filters = filt, group_by = "data_provider", limit = 10): This field has 25 values. 10 will be
-## returned. Change `limit` to return more values.</code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># tidy up columns</span>
-<span class="va">provider_counts</span> <span class="op">&lt;-</span> <span class="va">provider_counts</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>data_provider <span class="op">=</span> <span class="va">name</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="va">state</span>, <span class="va">data_provider</span>, <span class="va">count</span><span class="op">)</span>
-
-<span class="co"># plot as a stacked bar chart</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">provider_counts</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">state</span>, y <span class="op">=</span> <span class="va">count</span>, fill <span class="op">=</span> <span class="va">data_provider</span><span class="op">)</span>,
-           position <span class="op">=</span> <span class="st">"stack"</span>, stat <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></code></pre></div>
-<p><img src="galah_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
 </div>
 <div id="media-downloads" class="section level2">
 <h2 class="hasAnchor">
 <a href="#media-downloads" class="anchor"></a>Media downloads</h2>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Search for occurrences with images</span>
 <span class="va">filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_filters.html">select_filters</a></span><span class="op">(</span>multimedia <span class="op">=</span> <span class="st">"Image"</span>,
                           basis_of_record <span class="op">=</span> <span class="st">"HumanObservation"</span><span class="op">)</span>
@@ -382,31 +343,29 @@
 <a href="#caching" class="anchor"></a>Caching</h3>
 <p><code>galah</code> can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster. This will also reduce load on the ALA servers.</p>
 <p>By default, this caching is session-based, meaning that the local files are stored in a temporary directory that is automatically deleted when the R session is ended. This behaviour can be altered so that caching is permanent, by setting the caching directory to a non-temporary location. For example, under Windows, use something like:</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>cache_directory<span class="op">=</span><span class="st">"c:/mydata/ala_cache"</span><span class="op">)</span></code></pre></div>
 <p>or for Linux:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>cache_directory<span class="op">=</span><span class="st">"~/mydata/ala_cache"</span><span class="op">)</span></code></pre></div>
 <p>Note that this directory must exist (you need to create it yourself).</p>
-<p>All results will be stored in that cache directory and will be used from one session to the next. They won’t be re-downloaded from the server unless the user specifically deletes those files or changes the caching setting to “refresh”.</p>
-<p>If you change the cache_directory to a permanent location, you may wish to add something like this to your .Rprofile file, so that it happens automatically each time the galah package is loaded:</p>
+<p>All results will be stored in that cache directory and will be used from one session to the next.</p>
 <p>Caching can also be turned off entirely by:</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>caching<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<p>or set to “refresh”, meaning that the cached results will re-downloaded from the ALA servers and the cache updated. (This will happen for as long as caching is set to “refresh” — so you may wish to switch back to normal “on” caching behaviour once you have updated your cache with the data you are working on).</p>
 </div>
 <div id="debugging" class="section level3">
 <h3 class="hasAnchor">
 <a href="#debugging" class="anchor"></a>Debugging</h3>
 <p>If things aren’t working as expected, more detail (particularly about web requests and caching behaviour) can be obtained by setting the <code>verbose</code> configuration option:</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>verbose<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="setting-the-download-reason" class="section level3">
 <h3 class="hasAnchor">
 <a href="#setting-the-download-reason" class="anchor"></a>Setting the download reason</h3>
 <p>ALA requires that you provide a reason when downloading occurrence data (via the galah <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code> function). The reason is set as “scientific research” by default, but you can change this using <code>ala_config</code>. See <code>ala_reasons()</code> for valid download reasons.</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>download_reason_id<span class="op">=</span><span class="va">your_reason_id</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
