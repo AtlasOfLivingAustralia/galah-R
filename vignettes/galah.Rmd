@@ -173,33 +173,13 @@ find_profile_attributes("CSDM")
 ```
 
 ## Summary statistics
-```{r}
+```{r warning = FALSE}
 # Total number of records in the ALA (with no data quality filters)
 ala_counts()
 
 # Total number of records, broken down by kindgom
 ala_counts(group_by = "kingdom")
 
-# Bivariate record counts
-# Currently the ALA APIs can only breakdown by one type of variable. How much extra effort is to do two?
-state_counts <- ala_counts(group_by = "state")
-states <- state_counts %>% pull(name)
-
-provider_counts <- bind_rows(lapply(states, function(s) {
-  filt <- select_filters(state = s)
-  counts <- ala_counts(filters = filt, group_by = "data_provider", limit = 10)
-  counts$state <- s
-  counts
-}))
-
-# tidy up columns
-provider_counts <- provider_counts %>% rename(data_provider = name) %>%
-  relocate(state, data_provider, count)
-
-# plot as a stacked bar chart
-ggplot(provider_counts) +
-  geom_bar(mapping = aes(x = state, y = count, fill = data_provider),
-           position = "stack", stat = "identity") + theme(legend.position = "none")
 ```
 
 
@@ -245,17 +225,14 @@ ala_config(cache_directory="~/mydata/ala_cache")
 
 Note that this directory must exist (you need to create it yourself).
 
-All results will be stored in that cache directory and will be used from one session to the next. They won't be re-downloaded from the server unless the user specifically deletes those files or changes the caching setting to "refresh".
+All results will be stored in that cache directory and will be used from one session to the next.
 
-If you change the cache_directory to a permanent location, you may wish to add something like this to your .Rprofile file, so that it happens automatically each time the galah package is loaded:
 
 Caching can also be turned off entirely by:
 
 ```{r eval=FALSE}
 ala_config(caching=FALSE)
 ```
-
-or set to "refresh", meaning that the cached results will re-downloaded from the ALA servers and the cache updated. (This will happen for as long as caching is set to "refresh" --- so you may wish to switch back to normal "on" caching behaviour once you have updated your cache with the data you are working on).
 
 
 ### Debugging
