@@ -88,8 +88,6 @@
 <div id="galah" class="section level1">
 <h1 class="hasAnchor">
 <a href="#galah" class="anchor"></a>galah</h1>
-<p>galah enables the R community to directly access data hosted by the Atlas of Living Australia (ALA).</p>
-<p>The ALA aggregates Australian biodiversity data from a range of sources, and makes the data freely available for scientists, policy makers, industry and the general public.</p>
 <div id="installing-galah" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installing-galah" class="anchor"></a>Installing galah</h2>
@@ -99,7 +97,6 @@
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"AtlasOfLivingAustralia/galah"</span><span class="op">)</span></code></pre></div>
 <p>On Linux you will first need to ensure that <code>libcurl</code> and <code>v8</code> (version &lt;= 3.15) are installed on your system — e.g. on Ubuntu/Debian, open a terminal and do:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">sudo</span> apt-get install libcurl4-openssl-dev libv8-3.14-dev</a></code></pre></div>
-<p>or install via the Software Centre.</p>
 </div>
 <div id="using-galah" class="section level2">
 <h2 class="hasAnchor">
@@ -127,8 +124,7 @@
 <div id="taxon-information" class="section level2">
 <h2 class="hasAnchor">
 <a href="#taxon-information" class="anchor"></a>Taxon information</h2>
-<p>Retrieve information for a taxon or taxa. For each taxon, provide a scientific name at one or more ranks, or an ALA taxon id.</p>
-<p>The output of <code><a href="../reference/ala_taxa.html">ala_taxa()</a></code> can be used as the <code>taxon_id</code> parameter in other functions.</p>
+<p><code>ala_taxa</code> provides information on one or more taxa. It can take either a scientific name (default), or a unqiue taxon identifier. The output of <code><a href="../reference/ala_taxa.html">ala_taxa()</a></code> can be used as the <code>taxa</code> parameter in <code><a href="../reference/ala_counts.html">ala_counts()</a></code> and <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># A single taxa</span>
 <span class="fu"><a href="../reference/ala_taxa.html">ala_taxa</a></span><span class="op">(</span><span class="st">"Dasyurus viverrinus"</span><span class="op">)</span></code></pre></div>
@@ -138,7 +134,7 @@
 ## 1 urn:lsid:biodiversity.org.au:afd.taxon:52149285-a12a-4085-a285-b41af5ba3ce3 species exactMatch Animalia Chordata
 ##      class          order     family    genus             species  issues
 ## 1 Mammalia Dasyuromorphia Dasyuridae Dasyurus Dasyurus viverrinus noIssue</code></pre>
-<p><code>ala_taxa</code> can optionally include record counts for a taxon, and the child concepts of the supplied taxon.</p>
+<p><code><a href="../reference/ala_taxa.html">ala_taxa()</a></code> can return record counts for taxa with <code>include_counts = TRUE</code>, and the child concepts for taxa with <code>return_children = TRUE</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">banksia</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_taxa.html">ala_taxa</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus <span class="op">=</span> <span class="st">"Banksia"</span><span class="op">)</span>, return_children <span class="op">=</span> <span class="cn">TRUE</span>, include_counts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
@@ -155,7 +151,7 @@
 ## 3:      Banksia serrata https://id.biodiversity.org.au/taxon/apni/51293610 11258
 ## 4: Banksia integrifolia   https://id.biodiversity.org.au/node/apni/2892579 10373
 ## 5:   Banksia ericifolia https://id.biodiversity.org.au/taxon/apni/51299883  7461</code></pre>
-<p>Use <code>ala_taxa</code> to lookup a taxon id</p>
+<p>Use <code><a href="../reference/ala_taxa.html">ala_taxa()</a></code> to lookup a taxon id</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">id</span> <span class="op">&lt;-</span> <span class="st">"urn:lsid:biodiversity.org.au:afd.taxon:d315deea-822c-4f2c-b439-da33d6af5fd6"</span>
 <span class="fu"><a href="../reference/ala_taxa.html">ala_taxa</a></span><span class="op">(</span>term <span class="op">=</span> <span class="va">id</span>, term_type <span class="op">=</span> <span class="st">"identifier"</span><span class="op">)</span></code></pre></div>
@@ -171,7 +167,7 @@
 <a href="#occurrence-data" class="anchor"></a>Occurrence data</h2>
 <p>Download occurrence data for a taxon. To download occurrence data you will need to specify your email in <code><a href="../reference/ala_config.html">ala_config()</a></code>. This email must be associated with an active ALA account. To save your email for future sessions, set <code>preserve = TRUE</code></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"ala4r@ala.org.au"</span>, preserve <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="va">your_email_here</span>, preserve <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Download occurrence records for 5 Banksia species</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">occ</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_occurrences.html">ala_occurrences</a></span><span class="op">(</span>taxa <span class="op">=</span> <span class="va">top5_banksia</span><span class="op">)</span></code></pre></div>
@@ -244,14 +240,10 @@
 <span class="va">simple_shp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html">st_cast</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">'act_rect.shp'</span><span class="op">)</span>, <span class="st">"MULTIPOLYGON"</span><span class="op">)</span>
 
 <span class="va">occ</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_occurrences.html">ala_occurrences</a></span><span class="op">(</span>taxa <span class="op">=</span> <span class="va">id</span>, locations <span class="op">=</span> <span class="fu"><a href="../reference/select_locations.html">select_locations</a></span><span class="op">(</span>area <span class="op">=</span> <span class="va">simple_shp</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">simple_shp</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">occ</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">decimalLongitude</span>, y <span class="op">=</span> <span class="va">decimalLatitude</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="galah_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 <div id="environmental-layers" class="section level3">
 <h3 class="hasAnchor">
 <a href="#environmental-layers" class="anchor"></a>Environmental layers</h3>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Get all layers relating to precipitation</span>
 <span class="va">layers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/find_layers.html">find_layers</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">layers</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"precipitation"</span>, <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span><span class="op">(</span><span class="va">layers</span><span class="op">$</span><span class="va">description</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span><span class="op">$</span><span class="va">name</span></code></pre></div>
@@ -269,7 +261,7 @@
 <div id="fields-and-categories" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fields-and-categories" class="anchor"></a>Fields and categories</h3>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># View all available fields</span>
 <span class="fu"><a href="../reference/find_fields.html">find_fields</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co"># View values for a given field</span>
@@ -279,7 +271,7 @@
 <h3 class="hasAnchor">
 <a href="#data-quality-profile" class="anchor"></a>Data quality profile</h3>
 <p>By default, the data quality profile is set to the ALA general.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># List available data quality profiles</span>
 <span class="fu"><a href="../reference/find_profiles.html">find_profiles</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id                                  name shortName
@@ -290,7 +282,7 @@
 ## 1 The default ALA profile filters out records based on the filter groups outlined below.  This is a moderately restricted set of data.
 ## 2                                                            Base filters for the Collaborative Species Distribution Modelling program
 ## 3         Data licensed for re-use, including commercial uses. This profile only filters on license, no "quality" filters are applied.</code></pre>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># List filters for a profile</span>
 <span class="fu"><a href="../reference/find_profile_attributes.html">find_profile_attributes</a></span><span class="op">(</span><span class="st">"CSDM"</span><span class="op">)</span></code></pre></div>
 <pre><code>##                                                                description                        filter
@@ -303,11 +295,11 @@
 <div id="summary-statistics" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary-statistics" class="anchor"></a>Summary statistics</h2>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Total number of records in the ALA (with no data quality filters)</span>
 <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 94631073</code></pre>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Total number of records, broken down by kindgom</span>
 <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span>group_by <span class="op">=</span> <span class="st">"kingdom"</span><span class="op">)</span></code></pre></div>
 <pre><code>##         name    count
@@ -321,7 +313,7 @@
 ## 8    Archaea     1102
 ## 9  Eukaryota      735
 ## 10     Virus      294</code></pre>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Bivariate record counts</span>
 <span class="co"># Currently the ALA APIs can only breakdown by one type of variable. How much extra effort is to do two?</span>
 <span class="va">state_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span>group_by <span class="op">=</span> <span class="st">"state"</span><span class="op">)</span>
@@ -350,7 +342,7 @@
 ## returned. Change `limit` to return more values.</code></pre>
 <pre><code>## Warning in ala_counts(filters = filt, group_by = "data_provider", limit = 10): This field has 25 values. 10 will be
 ## returned. Change `limit` to return more values.</code></pre>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># tidy up columns</span>
 <span class="va">provider_counts</span> <span class="op">&lt;-</span> <span class="va">provider_counts</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>data_provider <span class="op">=</span> <span class="va">name</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="va">state</span>, <span class="va">data_provider</span>, <span class="va">count</span><span class="op">)</span>
@@ -359,12 +351,12 @@
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">provider_counts</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">state</span>, y <span class="op">=</span> <span class="va">count</span>, fill <span class="op">=</span> <span class="va">data_provider</span><span class="op">)</span>,
            position <span class="op">=</span> <span class="st">"stack"</span>, stat <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></code></pre></div>
-<p><img src="galah_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
+<p><img src="galah_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
 </div>
 <div id="media-downloads" class="section level2">
 <h2 class="hasAnchor">
 <a href="#media-downloads" class="anchor"></a>Media downloads</h2>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Search for occurrences with images</span>
 <span class="va">filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_filters.html">select_filters</a></span><span class="op">(</span>multimedia <span class="op">=</span> <span class="st">"Image"</span>,
                           basis_of_record <span class="op">=</span> <span class="st">"HumanObservation"</span><span class="op">)</span>
@@ -379,22 +371,27 @@
 <div id="config" class="section level2">
 <h2 class="hasAnchor">
 <a href="#config" class="anchor"></a>Config</h2>
-<p>Various aspects of the galah package can be customized.</p>
+<p>Various aspects of the galah package can be customized. To preserve configuration for future sessions, set <code>preserve = TRUE</code>. This will write the config to your <code>.Renviron</code> file.</p>
+<div id="email" class="section level3">
+<h3 class="hasAnchor">
+<a href="#email" class="anchor"></a>Email</h3>
+<p>To download occurrence records, you will need to provide an email address registered with the ALA. You can create an account <a href="https://auth.ala.org.au/userdetails/registration/createAccount">here</a></p>
+</div>
 <div id="caching" class="section level3">
 <h3 class="hasAnchor">
 <a href="#caching" class="anchor"></a>Caching</h3>
-<p>galah can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster. This will also reduce load on the ALA servers.</p>
+<p><code>galah</code> can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster. This will also reduce load on the ALA servers.</p>
 <p>By default, this caching is session-based, meaning that the local files are stored in a temporary directory that is automatically deleted when the R session is ended. This behaviour can be altered so that caching is permanent, by setting the caching directory to a non-temporary location. For example, under Windows, use something like:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>cache_directory<span class="op">=</span><span class="st">"c:/mydata/ala_cache"</span><span class="op">)</span></code></pre></div>
 <p>or for Linux:</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>cache_directory<span class="op">=</span><span class="st">"~/mydata/ala_cache"</span><span class="op">)</span></code></pre></div>
 <p>Note that this directory must exist (you need to create it yourself).</p>
 <p>All results will be stored in that cache directory and will be used from one session to the next. They won’t be re-downloaded from the server unless the user specifically deletes those files or changes the caching setting to “refresh”.</p>
 <p>If you change the cache_directory to a permanent location, you may wish to add something like this to your .Rprofile file, so that it happens automatically each time the galah package is loaded:</p>
 <p>Caching can also be turned off entirely by:</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>caching<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p>or set to “refresh”, meaning that the cached results will re-downloaded from the ALA servers and the cache updated. (This will happen for as long as caching is set to “refresh” — so you may wish to switch back to normal “on” caching behaviour once you have updated your cache with the data you are working on).</p>
 </div>
@@ -402,14 +399,14 @@
 <h3 class="hasAnchor">
 <a href="#debugging" class="anchor"></a>Debugging</h3>
 <p>If things aren’t working as expected, more detail (particularly about web requests and caching behaviour) can be obtained by setting the <code>verbose</code> configuration option:</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>verbose<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="setting-the-download-reason" class="section level3">
 <h3 class="hasAnchor">
 <a href="#setting-the-download-reason" class="anchor"></a>Setting the download reason</h3>
 <p>ALA requires that you provide a reason when downloading occurrence data (via the galah <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code> function). The reason is set as “scientific research” by default, but you can change this using <code>ala_config</code>. See <code>ala_reasons()</code> for valid download reasons.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>download_reason_id<span class="op">=</span><span class="va">your_reason_id</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
