@@ -2,12 +2,9 @@
 % Please edit documentation in R/ala_config.R
 \name{ala_config}
 \alias{ala_config}
-\alias{find_reasons}
 \title{Get or set configuration options that control galah behaviour}
 \usage{
 ala_config(..., preserve = FALSE)
-
-find_reasons()
 }
 \arguments{
 \item{\dots}{Options can be defined using name = value. Valid options are:

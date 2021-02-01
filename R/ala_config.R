@@ -213,7 +213,8 @@ validate_option <- function(name, value) {
   }
 }
 
-#' @rdname ala_config
+#' List valid download reasons
+#' @rdname find_reasons
 #' @export
 find_reasons <- function() {
     ## return list of valid "reasons for use" codes

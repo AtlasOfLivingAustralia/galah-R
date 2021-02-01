@@ -16,25 +16,20 @@ If you have any questions or suggestions, please email support@ala.org.au.
 }
 \section{Functions}{
 
-\strong{Data functions}
+\strong{Data}
 \itemize{
   \item\code{\link{ala_taxa}} Taxon information
   \item\code{\link{ala_occurrences}} Download occurrence records
   \item\code{\link{ala_counts}} Summary statistics for occurrence records
   \item\code{\link{ala_media}} Download images and sounds
 }
-\strong{Helper functions}
-\itemize{
-  \item\code{\link{ala_config}} Package configuration options
-  \item\code{\link{ala_citation}} Citation for a dataset
-}
-\strong{Select_ functions}
+\strong{Filter}
 \itemize{
   \item\code{\link{select_filters}} Filter records
   \item\code{\link{select_locations}} Specify location
   \item\code{\link{select_columns}} Columns to return in occurrence download
 }
-\strong{Find_ functions}
+\strong{Lookup}
 \itemize{
   \item\code{\link{find_profiles}} List data quality profiles
   \item\code{\link{find_profile_attributes}} List filters included in a data quality profile
@@ -42,6 +37,11 @@ If you have any questions or suggestions, please email support@ala.org.au.
   \item\code{\link{find_field_values}} List possible values for a given field
   \item\code{\link{find_layers}} List spatial layers
   \item\code{\link{find_reasons}} List valid download reasons
+}
+\strong{Helper}
+\itemize{
+  \item\code{\link{ala_config}} Package configuration options
+  \item\code{\link{ala_citation}} Citation for a dataset
 }
 }
 
