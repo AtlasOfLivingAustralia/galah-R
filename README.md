@@ -8,7 +8,8 @@ Status](https://travis-ci.com/AtlasOfLivingAustralia/galah.svg?branch=master)](h
 [![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/galah/branch/master/graph/badge.svg)](https://codecov.io/gh/AtlasOfLivingAustralia/galah)
 
 `galah` is an R package for accessing data from the [Atlas of Living
-Australia (ALA)](https://ala.org.au) APIs. It is the successor to
+Australia (ALA)](https://ala.org.au) [APIs](https://api.ala.org.au/). It
+is the successor to
 [`ALA4R`](https://github.com/AtlasOfLivingAustralia/ALA4R)
 
 The ALA aggregates Australian biodiversity data from a range of sources,
@@ -21,7 +22,7 @@ us](mailto:support@ala.org.au).
 ## Citing the package
 
 Please cite `galah`. To generate a citation for the package version you
-are using, you can run:
+are using, you can run
 
 ``` r
 citation(package = "galah")
@@ -33,6 +34,12 @@ If you’re using occurrence data downloaded through `galah` in a
 publication, please generate a DOI and cite it. To generate a DOI, set
 `mint_doi = TRUE` in a call to `ala_occurrences`. To generate a citation
 using the dataset, use `ala_citation`
+
+``` r
+occ <- ala_occurrences(..., mint_doi = TRUE)
+doi <- attr(occ, "doi")
+cit <- ala_citation(occ)
+```
 
 ## Installing
 

@@ -47,7 +47,7 @@ First, check that we have some additional packages that we'll use in the example
 to_install <- c("dplyr", "ggplot2", "ozmaps", "sf")
 to_install <- to_install[!sapply(to_install, requireNamespace, quietly=TRUE)]
 if(length(to_install)>0)
-    install.packages(to_install, repos="http://cran.us.r-project.org")
+    install.packages(to_install, repos="https://cran.csiro.au/")
 
 ## In these examples we use the `dplyr` package to help with data manipulation.
 library(dplyr)
@@ -57,11 +57,11 @@ library(sf)
 ```
 
 ## Taxon information
-`ala_taxa` provides information on one or more taxa. It can take either a
-scientific name (default), or a unqiue taxon identifier. 
+`ala_taxa()` provides information on one or more taxa. It can take either a
+scientific name (default), or a unique taxon identifier. 
 The output of `ala_taxa()` can be used as the `taxa` parameter in `ala_counts()` and `ala_occurrences()`.
 
-
+#### Scientific name lookup
 ```{r}
 # A single taxa
 ala_taxa("Dasyurus viverrinus")
@@ -80,7 +80,7 @@ top5_banksia <- banksia %>% filter(rank == "species") %>%
 top5_banksia
 ```
 
-
+#### Taxon identifier lookup
 Use `ala_taxa()` to lookup a taxon id
 ```{r}
 id <- "urn:lsid:biodiversity.org.au:afd.taxon:d315deea-822c-4f2c-b439-da33d6af5fd6"
@@ -88,8 +88,9 @@ ala_taxa(term = id, term_type = "identifier")
 ```
 
 ## Occurrence data
-Download occurrence data for a taxon. To download occurrence data you will need to specify your email in `ala_config()`. This email must be associated with an active ALA account.
-To save your email for future sessions, set `preserve = TRUE`
+Once you have retrieved taxon information, you can use this to search for occurrence
+records with `ala_occurrences()`. 
+To download occurrence data you will need to specify your email in `ala_config()`. This email must be associated with an active ALA account. See more information in the [config section](#config)
 ```{r include = FALSE}
 ala_config(email = "ala4r@ala.org.au", preserve = TRUE)
 ```
@@ -111,68 +112,56 @@ occ <- ala_occurrences(taxa = top5_banksia)
 head(occ)
 ```
 
-
+#### Columns
+There are a number of columns that can be returned with an occurrence dataset.
+You can specify individual columns and/or column groups. To view the fields for
+each group, see the documentation for `select_columns()`.
+To view the list of available fields, run `find_fields()`.
 ```{r eval = FALSE}
-# build filters and columns
-cols <- select_columns("country", group = "basic")
-filters <- select_filters(year = seq(2000, 2020))
-occ <- ala_occurrences(taxa = top5_banksia,
-                       columns = cols, filters = filters)
+cols <- select_columns("institutionID", group = "basic")
 ```
 
-
-```{r}
-filtered_occ <- occ %>% filter(country == "Australia")
-head(filtered_occ)
-```
-
-Plot occurrence data using `ggplot`
-```{r warning=FALSE, out.width="100%", fig.width=100, eval = FALSE}
-ggplot() + geom_sf(data = ozmap_country) +
-  geom_point(filtered_occ, mapping = aes(x = decimalLongitude, y = decimalLatitude,
-                                         colour = scientificName),size = .3)
-
-```
-
-
-## Customising searches
-Occurrence searches can be narrowed down by area, a variety of filters, and data quality tests.
-```{r eval=FALSE, message=FALSE, warning=FALSE}
-# Find all reptiles within a shapefile
-id <- ala_taxa("Ornithorhynchus anatinus")
-simple_shp <- st_cast(st_read('act_rect.shp'), "MULTIPOLYGON")
-
-occ <- ala_occurrences(taxa = id, locations = select_locations(area = simple_shp))
-```
-
-
-### Environmental layers
-```{r}
-# Get all layers relating to precipitation
-layers <- find_layers()
-layers[grepl("precipitation", tolower(layers$description)),]$name
-
-```
-
-### Fields and categories
-```{r eval=FALSE}
-# View all available fields
+#### Filters
+`ala_occurrences()` and `ala_counts()` can take filters to narrow down the
+occurrence record search. `select_filters()` constructs the filters to pass to the `filters` option. It takes indvidual filters, in the form `field = value`, and/or a [data quality profile](#data-quality-profiles).
+By default, a filter is included. To negate a filter, use `exclude()`.
+To find filter names:
+```{r eval = FALSE}
 find_fields()
-# View values for a given field
-find_field_values('basisOfRecord')
+```
+To find valid values for a filter:
+```{r eval = FALSE}
+find_field_values("kingdom")
+```
+To construct a set of filters:
+```{r eval=FALSE}
+# Filter with multiple values
+filters <- select_filters(year = seq(2010, 2020),
+                          basis_of_record = exclude("FossilSpecimen"))
 ```
 
-### Data quality profile
-By default, the data quality profile is set to the ALA general.
-```{r}
-# List available data quality profiles
+
+##### Data quality profiles
+Data quality profiles are predefined sets of filters which have been designed to help
+users select fit-for-purpose records. More information about data profiles is available [here](https://support.ala.org.au/support/solutions/articles/6000240256-getting-started-with-the-data-quality-filters).
+To view available data quality filters:
+```{r eval = FALSE}
 find_profiles()
-
-# List filters for a profile
-find_profile_attributes("CSDM")
 ```
+To view the list of filters included in a profile:
+```{r eval = FALSE}
+find_profile_attributes("ALA")
+```
+To filter data using a data quality profile:
+```{r}
+filters <- select_filters(profile = "ALA")
+```
+
 
 ## Summary statistics
+`ala_counts()` provides summary counts on records in the ALA, without needing
+to download all the records. It takes filters in the same structure as `ala_occurrences`.
+The `group_by` parameter provides counts binned by the requested parameter.
 ```{r warning = FALSE}
 # Total number of records in the ALA (with no data quality filters)
 ala_counts()
