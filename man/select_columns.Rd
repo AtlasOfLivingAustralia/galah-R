@@ -7,10 +7,11 @@
 select_columns(..., group)
 }
 \arguments{
-\item{...}{zero or more individual column names to return}
+\item{...}{zero or more individual column names to include}
 
-\item{group}{string: name of column group to include (either \code{'basic'}
-or \code{'event'})}
+\item{group}{string: (optional) name of one or more column groups to
+include. Options are \code{'basic'}, \code{'event'}) and
+\code{'assertion'}}
 }
 \description{
 The result of \code{select_columns} can be passed to the \code{columns}
@@ -27,7 +28,7 @@ Calling the argument \code{group = 'basic'} returns the following columns:
   \item\code{recordID}
   \item\code{data_resource}
 }
-Conversely, using \code{group = 'event'} returns the following columns:
+Using \code{group = 'event'} returns the following columns:
 \itemize{
   \item\code{eventRemarks}
   \item\code{eventTime}
@@ -36,4 +37,6 @@ Conversely, using \code{group = 'event'} returns the following columns:
   \item\code{samplingEffort}
   \item\code{samplingProtocol}
 }
+Using \code{group = 'assertion'} returns all quality assertion-related
+columns. The list of assertions is shown by `find_fields("assertion")`.
 }

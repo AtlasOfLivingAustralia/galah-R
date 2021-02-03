@@ -3,9 +3,10 @@
 #' The result of \code{select_columns} can be passed to the \code{columns}
 #' argument in \code{\link{ala_occurrences}}.
 #' 
-#' @param ... zero or more individual column names to return
-#' @param group string: name of column group to include (either \code{'basic'}
-#' or \code{'event'})
+#' @param ... zero or more individual column names to include
+#' @param group string: (optional) name of one or more column groups to
+#' include. Options are \code{'basic'}, \code{'event'}) and
+#' \code{'assertion'}
 #' @details
 #' Calling the argument \code{group = 'basic'} returns the following columns:
 #' \itemize{
@@ -17,7 +18,7 @@
 #'   \item\code{recordID}
 #'   \item\code{data_resource}
 #' }
-#' Conversely, using \code{group = 'event'} returns the following columns:
+#' Using \code{group = 'event'} returns the following columns:
 #' \itemize{
 #'   \item\code{eventRemarks}
 #'   \item\code{eventTime}
@@ -26,11 +27,14 @@
 #'   \item\code{samplingEffort}
 #'   \item\code{samplingProtocol}
 #' }
+#' Using \code{group = 'assertion'} returns all quality assertion-related
+#' columns. The list of assertions is shown by `find_fields("assertion")`.
 #' @export select_columns
 select_columns <- function(..., group) {
   if (!missing(group)) {
     group_cols <- data.table::rbindlist(lapply(group, function(x) {
-      data.frame(name = preset_cols(x), type = "field",
+      type <- ifelse(x == "assertion", "assertions", "field")
+      data.frame(name = preset_cols(x), type = type,
                  stringsAsFactors = FALSE)
     }))} else {
       group_cols <- NULL
@@ -61,6 +65,7 @@ preset_cols <- function(type) {
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),
+                 "assertion" = find_fields("assertion")$name,
                  stop("\"", type,
                       "\" is not a valid column group. Valid groups are: ",
                       paste(valid_groups, collapse = ", "))
