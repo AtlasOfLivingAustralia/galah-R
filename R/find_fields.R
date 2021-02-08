@@ -4,16 +4,21 @@
 #' The field names are in Darwin Core format, apart from the fields
 #' which have no DwC equivalent, such as record assertions.
 #'
-#' @references Relevant ALA web services: \itemize{
-#' \item for occurrence fields: \url{https://api.ala.org.au/#ws72}
-#' \item for assertions \url{https://api.ala.org.au/#ws81}
+#' @references \itemize{
+#' \item Darwin Core terms \url{https://dwc.tdwg.org/terms/}
+#' \item ALA fields \url{https://api.ala.org.au/#ws72}
+#' \item ALA assertion fields \url{https://api.ala.org.au/#ws81}
 #' }
 #' @seealso \code{\link{find_layers}} to search for spatial layers
 #' @param class string: class of fields to return e.g. "Assertion"
-#' @return data.frame of all fields. 
+#' @return data.frame of fields with name, data_type, information and Darwin
+#' Core class.
 #' @examples
 #' \dontrun{
+#' # Find all fields
 #'  l <- find_fields()
+#'  # Find assertion fields
+#'  ass <- find_fields("assertion")
 #' }
 #' @export find_fields
 
@@ -22,8 +27,6 @@ find_fields <- function(class = "all") {
   # don't need to return layer information- this is handled by `find_layers`
   # assertions and other fields are treated the same- but the type for assertions is 'logical'
   # if there is a DwC term for a field, this will be returned: not the ALA name
-  
-  # To do: check if a user has provided params/ used `field_info` and warn if so
   
   # for backwards compatibility, should allow a user to get the ALA names for a field?
 

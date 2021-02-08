@@ -2,7 +2,7 @@
 % Please edit documentation in R/ala_media.R
 \name{ala_media}
 \alias{ala_media}
-\title{Image and sound downlaod}
+\title{Image and sounds}
 \usage{
 ala_media(
   identifier,
@@ -16,7 +16,7 @@ ala_media(
 identifiers. The type is specified by \code{identifier_type}}
 
 \item{identifier_type}{string: one of \code{c("occurrence", "media")}.
-Defaults to "media".}
+Defaults to \code{"media"}.}
 
 \item{download_dir}{string: path to directory to store the downloaded media
 in}
@@ -33,9 +33,9 @@ to \code{ala_media} will return images and sounds for all the records.
 }
 \examples{
 \dontrun{
-# Occurrences of galahs with sound recordings
-occ <- ala_occurrences(taxa = ala_taxa("Phascolarctos cinereus"),
-                       filters = select_filters(multimedia = "Sound"))
+# Search for galah records with images
+occ <- ala_occurrences(taxa = ala_taxa("Eolophus Roseicapilla"),
+                       filters = select_filters(multimedia = "Image", year = 2020))
 sounds <- ala_media(occ$recordID, identifier_type = "occurrence",
                     download_dir = tempdir())
 }

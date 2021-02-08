@@ -9,14 +9,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# galah
-
 ```{r setup, include=FALSE}
 library(knitr)
 options(width=120)
 ```
 
-## Installing galah
+## Installation
 
 Development version from GitHub:
 
@@ -31,35 +29,27 @@ On Linux you will first need to ensure that `libcurl` and `v8` (version <= 3.15)
 sudo apt-get install libcurl4-openssl-dev libv8-3.14-dev
 ```
 
-## Using galah
-
-The galah package must be loaded for each new R session:
-
-```{r}
-library(galah)
-```
-
-
 ## Example usage
 
-First, check that we have some additional packages that we'll use in the examples, and install them if necessary.
+Install packages for the examples, if required.
 ```{r message=FALSE}
 to_install <- c("dplyr", "ggplot2", "ozmaps", "sf")
 to_install <- to_install[!sapply(to_install, requireNamespace, quietly=TRUE)]
 if(length(to_install)>0)
     install.packages(to_install, repos="https://cran.csiro.au/")
 
-## In these examples we use the `dplyr` package to help with data manipulation.
 library(dplyr)
 library(ggplot2)
 library(ozmaps)
 library(sf)
+library(galah)
 ```
 
-## Taxon information
+### Taxon information
 `ala_taxa()` provides information on one or more taxa. It can take either a
 scientific name (default), or a unique taxon identifier. 
-The output of `ala_taxa()` can be used as the `taxa` parameter in `ala_counts()` and `ala_occurrences()`.
+The output of `ala_taxa()` can be provided to `ala_counts()` and `ala_occurrences()` in the `taxa` argument
+to filter by taxa.
 
 #### Scientific name lookup
 ```{r}
@@ -87,7 +77,7 @@ id <- "urn:lsid:biodiversity.org.au:afd.taxon:d315deea-822c-4f2c-b439-da33d6af5f
 ala_taxa(term = id, term_type = "identifier")
 ```
 
-## Occurrence data
+### Occurrence data
 Once you have retrieved taxon information, you can use this to search for occurrence
 records with `ala_occurrences()`. 
 To download occurrence data you will need to specify your email in `ala_config()`. This email must be associated with an active ALA account. See more information in the [config section](#config)
@@ -158,7 +148,7 @@ filters <- select_filters(profile = "ALA")
 ```
 
 
-## Summary statistics
+### Summary statistics
 `ala_counts()` provides summary counts on records in the ALA, without needing
 to download all the records. It takes filters in the same structure as `ala_occurrences`.
 The `group_by` parameter provides counts binned by the requested parameter.
@@ -172,7 +162,7 @@ ala_counts(group_by = "kingdom")
 ```
 
 
-## Media downloads
+### Media downloads
 ```{r warning=FALSE, message=FALSE, eval = FALSE}
 # Search for occurrences with images
 filters <- select_filters(multimedia = "Image",
@@ -187,17 +177,17 @@ images %>% filter(recognisedLicence == "CC BY-NC 4.0")
 ```
 
 
-## Config
+### Config
 
 Various aspects of the galah package can be customized. To preserve
 configuration for future sessions, set `preserve = TRUE`. This will write the
 config to your `.Renviron` file.
 
-### Email
+#### Email
 To download occurrence records, you will need to provide an email address
 registered with the ALA. You can create an account [here](https://auth.ala.org.au/userdetails/registration/createAccount)
 
-### Caching
+#### Caching
 `galah` can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster. This will also reduce load on the ALA servers.
 
 By default, this caching is session-based, meaning that the local files are stored in a temporary directory that is automatically deleted when the R session is ended. This behaviour can be altered so that caching is permanent, by setting the caching directory to a non-temporary location. For example, under Windows, use something like:
@@ -224,14 +214,14 @@ ala_config(caching=FALSE)
 ```
 
 
-### Debugging
+#### Debugging
 If things aren't working as expected, more detail (particularly about web requests and caching behaviour) can be obtained by setting the `verbose` configuration option:
 
 ```{r eval=FALSE}
 ala_config(verbose=TRUE)
 ```
 
-### Setting the download reason
+#### Setting the download reason
 ALA requires that you provide a reason when downloading occurrence data (via the galah `ala_occurrences()` function). The reason is set as "scientific research" by default, but you can change this using `ala_config`. See `ala_reasons()` for valid download reasons.
 
 ```{r eval=FALSE}

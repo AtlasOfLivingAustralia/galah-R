@@ -2,7 +2,7 @@
 % Please edit documentation in R/ala_occurrences.R
 \name{ala_occurrences}
 \alias{ala_occurrences}
-\title{Occurrence record download}
+\title{Occurrence records}
 \usage{
 ala_occurrences(taxa, filters, locations, columns, mint_doi = FALSE)
 }
@@ -29,10 +29,14 @@ maximum number of records that can be downloaded in one go is 50 million.
 }
 \examples{
 \dontrun{
-## Retrieve all machine-observed reptile records in Victoria in the past
-## five years, with the default ALA data quality profile
-id <- ala_taxa("Reptilia")$taxon_concept_id
-occ <- ala_occurrences(taxa = id, filters =
-select_filters(list(year = seq(2015, 2020), state = "Victoria")))
+# Search for occurrences matching a taxon identifier
+occ <- ala_occurrences(taxa = ala_taxa("Reptilia"))
+
+# Search for occurrences in a year range
+occ <- ala_occurrences(filters = select_filters(year = seq(2010, 2020)))
+
+# Search for occurrences in a WKT-specified area
+polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
+occ <- ala_occurrences(locations = select_locations(wkt = polygon))
 }
 }

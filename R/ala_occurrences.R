@@ -1,4 +1,4 @@
-#' Occurrence record download
+#' Occurrence records
 #' 
 #' Large downloads can take a long time to process. To show a progress bar
 #' for the download, set \code{verbose = TRUE} in \code{\link{ala_config}}. The
@@ -12,13 +12,16 @@
 #' @param mint_doi logical: by default no DOI will be generated. Set to
 #' true if you intend to use the data in a publication or similar
 #' @return data.frame of occurrences
-#' @examples
-#' \dontrun{
-#' ## Retrieve all machine-observed reptile records in Victoria in the past
-#' ## five years, with the default ALA data quality profile
-#' id <- ala_taxa("Reptilia")$taxon_concept_id
-#' occ <- ala_occurrences(taxa = id, filters =
-#' select_filters(list(year = seq(2015, 2020), state = "Victoria")))
+#' @examples \dontrun{
+#' # Search for occurrences matching a taxon identifier
+#' occ <- ala_occurrences(taxa = ala_taxa("Reptilia"))
+#' 
+#' # Search for occurrences in a year range
+#' occ <- ala_occurrences(filters = select_filters(year = seq(2010, 2020)))
+#' 
+#' # Search for occurrences in a WKT-specified area
+#' polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
+#' occ <- ala_occurrences(locations = select_locations(wkt = polygon))
 #' }
 #' @export ala_occurrences
 

@@ -1,4 +1,4 @@
-#' Image and sound downlaod
+#' Image and sounds
 #' 
 #' \code{\link{ala_occurrences}} returns a \code{recordID} field- passing this
 #' to \code{ala_media} will return images and sounds for all the records.
@@ -6,7 +6,7 @@
 #' @param identifier string: a single or vector of occurrence or media
 #' identifiers. The type is specified by \code{identifier_type}
 #' @param identifier_type string: one of \code{c("occurrence", "media")}.
-#' Defaults to "media".
+#' Defaults to \code{"media"}.
 #' @param download_dir string: path to directory to store the downloaded media
 #' in
 #' @param media_type string: type of media to download, one or both of 
@@ -14,9 +14,9 @@
 #' @return dataframe of media information
 #' @examples
 #' \dontrun{
-#' # Occurrences of galahs with sound recordings
-#' occ <- ala_occurrences(taxa = ala_taxa("Phascolarctos cinereus"),
-#'                        filters = select_filters(multimedia = "Sound"))
+#' # Search for galah records with images
+#' occ <- ala_occurrences(taxa = ala_taxa("Eolophus Roseicapilla"),
+#'                        filters = select_filters(multimedia = "Image", year = 2020))
 #' sounds <- ala_media(occ$recordID, identifier_type = "occurrence",
 #'                     download_dir = tempdir())
 #' }

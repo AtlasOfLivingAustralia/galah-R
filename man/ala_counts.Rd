@@ -26,7 +26,7 @@ take a while.}
 \value{
 \itemize{
  \item{A single count, if \code{group_by} is not specified or,}
- \item{A data.frame of counts by `group_by` field, if it is specified}
+ \item{A data.frame of counts by \code{group_by} field, if it is specified}
 }
 }
 \description{
@@ -37,8 +37,13 @@ data.frame of counts matching the criteria, broken down by the `group_by`
 field.
 }
 \examples{
-# Count of total records in the ALA
+# With no arguments, return the total number of records in the ALA
 ala_counts()
-# Counts by state and territory
+
+# Group counts by state and territory
 ala_counts(group_by = "stateProvince")
+
+# Count records matching a filter
+ala_counts(filters = select_filters(basisOfRecord = "FossilSpecimen"))
+
 }

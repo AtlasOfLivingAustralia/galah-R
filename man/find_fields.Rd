@@ -11,7 +11,8 @@ find_fields(class = "all")
 \item{class}{string: class of fields to return e.g. "Assertion"}
 }
 \value{
-data.frame of all fields.
+data.frame of fields with name, data_type, information and Darwin
+Core class.
 }
 \description{
 The field names are in Darwin Core format, apart from the fields
@@ -19,13 +20,17 @@ which have no DwC equivalent, such as record assertions.
 }
 \examples{
 \dontrun{
+# Find all fields
  l <- find_fields()
+ # Find assertion fields
+ ass <- find_fields("assertion")
 }
 }
 \references{
-Relevant ALA web services: \itemize{
-\item for occurrence fields: \url{https://api.ala.org.au/#ws72}
-\item for assertions \url{https://api.ala.org.au/#ws81}
+\itemize{
+\item Darwin Core terms \url{https://dwc.tdwg.org/terms/}
+\item ALA fields \url{https://api.ala.org.au/#ws72}
+\item ALA assertion fields \url{https://api.ala.org.au/#ws81}
 }
 }
 \seealso{
