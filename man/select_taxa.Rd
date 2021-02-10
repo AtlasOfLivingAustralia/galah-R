@@ -8,8 +8,7 @@ select_taxa(
   term,
   term_type = "name",
   return_children = FALSE,
-  include_counts = FALSE,
-  caching = FALSE
+  include_counts = FALSE
 )
 }
 \arguments{
@@ -25,9 +24,6 @@ term(s)?}
 
 \item{include_counts}{logical: return occurrence counts for all taxa
 found? \code{FALSE} by default}
-
-\item{caching}{logical: should the results be cached? \code{FALSE} by
-default}
 }
 \value{
 data.frame of taxon information
