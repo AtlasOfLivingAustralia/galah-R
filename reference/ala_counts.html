@@ -131,7 +131,7 @@ data.frame of counts matching the criteria, broken down by the `group_by`
 field.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ala_counts</span><span class='op'>(</span><span class='va'>taxa</span>, <span class='va'>filters</span>, <span class='va'>locations</span>, <span class='va'>group_by</span>, limit <span class='op'>=</span> <span class='fl'>100</span>, caching <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ala_counts</span><span class='op'>(</span><span class='va'>taxa</span>, <span class='va'>filters</span>, <span class='va'>locations</span>, <span class='va'>group_by</span>, limit <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,11 +158,6 @@ argument also accepts a vector of unique species identifiers.</p></td>
       <td><p>numeric: maximum number of categories to return. 100 by default.
 If limit is NULL, all results are returned. For some categories this will
 take a while.</p></td>
-    </tr>
-    <tr>
-      <th>caching</th>
-      <td><p>logical: should the results be cached/use cache? Only used if
-`group_by` is supplied.</p></td>
     </tr>
     </table>
 
