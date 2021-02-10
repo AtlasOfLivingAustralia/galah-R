@@ -76,7 +76,7 @@
       <h1 data-toc-skip>galah</h1>
                         <h4 class="author">Matilda Stevenson</h4>
             
-            <h4 class="date">2021-02-09</h4>
+            <h4 class="date">2021-02-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah/blob/master/vignettes/galah.Rmd"><code>vignettes/galah.Rmd</code></a></small>
       <div class="hidden name"><code>galah.Rmd</code></div>
@@ -113,22 +113,22 @@
 <div id="taxon-information" class="section level3">
 <h3 class="hasAnchor">
 <a href="#taxon-information" class="anchor"></a>Taxon information</h3>
-<p><code><a href="../reference/ala_taxa.html">ala_taxa()</a></code> provides information on one or more taxa. It can take either a scientific name (default), or a unique taxon identifier. The output of <code><a href="../reference/ala_taxa.html">ala_taxa()</a></code> can be provided to <code><a href="../reference/ala_counts.html">ala_counts()</a></code> and <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code> in the <code>taxa</code> argument to filter by taxa.</p>
+<p><code><a href="../reference/select_taxa.html">select_taxa()</a></code> provides information on one or more taxa. It can take either a scientific name (default), or a unique taxon identifier. The output of <code><a href="../reference/select_taxa.html">select_taxa()</a></code> can be provided to <code><a href="../reference/ala_counts.html">ala_counts()</a></code> and <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code> in the <code>taxa</code> argument to filter by taxa.</p>
 <div id="scientific-name-lookup" class="section level4">
 <h4 class="hasAnchor">
 <a href="#scientific-name-lookup" class="anchor"></a>Scientific name lookup</h4>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># A single taxa</span>
-<span class="fu"><a href="../reference/ala_taxa.html">ala_taxa</a></span><span class="op">(</span><span class="st">"Dasyurus viverrinus"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span><span class="st">"Dasyurus viverrinus"</span><span class="op">)</span></code></pre></div>
 <pre><code>##           search_term     scientific_name scientific_name_authorship
 ## 1 Dasyurus viverrinus Dasyurus viverrinus               (Shaw, 1800)
 ##                                                              taxon_concept_id    rank match_type  kingdom   phylum
 ## 1 urn:lsid:biodiversity.org.au:afd.taxon:52149285-a12a-4085-a285-b41af5ba3ce3 species exactMatch Animalia Chordata
 ##      class          order     family    genus             species  issues
 ## 1 Mammalia Dasyuromorphia Dasyuridae Dasyurus Dasyurus viverrinus noIssue</code></pre>
-<p><code><a href="../reference/ala_taxa.html">ala_taxa()</a></code> can return record counts for taxa with <code>include_counts = TRUE</code>, and the child concepts for taxa with <code>return_children = TRUE</code>.</p>
+<p><code><a href="../reference/select_taxa.html">select_taxa()</a></code> can return record counts for taxa with <code>include_counts = TRUE</code>, and the child concepts for taxa with <code>return_children = TRUE</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">banksia</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_taxa.html">ala_taxa</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus <span class="op">=</span> <span class="st">"Banksia"</span><span class="op">)</span>, return_children <span class="op">=</span> <span class="cn">TRUE</span>, include_counts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">banksia</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus <span class="op">=</span> <span class="st">"Banksia"</span><span class="op">)</span>, return_children <span class="op">=</span> <span class="cn">TRUE</span>, include_counts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co"># Select only the species-level taxa, sort by count, and display the top 5</span>
 <span class="va">top5_banksia</span> <span class="op">&lt;-</span> <span class="va">banksia</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">rank</span> <span class="op">==</span> <span class="st">"species"</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -138,19 +138,19 @@
 
 <span class="va">top5_banksia</span></code></pre></div>
 <pre><code>##         scientific_name                                   taxon_concept_id count
-## 1:    Banksia marginata   https://id.biodiversity.org.au/node/apni/2912814 27420
-## 2:    Banksia spinulosa   https://id.biodiversity.org.au/node/apni/7931274 13645
-## 3:      Banksia serrata https://id.biodiversity.org.au/taxon/apni/51293610 11262
-## 4: Banksia integrifolia   https://id.biodiversity.org.au/node/apni/2892579 10378
-## 5:   Banksia ericifolia https://id.biodiversity.org.au/taxon/apni/51299883  7462</code></pre>
+## 1:    Banksia marginata   https://id.biodiversity.org.au/node/apni/2912814 27436
+## 2:    Banksia spinulosa   https://id.biodiversity.org.au/node/apni/7931274 13650
+## 3:      Banksia serrata https://id.biodiversity.org.au/taxon/apni/51293610 11278
+## 4: Banksia integrifolia   https://id.biodiversity.org.au/node/apni/2892579 10384
+## 5:   Banksia ericifolia https://id.biodiversity.org.au/taxon/apni/51299883  7465</code></pre>
 </div>
 <div id="taxon-identifier-lookup" class="section level4">
 <h4 class="hasAnchor">
 <a href="#taxon-identifier-lookup" class="anchor"></a>Taxon identifier lookup</h4>
-<p>Use <code><a href="../reference/ala_taxa.html">ala_taxa()</a></code> to lookup a taxon id</p>
+<p>Use <code><a href="../reference/select_taxa.html">select_taxa()</a></code> to lookup a taxon id</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">id</span> <span class="op">&lt;-</span> <span class="st">"urn:lsid:biodiversity.org.au:afd.taxon:d315deea-822c-4f2c-b439-da33d6af5fd6"</span>
-<span class="fu"><a href="../reference/ala_taxa.html">ala_taxa</a></span><span class="op">(</span>term <span class="op">=</span> <span class="va">id</span>, term_type <span class="op">=</span> <span class="st">"identifier"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span>term <span class="op">=</span> <span class="va">id</span>, term_type <span class="op">=</span> <span class="st">"identifier"</span><span class="op">)</span></code></pre></div>
 <pre><code>##   scientific_name scientific_name_authorship
 ## 1 Elusor macrurus        Cann &amp; Legler, 1994
 ##                                                              taxon_concept_id    rank   match_type  kingdom   phylum
@@ -234,21 +234,21 @@
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Total number of records in the ALA (with no data quality filters)</span>
 <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 94635161</code></pre>
+<pre><code>## [1] 94651373</code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Total number of records, broken down by kindgom</span>
 <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span>group_by <span class="op">=</span> <span class="st">"kingdom"</span><span class="op">)</span></code></pre></div>
 <pre><code>##         name    count
-## 1   Animalia 69457278
-## 2    Plantae 20908452
-## 3      Fungi  1983256
-## 4  Chromista  1037167
-## 5   Protista    64609
-## 6   Bacteria    58960
-## 7   Protozoa    21042
+## 1   Animalia 69468610
+## 2    Plantae 20912363
+## 3      Fungi  1983708
+## 4  Chromista  1037168
+## 5   Protista    64622
+## 6   Bacteria    58963
+## 7   Protozoa    21078
 ## 8    Archaea     1102
 ## 9  Eukaryota      735
-## 10     Virus      302</code></pre>
+## 10     Virus      304</code></pre>
 </div>
 <div id="media-downloads" class="section level3">
 <h3 class="hasAnchor">

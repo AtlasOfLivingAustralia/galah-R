@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Taxon information — ala_taxa • galah</title>
+<title>Taxon information — select_taxa • galah</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Taxon information — ala_taxa" />
+<meta property="og:title" content="Taxon information — select_taxa" />
 <meta property="og:description" content="The resulting dataframe of taxon information can be passed directly to
 ala_occurrences to filter records to the specified taxa." />
 
@@ -116,7 +116,7 @@ ala_occurrences to filter records to the specified taxa." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Taxon information</h1>
-    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/ala_taxa.R'><code>R/ala_taxa.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/select_taxa.R'><code>R/select_taxa.R</code></a></small>
     <div class="hidden name"><code>ala_taxa.Rd</code></div>
     </div>
 
@@ -125,7 +125,7 @@ ala_occurrences to filter records to the specified taxa." />
 <code><a href='ala_occurrences.html'>ala_occurrences</a></code> to filter records to the specified taxa.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ala_taxa</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>select_taxa</span><span class='op'>(</span>
   <span class='va'>term</span>,
   term_type <span class='op'>=</span> <span class='st'>"name"</span>,
   return_children <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -171,14 +171,14 @@ default</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Search using a single term</span>
-<span class='fu'>ala_taxa</span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"Reptilia"</span><span class='op'>)</span>
+<span class='fu'>select_taxa</span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"Reptilia"</span><span class='op'>)</span>
 
 <span class='co'># Search with multiple ranks. This is required if a single term is a homonym.</span>
-<span class='fu'>ala_taxa</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>kingdom <span class='op'>=</span> <span class='st'>"Plantae"</span>, genus <span class='op'>=</span> <span class='st'>"Microseris"</span><span class='op'>)</span>,
+<span class='fu'>select_taxa</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>kingdom <span class='op'>=</span> <span class='st'>"Plantae"</span>, genus <span class='op'>=</span> <span class='st'>"Microseris"</span><span class='op'>)</span>,
          return_children <span class='op'>=</span> <span class='cn'>TRUE</span>, include_counts <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># Search using an unique taxon identifier</span>
-<span class='fu'>ala_taxa</span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"https://id.biodiversity.org.au/node/apni/2914510"</span>,
+<span class='fu'>select_taxa</span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"https://id.biodiversity.org.au/node/apni/2914510"</span>,
          term_type <span class='op'>=</span> <span class='st'>"identifier"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
