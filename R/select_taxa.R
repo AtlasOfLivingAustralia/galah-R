@@ -104,6 +104,11 @@ name_lookup <- function(name) {
   } else {
     # search by classification
     path <- "api/searchByClassification"
+    # workaround for https://github.com/AtlasOfLivingAustralia/ala-namematching-service/issues
+    family_i <- which("family" %in% names(name))
+    if (length(family_i) > 0) {
+      names(name)[family_i] <- "scientificName"
+    }
     query <- as.list(name)
   }
   result <- ala_GET(url, path, query)
@@ -139,7 +144,7 @@ identifier_lookup <- function(identifier) {
 # make sure rank provided is in accepted list
 validate_rank <- function(ranks) {
   valid_ranks <- c("kingdom", "phylum", "class", "order",
-                   "family", "genus", "scientificName", "specificEpithet")
+                   "family", "genus", "specificEpithet")
 
   invalid_ranks <- ranks[which(!(ranks %in% valid_ranks))]
 

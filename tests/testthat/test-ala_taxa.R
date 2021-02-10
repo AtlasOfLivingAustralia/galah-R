@@ -29,9 +29,8 @@ test_that("select_taxa searches at provided rank", {
   skip_on_cran()
   expect_equal(select_taxa(list(genus = "Acacia"))$rank, "genus")
   
-  # converts from 'species' to 'scientificName'
-  expect_equal(select_taxa(list(scientificName = "Wurmbea dioica"))$rank,
-               "species")
+  expect_equal(select_taxa(list(specificEpithet = "dioica",
+                                genus = "Wurmbea"))$rank, "species")
   
   # expect validation error for bad rank
   expect_error(select_taxa(list(kingdom = "Animalia", bad_rank = "species")))
