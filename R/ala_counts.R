@@ -14,8 +14,6 @@
 #' @param limit numeric: maximum number of categories to return. 100 by default.
 #' If limit is NULL, all results are returned. For some categories this will
 #' take a while.
-#' @param caching logical: should the results be cached/use cache? Only used if
-#' `group_by` is supplied.
 #' @return
 #' \itemize{
 #'  \item{A single count, if \code{group_by} is not specified or,}
@@ -33,8 +31,7 @@
 #'
 #' @export ala_counts
 
-ala_counts <- function(taxa, filters, locations, group_by,
-                       limit = 100, caching = FALSE) {
+ala_counts <- function(taxa, filters, locations, group_by, limit = 100) {
   query <- list()
   page_size <- 100
 
@@ -86,6 +83,7 @@ ala_counts <- function(taxa, filters, locations, group_by,
   cache_file <- cache_filename(args = c(url, path, unlist(query), limit,
                                         group_by),
                                ext = ".csv")
+  caching <- getOption("galah_config")$caching
   if (caching && file.exists(cache_file)) {
     return(read.csv(cache_file))
   }

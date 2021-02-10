@@ -12,8 +12,6 @@
 #' term(s)?
 #' @param include_counts logical: return occurrence counts for all taxa
 #' found? \code{FALSE} by default
-#' @param caching logical: should the results be cached? \code{FALSE} by
-#' default
 #' @return data.frame of taxon information
 #' @examples
 #' \dontrun{
@@ -31,7 +29,7 @@
 #' @export select_taxa
 
 select_taxa <- function(term, term_type = "name", return_children = FALSE,
-                         include_counts = FALSE, caching = FALSE) {
+                         include_counts = FALSE) {
 
   assert_that(is.flag(return_children))
   assert_that(term_type %in% c("name", "identifier"),
@@ -45,6 +43,7 @@ select_taxa <- function(term, term_type = "name", return_children = FALSE,
                                ifelse(return_children, "children", ""),
                                ifelse(include_counts, "counts", "")),
                                ext = ".csv")
+  caching <- getOption("galah_config")$caching
   if (caching && file.exists(cache_file)) {
     # use cached file
     return(read.csv(cache_file))
