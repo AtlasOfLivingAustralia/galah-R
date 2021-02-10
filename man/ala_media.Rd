@@ -34,7 +34,7 @@ to \code{ala_media} will return images and sounds for all the records.
 \examples{
 \dontrun{
 # Search for galah records with images
-occ <- ala_occurrences(taxa = ala_taxa("Eolophus Roseicapilla"),
+occ <- ala_occurrences(taxa = select_taxa("Eolophus Roseicapilla"),
                        filters = select_filters(multimedia = "Image", year = 2020))
 sounds <- ala_media(occ$recordID, identifier_type = "occurrence",
                     download_dir = tempdir())

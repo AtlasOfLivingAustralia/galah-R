@@ -2,7 +2,7 @@ reference:
 - title: Data
   contents:
   - ala_occurrences
-  - ala_taxa
+  - select_taxa
   - ala_counts
   - ala_media
 - title: Filter

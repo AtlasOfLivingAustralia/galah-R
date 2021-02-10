@@ -14,7 +14,7 @@
 #' @return data.frame of occurrences
 #' @examples \dontrun{
 #' # Search for occurrences matching a taxon identifier
-#' occ <- ala_occurrences(taxa = ala_taxa("Reptilia"))
+#' occ <- ala_occurrences(taxa = select_taxa("Reptilia"))
 #'
 #' # Search for occurrences in a year range
 #' occ <- ala_occurrences(filters = select_filters(year = seq(2010, 2020)))

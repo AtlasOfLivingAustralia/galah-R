@@ -7,7 +7,7 @@
 #' @param term_type string: specifies which type of terms are provided in
 #' `term`. One of name \code{`c('name', 'identifier')`}. Default behaviour is
 #' to search by `name`. `identifier` refers to the unique identifier for a
-#' taxon. 
+#' taxon.
 #' @param return_children logical: return child concepts for the provided
 #' term(s)?
 #' @param include_counts logical: return occurrence counts for all taxa
@@ -18,19 +18,19 @@
 #' @examples
 #' \dontrun{
 #' # Search using a single term
-#' ala_taxa(term = "Reptilia")
-#' 
+#' select_taxa(term = "Reptilia")
+#'
 #' # Search with multiple ranks. This is required if a single term is a homonym.
-#' ala_taxa(list(kingdom = "Plantae", genus = "Microseris"),
+#' select_taxa(list(kingdom = "Plantae", genus = "Microseris"),
 #'          return_children = TRUE, include_counts = TRUE)
-#' 
+#'
 #' # Search using an unique taxon identifier
-#' ala_taxa(term = "https://id.biodiversity.org.au/node/apni/2914510",
+#' select_taxa(term = "https://id.biodiversity.org.au/node/apni/2914510",
 #'          term_type = "identifier")
 #' }
-#' @export ala_taxa
+#' @export select_taxa
 
-ala_taxa <- function(term, term_type = "name", return_children = FALSE,
+select_taxa <- function(term, term_type = "name", return_children = FALSE,
                          include_counts = FALSE, caching = FALSE) {
 
   assert_that(is.flag(return_children))
@@ -38,7 +38,7 @@ ala_taxa <- function(term, term_type = "name", return_children = FALSE,
               msg = "`term_type` must be one of `c('name', 'identifier')`")
 
   if (missing(term)) {
-    stop("`ala_taxa` requires a term to search for")
+    stop("`select_taxa` requires a term to search for")
   }
   # caching won't catch if term order is changed
   cache_file <- cache_filename(c(unlist(term), term_type,
@@ -76,7 +76,7 @@ ala_taxa <- function(term, term_type = "name", return_children = FALSE,
     # look up the child concepts for the identifier
     children <- data.table::rbindlist(
       lapply(out_data$taxon_concept_id, function(x) {
-        child_concepts(x) 
+        child_concepts(x)
       }))
     # add children to df
     out_data <- data.table::rbindlist(list(out_data, children), fill = TRUE)

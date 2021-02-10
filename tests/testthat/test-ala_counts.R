@@ -50,14 +50,14 @@ test_that("ala counts handles queries with no records", {
 
 test_that("ala_counts works with long queries", {
   skip_on_cran()
-  taxa <- ala_taxa("Hymenoptera", return_children = TRUE)
+  taxa <- select_taxa("Hymenoptera", return_children = TRUE)
   filters <- select_filters(profile = "ALA")
   expect_gt(ala_counts(taxa, filters), 0)
 })
 
 test_that("ala occurrences handles long queries with pagination", {
   skip_on_cran()
-  taxa <- ala_taxa("Hymenoptera", return_children = TRUE)
+  taxa <- select_taxa("Hymenoptera", return_children = TRUE)
   filters <- select_filters(profile = "ALA")
   expect_warning(expect_equal(nrow(ala_counts(group_by = "eventDate",
                                               limit = 101)), 101))

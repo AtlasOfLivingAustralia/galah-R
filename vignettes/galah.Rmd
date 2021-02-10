@@ -46,20 +46,20 @@ library(galah)
 ```
 
 ### Taxon information
-`ala_taxa()` provides information on one or more taxa. It can take either a
+`select_taxa()` provides information on one or more taxa. It can take either a
 scientific name (default), or a unique taxon identifier. 
-The output of `ala_taxa()` can be provided to `ala_counts()` and `ala_occurrences()` in the `taxa` argument
+The output of `select_taxa()` can be provided to `ala_counts()` and `ala_occurrences()` in the `taxa` argument
 to filter by taxa.
 
 #### Scientific name lookup
 ```{r}
 # A single taxa
-ala_taxa("Dasyurus viverrinus")
+select_taxa("Dasyurus viverrinus")
 ```
 
-`ala_taxa()` can return record counts for taxa with `include_counts = TRUE`, and the child concepts for taxa with `return_children = TRUE`.
+`select_taxa()` can return record counts for taxa with `include_counts = TRUE`, and the child concepts for taxa with `return_children = TRUE`.
 ```{r}
-banksia <- ala_taxa(list(genus = "Banksia"), return_children = TRUE, include_counts = TRUE)
+banksia <- select_taxa(list(genus = "Banksia"), return_children = TRUE, include_counts = TRUE)
 
 # Select only the species-level taxa, sort by count, and display the top 5
 top5_banksia <- banksia %>% filter(rank == "species") %>%
@@ -71,10 +71,10 @@ top5_banksia
 ```
 
 #### Taxon identifier lookup
-Use `ala_taxa()` to lookup a taxon id
+Use `select_taxa()` to lookup a taxon id
 ```{r}
 id <- "urn:lsid:biodiversity.org.au:afd.taxon:d315deea-822c-4f2c-b439-da33d6af5fd6"
-ala_taxa(term = id, term_type = "identifier")
+select_taxa(term = id, term_type = "identifier")
 ```
 
 ### Occurrence data

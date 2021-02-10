@@ -12,12 +12,12 @@ test_that("ala_occurrences check inputs", {
 test_that("ala_occurrences gives a nice error for invalid emails", {
   skip_on_cran()
   ala_config(email = "test@test.org.au")
-  expect_error(ala_occurrences(taxa = ala_taxa("Wurmbea dioica")),
+  expect_error(ala_occurrences(taxa = select_taxa("Wurmbea dioica")),
   regexp = "Status code 403 was returned for this occurrence download request. This may be because
   the email you provided is not registered with the ALA. Please check and try again.")
   
   ala_config(email = "")
-  expect_error(ala_occurrences(taxa = ala_taxa("Wurmbea dioica")))
+  expect_error(ala_occurrences(taxa = select_taxa("Wurmbea dioica")))
   ala_config(email = "ala4r@ala.org.au")
 })
 
@@ -55,7 +55,7 @@ test_that("ala occurrences returns requested columns", {
                      "data_resource")
   filters <- select_filters(occurrence_decade_i = 1930)
   cols <- select_columns(group = "basic")
-  id <- ala_taxa("Polytelis swainsonii")$taxon_concept_id
+  id <- select_taxa("Polytelis swainsonii")$taxon_concept_id
   expect_equal(sort(names(ala_occurrences(taxa = id,
                                           filters = filters,
                                           columns = cols))),
@@ -72,7 +72,7 @@ test_that("ala occurrences returns requested columns", {
 test_that("ala occurrences handles assertion columns and works with data.frame
           input", {
   skip_on_cran()
-  id <- ala_taxa("Paraparatrechina minutula")
+  id <- select_taxa("Paraparatrechina minutula")
   cols <- select_columns("zeroLatitude", "zeroLongitude", "eventDate")
   expect_equal(names(ala_occurrences(taxa = id, columns = cols)),
                c("eventDate", "zeroLatitude", "zeroLongitude"))
