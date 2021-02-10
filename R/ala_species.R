@@ -13,7 +13,7 @@
 ala_species <- function(taxa, filters, locations) {
   # Use facet search with additional options
 
-  url <- getOption("ALA4R_server_config")$base_url_biocache
+  url <- getOption("galah_server_config")$base_url_biocache
 
   query <- list()
   
@@ -57,12 +57,14 @@ ala_species <- function(taxa, filters, locations) {
 
   query$facets <- "species_guid"
   query$lookup  <- "true"
-  query$counts <- "true"
+  #query$counts <- "true"
 
   path <- "ws/occurrences/facets/download"
 
   cache_file <- cache_filename(c(url, path, unlist(query)), ext = ".csv")
 
+  caching <- getOption("galah_config")$caching
+  
   if (caching && file.exists(cache_file)) {
     message("Using cached file")
     return(read.csv(cache_file))
@@ -72,6 +74,9 @@ ala_species <- function(taxa, filters, locations) {
                        cache_file = cache_file)
   # overwrite file with fixed names
   names(data) <- rename_columns(names(data), type = "checklist")
-  write.csv(data, cache_file)
+  
+  if (caching) {
+    write.csv(data, cache_file)
+  }
   return(data)
 }
