@@ -11,21 +11,33 @@
 #' @export select_locations
 
 select_locations <- function(wkt, sf) {
+  # currently a bug where the ALA doesn't accept some polygons
+  # to avoid any issues, any polygons should be converted to multipolygons
   if (nargs() > 1) {
     stop("Only one of wkt and sf can be provided to this function")
   }
   if (!missing(wkt)) {
     validate_wkt(wkt)
+    if (str_detect(wkt, "POLYGON") & ! str_detect(wkt, "MULTIPOLYGON")) {
+      # replace start of string
+      wkt <- str_replace(wkt, "POLYGON\\(\\(", "MULTIPOLYGON\\(\\(\\(")
+      # add an extra bracket
+      wkt <- paste0(wkt, ")")
+    }
   }
   if (!missing(sf)) {
     wkt <- build_wkt(sf)
   }
+
   #attr(wkt, "ala") <- "location"
   return(wkt)
 }
 
 # build a valid wkt string from a spatial polygon
 build_wkt <- function(polygon) {
+  if (st_geometry_type(polygon) == "POLYGON") {
+    polygon <- st_cast(polygon, "MULTIPOLYGON")
+  }
   wkt <- st_as_text(st_geometry(polygon))
   if (nchar(wkt) > 10000) {
     stop("The area provided is too complex. Please simplify it and try again.")

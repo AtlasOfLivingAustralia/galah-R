@@ -61,7 +61,6 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   query$fq <- c(taxa_query, filter_query)
 
   if (!missing(locations)) {
-    # convert area to wkt if not already
     area_query <- locations
     query$wkt <- area_query
   } else {
