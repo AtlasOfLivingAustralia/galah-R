@@ -62,7 +62,15 @@ dwc_to_ala <- function(dwc_names) {
   fields <- all_fields()
   # get relevant cols
   vapply(dwc_names, function(n) {
-    if (n %in% fields$dwcTerm) {
+    if (n == "scientificName") {
+      return("taxon_name")
+    } else if (n == "verbatimLatitude") {
+      return("verbatim_latitude")
+    } else if (n == "verbatimLongitude") {
+      return("verbatim_longitude")
+    } else if (n == "verbatimCoordinateSystem") {
+      return("verbatim_coordinate_system")
+    } else if (n %in% fields$dwcTerm) {
       return(fields[fields$dwcTerm == n & !is.na(fields$dwcTerm), ]$name)
     } else {
       return(n)
