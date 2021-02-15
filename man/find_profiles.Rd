@@ -16,9 +16,9 @@ List data quality profiles that can be used for data filtering.
 # Get available profiles
 profile_df <- find_profiles()
 # Values given in the 'shortName' column are accepted by select_filter(), i.e.
-select_filter(profle = profile_df$shortName[1])
-is equivalent to:
-select_filter(profle = "ALA")
+select_filters(profile = profile_df$shortName[1])
+# is equivalent to:
+select_filters(profile = "ALA")
 }
 \seealso{
 This function gives viable profle names for passing to

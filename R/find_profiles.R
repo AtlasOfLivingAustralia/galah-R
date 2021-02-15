@@ -11,9 +11,9 @@
 #' # Get available profiles
 #' profile_df <- find_profiles()
 #' # Values given in the 'shortName' column are accepted by select_filter(), i.e.
-#' select_filter(profle = profile_df$shortName[1])
-#' is equivalent to:
-#' select_filter(profle = "ALA")
+#' select_filters(profile = profile_df$shortName[1])
+#' # is equivalent to:
+#' select_filters(profile = "ALA")
 
 # this will return names and descriptions of data profiles
 # should id be exposed to the user?
