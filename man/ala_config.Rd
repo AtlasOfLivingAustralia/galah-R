@@ -14,6 +14,7 @@ Valid arguments are:
   default values
   \item \code{caching} logical: if TRUE, results will be cached, and any cached
     results will be re-used). If FALSE, data will be downloaded.
+  \item \code{cache_directory} string: the directory to use for the cache.
     By default this is a temporary directory, which means that results will
     only be cached
     within an R session and cleared automatically when the user exits R.
@@ -44,11 +45,11 @@ When \code{ala_config(...)} is called with arguments, nothing is returned
 but the configuration is set.
 }
 \description{
-Because the ALA requires
-}
-\details{
-\code{\link{find_reasons}()} returns a \code{data.frame} with information describing the
-valid options for \code{download_reason_id}
+The \code{galah} package supports large data downloads, and also
+interfaces with the ALA which requires that users of some services
+provide a registered email address and reason for downloading data. The
+\code{ala_config} function provides a way to manage these issues as simply
+as possible.
 }
 \examples{
 \dontrun{

@@ -1,12 +1,12 @@
 #' Get or set configuration options that control galah behaviour
 #'
-#' Because the ALA requires
-#'
-#' \code{\link{find_reasons}()} returns a \code{data.frame} with information describing the
-#' valid options for \code{download_reason_id}
+#' The \code{galah} package supports large data downloads, and also
+#' interfaces with the ALA which requires that users of some services
+#' provide a registered email address and reason for downloading data. The
+#' \code{ala_config} function provides a way to manage these issues as simply
+#' as possible.
 #'
 #' @param preserve logical: store config for future sessions?
-#'
 #' @param \dots Options can be defined using the form \code{name = value}.
 #' Valid arguments are:
 #' \itemize{
