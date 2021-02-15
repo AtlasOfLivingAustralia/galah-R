@@ -13,7 +13,8 @@ find_field_values(field, limit = 20)
 \item{limit}{numeric: maximum number of categories to return. 20 by default.}
 }
 \value{
-a data.frame of field name and category name.
+A \code{data.frame} containing columns \code{field} (user-supplied)
+and \code{category} (i.e. field values).
 }
 \description{
 Used for checking filter values for \code{\link{ala_occurrences}} and
@@ -22,4 +23,8 @@ Used for checking filter values for \code{\link{ala_occurrences}} and
 \examples{
 find_field_values("basis_of_record")
 find_field_values("state")
+}
+\seealso{
+See \code{\link{find_fields}} for ways to use information returned
+by this function.
 }

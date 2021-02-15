@@ -5,7 +5,10 @@
 #' @param field string: field to return the categories for. Use
 #' \code{\link{find_fields}} to view valid fields.
 #' @param limit numeric: maximum number of categories to return. 20 by default.
-#' @return a data.frame of field name and category name.
+#' @return A \code{data.frame} containing columns \code{field} (user-supplied)
+#' and \code{category} (i.e. field values).
+#' @seealso See \code{\link{find_fields}} for ways to use information returned
+#' by this function.
 #' @examples
 #' find_field_values("basis_of_record")
 #' find_field_values("state")

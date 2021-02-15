@@ -11,7 +11,7 @@
 #'
 #' @param ... zero or more individual column names to include
 #' @param group string: (optional) name of one or more column groups to
-#' include. Valid ptions are \code{'basic'}, \code{'event'} and
+#' include. Valid options are \code{'basic'}, \code{'event'} and
 #' \code{'assertion'}
 #' @details
 #' Calling the argument \code{group = 'basic'} returns the following columns:

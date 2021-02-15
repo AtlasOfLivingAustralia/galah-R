@@ -33,8 +33,6 @@ which have no DwC equivalent, such as record assertions.
 }
 }
 \seealso{
-\code{\link{find_layers}} to search for spatial layers
-
 This function is used to pass valid arguments to
 \code{\link{select_filters}} & \code{\link{select_columns}}. The information
 that this function gives on spatial layers is not particularly detailed;

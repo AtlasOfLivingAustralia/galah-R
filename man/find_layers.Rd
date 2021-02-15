@@ -22,7 +22,7 @@ layers[grepl("Precipitation", layers$name),]
 }
 \seealso{
 This function is used to pass valid arguments to
-\code{\link{select_filters}} & \code{\link{select_columns}}. Layers are the
-spatial subset of fields stored by ALA; the full list is given by
+\code{\link{select_columns}}. Layers are the subset of fields that are
+spatially appended to each record by the ALA; the full list is given by
 \code{\link{find_fields}}.
 }

@@ -8,7 +8,6 @@
 #' \item ALA fields \url{https://api.ala.org.au/#ws72}
 #' \item ALA assertion fields \url{https://api.ala.org.au/#ws81}
 #' }
-#' @seealso \code{\link{find_layers}} to search for spatial layers
 #' @param class string: class of fields to return e.g. "Assertion"
 #' @return data.frame of fields with name, data_type, information and Darwin
 #' Core class.

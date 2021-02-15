@@ -9,3 +9,6 @@ find_reasons()
 \description{
 List valid download reasons
 }
+\seealso{
+This function is helpful in setting up \code{\link{ala_config}}.
+}

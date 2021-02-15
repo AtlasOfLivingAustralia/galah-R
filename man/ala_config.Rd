@@ -7,26 +7,33 @@
 ala_config(..., preserve = FALSE)
 }
 \arguments{
-\item{\dots}{Options can be defined using name = value. Valid options are:
+\item{\dots}{Options can be defined using the form \code{name = value}.
+Valid arguments are:
 \itemize{
-  \item reset: \code{ala_config("reset")} will reset the options to their
+  \item \code{reset}: \code{ala_config("reset")} will reset the options to their
   default values
-  \item caching logical: if TRUE, results will be cached, and any cached
+  \item \code{caching} logical: if TRUE, results will be cached, and any cached
     results will be re-used). If FALSE, data will be downloaded.
-  \item cache_directory string: the directory to use for the cache.
     By default this is a temporary directory, which means that results will
     only be cached
     within an R session and cleared automatically when the user exits R.
     The user may wish to set this to a non-temporary directory for
     caching across sessions. The directory must exist on the file system.
-  \item verbose logical: should galah give verbose output to assist
-  debugging? (default = FALSE)
-  \item download_reason_id numeric or string: the "download reason" required
+  \item \code{download_reason_id} numeric or string: the "download reason" required.
   by some ALA services, either as a numeric ID (currently 0--11)
   or a string (see \code{\link{find_reasons}()} for a list of valid ID codes and
   names). By default this is NA. Some ALA services require a valid
   download_reason_id code, either specified here or directly to the
   associated R function.
+  \item \code{email} string: An email address that has been registered with
+    ALA at \href{https://auth.ala.org.au/userdetails/registration/createAccount}{this address}.
+    A registered email is required for some functions in \code{galah}.
+  \item \code{send_email} logical: should you receive an email for each query to
+    \code{\link{ala_occurrences}()}? Defaults to \code{FALSE}; but can be
+    userful in some instances, for example for tracking DOIs assigned to
+    specific downloads for later citation.
+  \item \code{verbose} logical: should \code{galah} give verbose output to assist
+  debugging? Defaults to FALSE.
 }}
 
 \item{preserve}{logical: store config for future sessions?}
@@ -37,8 +44,7 @@ When \code{ala_config(...)} is called with arguments, nothing is returned
 but the configuration is set.
 }
 \description{
-Invoking \code{ala_config()} with no arguments returns a list with the
-current values of the options.
+Because the ALA requires
 }
 \details{
 \code{\link{find_reasons}()} returns a \code{data.frame} with information describing the
