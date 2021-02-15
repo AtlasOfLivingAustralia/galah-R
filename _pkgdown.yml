@@ -2,9 +2,9 @@ reference:
 - title: Data
   contents:
   - ala_occurrences
-  - select_taxa
   - ala_counts
   - ala_media
+  - ala_species
 - title: Filter
   contents: 
   - starts_with("select")
