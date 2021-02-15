@@ -4,19 +4,24 @@
 \alias{select_locations}
 \title{Build a WKT string from an sf spatial object or verify an existing WKT}
 \usage{
-select_locations(wkt, sf)
+select_locations(sf, wkt)
 }
 \arguments{
+\item{sf}{sf object: area to be converted to wkt}
+
 \item{wkt}{string: wkt to be verified. WKT strings longer than 10000
 characters will not be accepted by the ALA- see the vignette for how to
 work around this.}
-
-\item{sf}{sf object: area to be converted to wkt}
 }
 \value{
-WKT string representing area provided
+WKT string representing the area provided.
 }
 \description{
-Used by \code{\link{ala_occurrences}} to restrict search to an area.
-Provide either a wkt, or an sf object.
+Restrict results to those from a specified area. Areas must be polygons
+and be specified as either an sf object, or a 'well-known text' (wkt) string.
+}
+\seealso{
+\code{\link{select_taxa}}, \code{\link{select_filters}} and
+\code{\link{select_columns}} for other ways to restrict the information returned
+by \code{\link{ala_occurrences}} and related functions.
 }

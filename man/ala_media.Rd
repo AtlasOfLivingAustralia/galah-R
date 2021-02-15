@@ -21,22 +21,29 @@ Defaults to \code{"media"}.}
 \item{download_dir}{string: path to directory to store the downloaded media
 in}
 
-\item{media_type}{string: type of media to download, one or both of 
-\code{c("image", "sound")}`. Defaults to both.}
+\item{media_type}{string: type of media to download, one or both of
+\code{c("image", "sound")}. Defaults to both.}
 }
 \value{
 dataframe of media information
 }
 \description{
-\code{\link{ala_occurrences}} returns a \code{recordID} field- passing this
-to \code{ala_media} will return images and sounds for all the records.
+In addition to text data describing individual occurrences and their attributes,
+ALA stores image and sounds associated with a given record. These can be
+downloaded to \code{R} by first using \code{\link{ala_occurrences}()} to
+find records that contain media, and then passing the resulting \code{recordID}
+field to \code{ala_media} to download those media files (see examples).
 }
 \examples{
 \dontrun{
 # Search for galah records with images
-occ <- ala_occurrences(taxa = select_taxa("Eolophus Roseicapilla"),
-                       filters = select_filters(multimedia = "Image", year = 2020))
-sounds <- ala_media(occ$recordID, identifier_type = "occurrence",
-                    download_dir = tempdir())
+occ <- ala_occurrences(
+    taxa = select_taxa("Eolophus Roseicapilla"),
+    filters = select_filters(multimedia = "Image", year = 2020))
+
+# get images associated with these records
+sounds <- ala_media(occ$recordID,
+    identifier_type = "occurrence",
+    download_dir = tempdir())
 }
 }

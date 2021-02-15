@@ -2,7 +2,7 @@
 % Please edit documentation in R/ala_counts.R
 \name{ala_counts}
 \alias{ala_counts}
-\title{Summary counts}
+\title{Count of ALA records}
 \usage{
 ala_counts(taxa, filters, locations, group_by, limit = 100)
 }
@@ -16,22 +16,27 @@ argument also accepts a vector of unique species identifiers.}
 
 \item{group_by}{field to count by}
 
-\item{limit}{numeric: maximum number of categories to return. 100 by default.
+\item{limit}{numeric: maximum number of categories to return, defaulting to 100.
 If limit is NULL, all results are returned. For some categories this will
 take a while.}
 }
 \value{
 \itemize{
  \item{A single count, if \code{group_by} is not specified or,}
- \item{A data.frame of counts by \code{group_by} field, if it is specified}
+ \item{A \code{data.frame} of counts by \code{group_by} field, if it is specified}
 }
 }
 \description{
-\code{ala_counts} takes arguments in the same format as
-\code{\link{ala_occurrences}}.
-Provides either a total count of records matching the criteria, or a
-data.frame of counts matching the criteria, broken down by the `group_by`
-field.
+Prior to downloading data it is often valuable to have some estimate of how
+many records are available, both for deciding if the query is feasible,
+and for estimating how long it will take to download. Alternatively, for some kinds
+of reporting, the count of observations may be all that is required, for example
+for understanding how observations are growing or shrinking in particular
+locations of for particular taxa. To this end, \code{ala_counts()} takes
+arguments in the same format as \code{\link{ala_occurrences}()}, and
+provides either a total count of records matching the criteria, or a
+\code{data.frame} of counts matching the criteria supplied to the \code{group_by}
+argument.
 }
 \examples{
 # With no arguments, return the total number of records in the ALA

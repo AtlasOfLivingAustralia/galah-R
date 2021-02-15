@@ -7,7 +7,7 @@
 find_layers()
 }
 \value{
-data.frame of all spatial layers held by the ALA
+A \code{data.frame} of all spatial layers held by the ALA
 }
 \description{
 To return layer values with occurrence records, pass the required layer
@@ -19,4 +19,10 @@ names to \code{\link{select_columns}}.
 layers <- find_layers()
 layers[grepl("Precipitation", layers$name),]
 }
+}
+\seealso{
+This function is used to pass valid arguments to
+\code{\link{select_filters}} & \code{\link{select_columns}}. Layers are the
+spatial subset of fields stored by ALA; the full list is given by
+\code{\link{find_fields}}.
 }

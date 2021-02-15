@@ -2,8 +2,7 @@
 % Please edit documentation in R/find_fields.R
 \name{find_fields}
 \alias{find_fields}
-\title{Retrieves a list of all field names that can be used with data
-retrieval functions}
+\title{Retrieves field names for use with data retrieval functions}
 \usage{
 find_fields(class = "all")
 }
@@ -35,4 +34,9 @@ which have no DwC equivalent, such as record assertions.
 }
 \seealso{
 \code{\link{find_layers}} to search for spatial layers
+
+This function is used to pass valid arguments to
+\code{\link{select_filters}} & \code{\link{select_columns}}. The information
+that this function gives on spatial layers is not particularly detailed;
+consider also checking \code{\link{find_layers}} for more information.
 }

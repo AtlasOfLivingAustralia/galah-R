@@ -1,24 +1,31 @@
 #' Image and sounds
-#' 
-#' \code{\link{ala_occurrences}} returns a \code{recordID} field- passing this
-#' to \code{ala_media} will return images and sounds for all the records.
-#' 
+#'
+#' In addition to text data describing individual occurrences and their attributes,
+#' ALA stores image and sounds associated with a given record. These can be
+#' downloaded to \code{R} by first using \code{\link{ala_occurrences}()} to
+#' find records that contain media, and then passing the resulting \code{recordID}
+#' field to \code{ala_media} to download those media files (see examples).
+#'
 #' @param identifier string: a single or vector of occurrence or media
 #' identifiers. The type is specified by \code{identifier_type}
 #' @param identifier_type string: one of \code{c("occurrence", "media")}.
 #' Defaults to \code{"media"}.
 #' @param download_dir string: path to directory to store the downloaded media
 #' in
-#' @param media_type string: type of media to download, one or both of 
-#' \code{c("image", "sound")}`. Defaults to both.
+#' @param media_type string: type of media to download, one or both of
+#' \code{c("image", "sound")}. Defaults to both.
 #' @return dataframe of media information
 #' @examples
 #' \dontrun{
 #' # Search for galah records with images
-#' occ <- ala_occurrences(taxa = select_taxa("Eolophus Roseicapilla"),
-#'                        filters = select_filters(multimedia = "Image", year = 2020))
-#' sounds <- ala_media(occ$recordID, identifier_type = "occurrence",
-#'                     download_dir = tempdir())
+#' occ <- ala_occurrences(
+#'     taxa = select_taxa("Eolophus Roseicapilla"),
+#'     filters = select_filters(multimedia = "Image", year = 2020))
+#'
+#' # get images associated with these records
+#' sounds <- ala_media(occ$recordID,
+#'     identifier_type = "occurrence",
+#'     download_dir = tempdir())
 #' }
 #' @export ala_media
 
@@ -28,7 +35,7 @@ ala_media <- function(identifier, identifier_type = "media", download_dir,
   assert_that(!missing(identifier),
               msg = "Please provide at least one identifier")
   assert_that(is.character(identifier))
-  
+
   valid_media_type <- str_detect(media_type, c("image", "sound"))
   if (!all(valid_media_type)) {
     stop("Valid media types are `c('image', 'sound')`")
@@ -37,7 +44,7 @@ ala_media <- function(identifier, identifier_type = "media", download_dir,
     identifier_type %in% c("occurrence", "media"),
     msg = "`identifier_type` must be one of `c('occurrence', 'media')`")
 
-  
+
   assert_that(!missing(download_dir), msg = "Directory to download media to is
               required")
   assert_that(file.exists(download_dir))
@@ -53,7 +60,7 @@ ala_media <- function(identifier, identifier_type = "media", download_dir,
     }
     data
   }), fill = TRUE)
-  
+
   # download media
   # should add output path to out data?
   d <- mapply(download_media, media_data$media_id, media_data$format,
@@ -64,7 +71,7 @@ ala_media <- function(identifier, identifier_type = "media", download_dir,
   media_data
 }
 
-# should also allow filters? 
+# should also allow filters?
 # handle the case when an occurrence record has more images than the limit?
 # is there a limit?
 occurrence_media <- function(occurrence_id) {

@@ -1,5 +1,4 @@
-#' Retrieves a list of all field names that can be used with data
-#' retrieval functions
+#' Retrieves field names for use with data retrieval functions
 #'
 #' The field names are in Darwin Core format, apart from the fields
 #' which have no DwC equivalent, such as record assertions.
@@ -13,6 +12,10 @@
 #' @param class string: class of fields to return e.g. "Assertion"
 #' @return data.frame of fields with name, data_type, information and Darwin
 #' Core class.
+#' @seealso This function is used to pass valid arguments to
+#' \code{\link{select_filters}} & \code{\link{select_columns}}. The information
+#' that this function gives on spatial layers is not particularly detailed;
+#' consider also checking \code{\link{find_layers}} for more information.
 #' @examples
 #' \dontrun{
 #' # Find all fields
@@ -23,23 +26,23 @@
 #' @export find_fields
 
 find_fields <- function(class = "all") {
-  # Difference in behaviour from original ALA fields: 
+  # Difference in behaviour from original ALA fields:
   # don't need to return layer information- this is handled by `find_layers`
   # assertions and other fields are treated the same- but the type for assertions is 'logical'
   # if there is a DwC term for a field, this will be returned: not the ALA name
-  
+
   # for backwards compatibility, should allow a user to get the ALA names for a field?
 
   url <- getOption("galah_server_config")$base_url_biocache
-  
+
   fields <- ala_GET(url, path = "ws/index/fields")
-  
+
   # replace name with dwc term if it exists
   fields$name <- ifelse(!is.na(fields$dwcTerm), fields$dwcTerm, fields$name)
-  
+
   names(fields) <- rename_columns(names(fields), type = "fields")
   fields <- fields[wanted_columns("fields")]
-  
+
   # add assertions
   assertions <- ala_GET(url, path = "ws/assertions/codes")
   assertions$data_type <- "logical"

@@ -12,11 +12,12 @@ select_taxa(
 )
 }
 \arguments{
-\item{term}{string: named list or dataframe: search term(s)}
+\item{term}{string: single string, or optionally a vector, of search term(s).
+Note that searches are not case-sensitive.}
 
 \item{term_type}{string: specifies which type of terms are provided in
-`term`. One of name \code{`c('name', 'identifier')`}. Default behaviour is
-to search by `name`. `identifier` refers to the unique identifier for a
+`term`. One of name \code{c("name", "identifier")}. Default behaviour is
+to search by \code{name}. \code{identifier} refers to the unique identifier for a
 taxon.}
 
 \item{return_children}{logical: return child concepts for the provided
@@ -26,23 +27,42 @@ term(s)?}
 found? \code{FALSE} by default}
 }
 \value{
-data.frame of taxon information
+A \code{data.frame} of taxonomic information.
 }
 \description{
-The resulting dataframe of taxon information can be passed directly to
-\code{\link{ala_occurrences}} to filter records to the specified taxa.
+In the ALA, all records are associated with an identifier that uniquely
+identifies the taxon to which that record belongs. However, taxonomic names
+are often ambiguous due to homonymy; i.e. re-use of names (common or
+scientific) in different clades. Hence, \code{select_taxa} provides a means
+to search for taxonomic names and check the results are 'correct' before
+proceeded to download data via \code{\link{ala_occurrences}},
+\code{\link{ala_species}} or \code{\link{ala_counts}}. The resulting
+\code{data.frame} of taxonomic information can be passed directly to
+\code{ala_} functions to filter records to the specified taxon or taxa.
 }
 \examples{
 \dontrun{
 # Search using a single term
 select_taxa(term = "Reptilia")
+# or equivalently:
+select_taxa(term = "reptilia") # not case sensitive
 
 # Search with multiple ranks. This is required if a single term is a homonym.
-select_taxa(list(kingdom = "Plantae", genus = "Microseris"),
-         return_children = TRUE, include_counts = TRUE)
+select_taxa(
+  list(kingdom = "Plantae", genus = "Microseris"),
+  return_children = TRUE,
+  include_counts = TRUE)
 
 # Search using an unique taxon identifier
 select_taxa(term = "https://id.biodiversity.org.au/node/apni/2914510",
-         term_type = "identifier")
+   term_type = "identifier")
+
+# Search multiple taxa
+select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 }
+}
+\seealso{
+\code{\link{select_columns}}, \code{\link{select_filters}} and
+\code{\link{select_locations}} for other ways to restrict the information returned
+by \code{\link{ala_occurrences}} and related functions.
 }

@@ -2,20 +2,30 @@
 % Please edit documentation in R/find_profiles.R
 \name{find_profile_attributes}
 \alias{find_profile_attributes}
-\title{Get data filters for a  data quality profile}
+\title{Get data filters for a specified data quality profile}
 \usage{
 find_profile_attributes(profile)
 }
 \arguments{
 \item{profile}{string: a data quality profile name, short name or id.
-See `find_profiles` for valid filters}
+See \code{\link{find_profiles}} for valid filters}
 }
 \value{
-data.frame of profile attributes
+A \code{data.frame} of profile attributes, consisting of a
+free text \code{description} and the actual \code{filter} used.
 }
 \description{
-Get data filters for a  data quality profile
+Each data quality profile is made up of a series of filters. While some users
+may wish to simply trust the default filters, it is often useful to check
+what information they return, particularly if advanced customization is needed.
+This function gives all of the arguments built into a specific profile.
 }
 \examples{
-find_profile_attributes("CSDM")
+profile_info <- find_profile_attributes("CSDM")
+profile_info$description # free-text description of each filter in the "CSDM" profile
+}
+\seealso{
+\code{\link{find_profiles}} for a list of valid profiles;
+\code{\link{select_filters}} for how to include this information in a data
+query.
 }

@@ -1,11 +1,19 @@
 #' Data quality profiles
 #'
-#' List available profiles for data filtering 
+#' List data quality profiles that can be used for data filtering.
 #'
 #' @export find_profiles
-#' @return data.frame of available profiles
+#' @return A \code{data.frame} of available profiles
+#' @seealso This function gives viable profle names for passing to
+#' \code{\link{select_filters}}. For more detail on a given profile see
+#' \code{\link{find_profile_attributes}}.
 #' @examples
-#' find_profiles()
+#' # Get available profiles
+#' profile_df <- find_profiles()
+#' # Values given in the 'shortName' column are accepted by select_filter(), i.e.
+#' select_filter(profle = profile_df$shortName[1])
+#' is equivalent to:
+#' select_filter(profle = "ALA")
 
 # this will return names and descriptions of data profiles
 # should id be exposed to the user?
@@ -16,14 +24,24 @@ find_profiles <- function() {
   return(resp[wanted_columns(type = "profile")])
 }
 
-#' Get data filters for a  data quality profile
+#' Get data filters for a specified data quality profile
+#'
+#' Each data quality profile is made up of a series of filters. While some users
+#' may wish to simply trust the default filters, it is often useful to check
+#' what information they return, particularly if advanced customization is needed.
+#' This function gives all of the arguments built into a specific profile.
 #'
 #' @param profile string: a data quality profile name, short name or id.
-#' See `find_profiles` for valid filters
+#' See \code{\link{find_profiles}} for valid filters
 #' @export find_profile_attributes
-#' @return data.frame of profile attributes
+#' @return A \code{data.frame} of profile attributes, consisting of a
+#' free text \code{description} and the actual \code{filter} used.
+#' @seealso \code{\link{find_profiles}} for a list of valid profiles;
+#' \code{\link{select_filters}} for how to include this information in a data
+#' query.
 #' @examples
-#' find_profile_attributes("CSDM")
+#' profile_info <- find_profile_attributes("CSDM")
+#' profile_info$description # free-text description of each filter in the "CSDM" profile
 
 find_profile_attributes <- function(profile) {
   valid_profiles <- find_profiles()

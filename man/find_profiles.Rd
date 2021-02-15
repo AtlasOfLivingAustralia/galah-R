@@ -7,11 +7,21 @@
 find_profiles()
 }
 \value{
-data.frame of available profiles
+A \code{data.frame} of available profiles
 }
 \description{
-List available profiles for data filtering
+List data quality profiles that can be used for data filtering.
 }
 \examples{
-find_profiles()
+# Get available profiles
+profile_df <- find_profiles()
+# Values given in the 'shortName' column are accepted by select_filter(), i.e.
+select_filter(profle = profile_df$shortName[1])
+is equivalent to:
+select_filter(profle = "ALA")
+}
+\seealso{
+This function gives viable profle names for passing to
+\code{\link{select_filters}}. For more detail on a given profile see
+\code{\link{find_profile_attributes}}.
 }

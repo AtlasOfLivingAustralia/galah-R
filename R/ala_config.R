@@ -3,9 +3,9 @@
 #' Invoking \code{ala_config()} with no arguments returns a list with the
 #' current values of the options.
 #'
-#' \code{find_reasons()} returns a data frame with information describing the
+#' \code{\link{find_reasons}()} returns a \code{data.frame} with information describing the
 #' valid options for \code{download_reason_id}
-#' 
+#'
 #' @param preserve logical: store config for future sessions?
 #'
 #' @param \dots Options can be defined using name = value. Valid options are:
@@ -24,14 +24,15 @@
 #'   debugging? (default = FALSE)
 #'   \item download_reason_id numeric or string: the "download reason" required
 #'   by some ALA services, either as a numeric ID (currently 0--11)
-#'   or a string (see \code{find_reasons()} for a list of valid ID codes and
+#'   or a string (see \code{\link{find_reasons}()} for a list of valid ID codes and
 #'   names). By default this is NA. Some ALA services require a valid
 #'   download_reason_id code, either specified here or directly to the
 #'   associated R function.
 #' }
 #'
-#' @return For ala_config(), a list of all options. When ala_config(...) is
-#' called with arguments, nothing is returned but the configuration is set.
+#' @return For \code{ala_config()}, a \code{list} of all options.
+#' When \code{ala_config(...)} is called with arguments, nothing is returned
+#' but the configuration is set.
 #'
 #' @examples
 #' \dontrun{
@@ -45,10 +46,10 @@
 ala_config <- function(..., preserve = FALSE) {
   ala_option_name <- "galah_config"
   current_options <- getOption(ala_option_name)
-  
+
   assert_that(is.logical(preserve))
   user_options <- list(...)
-  
+
   default_options <- list(
     caching = FALSE,
     cache_directory = tempdir(),
@@ -57,7 +58,7 @@ ala_config <- function(..., preserve = FALSE) {
     send_email = FALSE,
     verbose = FALSE
   )
-  
+
   if (length(user_options) == 0 && !is.null(current_options)) {
     return(current_options)
   }
@@ -74,34 +75,34 @@ ala_config <- function(..., preserve = FALSE) {
     return(current_options)
   } else {
     # check all the options are valid, if so, set as options
-    
+
     if (!is.null(user_options$download_reason_id)) {
       user_options$download_reason_id <-
         convert_reason(user_options$download_reason_id)
     }
-    
+
     for (x in names(user_options)) {
       validate_option(x, user_options[[x]])
       current_options[[x]] <- user_options[[x]]
     }
-    
+
     ## set the global option
     temp <- list(current_options)
     names(temp) <- ala_option_name
   }
   options(temp)
-  
-  
+
+
   if (preserve) {
     profile_path <- file.path(Sys.getenv("HOME"), ".Rprofile")
     if (current_options$verbose) {
       message("The config will be stored in ", profile_path)
     }
     save_config(profile_path, current_options)
-    
+
   } else {
     if (current_options$verbose) {
-      msg <- "These configuration options will only be saved for this session. 
+      msg <- "These configuration options will only be saved for this session.
     Set `preserve = TRUE` to preserve them for future sessions."
     }
   }
@@ -121,7 +122,7 @@ save_config <- function(profile_path, new_options) {
     existing_options <- read_options(old_profile)
   }
   existing_options[["galah_config"]] <- new_options
-  
+
   options_to_write <- paste0(
     "options(",paste(
       sapply(
@@ -140,9 +141,9 @@ save_config <- function(profile_path, new_options) {
         }),
       collapse = ","),
     ")")
-  
+
   new_profile <- build_options(old_profile, options_to_write)
- 
+
   con <- file(profile_path)
   writeLines(new_profile, con)
   close(con)

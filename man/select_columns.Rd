@@ -10,11 +10,17 @@ select_columns(..., group)
 \item{...}{zero or more individual column names to include}
 
 \item{group}{string: (optional) name of one or more column groups to
-include. Options are \code{'basic'}, \code{'event'}) and
+include. Valid ptions are \code{'basic'}, \code{'event'} and
 \code{'assertion'}}
 }
 \description{
-The result of \code{select_columns} can be passed to the \code{columns}
+The ALA stores content on hundreds of different fields, and users often
+thousands or millions of records at a time. To reduce time taken to download
+data, and limit complexity of the resulting \code{data.frame}, it is often
+sensible to restrict the columns returned by \code{\link{ala_occurrences}}
+to those that are most critical for a given application. This function allows
+easy selection of individual columns, or commonly-requested groups of columns.
+The resulting \code{data.frame} is then passed to the \code{columns}
 argument in \code{\link{ala_occurrences}}.
 }
 \details{
@@ -38,5 +44,10 @@ Using \code{group = 'event'} returns the following columns:
   \item\code{samplingProtocol}
 }
 Using \code{group = 'assertion'} returns all quality assertion-related
-columns. The list of assertions is shown by `find_fields("assertion")`.
+columns. The list of assertions is shown by \code{find_fields("assertion")}.
+}
+\seealso{
+\code{\link{select_taxa}}, \code{\link{select_filters}} and
+\code{\link{select_locations}} for other ways to restrict the information returned
+by \code{\link{ala_occurrences}} and related functions.
 }

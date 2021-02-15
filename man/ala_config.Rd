@@ -23,7 +23,7 @@ ala_config(..., preserve = FALSE)
   debugging? (default = FALSE)
   \item download_reason_id numeric or string: the "download reason" required
   by some ALA services, either as a numeric ID (currently 0--11)
-  or a string (see \code{find_reasons()} for a list of valid ID codes and
+  or a string (see \code{\link{find_reasons}()} for a list of valid ID codes and
   names). By default this is NA. Some ALA services require a valid
   download_reason_id code, either specified here or directly to the
   associated R function.
@@ -32,15 +32,16 @@ ala_config(..., preserve = FALSE)
 \item{preserve}{logical: store config for future sessions?}
 }
 \value{
-For ala_config(), a list of all options. When ala_config(...) is
-called with arguments, nothing is returned but the configuration is set.
+For \code{ala_config()}, a \code{list} of all options.
+When \code{ala_config(...)} is called with arguments, nothing is returned
+but the configuration is set.
 }
 \description{
 Invoking \code{ala_config()} with no arguments returns a list with the
 current values of the options.
 }
 \details{
-\code{find_reasons()} returns a data frame with information describing the
+\code{\link{find_reasons}()} returns a \code{data.frame} with information describing the
 valid options for \code{download_reason_id}
 }
 \examples{

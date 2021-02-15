@@ -14,15 +14,37 @@ records. See \code{\link{find_profiles}} for valid profiles. By default
 no profile is applied.}
 }
 \value{
-data.frame of filter values
+A \code{data.frame} of filter values.
 }
 \description{
-The result of \code{select_filters} can be passed to the `filters`
-argument in \code{\link{ala_occurrences}} and \code{\link{ala_counts}}
+'filters' are arguments of the form \code{field = value} that are used
+to narrow down the number of records returned by a specific query.
+For example, it is common for users to request records from a particular year
+(\code{year = 2020}), or records that are associated with a physical
+specimen (\code{basisOfRecord = "PreservedSpecimen"}).
+The result of \code{select_filters} can be passed to the \code{filters}
+argument in \code{\link{ala_occurrences}}, \code{\link{ala_species}} or \code{\link{ala_counts}}.
 }
 \examples{
-# Create custom filters with the default ALA data quality profile
-filters <- select_filters(basisOfRecord = "HumanObservation", year = 2020,
-            stateProvince = "New South Wales", profile = "ALA")
+# Create a custom filter for records of interest
+filters <- select_filters(
+    basisOfRecord = "HumanObservation",
+    year = 2020,
+    stateProvince = "New South Wales")
 
+# Add the default ALA data quality profile
+filters <- select_filters(
+    basisOfRecord = "HumanObservation",
+    year = 2020,
+    stateProvince = "New South Wales",
+    profile = "ALA")
+
+}
+\seealso{
+\code{\link{select_taxa}}, \code{\link{select_columns}} and
+\code{\link{select_locations}} for other ways to restrict the information returned
+by \code{\link{ala_occurrences}} and related functions. Use
+\code{\link{find_fields}} &/or \code{\link{find_layers}} to find fields that
+you can filter by, and \code{\link{find_field_values}} to find what values
+of those filters are available.
 }

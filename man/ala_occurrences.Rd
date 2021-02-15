@@ -20,12 +20,26 @@ argument also accepts a vector of unique species identifiers.}
 true if you intend to use the data in a publication or similar}
 }
 \value{
-data.frame of occurrences
+A \code{data.frame} of occurrences, columns as specified
+by \code{\link{select_columns}()}.
 }
 \description{
-Large downloads can take a long time to process. To show a progress bar
-for the download, set \code{verbose = TRUE} in \code{\link{ala_config}}. The
-maximum number of records that can be downloaded in one go is 50 million.
+The most common form of data stored by ALA are observations of
+individual life forms, known as 'occurrences'. This function allows the
+user to search for occurrence records that match their specific criteria,
+and return them as a \code{data.frame} for analysis. Optionally,
+the user can also request a DOI for a given download to facilitate citation and
+re-use of specific data resources.
+}
+\details{
+Note that unless care is taken, some queries can be particularly large.
+While most cases this will simply take a long time to process, if the number
+of requested records is >50 million the call will not return any data. Users
+can test whether this thresold will be reached by first calling
+\code{\link{ala_counts}()} using the same arguments that they intend to pass to
+\code{ala_occurrences}. It may also be beneficial when requesting a large
+number of records to show a progress bar by setting \code{verbose = TRUE} in
+\code{\link{ala_config}}.
 }
 \examples{
 \dontrun{

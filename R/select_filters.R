@@ -1,19 +1,39 @@
 #' Select filters to narrow down occurrence queries
-#' 
-#' The result of \code{select_filters} can be passed to the `filters`
-#' argument in \code{\link{ala_occurrences}} and \code{\link{ala_counts}}
+#'
+#' 'filters' are arguments of the form \code{field = value} that are used
+#' to narrow down the number of records returned by a specific query.
+#' For example, it is common for users to request records from a particular year
+#' (\code{year = 2020}), or records that are associated with a physical
+#' specimen (\code{basisOfRecord = "PreservedSpecimen"}).
+#' The result of \code{select_filters} can be passed to the \code{filters}
+#' argument in \code{\link{ala_occurrences}}, \code{\link{ala_species}} or \code{\link{ala_counts}}.
 #'
 #' @param ... filters, in the form \code{field = value}
 #' @param profile string: (optional) a data quality profile to apply to the
 #' records. See \code{\link{find_profiles}} for valid profiles. By default
 #' no profile is applied.
-#' @return data.frame of filter values
+#' @return A \code{data.frame} of filter values.
+#' @seealso \code{\link{select_taxa}}, \code{\link{select_columns}} and
+#' \code{\link{select_locations}} for other ways to restrict the information returned
+#' by \code{\link{ala_occurrences}} and related functions. Use
+#' \code{\link{find_fields}} &/or \code{\link{find_layers}} to find fields that
+#' you can filter by, and \code{\link{find_field_values}} to find what values
+#' of those filters are available.
 #' @export select_filters
-#' @examples 
-#' # Create custom filters with the default ALA data quality profile
-#' filters <- select_filters(basisOfRecord = "HumanObservation", year = 2020,
-#'             stateProvince = "New South Wales", profile = "ALA")
-#' 
+#' @examples
+#' # Create a custom filter for records of interest
+#' filters <- select_filters(
+#'     basisOfRecord = "HumanObservation",
+#'     year = 2020,
+#'     stateProvince = "New South Wales")
+#'
+#' # Add the default ALA data quality profile
+#' filters <- select_filters(
+#'     basisOfRecord = "HumanObservation",
+#'     year = 2020,
+#'     stateProvince = "New South Wales",
+#'     profile = "ALA")
+#'
 
 select_filters <- function(..., profile = NULL) {
   filters <- list(...)
@@ -36,8 +56,8 @@ select_filters <- function(..., profile = NULL) {
   } else {
     dq_filter_rows <- NULL
   }
-  
-  
+
+
   assertions <- find_fields("assertion")$name
   validate_filters(filters)
   filter_rows <- data.table::rbindlist(lapply(names(filters), function(x) {
@@ -51,7 +71,7 @@ select_filters <- function(..., profile = NULL) {
     }
     row
   }))
-  
+
   rbind(filter_rows, dq_filter_rows)
 }
 
@@ -65,7 +85,7 @@ validate_filters <- function(filters) {
   # key should be a valid field name and value should be a valid category for
   # that field
   # valid options is a combination of find_layers and find_fields?
-  
+
   invalid_filters <- names(filters)[!names(filters) %in%
                                       c(find_fields()$name,
                                         "assertion", all_fields()$name)]
