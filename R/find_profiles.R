@@ -1,12 +1,16 @@
 #' Data quality profiles
 #'
-#' List data quality profiles that can be used for data filtering.
+#' The ALA provides a number of pre-built data quality profiles for 
+#' filtering data according to quality checks. A data quality profile can
+#' be specified in the \code{profile} argument in \code{\link{select_filters}()}
+#' and used to filter searches in \code{\link{ala_occurrences}()},
+#' \code{\link{ala_counts}()} and \code{\link{ala_species}()}.
 #'
 #' @export find_profiles
 #' @return A \code{data.frame} of available profiles
 #' @seealso This function gives viable profle names for passing to
-#' \code{\link{select_filters}}. For more detail on a given profile see
-#' \code{\link{find_profile_attributes}}.
+#' \code{\link{select_filters}()}. For more detail on a given profile see
+#' \code{\link{find_profile_attributes}()}.
 #' @examples
 #' # Get available profiles
 #' profile_df <- find_profiles()
@@ -31,13 +35,13 @@ find_profiles <- function() {
 #' what information they return, particularly if advanced customization is needed.
 #' This function gives all of the arguments built into a specific profile.
 #'
-#' @param profile string: a data quality profile name, short name or id.
-#' See \code{\link{find_profiles}} for valid filters
+#' @param profile \code{string}: a data quality profile name, short name or id.
+#' See \code{\link{find_profiles}()} for valid filters
 #' @export find_profile_attributes
 #' @return A \code{data.frame} of profile attributes, consisting of a
 #' free text \code{description} and the actual \code{filter} used.
-#' @seealso \code{\link{find_profiles}} for a list of valid profiles;
-#' \code{\link{select_filters}} for how to include this information in a data
+#' @seealso \code{\link{find_profiles}()} for a list of valid profiles;
+#' \code{\link{select_filters}()} for how to include this information in a data
 #' query.
 #' @examples
 #' profile_info <- find_profile_attributes("CSDM")

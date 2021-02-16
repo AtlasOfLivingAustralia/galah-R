@@ -7,15 +7,20 @@
 find_fields(class = "all")
 }
 \arguments{
-\item{class}{string: class of fields to return e.g. "Assertion"}
+\item{class}{\code{string}: class of fields to return e.g. "Assertion". By
+default all fields are returned.}
 }
 \value{
-data.frame of fields with name, data_type, information and Darwin
+\code{data.frame} of fields with name, data_type, information and Darwin
 Core class.
 }
 \description{
-The field names are in Darwin Core format, apart from the fields
-which have no DwC equivalent, such as record assertions.
+When building a set of filters with \code{\link{select_filters}()} or 
+specifying required columns with \code{\link{select_columns}()}, this function
+can be used to check that the fields map to fields stored in the ALA.
+This function returns a \code{data.frame} of all fields. Field names are in
+Darwin Core format, except in the case where the field is specific to the
+ALA database, in which case the ALA field name is returned.
 }
 \examples{
 \dontrun{
@@ -34,7 +39,7 @@ which have no DwC equivalent, such as record assertions.
 }
 \seealso{
 This function is used to pass valid arguments to
-\code{\link{select_filters}} & \code{\link{select_columns}}. The information
+\code{\link{select_filters}()} & \code{\link{select_columns}()}. The information
 that this function gives on spatial layers is not particularly detailed;
-consider also checking \code{\link{find_layers}} for more information.
+consider also checking \code{\link{find_layers}()} for more information.
 }

@@ -7,8 +7,8 @@
 find_profile_attributes(profile)
 }
 \arguments{
-\item{profile}{string: a data quality profile name, short name or id.
-See \code{\link{find_profiles}} for valid filters}
+\item{profile}{\code{string}: a data quality profile name, short name or id.
+See \code{\link{find_profiles}()} for valid filters}
 }
 \value{
 A \code{data.frame} of profile attributes, consisting of a
@@ -25,7 +25,7 @@ profile_info <- find_profile_attributes("CSDM")
 profile_info$description # free-text description of each filter in the "CSDM" profile
 }
 \seealso{
-\code{\link{find_profiles}} for a list of valid profiles;
-\code{\link{select_filters}} for how to include this information in a data
+\code{\link{find_profiles}()} for a list of valid profiles;
+\code{\link{select_filters}()} for how to include this information in a data
 query.
 }

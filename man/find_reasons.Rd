@@ -7,8 +7,13 @@
 find_reasons()
 }
 \description{
-List valid download reasons
+When downloading occurrence data with \code{\link{ala_occurrences}} the 
+ALA APIs require a reason for download to be specified. By default, a 
+download reason of 'scientific research' is set for you, but if you wish to
+change this you can do so with \code{\link{ala_config}()}. Use this function
+to view the list of download reason code and names. When specifying a reason, 
+you can use either the download code or name.
 }
 \seealso{
-This function is helpful in setting up \code{\link{ala_config}}.
+This function is helpful in setting up \code{\link{ala_config}()}.
 }

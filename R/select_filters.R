@@ -6,10 +6,11 @@
 #' (\code{year = 2020}), or records that are associated with a physical
 #' specimen (\code{basisOfRecord = "PreservedSpecimen"}).
 #' The result of \code{select_filters} can be passed to the \code{filters}
-#' argument in \code{\link{ala_occurrences}}, \code{\link{ala_species}} or \code{\link{ala_counts}}.
+#' argument in \code{\link{ala_occurrences}()}, \code{\link{ala_species}()} or
+#' \code{\link{ala_counts}()}.
 #'
 #' @param ... filters, in the form \code{field = value}
-#' @param profile string: (optional) a data quality profile to apply to the
+#' @param profile \code{string}: (optional) a data quality profile to apply to the
 #' records. See \code{\link{find_profiles}} for valid profiles. By default
 #' no profile is applied.
 #' @return A \code{data.frame} of filter values.

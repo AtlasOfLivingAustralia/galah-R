@@ -7,18 +7,18 @@
 find_field_values(field, limit = 20)
 }
 \arguments{
-\item{field}{string: field to return the categories for. Use
+\item{field}{\code{string}: field to return the categories for. Use
 \code{\link{find_fields}} to view valid fields.}
 
-\item{limit}{numeric: maximum number of categories to return. 20 by default.}
+\item{limit}{\code{numeric}: maximum number of categories to return. 20 by default.}
 }
 \value{
 A \code{data.frame} containing columns \code{field} (user-supplied)
 and \code{category} (i.e. field values).
 }
 \description{
-Used for checking filter values for \code{\link{ala_occurrences}} and
-\code{ala_counts} are valid
+When building a set of filters with \code{\link{select_filters}}, a user can
+use this function to check that the values provided are valid options.
 }
 \examples{
 find_field_values("basis_of_record")

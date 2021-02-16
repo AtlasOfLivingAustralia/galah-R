@@ -10,7 +10,11 @@ find_profiles()
 A \code{data.frame} of available profiles
 }
 \description{
-List data quality profiles that can be used for data filtering.
+The ALA provides a number of pre-built data quality profiles for 
+filtering data according to quality checks. A data quality profile can
+be specified in the \code{profile} argument in \code{\link{select_filters}()}
+and used to filter searches in \code{\link{ala_occurrences}()},
+\code{\link{ala_counts}()} and \code{\link{ala_species}()}.
 }
 \examples{
 # Get available profiles
@@ -22,6 +26,6 @@ select_filters(profile = "ALA")
 }
 \seealso{
 This function gives viable profle names for passing to
-\code{\link{select_filters}}. For more detail on a given profile see
-\code{\link{find_profile_attributes}}.
+\code{\link{select_filters}()}. For more detail on a given profile see
+\code{\link{find_profile_attributes}()}.
 }

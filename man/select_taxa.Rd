@@ -12,18 +12,18 @@ select_taxa(
 )
 }
 \arguments{
-\item{term}{string: single string, or optionally a vector, of search term(s).
+\item{term}{\code{string}: single string, or optionally a vector, of search term(s).
 Note that searches are not case-sensitive.}
 
-\item{term_type}{string: specifies which type of terms are provided in
+\item{term_type}{\code{string}: specifies which type of terms are provided in
 `term`. One of name \code{c("name", "identifier")}. Default behaviour is
 to search by \code{name}. \code{identifier} refers to the unique identifier for a
 taxon.}
 
-\item{return_children}{logical: return child concepts for the provided
+\item{return_children}{\code{logical}: return child concepts for the provided
 term(s)?}
 
-\item{include_counts}{logical: return occurrence counts for all taxa
+\item{include_counts}{\code{logical}: return occurrence counts for all taxa
 found? \code{FALSE} by default}
 }
 \value{
@@ -35,8 +35,8 @@ identifies the taxon to which that record belongs. However, taxonomic names
 are often ambiguous due to homonymy; i.e. re-use of names (common or
 scientific) in different clades. Hence, \code{select_taxa} provides a means
 to search for taxonomic names and check the results are 'correct' before
-proceeded to download data via \code{\link{ala_occurrences}},
-\code{\link{ala_species}} or \code{\link{ala_counts}}. The resulting
+proceeded to download data via \code{\link{ala_occurrences}()},
+\code{\link{ala_species}()} or \code{\link{ala_counts}()}. The resulting
 \code{data.frame} of taxonomic information can be passed directly to
 \code{ala_} functions to filter records to the specified taxon or taxa.
 }

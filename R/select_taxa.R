@@ -5,20 +5,20 @@
 #' are often ambiguous due to homonymy; i.e. re-use of names (common or
 #' scientific) in different clades. Hence, \code{select_taxa} provides a means
 #' to search for taxonomic names and check the results are 'correct' before
-#' proceeded to download data via \code{\link{ala_occurrences}},
-#' \code{\link{ala_species}} or \code{\link{ala_counts}}. The resulting
+#' proceeded to download data via \code{\link{ala_occurrences}()},
+#' \code{\link{ala_species}()} or \code{\link{ala_counts}()}. The resulting
 #' \code{data.frame} of taxonomic information can be passed directly to
 #' \code{ala_} functions to filter records to the specified taxon or taxa.
 #'
-#' @param term string: single string, or optionally a vector, of search term(s).
+#' @param term \code{string}: single string, or optionally a vector, of search term(s).
 #' Note that searches are not case-sensitive.
-#' @param term_type string: specifies which type of terms are provided in
+#' @param term_type \code{string}: specifies which type of terms are provided in
 #' `term`. One of name \code{c("name", "identifier")}. Default behaviour is
 #' to search by \code{name}. \code{identifier} refers to the unique identifier for a
 #' taxon.
-#' @param return_children logical: return child concepts for the provided
+#' @param return_children \code{logical}: return child concepts for the provided
 #' term(s)?
-#' @param include_counts logical: return occurrence counts for all taxa
+#' @param include_counts \code{logical}: return occurrence counts for all taxa
 #' found? \code{FALSE} by default
 #' @return A \code{data.frame} of taxonomic information.
 #' @seealso \code{\link{select_columns}}, \code{\link{select_filters}} and

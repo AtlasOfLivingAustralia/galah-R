@@ -4,17 +4,17 @@
 #' ALA stores image and sounds associated with a given record. These can be
 #' downloaded to \code{R} by first using \code{\link{ala_occurrences}()} to
 #' find records that contain media, and then passing the resulting \code{recordID}
-#' field to \code{ala_media} to download those media files (see examples).
+#' field to \code{\link{ala_media}()} to download those media files (see examples).
 #'
-#' @param identifier string: a single or vector of occurrence or media
+#' @param identifier \code{string}: a single or vector of occurrence or media
 #' identifiers. The type is specified by \code{identifier_type}
-#' @param identifier_type string: one of \code{c("occurrence", "media")}.
+#' @param identifier_type \code{string}: one of \code{c("occurrence", "media")}.
 #' Defaults to \code{"media"}.
-#' @param download_dir string: path to directory to store the downloaded media
+#' @param download_dir \code{string}: path to directory to store the downloaded media
 #' in
-#' @param media_type string: type of media to download, one or both of
+#' @param media_type \code{string}: type of media to download, one or both of
 #' \code{c("image", "sound")}. Defaults to both.
-#' @return dataframe of media information
+#' @return \code{data.frame} of media information
 #' @examples
 #' \dontrun{
 #' # Search for galah records with images

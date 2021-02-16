@@ -9,7 +9,7 @@ select_filters(..., profile = NULL)
 \arguments{
 \item{...}{filters, in the form \code{field = value}}
 
-\item{profile}{string: (optional) a data quality profile to apply to the
+\item{profile}{\code{string}: (optional) a data quality profile to apply to the
 records. See \code{\link{find_profiles}} for valid profiles. By default
 no profile is applied.}
 }
@@ -23,7 +23,8 @@ For example, it is common for users to request records from a particular year
 (\code{year = 2020}), or records that are associated with a physical
 specimen (\code{basisOfRecord = "PreservedSpecimen"}).
 The result of \code{select_filters} can be passed to the \code{filters}
-argument in \code{\link{ala_occurrences}}, \code{\link{ala_species}} or \code{\link{ala_counts}}.
+argument in \code{\link{ala_occurrences}()}, \code{\link{ala_species}()} or
+\code{\link{ala_counts}()}.
 }
 \examples{
 # Create a custom filter for records of interest

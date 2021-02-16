@@ -1,10 +1,10 @@
 #' List valid options for a categorical field
 #'
-#' Used for checking filter values for \code{\link{ala_occurrences}} and
-#' \code{ala_counts} are valid
-#' @param field string: field to return the categories for. Use
+#' When building a set of filters with \code{\link{select_filters}}, a user can
+#' use this function to check that the values provided are valid options.
+#' @param field \code{string}: field to return the categories for. Use
 #' \code{\link{find_fields}} to view valid fields.
-#' @param limit numeric: maximum number of categories to return. 20 by default.
+#' @param limit \code{numeric}: maximum number of categories to return. 20 by default.
 #' @return A \code{data.frame} containing columns \code{field} (user-supplied)
 #' and \code{category} (i.e. field values).
 #' @seealso See \code{\link{find_fields}} for ways to use information returned

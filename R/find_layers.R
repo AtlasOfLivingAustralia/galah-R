@@ -11,11 +11,11 @@
 #' @return A \code{data.frame} of all spatial layers held by the ALA
 #' @export find_layers
 #' @seealso This function is used to pass valid arguments to
-#' \code{\link{select_columns}} and \code{\link{select_filters}}.
+#' \code{\link{select_columns}()} and \code{\link{select_filters}()}.
 #' Layers are the subset of fields that are spatially appended to each record
-#' by the ALA; the full list is given by \code{\link{find_fields}}.
+#' by the ALA; the full list is given by \code{\link{find_fields}()}.
 #' To view valid values for a layer with categorical values, use
-#' \code{\link{find_field_values}}.
+#' \code{\link{find_field_values}()}.
 #' @details The resulting \code{data.frame} contains the following columns:
 #' \itemize{
 #'  \item{layer_id: A prefix ('el' for environmental layers and 'cl' for
@@ -24,7 +24,7 @@
 #'  \item{name: Descriptive name of the layer.}
 #'  \item{source_link: Link to original data source (if available)}
 #'  \item{description: Additional details about layer}
-#' } \code
+#' }
 #' @examples
 #' \dontrun{
 #' # Find all precipitation-related layers
