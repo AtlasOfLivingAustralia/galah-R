@@ -25,7 +25,6 @@ test_that("ala counts returns expected outputs", {
     taxa = "https://id.biodiversity.org.au/taxon/apni/51302291",
                                 group_by = "basis_of_record")), "data.frame")
   
-  expect_warning(ala_counts(group_by = 'phylum'))
 })
 
 test_that("ala counts works with filters", {
