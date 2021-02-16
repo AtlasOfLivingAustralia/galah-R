@@ -81,42 +81,38 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#galah" class="anchor"></a>galah</h1></div>
 
-<p><code>galah</code> is an R package for accessing data from the <a href="https://ala.org.au">Atlas of Living Australia (ALA)</a> <a href="https://api.ala.org.au/">APIs</a>. It is the successor to <a href="https://github.com/AtlasOfLivingAustralia/ALA4R"><code>ALA4R</code></a></p>
-<p>The ALA aggregates Australian biodiversity data from a range of sources, and makes the data freely available for scientists, policy makers, industry and the general public.</p>
-<p>If you have any questions or suggestions, please <a href="mailto:support@ala.org.au">contact us</a>.</p>
-<div id="citing-the-package" class="section level2">
+<p><code>galah</code> is an R interface to biodiversity data hosted by the <a href="https://www.ala.org.au/">Atlas of Living Australia</a> (ALA). It enables users to locate an download species observations, taxonomic information, or associated media such images or sounds, and to restrict their queries to particular taxa or locations. Users can specify which columns are returned by a query, or restrict their results to observations that meet particular quality-control criteria. All functions return a <code>data.frame</code> as their standard format.</p>
+<p>The ALA is a repository of biodiversity data, focussed primarily on observations of individual life forms. Like the Global Biodiversity Information Facility (<a href="https://www.gbif.org">GBIF</a>), the basic unit of data at ALA is an <em>occurrence</em> record, based on the <a href="https://dwc.tdwg.org">‘Darwin Core’</a> data standard.</p>
+<p>If you have any comments, questions or suggestions, please <a href="mailto:support@ala.org.au">contact us</a>.</p>
+<div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
-<a href="#citing-the-package" class="anchor"></a>Citing the package</h2>
-<p>Please cite <code>galah</code>. To generate a citation for the package version you are using, you can run</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"galah"</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="citing-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#citing-data" class="anchor"></a>Citing data</h2>
-<p>If you’re using occurrence data downloaded through <code>galah</code> in a publication, please generate a DOI and cite it. To generate a DOI, set <code>mint_doi = TRUE</code> in a call to <code>ala_occurrences</code>. To generate a citation using the dataset, use <code>ala_citation</code></p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">occ</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ala_occurrences.html">ala_occurrences</a></span><span class="op">(</span><span class="va">...</span>, mint_doi <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">doi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">occ</span>, <span class="st">"doi"</span><span class="op">)</span>
-<span class="va">cit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ala_citation.html">ala_citation</a></span><span class="op">(</span><span class="va">occ</span><span class="op">)</span></code></pre></div>
+<a href="#getting-started" class="anchor"></a>Getting started</h2>
+<ul>
+<li>The <a href="https://atlasoflivingaustralia.github.io/galah/articles/galah.html">vignette</a> provides an introduction to the package functions.</li>
+<li>For an outline of the package structure, and a list of all the available functions, run <code><a href="reference/galah.html">?galah</a></code> or view the <a href="https://atlasoflivingaustralia.github.io/galah/reference/index.html">reference page</a>.</li>
+</ul>
 </div>
 <div id="installing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installing" class="anchor"></a>Installing</h2>
 <p><code>galah</code> is not yet available on CRAN. To install the package from GitHub:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"AtlasOfLivingAustralia/galah"</span><span class="op">)</span></code></pre></div>
 <p>On Linux you will first need to ensure that <code>libcurl</code> and <code>v8</code> (version &lt;= 3.15) are installed on your system — e.g. on Ubuntu/Debian, open a terminal and do:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="fu">sudo</span> apt-get install libcurl4-openssl-dev libv8-3.14-dev</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">sudo</span> apt-get install libcurl4-openssl-dev libv8-3.14-dev</a></code></pre></div>
 </div>
-<div id="getting-started" class="section level2">
+<div id="citations" class="section level2">
 <h2 class="hasAnchor">
-<a href="#getting-started" class="anchor"></a>Getting started</h2>
-<ul>
-<li>The <code>galah</code> <a href="https://atlasoflivingaustralia.github.io/galah/articles/galah.html">vignette</a> provides an overview of the main features</li>
-<li>Run <code><a href="reference/galah.html">?galah</a></code> or view the <a href="https://atlasoflivingaustralia.github.io/galah/reference/index.html">reference page</a> to view all functions.</li>
-</ul>
+<a href="#citations" class="anchor"></a>Citations</h2>
+<p>To generate a citation for the package version you are using, you can run</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"galah"</span><span class="op">)</span></code></pre></div>
+<p>If you’re using occurrence data downloaded through <code>galah</code> in a publication, please generate a DOI and cite it. To request a DOI for a download of ocurrence record, set <code>mint_doi = TRUE</code> in a call to <code><a href="reference/ala_occurrences.html">ala_occurrences()</a></code>. To generate a citation for the downloaded occurrence records, pass the <code>data.frame</code> generated to <code><a href="reference/ala_citation.html">ala_citation()</a></code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">occ</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ala_occurrences.html">ala_occurrences</a></span><span class="op">(</span><span class="va">...</span>, mint_doi <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">doi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">occ</span>, <span class="st">"doi"</span><span class="op">)</span>
+<span class="va">cit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ala_citation.html">ala_citation</a></span><span class="op">(</span><span class="va">occ</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>

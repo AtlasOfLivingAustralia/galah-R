@@ -40,8 +40,14 @@
 
 
 <meta property="og:title" content="Specify columns for occurrence download — select_columns" />
-<meta property="og:description" content="The result of select_columns can be passed to the columns
-argument in ala_occurrences." />
+<meta property="og:description" content="The ALA stores content on hundreds of different fields, and users often
+thousands or millions of records at a time. To reduce time taken to download
+data, and limit complexity of the resulting data.frame, it is often
+sensible to restrict the columns returned by ala_occurrences()
+to those that are most critical for a given application. This function allows
+easy selection of individual columns, or commonly-requested groups of columns.
+The resulting data.frame is then passed to the columns
+argument in ala_occurrences()." />
 
 
 
@@ -121,8 +127,14 @@ argument in ala_occurrences." />
     </div>
 
     <div class="ref-description">
-    <p>The result of <code>select_columns</code> can be passed to the <code>columns</code>
-argument in <code><a href='ala_occurrences.html'>ala_occurrences</a></code>.</p>
+    <p>The ALA stores content on hundreds of different fields, and users often
+thousands or millions of records at a time. To reduce time taken to download
+data, and limit complexity of the resulting <code>data.frame</code>, it is often
+sensible to restrict the columns returned by <code><a href='ala_occurrences.html'>ala_occurrences</a>()</code>
+to those that are most critical for a given application. This function allows
+easy selection of individual columns, or commonly-requested groups of columns.
+The resulting <code>data.frame</code> is then passed to the <code>columns</code>
+argument in <code><a href='ala_occurrences.html'>ala_occurrences</a>()</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>select_columns</span><span class='op'>(</span><span class='va'>...</span>, <span class='va'>group</span><span class='op'>)</span></pre>
@@ -136,8 +148,8 @@ argument in <code><a href='ala_occurrences.html'>ala_occurrences</a></code>.</p>
     </tr>
     <tr>
       <th>group</th>
-      <td><p>string: (optional) name of one or more column groups to
-include. Options are <code>'basic'</code>, <code>'event'</code>) and
+      <td><p><code>string</code>: (optional) name of one or more column groups to
+include. Valid options are <code>'basic'</code>, <code>'event'</code> and
 <code>'assertion'</code></p></td>
     </tr>
     </table>
@@ -160,7 +172,12 @@ include. Options are <code>'basic'</code>, <code>'event'</code>) and
 <li><p><code>samplingEffort</code></p></li>
 <li><p><code>samplingProtocol</code></p></li>
 </ul><p>Using <code>group = 'assertion'</code> returns all quality assertion-related
-columns. The list of assertions is shown by `find_fields("assertion")`.</p>
+columns. The list of assertions is shown by <code><a href='find_fields.html'>find_fields("assertion")</a></code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='select_taxa.html'>select_taxa</a></code>, <code><a href='select_filters.html'>select_filters</a></code> and
+<code><a href='select_locations.html'>select_locations</a></code> for other ways to restrict the information returned
+by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and related functions.</p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

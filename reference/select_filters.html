@@ -40,8 +40,14 @@
 
 
 <meta property="og:title" content="Select filters to narrow down occurrence queries — select_filters" />
-<meta property="og:description" content="The result of select_filters can be passed to the `filters`
-argument in ala_occurrences and ala_counts" />
+<meta property="og:description" content="'filters' are arguments of the form field = value that are used
+to narrow down the number of records returned by a specific query.
+For example, it is common for users to request records from a particular year
+(year = 2020), or records that are associated with a physical
+specimen (basisOfRecord = &quot;PreservedSpecimen&quot;).
+The result of select_filters can be passed to the filters
+argument in ala_occurrences(), ala_species() or
+ala_counts()." />
 
 
 
@@ -121,8 +127,14 @@ argument in ala_occurrences and ala_counts" />
     </div>
 
     <div class="ref-description">
-    <p>The result of <code>select_filters</code> can be passed to the `filters`
-argument in <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and <code><a href='ala_counts.html'>ala_counts</a></code></p>
+    <p>'filters' are arguments of the form <code>field = value</code> that are used
+to narrow down the number of records returned by a specific query.
+For example, it is common for users to request records from a particular year
+(<code>year = 2020</code>), or records that are associated with a physical
+specimen (<code>basisOfRecord = "PreservedSpecimen"</code>).
+The result of <code>select_filters</code> can be passed to the <code>filters</code>
+argument in <code><a href='ala_occurrences.html'>ala_occurrences</a>()</code>, <code><a href='ala_species.html'>ala_species</a>()</code> or
+<code><a href='ala_counts.html'>ala_counts</a>()</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>select_filters</span><span class='op'>(</span><span class='va'>...</span>, profile <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
@@ -136,7 +148,7 @@ argument in <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and 
     </tr>
     <tr>
       <th>profile</th>
-      <td><p>string: (optional) a data quality profile to apply to the
+      <td><p><code>string</code>: (optional) a data quality profile to apply to the
 records. See <code><a href='find_profiles.html'>find_profiles</a></code> for valid profiles. By default
 no profile is applied.</p></td>
     </tr>
@@ -144,12 +156,29 @@ no profile is applied.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>data.frame of filter values</p>
+    <p>A <code>data.frame</code> of filter values.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='select_taxa.html'>select_taxa</a></code>, <code><a href='select_columns.html'>select_columns</a></code> and
+<code><a href='select_locations.html'>select_locations</a></code> for other ways to restrict the information returned
+by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and related functions. Use
+<code><a href='find_fields.html'>find_fields</a></code> &amp;/or <code><a href='find_layers.html'>find_layers</a></code> to find fields that
+you can filter by, and <code><a href='find_field_values.html'>find_field_values</a></code> to find what values
+of those filters are available.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Create custom filters with the default ALA data quality profile</span>
-<span class='va'>filters</span> <span class='op'>&lt;-</span> <span class='fu'>select_filters</span><span class='op'>(</span>basisOfRecord <span class='op'>=</span> <span class='st'>"HumanObservation"</span>, year <span class='op'>=</span> <span class='fl'>2020</span>,
-            stateProvince <span class='op'>=</span> <span class='st'>"New South Wales"</span>, profile <span class='op'>=</span> <span class='st'>"ALA"</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'># Create a custom filter for records of interest</span>
+<span class='va'>filters</span> <span class='op'>&lt;-</span> <span class='fu'>select_filters</span><span class='op'>(</span>
+    basisOfRecord <span class='op'>=</span> <span class='st'>"HumanObservation"</span>,
+    year <span class='op'>=</span> <span class='fl'>2020</span>,
+    stateProvince <span class='op'>=</span> <span class='st'>"New South Wales"</span><span class='op'>)</span>
+
+<span class='co'># Add the default ALA data quality profile</span>
+<span class='va'>filters</span> <span class='op'>&lt;-</span> <span class='fu'>select_filters</span><span class='op'>(</span>
+    basisOfRecord <span class='op'>=</span> <span class='st'>"HumanObservation"</span>,
+    year <span class='op'>=</span> <span class='fl'>2020</span>,
+    stateProvince <span class='op'>=</span> <span class='st'>"New South Wales"</span>,
+    profile <span class='op'>=</span> <span class='st'>"ALA"</span><span class='op'>)</span>
 
 </div></pre>
   </div>

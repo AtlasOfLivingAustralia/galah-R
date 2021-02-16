@@ -40,8 +40,11 @@
 
 
 <meta property="og:title" content="Image and sounds — ala_media" />
-<meta property="og:description" content="ala_occurrences returns a recordID field- passing this
-to ala_media will return images and sounds for all the records." />
+<meta property="og:description" content="In addition to text data describing individual occurrences and their attributes,
+ALA stores image and sounds associated with a given record. These can be
+downloaded to R by first using ala_occurrences() to
+find records that contain media, and then passing the resulting recordID
+field to ala_media() to download those media files (see examples)." />
 
 
 
@@ -121,8 +124,11 @@ to ala_media will return images and sounds for all the records." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='ala_occurrences.html'>ala_occurrences</a></code> returns a <code>recordID</code> field- passing this
-to <code>ala_media</code> will return images and sounds for all the records.</p>
+    <p>In addition to text data describing individual occurrences and their attributes,
+ALA stores image and sounds associated with a given record. These can be
+downloaded to <code>R</code> by first using <code><a href='ala_occurrences.html'>ala_occurrences</a>()</code> to
+find records that contain media, and then passing the resulting <code>recordID</code>
+field to <code>ala_media()</code> to download those media files (see examples).</p>
     </div>
 
     <pre class="usage"><span class='fu'>ala_media</span><span class='op'>(</span>
@@ -137,37 +143,41 @@ to <code>ala_media</code> will return images and sounds for all the records.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>identifier</th>
-      <td><p>string: a single or vector of occurrence or media
+      <td><p><code>string</code>: a single or vector of occurrence or media
 identifiers. The type is specified by <code>identifier_type</code></p></td>
     </tr>
     <tr>
       <th>identifier_type</th>
-      <td><p>string: one of <code><a href='https://rdrr.io/r/base/c.html'>c("occurrence", "media")</a></code>.
+      <td><p><code>string</code>: one of <code><a href='https://rdrr.io/r/base/c.html'>c("occurrence", "media")</a></code>.
 Defaults to <code>"media"</code>.</p></td>
     </tr>
     <tr>
       <th>download_dir</th>
-      <td><p>string: path to directory to store the downloaded media
+      <td><p><code>string</code>: path to directory to store the downloaded media
 in</p></td>
     </tr>
     <tr>
       <th>media_type</th>
-      <td><p>string: type of media to download, one or both of 
-<code><a href='https://rdrr.io/r/base/c.html'>c("image", "sound")</a></code>`. Defaults to both.</p></td>
+      <td><p><code>string</code>: type of media to download, one or both of
+<code><a href='https://rdrr.io/r/base/c.html'>c("image", "sound")</a></code>. Defaults to both.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>dataframe of media information</p>
+    <p><code>data.frame</code> of media information</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Search for galah records with images</span>
-<span class='va'>occ</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ala_occurrences.html'>ala_occurrences</a></span><span class='op'>(</span>taxa <span class='op'>=</span> <span class='fu'><a href='select_taxa.html'>select_taxa</a></span><span class='op'>(</span><span class='st'>"Eolophus Roseicapilla"</span><span class='op'>)</span>,
-                       filters <span class='op'>=</span> <span class='fu'><a href='select_filters.html'>select_filters</a></span><span class='op'>(</span>multimedia <span class='op'>=</span> <span class='st'>"Image"</span>, year <span class='op'>=</span> <span class='fl'>2020</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>sounds</span> <span class='op'>&lt;-</span> <span class='fu'>ala_media</span><span class='op'>(</span><span class='va'>occ</span><span class='op'>$</span><span class='va'>recordID</span>, identifier_type <span class='op'>=</span> <span class='st'>"occurrence"</span>,
-                    download_dir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>occ</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ala_occurrences.html'>ala_occurrences</a></span><span class='op'>(</span>
+    taxa <span class='op'>=</span> <span class='fu'><a href='select_taxa.html'>select_taxa</a></span><span class='op'>(</span><span class='st'>"Eolophus Roseicapilla"</span><span class='op'>)</span>,
+    filters <span class='op'>=</span> <span class='fu'><a href='select_filters.html'>select_filters</a></span><span class='op'>(</span>multimedia <span class='op'>=</span> <span class='st'>"Image"</span>, year <span class='op'>=</span> <span class='fl'>2020</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># get images associated with these records</span>
+<span class='va'>sounds</span> <span class='op'>&lt;-</span> <span class='fu'>ala_media</span><span class='op'>(</span><span class='va'>occ</span><span class='op'>$</span><span class='va'>recordID</span>,
+    identifier_type <span class='op'>=</span> <span class='st'>"occurrence"</span>,
+    download_dir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

@@ -40,8 +40,8 @@
 
 
 <meta property="og:title" content="Build a WKT string from an sf spatial object or verify an existing WKT — select_locations" />
-<meta property="og:description" content="Used by ala_occurrences to restrict search to an area.
-Provide either a wkt, or an sf object." />
+<meta property="og:description" content="Restrict results to those from a specified area. Areas must be polygons
+and be specified as either an sf object, or a 'well-known text' (wkt) string." />
 
 
 
@@ -121,30 +121,35 @@ Provide either a wkt, or an sf object." />
     </div>
 
     <div class="ref-description">
-    <p>Used by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> to restrict search to an area.
-Provide either a wkt, or an sf object.</p>
+    <p>Restrict results to those from a specified area. Areas must be polygons
+and be specified as either an sf object, or a 'well-known text' (wkt) string.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>select_locations</span><span class='op'>(</span><span class='va'>wkt</span>, <span class='va'>sf</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>select_locations</span><span class='op'>(</span><span class='va'>sf</span>, <span class='va'>wkt</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>sf</th>
+      <td><p>sf object: area to be converted to wkt</p></td>
+    </tr>
     <tr>
       <th>wkt</th>
       <td><p>string: wkt to be verified. WKT strings longer than 10000
 characters will not be accepted by the ALA- see the vignette for how to
 work around this.</p></td>
     </tr>
-    <tr>
-      <th>sf</th>
-      <td><p>sf object: area to be converted to wkt</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>WKT string representing area provided</p>
+    <p>WKT string representing the area provided.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='select_taxa.html'>select_taxa</a></code>, <code><a href='select_filters.html'>select_filters</a></code> and
+<code><a href='select_columns.html'>select_columns</a></code> for other ways to restrict the information returned
+by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and related functions.</p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -40,8 +40,8 @@
 
 
 <meta property="og:title" content="List valid options for a categorical field — find_field_values" />
-<meta property="og:description" content="Used for checking filter values for ala_occurrences and
-ala_counts are valid" />
+<meta property="og:description" content="When building a set of filters with select_filters, a user can
+use this function to check that the values provided are valid options." />
 
 
 
@@ -121,8 +121,8 @@ ala_counts are valid" />
     </div>
 
     <div class="ref-description">
-    <p>Used for checking filter values for <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and
-<code>ala_counts</code> are valid</p>
+    <p>When building a set of filters with <code><a href='select_filters.html'>select_filters</a></code>, a user can
+use this function to check that the values provided are valid options.</p>
     </div>
 
     <pre class="usage"><span class='fu'>find_field_values</span><span class='op'>(</span><span class='va'>field</span>, limit <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span></pre>
@@ -132,18 +132,23 @@ ala_counts are valid" />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>field</th>
-      <td><p>string: field to return the categories for. Use
+      <td><p><code>string</code>: field to return the categories for. Use
 <code><a href='find_fields.html'>find_fields</a></code> to view valid fields.</p></td>
     </tr>
     <tr>
       <th>limit</th>
-      <td><p>numeric: maximum number of categories to return. 20 by default.</p></td>
+      <td><p><code>numeric</code>: maximum number of categories to return. 20 by default.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a data.frame of field name and category name.</p>
+    <p>A <code>data.frame</code> containing columns <code>field</code> (user-supplied)
+and <code>category</code> (i.e. field values).</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>See <code><a href='find_fields.html'>find_fields</a></code> for ways to use information returned
+by this function.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>find_field_values</span><span class='op'>(</span><span class='st'>"basis_of_record"</span><span class='op'>)</span>
