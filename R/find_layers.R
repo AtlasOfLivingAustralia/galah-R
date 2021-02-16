@@ -1,9 +1,9 @@
 #' Search ALA spatial layers
 #'
-#' The ALA stores information on a wide range of contextual and environmental
-#' layers. \code{find_layers()} returns a \code{data.frame} of all layers
-#' stored by the ALA.
-#' To return layer values with occurrence records, pass the required layer
+#' The ALA stores information on a wide range of contextual (e.g. political
+#' boundaries) and environmental (e.g. climate data) layers.
+#' \code{find_layers()} returns a \code{data.frame} of all layers stored by the
+#' ALA. To return layer values with occurrence records, pass the required layer
 #' names to \code{\link{select_columns}}. To filter occurrence records by a
 #' layer value (for layers with categorical values), pass the layer name and
 #' value to \code{\link{select_filters}}. 

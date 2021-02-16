@@ -17,30 +17,30 @@ knitr::opts_chunk$set(
 [![Travis-CI Build Status](https://travis-ci.com/AtlasOfLivingAustralia/galah.svg?branch=master)](https://travis-ci.com/AtlasOfLivingAustralia/galah)
 [![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/galah/branch/master/graph/badge.svg)](https://codecov.io/gh/AtlasOfLivingAustralia/galah)
 
-`galah` is an R package for accessing data from the [Atlas of Living Australia (ALA)](https://ala.org.au) [APIs](https://api.ala.org.au/). It is the successor to [`ALA4R`](https://github.com/AtlasOfLivingAustralia/ALA4R)
+`galah` is an R interface to biodiversity data hosted by the [Atlas of Living
+Australia](https://www.ala.org.au/) (ALA). It enables users to locate an
+download species observations, taxonomic information, or associated media such
+images or sounds, and to restrict their queries to particular taxa or
+locations. Users can specify which columns are returned by a query, or restrict
+their results to observations that meet particular quality-control criteria. All functions return a `data.frame` as their standard format.
 
-The ALA aggregates Australian biodiversity data from a range of sources, and makes the data freely available for scientists, policy makers, industry and the general public.
+The ALA is a repository of biodiversity data, focussed primarily on
+observations of individual life forms. Like the Global Biodiversity Information
+Facility ([GBIF](https://www.gbif.org)), the basic unit of data at ALA is an 
+*occurrence* record, based on the ['Darwin Core'](https://dwc.tdwg.org) data
+standard.
 
-If you have any questions or suggestions, please [contact us](mailto:support@ala.org.au).
+The `galah` package is named for the bird of the same name
+(**Eolophus roseicapilla**), a widely-distributed endemic Australian species.
 
-## Citing the package
-Please cite `galah`. To generate a citation for the package version you are using, you can run
-```r
-citation(package = "galah")
-```
+If you have any comments, questions or suggestions, please [contact us](mailto:support@ala.org.au).
 
-## Citing data
-If you're using occurrence data downloaded through `galah` in a publication, please generate a DOI and cite it. 
-To generate a DOI, set `mint_doi = TRUE` in a call to `ala_occurrences`.
-To generate a citation using the dataset, use `ala_citation`
+## Getting started
 
-```{r eval = FALSE}
-occ <- ala_occurrences(..., mint_doi = TRUE)
-doi <- attr(occ, "doi")
-cit <- ala_citation(occ)
-```
+- The [vignette](https://atlasoflivingaustralia.github.io/galah/articles/galah.html) provides an introduction to the package functions.
+- For an outline of the package structure, and a list of all the available functions, run `?galah` or view the [reference page](https://atlasoflivingaustralia.github.io/galah/reference/index.html).
 
-## Installing
+## Installation
 
 `galah` is not yet available on CRAN. To install the package from GitHub:
 
@@ -55,8 +55,23 @@ On Linux you will first need to ensure that `libcurl` and `v8` (version <= 3.15)
 sudo apt-get install libcurl4-openssl-dev libv8-3.14-dev
 ```
 
-## Getting started
+`galah` depends on `sf` for location-based searches. To install `galah` you will
+need to make sure your system meets the `sf` system requirements, as specified
+[here](https://cran.r-project.org/web/packages/sf/index.html)
 
-- The `galah` [vignette](https://atlasoflivingaustralia.github.io/galah/articles/galah.html) provides an overview of the main features
-- Run `?galah` or view the [reference page](https://atlasoflivingaustralia.github.io/galah/reference/index.html) to view all functions.
+## Citations
+To generate a citation for the package version you are using, you can run
+```r
+citation(package = "galah")
+```
+If you're using occurrence data downloaded through `galah` in a publication, please generate a DOI and cite it. 
+To request a DOI for a download of ocurrence record, set `mint_doi = TRUE` in a call to `ala_occurrences()`.
+To generate a citation for the downloaded occurrence records, pass the `data.frame`
+generated to `ala_citation()`.
+
+```{r eval = FALSE}
+occ <- ala_occurrences(..., mint_doi = TRUE)
+doi <- attr(occ, "doi")
+cit <- ala_citation(occ)
+```
 

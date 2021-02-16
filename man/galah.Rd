@@ -6,16 +6,17 @@
 \title{\pkg{galah}}
 \description{
 \code{galah} is an R interface to biodiversity data hosted by the Atlas of
-Living Australia (\url{https://www.ala.org.au/}). It enables users to locate
-and download species observations, taxonomic information, or associated media
-such images or sounds, and to restrict their queries to particular taxa or
-locations. Users can specify which columns are returned by a query, or
-restrict their results to observations that meet particular quality-control
-criteria. All functions return a \code{data.frame} as their standard format.
+Living Australia (\url{https://www.ala.org.au/}) (ALA). It enables users to
+locate and download species observations, taxonomic information, or
+associated media such images or sounds, and to restrict their queries to
+particular taxa or locations. Users can specify which columns are returned
+by a query, or restrict their results to observations that meet particular
+quality-control criteria. All functions return a \code{data.frame} as their
+standard format.
 }
 \details{
-The Atlas of Living Australia (ALA) is a repository of biodiversity data,
-focussed primarily on observations of individual life forms. Like the Global
+The Atlas of Living Australia is a repository of biodiversity data, focussed
+primarily on observations of individual life forms. Like the Global
 Biodiversity Information Facility (GBIF; \url{https://www.gbif.org}), the
 basic unit of data at ALA is an \strong{occurrence} record, based on the
 'Darwin Core' data standard (\url{https://dwc.tdwg.org}).
@@ -32,7 +33,7 @@ meet their particular criteria using \code{\link{ala_counts}()}.
 To get the most value from \code{galah}, it is helpful to understand some
 locally-specific terminology. Each occurrence record contains taxonomic
 information, and usually some information about the observation itself, such
-as it's location. In addition to this record-specific information, ALA
+as its location. In addition to this record-specific information, ALA
 appends contextual information to each record, particularly data from spatial
 \strong{layers} reflecting climate gradients or political boundaries (see
 \code{\link{find_layers}()} for a full list). Each piece of information
