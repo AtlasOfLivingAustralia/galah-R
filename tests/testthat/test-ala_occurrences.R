@@ -85,7 +85,7 @@ test_that("ala_occurrences handles wkt area inputs", {
 
   wkt <- readLines("../testdata/long_act_wkt.txt")
 
-  locations <- select_locations(readLines("../testdata/short_act_wkt.txt"))
+  locations <- select_locations(wkt = readLines("../testdata/short_act_wkt.txt"))
   cols <- select_columns(group = "basic", "state")
   filters <- select_filters(basis_of_record = "MachineObservation")
   expect_equal(unique(ala_occurrences(locations = locations,
