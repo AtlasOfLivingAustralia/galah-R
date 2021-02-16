@@ -18,16 +18,17 @@ knitr::opts_chunk$set(
 [![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/galah/branch/master/graph/badge.svg)](https://codecov.io/gh/AtlasOfLivingAustralia/galah)
 
 `galah` is an R interface to biodiversity data hosted by the [Atlas of Living
-Australia](https://www.ala.org.au/) (ALA). It enables users to locate an
+Australia](https://www.ala.org.au/) (ALA). It enables users to locate and
 download species observations, taxonomic information, or associated media such
 images or sounds, and to restrict their queries to particular taxa or
 locations. Users can specify which columns are returned by a query, or restrict
-their results to observations that meet particular quality-control criteria. All functions return a `data.frame` as their standard format.
+their results to observations that meet particular quality-control criteria.
+All functions return a `data.frame` as their standard format.
 
 The ALA is a repository of biodiversity data, focussed primarily on
 observations of individual life forms. Like the Global Biodiversity Information
 Facility ([GBIF](https://www.gbif.org)), the basic unit of data at ALA is an 
-*occurrence* record, based on the ['Darwin Core'](https://dwc.tdwg.org) data
+occurrence record, based on the ['Darwin Core'](https://dwc.tdwg.org) data
 standard.
 
 The `galah` package is named for the bird of the same name

@@ -9,7 +9,7 @@ Status](https://travis-ci.com/AtlasOfLivingAustralia/galah.svg?branch=master)](h
 
 `galah` is an R interface to biodiversity data hosted by the [Atlas of
 Living Australia](https://www.ala.org.au/) (ALA). It enables users to
-locate an download species observations, taxonomic information, or
+locate and download species observations, taxonomic information, or
 associated media such images or sounds, and to restrict their queries to
 particular taxa or locations. Users can specify which columns are
 returned by a query, or restrict their results to observations that meet
@@ -19,8 +19,11 @@ as their standard format.
 The ALA is a repository of biodiversity data, focussed primarily on
 observations of individual life forms. Like the Global Biodiversity
 Information Facility ([GBIF](https://www.gbif.org)), the basic unit of
-data at ALA is an *occurrence* record, based on the [‘Darwin
+data at ALA is an occurrence record, based on the [‘Darwin
 Core’](https://dwc.tdwg.org) data standard.
+
+The `galah` package is named for the bird of the same name (**Eolophus
+roseicapilla**), a widely-distributed endemic Australian species.
 
 If you have any comments, questions or suggestions, please [contact
 us](mailto:support@ala.org.au).
@@ -34,7 +37,7 @@ us](mailto:support@ala.org.au).
     available functions, run `?galah` or view the [reference
     page](https://atlasoflivingaustralia.github.io/galah/reference/index.html).
 
-## Installing
+## Installation
 
 `galah` is not yet available on CRAN. To install the package from
 GitHub:
@@ -51,6 +54,11 @@ terminal and do:
 ``` sh
 sudo apt-get install libcurl4-openssl-dev libv8-3.14-dev
 ```
+
+`galah` depends on `sf` for location-based searches. To install `galah`
+you will need to make sure your system meets the `sf` system
+requirements, as specified
+[here](https://cran.r-project.org/web/packages/sf/index.html)
 
 ## Citations
 
