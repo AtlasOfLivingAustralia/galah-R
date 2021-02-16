@@ -14,73 +14,145 @@ library(knitr)
 options(width=120)
 ```
 
-## Installation
+### About
+`galah` is an R interface to biodiversity data hosted by the [Atlas of Living Australia](https://ala.org.au) (ALA). The ALA is a repository of biodiversity
+data, focussed primarily on observations of individual life forms. Like the
+Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)), the
+basic unit of data at ALA is an **occurrence** record, based on the ['Darwin Core'](https://dwc.tdwg.org) data standard.
 
-Development version from GitHub:
+`galah` enables users to locate and download species observations, taxonomic
+information, or associated media such images or sounds, and to restrict their
+queries to particular taxa or locations. Users can specify which columns are
+returned by a query, or restrict their results to observations that meet
+particular quality-control criteria. All functions return a `data.frame` as
+their standard format.
+
+### Installation
+`galah` is not yet available on CRAN. To install the package from GitHub:
 
 ```{r eval=FALSE}
 install.packages("remotes")
 remotes::install_github("AtlasOfLivingAustralia/galah")
 ```
 
-On Linux you will first need to ensure that `libcurl` and `v8` (version <= 3.15) are installed on your system --- e.g. on Ubuntu/Debian, open a terminal and do:
+See the [README](https://github.com/AtlasOfLivingAustralia/galah/blob/master/README.md) for system requirements.
 
-```{sh eval=FALSE}
-sudo apt-get install libcurl4-openssl-dev libv8-3.14-dev
-```
-
-## Example usage
-
-Install packages for the examples, if required.
-```{r message=FALSE}
-to_install <- c("dplyr", "ggplot2", "ozmaps", "sf")
-to_install <- to_install[!sapply(to_install, requireNamespace, quietly=TRUE)]
-if(length(to_install)>0)
-    install.packages(to_install, repos="https://cran.csiro.au/")
-
-library(dplyr)
-library(ggplot2)
-library(ozmaps)
-library(sf)
+Load the package
+```{r}
 library(galah)
 ```
 
-### Taxon information
-`select_taxa()` provides information on one or more taxa. It can take either a
-scientific name (default), or a unique taxon identifier. 
-The output of `select_taxa()` can be provided to `ala_counts()` and `ala_occurrences()` in the `taxa` argument
-to filter by taxa.
+### Usage
 
-#### Scientific name lookup
+Functions that return data from ALA are named with the prefix `ala_`,
+followed by a suffix describing the information that they provide. For example,
+we anticipate that users will wish to download occurrence data, which can be
+achieved using the function `ala_occurrences()`. 
+
+Each occurrence record contains taxonomic information, and also some
+information about the observation itself, such as its location and the date
+of the observation. Each piece of information associated with a
+given occurrence is stored in a **field**,  which corresponds to a **column**
+when imported to a `data.frame`.
+
+Data fields are important because they provide a means to *filter*
+occurrence records;  i.e. to return only the information that you need, and
+no more. Consequently, much of the architecture of `galah` has been
+designed to make filtering as simple as possible, by using functions with the
+`select_` prefix.
+
+
+#### Taxonomic filtering
+`select_taxa` enables users search for taxonomic names and check the results
+are 'correct' before using the result to download data.
+The function allows both free-text searches and searches where the rank(s) are
+specified. Specifying the rank can be useful when names are ambiguous.
 ```{r}
-# A single taxa
-select_taxa("Dasyurus viverrinus")
+# free text search
+taxa_filter <- select_taxa(term = "Eolophus")
+
+# specifying ranks
+select_taxa(term = list(genus = "Eolophus", kingdom = "Aves"))
+```
+`select_taxa` can optionally provide information about child concepts, and
+counts of the number of records held by the ALA for the specified taxa.
+```{r}
+select_taxa(term = "Eolophus", return_children = TRUE, include_counts = TRUE)
+```
+This shows that there is only one species in the family *Eolophus*.
+
+#### Location-based filtering
+Users can provide an `sf` object or a Well-Known Text (WKT) string for
+location-based filtering.
+```{r eval = FALSE}
+locations <- select_locations(sf = st_read('act_rect.shp'))
 ```
 
-`select_taxa()` can return record counts for taxa with `include_counts = TRUE`, and the child concepts for taxa with `return_children = TRUE`.
+#### Field based filtering
+As mentioned above, all occurrence records in the ALA contain additional
+information about the record, stored in **fields**. Field-based filters are
+specified with `select_filters`, which takes indvidual filters, in the form
+`field = value`, and/or a [data quality profile](#data-quality-profiles).
+
+To find available fields and corresponding valid values, field lookup 
+functions are provided. For finding field names, use `find_fields()`, for
+finding valid field values, use `find_field_values()`.
 ```{r}
-banksia <- select_taxa(list(genus = "Banksia"), return_children = TRUE, include_counts = TRUE)
+fields <- find_fields()
+field_values <- find_field_values("basisOfRecord")
+```
+Build a field filter
 
-# Select only the species-level taxa, sort by count, and display the top 5
-top5_banksia <- banksia %>% filter(rank == "species") %>%
-  arrange(desc(count)) %>%
-  select(scientific_name, taxon_concept_id, count) %>%
-  head(n = 5)
-
-top5_banksia
+```{r}
+filters <- select_filters(basisOfRecord = "HumanObservation")
 ```
 
-#### Taxon identifier lookup
-Use `select_taxa()` to lookup a taxon id
+By default, a filter is included. To negate a filter, use `exclude()`.
 ```{r}
-id <- "urn:lsid:biodiversity.org.au:afd.taxon:d315deea-822c-4f2c-b439-da33d6af5fd6"
-select_taxa(term = id, term_type = "identifier")
+filters <- select_filters(basisOfRecord = "HumanObservation",
+                          occurrenceStatus = exclude("absent"))
 ```
 
-### Occurrence data
-Once you have retrieved taxon information, you can use this to search for occurrence
-records with `ala_occurrences()`. 
-To download occurrence data you will need to specify your email in `ala_config()`. This email must be associated with an active ALA account. See more information in the [config section](#config)
+
+##### Data quality profiles
+A notable extention of the filtering approach is to remove records with low
+'quality'. ALA performs quality control checks on all records that it stores.
+These checks are used to generate new fields, that can then be used to filter
+out records that are unsuitable for particular applications. However, there
+are many possible data quality checks, and it is not always clear which are
+most appropriate in a given instance. Therefore, `galah` supports ALA
+data quality **profiles**, which can be passed to `select_filters`to quickly
+remove undesirable records. A full list of data quality profiles is returned by
+`find_profiles()`.
+
+```{r}
+profiles <- find_profiles()
+```
+View filters included in a profile
+```{r}
+find_profile_attributes("ALA")
+```
+Include a profile in the filters
+```{r}
+filters <- select_filters(basisOfRecord = "HumanObservation",
+                          profile = "ALA")
+```
+
+### Downloading data
+By combining different filter functions, it is possible to build complex
+queries to return only the most valuable information for a given problem.
+Once you have retrieved taxon information, you can use this to search for
+occurrence records with [`ala_occurrences()`](#occurrence-data). However, it is
+also possible to download data on species via [`ala_species()`](#species-data),
+or media content (largely images) via [`ala_media()`](#media_downloads)
+Alternatively, users can assess how many records meet their particular criteria
+using [`ala_counts()`](#record-counts).
+
+#### Occurrence data
+
+To download occurrence data you will need to specify your email in
+`ala_config()`. This email must be associated with an active ALA account. See
+more information in the [config section](#config)
 ```{r include = FALSE}
 ala_config(email = "ala4r@ala.org.au", preserve = TRUE)
 ```
@@ -90,12 +162,15 @@ ala_config(email = your_email_here, preserve = TRUE)
 ```
 
 ```{r include = FALSE}
-occ <- read.csv("banksia.csv")
+occ <- read.csv("eolophus_roseicapilla.csv")
 ```
 
-Download occurrence records for 5 Banksia species
+Download occurrence records for *Eolophus roseicapilla*
 ```{r eval = FALSE}
-occ <- ala_occurrences(taxa = top5_banksia)
+occ <- ala_occurrences(taxa = select_taxa("Eolophus roseicapilla"),
+                       filters = select_filters(stateProvince = "Australian Capital Territory",
+                                                year = seq(2010, 2020),
+                                                profile = "ALA"))
 ```
 
 ```{r}
@@ -111,69 +186,25 @@ To view the list of available fields, run `find_fields()`.
 cols <- select_columns("institutionID", group = "basic")
 ```
 
-#### Filters
-`ala_occurrences()` and `ala_counts()` can take filters to narrow down the
-occurrence record search. `select_filters()` constructs the filters to pass to the `filters` option. It takes indvidual filters, in the form `field = value`, and/or a [data quality profile](#data-quality-profiles).
-By default, a filter is included. To negate a filter, use `exclude()`.
-To find filter names:
-```{r eval = FALSE}
-find_fields()
-```
-To find valid values for a filter:
-```{r eval = FALSE}
-find_field_values("kingdom")
-```
-To construct a set of filters:
-```{r eval=FALSE}
-# Filter with multiple values
-filters <- select_filters(year = seq(2010, 2020),
-                          basis_of_record = exclude("FossilSpecimen"))
-```
-
-
-##### Data quality profiles
-Data quality profiles are predefined sets of filters which have been designed to help
-users select fit-for-purpose records. More information about data profiles is available [here](https://support.ala.org.au/support/solutions/articles/6000240256-getting-started-with-the-data-quality-filters).
-To view available data quality filters:
-```{r eval = FALSE}
-find_profiles()
-```
-To view the list of filters included in a profile:
-```{r eval = FALSE}
-find_profile_attributes("ALA")
-```
-To filter data using a data quality profile:
-```{r}
-filters <- select_filters(profile = "ALA")
-```
-
-
-### Summary statistics
+#### Record counts
 `ala_counts()` provides summary counts on records in the ALA, without needing
-to download all the records. It takes filters in the same structure as `ala_occurrences`.
-The `group_by` parameter provides counts binned by the requested parameter.
+to download all the records. In addition to the filter arguments, it has an
+optional `group_by` argument, which provides counts binned by the requested
+field.
 ```{r warning = FALSE}
-# Total number of records in the ALA (with no data quality filters)
+# Total number of records in the ALA
 ala_counts()
 
 # Total number of records, broken down by kindgom
 ala_counts(group_by = "kingdom")
-
 ```
 
 
-### Media downloads
+#### Media downloads
 ```{r warning=FALSE, message=FALSE, eval = FALSE}
-# Search for occurrences with images
-filters <- select_filters(multimedia = "Image",
-                          basis_of_record = "HumanObservation")
-occ <- ala_occurrences(quoll$taxon_concept_id,
-                       filters = filters)
+# Use the occurrences previously downloaded
 images <- ala_media(head(occ$recordID, n = 5), download_dir = 'data/',
                     identifier_type = "occurrence")
-
-# filter by licence type
-images %>% filter(recognisedLicence == "CC BY-NC 4.0")
 ```
 
 
@@ -185,30 +216,26 @@ config to your `.Renviron` file.
 
 #### Email
 To download occurrence records, you will need to provide an email address
-registered with the ALA. You can create an account [here](https://auth.ala.org.au/userdetails/registration/createAccount)
-
-#### Caching
-`galah` can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster. This will also reduce load on the ALA servers.
-
-By default, this caching is session-based, meaning that the local files are stored in a temporary directory that is automatically deleted when the R session is ended. This behaviour can be altered so that caching is permanent, by setting the caching directory to a non-temporary location. For example, under Windows, use something like:
-
+registered with the ALA. You can create an account [here](https://auth.ala.org.au/userdetails/registration/createAccount).
+Once an email is registered with the ALA, it should be stored in the config:
 ```{r eval=FALSE}
-ala_config(cache_directory="c:/mydata/ala_cache")
+ala_config(email="myemail@gmail.com")
 ```
 
-or for Linux:
+#### Caching
+`galah` can cache most results to local files. This means that if the same code
+is run multiple times, the second and subsequent iterations will be faster.
+
+By default, this caching is session-based, meaning that the local files are
+stored in a temporary directory that is automatically deleted when the R
+session is ended. This behaviour can be altered so that caching is permanent,
+by setting the caching directory to a non-temporary location.
 
 ```{r eval=FALSE}
 ala_config(cache_directory="~/mydata/ala_cache")
 ```
 
-Note that this directory must exist (you need to create it yourself).
-
-All results will be stored in that cache directory and will be used from one session to the next.
-
-
-Caching can also be turned off entirely by:
-
+By default, caching is turned off. To turn caching on, run
 ```{r eval=FALSE}
 ala_config(caching=FALSE)
 ```
