@@ -81,8 +81,9 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#galah" class="anchor"></a>galah</h1></div>
 
-<p><code>galah</code> is an R interface to biodiversity data hosted by the <a href="https://www.ala.org.au/">Atlas of Living Australia</a> (ALA). It enables users to locate an download species observations, taxonomic information, or associated media such images or sounds, and to restrict their queries to particular taxa or locations. Users can specify which columns are returned by a query, or restrict their results to observations that meet particular quality-control criteria. All functions return a <code>data.frame</code> as their standard format.</p>
-<p>The ALA is a repository of biodiversity data, focussed primarily on observations of individual life forms. Like the Global Biodiversity Information Facility (<a href="https://www.gbif.org">GBIF</a>), the basic unit of data at ALA is an <em>occurrence</em> record, based on the <a href="https://dwc.tdwg.org">‘Darwin Core’</a> data standard.</p>
+<p><code>galah</code> is an R interface to biodiversity data hosted by the <a href="https://www.ala.org.au/">Atlas of Living Australia</a> (ALA). It enables users to locate and download species observations, taxonomic information, or associated media such images or sounds, and to restrict their queries to particular taxa or locations. Users can specify which columns are returned by a query, or restrict their results to observations that meet particular quality-control criteria. All functions return a <code>data.frame</code> as their standard format.</p>
+<p>The ALA is a repository of biodiversity data, focussed primarily on observations of individual life forms. Like the Global Biodiversity Information Facility (<a href="https://www.gbif.org">GBIF</a>), the basic unit of data at ALA is an occurrence record, based on the <a href="https://dwc.tdwg.org">‘Darwin Core’</a> data standard.</p>
+<p>The <code>galah</code> package is named for the bird of the same name (<strong>Eolophus roseicapilla</strong>), a widely-distributed endemic Australian species.</p>
 <p>If you have any comments, questions or suggestions, please <a href="mailto:support@ala.org.au">contact us</a>.</p>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
@@ -92,15 +93,16 @@
 <li>For an outline of the package structure, and a list of all the available functions, run <code><a href="reference/galah.html">?galah</a></code> or view the <a href="https://atlasoflivingaustralia.github.io/galah/reference/index.html">reference page</a>.</li>
 </ul>
 </div>
-<div id="installing" class="section level2">
+<div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installing" class="anchor"></a>Installing</h2>
+<a href="#installation" class="anchor"></a>Installation</h2>
 <p><code>galah</code> is not yet available on CRAN. To install the package from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"AtlasOfLivingAustralia/galah"</span><span class="op">)</span></code></pre></div>
 <p>On Linux you will first need to ensure that <code>libcurl</code> and <code>v8</code> (version &lt;= 3.15) are installed on your system — e.g. on Ubuntu/Debian, open a terminal and do:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">sudo</span> apt-get install libcurl4-openssl-dev libv8-3.14-dev</a></code></pre></div>
+<p><code>galah</code> depends on <code>sf</code> for location-based searches. To install <code>galah</code> you will need to make sure your system meets the <code>sf</code> system requirements, as specified <a href="https://cran.r-project.org/web/packages/sf/index.html">here</a></p>
 </div>
 <div id="citations" class="section level2">
 <h2 class="hasAnchor">
