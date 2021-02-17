@@ -22,8 +22,8 @@ Information Facility ([GBIF](https://www.gbif.org)), the basic unit of
 data at ALA is an occurrence record, based on the [‘Darwin
 Core’](https://dwc.tdwg.org) data standard.
 
-The `galah` package is named for the bird of the same name (**Eolophus
-roseicapilla**), a widely-distributed endemic Australian species.
+The `galah` package is named for the bird of the same name (*Eolophus
+roseicapilla*), a widely-distributed endemic Australian species.
 
 If you have any comments, questions or suggestions, please [contact
 us](mailto:support@ala.org.au).

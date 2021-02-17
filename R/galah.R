@@ -61,7 +61,7 @@
 #' according to a nested architecture. Users that require data should begin by
 #' locating the relevant \code{ala_} function; the arguments within that
 #' function then call correspondingly-named \code{select_} functions; and
-#' finally the specific values that can be interpretted by those \code{select_}
+#' finally the specific values that can be interpreted by those \code{select_}
 #' functions are given by \code{find_} functions. So, to limit occurrence
 #' downloads to a specific taxonomic group, for example, you pass the reult of
 #' \code{\link{select_taxa}} to the \code{taxa} argument of

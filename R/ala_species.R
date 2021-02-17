@@ -13,8 +13,8 @@
 #' @return A \code{data.frame} of matching species.
 #' @details
 #' The primary use case of this function is to extract species-level information
-#' given a set of criteria defined by \code{\link{select_taxa}},
-#' \code{\link{select_filters}} or \code{\link{select_locations}}. If the purpose
+#' given a set of criteria defined by \code{\link{select_taxa}()},
+#' \code{\link{select_filters}()} or \code{\link{select_locations}()}. If the purpose
 #' is simply to get taxonomic information that is not restricted by filtering,
 #' then \code{\link{select_taxa}()} is more efficient. Similarly, if counts are
 #' required that include filters but without returning taxonomic detail, then
@@ -98,6 +98,9 @@ ala_species <- function(taxa, filters, locations) {
     return(read.csv(cache_file))
   }
 
+  if (!caching & !dir.exists(cache_file)) {
+    file.create(cache_file)
+  }
   data <- ala_download(url, path = path, params = query,
                        cache_file = cache_file)
   # overwrite file with fixed names
@@ -105,6 +108,8 @@ ala_species <- function(taxa, filters, locations) {
 
   if (caching) {
     write.csv(data, cache_file)
+  } else {
+    file.remove(cache_file)
   }
   return(data)
 }

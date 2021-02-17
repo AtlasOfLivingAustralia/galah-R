@@ -14,7 +14,7 @@ library(knitr)
 options(width=120)
 ```
 
-### About
+## About
 `galah` is an R interface to biodiversity data hosted by the [Atlas of Living Australia](https://ala.org.au) (ALA). The ALA is a repository of biodiversity
 data, focussed primarily on observations of individual life forms. Like the
 Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)), the
@@ -42,12 +42,16 @@ Load the package
 library(galah)
 ```
 
-### Usage
+## Usage
 
-Functions that return data from ALA are named with the prefix `ala_`,
-followed by a suffix describing the information that they provide. For example,
-we anticipate that users will wish to download occurrence data, which can be
-achieved using the function `ala_occurrences()`. 
+Functions in `galah` are designed according to a nested architecture. Users
+that require data should begin by locating the relevant `ala_` function (see
+[downloading data section](#downloading-data)); the arguments within that
+function then call correspondingly-named [`select_` functions](#filtering-data);
+and finally the specific values that can be interpreted by those `select_`
+functions are given by `find_` functions.
+
+### Filtering data
 
 Each occurrence record contains taxonomic information, and also some
 information about the observation itself, such as its location and the date
@@ -60,7 +64,6 @@ occurrence records;  i.e. to return only the information that you need, and
 no more. Consequently, much of the architecture of `galah` has been
 designed to make filtering as simple as possible, by using functions with the
 `select_` prefix.
-
 
 #### Taxonomic filtering
 `select_taxa` enables users search for taxonomic names and check the results
@@ -96,7 +99,8 @@ specified with `select_filters`, which takes indvidual filters, in the form
 
 To find available fields and corresponding valid values, field lookup 
 functions are provided. For finding field names, use `find_fields()`, for
-finding valid field values, use `find_field_values()`.
+finding valid field values, use `find_field_values()`. To view information
+about spatial fields, use `find_layers()`.
 ```{r}
 fields <- find_fields()
 field_values <- find_field_values("basisOfRecord")
@@ -139,6 +143,10 @@ filters <- select_filters(basisOfRecord = "HumanObservation",
 ```
 
 ### Downloading data
+
+Functions that return data from ALA are named with the prefix `ala_`,
+followed by a suffix describing the information that they provide.
+
 By combining different filter functions, it is possible to build complex
 queries to return only the most valuable information for a given problem.
 Once you have retrieved taxon information, you can use this to search for
@@ -149,6 +157,16 @@ Alternatively, users can assess how many records meet their particular criteria
 using [`ala_counts()`](#record-counts).
 
 #### Occurrence data
+
+In addition to the [filter functions](#filtering-data) above, when downloading
+occurrence data users can specify which columns are returned using
+`select_columns()`. Individual column names and/or column groups can be
+specified.
+To view the fields for each group, see the documentation for `select_columns()`.
+To view the list of available fields, run `find_fields()`.
+```{r eval = FALSE}
+cols <- select_columns("institutionID", group = "basic")
+```
 
 To download occurrence data you will need to specify your email in
 `ala_config()`. This email must be associated with an active ALA account. See
@@ -170,20 +188,27 @@ Download occurrence records for *Eolophus roseicapilla*
 occ <- ala_occurrences(taxa = select_taxa("Eolophus roseicapilla"),
                        filters = select_filters(stateProvince = "Australian Capital Territory",
                                                 year = seq(2010, 2020),
-                                                profile = "ALA"))
+                                                profile = "ALA"),
+                       columns = select_columns("institutionID", group = "basic"))
 ```
 
 ```{r}
 head(occ)
 ```
 
-#### Columns
-There are a number of columns that can be returned with an occurrence dataset.
-You can specify individual columns and/or column groups. To view the fields for
-each group, see the documentation for `select_columns()`.
-To view the list of available fields, run `find_fields()`.
-```{r eval = FALSE}
-cols <- select_columns("institutionID", group = "basic")
+#### Species data
+A common use case of the ALA is to identify which species occur in a specified
+region, time period, or taxonomic group. `ala_species()` enables the user to 
+look up this information, using the common set of filter functions.
+```{r include = FALSE}
+ala_config(cache_directory = tempdir())
+```
+
+```{r}
+# List rodent species in the NT
+species <- ala_species(taxa = select_taxa("Rodentia"),
+            filters = select_filters(stateProvince = "Northern Territory"))
+head(species)
 ```
 
 #### Record counts
@@ -201,6 +226,11 @@ ala_counts(group_by = "kingdom")
 
 
 #### Media downloads
+In addition to text data describing individual occurrences and their attributes,
+ALA stores image and sounds associated with a given record. These can be
+downloaded to `R` by first using `ala_occurrences()` to find records that
+contain media, and then passing the resulting `recordID` field to `ala_media()`
+to download those media files.
 ```{r warning=FALSE, message=FALSE, eval = FALSE}
 # Use the occurrences previously downloaded
 images <- ala_media(head(occ$recordID, n = 5), download_dir = 'data/',
@@ -249,7 +279,7 @@ ala_config(verbose=TRUE)
 ```
 
 #### Setting the download reason
-ALA requires that you provide a reason when downloading occurrence data (via the galah `ala_occurrences()` function). The reason is set as "scientific research" by default, but you can change this using `ala_config`. See `ala_reasons()` for valid download reasons.
+ALA requires that you provide a reason when downloading occurrence data (via the galah `ala_occurrences()` function). The reason is set as "scientific research" by default, but you can change this using `ala_config()`. See `find_reasons()` for valid download reasons.
 
 ```{r eval=FALSE}
 ala_config(download_reason_id=your_reason_id)

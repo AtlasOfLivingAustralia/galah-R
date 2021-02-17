@@ -26,8 +26,8 @@ per species, and columns giving associated taxonomic information.
 }
 \details{
 The primary use case of this function is to extract species-level information
-given a set of criteria defined by \code{\link{select_taxa}},
-\code{\link{select_filters}} or \code{\link{select_locations}}. If the purpose
+given a set of criteria defined by \code{\link{select_taxa}()},
+\code{\link{select_filters}()} or \code{\link{select_locations}()}. If the purpose
 is simply to get taxonomic information that is not restricted by filtering,
 then \code{\link{select_taxa}()} is more efficient. Similarly, if counts are
 required that include filters but without returning taxonomic detail, then
