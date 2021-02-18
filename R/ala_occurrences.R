@@ -46,38 +46,32 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   assert_that(is.logical(config_verbose))
   query <- list()
 
-  if (missing(taxa) & missing(filters) & missing(locations)) {
-    # stop or allow users to download the whole ALA?
-    stop("Need to provide one of `taxon id`, `filters` or `area`")
-  }
-
-  if (!missing(taxa)) {
-    # should species id be validated?
+  if (missing(taxa) || is.null(taxa)) {
+    taxa_query <- NULL
+  } else {
     if (inherits(taxa, "data.frame") &&
         "taxon_concept_id" %in% colnames(taxa)) {
       taxa <- taxa$taxon_concept_id
     }
     assert_that(is.character(taxa))
     taxa_query <- build_taxa_query(taxa)
-  } else {
-    taxa_query <- NULL
   }
-
+  
   # validate filters
-  if (!missing(filters)) {
+  if (missing(filters) || is.null(filters)) {
+    filter_query <- NULL
+  } else {
     assert_that(is.data.frame(filters))
     filter_query <- build_filter_query(filters)
-  } else {
-    filter_query <- NULL
   }
-
+  
   query$fq <- c(taxa_query, filter_query)
-
-  if (!missing(locations)) {
+  
+  if (missing(locations) || is.null(locations)) {
+    area_query <- NULL
+  } else {
     area_query <- locations
     query$wkt <- area_query
-  } else {
-    area_query <- NULL
   }
 
   # Add columns after getting record count

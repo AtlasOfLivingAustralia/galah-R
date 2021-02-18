@@ -50,33 +50,32 @@ ala_species <- function(taxa, filters, locations) {
     warning("This query will return a list of all species in the ALA")
   }
 
-  if (!missing(taxa)) {
-    # should species id be validated?
+  if (missing(taxa) || is.null(taxa)) {
+    taxa_query <- NULL
+  } else {
     if (inherits(taxa, "data.frame") &&
         "taxon_concept_id" %in% colnames(taxa)) {
       taxa <- taxa$taxon_concept_id
     }
     assert_that(is.character(taxa))
     taxa_query <- build_taxa_query(taxa)
-  } else {
-    taxa_query <- NULL
   }
-
+  
   # validate filters
-  if (!missing(filters)) {
+  if (missing(filters) || is.null(filters)) {
+    filter_query <- NULL
+  } else {
     assert_that(is.data.frame(filters))
     filter_query <- build_filter_query(filters)
-  } else {
-    filter_query <- NULL
   }
-
+  
   query$fq <- c(taxa_query, filter_query)
-
-  if (!missing(locations)) {
-    area_query <- locations
-    query$wkt <- locations
-  } else {
+  
+  if (missing(locations) || is.null(locations)) {
     area_query <- NULL
+  } else {
+    area_query <- locations
+    query$wkt <- area_query
   }
 
   if (check_for_caching(taxa_query, filter_query, area_query)) {
