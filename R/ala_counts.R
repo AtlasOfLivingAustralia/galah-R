@@ -20,8 +20,9 @@
 #' If limit is NULL, all results are returned. For some categories this will
 #' take a while.
 #' @param type \code{string}: one of \code{c("record", "species")}. Defaults to
-#' "record". If "species", the number of species matching the criteria will be returned,
-#' and the \code{group_by} will be ignored.
+#' "record". If "species", the number of species matching the criteria will be
+#' returned, if "record", the number of records matching the criteria will be
+#' returned.
 #' @return
 #' \itemize{
 #'  \item{A single count, if \code{group_by} is not specified or,}
@@ -74,15 +75,11 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
   if (check_for_caching(taxa_query, filter_query, area_query)) {
     query <- cached_query(taxa_query, filter_query, area_query)
   }
-  
-  if (type == "species") {
-    if (!missing(group_by)) {
-      warning("Returning count of species, ignoring `group_by` parameter.")
-    }
-    return(species_count(query))
-  }
 
   if (missing(group_by)) {
+    if (type == "species") {
+      return(species_count(query))
+    }
     return(record_count(query))
   }
 
@@ -135,13 +132,26 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
   }
   # parse out field value
   value <- parse_fq(counts$fq)
-  counts <- data.frame(
-    name = value,
-    count = counts$count
-  )
+  
+  if (type == "species") {
+    counts <- data.table::rbindlist(lapply(value, function(x) {
+      species_query <- list()
+      species_query$fq <- c(query$fq, query_term(name = group_by, value = x,
+                                                 include = TRUE))
+      count <- species_count(species_query)
+      data.frame(name = x, count = count)
+    }))
+  } else {
+    counts <- data.frame(
+      name = value,
+      count = counts$count
+    )
+  }
+  
   if (caching) {
     write.csv(counts, cache_file)
   }
+  
   return(counts)
 }
 
@@ -155,7 +165,7 @@ record_count <- function(query) {
 }
 
 species_count <- function(query) {
-  query$pageSize <- 0
+  query$flimit <- 1
   query$facets <- "species_guid"
   url <- getOption("galah_server_config")$base_url_biocache
   total_categories(url, "ws/occurrence/facets", query)
@@ -182,3 +192,6 @@ parse_fq <- function(fq) {
     sub('.*?"([^"]+)"', "\\1", z)
   }, USE.NAMES = FALSE, FUN.VALUE = character(1))
 }
+
+
+

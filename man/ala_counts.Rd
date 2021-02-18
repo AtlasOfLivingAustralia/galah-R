@@ -21,8 +21,9 @@ If limit is NULL, all results are returned. For some categories this will
 take a while.}
 
 \item{type}{\code{string}: one of \code{c("record", "species")}. Defaults to
-"record". If "species", the number of species matching the criteria will be returned,
-and the \code{group_by} will be ignored.}
+"record". If "species", the number of species matching the criteria will be
+returned, if "record", the number of records matching the criteria will be
+returned.}
 }
 \value{
 \itemize{
