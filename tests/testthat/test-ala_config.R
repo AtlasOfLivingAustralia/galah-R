@@ -17,4 +17,6 @@ test_that("ala config checks inputs", {
   expect_silent(ala_config(download_reason_id = "testing"))
   expect_silent(ala_config(download_reason_id = "Testing"))
   expect_error(ala_config(download_reason_id = "tsting"))
+  expect_error(ala_config(cache_directory = "non/existent/dir"))
+  expect_error(bad_option = "value")
 })
