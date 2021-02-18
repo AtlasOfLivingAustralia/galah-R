@@ -19,6 +19,9 @@
 #' @param limit \code{numeric}: maximum number of categories to return, defaulting to 100.
 #' If limit is NULL, all results are returned. For some categories this will
 #' take a while.
+#' @param type \code{string}: one of \code{c("record", "species")}. Defaults to
+#' "record". If "species", the number of species matching the criteria will be returned,
+#' and the \code{group_by} will be ignored.
 #' @return
 #' \itemize{
 #'  \item{A single count, if \code{group_by} is not specified or,}
@@ -36,7 +39,7 @@
 #'
 #' @export ala_counts
 
-ala_counts <- function(taxa, filters, locations, group_by, limit = 100) {
+ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "record") {
   query <- list()
   page_size <- 100
   
@@ -70,6 +73,13 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100) {
   
   if (check_for_caching(taxa_query, filter_query, area_query)) {
     query <- cached_query(taxa_query, filter_query, area_query)
+  }
+  
+  if (type == "species") {
+    if (!missing(group_by)) {
+      warning("Returning count of species, ignoring `group_by` parameter.")
+    }
+    return(species_count(query))
   }
 
   if (missing(group_by)) {
@@ -142,6 +152,13 @@ record_count <- function(query) {
   url <- getOption("galah_server_config")$base_url_biocache
   resp <- ala_GET(url, "ws/occurrences/search", query)
   resp$totalRecords
+}
+
+species_count <- function(query) {
+  query$pageSize <- 0
+  query$facets <- "species_guid"
+  url <- getOption("galah_server_config")$base_url_biocache
+  total_categories(url, "ws/occurrence/facets", query)
 }
 
 validate_facet <- function(facet) {
