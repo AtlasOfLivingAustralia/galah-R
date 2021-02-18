@@ -37,12 +37,15 @@
 #'
 #' # Count records matching a filter
 #' ala_counts(filters = select_filters(basisOfRecord = "FossilSpecimen"))
-#'
+#' 
+#' # Count the number of species recorded for each kingdom
+#' ala_counts(group_by = "kingdom", type = "species")
 #' @export ala_counts
 
 ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "record") {
   query <- list()
   page_size <- 100
+  verbose <- ala_config()$verbose
   
   if (missing(taxa) || is.null(taxa)) {
     taxa_query <- NULL
@@ -134,12 +137,18 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
   value <- parse_fq(counts$fq)
   
   if (type == "species") {
-    counts <- data.table::rbindlist(lapply(value, function(x) {
+    # this can take a while so add progress bar
+    if (verbose) { pb <- txtProgressBar(max = 1, style = 3) }
+    counts <- data.table::rbindlist(lapply(seq_along(value), function(x) {
+      if (verbose) {
+        val <- (x / length(value))
+        setTxtProgressBar(pb, val)
+      }
       species_query <- list()
-      species_query$fq <- c(query$fq, query_term(name = group_by, value = x,
+      species_query$fq <- c(query$fq, query_term(name = group_by, value = value[[x]],
                                                  include = TRUE))
       count <- species_count(species_query)
-      data.frame(name = x, count = count)
+      data.frame(name = value[[x]], count = count)
     }))
   } else {
     counts <- data.frame(
