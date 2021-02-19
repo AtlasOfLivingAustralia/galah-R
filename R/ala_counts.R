@@ -96,8 +96,10 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
   cache_file <- cache_filename(args = c(url, path, unlist(query), limit,
                                         group_by, type),
                                ext = ".csv")
+
   caching <- getOption("galah_config")$caching
   if (caching && file.exists(cache_file)) {
+    if (verbose) {message("Using cached file")}
     return(read.csv(cache_file))
   }
 
