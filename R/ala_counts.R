@@ -94,7 +94,7 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
   url <- getOption("galah_server_config")$base_url_biocache
   path <- "ws/occurrence/facets"
   cache_file <- cache_filename(args = c(url, path, unlist(query), limit,
-                                        group_by),
+                                        group_by, type),
                                ext = ".csv")
   caching <- getOption("galah_config")$caching
   if (caching && file.exists(cache_file)) {
@@ -158,7 +158,7 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
   }
   
   if (caching) {
-    write.csv(counts, cache_file)
+    write.csv(counts, cache_file, row.names = FALSE)
   }
   
   return(counts)

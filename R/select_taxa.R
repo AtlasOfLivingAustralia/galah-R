@@ -106,7 +106,7 @@ select_taxa <- function(term, term_type = "name", return_children = FALSE,
   }
   # write out to csv
   if (caching) {
-    write.csv(out_data, cache_file)
+    write.csv(out_data, cache_file, row.names = FALSE)
   }
   out_data
 }

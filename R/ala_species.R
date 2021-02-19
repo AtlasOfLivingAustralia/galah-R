@@ -106,7 +106,7 @@ ala_species <- function(taxa, filters, locations) {
   names(data) <- rename_columns(names(data), type = "checklist")
 
   if (caching) {
-    write.csv(data, cache_file)
+    write.csv(data, cache_file, row.names = FALSE)
   } else {
     file.remove(cache_file)
   }
