@@ -15,6 +15,7 @@
             base_url_name_matching = "https://namematching-ws.ala.org.au/",
             base_url_biocache = "https://biocache-ws.ala.org.au/",
             base_url_data_quality = "https://data-quality-service.ala.org.au",
+            base_url_doi = "https://https://doi.ala.org.au",
             base_url_images = "https://images.ala.org.au/",
             base_url_logger = "https://logger.ala.org.au/"
         )
