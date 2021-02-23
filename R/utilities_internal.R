@@ -53,6 +53,43 @@ build_taxa_query <- function(ids) {
     paste0("(lsid:", paste(ids, collapse = " OR lsid:"), ")")
 }
 
+
+build_query <- function(taxa, filters, locations, columns = NULL) {
+  
+  query <- list()
+  if (is.null(taxa)) {
+    taxa_query <- NULL
+  } else {
+    if (inherits(taxa, "data.frame") &&
+        "taxon_concept_id" %in% colnames(taxa)) {
+      taxa <- taxa$taxon_concept_id
+    }
+    assert_that(is.character(taxa))
+    taxa_query <- build_taxa_query(taxa)
+  }
+  
+  # validate filters
+  if (is.null(filters)) {
+    filter_query <- NULL
+  } else {
+    assert_that(is.data.frame(filters))
+    filter_query <- build_filter_query(filters)
+  }
+  
+  query$fq <- c(taxa_query, filter_query)
+  
+  if (is.null(locations)) {
+    area_query <- NULL
+  } else {
+    area_query <- locations
+    query$wkt <- area_query
+  }
+  if (check_for_caching(taxa_query, filter_query, area_query, columns)) {
+    query <- cached_query(taxa_query, filter_query, area_query)
+  }
+  query
+}
+
 # this is only relevant for ala_counts and ala_occurrences
 cached_query <- function(taxa_query, filter_query, area_query,
                          columns = NULL) {

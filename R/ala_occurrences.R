@@ -47,7 +47,6 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   config_verbose <- getOption("galah_config")$verbose
   assert_that(is.logical(mint_doi))
   assert_that(is.logical(config_verbose))
-  query <- list()
   
   if (!missing(doi)) {
     # search for data using DOI
@@ -56,46 +55,23 @@ ala_occurrences <- function(taxa, filters, locations, columns,
     attr(df, "doi") <- doi
     return(df)
   }
-
-  if (missing(taxa) || is.null(taxa)) {
-    taxa_query <- NULL
-  } else {
-    if (inherits(taxa, "data.frame") &&
-        "taxon_concept_id" %in% colnames(taxa)) {
-      taxa <- taxa$taxon_concept_id
-    }
-    assert_that(is.character(taxa))
-    taxa_query <- build_taxa_query(taxa)
-  }
   
-  # validate filters
-  if (missing(filters) || is.null(filters)) {
-    filter_query <- NULL
-  } else {
-    assert_that(is.data.frame(filters))
-    filter_query <- build_filter_query(filters)
-  }
+  if (missing(taxa)) { taxa <- NULL }
+  if (missing(filters)) { filters <- NULL }
+  if (missing(locations)) { locations <- NULL }
   
-  query$fq <- c(taxa_query, filter_query)
-  
-  if (missing(locations) || is.null(locations)) {
-    area_query <- NULL
-  } else {
-    area_query <- locations
-    query$wkt <- area_query
-  }
-
-  # Add columns after getting record count
   if(missing(columns)) {
     if (config_verbose) {
       message("No columns specified, default columns will be returned.")
-      }
+    }
     columns <- select_columns(group = "basic")
   }
+  
+  query <- build_query(taxa, filters, locations, columns)
+
+  # Add columns after getting record count
+  
   # handle caching
-  # look for file to download- if it doesn't exist, continue on
-  # use base_url_biocache as the filename? otherwise won't be found
-  # create cache file with the original query
   caching <- getOption("galah_config")$caching
 
   if (caching) {
@@ -105,18 +81,13 @@ ala_occurrences <- function(taxa, filters, locations, columns,
                                    params = unlist(query)), ext = ".zip")
     if (file.exists(cache_file)) {
       if (config_verbose) { message("Using existing file") }
-
       # look for file using query parameters
       data <- read.csv(unz(cache_file, "data.csv"), stringsAsFactors = FALSE)
-      # if file doesn't exist, continue as before
+      #TODO: Add DOI here
       return(data)
     }
   } else {
     cache_file <- tempfile(fileext = ".zip")
-  }
-
-  if (check_for_caching(taxa_query, filter_query, area_query, columns)) {
-    query <- cached_query(taxa_query, filter_query, area_query)
   }
 
   count <- record_count(query)
@@ -129,7 +100,6 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   if (mint_doi) {
     query$mintDoi <- "true"
   }
-  query$mintDoi <- mint_doi
   query$emailNotify <- email_notify()
 
   # Get data
@@ -154,6 +124,13 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   }
 
   # add DOI as attribute
+  attr(df, "doi") <- get_doi(mint_doi, data_path)
+
+  return(df)
+}
+
+
+get_doi <- function(mint_doi, data_path) {
   doi <- NA
   if (as.logical(mint_doi)) {
     tryCatch(
@@ -164,11 +141,8 @@ ala_occurrences <- function(taxa, filters, locations, columns,
                         be down. Please try again later"
       })
   }
-  attr(df, "doi") <- doi
-
-  return(df)
+  return(doi)
 }
-
 
 
 wait_for_download <- function(url, query, verbose) {
