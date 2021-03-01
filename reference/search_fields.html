@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Retrieves field names for use with data retrieval functions — find_fields • galah</title>
+<title>Query layers or fields by free text search — search_fields • galah</title>
 
 
 <!-- jquery -->
@@ -39,13 +39,9 @@
 
 
 
-<meta property="og:title" content="Retrieves field names for use with data retrieval functions — find_fields" />
-<meta property="og:description" content="When building a set of filters with select_filters() or
-specifying required columns with select_columns(), this function
-can be used to check that the fields map to fields stored in the ALA.
-This function returns a data.frame of all fields. Field names are in
-Darwin Core format, except in the case where the field is specific to the
-ALA database, in which case the ALA field name is returned." />
+<meta property="og:title" content="Query layers or fields by free text search — search_fields" />
+<meta property="og:description" content="Function to search the ALA database for layers or fields
+using a free-text search." />
 
 
 
@@ -119,68 +115,45 @@ ALA database, in which case the ALA field name is returned." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Retrieves field names for use with data retrieval functions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/find_fields.R'><code>R/find_fields.R</code></a></small>
-    <div class="hidden name"><code>find_fields.Rd</code></div>
+    <h1>Query layers or fields by free text search</h1>
+    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/search_fields.R'><code>R/search_fields.R</code></a></small>
+    <div class="hidden name"><code>search_fields.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>When building a set of filters with <code><a href='select_filters.html'>select_filters</a>()</code> or
-specifying required columns with <code><a href='select_columns.html'>select_columns</a>()</code>, this function
-can be used to check that the fields map to fields stored in the ALA.
-This function returns a <code>data.frame</code> of all fields. Field names are in
-Darwin Core format, except in the case where the field is specific to the
-ALA database, in which case the ALA field name is returned.</p>
+    <p>Function to search the ALA database for layers or fields
+using a free-text search.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>find_fields</span><span class='op'>(</span>class <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>search_fields</span><span class='op'>(</span><span class='va'>query</span>, type <span class='op'>=</span> <span class='st'>"both"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>class</th>
-      <td><p><code>string</code>: class of fields to return e.g. "Assertion". By
-default all fields are returned.</p></td>
+      <th>query</th>
+      <td><p><code>string</code>: A search string. Not case sensitive.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p><code>string</code>: What type of parameters should be searched?
+Should be one of &lt;code&gt;fields&lt;/code&gt;, &lt;code&gt;layers&lt;/code&gt; or &lt;code&gt;both&lt;/code&gt;.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data.frame</code> of fields with name, data_type, information and Darwin
-Core class.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The resulting <code>data.frame</code> contains the following columns:</p><ul>
-<li><p>name: Basic description of the field. This is the value that should
+    <p>A &lt;code&gt;data.frame&lt;/code&gt; with three columns:</p><ul>
+<li><p>id: The identifier for that layer or field. This is the value that should
  be used when referring to a field in another function.</p></li>
-<li><p>data_type: equivalent to the 'class' of a variable in R</p></li>
-<li><p>info: Additional details about layer</p></li>
-<li><p>class: Info on the group to which each field belongs</p></li>
+<li><p>description: Detailed information on a given field</p></li>
+<li><p>type: Whether the field is a &lt;code&gt;field&lt;/code&gt; or &lt;code&gt;layer&lt;/code&gt;</p></li>
 </ul>
 
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    
-<ul>
-<li><p>Darwin Core terms <a href='https://dwc.tdwg.org/terms/'>https://dwc.tdwg.org/terms/</a></p></li>
-<li><p>ALA fields <a href='https://api.ala.org.au/#ws72'>https://api.ala.org.au/#ws72</a></p></li>
-<li><p>ALA assertion fields <a href='https://api.ala.org.au/#ws81'>https://api.ala.org.au/#ws81</a></p></li>
-</ul>
-
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>This function is used to pass valid arguments to
-<code><a href='select_filters.html'>select_filters</a>()</code> &amp; <code><a href='select_columns.html'>select_columns</a>()</code>. The information
-that this function gives on spatial layers is not particularly detailed;
-consider also checking <code><a href='find_layers.html'>find_layers</a>()</code> for more information.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># Find all fields</span>
- <span class='va'>fields</span> <span class='op'>&lt;-</span> <span class='fu'>find_fields</span><span class='op'>(</span><span class='op'>)</span>
- <span class='co'># Find assertion fields</span>
- <span class='va'>assertions</span> <span class='op'>&lt;-</span> <span class='fu'>find_fields</span><span class='op'>(</span><span class='st'>"assertion"</span><span class='op'>)</span>
+<span class='va'>test</span> <span class='op'>&lt;-</span> <span class='fu'>search_fields</span><span class='op'>(</span><span class='st'>"species"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
