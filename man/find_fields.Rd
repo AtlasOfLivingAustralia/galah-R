@@ -15,19 +15,29 @@ default all fields are returned.}
 Core class.
 }
 \description{
-When building a set of filters with \code{\link{select_filters}()} or 
+When building a set of filters with \code{\link{select_filters}()} or
 specifying required columns with \code{\link{select_columns}()}, this function
 can be used to check that the fields map to fields stored in the ALA.
 This function returns a \code{data.frame} of all fields. Field names are in
 Darwin Core format, except in the case where the field is specific to the
 ALA database, in which case the ALA field name is returned.
 }
+\details{
+The resulting \code{data.frame} contains the following columns:
+\itemize{
+ \item{name: Basic description of the field. This is the value that should
+ be used when referring to a field in another function.}
+ \item{data_type: equivalent to the 'class' of a variable in R}
+ \item{info: Additional details about layer}
+ \item{class: Info on the group to which each field belongs}
+}
+}
 \examples{
 \dontrun{
 # Find all fields
- l <- find_fields()
+ fields <- find_fields()
  # Find assertion fields
- ass <- find_fields("assertion")
+ assertions <- find_fields("assertion")
 }
 }
 \references{

@@ -100,6 +100,7 @@ If you have any questions, comments or suggestions, please email
 \itemize{
   \item\code{\link{find_profiles}} List data quality profiles
   \item\code{\link{find_profile_attributes}} List filters included in a data quality profile
+  \item\code{\link{search_fields}} Free-text search for layers and fields
   \item\code{\link{find_fields}} List occurrence record fields
   \item\code{\link{find_field_values}} List possible values for a given field
   \item\code{\link{find_layers}} List spatial layers

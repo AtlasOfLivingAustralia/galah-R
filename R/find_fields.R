@@ -1,6 +1,6 @@
 #' Retrieves field names for use with data retrieval functions
 #'
-#' When building a set of filters with \code{\link{select_filters}()} or 
+#' When building a set of filters with \code{\link{select_filters}()} or
 #' specifying required columns with \code{\link{select_columns}()}, this function
 #' can be used to check that the fields map to fields stored in the ALA.
 #' This function returns a \code{data.frame} of all fields. Field names are in
@@ -20,12 +20,20 @@
 #' \code{\link{select_filters}()} & \code{\link{select_columns}()}. The information
 #' that this function gives on spatial layers is not particularly detailed;
 #' consider also checking \code{\link{find_layers}()} for more information.
+#' @details The resulting \code{data.frame} contains the following columns:
+#' \itemize{
+#'  \item{name: Basic description of the field. This is the value that should
+#'  be used when referring to a field in another function.}
+#'  \item{data_type: equivalent to the 'class' of a variable in R}
+#'  \item{info: Additional details about layer}
+#'  \item{class: Info on the group to which each field belongs}
+#' }
 #' @examples
 #' \dontrun{
 #' # Find all fields
-#'  l <- find_fields()
+#'  fields <- find_fields()
 #'  # Find assertion fields
-#'  ass <- find_fields("assertion")
+#'  assertions <- find_fields("assertion")
 #' }
 #' @export find_fields
 
