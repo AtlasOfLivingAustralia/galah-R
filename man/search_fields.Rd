@@ -10,15 +10,15 @@ search_fields(query, type = "both")
 \item{query}{\code{string}: A search string. Not case sensitive.}
 
 \item{type}{\code{string}: What type of parameters should be searched?
-Should be one of <code>fields</code>, <code>layers</code> or <code>both</code>.}
+Should be one of \code{fields}, \code{layers} or \code{both}.}
 }
 \value{
-A <code>data.frame</code> with three columns:
+A \code{data.frame} with three columns:
 \itemize{
  \item{id: The identifier for that layer or field. This is the value that should
  be used when referring to a field in another function.}
  \item{description: Detailed information on a given field}
- \item{type: Whether the field is a <code>field</code> or <code>layer</code>}
+ \item{type: Whether the field is a \code{field} or \code{layer}}
 }
 }
 \description{
