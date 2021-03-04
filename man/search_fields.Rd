@@ -19,14 +19,42 @@ A \code{data.frame} with three columns:
  be used when referring to a field in another function.}
  \item{description: Detailed information on a given field}
  \item{type: Whether the field is a \code{field} or \code{layer}}
+ \item{link: For layers, a link to the source data (if available)}
 }
 }
 \description{
-Function to search the ALA database for layers or fields
-using a free-text search.
+This function can be used to find relevant fields and/or layers
+for use in building a set of filters with \code{\link{select_filters}()} or
+specifying required columns with \code{\link{select_columns}()}. 
+This function returns a \code{data.frame} of all fields matching the type
+specified.
+Field names are in Darwin Core format, except in the case where the field is
+specific to the ALA database, in which case the ALA field name is returned.
+}
+\details{
+Layers are the subset of fields that are spatially appended to each record
+by the ALA. Layer ids are comprised of a prefix: 'el' for environmental
+(gridded) layers and 'cl' for contextual (polygon) layers,  followed by an
+id number.
 }
 \examples{
 \dontrun{
 test <- search_fields("species")
+
+# Find all precipitation-related layers
+layers <- search_fields("precipiation", type = "layer")
 }
+}
+\references{
+\itemize{
+\item Darwin Core terms \url{https://dwc.tdwg.org/terms/}
+\item ALA fields \url{https://api.ala.org.au/#ws72}
+\item ALA assertion fields \url{https://api.ala.org.au/#ws81}
+}
+}
+\seealso{
+This function is used to pass valid arguments to
+\code{\link{select_columns}()} and \code{\link{select_filters}()}.
+To view valid values for a layer with categorical values, use
+\code{\link{find_field_values}()}.
 }
