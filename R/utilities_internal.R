@@ -9,9 +9,9 @@ wanted_columns <- function(type) {
                        "occurrenceID", "recognisedLicence", "license",
                        "creator", "title", "rights", "mimeType",
                        "media_id"),
-           "layer" = c("layer_id", "name", "source_link", "description"),
-           "fields" = c("name", "data_type", "info", "class"),
-           "assertions" = c("name", "data_type", "info", "class"),
+           "layer" = c("layer_id", "description", "link"),
+           "fields" = c("id", "description"),
+           "assertions" = c("id", "description"),
            "quality_filter" = c("description", "filter"),
            "reasons" = c("id", "name"))
 }
@@ -26,11 +26,12 @@ rename_columns <- function(varnames, type) {
         varnames[varnames == "classs"] <- "class"
     } else if (type == "layer") {
         varnames[varnames == "displayname"] <- "name"
+        varnames[varnames == "source_link"] <- "link"
     } else if (type == "fields") {
-      varnames[varnames == "classs"] <- "class"
-      varnames[varnames == "dataType"] <- "data_type"
+      varnames[varnames == "name"] <- "id"
+      varnames[varnames == "info"] <- "description"
     } else if (type == "assertions") {
-      varnames[varnames == "description"] <- "info"
+      varnames[varnames == "name"] <- "id"
     }
     # change all to snake case?
     if (type == "taxa") {

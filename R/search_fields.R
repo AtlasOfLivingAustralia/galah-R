@@ -1,8 +1,18 @@
 #' Query layers or fields by free text search
 #'
-#' Function to search the ALA database for layers or fields
-#' using a free-text search.
+#' This function can be used to find relevant fields and/or layers
+#' for use in building a set of filters with \code{\link{select_filters}()} or
+#' specifying required columns with \code{\link{select_columns}()}. 
+#' This function returns a \code{data.frame} of all fields matching the type
+#' specified.
+#' Field names are in Darwin Core format, except in the case where the field is
+#' specific to the ALA database, in which case the ALA field name is returned.
 #'
+#' @references \itemize{
+#' \item Darwin Core terms \url{https://dwc.tdwg.org/terms/}
+#' \item ALA fields \url{https://api.ala.org.au/#ws72}
+#' \item ALA assertion fields \url{https://api.ala.org.au/#ws81}
+#' }
 #' @param query \code{string}: A search string. Not case sensitive.
 #' @param type \code{string}: What type of parameters should be searched?
 #' Should be one of \code{fields}, \code{layers} or \code{both}.
@@ -12,11 +22,25 @@
 #'  be used when referring to a field in another function.}
 #'  \item{description: Detailed information on a given field}
 #'  \item{type: Whether the field is a \code{field} or \code{layer}}
+#'  \item{link: For layers, a link to the source data (if available)}
 #' }
+#' @seealso This function is used to pass valid arguments to
+#' \code{\link{select_columns}()} and \code{\link{select_filters}()}.
+#' To view valid values for a layer with categorical values, use
+#' \code{\link{find_field_values}()}.
 #' @export search_fields
+#' 
+#' @details 
+#' Layers are the subset of fields that are spatially appended to each record
+#' by the ALA. Layer ids are comprised of a prefix: 'el' for environmental
+#' (gridded) layers and 'cl' for contextual (polygon) layers,  followed by an
+#' id number. 
 #' @examples
 #' \dontrun{
 #' test <- search_fields("species")
+#' 
+#' # Find all precipitation-related layers
+#' layers <- search_fields("precipiation", type = "layer")
 #' }
 
 search_fields <- function(
@@ -25,12 +49,13 @@ search_fields <- function(
 ){
   # ensure data can be queried
   df <- switch(type,
-    "fields" = get_standard_fields(),
-    "layers" = get_standard_layers(),
+    "fields" = get_fields(),
+    "layers" = get_layers(),
     "both" = {
-      fields <- get_standard_fields()
-      layers <- get_standard_layers()
-      rbind(fields[!(fields$id %in% layers$id), ], layers)
+      fields <- get_fields()
+      layers <- get_layers()
+      data.table::rbindlist(list(fields[!(fields$id %in% layers$id), ],
+                                 layers), fill = TRUE)
     }
   )
 
@@ -38,6 +63,9 @@ search_fields <- function(
   df_string <- tolower(
     apply(df[, 1:2], 1, function(a){paste(a, collapse = " ")}))
 
+  if (missing(query) || is.null(query)) {
+    return(df)
+  }
   # run a query
   return(df[grepl(tolower(query), df_string), ])
 
@@ -59,8 +87,86 @@ get_standard_layers <- function(){
     1,
     function(a){paste(a, collapse = " ")}
   )
-  result <- result[, c("layer_id", "description")]
-  colnames(result)[1] <- "id"
+  result <- result[, c("layer_id", "description", "source_link")]
+  colnames(result) <- c("id", "description", "link")
   result$type <- "layers"
   return(result)
 }
+
+get_fields <- function() {
+  fields <- all_fields()
+  
+  # replace name with dwc term if it exists
+  fields$name <- ifelse(!is.na(fields$dwcTerm), fields$dwcTerm, fields$name)
+  
+  names(fields) <- rename_columns(names(fields), type = "fields")
+  fields <- fields[wanted_columns("fields")]
+  
+  # add assertions
+  url <- getOption("galah_server_config")$base_url_biocache
+  assertions <- ala_GET(url, path = "ws/assertions/codes")
+  assertions$data_type <- "logical"
+  assertions$class <- "Assertion"
+  names(assertions) <- rename_columns(names(assertions), type = "assertions")
+  assertions <- assertions[wanted_columns("assertions")]
+  all <- rbind(fields, assertions)
+  all$type <- "fields"
+  all
+}
+
+
+# function to keep backwards compatibility
+# takes field list and converts back to ALA name
+# TODO: Fix for scientific names which map to multiple ALA names
+dwc_to_ala <- function(dwc_names) {
+  fields <- all_fields()
+  # get relevant cols
+  vapply(dwc_names, function(n) {
+    if (n == "scientificName") {
+      return("taxon_name")
+    } else if (n == "verbatimLatitude") {
+      return("verbatim_latitude")
+    } else if (n == "verbatimLongitude") {
+      return("verbatim_longitude")
+    } else if (n == "verbatimCoordinateSystem") {
+      return("verbatim_coordinate_system")
+    } else if (n %in% fields$dwcTerm) {
+      return(fields[fields$dwcTerm == n & !is.na(fields$dwcTerm), ]$name)
+    } else {
+      return(n)
+    }
+  }, USE.NAMES = FALSE, FUN.VALUE = character(1))
+}
+
+all_fields <- function() {
+  url <- getOption("galah_server_config")$base_url_biocache
+  ala_GET(url, path = "ws/index/fields")
+}
+
+get_layers <- function() {
+  # web service returns all layers so might as well do that
+  url <- getOption("galah_server_config")$base_url_spatial
+  result <- ala_GET(url, "ws/layers")
+  layer_id <- mapply(build_layer_id, result$type, result$id,
+                     USE.NAMES = FALSE)
+  result <- cbind(layer_id, result)
+  result$description <- apply(
+    result[, c("displayname", "description")],
+    1,
+    function(a){paste(a, collapse = " ")}
+  )
+  names(result) <- rename_columns(names(result), type = "layer")
+  result <- result[wanted_columns("layer")]
+  names(result)[1] <- "id"
+  result$type <- "layers"
+  result
+}
+
+build_layer_id <- function(type, id) {
+  if (type == "Environmental") {
+    paste0('el', id)
+  } else {
+    paste0('cl', id)
+  }
+}
+
