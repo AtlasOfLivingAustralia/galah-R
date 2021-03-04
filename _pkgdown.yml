@@ -11,6 +11,7 @@ reference:
 - title: Lookup
   contents:
   - starts_with("find")
+  - search_fields
 - title: Support
   contents:
   - ala_config
