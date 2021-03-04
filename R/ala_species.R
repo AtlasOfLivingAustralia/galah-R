@@ -59,7 +59,7 @@ ala_species <- function(taxa, filters, locations) {
   query$facets <- "species_guid"
   query$lookup  <- "true"
   #query$counts <- "true"
-
+  
   path <- "ws/occurrences/facets/download"
 
   cache_file <- cache_filename(c(url, path, unlist(query)), ext = ".csv")
@@ -71,7 +71,8 @@ ala_species <- function(taxa, filters, locations) {
     return(read.csv(cache_file))
   }
 
-  if (!caching & !dir.exists(cache_file)) {
+  if (!caching & !dir.exists(ala_config()$cache_directory)) {
+    dir.create(ala_config()$cache_directory)
     file.create(cache_file)
   }
   data <- ala_download(url, path = path, params = query,
