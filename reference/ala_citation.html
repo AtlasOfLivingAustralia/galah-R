@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • galah</title>
+<title>Generate a citation for occurrence data — ala_citation • galah</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,13 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Generate a citation for occurrence data — ala_citation" />
+<meta property="og:description" content="If a data.frame was generated using ala_occurrences,
+and the mint_doi argument was set to TRUE, the DOI associated
+with that dataset is appended to the resulting data.frame as an
+attribute. This function simply formats that DOI as a citation that can be 
+included in a scientific publication. Please also consider citing this package,
+using the information in citation(&quot;galah&quot;)." />
 
 
 
@@ -58,7 +64,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -111,171 +117,38 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Generate a citation for occurrence data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/ala_citation.R'><code>R/ala_citation.R</code></a></small>
+    <div class="hidden name"><code>ala_citation.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>If a <code>data.frame</code> was generated using <code><a href='ala_occurrences.html'>ala_occurrences</a></code>,
+and the <code>mint_doi</code> argument was set to <code>TRUE</code>, the DOI associated
+with that dataset is appended to the resulting <code>data.frame</code> as an
+attribute. This function simply formats that DOI as a citation that can be 
+included in a scientific publication. Please also consider citing this package,
+using the information in <code><a href='https://rdrr.io/r/utils/citation.html'>citation("galah")</a></code>.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>ala_citation</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="ala_occurrences.html">ala_occurrences()</a></code> </p>
-        </td>
-        <td><p>Occurrence records</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ala_counts.html">ala_counts()</a></code> </p>
-        </td>
-        <td><p>Count of ALA records</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ala_media.html">ala_media()</a></code> </p>
-        </td>
-        <td><p>Image and sounds</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ala_species.html">ala_species()</a></code> </p>
-        </td>
-        <td><p>Species lists</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-filter" class="hasAnchor"><a href="#section-filter" class="anchor"></a>Filter</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="select_columns.html">select_columns()</a></code> </p>
-        </td>
-        <td><p>Specify columns for occurrence download</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="select_filters.html">select_filters()</a></code> </p>
-        </td>
-        <td><p>Select filters to narrow down occurrence queries</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="select_locations.html">select_locations()</a></code> </p>
-        </td>
-        <td><p>Build a WKT string from an sf spatial object or verify an existing WKT</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="select_taxa.html">select_taxa()</a></code> </p>
-        </td>
-        <td><p>Taxon information</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-lookup" class="hasAnchor"><a href="#section-lookup" class="anchor"></a>Lookup</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="find_field_values.html">find_field_values()</a></code> </p>
-        </td>
-        <td><p>List valid options for a categorical field</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="find_profile_attributes.html">find_profile_attributes()</a></code> </p>
-        </td>
-        <td><p>Get data filters for a specified data quality profile</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="find_profiles.html">find_profiles()</a></code> </p>
-        </td>
-        <td><p>Data quality profiles</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="find_reasons.html">find_reasons()</a></code> </p>
-        </td>
-        <td><p>List valid download reasons</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="search_fields.html">search_fields()</a></code> </p>
-        </td>
-        <td><p>Query layers or fields by free text search</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-support" class="hasAnchor"><a href="#section-support" class="anchor"></a>Support</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="ala_config.html">ala_config()</a></code> </p>
-        </td>
-        <td><p>Get or set configuration options that control galah behaviour</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ala_citation.html">ala_citation()</a></code> </p>
-        </td>
-        <td><p>Generate a citation for occurrence data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="exclude.html">exclude()</a></code> </p>
-        </td>
-        <td><p>Negate a filter value</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>data.frame: occurrence data generated by <code><a href='ala_occurrences.html'>ala_occurrences</a></code></p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A string containing the citation for that dataset.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
