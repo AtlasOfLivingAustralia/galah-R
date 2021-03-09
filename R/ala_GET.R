@@ -14,7 +14,7 @@ ala_GET <- function(url, path, params = list(), on_error = NULL,
   if (length(params$fq) > 1) {
     cli$url <- build_fq_url(url, path, params)
     if (paginate) {
-      p <- Paginator$new(cli, limit_chunk = page_size, limit_param = 'flimit',
+      p <- Paginator$new(cli, chunk = page_size, limit_param = 'flimit',
                          offset_param = 'offset', limit = limit)
       p$get()
       res <- p$parse("UTF-8")
@@ -24,7 +24,7 @@ ala_GET <- function(url, path, params = list(), on_error = NULL,
   } else {
     cli$url <- url
     if (paginate) {
-      p <- Paginator$new(cli, limit_chunk = page_size, limit_param = 'flimit',
+      p <- Paginator$new(cli, chunk = page_size, limit_param = 'flimit',
                          offset_param = 'offset', limit = limit)
       p$get(path = path, query = params, encode = "json")
       res <- p$parse("UTF-8")
