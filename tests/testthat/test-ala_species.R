@@ -12,3 +12,7 @@ test_that("ala_species returns dataframe", {
                                                                 "FossilSpecimen"))),
                "data.frame")
 })
+
+test_that("ala_species returns a sensible result", {
+  expect_equal(nrow(ala_species(taxa = select_taxa("Osphranter"))), 4)
+})
