@@ -148,9 +148,55 @@ and used to filter searches in <code><a href='ala_occurrences.html'>ala_occurren
 <span class='va'>profile_df</span> <span class='op'>&lt;-</span> <span class='fu'>find_profiles</span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'># Values given in the 'shortName' column are accepted by select_filter(), i.e.</span>
 <span class='fu'><a href='select_filters.html'>select_filters</a></span><span class='op'>(</span>profile <span class='op'>=</span> <span class='va'>profile_df</span><span class='op'>$</span><span class='va'>shortName</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in find_fields("assertion"): could not find function "find_fields"</span></div><div class='input'><span class='co'># is equivalent to:</span>
+</div><div class='output co'>#&gt;                       name include                            value
+#&gt;  1:      geospatial_kosher   FALSE                            false
+#&gt;  2:             assertions   FALSE                nameNotRecognised
+#&gt;  3:             assertions   FALSE            invalidScientificName
+#&gt;  4:             assertions   FALSE                     homonymIssue
+#&gt;  5:             assertions   FALSE                   unknownKingdom
+#&gt;  6:             assertions   FALSE   resourceTaxonomicScopeMismatch
+#&gt;  7:             assertions   FALSE                  habitatMismatch
+#&gt;  8:             assertions   FALSE             occCultivatedEscapee
+#&gt;  9:             assertions   FALSE                     zeroLatitude
+#&gt; 10:             assertions   FALSE                    zeroLongitude
+#&gt; 11:             assertions   FALSE              invertedCoordinates
+#&gt; 12:             assertions   FALSE coordinatesCentreOfStateProvince
+#&gt; 13:             assertions   FALSE       coordinatesCentreOfCountry
+#&gt; 14:       duplicate_status   FALSE                                D
+#&gt; 15: coordinate_uncertainty   FALSE                     [10001 TO *]
+#&gt; 16:        user_assertions   FALSE                            50001
+#&gt; 17:        user_assertions   FALSE                            50005
+#&gt; 18:    outlier_layer_count   FALSE                         [3 TO *]
+#&gt; 19:        basis_of_record   FALSE                   FossilSpecimen
+#&gt; 20:        basis_of_record   FALSE                 EnvironmentalDNA
+#&gt; 21:      occurrence_status   FALSE                           absent
+#&gt; 22:                   year   FALSE                      [* TO 1700]
+#&gt;                       name include                            value</div><div class='input'><span class='co'># is equivalent to:</span>
 <span class='fu'><a href='select_filters.html'>select_filters</a></span><span class='op'>(</span>profile <span class='op'>=</span> <span class='st'>"ALA"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in find_fields("assertion"): could not find function "find_fields"</span></div></pre>
+</div><div class='output co'>#&gt;                       name include                            value
+#&gt;  1:      geospatial_kosher   FALSE                            false
+#&gt;  2:             assertions   FALSE                nameNotRecognised
+#&gt;  3:             assertions   FALSE            invalidScientificName
+#&gt;  4:             assertions   FALSE                     homonymIssue
+#&gt;  5:             assertions   FALSE                   unknownKingdom
+#&gt;  6:             assertions   FALSE   resourceTaxonomicScopeMismatch
+#&gt;  7:             assertions   FALSE                  habitatMismatch
+#&gt;  8:             assertions   FALSE             occCultivatedEscapee
+#&gt;  9:             assertions   FALSE                     zeroLatitude
+#&gt; 10:             assertions   FALSE                    zeroLongitude
+#&gt; 11:             assertions   FALSE              invertedCoordinates
+#&gt; 12:             assertions   FALSE coordinatesCentreOfStateProvince
+#&gt; 13:             assertions   FALSE       coordinatesCentreOfCountry
+#&gt; 14:       duplicate_status   FALSE                                D
+#&gt; 15: coordinate_uncertainty   FALSE                     [10001 TO *]
+#&gt; 16:        user_assertions   FALSE                            50001
+#&gt; 17:        user_assertions   FALSE                            50005
+#&gt; 18:    outlier_layer_count   FALSE                         [3 TO *]
+#&gt; 19:        basis_of_record   FALSE                   FossilSpecimen
+#&gt; 20:        basis_of_record   FALSE                 EnvironmentalDNA
+#&gt; 21:      occurrence_status   FALSE                           absent
+#&gt; 22:                   year   FALSE                      [* TO 1700]
+#&gt;                       name include                            value</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

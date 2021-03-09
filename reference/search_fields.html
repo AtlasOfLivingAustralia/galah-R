@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Query layers or fields by free text search — search_fields • galah</title>
+<title>Query layers, fields or assertions by free text search — search_fields • galah</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Query layers or fields by free text search — search_fields" />
+<meta property="og:title" content="Query layers, fields or assertions by free text search — search_fields" />
 <meta property="og:description" content="This function can be used to find relevant fields and/or layers
 for use in building a set of filters with select_filters() or
 specifying required columns with select_columns(). 
@@ -120,7 +120,7 @@ specific to the ALA database, in which case the ALA field name is returned." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Query layers or fields by free text search</h1>
+    <h1>Query layers, fields or assertions by free text search</h1>
     <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/search_fields.R'><code>R/search_fields.R</code></a></small>
     <div class="hidden name"><code>search_fields.Rd</code></div>
     </div>
@@ -135,7 +135,7 @@ Field names are in Darwin Core format, except in the case where the field is
 specific to the ALA database, in which case the ALA field name is returned.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>search_fields</span><span class='op'>(</span><span class='va'>query</span>, type <span class='op'>=</span> <span class='st'>"both"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>search_fields</span><span class='op'>(</span><span class='va'>query</span>, type <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,7 +147,8 @@ specific to the ALA database, in which case the ALA field name is returned.</p>
     <tr>
       <th>type</th>
       <td><p><code>string</code>: What type of parameters should be searched?
-Should be one of <code>fields</code>, <code>layers</code> or <code>both</code>.</p></td>
+Should be one or more of <code>fields</code>, <code>layers</code>, <code>assertions</code>,
+or <code>all</code>.</p></td>
     </tr>
     </table>
 
@@ -173,7 +174,7 @@ id number.</p>
 <ul>
 <li><p>Darwin Core terms <a href='https://dwc.tdwg.org/terms/'>https://dwc.tdwg.org/terms/</a></p></li>
 <li><p>ALA fields <a href='https://api.ala.org.au/#ws72'>https://api.ala.org.au/#ws72</a></p></li>
-<li><p>ALA assertion fields <a href='https://api.ala.org.au/#ws81'>https://api.ala.org.au/#ws81</a></p></li>
+<li><p>ALA assertions fields <a href='https://api.ala.org.au/#ws81'>https://api.ala.org.au/#ws81</a></p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>

@@ -159,11 +159,11 @@ locally-specific terminology. Each occurrence record contains taxonomic
 information, and usually some information about the observation itself, such
 as its location. In addition to this record-specific information, ALA
 appends contextual information to each record, particularly data from spatial
-<strong>layers</strong> reflecting climate gradients or political boundaries (see
-<code>find_layers()</code> for a full list). Each piece of information
-associated with a given occurrence is stored in a <strong>field</strong> (see
-<code>find_fields()</code>), which corresponds to a <strong>column</strong> when
-imported to an <code>R data.frame</code>.</p>
+<strong>layers</strong> reflecting climate gradients or political boundaries.
+Each piece of information associated with a given occurrence is stored in a
+<strong>field</strong>, which corresponds to a <strong>column</strong> when imported to an
+<code>R data.frame</code>. See <code><a href='search_fields.html'>search_fields</a></code> to view valid fields
+and layers.</p>
 <p>Data fields are important because they provide a means to <strong>filter</strong>
 occurrence records;  i.e. to return only the information that you need, and
 no more. Consequently, much of the architecture of <code>galah</code> has been
@@ -216,7 +216,6 @@ Australian species.</p>
 <li><p><code><a href='find_profiles.html'>find_profiles</a></code> List data quality profiles</p></li>
 <li><p><code><a href='find_profile_attributes.html'>find_profile_attributes</a></code> List filters included in a data quality profile</p></li>
 <li><p><code><a href='search_fields.html'>search_fields</a></code> Free-text search for layers and fields</p></li>
-<li><p><code>find_fields</code> List occurrence record fields</p></li>
 <li><p><code><a href='find_field_values.html'>find_field_values</a></code> List possible values for a given field</p></li>
 <li><p><code>find_layers</code> List spatial layers</p></li>
 <li><p><code><a href='find_reasons.html'>find_reasons</a></code> List valid download reasons</p></li>
