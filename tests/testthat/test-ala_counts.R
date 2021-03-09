@@ -27,10 +27,15 @@ test_that("ala counts returns expected outputs", {
   
 })
 
-test_that("ala counts works with filters", {
+test_that("ala_counts works with filters", {
   skip_on_cran()
   expect_lt(ala_counts(filters = select_filters(year = 2000)),
             ala_counts())
+})
+
+test_that("ala_counts returns species counts", {
+  skip_on_cran()
+  expect_gt(ala_counts(type = "species"), 140000)
 })
 
 test_that("ala_counts handles wkt area inputs", {
@@ -56,6 +61,5 @@ test_that("ala_counts works with long queries", {
 
 test_that("ala occurrences handles long queries with pagination", {
   #skip_on_cran()
-  #expect_warning(expect_equal(nrow(ala_counts(group_by = "year",
-  #                                            limit = 101)), 101))
+  expect_equal(nrow(ala_counts(group_by = "year", limit = 101)), 101)
 })
