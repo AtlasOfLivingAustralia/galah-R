@@ -1,4 +1,4 @@
-#' Query layers or fields by free text search
+#' Query layers, fields or assertions by free text search
 #'
 #' This function can be used to find relevant fields and/or layers
 #' for use in building a set of filters with \code{\link{select_filters}()} or
@@ -11,11 +11,12 @@
 #' @references \itemize{
 #' \item Darwin Core terms \url{https://dwc.tdwg.org/terms/}
 #' \item ALA fields \url{https://api.ala.org.au/#ws72}
-#' \item ALA assertion fields \url{https://api.ala.org.au/#ws81}
+#' \item ALA assertions fields \url{https://api.ala.org.au/#ws81}
 #' }
 #' @param query \code{string}: A search string. Not case sensitive.
 #' @param type \code{string}: What type of parameters should be searched?
-#' Should be one of \code{fields}, \code{layers} or \code{both}.
+#' Should be one or more of \code{fields}, \code{layers}, \code{assertions},
+#' or \code{all}.
 #' @return A \code{data.frame} with three columns:
 #' \itemize{
 #'  \item{id: The identifier for that layer or field. This is the value that should
@@ -45,17 +46,19 @@
 
 search_fields <- function(
   query,
-  type = "both" # or "fields" or "layers"
+  type = "all" # or one of "fields", "layers", "assertions"
 ){
   # ensure data can be queried
   df <- switch(type,
     "fields" = get_fields(),
     "layers" = get_layers(),
-    "both" = {
+    "assertions" = get_assertions(),
+    "all" = {
       fields <- get_fields()
       layers <- get_layers()
+      ass <- get_assertions()
       data.table::rbindlist(list(fields[!(fields$id %in% layers$id), ],
-                                 layers), fill = TRUE)
+                                 layers, ass), fill = TRUE)
     }
   )
 
@@ -73,45 +76,50 @@ search_fields <- function(
 
 
 # internal functions
-get_standard_fields <- function(){
-  result <- find_fields()[, c("name", "info")]
-  colnames(result) <- c("id", "description")
-  result$type = "fields"
-  return(result)
-}
+#get_standard_fields <- function(){
+#  result <- search_fields()[, c("name", "info")]
+#  colnames(result) <- c("id", "description")
+#  result$type = "fields"
+#  return(result)
+#}
 
-get_standard_layers <- function(){
-  result <- find_layers()
-  result$description <- apply(
-    result[, c("name", "description")],
-    1,
-    function(a){paste(a, collapse = " ")}
-  )
-  result <- result[, c("layer_id", "description", "source_link")]
-  colnames(result) <- c("id", "description", "link")
-  result$type <- "layers"
-  return(result)
-}
+#get_standard_layers <- function(){
+#  result <- find_layers()
+#  result$description <- apply(
+#    result[, c("name", "description")],
+#    1,
+#    function(a){paste(a, collapse = " ")}
+#  )
+#  result <- result[, c("layer_id", "description", "source_link")]
+#  colnames(result) <- c("id", "description", "link")
+#  result$type <- "layers"
+#  return(result)
+#}
 
 get_fields <- function() {
   fields <- all_fields()
+  
+  # remove fields where class is contextual or environmental
+  fields <- fields[!(fields$classs %in% c("Contextual", "Environmental")),]
   
   # replace name with dwc term if it exists
   fields$name <- ifelse(!is.na(fields$dwcTerm), fields$dwcTerm, fields$name)
   
   names(fields) <- rename_columns(names(fields), type = "fields")
   fields <- fields[wanted_columns("fields")]
+  fields$type <- "fields"
   
-  # add assertions
+  fields
+}
+
+get_assertions <- function() {
   url <- getOption("galah_server_config")$base_url_biocache
   assertions <- ala_GET(url, path = "ws/assertions/codes")
   assertions$data_type <- "logical"
-  assertions$class <- "Assertion"
   names(assertions) <- rename_columns(names(assertions), type = "assertions")
   assertions <- assertions[wanted_columns("assertions")]
-  all <- rbind(fields, assertions)
-  all$type <- "fields"
-  all
+  assertions$type <- "assertions"
+  assertions
 }
 
 

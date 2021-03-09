@@ -98,11 +98,10 @@ specified with `select_filters`, which takes indvidual filters, in the form
 `field = value`, and/or a [data quality profile](#data-quality-profiles).
 
 To find available fields and corresponding valid values, field lookup 
-functions are provided. For finding field names, use `find_fields()`, for
-finding valid field values, use `find_field_values()`. To view information
-about spatial fields, use `find_layers()`.
+functions are provided. For finding field names, use `search_fields()`, for
+finding valid field values, use `find_field_values()`.
 ```{r}
-fields <- find_fields()
+search_fields("basis")
 field_values <- find_field_values("basisOfRecord")
 ```
 Build a field filter
@@ -163,7 +162,7 @@ occurrence data users can specify which columns are returned using
 `select_columns()`. Individual column names and/or column groups can be
 specified.
 To view the fields for each group, see the documentation for `select_columns()`.
-To view the list of available fields, run `find_fields()`.
+To view the list of available fields, run `search_fields()`.
 ```{r eval = FALSE}
 cols <- select_columns("institutionID", group = "basic")
 ```

@@ -17,7 +17,7 @@
 #' @seealso \code{\link{select_taxa}}, \code{\link{select_columns}} and
 #' \code{\link{select_locations}} for other ways to restrict the information returned
 #' by \code{\link{ala_occurrences}} and related functions. Use
-#' \code{\link{find_fields}} &/or \code{\link{find_layers}} to find fields that
+#' \code{\link{search_fields}} to find fields that
 #' you can filter by, and \code{\link{find_field_values}} to find what values
 #' of those filters are available.
 #' @export select_filters
@@ -59,7 +59,7 @@ select_filters <- function(..., profile = NULL) {
   }
 
 
-  assertions <- find_fields("assertion")$name
+  assertions <- search_fields(type = "assertions")$id
   validate_filters(filters)
   filter_rows <- data.table::rbindlist(lapply(names(filters), function(x) {
     if (x %in% assertions) {
@@ -84,16 +84,14 @@ select_filters <- function(..., profile = NULL) {
 validate_filters <- function(filters) {
   # filters are provided in a dataframe
   # key should be a valid field name and value should be a valid category for
-  # that field
-  # valid options is a combination of find_layers and find_fields?
+  # that field?
 
   invalid_filters <- names(filters)[!names(filters) %in%
-                                      c(find_fields()$name,
-                                        "assertion", all_fields()$name)]
+                                      c(search_fields()$id, all_fields()$name)]
   if (length(invalid_filters) > 0) {
     stop("The following filters are invalid: ",
          paste(invalid_filters, collapse = ", "),
-         ". Use `find_fields()` to get a list of valid options")
+         ". Use `search_fields()` to get a list of valid options")
   }
 }
 

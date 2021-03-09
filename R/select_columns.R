@@ -34,7 +34,7 @@
 #'   \item\code{samplingProtocol}
 #' }
 #' Using \code{group = 'assertion'} returns all quality assertion-related
-#' columns. The list of assertions is shown by \code{find_fields("assertion")}.
+#' columns. The list of assertions is shown by \code{search_fields(type = "assertions")}.
 #' @seealso \code{\link{select_taxa}}, \code{\link{select_filters}} and
 #' \code{\link{select_locations}} for other ways to restrict the information returned
 #' by \code{\link{ala_occurrences}} and related functions.
@@ -50,7 +50,7 @@ select_columns <- function(..., group) {
       group_cols <- NULL
     }
 
-  assertions <- find_fields("assertion")$name
+  assertions <- search_fields(type = "assertions")$id
   cols <- list(...)
   if (length(cols) > 0) {
     extra_cols <- data.table::rbindlist(lapply(cols, function(x) {
@@ -75,7 +75,7 @@ preset_cols <- function(type) {
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),
-                 "assertion" = find_fields("assertion")$name,
+                 "assertion" = search_fields(type = "assertions")$id,
                  stop("\"", type,
                       "\" is not a valid column group. Valid groups are: ",
                       paste(valid_groups, collapse = ", "))

@@ -58,7 +58,6 @@ ala_species <- function(taxa, filters, locations) {
 
   query$facets <- "species_guid"
   query$lookup  <- "true"
-  #query$counts <- "true"
   
   path <- "ws/occurrences/facets/download"
 

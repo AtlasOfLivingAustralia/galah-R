@@ -35,11 +35,11 @@ locally-specific terminology. Each occurrence record contains taxonomic
 information, and usually some information about the observation itself, such
 as its location. In addition to this record-specific information, ALA
 appends contextual information to each record, particularly data from spatial
-\strong{layers} reflecting climate gradients or political boundaries (see
-\code{\link{find_layers}()} for a full list). Each piece of information
-associated with a given occurrence is stored in a \strong{field} (see
-\code{\link{find_fields}()}), which corresponds to a \strong{column} when
-imported to an \code{R data.frame}.
+\strong{layers} reflecting climate gradients or political boundaries.
+Each piece of information associated with a given occurrence is stored in a
+\strong{field}, which corresponds to a \strong{column} when imported to an
+\code{R data.frame}. See \code{\link{search_fields}} to view valid fields
+and layers.
 
 Data fields are important because they provide a means to \strong{filter}
 occurrence records;  i.e. to return only the information that you need, and
@@ -101,7 +101,6 @@ If you have any questions, comments or suggestions, please email
   \item\code{\link{find_profiles}} List data quality profiles
   \item\code{\link{find_profile_attributes}} List filters included in a data quality profile
   \item\code{\link{search_fields}} Free-text search for layers and fields
-  \item\code{\link{find_fields}} List occurrence record fields
   \item\code{\link{find_field_values}} List possible values for a given field
   \item\code{\link{find_layers}} List spatial layers
   \item\code{\link{find_reasons}} List valid download reasons

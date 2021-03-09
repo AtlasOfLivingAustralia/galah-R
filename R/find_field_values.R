@@ -3,11 +3,11 @@
 #' When building a set of filters with \code{\link{select_filters}}, a user can
 #' use this function to check that the values provided are valid options.
 #' @param field \code{string}: field to return the categories for. Use
-#' \code{\link{find_fields}} to view valid fields.
+#' \code{\link{search_fields}} to view valid fields.
 #' @param limit \code{numeric}: maximum number of categories to return. 20 by default.
 #' @return A \code{data.frame} containing columns \code{field} (user-supplied)
 #' and \code{category} (i.e. field values).
-#' @seealso See \code{\link{find_fields}} for ways to use information returned
+#' @seealso See \code{\link{search_fields}} for ways to use information returned
 #' by this function.
 #' @examples
 #' find_field_values("basis_of_record")
@@ -21,7 +21,7 @@ find_field_values <- function(field, limit = 20) {
   field <- dwc_to_ala(field)
   if (!(field %in% all_fields()$name)) {
     stop("\"", field,
-         "\" is not a valid field. See valid fields with `find_fields()`.")
+         "\" is not a valid field. See valid fields with `search_fields()`.")
   }
   assert_that(is.numeric(limit))
   url <- getOption("galah_server_config")$base_url_biocache

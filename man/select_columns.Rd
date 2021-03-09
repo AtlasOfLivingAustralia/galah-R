@@ -44,7 +44,7 @@ Using \code{group = 'event'} returns the following columns:
   \item\code{samplingProtocol}
 }
 Using \code{group = 'assertion'} returns all quality assertion-related
-columns. The list of assertions is shown by \code{find_fields("assertion")}.
+columns. The list of assertions is shown by \code{search_fields(type = "assertions")}.
 }
 \seealso{
 \code{\link{select_taxa}}, \code{\link{select_filters}} and

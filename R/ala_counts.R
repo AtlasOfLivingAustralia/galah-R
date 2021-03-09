@@ -157,9 +157,9 @@ species_count <- function(query) {
 }
 
 validate_facet <- function(facet) {
-  if (!facet %in% c(find_fields()$name, all_fields()$name)) {
+  if (!facet %in% c(search_fields()$id, all_fields()$name)) {
     stop("\"", facet, "\" is not a valid group_by field. ",
-         "Use `find_fields()` to get a list of valid options")
+         "Use `search_fields()` to get a list of valid options")
   }
 }
 

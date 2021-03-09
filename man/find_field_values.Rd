@@ -8,7 +8,7 @@ find_field_values(field, limit = 20)
 }
 \arguments{
 \item{field}{\code{string}: field to return the categories for. Use
-\code{\link{find_fields}} to view valid fields.}
+\code{\link{search_fields}} to view valid fields.}
 
 \item{limit}{\code{numeric}: maximum number of categories to return. 20 by default.}
 }
@@ -25,6 +25,6 @@ find_field_values("basis_of_record")
 find_field_values("state")
 }
 \seealso{
-See \code{\link{find_fields}} for ways to use information returned
+See \code{\link{search_fields}} for ways to use information returned
 by this function.
 }

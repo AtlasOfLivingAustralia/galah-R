@@ -45,7 +45,7 @@ filters <- select_filters(
 \code{\link{select_taxa}}, \code{\link{select_columns}} and
 \code{\link{select_locations}} for other ways to restrict the information returned
 by \code{\link{ala_occurrences}} and related functions. Use
-\code{\link{find_fields}} &/or \code{\link{find_layers}} to find fields that
+\code{\link{search_fields}} to find fields that
 you can filter by, and \code{\link{find_field_values}} to find what values
 of those filters are available.
 }

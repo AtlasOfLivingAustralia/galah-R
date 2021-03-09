@@ -2,15 +2,16 @@
 % Please edit documentation in R/search_fields.R
 \name{search_fields}
 \alias{search_fields}
-\title{Query layers or fields by free text search}
+\title{Query layers, fields or assertions by free text search}
 \usage{
-search_fields(query, type = "both")
+search_fields(query, type = "all")
 }
 \arguments{
 \item{query}{\code{string}: A search string. Not case sensitive.}
 
 \item{type}{\code{string}: What type of parameters should be searched?
-Should be one of \code{fields}, \code{layers} or \code{both}.}
+Should be one or more of \code{fields}, \code{layers}, \code{assertions},
+or \code{all}.}
 }
 \value{
 A \code{data.frame} with three columns:
@@ -49,7 +50,7 @@ layers <- search_fields("precipiation", type = "layer")
 \itemize{
 \item Darwin Core terms \url{https://dwc.tdwg.org/terms/}
 \item ALA fields \url{https://api.ala.org.au/#ws72}
-\item ALA assertion fields \url{https://api.ala.org.au/#ws81}
+\item ALA assertions fields \url{https://api.ala.org.au/#ws81}
 }
 }
 \seealso{
