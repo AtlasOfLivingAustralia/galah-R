@@ -5,12 +5,12 @@
 <strong>galah</strong>
 </h1>
 
-<br> <br> [![Travis-CI Build
+[![Travis-CI Build
 Status](https://travis-ci.com/AtlasOfLivingAustralia/galah.svg?branch=master)](https://travis-ci.com/AtlasOfLivingAustralia/galah)
 [![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/galah/branch/master/graph/badge.svg)](https://codecov.io/gh/AtlasOfLivingAustralia/galah)
 
 `galah` is an R interface to biodiversity data hosted by the [Atlas of
-Living Australia](https://www.ala.org.au/) (ALA).<br><br>
+Living Australia](https://www.ala.org.au/) (ALA).<br>
 
 It enables users to locate and download species observations, taxonomic
 information, or associated media such images or sounds, and to restrict
