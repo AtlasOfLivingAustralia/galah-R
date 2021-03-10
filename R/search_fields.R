@@ -41,7 +41,7 @@
 #' test <- search_fields("species")
 #' 
 #' # Find all precipitation-related layers
-#' layers <- search_fields("precipiation", type = "layer")
+#' layers <- search_fields("precipitation", type = "layers")
 #' }
 
 search_fields <- function(
@@ -75,28 +75,7 @@ search_fields <- function(
 
 }
 
-
-# internal functions
-#get_standard_fields <- function(){
-#  result <- search_fields()[, c("name", "info")]
-#  colnames(result) <- c("id", "description")
-#  result$type = "fields"
-#  return(result)
-#}
-
-#get_standard_layers <- function(){
-#  result <- find_layers()
-#  result$description <- apply(
-#    result[, c("name", "description")],
-#    1,
-#    function(a){paste(a, collapse = " ")}
-#  )
-#  result <- result[, c("layer_id", "description", "source_link")]
-#  colnames(result) <- c("id", "description", "link")
-#  result$type <- "layers"
-#  return(result)
-#}
-
+# Helper functions to get different field classes
 get_fields <- function() {
   fields <- all_fields()
   
@@ -123,10 +102,26 @@ get_assertions <- function() {
   assertions
 }
 
+get_layers <- function() {
+  url <- getOption("galah_server_config")$base_url_spatial
+  result <- ala_GET(url, "ws/layers")
+  layer_id <- mapply(build_layer_id, result$type, result$id,
+                     USE.NAMES = FALSE)
+  result <- cbind(layer_id, result)
+  result$description <- apply(
+    result[, c("displayname", "description")],
+    1,
+    function(a){paste(a, collapse = " ")}
+  )
+  names(result) <- rename_columns(names(result), type = "layer")
+  result <- result[wanted_columns("layer")]
+  names(result)[1] <- "id"
+  result$type <- "layers"
+  result
+}
 
-# function to keep backwards compatibility
-# takes field list and converts back to ALA name
-# TODO: Fix for scientific names which map to multiple ALA names
+# Function to convert darwin core field name to ALA field name, as currently
+# required by biocache APIs
 dwc_to_ala <- function(dwc_names) {
   fields <- all_fields()
   # get relevant cols
@@ -152,30 +147,13 @@ all_fields <- function() {
   ala_GET(url, path = "ws/index/fields")
 }
 
-get_layers <- function() {
-  # web service returns all layers so might as well do that
-  url <- getOption("galah_server_config")$base_url_spatial
-  result <- ala_GET(url, "ws/layers")
-  layer_id <- mapply(build_layer_id, result$type, result$id,
-                     USE.NAMES = FALSE)
-  result <- cbind(layer_id, result)
-  result$description <- apply(
-    result[, c("displayname", "description")],
-    1,
-    function(a){paste(a, collapse = " ")}
-  )
-  names(result) <- rename_columns(names(result), type = "layer")
-  result <- result[wanted_columns("layer")]
-  names(result)[1] <- "id"
-  result$type <- "layers"
-  result
-}
+
 
 build_layer_id <- function(type, id) {
   if (type == "Environmental") {
-    paste0('el', id)
+    paste0("el", id)
   } else {
-    paste0('cl', id)
+    paste0("cl", id)
   }
 }
 
