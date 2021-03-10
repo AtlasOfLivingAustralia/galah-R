@@ -56,7 +56,7 @@ ala_media <- function(identifier, identifier_type = "media", download_dir,
                                                  stringsAsFactors = FALSE))
     } else {
       # get media for an occurrence id
-      data <- occurrence_media(id)
+      data <- occurrence_media(id, media_type)
     }
     data
   }), fill = TRUE)
@@ -74,10 +74,14 @@ ala_media <- function(identifier, identifier_type = "media", download_dir,
 # should also allow filters?
 # handle the case when an occurrence record has more images than the limit?
 # is there a limit?
-occurrence_media <- function(occurrence_id) {
+occurrence_media <- function(occurrence_id, file_type) {
+  query <- list(q = paste0("occurrenceID:", "\"", occurrence_id, "\""))
+  if (length(file_type) == 1) {
+    query$fq <- paste0("fileType:", file_type)
+  }
   url <- getOption("galah_server_config")$base_url_images
-  resp <- ala_GET(url, "ws/search",
-                  list(q = paste0("occurrenceID:", "\"", occurrence_id, "\"")))
+  resp <- ala_GET(url, "ws/search", params = query
+                  )
 
   if(resp$totalImageCount == 0) {
     warning("No media was found for id ", "\"", occurrence_id, "\"")
