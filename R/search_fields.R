@@ -59,7 +59,8 @@ search_fields <- function(
       ass <- get_assertions()
       data.table::rbindlist(list(fields[!(fields$id %in% layers$id), ],
                                  layers, ass), fill = TRUE)
-    }
+    },
+    stop("`type`` must be one of c('fields', 'layers', 'assertions', 'all')")
   )
 
   # merge info together into searchable strings

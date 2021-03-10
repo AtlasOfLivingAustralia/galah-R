@@ -5,6 +5,7 @@ test_that("search_fields returns correct types of field", {
                c("fields", "assertions", "layers"))
   expect_equal(unique(search_fields(type = "assertions")$type),
                "assertions")
+  expect_error(search_fields(type = "layer"))
 })
 
 test_that("search_fields searches text correctly", {
