@@ -1,9 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <img src="man/figures/galah_logo.png" align="left" style="margin: 0px 10px 0px 0px;" alt="" width="120"/>
-<p style="font-size:40px">
-<b>galah</b>
-</p>
+<h2>
+galah
+</h2>
 
 [![Travis-CI Build
 Status](https://travis-ci.com/AtlasOfLivingAustralia/galah.svg?branch=master)](https://travis-ci.com/AtlasOfLivingAustralia/galah)
