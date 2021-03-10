@@ -36,7 +36,7 @@ ala_media <- function(identifier, identifier_type = "media", download_dir,
               msg = "Please provide at least one identifier")
   assert_that(is.character(identifier))
 
-  valid_media_type <- str_detect(media_type, c("image", "sound"))
+  valid_media_type <- media_type %in% c("image", "sound")
   if (!all(valid_media_type)) {
     stop("Valid media types are `c('image', 'sound')`")
   }
