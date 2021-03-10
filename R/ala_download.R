@@ -24,7 +24,7 @@ ala_download <- function(url, path, params = list(), ext = ".csv",
     cli$url <- url
     res <- cli$get(path = path, query = params, disk = cache_file)
   }
-  print(res$request$url)
+
   if (ext == ".csv") {
     df <- read.csv(res$content, stringsAsFactors = FALSE)
     close(file(cache_file))
