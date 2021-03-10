@@ -76,7 +76,7 @@
       <h1 data-toc-skip>galah</h1>
                         <h4 class="author">Matilda Stevenson</h4>
             
-            <h4 class="date">2021-03-09</h4>
+            <h4 class="date">2021-03-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah/blob/master/vignettes/galah.Rmd"><code>vignettes/galah.Rmd</code></a></small>
       <div class="hidden name"><code>galah.Rmd</code></div>
@@ -299,14 +299,8 @@
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># List rodent species in the NT</span>
 <span class="va">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_species.html">ala_species</a></span><span class="op">(</span>taxa <span class="op">=</span> <span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span><span class="st">"Rodentia"</span><span class="op">)</span>,
-            filters <span class="op">=</span> <span class="fu"><a href="../reference/select_filters.html">select_filters</a></span><span class="op">(</span>stateProvince <span class="op">=</span> <span class="st">"Northern Territory"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## $url
-## [1] "https://biocache-ws.ala.org.au/ws/occurrences/facets/download?facets=species_guid&amp;lookup=true&amp;fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:985cb64a-33d2-44fe-b806-8aa848fdafdf)&amp;fq=(state:%22Northern%20Territory%22)"
-## 
-## $handle
-## &lt;curl handle&gt; (empty)</code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span></code></pre></div>
+            filters <span class="op">=</span> <span class="fu"><a href="../reference/select_filters.html">select_filters</a></span><span class="op">(</span>stateProvince <span class="op">=</span> <span class="st">"Northern Territory"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span></code></pre></div>
 <pre><code>##                                                                       species                species_name
 ## 1 urn:lsid:biodiversity.org.au:afd.taxon:f38bcd7e-ae6a-4734-bd64-06995bc230eb        Mesembriomys gouldii
 ## 2 urn:lsid:biodiversity.org.au:afd.taxon:46611113-a1e3-45b1-b58c-7aef088a9da7             Zyzomys argurus
@@ -326,16 +320,16 @@
 <h4 class="hasAnchor">
 <a href="#record-counts" class="anchor"></a>Record counts</h4>
 <p><code><a href="../reference/ala_counts.html">ala_counts()</a></code> provides summary counts on records in the ALA, without needing to download all the records. In addition to the filter arguments, it has an optional <code>group_by</code> argument, which provides counts binned by the requested field.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Total number of records in the ALA</span>
 <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 94748812</code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<pre><code>## [1] 94738086</code></pre>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Total number of records, broken down by kindgom</span>
 <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span>group_by <span class="op">=</span> <span class="st">"kingdom"</span><span class="op">)</span></code></pre></div>
 <pre><code>##         name    count
 ## 1   Animalia 69494932
-## 2    Plantae 20993411
+## 2    Plantae 20993413
 ## 3      Fungi  1985364
 ## 4  Chromista  1037231
 ## 5   Protista    64614
@@ -349,7 +343,7 @@
 <h4 class="hasAnchor">
 <a href="#media-downloads" class="anchor"></a>Media downloads</h4>
 <p>In addition to text data describing individual occurrences and their attributes, ALA stores image and sounds associated with a given record. These can be downloaded to <code>R</code> by first using <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code> to find records that contain media, and then passing the resulting <code>recordID</code> field to <code><a href="../reference/ala_media.html">ala_media()</a></code> to download those media files.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Use the occurrences previously downloaded</span>
 <span class="va">images</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_media.html">ala_media</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">occ</span><span class="op">$</span><span class="va">recordID</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, download_dir <span class="op">=</span> <span class="st">'data/'</span>,
                     identifier_type <span class="op">=</span> <span class="st">"occurrence"</span><span class="op">)</span></code></pre></div>
@@ -363,7 +357,7 @@
 <h4 class="hasAnchor">
 <a href="#email" class="anchor"></a>Email</h4>
 <p>To download occurrence records, you will need to provide an email address registered with the ALA. You can create an account <a href="https://auth.ala.org.au/userdetails/registration/createAccount">here</a>. Once an email is registered with the ALA, it should be stored in the config:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>email<span class="op">=</span><span class="st">"myemail@gmail.com"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="caching" class="section level4">
@@ -371,24 +365,24 @@
 <a href="#caching" class="anchor"></a>Caching</h4>
 <p><code>galah</code> can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster.</p>
 <p>By default, this caching is session-based, meaning that the local files are stored in a temporary directory that is automatically deleted when the R session is ended. This behaviour can be altered so that caching is permanent, by setting the caching directory to a non-temporary location.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>cache_directory<span class="op">=</span><span class="st">"~/mydata/ala_cache"</span><span class="op">)</span></code></pre></div>
 <p>By default, caching is turned off. To turn caching on, run</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>caching<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="debugging" class="section level4">
 <h4 class="hasAnchor">
 <a href="#debugging" class="anchor"></a>Debugging</h4>
 <p>If things aren’t working as expected, more detail (particularly about web requests and caching behaviour) can be obtained by setting the <code>verbose</code> configuration option:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>verbose<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="setting-the-download-reason" class="section level4">
 <h4 class="hasAnchor">
 <a href="#setting-the-download-reason" class="anchor"></a>Setting the download reason</h4>
 <p>ALA requires that you provide a reason when downloading occurrence data (via the galah <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code> function). The reason is set as “scientific research” by default, but you can change this using <code><a href="../reference/ala_config.html">ala_config()</a></code>. See <code><a href="../reference/find_reasons.html">find_reasons()</a></code> for valid download reasons.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>download_reason_id<span class="op">=</span><span class="va">your_reason_id</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
