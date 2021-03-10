@@ -43,7 +43,7 @@ id number.
 test <- search_fields("species")
 
 # Find all precipitation-related layers
-layers <- search_fields("precipiation", type = "layer")
+layers <- search_fields("precipitation", type = "layers")
 }
 }
 \references{

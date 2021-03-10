@@ -42,8 +42,8 @@ occ <- ala_occurrences(
     filters = select_filters(multimedia = "Image", year = 2020))
 
 # get images associated with these records
-sounds <- ala_media(occ$recordID,
+images <- ala_media(occ$recordID,
     identifier_type = "occurrence",
-    download_dir = tempdir())
+    download_dir = tempdir(), media_type = "image")
 }
 }
