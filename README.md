@@ -1,23 +1,28 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<img src="man/figures/galah_logo.png" align="left" style="margin: 0px 10px 0px 0px;" alt="" width="120"/>
-<h1 style="font-size:40px">
-<strong>galah</strong>
-</h1>
 
+<div class="clearfix">
+
+<img src="man/figures/galah_logo.png" align="left" style="margin: 0px 10px 0px 0px;" alt="" width="120"/>
+<p style="font-size:40px">
+<b>galah</b>
+</p>
 [![Travis-CI Build
 Status](https://travis-ci.com/AtlasOfLivingAustralia/galah.svg?branch=master)](https://travis-ci.com/AtlasOfLivingAustralia/galah)
 [![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/galah/branch/master/graph/badge.svg)](https://codecov.io/gh/AtlasOfLivingAustralia/galah)
 
-`galah` is an R interface to biodiversity data hosted by the [Atlas of
-Living Australia](https://www.ala.org.au/) (ALA).<br>
+</div>
 
-It enables users to locate and download species observations, taxonomic
-information, or associated media such images or sounds, and to restrict
-their queries to particular taxa or locations. Users can specify which
-columns are returned by a query, or restrict their results to
-observations that meet particular quality-control criteria. All
-functions return a `data.frame` as their standard format.
+------------------------------------------------------------------------
+
+`galah` is an R interface to biodiversity data hosted by the [Atlas of
+Living Australia](https://www.ala.org.au/) (ALA). It enables users to
+locate and download species observations, taxonomic information, or
+associated media such as images or sounds, and to restrict their queries
+to particular taxa or locations. Users can specify which columns are
+returned by a query, or restrict their results to observations that meet
+particular quality-control criteria. All functions return a `data.frame`
+as their standard format.
 
 The ALA is a repository of biodiversity data, focussed primarily on
 observations of individual life forms. Like the Global Biodiversity
