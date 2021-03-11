@@ -167,6 +167,10 @@ no profile is applied.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>data.frame</code> of filter values.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>By default filters are included, but they can be excluded by wrapping the
+filter values in <code><a href='exclude.html'>exclude</a></code> (see below for examples).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='select_taxa.html'>select_taxa</a></code>, <code><a href='select_columns.html'>select_columns</a></code> and
@@ -174,7 +178,8 @@ no profile is applied.</p></td>
 by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and related functions. Use
 <code><a href='search_fields.html'>search_fields</a></code> to find fields that
 you can filter by, and <code><a href='find_field_values.html'>find_field_values</a></code> to find what values
-of those filters are available.</p></div>
+of those filters are available.
+<code><a href='exclude.html'>exclude</a></code> for excluding a filter value.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Create a custom filter for records of interest</span>
@@ -189,7 +194,9 @@ of those filters are available.</p></div>
     year <span class='op'>=</span> <span class='fl'>2020</span>,
     stateProvince <span class='op'>=</span> <span class='st'>"New South Wales"</span>,
     profile <span class='op'>=</span> <span class='st'>"ALA"</span><span class='op'>)</span>
-
+    
+<span class='co'># Use filters to exclude particular values</span>
+<span class='va'>filters</span> <span class='op'>&lt;-</span> <span class='fu'>select_filters</span><span class='op'>(</span>year <span class='op'>=</span> <span class='fu'><a href='exclude.html'>exclude</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>2011</span>,<span class='fl'>2021</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
