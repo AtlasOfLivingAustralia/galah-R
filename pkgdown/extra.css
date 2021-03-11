@@ -7,3 +7,18 @@
 }
 
 body { font-family: Roboto; }
+
+.navbar {
+  background: #37B2F7;
+  background-image: -moz-linear-gradient(top, #54b4eb, #2fa4e7);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#54b4eb), to(#2fa4e7));
+  background-image: -webkit-linear-gradient(top, #54b4eb, #2fa4e7);
+  background-image: -o-linear-gradient(top, #54b4eb, #2fa4e7);
+  background-image: linear-gradient(to bottom, #54b4eb, #2fa4e7);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px 5px rgba(0,0,0,.15);
+  border: none;
+  min-height: 40px;
+}
+
+
