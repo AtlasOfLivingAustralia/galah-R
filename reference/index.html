@@ -8,12 +8,19 @@
 
 <title>Function reference • galah</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
@@ -38,8 +45,11 @@
 
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Function reference" />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -151,15 +161,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="ala_media.html">ala_media()</a></code> </p>
-        </td>
-        <td><p>Image and sounds</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="ala_species.html">ala_species()</a></code> </p>
         </td>
         <td><p>Species lists</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ala_media.html">ala_media()</a></code> </p>
+        </td>
+        <td><p>Image and sounds</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -176,9 +186,9 @@
       <tr>
         
         <td>
-          <p><code><a href="select_columns.html">select_columns()</a></code> </p>
+          <p><code><a href="select_taxa.html">select_taxa()</a></code> </p>
         </td>
-        <td><p>Specify columns for occurrence download</p></td>
+        <td><p>Taxon information</p></td>
       </tr><tr>
         
         <td>
@@ -188,15 +198,21 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="exclude.html">exclude()</a></code> </p>
+        </td>
+        <td><p>Negate a filter value</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="select_locations.html">select_locations()</a></code> </p>
         </td>
         <td><p>Build a WKT string from an sf spatial object or verify an existing WKT</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="select_taxa.html">select_taxa()</a></code> </p>
+          <p><code><a href="select_columns.html">select_columns()</a></code> </p>
         </td>
-        <td><p>Taxon information</p></td>
+        <td><p>Specify columns for occurrence download</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -213,15 +229,15 @@
       <tr>
         
         <td>
-          <p><code><a href="find_field_values.html">find_field_values()</a></code> </p>
+          <p><code><a href="search_fields.html">search_fields()</a></code> </p>
         </td>
-        <td><p>List valid options for a categorical field</p></td>
+        <td><p>Query layers, fields or assertions by free text search</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="find_profile_attributes.html">find_profile_attributes()</a></code> </p>
+          <p><code><a href="find_field_values.html">find_field_values()</a></code> </p>
         </td>
-        <td><p>Get data filters for a specified data quality profile</p></td>
+        <td><p>List valid options for a categorical field</p></td>
       </tr><tr>
         
         <td>
@@ -231,15 +247,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="find_reasons.html">find_reasons()</a></code> </p>
+          <p><code><a href="find_profile_attributes.html">find_profile_attributes()</a></code> </p>
         </td>
-        <td><p>List valid download reasons</p></td>
+        <td><p>Get data filters for a specified data quality profile</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="search_fields.html">search_fields()</a></code> </p>
+          <p><code><a href="find_reasons.html">find_reasons()</a></code> </p>
         </td>
-        <td><p>Query layers, fields or assertions by free text search</p></td>
+        <td><p>List valid download reasons</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -265,12 +281,6 @@
           <p><code><a href="ala_citation.html">ala_citation()</a></code> </p>
         </td>
         <td><p>Generate a citation for occurrence data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="exclude.html">exclude()</a></code> </p>
-        </td>
-        <td><p>Negate a filter value</p></td>
       </tr>
     </tbody>
     </table>
