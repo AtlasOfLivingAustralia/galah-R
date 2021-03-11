@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<img src="man/figures/galah_logo.png" align="left" style="margin: 0px 10px 0px 0px;" alt="" width="120"/>
+<img src="man/figures/logo.png" align="left" style="margin: 0px 10px 0px 0px;" alt="" width="120"/>
 <h2>
 galah
 </h2>
@@ -28,6 +28,9 @@ Core’](https://dwc.tdwg.org) data standard.
 
 The `galah` package is named for the bird of the same name (*Eolophus
 roseicapilla*), a widely-distributed endemic Australian species.
+
+The `galah` logo was designed by [Ian
+Brennan](http://www.iangbrennan.org/).
 
 If you have any comments, questions or suggestions, please [contact
 us](mailto:support@ala.org.au).

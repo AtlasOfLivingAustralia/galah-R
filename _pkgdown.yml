@@ -3,20 +3,28 @@ reference:
   contents:
   - ala_occurrences
   - ala_counts
-  - ala_media
   - ala_species
+  - ala_media
 - title: Filter
   contents: 
-  - starts_with("select")
+  - select_taxa
+  - select_filters
+  - exclude
+  - select_locations
+  - select_columns
 - title: Lookup
   contents:
-  - starts_with("find")
   - search_fields
+  - find_field_values
+  - find_profiles
+  - find_profile_attributes
+  - find_reasons
 - title: Support
   contents:
   - ala_config
   - ala_citation
-  - exclude
-
+template:
+  params:
+    bootswatch: cerulean
 
   
