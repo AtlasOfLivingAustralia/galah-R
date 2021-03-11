@@ -20,6 +20,10 @@
 #' \code{\link{search_fields}} to find fields that
 #' you can filter by, and \code{\link{find_field_values}} to find what values
 #' of those filters are available.
+#' \code{\link{exclude}} for excluding a filter value.
+#' @details
+#' By default filters are included, but they can be excluded by wrapping the
+#' filter values in \code{\link{exclude}} (see below for examples).
 #' @export select_filters
 #' @examples
 #' # Create a custom filter for records of interest
@@ -34,7 +38,9 @@
 #'     year = 2020,
 #'     stateProvince = "New South Wales",
 #'     profile = "ALA")
-#'
+#'     
+#' # Use filters to exclude particular values
+#' filters <- select_filters(year = exclude(seq(2011,2021)))
 
 select_filters <- function(..., profile = NULL) {
   filters <- list(...)
@@ -138,8 +144,10 @@ filter_value <- function(val) {
 #' @rdname exclude
 #' @param value string: filter value(s) to be excluded
 #' @return value with class "exclude"
+#' @seealso \code{exclude} is used with \code{\link{select_filters}} or
+#' \code{\link{select_taxa}} to exclude values
 #' @export exclude
 exclude <- function(value) {
-  class(value) <- "exclude"
+  class(value) <- c("exclude", class(value))
   value
 }

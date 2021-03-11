@@ -48,12 +48,16 @@ rename_columns <- function(varnames, type) {
     varnames
 }
 
-build_taxa_query <- function(ids) {
-    # order filters so cached file can be found
-    ids <- ids[order(ids)]
-    paste0("(lsid:", paste(ids, collapse = " OR lsid:"), ")")
+build_taxa_query <- function(ids, include) {
+  ids <- ids[order(ids)]
+  print(ids)
+  if (include) {
+    value_str <- paste0("(lsid:", paste(ids, collapse = " OR lsid:"), ")")
+  } else {
+    value_str <- paste0("(-lsid:", paste(ids, collapse = " AND -lsid:"), ")")
+  }
+  value_str
 }
-
 
 build_query <- function(taxa, filters, locations, columns = NULL) {
   
@@ -61,12 +65,13 @@ build_query <- function(taxa, filters, locations, columns = NULL) {
   if (is.null(taxa)) {
     taxa_query <- NULL
   } else {
+    include <- !inherits(taxa, "exclude")
     if (inherits(taxa, "data.frame") &&
         "taxon_concept_id" %in% colnames(taxa)) {
       taxa <- taxa$taxon_concept_id
     }
     assert_that(is.character(taxa))
-    taxa_query <- build_taxa_query(taxa)
+    taxa_query <- build_taxa_query(taxa, include)
   }
   
   # validate filters

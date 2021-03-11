@@ -15,3 +15,7 @@ value with class "exclude"
 \description{
 Negate a filter value
 }
+\seealso{
+\code{exclude} is used with \code{\link{select_filters}} or
+\code{\link{select_taxa}} to exclude values
+}

@@ -26,6 +26,10 @@ The result of \code{select_filters} can be passed to the \code{filters}
 argument in \code{\link{ala_occurrences}()}, \code{\link{ala_species}()} or
 \code{\link{ala_counts}()}.
 }
+\details{
+By default filters are included, but they can be excluded by wrapping the
+filter values in \code{\link{exclude}} (see below for examples).
+}
 \examples{
 # Create a custom filter for records of interest
 filters <- select_filters(
@@ -39,7 +43,9 @@ filters <- select_filters(
     year = 2020,
     stateProvince = "New South Wales",
     profile = "ALA")
-
+    
+# Use filters to exclude particular values
+filters <- select_filters(year = exclude(seq(2011,2021)))
 }
 \seealso{
 \code{\link{select_taxa}}, \code{\link{select_columns}} and
@@ -48,4 +54,5 @@ by \code{\link{ala_occurrences}} and related functions. Use
 \code{\link{search_fields}} to find fields that
 you can filter by, and \code{\link{find_field_values}} to find what values
 of those filters are available.
+\code{\link{exclude}} for excluding a filter value.
 }
