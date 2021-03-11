@@ -20,6 +20,18 @@ WKT string representing the area provided.
 Restrict results to those from a specified area. Areas must be polygons
 and be specified as either an sf object, or a 'well-known text' (wkt) string.
 }
+\examples{
+\dontrun{
+# Search for records using a shapefile
+locations <- select_locations(sf = path/to/shapefile)
+ala_occurrences(locations = locations)
+
+# Search for records using a WKT
+wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
+ala_occurrences(wkt = select_locations(wkt = wkt))
+}
+
+}
 \seealso{
 \code{\link{select_taxa}}, \code{\link{select_filters}} and
 \code{\link{select_columns}} for other ways to restrict the information returned
