@@ -2,7 +2,8 @@
 title: "galah"
 author: "Matilda Stevenson"
 date: '`r Sys.Date()`'
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{galah}
   %\VignetteEngine{knitr::rmarkdown}
@@ -14,7 +15,7 @@ library(knitr)
 options(width=120)
 ```
 
-## About
+# About
 `galah` is an R interface to biodiversity data hosted by the [Atlas of Living Australia](https://ala.org.au) (ALA). The ALA is a repository of biodiversity
 data, focussed primarily on observations of individual life forms. Like the
 Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)), the
@@ -27,7 +28,14 @@ returned by a query, or restrict their results to observations that meet
 particular quality-control criteria. All functions return a `data.frame` as
 their standard format.
 
-### Installation
+Functions in `galah` are designed according to a nested architecture. Users
+that require data should begin by locating the relevant `ala_` function (see
+[downloading data section](#downloading-data)); the arguments within that
+function then call correspondingly-named [`select_` functions](#filtering-data);
+and finally the specific values that can be interpreted by those `select_`
+functions are given by `find_` functions.
+
+## Installation
 `galah` is not yet available on CRAN. To install the package from GitHub:
 
 ```{r eval=FALSE}
@@ -42,16 +50,8 @@ Load the package
 library(galah)
 ```
 
-## Usage
 
-Functions in `galah` are designed according to a nested architecture. Users
-that require data should begin by locating the relevant `ala_` function (see
-[downloading data section](#downloading-data)); the arguments within that
-function then call correspondingly-named [`select_` functions](#filtering-data);
-and finally the specific values that can be interpreted by those `select_`
-functions are given by `find_` functions.
-
-### Filtering data
+# Filtering data
 
 Each occurrence record contains taxonomic information, and also some
 information about the observation itself, such as its location and the date
@@ -65,7 +65,7 @@ no more. Consequently, much of the architecture of `galah` has been
 designed to make filtering as simple as possible, by using functions with the
 `select_` prefix.
 
-#### Taxonomic filtering
+## Taxonomic filtering
 `select_taxa` enables users search for taxonomic names and check the results
 are 'correct' before using the result to download data.
 The function allows both free-text searches and searches where the rank(s) are
@@ -84,14 +84,14 @@ select_taxa(term = "Eolophus", return_children = TRUE, include_counts = TRUE)
 ```
 This shows that there is only one species in the family *Eolophus*.
 
-#### Location-based filtering
+## Location-based filtering
 Users can provide an `sf` object or a Well-Known Text (WKT) string for
 location-based filtering.
 ```{r eval = FALSE}
 locations <- select_locations(sf = st_read('act_rect.shp'))
 ```
 
-#### Field based filtering
+## Field based filtering
 As mentioned above, all occurrence records in the ALA contain additional
 information about the record, stored in **fields**. Field-based filters are
 specified with `select_filters`, which takes indvidual filters, in the form
@@ -117,7 +117,7 @@ filters <- select_filters(basisOfRecord = "HumanObservation",
 ```
 
 
-##### Data quality profiles
+### Data quality profiles
 A notable extention of the filtering approach is to remove records with low
 'quality'. ALA performs quality control checks on all records that it stores.
 These checks are used to generate new fields, that can then be used to filter
@@ -141,7 +141,7 @@ filters <- select_filters(basisOfRecord = "HumanObservation",
                           profile = "ALA")
 ```
 
-### Downloading data
+# Downloading data
 
 Functions that return data from ALA are named with the prefix `ala_`,
 followed by a suffix describing the information that they provide.
@@ -155,7 +155,7 @@ or media content (largely images) via [`ala_media()`](#media_downloads)
 Alternatively, users can assess how many records meet their particular criteria
 using [`ala_counts()`](#record-counts).
 
-#### Occurrence data
+## Occurrence data
 
 In addition to the [filter functions](#filtering-data) above, when downloading
 occurrence data users can specify which columns are returned using
@@ -195,7 +195,7 @@ occ <- ala_occurrences(taxa = select_taxa("Eolophus roseicapilla"),
 head(occ)
 ```
 
-#### Species data
+## Species data
 A common use case of the ALA is to identify which species occur in a specified
 region, time period, or taxonomic group. `ala_species()` enables the user to 
 look up this information, using the common set of filter functions.
@@ -210,7 +210,7 @@ species <- ala_species(taxa = select_taxa("Rodentia"),
 head(species)
 ```
 
-#### Record counts
+## Record counts
 `ala_counts()` provides summary counts on records in the ALA, without needing
 to download all the records. In addition to the filter arguments, it has an
 optional `group_by` argument, which provides counts binned by the requested
@@ -224,7 +224,7 @@ ala_counts(group_by = "kingdom")
 ```
 
 
-#### Media downloads
+## Media downloads
 In addition to text data describing individual occurrences and their attributes,
 ALA stores image and sounds associated with a given record. These can be
 downloaded to `R` by first using `ala_occurrences()` to find records that
@@ -237,13 +237,13 @@ images <- ala_media(head(occ$recordID, n = 5), download_dir = 'data/',
 ```
 
 
-### Config
+# Config
 
 Various aspects of the galah package can be customized. To preserve
 configuration for future sessions, set `preserve = TRUE`. This will write the
 config to your `.Renviron` file.
 
-#### Email
+## Email
 To download occurrence records, you will need to provide an email address
 registered with the ALA. You can create an account [here](https://auth.ala.org.au/userdetails/registration/createAccount).
 Once an email is registered with the ALA, it should be stored in the config:
@@ -251,7 +251,7 @@ Once an email is registered with the ALA, it should be stored in the config:
 ala_config(email="myemail@gmail.com")
 ```
 
-#### Caching
+## Caching
 `galah` can cache most results to local files. This means that if the same code
 is run multiple times, the second and subsequent iterations will be faster.
 
@@ -270,14 +270,14 @@ ala_config(caching=FALSE)
 ```
 
 
-#### Debugging
+## Debugging
 If things aren't working as expected, more detail (particularly about web requests and caching behaviour) can be obtained by setting the `verbose` configuration option:
 
 ```{r eval=FALSE}
 ala_config(verbose=TRUE)
 ```
 
-#### Setting the download reason
+## Setting the download reason
 ALA requires that you provide a reason when downloading occurrence data (via the galah `ala_occurrences()` function). The reason is set as "scientific research" by default, but you can change this using `ala_config()`. See `find_reasons()` for valid download reasons.
 
 ```{r eval=FALSE}
