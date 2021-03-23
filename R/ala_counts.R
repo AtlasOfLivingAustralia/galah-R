@@ -92,7 +92,7 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
 
   if (total_cats > limit && total_cats > page_size) {
     resp <- ala_GET(url, path, params = query, paginate = TRUE, limit = limit,
-                    page_size = page_size)
+                    page_size = page_size, offset_param = "foffset")
     counts <- data.table::rbindlist(
       lapply(resp, function(x) {
         fromJSON(x)$fieldResult[[1]]

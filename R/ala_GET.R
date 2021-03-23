@@ -2,7 +2,8 @@
 #
 # Try using crul
 ala_GET <- function(url, path, params = list(), on_error = NULL,
-                    paginate = FALSE, limit = NULL, page_size = NULL) {
+                    paginate = FALSE, limit = NULL, page_size = NULL,
+                    offset_param = 'offset') {
   cli <- HttpClient$new(
     url = url,
     headers = list(
@@ -15,7 +16,7 @@ ala_GET <- function(url, path, params = list(), on_error = NULL,
     cli$url <- build_fq_url(url, path, params)
     if (paginate) {
       p <- Paginator$new(cli, chunk = page_size, limit_param = 'flimit',
-                         offset_param = 'offset', limit = limit)
+                         offset_param = offset_param, limit = limit)
       p$get()
       res <- p$parse("UTF-8")
       return(res)
@@ -25,7 +26,7 @@ ala_GET <- function(url, path, params = list(), on_error = NULL,
     cli$url <- url
     if (paginate) {
       p <- Paginator$new(cli, chunk = page_size, limit_param = 'flimit',
-                         offset_param = 'offset', limit = limit)
+                         offset_param = offset_param, limit = limit)
       p$get(path = path, query = params, encode = "json")
       res <- p$parse("UTF-8")
       return(res)
@@ -33,7 +34,6 @@ ala_GET <- function(url, path, params = list(), on_error = NULL,
     res <- cli$get(path = path, query = params, encode = "json")
   }
   
-  #print(res$request$url)
   if (!is.null(on_error)) {
     if (res$status_code != 200) {
       on_error(res$status_code)
