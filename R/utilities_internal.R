@@ -50,7 +50,6 @@ rename_columns <- function(varnames, type) {
 
 build_taxa_query <- function(ids, include) {
   ids <- ids[order(ids)]
-  print(ids)
   if (include) {
     value_str <- paste0("(lsid:", paste(ids, collapse = " OR lsid:"), ")")
   } else {
