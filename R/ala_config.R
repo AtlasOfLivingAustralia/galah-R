@@ -10,8 +10,6 @@
 #' @param \dots Options can be defined using the form \code{name = value}.
 #' Valid arguments are:
 #' \itemize{
-#'   \item \code{reset}: \code{ala_config("reset")} will reset the options to their
-#'   default values
 #'   \item \code{caching} logical: if TRUE, results will be cached, and any cached
 #'     results will be re-used). If FALSE, data will be downloaded.
 #'   \item \code{cache_directory} string: the directory to use for the cache.
