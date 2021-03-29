@@ -26,7 +26,7 @@ A \code{data.frame} with three columns:
 \description{
 This function can be used to find relevant fields and/or layers
 for use in building a set of filters with \code{\link{select_filters}()} or
-specifying required columns with \code{\link{select_columns}()}. 
+specifying required columns with \code{\link{select_columns}()}.
 This function returns a \code{data.frame} of all fields matching the type
 specified.
 Field names are in Darwin Core format, except in the case where the field is
@@ -42,8 +42,11 @@ id number.
 \dontrun{
 test <- search_fields("species")
 
-# Find all precipitation-related layers
-layers <- search_fields("precipitation", type = "layers")
+# Find all WorldClim layers
+worldclim <- search_fields("worldclim", type = "layers")
+
+# Return a data.frame containing all data on fields and layers
+all_fields <- search_fields()
 }
 }
 \references{

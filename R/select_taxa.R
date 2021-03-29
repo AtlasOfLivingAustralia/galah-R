@@ -10,7 +10,10 @@
 #' \code{data.frame} of taxonomic information can be passed directly to
 #' \code{ala_} functions to filter records to the specified taxon or taxa.
 #'
-#' @param term \code{string}: single string, or optionally a vector, of search term(s).
+#' @param term \code{string}: A vector containing one or more search terms,
+#' given as strings. If greater control is required to disambiguate
+#' search terms, taxonomic levels can be provided explicitly via a named \code{list}
+#' for a single name, or a \code{data.frame} for multiple names (see examples). 
 #' Note that searches are not case-sensitive.
 #' @param term_type \code{string}: specifies which type of terms are provided in
 #' `term`. One of name \code{c("name", "identifier")}. Default behaviour is
@@ -36,6 +39,12 @@
 #'   list(kingdom = "Plantae", genus = "Microseris"),
 #'   return_children = TRUE,
 #'   include_counts = TRUE)
+#'
+#' As avove, but for multiple searches at once.
+#' select_taxa(
+#'    data.frame(
+#'      genus = c("microseris", "Eucalyptus"),
+#'      kingdom = "plantae"))
 #'
 #' # Search using an unique taxon identifier
 #' select_taxa(term = "https://id.biodiversity.org.au/node/apni/2914510",

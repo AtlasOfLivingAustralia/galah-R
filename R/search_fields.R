@@ -2,7 +2,7 @@
 #'
 #' This function can be used to find relevant fields and/or layers
 #' for use in building a set of filters with \code{\link{select_filters}()} or
-#' specifying required columns with \code{\link{select_columns}()}. 
+#' specifying required columns with \code{\link{select_columns}()}.
 #' This function returns a \code{data.frame} of all fields matching the type
 #' specified.
 #' Field names are in Darwin Core format, except in the case where the field is
@@ -30,18 +30,21 @@
 #' To view valid values for a layer with categorical values, use
 #' \code{\link{find_field_values}()}.
 #' @export search_fields
-#' 
-#' @details 
+#'
+#' @details
 #' Layers are the subset of fields that are spatially appended to each record
 #' by the ALA. Layer ids are comprised of a prefix: 'el' for environmental
 #' (gridded) layers and 'cl' for contextual (polygon) layers,  followed by an
-#' id number. 
+#' id number.
 #' @examples
 #' \dontrun{
 #' test <- search_fields("species")
-#' 
-#' # Find all precipitation-related layers
-#' layers <- search_fields("precipitation", type = "layers")
+#'
+#' # Find all WorldClim layers
+#' worldclim <- search_fields("worldclim", type = "layers")
+#'
+#' # Return a data.frame containing all data on fields and layers
+#' all_fields <- search_fields()
 #' }
 
 search_fields <- function(
@@ -78,17 +81,17 @@ search_fields <- function(
 # Helper functions to get different field classes
 get_fields <- function() {
   fields <- all_fields()
-  
+
   # remove fields where class is contextual or environmental
   fields <- fields[!(fields$classs %in% c("Contextual", "Environmental")),]
-  
+
   # replace name with dwc term if it exists
   fields$name <- ifelse(!is.na(fields$dwcTerm), fields$dwcTerm, fields$name)
-  
+
   names(fields) <- rename_columns(names(fields), type = "fields")
   fields <- fields[wanted_columns("fields")]
   fields$type <- "fields"
-  
+
   fields
 }
 
@@ -156,4 +159,3 @@ build_layer_id <- function(type, id) {
     paste0("cl", id)
   }
 }
-
