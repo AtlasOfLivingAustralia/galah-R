@@ -66,7 +66,7 @@ designed to make filtering as simple as possible, by using functions with the
 `select_` prefix.
 
 ## Taxonomic filtering
-`select_taxa` enables users search for taxonomic names and check the results
+`select_taxa()` enables users search for taxonomic names and check the results
 are 'correct' before using the result to download data.
 The function allows both free-text searches and searches where the rank(s) are
 specified. Specifying the rank can be useful when names are ambiguous.
@@ -77,7 +77,7 @@ taxa_filter <- select_taxa(term = "Eolophus")
 # specifying ranks
 select_taxa(term = list(genus = "Eolophus", kingdom = "Aves"))
 ```
-`select_taxa` can optionally provide information about child concepts, and
+`select_taxa()` can optionally provide information about child concepts, and
 counts of the number of records held by the ALA for the specified taxa.
 ```{r}
 select_taxa(term = "Eolophus", return_children = TRUE, include_counts = TRUE)
@@ -94,7 +94,7 @@ locations <- select_locations(sf = st_read('act_rect.shp'))
 ## Field based filtering
 As mentioned above, all occurrence records in the ALA contain additional
 information about the record, stored in **fields**. Field-based filters are
-specified with `select_filters`, which takes indvidual filters, in the form
+specified with `select_filters()`, which takes indvidual filters, in the form
 `field = value`, and/or a [data quality profile](#data-quality-profiles).
 
 To find available fields and corresponding valid values, field lookup 
@@ -124,7 +124,7 @@ These checks are used to generate new fields, that can then be used to filter
 out records that are unsuitable for particular applications. However, there
 are many possible data quality checks, and it is not always clear which are
 most appropriate in a given instance. Therefore, `galah` supports ALA
-data quality **profiles**, which can be passed to `select_filters`to quickly
+data quality **profiles**, which can be passed to `select_filters()`to quickly
 remove undesirable records. A full list of data quality profiles is returned by
 `find_profiles()`.
 
