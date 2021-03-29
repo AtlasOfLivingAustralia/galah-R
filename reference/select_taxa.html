@@ -161,7 +161,10 @@ proceeded to download data via <code><a href='ala_occurrences.html'>ala_occurren
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>term</th>
-      <td><p><code>string</code>: single string, or optionally a vector, of search term(s).
+      <td><p><code>string</code>: A vector containing one or more search terms,
+given as strings. If greater control is required to disambiguate
+search terms, taxonomic levels can be provided explicitly via a named <code>list</code>
+for a single name, or a <code>data.frame</code> for multiple names (see examples). 
 Note that searches are not case-sensitive.</p></td>
     </tr>
     <tr>
@@ -193,26 +196,7 @@ found? <code>FALSE</code> by default</p></td>
 by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and related functions.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># Search using a single term</span>
-<span class='fu'>select_taxa</span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"Reptilia"</span><span class='op'>)</span>
-<span class='co'># or equivalently:</span>
-<span class='fu'>select_taxa</span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"reptilia"</span><span class='op'>)</span> <span class='co'># not case sensitive</span>
-
-<span class='co'># Search with multiple ranks. This is required if a single term is a homonym.</span>
-<span class='fu'>select_taxa</span><span class='op'>(</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>kingdom <span class='op'>=</span> <span class='st'>"Plantae"</span>, genus <span class='op'>=</span> <span class='st'>"Microseris"</span><span class='op'>)</span>,
-  return_children <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  include_counts <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-
-<span class='co'># Search using an unique taxon identifier</span>
-<span class='fu'>select_taxa</span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"https://id.biodiversity.org.au/node/apni/2914510"</span>,
-   term_type <span class='op'>=</span> <span class='st'>"identifier"</span><span class='op'>)</span>
-
-<span class='co'># Search multiple taxa</span>
-<span class='fu'>select_taxa</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"reptilia"</span>, <span class='st'>"mammalia"</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># returns one row per taxon</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

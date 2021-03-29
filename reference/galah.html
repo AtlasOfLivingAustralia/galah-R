@@ -170,7 +170,7 @@ information, and usually some information about the observation itself, such
 as its location. In addition to this record-specific information, ALA
 appends contextual information to each record, particularly data from spatial
 <strong>layers</strong> reflecting climate gradients or political boundaries. ALA
-also runs a number of quality checks against each record, resulting in 
+also runs a number of quality checks against each record, resulting in
 <strong>assertions</strong> attached to the record. Each piece of information
 associated with a given occurrence record is stored in a <strong>field</strong>,
 which corresponds to a <strong>column</strong> when imported to an
@@ -201,10 +201,10 @@ according to a nested architecture. Users that require data should begin by
 locating the relevant <code>ala_</code> function; the arguments within that
 function then call correspondingly-named <code>select_</code> functions; and
 finally the specific values that can be interpreted by those <code>select_</code>
-functions are given by <code>find_</code> functions. So, to limit occurrence
-downloads to a specific taxonomic group, for example, you pass the reult of
-<code><a href='select_taxa.html'>select_taxa</a></code> to the <code>taxa</code> argument of
-<code><a href='ala_occurrences.html'>ala_occurrences</a></code>.</p>
+functions are given by functions with the prefix <code>search_</code> or
+<code>find_</code>. So, to limit occurrence downloads to a specific taxonomic
+group, for example, you pass the reult of <code><a href='select_taxa.html'>select_taxa</a></code> to the
+<code>taxa</code> argument of <code><a href='ala_occurrences.html'>ala_occurrences</a></code>.</p>
 <p>Finally, the <code>galah</code> package is named for the bird of the same
 name (<em>Eolophus roseicapilla</em>), a widely-distributed endemic
 Australian species.</p>
@@ -215,20 +215,20 @@ Australian species.</p>
     
 
 <p><strong>Data</strong></p><ul>
-<li><p><code><a href='ala_occurrences.html'>ala_occurrences</a></code> Download occurrence records</p></li>
-<li><p><code><a href='ala_species.html'>ala_species</a></code> Download species lists</p></li>
-<li><p><code><a href='ala_media.html'>ala_media</a></code> Download images and sounds</p></li>
 <li><p><code><a href='ala_counts.html'>ala_counts</a></code> Count the number of records returned by a query</p></li>
+<li><p><code><a href='ala_species.html'>ala_species</a></code> Download species lists</p></li>
+<li><p><code><a href='ala_occurrences.html'>ala_occurrences</a></code> Download occurrence records</p></li>
+<li><p><code><a href='ala_media.html'>ala_media</a></code> Download images and sounds</p></li>
 </ul><p><strong>Filter</strong></p><ul>
 <li><p><code><a href='select_taxa.html'>select_taxa</a></code> Taxon information</p></li>
 <li><p><code><a href='select_filters.html'>select_filters</a></code> Filter records</p></li>
 <li><p><code><a href='select_locations.html'>select_locations</a></code> Specify location</p></li>
 <li><p><code><a href='select_columns.html'>select_columns</a></code> Columns to return in occurrence download</p></li>
 </ul><p><strong>Lookup</strong></p><ul>
+<li><p><code><a href='search_fields.html'>search_fields</a></code> Free-text search for layers and fields</p></li>
+<li><p><code><a href='find_field_values.html'>find_field_values</a></code> List possible values for a given field</p></li>
 <li><p><code><a href='find_profiles.html'>find_profiles</a></code> List data quality profiles</p></li>
 <li><p><code><a href='find_profile_attributes.html'>find_profile_attributes</a></code> List filters included in a data quality profile</p></li>
-<li><p><code><a href='search_fields.html'>search_fields</a></code> Free-text search for layers and fields</p></li>
-<li><p><code><a href='find_field_values.html'>find_field_values</a></code> List possible values for a given field=</p></li>
 <li><p><code><a href='find_reasons.html'>find_reasons</a></code> List valid download reasons</p></li>
 </ul><p><strong>Help</strong></p><ul>
 <li><p><code><a href='ala_config.html'>ala_config</a></code> Package configuration options</p></li>

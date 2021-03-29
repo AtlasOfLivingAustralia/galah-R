@@ -51,7 +51,7 @@
 <meta property="og:title" content="Query layers, fields or assertions by free text search — search_fields" />
 <meta property="og:description" content="This function can be used to find relevant fields and/or layers
 for use in building a set of filters with select_filters() or
-specifying required columns with select_columns(). 
+specifying required columns with select_columns().
 This function returns a data.frame of all fields matching the type
 specified.
 Field names are in Darwin Core format, except in the case where the field is
@@ -138,7 +138,7 @@ specific to the ALA database, in which case the ALA field name is returned." />
     <div class="ref-description">
     <p>This function can be used to find relevant fields and/or layers
 for use in building a set of filters with <code><a href='select_filters.html'>select_filters</a>()</code> or
-specifying required columns with <code><a href='select_columns.html'>select_columns</a>()</code>. 
+specifying required columns with <code><a href='select_columns.html'>select_columns</a>()</code>.
 This function returns a <code>data.frame</code> of all fields matching the type
 specified.
 Field names are in Darwin Core format, except in the case where the field is
@@ -198,8 +198,11 @@ To view valid values for a layer with categorical values, use
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='va'>test</span> <span class='op'>&lt;-</span> <span class='fu'>search_fields</span><span class='op'>(</span><span class='st'>"species"</span><span class='op'>)</span>
 
-<span class='co'># Find all precipitation-related layers</span>
-<span class='va'>layers</span> <span class='op'>&lt;-</span> <span class='fu'>search_fields</span><span class='op'>(</span><span class='st'>"precipitation"</span>, type <span class='op'>=</span> <span class='st'>"layers"</span><span class='op'>)</span>
+<span class='co'># Find all WorldClim layers</span>
+<span class='va'>worldclim</span> <span class='op'>&lt;-</span> <span class='fu'>search_fields</span><span class='op'>(</span><span class='st'>"worldclim"</span>, type <span class='op'>=</span> <span class='st'>"layers"</span><span class='op'>)</span>
+
+<span class='co'># Return a data.frame containing all data on fields and layers</span>
+<span class='va'>all_fields</span> <span class='op'>&lt;-</span> <span class='fu'>search_fields</span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
