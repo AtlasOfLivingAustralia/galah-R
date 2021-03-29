@@ -80,7 +80,7 @@ select_taxa(term = list(genus = "Eolophus", kingdom = "Aves"))
 `select_taxa()` can optionally provide information about child concepts, and
 counts of the number of records held by the ALA for the specified taxa.
 ```{r}
-select_taxa(term = "Eolophus", return_children = TRUE, include_counts = TRUE)
+select_taxa(term = "Eolophus", children = TRUE, counts = TRUE)
 ```
 This shows that there is only one species in the family *Eolophus*.
 
@@ -148,12 +148,11 @@ followed by a suffix describing the information that they provide.
 
 By combining different filter functions, it is possible to build complex
 queries to return only the most valuable information for a given problem.
-Once you have retrieved taxon information, you can use this to search for
-occurrence records with [`ala_occurrences()`](#occurrence-data). However, it is
-also possible to download data on species via [`ala_species()`](#species-data),
-or media content (largely images) via [`ala_media()`](#media_downloads)
-Alternatively, users can assess how many records meet their particular criteria
-using [`ala_counts()`](#record-counts).
+Once you have retrieved taxon information, you can use this to [search for
+occurrence records](#occurrence-data) with `ala_occurrences()`. However, it is
+also possible to [download data on species](#species-data) via `ala_species()`,
+or [media content](#media_downloads) (largely images) via `ala_media()`.
+Alternatively, users can [retrieve record counts](#record-counts) using `ala_counts()`.
 
 ## Occurrence data
 

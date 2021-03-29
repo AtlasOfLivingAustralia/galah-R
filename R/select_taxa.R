@@ -19,9 +19,9 @@
 #' `term`. One of name \code{c("name", "identifier")}. Default behaviour is
 #' to search by \code{name}. \code{identifier} refers to the unique identifier for a
 #' taxon.
-#' @param return_children \code{logical}: return child concepts for the provided
+#' @param children \code{logical}: return child concepts for the provided
 #' term(s)?
-#' @param include_counts \code{logical}: return occurrence counts for all taxa
+#' @param counts \code{logical}: return occurrence counts for all taxa
 #' found? \code{FALSE} by default
 #' @return A \code{data.frame} of taxonomic information.
 #' @seealso \code{\link{select_columns}}, \code{\link{select_filters}} and
@@ -37,10 +37,10 @@
 #' # Search with multiple ranks. This is required if a single term is a homonym.
 #' select_taxa(
 #'   list(kingdom = "Plantae", genus = "Microseris"),
-#'   return_children = TRUE,
-#'   include_counts = TRUE)
+#'   children = TRUE,
+#'   counts = TRUE)
 #'
-#' As avove, but for multiple searches at once.
+#' # As above, but for multiple searches at once.
 #' select_taxa(
 #'    data.frame(
 #'      genus = c("microseris", "Eucalyptus"),
@@ -55,10 +55,10 @@
 #' }
 #' @export select_taxa
 
-select_taxa <- function(term, term_type = "name", return_children = FALSE,
-                         include_counts = FALSE) {
+select_taxa <- function(term, term_type = "name", children = FALSE,
+                         counts = FALSE) {
 
-  assert_that(is.flag(return_children))
+  assert_that(is.flag(children))
   assert_that(term_type %in% c("name", "identifier"),
               msg = "`term_type` must be one of `c('name', 'identifier')`")
 
@@ -67,8 +67,8 @@ select_taxa <- function(term, term_type = "name", return_children = FALSE,
   }
   # caching won't catch if term order is changed
   cache_file <- cache_filename(c(unlist(term), term_type,
-                               ifelse(return_children, "children", ""),
-                               ifelse(include_counts, "counts", "")),
+                               ifelse(children, "children", ""),
+                               ifelse(counts, "counts", "")),
                                ext = ".csv")
   caching <- getOption("galah_config")$caching
   if (caching && file.exists(cache_file)) {
@@ -98,7 +98,7 @@ select_taxa <- function(term, term_type = "name", return_children = FALSE,
     }), fill = TRUE)
   }
   out_data <- as.data.frame(matches, stringsAsFactors = FALSE)
-  if (ncol(out_data) > 1 && return_children) {
+  if (ncol(out_data) > 1 && children) {
     # look up the child concepts for the identifier
     children <- data.table::rbindlist(
       lapply(out_data$taxon_concept_id, function(x) {
@@ -107,7 +107,7 @@ select_taxa <- function(term, term_type = "name", return_children = FALSE,
     # add children to df
     out_data <- data.table::rbindlist(list(out_data, children), fill = TRUE)
   }
-  if (ncol(out_data) > 1 && include_counts) {
+  if (ncol(out_data) > 1 && counts) {
     counts <- unlist(lapply(out_data$taxon_concept_id, function(id) {
       record_count(list(fq = paste0("lsid:", id)))
     }))

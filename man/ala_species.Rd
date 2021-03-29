@@ -42,10 +42,10 @@ select_taxa("Heleioporus")
 # How many records are there for this genus?
 ala_counts(select_taxa("Heleioporus"))
 # or equivalently:
-select_taxa("Heleioporus", include_counts = TRUE)
+select_taxa("Heleioporus", counts = TRUE)
 
 # How best to get taxonomic info on species within this genus?
-select_taxa("Heleioporus", return_children = TRUE) # also includes a row for genus (i.e. not just species)
+select_taxa("Heleioporus", children = TRUE) # also includes a row for genus (i.e. not just species)
 ala_counts(select_taxa("Heleioporus"), group_by = "species") # returns counts by species, but no taxonomic information
 ala_species(select_taxa("Heleioporus")) # every row is a species with associated taxonomic data
 }

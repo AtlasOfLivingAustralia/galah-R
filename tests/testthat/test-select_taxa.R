@@ -5,7 +5,7 @@ test_that("select_taxa checks inputs", {
   skip_on_cran()
   expect_error(select_taxa())
   expect_error(select_taxa(term_type = 'bad_term'))
-  expect_error(select_taxa("Varanus varius", return_children = 'false'))
+  expect_error(select_taxa("Varanus varius", children = 'false'))
 })
 
 test_that("child_concepts behaves correctly", {
@@ -21,7 +21,7 @@ test_that("child_concepts behaves correctly", {
 test_that("child concepts returns expected number of children", {
   # skip while this is failing on travis
   skip_on_cran()
-  expect_equal(nrow(select_taxa("Hydromys", return_children = TRUE)), 2)
+  expect_equal(nrow(select_taxa("Hydromys", children = TRUE)), 2)
 })
 
 
@@ -76,7 +76,7 @@ test_that("select_taxa handles name searches", {
 test_that("ala taxa returns counts for species", {
   skip_on_cran()
   expect_true("count" %in% colnames(select_taxa(term = "Thylacinus cynocephalus",
-                                        include_counts = TRUE)))
+                                        counts = TRUE)))
 })
 
 test_that("select_taxa handles name issues", {
@@ -85,8 +85,8 @@ test_that("select_taxa handles name issues", {
 
 test_that("select_taxa returns children for multiple names", {
   expect_equal(
-    nrow(select_taxa(c("Osphranter", "Dasyurus"), return_children = TRUE)),
-    sum(nrow(select_taxa("Osphranter", return_children = TRUE)),
-        nrow(select_taxa("Dasyurus", return_children = TRUE))))
+    nrow(select_taxa(c("Osphranter", "Dasyurus"), children = TRUE)),
+    sum(nrow(select_taxa("Osphranter", children = TRUE)),
+        nrow(select_taxa("Dasyurus", children = TRUE))))
 })
 

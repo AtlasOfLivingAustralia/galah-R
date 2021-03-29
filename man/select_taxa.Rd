@@ -4,12 +4,7 @@
 \alias{select_taxa}
 \title{Taxon information}
 \usage{
-select_taxa(
-  term,
-  term_type = "name",
-  return_children = FALSE,
-  include_counts = FALSE
-)
+select_taxa(term, term_type = "name", children = FALSE, counts = FALSE)
 }
 \arguments{
 \item{term}{\code{string}: A vector containing one or more search terms,
@@ -23,10 +18,10 @@ Note that searches are not case-sensitive.}
 to search by \code{name}. \code{identifier} refers to the unique identifier for a
 taxon.}
 
-\item{return_children}{\code{logical}: return child concepts for the provided
+\item{children}{\code{logical}: return child concepts for the provided
 term(s)?}
 
-\item{include_counts}{\code{logical}: return occurrence counts for all taxa
+\item{counts}{\code{logical}: return occurrence counts for all taxa
 found? \code{FALSE} by default}
 }
 \value{
@@ -53,10 +48,10 @@ select_taxa(term = "reptilia") # not case sensitive
 # Search with multiple ranks. This is required if a single term is a homonym.
 select_taxa(
   list(kingdom = "Plantae", genus = "Microseris"),
-  return_children = TRUE,
-  include_counts = TRUE)
+  children = TRUE,
+  counts = TRUE)
 
-As avove, but for multiple searches at once.
+# As above, but for multiple searches at once.
 select_taxa(
    data.frame(
      genus = c("microseris", "Eucalyptus"),

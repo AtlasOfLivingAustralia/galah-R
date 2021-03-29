@@ -54,7 +54,7 @@ test_that("ala counts handles queries with no records", {
 
 test_that("ala_counts works with long queries", {
   skip_on_cran()
-  taxa <- select_taxa("Hymenoptera", return_children = TRUE)
+  taxa <- select_taxa("Hymenoptera", children = TRUE)
   filters <- select_filters(profile = "ALA")
   expect_gt(ala_counts(taxa, filters), 0)
 })
