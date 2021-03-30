@@ -8,8 +8,7 @@ select_taxa(term, term_type = "name", children = FALSE, counts = FALSE)
 }
 \arguments{
 \item{term}{\code{string}: A vector containing one or more search terms,
-given as strings. Search terms can be either scientific or common names,
-though note that common names are only stored at species rank.
+given as strings. Search terms can be either scientific or common names.
 If greater control is required to disambiguate search terms, taxonomic levels 
 can be provided explicitly via a named \code{list} for a single name, or a
 \code{data.frame} for multiple names (see examples). Note that searches are
