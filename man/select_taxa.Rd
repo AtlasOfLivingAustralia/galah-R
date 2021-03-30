@@ -8,10 +8,12 @@ select_taxa(term, term_type = "name", children = FALSE, counts = FALSE)
 }
 \arguments{
 \item{term}{\code{string}: A vector containing one or more search terms,
-given as strings. If greater control is required to disambiguate
-search terms, taxonomic levels can be provided explicitly via a named \code{list}
-for a single name, or a \code{data.frame} for multiple names (see examples). 
-Note that searches are not case-sensitive.}
+given as strings. Search terms can be either scientific or common names,
+though note that common names are only stored at species rank.
+If greater control is required to disambiguate search terms, taxonomic levels 
+can be provided explicitly via a named \code{list} for a single name, or a
+\code{data.frame} for multiple names (see examples). Note that searches are
+not case-sensitive.}
 
 \item{term_type}{\code{string}: specifies which type of terms are provided in
 `term`. One of name \code{c("name", "identifier")}. Default behaviour is
@@ -44,6 +46,7 @@ proceeded to download data via \code{\link{ala_occurrences}()},
 select_taxa(term = "Reptilia")
 # or equivalently:
 select_taxa(term = "reptilia") # not case sensitive
+
 
 # Search with multiple ranks. This is required if a single term is a homonym.
 select_taxa(
