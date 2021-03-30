@@ -149,12 +149,7 @@ proceeded to download data via <code><a href='ala_occurrences.html'>ala_occurren
 <code>ala_</code> functions to filter records to the specified taxon or taxa.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>select_taxa</span><span class='op'>(</span>
-  <span class='va'>term</span>,
-  term_type <span class='op'>=</span> <span class='st'>"name"</span>,
-  return_children <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  include_counts <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>select_taxa</span><span class='op'>(</span><span class='va'>term</span>, term_type <span class='op'>=</span> <span class='st'>"name"</span>, children <span class='op'>=</span> <span class='cn'>FALSE</span>, counts <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,10 +157,12 @@ proceeded to download data via <code><a href='ala_occurrences.html'>ala_occurren
     <tr>
       <th>term</th>
       <td><p><code>string</code>: A vector containing one or more search terms,
-given as strings. If greater control is required to disambiguate
-search terms, taxonomic levels can be provided explicitly via a named <code>list</code>
-for a single name, or a <code>data.frame</code> for multiple names (see examples). 
-Note that searches are not case-sensitive.</p></td>
+given as strings. Search terms can be either scientific or common names,
+though note that common names are only stored at species rank.
+If greater control is required to disambiguate search terms, taxonomic levels 
+can be provided explicitly via a named <code>list</code> for a single name, or a
+<code>data.frame</code> for multiple names (see examples). Note that searches are
+not case-sensitive.</p></td>
     </tr>
     <tr>
       <th>term_type</th>
@@ -175,12 +172,12 @@ to search by <code>name</code>. <code>identifier</code> refers to the unique ide
 taxon.</p></td>
     </tr>
     <tr>
-      <th>return_children</th>
+      <th>children</th>
       <td><p><code>logical</code>: return child concepts for the provided
 term(s)?</p></td>
     </tr>
     <tr>
-      <th>include_counts</th>
+      <th>counts</th>
       <td><p><code>logical</code>: return occurrence counts for all taxa
 found? <code>FALSE</code> by default</p></td>
     </tr>
@@ -196,7 +193,33 @@ found? <code>FALSE</code> by default</p></td>
 by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and related functions.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'># Search using a single term</span>
+<span class='fu'>select_taxa</span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"Reptilia"</span><span class='op'>)</span>
+<span class='co'># or equivalently:</span>
+<span class='fu'>select_taxa</span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"reptilia"</span><span class='op'>)</span> <span class='co'># not case sensitive</span>
+
+
+<span class='co'># Search with multiple ranks. This is required if a single term is a homonym.</span>
+<span class='fu'>select_taxa</span><span class='op'>(</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>kingdom <span class='op'>=</span> <span class='st'>"Plantae"</span>, genus <span class='op'>=</span> <span class='st'>"Microseris"</span><span class='op'>)</span>,
+  children <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  counts <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='co'># As above, but for multiple searches at once.</span>
+<span class='fu'>select_taxa</span><span class='op'>(</span>
+   <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+     genus <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"microseris"</span>, <span class='st'>"Eucalyptus"</span><span class='op'>)</span>,
+     kingdom <span class='op'>=</span> <span class='st'>"plantae"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># Search using an unique taxon identifier</span>
+<span class='fu'>select_taxa</span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"https://id.biodiversity.org.au/node/apni/2914510"</span>,
+   term_type <span class='op'>=</span> <span class='st'>"identifier"</span><span class='op'>)</span>
+
+<span class='co'># Search multiple taxa</span>
+<span class='fu'>select_taxa</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"reptilia"</span>, <span class='st'>"mammalia"</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># returns one row per taxon</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

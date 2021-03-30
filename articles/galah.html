@@ -84,7 +84,7 @@
       <h1 data-toc-skip>galah</h1>
                         <h4 class="author">Matilda Stevenson</h4>
             
-            <h4 class="date">2021-03-29</h4>
+            <h4 class="date">2021-03-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah/blob/master/vignettes/galah.Rmd"><code>vignettes/galah.Rmd</code></a></small>
       <div class="hidden name"><code>galah.Rmd</code></div>
@@ -120,7 +120,7 @@
 <div id="taxonomic-filtering" class="section level2">
 <h2 class="hasAnchor">
 <a href="#taxonomic-filtering" class="anchor"></a>Taxonomic filtering</h2>
-<p><code>select_taxa</code> enables users search for taxonomic names and check the results are ‘correct’ before using the result to download data. The function allows both free-text searches and searches where the rank(s) are specified. Specifying the rank can be useful when names are ambiguous.</p>
+<p><code><a href="../reference/select_taxa.html">select_taxa()</a></code> enables users search for taxonomic names and check the results are ‘correct’ before using the result to download data. The function allows both free-text searches and searches where the rank(s) are specified. Specifying the rank can be useful when names are ambiguous.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># free text search</span>
 <span class="va">taxa_filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span>term <span class="op">=</span> <span class="st">"Eolophus"</span><span class="op">)</span>
@@ -133,18 +133,18 @@
 ## 1 urn:lsid:biodiversity.org.au:afd.taxon:b2de5e40-df8f-4339-827d-25e63454a4a2 genus exactMatch Animalia Chordata  Aves
 ##            order     family    genus  issues
 ## 1 Psittaciformes Cacatuidae Eolophus noIssue</code></pre>
-<p><code>select_taxa</code> can optionally provide information about child concepts, and counts of the number of records held by the ALA for the specified taxa.</p>
+<p><code><a href="../reference/select_taxa.html">select_taxa()</a></code> can optionally provide information about child concepts, and counts of the number of records held by the ALA for the specified taxa.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span>term <span class="op">=</span> <span class="st">"Eolophus"</span>, return_children <span class="op">=</span> <span class="cn">TRUE</span>, include_counts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span>term <span class="op">=</span> <span class="st">"Eolophus"</span>, children <span class="op">=</span> <span class="cn">TRUE</span>, counts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>##    search_term       scientific_name scientific_name_authorship
 ## 1:    Eolophus              Eolophus            Bonaparte, 1854
 ## 2:        &lt;NA&gt; Eolophus roseicapilla           (Vieillot, 1817)
 ##                                                               taxon_concept_id    rank   match_type  kingdom   phylum
 ## 1: urn:lsid:biodiversity.org.au:afd.taxon:b2de5e40-df8f-4339-827d-25e63454a4a2   genus   exactMatch Animalia Chordata
 ## 2: urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 species taxonIdMatch Animalia Chordata
-##    class          order     family    genus  issues               species  count
-## 1:  Aves Psittaciformes Cacatuidae Eolophus noIssue                  &lt;NA&gt; 774190
-## 2:  Aves Psittaciformes Cacatuidae Eolophus noIssue Eolophus roseicapilla 774188</code></pre>
+##    class          order     family    genus  issues               species vernacular_name  count
+## 1:  Aves Psittaciformes Cacatuidae Eolophus noIssue                  &lt;NA&gt;            &lt;NA&gt; 774197
+## 2:  Aves Psittaciformes Cacatuidae Eolophus noIssue Eolophus roseicapilla           Galah 774195</code></pre>
 <p>This shows that there is only one species in the family <em>Eolophus</em>.</p>
 </div>
 <div id="location-based-filtering" class="section level2">
@@ -157,7 +157,7 @@
 <div id="field-based-filtering" class="section level2">
 <h2 class="hasAnchor">
 <a href="#field-based-filtering" class="anchor"></a>Field based filtering</h2>
-<p>As mentioned above, all occurrence records in the ALA contain additional information about the record, stored in <strong>fields</strong>. Field-based filters are specified with <code>select_filters</code>, which takes indvidual filters, in the form <code>field = value</code>, and/or a <a href="#data-quality-profiles">data quality profile</a>.</p>
+<p>As mentioned above, all occurrence records in the ALA contain additional information about the record, stored in <strong>fields</strong>. Field-based filters are specified with <code><a href="../reference/select_filters.html">select_filters()</a></code>, which takes indvidual filters, in the form <code>field = value</code>, and/or a <a href="#data-quality-profiles">data quality profile</a>.</p>
 <p>To find available fields and corresponding valid values, field lookup functions are provided. For finding field names, use <code><a href="../reference/search_fields.html">search_fields()</a></code>, for finding valid field values, use <code><a href="../reference/find_field_values.html">find_field_values()</a></code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/search_fields.html">search_fields</a></span><span class="op">(</span><span class="st">"basis"</span><span class="op">)</span></code></pre></div>
@@ -191,7 +191,7 @@
 <div id="data-quality-profiles" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data-quality-profiles" class="anchor"></a>Data quality profiles</h3>
-<p>A notable extention of the filtering approach is to remove records with low ‘quality’. ALA performs quality control checks on all records that it stores. These checks are used to generate new fields, that can then be used to filter out records that are unsuitable for particular applications. However, there are many possible data quality checks, and it is not always clear which are most appropriate in a given instance. Therefore, <code>galah</code> supports ALA data quality <strong>profiles</strong>, which can be passed to <code>select_filters</code>to quickly remove undesirable records. A full list of data quality profiles is returned by <code><a href="../reference/find_profiles.html">find_profiles()</a></code>.</p>
+<p>A notable extention of the filtering approach is to remove records with low ‘quality’. ALA performs quality control checks on all records that it stores. These checks are used to generate new fields, that can then be used to filter out records that are unsuitable for particular applications. However, there are many possible data quality checks, and it is not always clear which are most appropriate in a given instance. Therefore, <code>galah</code> supports ALA data quality <strong>profiles</strong>, which can be passed to <code><a href="../reference/select_filters.html">select_filters()</a></code>to quickly remove undesirable records. A full list of data quality profiles is returned by <code><a href="../reference/find_profiles.html">find_profiles()</a></code>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">profiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/find_profiles.html">find_profiles</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>View filters included in a profile</p>
@@ -256,7 +256,7 @@
 <h1 class="hasAnchor">
 <a href="#downloading-data" class="anchor"></a>Downloading data</h1>
 <p>Functions that return data from ALA are named with the prefix <code>ala_</code>, followed by a suffix describing the information that they provide.</p>
-<p>By combining different filter functions, it is possible to build complex queries to return only the most valuable information for a given problem. Once you have retrieved taxon information, you can use this to search for occurrence records with <a href="#occurrence-data"><code>ala_occurrences()</code></a>. However, it is also possible to download data on species via <a href="#species-data"><code>ala_species()</code></a>, or media content (largely images) via <a href="#media_downloads"><code>ala_media()</code></a> Alternatively, users can assess how many records meet their particular criteria using <a href="#record-counts"><code>ala_counts()</code></a>.</p>
+<p>By combining different filter functions, it is possible to build complex queries to return only the most valuable information for a given problem. Once you have retrieved taxon information, you can use this to <a href="#occurrence-data">search for occurrence records</a> with <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code>. However, it is also possible to <a href="#species-data">download data on species</a> via <code><a href="../reference/ala_species.html">ala_species()</a></code>, or <a href="#media_downloads">media content</a> (largely images) via <code><a href="../reference/ala_media.html">ala_media()</a></code>. Alternatively, users can <a href="#record-counts">retrieve record counts</a> using <code><a href="../reference/ala_counts.html">ala_counts()</a></code>.</p>
 <div id="occurrence-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#occurrence-data" class="anchor"></a>Occurrence data</h2>
@@ -328,21 +328,21 @@
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Total number of records in the ALA</span>
 <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 94826749</code></pre>
+<pre><code>## [1] 94833071</code></pre>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Total number of records, broken down by kindgom</span>
 <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span>group_by <span class="op">=</span> <span class="st">"kingdom"</span><span class="op">)</span></code></pre></div>
 <pre><code>##         name    count
-## 1   Animalia 69562312
-## 2    Plantae 21015191
-## 3      Fungi  1988535
-## 4  Chromista  1037408
-## 5   Protista    64622
-## 6   Bacteria    58964
-## 7   Protozoa    21244
-## 8    Archaea     1103
+## 1   Animalia 69566646
+## 2    Plantae 21016412
+## 3      Fungi  1989015
+## 4  Chromista  1037410
+## 5   Protista    64617
+## 6   Bacteria    58966
+## 7   Protozoa    21257
+## 8    Archaea     1102
 ## 9  Eukaryota      735
-## 10     Virus      322</code></pre>
+## 10     Virus      321</code></pre>
 </div>
 <div id="media-downloads" class="section level2">
 <h2 class="hasAnchor">
