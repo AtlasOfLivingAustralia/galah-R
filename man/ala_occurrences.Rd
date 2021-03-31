@@ -54,7 +54,8 @@ occ <- ala_occurrences(taxa = select_taxa("Reptilia"))
 occ <- ala_occurrences(filters = select_filters(year = seq(2010, 2020)))
 
 # Search for occurrences in a WKT-specified area
-polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
+polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 \
+-34.152549,146.24960 -34.15254,146.24960 -34.05930))"
 occ <- ala_occurrences(locations = select_locations(wkt = polygon))
 }
 }

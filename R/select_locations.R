@@ -17,7 +17,8 @@
 #' ala_occurrences(locations = locations)
 #' 
 #' # Search for records using a WKT
-#' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
+#' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
+#' -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
 #' ala_occurrences(wkt = select_locations(wkt = wkt))
 #' }
 #' 

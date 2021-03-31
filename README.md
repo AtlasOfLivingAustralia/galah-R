@@ -7,7 +7,7 @@ galah
 
 [![Travis-CI Build
 Status](https://travis-ci.com/AtlasOfLivingAustralia/galah.svg?branch=master)](https://travis-ci.com/AtlasOfLivingAustralia/galah)
-[![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/galah/branch/master/graph/badge.svg)](https://codecov.io/gh/AtlasOfLivingAustralia/galah)
+[![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/galah/branch/master/graph/badge.svg)](https://codecov.io/github/AtlasOfLivingAustralia/galah?branch=master)
 
 ------------------------------------------------------------------------
 
@@ -64,8 +64,7 @@ sudo apt-get install libcurl4-openssl-dev libv8-3.14-dev
 
 `galah` depends on `sf` for location-based searches. To install `galah`
 you will need to make sure your system meets the `sf` system
-requirements, as specified
-[here](https://cran.r-project.org/web/packages/sf/index.html)
+requirements, as specified [here](https://cran.r-project.org/package=sf)
 
 ## Citations
 

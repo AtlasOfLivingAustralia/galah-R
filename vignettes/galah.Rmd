@@ -170,7 +170,7 @@ To download occurrence data you will need to specify your email in
 `ala_config()`. This email must be associated with an active ALA account. See
 more information in the [config section](#config)
 ```{r include = FALSE}
-ala_config(email = "ala4r@ala.org.au", preserve = TRUE)
+ala_config(email = "ala4r@ala.org.au")
 ```
 
 ```{r eval = FALSE}
