@@ -54,5 +54,7 @@ ala_counts(group_by = "stateProvince")
 ala_counts(filters = select_filters(basisOfRecord = "FossilSpecimen"))
 
 # Count the number of species recorded for each kingdom
+\dontrun{
 ala_counts(group_by = "kingdom", type = "species")
+}
 }

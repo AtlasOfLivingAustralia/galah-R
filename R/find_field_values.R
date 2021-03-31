@@ -9,9 +9,10 @@
 #' and \code{category} (i.e. field values).
 #' @seealso See \code{\link{search_fields}} for ways to use information returned
 #' by this function.
-#' @examples
+#' @examples \dontrun{
 #' find_field_values("basis_of_record")
 #' find_field_values("state")
+#' }
 #' @export find_field_values
 
 find_field_values <- function(field, limit = 20) {

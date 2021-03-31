@@ -39,7 +39,9 @@
 #' ala_counts(filters = select_filters(basisOfRecord = "FossilSpecimen"))
 #' 
 #' # Count the number of species recorded for each kingdom
+#' \dontrun{
 #' ala_counts(group_by = "kingdom", type = "species")
+#' }
 #' @export ala_counts
 
 ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "record") {

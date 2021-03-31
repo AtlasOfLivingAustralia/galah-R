@@ -21,8 +21,10 @@ When building a set of filters with \code{\link{select_filters}}, a user can
 use this function to check that the values provided are valid options.
 }
 \examples{
+\dontrun{
 find_field_values("basis_of_record")
 find_field_values("state")
+}
 }
 \seealso{
 See \code{\link{search_fields}} for ways to use information returned
