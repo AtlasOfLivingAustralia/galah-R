@@ -124,8 +124,9 @@ select_taxa <- function(term, term_type = "name", children = FALSE,
 
 
 name_lookup <- function(name) {
+  print(name)
   url <- getOption("galah_server_config")$base_url_name_matching
-  if (is.null(names(name)) || names(name) == "") {
+  if (is.null(names(name)) || isTRUE(names(name) == "")) {
     # search by scientific name
     path <- "api/search"
     query <- list(q = name[[1]])
