@@ -13,13 +13,12 @@ Status](https://travis-ci.com/AtlasOfLivingAustralia/galah.svg?branch=master)](h
 
 `galah` is an R interface to biodiversity data hosted by the [Atlas of
 Living Australia](https://www.ala.org.au/) (ALA). It enables users to
-locate and download species occurrence records (observations, specimens, eDNA 
-records, etc.), taxonomic information, or
-associated media such as images or sounds, and to restrict their queries
-to particular taxa or locations. Users can specify which columns are
-returned by a query, or restrict their results to occurrences that meet
-particular data-quality criteria. All functions return a `data.frame`
-as their standard format.
+locate and download species occurrence records (observations, specimens,
+eDNA records, etc.), taxonomic information, or associated media such as
+images or sounds, and to restrict their queries to particular taxa or
+locations. Users can specify which columns are returned by a query, or
+restrict their results to occurrences that meet particular data-quality
+criteria. All functions return a `data.frame` as their standard format.
 
 The ALA is an aggregator of biodiversity data, focussed primarily on
 observations of individual life forms. Like the Global Biodiversity
