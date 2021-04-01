@@ -24,7 +24,6 @@ Imports:
     utils,
     wellknown
 Suggests:
-    ape,
     covr,
     dplyr,
     ggplot2,
@@ -32,15 +31,12 @@ Suggests:
     ozmaps,
     pkgdown,
     rmarkdown,
-    testthat,
-    tidyr,
-    vegan
+    testthat
 License: MPL-2.0
 URL: https://github.com/AtlasOfLivingAustralia/galah
 BugReports: https://github.com/AtlasOfLivingAustralia/galah/issues
 Maintainer: Matilda Stevenson <matilda.stevenson@csiro.au>
 LazyLoad: yes
-LazyData: yes
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Encoding: UTF-8
