@@ -106,7 +106,7 @@ field_values <- find_field_values("basisOfRecord")
 ```
 Build a field filter
 
-```{r}
+```{r eval = FALSE}
 filters <- select_filters(basisOfRecord = "HumanObservation")
 ```
 

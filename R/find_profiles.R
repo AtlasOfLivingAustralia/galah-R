@@ -11,13 +11,14 @@
 #' @seealso This function gives viable profle names for passing to
 #' \code{\link{select_filters}()}. For more detail on a given profile see
 #' \code{\link{find_profile_attributes}()}.
-#' @examples
+#' @examples \dontrun{
 #' # Get available profiles
 #' profile_df <- find_profiles()
 #' # Values given in the 'shortName' column are accepted by select_filter(), i.e.
 #' select_filters(profile = profile_df$shortName[1])
 #' # is equivalent to:
 #' select_filters(profile = "ALA")
+#' }
 
 # this will return names and descriptions of data profiles
 # should id be exposed to the user?

@@ -17,12 +17,14 @@ and used to filter searches in \code{\link{ala_occurrences}()},
 \code{\link{ala_counts}()} and \code{\link{ala_species}()}.
 }
 \examples{
+\dontrun{
 # Get available profiles
 profile_df <- find_profiles()
 # Values given in the 'shortName' column are accepted by select_filter(), i.e.
 select_filters(profile = profile_df$shortName[1])
 # is equivalent to:
 select_filters(profile = "ALA")
+}
 }
 \seealso{
 This function gives viable profle names for passing to

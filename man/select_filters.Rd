@@ -31,6 +31,7 @@ By default filters are included, but they can be excluded by wrapping the
 filter values in \code{\link{exclude}} (see below for examples).
 }
 \examples{
+\dontrun{
 # Create a custom filter for records of interest
 filters <- select_filters(
     basisOfRecord = "HumanObservation",
@@ -46,6 +47,7 @@ filters <- select_filters(
     
 # Use filters to exclude particular values
 filters <- select_filters(year = exclude(seq(2011,2021)))
+}
 }
 \seealso{
 \code{\link{select_taxa}}, \code{\link{select_columns}} and

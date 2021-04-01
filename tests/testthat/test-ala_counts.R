@@ -60,6 +60,6 @@ test_that("ala_counts works with long queries", {
 })
 
 test_that("ala occurrences handles long queries with pagination", {
-  #skip_on_cran()
+  skip_on_cran()
   expect_equal(nrow(ala_counts(group_by = "year", limit = 101)), 101)
 })

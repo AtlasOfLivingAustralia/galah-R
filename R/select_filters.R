@@ -25,7 +25,7 @@
 #' By default filters are included, but they can be excluded by wrapping the
 #' filter values in \code{\link{exclude}} (see below for examples).
 #' @export select_filters
-#' @examples
+#' @examples \dontrun{
 #' # Create a custom filter for records of interest
 #' filters <- select_filters(
 #'     basisOfRecord = "HumanObservation",
@@ -41,6 +41,7 @@
 #'     
 #' # Use filters to exclude particular values
 #' filters <- select_filters(year = exclude(seq(2011,2021)))
+#' }
 
 select_filters <- function(..., profile = NULL) {
   filters <- list(...)
@@ -91,9 +92,8 @@ validate_filters <- function(filters) {
   # filters are provided in a dataframe
   # key should be a valid field name and value should be a valid category for
   # that field?
-
-  invalid_filters <- names(filters)[!names(filters) %in%
-                                      c(search_fields()$id, all_fields()$name)]
+  invalid_filters <- names(filters)[!is.element(names(filters),
+                                    c(search_fields()$id, all_fields()$name))]
   if (length(invalid_filters) > 0) {
     stop("The following filters are invalid: ",
          paste(invalid_filters, collapse = ", "),

@@ -44,6 +44,7 @@ provides either a total count of records matching the criteria, or a
 argument.
 }
 \examples{
+\dontrun{
 # With no arguments, return the total number of records in the ALA
 ala_counts()
 
@@ -54,7 +55,6 @@ ala_counts(group_by = "stateProvince")
 ala_counts(filters = select_filters(basisOfRecord = "FossilSpecimen"))
 
 # Count the number of species recorded for each kingdom
-\dontrun{
 ala_counts(group_by = "kingdom", type = "species")
 }
 }

@@ -28,7 +28,7 @@
 #'  \item{A single count, if \code{group_by} is not specified or,}
 #'  \item{A \code{data.frame} of counts by \code{group_by} field, if it is specified}
 #'}
-#' @examples
+#' @examples \dontrun{
 #' # With no arguments, return the total number of records in the ALA
 #' ala_counts()
 #'
@@ -39,7 +39,6 @@
 #' ala_counts(filters = select_filters(basisOfRecord = "FossilSpecimen"))
 #' 
 #' # Count the number of species recorded for each kingdom
-#' \dontrun{
 #' ala_counts(group_by = "kingdom", type = "species")
 #' }
 #' @export ala_counts
