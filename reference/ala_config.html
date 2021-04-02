@@ -141,7 +141,7 @@ provide a registered email address and reason for downloading data. The
 as possible.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ala_config</span><span class='op'>(</span><span class='va'>...</span>, preserve <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ala_config</span><span class='op'>(</span><span class='va'>...</span>, profile_path <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,8 +176,10 @@ Valid arguments are:</p><ul>
 </ul></td>
     </tr>
     <tr>
-      <th>preserve</th>
-      <td><p>logical: store config for future sessions?</p></td>
+      <th>profile_path</th>
+      <td><p>string: (optional), path to a directory to store
+config values in. If provided, config values will be written to a new or
+existing .Rprofile file for future sessions. <code>NULL</code> by default.</p></td>
     </tr>
     </table>
 
