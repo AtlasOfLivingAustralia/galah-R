@@ -6,6 +6,10 @@
 \usage{
 find_reasons()
 }
+\value{
+A \code{data.frame} of valid download reasons, containing the id
+and name for each reason.
+}
 \description{
 When downloading occurrence data with \code{\link{ala_occurrences}} the 
 ALA APIs require a reason for download to be specified. By default, a 

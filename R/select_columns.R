@@ -13,6 +13,8 @@
 #' @param group \code{string}: (optional) name of one or more column groups to
 #' include. Valid options are \code{'basic'}, \code{'event'} and
 #' \code{'assertion'}
+#' @return A \code{data.frame} of columns, specifying the name and type
+#' of each column to include in the occurrence download.
 #' @details
 #' Calling the argument \code{group = 'basic'} returns the following columns:
 #' \itemize{

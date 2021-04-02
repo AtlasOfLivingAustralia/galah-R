@@ -13,6 +13,10 @@ select_columns(..., group)
 include. Valid options are \code{'basic'}, \code{'event'} and
 \code{'assertion'}}
 }
+\value{
+A \code{data.frame} of columns, specifying the name and type
+of each column to include in the occurrence download.
+}
 \description{
 The ALA stores content on hundreds of different fields, and users often
 thousands or millions of records at a time. To reduce time taken to download

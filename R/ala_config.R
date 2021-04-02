@@ -229,6 +229,8 @@ validate_option <- function(name, value) {
 #' you can use either the download code or name.
 #' @rdname find_reasons
 #' @seealso This function is helpful in setting up \code{\link{ala_config}()}.
+#' @return A \code{data.frame} of valid download reasons, containing the id
+#' and name for each reason.
 #' @export
 find_reasons <- function() {
     ## return list of valid "reasons for use" codes
