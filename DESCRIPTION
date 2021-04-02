@@ -8,7 +8,7 @@ Authors@R: c(person("Matilda", "Stevenson", email="matilda.stevenson@csiro.au",r
 Description: The Atlas of Living Australia (ALA) provides tools to enable users
     of biodiversity information to find, access, combine and visualise data on
     Australian plants and animals; these have been made available from
-    <https://ala.org.au/>. <code>galah</code> provides a subset of the tools to be
+    <https://ala.org.au/>. 'galah' provides a subset of the tools to be
     directly used within R. It enables the R community to directly access data
     and resources hosted by the ALA.
 Imports:
