@@ -6,7 +6,9 @@
 #' \code{ala_config} function provides a way to manage these issues as simply
 #' as possible.
 #'
-#' @param preserve logical: store config for future sessions?
+#' @param profile_path string: (optional), path to a directory to store
+#' config values in. If provided, config values will be written to a new or
+#' existing .Rprofile file for future sessions. \code{NULL} by default.
 #' @param \dots Options can be defined using the form \code{name = value}.
 #' Valid arguments are:
 #' \itemize{
@@ -48,11 +50,10 @@
 #' }
 #' @export ala_config
 
-ala_config <- function(..., preserve = FALSE) {
+ala_config <- function(..., profile_path = NULL) {
   ala_option_name <- "galah_config"
   current_options <- getOption(ala_option_name)
 
-  assert_that(is.logical(preserve))
   user_options <- list(...)
 
   default_options <- list(
@@ -98,8 +99,11 @@ ala_config <- function(..., preserve = FALSE) {
   options(temp)
 
 
-  if (preserve) {
-    profile_path <- file.path(Sys.getenv("HOME"), ".Rprofile")
+  if (!is.null(profile_path)) {
+    if (!file.exists(profile_path) || basename(profile_path) != ".Rprofile") {
+      stop("No .Rprofile file exists at '", profile_path,
+           "' . Please create the file and try again.")
+    }
     if (current_options$verbose) {
       message("The config will be stored in ", profile_path)
     }

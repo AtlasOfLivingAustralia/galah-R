@@ -4,7 +4,7 @@
 \alias{ala_config}
 \title{Get or set configuration options that control galah behaviour}
 \usage{
-ala_config(..., preserve = FALSE)
+ala_config(..., profile_path = NULL)
 }
 \arguments{
 \item{\dots}{Options can be defined using the form \code{name = value}.
@@ -35,7 +35,9 @@ Valid arguments are:
   debugging? Defaults to FALSE.
 }}
 
-\item{preserve}{logical: store config for future sessions?}
+\item{profile_path}{string: (optional), path to a directory to store
+config values in. If provided, config values will be written to a new or
+existing .Rprofile file for future sessions. \code{NULL} by default.}
 }
 \value{
 For \code{ala_config()}, a \code{list} of all options.

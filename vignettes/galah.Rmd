@@ -174,7 +174,7 @@ ala_config(email = "ala4r@ala.org.au")
 ```
 
 ```{r eval = FALSE}
-ala_config(email = your_email_here, preserve = TRUE)
+ala_config(email = your_email_here, profile_path = path_to_profile)
 ```
 
 ```{r include = FALSE}
@@ -239,8 +239,8 @@ images <- ala_media(head(occ$recordID, n = 5), download_dir = 'data/',
 # Config
 
 Various aspects of the galah package can be customized. To preserve
-configuration for future sessions, set `preserve = TRUE`. This will write the
-config to your `.Renviron` file.
+configuration for future sessions, set `profile_path` to a location of a
+`.Rprofile` file.
 
 ## Email
 To download occurrence records, you will need to provide an email address
@@ -260,7 +260,7 @@ session is ended. This behaviour can be altered so that caching is permanent,
 by setting the caching directory to a non-temporary location.
 
 ```{r eval=FALSE}
-ala_config(cache_directory="~/mydata/ala_cache")
+ala_config(cache_directory="example/dir")
 ```
 
 By default, caching is turned off. To turn caching on, run
