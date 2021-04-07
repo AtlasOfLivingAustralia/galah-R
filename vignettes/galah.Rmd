@@ -36,8 +36,13 @@ and finally the specific values that can be interpreted by those `select_`
 functions are given by `find_` functions.
 
 ## Installation
-`galah` is not yet available on CRAN. To install the package from GitHub:
 
+Install from CRAN:
+```{r eval=FALSE}
+install.packages("galah")
+```
+
+Install the development version from GitHub:
 ```{r eval=FALSE}
 install.packages("remotes")
 remotes::install_github("AtlasOfLivingAustralia/galah")

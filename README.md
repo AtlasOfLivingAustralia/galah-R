@@ -8,6 +8,8 @@ galah
 [![Travis-CI Build
 Status](https://travis-ci.com/AtlasOfLivingAustralia/galah.svg?branch=master)](https://travis-ci.com/AtlasOfLivingAustralia/galah)
 [![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/galah/branch/master/graph/badge.svg)](https://codecov.io/github/AtlasOfLivingAustralia/galah?branch=master)
+[![CRAN
+Status](https://www.r-pkg.org/badges/version/galah)](https://www.r-pkg.org/pkg/galah)
 
 ------------------------------------------------------------------------
 
@@ -46,8 +48,13 @@ us](mailto:support@ala.org.au).
 
 ## Installation
 
-`galah` is not yet available on CRAN. To install the package from
-GitHub:
+Install from CRAN:
+
+``` r
+install.packages("galah")
+```
+
+Install the development version from GitHub:
 
 ``` r
 install.packages("remotes")
