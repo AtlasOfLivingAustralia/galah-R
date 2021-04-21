@@ -51,6 +51,8 @@ search_fields <- function(
   query,
   type = "all" # or one of "fields", "layers", "assertions"
 ){
+  assert_that(type %in% c("all", "fields", "layers", "assertions"),
+              msg = "`type` must be one of c('all', 'fields', 'layers', 'assertions')")
   # ensure data can be queried
   df <- switch(type,
     "fields" = get_fields(),
