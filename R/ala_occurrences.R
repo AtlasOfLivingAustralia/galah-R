@@ -106,7 +106,7 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   # Get data
   url <- getOption("galah_server_config")$base_url_biocache
   query <- c(query, email = user_email(), reasonTypeId = download_reason(),
-             dwcHeaders = "true")
+             dwcHeaders = "true", sourceId = 2004)
 
   download_path <- wait_for_download(url, query, config_verbose)
   data_path <- ala_download(url = url,
