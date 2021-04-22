@@ -47,7 +47,7 @@ Using \code{group = 'event'} returns the following columns:
   \item\code{samplingEffort}
   \item\code{samplingProtocol}
 }
-Using \code{group = 'assertion'} returns all quality assertion-related
+Using \code{group = 'assertions'} returns all quality assertion-related
 columns. The list of assertions is shown by \code{search_fields(type = "assertions")}.
 }
 \seealso{

@@ -35,7 +35,7 @@
 #'   \item\code{samplingEffort}
 #'   \item\code{samplingProtocol}
 #' }
-#' Using \code{group = 'assertion'} returns all quality assertion-related
+#' Using \code{group = 'assertions'} returns all quality assertion-related
 #' columns. The list of assertions is shown by \code{search_fields(type = "assertions")}.
 #' @seealso \code{\link{select_taxa}}, \code{\link{select_filters}} and
 #' \code{\link{select_locations}} for other ways to restrict the information returned
@@ -79,7 +79,7 @@ validate_cols <- function(cols) {
 
 
 preset_cols <- function(type) {
-  valid_groups <- c("basic", "event")
+  valid_groups <- c("basic", "event", "assertions")
   # use ALA version of taxon name to avoid ambiguity (2 fields map to dwc name)
   cols <- switch(type,
                  "basic" = c("decimalLatitude", "decimalLongitude",
@@ -88,7 +88,7 @@ preset_cols <- function(type) {
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),
-                 "assertion" = search_fields(type = "assertions")$id,
+                 "assertions" = search_fields(type = "assertions")$id,
                  stop("\"", type,
                       "\" is not a valid column group. Valid groups are: ",
                       paste(valid_groups, collapse = ", "))
