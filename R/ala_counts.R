@@ -63,8 +63,8 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
 
   # check facet is valid
   validate_facet(group_by)
-  group_by <- dwc_to_ala(group_by)
-  query$facets <- group_by
+  ala_group_by <- dwc_to_ala(group_by)
+  query$facets <- ala_group_by
 
   url <- getOption("galah_server_config")$base_url_biocache
   path <- "ws/occurrence/facets"
@@ -122,8 +122,9 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
         setTxtProgressBar(pb, val)
       }
       species_query <- list()
-      species_query$fq <- c(query$fq, query_term(name = group_by, value = value[[x]],
-                                                 include = TRUE))
+      species_query$fq <- c(query$fq,
+                            query_term(name = ala_group_by, value = value[[x]],
+                            include = TRUE))
       count <- species_count(species_query)
       data.frame(name = value[[x]], count = count)
     }))
@@ -133,6 +134,8 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
       count = counts$count
     )
   }
+  
+  names(counts) <- c(group_by, "count")
   
   if (caching) {
     write.csv(counts, cache_file, row.names = FALSE)
