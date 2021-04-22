@@ -93,7 +93,7 @@ ala_occurrences <- function(taxa, filters, locations, columns,
 
   count <- record_count(query)
   check_count(count, config_verbose)
-
+  
   assertion_cols <- columns[columns$type == "assertions", ]
   query$fields <- build_columns(columns[columns$type != "assertions", ])
   query$qa <- build_columns(assertion_cols)
@@ -113,8 +113,13 @@ ala_occurrences <- function(taxa, filters, locations, columns,
                        path = download_path,
                        cache_file = cache_file, ext = ".zip")
 
-  #TODO: safely read csv
-  df <- read.csv(unz(data_path, "data.csv"), stringsAsFactors = FALSE)
+  tryCatch(
+    df <- read.csv(unz(data_path, "data.csv"), stringsAsFactors = FALSE),
+    error = function(e) {
+      message("There was an error reading the occurrence data; possibly no data was returned. This may be because
+no valid column names have been provided. To check whether column names are valid, use `search_fields()`")
+    }
+  )
 
   # rename cols so they match requested cols
   names(df) <- rename_columns(names(df), type = "occurrence")

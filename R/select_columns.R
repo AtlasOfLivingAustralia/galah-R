@@ -55,6 +55,7 @@ select_columns <- function(..., group) {
   assertions <- search_fields(type = "assertions")$id
   cols <- list(...)
   if (length(cols) > 0) {
+    validate_cols(cols)
     extra_cols <- data.table::rbindlist(lapply(cols, function(x) {
       type <- ifelse(x %in% assertions, "assertions", "field")
       data.frame(name = x, type = type, stringsAsFactors = FALSE)
@@ -64,6 +65,16 @@ select_columns <- function(..., group) {
   all_cols <- rbind(group_cols, extra_cols)
   # remove duplicates
   all_cols[!duplicated(all_cols$name), ]
+}
+
+validate_cols <- function(cols) {
+  invalid_cols <- cols[!is.element(cols,
+                                   c(search_fields()$id, all_fields()$name))]
+  if (length(invalid_cols) > 0) {
+    message("The following columns may be invalid: ",
+         paste(invalid_cols, collapse = ", "),
+         ". Use `search_fields()` to get a list of valid options")
+  }
 }
 
 
