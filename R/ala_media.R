@@ -119,7 +119,11 @@ download_media <- function(id, type, download_dir) {
     "audio/mpeg" = ".mpg",
     "audio/x-wav" = ".wav",
     "audio/mp4" = ".mp4",
-    "audio/vnd.wave" = ".wav"
+    "image/gif" = ".gif",
+    "video/3gpp" = ".3gp",
+    "video/quicktime" = ".mov",
+    "audio/vnd.wave" = ".wav",
+    ""
   )
   out_path <- file.path(download_dir, paste0(id, ext))
   download.file(build_url(url), destfile = out_path, quiet = TRUE)
