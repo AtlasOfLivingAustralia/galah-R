@@ -6,10 +6,8 @@ wanted_columns <- function(type) {
                       "family", "genus", "species", "vernacular_name",
                       "issues"),
            "profile" = c("id", "name", "shortName", "description"),
-           "media" = c("rightsHolder", "imageIdentifier", "format",
-                       "occurrenceID", "recognisedLicence", "license",
-                       "creator", "title", "rights", "mimeType",
-                       "media_id"),
+           "media" = c("rightsHolder", "license", "creator", "title", "rights",
+                       "mimetype", "media_id"),
            "layer" = c("layer_id", "description", "link"),
            "fields" = c("id", "description"),
            "assertions" = c("id", "description"),
@@ -20,8 +18,7 @@ wanted_columns <- function(type) {
 # rename specific columns, and convert camelCase to snake_case
 rename_columns <- function(varnames, type) {
     if (type == "media") {
-        varnames[varnames == "mimeType"] <- "format"
-        varnames[varnames == "imageIdentifier"] <- "media_id"
+        varnames[varnames == "imageId"] <- "media_id"
     }
     else if (type == "taxa") {
         varnames[varnames == "classs"] <- "class"
