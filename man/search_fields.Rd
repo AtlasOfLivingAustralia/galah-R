@@ -11,7 +11,7 @@ search_fields(query, type = "all")
 
 \item{type}{\code{string}: What type of parameters should be searched?
 Should be one or more of \code{fields}, \code{layers}, \code{assertions},
-or \code{all}.}
+\code{media} or \code{all}.}
 }
 \value{
 A \code{data.frame} with three columns:

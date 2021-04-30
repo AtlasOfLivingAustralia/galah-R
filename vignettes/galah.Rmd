@@ -55,7 +55,6 @@ Load the package
 library(galah)
 ```
 
-
 # Filtering data
 
 Each occurrence record contains taxonomic information, and also some
@@ -229,15 +228,14 @@ ala_counts(group_by = "kingdom")
 
 
 ## Media downloads
-In addition to text data describing individual occurrences and their attributes,
-ALA stores image and sounds associated with a given record. These can be
-downloaded to `R` by first using `ala_occurrences()` to find records that
-contain media, and then passing the resulting `recordID` field to `ala_media()`
-to download those media files.
+In addition to text data describing individual occurrences and their attributes, ALA stores images, sounds and videos associated with a given record. These can be downloaded to `R` using `ala_media()` and the same
+set of filters as the other data download functions.
 ```{r warning=FALSE, message=FALSE, eval = FALSE}
 # Use the occurrences previously downloaded
-images <- ala_media(head(occ$recordID, n = 5), download_dir = 'data/',
-                    identifier_type = "occurrence")
+media_data <- ala_media(
+     taxa = select_taxa("Eolophus roseicapilla"),
+     filters = select_filters(year = 2020),
+     download_dir = "media")
 ```
 
 
