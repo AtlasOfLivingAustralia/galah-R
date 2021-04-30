@@ -9,8 +9,10 @@ test_that("select_filters builds data quality filters", {
                c(TRUE, FALSE))
 })
 
+
 test_that("select_filters handles assertion filters", {
   skip_on_cran()
+  skip_on_travis()
   expect_true("assertions" %in%
                 select_filters(zeroCoordinates = FALSE,
                                  habitatMismatch = FALSE)$name)
