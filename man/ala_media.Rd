@@ -37,10 +37,10 @@ media_data <- ala_media(
     taxa = select_taxa("Regent Honeyeater"),
     filters = select_filters(year = 2020),
     download_dir = "media")
-}
 
 # Download just sounds of galahs
 media_data <- ala_media(
      taxa = select_taxa("Eolophus Roseicapilla"),
      filters = select_filters(multimedia = "Sound"))
+}
 }
