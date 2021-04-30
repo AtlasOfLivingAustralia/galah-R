@@ -10,6 +10,7 @@ test_that("ala media check inputs", {
 
 test_that("ala media downloads images", {
   skip_on_cran()
+  ala_config(email = "ala4r@ala.org.au")
   media_dir <- "test_media"
   unlink(media_dir)
   dir.create(media_dir)
