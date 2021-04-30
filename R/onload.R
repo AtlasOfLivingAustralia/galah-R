@@ -10,10 +10,10 @@
             https://github.com/AtlasOfLivingAustralia/galah/issues/
             or emailing support@ala.org.au",
             support_email = "support@ala.org.au", ## contact email
-            base_url_spatial = "https://spatial.ala.org.au/ws/",
+            base_url_spatial = "https://nectar-spatial-test.ala.org.au/",
             base_url_bie = "https://bie-ws.ala.org.au/",
             base_url_name_matching = "https://namematching-ws.ala.org.au/",
-            base_url_biocache = "https://biocache-ws.ala.org.au/",
+            base_url_biocache = "https://aws-biocache-quoll.ala.org.au/",
             base_url_data_quality = "https://data-quality-service.ala.org.au",
             base_url_doi = "https://https://doi.ala.org.au",
             base_url_images = "https://images.ala.org.au/",
