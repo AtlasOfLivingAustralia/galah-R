@@ -20,22 +20,18 @@ argument also accepts a vector of unique species identifiers.}
 in}
 }
 \value{
-\code{data.frame} of media information if \code{metadata=TRUE}, otherwise
-the number of images downloaded
+\code{data.frame} of media information
 }
 \description{
 In addition to text data describing individual occurrences and their attributes,
-ALA stores image and sounds associated with a given record. These can be
-downloaded to \code{R} by first using \code{\link{ala_occurrences}()} to
-find records that contain media, and then passing the resulting \code{recordID}
-field to \code{\link{ala_media}()} to download those media files (see examples).
+ALA stores image and sounds associated with a given record.
 }
 \examples{
 \dontrun{
 # Download Regent Honeyeater multimedia
 media_data <- ala_media(
     taxa = select_taxa("Regent Honeyeater"),
-    filters = select_filters(year = 2020),
+    filters = select_filters(year = 2011),
     download_dir = "media")
 
 # Download just sounds of galahs
