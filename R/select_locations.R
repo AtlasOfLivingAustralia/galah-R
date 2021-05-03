@@ -27,7 +27,7 @@ select_locations <- function(query) {
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons should be converted to multipolygons
   
-  if ("sf" %in% class(query)) {
+  if ("sf" %in% class(query) || "sfc" %in% class(query)) {
     wkt <- build_wkt(query)
   } else {
     validate_wkt(query)
