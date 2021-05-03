@@ -4,14 +4,10 @@
 \alias{select_locations}
 \title{Build a WKT string from an sf spatial object or verify an existing WKT}
 \usage{
-select_locations(sf, wkt)
+select_locations(query)
 }
 \arguments{
-\item{sf}{sf object: area to be converted to wkt}
-
-\item{wkt}{string: wkt to be verified. WKT strings longer than 10000
-characters will not be accepted by the ALA- see the vignette for how to
-work around this.}
+\item{query}{wkt string or sf object}
 }
 \value{
 WKT string representing the area provided.
@@ -20,18 +16,22 @@ WKT string representing the area provided.
 Restrict results to those from a specified area. Areas must be polygons
 and be specified as either an sf object, or a 'well-known text' (wkt) string.
 }
+\details{
+WKT strings longer than 10000 characters will not be
+accepted by the ALA- so the sf object or WKT string may need to be
+simplified.
+}
 \examples{
 \dontrun{
 # Search for records using a shapefile
-locations <- select_locations(sf = path/to/shapefile)
+locations <- select_locations(st_read(path/to/shapefile))
 ala_occurrences(locations = locations)
 
 # Search for records using a WKT
 wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
-ala_occurrences(wkt = select_locations(wkt = wkt))
+ala_occurrences(locations = select_locations(wkt))
 }
-
 }
 \seealso{
 \code{\link{select_taxa}}, \code{\link{select_filters}} and
