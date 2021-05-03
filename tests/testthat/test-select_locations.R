@@ -6,8 +6,7 @@ test_that("select_locations checks inputs", {
   expect_error(
     select_locations(st_read(poly_path),
                  readLines("../testdata/short_act_wkt.txt")))
-  expect_error(select_locations(sf =
-                                 st_read(poly_path)))
+  expect_error(select_locations(st_read(poly_path)))
   
   expect_error(select_locations(readLines("../testdata/long_act_wkt.txt")))
   

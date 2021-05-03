@@ -38,7 +38,7 @@
 #' # Search for occurrences in a WKT-specified area
 #' polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 \
 #' -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
-#' occ <- ala_occurrences(locations = select_locations(wkt = polygon))
+#' occ <- ala_occurrences(locations = select_locations(polygon))
 #' }
 #' @export ala_occurrences
 
