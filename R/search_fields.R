@@ -136,14 +136,9 @@ get_media <- function(x) {
                               "creator", "title", "description", "rights",
                               "rightsHolder", "license", "imageUrl", "thumbUrl",
                               "largeThumbUrl", "squareThumbUrl", "tilesUrlPattern"))
-  fields$description <- "Column"
-  facets <- data.frame(id = c("dataResourceUid", "dateUploadedYearMonth",
-                              "format", "imageSize", "creator.keyword", "fileType",
-                              "recognisedLicence"))
-  facets$description <- "Facet"
-  all <- rbind(fields, facets)
-  all$type <- "media"
-  all
+  fields$description <- "Media filter field"
+  fields$type <- "media"
+  fields
 }
 
 # Function to convert darwin core field name to ALA field name, as currently
