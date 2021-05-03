@@ -51,19 +51,22 @@ ala_media <- function(taxa, filters, locations, columns, download_dir) {
     columns <- select_columns(group = "basic")
   }
   
+  # Check whether any of the filters are media-specific filters and
+  # filter to records with image/sound/video
+  media_filters <- filters[filters$name %in% search_fields(type = "media")$id,]
+  occ_filters <- rbind(
+    filters[!(filters$name %in% search_fields(type = "media")$id),],
+    select_filters(multimedia = c("Image", "Sound", "Video"))
+  )
+  
   # Make sure media ids are included in results
   occ_columns <- rbind(columns,
                        select_columns("images", "sounds","videos")
                        )
-  # Filter to records with image/sound/video
-  occ_filters <- rbind(
-    filters,
-    select_filters(multimedia = c("Image", "Sound", "Video"))
-    )
-
   if (verbose) {
     message("Downloading records with media...")
   }
+  
   occ <- ala_occurrences(taxa, occ_filters, locations, occ_columns)
 
   occ_long <- data.frame(data.table::rbindlist(
@@ -88,8 +91,11 @@ ala_media <- function(taxa, filters, locations, columns, download_dir) {
   
   ids <- occ_long$media_id[!is.na(occ_long$media_id)]
   
-  metadata <- media_metadata(ids = ids)
-
+  metadata <- data.frame(filter_metadata(
+    media_metadata(ids = ids),
+    media_filters
+  ))
+  
   # Select only the columns we want
   names(metadata) <- rename_columns(names(metadata), type = "media")
   metadata <- metadata[names(metadata) %in% wanted_columns("media")]
@@ -187,7 +193,15 @@ media_metadata <- function(ids) {
   # parse result and convert to data.frame
   data <- fromJSON(res)
   # suppress warnings caused by different list lengths
-  # need to convert back to data.frame
   df <- suppressWarnings(data.table::rbindlist(data$results))
-  return(data.frame(df))
+  return(df)
+}
+
+filter_metadata <- function(metadata, filters) {
+  for (i in seq_len(nrow(filters))) {
+    val <- filters[i,]$value[[1]]
+    filter_name <- filters[i,]$name
+    metadata <- metadata[metadata[[filter_name]] == val]
+  }
+  return(metadata)
 }
