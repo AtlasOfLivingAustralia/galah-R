@@ -49,7 +49,7 @@ media_data <- ala_media(
      taxa = select_taxa("Eolophus Roseicapilla"),
      filters = select_filters(multimedia = "Sound"))
 
-Filter to only records with a particular licence type
+# Filter to only records with a particular licence type
 media_data <- ala_media(
       taxa = select_taxa("Ornithorhynchus anatinus"),
       filters = select_filters(year = 2020, license = "http://creativecommons.org/licenses/by-nc/4.0/")

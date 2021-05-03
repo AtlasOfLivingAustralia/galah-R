@@ -76,15 +76,15 @@ The function allows both free-text searches and searches where the rank(s) are
 specified. Specifying the rank can be useful when names are ambiguous.
 ```{r}
 # free text search
-taxa_filter <- select_taxa(term = "Eolophus")
+taxa_filter <- select_taxa("Eolophus")
 
 # specifying ranks
-select_taxa(term = list(genus = "Eolophus", kingdom = "Aves"))
+select_taxa(query = list(genus = "Eolophus", kingdom = "Aves"))
 ```
 `select_taxa()` can optionally provide information about child concepts, and
 counts of the number of records held by the ALA for the specified taxa.
 ```{r}
-select_taxa(term = "Eolophus", children = TRUE, counts = TRUE)
+select_taxa(query = "Eolophus", children = TRUE, counts = TRUE)
 ```
 This shows that there is only one species in the family *Eolophus*.
 
@@ -92,7 +92,7 @@ This shows that there is only one species in the family *Eolophus*.
 Users can provide an `sf` object or a Well-Known Text (WKT) string for
 location-based filtering.
 ```{r eval = FALSE}
-locations <- select_locations(sf = st_read('act_rect.shp'))
+locations <- select_locations(query = st_read('act_rect.shp'))
 ```
 
 ## Field based filtering
