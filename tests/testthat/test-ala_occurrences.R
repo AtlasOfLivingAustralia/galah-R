@@ -79,12 +79,7 @@ test_that("ala occurrences handles assertion columns and works with data.frame
 })
 
 test_that("ala_occurrences handles wkt area inputs", {
-  # invalid wkt
   skip_on_cran()
-  valid_wkt <- "POINT(147.08005201710293 -34.48290525355578)"
-
-  wkt <- readLines("../testdata/long_act_wkt.txt")
-
   locations <- select_locations(readLines("../testdata/short_act_wkt.txt"))
   cols <- select_columns(group = "basic", "state")
   filters <- select_filters(basis_of_record = "MachineObservation")
