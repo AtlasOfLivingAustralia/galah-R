@@ -2,7 +2,7 @@
 % Please edit documentation in R/ala_media.R
 \name{ala_media}
 \alias{ala_media}
-\title{Image and sounds}
+\title{Images, sounds and videos}
 \usage{
 ala_media(taxa, filters, locations, columns, download_dir)
 }
@@ -20,11 +20,21 @@ argument also accepts a vector of unique species identifiers.}
 in}
 }
 \value{
-\code{data.frame} of media information
+\code{data.frame} of metadata of the downloaded media
 }
 \description{
 In addition to text data describing individual occurrences and their attributes,
-ALA stores image and sounds associated with a given record.
+ALA stores images, sounds and videos associated with a given record. \code{ala_media}
+allows download of any and all of the media types.
+}
+\details{
+\code{\link{ala_occurrences}()} works by first finding all occurrence records
+matching the filters which contain media, then downloading the metadata for the
+media and the media files. \code{\link{select_filters}()} can take both filters
+relating to occurrences (e.g. basis of records), and filters relating to media
+(e.g. type of licence).
+It may be beneficial when requesting a large number of records to show a progress
+bar by setting \code{verbose = TRUE} in \code{\link{ala_config}()}.
 }
 \examples{
 \dontrun{
@@ -34,9 +44,26 @@ media_data <- ala_media(
     filters = select_filters(year = 2011),
     download_dir = "media")
 
-# Download just sounds of galahs
+# Specify a single media type to download
 media_data <- ala_media(
      taxa = select_taxa("Eolophus Roseicapilla"),
      filters = select_filters(multimedia = "Sound"))
+
+Filter to only records with a particular licence type
+media_data <- ala_media(
+      taxa = select_taxa("Ornithorhynchus anatinus"),
+      filters = select_filters(year = 2020, license = "http://creativecommons.org/licenses/by-nc/4.0/")
+)
 }
+# Check how many records have media files
+ala_counts(
+     filters = select_filters(multimedia = c("Image","Sound","Video")),
+     group_by = "multimedia"
+)
+
+}
+\seealso{
+\code{\link{ala_counts}} to find the number of records with media- note this
+is not necessarily the same as the number of media files, as each record can have
+more than one media file associated with it (see examples section for how to do this).
 }
