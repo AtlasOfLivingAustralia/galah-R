@@ -4,23 +4,18 @@
 \alias{select_taxa}
 \title{Taxon information}
 \usage{
-select_taxa(term, term_type = "name", children = FALSE, counts = FALSE)
+select_taxa(query, children = FALSE, counts = FALSE)
 }
 \arguments{
-\item{term}{\code{string}: A vector containing one or more search terms,
-given as strings. Search terms can be either scientific or common names.
-If greater control is required to disambiguate search terms, taxonomic levels 
-can be provided explicitly via a named \code{list} for a single name, or a
-\code{data.frame} for multiple names (see examples). Note that searches are
-not case-sensitive.}
-
-\item{term_type}{\code{string}: specifies which type of terms are provided in
-`term`. One of name \code{c("name", "identifier")}. Default behaviour is
-to search by \code{name}. \code{identifier} refers to the unique identifier for a
-taxon.}
+\item{query}{\code{string}: A vector containing one or more search terms,
+given as strings. Search terms can be scientific or common names, or
+taxanomic identifiers. If greater control is required to disambiguate search
+terms, taxonomic levels can be provided explicitly via a named \code{list}
+for a single name, or a \code{data.frame} for multiple names (see examples).
+Note that searches are not case-sensitive.}
 
 \item{children}{\code{logical}: return child concepts for the provided
-term(s)?}
+query?}
 
 \item{counts}{\code{logical}: return occurrence counts for all taxa
 found? \code{FALSE} by default}
@@ -42,10 +37,9 @@ proceeded to download data via \code{\link{ala_occurrences}()},
 \examples{
 \dontrun{
 # Search using a single term
-select_taxa(term = "Reptilia")
+select_taxa("Reptilia")
 # or equivalently:
-select_taxa(term = "reptilia") # not case sensitive
-
+select_taxa("reptilia") # not case sensitive
 
 # Search with multiple ranks. This is required if a single term is a homonym.
 select_taxa(
@@ -60,8 +54,7 @@ select_taxa(
      kingdom = "plantae"))
 
 # Search using an unique taxon identifier
-select_taxa(term = "https://id.biodiversity.org.au/node/apni/2914510",
-   term_type = "identifier")
+select_taxa(query = "https://id.biodiversity.org.au/node/apni/2914510")
 
 # Search multiple taxa
 select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
