@@ -52,7 +52,8 @@ media_data <- ala_media(
 # Filter to only records with a particular licence type
 media_data <- ala_media(
       taxa = select_taxa("Ornithorhynchus anatinus"),
-      filters = select_filters(year = 2020, license = "http://creativecommons.org/licenses/by-nc/4.0/")
+      filters = select_filters(year = 2020,
+      license = "http://creativecommons.org/licenses/by-nc/4.0/")
 )
 }
 # Check how many records have media files
