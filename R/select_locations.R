@@ -28,7 +28,7 @@ select_locations <- function(query) {
   # to avoid any issues, any polygons should be converted to multipolygons
   
   if ("sf" %in% class(query) || "sfc" %in% class(query)) {
-    wkt <- build_wkt(query)
+    return(build_wkt(query))
   } else {
     validate_wkt(query)
     if (str_detect(query, "POLYGON") & ! str_detect(query, "MULTIPOLYGON")) {
@@ -37,10 +37,9 @@ select_locations <- function(query) {
       # add an extra bracket
       query <- paste0(query, ")")
     }
+    return(query)
   }
 
-  #attr(wkt, "ala") <- "location"
-  return(query)
 }
 
 # build a valid wkt string from a spatial polygon
