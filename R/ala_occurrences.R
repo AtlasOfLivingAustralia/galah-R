@@ -21,7 +21,7 @@
 #' Note that unless care is taken, some queries can be particularly large.
 #' While most cases this will simply take a long time to process, if the number
 #' of requested records is >50 million the call will not return any data. Users
-#' can test whether this thresold will be reached by first calling
+#' can test whether this threshold will be reached by first calling
 #' \code{\link{ala_counts}()} using the same arguments that they intend to pass to
 #' \code{ala_occurrences}(). It may also be beneficial when requesting a large
 #' number of records to show a progress bar by setting \code{verbose = TRUE} in
@@ -38,7 +38,7 @@
 #' # Search for occurrences in a WKT-specified area
 #' polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 \
 #' -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
-#' occ <- ala_occurrences(locations = select_locations(wkt = polygon))
+#' occ <- ala_occurrences(locations = select_locations(polygon))
 #' }
 #' @export ala_occurrences
 
@@ -93,7 +93,7 @@ ala_occurrences <- function(taxa, filters, locations, columns,
 
   count <- record_count(query)
   check_count(count, config_verbose)
-
+  
   assertion_cols <- columns[columns$type == "assertions", ]
   query$fields <- build_columns(columns[columns$type != "assertions", ])
   query$qa <- build_columns(assertion_cols)
@@ -106,15 +106,20 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   # Get data
   url <- getOption("galah_server_config")$base_url_biocache
   query <- c(query, email = user_email(), reasonTypeId = download_reason(),
-             dwcHeaders = "true")
+             dwcHeaders = "true", sourceId = 2004)
 
   download_path <- wait_for_download(url, query, config_verbose)
   data_path <- ala_download(url = url,
                        path = download_path,
                        cache_file = cache_file, ext = ".zip")
 
-  #TODO: safely read csv
-  df <- read.csv(unz(data_path, "data.csv"), stringsAsFactors = FALSE)
+  tryCatch(
+    df <- read.csv(unz(data_path, "data.csv"), stringsAsFactors = FALSE),
+    error = function(e) {
+      message("There was an error reading the occurrence data; possibly no data was returned. This may be because
+no valid column names have been provided. To check whether column names are valid, use `search_fields()`")
+    }
+  )
 
   # rename cols so they match requested cols
   names(df) <- rename_columns(names(df), type = "occurrence")

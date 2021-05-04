@@ -16,7 +16,7 @@
 #' @param query \code{string}: A search string. Not case sensitive.
 #' @param type \code{string}: What type of parameters should be searched?
 #' Should be one or more of \code{fields}, \code{layers}, \code{assertions},
-#' or \code{all}.
+#' \code{media} or \code{all}.
 #' @return A \code{data.frame} with three columns:
 #' \itemize{
 #'  \item{id: The identifier for that layer or field. This is the value that should
@@ -49,19 +49,24 @@
 
 search_fields <- function(
   query,
-  type = "all" # or one of "fields", "layers", "assertions"
+  type = "all" # or one of "fields", "layers", "assertions", "media"
 ){
+  assert_that(type %in% c("all", "fields", "layers", "assertions", "media"),
+              msg = "`type` must be one of c('all', 'fields', 'layers',
+              'assertions', 'media')")
   # ensure data can be queried
   df <- switch(type,
     "fields" = get_fields(),
     "layers" = get_layers(),
     "assertions" = get_assertions(),
+    "media" = get_media(),
     "all" = {
       fields <- get_fields()
       layers <- get_layers()
       ass <- get_assertions()
+      media <- get_media()
       data.table::rbindlist(list(fields[!(fields$id %in% layers$id), ],
-                                 layers, ass), fill = TRUE)
+                                 layers, ass, media), fill = TRUE)
     },
     stop("`type`` must be one of c('fields', 'layers', 'assertions', 'all')")
   )
@@ -121,6 +126,19 @@ get_layers <- function() {
   names(result)[1] <- "id"
   result$type <- "layers"
   result
+}
+
+# There is no API call to get these fields, so for now they are manually
+# specified
+get_media <- function(x) {
+  fields <- data.frame(id = c("imageId", "height", "width", "tileZoomLevels",
+                              "thumbHeight", "thumbWidth", "filesize", "mimetype",
+                              "creator", "title", "description", "rights",
+                              "rightsHolder", "license", "imageUrl", "thumbUrl",
+                              "largeThumbUrl", "squareThumbUrl", "tilesUrlPattern"))
+  fields$description <- "Media filter field"
+  fields$type <- "media"
+  fields
 }
 
 # Function to convert darwin core field name to ALA field name, as currently

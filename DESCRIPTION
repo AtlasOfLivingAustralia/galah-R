@@ -1,7 +1,7 @@
 Package: galah
 Type: Package
 Title: Atlas of Living Australia (ALA) Data and Resources in R
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: c(person("Matilda", "Stevenson", email="matilda.stevenson@csiro.au",role=c("aut","cre")),
              person("Martin", "Westgate", email="martin.westgate@csiro.au", role="aut"),
              person("Peggy", "Newman", email="peggy.newman@csiro.au", role="aut"))

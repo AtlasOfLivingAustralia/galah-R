@@ -35,7 +35,7 @@
 #'   \item\code{samplingEffort}
 #'   \item\code{samplingProtocol}
 #' }
-#' Using \code{group = 'assertion'} returns all quality assertion-related
+#' Using \code{group = 'assertions'} returns all quality assertion-related
 #' columns. The list of assertions is shown by \code{search_fields(type = "assertions")}.
 #' @seealso \code{\link{select_taxa}}, \code{\link{select_filters}} and
 #' \code{\link{select_locations}} for other ways to restrict the information returned
@@ -55,6 +55,7 @@ select_columns <- function(..., group) {
   assertions <- search_fields(type = "assertions")$id
   cols <- list(...)
   if (length(cols) > 0) {
+    validate_cols(cols)
     extra_cols <- data.table::rbindlist(lapply(cols, function(x) {
       type <- ifelse(x %in% assertions, "assertions", "field")
       data.frame(name = x, type = type, stringsAsFactors = FALSE)
@@ -66,9 +67,19 @@ select_columns <- function(..., group) {
   all_cols[!duplicated(all_cols$name), ]
 }
 
+validate_cols <- function(cols) {
+  invalid_cols <- cols[!is.element(cols,
+                                   c(search_fields()$id, all_fields()$name))]
+  if (length(invalid_cols) > 0) {
+    message("The following columns may be invalid: ",
+         paste(invalid_cols, collapse = ", "),
+         ". Use `search_fields()` to get a list of valid options")
+  }
+}
+
 
 preset_cols <- function(type) {
-  valid_groups <- c("basic", "event")
+  valid_groups <- c("basic", "event", "assertions")
   # use ALA version of taxon name to avoid ambiguity (2 fields map to dwc name)
   cols <- switch(type,
                  "basic" = c("decimalLatitude", "decimalLongitude",
@@ -77,7 +88,7 @@ preset_cols <- function(type) {
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),
-                 "assertion" = search_fields(type = "assertions")$id,
+                 "assertions" = search_fields(type = "assertions")$id,
                  stop("\"", type,
                       "\" is not a valid column group. Valid groups are: ",
                       paste(valid_groups, collapse = ", "))

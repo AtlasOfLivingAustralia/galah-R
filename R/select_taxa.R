@@ -10,18 +10,14 @@
 #' \code{data.frame} of taxonomic information can be passed directly to
 #' \code{ala_} functions to filter records to the specified taxon or taxa.
 #'
-#' @param term \code{string}: A vector containing one or more search terms,
-#' given as strings. Search terms can be either scientific or common names.
-#' If greater control is required to disambiguate search terms, taxonomic levels 
-#' can be provided explicitly via a named \code{list} for a single name, or a
-#' \code{data.frame} for multiple names (see examples). Note that searches are
-#' not case-sensitive.
-#' @param term_type \code{string}: specifies which type of terms are provided in
-#' `term`. One of name \code{c("name", "identifier")}. Default behaviour is
-#' to search by \code{name}. \code{identifier} refers to the unique identifier for a
-#' taxon.
+#' @param query \code{string}: A vector containing one or more search terms,
+#' given as strings. Search terms can be scientific or common names, or
+#' taxanomic identifiers. If greater control is required to disambiguate search
+#' terms, taxonomic levels can be provided explicitly via a named \code{list}
+#' for a single name, or a \code{data.frame} for multiple names (see examples).
+#' Note that searches are not case-sensitive.
 #' @param children \code{logical}: return child concepts for the provided
-#' term(s)?
+#' query?
 #' @param counts \code{logical}: return occurrence counts for all taxa
 #' found? \code{FALSE} by default
 #' @return A \code{data.frame} of taxonomic information.
@@ -31,10 +27,9 @@
 #' @examples
 #' \dontrun{
 #' # Search using a single term
-#' select_taxa(term = "Reptilia")
+#' select_taxa("Reptilia")
 #' # or equivalently:
-#' select_taxa(term = "reptilia") # not case sensitive
-#'
+#' select_taxa("reptilia") # not case sensitive
 #' 
 #' # Search with multiple ranks. This is required if a single term is a homonym.
 #' select_taxa(
@@ -49,26 +44,31 @@
 #'      kingdom = "plantae"))
 #'
 #' # Search using an unique taxon identifier
-#' select_taxa(term = "https://id.biodiversity.org.au/node/apni/2914510",
-#'    term_type = "identifier")
+#' select_taxa(query = "https://id.biodiversity.org.au/node/apni/2914510")
 #'
 #' # Search multiple taxa
 #' select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 #' }
 #' @export select_taxa
 
-select_taxa <- function(term, term_type = "name", children = FALSE,
-                         counts = FALSE) {
-
+select_taxa <- function(query, children = FALSE, counts = FALSE) {
+  verbose <- ala_config()$verbose
   assert_that(is.flag(children))
-  assert_that(term_type %in% c("name", "identifier"),
-              msg = "`term_type` must be one of `c('name', 'identifier')`")
 
-  if (missing(term)) {
-    stop("`select_taxa` requires a term to search for")
+  if (missing(query)) {
+    stop("`select_taxa` requires a query to search for")
   }
-  # caching won't catch if term order is changed
-  cache_file <- cache_filename(c(unlist(term), term_type,
+  
+  query_type <- deduce_query_type(query)
+  
+  if (verbose) {
+    print_qt <- ifelse(query_type == "id", "identifiers",
+                       "scientific or common names")
+    message("Assuming that query term(s) provided are ", print_qt)
+  }
+  
+  # caching won't catch if query order is changed
+  cache_file <- cache_filename(c(unlist(query),
                                ifelse(children, "children", ""),
                                ifelse(counts, "counts", "")),
                                ext = ".csv")
@@ -78,24 +78,24 @@ select_taxa <- function(term, term_type = "name", children = FALSE,
     return(read.csv(cache_file))
   }
 
-  if (term_type == "name") {
-    ranks <- names(term)
-    # check ranks are valid if term type is name
+  if (query_type == "name") {
+    ranks <- names(query)
+    # check ranks are valid if query type is name
     validate_rank(ranks)
-    if (is.list(term) && length(names(term)) > 0 ) {
+    if (is.list(query) && length(names(query)) > 0 ) {
       # convert to dataframe for simplicity
-      term <- as.data.frame(term)
+      query <- as.data.frame(query)
     }
-    if (is.data.frame(term)) {
-      matches <- data.table::rbindlist(apply(term, 1, name_lookup),
+    if (is.data.frame(query)) {
+      matches <- data.table::rbindlist(apply(query, 1, name_lookup),
                                        fill = TRUE)
     } else {
-      matches <- data.table::rbindlist(lapply(term, function(t) {
+      matches <- data.table::rbindlist(lapply(query, function(t) {
         name_lookup(t)
       }), fill = TRUE)
     }
   } else {
-    matches <- data.table::rbindlist(lapply(term, function(t) {
+    matches <- data.table::rbindlist(lapply(query, function(t) {
       identifier_lookup(t)
     }), fill = TRUE)
   }
@@ -167,6 +167,36 @@ identifier_lookup <- function(identifier) {
   }
   names(result) <- rename_columns(names(result), type = "taxa")
   result[names(result) %in% wanted_columns("taxa")]
+}
+
+deduce_query_type <- function(query) {
+  if (is.data.frame(query)) {
+    return("name")
+  }
+  # Possible query types are 'id' and 'name'
+  if (
+    # APNI
+    any(str_detect(query, "https://id.biodiversity.org.au")) ||
+    # AFD 
+    any(str_detect(query, "afd.taxon:")) ||
+    # NZOE
+    any(str_detect(query, "NZOR")) ||
+    # Index Fungorum
+    any(str_detect(query, "urn:lsid:indexfungorum")) ||
+    # Catalogue of life
+    any(str_detect(query, "CoL:")) ||
+    # CAAB
+    !is.na(suppressWarnings(any(as.integer(query)))) ||
+    # Aus Fungi
+    any(nchar(query) == 36) ||
+    # CoL
+    any(nchar(query) == 32) ||
+    # ALA special case
+    any(str_detect(query, "ALA_"))) {
+    return("id")
+  }
+  # By default assume 'name' type
+  return("name")
 }
 
 # make sure rank provided is in accepted list

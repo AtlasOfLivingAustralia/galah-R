@@ -3,48 +3,43 @@
 #' Restrict results to those from a specified area. Areas must be polygons
 #' and be specified as either an sf object, or a 'well-known text' (wkt) string.
 #'
-#' @param sf sf object: area to be converted to wkt
-#' @param wkt string: wkt to be verified. WKT strings longer than 10000
-#' characters will not be accepted by the ALA- see the vignette for how to
-#' work around this.
+#' @param query wkt string or sf object
+#' @details WKT strings longer than 10000 characters will not be
+#' accepted by the ALA- so the sf object or WKT string may need to be
+#' simplified.
 #' @return WKT string representing the area provided.
 #' @seealso \code{\link{select_taxa}}, \code{\link{select_filters}} and
 #' \code{\link{select_columns}} for other ways to restrict the information returned
 #' by \code{\link{ala_occurrences}} and related functions.
 #' @examples \dontrun{
 #' # Search for records using a shapefile
-#' locations <- select_locations(sf = path/to/shapefile)
+#' locations <- select_locations(st_read(path/to/shapefile))
 #' ala_occurrences(locations = locations)
 #' 
 #' # Search for records using a WKT
 #' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
 #' -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
-#' ala_occurrences(wkt = select_locations(wkt = wkt))
+#' ala_occurrences(locations = select_locations(wkt))
 #' }
-#' 
 #' @export select_locations
 
-select_locations <- function(sf, wkt) {
+select_locations <- function(query) {
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons should be converted to multipolygons
-  if (nargs() > 1) {
-    stop("Only one of wkt and sf can be provided to this function")
-  }
-  if (!missing(wkt)) {
-    validate_wkt(wkt)
-    if (str_detect(wkt, "POLYGON") & ! str_detect(wkt, "MULTIPOLYGON")) {
+  
+  if ("sf" %in% class(query) || "sfc" %in% class(query)) {
+    return(build_wkt(query))
+  } else {
+    validate_wkt(query)
+    if (str_detect(query, "POLYGON") & ! str_detect(query, "MULTIPOLYGON")) {
       # replace start of string
-      wkt <- str_replace(wkt, "POLYGON\\(\\(", "MULTIPOLYGON\\(\\(\\(")
+      query <- str_replace(query, "POLYGON\\(\\(", "MULTIPOLYGON\\(\\(\\(")
       # add an extra bracket
-      wkt <- paste0(wkt, ")")
+      query <- paste0(query, ")")
     }
-  }
-  if (!missing(sf)) {
-    wkt <- build_wkt(sf)
+    return(query)
   }
 
-  #attr(wkt, "ala") <- "location"
-  return(wkt)
 }
 
 # build a valid wkt string from a spatial polygon

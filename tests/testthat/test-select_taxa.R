@@ -4,12 +4,12 @@ context('Taxa search')
 test_that("select_taxa checks inputs", {
   skip_on_cran()
   expect_error(select_taxa())
-  expect_error(select_taxa(term_type = 'bad_term'))
+  expect_message(select_taxa('bad_term'))
   expect_error(select_taxa("Varanus varius", children = 'false'))
 })
 
 test_that("child_concepts behaves correctly", {
-  # species with no children should return a messag
+  # species with no children should return a message
   skip_on_cran()
   expect_message(
     child_concepts("urn:lsid:biodiversity.org.au:afd.taxon:ac61fd14-4950-4566-b384-304bd99ca75f"))
@@ -38,44 +38,41 @@ test_that("select_taxa searches at provided rank", {
 
 test_that("select_taxa handles identifier searches", {
   skip_on_cran()
+  query <- c("urn:lsid:biodiversity.org.au:afd.taxon:08b9a1f0-62ae-45ca-9208-e773b00021ed",
+           "NZOR-6-1742", "https://id.biodiversity.org.au/node/apni/2910467")
   expect_equal(
-    nrow(select_taxa(term = "https://id.biodiversity.org.au/node/apni/2902929",
-                  term_type = "identifier")), 1)
-  expect_message(
-    select_taxa(term = "https://id.biodiversity.org.au/node/apni/2902929",
-             term_type = "name"))
+    nrow(select_taxa(query)), 3)
 })
 
 test_that("select_taxa handles name searches", {
   skip_on_cran()
-  expect_equal(nrow(select_taxa(term = "Microseris lanceolata",
-                             term_type = "name")), 1)
-  expect_message(select_taxa(term = "Microseris lanceolata",
-                          term_type = "identifier"))
+
+  expect_equal(nrow(select_taxa("Microseris lanceolata")), 1)
+  select_taxa("Microseris lanceolata")
   # Handle multiple names
-  expect_equal(nrow(select_taxa(term = c("Eucalyptus", "Banksia", "Acacia"))), 3)
+  expect_equal(nrow(select_taxa(c("Eucalyptus", "Banksia", "Acacia"))), 3)
   
   # Handle list of multiple names
-  expect_equal(nrow(select_taxa(term = list("Eucalyptus", "Banksia", "Acacia"))),
+  expect_equal(nrow(select_taxa(list("Eucalyptus", "Banksia", "Acacia"))),
                3)
   
   # Handle mix of valid and invalid names
   expect_message(
-    expect_equal(nrow(select_taxa(term = c("Eucalyptus", "Banksia", "Wattle"))),
+    expect_equal(nrow(select_taxa(c("Eucalyptus", "Banksia", "Wattle"))),
                  3))
   
   # Handle a dataframe input
   taxa_df <- data.frame(genus = c("Banksia", "Microseris"),
                         kingdom = "Plantae")
-  expect_equal(nrow(select_taxa(term = taxa_df)), 2)
+  expect_equal(nrow(select_taxa(taxa_df)), 2)
   
   taxa_df <- data.frame(genus = c("Banksia", "Microseris"))
-  expect_message(expect_equal(nrow(select_taxa(term = taxa_df)), 2))
+  expect_message(expect_equal(nrow(select_taxa(taxa_df)), 2))
 })
 
-test_that("ala taxa returns counts for species", {
+test_that("select taxa returns counts for species", {
   skip_on_cran()
-  expect_true("count" %in% colnames(select_taxa(term = "Thylacinus cynocephalus",
+  expect_true("count" %in% colnames(select_taxa("Thylacinus cynocephalus",
                                         counts = TRUE)))
 })
 
@@ -89,4 +86,5 @@ test_that("select_taxa returns children for multiple names", {
     sum(nrow(select_taxa("Osphranter", children = TRUE)),
         nrow(select_taxa("Dasyurus", children = TRUE))))
 })
+
 
