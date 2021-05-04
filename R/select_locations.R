@@ -33,14 +33,14 @@ select_locations <- function(query) {
     validate_wkt(query)
     if (str_detect(query, "POLYGON") & ! str_detect(query, "MULTIPOLYGON")) {
       # replace start of string
-      wkt <- str_replace(query, "POLYGON\\(\\(", "MULTIPOLYGON\\(\\(\\(")
+      query <- str_replace(query, "POLYGON\\(\\(", "MULTIPOLYGON\\(\\(\\(")
       # add an extra bracket
-      wkt <- paste0(query, ")")
+      query <- paste0(query, ")")
     }
   }
 
   #attr(wkt, "ala") <- "location"
-  return(wkt)
+  return(query)
 }
 
 # build a valid wkt string from a spatial polygon
