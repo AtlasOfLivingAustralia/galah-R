@@ -83,7 +83,7 @@ and be specified as either an sf object, or a 'well-known text' (wkt) string." /
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -135,26 +135,25 @@ and be specified as either an sf object, or a 'well-known text' (wkt) string." /
 and be specified as either an sf object, or a 'well-known text' (wkt) string.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>select_locations</span><span class='op'>(</span><span class='va'>sf</span>, <span class='va'>wkt</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>select_locations</span><span class='op'>(</span><span class='va'>query</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>sf</th>
-      <td><p>sf object: area to be converted to wkt</p></td>
-    </tr>
-    <tr>
-      <th>wkt</th>
-      <td><p>string: wkt to be verified. WKT strings longer than 10000
-characters will not be accepted by the ALA- see the vignette for how to
-work around this.</p></td>
+      <th>query</th>
+      <td><p>wkt string or sf object</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>WKT string representing the area provided.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>WKT strings longer than 10000 characters will not be
+accepted by the ALA- so the sf object or WKT string may need to be
+simplified.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='select_taxa.html'>select_taxa</a></code>, <code><a href='select_filters.html'>select_filters</a></code> and
@@ -164,15 +163,14 @@ by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and related f
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Search for records using a shapefile</span>
-<span class='va'>locations</span> <span class='op'>&lt;-</span> <span class='fu'>select_locations</span><span class='op'>(</span>sf <span class='op'>=</span> <span class='va'>path</span><span class='op'>/</span><span class='va'>to</span><span class='op'>/</span><span class='va'>shapefile</span><span class='op'>)</span>
+<span class='va'>locations</span> <span class='op'>&lt;-</span> <span class='fu'>select_locations</span><span class='op'>(</span><span class='fu'>st_read</span><span class='op'>(</span><span class='va'>path</span><span class='op'>/</span><span class='va'>to</span><span class='op'>/</span><span class='va'>shapefile</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='ala_occurrences.html'>ala_occurrences</a></span><span class='op'>(</span>locations <span class='op'>=</span> <span class='va'>locations</span><span class='op'>)</span>
 
 <span class='co'># Search for records using a WKT</span>
 <span class='va'>wkt</span> <span class='op'>&lt;-</span> <span class='st'>"POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"</span>
-<span class='fu'><a href='ala_occurrences.html'>ala_occurrences</a></span><span class='op'>(</span>wkt <span class='op'>=</span> <span class='fu'>select_locations</span><span class='op'>(</span>wkt <span class='op'>=</span> <span class='va'>wkt</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='ala_occurrences.html'>ala_occurrences</a></span><span class='op'>(</span>locations <span class='op'>=</span> <span class='fu'>select_locations</span><span class='op'>(</span><span class='va'>wkt</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
-
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

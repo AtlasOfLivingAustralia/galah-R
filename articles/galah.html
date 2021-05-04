@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
       <h1 data-toc-skip>galah</h1>
                         <h4 class="author">Matilda Stevenson</h4>
             
-            <h4 class="date">2021-04-09</h4>
+            <h4 class="date">2021-05-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah/blob/master/vignettes/galah.Rmd"><code>vignettes/galah.Rmd</code></a></small>
       <div class="hidden name"><code>galah.Rmd</code></div>
@@ -126,10 +126,10 @@
 <p><code><a href="../reference/select_taxa.html">select_taxa()</a></code> enables users search for taxonomic names and check the results are ‘correct’ before using the result to download data. The function allows both free-text searches and searches where the rank(s) are specified. Specifying the rank can be useful when names are ambiguous.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># free text search</span>
-<span class="va">taxa_filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span>term <span class="op">=</span> <span class="st">"Eolophus"</span><span class="op">)</span>
+<span class="va">taxa_filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span><span class="st">"Eolophus"</span><span class="op">)</span>
 
 <span class="co"># specifying ranks</span>
-<span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span>term <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus <span class="op">=</span> <span class="st">"Eolophus"</span>, kingdom <span class="op">=</span> <span class="st">"Aves"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span>query <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus <span class="op">=</span> <span class="st">"Eolophus"</span>, kingdom <span class="op">=</span> <span class="st">"Aves"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##     search_term scientific_name scientific_name_authorship
 ## 1 Eolophus_Aves        Eolophus            Bonaparte, 1854
 ##                                                              taxon_concept_id  rank match_type  kingdom   phylum class
@@ -138,7 +138,7 @@
 ## 1 Psittaciformes Cacatuidae Eolophus noIssue</code></pre>
 <p><code><a href="../reference/select_taxa.html">select_taxa()</a></code> can optionally provide information about child concepts, and counts of the number of records held by the ALA for the specified taxa.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span>term <span class="op">=</span> <span class="st">"Eolophus"</span>, children <span class="op">=</span> <span class="cn">TRUE</span>, counts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span>query <span class="op">=</span> <span class="st">"Eolophus"</span>, children <span class="op">=</span> <span class="cn">TRUE</span>, counts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>##    search_term       scientific_name scientific_name_authorship
 ## 1:    Eolophus              Eolophus            Bonaparte, 1854
 ## 2:        &lt;NA&gt; Eolophus roseicapilla           (Vieillot, 1817)
@@ -146,8 +146,8 @@
 ## 1: urn:lsid:biodiversity.org.au:afd.taxon:b2de5e40-df8f-4339-827d-25e63454a4a2   genus   exactMatch Animalia Chordata
 ## 2: urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 species taxonIdMatch Animalia Chordata
 ##    class          order     family    genus  issues               species vernacular_name  count
-## 1:  Aves Psittaciformes Cacatuidae Eolophus noIssue                  &lt;NA&gt;            &lt;NA&gt; 774228
-## 2:  Aves Psittaciformes Cacatuidae Eolophus noIssue Eolophus roseicapilla           Galah 774226</code></pre>
+## 1:  Aves Psittaciformes Cacatuidae Eolophus noIssue                  &lt;NA&gt;            &lt;NA&gt; 774594
+## 2:  Aves Psittaciformes Cacatuidae Eolophus noIssue Eolophus roseicapilla           Galah 774592</code></pre>
 <p>This shows that there is only one species in the family <em>Eolophus</em>.</p>
 </div>
 <div id="location-based-filtering" class="section level2">
@@ -155,7 +155,7 @@
 <a href="#location-based-filtering" class="anchor"></a>Location-based filtering</h2>
 <p>Users can provide an <code>sf</code> object or a Well-Known Text (WKT) string for location-based filtering.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_locations.html">select_locations</a></span><span class="op">(</span>sf <span class="op">=</span> <span class="fu">st_read</span><span class="op">(</span><span class="st">'act_rect.shp'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_locations.html">select_locations</a></span><span class="op">(</span>query <span class="op">=</span> <span class="fu">st_read</span><span class="op">(</span><span class="st">'act_rect.shp'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="field-based-filtering" class="section level2">
 <h2 class="hasAnchor">
@@ -331,30 +331,32 @@
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Total number of records in the ALA</span>
 <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 94868567</code></pre>
+<pre><code>## [1] 95073782</code></pre>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Total number of records, broken down by kindgom</span>
 <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span>group_by <span class="op">=</span> <span class="st">"kingdom"</span><span class="op">)</span></code></pre></div>
-<pre><code>##         name    count
-## 1   Animalia 69588245
-## 2    Plantae 21026256
-## 3      Fungi  1991269
-## 4  Chromista  1037512
-## 5   Protista    64618
+<pre><code>##      kingdom    count
+## 1   Animalia 69721509
+## 2    Plantae 21085331
+## 3      Fungi  1998431
+## 4  Chromista  1037853
+## 5   Protista    64615
 ## 6   Bacteria    58974
-## 7   Protozoa    21329
-## 8    Archaea     1100
+## 7   Protozoa    21496
+## 8    Archaea     1103
 ## 9  Eukaryota      735
-## 10     Virus      322</code></pre>
+## 10     Virus      332</code></pre>
 </div>
 <div id="media-downloads" class="section level2">
 <h2 class="hasAnchor">
 <a href="#media-downloads" class="anchor"></a>Media downloads</h2>
-<p>In addition to text data describing individual occurrences and their attributes, ALA stores image and sounds associated with a given record. These can be downloaded to <code>R</code> by first using <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code> to find records that contain media, and then passing the resulting <code>recordID</code> field to <code><a href="../reference/ala_media.html">ala_media()</a></code> to download those media files.</p>
+<p>In addition to text data describing individual occurrences and their attributes, ALA stores images, sounds and videos associated with a given record. These can be downloaded to <code>R</code> using <code><a href="../reference/ala_media.html">ala_media()</a></code> and the same set of filters as the other data download functions.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Use the occurrences previously downloaded</span>
-<span class="va">images</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_media.html">ala_media</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">occ</span><span class="op">$</span><span class="va">recordID</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, download_dir <span class="op">=</span> <span class="st">'data/'</span>,
-                    identifier_type <span class="op">=</span> <span class="st">"occurrence"</span><span class="op">)</span></code></pre></div>
+<span class="va">media_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_media.html">ala_media</a></span><span class="op">(</span>
+     taxa <span class="op">=</span> <span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span><span class="st">"Eolophus roseicapilla"</span><span class="op">)</span>,
+     filters <span class="op">=</span> <span class="fu"><a href="../reference/select_filters.html">select_filters</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2020</span><span class="op">)</span>,
+     download_dir <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="config" class="section level1">

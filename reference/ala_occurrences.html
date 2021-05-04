@@ -87,7 +87,7 @@ re-use of specific data resources." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -187,7 +187,7 @@ by <code><a href='select_columns.html'>select_columns</a>()</code>.</p>
     <p>Note that unless care is taken, some queries can be particularly large.
 While most cases this will simply take a long time to process, if the number
 of requested records is &gt;50 million the call will not return any data. Users
-can test whether this thresold will be reached by first calling
+can test whether this threshold will be reached by first calling
 <code><a href='ala_counts.html'>ala_counts</a>()</code> using the same arguments that they intend to pass to
 <code>ala_occurrences</code>(). It may also be beneficial when requesting a large
 number of records to show a progress bar by setting <code>verbose = TRUE</code> in
@@ -204,7 +204,7 @@ number of records to show a progress bar by setting <code>verbose = TRUE</code> 
 <span class='co'># Search for occurrences in a WKT-specified area</span>
 <span class='va'>polygon</span> <span class='op'>&lt;-</span> <span class='st'>"POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 \
 -34.152549,146.24960 -34.15254,146.24960 -34.05930))"</span>
-<span class='va'>occ</span> <span class='op'>&lt;-</span> <span class='fu'>ala_occurrences</span><span class='op'>(</span>locations <span class='op'>=</span> <span class='fu'><a href='select_locations.html'>select_locations</a></span><span class='op'>(</span>wkt <span class='op'>=</span> <span class='va'>polygon</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>occ</span> <span class='op'>&lt;-</span> <span class='fu'>ala_occurrences</span><span class='op'>(</span>locations <span class='op'>=</span> <span class='fu'><a href='select_locations.html'>select_locations</a></span><span class='op'>(</span><span class='va'>polygon</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

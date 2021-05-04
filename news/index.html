@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -127,6 +127,48 @@
       <small>Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="galah-1-1-0" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.0">
+<a href="#galah-1-1-0" class="anchor"></a>galah 1.1.0<small> Unreleased </small>
+</h1>
+<div id="downloading-media" class="section level3">
+<h3 class="hasAnchor">
+<a href="#downloading-media" class="anchor"></a>Downloading media</h3>
+<ul>
+<li>
+<code><a href="../reference/ala_media.html">ala_media()</a></code> now takes the same <code>select_</code> arguments as other <code>ala_</code> functions (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/18'>#18</a>)</li>
+<li>Filtering by media metadata e.g. licence type is possible (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/19'>#19</a>)</li>
+<li>
+<code>search_fields</code> now has <code>media</code> as a <code>type</code> argument option</li>
+<li>Performance improvement in download times (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/13'>#13</a>)</li>
+<li>Progress bar displayed for downloads when <code>verbose == TRUE</code> (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/8'>#8</a>)</li>
+<li>All media download types are supported</li>
+</ul>
+</div>
+<div id="select_-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#select_-functions" class="anchor"></a>select_ functions</h3>
+<ul>
+<li>
+<code>select_locations</code> auto-detects the type of argument provided and so takes a single argument, <code>query</code>, in place of <code>sf</code> and <code>wkt</code> (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/17'>#17</a>)</li>
+<li>
+<code>select_taxa</code> auto-detects the type of argument provided and so takes a single argument, <code>query</code>, in place of <code>term</code> and <code>term_type</code> (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/16'>#16</a>)</li>
+</ul>
+</div>
+<div id="minor-improvements" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-improvements" class="anchor"></a>Minor improvements</h3>
+<ul>
+<li>Provide more useful error message for empty occurrence download (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/7'>#7</a>)</li>
+<li>
+<code>ala_counts</code> uses the <code>group_by</code> field name as the returned <code>data.frame</code> column name (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/6'>#6</a>)</li>
+<li>
+<code>ala_occurrences</code> sends <code>sourceId</code> parameter to ALA (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/5'>#5</a>)</li>
+<li>
+<code>search_fields</code> provides a more helpful error for invalid types (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/11'>#11</a>)</li>
+</ul>
+</div>
+</div>
     <div id="galah-1-0-0" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.0">
 <a href="#galah-1-0-0" class="anchor"></a>galah 1.0.0<small> 2021-04-06 </small>

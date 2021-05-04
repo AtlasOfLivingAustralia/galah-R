@@ -90,7 +90,7 @@ ala_ functions to filter records to the specified taxon or taxa." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -149,31 +149,24 @@ proceeded to download data via <code><a href='ala_occurrences.html'>ala_occurren
 <code>ala_</code> functions to filter records to the specified taxon or taxa.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>select_taxa</span><span class='op'>(</span><span class='va'>term</span>, term_type <span class='op'>=</span> <span class='st'>"name"</span>, children <span class='op'>=</span> <span class='cn'>FALSE</span>, counts <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>select_taxa</span><span class='op'>(</span><span class='va'>query</span>, children <span class='op'>=</span> <span class='cn'>FALSE</span>, counts <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>term</th>
+      <th>query</th>
       <td><p><code>string</code>: A vector containing one or more search terms,
-given as strings. Search terms can be either scientific or common names.
-If greater control is required to disambiguate search terms, taxonomic levels 
-can be provided explicitly via a named <code>list</code> for a single name, or a
-<code>data.frame</code> for multiple names (see examples). Note that searches are
-not case-sensitive.</p></td>
-    </tr>
-    <tr>
-      <th>term_type</th>
-      <td><p><code>string</code>: specifies which type of terms are provided in
-`term`. One of name <code><a href='https://rdrr.io/r/base/c.html'>c("name", "identifier")</a></code>. Default behaviour is
-to search by <code>name</code>. <code>identifier</code> refers to the unique identifier for a
-taxon.</p></td>
+given as strings. Search terms can be scientific or common names, or
+taxanomic identifiers. If greater control is required to disambiguate search
+terms, taxonomic levels can be provided explicitly via a named <code>list</code>
+for a single name, or a <code>data.frame</code> for multiple names (see examples).
+Note that searches are not case-sensitive.</p></td>
     </tr>
     <tr>
       <th>children</th>
       <td><p><code>logical</code>: return child concepts for the provided
-term(s)?</p></td>
+query?</p></td>
     </tr>
     <tr>
       <th>counts</th>
@@ -194,10 +187,9 @@ by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and related f
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Search using a single term</span>
-<span class='fu'>select_taxa</span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"Reptilia"</span><span class='op'>)</span>
+<span class='fu'>select_taxa</span><span class='op'>(</span><span class='st'>"Reptilia"</span><span class='op'>)</span>
 <span class='co'># or equivalently:</span>
-<span class='fu'>select_taxa</span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"reptilia"</span><span class='op'>)</span> <span class='co'># not case sensitive</span>
-
+<span class='fu'>select_taxa</span><span class='op'>(</span><span class='st'>"reptilia"</span><span class='op'>)</span> <span class='co'># not case sensitive</span>
 
 <span class='co'># Search with multiple ranks. This is required if a single term is a homonym.</span>
 <span class='fu'>select_taxa</span><span class='op'>(</span>
@@ -212,8 +204,7 @@ by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and related f
      kingdom <span class='op'>=</span> <span class='st'>"plantae"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Search using an unique taxon identifier</span>
-<span class='fu'>select_taxa</span><span class='op'>(</span>term <span class='op'>=</span> <span class='st'>"https://id.biodiversity.org.au/node/apni/2914510"</span>,
-   term_type <span class='op'>=</span> <span class='st'>"identifier"</span><span class='op'>)</span>
+<span class='fu'>select_taxa</span><span class='op'>(</span>query <span class='op'>=</span> <span class='st'>"https://id.biodiversity.org.au/node/apni/2914510"</span><span class='op'>)</span>
 
 <span class='co'># Search multiple taxa</span>
 <span class='fu'>select_taxa</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"reptilia"</span>, <span class='st'>"mammalia"</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># returns one row per taxon</span>
