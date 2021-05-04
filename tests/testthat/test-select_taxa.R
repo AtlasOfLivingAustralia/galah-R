@@ -48,7 +48,7 @@ test_that("select_taxa handles name searches", {
   skip_on_cran()
 
   expect_equal(nrow(select_taxa("Microseris lanceolata")), 1)
-  expect_message(select_taxa("Microseris lanceolata"))
+  select_taxa("Microseris lanceolata")
   # Handle multiple names
   expect_equal(nrow(select_taxa(c("Eucalyptus", "Banksia", "Acacia"))), 3)
   
