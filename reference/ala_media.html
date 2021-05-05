@@ -203,16 +203,12 @@ more than one media file associated with it (see examples section for how to do 
       filters <span class='op'>=</span> <span class='fu'><a href='select_filters.html'>select_filters</a></span><span class='op'>(</span>year <span class='op'>=</span> <span class='fl'>2020</span>,
       license <span class='op'>=</span> <span class='st'>"http://creativecommons.org/licenses/by-nc/4.0/"</span><span class='op'>)</span>
 <span class='op'>)</span>
-<span class='op'>}</span>
 <span class='co'># Check how many records have media files</span>
 <span class='fu'><a href='ala_counts.html'>ala_counts</a></span><span class='op'>(</span>
      filters <span class='op'>=</span> <span class='fu'><a href='select_filters.html'>select_filters</a></span><span class='op'>(</span>multimedia <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Image"</span>,<span class='st'>"Sound"</span>,<span class='st'>"Video"</span><span class='op'>)</span><span class='op'>)</span>,
      group_by <span class='op'>=</span> <span class='st'>"multimedia"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt;   multimedia   count
-#&gt; 1      Image 2817341
-#&gt; 2      Sound   11567
-#&gt; 3      Video     402</div><div class='input'>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
