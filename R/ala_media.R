@@ -41,13 +41,12 @@
 #'       filters = select_filters(year = 2020,
 #'       license = "http://creativecommons.org/licenses/by-nc/4.0/")
 #' )
-#' }
 #' # Check how many records have media files
 #' ala_counts(
 #'      filters = select_filters(multimedia = c("Image","Sound","Video")),
 #'      group_by = "multimedia"
 #' )
-#' 
+#' }
 #' @export ala_media
 
 # TODO: Check user has provided email and give a useful message if not

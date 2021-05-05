@@ -55,13 +55,12 @@ media_data <- ala_media(
       filters = select_filters(year = 2020,
       license = "http://creativecommons.org/licenses/by-nc/4.0/")
 )
-}
 # Check how many records have media files
 ala_counts(
      filters = select_filters(multimedia = c("Image","Sound","Video")),
      group_by = "multimedia"
 )
-
+}
 }
 \seealso{
 \code{\link{ala_counts}} to find the number of records with media- note this
