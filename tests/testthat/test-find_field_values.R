@@ -8,8 +8,8 @@ test_that("find_field_values returns an error for invalid fields", {
 })
 
 test_that("find_field_values handles fields with a large number of options", {
-  skip_on_cran()
-  expect_warning(expect_equal(nrow(find_field_values("data_resource_uid",
+  skip("skip until infrastructure stage 1 is complete")
+  expect_warning(expect_equal(nrow(find_field_values("dataResourceUid",
                                                   limit = 10)), 10))
 })
 

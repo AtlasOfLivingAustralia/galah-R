@@ -49,11 +49,11 @@ test_that("ala_occurrences handles filters correctly", {
 
 #})
 test_that("ala occurrences returns requested columns", {
-  skip_on_cran()
+  skip("skip until infrastructure stage 1 is complete")
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
-                     "data_resource")
-  filters <- select_filters(occurrence_decade_i = 1930)
+                     "dataResourceName")
+  filters <- select_filters(year = 1930)
   cols <- select_columns(group = "basic")
   id <- select_taxa("Polytelis swainsonii")$taxon_concept_id
   expect_equal(sort(names(ala_occurrences(taxa = id,
@@ -71,9 +71,9 @@ test_that("ala occurrences returns requested columns", {
 
 test_that("ala occurrences handles assertion columns and works with data.frame
           input", {
-  skip_on_cran()
+  skip("skip until infrastructure stage 1 is complete")
   id <- select_taxa("Paraparatrechina minutula")
-  cols <- select_columns("zeroLatitude", "zeroLongitude", "eventDate")
+  cols <- select_columns("ZERO_COORDINATE", "eventDate")
   expect_equal(names(ala_occurrences(taxa = id, columns = cols)),
                c("eventDate", "zeroLatitude", "zeroLongitude"))
 })
