@@ -187,10 +187,9 @@ deduce_query_type <- function(query) {
     any(str_detect(query, "CoL:")) ||
     # CAAB
     !is.na(suppressWarnings(any(as.integer(query)))) ||
-    # Aus Fungi
-    any(nchar(query) == 36) ||
-    # CoL
-    any(nchar(query) == 32) ||
+    # Aus Fungi and CoL - check if any digits in string- possibly this check
+    # would cover all id types
+    any(grepl("\\d", query)) ||
     # ALA special case
     any(str_detect(query, "ALA_"))) {
     return("id")
