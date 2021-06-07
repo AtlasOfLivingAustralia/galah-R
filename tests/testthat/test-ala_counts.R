@@ -59,7 +59,14 @@ test_that("ala_counts works with long queries", {
   expect_gt(ala_counts(taxa, filters), 0)
 })
 
-test_that("ala occurrences handles long queries with pagination", {
+test_that("ala_counts handles long queries with pagination", {
   skip_on_cran()
   expect_equal(nrow(ala_counts(group_by = "year", limit = 101)), 101)
+})
+
+test_that("ala_counts works with assertions", {
+  skip("Until infrastructure upgrade is released")
+  expect_equal(ala_counts(),
+               ala_counts(filters = select_filters(CONTINENT_INVALID = FALSE)) +
+                 ala_counts(filters = select_filters(CONTINENT_INVALID = TRUE)))
 })

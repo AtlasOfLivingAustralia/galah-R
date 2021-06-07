@@ -70,7 +70,7 @@ select_filters <- function(..., profile = NULL) {
   validate_filters(filters)
   filter_rows <- data.table::rbindlist(lapply(names(filters), function(x) {
     if (x %in% assertions) {
-      row <- data.frame(name = "assertions", include = TRUE, value = x,
+      row <- data.frame(name = "assertions", include = filters[[x]], value = x,
                         stringsAsFactors = FALSE)
     } else {
       row <- data.frame(name = x, include = !inherits(filters[[x]], "exclude"),
@@ -79,7 +79,7 @@ select_filters <- function(..., profile = NULL) {
     }
     row
   }))
-
+  
   rbind(filter_rows, dq_filter_rows)
 }
 
