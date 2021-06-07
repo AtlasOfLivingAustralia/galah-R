@@ -15,5 +15,5 @@ test_that("find_field_values handles fields with a large number of options", {
 
 test_that("find_field_values returns expected value", {
   skip_on_cran()
-  expect_equal(nrow(find_field_values("basis_of_record")), 12)
+  expect_gt(nrow(find_field_values("basisOfRecord")), 7)
 })

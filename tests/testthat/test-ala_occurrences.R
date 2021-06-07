@@ -5,7 +5,7 @@ ala_config(email = "ala4r@ala.org.au")
 test_that("ala_occurrences check inputs", {
   skip_on_cran()
   expect_error(ala_occurrences(filters =
-                                 c(state = "Australian Capital Territory")))
+                                 c(stateProvince = "Australian Capital Territory")))
   expect_error(ala_occurrences())
 })
 
@@ -26,14 +26,14 @@ test_that("ala_occurrences handles filters correctly", {
   skip_on_cran()
   expect_equal(
     unique(ala_occurrences(filters = select_filters(
-      state = "Australian Capital Territory",
-      basis_of_record = "FossilSpecimen"),
-      columns = select_columns("state", group = "basic"))$state),
+      stateProvince = "Australian Capital Territory",
+      basisOfRecord = "FossilSpecimen"),
+      columns = select_columns("stateProvince", group = "basic"))$stateProvince),
     "Australian Capital Territory")
 
   # handles year filters
   expect_true(unique(ala_occurrences(filters = select_filters(
-    year = seq(1971, 1981), basis_of_record = "FossilSpecimen"),
+    year = seq(1971, 1981), basisOfRecord = "FossilSpecimen"),
     columns = select_columns("year", group = "basic"))$year %in%
       seq(1971, 1981)))
 })
@@ -81,8 +81,8 @@ test_that("ala occurrences handles assertion columns and works with data.frame
 test_that("ala_occurrences handles wkt area inputs", {
   skip_on_cran()
   locations <- select_locations(readLines("../testdata/short_act_wkt.txt"))
-  cols <- select_columns(group = "basic", "state")
-  filters <- select_filters(basis_of_record = "MachineObservation")
+  cols <- select_columns(group = "basic", "stateProvince")
+  filters <- select_filters(basisOfRecord = "MachineObservation")
   expect_equal(unique(ala_occurrences(locations = locations,
                                       filters = filters,
                                       columns = cols)$stateProvince),
@@ -94,9 +94,9 @@ test_that("ala_occurrences handles sf polygon inputs", {
   # convert wkt to sfc
   act_shp <- st_as_sfc(readLines("../testdata/short_act_wkt.txt"))
   locations <- select_locations(act_shp)
-  filters <- select_filters(basis_of_record = "MachineObservation")
+  filters <- select_filters(basisOfRecord = "MachineObservation")
   expect_equal(unique(ala_occurrences(locations = locations, filters = filters,
                                       columns = select_columns(group = "basic",
-                                                  "state"))$stateProvince),
+                                                  "stateProvince"))$stateProvince),
                "Australian Capital Territory")
 })
