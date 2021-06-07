@@ -56,6 +56,7 @@ ala_media <- function(taxa, filters, locations, columns, download_dir) {
   assert_that(!missing(download_dir),
   msg = "A path to an existing directory to download images to is required")
   assert_that(file.exists(download_dir))
+  download_dir <- normalizePath(download_dir)
 
   if (missing(taxa)) { taxa <- NULL }
   if (missing(filters)) { filters <- NULL }
@@ -132,7 +133,7 @@ ala_media <- function(taxa, filters, locations, columns, download_dir) {
     message("Downloading ", length(urls), " media files...")
   }
   download_media(urls, outfiles, verbose)
-
+  all_data$download_path <- outfiles
   if (verbose) {
     message("\n",nrow(all_data), " files were downloaded to ", download_dir)
   }
