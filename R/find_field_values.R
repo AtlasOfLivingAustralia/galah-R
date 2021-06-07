@@ -10,8 +10,8 @@
 #' @seealso See \code{\link{search_fields}} for ways to use information returned
 #' by this function.
 #' @examples \dontrun{
-#' find_field_values("basis_of_record")
-#' find_field_values("state")
+#' find_field_values("basisOfRecord")
+#' find_field_values("stateProvince")
 #' }
 #' @export find_field_values
 
