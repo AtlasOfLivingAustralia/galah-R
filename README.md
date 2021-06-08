@@ -93,3 +93,46 @@ occ <- ala_occurrences(..., mint_doi = TRUE)
 doi <- attr(occ, "doi")
 cit <- ala_citation(occ)
 ```
+
+## Development
+
+### Server configuration
+
+Server configuration for `galah` is stored in
+[onload.R](https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/onload.R).
+To point `galah` to a test server or another Living Atlas instance, edit
+the relevant urls in this file. If you are running the tests locally you
+will need to run the following to update the configuration, where the
+contents of the list is the entire updated configuration.
+
+``` r
+server_config <- list(...)
+options(galah_server_config = server_config)
+```
+
+To check that the config has been updated with the new values, run:
+
+``` r
+getOption("galah_server_config")
+```
+
+### Running tests
+
+Tests should be run locally on any new code changes before pushing to
+GitHub. When code is pushed, tests will also be run on Travis CI. The
+results of the remote tests are available
+[here](https://travis-ci.com/AtlasOfLivingAustralia/galah).
+
+``` r
+# All tests
+devtools::test()
+
+# Individual files
+devtools::test_file()
+```
+
+### Updating the `pkgdown` site
+
+The [package homepage](https://atlasoflivingaustralia.github.io/galah)
+is rebuilt and updated automatically whenever code is pushed/merged into
+the `master` branch.
