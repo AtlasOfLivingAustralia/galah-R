@@ -69,19 +69,26 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   }
   
   query <- build_query(taxa, filters, locations, columns)
-
-  # Add columns after getting record count
   
   # handle caching
   caching <- getOption("galah_config")$caching
 
+  # Check record count
+  count <- record_count(query)
+  check_count(count, config_verbose)
+  
+  # Add columns to query
+  assertion_cols <- columns[columns$type == "assertions", ]
+  query$fields <- build_columns(columns[columns$type != "assertions", ])
+  query$qa <- build_columns(assertion_cols)
+  
   if (caching) {
     cache_file <- cache_filename(c(getOption("galah_server_config")$
                                      base_url_biocache,
                                    path = "ws/occurrences/offline/download",
                                    params = unlist(query)), ext = ".zip")
     if (file.exists(cache_file)) {
-      if (config_verbose) { message("Using existing file") }
+      if (config_verbose) { message("Using cached file") }
       # look for file using query parameters
       data <- read.csv(unz(cache_file, "data.csv"), stringsAsFactors = FALSE)
       #TODO: Add DOI here
@@ -90,13 +97,6 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   } else {
     cache_file <- tempfile(fileext = ".zip")
   }
-
-  count <- record_count(query)
-  check_count(count, config_verbose)
-  
-  assertion_cols <- columns[columns$type == "assertions", ]
-  query$fields <- build_columns(columns[columns$type != "assertions", ])
-  query$qa <- build_columns(assertion_cols)
 
   if (mint_doi) {
     query$mintDoi <- "true"
