@@ -80,7 +80,7 @@
 #' @docType package
 #' @references For more information on the ALA API, visit \url{https://api.ala.org.au/}
 #' @import assertthat sp sf httr
-#' @importFrom crul HttpClient Paginator Async
+#' @importFrom crul HttpClient Paginator Async url_build
 #' @importFrom digest digest
 #' @importFrom jsonlite fromJSON
 #' @importFrom stringr regex str_c str_detect str_extract str_locate
