@@ -94,9 +94,31 @@ doi <- attr(occ, "doi")
 cit <- ala_citation(occ)
 ```
 
-## Development
+## Contributing
 
-### Server configuration
+### Running tests
+
+Tests should be run locally on any new code changes before pushing to
+GitHub. When code is pushed, tests will also be run on Travis CI. The
+results of the remote tests are available
+[here](https://travis-ci.com/AtlasOfLivingAustralia/galah).
+
+``` r
+# All tests
+devtools::test()
+
+# Individual files
+devtools::test_file()
+```
+
+### Writing tests
+
+Tests are in the `tests/testthat/` folder.
+[codecov](https://codecov.io/github/AtlasOfLivingAustralia/galah) gives
+the percentage of code covered by tests. Ideally this should stay above
+80%.
+
+### Development
 
 Server configuration for `galah` is stored in
 [onload.R](https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/onload.R).
@@ -114,21 +136,6 @@ To check that the config has been updated with the new values, run:
 
 ``` r
 getOption("galah_server_config")
-```
-
-### Running tests
-
-Tests should be run locally on any new code changes before pushing to
-GitHub. When code is pushed, tests will also be run on Travis CI. The
-results of the remote tests are available
-[here](https://travis-ci.com/AtlasOfLivingAustralia/galah).
-
-``` r
-# All tests
-devtools::test()
-
-# Individual files
-devtools::test_file()
 ```
 
 ### Updating the `pkgdown` site
