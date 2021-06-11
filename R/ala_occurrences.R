@@ -105,10 +105,12 @@ ala_occurrences <- function(taxa, filters, locations, columns,
 
   # Get data
   url <- getOption("galah_server_config")$base_url_biocache
+  search_url <- url_build(url, path = "ws/occurrences/offline/download",
+                          query = query)
   query <- c(query, email = user_email(), reasonTypeId = download_reason(),
              dwcHeaders = "true", sourceId = 2004)
-
-  download_path <- wait_for_download(url, query, config_verbose)
+  download_resp <- wait_for_download(url, query, config_verbose)
+  download_path <- download_resp$download_path
   data_path <- ala_download(url = url,
                        path = download_path,
                        cache_file = cache_file, ext = ".zip")
@@ -131,6 +133,7 @@ no valid column names have been provided. To check whether column names are vali
 
   # add DOI as attribute
   attr(df, "doi") <- get_doi(mint_doi, data_path)
+  attr(df, "search_url") <- download_resp$search_url
 
   return(df)
 }
@@ -150,11 +153,10 @@ get_doi <- function(mint_doi, data_path) {
   return(doi)
 }
 
-
 wait_for_download <- function(url, query, verbose) {
   status <- ala_GET(url, "ws/occurrences/offline/download",
                     params = query, on_error = occ_error_handler)
-
+  search_url <- status$searchUrl
   status_url <- parse_url(status$statusUrl)
   status <- ala_GET(url, path = status_url$path)
 
@@ -179,7 +181,10 @@ wait_for_download <- function(url, query, verbose) {
     setTxtProgressBar(pb, value = 1)
     close(pb)
   }
-  parse_url(status$downloadUrl)$path
+  
+  resp <- list(download_path = parse_url(status$downloadUrl)$path,
+               search_url = search_url)
+  return(resp)
 }
 
 check_count <- function(count, config_verbose) {
