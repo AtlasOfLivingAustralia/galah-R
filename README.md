@@ -118,7 +118,7 @@ Tests are in the `tests/testthat/` folder.
 the percentage of code covered by tests. Ideally this should stay above
 80%.
 
-### Development
+### Changing server configuration
 
 Server configuration for `galah` is stored in
 [onload.R](https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/onload.R).

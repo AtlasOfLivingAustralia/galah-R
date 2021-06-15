@@ -104,7 +104,7 @@ devtools::test_file()
 Tests are in the `tests/testthat/` folder. [codecov](https://codecov.io/github/AtlasOfLivingAustralia/galah) gives the percentage of code covered by tests. Ideally this should stay above 80%. 
 
 
-### Development
+### Changing server configuration
 Server configuration for `galah` is stored in [onload.R](https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/onload.R).
 To point `galah` to a test server or another Living Atlas instance, edit the relevant urls in this file. 
 If you are running the tests locally you will need to run the following to update the configuration, where the contents of the list is the entire updated configuration.
