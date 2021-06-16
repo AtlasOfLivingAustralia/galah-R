@@ -98,7 +98,7 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   if (caching) {
     cache_file <- cache_filename(c(getOption("galah_server_config")$
                                      base_url_biocache,
-                                   path = "ws/occurrences/offline/download",
+                                   path = "occurrences/offline/download",
                                    params = unlist(query)), ext = ".zip")
     if (file.exists(cache_file)) {
       if (config_verbose) { message("Using cached file") }
@@ -118,7 +118,7 @@ ala_occurrences <- function(taxa, filters, locations, columns,
 
   # Get data
   url <- getOption("galah_server_config")$base_url_biocache
-  search_url <- url_build(url, path = "ws/occurrences/offline/download",
+  search_url <- url_build(url, path = "occurrences/offline/download",
                           query = query)
   query <- c(query, email = user_email(), reasonTypeId = download_reason(),
              dwcHeaders = "true", sourceId = 2004)
@@ -167,17 +167,17 @@ get_doi <- function(mint_doi, data_path) {
 }
 
 wait_for_download <- function(url, query, verbose) {
-  status <- ala_GET(url, "ws/occurrences/offline/download",
+  status <- ala_GET(url, "occurrences/offline/download",
                     params = query, on_error = occ_error_handler)
   search_url <- status$searchUrl
   status_url <- parse_url(status$statusUrl)
   status <- ala_GET(url, path = status_url$path)
-
+  
   # create a progress bar
   if (verbose) {
     pb <- txtProgressBar(max = 1, style = 3)
   }
-
+  
   while(status$status == "inQueue") {
     status <- ala_GET(url, path = status_url$path)
   }

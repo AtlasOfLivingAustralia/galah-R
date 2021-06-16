@@ -79,7 +79,7 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
   query$facets <- ala_group_by
 
   url <- getOption("galah_server_config")$base_url_biocache
-  path <- "ws/occurrence/facets"
+  path <- "occurrence/facets"
   cache_file <- cache_filename(args = c(url, path, unlist(query), limit,
                                         group_by, type),
                                ext = ".csv")
@@ -161,7 +161,7 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
 record_count <- function(query) {
   query$pageSize <- 0
   url <- getOption("galah_server_config")$base_url_biocache
-  resp <- ala_GET(url, "ws/occurrences/search", query)
+  resp <- ala_GET(url, "occurrences/search", query)
   resp$totalRecords
 }
 
@@ -169,7 +169,7 @@ species_count <- function(query) {
   query$flimit <- 1
   query$facets <- "species_guid"
   url <- getOption("galah_server_config")$base_url_biocache
-  total_categories(url, "ws/occurrence/facets", query)
+  total_categories(url, "occurrence/facets", query)
 }
 
 validate_facet <- function(facet) {
