@@ -54,6 +54,7 @@ ala_species <- function(taxa, filters, locations) {
   }
 
   if (missing(taxa)) { taxa <- NULL }
+  profile <- NULL
   if (missing(filters)) {
     filters <- NULL
   } else {
