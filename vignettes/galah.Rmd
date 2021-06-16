@@ -206,7 +206,7 @@ look up this information, using the common set of filter functions.
 ala_config(cache_directory = tempdir())
 ```
 
-```{r}
+```{r eval = FALSE}
 # List rodent species in the NT
 species <- ala_species(taxa = select_taxa("Rodentia"),
             filters = select_filters(stateProvince = "Northern Territory"))
