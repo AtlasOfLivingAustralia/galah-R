@@ -54,11 +54,20 @@ ala_species <- function(taxa, filters, locations) {
   }
 
   if (missing(taxa)) { taxa <- NULL }
-  if (missing(filters)) { filters <- NULL }
+  if (missing(filters)) {
+    filters <- NULL
+  } else {
+    profile_row <- filters[filters$name == "profile"]
+    if (nrow(profile_row) == 1) { profile <- profile_row$value[[1]] }
+  }
   if (missing(locations)) { locations <- NULL }
   
   query <- build_query(taxa, filters, locations)
-
+  if (!is.null(profile)) {
+    query$qualityProfile <- profile
+  } else {
+    query$disableAllQualityFilters <- "true"
+  }
   query$facets <- "species_guid"
   query$lookup  <- "true"
   

@@ -76,7 +76,13 @@ build_query <- function(taxa, filters, locations, columns = NULL) {
     filter_query <- NULL
   } else {
     assert_that(is.data.frame(filters))
-    filter_query <- build_filter_query(filters)
+    # remove profile from filter rows
+    filters <- filters[filters$name != "profile"]
+    if (nrow(filters) == 0) {
+      filter_query <- NULL
+    } else {
+      filter_query <- build_filter_query(filters)
+    }
   }
   
   query$fq <- c(taxa_query, filter_query)

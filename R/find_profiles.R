@@ -49,8 +49,22 @@ find_profiles <- function() {
 #' profile_info$description # free-text description of each filter in the "CSDM" profile
 
 find_profile_attributes <- function(profile) {
-  valid_profiles <- find_profiles()
   # check if is numeric or can be converted to numeric
+  short_name <- profile_short_name(profile)
+  if (is.na(short_name)) {
+    stop(profile, " is not a valid data quality id, short name or name. Use
+          `find_profiles` to list valid profiles.")
+  }
+
+  url <- getOption("galah_server_config")$base_url_data_quality
+  resp <- ala_GET(url, "api/v1/quality/activeProfile",
+                  list(profileName = short_name))
+  filters <- data.table::rbindlist(resp$categories$qualityFilters)
+  subset(filters, select = wanted_columns("quality_filter"))
+}
+
+profile_short_name <- function(profile) {
+  valid_profiles <- find_profiles()
   short_name <- NA
   if (suppressWarnings(!is.na(as.numeric(profile)))) {
     # assume a profile id has been provided
@@ -67,14 +81,4 @@ find_profile_attributes <- function(profile) {
       }
     }
   }
-  if (is.na(short_name)) {
-    stop(profile, " is not a valid data quality id, short name or name. Use
-          `find_profiles` to list valid profiles.")
-  }
-
-  url <- getOption("galah_server_config")$base_url_data_quality
-  resp <- ala_GET(url, "api/v1/quality/activeProfile",
-                  list(profileName = short_name))
-  filters <- data.table::rbindlist(resp$categories$qualityFilters)
-  subset(filters, select = wanted_columns("quality_filter"))
 }

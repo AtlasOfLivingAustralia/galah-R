@@ -9,7 +9,7 @@ test_that("ala_species checks inputs", {
 test_that("ala_species returns dataframe", {
   expect_equal(class(ala_species(taxa = select_taxa("reptilia"),
                                    filters = select_filters(basisOfRecord =
-                                                                "FossilSpecimen"))),
+                                                                "PreservedSpecimen"))),
                "data.frame")
 })
 

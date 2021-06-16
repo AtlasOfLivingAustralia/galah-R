@@ -58,7 +58,14 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   }
   
   if (missing(taxa)) { taxa <- NULL }
-  if (missing(filters)) { filters <- NULL }
+  profile <- NULL
+  if (missing(filters)) {
+    filters <- NULL
+  } else {
+    profile_row <- filters[filters$name == "profile"]
+    if (nrow(profile_row) == 1) { profile <- profile_row$value[[1]] }
+  }
+  
   if (missing(locations)) { locations <- NULL }
   
   if(missing(columns)) {
@@ -69,6 +76,12 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   }
   
   query <- build_query(taxa, filters, locations, columns)
+  
+  if (!is.null(profile)) {
+    query$qualityProfile <- profile
+  } else {
+    query$disableAllQualityFilters <- "true"
+  }
   
   # handle caching
   caching <- getOption("galah_config")$caching

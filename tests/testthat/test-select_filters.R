@@ -5,8 +5,6 @@ test_that("select_filters builds data quality filters", {
   expect_s3_class(select_filters(profile = "ALA"),
                   "data.frame")
   expect_error(select_filters(profile = "bad"))
-  expect_equal(unique(select_filters(profile = "CSDM")$include),
-               c(TRUE, FALSE))
 })
 
 test_that("select_filters handles assertion filters", {

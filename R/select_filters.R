@@ -46,25 +46,16 @@
 select_filters <- function(..., profile = NULL) {
   filters <- list(...)
   if (!is.null(profile)) {
-    dq_filters <- find_profile_attributes(profile)
-    dq_filter_rows <- data.table::rbindlist(lapply(dq_filters$filter,
-                                                   function(filter) {
-      split <- strsplit(filter, ":")[[1]]
-      value <- str_replace_all(split[2], "\"", "")
-      if (substr(split[1], 1, 1) == "-") {
-        name <- substr(split[1], 2, nchar(split[1]))
-        include <- FALSE
-      } else {
-        name <- split[1]
-        include <- TRUE
-      }
-      data.frame(name = name, include, value = I(list(value)),
+    short_name <- profile_short_name(profile)
+    if (is.na(short_name)) {
+      stop(profile, " is not a valid data quality id, short name or name. Use
+          `find_profiles` to list valid profiles.")
+    }
+    dq_filter_row <- data.frame(name = "profile", include = TRUE, value = I(list(short_name)),
                  stringsAsFactors = FALSE)
-    }))
   } else {
-    dq_filter_rows <- NULL
+    dq_filter_row <- NULL
   }
-
 
   assertions <- search_fields(type = "assertions")$id
   validate_filters(filters)
@@ -80,7 +71,7 @@ select_filters <- function(..., profile = NULL) {
     row
   }))
   
-  rbind(filter_rows, dq_filter_rows)
+  rbind(filter_rows, dq_filter_row)
 }
 
 
