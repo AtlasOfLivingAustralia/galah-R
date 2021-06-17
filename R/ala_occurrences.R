@@ -62,7 +62,7 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   if (missing(filters)) {
     filters <- NULL
   } else {
-    profile_row <- filters[filters$name == "profile"]
+    profile_row <- filters[filters$name == "profile",]
     if (nrow(profile_row) == 1) { profile <- profile_row$value[[1]] }
   }
   
