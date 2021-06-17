@@ -59,6 +59,12 @@ test_that("ala_counts works with long queries", {
   expect_gt(ala_counts(taxa, filters), 0)
 })
 
+test_that("ala_counts works with combinations of filters", {
+  skip_on_cran()
+  filters <- select_filters(profile = "ALA", year = 2015, basisOfRecord = "PreservedSpecimen")
+  expect_gt(ala_counts(filters = filters), 0)
+})
+
 test_that("ala_counts handles long queries with pagination", {
   skip_on_cran()
   expect_equal(nrow(ala_counts(group_by = "year", limit = 101)), 101)
