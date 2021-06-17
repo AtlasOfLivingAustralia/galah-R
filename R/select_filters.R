@@ -93,43 +93,7 @@ validate_filters <- function(filters) {
 }
 
 
-# takes a dataframe and returns a built filter query
-build_filter_query <- function(filters) {
-  filters$name <- dwc_to_ala(filters$name)
-  mapply(query_term, filters$name, filters$value, filters$include,
-         USE.NAMES = FALSE)
-}
 
-query_term <- function(name, value, include) {
-  # add quotes around value
-  value <- lapply(value, function(x) {
-    # don't add quotes if there are square brackets in the term
-    if (grepl("\\[", x)) {
-      x
-    } else {
-      paste0("\"", x, "\"")
-    }
-  })
-  # add quotes around value
-  if (include) {
-    value_str <- paste0("(", paste(name, value, collapse = " OR ", sep = ":"),
-                        ")")
-  } else {
-    value_str <- paste0("(", paste(paste0("-", name), value,
-                                   collapse = ' AND ', sep = ":"), ")")
-  }
-  #paste0("(", value_str, ")")
-  value_str
-}
-
-
-filter_value <- function(val) {
-  # replace loigcal values with strings
-  if (is.logical(val)) {
-    return(ifelse(val, "true", "false"))
-  }
-  val
-}
 
 #' Negate a filter value
 #' @rdname exclude
