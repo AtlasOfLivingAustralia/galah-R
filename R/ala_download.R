@@ -24,9 +24,18 @@ ala_download <- function(url, path, params = list(), ext = ".csv",
     cli$url <- url
     res <- cli$get(path = path, query = params, disk = cache_file)
   }
-
+  
   if (ext == ".csv") {
-    df <- read.csv(res$content, stringsAsFactors = FALSE)
+    # error message is specific to ala_species because it is the only function which
+    # gets to this point
+    tryCatch(
+      df <- read.csv(res$content, stringsAsFactors = FALSE),
+      error = function(e) {
+        e$message <- "No species matching the supplied filters were found."
+        stop(e)
+      }
+    )
+    
     close(file(cache_file))
   } else {
     # for zipped files just return the path
