@@ -77,11 +77,13 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   
   query <- build_query(taxa, filters, locations, columns)
   
-  if (!is.null(profile)) {
-    query$qualityProfile <- profile
-  } else {
-    query$disableAllQualityFilters <- "true"
-  }
+  if (getOption("galah_server_config")$country == "Australia") {
+    if (!is.null(profile)) {
+      query$qualityProfile <- profile
+    } else {
+      query$disableAllQualityFilters <- "true"
+    }
+  } 
   
   # handle caching
   caching <- getOption("galah_config")$caching
@@ -114,14 +116,18 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   if (mint_doi) {
     query$mintDoi <- "true"
   }
-  query$emailNotify <- email_notify()
+  
+  if (getOption("galah_server_config")$country == "Australia") {
+    query$emailNotify <- email_notify()
+    query$sourceId <- 2004
+    query$reasonTypeId <- download_reason()
+  }
 
   # Get data
   url <- getOption("galah_server_config")$base_url_biocache
   search_url <- url_build(url, path = "occurrences/offline/download",
                           query = query)
-  query <- c(query, email = user_email(), reasonTypeId = download_reason(),
-             dwcHeaders = "true", sourceId = 2004)
+  query <- c(query, email = user_email(), dwcHeaders = "true")
   download_resp <- wait_for_download(url, query, config_verbose)
   download_path <- download_resp$download_path
   data_path <- ala_download(url = url,
