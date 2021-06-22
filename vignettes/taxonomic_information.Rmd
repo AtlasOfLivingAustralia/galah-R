@@ -1,0 +1,116 @@
+---
+title: "Taxonomic information"
+author: "Matilda Stevenson"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Taxonomic information}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Issues: 
+
+* How to get intermediate information
+* How to interact with taxize
+
+```{r}
+library(galah)
+ala_config(country = "Australia", email = "matilda.stevenson@csiro.au")
+```
+
+## Intermediate rank information
+`select_taxa` doesn't provide information about intermediate rank due to
+a bug in the name-matching service. Need to make a separate call to the 
+species web services to get this information (and this works for any taxonomic
+level).
+```{r}
+library(jsonlite)
+# use select_taxa to get id
+select_taxa("Anas anas")
+id <- select_taxa("Anas anas")$taxon_concept_id
+
+# pass id to BIE in a separate query
+taxa <- fromJSON(paste0("https://bie-ws.ala.org.au/ws/species/", id))
+# this returns lots of stuff, including the rank information
+classification <- data.frame(taxa$classification)
+classification
+
+```
+How best to help a user get this information? 
+- Additional rank-specific argument e.g. `ranks = all`
+```{r eval = FALSE}
+select_taxa("Vombatus ursinus", ranks = c("family", "order", "suborder"))
+select_taxa("Vombatus ursinus", ranks = "all")
+```
+- Additional `columns` argument- could add count info to this?
+```{r eval = FALSE}
+select_taxa("Vombatus ursinus", columns = select_columns(group = "taxon_ranks", "count")
+```
+- Something else?
+
+## Intermediate ranks for lots of species
+```{r}
+# ala_species is easier to use for species information if > 1 rank below
+# is required
+mammals <- ala_species(taxa = select_taxa("Mammalia"))
+all_mammal_info <- data.table::rbindlist(lapply(mammals$species, function(id) {
+  taxa <- fromJSON(paste0("https://bie-ws.ala.org.au/ws/species/", id))
+  row <- data.frame(taxa$classification)
+  row$count <- ala_counts(taxa = select_taxa(id))
+  row
+}), fill = TRUE)
+
+head(all_mammal_info)
+```
+
+## Plot taxnomic info
+```{r}
+library(collapsibleTree)
+library(dplyr)
+all_mammal_info <- all_mammal_info %>%
+  mutate(final = paste0(.$scientificName, " (", .$count, ")"))
+collapsibleTree(all_mammal_info,
+                hierarchy = c("order", "suborder", "superfamily", "family",
+                              "subfamily", "genus", "subgenus"),
+                root = "Mammalia",
+                width = 1000)
+```
+
+## Taxize
+```{r}
+library(taxize)
+# Taxize queries multiple DBs e.g. NBN, Sweden
+# It returns an id with lots of attributes, and lots of options, but can just
+# pick the top one
+id <- get_nbnid("Sciurus vulgaris", rows = 1)
+id
+# can then get more classification information
+classification(id, db = "nbn")
+
+# there are downstream, upstream and children functions for some databases e.g. GBIF
+id <- get_gbifid("Homo")
+downstream(id, downto = "species")
+
+```
+Thoughts:
+
+* The upstream and downstream functions in taxize are nice but only work for
+some databases; and there are no APIs supporting these functions, they just
+do some hacking in the background.
+* Taxize doesn't import rgbif because it would mean installing GDAL. This issue
+would also apply to `galah`.
+* The taxize data structure is a combination of lists and dataframes. Not
+clear how this is better than a single dataframe, which captures all the tree
+information (see picture)
+
+Options:
+
+* Add upstream and downstream functionality to `select_taxa`
+* Add vignette on how to get upstream and downstream information without special
+functions (i.e. use `ala_species` then loop through taxa to get intermediate
+information)
+* Keep `select_taxa` simple, and add more complicated functionality to `taxize`
+
+
