@@ -87,4 +87,7 @@ test_that("select_taxa returns children for multiple names", {
         nrow(select_taxa("Dasyurus", children = TRUE))))
 })
 
-
+test_that("select_taxa errors if number of cols in data doesn't match", {
+  skip_on_cran()
+  expect_error(select_taxa(c("Animalia", "Fungi"), children = TRUE))
+})

@@ -105,7 +105,7 @@ select_taxa <- function(query, children = FALSE, counts = FALSE) {
     children <- data.table::rbindlist(
       lapply(out_data$taxon_concept_id, function(x) {
         child_concepts(x)
-      }))
+      }), fill = TRUE)
     # add children to df
     out_data <- data.table::rbindlist(list(out_data, children), fill = TRUE)
   }
