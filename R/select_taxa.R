@@ -54,6 +54,11 @@
 select_taxa <- function(query, children = FALSE, counts = FALSE) {
   verbose <- ala_config()$verbose
   assert_that(is.flag(children))
+  
+  if (getOption("galah_server_config")$country != "Australia") {
+    stop("`select_taxa` only provides information on Australian taxonomy. To search ",
+         getOption("galah_server_config")$country, " taxonomy,  use `taxize`.")
+  }
 
   if (missing(query)) {
     stop("`select_taxa` requires a query to search for")
@@ -105,7 +110,7 @@ select_taxa <- function(query, children = FALSE, counts = FALSE) {
     children <- data.table::rbindlist(
       lapply(out_data$taxon_concept_id, function(x) {
         child_concepts(x)
-      }))
+      }), fill = TRUE)
     # add children to df
     out_data <- data.table::rbindlist(list(out_data, children), fill = TRUE)
   }
@@ -140,6 +145,7 @@ name_lookup <- function(name) {
     query <- as.list(name)
   }
   result <- ala_GET(url, path, query)
+
   if ("homonym" %in% result$issues) {
     warning("Homonym issue with ", name,
          ". Please also provide another rank to clarify.")

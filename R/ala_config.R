@@ -86,6 +86,55 @@ ala_config <- function(..., profile_path = NULL) {
       user_options$download_reason_id <-
         convert_reason(user_options$download_reason_id)
     }
+    if (!is.null(user_options$country)) {
+      # set the server config here
+      server_config <- switch (user_options$country,
+        "Australia" = list(
+          country = "Australia",
+          notify = "If this problem persists please notify the galah
+          maintainers by lodging an issue at
+          https://github.com/AtlasOfLivingAustralia/galah/issues/
+          or emailing support@ala.org.au",
+          support_email = "support@ala.org.au", ## contact email
+          base_url_spatial = "https://spatial.ala.org.au/ws/",
+          base_url_bie = "https://bie-ws.ala.org.au/ws",
+          base_url_name_matching = "https://namematching-ws.ala.org.au/",
+          base_url_biocache = "https://biocache-ws.ala.org.au/ws",
+          base_url_data_quality = "https://data-quality-service.ala.org.au",
+          base_url_doi = "https://https://doi.ala.org.au",
+          base_url_images = "https://images.ala.org.au/",
+          base_url_logger = "https://logger.ala.org.au/"
+        ),
+        "UK" = list(
+          country = "UK",
+          base_url_spatial = "https://layers.nbnatlas.org/ws",
+          base_url_bie = "https://species-ws.nbnatlas.org",
+          base_url_name_matching = "https://species-ws.nbnatlas.org/",
+          base_url_biocache = "https://records-ws.nbnatlas.org",
+          #base_url_data_quality = "https://data-quality-service.ala.org.au",
+          #base_url_doi = "https://https://doi.ala.org.au",
+          base_url_images = "https://images.nbnatlas.org/"
+          #base_url_logger = "https://logger.ala.org.au/"
+        ),
+        "Sweden" = list(
+          country = "Sweden",
+          base_url_spatial = "https://spatial.biodiversitydata.se/ws/",
+          base_url_bie = "https://species.biodiversitydata.se/ws/",
+          base_url_biocache = "https://records.biodiversitydata.se/ws/",
+          #base_url_doi = "https://https://doi.ala.org.au",
+          base_url_images = "https://images.biodiversitydata.se/"
+          #base_url_logger = "https://logger.ala.org.au/"
+        ),
+        "Vermont" = list(
+          country = "Vermont",
+          base_url_biocache = "https://biocache-ws.vtatlasoflife.org/",
+          base_url_bie = "https://bie.vtatlasoflife.org/",
+          base_url_spatial = "https://spatial.vtatlasoflife.org/ws/",
+          base_url_images = "https://images.vtatlasoflife.org/"
+        )
+      )
+      options(galah_server_config = server_config)
+    }
 
     for (x in names(user_options)) {
       validate_option(x, user_options[[x]])
@@ -217,6 +266,10 @@ validate_option <- function(name, value) {
     if (!(value %in% find_reasons()$id)) {
       stop("Download reason must be a valid reason id or name ",
            "See `find_reasons()` for valid reasons.")
+    }
+  } else if (name == "country") {
+    if (!value %in% c("Australia", "UK", "Sweden", "Vermont")) {
+      stop("Country must be one of c('Australia', 'UK', 'Sweden', 'Vermont')")
     }
   } else {
     stop("\"", name, "\"", "is not a valid option name.")
