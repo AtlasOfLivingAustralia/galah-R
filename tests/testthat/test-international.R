@@ -13,7 +13,11 @@ test_that("Swedish Atlas works", {
 })
 
 test_that("Vermont Atlas works", {
-  skip_on_cran()
+  skip("Unreliable Atlas")
   ala_config(country = "Vermont")
   expect_gt(ala_counts(), 0)
 })
+
+# reset to Aus
+ala_config(country = "Australia")
+

@@ -20,4 +20,5 @@ test_that("ala config checks inputs", {
   expect_error(ala_config(cache_directory = "non/existent/dir"))
   expect_error(ala_config(bad_option = "value"))
   expect_error(ala_config(country = "world"))
+  expect_silent(ala_config(country = "Australia"))
 })

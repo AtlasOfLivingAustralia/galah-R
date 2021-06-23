@@ -49,7 +49,6 @@
 #' }
 #' @export ala_media
 
-# TODO: Check user has provided email and give a useful message if not
 ala_media <- function(taxa, filters, locations, columns, download_dir) {
   verbose <- ala_config()$verbose
   assert_that(is.logical(verbose))
@@ -141,7 +140,7 @@ ala_media <- function(taxa, filters, locations, columns, download_dir) {
 }
 
 media_urls <- function(ids) {
-  url <- parse_url(getOption("galah_server_config")$base_url_images)
+  url <- parse_url(getOption("galah_server_config")$images_base_url)
   unlist(lapply(seq_len(length(ids)), function(x) {
     url$path <- c("image", as.character(ids[x]), "original")
     # may be quicker to use `paste` here?
@@ -206,7 +205,7 @@ download_media <- function(urls, outfiles, verbose) {
 
 media_metadata <- function(ids) {
   res <- ala_POST(
-    url = getOption("galah_server_config")$base_url_images,
+    url = getOption("galah_server_config")$images_base_url,
     path = "/ws/imageInfoForList",
     body = list(imageIds = ids),
     encode = "json"

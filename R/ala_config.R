@@ -12,6 +12,7 @@
 #' @param \dots Options can be defined using the form \code{name = value}.
 #' Valid arguments are:
 #' \itemize{
+#'   \item \code{country} string: Living Atlas to point to, Australia by default
 #'   \item \code{caching} logical: if TRUE, results will be cached, and any cached
 #'     results will be re-used). If FALSE, data will be downloaded.
 #'   \item \code{cache_directory} string: the directory to use for the cache.
@@ -59,6 +60,7 @@ ala_config <- function(..., profile_path = NULL) {
   default_options <- list(
     caching = FALSE,
     cache_directory = tempdir(),
+    country = "Australia",
     download_reason_id = 4,
     email = "",
     send_email = FALSE,
@@ -71,6 +73,7 @@ ala_config <- function(..., profile_path = NULL) {
   if (is.null(current_options)) {
     ## galah options have not been set yet, so set them to the defaults
     current_options <- default_options
+    server_config(current_options$country)
     if (!dir.exists(current_options$cache_directory)) {
       dir.create(current_options$cache_directory)
     }
@@ -88,52 +91,7 @@ ala_config <- function(..., profile_path = NULL) {
     }
     if (!is.null(user_options$country)) {
       # set the server config here
-      server_config <- switch (user_options$country,
-        "Australia" = list(
-          country = "Australia",
-          notify = "If this problem persists please notify the galah
-          maintainers by lodging an issue at
-          https://github.com/AtlasOfLivingAustralia/galah/issues/
-          or emailing support@ala.org.au",
-          support_email = "support@ala.org.au", ## contact email
-          base_url_spatial = "https://spatial.ala.org.au/ws/",
-          base_url_bie = "https://bie-ws.ala.org.au/ws",
-          base_url_name_matching = "https://namematching-ws.ala.org.au/",
-          base_url_biocache = "https://biocache-ws.ala.org.au/ws",
-          base_url_data_quality = "https://data-quality-service.ala.org.au",
-          base_url_doi = "https://https://doi.ala.org.au",
-          base_url_images = "https://images.ala.org.au/",
-          base_url_logger = "https://logger.ala.org.au/"
-        ),
-        "UK" = list(
-          country = "UK",
-          base_url_spatial = "https://layers.nbnatlas.org/ws",
-          base_url_bie = "https://species-ws.nbnatlas.org",
-          base_url_name_matching = "https://species-ws.nbnatlas.org/",
-          base_url_biocache = "https://records-ws.nbnatlas.org",
-          #base_url_data_quality = "https://data-quality-service.ala.org.au",
-          #base_url_doi = "https://https://doi.ala.org.au",
-          base_url_images = "https://images.nbnatlas.org/"
-          #base_url_logger = "https://logger.ala.org.au/"
-        ),
-        "Sweden" = list(
-          country = "Sweden",
-          base_url_spatial = "https://spatial.biodiversitydata.se/ws/",
-          base_url_bie = "https://species.biodiversitydata.se/ws/",
-          base_url_biocache = "https://records.biodiversitydata.se/ws/",
-          #base_url_doi = "https://https://doi.ala.org.au",
-          base_url_images = "https://images.biodiversitydata.se/"
-          #base_url_logger = "https://logger.ala.org.au/"
-        ),
-        "Vermont" = list(
-          country = "Vermont",
-          base_url_biocache = "https://biocache-ws.vtatlasoflife.org/",
-          base_url_bie = "https://bie.vtatlasoflife.org/",
-          base_url_spatial = "https://spatial.vtatlasoflife.org/ws/",
-          base_url_images = "https://images.vtatlasoflife.org/"
-        )
-      )
-      options(galah_server_config = server_config)
+      server_config(user_options$country)
     }
 
     for (x in names(user_options)) {
@@ -268,7 +226,7 @@ validate_option <- function(name, value) {
            "See `find_reasons()` for valid reasons.")
     }
   } else if (name == "country") {
-    if (!value %in% c("Australia", "UK", "Sweden", "Vermont")) {
+    if (!value %in% supported_atlases()) {
       stop("Country must be one of c('Australia', 'UK', 'Sweden', 'Vermont')")
     }
   } else {
@@ -277,12 +235,12 @@ validate_option <- function(name, value) {
 }
 
 #' List valid download reasons
-#' 
-#' When downloading occurrence data with \code{\link{ala_occurrences}} the 
-#' ALA APIs require a reason for download to be specified. By default, a 
+#'
+#' When downloading occurrence data with \code{\link{ala_occurrences}} the
+#' ALA APIs require a reason for download to be specified. By default, a
 #' download reason of 'scientific research' is set for you, but if you wish to
 #' change this you can do so with \code{\link{ala_config}()}. Use this function
-#' to view the list of download reason code and names. When specifying a reason, 
+#' to view the list of download reason code and names. When specifying a reason,
 #' you can use either the download code or name.
 #' @rdname find_reasons
 #' @seealso This function is helpful in setting up \code{\link{ala_config}()}.
@@ -291,7 +249,7 @@ validate_option <- function(name, value) {
 #' @export
 find_reasons <- function() {
     ## return list of valid "reasons for use" codes
-    out <- ala_GET(getOption("galah_server_config")$base_url_logger,
+    out <- ala_GET(getOption("galah_server_config")$logger_base_url,
                            path = "service/logger/reasons")
     if (any(names(out) == "deprecated")) out <- out[!out$deprecated, ]
     out <- out[wanted_columns("reasons")]
@@ -315,3 +273,5 @@ convert_reason <- function(reason) {
   }
   reason
 }
+
+
