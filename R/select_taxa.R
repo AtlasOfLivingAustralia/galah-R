@@ -20,6 +20,9 @@
 #' query?
 #' @param counts \code{logical}: return occurrence counts for all taxa
 #' found? \code{FALSE} by default
+#' @param all_ranks \code{logical}: include all available intermediate ranks for
+#' taxa? e.g. suborder, superfamily. Retrieving this information requires an 
+#' additional web service call so will slow down the query 
 #' @return A \code{data.frame} of taxonomic information.
 #' @seealso \code{\link{select_columns}}, \code{\link{select_filters}} and
 #' \code{\link{select_locations}} for other ways to restrict the information returned
@@ -51,14 +54,15 @@
 #' }
 #' @export select_taxa
 
-select_taxa <- function(query, children = FALSE, counts = FALSE) {
+select_taxa <- function(query, children = FALSE, counts = FALSE,
+                        all_ranks = FALSE) {
   verbose <- ala_config()$verbose
   assert_that(is.flag(children))
 
   if (missing(query)) {
     stop("`select_taxa` requires a query to search for")
   }
-  
+
   query_type <- deduce_query_type(query)
   
   if (verbose) {
@@ -79,26 +83,11 @@ select_taxa <- function(query, children = FALSE, counts = FALSE) {
   }
 
   if (query_type == "name") {
-    ranks <- names(query)
-    # check ranks are valid if query type is name
-    validate_rank(ranks)
-    if (is.list(query) && length(names(query)) > 0 ) {
-      # convert to dataframe for simplicity
-      query <- as.data.frame(query)
-    }
-    if (is.data.frame(query)) {
-      matches <- data.table::rbindlist(apply(query, 1, name_lookup),
-                                       fill = TRUE)
-    } else {
-      matches <- data.table::rbindlist(lapply(query, function(t) {
-        name_lookup(t)
-      }), fill = TRUE)
-    }
+    matches <- name_query(query)
   } else {
-    matches <- data.table::rbindlist(lapply(query, function(t) {
-      identifier_lookup(t)
-    }), fill = TRUE)
+    matches <- id_query(query)
   }
+  
   out_data <- as.data.frame(matches, stringsAsFactors = FALSE)
   if (ncol(out_data) > 1 && children) {
     # look up the child concepts for the identifier
@@ -110,10 +99,18 @@ select_taxa <- function(query, children = FALSE, counts = FALSE) {
     out_data <- data.table::rbindlist(list(out_data, children), fill = TRUE)
   }
   if (ncol(out_data) > 1 && counts) {
+    # add counts to data
     counts <- unlist(lapply(out_data$taxon_concept_id, function(id) {
       record_count(list(fq = paste0("lsid:", id)))
     }))
     out_data <- cbind(out_data, count = counts)
+  }
+  if (ncol(out_data) > 1 && all_ranks) {
+    intermediate_ranks <- data.table::rbindlist(
+      lapply(out_data$taxon_concept_id), function(id) {
+        ranks <- all_ranks
+      }
+    )
   }
   # write out to csv
   if (caching) {
@@ -122,6 +119,39 @@ select_taxa <- function(query, children = FALSE, counts = FALSE) {
   out_data
 }
 
+
+all_ranks <- function(id) {
+  url <- getOption("galah_server_config")$base_url_bie
+  resp <- ala_GET(url, path = paste0("species", id))
+  resp <- fromJSON(url)
+  classification <- data.frame(resp$classification)
+  return(classification)
+}
+
+id_query <- function(query) {
+  matches <- data.table::rbindlist(lapply(query, function(t) {
+    identifier_lookup(t)
+  }), fill = TRUE)
+}
+
+name_query <- function(query) {
+  ranks <- names(query)
+  # check ranks are valid if query type is name
+  validate_rank(ranks)
+  if (is.list(query) && length(names(query)) > 0 ) {
+    # convert to dataframe for simplicity
+    query <- as.data.frame(query)
+  }
+  if (is.data.frame(query)) {
+    matches <- data.table::rbindlist(apply(query, 1, name_lookup),
+                                     fill = TRUE)
+  } else {
+    matches <- data.table::rbindlist(lapply(query, function(t) {
+      name_lookup(t)
+    }), fill = TRUE)
+  }
+  return(matches)
+}
 
 name_lookup <- function(name) {
   url <- getOption("galah_server_config")$base_url_name_matching
