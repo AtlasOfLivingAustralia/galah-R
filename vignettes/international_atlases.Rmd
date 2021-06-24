@@ -44,7 +44,7 @@ ala_counts(taxa = id, filters = select_filters(cl256 = "Cambridgeshire"))
 ```
 
 ## Download occurrence records 
-```{r}
+```{r eval = FALSE}
 # Note: will need to register with the relevant Atlas
 
 # Some issues with downloading records- NBN records take a long time to download- 
@@ -57,7 +57,7 @@ head(occ)
 ```
 
 ## Try another Atlas
-```{r}
+```{r eval = FALSE}
 ala_config(country = "Vermont")
 ala_counts(group_by = "cl10013")
 ```
