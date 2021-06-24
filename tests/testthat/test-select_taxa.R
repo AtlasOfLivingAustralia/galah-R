@@ -89,5 +89,6 @@ test_that("select_taxa returns children for multiple names", {
 
 test_that("select_taxa errors if number of cols in data doesn't match", {
   skip_on_cran()
-  expect_error(select_taxa(c("Animalia", "Fungi"), children = TRUE))
+  expect_equal(unique(select_taxa(c("Animalia", "Fungi"), children = TRUE)$kingdom),
+               c("Animalia", "Fungi"))
 })
