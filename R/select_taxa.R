@@ -60,8 +60,8 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
   assert_that(is.flag(children))
 
   if (getOption("galah_config")$country != "Australia") {
-    stop("`select_taxa` only provides information on Australian taxonomy. To search ",
-         getOption("galah_config")$country, " taxonomy,  use `taxize`.")
+    stop("`select_taxa` only provides information on Australian taxonomy. To search taxonomy for ",
+         getOption("galah_config")$country, " use `taxize`. See vignette('international_atlases') for more information")
   }
 
   if (missing(query)) {
@@ -127,10 +127,11 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
 }
 
 intermediate_ranks <- function(id) {
-  url <- getOption("galah_server_config")$base_url_bie
+  url <- server_config("species_base_url")
   resp <- ala_GET(url, path = paste0("ws/species/", id))
   classification <- data.frame(resp$classification)
-  classification <- classification[names(classification) %in% wanted_columns("extended_taxa")]
+  classification <- classification[names(classification) %in%
+                                     wanted_columns("extended_taxa")]
   return(classification)
 }
 
@@ -160,7 +161,7 @@ name_query <- function(query) {
 }
 
 name_lookup <- function(name) {
-  url <- getOption("galah_server_config")$name_matching_base_url
+  url <- server_config("name_matching_base_url")
   if (is.null(names(name)) || isTRUE(names(name) == "")) {
     # search by scientific name
     path <- "api/search"
@@ -197,7 +198,7 @@ name_lookup <- function(name) {
 }
 
 identifier_lookup <- function(identifier) {
-  taxa_url <- getOption("galah_server_config")$name_matching_base_url
+  taxa_url <- server_config("name_matching_base_url")
   result <- ala_GET(taxa_url, "/api/getByTaxonID", list(taxonID = identifier))
   if (isFALSE(result$success) && result$issues == "noMatch") {
     message("No match found for identifier ", identifier)
@@ -249,7 +250,7 @@ validate_rank <- function(ranks) {
 }
 
 child_concepts <- function(identifier) {
-  url <- getOption("galah_server_config")$species_base_url
+  url <- server_config("species_base_url")
   path <- paste0("ws/childConcepts/",
                  URLencode(as.character(identifier), reserved = TRUE))
   children <- ala_GET(url, path)

@@ -45,7 +45,7 @@
 ala_species <- function(taxa, filters, locations) {
   # Use facet search with additional options
 
-  url <- getOption("galah_server_config")$records_base_url
+  url <- server_config("records_base_url")
 
   query <- list()
 

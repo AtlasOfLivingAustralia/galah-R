@@ -32,7 +32,7 @@
 #'     A registered email is required for some functions in \code{galah}.
 #'   \item \code{send_email} logical: should you receive an email for each query to
 #'     \code{\link{ala_occurrences}()}? Defaults to \code{FALSE}; but can be
-#'     userful in some instances, for example for tracking DOIs assigned to
+#'     useful in some instances, for example for tracking DOIs assigned to
 #'     specific downloads for later citation.
 #'   \item \code{verbose} logical: should \code{galah} give verbose output to assist
 #'   debugging? Defaults to FALSE.
@@ -73,7 +73,6 @@ ala_config <- function(..., profile_path = NULL) {
   if (is.null(current_options)) {
     ## galah options have not been set yet, so set them to the defaults
     current_options <- default_options
-    server_config(current_options$country)
     if (!dir.exists(current_options$cache_directory)) {
       dir.create(current_options$cache_directory)
     }
@@ -88,10 +87,6 @@ ala_config <- function(..., profile_path = NULL) {
     if (!is.null(user_options$download_reason_id)) {
       user_options$download_reason_id <-
         convert_reason(user_options$download_reason_id)
-    }
-    if (!is.null(user_options$country)) {
-      # set the server config here
-      server_config(user_options$country)
     }
 
     for (x in names(user_options)) {
@@ -249,7 +244,7 @@ validate_option <- function(name, value) {
 #' @export
 find_reasons <- function() {
     ## return list of valid "reasons for use" codes
-    out <- ala_GET(getOption("galah_server_config")$logger_base_url,
+    out <- ala_GET(server_config("logger_base_url"),
                            path = "service/logger/reasons")
     if (any(names(out) == "deprecated")) out <- out[!out$deprecated, ]
     out <- out[wanted_columns("reasons")]

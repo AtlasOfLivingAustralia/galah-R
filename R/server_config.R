@@ -1,4 +1,5 @@
-server_config <- function(country) {
+server_config <- function(url) {
+  country <- getOption("galah_config")$country
   conf <- switch (country,
                   "Australia" = aus_config(),
                   "UK" = uk_config(),
@@ -7,9 +8,17 @@ server_config <- function(country) {
                   "Guatemala" = guatemala_config(),
                   "Spain" = spain_config()
   )
-  # Possibly should go one step further and just have this info in a function- 
-  # why bother storing in options?
-  options(galah_server_config = conf)
+  if (!(url %in% names(conf))) {
+    stop("The ", service_name(url), "is not available for the ", country,
+         " atlas.")
+  }
+  return(conf[[url]])
+}
+
+service_name <- function(url) {
+  switch (url,
+          data_quality_base_url = "data quality service"
+  )
 }
 
 aus_config <- function() {
@@ -70,20 +79,14 @@ spain_config <- function() {
   # Uses GBIF taxonomy
   list(
     records_base_url = "https://registros-ws.gbif.es/",
-    species_base_url = "https://especies-ws.gbif.es/"
-    
-  )
-}
-
-base_config <- function() {
-  list(
-    species_base_url = "",
-    records_base_url = "",
-    spatial_base_url = "",
-    images_base_url = ""
+    species_base_url = "https://especies-ws.gbif.es/",
+    images_base_url = "https://imagenes.gbif.es/",
+    spatial_base_url = "https://espacial.gbif.es/",
+    doi_base_url = "https://doi.gbif.es/",
+    logger_base_url = "https://logger.gbif.es/"
   )
 }
 
 supported_atlases <- function() {
-  c("Australia", "UK", "Sweden", "Austria", "Guatemala", "Spain")
+  c("Australia", "Austria", "Guatemala", "Spain", "Sweden", "UK")
 }

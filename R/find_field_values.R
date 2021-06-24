@@ -25,7 +25,7 @@ find_field_values <- function(field, limit = 20) {
          "\" is not a valid field. See valid fields with `search_fields()`.")
   }
   assert_that(is.numeric(limit))
-  url <- getOption("galah_server_config")$records_base_url
+  url <- server_config("records_base_url")
   resp <- ala_GET(url, "ws/occurrence/facets",
                     params = list(facets = field, flimit = limit))
 

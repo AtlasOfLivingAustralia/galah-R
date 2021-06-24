@@ -144,7 +144,7 @@ filter_value <- function(val) {
 # this is only relevant for ala_counts and ala_occurrences
 cached_query <- function(taxa_query, filter_query, area_query,
                          columns = NULL) {
-  url <- getOption("galah_server_config")$records_base_url
+  url <- server_config("records_base_url")
   resp <- ala_POST(url, path = "ws/webportal/params",
                    body = list(wkt = area_query, fq = taxa_query,
                                fields = columns))
@@ -189,5 +189,3 @@ user_agent_string <- function() {
         silent = TRUE)) ## get the galah version, if we can
   paste0("galah ", version_string)
 }
-
-

@@ -78,7 +78,7 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
   ala_group_by <- dwc_to_ala(group_by)
   query$facets <- ala_group_by
 
-  url <- getOption("galah_server_config")$records_base_url
+  url <- server_config("records_base_url")
   path <- "occurrence/facets"
   cache_file <- cache_filename(args = c(url, path, unlist(query), limit,
                                         group_by, type),
@@ -160,7 +160,7 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
 # handle too long queries in here?
 record_count <- function(query) {
   query$pageSize <- 0
-  url <- getOption("galah_server_config")$records_base_url
+  url <- server_config("records_base_url")
   resp <- ala_GET(url, "occurrences/search", query)
   resp$totalRecords
 }
@@ -168,7 +168,7 @@ record_count <- function(query) {
 species_count <- function(query) {
   query$flimit <- 1
   query$facets <- "species_guid"
-  url <- getOption("galah_server_config")$records_base_url
+  url <- server_config("records_base_url")
   total_categories(url, "occurrence/facets", query)
 }
 
@@ -193,6 +193,4 @@ parse_fq <- function(fq) {
     sub('.*?"([^"]+)"', "\\1", z)
   }, USE.NAMES = FALSE, FUN.VALUE = character(1))
 }
-
-
 
