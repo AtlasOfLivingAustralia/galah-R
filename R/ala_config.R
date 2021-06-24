@@ -64,7 +64,7 @@ ala_config <- function(..., profile_path = NULL) {
     download_reason_id = 4,
     email = "",
     send_email = FALSE,
-    verbose = FALSE
+    verbose = TRUE
   )
 
   if (length(user_options) == 0 && !is.null(current_options)) {
