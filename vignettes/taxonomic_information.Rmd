@@ -10,6 +10,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+`galah` provides multiple ways of getting taxonomic information. This vignette
+
 Issues: 
 
 * How to get intermediate information
@@ -51,7 +53,7 @@ select_taxa("Vombatus ursinus", columns = select_columns(group = "taxon_ranks", 
 - Something else?
 
 ## Intermediate ranks for lots of species
-```{r}
+```{r eval = FALSE}
 # ala_species is easier to use for species information if > 1 rank below
 # is required
 mammals <- ala_species(taxa = select_taxa("Mammalia"))
@@ -66,7 +68,7 @@ head(all_mammal_info)
 ```
 
 ## Plot taxnomic info
-```{r}
+```{r eval = FALSE}
 library(collapsibleTree)
 library(dplyr)
 all_mammal_info <- all_mammal_info %>%
@@ -79,7 +81,7 @@ collapsibleTree(all_mammal_info,
 ```
 
 ## Taxize
-```{r}
+```{r eval = FALSE}
 library(taxize)
 # Taxize queries multiple DBs e.g. NBN, Sweden
 # It returns an id with lots of attributes, and lots of options, but can just
