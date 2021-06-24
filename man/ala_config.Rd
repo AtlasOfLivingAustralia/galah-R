@@ -30,7 +30,7 @@ Valid arguments are:
     A registered email is required for some functions in \code{galah}.
   \item \code{send_email} logical: should you receive an email for each query to
     \code{\link{ala_occurrences}()}? Defaults to \code{FALSE}; but can be
-    userful in some instances, for example for tracking DOIs assigned to
+    useful in some instances, for example for tracking DOIs assigned to
     specific downloads for later citation.
   \item \code{verbose} logical: should \code{galah} give verbose output to assist
   debugging? Defaults to FALSE.
