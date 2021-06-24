@@ -106,11 +106,13 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
     out_data <- cbind(out_data, count = counts)
   }
   if (ncol(out_data) > 1 && all_ranks) {
-    intermediate_ranks <- data.table::rbindlist(
-      lapply(out_data$taxon_concept_id), function(id) {
-        ranks <- all_ranks
+    im_ranks <- data.table::rbindlist(
+      lapply(out_data$taxon_concept_id, function(id) {
+        ranks <- intermediate_ranks(id)
       }
-    )
+    ), fill = TRUE)
+    out_data <- cbind(out_data, im_ranks)
+    # Todo: order columns correctly
   }
   # write out to csv
   if (caching) {
@@ -119,12 +121,11 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
   out_data
 }
 
-
-all_ranks <- function(id) {
+intermediate_ranks <- function(id) {
   url <- getOption("galah_server_config")$base_url_bie
-  resp <- ala_GET(url, path = paste0("species", id))
-  resp <- fromJSON(url)
+  resp <- ala_GET(url, path = paste0("ws/species/", id))
   classification <- data.frame(resp$classification)
+  classification <- classification[names(classification) %in% wanted_columns("extended_taxa")]
   return(classification)
 }
 
