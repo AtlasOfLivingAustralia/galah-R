@@ -4,7 +4,8 @@ Title: Atlas of Living Australia (ALA) Data and Resources in R
 Version: 1.1.0
 Authors@R: c(person("Matilda", "Stevenson", email="matilda.stevenson@csiro.au",role=c("aut","cre")),
              person("Martin", "Westgate", email="martin.westgate@csiro.au", role="aut"),
-             person("Peggy", "Newman", email="peggy.newman@csiro.au", role="aut"))
+             person("Peggy", "Newman", email="peggy.newman@csiro.au", role="aut"),
+             person("Dax", "Kellie", email="dax.kellie@csiro.au", role = "ctb"))
 Description: The Atlas of Living Australia ('ALA') provides tools to enable users
     of biodiversity information to find, access, combine and visualise data on
     Australian plants and animals; these have been made available from
