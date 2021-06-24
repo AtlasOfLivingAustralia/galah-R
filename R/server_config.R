@@ -4,7 +4,8 @@ server_config <- function(country) {
                   "UK" = uk_config(),
                   "Sweden" = sweden_config(),
                   "Austria" = austria_config(),
-                  "Guatemala" = guatemala_config()
+                  "Guatemala" = guatemala_config(),
+                  "Spain" = spain_config()
   )
   # Possibly should go one step further and just have this info in a function- 
   # why bother storing in options?
@@ -13,7 +14,6 @@ server_config <- function(country) {
 
 aus_config <- function() {
   list(
-    country = "Australia",
     support_email = "support@ala.org.au", ## contact email
     spatial_base_url = "https://spatial.ala.org.au/ws/",
     species_base_url = "https://bie-ws.ala.org.au/ws",
@@ -29,7 +29,6 @@ aus_config <- function() {
 sweden_config <- function() {
   list(
     # Uses GBIF taxonomy
-    country = "Sweden",
     spatial_base_url = "https://spatial.biodiversitydata.se/ws/",
     species_base_url = "https://species.biodiversitydata.se/ws/",
     records_base_url = "https://records.biodiversitydata.se/ws/",
@@ -40,7 +39,6 @@ sweden_config <- function() {
 uk_config <- function() {
   list(
     # Uses NBN taxonomy
-    country = "UK",
     spatial_base_url = "https://layers.nbnatlas.org/ws",
     species_base_url = "https://species-ws.nbnatlas.org",
     records_base_url = "https://records-ws.nbnatlas.org",
@@ -68,6 +66,15 @@ guatemala_config <- function() {
   )
 }
 
+spain_config <- function() {
+  # Uses GBIF taxonomy
+  list(
+    records_base_url = "https://registros-ws.gbif.es/",
+    species_base_url = "https://especies-ws.gbif.es/"
+    
+  )
+}
+
 base_config <- function() {
   list(
     species_base_url = "",
@@ -78,5 +85,5 @@ base_config <- function() {
 }
 
 supported_atlases <- function() {
-  c("Australia", "UK", "Sweden", "Austria", "Guatemala")
+  c("Australia", "UK", "Sweden", "Austria", "Guatemala", "Spain")
 }

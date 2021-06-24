@@ -77,7 +77,7 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   
   query <- build_query(taxa, filters, locations, columns)
   
-  if (getOption("galah_server_config")$country == "Australia") {
+  if (getOption("galah_config")$country == "Australia") {
     if (!is.null(profile)) {
       query$qualityProfile <- profile
     } else {
@@ -117,7 +117,7 @@ ala_occurrences <- function(taxa, filters, locations, columns,
     query$mintDoi <- "true"
   }
   
-  if (getOption("galah_server_config")$country == "Australia") {
+  if (getOption("galah_config")$country == "Australia") {
     query$emailNotify <- email_notify()
     query$sourceId <- 2004
     query$reasonTypeId <- download_reason()
