@@ -33,7 +33,7 @@
 #' select_taxa("Reptilia")
 #' # or equivalently:
 #' select_taxa("reptilia") # not case sensitive
-#' 
+#'
 #' # Search with multiple ranks. This is required if a single term is a homonym.
 #' select_taxa(
 #'   list(kingdom = "Plantae", genus = "Microseris"),
@@ -59,18 +59,23 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
   verbose <- ala_config()$verbose
   assert_that(is.flag(children))
 
+  if (getOption("galah_server_config")$country != "Australia") {
+    stop("`select_taxa` only provides information on Australian taxonomy. To search ",
+         getOption("galah_server_config")$country, " taxonomy,  use `taxize`.")
+  }
+
   if (missing(query)) {
     stop("`select_taxa` requires a query to search for")
   }
 
   query_type <- deduce_query_type(query)
-  
+
   if (verbose) {
     print_qt <- ifelse(query_type == "id", "identifiers",
                        "scientific or common names")
     message("Assuming that query term(s) provided are ", print_qt)
   }
-  
+
   # caching won't catch if query order is changed
   cache_file <- cache_filename(c(unlist(query),
                                ifelse(children, "children", ""),
@@ -155,7 +160,7 @@ name_query <- function(query) {
 }
 
 name_lookup <- function(name) {
-  url <- getOption("galah_server_config")$base_url_name_matching
+  url <- getOption("galah_server_config")$name_matching_base_url
   if (is.null(names(name)) || isTRUE(names(name) == "")) {
     # search by scientific name
     path <- "api/search"
@@ -171,6 +176,7 @@ name_lookup <- function(name) {
     query <- as.list(name)
   }
   result <- ala_GET(url, path, query)
+
   if ("homonym" %in% result$issues) {
     warning("Homonym issue with ", name,
          ". Please also provide another rank to clarify.")
@@ -191,7 +197,7 @@ name_lookup <- function(name) {
 }
 
 identifier_lookup <- function(identifier) {
-  taxa_url <- getOption("galah_server_config")$base_url_name_matching
+  taxa_url <- getOption("galah_server_config")$name_matching_base_url
   result <- ala_GET(taxa_url, "/api/getByTaxonID", list(taxonID = identifier))
   if (isFALSE(result$success) && result$issues == "noMatch") {
     message("No match found for identifier ", identifier)
@@ -208,7 +214,7 @@ deduce_query_type <- function(query) {
   if (
     # APNI
     any(str_detect(query, "https://id.biodiversity.org.au")) ||
-    # AFD 
+    # AFD
     any(str_detect(query, "afd.taxon:")) ||
     # NZOE
     any(str_detect(query, "NZOR")) ||
@@ -243,7 +249,7 @@ validate_rank <- function(ranks) {
 }
 
 child_concepts <- function(identifier) {
-  url <- getOption("galah_server_config")$base_url_bie
+  url <- getOption("galah_server_config")$species_base_url
   path <- paste0("ws/childConcepts/",
                  URLencode(as.character(identifier), reserved = TRUE))
   children <- ala_GET(url, path)

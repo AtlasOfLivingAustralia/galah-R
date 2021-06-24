@@ -24,7 +24,7 @@
 # should id be exposed to the user?
 find_profiles <- function() {
   # return only enabled profiles?
-  url <- getOption("galah_server_config")$base_url_data_quality
+  url <- getOption("galah_server_config")$data_quality_base_url
   resp <- ala_GET(url, "api/v1/profiles", list(enabled = "true"))
   return(resp[wanted_columns(type = "profile")])
 }
@@ -56,7 +56,7 @@ find_profile_attributes <- function(profile) {
           `find_profiles` to list valid profiles.")
   }
 
-  url <- getOption("galah_server_config")$base_url_data_quality
+  url <- getOption("galah_server_config")$data_quality_base_url
   resp <- ala_GET(url, "api/v1/quality/activeProfile",
                   list(profileName = short_name))
   filters <- data.table::rbindlist(resp$categories$qualityFilters)

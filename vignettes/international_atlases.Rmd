@@ -1,0 +1,64 @@
+---
+title: "International Atlases"
+author: "Matilda Stevenson"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{International Atlases}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The Living Atlas infrastructure used by the ALA has been replicated by 27? 
+countries worldwide. Although there are differences in the versions of core components used by the Atlases, the design of `galah` is flexible enough to 
+work around these differences. 
+
+How should we encourage other Atlases to use `galah`?
+
+* Fork the repo and spin off their own package
+* Add a `country` option to `ala_config` or similar
+* A combination of the above
+
+## Set Atlas country
+Use `ala_config()` to set the Atlas country. By default, the country is Australia.  
+```{r}
+library(galah)
+ala_config(country = "UK", email = "matilda.stevenson@csiro.au")
+```
+
+## Get data for another country
+```{r}
+ala_counts()
+```
+
+## Use taxonomic filters for another country
+```{r,error=TRUE}
+# Try using `select_taxa`
+select_taxa("Vulpes")
+
+# Use `taxize`
+library(taxize)
+id <- get_nbnid("Vulpes vulpes", rows = 1)
+ala_counts(taxa = id, filters = select_filters(cl256 = "Cambridgeshire"))
+```
+
+## Download occurrence records 
+```{r eval = FALSE}
+# Note: will need to register with the relevant Atlas
+
+# Some issues with downloading records- NBN records take a long time to download- 
+# sourceId, dq profiles, email_notify are not in NBN Atlas
+# Swedish Atlas uses GBIF ids
+id <- get_gbifid("Erinceus europeus")
+ala_config(country = "Sweden")
+occ <- ala_occurrences(taxa = id)
+head(occ)
+```
+
+## Try another Atlas
+```{r eval = FALSE}
+ala_config(country = "Vermont")
+ala_counts(group_by = "cl10013")
+```
+}
