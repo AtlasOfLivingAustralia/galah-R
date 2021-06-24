@@ -10,21 +10,24 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-The Living Atlas infrastructure used by the ALA has been replicated by 27? 
-countries worldwide. Although there are differences in the versions of core components used by the Atlases, the design of `galah` is flexible enough to 
-work around these differences. 
-
-How should we encourage other Atlases to use `galah`?
-
-* Fork the repo and spin off their own package
-* Add a `country` option to `ala_config` or similar
-* A combination of the above
+The software developed by the ALA is now used by 27 International Living Atlases. 
+Although there are differences in the versions of core components used by the
+Atlases, and variations in the web services available, `galah` is flexible enough to 
+handle most of these differences. Below we explain how to change the Living
+Atlas the package points to, and how to put in a pull request if you would like
+to see another Living Atlas supported in `galah`.
 
 ## Set Atlas country
-Use `ala_config()` to set the Atlas country. By default, the country is Australia.  
+Use `ala_config()` to set the Atlas country. This will automatically populate the 
+server configuration for your selected Atlas. By default, the country is Australia.
+If you intend to download records you will need to register with the relevant
+Atlas. 
 ```{r}
 library(galah)
-ala_config(country = "UK", email = "matilda.stevenson@csiro.au")
+```
+
+```{r eval=FALSE}
+ala_config(country = "UK", email = "your_email_here")
 ```
 
 ## Get data for another country
@@ -32,33 +35,22 @@ ala_config(country = "UK", email = "matilda.stevenson@csiro.au")
 ala_counts()
 ```
 
-## Use taxonomic filters for another country
+## Using taxonomic filters for another country
+`galah` only supports searching for Australian taxonomy; for other Atlases,
+`taxize` should be used to search for the taxonomic id, and this id can be passed
+to the `taxa` argument of `ala_` functions. For example:
 ```{r,error=TRUE}
-# Try using `select_taxa`
-select_taxa("Vulpes")
-
-# Use `taxize`
 library(taxize)
+# Use UK taxonomy
 id <- get_nbnid("Vulpes vulpes", rows = 1)
-ala_counts(taxa = id, filters = select_filters(cl256 = "Cambridgeshire"))
+ala_counts(taxa = id)
+
+# Use GBIF taxonomy
+id <- get_gbifid("Vulpes vulpes", rows = 1)
+ala_counts(taxa = id)
 ```
 
-## Download occurrence records 
-```{r eval = FALSE}
-# Note: will need to register with the relevant Atlas
-
-# Some issues with downloading records- NBN records take a long time to download- 
-# sourceId, dq profiles, email_notify are not in NBN Atlas
-# Swedish Atlas uses GBIF ids
-id <- get_gbifid("Erinceus europeus")
-ala_config(country = "Sweden")
-occ <- ala_occurrences(taxa = id)
-head(occ)
-```
-
-## Try another Atlas
-```{r eval = FALSE}
-ala_config(country = "Vermont")
-ala_counts(group_by = "cl10013")
-```
-}
+## Supporting another Atlas
+`galah` currently supports a subset of the existing Living Atlases. If you would
+like to see another Living Atlas supported, add the server configuration for the 
+Atlas in the `R/server.R` file, and put in a pull request.
