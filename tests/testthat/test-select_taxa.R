@@ -1,6 +1,5 @@
 context('Taxa search')
 
-
 test_that("select_taxa checks inputs", {
   skip_on_cran()
   expect_error(select_taxa())
@@ -91,4 +90,8 @@ test_that("select_taxa errors if number of cols in data doesn't match", {
   skip_on_cran()
   expect_equal(unique(select_taxa(c("Animalia", "Fungi"), children = TRUE)$kingdom),
                c("Animalia", "Fungi"))
+})
+
+test_that("select_taxa returns extended taxonomy", {
+  expect_true("subfamily" %in% names(select_taxa("Anas", all_ranks = TRUE)))
 })
