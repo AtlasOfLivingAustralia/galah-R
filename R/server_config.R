@@ -15,6 +15,15 @@ server_config <- function(url) {
   return(conf[[url]])
 }
 
+image_fields <- function() {
+  country <- getOption("galah_config")$country
+  switch (country,
+          "Austria" = c("all_image_url"),
+          c("images", "videos", "sounds")
+    
+  )
+}
+
 service_name <- function(url) {
   switch (url,
           data_quality_base_url = "data quality service"
@@ -61,6 +70,7 @@ austria_config <- function() {
     species_base_url = "https://bie-ws.biodiversityatlas.at/",
     records_base_url = "https://biocache-ws.biodiversityatlas.at/",
     spatial_base_url = "https://spatial.biodiversityatlas.at/ws",
+    # Occurrence download only returns the first image
     images_base_url = "https://images.biodiversityatlas.at/"
   )
 }
@@ -69,7 +79,7 @@ guatemala_config <- function() {
   # Uses GBIF taxonomy
   list(
     images_base_url = "https://imagenes.snib.conap.gob.gt/",
-    spatial_base_url = "https://geoespacial.snib.conap.gob.gt/",
+    spatial_base_url = "https://geoespacial.snib.conap.gob.gt/ws",
     records_base_url = "https://snib.conap.gob.gt/registros-ws/"
     # No species pages available
   )
@@ -81,7 +91,7 @@ spain_config <- function() {
     records_base_url = "https://registros-ws.gbif.es/",
     species_base_url = "https://especies-ws.gbif.es/",
     images_base_url = "https://imagenes.gbif.es/",
-    spatial_base_url = "https://espacial.gbif.es/",
+    spatial_base_url = "https://espacial.gbif.es/ws",
     doi_base_url = "https://doi.gbif.es/",
     logger_base_url = "https://logger.gbif.es/"
   )

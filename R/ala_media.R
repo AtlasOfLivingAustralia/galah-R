@@ -82,7 +82,7 @@ ala_media <- function(taxa, filters, locations, columns, download_dir) {
   
   # Make sure media ids are included in results
   occ_columns <- rbind(columns,
-                       select_columns("images", "sounds","videos")
+                       select_columns(image_fields())
                        )
   if (verbose) {
     message("Downloading records with media...")
@@ -93,7 +93,7 @@ ala_media <- function(taxa, filters, locations, columns, download_dir) {
   occ_long <- data.frame(data.table::rbindlist(
     lapply(seq_len(nrow(occ)), function(x) {
       # get all the image, video and sound columns into one row
-      splt_media <- unlist(str_split(occ[x,][c("images", "videos", "sounds")],
+      splt_media <- unlist(str_split(occ[x,][image_fields()],
                                      pattern = "\""))
       media <- splt_media[nchar(splt_media) > 1 & splt_media != "NA"]
       
@@ -108,7 +108,7 @@ ala_media <- function(taxa, filters, locations, columns, download_dir) {
     fill = TRUE
   ))
 
-  occ_long[, c("images", "sounds", "videos")] <- NULL
+  occ_long[, image_fields()] <- NULL
   
   ids <- occ_long$media_id[!is.na(occ_long$media_id)]
   
