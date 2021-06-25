@@ -15,7 +15,7 @@ ala_citation <- function(data) {
     search_url <- attributes(data)$search_url
     if (is.na(search_url)) {
       stop("This dataset does not have a DOI or associated search url.
-      Please download again and then use `ala_citation.")
+      Please download again and then use `ala_citation`.")
     }
     return(paste0("ALA occurrence download accessed from R with galah",
            " (https://github.com/AtlasOfLivingAustralia/galah/) on ",
