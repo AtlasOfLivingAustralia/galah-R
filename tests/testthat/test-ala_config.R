@@ -5,7 +5,7 @@ test_that("ala config sets default options", {
   # set to null
   options(galah_config = NULL)
   # check that defaults are used
-  expect_equal(ala_config()$verbose, FALSE)
+  expect_equal(ala_config()$verbose, TRUE)
 })
 
 test_that("ala config checks inputs", {
