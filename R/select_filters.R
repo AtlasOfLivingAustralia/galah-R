@@ -47,7 +47,7 @@ select_filters <- function(..., profile = NULL) {
   filters <- list(...)
   if (!is.null(profile)) {
     short_name <- profile_short_name(profile)
-    if (is.na(short_name)) {
+    if (is.null(short_name)) {
       stop(profile, " is not a valid data quality id, short name or name. Use
           `find_profiles` to list valid profiles.")
     }
