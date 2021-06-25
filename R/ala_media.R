@@ -49,30 +49,19 @@
 #' }
 #' @export ala_media
 
-ala_media <- function(taxa, filters, locations, columns, download_dir) {
+ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
+                      columns = select_columns(group = "basic"), download_dir) {
   
   image_url <- server_config("images_base_url")
   
   verbose <- ala_config()$verbose
-  assert_that(is.logical(verbose))
   assert_that(!missing(download_dir),
   msg = "A path to an existing directory to download images to is required")
   assert_that(file.exists(download_dir))
   download_dir <- normalizePath(download_dir)
-
-  if (missing(taxa)) { taxa <- NULL }
-  if (missing(filters)) { filters <- NULL }
-  if (missing(locations)) { locations <- NULL }
   
   if (is.null(taxa) & is.null(filters) & is.null(locations)) {
     warning("No filters have been provided. All images and sounds will be downloaded.")
-  }
-  
-  if(missing(columns)) {
-    if (verbose) {
-      message("No columns specified, default columns will be returned.")
-    }
-    columns <- select_columns(group = "basic")
   }
   
   # Check whether any of the filters are media-specific filters and
@@ -87,9 +76,7 @@ ala_media <- function(taxa, filters, locations, columns, download_dir) {
   occ_columns <- rbind(columns,
                        select_columns(image_fields())
                        )
-  if (verbose) {
-    message("Downloading records with media...")
-  }
+  if (verbose) { message("Downloading records with media...") }
   
   occ <- ala_occurrences(taxa, occ_filters, locations, occ_columns)
 
