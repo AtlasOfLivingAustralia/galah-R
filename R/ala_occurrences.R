@@ -106,6 +106,7 @@ ala_occurrences <- function(taxa, filters, locations, columns,
       # look for file using query parameters
       data <- read.csv(unz(cache_file, "data.csv"), stringsAsFactors = FALSE)
       #TODO: Add DOI here
+      attr(data, "doi") <- get_doi(mint_doi, cache_file)
       return(data)
     }
   } else {
@@ -164,8 +165,9 @@ get_doi <- function(mint_doi, data_path) {
       doi <- as.character(
         read.table(unz(data_path, "doi.txt"))$V1),
       warning = function(e) {
-        e$message <- "No DOI was generated for download. The DOI server may
-                        be down. Please try again later"
+        e$message <- "No DOI was generated for this download. The DOI server may
+        be down or, if this is a cached result, may not have been generated for
+        the original download."
       })
   }
   return(doi)
