@@ -53,7 +53,7 @@ select_columns <- function(..., group) {
     }
 
   assertions <- search_fields(type = "assertions")$id
-  cols <- list(...)
+  cols <- c(...)
   if (length(cols) > 0) {
     validate_cols(cols)
     extra_cols <- data.table::rbindlist(lapply(cols, function(x) {

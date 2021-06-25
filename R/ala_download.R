@@ -15,6 +15,11 @@ ala_download <- function(url, path, params = list(), ext = ".csv",
     stop(dirname(cache_file),
          " does not exist. Please create it and try again.")
   }
+
+  # ws needs to be added for 
+  if (!is.na(url_parse(url)$path) & !grepl("ws", path)) {
+    path <- paste0(url_parse(url)$path,"/", path)
+  }
   
   # workaround for fq troubles
   if (length(params$fq) > 1) {

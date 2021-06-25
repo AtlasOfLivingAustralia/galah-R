@@ -8,8 +8,11 @@ server_config <- function(url) {
                   "Guatemala" = guatemala_config(),
                   "Spain" = spain_config()
   )
+  if (url == "records_download_base_url" & !url %in% names(conf)) {
+    url <- "records_base_url"
+  }
   if (!(url %in% names(conf))) {
-    stop("The ", service_name(url), "is not available for the ", country,
+    stop(service_name(url), " is not supported for the ", country,
          " atlas.")
   }
   return(conf[[url]])
@@ -18,7 +21,9 @@ server_config <- function(url) {
 image_fields <- function() {
   country <- getOption("galah_config")$country
   switch (country,
-          "Austria" = c("all_image_url"),
+          "Austria" = "all_image_url",
+          "Guatemala" = "all_image_url",
+          "Spain" = "all_image_url",
           c("images", "videos", "sounds")
     
   )
@@ -26,7 +31,9 @@ image_fields <- function() {
 
 service_name <- function(url) {
   switch (url,
-          data_quality_base_url = "data quality service"
+          data_quality_base_url = "Data quality filtering",
+          images_base_url = "Image downloading",
+          species_base_url = "Species information"
   )
 }
 
@@ -37,6 +44,8 @@ aus_config <- function() {
     species_base_url = "https://bie-ws.ala.org.au/ws",
     name_matching_base_url = "https://namematching-ws.ala.org.au/",
     records_base_url = "https://biocache-ws.ala.org.au/ws",
+    # this is only different in aus
+    records_download_base_url = "https://biocache-ws.ala.org.au/",
     data_quality_base_url = "https://data-quality-service.ala.org.au",
     doi_base_url = "https://https://doi.ala.org.au",
     images_base_url = "https://images.ala.org.au/",
@@ -49,8 +58,7 @@ sweden_config <- function() {
     # Uses GBIF taxonomy
     spatial_base_url = "https://spatial.biodiversitydata.se/ws/",
     species_base_url = "https://species.biodiversitydata.se/ws/",
-    records_base_url = "https://records.biodiversitydata.se/ws/",
-    images_base_url = "https://images.biodiversitydata.se/"
+    records_base_url = "https://records.biodiversitydata.se/ws/"
   )
 }
 

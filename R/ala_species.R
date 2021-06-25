@@ -66,15 +66,17 @@ ala_species <- function(taxa, filters, locations) {
   if (missing(locations)) { locations <- NULL }
   
   query <- build_query(taxa, filters, locations)
-  if (!is.null(profile)) {
-    query$qualityProfile <- profile
-  } else {
-    query$disableAllQualityFilters <- "true"
-  }
+  if (getOption("galah_config")$country == "Australia") {
+    if (!is.null(profile)) {
+      query$qualityProfile <- profile
+    } else {
+      query$disableAllQualityFilters <- "true"
+    }
+  } 
   query$facets <- "species_guid"
   query$lookup  <- "true"
   
-  path <- "ws/occurrences/facets/download"
+  path <- "occurrences/facets/download"
 
   cache_file <- cache_filename(c(url, path, unlist(query)), ext = ".csv")
 

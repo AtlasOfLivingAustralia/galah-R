@@ -129,7 +129,7 @@ ala_occurrences <- function(taxa, filters, locations, columns,
   query <- c(query, email = user_email(), dwcHeaders = "true")
   download_resp <- wait_for_download(url, query, config_verbose)
   download_path <- download_resp$download_path
-  data_path <- ala_download(url = url,
+  data_path <- ala_download(url = server_config("records_download_base_url"),
                        path = download_path,
                        cache_file = cache_file, ext = ".zip")
 
