@@ -219,6 +219,9 @@ media_metadata <- function(ids) {
 }
 
 filter_metadata <- function(metadata, filters) {
+  if (is.null(filters)) {
+    return(metadata)
+  }
   for (i in seq_len(nrow(filters))) {
     val <- filters[i,]$value[[1]]
     filter_name <- filters[i,]$name
