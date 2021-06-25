@@ -43,7 +43,9 @@
 # function is likely to be used to download long species lists, for now we will make do
 # without the counts- otherwise will require lots of pagination.
 ala_species <- function(taxa, filters, locations) {
-  # Use facet search with additional options
+  
+  # check whether species download is possible
+  species_url <- server_config("species_base_url")
 
   url <- server_config("records_base_url")
 

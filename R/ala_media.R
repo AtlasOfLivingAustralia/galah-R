@@ -50,6 +50,9 @@
 #' @export ala_media
 
 ala_media <- function(taxa, filters, locations, columns, download_dir) {
+  
+  image_url <- server_config("images_base_url")
+  
   verbose <- ala_config()$verbose
   assert_that(is.logical(verbose))
   assert_that(!missing(download_dir),
