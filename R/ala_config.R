@@ -222,7 +222,8 @@ validate_option <- function(name, value) {
     }
   } else if (name == "country") {
     if (!value %in% supported_atlases()) {
-      stop("Country must be one of c('Australia', 'UK', 'Sweden', 'Vermont')")
+      stop("Country must be one of ",
+           paste(supported_atlases(), collapse = ", "))
     }
   } else {
     stop("\"", name, "\"", "is not a valid option name.")
