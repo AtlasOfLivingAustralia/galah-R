@@ -17,3 +17,8 @@ test_that("find_field_values returns expected value", {
   skip_on_cran()
   expect_gt(nrow(find_field_values("basisOfRecord")), 7)
 })
+
+test_that("find_field_values returns a warning for lots of fields", {
+  skip_on_cran()
+  expect_warning(find_field_values("year"))
+})

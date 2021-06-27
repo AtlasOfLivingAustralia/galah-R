@@ -65,9 +65,18 @@ test_that("ala_counts works with combinations of filters", {
   expect_gt(ala_counts(filters = filters), 0)
 })
 
-test_that("ala_counts handles long queries with pagination", {
+test_that("ala_counts handles pagination", {
   skip_on_cran()
   expect_equal(nrow(ala_counts(group_by = "year", limit = 101)), 101)
+})
+
+test_that("ala_counts handles multi-filter queries with pagination", {
+  skip_on_cran()
+  expect_equal(
+    nrow(ala_counts(taxa = select_taxa("Anas anas"),
+                    filters = select_filters(basisOfRecord = "HumanObservation"),
+                    group_by = "year", limit = 101)),
+    101)
 })
 
 test_that("ala_counts works with assertions", {
@@ -76,3 +85,4 @@ test_that("ala_counts works with assertions", {
                ala_counts(filters = select_filters(CONTINENT_INVALID = FALSE)) +
                  ala_counts(filters = select_filters(CONTINENT_INVALID = TRUE)))
 })
+
