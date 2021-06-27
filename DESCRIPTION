@@ -12,6 +12,8 @@ Description: The Atlas of Living Australia ('ALA') provides tools to enable user
     <https://ala.org.au/>. 'galah' provides a subset of the tools to be
     directly used within R. It enables the R community to directly access data
     and resources hosted by the 'ALA'.
+Depends:
+    R (>= 4.0.0)
 Imports:
     assertthat,
     crul,
