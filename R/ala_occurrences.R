@@ -54,21 +54,8 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
     return(doi_download(doi))
   }
   
-  profile <- NULL
-  if (!is.null(filters)){
-    profile_row <- filters[filters$name == "profile",]
-    if (nrow(profile_row) == 1) { profile <- profile_row$value[[1]] }
-  }
-  
-  query <- build_query(taxa, filters, locations, columns)
-  
-  if (getOption("galah_config")$country == "Australia") {
-    if (!is.null(profile)) {
-      query$qualityProfile <- profile
-    } else {
-      query$disableAllQualityFilters <- "true"
-    }
-  } 
+  profile <- extract_profile(filters)
+  query <- build_query(taxa, filters, locations, columns, profile)
   
   # handle caching
   caching <- getOption("galah_config")$caching

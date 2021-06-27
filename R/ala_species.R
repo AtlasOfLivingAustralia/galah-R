@@ -54,13 +54,9 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL) {
     warning("This query will return a list of all species in the ALA")
   }
 
-  profile <- NULL
-  if (!is.null(filters)){
-    profile_row <- filters[filters$name == "profile",]
-    if (nrow(profile_row) == 1) { profile <- profile_row$value[[1]] }
-  }
-
-  query <- build_query(taxa, filters, locations)
+  profile <- extract_profile(filters)
+  query <- build_query(taxa, filters, locations, profile = profile)
+  
   if (getOption("galah_config")$country == "Australia") {
     if (!is.null(profile)) {
       query$qualityProfile <- profile

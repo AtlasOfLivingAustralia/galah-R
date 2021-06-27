@@ -60,8 +60,8 @@ build_taxa_query <- function(ids, include) {
   value_str
 }
 
-build_query <- function(taxa, filters, locations, columns = NULL) {
-  
+build_query <- function(taxa, filters, locations, columns = NULL,
+                        profile = NULL) {
   query <- list()
   if (is.null(taxa)) {
     taxa_query <- NULL
@@ -99,6 +99,13 @@ build_query <- function(taxa, filters, locations, columns = NULL) {
   }
   if (check_for_caching(taxa_query, filter_query, area_query, columns)) {
     query <- cached_query(taxa_query, filter_query, area_query)
+  }
+  if (getOption("galah_config")$country == "Australia") {
+    if (!is.null(profile)) {
+      query$qualityProfile <- profile
+    } else {
+      query$disableAllQualityFilters <- "true"
+    }
   }
   query
 }
@@ -149,6 +156,19 @@ cached_query <- function(taxa_query, filter_query, area_query,
                    body = list(wkt = area_query, fq = taxa_query,
                                fields = columns))
   list(fq = filter_query, q = paste0("qid:", resp))
+}
+
+add_quality_filters <- function(query) {
+  
+}
+
+extract_profile <- function(filters) {
+  profile <- NULL
+  if (!is.null(filters)){
+    profile_row <- filters[filters$name == "profile",]
+    if (nrow(profile_row) == 1) { profile <- profile_row$value[[1]] }
+  }
+  profile
 }
 
 # Check whether caching of some url parameters is required.

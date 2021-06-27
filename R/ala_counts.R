@@ -49,19 +49,8 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL, group_by,
   page_size <- 100
   verbose <- ala_config()$verbose
   
-  
-  profile <- NULL
-  if (!is.null(filters)) {
-    profile_row <- filters[filters$name == "profile",]
-    if (nrow(profile_row) == 1) { profile <- profile_row$value[[1]] }
-  }
-  
-  query <- build_query(taxa, filters, locations)
-  if (!is.null(profile)) {
-    query$qualityProfile <- profile
-  } else {
-    query$disableAllQualityFilters <- "true"
-  }
+  profile <- extract_profile(filters)
+  query <- build_query(taxa, filters, locations, profile = profile)
 
   if (missing(group_by)) {
     if (type == "species") {
