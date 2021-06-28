@@ -57,13 +57,6 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL) {
   profile <- extract_profile(filters)
   query <- build_query(taxa, filters, locations, profile = profile)
   
-  if (getOption("galah_config")$country == "Australia") {
-    if (!is.null(profile)) {
-      query$qualityProfile <- profile
-    } else {
-      query$disableAllQualityFilters <- "true"
-    }
-  } 
   query$facets <- "species_guid"
   query$lookup  <- "true"
   
