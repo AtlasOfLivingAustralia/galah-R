@@ -3,8 +3,18 @@ context('Taxa search')
 test_that("select_taxa checks inputs", {
   skip_on_cran()
   expect_error(select_taxa())
+  # unrecognised name
   expect_message(select_taxa('bad_term'))
+  # unrecognised id
+  expect_message(select_taxa("1234"))
   expect_error(select_taxa("Varanus varius", children = 'false'))
+})
+
+test_that("select_taxa check country", {
+  skip_on_cran()
+  ala_config(country = "Austria")
+  expect_error(select_taxa("Vulpes vulpes"))
+  ala_config(country = "Australia")
 })
 
 test_that("child_concepts behaves correctly", {
