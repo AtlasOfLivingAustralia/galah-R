@@ -93,5 +93,5 @@ test_that("ala_counts caches as expected", {
   counts <- ala_counts(group_by = "year", limit = 100)
   expect_message(counts2 <- ala_counts(group_by = "year", limit = 100),
                  "Using cached file")
-  expect_equivalent(counts, counts2)
+  expect_equal(nrow(counts), nrow(counts2))
 })
