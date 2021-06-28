@@ -100,3 +100,24 @@ test_that("ala_occurrences handles sf polygon inputs", {
                                                   "stateProvince"))$stateProvince),
                "Australian Capital Territory")
 })
+
+test_that("ala_occurrences caches data as expected", {
+  ala_config(caching = TRUE, verbose = TRUE)
+  taxa <- select_taxa("Wurmbea dioica")
+  filters <- select_filters(year = 2000)
+  columns <- select_columns(group = "basic", "basisOfRecord")
+
+  # Download data
+  occ <- ala_occurrences(taxa = taxa, filters = filters, columns = columns)
+  # Re-download data
+  expect_message(
+    ala_occurrences(taxa = taxa, filters = filters, columns = columns),
+    "Using cached file")
+})
+
+test_that("ala_occurrences downloads data from a DOI", {
+  # Only works for ALA DOIs
+  expect_error(ala_occurrences(doi = "random_doi"))
+  doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
+  expect_equal(nrow(ala_occurrences(doi = doi)), 9)
+})

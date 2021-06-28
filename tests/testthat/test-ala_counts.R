@@ -86,3 +86,12 @@ test_that("ala_counts works with assertions", {
                  ala_counts(filters = select_filters(CONTINENT_INVALID = TRUE)))
 })
 
+test_that("ala_counts caches as expected", {
+  skip_on_cran()
+  ala_config(caching = TRUE)
+  filters <- select_filters(basisOfRecord = "FossilSpecimen")
+  counts <- ala_counts(group_by = "year", limit = 100)
+  expect_message(counts2 <- ala_counts(group_by = "year", limit = 100),
+                 "Using cached file")
+  expect_equal(counts, counts2)
+})
