@@ -113,11 +113,12 @@ test_that("ala_occurrences caches data as expected", {
   expect_message(
     ala_occurrences(taxa = taxa, filters = filters, columns = columns),
     "Using cached file")
+  ala_config(caching = FALSE)
 })
 
 test_that("ala_occurrences downloads data from a DOI", {
   # Only works for ALA DOIs
   expect_error(ala_occurrences(doi = "random_doi"))
   doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
-  expect_equal(nrow(ala_occurrences(doi = doi)), 9)
+  expect_gt(nrow(ala_occurrences(doi = doi)), 0)
 })

@@ -47,7 +47,7 @@ aus_config <- function() {
     # this is only different in aus
     records_download_base_url = "https://biocache-ws.ala.org.au/",
     data_quality_base_url = "https://data-quality-service.ala.org.au",
-    doi_base_url = "https://https://doi.ala.org.au",
+    doi_base_url = "https://doi.ala.org.au",
     images_base_url = "https://images.ala.org.au/",
     logger_base_url = "https://logger.ala.org.au/"
   )
