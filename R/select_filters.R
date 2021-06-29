@@ -92,9 +92,6 @@ validate_filters <- function(filters) {
   }
 }
 
-
-
-
 #' Negate a filter value
 #' @rdname exclude
 #' @param value string: filter value(s) to be excluded

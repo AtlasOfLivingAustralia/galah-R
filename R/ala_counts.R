@@ -61,8 +61,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL, group_by,
 
   # check facet is valid
   validate_facet(group_by)
-  ala_group_by <- dwc_to_ala(group_by)
-  query$facets <- ala_group_by
+  query$facets <- group_by
 
   url <- server_config("records_base_url")
   path <- "occurrence/facets"

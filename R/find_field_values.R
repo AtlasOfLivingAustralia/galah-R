@@ -19,7 +19,7 @@ find_field_values <- function(field, limit = 20) {
   if (missing(field)) {
     stop("`find_field_values` requires a field to search for")
   }
-  field <- dwc_to_ala(field)
+
   if (!(field %in% all_fields()$name)) {
     stop("\"", field,
          "\" is not a valid field. See valid fields with `search_fields()`.")

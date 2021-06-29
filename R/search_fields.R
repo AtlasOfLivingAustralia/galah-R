@@ -90,9 +90,6 @@ get_fields <- function() {
   # remove fields where class is contextual or environmental
   fields <- fields[!(fields$classs %in% c("Contextual", "Environmental")),]
 
-  # replace name with dwc term if it exists
-  fields$name <- ifelse(!is.na(fields$dwcTerm), fields$dwcTerm, fields$name)
-
   names(fields) <- rename_columns(names(fields), type = "fields")
   fields <- fields[wanted_columns("fields")]
   fields$type <- "fields"
@@ -139,28 +136,6 @@ get_media <- function(x) {
   fields$description <- "Media filter field"
   fields$type <- "media"
   fields
-}
-
-# Function to convert darwin core field name to ALA field name, as currently
-# required by biocache APIs
-dwc_to_ala <- function(dwc_names) {
-  fields <- all_fields()
-  # get relevant cols
-  vapply(dwc_names, function(n) {
-    if (n == "scientificName") {
-      return("taxon_name")
-    } else if (n == "verbatimLatitude") {
-      return("verbatim_latitude")
-    } else if (n == "verbatimLongitude") {
-      return("verbatim_longitude")
-    } else if (n == "verbatimCoordinateSystem") {
-      return("verbatim_coordinate_system")
-    } else if (n %in% fields$dwcTerm) {
-      return(fields[fields$dwcTerm == n & !is.na(fields$dwcTerm), ]$name)
-    } else {
-      return(n)
-    }
-  }, USE.NAMES = FALSE, FUN.VALUE = character(1))
 }
 
 all_fields <- function() {

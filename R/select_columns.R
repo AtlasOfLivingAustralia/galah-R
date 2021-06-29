@@ -21,10 +21,10 @@
 #'   \item\code{decimalLatitude}
 #'   \item\code{decimalLongitude}
 #'   \item\code{eventDate}
-#'   \item\code{taxon_name}
+#'   \item\code{scientificName}
 #'   \item\code{taxonConceptID}
 #'   \item\code{recordID}
-#'   \item\code{data_resource}
+#'   \item\code{dataResourceName}
 #' }
 #' Using \code{group = 'event'} returns the following columns:
 #' \itemize{
@@ -80,11 +80,10 @@ validate_cols <- function(cols) {
 
 preset_cols <- function(type) {
   valid_groups <- c("basic", "event", "assertions")
-  # use ALA version of taxon name to avoid ambiguity (2 fields map to dwc name)
   cols <- switch(type,
                  "basic" = c("decimalLatitude", "decimalLongitude",
-                             "eventDate", "taxon_name", "taxonConceptID",
-                             "recordID", "data_resource"),
+                             "eventDate", "scientificName", "taxonConceptID",
+                             "recordID", "dataResourceName"),
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),

@@ -112,7 +112,6 @@ build_query <- function(taxa, filters, locations, columns = NULL,
 
 # takes a dataframe and returns a built filter query
 build_filter_query <- function(filters) {
-  filters$name <- dwc_to_ala(filters$name)
   mapply(query_term, filters$name, filters$value, filters$include,
          USE.NAMES = FALSE)
 }
@@ -198,8 +197,7 @@ build_columns <- function(col_df) {
   if (nrow(col_df) == 0) {
     return("")
   }
-  ala_cols <- dwc_to_ala(col_df$name)
-  paste0(ala_cols, collapse = ",")
+  paste0(col_df$name, collapse = ",")
 }
 
 user_agent_string <- function() {

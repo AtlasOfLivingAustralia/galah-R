@@ -33,10 +33,10 @@ Calling the argument \code{group = 'basic'} returns the following columns:
   \item\code{decimalLatitude}
   \item\code{decimalLongitude}
   \item\code{eventDate}
-  \item\code{taxon_name}
+  \item\code{scientificName}
   \item\code{taxonConceptID}
   \item\code{recordID}
-  \item\code{data_resource}
+  \item\code{dataResourceName}
 }
 Using \code{group = 'event'} returns the following columns:
 \itemize{
