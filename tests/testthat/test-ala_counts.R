@@ -96,3 +96,13 @@ test_that("ala_counts caches as expected", {
                  "Using cached file")
   expect_equal(nrow(counts), nrow(counts2))
 })
+
+
+test_that("ala_counts returns consistent data from cached/non-cached calls", {
+  skip_on_cran()
+  ala_config(caching = TRUE, verbose = TRUE)
+  counts1 <- ala_counts(group = "year")
+  counts2 <- ala_counts(group = "year")
+  expect_equal(class(counts1$year),
+               class(counts2$year))
+})

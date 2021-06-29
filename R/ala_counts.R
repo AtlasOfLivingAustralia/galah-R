@@ -72,7 +72,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL, group_by,
   caching <- getOption("galah_config")$caching
   if (caching && file.exists(cache_file)) {
     if (verbose) {message("Using cached file")}
-    return(read.csv(cache_file))
+    return(read.csv(cache_file, as.is = TRUE))
   }
 
   total_cats <- total_categories(url, path, query)
