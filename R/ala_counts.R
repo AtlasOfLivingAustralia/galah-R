@@ -113,7 +113,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL, group_by,
       }
       species_query <- list()
       species_query$fq <- c(query$fq,
-                            query_term(name = ala_group_by, value = value[[x]],
+                            query_term(name = group_by, value = value[[x]],
                             include = TRUE))
       count <- species_count(species_query)
       data.frame(name = value[[x]], count = count)
