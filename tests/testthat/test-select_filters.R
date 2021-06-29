@@ -8,9 +8,8 @@ test_that("select_filters builds data quality filters", {
 })
 
 test_that("select_filters handles assertion filters", {
-  skip("skip until infrastructure stage 1 is complete")
-  expect_true("assertions" %in%
-                select_filters(ZERO_COORDINATE = FALSE)$name)
+  skip_on_cran()
+  expect_true("assertions" %in% select_filters(ZERO_COORDINATE = FALSE)$name)
 })
 
 test_that("select_filters handles exclusion filters", {
@@ -25,7 +24,6 @@ test_that("select_filters validates filters", {
 })
 
 test_that("select_filters converts logical to string", {
-  skip("skip until infrastructure stage 1 is complete")
-  expect_equal(unlist(select_filters(geospatialIssues = TRUE)$value),
-               "true")
+  skip_on_cran()
+  expect_equal(unlist(select_filters(geospatialIssues = TRUE)$value), "true")
 })

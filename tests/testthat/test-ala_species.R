@@ -19,7 +19,7 @@ test_that("ala_species returns a sensible result", {
 
 test_that("ala_species caches results as expected", {
   ala_config(caching = TRUE)
-  filters <- select_filters(occurrence_decade_i = seq(1800, 1850),
+  filters <- select_filters(decade = seq(1800, 1850),
                             genus = "Acacia")
   species <- ala_species(filters = filters)
   expect_message(species2 <- ala_species(filters = filters))

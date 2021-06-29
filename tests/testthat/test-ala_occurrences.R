@@ -49,7 +49,7 @@ test_that("ala_occurrences handles filters correctly", {
 
 #})
 test_that("ala occurrences returns requested columns", {
-  skip("skip until infrastructure stage 1 is complete")
+  skip_on_cran()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
                      "dataResourceName")
@@ -71,11 +71,11 @@ test_that("ala occurrences returns requested columns", {
 
 test_that("ala occurrences handles assertion columns and works with data.frame
           input", {
-  skip("skip until infrastructure stage 1 is complete")
+  skip("qa field ignored by ALA")
   id <- select_taxa("Paraparatrechina minutula")
   cols <- select_columns("ZERO_COORDINATE", "eventDate")
   expect_equal(names(ala_occurrences(taxa = id, columns = cols)),
-               c("eventDate", "zeroLatitude", "zeroLongitude"))
+               c("eventDate", "ZERO_COORDINATE"))
 })
 
 test_that("ala_occurrences handles wkt area inputs", {

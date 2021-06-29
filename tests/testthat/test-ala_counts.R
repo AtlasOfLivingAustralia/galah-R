@@ -80,10 +80,11 @@ test_that("ala_counts handles multi-filter queries with pagination", {
 })
 
 test_that("ala_counts works with assertions", {
-  skip("Until infrastructure upgrade is released")
-  expect_equal(ala_counts(),
-               ala_counts(filters = select_filters(CONTINENT_INVALID = FALSE)) +
-                 ala_counts(filters = select_filters(CONTINENT_INVALID = TRUE)))
+  skip_on_cran()
+  expect_equal(
+    ala_counts(),
+    ala_counts(filters = select_filters(CONTINENT_INVALID = FALSE)) +
+      ala_counts(filters = select_filters(CONTINENT_INVALID = TRUE)))
 })
 
 test_that("ala_counts caches as expected", {
