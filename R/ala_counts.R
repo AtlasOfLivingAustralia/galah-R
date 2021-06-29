@@ -145,7 +145,7 @@ record_count <- function(query) {
 
 species_count <- function(query) {
   query$flimit <- 1
-  query$facets <- "species_guid"
+  query$facets <- "speciesID"
   url <- server_config("records_base_url")
   total_categories(url, "occurrence/facets", query)
 }

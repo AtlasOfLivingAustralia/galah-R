@@ -57,7 +57,7 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL) {
   profile <- extract_profile(filters)
   query <- build_query(taxa, filters, locations, profile = profile)
   
-  query$facets <- "species_guid"
+  query$facets <- "speciesID"
   query$lookup  <- "true"
   
   path <- "occurrences/facets/download"
