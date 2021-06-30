@@ -23,6 +23,9 @@ characters are provided (#23)
 of assertion values being ignored (#27)
 * `select_taxa()` no longer throws an error when queries of more than one term
 have a differing number of columns in the return value (#41)
+* `ala_counts()` returns data.frame with consistent column classes when 
+a `group_by` parameter is called multiple times and `ala_config(caching = TRUE)` 
+(#47)
 
 
 
