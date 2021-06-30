@@ -80,4 +80,5 @@ profile_short_name <- function(profile) {
       }
     }
   }
+  short_name
 }

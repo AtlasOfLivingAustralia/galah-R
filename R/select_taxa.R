@@ -113,7 +113,7 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
   if (ncol(out_data) > 1 && all_ranks) {
     im_ranks <- data.table::rbindlist(
       lapply(out_data$taxon_concept_id, function(id) {
-        ranks <- intermediate_ranks(id)
+        intermediate_ranks(id)
       }
     ), fill = TRUE)
     out_data <- cbind(out_data, im_ranks)
