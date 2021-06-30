@@ -157,9 +157,6 @@ cached_query <- function(taxa_query, filter_query, area_query,
   list(fq = filter_query, q = paste0("qid:", resp))
 }
 
-add_quality_filters <- function(query) {
-  
-}
 
 extract_profile <- function(filters) {
   profile <- NULL
