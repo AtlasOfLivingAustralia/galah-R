@@ -10,7 +10,7 @@ ala_config(..., profile_path = NULL)
 \item{\dots}{Options can be defined using the form \code{name = value}.
 Valid arguments are:
 \itemize{
-  \item \code{country} string: Living Atlas to point to, Australia by default
+  \item \code{atlas} string: Living Atlas to point to, Australia by default
   \item \code{caching} logical: if TRUE, results will be cached, and any cached
     results will be re-used). If FALSE, data will be downloaded.
   \item \code{cache_directory} string: the directory to use for the cache.

@@ -1,6 +1,6 @@
 server_config <- function(url) {
-  country <- getOption("galah_config")$country
-  conf <- switch (country,
+  atlas <- getOption("galah_config")$atlas
+  conf <- switch (atlas,
                   "Australia" = aus_config(),
                   "UK" = uk_config(),
                   "Sweden" = sweden_config(),
@@ -12,15 +12,15 @@ server_config <- function(url) {
     url <- "records_base_url"
   }
   if (!(url %in% names(conf))) {
-    stop(service_name(url), " is not supported for the ", country,
+    stop(service_name(url), " is not supported for the ", atlas,
          " atlas.")
   }
   return(conf[[url]])
 }
 
 image_fields <- function() {
-  country <- getOption("galah_config")$country
-  switch (country,
+  atlas <- getOption("galah_config")$atlas
+  switch (atlas,
           "Austria" = "all_image_url",
           "Guatemala" = "all_image_url",
           "Spain" = "all_image_url",
@@ -105,6 +105,3 @@ spain_config <- function() {
   )
 }
 
-supported_atlases <- function() {
-  c("Australia", "Austria", "Guatemala", "Spain", "Sweden", "UK")
-}

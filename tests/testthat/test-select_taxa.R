@@ -10,11 +10,11 @@ test_that("select_taxa checks inputs", {
   expect_error(select_taxa("Varanus varius", children = 'false'))
 })
 
-test_that("select_taxa check country", {
+test_that("select_taxa check atlas", {
   skip_on_cran()
-  ala_config(country = "Austria")
+  ala_config(atlas = "Austria")
   expect_error(select_taxa("Vulpes vulpes"))
-  ala_config(country = "Australia")
+  ala_config(atlas = "Australia")
 })
 
 test_that("child_concepts behaves correctly", {

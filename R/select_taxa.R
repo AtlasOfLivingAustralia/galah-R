@@ -59,9 +59,9 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
   verbose <- ala_config()$verbose
   assert_that(is.flag(children))
 
-  if (getOption("galah_config")$country != "Australia") {
+  if (getOption("galah_config")$atlas != "Australia") {
     stop("`select_taxa` only provides information on Australian taxonomy. To search taxonomy for ",
-         getOption("galah_config")$country, " use `taxize`. See vignette('international_atlases') for more information")
+         getOption("galah_config")$atlas, " use `taxize`. See vignette('international_atlases') for more information")
   }
 
   if (missing(query)) {

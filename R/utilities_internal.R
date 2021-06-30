@@ -100,7 +100,7 @@ build_query <- function(taxa, filters, locations, columns = NULL,
   if (check_for_caching(taxa_query, filter_query, area_query, columns)) {
     query <- cached_query(taxa_query, filter_query, area_query)
   }
-  if (getOption("galah_config")$country == "Australia") {
+  if (getOption("galah_config")$atlas == "Australia") {
     if (!is.null(profile)) {
       query$qualityProfile <- profile
     } else {

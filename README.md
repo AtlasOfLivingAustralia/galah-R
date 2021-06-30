@@ -101,7 +101,7 @@ cit <- ala_citation(occ)
 Tests should be run locally on any new code changes before pushing to
 GitHub. When code is pushed, tests will also be run on Travis CI. The
 results of the remote tests are available
-[here](https://travis-ci.com/AtlasOfLivingAustralia/galah).
+[here](https://travis-ci.com/AtlasOfLivingAustralia/galah/).
 
 ``` r
 # All tests
@@ -116,30 +116,14 @@ devtools::test_file()
 Tests are in the `tests/testthat/` folder.
 [codecov](https://codecov.io/github/AtlasOfLivingAustralia/galah) gives
 the percentage of code covered by tests. Ideally this should stay above
-80%.
-
-### Changing server configuration
-
-Server configuration for `galah` is stored in
-[onload.R](https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/onload.R).
-To point `galah` to a test server or another Living Atlas instance, edit
-the relevant urls in this file. If you are running the tests locally you
-will need to run the following to update the configuration, where the
-contents of the list is the entire updated configuration.
-
-``` r
-server_config <- list(...)
-options(galah_server_config = server_config)
-```
-
-To check that the config has been updated with the new values, run:
-
-``` r
-getOption("galah_server_config")
-```
+85%.
 
 ### Updating the `pkgdown` site
 
 The [package homepage](https://atlasoflivingaustralia.github.io/galah)
 is rebuilt and updated automatically whenever code is pushed/merged into
 the `master` branch.
+
+### Other Living Atlases
+
+`galah` supports retrieving data from a number of other Living Atlases.

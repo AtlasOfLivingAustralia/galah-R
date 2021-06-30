@@ -12,7 +12,7 @@
 #' @param \dots Options can be defined using the form \code{name = value}.
 #' Valid arguments are:
 #' \itemize{
-#'   \item \code{country} string: Living Atlas to point to, Australia by default
+#'   \item \code{atlas} string: Living Atlas to point to, Australia by default
 #'   \item \code{caching} logical: if TRUE, results will be cached, and any cached
 #'     results will be re-used). If FALSE, data will be downloaded.
 #'   \item \code{cache_directory} string: the directory to use for the cache.
@@ -60,7 +60,7 @@ ala_config <- function(..., profile_path = NULL) {
   default_options <- list(
     caching = FALSE,
     cache_directory = tempdir(),
-    country = "Australia",
+    atlas = "Australia",
     download_reason_id = 4,
     email = "",
     send_email = FALSE,
@@ -220,10 +220,10 @@ validate_option <- function(name, value) {
       stop("Download reason must be a valid reason id or name ",
            "See `find_reasons()` for valid reasons.")
     }
-  } else if (name == "country") {
-    if (!value %in% supported_atlases()) {
-      stop("Country must be one of ",
-           paste(supported_atlases(), collapse = ", "))
+  } else if (name == "atlas") {
+    if (!value %in% find_atlases()) {
+      stop("Atlas must be one of ",
+           paste(find_atlases(), collapse = ", "))
     }
   } else {
     stop("\"", name, "\"", "is not a valid option name.")
@@ -270,4 +270,14 @@ convert_reason <- function(reason) {
   reason
 }
 
-
+#' List supported Living Atlases
+#' 
+#' galah supports downloading data from a number of International Living
+#' Atlases. Use this function to get a list of all currently supported atlases.
+#' @rdname find_atlases
+#' @seealso This function is helpful in setting up \code{\link{ala_config}()}.
+#' @return a character vector of supported Living Atlases
+#' @export
+find_atlases <- function() {
+  return(c("Australia", "Austria", "Guatemala", "Spain", "Sweden", "UK"))
+}
