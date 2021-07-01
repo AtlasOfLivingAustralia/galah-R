@@ -81,9 +81,7 @@ validate_cols <- function(cols) {
 preset_cols <- function(type) {
   valid_groups <- c("basic", "event", "assertions")
   cols <- switch(type,
-                 "basic" = c("decimalLatitude", "decimalLongitude",
-                             "eventDate", "scientificName", "taxonConceptID",
-                             "recordID", "dataResourceName"),
+                 "basic" = default_columns(),
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),

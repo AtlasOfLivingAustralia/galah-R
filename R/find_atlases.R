@@ -1,3 +1,26 @@
+#' List supported Living Atlases
+#' 
+#' galah supports downloading data from a number of International Living
+#' Atlases. Use this function to get a list of all currently supported atlases.
+#' @rdname find_atlases
+#' @seealso This function is helpful in setting up \code{\link{ala_config}()}.
+#' @return a \code{data.frame} of Living Atlas information, including taxonomy
+#' source and information for each atlas.
+#' @export
+find_atlases <- function() {
+  gbif_info <- "https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+  ala_info <- "https://bie.ala.org.au/"
+  nbn_info <- "https://www.nhm.ac.uk/our-science/data/uk-species.html"
+  return(
+    data.frame(
+      atlas = c("Australia", "Austria", "Guatemala", "Spain", "Sweden", "UK"),
+      taxonomy_source = c("ALA", "GBIF", "GBIF", "GBIF", "GBIF", "NBN"),
+      taxonomy_info  = c(ala_info, gbif_info, gbif_info, gbif_info, gbif_info,
+                         nbn_info)
+    )
+  )
+}
+
 server_config <- function(url) {
   atlas <- getOption("galah_config")$atlas
   conf <- switch (atlas,
@@ -18,6 +41,7 @@ server_config <- function(url) {
   return(conf[[url]])
 }
 
+
 image_fields <- function() {
   atlas <- getOption("galah_config")$atlas
   switch (atlas,
@@ -25,7 +49,16 @@ image_fields <- function() {
           "Guatemala" = "all_image_url",
           "Spain" = "all_image_url",
           c("images", "videos", "sounds")
-    
+  )
+}
+
+default_columns <- function() {
+  atlas <- getOption("galah_config")$atlas
+  switch (atlas,
+          "Guatemala" = c("latitude", "longtitude", "species_guid",
+                          "data_resource_uid", "occurrence_date", "id"),
+          c("decimalLatitude", "decimalLongitude", "eventDate",
+            "scientificName", "taxonConceptID", "recordID", "dataResourceName")
   )
 }
 

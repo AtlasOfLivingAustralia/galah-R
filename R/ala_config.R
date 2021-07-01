@@ -221,9 +221,9 @@ validate_option <- function(name, value) {
            "See `find_reasons()` for valid reasons.")
     }
   } else if (name == "atlas") {
-    if (!value %in% find_atlases()) {
+    if (!value %in% find_atlases()$atlas) {
       stop("Atlas must be one of ",
-           paste(find_atlases(), collapse = ", "))
+           paste(find_atlases()$atlas, collapse = ", "))
     }
   } else {
     stop("\"", name, "\"", "is not a valid option name.")
@@ -270,14 +270,3 @@ convert_reason <- function(reason) {
   reason
 }
 
-#' List supported Living Atlases
-#' 
-#' galah supports downloading data from a number of International Living
-#' Atlases. Use this function to get a list of all currently supported atlases.
-#' @rdname find_atlases
-#' @seealso This function is helpful in setting up \code{\link{ala_config}()}.
-#' @return a character vector of supported Living Atlases
-#' @export
-find_atlases <- function() {
-  return(c("Australia", "Austria", "Guatemala", "Spain", "Sweden", "UK"))
-}
