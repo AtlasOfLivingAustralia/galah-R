@@ -86,7 +86,7 @@ as possible." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -103,6 +103,18 @@ as possible." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/international_atlases.html">International Atlases</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -150,6 +162,7 @@ as possible.</p>
       <th>...</th>
       <td><p>Options can be defined using the form <code>name = value</code>.
 Valid arguments are:</p><ul>
+<li><p><code>atlas</code> string: Living Atlas to point to, Australia by default</p></li>
 <li><p><code>caching</code> logical: if TRUE, results will be cached, and any cached
     results will be re-used). If FALSE, data will be downloaded.</p></li>
 <li><p><code>cache_directory</code> string: the directory to use for the cache.
@@ -169,7 +182,7 @@ Valid arguments are:</p><ul>
     A registered email is required for some functions in <code>galah</code>.</p></li>
 <li><p><code>send_email</code> logical: should you receive an email for each query to
     <code><a href='ala_occurrences.html'>ala_occurrences</a>()</code>? Defaults to <code>FALSE</code>; but can be
-    userful in some instances, for example for tracking DOIs assigned to
+    useful in some instances, for example for tracking DOIs assigned to
     specific downloads for later citation.</p></li>
 <li><p><code>verbose</code> logical: should <code>galah</code> give verbose output to assist
   debugging? Defaults to FALSE.</p></li>

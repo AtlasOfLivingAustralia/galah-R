@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -98,6 +98,18 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/international_atlases.html">International Atlases</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -127,6 +139,49 @@
       <small>Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="galah-1-2-0" class="section level1">
+<h1 class="page-header" data-toc-text="1.2.0">
+<a href="#galah-1-2-0" class="anchor"></a>galah 1.2.0<small> Unreleased </small>
+</h1>
+<div id="living-atlases" class="section level3">
+<h3 class="hasAnchor">
+<a href="#living-atlases" class="anchor"></a>Living Atlases</h3>
+<ul>
+<li>
+<code><a href="../reference/ala_config.html">ala_config()</a></code> allows users to specify an international Atlas to download data from (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/21'>#21</a>)</li>
+</ul>
+</div>
+<div id="minor-improvements" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-improvements" class="anchor"></a>Minor improvements</h3>
+<ul>
+<li>
+<code><a href="../reference/ala_media.html">ala_media()</a></code> includes the file path to the downloaded media in the returned metadata (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/22'>#22</a>)</li>
+<li>Data returned from <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code> contains the <code>search_url</code> used to download records; this takes the user to the website search page (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/32'>#32</a>)</li>
+<li>
+<code><a href="../reference/ala_species.html">ala_species()</a></code> provides a more helpful error if no species are found (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/39'>#39</a>)</li>
+<li>Data quality filters are created using the specific web service argument, rather than constructing filters from the attributes (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/37'>#37</a>)</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h3>
+<ul>
+<li>R &gt; 4.0.0 is now required (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/43'>#43</a>, <a href='https://github.com/AtlasOfLivingAustralia/galah/issues/45'>#45</a>)</li>
+<li>
+<code><a href="../reference/select_taxa.html">select_taxa()</a></code> behaves as expected when character strings of 32 or 36 characters are provided (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/23'>#23</a>)</li>
+<li>Caching functionality for <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code> uses the <code>columns</code> as expected (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/30'>#30</a>)</li>
+<li>
+<code><a href="../reference/select_filters.html">select_filters()</a></code> negates assertion filters when required, fixing the issue of assertion values being ignored (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/27'>#27</a>)</li>
+<li>
+<code><a href="../reference/select_taxa.html">select_taxa()</a></code> no longer throws an error when queries of more than one term have a differing number of columns in the return value (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/41'>#41</a>)</li>
+<li>
+<code><a href="../reference/ala_counts.html">ala_counts()</a></code> returns data.frame with consistent column classes when a <code>group_by</code> parameter is called multiple times and <code><a href="../reference/ala_config.html">ala_config(caching = TRUE)</a></code> (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/47'>#47</a>)</li>
+<li>
+<code>ala_</code> functions fail gracefully if a non-id character string is passed (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/49'>#49</a>)</li>
+</ul>
+</div>
+</div>
     <div id="galah-1-1-0" class="section level1">
 <h1 class="page-header" data-toc-text="1.1.0">
 <a href="#galah-1-1-0" class="anchor"></a>galah 1.1.0<small> 2021-05-05 </small>
@@ -155,9 +210,9 @@
 <code>select_taxa</code> auto-detects the type of argument provided and so takes a single argument, <code>query</code>, in place of <code>term</code> and <code>term_type</code> (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/16'>#16</a>)</li>
 </ul>
 </div>
-<div id="minor-improvements" class="section level3">
+<div id="minor-improvements-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-improvements" class="anchor"></a>Minor improvements</h3>
+<a href="#minor-improvements-1" class="anchor"></a>Minor improvements</h3>
 <ul>
 <li>Provide more useful error message for empty occurrence download (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/7'>#7</a>)</li>
 <li>

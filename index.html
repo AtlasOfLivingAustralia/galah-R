@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -61,6 +61,18 @@
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/international_atlases.html">International Atlases</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="news/index.html">Changelog</a>
@@ -130,6 +142,36 @@ galah
 <span class="va">doi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">occ</span>, <span class="st">"doi"</span><span class="op">)</span>
 <span class="va">cit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ala_citation.html">ala_citation</a></span><span class="op">(</span><span class="va">occ</span><span class="op">)</span></code></pre></div>
 </div>
+<div id="contributing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contributing" class="anchor"></a>Contributing</h2>
+<div id="running-tests" class="section level3">
+<h3 class="hasAnchor">
+<a href="#running-tests" class="anchor"></a>Running tests</h3>
+<p>Tests should be run locally on any new code changes before pushing to GitHub. When code is pushed, tests will also be run on Travis CI. The results of the remote tests are available <a href="https://travis-ci.com/AtlasOfLivingAustralia/galah/">here</a>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># All tests</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">test</span><span class="op">(</span><span class="op">)</span>
+
+<span class="co"># Individual files</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">test_file</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="writing-tests" class="section level3">
+<h3 class="hasAnchor">
+<a href="#writing-tests" class="anchor"></a>Writing tests</h3>
+<p>Tests are in the <code>tests/testthat/</code> folder. <a href="https://codecov.io/github/AtlasOfLivingAustralia/galah">codecov</a> gives the percentage of code covered by tests. Ideally this should stay above 85%.</p>
+</div>
+<div id="updating-the-pkgdown-site" class="section level3">
+<h3 class="hasAnchor">
+<a href="#updating-the-pkgdown-site" class="anchor"></a>Updating the <code>pkgdown</code> site</h3>
+<p>The <a href="https://atlasoflivingaustralia.github.io/galah/">package homepage</a> is rebuilt and updated automatically whenever code is pushed/merged into the <code>master</code> branch.</p>
+</div>
+<div id="other-living-atlases" class="section level3">
+<h3 class="hasAnchor">
+<a href="#other-living-atlases" class="anchor"></a>Other Living Atlases</h3>
+<p><code>galah</code> supports retrieving data from a number of other Living Atlases.</p>
+</div>
+</div>
 
   </div>
 
@@ -163,6 +205,7 @@ galah
 <li>Matilda Stevenson <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Martin Westgate <br><small class="roles"> Author </small>  </li>
 <li>Peggy Newman <br><small class="roles"> Author </small>  </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 

@@ -87,7 +87,7 @@ re-use of specific data resources." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -104,6 +104,18 @@ re-use of specific data resources." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/international_atlases.html">International Atlases</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -143,7 +155,14 @@ the user can also request a DOI for a given download to facilitate citation and
 re-use of specific data resources.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ala_occurrences</span><span class='op'>(</span><span class='va'>taxa</span>, <span class='va'>filters</span>, <span class='va'>locations</span>, <span class='va'>columns</span>, mint_doi <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>doi</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ala_occurrences</span><span class='op'>(</span>
+  taxa <span class='op'>=</span> <span class='cn'>NULL</span>,
+  filters <span class='op'>=</span> <span class='cn'>NULL</span>,
+  locations <span class='op'>=</span> <span class='cn'>NULL</span>,
+  columns <span class='op'>=</span> <span class='fu'><a href='select_columns.html'>select_columns</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='st'>"basic"</span><span class='op'>)</span>,
+  mint_doi <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>doi</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

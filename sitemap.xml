@@ -1,60 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/index.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//index.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/ala_citation.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_citation.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/ala_config.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_config.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/ala_counts.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_counts.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/ala_media.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_media.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/ala_occurrences.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_occurrences.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/ala_species.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_species.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/exclude.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/exclude.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/find_field_values.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_atlases.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/find_profile_attributes.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_field_values.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/find_profiles.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_profile_attributes.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/find_reasons.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_profiles.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/galah.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_reasons.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/search_fields.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/galah.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/select_columns.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/search_fields.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/select_filters.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/select_columns.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/select_locations.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/select_filters.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/reference/select_taxa.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/select_locations.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah/articles/galah.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/select_taxa.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah//articles/galah.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah//articles/international_atlases.html</loc>
   </url>
 </urlset>

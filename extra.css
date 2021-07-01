@@ -1,24 +1,72 @@
 @import url(https://fonts.googleapis.com/css?family=Lato);
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
-.h1, .h2, .h3, .main-title, .main-subtitle {
+h1, h2, h3, h4, .h1, .h2, .h3, .main-title, .main-subtitle {
   font-family: Lato;
   font-weight: normal;
+  color: #003A70;
 }
+
+a {
+    color: #003A70;
+    text-decoration: none;
+}
+
 
 body { font-family: Roboto; }
 
 .navbar {
   background: #37B2F7;
-  background-image: -moz-linear-gradient(top, #54b4eb, #2fa4e7);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#54b4eb), to(#2fa4e7));
-  background-image: -webkit-linear-gradient(top, #54b4eb, #2fa4e7);
-  background-image: -o-linear-gradient(top, #54b4eb, #2fa4e7);
-  background-image: linear-gradient(to bottom, #54b4eb, #2fa4e7);
+  background-image: -moz-linear-gradient(top, #6BDAD5, #32c7c0);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6BDAD5), to(#32c7c0));
+  background-image: -webkit-linear-gradient(top, #6BDAD5, #32c7c0);
+  background-image: -o-linear-gradient(top, #6BDAD5, #32c7c0);
+  background-image: linear-gradient(to bottom, #6BDAD5, #32c7c0);
   transition: all 0.3s ease;
   box-shadow: 0 0 15px 5px rgba(0,0,0,.15);
   border: none;
   min-height: 40px;
 }
 
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus .navbar-nav>.drop>a:hover{
+    color: #ffffff;
+    background-color: #003A70;
+}
 
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+    color: #ffffff;
+    background-color: #003A70;
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #003A70;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #ffffff;
+    background-color: #003A70;
+}
+
+
+
+/*.navbar a:active, .dropdown:active .dropbtn {
+  background-color: #003A70;
+  background: #003A70;
+}
+
+.dropdown > li > a:hover {
+  background-color: #003A70;
+  background: #003A70;
+}
+
+.dropdown-toggle:hover {
+  background-color: #003A70;
+  background: #003A70;
+}
+
+.li:active {
+  background: #003A70;
+  background-color: #003A70;
+}*/
