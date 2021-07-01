@@ -120,7 +120,7 @@ the percentage of code covered by tests. Ideally this should stay above
 
 ### Updating the `pkgdown` site
 
-The [package homepage](https://atlasoflivingaustralia.github.io/galah)
+The [package homepage](https://atlasoflivingaustralia.github.io/galah/)
 is rebuilt and updated automatically whenever code is pushed/merged into
 the `master` branch.
 

@@ -104,7 +104,7 @@ devtools::test_file()
 Tests are in the `tests/testthat/` folder. [codecov](https://codecov.io/github/AtlasOfLivingAustralia/galah) gives the percentage of code covered by tests. Ideally this should stay above 85%. 
 
 ### Updating the `pkgdown` site
-The [package homepage](https://atlasoflivingaustralia.github.io/galah) is rebuilt and updated automatically whenever code is pushed/merged into the `master` branch.
+The [package homepage](https://atlasoflivingaustralia.github.io/galah/) is rebuilt and updated automatically whenever code is pushed/merged into the `master` branch.
 
 
 ### Other Living Atlases
