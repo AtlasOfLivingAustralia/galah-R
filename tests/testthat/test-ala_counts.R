@@ -10,10 +10,6 @@ test_that("ala counts checks inputs", {
   # invalid filter
   expect_error(ala_counts(filters = select_filters(bad_facet = 'test')))
   
-  # too many filters
-  filters <- select_filters(sapply(search_fields(type = "assertions")$id,
-                                function(x){ return(TRUE) }))
-  expect_error(ala_counts(filters))
 })
 
 test_that("ala counts returns expected outputs", {
