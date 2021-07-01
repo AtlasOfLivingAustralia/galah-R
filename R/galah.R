@@ -112,6 +112,7 @@
 #'   \item\code{\link{find_profiles}} List data quality profiles
 #'   \item\code{\link{find_profile_attributes}} List filters included in a data quality profile
 #'   \item\code{\link{find_reasons}} List valid download reasons
+#'   \item\code{\link{find_atlases}} List supported international atlases
 #' }
 #' \strong{Help}
 #' \itemize{

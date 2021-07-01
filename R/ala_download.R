@@ -29,7 +29,7 @@ ala_download <- function(url, path, params = list(), ext = ".csv",
     cli$url <- url
     res <- cli$get(path = path, query = params, disk = cache_file)
   }
-  
+
   if (ext == ".csv") {
     # error message is specific to ala_species because it is the only function which
     # gets to this point

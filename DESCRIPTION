@@ -27,12 +27,10 @@ Imports:
     utils,
     wellknown
 Suggests:
-    collapsibleTree,
     covr,
     dplyr,
     ggplot2,
     knitr,
-    ozmaps,
     pkgdown,
     rmarkdown,
     taxize,
