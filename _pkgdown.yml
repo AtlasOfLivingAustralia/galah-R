@@ -19,6 +19,7 @@ reference:
   - find_profiles
   - find_profile_attributes
   - find_reasons
+  - find_atlases
 - title: Support
   contents:
   - ala_config
