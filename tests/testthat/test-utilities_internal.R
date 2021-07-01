@@ -5,3 +5,10 @@ test_that("Multiple negated queries are joined with 'AND'", {
   expect_match(query_term(name = "test", value = c("a", "b"), include = FALSE),
                "AND")
 })
+
+test_that("Taxa arguments are checked", {
+  ala_config(verbose = FALSE)
+  expect_error(check_taxa_arg("Vulpes vulpes"))
+  expect_silent("1234")
+  expect_silent(check_taxa_arg(select_taxa("Vulpes vulpes")))
+})

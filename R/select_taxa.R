@@ -123,6 +123,7 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
   if (caching) {
     write.csv(out_data, cache_file, row.names = FALSE)
   }
+  class(out_data) <- append(class(out_data), "ala_id")
   out_data
 }
 
