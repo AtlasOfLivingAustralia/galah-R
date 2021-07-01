@@ -42,30 +42,26 @@
 # If the facet search download worked properly, this should also return counts. But, as this
 # function is likely to be used to download long species lists, for now we will make do
 # without the counts- otherwise will require lots of pagination.
-ala_species <- function(taxa, filters, locations) {
-  # Use facet search with additional options
+ala_species <- function(taxa = NULL, filters = NULL, locations = NULL) {
+  
+  # check whether species download is possible
+  species_url <- server_config("species_base_url")
 
-  url <- getOption("galah_server_config")$base_url_biocache
-
+  url <- server_config("records_base_url")
   query <- list()
 
   if (missing(taxa) & missing(filters) & missing(locations)) {
     warning("This query will return a list of all species in the ALA")
   }
 
-  if (missing(taxa)) { taxa <- NULL }
-  if (missing(filters)) { filters <- NULL }
-  if (missing(locations)) { locations <- NULL }
+  profile <- extract_profile(filters)
+  query <- build_query(taxa, filters, locations, profile = profile)
   
-  query <- build_query(taxa, filters, locations)
-
-  query$facets <- "species_guid"
+  query$facets <- "speciesID"
   query$lookup  <- "true"
   
-  path <- "ws/occurrences/facets/download"
-
+  path <- "occurrences/facets/download"
   cache_file <- cache_filename(c(url, path, unlist(query)), ext = ".csv")
-
   caching <- getOption("galah_config")$caching
 
   if (caching && file.exists(cache_file)) {

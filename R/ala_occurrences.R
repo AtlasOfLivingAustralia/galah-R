@@ -42,74 +42,67 @@
 #' }
 #' @export ala_occurrences
 
-ala_occurrences <- function(taxa, filters, locations, columns,
+ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
+                            columns = select_columns(group = "basic"),
                             mint_doi = FALSE, doi) {
 
-  config_verbose <- getOption("galah_config")$verbose
+  verbose <- getOption("galah_config")$verbose
   assert_that(is.logical(mint_doi))
-  assert_that(is.logical(config_verbose))
   
   if (!missing(doi)) {
     # search for data using DOI
-    data_path <- doi_download(doi)
-    df <- read.csv(unz(data_path, "data.csv"), stringsAsFactors = FALSE)
-    attr(df, "doi") <- doi
-    return(df)
+    return(doi_download(doi))
   }
   
-  if (missing(taxa)) { taxa <- NULL }
-  if (missing(filters)) { filters <- NULL }
-  if (missing(locations)) { locations <- NULL }
-  
-  if(missing(columns)) {
-    if (config_verbose) {
-      message("No columns specified, default columns will be returned.")
-    }
-    columns <- select_columns(group = "basic")
-  }
-  
-  query <- build_query(taxa, filters, locations, columns)
-
-  # Add columns after getting record count
+  profile <- extract_profile(filters)
+  query <- build_query(taxa, filters, locations, columns, profile)
   
   # handle caching
   caching <- getOption("galah_config")$caching
 
+  # Check record count
+  count <- record_count(query)
+  check_count(count)
+  
+  # Add columns to query
+  assertion_cols <- columns[columns$type == "assertions", ]
+  query$fields <- build_columns(columns[columns$type != "assertions", ])
+  query$qa <- build_columns(assertion_cols)
+  
   if (caching) {
-    cache_file <- cache_filename(c(getOption("galah_server_config")$
-                                     base_url_biocache,
-                                   path = "ws/occurrences/offline/download",
+    cache_file <- cache_filename(c(server_config("records_base_url"),
+                                   path = "occurrences/offline/download",
                                    params = unlist(query)), ext = ".zip")
     if (file.exists(cache_file)) {
-      if (config_verbose) { message("Using existing file") }
+      if (verbose) { message("Using cached file") }
       # look for file using query parameters
       data <- read.csv(unz(cache_file, "data.csv"), stringsAsFactors = FALSE)
       #TODO: Add DOI here
+      attr(data, "doi") <- get_doi(mint_doi, cache_file)
       return(data)
     }
   } else {
     cache_file <- tempfile(fileext = ".zip")
   }
 
-  count <- record_count(query)
-  check_count(count, config_verbose)
-  
-  assertion_cols <- columns[columns$type == "assertions", ]
-  query$fields <- build_columns(columns[columns$type != "assertions", ])
-  query$qa <- build_columns(assertion_cols)
-
   if (mint_doi) {
     query$mintDoi <- "true"
   }
-  query$emailNotify <- email_notify()
+  
+  if (getOption("galah_config")$atlas == "Australia") {
+    query$emailNotify <- email_notify()
+    query$sourceId <- 2004
+    query$reasonTypeId <- getOption("galah_config")$download_reason_id
+  }
 
   # Get data
-  url <- getOption("galah_server_config")$base_url_biocache
-  query <- c(query, email = user_email(), reasonTypeId = download_reason(),
-             dwcHeaders = "true", sourceId = 2004)
-
-  download_path <- wait_for_download(url, query, config_verbose)
-  data_path <- ala_download(url = url,
+  url <- server_config("records_base_url")
+  search_url <- url_build(url, path = "occurrences/offline/download",
+                          query = query)
+  query <- c(query, email = user_email(), dwcHeaders = "true")
+  download_resp <- wait_for_download(url, query)
+  download_path <- download_resp$download_path
+  data_path <- ala_download(url = server_config("records_download_base_url"),
                        path = download_path,
                        cache_file = cache_file, ext = ".zip")
 
@@ -131,6 +124,7 @@ no valid column names have been provided. To check whether column names are vali
 
   # add DOI as attribute
   attr(df, "doi") <- get_doi(mint_doi, data_path)
+  attr(df, "search_url") <- download_resp$search_url
 
   return(df)
 }
@@ -143,26 +137,26 @@ get_doi <- function(mint_doi, data_path) {
       doi <- as.character(
         read.table(unz(data_path, "doi.txt"))$V1),
       warning = function(e) {
-        e$message <- "No DOI was generated for download. The DOI server may
-                        be down. Please try again later"
+        e$message <- "No DOI was generated for this download. The DOI server may
+        be down or, if this is a cached result, may not have been generated for
+        the original download."
       })
   }
   return(doi)
 }
 
-
-wait_for_download <- function(url, query, verbose) {
-  status <- ala_GET(url, "ws/occurrences/offline/download",
+wait_for_download <- function(url, query) {
+  status <- ala_GET(url, "occurrences/offline/download",
                     params = query, on_error = occ_error_handler)
-
+  search_url <- status$searchUrl
   status_url <- parse_url(status$statusUrl)
   status <- ala_GET(url, path = status_url$path)
-
+  verbose <- getOption("galah_config")$verbose
   # create a progress bar
   if (verbose) {
     pb <- txtProgressBar(max = 1, style = 3)
   }
-
+  
   while(status$status == "inQueue") {
     status <- ala_GET(url, path = status_url$path)
   }
@@ -179,40 +173,41 @@ wait_for_download <- function(url, query, verbose) {
     setTxtProgressBar(pb, value = 1)
     close(pb)
   }
-  parse_url(status$downloadUrl)$path
+  
+  resp <- list(download_path = parse_url(status$downloadUrl)$path,
+               search_url = search_url)
+  return(resp)
 }
 
-check_count <- function(count, config_verbose) {
+check_count <- function(count) {
   if (count == 0) {
     stop("This query does not match any records.")
   } else if (count > 50000000) {
     stop("A maximum of 50 million records can be retrieved at once.",
          " Please narrow the query and try again.")
   } else {
-    if (config_verbose) { message("This query will return ", count, " records") }
+    if (getOption("galah_config")$verbose) {
+      message("This query will return ", count, " records")
+      }
   }
 }
 
-doi_download <- function(doi, caching) {
+doi_download <- function(doi) {
   # strip useful part of DOI
   doi_str <- str_split(doi, "ala.")[[1]][2]
   if (is.na(doi_str)) {
     stop("DOI has not been generated by the ALA. ALA DOIs created by the ALA
-         have a prefix of 10.26197")
+         have a prefix of 10.26197/ala.")
   }
-  url <- getOption("galah_config")$base_url_doi
-  #cache_file <- cache_filename(c(url, doi_str))
-  path <- ala_download(url, path = paste0("/doi/", doi_str, "/download"),
-                       ext = ".zip", cache_file = tempfile())
-  return(path)
-}
 
-download_reason <- function() {
-  reason <- getOption("galah_config")$download_reason_id
-  if (reason == "") {
-    reason <- 4
-  }
-  reason
+  path <- ala_download(server_config("doi_base_url"),
+                       path = paste0("/doi/", doi_str, "/download"),
+                       ext = ".zip", cache_file = tempfile(pattern = "data"))
+  record_file <- grep('^records', unzip(path, list=TRUE)$Name, 
+                      ignore.case=TRUE, value=TRUE)
+  df <- read.csv(unz(path, record_file), stringsAsFactors = FALSE)
+  attr(df, "doi") <- doi
+  return(df)
 }
 
 

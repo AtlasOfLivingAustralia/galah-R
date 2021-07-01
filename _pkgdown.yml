@@ -19,6 +19,7 @@ reference:
   - find_profiles
   - find_profile_attributes
   - find_reasons
+  - find_atlases
 - title: Support
   contents:
   - ala_config
@@ -26,6 +27,6 @@ reference:
 template:
   params:
     bootswatch: cerulean
-url: https://atlasoflivingaustralia.github.io/galah
+url: https://atlasoflivingaustralia.github.io/galah/
 
   

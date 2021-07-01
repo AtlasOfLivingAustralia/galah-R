@@ -4,7 +4,7 @@
 \alias{select_taxa}
 \title{Taxon information}
 \usage{
-select_taxa(query, children = FALSE, counts = FALSE)
+select_taxa(query, children = FALSE, counts = FALSE, all_ranks = FALSE)
 }
 \arguments{
 \item{query}{\code{string}: A vector containing one or more search terms,
@@ -19,6 +19,10 @@ query?}
 
 \item{counts}{\code{logical}: return occurrence counts for all taxa
 found? \code{FALSE} by default}
+
+\item{all_ranks}{\code{logical}: include all available intermediate ranks for
+taxa? e.g. suborder, superfamily. Retrieving this information requires an 
+additional web service call so will slow down the query}
 }
 \value{
 A \code{data.frame} of taxonomic information.

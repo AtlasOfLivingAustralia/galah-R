@@ -5,7 +5,7 @@ ala_config(email = "ala4r@ala.org.au")
 test_that("ala_occurrences check inputs", {
   skip_on_cran()
   expect_error(ala_occurrences(filters =
-                                 c(state = "Australian Capital Territory")))
+                                 c(stateProvince = "Australian Capital Territory")))
   expect_error(ala_occurrences())
 })
 
@@ -26,14 +26,14 @@ test_that("ala_occurrences handles filters correctly", {
   skip_on_cran()
   expect_equal(
     unique(ala_occurrences(filters = select_filters(
-      state = "Australian Capital Territory",
-      basis_of_record = "FossilSpecimen"),
-      columns = select_columns("state", group = "basic"))$state),
+      stateProvince = "Australian Capital Territory",
+      basisOfRecord = "FossilSpecimen"),
+      columns = select_columns("stateProvince", group = "basic"))$stateProvince),
     "Australian Capital Territory")
 
   # handles year filters
   expect_true(unique(ala_occurrences(filters = select_filters(
-    year = seq(1971, 1981), basis_of_record = "FossilSpecimen"),
+    year = seq(1971, 1981), basisOfRecord = "FossilSpecimen"),
     columns = select_columns("year", group = "basic"))$year %in%
       seq(1971, 1981)))
 })
@@ -52,8 +52,8 @@ test_that("ala occurrences returns requested columns", {
   skip_on_cran()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
-                     "data_resource")
-  filters <- select_filters(occurrence_decade_i = 1930)
+                     "dataResourceName")
+  filters <- select_filters(year = 1930)
   cols <- select_columns(group = "basic")
   id <- select_taxa("Polytelis swainsonii")$taxon_concept_id
   expect_equal(sort(names(ala_occurrences(taxa = id,
@@ -71,18 +71,18 @@ test_that("ala occurrences returns requested columns", {
 
 test_that("ala occurrences handles assertion columns and works with data.frame
           input", {
-  skip_on_cran()
+  skip("qa field ignored by ALA")
   id <- select_taxa("Paraparatrechina minutula")
-  cols <- select_columns("zeroLatitude", "zeroLongitude", "eventDate")
+  cols <- select_columns("ZERO_COORDINATE", "eventDate")
   expect_equal(names(ala_occurrences(taxa = id, columns = cols)),
-               c("eventDate", "zeroLatitude", "zeroLongitude"))
+               c("eventDate", "ZERO_COORDINATE"))
 })
 
 test_that("ala_occurrences handles wkt area inputs", {
   skip_on_cran()
   locations <- select_locations(readLines("../testdata/short_act_wkt.txt"))
-  cols <- select_columns(group = "basic", "state")
-  filters <- select_filters(basis_of_record = "MachineObservation")
+  cols <- select_columns(group = "basic", "stateProvince")
+  filters <- select_filters(basisOfRecord = "MachineObservation")
   expect_equal(unique(ala_occurrences(locations = locations,
                                       filters = filters,
                                       columns = cols)$stateProvince),
@@ -94,9 +94,31 @@ test_that("ala_occurrences handles sf polygon inputs", {
   # convert wkt to sfc
   act_shp <- st_as_sfc(readLines("../testdata/short_act_wkt.txt"))
   locations <- select_locations(act_shp)
-  filters <- select_filters(basis_of_record = "MachineObservation")
+  filters <- select_filters(basisOfRecord = "MachineObservation")
   expect_equal(unique(ala_occurrences(locations = locations, filters = filters,
                                       columns = select_columns(group = "basic",
-                                                  "state"))$stateProvince),
+                                                  "stateProvince"))$stateProvince),
                "Australian Capital Territory")
+})
+
+test_that("ala_occurrences caches data as expected", {
+  ala_config(caching = TRUE, verbose = TRUE)
+  taxa <- select_taxa("Wurmbea dioica")
+  filters <- select_filters(year = 2000)
+  columns <- select_columns(group = "basic", "basisOfRecord")
+
+  # Download data
+  occ <- ala_occurrences(taxa = taxa, filters = filters, columns = columns)
+  # Re-download data
+  expect_message(
+    ala_occurrences(taxa = taxa, filters = filters, columns = columns),
+    "Using cached file")
+  ala_config(caching = FALSE)
+})
+
+test_that("ala_occurrences downloads data from a DOI", {
+  # Only works for ALA DOIs
+  expect_error(ala_occurrences(doi = "random_doi"))
+  doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
+  expect_gt(nrow(ala_occurrences(doi = doi)), 0)
 })

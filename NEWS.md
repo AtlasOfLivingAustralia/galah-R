@@ -1,3 +1,34 @@
+# galah 1.2.0
+
+### Living Atlases
+* `ala_config()` allows users to specify an international Atlas to download data
+from (#21)
+
+### Minor improvements
+* `ala_media()` includes the file path to the downloaded media in the
+returned metadata (#22)
+* Data returned from `ala_occurrences()` contains the `search_url` used to
+download records; this takes the user to the website search page (#32)
+* `ala_species()` provides a more helpful error if no species are found (#39)
+* Data quality filters are created using the specific web service argument,
+rather than constructing filters from the attributes (#37)
+
+### Bug fixes
+* R > 4.0.0 is now required (#43, #45)
+* `select_taxa()` behaves as expected when character strings of 32 or 36
+characters are provided (#23)
+* Caching functionality for `ala_occurrences()` uses the `columns` as expected
+(#30)
+* `select_filters()` negates assertion filters when required, fixing the issue
+of assertion values being ignored (#27)
+* `select_taxa()` no longer throws an error when queries of more than one term
+have a differing number of columns in the return value (#41)
+* `ala_counts()` returns data.frame with consistent column classes when 
+a `group_by` parameter is called multiple times and `ala_config(caching = TRUE)` 
+(#47)
+* `ala_` functions fail gracefully if a non-id character string is passed (#49)
+
+
 # galah 1.1.0
 
 ### Downloading media

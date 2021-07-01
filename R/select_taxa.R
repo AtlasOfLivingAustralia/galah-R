@@ -20,6 +20,9 @@
 #' query?
 #' @param counts \code{logical}: return occurrence counts for all taxa
 #' found? \code{FALSE} by default
+#' @param all_ranks \code{logical}: include all available intermediate ranks for
+#' taxa? e.g. suborder, superfamily. Retrieving this information requires an 
+#' additional web service call so will slow down the query 
 #' @return A \code{data.frame} of taxonomic information.
 #' @seealso \code{\link{select_columns}}, \code{\link{select_filters}} and
 #' \code{\link{select_locations}} for other ways to restrict the information returned
@@ -30,7 +33,7 @@
 #' select_taxa("Reptilia")
 #' # or equivalently:
 #' select_taxa("reptilia") # not case sensitive
-#' 
+#'
 #' # Search with multiple ranks. This is required if a single term is a homonym.
 #' select_taxa(
 #'   list(kingdom = "Plantae", genus = "Microseris"),
@@ -51,22 +54,28 @@
 #' }
 #' @export select_taxa
 
-select_taxa <- function(query, children = FALSE, counts = FALSE) {
+select_taxa <- function(query, children = FALSE, counts = FALSE,
+                        all_ranks = FALSE) {
   verbose <- ala_config()$verbose
   assert_that(is.flag(children))
+
+  if (getOption("galah_config")$atlas != "Australia") {
+    stop("`select_taxa` only provides information on Australian taxonomy. To search taxonomy for ",
+         getOption("galah_config")$atlas, " use `taxize`. See vignette('international_atlases') for more information")
+  }
 
   if (missing(query)) {
     stop("`select_taxa` requires a query to search for")
   }
-  
+
   query_type <- deduce_query_type(query)
-  
+
   if (verbose) {
     print_qt <- ifelse(query_type == "id", "identifiers",
                        "scientific or common names")
     message("Assuming that query term(s) provided are ", print_qt)
   }
-  
+
   # caching won't catch if query order is changed
   cache_file <- cache_filename(c(unlist(query),
                                ifelse(children, "children", ""),
@@ -79,26 +88,11 @@ select_taxa <- function(query, children = FALSE, counts = FALSE) {
   }
 
   if (query_type == "name") {
-    ranks <- names(query)
-    # check ranks are valid if query type is name
-    validate_rank(ranks)
-    if (is.list(query) && length(names(query)) > 0 ) {
-      # convert to dataframe for simplicity
-      query <- as.data.frame(query)
-    }
-    if (is.data.frame(query)) {
-      matches <- data.table::rbindlist(apply(query, 1, name_lookup),
-                                       fill = TRUE)
-    } else {
-      matches <- data.table::rbindlist(lapply(query, function(t) {
-        name_lookup(t)
-      }), fill = TRUE)
-    }
+    matches <- name_query(query)
   } else {
-    matches <- data.table::rbindlist(lapply(query, function(t) {
-      identifier_lookup(t)
-    }), fill = TRUE)
+    matches <- id_query(query)
   }
+  
   out_data <- as.data.frame(matches, stringsAsFactors = FALSE)
   if (ncol(out_data) > 1 && children) {
     # look up the child concepts for the identifier
@@ -110,21 +104,65 @@ select_taxa <- function(query, children = FALSE, counts = FALSE) {
     out_data <- data.table::rbindlist(list(out_data, children), fill = TRUE)
   }
   if (ncol(out_data) > 1 && counts) {
+    # add counts to data
     counts <- unlist(lapply(out_data$taxon_concept_id, function(id) {
       record_count(list(fq = paste0("lsid:", id)))
     }))
     out_data <- cbind(out_data, count = counts)
   }
+  if (ncol(out_data) > 1 && all_ranks) {
+    im_ranks <- data.table::rbindlist(
+      lapply(out_data$taxon_concept_id, function(id) {
+        intermediate_ranks(id)
+      }
+    ), fill = TRUE)
+    out_data <- cbind(out_data, im_ranks)
+    # Todo: order columns correctly
+  }
   # write out to csv
   if (caching) {
     write.csv(out_data, cache_file, row.names = FALSE)
   }
+  class(out_data) <- append(class(out_data), "ala_id")
   out_data
 }
 
+intermediate_ranks <- function(id) {
+  url <- server_config("species_base_url")
+  resp <- ala_GET(url, path = paste0("ws/species/", id))
+  classification <- data.frame(resp$classification)
+  classification <- classification[names(classification) %in%
+                                     wanted_columns("extended_taxa")]
+  return(classification)
+}
+
+id_query <- function(query) {
+  matches <- data.table::rbindlist(lapply(query, function(t) {
+    identifier_lookup(t)
+  }), fill = TRUE)
+}
+
+name_query <- function(query) {
+  ranks <- names(query)
+  # check ranks are valid if query type is name
+  validate_rank(ranks)
+  if (is.list(query) && length(names(query)) > 0 ) {
+    # convert to dataframe for simplicity
+    query <- as.data.frame(query)
+  }
+  if (is.data.frame(query)) {
+    matches <- data.table::rbindlist(apply(query, 1, name_lookup),
+                                     fill = TRUE)
+  } else {
+    matches <- data.table::rbindlist(lapply(query, function(t) {
+      name_lookup(t)
+    }), fill = TRUE)
+  }
+  return(matches)
+}
 
 name_lookup <- function(name) {
-  url <- getOption("galah_server_config")$base_url_name_matching
+  url <- server_config("name_matching_base_url")
   if (is.null(names(name)) || isTRUE(names(name) == "")) {
     # search by scientific name
     path <- "api/search"
@@ -140,6 +178,7 @@ name_lookup <- function(name) {
     query <- as.list(name)
   }
   result <- ala_GET(url, path, query)
+
   if ("homonym" %in% result$issues) {
     warning("Homonym issue with ", name,
          ". Please also provide another rank to clarify.")
@@ -160,7 +199,7 @@ name_lookup <- function(name) {
 }
 
 identifier_lookup <- function(identifier) {
-  taxa_url <- getOption("galah_server_config")$base_url_name_matching
+  taxa_url <- server_config("name_matching_base_url")
   result <- ala_GET(taxa_url, "/api/getByTaxonID", list(taxonID = identifier))
   if (isFALSE(result$success) && result$issues == "noMatch") {
     message("No match found for identifier ", identifier)
@@ -177,7 +216,7 @@ deduce_query_type <- function(query) {
   if (
     # APNI
     any(str_detect(query, "https://id.biodiversity.org.au")) ||
-    # AFD 
+    # AFD
     any(str_detect(query, "afd.taxon:")) ||
     # NZOE
     any(str_detect(query, "NZOR")) ||
@@ -187,10 +226,9 @@ deduce_query_type <- function(query) {
     any(str_detect(query, "CoL:")) ||
     # CAAB
     !is.na(suppressWarnings(any(as.integer(query)))) ||
-    # Aus Fungi
-    any(nchar(query) == 36) ||
-    # CoL
-    any(nchar(query) == 32) ||
+    # Aus Fungi and CoL - check if any digits in string- possibly this check
+    # would cover all id types
+    any(grepl("\\d", query)) ||
     # ALA special case
     any(str_detect(query, "ALA_"))) {
     return("id")
@@ -213,7 +251,7 @@ validate_rank <- function(ranks) {
 }
 
 child_concepts <- function(identifier) {
-  url <- getOption("galah_server_config")$base_url_bie
+  url <- server_config("species_base_url")
   path <- paste0("ws/childConcepts/",
                  URLencode(as.character(identifier), reserved = TRUE))
   children <- ala_GET(url, path)

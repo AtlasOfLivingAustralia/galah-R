@@ -90,9 +90,6 @@ get_fields <- function() {
   # remove fields where class is contextual or environmental
   fields <- fields[!(fields$classs %in% c("Contextual", "Environmental")),]
 
-  # replace name with dwc term if it exists
-  fields$name <- ifelse(!is.na(fields$dwcTerm), fields$dwcTerm, fields$name)
-
   names(fields) <- rename_columns(names(fields), type = "fields")
   fields <- fields[wanted_columns("fields")]
   fields$type <- "fields"
@@ -101,8 +98,8 @@ get_fields <- function() {
 }
 
 get_assertions <- function() {
-  url <- getOption("galah_server_config")$base_url_biocache
-  assertions <- ala_GET(url, path = "ws/assertions/codes")
+  url <- server_config("records_base_url")
+  assertions <- ala_GET(url, path = "assertions/codes")
   assertions$data_type <- "logical"
   names(assertions) <- rename_columns(names(assertions), type = "assertions")
   assertions <- assertions[wanted_columns("assertions")]
@@ -111,8 +108,8 @@ get_assertions <- function() {
 }
 
 get_layers <- function() {
-  url <- getOption("galah_server_config")$base_url_spatial
-  result <- ala_GET(url, "ws/layers")
+  url <- server_config("spatial_base_url")
+  result <- ala_GET(url, "layers")
   layer_id <- mapply(build_layer_id, result$type, result$id,
                      USE.NAMES = FALSE)
   result <- cbind(layer_id, result)
@@ -141,34 +138,10 @@ get_media <- function(x) {
   fields
 }
 
-# Function to convert darwin core field name to ALA field name, as currently
-# required by biocache APIs
-dwc_to_ala <- function(dwc_names) {
-  fields <- all_fields()
-  # get relevant cols
-  vapply(dwc_names, function(n) {
-    if (n == "scientificName") {
-      return("taxon_name")
-    } else if (n == "verbatimLatitude") {
-      return("verbatim_latitude")
-    } else if (n == "verbatimLongitude") {
-      return("verbatim_longitude")
-    } else if (n == "verbatimCoordinateSystem") {
-      return("verbatim_coordinate_system")
-    } else if (n %in% fields$dwcTerm) {
-      return(fields[fields$dwcTerm == n & !is.na(fields$dwcTerm), ]$name)
-    } else {
-      return(n)
-    }
-  }, USE.NAMES = FALSE, FUN.VALUE = character(1))
-}
-
 all_fields <- function() {
-  url <- getOption("galah_server_config")$base_url_biocache
-  ala_GET(url, path = "ws/index/fields")
+  url <- server_config("records_base_url")
+  ala_GET(url, path = "index/fields")
 }
-
-
 
 build_layer_id <- function(type, id) {
   if (type == "Environmental") {

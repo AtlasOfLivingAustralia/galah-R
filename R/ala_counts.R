@@ -43,16 +43,14 @@
 #' }
 #' @export ala_counts
 
-ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "record") {
+ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL, group_by,
+                       limit = 100, type = "record") {
   query <- list()
   page_size <- 100
   verbose <- ala_config()$verbose
   
-  if (missing(taxa)) { taxa <- NULL }
-  if (missing(filters)) { filters <- NULL }
-  if (missing(locations)) { locations <- NULL }
-  
-  query <- build_query(taxa, filters, locations)
+  profile <- extract_profile(filters)
+  query <- build_query(taxa, filters, locations, profile = profile)
 
   if (missing(group_by)) {
     if (type == "species") {
@@ -63,11 +61,10 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
 
   # check facet is valid
   validate_facet(group_by)
-  ala_group_by <- dwc_to_ala(group_by)
-  query$facets <- ala_group_by
+  query$facets <- group_by
 
-  url <- getOption("galah_server_config")$base_url_biocache
-  path <- "ws/occurrence/facets"
+  url <- server_config("records_base_url")
+  path <- "occurrence/facets"
   cache_file <- cache_filename(args = c(url, path, unlist(query), limit,
                                         group_by, type),
                                ext = ".csv")
@@ -75,16 +72,12 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
   caching <- getOption("galah_config")$caching
   if (caching && file.exists(cache_file)) {
     if (verbose) {message("Using cached file")}
-    return(read.csv(cache_file))
+    return(read.csv(cache_file, as.is = TRUE))
   }
 
   total_cats <- total_categories(url, path, query)
   if (total_cats == 0) {
-    counts <- data.frame(
-      name = as.character(),
-      count = as.numeric()
-    )
-    return(counts)
+    return(data.frame(name = as.character(), count = as.numeric()))
   }
 
   if (is.null(limit)) {
@@ -94,12 +87,9 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
   if (total_cats > limit && total_cats > page_size) {
     resp <- ala_GET(url, path, params = query, paginate = TRUE, limit = limit,
                     page_size = page_size, offset_param = "foffset")
-    counts <- data.table::rbindlist(
-      lapply(resp, function(x) {
-        fromJSON(x)$fieldResult[[1]]
-        }
-        )
-      )
+    counts <- data.table::rbindlist(lapply(resp, function(x) {
+      fromJSON(x)$fieldResult[[1]]
+      }))
     } else {
       query$flimit <- limit
       resp <- ala_GET(url, path, params = query)
@@ -123,7 +113,7 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
       }
       species_query <- list()
       species_query$fq <- c(query$fq,
-                            query_term(name = ala_group_by, value = value[[x]],
+                            query_term(name = group_by, value = value[[x]],
                             include = TRUE))
       count <- species_count(species_query)
       data.frame(name = value[[x]], count = count)
@@ -134,7 +124,6 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
       count = counts$count
     )
   }
-  
   names(counts) <- c(group_by, "count")
   
   if (caching) {
@@ -148,16 +137,16 @@ ala_counts <- function(taxa, filters, locations, group_by, limit = 100, type = "
 # handle too long queries in here?
 record_count <- function(query) {
   query$pageSize <- 0
-  url <- getOption("galah_server_config")$base_url_biocache
-  resp <- ala_GET(url, "ws/occurrences/search", query)
+  url <- server_config("records_base_url")
+  resp <- ala_GET(url, "occurrences/search", query)
   resp$totalRecords
 }
 
 species_count <- function(query) {
   query$flimit <- 1
-  query$facets <- "species_guid"
-  url <- getOption("galah_server_config")$base_url_biocache
-  total_categories(url, "ws/occurrence/facets", query)
+  query$facets <- "speciesID"
+  url <- server_config("records_base_url")
+  total_categories(url, "occurrence/facets", query)
 }
 
 validate_facet <- function(facet) {
@@ -181,6 +170,4 @@ parse_fq <- function(fq) {
     sub('.*?"([^"]+)"', "\\1", z)
   }, USE.NAMES = FALSE, FUN.VALUE = character(1))
 }
-
-
 

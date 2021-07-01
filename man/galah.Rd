@@ -5,33 +5,57 @@
 \alias{galah}
 \title{\pkg{galah}}
 \description{
-\code{galah} is an R interface to biodiversity data hosted by the Atlas of
-Living Australia (\url{https://www.ala.org.au/}) (ALA). It enables users to
+\code{galah} is an R interface to the Atlas of
+Living Australia (ALA; \url{https://www.ala.org.au/}), 
+a biodiversity data repository focussed
+primarily on observations of individual life forms. 
+It also supports access to some other 'living atlases' that use the same 
+computational infrastructure. The
+basic unit of data at ALA is an \strong{occurrence} record, based on the
+'Darwin Core' data standard (\url{https://dwc.tdwg.org}). \code{galah} enables users to
 locate and download species observations, taxonomic information, or
 associated media such images or sounds, and to restrict their queries to
 particular taxa or locations. Users can specify which columns are returned
 by a query, or restrict their results to observations that meet particular
-quality-control criteria. All functions return a \code{data.frame} as their
-standard format.
+quality-control criteria.
 }
-\details{
-The Atlas of Living Australia is a repository of biodiversity data, focussed
-primarily on observations of individual life forms. Like the Global
-Biodiversity Information Facility (GBIF; \url{https://www.gbif.org}), the
-basic unit of data at ALA is an \strong{occurrence} record, based on the
-'Darwin Core' data standard (\url{https://dwc.tdwg.org}).
+\section{Functions}{
 
-Functions that return data from ALA are named with the prefix \code{ala_},
-followed by a suffix describing the information that they provide. For
-example, we anticipate that users will wish to download occurrence data,
-which can be achieved using the function \code{\link{ala_occurrences}()}.
-However, it is also possible to download data on species via
-\code{\link{ala_species}()}, or media content (largely images) via
-\code{\link{ala_media}()}. Alternatively, users can assess how many records
-meet their particular criteria using \code{\link{ala_counts}()}.
+\strong{\code{Data}}
+\itemize{
+  \item\code{\link{ala_counts}} Count the number of records or species returned by a query
+  \item\code{\link{ala_species}} Download species lists
+  \item\code{\link{ala_occurrences}} Download occurrence records
+  \item\code{\link{ala_media}} Download images and sounds
+}
+\strong{\code{Filter}}
+\itemize{
+  \item\code{\link{select_taxa}} Search for taxonomic information
+  \item\code{\link{select_filters}} Filter records
+  \item\code{\link{select_locations}} Specify a location
+  \item\code{\link{select_columns}} Columns to return in an occurrence download
+}
+\strong{\code{Lookup}}
+\itemize{
+  \item\code{\link{search_fields}} Free-text search for layers and fields
+  \item\code{\link{find_field_values}} List possible values for a given field
+  \item\code{\link{find_profiles}} List data quality profiles
+  \item\code{\link{find_profile_attributes}} List filters included in a data quality profile
+  \item\code{\link{find_reasons}} List valid download reasons
+  \item\code{\link{find_atlases}} List supported international atlases
+}
+\strong{\code{Help}}
+\itemize{
+  \item\code{\link{ala_config}} Package configuration options
+  \item\code{\link{ala_citation}} Citation for a dataset
+}
+}
+
+\section{Terminology}{
+
 
 To get the most value from \code{galah}, it is helpful to understand some
-locally-specific terminology. Each occurrence record contains taxonomic
+terminology used by the ALA. Each occurrence record contains taxonomic
 information, and usually some information about the observation itself, such
 as its location. In addition to this record-specific information, ALA
 appends contextual information to each record, particularly data from spatial
@@ -65,7 +89,27 @@ data quality \strong{profiles}, which can be passed to
 \code{\link{select_filters}()} to quickly remove undesirable records. A full
 list of data quality profiles is returned by \code{\link{find_profiles}()}.
 
-As the above text makes clear, functions in \code{galah} are designed
+For those outside Australia, 'galah' is the common name of
+\emph{Eolophus roseicapilla}, a widely-distributed
+Australian bird species.
+}
+
+\section{Package design}{
+
+
+In most cases, users will be primarily interested in using \code{galah} to
+return data from one of the living atlases. These functions are named with 
+the prefix \code{ala_},
+followed by a suffix describing the information that they provide. For
+example, we anticipate that users will wish to download occurrence data,
+which can be achieved using the function \code{\link{ala_occurrences}()}.
+However, it is also possible to download data on species via
+\code{\link{ala_species}()}, or media content (largely images) via
+\code{\link{ala_media}()}. Alternatively, users can assess how many records
+meet their particular criteria using \code{\link{ala_counts}()}. All 
+functions return a \code{data.frame} as their standard format.
+
+Functions in \code{galah} are designed
 according to a nested architecture. Users that require data should begin by
 locating the relevant \code{ala_} function; the arguments within that
 function then call correspondingly-named \code{select_} functions; and
@@ -74,45 +118,10 @@ functions are given by functions with the prefix \code{search_} or
 \code{find_}. So, to limit occurrence downloads to a specific taxonomic
 group, for example, you pass the reult of \code{\link{select_taxa}} to the
 \code{taxa} argument of \code{\link{ala_occurrences}}.
-
-Finally, the \code{galah} package is named for the bird of the same
-name (\emph{Eolophus roseicapilla}), a widely-distributed endemic
-Australian species.
-
-If you have any questions, comments or suggestions, please email
-\href{mailto:support@ala.org.au}{support@ala.org.au}.
-}
-\section{Functions}{
-
-\strong{Data}
-\itemize{
-  \item\code{\link{ala_counts}} Count the number of records returned by a query
-  \item\code{\link{ala_species}} Download species lists
-  \item\code{\link{ala_occurrences}} Download occurrence records
-  \item\code{\link{ala_media}} Download images and sounds
-}
-\strong{Filter}
-\itemize{
-  \item\code{\link{select_taxa}} Taxon information
-  \item\code{\link{select_filters}} Filter records
-  \item\code{\link{select_locations}} Specify location
-  \item\code{\link{select_columns}} Columns to return in occurrence download
-}
-\strong{Lookup}
-\itemize{
-  \item\code{\link{search_fields}} Free-text search for layers and fields
-  \item\code{\link{find_field_values}} List possible values for a given field
-  \item\code{\link{find_profiles}} List data quality profiles
-  \item\code{\link{find_profile_attributes}} List filters included in a data quality profile
-  \item\code{\link{find_reasons}} List valid download reasons
-}
-\strong{Help}
-\itemize{
-  \item\code{\link{ala_config}} Package configuration options
-  \item\code{\link{ala_citation}} Citation for a dataset
-}
 }
 
 \references{
-For more information on the ALA API, visit \url{https://api.ala.org.au/}
+For more information on the ALA API, visit \url{https://api.ala.org.au/}.
+If you have any questions, comments or suggestions, please email
+\href{mailto:support@ala.org.au}{support@ala.org.au}.
 }

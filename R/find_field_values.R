@@ -10,8 +10,8 @@
 #' @seealso See \code{\link{search_fields}} for ways to use information returned
 #' by this function.
 #' @examples \dontrun{
-#' find_field_values("basis_of_record")
-#' find_field_values("state")
+#' find_field_values("basisOfRecord")
+#' find_field_values("stateProvince")
 #' }
 #' @export find_field_values
 
@@ -19,13 +19,13 @@ find_field_values <- function(field, limit = 20) {
   if (missing(field)) {
     stop("`find_field_values` requires a field to search for")
   }
-  field <- dwc_to_ala(field)
+
   if (!(field %in% all_fields()$name)) {
     stop("\"", field,
          "\" is not a valid field. See valid fields with `search_fields()`.")
   }
   assert_that(is.numeric(limit))
-  url <- getOption("galah_server_config")$base_url_biocache
+  url <- server_config("records_base_url")
   resp <- ala_GET(url, "ws/occurrence/facets",
                     params = list(facets = field, flimit = limit))
 

@@ -46,31 +46,22 @@
 select_filters <- function(..., profile = NULL) {
   filters <- list(...)
   if (!is.null(profile)) {
-    dq_filters <- find_profile_attributes(profile)
-    dq_filter_rows <- data.table::rbindlist(lapply(dq_filters$filter,
-                                                   function(filter) {
-      split <- strsplit(filter, ":")[[1]]
-      value <- str_replace_all(split[2], "\"", "")
-      if (substr(split[1], 1, 1) == "-") {
-        name <- substr(split[1], 2, nchar(split[1]))
-        include <- FALSE
-      } else {
-        name <- split[1]
-        include <- TRUE
-      }
-      data.frame(name = name, include, value = I(list(value)),
+    short_name <- profile_short_name(profile)
+    if (is.null(short_name) || is.na(short_name)) {
+      stop(profile, " is not a valid data quality id, short name or name. Use
+          `find_profiles` to list valid profiles.")
+    }
+    dq_filter_row <- data.frame(name = "profile", include = TRUE, value = I(list(short_name)),
                  stringsAsFactors = FALSE)
-    }))
   } else {
-    dq_filter_rows <- NULL
+    dq_filter_row <- NULL
   }
-
 
   assertions <- search_fields(type = "assertions")$id
   validate_filters(filters)
   filter_rows <- data.table::rbindlist(lapply(names(filters), function(x) {
     if (x %in% assertions) {
-      row <- data.frame(name = "assertions", include = TRUE, value = x,
+      row <- data.frame(name = "assertions", include = filters[[x]], value = I(list(x)),
                         stringsAsFactors = FALSE)
     } else {
       row <- data.frame(name = x, include = !inherits(filters[[x]], "exclude"),
@@ -79,8 +70,8 @@ select_filters <- function(..., profile = NULL) {
     }
     row
   }))
-
-  rbind(filter_rows, dq_filter_rows)
+  
+  rbind(filter_rows, dq_filter_row)
 }
 
 
@@ -99,45 +90,6 @@ validate_filters <- function(filters) {
          paste(invalid_filters, collapse = ", "),
          ". Use `search_fields()` to get a list of valid options")
   }
-}
-
-
-# takes a dataframe and returns a built filter query
-build_filter_query <- function(filters) {
-  filters$name <- dwc_to_ala(filters$name)
-  mapply(query_term, filters$name, filters$value, filters$include,
-         USE.NAMES = FALSE)
-}
-
-query_term <- function(name, value, include) {
-  # add quotes around value
-  value <- lapply(value, function(x) {
-    # don't add quotes if there are square brackets in the term
-    if (grepl("\\[", x)) {
-      x
-    } else {
-      paste0("\"", x, "\"")
-    }
-  })
-  # add quotes around value
-  if (include) {
-    value_str <- paste0("(", paste(name, value, collapse = " OR ", sep = ":"),
-                        ")")
-  } else {
-    value_str <- paste0("(", paste(paste0("-", name), value,
-                                   collapse = ' AND ', sep = ":"), ")")
-  }
-  #paste0("(", value_str, ")")
-  value_str
-}
-
-
-filter_value <- function(val) {
-  # replace loigcal values with strings
-  if (is.logical(val)) {
-    return(ifelse(val, "true", "false"))
-  }
-  val
 }
 
 #' Negate a filter value

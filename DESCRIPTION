@@ -1,16 +1,19 @@
 Package: galah
 Type: Package
 Title: Atlas of Living Australia (ALA) Data and Resources in R
-Version: 1.1.0
+Version: 1.2.0
 Authors@R: c(person("Matilda", "Stevenson", email="matilda.stevenson@csiro.au",role=c("aut","cre")),
              person("Martin", "Westgate", email="martin.westgate@csiro.au", role="aut"),
-             person("Peggy", "Newman", email="peggy.newman@csiro.au", role="aut"))
+             person("Peggy", "Newman", email="peggy.newman@csiro.au", role="aut"),
+             person("Dax", "Kellie", email="dax.kellie@csiro.au", role = "ctb"))
 Description: The Atlas of Living Australia ('ALA') provides tools to enable users
     of biodiversity information to find, access, combine and visualise data on
     Australian plants and animals; these have been made available from
     <https://ala.org.au/>. 'galah' provides a subset of the tools to be
     directly used within R. It enables the R community to directly access data
     and resources hosted by the 'ALA'.
+Depends:
+    R (>= 4.0.0)
 Imports:
     assertthat,
     crul,
@@ -28,9 +31,9 @@ Suggests:
     dplyr,
     ggplot2,
     knitr,
-    ozmaps,
     pkgdown,
     rmarkdown,
+    taxize,
     testthat
 License: MPL-2.0
 URL: https://github.com/AtlasOfLivingAustralia/galah

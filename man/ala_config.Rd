@@ -10,6 +10,7 @@ ala_config(..., profile_path = NULL)
 \item{\dots}{Options can be defined using the form \code{name = value}.
 Valid arguments are:
 \itemize{
+  \item \code{atlas} string: Living Atlas to point to, Australia by default
   \item \code{caching} logical: if TRUE, results will be cached, and any cached
     results will be re-used). If FALSE, data will be downloaded.
   \item \code{cache_directory} string: the directory to use for the cache.
@@ -29,7 +30,7 @@ Valid arguments are:
     A registered email is required for some functions in \code{galah}.
   \item \code{send_email} logical: should you receive an email for each query to
     \code{\link{ala_occurrences}()}? Defaults to \code{FALSE}; but can be
-    userful in some instances, for example for tracking DOIs assigned to
+    useful in some instances, for example for tracking DOIs assigned to
     specific downloads for later citation.
   \item \code{verbose} logical: should \code{galah} give verbose output to assist
   debugging? Defaults to FALSE.

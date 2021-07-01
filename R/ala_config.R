@@ -12,6 +12,7 @@
 #' @param \dots Options can be defined using the form \code{name = value}.
 #' Valid arguments are:
 #' \itemize{
+#'   \item \code{atlas} string: Living Atlas to point to, Australia by default
 #'   \item \code{caching} logical: if TRUE, results will be cached, and any cached
 #'     results will be re-used). If FALSE, data will be downloaded.
 #'   \item \code{cache_directory} string: the directory to use for the cache.
@@ -31,7 +32,7 @@
 #'     A registered email is required for some functions in \code{galah}.
 #'   \item \code{send_email} logical: should you receive an email for each query to
 #'     \code{\link{ala_occurrences}()}? Defaults to \code{FALSE}; but can be
-#'     userful in some instances, for example for tracking DOIs assigned to
+#'     useful in some instances, for example for tracking DOIs assigned to
 #'     specific downloads for later citation.
 #'   \item \code{verbose} logical: should \code{galah} give verbose output to assist
 #'   debugging? Defaults to FALSE.
@@ -59,10 +60,11 @@ ala_config <- function(..., profile_path = NULL) {
   default_options <- list(
     caching = FALSE,
     cache_directory = tempdir(),
+    atlas = "Australia",
     download_reason_id = 4,
     email = "",
     send_email = FALSE,
-    verbose = FALSE
+    verbose = TRUE
   )
 
   if (length(user_options) == 0 && !is.null(current_options)) {
@@ -218,18 +220,23 @@ validate_option <- function(name, value) {
       stop("Download reason must be a valid reason id or name ",
            "See `find_reasons()` for valid reasons.")
     }
+  } else if (name == "atlas") {
+    if (!value %in% find_atlases()$atlas) {
+      stop("Atlas must be one of ",
+           paste(find_atlases()$atlas, collapse = ", "))
+    }
   } else {
     stop("\"", name, "\"", "is not a valid option name.")
   }
 }
 
 #' List valid download reasons
-#' 
-#' When downloading occurrence data with \code{\link{ala_occurrences}} the 
-#' ALA APIs require a reason for download to be specified. By default, a 
+#'
+#' When downloading occurrence data with \code{\link{ala_occurrences}} the
+#' ALA APIs require a reason for download to be specified. By default, a
 #' download reason of 'scientific research' is set for you, but if you wish to
 #' change this you can do so with \code{\link{ala_config}()}. Use this function
-#' to view the list of download reason code and names. When specifying a reason, 
+#' to view the list of download reason code and names. When specifying a reason,
 #' you can use either the download code or name.
 #' @rdname find_reasons
 #' @seealso This function is helpful in setting up \code{\link{ala_config}()}.
@@ -238,7 +245,7 @@ validate_option <- function(name, value) {
 #' @export
 find_reasons <- function() {
     ## return list of valid "reasons for use" codes
-    out <- ala_GET(getOption("galah_server_config")$base_url_logger,
+    out <- ala_GET(server_config("logger_base_url"),
                            path = "service/logger/reasons")
     if (any(names(out) == "deprecated")) out <- out[!out$deprecated, ]
     out <- out[wanted_columns("reasons")]
@@ -262,3 +269,4 @@ convert_reason <- function(reason) {
   }
   reason
 }
+

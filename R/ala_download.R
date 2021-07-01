@@ -15,6 +15,11 @@ ala_download <- function(url, path, params = list(), ext = ".csv",
     stop(dirname(cache_file),
          " does not exist. Please create it and try again.")
   }
+
+  # ws needs to be added for 
+  if (!is.na(url_parse(url)$path) & !grepl("ws", path)) {
+    path <- paste0(url_parse(url)$path,"/", path)
+  }
   
   # workaround for fq troubles
   if (length(params$fq) > 1) {
@@ -26,7 +31,16 @@ ala_download <- function(url, path, params = list(), ext = ".csv",
   }
 
   if (ext == ".csv") {
-    df <- read.csv(res$content, stringsAsFactors = FALSE)
+    # error message is specific to ala_species because it is the only function which
+    # gets to this point
+    tryCatch(
+      df <- read.csv(res$content, stringsAsFactors = FALSE),
+      error = function(e) {
+        e$message <- "No species matching the supplied filters were found."
+        stop(e)
+      }
+    )
+    
     close(file(cache_file))
   } else {
     # for zipped files just return the path

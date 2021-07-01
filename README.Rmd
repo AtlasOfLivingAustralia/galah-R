@@ -86,3 +86,27 @@ doi <- attr(occ, "doi")
 cit <- ala_citation(occ)
 ```
 
+## Contributing
+
+### Running tests
+Tests should be run locally on any new code changes before pushing to GitHub. When
+code is pushed, tests will also be run on Travis CI. The results of the remote
+tests are available [here](https://travis-ci.com/AtlasOfLivingAustralia/galah/).
+```{r eval=FALSE}
+# All tests
+devtools::test()
+
+# Individual files
+devtools::test_file()
+```
+
+### Writing tests
+Tests are in the `tests/testthat/` folder. [codecov](https://codecov.io/github/AtlasOfLivingAustralia/galah) gives the percentage of code covered by tests. Ideally this should stay above 85%. 
+
+### Updating the `pkgdown` site
+The [package homepage](https://atlasoflivingaustralia.github.io/galah/) is rebuilt and updated automatically whenever code is pushed/merged into the `master` branch.
+
+
+### Other Living Atlases
+`galah` supports retrieving data from a number of other Living Atlases. 
+

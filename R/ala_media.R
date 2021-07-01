@@ -49,27 +49,19 @@
 #' }
 #' @export ala_media
 
-# TODO: Check user has provided email and give a useful message if not
-ala_media <- function(taxa, filters, locations, columns, download_dir) {
+ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
+                      columns = select_columns(group = "basic"), download_dir) {
+  
+  image_url <- server_config("images_base_url")
+  
   verbose <- ala_config()$verbose
-  assert_that(is.logical(verbose))
   assert_that(!missing(download_dir),
   msg = "A path to an existing directory to download images to is required")
   assert_that(file.exists(download_dir))
-
-  if (missing(taxa)) { taxa <- NULL }
-  if (missing(filters)) { filters <- NULL }
-  if (missing(locations)) { locations <- NULL }
+  download_dir <- normalizePath(download_dir)
   
   if (is.null(taxa) & is.null(filters) & is.null(locations)) {
     warning("No filters have been provided. All images and sounds will be downloaded.")
-  }
-  
-  if(missing(columns)) {
-    if (verbose) {
-      message("No columns specified, default columns will be returned.")
-    }
-    columns <- select_columns(group = "basic")
   }
   
   # Check whether any of the filters are media-specific filters and
@@ -82,18 +74,16 @@ ala_media <- function(taxa, filters, locations, columns, download_dir) {
   
   # Make sure media ids are included in results
   occ_columns <- rbind(columns,
-                       select_columns("images", "sounds","videos")
+                       select_columns(image_fields())
                        )
-  if (verbose) {
-    message("Downloading records with media...")
-  }
+  if (verbose) { message("Downloading records with media...") }
   
   occ <- ala_occurrences(taxa, occ_filters, locations, occ_columns)
 
   occ_long <- data.frame(data.table::rbindlist(
     lapply(seq_len(nrow(occ)), function(x) {
       # get all the image, video and sound columns into one row
-      splt_media <- unlist(str_split(occ[x,][c("images", "videos", "sounds")],
+      splt_media <- unlist(str_split(occ[x,][image_fields()],
                                      pattern = "\""))
       media <- splt_media[nchar(splt_media) > 1 & splt_media != "NA"]
       
@@ -108,7 +98,7 @@ ala_media <- function(taxa, filters, locations, columns, download_dir) {
     fill = TRUE
   ))
 
-  occ_long[, c("images", "sounds", "videos")] <- NULL
+  occ_long[, image_fields()] <- NULL
   
   ids <- occ_long$media_id[!is.na(occ_long$media_id)]
   
@@ -132,7 +122,7 @@ ala_media <- function(taxa, filters, locations, columns, download_dir) {
     message("Downloading ", length(urls), " media files...")
   }
   download_media(urls, outfiles, verbose)
-
+  all_data$download_path <- outfiles
   if (verbose) {
     message("\n",nrow(all_data), " files were downloaded to ", download_dir)
   }
@@ -140,7 +130,7 @@ ala_media <- function(taxa, filters, locations, columns, download_dir) {
 }
 
 media_urls <- function(ids) {
-  url <- parse_url(getOption("galah_server_config")$base_url_images)
+  url <- parse_url(server_config("images_base_url"))
   unlist(lapply(seq_len(length(ids)), function(x) {
     url$path <- c("image", as.character(ids[x]), "original")
     # may be quicker to use `paste` here?
@@ -205,7 +195,7 @@ download_media <- function(urls, outfiles, verbose) {
 
 media_metadata <- function(ids) {
   res <- ala_POST(
-    url = getOption("galah_server_config")$base_url_images,
+    url = server_config("images_base_url"),
     path = "/ws/imageInfoForList",
     body = list(imageIds = ids),
     encode = "json"
@@ -219,6 +209,9 @@ media_metadata <- function(ids) {
 }
 
 filter_metadata <- function(metadata, filters) {
+  if (is.null(filters)) {
+    return(metadata)
+  }
   for (i in seq_len(nrow(filters))) {
     val <- filters[i,]$value[[1]]
     filter_name <- filters[i,]$name
