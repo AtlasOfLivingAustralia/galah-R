@@ -26,11 +26,7 @@ have a differing number of columns in the return value (#41)
 * `ala_counts()` returns data.frame with consistent column classes when 
 a `group_by` parameter is called multiple times and `ala_config(caching = TRUE)` 
 (#47)
-
-
-
-
-
+* `ala_` functions fail gracefully if a non-id character string is passed (#49)
 
 
 # galah 1.1.0
