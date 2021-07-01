@@ -26,7 +26,7 @@ find_field_values <- function(field, limit = 20) {
   }
   assert_that(is.numeric(limit))
   url <- server_config("records_base_url")
-  resp <- ala_GET(url, "ws/occurrence/facets",
+  resp <- ala_GET(url, "occurrence/facets",
                     params = list(facets = field, flimit = limit))
 
   if (resp$count > limit) {
