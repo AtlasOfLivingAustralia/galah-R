@@ -107,6 +107,10 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
     media_filters
   ))
   
+  if (nrow(metadata) == 0) {
+    stop("Metadata could not be found for any images for the species provided.")
+  } 
+  
   # Select only the columns we want
   names(metadata) <- rename_columns(names(metadata), type = "media")
   metadata <- metadata[names(metadata) %in% wanted_columns("media")]
