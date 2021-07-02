@@ -126,4 +126,6 @@ the `master` branch.
 
 ### Other Living Atlases
 
-`galah` supports retrieving data from a number of other Living Atlases.
+`galah` supports retrieving data from a number of other Living Atlases;
+how to do this is explained in the [international atlases
+vignette](https://atlasoflivingaustralia.github.io/galah/articles/international_atlases.html).
