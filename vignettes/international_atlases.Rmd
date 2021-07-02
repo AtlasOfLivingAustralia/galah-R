@@ -74,4 +74,4 @@ head(occ)
 ## Supporting another Atlas
 `galah` currently supports a subset of the existing Living Atlases. If you would
 like to see another Living Atlas supported, add the server configuration for the 
-Atlas in the `R/server.R` file, and put in a pull request.
+Atlas in the `R/find_atlases.R` file, and put in a pull request.
