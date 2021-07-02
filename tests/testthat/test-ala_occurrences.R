@@ -102,6 +102,7 @@ test_that("ala_occurrences handles sf polygon inputs", {
 })
 
 test_that("ala_occurrences caches data as expected", {
+  skip_on_cran()
   ala_config(caching = TRUE, verbose = TRUE)
   taxa <- select_taxa("Wurmbea dioica")
   filters <- select_filters(year = 2000)
@@ -118,6 +119,7 @@ test_that("ala_occurrences caches data as expected", {
 
 test_that("ala_occurrences downloads data from a DOI", {
   # Only works for ALA DOIs
+  skip_on_cran()
   expect_error(ala_occurrences(doi = "random_doi"))
   doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
   expect_gt(nrow(ala_occurrences(doi = doi)), 0)

@@ -12,6 +12,7 @@ test_that("select_locations checks inputs", {
 })
 
 test_that("select_locations finds polygon errors", {
+  skip_on_cran()
   invalid_wkt <- "POLYGON((145.71622941565508 -32.17848852726597,))"
   expect_warning(select_locations(invalid_wkt))
 
@@ -20,6 +21,7 @@ test_that("select_locations finds polygon errors", {
 })
 
 test_that("select_locations converts to multipolygon", {
+  skip_on_cran()
   wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
   expect_match(select_locations(wkt), "MULTIPOLYGON")
 })

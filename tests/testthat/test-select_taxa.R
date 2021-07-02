@@ -90,6 +90,7 @@ test_that("select_taxa handles name issues", {
 })
 
 test_that("select_taxa returns children for multiple names", {
+  skip_on_cran()
   expect_equal(
     nrow(select_taxa(c("Osphranter", "Dasyurus"), children = TRUE)),
     sum(nrow(select_taxa("Osphranter", children = TRUE)),
@@ -103,5 +104,6 @@ test_that("select_taxa errors if number of cols in data doesn't match", {
 })
 
 test_that("select_taxa returns extended taxonomy", {
+  skip_on_cran()
   expect_true("subfamily" %in% names(select_taxa("Anas", all_ranks = TRUE)))
 })
