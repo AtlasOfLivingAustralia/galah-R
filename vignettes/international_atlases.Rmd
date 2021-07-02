@@ -35,10 +35,6 @@ Atlas.
 ala_config(atlas = "UK", email = "your_email_here")
 ```
 
-```{r include=FALSE}
-ala_config(atlas = "UK", email = "matilda.stevenson@csiro.au")
-```
-
 ## Get data for another atlas
 ```{r}
 ala_counts()
@@ -61,7 +57,17 @@ ala_counts(taxa = id)
 ala_config(atlas = "Austria")
 id <- get_gbifid("bombina variegata", rows = 1)
 ala_counts(taxa = id)
+```
+
+```{r include = FALSE}
+occ <- read.csv('bombina_variegata.csv')
+```
+
+```{r eval = FALSE}
 occ <- ala_occurrences(taxa = id)
+```
+
+```{r}
 head(occ)
 ```
 
