@@ -12,6 +12,8 @@ download records; this takes the user to the website search page (#32)
 * `ala_species()` provides a more helpful error if no species are found (#39)
 * Data quality filters are created using the specific web service argument,
 rather than constructing filters from the attributes (#37)
+* `select_taxa()` has an optional `all_ranks` argument to return intermediate
+rank information (#35)
 
 ### Bug fixes
 * R > 4.0.0 is now required (#43, #45)
