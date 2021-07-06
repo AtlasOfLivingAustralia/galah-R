@@ -115,7 +115,7 @@ filters <- select_filters(basisOfRecord = "HumanObservation")
 ```
 
 By default, a filter is included. To negate a filter, use `exclude()`.
-```{r}
+```{r eval=FALSE}
 filters <- select_filters(basisOfRecord = "HumanObservation",
                           occurrenceStatus = exclude("absent"))
 ```
@@ -140,7 +140,7 @@ View filters included in a profile
 find_profile_attributes("ALA")
 ```
 Include a profile in the filters
-```{r}
+```{r eval=FALSE}
 filters <- select_filters(basisOfRecord = "HumanObservation",
                           profile = "ALA")
 ```
