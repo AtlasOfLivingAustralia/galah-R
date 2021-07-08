@@ -12,7 +12,8 @@ Status](https://travis-ci.com/AtlasOfLivingAustralia/galah.svg?branch=master)](h
 Status](https://www.r-pkg.org/badges/version/galah)](https://CRAN.R-project.org/package=galah)
 [![CRAN
 Downloads](https://cranlogs.r-pkg.org/badges/grand-total/galah)](https://cran.r-project.org/package=galah)
-—
+
+------------------------------------------------------------------------
 
 `galah` is an R interface to biodiversity data hosted by the [Atlas of
 Living Australia](https://www.ala.org.au/) (ALA). It enables users to
