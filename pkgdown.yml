@@ -1,10 +1,10 @@
-pandoc: 2.11.3.2
+pandoc: '2.2'
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   galah: galah.html
   international_atlases: international_atlases.html
-last_built: 2021-07-06T02:53Z
+last_built: 2021-07-08T00:14Z
 urls:
   reference: https://atlasoflivingaustralia.github.io/galah//reference
   article: https://atlasoflivingaustralia.github.io/galah//articles
