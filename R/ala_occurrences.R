@@ -91,7 +91,7 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
   
   if (getOption("galah_config")$atlas == "Australia") {
     query$emailNotify <- email_notify()
-    query$sourceId <- 2004
+    query$sourceTypeId <- 2004
     query$reasonTypeId <- getOption("galah_config")$download_reason_id
   }
 
