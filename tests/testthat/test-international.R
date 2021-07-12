@@ -1,7 +1,7 @@
 context("Test international atlas configuration")
 
 test_that("International Atlases work as expected", {
-  skip_on_cran()
+  skip("International atlases can be unreliable")
   atlases <- find_atlases()$atlas
   for (atlas in atlases) {
     expect_silent(ala_config(atlas = atlas))
