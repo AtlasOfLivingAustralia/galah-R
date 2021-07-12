@@ -80,6 +80,9 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
   
   occ <- ala_occurrences(taxa, occ_filters, locations, occ_columns)
 
+  # occurrence data.frame has one row per occurrence record and stores all media
+  # ids in a single column; this code splits the media ids and creates one row
+  # per media id in the returned data.frame
   occ_long <- data.frame(data.table::rbindlist(
     lapply(seq_len(nrow(occ)), function(x) {
       # get all the image, video and sound columns into one row
@@ -133,6 +136,8 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
   return(all_data)
 }
 
+# Construct url paths to where media will be downloaded from
+# Returns a vector of urls; one per id
 media_urls <- function(ids) {
   url <- parse_url(server_config("images_base_url"))
   unlist(lapply(seq_len(length(ids)), function(x) {
@@ -142,6 +147,8 @@ media_urls <- function(ids) {
   }))
 }
 
+# Construct paths to where media will be downloaded
+# Returns a vector of paths; one per id
 media_outfiles <- function(ids, types, download_dir) {
   unlist(lapply(seq_len(length(ids)), function(x) {
     ext <- switch(types[x],
@@ -160,11 +167,11 @@ media_outfiles <- function(ids, types, download_dir) {
   }))
 }
 
+# Download images in batches of 124. The limit is due to a max on the
+# number of concurrently open connections.
+# The asynchronous method is slightly quicker than downloading all
+# images in a loop
 download_media <- function(urls, outfiles, verbose) {
-  # Download images in batches of 124. The limit is due to a max on the
-  # number of concurrently open connections.
-  # The asynchronous method is slightly quicker than downloading all
-  # images in a loop
   if (verbose) { pb <- txtProgressBar(max = 1, style = 3) }
   calls <- ceiling(length(urls) / 124)
   results <- lapply(seq_len(calls - 1), function(x) {
@@ -197,6 +204,7 @@ download_media <- function(urls, outfiles, verbose) {
   }
 }
 
+# Get metadata for a list of media ids
 media_metadata <- function(ids) {
   res <- ala_POST(
     url = server_config("images_base_url"),
@@ -212,6 +220,9 @@ media_metadata <- function(ids) {
   return(df)
 }
 
+# Use media filters to filter returned results
+# These are filters on metadata values, as opposed to filters on occurrence
+# records
 filter_metadata <- function(metadata, filters) {
   if (is.null(filters)) {
     return(metadata)
