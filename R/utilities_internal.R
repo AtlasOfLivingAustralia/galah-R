@@ -1,3 +1,9 @@
+##---------------------------------------------------------------
+##                 Output formatting functions                 --
+##---------------------------------------------------------------
+
+# Select column names to return
+# Subsets data returned by webservices to useful columns
 wanted_columns <- function(type) {
     switch(type,
            "taxa" = c("search_term", "scientific_name",
@@ -8,7 +14,8 @@ wanted_columns <- function(type) {
            "extended_taxa" = c("subkingdom", "superclass", "infraclass",
                                "subclass", "subinfraclass", "suborder",
                                "superorder", "infraorder", "infrafamily",
-                               "superfamily", "subfamily","subtribe", "subgenus"),
+                               "superfamily", "subfamily","subtribe",
+                               "subgenus"),
            "profile" = c("id", "name", "shortName", "description"),
            "media" = c("rightsHolder", "license", "creator", "title", "rights",
                        "mimetype", "media_id"),
@@ -19,7 +26,7 @@ wanted_columns <- function(type) {
            "reasons" = c("id", "name"))
 }
 
-# rename specific columns, and convert camelCase to snake_case
+# Rename specific columns, and convert to snake_case
 rename_columns <- function(varnames, type) {
     if (type == "media") {
         varnames[varnames == "imageId"] <- "media_id"
@@ -50,16 +57,20 @@ rename_columns <- function(varnames, type) {
     varnames
 }
 
-build_taxa_query <- function(ids, include) {
-  ids <- ids[order(ids)]
-  if (include) {
-    value_str <- paste0("(lsid:", paste(ids, collapse = " OR lsid:"), ")")
-  } else {
-    value_str <- paste0("(-lsid:", paste(ids, collapse = " AND -lsid:"), ")")
+# Convert true/false to logical values
+# Used in ala_occurrences output
+fix_assertion_cols <- function(df, assertion_cols) {
+  for (col in assertion_cols) {
+    df[, col] <- as.logical(df[, col])
   }
-  value_str
+  df
 }
 
+##----------------------------------------------------------------
+##                   Query-building functions                   --
+##----------------------------------------------------------------
+
+# Build query list from constituent arguments
 build_query <- function(taxa, filters, locations, columns = NULL,
                         profile = NULL) {
   query <- list()
@@ -72,7 +83,8 @@ build_query <- function(taxa, filters, locations, columns = NULL,
         "taxon_concept_id" %in% colnames(taxa)) {
       taxa <- taxa$taxon_concept_id
     }
-    assert_that(is.character(taxa))
+    #TODO: Implement a useful check here- i.e. string or integer
+    # assert_that(is.character(taxa))
     taxa_query <- build_taxa_query(taxa, include)
   }
   
@@ -111,12 +123,26 @@ build_query <- function(taxa, filters, locations, columns = NULL,
   query
 }
 
-# takes a dataframe and returns a built filter query
+# Build query from vector of taxonomic ids
+build_taxa_query <- function(ids, include) {
+  ids <- ids[order(ids)]
+  if (include) {
+    value_str <- paste0("(lsid:", paste(ids, collapse = " OR lsid:"), ")")
+  } else {
+    value_str <- paste0("(-lsid:", paste(ids, collapse = " AND -lsid:"), ")")
+  }
+  value_str
+}
+
+
+# Takes a dataframe produced by select_filters and return query as a list
 build_filter_query <- function(filters) {
   mapply(query_term, filters$name, filters$value, filters$include,
          USE.NAMES = FALSE)
 }
 
+# Construct individual query term
+# Add required brackets, quotes to make valid SOLR query syntax
 query_term <- function(name, value, include) {
   # add quotes around value
   value <- lapply(value, function(x) {
@@ -135,30 +161,10 @@ query_term <- function(name, value, include) {
     value_str <- paste0("(", paste(paste0("-", name), value,
                                    collapse = ' AND ', sep = ":"), ")")
   }
-  #paste0("(", value_str, ")")
   value_str
 }
 
-
-filter_value <- function(val) {
-  # replace logical values with strings
-  if (is.logical(val)) {
-    return(ifelse(val, "true", "false"))
-  }
-  val
-}
-
-# this is only relevant for ala_counts and ala_occurrences
-cached_query <- function(taxa_query, filter_query, area_query,
-                         columns = NULL) {
-  url <- server_config("records_base_url")
-  resp <- ala_POST(url, path = "ws/webportal/params",
-                   body = list(wkt = area_query, fq = taxa_query,
-                               fields = columns))
-  list(fq = filter_query, q = paste0("qid:", resp))
-}
-
-
+# Extract profile row from filters dataframe created by select_filters
 extract_profile <- function(filters) {
   profile <- NULL
   if (!is.null(filters)){
@@ -167,6 +173,26 @@ extract_profile <- function(filters) {
   }
   profile
 }
+
+# Replace logical R values with strings
+filter_value <- function(val) {
+  if (is.logical(val)) {
+    return(ifelse(val, "true", "false"))
+  }
+  val
+}
+
+# Construct string of column
+build_columns <- function(col_df) {
+  if (nrow(col_df) == 0) {
+    return("")
+  }
+  paste0(col_df$name, collapse = ",")
+}
+
+##---------------------------------------------------------------
+##                   Query-caching functions                   --
+##---------------------------------------------------------------
 
 # Check whether caching of some url parameters is required.
 # Note: it is only possible to cache one fq so filters can't be cached
@@ -183,21 +209,25 @@ check_for_caching <- function(taxa_query, filter_query, area_query,
   return(FALSE)
 }
 
-# convert true/false to logical values
-fix_assertion_cols <- function(df, assertion_cols) {
-  for (col in assertion_cols) {
-    df[, col] <- as.logical(df[, col])
-  }
-  df
+# Cache a long query 
+# Returns a query id (qid) from the ALA, which can then be used to reference a
+# long query
+cached_query <- function(taxa_query, filter_query, area_query,
+                         columns = NULL) {
+  url <- server_config("records_base_url")
+  resp <- ala_POST(url, path = "ws/webportal/params",
+                   body = list(wkt = area_query, fq = taxa_query,
+                               fields = columns))
+  list(fq = filter_query, q = paste0("qid:", resp))
 }
 
-build_columns <- function(col_df) {
-  if (nrow(col_df) == 0) {
-    return("")
-  }
-  paste0(col_df$name, collapse = ",")
-}
 
+##---------------------------------------------------------------
+##                   Other helpful functions                   --
+##---------------------------------------------------------------
+
+# Construct the user agent string, consisting of the galah version
+# This is added on to all requests to enable usage monitoring 
 user_agent_string <- function() {
   version_string <- "version unknown"
   suppressWarnings(
