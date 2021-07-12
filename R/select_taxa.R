@@ -76,16 +76,16 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
     message("Assuming that query term(s) provided are ", print_qt)
   }
 
-  # caching won't catch if query order is changed
-  cache_file <- cache_filename(c(unlist(query),
-                               ifelse(children, "children", ""),
-                               ifelse(counts, "counts", "")),
-                               ext = ".csv")
-  caching <- getOption("galah_config")$caching
-  if (caching && file.exists(cache_file)) {
-    # use cached file
-    return(read.csv(cache_file))
-  }
+  # # caching won't catch if query order is changed
+  # cache_file <- cache_filename(c(unlist(query),
+  #                              ifelse(children, "children", ""),
+  #                              ifelse(counts, "counts", "")),
+  #                              ext = ".rds")
+  # caching <- getOption("galah_config")$caching
+  # if (caching && file.exists(cache_file)) {
+  #   # use cached file
+  #   return(read.csv(cache_file))
+  # }
 
   if (query_type == "name") {
     matches <- name_query(query)
@@ -120,9 +120,9 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
     # Todo: order columns correctly
   }
   # write out to csv
-  if (caching) {
-    write.csv(out_data, cache_file, row.names = FALSE)
-  }
+  # if (caching) {
+  #   write.csv(out_data, cache_file, row.names = FALSE)
+  # }
   class(out_data) <- append(class(out_data), "ala_id")
   out_data
 }

@@ -244,3 +244,19 @@ check_taxa_arg <- function(taxa) {
     }
   }
 }
+
+##----------------------------------------------------------------
+##                   Caching helper functions                   --
+##----------------------------------------------------------------
+
+# Read cached file
+read_cache_file <- function(filename) {
+  if (getOption("galah_config")$caching) { message("Using cached file") }
+  readRDS(filename)
+}
+
+cache_filename <- function(...) {
+  args <- c(...)
+  filename <- paste0(digest(sort(args)), ".rds")
+  file.path(ala_config()$cache_directory, filename)
+}

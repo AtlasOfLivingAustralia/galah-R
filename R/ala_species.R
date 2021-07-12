@@ -61,27 +61,20 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL) {
   query$lookup  <- "true"
   
   path <- "occurrences/facets/download"
-  cache_file <- cache_filename(c(url, path, unlist(query)), ext = ".csv")
+  cache_file <- cache_filename("species", unlist(query))
   caching <- getOption("galah_config")$caching
 
   if (caching && file.exists(cache_file)) {
-    message("Using cached file")
-    return(read.csv(cache_file))
+    read_cache_file(cache_file)
   }
-
-  if (!caching & !dir.exists(ala_config()$cache_directory)) {
-    dir.create(ala_config()$cache_directory)
-    file.create(cache_file)
-  }
+  tmp <- tempfile()
   data <- ala_download(url, path = path, params = query,
-                       cache_file = cache_file)
+                       cache_file = tmp)
   # overwrite file with fixed names
   names(data) <- rename_columns(names(data), type = "checklist")
 
   if (caching) {
-    write.csv(data, cache_file, row.names = FALSE)
-  } else {
-    file.remove(cache_file)
+    saveRDS(data, cache_file)
   }
   return(data)
 }

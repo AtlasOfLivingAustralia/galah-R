@@ -68,25 +68,15 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
   assertion_cols <- columns[columns$type == "assertions", ]
   query$fields <- build_columns(columns[columns$type != "assertions", ])
   query$qa <- build_columns(assertion_cols)
-  
-  if (caching) {
-    cache_file <- cache_filename(c(server_config("records_base_url"),
-                                   path = "occurrences/offline/download",
-                                   params = unlist(query)), ext = ".zip")
-    if (file.exists(cache_file)) {
-      if (verbose) { message("Using cached file") }
-      # look for file using query parameters
-      data <- read.csv(unz(cache_file, "data.csv"), stringsAsFactors = FALSE)
-      #TODO: Add DOI here
-      attr(data, "doi") <- get_doi(mint_doi, cache_file)
-      return(data)
-    }
-  } else {
-    cache_file <- tempfile(fileext = ".zip")
-  }
-
   if (mint_doi) {
     query$mintDoi <- "true"
+  }
+  
+  if (caching) {
+    cache_file <- cache_filename("occurrences", unlist(query))
+    if (file.exists(cache_file)) {
+      return(read_cache_file(cache_file))
+    }
   }
   
   if (getOption("galah_config")$atlas == "Australia") {
@@ -96,15 +86,14 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
   }
 
   # Get data
+  tmp <- tempfile()
   url <- server_config("records_base_url")
-  search_url <- url_build(url, path = "occurrences/offline/download",
-                          query = query)
   query <- c(query, email = user_email(), dwcHeaders = "true")
   download_resp <- wait_for_download(url, query)
   download_path <- download_resp$download_path
   data_path <- ala_download(url = server_config("records_download_base_url"),
                        path = download_path,
-                       cache_file = cache_file, ext = ".zip")
+                       cache_file = tmp, ext = ".zip")
 
   tryCatch(
     df <- read.csv(unz(data_path, "data.csv"), stringsAsFactors = FALSE),
@@ -126,6 +115,9 @@ no valid column names have been provided. To check whether column names are vali
   attr(df, "doi") <- get_doi(mint_doi, data_path)
   attr(df, "search_url") <- download_resp$search_url
 
+  if (caching) {
+    saveRDS(df, file = cache_file)
+  }
   return(df)
 }
 

@@ -87,8 +87,9 @@ test_that("ala_counts caches as expected", {
   skip_on_cran()
   ala_config(caching = TRUE, verbose = TRUE)
   filters <- select_filters(basisOfRecord = "FossilSpecimen")
-  counts <- ala_counts(group_by = "year", limit = 100)
-  expect_message(counts2 <- ala_counts(group_by = "year", limit = 100),
+  counts <- ala_counts(filters = filters, group_by = "year", limit = 100)
+  expect_message(counts2 <- ala_counts(filters = filters, group_by = "year",
+                                       limit = 100),
                  "Using cached file")
   expect_equal(nrow(counts), nrow(counts2))
 })

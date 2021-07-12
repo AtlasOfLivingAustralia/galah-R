@@ -65,14 +65,11 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL, group_by,
 
   url <- server_config("records_base_url")
   path <- "occurrence/facets"
-  cache_file <- cache_filename(args = c(url, path, unlist(query), limit,
-                                        group_by, type),
-                               ext = ".csv")
+  cache_file <- cache_filename("counts", unlist(query), limit, group_by, type)
 
   caching <- getOption("galah_config")$caching
   if (caching && file.exists(cache_file)) {
-    if (verbose) {message("Using cached file")}
-    return(read.csv(cache_file, as.is = TRUE))
+    read_cache_file(cache_file)
   }
 
   total_cats <- total_categories(url, path, query)
@@ -127,7 +124,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL, group_by,
   names(counts) <- c(group_by, "count")
   
   if (caching) {
-    write.csv(counts, cache_file, row.names = FALSE)
+    saveRDS(counts, cache_file)
   }
   
   return(counts)
@@ -156,6 +153,7 @@ validate_facet <- function(facet) {
   }
 }
 
+# Get number of categories of a filter
 total_categories <- function(url, path, query) {
   query$flimit <- 1
   resp <- ala_GET(url, path, params = query)
@@ -165,9 +163,9 @@ total_categories <- function(url, path, query) {
   resp$count
 }
 
+# Extract filter name from data returned from API
 parse_fq <- function(fq) {
   vapply(fq, function(z) {
     sub('.*?"([^"]+)"', "\\1", z)
   }, USE.NAMES = FALSE, FUN.VALUE = character(1))
 }
-
