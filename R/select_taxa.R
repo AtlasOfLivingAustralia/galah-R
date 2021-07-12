@@ -170,11 +170,6 @@ name_lookup <- function(name) {
   } else {
     # search by classification
     path <- "api/searchByClassification"
-    # workaround for https://github.com/AtlasOfLivingAustralia/ala-namematching-service/issues
-    family_i <- which("family" %in% names(name))
-    if (length(family_i) > 0) {
-      names(name)[family_i] <- "scientificName"
-    }
     query <- as.list(name)
   }
   result <- ala_GET(url, path, query)
