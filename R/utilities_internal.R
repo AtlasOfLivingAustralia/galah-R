@@ -258,5 +258,5 @@ read_cache_file <- function(filename) {
 cache_filename <- function(...) {
   args <- c(...)
   filename <- paste0(digest(sort(args)), ".rds")
-  file.path(ala_config()$cache_directory, filename)
+  file.path(getOption("galah_config")$cache_directory, filename)
 }

@@ -56,7 +56,7 @@
 
 select_taxa <- function(query, children = FALSE, counts = FALSE,
                         all_ranks = FALSE) {
-  verbose <- ala_config()$verbose
+  verbose <- getOption("galah_config")$verbose
   assert_that(is.flag(children))
 
   if (getOption("galah_config")$atlas != "Australia") {

@@ -54,7 +54,7 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
   
   image_url <- server_config("images_base_url")
   
-  verbose <- ala_config()$verbose
+  verbose <- getOption("galah_config")$verbose
   assert_that(!missing(download_dir),
   msg = "A path to an existing directory to download images to is required")
   assert_that(file.exists(download_dir))

@@ -47,7 +47,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL, group_by,
                        limit = 100, type = "record") {
   query <- list()
   page_size <- 100
-  verbose <- ala_config()$verbose
+  verbose <- getOption("galah_config")$verbose
   
   profile <- extract_profile(filters)
   query <- build_query(taxa, filters, locations, profile = profile)
