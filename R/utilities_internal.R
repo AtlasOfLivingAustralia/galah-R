@@ -255,8 +255,36 @@ read_cache_file <- function(filename) {
   readRDS(filename)
 }
 
+# Hash cache filename from argument list
 cache_filename <- function(...) {
   args <- c(...)
   filename <- paste0(digest(sort(args)), ".rds")
   file.path(getOption("galah_config")$cache_directory, filename)
+}
+
+# Write function call metadata to RDS file to enable metadata viewing with
+# `find_cached_files()`
+write_metadata <- function(cache_file, data_type, query) {
+  metadata_file <- file.path(getOption("galah_config")$cache_directory,
+                             "metadata.rds")
+  if (file.exists(metadata_file)) {
+    metadata <- readRDS(metadata_file)
+  } else {
+    metadata <- list()
+  }
+  metadata$`file_id` <- list(data_type = data_type, query = query)
+  saveRDS(metadata, metadata_file)
+}
+
+##----------------------------------------------------------------
+##                   Request helper functions                   --
+##----------------------------------------------------------------
+
+build_fq_url <- function(url, path, params = list()) {
+  url <- parse_url(url)
+  url$path <- path
+  url$query <- params[names(params) != "fq"]
+  join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
+  fq <- paste(params$fq, collapse = "&fq=")
+  paste0(build_url(url), join_char, URLencode(fq))
 }
