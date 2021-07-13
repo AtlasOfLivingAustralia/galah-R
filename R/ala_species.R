@@ -72,9 +72,11 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL) {
                        cache_file = tmp)
   # overwrite file with fixed names
   names(data) <- rename_columns(names(data), type = "checklist")
-
+  attr(data, "data_type") <- "species"
+  
   if (caching) {
-    saveRDS(data, cache_file)
+    write_cache_file(object = data, data_type = "species", query = list(),
+                     cache_file = cache_file)
   }
   return(data)
 }

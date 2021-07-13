@@ -122,9 +122,11 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL, group_by,
     )
   }
   names(counts) <- c(group_by, "count")
+  attr(counts, "data_type") <- "counts"
   
   if (caching) {
-    saveRDS(counts, cache_file)
+    write_cache_file(object = counts, data_type = "occurrences", query = list(),
+                     cache_file = cache_file)
   }
   
   return(counts)

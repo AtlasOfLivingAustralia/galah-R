@@ -55,6 +55,7 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
   image_url <- server_config("images_base_url")
   
   verbose <- getOption("galah_config")$verbose
+  caching <- getOption("galah_config")$caching
   assert_that(!missing(download_dir),
   msg = "A path to an existing directory to download images to is required")
   assert_that(file.exists(download_dir))
@@ -62,6 +63,16 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
   
   if (is.null(taxa) & is.null(filters) & is.null(locations)) {
     warning("No filters have been provided. All images and sounds will be downloaded.")
+  }
+  
+  if (caching) {
+    cache_file <- cache_filename(
+      "media",
+      unlist(build_query(taxa, filters, locations, columns))
+    )
+    if (file.exists(cache_file)) {
+      return(read_cache_file(cache_file))
+    }
   }
   
   # Check whether any of the filters are media-specific filters and
@@ -132,6 +143,11 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
   all_data$download_path <- outfiles
   if (verbose) {
     message("\n",nrow(all_data), " files were downloaded to ", download_dir)
+  }
+  attr(all_data, "data_type") <- "media"
+  if (caching) {
+    write_cache_file(object = all_data, data_type = "media", query = list(),
+                     cache_file = cache_file)
   }
   return(all_data)
 }

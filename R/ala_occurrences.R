@@ -114,9 +114,11 @@ no valid column names have been provided. To check whether column names are vali
   # add DOI as attribute
   attr(df, "doi") <- get_doi(mint_doi, data_path)
   attr(df, "search_url") <- download_resp$search_url
-
+  attr(df, "data_type") <- "occurrences"
+    
   if (caching) {
-    saveRDS(df, file = cache_file)
+    write_cache_file(object = df, data_type = "occurrences", query = list(),
+                     cache_file = cache_file)
   }
   return(df)
 }

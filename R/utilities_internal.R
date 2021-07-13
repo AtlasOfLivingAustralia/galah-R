@@ -251,8 +251,15 @@ check_taxa_arg <- function(taxa) {
 
 # Read cached file
 read_cache_file <- function(filename) {
-  if (getOption("galah_config")$caching) { message("Using cached file") }
+  if (getOption("galah_config")$verbose) { message("Using cached file") }
   readRDS(filename)
+}
+
+# Write file to cache and metadata to metadata cache
+write_cache_file <- function(object, query, data_type, cache_file) {
+  if (getOption("galah_config")$verbose) { message("Writing to cache file") }
+  saveRDS(object, cache_file)
+  write_metadata(query, data_type, cache_file)
 }
 
 # Hash cache filename from argument list
@@ -264,7 +271,7 @@ cache_filename <- function(...) {
 
 # Write function call metadata to RDS file to enable metadata viewing with
 # `find_cached_files()`
-write_metadata <- function(cache_file, data_type, query) {
+write_metadata <- function(query, data_type, cache_file) {
   metadata_file <- file.path(getOption("galah_config")$cache_directory,
                              "metadata.rds")
   if (file.exists(metadata_file)) {
@@ -272,6 +279,7 @@ write_metadata <- function(cache_file, data_type, query) {
   } else {
     metadata <- list()
   }
+  file_id <- str_split(cache_file, "\\.")[[1]][1]
   metadata$`file_id` <- list(data_type = data_type, query = query)
   saveRDS(metadata, metadata_file)
 }
