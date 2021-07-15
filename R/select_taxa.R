@@ -59,11 +59,11 @@ select_taxa <- function(.con_query = NULL, query, children = FALSE, counts = FAL
 }
 
 #' @export
-select_taxa.ala_query <- function(.con_query = NULL, query, children = FALSE, counts = FALSE,
+select_taxa.ala_query <- function(.con_query, query, children = FALSE, counts = FALSE,
                                   all_ranks = FALSE) {
   .con_query$taxa <- select_taxa.default(query, children, counts, all_ranks)
+  print("oh yeah it's me ala_query function NICE TO SEE YOU")
   return(.con_query)
-  # query$taxa <- select_taxa(search_term)
 }
 
 #' @export
@@ -138,13 +138,6 @@ select_taxa.default <- function(query, children = FALSE, counts = FALSE,
   # }
   class(out_data) <- append(class(out_data), "ala_id")
   out_data
-}
-
-#'@export
-
-select_taxa.ala_query <- function(query, children = FALSE, counts = FALSE,
-                                  all_ranks = FALSE){
-  print("oh yeah it's me ala_query function NICE TO SEE YOU")
 }
 
 intermediate_ranks <- function(id) {

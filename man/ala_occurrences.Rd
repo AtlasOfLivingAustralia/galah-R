@@ -5,6 +5,7 @@
 \title{Occurrence records}
 \usage{
 ala_occurrences(
+  .con_query = NULL,
   taxa = NULL,
   filters = NULL,
   locations = NULL,

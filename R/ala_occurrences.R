@@ -40,9 +40,31 @@
 #' -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
 #' occ <- ala_occurrences(locations = select_locations(polygon))
 #' }
-#' @export ala_occurrences
+#' @export
+ala_occurrences <- function(.con_query = NULL, taxa = NULL, filters = NULL, locations = NULL,
+                            columns = select_columns(group = "basic"),
+                            mint_doi = FALSE, doi) {
+  UseMethod("ala_occurrences")
+}
 
-ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
+#' @export
+ala_occurrences.ala_query <- function(.con_query, taxa = NULL, filters = NULL, locations = NULL,
+                                     columns = select_columns(group = "basic"),
+                                     mint_doi = FALSE, doi) {
+  if(!is.null(.con_query$taxa)){
+    taxa <- .con_query$taxa
+  }
+  if(!is.null(.con_query$filters)){
+    filters <- .con_query$filters
+  }
+  if(!is.null(.con_query$locations)){
+    locations <- .con_query$locations
+  }
+  ala_occurrences.default(taxa, filters, locations, columns, mint_doi, doi)
+}
+
+#' @export
+ala_occurrences.default <- function(taxa = NULL, filters = NULL, locations = NULL,
                             columns = select_columns(group = "basic"),
                             mint_doi = FALSE, doi) {
 

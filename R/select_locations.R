@@ -21,9 +21,20 @@
 #' -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
 #' ala_occurrences(locations = select_locations(wkt))
 #' }
-#' @export select_locations
+#' @export
+select_locations <- function(.con_query = NULL, query) {
+  UseMethod("select_locations")
+}
 
-select_locations <- function(query) {
+#' @export
+select_locations.ala_query <- function(.con_query, query) {
+  print("oh yeah it's me ala_query function NICE TO SEE YOU")
+  .con_query$locations <- select_locations.default(query)
+  return(.con_query)
+}
+
+#' @export
+select_locations.default <- function(query) {
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons should be converted to multipolygons
   

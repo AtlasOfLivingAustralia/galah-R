@@ -24,7 +24,6 @@
 #' @details
 #' By default filters are included, but they can be excluded by wrapping the
 #' filter values in \code{\link{exclude}} (see below for examples).
-#' @export select_filters
 #' @examples \dontrun{
 #' # Create a custom filter for records of interest
 #' filters <- select_filters(
@@ -42,8 +41,20 @@
 #' # Use filters to exclude particular values
 #' filters <- select_filters(year = exclude(seq(2011,2021)))
 #' }
+#' @export
+select_filters <- function(.con_query = NULL, profile = NULL, ...) {
+  UseMethod("select_filters")
+}
 
-select_filters <- function(..., profile = NULL) {
+#' @export
+select_filters.ala_query <- function(.con_query, profile = NULL, ...) {
+  print("oh yeah it's me ala_query function NICE TO SEE YOU")
+  .con_query$filters <- select_filters.default(..., profile)
+  return(.con_query)
+}
+
+#' @export
+select_filters.default <- function(profile = NULL, ...) {
   filters <- list(...)
   if (!is.null(profile)) {
     short_name <- profile_short_name(profile)

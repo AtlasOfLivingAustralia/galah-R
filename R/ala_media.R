@@ -47,9 +47,29 @@
 #'      group_by = "multimedia"
 #' )
 #' }
-#' @export ala_media
+#' @export
+ala_media <- function(.con_query = NULL, taxa = NULL, filters = NULL, locations = NULL,
+                        columns = select_columns(group = "basic"), download_dir) {
+  UseMethod("ala_media")
+}
 
-ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
+#' @export
+ala_media.ala_query <- function(.con_query, taxa = NULL, filters = NULL, locations = NULL,
+                                  columns = select_columns(group = "basic"), download_dir) {
+  if(!is.null(.con_query$taxa)){
+    taxa <- .con_query$taxa
+  }
+  if(!is.null(.con_query$filters)){
+    filters <- .con_query$filters
+  }
+  if(!is.null(.con_query$locations)){
+    locations <- .con_query$locations
+  }
+  ala_media.default(taxa, filters, locations, columns, download_dir)
+}
+
+#' @export
+ala_media.default <- function(taxa = NULL, filters = NULL, locations = NULL,
                       columns = select_columns(group = "basic"), download_dir) {
   
   image_url <- server_config("images_base_url")

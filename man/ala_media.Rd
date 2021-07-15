@@ -5,6 +5,7 @@
 \title{Images, sounds and videos}
 \usage{
 ala_media(
+  .con_query = NULL,
   taxa = NULL,
   filters = NULL,
   locations = NULL,

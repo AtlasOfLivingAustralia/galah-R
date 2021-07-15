@@ -4,14 +4,14 @@
 \alias{select_filters}
 \title{Select filters to narrow down occurrence queries}
 \usage{
-select_filters(..., profile = NULL)
+select_filters(.con_query = NULL, profile = NULL, ...)
 }
 \arguments{
-\item{...}{filters, in the form \code{field = value}}
-
 \item{profile}{\code{string}: (optional) a data quality profile to apply to the
 records. See \code{\link{find_profiles}} for valid profiles. By default
 no profile is applied.}
+
+\item{...}{filters, in the form \code{field = value}}
 }
 \value{
 A \code{data.frame} of filter values.

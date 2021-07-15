@@ -37,12 +37,31 @@
 #' # every row is a species with associated taxonomic data
 #' ala_species(select_taxa("Heleioporus"))
 #' }
-#' @export ala_species
+#' @export
+ala_species <- function(.con_query = NULL, taxa = NULL, filters = NULL, locations = NULL) {
+  UseMethod("ala_species")
+}
+
+#' @export
+ala_species.ala_query <- function(.con_query, taxa = NULL, filters = NULL, locations = NULL) {
+  if(!is.null(.con_query$taxa)){
+    taxa <- .con_query$taxa
+  }
+  if(!is.null(.con_query$filters)){
+    filters <- .con_query$filters
+  }
+  if(!is.null(.con_query$locations)){
+    locations <- .con_query$locations
+  }
+  ala_species.default(taxa, filters, locations)
+}
+
 
 # If the facet search download worked properly, this should also return counts. But, as this
 # function is likely to be used to download long species lists, for now we will make do
 # without the counts- otherwise will require lots of pagination.
-ala_species <- function(taxa = NULL, filters = NULL, locations = NULL) {
+#' @export
+ala_species.default <- function(taxa = NULL, filters = NULL, locations = NULL) {
   
   # check whether species download is possible
   species_url <- server_config("species_base_url")

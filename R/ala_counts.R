@@ -41,9 +41,29 @@
 #' # Count the number of species recorded for each kingdom
 #' ala_counts(group_by = "kingdom", type = "species")
 #' }
-#' @export ala_counts
+#' @export
+ala_counts <- function(.con_query = NULL, taxa = NULL, filters = NULL, locations = NULL, group_by,
+                            limit = 100, type = "record") {
+  UseMethod("ala_counts")
+}
 
-ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL, group_by,
+#' @export
+ala_counts.ala_query <- function(.con_query, taxa = NULL, filters = NULL, locations = NULL, group_by,
+                                      limit = 100, type = "record") {
+  if(!is.null(.con_query$taxa)){
+    taxa <- .con_query$taxa
+  }
+  if(!is.null(.con_query$filters)){
+    filters <- .con_query$filters
+  }
+  if(!is.null(.con_query$locations)){
+    locations <- .con_query$locations
+  }
+  ala_counts.default(taxa, filters, locations, group_by, limit, type)
+}
+
+#' @export
+ala_counts.default <- function(taxa = NULL, filters = NULL, locations = NULL, group_by,
                        limit = 100, type = "record") {
   query <- list()
   page_size <- 100

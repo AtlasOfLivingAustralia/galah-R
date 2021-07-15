@@ -5,6 +5,7 @@
 \title{Count of ALA records}
 \usage{
 ala_counts(
+  .con_query = NULL,
   taxa = NULL,
   filters = NULL,
   locations = NULL,
