@@ -52,7 +52,14 @@
 #' # Search multiple taxa
 #' select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 #' }
-#' @export select_taxa
+#' @export
+
+select_taxa <- function(query, children = FALSE, counts = FALSE,
+                        all_ranks = FALSE){
+  UseMethod("select_taxa")
+}
+
+#' @export
 
 select_taxa <- function(query, children = FALSE, counts = FALSE,
                         all_ranks = FALSE) {
@@ -125,6 +132,13 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
   # }
   class(out_data) <- append(class(out_data), "ala_id")
   out_data
+}
+
+#'@export
+
+select_taxa.ala_query <- function(query, children = FALSE, counts = FALSE,
+                                  all_ranks = FALSE){
+  print("oh yeah it's me ala_query function NICE TO SEE YOU")
 }
 
 intermediate_ranks <- function(id) {

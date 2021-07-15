@@ -71,7 +71,10 @@ select_filters <- function(..., profile = NULL) {
     row
   }))
   
-  rbind(filter_rows, dq_filter_row)
+  out_data <- rbind(filter_rows, dq_filter_row)
+  
+  class(out_data) <- append(class(out_data), "ala_filters")
+  out_data
 }
 
 
