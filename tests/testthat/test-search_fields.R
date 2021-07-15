@@ -3,10 +3,10 @@ context("Test search_fields")
 test_that("search_fields returns correct types of field", {
   skip_on_cran()
   expect_setequal(unique(search_fields(type = "all")$type),
-               c("fields", "assertions", "layers", "media"))
+               c("fields", "assertions", "layers", "media", "other"))
   expect_equal(unique(search_fields(type = "assertions")$type),
                "assertions")
-  expect_error(search_fields(type = "layer"))
+  expect_silent(layers <- search_fields(type = "layer"))
 })
 
 test_that("search_fields searches text correctly", {
