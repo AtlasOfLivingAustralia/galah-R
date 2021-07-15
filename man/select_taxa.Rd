@@ -4,7 +4,13 @@
 \alias{select_taxa}
 \title{Taxon information}
 \usage{
-select_taxa(query, children = FALSE, counts = FALSE, all_ranks = FALSE)
+select_taxa(
+  .con_query = NULL,
+  query,
+  children = FALSE,
+  counts = FALSE,
+  all_ranks = FALSE
+)
 }
 \arguments{
 \item{query}{\code{string}: A vector containing one or more search terms,

@@ -53,16 +53,22 @@
 #' select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 #' }
 #' @export
-
-select_taxa <- function(query, children = FALSE, counts = FALSE,
-                        all_ranks = FALSE){
+select_taxa <- function(.con_query = NULL, query, children = FALSE, counts = FALSE,
+                        all_ranks = FALSE) {
   UseMethod("select_taxa")
 }
 
 #' @export
+select_taxa.ala_query <- function(.con_query = NULL, query, children = FALSE, counts = FALSE,
+                                  all_ranks = FALSE) {
+  .con_query$taxa <- select_taxa.default(query, children, counts, all_ranks)
+  return(.con_query)
+  # query$taxa <- select_taxa(search_term)
+}
 
-select_taxa <- function(query, children = FALSE, counts = FALSE,
-                        all_ranks = FALSE) {
+#' @export
+select_taxa.default <- function(query, children = FALSE, counts = FALSE,
+                                all_ranks = FALSE) {
   verbose <- getOption("galah_config")$verbose
   assert_that(is.flag(children))
 
