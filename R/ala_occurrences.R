@@ -60,6 +60,9 @@ ala_occurrences.ala_query <- function(.con_query, taxa = NULL, filters = NULL, l
   if(!is.null(.con_query$locations)){
     locations <- .con_query$locations
   }
+  if(!is.null(.con_query$columns)){
+    columns <- .con_query$columns
+  }
   ala_occurrences.default(taxa, filters, locations, columns, mint_doi, doi)
 }
 
@@ -137,9 +140,11 @@ no valid column names have been provided. To check whether column names are vali
   attr(df, "doi") <- get_doi(mint_doi, data_path)
   attr(df, "search_url") <- download_resp$search_url
   attr(df, "data_type") <- "occurrences"
+  query <- ala_query(taxa, filters, locations)
+  attr(df, "ala_query") <- query
     
   if (caching) {
-    write_cache_file(object = df, data_type = "occurrences", query = list(),
+    write_cache_file(object = df, data_type = "occurrences",
                      cache_file = cache_file)
   }
   return(df)

@@ -24,7 +24,7 @@ test_that("ala media downloads images", {
   unlink(media_dir, recursive = TRUE)
 })
 
-test_that("ala media different file formats", {
+test_that("ala media handles different file formats", {
   skip_on_cran()
   media_dir <- "test_media"
   dir.create(media_dir)

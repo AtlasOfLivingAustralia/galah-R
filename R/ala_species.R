@@ -92,9 +92,11 @@ ala_species.default <- function(taxa = NULL, filters = NULL, locations = NULL) {
   # overwrite file with fixed names
   names(data) <- rename_columns(names(data), type = "checklist")
   attr(data, "data_type") <- "species"
+  query <- ala_query(taxa, filters, locations)
+  attr(data, "ala_query") <- query
   
   if (caching) {
-    write_cache_file(object = data, data_type = "species", query = list(),
+    write_cache_file(object = data, data_type = "species",
                      cache_file = cache_file)
   }
   return(data)

@@ -63,6 +63,7 @@ select_columns <- function(..., group) {
       extra_cols <- NULL
     }
   all_cols <- rbind(group_cols, extra_cols)
+  class(all_cols) <- append(class(all_cols), "ala_columns")
   # remove duplicates
   all_cols[!duplicated(all_cols$name), ]
 }

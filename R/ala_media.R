@@ -65,6 +65,9 @@ ala_media.ala_query <- function(.con_query, taxa = NULL, filters = NULL, locatio
   if(!is.null(.con_query$locations)){
     locations <- .con_query$locations
   }
+  if(!is.null(.con_query$columns)){
+    columns <- .con_query$columns
+  }
   ala_media.default(taxa, filters, locations, columns, download_dir)
 }
 
@@ -107,6 +110,9 @@ ala_media.default <- function(taxa = NULL, filters = NULL, locations = NULL,
   occ_columns <- rbind(columns,
                        select_columns(image_fields())
                        )
+  # add ala_ classes to modified filters and columns
+  class(occ_filters) <- append(class(occ_filters), "ala_filters")
+  class(occ_columns) <- append(class(occ_columns), "ala_columns")
   if (verbose) { message("Downloading records with media...") }
   
   occ <- ala_occurrences(taxa, occ_filters, locations, occ_columns)
@@ -165,8 +171,11 @@ ala_media.default <- function(taxa = NULL, filters = NULL, locations = NULL,
     message("\n",nrow(all_data), " files were downloaded to ", download_dir)
   }
   attr(all_data, "data_type") <- "media"
+  query <- ala_query(taxa, filters, locations, columns)
+  attr(all_data, "ala_query") <- query
+  
   if (caching) {
-    write_cache_file(object = all_data, data_type = "media", query = list(),
+    write_cache_file(object = all_data, data_type = "media",
                      cache_file = cache_file)
   }
   return(all_data)

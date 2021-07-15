@@ -143,9 +143,11 @@ ala_counts.default <- function(taxa = NULL, filters = NULL, locations = NULL, gr
   }
   names(counts) <- c(group_by, "count")
   attr(counts, "data_type") <- "counts"
+  query <- ala_query(taxa, filters, locations)
+  attr(counts, "ala_query") <- query
   
   if (caching) {
-    write_cache_file(object = counts, data_type = "occurrences", query = list(),
+    write_cache_file(object = counts, data_type = "occurrences",
                      cache_file = cache_file)
   }
   
