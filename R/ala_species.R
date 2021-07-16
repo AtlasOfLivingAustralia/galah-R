@@ -38,20 +38,20 @@
 #' ala_species(select_taxa("Heleioporus"))
 #' }
 #' @export
-ala_species <- function(.con_query = NULL, taxa = NULL, filters = NULL, locations = NULL) {
+ala_species <- function(.ala_query = NULL, taxa = NULL, filters = NULL, locations = NULL) {
   UseMethod("ala_species")
 }
 
 #' @export
-ala_species.ala_query <- function(.con_query, taxa = NULL, filters = NULL, locations = NULL) {
-  if(!is.null(.con_query$taxa)){
-    taxa <- .con_query$taxa
+ala_species.ala_query <- function(.ala_query, taxa = NULL, filters = NULL, locations = NULL) {
+  if(!is.null(.ala_query$taxa)){
+    taxa <- .ala_query$taxa
   }
-  if(!is.null(.con_query$filters)){
-    filters <- .con_query$filters
+  if(!is.null(.ala_query$filters)){
+    filters <- .ala_query$filters
   }
-  if(!is.null(.con_query$locations)){
-    locations <- .con_query$locations
+  if(!is.null(.ala_query$locations)){
+    locations <- .ala_query$locations
   }
   ala_species.default(taxa, filters, locations)
 }

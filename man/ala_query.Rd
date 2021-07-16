@@ -4,7 +4,7 @@
 \alias{ala_query}
 \title{Build a query}
 \usage{
-ala_query(taxa = NULL, filters = NULL, locations = NULL)
+ala_query(taxa = NULL, filters = NULL, locations = NULL, columns = NULL)
 }
 \description{
 Build a query

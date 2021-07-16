@@ -41,27 +41,27 @@
 #' occ <- ala_occurrences(locations = select_locations(polygon))
 #' }
 #' @export
-ala_occurrences <- function(.con_query = NULL, taxa = NULL, filters = NULL, locations = NULL,
+ala_occurrences <- function(.ala_query = NULL, taxa = NULL, filters = NULL, locations = NULL,
                             columns = select_columns(group = "basic"),
                             mint_doi = FALSE, doi) {
   UseMethod("ala_occurrences")
 }
 
 #' @export
-ala_occurrences.ala_query <- function(.con_query, taxa = NULL, filters = NULL, locations = NULL,
+ala_occurrences.ala_query <- function(.ala_query, taxa = NULL, filters = NULL, locations = NULL,
                                      columns = select_columns(group = "basic"),
                                      mint_doi = FALSE, doi) {
-  if(!is.null(.con_query$taxa)){
-    taxa <- .con_query$taxa
+  if(!is.null(.ala_query$taxa)){
+    taxa <- .ala_query$taxa
   }
-  if(!is.null(.con_query$filters)){
-    filters <- .con_query$filters
+  if(!is.null(.ala_query$filters)){
+    filters <- .ala_query$filters
   }
-  if(!is.null(.con_query$locations)){
-    locations <- .con_query$locations
+  if(!is.null(.ala_query$locations)){
+    locations <- .ala_query$locations
   }
-  if(!is.null(.con_query$columns)){
-    columns <- .con_query$columns
+  if(!is.null(.ala_query$columns)){
+    columns <- .ala_query$columns
   }
   ala_occurrences.default(taxa, filters, locations, columns, mint_doi, doi)
 }

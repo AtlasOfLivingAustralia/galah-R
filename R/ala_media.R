@@ -48,25 +48,25 @@
 #' )
 #' }
 #' @export
-ala_media <- function(.con_query = NULL, taxa = NULL, filters = NULL, locations = NULL,
+ala_media <- function(.ala_query = NULL, taxa = NULL, filters = NULL, locations = NULL,
                         columns = select_columns(group = "basic"), download_dir) {
   UseMethod("ala_media")
 }
 
 #' @export
-ala_media.ala_query <- function(.con_query, taxa = NULL, filters = NULL, locations = NULL,
+ala_media.ala_query <- function(.ala_query, taxa = NULL, filters = NULL, locations = NULL,
                                   columns = select_columns(group = "basic"), download_dir) {
-  if(!is.null(.con_query$taxa)){
-    taxa <- .con_query$taxa
+  if(!is.null(.ala_query$taxa)){
+    taxa <- .ala_query$taxa
   }
-  if(!is.null(.con_query$filters)){
-    filters <- .con_query$filters
+  if(!is.null(.ala_query$filters)){
+    filters <- .ala_query$filters
   }
-  if(!is.null(.con_query$locations)){
-    locations <- .con_query$locations
+  if(!is.null(.ala_query$locations)){
+    locations <- .ala_query$locations
   }
-  if(!is.null(.con_query$columns)){
-    columns <- .con_query$columns
+  if(!is.null(.ala_query$columns)){
+    columns <- .ala_query$columns
   }
   ala_media.default(taxa, filters, locations, columns, download_dir)
 }

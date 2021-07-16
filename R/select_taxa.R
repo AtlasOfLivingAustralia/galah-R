@@ -53,17 +53,17 @@
 #' select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 #' }
 #' @export
-select_taxa <- function(.con_query = NULL, query, children = FALSE, counts = FALSE,
+select_taxa <- function(.ala_query = NULL, query, children = FALSE, counts = FALSE,
                         all_ranks = FALSE) {
   UseMethod("select_taxa")
 }
 
 #' @export
-select_taxa.ala_query <- function(.con_query, query, children = FALSE, counts = FALSE,
+select_taxa.ala_query <- function(.ala_query, query, children = FALSE, counts = FALSE,
                                   all_ranks = FALSE) {
-  .con_query$taxa <- select_taxa.default(query, children, counts, all_ranks)
+  .ala_query$taxa <- select_taxa.default(query, children, counts, all_ranks)
   print("oh yeah it's me ala_query function NICE TO SEE YOU")
-  return(.con_query)
+  return(.ala_query)
 }
 
 #' @export

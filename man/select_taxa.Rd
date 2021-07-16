@@ -5,7 +5,7 @@
 \title{Taxon information}
 \usage{
 select_taxa(
-  .con_query = NULL,
+  .ala_query = NULL,
   query,
   children = FALSE,
   counts = FALSE,

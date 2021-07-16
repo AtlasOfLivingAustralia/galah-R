@@ -4,7 +4,7 @@
 \alias{select_filters}
 \title{Select filters to narrow down occurrence queries}
 \usage{
-select_filters(.con_query = NULL, profile = NULL, ...)
+select_filters(.ala_query = NULL, profile = NULL, ...)
 }
 \arguments{
 \item{profile}{\code{string}: (optional) a data quality profile to apply to the
