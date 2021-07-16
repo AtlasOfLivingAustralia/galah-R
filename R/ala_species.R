@@ -39,23 +39,21 @@
 #' ala_species(select_taxa("Heleioporus"))
 #' }
 #' @export
-ala_species <- function(.request = NULL, taxa = NULL, filters = NULL, locations = NULL) {
+ala_species <- function(...) {
   UseMethod("ala_species")
 }
 
 #' @export
 #' @rdname ala_species
-ala_species.data_request <- function(.request, taxa = NULL, filters = NULL, locations = NULL) {
-  if(!is.null(.request$taxa)){
-    taxa <- .request$taxa
-  }
-  if(!is.null(.request$filters)){
-    filters <- .request$filters
-  }
-  if(!is.null(.request$locations)){
-    locations <- .request$locations
-  }
-  ala_species.default(taxa, filters, locations)
+ala_species.data_request <- function(.request, ...) {
+  args <- list(...)
+  do.call(ala_species.default,
+          c(list(taxa = .request$taxa,
+                 filters = .request$filters,
+                 locations=.request$locations)
+            [c(!is.null(.request$taxa),
+               !is.null(.request$filters),
+               !is.null(.request$locations))], args))
 }
 
 
@@ -63,7 +61,7 @@ ala_species.data_request <- function(.request, taxa = NULL, filters = NULL, loca
 # function is likely to be used to download long species lists, for now we will make do
 # without the counts- otherwise will require lots of pagination.
 #' @export
-ala_species.default <- function(taxa = NULL, filters = NULL, locations = NULL) {
+ala_species.default <- function(taxa = NULL, filters = NULL, locations = NULL, ...) {
   
   # check whether species download is possible
   species_url <- server_config("species_base_url")
