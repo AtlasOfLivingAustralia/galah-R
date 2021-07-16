@@ -66,6 +66,7 @@ select_taxa.data_request <- function(.request, ...) {
 }
 
 #' @export
+#' @rdname select_taxa
 select_taxa.default <- function(query, children = FALSE, counts = FALSE,
                                 all_ranks = FALSE, ...) {
   verbose <- getOption("galah_config")$verbose

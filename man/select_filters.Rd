@@ -3,11 +3,14 @@
 \name{select_filters}
 \alias{select_filters}
 \alias{select_filters.data_request}
+\alias{select_filters.default}
 \title{Select filters to narrow down occurrence queries}
 \usage{
 select_filters(...)
 
 \method{select_filters}{data_request}(.request, ...)
+
+\method{select_filters}{default}(profile = NULL, ...)
 }
 \arguments{
 \item{...}{filters, in the form \code{field = value}}

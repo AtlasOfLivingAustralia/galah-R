@@ -56,11 +56,8 @@ ala_species.data_request <- function(.request, ...) {
                !is.null(.request$locations))], args))
 }
 
-
-# If the facet search download worked properly, this should also return counts. But, as this
-# function is likely to be used to download long species lists, for now we will make do
-# without the counts- otherwise will require lots of pagination.
 #' @export
+#' @rdname ala_species
 ala_species.default <- function(taxa = NULL, filters = NULL, locations = NULL, ...) {
   
   # check whether species download is possible

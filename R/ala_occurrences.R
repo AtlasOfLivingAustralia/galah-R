@@ -63,6 +63,7 @@ ala_occurrences.data_request <- function(.request, mint_doi = FALSE,
 }
 
 #' @export
+#' @rdname ala_occurrences
 ala_occurrences.default <- function(taxa = NULL, filters = NULL, locations = NULL,
                             columns = select_columns(group = "basic"),
                             mint_doi = FALSE, doi, ...) {

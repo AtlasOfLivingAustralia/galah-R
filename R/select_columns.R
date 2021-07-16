@@ -41,9 +41,21 @@
 #' @seealso \code{\link{select_taxa}}, \code{\link{select_filters}} and
 #' \code{\link{select_locations}} for other ways to restrict the information returned
 #' by \code{\link{ala_occurrences}} and related functions.
-#' @export select_columns
+#' @export
+select_columns <- function(...) {
+UseMethod("select_columns")
+}
 
-select_columns <- function(..., group) {
+#' @export
+#' @rdname select_columns
+select_columns.data_request <- function(.request, ...) {
+  .request$columns <- select_columns.default(...)
+  return(.request)
+}
+
+#' @export
+#' @rdname select_columns
+select_columns.default <- function(..., group) {
   if (!missing(group)) {
     group_cols <- data.table::rbindlist(lapply(group, function(x) {
       type <- ifelse(x == "assertion", "assertions", "field")

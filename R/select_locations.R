@@ -35,6 +35,7 @@ select_locations.data_request <- function(.request, ...) {
 }
 
 #' @export
+#' @rdname select_locations
 select_locations.default <- function(query, ...) {
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons should be converted to multipolygons

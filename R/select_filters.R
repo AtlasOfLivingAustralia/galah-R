@@ -55,6 +55,7 @@ select_filters.data_request <- function(.request, ...) {
 }
 
 #' @export
+#' @rdname select_filters
 select_filters.default <- function(profile = NULL, ...) {
   filters <- list(...)
   if (!is.null(profile)) {

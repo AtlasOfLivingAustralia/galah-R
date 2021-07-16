@@ -61,6 +61,7 @@ ala_counts.data_request <- function(.request, ...) {
 }
 
 #' @export
+#' @rdname ala_counts
 ala_counts.default <- function(taxa = NULL, filters = NULL, locations = NULL,
                                group_by, limit = 100, type = "record", ...) {
   query <- list()
