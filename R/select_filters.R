@@ -42,15 +42,15 @@
 #' filters <- select_filters(year = exclude(seq(2011,2021)))
 #' }
 #' @export
-select_filters <- function(.ala_query = NULL, profile = NULL, ...) {
+select_filters <- function(.request = NULL, profile = NULL, ...) {
   UseMethod("select_filters")
 }
 
 #' @export
-select_filters.ala_query <- function(.ala_query, profile = NULL, ...) {
-  print("oh yeah it's me ala_query function NICE TO SEE YOU")
-  .ala_query$filters <- select_filters.default(..., profile)
-  return(.ala_query)
+select_filters.data_request <- function(.request, profile = NULL, ...) {
+  print("oh yeah it's me data_request function NICE TO SEE YOU")
+  .request$filters <- select_filters.default(..., profile)
+  return(.request)
 }
 
 #' @export

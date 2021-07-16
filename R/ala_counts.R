@@ -42,22 +42,22 @@
 #' ala_counts(group_by = "kingdom", type = "species")
 #' }
 #' @export
-ala_counts <- function(.ala_query = NULL, taxa = NULL, filters = NULL, locations = NULL, group_by,
+ala_counts <- function(.request = NULL, taxa = NULL, filters = NULL, locations = NULL, group_by,
                             limit = 100, type = "record") {
   UseMethod("ala_counts")
 }
 
 #' @export
-ala_counts.ala_query <- function(.ala_query, taxa = NULL, filters = NULL, locations = NULL, group_by,
+ala_counts.data_request <- function(.request, taxa = NULL, filters = NULL, locations = NULL, group_by,
                                       limit = 100, type = "record") {
-  if(!is.null(.ala_query$taxa)){
-    taxa <- .ala_query$taxa
+  if(!is.null(.request$taxa)){
+    taxa <- .request$taxa
   }
-  if(!is.null(.ala_query$filters)){
-    filters <- .ala_query$filters
+  if(!is.null(.request$filters)){
+    filters <- .request$filters
   }
-  if(!is.null(.ala_query$locations)){
-    locations <- .ala_query$locations
+  if(!is.null(.request$locations)){
+    locations <- .request$locations
   }
   ala_counts.default(taxa, filters, locations, group_by, limit, type)
 }
@@ -143,8 +143,8 @@ ala_counts.default <- function(taxa = NULL, filters = NULL, locations = NULL, gr
   }
   names(counts) <- c(group_by, "count")
   attr(counts, "data_type") <- "counts"
-  query <- ala_query(taxa, filters, locations)
-  attr(counts, "ala_query") <- query
+  query <- data_request(taxa, filters, locations)
+  attr(counts, "data_request") <- query
   
   if (caching) {
     write_cache_file(object = counts, data_type = "occurrences",

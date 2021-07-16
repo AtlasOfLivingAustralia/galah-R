@@ -22,15 +22,14 @@
 #' ala_occurrences(locations = select_locations(wkt))
 #' }
 #' @export
-select_locations <- function(.ala_query = NULL, query) {
+select_locations <- function(.request = NULL, query) {
   UseMethod("select_locations")
 }
 
 #' @export
-select_locations.ala_query <- function(.ala_query, query) {
-  print("oh yeah it's me ala_query function NICE TO SEE YOU")
-  .ala_query$locations <- select_locations.default(query)
-  return(.ala_query)
+select_locations.data_request <- function(.request, query) {
+  .request$locations <- select_locations.default(query)
+  return(.request)
 }
 
 #' @export

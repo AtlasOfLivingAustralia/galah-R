@@ -41,27 +41,27 @@
 #' occ <- ala_occurrences(locations = select_locations(polygon))
 #' }
 #' @export
-ala_occurrences <- function(.ala_query = NULL, taxa = NULL, filters = NULL, locations = NULL,
+ala_occurrences <- function(.request = NULL, taxa = NULL, filters = NULL, locations = NULL,
                             columns = select_columns(group = "basic"),
                             mint_doi = FALSE, doi) {
   UseMethod("ala_occurrences")
 }
 
 #' @export
-ala_occurrences.ala_query <- function(.ala_query, taxa = NULL, filters = NULL, locations = NULL,
+ala_occurrences.data_request <- function(.request, taxa = NULL, filters = NULL, locations = NULL,
                                      columns = select_columns(group = "basic"),
                                      mint_doi = FALSE, doi) {
-  if(!is.null(.ala_query$taxa)){
-    taxa <- .ala_query$taxa
+  if(!is.null(.request$taxa)){
+    taxa <- .request$taxa
   }
-  if(!is.null(.ala_query$filters)){
-    filters <- .ala_query$filters
+  if(!is.null(.request$filters)){
+    filters <- .request$filters
   }
-  if(!is.null(.ala_query$locations)){
-    locations <- .ala_query$locations
+  if(!is.null(.request$locations)){
+    locations <- .request$locations
   }
-  if(!is.null(.ala_query$columns)){
-    columns <- .ala_query$columns
+  if(!is.null(.request$columns)){
+    columns <- .request$columns
   }
   ala_occurrences.default(taxa, filters, locations, columns, mint_doi, doi)
 }
@@ -140,8 +140,8 @@ no valid column names have been provided. To check whether column names are vali
   attr(df, "doi") <- get_doi(mint_doi, data_path)
   attr(df, "search_url") <- download_resp$search_url
   attr(df, "data_type") <- "occurrences"
-  query <- ala_query(taxa, filters, locations)
-  attr(df, "ala_query") <- query
+  query <- data_request(taxa, filters, locations)
+  attr(df, "data_request") <- query
     
   if (caching) {
     write_cache_file(object = df, data_type = "occurrences",

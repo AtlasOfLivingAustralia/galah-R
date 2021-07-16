@@ -259,7 +259,7 @@ read_cache_file <- function(filename) {
 write_cache_file <- function(object, data_type, cache_file) {
   if (getOption("galah_config")$verbose) { message("Writing to cache file") }
   saveRDS(object, cache_file)
-  write_metadata(object$ala_query, data_type, cache_file)
+  write_metadata(object$data_request, data_type, cache_file)
 }
 
 # Hash cache filename from argument list

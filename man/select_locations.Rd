@@ -4,7 +4,7 @@
 \alias{select_locations}
 \title{Build a WKT string from an sf spatial object or verify an existing WKT}
 \usage{
-select_locations(.ala_query = NULL, query)
+select_locations(.request = NULL, query)
 }
 \arguments{
 \item{query}{wkt string or sf object}

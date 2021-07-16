@@ -36,7 +36,7 @@ ala_GET <- function(url, path, params = list(), on_error = NULL,
     }
     res <- cli$get(path = path, query = params, encode = "json")
   }
-
+  #print(res$request$url)
   if (!is.null(on_error)) {
     if (res$status_code != 200) {
       on_error(res$status_code)
