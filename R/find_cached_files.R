@@ -7,5 +7,12 @@
 
 find_cached_files <- function() {
   # return a data.frame of all cached files
-  readRDS(file.path(getOption("galah_config")$cache_directory, "metadata.rds"))
+  metadata_path <- file.path(getOption("galah_config")$cache_directory,
+                             "metadata.rds")
+  if (!file.exists(metadata_path)) {
+    message("No cached file information was found in ",
+            getOption("galah_config")$cache_directory)
+    return()
+  }
+  readRDS(metadata_path)
 }

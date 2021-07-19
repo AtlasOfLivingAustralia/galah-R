@@ -259,7 +259,7 @@ read_cache_file <- function(filename) {
 write_cache_file <- function(object, data_type, cache_file) {
   if (getOption("galah_config")$verbose) { message("Writing to cache file") }
   saveRDS(object, cache_file)
-  write_metadata(object$data_request, data_type, cache_file)
+  write_metadata(attributes(object)$data_request, data_type, cache_file)
 }
 
 # Hash cache filename from argument list
@@ -271,7 +271,7 @@ cache_filename <- function(...) {
 
 # Write function call metadata to RDS file to enable metadata viewing with
 # `find_cached_files()`
-write_metadata <- function(query, data_type, cache_file) {
+write_metadata <- function(request, data_type, cache_file) {
   metadata_file <- file.path(getOption("galah_config")$cache_directory,
                              "metadata.rds")
   if (file.exists(metadata_file)) {
@@ -279,8 +279,9 @@ write_metadata <- function(query, data_type, cache_file) {
   } else {
     metadata <- list()
   }
-  file_id <- str_split(cache_file, "\\.")[[1]][1]
-  metadata$`file_id` <- list(data_type = data_type, query = query)
+  file_id <- str_split(basename(cache_file), "\\.")[[1]][1]
+  message(request)
+  metadata[[file_id]] <- list(data_type = data_type, data_request = request)
   saveRDS(metadata, metadata_file)
 }
 
