@@ -51,8 +51,11 @@ rename_columns <- function(varnames, type) {
     } else if (type == "occurrence") {
       # change dots to camel case
       varnames <- gsub("\\.(\\w?)", "\\U\\1", varnames, perl = TRUE)
-      # replace first letters with lowercase
-      substr(varnames, 1, 1) <- tolower(substr(varnames, 1, 1))
+      # replace first letters with lowercase, but only if it is not an
+      # all-uppercase field name (which assertions are)
+      not_all_uppercase <- str_detect(varnames, "[[:lower:]]")
+      substr(varnames[not_all_uppercase], 1, 1) <-
+        tolower(substr(varnames[not_all_uppercase], 1, 1))
     }
     varnames
 }
