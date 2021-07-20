@@ -21,7 +21,7 @@
 #' "record". If "species", the number of species matching the criteria will be
 #' returned, if "record", the number of records matching the criteria will be
 #' returned.
-#' @param ... other filtering arguments
+#' @param ... Arguments to be passed to \code{ala_counts}
 #' @return
 #' \itemize{
 #'  \item{A single count, if \code{group_by} is not specified or,}

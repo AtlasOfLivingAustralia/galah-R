@@ -8,7 +8,7 @@
 #' @inheritParams data_request
 #' @param download_dir \code{string}: path to directory to store the downloaded media
 #' in
-#' @param ... other filtering arguments
+#' @param ... Arguments to be passed to \code{ala_media}
 #' @details \code{\link{ala_occurrences}()} works by first finding all occurrence records
 #' matching the filters which contain media, then downloading the metadata for the
 #' media and the media files. \code{\link{select_filters}()} can take both filters
