@@ -10,8 +10,11 @@ test_that("find_cached_files gives an error if no metadata file exists", {
 
 test_that("find_cached_files reads metadata", {
   # create some metadata
-  ala_config(caching = TRUE)
+  dir.create('tmp')
+  ala_config(caching = TRUE, cache_directory = 'tmp/')
   ala_counts(group_by = "year")
   expect_type(find_cached_files(), "list")
   expect_s3_class(find_cached_files()[[1]]$data_request, "data_request")
+  unlink('tmp', recursive = TRUE)
+  ala_config(caching = FALSE)
 })
