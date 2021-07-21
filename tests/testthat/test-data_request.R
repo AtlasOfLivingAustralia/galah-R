@@ -22,7 +22,7 @@ test_that("data request returns correct data_request object", {
 })
 
 test_that("data request returns correct data_request object when piping", {
-  skip_on_travis()
+  skip("travis doesn't have latest R version")
   taxa <- "Polytelis swainsonii"
   req <- data_request() |> select_taxa(taxa)
   expect_equal(req$taxa, select_taxa(taxa))
