@@ -42,8 +42,9 @@
 #' by \code{\link{ala_occurrences}} and related functions.
 #' @export select_columns
 
-select_columns <- function(..., group) {
+select_columns <- function(..., group = c("basic", "event", "assertions")) {
   if (!missing(group)) {
+    group <- match.arg(group, several.ok = TRUE)
     group_cols <- data.table::rbindlist(lapply(group, function(x) {
       type <- ifelse(x == "assertion", "assertions", "field")
       data.frame(name = preset_cols(x), type = type,
@@ -79,7 +80,6 @@ validate_cols <- function(cols) {
 
 
 preset_cols <- function(type) {
-  valid_groups <- c("basic", "event", "assertions")
   cols <- switch(type,
                  "basic" = default_columns(),
                  "event" = c("eventRemarks", "eventTime", "eventID",
