@@ -22,7 +22,6 @@ test_that("data request returns correct data_request object", {
 })
 
 test_that("data request returns correct data_request object when piping", {
-  skip_on_cran()
   skip_on_travis()
   taxa <- "Polytelis swainsonii"
   req <- data_request() |> select_taxa(taxa)
