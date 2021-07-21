@@ -1,5 +1,4 @@
 language: r
-r: 4.1.0
 sudo: false
 cache: packages
 addons:
