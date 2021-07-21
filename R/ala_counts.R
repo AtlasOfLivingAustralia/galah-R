@@ -86,7 +86,7 @@ ala_counts.default <- function(taxa = NULL, filters = NULL, locations = NULL,
 
   caching <- getOption("galah_config")$caching
   if (caching && file.exists(cache_file)) {
-    read_cache_file(cache_file)
+    return(read_cache_file(cache_file))
   }
 
   total_cats <- total_categories(url, path, query)
@@ -144,7 +144,7 @@ ala_counts.default <- function(taxa = NULL, filters = NULL, locations = NULL,
   attr(counts, "data_request") <- query
   
   if (caching) {
-    write_cache_file(object = counts, data_type = "occurrences",
+    write_cache_file(object = counts, data_type = "counts",
                      cache_file = cache_file)
   }
   
