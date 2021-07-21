@@ -1,7 +1,5 @@
 context("Get occurrence data")
 
-ala_config(email = "ala4r@ala.org.au")
-
 test_that("ala_occurrences check inputs", {
   skip_on_cran()
   expect_error(ala_occurrences(filters =
