@@ -140,7 +140,7 @@ ala_counts.default <- function(taxa = NULL, filters = NULL, locations = NULL,
   }
   names(counts) <- c(group_by, "count")
   attr(counts, "data_type") <- "counts"
-  query <- data_request(taxa, filters, locations)
+  query <- data_request(taxa, filters, locations, group_by = group_by)
   attr(counts, "data_request") <- query
   
   if (caching) {
