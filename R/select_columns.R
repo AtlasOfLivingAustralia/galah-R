@@ -84,10 +84,7 @@ preset_cols <- function(type) {
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),
-                 "assertions" = search_fields(type = "assertions")$id,
-                 stop("\"", type,
-                      "\" is not a valid column group. Valid groups are: ",
-                      paste(valid_groups, collapse = ", "))
+                 "assertions" = search_fields(type = "assertions")$id
   )
   cols
 }
