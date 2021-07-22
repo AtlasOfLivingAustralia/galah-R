@@ -251,7 +251,9 @@ check_taxa_arg <- function(taxa) {
 
 # Read cached file
 read_cache_file <- function(filename) {
-  if (getOption("galah_config")$verbose) { message("Using cached file") }
+  if (getOption("galah_config")$verbose) {
+    message("Using cached file ", filename)
+  }
   readRDS(filename)
 }
 
