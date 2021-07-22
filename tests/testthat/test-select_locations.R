@@ -2,7 +2,7 @@ context("Test select_locations")
 
 test_that("select_locations checks inputs", {
   skip_on_cran()
-  poly_path <- "../test_data/act_state_polygon_shp/ACT_STATE_POLYGON_shp.shp"
+  poly_path <- "../testdata/act_state_polygon_shp/ACT_STATE_POLYGON_shp.shp"
   expect_error(
     select_locations(st_read(poly_path),
                  readLines("../testdata/short_act_wkt.txt")))
@@ -24,4 +24,10 @@ test_that("select_locations converts to multipolygon", {
   skip_on_cran()
   wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
   expect_match(select_locations(wkt), "MULTIPOLYGON")
+})
+
+test_that("select_locations converts sf object to multipolygon", {
+  skip_on_cran()
+  poly_path <- "../testdata/short_poly_wkt.txt"
+  expect_match(build_wkt(st_as_sfc(readLines(poly_path))), "MULTIPOLYGON")
 })
