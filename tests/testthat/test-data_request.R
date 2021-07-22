@@ -4,7 +4,6 @@ test_that("data request checks input", {
   skip_on_cran()
   expect_error(data_request(taxa = "vulpes"))
   expect_error(data_request(filters = "Northern Territory"))
-  expect_error(data_request(occurrences = "hey"))
   expect_error(data_request(columns = "basisOfRecord"))
   expect_error(data_request(locations = "myHouse"))
 })
