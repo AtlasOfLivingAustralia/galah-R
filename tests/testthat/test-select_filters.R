@@ -27,3 +27,10 @@ test_that("select_filters converts logical to string", {
   skip_on_cran()
   expect_equal(unlist(select_filters(geospatialIssues = TRUE)$value), "true")
 })
+
+test_that("select_filters skips checks if requested", {
+  skip_on_cran()
+  ala_config(run_checks = FALSE)
+  expect_silent(select_filters(random = "filter"))
+  ala_config(run_checks = TRUE)
+})

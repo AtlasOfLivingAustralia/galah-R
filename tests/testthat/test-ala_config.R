@@ -21,4 +21,6 @@ test_that("ala config checks inputs", {
   expect_error(ala_config(bad_option = "value"))
   expect_error(ala_config(atlas = "world"))
   expect_silent(ala_config(atlas = "Australia"))
+  expect_error(ala_config(run_checks = "value"))
+  expect_silent(ala_config(run_checks = TRUE))
 })

@@ -57,10 +57,9 @@ select_filters <- function(..., profile = NULL) {
     dq_filter_row <- NULL
   }
 
-  assertions <- search_fields(type = "assertions")$id
-  validate_filters(filters)
+  if (getOption("galah_config")$run_checks) validate_filters(filters)
   filter_rows <- data.table::rbindlist(lapply(names(filters), function(x) {
-    if (x %in% assertions) {
+    if (!str_detect(x, "[[:lower:]]")) {
       row <- data.frame(name = "assertions", include = filters[[x]], value = I(list(x)),
                         stringsAsFactors = FALSE)
     } else {

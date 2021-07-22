@@ -36,6 +36,10 @@
 #'     specific downloads for later citation.
 #'   \item \code{verbose} logical: should \code{galah} give verbose output to assist
 #'   debugging? Defaults to FALSE.
+#'   \item \code{run_checks} logical: should \code{galah} run checks for filters
+#'   and columns. If making lots of requests sequentially, checks can slow down
+#'   the process and lead to HTTP 500 errors, so should be turned off. Defaults
+#'   to TRUE. 
 #' }
 #'
 #' @return For \code{ala_config()}, a \code{list} of all options.
@@ -64,7 +68,8 @@ ala_config <- function(..., profile_path = NULL) {
     download_reason_id = 4,
     email = "",
     send_email = FALSE,
-    verbose = TRUE
+    verbose = TRUE,
+    run_checks = TRUE
   )
 
   if (length(user_options) == 0 && !is.null(current_options)) {
@@ -199,11 +204,7 @@ quoted_options <- function(opts) {
 }
 
 validate_option <- function(name, value) {
-  if (name == "caching") {
-    if (!is.logical(value)) {
-      stop("\"", name, "\"", " must be TRUE or FALSE")
-    }
-  } else if (name == "send_email" || name == "verbose") {
+  if (name %in% c("caching", "send_email", "verbose", "run_checks")) {
     if (!is.logical(value)) {
       stop("\"", name, "\"", " must be TRUE or FALSE")
     }

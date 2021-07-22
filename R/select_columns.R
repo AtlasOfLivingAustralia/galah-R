@@ -53,12 +53,11 @@ select_columns <- function(..., group = c("basic", "event", "assertions")) {
       group_cols <- NULL
     }
 
-  assertions <- search_fields(type = "assertions")$id
   cols <- c(...)
   if (length(cols) > 0) {
-    validate_cols(cols)
+    if (getOption("galah_config")$run_checks) validate_cols(cols)
     extra_cols <- data.table::rbindlist(lapply(cols, function(x) {
-      type <- ifelse(x %in% assertions, "assertions", "field")
+      type <- ifelse(str_detect(x, "[[:lower:]]"), "field", "assertions")
       data.frame(name = x, type = type, stringsAsFactors = FALSE)
     }))} else {
       extra_cols <- NULL
