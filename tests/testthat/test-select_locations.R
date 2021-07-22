@@ -28,6 +28,6 @@ test_that("select_locations converts to multipolygon", {
 
 test_that("select_locations converts sf object to multipolygon", {
   skip_on_cran()
-  poly_path <- "../testdata/short_poly_wkt.txt"
-  expect_match(build_wkt(st_as_sfc(readLines(poly_path))), "MULTIPOLYGON")
+  wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
+  expect_match(build_wkt(st_as_sfc(wkt)), "MULTIPOLYGON")
 })
