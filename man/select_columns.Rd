@@ -4,7 +4,7 @@
 \alias{select_columns}
 \title{Specify columns for occurrence download}
 \usage{
-select_columns(..., group)
+select_columns(..., group = c("basic", "event", "assertions"))
 }
 \arguments{
 \item{...}{zero or more individual column names to include}

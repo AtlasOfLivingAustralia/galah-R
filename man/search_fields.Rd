@@ -4,7 +4,10 @@
 \alias{search_fields}
 \title{Query layers, fields or assertions by free text search}
 \usage{
-search_fields(query, type = "all")
+search_fields(
+  query,
+  type = c("all", "fields", "layers", "assertions", "media", "other")
+)
 }
 \arguments{
 \item{query}{\code{string}: A search string. Not case sensitive.}
