@@ -57,20 +57,20 @@ select_columns.data_request <- function(.request, ...) {
 #' @rdname select_columns
 select_columns.default <- function(..., group) {
   if (!missing(group)) {
+    group <- match.arg(group, several.ok = TRUE)
     group_cols <- data.table::rbindlist(lapply(group, function(x) {
-      type <- ifelse(x == "assertion", "assertions", "field")
+      type <- ifelse(x == "assertions", "assertions", "field")
       data.frame(name = preset_cols(x), type = type,
                  stringsAsFactors = FALSE)
     }))} else {
       group_cols <- NULL
     }
 
-  assertions <- search_fields(type = "assertions")$id
   cols <- c(...)
   if (length(cols) > 0) {
-    validate_cols(cols)
+    if (getOption("galah_config")$run_checks) validate_cols(cols)
     extra_cols <- data.table::rbindlist(lapply(cols, function(x) {
-      type <- ifelse(x %in% assertions, "assertions", "field")
+      type <- ifelse(str_detect(x, "[[:lower:]]"), "field", "assertions")
       data.frame(name = x, type = type, stringsAsFactors = FALSE)
     }))} else {
       extra_cols <- NULL
@@ -93,16 +93,12 @@ validate_cols <- function(cols) {
 
 
 preset_cols <- function(type) {
-  valid_groups <- c("basic", "event", "assertions")
   cols <- switch(type,
                  "basic" = default_columns(),
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),
-                 "assertions" = search_fields(type = "assertions")$id,
-                 stop("\"", type,
-                      "\" is not a valid column group. Valid groups are: ",
-                      paste(valid_groups, collapse = ", "))
+                 "assertions" = search_fields(type = "assertions")$id
   )
   cols
 }

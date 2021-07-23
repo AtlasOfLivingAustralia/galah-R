@@ -61,10 +61,12 @@ ala_counts.data_request <- function(.request, ...) {
 #' @export
 #' @rdname ala_counts
 ala_counts.default <- function(taxa = NULL, filters = NULL, locations = NULL,
-                               group_by, limit = 100, type = "record", ...) {
+                               group_by, limit = 100,
+                               type = c("record" ,"species"), ...) {
   query <- list()
   page_size <- 100
   verbose <- getOption("galah_config")$verbose
+  type <- match.arg(type)
   
   profile <- extract_profile(filters)
   query <- build_query(taxa, filters, locations, profile = profile)

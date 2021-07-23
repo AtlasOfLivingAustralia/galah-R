@@ -51,8 +51,11 @@ rename_columns <- function(varnames, type) {
     } else if (type == "occurrence") {
       # change dots to camel case
       varnames <- gsub("\\.(\\w?)", "\\U\\1", varnames, perl = TRUE)
-      # replace first letters with lowercase
-      substr(varnames, 1, 1) <- tolower(substr(varnames, 1, 1))
+      # replace first letters with lowercase, but only if it is not an
+      # all-uppercase field name (which assertions are)
+      not_all_uppercase <- str_detect(varnames, "[[:lower:]]")
+      substr(varnames[not_all_uppercase], 1, 1) <-
+        tolower(substr(varnames[not_all_uppercase], 1, 1))
     }
     varnames
 }
@@ -186,6 +189,16 @@ filter_value <- function(val) {
 build_columns <- function(col_df) {
   if (nrow(col_df) == 0) {
     return("")
+  }
+  paste0(col_df$name, collapse = ",")
+}
+
+build_assertion_columns <- function(col_df) {
+  if (nrow(col_df) == 0) {
+    return("none")
+    # all assertions have been selected
+  } else if (nrow(col_df) == 107) {
+    return("includeall")
   }
   paste0(col_df$name, collapse = ",")
 }

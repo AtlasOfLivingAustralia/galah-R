@@ -16,7 +16,7 @@ ala_counts(...)
   locations = NULL,
   group_by,
   limit = 100,
-  type = "record",
+  type = c("record", "species"),
   ...
 )
 }

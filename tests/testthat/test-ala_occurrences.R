@@ -69,7 +69,7 @@ test_that("ala occurrences returns requested columns", {
 
 test_that("ala occurrences handles assertion columns and works with data.frame
           input", {
-  skip("qa field ignored by ALA")
+  skip_on_cran()
   id <- select_taxa("Paraparatrechina minutula")
   cols <- select_columns("ZERO_COORDINATE", "eventDate")
   expect_equal(names(ala_occurrences(taxa = id, columns = cols)),

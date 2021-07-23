@@ -34,6 +34,10 @@ Valid arguments are:
     specific downloads for later citation.
   \item \code{verbose} logical: should \code{galah} give verbose output to assist
   debugging? Defaults to FALSE.
+  \item \code{run_checks} logical: should \code{galah} run checks for filters
+  and columns. If making lots of requests sequentially, checks can slow down
+  the process and lead to HTTP 500 errors, so should be turned off. Defaults
+  to TRUE. 
 }}
 
 \item{profile_path}{string: (optional), path to a directory to store

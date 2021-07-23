@@ -12,7 +12,7 @@ test_that("ala media downloads images", {
   skip_on_cran()
   ala_config(email = "ala4r@ala.org.au")
   media_dir <- "test_media"
-  unlink(media_dir,recursive = TRUE)
+  unlink(media_dir, recursive = TRUE)
   dir.create(media_dir)
   
   media_data <- ala_media(taxa = select_taxa("Microseris lanceolata"),
