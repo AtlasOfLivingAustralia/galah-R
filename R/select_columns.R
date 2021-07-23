@@ -48,15 +48,17 @@ UseMethod("select_columns")
 
 #' @export
 #' @rdname select_columns
-select_columns.data_request <- function(.request, ...) {
-  .request$columns <- select_columns.default(...)
+select_columns.data_request <- function(.request, group = NULL, ...) {
+  args <- list(...)
+  .request$columns <- select_columns.default(group = group, args)
   return(.request)
 }
 
 #' @export
 #' @rdname select_columns
-select_columns.default <- function(..., group) {
-  if (!missing(group)) {
+select_columns.default <- function(...,
+                                   group = c("basic", "event", "assertions")) {
+  if (!missing(group) && !is.null(group)) {
     group <- match.arg(group, several.ok = TRUE)
     group_cols <- data.table::rbindlist(lapply(group, function(x) {
       type <- ifelse(x == "assertions", "assertions", "field")

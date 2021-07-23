@@ -26,4 +26,8 @@ test_that("data request returns dr object when passed to select_ functions", {
    request <- select_taxa(data_request(), taxa)
    expect_equal(request$taxa, select_taxa(taxa))
    expect_s3_class(request, "data_request")
+   
+   request <- select_columns(data_request(), group = "assertions", "eventDate")
+   expect_equal(request$taxa, select_columns(group = "assertions", "eventDate"))
+   expect_s3_class(request, "data_request")
 })

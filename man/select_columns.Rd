@@ -8,9 +8,9 @@
 \usage{
 select_columns(...)
 
-\method{select_columns}{data_request}(.request, ...)
+\method{select_columns}{data_request}(.request, group = NULL, ...)
 
-\method{select_columns}{default}(..., group)
+\method{select_columns}{default}(..., group = c("basic", "event", "assertions"))
 }
 \arguments{
 \item{...}{zero or more individual column names to include}
