@@ -20,9 +20,10 @@ test_that("data request returns correct data_request object", {
   expect_equal(request$locations, locations)
 })
 
-# test_that("data request returns correct data_request object when piping", {
-#   skip("travis doesn't have latest R version")
-#   taxa <- "Polytelis swainsonii"
-#   req <- data_request() |> select_taxa(taxa)
-#   expect_equal(req$taxa, select_taxa(taxa))
-# })
+test_that("data request returns dr object when passed to select_ functions", {
+   skip_on_cran()
+   taxa <- "Polytelis swainsonii"
+   request <- select_taxa(data_request(), taxa)
+   expect_equal(request$taxa, select_taxa(taxa))
+   expect_s3_class(request, "data_request")
+})
