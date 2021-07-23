@@ -67,7 +67,7 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
   # Add columns to query
   assertion_cols <- columns[columns$type == "assertions", ]
   query$fields <- build_columns(columns[columns$type != "assertions", ])
-  query$qa <- build_columns(assertion_cols)
+  query$qa <- build_assertion_columns(assertion_cols)
   if (mint_doi) {
     query$mintDoi <- "true"
   }

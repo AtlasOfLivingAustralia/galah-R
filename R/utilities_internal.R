@@ -193,6 +193,16 @@ build_columns <- function(col_df) {
   paste0(col_df$name, collapse = ",")
 }
 
+build_assertion_columns <- function(col_df) {
+  if (nrow(col_df) == 0) {
+    return("none")
+    # all assertions have been selected
+  } else if (nrow(col_df) == 107) {
+    return("includeall")
+  }
+  paste0(col_df$name, collapse = ",")
+}
+
 ##---------------------------------------------------------------
 ##                   Query-caching functions                   --
 ##---------------------------------------------------------------

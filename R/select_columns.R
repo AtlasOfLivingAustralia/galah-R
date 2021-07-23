@@ -46,7 +46,7 @@ select_columns <- function(..., group = c("basic", "event", "assertions")) {
   if (!missing(group)) {
     group <- match.arg(group, several.ok = TRUE)
     group_cols <- data.table::rbindlist(lapply(group, function(x) {
-      type <- ifelse(x == "assertion", "assertions", "field")
+      type <- ifelse(x == "assertions", "assertions", "field")
       data.frame(name = preset_cols(x), type = type,
                  stringsAsFactors = FALSE)
     }))} else {
