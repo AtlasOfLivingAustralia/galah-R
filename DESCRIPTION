@@ -31,6 +31,7 @@ Suggests:
     dplyr,
     ggplot2,
     knitr,
+    magrittr,
     pkgdown,
     rmarkdown,
     taxize,

@@ -1,0 +1,38 @@
+---
+title: "Piping requests"
+author: "Matilda Stevenson"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Piping requests}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Version 1.3.0 of `galah` introduced the `data_request` object, which allows use
+of the `|>` or `%>%` operator to construct data requests and retrieve data from
+the ALA. While it remains possible to pass filter objects to functions, the new
+method brings `galah` into line with modern R practices. 
+
+Create a data request
+```{r}
+library(galah)
+ala_config(atlas = "Australia")
+request <- data_request()
+```
+
+Use a data request to request data. To use the base R pipe you will need
+R >= 4.1.0, or use the `magrittr` pipe.
+```{r, message-FALSE}
+library(magrittr)
+# Create a data request object with piping
+request <- data_request() %>%
+  select_taxa("Mammalia") %>%
+  select_filters(year = 2010)
+
+# Use the request in ala_functions
+occ <- request %>% ala_counts()
+
+species <- request %>% ala_species()
+```
