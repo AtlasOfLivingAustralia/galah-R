@@ -79,7 +79,7 @@ ala_species.default <- function(taxa = NULL, filters = NULL, locations = NULL, .
   caching <- getOption("galah_config")$caching
 
   if (caching && file.exists(cache_file)) {
-    read_cache_file(cache_file)
+    return(read_cache_file(cache_file))
   }
   tmp <- tempfile()
   data <- ala_download(url, path = path, params = query,
