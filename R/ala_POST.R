@@ -5,7 +5,7 @@ ala_POST <- function(url, path, body = list(), encode = "form") {
   cli <- HttpClient$new(
     url = url,
     headers = list(
-      "User-Agent" = user_agent_string()
+      "User-Agent" = galah_version_string()
     )
   )
   res <- cli$post(path = path, body = body, encode = encode)

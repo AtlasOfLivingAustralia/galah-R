@@ -241,7 +241,7 @@ cached_query <- function(taxa_query, filter_query, area_query,
 
 # Construct the user agent string, consisting of the galah version
 # This is added on to all requests to enable usage monitoring 
-user_agent_string <- function() {
+galah_version_string <- function() {
   version_string <- "version unknown"
   suppressWarnings(
     try(version_string <- utils::packageDescription("galah")[["Version"]],

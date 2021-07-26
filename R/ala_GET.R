@@ -7,7 +7,7 @@ ala_GET <- function(url, path, params = list(), on_error = NULL,
   cli <- HttpClient$new(
     url = url,
     headers = list(
-      "User-Agent" = user_agent_string()
+      "User-Agent" = galah_version_string()
     )
   )
   # Workaround for use of 'ws/' path in base urls

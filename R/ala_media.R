@@ -210,7 +210,7 @@ download_media <- function(urls, outfiles, verbose) {
   cc <- Async$new(
     urls = c(urls[start:end]), 
     headers = list(
-      "User-Agent" = user_agent_string()
+      "User-Agent" = galah_version_string()
     )
   )
   res <- cc$get(disk = outfiles[start:end])
