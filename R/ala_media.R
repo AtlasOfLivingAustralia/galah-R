@@ -52,17 +52,8 @@ ala_media <- function(...) {
 
 #' @export
 #' @rdname ala_media
-ala_media.data_request <- function(.request, download_dir, ...) {
-  args <- list(download_dir = download_dir, ...)
-  do.call(ala_media.default,
-          c(list(taxa = .request$taxa,
-                 filters = .request$filters,
-                 locations = .request$locations,
-                 columns = .request$columns)
-            [c(!is.null(.request$taxa),
-               !is.null(.request$filters),
-               !is.null(.request$locations),
-               !is.null(.request$columns))], args))
+ala_media.data_request <- function(.request, ...) {
+  do.call(ala_media, merge_args(.request, list(...)))
 }
 
 #' @export

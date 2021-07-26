@@ -44,14 +44,7 @@ ala_species <- function(...) {
 #' @export
 #' @rdname ala_species
 ala_species.data_request <- function(.request, ...) {
-  args <- list(...)
-  do.call(ala_species.default,
-          c(list(taxa = .request$taxa,
-                 filters = .request$filters,
-                 locations=.request$locations)
-            [c(!is.null(.request$taxa),
-               !is.null(.request$filters),
-               !is.null(.request$locations))], args))
+  do.call(ala_species, merge_args(.request, list(...)))
 }
 
 #' @export

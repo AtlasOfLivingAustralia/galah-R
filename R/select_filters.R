@@ -50,7 +50,7 @@ select_filters <- function(...) {
 #' @export
 #' @rdname select_filters
 select_filters.data_request <- function(.request, ...) {
-  .request$filters <- select_filters.default(...)
+  .request$filters <- do.call(select_filters, list(...))
   return(.request)
 }
 
@@ -58,7 +58,7 @@ select_filters.data_request <- function(.request, ...) {
 #' @rdname select_filters
 select_filters.default <- function(profile = NULL, ...) {
   filters <- list(...)
-  if (!is.null(profile)) {
+  if (!missing(profile) && !is.null(profile)) {
     short_name <- profile_short_name(profile)
     if (is.null(short_name) || is.na(short_name)) {
       stop(profile, " is not a valid data quality id, short name or name. Use

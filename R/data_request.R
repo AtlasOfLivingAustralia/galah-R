@@ -33,10 +33,3 @@ data_request <- function(taxa = NULL, filters = NULL, locations = NULL,
   
   return(request)
 }
-
-
-
-# new_data_request <- function(x = list){
-#   stopifnot(is.list(x))
-#   structure(x, class = "")
-# }

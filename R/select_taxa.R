@@ -61,7 +61,7 @@ select_taxa <- function(...) {
 #' @export
 #' @rdname select_taxa
 select_taxa.data_request <- function(.request, ...) {
-  .request$taxa <- select_taxa(...)
+  .request$taxa <- do.call(select_taxa, merge_args(.request, list(...)))
   return(.request)
 }
 

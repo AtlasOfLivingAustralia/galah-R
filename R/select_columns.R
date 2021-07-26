@@ -48,9 +48,8 @@ UseMethod("select_columns")
 
 #' @export
 #' @rdname select_columns
-select_columns.data_request <- function(.request, group = NULL, ...) {
-  args <- list(...)
-  .request$columns <- select_columns.default(group = group, args)
+select_columns.data_request <- function(.request, ...) {
+  .request$columns <- do.call(select_columns, list(...))
   return(.request)
 }
 

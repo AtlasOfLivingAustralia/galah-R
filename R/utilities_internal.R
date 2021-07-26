@@ -295,7 +295,6 @@ write_metadata <- function(request, data_type, cache_file) {
     metadata <- list()
   }
   file_id <- str_split(basename(cache_file), "\\.")[[1]][1]
-  message(request)
   metadata[[file_id]] <- list(data_type = data_type, data_request = request)
   saveRDS(metadata, metadata_file)
 }
@@ -311,4 +310,15 @@ build_fq_url <- function(url, path, params = list()) {
   join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
   fq <- paste(params$fq, collapse = "&fq=")
   paste0(build_url(url), join_char, URLencode(fq))
+}
+
+##---------------------------------------------------------------
+##                Data request helper functions                --
+##---------------------------------------------------------------
+
+# Merge arguments 
+merge_args <- function(request, extra) {
+  # get non-null arguments
+  non_null_request <- request[!unlist(lapply(request, is.null))]
+  c(non_null_request, extra)
 }

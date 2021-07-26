@@ -48,14 +48,7 @@ ala_counts <- function(...) {
 #' @export
 #' @rdname ala_counts
 ala_counts.data_request <- function(.request, ...) {
-  args <- list(...)
-  do.call(ala_counts,
-          c(list(taxa = .request$taxa,
-                 filters = .request$filters,
-                 locations = .request$locations)
-            [c(!is.null(.request$taxa),
-               !is.null(.request$filters),
-               !is.null(.request$locations))], args))
+  do.call(ala_counts, merge_args(.request, list(...)))
 }
 
 #' @export
@@ -63,14 +56,13 @@ ala_counts.data_request <- function(.request, ...) {
 ala_counts.default <- function(taxa = NULL, filters = NULL, locations = NULL,
                                group_by, limit = 100,
                                type = c("record" ,"species"), ...) {
+
   query <- list()
   page_size <- 100
   verbose <- getOption("galah_config")$verbose
   type <- match.arg(type)
-  
   profile <- extract_profile(filters)
   query <- build_query(taxa, filters, locations, profile = profile)
-
   if (missing(group_by)) {
     if (type == "species") {
       return(species_count(query))

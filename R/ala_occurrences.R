@@ -44,18 +44,8 @@ ala_occurrences <- function(...) {
 
 #' @export
 #' @rdname ala_occurrences
-ala_occurrences.data_request <- function(.request, mint_doi = FALSE,
-                                         doi = NULL, ...) {
-  args <- list(mint_doi = mint_doi, doi = NULL, ...)
-  do.call(ala_occurrences,
-          c(list(taxa = .request$taxa,
-                 filters = .request$filters,
-                 locations = .request$locations,
-                 columns = .request$columns)
-            [c(!is.null(.request$taxa),
-               !is.null(.request$filters),
-               !is.null(.request$locations),
-               !is.null(.request$columns))], args))
+ala_occurrences.data_request <- function(.request, ...) {
+  do.call(ala_occurrences, merge_args(.request, list(...)))
 }
 
 #' @export
