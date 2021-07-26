@@ -15,7 +15,7 @@ of the `|>` or `%>%` operator to construct data requests and retrieve data from
 the ALA. While it remains possible to pass filter objects to functions, the new
 method brings `galah` into line with modern R practices. 
 
-Create a data request
+Create a data request object.
 ```{r}
 library(galah)
 ala_config(atlas = "Australia")

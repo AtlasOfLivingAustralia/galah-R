@@ -265,16 +265,25 @@ check_taxa_arg <- function(taxa) {
 # Read cached file
 read_cache_file <- function(filename) {
   if (getOption("galah_config")$verbose) {
-    message("Using cached file ", filename)
+    message("Using cached file '", filename, "'")
   }
   readRDS(filename)
 }
 
 # Write file to cache and metadata to metadata cache
 write_cache_file <- function(object, data_type, cache_file) {
-  if (getOption("galah_config")$verbose) { message("Writing to cache file") }
-  saveRDS(object, cache_file)
-  write_metadata(attributes(object)$data_request, data_type, cache_file)
+  if (getOption("galah_config")$verbose) {
+    message("Writing to cache file '", cache_file, "'")
+    }
+  tryCatch({
+    saveRDS(object, cache_file)
+    write_metadata(attributes(object)$data_request, data_type, cache_file)
+    },
+    error = function(e) {
+      warning("There was an error writing to the cache file. Possibly the cache directory '",
+              dirname(cache_file), "' doesn't exist.")
+    }
+  )
 }
 
 # Hash cache filename from argument list
@@ -296,7 +305,13 @@ write_metadata <- function(request, data_type, cache_file) {
   }
   file_id <- str_split(basename(cache_file), "\\.")[[1]][1]
   metadata[[file_id]] <- list(data_type = data_type, data_request = request)
-  saveRDS(metadata, metadata_file)
+  tryCatch(
+    saveRDS(metadata, metadata_file),
+    error = function(e) {
+      warning("There was an error writing to the cache metadata. Possibly the cache directory ",
+              dirname(cache_file), " doesn't exist.")
+    }
+  )
 }
 
 ##----------------------------------------------------------------
