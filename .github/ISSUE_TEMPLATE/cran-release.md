@@ -12,6 +12,7 @@ assignees: ''
 - [ ] Documentation has been built with `roxygen::roxygenise()`
 - [ ] `pkgdown` site has been built locally with `pkgdown::build_site()` and all the pages are rendering as expected
 - [ ] NEWS.md has been updated with all the changes since the last release, including links to issue numbers
+- [ ] Version number has been increased in the `DESCRIPTION` in [semantic versioning style](https://semver.org/)
 
 ## Testing
 - [ ] All automated tests are passing locally with `devtools::test()` (including slow skipped tests)
@@ -27,5 +28,5 @@ assignees: ''
 - [ ] winbuilder results (emailed to maintainer) have no errors or warnings
 
 ## Change Advisory Board (CAB) submission
-- [ ] Change request submitted to CAB
+- [ ] Change request submitted to CAB in [JIRA](https://jira-sd.csiro.au/projects/ACRR/queues/custom/367)
 - [ ] Change request approved by CAB
