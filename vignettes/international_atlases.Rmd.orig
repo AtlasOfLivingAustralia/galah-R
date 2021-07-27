@@ -1,0 +1,77 @@
+---
+title: "International Atlases"
+author: "Matilda Stevenson"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{International Atlases}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The software developed by the ALA is now used by 27 International Living Atlases. 
+Although there are differences in the versions of core components used by the
+Atlases, and variations in the web services available, `galah` is flexible enough to 
+handle most of these differences. Below we explain how to change the Living
+Atlas the package points to, and how to put in a pull request if you would like
+to see another Living Atlas supported in `galah`.
+
+## Supported Atlases
+To show the Atlases currently supported by `galah`, use `find_atlases()`. This
+function also provides information on which taxonomic source each Atlas uses.
+```{r}
+library(galah)
+find_atlases()
+```
+
+## Set Atlas
+Use `ala_config()` to set the Atlas to use. This will automatically populate the 
+server configuration for your selected Atlas. By default, the atlas is Australia.
+If you intend to download records you will need to register with the relevant
+Atlas. 
+
+```{r eval=TRUE}
+ala_config(atlas = "UK", email = "your_email_here")
+```
+
+## Get data for another atlas
+```{r}
+ala_counts()
+```
+
+## Using taxonomic filters for another atlas
+`galah` only supports searching for Australian taxonomy; for other Atlases,
+`taxize` should be used to search for the taxonomic id, and this id can be passed
+to the `taxa` argument of `ala_` functions. For example:
+```{r,error=TRUE}
+library(taxize)
+# Use UK taxonomy
+id <- get_nbnid("Vulpes vulpes", rows = 1)
+ala_counts(taxa = id)
+```
+
+## Retrieving occurrence records
+```{r}
+# Download records from the Austrian atlas
+ala_config(atlas = "Austria")
+id <- get_gbifid("bombina variegata", rows = 1)
+ala_counts(taxa = id)
+```
+
+```{r include = FALSE}
+occ <- read.csv('bombina_variegata.csv')
+```
+
+```{r eval = FALSE}
+occ <- ala_occurrences(taxa = id)
+```
+
+```{r}
+head(occ)
+```
+
+## Supporting another Atlas
+`galah` currently supports a subset of the existing Living Atlases. If you would
+like to see another Living Atlas supported, add the server configuration for the 
+Atlas in the `R/find_atlases.R` file, and put in a pull request.
