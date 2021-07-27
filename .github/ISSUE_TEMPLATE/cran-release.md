@@ -8,6 +8,7 @@ assignees: ''
 ---
 
 ## Documentation
+- [ ] Vignettes have been updated by running `vignettes/precompile.R`
 - [ ] Documentation has been built with `roxygen::roxygenise()`
 - [ ] `pkgdown` site has been built locally with `pkgdown::build_site()` and all the pages are rendering as expected
 - [ ] NEWS.md has been updated with all the changes since the last release, including links to issue numbers
