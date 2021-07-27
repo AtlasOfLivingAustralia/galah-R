@@ -27,6 +27,7 @@ Imports:
     utils,
     wellknown
 Suggests:
+    vcr (>= 0.6.0),
     covr,
     dplyr,
     ggplot2,
