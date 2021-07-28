@@ -27,14 +27,15 @@ vcr::use_cassette("search_layers", {
 
 vcr::use_cassette("search_fields_assertions", {
   test_that("search_fields returns assertions", {
-    fields <- search_fields("assertions")
+    fields <- search_fields(type = "assertions")
     expect_equal(unique(fields$type), "assertions")
   })
 })
 
 vcr::use_cassette("search_fields_text", {
-  test_that("search_fields searches text correctly")
-  fields <- search_fields("precipitation")
-  expect_true(all(grepl(pattern = "precipitation", field$description,
-                        ignore.case = TRUE)))
+  test_that("search_fields searches text correctly", {
+    fields <- search_fields("precipitation")
+    expect_true(all(grepl(pattern = "precipitation", fields$description,
+                          ignore.case = TRUE)))
+  })
 })
