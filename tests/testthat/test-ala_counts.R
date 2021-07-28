@@ -19,7 +19,7 @@ vcr::use_cassette("taxa_count", {
   })
 })
 
-vcr::use_cassette("taxa_count_group_by", {
+vcr::use_cassette("record_count_group_by", {
   test_that("grouped ala_counts returns expected output", {
     counts <- ala_counts(taxa = select_taxa("Mammalia"),
                          group_by = "basisOfRecord")
@@ -28,6 +28,14 @@ vcr::use_cassette("taxa_count_group_by", {
   })
 })
 
+vcr::use_cassette("species_count_group_by", {
+  test_that("grouped ala_counts for species returns expected output", {
+    counts <- ala_counts(taxa = select_taxa("Mammalia"), group_by = "year",
+                         type = "species")
+    expect_s3_class(counts, "data.frame")
+    expect_equal(names(counts), c("year", "count"))
+  })
+})
 
 vcr::use_cassette("species_count", {
   test_that("ala_counts returns species counts", {

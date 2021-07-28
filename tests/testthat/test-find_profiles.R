@@ -1,20 +1,27 @@
 context("Test ALA data profiles")
 
-test_that("ALA data profiles behaves as expected", {
+test_that("find_profiles returns profiles", {
+  # vcr can't handle dq service
   skip_on_cran()
-  expect_equal(class(find_profiles()), "data.frame")
-  expect_equal(ncol(find_profiles()), 4)
+  profiles <- find_profiles()
+  expect_s3_class(profiles, "data.frame")
+  expect_equal(ncol(profiles), 4)
 })
 
-test_that("find_profile_attributes checks input", {
-  skip_on_cran()
-  expect_error(find_profile_attributes(10))
-  expect_error(find_profile_attributes("bad_profile"))
+vcr::use_cassette("find_profiles_attrs_invalid", {
+  test_that("find_profile_attributes checks input", {
+    expect_error(find_profile_attributes(10))
+    expect_error(find_profile_attributes("invalid"))
+  })
 })
 
 test_that("find_profile_attributes returns dataframe", {
+  # vcr can't handle dq service
   skip_on_cran()
-  expect_equal(ncol(find_profile_attributes(2)), 2)
-  expect_equal(ncol(find_profile_attributes("Data licensed for all uses")), 2)
-  expect_true(is(find_profile_attributes("ALA"), "data.frame"))
+  atts <- find_profile_attributes(92)
+  expect_equal(ncol(atts), 2)
+  expect_s3_class(atts, "data.frame")
+  atts <- find_profile_attributes("ALA")
+  expect_equal(ncol(atts), 2)
+  expect_s3_class(atts, "data.frame")
 })
