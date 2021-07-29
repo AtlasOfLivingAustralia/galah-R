@@ -62,32 +62,6 @@ vcr::use_cassette("paginated_counts", {
   })
 })
 
-# 
-# test_that("ala_counts works with combinations of filters", {
-#   skip_on_cran()
-#   filters <- select_filters(profile = "ALA", year = 2015, basisOfRecord = "PreservedSpecimen")
-#   expect_gt(ala_counts(filters = filters), 0)
-# })
-
-
-
-# test_that("ala_counts handles multi-filter queries with pagination", {
-#   skip_on_cran()
-#   expect_equal(
-#     nrow(ala_counts(taxa = select_taxa("Anas anas"),
-#                     filters = select_filters(basisOfRecord = "HumanObservation"),
-#                     group_by = "year", limit = 101)),
-#     101)
-# })
-
-# test_that("ala_counts works with assertions", {
-#   skip_on_cran()
-#   expect_equal(
-#     ala_counts(),
-#     ala_counts(filters = select_filters(CONTINENT_INVALID = FALSE)) +
-#       ala_counts(filters = select_filters(CONTINENT_INVALID = TRUE)))
-# })
-
 test_that("ala_counts caches as expected", {
   skip_on_cran()
   ala_config(caching = TRUE, verbose = TRUE)
@@ -98,7 +72,6 @@ test_that("ala_counts caches as expected", {
                  "Using cached file")
   expect_equal(nrow(counts), nrow(counts2))
 })
-
 
 test_that("ala_counts returns consistent data from cached/non-cached calls", {
   skip_on_cran()

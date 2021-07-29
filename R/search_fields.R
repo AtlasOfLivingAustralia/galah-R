@@ -86,7 +86,6 @@ search_fields <- function(
 # Helper functions to get different field classes
 get_fields <- function() {
   fields <- all_fields()
-
   # remove fields where class is contextual or environmental
   fields <- fields[!(fields$classs %in% c("Contextual", "Environmental")),]
 
