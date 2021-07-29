@@ -28,12 +28,22 @@ vcr::use_cassette("record_count_group_by", {
   })
 })
 
+vcr::use_cassette("record_count_no_limit", {
+  test_that("ala counts returns all counts if no limit is provided", {
+    counts <- ala_counts(group_by = "month", limit = NULL)
+    expect_s3_class(counts, "data.frame")
+    expect_equal(nrow(counts), 12)
+  })
+})
+
 vcr::use_cassette("species_count_group_by", {
   test_that("grouped ala_counts for species returns expected output", {
-    counts <- ala_counts(taxa = select_taxa("Mammalia"), group_by = "year",
+    counts <- ala_counts(taxa = select_taxa("Mammalia"),
+                         filters = select_filters(year = 2020),
+                         group_by = "month",
                          type = "species")
     expect_s3_class(counts, "data.frame")
-    expect_equal(names(counts), c("year", "count"))
+    expect_equal(names(counts), c("month", "count"))
   })
 })
 
@@ -46,11 +56,13 @@ vcr::use_cassette("species_count", {
 })
 
 vcr::use_cassette("empty_count", {
-  filters <- select_filters(kingdom = 'non-existent')
-  counts <- ala_counts(filters = filters, group_by = "basisOfRecord")
-  expect_s3_class(counts, "data.frame")
-  expect_equal(nrow(counts), 0)
-  expect_equal(names(counts), c("name", "count"))
+  test_that("ala_counts handles empty count", {
+    filters <- select_filters(kingdom = 'non-existent')
+    counts <- ala_counts(filters = filters, group_by = "basisOfRecord")
+    expect_s3_class(counts, "data.frame")
+    expect_equal(nrow(counts), 0)
+    expect_equal(names(counts), c("name", "count"))
+  })
 })
 
 vcr::use_cassette("paginated_counts", {
