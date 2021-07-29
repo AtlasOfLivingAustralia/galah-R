@@ -37,3 +37,7 @@ test_that("select_filters skips checks if requested", {
   expect_silent(select_filters(random = "filter"))
   ala_config(run_checks = TRUE)
 })
+
+test_that("exclude negates filters", {
+  expect_s3_class(exclude(2021), c("exclude", "numeric"))
+})
