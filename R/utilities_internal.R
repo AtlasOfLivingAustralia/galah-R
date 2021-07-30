@@ -182,7 +182,7 @@ query_term <- function(name, value, include) {
                         ")")
   } else {
     value_str <- paste0("(", paste(paste0("-", name), value,
-                                   collapse = ' AND ', sep = ":"), ")")
+                                   collapse = " AND ", sep = ":"), ")")
   }
   value_str
 }

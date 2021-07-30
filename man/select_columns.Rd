@@ -10,8 +10,8 @@ select_columns(..., group = c("basic", "event", "assertions"))
 \item{...}{zero or more individual column names to include}
 
 \item{group}{\code{string}: (optional) name of one or more column groups to
-include. Valid options are \code{'basic'}, \code{'event'} and
-\code{'assertion'}}
+include. Valid options are \code{"basic"}, \code{"event"} and
+\code{"assertion"}}
 }
 \value{
 A \code{data.frame} of columns, specifying the name and type
@@ -28,7 +28,7 @@ The resulting \code{data.frame} is then passed to the \code{columns}
 argument in \code{\link{ala_occurrences}()}.
 }
 \details{
-Calling the argument \code{group = 'basic'} returns the following columns:
+Calling the argument \code{group = "basic"} returns the following columns:
 \itemize{
   \item\code{decimalLatitude}
   \item\code{decimalLongitude}
@@ -38,7 +38,7 @@ Calling the argument \code{group = 'basic'} returns the following columns:
   \item\code{recordID}
   \item\code{dataResourceName}
 }
-Using \code{group = 'event'} returns the following columns:
+Using \code{group = "event"} returns the following columns:
 \itemize{
   \item\code{eventRemarks}
   \item\code{eventTime}
@@ -47,7 +47,7 @@ Using \code{group = 'event'} returns the following columns:
   \item\code{samplingEffort}
   \item\code{samplingProtocol}
 }
-Using \code{group = 'assertions'} returns all quality assertion-related
+Using \code{group = "assertions"} returns all quality assertion-related
 columns. The list of assertions is shown by \code{search_fields(type = "assertions")}.
 }
 \seealso{

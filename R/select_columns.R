@@ -11,12 +11,12 @@
 #'
 #' @param ... zero or more individual column names to include
 #' @param group \code{string}: (optional) name of one or more column groups to
-#' include. Valid options are \code{'basic'}, \code{'event'} and
-#' \code{'assertion'}
+#' include. Valid options are \code{"basic"}, \code{"event"} and
+#' \code{"assertion"}
 #' @return A \code{data.frame} of columns, specifying the name and type
 #' of each column to include in the occurrence download.
 #' @details
-#' Calling the argument \code{group = 'basic'} returns the following columns:
+#' Calling the argument \code{group = "basic"} returns the following columns:
 #' \itemize{
 #'   \item\code{decimalLatitude}
 #'   \item\code{decimalLongitude}
@@ -26,7 +26,7 @@
 #'   \item\code{recordID}
 #'   \item\code{dataResourceName}
 #' }
-#' Using \code{group = 'event'} returns the following columns:
+#' Using \code{group = "event"} returns the following columns:
 #' \itemize{
 #'   \item\code{eventRemarks}
 #'   \item\code{eventTime}
@@ -35,7 +35,7 @@
 #'   \item\code{samplingEffort}
 #'   \item\code{samplingProtocol}
 #' }
-#' Using \code{group = 'assertions'} returns all quality assertion-related
+#' Using \code{group = "assertions"} returns all quality assertion-related
 #' columns. The list of assertions is shown by \code{search_fields(type = "assertions")}.
 #' @seealso \code{\link{select_taxa}}, \code{\link{select_filters}} and
 #' \code{\link{select_locations}} for other ways to restrict the information returned
