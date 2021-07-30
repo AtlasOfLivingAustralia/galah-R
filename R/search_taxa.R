@@ -50,17 +50,19 @@ search_taxa <- function(query, downto = NULL, include_ids = FALSE){
   }
   
   # get the classification 
-  classified_df <- data.table::rbindlist(
+  classified_df <- as.data.frame(data.table::rbindlist(
     lapply(id_df$guid, function(id) {
       classification(id)
     }
-    ), fill = TRUE)
+    ), fill = TRUE))
   if (!include_ids) {
-    classified_df <- classified_df[!grepl("id", classified_df)]
+    classified_df <- classified_df[, -which(grepl("id", names(classified_df)))]
   }
   # convert to normal case
   names(classified_df) <- rename_columns(names(classified_df), type = "taxa")
-  title_case_df(as.data.frame(classified_df))
+  out_df <- classified_df[, -which(names(classified_df) %in%
+                                     c("guid","scientific_name"))]
+  title_case_df(as.data.frame(out_df))
 }
 
 # Return the classification for a taxonomic id
