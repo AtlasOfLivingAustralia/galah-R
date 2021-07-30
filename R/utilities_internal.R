@@ -11,10 +11,14 @@ wanted_columns <- function(type) {
                       "match_type", "kingdom", "phylum", "class", "order",
                       "family", "genus", "species", "vernacular_name",
                       "issues","subkingdom", "superclass", "infraclass",
+                      "subclass", "subinfraclass", "suborder", "superorder",
+                      "infraorder", "infrafamily", "superfamily", "subfamily",
+                      "subtribe", "subgenus", "subspecies"),
+           "extended_taxa" = c("subkingdom", "superclass", "infraclass",
                                "subclass", "subinfraclass", "suborder",
                                "superorder", "infraorder", "infrafamily",
-                               "superfamily", "subfamily","subtribe",
-                               "subgenus", "subspecies"),
+                               "superfamily", "subfamily", "subtribe",
+                               "subgenus"),
            "profile" = c("id", "name", "shortName", "description"),
            "media" = c("rightsHolder", "license", "creator", "title", "rights",
                        "mimetype", "media_id"),
@@ -178,7 +182,7 @@ query_term <- function(name, value, include) {
                         ")")
   } else {
     value_str <- paste0("(", paste(paste0("-", name), value,
-                                   collapse = ' AND ', sep = ":"), ")")
+                                   collapse = " AND ", sep = ":"), ")")
   }
   value_str
 }

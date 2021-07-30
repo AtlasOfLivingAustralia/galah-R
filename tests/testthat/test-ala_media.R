@@ -5,7 +5,7 @@ test_that("ala media check inputs", {
   skip_on_cran()
   expect_error(ala_media())
   expect_error(ala_media(taxa = select_taxa("Microseris lanceolata"),
-                         download_dir = 'non_existent'))
+                         download_dir = "non_existent"))
 })
 
 test_that("ala media downloads images", {

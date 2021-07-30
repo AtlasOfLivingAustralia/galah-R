@@ -53,18 +53,6 @@ select_taxa("Reptilia")
 # or equivalently:
 select_taxa("reptilia") # not case sensitive
 
-# Search with multiple ranks. This is required if a single term is a homonym.
-select_taxa(
-  list(kingdom = "Plantae", genus = "Microseris"),
-  children = TRUE,
-  counts = TRUE)
-
-# As above, but for multiple searches at once.
-select_taxa(
-   data.frame(
-     genus = c("microseris", "Eucalyptus"),
-     kingdom = "plantae"))
-
 # Search using an unique taxon identifier
 select_taxa(query = "https://id.biodiversity.org.au/node/apni/2914510")
 
@@ -76,4 +64,5 @@ select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 \code{\link{select_columns}}, \code{\link{select_filters}} and
 \code{\link{select_locations}} for other ways to restrict the information returned
 by \code{\link{ala_occurrences}} and related functions.
+\code{\link{search_taxa}} to look up taxonomic information
 }

@@ -207,7 +207,7 @@ doi_download <- function(doi) {
   path <- ala_download(server_config("doi_base_url"),
                        path = paste0("/doi/", doi_str, "/download"),
                        ext = ".zip", cache_file = tempfile(pattern = "data"))
-  record_file <- grep('^records', unzip(path, list=TRUE)$Name, 
+  record_file <- grep("^records", unzip(path, list=TRUE)$Name, 
                       ignore.case=TRUE, value=TRUE)
   df <- read.csv(unz(path, record_file), stringsAsFactors = FALSE)
   attr(df, "doi") <- doi
