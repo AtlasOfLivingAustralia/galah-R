@@ -1,14 +1,27 @@
 #' Search taxon information
+#'
+#' In the ALA, all records are associated with an identifier that uniquely
+#' identifies the taxon to which that record belongs. However, taxonomic names
+#' can be ambiguous due to homonymy; i.e. re-use of names (common or
+#' scientific) in different clades. Hence, \code{search_taxa} provides a means
+#' to search for taxonomic names and check the results are 'correct' before
+#' proceeded to download data via \code{\link{ala_occurrences}()},
+#' \code{\link{ala_species}()} or \code{\link{ala_counts}()}.
 #' 
+#' @param query \code{string}: A vector containing one or more search terms,
+#' given as strings. Search terms can be scientific or common names, or
+#' taxanomic identifiers. If greater control is required to disambiguate search
+#' terms, taxonomic levels can be provided explicitly via a named \code{list}
+#' for a single name. See vignette(taxonomic_information for using search_taxa
+#' for multiple taxons)
+#' Note that searches are not case-sensitive.
+#' @param downto \code{string}: A taxonomic rank to search down to
+#' @param include_ids \code{logical} Include unique taxonomic identifiers for
+#' all of the ranks? \code{FALSE} by default.
 #' @export
 
-
-
-# if (is_higher_rank(current_rank, downto)) {
-#   lower_ranks <- 
-# }
-
-search_taxa <- function(query, downto = NULL){
+search_taxa <- function(query, downto = NULL, include_ids = FALSE){
+  assert_that(is.logical(include_ids))
   if (getOption("galah_config")$atlas != "Australia") {
     stop("`search_taxa` only provides information on Australian taxonomy. To search taxonomy for ",
          getOption("galah_config")$atlas, " use `taxize`. See vignette('international_atlases') for more information")
@@ -18,29 +31,48 @@ search_taxa <- function(query, downto = NULL){
     stop("`search_taxa` requires a query to search for")
   }
   
-  matches <- name_query(query)
-  out_data <- as.data.frame(matches, stringsAsFactors = FALSE)
+  match <- name_lookup(query)
+  start_row <- match[,c("scientific_name", "rank", "taxon_concept_id")]
+  names(start_row) <- c("name", "rank", "guid")
+  
   
   if (!is.null(downto)) {
-    taxon_row <- data.frame(name = out_data$scientific_name,
-                      rank = out_data$rank,
-                      guid = out_data$taxon_concept_id)
-    out_data <- rbind(taxon_row, level_down(taxon_row, downto))
+    if (rank_index(downto) == 100) {
+      stop("`downto` must be a valid taxonomic rank")
+    }
+    downto <- tolower(downto)
+    id_df <- rbind(start_row, level_down(start_row, downto))
     
-    # filter to the ranks we want
-    out_data <- out_data[out_data$rank == downto,]
+    # filter to the `downto` rank
+    id_df <- id_df[id_df$rank == downto,]
+  } else {
+    id_df <- start_row
   }
   
-  all_ranks <- data.table::rbindlist(
-    lapply(out_data$guid, function(id) {
-      intermediate_ranks(id)
+  # get the classification 
+  classified_df <- data.table::rbindlist(
+    lapply(id_df$guid, function(id) {
+      classification(id)
     }
     ), fill = TRUE)
-  out_data <- cbind(out_data, all_ranks)
-    
-  out_data
+  if (!include_ids) {
+    classified_df <- classified_df[!grepl("id", classified_df)]
+  }
+  # convert to normal case
+  names(classified_df) <- rename_columns(names(classified_df), type = "taxa")
+  title_case_df(as.data.frame(classified_df))
 }
 
+# Return the classification for a taxonomic id
+# optionally include ids
+classification <- function(id) {
+  url <- server_config("species_base_url")
+  resp <- ala_GET(url, path = paste0("ws/species/", id))
+  data.frame(resp$classification)
+}
+
+# Return the index of a taxonomic rank- lower index corresponds to higher up the
+# tree
 rank_index <- function(rank) {
   ranks_list <- c("root", "superkingdom", "kingdom", "subkingdom", 
                   "superphylum", "phylum", "subphylum", "superclass", "class", 
@@ -61,12 +93,13 @@ rank_index <- function(rank) {
                   "infraspecies", "variety", "nothovariety", "subvariety", 
                   "form", "nothoform", "subform", "biovar", "serovar", 
                   "cultivar", "pathovar", "infraspecific")
-  if (rank == "unranked") {
+  if (!rank %in% ranks_list) {
     return(100)
   }
   return(which(ranks_list == rank))
 }
 
+# Get the child concepts for a taxonomic ID 
 get_children <- function(identifier) {
   url <- server_config("species_base_url")
   path <- paste0(
@@ -76,11 +109,12 @@ get_children <- function(identifier) {
   return(ala_GET(url, path))
 }
 
+# Take a taxon row and recurse down the taxonomic tree until the provided rank
+# is reached
 level_down <- function(taxon_row, downto) {
   if (rank_index(taxon_row$rank) >= rank_index(downto)) {
     return(taxon_row[,c("name", "rank", "guid")])
   }
-
   children <- get_children(taxon_row$guid)
   if (length(children) == 0 || nrow(children) == 0) {
     return(taxon_row[,c("name", "rank", "guid")])
@@ -90,37 +124,3 @@ level_down <- function(taxon_row, downto) {
   }))
 }
   
-  
-  
-
-  # lookup details for each child concept
-  # child_info <- suppressWarnings(data.table::rbindlist(lapply(
-  #   children$guid,
-  #   function(id) {
-  #     result <- identifier_lookup(id)
-  #     # keep child even if it can"t be found?
-  #     names(result) <- rename_columns(names(result), type = "taxa")
-  #     result <- result[names(result) %in% wanted_columns("taxa")]
-  #     as.data.frame(result, stringsAsFactors = FALSE)
-  #   }
-  # ), fill = TRUE))
-  # child_info
-  
-name_query <- function(query) {
-  ranks <- names(query)
-  # check ranks are valid if query type is name
-  validate_rank(ranks)
-  if (is.list(query) && length(names(query)) > 0 ) {
-    # convert to dataframe for simplicity
-    query <- as.data.frame(query)
-  }
-  if (is.data.frame(query)) {
-    matches <- data.table::rbindlist(apply(query, 1, name_lookup),
-                                     fill = TRUE)
-  } else {
-    matches <- data.table::rbindlist(lapply(query, function(t) {
-      name_lookup(t)
-    }), fill = TRUE)
-  }
-  return(matches)
-}
