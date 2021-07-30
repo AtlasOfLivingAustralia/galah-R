@@ -27,24 +27,13 @@
 #' @seealso \code{\link{select_columns}}, \code{\link{select_filters}} and
 #' \code{\link{select_locations}} for other ways to restrict the information returned
 #' by \code{\link{ala_occurrences}} and related functions.
+#' \code{\link{search_taxa}} to look up taxonomic information
 #' @examples
 #' \dontrun{
 #' # Search using a single term
 #' select_taxa("Reptilia")
 #' # or equivalently:
 #' select_taxa("reptilia") # not case sensitive
-#'
-#' # Search with multiple ranks. This is required if a single term is a homonym.
-#' select_taxa(
-#'   list(kingdom = "Plantae", genus = "Microseris"),
-#'   children = TRUE,
-#'   counts = TRUE)
-#'
-#' # As above, but for multiple searches at once.
-#' select_taxa(
-#'    data.frame(
-#'      genus = c("microseris", "Eucalyptus"),
-#'      kingdom = "plantae"))
 #'
 #' # Search using an unique taxon identifier
 #' select_taxa(query = "https://id.biodiversity.org.au/node/apni/2914510")
@@ -56,6 +45,22 @@
 
 select_taxa <- function(query, children = FALSE, counts = FALSE,
                         all_ranks = FALSE) {
+  
+  if (!missing(children)) {
+    warning("The `children` argument is now deprecated. To get information about
+  child taxonomic concepts, use `search_taxa` with the `downto` argument.
+  For more information about taxonomic searches, see vignette('taxonomic_information')")
+  }
+  if (!missing(counts)) {
+    warning("The `counts` argument is now deprecated. To get information about
+  taxonomic counts, use `ala_counts` with the `groupby` argument.
+  For more information about taxonomic searches, see vignette('taxonomic_information')")
+  }
+  if (!missing(all_ranks)) {
+    warning("The `all_ranks` argument is now deprecated. All rank information is
+  provided by default in `search_taxa`.
+  For more information about taxonomic searches, see vignette('taxonomic_information')")
+  }
   verbose <- getOption("galah_config")$verbose
   assert_that(is.flag(children))
 
@@ -75,9 +80,7 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
                        "scientific or common names")
     message("Assuming that query term(s) provided are ", print_qt)
   }
-
-
-
+  
   if (query_type == "name") {
     matches <- name_query(query)
   } else {
@@ -114,12 +117,35 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
   out_data
 }
 
-
-
 id_query <- function(query) {
   matches <- data.table::rbindlist(lapply(query, function(t) {
     identifier_lookup(t)
   }), fill = TRUE)
+}
+
+name_query <- function(query) {
+  if (is.list(query) && length(names(query)) > 0 ) {
+    # convert to dataframe for simplicity
+    query <- as.data.frame(query)
+  }
+  if (is.data.frame(query)) {
+    matches <- data.table::rbindlist(apply(query, 1, name_lookup),
+                                     fill = TRUE)
+  } else {
+    matches <- data.table::rbindlist(lapply(query, function(t) {
+      name_lookup(t)
+    }), fill = TRUE)
+  }
+  return(matches)
+}
+
+intermediate_ranks <- function(id) {
+  url <- server_config("species_base_url")
+  resp <- ala_GET(url, path = paste0("ws/species/", id))
+  classification <- data.frame(resp$classification)
+  classification <- classification[names(classification) %in%
+                                     wanted_columns("extended_taxa")]
+  return(classification)
 }
 
 name_lookup <- function(name) {
