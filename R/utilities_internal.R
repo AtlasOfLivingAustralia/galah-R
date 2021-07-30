@@ -10,12 +10,11 @@ wanted_columns <- function(type) {
                       "scientific_name_authorship", "taxon_concept_id", "rank",
                       "match_type", "kingdom", "phylum", "class", "order",
                       "family", "genus", "species", "vernacular_name",
-                      "issues"),
-           "extended_taxa" = c("subkingdom", "superclass", "infraclass",
+                      "issues","subkingdom", "superclass", "infraclass",
                                "subclass", "subinfraclass", "suborder",
                                "superorder", "infraorder", "infrafamily",
                                "superfamily", "subfamily","subtribe",
-                               "subgenus"),
+                               "subgenus", "subspecies"),
            "profile" = c("id", "name", "shortName", "description"),
            "media" = c("rightsHolder", "license", "creator", "title", "rights",
                        "mimetype", "media_id"),
@@ -67,6 +66,23 @@ fix_assertion_cols <- function(df, assertion_cols) {
     df[, col] <- as.logical(df[, col])
   }
   df
+}
+
+# Convert data.frame field values to title case
+title_case_df <- function(df) {
+  for (col in names(df)) {
+    df[, col] <- unlist(lapply(df[,col], title_case))
+  }
+  df
+}
+
+# Convert string to title case if it is all upper case
+title_case <- function(s) {
+  if (is.na(s) || str_detect(s, "[[:lower:]]") || str_detect(s, ".*[0-9].*")) {
+    return(s)
+  }
+  paste(toupper(substring(s, 1, 1)), tolower(substring(s, 2)),
+        sep = "", collapse = " ")
 }
 
 ##----------------------------------------------------------------

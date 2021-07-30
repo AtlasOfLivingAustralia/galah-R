@@ -76,16 +76,7 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
     message("Assuming that query term(s) provided are ", print_qt)
   }
 
-  # # caching won't catch if query order is changed
-  # cache_file <- cache_filename(c(unlist(query),
-  #                              ifelse(children, "children", ""),
-  #                              ifelse(counts, "counts", "")),
-  #                              ext = ".rds")
-  # caching <- getOption("galah_config")$caching
-  # if (caching && file.exists(cache_file)) {
-  #   # use cached file
-  #   return(read.csv(cache_file))
-  # }
+
 
   if (query_type == "name") {
     matches <- name_query(query)
@@ -119,46 +110,16 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
     out_data <- cbind(out_data, im_ranks)
     # Todo: order columns correctly
   }
-  # write out to csv
-  # if (caching) {
-  #   write.csv(out_data, cache_file, row.names = FALSE)
-  # }
   class(out_data) <- append(class(out_data), "ala_id")
   out_data
 }
 
-intermediate_ranks <- function(id) {
-  url <- server_config("species_base_url")
-  resp <- ala_GET(url, path = paste0("ws/species/", id))
-  classification <- data.frame(resp$classification)
-  classification <- classification[names(classification) %in%
-                                     wanted_columns("extended_taxa")]
-  return(classification)
-}
+
 
 id_query <- function(query) {
   matches <- data.table::rbindlist(lapply(query, function(t) {
     identifier_lookup(t)
   }), fill = TRUE)
-}
-
-name_query <- function(query) {
-  ranks <- names(query)
-  # check ranks are valid if query type is name
-  validate_rank(ranks)
-  if (is.list(query) && length(names(query)) > 0 ) {
-    # convert to dataframe for simplicity
-    query <- as.data.frame(query)
-  }
-  if (is.data.frame(query)) {
-    matches <- data.table::rbindlist(apply(query, 1, name_lookup),
-                                     fill = TRUE)
-  } else {
-    matches <- data.table::rbindlist(lapply(query, function(t) {
-      name_lookup(t)
-    }), fill = TRUE)
-  }
-  return(matches)
 }
 
 name_lookup <- function(name) {
@@ -170,6 +131,7 @@ name_lookup <- function(name) {
   } else {
     # search by classification
     path <- "api/searchByClassification"
+    validate_rank(names(name))
     query <- as.list(name)
   }
   result <- ala_GET(url, path, query)
