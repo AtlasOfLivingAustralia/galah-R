@@ -1,7 +1,7 @@
 ---
 title: "International Atlases"
 author: "Matilda Stevenson"
-date: '`r Sys.Date()`'
+date: '2021-07-27'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -20,9 +20,20 @@ to see another Living Atlas supported in `galah`.
 ## Supported Atlases
 To show the Atlases currently supported by `galah`, use `find_atlases()`. This
 function also provides information on which taxonomic source each Atlas uses.
-```{r}
+
+```r
 library(galah)
 find_atlases()
+```
+
+```
+##       atlas taxonomy_source                                                     taxonomy_info
+## 1 Australia             ALA                                           https://bie.ala.org.au/
+## 2   Austria            GBIF https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+## 3 Guatemala            GBIF https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+## 4     Spain            GBIF https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+## 5    Sweden            GBIF https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+## 6        UK             NBN            https://www.nhm.ac.uk/our-science/data/uk-species.html
 ```
 
 ## Set Atlas
@@ -31,44 +42,112 @@ server configuration for your selected Atlas. By default, the atlas is Australia
 If you intend to download records you will need to register with the relevant
 Atlas. 
 
-```{r eval=FALSE}
+
+```r
 ala_config(atlas = "UK", email = "your_email_here")
 ```
 
 ## Get data for another atlas
-```{r}
+
+```r
 ala_counts()
+```
+
+```
+## [1] 199893406
 ```
 
 ## Using taxonomic filters for another atlas
 `galah` only supports searching for Australian taxonomy; for other Atlases,
 `taxize` should be used to search for the taxonomic id, and this id can be passed
 to the `taxa` argument of `ala_` functions. For example:
-```{r,error=TRUE}
+
+```r
 library(taxize)
 # Use UK taxonomy
 id <- get_nbnid("Vulpes vulpes", rows = 1)
+```
+
+```
+## ══  1 queries  ═══════════════
+```
+
+```
+## 
+## Retrieving data for taxon 'Vulpes vulpes'
+```
+
+```
+## ✔  Found:  Vulpes vulpes
+## ══  Results  ═════════════════
+## 
+## • Total: 1 
+## • Found: 1 
+## • Not Found: 0
+```
+
+```r
 ala_counts(taxa = id)
+```
+
+```
+## [1] 149388
 ```
 
 ## Retrieving occurrence records
-```{r}
+
+```r
 # Download records from the Austrian atlas
 ala_config(atlas = "Austria")
 id <- get_gbifid("bombina variegata", rows = 1)
+```
+
+```
+## ══  1 queries  ═══════════════
+```
+
+```
+## 
+## Retrieving data for taxon 'bombina variegata'
+```
+
+```
+## ✔  Found:  bombina variegata
+## ══  Results  ═════════════════
+## 
+## • Total: 1 
+## • Found: 1 
+## • Not Found: 0
+```
+
+```r
 ala_counts(taxa = id)
 ```
 
-```{r include = FALSE}
-occ <- read.csv('bombina_variegata.csv')
+```
+## [1] 392
 ```
 
-```{r eval = FALSE}
+
+
+
+```r
 occ <- ala_occurrences(taxa = id)
 ```
 
-```{r}
+
+```r
 head(occ)
+```
+
+```
+##   X decimalLatitude decimalLongitude  eventDate    scientificName taxonConceptID                             recordID
+## 1 1        47.04326         15.15363 2021-03-31 Bombina variegata        2423435 a358fdd5-500f-4963-9454-545a88172748
+## 2 2        46.65526         15.52156 2014-03-27 Bombina variegata        2423435 9212accb-b19e-465c-85b2-df6f018e83ef
+## 3 3        48.12541         16.05689            Bombina variegata        2423435 e331e44e-fcc2-4da2-ac4a-9a2f6265530c
+## 4 4        48.12321         16.05636            Bombina variegata        2423435 da843bec-ab22-4719-b268-b26c89835749
+## 5 5        48.12044         16.05967            Bombina variegata        2423435 b2db97ae-d8ac-413c-be20-eed1aa485a32
+## 6 6        48.45346         15.37861            Bombina variegata        2423435 b140bb0e-b7af-4fdc-9f9e-510980a73e09
 ```
 
 ## Supporting another Atlas

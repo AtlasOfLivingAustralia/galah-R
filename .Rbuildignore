@@ -10,3 +10,6 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^.*\.orig$
+^.*precompile\.R$
+
