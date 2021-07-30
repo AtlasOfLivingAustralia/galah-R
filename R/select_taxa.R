@@ -132,7 +132,7 @@ intermediate_ranks <- function(id) {
   resp <- ala_GET(url, path = paste0("ws/species/", id))
   classification <- data.frame(resp$classification)
   classification <- classification[names(classification) %in%
-                                     wanted_columns("extended_taxa")]
+                                     wanted_columns("taxa")]
   return(classification)
 }
 
@@ -140,25 +140,6 @@ id_query <- function(query) {
   matches <- data.table::rbindlist(lapply(query, function(t) {
     identifier_lookup(t)
   }), fill = TRUE)
-}
-
-name_query <- function(query) {
-  ranks <- names(query)
-  # check ranks are valid if query type is name
-  validate_rank(ranks)
-  if (is.list(query) && length(names(query)) > 0 ) {
-    # convert to dataframe for simplicity
-    query <- as.data.frame(query)
-  }
-  if (is.data.frame(query)) {
-    matches <- data.table::rbindlist(apply(query, 1, name_lookup),
-                                     fill = TRUE)
-  } else {
-    matches <- data.table::rbindlist(lapply(query, function(t) {
-      name_lookup(t)
-    }), fill = TRUE)
-  }
-  return(matches)
 }
 
 name_lookup <- function(name) {

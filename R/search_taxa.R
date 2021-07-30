@@ -2,7 +2,13 @@
 #' 
 #' @export
 
-search_taxa <- function(query, all_ranks = FALSE, downto = NULL){
+
+
+# if (is_higher_rank(current_rank, downto)) {
+#   lower_ranks <- 
+# }
+
+search_taxa <- function(query, downto = NULL){
   if (getOption("galah_config")$atlas != "Australia") {
     stop("`search_taxa` only provides information on Australian taxonomy. To search taxonomy for ",
          getOption("galah_config")$atlas, " use `taxize`. See vignette('international_atlases') for more information")
@@ -13,31 +19,31 @@ search_taxa <- function(query, all_ranks = FALSE, downto = NULL){
   }
   
   matches <- name_query(query)
-  
   out_data <- as.data.frame(matches, stringsAsFactors = FALSE)
   
   if (!is.null(downto)) {
-    current_rank <- out_data$rank
-    while (is_higher_rank(current_rank, downto)) {
-      level_down(out_data$taxon_concept_id)
-    }
+    taxon_row <- data.frame(name = out_data$scientific_name,
+                      rank = out_data$rank,
+                      guid = out_data$taxon_concept_id)
+    out_data <- rbind(taxon_row, level_down(taxon_row, downto))
+    
+    # filter to the ranks we want
+    out_data <- out_data[out_data$rank == downto,]
   }
   
-  if (ncol(out_data) > 1 && all_ranks) {
-    im_ranks <- data.table::rbindlist(
-      lapply(out_data$taxon_concept_id, function(id) {
-        intermediate_ranks(id)
-      }
-      ), fill = TRUE)
-    out_data <- cbind(out_data, im_ranks)
-  }
+  all_ranks <- data.table::rbindlist(
+    lapply(out_data$guid, function(id) {
+      intermediate_ranks(id)
+    }
+    ), fill = TRUE)
+  out_data <- cbind(out_data, all_ranks)
     
   out_data
 }
 
-is_higher_rank <- function(rank1, rank2) {
+rank_index <- function(rank) {
   ranks_list <- c("root", "superkingdom", "kingdom", "subkingdom", 
-                  "superphylum", "phylum", "subplylum", "superclass", "class", 
+                  "superphylum", "phylum", "subphylum", "superclass", "class", 
                   "subclass", "infraclass", "subinfraclass", 
                   "superdivison zoology", "division zoology", 
                   "subdivision zoology", "supercohort", "cohort", "subcohort", 
@@ -55,25 +61,37 @@ is_higher_rank <- function(rank1, rank2) {
                   "infraspecies", "variety", "nothovariety", "subvariety", 
                   "form", "nothoform", "subform", "biovar", "serovar", 
                   "cultivar", "pathovar", "infraspecific")
-  
-  if(which(ranks_list == rank1) < which(ranks_list == rank2)){
-    return(TRUE)
-  } else {
-    return(FALSE)
+  if (rank == "unranked") {
+    return(100)
   }
+  return(which(ranks_list == rank))
 }
 
-level_down <- function(identifier) {
+get_children <- function(identifier) {
   url <- server_config("species_base_url")
   path <- paste0(
     "ws/childConcepts/",
     URLencode(as.character(identifier), reserved = TRUE)
   )
-  children <- ala_GET(url, path)
-  if (length(children) == 0) {
-    message("No child concepts found for taxon id \"", identifier, "\"")
-    return()
+  return(ala_GET(url, path))
+}
+
+level_down <- function(taxon_row, downto) {
+  if (rank_index(taxon_row$rank) >= rank_index(downto)) {
+    return(taxon_row[,c("name", "rank", "guid")])
   }
+
+  children <- get_children(taxon_row$guid)
+  if (length(children) == 0 || nrow(children) == 0) {
+    return(taxon_row[,c("name", "rank", "guid")])
+  }
+  data.table::rbindlist(lapply(seq_len(nrow(children)), function(i) {
+    level_down(children[i,], downto)
+  }))
+}
+  
+  
+  
 
   # lookup details for each child concept
   # child_info <- suppressWarnings(data.table::rbindlist(lapply(
@@ -87,8 +105,6 @@ level_down <- function(identifier) {
   #   }
   # ), fill = TRUE))
   # child_info
-  children
-}
   
 name_query <- function(query) {
   ranks <- names(query)
