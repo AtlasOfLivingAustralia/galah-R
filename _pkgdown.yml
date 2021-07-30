@@ -20,10 +20,12 @@ reference:
   - find_profile_attributes
   - find_reasons
   - find_atlases
+  - find_cached_files
 - title: Support
   contents:
   - ala_config
   - ala_citation
+  - data_request
 template:
   params:
     bootswatch: cerulean

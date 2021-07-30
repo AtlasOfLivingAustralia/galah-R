@@ -1,13 +1,5 @@
 context("Get occurrence data")
 
-ala_config(email = "ala4r@ala.org.au")
-
-# test_that("ala_occurrences check inputs", {
-#   skip_on_cran()
-#   expect_error(ala_occurrences(filters =
-#                                  c(stateProvince = "Australian Capital Territory")))
-# })
-
 vcr::use_cassette("ala_occurrences_no_filters", {
   test_that("ala_occurrences doesn't allow large downloads", {
     expect_error(ala_occurrences())
