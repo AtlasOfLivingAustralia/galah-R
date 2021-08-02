@@ -45,7 +45,7 @@
 #' }
 #' @export
 ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
-                      columns = select_columns(group = "basic"), download_dir, ...) {
+                      columns = select_columns(group = "basic"), download_dir) {
   
   image_url <- server_config("images_base_url")
   

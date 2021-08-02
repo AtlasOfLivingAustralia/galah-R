@@ -9,8 +9,7 @@ ala_media(
   filters = NULL,
   locations = NULL,
   columns = select_columns(group = "basic"),
-  download_dir,
-  ...
+  download_dir
 )
 }
 \arguments{
