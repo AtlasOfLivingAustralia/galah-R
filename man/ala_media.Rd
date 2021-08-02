@@ -45,7 +45,7 @@ media and the media files. \code{\link{select_filters}()} can take both filters
 relating to occurrences (e.g. basis of records), and filters relating to media
 (e.g. type of licence).
 It may be beneficial when requesting a large number of records to show a progress
-bar by setting \code{verbose = TRUE} in \code{\link{ala_config}()}.
+bar by setting \code{verbose = TRUE} in \code{\link{galah_config}()}.
 }
 \examples{
 \dontrun{

@@ -2,7 +2,7 @@
 #' 
 #' galah supports downloading data from a number of International Living
 #' Atlases. Use this function to get a list of all currently supported atlases.
-#' @seealso This function is helpful in setting up \code{\link{ala_config}()}.
+#' @seealso This function is helpful in setting up \code{\link{galah_config}()}.
 #' @return a \code{data.frame} of Living Atlas information, including taxonomy
 #' source and information for each atlas.
 #' @export

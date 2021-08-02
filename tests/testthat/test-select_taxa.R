@@ -7,9 +7,9 @@ test_that("select_taxa checks inputs", {
 })
 
 test_that("select_taxa check atlas", {
-  ala_config(atlas = "Austria")
+  galah_config(atlas = "Austria")
   expect_error(select_taxa("Vulpes vulpes"))
-  ala_config(atlas = "Australia")
+  galah_config(atlas = "Australia")
 })
 
 vcr::use_cassette("select_taxa_simple", {

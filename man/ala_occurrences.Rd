@@ -54,7 +54,7 @@ can test whether this threshold will be reached by first calling
 \code{\link{ala_counts}()} using the same arguments that they intend to pass to
 \code{ala_occurrences}(). It may also be beneficial when requesting a large
 number of records to show a progress bar by setting \code{verbose = TRUE} in
-\code{\link{ala_config}()}.
+\code{\link{galah_config}()}.
 }
 \examples{
 \dontrun{

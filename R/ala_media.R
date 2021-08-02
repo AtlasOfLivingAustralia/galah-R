@@ -13,7 +13,7 @@
 #' relating to occurrences (e.g. basis of records), and filters relating to media
 #' (e.g. type of licence).
 #' It may be beneficial when requesting a large number of records to show a progress
-#' bar by setting \code{verbose = TRUE} in \code{\link{ala_config}()}.
+#' bar by setting \code{verbose = TRUE} in \code{\link{galah_config}()}.
 #' @return \code{data.frame} of metadata of the downloaded media
 #' @seealso \code{\link{ala_counts}} to find the number of records with media- note this
 #' is not necessarily the same as the number of media files, as each record can have

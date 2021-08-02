@@ -8,13 +8,13 @@ vcr::use_cassette("ala_occurrences_no_filters", {
 
 vcr::use_cassette("ala_occurrences_bad_email", {
   test_that("ala_occurrences gives a nice error for invalid emails", {
-    ala_config(email = "test@test.org.au")
+    galah_config(email = "test@test.org.au")
     expect_error(ala_occurrences(taxa = select_taxa("Wurmbea dioica")),
                  regexp = "Status code 403 was returned for this occurrence download request. This may be because
   the email you provided is not registered with the ALA. Please check and try again.")
-    ala_config(email = "")
+    galah_config(email = "")
     expect_error(ala_occurrences(taxa = select_taxa("Wurmbea dioica")))
-    ala_config(email = "ala4r@ala.org.au")
+    galah_config(email = "ala4r@ala.org.au")
   })
 })
 
@@ -41,7 +41,7 @@ test_that("ala occurrences returns requested columns", {
 
 test_that("ala_occurrences caches data as expected", {
   skip_on_cran()
-  ala_config(caching = TRUE, verbose = TRUE)
+  galah_config(caching = TRUE, verbose = TRUE)
   taxa <- select_taxa("Wurmbea dioica")
   filters <- select_filters(year = 2000)
   columns <- select_columns(group = "basic", "basisOfRecord")
@@ -52,7 +52,7 @@ test_that("ala_occurrences caches data as expected", {
   expect_message(
     ala_occurrences(taxa = taxa, filters = filters, columns = columns),
     "Using cached file")
-  ala_config(caching = FALSE)
+  galah_config(caching = FALSE)
 })
 
 test_that("ala_occurrences downloads data from a DOI", {

@@ -29,7 +29,7 @@
 #' \code{\link{ala_counts}()} using the same arguments that they intend to pass to
 #' \code{ala_occurrences}(). It may also be beneficial when requesting a large
 #' number of records to show a progress bar by setting \code{verbose = TRUE} in
-#' \code{\link{ala_config}()}.
+#' \code{\link{galah_config}()}.
 #' @return A \code{data.frame} of occurrences, columns as specified
 #' by \code{\link{select_columns}()}.
 #' @examples \dontrun{
@@ -226,7 +226,7 @@ user_email <- function() {
   }
   if (email == "") {
     stop("To download occurrence records you must provide a valid email ",
-         "address registered with the ALA using `ala_config(email = )`")
+         "address registered with the ALA using `galah_config(email = )`")
   }
   email
 }

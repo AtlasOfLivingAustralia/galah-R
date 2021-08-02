@@ -54,7 +54,7 @@ ala_GET <- function(url, path, params = list(), on_error = NULL,
 
 cache_filename <- function(args, ext) {
   filename <- paste0(digest(sort(args)), ext)
-  file.path(ala_config()$cache_directory, filename)
+  file.path(getOption("galah_config")$cache_directory, filename)
 }
 
 build_fq_url <- function(url, path, params = list()) {

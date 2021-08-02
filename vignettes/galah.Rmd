@@ -1,7 +1,7 @@
 ---
 title: "galah"
 author: "Matilda Stevenson"
-date: '2021-07-27'
+date: '2021-08-02'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -78,19 +78,9 @@ specified. Specifying the rank can be useful when names are ambiguous.
 ```r
 # free text search
 taxa_filter <- select_taxa("Eolophus")
-```
 
-```
-## Assuming that query term(s) provided are scientific or common names
-```
-
-```r
 # specifying ranks
 select_taxa(query = list(genus = "Eolophus", kingdom = "Aves"))
-```
-
-```
-## Assuming that query term(s) provided are scientific or common names
 ```
 
 ```
@@ -109,7 +99,15 @@ select_taxa(query = "Eolophus", children = TRUE, counts = TRUE)
 ```
 
 ```
-## Assuming that query term(s) provided are scientific or common names
+## Warning in select_taxa(query = "Eolophus", children = TRUE, counts = TRUE): The `children` argument is now deprecated. To get information about
+##   child taxonomic concepts, use `search_taxa` with the `downto` argument.
+##   For more information about taxonomic searches, see vignette('taxonomic_information')
+```
+
+```
+## Warning in select_taxa(query = "Eolophus", children = TRUE, counts = TRUE): The `counts` argument is now deprecated. To get information about
+##   taxonomic counts, use `ala_counts` with the `groupby` argument.
+##   For more information about taxonomic searches, see vignette('taxonomic_information')
 ```
 
 ```
@@ -120,8 +118,8 @@ select_taxa(query = "Eolophus", children = TRUE, counts = TRUE)
 ## 1: urn:lsid:biodiversity.org.au:afd.taxon:b2de5e40-df8f-4339-827d-25e63454a4a2   genus   exactMatch Animalia Chordata
 ## 2: urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 species taxonIdMatch Animalia Chordata
 ##    class          order     family    genus  issues               species vernacular_name  count
-## 1:  Aves Psittaciformes Cacatuidae Eolophus noIssue                  <NA>            <NA> 779960
-## 2:  Aves Psittaciformes Cacatuidae Eolophus noIssue Eolophus roseicapilla           Galah 779958
+## 1:  Aves Psittaciformes Cacatuidae Eolophus noIssue                  <NA>            <NA> 852049
+## 2:  Aves Psittaciformes Cacatuidae Eolophus noIssue Eolophus roseicapilla           Galah 852047
 ```
 This shows that there is only one species in the family *Eolophus*.
 
@@ -286,14 +284,13 @@ cols <- select_columns("institutionID", group = "basic")
 ```
 
 To download occurrence data you will need to specify your email in
-`ala_config()`. This email must be associated with an active ALA account. See
+`galah_config()`. This email must be associated with an active ALA account. See
 more information in the [config section](#config)
 
 
 
 ```r
-ala_config(email = your_email_here, atlas = "Australia",
-  profile_path = path_to_profile)
+galah_config(email = your_email_here, atlas = "Australia")
 ```
 
 Download occurrence records for *Eolophus roseicapilla*
@@ -313,23 +310,23 @@ head(occ)
 
 ```
 ##   decimalLatitude decimalLongitude            eventDate        scientificName
-## 1       -35.86556         149.0106 2012-01-18T13:00:00Z Eolophus roseicapilla
-## 2       -35.86430         149.0050                      Eolophus roseicapilla
-## 3       -35.77520         148.9590                      Eolophus roseicapilla
-## 4       -35.76510         148.9660                      Eolophus roseicapilla
-## 5       -35.76510         148.9660                      Eolophus roseicapilla
-## 6       -35.76510         148.9660                      Eolophus roseicapilla
+## 1       -35.88717         148.9713                      Eolophus roseicapilla
+## 2       -35.86784         149.0101                      Eolophus roseicapilla
+## 3       -35.86556         149.0106 2012-01-18T13:00:00Z Eolophus roseicapilla
+## 4       -35.86429         149.0052                      Eolophus roseicapilla
+## 5       -35.77517         148.9591                      Eolophus roseicapilla
+## 6       -35.76652         148.9654                      Eolophus roseicapilla
 ##                                                                taxonConceptID                             recordID
-## 1 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 4f7cd714-2997-45d6-adaf-f7dfc80adfe1
-## 2 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 3236c470-a144-4300-ae9b-782d0e5e4dd1
-## 3 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 e340c423-3a19-4293-aa72-e4045bb7f702
-## 4 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 f3ea35ea-5059-41c0-b2bd-1074ce4f2324
-## 5 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 8805ed1a-6ef5-464a-b23e-463b1806551d
-## 6 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 0bba60e8-2ccf-42f9-b36d-ef01b2facddc
+## 1 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 17f46d49-7db0-4929-89f4-b29323f3fcc5
+## 2 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 ef2b9066-c078-4660-b9a4-c31192aa8bf7
+## 3 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 4f7cd714-2997-45d6-adaf-f7dfc80adfe1
+## 4 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 3236c470-a144-4300-ae9b-782d0e5e4dd1
+## 5 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 e340c423-3a19-4293-aa72-e4045bb7f702
+## 6 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 f25793f3-2704-43ff-80ee-c2a1787490e7
 ##              dataResourceName institutionID
-## 1 BirdLife Australia, Birdata              
+## 1             eBird Australia              
 ## 2             eBird Australia              
-## 3             eBird Australia              
+## 3 BirdLife Australia, Birdata              
 ## 4             eBird Australia              
 ## 5             eBird Australia              
 ## 6             eBird Australia
@@ -378,7 +375,7 @@ ala_counts()
 ```
 
 ```
-## [1] 95779901
+## [1] 100856343
 ```
 
 ```r
@@ -388,16 +385,16 @@ ala_counts(group_by = "kingdom")
 
 ```
 ##      kingdom    count
-## 1   Animalia 70587935
-## 2    Plantae 21460910
-## 3      Fungi  1873628
-## 4  Chromista   914101
-## 5   Protista    67276
-## 6   Bacteria    58075
-## 7   Protozoa    22576
+## 1   Animalia 75641134
+## 2    Plantae 21466613
+## 3      Fungi  1875458
+## 4  Chromista   914285
+## 5   Protista    67279
+## 6   Bacteria    58081
+## 7   Protozoa    22627
 ## 8    Archaea     1103
 ## 9  Eukaryota      735
-## 10     Virus      419
+## 10     Virus      420
 ```
 
 
@@ -426,7 +423,7 @@ registered with the ALA. You can create an account [here](https://auth.ala.org.a
 Once an email is registered with the ALA, it should be stored in the config:
 
 ```r
-ala_config(email="myemail@gmail.com")
+galah_config(email="myemail@gmail.com")
 ```
 
 ## Caching
@@ -440,13 +437,13 @@ by setting the caching directory to a non-temporary location.
 
 
 ```r
-ala_config(cache_directory="example/dir")
+galah_config(cache_directory="example/dir")
 ```
 
 By default, caching is turned off. To turn caching on, run
 
 ```r
-ala_config(caching=FALSE)
+galah_config(caching=FALSE)
 ```
 
 
@@ -455,13 +452,13 @@ If things aren't working as expected, more detail (particularly about web reques
 
 
 ```r
-ala_config(verbose=TRUE)
+galah_config(verbose=TRUE)
 ```
 
 ## Setting the download reason
-ALA requires that you provide a reason when downloading occurrence data (via the galah `ala_occurrences()` function). The reason is set as "scientific research" by default, but you can change this using `ala_config()`. See `find_reasons()` for valid download reasons.
+ALA requires that you provide a reason when downloading occurrence data (via the galah `ala_occurrences()` function). The reason is set as "scientific research" by default, but you can change this using `galah_config()`. See `find_reasons()` for valid download reasons.
 
 
 ```r
-ala_config(download_reason_id=your_reason_id)
+galah_config(download_reason_id=your_reason_id)
 ```
