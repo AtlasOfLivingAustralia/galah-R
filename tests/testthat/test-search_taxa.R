@@ -4,7 +4,7 @@ vcr::use_cassette("search_taxa", {
   test_that("search taxa recurses down the ranks", {
     taxa <- search_taxa("Animalia", downto = "phylum")
     expect_s3_class(taxa, "data.frame")
-    expect_equal(names(taxa), c("kingdom", "phylum"))
+    expect_equal(names(taxa), c("kingdom", "phylum", "authority", "author"))
   })
 })
 

@@ -73,9 +73,11 @@ fix_assertion_cols <- function(df, assertion_cols) {
 }
 
 # Convert data.frame field values to title case
-title_case_df <- function(df) {
+title_case_df <- function(df, exclude = c()) {
   for (col in names(df)) {
-    df[, col] <- unlist(lapply(df[,col], title_case))
+    if (!(col %in% exclude)) {
+      df[, col] <- unlist(lapply(df[,col], title_case))
+    }
   }
   df
 }

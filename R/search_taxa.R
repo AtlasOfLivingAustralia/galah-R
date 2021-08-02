@@ -50,27 +50,29 @@ search_taxa <- function(query, downto = NULL, include_ids = FALSE){
   }
   
   # get the classification 
-  classified_df <- as.data.frame(data.table::rbindlist(
+  taxon_info <- as.data.frame(data.table::rbindlist(
     lapply(id_df$guid, function(id) {
-      classification(id)
+      lookup_taxon(id)
     }
     ), fill = TRUE))
   if (!include_ids) {
-    classified_df <- classified_df[, -which(grepl("id", names(classified_df)))]
+    taxon_info <- taxon_info[, -which(grepl("id", names(taxon_info)))]
   }
   # convert to normal case
-  names(classified_df) <- rename_columns(names(classified_df), type = "taxa")
-  out_df <- classified_df[, -which(names(classified_df) %in%
+  names(taxon_info) <- rename_columns(names(taxon_info), type = "taxa")
+  out_df <- taxon_info[, -which(names(taxon_info) %in%
                                      c("guid","scientific_name"))]
-  title_case_df(as.data.frame(out_df))
+  title_case_df(as.data.frame(out_df), exclude = "authority")
 }
 
 # Return the classification for a taxonomic id
-# optionally include ids
-classification <- function(id) {
+lookup_taxon <- function(id) {
   url <- server_config("species_base_url")
   resp <- ala_GET(url, path = paste0("ws/species/", id))
-  data.frame(resp$classification)
+  taxon_info <- resp$classification
+  taxon_info$authority <- resp$taxonConcept$nameAuthority
+  taxon_info$author <- resp$taxonConcept$author
+  data.frame(taxon_info)
 }
 
 # Return the index of a taxonomic rank- lower index corresponds to higher up the
