@@ -9,7 +9,7 @@
 #' argument in \code{\link{ala_occurrences}()}, \code{\link{ala_species}()} or
 #' \code{\link{ala_counts}()}.
 #'
-#' @param ... filters, in the form \code{field = value}
+#' @param ... filters, in the form \code{field logical value}
 #' @param profile \code{string}: (optional) a data quality profile to apply to the
 #' records. See \code{\link{find_profiles}} for valid profiles. By default
 #' no profile is applied.
@@ -42,39 +42,92 @@
 #' filters <- select_filters(year = exclude(seq(2011,2021)))
 #' }
 #' @export
-select_filters <- function(..., profile = NULL) {
-  filters <- list(...)
-  if (!missing(profile) && !is.null(profile)) {
-    short_name <- profile_short_name(profile)
-    if (is.null(short_name) || is.na(short_name)) {
-      stop(profile, " is not a valid data quality id, short name or name. Use
-          `find_profiles` to list valid profiles.")
-    }
-    dq_filter_row <- data.frame(name = "profile", include = TRUE, value = I(list(short_name)),
-                 stringsAsFactors = FALSE)
-  } else {
-    dq_filter_row <- NULL
-  }
 
-  if (getOption("galah_config")$run_checks) validate_filters(filters)
-  filter_rows <- data.table::rbindlist(lapply(names(filters), function(x) {
-    if (!str_detect(x, "[[:lower:]]")) {
-      row <- data.frame(name = "assertions", include = filters[[x]], value = I(list(x)),
-                        stringsAsFactors = FALSE)
-    } else {
-      row <- data.frame(name = x, include = !inherits(filters[[x]], "exclude"),
-                        value = I(list(filter_value(filters[[x]]))),
-                        stringsAsFactors = FALSE)
-    }
-    row
-  }))
+# temporary version of select_filters
+select_filters <- function(...){
+
+  # abandoned options:
+  # rlang::list2(...)  # returns named list of entries, fails with logical operators
+  # rlang::enquo(...) # fails
+  # substitute(...) # returns first arg only
+
+  # return inputs as clean text
+  call_initial <- deparse(sys.call())
+  x <- gsub("^select_filters\\(|\\)$", "", call_initial)
+  x <- gsub(",", " & ", x)
+ 
+  # learn if there are any & or | statements, then extract them
+  and_or_regex <- "\\&{1,2}|\\|{1,2}"
+  logical_regex <- "(=|>|<|!)+"
+  logical_join <- str_extract(x, and_or_regex)
+  logical_join_parsed <- unlist(lapply(logical_join, parse_andor))
   
-  out_data <- rbind(filter_rows, dq_filter_row)
+  # split by logical_lookup values, parse
+  statements <- trimws(strsplit(x, and_or_regex)[[1]])
+  df <- as.data.frame(do.call(rbind,
+    lapply(strsplit(statements, logical_regex), trimws)))
+  colnames(df) <- c("variable", "value")
+  df$logical <- str_extract(statements, logical_regex)
+  df <- df[, c(1, 3, 2)]
   
-  class(out_data) <- append(class(out_data), "ala_filters")
-  out_data
+  # parse arguments or values
+  df$variable <- parse_inputs(df$variable)
+  df$value <- parse_inputs(df$value)
+  
+  # parse each line into a solr query
+  df$query <- unlist(lapply(
+    split(df, seq_len(nrow(df))),
+    parse_logical
+  ))
+  
+  # add join statments
+  # note this fails with repeated OR statements
+  df$join <- NA
+  df$join[seq_len(nrow(df) - 1)] <- logical_join_parsed
+
+  # set class etc
+  class(df) <- append(class(df), "ala_filters")
+  return(df)
+
 }
 
+
+parse_logical <- function(df){
+  switch(df$logical,
+    "=" = {paste0(df$variable, ":", df$value)},
+    "==" = {paste0(df$variable, ":", df$value)},
+    "!=" = {paste0("-", df$variable, ":", df$value)},
+    ">=" = {paste0(df$variable, ":[", df$value, " TO *]")},
+    ">" = {paste0(df$variable, ":[", df$value, " TO *] -", df$variable, "[", df$value, "]")},
+    "<=" = {paste0(df$variable, ":[* TO ", df$value, "]")},
+    "<" = {paste0(df$variable, ":[* TO ", df$value, "] AND -", df$variable, "[", df$value, "]")}
+  )
+}
+
+parse_andor <- function(a){
+  switch(a, 
+    "|" = " OR ",
+    "||" = " OR ",
+    "&" = " AND ",
+    "&&" = " AND "
+  )
+}
+
+parse_inputs <- function(x){
+  result <- x
+  bracket_search <- grepl("\\(|\\[", x)
+  if(any(bracket_search)){
+    result[bracket_search] <- unlist(lapply(
+      x[bracket_search],
+      function(a){eval(str2lang(a))}
+    ))
+  }
+  return(result)
+}
+
+
+## BELOW HERE IS IN THE ORIGINAL SELECT_FILTERS() CODE, 
+## BUT IS NOT YET IMPLEMENTED ABOVE
 
 # filters vs. fields terminology
 # should handle miscased things?

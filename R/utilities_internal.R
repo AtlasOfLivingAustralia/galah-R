@@ -117,7 +117,7 @@ build_query <- function(taxa, filters, locations, columns = NULL,
   } else {
     assert_that(is.data.frame(filters))
     # remove profile from filter rows
-    filters <- filters[filters$name != "profile",]
+    filters <- filters[filters$variable != "profile",]
     if (nrow(filters) == 0) {
       filter_query <- NULL
     } else {
@@ -157,34 +157,21 @@ build_taxa_query <- function(ids, include) {
   value_str
 }
 
-
 # Takes a dataframe produced by select_filters and return query as a list
 build_filter_query <- function(filters) {
-  mapply(query_term, filters$name, filters$value, filters$include,
-         USE.NAMES = FALSE)
-}
-
-# Construct individual query term
-# Add required brackets, quotes to make valid SOLR query syntax
-query_term <- function(name, value, include) {
-  # add quotes around value
-  value <- lapply(value, function(x) {
-    # don't add quotes if there are square brackets in the term
-    if (grepl("\\[", x)) {
-      x
-    } else {
-      paste0("\"", x, "\"")
-    }
-  })
-  # add quotes around value
-  if (include) {
-    value_str <- paste0("(", paste(name, value, collapse = " OR ", sep = ":"),
-                        ")")
-  } else {
-    value_str <- paste0("(", paste(paste0("-", name), value,
-                                   collapse = " AND ", sep = ":"), ")")
+  if(nrow(filters) > 1){
+    query <- paste(
+      apply(
+        filters[, c("query", "join")], 
+        1, 
+        function(a){paste0(a, collapse = "")
+      }),
+     collapse = "")
+    query <- sub("NA$", "", query)
+  }else{
+    query <- filters$query
   }
-  value_str
+  return(query)
 }
 
 # Extract profile row from filters dataframe created by select_filters
