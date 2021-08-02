@@ -17,12 +17,12 @@ select_taxa(...)
 
 \item{query}{\code{string}: A vector containing one or more search terms,
 given as strings. Search terms can be scientific or common names, or
-taxanomic identifiers. If greater control is required to disambiguate search
+taxonomic identifiers. If greater control is required to disambiguate search
 terms, taxonomic levels can be provided explicitly via a named \code{list}
 for a single name, or a \code{data.frame} for multiple names (see examples).
 Note that searches are not case-sensitive.}
 
-\item{children}{\code{logical}: return child concepts for the provided
+\item{children}{\code{logical}: (DEPRECATED) return child concepts for the provided
 query?}
 
 \item{counts}{\code{logical}: return occurrence counts for all taxa

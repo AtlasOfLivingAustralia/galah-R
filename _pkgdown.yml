@@ -23,7 +23,7 @@ reference:
   - find_cached_files
 - title: Support
   contents:
-  - ala_config
+  - galah_config
   - ala_citation
   - data_request
 template:
