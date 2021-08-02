@@ -25,7 +25,6 @@ reference:
   contents:
   - galah_config
   - ala_citation
-  - data_request
 template:
   params:
     bootswatch: cerulean
