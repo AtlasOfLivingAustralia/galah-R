@@ -15,6 +15,7 @@ reference:
 - title: Lookup
   contents:
   - search_fields
+  - search_taxa
   - find_field_values
   - find_profiles
   - find_profile_attributes
