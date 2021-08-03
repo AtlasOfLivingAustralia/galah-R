@@ -56,6 +56,7 @@ rename_columns <- function(varnames, type) {
     if (type == "taxa") {
         varnames <- tolower(gsub("([a-z])([A-Z])", "\\1_\\L\\2", varnames,
                          perl = TRUE))
+        varnames <- tolower(gsub("\\.", "_", varnames))
     } else if (type == "checklist") {
       varnames <- tolower(gsub("\\.", "_", varnames))
     } else if (type == "occurrence") {
@@ -97,6 +98,7 @@ title_case <- function(s) {
   paste(toupper(substring(s, 1, 1)), tolower(substring(s, 2)),
         sep = "", collapse = " ")
 }
+
 
 ##----------------------------------------------------------------
 ##                   Query-building functions                   --
