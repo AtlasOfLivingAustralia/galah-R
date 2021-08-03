@@ -1,6 +1,7 @@
 #' Clear previously cached files
 #' 
-#' Deletes cached files within the cached file directory
+#' Deletes cached files within the cached file directory, and their metadata.
+#' file
 #' @examples
 #' \dontrun{
 #'  ## configure caching and create a query to cache
@@ -22,8 +23,10 @@ clear_cached_files <- function() {
             getOption("galah_config")$cache_directory)
     return()
   }
-  metadata_file_names <- paste0(getOption("galah_config")$cache_directory, "\\", names(readRDS(metadata_path)), ".rds")
+  metadata_file_names <- paste0(getOption("galah_config")$cache_directory, "\\",
+                                names(readRDS(metadata_path)), ".rds")
   invisible(sapply(metadata_file_names, unlink))
   invisible(unlink(metadata_path))
-  message("Cache files deleted: \n", paste(metadata_file_names, collapse = "\n"))
+  message("Cache files deleted: \n", paste(metadata_file_names,
+                                           collapse = "\n"))
 }
