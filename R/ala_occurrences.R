@@ -65,7 +65,9 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
 
   # Check record count
   count <- record_count(query)
-  check_count(count)
+  if (getOption("galah_config")$run_checks) {
+    check_count(count)
+  }
   
   # Add columns to query
   assertion_cols <- columns[columns$type == "assertions", ]
