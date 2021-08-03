@@ -21,6 +21,9 @@
 #' "record". If "species", the number of species matching the criteria will be
 #' returned, if "record", the number of records matching the criteria will be
 #' returned.
+#' @param refresh_cache \code{logical}: if set to `TRUE` and 
+#' `galah_config(caching = TRUE)` then files cached from a previous query will 
+#' be replaced by the current query
 #' @param ... Arguments to be passed to \code{ala_counts}
 #' @return
 #' \itemize{
@@ -55,7 +58,8 @@ ala_counts.data_request <- function(request, ...) {
 #' @rdname ala_counts
 ala_counts.default <- function(taxa = NULL, filters = NULL, locations = NULL,
                                group_by, limit = 100,
-                               type = c("record" ,"species"), ...) {
+                               type = c("record" ,"species"), 
+                               refresh_cache = FALSE, ...) {
 
   query <- list()
   page_size <- 100
@@ -79,7 +83,7 @@ ala_counts.default <- function(taxa = NULL, filters = NULL, locations = NULL,
   cache_file <- cache_filename("counts", unlist(query), limit, group_by, type)
 
   caching <- getOption("galah_config")$caching
-  if (caching && file.exists(cache_file)) {
+  if (caching && file.exists(cache_file) && !refresh_cache) {
     return(read_cache_file(cache_file))
   }
 

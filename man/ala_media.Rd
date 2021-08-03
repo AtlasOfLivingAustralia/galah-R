@@ -16,6 +16,7 @@ ala_media(...)
   locations = NULL,
   columns = select_columns(group = "basic"),
   download_dir,
+  refresh_cache = FALSE,
   ...
 )
 }
@@ -35,6 +36,10 @@ argument also accepts a vector of unique species identifiers.}
 
 \item{download_dir}{\code{string}: path to directory to store the downloaded media
 in}
+
+\item{refresh_cache}{\code{logical}: if set to `TRUE` and 
+`galah_config(caching = TRUE)` then files cached from a previous query will 
+be replaced by the current query}
 }
 \value{
 \code{data.frame} of metadata of the downloaded media
