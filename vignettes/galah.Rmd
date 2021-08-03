@@ -175,11 +175,12 @@ Build a field filter
 filters <- select_filters(basisOfRecord = "HumanObservation")
 ```
 
-By default, a filter is included. To negate a filter, use `exclude()`.
+It is also possible to pass other kinds of logical statement to `select_filters()`.
 
-```r
+```{r}
 filters <- select_filters(basisOfRecord = "HumanObservation",
-                          occurrenceStatus = exclude("absent"))
+                          year >= 2010,
+                          occurrenceStatus != "absent")
 ```
 
 
@@ -301,7 +302,7 @@ Download occurrence records for *Eolophus roseicapilla*
 ```r
 occ <- ala_occurrences(taxa = select_taxa("Eolophus roseicapilla"),
                        filters = select_filters(stateProvince = "Australian Capital Territory",
-                                                year = seq(2010, 2020),
+                                                year >= 2010,
                                                 profile = "ALA"),
                        columns = select_columns("institutionID", group = "basic"))
 ```
