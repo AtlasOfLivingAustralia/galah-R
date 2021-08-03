@@ -19,6 +19,9 @@ wanted_columns <- function(type) {
                                "superorder", "infraorder", "infrafamily",
                                "superfamily", "subfamily", "subtribe",
                                "subgenus"),
+           "checklist" = c("kingdom", "phylum", "class", "order", "family",
+                           "genus", "species", "author", "species_guid",
+                           "vernacular_name"),
            "profile" = c("id", "name", "shortName", "description"),
            "media" = c("rightsHolder", "license", "creator", "title", "rights",
                        "mimetype", "media_id"),
@@ -44,6 +47,10 @@ rename_columns <- function(varnames, type) {
       varnames[varnames == "info"] <- "description"
     } else if (type == "assertions") {
       varnames[varnames == "name"] <- "id"
+    } else if (type == "checklist") {
+      varnames[varnames == "Scientific.Name.Authorship"] <- "author"
+      varnames[varnames == "Species"] <- "species_guid"
+      varnames[varnames == "Species.Name"] <- "species"
     }
     # change all to snake case?
     if (type == "taxa") {

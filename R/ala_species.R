@@ -63,8 +63,11 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL) {
   tmp <- tempfile()
   data <- ala_download(url, path = path, params = query,
                        cache_file = tmp)
+  
   # overwrite file with fixed names
   names(data) <- rename_columns(names(data), type = "checklist")
+  data <- data[,wanted_columns("checklist")]
+  
   attr(data, "data_type") <- "species"
   query <- data_request(taxa, filters, locations)
   attr(data, "data_request") <- query
