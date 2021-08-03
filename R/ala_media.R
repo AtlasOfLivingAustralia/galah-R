@@ -7,6 +7,9 @@
 #' @inheritParams ala_occurrences
 #' @param download_dir \code{string}: path to directory to store the downloaded
 #' media in
+#' @param refresh_cache \code{logical}: if set to `TRUE` and 
+#' `galah_config(caching = TRUE)` then files cached from a previous query will 
+#' be replaced by the current query
 #' @details \code{\link{ala_occurrences}()} works by first finding all occurrence records
 #' matching the filters which contain media, then downloading the metadata for the
 #' media and the media files. \code{\link{select_filters}()} can take both filters
@@ -45,8 +48,9 @@
 #' }
 #' @export
 ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
-                      columns = select_columns(group = "basic"), download_dir) {
-  
+                      columns = select_columns(group = "basic"), download_dir,
+                      refresh_cache = FALSE) {
+
   image_url <- server_config("images_base_url")
   
   verbose <- getOption("galah_config")$verbose
@@ -60,7 +64,7 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
     warning("No filters have been provided. All images and sounds will be downloaded.")
   }
   
-  if (caching) {
+  if (caching && !refresh_cache) {
     cache_file <- cache_filename(
       "media",
       unlist(build_query(taxa, filters, locations, columns))

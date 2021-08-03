@@ -7,6 +7,9 @@
 #' per species, and columns giving associated taxonomic information.
 #'
 #' @inheritParams ala_occurrences
+#' @param refresh_cache \code{logical}: if set to `TRUE` and 
+#' `galah_config(caching = TRUE)` then files cached from a previous query will 
+#' be replaced by the current query
 #' @return A \code{data.frame} of matching species.
 #' @details
 #' The primary use case of this function is to extract species-level information
@@ -35,8 +38,8 @@
 #' ala_species(select_taxa("Heleioporus"))
 #' }
 #' @export
-ala_species <- function(taxa = NULL, filters = NULL, locations = NULL) {
-  
+ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
+                        refresh_cache = FALSE) {
   # check whether species download is possible
   species_url <- server_config("species_base_url")
 
@@ -56,8 +59,8 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL) {
   path <- "occurrences/facets/download"
   cache_file <- cache_filename("species", unlist(query))
   caching <- getOption("galah_config")$caching
-
-  if (caching && file.exists(cache_file)) {
+  
+  if (caching && file.exists(cache_file) && !refresh_cache) {
     return(read_cache_file(cache_file))
   }
   tmp <- tempfile()
