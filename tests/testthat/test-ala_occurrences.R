@@ -6,18 +6,20 @@ vcr::use_cassette("ala_occurrences_no_filters", {
   })
 })
 
-vcr::use_cassette("ala_occurrences_bad_email", {
-  test_that("ala_occurrences gives a nice error for invalid emails", {
-    galah_config(email = "test@test.org.au")
-    expect_error(ala_occurrences(taxa = select_taxa("Wurmbea dioica")),
-                 regexp = "Status code 403 was returned for this occurrence download request. This may be because
-  the email you provided is not registered with the ALA. Please check and try again.")
-    galah_config(email = "")
-    expect_error(ala_occurrences(taxa = select_taxa("Wurmbea dioica")))
-    galah_config(email = "ala4r@ala.org.au")
-  })
+test_that("ala_occurrences gives a nice error for invalid emails", {
+  skip_on_cran()
+  galah_config(email = "test@test.org.au")
+  expect_error(ala_occurrences(taxa = select_taxa("Thylacinus cynocephalus")),
+               regexp = "Status code 403 was returned for this occurrence download request. This may be because
+the email you provided is not registered with the ALA. Please check and try again.")
 })
 
+test_that("ala_occurrences fails nicely if no email is provided", {
+  galah_config(email = "", run_checks = FALSE)
+  expect_error(ala_occurrences(filters = select_filters(year = 1900)))
+  galah_config(email = "ala4r@ala.org.au")
+})
+  
 
   # test all filters and type of columns in one call
 test_that("ala occurrences returns requested columns", {

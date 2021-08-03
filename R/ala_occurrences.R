@@ -64,8 +64,8 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
   caching <- getOption("galah_config")$caching
 
   # Check record count
-  count <- record_count(query)
   if (getOption("galah_config")$run_checks) {
+    count <- record_count(query)
     check_count(count)
   }
   
