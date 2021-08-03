@@ -101,14 +101,14 @@ build_query <- function(taxa, filters, locations, columns = NULL,
     taxa_query <- NULL
   } else {
     check_taxa_arg(taxa)
-    include <- !inherits(taxa, "exclude")
+    # include <- !inherits(taxa, "exclude") # obsolete
     if (inherits(taxa, "data.frame") &&
         "taxon_concept_id" %in% colnames(taxa)) {
       taxa <- taxa$taxon_concept_id
     }
     #TODO: Implement a useful check here- i.e. string or integer
     # assert_that(is.character(taxa))
-    taxa_query <- build_taxa_query(taxa, include)
+    taxa_query <- build_taxa_query(taxa)
   }
   
   # validate filters
@@ -147,13 +147,13 @@ build_query <- function(taxa, filters, locations, columns = NULL,
 }
 
 # Build query from vector of taxonomic ids
-build_taxa_query <- function(ids, include) {
+build_taxa_query <- function(ids) {
   ids <- ids[order(ids)]
-  if (include) {
-    value_str <- paste0("(lsid:", paste(ids, collapse = " OR lsid:"), ")")
-  } else {
-    value_str <- paste0("(-lsid:", paste(ids, collapse = " AND -lsid:"), ")")
-  }
+  # if (include) {
+     value_str <- paste0("(lsid:", paste(ids, collapse = " OR lsid:"), ")")
+  # } else {
+  #   value_str <- paste0("(-lsid:", paste(ids, collapse = " AND -lsid:"), ")")
+  # }
   value_str
 }
 
@@ -178,8 +178,8 @@ build_filter_query <- function(filters) {
 extract_profile <- function(filters) {
   profile <- NULL
   if (!is.null(filters)){
-    profile_row <- filters[filters$name == "profile",]
-    if (nrow(profile_row) == 1) { profile <- profile_row$value[[1]] }
+    profile_lookup <- filters$variable == "profile"
+    if(any(profile_lookup)){profile <- filters$value[profile_lookup]}
   }
   profile
 }

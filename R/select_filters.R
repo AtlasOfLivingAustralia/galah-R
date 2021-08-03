@@ -1,10 +1,10 @@
 #' Select filters to narrow down occurrence queries
 #'
-#' 'filters' are arguments of the form \code{field = value} that are used
+#' 'filters' are arguments of the form \code{field logical value} that are used
 #' to narrow down the number of records returned by a specific query.
 #' For example, it is common for users to request records from a particular year
-#' (\code{year = 2020}), or records that are associated with a physical
-#' specimen (\code{basisOfRecord = "PreservedSpecimen"}).
+#' (\code{year = 2020}), or to return all records except for fossils
+#'  (\code{basisOfRecord != "FossilSpecimen"}).
 #' The result of \code{select_filters} can be passed to the \code{filters}
 #' argument in \code{\link{ala_occurrences}()}, \code{\link{ala_species}()} or
 #' \code{\link{ala_counts}()}.
@@ -20,26 +20,48 @@
 #' \code{\link{search_fields}} to find fields that
 #' you can filter by, and \code{\link{find_field_values}} to find what values
 #' of those filters are available.
-#' \code{\link{exclude}} for excluding a filter value.
 #' @details
-#' By default filters are included, but they can be excluded by wrapping the
-#' filter values in \code{\link{exclude}} (see below for examples).
+#' All statements passed to \code{select_filters()} (except the \code{profile}
+#' argument) take the form of field - logical - value. Permissible examples include:
+#' \itemize{
+#'   \item{\code{=} or \code{==} (e.g. \code{year = 2020})}
+#'   \item{\code{!=}, e.g. \code{year != 2020})}
+#'   \item{\code{>} or \code{>=} (e.g. \code{year >= 2020})}
+#'   \item{\code{<} or \code{<=} (e.g. \code{year <= 2020})}
+#'   \item{\code{OR} statements (e.g. \code{year == 2018 | year == 2020})}
+#'   \item{\code{AND} statements (e.g. \code{year >= 2000 & year <= 2020})}
+#' }
+#' In some cases \code{R} will fail to parse inputs with a single equals sign 
+#' (\code{=}), particularly where statements are separated by /code{&} or 
+#' /code{|}. This problem can be avoided by using a double-equals instead.
 #' @examples \dontrun{
 #' # Create a custom filter for records of interest
 #' filters <- select_filters(
 #'     basisOfRecord = "HumanObservation",
-#'     year = 2020,
+#'     year >= 2010,
 #'     stateProvince = "New South Wales")
 #'
 #' # Add the default ALA data quality profile
 #' filters <- select_filters(
 #'     basisOfRecord = "HumanObservation",
-#'     year = 2020,
+#'     year >= 2020,
 #'     stateProvince = "New South Wales",
 #'     profile = "ALA")
 #'     
 #' # Use filters to exclude particular values
-#' filters <- select_filters(year = exclude(seq(2011,2021)))
+#' select_filters(year >= 2010 & year != 2021)
+#' 
+#' # Separating statements with a comma is equivalent to an 'and' statement, e.g.:
+#' select_filters(year >= 2010 & year < 2020) # is the same as:
+#' select_filters(year >= 2010, year < 2020)
+#' 
+#' # All statements must include the field name, e.g.
+#' select_filters(year == 2010 | year == 2021) # this works (note double equals)
+#' select_filters(year == 2010 | 2021) # this fails
+#' 
+#' # solr supports range queries on text as well as numbers, e.g.
+#' select_filters(cl22 >= "Tasmania")
+#' # queries all Australian States & Territories alphabetically after "Tasmania"
 #' }
 #' @export
 
@@ -51,7 +73,7 @@ select_filters <- function(...){
   # rlang::enquo(...) # fails
   # substitute(...) # returns first arg only
 
-  # return inputs as clean text
+  # return inputs as text
   call_initial <- deparse(sys.call())
   x <- gsub("^select_filters\\(|\\)$", "", call_initial)
   x <- gsub(",", " & ", x)
@@ -70,9 +92,20 @@ select_filters <- function(...){
   df$logical <- str_extract(statements, logical_regex)
   df <- df[, c(1, 3, 2)]
   
+  # detect exclude() and adjust logical statement accordingly
+  # this is a patch to maintain backwards-compatibility with exclude()
+  # remove after one release
+  exclude_detector <- grepl("exclude\\(", df$value)
+  if(any(exclude_detector)){
+    df$logical[exclude_detector] <- "!="
+  }
+  
   # parse arguments or values
   df$variable <- parse_inputs(df$variable)
   df$value <- parse_inputs(df$value)
+  
+  # validate variables to ensure they exist in ALA
+  if (getOption("galah_config")$run_checks) validate_filters(df$variable)
   
   # parse each line into a solr query
   df$query <- unlist(lapply(
@@ -91,16 +124,15 @@ select_filters <- function(...){
 
 }
 
-
 parse_logical <- function(df){
   switch(df$logical,
     "=" = {paste0(df$variable, ":", df$value)},
     "==" = {paste0(df$variable, ":", df$value)},
     "!=" = {paste0("-", df$variable, ":", df$value)},
     ">=" = {paste0(df$variable, ":[", df$value, " TO *]")},
-    ">" = {paste0(df$variable, ":[", df$value, " TO *] -", df$variable, "[", df$value, "]")},
+    ">" = {paste0(df$variable, ":[", df$value, " TO *] AND -", df$variable, ":", df$value)},
     "<=" = {paste0(df$variable, ":[* TO ", df$value, "]")},
-    "<" = {paste0(df$variable, ":[* TO ", df$value, "] AND -", df$variable, "[", df$value, "]")}
+    "<" = {paste0(df$variable, ":[* TO ", df$value, "] AND -", df$variable, ":", df$value)}
   )
 }
 
@@ -125,19 +157,15 @@ parse_inputs <- function(x){
   return(result)
 }
 
-
-## BELOW HERE IS IN THE ORIGINAL SELECT_FILTERS() CODE, 
-## BUT IS NOT YET IMPLEMENTED ABOVE
-
 # filters vs. fields terminology
 # should handle miscased things?
 # should try to fuzzy match?
 # should also validate facets?
-validate_filters <- function(filters) {
+validate_filters <- function(values) {
   # filters are provided in a dataframe
   # key should be a valid field name and value should be a valid category for
   # that field?
-  invalid_filters <- names(filters)[!is.element(names(filters),
+  invalid_filters <- values[!is.element(values,
                                     c(search_fields()$id, all_fields()$name))]
   if (length(invalid_filters) > 0) {
     stop("The following filters are invalid: ",
@@ -147,6 +175,8 @@ validate_filters <- function(filters) {
 }
 
 #' Negate a filter value
+#'
+#' Deprecated alternative to \code{select_filters(field != value)}.
 #' @rdname exclude
 #' @param value string: filter value(s) to be excluded
 #' @return value with class "exclude"
@@ -154,6 +184,6 @@ validate_filters <- function(filters) {
 #' \code{\link{select_taxa}} to exclude values
 #' @export exclude
 exclude <- function(value) {
-  class(value) <- c("exclude", class(value))
-  value
+  # class(value) <- c("exclude", class(value))
+  return(value)
 }

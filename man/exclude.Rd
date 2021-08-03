@@ -13,7 +13,7 @@ exclude(value)
 value with class "exclude"
 }
 \description{
-Negate a filter value
+Deprecated alternative to \code{select_filters(field != value)}.
 }
 \seealso{
 \code{exclude} is used with \code{\link{select_filters}} or

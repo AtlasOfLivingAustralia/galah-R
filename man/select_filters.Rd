@@ -4,10 +4,10 @@
 \alias{select_filters}
 \title{Select filters to narrow down occurrence queries}
 \usage{
-select_filters(..., profile = NULL)
+select_filters(...)
 }
 \arguments{
-\item{...}{filters, in the form \code{field = value}}
+\item{...}{filters, in the form \code{field logical value}}
 
 \item{profile}{\code{string}: (optional) a data quality profile to apply to the
 records. See \code{\link{find_profiles}} for valid profiles. By default
@@ -17,36 +17,59 @@ no profile is applied.}
 A \code{data.frame} of filter values.
 }
 \description{
-'filters' are arguments of the form \code{field = value} that are used
+'filters' are arguments of the form \code{field logical value} that are used
 to narrow down the number of records returned by a specific query.
 For example, it is common for users to request records from a particular year
-(\code{year = 2020}), or records that are associated with a physical
-specimen (\code{basisOfRecord = "PreservedSpecimen"}).
+(\code{year = 2020}), or to return all records except for fossils
+ (\code{basisOfRecord != "FossilSpecimen"}).
 The result of \code{select_filters} can be passed to the \code{filters}
 argument in \code{\link{ala_occurrences}()}, \code{\link{ala_species}()} or
 \code{\link{ala_counts}()}.
 }
 \details{
-By default filters are included, but they can be excluded by wrapping the
-filter values in \code{\link{exclude}} (see below for examples).
+All statements passed to \code{select_filters()} (except the \code{profile}
+argument) take the form of field - logical - value. Permissible examples include:
+\itemize{
+  \item{\code{=} or \code{==} (e.g. \code{year = 2020})}
+  \item{\code{!=}, e.g. \code{year != 2020})}
+  \item{\code{>} or \code{>=} (e.g. \code{year >= 2020})}
+  \item{\code{<} or \code{<=} (e.g. \code{year <= 2020})}
+  \item{\code{OR} statements (e.g. \code{year == 2018 | year == 2020})}
+  \item{\code{AND} statements (e.g. \code{year >= 2000 & year <= 2020})}
+}
+In some cases \code{R} will fail to parse inputs with a single equals sign 
+(\code{=}), particularly where statements are separated by /code{&} or 
+/code{|}. This problem can be avoided by using a double-equals instead.
 }
 \examples{
 \dontrun{
 # Create a custom filter for records of interest
 filters <- select_filters(
     basisOfRecord = "HumanObservation",
-    year = 2020,
+    year >= 2010,
     stateProvince = "New South Wales")
 
 # Add the default ALA data quality profile
 filters <- select_filters(
     basisOfRecord = "HumanObservation",
-    year = 2020,
+    year >= 2020,
     stateProvince = "New South Wales",
     profile = "ALA")
     
 # Use filters to exclude particular values
-filters <- select_filters(year = exclude(seq(2011,2021)))
+select_filters(year >= 2010 & year != 2021)
+
+# Separating statements with a comma is equivalent to an 'and' statement, e.g.:
+select_filters(year >= 2010 & year < 2020) # is the same as:
+select_filters(year >= 2010, year < 2020)
+
+# All statements must include the field name, e.g.
+select_filters(year == 2010 | year == 2021) # this works (note double equals)
+select_filters(year == 2010 | 2021) # this fails
+
+# solr supports range queries on text as well as numbers, e.g.
+select_filters(cl22 >= "Tasmania")
+# queries all Australian States & Territories alphabetically after "Tasmania"
 }
 }
 \seealso{
@@ -56,5 +79,4 @@ by \code{\link{ala_occurrences}} and related functions. Use
 \code{\link{search_fields}} to find fields that
 you can filter by, and \code{\link{find_field_values}} to find what values
 of those filters are available.
-\code{\link{exclude}} for excluding a filter value.
 }
