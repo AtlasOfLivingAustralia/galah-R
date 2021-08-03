@@ -277,6 +277,10 @@ filters <- select_filters(basisOfRecord = "HumanObservation",
                           profile = "ALA")
 ```
 
+```
+## Error in validate_filters(df$variable): The following filters are invalid: profile. Use `search_fields()` to get a list of valid options
+```
+
 # Downloading data
 
 Functions that return data from ALA are named with the prefix `ala_`,

@@ -10,7 +10,8 @@ ala_counts(
   locations = NULL,
   group_by,
   limit = 100,
-  type = c("record", "species")
+  type = c("record", "species"),
+  refresh_cache = FALSE
 )
 }
 \arguments{
@@ -34,6 +35,10 @@ take a while.}
 "record". If "species", the number of species matching the criteria will be
 returned, if "record", the number of records matching the criteria will be
 returned.}
+
+\item{refresh_cache}{\code{logical}: if set to `TRUE` and 
+`galah_config(caching = TRUE)` then files cached from a previous query will 
+be replaced by the current query}
 }
 \value{
 \itemize{

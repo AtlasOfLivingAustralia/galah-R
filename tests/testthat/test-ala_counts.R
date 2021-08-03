@@ -76,7 +76,7 @@ vcr::use_cassette("paginated_counts", {
 
 test_that("ala_counts caches as expected", {
   skip_on_cran()
-  ala_config(caching = TRUE, verbose = TRUE)
+  galah_config(caching = TRUE, verbose = TRUE)
   filters <- select_filters(basisOfRecord = "FossilSpecimen")
   counts <- ala_counts(filters = filters, group_by = "year", limit = 100)
   expect_message(counts2 <- ala_counts(filters = filters, group_by = "year",
@@ -87,7 +87,7 @@ test_that("ala_counts caches as expected", {
 
 test_that("ala_counts returns consistent data from cached/non-cached calls", {
   skip_on_cran()
-  ala_config(caching = TRUE, verbose = TRUE)
+  galah_config(caching = TRUE, verbose = TRUE)
   counts1 <- ala_counts(group = "year")
   counts2 <- ala_counts(group = "year")
   expect_equal(class(counts1$year),

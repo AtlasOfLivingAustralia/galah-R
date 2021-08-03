@@ -2,14 +2,15 @@ context("Taxa search")
 
 test_that("select_taxa checks inputs", {
   expect_error(select_taxa())
-  expect_error(select_taxa("Varanus varius", children = "false"))
+  expect_warning(
+    expect_error(select_taxa("Varanus varius", children = "false")))
   expect_error(select_taxa(list(kingdom = "Animalia", bad_rank = "species")))
 })
 
 test_that("select_taxa check atlas", {
-  ala_config(atlas = "Austria")
+  galah_config(atlas = "Austria")
   expect_error(select_taxa("Vulpes vulpes"))
-  ala_config(atlas = "Australia")
+  galah_config(atlas = "Australia")
 })
 
 vcr::use_cassette("select_taxa_simple", {
@@ -50,8 +51,10 @@ vcr::use_cassette("select_taxa_invalid", {
 
 vcr::use_cassette("select_taxa_extended", {
   test_that("select_taxa uses additional arguments", {
-    taxa <- select_taxa("Anas", all_ranks = TRUE, children = TRUE,
-                        counts = TRUE)
+    expect_warning(
+      taxa <- select_taxa("Anas", all_ranks = TRUE, children = TRUE,
+                          counts = TRUE)
+      )
     expect_true("subfamily" %in% names(taxa))
     expect_gt(nrow(taxa), 1)
     expect_true("count" %in% names(taxa))

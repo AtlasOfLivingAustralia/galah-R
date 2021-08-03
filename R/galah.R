@@ -56,7 +56,7 @@
 #' }
 #' \strong{\code{Help}}
 #' \itemize{
-#'   \item\code{\link{ala_config}} Package configuration options
+#'   \item\code{\link{galah_config}} Package configuration options
 #'   \item\code{\link{ala_citation}} Citation for a dataset
 #' }
 #'

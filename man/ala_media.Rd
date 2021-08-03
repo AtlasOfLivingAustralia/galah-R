@@ -10,7 +10,7 @@ ala_media(
   locations = NULL,
   columns = select_columns(group = "basic"),
   download_dir,
-  ...
+  refresh_cache = FALSE
 )
 }
 \arguments{
@@ -29,6 +29,10 @@ species identifiers.}
 
 \item{download_dir}{\code{string}: path to directory to store the downloaded
 media in}
+
+\item{refresh_cache}{\code{logical}: if set to `TRUE` and 
+`galah_config(caching = TRUE)` then files cached from a previous query will 
+be replaced by the current query}
 }
 \value{
 \code{data.frame} of metadata of the downloaded media
@@ -45,7 +49,7 @@ media and the media files. \code{\link{select_filters}()} can take both filters
 relating to occurrences (e.g. basis of records), and filters relating to media
 (e.g. type of licence).
 It may be beneficial when requesting a large number of records to show a progress
-bar by setting \code{verbose = TRUE} in \code{\link{ala_config}()}.
+bar by setting \code{verbose = TRUE} in \code{\link{galah_config}()}.
 }
 \examples{
 \dontrun{

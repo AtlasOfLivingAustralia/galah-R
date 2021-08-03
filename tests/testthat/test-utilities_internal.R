@@ -7,7 +7,7 @@ test_that("Multiple negated queries are joined with 'AND'", {
 })
 
 test_that("Taxa arguments are checked", {
-  ala_config(verbose = FALSE)
+  galah_config(verbose = FALSE)
   expect_error(check_taxa_arg("Vulpes vulpes"))
   expect_silent(check_taxa_arg("1234"))
   

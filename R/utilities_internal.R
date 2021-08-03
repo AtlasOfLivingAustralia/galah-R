@@ -19,6 +19,9 @@ wanted_columns <- function(type) {
                                "superorder", "infraorder", "infrafamily",
                                "superfamily", "subfamily", "subtribe",
                                "subgenus"),
+           "checklist" = c("kingdom", "phylum", "class", "order", "family",
+                           "genus", "species", "author", "species_guid",
+                           "vernacular_name"),
            "profile" = c("id", "name", "shortName", "description"),
            "media" = c("rightsHolder", "license", "creator", "title", "rights",
                        "mimetype", "media_id"),
@@ -44,11 +47,16 @@ rename_columns <- function(varnames, type) {
       varnames[varnames == "info"] <- "description"
     } else if (type == "assertions") {
       varnames[varnames == "name"] <- "id"
+    } else if (type == "checklist") {
+      varnames[varnames == "Scientific.Name.Authorship"] <- "author"
+      varnames[varnames == "Species"] <- "species_guid"
+      varnames[varnames == "Species.Name"] <- "species"
     }
     # change all to snake case?
     if (type == "taxa") {
         varnames <- tolower(gsub("([a-z])([A-Z])", "\\1_\\L\\2", varnames,
                          perl = TRUE))
+        varnames <- tolower(gsub("\\.", "_", varnames))
     } else if (type == "checklist") {
       varnames <- tolower(gsub("\\.", "_", varnames))
     } else if (type == "occurrence") {
@@ -73,9 +81,11 @@ fix_assertion_cols <- function(df, assertion_cols) {
 }
 
 # Convert data.frame field values to title case
-title_case_df <- function(df) {
+title_case_df <- function(df, exclude = c()) {
   for (col in names(df)) {
-    df[, col] <- unlist(lapply(df[,col], title_case))
+    if (!(col %in% exclude)) {
+      df[, col] <- unlist(lapply(df[,col], title_case))
+    }
   }
   df
 }
@@ -88,6 +98,7 @@ title_case <- function(s) {
   paste(toupper(substring(s, 1, 1)), tolower(substring(s, 2)),
         sep = "", collapse = " ")
 }
+
 
 ##----------------------------------------------------------------
 ##                   Query-building functions                   --

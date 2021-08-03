@@ -33,9 +33,9 @@ vcr::use_cassette("select_filters_invalid", {
 })
 
 test_that("select_filters skips checks if requested", {
-  ala_config(run_checks = FALSE)
+  galah_config(run_checks = FALSE)
   expect_silent(select_filters(random = "filter"))
-  ala_config(run_checks = TRUE)
+  galah_config(run_checks = TRUE)
 })
 
 test_that("exclude negates filters", {

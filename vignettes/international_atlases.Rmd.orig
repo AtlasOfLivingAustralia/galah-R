@@ -26,13 +26,13 @@ find_atlases()
 ```
 
 ## Set Atlas
-Use `ala_config()` to set the Atlas to use. This will automatically populate the 
+Use `galah_config()` to set the Atlas to use. This will automatically populate the 
 server configuration for your selected Atlas. By default, the atlas is Australia.
 If you intend to download records you will need to register with the relevant
 Atlas. 
 
 ```{r eval=TRUE}
-ala_config(atlas = "UK", email = "your_email_here")
+galah_config(atlas = "UK", email = "your_email_here")
 ```
 
 ## Get data for another atlas
@@ -54,7 +54,7 @@ ala_counts(taxa = id)
 ## Retrieving occurrence records
 ```{r}
 # Download records from the Austrian atlas
-ala_config(atlas = "Austria")
+galah_config(atlas = "Austria")
 id <- get_gbifid("bombina variegata", rows = 1)
 ala_counts(taxa = id)
 ```

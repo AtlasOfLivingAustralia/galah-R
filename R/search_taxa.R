@@ -50,55 +50,71 @@ search_taxa <- function(query, downto = NULL, include_ids = FALSE){
   }
   
   # get the classification 
-  classified_df <- as.data.frame(data.table::rbindlist(
+  taxon_info <- as.data.frame(data.table::rbindlist(
     lapply(id_df$guid, function(id) {
-      classification(id)
+      lookup_taxon(id)
     }
     ), fill = TRUE))
   if (!include_ids) {
-    classified_df <- classified_df[, -which(grepl("id", names(classified_df)))]
+    taxon_info <- taxon_info[, -which(grepl("id", names(taxon_info)))]
   }
-  # convert to normal case
-  names(classified_df) <- rename_columns(names(classified_df), type = "taxa")
-  out_df <- classified_df[, -which(names(classified_df) %in%
+  names(taxon_info) <- rename_columns(names(taxon_info), type = "taxa")
+  out_df <- taxon_info[, -which(names(taxon_info) %in%
                                      c("guid","scientific_name"))]
-  title_case_df(as.data.frame(out_df))
+  # reorder columns according to taxonomic rank
+  out_df <- out_df[order(match(names(out_df), taxa_cols_order()))]
+  # convert cells to normal case
+  title_case_df(as.data.frame(out_df), exclude = "authority")
 }
 
 # Return the classification for a taxonomic id
-# optionally include ids
-classification <- function(id) {
+lookup_taxon <- function(id) {
   url <- server_config("species_base_url")
   resp <- ala_GET(url, path = paste0("ws/species/", id))
-  data.frame(resp$classification)
+  taxon_info <- resp$classification
+  taxon_info$authority <- resp$taxonConcept$nameAuthority
+  taxon_info$author <- resp$taxonConcept$author
+  data.frame(taxon_info)
 }
 
 # Return the index of a taxonomic rank- lower index corresponds to higher up the
 # tree
 rank_index <- function(rank) {
-  ranks_list <- c("root", "superkingdom", "kingdom", "subkingdom", 
-                  "superphylum", "phylum", "subphylum", "superclass", "class", 
-                  "subclass", "infraclass", "subinfraclass", 
-                  "superdivison zoology", "division zoology", 
-                  "subdivision zoology", "supercohort", "cohort", "subcohort", 
-                  "superorder", "order", "suborder", "infraorder", "parvorder", 
-                  "superseries zoology", "series zoology", "subseries zoology", 
-                  "supersection zoology", "section zoology", 
-                  "subsection zoology", "superfamily", "family", "subfamily", 
-                  "infrafamily", "supertribe", "tribe", "subtribe", 
-                  "supergenus", "genus group", "genus", "nothogenus", 
-                  "subgenus", "supersection botany", "section botany", 
-                  "subsection botany", "superseries botany", "series botany", 
-                  "subseries botany", "species group", "superspecies", 
-                  "species subgroup", "species", "nothospecies", "holomorph", 
-                  "anamorph", "teleomorph", "subspecies", "nothosubspecies", 
-                  "infraspecies", "variety", "nothovariety", "subvariety", 
-                  "form", "nothoform", "subform", "biovar", "serovar", 
-                  "cultivar", "pathovar", "infraspecific")
-  if (!rank %in% ranks_list) {
+  if (!rank %in% ranks_list()) {
     return(100)
   }
-  return(which(ranks_list == rank))
+  return(which(ranks_list() == rank))
+}
+
+ranks_list <- function() {
+  c("root", "superkingdom", "kingdom", "subkingdom",
+    "superphylum", "phylum", "subphylum", "superclass", "class", 
+    "subclass", "infraclass", "subinfraclass", 
+    "superdivison zoology", "division zoology", 
+    "subdivision zoology", "supercohort", "cohort", "subcohort", 
+    "superorder", "order", "suborder", "infraorder", "parvorder", 
+    "superseries zoology", "series zoology", "subseries zoology", 
+    "supersection zoology", "section zoology", 
+    "subsection zoology", "superfamily", "family", "subfamily", 
+    "infrafamily", "supertribe", "tribe", "subtribe", 
+    "supergenus", "genus group", "genus", "nothogenus", 
+    "subgenus", "supersection botany", "section botany", 
+    "subsection botany", "superseries botany", "series botany", 
+    "subseries botany", "species group", "superspecies", 
+    "species subgroup", "species", "nothospecies", "holomorph", 
+    "anamorph", "teleomorph", "subspecies", "nothosubspecies", 
+    "infraspecies", "variety", "nothovariety", "subvariety", 
+    "form", "nothoform", "subform", "biovar", "serovar", 
+    "cultivar", "pathovar", "infraspecific")
+}
+
+taxa_cols_order <- function() {
+  rank_cols <- unlist(lapply(ranks_list(), function(rank) {
+  rank <- tolower(gsub("\\ ", "_", rank))
+  rank_id <- paste0(rank, "_guid")
+  c(rank, rank_id)
+  }))
+  c(rank_cols, "authority", "author")
 }
 
 # Get the child concepts for a taxonomic ID 

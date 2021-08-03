@@ -37,11 +37,14 @@ ala_download <- function(url, path, params = list(), ext = ".csv",
       df <- read.csv(res$content, stringsAsFactors = FALSE),
       error = function(e) {
         e$message <- "No species matching the supplied filters were found."
+        close(file(cache_file))
+        unlink(cache_file)
         stop(e)
       }
     )
     
     close(file(cache_file))
+    unlink(cache_file)
   } else {
     # for zipped files just return the path
     return(cache_file)

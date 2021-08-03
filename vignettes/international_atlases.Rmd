@@ -1,7 +1,7 @@
 ---
 title: "International Atlases"
 author: "Matilda Stevenson"
-date: '2021-07-27'
+date: '2021-08-02'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -37,14 +37,14 @@ find_atlases()
 ```
 
 ## Set Atlas
-Use `ala_config()` to set the Atlas to use. This will automatically populate the 
+Use `galah_config()` to set the Atlas to use. This will automatically populate the 
 server configuration for your selected Atlas. By default, the atlas is Australia.
 If you intend to download records you will need to register with the relevant
 Atlas. 
 
 
 ```r
-ala_config(atlas = "UK", email = "your_email_here")
+galah_config(atlas = "UK", email = "your_email_here")
 ```
 
 ## Get data for another atlas
@@ -54,7 +54,7 @@ ala_counts()
 ```
 
 ```
-## [1] 199893406
+## [1] 199893409
 ```
 
 ## Using taxonomic filters for another atlas
@@ -64,6 +64,20 @@ to the `taxa` argument of `ala_` functions. For example:
 
 ```r
 library(taxize)
+```
+
+```
+## 
+## Attaching package: 'taxize'
+```
+
+```
+## The following object is masked from 'package:galah':
+## 
+##     classification
+```
+
+```r
 # Use UK taxonomy
 id <- get_nbnid("Vulpes vulpes", rows = 1)
 ```
@@ -98,7 +112,7 @@ ala_counts(taxa = id)
 
 ```r
 # Download records from the Austrian atlas
-ala_config(atlas = "Austria")
+galah_config(atlas = "Austria")
 id <- get_gbifid("bombina variegata", rows = 1)
 ```
 
