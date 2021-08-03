@@ -1,8 +1,15 @@
-#' Clear or refresh previously cached files
+#' Clear previously cached files
 #' 
 #' Deletes cached files within the cached file directory
-#' @return a \code{list} of available cached files, the function used to
-#' create them, and the filter object
+#' @examples
+#' \dontrun{
+#'  ## configure caching and create a query to cache
+#'  ala_config(caching = TRUE, cache_directory = 'tmp/')
+#'  ala_counts(group_by = "year")
+#'
+#'  ## clear cached files directory
+#'  clear_cached_files()
+#' }
 #' @export
 
 clear_cached_files <- function() {
