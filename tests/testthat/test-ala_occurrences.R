@@ -9,9 +9,8 @@ vcr::use_cassette("ala_occurrences_no_filters", {
 test_that("ala_occurrences gives a nice error for invalid emails", {
   skip_on_cran()
   galah_config(email = "test@test.org.au")
-  expect_error(ala_occurrences(taxa = select_taxa("Thylacinus cynocephalus")),
-               regexp = "Status code 403 was returned for this occurrence download request. This may be because
-the email you provided is not registered with the ALA. Please check and try again.")
+  expect_error(ala_occurrences(taxa = select_taxa("Thylacinus cynocephalus")))
+  galah_config(email = "test@test.org.au")
 })
 
 test_that("ala_occurrences fails nicely if no email is provided", {
