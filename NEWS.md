@@ -1,30 +1,48 @@
 # galah 1.3.0
 
 ### `galah_config()`
-* `ala_config()` has been renamed to `galah_config()` to improve consistency with other packages' config functions (#68)
+* `ala_config()` has been renamed to `galah_config()` to improve internal 
+consistency (#68)
 
 ### `search_taxonomy()`
-* `search_taxonomy()` provides a means to search for taxonomic names and check the results are 'correct' before proceeding to download data via `ala_occurrences()`, `ala_species()` or `ala_counts()` (e.g., not ambiguous or homonymous) (#64 #75)
-* `search_taxonomy()` returns information of author and authority of taxonomic names (#79)
-* `search_taxonomy()` consistently orders column names, including in correct taxonomic order by rank (#81)
+* `search_taxonomy()` provides a means to search for taxonomic names and check 
+the results are 'correct' before proceeding to download data via 
+`ala_occurrences()`, `ala_species()` or `ala_counts()` (e.g., not ambiguous or 
+homonymous) (#64 #75)
+* `search_taxonomy()` returns information of author and authority of taxonomic 
+names (#79)
+* `search_taxonomy()` consistently orders column names, including in correct 
+taxonomic order by rank (#81)
 
 ### Caching helper functions
 * `find_cached_files()` lists all user cached files and stored metadata (#57)
-* `clear_cached_files()` removes previously cached files and stored metadata (#71)
-* `ala_counts()`, `ala_occurrences()`, `ala_media()` and `ala_species()` now have `refresh_cache` argument to remove previously cached files and replace with the current query (#71)
+* `clear_cached_files()` removes previously cached files and stored metadata 
+(#71)
+* `ala_counts()`, `ala_occurrences()`, `ala_media()` and `ala_species()` now 
+have `refresh_cache` argument to remove previously cached files and replace with 
+the current query (#71)
 
 ### Minor improvements
-* Cache files are saved in RDS format, making query attributes easier to find, including data DOI, search url (#55, #32, #28)
+* Cache files are saved in RDS format, making query attributes easier to find, 
+including data DOI, search url (#55, #32, #28)
 * `ala_media()` caches media metadata if `galah_config(caching = TRUE)`
 * `search_fields()` allows the user to pass a `qid` as an argument (#59)
-* Users can now optionally skip filter and count validation checks to spatial and biocache web services by setting `galah_config(run_checks = FALSE)`. This helps users avoid slowing down data request download speeds when many requests are made in quick succession via `select_filters()` or `ala_occurrences()` (#61, #80)
-* `ala_counts()`, `select_columns()` and `search_fields()` now use `match.arg` to approximate strings through fuzzy matching (#66)
+* Users can now optionally skip filter and count validation checks to spatial 
+and biocache web services by setting `galah_config(run_checks = FALSE)`. This 
+helps users avoid slowing down data request download speeds when many requests 
+are made in quick succession via `select_filters()` or `ala_occurrences()` (#61,
+#80)
+* `ala_counts()`, `select_columns()` and `search_fields()` now use `match.arg` 
+to approximate strings through fuzzy matching (#66)
 * Better handling of cache errors and improved error messages (#70)
 
 ### Bug fixes
-* `select_columns(group = 'assertions')` now sends `qa = includeall` to ALA web service API to return all assertion columns (#48)
-* `ala_occurrences()` returns data DOI when `ala_occurrences(mint_doi = TRUE)` and re-downloads data when called multiple times (#56)
-* `ala_occurrences()` no longer converts field names with all-CAPS to camelCase (#62)
+* `select_columns(group = 'assertions')` now sends `qa = includeall` to ALA web 
+service API to return all assertion columns (#48)
+* `ala_occurrences()` returns data DOI when `ala_occurrences(mint_doi = TRUE)` 
+and re-downloads data when called multiple times (#56)
+* `ala_occurrences()` no longer converts field names with all-CAPS to camelCase 
+(#62)
 
 
 # galah 1.2.0
