@@ -10,7 +10,9 @@
 #' @param refresh_cache \code{logical}: if set to `TRUE` and 
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query
-#' @return A \code{data.frame} of matching species.
+#' @return A \code{data.frame} of matching species. The \code{data.frame} object 
+#' has attributes listing of the user-supplied arguments of the \code{data_request} 
+#' (i.e., taxa, filters, locations, columns)
 #' @details
 #' The primary use case of this function is to extract species-level information
 #' given a set of criteria defined by \code{\link{select_taxa}()},
@@ -71,7 +73,6 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
   names(data) <- rename_columns(names(data), type = "checklist")
   data <- data[,wanted_columns("checklist")]
   
-  attr(data, "data_type") <- "species"
   query <- data_request(taxa, filters, locations)
   attr(data, "data_request") <- query
   

@@ -41,7 +41,14 @@ be replaced by the current query}
 }
 \value{
 A \code{data.frame} of occurrences, columns as specified
-by \code{\link{select_columns}()}.
+by \code{\link{select_columns}()}. The \code{data.frame} object has the 
+following attributes:
+\itemize{
+\item{a listing of the user-supplied arguments of the \code{data_request} 
+(i.e., taxa, filters, locations, columns)}
+\item{a \code{doi} of the data download}
+\item{the \code{search_url} of the query to ALA API}
+}
 }
 \description{
 The most common form of data stored by ALA are observations of
@@ -74,4 +81,5 @@ polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 \
 -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
 occ <- ala_occurrences(locations = select_locations(polygon))
 }
+
 }

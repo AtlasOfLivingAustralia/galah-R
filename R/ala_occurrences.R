@@ -34,7 +34,14 @@
 #' number of records to show a progress bar by setting \code{verbose = TRUE} in
 #' \code{\link{galah_config}()}.
 #' @return A \code{data.frame} of occurrences, columns as specified
-#' by \code{\link{select_columns}()}.
+#' by \code{\link{select_columns}()}. The \code{data.frame} object has the 
+#' following attributes:
+#' \itemize{
+#' \item{a listing of the user-supplied arguments of the \code{data_request} 
+#' (i.e., taxa, filters, locations, columns)}
+#' \item{a \code{doi} of the data download}
+#' \item{the \code{search_url} of the query to ALA API}
+#' }
 #' @examples \dontrun{
 #' # Search for occurrences matching a taxon identifier
 #' occ <- ala_occurrences(taxa = select_taxa("Reptilia"))
@@ -47,6 +54,7 @@
 #' -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
 #' occ <- ala_occurrences(locations = select_locations(polygon))
 #' }
+#' 
 #' @export
 ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
                             columns = select_columns(group = "basic"),
@@ -122,7 +130,6 @@ no valid column names have been provided. To check whether column names are vali
   # add DOI as attribute
   attr(df, "doi") <- get_doi(mint_doi, data_path)
   attr(df, "search_url") <- download_resp$search_url
-  attr(df, "data_type") <- "occurrences"
   query <- data_request(taxa, filters, locations)
   attr(df, "data_request") <- query
     
