@@ -26,6 +26,6 @@ identifies the taxon to which that record belongs. However, taxonomic names
 can be ambiguous due to homonymy; i.e. re-use of names (common or
 scientific) in different clades. Hence, \code{search_taxa} provides a means
 to search for taxonomic names and check the results are 'correct' before
-proceeded to download data via \code{\link{ala_occurrences}()},
+proceeding to download data via \code{\link{ala_occurrences}()},
 \code{\link{ala_species}()} or \code{\link{ala_counts}()}.
 }

@@ -4,7 +4,6 @@ test_that("select_taxa checks inputs", {
   expect_error(select_taxa())
   expect_warning(
     expect_error(select_taxa("Varanus varius", children = "false")))
-  expect_error(select_taxa(list(kingdom = "Animalia", bad_rank = "species")))
 })
 
 test_that("select_taxa check atlas", {
@@ -43,10 +42,12 @@ vcr::use_cassette("select_taxa_valid_invalid", {
 })
 
 vcr::use_cassette("select_taxa_invalid", {
-  # unrecognised name
-  expect_message(select_taxa("bad_term"))
-  # unrecognised id
-  expect_message(select_taxa("1234"))
+  test_that("select_taxa gives a message for invalid ids", {
+    # unrecognised name
+    expect_message(select_taxa("bad_term"))
+    # unrecognised id
+    expect_message(select_taxa("1234", is_id = TRUE))
+  })
 })
 
 vcr::use_cassette("select_taxa_extended", {
