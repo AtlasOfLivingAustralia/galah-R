@@ -68,19 +68,16 @@
 # TODO: provide a useful error message for bad queries e.g. select_filters(year == 2010 | 2021)
 # TODO: handle commas
 # temporary version of select_filters
-select_filters <- function(...) {
+select_filters <- function(..., profile = NULL) {
   exprs <- as.list(match.call(expand.dots = FALSE)$...)
-  # return(exprs)
   profile_attr <- NULL
-  if (any(names(exprs) == "profile")) {
-    profile <- exprs[which(names(exprs) == "profile")]
+  if (!is.null(profile)) {
     short_name <- profile_short_name(profile)
     if (is.null(short_name) || is.na(short_name)) {
       stop("'", profile, "' is not a valid data quality id, short name or name.
       Use `find_profiles` to list valid profiles.")
     }
-    profile_attr <- short_name$profile
-    exprs <- exprs[!names(exprs) == "profile"]
+    profile_attr <- short_name
   }
   df <- data.frame(data.table::rbindlist(lapply(seq_len(length(exprs)), function(i) {
     filter_name <- names(exprs)[i]
@@ -108,10 +105,6 @@ select_filters <- function(...) {
     else if (expr_type == "vector" || expr_type == "seq") {
       x <- eval(x)
       rows <- build_vector_query(filter_name, x, "=")
-    } else if (expr_type == "profile") {
-      # special case for profile as it is not passed to the API in the same way
-
-      attr(rows, "dq_profile") <- short_name
     } else {
       rows <- data.frame(variable = filter_name,
                  logical = "=",
@@ -209,8 +202,6 @@ get_expr_type <- function(expr, filter_name) {
     return("vector")
   } else if ("seq" %in% expr) {
     return("seq")
-  } else if(filter_name == "profile") {
-    return("profile")
   } else if (filter_name %in% search_fields(type = "assertions")$id) {
     return("assertion")
   } else {

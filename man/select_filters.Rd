@@ -4,7 +4,7 @@
 \alias{select_filters}
 \title{Select filters to narrow down occurrence queries}
 \usage{
-select_filters(...)
+select_filters(..., profile = NULL)
 }
 \arguments{
 \item{...}{filters, in the form \code{field logical value}}
