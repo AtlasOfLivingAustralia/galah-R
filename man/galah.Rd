@@ -37,7 +37,9 @@ quality-control criteria.
 }
 \strong{\code{Lookup}}
 \itemize{
+  \item\code{\link{search_taxonomy}} Free-text search for taxonomic hierarchies
   \item\code{\link{search_fields}} Free-text search for layers and fields
+  \item\code{\link{find_ranks}} List available taxonomic ranks
   \item\code{\link{find_field_values}} List possible values for a given field
   \item\code{\link{find_profiles}} List data quality profiles
   \item\code{\link{find_profile_attributes}} List filters included in a data quality profile

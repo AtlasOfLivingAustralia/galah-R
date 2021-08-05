@@ -16,19 +16,23 @@
 #' terms, taxonomic levels can be provided explicitly via a named \code{list}
 #' for a single name, or a \code{data.frame} for multiple names (see examples).
 #' Note that searches are not case-sensitive.
-#' @param children \code{logical}: (DEPRECATED) return child concepts for the provided
-#' query?
-#' @param counts \code{logical}: (DEPRECATED) return occurrence counts for all
-#' taxa found? \code{FALSE} by default
-#' @param all_ranks \code{logical}: (DEPRECATED) include all available
+#' @param is_id \code{logical}: Is the query a unique identifier? Defaults to 
+#' \code{FALSE}, meaning that queries are assumed to be taxonomic names.
+#' @param children \code{logical}: Return child concepts for the provided
+#' query? DEPRECATED: use \code{\link{search_taxonomy}} instead.
+#' @param counts \code{logical}: return occurrence counts for all
+#' taxa found? \code{FALSE} by default. 
+#' DEPRECATED: use \code{\link{ala_counts}} instead.
+#' @param all_ranks \code{logical}: Include all available
 #' intermediate ranks for taxa? e.g. suborder, superfamily. Retrieving this
 #' information requires an additional web service call so will slow down the
-#' query 
-#' @return A \code{data.frame} of taxonomic information.
+#' query. DEPRECATED: use \code{\link{search_taxonomy}} instead.
+#' @return An object of class \code{data.frame} and \code{ala_id}
+#' containing taxonomic information.
 #' @seealso \code{\link{select_columns}}, \code{\link{select_filters}} and
 #' \code{\link{select_locations}} for other ways to restrict the information returned
 #' by \code{\link{ala_occurrences}} and related functions.
-#' \code{\link{search_taxa}} to look up taxonomic information
+#' \code{\link{search_taxonomy}} to look up taxonomic trees.
 #' @examples
 #' \dontrun{
 #' # Search using a single term
@@ -43,12 +47,13 @@
 #' select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 #' }
 #' @export
-select_taxa <- function(query, children = FALSE, counts = FALSE,
+select_taxa <- function(query, is_id = FALSE, children = FALSE, counts = FALSE,
                         all_ranks = FALSE) {
-  
+  assert_that(is.logical(is_id))
+  if(missing(is_id)){is_id <- FALSE}
   if (!missing(children)) {
     warning("The `children` argument is now deprecated. To get information about
-  child taxonomic concepts, use `search_taxa` with the `downto` argument.
+  child taxonomic concepts, use `search_taxonomy` with the `downto` argument.
   For more information about taxonomic searches, see vignette('taxonomic_information')")
   }
   if (!missing(counts)) {
@@ -58,7 +63,7 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
   }
   if (!missing(all_ranks)) {
     warning("The `all_ranks` argument is now deprecated. All rank information is
-  provided by default in `search_taxa`.
+  provided by default in `search_taxonomy`.
   For more information about taxonomic searches, see vignette('taxonomic_information')")
   }
   verbose <- getOption("galah_config")$verbose
@@ -73,18 +78,18 @@ select_taxa <- function(query, children = FALSE, counts = FALSE,
     stop("`select_taxa` requires a query to search for")
   }
 
-  query_type <- deduce_query_type(query)
-
-  if (verbose) {
-    print_qt <- ifelse(query_type == "id", "identifiers",
-                       "scientific or common names")
-    message("Assuming that query term(s) provided are ", print_qt)
-  }
+  # query_type <- deduce_query_type(query)
+  # 
+  # if (verbose) {
+  #   print_qt <- ifelse(query_type == "id", "identifiers",
+  #                      "scientific or common names")
+  #   message("Assuming that query term(s) provided are ", print_qt)
+  # }
   
-  if (query_type == "name") {
-    matches <- name_query(query)
+  if (is_id) {
+    matches <- id_query(query)   
   } else {
-    matches <- id_query(query)
+    matches <- name_query(query)
   }
   
   out_data <- as.data.frame(matches, stringsAsFactors = FALSE)
@@ -157,7 +162,7 @@ name_lookup <- function(name) {
   } else {
     # search by classification
     path <- "api/searchByClassification"
-    validate_rank(names(name))
+    name <- validate_rank(name)
     query <- as.list(name)
   }
   result <- ala_GET(url, path, query)
@@ -191,46 +196,53 @@ identifier_lookup <- function(identifier) {
   result[names(result) %in% wanted_columns("taxa")]
 }
 
-deduce_query_type <- function(query) {
-  if (is.data.frame(query)) {
-    return("name")
-  }
-  # Possible query types are 'id' and 'name'
-  if (
-    # APNI
-    any(str_detect(query, "https://id.biodiversity.org.au")) ||
-    # AFD
-    any(str_detect(query, "afd.taxon:")) ||
-    # NZOE
-    any(str_detect(query, "NZOR")) ||
-    # Index Fungorum
-    any(str_detect(query, "urn:lsid:indexfungorum")) ||
-    # Catalogue of life
-    any(str_detect(query, "CoL:")) ||
-    # CAAB
-    !is.na(suppressWarnings(any(as.integer(query)))) ||
-    # Aus Fungi and CoL - check if any digits in string- possibly this check
-    # would cover all id types
-    any(grepl("\\d", query)) ||
-    # ALA special case
-    any(str_detect(query, "ALA_"))) {
-    return("id")
-  }
-  # By default assume 'name' type
-  return("name")
-}
+# deduce_query_type <- function(query) {
+#   if (is.data.frame(query)) {
+#     return("name")
+#   }
+#   # Possible query types are 'id' and 'name'
+#   if (
+#     # APNI
+#     any(str_detect(query, "https://id.biodiversity.org.au")) ||
+#     # AFD
+#     any(str_detect(query, "afd.taxon:")) ||
+#     # NZOE
+#     any(str_detect(query, "NZOR")) ||
+#     # Index Fungorum
+#     any(str_detect(query, "urn:lsid:indexfungorum")) ||
+#     # Catalogue of life
+#     any(str_detect(query, "CoL:")) ||
+#     # CAAB
+#     !is.na(suppressWarnings(any(as.integer(query)))) ||
+#     # Aus Fungi and CoL - check if any digits in string- possibly this check
+#     # would cover all id types
+#     any(grepl("\\d", query)) ||
+#     # ALA special case
+#     any(str_detect(query, "ALA_"))) {
+#     return("id")
+#   }
+#   # By default assume 'name' type
+#   return("name")
+# }
 
 # make sure rank provided is in accepted list
-validate_rank <- function(ranks) {
-  valid_ranks <- c("kingdom", "phylum", "class", "order",
-                   "family", "genus", "specificEpithet")
-
-  invalid_ranks <- ranks[which(!(ranks %in% valid_ranks))]
-
-  if (length(invalid_ranks) != 0) {
-    stop("Invalid rank(s): ", paste(invalid_ranks, collapse = ", "),
-         ". Valid ranks are: ", paste0(valid_ranks, collapse = ", "))
+validate_rank <- function(df) {
+  # valid_ranks <- c("kingdom", "phylum", "class", "order",
+  #                  "family", "genus", "specificEpithet")
+  
+  # if (length(invalid_ranks) != 0) {
+  #   stop("Invalid rank(s): ", paste(invalid_ranks, collapse = ", "),
+  #        ". Valid ranks are: ", paste0(valid_ranks, collapse = ", "))
+  # }
+   
+  ranks <- names(df)
+  ranks_check <- ranks %in% ranks_list()
+  if(any(ranks_check)){
+    return(df[ranks_check])
+  }else{
+    return(NULL)
   }
+
 }
 
 child_concepts <- function(identifier) {
