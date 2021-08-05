@@ -128,7 +128,7 @@ build_query <- function(taxa, filters, locations, columns = NULL,
   } else {
     assert_that(is.data.frame(filters))
     # remove profile from filter rows
-    filters <- filters[filters$variable != "profile",]
+    # filters <- filters[filters$variable != "profile",]
     if (nrow(filters) == 0) {
       filter_query <- NULL
     } else {
@@ -169,7 +169,56 @@ build_taxa_query <- function(ids) {
 }
 
 # Takes a dataframe produced by select_filters and return query as a list
+# Construct individual query term
+# Add required brackets, quotes to make valid SOLR query syntax
+query_term <- function(name, value, include) {
+  # add quotes around value
+  value <- lapply(value, function(x) {
+    # don't add quotes if there are square brackets in the term
+    if (grepl("\\[", x)) {
+      x
+    } else {
+      paste0("\"", x, "\"")
+    }
+  })
+  # add quotes around value
+  if (include) {
+    value_str <- paste0("(", paste(name, value, collapse = " OR ", sep = ":"),
+                        ")")
+  } else {
+    value_str <- paste0("-(", paste(name, value,
+                                   collapse = " OR ", sep = ":"), ")")
+  }
+  value_str
+}
+
+old_query_term <- function(name, value, include) {
+  # add quotes around value
+  value <- lapply(value, function(x) {
+    # don't add quotes if there are square brackets in the term
+    if (grepl("\\[", x)) {
+      x
+    } else {
+      paste0("\"", x, "\"")
+    }
+  })
+  # add quotes around value
+  if (include) {
+    value_str <- paste0("(", paste(name, value, collapse = " OR ", sep = ":"),
+                        ")")
+  } else {
+    value_str <- paste0("(", paste(paste0("-", name), value,
+                                   collapse = " AND ", sep = ":"), ")")
+  }
+  value_str
+}
+
 build_filter_query <- function(filters) {
+  queries <- unique(filters$query)
+  paste0(queries, collapse = " AND ")
+}
+
+new_build_filter_query <- function(filters) {
   if(nrow(filters) > 1){
     query <- paste(
       apply(
@@ -189,8 +238,7 @@ build_filter_query <- function(filters) {
 extract_profile <- function(filters) {
   profile <- NULL
   if (!is.null(filters)){
-    profile_lookup <- filters$variable == "profile"
-    if(any(profile_lookup)){profile <- filters$value[profile_lookup]}
+    profile <- attr(filters, "dq_profile")
   }
   profile
 }
