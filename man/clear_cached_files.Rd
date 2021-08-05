@@ -11,10 +11,12 @@ Deletes cached files within the cached file directory and their query
 metadata
 }
 \examples{
+\dontrun{
 ## configure caching and create a query to cache
 galah_config(caching = TRUE)
 dat <- ala_counts(group_by = "year")
 
 ## clear cached files directory
 clear_cached_files()
+}
 }

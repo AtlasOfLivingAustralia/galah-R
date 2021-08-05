@@ -15,9 +15,11 @@ Uses query metadata stored in metadata.rds in the cache directory
 }
 \examples{
 ## configure caching and create a query to cache
+\dontrun{
 galah_config(caching = TRUE)
 dat <- ala_counts(group_by = "year")
 
 ## list cached files
 find_cached_files()
+}
 }

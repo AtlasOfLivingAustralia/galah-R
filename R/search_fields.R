@@ -65,12 +65,13 @@ search_fields <- function(
       assertions <- get_assertions()
       media <- get_media()
       other <- get_other_fields()
-      result <- data.table::rbindlist(
-        list(
-          fields[!(fields$id %in% layers$id), ],
-          layers, assertions, media, other), 
-        fill = TRUE)
-      return(as.data.frame(result))
+      result <- as.data.frame(
+        data.table::rbindlist(
+          list(
+            fields[!(fields$id %in% layers$id), ],
+            layers, assertions, media, other), 
+          fill = TRUE)
+      )
     },
     stop("`type`` must be one of c('fields', 'layers', 'assertions','other', 'all')")
   )

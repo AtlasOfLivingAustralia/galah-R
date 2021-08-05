@@ -24,4 +24,7 @@ test_that("find_profile_attributes returns dataframe", {
   atts <- find_profile_attributes("ALA")
   expect_equal(ncol(atts), 2)
   expect_s3_class(atts, "data.frame")
+  atts <- find_profile_attributes("ALA General")
+  expect_equal(ncol(atts), 2)
+  expect_s3_class(atts, "data.frame")
 })
