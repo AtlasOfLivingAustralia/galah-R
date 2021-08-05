@@ -3,6 +3,13 @@
 #' Uses query metadata stored in metadata.rds in the cache directory
 #' @return a \code{list} of available cached files, the function used to
 #' create them, and the filter object
+#' @examples
+#' ## configure caching and create a query to cache
+#' galah_config(caching = TRUE)
+#' dat <- ala_counts(group_by = "year")
+#'
+#' ## list cached files
+#' find_cached_files()
 #' @export
 
 find_cached_files <- function() {

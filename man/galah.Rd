@@ -46,6 +46,11 @@ quality-control criteria.
   \item\code{\link{find_reasons}} List valid download reasons
   \item\code{\link{find_atlases}} List supported international atlases
 }
+\strong{\code{Cache management}}
+\itemize{
+  \item\code{\link{find_cached_files}} List previously cached files and their metadata
+  \item\code{\link{clear_cached_files}} Clear previously cached files and their metadata
+}
 \strong{\code{Help}}
 \itemize{
   \item\code{\link{galah_config}} Package configuration options
