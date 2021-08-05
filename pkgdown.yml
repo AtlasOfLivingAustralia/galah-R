@@ -4,7 +4,8 @@ pkgdown_sha: ~
 articles:
   galah: galah.html
   international_atlases: international_atlases.html
-last_built: 2021-08-05T03:46Z
+  taxonomic_information: taxonomic_information.html
+last_built: 2021-08-05T04:07Z
 urls:
   reference: https://atlasoflivingaustralia.github.io/galah//reference
   article: https://atlasoflivingaustralia.github.io/galah//articles

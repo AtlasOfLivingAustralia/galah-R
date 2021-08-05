@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get or set configuration options that control galah behaviour — ala_config • galah</title>
+<title>Search taxonomic trees — search_taxonomy • galah</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,12 +48,12 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Get or set configuration options that control galah behaviour — ala_config" />
-<meta property="og:description" content="The galah package supports large data downloads, and also
-interfaces with the ALA which requires that users of some services
-provide a registered email address and reason for downloading data. The
-ala_config function provides a way to manage these issues as simply
-as possible." />
+<meta property="og:title" content="Search taxonomic trees — search_taxonomy" />
+<meta property="og:description" content="The ALA has its' own internal taxonomy that is derived from authoritative
+sources. search_taxonomy provides a means to query and visualise 
+that taxonomy, by showing which lower clades are contained within a specified taxon.
+The inverse query - i.e. listing the higher clades to which a taxon belongs
+- is provided by select_taxa()." />
 <meta property="og:image" content="https://atlasoflivingaustralia.github.io/galah/logo.png" />
 
 
@@ -143,82 +143,62 @@ as possible." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get or set configuration options that control galah behaviour</h1>
-    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/galah_config.R'><code>R/galah_config.R</code></a></small>
-    <div class="hidden name"><code>ala_config.Rd</code></div>
+    <h1>Search taxonomic trees</h1>
+    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/search_taxonomy.R'><code>R/search_taxonomy.R</code></a></small>
+    <div class="hidden name"><code>search_taxonomy.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <code>galah</code> package supports large data downloads, and also
-interfaces with the ALA which requires that users of some services
-provide a registered email address and reason for downloading data. The
-<code>ala_config</code> function provides a way to manage these issues as simply
-as possible.</p>
+    <p>The ALA has its' own internal taxonomy that is derived from authoritative
+sources. <code>search_taxonomy</code> provides a means to query and visualise 
+that taxonomy, by showing which lower clades are contained within a specified taxon.
+The inverse query - i.e. listing the higher clades to which a taxon belongs
+- is provided by <code><a href='select_taxa.html'>select_taxa</a>()</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ala_config</span><span class='op'>(</span><span class='va'>...</span>, profile_path <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>search_taxonomy</span><span class='op'>(</span><span class='va'>query</span>, down_to <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Options can be defined using the form <code>name = value</code>.
-Valid arguments are:</p><ul>
-<li><p><code>atlas</code> string: Living Atlas to point to, Australia by default</p></li>
-<li><p><code>caching</code> logical: if TRUE, results will be cached, and any cached
-    results will be re-used). If FALSE, data will be downloaded.</p></li>
-<li><p><code>cache_directory</code> string: the directory to use for the cache.
-    By default this is a temporary directory, which means that results will
-    only be cached
-    within an R session and cleared automatically when the user exits R.
-    The user may wish to set this to a non-temporary directory for
-    caching across sessions. The directory must exist on the file system.</p></li>
-<li><p><code>download_reason_id</code> numeric or string: the "download reason" required.
-  by some ALA services, either as a numeric ID (currently 0--11)
-  or a string (see <code><a href='find_reasons.html'>find_reasons</a>()</code> for a list of valid ID codes and
-  names). By default this is NA. Some ALA services require a valid
-  download_reason_id code, either specified here or directly to the
-  associated R function.</p></li>
-<li><p><code>email</code> string: An email address that has been registered with
-    ALA at <a href='https://auth.ala.org.au/userdetails/registration/createAccount'>this address</a>.
-    A registered email is required for some functions in <code>galah</code>.</p></li>
-<li><p><code>send_email</code> logical: should you receive an email for each query to
-    <code><a href='ala_occurrences.html'>ala_occurrences</a>()</code>? Defaults to <code>FALSE</code>; but can be
-    useful in some instances, for example for tracking DOIs assigned to
-    specific downloads for later citation.</p></li>
-<li><p><code>verbose</code> logical: should <code>galah</code> give verbose output to assist
-  debugging? Defaults to FALSE.</p></li>
-<li><p><code>run_checks</code> logical: should <code>galah</code> run checks for filters
-  and columns. If making lots of requests sequentially, checks can slow down
-  the process and lead to HTTP 500 errors, so should be turned off. Defaults
-  to TRUE.</p></li>
-</ul></td>
+      <th>query</th>
+      <td><p><code>string</code>: A vector containing one or more search terms,
+given as strings. Search terms can be scientific or common names, or
+taxonomic identifiers. If greater control is required to disambiguate search
+terms, taxonomic levels can be provided explicitly via a named <code>list</code>
+for a single name. See vignette(taxonomic_information for using search_taxonomy
+for multiple clades)
+Note that searches are not case-sensitive.</p></td>
     </tr>
     <tr>
-      <th>profile_path</th>
-      <td><p>string: (optional), path to a directory to store
-config values in. If provided, config values will be written to a new or
-existing .Rprofile file for future sessions. <code>NULL</code> by default.</p></td>
+      <th>down_to</th>
+      <td><p><code>string</code>: A taxonomic rank to search down to. See
+<code><a href='find_ranks.html'>find_ranks</a></code> for valid inputs.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>For <code>ala_config()</code>, a <code>list</code> of all options.
-When <code>ala_config(...)</code> is called with arguments, nothing is returned
-but the configuration is set.</p>
+    <p>a <code>data.frame</code> containing one row per terminal node, and one 
+column for every available intermediate taxonomic level.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The approach used by this function is recursive, meaning that it  
+becomes slow for large queries such as  
+<code>search_taxonomy("Animalia", down_to = "species")</code>. The resulting 
+<code>data.frame</code> can be passed to <code><a href='select_taxa.html'>select_taxa</a></code> to extract
+unique identifiers for the terminal nodes (rows), which is necessary to use later 
+functions such as <code><a href='ala_counts.html'>ala_counts</a></code> or <code><a href='ala_occurrences.html'>ala_occurrences</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>As of galah v1.3.0 please use <code><a href='galah_config.html'>galah_config()</a></code> instead
-of <code>ala_config</code>.</p></div>
+    <div class='dont-index'><p><code><a href='select_taxa.html'>select_taxa</a></code> to search for an individual clade; 
+<code><a href='find_ranks.html'>find_ranks</a></code> for valid ranks used to specify the <code>down_to</code>
+argument.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
- <span class='fu'>ala_config</span><span class='op'>(</span><span class='op'>)</span>
- <span class='fu'>ala_config</span><span class='op'>(</span>caching <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
- <span class='fu'><a href='find_reasons.html'>find_reasons</a></span><span class='op'>(</span><span class='op'>)</span>
- <span class='fu'>ala_config</span><span class='op'>(</span>download_reason_id <span class='op'>=</span> <span class='fl'>0</span>,verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>search_taxonomy</span><span class='op'>(</span><span class='st'>"Animalia"</span>, down_to <span class='op'>=</span> <span class='st'>"class"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

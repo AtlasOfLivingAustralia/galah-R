@@ -90,7 +90,7 @@ ala_ functions to filter records to the specified taxon or taxa." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
       </span>
     </div>
 
@@ -117,6 +117,9 @@ ala_ functions to filter records to the specified taxon or taxa." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/international_atlases.html">International Atlases</a>
+    </li>
+    <li>
+      <a href="../articles/taxonomic_information.html">Taxonomic information</a>
     </li>
   </ul>
 </li>
@@ -161,7 +164,13 @@ proceeded to download data via <code><a href='ala_occurrences.html'>ala_occurren
 <code>ala_</code> functions to filter records to the specified taxon or taxa.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>select_taxa</span><span class='op'>(</span><span class='va'>query</span>, children <span class='op'>=</span> <span class='cn'>FALSE</span>, counts <span class='op'>=</span> <span class='cn'>FALSE</span>, all_ranks <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>select_taxa</span><span class='op'>(</span>
+  <span class='va'>query</span>,
+  is_id <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  children <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  counts <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  all_ranks <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,37 +179,46 @@ proceeded to download data via <code><a href='ala_occurrences.html'>ala_occurren
       <th>query</th>
       <td><p><code>string</code>: A vector containing one or more search terms,
 given as strings. Search terms can be scientific or common names, or
-taxanomic identifiers. If greater control is required to disambiguate search
+taxonomic identifiers. If greater control is required to disambiguate search
 terms, taxonomic levels can be provided explicitly via a named <code>list</code>
 for a single name, or a <code>data.frame</code> for multiple names (see examples).
 Note that searches are not case-sensitive.</p></td>
     </tr>
     <tr>
+      <th>is_id</th>
+      <td><p><code>logical</code>: Is the query a unique identifier? Defaults to 
+<code>FALSE</code>, meaning that queries are assumed to be taxonomic names.</p></td>
+    </tr>
+    <tr>
       <th>children</th>
-      <td><p><code>logical</code>: return child concepts for the provided
-query?</p></td>
+      <td><p><code>logical</code>: Return child concepts for the provided
+query? DEPRECATED: use <code><a href='search_taxonomy.html'>search_taxonomy</a></code> instead.</p></td>
     </tr>
     <tr>
       <th>counts</th>
-      <td><p><code>logical</code>: return occurrence counts for all taxa
-found? <code>FALSE</code> by default</p></td>
+      <td><p><code>logical</code>: return occurrence counts for all
+taxa found? <code>FALSE</code> by default. 
+DEPRECATED: use <code><a href='ala_counts.html'>ala_counts</a></code> instead.</p></td>
     </tr>
     <tr>
       <th>all_ranks</th>
-      <td><p><code>logical</code>: include all available intermediate ranks for
-taxa? e.g. suborder, superfamily. Retrieving this information requires an 
-additional web service call so will slow down the query</p></td>
+      <td><p><code>logical</code>: Include all available
+intermediate ranks for taxa? e.g. suborder, superfamily. Retrieving this
+information requires an additional web service call so will slow down the
+query. DEPRECATED: use <code><a href='search_taxonomy.html'>search_taxonomy</a></code> instead.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>data.frame</code> of taxonomic information.</p>
+    <p>An object of class <code>data.frame</code> and <code>ala_id</code>
+containing taxonomic information.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='select_columns.html'>select_columns</a></code>, <code><a href='select_filters.html'>select_filters</a></code> and
 <code><a href='select_locations.html'>select_locations</a></code> for other ways to restrict the information returned
-by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and related functions.</p></div>
+by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and related functions.
+<code><a href='search_taxonomy.html'>search_taxonomy</a></code> to look up taxonomic trees.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
@@ -208,18 +226,6 @@ by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and related f
 <span class='fu'>select_taxa</span><span class='op'>(</span><span class='st'>"Reptilia"</span><span class='op'>)</span>
 <span class='co'># or equivalently:</span>
 <span class='fu'>select_taxa</span><span class='op'>(</span><span class='st'>"reptilia"</span><span class='op'>)</span> <span class='co'># not case sensitive</span>
-
-<span class='co'># Search with multiple ranks. This is required if a single term is a homonym.</span>
-<span class='fu'>select_taxa</span><span class='op'>(</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>kingdom <span class='op'>=</span> <span class='st'>"Plantae"</span>, genus <span class='op'>=</span> <span class='st'>"Microseris"</span><span class='op'>)</span>,
-  children <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  counts <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-
-<span class='co'># As above, but for multiple searches at once.</span>
-<span class='fu'>select_taxa</span><span class='op'>(</span>
-   <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-     genus <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"microseris"</span>, <span class='st'>"Eucalyptus"</span><span class='op'>)</span>,
-     kingdom <span class='op'>=</span> <span class='st'>"plantae"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Search using an unique taxon identifier</span>
 <span class='fu'>select_taxa</span><span class='op'>(</span>query <span class='op'>=</span> <span class='st'>"https://id.biodiversity.org.au/node/apni/2914510"</span><span class='op'>)</span>
@@ -239,7 +245,7 @@ by <code><a href='ala_occurrences.html'>ala_occurrences</a></code> and related f
 
       <footer>
       <div class="copyright">
-  <p>Developed by Matilda Stevenson, Martin Westgate, Peggy Newman.</p>
+  <p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown">

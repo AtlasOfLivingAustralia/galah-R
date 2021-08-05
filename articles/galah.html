@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
       </span>
     </div>
 
@@ -66,6 +66,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/international_atlases.html">International Atlases</a>
+    </li>
+    <li>
+      <a href="../articles/taxonomic_information.html">Taxonomic information</a>
     </li>
   </ul>
 </li>
@@ -138,12 +141,10 @@
 <p><code><a href="../reference/select_taxa.html">select_taxa()</a></code> enables users search for taxonomic names and check the results are ‘correct’ before using the result to download data. The function allows both free-text searches and searches where the rank(s) are specified. Specifying the rank can be useful when names are ambiguous.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># free text search</span>
-<span class="va">taxa_filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span><span class="st">"Eolophus"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Assuming that query term(s) provided are scientific or common names</code></pre>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># specifying ranks</span>
+<span class="va">taxa_filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span><span class="st">"Eolophus"</span><span class="op">)</span>
+
+<span class="co"># specifying ranks</span>
 <span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span>query <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>genus <span class="op">=</span> <span class="st">"Eolophus"</span>, kingdom <span class="op">=</span> <span class="st">"Aves"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## Assuming that query term(s) provided are scientific or common names</code></pre>
 <pre><code>##     search_term scientific_name scientific_name_authorship
 ## 1 Eolophus_Aves        Eolophus            Bonaparte, 1854
 ##                                                              taxon_concept_id  rank match_type  kingdom   phylum class
@@ -151,9 +152,14 @@
 ##            order     family    genus  issues
 ## 1 Psittaciformes Cacatuidae Eolophus noIssue</code></pre>
 <p><code><a href="../reference/select_taxa.html">select_taxa()</a></code> can optionally provide information about child concepts, and counts of the number of records held by the ALA for the specified taxa.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span>query <span class="op">=</span> <span class="st">"Eolophus"</span>, children <span class="op">=</span> <span class="cn">TRUE</span>, counts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>## Assuming that query term(s) provided are scientific or common names</code></pre>
+<pre><code>## Warning in select_taxa(query = "Eolophus", children = TRUE, counts = TRUE): The `children` argument is now deprecated. To get information about
+##   child taxonomic concepts, use `search_taxonomy` with the `downto` argument.
+##   For more information about taxonomic searches, see vignette('taxonomic_information')</code></pre>
+<pre><code>## Warning in select_taxa(query = "Eolophus", children = TRUE, counts = TRUE): The `counts` argument is now deprecated. To get information about
+##   taxonomic counts, use `ala_counts` with the `groupby` argument.
+##   For more information about taxonomic searches, see vignette('taxonomic_information')</code></pre>
 <pre><code>##    search_term       scientific_name scientific_name_authorship
 ## 1:    Eolophus              Eolophus            Bonaparte, 1854
 ## 2:        &lt;NA&gt; Eolophus roseicapilla           (Vieillot, 1817)
@@ -169,15 +175,15 @@
 <h2 class="hasAnchor">
 <a href="#location-based-filtering" class="anchor"></a>Location-based filtering</h2>
 <p>Users can provide an <code>sf</code> object or a Well-Known Text (WKT) string for location-based filtering.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_locations.html">select_locations</a></span><span class="op">(</span>query <span class="op">=</span> <span class="fu">st_read</span><span class="op">(</span><span class="st">'act_rect.shp'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="field-based-filtering" class="section level2">
 <h2 class="hasAnchor">
 <a href="#field-based-filtering" class="anchor"></a>Field based filtering</h2>
-<p>As mentioned above, all occurrence records in the ALA contain additional information about the record, stored in <strong>fields</strong>. Field-based filters are specified with <code><a href="../reference/select_filters.html">select_filters()</a></code>, which takes indvidual filters, in the form <code>field = value</code>, and/or a <a href="#data-quality-profiles">data quality profile</a>.</p>
+<p>As mentioned above, all occurrence records in the ALA contain additional information about the record, stored in <strong>fields</strong>. Field-based filters are specified with <code><a href="../reference/select_filters.html">select_filters()</a></code>, which takes individual filters, in the form <code>field = value</code>, and/or a <a href="#data-quality-profiles">data quality profile</a>.</p>
 <p>To find available fields and corresponding valid values, field lookup functions are provided. For finding field names, use <code><a href="../reference/search_fields.html">search_fields()</a></code>, for finding valid field values, use <code><a href="../reference/find_field_values.html">find_field_values()</a></code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/search_fields.html">search_fields</a></span><span class="op">(</span><span class="st">"basis"</span><span class="op">)</span></code></pre></div>
 <pre><code>##                                                 id
 ## 1:                                   basisOfRecord
@@ -194,23 +200,24 @@
 ## 2:     fields &lt;NA&gt;
 ## 3: assertions &lt;NA&gt;
 ## 4: assertions &lt;NA&gt;</code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">field_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/find_field_values.html">find_field_values</a></span><span class="op">(</span><span class="st">"basisOfRecord"</span><span class="op">)</span></code></pre></div>
 <p>Build a field filter</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_filters.html">select_filters</a></span><span class="op">(</span>basisOfRecord <span class="op">=</span> <span class="st">"HumanObservation"</span><span class="op">)</span></code></pre></div>
-<p>By default, a filter is included. To negate a filter, use <code><a href="../reference/exclude.html">exclude()</a></code>.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<p>It is also possible to pass other kinds of logical statement to <code><a href="../reference/select_filters.html">select_filters()</a></code>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_filters.html">select_filters</a></span><span class="op">(</span>basisOfRecord <span class="op">=</span> <span class="st">"HumanObservation"</span>,
-                          occurrenceStatus <span class="op">=</span> <span class="fu"><a href="../reference/exclude.html">exclude</a></span><span class="op">(</span><span class="st">"absent"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+                          <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span>,
+                          <span class="va">occurrenceStatus</span> <span class="op">!=</span> <span class="st">"absent"</span><span class="op">)</span></code></pre></div>
 <div id="data-quality-profiles" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data-quality-profiles" class="anchor"></a>Data quality profiles</h3>
 <p>A notable extention of the filtering approach is to remove records with low ‘quality’. ALA performs quality control checks on all records that it stores. These checks are used to generate new fields, that can then be used to filter out records that are unsuitable for particular applications. However, there are many possible data quality checks, and it is not always clear which are most appropriate in a given instance. Therefore, <code>galah</code> supports ALA data quality <strong>profiles</strong>, which can be passed to <code><a href="../reference/select_filters.html">select_filters()</a></code>to quickly remove undesirable records. A full list of data quality profiles is returned by <code><a href="../reference/find_profiles.html">find_profiles()</a></code>.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">profiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/find_profiles.html">find_profiles</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>View filters included in a profile</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/find_profile_attributes.html">find_profile_attributes</a></span><span class="op">(</span><span class="st">"ALA"</span><span class="op">)</span></code></pre></div>
 <pre><code>##                                                                                                                                                                                                                                                 description
 ##  1:                                                                                                                                                                                                   Exclude all records where spatial validity is "false"
@@ -259,7 +266,7 @@
 ## 21:                                                      -year:[* TO 1700]
 ##                                                                     filter</code></pre>
 <p>Include a profile in the filters</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_filters.html">select_filters</a></span><span class="op">(</span>basisOfRecord <span class="op">=</span> <span class="st">"HumanObservation"</span>,
                           profile <span class="op">=</span> <span class="st">"ALA"</span><span class="op">)</span></code></pre></div>
 </div>
@@ -274,77 +281,75 @@
 <h2 class="hasAnchor">
 <a href="#occurrence-data" class="anchor"></a>Occurrence data</h2>
 <p>In addition to the <a href="#filtering-data">filter functions</a> above, when downloading occurrence data users can specify which columns are returned using <code><a href="../reference/select_columns.html">select_columns()</a></code>. Individual column names and/or column groups can be specified. To view the fields for each group, see the documentation for <code><a href="../reference/select_columns.html">select_columns()</a></code>. To view the list of available fields, run <code><a href="../reference/search_fields.html">search_fields()</a></code>.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_columns.html">select_columns</a></span><span class="op">(</span><span class="st">"institutionID"</span>, group <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span></code></pre></div>
-<p>To download occurrence data you will need to specify your email in <code><a href="../reference/ala_config.html">ala_config()</a></code>. This email must be associated with an active ALA account. See more information in the <a href="#config">config section</a></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="va">your_email_here</span>, profile_path <span class="op">=</span> <span class="va">path_to_profile</span><span class="op">)</span></code></pre></div>
+<p>To download occurrence data you will need to specify your email in <code><a href="../reference/galah_config.html">galah_config()</a></code>. This email must be associated with an active ALA account. See more information in the <a href="#config">config section</a></p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="va">your_email_here</span>, atlas <span class="op">=</span> <span class="st">"Australia"</span><span class="op">)</span></code></pre></div>
 <p>Download occurrence records for <em>Eolophus roseicapilla</em></p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">occ</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_occurrences.html">ala_occurrences</a></span><span class="op">(</span>taxa <span class="op">=</span> <span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span><span class="st">"Eolophus roseicapilla"</span><span class="op">)</span>,
                        filters <span class="op">=</span> <span class="fu"><a href="../reference/select_filters.html">select_filters</a></span><span class="op">(</span>stateProvince <span class="op">=</span> <span class="st">"Australian Capital Territory"</span>,
-                                                year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">2010</span>, <span class="fl">2020</span><span class="op">)</span>,
+                                                <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span>,
                                                 profile <span class="op">=</span> <span class="st">"ALA"</span><span class="op">)</span>,
                        columns <span class="op">=</span> <span class="fu"><a href="../reference/select_columns.html">select_columns</a></span><span class="op">(</span><span class="st">"institutionID"</span>, group <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">occ</span><span class="op">)</span></code></pre></div>
-<pre><code>##   X decimalLatitude decimalLongitude  eventDate        scientificName
-## 1 1        -35.3450          149.062 2012-12-04 Eolophus roseicapilla
-## 2 2        -35.2501          149.131 2014-12-05 Eolophus roseicapilla
-## 3 3        -35.3405          149.109 2018-12-27 Eolophus roseicapilla
-## 4 4        -35.2033          149.013 2013-12-01 Eolophus roseicapilla
-## 5 5        -35.3206          148.956 2017-12-04 Eolophus roseicapilla
-## 6 6        -35.2660          148.932 2011-12-11 Eolophus roseicapilla
+<pre><code>##   decimalLatitude decimalLongitude            eventDate        scientificName
+## 1       -35.88717         148.9713                      Eolophus roseicapilla
+## 2       -35.86784         149.0101                      Eolophus roseicapilla
+## 3       -35.86556         149.0106 2012-01-18T13:00:00Z Eolophus roseicapilla
+## 4       -35.86429         149.0052                      Eolophus roseicapilla
+## 5       -35.77517         148.9591                      Eolophus roseicapilla
+## 6       -35.76652         148.9654                      Eolophus roseicapilla
 ##                                                                taxonConceptID                             recordID
-## 1 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 ffef254e-0328-417f-9c8a-64bfacd32c00
-## 2 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 ffee66fa-968d-4a0f-b245-03d0bc56d303
-## 3 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 ffcb2236-2f65-4d0d-a347-6d5d30f80b97
-## 4 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 ffafbfd6-3b11-4ef6-881b-7d417a11db34
-## 5 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 ffa24dee-d1e9-4e97-8574-76433c299429
-## 6 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 ff87372e-bde7-4e87-929e-80e59ed94e8f
-##         data_resource
-## 1 Garden Bird Surveys
-## 2     eBird Australia
-## 3     eBird Australia
-## 4     eBird Australia
-## 5     eBird Australia
-## 6     eBird Australia</code></pre>
+## 1 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 17f46d49-7db0-4929-89f4-b29323f3fcc5
+## 2 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 ef2b9066-c078-4660-b9a4-c31192aa8bf7
+## 3 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 4f7cd714-2997-45d6-adaf-f7dfc80adfe1
+## 4 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 3236c470-a144-4300-ae9b-782d0e5e4dd1
+## 5 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 e340c423-3a19-4293-aa72-e4045bb7f702
+## 6 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 f25793f3-2704-43ff-80ee-c2a1787490e7
+##              dataResourceName institutionID
+## 1             eBird Australia              
+## 2             eBird Australia              
+## 3 BirdLife Australia, Birdata              
+## 4             eBird Australia              
+## 5             eBird Australia              
+## 6             eBird Australia</code></pre>
 </div>
 <div id="species-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#species-data" class="anchor"></a>Species data</h2>
 <p>A common use case of the ALA is to identify which species occur in a specified region, time period, or taxonomic group. <code><a href="../reference/ala_species.html">ala_species()</a></code> enables the user to look up this information, using the common set of filter functions.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># List rodent species in the NT</span>
 <span class="va">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_species.html">ala_species</a></span><span class="op">(</span>taxa <span class="op">=</span> <span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span><span class="st">"Rodentia"</span><span class="op">)</span>,
-            filters <span class="op">=</span> <span class="fu"><a href="../reference/select_filters.html">select_filters</a></span><span class="op">(</span>stateProvince <span class="op">=</span> <span class="st">"Northern Territory"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## Assuming that query term(s) provided are scientific or common names</code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span></code></pre></div>
-<pre><code>##                                                                       species                species_name
-## 1 urn:lsid:biodiversity.org.au:afd.taxon:f38bcd7e-ae6a-4734-bd64-06995bc230eb        Mesembriomys gouldii
-## 2 urn:lsid:biodiversity.org.au:afd.taxon:46611113-a1e3-45b1-b58c-7aef088a9da7             Zyzomys argurus
-## 3 urn:lsid:biodiversity.org.au:afd.taxon:5d73fc2f-3caa-4b44-aa40-3711e8304f80 Pseudomys hermannsburgensis
-## 4 urn:lsid:biodiversity.org.au:afd.taxon:49001532-929e-4b78-97d3-c885e97d671b              Notomys alexis
-## 5 urn:lsid:biodiversity.org.au:afd.taxon:89dfa41e-2c5a-44d1-80bf-8d4cd3c73089             Melomys burtoni
-## 6 urn:lsid:biodiversity.org.au:afd.taxon:107696b5-063c-4c09-a015-6edfdb6f4d52                Mus musculus
-##   scientific_name_authorship taxon_rank  kingdom   phylum    class    order  family        genus        vernacular_name
-## 1          (J.E. Gray, 1843)    species Animalia Chordata Mammalia Rodentia Muridae Mesembriomys  Black-footed Tree-rat
-## 2             (Thomas, 1889)    species Animalia Chordata Mammalia Rodentia Muridae      Zyzomys        Common Rock-rat
-## 3              (Waite, 1896)    species Animalia Chordata Mammalia Rodentia Muridae    Pseudomys     Sandy Inland Mouse
-## 4               Thomas, 1922    species Animalia Chordata Mammalia Rodentia Muridae      Notomys Spinifex Hopping-mouse
-## 5             (Ramsay, 1887)    species Animalia Chordata Mammalia Rodentia Muridae      Melomys      Grassland Melomys
-## 6             Linnaeus, 1758    species Animalia Chordata Mammalia Rodentia Muridae          Mus            House Mouse</code></pre>
+            filters <span class="op">=</span> <span class="fu"><a href="../reference/select_filters.html">select_filters</a></span><span class="op">(</span>stateProvince <span class="op">=</span> <span class="st">"Northern Territory"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span></code></pre></div>
+<pre><code>##    kingdom   phylum    class    order  family        genus                     species            author
+## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys        Mesembriomys gouldii (J.E. Gray, 1843)
+## 2 Animalia Chordata Mammalia Rodentia Muridae      Zyzomys             Zyzomys argurus    (Thomas, 1889)
+## 3 Animalia Chordata Mammalia Rodentia Muridae    Pseudomys Pseudomys hermannsburgensis     (Waite, 1896)
+## 4 Animalia Chordata Mammalia Rodentia Muridae      Notomys              Notomys alexis      Thomas, 1922
+## 5 Animalia Chordata Mammalia Rodentia Muridae      Melomys             Melomys burtoni    (Ramsay, 1887)
+## 6 Animalia Chordata Mammalia Rodentia Muridae          Mus                Mus musculus    Linnaeus, 1758
+##                                                                  species_guid        vernacular_name
+## 1 urn:lsid:biodiversity.org.au:afd.taxon:f38bcd7e-ae6a-4734-bd64-06995bc230eb  Black-footed Tree-rat
+## 2 urn:lsid:biodiversity.org.au:afd.taxon:46611113-a1e3-45b1-b58c-7aef088a9da7        Common Rock-rat
+## 3 urn:lsid:biodiversity.org.au:afd.taxon:5d73fc2f-3caa-4b44-aa40-3711e8304f80     Sandy Inland Mouse
+## 4 urn:lsid:biodiversity.org.au:afd.taxon:49001532-929e-4b78-97d3-c885e97d671b Spinifex Hopping-mouse
+## 5 urn:lsid:biodiversity.org.au:afd.taxon:89dfa41e-2c5a-44d1-80bf-8d4cd3c73089      Grassland Melomys
+## 6 urn:lsid:biodiversity.org.au:afd.taxon:107696b5-063c-4c09-a015-6edfdb6f4d52            House Mouse</code></pre>
 </div>
 <div id="record-counts" class="section level2">
 <h2 class="hasAnchor">
 <a href="#record-counts" class="anchor"></a>Record counts</h2>
 <p><code><a href="../reference/ala_counts.html">ala_counts()</a></code> provides summary counts on records in the ALA, without needing to download all the records. In addition to the filter arguments, it has an optional <code>group_by</code> argument, which provides counts binned by the requested field.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Total number of records in the ALA</span>
 <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 100871912</code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Total number of records, broken down by kindgom</span>
 <span class="fu"><a href="../reference/ala_counts.html">ala_counts</a></span><span class="op">(</span>group_by <span class="op">=</span> <span class="st">"kingdom"</span><span class="op">)</span></code></pre></div>
 <pre><code>##      kingdom    count
@@ -363,7 +368,7 @@
 <h2 class="hasAnchor">
 <a href="#media-downloads" class="anchor"></a>Media downloads</h2>
 <p>In addition to text data describing individual occurrences and their attributes, ALA stores images, sounds and videos associated with a given record. These can be downloaded to <code>R</code> using <code><a href="../reference/ala_media.html">ala_media()</a></code> and the same set of filters as the other data download functions.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Use the occurrences previously downloaded</span>
 <span class="va">media_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ala_media.html">ala_media</a></span><span class="op">(</span>
      taxa <span class="op">=</span> <span class="fu"><a href="../reference/select_taxa.html">select_taxa</a></span><span class="op">(</span><span class="st">"Eolophus roseicapilla"</span><span class="op">)</span>,
@@ -379,33 +384,33 @@
 <h2 class="hasAnchor">
 <a href="#email" class="anchor"></a>Email</h2>
 <p>To download occurrence records, you will need to provide an email address registered with the ALA. You can create an account <a href="https://auth.ala.org.au/userdetails/registration/createAccount">here</a>. Once an email is registered with the ALA, it should be stored in the config:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>email<span class="op">=</span><span class="st">"myemail@gmail.com"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email<span class="op">=</span><span class="st">"myemail@gmail.com"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="caching" class="section level2">
 <h2 class="hasAnchor">
 <a href="#caching" class="anchor"></a>Caching</h2>
 <p><code>galah</code> can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster.</p>
 <p>By default, this caching is session-based, meaning that the local files are stored in a temporary directory that is automatically deleted when the R session is ended. This behaviour can be altered so that caching is permanent, by setting the caching directory to a non-temporary location.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>cache_directory<span class="op">=</span><span class="st">"example/dir"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>cache_directory<span class="op">=</span><span class="st">"example/dir"</span><span class="op">)</span></code></pre></div>
 <p>By default, caching is turned off. To turn caching on, run</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>caching<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>caching<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="debugging" class="section level2">
 <h2 class="hasAnchor">
 <a href="#debugging" class="anchor"></a>Debugging</h2>
 <p>If things aren’t working as expected, more detail (particularly about web requests and caching behaviour) can be obtained by setting the <code>verbose</code> configuration option:</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>verbose<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>verbose<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="setting-the-download-reason" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setting-the-download-reason" class="anchor"></a>Setting the download reason</h2>
-<p>ALA requires that you provide a reason when downloading occurrence data (via the galah <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code> function). The reason is set as “scientific research” by default, but you can change this using <code><a href="../reference/ala_config.html">ala_config()</a></code>. See <code><a href="../reference/find_reasons.html">find_reasons()</a></code> for valid download reasons.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ala_config.html">ala_config</a></span><span class="op">(</span>download_reason_id<span class="op">=</span><span class="va">your_reason_id</span><span class="op">)</span></code></pre></div>
+<p>ALA requires that you provide a reason when downloading occurrence data (via the galah <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code> function). The reason is set as “scientific research” by default, but you can change this using <code><a href="../reference/galah_config.html">galah_config()</a></code>. See <code><a href="../reference/find_reasons.html">find_reasons()</a></code> for valid download reasons.</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>download_reason_id<span class="op">=</span><span class="va">your_reason_id</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -421,7 +426,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Matilda Stevenson, Martin Westgate, Peggy Newman.</p>
+  <p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown">

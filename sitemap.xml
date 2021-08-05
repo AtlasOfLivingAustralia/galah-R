@@ -22,10 +22,16 @@
     <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_species.html</loc>
   </url>
   <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/clear_cached_files.html</loc>
+  </url>
+  <url>
     <loc>https://atlasoflivingaustralia.github.io/galah//reference/exclude.html</loc>
   </url>
   <url>
     <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_atlases.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_cached_files.html</loc>
   </url>
   <url>
     <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_field_values.html</loc>
@@ -37,13 +43,22 @@
     <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_profiles.html</loc>
   </url>
   <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_ranks.html</loc>
+  </url>
+  <url>
     <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_reasons.html</loc>
   </url>
   <url>
     <loc>https://atlasoflivingaustralia.github.io/galah//reference/galah.html</loc>
   </url>
   <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/galah_config.html</loc>
+  </url>
+  <url>
     <loc>https://atlasoflivingaustralia.github.io/galah//reference/search_fields.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/search_taxonomy.html</loc>
   </url>
   <url>
     <loc>https://atlasoflivingaustralia.github.io/galah//reference/select_columns.html</loc>
@@ -62,5 +77,8 @@
   </url>
   <url>
     <loc>https://atlasoflivingaustralia.github.io/galah//articles/international_atlases.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah//articles/taxonomic_information.html</loc>
   </url>
 </urlset>
