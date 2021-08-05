@@ -158,12 +158,14 @@ create them, and the filter object</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## configure caching and create a query to cache</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='fu'><a href='galah_config.html'>galah_config</a></span><span class='op'>(</span>caching <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ala_counts.html'>ala_counts</a></span><span class='op'>(</span>group_by <span class='op'>=</span> <span class='st'>"year"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using cached file '/tmp/RtmpPjhf9W/64c3522526dfd884aef129cdd8d1c0c4.rds'</span></div><div class='input'>
+
 <span class='co'>## list cached files</span>
 <span class='fu'>find_cached_files</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>No cached file information was found in /tmp/RtmpPjhf9W</span></div><div class='output co'>#&gt; NULL</div></pre>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
