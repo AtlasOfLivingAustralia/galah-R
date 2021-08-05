@@ -227,16 +227,9 @@ identifier_lookup <- function(identifier) {
 
 # make sure rank provided is in accepted list
 validate_rank <- function(df) {
-  # valid_ranks <- c("kingdom", "phylum", "class", "order",
-  #                  "family", "genus", "specificEpithet")
-  
-  # if (length(invalid_ranks) != 0) {
-  #   stop("Invalid rank(s): ", paste(invalid_ranks, collapse = ", "),
-  #        ". Valid ranks are: ", paste0(valid_ranks, collapse = ", "))
-  # }
    
   ranks <- names(df)
-  ranks_check <- ranks %in% ranks_list()
+  ranks_check <- ranks %in% find_ranks()$name
   if(any(ranks_check)){
     return(df[ranks_check])
   }else{

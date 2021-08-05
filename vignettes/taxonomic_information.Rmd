@@ -39,7 +39,7 @@ collapsibleTree(
 ```
 
 Note that if you are traversing more than 3 ranks, it might be more efficient
-to use `ala_species`, as `search_taxa` is inefficient when the search tree
+to use `ala_species`, as `search_taxonomy` is inefficient when the search tree
 is large.
 
 ## Search for species matching criteria
