@@ -181,11 +181,15 @@ build_logical_query <- function(statement) {
     logical <- str_extract(statement, "(=|>|<|!)+")
     components <- trimws(unlist(str_split(statement, "(=|>|<|!)+")))
   }
+  value <- tryCatch(eval(parse(text = components[2])),
+           error = function(e) {
+             components[2]
+           })
   rows <- data.frame(
     variable = components[1],
     logical = logical,
     # eval in case the user passed a variable here
-    value = eval(parse(text = components[2]))
+    value = value
   )
   rows$query <- parse_logical(rows)
   rows
