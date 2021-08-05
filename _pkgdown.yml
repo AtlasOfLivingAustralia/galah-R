@@ -21,12 +21,14 @@ reference:
   - find_profile_attributes
   - find_reasons
   - find_atlases
-- title: Support
+- title: Cache management
+  contents:
+  - find_cached_files
+  - clear_cached_files
+- title: Help
   contents:
   - galah_config
   - ala_citation
-  - find_cached_files
-  - clear_cached_files
 template:
   params:
     bootswatch: cerulean
