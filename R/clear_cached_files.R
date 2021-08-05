@@ -1,16 +1,14 @@
 #' Clear previously cached files
 #' 
-#' Deletes cached files within the cached file directory, and their metadata.
-#' file
+#' Deletes cached files within the cached file directory and their query 
+#' metadata
 #' @examples
-#' \dontrun{
-#'  ## configure caching and create a query to cache
-#'  ala_config(caching = TRUE, cache_directory = 'tmp/')
-#'  ala_counts(group_by = "year")
+#' ## configure caching and create a query to cache
+#' galah_config(caching = TRUE)
+#' dat <- ala_counts(group_by = "year")
 #'
-#'  ## clear cached files directory
-#'  clear_cached_files()
-#' }
+#' ## clear cached files directory
+#' clear_cached_files()
 #' @export
 
 clear_cached_files <- function() {
