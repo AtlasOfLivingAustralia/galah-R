@@ -16,7 +16,7 @@ outlined.
 
 ## Searching for taxonomic information
 
-To search through the ALA's taxonomic backbone, use `search_taxa`. It takes a
+To search through the ALA's taxonomic backbone, use `search_taxonomy`. It takes a
 string search term, and provides the higher ranks of the search term. 
 ```{r}
 library(galah)
