@@ -40,14 +40,14 @@
 #' }
 #' \strong{\code{Filter}}
 #' \itemize{
-#'   \item\code{\link{select_taxa}} Search for taxonomic information
+#'   \item\code{\link{select_taxa}} Search for taxonomic identifiers
 #'   \item\code{\link{select_filters}} Filter records
 #'   \item\code{\link{select_locations}} Specify a location
 #'   \item\code{\link{select_columns}} Columns to return in an occurrence download
 #' }
 #' \strong{\code{Lookup}}
 #' \itemize{
-#'   \item\code{\link{search_taxonomy}} Free-text search for taxonomic hierarchies
+#'   \item\code{\link{search_taxonomy}} Search for taxonomic hierarchies
 #'   \item\code{\link{search_fields}} Free-text search for layers and fields
 #'   \item\code{\link{find_ranks}} List available taxonomic ranks
 #'   \item\code{\link{find_field_values}} List possible values for a given field
