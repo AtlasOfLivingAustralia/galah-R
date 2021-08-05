@@ -16,7 +16,7 @@ outlined.
 
 ## Searching for taxonomic information
 
-To search through the ALA's taxonomic backbone, use `search_taxa`. It takes a
+To search through the ALA's taxonomic backbone, use `search_taxonomy`. It takes a
 string search term, and provides the higher ranks of the search term. 
 ```{r}
 library(galah)
@@ -39,7 +39,7 @@ collapsibleTree(
 ```
 
 Note that if you are traversing more than 3 ranks, it might be more efficient
-to use `ala_species`, as `search_taxa` is inefficient when the search tree
+to use `ala_species`, as `search_taxonomy` is inefficient when the search tree
 is large.
 
 ## Search for species matching criteria

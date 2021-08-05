@@ -65,6 +65,6 @@ as possible.
 }
 }
 \seealso{
-As of galah v1.3.0 please use \code{\link{galah_config()}} instead
+As of galah v1.3.0 please use \code{galah_config()} instead
 of \code{ala_config}.
 }

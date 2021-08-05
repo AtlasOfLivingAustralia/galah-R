@@ -108,7 +108,7 @@ select_filters <- function(..., profile = NULL) {
     } else {
       rows <- data.frame(variable = filter_name,
                  logical = "=",
-                 value = x)
+                 value = eval(x))
       rows$query <- parse_logical(rows)
     }
     return(rows)
@@ -184,7 +184,8 @@ build_logical_query <- function(statement) {
   rows <- data.frame(
     variable = components[1],
     logical = logical,
-    value = components[2]
+    # eval in case the user passed a variable here
+    value = eval(parse(text = components[2]))
   )
   rows$query <- parse_logical(rows)
   rows
