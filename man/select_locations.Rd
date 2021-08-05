@@ -10,7 +10,8 @@ select_locations(query)
 \item{query}{wkt string or sf object}
 }
 \value{
-WKT string representing the area provided.
+length-1 object of class \code{character} and \code{ala_locations},
+containing a WKT string representing the area provided.
 }
 \description{
 Restrict results to those from a specified area. Areas must be polygons

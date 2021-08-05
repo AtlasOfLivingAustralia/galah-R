@@ -50,7 +50,8 @@ Suggests:
     pkgdown,
     rmarkdown,
     taxize,
-    testthat
+    testthat,
+    treemap
 License: MPL-2.0
 URL: https://github.com/AtlasOfLivingAustralia/galah
 BugReports: https://github.com/AtlasOfLivingAustralia/galah/issues

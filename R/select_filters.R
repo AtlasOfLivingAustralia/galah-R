@@ -13,7 +13,8 @@
 #' @param profile \code{string}: (optional) a data quality profile to apply to the
 #' records. See \code{\link{find_profiles}} for valid profiles. By default
 #' no profile is applied.
-#' @return A \code{data.frame} of filter values.
+#' @return An object of class \code{data.frame} and \code{ala_filters} 
+#' containing filter values.
 #' @seealso \code{\link{select_taxa}}, \code{\link{select_columns}} and
 #' \code{\link{select_locations}} for other ways to restrict the information returned
 #' by \code{\link{ala_occurrences}} and related functions. Use

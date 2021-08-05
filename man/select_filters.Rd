@@ -14,7 +14,8 @@ records. See \code{\link{find_profiles}} for valid profiles. By default
 no profile is applied.}
 }
 \value{
-A \code{data.frame} of filter values.
+An object of class \code{data.frame} and \code{ala_filters} 
+containing filter values.
 }
 \description{
 'filters' are arguments of the form \code{field logical value} that are used
