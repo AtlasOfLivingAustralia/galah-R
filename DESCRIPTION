@@ -1,11 +1,24 @@
 Package: galah
 Type: Package
 Title: Atlas of Living Australia (ALA) Data and Resources in R
-Version: 1.2.0
-Authors@R: c(person("Matilda", "Stevenson", email="matilda.stevenson@csiro.au",role=c("aut","cre")),
-             person("Martin", "Westgate", email="martin.westgate@csiro.au", role="aut"),
-             person("Peggy", "Newman", email="peggy.newman@csiro.au", role="aut"),
-             person("Dax", "Kellie", email="dax.kellie@csiro.au", role = "ctb"))
+Version: 1.3.0
+Authors@R:
+    c(person(given = "Martin",
+             family = "Westgate",
+             email = "martin.westgate@csiro.au",
+             role = c("aut", "cre")),
+      person(given = "Matilda",
+             family = "Stevenson",
+             email = "matilda.stevenson@csiro.au",
+             role = "aut"),
+      person(given = "Dax",
+             family = "Kellie",
+             email = "dax.kellie@csiro.au",
+             role = "aut"),
+      person(given = "Peggy",
+             family = "Newman",
+             email = "peggy.newman@csiro.au",
+             role = "aut"))
 Description: The Atlas of Living Australia ('ALA') provides tools to enable users
     of biodiversity information to find, access, combine and visualise data on
     Australian plants and animals; these have been made available from
@@ -27,10 +40,13 @@ Imports:
     utils,
     wellknown
 Suggests:
+    vcr (>= 0.6.0),
+    collapsibleTree,
     covr,
     dplyr,
     ggplot2,
     knitr,
+    magrittr,
     pkgdown,
     rmarkdown,
     taxize,

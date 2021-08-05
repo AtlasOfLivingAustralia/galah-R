@@ -1,0 +1,75 @@
+---
+title: "Taxonomic information"
+author: "Matilda Stevenson"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Taxonomic information}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+`galah` provides multiple ways of retrieving taxonomic information, and the best
+method depends of the type of information required. Below, some use cases are
+outlined. 
+
+## Searching for taxonomic information
+
+To search through the ALA's taxonomic backbone, use `search_taxonomy`. It takes a
+string search term, and provides the higher ranks of the search term. 
+```{r}
+library(galah)
+search_taxonomy("Mammalia")
+```
+
+`search_taxonomy` can also provide information on taxa below the provided search
+term, enabling construction of a taxonomic tree. For example, we can build and
+visualise all the families in class **Mammalia**. 
+```{r}
+library(collapsibleTree)
+taxa <- search_taxonomy("Mammalia", down_to = "family")
+collapsibleTree(
+  taxa,
+  hierarchy = names(taxa)[-which(
+    names(taxa) %in% 
+    c("kingdom", "phylum", "class", "authority"))],
+  root = "Mammalia"
+  )
+```
+
+Note that if you are traversing more than 3 ranks, it might be more efficient
+to use `ala_species`, as `search_taxonomy` is inefficient when the search tree
+is large.
+
+## Search for species matching criteria
+
+
+## Species count information
+
+
+## Taxonomic filtering
+
+`ala_species` is for getting species matching a set of filters. If a user wants
+a different rank it is fairly trivial to group the data themselves.
+
+
+# Advanced queries
+
+`select_filters` can also take taxonomic information using the `taxonConceptID`.
+
+This is a bit of a hack but is useful for paraphyletic concepts such as invertebrates:
+
+```{r}
+taxon_filter <- select_filters(
+   taxonConceptID = select_taxa("Animalia")$taxon_concept_id,
+   taxonConceptID != select_taxa("Chordata")$taxon_concept_id)
+```
+  
+Or non-avian vertebrates:
+
+```{r}
+select_filters(
+   taxonConceptID = select_taxa("Chordata")$taxon_concept_id,
+   taxonConceptID != select_taxa("Aves")$taxon_concept_id)
+```

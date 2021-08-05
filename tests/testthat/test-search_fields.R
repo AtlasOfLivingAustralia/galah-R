@@ -1,17 +1,41 @@
 context("Test search_fields")
 
-test_that("search_fields returns correct types of field", {
-  skip_on_cran()
-  expect_setequal(unique(search_fields(type = "all")$type),
-               c("fields", "assertions", "layers", "media"))
-  expect_equal(unique(search_fields(type = "assertions")$type),
-               "assertions")
-  expect_error(search_fields(type = "layer"))
+vcr::use_cassette("search_fields_all", {
+  test_that("search_fields returns all field types", {
+    fields <- search_fields()
+    expect_setequal(
+      unique(fields$type),
+      c("fields", "assertions", "layers", "media", "other")
+    )
+    fields <- search_fields(type = "all")
+    expect_setequal(
+      unique(fields$type),
+      c("fields", "assertions", "layers", "media", "other")
+    )
+  })
 })
 
-test_that("search_fields searches text correctly", {
-  skip_on_cran()
-  expect_true(all(grepl(pattern = "precipitation",
-                        search_fields("precipitation")$description,
-                        ignore.case = TRUE)))
+vcr::use_cassette("search_layers", {
+  test_that("search_fields returns layers", {
+    fields <- search_fields(type = "layer")
+    expect_equal(unique(fields$type), "layers")
+    
+    fields <- search_fields(type = "layers")
+    expect_equal(unique(fields$type), "layers")
+  })
+})
+
+vcr::use_cassette("search_fields_assertions", {
+  test_that("search_fields returns assertions", {
+    fields <- search_fields(type = "assertions")
+    expect_equal(unique(fields$type), "assertions")
+  })
+})
+
+vcr::use_cassette("search_fields_text", {
+  test_that("search_fields searches text correctly", {
+    fields <- search_fields("precipitation")
+    expect_true(all(grepl(pattern = "precipitation", fields$description,
+                          ignore.case = TRUE)))
+  })
 })

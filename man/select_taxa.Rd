@@ -4,28 +4,40 @@
 \alias{select_taxa}
 \title{Taxon information}
 \usage{
-select_taxa(query, children = FALSE, counts = FALSE, all_ranks = FALSE)
+select_taxa(
+  query,
+  is_id = FALSE,
+  children = FALSE,
+  counts = FALSE,
+  all_ranks = FALSE
+)
 }
 \arguments{
 \item{query}{\code{string}: A vector containing one or more search terms,
 given as strings. Search terms can be scientific or common names, or
-taxanomic identifiers. If greater control is required to disambiguate search
+taxonomic identifiers. If greater control is required to disambiguate search
 terms, taxonomic levels can be provided explicitly via a named \code{list}
 for a single name, or a \code{data.frame} for multiple names (see examples).
 Note that searches are not case-sensitive.}
 
-\item{children}{\code{logical}: return child concepts for the provided
-query?}
+\item{is_id}{\code{logical}: Is the query a unique identifier? Defaults to 
+\code{FALSE}, meaning that queries are assumed to be taxonomic names.}
 
-\item{counts}{\code{logical}: return occurrence counts for all taxa
-found? \code{FALSE} by default}
+\item{children}{\code{logical}: Return child concepts for the provided
+query? DEPRECATED: use \code{\link{search_taxonomy}} instead.}
 
-\item{all_ranks}{\code{logical}: include all available intermediate ranks for
-taxa? e.g. suborder, superfamily. Retrieving this information requires an 
-additional web service call so will slow down the query}
+\item{counts}{\code{logical}: return occurrence counts for all
+taxa found? \code{FALSE} by default. 
+DEPRECATED: use \code{\link{ala_counts}} instead.}
+
+\item{all_ranks}{\code{logical}: Include all available
+intermediate ranks for taxa? e.g. suborder, superfamily. Retrieving this
+information requires an additional web service call so will slow down the
+query. DEPRECATED: use \code{\link{search_taxonomy}} instead.}
 }
 \value{
-A \code{data.frame} of taxonomic information.
+An object of class \code{data.frame} and \code{ala_id}
+containing taxonomic information.
 }
 \description{
 In the ALA, all records are associated with an identifier that uniquely
@@ -45,18 +57,6 @@ select_taxa("Reptilia")
 # or equivalently:
 select_taxa("reptilia") # not case sensitive
 
-# Search with multiple ranks. This is required if a single term is a homonym.
-select_taxa(
-  list(kingdom = "Plantae", genus = "Microseris"),
-  children = TRUE,
-  counts = TRUE)
-
-# As above, but for multiple searches at once.
-select_taxa(
-   data.frame(
-     genus = c("microseris", "Eucalyptus"),
-     kingdom = "plantae"))
-
 # Search using an unique taxon identifier
 select_taxa(query = "https://id.biodiversity.org.au/node/apni/2914510")
 
@@ -68,4 +68,5 @@ select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 \code{\link{select_columns}}, \code{\link{select_filters}} and
 \code{\link{select_locations}} for other ways to restrict the information returned
 by \code{\link{ala_occurrences}} and related functions.
+\code{\link{search_taxonomy}} to look up taxonomic trees.
 }

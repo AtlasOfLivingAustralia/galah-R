@@ -1,102 +1,93 @@
 context("Test ala counts")
 
-test_that("ala counts checks inputs", {
-  skip_on_cran()
-  # ALA counts with no arguments gives the total number of records in the ALA
-  expect_gt(ala_counts(), 0)
-  # invalid facet
-  expect_error(ala_counts(group_by = "bad_facet"))
-  
-  # invalid filter
-  expect_error(ala_counts(filters = select_filters(bad_facet = 'test')))
-  
+test_that("ala_counts checks group_by field", {
+  expect_error(ala_counts(group_by = "invalid"))
 })
 
-test_that("ala counts returns expected outputs", {
-  skip_on_cran()
-  expect_type(ala_counts(
-    taxa = "https://id.biodiversity.org.au/taxon/apni/51302291"),
-    "integer")
-  expect_equal(class(ala_counts(
-    taxa = "https://id.biodiversity.org.au/taxon/apni/51302291",
-                                group_by = "basisOfRecord")), "data.frame")
-  
+vcr::use_cassette("ala_count", {
+  test_that("ala_counts works with no arguments", {
+    # ALA counts with no arguments gives the total number of records in the ALA
+    count <- ala_counts()
+    expect_gt(count, 0)
+  })
 })
 
-test_that("ala_counts works with filters", {
-  skip_on_cran()
-  expect_lt(ala_counts(filters = select_filters(year = 2000)),
-            ala_counts())
+vcr::use_cassette("taxa_count", {
+  test_that("ala_counts returns expected output", {
+    counts <- ala_counts(taxa = select_taxa("Mammalia"))
+    expect_type(counts, "integer")
+  })
 })
 
-test_that("ala_counts returns species counts", {
-  skip_on_cran()
-  expect_gt(ala_counts(type = "species"), 0)
+vcr::use_cassette("record_count_group_by", {
+  test_that("grouped ala_counts returns expected output", {
+    counts <- ala_counts(taxa = select_taxa("Mammalia"),
+                         group_by = "basisOfRecord")
+    expect_s3_class(counts, "data.frame")
+    expect_equal(names(counts), c("basisOfRecord", "count"))
+  })
 })
 
-test_that("ala_counts handles wkt area inputs", {
-  # invalid wkt
-  skip_on_cran()
-  wkt <- readLines('../testdata/short_act_wkt.txt')
-  expect_lt(ala_counts(locations = select_locations(wkt)), ala_counts())
+vcr::use_cassette("record_count_no_limit", {
+  test_that("ala counts returns all counts if no limit is provided", {
+    counts <- ala_counts(group_by = "month", limit = NULL)
+    expect_s3_class(counts, "data.frame")
+    expect_equal(nrow(counts), 12)
+  })
 })
 
-test_that("ala counts handles queries with no records", {
-  skip_on_cran()
-  filters <- select_filters(kingdom = 'non-existent')
-  expect_s3_class(ala_counts(filters = filters,
-                             group_by = 'basisOfRecord'), "data.frame")
+vcr::use_cassette("species_count_group_by", {
+  test_that("grouped ala_counts for species returns expected output", {
+    counts <- ala_counts(taxa = select_taxa("Mammalia"),
+                         filters = select_filters(year = 2020),
+                         group_by = "month",
+                         type = "species")
+    expect_s3_class(counts, "data.frame")
+    expect_equal(names(counts), c("month", "count"))
+  })
 })
 
-test_that("ala_counts works with long queries", {
-  skip_on_cran()
-  taxa <- select_taxa("Hymenoptera", children = TRUE)
-  filters <- select_filters(profile = "ALA")
-  expect_gt(ala_counts(taxa, filters), 0)
+vcr::use_cassette("species_count", {
+  test_that("ala_counts returns species counts", {
+    counts <- ala_counts(type = "species")
+    expect_type(counts, "integer")
+    expect_gt(counts, 0)
+  })
 })
 
-test_that("ala_counts works with combinations of filters", {
-  skip_on_cran()
-  filters <- select_filters(profile = "ALA", year = 2015, basisOfRecord = "PreservedSpecimen")
-  expect_gt(ala_counts(filters = filters), 0)
+vcr::use_cassette("empty_count", {
+  test_that("ala_counts handles empty count", {
+    filters <- select_filters(kingdom = 'non-existent')
+    counts <- ala_counts(filters = filters, group_by = "basisOfRecord")
+    expect_s3_class(counts, "data.frame")
+    expect_equal(nrow(counts), 0)
+    expect_equal(names(counts), c("name", "count"))
+  })
 })
 
-test_that("ala_counts handles pagination", {
-  skip_on_cran()
-  expect_equal(nrow(ala_counts(group_by = "year", limit = 101)), 101)
-})
-
-test_that("ala_counts handles multi-filter queries with pagination", {
-  skip_on_cran()
-  expect_equal(
-    nrow(ala_counts(taxa = select_taxa("Anas anas"),
-                    filters = select_filters(basisOfRecord = "HumanObservation"),
-                    group_by = "year", limit = 101)),
-    101)
-})
-
-test_that("ala_counts works with assertions", {
-  skip_on_cran()
-  expect_equal(
-    ala_counts(),
-    ala_counts(filters = select_filters(CONTINENT_INVALID = FALSE)) +
-      ala_counts(filters = select_filters(CONTINENT_INVALID = TRUE)))
+vcr::use_cassette("paginated_counts", {
+  test_that("ala_counts handles pagination", {
+    counts <- ala_counts(group_by = "year", limit = 101)
+    expect_s3_class(counts, "data.frame")
+    expect_equal(nrow(counts), 101)
+    expect_equal(names(counts), c("year", "count"))
+  })
 })
 
 test_that("ala_counts caches as expected", {
   skip_on_cran()
-  ala_config(caching = TRUE, verbose = TRUE)
+  galah_config(caching = TRUE, verbose = TRUE)
   filters <- select_filters(basisOfRecord = "FossilSpecimen")
-  counts <- ala_counts(group_by = "year", limit = 100)
-  expect_message(counts2 <- ala_counts(group_by = "year", limit = 100),
+  counts <- ala_counts(filters = filters, group_by = "year", limit = 100)
+  expect_message(counts2 <- ala_counts(filters = filters, group_by = "year",
+                                       limit = 100),
                  "Using cached file")
   expect_equal(nrow(counts), nrow(counts2))
 })
 
-
 test_that("ala_counts returns consistent data from cached/non-cached calls", {
   skip_on_cran()
-  ala_config(caching = TRUE, verbose = TRUE)
+  galah_config(caching = TRUE, verbose = TRUE)
   counts1 <- ala_counts(group = "year")
   counts2 <- ala_counts(group = "year")
   expect_equal(class(counts1$year),

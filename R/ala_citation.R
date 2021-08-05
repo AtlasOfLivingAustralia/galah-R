@@ -23,7 +23,7 @@ ala_citation <- function(data) {
     )
   }
   paste0("ALA occurrence download ", attributes(data)$doi,
-         ". Accessed from R with galah",
+         ". Accessed from R with ", galah_version_string(),
          " (https://github.com/AtlasOfLivingAustralia/galah/) on ",
          Sys.Date(), ".")
 }

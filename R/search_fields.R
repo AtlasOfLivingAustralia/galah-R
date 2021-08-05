@@ -49,26 +49,26 @@
 
 search_fields <- function(
   query,
-  type = "all" # or one of "fields", "layers", "assertions", "media"
+  type = c("all", "fields", "layers", "assertions", "media", "other")
 ){
-  assert_that(type %in% c("all", "fields", "layers", "assertions", "media"),
-              msg = "`type` must be one of c('all', 'fields', 'layers',
-              'assertions', 'media')")
+  type <- match.arg(type)
   # ensure data can be queried
   df <- switch(type,
     "fields" = get_fields(),
     "layers" = get_layers(),
     "assertions" = get_assertions(),
     "media" = get_media(),
+    "other" = get_other_fields(),
     "all" = {
       fields <- get_fields()
       layers <- get_layers()
       ass <- get_assertions()
       media <- get_media()
+      other <- get_other_fields()
       data.table::rbindlist(list(fields[!(fields$id %in% layers$id), ],
-                                 layers, ass, media), fill = TRUE)
+                                 layers, ass, media, other), fill = TRUE)
     },
-    stop("`type`` must be one of c('fields', 'layers', 'assertions', 'all')")
+    stop("`type`` must be one of c('fields', 'layers', 'assertions','other', 'all')")
   )
 
   # merge info together into searchable strings
@@ -86,7 +86,6 @@ search_fields <- function(
 # Helper functions to get different field classes
 get_fields <- function() {
   fields <- all_fields()
-
   # remove fields where class is contextual or environmental
   fields <- fields[!(fields$classs %in% c("Contextual", "Environmental")),]
 
@@ -123,6 +122,12 @@ get_layers <- function() {
   names(result)[1] <- "id"
   result$type <- "layers"
   result
+}
+
+# Return fields not returned by the API
+get_other_fields <- function() {
+  data.frame(id = "qid", description = "Reference to pre-generated query",
+             type = "other")
 }
 
 # There is no API call to get these fields, so for now they are manually

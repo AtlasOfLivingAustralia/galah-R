@@ -35,6 +35,6 @@ ala_occurrences(locations = select_locations(wkt))
 }
 \seealso{
 \code{\link{select_taxa}}, \code{\link{select_filters}} and
-\code{\link{select_columns}} for other ways to restrict the information returned
-by \code{\link{ala_occurrences}} and related functions.
+\code{\link{select_columns}} for other ways to restrict the information
+returned by \code{\link{ala_occurrences}} and related functions.
 }

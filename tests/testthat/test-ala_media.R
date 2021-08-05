@@ -1,18 +1,18 @@
 context("Test ALA media")
-teardown(unlink("test_media"))
+teardown(unlink("test_media", recursive = TRUE))
 
 test_that("ala media check inputs", {
   skip_on_cran()
   expect_error(ala_media())
   expect_error(ala_media(taxa = select_taxa("Microseris lanceolata"),
-                         download_dir = 'non_existent'))
+                         download_dir = "non_existent"))
 })
 
 test_that("ala media downloads images", {
   skip_on_cran()
-  ala_config(email = "ala4r@ala.org.au")
+  galah_config(email = "ala4r@ala.org.au")
   media_dir <- "test_media"
-  unlink(media_dir)
+  unlink(media_dir, recursive = TRUE)
   dir.create(media_dir)
   
   media_data <- ala_media(taxa = select_taxa("Microseris lanceolata"),
@@ -24,7 +24,7 @@ test_that("ala media downloads images", {
   unlink(media_dir, recursive = TRUE)
 })
 
-test_that("ala media different file formats", {
+test_that("ala media handles different file formats", {
   skip_on_cran()
   media_dir <- "test_media"
   dir.create(media_dir)

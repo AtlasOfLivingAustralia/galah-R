@@ -37,16 +37,23 @@ quality-control criteria.
 }
 \strong{\code{Lookup}}
 \itemize{
+  \item\code{\link{search_taxonomy}} Free-text search for taxonomic hierarchies
   \item\code{\link{search_fields}} Free-text search for layers and fields
+  \item\code{\link{find_ranks}} List available taxonomic ranks
   \item\code{\link{find_field_values}} List possible values for a given field
   \item\code{\link{find_profiles}} List data quality profiles
   \item\code{\link{find_profile_attributes}} List filters included in a data quality profile
   \item\code{\link{find_reasons}} List valid download reasons
   \item\code{\link{find_atlases}} List supported international atlases
 }
+\strong{\code{Cache management}}
+\itemize{
+  \item\code{\link{find_cached_files}} List previously cached files and their metadata
+  \item\code{\link{clear_cached_files}} Clear previously cached files and their metadata
+}
 \strong{\code{Help}}
 \itemize{
-  \item\code{\link{ala_config}} Package configuration options
+  \item\code{\link{galah_config}} Package configuration options
   \item\code{\link{ala_citation}} Citation for a dataset
 }
 }

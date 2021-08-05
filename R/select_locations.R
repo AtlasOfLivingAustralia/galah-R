@@ -9,8 +9,8 @@
 #' simplified.
 #' @return WKT string representing the area provided.
 #' @seealso \code{\link{select_taxa}}, \code{\link{select_filters}} and
-#' \code{\link{select_columns}} for other ways to restrict the information returned
-#' by \code{\link{ala_occurrences}} and related functions.
+#' \code{\link{select_columns}} for other ways to restrict the information
+#' returned by \code{\link{ala_occurrences}} and related functions.
 #' @examples \dontrun{
 #' # Search for records using a shapefile
 #' locations <- select_locations(st_read(path/to/shapefile))
@@ -21,14 +21,13 @@
 #' -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
 #' ala_occurrences(locations = select_locations(wkt))
 #' }
-#' @export select_locations
-
+#' @export
 select_locations <- function(query) {
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons should be converted to multipolygons
   
   if ("sf" %in% class(query) || "sfc" %in% class(query)) {
-    return(build_wkt(query))
+    out_query <- build_wkt(query)
   } else {
     validate_wkt(query)
     if (str_detect(query, "POLYGON") & ! str_detect(query, "MULTIPOLYGON")) {
@@ -37,8 +36,10 @@ select_locations <- function(query) {
       # add an extra bracket
       query <- paste0(query, ")")
     }
-    return(query)
+    out_query <- query
   }
+  class(out_query) <- append(class(out_query), "ala_locations")
+  out_query
 
 }
 
