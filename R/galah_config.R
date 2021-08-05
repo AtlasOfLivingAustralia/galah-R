@@ -45,7 +45,7 @@
 #' @return For \code{ala_config()}, a \code{list} of all options.
 #' When \code{ala_config(...)} is called with arguments, nothing is returned
 #' but the configuration is set.
-#' @seealso As of galah v1.3.0 please use \code{\link{galah_config()}} instead
+#' @seealso As of galah v1.3.0 please use \code{galah_config()} instead
 #' of \code{ala_config}.
 #' @examples
 #' \dontrun{
