@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 01:46:36 GMT
+      date: Fri, 06 Aug 2021 02:11:13 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -29,7 +29,7 @@ http_interactions:
       file: no
       string: '{"pageSize":0,"startIndex":0,"totalRecords":200068504,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{}}'
-  recorded_at: 2021-08-06 01:46:23 GMT
+  recorded_at: 2021-08-06 02:11:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -48,7 +48,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 01:46:39 GMT
+      date: Fri, 06 Aug 2021 02:11:17 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -708,7 +708,7 @@ http_interactions:
         year the event occurred in.  http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year_p","downloadDescription":"Year
         - parsed","classs":"Event"},{"name":"zone","dataType":"string","indexed":false,"stored":false,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset","downloadName":"zone"}]'
-  recorded_at: 2021-08-06 01:46:23 GMT
+  recorded_at: 2021-08-06 02:11:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -727,7 +727,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 01:46:16 GMT
+      date: Fri, 06 Aug 2021 02:10:54 GMT
       server: Apache/2.4.7 (Ubuntu)
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
@@ -887,14 +887,14 @@ http_interactions:
         Boroughs and Unitary Authorities (England)","uid":"130","displayname":"Districts,
         Boroughs and Unitary Authorities (England)","enabled":true,"name":"district_borough_ua_england","id":130,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://naturalengland-defra.opendata.arcgis.com/datasets/national-nature-reserves-england","classification1":"England","classification2":"Designated
         Areas","notes":"","source_link":"https://naturalengland-defra.opendata.arcgis.com/datasets/national-nature-reserves-england","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
-        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance
-        Survey data © Crown copyright and database right 2020.","maxlatitude":55.72284,"minlatitude":49.95881,"minlongitude":-5.26872,"maxlongitude":1.72882,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:National_Nature_Reserves_England_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/National_Nature_Reserves_England_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"21/05/2020","datalang":"en","licence_level":"3","source":"Natural
+        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance Survey
+        data © Crown copyright and database right 2020.","maxlatitude":55.72284,"minlatitude":49.95881,"minlongitude":-5.26872,"maxlongitude":1.72882,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:National_Nature_Reserves_England_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/National_Nature_Reserves_England_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"21/05/2020","datalang":"en","licence_level":"3","source":"Natural
         England  https://naturalengland-defra.opendata.arcgis.com/datasets/national-nature-reserves-england","description":"National
         Nature Reserves (England)","uid":"236","displayname":"National Nature Reserves
         (England)","enabled":true,"name":"National_Nature_Reserves_England_FINAL","id":236,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://naturalengland-defra.opendata.arcgis.com/datasets/national-character-areas-england
         ","classification1":"England","classification2":"Landscape","notes":"","source_link":"https://naturalengland-defra.opendata.arcgis.com/datasets/national-character-areas-england","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
-        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance
-        Survey data © Crown copyright and database right 2020.","maxlatitude":55.81156,"minlatitude":49.86469,"minlongitude":-6.41855,"maxlongitude":1.76292,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:National_Character_Areas_WGS84&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/National_Character_Areas_WGS84","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"05/07/2018","datalang":"en","licence_level":"3","source":"Natural
+        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance Survey
+        data © Crown copyright and database right 2020.","maxlatitude":55.81156,"minlatitude":49.86469,"minlongitude":-6.41855,"maxlongitude":1.76292,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:National_Character_Areas_WGS84&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/National_Character_Areas_WGS84","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"05/07/2018","datalang":"en","licence_level":"3","source":"Natural
         England  https://naturalengland-defra.opendata.arcgis.com/datasets/national-character-areas-england","description":"National
         Character Areas (England)","uid":"235","displayname":"National Character Areas
         (England)","enabled":true,"name":"National_Character_Areas_WGS84","id":235,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"","classification1":"Isle
@@ -933,8 +933,8 @@ http_interactions:
         Vegetation Classification (Scotland)","enabled":true,"name":"nvc_scot_edited","id":123,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://github.com/BiologicalRecordsCentre/vice-counties","classification1":"GB","classification2":"Reference","notes":"","source_link":"https://github.com/BiologicalRecordsCentre/vice-counties","licence_link":"https://github.com/BiologicalRecordsCentre/vice-counties","licence_notes":"Licence
         type: GNU General Public License","maxlatitude":61.0601,"minlatitude":49.66551,"minlongitude":-9.02337,"maxlongitude":2.09,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:County_12mile_region_Nov2020&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/County_12mile_region_Nov2020","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"03/11/2020","datalang":"en","licence_level":"3","source":"Biological
         Records Centre  https://github.com/BiologicalRecordsCentre/vice-counties","description":"Watsonian
-        Vice Counties – 12 mile (GB)","uid":"256","displayname":"Watsonian Vice
-        Counties – 12 mile (GB)","enabled":true,"name":"County_12mile_region_Nov2020","id":256,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://nbn.org.uk/","classification1":"UK","classification2":"Reference","notes":"For
+        Vice Counties – 12 mile (GB)","uid":"256","displayname":"Watsonian Vice Counties
+        – 12 mile (GB)","enabled":true,"name":"County_12mile_region_Nov2020","id":256,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://nbn.org.uk/","classification1":"UK","classification2":"Reference","notes":"For
         further information about this layer please contact the National Biodiversity
         Network on support@nbn.org.uk","source_link":"https://nbn.org.uk/","licence_link":"https://creativecommons.org/licenses/by/4.0/","licence_notes":"Licence
         type: CC-BY.  Attribution: Contains public sector information licensed under
@@ -1078,9 +1078,9 @@ http_interactions:
         Most of the Heritage coastal strips were defined in 1973, 1974 and one in
         1984. The descriptions and paper maps associated with this dataset are the
         legal documents.","source_link":"https://libcat.naturalresources.wales/webview/?infile=details.glu&loid=98745&rs=202872&hitno=2&straight_to_details=&tiarray=full","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
-        Type: OGL. Attribution: © CNC/NRW All rights Reserved. Contains Ordnance
-        Survey Data. Ordnance Survey Licence number 100019741. Crown Copyright and
-        Database Right","maxlatitude":53.44003,"minlatitude":51.37973,"minlongitude":-5.424,"maxlongitude":-3.40415,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:NRW_HERITAGE_COASTPolygon&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/NRW_HERITAGE_COASTPolygon","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"03/01/2017","datalang":"en","licence_level":"3","source":"Natural
+        Type: OGL. Attribution: © CNC/NRW All rights Reserved. Contains Ordnance Survey
+        Data. Ordnance Survey Licence number 100019741. Crown Copyright and Database
+        Right","maxlatitude":53.44003,"minlatitude":51.37973,"minlongitude":-5.424,"maxlongitude":-3.40415,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:NRW_HERITAGE_COASTPolygon&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/NRW_HERITAGE_COASTPolygon","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"03/01/2017","datalang":"en","licence_level":"3","source":"Natural
         Resources Wales http://lle.gov.wales/catalogue/item/ProtectedSitesHeritageCoast/?lang=en","description":"Heritage
         Coasts (Wales)","uid":"53","displayname":"Heritage Coasts (Wales)","enabled":true,"name":"NRW_HERITAGE_COASTPolygon","id":53,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","dt_added":1486425600000,"scale":"","metadatapath":"https://gateway.snh.gov.uk/natural-spaces/dataset.jsp?dsid=NHFZ","classification1":"Scotland","classification2":"Landscape","notes":"Many
         countries around the world have begun to adopt zonation systems as a strategic
@@ -1121,8 +1121,8 @@ http_interactions:
         Wetlands of International Importance (Scotland)","uid":"13","displayname":"RAMSAR
         Wetlands of International Importance (Scotland)","enabled":true,"name":"ramsar_scotland","id":13,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://naturalengland-defra.opendata.arcgis.com/datasets/local-nature-reserves-england","classification1":"England","classification2":"Designated
         Areas","notes":"","source_link":"https://naturalengland-defra.opendata.arcgis.com/datasets/local-nature-reserves-england","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
-        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance
-        Survey data © Crown copyright and database right 2020.","maxlatitude":55.34883,"minlatitude":50.14076,"minlongitude":-5.48439,"maxlongitude":1.75793,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:LNR_England_July2020_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/LNR_England_July2020_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"27/07/2020","datalang":"en","licence_level":"3","source":"Natural
+        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance Survey
+        data © Crown copyright and database right 2020.","maxlatitude":55.34883,"minlatitude":50.14076,"minlongitude":-5.48439,"maxlongitude":1.75793,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:LNR_England_July2020_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/LNR_England_July2020_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"27/07/2020","datalang":"en","licence_level":"3","source":"Natural
         England  https://naturalengland-defra.opendata.arcgis.com/datasets/local-nature-reserves-england","description":"Local
         Nature Reserves (England)","uid":"234","displayname":"Local Nature Reserves
         (England)","enabled":true,"name":"LNR_England_July2020_FINAL","id":234,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/89a2f20f-8592-4e8c-b6ad-34cf2d4fad06","classification1":"Scotland","classification2":"Protected
@@ -1314,12 +1314,12 @@ http_interactions:
         Site (WHS) by the United Nations Educational, Scientific and Cultural Organisation
         (UNESCO) in 1986. The site is of outstanding universal value and meets two
         of the criteria set out in the World Heritage Convention, namely it: i). is
-        an outstanding example representing major stages of the earth’s history,
-        including the record of life, significant on-going geological processes in
-        the development of landforms, or significant geomorphic or physiographic features.
-        ii). contains superlative natural phenomena or areas of exceptional natural
-        beauty and aesthetic importance. The Site occupies approximately 70ha of land
-        and encompasses a further 160ha of sea along the North Antrim Coast.","source_link":"https://www.opendatani.gov.uk/dataset/world-heritage-site","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
+        an outstanding example representing major stages of the earth’s history, including
+        the record of life, significant on-going geological processes in the development
+        of landforms, or significant geomorphic or physiographic features. ii). contains
+        superlative natural phenomena or areas of exceptional natural beauty and aesthetic
+        importance. The Site occupies approximately 70ha of land and encompasses a
+        further 160ha of sea along the North Antrim Coast.","source_link":"https://www.opendatani.gov.uk/dataset/world-heritage-site","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
         type: OGL.  Attribution: Contains public sector information licensed under
         the Open Government Licence v3.0.  ","maxlatitude":55.2549,"minlatitude":55.23258,"minlongitude":-6.52841,"maxlongitude":-6.47732,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:World_Heritage_Site_NI&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/World_Heritage_Site_NI","environmentalvalueunits":"","keywords":"Protected
         Areas, Northern Ireland, Special Protection Areas","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"12/04/2017","datalang":"en","licence_level":"3","source":"DAERA
@@ -1345,36 +1345,36 @@ http_interactions:
         Areas","notes":"If you re-use this information you must acknowledge the source
         in your product or application by including or linking to the following attribution
         statements: Contains Joint Nature Conservation Committee data © copyright
-        and database right [year]. Contains Natural England data © copyright and
-        database right [year]. Contains Scottish Natural Heritage data © copyright
-        and database right [year]. Contains Natural Resources Wales data © copyright
-        and database right [year]. Contains Northern Ireland Environment Agency data
-        © copyright and database right [year]. Contains Isle of Man Government data
-        © copyright and database right [year]. Contains UK Hydrographic Office data
-        © copyright and database right [year]. Contains Ordnance Survey data © Crown
-        copyright and database right [year].","source_link":"http://jncc.defra.gov.uk/protectedsites/SACselection/gis_data/terms_conditions.asp","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
+        and database right [year]. Contains Natural England data © copyright and database
+        right [year]. Contains Scottish Natural Heritage data © copyright and database
+        right [year]. Contains Natural Resources Wales data © copyright and database
+        right [year]. Contains Northern Ireland Environment Agency data © copyright
+        and database right [year]. Contains Isle of Man Government data © copyright
+        and database right [year]. Contains UK Hydrographic Office data © copyright
+        and database right [year]. Contains Ordnance Survey data © Crown copyright
+        and database right [year].","source_link":"http://jncc.defra.gov.uk/protectedsites/SACselection/gis_data/terms_conditions.asp","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
         type: OGL v3.0. For attribution statements please see Notes below.","maxlatitude":60.87909,"minlatitude":50.07861,"minlongitude":-8.71739,"maxlongitude":2.30333,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:c20181212_UKSPAswithMarineComponents_WGS84.sh&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/c20181212_UKSPAswithMarineComponents_WGS84.sh","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"14/12/2018","datalang":"en","licence_level":"3","source":"JNCC  http://jncc.defra.gov.uk/protectedsites/SACselection/gis_data/terms_conditions.asp","description":"Special
         Protection Areas with marine components (UK)","uid":"142","displayname":"Special
         Protection Areas with marine components (UK)","enabled":true,"name":"c20181212_UKSPAswithMarineComponents_WGS84.sh","id":142,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"http://jncc.defra.gov.uk/protectedsites/SACselection/gis_data/terms_conditions.asp","classification1":"UK","classification2":"Protected
         Areas","notes":"If you re-use this information you must acknowledge the source
         in your product or application by including or linking to the following attribution
         statements:\r\n\r\n Contains Joint Nature Conservation Committee data © copyright
-        and database right [year].\r\n Contains Natural England data © copyright
-        and database right [year].\r\n Contains Scottish Natural Heritage data ©
-        copyright and database right [year].\r\n Contains Natural Resources Wales
-        data © copyright and database right [year].\r\n Contains Northern Ireland
-        Environment Agency data © copyright and database right [year].\r\n Contains
-        Isle of Man Government data © copyright and database right [year].\r\n Contains
-        UK Hydrographic Office data © copyright and database right [year].\r\n Contains
-        Ordnance Survey data © Crown copyright and database right [year].","source_link":"http://jncc.defra.gov.uk/protectedsites/SACselection/gis_data/terms_conditions.asp","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
+        and database right [year].\r\n Contains Natural England data © copyright and
+        database right [year].\r\n Contains Scottish Natural Heritage data © copyright
+        and database right [year].\r\n Contains Natural Resources Wales data © copyright
+        and database right [year].\r\n Contains Northern Ireland Environment Agency
+        data © copyright and database right [year].\r\n Contains Isle of Man Government
+        data © copyright and database right [year].\r\n Contains UK Hydrographic Office
+        data © copyright and database right [year].\r\n Contains Ordnance Survey data
+        © Crown copyright and database right [year].","source_link":"http://jncc.defra.gov.uk/protectedsites/SACselection/gis_data/terms_conditions.asp","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
         type: OGL v3.0.  For attribution statements please see Notes below.","maxlatitude":60.8082,"minlatitude":49.84911,"minlongitude":-19.25,"maxlongitude":3.24986,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:c20181212_UKSACswithMarineComponents_WGS84&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/c20181212_UKSACswithMarineComponents_WGS84","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"14/12/2018","datalang":"en","licence_level":"3","source":"JNCC  http://jncc.defra.gov.uk/protectedsites/SACselection/gis_data/terms_conditions.asp","description":"Special
         Areas of Conservation with marine components (UK)","uid":"141","displayname":"Special
         Areas of Conservation with marine components (UK)","enabled":true,"name":"c20181212_UKSACswithMarineComponents_WGS84","id":141,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"http://lle.gov.wales/catalogue/item/ProtectedSitesBiosphericReserves/?lang=en","classification1":"Wales","classification2":"Designated
         Areas","notes":"","source_link":"http://lle.gov.wales/catalogue/item/ProtectedSitesBiosphericReserves/?lang=en","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
-        type: OGL.  Attribution:  Contains Natural Resources Wales information ©
-        Natural Resources Wales and Database Right. All rights Reserved. Contains
-        Ordnance Survey Data. Ordnance Survey Licence number 100019741. Crown Copyright
-        and Database Right.","maxlatitude":52.79868,"minlatitude":52.39404,"minlongitude":-4.26552,"maxlongitude":-3.53573,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:biosphere_wales_edited&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/biosphere_wales_edited","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"21/07/2014","datalang":"en","licence_level":"3","source":"Natural
+        type: OGL.  Attribution:  Contains Natural Resources Wales information © Natural
+        Resources Wales and Database Right. All rights Reserved. Contains Ordnance
+        Survey Data. Ordnance Survey Licence number 100019741. Crown Copyright and
+        Database Right.","maxlatitude":52.79868,"minlatitude":52.39404,"minlongitude":-4.26552,"maxlongitude":-3.53573,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:biosphere_wales_edited&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/biosphere_wales_edited","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"21/07/2014","datalang":"en","licence_level":"3","source":"Natural
         Resources Wales  http://lle.gov.wales/catalogue/item/ProtectedSitesBiosphericReserves/?lang=en","description":"Biospheric
         Reserves (Wales)","uid":"135","displayname":"Biospheric Reserves (Wales)","enabled":true,"name":"biosphere_wales_edited","id":135,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://naturalengland-defra.opendata.arcgis.com/datasets/marine-conservation-zones-england","classification1":"England","classification2":"Protected
         Areas","notes":"These are the boundaries for Marine Conservation Zones, proposed
@@ -1457,8 +1457,8 @@ http_interactions:
         Network: Woodland Level 2 (Priority) (Wales)","uid":"207","displayname":"Habitat
         Network: Woodland Level 2 (Priority) (Wales)","enabled":true,"name":"Woodland_Level2_FINAL","id":207,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://naturalengland-defra.opendata.arcgis.com/datasets/areas-of-outstanding-natural-beauty-england","classification1":"England","classification2":"Designated
         Areas","notes":"","source_link":"https://naturalengland-defra.opendata.arcgis.com/datasets/areas-of-outstanding-natural-beauty-england","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
-        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance
-        Survey data © Crown copyright and database right 2020.","maxlatitude":55.74891,"minlatitude":49.85467,"minlongitude":-6.46254,"maxlongitude":1.72962,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:Areas_of_Outstanding_Natural_Beauty__England_WGS84&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/Areas_of_Outstanding_Natural_Beauty__England_WGS84","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"05/07/2018","datalang":"en","licence_level":"3","source":"Natural
+        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance Survey
+        data © Crown copyright and database right 2020.","maxlatitude":55.74891,"minlatitude":49.85467,"minlongitude":-6.46254,"maxlongitude":1.72962,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:Areas_of_Outstanding_Natural_Beauty__England_WGS84&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/Areas_of_Outstanding_Natural_Beauty__England_WGS84","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"05/07/2018","datalang":"en","licence_level":"3","source":"Natural
         England  https://naturalengland-defra.opendata.arcgis.com/datasets/areas-of-outstanding-natural-beauty-england","description":"Areas
         of Outstanding Natural Beauty (England)","uid":"233","displayname":"Areas
         of Outstanding Natural Beauty (England)","enabled":true,"name":"Areas_of_Outstanding_Natural_Beauty__England_WGS84","id":233,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"maxlatitude":55.78301,"minlatitude":49.89301,"minlongitude":-6.35149,"maxlongitude":1.75739,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:BBG_15.4&format=image/png&styles=","shape":true,"path_orig":"shape/BBG_15.4","description":"Burial
@@ -1513,8 +1513,8 @@ http_interactions:
         Commission Scotland","description":"FCS Caledonian Pinewood (Scotland)","uid":"198","displayname":"FCS
         Caledonian Pinewood (Scotland)","enabled":true,"name":"FCS_Caledonian_Pinewood_core_WGS84","id":198,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://naturalengland-defra.opendata.arcgis.com/datasets/ramsar-england/data","classification1":"England","classification2":"Protected
         Areas","notes":"","source_link":"https://naturalengland-defra.opendata.arcgis.com/datasets/ramsar-england/data","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
-        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance
-        Survey data © Crown copyright and database right 2020.","maxlatitude":55.75424,"minlatitude":49.86319,"minlongitude":-6.41862,"maxlongitude":1.71671,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:Ramsar_England_July2020_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/Ramsar_England_July2020_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"30/07/2020","datalang":"en","licence_level":"3","source":"Natural
+        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance Survey
+        data © Crown copyright and database right 2020.","maxlatitude":55.75424,"minlatitude":49.86319,"minlongitude":-6.41862,"maxlongitude":1.71671,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:Ramsar_England_July2020_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/Ramsar_England_July2020_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"30/07/2020","datalang":"en","licence_level":"3","source":"Natural
         England  https://naturalengland-defra.opendata.arcgis.com/datasets/ramsar-england/data","description":"RAMSAR
         (Wetlands of International Importance) (England)","uid":"237","displayname":"RAMSAR
         (Wetlands of International Importance) (England)","enabled":true,"name":"Ramsar_England_July2020_FINAL","id":237,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/d3182d66-1d9e-488c-9ca3-7ec2dc1ddcc1
@@ -1586,8 +1586,8 @@ http_interactions:
         River Habitat - Headwater Areas (England)","uid":"208","displayname":"Priority
         River Habitat - Headwater Areas (England)","enabled":true,"name":"Priority_River_Habitat__Headwater_Areas_FINAL","id":208,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://naturalengland-defra.opendata.arcgis.com/datasets/sites-of-special-scientific-interest-england","classification1":"England","classification2":"Protected
         Areas","notes":"","source_link":"https://naturalengland-defra.opendata.arcgis.com/datasets/sites-of-special-scientific-interest-england","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
-        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance
-        Survey data © Crown copyright and database right 2020.","maxlatitude":55.81168,"minlatitude":49.86319,"minlongitude":-6.41862,"maxlongitude":1.75308,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:SSSI_England_July2020_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/SSSI_England_July2020_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"30/07/2020","datalang":"en","licence_level":"3","source":"Natural
+        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance Survey
+        data © Crown copyright and database right 2020.","maxlatitude":55.81168,"minlatitude":49.86319,"minlongitude":-6.41862,"maxlongitude":1.75308,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:SSSI_England_July2020_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/SSSI_England_July2020_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"30/07/2020","datalang":"en","licence_level":"3","source":"Natural
         England  https://naturalengland-defra.opendata.arcgis.com/datasets/sites-of-special-scientific-interest-england","description":"Sites
         of Special Scientific Interest (England)","uid":"238","displayname":"Sites
         of Special Scientific Interest (England)","enabled":true,"name":"SSSI_England_July2020_FINAL","id":238,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://data.gov.uk/dataset/1707e638-6a2d-48f5-a534-1db0b240cc37/casi-and-lidar-habitat-map
@@ -1618,14 +1618,14 @@ http_interactions:
         2019 ","datalang":"en","licence_level":"3","source":"Ordnance Survey   https://www.ordnancesurvey.co.uk/opendatadownload/products.html  ","description":"Greenspace
         (GB)","uid":"216","displayname":"Greenspace (GB)","enabled":true,"name":"GB_Greenspace_FIX_DISS","id":216,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://naturalengland-defra.opendata.arcgis.com/datasets/heritage-coasts-england
         ","classification1":"England","classification2":"Designated Areas","notes":"Heritage
-        coasts are ‘defined’ rather than designated, so there isn’t a statutory
-        designation process like that associated with national parks and areas of
-        outstanding natural beauty (AONB). They were established to conserve the best
-        stretches of undeveloped coast in England. A heritage coast is defined by
-        agreement between the relevant maritime local authorities and Natural England.
-        The national policy framework and objectives for heritage coasts were developed
-        by the Countryside Commission, a predecessor of Natural England, and ratified
-        by government. ","source_link":"https://naturalengland-defra.opendata.arcgis.com/datasets/heritage-coasts-england","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
+        coasts are ‘defined’ rather than designated, so there isn’t a statutory designation
+        process like that associated with national parks and areas of outstanding
+        natural beauty (AONB). They were established to conserve the best stretches
+        of undeveloped coast in England. A heritage coast is defined by agreement
+        between the relevant maritime local authorities and Natural England. The national
+        policy framework and objectives for heritage coasts were developed by the
+        Countryside Commission, a predecessor of Natural England, and ratified by
+        government. ","source_link":"https://naturalengland-defra.opendata.arcgis.com/datasets/heritage-coasts-england","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
         type: OGL.  Attribution: © Natural England copyright. Contains Ordnance Survey
         data © Crown copyright and database right [year].","maxlatitude":55.8195,"minlatitude":49.85497,"minlongitude":-6.46433,"maxlongitude":1.75266,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:Heritage_Coasts_England&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/Heritage_Coasts_England","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"21/02/2017","datalang":"en","licence_level":"3","source":"Natural
         England  https://naturalengland-defra.opendata.arcgis.com/datasets/heritage-coasts-england","description":"Heritage
@@ -1639,8 +1639,8 @@ http_interactions:
         Local Wildlife Sites","uid":"214","displayname":"North Merseyside Local Wildlife
         Sites","enabled":true,"name":"nm_lws_WGS84","id":214,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://naturalengland-defra.opendata.arcgis.com/datasets/special-protection-areas-england","classification1":"England","classification2":"Protected
         Areas","notes":"","source_link":"https://naturalengland-defra.opendata.arcgis.com/datasets/special-protection-areas-england","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
-        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance
-        Survey data © Crown copyright and database right 2020.","maxlatitude":55.75424,"minlatitude":49.86319,"minlongitude":-6.41862,"maxlongitude":2.30333,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:Special_Protection_Areas__England_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/Special_Protection_Areas__England_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"28/05/2020","datalang":"en","licence_level":"3","source":"Natural
+        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance Survey
+        data © Crown copyright and database right 2020.","maxlatitude":55.75424,"minlatitude":49.86319,"minlongitude":-6.41862,"maxlongitude":2.30333,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:Special_Protection_Areas__England_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/Special_Protection_Areas__England_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"28/05/2020","datalang":"en","licence_level":"3","source":"Natural
         England  https://naturalengland-defra.opendata.arcgis.com/datasets/special-protection-areas-england","description":"Special
         Protection Areas (England)","uid":"239","displayname":"Special Protection
         Areas (England)","enabled":true,"name":"Special_Protection_Areas__England_FINAL","id":239,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://lle.gov.wales/catalogue/item/HabitatMappingForConservationAndManagementOfTheSouthernIrishSeaHABMAP/?lang=en","classification1":"Wales","classification2":"Habitats","notes":"This
@@ -1680,8 +1680,8 @@ http_interactions:
         type: OGL.  Attribution: Contains public sector information licensed under
         the Open Government Licence v3.0.","maxlatitude":54.74829,"minlatitude":54.04762,"minlongitude":-7.55421,"maxlongitude":-5.51444,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:PriorityHabitats_Fens_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/PriorityHabitats_Fens_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"30/08/2019","datalang":"en","licence_level":"3","source":"Northern
         Ireland Environment Agency (NIEA)  https://www.opendatani.gov.uk/dataset/priorityhabitats_fens","description":"Priority
-        Habitats – Fens (Northern Ireland)","uid":"224","displayname":"Priority
-        Habitats – Fens (Northern Ireland)","enabled":true,"name":"PriorityHabitats_Fens_FINAL","id":224,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://www.opendatani.gov.uk/dataset/priorityhabitats_grasslandinventory_update","classification1":"Northern
+        Habitats – Fens (Northern Ireland)","uid":"224","displayname":"Priority Habitats
+        – Fens (Northern Ireland)","enabled":true,"name":"PriorityHabitats_Fens_FINAL","id":224,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://www.opendatani.gov.uk/dataset/priorityhabitats_grasslandinventory_update","classification1":"Northern
         Ireland","classification2":"Habitats","notes":"","source_link":"https://www.opendatani.gov.uk/dataset/priorityhabitats_grasslandinventory_update","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
         type: OGL.  Attribution: Contains public sector information licensed under
         the Open Government Licence v3.0.","maxlatitude":55.31019,"minlatitude":54.04046,"minlongitude":-8.16288,"maxlongitude":-5.56377,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:PriorityHabitats_Grassland_FINAL2&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/PriorityHabitats_Grassland_FINAL2","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"30/08/2019","datalang":"en","licence_level":"3","source":"Northern
@@ -1736,8 +1736,8 @@ http_interactions:
         Forest Inventory Woodland Wales 2018","uid":"221","displayname":"National
         Forest Inventory Woodland Wales 2018","enabled":true,"name":"NFI_Woodland_Wales_2018_FIXED","id":221,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://naturalengland-defra.opendata.arcgis.com/datasets/special-areas-of-conservation-england","classification1":"England","classification2":"Protected
         Areas","notes":"","source_link":"https://naturalengland-defra.opendata.arcgis.com/datasets/special-areas-of-conservation-england","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
-        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance
-        Survey data © Crown copyright and database right 2020.","maxlatitude":55.95575,"minlatitude":49.84911,"minlongitude":-6.47219,"maxlongitude":3.20361,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:Special_Areas_of_Conservation__England_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/Special_Areas_of_Conservation__England_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"26/07/2019","datalang":"en","licence_level":"3","source":"Natural
+        type: OGL.  Attribution:  © Natural England copyright. Contains Ordnance Survey
+        data © Crown copyright and database right 2020.","maxlatitude":55.95575,"minlatitude":49.84911,"minlongitude":-6.47219,"maxlongitude":3.20361,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:Special_Areas_of_Conservation__England_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/Special_Areas_of_Conservation__England_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"26/07/2019","datalang":"en","licence_level":"3","source":"Natural
         England  https://naturalengland-defra.opendata.arcgis.com/datasets/special-areas-of-conservation-england","description":"Special
         Areas of Conservation (England)","uid":"244","displayname":"Special Areas
         of Conservation (England)","enabled":true,"name":"Special_Areas_of_Conservation__England_FINAL","id":244,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"https://github.com/SK53/Irish-Vice-Counties/tree/master/vice_counties","classification1":"Ireland","classification2":"Reference","notes":"","source_link":"https://github.com/SK53/Irish-Vice-Counties/tree/master/vice_counties","licence_link":"https://opendatacommons.org/licenses/odbl/","licence_notes":"Licence
@@ -1870,8 +1870,8 @@ http_interactions:
         Forestry Open Data https://open-data-scottishforestry.hub.arcgis.com/","description":"Caledonian
         Pinewood Inventory (Scotland)","uid":"268","displayname":"Caledonian Pinewood
         Inventory (Scotland)","enabled":true,"name":"Caledonian_Pinewood_Inventory_core2","id":268,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"","classification1":"England","classification2":"Habitats","notes":"","source_link":"","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
-        type:  OGL  Attribution:  © Environment Agency copyright and/or database
-        right 2015. All rights reserved.","maxlatitude":55.77473,"minlatitude":50.08163,"minlongitude":-5.44176,"maxlongitude":1.72057,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:Saltmarsh_Zonation_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/Saltmarsh_Zonation_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"31/03/2006","datalang":"en","licence_level":"3","source":"https://data.gov.uk/dataset/39510039-e1ee-4234-9ad4-9d923b4dcaf1/saltmarsh-zonation","description":"Saltmarsh
+        type:  OGL  Attribution:  © Environment Agency copyright and/or database right
+        2015. All rights reserved.","maxlatitude":55.77473,"minlatitude":50.08163,"minlongitude":-5.44176,"maxlongitude":1.72057,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:Saltmarsh_Zonation_FINAL&format=image/png&styles=","pid":"","shape":true,"path_orig":"shape/Saltmarsh_Zonation_FINAL","environmentalvalueunits":"","keywords":"","environmentalvaluemax":"","environmentalvaluemin":"","lookuptablepath":"","citation_date":"31/03/2006","datalang":"en","licence_level":"3","source":"https://data.gov.uk/dataset/39510039-e1ee-4234-9ad4-9d923b4dcaf1/saltmarsh-zonation","description":"Saltmarsh
         Zonation (England)","uid":"269","displayname":"Saltmarsh Zonation (England)","enabled":true,"name":"Saltmarsh_Zonation_FINAL","id":269,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"mddatest":"","mdhrlv":"","respparty_role":"","path_1km":"","domain":"","scale":"","metadatapath":"","classification1":"Scotland","classification2":"Habitats","notes":"","source_link":"Scottish
         Forestry Open Data https://open-data-scottishforestry.hub.arcgis.comhttps://open-data-scottishforestry.hub.arcgis.com/","licence_link":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licence_notes":"Licence
         type:  OGL Attribution:  Reproduced by Permission of Ordnance Survey on behalf
@@ -1880,7 +1880,7 @@ http_interactions:
         Forestry Open Data https://open-data-scottishforestry.hub.arcgis.com/","description":"Native
         Woodland Survey of Scotland","uid":"270","displayname":"Native Woodland Survey
         of Scotland","enabled":true,"name":"NWSS_FINAL","id":270,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"}]'
-  recorded_at: 2021-08-06 01:46:23 GMT
+  recorded_at: 2021-08-06 02:11:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1899,7 +1899,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 01:46:43 GMT
+      date: Fri, 06 Aug 2021 02:11:21 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -2009,7 +2009,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2021-08-06 01:46:23 GMT
+  recorded_at: 2021-08-06 02:11:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2028,7 +2028,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 01:46:44 GMT
+      date: Fri, 06 Aug 2021 02:11:22 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -2688,7 +2688,7 @@ http_interactions:
         year the event occurred in.  http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year_p","downloadDescription":"Year
         - parsed","classs":"Event"},{"name":"zone","dataType":"string","indexed":false,"stored":false,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset","downloadName":"zone"}]'
-  recorded_at: 2021-08-06 01:46:23 GMT
+  recorded_at: 2021-08-06 02:11:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2707,7 +2707,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 01:46:44 GMT
+      date: Fri, 06 Aug 2021 02:11:24 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -2719,5 +2719,5 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":9522866,"fq":"year:\"2015\""},{"label":"2008","i18nCode":"year.2008","count":9312282,"fq":"year:\"2008\""},{"label":"2017","i18nCode":"year.2017","count":9284459,"fq":"year:\"2017\""},{"label":"2016","i18nCode":"year.2016","count":9156397,"fq":"year:\"2016\""},{"label":"2014","i18nCode":"year.2014","count":9149792,"fq":"year:\"2014\""},{"label":"2018","i18nCode":"year.2018","count":9124543,"fq":"year:\"2018\""},{"label":"2009","i18nCode":"year.2009","count":8907890,"fq":"year:\"2009\""},{"label":"2010","i18nCode":"year.2010","count":8880137,"fq":"year:\"2010\""},{"label":"2019","i18nCode":"year.2019","count":8875002,"fq":"year:\"2019\""},{"label":"2013","i18nCode":"year.2013","count":8456015,"fq":"year:\"2013\""},{"label":"2011","i18nCode":"year.2011","count":8222093,"fq":"year:\"2011\""},{"label":"2012","i18nCode":"year.2012","count":7537035,"fq":"year:\"2012\""},{"label":"2007","i18nCode":"year.2007","count":7188566,"fq":"year:\"2007\""},{"label":"2006","i18nCode":"year.2006","count":6182026,"fq":"year:\"2006\""},{"label":"2005","i18nCode":"year.2005","count":5834717,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":5163494,"fq":"year:\"2004\""},{"label":"2003","i18nCode":"year.2003","count":5002175,"fq":"year:\"2003\""},{"label":"2002","i18nCode":"year.2002","count":4327369,"fq":"year:\"2002\""},{"label":"2000","i18nCode":"year.2000","count":3757382,"fq":"year:\"2000\""},{"label":"1999","i18nCode":"year.1999","count":3706484,"fq":"year:\"1999\""}],"count":358}]'
-  recorded_at: 2021-08-06 01:46:23 GMT
+  recorded_at: 2021-08-06 02:11:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 01:46:35 GMT
+      date: Fri, 06 Aug 2021 02:11:14 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -34,7 +34,7 @@ http_interactions:
       file: no
       string: '{"pageSize":0,"startIndex":0,"totalRecords":37384247,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{},"activeFacetObj":{}}'
-  recorded_at: 2021-08-06 01:46:41 GMT
+  recorded_at: 2021-08-06 02:11:22 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -53,7 +53,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 01:46:35 GMT
+      date: Fri, 06 Aug 2021 02:11:14 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -309,7 +309,7 @@ http_interactions:
         Taxon Rank","info":"http://rs.tdwg.org/dwc/terms/verbatimTaxonRank","dwcTerm":"verbatimTaxonRank","downloadName":"verbatim_taxon_rank","classs":"Taxon"},{"name":"videos","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Videos
         associated with a record","downloadName":"videos"},{"name":"water_body","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Water
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody","dwcTerm":"waterBody","downloadName":"water_body","classs":"Location"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2021-08-06 01:46:41 GMT
+  recorded_at: 2021-08-06 02:11:22 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -328,7 +328,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 01:46:38 GMT
+      date: Fri, 06 Aug 2021 02:11:17 GMT
       server: nginx/1.17.10
       content-type: application/json;charset=UTF-8
       x-application-context: application:production
@@ -343,85 +343,84 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: "[{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0.0\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Precipitation Seasonality\",\"id\":10052,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_15\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578527459955,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_15&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_15\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+      string: '[{"source_link":"","datalang":"eng","environmentalvaluemin":"0.0","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Precipitation Seasonality","id":10052,"grid":true,"path_orig":"layer/wc2_0_bio_10m_15","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578527459955,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_15&format=image/png&styles=","name":"wc2_0_bio_10m_15","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"229.00169372558594\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Precipitation
-        Seasonality (Coefficient of Variation)\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-35.97420883178711\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Mean Temperature of Warmest Quarter\",\"id\":10047,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_10\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578526991556,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_10&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_10\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"229.00169372558594","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Precipitation
+        Seasonality (Coefficient of Variation)","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"-35.97420883178711","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Mean Temperature of Warmest Quarter","id":10047,"grid":true,"path_orig":"layer/wc2_0_bio_10m_10","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578526991556,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_10&format=image/png&styles=","name":"wc2_0_bio_10m_10","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"38.856666564941406\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/biodiversidad/rn2000.aspx\",\"datalang\":\"spa\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"\",\"classification2\":\"Espacios
-        Protegidos\",\"displayname\":\"Zona de Especial Protección para las Aves\",\"id\":10001,\"grid\":false,\"path_orig\":\"layer/zepa\",\"minlongitude\":-18.22733,\"maxlatitude\":43.90929,\"licence_link\":\"http://creativecommons.org/licenses/by-sa/3.0/es\",\"mddatest\":\"2010-12-20\",\"maxlongitude\":4.37814,\"dt_added\":1573083568823,\"minlatitude\":27.63774,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:zepa&format=image/png&styles=\",\"name\":\"zepa\",\"metadatapath\":\"https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/biodiversidad/rn2000.aspx\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"ZEPA
-        , Nacional, Protegidos, UE, MITECO\",\"licence_notes\":\"CC BY-SA 3.0. \",\"environmentalvaluemax\":\"\",\"classification1\":\"Regiones\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"La
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"38.856666564941406","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/biodiversidad/rn2000.aspx","datalang":"spa","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Espacios
+        Protegidos","displayname":"Zona de Especial Protección para las Aves","id":10001,"grid":false,"path_orig":"layer/zepa","minlongitude":-18.22733,"maxlatitude":43.90929,"licence_link":"http://creativecommons.org/licenses/by-sa/3.0/es","mddatest":"2010-12-20","maxlongitude":4.37814,"dt_added":1573083568823,"minlatitude":27.63774,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:zepa&format=image/png&styles=","name":"zepa","metadatapath":"https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/biodiversidad/rn2000.aspx","type":"Contextual","notes":"","keywords":"ZEPA
+        , Nacional, Protegidos, UE, MITECO","licence_notes":"CC BY-SA 3.0. ","environmentalvaluemax":"","classification1":"Regiones","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"La
         Red Natura 2000 es la herramienta más importante de la política de conservación
-        de la biodiversidad de la Unión Europea. Tiene su origen en la Directiva
-        92/43/CEE (Directiva Hábitats) relativa a la conservación de los hábitats
-        naturales y la flora y fauna silvestres. Se trata de una red ecológica coherente
-        formada por Lugares de Importancia Comunitaria (LIC), que deberán transformarse
-        en Zonas Especiales de Conservación (ZEC), designadas en función de la Directiva
+        de la biodiversidad de la Unión Europea. Tiene su origen en la Directiva 92/43/CEE
+        (Directiva Hábitats) relativa a la conservación de los hábitats naturales
+        y la flora y fauna silvestres. Se trata de una red ecológica coherente formada
+        por Lugares de Importancia Comunitaria (LIC), que deberán transformarse en
+        Zonas Especiales de Conservación (ZEC), designadas en función de la Directiva
         Hábitat, y por Zonas de Especial Protección para las Aves (ZEPA) declaradas
         en función de la Directiva 2009/147/CE (Directiva Aves) relativa a la conservación
-        de las aves silvestres.\\r\\nTodos estos espacios son delimitados por los
-        distintos gobiernos autonómicos y por el Ministerio en el marco de sus competencias.
+        de las aves silvestres.\r\nTodos estos espacios son delimitados por los distintos
+        gobiernos autonómicos y por el Ministerio en el marco de sus competencias.
         La información presentada se corresponde con la actualización de diciembre
         de 2019, según la información de los espacios Red Natura 2000 remitida por
-        el Ministerio a la Comisión Europea hasta esa fecha.\",\"licence_level\":\"1\",\"source\":\"Ministerio
-        para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/).
-        \",\"citation_date\":\"\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-53.70207214355469\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Annual Mean Temperature\",\"id\":10038,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_01\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578525963249,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_01&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_01\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        el Ministerio a la Comisión Europea hasta esa fecha.","licence_level":"1","source":"Ministerio
+        para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/). ","citation_date":""},{"source_link":"","datalang":"eng","environmentalvaluemin":"-53.70207214355469","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Annual Mean Temperature","id":10038,"grid":true,"path_orig":"layer/wc2_0_bio_10m_01","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578525963249,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_01&format=image/png&styles=","name":"wc2_0_bio_10m_01","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"33.26063537597656\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0.0\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Mean Diurnal Range\",\"id\":10039,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_02\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578526036864,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_02&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_02\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"33.26063537597656","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"0.0","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Mean Diurnal Range","id":10039,"grid":true,"path_orig":"layer/wc2_0_bio_10m_02","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578526036864,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_02&format=image/png&styles=","name":"wc2_0_bio_10m_02","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"25.690876007080078\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"https://gadm.org/download_world.html\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"\",\"classification2\":\"Países\",\"displayname\":\"Países\",\"id\":3,\"grid\":false,\"path_orig\":\"layer/gadm36_0\",\"minlongitude\":-180.0,\"maxlatitude\":83.65833,\"licence_link\":\"https://gadm.org/license.html\",\"mddatest\":\"2018\",\"maxlongitude\":180.0,\"dt_added\":1576140271070,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:gadm36_0&format=image/png&styles=\",\"name\":\"gadm36_0\",\"metadatapath\":\"\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"world,
-        mundo, países\",\"licence_notes\":\"GADM license\\r\\nThe data are freely
-        available for academic use and other non-commercial use. Redistribution, or
-        commercial use, is not allowed without prior permission. Using the data to
-        create maps for academic publishing is allowed.\",\"environmentalvaluemax\":\"\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Límites
-        administrativos de todos los países del mundo.\",\"licence_level\":\"1\",\"source\":\"Database
-        of Global Administrative Areas, GADM (https://gadm.org/)\",\"citation_date\":\"\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-64.45291900634766\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Mean Temperature of Driest Quarter\",\"id\":10048,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_11\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578527114853,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_11&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_11\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"25.690876007080078","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"https://gadm.org/download_world.html","datalang":"eng","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Países","displayname":"Países","id":3,"grid":false,"path_orig":"layer/gadm36_0","minlongitude":-180.0,"maxlatitude":83.65833,"licence_link":"https://gadm.org/license.html","mddatest":"2018","maxlongitude":180.0,"dt_added":1576140271070,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:gadm36_0&format=image/png&styles=","name":"gadm36_0","metadatapath":"","type":"Contextual","notes":"","keywords":"world,
+        mundo, países","licence_notes":"GADM license\r\nThe data are freely available
+        for academic use and other non-commercial use. Redistribution, or commercial
+        use, is not allowed without prior permission. Using the data to create maps
+        for academic publishing is allowed.","environmentalvaluemax":"","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Límites
+        administrativos de todos los países del mundo.","licence_level":"1","source":"Database
+        of Global Administrative Areas, GADM (https://gadm.org/)","citation_date":""},{"source_link":"","datalang":"eng","environmentalvaluemin":"-64.45291900634766","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Mean Temperature of Driest Quarter","id":10048,"grid":true,"path_orig":"layer/wc2_0_bio_10m_11","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578527114853,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_11&format=image/png&styles=","name":"wc2_0_bio_10m_11","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"31.562665939331055\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-48.104915618896484\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Mean Temperature of Driest Quarter\",\"id\":10046,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_09\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578526929931,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_09&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_09\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"31.562665939331055","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"-48.104915618896484","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Mean Temperature of Driest Quarter","id":10046,"grid":true,"path_orig":"layer/wc2_0_bio_10m_09","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578526929931,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_09&format=image/png&styles=","name":"wc2_0_bio_10m_09","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"38.43349838256836\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-64.45291900634766\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Mean Temperature of Wettest Quarter\",\"id\":10045,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_08\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578526775619,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_08&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_08\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"38.43349838256836","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"-64.45291900634766","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Mean Temperature of Wettest Quarter","id":10045,"grid":true,"path_orig":"layer/wc2_0_bio_10m_08","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578526775619,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_08&format=image/png&styles=","name":"wc2_0_bio_10m_08","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"37.705623626708984\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0.0\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Temperature Annual Range\",\"id\":10044,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_07\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578526693962,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_07&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_07\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"37.705623626708984","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"0.0","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Temperature Annual Range","id":10044,"grid":true,"path_orig":"layer/wc2_0_bio_10m_07","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578526693962,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_07&format=image/png&styles=","name":"wc2_0_bio_10m_07","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"74.21200561523438\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-71.80150604248047\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Min Temperature of Coldest Month\",\"id\":10043,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_06\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578526620211,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_06&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_06\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"74.21200561523438","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"-71.80150604248047","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Min Temperature of Coldest Month","id":10043,"grid":true,"path_orig":"layer/wc2_0_bio_10m_06","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578526620211,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_06&format=image/png&styles=","name":"wc2_0_bio_10m_06","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"26.5\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-27.21700096130371\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Max Temperature of Warmest Month\",\"id\":10042,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_05\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578526533240,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_05&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_05\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"26.5","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"-27.21700096130371","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Max Temperature of Warmest Month","id":10042,"grid":true,"path_orig":"layer/wc2_0_bio_10m_05","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578526533240,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_05&format=image/png&styles=","name":"wc2_0_bio_10m_05","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"47.44874954223633\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0.0\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m  Temperature Seasonality\",\"id\":10041,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_04\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578526237684,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_04&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_04\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"47.44874954223633","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"0.0","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m  Temperature Seasonality","id":10041,"grid":true,"path_orig":"layer/wc2_0_bio_10m_04","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578526237684,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_04&format=image/png&styles=","name":"wc2_0_bio_10m_04","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"2390.73388671875\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Temperature
-        Seasonality (standard deviation *100)\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"3.5013599395751953\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Isothermality \",\"id\":10040,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_03\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578526153119,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_03&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_03\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"2390.73388671875","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Temperature
+        Seasonality (standard deviation *100)","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"3.5013599395751953","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Isothermality ","id":10040,"grid":true,"path_orig":"layer/wc2_0_bio_10m_03","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578526153119,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_03&format=image/png&styles=","name":"wc2_0_bio_10m_03","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"96.95945739746094\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"(BIO2/BIO7)
-        (* 100)\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0.0\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Annual Precipitation\",\"id\":10049,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_12\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578527176870,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_12&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_12\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"96.95945739746094","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"(BIO2/BIO7)
+        (* 100)","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"0.0","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Annual Precipitation","id":10049,"grid":true,"path_orig":"layer/wc2_0_bio_10m_12","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578527176870,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_12&format=image/png&styles=","name":"wc2_0_bio_10m_12","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"11191.0\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0.0\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Precipitation of Wettest Month\",\"id\":10050,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_13\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578527317093,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_13&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_13\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"11191.0","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"0.0","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Precipitation of Wettest Month","id":10050,"grid":true,"path_orig":"layer/wc2_0_bio_10m_13","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578527317093,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_13&format=image/png&styles=","name":"wc2_0_bio_10m_13","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"2381.0\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0.0\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Precipitation of Wettest Quarter\",\"id\":10053,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_16\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578527526116,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_16&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_16\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"2381.0","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"0.0","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Precipitation of Wettest Quarter","id":10053,"grid":true,"path_orig":"layer/wc2_0_bio_10m_16","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578527526116,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_16&format=image/png&styles=","name":"wc2_0_bio_10m_16","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"5284.0\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"https://datos.gob.es/es/catalogo/e00125901-spaignllm\",\"datalang\":\"spa\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"\",\"classification2\":\"Provincias\",\"displayname\":\"Provincias\",\"id\":2,\"grid\":false,\"path_orig\":\"layer/provincias\",\"minlongitude\":-18.16118,\"maxlatitude\":43.79238,\"licence_link\":\"https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf\",\"mddatest\":\"2020-12-15\",\"maxlongitude\":4.32778,\"dt_added\":1578332765696,\"minlatitude\":27.63772,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:provincias&format=image/png&styles=\",\"name\":\"provincias\",\"metadatapath\":\"\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"CC-BY
-        4.0\",\"environmentalvaluemax\":\"\",\"classification1\":\"Nacional\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Recintos
-        provinciales y líneas límite provinciales inscritas en la Base de Datos
-        de Límites Jurisdiccionales de España (BDLJE). Sistema geodésico de referencia:
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"5284.0","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"https://datos.gob.es/es/catalogo/e00125901-spaignllm","datalang":"spa","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Provincias","displayname":"Provincias","id":2,"grid":false,"path_orig":"layer/provincias","minlongitude":-18.16118,"maxlatitude":43.79238,"licence_link":"https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf","mddatest":"2020-12-15","maxlongitude":4.32778,"dt_added":1578332765696,"minlatitude":27.63772,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:provincias&format=image/png&styles=","name":"provincias","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"CC-BY
+        4.0","environmentalvaluemax":"","classification1":"Nacional","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Recintos
+        provinciales y líneas límite provinciales inscritas en la Base de Datos de
+        Límites Jurisdiccionales de España (BDLJE). Sistema geodésico de referencia:
         ETRS89 para Península y Baleares y REGCAN95, compatible con WGS84, para Canarias.
         Esta geometría de las líneas límite tiene, en el mejor de los casos y con
-        la excepción de aquellas líneas límite que hayan sido replanteadas sobre
-        el terreno, la precisión de la escala 1/25.000, condicionada por los métodos
+        la excepción de aquellas líneas límite que hayan sido replanteadas sobre el
+        terreno, la precisión de la escala 1/25.000, condicionada por los métodos
         e instrumentos topográficos utilizados para su obtención y posterior edición
         cartográfica. Por consiguiente, no se puede utilizar para la representación
         de los límites jurisdiccionales en cartografías a mayor escala (denominador
@@ -431,33 +430,33 @@ http_interactions:
         más precisa es necesario el replanteo sobre el terreno de las líneas límite,
         lo que generalmente es factible partiendo de la documentación técnica (cuaderno
         topográfico de campo) y jurídica (acta de deslinde) con la que figura inscrita
-        cada una de ellas en el Registro Central de Cartografía de la Dirección
-        General del Instituto Geográfico Nacional. Además, esta geometría más
-        precisa, ha de ser refrendada jurídicamente por los propios Ayuntamientos
-        mediante el levantamiento de actas conjuntas, adicionales a las utilizadas
-        para el replanteo, conforme a los procedimientos administrativos establecidos
-        en la legislación aplicable en cada caso.\",\"licence_level\":\"1\",\"source\":\"Geográfico
-        Nacional. Ministerio de Transportes, Movilidad y Agenda Urbana (www.ign.es).\",\"citation_date\":\"\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0.0\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Precipitation of Warmest Quarter\",\"id\":10055,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_18\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578527662063,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_18&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_18\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        cada una de ellas en el Registro Central de Cartografía de la Dirección General
+        del Instituto Geográfico Nacional. Además, esta geometría más precisa, ha
+        de ser refrendada jurídicamente por los propios Ayuntamientos mediante el
+        levantamiento de actas conjuntas, adicionales a las utilizadas para el replanteo,
+        conforme a los procedimientos administrativos establecidos en la legislación
+        aplicable en cada caso.","licence_level":"1","source":"Geográfico Nacional.
+        Ministerio de Transportes, Movilidad y Agenda Urbana (www.ign.es).","citation_date":""},{"source_link":"","datalang":"eng","environmentalvaluemin":"0.0","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Precipitation of Warmest Quarter","id":10055,"grid":true,"path_orig":"layer/wc2_0_bio_10m_18","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578527662063,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_18&format=image/png&styles=","name":"wc2_0_bio_10m_18","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"5282.0\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0.0\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Precipitation of Driest Month\",\"id\":10051,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_14\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578527383055,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_14&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_14\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"5282.0","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"0.0","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Precipitation of Driest Month","id":10051,"grid":true,"path_orig":"layer/wc2_0_bio_10m_14","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578527383055,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_14&format=image/png&styles=","name":"wc2_0_bio_10m_14","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"484.0\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0.0\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Precipitation of Driest Quarter\",\"id\":10054,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_17\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578527581972,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_17&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_17\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"484.0","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"0.0","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Precipitation of Driest Quarter","id":10054,"grid":true,"path_orig":"layer/wc2_0_bio_10m_17","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578527581972,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_17&format=image/png&styles=","name":"wc2_0_bio_10m_17","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"1507.0\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0.0\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Clima\",\"displayname\":\"WorldClim
-        10m Precipitation of Coldest Quarter\",\"id\":10056,\"grid\":true,\"path_orig\":\"layer/wc2_0_bio_10m_19\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://worldclim.org/version2\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":180.0,\"dt_added\":1578527720165,\"minlatitude\":-90.0,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_19&format=image/png&styles=\",\"name\":\"wc2_0_bio_10m_19\",\"metadatapath\":\"\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"Fick,
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"1507.0","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"","datalang":"eng","environmentalvaluemin":"0.0","shape":false,"respparty_role":"","classification2":"Clima","displayname":"WorldClim
+        10m Precipitation of Coldest Quarter","id":10056,"grid":true,"path_orig":"layer/wc2_0_bio_10m_19","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"http://worldclim.org/version2","mddatest":"2016-06-01","maxlongitude":180.0,"dt_added":1578527720165,"minlatitude":-90.0,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:wc2_0_bio_10m_19&format=image/png&styles=","name":"wc2_0_bio_10m_19","metadatapath":"","type":"Environmental","notes":"","keywords":"","licence_notes":"Fick,
         S.E. and R.J. Hijmans, 2017. Worldclim 2: New 1-km spatial resolution climate
-        surfaces for global land areas. International Journal of Climatology.\",\"environmentalvaluemax\":\"4467.0\",\"classification1\":\"Mundo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"https://datos.gob.es/es/catalogo/e00125901-spaignllm\",\"datalang\":\"spa\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"\",\"classification2\":\"Comunidades
-        Autónomas\",\"displayname\":\"Comunidades Autónomas\",\"id\":6,\"grid\":false,\"path_orig\":\"layer/autonomias\",\"minlongitude\":-18.16118,\"maxlatitude\":43.79238,\"licence_link\":\"https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf\",\"mddatest\":\"2016-06-01\",\"maxlongitude\":4.32778,\"dt_added\":1578561674809,\"minlatitude\":27.63772,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:autonomias&format=image/png&styles=\",\"name\":\"autonomias\",\"metadatapath\":\"\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"CC-BY
-        4.0.\",\"environmentalvaluemax\":\"\",\"classification1\":\"Nacional\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Recintos
-        autonómicos y líneas límite autonómicas inscritas en la Base de Datos
-        de Límites Jurisdiccionales de España (BDLJE). Sistema geodésico de referencia:
-        ETRS89 para Península y Baleares y REGCAN95, compatible con WGS84, para Canarias.
+        surfaces for global land areas. International Journal of Climatology.","environmentalvaluemax":"4467.0","classification1":"Mundo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":"2020-01-09"},{"source_link":"https://datos.gob.es/es/catalogo/e00125901-spaignllm","datalang":"spa","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Comunidades
+        Autónomas","displayname":"Comunidades Autónomas","id":6,"grid":false,"path_orig":"layer/autonomias","minlongitude":-18.16118,"maxlatitude":43.79238,"licence_link":"https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf","mddatest":"2016-06-01","maxlongitude":4.32778,"dt_added":1578561674809,"minlatitude":27.63772,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:autonomias&format=image/png&styles=","name":"autonomias","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"CC-BY
+        4.0.","environmentalvaluemax":"","classification1":"Nacional","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Recintos
+        autonómicos y líneas límite autonómicas inscritas en la Base de Datos de Límites
+        Jurisdiccionales de España (BDLJE). Sistema geodésico de referencia: ETRS89
+        para Península y Baleares y REGCAN95, compatible con WGS84, para Canarias.
         Esta geometría de las líneas límite tiene, en el mejor de los casos y con
-        la excepción de aquellas líneas límite que hayan sido replanteadas sobre
-        el terreno, la precisión de la escala 1/25.000, condicionada por los métodos
+        la excepción de aquellas líneas límite que hayan sido replanteadas sobre el
+        terreno, la precisión de la escala 1/25.000, condicionada por los métodos
         e instrumentos topográficos utilizados para su obtención y posterior edición
         cartográfica. Por consiguiente, no se puede utilizar para la representación
         de los límites jurisdiccionales en cartografías a mayor escala (denominador
@@ -467,102 +466,99 @@ http_interactions:
         más precisa es necesario el replanteo sobre el terreno de las líneas límite,
         lo que generalmente es factible partiendo de la documentación técnica (cuaderno
         topográfico de campo) y jurídica (acta de deslinde) con la que figura inscrita
-        cada una de ellas en el Registro Central de Cartografía de la Dirección
-        General del Instituto Geográfico Nacional. Además, esta geometría más
-        precisa, ha de ser refrendada jurídicamente por los propios Ayuntamientos
-        mediante el levantamiento de actas conjuntas, adicionales a las utilizadas
-        para el replanteo, conforme a los procedimientos administrativos establecidos
-        en la legislación aplicable en cada caso.\",\"licence_level\":\"1\",\"source\":\"Instituto
-        Geográfico Nacional. Ministerio de Transportes, Movilidad y Agenda Urbana
-        (www.ign.es).\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/biodiversidad/enp.aspx\",\"datalang\":\"spa\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"Author\",\"classification2\":\"Espacios
-        Protegidos\",\"displayname\":\"Espacios Naturales Protegidos\",\"id\":10081,\"grid\":false,\"path_orig\":\"layer/enp_jul19_2\",\"minlongitude\":-18.16119,\"maxlatitude\":44.2,\"licence_link\":\"http://creativecommons.org/licenses/by-sa/3.0/es\",\"mddatest\":\"2019-07-01\",\"maxlongitude\":4.55688,\"dt_added\":1604391261967,\"minlatitude\":27.61142,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:enp_jul19_2&format=image/png&styles=\",\"name\":\"enp_jul19_2\",\"metadatapath\":\"https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/biodiversidad/enp.aspx\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"ENP,
-        UE, Parques, Reservas Naturales, �\x81reas Marinas Protegidas, Monumentos
-        Naturales, Paisajes Protegidos\",\"licence_notes\":\"Fuente: Ministerio para
-        la Transición Ecológica y el Reto Demográfico.\",\"environmentalvaluemax\":\"\",\"classification1\":\"Nacional\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Los
+        cada una de ellas en el Registro Central de Cartografía de la Dirección General
+        del Instituto Geográfico Nacional. Además, esta geometría más precisa, ha
+        de ser refrendada jurídicamente por los propios Ayuntamientos mediante el
+        levantamiento de actas conjuntas, adicionales a las utilizadas para el replanteo,
+        conforme a los procedimientos administrativos establecidos en la legislación
+        aplicable en cada caso.","licence_level":"1","source":"Instituto Geográfico
+        Nacional. Ministerio de Transportes, Movilidad y Agenda Urbana (www.ign.es).","citation_date":"2020-01-09"},{"source_link":"https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/biodiversidad/enp.aspx","datalang":"spa","environmentalvaluemin":"","shape":true,"respparty_role":"Author","classification2":"Espacios
+        Protegidos","displayname":"Espacios Naturales Protegidos","id":10081,"grid":false,"path_orig":"layer/enp_jul19_2","minlongitude":-18.16119,"maxlatitude":44.2,"licence_link":"http://creativecommons.org/licenses/by-sa/3.0/es","mddatest":"2019-07-01","maxlongitude":4.55688,"dt_added":1604391261967,"minlatitude":27.61142,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:enp_jul19_2&format=image/png&styles=","name":"enp_jul19_2","metadatapath":"https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/biodiversidad/enp.aspx","type":"Contextual","notes":"","keywords":"ENP,
+        UE, Parques, Reservas Naturales, Áreas Marinas Protegidas, Monumentos Naturales,
+        Paisajes Protegidos","licence_notes":"Fuente: Ministerio para la Transición
+        Ecológica y el Reto Demográfico.","environmentalvaluemax":"","classification1":"Nacional","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Los
         Espacios Naturales Protegidos (ENP) contienen información cartográfica de
         las distintas figuras de protección como resultado de la recopilación  de
         aquellas declaradas conforme a la normativa vigente en los distintos  gobiernos
         autonómicos y el MITECO. La Legislación estatal (Ley 42/2007) prevé cinco
-        figuras de protección (Parques, Reservas Naturales, �\x81reas Marinas Protegidas,
+        figuras de protección (Parques, Reservas Naturales, Áreas Marinas Protegidas,
         Monumentos Naturales,  Paisajes Protegidos), la legislación autonómica relativa
-        a la  conservación de la naturaleza incrementa las denominaciones elevando
-        \ la tipología de espacios naturales a más de 40.\",\"licence_level\":\"1\",\"source\":\"Ministerio
-        para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/es/)\",\"citation_date\":\"2020-11-03\"},{\"source_link\":\"https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/biodiversidad/regiones-biogeograficas.aspx\",\"datalang\":\"spa\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"\",\"classification2\":\"Regiones\",\"displayname\":\"Regiones
-        Biogeográficas. Estatal\",\"id\":10032,\"grid\":false,\"path_orig\":\"layer/RegionesBio\",\"minlongitude\":-21.90544,\"maxlatitude\":46.86761,\"licence_link\":\"http://creativecommons.org/licenses/by-sa/3.0/es\",\"mddatest\":\"2018-12-01\",\"maxlongitude\":6.3,\"dt_added\":1578335915581,\"minlatitude\":24.59355,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:RegionesBio&format=image/png&styles=\",\"name\":\"RegionesBio\",\"metadatapath\":\"\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"Regiones,
-        Biogeográficas, marinas, MITECO, INSPIRE\",\"licence_notes\":\"CC BY-SA 3.0.
-        \",\"environmentalvaluemax\":\"\",\"classification1\":\"Nacional\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Las
+        a la  conservación de la naturaleza incrementa las denominaciones elevando  la
+        tipología de espacios naturales a más de 40.","licence_level":"1","source":"Ministerio
+        para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/es/)","citation_date":"2020-11-03"},{"source_link":"https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/biodiversidad/regiones-biogeograficas.aspx","datalang":"spa","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Regiones","displayname":"Regiones
+        Biogeográficas. Estatal","id":10032,"grid":false,"path_orig":"layer/RegionesBio","minlongitude":-21.90544,"maxlatitude":46.86761,"licence_link":"http://creativecommons.org/licenses/by-sa/3.0/es","mddatest":"2018-12-01","maxlongitude":6.3,"dt_added":1578335915581,"minlatitude":24.59355,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:RegionesBio&format=image/png&styles=","name":"RegionesBio","metadatapath":"","type":"Contextual","notes":"","keywords":"Regiones,
+        Biogeográficas, marinas, MITECO, INSPIRE","licence_notes":"CC BY-SA 3.0. ","environmentalvaluemax":"","classification1":"Nacional","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Las
         Regiones biogeográficas muestran la extensión de las áreas con características
-        climáticas, orográficas y geobotánicas comunes. La Directiva Hábitats
-        establece siete regiones biogeográficas, cuatro de ellas presentes en España:
-        Alpina, Atlántica, Macaronésica y Mediterránea. Además esta capa incluye
-        las regiones marinas: Atlántica, Mediterránea y Macaronésica utilizadas
-        en el reporte del artículo 17 de la Directiva Hábitats.\",\"licence_level\":\"1\",\"source\":\"Ministerio
-        para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/)\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"https://www.mapama.gob.es/ide/metadatos/index.html?srv=metadata.show&uuid=0d427e21-be52-4723-b78e-8b00a43319cb\",\"datalang\":\"spa\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"Author\",\"classification2\":\"Espacios
-        Protegidos\",\"displayname\":\"Lugares de Importancia Comunitaria\",\"id\":7,\"grid\":false,\"path_orig\":\"layer/lic\",\"minlongitude\":-18.18536,\"maxlatitude\":44.2,\"licence_link\":\"http://creativecommons.org/licenses/by-sa/3.0/es\",\"mddatest\":\"2018-12-1\",\"maxlongitude\":4.32788,\"dt_added\":1578337283384,\"minlatitude\":27.58768,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:lic&format=image/png&styles=\",\"name\":\"lic\",\"metadatapath\":\"https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/biodiversidad/rn2000.aspx\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"LIC
-        , Nacional, Protegidos, UE, MITECO\",\"licence_notes\":\"CC BY-SA 3.0\",\"environmentalvaluemax\":\"\",\"classification1\":\"Nacional\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"La
+        climáticas, orográficas y geobotánicas comunes. La Directiva Hábitats establece
+        siete regiones biogeográficas, cuatro de ellas presentes en España: Alpina,
+        Atlántica, Macaronésica y Mediterránea. Además esta capa incluye las regiones
+        marinas: Atlántica, Mediterránea y Macaronésica utilizadas en el reporte del
+        artículo 17 de la Directiva Hábitats.","licence_level":"1","source":"Ministerio
+        para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/)","citation_date":"2020-01-09"},{"source_link":"https://www.mapama.gob.es/ide/metadatos/index.html?srv=metadata.show&uuid=0d427e21-be52-4723-b78e-8b00a43319cb","datalang":"spa","environmentalvaluemin":"","shape":true,"respparty_role":"Author","classification2":"Espacios
+        Protegidos","displayname":"Lugares de Importancia Comunitaria","id":7,"grid":false,"path_orig":"layer/lic","minlongitude":-18.18536,"maxlatitude":44.2,"licence_link":"http://creativecommons.org/licenses/by-sa/3.0/es","mddatest":"2018-12-1","maxlongitude":4.32788,"dt_added":1578337283384,"minlatitude":27.58768,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:lic&format=image/png&styles=","name":"lic","metadatapath":"https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/biodiversidad/rn2000.aspx","type":"Contextual","notes":"","keywords":"LIC
+        , Nacional, Protegidos, UE, MITECO","licence_notes":"CC BY-SA 3.0","environmentalvaluemax":"","classification1":"Nacional","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"La
         Red Natura 2000 es la herramienta más importante de la política de conservación
-        de la biodiversidad de la Unión Europea. Tiene su origen en la Directiva
-        92/43/CEE (Directiva Hábitats) relativa a la conservación de los hábitats
-        naturales y la flora y fauna silvestres. Se trata de una red ecológica coherente
-        formada por Lugares de Importancia Comunitaria (LIC), que deberán transformarse
-        en Zonas Especiales de Conservación (ZEC), designadas en función de la Directiva
+        de la biodiversidad de la Unión Europea. Tiene su origen en la Directiva 92/43/CEE
+        (Directiva Hábitats) relativa a la conservación de los hábitats naturales
+        y la flora y fauna silvestres. Se trata de una red ecológica coherente formada
+        por Lugares de Importancia Comunitaria (LIC), que deberán transformarse en
+        Zonas Especiales de Conservación (ZEC), designadas en función de la Directiva
         Hábitat, y por Zonas de Especial Protección para las Aves (ZEPA) declaradas
         en función de la Directiva 2009/147/CE (Directiva Aves) relativa a la conservación
-        de las aves silvestres.\\r\\nTodos estos espacios son delimitados por los
-        distintos gobiernos autonómicos y por el Ministerio en el marco de sus competencias.
+        de las aves silvestres.\r\nTodos estos espacios son delimitados por los distintos
+        gobiernos autonómicos y por el Ministerio en el marco de sus competencias.
         La información presentada se corresponde con la actualización de diciembre
         de 2019, según la información de los espacios Red Natura 2000 remitida por
-        el Ministerio a la Comisión Europea hasta esa fecha.\",\"licence_level\":\"1\",\"source\":\"Ministerio
-        para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/es/)\",\"citation_date\":\"2020-01-9\"},{\"source_link\":\"https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/ramsar_descargas.aspx\",\"datalang\":\"\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"\",\"classification2\":\"Humedales\",\"displayname\":\"Humedales
-        Ramsar ES\",\"id\":10058,\"grid\":false,\"path_orig\":\"layer/humedales_ramsar\",\"minlongitude\":-14.3407,\"maxlatitude\":43.72875,\"licence_link\":\"http://creativecommons.org/licenses/by-sa/3.0/es/\",\"mddatest\":\"2010-12-08\",\"maxlongitude\":3.14597,\"dt_added\":1578600065780,\"minlatitude\":28.04433,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:humedales_ramsar&format=image/png&styles=\",\"name\":\"humedales_ramsar\",\"metadatapath\":\"\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"CC
-        BY-SA 3.0\",\"environmentalvaluemax\":\"\",\"classification1\":\"Nacional\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"El
+        el Ministerio a la Comisión Europea hasta esa fecha.","licence_level":"1","source":"Ministerio
+        para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/es/)","citation_date":"2020-01-9"},{"source_link":"https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/ramsar_descargas.aspx","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Humedales","displayname":"Humedales
+        Ramsar ES","id":10058,"grid":false,"path_orig":"layer/humedales_ramsar","minlongitude":-14.3407,"maxlatitude":43.72875,"licence_link":"http://creativecommons.org/licenses/by-sa/3.0/es/","mddatest":"2010-12-08","maxlongitude":3.14597,"dt_added":1578600065780,"minlatitude":28.04433,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:humedales_ramsar&format=image/png&styles=","name":"humedales_ramsar","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"CC
+        BY-SA 3.0","environmentalvaluemax":"","classification1":"Nacional","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"El
         Convenio de Ramsar, o Convenio relativo a los Humedales de Importancia Internacional
         especialmente como Hábitat de Aves Acuáticas, surge de la firma del mismo
         en la ciudad de Ramsar, Irán, el 2 de febrero de 1971 y establece la creación
-        a nivel internacional de una red de humedales conocida como Lista Ramsar.\",\"licence_level\":\"1\",\"source\":\"Ministerio
-        para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/es/)\",\"citation_date\":\"2020-01-09\"},{\"source_link\":\"https://www.miteco.gob.es/es/red-parques-nacionales/sig/parques-nacionales.aspx\",\"datalang\":\"spa\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"Author\",\"classification2\":\"Parques
-        Nacionales\",\"displayname\":\"Parques Nacionales\",\"id\":10082,\"grid\":false,\"path_orig\":\"layer/parquesnacionales\",\"minlongitude\":-17.90926,\"maxlatitude\":43.31586,\"licence_link\":\"\",\"mddatest\":\"2021-02-01\",\"maxlongitude\":3.38225,\"dt_added\":1614761118246,\"minlatitude\":28.09253,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:parquesnacionales&format=image/png&styles=\",\"name\":\"parquesnacionales\",\"metadatapath\":\"https://www.miteco.gob.es/es/red-parques-nacionales/sig/parques-nacionales.aspx\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"Parques
-        Nacionales, MITECO\",\"licence_notes\":\"Acceso público y gratuito\",\"environmentalvaluemax\":\"\",\"classification1\":\"Nacional\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"La
+        a nivel internacional de una red de humedales conocida como Lista Ramsar.","licence_level":"1","source":"Ministerio
+        para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/es/)","citation_date":"2020-01-09"},{"source_link":"https://www.miteco.gob.es/es/red-parques-nacionales/sig/parques-nacionales.aspx","datalang":"spa","environmentalvaluemin":"","shape":true,"respparty_role":"Author","classification2":"Parques
+        Nacionales","displayname":"Parques Nacionales","id":10082,"grid":false,"path_orig":"layer/parquesnacionales","minlongitude":-17.90926,"maxlatitude":43.31586,"licence_link":"","mddatest":"2021-02-01","maxlongitude":3.38225,"dt_added":1614761118246,"minlatitude":28.09253,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:parquesnacionales&format=image/png&styles=","name":"parquesnacionales","metadatapath":"https://www.miteco.gob.es/es/red-parques-nacionales/sig/parques-nacionales.aspx","type":"Contextual","notes":"","keywords":"Parques
+        Nacionales, MITECO","licence_notes":"Acceso público y gratuito","environmentalvaluemax":"","classification1":"Nacional","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"La
         Red de Parques Nacionales de España constituye una muestra representativa
-        de los principales sistemas naturales españoles. La Ley 30/2014, de 3 de
-        diciembre, de Parques Nacionales, define los parques nacionales como  espacios
-        naturales, de alto valor ecológico y cultural, poco transformados por la
-        explotación o actividad humana que, en razón de la belleza de sus paisajes,
-        la representatividad de sus ecosistemas o la singularidad de su flora, de
-        su fauna, de su geología o de sus formaciones geomorfológicas, poseen unos
-        valores ecológicos, estéticos, culturales, educativos y científicos destacados
-        cuya conservación merece una atención preferente y se declara de interés
-        general del Estado. Del mismo modo, la zona periférica de protección (ZPP)
-        es el espacio marítimo o terrestre exterior, continuo y colindante a un parque
-        nacional, dotado de un régimen jurídico propio destinado a proyectar los
-        valores del parque en su entorno y amortiguar los impactos ecológicos o paisajísticos
-        procedentes del exterior sobre el interior del parque nacional. \",\"licence_level\":\"1\",\"source\":\"Organismo
+        de los principales sistemas naturales españoles. La Ley 30/2014, de 3 de diciembre,
+        de Parques Nacionales, define los parques nacionales como  espacios naturales,
+        de alto valor ecológico y cultural, poco transformados por la explotación
+        o actividad humana que, en razón de la belleza de sus paisajes, la representatividad
+        de sus ecosistemas o la singularidad de su flora, de su fauna, de su geología
+        o de sus formaciones geomorfológicas, poseen unos valores ecológicos, estéticos,
+        culturales, educativos y científicos destacados cuya conservación merece una
+        atención preferente y se declara de interés general del Estado. Del mismo
+        modo, la zona periférica de protección (ZPP) es el espacio marítimo o terrestre
+        exterior, continuo y colindante a un parque nacional, dotado de un régimen
+        jurídico propio destinado a proyectar los valores del parque en su entorno
+        y amortiguar los impactos ecológicos o paisajísticos procedentes del exterior
+        sobre el interior del parque nacional. ","licence_level":"1","source":"Organismo
         Autónomo Parques Nacionales (OAPN) del Ministerio para la Transición Ecológica
-        y el Reto Demográfico (www.miteco.gob.es/es/)\",\"citation_date\":\"2021-03-03\"},{\"source_link\":\"https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mab_descargas.aspx\",\"datalang\":\"spa\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"Author\",\"classification2\":\"Reservas
-        de la Biosfera\",\"displayname\":\"Reservas de la Biosfera\",\"id\":10087,\"grid\":false,\"path_orig\":\"layer/reservasdelabiosfera\",\"minlongitude\":-18.16083,\"maxlatitude\":43.57064,\"licence_link\":\"https://creativecommons.org/licenses/by/4.0/\",\"mddatest\":\"2019-06-19\",\"maxlongitude\":4.58788,\"dt_added\":1614779883708,\"minlatitude\":27.61,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:reservasdelabiosfera&format=image/png&styles=\",\"name\":\"reservasdelabiosfera\",\"metadatapath\":\"https://www.mapama.gob.es/ide/metadatos/index.html?srv=metadata.show&uuid=5353db93-fcb3-4be3-a4ff-39bbf25429ce\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"Reservas
-        de la Biosfera, MITECO\",\"licence_notes\":\"CC BY 4.0\",\"environmentalvaluemax\":\"\",\"classification1\":\"Nacional\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Las
+        y el Reto Demográfico (www.miteco.gob.es/es/)","citation_date":"2021-03-03"},{"source_link":"https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/mab_descargas.aspx","datalang":"spa","environmentalvaluemin":"","shape":true,"respparty_role":"Author","classification2":"Reservas
+        de la Biosfera","displayname":"Reservas de la Biosfera","id":10087,"grid":false,"path_orig":"layer/reservasdelabiosfera","minlongitude":-18.16083,"maxlatitude":43.57064,"licence_link":"https://creativecommons.org/licenses/by/4.0/","mddatest":"2019-06-19","maxlongitude":4.58788,"dt_added":1614779883708,"minlatitude":27.61,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:reservasdelabiosfera&format=image/png&styles=","name":"reservasdelabiosfera","metadatapath":"https://www.mapama.gob.es/ide/metadatos/index.html?srv=metadata.show&uuid=5353db93-fcb3-4be3-a4ff-39bbf25429ce","type":"Contextual","notes":"","keywords":"Reservas
+        de la Biosfera, MITECO","licence_notes":"CC BY 4.0","environmentalvaluemax":"","classification1":"Nacional","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Las
         Reservas de la Biosfera son zonas que pertenecen a ecosistemas terrestres
         o costeros propuestos por los diferentes Estados Miembros y reconocidas a
-        nivel internacional por el programa \\\"Hombre y Biosfera\\\" (MaB). Las Reservas
+        nivel internacional por el programa \"Hombre y Biosfera\" (MaB). Las Reservas
         de la Biosfera incluyen una gran variedad de entornos naturales y tratan de
         integrar la protección de los elementos naturales existentes con la protección
-        de formas tradicionales de explotación sostenible de los recursos naturales.\",\"licence_level\":\"1\",\"source\":\"Organismo
+        de formas tradicionales de explotación sostenible de los recursos naturales.","licence_level":"1","source":"Organismo
         Autónomo Parques Nacionales (OAPN) del Ministerio para la Transición Ecológica
-        y el Reto Demográfico (www.miteco.gob.es/es/)\",\"citation_date\":\"2021-03-03\"},{\"source_link\":\"https://www.miteco.gob.es/es/biodiversidad/temas/biodiversidad-marina/espacios-marinos-protegidos/red-areas-marinas-protegidas-espana/bm_emprot_rampe_espacios.aspx\",\"datalang\":\"spa\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"Author\",\"classification2\":\"\",\"displayname\":\"Red
-        de �\x81reas Marinas Protegidas de España\",\"id\":10088,\"grid\":false,\"path_orig\":\"layer/rampe\",\"minlongitude\":-18.22733,\"maxlatitude\":44.2,\"licence_link\":\"http://creativecommons.org/licenses/by-sa/3.0/es/\",\"mddatest\":\"\",\"maxlongitude\":4.55688,\"dt_added\":1614782629615,\"minlatitude\":27.58768,\"displaypath\":\"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:rampe&format=image/png&styles=\",\"name\":\"rampe\",\"metadatapath\":\"http://wms.mapama.es/sig/Biodiversidad/RAMPE/wms.aspx?request=getcapabilities\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"Espacios,
-        Protegidos, Marinos\",\"licence_notes\":\"CC BY-SA 3.0\",\"environmentalvaluemax\":\"\",\"classification1\":\"Regiones\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"A
+        y el Reto Demográfico (www.miteco.gob.es/es/)","citation_date":"2021-03-03"},{"source_link":"https://www.miteco.gob.es/es/biodiversidad/temas/biodiversidad-marina/espacios-marinos-protegidos/red-areas-marinas-protegidas-espana/bm_emprot_rampe_espacios.aspx","datalang":"spa","environmentalvaluemin":"","shape":true,"respparty_role":"Author","classification2":"","displayname":"Red
+        de Áreas Marinas Protegidas de España","id":10088,"grid":false,"path_orig":"layer/rampe","minlongitude":-18.22733,"maxlatitude":44.2,"licence_link":"http://creativecommons.org/licenses/by-sa/3.0/es/","mddatest":"","maxlongitude":4.55688,"dt_added":1614782629615,"minlatitude":27.58768,"displaypath":"https://espacial.gbif.es/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:rampe&format=image/png&styles=","name":"rampe","metadatapath":"http://wms.mapama.es/sig/Biodiversidad/RAMPE/wms.aspx?request=getcapabilities","type":"Contextual","notes":"","keywords":"Espacios,
+        Protegidos, Marinos","licence_notes":"CC BY-SA 3.0","environmentalvaluemax":"","classification1":"Regiones","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"A
         través de resoluciones de la Dirección General de Sostenibilidad de la Costa
         y del Mar y de la Dirección General de Biodiversidad, Bosques y Desertificación,
-        han sido integradas en la RAMPE:\\r\\n- Las reservas marinas de interés pesquero
-        de competencia estatal\\r\\n- Las Zonas Especiales de Conservación marinas
-        de la región biogeográfica Macaronésica de la Red Natura 2000, y el �\x81rea
-        Marina Protegida y Zona Especial de Conservación de El Cachucho.\\r\\n- Las
-        Zonas de Especial Protección para las Aves marinas.\\r\\n- Ocho Zonas Especiales
-        de Conservación marinas de la Región Biogeográfica Mediterránea de la
-        Red Natura 2000 y el �\x81rea Marina Protegida Corredor de migración de cetáceos
-        del Mediterráneo\",\"licence_level\":\"1\",\"source\":\"Ministerio para la
-        Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/es/)\",\"citation_date\":\"2021-03-03\"}]"
-  recorded_at: 2021-08-06 01:46:41 GMT
+        han sido integradas en la RAMPE:\r\n- Las reservas marinas de interés pesquero
+        de competencia estatal\r\n- Las Zonas Especiales de Conservación marinas de
+        la región biogeográfica Macaronésica de la Red Natura 2000, y el Área Marina
+        Protegida y Zona Especial de Conservación de El Cachucho.\r\n- Las Zonas de
+        Especial Protección para las Aves marinas.\r\n- Ocho Zonas Especiales de Conservación
+        marinas de la Región Biogeográfica Mediterránea de la Red Natura 2000 y el
+        Área Marina Protegida Corredor de migración de cetáceos del Mediterráneo","licence_level":"1","source":"Ministerio
+        para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/es/)","citation_date":"2021-03-03"}]'
+  recorded_at: 2021-08-06 02:11:22 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -581,7 +577,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 01:46:38 GMT
+      date: Fri, 06 Aug 2021 02:11:18 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -692,7 +688,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2021-08-06 01:46:41 GMT
+  recorded_at: 2021-08-06 02:11:22 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -711,7 +707,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 01:46:39 GMT
+      date: Fri, 06 Aug 2021 02:11:19 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -967,7 +963,7 @@ http_interactions:
         Taxon Rank","info":"http://rs.tdwg.org/dwc/terms/verbatimTaxonRank","dwcTerm":"verbatimTaxonRank","downloadName":"verbatim_taxon_rank","classs":"Taxon"},{"name":"videos","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Videos
         associated with a record","downloadName":"videos"},{"name":"water_body","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Water
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody","dwcTerm":"waterBody","downloadName":"water_body","classs":"Location"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2021-08-06 01:46:41 GMT
+  recorded_at: 2021-08-06 02:11:22 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -986,7 +982,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 01:46:41 GMT
+      date: Fri, 06 Aug 2021 02:11:22 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -1003,5 +999,5 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2007","i18nCode":"year.2007","count":1312744,"fq":"year:\"2007\""},{"label":"2019","i18nCode":"year.2019","count":917271,"fq":"year:\"2019\""},{"label":"2015","i18nCode":"year.2015","count":898970,"fq":"year:\"2015\""},{"label":"2006","i18nCode":"year.2006","count":838706,"fq":"year:\"2006\""},{"label":"2018","i18nCode":"year.2018","count":833182,"fq":"year:\"2018\""},{"label":"2011","i18nCode":"year.2011","count":831139,"fq":"year:\"2011\""},{"label":"2010","i18nCode":"year.2010","count":819958,"fq":"year:\"2010\""},{"label":"2016","i18nCode":"year.2016","count":817025,"fq":"year:\"2016\""},{"label":"2009","i18nCode":"year.2009","count":764933,"fq":"year:\"2009\""},{"label":"2014","i18nCode":"year.2014","count":761232,"fq":"year:\"2014\""},{"label":"2017","i18nCode":"year.2017","count":755794,"fq":"year:\"2017\""},{"label":"2005","i18nCode":"year.2005","count":730363,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":713241,"fq":"year:\"2004\""},{"label":"2012","i18nCode":"year.2012","count":696739,"fq":"year:\"2012\""},{"label":"2008","i18nCode":"year.2008","count":665566,"fq":"year:\"2008\""},{"label":"2003","i18nCode":"year.2003","count":634456,"fq":"year:\"2003\""},{"label":"2013","i18nCode":"year.2013","count":625925,"fq":"year:\"2013\""},{"label":"2002","i18nCode":"year.2002","count":600389,"fq":"year:\"2002\""},{"label":"2000","i18nCode":"year.2000","count":599147,"fq":"year:\"2000\""},{"label":"2001","i18nCode":"year.2001","count":547384,"fq":"year:\"2001\""}],"count":314}]'
-  recorded_at: 2021-08-06 01:46:41 GMT
+  recorded_at: 2021-08-06 02:11:22 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

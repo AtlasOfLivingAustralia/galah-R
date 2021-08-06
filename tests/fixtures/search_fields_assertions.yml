@@ -23,18 +23,18 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 01:46:52 GMT
+      date: Fri, 06 Aug 2021 02:11:33 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=QhKqXQtLE/RykNLcA0dgy5gqdx1ZXURxS3YBx7sOawrbp8k21lrcRPtFCr3mc8ZEId7Ve7lR7Ze2EOHG2VqvcUr0fHBG3VyHpY2ArfiWdFrs4zPZhNQ8m7wFrscLN56ul5VhqaQxn6WipflX4fZxcuDQwWIRzmd9vPeu8WYNv3pc;
-        Expires=Fri, 13 Aug 2021 01:46:52 GMT; Path=/
-      - AWSALBTGCORS=QhKqXQtLE/RykNLcA0dgy5gqdx1ZXURxS3YBx7sOawrbp8k21lrcRPtFCr3mc8ZEId7Ve7lR7Ze2EOHG2VqvcUr0fHBG3VyHpY2ArfiWdFrs4zPZhNQ8m7wFrscLN56ul5VhqaQxn6WipflX4fZxcuDQwWIRzmd9vPeu8WYNv3pc;
-        Expires=Fri, 13 Aug 2021 01:46:52 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=xN7k7nDtt9lhm4RQcPz8s6/IBVSJiW12KjmSBMXmW9pH2EClUdW8//N7/c/bHro8LXjqlTRZJVL6SoIk7HG/N6CjlhlQGP5jDTQMGXecwr5Pr0rVSCGlm/TMhsyY;
-        Expires=Fri, 13 Aug 2021 01:46:52 GMT; Path=/
-      - AWSALBCORS=xN7k7nDtt9lhm4RQcPz8s6/IBVSJiW12KjmSBMXmW9pH2EClUdW8//N7/c/bHro8LXjqlTRZJVL6SoIk7HG/N6CjlhlQGP5jDTQMGXecwr5Pr0rVSCGlm/TMhsyY;
-        Expires=Fri, 13 Aug 2021 01:46:52 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=iLLlb1wMtdcMZRuGfwBA9tFr6DJBoYfJHOgbKLWssVcrACpNEujXifi3GWTcf12ljPW5IBaY/ufYF6Ga9wGQGFNutSKIYiHUtu303D1fAfbIR/FT6GD6yHNd/C/ozxhsjkG44S1Ogsf4sov/cSJHhHiQW40Sj9pGTcTM1uCPHMFZ;
+        Expires=Fri, 13 Aug 2021 02:11:33 GMT; Path=/
+      - AWSALBTGCORS=iLLlb1wMtdcMZRuGfwBA9tFr6DJBoYfJHOgbKLWssVcrACpNEujXifi3GWTcf12ljPW5IBaY/ufYF6Ga9wGQGFNutSKIYiHUtu303D1fAfbIR/FT6GD6yHNd/C/ozxhsjkG44S1Ogsf4sov/cSJHhHiQW40Sj9pGTcTM1uCPHMFZ;
+        Expires=Fri, 13 Aug 2021 02:11:33 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=gtwfdb4sjDildlIcuT/ShB6y0hG9DBRNFZI4Kad+dh+7dpDHSPU2zBGk2sPv9K5DY3RHkV86GLv9DXL8nb4sJTwqkB0i5c8zweAgcCqaKSUcpuIXO3NSU4s8fZxd;
+        Expires=Fri, 13 Aug 2021 02:11:33 GMT; Path=/
+      - AWSALBCORS=gtwfdb4sjDildlIcuT/ShB6y0hG9DBRNFZI4Kad+dh+7dpDHSPU2zBGk2sPv9K5DY3RHkV86GLv9DXL8nb4sJTwqkB0i5c8zweAgcCqaKSUcpuIXO3NSU4s8fZxd;
+        Expires=Fri, 13 Aug 2021 02:11:33 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/1.1 200 '
       strict-transport-security: max-age=31536000
       transfer-encoding: chunked
@@ -150,5 +150,5 @@ http_interactions:
         collection code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"UNRECOGNISED_INSTITUTION_CODE","code":1040,"description":"Unrecognized
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
         coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","decimalLongitude","verbatimLongitude","decimalLatitude"]}]'
-  recorded_at: 2021-08-06 01:46:52 GMT
+  recorded_at: 2021-08-06 02:11:33 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
