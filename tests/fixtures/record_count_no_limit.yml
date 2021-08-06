@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -23,18 +23,18 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Mon, 02 Aug 2021 00:14:47 GMT
+      date: Fri, 06 Aug 2021 01:42:47 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=37YZqg/LX4cWR0ZCFUqdYFwpDyh7L4ZnAbOOEKfnSwnR7qkPs4QlSo1tjlJRAbiDydvg3/6EvJCAQ4+ahCV9nXfdDh7TGBK6slaG52muV1wPpFka4HRhovtTGM1Hnv8de2GtbARJRmEzdp6+7Ihte9fxFElcVexOVfGtI2gz9wiy;
-        Expires=Mon, 09 Aug 2021 00:14:47 GMT; Path=/
-      - AWSALBTGCORS=37YZqg/LX4cWR0ZCFUqdYFwpDyh7L4ZnAbOOEKfnSwnR7qkPs4QlSo1tjlJRAbiDydvg3/6EvJCAQ4+ahCV9nXfdDh7TGBK6slaG52muV1wPpFka4HRhovtTGM1Hnv8de2GtbARJRmEzdp6+7Ihte9fxFElcVexOVfGtI2gz9wiy;
-        Expires=Mon, 09 Aug 2021 00:14:47 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=UePApcbt9Ti3xLC67WcbcX1Ae5Ib+A6nd9hC4Qy2mZHwCFHcyGP7ISPgdhv0LcVd6llL7V7lv5UcY2cMbLFGVDYMw0wEyCmtCNCpm/HnNhCUFK5jliPdpK92hQQn;
-        Expires=Mon, 09 Aug 2021 00:14:47 GMT; Path=/
-      - AWSALBCORS=UePApcbt9Ti3xLC67WcbcX1Ae5Ib+A6nd9hC4Qy2mZHwCFHcyGP7ISPgdhv0LcVd6llL7V7lv5UcY2cMbLFGVDYMw0wEyCmtCNCpm/HnNhCUFK5jliPdpK92hQQn;
-        Expires=Mon, 09 Aug 2021 00:14:47 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=hM8DuoOPyAN5cVjE3GauS+bmufF7aoK1zcInCy+/bflsfGROs/0UPxVMAAyAjXqaVZq85ZRzleyyeYS1aTIGXwyIRHQ6REPLH4+f7BdXd/uDNYnda5IphbA4FT/z4u2AfNsZuvq+NSPVKCQO7JKtSPdV5Sv03ZEaRylTTbJ9RPjA;
+        Expires=Fri, 13 Aug 2021 01:42:47 GMT; Path=/
+      - AWSALBTGCORS=hM8DuoOPyAN5cVjE3GauS+bmufF7aoK1zcInCy+/bflsfGROs/0UPxVMAAyAjXqaVZq85ZRzleyyeYS1aTIGXwyIRHQ6REPLH4+f7BdXd/uDNYnda5IphbA4FT/z4u2AfNsZuvq+NSPVKCQO7JKtSPdV5Sv03ZEaRylTTbJ9RPjA;
+        Expires=Fri, 13 Aug 2021 01:42:47 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=E7ZiagqCvxM9LWpLQyPnne3RXf47wt+NxUbqidOGl7GbtvAEYE+MJskzA/8TssDAr9Pr4gf5BCXqT2IUERh+uyzeT7zj7TJ6oxlCT1D9Am2MPBxkjE4Avbs3xWpo;
+        Expires=Fri, 13 Aug 2021 01:42:47 GMT; Path=/
+      - AWSALBCORS=E7ZiagqCvxM9LWpLQyPnne3RXf47wt+NxUbqidOGl7GbtvAEYE+MJskzA/8TssDAr9Pr4gf5BCXqT2IUERh+uyzeT7zj7TJ6oxlCT1D9Am2MPBxkjE4Avbs3xWpo;
+        Expires=Fri, 13 Aug 2021 01:42:47 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/1.1 200 '
       strict-transport-security: max-age=31536000
       transfer-encoding: chunked
@@ -843,7 +843,7 @@ http_interactions:
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody"},{"name":"year","jsonName":"year","dwcTerm":"year","downloadName":"year","dataType":"int","classs":"Event","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"description":"Year","downloadDescription":"Year","info":"The
         year in which an occurrence was observed. http://rs.tdwg.org/dwc/terms/year","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/year"},{"name":"zone","downloadName":"zone","dataType":"string","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset"}]'
-  recorded_at: 2021-08-02 00:14:52 GMT
+  recorded_at: 2021-08-06 01:42:53 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -854,7 +854,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -863,7 +863,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.21.0
-      date: Mon, 02 Aug 2021 00:14:49 GMT
+      date: Fri, 06 Aug 2021 01:42:50 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -898,8 +898,8 @@ http_interactions:
         and compiled by ABARES. Users of the data set are asked to make known to ABARES
         any errors, omissions or suggestions for improvement.\",\"environmentalvaluemax\":\"99\",\"classification1\":\"Vegetation\",\"environmentalvalueunits\":\"class\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Current
         major vegetation group (class)\",\"licence_level\":\"3\",\"source\":\"ERIN\",\"citation_date\":\"2006\"},{\"path_1km\":\"\",\"source_link\":\"\",\"datalang\":\"\",\"environmentalvaluemin\":\"0\",\"shape\":false,\"lookuptablepath\":\"\",\"respparty_role\":\"\",\"classification2\":\"Phylogenetic
-        Diversity\",\"pid\":\"\",\"displayname\":\"Mammals – Fritz et al 2009 - 0.5
-        degree\",\"id\":2043,\"grid\":true,\"path_orig\":\"layer/phylo_tree_4152\",\"mdhrlv\":\"\",\"minlongitude\":112.0,\"maxlatitude\":-11.5,\"licence_link\":\"\",\"mddatest\":\"\",\"maxlongitude\":154.5,\"dt_added\":1428847200000,\"minlatitude\":-44.0,\"scale\":\"\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:phylo_tree_4152&format=image/png&styles=\",\"path\":\"/data/ala/data/layers/ready/diva\",\"name\":\"phylo_tree_4152\",\"metadatapath\":\"http://www.ala.org.au/\",\"type\":\"Environmental\",\"notes\":\"Fritz,
+        Diversity\",\"pid\":\"\",\"displayname\":\"Mammals – Fritz et al 2009 -
+        0.5 degree\",\"id\":2043,\"grid\":true,\"path_orig\":\"layer/phylo_tree_4152\",\"mdhrlv\":\"\",\"minlongitude\":112.0,\"maxlatitude\":-11.5,\"licence_link\":\"\",\"mddatest\":\"\",\"maxlongitude\":154.5,\"dt_added\":1428847200000,\"minlatitude\":-44.0,\"scale\":\"\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:phylo_tree_4152&format=image/png&styles=\",\"path\":\"/data/ala/data/layers/ready/diva\",\"name\":\"phylo_tree_4152\",\"metadatapath\":\"http://www.ala.org.au/\",\"type\":\"Environmental\",\"notes\":\"Fritz,
         S.A., Bininda-Emonds, O.R.P. & Purvis, A. (2009) Geographical variation in
         predictors of mammalian extinction risk: Big is bad, but only in the tropics.
         Ecology Letters, 12, 538-549\",\"keywords\":\"\",\"uid\":\"2043\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"0.87019997835159302\",\"classification1\":\"Biodiversity\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial,Marine\",\"description\":\"Mammals
@@ -975,8 +975,8 @@ http_interactions:
         vegetation in an area may be mapped as dominated by eucalypt open forest,
         although it contains pockets of rainforest, shrubland and grassland vegetation
         as subdominants.\",\"licence_level\":\"2\",\"source\":\"http://www.environment.gov.au/fed/catalog/search/resource/details.page?uuid=%7Beade4b5f-6a30-46ae-86d8-58ed374ddc72%7D\",\"citation_date\":\"11/2012\"},{\"path_1km\":\"\",\"source_link\":\"\",\"datalang\":\"\",\"environmentalvaluemin\":\"0\",\"shape\":false,\"lookuptablepath\":\"\",\"respparty_role\":\"\",\"classification2\":\"Phylogenetic
-        Diversity\",\"pid\":\"\",\"displayname\":\"Amphibians (global) – Pyron & Wiens
-        2011 - 0.5 degree\",\"id\":2044,\"grid\":true,\"path_orig\":\"layer/phylo_tree_2857\",\"mdhrlv\":\"\",\"minlongitude\":112.0,\"maxlatitude\":-11.5,\"licence_link\":\"\",\"mddatest\":\"\",\"maxlongitude\":154.5,\"dt_added\":1428847200000,\"minlatitude\":-44.0,\"scale\":\"\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:phylo_tree_2857&format=image/png&styles=\",\"path\":\"/data/ala/data/layers/ready/diva\",\"name\":\"phylo_tree_2857\",\"metadatapath\":\"http://www.ala.org.au/\",\"type\":\"Environmental\",\"notes\":\"Pyron
+        Diversity\",\"pid\":\"\",\"displayname\":\"Amphibians (global) – Pyron &
+        Wiens 2011 - 0.5 degree\",\"id\":2044,\"grid\":true,\"path_orig\":\"layer/phylo_tree_2857\",\"mdhrlv\":\"\",\"minlongitude\":112.0,\"maxlatitude\":-11.5,\"licence_link\":\"\",\"mddatest\":\"\",\"maxlongitude\":154.5,\"dt_added\":1428847200000,\"minlatitude\":-44.0,\"scale\":\"\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:phylo_tree_2857&format=image/png&styles=\",\"path\":\"/data/ala/data/layers/ready/diva\",\"name\":\"phylo_tree_2857\",\"metadatapath\":\"http://www.ala.org.au/\",\"type\":\"Environmental\",\"notes\":\"Pyron
         R.A., & Wiens J.J. 2011. A large-scale phylogeny of Amphibia including over
         2800 species, and a revised classification of extant frogs, salamanders, and
         caecilians. Molecular Phylogenetics and Evolution 61: 543-583.\",\"keywords\":\"\",\"uid\":\"2044\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"5.2691001892089844\",\"classification1\":\"Biodiversity\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial,Marine\",\"description\":\"Amphibians
@@ -1014,12 +1014,12 @@ http_interactions:
         The individual datasets collectively form the Commonwealth Electoral Boundaries.
         Aspatial attribution includes Electoral Division name and area. © Commonwealth
         of Australia (Australian Electoral Commission) 2011.\",\"keywords\":\"political,
-        voting\",\"uid\":\"958\",\"licence_notes\":\"© Commonwealth of Australia (Australian
-        Electoral Commission) 2011\",\"environmentalvaluemax\":\"\",\"classification1\":\"Political\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Commonwealth
+        voting\",\"uid\":\"958\",\"licence_notes\":\"© Commonwealth of Australia
+        (Australian Electoral Commission) 2011\",\"environmentalvaluemax\":\"\",\"classification1\":\"Political\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Commonwealth
         Electoral Boundaries\",\"licence_level\":\"3\",\"source\":\"Australian Electoral
         Commission\",\"citation_date\":\"2011-12\"},{\"path_1km\":\"\",\"source_link\":\"\",\"datalang\":\"\",\"environmentalvaluemin\":\"0\",\"shape\":false,\"lookuptablepath\":\"\",\"respparty_role\":\"\",\"classification2\":\"Phylogenetic
-        Diversity\",\"pid\":\"\",\"displayname\":\"Acacia – Miller et al 2012 - 0.5
-        degree\",\"id\":2042,\"grid\":true,\"path_orig\":\"layer/phylo_tree_5\",\"mdhrlv\":\"\",\"minlongitude\":112.0,\"maxlatitude\":-11.5,\"licence_link\":\"\",\"mddatest\":\"\",\"maxlongitude\":154.5,\"dt_added\":1428847200000,\"minlatitude\":-44.0,\"scale\":\"\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:phylo_tree_5&format=image/png&styles=\",\"path\":\"/data/ala/data/layers/ready/diva\",\"name\":\"phylo_tree_5\",\"metadatapath\":\"http://www.ala.org.au/\",\"type\":\"Environmental\",\"notes\":\"Miller,
+        Diversity\",\"pid\":\"\",\"displayname\":\"Acacia – Miller et al 2012 -
+        0.5 degree\",\"id\":2042,\"grid\":true,\"path_orig\":\"layer/phylo_tree_5\",\"mdhrlv\":\"\",\"minlongitude\":112.0,\"maxlatitude\":-11.5,\"licence_link\":\"\",\"mddatest\":\"\",\"maxlongitude\":154.5,\"dt_added\":1428847200000,\"minlatitude\":-44.0,\"scale\":\"\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:phylo_tree_5&format=image/png&styles=\",\"path\":\"/data/ala/data/layers/ready/diva\",\"name\":\"phylo_tree_5\",\"metadatapath\":\"http://www.ala.org.au/\",\"type\":\"Environmental\",\"notes\":\"Miller,
         J. T., Murphy, D. J., Brown, G. K., Richardson, D. M. and González-Orozco,
         C. E. (2011), The evolution and phylogenetic placement of invasive Australian
         Acacia species. Diversity and Distributions, 17: 848–860. doi: 10.1111/j.1472-4642.2011.00780.x\",\"keywords\":\"\",\"uid\":\"2042\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"4.6961002349853516\",\"classification1\":\"Biodiversity\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial,Marine\",\"description\":\"Acacia
@@ -2727,9 +2727,10 @@ http_interactions:
         mean growth index for C3 mesotherm plants computed for a clay loam soil type
         with 150mm available water holding capacity as the product of three component
         indices (temperature, light and moisture) using an optimum temperature of
-        19Ã¯Â¿Â½C and range 3-36Ã¯Â¿Â½C.\",\"keywords\":\"water, temperature, precipitation,
-        rain, capacity\",\"uid\":\"731\",\"licence_notes\":\"Permission required to
-        re-distribute derivative works. Please contact Dr. Kristen Williams - kristen.williams@csiro.au\",\"environmentalvaluemax\":\"0.850000023841858\",\"classification1\":\"Climate\",\"environmentalvalueunits\":\"index\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Mean
+        19Ã¯Â¿Â½C and range 3-36Ã¯Â¿Â½C.\",\"keywords\":\"water, temperature,
+        precipitation, rain, capacity\",\"uid\":\"731\",\"licence_notes\":\"Permission
+        required to re-distribute derivative works. Please contact Dr. Kristen Williams
+        - kristen.williams@csiro.au\",\"environmentalvaluemax\":\"0.850000023841858\",\"classification1\":\"Climate\",\"environmentalvalueunits\":\"index\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Mean
         annual growth index C3 mesotherm plants\",\"licence_level\":\"1\",\"source\":\"CSIRO
         Ecosystem Sciences\"},{\"source_link\":\"http://www.csiro.au/Organisation-Structure/Divisions/Ecosystem-Sciences.aspx\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0\",\"shape\":false,\"lookuptablepath\":\"\",\"classification2\":\"Growth
         index\",\"displayname\":\"Growth index C3 macrotherm plants - annual mean\",\"id\":722,\"grid\":true,\"path_orig\":\"layer/megagi\",\"minlongitude\":109.51,\"maxlatitude\":-8.19,\"mddatest\":\"2010-07\",\"maxlongitude\":157.28,\"dt_added\":1308837600000,\"minlatitude\":-44.37,\"scale\":\"0.01
@@ -2737,9 +2738,10 @@ http_interactions:
         mean growth index for C3 macrotherm plants computed for a clay loam soil type
         with 150mm available water holding capacity as the product of three component
         indices (temperature, light and moisture) using an optimum temperature of
-        28Ã¯Â¿Â½C and range 10-38Ã¯Â¿Â½C.\",\"keywords\":\"water, temperature, precipitation,
-        rain, capacity\",\"uid\":\"722\",\"licence_notes\":\"Permission required to
-        re-distribute derivative works. Please contact Dr. Kristen Williams - kristen.williams@csiro.au\",\"environmentalvaluemax\":\"0.699999988079071\",\"classification1\":\"Climate\",\"environmentalvalueunits\":\"index\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Mean
+        28Ã¯Â¿Â½C and range 10-38Ã¯Â¿Â½C.\",\"keywords\":\"water, temperature,
+        precipitation, rain, capacity\",\"uid\":\"722\",\"licence_notes\":\"Permission
+        required to re-distribute derivative works. Please contact Dr. Kristen Williams
+        - kristen.williams@csiro.au\",\"environmentalvaluemax\":\"0.699999988079071\",\"classification1\":\"Climate\",\"environmentalvalueunits\":\"index\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Mean
         annual growth index C3 macrotherm plants\",\"licence_level\":\"1\",\"source\":\"CSIRO
         Ecosystem Sciences\"},{\"source_link\":\"http://www.csiro.au/Organisation-Structure/Divisions/Ecosystem-Sciences.aspx\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0\",\"shape\":false,\"lookuptablepath\":\"\",\"classification2\":\"Temperature\",\"displayname\":\"Temperature
         - month hottest maximum\",\"id\":729,\"grid\":true,\"path_orig\":\"layer/maxtx\",\"minlongitude\":109.51,\"maxlatitude\":-8.19,\"mddatest\":\"2010-07\",\"maxlongitude\":157.28,\"dt_added\":1308837600000,\"minlatitude\":-44.37,\"scale\":\"0.01
@@ -2764,9 +2766,10 @@ http_interactions:
         mean growth index for C4 megatherm plants computed for a clay loam soil type
         with 150mm available water holding capacity as the product of three component
         indices (temperature, light and moisture) using an optimum temperature of
-        32Ã¯Â¿Â½C and range 10-45Ã¯Â¿Â½C. \",\"keywords\":\"water, temperature, precipitation,
-        rain, capacity\",\"uid\":\"751\",\"licence_notes\":\"Permission required to
-        re-distribute derivative works. Please contact Dr. Kristen Williams - kristen.williams@csiro.au\",\"environmentalvaluemax\":\"0.579999983310699\",\"classification1\":\"Climate\",\"environmentalvalueunits\":\"index\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Mean
+        32Ã¯Â¿Â½C and range 10-45Ã¯Â¿Â½C. \",\"keywords\":\"water, temperature,
+        precipitation, rain, capacity\",\"uid\":\"751\",\"licence_notes\":\"Permission
+        required to re-distribute derivative works. Please contact Dr. Kristen Williams
+        - kristen.williams@csiro.au\",\"environmentalvaluemax\":\"0.579999983310699\",\"classification1\":\"Climate\",\"environmentalvalueunits\":\"index\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Mean
         annual growth index C4 megatherm plants\",\"licence_level\":\"1\",\"source\":\"CSIRO
         Ecosystem Sciences\"},{\"path_1km\":\"\",\"source_link\":\"http://www.csiro.au/Organisation-Structure/Divisions/Ecosystem-Sciences.aspx\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-1.29999995231628\",\"shape\":false,\"lookuptablepath\":\"\",\"respparty_role\":\"\",\"classification2\":\"Temperature\",\"pid\":\"\",\"displayname\":\"Temperature
         - wettest quarter mean (Bio08)\",\"id\":870,\"grid\":true,\"path_orig\":\"layer/bioclim_bio8\",\"mdhrlv\":\"\",\"minlongitude\":112.9,\"maxlatitude\":-9.0,\"licence_link\":\"\",\"mddatest\":\"2010-08\",\"maxlongitude\":153.64,\"dt_added\":1308837600000,\"minlatitude\":-43.8,\"scale\":\"0.01
@@ -3349,10 +3352,10 @@ http_interactions:
         and\\r\\n  boundary representing the land cover type at each of three periods;
         summer\\r\\n  1996/97, summer 2001/02, and summer 2008/09. The data set was
         designed to be\\r\\n  compatible in scale and accuracy with Land Information
-        New Zealand’s 1:50,000\\r\\n  topographic database. LCDB is intended to be
-        used in areas such as state of\\r\\n  environmental monitoring, forest and
-        shrubland inventory, biodiversity\\r\\n  assessment, trend analysis and infrastructure
-        planning.\",\"keywords\":\"\",\"uid\":\"1060\",\"licence_notes\":\"Creative
+        New Zealand’s 1:50,000\\r\\n  topographic database. LCDB is intended to
+        be used in areas such as state of\\r\\n  environmental monitoring, forest
+        and shrubland inventory, biodiversity\\r\\n  assessment, trend analysis and
+        infrastructure planning.\",\"keywords\":\"\",\"uid\":\"1060\",\"licence_notes\":\"Creative
         Commons Attribution 3.0 New Zealand\",\"environmentalvaluemax\":\"\",\"classification1\":\"Vegetation\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"NZ
         Land Cover Database Version 3\",\"licence_level\":\"3\",\"source\":\"NZ Landcare
         Research\",\"citation_date\":\"\"},{\"path_1km\":\"\",\"source_link\":\"http://www.ga.gov.au/meta/ANZCW0703007842.xml\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"\",\"shape\":true,\"lookuptablepath\":\"\",\"respparty_role\":\"\",\"classification2\":\"Protected
@@ -3844,7 +3847,7 @@ http_interactions:
         GEN Register is an online resource that contains the geographic extents of
         thousands of geographic objects. These objects range from maps sheets, navigational
         charts, oceans and rivers, through to States, Territories and Local Government
-        Areas.\\r\\n\\r\\nThe register has been developed by ANZLICÃ¢â‚¬â€\x9Dthe
+        Areas.\\r\\n\\r\\nThe register has been developed by ANZLICÃ¢â‚¬â€�\x9Dthe
         Spatial Information Council to assist users complete the GEN element of the
         ANZLIC metadata guidelines. This element requires users to specify the ordinary
         name of one or more predefined geographic objects that reasonably show the
@@ -4028,21 +4031,22 @@ http_interactions:
         Annual Variance in Sea Surface Salinity\",\"id\":2099,\"grid\":true,\"path_orig\":\"layer/marspec_12\",\"mdhrlv\":\"\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://esapubs.org/archive/ecol/E094/086/metadata.php\",\"mddatest\":\"2012-08\",\"maxlongitude\":180.0,\"dt_added\":1426683600000,\"minlatitude\":-90.0,\"scale\":\"\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:marspec_12&format=image/png&styles=\",\"path\":\"/data/ala/data/layers/ready/diva\",\"name\":\"marspec_12\",\"metadatapath\":\"http://esapubs.org/archive/ecol/E094/086/metadata.php\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"uid\":\"2099\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"1877078\",\"classification1\":\"Marine\",\"environmentalvalueunits\":\"100
         x psu\",\"enabled\":true,\"domain\":\"Marine\",\"description\":\"Measurements
         of sea surface salinity (SSS) were obtained from in situ oceanographic observations
-        compiled by NOAA’s World Ocean Atlas 2009 (WOA09; Antonov et al. 2010). Monthly
-        climatological means (measured in practical salinity units) were calculated
-        by the original authors by averaging five “decadal” climatologies, at 1 arc-degree
-        spatial resolution for the following time periods: 1955–1964, 1965–1974, 1975–1984,
-        1985–1994, 1995–2006. Further details on data compilation, quality control,
-        and the creation of climatologies can be found in the original publication
-        (Antonov et al. 2010). We downloaded the monthly climatologies for the sea
-        surface in ArcGIS point shapefile format and used spline interpolation in
-        ArcGIS 9.3.1 to spatially smooth the data from 1 arc-degree to 30 arc-second
-        grids within the GSHHS ocean mask. The final monthly climatologies were multiplied
-        by 100 and rounded to the nearest integer value in order to conserve file
-        space. Five bioclimatic MARSPEC layers were calculated from the scaled climatologies:
-        mean annual sea surface salinity (biogeo08), salinity of the least salty month
-        (biogeo09), salinity of the saltiest month (biogeo10), annual range in sea
-        surface salinity (biogeo11), and annual variance in sea surface salinity (biogeo12).\",\"licence_level\":\"3\",\"source\":\"http://www.marspec.org/\",\"citation_date\":\"2012-08\"},{\"environmentalvaluemin\":\"0\",\"shape\":false,\"classification2\":\"\",\"displayname\":\"Shannon
+        compiled by NOAA’s World Ocean Atlas 2009 (WOA09; Antonov et al. 2010).
+        Monthly climatological means (measured in practical salinity units) were calculated
+        by the original authors by averaging five “decadal�\x9D climatologies,
+        at 1 arc-degree spatial resolution for the following time periods: 1955–1964,
+        1965–1974, 1975–1984, 1985–1994, 1995–2006. Further details on data
+        compilation, quality control, and the creation of climatologies can be found
+        in the original publication (Antonov et al. 2010). We downloaded the monthly
+        climatologies for the sea surface in ArcGIS point shapefile format and used
+        spline interpolation in ArcGIS 9.3.1 to spatially smooth the data from 1 arc-degree
+        to 30 arc-second grids within the GSHHS ocean mask. The final monthly climatologies
+        were multiplied by 100 and rounded to the nearest integer value in order to
+        conserve file space. Five bioclimatic MARSPEC layers were calculated from
+        the scaled climatologies: mean annual sea surface salinity (biogeo08), salinity
+        of the least salty month (biogeo09), salinity of the saltiest month (biogeo10),
+        annual range in sea surface salinity (biogeo11), and annual variance in sea
+        surface salinity (biogeo12).\",\"licence_level\":\"3\",\"source\":\"http://www.marspec.org/\",\"citation_date\":\"2012-08\"},{\"environmentalvaluemin\":\"0\",\"shape\":false,\"classification2\":\"\",\"displayname\":\"Shannon
         Diversity (H)\",\"id\":2119,\"grid\":true,\"path_orig\":\"layer/sh\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"maxlongitude\":180.0,\"dt_added\":1439388000000,\"minlatitude\":-90.0,\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:sh&format=image/png&styles=\",\"path\":\"/data/ala/data/layers/ready/diva\",\"name\":\"sh\",\"metadatapath\":\"https://en.wikipedia.org/wiki/Diversity_index\",\"type\":\"Environmental\",\"notes\":\"This
         is calculated regularly from bio-holdings\",\"keywords\":\"biodiversity, richness,
         eveness, abundance\",\"uid\":\"2119\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"6.7624478340148926\",\"classification1\":\"Biodiversity\",\"environmentalvalueunits\":\"index\",\"enabled\":true,\"domain\":\"Terrestrial,Marine\",\"description\":\"Shannon
@@ -4050,75 +4054,79 @@ http_interactions:
         Annual Range in Sea Surface Salinity\",\"id\":2098,\"grid\":true,\"path_orig\":\"layer/marspec_11\",\"mdhrlv\":\"\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://esapubs.org/archive/ecol/E094/086/metadata.php\",\"mddatest\":\"2012-08\",\"maxlongitude\":180.0,\"dt_added\":1426683600000,\"minlatitude\":-90.0,\"scale\":\"\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:marspec_11&format=image/png&styles=\",\"path\":\"/data/ala/data/layers/ready/diva\",\"name\":\"marspec_11\",\"metadatapath\":\"http://esapubs.org/archive/ecol/E094/086/metadata.php\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"uid\":\"2098\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"4043\",\"classification1\":\"Marine\",\"environmentalvalueunits\":\"100
         x psu\",\"enabled\":true,\"domain\":\"Marine\",\"description\":\"Measurements
         of sea surface salinity (SSS) were obtained from in situ oceanographic observations
-        compiled by NOAA’s World Ocean Atlas 2009 (WOA09; Antonov et al. 2010). Monthly
-        climatological means (measured in practical salinity units) were calculated
-        by the original authors by averaging five “decadal” climatologies, at 1 arc-degree
-        spatial resolution for the following time periods: 1955–1964, 1965–1974, 1975–1984,
-        1985–1994, 1995–2006. Further details on data compilation, quality control,
-        and the creation of climatologies can be found in the original publication
-        (Antonov et al. 2010). We downloaded the monthly climatologies for the sea
-        surface in ArcGIS point shapefile format and used spline interpolation in
-        ArcGIS 9.3.1 to spatially smooth the data from 1 arc-degree to 30 arc-second
-        grids within the GSHHS ocean mask. The final monthly climatologies were multiplied
-        by 100 and rounded to the nearest integer value in order to conserve file
-        space. Five bioclimatic MARSPEC layers were calculated from the scaled climatologies:
-        mean annual sea surface salinity (biogeo08), salinity of the least salty month
-        (biogeo09), salinity of the saltiest month (biogeo10), annual range in sea
-        surface salinity (biogeo11), and annual variance in sea surface salinity (biogeo12).\",\"licence_level\":\"3\",\"source\":\"http://www.marspec.org/\",\"citation_date\":\"2012-08\"},{\"path_1km\":\"\",\"source_link\":\"http://people.duke.edu/~mej14/MARSPEC/Modern_Data.html\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"380\",\"shape\":false,\"lookuptablepath\":\"\",\"respparty_role\":\"author\",\"classification2\":\"Chemistry\",\"pid\":\"\",\"displayname\":\"Marspec
+        compiled by NOAA’s World Ocean Atlas 2009 (WOA09; Antonov et al. 2010).
+        Monthly climatological means (measured in practical salinity units) were calculated
+        by the original authors by averaging five “decadal�\x9D climatologies,
+        at 1 arc-degree spatial resolution for the following time periods: 1955–1964,
+        1965–1974, 1975–1984, 1985–1994, 1995–2006. Further details on data
+        compilation, quality control, and the creation of climatologies can be found
+        in the original publication (Antonov et al. 2010). We downloaded the monthly
+        climatologies for the sea surface in ArcGIS point shapefile format and used
+        spline interpolation in ArcGIS 9.3.1 to spatially smooth the data from 1 arc-degree
+        to 30 arc-second grids within the GSHHS ocean mask. The final monthly climatologies
+        were multiplied by 100 and rounded to the nearest integer value in order to
+        conserve file space. Five bioclimatic MARSPEC layers were calculated from
+        the scaled climatologies: mean annual sea surface salinity (biogeo08), salinity
+        of the least salty month (biogeo09), salinity of the saltiest month (biogeo10),
+        annual range in sea surface salinity (biogeo11), and annual variance in sea
+        surface salinity (biogeo12).\",\"licence_level\":\"3\",\"source\":\"http://www.marspec.org/\",\"citation_date\":\"2012-08\"},{\"path_1km\":\"\",\"source_link\":\"http://people.duke.edu/~mej14/MARSPEC/Modern_Data.html\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"380\",\"shape\":false,\"lookuptablepath\":\"\",\"respparty_role\":\"author\",\"classification2\":\"Chemistry\",\"pid\":\"\",\"displayname\":\"Marspec
         Maximum Monthly Sea Surface Salinity\",\"id\":2097,\"grid\":true,\"path_orig\":\"layer/marspec_10\",\"mdhrlv\":\"\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://esapubs.org/archive/ecol/E094/086/metadata.php\",\"mddatest\":\"2012-08\",\"maxlongitude\":180.0,\"dt_added\":1426683600000,\"minlatitude\":-90.0,\"scale\":\"\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:marspec_10&format=image/png&styles=\",\"path\":\"/data/ala/data/layers/ready/diva\",\"name\":\"marspec_10\",\"metadatapath\":\"http://esapubs.org/archive/ecol/E094/086/metadata.php\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"uid\":\"2097\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"4195\",\"classification1\":\"Marine\",\"environmentalvalueunits\":\"100
         x psu\",\"enabled\":true,\"domain\":\"Marine\",\"description\":\"Measurements
         of sea surface salinity (SSS) were obtained from in situ oceanographic observations
-        compiled by NOAA’s World Ocean Atlas 2009 (WOA09; Antonov et al. 2010). Monthly
-        climatological means (measured in practical salinity units) were calculated
-        by the original authors by averaging five “decadal” climatologies, at 1 arc-degree
-        spatial resolution for the following time periods: 1955–1964, 1965–1974, 1975–1984,
-        1985–1994, 1995–2006. Further details on data compilation, quality control,
-        and the creation of climatologies can be found in the original publication
-        (Antonov et al. 2010). We downloaded the monthly climatologies for the sea
-        surface in ArcGIS point shapefile format and used spline interpolation in
-        ArcGIS 9.3.1 to spatially smooth the data from 1 arc-degree to 30 arc-second
-        grids within the GSHHS ocean mask. The final monthly climatologies were multiplied
-        by 100 and rounded to the nearest integer value in order to conserve file
-        space. Five bioclimatic MARSPEC layers were calculated from the scaled climatologies:
-        mean annual sea surface salinity (biogeo08), salinity of the least salty month
-        (biogeo09), salinity of the saltiest month (biogeo10), annual range in sea
-        surface salinity (biogeo11), and annual variance in sea surface salinity (biogeo12).\",\"licence_level\":\"3\",\"source\":\"http://www.marspec.org/\",\"citation_date\":\"2012-08\"},{\"path_1km\":\"\",\"source_link\":\"http://people.duke.edu/~mej14/MARSPEC/Modern_Data.html\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-2468\",\"shape\":false,\"lookuptablepath\":\"\",\"respparty_role\":\"author\",\"classification2\":\"Chemistry\",\"pid\":\"\",\"displayname\":\"Marspec
+        compiled by NOAA’s World Ocean Atlas 2009 (WOA09; Antonov et al. 2010).
+        Monthly climatological means (measured in practical salinity units) were calculated
+        by the original authors by averaging five “decadal�\x9D climatologies,
+        at 1 arc-degree spatial resolution for the following time periods: 1955–1964,
+        1965–1974, 1975–1984, 1985–1994, 1995–2006. Further details on data
+        compilation, quality control, and the creation of climatologies can be found
+        in the original publication (Antonov et al. 2010). We downloaded the monthly
+        climatologies for the sea surface in ArcGIS point shapefile format and used
+        spline interpolation in ArcGIS 9.3.1 to spatially smooth the data from 1 arc-degree
+        to 30 arc-second grids within the GSHHS ocean mask. The final monthly climatologies
+        were multiplied by 100 and rounded to the nearest integer value in order to
+        conserve file space. Five bioclimatic MARSPEC layers were calculated from
+        the scaled climatologies: mean annual sea surface salinity (biogeo08), salinity
+        of the least salty month (biogeo09), salinity of the saltiest month (biogeo10),
+        annual range in sea surface salinity (biogeo11), and annual variance in sea
+        surface salinity (biogeo12).\",\"licence_level\":\"3\",\"source\":\"http://www.marspec.org/\",\"citation_date\":\"2012-08\"},{\"path_1km\":\"\",\"source_link\":\"http://people.duke.edu/~mej14/MARSPEC/Modern_Data.html\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-2468\",\"shape\":false,\"lookuptablepath\":\"\",\"respparty_role\":\"author\",\"classification2\":\"Chemistry\",\"pid\":\"\",\"displayname\":\"Marspec
         Minimum Monthly Sea Surface Salinity\",\"id\":2096,\"grid\":true,\"path_orig\":\"layer/marspec_09\",\"mdhrlv\":\"\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://esapubs.org/archive/ecol/E094/086/metadata.php\",\"mddatest\":\"2012-08\",\"maxlongitude\":180.0,\"dt_added\":1426683600000,\"minlatitude\":-90.0,\"scale\":\"\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:marspec_09&format=image/png&styles=\",\"path\":\"/data/ala/data/layers/ready/diva\",\"name\":\"marspec_09\",\"metadatapath\":\"http://esapubs.org/archive/ecol/E094/086/metadata.php\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"uid\":\"2096\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"4012\",\"classification1\":\"Marine\",\"environmentalvalueunits\":\"100
         x psu\",\"enabled\":true,\"domain\":\"Marine\",\"description\":\"Measurements
         of sea surface salinity (SSS) were obtained from in situ oceanographic observations
-        compiled by NOAA’s World Ocean Atlas 2009 (WOA09; Antonov et al. 2010). Monthly
-        climatological means (measured in practical salinity units) were calculated
-        by the original authors by averaging five “decadal” climatologies, at 1 arc-degree
-        spatial resolution for the following time periods: 1955–1964, 1965–1974, 1975–1984,
-        1985–1994, 1995–2006. Further details on data compilation, quality control,
-        and the creation of climatologies can be found in the original publication
-        (Antonov et al. 2010). We downloaded the monthly climatologies for the sea
-        surface in ArcGIS point shapefile format and used spline interpolation in
-        ArcGIS 9.3.1 to spatially smooth the data from 1 arc-degree to 30 arc-second
-        grids within the GSHHS ocean mask. The final monthly climatologies were multiplied
-        by 100 and rounded to the nearest integer value in order to conserve file
-        space. Five bioclimatic MARSPEC layers were calculated from the scaled climatologies:
-        mean annual sea surface salinity (biogeo08), salinity of the least salty month
-        (biogeo09), salinity of the saltiest month (biogeo10), annual range in sea
-        surface salinity (biogeo11), and annual variance in sea surface salinity (biogeo12).\",\"licence_level\":\"3\",\"source\":\"http://www.marspec.org/\",\"citation_date\":\"2012-08\"},{\"path_1km\":\"\",\"source_link\":\"http://people.duke.edu/~mej14/MARSPEC/Modern_Data.html\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-15\",\"shape\":false,\"lookuptablepath\":\"\",\"respparty_role\":\"author\",\"classification2\":\"Chemistry\",\"pid\":\"\",\"displayname\":\"Marspec
+        compiled by NOAA’s World Ocean Atlas 2009 (WOA09; Antonov et al. 2010).
+        Monthly climatological means (measured in practical salinity units) were calculated
+        by the original authors by averaging five “decadal�\x9D climatologies,
+        at 1 arc-degree spatial resolution for the following time periods: 1955–1964,
+        1965–1974, 1975–1984, 1985–1994, 1995–2006. Further details on data
+        compilation, quality control, and the creation of climatologies can be found
+        in the original publication (Antonov et al. 2010). We downloaded the monthly
+        climatologies for the sea surface in ArcGIS point shapefile format and used
+        spline interpolation in ArcGIS 9.3.1 to spatially smooth the data from 1 arc-degree
+        to 30 arc-second grids within the GSHHS ocean mask. The final monthly climatologies
+        were multiplied by 100 and rounded to the nearest integer value in order to
+        conserve file space. Five bioclimatic MARSPEC layers were calculated from
+        the scaled climatologies: mean annual sea surface salinity (biogeo08), salinity
+        of the least salty month (biogeo09), salinity of the saltiest month (biogeo10),
+        annual range in sea surface salinity (biogeo11), and annual variance in sea
+        surface salinity (biogeo12).\",\"licence_level\":\"3\",\"source\":\"http://www.marspec.org/\",\"citation_date\":\"2012-08\"},{\"path_1km\":\"\",\"source_link\":\"http://people.duke.edu/~mej14/MARSPEC/Modern_Data.html\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-15\",\"shape\":false,\"lookuptablepath\":\"\",\"respparty_role\":\"author\",\"classification2\":\"Chemistry\",\"pid\":\"\",\"displayname\":\"Marspec
         Mean Annual Sea Surface Salinity\",\"id\":2095,\"grid\":true,\"path_orig\":\"layer/marspec_08\",\"mdhrlv\":\"\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://esapubs.org/archive/ecol/E094/086/metadata.php\",\"mddatest\":\"2012-08\",\"maxlongitude\":180.0,\"dt_added\":1426683600000,\"minlatitude\":-90.0,\"scale\":\"\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:marspec_08&format=image/png&styles=\",\"path\":\"/data/ala/data/layers/ready/diva\",\"name\":\"marspec_08\",\"metadatapath\":\"http://esapubs.org/archive/ecol/E094/086/metadata.php\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"\",\"uid\":\"2095\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"4043\",\"classification1\":\"Marine\",\"environmentalvalueunits\":\"100
         x psu\",\"enabled\":true,\"domain\":\"Marine\",\"description\":\"Measurements
         of sea surface salinity (SSS) were obtained from in situ oceanographic observations
-        compiled by NOAA’s World Ocean Atlas 2009 (WOA09; Antonov et al. 2010). Monthly
-        climatological means (measured in practical salinity units) were calculated
-        by the original authors by averaging five “decadal” climatologies, at 1 arc-degree
-        spatial resolution for the following time periods: 1955–1964, 1965–1974, 1975–1984,
-        1985–1994, 1995–2006. Further details on data compilation, quality control,
-        and the creation of climatologies can be found in the original publication
-        (Antonov et al. 2010). We downloaded the monthly climatologies for the sea
-        surface in ArcGIS point shapefile format and used spline interpolation in
-        ArcGIS 9.3.1 to spatially smooth the data from 1 arc-degree to 30 arc-second
-        grids within the GSHHS ocean mask. The final monthly climatologies were multiplied
-        by 100 and rounded to the nearest integer value in order to conserve file
-        space. Five bioclimatic MARSPEC layers were calculated from the scaled climatologies:
-        mean annual sea surface salinity (biogeo08), salinity of the least salty month
-        (biogeo09), salinity of the saltiest month (biogeo10), annual range in sea
-        surface salinity (biogeo11), and annual variance in sea surface salinity (biogeo12).\",\"licence_level\":\"3\",\"source\":\"http://www.marspec.org/\",\"citation_date\":\"2012-08\"},{\"path_1km\":\"\",\"source_link\":\"http://people.duke.edu/~mej14/MARSPEC/Modern_Data.html\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-24258\",\"shape\":false,\"lookuptablepath\":\"\",\"respparty_role\":\"author\",\"classification2\":\"Topography\",\"pid\":\"\",\"displayname\":\"Marspec
+        compiled by NOAA’s World Ocean Atlas 2009 (WOA09; Antonov et al. 2010).
+        Monthly climatological means (measured in practical salinity units) were calculated
+        by the original authors by averaging five “decadal�\x9D climatologies,
+        at 1 arc-degree spatial resolution for the following time periods: 1955–1964,
+        1965–1974, 1975–1984, 1985–1994, 1995–2006. Further details on data
+        compilation, quality control, and the creation of climatologies can be found
+        in the original publication (Antonov et al. 2010). We downloaded the monthly
+        climatologies for the sea surface in ArcGIS point shapefile format and used
+        spline interpolation in ArcGIS 9.3.1 to spatially smooth the data from 1 arc-degree
+        to 30 arc-second grids within the GSHHS ocean mask. The final monthly climatologies
+        were multiplied by 100 and rounded to the nearest integer value in order to
+        conserve file space. Five bioclimatic MARSPEC layers were calculated from
+        the scaled climatologies: mean annual sea surface salinity (biogeo08), salinity
+        of the least salty month (biogeo09), salinity of the saltiest month (biogeo10),
+        annual range in sea surface salinity (biogeo11), and annual variance in sea
+        surface salinity (biogeo12).\",\"licence_level\":\"3\",\"source\":\"http://www.marspec.org/\",\"citation_date\":\"2012-08\"},{\"path_1km\":\"\",\"source_link\":\"http://people.duke.edu/~mej14/MARSPEC/Modern_Data.html\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"-24258\",\"shape\":false,\"lookuptablepath\":\"\",\"respparty_role\":\"author\",\"classification2\":\"Topography\",\"pid\":\"\",\"displayname\":\"Marspec
         Concavity\",\"id\":2094,\"grid\":true,\"path_orig\":\"layer/marspec_07\",\"mdhrlv\":\"\",\"minlongitude\":-180.0,\"maxlatitude\":90.0,\"licence_link\":\"http://esapubs.org/archive/ecol/E094/086/metadata.php\",\"mddatest\":\"2012-08\",\"maxlongitude\":180.0,\"dt_added\":1426683600000,\"minlatitude\":-90.0,\"scale\":\"\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:marspec_07&format=image/png&styles=\",\"path\":\"/data/ala/data/layers/ready/diva\",\"name\":\"marspec_07\",\"metadatapath\":\"http://esapubs.org/archive/ecol/E094/086/metadata.php\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"topography,
         slope\",\"uid\":\"2094\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"12329\",\"classification1\":\"Marine\",\"environmentalvalueunits\":\"1000
         x degrees\",\"enabled\":true,\"domain\":\"Marine\",\"description\":\"Marspec
@@ -4143,17 +4151,17 @@ http_interactions:
         the Spatial Analyst toolbox in ArcGIS 9.3.1, six geophysical variables were
         derived from bathymetry to characterize different facets of aspect, slope,
         and terrain curvature of the seafloor. Aspect, the horizontal orientation
-        of the seafloor, was transformed from circular compass units (i.e., 0º - 360º)
-        into linear vector components ranging from -1 to +1. East/west vector components
-        were defined as +1=due east and -1=due west; north/south vector components
-        were +1 = due north and -1 = due south. Bathymetric slope was measured in
-        degrees ranging from 0º (flat surface) to 90º (vertical slope). Finally, three
-        components of terrain curvature were calculated in order to characterize how
-        ocean bottom currents might interact with the seafloor. Concavity is the second
-        derivative of the bathymetry layer (or the slope of the slope) and represents
-        whether a raster cell is on a hill (negative values) or in a valley (positive
-        values). Plan curvature is the curvature in the direction perpendicular to
-        the maximum slope and indicates whether flow across a surface would diverge
+        of the seafloor, was transformed from circular compass units (i.e., 0º -
+        360º) into linear vector components ranging from -1 to +1. East/west vector
+        components were defined as +1=due east and -1=due west; north/south vector
+        components were +1 = due north and -1 = due south. Bathymetric slope was measured
+        in degrees ranging from 0º (flat surface) to 90º (vertical slope). Finally,
+        three components of terrain curvature were calculated in order to characterize
+        how ocean bottom currents might interact with the seafloor. Concavity is the
+        second derivative of the bathymetry layer (or the slope of the slope) and
+        represents whether a raster cell is on a hill (negative values) or in a valley
+        (positive values). Plan curvature is the curvature in the direction perpendicular
+        to the maximum slope and indicates whether flow across a surface would diverge
         (positive values) or converge (negative values). Profile curvature is the
         curvature in the direction parallel to the maximum slope and indicates whether
         flow across a surface would accelerate (positive values) or decelerate (negative
@@ -4309,11 +4317,11 @@ http_interactions:
         GEN Register is an online resource that contains the geographic extents of
         thousands of geographic objects. These objects range from maps sheets, navigational
         charts, oceans and rivers, through to States, Territories and Local Government
-        Areas.\\n\\nThe register has been developed by ANZLICÃ¢â‚¬â€\x9Dthe Spatial
-        Information Council to assist users complete the GEN element of the ANZLIC
-        metadata guidelines. This element requires users to specify the ordinary name
-        of one or more predefined geographic objects that reasonably show the geographic
-        coverage of their dataset.\",\"keywords\":\"political\",\"uid\":\"22\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"\",\"classification1\":\"Political\",\"environmentalvalueunits\":\"region\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Australian
+        Areas.\\n\\nThe register has been developed by ANZLICÃ¢â‚¬â€�\x9Dthe
+        Spatial Information Council to assist users complete the GEN element of the
+        ANZLIC metadata guidelines. This element requires users to specify the ordinary
+        name of one or more predefined geographic objects that reasonably show the
+        geographic coverage of their dataset.\",\"keywords\":\"political\",\"uid\":\"22\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"\",\"classification1\":\"Political\",\"environmentalvalueunits\":\"region\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"Australian
         States and Territories\",\"licence_level\":\"3\",\"source\":\"ANZLIC\",\"citation_date\":\"2001\"},{\"source_link\":\"http://www.csiro.au/Organisation-Structure/Divisions/Ecosystem-Sciences.aspx\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"0\",\"shape\":false,\"lookuptablepath\":\"\",\"classification2\":\"Evaporation\",\"displayname\":\"Evaporation
         - annual mean\",\"id\":747,\"grid\":true,\"path_orig\":\"layer/evapm\",\"minlongitude\":109.51,\"maxlatitude\":-8.19,\"mddatest\":\"2010-07\",\"maxlongitude\":157.28,\"dt_added\":1308837600000,\"minlatitude\":-44.37,\"scale\":\"0.01
         degree (~1km)\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:evapm&format=image/png&styles=\",\"path\":\"/mnt/transfer/williams/arc/evapm.tif\",\"name\":\"evapm\",\"metadatapath\":\"https://spatial.ala.org.au/geonetwork/srv/en/metadata.show?uuid=c3c41b4a-3284-4f0c-a654-79a295777e66\",\"type\":\"Environmental\",\"notes\":\"\",\"keywords\":\"water,
@@ -4817,7 +4825,7 @@ http_interactions:
         month evaporation (mm) - future climate scenario for 2030 A1B emissions CSIRO
         Mk3.5 GCM medium climatic sensitivity - OZCLIM + ANUCLIMv5.1\",\"licence_level\":\"1\",\"source\":\"CSIRO
         Ecosystem Sciences\"}]"
-  recorded_at: 2021-08-02 00:14:52 GMT
+  recorded_at: 2021-08-06 01:42:53 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -4828,7 +4836,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -4843,18 +4851,18 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Mon, 02 Aug 2021 00:14:49 GMT
+      date: Fri, 06 Aug 2021 01:42:50 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=5jc+7aOhJXT3o15iBWEfNj/VOYW1HmKZcYISuqA74aTi7jnfRDMtgAcWRxOQwnLVV/8PgAEfmcpE/i0qORvsJVo+hxagg0R2J7bMJG9Ceyw24OfcV4s+U4cNpqtl/m/mxhTLdsOfjcZVwBudhOKqAyZC8l5hk8ldwsXApMplNdmG;
-        Expires=Mon, 09 Aug 2021 00:14:49 GMT; Path=/
-      - AWSALBTGCORS=5jc+7aOhJXT3o15iBWEfNj/VOYW1HmKZcYISuqA74aTi7jnfRDMtgAcWRxOQwnLVV/8PgAEfmcpE/i0qORvsJVo+hxagg0R2J7bMJG9Ceyw24OfcV4s+U4cNpqtl/m/mxhTLdsOfjcZVwBudhOKqAyZC8l5hk8ldwsXApMplNdmG;
-        Expires=Mon, 09 Aug 2021 00:14:49 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=9hmj/439NsrgtcKkrjlpJapIe6WSpITSHwsfS3Uh4jCNDD7Yq2qImF3xxHtWfLxLjmTAKId4bk2wdxO5oLnHo0y5U82QrmPd2ujj5JXjPvR+BwvIW/FT82hcVWn+;
-        Expires=Mon, 09 Aug 2021 00:14:49 GMT; Path=/
-      - AWSALBCORS=9hmj/439NsrgtcKkrjlpJapIe6WSpITSHwsfS3Uh4jCNDD7Yq2qImF3xxHtWfLxLjmTAKId4bk2wdxO5oLnHo0y5U82QrmPd2ujj5JXjPvR+BwvIW/FT82hcVWn+;
-        Expires=Mon, 09 Aug 2021 00:14:49 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=Wr273V7Y4qwxxYNHz9Gjo2ssVqyAJ719gYK4scDxGzqgVeEiIx63Ln41aFfjtBTcFklisRaGAiMCGTF1mRuxjsXox8pkljdwWzj/DixKfcwdMVtG0zQZ4j88Aa4xxINR+9lYBDFMJ/9XumJaECnnesJ/gF5bTLZ7sQ8rjX641HwM;
+        Expires=Fri, 13 Aug 2021 01:42:50 GMT; Path=/
+      - AWSALBTGCORS=Wr273V7Y4qwxxYNHz9Gjo2ssVqyAJ719gYK4scDxGzqgVeEiIx63Ln41aFfjtBTcFklisRaGAiMCGTF1mRuxjsXox8pkljdwWzj/DixKfcwdMVtG0zQZ4j88Aa4xxINR+9lYBDFMJ/9XumJaECnnesJ/gF5bTLZ7sQ8rjX641HwM;
+        Expires=Fri, 13 Aug 2021 01:42:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=Gq6bjz3ulNjjUpag4O9qhHbofus/2hGBYguRZjP1IPRqdLcsZ3rFdXF0yFiGPtTz5rnCNgMXFhmermvC1LoetEPX9EkYWVsMiiWpxJ2B5RbrU2FPg70xoiYL0H6X;
+        Expires=Fri, 13 Aug 2021 01:42:50 GMT; Path=/
+      - AWSALBCORS=Gq6bjz3ulNjjUpag4O9qhHbofus/2hGBYguRZjP1IPRqdLcsZ3rFdXF0yFiGPtTz5rnCNgMXFhmermvC1LoetEPX9EkYWVsMiiWpxJ2B5RbrU2FPg70xoiYL0H6X;
+        Expires=Fri, 13 Aug 2021 01:42:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/1.1 200 '
       strict-transport-security: max-age=31536000
       transfer-encoding: chunked
@@ -4970,7 +4978,7 @@ http_interactions:
         collection code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"UNRECOGNISED_INSTITUTION_CODE","code":1040,"description":"Unrecognized
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
         coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","decimalLongitude","verbatimLongitude","decimalLatitude"]}]'
-  recorded_at: 2021-08-02 00:14:52 GMT
+  recorded_at: 2021-08-06 01:42:53 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -4981,7 +4989,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -4996,18 +5004,18 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Mon, 02 Aug 2021 00:14:49 GMT
+      date: Fri, 06 Aug 2021 01:42:50 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=BB1xW36UNf7Iw+4rNbcpoqVllAeA/rZH93FgnHCxZrsTCyhdWmNhbu4qzksQjQpMUhntUDKkC16dhhnrT6CwEqdg7l/WCJhZ8kQLJLpEi4kD6THf/yD2ycPpBni7xhn+N3KjIs96j3+9tJbf5P9LM45/dVoEfICGldYpNHC0AD9z;
-        Expires=Mon, 09 Aug 2021 00:14:49 GMT; Path=/
-      - AWSALBTGCORS=BB1xW36UNf7Iw+4rNbcpoqVllAeA/rZH93FgnHCxZrsTCyhdWmNhbu4qzksQjQpMUhntUDKkC16dhhnrT6CwEqdg7l/WCJhZ8kQLJLpEi4kD6THf/yD2ycPpBni7xhn+N3KjIs96j3+9tJbf5P9LM45/dVoEfICGldYpNHC0AD9z;
-        Expires=Mon, 09 Aug 2021 00:14:49 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=Pnl0lEDMYp5vyR2fmAxzvRFSCZX3HJEMJ+NKL0IqvwwKyi7+ibyA2YqP9agx871YePO9TiqyiNVkz4fchwu/TwKBhpfkZE9zZWQHjdC+619Fzl/J0fAPMbVMaTU9;
-        Expires=Mon, 09 Aug 2021 00:14:49 GMT; Path=/
-      - AWSALBCORS=Pnl0lEDMYp5vyR2fmAxzvRFSCZX3HJEMJ+NKL0IqvwwKyi7+ibyA2YqP9agx871YePO9TiqyiNVkz4fchwu/TwKBhpfkZE9zZWQHjdC+619Fzl/J0fAPMbVMaTU9;
-        Expires=Mon, 09 Aug 2021 00:14:49 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=rFO6zjeQKQySTJCxEapb31BeBqsXHIHep4xCkcgJ6M+dbsJG+j79c31RUmn6li2r1rG5MjWrBI3TQ60i6JEScPhJIviGjP91EB4sQRXaqzG1vTtAWJiAwgi0vlIPrTd2+PsTyKcnQdvgJXDl9JoHoXOznTFtaAK1csYgQVDCQiA8;
+        Expires=Fri, 13 Aug 2021 01:42:50 GMT; Path=/
+      - AWSALBTGCORS=rFO6zjeQKQySTJCxEapb31BeBqsXHIHep4xCkcgJ6M+dbsJG+j79c31RUmn6li2r1rG5MjWrBI3TQ60i6JEScPhJIviGjP91EB4sQRXaqzG1vTtAWJiAwgi0vlIPrTd2+PsTyKcnQdvgJXDl9JoHoXOznTFtaAK1csYgQVDCQiA8;
+        Expires=Fri, 13 Aug 2021 01:42:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=6kqSj8EZgr8RDQmiDC1do/3V/epShEEdFScj7mNWCmNn0G5iHiVTVB9fJ5hkO9/4Nq8+ECTiL9Cf9+OX/vjlEa1DnQsxedyD9gbNQhjGRBR1qIlKe8TkR/gVpTZl;
+        Expires=Fri, 13 Aug 2021 01:42:50 GMT; Path=/
+      - AWSALBCORS=6kqSj8EZgr8RDQmiDC1do/3V/epShEEdFScj7mNWCmNn0G5iHiVTVB9fJ5hkO9/4Nq8+ECTiL9Cf9+OX/vjlEa1DnQsxedyD9gbNQhjGRBR1qIlKe8TkR/gVpTZl;
+        Expires=Fri, 13 Aug 2021 01:42:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/1.1 200 '
       strict-transport-security: max-age=31536000
       transfer-encoding: chunked
@@ -5816,7 +5824,7 @@ http_interactions:
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody"},{"name":"year","jsonName":"year","dwcTerm":"year","downloadName":"year","dataType":"int","classs":"Event","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"description":"Year","downloadDescription":"Year","info":"The
         year in which an occurrence was observed. http://rs.tdwg.org/dwc/terms/year","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/year"},{"name":"zone","downloadName":"zone","dataType":"string","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset"}]'
-  recorded_at: 2021-08-02 00:14:52 GMT
+  recorded_at: 2021-08-06 01:42:53 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -5827,7 +5835,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -5842,18 +5850,18 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Mon, 02 Aug 2021 00:14:51 GMT
+      date: Fri, 06 Aug 2021 01:42:52 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=+RdZqGicufuKPANIPwpUegY2Nri0N3TKpnHIuRWPhSNR2Z61pOmdDIYtOxHqSHjosm9wqmOdybrqo+bXz91AqkGXGPrsI2sdSZY8W65C0L8kvN7QY4lbxM1MNwHT204K8/zxfiiKCFYW/W0zmbjB5xoVLIVyi50wtX+AseH1MMiO;
-        Expires=Mon, 09 Aug 2021 00:14:49 GMT; Path=/
-      - AWSALBTGCORS=+RdZqGicufuKPANIPwpUegY2Nri0N3TKpnHIuRWPhSNR2Z61pOmdDIYtOxHqSHjosm9wqmOdybrqo+bXz91AqkGXGPrsI2sdSZY8W65C0L8kvN7QY4lbxM1MNwHT204K8/zxfiiKCFYW/W0zmbjB5xoVLIVyi50wtX+AseH1MMiO;
-        Expires=Mon, 09 Aug 2021 00:14:49 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=+Vpy2SzCbFb73quj1cCU9mDvFiTVWV6ZfBgNpf0zs/S16OCYbc3jyzuhfAZIGFS1ymuwkQmM2pmJyJOIMPYdVA0S0dLmE1HBtbnXYOL6vbAvO1w2mu5DJJRTHh9d;
-        Expires=Mon, 09 Aug 2021 00:14:49 GMT; Path=/
-      - AWSALBCORS=+Vpy2SzCbFb73quj1cCU9mDvFiTVWV6ZfBgNpf0zs/S16OCYbc3jyzuhfAZIGFS1ymuwkQmM2pmJyJOIMPYdVA0S0dLmE1HBtbnXYOL6vbAvO1w2mu5DJJRTHh9d;
-        Expires=Mon, 09 Aug 2021 00:14:49 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=uKF93CHSTmyICvJLQyuzrchXWdvq/X1ETKlrJAWP7UMDigH77F3sgIAax4LozXrv03XAnu4zK9DgdkANPd+DP1zBsOKdJawS2lMgj0plFp0NPw7ly0nUKoNPNwcLst55tB61sVIM/c97Ji4BgBT3T12z7KX6fUqVGY6sIdFJaxZt;
+        Expires=Fri, 13 Aug 2021 01:42:50 GMT; Path=/
+      - AWSALBTGCORS=uKF93CHSTmyICvJLQyuzrchXWdvq/X1ETKlrJAWP7UMDigH77F3sgIAax4LozXrv03XAnu4zK9DgdkANPd+DP1zBsOKdJawS2lMgj0plFp0NPw7ly0nUKoNPNwcLst55tB61sVIM/c97Ji4BgBT3T12z7KX6fUqVGY6sIdFJaxZt;
+        Expires=Fri, 13 Aug 2021 01:42:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=HT9rzlcDMBsMQd4yIZAEcq/75zTwk6uZii8rJqvvEJYt+wmeqKcfDxEeJYw89rnvrqzJZhAM3oA/MWRhnbDRF73KbYDZulGGniA73eDK41EloD6H1ZVZs0J4Xegv;
+        Expires=Fri, 13 Aug 2021 01:42:50 GMT; Path=/
+      - AWSALBCORS=HT9rzlcDMBsMQd4yIZAEcq/75zTwk6uZii8rJqvvEJYt+wmeqKcfDxEeJYw89rnvrqzJZhAM3oA/MWRhnbDRF73KbYDZulGGniA73eDK41EloD6H1ZVZs0J4Xegv;
+        Expires=Fri, 13 Aug 2021 01:42:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/1.1 200 '
       strict-transport-security: max-age=31536000
       transfer-encoding: chunked
@@ -5861,8 +5869,8 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"month","fieldResult":[{"label":"October","i18nCode":"month.10","count":10381685,"fq":"month:\"10\""}],"count":12}]'
-  recorded_at: 2021-08-02 00:14:52 GMT
+      string: '[{"fieldName":"month","fieldResult":[{"label":"October","i18nCode":"month.10","count":10382102,"fq":"month:\"10\""}],"count":12}]'
+  recorded_at: 2021-08-06 01:42:53 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -5873,7 +5881,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -5888,18 +5896,18 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Mon, 02 Aug 2021 00:14:52 GMT
+      date: Fri, 06 Aug 2021 01:42:53 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=p9t4dZc+4b5dK4scgsrk2pG/SoLicFMLH9SjSypPutZ5uuZjDVJONl7FdfknXVHus2KK+1Fg63cEhjK39fBzG1tjBQqqw9UKgxsHYRNNZMIvB2lkPaeeg+ioBnlxCFVkWzs1BVYUwnWvdn6pzN+MJ4v5/ds6Vsn/df3k04SNDHhe;
-        Expires=Mon, 09 Aug 2021 00:14:51 GMT; Path=/
-      - AWSALBTGCORS=p9t4dZc+4b5dK4scgsrk2pG/SoLicFMLH9SjSypPutZ5uuZjDVJONl7FdfknXVHus2KK+1Fg63cEhjK39fBzG1tjBQqqw9UKgxsHYRNNZMIvB2lkPaeeg+ioBnlxCFVkWzs1BVYUwnWvdn6pzN+MJ4v5/ds6Vsn/df3k04SNDHhe;
-        Expires=Mon, 09 Aug 2021 00:14:51 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=esbbPvBs+enwkTB8x2G3OkURX8s+WcAAyS0D7YXhxXIw6WoLtMP81MxzozDcqZV+nfTHtfv3xCIxzh7eJdCW9aZFKvonf2VIGPMgMWKldMGtu8p0aqi1XKp7qWwy;
-        Expires=Mon, 09 Aug 2021 00:14:51 GMT; Path=/
-      - AWSALBCORS=esbbPvBs+enwkTB8x2G3OkURX8s+WcAAyS0D7YXhxXIw6WoLtMP81MxzozDcqZV+nfTHtfv3xCIxzh7eJdCW9aZFKvonf2VIGPMgMWKldMGtu8p0aqi1XKp7qWwy;
-        Expires=Mon, 09 Aug 2021 00:14:51 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=PrGocJLxLkKJzz/4BdfZ96AF5t3U7kx64JdiPLxdhmF7qv8q/yy0AhPd+kISQt0S5IE7submgjETZyawJpEhZCemXtkuGCaxNnD/jUPUM/J7rvOQbELxwip5Evcd3AcyIE0qjTKkJc/bqiJ4YBwmwqcJMVyAH/3qhTEMi47dNk1e;
+        Expires=Fri, 13 Aug 2021 01:42:52 GMT; Path=/
+      - AWSALBTGCORS=PrGocJLxLkKJzz/4BdfZ96AF5t3U7kx64JdiPLxdhmF7qv8q/yy0AhPd+kISQt0S5IE7submgjETZyawJpEhZCemXtkuGCaxNnD/jUPUM/J7rvOQbELxwip5Evcd3AcyIE0qjTKkJc/bqiJ4YBwmwqcJMVyAH/3qhTEMi47dNk1e;
+        Expires=Fri, 13 Aug 2021 01:42:52 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=zp/uVyNo+P+Q+SOxjX12JEJrilahs2RIswSoAc819Jl8wNBG+9XN9wC3XwNDiTnIsq0ywFGM+V+8S0/MnSqfpOUe8F3BU5WmUGISsOwN/dNyp3UqsPcHnRWn+VBn;
+        Expires=Fri, 13 Aug 2021 01:42:52 GMT; Path=/
+      - AWSALBCORS=zp/uVyNo+P+Q+SOxjX12JEJrilahs2RIswSoAc819Jl8wNBG+9XN9wC3XwNDiTnIsq0ywFGM+V+8S0/MnSqfpOUe8F3BU5WmUGISsOwN/dNyp3UqsPcHnRWn+VBn;
+        Expires=Fri, 13 Aug 2021 01:42:52 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/1.1 200 '
       strict-transport-security: max-age=31536000
       transfer-encoding: chunked
@@ -5907,6 +5915,6 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"month","fieldResult":[{"label":"October","i18nCode":"month.10","count":10381685,"fq":"month:\"10\""},{"label":"November","i18nCode":"month.11","count":9337327,"fq":"month:\"11\""},{"label":"January","i18nCode":"month.1","count":8601895,"fq":"month:\"1\""},{"label":"September","i18nCode":"month.9","count":8472454,"fq":"month:\"9\""},{"label":"December","i18nCode":"month.12","count":7710994,"fq":"month:\"12\""},{"label":"March","i18nCode":"month.3","count":7310116,"fq":"month:\"3\""},{"label":"April","i18nCode":"month.4","count":7047352,"fq":"month:\"4\""},{"label":"May","i18nCode":"month.5","count":6686226,"fq":"month:\"5\""},{"label":"August","i18nCode":"month.8","count":6629303,"fq":"month:\"8\""},{"label":"February","i18nCode":"month.2","count":6235111,"fq":"month:\"2\""},{"label":"July","i18nCode":"month.7","count":6170468,"fq":"month:\"7\""},{"label":"June","i18nCode":"month.6","count":5869989,"fq":"month:\"6\""}],"count":12}]'
-  recorded_at: 2021-08-02 00:14:52 GMT
+      string: '[{"fieldName":"month","fieldResult":[{"label":"October","i18nCode":"month.10","count":10382102,"fq":"month:\"10\""},{"label":"November","i18nCode":"month.11","count":9337657,"fq":"month:\"11\""},{"label":"January","i18nCode":"month.1","count":8602173,"fq":"month:\"1\""},{"label":"September","i18nCode":"month.9","count":8472700,"fq":"month:\"9\""},{"label":"December","i18nCode":"month.12","count":7711173,"fq":"month:\"12\""},{"label":"March","i18nCode":"month.3","count":7310305,"fq":"month:\"3\""},{"label":"April","i18nCode":"month.4","count":7047728,"fq":"month:\"4\""},{"label":"May","i18nCode":"month.5","count":6686540,"fq":"month:\"5\""},{"label":"August","i18nCode":"month.8","count":6630259,"fq":"month:\"8\""},{"label":"February","i18nCode":"month.2","count":6235325,"fq":"month:\"2\""},{"label":"July","i18nCode":"month.7","count":6181722,"fq":"month:\"7\""},{"label":"June","i18nCode":"month.6","count":5870728,"fq":"month:\"6\""}],"count":12}]'
+  recorded_at: 2021-08-06 01:42:53 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

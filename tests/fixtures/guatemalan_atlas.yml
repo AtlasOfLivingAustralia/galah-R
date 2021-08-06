@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.16.1
-      date: Mon, 02 Aug 2021 00:17:22 GMT
+      date: Fri, 06 Aug 2021 01:46:31 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -36,7 +36,7 @@ http_interactions:
       file: no
       string: '{"pageSize":0,"startIndex":0,"totalRecords":2439848,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{}}'
-  recorded_at: 2021-08-02 00:17:25 GMT
+  recorded_at: 2021-08-06 01:46:34 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -47,7 +47,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -56,7 +56,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.16.1
-      date: Mon, 02 Aug 2021 00:17:22 GMT
+      date: Fri, 06 Aug 2021 01:46:31 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -228,7 +228,7 @@ http_interactions:
         Quality"},{"name":"type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Specimen
         type","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"user_assertions","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Has
         user assertions","jsonName":"hasUserAssertions","downloadName":"user_assertions","i18nValues":true},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2021-08-02 00:17:25 GMT
+  recorded_at: 2021-08-06 01:46:34 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -239,7 +239,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -248,7 +248,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.16.1
-      date: Mon, 02 Aug 2021 00:17:24 GMT
+      date: Fri, 06 Aug 2021 01:46:33 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -262,13 +262,13 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"","displayname":"Regiones
-        Cinergeticas","id":10003,"grid":false,"path_orig":"layer/regionescinergeticas","minlongitude":312456.38131,"maxlatitude":1970836.66533,"licence_link":"","mddatest":"","maxlongitude":744216.56669,"dt_added":1592866195498,"minlatitude":1519247.63042,"displaypath":"https://geoespacial.snib.conap.gob.gt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:regionescinergeticas&format=image/png&styles=","name":"regionescinergeticas","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Gobierno","displayname":"Regiones
-        INAB","id":10008,"grid":false,"path_orig":"layer/regionesinabdiss2","minlongitude":581852.43743,"maxlatitude":1974107.25004,"licence_link":"","mddatest":"","maxlongitude":1012466.99995,"dt_added":1592937814213,"minlatitude":1520777.25,"displaypath":"https://geoespacial.snib.conap.gob.gt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:regionesinabdiss2&format=image/png&styles=","name":"regionesinabdiss2","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Instituciones","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Gobierno","displayname":"Áreas
-        Protegidas","id":10009,"grid":false,"path_orig":"layer/sigap_marzo","minlongitude":320543.0264,"maxlatitude":1970674.333,"licence_link":"","mddatest":"","maxlongitude":743893.5012,"dt_added":1592950608700,"minlatitude":1528452.1718,"displaypath":"https://geoespacial.snib.conap.gob.gt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:sigap_marzo&format=image/png&styles=","name":"sigap_marzo","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Instituciones","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"","displayname":"Example
-        Polygon","id":10011,"grid":false,"path_orig":"layer/cw_state_poly","minlongitude":112.86564,"maxlatitude":-9.08801,"licence_link":"","mddatest":"","maxlongitude":159.33903,"dt_added":1593006384119,"minlatitude":-55.1731,"displaypath":"https://geoespacial.snib.conap.gob.gt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:cw_state_poly&format=image/png&styles=","name":"cw_state_poly","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Ejemplo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Gobierno","displayname":"Cambio
-        Climático ","id":10012,"grid":false,"path_orig":"layer/subreg_redd","minlongitude":581851.7955,"maxlatitude":1974107.5167,"licence_link":"","mddatest":"","maxlongitude":1012466.4746,"dt_added":1593043795086,"minlatitude":1520777.4002,"displaypath":"https://geoespacial.snib.conap.gob.gt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:subreg_redd&format=image/png&styles=","name":"subreg_redd","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Instituciones","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""}]'
-  recorded_at: 2021-08-02 00:17:25 GMT
+      string: "[{\"source_link\":\"\",\"datalang\":\"\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"\",\"classification2\":\"\",\"displayname\":\"Regiones
+        Cinergeticas\",\"id\":10003,\"grid\":false,\"path_orig\":\"layer/regionescinergeticas\",\"minlongitude\":312456.38131,\"maxlatitude\":1970836.66533,\"licence_link\":\"\",\"mddatest\":\"\",\"maxlongitude\":744216.56669,\"dt_added\":1592866195498,\"minlatitude\":1519247.63042,\"displaypath\":\"https://geoespacial.snib.conap.gob.gt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:regionescinergeticas&format=image/png&styles=\",\"name\":\"regionescinergeticas\",\"metadatapath\":\"\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"\",\"classification1\":\"\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"\"},{\"source_link\":\"\",\"datalang\":\"\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"\",\"classification2\":\"Gobierno\",\"displayname\":\"Regiones
+        INAB\",\"id\":10008,\"grid\":false,\"path_orig\":\"layer/regionesinabdiss2\",\"minlongitude\":581852.43743,\"maxlatitude\":1974107.25004,\"licence_link\":\"\",\"mddatest\":\"\",\"maxlongitude\":1012466.99995,\"dt_added\":1592937814213,\"minlatitude\":1520777.25,\"displaypath\":\"https://geoespacial.snib.conap.gob.gt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:regionesinabdiss2&format=image/png&styles=\",\"name\":\"regionesinabdiss2\",\"metadatapath\":\"\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"\",\"classification1\":\"Instituciones\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"\"},{\"source_link\":\"\",\"datalang\":\"\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"\",\"classification2\":\"Gobierno\",\"displayname\":\"�\x81reas
+        Protegidas\",\"id\":10009,\"grid\":false,\"path_orig\":\"layer/sigap_marzo\",\"minlongitude\":320543.0264,\"maxlatitude\":1970674.333,\"licence_link\":\"\",\"mddatest\":\"\",\"maxlongitude\":743893.5012,\"dt_added\":1592950608700,\"minlatitude\":1528452.1718,\"displaypath\":\"https://geoespacial.snib.conap.gob.gt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:sigap_marzo&format=image/png&styles=\",\"name\":\"sigap_marzo\",\"metadatapath\":\"\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"\",\"classification1\":\"Instituciones\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"\"},{\"source_link\":\"\",\"datalang\":\"\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"\",\"classification2\":\"\",\"displayname\":\"Example
+        Polygon\",\"id\":10011,\"grid\":false,\"path_orig\":\"layer/cw_state_poly\",\"minlongitude\":112.86564,\"maxlatitude\":-9.08801,\"licence_link\":\"\",\"mddatest\":\"\",\"maxlongitude\":159.33903,\"dt_added\":1593006384119,\"minlatitude\":-55.1731,\"displaypath\":\"https://geoespacial.snib.conap.gob.gt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:cw_state_poly&format=image/png&styles=\",\"name\":\"cw_state_poly\",\"metadatapath\":\"\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"\",\"classification1\":\"Ejemplo\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"\"},{\"source_link\":\"\",\"datalang\":\"\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"\",\"classification2\":\"Gobierno\",\"displayname\":\"Cambio
+        Climático \",\"id\":10012,\"grid\":false,\"path_orig\":\"layer/subreg_redd\",\"minlongitude\":581851.7955,\"maxlatitude\":1974107.5167,\"licence_link\":\"\",\"mddatest\":\"\",\"maxlongitude\":1012466.4746,\"dt_added\":1593043795086,\"minlatitude\":1520777.4002,\"displaypath\":\"https://geoespacial.snib.conap.gob.gt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:subreg_redd&format=image/png&styles=\",\"name\":\"subreg_redd\",\"metadatapath\":\"\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"\",\"licence_notes\":\"\",\"environmentalvaluemax\":\"\",\"classification1\":\"Instituciones\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"\",\"licence_level\":\"1\",\"source\":\"\",\"citation_date\":\"\"}]"
+  recorded_at: 2021-08-06 01:46:34 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -279,7 +279,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -288,7 +288,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.16.1
-      date: Mon, 02 Aug 2021 00:17:24 GMT
+      date: Fri, 06 Aug 2021 01:46:33 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -400,7 +400,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2021-08-02 00:17:25 GMT
+  recorded_at: 2021-08-06 01:46:34 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -411,7 +411,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -420,7 +420,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.16.1
-      date: Mon, 02 Aug 2021 00:17:25 GMT
+      date: Fri, 06 Aug 2021 01:46:33 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -592,7 +592,7 @@ http_interactions:
         Quality"},{"name":"type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Specimen
         type","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"user_assertions","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Has
         user assertions","jsonName":"hasUserAssertions","downloadName":"user_assertions","i18nValues":true},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2021-08-02 00:17:25 GMT
+  recorded_at: 2021-08-06 01:46:34 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -603,7 +603,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -612,7 +612,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.16.1
-      date: Mon, 02 Aug 2021 00:17:25 GMT
+      date: Fri, 06 Aug 2021 01:46:33 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -630,5 +630,5 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2019","i18nCode":"year.2019","count":597265,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":441895,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":320607,"fq":"year:\"2017\""},{"label":"2016","i18nCode":"year.2016","count":222644,"fq":"year:\"2016\""},{"label":"2015","i18nCode":"year.2015","count":124058,"fq":"year:\"2015\""},{"label":"2014","i18nCode":"year.2014","count":66571,"fq":"year:\"2014\""},{"label":"2009","i18nCode":"year.2009","count":52964,"fq":"year:\"2009\""},{"label":"2013","i18nCode":"year.2013","count":33781,"fq":"year:\"2013\""},{"label":"2012","i18nCode":"year.2012","count":31685,"fq":"year:\"2012\""},{"label":"2008","i18nCode":"year.2008","count":26196,"fq":"year:\"2008\""},{"label":"2011","i18nCode":"year.2011","count":25376,"fq":"year:\"2011\""},{"label":"2010","i18nCode":"year.2010","count":23898,"fq":"year:\"2010\""},{"label":"1982","i18nCode":"year.1982","count":19233,"fq":"year:\"1982\""},{"label":"2007","i18nCode":"year.2007","count":14677,"fq":"year:\"2007\""},{"label":"2002","i18nCode":"year.2002","count":9225,"fq":"year:\"2002\""},{"label":"2000","i18nCode":"year.2000","count":8690,"fq":"year:\"2000\""},{"label":"1970","i18nCode":"year.1970","count":8485,"fq":"year:\"1970\""},{"label":"1977","i18nCode":"year.1977","count":8175,"fq":"year:\"1977\""},{"label":"1942","i18nCode":"year.1942","count":8135,"fq":"year:\"1942\""},{"label":"2005","i18nCode":"year.2005","count":7998,"fq":"year:\"2005\""}],"count":207}]'
-  recorded_at: 2021-08-02 00:17:25 GMT
+  recorded_at: 2021-08-06 01:46:34 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.21.1
-      date: Thu, 05 Aug 2021 01:17:47 GMT
+      date: Fri, 06 Aug 2021 01:46:54 GMT
       content-type: application/json
       content-length: '273'
       connection: keep-alive
@@ -32,7 +32,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"success":true,"scientificName":"ANIMALIA","taxonConceptID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","rank":"kingdom","rankID":1000,"lft":87675,"rgt":508193,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Animalia","kingdomID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","vernacularName":"animals","speciesGroup":["Animals"],"issues":["noIssue"]}'
-  recorded_at: 2021-08-05 01:17:52 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -43,7 +43,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -51,7 +51,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:48 GMT
+      date: Fri, 06 Aug 2021 01:46:55 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -121,7 +121,7 @@ http_interactions:
         Brinkmann, Copley, Moroz, Nakano, Poustka, Wallberg, Peterson &amp; Telford,
         2011<\u002fspan><\u002fspan>","author":"Philippe, Brinkmann, Copley, Moroz,
         Nakano, Poustka, Wallberg, Peterson & Telford, 2011","rank":"phylum","rankID":2000}]'
-  recorded_at: 2021-08-05 01:17:52 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -132,7 +132,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -140,7 +140,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:48 GMT
+      date: Fri, 06 Aug 2021 01:46:55 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -168,7 +168,7 @@ http_interactions:
         Koelreuther, 1771","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">ACANTHOCEPHALA<\u002fspan> <span class=\"author\">Koelreuther,
         1771<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:3cbb537e-ab39-4d85-864e-76cd6b6d6572","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:52 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -179,7 +179,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -187,7 +187,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:48 GMT
+      date: Fri, 06 Aug 2021 01:46:55 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -214,7 +214,7 @@ http_interactions:
         code is provided for use when identification of a specimen to this level is
         sufficient, or when no further detail is available."],"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=22500000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000},{"nameString":"ANNELIDA","nameComplete":"ANNELIDA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">ANNELIDA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:1f5a5c77-fcef-45b9-84ad-bfea95fd1e62","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:52 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -225,7 +225,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -233,7 +233,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:48 GMT
+      date: Fri, 06 Aug 2021 01:46:55 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -255,7 +255,7 @@ http_interactions:
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699"},{"identifier":"NZOR-6-51506","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/3ccd1beb-10c5-4af0-861d-4030f74d80a8","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Arthropoda","nameComplete":"Arthropoda","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Arthropoda<\u002fspan>","identifier":"NZOR-6-51506","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/3ccd1beb-10c5-4af0-861d-4030f74d80a8","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"ARTHROPODA","nameComplete":"ARTHROPODA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">ARTHROPODA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:ec21b060-78e8-4a37-9e62-b8bef532b001","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:52 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -266,7 +266,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -274,7 +274,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:48 GMT
+      date: Fri, 06 Aug 2021 01:46:55 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -300,7 +300,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\"><span class=\"name\">Brachiopoda<\u002fspan><\u002fspan>","identifier":"19100000","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CAAB","taxonRemarks":["This
         code is provided for use when identification of a specimen to this level is
         sufficient, or when no further detail is available."],"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=19100000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000}]}'
-  recorded_at: 2021-08-05 01:17:52 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -311,7 +311,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -319,7 +319,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:48 GMT
+      date: Fri, 06 Aug 2021 01:46:55 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -348,7 +348,7 @@ http_interactions:
         class=\"name\">BRYOZOA<\u002fspan> <span class=\"author\">Ehrenberg, 1831<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:a1f069f9-eaa8-487c-889a-d3cfb3dd936e","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000},{"nameString":"Bryozoa","nameComplete":"Bryozoa","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">Bryozoa<\u002fspan><\u002fspan>","identifier":"20000000","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CAAB","taxonRemarks":null,"provenance":["Scientific
         name reallocated to BRYOZOA Ehrenberg, 1831 by taxonomy builder"],"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=20000000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000}]}'
-  recorded_at: 2021-08-05 01:17:52 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -359,7 +359,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -367,7 +367,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:48 GMT
+      date: Fri, 06 Aug 2021 01:46:55 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -393,7 +393,7 @@ http_interactions:
         code is provided for use when identification of a specimen to this level is
         sufficient, or when no further detail is available."],"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=36010000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000},{"nameString":"Chaetognatha","nameComplete":"Chaetognatha","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Chaetognatha<\u002fspan>","identifier":"NZOR-6-1401","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/761628c0-9718-4c8f-8f2f-9579a21b9969","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2021-08-05 01:17:52 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -404,7 +404,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -412,7 +412,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:49 GMT
+      date: Fri, 06 Aug 2021 01:46:56 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -435,7 +435,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\"><span class=\"name\">Chordata<\u002fspan><\u002fspan>","identifier":"80700000","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CAAB","taxonRemarks":null,"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=80700000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000},{"nameString":"Chordata","nameComplete":"Chordata","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Chordata<\u002fspan>","identifier":"NZOR-6-55256","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/406e3eca-a45f-43d7-ab69-43831f3412b4","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"CHORDATA","nameComplete":"CHORDATA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">CHORDATA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:52 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -446,7 +446,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -454,7 +454,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:49 GMT
+      date: Fri, 06 Aug 2021 01:46:56 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -483,7 +483,7 @@ http_interactions:
         code is provided for use when identification of a specimen to this level is
         sufficient, or when no further detail is available."],"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=11500000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000},{"nameString":"Cnidaria","nameComplete":"Cnidaria","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Cnidaria<\u002fspan>","identifier":"NZOR-6-102487","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/6e5a7c0d-bd28-48cb-ade4-c4904cbf0b66","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2021-08-05 01:17:52 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -494,7 +494,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -502,7 +502,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:49 GMT
+      date: Fri, 06 Aug 2021 01:46:56 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -539,7 +539,7 @@ http_interactions:
         name reallocated to CTENOPHORA Eschscholtz, 1829 by taxonomy builder"],"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/77b3f486-2cd0-4ac0-9f97-bbdf186b51f3","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"Ctenophora","nameComplete":"Ctenophora","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">Ctenophora<\u002fspan><\u002fspan>","identifier":"12000000","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CAAB","taxonRemarks":null,"provenance":["Scientific
         name reallocated to CTENOPHORA Eschscholtz, 1829 by taxonomy builder"],"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=12000000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -550,7 +550,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -558,7 +558,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:49 GMT
+      date: Fri, 06 Aug 2021 01:46:56 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -588,7 +588,7 @@ http_interactions:
         name reallocated to DICYEMIDA Van Beneden, 1876 by taxonomy builder"],"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/f8e85fda-cb7b-4db5-9b2c-a3a1a98a1dd8","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"DICYEMIDA","nameComplete":"DICYEMIDA
         Van Beneden, 1876","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">DICYEMIDA<\u002fspan> <span class=\"author\">Van Beneden, 1876<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:7ed7bdc7-0c4f-4a6a-8866-aaeafe33243c","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -599,7 +599,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -607,7 +607,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:49 GMT
+      date: Fri, 06 Aug 2021 01:46:56 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -636,7 +636,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\">Echinodermata<\u002fspan>","identifier":"NZOR-6-27810","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/31f21a6e-371d-42b9-868c-569f2249ab4a","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"ECHINODERMATA","nameComplete":"ECHINODERMATA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">ECHINODERMATA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:3b2da402-9136-4f10-a757-6a28e10c7867","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000},{"nameString":"Echinodermata","nameComplete":"Echinodermata","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">Echinodermata<\u002fspan><\u002fspan>","identifier":"25000000","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CAAB","taxonRemarks":null,"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=25000000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -647,7 +647,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -655,7 +655,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:49 GMT
+      date: Fri, 06 Aug 2021 01:46:56 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -682,7 +682,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\"><span class=\"name\">Echiura<\u002fspan><\u002fspan>","identifier":"17020000","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CAAB","taxonRemarks":["This
         code is provided for use when identification of a specimen to this level is
         sufficient, or when no further detail is available."],"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=17020000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -693,7 +693,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -701,7 +701,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:49 GMT
+      date: Fri, 06 Aug 2021 01:46:56 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -723,7 +723,7 @@ http_interactions:
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/9ee4c2a6-749a-49aa-9877-1ad58657039f","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"GASTROTRICHA","nameComplete":"GASTROTRICHA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">GASTROTRICHA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:95aa91aa-6cb9-4302-8a8a-48b6abf29ee9","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000},{"nameString":"Gastrotricha","nameComplete":"Gastrotricha","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Gastrotricha<\u002fspan>","identifier":"NZOR-6-90441","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/9ee4c2a6-749a-49aa-9877-1ad58657039f","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -734,7 +734,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -742,7 +742,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:50 GMT
+      date: Fri, 06 Aug 2021 01:46:57 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -765,7 +765,7 @@ http_interactions:
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699"},{"identifier":"urn:lsid:biodiversity.org.au:afd.taxon:ee94317b-a133-471e-b128-b3b505500375","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699"}],"variants":[{"nameString":"GNATHOSTOMULIDA","nameComplete":"GNATHOSTOMULIDA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">GNATHOSTOMULIDA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:ee94317b-a133-471e-b128-b3b505500375","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":"Peters,
         J.V. 1971, p. 36, Australian Entomological Press, Greenwich, NSW","namePublishedInYear":"1971","namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -776,7 +776,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -784,7 +784,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:50 GMT
+      date: Fri, 06 Aug 2021 01:46:57 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -803,7 +803,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\">Gnathifera<\u002fspan>","author":null,"nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"rankString":"phylum","nameAuthority":"NZOR","rankID":2000,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"taxonRemarks":null,"provenance":null,"favourite":null,"infoSourceURL":"http://data.nzor.org.nz/names/27b91754-54aa-4907-95d9-b0cf1df844f1","datasetURL":"https://collections.ala.org.au/public/show/dr2707","scientificNameID":"http://data.nzor.org.nz/names/27b91754-54aa-4907-95d9-b0cf1df844f1"},"taxonName":[],"classification":{"kingdom":"ANIMALIA","kingdomGuid":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","scientificName":"Gnathifera","guid":"NZOR-6-87998","phylum":"Gnathifera","phylumGuid":"NZOR-6-87998"},"synonyms":[],"commonNames":[],"imageIdentifier":null,"conservationStatuses":{},"extantStatuses":[],"habitats":[],"categories":[],"simpleProperties":[],"images":[],"identifiers":[{"identifier":"http://data.nzor.org.nz/names/27b91754-54aa-4907-95d9-b0cf1df844f1","nameString":"Scientific
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/27b91754-54aa-4907-95d9-b0cf1df844f1","datasetURL":"https://collections.ala.org.au/public/show/dr2707"},{"identifier":"NZOR-6-87998","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/27b91754-54aa-4907-95d9-b0cf1df844f1","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Gnathifera","nameComplete":"Gnathifera","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Gnathifera<\u002fspan>","identifier":"NZOR-6-87998","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/27b91754-54aa-4907-95d9-b0cf1df844f1","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -814,7 +814,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -822,7 +822,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:50 GMT
+      date: Fri, 06 Aug 2021 01:46:57 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -847,7 +847,7 @@ http_interactions:
         sufficient, or when no further detail is available."],"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=36100000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000},{"nameString":"HEMICHORDATA","nameComplete":"HEMICHORDATA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">HEMICHORDATA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:f6a0d13f-7914-4f99-850b-624ccfb06b74","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000},{"nameString":"Hemichordata","nameComplete":"Hemichordata","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Hemichordata<\u002fspan>","identifier":"NZOR-6-2257","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/93f2e475-4446-4d56-a8fe-c3a1d6f06824","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -858,7 +858,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -866,7 +866,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:50 GMT
+      date: Fri, 06 Aug 2021 01:46:57 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -894,7 +894,7 @@ http_interactions:
         sufficient, or when no further detail is available."],"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=19000000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000},{"nameString":"Kamptozoa","nameComplete":"Kamptozoa","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Kamptozoa<\u002fspan>","identifier":"NZOR-6-89723","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/cd8fd3c2-389a-4f5f-af2f-5c0d88c34061","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"KAMPTOZOA","nameComplete":"KAMPTOZOA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">KAMPTOZOA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:ad23edff-5a7a-48e0-be2a-8633b65ef192","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -905,7 +905,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -913,7 +913,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:50 GMT
+      date: Fri, 06 Aug 2021 01:46:57 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -939,7 +939,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\"><span class=\"name\">Kinorhyncha<\u002fspan><\u002fspan>","identifier":"15300000","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CAAB","taxonRemarks":["This
         code is provided for use when identification of a specimen to this level is
         sufficient, or when no further detail is available."],"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=15300000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -950,7 +950,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -958,7 +958,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:50 GMT
+      date: Fri, 06 Aug 2021 01:46:57 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -991,7 +991,7 @@ http_interactions:
         R.M. 1983, \"Loricifera, a new phylum with Aschelminthes characters from the
         Meiobenthos\", Zeitschrift für Zoologische Systematik und Evolutionsforschung,
         vol. 21, pp. 163-180","namePublishedInYear":"1983","namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1002,7 +1002,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1010,7 +1010,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:51 GMT
+      date: Fri, 06 Aug 2021 01:46:58 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1035,7 +1035,7 @@ http_interactions:
         sufficient, or when no further detail is available."],"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=23000000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000},{"nameString":"Mollusca","nameComplete":"Mollusca","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Mollusca<\u002fspan>","identifier":"NZOR-6-76464","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/2238c7b7-0848-4046-90a6-49c686652bff","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"MOLLUSCA","nameComplete":"MOLLUSCA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">MOLLUSCA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:4fb59020-e4a8-4973-adca-a4f662c4645c","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1046,7 +1046,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1054,7 +1054,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:51 GMT
+      date: Fri, 06 Aug 2021 01:46:58 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1087,7 +1087,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\">Nematoda<\u002fspan>","identifier":"NZOR-6-34755","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/eb11dec3-b2ab-40d5-a0f7-4537a2ede17c","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"Nematoda","nameComplete":"Nematoda","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">Nematoda<\u002fspan><\u002fspan>","identifier":"16000000","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CAAB","taxonRemarks":null,"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=16000000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000},{"nameString":"NEMATODA","nameComplete":"NEMATODA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">NEMATODA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:0e7e0f7d-4456-495b-b762-2d11f78b9368","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1098,7 +1098,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1106,7 +1106,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:51 GMT
+      date: Fri, 06 Aug 2021 01:46:58 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1133,7 +1133,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\">Nematomorpha<\u002fspan>","identifier":"NZOR-6-7397","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/77e832fd-e34c-4197-a049-baa2b0ae9022","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"Nematomorpha","nameComplete":"Nematomorpha","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">Nematomorpha<\u002fspan><\u002fspan>","identifier":"15000000","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CAAB","taxonRemarks":null,"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=15000000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000},{"nameString":"NEMATOMORPHA","nameComplete":"NEMATOMORPHA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">NEMATOMORPHA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:4b1dd080-6a02-48c4-9f6c-94680f7651dd","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1144,7 +1144,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1152,7 +1152,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:51 GMT
+      date: Fri, 06 Aug 2021 01:46:58 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1180,7 +1180,7 @@ http_interactions:
         code is provided for use when identification of a specimen to this level is
         sufficient, or when no further detail is available."],"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=14000000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000},{"nameString":"NEMERTEA","nameComplete":"NEMERTEA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">NEMERTEA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:89e92ab7-7ffc-4cc4-9149-19c8f8079940","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1191,7 +1191,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1199,7 +1199,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:51 GMT
+      date: Fri, 06 Aug 2021 01:46:58 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1223,7 +1223,7 @@ http_interactions:
         Concept","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699"}],"variants":[{"nameString":"Onychophora","nameComplete":"Onychophora","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Onychophora<\u002fspan>","identifier":"NZOR-6-60837","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/e8bf0e6c-7b8d-4804-bc52-2702b40825af","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"ONYCHOPHORA","nameComplete":"ONYCHOPHORA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">ONYCHOPHORA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:f9293902-ab93-4293-b0d1-743d9b6cbfcf","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1234,7 +1234,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1242,7 +1242,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:51 GMT
+      date: Fri, 06 Aug 2021 01:46:58 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1261,7 +1261,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\">Orthonectida<\u002fspan>","author":null,"nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"rankString":"phylum","nameAuthority":"NZOR","rankID":2000,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"taxonRemarks":null,"provenance":null,"favourite":null,"infoSourceURL":"http://data.nzor.org.nz/names/b8c5c947-08d1-4fdb-b621-6c3f91f27c4f","datasetURL":"https://collections.ala.org.au/public/show/dr2707","scientificNameID":"http://data.nzor.org.nz/names/b8c5c947-08d1-4fdb-b621-6c3f91f27c4f"},"taxonName":[],"classification":{"kingdom":"ANIMALIA","kingdomGuid":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","scientificName":"Orthonectida","guid":"NZOR-6-116400","phylum":"Orthonectida","phylumGuid":"NZOR-6-116400"},"synonyms":[],"commonNames":[],"imageIdentifier":null,"conservationStatuses":{},"extantStatuses":[],"habitats":[],"categories":[],"simpleProperties":[],"images":[],"identifiers":[{"identifier":"NZOR-6-116400","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/b8c5c947-08d1-4fdb-b621-6c3f91f27c4f","datasetURL":"https://collections.ala.org.au/public/show/dr2707"},{"identifier":"http://data.nzor.org.nz/names/b8c5c947-08d1-4fdb-b621-6c3f91f27c4f","nameString":"Scientific
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/b8c5c947-08d1-4fdb-b621-6c3f91f27c4f","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Orthonectida","nameComplete":"Orthonectida","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Orthonectida<\u002fspan>","identifier":"NZOR-6-116400","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/b8c5c947-08d1-4fdb-b621-6c3f91f27c4f","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1272,7 +1272,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1280,7 +1280,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:51 GMT
+      date: Fri, 06 Aug 2021 01:46:59 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1323,7 +1323,7 @@ http_interactions:
         code is provided for use when identification of a specimen to this level is
         sufficient, or when no further detail is available."],"provenance":["Scientific
         name reallocated to PHORONIDA Hatschek, 1888 by taxonomy builder"],"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=19020000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1334,7 +1334,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1342,7 +1342,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:52 GMT
+      date: Fri, 06 Aug 2021 01:46:59 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1372,7 +1372,7 @@ http_interactions:
         code is provided for use when identification of a specimen to this level is
         sufficient, or when no further detail is available."],"provenance":["Scientific
         name reallocated to PLATYHELMINTHES Minot, 1876 by taxonomy builder"],"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=13000000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1383,7 +1383,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1391,7 +1391,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:52 GMT
+      date: Fri, 06 Aug 2021 01:46:59 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1420,7 +1420,7 @@ http_interactions:
         name reallocated to PORIFERA Grant, 1836 by taxonomy builder"],"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/a0111dea-7d6c-429f-a0aa-912624fd28c4","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"PORIFERA","nameComplete":"PORIFERA
         Grant, 1836","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">PORIFERA<\u002fspan> <span class=\"author\">Grant, 1836<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:baad4f23-9085-42af-ae79-9da703ea7e8b","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1431,7 +1431,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1439,7 +1439,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:52 GMT
+      date: Fri, 06 Aug 2021 01:46:59 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1463,7 +1463,7 @@ http_interactions:
         Concept","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699"},{"identifier":"urn:lsid:biodiversity.org.au:afd.taxon:218dac37-ee54-4d67-a2dc-76a07be7a060","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699"}],"variants":[{"nameString":"Priapulida","nameComplete":"Priapulida","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">Priapulida<\u002fspan><\u002fspan>","identifier":"15400000","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CAAB","taxonRemarks":null,"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=15400000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000},{"nameString":"PRIAPULIDA","nameComplete":"PRIAPULIDA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">PRIAPULIDA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:218dac37-ee54-4d67-a2dc-76a07be7a060","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1474,7 +1474,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1482,7 +1482,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:52 GMT
+      date: Fri, 06 Aug 2021 01:46:59 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1504,7 +1504,7 @@ http_interactions:
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699"}],"variants":[{"nameString":"ROTIFERA","nameComplete":"ROTIFERA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">ROTIFERA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:c8f3a49c-bc00-4cf5-bb5a-d221cae09def","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000},{"nameString":"Rotifera","nameComplete":"Rotifera","nameFormatted":"<span
         class=\"scientific-name rank-class\">Rotifera<\u002fspan>","identifier":"NZOR-6-45621","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/34406f62-f5ec-4cd1-be10-8e565e27b22b","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1515,7 +1515,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1523,7 +1523,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:52 GMT
+      date: Fri, 06 Aug 2021 01:46:59 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1550,7 +1550,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\"><span class=\"name\">Sipuncula<\u002fspan><\u002fspan>","identifier":"17000000","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CAAB","taxonRemarks":["This
         code is provided for use when identification of a specimen to this level is
         sufficient, or when no further detail is available."],"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=17000000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1561,7 +1561,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1569,7 +1569,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:52 GMT
+      date: Fri, 06 Aug 2021 01:46:59 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1599,7 +1599,7 @@ http_interactions:
         code is provided for use when identification of a specimen to this level is
         sufficient, or when no further detail is available."],"provenance":null,"infoSourceName":"CAAB","infoSourceURL":"http://www.marine.csiro.au/caabsearch/caab_search.caab_report?spcode=33100000","datasetURL":"https://collections.ala.org.au/public/show/dr2704","priority":2000},{"nameString":"TARDIGRADA","nameComplete":"TARDIGRADA","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">TARDIGRADA<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:0fac364a-0692-4305-a968-7d6abeb99ee9","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1610,7 +1610,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1618,7 +1618,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 05 Aug 2021 01:17:52 GMT
+      date: Fri, 06 Aug 2021 01:47:00 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1654,5 +1654,5 @@ http_interactions:
         H., Brinkmann, H., Copley, R.R., Moroz, L.L., Nakano, H., Poustka, A.J., et
         al. 2011, \"Acoelomorph flatworms are deuterostomes are related to Xenoturbella\",
         Nature, vol. 470, pp. 255-258","namePublishedInYear":"2011","namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-05 01:17:53 GMT
+  recorded_at: 2021-08-06 01:47:00 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

@@ -41,7 +41,7 @@ One final, useful feature of `select_taxa` is that it works in reverse. That is,
 if you have a unique identifier and would like to know which taxon it refers to,
 you can find that out by setting `is_id` to `TRUE`:
 
-```{r}
+```{r, eval = FALSE}
 select_taxa("urn:lsid:biodiversity.org.au:afd.taxon:97764bed-9492-4066-a45f-e5b0c6c4280d", is_id = TRUE)
 ```
 
@@ -81,17 +81,26 @@ For example, we can pass the result of our earlier search to `select_taxa`,
 and then use the resulting identifiers to get the number of records available for 
 each mammalian family:
 
-```{r}
+```{r, message = FALSE, warning = FALSE}
 taxa_ids <- select_taxa(taxa)
 family_counts <- ala_counts(taxa = taxa_ids, group_by = "family")
 taxa <- merge(taxa, family_counts)
 
-library(treemap)
-treemap(taxa,
-  index = c("order", "family"),
-  vSize = "count")
+library(treemapify)
+library(ggplot2)
+library(magrittr)
+library(viridis)
 
+taxa %>% 
+  ggplot(aes(area = count, fill = order, subgroup = order, label = family)) + 
+  geom_treemap() + 
+  geom_treemap_subgroup_border() + 
+  geom_treemap_text(colour = "white", place = "topleft", reflow = T, alpha = 0.6) +
+  geom_treemap_subgroup_text(place = "centre") + 
+  scale_fill_viridis_d(begin = .4, option = "B") +
+  theme(legend.position = "none")
 ```
+
 
 ## Search for species that match user criteria
 A common use case for atlas data is to identify the list of species that 

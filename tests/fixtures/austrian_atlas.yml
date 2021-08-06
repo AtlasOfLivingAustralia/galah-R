@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -23,7 +23,7 @@ http_interactions:
       content-type:
       - application/json;charset=UTF-8
       - application/json
-      date: Mon, 02 Aug 2021 00:17:15 GMT
+      date: Fri, 06 Aug 2021 01:46:25 GMT
       server: nginx/1.18.0 (Ubuntu)
       status: HTTP/1.1 200 OK
       transfer-encoding: chunked
@@ -32,7 +32,7 @@ http_interactions:
       file: no
       string: '{"pageSize":0,"startIndex":0,"totalRecords":519119,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{}}'
-  recorded_at: 2021-08-02 00:17:21 GMT
+  recorded_at: 2021-08-06 01:46:30 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -43,7 +43,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -52,7 +52,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Mon, 02 Aug 2021 00:17:15 GMT
+      date: Fri, 06 Aug 2021 01:46:25 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -74,17 +74,18 @@ http_interactions:
         Datenqualitäts-Test resultiert","jsonName":"assertions","downloadName":"assertions","i18nValues":false},{"name":"assertions_missing","dataType":"string","indexed":true,"stored":true,"multivalue":true,"info":"Bemerkung
         zeigt dass Werte zu diesem Eintrag fehlen. Z.B. fehlende Grundlage des Eintrages","downloadName":"assertions_missing"},{"name":"assertions_passed","dataType":"string","indexed":true,"stored":true,"multivalue":true,"info":"Bemerkung
         zeigt, dass ein Datenqualitäts Test von diesem Eintrag gemacht wurde","downloadName":"assertions_passed"},{"name":"assertions_unchecked","dataType":"string","indexed":true,"stored":true,"multivalue":true,"info":"Bemerkung
-        zeigt an, dass ein Qualitäts-Test nicht ausgeführt wurde, dies ist meist der
-        Fall wenn ein Feld welches für den Test benötigt wird nicht vorhanden ist.","downloadName":"assertions_unchecked"},{"name":"basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
+        zeigt an, dass ein Qualitäts-Test nicht ausgeführt wurde, dies ist meist
+        der Fall wenn ein Feld welches für den Test benötigt wird nicht vorhanden
+        ist.","downloadName":"assertions_unchecked"},{"name":"basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
         specific nature of the data record.","info":"Grundlage des Vorkommens, z.B.
         Sammlungsobjekt, Beobachtung http://rs.tdwg.org/dwc/terms/basisOfRecord","jsonName":"basisOfRecord","dwcTerm":"basisOfRecord","downloadName":"basis_of_record","downloadDescription":"Grundlage
         des Eintrages","classs":"Record"},{"name":"catalogue_number","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"An
         identifier (preferably unique) for the record within the data set or collection.","info":"http://rs.tdwg.org/dwc/terms/catalogNumber","jsonName":"raw_catalogNumber","dwcTerm":"catalogNumber","downloadName":"catalogue_number","downloadDescription":"Katalognummer","classs":"Occurrence"},{"name":"cl10032","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10032","downloadName":"cl10032","classs":"Contextual"},{"name":"cl10033","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10033","downloadName":"cl10033","classs":"Contextual"},{"name":"cl10034","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10034","downloadName":"cl10034","classs":"Contextual"},{"name":"cl10035","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10035","downloadName":"cl10035","classs":"Contextual"},{"name":"cl10036","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10036","downloadName":"cl10036","classs":"Contextual"},{"name":"cl10037","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10037","downloadName":"cl10037","classs":"Contextual"},{"name":"cl10038","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10038","downloadName":"cl10038","classs":"Contextual"},{"name":"cl10040","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10040","downloadName":"cl10040","classs":"Contextual"},{"name":"cl10041","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10041","downloadName":"cl10041","classs":"Contextual"},{"name":"cl10044","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10044","downloadName":"cl10044","classs":"Contextual"},{"name":"cl10045","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10045","downloadName":"cl10045","classs":"Contextual"},{"name":"cl10046","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10046","downloadName":"cl10046","classs":"Contextual"},{"name":"cl10048","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10048","downloadName":"cl10048","classs":"Contextual"},{"name":"cl10049","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10049","downloadName":"cl10049","classs":"Contextual"},{"name":"cl10050","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10050","downloadName":"cl10050","classs":"Contextual"},{"name":"cl10051","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10051","downloadName":"cl10051","classs":"Contextual"},{"name":"cl10052","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10052","downloadName":"cl10052","classs":"Contextual"},{"name":"cl10053","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10053","downloadName":"cl10053","classs":"Contextual"},{"name":"cl10054","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10054","downloadName":"cl10054","classs":"Contextual"},{"name":"cl10055","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10055","downloadName":"cl10055","classs":"Contextual"},{"name":"cl10056","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10056","downloadName":"cl10056","classs":"Contextual"},{"name":"cl10057","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10057","downloadName":"cl10057","classs":"Contextual"},{"name":"cl10058","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10058","downloadName":"cl10058","classs":"Contextual"},{"name":"cl10062","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10062","downloadName":"cl10062","classs":"Contextual"},{"name":"cl10066","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10066","downloadName":"cl10066","classs":"Contextual"},{"name":"cl10067","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10067","downloadName":"cl10067","classs":"Contextual"},{"name":"cl10068","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10068","downloadName":"cl10068","classs":"Contextual"},{"name":"cl10069","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10069","downloadName":"cl10069","classs":"Contextual"},{"name":"cl10070","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10070","downloadName":"cl10070","classs":"Contextual"},{"name":"cl10071","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10071","downloadName":"cl10071","classs":"Contextual"},{"name":"cl10072","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10072","downloadName":"cl10072","classs":"Contextual"},{"name":"cl10073","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10073","downloadName":"cl10073","classs":"Contextual"},{"name":"cl110054","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl110054","downloadName":"cl110054","classs":"Contextual"},{"name":"cl210054","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl210054","downloadName":"cl210054","classs":"Contextual"},{"name":"class","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Klasse","info":"Die
         Klasse, der der Atlas diesem Eintrag im NSL zugeordnet hat http://rs.tdwg.org/dwc/terms/class","jsonName":"classs","dwcTerm":"class","downloadName":"class","downloadDescription":"Klasse","classs":"Taxon"},{"name":"collection_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
         name, acronym, coden, or initialism identifying the collection or data set
-        from which the record was derived.","info":"Der Sammlungscode für diesen Eintrag.
-        Dies wird bevölkert, wenn die Daten aus einem Museum oder einem Herbarium
-        stammen http://rs.tdwg.org/dwc/terms/collectionCode","jsonName":"raw_collectionCode","dwcTerm":"collectionCode","downloadName":"collection_code","downloadDescription":"Sammels
+        from which the record was derived.","info":"Der Sammlungscode für diesen
+        Eintrag. Dies wird bevölkert, wenn die Daten aus einem Museum oder einem
+        Herbarium stammen http://rs.tdwg.org/dwc/terms/collectionCode","jsonName":"raw_collectionCode","dwcTerm":"collectionCode","downloadName":"collection_code","downloadDescription":"Sammels
         Code","classs":"Record"},{"name":"collection_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Sammlung","info":"Name
         der Sammlung für diesen Eintrag, z.B. Entomologie Sammlung","jsonName":"collectionName","downloadName":"collection_name","downloadDescription":"Sammlung"},{"name":"collection_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Sammlung","info":"Atlas-ID
         für diese Sammlung","jsonName":"collectionUid","downloadName":"collection_uid","downloadDescription":"SammlungID"},{"name":"collector","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
@@ -140,8 +141,8 @@ http_interactions:
         der Individuen","classs":"Occurrence"},{"name":"institution_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
         name (or acronym) in use by the institution having custody of the object(s)
         or information referred to in the record.","info":"Der Institutcode für diesen
-        Eintrag. Dies wird bevölkert, wenn die Daten aus einem Museum oder einem Herbarium
-        stammen http://rs.tdwg.org/dwc/terms/institutionCode","jsonName":"raw_institutionCode","dwcTerm":"institutionCode","downloadName":"institution_code","downloadDescription":"Code
+        Eintrag. Dies wird bevölkert, wenn die Daten aus einem Museum oder einem
+        Herbarium stammen http://rs.tdwg.org/dwc/terms/institutionCode","jsonName":"raw_institutionCode","dwcTerm":"institutionCode","downloadName":"institution_code","downloadDescription":"Code
         des Institutes","classs":"Record"},{"name":"institution_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Institution","info":"Der
         Name, welcher vom Institut verwendet wird, welches das/die Objekt(e) oder
         die Informationen im Eintrag verwahrt.","jsonName":"institutionName","downloadName":"institution_name","downloadDescription":"Institut"},{"name":"institution_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Institution","info":"Atlas-ID
@@ -169,8 +170,8 @@ http_interactions:
         given in geodeticDatum) of the geographic center of a Location. Positive values
         are east of the Greenwich Meridian, negative values are west of it. Legal
         values lie between -180 and 180, inclusive.","info":"Der Dezimal-Längengrad,
-        der mit diesem Eintrag verknüpft ist. Wenn der ursprüngliche Längengrad in
-        Grad, Minuten, Sekunden geliefert wurde, stellt dieser Wert den konvertierten
+        der mit diesem Eintrag verknüpft ist. Wenn der ursprüngliche Längengrad
+        in Grad, Minuten, Sekunden geliefert wurde, stellt dieser Wert den konvertierten
         Wert dar. http://rs.tdwg.org/dwc/terms/decimalLongitude","jsonName":"decimalLongitude","dwcTerm":"decimalLongitude","downloadName":"longitude","downloadDescription":"Längengrad","classs":"Location"},{"name":"mappable","dataType":"string","indexed":true,"stored":true,"multivalue":false,"downloadName":"mappable"},{"name":"max_elevation_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"description":"The
         upper limit of the range of elevation (altitude, usually above sea level),
         in meters.","info":"http://rs.tdwg.org/dwc/terms/maximumElevationInMeters","dwcTerm":"maximumElevationInMeters","downloadName":"max_elevation_d","downloadDescription":"Maximale
@@ -185,8 +186,8 @@ http_interactions:
         mit einem Konzept erreicht wurde. z.B. fuzzyMatch, exactMatch","downloadName":"name_match_metric"},{"name":"name_parse_type","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Art
         der Analyse des wissenschaftlichen Namens, die beim Abgleich des Datensatzes
         mit dem taxonomischen Konzept verwendet wurde.","downloadName":"name_parse_type"},{"name":"names_and_lsid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Verkettung
-        aus allgemeinem Name und LSID, nützlich für Aufschlüsselung nach Art und Sortieren
-        nach Taxon-Name","jsonName":"namesLsid","downloadName":"names_and_lsid"},{"name":"occurrence_date","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"description":"The
+        aus allgemeinem Name und LSID, nützlich für Aufschlüsselung nach Art und
+        Sortieren nach Taxon-Name","jsonName":"namesLsid","downloadName":"names_and_lsid"},{"name":"occurrence_date","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"description":"The
         date-time or interval during which an Event occurred. For occurrences, this
         is the date-time when the event was recorded. Not suitable for a time in a
         geological context. Recommended best practice is to use an encoding scheme,
@@ -257,8 +258,8 @@ http_interactions:
         Occurrence. Recommended best practice is to use a controlled vocabulary.","info":"http://rs.tdwg.org/dwc/terms/reproductiveCondition","dwcTerm":"reproductiveCondition","downloadName":"reproductive_condition","classs":"Occurrence"},{"name":"rgt","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"info":"Rechter
         Wert im verschachtelten Set für diesen Eintrag. Wird verwendet, um Einträge
         innerhalb taxonomischer Gruppen abzurufen.","jsonName":"right","downloadName":"rgt"},{"name":"rights","dataType":"string","indexed":false,"stored":true,"multivalue":false,"jsonName":"rights","dwcTerm":"dcterms:rights","downloadName":"rights","classs":"Record"},{"name":"sensitive","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Sensibel","info":"Dieses
-        Feld wird ausgefüllt, wenn es sich um einen sensiblen Datensatz handelt. Werte
-        beinhalten abstrahiert, bereits abstrahiert.","downloadName":"sensitive"},{"name":"species","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Art","info":"Die
+        Feld wird ausgefüllt, wenn es sich um einen sensiblen Datensatz handelt.
+        Werte beinhalten abstrahiert, bereits abstrahiert.","downloadName":"sensitive"},{"name":"species","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Art","info":"Die
         Art, die der Atlas diesem Eintrag im NSL zugeordnet hat http://rs.tdwg.org/dwc/terms/species","jsonName":"species","dwcTerm":"species","downloadName":"species","downloadDescription":"Art","i18nValues":false,"classs":"Taxon"},{"name":"species_group","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"Lebensweise","info":"Höhere
         Level-Gruppe für diesen Eintrag z.B. Vögel","jsonName":"speciesGroups","downloadName":"species_group"},{"name":"species_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Art","info":"Die
         Art-ID für diesen Eintrag","jsonName":"speciesGuid","downloadName":"species_guid"},{"name":"species_list_uid","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"Artenlisten","info":"Wird
@@ -282,14 +283,14 @@ http_interactions:
         qualifications, which should instead be supplied in the IdentificationQualifier
         term.","info":"http://rs.tdwg.org/dwc/terms/scientificName","jsonName":"scientificName","dwcTerm":"scientificName","downloadName":"taxon_name","downloadDescription":"Wissenschaftlicher
         Name","classs":"Taxon"},{"name":"taxonomic_issue","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"Taxonomisches
-        Bestimmungsproblem","info":"Probleme bei der taxonomischen Datenqualität gefunden.
-        Siehe https://biocache.ala.org.au/ws/assertions/codes","downloadName":"taxonomic_issue","downloadDescription":"Taxonomisches
+        Bestimmungsproblem","info":"Probleme bei der taxonomischen Datenqualität
+        gefunden. Siehe https://biocache.ala.org.au/ws/assertions/codes","downloadName":"taxonomic_issue","downloadDescription":"Taxonomisches
         Bestimmungsproblem"},{"name":"taxonomic_kosher","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Taxonomische
         Qualität","info":"Ein Indikator der anzeigt ob schwerwiegende taxonomische
         Probleme bei einem Datensatz vorliegen. Negativ bedeutet ein Problem.","jsonName":"taxonomicKosher","downloadName":"taxonomic_kosher","downloadDescription":"Taxonomische
         Qualität"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"description":"The
         four-digit year in which the Event occurred, according to the Common Era Calendar.","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Jahr","classs":"Event"}]'
-  recorded_at: 2021-08-02 00:17:21 GMT
+  recorded_at: 2021-08-06 01:46:30 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -300,7 +301,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -309,7 +310,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Mon, 02 Aug 2021 00:17:19 GMT
+      date: Fri, 06 Aug 2021 01:46:27 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -357,8 +358,8 @@ http_interactions:
         in .bil-Format","keywords":"Klima, Temperatur","licence_notes":"Lizenz: Creative
         Commons Namensnennung 3.0 Österreich (CC-BY 3.0 AT)","environmentalvaluemax":"0.6708892583847046","classification1":"Klima","environmentalvalueunits":"Grad
         Celsius","enabled":true,"domain":"Terrestrial","description":"Interpolierte
-        30-jährige mittlere Lufttemperatur (C°) des Monats Jänner (Monatsmittel) aus
-        den Jahren 1961 bis 1990. Basierend auf geprüften Messdaten aus dem Stationsmessnetz
+        30-jährige mittlere Lufttemperatur (C°) des Monats Jänner (Monatsmittel)
+        aus den Jahren 1961 bis 1990. Basierend auf geprüften Messdaten aus dem Stationsmessnetz
         der ZAMG.","licence_level":"2","source":"Zentralanstalt für Meterologie und
         Geodynamik (ZAMG)","citation_date":"2000-01-31"},{"source_link":"https://www.data.gv.at/katalog/dataset/zamg_lufttemperaturmitteljahrjnnerdezemberjnnerundjuliklimareferenzkarte19611990sterreich/resource/acf05c9d-ef0a-4ef0-a5b5-6ffed5235eb1","datalang":"ger","environmentalvaluemin":"-1.220163106918335","shape":false,"respparty_role":"","classification2":"Temperatur","displayname":"Lufttemperatur
         Monatsmittel Juli 1961-1990","id":10018,"grid":true,"path_orig":"layer/tempjul1961_90","minlongitude":-180.0,"maxlatitude":90.0,"licence_link":"https://creativecommons.org/licenses/by/3.0/at/deed.de","mddatest":"2016-03-16","maxlongitude":180.0,"dt_added":1569329842542,"minlatitude":-90.0,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:tempjul1961_90&format=image/png&styles=","name":"tempjul1961_90","metadatapath":"https://www.data.gv.at/katalog/dataset/d3e21596-2dc8-461a-ac9b-e1dee1a1f779","type":"Environmental","notes":"Originaldatensatz:
@@ -422,8 +423,8 @@ http_interactions:
         Seen des Bundesberichtsgewässernetz mit einer Fläche > 0,5 km².","licence_level":"1","source":"Bundesministerium
         für Nachhaltigkeit und Tourismus (BMNT)","citation_date":"2018-05-07"},{"source_link":"https://bfw.ac.at/rz/bfwcms.web?dok=1141","datalang":"ger","environmentalvaluemin":"","shape":true,"respparty_role":"Urheber","classification2":"","displayname":"Forstliche
         Wuchsgebiete Österreichs","id":10036,"grid":false,"path_orig":"layer/forstwuchsgebiete","minlongitude":9.53079,"maxlatitude":49.02071,"licence_link":"","mddatest":"","maxlongitude":17.16074,"dt_added":1576529602176,"minlatitude":46.3723,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:forstwuchsgebiete&format=image/png&styles=","name":"forstwuchsgebiete","metadatapath":"","type":"Contextual","notes":"Eine
-        ausführliche Beschreibung der forstlichen Wuchsgebiet Österreichs finden Sie
-        in: Kilian W., Müller F. & Starlinger F. 1994: Die forstlichen Wuchsgebiete
+        ausführliche Beschreibung der forstlichen Wuchsgebiet Österreichs finden
+        Sie in: Kilian W., Müller F. & Starlinger F. 1994: Die forstlichen Wuchsgebiete
         Österreichs. Eine Naturraumgliederung nach waldökologischen Gesichtspunkten.
         FBVA-Berichte 82: 1-60. Download via BFW: http://bfw.ac.at/300/pdf/1027.pdf","keywords":"Ökologie,
         Wald","licence_notes":"https://bfw.ac.at/rz/bfwcms.web?dok=1144","environmentalvaluemax":"","classification1":"Ökologie","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Die
@@ -440,8 +441,8 @@ http_interactions:
         1","id":10040,"grid":false,"path_orig":"layer/nuts_1","minlongitude":9.53075,"maxlatitude":49.02053,"licence_link":"","mddatest":"2019-06-17","maxlongitude":17.16077,"dt_added":1576531535605,"minlatitude":46.37231,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:nuts_1&format=image/png&styles=","name":"nuts_1","metadatapath":"https://www.data.gv.at/katalog/dataset/stat_gliederung-osterreichs-in-nuts-einheiten51e57","type":"Contextual","notes":"Ursprüngliche
         Metadaten: https://data.statistik.gv.at/web/meta.jsp?dataset=OGDEXT_NUTS_1;
         Weiterführende Metadaten: http://www.statistik.at/web_de/klassifikationen/regionale_gliederungen/nuts_einheiten/index.html\r\n\r\nDie
-        Daten wurden für den Atlas von der ursprünglichen Projektion MGI Lambert (EPSG:31287)
-        in WGS84 (EPSG: 4326) umgewandelt.\r\n","keywords":"NUTS, Verwaltungseinheit,
+        Daten wurden für den Atlas von der ursprünglichen Projektion MGI Lambert
+        (EPSG:31287) in WGS84 (EPSG: 4326) umgewandelt.\r\n","keywords":"NUTS, Verwaltungseinheit,
         Gebiete, EU","licence_notes":"Lizenz: Creative Commons Attribution License
         3.0\r\nLizenz Zitat: Datenquelle: Statistik Austria - data.statistik.gv.at","environmentalvaluemax":"","classification1":"Geographie
         & Planung","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"NUTS
@@ -453,9 +454,10 @@ http_interactions:
         vom 21. November 2016). Sie unterteilt das Territorium der EU auf 3 Ebenen
         in Gebietseinheiten, die in der Regel aus ganzen Verwaltungseinheiten oder
         Zusammenfassungen derselben bestehen. Für Österreich entspricht NUTS 1 den
-        drei Einheiten OSTÖSTERREICH (Bgl., NÖ., Wien), SÜDÖSTERREICH (Ktn. und Stmk.)
-        und WESTÖSTERREICH (OÖ., Sbg., Tirol, Vbg.); NUTS 2 den Bundesländern; und
-        NUTS 3 aus mehreren Gemeinden.","licence_level":"1","source":"Statistik Austria","citation_date":"2019-01-01"},{"source_link":"","datalang":"ger","environmentalvaluemin":"","shape":true,"respparty_role":"Urheber","classification2":"Naturschutz","displayname":"NÖ
+        drei Einheiten OSTÖSTERREICH (Bgl., NÖ., Wien), SÜDÖSTERREICH (Ktn. und
+        Stmk.) und WESTÖSTERREICH (OÖ., Sbg., Tirol, Vbg.); NUTS 2 den Bundesländern;
+        und NUTS 3 aus mehreren Gemeinden.","licence_level":"1","source":"Statistik
+        Austria","citation_date":"2019-01-01"},{"source_link":"","datalang":"ger","environmentalvaluemin":"","shape":true,"respparty_role":"Urheber","classification2":"Naturschutz","displayname":"NÖ
         Naturschutzkonzept-Regionen","id":10037,"grid":false,"path_orig":"layer/nsk_regionen_noe","minlongitude":14.45263,"maxlatitude":49.02052,"licence_link":"http://creativecommons.org/licenses/by/3.0/at/","mddatest":"2019-01-24","maxlongitude":17.06882,"dt_added":1576529886918,"minlatitude":47.42219,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:nsk_regionen_noe&format=image/png&styles=","name":"nsk_regionen_noe","metadatapath":"http://www.geoland.at/geonetwork/srv/eng/metadata.show?uuid=3af09f0d-1a01-481b-b774-14013ed3f53a","type":"Contextual","notes":"Weitere
         Informationen unter http://www.noe.gv.at/noe/Naturschutz/Naturschutzkonzept.html
         und im Naturschutzkonzept Niederösterreich  (http://www.noe.gv.at/noe/Naturschutz/Naturschutzkonzept_Februar_2015.pdf).\r\n\r\nDer
@@ -485,8 +487,8 @@ http_interactions:
         3","id":10041,"grid":false,"path_orig":"layer/nuts_3","minlongitude":9.53075,"maxlatitude":49.02053,"licence_link":"","mddatest":"2019-06-17","maxlongitude":17.16077,"dt_added":1576531612632,"minlatitude":46.37231,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:nuts_3&format=image/png&styles=","name":"nuts_3","metadatapath":"https://www.data.gv.at/katalog/dataset/stat_gliederung-osterreichs-in-nuts-einheiten51e57","type":"Contextual","notes":"Ursprüngliche
         Metadaten: https://data.statistik.gv.at/web/meta.jsp?dataset=OGDEXT_NUTS_1;
         Weiterfürhende Metadaten: http://www.statistik.at/web_de/klassifikationen/regionale_gliederungen/nuts_einheiten/index.html\r\n\r\nDie
-        Daten wurden für den Atlas von der ursprünglichen Projektion MGI Lambert (EPSG:31287)
-        in WGS84 (EPSG: 4326) umgewandelt.\r\n","keywords":"NUTS, Verwaltungseinheit,
+        Daten wurden für den Atlas von der ursprünglichen Projektion MGI Lambert
+        (EPSG:31287) in WGS84 (EPSG: 4326) umgewandelt.\r\n","keywords":"NUTS, Verwaltungseinheit,
         Gebiete, EU","licence_notes":"Lizenz: Creative Commons Attribution License
         3.0\r\nLizenz Zitat: Datenquelle: Statistik Austria - data.statistik.gv.at","environmentalvaluemax":"","classification1":"Geographie
         & Planung","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"NUTS
@@ -498,9 +500,10 @@ http_interactions:
         vom 21. November 2016). Sie unterteilt das Territorium der EU auf 3 Ebenen
         in Gebietseinheiten, die in der Regel aus ganzen Verwaltungseinheiten oder
         Zusammenfassungen derselben bestehen. Für Österreich entspricht NUTS 1 den
-        drei Einheiten OSTÖSTERREICH (Bgl., NÖ., Wien), SÜDÖSTERREICH (Ktn. und Stmk.)
-        und WESTÖSTERREICH (OÖ., Sbg., Tirol, Vbg.); NUTS 2 den Bundesländern; und
-        NUTS 3 aus mehreren Gemeinden.","licence_level":"1","source":"Statistik Austria","citation_date":"2019-01-01"},{"source_link":"https://www.data.gv.at/katalog/dataset/hauptregionen-no-1-1000/resource/0f7f8e07-8888-407a-be4f-08bbfad26293","datalang":"ger","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Verwaltung","displayname":"Hauptregionen
+        drei Einheiten OSTÖSTERREICH (Bgl., NÖ., Wien), SÜDÖSTERREICH (Ktn. und
+        Stmk.) und WESTÖSTERREICH (OÖ., Sbg., Tirol, Vbg.); NUTS 2 den Bundesländern;
+        und NUTS 3 aus mehreren Gemeinden.","licence_level":"1","source":"Statistik
+        Austria","citation_date":"2019-01-01"},{"source_link":"https://www.data.gv.at/katalog/dataset/hauptregionen-no-1-1000/resource/0f7f8e07-8888-407a-be4f-08bbfad26293","datalang":"ger","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Verwaltung","displayname":"Hauptregionen
         NÖ","id":10044,"grid":false,"path_orig":"layer/hauptregion_noe","minlongitude":14.45264,"maxlatitude":49.02052,"licence_link":"https://creativecommons.org/licenses/by/4.0/deed.de","mddatest":"2020-02-03","maxlongitude":17.06882,"dt_added":1582118937598,"minlatitude":47.42218,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:hauptregion_noe&format=image/png&styles=","name":"hauptregion_noe","metadatapath":"https://www.data.gv.at/katalog/dataset/eb44ae0a-f697-480e-998e-650f8dfee845","type":"Contextual","notes":"Erfassungsmaßstab
         1:1000","keywords":"Raumplanung, Verwaltung","licence_notes":"Lizenz: Creative
         Commons Namensnennung 4.0 International\r\nNutzungsbedingungen: http://noe.gv.at/noe/Open-Government-Data/Nutzungsbedingungen.html\r\nLizenz-Zitat:
@@ -525,12 +528,12 @@ http_interactions:
         der FFH-Gebiete in Österreich im Natura 2000-Netzwerk basierend auf der FFH-Richtline
         (Fauna-Flora-Habitat) der EU.\r\n\r\nNatura 2000 ist ein wichtiges Instrument
         zum Schutz der biologischen Vielfalt in der Europäischen Union. Es ist ein
-        ökologisches Netzwerk von Schutzgebieten, das eingerichtet wurde, um das Überleben
-        der wertvollsten Arten und Lebensräume Europas zu gewährleisten. Natura 2000
-        basiert auf der Vogelschutzrichtlinie (Birds Directive) von 1979 und der Habitatrichtlinie
-        (Habitat Directive) von 1992. Diese Version behandelt die Berichterstattung
-        vom Jahr 2018.","licence_level":"1","source":"Directorate-General for Environment
-        (DG ENV)","citation_date":"2018"},{"source_link":"https://www.data.gv.at/katalog/dataset/verwaltungsgrenzen-vgd-stichtagsdaten-grundstucksgenau/resource/9ca88e2b-a161-4763-a796-998821b0b5d3","datalang":"ger","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Verwaltung","displayname":"Bundesland","id":10062,"grid":false,"path_orig":"layer/bundesland_wgs84_iso_2","minlongitude":9.53075,"maxlatitude":49.02053,"licence_link":"https://www.data.gv.at/katalog/dataset/51bdc6dc-25ae-41de-b8f3-938f9056af62","mddatest":"2019-11-19","maxlongitude":17.16077,"dt_added":1603792053917,"minlatitude":46.37231,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:bundesland_wgs84_iso_2&format=image/png&styles=","name":"bundesland_wgs84_iso_2","metadatapath":"https://www.data.gv.at/katalog/dataset/51bdc6dc-25ae-41de-b8f3-938f9056af62","type":"Contextual","notes":"Bundesländergrenzen
+        ökologisches Netzwerk von Schutzgebieten, das eingerichtet wurde, um das
+        Überleben der wertvollsten Arten und Lebensräume Europas zu gewährleisten.
+        Natura 2000 basiert auf der Vogelschutzrichtlinie (Birds Directive) von 1979
+        und der Habitatrichtlinie (Habitat Directive) von 1992. Diese Version behandelt
+        die Berichterstattung vom Jahr 2018.","licence_level":"1","source":"Directorate-General
+        for Environment (DG ENV)","citation_date":"2018"},{"source_link":"https://www.data.gv.at/katalog/dataset/verwaltungsgrenzen-vgd-stichtagsdaten-grundstucksgenau/resource/9ca88e2b-a161-4763-a796-998821b0b5d3","datalang":"ger","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Verwaltung","displayname":"Bundesland","id":10062,"grid":false,"path_orig":"layer/bundesland_wgs84_iso_2","minlongitude":9.53075,"maxlatitude":49.02053,"licence_link":"https://www.data.gv.at/katalog/dataset/51bdc6dc-25ae-41de-b8f3-938f9056af62","mddatest":"2019-11-19","maxlongitude":17.16077,"dt_added":1603792053917,"minlatitude":46.37231,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:bundesland_wgs84_iso_2&format=image/png&styles=","name":"bundesland_wgs84_iso_2","metadatapath":"https://www.data.gv.at/katalog/dataset/51bdc6dc-25ae-41de-b8f3-938f9056af62","type":"Contextual","notes":"Bundesländergrenzen
         basierend auf den Stichtagsdaten der Verwaltungsgrenzdatenbank (VGD) des BEV.
         Weitere Informationen zu den Verwaltungsgrenzen des BEV: http://www.bev.gv.at/portal/page?_pageid=713,2156957&_dad=portal&_schema=PORTAL;
         Koordinatenreferenzsystem von EPSG:31287 zu EPSG:4362 (WGS84) transformiert.","keywords":"Bundesland,
@@ -553,12 +556,12 @@ http_interactions:
         der Vogelschutzgebiete in Österreich im Natura 2000 Netzwerk basierend auf
         der Vogelschutz-Richtlinie der EU.\r\n\r\nNatura 2000 ist ein wichtiges Instrument
         zum Schutz der biologischen Vielfalt in der Europäischen Union. Es ist ein
-        ökologisches Netzwerk von Schutzgebieten, das eingerichtet wurde, um das Überleben
-        der wertvollsten Arten und Lebensräume Europas zu gewährleisten. Natura 2000
-        basiert auf der Vogelschutzrichtlinie (Birds Directive) von 1979 und der Habitatrichtlinie
-        (Habitat Directive) von 1992. Diese Version behandelt die Berichterstattung
-        vom Jahr 2018.","licence_level":"1","source":"Directorate-General for Environment
-        (DG ENV)","citation_date":"2018"},{"source_link":"https://www.data.gv.at/katalog/dataset/viertelsgrenzen-no-1-1000","datalang":"ger","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Verwaltung","displayname":"Viertelgrenzen
+        ökologisches Netzwerk von Schutzgebieten, das eingerichtet wurde, um das
+        Überleben der wertvollsten Arten und Lebensräume Europas zu gewährleisten.
+        Natura 2000 basiert auf der Vogelschutzrichtlinie (Birds Directive) von 1979
+        und der Habitatrichtlinie (Habitat Directive) von 1992. Diese Version behandelt
+        die Berichterstattung vom Jahr 2018.","licence_level":"1","source":"Directorate-General
+        for Environment (DG ENV)","citation_date":"2018"},{"source_link":"https://www.data.gv.at/katalog/dataset/viertelsgrenzen-no-1-1000","datalang":"ger","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Verwaltung","displayname":"Viertelgrenzen
         NÖ","id":10046,"grid":false,"path_orig":"layer/viertelnoe_iso_wgs84","minlongitude":14.45264,"maxlatitude":49.02052,"licence_link":"https://creativecommons.org/licenses/by/4.0/deed.de","mddatest":"2020-03-09","maxlongitude":17.06882,"dt_added":1583929359752,"minlatitude":47.42218,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:viertelnoe_iso_wgs84&format=image/png&styles=","name":"viertelnoe_iso_wgs84","metadatapath":"https://www.data.gv.at/katalog/dataset/viertelsgrenzen-no-1-1000/resource/9efc514c-97a4-4131-ab60-bc6e5f047f51","type":"Contextual","notes":"Erfassungsmaßstab
         1:1000\r\nAls Basis der Viertelsgrenzen wurde die Vischer-Karte verwendet.
         Gemeinden die nicht eindeutig einem Viertel zuordenbar waren, sind auf Basis
@@ -571,10 +574,10 @@ http_interactions:
         BD3 - Hydrologie und Geoinformation / Amt der NÖ Landesregierung","citation_date":"2019-03-07"},{"source_link":"https://docs.umweltbundesamt.at/s/beBw8fmwyCMA2ga","datalang":"ger","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"","displayname":"Corine
         Land Cover 2018","id":10054,"grid":false,"path_orig":"layer/clc_2018at_wgs84_iso","minlongitude":9.53075,"maxlatitude":49.02053,"licence_link":"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32013R1159","mddatest":"2019-06-25","maxlongitude":17.16077,"dt_added":1583937405816,"minlatitude":46.37231,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:clc_2018at_wgs84_iso&format=image/png&styles=","name":"clc_2018at_wgs84_iso","metadatapath":"https://www.data.gv.at/katalog/dataset/76617316-b9e6-4bcd-ba09-e328b578fed2","type":"Contextual","notes":"Erfassungsmaßstab
         1:100000\r\n\r\nFür weitere Informationen siehe: https://www.data.gv.at/katalog/dataset/76617316-b9e6-4bcd-ba09-e328b578fed2
-        (Metadaten-Link). Die Daten wurden für den Atlas von der ursprünglichen Projektion
-        MGI Lambert (EPSG:31287) in WGS84 (EPSG: 4326) umgewandelt. Zusätzlich wurde
-        die Nomenklatur eingefügt: Codes für Level 1 und 2 sowie die deutschen Bezeichnungen
-        für Lev 1-3 (\"Nomenklatur.pdf\", Quelle: https://www.umweltbundesamt.at/rp_corine/).","keywords":"CLC,
+        (Metadaten-Link). Die Daten wurden für den Atlas von der ursprünglichen
+        Projektion MGI Lambert (EPSG:31287) in WGS84 (EPSG: 4326) umgewandelt. Zusätzlich
+        wurde die Nomenklatur eingefügt: Codes für Level 1 und 2 sowie die deutschen
+        Bezeichnungen für Lev 1-3 (\"Nomenklatur.pdf\", Quelle: https://www.umweltbundesamt.at/rp_corine/).","keywords":"CLC,
         Landbedeckung, Land Cover, Corine, Flächennutzung, Bodenbedeckung","licence_notes":"Lizenz:
         Public Domain\r\nLizenz-Zitat: © Umweltbundesamt & European Union, Copernicus
         Land Monitoring Service 2018, European Environment Agency (EEA), with funding
@@ -590,8 +593,8 @@ http_interactions:
         Creative Commons Namensnennung 4.0 International\r\nLizenz-Zitat: Datenquelle:
         Umweltbundesamt GmbH – data.umweltbundesamt.at","environmentalvaluemax":"","classification1":"Ökologie","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Naturräumliche
         Gliederung Österreichs nach Sauberer, N. & Grabherr, G. 1995: Fachliche Grundlagen
-        zur Umsetzung der FFH-Richtlinie in Österreich. Schwerpunkt Lebensräume. Report
-        des Umweltbundesamtes 115.","licence_level":"1","source":"Umweltbundesamt/Abteilung
+        zur Umsetzung der FFH-Richtlinie in Österreich. Schwerpunkt Lebensräume.
+        Report des Umweltbundesamtes 115.","licence_level":"1","source":"Umweltbundesamt/Abteilung
         biologische Vielfalt und Naturschutz","citation_date":"2019-06-25"},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"","displayname":"world","id":10061,"grid":false,"path_orig":"layer/world","minlongitude":-180.00001,"maxlatitude":83.11063,"licence_link":"","mddatest":"","maxlongitude":179.99999,"dt_added":1591965439232,"minlatitude":-90.0,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:world&format=image/png&styles=","name":"world","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"https://www.data.gv.at/katalog/dataset/verwaltungsgrenzen-vgd-stichtagsdaten-grundstucksgenau/resource/9ca88e2b-a161-4763-a796-998821b0b5d3","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Verwaltung","displayname":"Außengrenze
         Österreich","id":10035,"grid":false,"path_orig":"layer/austria_wgs84_iso","minlongitude":9.53075,"maxlatitude":49.02053,"licence_link":"https://www.data.gv.at/katalog/dataset/51bdc6dc-25ae-41de-b8f3-938f9056af62","mddatest":"2019-11-19","maxlongitude":17.16077,"dt_added":1611234091653,"minlatitude":46.37231,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:austria_wgs84_iso&format=image/png&styles=","name":"austria_wgs84_iso","metadatapath":"https://www.data.gv.at/katalog/dataset/51bdc6dc-25ae-41de-b8f3-938f9056af62","type":"Contextual","notes":"Außengrenze
         Österreichs basierend auf den Stichtagsdaten der Verwaltungsgrenzdatenbank
@@ -626,34 +629,35 @@ http_interactions:
         - data.ooe.gv.at; Land Salzburg - data.salzburg.gv.at; Land Tirol - data.tirol.gv.at;
         Land Vorarlberg - data.vorarlberg.gv.at\r\n","environmentalvaluemax":"","classification1":"Geographie
         & Planung","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Verortung
-        der Gebiete unter der Schutzkategorie \"Geschützte Landschaftsteile\" in Österreichs.
-        Diese Schutzkategorie kommt in den Bundesländern Burgenland, Kärnten, Oberösterreich,
-        Salzburg, Steiermark, Wien und Vorarlberg vor.","licence_level":"1","source":"Stadt
+        der Gebiete unter der Schutzkategorie \"Geschützte Landschaftsteile\" in
+        Österreichs. Diese Schutzkategorie kommt in den Bundesländern Burgenland,
+        Kärnten, Oberösterreich, Salzburg, Steiermark, Wien und Vorarlberg vor.","licence_level":"1","source":"Stadt
         Wien, Land Burgenland, Land Oberösterreich, Land Salzburg, Land Tirol, Land
         Vorarlberg","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Naturschutz","displayname":"Landschaftsschutzgebiete","id":10068,"grid":false,"path_orig":"layer/lsg_austria","minlongitude":9.61989,"maxlatitude":48.92814,"licence_link":"https://creativecommons.org/licenses/by/4.0/deed.de;
         https://creativecommons.org/licenses/by/3.0/at/deed.de","mddatest":"","maxlongitude":16.99967,"dt_added":1611241937007,"minlatitude":46.54572,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:lsg_austria&format=image/png&styles=","name":"lsg_austria","metadatapath":"","type":"Contextual","notes":"Der
         Layer wurde aus mehreren Datenquellen im Dezember 2020 erstellt.\r\nDatenquellen:
         Stadt Wien - data.wien.gv.at; Land Niederösterreich - data.noe.gv.at; Land
-        Burgenland - data.bgld.gv.at; Land Oberösterreich - data.ooe.gv.at; Land Steiermark
-        - data.steiermark.at; Land Kärnten - data.ktn.gv.at; Land Salzburg - data.salzburg.gv.at;
-        Land Tirol - data.tirol.gv.at; Land Vorarlberg - data.vorarlberg.gv.at","keywords":"","licence_notes":"Lizenz:
+        Burgenland - data.bgld.gv.at; Land Oberösterreich - data.ooe.gv.at; Land
+        Steiermark - data.steiermark.at; Land Kärnten - data.ktn.gv.at; Land Salzburg
+        - data.salzburg.gv.at; Land Tirol - data.tirol.gv.at; Land Vorarlberg - data.vorarlberg.gv.at","keywords":"","licence_notes":"Lizenz:
         CC-BY-4.0 und CC-BY-3.0-AT\r\nDatenquellen: Stadt Wien - data.wien.gv.at;
         Land Niederösterreich - data.noe.gv.at; Land Burgenland - data.bgld.gv.at;
         Land Oberösterreich - data.ooe.gv.at; Land Steiermark - data.steiermark.at;
-        Land Kärnten - data.ktn.gv.at; Land Salzburg - data.salzburg.gv.at; Land Tirol
-        - data.tirol.gv.at; Land Vorarlberg - data.vorarlberg.gv.at","environmentalvaluemax":"","classification1":"Geographie
+        Land Kärnten - data.ktn.gv.at; Land Salzburg - data.salzburg.gv.at; Land
+        Tirol - data.tirol.gv.at; Land Vorarlberg - data.vorarlberg.gv.at","environmentalvaluemax":"","classification1":"Geographie
         & Planung","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Verortung
         der Landschaftsschutzgebiete in Österreich","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Naturschutz","displayname":"Naturparke","id":10070,"grid":false,"path_orig":"layer/npk_austria_2020","minlongitude":9.83791,"maxlatitude":48.91675,"licence_link":"https://creativecommons.org/licenses/by/4.0/deed.de;
         https://creativecommons.org/licenses/by/3.0/at/deed.de","mddatest":"","maxlongitude":16.82388,"dt_added":1611243345396,"minlatitude":46.55356,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:npk_austria_2020&format=image/png&styles=","name":"npk_austria_2020","metadatapath":"","type":"Contextual","notes":"Der
         Layer wurde aus mehreren Datenquellen im Dezember 2020 erstellt.\r\nDatenquellen:
         Land Niederösterreich - data.noe.gv.at; Land Burgenland - data.bgld.gv.at;
         Land Oberösterreich - data.ooe.gv.at; Land Steiermark - data.steiermark.at;
-        Land Kärnten - data.ktn.gv.at; Land Salzburg - data.salzburg.gv.at; Land Tirol
-        - data.tirol.gv.at","keywords":"Naturschutz, Schutzgebiete, Naturparks, Naturparke","licence_notes":"Lizenz:
-        CC-BY-4.0 und CC-BY-3.0\r\nDatenquellen: Land Niederösterreich - data.noe.gv.at;
-        Land Burgenland - data.bgld.gv.at; Land Oberösterreich - data.ooe.gv.at; Land
-        Steiermark - data.steiermark.at; Land Kärnten - data.ktn.gv.at; Land Salzburg
-        - data.salzburg.gv.at; Land Tirol - data.tirol.gv.at","environmentalvaluemax":"","classification1":"Geographie
+        Land Kärnten - data.ktn.gv.at; Land Salzburg - data.salzburg.gv.at; Land
+        Tirol - data.tirol.gv.at","keywords":"Naturschutz, Schutzgebiete, Naturparks,
+        Naturparke","licence_notes":"Lizenz: CC-BY-4.0 und CC-BY-3.0\r\nDatenquellen:
+        Land Niederösterreich - data.noe.gv.at; Land Burgenland - data.bgld.gv.at;
+        Land Oberösterreich - data.ooe.gv.at; Land Steiermark - data.steiermark.at;
+        Land Kärnten - data.ktn.gv.at; Land Salzburg - data.salzburg.gv.at; Land
+        Tirol - data.tirol.gv.at","environmentalvaluemax":"","classification1":"Geographie
         & Planung","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Verortung
         der Naturparke in Österreich","licence_level":"2","source":"Land Niederösterreich,
         Land Burgenland, Land Oberösterreich, Land Steiermark, Land Kärnten, Land
@@ -661,13 +665,13 @@ http_interactions:
         https://creativecommons.org/licenses/by/3.0/at/deed.de","mddatest":"","maxlongitude":17.0638,"dt_added":1611244718395,"minlatitude":46.37215,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:nsg_austria_2020&format=image/png&styles=","name":"nsg_austria_2020","metadatapath":"","type":"Contextual","notes":"Der
         Layer wurde aus mehreren Datenquellen im Dezember 2020 erstellt.\r\nDatenquellen:
         Stadt Wien - data.wien.gv.at; Land Niederösterreich - data.noe.gv.at; Land
-        Burgenland - data.bgld.gv.at; Land Oberösterreich - data.ooe.gv.at; Land Steiermark
-        - data.steiermark.at; Land Kärnten - data.ktn.gv.at; Land Salzburg - data.salzburg.gv.at;
-        Land Tirol - data.tirol.gv.at; Land Vorarlberg - data.vorarlberg.gv.at","keywords":"Naturschutz,
+        Burgenland - data.bgld.gv.at; Land Oberösterreich - data.ooe.gv.at; Land
+        Steiermark - data.steiermark.at; Land Kärnten - data.ktn.gv.at; Land Salzburg
+        - data.salzburg.gv.at; Land Tirol - data.tirol.gv.at; Land Vorarlberg - data.vorarlberg.gv.at","keywords":"Naturschutz,
         Schutzgebiete, Naturschutzgebiete","licence_notes":"Lizenz: CC-BY-4.0 und
         CC-BY-3.0\r\nDatenquellen: Stadt Wien - data.wien.gv.at; Land Niederösterreich
-        - data.noe.gv.at; Land Burgenland - data.bgld.gv.at; Land Oberösterreich -
-        data.ooe.gv.at; Land Steiermark - data.steiermark.at; Land Kärnten - data.ktn.gv.at;
+        - data.noe.gv.at; Land Burgenland - data.bgld.gv.at; Land Oberösterreich
+        - data.ooe.gv.at; Land Steiermark - data.steiermark.at; Land Kärnten - data.ktn.gv.at;
         Land Salzburg - data.salzburg.gv.at; Land Tirol - data.tirol.gv.at; Land Vorarlberg
         - data.vorarlberg.gv.at","environmentalvaluemax":"","classification1":"Geographie
         & Planung","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Verortung
@@ -676,14 +680,14 @@ http_interactions:
         https://creativecommons.org/licenses/by/3.0/at/deed.de","mddatest":"","maxlongitude":17.06884,"dt_added":1611246204199,"minlatitude":46.56979,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:rfg_austria_2020&format=image/png&styles=","name":"rfg_austria_2020","metadatapath":"","type":"Contextual","notes":"Der
         Layer wurde aus mehreren Datenquellen im Dezember 2020 erstellt.\r\nDatenquellen:
         Stadt Wien - data.wien.gv.at; Land Niederösterreich - data.noe.gv.at; Land
-        Burgenland - data.bgld.gv.at; Land Oberösterreich - data.ooe.gv.at; Land Steiermark
-        - data.steiermark.at; Land Kärnten - data.ktn.gv.at; Land Salzburg - data.salzburg.gv.at;
-        Land Tirol - data.tirol.gv.at","keywords":"Naturschutz, Schutzgebiete, Ramsar,
-        Feuchtgebiete","licence_notes":"Lizenz: CC-BY-4.0 und CC-BY-3.0\r\nDatenquellen:
-        Stadt Wien - data.wien.gv.at; Land Niederösterreich - data.noe.gv.at; Land
-        Burgenland - data.bgld.gv.at; Land Oberösterreich - data.ooe.gv.at; Land Steiermark
-        - data.steiermark.at; Land Kärnten - data.ktn.gv.at; Land Salzburg - data.salzburg.gv.at;
-        Land Tirol - data.tirol.gv.at","environmentalvaluemax":"","classification1":"Geographie
+        Burgenland - data.bgld.gv.at; Land Oberösterreich - data.ooe.gv.at; Land
+        Steiermark - data.steiermark.at; Land Kärnten - data.ktn.gv.at; Land Salzburg
+        - data.salzburg.gv.at; Land Tirol - data.tirol.gv.at","keywords":"Naturschutz,
+        Schutzgebiete, Ramsar, Feuchtgebiete","licence_notes":"Lizenz: CC-BY-4.0 und
+        CC-BY-3.0\r\nDatenquellen: Stadt Wien - data.wien.gv.at; Land Niederösterreich
+        - data.noe.gv.at; Land Burgenland - data.bgld.gv.at; Land Oberösterreich
+        - data.ooe.gv.at; Land Steiermark - data.steiermark.at; Land Kärnten - data.ktn.gv.at;
+        Land Salzburg - data.salzburg.gv.at; Land Tirol - data.tirol.gv.at","environmentalvaluemax":"","classification1":"Geographie
         & Planung","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Verortung
         der Ramsar-Gebiete in Österreich","licence_level":"2","source":"Ämter der
         Landesregierungen Österreich","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Naturschutz","displayname":"Sonstige
@@ -706,13 +710,13 @@ http_interactions:
         https://creativecommons.org/licenses/by/3.0/at/deed.de","mddatest":"","maxlongitude":17.01321,"dt_added":1611248130487,"minlatitude":46.46785,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:ndm_austria_2020&format=image/png&styles=","name":"ndm_austria_2020","metadatapath":"","type":"Contextual","notes":"Der
         Layer wurde aus mehreren Datenquellen im Dezember 2020 erstellt.\r\nDatenquellen:
         Stadt Wien - data.wien.gv.at; Land Niederösterreich - data.noe.gv.at; Land
-        Burgenland - data.bgld.gv.at; Land Oberösterreich - data.ooe.gv.at; Land Steiermark
-        - data.steiermark.at; Land Kärnten - data.ktn.gv.at; Land Salzburg - data.salzburg.gv.at;
-        Land Tirol - data.tirol.gv.at; Land Vorarlberg - data.vorarlberg.gv.at","keywords":"Naturschutz,
+        Burgenland - data.bgld.gv.at; Land Oberösterreich - data.ooe.gv.at; Land
+        Steiermark - data.steiermark.at; Land Kärnten - data.ktn.gv.at; Land Salzburg
+        - data.salzburg.gv.at; Land Tirol - data.tirol.gv.at; Land Vorarlberg - data.vorarlberg.gv.at","keywords":"Naturschutz,
         Schutzgebiete, Naturdenkmal, Naturdenkmäler","licence_notes":"Lizenz: CC-BY-4.0
         und CC-BY-3.0\r\nDatenquellen: Stadt Wien - data.wien.gv.at; Land Niederösterreich
-        - data.noe.gv.at; Land Burgenland - data.bgld.gv.at; Land Oberösterreich -
-        data.ooe.gv.at; Land Steiermark - data.steiermark.at; Land Kärnten - data.ktn.gv.at;
+        - data.noe.gv.at; Land Burgenland - data.bgld.gv.at; Land Oberösterreich
+        - data.ooe.gv.at; Land Steiermark - data.steiermark.at; Land Kärnten - data.ktn.gv.at;
         Land Salzburg - data.salzburg.gv.at; Land Tirol - data.tirol.gv.at; Land Vorarlberg
         - data.vorarlberg.gv.at","environmentalvaluemax":"","classification1":"Geographie
         & Planung","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Verortung
@@ -721,20 +725,20 @@ http_interactions:
         https://creativecommons.org/licenses/by/3.0/at/deed.de","mddatest":"","maxlongitude":17.05183,"dt_added":1611312092983,"minlatitude":46.87957,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:np_austria_2020&format=image/png&styles=","name":"np_austria_2020","metadatapath":"","type":"Contextual","notes":"Der
         Layer wurde aus mehreren Datenquellen im Dezember 2020 erstellt.\r\nDatenquellen:
         Stadt Wien - data.wien.gv.at; Land Niederösterreich - data.noe.gv.at; Land
-        Burgenland - data.bgld.gv.at; Land Oberösterreich - data.ooe.gv.at; Land Steiermark
-        - data.steiermark.at; Land Kärnten - data.ktn.gv.at; Land Salzburg - data.salzburg.gv.at;
-        Land Tirol - data.tirol.gv.at","keywords":"Naturschutz, Schutzgebiet, Nationalparks","licence_notes":"Lizenz:
-        CC-BY-4.0 und CC-BY-3.0\r\nDatenquellen: Stadt Wien - data.wien.gv.at; Land
-        Niederösterreich - data.noe.gv.at; Land Burgenland - data.bgld.gv.at; Land
-        Oberösterreich - data.ooe.gv.at; Land Steiermark - data.steiermark.at; Land
-        Kärnten - data.ktn.gv.at; Land Salzburg - data.salzburg.gv.at; Land Tirol
-        - data.tirol.gv.at","environmentalvaluemax":"","classification1":"Geographie
+        Burgenland - data.bgld.gv.at; Land Oberösterreich - data.ooe.gv.at; Land
+        Steiermark - data.steiermark.at; Land Kärnten - data.ktn.gv.at; Land Salzburg
+        - data.salzburg.gv.at; Land Tirol - data.tirol.gv.at","keywords":"Naturschutz,
+        Schutzgebiet, Nationalparks","licence_notes":"Lizenz: CC-BY-4.0 und CC-BY-3.0\r\nDatenquellen:
+        Stadt Wien - data.wien.gv.at; Land Niederösterreich - data.noe.gv.at; Land
+        Burgenland - data.bgld.gv.at; Land Oberösterreich - data.ooe.gv.at; Land
+        Steiermark - data.steiermark.at; Land Kärnten - data.ktn.gv.at; Land Salzburg
+        - data.salzburg.gv.at; Land Tirol - data.tirol.gv.at","environmentalvaluemax":"","classification1":"Geographie
         & Planung","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"Außengrenzen
         der sechs Nationalparks in Österreich: Nationalpark Donau-Auen, Nationalpark
         Gesäuse, Nationalpark Hohe Tauern, Nationalpark Kalkalpen, Nationalpark Neusiedler
         See - Seewinkel, Nationalpark Thayatal\r\n","licence_level":"2","source":"Ämter
         der österreichischen Landesregierungen","citation_date":""}]'
-  recorded_at: 2021-08-02 00:17:21 GMT
+  recorded_at: 2021-08-06 01:46:30 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -745,7 +749,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -754,7 +758,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Mon, 02 Aug 2021 00:17:20 GMT
+      date: Fri, 06 Aug 2021 01:46:28 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -864,7 +868,7 @@ http_interactions:
         dem angegebenen Namen gibt es Probleme mit dem Homonym","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Möglicher
         doppelter Eintrag","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"Erster
         des Monats","category":"warning","fatal":false}]'
-  recorded_at: 2021-08-02 00:17:21 GMT
+  recorded_at: 2021-08-06 01:46:30 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -875,7 +879,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -884,7 +888,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Mon, 02 Aug 2021 00:17:20 GMT
+      date: Fri, 06 Aug 2021 01:46:29 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -906,17 +910,18 @@ http_interactions:
         Datenqualitäts-Test resultiert","jsonName":"assertions","downloadName":"assertions","i18nValues":false},{"name":"assertions_missing","dataType":"string","indexed":true,"stored":true,"multivalue":true,"info":"Bemerkung
         zeigt dass Werte zu diesem Eintrag fehlen. Z.B. fehlende Grundlage des Eintrages","downloadName":"assertions_missing"},{"name":"assertions_passed","dataType":"string","indexed":true,"stored":true,"multivalue":true,"info":"Bemerkung
         zeigt, dass ein Datenqualitäts Test von diesem Eintrag gemacht wurde","downloadName":"assertions_passed"},{"name":"assertions_unchecked","dataType":"string","indexed":true,"stored":true,"multivalue":true,"info":"Bemerkung
-        zeigt an, dass ein Qualitäts-Test nicht ausgeführt wurde, dies ist meist der
-        Fall wenn ein Feld welches für den Test benötigt wird nicht vorhanden ist.","downloadName":"assertions_unchecked"},{"name":"basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
+        zeigt an, dass ein Qualitäts-Test nicht ausgeführt wurde, dies ist meist
+        der Fall wenn ein Feld welches für den Test benötigt wird nicht vorhanden
+        ist.","downloadName":"assertions_unchecked"},{"name":"basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
         specific nature of the data record.","info":"Grundlage des Vorkommens, z.B.
         Sammlungsobjekt, Beobachtung http://rs.tdwg.org/dwc/terms/basisOfRecord","jsonName":"basisOfRecord","dwcTerm":"basisOfRecord","downloadName":"basis_of_record","downloadDescription":"Grundlage
         des Eintrages","classs":"Record"},{"name":"catalogue_number","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"An
         identifier (preferably unique) for the record within the data set or collection.","info":"http://rs.tdwg.org/dwc/terms/catalogNumber","jsonName":"raw_catalogNumber","dwcTerm":"catalogNumber","downloadName":"catalogue_number","downloadDescription":"Katalognummer","classs":"Occurrence"},{"name":"cl10032","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10032","downloadName":"cl10032","classs":"Contextual"},{"name":"cl10033","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10033","downloadName":"cl10033","classs":"Contextual"},{"name":"cl10034","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10034","downloadName":"cl10034","classs":"Contextual"},{"name":"cl10035","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10035","downloadName":"cl10035","classs":"Contextual"},{"name":"cl10036","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10036","downloadName":"cl10036","classs":"Contextual"},{"name":"cl10037","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10037","downloadName":"cl10037","classs":"Contextual"},{"name":"cl10038","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10038","downloadName":"cl10038","classs":"Contextual"},{"name":"cl10040","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10040","downloadName":"cl10040","classs":"Contextual"},{"name":"cl10041","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10041","downloadName":"cl10041","classs":"Contextual"},{"name":"cl10044","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10044","downloadName":"cl10044","classs":"Contextual"},{"name":"cl10045","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10045","downloadName":"cl10045","classs":"Contextual"},{"name":"cl10046","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10046","downloadName":"cl10046","classs":"Contextual"},{"name":"cl10048","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10048","downloadName":"cl10048","classs":"Contextual"},{"name":"cl10049","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10049","downloadName":"cl10049","classs":"Contextual"},{"name":"cl10050","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10050","downloadName":"cl10050","classs":"Contextual"},{"name":"cl10051","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10051","downloadName":"cl10051","classs":"Contextual"},{"name":"cl10052","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10052","downloadName":"cl10052","classs":"Contextual"},{"name":"cl10053","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10053","downloadName":"cl10053","classs":"Contextual"},{"name":"cl10054","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10054","downloadName":"cl10054","classs":"Contextual"},{"name":"cl10055","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10055","downloadName":"cl10055","classs":"Contextual"},{"name":"cl10056","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10056","downloadName":"cl10056","classs":"Contextual"},{"name":"cl10057","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10057","downloadName":"cl10057","classs":"Contextual"},{"name":"cl10058","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10058","downloadName":"cl10058","classs":"Contextual"},{"name":"cl10062","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10062","downloadName":"cl10062","classs":"Contextual"},{"name":"cl10066","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10066","downloadName":"cl10066","classs":"Contextual"},{"name":"cl10067","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10067","downloadName":"cl10067","classs":"Contextual"},{"name":"cl10068","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10068","downloadName":"cl10068","classs":"Contextual"},{"name":"cl10069","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10069","downloadName":"cl10069","classs":"Contextual"},{"name":"cl10070","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10070","downloadName":"cl10070","classs":"Contextual"},{"name":"cl10071","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10071","downloadName":"cl10071","classs":"Contextual"},{"name":"cl10072","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10072","downloadName":"cl10072","classs":"Contextual"},{"name":"cl10073","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl10073","downloadName":"cl10073","classs":"Contextual"},{"name":"cl110054","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl110054","downloadName":"cl110054","classs":"Contextual"},{"name":"cl210054","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"https://spatial.biodiversityatlas.at/ws/layers/view/more/cl210054","downloadName":"cl210054","classs":"Contextual"},{"name":"class","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Klasse","info":"Die
         Klasse, der der Atlas diesem Eintrag im NSL zugeordnet hat http://rs.tdwg.org/dwc/terms/class","jsonName":"classs","dwcTerm":"class","downloadName":"class","downloadDescription":"Klasse","classs":"Taxon"},{"name":"collection_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
         name, acronym, coden, or initialism identifying the collection or data set
-        from which the record was derived.","info":"Der Sammlungscode für diesen Eintrag.
-        Dies wird bevölkert, wenn die Daten aus einem Museum oder einem Herbarium
-        stammen http://rs.tdwg.org/dwc/terms/collectionCode","jsonName":"raw_collectionCode","dwcTerm":"collectionCode","downloadName":"collection_code","downloadDescription":"Sammels
+        from which the record was derived.","info":"Der Sammlungscode für diesen
+        Eintrag. Dies wird bevölkert, wenn die Daten aus einem Museum oder einem
+        Herbarium stammen http://rs.tdwg.org/dwc/terms/collectionCode","jsonName":"raw_collectionCode","dwcTerm":"collectionCode","downloadName":"collection_code","downloadDescription":"Sammels
         Code","classs":"Record"},{"name":"collection_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Sammlung","info":"Name
         der Sammlung für diesen Eintrag, z.B. Entomologie Sammlung","jsonName":"collectionName","downloadName":"collection_name","downloadDescription":"Sammlung"},{"name":"collection_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Sammlung","info":"Atlas-ID
         für diese Sammlung","jsonName":"collectionUid","downloadName":"collection_uid","downloadDescription":"SammlungID"},{"name":"collector","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
@@ -972,8 +977,8 @@ http_interactions:
         der Individuen","classs":"Occurrence"},{"name":"institution_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
         name (or acronym) in use by the institution having custody of the object(s)
         or information referred to in the record.","info":"Der Institutcode für diesen
-        Eintrag. Dies wird bevölkert, wenn die Daten aus einem Museum oder einem Herbarium
-        stammen http://rs.tdwg.org/dwc/terms/institutionCode","jsonName":"raw_institutionCode","dwcTerm":"institutionCode","downloadName":"institution_code","downloadDescription":"Code
+        Eintrag. Dies wird bevölkert, wenn die Daten aus einem Museum oder einem
+        Herbarium stammen http://rs.tdwg.org/dwc/terms/institutionCode","jsonName":"raw_institutionCode","dwcTerm":"institutionCode","downloadName":"institution_code","downloadDescription":"Code
         des Institutes","classs":"Record"},{"name":"institution_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Institution","info":"Der
         Name, welcher vom Institut verwendet wird, welches das/die Objekt(e) oder
         die Informationen im Eintrag verwahrt.","jsonName":"institutionName","downloadName":"institution_name","downloadDescription":"Institut"},{"name":"institution_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Institution","info":"Atlas-ID
@@ -1001,8 +1006,8 @@ http_interactions:
         given in geodeticDatum) of the geographic center of a Location. Positive values
         are east of the Greenwich Meridian, negative values are west of it. Legal
         values lie between -180 and 180, inclusive.","info":"Der Dezimal-Längengrad,
-        der mit diesem Eintrag verknüpft ist. Wenn der ursprüngliche Längengrad in
-        Grad, Minuten, Sekunden geliefert wurde, stellt dieser Wert den konvertierten
+        der mit diesem Eintrag verknüpft ist. Wenn der ursprüngliche Längengrad
+        in Grad, Minuten, Sekunden geliefert wurde, stellt dieser Wert den konvertierten
         Wert dar. http://rs.tdwg.org/dwc/terms/decimalLongitude","jsonName":"decimalLongitude","dwcTerm":"decimalLongitude","downloadName":"longitude","downloadDescription":"Längengrad","classs":"Location"},{"name":"mappable","dataType":"string","indexed":true,"stored":true,"multivalue":false,"downloadName":"mappable"},{"name":"max_elevation_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"description":"The
         upper limit of the range of elevation (altitude, usually above sea level),
         in meters.","info":"http://rs.tdwg.org/dwc/terms/maximumElevationInMeters","dwcTerm":"maximumElevationInMeters","downloadName":"max_elevation_d","downloadDescription":"Maximale
@@ -1017,8 +1022,8 @@ http_interactions:
         mit einem Konzept erreicht wurde. z.B. fuzzyMatch, exactMatch","downloadName":"name_match_metric"},{"name":"name_parse_type","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Art
         der Analyse des wissenschaftlichen Namens, die beim Abgleich des Datensatzes
         mit dem taxonomischen Konzept verwendet wurde.","downloadName":"name_parse_type"},{"name":"names_and_lsid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Verkettung
-        aus allgemeinem Name und LSID, nützlich für Aufschlüsselung nach Art und Sortieren
-        nach Taxon-Name","jsonName":"namesLsid","downloadName":"names_and_lsid"},{"name":"occurrence_date","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"description":"The
+        aus allgemeinem Name und LSID, nützlich für Aufschlüsselung nach Art und
+        Sortieren nach Taxon-Name","jsonName":"namesLsid","downloadName":"names_and_lsid"},{"name":"occurrence_date","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"description":"The
         date-time or interval during which an Event occurred. For occurrences, this
         is the date-time when the event was recorded. Not suitable for a time in a
         geological context. Recommended best practice is to use an encoding scheme,
@@ -1089,8 +1094,8 @@ http_interactions:
         Occurrence. Recommended best practice is to use a controlled vocabulary.","info":"http://rs.tdwg.org/dwc/terms/reproductiveCondition","dwcTerm":"reproductiveCondition","downloadName":"reproductive_condition","classs":"Occurrence"},{"name":"rgt","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"info":"Rechter
         Wert im verschachtelten Set für diesen Eintrag. Wird verwendet, um Einträge
         innerhalb taxonomischer Gruppen abzurufen.","jsonName":"right","downloadName":"rgt"},{"name":"rights","dataType":"string","indexed":false,"stored":true,"multivalue":false,"jsonName":"rights","dwcTerm":"dcterms:rights","downloadName":"rights","classs":"Record"},{"name":"sensitive","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Sensibel","info":"Dieses
-        Feld wird ausgefüllt, wenn es sich um einen sensiblen Datensatz handelt. Werte
-        beinhalten abstrahiert, bereits abstrahiert.","downloadName":"sensitive"},{"name":"species","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Art","info":"Die
+        Feld wird ausgefüllt, wenn es sich um einen sensiblen Datensatz handelt.
+        Werte beinhalten abstrahiert, bereits abstrahiert.","downloadName":"sensitive"},{"name":"species","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Art","info":"Die
         Art, die der Atlas diesem Eintrag im NSL zugeordnet hat http://rs.tdwg.org/dwc/terms/species","jsonName":"species","dwcTerm":"species","downloadName":"species","downloadDescription":"Art","i18nValues":false,"classs":"Taxon"},{"name":"species_group","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"Lebensweise","info":"Höhere
         Level-Gruppe für diesen Eintrag z.B. Vögel","jsonName":"speciesGroups","downloadName":"species_group"},{"name":"species_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Art","info":"Die
         Art-ID für diesen Eintrag","jsonName":"speciesGuid","downloadName":"species_guid"},{"name":"species_list_uid","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"Artenlisten","info":"Wird
@@ -1114,14 +1119,14 @@ http_interactions:
         qualifications, which should instead be supplied in the IdentificationQualifier
         term.","info":"http://rs.tdwg.org/dwc/terms/scientificName","jsonName":"scientificName","dwcTerm":"scientificName","downloadName":"taxon_name","downloadDescription":"Wissenschaftlicher
         Name","classs":"Taxon"},{"name":"taxonomic_issue","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"Taxonomisches
-        Bestimmungsproblem","info":"Probleme bei der taxonomischen Datenqualität gefunden.
-        Siehe https://biocache.ala.org.au/ws/assertions/codes","downloadName":"taxonomic_issue","downloadDescription":"Taxonomisches
+        Bestimmungsproblem","info":"Probleme bei der taxonomischen Datenqualität
+        gefunden. Siehe https://biocache.ala.org.au/ws/assertions/codes","downloadName":"taxonomic_issue","downloadDescription":"Taxonomisches
         Bestimmungsproblem"},{"name":"taxonomic_kosher","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Taxonomische
         Qualität","info":"Ein Indikator der anzeigt ob schwerwiegende taxonomische
         Probleme bei einem Datensatz vorliegen. Negativ bedeutet ein Problem.","jsonName":"taxonomicKosher","downloadName":"taxonomic_kosher","downloadDescription":"Taxonomische
         Qualität"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"description":"The
         four-digit year in which the Event occurred, according to the Common Era Calendar.","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Jahr","classs":"Event"}]'
-  recorded_at: 2021-08-02 00:17:21 GMT
+  recorded_at: 2021-08-06 01:46:30 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1132,7 +1137,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1141,7 +1146,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Mon, 02 Aug 2021 00:17:21 GMT
+      date: Fri, 06 Aug 2021 01:46:29 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -1158,5 +1163,5 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":63963,"fq":"year:\"2020\""},{"label":"2021","i18nCode":"year.2021","count":33587,"fq":"year:\"2021\""},{"label":"1977","i18nCode":"year.1977","count":26167,"fq":"year:\"1977\""},{"label":"2019","i18nCode":"year.2019","count":23726,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":12919,"fq":"year:\"2018\""},{"label":"1985","i18nCode":"year.1985","count":12258,"fq":"year:\"1985\""},{"label":"2017","i18nCode":"year.2017","count":7772,"fq":"year:\"2017\""},{"label":"1972","i18nCode":"year.1972","count":7160,"fq":"year:\"1972\""},{"label":"2009","i18nCode":"year.2009","count":7101,"fq":"year:\"2009\""},{"label":"1963","i18nCode":"year.1963","count":6581,"fq":"year:\"1963\""},{"label":"1986","i18nCode":"year.1986","count":5998,"fq":"year:\"1986\""},{"label":"1990","i18nCode":"year.1990","count":5945,"fq":"year:\"1990\""},{"label":"1978","i18nCode":"year.1978","count":5832,"fq":"year:\"1978\""},{"label":"1975","i18nCode":"year.1975","count":5809,"fq":"year:\"1975\""},{"label":"1984","i18nCode":"year.1984","count":5657,"fq":"year:\"1984\""},{"label":"1967","i18nCode":"year.1967","count":5488,"fq":"year:\"1967\""},{"label":"1987","i18nCode":"year.1987","count":5485,"fq":"year:\"1987\""},{"label":"1980","i18nCode":"year.1980","count":5457,"fq":"year:\"1980\""},{"label":"1976","i18nCode":"year.1976","count":5365,"fq":"year:\"1976\""},{"label":"1970","i18nCode":"year.1970","count":5261,"fq":"year:\"1970\""}],"count":190}]'
-  recorded_at: 2021-08-02 00:17:21 GMT
+  recorded_at: 2021-08-06 01:46:30 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
