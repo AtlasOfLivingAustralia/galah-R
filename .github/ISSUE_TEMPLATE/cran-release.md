@@ -23,7 +23,7 @@ assignees: ''
 - [ ] Tests are passing on the `master` branch on [travis](https://travis-ci.com/github/AtlasOfLivingAustralia/galah) 
 
 ## External checks
-- [ ] `R CMD build galah` and `R CMD check --as-cran galah_{version}.tar.gz` run with no issues
+- [ ] `R CMD build galah` and `R CMD check --as-cran --no-manual galah_{version}.tar.gz` run with no issues
 - [ ] Package checked using `rhub::check_for_cran()` 
 - [ ] `rhub` results (emailed to maintainer) have no errors or warnings
 - [ ] Package zipfile has been submitted to [winbuilder](https://win-builder.r-project.org/upload.aspx)
