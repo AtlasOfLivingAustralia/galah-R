@@ -53,6 +53,7 @@ See the [README](https://github.com/AtlasOfLivingAustralia/galah/blob/master/REA
 Load the package
 ```{r}
 library(galah)
+galah_config(atlas = "Australia")
 ```
 
 # Filtering data
@@ -81,12 +82,9 @@ taxa_filter <- select_taxa("Eolophus")
 # specifying ranks
 select_taxa(query = list(genus = "Eolophus", kingdom = "Aves"))
 ```
-`select_taxa()` can optionally provide information about child concepts, and
-counts of the number of records held by the ALA for the specified taxa.
-```{r}
-select_taxa(query = "Eolophus", children = TRUE, counts = TRUE)
-```
-This shows that there is only one species in the family *Eolophus*.
+
+For more detailed taxonomic information use `search_taxonomy()`, as outlined in 
+`vignette("taxonomic_information")`
 
 ## Location-based filtering
 Users can provide an `sf` object or a Well-Known Text (WKT) string for

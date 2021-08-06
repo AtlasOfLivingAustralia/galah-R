@@ -1,7 +1,7 @@
 ---
 title: "galah"
 author: "Matilda Stevenson"
-date: '2021-08-05'
+date: '2021-08-06'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -53,6 +53,7 @@ Load the package
 
 ```r
 library(galah)
+galah_config(atlas = "Australia")
 ```
 
 # Filtering data
@@ -91,37 +92,9 @@ select_taxa(query = list(genus = "Eolophus", kingdom = "Aves"))
 ##            order     family    genus  issues
 ## 1 Psittaciformes Cacatuidae Eolophus noIssue
 ```
-`select_taxa()` can optionally provide information about child concepts, and
-counts of the number of records held by the ALA for the specified taxa.
 
-```r
-select_taxa(query = "Eolophus", children = TRUE, counts = TRUE)
-```
-
-```
-## Warning in select_taxa(query = "Eolophus", children = TRUE, counts = TRUE): The `children` argument is now deprecated. To get information about
-##   child taxonomic concepts, use `search_taxonomy` with the `downto` argument.
-##   For more information about taxonomic searches, see vignette('taxonomic_information')
-```
-
-```
-## Warning in select_taxa(query = "Eolophus", children = TRUE, counts = TRUE): The `counts` argument is now deprecated. To get information about
-##   taxonomic counts, use `ala_counts` with the `groupby` argument.
-##   For more information about taxonomic searches, see vignette('taxonomic_information')
-```
-
-```
-##    search_term       scientific_name scientific_name_authorship
-## 1:    Eolophus              Eolophus            Bonaparte, 1854
-## 2:        <NA> Eolophus roseicapilla           (Vieillot, 1817)
-##                                                               taxon_concept_id    rank   match_type  kingdom   phylum
-## 1: urn:lsid:biodiversity.org.au:afd.taxon:b2de5e40-df8f-4339-827d-25e63454a4a2   genus   exactMatch Animalia Chordata
-## 2: urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 species taxonIdMatch Animalia Chordata
-##    class          order     family    genus  issues               species vernacular_name  count
-## 1:  Aves Psittaciformes Cacatuidae Eolophus noIssue                  <NA>            <NA> 852087
-## 2:  Aves Psittaciformes Cacatuidae Eolophus noIssue Eolophus roseicapilla           Galah 852085
-```
-This shows that there is only one species in the family *Eolophus*.
+For more detailed taxonomic information use `search_taxonomy()`, as outlined in 
+`vignette("taxonomic_information")`
 
 ## Location-based filtering
 Users can provide an `sf` object or a Well-Known Text (WKT) string for
@@ -146,21 +119,21 @@ search_fields("basis")
 ```
 
 ```
-##                                                 id
-## 1:                                   basisOfRecord
-## 2:                               raw_basisOfRecord
-## 3:                         BASIS_OF_RECORD_INVALID
-## 4: OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD
-##                                                                                                     description
-## 1: What this is a record of e.g. specimen, human observation, fossil http://rs.tdwg.org/dwc/terms/basisOfRecord
-## 2:     The basis of record as supplied by the data publisher http://rs.tdwg.org/dwc/terms/verbatimBasisOfRecord
-## 3:                                                                                 Basis of record badly formed
-## 4:                                                              Occurrence status inferred from basis of record
-##          type link
-## 1:     fields <NA>
-## 2:     fields <NA>
-## 3: assertions <NA>
-## 4: assertions <NA>
+##                                                  id
+## 11                                    basisOfRecord
+## 186                               raw_basisOfRecord
+## 661                         BASIS_OF_RECORD_INVALID
+## 726 OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD
+##                                                                                                      description
+## 11  What this is a record of e.g. specimen, human observation, fossil http://rs.tdwg.org/dwc/terms/basisOfRecord
+## 186     The basis of record as supplied by the data publisher http://rs.tdwg.org/dwc/terms/verbatimBasisOfRecord
+## 661                                                                                 Basis of record badly formed
+## 726                                                              Occurrence status inferred from basis of record
+##           type link
+## 11      fields <NA>
+## 186     fields <NA>
+## 661 assertions <NA>
+## 726 assertions <NA>
 ```
 
 ```r
