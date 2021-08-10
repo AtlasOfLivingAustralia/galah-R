@@ -4,7 +4,7 @@
 \alias{search_taxonomy}
 \title{Search taxonomic trees}
 \usage{
-search_taxonomy(query, down_to = NULL)
+search_taxonomy(query, down_to = NULL, return_tree = FALSE)
 }
 \arguments{
 \item{query}{\code{string}: A vector containing one or more search terms,

@@ -32,8 +32,8 @@
 #' }
 #' @export
 
-search_taxonomy <- function(query, down_to = NULL){
-  # assert_that(is.logical(include_id))
+search_taxonomy <- function(query, down_to = NULL, return_tree = FALSE){
+  assert_that(is.logical(return_tree))
   if (getOption("galah_config")$atlas != "Australia") {
     stop("`search_taxonomy` only provides information on Australian taxonomy. To search taxonomy for ",
          getOption("galah_config")$atlas, " use `taxize`. See vignette('international_atlases') for more information")
@@ -46,39 +46,59 @@ search_taxonomy <- function(query, down_to = NULL){
   match <- name_lookup(query)
   start_row <- match[,c("scientific_name", "rank", "taxon_concept_id")]
   names(start_row) <- c("name", "rank", "guid")
+  start_row$name <- title_case(start_row$name)
   
   if (!is.null(down_to)) {
     if(!any(find_ranks()$name == down_to)){
-    # if (rank_index(down_to) == 100) {
       stop("`down_to` must be a valid taxonomic rank")
     }
     down_to <- tolower(down_to)
-    id_df <- rbind(start_row, level_down(start_row, down_to))
+
+    # run recursive queries
+    id_list <- level_down(start_row, down_to)
+    # convert to data.tree
+    id_dt <- FromListExplicit(id_list)
     
-    # filter to the `down_to` rank
-    id_df <- id_df[id_df$rank == down_to,]
-  } else {
-    id_df <- start_row
-  }
-  
-  # get the classification 
-  taxon_info <- as.data.frame(data.table::rbindlist(
-    lapply(id_df$guid, function(id) {
-      lookup_taxon(id)
-    }
-    ), fill = TRUE))
-  # if (!include_id) {
-  taxon_info <- taxon_info[, -which(grepl("id", names(taxon_info)))]
-  # }
-  names(taxon_info) <- rename_columns(names(taxon_info), type = "taxa")
-  out_df <- taxon_info[, -which(names(taxon_info) %in%
-                                     c("guid","scientific_name"))]
-  # reorder columns according to taxonomic rank
-  out_df <- out_df[order(
-    match(names(out_df), find_ranks()$name)
-  )]
-  # convert cells to normal case
-  title_case_df(as.data.frame(out_df), exclude = "authority")
+    # calculate which branches end in class,
+    # and remove those that don't
+    id_dt$Do(
+      function(a){a$rank_value <- as.numeric(a$rank == down_to)}) 
+    id_dt$Do(
+      function(a){a$rank_value <- Aggregate(
+        node = a, attribute = "rank_value", aggFun = sum)},
+      traversal = "post-order")
+    invisible(Prune(id_dt, pruneFun = function(a){a$rank_value > 0}))
+    id_dt$Set(rank_value = NULL) # remove column used for calculations
+    
+    # get authority/source
+    id_dt$Set(authority = unlist(lapply(
+      ToDataFrameTree(id_dt, "guid")$guid,
+      function(id){lookup_taxon(id)$authority})))
+ 
+    if(return_tree){
+      
+      return(id_dt)
+      
+    }else{
+      # ensure that informal or unranked levels are uniquely named
+      id_dt$Do(
+        function(a){
+          if(a$rank %in% find_ranks()$name){
+            a$rank_level <- a$rank
+          }else{
+            a$rank_level <- paste0(a$rank, "-level-", a$level)
+          }
+        })
+      
+      # use rank_level as an index to create a data.frame
+      id_df <- ToDataFrameTypeCol(id_dt, 
+        type = "rank_level", 
+        prefix = NULL)
+      id_df$authority <- ToDataFrameTypeCol(id_dt, "authority")$authority
+         
+      return(id_df)
+   }
+ }
 }
 
 # Return the classification for a taxonomic id
@@ -101,23 +121,37 @@ get_children <- function(identifier) {
   return(ala_GET(url, path))
 }
 
-# Take a taxon row and recurse down the taxonomic tree until the provided rank
-# is reached
+# Take a taxon row and recurse down the taxonomic tree 
+# until the provided rank is reached
 level_down <- function(taxon_row, down_to) {
-  if (rank_index(taxon_row$rank) >= rank_index(down_to)) {
-    return(taxon_row[,c("name", "rank", "guid")])
+  if(!(taxon_row$rank %in% c("unranked", "informal"))){
+    if (rank_index(taxon_row$rank) >= rank_index(down_to)) {
+      result <- taxon_row[c("name", "rank", "guid")]
+      result$name <- title_case(result$name)
+      return(result)
+    }
   }
   children <- get_children(taxon_row$guid)
-  if (length(children) == 0 || nrow(children) == 0) {
-    return(taxon_row[,c("name", "rank", "guid")])
+  valid_children <- !grepl("[[:space:]]+", children$name)
+  if(length(which(valid_children)) < 1){
+    result <- taxon_row[c("name", "rank", "guid")]
+    result$name <- title_case(result$name)
+    return(result)
+  }else{
+    children <- children[valid_children, ]
+    children$name <- title_case(children$name)
+    next_list <- lapply(
+      seq_len(nrow(children)), 
+      function(i) {level_down(children[i,], down_to)})
+    return( 
+      append(
+        as.list(taxon_row[c("name", "rank", "guid")]), 
+        list(children = next_list)))
   }
-  data.table::rbindlist(lapply(seq_len(nrow(children)), function(i) {
-    level_down(children[i,], down_to)
-  }))
 }
-  
-# Return the index of a taxonomic rank- lower index corresponds to higher up the
-# tree
+
+# Return the index of a taxonomic rank- 
+# lower index corresponds to higher up the tree
 rank_index <- function(rank) {
   all_ranks <- find_ranks()
   if (rank %in% all_ranks$name) {

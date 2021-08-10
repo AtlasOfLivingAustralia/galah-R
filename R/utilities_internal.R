@@ -96,7 +96,7 @@ title_case <- function(s) {
     return(s)
   }
   paste(toupper(substring(s, 1, 1)), tolower(substring(s, 2)),
-        sep = "", collapse = " ")
+        sep = "")
 }
 
 
