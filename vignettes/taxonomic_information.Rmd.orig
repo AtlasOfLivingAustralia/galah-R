@@ -1,7 +1,7 @@
 ---
 title: "Taxonomic information"
 author: "Matilda Stevenson"
-date: '2021-08-11'
+date: '`r Sys.Date()`'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -10,7 +10,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  fig.width = 7, fig.height = 4, dpi = 300,
+  fig.path = "vignettes/taxonomic_information-"
+)
+```
 
 `galah` provides multiple ways of retrieving taxonomic information, and the best
 method depends of the type of information required. Below, some use cases are
@@ -21,17 +26,9 @@ outlined.
 The simplest way to get taxonomic information is to use `select_taxa`. This function
 takes one or more scientific names and checks them against the ALA's taxonomy 
 service.
-
-```r
+```{r load-galah}
 library(galah)
 select_taxa("Mammalia")
-```
-
-```
-##   search_term scientific_name                                                            taxon_concept_id  rank match_type  kingdom   phylum
-## 1    Mammalia        MAMMALIA urn:lsid:biodiversity.org.au:afd.taxon:e9e7db31-04df-41fb-bd8d-e0b0f3c332d6 class exactMatch Animalia Chordata
-##      class vernacular_name  issues
-## 1 Mammalia         Mammals noIssue
 ```
 
 By default, this function shows the search term, the match (if any) within the ALA,
@@ -39,13 +36,8 @@ and some information on higher taxonomy of that clade. Critically, it also
 returns a unique identifier for that clade, stored in the column 
 `taxon_concept_id`. This identifer is the information that the ALA needs to 
 return data that is specific to the taxon in question, i.e.:
-
-```r
+```{r count-mammals}
 ala_counts(taxa = select_taxa("Mammalia"))
-```
-
-```
-## [1] 3192139
 ```
 
 `select_taxa` can accept a vector or a `data.frame` of taxonomic names,
@@ -56,8 +48,7 @@ One final, useful feature of `select_taxa` is that it works in reverse. That is,
 if you have a unique identifier and would like to know which taxon it refers to,
 you can find that out by setting `is_id` to `TRUE`:
 
-
-```r
+```{r select-taxa, eval = FALSE}
 select_taxa("urn:lsid:biodiversity.org.au:afd.taxon:97764bed-9492-4066-a45f-e5b0c6c4280d", is_id = TRUE)
 ```
 
@@ -68,20 +59,17 @@ what higher taxa it is nested within, then you can use the `search_taxonomy`
 function. 
 
 
-
-```r
+```{r search}
 search_taxonomy("Mammalia")
 ```
 
 This function is particularly useful for moving down the taxonomic tree; i.e.
 to identify which clades are nested within the supplied taxon. For example, we 
 can build and visualise all the families in class **Mammalia** as follows:
-
-```r
+```{r search-downto}
 taxa <- search_taxonomy("Mammalia", down_to = "family")
 ```
-
-```r
+```{r collapsible-tree, eval = FALSE}
 library(collapsibleTree)
 collapsibleTree(
   taxa,
@@ -107,8 +95,7 @@ For example, we can pass the result of our earlier search to `select_taxa`,
 and then use the resulting identifiers to get the number of records available for 
 each mammalian family:
 
-
-```r
+```{r treemap, message = FALSE, warning = FALSE}
 taxa_ids <- select_taxa(taxa)
 family_counts <- ala_counts(taxa = taxa_ids, group_by = "family")
 taxa <- merge(taxa, family_counts)
@@ -128,61 +115,28 @@ taxa %>%
   theme(legend.position = "none")
 ```
 
-![plot of chunk treemap](vignettes/taxonomic_information-treemap-1.png)
-
 
 ## Search for species that match user criteria
 A common use case for atlas data is to identify the list of species that 
 occur within a clade, in a particular location, or according to
 some other criterion. This is provided by the `ala_species` function.
 
-
-```r
+```{r ala-species}
 ala_species(
   taxa = select_taxa("Heleioporus"))
-```
-
-```
-##    kingdom   phylum    class order          family       genus                   species                author
-## 1 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus         Heleioporus eyrei          (Gray, 1845)
-## 2 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus  Heleioporus australiacus (Shaw & Nodder, 1795)
-## 3 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus albopunctatus            Gray, 1841
-## 4 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus  Heleioporus psammophilus    (Lee & Main, 1954)
-## 5 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus     Heleioporus inornatus    (Lee & Main, 1954)
-## 6 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus    Heleioporus barycragus             Lee, 1967
-##                                                                  species_guid      vernacular_name
-## 1 urn:lsid:biodiversity.org.au:afd.taxon:cf991494-ccee-433d-b049-f2a0996a0a3b         Moaning Frog
-## 2 urn:lsid:biodiversity.org.au:afd.taxon:20119b25-a27c-4174-b3e0-8639e8a21131 Giant Burrowing Frog
-## 3 urn:lsid:biodiversity.org.au:afd.taxon:c1d18a1e-5aec-4441-aa3c-e0ac799f51e8 Western Spotted Frog
-## 4 urn:lsid:biodiversity.org.au:afd.taxon:0efbf288-1526-4551-af83-52e4fb9dae59            Sand Frog
-## 5 urn:lsid:biodiversity.org.au:afd.taxon:16fcc761-685a-4527-b5e4-e6c7042ae2c6          Plains Frog
-## 6 urn:lsid:biodiversity.org.au:afd.taxon:c527388c-1cc7-4a10-800a-243b5a2dcd3c   Western Marsh Frog
 ```
 `ala_species` is similar to `select_taxa`, in that it returns taxonomic information
 and unique identifiers in a `data.frame`. It differs in not being able to return 
 information on taxonomic levels other than the species; and in being more flexible 
 in supporting filtering based on other critera, e.g.:
 
-
-```r
+```{r filter-ala-species}
 ala_species(
   taxa = select_taxa("Heleioporus"),
   filters = select_filters(
     stateProvince = "New South Wales", 
     year > 2010))
-```
 
-```
-##    kingdom   phylum    class order          family       genus                  species                author
-## 1 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus australiacus (Shaw & Nodder, 1795)
-## 2 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus    Heleioporus inornatus    (Lee & Main, 1954)
-## 3 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus        Heleioporus eyrei          (Gray, 1845)
-## 4 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus   Heleioporus barycragus             Lee, 1967
-##                                                                  species_guid      vernacular_name
-## 1 urn:lsid:biodiversity.org.au:afd.taxon:20119b25-a27c-4174-b3e0-8639e8a21131 Giant Burrowing Frog
-## 2 urn:lsid:biodiversity.org.au:afd.taxon:16fcc761-685a-4527-b5e4-e6c7042ae2c6          Plains Frog
-## 3 urn:lsid:biodiversity.org.au:afd.taxon:cf991494-ccee-433d-b049-f2a0996a0a3b         Moaning Frog
-## 4 urn:lsid:biodiversity.org.au:afd.taxon:c527388c-1cc7-4a10-800a-243b5a2dcd3c   Western Marsh Frog
 ```
 
 # Advanced queries
@@ -191,20 +145,9 @@ taxonomic concepts, the more general `select_filters` can be used to
 build more flexible queries using the `taxonConceptID` field.
 This can be useful for paraphyletic concepts such as invertebrates:
 
-
-```r
+```{r invert-filter}
 invertebrate_filter <- select_filters(
    taxonConceptID = select_taxa("Animalia")$taxon_concept_id,
    taxonConceptID != select_taxa("Chordata")$taxon_concept_id)
 head(ala_counts(filters = invertebrate_filter, group_by = "class"))
-```
-
-```
-##          class   count
-## 1      Insecta 3114654
-## 2   Gastropoda  823797
-## 3 Malacostraca  507684
-## 4    Arachnida  492715
-## 5  Maxillopoda  462347
-## 6   Polychaeta  256516
 ```
