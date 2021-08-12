@@ -77,14 +77,6 @@ select_taxa <- function(query, is_id = FALSE, children = FALSE, counts = FALSE,
   if (missing(query)) {
     stop("`select_taxa` requires a query to search for")
   }
-
-  # query_type <- deduce_query_type(query)
-  # 
-  # if (verbose) {
-  #   print_qt <- ifelse(query_type == "id", "identifiers",
-  #                      "scientific or common names")
-  #   message("Assuming that query term(s) provided are ", print_qt)
-  # }
   
   if (is_id) {
     matches <- id_query(query)   
@@ -196,34 +188,6 @@ identifier_lookup <- function(identifier) {
   result[names(result) %in% wanted_columns("taxa")]
 }
 
-# deduce_query_type <- function(query) {
-#   if (is.data.frame(query)) {
-#     return("name")
-#   }
-#   # Possible query types are 'id' and 'name'
-#   if (
-#     # APNI
-#     any(str_detect(query, "https://id.biodiversity.org.au")) ||
-#     # AFD
-#     any(str_detect(query, "afd.taxon:")) ||
-#     # NZOE
-#     any(str_detect(query, "NZOR")) ||
-#     # Index Fungorum
-#     any(str_detect(query, "urn:lsid:indexfungorum")) ||
-#     # Catalogue of life
-#     any(str_detect(query, "CoL:")) ||
-#     # CAAB
-#     !is.na(suppressWarnings(any(as.integer(query)))) ||
-#     # Aus Fungi and CoL - check if any digits in string- possibly this check
-#     # would cover all id types
-#     any(grepl("\\d", query)) ||
-#     # ALA special case
-#     any(str_detect(query, "ALA_"))) {
-#     return("id")
-#   }
-#   # By default assume 'name' type
-#   return("name")
-# }
 
 # make sure rank provided is in accepted list
 validate_rank <- function(df) {
