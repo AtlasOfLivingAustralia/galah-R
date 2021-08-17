@@ -12,8 +12,8 @@ vignette: >
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  fig.width = 7, fig.height = 4, dpi = 300,
-  fig.path = "vignettes/taxonomic_information-"
+
+  fig.path = "./vignettes/taxonomic_information-"
 )
 ```
 
@@ -235,7 +235,7 @@ There are a range of methods for visualising a `data.tree`. The `tidygraph`
 package can be used to convert a `data.tree` into a format suitable for plotting
 with `ggraph`.
 
-```{r ggraph}
+```{r ggraph, eval = FALSE}
 library(ggplot2)
 library(tidygraph)
 library(ggraph)
@@ -247,6 +247,7 @@ ggraph(as_tbl_graph(classes), layout = 'dendrogram') +
   scale_y_reverse(expand = expansion(add = 2)) +
   theme_void() 
 ```
+<img src="taxonomic_information-ggraph-1.png" title="plot of chunk ggraph" alt="plot of chunk ggraph" width="100%" />
 
 Alternatively, the `collapsibleTree` package works on a `data.frame`.
 
@@ -261,4 +262,4 @@ collapsibleTree(
   height = 400)
 ```
 <!-- A static image of the plot to avoid CRAN phantomjs() conflicts -->
-![plot of chunk collapsible-tree](vignettes/taxonomic_information-collapsible-tree-1.png)
+<img src="taxonomic_information-collapsible-tree-1.png" title="plot of chunk collapsible-tree" alt="plot of chunk collapsible-tree" width="100%" />

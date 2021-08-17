@@ -28,10 +28,7 @@ select_taxa("Chordata")
 ```
 
 ```
-##   search_term scientific_name                                                            taxon_concept_id   rank match_type  kingdom   phylum vernacular_name
-## 1    Chordata        CHORDATA urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd phylum exactMatch Animalia Chordata     vertebrates
-##    issues
-## 1 noIssue
+## Error in select_taxa("Chordata"): `select_taxa` only provides information on Australian taxonomy. To search taxonomy for Austria use `taxize`. See vignette('international_atlases') for more information
 ```
 
 By default, this function shows the search term, the match (if any) within the ALA,
@@ -45,7 +42,7 @@ ala_counts(taxa = select_taxa("Chordata"))
 ```
 
 ```
-## [1] 68909059
+## Error in select_taxa("Chordata"): `select_taxa` only provides information on Australian taxonomy. To search taxonomy for Austria use `taxize`. See vignette('international_atlases') for more information
 ```
 
 `select_taxa` can accept a vector or a `data.frame` of taxonomic names,
@@ -73,20 +70,7 @@ ala_species(
 ```
 
 ```
-##    kingdom   phylum    class order          family       genus                   species                author
-## 1 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus         Heleioporus eyrei          (Gray, 1845)
-## 2 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus  Heleioporus australiacus (Shaw & Nodder, 1795)
-## 3 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus albopunctatus            Gray, 1841
-## 4 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus  Heleioporus psammophilus    (Lee & Main, 1954)
-## 5 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus     Heleioporus inornatus    (Lee & Main, 1954)
-## 6 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus    Heleioporus barycragus             Lee, 1967
-##                                                                  species_guid      vernacular_name
-## 1 urn:lsid:biodiversity.org.au:afd.taxon:cf991494-ccee-433d-b049-f2a0996a0a3b         Moaning Frog
-## 2 urn:lsid:biodiversity.org.au:afd.taxon:20119b25-a27c-4174-b3e0-8639e8a21131 Giant Burrowing Frog
-## 3 urn:lsid:biodiversity.org.au:afd.taxon:c1d18a1e-5aec-4441-aa3c-e0ac799f51e8 Western Spotted Frog
-## 4 urn:lsid:biodiversity.org.au:afd.taxon:0efbf288-1526-4551-af83-52e4fb9dae59            Sand Frog
-## 5 urn:lsid:biodiversity.org.au:afd.taxon:16fcc761-685a-4527-b5e4-e6c7042ae2c6          Plains Frog
-## 6 urn:lsid:biodiversity.org.au:afd.taxon:c527388c-1cc7-4a10-800a-243b5a2dcd3c   Western Marsh Frog
+## Error in select_taxa("Heleioporus"): `select_taxa` only provides information on Australian taxonomy. To search taxonomy for Austria use `taxize`. See vignette('international_atlases') for more information
 ```
 `ala_species` is similar to `select_taxa`, in that it returns taxonomic information
 and unique identifiers in a `data.frame`. It differs in not being able to return 
@@ -103,16 +87,7 @@ ala_species(
 ```
 
 ```
-##    kingdom   phylum    class order          family       genus                  species                author
-## 1 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus australiacus (Shaw & Nodder, 1795)
-## 2 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus    Heleioporus inornatus    (Lee & Main, 1954)
-## 3 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus        Heleioporus eyrei          (Gray, 1845)
-## 4 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus   Heleioporus barycragus             Lee, 1967
-##                                                                  species_guid      vernacular_name
-## 1 urn:lsid:biodiversity.org.au:afd.taxon:20119b25-a27c-4174-b3e0-8639e8a21131 Giant Burrowing Frog
-## 2 urn:lsid:biodiversity.org.au:afd.taxon:16fcc761-685a-4527-b5e4-e6c7042ae2c6          Plains Frog
-## 3 urn:lsid:biodiversity.org.au:afd.taxon:cf991494-ccee-433d-b049-f2a0996a0a3b         Moaning Frog
-## 4 urn:lsid:biodiversity.org.au:afd.taxon:c527388c-1cc7-4a10-800a-243b5a2dcd3c   Western Marsh Frog
+## Error in validate_filters(df$variable): The following filters are invalid: stateProvince. Use `search_fields()` to get a list of valid options
 ```
 
 ## Advanced taxonomic queries
@@ -126,17 +101,18 @@ This can be useful for paraphyletic concepts such as invertebrates:
 invertebrate_filter <- select_filters(
    taxonConceptID = select_taxa("Animalia")$taxon_concept_id,
    taxonConceptID != select_taxa("Chordata")$taxon_concept_id)
+```
+
+```
+## Error in select_taxa("Animalia"): `select_taxa` only provides information on Australian taxonomy. To search taxonomy for Austria use `taxize`. See vignette('international_atlases') for more information
+```
+
+```r
 head(ala_counts(filters = invertebrate_filter, group_by = "class"))
 ```
 
 ```
-##          class   count
-## 1      Insecta 3118759
-## 2   Gastropoda  824216
-## 3 Malacostraca  507805
-## 4    Arachnida  493395
-## 5  Maxillopoda  462357
-## 6   Polychaeta  256522
+## Error in ala_GET(url, path, params = query): Status code 400returned for url https://biocache-ws.biodiversityatlas.at/occurrence/facets?fq=%28taxonConceptID%3A%22urn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3A4647863b-760d-4b59-aaa1-502c8cdf8d3c%22%29%20AND%20-%28taxonConceptID%3A%22urn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3A065f1da4-53cd-40b8-a396-80fa5c74dedd%22%29&facets=class&flimit=1<pointer: 0x000001f6f3e7d8f0>
 ```
 
 ## Taxonomic trees
@@ -156,33 +132,34 @@ The function then searches 'downwards' from `taxa` to build the tree.
 ```r
 library(data.tree)
 classes <- ala_taxonomy(taxa = select_taxa("Chordata"), down_to = "class")
+```
+
+```
+## Error in ala_taxonomy(taxa = select_taxa("Chordata"), down_to = "class"): `search_taxonomy` only provides information on Australian taxonomy. To search taxonomy for Austria use `taxize`. See vignette('international_atlases') for more information
+```
+
+```r
 print(classes, "rank")
 ```
 
 ```
-##                             levelName       rank
-## 1  Chordata                               phylum
-## 2   ¦--Cephalochordata                 subphylum
-## 3   ¦   °--Amphioxi                        class
-## 4   ¦--Craniata                        subphylum
-## 5   ¦   °--Agnatha                    superclass
-## 6   ¦       ¦--Cephalasipidomorphi         class
-## 7   ¦       °--Myxini                      class
-## 8   ¦--Tunicata                        subphylum
-## 9   ¦   ¦--Appendicularia                  class
-## 10  ¦   ¦--Ascidiacea                      class
-## 11  ¦   °--Thaliacea                       class
-## 12  °--Vertebrata                      subphylum
-## 13      °--Gnathostomata                informal
-## 14          ¦--Amphibia                    class
-## 15          ¦--Aves                        class
-## 16          ¦--Mammalia                    class
-## 17          ¦--Pisces                   informal
-## 18          ¦   ¦--Actinopterygii          class
-## 19          ¦   ¦--Chondrichthyes          class
-## 20          ¦   ¦--Cephalaspidomorphi      class
-## 21          ¦   °--Sarcopterygii           class
-## 22          °--Reptilia                    class
+##                         levelName      rank
+## 1  Chordata                          phylum
+## 2   ¦--Cephalochordata            subphylum
+## 3   ¦--Tunicata                   subphylum
+## 4   ¦   ¦--Appendicularia             class
+## 5   ¦   ¦--Ascidiacea                 class
+## 6   ¦   °--Thaliacea                  class
+## 7   °--Vertebrata                 subphylum
+## 8       °--Gnathostomata           informal
+## 9           ¦--Amphibia               class
+## 10          ¦--Aves                   class
+## 11          ¦--Mammalia               class
+## 12          ¦--Pisces              informal
+## 13          ¦   ¦--Actinopterygii     class
+## 14          ¦   ¦--Chondrichthyes     class
+## 15          ¦   °--Sarcopterygii      class
+## 16          °--Reptilia               class
 ```
 
 
@@ -203,7 +180,7 @@ unique(classes$Get("authority")) # levels available in the dataset
 ```
 
 ```
-## [1] "AFD"  "NZOR" "CAAB"
+## [1] "AFD"
 ```
 
 ```r
@@ -212,7 +189,7 @@ Prune(classes, pruneFun = function(a){a$authority == "AFD"})
 ```
 
 ```
-## [1] 6
+## [1] 0
 ```
 
 ```r
@@ -275,21 +252,21 @@ print(classes, "n_records")
 ```
 ##                         levelName n_records
 ## 1  Chordata                               0
-## 2   ¦--Cephalochordata                  564
+## 2   ¦--Cephalochordata                    0
 ## 3   ¦--Tunicata                           0
-## 4   ¦   ¦--Appendicularia             74591
-## 5   ¦   ¦--Ascidiacea                 24267
-## 6   ¦   °--Thaliacea                   9458
+## 4   ¦   ¦--Appendicularia                 0
+## 5   ¦   ¦--Ascidiacea                     0
+## 6   ¦   °--Thaliacea                      0
 ## 7   °--Vertebrata                         0
 ## 8       °--Gnathostomata                  0
-## 9           ¦--Amphibia              814058
-## 10          ¦--Aves                59712649
-## 11          ¦--Mammalia             3195438
+## 9           ¦--Amphibia                   0
+## 10          ¦--Aves                       0
+## 11          ¦--Mammalia                   0
 ## 12          ¦--Pisces                     0
-## 13          ¦   ¦--Actinopterygii   2915369
-## 14          ¦   ¦--Chondrichthyes    841450
-## 15          ¦   °--Sarcopterygii       4353
-## 16          °--Reptilia             1296302
+## 13          ¦   ¦--Actinopterygii         0
+## 14          ¦   ¦--Chondrichthyes         0
+## 15          ¦   °--Sarcopterygii          0
+## 16          °--Reptilia                   0
 ```
 
 ```r
@@ -303,22 +280,22 @@ print(classes, "n_records")
 
 ```
 ##                         levelName n_records
-## 1  Chordata                        68888499
-## 2   ¦--Cephalochordata                  564
-## 3   ¦--Tunicata                      108316
-## 4   ¦   ¦--Appendicularia             74591
-## 5   ¦   ¦--Ascidiacea                 24267
-## 6   ¦   °--Thaliacea                   9458
-## 7   °--Vertebrata                  68779619
-## 8       °--Gnathostomata           68779619
-## 9           ¦--Amphibia              814058
-## 10          ¦--Aves                59712649
-## 11          ¦--Mammalia             3195438
-## 12          ¦--Pisces               3761172
-## 13          ¦   ¦--Actinopterygii   2915369
-## 14          ¦   ¦--Chondrichthyes    841450
-## 15          ¦   °--Sarcopterygii       4353
-## 16          °--Reptilia             1296302
+## 1  Chordata                               0
+## 2   ¦--Cephalochordata                    0
+## 3   ¦--Tunicata                           0
+## 4   ¦   ¦--Appendicularia                 0
+## 5   ¦   ¦--Ascidiacea                     0
+## 6   ¦   °--Thaliacea                      0
+## 7   °--Vertebrata                         0
+## 8       °--Gnathostomata                  0
+## 9           ¦--Amphibia                   0
+## 10          ¦--Aves                       0
+## 11          ¦--Mammalia                   0
+## 12          ¦--Pisces                     0
+## 13          ¦   ¦--Actinopterygii         0
+## 14          ¦   ¦--Chondrichthyes         0
+## 15          ¦   °--Sarcopterygii          0
+## 16          °--Reptilia                   0
 ```
 
 The same approach can be used to find the number of species within a clade
@@ -328,7 +305,13 @@ The same approach can be used to find the number of species within a clade
 leaf_spp_counts <- lapply(
   Get(leaves, "guid"),
   function(x){ala_counts(x, type = "species")})
+```
 
+```
+## Error in ala_GET(url, path, params = query): Status code 400returned for url https://biocache-ws.biodiversityatlas.at/occurrence/facets?fq=%28lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3A298d7998-81d6-49e9-858c-56f8837d09fa%29&flimit=1&facets=speciesID<pointer: 0x000001f6f3e7dbf0>
+```
+
+```r
 # add back to the tree, then sum
 classes$Set(n_species = 0)
 Set(leaves, n_species = unlist(leaf_spp_counts))
@@ -480,41 +463,8 @@ with `ggraph`.
 ```r
 library(ggplot2)
 library(tidygraph)
-```
-
-```
-## 
-## Attaching package: 'tidygraph'
-```
-
-```
-## The following object is masked from 'package:testthat':
-## 
-##     matches
-```
-
-```
-## The following object is masked from 'package:stats':
-## 
-##     filter
-```
-
-```r
 library(ggraph)
-```
 
-```
-## 
-## Attaching package: 'ggraph'
-```
-
-```
-## The following object is masked from 'package:galah':
-## 
-##     geometry
-```
-
-```r
 ggraph(as_tbl_graph(classes), layout = 'dendrogram') +
   geom_edge_elbow() + 
   geom_node_label(aes(label = name), hjust = 0) +
@@ -522,8 +472,7 @@ ggraph(as_tbl_graph(classes), layout = 'dendrogram') +
   scale_y_reverse(expand = expansion(add = 2)) +
   theme_void() 
 ```
-
-![plot of chunk ggraph](vignettes/taxonomic_information-ggraph-1.png)
+<img src="taxonomic_information-ggraph-1.png" title="plot of chunk ggraph" alt="plot of chunk ggraph" width="100%" />
 
 Alternatively, the `collapsibleTree` package works on a `data.frame`.
 
@@ -539,4 +488,4 @@ collapsibleTree(
   height = 400)
 ```
 <!-- A static image of the plot to avoid CRAN phantomjs() conflicts -->
-![plot of chunk collapsible-tree](vignettes/taxonomic_information-collapsible-tree-1.png)
+<img src="taxonomic_information-collapsible-tree-1.png" title="plot of chunk collapsible-tree" alt="plot of chunk collapsible-tree" width="100%" />
