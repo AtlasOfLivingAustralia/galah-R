@@ -16,9 +16,14 @@
 #' \code{search_taxonomy(select_taxa("Plantae"), down_to = "species")}.
 #' Although the inputs to \code{select_taxa} and \code{down_to} are 
 #' case-insensitive, node names are always returned in title case.
-#' @return A \code{data.tree} containing the requested taxonomy. Each node contains the 
-#' attributes \code{'rank'} (i.e. taxonomic rank) and \code{'guid'} (unique identifier)
-#' in addition to the (scientific) \code{'name'}.
+#' @return A \code{data.tree} containing the requested taxonomy. Each node contains 
+#' the following attributes:
+#' \itemize{
+#'   \item\code{name}: The scientific name of the taxon in question
+#'   \item\code{rank}: The taxonomic rank to which that taxon belongs
+#'   \item\code{guid}: A unique identifier used by the ALA
+#'   \item\code{authority}: The source of the taxonomic name & identifier
+#' }
 #' @seealso \code{\link{select_taxa}} to search for an individual taxon; 
 #' \code{\link{find_ranks}} for valid ranks used to specify the \code{down_to}
 #' argument.
@@ -36,16 +41,22 @@ ala_taxonomy <- function(taxa, down_to){
       " use `taxize`. See vignette('international_atlases') for more information")
   }
  
+  # error checking for `taxa`
   if (missing(taxa)) {
     stop("argument `taxa` is missing, with no default")}
-    
+  
+  if(!inherits(taxa, "ala_id")){
+    stop("`ala_taxonomy` requires an object of class `ala_id`; see `?select_taxa` for more information")}
+  
+  if(nrow(taxa) > 1){
+    stop("`ala_taxonomy` only accepts a single taxon at a time")
+  }
+  
+  # error checking for `down_to`
   if (missing(down_to)) {
     stop("argument `down_to` is missing, with no default")}
     
   assert_that(is.string(down_to))
-  
-  if(!inherits(taxa, "ala_id")){
-    stop("`ala_taxonomy` requires an object of class `ala_id`; see `?select_taxa` for more information")}
   
   # extract required information from `taxa`
   start_row <- taxa[, c("scientific_name", "rank", "taxon_concept_id")]

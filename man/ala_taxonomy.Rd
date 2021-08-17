@@ -16,9 +16,14 @@ hierarchy should be returned. Should be specified using an object of class
 \code{\link{find_ranks}()} for valid inputs.}
 }
 \value{
-A \code{data.tree} containing the requested taxonomy. Each node contains the 
-attributes \code{'rank'} (i.e. taxonomic rank) and \code{'guid'} (unique identifier)
-in addition to the (scientific) \code{'name'}.
+A \code{data.tree} containing the requested taxonomy. Each node contains 
+the following attributes:
+\itemize{
+  \item\code{name}: The scientific name of the taxon in question
+  \item\code{rank}: The taxonomic rank to which that taxon belongs
+  \item\code{guid}: A unique identifier used by the ALA
+  \item\code{authority}: The source of the taxonomic name & identifier
+}
 }
 \description{
 The ALA has its' own internal taxonomy that is derived from authoritative

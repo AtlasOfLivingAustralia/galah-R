@@ -1,6 +1,6 @@
 ---
 title: "Taxonomic information"
-author: "Matilda Stevenson"
+author: "Martin Westgate & Matilda Stevenson"
 date: '`r Sys.Date()`'
 output:
   rmarkdown::html_vignette
@@ -28,7 +28,7 @@ takes one or more scientific names and checks them against the ALA's taxonomy
 service.
 ```{r load-galah}
 library(galah)
-select_taxa("Mammalia")
+select_taxa("Chordata")
 ```
 
 By default, this function shows the search term, the match (if any) within the ALA,
@@ -37,7 +37,7 @@ returns a unique identifier for that clade, stored in the column
 `taxon_concept_id`. This identifer is the information that the ALA needs to 
 return data that is specific to the taxon in question, i.e.:
 ```{r count-mammals}
-ala_counts(taxa = select_taxa("Mammalia"))
+ala_counts(taxa = select_taxa("Chordata"))
 ```
 
 `select_taxa` can accept a vector or a `data.frame` of taxonomic names,
@@ -52,71 +52,7 @@ you can find that out by setting `is_id` to `TRUE`:
 select_taxa("urn:lsid:biodiversity.org.au:afd.taxon:97764bed-9492-4066-a45f-e5b0c6c4280d", is_id = TRUE)
 ```
 
-## Searching for taxonomic information
-
-If you do not need the taxonomic identifier for a clade, but only want to know
-what higher taxa it is nested within, then you can use the `search_taxonomy` 
-function. 
-
-
-```{r search}
-search_taxonomy("Mammalia")
-```
-
-This function is particularly useful for moving down the taxonomic tree; i.e.
-to identify which clades are nested within the supplied taxon. For example, we 
-can build and visualise all the families in class **Mammalia** as follows:
-```{r search-downto}
-taxa <- search_taxonomy("Mammalia", down_to = "family")
-```
-```{r collapsible-tree, eval = FALSE}
-library(collapsibleTree)
-collapsibleTree(
-  taxa,
-  hierarchy = names(taxa)[-which(
-    names(taxa) %in% 
-    c("kingdom", "phylum", "class", "authority"))],
-  root = "Mammalia",
-  collapsed = FALSE,
-  width = 700,
-  height = 400
-  )
-```
-<!-- A static image of the plot to avoid CRAN phantomjs() conflicts -->
-![plot of chunk collapsible-tree](vignettes/taxonomic_information-collapsible-tree-1.png)
-
-
-Note that if you are traversing more than 3 ranks, it might be more efficient
-to use `ala_species`, as `search_taxonomy` is inefficient when the search tree
-is large.
-
-In combination with `select_taxa`, `search_taxonomy` can be especially powerful.
-For example, we can pass the result of our earlier search to `select_taxa`,
-and then use the resulting identifiers to get the number of records available for 
-each mammalian family:
-
-```{r treemap, message = FALSE, warning = FALSE}
-taxa_ids <- select_taxa(taxa)
-family_counts <- ala_counts(taxa = taxa_ids, group_by = "family")
-taxa <- merge(taxa, family_counts)
-
-library(treemapify)
-library(ggplot2)
-library(magrittr)
-library(viridis)
-
-taxa %>% 
-  ggplot(aes(area = count, fill = order, subgroup = order, label = family)) + 
-  geom_treemap() + 
-  geom_treemap_subgroup_border() + 
-  geom_treemap_text(colour = "white", place = "topleft", reflow = T, alpha = 0.6) +
-  geom_treemap_subgroup_text(place = "centre") + 
-  scale_fill_viridis_d(begin = .4, option = "B") +
-  theme(legend.position = "none")
-```
-
-
-## Search for species that match user criteria
+## Searching for lists of species
 A common use case for atlas data is to identify the list of species that 
 occur within a clade, in a particular location, or according to
 some other criterion. This is provided by the `ala_species` function.
@@ -127,8 +63,8 @@ ala_species(
 ```
 `ala_species` is similar to `select_taxa`, in that it returns taxonomic information
 and unique identifiers in a `data.frame`. It differs in not being able to return 
-information on taxonomic levels other than the species; and in being more flexible 
-in supporting filtering based on other critera, e.g.:
+information on taxonomic levels other than the species; but also in being more flexible 
+by supporting filtering e.g.:
 
 ```{r filter-ala-species}
 ala_species(
@@ -139,7 +75,7 @@ ala_species(
 
 ```
 
-# Advanced queries
+## Advanced taxonomic queries
 Although we have focussed above on functions that are built to integrate
 taxonomic concepts, the more general `select_filters` can be used to 
 build more flexible queries using the `taxonConceptID` field.
@@ -151,3 +87,178 @@ invertebrate_filter <- select_filters(
    taxonConceptID != select_taxa("Chordata")$taxon_concept_id)
 head(ala_counts(filters = invertebrate_filter, group_by = "class"))
 ```
+
+## Taxonomic trees
+
+While many users want to restrict searches to particular taxa using `select_taxa()`,
+there are many cases where the taxonoimc hierarchy is itself the parameter of 
+investigation. In that case you can return taxonomic information as a `data.tree`
+using `ala_taxonomy()`. This function requires two arguments:
+  
+  - `taxa` supplies the higher taxonomic group for which data is required
+  - `down_to` is the lowest rank of the taxonomic hierarchy that the user requires (see `find_ranks()` for valid options)
+
+The function then searches 'downwards' from `taxa` to build the tree.
+
+
+```{r search}
+library(data.tree)
+classes <- ala_taxonomy(taxa = select_taxa("Chordata"), down_to = "class")
+print(classes, "rank")
+```
+
+
+Note that if you are traversing more than 3 ranks, it might be more efficient
+to use `ala_species`, as `search_taxonomy` is inefficient when the search tree
+is large.
+
+### Manipulating trees
+
+The `data.tree` package is quite rich and contains many useful functions, so we
+won't attempt to give a complete overview here. Nonetheless, there are some useful
+functions that might be of particular interest. A clear example is 'pruning' the tree,
+for example by only retaining nodes that are from the same source (or 'authority').
+
+```{r prune}
+unique(classes$Get("authority")) # levels available in the dataset
+
+# subet to nodes supplied by the Australian Faunal Directory only
+Prune(classes, pruneFun = function(a){a$authority == "AFD"})
+print(classes, "authority")
+```
+
+Note that the above syntax is slightly unusual, in that the tree 
+(`classes`) is updated even though we don't assign the result to an obect. 
+This is because `classes` is an `S6` object. In fact, `data.tree`s have a few
+unusual properties that we can exploit to do interesting things. A common task 
+for example, is to calculate the number of records present for each node in the 
+tree. A quick way to do this would be to extract all the `guid` values and query
+them using `ala_counts()`.
+  
+```{r all-counts}
+counts <- lapply(classes$Get("guid"), ala_counts)
+```
+
+While this approach works, it is inefficient, because each node has to be searched
+separately. A more efficient solution is to recognise that counts for higher 
+taxonomic groups/nodes should be the sum of their child nodes. We can use this 
+logic to run fewer queries via the ALA, and thereby get a neater result in less time.
+
+
+```{r leaf-counts}
+# select only the 'leaves' (terminal nodes) of the tree
+leaves <- Traverse(classes, filterFun = isLeaf)
+
+# get data on record counts
+leaf_counts <- lapply(Get(leaves, "guid"), ala_counts)
+
+# add back on to the tree
+classes$Set(n_records = 0)
+Set(leaves, n_records = unlist(leaf_counts))
+print(classes, "n_records")
+
+# sum upwards
+classes$Do(
+  function(a){
+    a$n_records <- Aggregate(node = a, attribute = "n_records", aggFun = sum)},
+  traversal = "post-order")
+print(classes, "n_records")
+```
+
+The same approach can be used to find the number of species within a clade
+```{r species-counts}
+# get species counts
+leaf_spp_counts <- lapply(
+  Get(leaves, "guid"),
+  function(x){ala_counts(x, type = "species")})
+
+# add back to the tree, then sum
+classes$Set(n_species = 0)
+Set(leaves, n_species = unlist(leaf_spp_counts))
+classes$Do(
+  function(a){
+    a$n_species <- Aggregate(node = a, attribute = "n_species", aggFun = sum)},
+  traversal = "post-order")
+  
+# check results
+print(classes, "n_species")
+```
+
+### Conversion
+
+Although the `data.tree` format is useful, converting to a `data.frame` 
+is straightforward.
+
+```{r to-df}
+# arrange columns by 'level'
+ToDataFrameTypeCol(classes) 
+
+# arrange columns by 'rank'
+ToDataFrameTypeCol(classes, type = "rank") # works, but merges informal ranks
+
+```
+
+While useful, neither of the above approaches preserve the rank of each node if
+there are multiple informal or unclassified nodes in the `data.tree`. Therefore,
+a more useful approach is to take more care in linking levels and ranks, then 
+converting to a `data.frame`
+
+```{r to-df-advanced}
+# create a label that uniquely identifies unranked nodes
+classes$Do(
+  function(a){
+    if(a$rank %in% find_ranks()$name){
+      a$rank_level <- a$rank
+    }else{
+      a$rank_level <- paste0(a$rank, "-level-", a$level)
+    }
+  })
+
+# use rank_level as an index to create a data.frame
+df <- ToDataFrameTypeCol(classes, type = "rank_level", prefix = NULL)
+df
+```
+
+If we want to take more information out of the `data.tree`, we can extract it 
+and append to our new `data.frame`.
+
+```{r add-columns}
+cbind(
+  df[, c("phylum", "subphylum", "class")],
+  data.frame(
+    auth = ToDataFrameTypeCol(classes, "authority")$authority))
+```
+
+###  Visualisation
+
+There are a range of methods for visualising a `data.tree`. The `tidygraph` 
+package can be used to convert a `data.tree` into a format suitable for plotting
+with `ggraph`.
+
+```{r ggraph}
+library(ggplot2)
+library(tidygraph)
+library(ggraph)
+
+ggraph(as_tbl_graph(classes), layout = 'dendrogram') +
+  geom_edge_elbow() + 
+  geom_node_label(aes(label = name), hjust = 0) +
+  coord_flip() +
+  scale_y_reverse(expand = expansion(add = 2)) +
+  theme_void() 
+```
+
+Alternatively, the `collapsibleTree` package works on a `data.frame`.
+
+```{r collapsible-tree, eval = FALSE}
+library(collapsibleTree)
+collapsibleTree(
+  df,
+  hierarchy = colnames(df),
+  root = "Chordata",
+  collapsed = FALSE,
+  width = 700,
+  height = 400)
+```
+<!-- A static image of the plot to avoid CRAN phantomjs() conflicts -->
+![plot of chunk collapsible-tree](vignettes/taxonomic_information-collapsible-tree-1.png)
