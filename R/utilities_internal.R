@@ -80,19 +80,6 @@ fix_assertion_cols <- function(df, assertion_cols) {
   df
 }
 
-# Convert string to title case if it isn't already
-title_case <- function(s) {
-  not_title_case <- !grepl("[[:upper:]]{1}[[:lower:]]", s, perl = TRUE)
-  if(any(not_title_case)){
-    s[not_title_case] <- paste(
-      toupper(substring(s[not_title_case], 1, 1)), 
-      tolower(substring(s[not_title_case], 2)),
-      sep = "")
-  }
-  return(s)
-}
-
-
 ##----------------------------------------------------------------
 ##                   Query-building functions                   --
 ##----------------------------------------------------------------

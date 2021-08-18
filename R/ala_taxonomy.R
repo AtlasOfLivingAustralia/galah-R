@@ -61,7 +61,7 @@ ala_taxonomy <- function(taxa, down_to){
   # extract required information from `taxa`
   start_row <- taxa[, c("scientific_name", "rank", "taxon_concept_id")]
   names(start_row) <- c("name", "rank", "guid")
-  start_row$name <- title_case(start_row$name)
+  start_row$name <- str_to_title(start_row$name)
   
   if (!is.null(down_to)) {
     if(!any(find_ranks()$name == down_to)){
@@ -117,7 +117,7 @@ level_down <- function(taxon_row, down_to) {
   if(!(taxon_row$rank %in% c("unranked", "informal"))){
     if (rank_index(taxon_row$rank) >= rank_index(down_to)) {
       result <- taxon_row[c("name", "rank", "guid")]
-      result$name <- title_case(result$name)
+      result$name <- str_to_title(result$name)
       return(result)
     }
   }
@@ -125,11 +125,11 @@ level_down <- function(taxon_row, down_to) {
   valid_children <- !grepl("[[:space:]]+", children$name)
   if(length(which(valid_children)) < 1){
     result <- taxon_row[c("name", "rank", "guid")]
-    result$name <- title_case(result$name)
+    result$name <- str_to_title(result$name)
     return(result)
   }else{
     children <- children[valid_children, ]
-    children$name <- title_case(children$name)
+    children$name <- str_to_title(children$name)
     next_list <- lapply(
       seq_len(nrow(children)), 
       function(i) {level_down(children[i,], down_to)})
