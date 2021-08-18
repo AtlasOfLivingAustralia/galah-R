@@ -1,5 +1,11 @@
 context("Test ala taxonomy")
 
+test_that("ala_taxonomy checks atlas", {
+  galah_config(atlas = "Austria")
+  expect_error(ala_taxonomy(select_taxa("Animalia"), down_to = "phylum"))
+  galah_config(atlas = "Australia")
+})
+
 test_that("ala_taxonomy 'taxa' must be specified", {
   expect_error(ala_taxonomy(down_to = "kingdom"))
 })
