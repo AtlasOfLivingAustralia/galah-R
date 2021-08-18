@@ -58,8 +58,9 @@ occur within a clade, in a particular location, or according to
 some other criterion. This is provided by the `ala_species` function.
 
 ```{r ala-species}
-ala_species(
+burrowing_frogs <- ala_species(
   taxa = select_taxa("Heleioporus"))
+str(burrowing_frogs, give.attr = FALSE)
 ```
 `ala_species` is similar to `select_taxa`, in that it returns taxonomic information
 and unique identifiers in a `data.frame`. It differs in not being able to return 
@@ -67,12 +68,12 @@ information on taxonomic levels other than the species; but also in being more f
 by supporting filtering e.g.:
 
 ```{r filter-ala-species}
-ala_species(
+burrowing_frogs <- ala_species(
   taxa = select_taxa("Heleioporus"),
   filters = select_filters(
     stateProvince = "New South Wales", 
     year > 2010))
-
+str(burrowing_frogs, give.attr = FALSE)
 ```
 
 ## Advanced taxonomic queries
@@ -92,8 +93,9 @@ head(ala_counts(filters = invertebrate_filter, group_by = "class"))
 
 While many users want to restrict searches to particular taxa using `select_taxa()`,
 there are many cases where the taxonoimc hierarchy is itself the parameter of 
-investigation. In that case you can return taxonomic information as a `data.tree`
-using `ala_taxonomy()`. This function requires two arguments:
+investigation. In that case you can return taxonomic information as a tree
+(from package `data.tree`) using `ala_taxonomy()`. This function requires 
+two arguments:
   
   - `taxa` supplies the higher taxonomic group for which data is required
   - `down_to` is the lowest rank of the taxonomic hierarchy that the user requires (see `find_ranks()` for valid options)
@@ -122,18 +124,18 @@ for example by only retaining nodes that are from the same source (or 'authority
 ```{r prune}
 unique(classes$Get("authority")) # levels available in the dataset
 
-# subet to nodes supplied by the Australian Faunal Directory only
+# subset to only those nodes supplied by the Australian Faunal Directory
 Prune(classes, pruneFun = function(a){a$authority == "AFD"})
 print(classes, "authority")
 ```
 
 Note that the above syntax is slightly unusual, in that the tree 
 (`classes`) is updated even though we don't assign the result to an obect. 
-This is because `classes` is an `S6` object. In fact, `data.tree`s have a few
-unusual properties that we can exploit to do interesting things. A common task 
-for example, is to calculate the number of records present for each node in the 
-tree. A quick way to do this would be to extract all the `guid` values and query
-them using `ala_counts()`.
+This is because `classes` is an `S6` object. In fact, trees created from 
+`data.tree` Nodes have a few unusual properties that we can exploit to do 
+interesting things. A common task, for example, is to calculate the number of 
+records present for each node in the tree. A quick way to do this would be to 
+extract all the `guid` values and query them using `ala_counts()`.
   
 ```{r all-counts}
 counts <- lapply(classes$Get("guid"), ala_counts)
@@ -186,7 +188,7 @@ print(classes, "n_species")
 
 ### Conversion
 
-Although the `data.tree` format is useful, converting to a `data.frame` 
+Although the tree format is useful, converting to a `data.frame` 
 is straightforward.
 
 ```{r to-df}
@@ -199,9 +201,9 @@ ToDataFrameTypeCol(classes, type = "rank") # works, but merges informal ranks
 ```
 
 While useful, neither of the above approaches preserve the rank of each node if
-there are multiple informal or unclassified nodes in the `data.tree`. Therefore,
-a more useful approach is to take more care in linking levels and ranks, then 
-converting to a `data.frame`
+there are multiple nodes in the `data.tree` returned with rank `informal` or 
+`unranked`. Therefore, a more useful approach is to take more care in linking 
+levels and ranks, then converting to a `data.frame`
 
 ```{r to-df-advanced}
 # create a label that uniquely identifies unranked nodes
@@ -219,7 +221,7 @@ df <- ToDataFrameTypeCol(classes, type = "rank_level", prefix = NULL)
 df
 ```
 
-If we want to take more information out of the `data.tree`, we can extract it 
+If we want to take more information out of the tree, we can extract it 
 and append to our new `data.frame`.
 
 ```{r add-columns}
@@ -231,9 +233,9 @@ cbind(
 
 ###  Visualisation
 
-There are a range of methods for visualising a `data.tree`. The `tidygraph` 
-package can be used to convert a `data.tree` into a format suitable for plotting
-with `ggraph`.
+There are a range of methods for visualising objects returned by `data.tree`. 
+The `tidygraph` package can be used to convert a tree into a format suitable for 
+plotting with `ggraph`.
 
 ```{r ggraph, eval = FALSE}
 library(ggplot2)

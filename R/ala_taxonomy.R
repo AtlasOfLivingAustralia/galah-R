@@ -2,8 +2,8 @@
 #'
 #' The ALA has its' own internal taxonomy that is derived from authoritative
 #' sources. \code{search_taxonomy} provides a means to query 
-#' that taxonomy, returning a \code{data.tree} showing which lower clades are 
-#' contained within the specified taxon.
+#' that taxonomy, returning a tree (class \code{Node}) showing which lower 
+#' clades are contained within the specified taxon.
 #' 
 #' @param taxa The identity of the clade for which a taxonomic
 #' hierarchy should be returned. Should be specified using an object of class 
@@ -16,8 +16,8 @@
 #' \code{search_taxonomy(select_taxa("Plantae"), down_to = "species")}.
 #' Although the inputs to \code{select_taxa} and \code{down_to} are 
 #' case-insensitive, node names are always returned in title case.
-#' @return A \code{data.tree} containing the requested taxonomy. Each node contains 
-#' the following attributes:
+#' @return A tree consisting of objects of class \code{Node}, containing the 
+#' requested taxonomy. Each node contains the following attributes:
 #' \itemize{
 #'   \item\code{name}: The scientific name of the taxon in question
 #'   \item\code{rank}: The taxonomic rank to which that taxon belongs

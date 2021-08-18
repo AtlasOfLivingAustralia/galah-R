@@ -1,7 +1,7 @@
 ---
 title: "Taxonomic information"
 author: "Martin Westgate & Matilda Stevenson"
-date: '2021-08-17'
+date: '2021-08-18'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -28,7 +28,8 @@ select_taxa("Chordata")
 ```
 
 ```
-## Error in select_taxa("Chordata"): `select_taxa` only provides information on Australian taxonomy. To search taxonomy for Austria use `taxize`. See vignette('international_atlases') for more information
+##   search_term scientific_name                                                            taxon_concept_id   rank match_type  kingdom   phylum vernacular_name  issues
+## 1    Chordata        CHORDATA urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd phylum exactMatch Animalia Chordata     vertebrates noIssue
 ```
 
 By default, this function shows the search term, the match (if any) within the ALA,
@@ -42,7 +43,7 @@ ala_counts(taxa = select_taxa("Chordata"))
 ```
 
 ```
-## Error in select_taxa("Chordata"): `select_taxa` only provides information on Australian taxonomy. To search taxonomy for Austria use `taxize`. See vignette('international_atlases') for more information
+## [1] 68909129
 ```
 
 `select_taxa` can accept a vector or a `data.frame` of taxonomic names,
@@ -65,12 +66,23 @@ some other criterion. This is provided by the `ala_species` function.
 
 
 ```r
-ala_species(
+burrowing_frogs <- ala_species(
   taxa = select_taxa("Heleioporus"))
+str(burrowing_frogs, give.attr = FALSE)
 ```
 
 ```
-## Error in select_taxa("Heleioporus"): `select_taxa` only provides information on Australian taxonomy. To search taxonomy for Austria use `taxize`. See vignette('international_atlases') for more information
+## 'data.frame':	6 obs. of  10 variables:
+##  $ kingdom        : chr  "Animalia" "Animalia" "Animalia" "Animalia" ...
+##  $ phylum         : chr  "Chordata" "Chordata" "Chordata" "Chordata" ...
+##  $ class          : chr  "Amphibia" "Amphibia" "Amphibia" "Amphibia" ...
+##  $ order          : chr  "Anura" "Anura" "Anura" "Anura" ...
+##  $ family         : chr  "Limnodynastidae" "Limnodynastidae" "Limnodynastidae" "Limnodynastidae" ...
+##  $ genus          : chr  "Heleioporus" "Heleioporus" "Heleioporus" "Heleioporus" ...
+##  $ species        : chr  "Heleioporus eyrei" "Heleioporus australiacus" "Heleioporus albopunctatus" "Heleioporus psammophilus" ...
+##  $ author         : chr  "(Gray, 1845)" "(Shaw & Nodder, 1795)" "Gray, 1841" "(Lee & Main, 1954)" ...
+##  $ species_guid   : chr  "urn:lsid:biodiversity.org.au:afd.taxon:cf991494-ccee-433d-b049-f2a0996a0a3b" "urn:lsid:biodiversity.org.au:afd.taxon:20119b25-a27c-4174-b3e0-8639e8a21131" "urn:lsid:biodiversity.org.au:afd.taxon:c1d18a1e-5aec-4441-aa3c-e0ac799f51e8" "urn:lsid:biodiversity.org.au:afd.taxon:0efbf288-1526-4551-af83-52e4fb9dae59" ...
+##  $ vernacular_name: chr  "Moaning Frog" "Giant Burrowing Frog" "Western Spotted Frog" "Sand Frog" ...
 ```
 `ala_species` is similar to `select_taxa`, in that it returns taxonomic information
 and unique identifiers in a `data.frame`. It differs in not being able to return 
@@ -79,15 +91,26 @@ by supporting filtering e.g.:
 
 
 ```r
-ala_species(
+burrowing_frogs <- ala_species(
   taxa = select_taxa("Heleioporus"),
   filters = select_filters(
     stateProvince = "New South Wales", 
     year > 2010))
+str(burrowing_frogs, give.attr = FALSE)
 ```
 
 ```
-## Error in validate_filters(df$variable): The following filters are invalid: stateProvince. Use `search_fields()` to get a list of valid options
+## 'data.frame':	4 obs. of  10 variables:
+##  $ kingdom        : chr  "Animalia" "Animalia" "Animalia" "Animalia"
+##  $ phylum         : chr  "Chordata" "Chordata" "Chordata" "Chordata"
+##  $ class          : chr  "Amphibia" "Amphibia" "Amphibia" "Amphibia"
+##  $ order          : chr  "Anura" "Anura" "Anura" "Anura"
+##  $ family         : chr  "Limnodynastidae" "Limnodynastidae" "Limnodynastidae" "Limnodynastidae"
+##  $ genus          : chr  "Heleioporus" "Heleioporus" "Heleioporus" "Heleioporus"
+##  $ species        : chr  "Heleioporus australiacus" "Heleioporus inornatus" "Heleioporus eyrei" "Heleioporus barycragus"
+##  $ author         : chr  "(Shaw & Nodder, 1795)" "(Lee & Main, 1954)" "(Gray, 1845)" "Lee, 1967"
+##  $ species_guid   : chr  "urn:lsid:biodiversity.org.au:afd.taxon:20119b25-a27c-4174-b3e0-8639e8a21131" "urn:lsid:biodiversity.org.au:afd.taxon:16fcc761-685a-4527-b5e4-e6c7042ae2c6" "urn:lsid:biodiversity.org.au:afd.taxon:cf991494-ccee-433d-b049-f2a0996a0a3b" "urn:lsid:biodiversity.org.au:afd.taxon:c527388c-1cc7-4a10-800a-243b5a2dcd3c"
+##  $ vernacular_name: chr  "Giant Burrowing Frog" "Plains Frog" "Moaning Frog" "Western Marsh Frog"
 ```
 
 ## Advanced taxonomic queries
@@ -101,26 +124,26 @@ This can be useful for paraphyletic concepts such as invertebrates:
 invertebrate_filter <- select_filters(
    taxonConceptID = select_taxa("Animalia")$taxon_concept_id,
    taxonConceptID != select_taxa("Chordata")$taxon_concept_id)
-```
-
-```
-## Error in select_taxa("Animalia"): `select_taxa` only provides information on Australian taxonomy. To search taxonomy for Austria use `taxize`. See vignette('international_atlases') for more information
-```
-
-```r
 head(ala_counts(filters = invertebrate_filter, group_by = "class"))
 ```
 
 ```
-## Error in ala_GET(url, path, params = query): Status code 400returned for url https://biocache-ws.biodiversityatlas.at/occurrence/facets?fq=%28taxonConceptID%3A%22urn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3A4647863b-760d-4b59-aaa1-502c8cdf8d3c%22%29%20AND%20-%28taxonConceptID%3A%22urn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3A065f1da4-53cd-40b8-a396-80fa5c74dedd%22%29&facets=class&flimit=1<pointer: 0x000001f6f3e7d8f0>
+##          class   count
+## 1      Insecta 3120780
+## 2   Gastropoda  824225
+## 3 Malacostraca  508120
+## 4    Arachnida  494441
+## 5  Maxillopoda  462423
+## 6   Polychaeta  256523
 ```
 
 ## Taxonomic trees
 
 While many users want to restrict searches to particular taxa using `select_taxa()`,
 there are many cases where the taxonoimc hierarchy is itself the parameter of 
-investigation. In that case you can return taxonomic information as a `data.tree`
-using `ala_taxonomy()`. This function requires two arguments:
+investigation. In that case you can return taxonomic information as a tree
+(from package `data.tree`) using `ala_taxonomy()`. This function requires 
+two arguments:
   
   - `taxa` supplies the higher taxonomic group for which data is required
   - `down_to` is the lowest rank of the taxonomic hierarchy that the user requires (see `find_ranks()` for valid options)
@@ -132,34 +155,33 @@ The function then searches 'downwards' from `taxa` to build the tree.
 ```r
 library(data.tree)
 classes <- ala_taxonomy(taxa = select_taxa("Chordata"), down_to = "class")
-```
-
-```
-## Error in ala_taxonomy(taxa = select_taxa("Chordata"), down_to = "class"): `search_taxonomy` only provides information on Australian taxonomy. To search taxonomy for Austria use `taxize`. See vignette('international_atlases') for more information
-```
-
-```r
 print(classes, "rank")
 ```
 
 ```
-##                         levelName      rank
-## 1  Chordata                          phylum
-## 2   ¦--Cephalochordata            subphylum
-## 3   ¦--Tunicata                   subphylum
-## 4   ¦   ¦--Appendicularia             class
-## 5   ¦   ¦--Ascidiacea                 class
-## 6   ¦   °--Thaliacea                  class
-## 7   °--Vertebrata                 subphylum
-## 8       °--Gnathostomata           informal
-## 9           ¦--Amphibia               class
-## 10          ¦--Aves                   class
-## 11          ¦--Mammalia               class
-## 12          ¦--Pisces              informal
-## 13          ¦   ¦--Actinopterygii     class
-## 14          ¦   ¦--Chondrichthyes     class
-## 15          ¦   °--Sarcopterygii      class
-## 16          °--Reptilia               class
+##                             levelName       rank
+## 1  Chordata                               phylum
+## 2   ¦--Cephalochordata                 subphylum
+## 3   ¦   °--Amphioxi                        class
+## 4   ¦--Craniata                        subphylum
+## 5   ¦   °--Agnatha                    superclass
+## 6   ¦       ¦--Cephalasipidomorphi         class
+## 7   ¦       °--Myxini                      class
+## 8   ¦--Tunicata                        subphylum
+## 9   ¦   ¦--Appendicularia                  class
+## 10  ¦   ¦--Ascidiacea                      class
+## 11  ¦   °--Thaliacea                       class
+## 12  °--Vertebrata                      subphylum
+## 13      °--Gnathostomata                informal
+## 14          ¦--Amphibia                    class
+## 15          ¦--Aves                        class
+## 16          ¦--Mammalia                    class
+## 17          ¦--Pisces                   informal
+## 18          ¦   ¦--Actinopterygii          class
+## 19          ¦   ¦--Chondrichthyes          class
+## 20          ¦   ¦--Cephalaspidomorphi      class
+## 21          ¦   °--Sarcopterygii           class
+## 22          °--Reptilia                    class
 ```
 
 
@@ -180,16 +202,16 @@ unique(classes$Get("authority")) # levels available in the dataset
 ```
 
 ```
-## [1] "AFD"
+## [1] "AFD"  "NZOR" "CAAB"
 ```
 
 ```r
-# subet to nodes supplied by the Australian Faunal Directory only
+# subset to only those nodes supplied by the Australian Faunal Directory
 Prune(classes, pruneFun = function(a){a$authority == "AFD"})
 ```
 
 ```
-## [1] 0
+## [1] 6
 ```
 
 ```r
@@ -218,11 +240,11 @@ print(classes, "authority")
 
 Note that the above syntax is slightly unusual, in that the tree 
 (`classes`) is updated even though we don't assign the result to an obect. 
-This is because `classes` is an `S6` object. In fact, `data.tree`s have a few
-unusual properties that we can exploit to do interesting things. A common task 
-for example, is to calculate the number of records present for each node in the 
-tree. A quick way to do this would be to extract all the `guid` values and query
-them using `ala_counts()`.
+This is because `classes` is an `S6` object. In fact, trees created from 
+`data.tree` Nodes have a few unusual properties that we can exploit to do 
+interesting things. A common task, for example, is to calculate the number of 
+records present for each node in the tree. A quick way to do this would be to 
+extract all the `guid` values and query them using `ala_counts()`.
   
 
 ```r
@@ -252,21 +274,21 @@ print(classes, "n_records")
 ```
 ##                         levelName n_records
 ## 1  Chordata                               0
-## 2   ¦--Cephalochordata                    0
+## 2   ¦--Cephalochordata                  564
 ## 3   ¦--Tunicata                           0
-## 4   ¦   ¦--Appendicularia                 0
-## 5   ¦   ¦--Ascidiacea                     0
-## 6   ¦   °--Thaliacea                      0
+## 4   ¦   ¦--Appendicularia             74591
+## 5   ¦   ¦--Ascidiacea                 24267
+## 6   ¦   °--Thaliacea                   9458
 ## 7   °--Vertebrata                         0
 ## 8       °--Gnathostomata                  0
-## 9           ¦--Amphibia                   0
-## 10          ¦--Aves                       0
-## 11          ¦--Mammalia                   0
+## 9           ¦--Amphibia              814058
+## 10          ¦--Aves                59712719
+## 11          ¦--Mammalia             3195438
 ## 12          ¦--Pisces                     0
-## 13          ¦   ¦--Actinopterygii         0
-## 14          ¦   ¦--Chondrichthyes         0
-## 15          ¦   °--Sarcopterygii          0
-## 16          °--Reptilia                   0
+## 13          ¦   ¦--Actinopterygii   2915369
+## 14          ¦   ¦--Chondrichthyes    841450
+## 15          ¦   °--Sarcopterygii       4353
+## 16          °--Reptilia             1296302
 ```
 
 ```r
@@ -280,22 +302,22 @@ print(classes, "n_records")
 
 ```
 ##                         levelName n_records
-## 1  Chordata                               0
-## 2   ¦--Cephalochordata                    0
-## 3   ¦--Tunicata                           0
-## 4   ¦   ¦--Appendicularia                 0
-## 5   ¦   ¦--Ascidiacea                     0
-## 6   ¦   °--Thaliacea                      0
-## 7   °--Vertebrata                         0
-## 8       °--Gnathostomata                  0
-## 9           ¦--Amphibia                   0
-## 10          ¦--Aves                       0
-## 11          ¦--Mammalia                   0
-## 12          ¦--Pisces                     0
-## 13          ¦   ¦--Actinopterygii         0
-## 14          ¦   ¦--Chondrichthyes         0
-## 15          ¦   °--Sarcopterygii          0
-## 16          °--Reptilia                   0
+## 1  Chordata                        68888569
+## 2   ¦--Cephalochordata                  564
+## 3   ¦--Tunicata                      108316
+## 4   ¦   ¦--Appendicularia             74591
+## 5   ¦   ¦--Ascidiacea                 24267
+## 6   ¦   °--Thaliacea                   9458
+## 7   °--Vertebrata                  68779689
+## 8       °--Gnathostomata           68779689
+## 9           ¦--Amphibia              814058
+## 10          ¦--Aves                59712719
+## 11          ¦--Mammalia             3195438
+## 12          ¦--Pisces               3761172
+## 13          ¦   ¦--Actinopterygii   2915369
+## 14          ¦   ¦--Chondrichthyes    841450
+## 15          ¦   °--Sarcopterygii       4353
+## 16          °--Reptilia             1296302
 ```
 
 The same approach can be used to find the number of species within a clade
@@ -305,13 +327,7 @@ The same approach can be used to find the number of species within a clade
 leaf_spp_counts <- lapply(
   Get(leaves, "guid"),
   function(x){ala_counts(x, type = "species")})
-```
 
-```
-## Error in ala_GET(url, path, params = query): Status code 400returned for url https://biocache-ws.biodiversityatlas.at/occurrence/facets?fq=%28lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3A298d7998-81d6-49e9-858c-56f8837d09fa%29&flimit=1&facets=speciesID<pointer: 0x000001f6f3e7dbf0>
-```
-
-```r
 # add back to the tree, then sum
 classes$Set(n_species = 0)
 Set(leaves, n_species = unlist(leaf_spp_counts))
@@ -346,7 +362,7 @@ print(classes, "n_species")
 
 ### Conversion
 
-Although the `data.tree` format is useful, converting to a `data.frame` 
+Although the tree format is useful, converting to a `data.frame` 
 is straightforward.
 
 
@@ -391,9 +407,9 @@ ToDataFrameTypeCol(classes, type = "rank") # works, but merges informal ranks
 ```
 
 While useful, neither of the above approaches preserve the rank of each node if
-there are multiple informal or unclassified nodes in the `data.tree`. Therefore,
-a more useful approach is to take more care in linking levels and ranks, then 
-converting to a `data.frame`
+there are multiple nodes in the `data.tree` returned with rank `informal` or 
+`unranked`. Therefore, a more useful approach is to take more care in linking 
+levels and ranks, then converting to a `data.frame`
 
 
 ```r
@@ -427,7 +443,7 @@ df
 ## 11 Chordata      Vertebrata    Gnathostomata             <NA>       Reptilia
 ```
 
-If we want to take more information out of the `data.tree`, we can extract it 
+If we want to take more information out of the tree, we can extract it 
 and append to our new `data.frame`.
 
 
@@ -455,9 +471,9 @@ cbind(
 
 ###  Visualisation
 
-There are a range of methods for visualising a `data.tree`. The `tidygraph` 
-package can be used to convert a `data.tree` into a format suitable for plotting
-with `ggraph`.
+There are a range of methods for visualising objects returned by `data.tree`. 
+The `tidygraph` package can be used to convert a tree into a format suitable for 
+plotting with `ggraph`.
 
 
 ```r
