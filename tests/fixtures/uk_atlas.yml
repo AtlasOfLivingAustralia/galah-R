@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 02:11:13 GMT
+      date: Wed, 18 Aug 2021 05:49:42 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -27,9 +27,10 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":200068504,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
-        records]","activeFacetMap":{}}'
-  recorded_at: 2021-08-06 02:11:02 GMT
+      string: '{"pageSize":10,"startIndex":0,"totalRecords":0,"dir":"asc","status":"ERROR","errorMessage":"No
+        live SolrServers available to handle this request:[http://172.31.15.129:8983/solr/biocache,
+        http://172.31.23.235:8983/solr/biocache, http://172.31.14.216:8983/solr/biocache]"}'
+  recorded_at: 2021-08-18 05:54:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -48,7 +49,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 02:11:17 GMT
+      date: Wed, 18 Aug 2021 05:52:23 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -708,7 +709,7 @@ http_interactions:
         year the event occurred in.  http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year_p","downloadDescription":"Year
         - parsed","classs":"Event"},{"name":"zone","dataType":"string","indexed":false,"stored":false,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset","downloadName":"zone"}]'
-  recorded_at: 2021-08-06 02:11:02 GMT
+  recorded_at: 2021-08-18 05:54:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -727,7 +728,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 02:10:54 GMT
+      date: Wed, 18 Aug 2021 05:51:47 GMT
       server: Apache/2.4.7 (Ubuntu)
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
@@ -1880,7 +1881,7 @@ http_interactions:
         Forestry Open Data https://open-data-scottishforestry.hub.arcgis.com/","description":"Native
         Woodland Survey of Scotland","uid":"270","displayname":"Native Woodland Survey
         of Scotland","enabled":true,"name":"NWSS_FINAL","id":270,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"}]'
-  recorded_at: 2021-08-06 02:11:02 GMT
+  recorded_at: 2021-08-18 05:54:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1899,7 +1900,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 02:11:21 GMT
+      date: Wed, 18 Aug 2021 05:52:31 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -2009,7 +2010,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2021-08-06 02:11:02 GMT
+  recorded_at: 2021-08-18 05:54:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2028,7 +2029,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 02:11:22 GMT
+      date: Wed, 18 Aug 2021 05:52:36 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -2688,7 +2689,7 @@ http_interactions:
         year the event occurred in.  http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year_p","downloadDescription":"Year
         - parsed","classs":"Event"},{"name":"zone","dataType":"string","indexed":false,"stored":false,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset","downloadName":"zone"}]'
-  recorded_at: 2021-08-06 02:11:02 GMT
+  recorded_at: 2021-08-18 05:54:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2702,22 +2703,27 @@ http_interactions:
       User-Agent: galah 1.3.0
   response:
     status:
-      status_code: '200'
-      message: OK
-      explanation: Request fulfilled, document follows
+      status_code: '500'
+      message: Internal Server Error
+      explanation: Server got itself in trouble
     headers:
-      status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 02:11:24 GMT
+      status: HTTP/1.1 500 Internal Server Error
+      date: Wed, 18 Aug 2021 05:52:39 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
       access-control-allow-headers: x-requested-with
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
+      content-language: en-US
+      content-length: '221'
+      connection: close
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":9522866,"fq":"year:\"2015\""},{"label":"2008","i18nCode":"year.2008","count":9312282,"fq":"year:\"2008\""},{"label":"2017","i18nCode":"year.2017","count":9284459,"fq":"year:\"2017\""},{"label":"2016","i18nCode":"year.2016","count":9156397,"fq":"year:\"2016\""},{"label":"2014","i18nCode":"year.2014","count":9149792,"fq":"year:\"2014\""},{"label":"2018","i18nCode":"year.2018","count":9124543,"fq":"year:\"2018\""},{"label":"2009","i18nCode":"year.2009","count":8907890,"fq":"year:\"2009\""},{"label":"2010","i18nCode":"year.2010","count":8880137,"fq":"year:\"2010\""},{"label":"2019","i18nCode":"year.2019","count":8875002,"fq":"year:\"2019\""},{"label":"2013","i18nCode":"year.2013","count":8456015,"fq":"year:\"2013\""},{"label":"2011","i18nCode":"year.2011","count":8222093,"fq":"year:\"2011\""},{"label":"2012","i18nCode":"year.2012","count":7537035,"fq":"year:\"2012\""},{"label":"2007","i18nCode":"year.2007","count":7188566,"fq":"year:\"2007\""},{"label":"2006","i18nCode":"year.2006","count":6182026,"fq":"year:\"2006\""},{"label":"2005","i18nCode":"year.2005","count":5834717,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":5163494,"fq":"year:\"2004\""},{"label":"2003","i18nCode":"year.2003","count":5002175,"fq":"year:\"2003\""},{"label":"2002","i18nCode":"year.2002","count":4327369,"fq":"year:\"2002\""},{"label":"2000","i18nCode":"year.2000","count":3757382,"fq":"year:\"2000\""},{"label":"1999","i18nCode":"year.1999","count":3706484,"fq":"year:\"1999\""}],"count":358}]'
-  recorded_at: 2021-08-06 02:11:02 GMT
+      string: |
+        {
+        "message": "No live SolrServers available to handle this request:[http://172.31.9.81:8983/solr/biocache, http://172.31.15.129:8983/solr/biocache, http://172.31.14.216:8983/solr/biocache]", "errorType": "Server error"
+        }
+  recorded_at: 2021-08-18 05:54:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

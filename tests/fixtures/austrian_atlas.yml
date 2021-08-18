@@ -19,20 +19,18 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-type:
       - application/json;charset=UTF-8
       - application/json
-      date: Fri, 06 Aug 2021 02:11:04 GMT
+      date: Wed, 18 Aug 2021 05:54:09 GMT
       server: nginx/1.18.0 (Ubuntu)
-      status: HTTP/1.1 200 OK
-      transfer-encoding: chunked
+      status: 'HTTP/2 200 '
     body:
       encoding: UTF-8
       file: no
       string: '{"pageSize":0,"startIndex":0,"totalRecords":519119,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{}}'
-  recorded_at: 2021-08-06 02:11:09 GMT
+  recorded_at: 2021-08-18 05:54:14 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -50,12 +48,10 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Fri, 06 Aug 2021 02:11:04 GMT
+      date: Wed, 18 Aug 2021 05:54:09 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
@@ -289,7 +285,7 @@ http_interactions:
         Probleme bei einem Datensatz vorliegen. Negativ bedeutet ein Problem.","jsonName":"taxonomicKosher","downloadName":"taxonomic_kosher","downloadDescription":"Taxonomische
         Qualität"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"description":"The
         four-digit year in which the Event occurred, according to the Common Era Calendar.","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Jahr","classs":"Event"}]'
-  recorded_at: 2021-08-06 02:11:09 GMT
+  recorded_at: 2021-08-18 05:54:14 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -307,12 +303,10 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Fri, 06 Aug 2021 02:11:06 GMT
+      date: Wed, 18 Aug 2021 05:54:11 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       x-application-context: application:production
       strict-transport-security: max-age=31536000
       referrer-policy: strict-origin-when-cross-origin
@@ -734,7 +728,7 @@ http_interactions:
         Gesäuse, Nationalpark Hohe Tauern, Nationalpark Kalkalpen, Nationalpark Neusiedler
         See - Seewinkel, Nationalpark Thayatal\r\n","licence_level":"2","source":"Ämter
         der österreichischen Landesregierungen","citation_date":""}]'
-  recorded_at: 2021-08-06 02:11:09 GMT
+  recorded_at: 2021-08-18 05:54:14 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -752,12 +746,10 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Fri, 06 Aug 2021 02:11:07 GMT
+      date: Wed, 18 Aug 2021 05:54:12 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
@@ -864,7 +856,7 @@ http_interactions:
         dem angegebenen Namen gibt es Probleme mit dem Homonym","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Möglicher
         doppelter Eintrag","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"Erster
         des Monats","category":"warning","fatal":false}]'
-  recorded_at: 2021-08-06 02:11:09 GMT
+  recorded_at: 2021-08-18 05:54:14 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -882,12 +874,10 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Fri, 06 Aug 2021 02:11:08 GMT
+      date: Wed, 18 Aug 2021 05:54:13 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
@@ -1121,7 +1111,7 @@ http_interactions:
         Probleme bei einem Datensatz vorliegen. Negativ bedeutet ein Problem.","jsonName":"taxonomicKosher","downloadName":"taxonomic_kosher","downloadDescription":"Taxonomische
         Qualität"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"description":"The
         four-digit year in which the Event occurred, according to the Common Era Calendar.","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Jahr","classs":"Event"}]'
-  recorded_at: 2021-08-06 02:11:09 GMT
+  recorded_at: 2021-08-18 05:54:14 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1139,12 +1129,10 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Fri, 06 Aug 2021 02:11:09 GMT
+      date: Wed, 18 Aug 2021 05:54:14 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
@@ -1158,5 +1146,5 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":63963,"fq":"year:\"2020\""},{"label":"2021","i18nCode":"year.2021","count":33587,"fq":"year:\"2021\""},{"label":"1977","i18nCode":"year.1977","count":26167,"fq":"year:\"1977\""},{"label":"2019","i18nCode":"year.2019","count":23726,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":12919,"fq":"year:\"2018\""},{"label":"1985","i18nCode":"year.1985","count":12258,"fq":"year:\"1985\""},{"label":"2017","i18nCode":"year.2017","count":7772,"fq":"year:\"2017\""},{"label":"1972","i18nCode":"year.1972","count":7160,"fq":"year:\"1972\""},{"label":"2009","i18nCode":"year.2009","count":7101,"fq":"year:\"2009\""},{"label":"1963","i18nCode":"year.1963","count":6581,"fq":"year:\"1963\""},{"label":"1986","i18nCode":"year.1986","count":5998,"fq":"year:\"1986\""},{"label":"1990","i18nCode":"year.1990","count":5945,"fq":"year:\"1990\""},{"label":"1978","i18nCode":"year.1978","count":5832,"fq":"year:\"1978\""},{"label":"1975","i18nCode":"year.1975","count":5809,"fq":"year:\"1975\""},{"label":"1984","i18nCode":"year.1984","count":5657,"fq":"year:\"1984\""},{"label":"1967","i18nCode":"year.1967","count":5488,"fq":"year:\"1967\""},{"label":"1987","i18nCode":"year.1987","count":5485,"fq":"year:\"1987\""},{"label":"1980","i18nCode":"year.1980","count":5457,"fq":"year:\"1980\""},{"label":"1976","i18nCode":"year.1976","count":5365,"fq":"year:\"1976\""},{"label":"1970","i18nCode":"year.1970","count":5261,"fq":"year:\"1970\""}],"count":190}]'
-  recorded_at: 2021-08-06 02:11:09 GMT
+  recorded_at: 2021-08-18 05:54:14 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

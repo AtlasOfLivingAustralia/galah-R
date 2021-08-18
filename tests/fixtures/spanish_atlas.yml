@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 02:11:14 GMT
+      date: Wed, 18 Aug 2021 05:54:19 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -34,7 +34,7 @@ http_interactions:
       file: no
       string: '{"pageSize":0,"startIndex":0,"totalRecords":37384247,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{},"activeFacetObj":{}}'
-  recorded_at: 2021-08-06 02:11:22 GMT
+  recorded_at: 2021-08-18 05:54:28 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -53,7 +53,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 02:11:14 GMT
+      date: Wed, 18 Aug 2021 05:54:19 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -309,7 +309,7 @@ http_interactions:
         Taxon Rank","info":"http://rs.tdwg.org/dwc/terms/verbatimTaxonRank","dwcTerm":"verbatimTaxonRank","downloadName":"verbatim_taxon_rank","classs":"Taxon"},{"name":"videos","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Videos
         associated with a record","downloadName":"videos"},{"name":"water_body","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Water
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody","dwcTerm":"waterBody","downloadName":"water_body","classs":"Location"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2021-08-06 02:11:22 GMT
+  recorded_at: 2021-08-18 05:54:28 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -328,7 +328,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Fri, 06 Aug 2021 02:11:17 GMT
+      date: Wed, 18 Aug 2021 05:54:22 GMT
       server: nginx/1.17.10
       content-type: application/json;charset=UTF-8
       x-application-context: application:production
@@ -558,7 +558,7 @@ http_interactions:
         marinas de la Región Biogeográfica Mediterránea de la Red Natura 2000 y el
         Área Marina Protegida Corredor de migración de cetáceos del Mediterráneo","licence_level":"1","source":"Ministerio
         para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/es/)","citation_date":"2021-03-03"}]'
-  recorded_at: 2021-08-06 02:11:22 GMT
+  recorded_at: 2021-08-18 05:54:28 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -577,7 +577,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 02:11:18 GMT
+      date: Wed, 18 Aug 2021 05:54:23 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -688,7 +688,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2021-08-06 02:11:22 GMT
+  recorded_at: 2021-08-18 05:54:28 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -707,7 +707,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 02:11:19 GMT
+      date: Wed, 18 Aug 2021 05:54:25 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -963,7 +963,7 @@ http_interactions:
         Taxon Rank","info":"http://rs.tdwg.org/dwc/terms/verbatimTaxonRank","dwcTerm":"verbatimTaxonRank","downloadName":"verbatim_taxon_rank","classs":"Taxon"},{"name":"videos","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Videos
         associated with a record","downloadName":"videos"},{"name":"water_body","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Water
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody","dwcTerm":"waterBody","downloadName":"water_body","classs":"Location"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2021-08-06 02:11:22 GMT
+  recorded_at: 2021-08-18 05:54:28 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -982,7 +982,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 02:11:22 GMT
+      date: Wed, 18 Aug 2021 05:54:27 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -999,5 +999,5 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2007","i18nCode":"year.2007","count":1312744,"fq":"year:\"2007\""},{"label":"2019","i18nCode":"year.2019","count":917271,"fq":"year:\"2019\""},{"label":"2015","i18nCode":"year.2015","count":898970,"fq":"year:\"2015\""},{"label":"2006","i18nCode":"year.2006","count":838706,"fq":"year:\"2006\""},{"label":"2018","i18nCode":"year.2018","count":833182,"fq":"year:\"2018\""},{"label":"2011","i18nCode":"year.2011","count":831139,"fq":"year:\"2011\""},{"label":"2010","i18nCode":"year.2010","count":819958,"fq":"year:\"2010\""},{"label":"2016","i18nCode":"year.2016","count":817025,"fq":"year:\"2016\""},{"label":"2009","i18nCode":"year.2009","count":764933,"fq":"year:\"2009\""},{"label":"2014","i18nCode":"year.2014","count":761232,"fq":"year:\"2014\""},{"label":"2017","i18nCode":"year.2017","count":755794,"fq":"year:\"2017\""},{"label":"2005","i18nCode":"year.2005","count":730363,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":713241,"fq":"year:\"2004\""},{"label":"2012","i18nCode":"year.2012","count":696739,"fq":"year:\"2012\""},{"label":"2008","i18nCode":"year.2008","count":665566,"fq":"year:\"2008\""},{"label":"2003","i18nCode":"year.2003","count":634456,"fq":"year:\"2003\""},{"label":"2013","i18nCode":"year.2013","count":625925,"fq":"year:\"2013\""},{"label":"2002","i18nCode":"year.2002","count":600389,"fq":"year:\"2002\""},{"label":"2000","i18nCode":"year.2000","count":599147,"fq":"year:\"2000\""},{"label":"2001","i18nCode":"year.2001","count":547384,"fq":"year:\"2001\""}],"count":314}]'
-  recorded_at: 2021-08-06 02:11:22 GMT
+  recorded_at: 2021-08-18 05:54:28 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

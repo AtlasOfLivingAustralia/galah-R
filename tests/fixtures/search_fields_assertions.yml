@@ -19,25 +19,23 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:11:33 GMT
+      date: Wed, 18 Aug 2021 05:55:30 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=iLLlb1wMtdcMZRuGfwBA9tFr6DJBoYfJHOgbKLWssVcrACpNEujXifi3GWTcf12ljPW5IBaY/ufYF6Ga9wGQGFNutSKIYiHUtu303D1fAfbIR/FT6GD6yHNd/C/ozxhsjkG44S1Ogsf4sov/cSJHhHiQW40Sj9pGTcTM1uCPHMFZ;
-        Expires=Fri, 13 Aug 2021 02:11:33 GMT; Path=/
-      - AWSALBTGCORS=iLLlb1wMtdcMZRuGfwBA9tFr6DJBoYfJHOgbKLWssVcrACpNEujXifi3GWTcf12ljPW5IBaY/ufYF6Ga9wGQGFNutSKIYiHUtu303D1fAfbIR/FT6GD6yHNd/C/ozxhsjkG44S1Ogsf4sov/cSJHhHiQW40Sj9pGTcTM1uCPHMFZ;
-        Expires=Fri, 13 Aug 2021 02:11:33 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=gtwfdb4sjDildlIcuT/ShB6y0hG9DBRNFZI4Kad+dh+7dpDHSPU2zBGk2sPv9K5DY3RHkV86GLv9DXL8nb4sJTwqkB0i5c8zweAgcCqaKSUcpuIXO3NSU4s8fZxd;
-        Expires=Fri, 13 Aug 2021 02:11:33 GMT; Path=/
-      - AWSALBCORS=gtwfdb4sjDildlIcuT/ShB6y0hG9DBRNFZI4Kad+dh+7dpDHSPU2zBGk2sPv9K5DY3RHkV86GLv9DXL8nb4sJTwqkB0i5c8zweAgcCqaKSUcpuIXO3NSU4s8fZxd;
-        Expires=Fri, 13 Aug 2021 02:11:33 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=OXwOgXftsTpeiRYkyffLSJ4oDfepaZeFa0QqArf2mFcUBfWi8xLauozgg8kpdO+TMPHzIScWPxuExUSSaE2q6IpbNyRZ/Hb1y5fRsfGFDsWgAPZrH4GzIhNr/+Eq7dKlT2uEPgoZ0eqstvq55rPA3OWWTtCh7YRsZ0dMRR/efot+;
+        Expires=Wed, 25 Aug 2021 05:55:30 GMT; Path=/
+      - AWSALBTGCORS=OXwOgXftsTpeiRYkyffLSJ4oDfepaZeFa0QqArf2mFcUBfWi8xLauozgg8kpdO+TMPHzIScWPxuExUSSaE2q6IpbNyRZ/Hb1y5fRsfGFDsWgAPZrH4GzIhNr/+Eq7dKlT2uEPgoZ0eqstvq55rPA3OWWTtCh7YRsZ0dMRR/efot+;
+        Expires=Wed, 25 Aug 2021 05:55:30 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=1StUQb68QkIUhVuOy28TiaV1YArRc8eUhAdUfAquCcQryDgvOEvlrHvPySiw0E7BkF1QS9hjQ/J482rJ9FeeAOMvJXxDnRkvg4lqsS1dAnZmlZ8aP37Qv4fE0LyS;
+        Expires=Wed, 25 Aug 2021 05:55:30 GMT; Path=/
+      - AWSALBCORS=1StUQb68QkIUhVuOy28TiaV1YArRc8eUhAdUfAquCcQryDgvOEvlrHvPySiw0E7BkF1QS9hjQ/J482rJ9FeeAOMvJXxDnRkvg4lqsS1dAnZmlZ8aP37Qv4fE0LyS;
+        Expires=Wed, 25 Aug 2021 05:55:30 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
@@ -150,5 +148,5 @@ http_interactions:
         collection code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"UNRECOGNISED_INSTITUTION_CODE","code":1040,"description":"Unrecognized
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
         coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","decimalLongitude","verbatimLongitude","decimalLatitude"]}]'
-  recorded_at: 2021-08-06 02:11:33 GMT
+  recorded_at: 2021-08-18 05:55:30 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

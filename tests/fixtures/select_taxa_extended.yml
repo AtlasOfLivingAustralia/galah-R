@@ -15,12 +15,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.21.1
-      date: Fri, 06 Aug 2021 02:12:09 GMT
+      date: Wed, 18 Aug 2021 05:57:06 GMT
       content-type: application/json
       content-length: '549'
-      connection: keep-alive
       vary: Accept-Encoding
       content-encoding: gzip
       strict-transport-security: max-age=31536000
@@ -34,7 +33,7 @@ http_interactions:
       string: '{"success":true,"scientificName":"Anas (Anas)","scientificNameAuthorship":"Linnaeus,
         1758","taxonConceptID":"urn:lsid:biodiversity.org.au:afd.taxon:a553c469-6df8-4205-ad85-f5dd8706e7ce","rank":"subgenus","rankID":6500,"lft":178670,"rgt":178682,"matchType":"exactMatch","nameType":"SCIENTIFIC","synonymType":"SYNONYM","kingdom":"Animalia","kingdomID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Aves","classID":"urn:lsid:biodiversity.org.au:afd.taxon:5ed80139-31bb-48a8-9f57-42d8015dacbb","order":"Anseriformes","orderID":"urn:lsid:biodiversity.org.au:afd.taxon:b8bb0d5b-27f3-4cd9-a9e6-4806dfadb5aa","family":"Anatidae","familyID":"urn:lsid:biodiversity.org.au:afd.taxon:61e10186-a256-428a-baf9-331012e4cf29","genus":"Anas","genusID":"urn:lsid:biodiversity.org.au:afd.taxon:ca7b0c33-4059-4324-ae5b-813630bd61c0","speciesGroup":["Animals","Birds","Birds"],"speciesSubgroup":["Ducks,
         Geese, Swans"],"issues":["noIssue"]}'
-  recorded_at: 2021-08-06 02:12:10 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -52,11 +51,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 02:12:09 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 18 Aug 2021 05:57:06 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.1
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -77,7 +74,7 @@ http_interactions:
         class=\"scientific-name rank-species\"><span class=\"name\">Anas (Anas) superciliosa<\u002fspan>
         <span class=\"author\">Gmelin, 1789<\u002fspan><\u002fspan>","author":"Gmelin,
         1789","rank":"species","rankID":7000}]'
-  recorded_at: 2021-08-06 02:12:10 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -95,12 +92,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.21.1
-      date: Fri, 06 Aug 2021 02:12:09 GMT
+      date: Wed, 18 Aug 2021 05:57:06 GMT
       content-type: application/json
       content-length: '555'
-      connection: keep-alive
       vary: Accept-Encoding
       content-encoding: gzip
       strict-transport-security: max-age=31536000
@@ -115,7 +111,7 @@ http_interactions:
         1758","taxonConceptID":"urn:lsid:biodiversity.org.au:afd.taxon:f75e95ed-a3ab-4c51-9727-4c6686c2fb12","rank":"species","rankID":7000,"lft":178675,"rgt":178681,"matchType":"taxonIdMatch","kingdom":"Animalia","kingdomID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Aves","classID":"urn:lsid:biodiversity.org.au:afd.taxon:5ed80139-31bb-48a8-9f57-42d8015dacbb","order":"Anseriformes","orderID":"urn:lsid:biodiversity.org.au:afd.taxon:b8bb0d5b-27f3-4cd9-a9e6-4806dfadb5aa","family":"Anatidae","familyID":"urn:lsid:biodiversity.org.au:afd.taxon:61e10186-a256-428a-baf9-331012e4cf29","genus":"Anas","genusID":"urn:lsid:biodiversity.org.au:afd.taxon:ca7b0c33-4059-4324-ae5b-813630bd61c0","species":"Anas
         platyrhynchos","speciesID":"urn:lsid:biodiversity.org.au:afd.taxon:f75e95ed-a3ab-4c51-9727-4c6686c2fb12","vernacularName":"Mallard","speciesGroup":["Animals","Birds","Birds"],"speciesSubgroup":["Ducks,
         Geese, Swans"],"issues":["noIssue"]}'
-  recorded_at: 2021-08-06 02:12:10 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -133,12 +129,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.21.1
-      date: Fri, 06 Aug 2021 02:12:10 GMT
+      date: Wed, 18 Aug 2021 05:57:06 GMT
       content-type: application/json
       content-length: '552'
-      connection: keep-alive
       vary: Accept-Encoding
       content-encoding: gzip
       strict-transport-security: max-age=31536000
@@ -154,7 +149,7 @@ http_interactions:
         superciliosa","speciesID":"urn:lsid:biodiversity.org.au:afd.taxon:da8a156f-95e2-4fcb-a6e7-52721705a70c","vernacularName":"Grey
         duck","speciesGroup":["Animals","Birds","Birds"],"speciesSubgroup":["Ducks,
         Geese, Swans"],"issues":["noIssue"]}'
-  recorded_at: 2021-08-06 02:12:10 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -176,36 +171,34 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:12:10 GMT
+      date: Wed, 18 Aug 2021 05:57:06 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=oPgw8FM4tOx8k9QzG8H4INB5Ykzne9ULVPElYwT6hmStUmXBdHcmXCuRnos2ePgRcb78J/HOJu6qbkAE7ffHAs1ekQJrPk/4liCZB7iPSL9CRC/lXoNsxrnYh0Thu0dA5OdsKl77x4ryloI+V6CtqzUlkcpTAQkC6zl5iq0hQ3hV;
-        Expires=Fri, 13 Aug 2021 02:12:10 GMT; Path=/
-      - AWSALBTGCORS=oPgw8FM4tOx8k9QzG8H4INB5Ykzne9ULVPElYwT6hmStUmXBdHcmXCuRnos2ePgRcb78J/HOJu6qbkAE7ffHAs1ekQJrPk/4liCZB7iPSL9CRC/lXoNsxrnYh0Thu0dA5OdsKl77x4ryloI+V6CtqzUlkcpTAQkC6zl5iq0hQ3hV;
-        Expires=Fri, 13 Aug 2021 02:12:10 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=+FanA5j/TR4JN2bMQ4jERZ/qMokpeJ0GZdODYplnkrysLt3XeFBy3/ElGAcw5UEOLhtg3MSXZ6lbmABqsRhTLWcMHtdZtiTNKr5JzhzEteir8W4gew2oO8d7MsPE;
-        Expires=Fri, 13 Aug 2021 02:12:10 GMT; Path=/
-      - AWSALBCORS=+FanA5j/TR4JN2bMQ4jERZ/qMokpeJ0GZdODYplnkrysLt3XeFBy3/ElGAcw5UEOLhtg3MSXZ6lbmABqsRhTLWcMHtdZtiTNKr5JzhzEteir8W4gew2oO8d7MsPE;
-        Expires=Fri, 13 Aug 2021 02:12:10 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=UYjucEwWc4yhW+fvtS1bjpp0wSzU9negsTPCtb1KhrLwiZ60+CHll+8MqPVIqU4/rmXVEd2zNLzOxaIA4Ft+3EFdflc6euFjs27DyRazuW4Uo2185TC+Sx/Ze6FCqjTXXIaztNzhJFhRtUQK5UdDBzDpoLDugsJKnPZ2Qe3l3BER;
+        Expires=Wed, 25 Aug 2021 05:57:06 GMT; Path=/
+      - AWSALBTGCORS=UYjucEwWc4yhW+fvtS1bjpp0wSzU9negsTPCtb1KhrLwiZ60+CHll+8MqPVIqU4/rmXVEd2zNLzOxaIA4Ft+3EFdflc6euFjs27DyRazuW4Uo2185TC+Sx/Ze6FCqjTXXIaztNzhJFhRtUQK5UdDBzDpoLDugsJKnPZ2Qe3l3BER;
+        Expires=Wed, 25 Aug 2021 05:57:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=CfgIn+uyOBrgYtLM9gxFOIQ3e8ultcAYyzFm7ftJj3MA68VVo9j+VMyiv22e50PJnhFQII5r7/Z1mopFjwYjc65gZmQeZNWmnWoTi/OA7fq9f8AmlY6O27AX/SGr;
+        Expires=Wed, 25 Aug 2021 05:57:06 GMT; Path=/
+      - AWSALBCORS=CfgIn+uyOBrgYtLM9gxFOIQ3e8ultcAYyzFm7ftJj3MA68VVo9j+VMyiv22e50PJnhFQII5r7/Z1mopFjwYjc65gZmQeZNWmnWoTi/OA7fq9f8AmlY6O27AX/SGr;
+        Expires=Wed, 25 Aug 2021 05:57:06 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":741126,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&fq=lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3Aa553c469-6df8-4205-ad85-f5dd8706e7ce","urlParameters":"?q=*%3A*&fq=lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3Aa553c469-6df8-4205-ad85-f5dd8706e7ce","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":741776,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&fq=lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3Aa553c469-6df8-4205-ad85-f5dd8706e7ce","urlParameters":"?q=*%3A*&fq=lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3Aa553c469-6df8-4205-ad85-f5dd8706e7ce","queryTitle":"[all
         records]","activeFacetMap":{"lsid":{"name":"lsid","displayName":"<span class=''lsid''
         id=''urn:lsid:biodiversity.org.au:afd.taxon:a553c469-6df8-4205-ad85-f5dd8706e7ce''>subgenus:
         Anas (Anas)</span>","value":"urn:lsid:biodiversity.org.au:afd.taxon:a553c469-6df8-4205-ad85-f5dd8706e7ce"}},"activeFacetObj":{"lsid":[{"name":"lsid","displayName":"<span
         class=''lsid'' id=''urn:lsid:biodiversity.org.au:afd.taxon:a553c469-6df8-4205-ad85-f5dd8706e7ce''>subgenus:
         Anas (Anas)</span>","value":"lsid:urn:lsid:biodiversity.org.au:afd.taxon:a553c469-6df8-4205-ad85-f5dd8706e7ce"}]}}'
-  recorded_at: 2021-08-06 02:12:10 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -227,36 +220,34 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:12:10 GMT
+      date: Wed, 18 Aug 2021 05:57:06 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=kREsAp4bn7b0Nt8c1IMXpjfkj7jMmdDpVW6alUu/aKt5r78BblpECO6cyrrYWoeJtH3e4UpqtbIeH7UJ1fJqlv6vrHIKBHdNLwS8lCvPNTncv3p9Mk/0n77/9qeTp+yA1NloMZvBw2o5IQvm4V7wM7YycvTmUIEtdiB0OvRTysFu;
-        Expires=Fri, 13 Aug 2021 02:12:10 GMT; Path=/
-      - AWSALBTGCORS=kREsAp4bn7b0Nt8c1IMXpjfkj7jMmdDpVW6alUu/aKt5r78BblpECO6cyrrYWoeJtH3e4UpqtbIeH7UJ1fJqlv6vrHIKBHdNLwS8lCvPNTncv3p9Mk/0n77/9qeTp+yA1NloMZvBw2o5IQvm4V7wM7YycvTmUIEtdiB0OvRTysFu;
-        Expires=Fri, 13 Aug 2021 02:12:10 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=ZuVPk9HMMo3dQx23vsuFR+7qHt2I/oywnL7l/wt56rBj3mc4OQc7a7pN0QoIvAe1qNuoxe15MqYlt1Gcx8Kjerhd/mEwhILb71VanKt63jp8xX7h4sMJ8Qi4Kmi1;
-        Expires=Fri, 13 Aug 2021 02:12:10 GMT; Path=/
-      - AWSALBCORS=ZuVPk9HMMo3dQx23vsuFR+7qHt2I/oywnL7l/wt56rBj3mc4OQc7a7pN0QoIvAe1qNuoxe15MqYlt1Gcx8Kjerhd/mEwhILb71VanKt63jp8xX7h4sMJ8Qi4Kmi1;
-        Expires=Fri, 13 Aug 2021 02:12:10 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=DJscNxa6iuchFQZSbhblUO7EXpDnbAtUfyfoDF+VXBXCEj5nFT6Lif4coFfCFOv08QMnHsC1Qnte3PYinJIl+E5MswrsIGzyJFuF/HI9nSXWs5volMZEK80g2MIJnYUR+2GOC4b+z9WY/pYfa54voh3u6s33FzhVCS9ORNNCO8O7;
+        Expires=Wed, 25 Aug 2021 05:57:06 GMT; Path=/
+      - AWSALBTGCORS=DJscNxa6iuchFQZSbhblUO7EXpDnbAtUfyfoDF+VXBXCEj5nFT6Lif4coFfCFOv08QMnHsC1Qnte3PYinJIl+E5MswrsIGzyJFuF/HI9nSXWs5volMZEK80g2MIJnYUR+2GOC4b+z9WY/pYfa54voh3u6s33FzhVCS9ORNNCO8O7;
+        Expires=Wed, 25 Aug 2021 05:57:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=M9cOtnUbHbSo5noBEaBkZTYRBXmFm8nYH/xbhpa+wEiz+NsVhNJSLxhSfqI/cbqmP2eNZbfhSZG7pxO1REktke00Onr8te6cA1BlFPcrtIizVP5hnIoqpak/eEHt;
+        Expires=Wed, 25 Aug 2021 05:57:06 GMT; Path=/
+      - AWSALBCORS=M9cOtnUbHbSo5noBEaBkZTYRBXmFm8nYH/xbhpa+wEiz+NsVhNJSLxhSfqI/cbqmP2eNZbfhSZG7pxO1REktke00Onr8te6cA1BlFPcrtIizVP5hnIoqpak/eEHt;
+        Expires=Wed, 25 Aug 2021 05:57:06 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":17168,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&fq=lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3Af75e95ed-a3ab-4c51-9727-4c6686c2fb12","urlParameters":"?q=*%3A*&fq=lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3Af75e95ed-a3ab-4c51-9727-4c6686c2fb12","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":17197,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&fq=lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3Af75e95ed-a3ab-4c51-9727-4c6686c2fb12","urlParameters":"?q=*%3A*&fq=lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3Af75e95ed-a3ab-4c51-9727-4c6686c2fb12","queryTitle":"[all
         records]","activeFacetMap":{"lsid":{"name":"lsid","displayName":"<span class=''lsid''
         id=''urn:lsid:biodiversity.org.au:afd.taxon:f75e95ed-a3ab-4c51-9727-4c6686c2fb12''>species:
         Anas (Anas) platyrhynchos</span>","value":"urn:lsid:biodiversity.org.au:afd.taxon:f75e95ed-a3ab-4c51-9727-4c6686c2fb12"}},"activeFacetObj":{"lsid":[{"name":"lsid","displayName":"<span
         class=''lsid'' id=''urn:lsid:biodiversity.org.au:afd.taxon:f75e95ed-a3ab-4c51-9727-4c6686c2fb12''>species:
         Anas (Anas) platyrhynchos</span>","value":"lsid:urn:lsid:biodiversity.org.au:afd.taxon:f75e95ed-a3ab-4c51-9727-4c6686c2fb12"}]}}'
-  recorded_at: 2021-08-06 02:12:10 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -278,36 +269,34 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:12:10 GMT
+      date: Wed, 18 Aug 2021 05:57:06 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=VtoC0rxPzomIRuEzQP9TSBNvBVMn44/ICOYB8GeBYaMh9atN3L2IL5gtkF+8AdxrcS/oAbWq4jLqgOfFuOhLAtLBxxD+eXtXhTg5s5TBVJg3BDLmcMxLQkh4wVIX4o8VWcfjDsBav7nH/AtGsc/C5hfYX/RiwL36adAFTI0/ueNN;
-        Expires=Fri, 13 Aug 2021 02:12:10 GMT; Path=/
-      - AWSALBTGCORS=VtoC0rxPzomIRuEzQP9TSBNvBVMn44/ICOYB8GeBYaMh9atN3L2IL5gtkF+8AdxrcS/oAbWq4jLqgOfFuOhLAtLBxxD+eXtXhTg5s5TBVJg3BDLmcMxLQkh4wVIX4o8VWcfjDsBav7nH/AtGsc/C5hfYX/RiwL36adAFTI0/ueNN;
-        Expires=Fri, 13 Aug 2021 02:12:10 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=B9fnnakoNIB0zTP3lVzsWybbliZhQ8Lyh/BCtdqTiJaS469pn5eqPbR7t58p9oqhIiVh6FhstDOP7wftg+eRQ9Or2OzFLX7AeYUTczdc/oIwET9Qeg0YZHgAJp7S;
-        Expires=Fri, 13 Aug 2021 02:12:10 GMT; Path=/
-      - AWSALBCORS=B9fnnakoNIB0zTP3lVzsWybbliZhQ8Lyh/BCtdqTiJaS469pn5eqPbR7t58p9oqhIiVh6FhstDOP7wftg+eRQ9Or2OzFLX7AeYUTczdc/oIwET9Qeg0YZHgAJp7S;
-        Expires=Fri, 13 Aug 2021 02:12:10 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=ank6dPbjiMYx3yQQlUK98iGpij0LBO1A1w1z1t9L6wWBmf2D/5twa4OgBTGVRQgs7nYoI0ZRm/kLLn07YhyczqOGjurQUa9AnDSRV1cTxWO6ug0tMDI7hqV9XTRfPLWJuixsuJllP/f0hLCTCj7KQEgpOtxqxj46L+zy9QK7bavv;
+        Expires=Wed, 25 Aug 2021 05:57:06 GMT; Path=/
+      - AWSALBTGCORS=ank6dPbjiMYx3yQQlUK98iGpij0LBO1A1w1z1t9L6wWBmf2D/5twa4OgBTGVRQgs7nYoI0ZRm/kLLn07YhyczqOGjurQUa9AnDSRV1cTxWO6ug0tMDI7hqV9XTRfPLWJuixsuJllP/f0hLCTCj7KQEgpOtxqxj46L+zy9QK7bavv;
+        Expires=Wed, 25 Aug 2021 05:57:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=ODfb9O22QHug4ttvOTEz5hLvFzqfRxqsysJYI86ou0pjvWHA5um3WGJwADbXcwND2HxoC1qmcOh6KJ56J+QmdrxF/8VqZKE+NVqf89s+3JDlOPjCdC96K6OcRgrV;
+        Expires=Wed, 25 Aug 2021 05:57:06 GMT; Path=/
+      - AWSALBCORS=ODfb9O22QHug4ttvOTEz5hLvFzqfRxqsysJYI86ou0pjvWHA5um3WGJwADbXcwND2HxoC1qmcOh6KJ56J+QmdrxF/8VqZKE+NVqf89s+3JDlOPjCdC96K6OcRgrV;
+        Expires=Wed, 25 Aug 2021 05:57:06 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":723130,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&fq=lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3Ada8a156f-95e2-4fcb-a6e7-52721705a70c","urlParameters":"?q=*%3A*&fq=lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3Ada8a156f-95e2-4fcb-a6e7-52721705a70c","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":723750,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&fq=lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3Ada8a156f-95e2-4fcb-a6e7-52721705a70c","urlParameters":"?q=*%3A*&fq=lsid%3Aurn%3Alsid%3Abiodiversity.org.au%3Aafd.taxon%3Ada8a156f-95e2-4fcb-a6e7-52721705a70c","queryTitle":"[all
         records]","activeFacetMap":{"lsid":{"name":"lsid","displayName":"<span class=''lsid''
         id=''urn:lsid:biodiversity.org.au:afd.taxon:da8a156f-95e2-4fcb-a6e7-52721705a70c''>species:
         Anas (Anas) superciliosa</span>","value":"urn:lsid:biodiversity.org.au:afd.taxon:da8a156f-95e2-4fcb-a6e7-52721705a70c"}},"activeFacetObj":{"lsid":[{"name":"lsid","displayName":"<span
         class=''lsid'' id=''urn:lsid:biodiversity.org.au:afd.taxon:da8a156f-95e2-4fcb-a6e7-52721705a70c''>species:
         Anas (Anas) superciliosa</span>","value":"lsid:urn:lsid:biodiversity.org.au:afd.taxon:da8a156f-95e2-4fcb-a6e7-52721705a70c"}]}}'
-  recorded_at: 2021-08-06 02:12:10 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -325,11 +314,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 02:12:10 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 18 Aug 2021 05:57:06 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.1
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -367,7 +354,7 @@ http_interactions:
         (Anas)","nameComplete":"Anas (Anas) Linnaeus, 1758","nameFormatted":"<span
         class=\"scientific-name rank-genus\"><span class=\"name\">Anas (Anas)<\u002fspan>
         <span class=\"author\">Linnaeus, 1758<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:a553c469-6df8-4205-ad85-f5dd8706e7ce","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-06 02:12:10 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -385,11 +372,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 02:12:10 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 18 Aug 2021 05:57:06 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.1
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -439,7 +424,7 @@ http_interactions:
         platyrhynchos","nameComplete":"Anas platyrhynchos Linnaeus, 1758","nameFormatted":"<span
         class=\"scientific-name rank-species\"><span class=\"name\">Anas platyrhynchos<\u002fspan>
         <span class=\"author\">Linnaeus, 1758<\u002fspan><\u002fspan>","identifier":"NZOR-6-10075","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"1758","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/136c72e4-3876-40d5-8734-f6f706354f24","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2021-08-06 02:12:10 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -457,11 +442,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Fri, 06 Aug 2021 02:12:10 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 18 Aug 2021 05:57:06 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.1
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -520,5 +503,5 @@ http_interactions:
         (Anas) superciliosa","nameComplete":"Anas (Anas) superciliosa Gmelin, 1789","nameFormatted":"<span
         class=\"scientific-name rank-species\"><span class=\"name\">Anas (Anas) superciliosa<\u002fspan>
         <span class=\"author\">Gmelin, 1789<\u002fspan><\u002fspan>","identifier":"urn:lsid:biodiversity.org.au:afd.taxon:da8a156f-95e2-4fcb-a6e7-52721705a70c","nomenclaturalCode":"ICZN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AFD","taxonRemarks":null,"provenance":null,"infoSourceName":"AFD","infoSourceURL":"https://collections.ala.org.au/public/show/dr2699","datasetURL":"https://collections.ala.org.au/public/show/dr2699","priority":5000}]}'
-  recorded_at: 2021-08-06 02:12:10 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

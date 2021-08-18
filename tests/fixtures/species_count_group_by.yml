@@ -19,25 +19,23 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:43 GMT
+      date: Wed, 18 Aug 2021 05:39:50 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=COQI1E1W6y8Qcgn7kfrZyz3IA680XD/8LIK3rqFIghydDQtVMYH9EJzuHdmgaiX+bSL7Nyxaa2EEc6yWVuMTFS388Tt8rS4QPFADs/I5BOuRagYKzi1lVJsPrwqRIwwVey8ya+Ri8+8C3L8t69qVWi23Mn4RFu1KK7JBdADHwRVa;
-        Expires=Fri, 13 Aug 2021 02:09:43 GMT; Path=/
-      - AWSALBTGCORS=COQI1E1W6y8Qcgn7kfrZyz3IA680XD/8LIK3rqFIghydDQtVMYH9EJzuHdmgaiX+bSL7Nyxaa2EEc6yWVuMTFS388Tt8rS4QPFADs/I5BOuRagYKzi1lVJsPrwqRIwwVey8ya+Ri8+8C3L8t69qVWi23Mn4RFu1KK7JBdADHwRVa;
-        Expires=Fri, 13 Aug 2021 02:09:43 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=dmfXVV1HxGzEOMV1dLASkxuTQHXJ7wSAudwgQ3dHE4s3MU3cB/lbSDbZgLEWvQNYp7SiEFvJYuOGikn8xcesXqiixY1Z0bYWMQYmIbcz7ah3nUA0WcxehKmpXWqR;
-        Expires=Fri, 13 Aug 2021 02:09:43 GMT; Path=/
-      - AWSALBCORS=dmfXVV1HxGzEOMV1dLASkxuTQHXJ7wSAudwgQ3dHE4s3MU3cB/lbSDbZgLEWvQNYp7SiEFvJYuOGikn8xcesXqiixY1Z0bYWMQYmIbcz7ah3nUA0WcxehKmpXWqR;
-        Expires=Fri, 13 Aug 2021 02:09:43 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=mTtB9CXL0eySYYgv6nLUXdMu0kHxZ6/TrYuz34H259EiTrDC+TOGFR/yluHywKuetCbJOKA1zCYdxRGOaRH4VLimqyDszgyeuP1ehvzO3QYgcPJDHjYv9HdY4/ZwvoWSkMNqy6N29nv/DmMX+RXFj+UTNqZky+xnwdfwVlpRKsR7;
+        Expires=Wed, 25 Aug 2021 05:39:50 GMT; Path=/
+      - AWSALBTGCORS=mTtB9CXL0eySYYgv6nLUXdMu0kHxZ6/TrYuz34H259EiTrDC+TOGFR/yluHywKuetCbJOKA1zCYdxRGOaRH4VLimqyDszgyeuP1ehvzO3QYgcPJDHjYv9HdY4/ZwvoWSkMNqy6N29nv/DmMX+RXFj+UTNqZky+xnwdfwVlpRKsR7;
+        Expires=Wed, 25 Aug 2021 05:39:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=CIIj5iKu7e+nLeCpKvIiylH5aTn0Dj5XYUQvZcg6/+FFrdsQIlWqzsFAg/CLOXxxa+7CvcRvQDjXuGbl+IDoanrmLjiKrI3R4lUmcBzr0gOC6/g/ICnQB1KPcGI9;
+        Expires=Wed, 25 Aug 2021 05:39:50 GMT; Path=/
+      - AWSALBCORS=CIIj5iKu7e+nLeCpKvIiylH5aTn0Dj5XYUQvZcg6/+FFrdsQIlWqzsFAg/CLOXxxa+7CvcRvQDjXuGbl+IDoanrmLjiKrI3R4lUmcBzr0gOC6/g/ICnQB1KPcGI9;
+        Expires=Wed, 25 Aug 2021 05:39:50 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
@@ -150,7 +148,7 @@ http_interactions:
         collection code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"UNRECOGNISED_INSTITUTION_CODE","code":1040,"description":"Unrecognized
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
         coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","decimalLongitude","verbatimLongitude","decimalLatitude"]}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -172,25 +170,23 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:43 GMT
+      date: Wed, 18 Aug 2021 05:39:50 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=1E+69ZoFoJWIyY9MMQHwJeL1HvhKG8YiAesfIG65oaVVNRjqYk3ogIO8mL/md7taKqsY4gib9MNJZZ3p2Qfn0FzRqj8LdBz5TqkTgA8ctxDiOBXBMhwXMnHDz328dmNoyYnAERygCDYKTJtGxWMoe2G8eFnMT/Aqe+g9L7GJoQMf;
-        Expires=Fri, 13 Aug 2021 02:09:43 GMT; Path=/
-      - AWSALBTGCORS=1E+69ZoFoJWIyY9MMQHwJeL1HvhKG8YiAesfIG65oaVVNRjqYk3ogIO8mL/md7taKqsY4gib9MNJZZ3p2Qfn0FzRqj8LdBz5TqkTgA8ctxDiOBXBMhwXMnHDz328dmNoyYnAERygCDYKTJtGxWMoe2G8eFnMT/Aqe+g9L7GJoQMf;
-        Expires=Fri, 13 Aug 2021 02:09:43 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=l7Ye6Q9pCYuXwx2fxmZM3XSIIEQoAVPmZZ2yoZA0ZrzmSrU63P1zDVqgoN8x5F5bRhlPrUUp8LAzkS0/whYXSnNThLrMPMveg4JyGs25+Pqv40U3aKSXpsXmXofu;
-        Expires=Fri, 13 Aug 2021 02:09:43 GMT; Path=/
-      - AWSALBCORS=l7Ye6Q9pCYuXwx2fxmZM3XSIIEQoAVPmZZ2yoZA0ZrzmSrU63P1zDVqgoN8x5F5bRhlPrUUp8LAzkS0/whYXSnNThLrMPMveg4JyGs25+Pqv40U3aKSXpsXmXofu;
-        Expires=Fri, 13 Aug 2021 02:09:43 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=r/fsnZ/iH/FpQVqadGqi1pkBzIrPB6N/L8YNqg8pit+kGxkXuymGBzTzGh/FWA0e+gDrBo9xCf1qC63PmvjH/K1rXb06Dpw9LrdPl2xQIR92UizyB3EQ75YTw3y/Z+CocM2KRvTDasQVVFB7L/q2y64AbD79VB/kI+xtCadj6qHI;
+        Expires=Wed, 25 Aug 2021 05:39:50 GMT; Path=/
+      - AWSALBTGCORS=r/fsnZ/iH/FpQVqadGqi1pkBzIrPB6N/L8YNqg8pit+kGxkXuymGBzTzGh/FWA0e+gDrBo9xCf1qC63PmvjH/K1rXb06Dpw9LrdPl2xQIR92UizyB3EQ75YTw3y/Z+CocM2KRvTDasQVVFB7L/q2y64AbD79VB/kI+xtCadj6qHI;
+        Expires=Wed, 25 Aug 2021 05:39:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=y9Z/uOzQHUcFgxQStJpdbFRS/a6t33xLvkNv9HegkZACs3HDNdAQOdzYpMX+lm/Y5HXKkbyiFepVkXX6JeGxzcIz491A4n9nqkBD/mU17dVedGhjRan3KNIQqCl3;
+        Expires=Wed, 25 Aug 2021 05:39:50 GMT; Path=/
+      - AWSALBCORS=y9Z/uOzQHUcFgxQStJpdbFRS/a6t33xLvkNv9HegkZACs3HDNdAQOdzYpMX+lm/Y5HXKkbyiFepVkXX6JeGxzcIz491A4n9nqkBD/mU17dVedGhjRan3KNIQqCl3;
+        Expires=Wed, 25 Aug 2021 05:39:50 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
@@ -996,7 +992,7 @@ http_interactions:
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody"},{"name":"year","jsonName":"year","dwcTerm":"year","downloadName":"year","dataType":"int","classs":"Event","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"description":"Year","downloadDescription":"Year","info":"The
         year in which an occurrence was observed. http://rs.tdwg.org/dwc/terms/year","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/year"},{"name":"zone","downloadName":"zone","dataType":"string","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset"}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1016,7 +1012,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.21.0
-      date: Fri, 06 Aug 2021 02:09:45 GMT
+      date: Wed, 18 Aug 2021 05:39:57 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -4970,7 +4966,7 @@ http_interactions:
         month evaporation (mm) - future climate scenario for 2030 A1B emissions CSIRO
         Mk3.5 GCM medium climatic sensitivity - OZCLIM + ANUCLIMv5.1\",\"licence_level\":\"1\",\"source\":\"CSIRO
         Ecosystem Sciences\"}]"
-  recorded_at: 2021-08-06 02:09:52 GMT
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -4992,25 +4988,23 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:45 GMT
+      date: Wed, 18 Aug 2021 05:39:57 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=yzaL8K++EYPzd8Z1ot4JSkNuSpGO9AZ0sFOQI+xecCQmzEGXvI6ahEzkxG4dWz5TEkeP4eJIe9FmENKb4QhMD+lKdRCqj8joIM4ZQTa4IwWS8bxCTgp1szIf/bbEsrSQCHTFoibzaQFyOatG53hPL6Ag7UrQrSgOekQDWEyzGCil;
-        Expires=Fri, 13 Aug 2021 02:09:45 GMT; Path=/
-      - AWSALBTGCORS=yzaL8K++EYPzd8Z1ot4JSkNuSpGO9AZ0sFOQI+xecCQmzEGXvI6ahEzkxG4dWz5TEkeP4eJIe9FmENKb4QhMD+lKdRCqj8joIM4ZQTa4IwWS8bxCTgp1szIf/bbEsrSQCHTFoibzaQFyOatG53hPL6Ag7UrQrSgOekQDWEyzGCil;
-        Expires=Fri, 13 Aug 2021 02:09:45 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=v/Azg0CRG6wwq071pnfOvF98lNivqgtExV5jyDNjpLo1cLIyutSLcQ/AghRDwjih9bHI2CLVTPg/qXqnNojP2hJOLa+fMBuEctn48NfXSzASgjfKWFnpMIija3zw;
-        Expires=Fri, 13 Aug 2021 02:09:45 GMT; Path=/
-      - AWSALBCORS=v/Azg0CRG6wwq071pnfOvF98lNivqgtExV5jyDNjpLo1cLIyutSLcQ/AghRDwjih9bHI2CLVTPg/qXqnNojP2hJOLa+fMBuEctn48NfXSzASgjfKWFnpMIija3zw;
-        Expires=Fri, 13 Aug 2021 02:09:45 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=wxfsAFBo3knFz7rzXr5crIen/+lZc6da3BiwRdSJpFq8XrPCOuFTk2PaNHex2PtfDiVBJXnH1rGRi51yk1Yu0LGMGIduzuzS90+g5wpd3NJCy1tiRcuRIZ4ltfYNVO1Q0TNbT3a+zddFzAVpJvvs+b9Eu+jk5AXfJBei/vjTjsXT;
+        Expires=Wed, 25 Aug 2021 05:39:57 GMT; Path=/
+      - AWSALBTGCORS=wxfsAFBo3knFz7rzXr5crIen/+lZc6da3BiwRdSJpFq8XrPCOuFTk2PaNHex2PtfDiVBJXnH1rGRi51yk1Yu0LGMGIduzuzS90+g5wpd3NJCy1tiRcuRIZ4ltfYNVO1Q0TNbT3a+zddFzAVpJvvs+b9Eu+jk5AXfJBei/vjTjsXT;
+        Expires=Wed, 25 Aug 2021 05:39:57 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=rBIE1H12/U8EEOEPJ4HVrO5CzfZ4O7KG5Nrd3FAh/kYMoHcLj/eBhDOcjY4GWKkgaNNyW1TqXJurTULzzNzvdEZ3S3LVaPg2NOcdU8R+QzodHUFYFCCmZrNMzZO9;
+        Expires=Wed, 25 Aug 2021 05:39:57 GMT; Path=/
+      - AWSALBCORS=rBIE1H12/U8EEOEPJ4HVrO5CzfZ4O7KG5Nrd3FAh/kYMoHcLj/eBhDOcjY4GWKkgaNNyW1TqXJurTULzzNzvdEZ3S3LVaPg2NOcdU8R+QzodHUFYFCCmZrNMzZO9;
+        Expires=Wed, 25 Aug 2021 05:39:57 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
@@ -5123,7 +5117,7 @@ http_interactions:
         collection code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"UNRECOGNISED_INSTITUTION_CODE","code":1040,"description":"Unrecognized
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
         coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","decimalLongitude","verbatimLongitude","decimalLatitude"]}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -5145,25 +5139,23 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:46 GMT
+      date: Wed, 18 Aug 2021 05:39:57 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=KstYDa0+SRWlVAe26NsUWv/uoI6tGI2sNTrK1lYlVh4gUgMLYKfxv2XohoFwAsi8LNgsyy8wkx8s1y6dZQMZ4T9jVDdHRZJCn9ROmaS9bQaJJi+qiOUS5y+ExpTE3fK7xpKS1+bXMj3eYxve+hB6gMJZNz5Q8u13IexWSIN5Yqnu;
-        Expires=Fri, 13 Aug 2021 02:09:46 GMT; Path=/
-      - AWSALBTGCORS=KstYDa0+SRWlVAe26NsUWv/uoI6tGI2sNTrK1lYlVh4gUgMLYKfxv2XohoFwAsi8LNgsyy8wkx8s1y6dZQMZ4T9jVDdHRZJCn9ROmaS9bQaJJi+qiOUS5y+ExpTE3fK7xpKS1+bXMj3eYxve+hB6gMJZNz5Q8u13IexWSIN5Yqnu;
-        Expires=Fri, 13 Aug 2021 02:09:46 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=cWBdR6ITfz736ovxueDVeIJXkQH5AzUYORMTnGYeL9ywOwlvRa7Qx3q0hCUzcLkxECJgesaYqQZmkuxYWnuw+xKrQst2Orh/Rdx3xobrt1kVQi86GLLuxZT7gz65;
-        Expires=Fri, 13 Aug 2021 02:09:46 GMT; Path=/
-      - AWSALBCORS=cWBdR6ITfz736ovxueDVeIJXkQH5AzUYORMTnGYeL9ywOwlvRa7Qx3q0hCUzcLkxECJgesaYqQZmkuxYWnuw+xKrQst2Orh/Rdx3xobrt1kVQi86GLLuxZT7gz65;
-        Expires=Fri, 13 Aug 2021 02:09:46 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=R1YxvA3otMN+j4qwen08oOCbTWUox+tSvjceewp6kPp1hkbRaTFxi3XfZaefxcCc0XYOxT1AyqK6HLACbMaryVU8oACAuBQg8DQILmScm5npfAfatM5L2+4ub6+0+o+DHksmIcSx7sdI5SKSHsDWi8LipMf+s7yjccm1Err88zRq;
+        Expires=Wed, 25 Aug 2021 05:39:57 GMT; Path=/
+      - AWSALBTGCORS=R1YxvA3otMN+j4qwen08oOCbTWUox+tSvjceewp6kPp1hkbRaTFxi3XfZaefxcCc0XYOxT1AyqK6HLACbMaryVU8oACAuBQg8DQILmScm5npfAfatM5L2+4ub6+0+o+DHksmIcSx7sdI5SKSHsDWi8LipMf+s7yjccm1Err88zRq;
+        Expires=Wed, 25 Aug 2021 05:39:57 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=8kfCf7ETF+vnldirgjTNmhBNs6mfWShBG1allPTYMRnSSs7v7Kmoj2o50INPjww61gu7/NF/Tg52BLJYnol4FFK0GKhUfEoFDO9BQb74WLwf9RZZiGTFy5WvtSBl;
+        Expires=Wed, 25 Aug 2021 05:39:57 GMT; Path=/
+      - AWSALBCORS=8kfCf7ETF+vnldirgjTNmhBNs6mfWShBG1allPTYMRnSSs7v7Kmoj2o50INPjww61gu7/NF/Tg52BLJYnol4FFK0GKhUfEoFDO9BQb74WLwf9RZZiGTFy5WvtSBl;
+        Expires=Wed, 25 Aug 2021 05:39:57 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
@@ -5969,7 +5961,7 @@ http_interactions:
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody"},{"name":"year","jsonName":"year","dwcTerm":"year","downloadName":"year","dataType":"int","classs":"Event","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"description":"Year","downloadDescription":"Year","info":"The
         year in which an occurrence was observed. http://rs.tdwg.org/dwc/terms/year","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/year"},{"name":"zone","downloadName":"zone","dataType":"string","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset"}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -5987,12 +5979,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.21.1
-      date: Fri, 06 Aug 2021 02:09:46 GMT
+      date: Wed, 18 Aug 2021 05:39:57 GMT
       content-type: application/json
       content-length: '358'
-      connection: keep-alive
       vary: Accept-Encoding
       content-encoding: gzip
       strict-transport-security: max-age=31536000
@@ -6004,7 +5995,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"success":true,"scientificName":"MAMMALIA","taxonConceptID":"urn:lsid:biodiversity.org.au:afd.taxon:e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","rank":"class","rankID":3000,"lft":201763,"rgt":203781,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Animalia","kingdomID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"urn:lsid:biodiversity.org.au:afd.taxon:e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","vernacularName":"Mammals","speciesGroup":["Animals","Mammals"],"issues":["noIssue"]}'
-  recorded_at: 2021-08-06 02:09:52 GMT
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -6026,25 +6017,23 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:46 GMT
+      date: Wed, 18 Aug 2021 05:39:57 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=uAeNkB2EI6rccMYsgpDcmrDn4MpgFpoHG3+Oe183jLYMf3nxVqWPRVl8a0LB48Wp4IOZIC2QtFd6wy4MGfaYiFP8FdVotBog2BbR0x7WgTg+Cqi6nTFmDFSCtl9NMN4BpC4SdD8otA+hCJfYit0v0qQP/5YuIvlk2VbPMrEVlO3o;
-        Expires=Fri, 13 Aug 2021 02:09:46 GMT; Path=/
-      - AWSALBTGCORS=uAeNkB2EI6rccMYsgpDcmrDn4MpgFpoHG3+Oe183jLYMf3nxVqWPRVl8a0LB48Wp4IOZIC2QtFd6wy4MGfaYiFP8FdVotBog2BbR0x7WgTg+Cqi6nTFmDFSCtl9NMN4BpC4SdD8otA+hCJfYit0v0qQP/5YuIvlk2VbPMrEVlO3o;
-        Expires=Fri, 13 Aug 2021 02:09:46 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=jCs5MwCWxlP5siwwxYgc55hFT5tQYij3yTJN1jnlZz4fuILfBoxUVWlue2Z1dWwuXWrttR64SYix2mOvWw8WGpc8Ab0cer5qNLuqa2NeBsmSM4hJ5AB7qggC2pYG;
-        Expires=Fri, 13 Aug 2021 02:09:46 GMT; Path=/
-      - AWSALBCORS=jCs5MwCWxlP5siwwxYgc55hFT5tQYij3yTJN1jnlZz4fuILfBoxUVWlue2Z1dWwuXWrttR64SYix2mOvWw8WGpc8Ab0cer5qNLuqa2NeBsmSM4hJ5AB7qggC2pYG;
-        Expires=Fri, 13 Aug 2021 02:09:46 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=dpMmo6DHcMrnC7i2dbgmPQGa1Z1kPHbnkp4aJ8D9lPUa4UttejJXmTYDA5jgMeNEG0L2qRtxvrm+9nAaV36Bb1CU6NY6QAdKms5Mzeifn0cOgu0hr3r7sXJ10q74Cu8yeei1U84RTLOzKSYY2qO++LV0egGaOX4F+sw7FZ7FlnxT;
+        Expires=Wed, 25 Aug 2021 05:39:57 GMT; Path=/
+      - AWSALBTGCORS=dpMmo6DHcMrnC7i2dbgmPQGa1Z1kPHbnkp4aJ8D9lPUa4UttejJXmTYDA5jgMeNEG0L2qRtxvrm+9nAaV36Bb1CU6NY6QAdKms5Mzeifn0cOgu0hr3r7sXJ10q74Cu8yeei1U84RTLOzKSYY2qO++LV0egGaOX4F+sw7FZ7FlnxT;
+        Expires=Wed, 25 Aug 2021 05:39:57 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=mjhKRLXCx9+kmXNDIHPEBsPWiMp9y6xRAbYuvD5OZtzEPodOr5OQnkBI7SdM6Eo6bh4HKzLVcBooaKCY+zvze4O3IVldYPi1cNw4kk+3jQQpn2fm8RozAjumlifY;
+        Expires=Wed, 25 Aug 2021 05:39:57 GMT; Path=/
+      - AWSALBCORS=mjhKRLXCx9+kmXNDIHPEBsPWiMp9y6xRAbYuvD5OZtzEPodOr5OQnkBI7SdM6Eo6bh4HKzLVcBooaKCY+zvze4O3IVldYPi1cNw4kk+3jQQpn2fm8RozAjumlifY;
+        Expires=Wed, 25 Aug 2021 05:39:57 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
@@ -6850,7 +6839,7 @@ http_interactions:
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody"},{"name":"year","jsonName":"year","dwcTerm":"year","downloadName":"year","dataType":"int","classs":"Event","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"description":"Year","downloadDescription":"Year","info":"The
         year in which an occurrence was observed. http://rs.tdwg.org/dwc/terms/year","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/year"},{"name":"zone","downloadName":"zone","dataType":"string","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset"}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -6870,7 +6859,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.21.0
-      date: Fri, 06 Aug 2021 02:09:49 GMT
+      date: Wed, 18 Aug 2021 05:40:02 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -10824,7 +10813,7 @@ http_interactions:
         month evaporation (mm) - future climate scenario for 2030 A1B emissions CSIRO
         Mk3.5 GCM medium climatic sensitivity - OZCLIM + ANUCLIMv5.1\",\"licence_level\":\"1\",\"source\":\"CSIRO
         Ecosystem Sciences\"}]"
-  recorded_at: 2021-08-06 02:09:52 GMT
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -10846,25 +10835,23 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:50 GMT
+      date: Wed, 18 Aug 2021 05:40:03 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=OWgsrcjycO42bQTO8hnSdtqXoWQII4/Pbp1Pn+W5GLVJyB8hehk40rB97WrZdFwsx3r/OcUPkcLo6DiUyCt6/bOheW00gHlSL0GRgdvJtSS5tRBfBDjaf+bgp3bkkJBbKR3XI7s6+e58V3BCHyMqWKBNwU93tLTe8DT0p5SMpHjQ;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBTGCORS=OWgsrcjycO42bQTO8hnSdtqXoWQII4/Pbp1Pn+W5GLVJyB8hehk40rB97WrZdFwsx3r/OcUPkcLo6DiUyCt6/bOheW00gHlSL0GRgdvJtSS5tRBfBDjaf+bgp3bkkJBbKR3XI7s6+e58V3BCHyMqWKBNwU93tLTe8DT0p5SMpHjQ;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=pBnPn5QdQkrh2vxEHoaWCCRcuO8DoHK+Wnca6a8fLRYx36o3atEE0ifcoRw75qQ0/EBzyWgendltsURjLkx+FCq/myfixC5D6OqIpGCO17VQ+pOQ0YXFJiIyoeje;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBCORS=pBnPn5QdQkrh2vxEHoaWCCRcuO8DoHK+Wnca6a8fLRYx36o3atEE0ifcoRw75qQ0/EBzyWgendltsURjLkx+FCq/myfixC5D6OqIpGCO17VQ+pOQ0YXFJiIyoeje;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=U/kdbPwyF31NTAPckYHHJUcFdtBVg//J1o0UblEgZg29nPA2ieBqvZ8rsuoP1Qd8GAisyuaZvWlLk4g0yyB7Qx1PYzuCdqoYVYYfq2xsKV4U2CLpZTGgYH3pV/mVp2lJ3Ygk3VhTS9X+8lYhRIDAoYNZIjQiIAHIcPfU1HcGIoeQ;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/
+      - AWSALBTGCORS=U/kdbPwyF31NTAPckYHHJUcFdtBVg//J1o0UblEgZg29nPA2ieBqvZ8rsuoP1Qd8GAisyuaZvWlLk4g0yyB7Qx1PYzuCdqoYVYYfq2xsKV4U2CLpZTGgYH3pV/mVp2lJ3Ygk3VhTS9X+8lYhRIDAoYNZIjQiIAHIcPfU1HcGIoeQ;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=jogiymOroywVroZDOUPvWUMUoStTIqX/qcX+Oj3O74X5dXV4hyMr8prXgMbyMM4HiWCm5YqmNHZrlUHyhkyMlhIUx/HmXKhaZOrPwR1e9KGwPQo/XoKXe8AaGRKf;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/
+      - AWSALBCORS=jogiymOroywVroZDOUPvWUMUoStTIqX/qcX+Oj3O74X5dXV4hyMr8prXgMbyMM4HiWCm5YqmNHZrlUHyhkyMlhIUx/HmXKhaZOrPwR1e9KGwPQo/XoKXe8AaGRKf;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
@@ -10977,7 +10964,7 @@ http_interactions:
         collection code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"UNRECOGNISED_INSTITUTION_CODE","code":1040,"description":"Unrecognized
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
         coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","decimalLongitude","verbatimLongitude","decimalLatitude"]}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -10999,25 +10986,23 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:50 GMT
+      date: Wed, 18 Aug 2021 05:40:03 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=t6zd3a1/BStrZeRSfrEHRne44626Y3XJXZrXdGQ2vA5lYdquRML9rsFrm714nEDjWr5d3YwFJYDTQJCiyFbpb1PU1PoQNTFoJigsaceNBkLX/X8jWKu6NB8bqQ22XE+pESY3RPMqeJRaye3ZFhSlT0QyiO6mRTut52u4IsOO7EyE;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBTGCORS=t6zd3a1/BStrZeRSfrEHRne44626Y3XJXZrXdGQ2vA5lYdquRML9rsFrm714nEDjWr5d3YwFJYDTQJCiyFbpb1PU1PoQNTFoJigsaceNBkLX/X8jWKu6NB8bqQ22XE+pESY3RPMqeJRaye3ZFhSlT0QyiO6mRTut52u4IsOO7EyE;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=fjV0mfYO5lK0oxb1SF4wsugNmP/51wqeeMXjKnfP20F02egFgPP+5mIeSw3jII3ILx8vZTFKaop2PEZ1wbuOYi+9KmnrUiOjGHMBgbDRn+FmDwqTLMRg6lRlr+D4;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBCORS=fjV0mfYO5lK0oxb1SF4wsugNmP/51wqeeMXjKnfP20F02egFgPP+5mIeSw3jII3ILx8vZTFKaop2PEZ1wbuOYi+9KmnrUiOjGHMBgbDRn+FmDwqTLMRg6lRlr+D4;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=uFIplkXpUjBBy6A+Q+efojDyYhJs//ExsfVtJg53ouPDE8yv9hEUnOYw+Az4GCD7N3ze58q+WR+Tf6jpTkz0Dflyby7ljMAtBlnNNYSxAbXzQtsW/u3WGE0B81s9k4y+yIQMFXB62MbK7LewbGsNbzfZTb8+rXfIcC0Fh2RGN0bk;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/
+      - AWSALBTGCORS=uFIplkXpUjBBy6A+Q+efojDyYhJs//ExsfVtJg53ouPDE8yv9hEUnOYw+Az4GCD7N3ze58q+WR+Tf6jpTkz0Dflyby7ljMAtBlnNNYSxAbXzQtsW/u3WGE0B81s9k4y+yIQMFXB62MbK7LewbGsNbzfZTb8+rXfIcC0Fh2RGN0bk;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=CvU8Uq2AHmeyyEvSaOu6oIuxoAiy4gaRtu1KkENP8BmdXlAS27kl5NuMp4/ilrF+IGOHh54pNkTLpzelCYOQFgKKWe1dQSR7c0sXmB9jKUTVkDhoBiMVVuDgznm6;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/
+      - AWSALBCORS=CvU8Uq2AHmeyyEvSaOu6oIuxoAiy4gaRtu1KkENP8BmdXlAS27kl5NuMp4/ilrF+IGOHh54pNkTLpzelCYOQFgKKWe1dQSR7c0sXmB9jKUTVkDhoBiMVVuDgznm6;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
@@ -11823,7 +11808,7 @@ http_interactions:
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody"},{"name":"year","jsonName":"year","dwcTerm":"year","downloadName":"year","dataType":"int","classs":"Event","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"description":"Year","downloadDescription":"Year","info":"The
         year in which an occurrence was observed. http://rs.tdwg.org/dwc/terms/year","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/year"},{"name":"zone","downloadName":"zone","dataType":"string","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset"}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -11845,31 +11830,29 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:50 GMT
+      date: Wed, 18 Aug 2021 05:40:03 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=rifOyaVJnH73rT07CVHxeprgL6BijB75GA8OfyYgsOv07BltgvP+kgp6DZ8LViqajzWqWw3Yq1qMjQbOYh8FryWOLypwF3PbJoWRJKybJKRsH8IBHpjhxb2vZczFtKOyz6/1M08SfG33bcznhLr6qc/8b8LAuhZfStpjAyH4RmLT;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBTGCORS=rifOyaVJnH73rT07CVHxeprgL6BijB75GA8OfyYgsOv07BltgvP+kgp6DZ8LViqajzWqWw3Yq1qMjQbOYh8FryWOLypwF3PbJoWRJKybJKRsH8IBHpjhxb2vZczFtKOyz6/1M08SfG33bcznhLr6qc/8b8LAuhZfStpjAyH4RmLT;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=LbYrKpQtHJ+DSqJ7i0bOZPurto0JbiDlXWKNPDxsejCJqgTb2Fx6NKQpBRvRSmiHLtEJ2zhvVWR1JjuS69EoM37m65c3AxpRo24pBQlB8eOjtaNpYlOJuYg/3n9e;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBCORS=LbYrKpQtHJ+DSqJ7i0bOZPurto0JbiDlXWKNPDxsejCJqgTb2Fx6NKQpBRvRSmiHLtEJ2zhvVWR1JjuS69EoM37m65c3AxpRo24pBQlB8eOjtaNpYlOJuYg/3n9e;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=KvksYRqMYQScfJTWfupnoqV+PJtaiP1nsfcVbIcjGOtfGtfVfbZm3hPIKO1HHLkATxCDon/trV3z5SvXbeq8WTOwbQGADNeSBo8FlKzq6WnIlT9KpCFzBsjDa3qX0Y9UYfhQn9Iqu90WxXWjz0jt4WWWowuRZUP9sxxJQ2JGD+kt;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/
+      - AWSALBTGCORS=KvksYRqMYQScfJTWfupnoqV+PJtaiP1nsfcVbIcjGOtfGtfVfbZm3hPIKO1HHLkATxCDon/trV3z5SvXbeq8WTOwbQGADNeSBo8FlKzq6WnIlT9KpCFzBsjDa3qX0Y9UYfhQn9Iqu90WxXWjz0jt4WWWowuRZUP9sxxJQ2JGD+kt;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=ITtvuZeSLwYV33FjSJZ08vzS2Bdd/bQOAJVmP2kXMTprROBDZOc6EZn+2yFFCkwThkABKjrQ5NTE9OgtIoeCmDGuOC7xMhlGe4T+KjfmjFfQcgo8CW0nigeBUcgi;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/
+      - AWSALBCORS=ITtvuZeSLwYV33FjSJZ08vzS2Bdd/bQOAJVmP2kXMTprROBDZOc6EZn+2yFFCkwThkABKjrQ5NTE9OgtIoeCmDGuOC7xMhlGe4T+KjfmjFfQcgo8CW0nigeBUcgi;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"month","fieldResult":[{"label":"March","i18nCode":"month.3","count":20392,"fq":"month:\"3\""}],"count":12}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+      string: '[{"fieldName":"month","fieldResult":[{"label":"March","i18nCode":"month.3","count":20393,"fq":"month:\"3\""}],"count":12}]'
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -11891,31 +11874,29 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:50 GMT
+      date: Wed, 18 Aug 2021 05:40:03 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=Wnle1mw/mLQNuUof687gMTPIFq+l6Wiitw0VFE33iJIfNYW4+N3Mr3IQ9SnJmfyDrK5xWiEZYhgwrnpeMoekhHzEfHLlN2n6c+uttFFqOtoTV4iF1prQbB8HT8bW3VOrDyeulIkQio1BMEu2wn66rybPRBfnK2zBg2o6df8Rv1/i;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBTGCORS=Wnle1mw/mLQNuUof687gMTPIFq+l6Wiitw0VFE33iJIfNYW4+N3Mr3IQ9SnJmfyDrK5xWiEZYhgwrnpeMoekhHzEfHLlN2n6c+uttFFqOtoTV4iF1prQbB8HT8bW3VOrDyeulIkQio1BMEu2wn66rybPRBfnK2zBg2o6df8Rv1/i;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=5QZQVQDzlyfWLWjYjPoVz3Ec5cJLKklQLdyHbjHgjbxaXs+1BK4KAPP6Dfxv/blKcv8gAM9rskWVJMGVZVjv65xeGCWLdtHy24ayctFRM5bRSOGakdUV8YhyZxij;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBCORS=5QZQVQDzlyfWLWjYjPoVz3Ec5cJLKklQLdyHbjHgjbxaXs+1BK4KAPP6Dfxv/blKcv8gAM9rskWVJMGVZVjv65xeGCWLdtHy24ayctFRM5bRSOGakdUV8YhyZxij;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=b1twkzc/y+OiTb6ktebUqo2jRs5LxzhNCJPtKBa8Iqbn4hq+omz5lRh3OxuARiBgsZjI/GU8mF/QRA6Rmw3QNab5FBx3mv26As9bhqR+LeavmORL78JNc2mZRuuUQ9c0BL4xjyJQL+xMR/IDGLvbVMvA3Lsk1Ke5QOK8/J9HC27h;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/
+      - AWSALBTGCORS=b1twkzc/y+OiTb6ktebUqo2jRs5LxzhNCJPtKBa8Iqbn4hq+omz5lRh3OxuARiBgsZjI/GU8mF/QRA6Rmw3QNab5FBx3mv26As9bhqR+LeavmORL78JNc2mZRuuUQ9c0BL4xjyJQL+xMR/IDGLvbVMvA3Lsk1Ke5QOK8/J9HC27h;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=EcQ8m5J21k0VvdGRqiLFsgVhHAOumxCsrCbNQZK+587iS14vsGGsvdUqW27UWohy+dmo3tWCbyZgdf3s0kS/XLlr1fljGluXXFEjw+cNY0QtLDChPWXIHueZ8IQS;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/
+      - AWSALBCORS=EcQ8m5J21k0VvdGRqiLFsgVhHAOumxCsrCbNQZK+587iS14vsGGsvdUqW27UWohy+dmo3tWCbyZgdf3s0kS/XLlr1fljGluXXFEjw+cNY0QtLDChPWXIHueZ8IQS;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"month","fieldResult":[{"label":"March","i18nCode":"month.3","count":20392,"fq":"month:\"3\""},{"label":"January","i18nCode":"month.1","count":14286,"fq":"month:\"1\""},{"label":"April","i18nCode":"month.4","count":13001,"fq":"month:\"4\""},{"label":"February","i18nCode":"month.2","count":12589,"fq":"month:\"2\""},{"label":"May","i18nCode":"month.5","count":10999,"fq":"month:\"5\""},{"label":"June","i18nCode":"month.6","count":5777,"fq":"month:\"6\""},{"label":"September","i18nCode":"month.9","count":5644,"fq":"month:\"9\""},{"label":"July","i18nCode":"month.7","count":5296,"fq":"month:\"7\""},{"label":"August","i18nCode":"month.8","count":4518,"fq":"month:\"8\""},{"label":"October","i18nCode":"month.10","count":2761,"fq":"month:\"10\""},{"label":"November","i18nCode":"month.11","count":2562,"fq":"month:\"11\""},{"label":"December","i18nCode":"month.12","count":1610,"fq":"month:\"12\""}],"count":12}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+      string: '[{"fieldName":"month","fieldResult":[{"label":"March","i18nCode":"month.3","count":20393,"fq":"month:\"3\""},{"label":"January","i18nCode":"month.1","count":14309,"fq":"month:\"1\""},{"label":"April","i18nCode":"month.4","count":13007,"fq":"month:\"4\""},{"label":"February","i18nCode":"month.2","count":12591,"fq":"month:\"2\""},{"label":"May","i18nCode":"month.5","count":11021,"fq":"month:\"5\""},{"label":"June","i18nCode":"month.6","count":5785,"fq":"month:\"6\""},{"label":"September","i18nCode":"month.9","count":5682,"fq":"month:\"9\""},{"label":"July","i18nCode":"month.7","count":5302,"fq":"month:\"7\""},{"label":"August","i18nCode":"month.8","count":4564,"fq":"month:\"8\""},{"label":"October","i18nCode":"month.10","count":3029,"fq":"month:\"10\""},{"label":"November","i18nCode":"month.11","count":3014,"fq":"month:\"11\""},{"label":"December","i18nCode":"month.12","count":1907,"fq":"month:\"12\""}],"count":12}]'
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -11937,31 +11918,29 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:50 GMT
+      date: Wed, 18 Aug 2021 05:40:03 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=hQxHb3mpqrkiLdP6BimE829Y56pxTgJ1QF1nvCp8loujs/3mCNgyzYNNx+1pbqoaWRyhbSH+SatDOR27BOdUJrxE24AxSJdnDdWvir71qPCWVbi/aEvGyhpqAzJEs8VFGjwJICJQP20lPEUTbC5fRXt34UNXfscdtF1vMquwiNXU;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBTGCORS=hQxHb3mpqrkiLdP6BimE829Y56pxTgJ1QF1nvCp8loujs/3mCNgyzYNNx+1pbqoaWRyhbSH+SatDOR27BOdUJrxE24AxSJdnDdWvir71qPCWVbi/aEvGyhpqAzJEs8VFGjwJICJQP20lPEUTbC5fRXt34UNXfscdtF1vMquwiNXU;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=zZ2SCukA+jDx4he8dMRLuoMRFxKi++bD1HlUErvK63o/7w9ixjR1e/lcfh1TMNAZgV+A6+k3T6MZ7B1JDVzKkxTHAA9n0EZPNAsP5448hqVmDNyHV7VXRv0MLsKg;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBCORS=zZ2SCukA+jDx4he8dMRLuoMRFxKi++bD1HlUErvK63o/7w9ixjR1e/lcfh1TMNAZgV+A6+k3T6MZ7B1JDVzKkxTHAA9n0EZPNAsP5448hqVmDNyHV7VXRv0MLsKg;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=7SblYcZpIw+7QoCuXp/DzjcLuo3ItuzKeSYqlJtJSHpUO2BiDd+T7KSl2mv2+2RO9EAZn4MMUNigON3J2X8T4ZrRBiHOs4jiUsmJuqjcDQXFoyR+DfEQkfY2vfNNCwDGxfoNvWmPf1nvx/CMtWFZUZ5bRV7NlHMAVssXORsqm3sq;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/
+      - AWSALBTGCORS=7SblYcZpIw+7QoCuXp/DzjcLuo3ItuzKeSYqlJtJSHpUO2BiDd+T7KSl2mv2+2RO9EAZn4MMUNigON3J2X8T4ZrRBiHOs4jiUsmJuqjcDQXFoyR+DfEQkfY2vfNNCwDGxfoNvWmPf1nvx/CMtWFZUZ5bRV7NlHMAVssXORsqm3sq;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=NYhnrpZK5Fu+N3Ekn6BB9VZnLQqccw1MJpFw59N7Q+N4rCB4qlihv923ZDPeULsAQI/7glz7qnu7Yur2TbjsV2Fxxss6Q8BWssbvqCQi2ig2TSIIWOVfkF/+yBam;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/
+      - AWSALBCORS=NYhnrpZK5Fu+N3Ekn6BB9VZnLQqccw1MJpFw59N7Q+N4rCB4qlihv923ZDPeULsAQI/7glz7qnu7Yur2TbjsV2Fxxss6Q8BWssbvqCQi2ig2TSIIWOVfkF/+yBam;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:7065d246-3017-4768-9c8f-8c58c0e538c1","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:7065d246-3017-4768-9c8f-8c58c0e538c1","count":3749,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:7065d246-3017-4768-9c8f-8c58c0e538c1\""}],"count":122}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -11983,31 +11962,29 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:50 GMT
+      date: Wed, 18 Aug 2021 05:40:04 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=lI8sopWrlW846Cz2vaDYM6Nffj1SHckct8UPlfd+0B/jV5ObvkH6vXHkjeI7I78QWqoG4C8wvITG2hVHj6IkHvTv207DmoBPM+tj5OImJ12HBAXs4LTvd/2mdGRNfi/rWMZyOM8r1i1Q3X5WdvIDpZgeJewmb5/7pWirAJkJ1jKe;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBTGCORS=lI8sopWrlW846Cz2vaDYM6Nffj1SHckct8UPlfd+0B/jV5ObvkH6vXHkjeI7I78QWqoG4C8wvITG2hVHj6IkHvTv207DmoBPM+tj5OImJ12HBAXs4LTvd/2mdGRNfi/rWMZyOM8r1i1Q3X5WdvIDpZgeJewmb5/7pWirAJkJ1jKe;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=UZI0H499yLWVFO9f/jGV8oC8tfcZxGgea5U0zlp3MBcRE+sB3OaDQPqysdGmgHHyfIf+TegvcZBafnMAtRWNg2Skq0TkKr8uXWpzAVQUuhg94ICQBSZjiTaaHsBJ;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBCORS=UZI0H499yLWVFO9f/jGV8oC8tfcZxGgea5U0zlp3MBcRE+sB3OaDQPqysdGmgHHyfIf+TegvcZBafnMAtRWNg2Skq0TkKr8uXWpzAVQUuhg94ICQBSZjiTaaHsBJ;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=TzaY2yBqA/mieoDQX8CPrPpssRnhhwQI025gZlQgqwVWKKBffHDjR/SK9eaDJg0lfa2WGC+52DyCQLVHl6UaBJlrXT5LQdXJ+dsTZ79spa2a+mR7MdRUgNi9AqixwC1PLL50GNZ+JFfvYQvFFlvYz2CJ6oa+18xB7A+5NaMDxhIM;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/
+      - AWSALBTGCORS=TzaY2yBqA/mieoDQX8CPrPpssRnhhwQI025gZlQgqwVWKKBffHDjR/SK9eaDJg0lfa2WGC+52DyCQLVHl6UaBJlrXT5LQdXJ+dsTZ79spa2a+mR7MdRUgNi9AqixwC1PLL50GNZ+JFfvYQvFFlvYz2CJ6oa+18xB7A+5NaMDxhIM;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=k1kv3KW6AGkI1c8WvfD/fXI24S51FoJDgs/7kZelCfgryuIsM1tsw8NQEyBr+j3QEyQUwZ4DyfM7SckZulrO2lemI0xeeh6cLs2wPJTusracxShREjk4rAlHiwO2;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/
+      - AWSALBCORS=k1kv3KW6AGkI1c8WvfD/fXI24S51FoJDgs/7kZelCfgryuIsM1tsw8NQEyBr+j3QEyQUwZ4DyfM7SckZulrO2lemI0xeeh6cLs2wPJTusracxShREjk4rAlHiwO2;
+        Expires=Wed, 25 Aug 2021 05:40:03 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:7065d246-3017-4768-9c8f-8c58c0e538c1","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:7065d246-3017-4768-9c8f-8c58c0e538c1","count":6658,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:7065d246-3017-4768-9c8f-8c58c0e538c1\""}],"count":127}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:7065d246-3017-4768-9c8f-8c58c0e538c1","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:7065d246-3017-4768-9c8f-8c58c0e538c1","count":6658,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:7065d246-3017-4768-9c8f-8c58c0e538c1\""}],"count":128}]'
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -12029,31 +12006,29 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:51 GMT
+      date: Wed, 18 Aug 2021 05:40:04 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=z3ZMo1v6/0Ym7M5mLddtbrOeeqfwG0FFvmg7BCM075vWQkOr9jFqq9g+Z9P1jSa7fA3R3U9p0k4K1+HKCDhfrFjy4j6DLfZpN3BDRSL2zCLb3F4ialM4X4bJIQtOf96yX8k8SyXLiI5amICpbArdxp4Xop2riZEvlXnQJIf7LYoK;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBTGCORS=z3ZMo1v6/0Ym7M5mLddtbrOeeqfwG0FFvmg7BCM075vWQkOr9jFqq9g+Z9P1jSa7fA3R3U9p0k4K1+HKCDhfrFjy4j6DLfZpN3BDRSL2zCLb3F4ialM4X4bJIQtOf96yX8k8SyXLiI5amICpbArdxp4Xop2riZEvlXnQJIf7LYoK;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=WkOoE5Tzn3+Twf98vYtrO96doaIkaUxXo4PL9l/4Vz6HNuw1xDXQsoGGEkiCHA34tPQbvwByMr0nXlBKjhr56ZRlEmJzHdst2fQiXXv7F3MFeizF0+99bwHt1JjP;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/
-      - AWSALBCORS=WkOoE5Tzn3+Twf98vYtrO96doaIkaUxXo4PL9l/4Vz6HNuw1xDXQsoGGEkiCHA34tPQbvwByMr0nXlBKjhr56ZRlEmJzHdst2fQiXXv7F3MFeizF0+99bwHt1JjP;
-        Expires=Fri, 13 Aug 2021 02:09:50 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=pmbIBZRAg6cykFdeeAjqYoIh3x09aSSbYm1W3AWo6lSQm4dGkWIJ+el9sO9BFAx/6th46vSeEf0RwHGkGHlV1Tvgbztfp5x/9fTbBLYGQSzjApY46xd+JxlVUyzWLG48Ekp58YiMuhwk6NEyPadl0ZpqtfBkCX9uOdlsShUKS7tz;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/
+      - AWSALBTGCORS=pmbIBZRAg6cykFdeeAjqYoIh3x09aSSbYm1W3AWo6lSQm4dGkWIJ+el9sO9BFAx/6th46vSeEf0RwHGkGHlV1Tvgbztfp5x/9fTbBLYGQSzjApY46xd+JxlVUyzWLG48Ekp58YiMuhwk6NEyPadl0ZpqtfBkCX9uOdlsShUKS7tz;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=wY/m7HUOyOz99goAJFrcP0tYW02X5GMMyskGV0ruwWsS/y44CsEzPXJVbRMyd7wcfOTqseDJ5AKAIxWB9PR5ak19/UuZFCDjfZmtXge6atqJEn7stF2v/ssLhiph;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/
+      - AWSALBCORS=wY/m7HUOyOz99goAJFrcP0tYW02X5GMMyskGV0ruwWsS/y44CsEzPXJVbRMyd7wcfOTqseDJ5AKAIxWB9PR5ak19/UuZFCDjfZmtXge6atqJEn7stF2v/ssLhiph;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","count":2700,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":123}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","count":2700,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":124}]'
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -12075,31 +12050,29 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:51 GMT
+      date: Wed, 18 Aug 2021 05:40:04 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=t1KrD7J9rms0g77E29TUxTrChokTlh5Z/G6gRFc2Qjd5yPPQ7LOh2JzqaG85dL+PqQ3hEuMmzervJ5Q/ux1yBszW1SNlJPqNpw5yphzS8zCqzlo5XlGlcBT16Hfh7Obsd1SvO3gHNu2dcJtiXqEtoVftjmPexwT+M5OFBAvG151D;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/
-      - AWSALBTGCORS=t1KrD7J9rms0g77E29TUxTrChokTlh5Z/G6gRFc2Qjd5yPPQ7LOh2JzqaG85dL+PqQ3hEuMmzervJ5Q/ux1yBszW1SNlJPqNpw5yphzS8zCqzlo5XlGlcBT16Hfh7Obsd1SvO3gHNu2dcJtiXqEtoVftjmPexwT+M5OFBAvG151D;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=KdHERU+kPamiXqqI6qA3cH3vRlRyD5lg6KVId13yObI5Z65/QQPk2Hmtsz1Z0M4Qp3imJlTAQ/NRudKwrVgRuPcced3TCkrenKGv+fRgPxl8OaLn+cflIRyhcIPN;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/
-      - AWSALBCORS=KdHERU+kPamiXqqI6qA3cH3vRlRyD5lg6KVId13yObI5Z65/QQPk2Hmtsz1Z0M4Qp3imJlTAQ/NRudKwrVgRuPcced3TCkrenKGv+fRgPxl8OaLn+cflIRyhcIPN;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=CQJRdc45h8K+NWLyxPmO9caNpE42j7mbboUShmp+xnk0Sjt5zDGHYNtuINVg68sAGqNJHgG98n2aYEvMoE0a+V4oPf1vCIR5okK/rHhsd4zvCHqZ0qovU2y+hnHqm50X85TNE4wbrTGGOUinGdBHpnKk0avf/4/c2xvgMnsiBYxF;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/
+      - AWSALBTGCORS=CQJRdc45h8K+NWLyxPmO9caNpE42j7mbboUShmp+xnk0Sjt5zDGHYNtuINVg68sAGqNJHgG98n2aYEvMoE0a+V4oPf1vCIR5okK/rHhsd4zvCHqZ0qovU2y+hnHqm50X85TNE4wbrTGGOUinGdBHpnKk0avf/4/c2xvgMnsiBYxF;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=prMKHeTW2ZufNFtOLfR4DwH4EdMWho1rcV+UD8uOVYOV+3+yJZJmrKxTNv3Zcyyt0rNRy5JFhmzsXwwTLKWPlRIGGQIwP8thNVzFshrOZCmfbkZbDmZ9v3jl0mUZ;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/
+      - AWSALBCORS=prMKHeTW2ZufNFtOLfR4DwH4EdMWho1rcV+UD8uOVYOV+3+yJZJmrKxTNv3Zcyyt0rNRy5JFhmzsXwwTLKWPlRIGGQIwP8thNVzFshrOZCmfbkZbDmZ9v3jl0mUZ;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:7065d246-3017-4768-9c8f-8c58c0e538c1","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:7065d246-3017-4768-9c8f-8c58c0e538c1","count":4882,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:7065d246-3017-4768-9c8f-8c58c0e538c1\""}],"count":126}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -12121,31 +12094,29 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:51 GMT
+      date: Wed, 18 Aug 2021 05:40:04 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=x425QdRYiN8S24lZclmF5SQWTalRi453BrT8QgabG7CzVdE3WAb/gmZYn8I1Kdb5Hxyk3A/As7uD0+7WwCsO4ZSHhQdV+93E5BMHhYr09NNlre3xAT5UNQWwV25vPOL7h4AO4fWursVoGy97CL4BQca9Q/C7yrYV+Bzc4kdSC8PT;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/
-      - AWSALBTGCORS=x425QdRYiN8S24lZclmF5SQWTalRi453BrT8QgabG7CzVdE3WAb/gmZYn8I1Kdb5Hxyk3A/As7uD0+7WwCsO4ZSHhQdV+93E5BMHhYr09NNlre3xAT5UNQWwV25vPOL7h4AO4fWursVoGy97CL4BQca9Q/C7yrYV+Bzc4kdSC8PT;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=ryylFFw4ra/QJOwFIwErbMKijdUGhDsi0VdAqU+txBw+mP/3WhYOg4t05uqL77Ejlzhln2Pjtstsouo9aDTdTR+hnolHiircuy5bEx+THF0pQSst9VN5oaNKFPwQ;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/
-      - AWSALBCORS=ryylFFw4ra/QJOwFIwErbMKijdUGhDsi0VdAqU+txBw+mP/3WhYOg4t05uqL77Ejlzhln2Pjtstsouo9aDTdTR+hnolHiircuy5bEx+THF0pQSst9VN5oaNKFPwQ;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=llH/Z2NPNTMImtWs64ka7ZjauH8DhqeJcKeDWtmLjA6iSgQ9TXUrvCARiTqxSlT9cuWci88Ie3xtb9dGdIxAeygosFCAEqjbmxj/G/5lwiaBRSuzESybwYcVcb8fectBo0CcehwA5TsphnevnHgSc6Gfsq2YOVIp1E0FjhMLOYxz;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/
+      - AWSALBTGCORS=llH/Z2NPNTMImtWs64ka7ZjauH8DhqeJcKeDWtmLjA6iSgQ9TXUrvCARiTqxSlT9cuWci88Ie3xtb9dGdIxAeygosFCAEqjbmxj/G/5lwiaBRSuzESybwYcVcb8fectBo0CcehwA5TsphnevnHgSc6Gfsq2YOVIp1E0FjhMLOYxz;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=x+IKwIF4L1tqe8a0kPvfg4XogAfEWEntWANdi4RW+LEc2CECPbz96QRwEMhaQV1wID9Ntzi+AQmRqgnOCy8Mrs8rA9vZlOfY/1KN5TDuJVi3me2Iw13gRiP76U9A;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/
+      - AWSALBCORS=x+IKwIF4L1tqe8a0kPvfg4XogAfEWEntWANdi4RW+LEc2CECPbz96QRwEMhaQV1wID9Ntzi+AQmRqgnOCy8Mrs8rA9vZlOfY/1KN5TDuJVi3me2Iw13gRiP76U9A;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","count":3256,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":113}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","count":3256,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":114}]'
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -12167,31 +12138,29 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:51 GMT
+      date: Wed, 18 Aug 2021 05:40:04 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=yJWmqs+rkVI0jLno0bXwUzUG5dc5JdcvF1CoaqlKBF849u7g4j5MXvMtHt5xRDLwcpXXEI81oH6IP91UO41JskKzA/a9tRCVgLGAOz5obDwYDYE3iquIfzMZY9sTdvDBouXXGAR+D3+ik+5noHSGbwsB1GA4KPpSY4w2R69eJ2LE;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/
-      - AWSALBTGCORS=yJWmqs+rkVI0jLno0bXwUzUG5dc5JdcvF1CoaqlKBF849u7g4j5MXvMtHt5xRDLwcpXXEI81oH6IP91UO41JskKzA/a9tRCVgLGAOz5obDwYDYE3iquIfzMZY9sTdvDBouXXGAR+D3+ik+5noHSGbwsB1GA4KPpSY4w2R69eJ2LE;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=g8GVJYgAggChHHsbdGD0GwPL8TEAMlMuVXUUZpfWAE6+E+dWTsOgIBRSK5+BXY4u54Lkc1NTNZnzdyKWQwFoa0GmBQsInW99Hkiprydv3k7B0YjEVasCL6wV5g+u;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/
-      - AWSALBCORS=g8GVJYgAggChHHsbdGD0GwPL8TEAMlMuVXUUZpfWAE6+E+dWTsOgIBRSK5+BXY4u54Lkc1NTNZnzdyKWQwFoa0GmBQsInW99Hkiprydv3k7B0YjEVasCL6wV5g+u;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=6DOxThUlx0gwptMvIHzUO5frIWjLKmP027lf9vokYHrO1WuWWAg7rIx5IlXK3cKv/8QpNEVsUCK9U1P8XIdIhT7jTPr4wxWgaETUjQDF/3sZe5UQWzX/zRKR0pPPHqqUtz3hC6c7kjO/VyPfXwARnrVzVrUvBA9lajEgE+IGZqkO;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/
+      - AWSALBTGCORS=6DOxThUlx0gwptMvIHzUO5frIWjLKmP027lf9vokYHrO1WuWWAg7rIx5IlXK3cKv/8QpNEVsUCK9U1P8XIdIhT7jTPr4wxWgaETUjQDF/3sZe5UQWzX/zRKR0pPPHqqUtz3hC6c7kjO/VyPfXwARnrVzVrUvBA9lajEgE+IGZqkO;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=RTwfT6i0b53cW0X2sbuUCaGqHQUl6POj/HQeRuQXXVSuanKj041vBWHYMtHHXYB9wgThv3w3GfVjGS1SqP+qsrgM4zRLitQ52tib7v5hQu0WZWD58V/0I1gj9U4u;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/
+      - AWSALBCORS=RTwfT6i0b53cW0X2sbuUCaGqHQUl6POj/HQeRuQXXVSuanKj041vBWHYMtHHXYB9wgThv3w3GfVjGS1SqP+qsrgM4zRLitQ52tib7v5hQu0WZWD58V/0I1gj9U4u;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","count":1465,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":104}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","count":1465,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":105}]'
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -12213,31 +12182,29 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:51 GMT
+      date: Wed, 18 Aug 2021 05:40:05 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=mWY7ULGGLvKrQPQmGdTdadjKF7TEPg7LgRG5mFH2XT5TLqe0o2noU4i+t6/EtaaU8ZqYcW7R6pEzbn5Rf0rUWQzfq+Gb0Tr7Yn3Lv7+z9mD5A81ROjNJJsJuzrXEmCpYHoB2Y3u2QEuyA9l74NqACDPN3BTszVuWCX2ePRXSJEhG;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/
-      - AWSALBTGCORS=mWY7ULGGLvKrQPQmGdTdadjKF7TEPg7LgRG5mFH2XT5TLqe0o2noU4i+t6/EtaaU8ZqYcW7R6pEzbn5Rf0rUWQzfq+Gb0Tr7Yn3Lv7+z9mD5A81ROjNJJsJuzrXEmCpYHoB2Y3u2QEuyA9l74NqACDPN3BTszVuWCX2ePRXSJEhG;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=PTl+Rq6KVr9dmCkqCTmwgH6Hw8//TjEj01dtgi6EzUJOJaybDaYD+XdZHv4tRtzIcFRCxk74S/kFsTOsmxdZ3vbGiid4XXNxA+AVcDmcreOemQjt+/ROev1aZ+fi;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/
-      - AWSALBCORS=PTl+Rq6KVr9dmCkqCTmwgH6Hw8//TjEj01dtgi6EzUJOJaybDaYD+XdZHv4tRtzIcFRCxk74S/kFsTOsmxdZ3vbGiid4XXNxA+AVcDmcreOemQjt+/ROev1aZ+fi;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=7usL4/eoCYUxoI8g3dVcnccHFXa+GftD5vcP4AZjqb1qK7DWc5wBDrJDbIz2npGIN6Q2ys4WTc6SN/y4H4pYX04q1ZGF+7T4gVmeVP+KJHz6cG6j45nDWQe6yc4Qp26ho6t96nt1B+usBR7pXP4vCeq7+LKvMnSSF10IpNP1BNT1;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/
+      - AWSALBTGCORS=7usL4/eoCYUxoI8g3dVcnccHFXa+GftD5vcP4AZjqb1qK7DWc5wBDrJDbIz2npGIN6Q2ys4WTc6SN/y4H4pYX04q1ZGF+7T4gVmeVP+KJHz6cG6j45nDWQe6yc4Qp26ho6t96nt1B+usBR7pXP4vCeq7+LKvMnSSF10IpNP1BNT1;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=rBIsOiEJLUFyTTcgMPUZcH7qRcsCkj1PoZ8t5QqBHg2wzsnhmDKT0bbKL8XXuBOdjrXdT+o4CukNuVPCoM568gqN5pxCyiPhHv7xbmwiiO1ZMY5UDntddU1VAVi6;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/
+      - AWSALBCORS=rBIsOiEJLUFyTTcgMPUZcH7qRcsCkj1PoZ8t5QqBHg2wzsnhmDKT0bbKL8XXuBOdjrXdT+o4CukNuVPCoM568gqN5pxCyiPhHv7xbmwiiO1ZMY5UDntddU1VAVi6;
+        Expires=Wed, 25 Aug 2021 05:40:04 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:b6f829dd-0aef-4422-a3f6-77ff691aa9af","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:b6f829dd-0aef-4422-a3f6-77ff691aa9af","count":574,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:b6f829dd-0aef-4422-a3f6-77ff691aa9af\""}],"count":119}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:b6f829dd-0aef-4422-a3f6-77ff691aa9af","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:b6f829dd-0aef-4422-a3f6-77ff691aa9af","count":574,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:b6f829dd-0aef-4422-a3f6-77ff691aa9af\""}],"count":120}]'
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -12259,31 +12226,29 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:51 GMT
+      date: Wed, 18 Aug 2021 05:40:05 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=52UGRMUBxXSHRVf3I5HIqmsfJf/WtnycFHA0/rbIJAyTvF7zzwYN6l3H0hhufFMPfZegIbXViRla2iEm8OkVkHkOERPa/LI+f0W7ylKFZp5D2qEzSNeNYZQkd4IqteCGwjs+mTTRZrtdDiLDnwdk++99vx4NIdpZSSr9OLPzh5Ta;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/
-      - AWSALBTGCORS=52UGRMUBxXSHRVf3I5HIqmsfJf/WtnycFHA0/rbIJAyTvF7zzwYN6l3H0hhufFMPfZegIbXViRla2iEm8OkVkHkOERPa/LI+f0W7ylKFZp5D2qEzSNeNYZQkd4IqteCGwjs+mTTRZrtdDiLDnwdk++99vx4NIdpZSSr9OLPzh5Ta;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=F4kn4IRff9JoQV+TXtvDn8KuxAe6F/JWBX8IMX559uJ2Ldp3UuYwfjpOFVyGtJ2lvn66/O9UegC0F3n5Q504AZKpBnenwNlgLF9vbmKN8naBAF/d6+qoOtlKVSAC;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/
-      - AWSALBCORS=F4kn4IRff9JoQV+TXtvDn8KuxAe6F/JWBX8IMX559uJ2Ldp3UuYwfjpOFVyGtJ2lvn66/O9UegC0F3n5Q504AZKpBnenwNlgLF9vbmKN8naBAF/d6+qoOtlKVSAC;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=eA4PT4rRszyvCXTCKDdq00NAsKQZP1x0dT+8VPmhRpR2YM0DBLtpeWvv3yptxaDbEZRd4iAJtwNlFkT0ybDFmw3x3dIhES7zkmt3FH2fhnCIunBLpfENKhETeUSepBMt1E2i2lsYL1jjIUl3p49QXu14xkumyx42BhGt9bOKg+DE;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/
+      - AWSALBTGCORS=eA4PT4rRszyvCXTCKDdq00NAsKQZP1x0dT+8VPmhRpR2YM0DBLtpeWvv3yptxaDbEZRd4iAJtwNlFkT0ybDFmw3x3dIhES7zkmt3FH2fhnCIunBLpfENKhETeUSepBMt1E2i2lsYL1jjIUl3p49QXu14xkumyx42BhGt9bOKg+DE;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=H5/TIhBGluDno37b9hxwjqcCCa2+uDmuyhS6fPW7W1O00qRQw5eHdstzmm5XxMNOA2NavXWmGCy5F8DJQpUsLpZba8PhQPUCGD8pFtLac/SAyyrqmJTjVZP4dPu4;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/
+      - AWSALBCORS=H5/TIhBGluDno37b9hxwjqcCCa2+uDmuyhS6fPW7W1O00qRQw5eHdstzmm5XxMNOA2NavXWmGCy5F8DJQpUsLpZba8PhQPUCGD8pFtLac/SAyyrqmJTjVZP4dPu4;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","count":1102,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":116}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -12305,31 +12270,29 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:51 GMT
+      date: Wed, 18 Aug 2021 05:40:05 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=mpNmpfGcGoD5ciIXDnE9GzbFdrDZHL773kNTijl8wSdLHVSbsDydB+yZLb9qk3Rr4lCpFO9SI+XUPxaE8NKyR8OqoPuR9Tu+HnkNerSQboOIlMXjg3EnfggjEAD+8gK8OIGo0F5lzqtmaN7lRDAb7lGkzfL8whcJaYlKthJ8Umrv;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/
-      - AWSALBTGCORS=mpNmpfGcGoD5ciIXDnE9GzbFdrDZHL773kNTijl8wSdLHVSbsDydB+yZLb9qk3Rr4lCpFO9SI+XUPxaE8NKyR8OqoPuR9Tu+HnkNerSQboOIlMXjg3EnfggjEAD+8gK8OIGo0F5lzqtmaN7lRDAb7lGkzfL8whcJaYlKthJ8Umrv;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=J6eK2OY3jh3+mebi/Iibx8EdqBR5nytJ3qW/HAOKpVYBG5kjR7IVbuub1H5nDYO2FuH+kD7jPkSnAdP4x/pRVUEtht+wGoEg8ahKCSLlPbDr0qL8SM7rG/tprGo+;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/
-      - AWSALBCORS=J6eK2OY3jh3+mebi/Iibx8EdqBR5nytJ3qW/HAOKpVYBG5kjR7IVbuub1H5nDYO2FuH+kD7jPkSnAdP4x/pRVUEtht+wGoEg8ahKCSLlPbDr0qL8SM7rG/tprGo+;
-        Expires=Fri, 13 Aug 2021 02:09:51 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=Qg5jM6FHIQsqOp4QTMmRoZ/fyy60xvLf/ixBWW6Ovj7JVk/PQpSlCN2ue1Vb50YNBboXMHIKarg8q+y8nhn7o7HsZ410bqMCmIQvUDWaDfc+mhaRGsvbEF6pyIXPDDFic699bNyyyXHzzbnPBs48KdvPYs5wOBsi4xolKQJJQ/JF;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/
+      - AWSALBTGCORS=Qg5jM6FHIQsqOp4QTMmRoZ/fyy60xvLf/ixBWW6Ovj7JVk/PQpSlCN2ue1Vb50YNBboXMHIKarg8q+y8nhn7o7HsZ410bqMCmIQvUDWaDfc+mhaRGsvbEF6pyIXPDDFic699bNyyyXHzzbnPBs48KdvPYs5wOBsi4xolKQJJQ/JF;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=nyV5clogu8FwatQVjwno4OWvjm3bICHZACMcGniOBtVGJFqqDlLLGN8BG++xMNQ5WGrxvB0r29SCBw8779FZ85a0Zjaq4peQCnBIJDG77uhD1dlcS5+GLT011GKw;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/
+      - AWSALBCORS=nyV5clogu8FwatQVjwno4OWvjm3bICHZACMcGniOBtVGJFqqDlLLGN8BG++xMNQ5WGrxvB0r29SCBw8779FZ85a0Zjaq4peQCnBIJDG77uhD1dlcS5+GLT011GKw;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","count":969,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":115}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f","count":969,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":119}]'
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -12351,31 +12314,29 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:52 GMT
+      date: Wed, 18 Aug 2021 05:40:05 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=H7GRi+dHV0lvDc11LoennUnmT1/Tvy1tprDrMupS1Pdnx6XN6WKA43YfxuJVLKyUGypHsiKhKA14YM5cr/qfi7z16dBhZBb++GDZ2LaumrZgZqFbbsoes6GwNd62b+HsD9lNubvndHFcVxigOC6/ySg/4F8ac7HshkHE9ZCTSvH6;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/
-      - AWSALBTGCORS=H7GRi+dHV0lvDc11LoennUnmT1/Tvy1tprDrMupS1Pdnx6XN6WKA43YfxuJVLKyUGypHsiKhKA14YM5cr/qfi7z16dBhZBb++GDZ2LaumrZgZqFbbsoes6GwNd62b+HsD9lNubvndHFcVxigOC6/ySg/4F8ac7HshkHE9ZCTSvH6;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=Yi46ZX10Rnx8xyjktsRXZtQwCAuWZr5X1J0Ue0kdHQftMsKVhbs3I62ai//jK5gjhvGn/r1huVLIYZXx6UpcEeT1pZW272uFtw5y5btvjIuh7mdiTqeWeoZR/xHH;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/
-      - AWSALBCORS=Yi46ZX10Rnx8xyjktsRXZtQwCAuWZr5X1J0Ue0kdHQftMsKVhbs3I62ai//jK5gjhvGn/r1huVLIYZXx6UpcEeT1pZW272uFtw5y5btvjIuh7mdiTqeWeoZR/xHH;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=Oi6oYp7E06vc0w6q4k+8VN85xvDY6ForqSlIVfebLcuoHWFjQSQPFNk5G4jzwdOBkyLGY9fC8dBmdKl+wKgie4DAiQ9hfJcu/xRZkBdI+lONr6Dz1a0p2bbfLDdtXcmEFT8QWCIRPIcYi46DpuPU1isy80yn/UBEJKkKTG4buFpF;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/
+      - AWSALBTGCORS=Oi6oYp7E06vc0w6q4k+8VN85xvDY6ForqSlIVfebLcuoHWFjQSQPFNk5G4jzwdOBkyLGY9fC8dBmdKl+wKgie4DAiQ9hfJcu/xRZkBdI+lONr6Dz1a0p2bbfLDdtXcmEFT8QWCIRPIcYi46DpuPU1isy80yn/UBEJKkKTG4buFpF;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=EwtN6p1wU5l5AYTVTOV4hMEDALx3o4NZVGlpRAWwuIeXkJsUohnYcZ36ZryNTUze2wyrGnqOvloHH4XDn3gwbGOeNcHH5CTnR7n5QVGDNEpl6uYHT6fmSaFe5gr8;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/
+      - AWSALBCORS=EwtN6p1wU5l5AYTVTOV4hMEDALx3o4NZVGlpRAWwuIeXkJsUohnYcZ36ZryNTUze2wyrGnqOvloHH4XDn3gwbGOeNcHH5CTnR7n5QVGDNEpl6uYHT6fmSaFe5gr8;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6","count":525,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6\""}],"count":111}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6","count":749,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6\""}],"count":114}]'
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -12397,31 +12358,29 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:52 GMT
+      date: Wed, 18 Aug 2021 05:40:05 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=m+SzG2NUMazP0QaiouEzdq0MGf6a2Cd26KBU0Smk1jFKcRbJUlVQ9bVci/Ougst/hdsIz8whqJTrH+q3LAi/dKOXODJrUpUg+ewj0qlzdX8fmardMJLeYCIq3MSGb3QKaqKArY+BKM6WDMXpZQ44hNlhgYIIUSulHEE+2ktIVwxX;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/
-      - AWSALBTGCORS=m+SzG2NUMazP0QaiouEzdq0MGf6a2Cd26KBU0Smk1jFKcRbJUlVQ9bVci/Ougst/hdsIz8whqJTrH+q3LAi/dKOXODJrUpUg+ewj0qlzdX8fmardMJLeYCIq3MSGb3QKaqKArY+BKM6WDMXpZQ44hNlhgYIIUSulHEE+2ktIVwxX;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=Flw1PTzFieqwUjCt+kyivG7tCqP7NmBLeIYQCR43rgtBMJ9oWk1fFwH731jNxtEZQ4TZxExBuJ5Ygjp8WqKsOCyrZm2vjlz2INbNtng6BxxqPpNdldhQKT4PjmFY;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/
-      - AWSALBCORS=Flw1PTzFieqwUjCt+kyivG7tCqP7NmBLeIYQCR43rgtBMJ9oWk1fFwH731jNxtEZQ4TZxExBuJ5Ygjp8WqKsOCyrZm2vjlz2INbNtng6BxxqPpNdldhQKT4PjmFY;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=RXSPTJqmAUMxbukkBeEu4u83cjMpbB/xTInIaz4L+ZwLlRTHuC7grH3MX+ClI1GOoI5yTsYWKsiEvLhIMJHS+7HHc8GUh/lnX5CMzMP3CMR3bgOILeedOy9o8McS7QEzhAjvGckaAGHbXmrc94XkPxdCJZegNm49iNcx3NTJeEN2;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/
+      - AWSALBTGCORS=RXSPTJqmAUMxbukkBeEu4u83cjMpbB/xTInIaz4L+ZwLlRTHuC7grH3MX+ClI1GOoI5yTsYWKsiEvLhIMJHS+7HHc8GUh/lnX5CMzMP3CMR3bgOILeedOy9o8McS7QEzhAjvGckaAGHbXmrc94XkPxdCJZegNm49iNcx3NTJeEN2;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=deIq7wPDNGLc7D+/FF0LJrCl1a+erG0u3DAVjNdJngkpXQQZyLtGFwPcmfjd3MvJdVbHiQdzM9eEp6mSE8UmoZjO35HgrcX4b9wKZkkEbwIspzoLiBhLu/gTsmyJ;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/
+      - AWSALBCORS=deIq7wPDNGLc7D+/FF0LJrCl1a+erG0u3DAVjNdJngkpXQQZyLtGFwPcmfjd3MvJdVbHiQdzM9eEp6mSE8UmoZjO35HgrcX4b9wKZkkEbwIspzoLiBhLu/gTsmyJ;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6","count":388,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6\""}],"count":111}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6","count":685,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6\""}],"count":118}]'
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -12443,29 +12402,27 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:52 GMT
+      date: Wed, 18 Aug 2021 05:40:06 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=iSP1+8kqg/L0FMTXfkuu4fwVADIMen+4IcnKQU8OfwJY72ZEWCgo9umXUbaPXtEJOEhl7JoieYd00MPPE16B1iLAZyB2mJu8cK63gfZ3X5vm+fwvdNnwgmW0hFqefrTwW6r1nfj0mSnsKyCn033Gq48v3v4dJ4TBbHDYLQWpGYHs;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/
-      - AWSALBTGCORS=iSP1+8kqg/L0FMTXfkuu4fwVADIMen+4IcnKQU8OfwJY72ZEWCgo9umXUbaPXtEJOEhl7JoieYd00MPPE16B1iLAZyB2mJu8cK63gfZ3X5vm+fwvdNnwgmW0hFqefrTwW6r1nfj0mSnsKyCn033Gq48v3v4dJ4TBbHDYLQWpGYHs;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=AiRtJ1/rdpv1uGfrWHhrRuEI7DDWf254L0eyTlIZxN8o8y4URgQKOU67cA0Xex1fdvEPo3GgRdZ3QASHItYf+U3ahPE4EtS5kixb93KGpUOPTHwA2VZakfZdRqxq;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/
-      - AWSALBCORS=AiRtJ1/rdpv1uGfrWHhrRuEI7DDWf254L0eyTlIZxN8o8y4URgQKOU67cA0Xex1fdvEPo3GgRdZ3QASHItYf+U3ahPE4EtS5kixb93KGpUOPTHwA2VZakfZdRqxq;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=2xd9QD/99uY/XgjvFNdut74HZgQX/TQckTnBJzBrl75f9VCaIsytnUEmbYKsejH1tVFW8VYcr+zZBeKLamGuSbPsr3vAwjdc/Xv7MlQxX90SjyVWVbUuLogSi5edk4Yds5skvWBBoBnAiIQrzyV/Ekhg62/0ZYPRUxfl+6oI7s59;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/
+      - AWSALBTGCORS=2xd9QD/99uY/XgjvFNdut74HZgQX/TQckTnBJzBrl75f9VCaIsytnUEmbYKsejH1tVFW8VYcr+zZBeKLamGuSbPsr3vAwjdc/Xv7MlQxX90SjyVWVbUuLogSi5edk4Yds5skvWBBoBnAiIQrzyV/Ekhg62/0ZYPRUxfl+6oI7s59;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=drazOwT8/ZYiU5jzViwech3ClsSnfb+voPtkoVhEdgn7aeBT9FcIyU8MAbzkPd82jr6dmRFFK2Z7bhEGW4iYuMBfd7ThGuGtpLKp33Is5mp8jrllV1hzLblI1iUl;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/
+      - AWSALBCORS=drazOwT8/ZYiU5jzViwech3ClsSnfb+voPtkoVhEdgn7aeBT9FcIyU8MAbzkPd82jr6dmRFFK2Z7bhEGW4iYuMBfd7ThGuGtpLKp33Is5mp8jrllV1hzLblI1iUl;
+        Expires=Wed, 25 Aug 2021 05:40:05 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6","count":287,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6\""}],"count":110}]'
-  recorded_at: 2021-08-06 02:09:52 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6","count":452,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:e9d6fbbd-1505-4073-990a-dc66c930dad6\""}],"count":115}]'
+  recorded_at: 2021-08-18 05:40:06 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
