@@ -23,10 +23,3 @@ test_that("ala_taxonomy requires a single taxon", {
     taxa = select_taxa(c("Animalia", "Plantae")),
     down_to = "phylum"))
 })
-
-vcr::use_cassette("ala_taxonomy", {
-  test_that("ala_taxonomy returns a Node", {
-    result <- ala_taxonomy(taxa = select_taxa("Animalia"), down_to = "phylum")
-    expect_s3_class(result, "Node")
-  })
-})
