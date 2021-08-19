@@ -76,16 +76,15 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
   
   # Check whether any of the filters are media-specific filters and
   # filter to records with image/sound/video
-  media_filters <- filters[filters$name %in% search_fields(type = "media")$id,]
+  filters_available <- filters$variable %in% search_fields(type = "media")$id
+  media_filters <- filters[filters_available, ]
   occ_filters <- rbind(
-    filters[!(filters$name %in% search_fields(type = "media")$id),],
-    select_filters(multimedia = c("Image", "Sound", "Video"))
-  )
+    filters[!(filters_available), ],
+    select_filters(multimedia = c("Image", "Sound", "Video")))
   
   # Make sure media ids are included in results
-  occ_columns <- rbind(columns,
-                       select_columns(image_fields())
-                       )
+  occ_columns <- rbind(columns, select_columns(image_fields()))
+
   # add ala_ classes to modified filters and columns
   class(occ_filters) <- append(class(occ_filters), "ala_filters")
   class(occ_columns) <- append(class(occ_columns), "ala_columns")

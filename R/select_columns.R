@@ -74,9 +74,11 @@ validate_cols <- function(cols) {
   invalid_cols <- cols[!is.element(cols,
                                    c(search_fields()$id, all_fields()$name))]
   if (length(invalid_cols) > 0) {
-    message("The following columns may be invalid: ",
-         paste(invalid_cols, collapse = ", "),
-         ". Use `search_fields()` to get a list of valid options")
+    if(!all(invalid_cols %in% image_fields())){ # exception for ala_media
+      message("The following columns may be invalid: ",
+           paste(invalid_cols, collapse = ", "),
+           ". Use `search_fields()` to get a list of valid options")
+    }
   }
 }
 
@@ -87,7 +89,6 @@ preset_cols <- function(type) {
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),
-                 "assertions" = search_fields(type = "assertions")$id
-  )
-  cols
+                 "assertions" = search_fields(type = "assertions")$id)
+  return(cols)
 }

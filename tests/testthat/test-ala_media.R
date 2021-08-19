@@ -14,7 +14,6 @@ test_that("ala media downloads images", {
   media_dir <- "test_media"
   unlink(media_dir, recursive = TRUE)
   dir.create(media_dir)
-  
   media_data <- ala_media(taxa = select_taxa("Microseris lanceolata"),
                           filters = select_filters(year = 2019),
                           download_dir = media_dir)
