@@ -94,7 +94,7 @@ quality-control criteria." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -180,6 +180,7 @@ quality-control criteria.</p>
 
 <p><strong><code>Data</code></strong></p><ul>
 <li><p><code><a href='ala_counts.html'>ala_counts</a></code> Count the number of records or species returned by a query</p></li>
+<li><p><code><a href='ala_taxonomy.html'>ala_taxonomy</a></code> Return a section of the ALA taxonomic tree</p></li>
 <li><p><code><a href='ala_species.html'>ala_species</a></code> Download species lists</p></li>
 <li><p><code><a href='ala_occurrences.html'>ala_occurrences</a></code> Download occurrence records</p></li>
 <li><p><code><a href='ala_media.html'>ala_media</a></code> Download images and sounds</p></li>
@@ -189,12 +190,11 @@ quality-control criteria.</p>
 <li><p><code><a href='select_locations.html'>select_locations</a></code> Specify a location</p></li>
 <li><p><code><a href='select_columns.html'>select_columns</a></code> Columns to return in an occurrence download</p></li>
 </ul><p><strong><code>Lookup</code></strong></p><ul>
-<li><p><code><a href='search_taxonomy.html'>search_taxonomy</a></code> Search for taxonomic hierarchies</p></li>
 <li><p><code><a href='search_fields.html'>search_fields</a></code> Free-text search for layers and fields</p></li>
-<li><p><code><a href='find_ranks.html'>find_ranks</a></code> List available taxonomic ranks</p></li>
 <li><p><code><a href='find_field_values.html'>find_field_values</a></code> List possible values for a given field</p></li>
 <li><p><code><a href='find_profiles.html'>find_profiles</a></code> List data quality profiles</p></li>
 <li><p><code><a href='find_profile_attributes.html'>find_profile_attributes</a></code> List filters included in a data quality profile</p></li>
+<li><p><code><a href='find_ranks.html'>find_ranks</a></code> List available taxonomic ranks</p></li>
 <li><p><code><a href='find_reasons.html'>find_reasons</a></code> List valid download reasons</p></li>
 <li><p><code><a href='find_atlases.html'>find_atlases</a></code> List supported international atlases</p></li>
 </ul><p><strong><code>Cache management</code></strong></p><ul>
@@ -260,7 +260,8 @@ However, it is also possible to download data on species via
 <code><a href='ala_species.html'>ala_species</a>()</code>, or media content (largely images) via
 <code><a href='ala_media.html'>ala_media</a>()</code>. Alternatively, users can assess how many records
 meet their particular criteria using <code><a href='ala_counts.html'>ala_counts</a>()</code>. All 
-functions return a <code>data.frame</code> as their standard format.</p>
+functions return a <code>data.frame</code> as their standard format, except 
+<code><a href='ala_taxonomy.html'>ala_taxonomy</a>()</code> which returns a <code>data.tree</code>.</p>
 <p>Functions in <code>galah</code> are designed
 according to a nested architecture. Users that require data should begin by
 locating the relevant <code>ala_</code> function; the arguments within that
@@ -268,8 +269,8 @@ function then call correspondingly-named <code>select_</code> functions; and
 finally the specific values that can be interpreted by those <code>select_</code>
 functions are given by functions with the prefix <code>search_</code> or
 <code>find_</code>. So, to limit occurrence downloads to a specific taxonomic
-group, for example, you pass the reult of <code><a href='select_taxa.html'>select_taxa</a></code> to the
-<code>taxa</code> argument of <code><a href='ala_occurrences.html'>ala_occurrences</a></code>.</p>
+group, for example, you pass the reult of <code><a href='select_taxa.html'>select_taxa</a>()</code> to the
+<code>taxa</code> argument of <code><a href='ala_occurrences.html'>ala_occurrences</a>()</code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>For more information on the ALA API, visit <a href='https://api.ala.org.au/'>https://api.ala.org.au/</a>.

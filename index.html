@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -106,7 +106,7 @@ galah
 </h2>
 
 <hr>
-<p><code>galah</code> is an R interface to biodiversity data hosted by the <a href="https://www.ala.org.au/">Atlas of Living Australia</a> (ALA). It enables users to locate and download species occurrence records (observations, specimens, eDNA records, etc.), taxonomic information, or associated media such as images or sounds, and to restrict their queries to particular taxa or locations. Users can specify which columns are returned by a query, or restrict their results to occurrences that meet particular data-quality criteria. All functions return a <code>data.frame</code> as their standard format.</p>
+<p><code>galah</code> is an R interface to biodiversity data hosted by the <a href="https://www.ala.org.au/">Atlas of Living Australia</a> (ALA). It enables users to locate and download species occurrence records (observations, specimens, eDNA records, etc.), taxonomic information, or associated media such as images or sounds, and to restrict their queries to particular taxa or locations. Users can specify which columns are returned by a query, or restrict their results to occurrences that meet particular data-quality criteria. All functions return a <code>data.frame</code> as their standard format, except <code>ala_taxonomy</code> which returns tree consisting of <code>Node</code> objects using the <code>data.tree</code> package.</p>
 <p>The ALA is an aggregator of biodiversity data, focussed primarily on observations of individual life forms. Like the Global Biodiversity Information Facility (<a href="https://www.gbif.org">GBIF</a>), the basic unit of data at ALA is an occurrence record, based on the <a href="https://dwc.tdwg.org">‘Darwin Core’</a> data standard.</p>
 <p>The <code>galah</code> package is named for the bird of the same name (<em>Eolophus roseicapilla</em>), a widely-distributed endemic Australian species.</p>
 <p>The <code>galah</code> logo was designed by <a href="http://www.iangbrennan.org/">Ian Brennan</a>.</p>

@@ -22,6 +22,9 @@
     <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_species.html</loc>
   </url>
   <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_taxonomy.html</loc>
+  </url>
+  <url>
     <loc>https://atlasoflivingaustralia.github.io/galah//reference/clear_cached_files.html</loc>
   </url>
   <url>
@@ -56,9 +59,6 @@
   </url>
   <url>
     <loc>https://atlasoflivingaustralia.github.io/galah//reference/search_fields.html</loc>
-  </url>
-  <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/search_taxonomy.html</loc>
   </url>
   <url>
     <loc>https://atlasoflivingaustralia.github.io/galah//reference/select_columns.html</loc>

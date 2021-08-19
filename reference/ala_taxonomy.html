@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Search taxonomic trees — search_taxonomy • galah</title>
+<title>Search taxonomic trees — ala_taxonomy • galah</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,12 +48,11 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Search taxonomic trees — search_taxonomy" />
+<meta property="og:title" content="Search taxonomic trees — ala_taxonomy" />
 <meta property="og:description" content="The ALA has its' own internal taxonomy that is derived from authoritative
-sources. search_taxonomy provides a means to query and visualise 
-that taxonomy, by showing which lower clades are contained within a specified taxon.
-The inverse query - i.e. listing the higher clades to which a taxon belongs
-- is provided by select_taxa()." />
+sources. search_taxonomy provides a means to query 
+that taxonomy, returning a tree (class Node) showing which lower 
+clades are contained within the specified taxon." />
 <meta property="og:image" content="https://atlasoflivingaustralia.github.io/galah/logo.png" />
 
 
@@ -86,7 +85,7 @@ The inverse query - i.e. listing the higher clades to which a taxon belongs
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -144,61 +143,62 @@ The inverse query - i.e. listing the higher clades to which a taxon belongs
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Search taxonomic trees</h1>
-    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/search_taxonomy.R'><code>R/search_taxonomy.R</code></a></small>
-    <div class="hidden name"><code>search_taxonomy.Rd</code></div>
+    <small class="dont-index">Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/R/ala_taxonomy.R'><code>R/ala_taxonomy.R</code></a></small>
+    <div class="hidden name"><code>ala_taxonomy.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>The ALA has its' own internal taxonomy that is derived from authoritative
-sources. <code>search_taxonomy</code> provides a means to query and visualise 
-that taxonomy, by showing which lower clades are contained within a specified taxon.
-The inverse query - i.e. listing the higher clades to which a taxon belongs
-- is provided by <code><a href='select_taxa.html'>select_taxa</a>()</code>.</p>
+sources. <code>search_taxonomy</code> provides a means to query 
+that taxonomy, returning a tree (class <code>Node</code>) showing which lower 
+clades are contained within the specified taxon.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>search_taxonomy</span><span class='op'>(</span><span class='va'>query</span>, down_to <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ala_taxonomy</span><span class='op'>(</span><span class='va'>taxa</span>, <span class='va'>down_to</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>query</th>
-      <td><p><code>string</code>: A vector containing one or more search terms,
-given as strings. Search terms can be scientific or common names, or
-taxonomic identifiers. If greater control is required to disambiguate search
-terms, taxonomic levels can be provided explicitly via a named <code>list</code>
-for a single name. See vignette(taxonomic_information for using search_taxonomy
-for multiple clades)
-Note that searches are not case-sensitive.</p></td>
+      <th>taxa</th>
+      <td><p>The identity of the clade for which a taxonomic
+hierarchy should be returned. Should be specified using an object of class 
+<code>data.frame</code> and <code>ala_id</code>, as returned from
+<code><a href='select_taxa.html'>select_taxa</a>()</code>.</p></td>
     </tr>
     <tr>
       <th>down_to</th>
       <td><p><code>string</code>: A taxonomic rank to search down to. See
-<code><a href='find_ranks.html'>find_ranks</a></code> for valid inputs.</p></td>
+<code><a href='find_ranks.html'>find_ranks</a>()</code> for valid inputs.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>data.frame</code> containing one row per terminal node, and one 
-column for every available intermediate taxonomic level.</p>
+    <p>A tree consisting of objects of class <code>Node</code>, containing the 
+requested taxonomy. Each node contains the following attributes:</p><ul>
+<li><p><code>name</code>: The scientific name of the taxon in question</p></li>
+<li><p><code>rank</code>: The taxonomic rank to which that taxon belongs</p></li>
+<li><p><code>guid</code>: A unique identifier used by the ALA</p></li>
+<li><p><code>authority</code>: The source of the taxonomic name &amp; identifier</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The approach used by this function is recursive, meaning that it  
 becomes slow for large queries such as  
-<code>search_taxonomy("Animalia", down_to = "species")</code>. The resulting 
-<code>data.frame</code> can be passed to <code><a href='select_taxa.html'>select_taxa</a></code> to extract
-unique identifiers for the terminal nodes (rows), which is necessary to use later 
-functions such as <code><a href='ala_counts.html'>ala_counts</a></code> or <code><a href='ala_occurrences.html'>ala_occurrences</a></code>.</p>
+<code>search_taxonomy(select_taxa("Plantae"), down_to = "species")</code>.
+Although the inputs to <code>select_taxa</code> and <code>down_to</code> are 
+case-insensitive, node names are always returned in title case.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='select_taxa.html'>select_taxa</a></code> to search for an individual clade; 
+    <div class='dont-index'><p><code><a href='select_taxa.html'>select_taxa</a></code> to search for an individual taxon; 
 <code><a href='find_ranks.html'>find_ranks</a></code> for valid ranks used to specify the <code>down_to</code>
 argument.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>search_taxonomy</span><span class='op'>(</span><span class='st'>"Animalia"</span>, down_to <span class='op'>=</span> <span class='st'>"class"</span><span class='op'>)</span>
+<span class='fu'>search_taxonomy</span><span class='op'>(</span><span class='fu'><a href='select_taxa.html'>select_taxa</a></span><span class='op'>(</span><span class='st'>"chordata"</span><span class='op'>)</span>, down_to <span class='op'>=</span> <span class='st'>"class"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

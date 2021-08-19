@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">galah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -142,9 +142,33 @@
       <small>Source: <a href='https://github.com/AtlasOfLivingAustralia/galah/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="galah-1-3-1" class="section level1">
+<h1 class="page-header" data-toc-text="1.3.1">
+<a href="#galah-1-3-1" class="anchor"></a>galah 1.3.1<small> Unreleased </small>
+</h1>
+<div id="search_taxonomy-renamed-to-ala_taxonomy" class="section level3">
+<h3 class="hasAnchor">
+<a href="#search_taxonomy-renamed-to-ala_taxonomy" class="anchor"></a><code>search_taxonomy()</code> renamed to <code>ala_taxonomy()</code>
+</h3>
+<ul>
+<li>bug fix: <code>ala_taxonomy</code> no longer fails for nodes ranked as <code>informal</code> or <code>unranked</code> (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/86'>#86</a>)</li>
+<li>this function now returns a tree built using the <code>data.tree</code> package</li>
+<li>change in function name required for greater consistency with other data-providing functions in <code>galah</code>
+</li>
+</ul>
+</div>
+<div id="vignettes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#vignettes" class="anchor"></a>Vignettes</h3>
+<ul>
+<li>vignettes are now pre-compiled to avoid failing on CRAN (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/85'>#85</a>)</li>
+<li>expanded vignette on navigating taxonomic information (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/42'>#42</a>)</li>
+</ul>
+</div>
+</div>
     <div id="galah-1-3-0" class="section level1">
 <h1 class="page-header" data-toc-text="1.3.0">
-<a href="#galah-1-3-0" class="anchor"></a>galah 1.3.0<small> Unreleased </small>
+<a href="#galah-1-3-0" class="anchor"></a>galah 1.3.0<small> 2021-08-06 </small>
 </h1>
 <div id="galah_config" class="section level3">
 <h3 class="hasAnchor">
@@ -161,11 +185,11 @@
 </h3>
 <ul>
 <li>
-<code><a href="../reference/search_taxonomy.html">search_taxonomy()</a></code> provides a means to search for taxonomic names and check the results are ‘correct’ before proceeding to download data via <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code>, <code><a href="../reference/ala_species.html">ala_species()</a></code> or <code><a href="../reference/ala_counts.html">ala_counts()</a></code> (e.g., not ambiguous or homonymous) (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/64'>#64</a> <a href='https://github.com/AtlasOfLivingAustralia/galah/issues/75'>#75</a>)</li>
+<code>search_taxonomy()</code> provides a means to search for taxonomic names and check the results are ‘correct’ before proceeding to download data via <code><a href="../reference/ala_occurrences.html">ala_occurrences()</a></code>, <code><a href="../reference/ala_species.html">ala_species()</a></code> or <code><a href="../reference/ala_counts.html">ala_counts()</a></code> (e.g., not ambiguous or homonymous) (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/64'>#64</a> <a href='https://github.com/AtlasOfLivingAustralia/galah/issues/75'>#75</a>)</li>
 <li>
-<code><a href="../reference/search_taxonomy.html">search_taxonomy()</a></code> returns information of author and authority of taxonomic names (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/79'>#79</a>)</li>
+<code>search_taxonomy()</code> returns information of author and authority of taxonomic names (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/79'>#79</a>)</li>
 <li>
-<code><a href="../reference/search_taxonomy.html">search_taxonomy()</a></code> consistently orders column names, including in correct taxonomic order by rank (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/81'>#81</a>)</li>
+<code>search_taxonomy()</code> consistently orders column names, including in correct taxonomic order by rank (<a href='https://github.com/AtlasOfLivingAustralia/galah/issues/81'>#81</a>)</li>
 </ul>
 </div>
 <div id="caching-helper-functions" class="section level3">
