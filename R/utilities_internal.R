@@ -80,26 +80,6 @@ fix_assertion_cols <- function(df, assertion_cols) {
   df
 }
 
-# Convert data.frame field values to title case
-title_case_df <- function(df, exclude = c()) {
-  for (col in names(df)) {
-    if (!(col %in% exclude)) {
-      df[, col] <- unlist(lapply(df[,col], title_case))
-    }
-  }
-  df
-}
-
-# Convert string to title case if it is all upper case
-title_case <- function(s) {
-  if (is.na(s) || str_detect(s, "[[:lower:]]") || str_detect(s, ".*[0-9].*")) {
-    return(s)
-  }
-  paste(toupper(substring(s, 1, 1)), tolower(substring(s, 2)),
-        sep = "", collapse = " ")
-}
-
-
 ##----------------------------------------------------------------
 ##                   Query-building functions                   --
 ##----------------------------------------------------------------

@@ -19,29 +19,27 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:54 GMT
+      date: Wed, 18 Aug 2021 05:40:07 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=lx9yhVggpTZqbKv/iMSLSDY7f2Kgoy9RT9uVH80la3/M3FPJ214UI2dCnhN5+qXes11ofagI8CM9UPCEGjdlM0s6HmMgoXtH+DD7PUAm1WqfqIDLzjdLUDbYzsdA6/U9J1XhSfpfzODlzjTxPxR/jDk9Ns26j2yIhNHjN4ALzZyf;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/
-      - AWSALBTGCORS=lx9yhVggpTZqbKv/iMSLSDY7f2Kgoy9RT9uVH80la3/M3FPJ214UI2dCnhN5+qXes11ofagI8CM9UPCEGjdlM0s6HmMgoXtH+DD7PUAm1WqfqIDLzjdLUDbYzsdA6/U9J1XhSfpfzODlzjTxPxR/jDk9Ns26j2yIhNHjN4ALzZyf;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=9qoOMXeUjMKhguUApqEhmpR6lpafmnjr9GAnahhqmrZqvyQuRCvpA5/22CnJ5rXZy/CBZ7AT0aU+/2E1xEoNiZlI9l3XUv9CEKXxa80Zpv1ady5/rLQx65AMagLO;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/
-      - AWSALBCORS=9qoOMXeUjMKhguUApqEhmpR6lpafmnjr9GAnahhqmrZqvyQuRCvpA5/22CnJ5rXZy/CBZ7AT0aU+/2E1xEoNiZlI9l3XUv9CEKXxa80Zpv1ady5/rLQx65AMagLO;
-        Expires=Fri, 13 Aug 2021 02:09:52 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=zn7Q9WjsbC8RSZ1wz6hyC8q/wT2IR5+9tjZRBrpJCl/PrsuEICP3zDmLB2m5HwsC3ZuirR815Mu+fpGBoehKb+3xBShq1ayEnyz70vKERnkJs44cIVN7Qi2n16U11gzNwUJFtq54vVotDp0pfmWpcP17hxgRfaky4a+3IZSnqInn;
+        Expires=Wed, 25 Aug 2021 05:40:06 GMT; Path=/
+      - AWSALBTGCORS=zn7Q9WjsbC8RSZ1wz6hyC8q/wT2IR5+9tjZRBrpJCl/PrsuEICP3zDmLB2m5HwsC3ZuirR815Mu+fpGBoehKb+3xBShq1ayEnyz70vKERnkJs44cIVN7Qi2n16U11gzNwUJFtq54vVotDp0pfmWpcP17hxgRfaky4a+3IZSnqInn;
+        Expires=Wed, 25 Aug 2021 05:40:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=FbUkPpAVnJfErfrLC6MddHN98AGMNi5fxKwmzMLQEKhilMI2Mcz/c6QsVaoRGUaiumvad7FU2qUTlyL3qz5o8d2jRib9unUVC/ABltyYAX6QgFJQynGoAwgWK22b;
+        Expires=Wed, 25 Aug 2021 05:40:06 GMT; Path=/
+      - AWSALBCORS=FbUkPpAVnJfErfrLC6MddHN98AGMNi5fxKwmzMLQEKhilMI2Mcz/c6QsVaoRGUaiumvad7FU2qUTlyL3qz5o8d2jRib9unUVC/ABltyYAX6QgFJQynGoAwgWK22b;
+        Expires=Wed, 25 Aug 2021 05:40:06 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f","count":1440930,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f\""}],"count":152542}]'
-  recorded_at: 2021-08-06 02:09:54 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f","count":1444102,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f\""}],"count":152542}]'
+  recorded_at: 2021-08-18 05:40:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

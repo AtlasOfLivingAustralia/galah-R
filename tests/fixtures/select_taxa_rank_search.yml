@@ -15,12 +15,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.21.1
-      date: Fri, 06 Aug 2021 02:12:10 GMT
+      date: Wed, 18 Aug 2021 05:57:07 GMT
       content-type: application/json
       content-length: '341'
-      connection: keep-alive
       vary: Accept-Encoding
       content-encoding: gzip
       strict-transport-security: max-age=31536000
@@ -32,5 +31,5 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"success":true,"scientificName":"Acacia","scientificNameAuthorship":"Mill.","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51311124","rank":"genus","rankID":6000,"lft":604306,"rgt":608094,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51337710","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51337706","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51337705","order":"Fabales","orderID":"https://id.biodiversity.org.au/taxon/apni/51311090","family":"Fabaceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51311092","genus":"Acacia","genusID":"https://id.biodiversity.org.au/taxon/apni/51311124","speciesGroup":["Plants"],"issues":["noIssue"]}'
-  recorded_at: 2021-08-06 02:12:10 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

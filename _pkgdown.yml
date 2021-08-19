@@ -2,6 +2,7 @@ reference:
 - title: Data
   contents:
   - ala_occurrences
+  - ala_taxonomy
   - ala_counts
   - ala_species
   - ala_media
@@ -9,12 +10,10 @@ reference:
   contents: 
   - select_taxa
   - select_filters
-  - exclude
   - select_locations
   - select_columns
 - title: Lookup
   contents:
-  - search_taxonomy
   - search_fields
   - find_field_values
   - find_profiles

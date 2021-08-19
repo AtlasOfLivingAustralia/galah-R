@@ -21,10 +21,11 @@
 #' \href{mailto:support@ala.org.au}{support@ala.org.au}.
 #' @import assertthat sp sf httr
 #' @importFrom crul HttpClient Paginator Async url_build url_parse
+#' @importFrom data.tree Do Set Prune Aggregate FromListExplicit ToDataFrameTypeCol ToDataFrameTree
 #' @importFrom digest digest
 #' @importFrom jsonlite fromJSON
 #' @importFrom stringr regex str_c str_detect str_extract str_locate
-#' str_match str_match_all
+#' str_match str_match_all str_to_title
 #' @importFrom stringr str_replace str_replace_all str_split str_trim str_match
 #' @importFrom utils data packageVersion read.csv write.csv read.table str
 #' unzip URLencode download.file setTxtProgressBar txtProgressBar tail
@@ -34,6 +35,7 @@
 #' \strong{\code{Data}}
 #' \itemize{
 #'   \item\code{\link{ala_counts}} Count the number of records or species returned by a query
+#'   \item\code{\link{ala_taxonomy}} Return a section of the ALA taxonomic tree
 #'   \item\code{\link{ala_species}} Download species lists
 #'   \item\code{\link{ala_occurrences}} Download occurrence records
 #'   \item\code{\link{ala_media}} Download images and sounds
@@ -47,12 +49,11 @@
 #' }
 #' \strong{\code{Lookup}}
 #' \itemize{
-#'   \item\code{\link{search_taxonomy}} Search for taxonomic hierarchies
 #'   \item\code{\link{search_fields}} Free-text search for layers and fields
-#'   \item\code{\link{find_ranks}} List available taxonomic ranks
 #'   \item\code{\link{find_field_values}} List possible values for a given field
 #'   \item\code{\link{find_profiles}} List data quality profiles
 #'   \item\code{\link{find_profile_attributes}} List filters included in a data quality profile
+#'   \item\code{\link{find_ranks}} List available taxonomic ranks
 #'   \item\code{\link{find_reasons}} List valid download reasons
 #'   \item\code{\link{find_atlases}} List supported international atlases
 #' }
@@ -120,7 +121,8 @@
 #' \code{\link{ala_species}()}, or media content (largely images) via
 #' \code{\link{ala_media}()}. Alternatively, users can assess how many records
 #' meet their particular criteria using \code{\link{ala_counts}()}. All 
-#' functions return a \code{data.frame} as their standard format.
+#' functions return a \code{data.frame} as their standard format, except 
+#' \code{\link{ala_taxonomy}()} which returns a \code{data.tree}.
 #'
 #' Functions in \code{galah} are designed
 #' according to a nested architecture. Users that require data should begin by
@@ -129,8 +131,8 @@
 #' finally the specific values that can be interpreted by those \code{select_}
 #' functions are given by functions with the prefix \code{search_} or
 #' \code{find_}. So, to limit occurrence downloads to a specific taxonomic
-#' group, for example, you pass the reult of \code{\link{select_taxa}} to the
-#' \code{taxa} argument of \code{\link{ala_occurrences}}.
+#' group, for example, you pass the reult of \code{\link{select_taxa}()} to the
+#' \code{taxa} argument of \code{\link{ala_occurrences}()}.
 #'
 
 NULL

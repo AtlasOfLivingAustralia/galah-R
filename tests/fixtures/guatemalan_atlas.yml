@@ -15,12 +15,10 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.16.1
-      date: Fri, 06 Aug 2021 02:11:10 GMT
+      date: Wed, 18 Aug 2021 05:54:15 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
@@ -34,9 +32,9 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":2439848,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":2440330,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{}}'
-  recorded_at: 2021-08-06 02:11:13 GMT
+  recorded_at: 2021-08-18 05:54:18 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -54,12 +52,10 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.16.1
-      date: Fri, 06 Aug 2021 02:11:10 GMT
+      date: Wed, 18 Aug 2021 05:54:15 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
@@ -208,7 +204,8 @@ http_interactions:
         within taxonomic groups.","jsonName":"right","downloadName":"rgt"},{"name":"rights","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"jsonName":"rights","dwcTerm":"dcterms:rights","downloadName":"rights","classs":"Record"},{"name":"species","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Species","info":"The
         species the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/species","jsonName":"species","dwcTerm":"species","downloadName":"species","downloadDescription":"Species","i18nValues":true,"classs":"Taxon"},{"name":"species_group","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Lifeform","info":"Higher
         level group for this record e.g. Birds","jsonName":"speciesGroups","downloadName":"species_group"},{"name":"species_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Species","info":"The
-        species ID for this record","jsonName":"speciesGuid","downloadName":"species_guid"},{"name":"species_subgroup","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Species
+        species ID for this record","jsonName":"speciesGuid","downloadName":"species_guid"},{"name":"species_list_uid","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Species
+        lists","info":"Used to search for the records of taxon on a specific list.","downloadName":"species_list_uid"},{"name":"species_subgroup","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Species
         subgroups","info":"Higher level subgroup for this record e.g. Parrots","downloadName":"species_subgroup"},{"name":"state","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"State/Territory","info":"http://rs.tdwg.org/dwc/terms/stateProvince","jsonName":"stateProvince","dwcTerm":"stateProvince","downloadName":"state","downloadDescription":"State
         - parsed","classs":"Location"},{"name":"subspecies_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Subspecies","info":"The
         subspecies ID for this record","jsonName":"subspeciesGuid","downloadName":"subspecies_guid"},{"name":"subspecies_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Subspecies","info":"The
@@ -228,7 +225,7 @@ http_interactions:
         Quality"},{"name":"type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Specimen
         type","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"user_assertions","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Has
         user assertions","jsonName":"hasUserAssertions","downloadName":"user_assertions","i18nValues":true},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2021-08-06 02:11:13 GMT
+  recorded_at: 2021-08-18 05:54:18 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -246,12 +243,10 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.16.1
-      date: Fri, 06 Aug 2021 02:11:11 GMT
+      date: Wed, 18 Aug 2021 05:54:16 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       x-application-context: application:production
       strict-transport-security: max-age=31536000
       referrer-policy: strict-origin-when-cross-origin
@@ -268,7 +263,7 @@ http_interactions:
         Protegidas","id":10009,"grid":false,"path_orig":"layer/sigap_marzo","minlongitude":320543.0264,"maxlatitude":1970674.333,"licence_link":"","mddatest":"","maxlongitude":743893.5012,"dt_added":1592950608700,"minlatitude":1528452.1718,"displaypath":"https://geoespacial.snib.conap.gob.gt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:sigap_marzo&format=image/png&styles=","name":"sigap_marzo","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Instituciones","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"","displayname":"Example
         Polygon","id":10011,"grid":false,"path_orig":"layer/cw_state_poly","minlongitude":112.86564,"maxlatitude":-9.08801,"licence_link":"","mddatest":"","maxlongitude":159.33903,"dt_added":1593006384119,"minlatitude":-55.1731,"displaypath":"https://geoespacial.snib.conap.gob.gt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:cw_state_poly&format=image/png&styles=","name":"cw_state_poly","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Ejemplo","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Gobierno","displayname":"Cambio
         Climático ","id":10012,"grid":false,"path_orig":"layer/subreg_redd","minlongitude":581851.7955,"maxlatitude":1974107.5167,"licence_link":"","mddatest":"","maxlongitude":1012466.4746,"dt_added":1593043795086,"minlatitude":1520777.4002,"displaypath":"https://geoespacial.snib.conap.gob.gt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:subreg_redd&format=image/png&styles=","name":"subreg_redd","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Instituciones","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""}]'
-  recorded_at: 2021-08-06 02:11:13 GMT
+  recorded_at: 2021-08-18 05:54:18 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -286,12 +281,10 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.16.1
-      date: Fri, 06 Aug 2021 02:11:12 GMT
+      date: Wed, 18 Aug 2021 05:54:17 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
@@ -400,7 +393,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2021-08-06 02:11:13 GMT
+  recorded_at: 2021-08-18 05:54:18 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -418,12 +411,10 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.16.1
-      date: Fri, 06 Aug 2021 02:11:12 GMT
+      date: Wed, 18 Aug 2021 05:54:17 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
@@ -572,7 +563,8 @@ http_interactions:
         within taxonomic groups.","jsonName":"right","downloadName":"rgt"},{"name":"rights","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"jsonName":"rights","dwcTerm":"dcterms:rights","downloadName":"rights","classs":"Record"},{"name":"species","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Species","info":"The
         species the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/species","jsonName":"species","dwcTerm":"species","downloadName":"species","downloadDescription":"Species","i18nValues":true,"classs":"Taxon"},{"name":"species_group","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Lifeform","info":"Higher
         level group for this record e.g. Birds","jsonName":"speciesGroups","downloadName":"species_group"},{"name":"species_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Species","info":"The
-        species ID for this record","jsonName":"speciesGuid","downloadName":"species_guid"},{"name":"species_subgroup","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Species
+        species ID for this record","jsonName":"speciesGuid","downloadName":"species_guid"},{"name":"species_list_uid","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Species
+        lists","info":"Used to search for the records of taxon on a specific list.","downloadName":"species_list_uid"},{"name":"species_subgroup","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Species
         subgroups","info":"Higher level subgroup for this record e.g. Parrots","downloadName":"species_subgroup"},{"name":"state","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"State/Territory","info":"http://rs.tdwg.org/dwc/terms/stateProvince","jsonName":"stateProvince","dwcTerm":"stateProvince","downloadName":"state","downloadDescription":"State
         - parsed","classs":"Location"},{"name":"subspecies_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Subspecies","info":"The
         subspecies ID for this record","jsonName":"subspeciesGuid","downloadName":"subspecies_guid"},{"name":"subspecies_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Subspecies","info":"The
@@ -592,7 +584,7 @@ http_interactions:
         Quality"},{"name":"type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Specimen
         type","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"user_assertions","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Has
         user assertions","jsonName":"hasUserAssertions","downloadName":"user_assertions","i18nValues":true},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2021-08-06 02:11:13 GMT
+  recorded_at: 2021-08-18 05:54:18 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -610,12 +602,10 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.16.1
-      date: Fri, 06 Aug 2021 02:11:12 GMT
+      date: Wed, 18 Aug 2021 05:54:17 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
@@ -629,6 +619,6 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2019","i18nCode":"year.2019","count":597265,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":441895,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":320607,"fq":"year:\"2017\""},{"label":"2016","i18nCode":"year.2016","count":222644,"fq":"year:\"2016\""},{"label":"2015","i18nCode":"year.2015","count":124058,"fq":"year:\"2015\""},{"label":"2014","i18nCode":"year.2014","count":66571,"fq":"year:\"2014\""},{"label":"2009","i18nCode":"year.2009","count":52964,"fq":"year:\"2009\""},{"label":"2013","i18nCode":"year.2013","count":33781,"fq":"year:\"2013\""},{"label":"2012","i18nCode":"year.2012","count":31685,"fq":"year:\"2012\""},{"label":"2008","i18nCode":"year.2008","count":26196,"fq":"year:\"2008\""},{"label":"2011","i18nCode":"year.2011","count":25376,"fq":"year:\"2011\""},{"label":"2010","i18nCode":"year.2010","count":23898,"fq":"year:\"2010\""},{"label":"1982","i18nCode":"year.1982","count":19233,"fq":"year:\"1982\""},{"label":"2007","i18nCode":"year.2007","count":14677,"fq":"year:\"2007\""},{"label":"2002","i18nCode":"year.2002","count":9225,"fq":"year:\"2002\""},{"label":"2000","i18nCode":"year.2000","count":8690,"fq":"year:\"2000\""},{"label":"1970","i18nCode":"year.1970","count":8485,"fq":"year:\"1970\""},{"label":"1977","i18nCode":"year.1977","count":8175,"fq":"year:\"1977\""},{"label":"1942","i18nCode":"year.1942","count":8135,"fq":"year:\"1942\""},{"label":"2005","i18nCode":"year.2005","count":7998,"fq":"year:\"2005\""}],"count":207}]'
-  recorded_at: 2021-08-06 02:11:13 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2019","i18nCode":"year.2019","count":597265,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":441895,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":320607,"fq":"year:\"2017\""},{"label":"2016","i18nCode":"year.2016","count":222644,"fq":"year:\"2016\""},{"label":"2015","i18nCode":"year.2015","count":124063,"fq":"year:\"2015\""},{"label":"2014","i18nCode":"year.2014","count":66571,"fq":"year:\"2014\""},{"label":"2009","i18nCode":"year.2009","count":52965,"fq":"year:\"2009\""},{"label":"2013","i18nCode":"year.2013","count":33789,"fq":"year:\"2013\""},{"label":"2012","i18nCode":"year.2012","count":31687,"fq":"year:\"2012\""},{"label":"2008","i18nCode":"year.2008","count":26196,"fq":"year:\"2008\""},{"label":"2011","i18nCode":"year.2011","count":25380,"fq":"year:\"2011\""},{"label":"2010","i18nCode":"year.2010","count":23900,"fq":"year:\"2010\""},{"label":"1982","i18nCode":"year.1982","count":19233,"fq":"year:\"1982\""},{"label":"2007","i18nCode":"year.2007","count":14677,"fq":"year:\"2007\""},{"label":"2002","i18nCode":"year.2002","count":9228,"fq":"year:\"2002\""},{"label":"2000","i18nCode":"year.2000","count":8691,"fq":"year:\"2000\""},{"label":"1970","i18nCode":"year.1970","count":8485,"fq":"year:\"1970\""},{"label":"1977","i18nCode":"year.1977","count":8178,"fq":"year:\"1977\""},{"label":"1942","i18nCode":"year.1942","count":8135,"fq":"year:\"1942\""},{"label":"2005","i18nCode":"year.2005","count":7999,"fq":"year:\"2005\""}],"count":207}]'
+  recorded_at: 2021-08-18 05:54:18 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

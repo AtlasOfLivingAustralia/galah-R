@@ -19,30 +19,28 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Fri, 06 Aug 2021 02:09:34 GMT
+      date: Wed, 18 Aug 2021 05:39:34 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.1
       set-cookie:
-      - AWSALBTG=vJAvBS7w1QNoaxDfGdGHOJjrqOTa7gAxq5hOzlLe9W+IbtGfiiuIGX9XCjvP6YzBTyj8fT7mG1QJVfMlYoXswIqwsVZ+/lWFueC5SlOjgY+pj1S1qzytGap5gn4ORwEZ2WOOEPeBOgga5R6dW6NMGRDo5kb04q0EYj17pmVkhGcE;
-        Expires=Fri, 13 Aug 2021 02:09:34 GMT; Path=/
-      - AWSALBTGCORS=vJAvBS7w1QNoaxDfGdGHOJjrqOTa7gAxq5hOzlLe9W+IbtGfiiuIGX9XCjvP6YzBTyj8fT7mG1QJVfMlYoXswIqwsVZ+/lWFueC5SlOjgY+pj1S1qzytGap5gn4ORwEZ2WOOEPeBOgga5R6dW6NMGRDo5kb04q0EYj17pmVkhGcE;
-        Expires=Fri, 13 Aug 2021 02:09:34 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=rsS9Srm7/uBvQfa3tD0dtH10eKQQ1EwNmq9m+dATa1X5sX5IIH+6VG8toBj/ZK5iXpVcNg4A/Wn+JErAazipHc4PqcaLO3RU2qjMeUCbmg9xYm4ahUqnny4AB3S5;
-        Expires=Fri, 13 Aug 2021 02:09:34 GMT; Path=/
-      - AWSALBCORS=rsS9Srm7/uBvQfa3tD0dtH10eKQQ1EwNmq9m+dATa1X5sX5IIH+6VG8toBj/ZK5iXpVcNg4A/Wn+JErAazipHc4PqcaLO3RU2qjMeUCbmg9xYm4ahUqnny4AB3S5;
-        Expires=Fri, 13 Aug 2021 02:09:34 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=ZRPMVb0uvYSkspbizhyAxuPg/Lm/z2mxwPx9PFjcBotwB+ZzPNxLv5xB49vVKNGHgiXNN3JglTmS666hsq2ylCb0+SoXz4yt4sNMivejrkaDvAS73ynb4jJr03shIw7zt2z6EgC7SVEe0tNpc9k8gEj9gf62B20w6qll5CsQoOU7;
+        Expires=Wed, 25 Aug 2021 05:39:34 GMT; Path=/
+      - AWSALBTGCORS=ZRPMVb0uvYSkspbizhyAxuPg/Lm/z2mxwPx9PFjcBotwB+ZzPNxLv5xB49vVKNGHgiXNN3JglTmS666hsq2ylCb0+SoXz4yt4sNMivejrkaDvAS73ynb4jJr03shIw7zt2z6EgC7SVEe0tNpc9k8gEj9gf62B20w6qll5CsQoOU7;
+        Expires=Wed, 25 Aug 2021 05:39:34 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=GPyrQSG0GplTsPxgr1x3DcYVOpK3VfVshzM03mdGyNFXxTrLpL1Jg1qss5XCTTZ6wcgxfmvHRtvp40vaLbdc9mnPufvF0RKxWpQxeRsh+Z5BYSMW5bySZ8nqsa4q;
+        Expires=Wed, 25 Aug 2021 05:39:34 GMT; Path=/
+      - AWSALBCORS=GPyrQSG0GplTsPxgr1x3DcYVOpK3VfVshzM03mdGyNFXxTrLpL1Jg1qss5XCTTZ6wcgxfmvHRtvp40vaLbdc9mnPufvF0RKxWpQxeRsh+Z5BYSMW5bySZ8nqsa4q;
+        Expires=Wed, 25 Aug 2021 05:39:34 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":100871912,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true","urlParameters":"?q=*%3A*&disableAllQualityFilters=true","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":101058301,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true","urlParameters":"?q=*%3A*&disableAllQualityFilters=true","queryTitle":"[all
         records]","activeFacetMap":{},"activeFacetObj":{}}'
-  recorded_at: 2021-08-06 02:09:34 GMT
+  recorded_at: 2021-08-18 05:39:34 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

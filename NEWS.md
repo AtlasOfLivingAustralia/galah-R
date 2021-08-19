@@ -1,3 +1,16 @@
+# galah 1.3.1
+
+### `search_taxonomy()` renamed to `ala_taxonomy()`
+
+* bug fix: `ala_taxonomy` no longer fails for nodes ranked as `informal` or `unranked` (#86)
+* this function now returns a tree built using the `data.tree` package
+* change in function name required for greater consistency with other data-providing functions in `galah`
+
+### Vignettes
+
+* vignettes are now pre-compiled to avoid failing on CRAN (#85)
+* expanded vignette on navigating taxonomic information (#42)
+
 # galah 1.3.0
 
 ### `galah_config()`

@@ -15,12 +15,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.21.1
-      date: Fri, 06 Aug 2021 02:12:10 GMT
+      date: Wed, 18 Aug 2021 05:57:07 GMT
       content-type: application/json
       content-length: '62'
-      connection: keep-alive
       vary: Accept-Encoding
       strict-transport-security: max-age=31536000
       referrer-policy: strict-origin-when-cross-origin
@@ -31,7 +30,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"success":false,"nameType":"SCIENTIFIC","issues":["noIssue"]}'
-  recorded_at: 2021-08-06 02:12:11 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -49,12 +48,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.21.1
-      date: Fri, 06 Aug 2021 02:12:10 GMT
+      date: Wed, 18 Aug 2021 05:57:07 GMT
       content-type: application/json
       content-length: '62'
-      connection: keep-alive
       vary: Accept-Encoding
       strict-transport-security: max-age=31536000
       referrer-policy: strict-origin-when-cross-origin
@@ -65,7 +63,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"success":false,"nameType":"SCIENTIFIC","issues":["noIssue"]}'
-  recorded_at: 2021-08-06 02:12:11 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -83,12 +81,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.21.1
-      date: Fri, 06 Aug 2021 02:12:11 GMT
+      date: Wed, 18 Aug 2021 05:57:07 GMT
       content-type: application/json
       content-length: '60'
-      connection: keep-alive
       vary: Accept-Encoding
       strict-transport-security: max-age=31536000
       referrer-policy: strict-origin-when-cross-origin
@@ -99,5 +96,5 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"success":false,"nameType":"DOUBTFUL","issues":["noIssue"]}'
-  recorded_at: 2021-08-06 02:12:11 GMT
+  recorded_at: 2021-08-18 05:57:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
