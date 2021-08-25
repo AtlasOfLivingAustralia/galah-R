@@ -51,15 +51,24 @@
 #' # Use filters to exclude particular values
 #' select_filters(year >= 2010 & year != 2021)
 #' 
-#' # Separating statements with a comma is equivalent to an 'and' statement, e.g.:
+#' # Separating statements with a comma is equivalent to an 'and' statement
 #' select_filters(year >= 2010 & year < 2020) # is the same as:
 #' select_filters(year >= 2010, year < 2020)
 #' 
-#' # All statements must include the field name, e.g.
+#' # All statements must include the field name
 #' select_filters(year == 2010 | year == 2021) # this works (note double equals)
+#' select_filters(year = c(2010, 2021)) # same as above 
 #' select_filters(year == 2010 | 2021) # this fails
-#' 
-#' # solr supports range queries on text as well as numbers, e.g.
+#'
+#' # It is possible to use an object to specify required values
+#' # numeric example
+#' year_value <- 2010
+#' select_filters(year > year_value)
+#' # categorical example
+#' basis_of_record <- c("HumanObservation", "MaterialSample")
+#' select_filters(basisOfRecord = basis_of_record) 
+#'
+#' # solr supports range queries on text as well as numbers
 #' select_filters(cl22 >= "Tasmania")
 #' # queries all Australian States & Territories alphabetically after "Tasmania"
 #' }
@@ -82,6 +91,7 @@ select_filters <- function(..., profile = NULL) {
   df <- data.frame(data.table::rbindlist(lapply(seq_len(length(exprs)), function(i) {
     filter_name <- names(exprs)[i]
     x <- exprs[[i]]
+    if(inherits(x, "name")){x <- eval(parse(text = x))}
     expr_type <- get_expr_type(x, filter_name)
     if (expr_type == "and_or") {
       x <- as.character(x)
@@ -203,7 +213,7 @@ get_expr_type <- function(expr, filter_name) {
     return("logical")
   } else if ("exclude" %in% expr) {
     return("exclude")
-  } else if ("c" %in% expr) {
+  } else if (("c" %in% expr) | length(expr) > 1) {
     return("vector")
   } else if ("seq" %in% expr) {
     return("seq")
