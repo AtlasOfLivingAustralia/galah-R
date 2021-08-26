@@ -1,7 +1,7 @@
 Package: galah
 Type: Package
 Title: Atlas of Living Australia (ALA) Data and Resources in R
-Version: 1.3.0
+Version: 1.3.1
 Authors@R:
     c(person(given = "Martin",
              family = "Westgate",
@@ -31,6 +31,7 @@ Imports:
     assertthat,
     crul,
     data.table,
+    data.tree,
     digest,
     httr,
     jsonlite (>= 0.9.8),
@@ -50,11 +51,13 @@ Suggests:
     pkgdown,
     rmarkdown,
     taxize,
-    testthat
+    testthat,
+    treemapify,
+    viridis
 License: MPL-2.0
 URL: https://github.com/AtlasOfLivingAustralia/galah
 BugReports: https://github.com/AtlasOfLivingAustralia/galah/issues
-Maintainer: Matilda Stevenson <matilda.stevenson@csiro.au>
+Maintainer: Martin Westgate <martin.westgate@csiro.au>
 LazyLoad: yes
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1

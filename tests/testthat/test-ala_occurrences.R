@@ -51,7 +51,7 @@ test_that("ala_occurrences caches data as expected", {
   occ <- ala_occurrences(taxa = taxa, filters = filters, columns = columns)
   # Re-download data
   expect_message(
-    ala_occurrences(taxa = taxa, filters = filters, columns = columns),
+    ala_occurrences(taxa = taxa, filters = filters, columns = columns), 
     "Using cached file")
   galah_config(caching = FALSE)
 })

@@ -6,7 +6,7 @@
 #' @return A \code{data.frame} of available ranks
 #' @seealso This function provides a
 #' reference that is useful when specifying the \code{down_to} argument of 
-#' \code{\link{search_taxonomy}}.
+#' \code{\link{ala_taxonomy}}.
 #' @examples \dontrun{
 #' rank_df <- find_ranks()
 #' }

@@ -1,7 +1,7 @@
 ---
 title: "International Atlases"
 author: "Matilda Stevenson"
-date: '2021-08-02'
+date: '2021-08-06'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -54,7 +54,7 @@ ala_counts()
 ```
 
 ```
-## [1] 199893409
+## [1] 200068504
 ```
 
 ## Using taxonomic filters for another atlas
@@ -64,26 +64,12 @@ to the `taxa` argument of `ala_` functions. For example:
 
 ```r
 library(taxize)
-```
-
-```
-## 
-## Attaching package: 'taxize'
-```
-
-```
-## The following object is masked from 'package:galah':
-## 
-##     classification
-```
-
-```r
 # Use UK taxonomy
 id <- get_nbnid("Vulpes vulpes", rows = 1)
 ```
 
 ```
-## ══  1 queries  ═══════════════
+## ==  1 queries  ===============
 ```
 
 ```
@@ -92,12 +78,12 @@ id <- get_nbnid("Vulpes vulpes", rows = 1)
 ```
 
 ```
-## ✔  Found:  Vulpes vulpes
-## ══  Results  ═════════════════
+## v  Found:  Vulpes vulpes
+## ==  Results  =================
 ## 
-## • Total: 1 
-## • Found: 1 
-## • Not Found: 0
+## * Total: 1 
+## * Found: 1 
+## * Not Found: 0
 ```
 
 ```r
@@ -117,7 +103,7 @@ id <- get_gbifid("bombina variegata", rows = 1)
 ```
 
 ```
-## ══  1 queries  ═══════════════
+## ==  1 queries  ===============
 ```
 
 ```
@@ -126,12 +112,12 @@ id <- get_gbifid("bombina variegata", rows = 1)
 ```
 
 ```
-## ✔  Found:  bombina variegata
-## ══  Results  ═════════════════
+## v  Found:  bombina variegata
+## ==  Results  =================
 ## 
-## • Total: 1 
-## • Found: 1 
-## • Not Found: 0
+## * Total: 1 
+## * Found: 1 
+## * Not Found: 0
 ```
 
 ```r

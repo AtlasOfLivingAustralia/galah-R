@@ -2,6 +2,7 @@ reference:
 - title: Data
   contents:
   - ala_occurrences
+  - ala_taxonomy
   - ala_counts
   - ala_species
   - ala_media
@@ -9,24 +10,24 @@ reference:
   contents: 
   - select_taxa
   - select_filters
-  - exclude
   - select_locations
   - select_columns
 - title: Lookup
   contents:
   - search_fields
-  - search_taxa
   - find_field_values
   - find_profiles
   - find_profile_attributes
   - find_reasons
   - find_atlases
-- title: Support
+- title: Cache management
+  contents:
+  - find_cached_files
+  - clear_cached_files
+- title: Help
   contents:
   - galah_config
   - ala_citation
-  - find_cached_files
-  - clear_cached_files
 template:
   params:
     bootswatch: cerulean

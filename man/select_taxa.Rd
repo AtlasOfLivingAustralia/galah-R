@@ -24,7 +24,7 @@ Note that searches are not case-sensitive.}
 \code{FALSE}, meaning that queries are assumed to be taxonomic names.}
 
 \item{children}{\code{logical}: Return child concepts for the provided
-query? DEPRECATED: use \code{\link{search_taxonomy}} instead.}
+query? DEPRECATED: use \code{\link{ala_taxonomy}} instead.}
 
 \item{counts}{\code{logical}: return occurrence counts for all
 taxa found? \code{FALSE} by default. 
@@ -33,7 +33,7 @@ DEPRECATED: use \code{\link{ala_counts}} instead.}
 \item{all_ranks}{\code{logical}: Include all available
 intermediate ranks for taxa? e.g. suborder, superfamily. Retrieving this
 information requires an additional web service call so will slow down the
-query. DEPRECATED: use \code{\link{search_taxonomy}} instead.}
+query. DEPRECATED: use \code{\link{ala_taxonomy}} instead.}
 }
 \value{
 An object of class \code{data.frame} and \code{ala_id}
@@ -68,5 +68,5 @@ select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 \code{\link{select_columns}}, \code{\link{select_filters}} and
 \code{\link{select_locations}} for other ways to restrict the information returned
 by \code{\link{ala_occurrences}} and related functions.
-\code{\link{search_taxonomy}} to look up taxonomic trees.
+\code{\link{ala_taxonomy}} to look up taxonomic trees.
 }

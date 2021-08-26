@@ -7,7 +7,8 @@
 #' @details WKT strings longer than 10000 characters will not be
 #' accepted by the ALA- so the sf object or WKT string may need to be
 #' simplified.
-#' @return WKT string representing the area provided.
+#' @return length-1 object of class \code{character} and \code{ala_locations},
+#' containing a WKT string representing the area provided.
 #' @seealso \code{\link{select_taxa}}, \code{\link{select_filters}} and
 #' \code{\link{select_columns}} for other ways to restrict the information
 #' returned by \code{\link{ala_occurrences}} and related functions.

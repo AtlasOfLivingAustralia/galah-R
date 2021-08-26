@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Mon, 02 Aug 2021 00:17:20 GMT
+      date: Wed, 18 Aug 2021 05:49:42 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -27,9 +27,10 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":199893409,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
-        records]","activeFacetMap":{}}'
-  recorded_at: 2021-08-02 00:17:12 GMT
+      string: '{"pageSize":10,"startIndex":0,"totalRecords":0,"dir":"asc","status":"ERROR","errorMessage":"No
+        live SolrServers available to handle this request:[http://172.31.15.129:8983/solr/biocache,
+        http://172.31.23.235:8983/solr/biocache, http://172.31.14.216:8983/solr/biocache]"}'
+  recorded_at: 2021-08-18 05:54:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -40,7 +41,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -48,7 +49,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Mon, 02 Aug 2021 00:17:23 GMT
+      date: Wed, 18 Aug 2021 05:52:23 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -83,9 +84,7 @@ http_interactions:
         list (concatenated and separated) of identifiers (publication, global unique
         identifier, URI) of genetic sequence information associated with the Occurrence.","info":"http://rs.tdwg.org/dwc/terms/associatedSequences","dwcTerm":"associatedSequences","downloadName":"associatedSequences","classs":"Occurrence"},{"name":"associatedTaxa","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"A
         list (concatenated and separated) of identifiers or names of taxa and their
-        associations with the Occurrence.","info":"http://rs.tdwg.org/dwc/terms/associatedTaxa","dwcTerm":"associatedTaxa","downloadName":"associatedTaxa","classs":"Occurrence"},{"name":"attr_qa","dataType":"string","indexed":false,"stored":false,"multivalue":false,"downloadName":"attr_qa"},{"name":"basisOfRecord","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"The
-        specific nature of the data record.","info":"http://rs.tdwg.org/dwc/terms/basisOfRecord","dwcTerm":"basisOfRecord","downloadName":"basisOfRecord","downloadDescription":"Basis
-        Of Record - original","classs":"Record"},{"name":"basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
+        associations with the Occurrence.","info":"http://rs.tdwg.org/dwc/terms/associatedTaxa","dwcTerm":"associatedTaxa","downloadName":"associatedTaxa","classs":"Occurrence"},{"name":"attr_qa","dataType":"string","indexed":false,"stored":false,"multivalue":false,"downloadName":"attr_qa"},{"name":"basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
         specific nature of the data record.","info":"The basis of record as supplied
         in the raw record.  http://rs.tdwg.org/dwc/terms/basisOfRecord","jsonName":"basisOfRecord","dwcTerm":"basisOfRecord","downloadName":"basisOfRecord_p","downloadDescription":"Basis
         Of Record - processed","classs":"Record"},{"name":"bbox","dataType":"string","indexed":true,"stored":true,"multivalue":false},{"name":"bed","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"The
@@ -368,7 +367,7 @@ http_interactions:
         processed","jsonName":"decimalLongitude","dwcTerm":"decimalLongitude processed","downloadName":"decimalLongitude_p","downloadDescription":"Longitude
         - processed","classs":"Location"},{"name":"lowestBiostratigraphicZone","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"The
         full name of the lowest possible geological biostratigraphic zone of the stratigraphic
-        horizon from which the cataloged item was collected.","info":"http://rs.tdwg.org/dwc/terms/lowestBiostratigraphicZone","dwcTerm":"lowestBiostratigraphicZone","downloadName":"lowestBiostratigraphicZone","classs":"GeologicalContext"},{"name":"lsid","dataType":"string","indexed":true,"stored":false,"multivalue":false},{"name":"materialSampleID","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"An
+        horizon from which the cataloged item was collected.","info":"http://rs.tdwg.org/dwc/terms/lowestBiostratigraphicZone","dwcTerm":"lowestBiostratigraphicZone","downloadName":"lowestBiostratigraphicZone","classs":"GeologicalContext"},{"name":"lsid","dataType":"string","indexed":true,"stored":false,"multivalue":false},{"name":"mappable","dataType":"string","indexed":true,"stored":true,"multivalue":false},{"name":"materialSampleID","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"An
         identifier for the MaterialSample (as opposed to a particular digital record
         of the material sample). In the absence of a persistent global unique identifier,
         construct one from a combination of identifiers in the record that will most
@@ -501,7 +500,8 @@ http_interactions:
         catalog numbers or other human-used identifiers for the same Occurrence, whether
         in the current or any other data set or collection.","info":"http://rs.tdwg.org/dwc/terms/otherCatalogNumbers","dwcTerm":"otherCatalogNumbers","downloadName":"otherCatalogNumbers","classs":"Occurrence"},{"name":"outlierForLayers_p","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"Outlier
         for layer","downloadName":"outlierForLayers_p","downloadDescription":"Outlier
-        for layer"},{"name":"ownerInstitutionCode","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"The
+        for layer"},{"name":"outlier_layer_count","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"description":"Outlier
+        layer count"},{"name":"ownerInstitutionCode","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"The
         name (or acronym) in use by the institution having ownership of the object(s)
         or information referred to in the record.","info":"http://rs.tdwg.org/dwc/terms/ownerInstitutionCode","dwcTerm":"ownerInstitutionCode","downloadName":"ownerInstitutionCode","classs":"Record"},{"name":"parentEventID","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"An
         identifier for the broader Event that groups this and potentially other Events.","info":"http://rs.tdwg.org/dwc/terms/parentEventID","dwcTerm":"parentEventID","downloadName":"parentEventID","classs":"Event"},{"name":"parentNameUsage","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"The
@@ -535,7 +535,9 @@ http_interactions:
         Organism.","info":"http://rs.tdwg.org/dwc/terms/previousIdentifications","dwcTerm":"previousIdentifications","downloadName":"previousIdentifications","classs":"Organism"},{"name":"provenance","dataType":"string","indexed":true,"stored":true,"multivalue":false,"dwcTerm":"dcterms:provenance","downloadName":"provenance_p","classs":"Record"},{"name":"queryAssertions_p","dataType":"string","indexed":false,"stored":false,"multivalue":false,"downloadName":"queryAssertions_p"},{"name":"rank","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Taxon
         Rank - matched","info":"The taxonomic rank of the taxon. http://rs.tdwg.org/dwc/terms/taxonRank
         processed","jsonName":"taxonRank","dwcTerm":"taxonRank processed","downloadName":"taxonRank_p","downloadDescription":"Taxon
-        Rank - matched","i18nValues":true,"classs":"Taxon"},{"name":"rank_id","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"jsonName":"taxonRankID","downloadName":"taxonRankID_p"},{"name":"raw_common_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
+        Rank - matched","i18nValues":true,"classs":"Taxon"},{"name":"rank_id","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"jsonName":"taxonRankID","downloadName":"taxonRankID_p"},{"name":"raw_basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
+        specific nature of the data record.","info":"http://rs.tdwg.org/dwc/terms/basisOfRecord","jsonName":"raw_basisOfRecord","dwcTerm":"basisOfRecord","downloadName":"basisOfRecord","downloadDescription":"Basis
+        Of Record - original","classs":"Record"},{"name":"raw_common_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
         common or vernacular name.","info":"http://rs.tdwg.org/dwc/terms/vernacularName","jsonName":"raw_vernacularName","dwcTerm":"vernacularName","downloadName":"vernacularName","downloadDescription":"Vernacular
         Name","classs":"Taxon"},{"name":"raw_datum","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
         ellipsoid, geodetic datum, or spatial reference system (SRS) upon which the
@@ -707,7 +709,7 @@ http_interactions:
         year the event occurred in.  http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year_p","downloadDescription":"Year
         - parsed","classs":"Event"},{"name":"zone","dataType":"string","indexed":false,"stored":false,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset","downloadName":"zone"}]'
-  recorded_at: 2021-08-02 00:17:12 GMT
+  recorded_at: 2021-08-18 05:54:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -718,7 +720,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -726,7 +728,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Mon, 02 Aug 2021 00:17:06 GMT
+      date: Wed, 18 Aug 2021 05:51:47 GMT
       server: Apache/2.4.7 (Ubuntu)
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
@@ -1879,7 +1881,7 @@ http_interactions:
         Forestry Open Data https://open-data-scottishforestry.hub.arcgis.com/","description":"Native
         Woodland Survey of Scotland","uid":"270","displayname":"Native Woodland Survey
         of Scotland","enabled":true,"name":"NWSS_FINAL","id":270,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"}]'
-  recorded_at: 2021-08-02 00:17:12 GMT
+  recorded_at: 2021-08-18 05:54:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1890,7 +1892,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -1898,7 +1900,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Mon, 02 Aug 2021 00:17:28 GMT
+      date: Wed, 18 Aug 2021 05:52:31 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -2008,7 +2010,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2021-08-02 00:17:12 GMT
+  recorded_at: 2021-08-18 05:54:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2019,7 +2021,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
       status_code: '200'
@@ -2027,7 +2029,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Mon, 02 Aug 2021 00:17:29 GMT
+      date: Wed, 18 Aug 2021 05:52:36 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -2062,9 +2064,7 @@ http_interactions:
         list (concatenated and separated) of identifiers (publication, global unique
         identifier, URI) of genetic sequence information associated with the Occurrence.","info":"http://rs.tdwg.org/dwc/terms/associatedSequences","dwcTerm":"associatedSequences","downloadName":"associatedSequences","classs":"Occurrence"},{"name":"associatedTaxa","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"A
         list (concatenated and separated) of identifiers or names of taxa and their
-        associations with the Occurrence.","info":"http://rs.tdwg.org/dwc/terms/associatedTaxa","dwcTerm":"associatedTaxa","downloadName":"associatedTaxa","classs":"Occurrence"},{"name":"attr_qa","dataType":"string","indexed":false,"stored":false,"multivalue":false,"downloadName":"attr_qa"},{"name":"basisOfRecord","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"The
-        specific nature of the data record.","info":"http://rs.tdwg.org/dwc/terms/basisOfRecord","dwcTerm":"basisOfRecord","downloadName":"basisOfRecord","downloadDescription":"Basis
-        Of Record - original","classs":"Record"},{"name":"basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
+        associations with the Occurrence.","info":"http://rs.tdwg.org/dwc/terms/associatedTaxa","dwcTerm":"associatedTaxa","downloadName":"associatedTaxa","classs":"Occurrence"},{"name":"attr_qa","dataType":"string","indexed":false,"stored":false,"multivalue":false,"downloadName":"attr_qa"},{"name":"basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
         specific nature of the data record.","info":"The basis of record as supplied
         in the raw record.  http://rs.tdwg.org/dwc/terms/basisOfRecord","jsonName":"basisOfRecord","dwcTerm":"basisOfRecord","downloadName":"basisOfRecord_p","downloadDescription":"Basis
         Of Record - processed","classs":"Record"},{"name":"bbox","dataType":"string","indexed":true,"stored":true,"multivalue":false},{"name":"bed","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"The
@@ -2347,7 +2347,7 @@ http_interactions:
         processed","jsonName":"decimalLongitude","dwcTerm":"decimalLongitude processed","downloadName":"decimalLongitude_p","downloadDescription":"Longitude
         - processed","classs":"Location"},{"name":"lowestBiostratigraphicZone","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"The
         full name of the lowest possible geological biostratigraphic zone of the stratigraphic
-        horizon from which the cataloged item was collected.","info":"http://rs.tdwg.org/dwc/terms/lowestBiostratigraphicZone","dwcTerm":"lowestBiostratigraphicZone","downloadName":"lowestBiostratigraphicZone","classs":"GeologicalContext"},{"name":"lsid","dataType":"string","indexed":true,"stored":false,"multivalue":false},{"name":"materialSampleID","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"An
+        horizon from which the cataloged item was collected.","info":"http://rs.tdwg.org/dwc/terms/lowestBiostratigraphicZone","dwcTerm":"lowestBiostratigraphicZone","downloadName":"lowestBiostratigraphicZone","classs":"GeologicalContext"},{"name":"lsid","dataType":"string","indexed":true,"stored":false,"multivalue":false},{"name":"mappable","dataType":"string","indexed":true,"stored":true,"multivalue":false},{"name":"materialSampleID","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"An
         identifier for the MaterialSample (as opposed to a particular digital record
         of the material sample). In the absence of a persistent global unique identifier,
         construct one from a combination of identifiers in the record that will most
@@ -2480,7 +2480,8 @@ http_interactions:
         catalog numbers or other human-used identifiers for the same Occurrence, whether
         in the current or any other data set or collection.","info":"http://rs.tdwg.org/dwc/terms/otherCatalogNumbers","dwcTerm":"otherCatalogNumbers","downloadName":"otherCatalogNumbers","classs":"Occurrence"},{"name":"outlierForLayers_p","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"Outlier
         for layer","downloadName":"outlierForLayers_p","downloadDescription":"Outlier
-        for layer"},{"name":"ownerInstitutionCode","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"The
+        for layer"},{"name":"outlier_layer_count","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"description":"Outlier
+        layer count"},{"name":"ownerInstitutionCode","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"The
         name (or acronym) in use by the institution having ownership of the object(s)
         or information referred to in the record.","info":"http://rs.tdwg.org/dwc/terms/ownerInstitutionCode","dwcTerm":"ownerInstitutionCode","downloadName":"ownerInstitutionCode","classs":"Record"},{"name":"parentEventID","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"An
         identifier for the broader Event that groups this and potentially other Events.","info":"http://rs.tdwg.org/dwc/terms/parentEventID","dwcTerm":"parentEventID","downloadName":"parentEventID","classs":"Event"},{"name":"parentNameUsage","dataType":"string","indexed":false,"stored":false,"multivalue":false,"description":"The
@@ -2514,7 +2515,9 @@ http_interactions:
         Organism.","info":"http://rs.tdwg.org/dwc/terms/previousIdentifications","dwcTerm":"previousIdentifications","downloadName":"previousIdentifications","classs":"Organism"},{"name":"provenance","dataType":"string","indexed":true,"stored":true,"multivalue":false,"dwcTerm":"dcterms:provenance","downloadName":"provenance_p","classs":"Record"},{"name":"queryAssertions_p","dataType":"string","indexed":false,"stored":false,"multivalue":false,"downloadName":"queryAssertions_p"},{"name":"rank","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Taxon
         Rank - matched","info":"The taxonomic rank of the taxon. http://rs.tdwg.org/dwc/terms/taxonRank
         processed","jsonName":"taxonRank","dwcTerm":"taxonRank processed","downloadName":"taxonRank_p","downloadDescription":"Taxon
-        Rank - matched","i18nValues":true,"classs":"Taxon"},{"name":"rank_id","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"jsonName":"taxonRankID","downloadName":"taxonRankID_p"},{"name":"raw_common_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
+        Rank - matched","i18nValues":true,"classs":"Taxon"},{"name":"rank_id","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"jsonName":"taxonRankID","downloadName":"taxonRankID_p"},{"name":"raw_basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
+        specific nature of the data record.","info":"http://rs.tdwg.org/dwc/terms/basisOfRecord","jsonName":"raw_basisOfRecord","dwcTerm":"basisOfRecord","downloadName":"basisOfRecord","downloadDescription":"Basis
+        Of Record - original","classs":"Record"},{"name":"raw_common_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
         common or vernacular name.","info":"http://rs.tdwg.org/dwc/terms/vernacularName","jsonName":"raw_vernacularName","dwcTerm":"vernacularName","downloadName":"vernacularName","downloadDescription":"Vernacular
         Name","classs":"Taxon"},{"name":"raw_datum","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
         ellipsoid, geodetic datum, or spatial reference system (SRS) upon which the
@@ -2686,7 +2689,7 @@ http_interactions:
         year the event occurred in.  http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year_p","downloadDescription":"Year
         - parsed","classs":"Event"},{"name":"zone","dataType":"string","indexed":false,"stored":false,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset","downloadName":"zone"}]'
-  recorded_at: 2021-08-02 00:17:12 GMT
+  recorded_at: 2021-08-18 05:54:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2697,25 +2700,30 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.2.0
+      User-Agent: galah 1.3.0
   response:
     status:
-      status_code: '200'
-      message: OK
-      explanation: Request fulfilled, document follows
+      status_code: '500'
+      message: Internal Server Error
+      explanation: Server got itself in trouble
     headers:
-      status: HTTP/1.1 200 OK
-      date: Mon, 02 Aug 2021 00:17:30 GMT
+      status: HTTP/1.1 500 Internal Server Error
+      date: Wed, 18 Aug 2021 05:52:39 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
       access-control-allow-headers: x-requested-with
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
+      content-language: en-US
+      content-length: '221'
+      connection: close
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":9516776,"fq":"year:\"2015\""},{"label":"2008","i18nCode":"year.2008","count":9311349,"fq":"year:\"2008\""},{"label":"2017","i18nCode":"year.2017","count":9282994,"fq":"year:\"2017\""},{"label":"2016","i18nCode":"year.2016","count":9148547,"fq":"year:\"2016\""},{"label":"2018","i18nCode":"year.2018","count":9124525,"fq":"year:\"2018\""},{"label":"2014","i18nCode":"year.2014","count":9114859,"fq":"year:\"2014\""},{"label":"2009","i18nCode":"year.2009","count":8906670,"fq":"year:\"2009\""},{"label":"2010","i18nCode":"year.2010","count":8879404,"fq":"year:\"2010\""},{"label":"2019","i18nCode":"year.2019","count":8875002,"fq":"year:\"2019\""},{"label":"2013","i18nCode":"year.2013","count":8444301,"fq":"year:\"2013\""},{"label":"2011","i18nCode":"year.2011","count":8221164,"fq":"year:\"2011\""},{"label":"2012","i18nCode":"year.2012","count":7518074,"fq":"year:\"2012\""},{"label":"2007","i18nCode":"year.2007","count":7187760,"fq":"year:\"2007\""},{"label":"2006","i18nCode":"year.2006","count":6181148,"fq":"year:\"2006\""},{"label":"2005","i18nCode":"year.2005","count":5834088,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":5159438,"fq":"year:\"2004\""},{"label":"2003","i18nCode":"year.2003","count":4999395,"fq":"year:\"2003\""},{"label":"2002","i18nCode":"year.2002","count":4325070,"fq":"year:\"2002\""},{"label":"2000","i18nCode":"year.2000","count":3756899,"fq":"year:\"2000\""},{"label":"1999","i18nCode":"year.1999","count":3706296,"fq":"year:\"1999\""}],"count":357}]'
-  recorded_at: 2021-08-02 00:17:12 GMT
+      string: |
+        {
+        "message": "No live SolrServers available to handle this request:[http://172.31.9.81:8983/solr/biocache, http://172.31.15.129:8983/solr/biocache, http://172.31.14.216:8983/solr/biocache]", "errorType": "Server error"
+        }
+  recorded_at: 2021-08-18 05:54:07 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

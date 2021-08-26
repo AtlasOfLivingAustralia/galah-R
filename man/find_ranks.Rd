@@ -20,5 +20,5 @@ rank_df <- find_ranks()
 \seealso{
 This function provides a
 reference that is useful when specifying the \code{down_to} argument of 
-\code{\link{search_taxonomy}}.
+\code{\link{ala_taxonomy}}.
 }

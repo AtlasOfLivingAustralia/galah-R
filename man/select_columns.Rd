@@ -14,8 +14,8 @@ include. Valid options are \code{"basic"}, \code{"event"} and
 \code{"assertion"}}
 }
 \value{
-A \code{data.frame} of columns, specifying the name and type
-of each column to include in the occurrence download.
+An object of class \code{data.frame} and \code{ala_columns}
+specifying the name and type of each column to include in the occurrence download.
 }
 \description{
 The ALA stores content on hundreds of different fields, and users often

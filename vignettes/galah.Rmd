@@ -1,7 +1,7 @@
 ---
 title: "galah"
 author: "Matilda Stevenson"
-date: '2021-08-03'
+date: '2021-08-06'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -53,6 +53,7 @@ Load the package
 
 ```r
 library(galah)
+galah_config(atlas = "Australia")
 ```
 
 # Filtering data
@@ -78,19 +79,9 @@ specified. Specifying the rank can be useful when names are ambiguous.
 ```r
 # free text search
 taxa_filter <- select_taxa("Eolophus")
-```
 
-```
-## Assuming that query term(s) provided are scientific or common names
-```
-
-```r
 # specifying ranks
 select_taxa(query = list(genus = "Eolophus", kingdom = "Aves"))
-```
-
-```
-## Assuming that query term(s) provided are scientific or common names
 ```
 
 ```
@@ -101,41 +92,9 @@ select_taxa(query = list(genus = "Eolophus", kingdom = "Aves"))
 ##            order     family    genus  issues
 ## 1 Psittaciformes Cacatuidae Eolophus noIssue
 ```
-`select_taxa()` can optionally provide information about child concepts, and
-counts of the number of records held by the ALA for the specified taxa.
 
-```r
-select_taxa(query = "Eolophus", children = TRUE, counts = TRUE)
-```
-
-```
-## Warning in select_taxa(query = "Eolophus", children = TRUE, counts = TRUE): The `children` argument is now deprecated. To get information about
-##   child taxonomic concepts, use `search_taxa` with the `downto` argument.
-##   For more information about taxonomic searches, see vignette('taxonomic_information')
-```
-
-```
-## Warning in select_taxa(query = "Eolophus", children = TRUE, counts = TRUE): The `counts` argument is now deprecated. To get information about
-##   taxonomic counts, use `ala_counts` with the `groupby` argument.
-##   For more information about taxonomic searches, see vignette('taxonomic_information')
-```
-
-```
-## Assuming that query term(s) provided are scientific or common names
-```
-
-```
-##    search_term       scientific_name scientific_name_authorship
-## 1:    Eolophus              Eolophus            Bonaparte, 1854
-## 2:        <NA> Eolophus roseicapilla           (Vieillot, 1817)
-##                                                               taxon_concept_id    rank   match_type  kingdom   phylum
-## 1: urn:lsid:biodiversity.org.au:afd.taxon:b2de5e40-df8f-4339-827d-25e63454a4a2   genus   exactMatch Animalia Chordata
-## 2: urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 species taxonIdMatch Animalia Chordata
-##    class          order     family    genus  issues               species vernacular_name  count
-## 1:  Aves Psittaciformes Cacatuidae Eolophus noIssue                  <NA>            <NA> 852049
-## 2:  Aves Psittaciformes Cacatuidae Eolophus noIssue Eolophus roseicapilla           Galah 852047
-```
-This shows that there is only one species in the family *Eolophus*.
+For more detailed taxonomic information use `search_taxonomy()`, as outlined in 
+`vignette("taxonomic_information")`
 
 ## Location-based filtering
 Users can provide an `sf` object or a Well-Known Text (WKT) string for
@@ -160,21 +119,21 @@ search_fields("basis")
 ```
 
 ```
-##                                                 id
-## 1:                                   basisOfRecord
-## 2:                               raw_basisOfRecord
-## 3:                         BASIS_OF_RECORD_INVALID
-## 4: OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD
-##                                                                                                     description
-## 1: What this is a record of e.g. specimen, human observation, fossil http://rs.tdwg.org/dwc/terms/basisOfRecord
-## 2:     The basis of record as supplied by the data publisher http://rs.tdwg.org/dwc/terms/verbatimBasisOfRecord
-## 3:                                                                                 Basis of record badly formed
-## 4:                                                              Occurrence status inferred from basis of record
-##          type link
-## 1:     fields <NA>
-## 2:     fields <NA>
-## 3: assertions <NA>
-## 4: assertions <NA>
+##                                                  id
+## 11                                    basisOfRecord
+## 186                               raw_basisOfRecord
+## 661                         BASIS_OF_RECORD_INVALID
+## 726 OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD
+##                                                                                                      description
+## 11  What this is a record of e.g. specimen, human observation, fossil http://rs.tdwg.org/dwc/terms/basisOfRecord
+## 186     The basis of record as supplied by the data publisher http://rs.tdwg.org/dwc/terms/verbatimBasisOfRecord
+## 661                                                                                 Basis of record badly formed
+## 726                                                              Occurrence status inferred from basis of record
+##           type link
+## 11      fields <NA>
+## 186     fields <NA>
+## 661 assertions <NA>
+## 726 assertions <NA>
 ```
 
 ```r
@@ -194,10 +153,6 @@ It is also possible to pass other kinds of logical statement to
 filters <- select_filters(basisOfRecord = "HumanObservation",
                           year >= 2010,
                           occurrenceStatus != "absent")
-```
-
-```
-## Error in `$<-.data.frame`(`*tmp*`, "logical", value = c("=", ">=", NA)): replacement has 3 rows, data has 2
 ```
 
 
@@ -277,10 +232,6 @@ filters <- select_filters(basisOfRecord = "HumanObservation",
                           profile = "ALA")
 ```
 
-```
-## Error in validate_filters(df$variable): The following filters are invalid: profile. Use `search_fields()` to get a list of valid options
-```
-
 # Downloading data
 
 Functions that return data from ALA are named with the prefix `ala_`,
@@ -327,10 +278,6 @@ occ <- ala_occurrences(taxa = select_taxa("Eolophus roseicapilla"),
                        columns = select_columns("institutionID", group = "basic"))
 ```
 
-```
-## Error in `$<-.data.frame`(`*tmp*`, "logical", value = c("=", NA)): replacement has 2 rows, data has 1
-```
-
 
 ```r
 head(occ)
@@ -338,19 +285,26 @@ head(occ)
 
 ```
 ##   decimalLatitude decimalLongitude            eventDate        scientificName
-## 1       -43.03333         147.3000 2000-12-11T13:00:00Z Microseris lanceolata
-## 2       -41.88333         147.7667 2000-01-16T13:00:00Z Microseris lanceolata
-## 3       -37.64790         144.9673 2000-06-13T14:00:00Z Microseris lanceolata
-## 4       -36.45776         149.3639 2000-01-07T13:00:00Z Microseris lanceolata
-## 5       -36.41611         148.4047 2000-03-10T13:00:00Z Microseris lanceolata
-## 6       -36.41444         148.4008 2000-03-10T13:00:00Z Microseris lanceolata
-##                                       taxonConceptID                             recordID             dataResourceName
-## 1 https://id.biodiversity.org.au/taxon/apni/51268659 e00a8e52-bff8-4129-8038-fbf5ccb75fdd                  HO AVH data
-## 2 https://id.biodiversity.org.au/taxon/apni/51268659 3033f96b-3c12-41ff-ae04-d1002898a431                  HO AVH data
-## 3 https://id.biodiversity.org.au/taxon/apni/51268659 d1e5b63f-781b-4476-8b7b-1aeb380e0a9b Victorian Biodiversity Atlas
-## 4 https://id.biodiversity.org.au/taxon/apni/51268659 ce6cb3bf-0d54-4734-8a0a-ad8e63c7aeb4             NSW BioNet Atlas
-## 5 https://id.biodiversity.org.au/taxon/apni/51268659 39916933-0f45-441f-8630-d879c2d329b9 Victorian Biodiversity Atlas
-## 6 https://id.biodiversity.org.au/taxon/apni/51268659 ecd835c5-f6c4-4164-baf6-725b24874228 Victorian Biodiversity Atlas
+## 1       -35.88717         148.9713                      Eolophus roseicapilla
+## 2       -35.86784         149.0101                      Eolophus roseicapilla
+## 3       -35.86556         149.0106 2012-01-18T13:00:00Z Eolophus roseicapilla
+## 4       -35.86429         149.0052                      Eolophus roseicapilla
+## 5       -35.77517         148.9591                      Eolophus roseicapilla
+## 6       -35.76652         148.9654                      Eolophus roseicapilla
+##                                                                taxonConceptID                             recordID
+## 1 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 17f46d49-7db0-4929-89f4-b29323f3fcc5
+## 2 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 ef2b9066-c078-4660-b9a4-c31192aa8bf7
+## 3 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 4f7cd714-2997-45d6-adaf-f7dfc80adfe1
+## 4 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 3236c470-a144-4300-ae9b-782d0e5e4dd1
+## 5 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 e340c423-3a19-4293-aa72-e4045bb7f702
+## 6 urn:lsid:biodiversity.org.au:afd.taxon:577ff059-a2a7-48b0-976c-fdd6a345f878 f25793f3-2704-43ff-80ee-c2a1787490e7
+##              dataResourceName institutionID
+## 1             eBird Australia              
+## 2             eBird Australia              
+## 3 BirdLife Australia, Birdata              
+## 4             eBird Australia              
+## 5             eBird Australia              
+## 6             eBird Australia
 ```
 
 ## Species data
@@ -368,20 +322,20 @@ head(species)
 ```
 
 ```
-##                                                                       species                species_name
-## 1 urn:lsid:biodiversity.org.au:afd.taxon:f38bcd7e-ae6a-4734-bd64-06995bc230eb        Mesembriomys gouldii
-## 2 urn:lsid:biodiversity.org.au:afd.taxon:46611113-a1e3-45b1-b58c-7aef088a9da7             Zyzomys argurus
-## 3 urn:lsid:biodiversity.org.au:afd.taxon:5d73fc2f-3caa-4b44-aa40-3711e8304f80 Pseudomys hermannsburgensis
-## 4 urn:lsid:biodiversity.org.au:afd.taxon:49001532-929e-4b78-97d3-c885e97d671b              Notomys alexis
-## 5 urn:lsid:biodiversity.org.au:afd.taxon:89dfa41e-2c5a-44d1-80bf-8d4cd3c73089             Melomys burtoni
-## 6 urn:lsid:biodiversity.org.au:afd.taxon:107696b5-063c-4c09-a015-6edfdb6f4d52                Mus musculus
-##   scientific_name_authorship taxon_rank  kingdom   phylum    class    order  family        genus        vernacular_name
-## 1          (J.E. Gray, 1843)    species Animalia Chordata Mammalia Rodentia Muridae Mesembriomys  Black-footed Tree-rat
-## 2             (Thomas, 1889)    species Animalia Chordata Mammalia Rodentia Muridae      Zyzomys        Common Rock-rat
-## 3              (Waite, 1896)    species Animalia Chordata Mammalia Rodentia Muridae    Pseudomys     Sandy Inland Mouse
-## 4               Thomas, 1922    species Animalia Chordata Mammalia Rodentia Muridae      Notomys Spinifex Hopping-mouse
-## 5             (Ramsay, 1887)    species Animalia Chordata Mammalia Rodentia Muridae      Melomys      Grassland Melomys
-## 6             Linnaeus, 1758    species Animalia Chordata Mammalia Rodentia Muridae          Mus            House Mouse
+##    kingdom   phylum    class    order  family        genus                     species            author
+## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys        Mesembriomys gouldii (J.E. Gray, 1843)
+## 2 Animalia Chordata Mammalia Rodentia Muridae      Zyzomys             Zyzomys argurus    (Thomas, 1889)
+## 3 Animalia Chordata Mammalia Rodentia Muridae    Pseudomys Pseudomys hermannsburgensis     (Waite, 1896)
+## 4 Animalia Chordata Mammalia Rodentia Muridae      Notomys              Notomys alexis      Thomas, 1922
+## 5 Animalia Chordata Mammalia Rodentia Muridae      Melomys             Melomys burtoni    (Ramsay, 1887)
+## 6 Animalia Chordata Mammalia Rodentia Muridae          Mus                Mus musculus    Linnaeus, 1758
+##                                                                  species_guid        vernacular_name
+## 1 urn:lsid:biodiversity.org.au:afd.taxon:f38bcd7e-ae6a-4734-bd64-06995bc230eb  Black-footed Tree-rat
+## 2 urn:lsid:biodiversity.org.au:afd.taxon:46611113-a1e3-45b1-b58c-7aef088a9da7        Common Rock-rat
+## 3 urn:lsid:biodiversity.org.au:afd.taxon:5d73fc2f-3caa-4b44-aa40-3711e8304f80     Sandy Inland Mouse
+## 4 urn:lsid:biodiversity.org.au:afd.taxon:49001532-929e-4b78-97d3-c885e97d671b Spinifex Hopping-mouse
+## 5 urn:lsid:biodiversity.org.au:afd.taxon:89dfa41e-2c5a-44d1-80bf-8d4cd3c73089      Grassland Melomys
+## 6 urn:lsid:biodiversity.org.au:afd.taxon:107696b5-063c-4c09-a015-6edfdb6f4d52            House Mouse
 ```
 
 ## Record counts
@@ -396,7 +350,7 @@ ala_counts()
 ```
 
 ```
-## [1] 100856343
+## [1] 100871912
 ```
 
 ```r
@@ -406,16 +360,16 @@ ala_counts(group_by = "kingdom")
 
 ```
 ##      kingdom    count
-## 1   Animalia 75641134
-## 2    Plantae 21466613
-## 3      Fungi  1875458
-## 4  Chromista   914285
+## 1   Animalia 75649166
+## 2    Plantae 21472247
+## 3      Fungi  1877219
+## 4  Chromista   914334
 ## 5   Protista    67279
 ## 6   Bacteria    58081
-## 7   Protozoa    22627
+## 7   Protozoa    22681
 ## 8    Archaea     1103
 ## 9  Eukaryota      735
-## 10     Virus      420
+## 10     Virus      421
 ```
 
 

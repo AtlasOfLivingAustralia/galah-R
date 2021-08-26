@@ -1,3 +1,16 @@
+# galah 1.3.1
+
+### `search_taxonomy()` renamed to `ala_taxonomy()`
+
+* bug fix: `ala_taxonomy` no longer fails for nodes ranked as `informal` or `unranked` (#86)
+* this function now returns a tree built using the `data.tree` package
+* change in function name required for greater consistency with other data-providing functions in `galah`
+
+### Vignettes
+
+* vignettes are now pre-compiled to avoid failing on CRAN (#85)
+* expanded vignette on navigating taxonomic information (#42)
+
 # galah 1.3.0
 
 ### `galah_config()`
@@ -59,6 +72,8 @@ download records; this takes the user to the website search page (#32)
 * `ala_species()` provides a more helpful error if no species are found (#39)
 * Data quality filters are created using the specific web service argument,
 rather than constructing filters from the attributes (#37)
+* `select_taxa()` has an optional `all_ranks` argument to return intermediate
+rank information (#35)
 
 ### Bug fixes
 * R > 4.0.0 is now required (#43, #45)

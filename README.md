@@ -10,6 +10,8 @@ Status](https://travis-ci.com/AtlasOfLivingAustralia/galah.svg?branch=master)](h
 [![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/galah/branch/master/graph/badge.svg)](https://codecov.io/github/AtlasOfLivingAustralia/galah?branch=master)
 [![CRAN
 Status](https://www.r-pkg.org/badges/version/galah)](https://CRAN.R-project.org/package=galah)
+[![CRAN
+Downloads](https://cranlogs.r-pkg.org/badges/grand-total/galah)](https://cran.r-project.org/package=galah)
 
 ------------------------------------------------------------------------
 
@@ -20,7 +22,9 @@ eDNA records, etc.), taxonomic information, or associated media such as
 images or sounds, and to restrict their queries to particular taxa or
 locations. Users can specify which columns are returned by a query, or
 restrict their results to occurrences that meet particular data-quality
-criteria. All functions return a `data.frame` as their standard format.
+criteria. All functions return a `data.frame` as their standard format, except
+`ala_taxonomy` which returns tree consisting of `Node` objects using the 
+`data.tree` package.
 
 The ALA is an aggregator of biodiversity data, focussed primarily on
 observations of individual life forms. Like the Global Biodiversity

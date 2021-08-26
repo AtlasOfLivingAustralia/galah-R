@@ -13,8 +13,8 @@
 #' include. Valid options are \code{"basic"}, \code{"event"} and
 #' \code{"assertion"}
 #' @param ... zero or more individual column names to include
-#' @return A \code{data.frame} of columns, specifying the name and type
-#' of each column to include in the occurrence download.
+#' @return An object of class \code{data.frame} and \code{ala_columns}
+#' specifying the name and type of each column to include in the occurrence download.
 #' @details
 #' Calling the argument \code{group = "basic"} returns the following columns:
 #' \itemize{
@@ -62,6 +62,9 @@ select_columns <- function(..., group = c("basic", "event", "assertions")) {
       extra_cols <- NULL
     }
   all_cols <- rbind(group_cols, extra_cols)
+  if(inherits(all_cols, "data.table")){
+    all_cols <- as.data.frame(all_cols)
+  }
   class(all_cols) <- append(class(all_cols), "ala_columns")
   # remove duplicates
   all_cols[!duplicated(all_cols$name), ]
@@ -71,9 +74,11 @@ validate_cols <- function(cols) {
   invalid_cols <- cols[!is.element(cols,
                                    c(search_fields()$id, all_fields()$name))]
   if (length(invalid_cols) > 0) {
-    message("The following columns may be invalid: ",
-         paste(invalid_cols, collapse = ", "),
-         ". Use `search_fields()` to get a list of valid options")
+    if(!all(invalid_cols %in% image_fields())){ # exception for ala_media
+      message("The following columns may be invalid: ",
+           paste(invalid_cols, collapse = ", "),
+           ". Use `search_fields()` to get a list of valid options")
+    }
   }
 }
 
@@ -84,7 +89,6 @@ preset_cols <- function(type) {
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),
-                 "assertions" = search_fields(type = "assertions")$id
-  )
-  cols
+                 "assertions" = search_fields(type = "assertions")$id)
+  return(cols)
 }
