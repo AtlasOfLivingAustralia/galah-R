@@ -18,15 +18,6 @@
 #' Note that searches are not case-sensitive.
 #' @param is_id \code{logical}: Is the query a unique identifier? Defaults to 
 #' \code{FALSE}, meaning that queries are assumed to be taxonomic names.
-#' @param children \code{logical}: Return child concepts for the provided
-#' query? DEPRECATED: use \code{\link{ala_taxonomy}} instead.
-#' @param counts \code{logical}: return occurrence counts for all
-#' taxa found? \code{FALSE} by default. 
-#' DEPRECATED: use \code{\link{ala_counts}} instead.
-#' @param all_ranks \code{logical}: Include all available
-#' intermediate ranks for taxa? e.g. suborder, superfamily. Retrieving this
-#' information requires an additional web service call so will slow down the
-#' query. DEPRECATED: use \code{\link{ala_taxonomy}} instead.
 #' @return An object of class \code{data.frame} and \code{ala_id}
 #' containing taxonomic information.
 #' @seealso \code{\link{select_columns}}, \code{\link{select_filters}} and
@@ -47,27 +38,10 @@
 #' select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 #' }
 #' @export
-select_taxa <- function(query, is_id = FALSE, children = FALSE, counts = FALSE,
-                        all_ranks = FALSE) {
+select_taxa <- function(query, is_id = FALSE) {
   assert_that(is.logical(is_id))
   if(missing(is_id)){is_id <- FALSE}
-  if (!missing(children)) {
-    warning("The `children` argument is now deprecated. To get information about
-  child taxonomic concepts, use `ala_taxonomy` with the `downto` argument.
-  For more information about taxonomic searches, see vignette('taxonomic_information')")
-  }
-  if (!missing(counts)) {
-    warning("The `counts` argument is now deprecated. To get information about
-  taxonomic counts, use `ala_counts` with the `groupby` argument.
-  For more information about taxonomic searches, see vignette('taxonomic_information')")
-  }
-  if (!missing(all_ranks)) {
-    warning("The `all_ranks` argument is now deprecated. All rank information is
-  provided by default in `ala_taxonomy`.
-  For more information about taxonomic searches, see vignette('taxonomic_information')")
-  }
   verbose <- getOption("galah_config")$verbose
-  assert_that(is.flag(children))
 
   if (getOption("galah_config")$atlas != "Australia") {
     stop("`select_taxa` only provides information on Australian taxonomy. To search taxonomy for ",
@@ -85,31 +59,6 @@ select_taxa <- function(query, is_id = FALSE, children = FALSE, counts = FALSE,
   }
   
   out_data <- as.data.frame(matches, stringsAsFactors = FALSE)
-  if (ncol(out_data) > 1 && children) {
-    # look up the child concepts for the identifier
-    children <- data.table::rbindlist(
-      lapply(out_data$taxon_concept_id, function(x) {
-        child_concepts(x)
-      }), fill = TRUE)
-    # add children to df
-    out_data <- data.table::rbindlist(list(out_data, children), fill = TRUE)
-  }
-  if (ncol(out_data) > 1 && counts) {
-    # add counts to data
-    counts <- unlist(lapply(out_data$taxon_concept_id, function(id) {
-      record_count(list(fq = paste0("lsid:", id)))
-    }))
-    out_data <- cbind(out_data, count = counts)
-  }
-  if (ncol(out_data) > 1 && all_ranks) {
-    im_ranks <- data.table::rbindlist(
-      lapply(out_data$taxon_concept_id, function(id) {
-        intermediate_ranks(id)
-      }
-    ), fill = TRUE)
-    out_data <- cbind(out_data, im_ranks)
-    # Todo: order columns correctly
-  }
   class(out_data) <- append(class(out_data), "ala_id")
   out_data
 }
@@ -162,8 +111,9 @@ name_lookup <- function(name) {
   if ("homonym" %in% result$issues) {
     warning("Homonym issue with ", name,
          ". Please also provide another rank to clarify.")
-    return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
-  }  else if (isFALSE(result$success)) {
+    # return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
+  }  #else 
+  if (isFALSE(result$success)) {
     message("No taxon matches were found for \"", name, "\"")
     return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
   }

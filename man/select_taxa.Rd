@@ -4,13 +4,7 @@
 \alias{select_taxa}
 \title{Taxon information}
 \usage{
-select_taxa(
-  query,
-  is_id = FALSE,
-  children = FALSE,
-  counts = FALSE,
-  all_ranks = FALSE
-)
+select_taxa(query, is_id = FALSE)
 }
 \arguments{
 \item{query}{\code{string}: A vector containing one or more search terms,
@@ -22,18 +16,6 @@ Note that searches are not case-sensitive.}
 
 \item{is_id}{\code{logical}: Is the query a unique identifier? Defaults to 
 \code{FALSE}, meaning that queries are assumed to be taxonomic names.}
-
-\item{children}{\code{logical}: Return child concepts for the provided
-query? DEPRECATED: use \code{\link{ala_taxonomy}} instead.}
-
-\item{counts}{\code{logical}: return occurrence counts for all
-taxa found? \code{FALSE} by default. 
-DEPRECATED: use \code{\link{ala_counts}} instead.}
-
-\item{all_ranks}{\code{logical}: Include all available
-intermediate ranks for taxa? e.g. suborder, superfamily. Retrieving this
-information requires an additional web service call so will slow down the
-query. DEPRECATED: use \code{\link{ala_taxonomy}} instead.}
 }
 \value{
 An object of class \code{data.frame} and \code{ala_id}
