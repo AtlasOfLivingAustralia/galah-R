@@ -76,9 +76,10 @@
 
 # TODO: provide a useful error message for bad queries e.g. select_filters(year == 2010 | 2021)
 # TODO: handle commas
-# temporary version of select_filters
 select_filters <- function(..., profile = NULL) {
   exprs <- as.list(match.call(expand.dots = FALSE)$...)
+  
+  # sort out profiles
   profile_attr <- NULL
   if (!is.null(profile)) {
     short_name <- profile_short_name(profile)
@@ -87,42 +88,17 @@ select_filters <- function(..., profile = NULL) {
       Use `find_profiles` to list valid profiles.")
     }
     profile_attr <- short_name
-  }
-  df <- data.frame(data.table::rbindlist(lapply(seq_len(length(exprs)), function(i) {
-    filter_name <- names(exprs)[i]
-    x <- exprs[[i]]
-    if(inherits(x, "name")){x <- eval(parse(text = x))}
-    expr_type <- get_expr_type(x, filter_name)
-    if (expr_type == "and_or") {
-      x <- as.character(x)
-      rows <- build_and_or_query(x)
-    } else if (expr_type == "logical") {
-      x <- as.character(x)
-      rows <- build_logical_query(x)
-    } else if (expr_type == "exclude") {
-      x <- eval(x)
-      rows <- data.frame(variable = filter_name,
-                         logical = "!=",
-                         value = x)
-      rows$query <- parse_logical(rows)
-    } else if (expr_type == "assertion") {
-      logical <- ifelse(isTRUE(x), "=", "!=")
-      rows <- data.frame(variable = "assertions",
-                         logical = logical,
-                         value = filter_name)
-      rows$query <- parse_logical(rows)
-    }
-    else if (expr_type == "vector" || expr_type == "seq") {
-      x <- eval(x)
-      rows <- build_vector_query(filter_name, x, "=")
-    } else {
-      rows <- data.frame(variable = filter_name,
-                 logical = "=",
-                 value = eval(x))
-      rows$query <- parse_logical(rows)
-    }
-    return(rows)
-  })))
+  }  
+  
+  # clean up user-provided objects
+  # main job here is to parse objects that are passed unevaluated
+  exprs <- clean_expressions(exprs)
+  names(exprs) <- safe_eval(names(exprs))
+
+  # then parse list entries as before
+  df <- data.frame(data.table::rbindlist(lapply(
+    seq_len(length(exprs)), 
+    function(a){parse_filters(a, expr_list = exprs)})))
 
   # validate variables to ensure they exist in ALA
   if (getOption("galah_config")$run_checks) validate_filters(df$variable)
@@ -138,6 +114,88 @@ select_filters <- function(..., profile = NULL) {
   attr(df, "dq_profile") <- profile_attr
   return(df)
 }
+
+
+# issue is that if a single, named object is supplied, we need to evaluate
+# but if a logical statement is supplied, we need to treat it as text
+clean_expressions <- function(exprs){
+  lapply(exprs, function(x){
+    if(is.call(x)){x <- deparse(x)} # pre-character step necessary for calls
+    x <- as.character(x) 
+    # if(inherits(x, "character")){    
+      str_split <- strsplit(x, "\\s")[[1]]
+      if(length(str_split) > 1){
+        str_check <- !grepl("^[[:punct:]]+$", str_split)
+        # str_replace <- unlist(lapply(
+        #   str_split[str_check], safe_eval))
+        str_replace <- safe_eval(str_split[str_check])
+        str_split[str_check] <- str_replace
+        paste(str_split, collapse = " ")
+      }else{
+        safe_eval(x)
+      }
+    # }else{safe_eval(x)}
+  }) 
+}
+
+safe_eval <- function(x){ # where x is a vector
+  unlist(lapply(x, function(a){ 
+    if(is.null(a) | a == ""){
+      ""
+    }else{
+      eval_try <- try(eval(parse(text = a)), silent = TRUE)
+      if(inherits(eval_try, "try-error")){
+        a
+      }else{
+        eval_try
+      }
+    }
+  }))
+}
+
+parse_filters <- function(i, expr_list) {
+  filter_name <- names(expr_list)[i]
+  x <- expr_list[[i]]
+  ## possibly no longer needed
+  if(inherits(x, "name")){
+    x <- eval(parse(text = x))
+  }
+  if(is.call(x)){
+    x <- eval(x)
+  }
+  ## end no longer needed
+  expr_type <- get_expr_type(x, filter_name)
+  if (expr_type == "and_or") {
+    x <- as.character(x)
+    rows <- build_and_or_query(x)
+  } else if (expr_type == "logical") {
+    x <- as.character(x)
+    rows <- build_logical_query(x)
+  } else if (expr_type == "exclude") {
+    x <- eval(x)
+    rows <- data.frame(variable = filter_name,
+                       logical = "!=",
+                       value = x)
+    rows$query <- parse_logical(rows)
+  } else if (expr_type == "assertion") {
+    logical <- ifelse(isTRUE(x), "=", "!=")
+    rows <- data.frame(variable = "assertions",
+                       logical = logical,
+                       value = filter_name)
+    rows$query <- parse_logical(rows)
+  }
+  else if (expr_type == "vector" || expr_type == "seq") {
+    x <- eval(x)
+    rows <- build_vector_query(filter_name, x, "=")
+  } else {
+    rows <- data.frame(variable = filter_name,
+               logical = "=",
+               value = eval(x))
+    rows$query <- parse_logical(rows)
+  }
+  return(rows)
+}
+
 
 is_atomic <- function(x) {
   if (!grepl(and_or_regex(), x) & !grepl(logical_regex())) {
@@ -213,9 +271,9 @@ get_expr_type <- function(expr, filter_name) {
     return("logical")
   } else if ("exclude" %in% expr) {
     return("exclude")
-  } else if (("c" %in% expr) | length(expr) > 1) {
+  } else if (("c(" %in% expr) | length(expr) > 1) {
     return("vector")
-  } else if ("seq" %in% expr) {
+  } else if ("seq(" %in% expr) {
     return("seq")
   } else if (filter_name %in% search_fields(type = "assertions")$id) {
     return("assertion")

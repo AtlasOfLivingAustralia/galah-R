@@ -45,6 +45,61 @@
 ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
                        group_by, limit = 100, type = c("record" ,"species"),
                        refresh_cache = FALSE) {
+                         
+  if(length(group_by) > 1){
+    validate_facet(group_by)
+    
+    # new utility function here?
+    # perhaps use ala_counts NOT find_field_values
+      # include user filter
+    # NOTE: there is a way to get multiple group_by calls in one
+    # query via the API; might be more efficient than lapply
+    # BUT it doesn't crosstabluate so not a complete solution
+    field_values_list <- lapply(group_by, 
+      function(a){ala_counts_original(
+        taxa = taxa,
+        filters = filters, 
+        group_by = a, 
+        limit = NULL)})
+    names(field_values_list) <- group_by
+    field_values_nrow <- unlist(lapply(field_values_list, nrow))
+    group_by_large <- group_by[which.max(field_values_nrow)]
+    group_by_small <- group_by[group_by != group_by_large]
+    
+    levels_df <- expand.grid(
+      lapply(field_values_list[group_by_small], 
+         function(a){a[[1]]}),
+      stringsAsFactors = FALSE)
+    
+    # return(levels_df)
+    # end new function
+    
+    # loop across all levels
+    levels_list <- split(levels_df, seq_len(nrow(levels_df)))
+    ## test code below
+    # result_list <- lapply(
+    #   query <- paste(names(a), a, sep = " = ")
+    #   filters_this_loop <- select_filters(parse(query))
+    #   filters_final <- rbind(filters, filters_this_loop)
+    #   ala_counts(
+    #     filters = filters,
+    #     group_by = group_by[which.max(field_values_nrow)]
+    #   )})   
+    
+    result_list <- lapply(df_list, ala_counts_internal)
+    return(do.call(rbind, result_list))
+    
+  }else{
+    ala_counts_internal(taxa, filters, group_by = group_by)
+  }
+  
+}
+  
+# previously ala_counts()
+ala_counts_internal <- function(taxa = NULL, filters = NULL, locations = NULL,
+                       group_by, limit = 100, type = c("record" ,"species"),
+                       refresh_cache = FALSE) {
+  
   query <- list()
   page_size <- 100
   verbose <- getOption("galah_config")$verbose
@@ -150,7 +205,7 @@ species_count <- function(query) {
 }
 
 validate_facet <- function(facet) {
-  if (!facet %in% c(search_fields()$id, all_fields()$name)) {
+  if (!all(facet %in% c(search_fields()$id, all_fields()$name))) {
     stop("\"", facet, "\" is not a valid group_by field. ",
          "Use `search_fields()` to get a list of valid options")
   }
