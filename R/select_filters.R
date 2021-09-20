@@ -115,26 +115,28 @@ select_filters <- function(..., profile = NULL) {
   return(df)
 }
 
-
-# issue is that if a single, named object is supplied, we need to evaluate
-# but if a logical statement is supplied, we need to treat it as text
+# calls of the form `field = value`: split then evaluate
+  # issue is that if a single, named object is supplied, we need to evaluate
+  # but if a logical statement is supplied, we need to treat it as text
+  # ergo we still need a section that detects two types of call and _does_ eval them
+    # e.g. 1: `select_filters(paste(field, value, sep = " = "))`
+    # e.g. 2: `object <- "field = value"; select_filters(object)`
+  # next step is to detect objects from above examples and parse properly
 clean_expressions <- function(exprs){
   lapply(exprs, function(x){
-    if(is.call(x)){x <- deparse(x)} # pre-character step necessary for calls
-    x <- as.character(x) 
-    # if(inherits(x, "character")){    
-      str_split <- strsplit(x, "\\s")[[1]]
-      if(length(str_split) > 1){
-        str_check <- !grepl("^[[:punct:]]+$", str_split)
-        # str_replace <- unlist(lapply(
-        #   str_split[str_check], safe_eval))
-        str_replace <- safe_eval(str_split[str_check])
-        str_split[str_check] <- str_replace
-        paste(str_split, collapse = " ")
-      }else{
-        safe_eval(x)
-      }
-    # }else{safe_eval(x)}
+    if(is.call(x)){ # pre-character step necessary for calls
+      x <- deparse(x)
+    } 
+    x <- as.character(x)  
+    str_split <- strsplit(x, "\\s")[[1]]
+    if(length(str_split) > 1){
+      str_check <- !grepl("^[[:punct:]]+$", str_split)
+      str_replace <- safe_eval(str_split[str_check])
+      str_split[str_check] <- str_replace
+      paste(str_split, collapse = " ")
+    }else{
+      safe_eval(x)
+    }
   }) 
 }
 
