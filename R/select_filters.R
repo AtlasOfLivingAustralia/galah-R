@@ -92,9 +92,12 @@ select_filters <- function(..., profile = NULL) {
   
   # clean up user-provided objects
   # main job here is to parse objects that are passed unevaluated
-  exprs <- clean_expressions(exprs)
-  names(exprs) <- safe_eval(names(exprs))
-
+  ## exprs <- clean_expressions(exprs)
+  exprs <- parse_named_entries(exprs)
+  exprs <- parse_class_name(exprs)
+  exprs <- parse_class_call(exprs)
+  exprs <- parse_formulae(exprs)
+  
   # then parse list entries as before
   df <- data.frame(data.table::rbindlist(lapply(
     seq_len(length(exprs)), 
@@ -115,57 +118,110 @@ select_filters <- function(..., profile = NULL) {
   return(df)
 }
 
-# calls of the form `field = value`: split then evaluate
-  # issue is that if a single, named object is supplied, we need to evaluate
-  # but if a logical statement is supplied, we need to treat it as text
-  # ergo we still need a section that detects two types of call and _does_ eval them
-    # e.g. 1: `select_filters(paste(field, value, sep = " = "))`
-    # e.g. 2: `object <- "field = value"; select_filters(object)`
-  # next step is to detect objects from above examples and parse properly
-clean_expressions <- function(exprs){
-  lapply(exprs, function(x){
-    if(is.call(x)){ # pre-character step necessary for calls
-      x <- deparse(x)
-    } 
-    x <- as.character(x)  
-    str_split <- strsplit(x, "\\s")[[1]]
-    if(length(str_split) > 1){
-      str_check <- !grepl("^[[:punct:]]+$", str_split)
-      str_replace <- safe_eval(str_split[str_check])
-      str_split[str_check] <- str_replace
-      paste(str_split, collapse = " ")
-    }else{
-      safe_eval(x)
-    }
-  }) 
+
+# NOTE: in the below functions, for-loop style lapply fails for some reason; 
+# i.e. if you use lapply(exprs, function(x){inherits(a, "name")})
+# then the resulting parsing is not passed back to the output
+# hence the slightly odd index-based approach used below
+  
+# most basic approach is to have field = name; these give named entries
+# parse these back to text for consistency with later functions
+parse_named_entries <- function(x){
+  name_lookup <- names(x) != ""
+  if(any(name_lookup)){
+    index <- which(name_lookup)
+    x[index] <- paste(names(x)[index], x[index], sep = " = ")
+    names(x) <- NULL
+  }
+  x
 }
 
-safe_eval <- function(x){ # where x is a vector
-  unlist(lapply(x, function(a){ 
-    if(is.null(a) | a == ""){
-      ""
-    }else{
-      eval_try <- try(eval(parse(text = a)), silent = TRUE)
-      if(inherits(eval_try, "try-error")){
-        a
-      }else{
-        eval_try
-      }
-    }
-  }))
+# where the object in list is of class `name` (i.e. is a named object),
+# parse them, then paste back into original list
+parse_class_name  <- function(x){
+  class_name_lookup <- unlist(lapply(x, function(a){inherits(a, "name")}))
+  if(any(class_name_lookup)){
+    x[class_name_lookup] <- lapply(x[class_name_lookup], eval)
+  }
+  x
 }
+  
+# same but for objects of class `call`, which includes two types
+  # function calls (e.g. paste(x, y)) that should be eval-ed
+  # logical statements (e.g. year >= 2010) which shouldn't
+parse_class_call <- function(x){
+  class_call_lookup <- unlist(lapply(x, is.call))
+  if(any(class_call_lookup)){
+    call_text <- unlist(lapply(x[class_call_lookup], deparse))
+    is_function <- grepl("([[:alnum:]]|.|_)+\\(", call_text)
+    if(any(is_function)){
+      x[class_call_lookup][is_function] <- lapply(
+        x[class_call_lookup][is_function], eval)
+    }
+    if(any(!is_function)){
+      x[class_call_lookup][!is_function] <- call_text[!is_function]
+    }
+  }
+  x
+}
+  
+# by this point everything should be a character
+# take any formulae and parse out fields and values
+# the below is a bit convoluted, but should work ok as a block
+parse_formulae <- function(x){
+  formula_lookup <- unlist(lapply(x, function(a){grepl("=|>|<", a)}))
+  formula_split <- strsplit(unlist(x[formula_lookup]), "\\s")
+  # formulae contain:
+    # > < = (ignore)
+    # names of objects (parse)
+    # names of fields (don't parse)
+    # functions (e.g. c())
+  all_vals <- unique(unlist(formula_split))
+  all_vals <- all_vals[!grepl(">|<|=|\\(|\\)|\\||\\&", all_vals)]
+  object_names <- all_vals[unlist(lapply(all_vals, exists))]
+  object_list <- lapply(object_names, function(a){eval(parse(text = a))})
+  names(object_list) <- object_names
+  
+  # where a vector is long, replace with c rather than original values
+  length_lookup <- unlist(lapply(object_list, length)) > 1
+  if(any(length_lookup)){
+    object_list[length_lookup] <- lapply(
+      object_list[length_lookup],
+      function(a){paste0("c(", paste(a, collapse = ", "), ")")}) 
+  }
+  
+  # use gsub via lapply to replace contents of exprs
+  x_vec <- unlist(x)
+  for(a in seq_along(object_list)){
+    x_vec <- gsub(names(object_list)[a], object_list[[a]], x_vec)
+  }
+  
+  return(as.list(x_vec))
+}
+
+# # NOTE: help for ?parse says `call` is an order of magnitude faster
+# # check if that's possible (perhaps with `do.call()`?)  
+# safe_eval <- function(x){ # where x is a vector
+#   unlist(lapply(x, function(a){ 
+#     if(is.null(a) | a == ""){
+#       ""
+#     }else{
+#       eval_try <- try(eval(parse(text = a)), silent = TRUE) 
+#         # option to use `exists` rather than `try`?
+#       if(inherits(eval_try, "try-error")){
+#         a
+#       }else{
+#         eval_try
+#       }
+#     }
+#   }))
+# }
+# # use safe_eval as the baseline then benchmark improvements against that
+# # safe_eval2 should be the 'faster' test version
 
 parse_filters <- function(i, expr_list) {
   filter_name <- names(expr_list)[i]
   x <- expr_list[[i]]
-  ## possibly no longer needed
-  if(inherits(x, "name")){
-    x <- eval(parse(text = x))
-  }
-  if(is.call(x)){
-    x <- eval(x)
-  }
-  ## end no longer needed
   expr_type <- get_expr_type(x, filter_name)
   if (expr_type == "and_or") {
     x <- as.character(x)
