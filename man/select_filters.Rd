@@ -38,8 +38,8 @@ argument) take the form of field - logical - value. Permissible examples include
   \item{\code{AND} statements (e.g. \code{year >= 2000 & year <= 2020})}
 }
 In some cases \code{R} will fail to parse inputs with a single equals sign 
-(\code{=}), particularly where statements are separated by /code{&} or 
-/code{|}. This problem can be avoided by using a double-equals instead.
+(\code{=}), particularly where statements are separated by \code{&} or 
+\code{|}. This problem can be avoided by using a double-equals (\code{==}) instead.
 }
 \examples{
 \dontrun{

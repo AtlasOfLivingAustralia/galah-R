@@ -32,8 +32,8 @@
 #'   \item{\code{AND} statements (e.g. \code{year >= 2000 & year <= 2020})}
 #' }
 #' In some cases \code{R} will fail to parse inputs with a single equals sign 
-#' (\code{=}), particularly where statements are separated by /code{&} or 
-#' /code{|}. This problem can be avoided by using a double-equals instead.
+#' (\code{=}), particularly where statements are separated by \code{&} or 
+#' \code{|}. This problem can be avoided by using a double-equals (\code{==}) instead.
 #' @examples \dontrun{
 #' # Create a custom filter for records of interest
 #' filters <- select_filters(
@@ -76,6 +76,9 @@
 
 # TODO: provide a useful error message for bad queries e.g. select_filters(year == 2010 | 2021)
 # TODO: handle commas
+# NOTE: help for ?parse says `call` is an order of magnitude faster
+  # check if that's possible (perhaps with `do.call()`?) 
+
 select_filters <- function(..., profile = NULL) {
   exprs <- as.list(match.call(expand.dots = FALSE)$...)
   
@@ -91,18 +94,16 @@ select_filters <- function(..., profile = NULL) {
   }  
   
   # clean up user-provided objects
-  # main job here is to parse objects that are passed unevaluated
-  ## exprs <- clean_expressions(exprs)
-  exprs <- parse_named_entries(exprs)
-  exprs <- parse_class_name(exprs)
-  exprs <- parse_class_call(exprs)
-  exprs <- parse_formulae(exprs)
-  
-  # then parse list entries as before
-  df <- data.frame(data.table::rbindlist(lapply(
-    seq_len(length(exprs)), 
-    function(a){parse_filters(a, expr_list = exprs)})))
-
+  df <- exprs |> 
+    parse_named_entries() |>
+    parse_class_name() |>
+    parse_class_call() |>
+    parse_formulae() |>
+    unlist() |>
+    parse_and() |>
+    parse_or() |>
+    parse_filters()
+    
   # validate variables to ensure they exist in ALA
   if (getOption("galah_config")$run_checks) validate_filters(df$variable)
   # parse each line into a solr query
@@ -118,8 +119,7 @@ select_filters <- function(..., profile = NULL) {
   return(df)
 }
 
-
-# NOTE: in the below functions, for-loop style lapply fails for some reason; 
+# NOTE: in the functions below, for-loop style lapply fails for some reason; 
 # i.e. if you use lapply(exprs, function(x){inherits(a, "name")})
 # then the resulting parsing is not passed back to the output
 # hence the slightly odd index-based approach used below
@@ -199,145 +199,70 @@ parse_formulae <- function(x){
   return(as.list(x_vec))
 }
 
-# # NOTE: help for ?parse says `call` is an order of magnitude faster
-# # check if that's possible (perhaps with `do.call()`?)  
-# safe_eval <- function(x){ # where x is a vector
-#   unlist(lapply(x, function(a){ 
-#     if(is.null(a) | a == ""){
-#       ""
-#     }else{
-#       eval_try <- try(eval(parse(text = a)), silent = TRUE) 
-#         # option to use `exists` rather than `try`?
-#       if(inherits(eval_try, "try-error")){
-#         a
-#       }else{
-#         eval_try
-#       }
-#     }
-#   }))
-# }
-# # use safe_eval as the baseline then benchmark improvements against that
-# # safe_eval2 should be the 'faster' test version
-
-parse_filters <- function(i, expr_list) {
-  filter_name <- names(expr_list)[i]
-  x <- expr_list[[i]]
-  expr_type <- get_expr_type(x, filter_name)
-  if (expr_type == "and_or") {
-    x <- as.character(x)
-    rows <- build_and_or_query(x)
-  } else if (expr_type == "logical") {
-    x <- as.character(x)
-    rows <- build_logical_query(x)
-  } else if (expr_type == "exclude") {
-    x <- eval(x)
-    rows <- data.frame(variable = filter_name,
-                       logical = "!=",
-                       value = x)
-    rows$query <- parse_logical(rows)
-  } else if (expr_type == "assertion") {
-    logical <- ifelse(isTRUE(x), "=", "!=")
-    rows <- data.frame(variable = "assertions",
-                       logical = logical,
-                       value = filter_name)
-    rows$query <- parse_logical(rows)
-  }
-  else if (expr_type == "vector" || expr_type == "seq") {
-    x <- eval(x)
-    rows <- build_vector_query(filter_name, x, "=")
-  } else {
-    rows <- data.frame(variable = filter_name,
-               logical = "=",
-               value = eval(x))
-    rows$query <- parse_logical(rows)
-  }
-  return(rows)
+parse_and <- function(x){
+  and_lookup <- grepl("&{1,2}", x)
+  if(any(and_lookup)){
+    x[and_lookup] <- strsplit(x[and_lookup], "&{1,2}")
+    return(trimws(unlist(x)))
+  }else{x}
 }
-
-
-is_atomic <- function(x) {
-  if (!grepl(and_or_regex(), x) & !grepl(logical_regex())) {
-    return(TRUE)
+  
+parse_or <- function(x){
+  or_lookup <- grepl("\\|{1,2}", x)
+  if(any(or_lookup)){
+    c_list <- lapply(
+      strsplit(x[or_lookup], "\\|{1,2}"),
+      function(a){
+        split_formulae <- strsplit(a, "(=|>|<|!)+")
+        variable <- lapply(split_formulae, function(b){b[[1]]})[[1]]
+        values <- paste0("c(", paste(
+          trimws(unlist(
+            lapply(split_formulae, function(b){b[[2]]})
+          )), 
+          collapse = ", "), ")")
+        logical <- str_extract(a, "(=|>|<|!)+")[1]
+        return(paste(variable, logical, values))
+    })
+    x[or_lookup] <- unlist(c_list)
+    x
+  }else{
+    x
   }
-}
+}  
 
-build_vector_query <- function(var, value, logical = "=") {
-  rows <- data.frame(
-    variable = var,
-    logical = "=",
-    value = paste(value, collapse = ",")
-  )
-  include <- ifelse(logical == "=", TRUE, FALSE)
-  rows$query <- query_term(rows$variable, value, include)
-  rows
-}
-
-build_and_or_query <- function(expr) {
-  # this will convert the query to a character vector, in the process splitting
-  # any and/or statements
-  expr <- as.character(expr)
-  # get the and/or character 
-  and_or <- expr[grepl(and_or_regex(), expr)]
-  statements <- expr[!grepl(and_or_regex(), expr)]
-  if (length(and_or) > 1) {
-    stop("Currently only one 'and/or' statement can be used per expression.")
+parse_filters <- function(expr){
+  # convert string a data.frame
+  result_df <- as.data.frame(do.call(rbind, 
+    strsplit(expr, "(=|>|<|!)+")))
+  colnames(result_df) <- c("variable", "value")
+  result_df$logical <- str_extract(expr, "(=|>|<|!)+")
+  rownames(result_df) <- NULL
+  result_df <- as.data.frame(lapply(result_df[, c(1, 3, 2)], trimws))
+  
+  # determine what 'type' of string it is
+  result_df$type <- rep("logical", nrow(result_df))
+  vector_check <- grepl("c\\(|seq\\(", result_df$value)
+  if(any(vector_check)){
+    result_df$type[vector_check] <- "vector"
   }
-  rows <- as.data.frame(
-    do.call(rbind,lapply(statements, build_logical_query))
-  )
-  # handle an or
-  if (grepl("\\|", and_or)) {
-    query <- paste0("(", paste(rows$query, collapse = " OR "), ")")
-    rows$query <- query
+  assertion_check <- result_df$variable %in% search_fields(type = "assertions")$id
+  if(any(assertion_check)){
+    result_df$type[assertion_check] <- "assertion"
   }
-  rows
-}
-
-logical_regex <- function() { "(=|>|<|!)+" }
-and_or_regex <- function() { "\\&{1,2}|\\|{1,2}" }
-
-# Build a data.frame filter row from a logical statement
-build_logical_query <- function(statement) {
-  # was originally just a logical statement and has been split into 3
-  if (length(statement) > 1) {
-    logical <- statement[grepl(logical_regex(), statement)]
-    components <- statement[!grepl(logical_regex(), statement)]
-  } else {
-   # logical statement might be given a full string
-    logical <- str_extract(statement, "(=|>|<|!)+")
-    components <- trimws(unlist(str_split(statement, "(=|>|<|!)+")))
-  }
-  value <- tryCatch(eval(parse(text = components[2])),
-           error = function(e) {
-             components[2]
-           })
-  rows <- data.frame(
-    variable = components[1],
-    logical = logical,
-    # eval in case the user passed a variable here
-    value = value
-  )
-  rows$query <- parse_logical(rows)
-  rows
-}
-
-get_expr_type <- function(expr, filter_name) {
-  expr <- as.character(expr)
-  if (any(grepl(and_or_regex(), expr))) {
-    return("and_or")
-  } else if(any(grepl(logical_regex(), expr))) {
-    return("logical")
-  } else if ("exclude" %in% expr) {
-    return("exclude")
-  } else if (("c(" %in% expr) | length(expr) > 1) {
-    return("vector")
-  } else if ("seq(" %in% expr) {
-    return("seq")
-  } else if (filter_name %in% search_fields(type = "assertions")$id) {
-    return("assertion")
-  } else {
-    return("character")
-  }
+  
+  # build a valid solr query
+  result_df$query <- unlist(lapply(
+    split(result_df, seq_len(nrow(result_df))), 
+    function(a){
+      switch(a$type,
+        "logical" = parse_logical(a),
+        "vector" = parse_vector(a),
+        "assertion" = parse_assertion(a)
+      )
+    }))
+  
+  # return everything except `type`
+  return(result_df[, names(result_df) != "type"])
 }
 
 parse_logical <- function(df){
@@ -350,6 +275,28 @@ parse_logical <- function(df){
     "<=" = {paste0(df$variable, ":[* TO ", df$value, "]")},
     "<" = {paste0(df$variable, ":[* TO ", df$value, "] AND -", query_term(df$variable, df$value, TRUE))}
   )
+}
+
+# question: does the below work when df$value is a characater? May add 2x quotes
+parse_vector <- function(df){
+  values <- eval(parse(text = df$value))
+  paste0(
+    if(df$logical == "!="){"-"},
+    "(",
+    paste(
+      paste0(df$variable, ":\"", values, "\""),
+    collapse = " OR "),
+    ")")
+}
+
+parse_assertion <- function(df){
+  logical <- isTRUE(as.logical(df$value))
+  if(df$logical == "!="){logical <- !logical} # case where `variable != FALSE`
+  logical_str <- ifelse(logical, "=", "!=")
+  rows <- data.frame(variable = "assertions",
+                     logical = logical_str,
+                     value = df$variable)
+  parse_logical(rows)
 }
 
 # filters vs. fields terminology
@@ -367,19 +314,4 @@ validate_filters <- function(values) {
          paste(invalid_filters, collapse = ", "),
          ". Use `search_fields()` to get a list of valid options")
   }
-}
-
-#' Negate a filter value
-#'
-#' Deprecated alternative to \code{select_filters(field != value)}.
-#' @rdname exclude
-#' @param value string: filter value(s) to be excluded
-#' @return value with class "exclude"
-#' @seealso \code{exclude} is used with \code{\link{select_filters}} or
-#' \code{\link{select_taxa}} to exclude values
-#' @export exclude
-exclude <- function(value) {
-  .Deprecated(msg = "`exclude` is deprecated as of galah v1.3. Please use != instead.")
-  class(value) <- c("exclude", class(value))
-  return(value)
 }
