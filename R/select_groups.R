@@ -21,6 +21,6 @@ select_groups <- function(..., expand = FALSE){
     name = c(...),
     expand = expand)
   class(result) <- c(class(result), "ala_groups")
-  validate_facet(result$name)
+  if (getOption("galah_config")$run_checks) validate_facet(result$name)
   result
 }

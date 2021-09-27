@@ -52,6 +52,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
                        refresh_cache = FALSE) {
 
   type <- match.arg(type)
+  verbose <- getOption("galah_config")$verbose
   if(!missing(group_by)){groups <- group_by}
 
   if(missing(groups)) {
@@ -69,22 +70,22 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
     groups <- select_groups(groups, expand = FALSE)
   }
   
-  # situation where all combinations of levels of `groups` are needed
+  # if all combinations of levels of `groups` are needed (expand = TRUE)
   if(groups$expand[1]){ 
     
     # get counts given the filters provided by the user
-    field_values_list <- lapply(groups$name, 
-      function(a){ala_counts_internal(
-        taxa = taxa,
-        filters = filters, 
-        locations = locations,
-        type = type,
-        facets = a, 
-        limit = NULL)})
-    names(field_values_list) <- groups$name
+    field_values_df <- ala_counts_internal(
+      taxa = taxa,
+      filters = filters, 
+      locations = locations,
+      type = type,
+      facets = groups$name, 
+      limit = NULL)
     field_df <- data.frame(
       facets = groups$name,
-      n_fields = unlist(lapply(field_values_list, nrow)))
+      n_fields = unlist(lapply(
+        groups$name, 
+        function(a){length(which(!is.na(field_values_df[[a]])))})))
 
     # work out which to pass as facets vs those we iterate over with lapply
     facets_large <- field_df$facets[which.max(field_df$n_fields)]
@@ -96,10 +97,25 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
       stringsAsFactors = FALSE)
     levels_list <- split(levels_df, seq_len(nrow(levels_df)))
     
+    # turn off validation, because 1. it's already done, and 2. it's slow
+    initial_check_state <- getOption("galah_config")$run_checks
+    if(initial_check_state){
+      galah_config(run_checks = FALSE)
+      on.exit(galah_config(run_checks = TRUE)) # correct placement?
+    }
+    
     # run `ala_counts_internal` the requisite number of times
-    result_list <- lapply(levels_list,
+    if (verbose) { pb <- txtProgressBar(max = 1, style = 3) }
+    
+    result_list <- lapply(seq_along(levels_list),
       function(a){
-        filters_this_loop <- select_filters(paste(colnames(a), a, sep = " = "))
+        if (verbose) {
+          val <- (a / length(levels_list))
+          setTxtProgressBar(pb, val)
+        }
+        x <- levels_list[[a]]
+        filters_this_loop <- select_filters(
+          paste(colnames(x), x, sep = " = "))
         filters_final <- rbind(filters, filters_this_loop)
         counts_query <- ala_counts_internal(
           taxa = taxa,
@@ -109,14 +125,17 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
           limit = limit,
           type = type,
           refresh_cache = refresh_cache)
-        as.data.frame(list(a, counts_query), row.names = NULL)
-      })   
+        as.data.frame(list(x, counts_query), row.names = NULL)
+      }) 
     as.data.frame(do.call(rbind, result_list))
      
-  # situation where `groups` is of nrow == 1
+  # if `groups` is of nrow == 1 (expand = FALSE)
   }else{
     ala_counts_internal(
-      taxa, filters, locations, facets = groups$name, limit, type, refresh_cache)
+      taxa, filters, locations, 
+      facets = groups$name, 
+      limit, type, refresh_cache,
+      verbose = verbose)
   } 
 }
 
@@ -125,10 +144,11 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
 ala_counts_internal <- function(taxa = NULL, filters = NULL, locations = NULL,
                        facets, # NOTE: not `groups` as no multiply section here
                        limit = NULL, type = "record",
-                       refresh_cache = FALSE) {
+                       refresh_cache = FALSE,
+                       verbose = FALSE # NOTE: internally `verbose` is manual, not from galah_config
+                     ) {
   
   page_size <- 100
-  verbose <- getOption("galah_config")$verbose
   query <- list()
   profile <- extract_profile(filters)
   query <- build_query(taxa, filters, locations, profile = profile)
