@@ -14,6 +14,7 @@ ala_GET <- function(url, path, params = list(), on_error = NULL,
   if (!is.na(url_parse(url)$path) & !grepl("ws", path)) {
     path <- paste0(url_parse(url)$path,"/", path)
   }
+
   # workaround for fq troubles
   if (length(params$fq) > 1) {
     cli$url <- build_fq_url(url, path, params)
