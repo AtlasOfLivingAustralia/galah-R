@@ -47,7 +47,7 @@ be replaced by the current query}
 }
 \value{
 \itemize{
- \item{A single count, if \code{groups} is not specified or,}
+ \item{A single number, if \code{groups} is not specified or,}
  \item{A \code{data.frame} of counts by \code{groups} field(s), if specified}
 }
 }
@@ -60,7 +60,7 @@ for understanding how observations are growing or shrinking in particular
 locations of for particular taxa. To this end, \code{ala_counts()} takes
 arguments in the same format as \code{\link{ala_occurrences}()}, and
 provides either a total count of records matching the criteria, or a
-\code{data.frame} of counts matching the criteria supplied to the \code{group_by}
+\code{data.frame} of counts matching the criteria supplied to the \code{groups}
 argument.
 }
 \examples{
@@ -69,12 +69,17 @@ argument.
 ala_counts()
 
 # Group counts by state and territory
-ala_counts(groups = "stateProvince")
+ala_counts(groups = select_groups("stateProvince"))
 
 # Count records matching a filter
 ala_counts(filters = select_filters(basisOfRecord = "FossilSpecimen"))
 
 # Count the number of species recorded for each kingdom
 ala_counts(groups = "kingdom", type = "species")
+
+# Crosstabulate using two different variables
+ala_counts(
+  filters = select_filters(year > 2015),
+  groups = select_groups("year", "basisOfRecord", expand = TRUE))
 }
 }

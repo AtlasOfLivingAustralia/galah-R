@@ -8,7 +8,7 @@
 #' locations of for particular taxa. To this end, \code{ala_counts()} takes
 #' arguments in the same format as \code{\link{ala_occurrences}()}, and
 #' provides either a total count of records matching the criteria, or a
-#' \code{data.frame} of counts matching the criteria supplied to the \code{group_by}
+#' \code{data.frame} of counts matching the criteria supplied to the \code{groups}
 #' argument.
 #'
 #' @inheritParams ala_occurrences
@@ -28,7 +28,7 @@
 #' @param group_by \code{string}: DEPRECATED - use \code{groups} instead.
 #' @return
 #' \itemize{
-#'  \item{A single count, if \code{groups} is not specified or,}
+#'  \item{A single number, if \code{groups} is not specified or,}
 #'  \item{A \code{data.frame} of counts by \code{groups} field(s), if specified}
 #'}
 #' @examples \dontrun{
@@ -36,13 +36,18 @@
 #' ala_counts()
 #'
 #' # Group counts by state and territory
-#' ala_counts(groups = "stateProvince")
+#' ala_counts(groups = select_groups("stateProvince"))
 #'
 #' # Count records matching a filter
 #' ala_counts(filters = select_filters(basisOfRecord = "FossilSpecimen"))
 #' 
 #' # Count the number of species recorded for each kingdom
 #' ala_counts(groups = "kingdom", type = "species")
+#' 
+#' # Crosstabulate using two different variables
+#' ala_counts(
+#'   filters = select_filters(year > 2015),
+#'   groups = select_groups("year", "basisOfRecord", expand = TRUE))
 #' }
 #' @export
 ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
@@ -91,11 +96,12 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
     facets_large <- field_df$facets[which.max(field_df$n_fields)]
     facets_small <- field_df$facets[field_df$facets != facets_large]
 
-    # work out what combinations of group_by should be sent to ala_counts_internal
+    # work out what combinations of `group`s should be sent to ala_counts_internal
     levels_df <- expand.grid(
-      lapply(field_values_list[facets_small], function(a){a[[1]]}),
+      lapply(field_values_df[facets_small], function(a){a[!is.na(a)]}),
       stringsAsFactors = FALSE)
     levels_list <- split(levels_df, seq_len(nrow(levels_df)))
+    filters_list <- lapply(levels_list, function(a){paste(colnames(a), a, sep = " = ")})
     
     # turn off validation, because 1. it's already done, and 2. it's slow
     initial_check_state <- getOption("galah_config")$run_checks
@@ -114,8 +120,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
           setTxtProgressBar(pb, val)
         }
         x <- levels_list[[a]]
-        filters_this_loop <- select_filters(
-          paste(colnames(x), x, sep = " = "))
+        filters_this_loop <- select_filters(paste(colnames(x), x, sep = " = "))
         filters_final <- rbind(filters, filters_this_loop)
         counts_query <- ala_counts_internal(
           taxa = taxa,
@@ -123,8 +128,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
           locations = locations,
           facets = field_df$facets[which.max(field_df$n_fields)],
           limit = limit,
-          type = type,
-          refresh_cache = refresh_cache)
+          type = type)
         as.data.frame(list(x, counts_query), row.names = NULL)
       }) 
     as.data.frame(do.call(rbind, result_list))
@@ -180,9 +184,7 @@ ala_counts_internal <- function(taxa = NULL, filters = NULL, locations = NULL,
   if (sum(total_cats) > limit && sum(total_cats) > page_size) {
     resp <- ala_GET(url, path, params = query, paginate = TRUE, limit = limit,
                     page_size = page_size, offset_param = "foffset")
-    counts <- data.table::rbindlist(lapply(resp, function(x) {
-      fromJSON(x)$fieldResult
-      }))
+    counts <- data.table::rbindlist(fromJSON(resp)$fieldResult)
   } else {
       query$flimit <- max(limit)
       resp <- ala_GET(url, path, params = query)
@@ -207,7 +209,7 @@ ala_counts_internal <- function(taxa = NULL, filters = NULL, locations = NULL,
       }
       species_query <- list()
       species_query$fq <- c(query$fq,
-                            query_term(name = group_by, value = value[[x]],
+                            query_term(name = facets, value = value[[x]],
                             include = TRUE))
       count <- species_count(species_query)
       data.frame(name = value[[x]], count = count)
@@ -219,14 +221,15 @@ ala_counts_internal <- function(taxa = NULL, filters = NULL, locations = NULL,
   }
   
   if(length(facets) > 1){
-    counts_list <- split(counts_final, parse_field(counts$fq))
+    counts_final$field_name <- parse_field(counts$fq)
+    counts_list <- split(counts_final, counts_final$field_name)
     counts_final <- as.data.frame(data.table::rbindlist(lapply(
       seq_along(facets), function(a){
-        names(counts_list[[a]])[1] <- facets[a]
+        names(counts_list[[a]])[1] <- names(counts_list)[a]
         counts_list[[a]]
       }), 
-      fill = TRUE))[, c(facets, "count")]
-      
+      fill = TRUE))
+     counts_final <- counts_final[, c(names(counts_list), "count")]
   }else{ # i.e. only one facet
     names(counts_final) <- c(facets, "count")
   }  
@@ -261,7 +264,7 @@ species_count <- function(query) {
 
 validate_facet <- function(facet) {
   if (!all(facet %in% c(search_fields()$id, all_fields()$name))) {
-    stop("\"", facet, "\" is not a valid group_by field. ",
+    stop("\"", facet, "\" is not a valid groups field. ",
          "Use `search_fields()` to get a list of valid options")
   }
 }
@@ -276,13 +279,11 @@ total_categories <- function(url, path, query) {
   resp$count
 }
 
-# Extract filter name from data returned from API
-parse_fq <- function(fq) {
-  vapply(fq, function(z) {
-    sub('.*?"([^"]+)"', "\\1", z)
-  }, USE.NAMES = FALSE, FUN.VALUE = character(1))
-}
-
+# # Extract filter names and values returned from API
 parse_field <- function(fq){
   str_extract(fq, "^[:alpha:]+")
+}
+
+parse_fq <- function(fq){
+  gsub("\"", "", sub("^[[:alpha:]]+:",  "", fq))
 }

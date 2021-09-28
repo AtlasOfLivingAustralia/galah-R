@@ -141,7 +141,7 @@ parse_named_entries <- function(x){
 parse_class_name  <- function(x){
   class_name_lookup <- unlist(lapply(x, function(a){inherits(a, "name")}))
   if(any(class_name_lookup)){
-    x[class_name_lookup] <- lapply(x[class_name_lookup], eval)
+    x[class_name_lookup] <- lapply(x[class_name_lookup], function(a){eval(a)})
   }
   x
 }
@@ -156,7 +156,7 @@ parse_class_call <- function(x){
     is_function <- grepl("([[:alnum:]]|.|_)+\\(", call_text)
     if(any(is_function)){
       x[class_call_lookup][is_function] <- lapply(
-        x[class_call_lookup][is_function], eval)
+        x[class_call_lookup][is_function], function(a){eval(a)})
     }
     if(any(!is_function)){
       x[class_call_lookup][!is_function] <- call_text[!is_function]
