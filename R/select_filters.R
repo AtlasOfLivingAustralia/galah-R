@@ -10,6 +10,8 @@
 #' \code{\link{ala_counts}()}.
 #'
 #' @param ... filters, in the form \code{field logical value}
+#' @param x a \code{list} containing valid filters. Useful for calling 
+#' \code{select_filters} from within other functions as inputs are evaluated.
 #' @param profile \code{string}: (optional) a data quality profile to apply to the
 #' records. See \code{\link{find_profiles}} for valid profiles. By default
 #' no profile is applied.
@@ -79,8 +81,8 @@
 # NOTE: help for ?parse says `call` is an order of magnitude faster
   # check if that's possible (perhaps with `do.call()`?) 
 
-select_filters <- function(..., profile = NULL) {
-  exprs <- as.list(match.call(expand.dots = FALSE)$...)
+select_filters <- function(..., x = NULL, profile = NULL) {
+  exprs <- c(as.list(match.call(expand.dots = FALSE)$...), x)
   
   # sort out profiles
   profile_attr <- NULL
@@ -103,7 +105,7 @@ select_filters <- function(..., profile = NULL) {
     parse_and() |>
     parse_or() |>
     parse_filters()
-    
+  
   # validate variables to ensure they exist in ALA
   if (getOption("galah_config")$run_checks) validate_filters(df$variable)
   # parse each line into a solr query
@@ -141,7 +143,7 @@ parse_named_entries <- function(x){
 parse_class_name  <- function(x){
   class_name_lookup <- unlist(lapply(x, function(a){inherits(a, "name")}))
   if(any(class_name_lookup)){
-    x[class_name_lookup] <- lapply(x[class_name_lookup], function(a){eval(a)}) # WARNING: EVAL
+    x[class_name_lookup] <- lapply(x[class_name_lookup], eval)
   }
   x
 }
