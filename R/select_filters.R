@@ -165,9 +165,10 @@ parse_class_call <- function(x){
 }
 
 # sub-function to parse_class_call to deal with functions w/out using eval 
-  # (which fails when used within functions)
 # TODO: replace getAnywhere(...)$objs[[1]] with something more intelligent
 #  e.g. option that searches for returned objects that are not calls
+# NOTE: this fails at `getAnywhere(deparse(b))$objs` when called within a function
+  # as is the case within `ala_counts` when `expand = TRUE`
 parse_functions <- function(x){ # x is a list
   fun_name_list <- lapply(x, rlang::call_name)
   args_list <- lapply(x, function(a){
@@ -175,7 +176,7 @@ parse_functions <- function(x){ # x is a list
     args_class <- unlist(lapply(args_tr, class)) == "name"
     if(any(args_class)){
       args_tr[args_class] <- lapply(args_tr[args_class], 
-        function(b){getAnywhere(as.character(b))$objs[[1]]}) 
+        function(b){getAnywhere(deparse(b))$objs[[1]]}) 
     }
     args_tr
   })
