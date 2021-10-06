@@ -51,8 +51,8 @@
 #' }
 #' @export
 ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
-                       groups = NULL,
-                       group_by = NULL, limit = 100,
+                       group_by = NULL, groups = NULL, 
+                       limit = 100,
                        type = c("record" ,"species"),
                        refresh_cache = FALSE) {
 
@@ -86,19 +86,19 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
       type = type,
       facets = groups$name, 
       limit = NULL)
-    field_df <- data.frame(
+    n_fields_df <- data.frame(
       facets = groups$name,
       n_fields = unlist(lapply(
         groups$name, 
         function(a){length(which(!is.na(field_values_df[[a]])))})))
 
     # work out which to pass as facets vs those we iterate over with lapply
-    facets_large <- field_df$facets[which.max(field_df$n_fields)]
-    facets_small <- field_df$facets[field_df$facets != facets_large]
+    facets_large <- n_fields_df$facets[which.max(n_fields_df$n_fields)]
+    facets_small <- n_fields_df$facets[n_fields_df$facets != facets_large]
 
     # work out what combinations of `group`s should be sent to ala_counts_internal
     levels_df <- expand.grid(
-      lapply(field_values_df[facets_small], function(a){a[!is.na(a)]}),
+      lapply(field_values_df[, which(names(field_values_df) %in% facets_small)], function(a){a[complete.cases(a)]}),
       stringsAsFactors = FALSE)
     levels_list <- split(levels_df, seq_len(nrow(levels_df)))
     filters_list <- lapply(levels_list, function(a){paste(colnames(a), a, sep = " = ")})
@@ -119,19 +119,20 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
           val <- (a / length(levels_list))
           setTxtProgressBar(pb, val)
         }
-        x <- levels_list[[a]]
+        x <- levels_list[[1]]
         filters_this_loop <- select_filters(x = paste(colnames(x), x, sep = " = "))
         filters_final <- rbind(filters, filters_this_loop)
         counts_query <- ala_counts_internal(
           taxa = taxa,
           filters = filters_final,
           locations = locations,
-          facets = field_df$facets[which.max(field_df$n_fields)],
+          facets = n_fields_df$facets[which.max(n_fields_df$n_fields)],
           limit = limit,
           type = type)
+        
         as.data.frame(list(x, counts_query), row.names = NULL)
       }) 
-    as.data.frame(do.call(rbind, result_list))
+    merged_counts_dataframe <- as.data.frame(do.call(rbind, result_list))
      
   # if `groups` is of nrow == 1 (expand = FALSE)
   }else{
