@@ -10,13 +10,14 @@ test_that("select_filters builds data quality filters", {
   expect_equal(attr(filters, "dq_profile"), "ALA")
 })
 
-vcr::use_cassette("select_filter_invalid_profile", {
-  test_that("select_filters gives an error for invalid profile", {
+
+test_that("select_filters gives an error for invalid profile", {
+  vcr::use_cassette("select_filter_invalid_profile", {
     expect_error(select_filters(profile = "bad"))
   })
 })
 
-vcr::use_cassette("select_filter_assertion", {
+vcr::use_cassette("select_filter_assertion", { # FIXME: THIS TEST FAILS
   test_that("select_filters handles assertion filters", {
     filters <- select_filters(ZERO_COORDINATE = FALSE)
     expect_s3_class(filters, "data.frame")
