@@ -107,7 +107,7 @@ select_filters <- function(..., x = NULL, profile = NULL) {
     parse_filters()
   
   # validate variables to ensure they exist in ALA
-  if (getOption("galah_config")$run_checks) validate_filters(df$variable)
+  if (getOption("galah_config")$run_checks) validate_fields(df$variable)
   # parse each line into a solr query
   if (nrow(df) == 0) {
     df <- data.frame(variable = character(),
@@ -319,21 +319,4 @@ parse_assertion <- function(df){
                      logical = logical_str,
                      value = df$variable)
   parse_logical(rows)
-}
-
-# filters vs. fields terminology
-# should handle miscased things?
-# should try to fuzzy match?
-# should also validate facets?
-validate_filters <- function(values) {
-  # filters are provided in a dataframe
-  # key should be a valid field name and value should be a valid category for
-  # that field?
-  invalid_filters <- values[!is.element(values,
-                                    c(search_fields()$id, all_fields()$name))]
-  if (length(invalid_filters) > 0) {
-    stop("The following filters are invalid: ",
-         paste(invalid_filters, collapse = ", "),
-         ". Use `search_fields()` to get a list of valid options")
-  }
 }

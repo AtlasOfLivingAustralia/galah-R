@@ -68,7 +68,7 @@ select_fields <- function(...,
 
   cols <- c(...)
   if (length(cols) > 0) {
-    if (getOption("galah_config")$run_checks) validate_cols(cols)
+    if (getOption("galah_config")$run_checks) validate_fields(cols)
     extra_cols <- data.table::rbindlist(lapply(cols, function(x) {
       type <- ifelse(str_detect(x, "[[:lower:]]"), "field", "assertions")
       data.frame(name = x, type = type, stringsAsFactors = FALSE)
@@ -100,19 +100,6 @@ select_fields <- function(...,
 select_columns <- function(..., group, expand){
   select_fields(..., group, expand)
 }
-
-validate_cols <- function(cols) {
-  invalid_cols <- cols[!is.element(cols,
-                                   c(search_fields()$id, all_fields()$name))]
-  if (length(invalid_cols) > 0) {
-    if(!all(invalid_cols %in% image_fields())){ # exception for ala_media
-      message("The following columns may be invalid: ",
-           paste(invalid_cols, collapse = ", "),
-           ". Use `search_fields()` to get a list of valid options")
-    }
-  }
-}
-
 
 preset_cols <- function(type) {
   cols <- switch(type,

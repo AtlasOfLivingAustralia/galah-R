@@ -73,7 +73,8 @@ ala_config <- function(..., profile_path = NULL) {
     email = "",
     send_email = FALSE,
     verbose = TRUE,
-    run_checks = TRUE
+    run_checks = TRUE,
+    valid_fields = c()
   )
   
   if (length(user_options) == 0 && !is.null(current_options)) {
@@ -118,7 +119,7 @@ ala_config <- function(..., profile_path = NULL) {
     if (current_options$verbose) {
       message("The config will be stored in ", profile_path)
     }
-    save_config(profile_path, current_options)
+    save_config(profile_path, current_options[names(current_options) != "valid_fields"])
     
   } else {
     if (current_options$verbose) {
@@ -289,7 +290,7 @@ validate_option <- function(name, value) {
       stop("Atlas must be one of ",
            paste(find_atlases()$atlas, collapse = ", "))
     }
-  } else {
+  } else if (name != "valid_fields"){
     stop("\"", name, "\"", "is not a valid option name.")
   }
 }

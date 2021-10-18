@@ -22,7 +22,7 @@ find_atlases <- function() {
 
 server_config <- function(url) {
   atlas <- getOption("galah_config")$atlas
-  conf <- switch (atlas,
+  conf <- switch(atlas,
                   "Australia" = aus_config(),
                   "UK" = uk_config(),
                   "Sweden" = sweden_config(),

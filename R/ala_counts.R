@@ -25,7 +25,6 @@
 #' @param refresh_cache \code{logical}: if set to `TRUE` and 
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query
-#' @param group_by \code{string}: DEPRECATED - use \code{groups} instead.
 #' @return
 #' \itemize{
 #'  \item{A single number, if \code{groups} is not specified or,}
@@ -72,6 +71,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
   # if `groups` is as a vector
   if(!inherits(group_by, "ala_fields")){
     group_by <- select_fields(group_by, expand = FALSE)
+    if (getOption("galah_config")$run_checks) validate_fields(group_by$name)
   }
   
   # if all combinations of levels of `groups` are needed (expand = TRUE)
