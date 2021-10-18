@@ -12,8 +12,8 @@
 #' argument.
 #'
 #' @inheritParams ala_occurrences
-#' @param groups \code{string}: An object of class \code{ala_groups},
-#' as returned by \code{\link{select_groups}}. Alternatively a vector of field
+#' @param group_by \code{data.frame}: An object of class \code{ala_fields},
+#' as returned by \code{\link{select_fields}}. Alternatively a vector of field
 #' names.
 #' @param limit \code{numeric}: maximum number of categories to return, defaulting to 100.
 #' If limit is NULL, all results are returned. For some categories this will
@@ -36,7 +36,7 @@
 #' ala_counts()
 #'
 #' # Group counts by state and territory
-#' ala_counts(groups = select_groups("stateProvince"))
+#' ala_counts(group_by = "stateProvince")
 #'
 #' # Count records matching a filter
 #' ala_counts(filters = select_filters(basisOfRecord = "FossilSpecimen"))
@@ -47,20 +47,19 @@
 #' # Crosstabulate using two different variables
 #' ala_counts(
 #'   filters = select_filters(year > 2015),
-#'   groups = select_groups("year", "basisOfRecord", expand = TRUE))
+#'   groups = select_fields("year", "basisOfRecord", expand = TRUE))
 #' }
 #' @export
 ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
-                       group_by = NULL, groups = NULL, 
+                       group_by = NULL, 
                        limit = 100,
                        type = c("record" ,"species"),
                        refresh_cache = FALSE) {
 
   type <- match.arg(type)
   verbose <- getOption("galah_config")$verbose
-  if(!missing(group_by)){groups <- group_by}
 
-  if(missing(groups)) {
+  if(missing(group_by)) {
     query <- list()
     profile <- extract_profile(filters)
     query <- build_query(taxa, filters, locations, profile = profile)
@@ -71,12 +70,12 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
   }                  
   
   # if `groups` is as a vector
-  if(!inherits(groups, "ala_groups")){
-    groups <- select_groups(groups, expand = FALSE)
+  if(!inherits(group_by, "ala_fields")){
+    group_by <- select_fields(group_by, expand = FALSE)
   }
   
   # if all combinations of levels of `groups` are needed (expand = TRUE)
-  if(groups$expand[1]){ 
+  if(attr(group_by, "expand")){ 
     
     # get counts given the filters provided by the user
     field_values_df <- ala_counts_internal(
@@ -84,12 +83,12 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
       filters = filters, 
       locations = locations,
       type = type,
-      facets = groups$name, 
+      facets = group_by$name, 
       limit = NULL)
     n_fields_df <- data.frame(
-      facets = groups$name,
+      facets = group_by$name,
       n_fields = unlist(lapply(
-        groups$name, 
+        group_by$name, 
         function(a){length(which(!is.na(field_values_df[[a]])))})))
 
     # work out which to pass as facets vs those we iterate over with lapply
@@ -98,7 +97,11 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
 
     # work out what combinations of `group`s should be sent to ala_counts_internal
     levels_df <- expand.grid(
-      lapply(field_values_df[, which(names(field_values_df) %in% facets_small)], function(a){a[complete.cases(a)]}),
+      lapply(
+        field_values_df[, 
+          which(names(field_values_df) %in% facets_small), 
+          drop = FALSE], 
+        function(a){a[!is.na(a)]}),
       stringsAsFactors = FALSE)
     levels_list <- split(levels_df, seq_len(nrow(levels_df)))
     filters_list <- lapply(levels_list, function(a){paste(colnames(a), a, sep = " = ")})
@@ -138,7 +141,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
   }else{
     ala_counts_internal(
       taxa, filters, locations, 
-      facets = groups$name, 
+      facets = group_by$name, 
       limit, type, refresh_cache,
       verbose = verbose)
   } 

@@ -45,8 +45,7 @@
 #'   \item\code{\link{select_taxa}} Search for taxonomic identifiers
 #'   \item\code{\link{select_filters}} Filter records
 #'   \item\code{\link{select_locations}} Specify a location
-#'   \item\code{\link{select_columns}} Columns to return in an occurrence download
-#'   \item\code{\link{select_groups}} Choose how counts should be aggregated
+#'   \item\code{\link{select_fields}} Fields to report information for
 #' }
 #' \strong{\code{Lookup}}
 #' \itemize{

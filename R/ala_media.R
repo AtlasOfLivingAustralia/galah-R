@@ -48,10 +48,13 @@
 #' }
 #' @export
 ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
-                      columns = select_columns(group = "basic"), download_dir,
+                      fields = select_fields(group = "basic"),
+                      columns = NULL, 
+                      download_dir,
                       refresh_cache = FALSE) {
 
   image_url <- server_config("images_base_url")
+  if(is.null(fields) & !is.null(columns)){fields <- columns}
   
   verbose <- getOption("galah_config")$verbose
   caching <- getOption("galah_config")$caching
@@ -67,7 +70,7 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
   if (caching && !refresh_cache) {
     cache_file <- cache_filename(
       "media",
-      unlist(build_query(taxa, filters, locations, columns))
+      unlist(build_query(taxa, filters, locations, fields))
     )
     if (file.exists(cache_file)) {
       return(read_cache_file(cache_file))
@@ -83,11 +86,11 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
     select_filters(multimedia = c("Image", "Sound", "Video")))
   
   # Make sure media ids are included in results
-  occ_columns <- rbind(columns, select_columns(image_fields()))
+  occ_columns <- rbind(fields, select_fields(image_fields()))
 
-  # add ala_ classes to modified filters and columns
+  # add ala_ classes to modified filters and fields
   class(occ_filters) <- append(class(occ_filters), "ala_filters")
-  class(occ_columns) <- append(class(occ_columns), "ala_columns")
+  class(occ_columns) <- append(class(occ_columns), "ala_fields")
   if (verbose) { message("Downloading records with media...") }
   
   occ <- ala_occurrences(taxa, occ_filters, locations, occ_columns)
@@ -146,7 +149,7 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
     message("\n",nrow(all_data), " files were downloaded to ", download_dir)
   }
   attr(all_data, "data_type") <- "media"
-  query <- data_request(taxa, filters, locations, columns)
+  query <- data_request(taxa, filters, locations, fields)
   attr(all_data, "data_request") <- query
   
   if (caching) {
