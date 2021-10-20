@@ -285,9 +285,9 @@ total_categories <- function(url, path, query) {
 
 # # Extract filter names and values returned from API
 parse_field <- function(fq){
-  str_extract(fq, "^[:alpha:]+")
+  str_extract(fq, "^[:alnum:]+")
 }
 
 parse_fq <- function(fq){
-  gsub("\"", "", sub("^[[:alpha:]]+:",  "", fq))
+  gsub("\"", "", sub("^[[:alnum:]]+:",  "", fq))
 }
