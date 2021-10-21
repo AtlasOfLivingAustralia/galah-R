@@ -122,7 +122,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
           val <- (a / length(levels_list))
           setTxtProgressBar(pb, val)
         }
-        x <- levels_list[[1]]
+        x <- levels_list[[a]]
         filters_this_loop <- select_filters(x = paste(colnames(x), x, sep = " = "))
         filters_final <- rbind(filters, filters_this_loop)
         counts_query <- ala_counts_internal(
