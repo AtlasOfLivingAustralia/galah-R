@@ -96,24 +96,25 @@ select_filters <- function(..., x = NULL, profile = NULL) {
   }  
   
   # clean up user-provided objects
-  df <- exprs |> 
-    parse_named_entries() |>
-    parse_class_name() |>
-    parse_class_call() |>
-    parse_formulae() |>
-    unlist() |>
-    parse_and() |>
-    parse_or() |>
-    parse_filters()
+  if(length(exprs) > 0){
+    df <- exprs |> 
+      parse_class_name() |>
+      parse_class_call() |>
+      parse_named_entries() |> # formerly first entry, but was interferring with function parsing
+      parse_formulae() |>
+      unlist() |>
+      parse_and() |>
+      parse_or() |> 
+      parse_filters()
+    
+    # validate variables to ensure they exist in ALA
+    if (getOption("galah_config")$run_checks) validate_fields(df$variable)
   
-  # validate variables to ensure they exist in ALA
-  if (getOption("galah_config")$run_checks) validate_fields(df$variable)
-  # parse each line into a solr query
-  if (nrow(df) == 0) {
+  }else{ # ensure something is returned even if no fields are given
     df <- data.frame(variable = character(),
-                       logical = character(),
-                       value = character(),
-                       query = character())
+                     logical = character(),
+                     value = character(),
+                     query = character())
   }
   # set class etc
   class(df) <- append(class(df), "ala_filters")
@@ -152,73 +153,93 @@ parse_class_name  <- function(x){
   # function calls (e.g. paste(x, y)) that should be eval-ed
   # logical statements (e.g. year >= 2010) which shouldn't
 parse_class_call <- function(x){
-  class_call_lookup <- unlist(lapply(x, is.call))
-  if(any(class_call_lookup)){
-    call_text <- unlist(lapply(x[class_call_lookup], deparse))
-    is_function <- grepl("([[:alnum:]]|.|_)+\\(", call_text)
-    if(any(is_function)){
-      x[class_call_lookup][is_function] <- parse_functions(x[class_call_lookup][is_function])
+  is_call <- unlist(lapply(x, is.call))
+  if(any(is_call)){
+    
+    ## former code using parse_functions()
+    # call_text <- unlist(lapply(x[class_call_lookup], deparse))
+    # is_function <- !grepl("^([[:alnum:]]|.|_)+\\(", call_text)
+    # if(any(is_function)){
+      # x[class_call_lookup][is_function] <- parse_functions(x[class_call_lookup][is_function])
+    # }
+     
+    # revised code using eval() 
+    call_text <- unlist(lapply(x[is_call], rlang::call_name))
+    is_function <- !grepl("={1,2}|>|>=|<|<=|!=|&|\\|", call_text)   
+    if(any(is_function)){    
+      x[is_call][is_function] <- lapply(x[is_call][is_function], eval)
     }
+    
+    # same as before
     if(any(!is_function)){
-      x[class_call_lookup][!is_function] <- call_text[!is_function]
+      x[is_call][!is_function] <- lapply(x[is_call][!is_function], deparse)
     }
   }
   x
 }
 
-# sub-function to parse_class_call to deal with functions w/out using eval 
-# TODO: replace getAnywhere(...)$objs[[1]] with something more intelligent
-#  e.g. option that searches for returned objects that are not calls
-# NOTE: this fails at `getAnywhere(deparse(b))$objs` when called within a function
-  # as is the case within `ala_counts` when `expand = TRUE`
-parse_functions <- function(x){ # x is a list
-  fun_name_list <- lapply(x, rlang::call_name)
-  args_list <- lapply(x, function(a){
-    args_tr <- rlang::call_args(a)
-    args_class <- unlist(lapply(args_tr, class)) == "name"
-    if(any(args_class)){
-      args_tr[args_class] <- lapply(args_tr[args_class], 
-        function(b){getAnywhere(deparse(b))$objs[[1]]}) 
-    }
-    args_tr
-  })
-  x <- lapply(seq_along(x),
-    function(a){do.call(fun_name_list[[a]], args_list[[a]])})
-  return(x)
-}
+# # sub-function to parse_class_call to deal with functions w/out using eval
+# # NOTE: This has been replaced because eval() appears to fail less.
+# # TODO: replace getAnywhere(...)$objs[[1]] with something more intelligent
+# #  e.g. option that searches for returned objects that are not calls
+# # NOTE: this fails at `getAnywhere(deparse(b))$objs` when called within a function
+#   # as is the case within `ala_counts` when `expand = TRUE`
+# parse_functions <- function(x){ # x is a list
+#   fun_name_list <- lapply(x, rlang::call_name)
+#   args_list <- lapply(x, function(a){
+#     args_tr <- rlang::call_args(a)
+#     args_class <- unlist(lapply(args_tr, class)) == "name"
+#     if(any(args_class)){
+#       args_tr[args_class] <- lapply(args_tr[args_class], 
+#         function(b){getAnywhere(deparse(b))$objs[[1]]}) 
+#     }
+#     args_tr
+#   })
+#   x <- lapply(seq_along(x),
+#     function(a){do.call(fun_name_list[[a]], args_list[[a]])})
+#   return(x)
+# }
   
 # by this point everything should be a character
 # take any formulae and parse out fields and values
 # the below is a bit convoluted, but should work ok as a block
 parse_formulae <- function(x){
-  formula_lookup <- unlist(lapply(x, function(a){grepl("=|>|<", a)}))
-  formula_split <- strsplit(unlist(x[formula_lookup]), "\\s")
+  formula_regex <- "\\s*(=|>|<|>=|<=|==|\\&|\\|)\\s*"
+  formula_lookup <- unlist(lapply(x, function(a){grepl(formula_regex, a)}))
+  formula_symbol <- lapply(x[formula_lookup], function(a){str_extract(a, formula_regex)})
+  formula_split <- strsplit(unlist(x[formula_lookup]), formula_regex)
   # formulae contain:
     # > < = (ignore)
     # names of objects (parse)
     # names of fields (don't parse)
-    # functions (e.g. c())
+    # functions (e.g. c()) (parse)
   all_vals <- unique(unlist(formula_split))
-  all_vals <- all_vals[!grepl(">|<|=|\\(|\\)|\\||\\&", all_vals)]
-  object_names <- all_vals[unlist(lapply(all_vals, exists))]
-  object_list <- lapply(object_names, function(a){eval(parse(text = a))})
-  names(object_list) <- object_names
+  all_vals <- all_vals[!grepl("\\||\\&", all_vals)]
   
-  # where a vector is long, replace with c rather than original values
-  length_lookup <- unlist(lapply(object_list, length)) > 1
-  if(any(length_lookup)){
-    object_list[length_lookup] <- lapply(
-      object_list[length_lookup],
-      function(a){paste0("c(", paste(a, collapse = ", "), ")")}) 
+  # parse objects and functions
+  is_object <- unlist(lapply(all_vals, exists)) & # i.e. an object exists...
+    !unlist(lapply(all_vals, function(a){exists(a, mode = "function")})) # ...but isn't a function name
+  is_function_call <- grepl("([[:alnum:]]|.|_)+\\(", all_vals)
+  is_either <- is_object | is_function_call
+  if(any(is_either)){
+    object_names <- all_vals[is_either]
+    object_list <- lapply(object_names, function(a){eval(parse(text = a))})
+    names(object_list) <- object_names  
+    # where a vector is long, replace with c rather than original values
+    length_lookup <- unlist(lapply(object_list, length)) > 1
+    if(any(length_lookup)){
+      object_list[length_lookup] <- lapply(
+        object_list[length_lookup],
+        function(a){paste0("c(", paste(a, collapse = ", "), ")")}) 
+    }   
+    # use gsub via lapply to replace contents of exprs
+    x_vec <- unlist(x)
+    for(a in seq_along(object_list)){
+      x_vec <- sub(names(object_list)[a], object_list[[a]], x_vec, fixed = TRUE)
+    }
+    x <- as.list(x_vec)  
   }
-  
-  # use gsub via lapply to replace contents of exprs
-  x_vec <- unlist(x)
-  for(a in seq_along(object_list)){
-    x_vec <- gsub(names(object_list)[a], object_list[[a]], x_vec)
-  }
-  
-  return(as.list(x_vec))
+  return(x)
 }
 
 parse_and <- function(x){
