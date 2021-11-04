@@ -135,7 +135,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
         
         as.data.frame(list(x, counts_query), row.names = NULL)
       }) 
-    merged_counts_dataframe <- as.data.frame(do.call(rbind, result_list))
+    as.data.frame(do.call(rbind, result_list))
      
   # if `groups` is of nrow == 1 (expand = FALSE)
   }else{
