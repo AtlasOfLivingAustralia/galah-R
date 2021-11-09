@@ -132,8 +132,9 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
           facets = n_fields_df$facets[which.max(n_fields_df$n_fields)],
           limit = limit,
           type = type)
-        
-        as.data.frame(list(x, counts_query), row.names = NULL)
+        if(nrow(counts_query) > 0){   
+          as.data.frame(list(x, counts_query), row.names = NULL)
+        }
       }) 
     as.data.frame(do.call(rbind, result_list))
      
