@@ -100,13 +100,13 @@ select_filters <- function(..., x = NULL, profile = NULL) {
     df <- exprs |> 
       parse_class_name() |>
       parse_class_call() |>
-      parse_named_entries() |> # formerly first entry, but was interferring with function parsing
+      parse_named_entries() |> # formerly first entry, but was interfering with function parsing
       parse_formulae() |>
       unlist() |>
       parse_and() |>
       parse_or() |> 
       parse_filters()
-    
+    # 
     # validate variables to ensure they exist in ALA
     if (getOption("galah_config")$run_checks) validate_fields(df$variable)
   
@@ -206,7 +206,10 @@ parse_class_call <- function(x){
 parse_formulae <- function(x){
   formula_regex <- "\\s*(=|>|<|>=|<=|==|\\&|\\|)\\s*"
   formula_lookup <- unlist(lapply(x, function(a){grepl(formula_regex, a)}))
-  formula_symbol <- lapply(x[formula_lookup], function(a){str_extract(a, formula_regex)})
+  # extract formula symbol then remove white space on both sides of symbol
+  formula_symbol <- lapply(x[formula_lookup], function(a){
+    str_extract(a, formula_regex) |> 
+      str_trim("both")})
   formula_split <- strsplit(unlist(x[formula_lookup]), formula_regex)
   # formulae contain:
     # > < = (ignore)
@@ -219,7 +222,7 @@ parse_formulae <- function(x){
   # parse objects and functions
   is_object <- unlist(lapply(all_vals, exists)) & # i.e. an object exists...
     !unlist(lapply(all_vals, function(a){exists(a, mode = "function")})) # ...but isn't a function name
-  is_function_call <- grepl("([[:alnum:]]|.|_)+\\(", all_vals)
+  is_function_call <- grepl("([[:alnum:]]\\.\\_)+\\(", all_vals)
   is_either <- is_object | is_function_call
   if(any(is_either)){
     object_names <- all_vals[is_either]
