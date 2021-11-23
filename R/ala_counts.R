@@ -114,7 +114,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
     }
     
     # run `ala_counts_internal` the requisite number of times
-    if (verbose) { pb <- txtProgressBar(max = 1, style = 3) }
+    if (verbose) { pb <- txtProgressBar(max = 1, style = 3) } # start progressbar
     
     result_list <- lapply(seq_along(levels_list),
       function(a){
@@ -136,7 +136,8 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
           as.data.frame(list(x, counts_query), row.names = NULL)
         }
       }) 
-    as.data.frame(do.call(rbind, result_list))
+    close(pb) # close progress bar
+    return(as.data.frame(do.call(rbind, result_list)))
      
   # if `groups` is of nrow == 1 (expand = FALSE)
   }else{
