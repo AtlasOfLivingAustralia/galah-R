@@ -55,6 +55,7 @@ select_taxa <- function(query, is_id = FALSE) {
   if (is_id) {
     matches <- id_query(query)   
   } else {
+    query <- stringr::str_remove_all(query, "[()]") # remove parentheses
     matches <- name_query(query)
   }
   

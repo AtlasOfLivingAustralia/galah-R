@@ -8,11 +8,13 @@
 #' locations of for particular taxa. To this end, \code{ala_counts()} takes
 #' arguments in the same format as \code{\link{ala_occurrences}()}, and
 #' provides either a total count of records matching the criteria, or a
-#' \code{data.frame} of counts matching the criteria supplied to the \code{group_by}
+#' \code{data.frame} of counts matching the criteria supplied to the \code{groups}
 #' argument.
 #'
 #' @inheritParams ala_occurrences
-#' @param group_by \code{string}: field to count by
+#' @param group_by \code{data.frame}: An object of class \code{ala_fields},
+#' as returned by \code{\link{select_fields}}. Alternatively a vector of field
+#' names.
 #' @param limit \code{numeric}: maximum number of categories to return, defaulting to 100.
 #' If limit is NULL, all results are returned. For some categories this will
 #' take a while.
@@ -25,8 +27,8 @@
 #' be replaced by the current query
 #' @return
 #' \itemize{
-#'  \item{A single count, if \code{group_by} is not specified or,}
-#'  \item{A \code{data.frame} of counts by \code{group_by} field, if it is specified}
+#'  \item{A single number, if \code{groups} is not specified or,}
+#'  \item{A \code{data.frame} of counts by \code{groups} field(s), if specified}
 #'}
 #' @examples \dontrun{
 #' # With no arguments, return the total number of records in the ALA
@@ -39,87 +41,137 @@
 #' ala_counts(filters = select_filters(basisOfRecord = "FossilSpecimen"))
 #' 
 #' # Count the number of species recorded for each kingdom
-#' ala_counts(group_by = "kingdom", type = "species")
+#' ala_counts(groups = "kingdom", type = "species")
+#' 
+#' # Crosstabulate using two different variables
+#' ala_counts(
+#'   filters = select_filters(year > 2015),
+#'   groups = select_fields("year", "basisOfRecord", expand = TRUE))
 #' }
 #' @export
 ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
-                       group_by, limit = 100, type = c("record" ,"species"),
+                       group_by = NULL, 
+                       limit = 100,
+                       type = c("record" ,"species"),
                        refresh_cache = FALSE) {
-                         
-  if(length(group_by) > 1){
-    validate_facet(group_by)
-    
-    # new utility function here?
-    # perhaps use ala_counts NOT find_field_values
-      # include user filter
-    # NOTE: there is a way to get multiple group_by calls in one
-    # query via the API; might be more efficient than lapply
-    # BUT it doesn't crosstabluate so not a complete solution
-    field_values_list <- lapply(group_by, 
-      function(a){ala_counts_original(
-        taxa = taxa,
-        filters = filters, 
-        group_by = a, 
-        limit = NULL)})
-    names(field_values_list) <- group_by
-    field_values_nrow <- unlist(lapply(field_values_list, nrow))
-    group_by_large <- group_by[which.max(field_values_nrow)]
-    group_by_small <- group_by[group_by != group_by_large]
-    
-    levels_df <- expand.grid(
-      lapply(field_values_list[group_by_small], 
-         function(a){a[[1]]}),
-      stringsAsFactors = FALSE)
-    
-    # return(levels_df)
-    # end new function
-    
-    # loop across all levels
-    levels_list <- split(levels_df, seq_len(nrow(levels_df)))
-    ## test code below
-    # result_list <- lapply(
-    #   query <- paste(names(a), a, sep = " = ")
-    #   filters_this_loop <- select_filters(parse(query))
-    #   filters_final <- rbind(filters, filters_this_loop)
-    #   ala_counts(
-    #     filters = filters,
-    #     group_by = group_by[which.max(field_values_nrow)]
-    #   )})   
-    
-    result_list <- lapply(df_list, ala_counts_internal)
-    return(do.call(rbind, result_list))
-    
-  }else{
-    ala_counts_internal(taxa, filters, group_by = group_by)
-  }
-  
-}
-  
-# previously ala_counts()
-ala_counts_internal <- function(taxa = NULL, filters = NULL, locations = NULL,
-                       group_by, limit = 100, type = c("record" ,"species"),
-                       refresh_cache = FALSE) {
-  
-  query <- list()
-  page_size <- 100
-  verbose <- getOption("galah_config")$verbose
+
   type <- match.arg(type)
-  profile <- extract_profile(filters)
-  query <- build_query(taxa, filters, locations, profile = profile)
-  if (missing(group_by)) {
+  verbose <- getOption("galah_config")$verbose
+
+  if(missing(group_by)) {
+    query <- list()
+    profile <- extract_profile(filters)
+    query <- build_query(taxa, filters, locations, profile = profile)
     if (type == "species") {
       return(species_count(query))
     }
     return(record_count(query))
+  }                  
+  
+  # if `groups` is as a vector
+  if(!inherits(group_by, "ala_fields")){
+    group_by <- select_fields(group_by, expand = FALSE)
+    if (getOption("galah_config")$run_checks) validate_fields(group_by$name)
   }
+  
+  # if all combinations of levels of `groups` are needed (expand = TRUE)
+  if(attr(group_by, "expand")){ 
+    
+    # get counts given the filters provided by the user
+    field_values_df <- ala_counts_internal(
+      taxa = taxa,
+      filters = filters, 
+      locations = locations,
+      type = type,
+      facets = group_by$name, 
+      limit = NULL)
+    n_fields_df <- data.frame(
+      facets = group_by$name,
+      n_fields = unlist(lapply(
+        group_by$name, 
+        function(a){length(which(!is.na(field_values_df[[a]])))})))
 
-  # check facet is valid
-  validate_facet(group_by)
-  query$facets <- group_by
+    # work out which to pass as facets vs those we iterate over with lapply
+    facets_large <- n_fields_df$facets[which.max(n_fields_df$n_fields)]
+    facets_small <- n_fields_df$facets[n_fields_df$facets != facets_large]
 
+    # work out what combinations of `group`s should be sent to ala_counts_internal
+    levels_df <- expand.grid(
+      lapply(
+        field_values_df[, 
+          which(names(field_values_df) %in% facets_small), 
+          drop = FALSE], 
+        function(a){a[!is.na(a)]}),
+      stringsAsFactors = FALSE)
+    levels_list <- split(levels_df, seq_len(nrow(levels_df)))
+    filters_list <- lapply(levels_list, function(a){paste(colnames(a), a, sep = " = ")})
+    
+    # turn off validation, because 1. it's already done, and 2. it's slow
+    initial_check_state <- getOption("galah_config")$run_checks
+    if(initial_check_state){
+      galah_config(run_checks = FALSE)
+      on.exit(galah_config(run_checks = TRUE)) # correct placement?
+    }
+    
+    # run `ala_counts_internal` the requisite number of times
+    if (verbose) { pb <- txtProgressBar(max = 1, style = 3) } # start progressbar
+    
+    result_list <- lapply(seq_along(levels_list),
+      function(a){
+        if (verbose) {
+          val <- (a / length(levels_list))
+          setTxtProgressBar(pb, val)
+        }
+        x <- levels_list[[a]]
+        filters_this_loop <- select_filters(x = paste(colnames(x), x, sep = " = "))
+        filters_final <- rbind(filters, filters_this_loop)
+        counts_query <- ala_counts_internal(
+          taxa = taxa,
+          filters = filters_final,
+          locations = locations,
+          facets = n_fields_df$facets[which.max(n_fields_df$n_fields)],
+          limit = limit,
+          type = type)
+        if(nrow(counts_query) > 0){   
+          as.data.frame(list(x, counts_query), row.names = NULL)
+        }
+      }) 
+    close(pb) # close progress bar
+    return(as.data.frame(do.call(rbind, result_list)))
+     
+  # if `groups` is of nrow == 1 (expand = FALSE)
+  }else{
+    ala_counts_internal(
+      taxa, filters, locations, 
+      facets = group_by$name, 
+      limit, type, refresh_cache,
+      verbose = verbose)
+  } 
+}
+
+# workhorse function to do most of the actual processing
+## NOTE: need to turn off caching for multiple runs
+ala_counts_internal <- function(taxa = NULL, filters = NULL, locations = NULL,
+                       facets, # NOTE: not `groups` as no multiply section here
+                       limit = NULL, type = "record",
+                       refresh_cache = FALSE,
+                       verbose = FALSE # NOTE: internally `verbose` is manual, not from galah_config
+                     ) {
+  
+  page_size <- 100
+  query <- list()
+  profile <- extract_profile(filters)
+  query <- build_query(taxa, filters, locations, profile = profile)
+  
+  # add facets in a way that supports single or multiple queries 
+  facets_temp <- as.list(facets)
+  names(facets_temp) <- rep("facets", length(facets_temp))
+  query <- c(query, facets_temp)
+
+  # build url etc
   url <- server_config("records_base_url")
   path <- "occurrence/facets"
-  cache_file <- cache_filename("counts", unlist(query), limit, group_by, type)
+  cache_file <- cache_filename("counts", unlist(query), limit, facets, type)
 
   caching <- getOption("galah_config")$caching
   if (caching && file.exists(cache_file) && !refresh_cache) {
@@ -127,65 +179,77 @@ ala_counts_internal <- function(taxa = NULL, filters = NULL, locations = NULL,
   }
 
   total_cats <- total_categories(url, path, query)
-  if (total_cats == 0) {
+  if (all(total_cats < 1)) {
     return(data.frame(name = as.character(), count = as.numeric()))
   }
 
   if (is.null(limit)) {
-    limit <- total_cats
+    limit <- sum(total_cats)
   }
 
-  if (total_cats > limit && total_cats > page_size) {
+  if (sum(total_cats) > limit && sum(total_cats) > page_size) {
     resp <- ala_GET(url, path, params = query, paginate = TRUE, limit = limit,
                     page_size = page_size, offset_param = "foffset")
-    counts <- data.table::rbindlist(lapply(resp, function(x) {
-      fromJSON(x)$fieldResult[[1]]
-      }))
-    } else {
-      query$flimit <- limit
+    counts <- data.table::rbindlist(fromJSON(resp)$fieldResult)
+  } else {
+      query$flimit <- max(limit)
       resp <- ala_GET(url, path, params = query)
-      counts <- resp$fieldResult[[1]]
+      counts <- data.table::rbindlist(resp$fieldResult)
   }
 
-  if (total_cats > limit) {
+  if (sum(total_cats) > limit) {
     warning("This field has ", total_cats, " values. ", limit,
             " will be returned. Change `limit` to return more values.")
   }
-  # parse out field value
+  
+  # parse out value
   value <- parse_fq(counts$fq)
   
   if (type == "species") {
     # this can take a while so add progress bar
     if (verbose) { pb <- txtProgressBar(max = 1, style = 3) }
-    counts <- data.table::rbindlist(lapply(seq_along(value), function(x) {
+    counts_final <- data.table::rbindlist(lapply(seq_along(value), function(x) {
       if (verbose) {
         val <- (x / length(value))
         setTxtProgressBar(pb, val)
       }
       species_query <- list()
       species_query$fq <- c(query$fq,
-                            query_term(name = group_by, value = value[[x]],
+                            query_term(name = facets, value = value[[x]],
                             include = TRUE))
       count <- species_count(species_query)
       data.frame(name = value[[x]], count = count)
     }))
   } else {
-    counts <- data.frame(
+    counts_final <- data.frame(
       name = value,
-      count = counts$count
-    )
+      count = counts$count)
   }
-  names(counts) <- c(group_by, "count")
-  attr(counts, "data_type") <- "counts"
-  query <- data_request(taxa, filters, locations, group_by = group_by)
-  attr(counts, "data_request") <- query
+  
+  if(length(facets) > 1){
+    counts_final$field_name <- parse_field(counts$fq)
+    counts_list <- split(counts_final, counts_final$field_name)
+    counts_final <- as.data.frame(data.table::rbindlist(lapply(
+      seq_along(facets), function(a){
+        names(counts_list[[a]])[1] <- names(counts_list)[a]
+        counts_list[[a]]
+      }), 
+      fill = TRUE))
+     counts_final <- counts_final[, c(names(counts_list), "count")]
+  }else{ # i.e. only one facet
+    names(counts_final) <- c(facets, "count")
+  }  
+  
+  attr(counts_final, "data_type") <- "counts"
+  query <- data_request(taxa, filters, locations, groups = facets)
+  attr(counts_final, "data_request") <- query
   
   if (caching) {
-    write_cache_file(object = counts, data_type = "counts",
+    write_cache_file(object = counts_final, data_type = "counts",
                      cache_file = cache_file)
   }
   
-  return(counts)
+  return(counts_final)
 }
 
 # get just the record count for a query
@@ -206,7 +270,7 @@ species_count <- function(query) {
 
 validate_facet <- function(facet) {
   if (!all(facet %in% c(search_fields()$id, all_fields()$name))) {
-    stop("\"", facet, "\" is not a valid group_by field. ",
+    stop("\"", facet, "\" is not a valid groups field. ",
          "Use `search_fields()` to get a list of valid options")
   }
 }
@@ -221,9 +285,11 @@ total_categories <- function(url, path, query) {
   resp$count
 }
 
-# Extract filter name from data returned from API
-parse_fq <- function(fq) {
-  vapply(fq, function(z) {
-    sub('.*?"([^"]+)"', "\\1", z)
-  }, USE.NAMES = FALSE, FUN.VALUE = character(1))
+# # Extract filter names and values returned from API
+parse_field <- function(fq){
+  str_extract(fq, "^[:alnum:]+")
+}
+
+parse_fq <- function(fq){
+  gsub("\"", "", sub("^[[:alnum:]]+:",  "", fq))
 }

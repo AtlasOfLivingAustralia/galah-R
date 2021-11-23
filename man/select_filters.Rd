@@ -4,10 +4,13 @@
 \alias{select_filters}
 \title{Select filters to narrow down occurrence queries}
 \usage{
-select_filters(..., profile = NULL)
+select_filters(..., x = NULL, profile = NULL)
 }
 \arguments{
 \item{...}{filters, in the form \code{field logical value}}
+
+\item{x}{a \code{list} containing valid filters. Useful for calling 
+\code{select_filters} from within other functions as inputs are evaluated.}
 
 \item{profile}{\code{string}: (optional) a data quality profile to apply to the
 records. See \code{\link{find_profiles}} for valid profiles. By default
