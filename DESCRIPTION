@@ -35,6 +35,7 @@ Imports:
     digest,
     httr,
     jsonlite (>= 0.9.8),
+    rlang,
     sf,
     sp,
     stringr (>= 1.0.0),

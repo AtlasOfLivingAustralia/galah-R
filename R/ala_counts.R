@@ -104,7 +104,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
         function(a){a[!is.na(a)]}),
       stringsAsFactors = FALSE)
     levels_list <- split(levels_df, seq_len(nrow(levels_df)))
-    filters_list <- lapply(levels_list, function(a){paste(colnames(a), a, sep = " = ")})
+    filters_list <- lapply(levels_list, function(a){paste(colnames(a), a, sep = " == ")})
     
     # turn off validation, because 1. it's already done, and 2. it's slow
     initial_check_state <- getOption("galah_config")$run_checks
@@ -122,8 +122,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
           val <- (a / length(levels_list))
           setTxtProgressBar(pb, val)
         }
-        x <- levels_list[[a]]
-        filters_this_loop <- select_filters(x = paste(colnames(x), x, sep = " = "))
+        filters_this_loop <- galah_filter(filters_list[[a]])    
         filters_final <- rbind(filters, filters_this_loop)
         counts_query <- ala_counts_internal(
           taxa = taxa,
@@ -133,7 +132,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
           limit = limit,
           type = type)
         if(nrow(counts_query) > 0){   
-          as.data.frame(list(x, counts_query), row.names = NULL)
+          as.data.frame(list(levels_list[[a]], counts_query), row.names = NULL)
         }
       }) 
     close(pb) # close progress bar
