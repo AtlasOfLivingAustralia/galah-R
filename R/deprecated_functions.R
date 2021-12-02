@@ -7,7 +7,7 @@
 #' @describeIn galah_select Deprecated function name
 #' @export
 select_columns <- function(..., group){
-  galah_select(..., group)
+  galah_select(..., group = group)
 }
 
 #' Choose filters to narrow down occurrence queries
@@ -19,7 +19,7 @@ select_columns <- function(..., group){
 #' @describeIn galah_filter Deprecated function name
 #' @export
 select_filters <- function(..., profile = NULL) {
-  galah_filter(..., profile)
+  galah_filter(..., profile = profile)
 }
 
 

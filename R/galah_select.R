@@ -59,13 +59,10 @@ galah_select <- function(...,
   # match 'groups' of columns
   if (!missing(group) && !is.null(group)) {
     group <- match.arg(group, several.ok = TRUE)
-    group_cols <- data.table::rbindlist(lapply(group, function(x) {
-      type <- ifelse(x == "assertions", "assertions", "field")
-      data.frame(name = preset_cols(x), type = type,
-                 stringsAsFactors = FALSE)
-    }))} else {
-      group_cols <- NULL
-    }
+    group_cols <- unlist(lapply(group, preset_cols))
+  } else {
+    group_cols <- NULL
+  }
     
   # build a data.frame with a standardised set of names, stored by galah_config()
   load_fields()
@@ -77,7 +74,7 @@ galah_select <- function(...,
   # make a data.frame listing valid fields and their type
   all_cols <- data.frame(
     name = unique(c(group_cols, colnames(select(df, ...)))))
-  all_cols$type <- ifelse(str_detect(x, "[[:lower:]]"), "field", "assertions")
+  all_cols$type <- ifelse(str_detect(all_cols$name, "[[:lower:]]"), "field", "assertions")
     
   # add S3 class and return
   class(all_cols) <- append(class(all_cols), "ala_fields") 
