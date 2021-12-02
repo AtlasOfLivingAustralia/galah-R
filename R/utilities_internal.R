@@ -148,7 +148,7 @@ build_taxa_query <- function(ids) {
   value_str
 }
 
-# Takes a dataframe produced by select_filters and return query as a list
+# Takes a dataframe produced by galah_filter and return query as a list
 # Construct individual query term
 # Add required brackets, quotes to make valid SOLR query syntax
 query_term <- function(name, value, include) {
@@ -214,7 +214,7 @@ new_build_filter_query <- function(filters) {
   return(query)
 }
 
-# Extract profile row from filters dataframe created by select_filters
+# Extract profile row from filters dataframe created by galah_filter
 extract_profile <- function(filters) {
   profile <- NULL
   if (!is.null(filters)){

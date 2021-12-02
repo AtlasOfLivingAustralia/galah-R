@@ -28,16 +28,17 @@ quality-control criteria.
   \item\code{\link{ala_species}} Download species lists
   \item\code{\link{ala_occurrences}} Download occurrence records
   \item\code{\link{ala_media}} Download images and sounds
+  \item\code{\link{ala_citation}} Citation for a dataset
 }
 \strong{\code{Filter}}
 \itemize{
-  \item\code{\link{select_taxa}} Search for taxonomic identifiers
-  \item\code{\link{select_filters}} Filter records
-  \item\code{\link{select_locations}} Specify a location
-  \item\code{\link{select_fields}} Fields to report information for
+  \item\code{\link{galah_filter}} Filter records
+  \item\code{\link{galah_select}} Fields to report information for
+  \item\code{\link{galah_locations}} Specify a location
 }
 \strong{\code{Lookup}}
 \itemize{
+  \item\code{\link{select_taxa}} Search for taxonomic identifiers
   \item\code{\link{search_fields}} Free-text search for layers and fields
   \item\code{\link{find_field_values}} List possible values for a given field
   \item\code{\link{find_profiles}} List data quality profiles
@@ -54,7 +55,6 @@ quality-control criteria.
 \strong{\code{Help}}
 \itemize{
   \item\code{\link{galah_config}} Package configuration options
-  \item\code{\link{ala_citation}} Citation for a dataset
 }
 }
 
@@ -82,7 +82,7 @@ designed to make filtering as simple as possible, by using functions with the
 in a different way, and again the function suffix contains this information.
 For example, you can choose which taxonomic groups are included using
 \code{\link{select_taxa}()}, or a specific location using
-\code{\link{select_locations}()}. By combining different filter functions, it
+\code{\link{galah_locations}()}. By combining different filter functions, it
 is possible to build complex queries to return only the most valuable
 information for a given problem.
 
@@ -93,7 +93,7 @@ out records that are unsuitable for particular applications. However, there
 are many possible data quality checks, and it is not always clear which are
 most appropriate in a given instance. Therefore, \code{galah} supports ALA
 data quality \strong{profiles}, which can be passed to
-\code{\link{select_filters}()} to quickly remove undesirable records. A full
+\code{\link{galah_filter}()} to quickly remove undesirable records. A full
 list of data quality profiles is returned by \code{\link{find_profiles}()}.
 
 For those outside Australia, 'galah' is the common name of

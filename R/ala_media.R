@@ -12,7 +12,7 @@
 #' be replaced by the current query
 #' @details \code{\link{ala_occurrences}()} works by first finding all occurrence records
 #' matching the filters which contain media, then downloading the metadata for the
-#' media and the media files. \code{\link{select_filters}()} can take both filters
+#' media and the media files. \code{\link{galah_filter}()} can take both filters
 #' relating to occurrences (e.g. basis of records), and filters relating to media
 #' (e.g. type of licence).
 #' It may be beneficial when requesting a large number of records to show a progress
@@ -26,29 +26,29 @@
 #' # Download Regent Honeyeater multimedia
 #' media_data <- ala_media(
 #'     taxa = select_taxa("Regent Honeyeater"),
-#'     filters = select_filters(year = 2011),
+#'     filters = galah_filter(year = 2011),
 #'     download_dir = "media")
 #' 
 #' # Specify a single media type to download
 #' media_data <- ala_media(
 #'      taxa = select_taxa("Eolophus Roseicapilla"),
-#'      filters = select_filters(multimedia = "Sound"))
+#'      filters = galah_filter(multimedia = "Sound"))
 #' 
 #' # Filter to only records with a particular licence type
 #' media_data <- ala_media(
 #'       taxa = select_taxa("Ornithorhynchus anatinus"),
-#'       filters = select_filters(year = 2020,
+#'       filters = galah_filter(year = 2020,
 #'       license = "http://creativecommons.org/licenses/by-nc/4.0/")
 #' )
 #' # Check how many records have media files
 #' ala_counts(
-#'      filters = select_filters(multimedia = c("Image","Sound","Video")),
+#'      filters = galah_filter(multimedia = c("Image","Sound","Video")),
 #'      group_by = "multimedia"
 #' )
 #' }
 #' @export
 ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
-                      fields = select_fields(group = "basic"),
+                      fields = galah_select(group = "basic"),
                       columns = NULL, 
                       download_dir,
                       refresh_cache = FALSE) {
@@ -83,10 +83,10 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
   media_filters <- filters[filters_available, ]
   occ_filters <- rbind(
     filters[!(filters_available), ],
-    select_filters(multimedia = c("Image", "Sound", "Video")))
+    galah_filter(multimedia = c("Image", "Sound", "Video")))
   
   # Make sure media ids are included in results
-  occ_columns <- rbind(fields, select_fields(image_fields()))
+  occ_columns <- rbind(fields, galah_select(image_fields()))
 
   # add ala_ classes to modified filters and fields
   class(occ_filters) <- append(class(occ_filters), "ala_filters")

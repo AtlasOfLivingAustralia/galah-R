@@ -3,9 +3,8 @@
 
 validate_fields <- function(x){
 
-  if(length(galah_config()$valid_fields) < 1){
-    galah_config(valid_fields = c(search_fields()$id, all_fields()$name))
-  }
+  load_fields()
+  
   invalid_fields <- x[!is.element(x, galah_config()$valid_fields)]
   if (length(invalid_fields) > 0) {
     if(!all(invalid_fields %in% image_fields())){ # exception for ala_media
@@ -13,5 +12,12 @@ validate_fields <- function(x){
            paste(invalid_fields, collapse = ", "),
            ". Use `search_fields()` to get a list of valid options")
     }
+  }
+}
+
+
+load_fields <- function(){
+  if(length(galah_config()$valid_fields) < 1){
+    galah_config(valid_fields = unique(c(search_fields()$id, all_fields()$name)))
   }
 }

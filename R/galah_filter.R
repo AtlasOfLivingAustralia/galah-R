@@ -7,7 +7,7 @@
 #'  (\code{basisOfRecord != "FossilSpecimen"}).
 #' The result of \code{galah_filter} can be passed to the \code{filters}
 #' argument in \code{\link{ala_occurrences}()}, \code{\link{ala_species}()} or
-#' \code{\link{ala_counts}()}. `galah_filters` uses non-standard evaluation (NSE),
+#' \code{\link{ala_counts}()}. \code{galah_filter} uses non-standard evaluation (NSE),
 #' and is designed to be as compatible as possible with \code{dplyr::filter}
 #' syntax.
 #'
@@ -17,7 +17,7 @@
 #' no profile is applied.
 #' @return A \code{data.frame} of filter values.
 #' @seealso \code{\link{select_taxa}}, \code{\link{select_columns}} and
-#' \code{\link{select_locations}} for other ways to restrict the information returned
+#' \code{\link{galah_locations}} for other ways to restrict the information returned
 #' by \code{\link{ala_occurrences}} and related functions. Use
 #' \code{\link{search_fields}} to find fields that
 #' you can filter by, and \code{\link{find_field_values}} to find what values

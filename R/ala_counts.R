@@ -13,7 +13,7 @@
 #'
 #' @inheritParams ala_occurrences
 #' @param group_by \code{data.frame}: An object of class \code{ala_fields},
-#' as returned by \code{\link{select_fields}}. Alternatively a vector of field
+#' as returned by \code{\link{galah_select}}. Alternatively a vector of field
 #' names.
 #' @param limit \code{numeric}: maximum number of categories to return, defaulting to 100.
 #' If limit is NULL, all results are returned. For some categories this will
@@ -38,15 +38,15 @@
 #' ala_counts(group_by = "stateProvince")
 #'
 #' # Count records matching a filter
-#' ala_counts(filters = select_filters(basisOfRecord = "FossilSpecimen"))
+#' ala_counts(filters = galah_filter(basisOfRecord = "FossilSpecimen"))
 #' 
 #' # Count the number of species recorded for each kingdom
 #' ala_counts(groups = "kingdom", type = "species")
 #' 
 #' # Crosstabulate using two different variables
 #' ala_counts(
-#'   filters = select_filters(year > 2015),
-#'   groups = select_fields("year", "basisOfRecord", expand = TRUE))
+#'   filters = galah_filter(year > 2015),
+#'   groups = galah_select("year", "basisOfRecord", expand = TRUE))
 #' }
 #' @export
 ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
@@ -70,7 +70,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
   
   # if `groups` is as a vector
   if(!inherits(group_by, "ala_fields")){
-    group_by <- select_fields(group_by, expand = FALSE)
+    group_by <- galah_select(group_by, expand = FALSE)
     if (getOption("galah_config")$run_checks) validate_fields(group_by$name)
   }
   

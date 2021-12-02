@@ -15,7 +15,7 @@ test_that("ala_occurrences gives a nice error for invalid emails", {
 
 test_that("ala_occurrences fails nicely if no email is provided", {
   galah_config(email = "", run_checks = FALSE)
-  expect_error(ala_occurrences(filters = select_filters(year = 1900)))
+  expect_error(ala_occurrences(filters = galah_filter(year = 1900)))
   galah_config(email = "ala4r@ala.org.au")
 })
   
@@ -26,11 +26,11 @@ test_that("ala occurrences returns requested columns", {
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
                      "dataResourceName", "stateProvince", "ZERO_COORDINATE")
-  filters <- select_filters(year = seq(2018, 2020))
+  filters <- galah_filter(year = seq(2018, 2020))
   cols <- select_columns(group = "basic", "stateProvince", "ZERO_COORDINATE")
   taxa <- select_taxa("Polytelis swainsonii")
   poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
-  locations <- select_locations(poly)
+  locations <- galah_locations(poly)
   occ <- ala_occurrences(
     taxa = taxa,
     filters = filters,
@@ -44,7 +44,7 @@ test_that("ala_occurrences caches data as expected", {
   skip_on_cran()
   galah_config(caching = TRUE, verbose = TRUE)
   taxa <- select_taxa("Wurmbea dioica")
-  filters <- select_filters(year = 2000)
+  filters <- galah_filter(year = 2000)
   columns <- select_columns(group = "basic", "basisOfRecord")
 
   # Download data

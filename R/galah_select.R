@@ -1,12 +1,11 @@
 #' Specify fields for occurrence download
 #'
-#' The ALA stores content on hundreds of different fields, and users often
-#' thousands or millions of records at a time. To reduce time taken to download
-#' data, and limit complexity of the resulting \code{data.frame}, it is often
-#' sensible to restrict the fields returned by \code{\link{ala_occurrences}()}
-#' or when using the \code{group_by} argument of \code{\link{ala_counts}}.
+#' The living atlases store content on hundreds of different fields, and users
+#' often require thousands or millions of records at a time. To reduce time taken
+#' to download data, and limit complexity of the resulting \code{data.frame}, it is
+#' sensible to restrict the fields returned by \code{\link{ala_occurrences}()}.
 #' This function allows easy selection of fields, or commonly-requested groups 
-#' of columns.
+#' of columns, following syntax shared with \code{dplyr::select()}.
 #' 
 #' @param ... zero or more individual column names to include
 #' @param group \code{string}: (optional) name of one or more column groups to
@@ -41,21 +40,23 @@
 #' columns. The list of assertions is shown by \code{search_fields(type = "assertions")}.
 #'
 #' The \code{expand} argument is appended as an attribute of the \code{data.frame} 
-#' returned by \code{select_fields}. It is only used by \code{ala_counts}, meaning
+#' returned by \code{galah_select}. It is only used by \code{ala_counts}, meaning
 #' that setting \code{expand = TRUE} will not affect calls to \code{ala_occurrences}.
-#' @note \code{select_columns} and \code{select_fields} are synonymous;
+#' @note \code{select_columns} and \code{galah_select} are synonymous;
 #' \code{select_columns} is deprecated and will be removed from future versions
 #' of \code{galah}.
-#' @seealso \code{\link{select_taxa}}, \code{\link{select_filters}} and
-#' \code{\link{select_locations}} for other ways to restrict the information returned
+#' @seealso \code{\link{select_taxa}}, \code{\link{galah_filter}} and
+#' \code{\link{galah_locations}} for other ways to restrict the information returned
 #' by \code{\link{ala_occurrences}} and related functions; \code{\link{ala_counts}}
-#' for how to get counts by levels of variables returned by \code{select_fields}.
+#' for how to get counts by levels of variables returned by \code{galah_select}.
+#' @importFrom dplyr select
 #' @export
 
-select_fields <- function(..., 
-  group = c("basic", "event", "assertions"),
-  expand = FALSE
-) {
+galah_select <- function(...,
+  group = c("basic", "event", "assertions")
+){
+
+  # match 'groups' of columns
   if (!missing(group) && !is.null(group)) {
     group <- match.arg(group, several.ok = TRUE)
     group_cols <- data.table::rbindlist(lapply(group, function(x) {
@@ -65,41 +66,24 @@ select_fields <- function(...,
     }))} else {
       group_cols <- NULL
     }
-
-  cols <- c(...)
-  if (length(cols) > 0) {
-    if (getOption("galah_config")$run_checks) validate_fields(cols)
-    extra_cols <- data.table::rbindlist(lapply(cols, function(x) {
-      type <- ifelse(str_detect(x, "[[:lower:]]"), "field", "assertions")
-      data.frame(name = x, type = type, stringsAsFactors = FALSE)
-    }))} else {
-      extra_cols <- NULL
-    }
-  all_cols <- rbind(group_cols, extra_cols)
-  if(inherits(all_cols, "data.table")){
-    all_cols <- as.data.frame(all_cols)
-  }
-  class(all_cols) <- append(class(all_cols), "ala_fields")
-
-  # remove duplicates
-  all_cols[!duplicated(all_cols$name), ]
+    
+  # build a data.frame with a standardised set of names, stored by galah_config()
+  load_fields()
+  field_names <- galah_config()$valid_fields 
+  df <- as.data.frame(
+   matrix(data = NA, nrow = 0, ncol = length(field_names),
+     dimnames = list(NULL, field_names)))
   
-  # expand stuff
-  if(nrow(all_cols) < 2){
-    attr(all_cols, "expand") <- FALSE
-  }else{
-    attr(all_cols, "expand") <- expand
-  }
-  
-  return(all_cols)
+  # make a data.frame listing valid fields and their type
+  all_cols <- data.frame(
+    name = unique(c(group_cols, colnames(select(df, ...)))))
+  all_cols$type <- ifelse(str_detect(x, "[[:lower:]]"), "field", "assertions")
+    
+  # add S3 class and return
+  class(all_cols) <- append(class(all_cols), "ala_fields") 
+  all_cols
 }
 
-# To be deprecated
-#' @rdname select_fields
-#' @export
-select_columns <- function(..., group, expand){
-  select_fields(..., group, expand)
-}
 
 preset_cols <- function(type) {
   cols <- switch(type,

@@ -33,6 +33,7 @@ Imports:
     data.table,
     data.tree,
     digest,
+    dplyr,
     httr,
     jsonlite (>= 0.9.8),
     rlang,

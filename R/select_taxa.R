@@ -20,8 +20,8 @@
 #' \code{FALSE}, meaning that queries are assumed to be taxonomic names.
 #' @return An object of class \code{data.frame} and \code{ala_id}
 #' containing taxonomic information.
-#' @seealso \code{\link{select_columns}}, \code{\link{select_filters}} and
-#' \code{\link{select_locations}} for other ways to restrict the information returned
+#' @seealso \code{\link{select_columns}}, \code{\link{galah_filter}} and
+#' \code{\link{galah_locations}} for other ways to restrict the information returned
 #' by \code{\link{ala_occurrences}} and related functions.
 #' \code{\link{ala_taxonomy}} to look up taxonomic trees.
 #' @examples

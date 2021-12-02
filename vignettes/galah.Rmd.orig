@@ -90,13 +90,13 @@ For more detailed taxonomic information use `search_taxonomy()`, as outlined in
 Users can provide an `sf` object or a Well-Known Text (WKT) string for
 location-based filtering.
 ```{r eval = FALSE}
-locations <- select_locations(query = st_read('act_rect.shp'))
+locations <- galah_locations(query = st_read('act_rect.shp'))
 ```
 
 ## Field based filtering
 As mentioned above, all occurrence records in the ALA contain additional
 information about the record, stored in **fields**. Field-based filters are
-specified with `select_filters()`, which takes individual filters, in the form
+specified with `galah_filter()`, which takes individual filters, in the form
 `field = value`, and/or a [data quality profile](#data-quality-profiles).
 
 To find available fields and corresponding valid values, field lookup 
@@ -109,13 +109,13 @@ field_values <- find_field_values("basisOfRecord")
 Build a field filter
 
 ```{r}
-filters <- select_filters(basisOfRecord = "HumanObservation")
+filters <- galah_filter(basisOfRecord = "HumanObservation")
 ```
 
 It is also possible to pass other kinds of logical statement to
-`select_filters()`.
+`galah_filter()`.
 ```{r}
-filters <- select_filters(basisOfRecord = "HumanObservation",
+filters <- galah_filter(basisOfRecord = "HumanObservation",
                           year >= 2010,
                           occurrenceStatus != "absent")
 ```
@@ -128,7 +128,7 @@ These checks are used to generate new fields, that can then be used to filter
 out records that are unsuitable for particular applications. However, there
 are many possible data quality checks, and it is not always clear which are
 most appropriate in a given instance. Therefore, `galah` supports ALA
-data quality **profiles**, which can be passed to `select_filters()`to quickly
+data quality **profiles**, which can be passed to `galah_filter()`to quickly
 remove undesirable records. A full list of data quality profiles is returned by
 `find_profiles()`.
 
@@ -141,7 +141,7 @@ find_profile_attributes("ALA")
 ```
 Include a profile in the filters
 ```{r}
-filters <- select_filters(basisOfRecord = "HumanObservation",
+filters <- galah_filter(basisOfRecord = "HumanObservation",
                           profile = "ALA")
 ```
 
@@ -185,7 +185,7 @@ galah_config(email = your_email_here, atlas = "Australia")
 Download occurrence records for *Eolophus roseicapilla*
 ```{r}
 occ <- ala_occurrences(taxa = select_taxa("Eolophus roseicapilla"),
-                       filters = select_filters(stateProvince = "Australian Capital Territory",
+                       filters = galah_filter(stateProvince = "Australian Capital Territory",
                                                 year >= 2010,
                                                 profile = "ALA"),
                        columns = select_columns("institutionID", group = "basic"))
@@ -206,7 +206,7 @@ galah_config(cache_directory = tempdir())
 ```{r}
 # List rodent species in the NT
 species <- ala_species(taxa = select_taxa("Rodentia"),
-            filters = select_filters(stateProvince = "Northern Territory"))
+            filters = galah_filter(stateProvince = "Northern Territory"))
 head(species)
 ```
 
@@ -231,7 +231,7 @@ set of filters as the other data download functions.
 # Use the occurrences previously downloaded
 media_data <- ala_media(
      taxa = select_taxa("Eolophus roseicapilla"),
-     filters = select_filters(year = 2020),
+     filters = galah_filter(year = 2020),
      download_dir = "media")
 ```
 

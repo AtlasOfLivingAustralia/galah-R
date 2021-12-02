@@ -9,21 +9,21 @@
 #' simplified.
 #' @return length-1 object of class \code{character} and \code{ala_locations},
 #' containing a WKT string representing the area provided.
-#' @seealso \code{\link{select_taxa}}, \code{\link{select_filters}} and
+#' @seealso \code{\link{select_taxa}}, \code{\link{galah_filter}} and
 #' \code{\link{select_columns}} for other ways to restrict the information
 #' returned by \code{\link{ala_occurrences}} and related functions.
 #' @examples \dontrun{
 #' # Search for records using a shapefile
-#' locations <- select_locations(st_read(path/to/shapefile))
+#' locations <- galah_locations(st_read(path/to/shapefile))
 #' ala_occurrences(locations = locations)
 #' 
 #' # Search for records using a WKT
 #' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
 #' -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
-#' ala_occurrences(locations = select_locations(wkt))
+#' ala_occurrences(locations = galah_locations(wkt))
 #' }
 #' @export
-select_locations <- function(query) {
+galah_locations <- function(query) {
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons should be converted to multipolygons
   

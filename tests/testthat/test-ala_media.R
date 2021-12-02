@@ -15,7 +15,7 @@ test_that("ala media downloads images", {
   unlink(media_dir, recursive = TRUE)
   dir.create(media_dir)
   media_data <- ala_media(taxa = select_taxa("Microseris lanceolata"),
-                          filters = select_filters(year = 2019),
+                          filters = galah_filter(year = 2019),
                           download_dir = media_dir)
   file_count <- length(list.files(media_dir))
   expect_equal(file_count, nrow(media_data))
@@ -28,7 +28,7 @@ test_that("ala media handles different file formats", {
   media_dir <- "test_media"
   dir.create(media_dir)
   media_data <- ala_media(taxa = select_taxa("Regent Honeyeater"),
-                          filters = select_filters(year = 2012),
+                          filters = galah_filter(year = 2012),
                           download_dir = media_dir)
   file_count <- length(list.files(media_dir))
   expect_equal(file_count, nrow(media_data))

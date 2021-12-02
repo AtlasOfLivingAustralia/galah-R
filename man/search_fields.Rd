@@ -28,7 +28,7 @@ A \code{data.frame} with three columns:
 }
 \description{
 This function can be used to find relevant fields and/or layers
-for use in building a set of filters with \code{\link{select_filters}()} or
+for use in building a set of filters with \code{\link{galah_filter}()} or
 specifying required columns with \code{\link{select_columns}()}.
 This function returns a \code{data.frame} of all fields matching the type
 specified.
@@ -61,7 +61,7 @@ all_fields <- search_fields()
 }
 \seealso{
 This function is used to pass valid arguments to
-\code{\link{select_columns}()} and \code{\link{select_filters}()}.
+\code{\link{select_columns}()} and \code{\link{galah_filter}()}.
 To view valid values for a layer with categorical values, use
 \code{\link{find_field_values}()}.
 }

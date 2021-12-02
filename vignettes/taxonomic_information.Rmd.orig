@@ -70,7 +70,7 @@ by supporting filtering e.g.:
 ```{r filter-ala-species}
 burrowing_frogs <- ala_species(
   taxa = select_taxa("Heleioporus"),
-  filters = select_filters(
+  filters = galah_filter(
     stateProvince = "New South Wales", 
     year > 2010))
 str(burrowing_frogs, give.attr = FALSE)
@@ -78,12 +78,12 @@ str(burrowing_frogs, give.attr = FALSE)
 
 ## Advanced taxonomic queries
 Although we have focussed above on functions that are built to integrate
-taxonomic concepts, the more general `select_filters` can be used to 
+taxonomic concepts, the more general `galah_filter` can be used to 
 build more flexible queries using the `taxonConceptID` field.
 This can be useful for paraphyletic concepts such as invertebrates:
 
 ```{r invert-filter}
-invertebrate_filter <- select_filters(
+invertebrate_filter <- galah_filter(
    taxonConceptID = select_taxa("Animalia")$taxon_concept_id,
    taxonConceptID != select_taxa("Chordata")$taxon_concept_id)
 head(ala_counts(filters = invertebrate_filter, group_by = "class"))

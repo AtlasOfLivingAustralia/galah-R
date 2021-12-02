@@ -47,8 +47,8 @@ select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 }
 }
 \seealso{
-\code{\link{select_columns}}, \code{\link{select_filters}} and
-\code{\link{select_locations}} for other ways to restrict the information returned
+\code{\link{select_columns}}, \code{\link{galah_filter}} and
+\code{\link{galah_locations}} for other ways to restrict the information returned
 by \code{\link{ala_occurrences}} and related functions.
 \code{\link{ala_taxonomy}} to look up taxonomic trees.
 }

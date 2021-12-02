@@ -12,7 +12,7 @@ A \code{data.frame} of available profiles
 \description{
 The ALA provides a number of pre-built data quality profiles for 
 filtering data according to quality checks. A data quality profile can
-be specified in the \code{profile} argument in \code{\link{select_filters}()}
+be specified in the \code{profile} argument in \code{\link{galah_filter}()}
 and used to filter searches in \code{\link{ala_occurrences}()},
 \code{\link{ala_counts}()} and \code{\link{ala_species}()}.
 }
@@ -21,13 +21,13 @@ and used to filter searches in \code{\link{ala_occurrences}()},
 # Get available profiles
 profile_df <- find_profiles()
 # Values given in the 'shortName' column are accepted by select_filter(), i.e.
-select_filters(profile = profile_df$shortName[1])
+galah_filter(profile = profile_df$shortName[1])
 # is equivalent to:
-select_filters(profile = "ALA")
+galah_filter(profile = "ALA")
 }
 }
 \seealso{
 This function gives viable profle names for passing to
-\code{\link{select_filters}()}. For more detail on a given profile see
+\code{\link{galah_filter}()}. For more detail on a given profile see
 \code{\link{find_profile_attributes}()}.
 }

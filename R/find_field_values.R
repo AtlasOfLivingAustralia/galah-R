@@ -1,6 +1,6 @@
 #' List valid options for a categorical field
 #'
-#' When building a set of filters with \code{\link{select_filters}}, a user can
+#' When building a set of filters with \code{\link{galah_filter}}, a user can
 #' use this function to check that the values provided are valid options.
 #' @param field \code{string}: field to return the categories for. Use
 #' \code{\link{search_fields}} to view valid fields.

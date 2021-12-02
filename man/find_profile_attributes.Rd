@@ -26,6 +26,6 @@ profile_info$description # free-text description of each filter in the "CSDM" pr
 }
 \seealso{
 \code{\link{find_profiles}()} for a list of valid profiles;
-\code{\link{select_filters}()} for how to include this information in a data
+\code{\link{galah_filter}()} for how to include this information in a data
 query.
 }

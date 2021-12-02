@@ -2,22 +2,22 @@
 #'
 #' The ALA provides a number of pre-built data quality profiles for 
 #' filtering data according to quality checks. A data quality profile can
-#' be specified in the \code{profile} argument in \code{\link{select_filters}()}
+#' be specified in the \code{profile} argument in \code{\link{galah_filter}()}
 #' and used to filter searches in \code{\link{ala_occurrences}()},
 #' \code{\link{ala_counts}()} and \code{\link{ala_species}()}.
 #'
 #' @export find_profiles
 #' @return A \code{data.frame} of available profiles
 #' @seealso This function gives viable profle names for passing to
-#' \code{\link{select_filters}()}. For more detail on a given profile see
+#' \code{\link{galah_filter}()}. For more detail on a given profile see
 #' \code{\link{find_profile_attributes}()}.
 #' @examples \dontrun{
 #' # Get available profiles
 #' profile_df <- find_profiles()
 #' # Values given in the 'shortName' column are accepted by select_filter(), i.e.
-#' select_filters(profile = profile_df$shortName[1])
+#' galah_filter(profile = profile_df$shortName[1])
 #' # is equivalent to:
-#' select_filters(profile = "ALA")
+#' galah_filter(profile = "ALA")
 #' }
 
 # this will return names and descriptions of data profiles
@@ -42,7 +42,7 @@ find_profiles <- function() {
 #' @return A \code{data.frame} of profile attributes, consisting of a
 #' free text \code{description} and the actual \code{filter} used.
 #' @seealso \code{\link{find_profiles}()} for a list of valid profiles;
-#' \code{\link{select_filters}()} for how to include this information in a data
+#' \code{\link{galah_filter}()} for how to include this information in a data
 #' query.
 #' @examples
 #' profile_info <- find_profile_attributes("CSDM")

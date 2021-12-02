@@ -43,7 +43,7 @@ including data DOI, search url (#55, #32, #28)
 * Users can now optionally skip filter and count validation checks to spatial 
 and biocache web services by setting `galah_config(run_checks = FALSE)`. This 
 helps users avoid slowing down data request download speeds when many requests 
-are made in quick succession via `select_filters()` or `ala_occurrences()` (#61,
+are made in quick succession via `galah_filter()` or `ala_occurrences()` (#61,
 #80)
 * `ala_counts()`, `select_columns()` and `search_fields()` now use `match.arg` 
 to approximate strings through fuzzy matching (#66)
@@ -81,7 +81,7 @@ rank information (#35)
 characters are provided (#23)
 * Caching functionality for `ala_occurrences()` uses the `columns` as expected
 (#30)
-* `select_filters()` negates assertion filters when required, fixing the issue
+* `galah_filter()` negates assertion filters when required, fixing the issue
 of assertion values being ignored (#27)
 * `select_taxa()` no longer throws an error when queries of more than one term
 have a differing number of columns in the return value (#41)
@@ -103,7 +103,7 @@ functions (#18)
 * All media download types are supported
 
 ### select_ functions
-* `select_locations` auto-detects the type of argument provided and so takes
+* `galah_locations` auto-detects the type of argument provided and so takes
 a single argument, `query`, in place of `sf` and `wkt` (#17)
 * `select_taxa` auto-detects the type of argument provided and so takes a single
 argument, `query`, in place of `term` and `term_type` (#16)

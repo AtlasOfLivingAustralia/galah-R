@@ -9,8 +9,8 @@ reference:
 - title: Filter
   contents: 
   - select_taxa
-  - select_filters
-  - select_locations
+  - galah_filter
+  - galah_locations
   - select_columns
 - title: Lookup
   contents:

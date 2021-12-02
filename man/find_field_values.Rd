@@ -17,7 +17,7 @@ A \code{data.frame} containing columns \code{field} (user-supplied)
 and \code{category} (i.e. field values).
 }
 \description{
-When building a set of filters with \code{\link{select_filters}}, a user can
+When building a set of filters with \code{\link{galah_filter}}, a user can
 use this function to check that the values provided are valid options.
 }
 \examples{

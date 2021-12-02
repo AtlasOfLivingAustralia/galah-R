@@ -46,7 +46,7 @@ test_that("grouped ala_counts for species returns expected output", {
   vcr::use_cassette("species_count_group_by", {
     counts <- ala_counts(
       taxa = select_taxa("Mammalia"),
-      filters = select_filters(year = 2020),
+      filters = galah_filter(year = 2020),
       group_by = "month",
       type = "species"
     )
@@ -67,7 +67,7 @@ test_that("ala_counts returns species counts", {
 
 test_that("ala_counts handles empty count", {
   vcr::use_cassette("empty_count", {
-    filters <- select_filters(kingdom = "non-existent")
+    filters <- galah_filter(kingdom = "non-existent")
     counts <- ala_counts(filters = filters, group_by = "basisOfRecord")
   })
   expect_s3_class(counts, "data.frame")
@@ -88,7 +88,7 @@ test_that("ala_counts handles pagination", {
 test_that("ala_counts caches as expected", {
   skip_on_cran()
   galah_config(caching = TRUE, verbose = TRUE)
-  filters <- select_filters(basisOfRecord = "FossilSpecimen")
+  filters <- galah_filter(basisOfRecord = "FossilSpecimen")
   counts <- ala_counts(filters = filters, group_by = "year", limit = 100)
   expect_message(
     counts2 <- ala_counts(
