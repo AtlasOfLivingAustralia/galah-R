@@ -15,9 +15,10 @@
 #' @param profile \code{string}: (optional) a data quality profile to apply to the
 #' records. See \code{\link{find_profiles}} for valid profiles. By default
 #' no profile is applied.
-#' @return A \code{data.frame} of filter values.
+#' @return An object of class \code{data.frame} and \code{galah_filter},
+#' containing filter values.
 #' @seealso \code{\link{select_taxa}}, \code{\link{select_columns}} and
-#' \code{\link{galah_locations}} for other ways to restrict the information returned
+#' \code{\link{galah_location}} for other ways to restrict the information returned
 #' by \code{\link{ala_occurrences}} and related functions. Use
 #' \code{\link{search_fields}} to find fields that
 #' you can filter by, and \code{\link{find_field_values}} to find what values
@@ -116,7 +117,7 @@ galah_filter <- function(..., profile = NULL){
   }
   
   # set class etc
-  class(df) <- append(class(df), "ala_filters")
+  class(df) <- append(class(df), "galah_filter")
   
   # sort out profiles
   profile_attr <- NULL

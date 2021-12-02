@@ -12,14 +12,14 @@
 #' be replaced by the current query
 #' @return A \code{data.frame} of matching species. The \code{data.frame} object 
 #' has attributes listing of the user-supplied arguments of the \code{data_request} 
-#' (i.e., taxa, filters, locations, columns)
+#' (i.e., taxa, filter, location, columns)
 #' @details
 #' The primary use case of this function is to extract species-level information
 #' given a set of criteria defined by \code{\link{select_taxa}()},
-#' \code{\link{galah_filter}()} or \code{\link{galah_locations}()}. If the purpose
+#' \code{\link{galah_filter}()} or \code{\link{galah_location}()}. If the purpose
 #' is simply to get taxonomic information that is not restricted by filtering,
 #' then \code{\link{select_taxa}()} is more efficient. Similarly, if counts are
-#' required that include filters but without returning taxonomic detail, then
+#' required that include filter but without returning taxonomic detail, then
 #' \code{\link{ala_counts}()} is more efficient (see examples).
 #' @examples \dontrun{
 #'
@@ -40,7 +40,7 @@
 #' ala_species(select_taxa("Heleioporus"))
 #' }
 #' @export
-ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
+ala_species <- function(taxa = NULL, filter = NULL, location = NULL,
                         refresh_cache = FALSE) {
   # check whether species download is possible
   species_url <- server_config("species_base_url")
@@ -48,12 +48,12 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
   url <- server_config("records_base_url")
   query <- list()
 
-  if (missing(taxa) & missing(filters) & missing(locations)) {
+  if (missing(taxa) & missing(filter) & missing(location)) {
     warning("This query will return a list of all species in the ALA")
   }
 
-  profile <- extract_profile(filters)
-  query <- build_query(taxa, filters, locations, profile = profile)
+  profile <- extract_profile(filter)
+  query <- build_query(taxa, filter, location, profile = profile)
   
   query$facets <- "speciesID"
   query$lookup  <- "true"
@@ -73,7 +73,7 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
   names(data) <- rename_columns(names(data), type = "checklist")
   data <- data[,wanted_columns("checklist")]
   
-  query <- data_request(taxa, filters, locations)
+  query <- data_request(taxa, filter, location)
   attr(data, "data_request") <- query
   
   if (caching) {

@@ -101,7 +101,7 @@ Users can provide an `sf` object or a Well-Known Text (WKT) string for
 location-based filtering.
 
 ```r
-locations <- galah_locations(query = st_read('act_rect.shp'))
+locations <- galah_location(query = st_read('act_rect.shp'))
 ```
 
 ## Field based filtering

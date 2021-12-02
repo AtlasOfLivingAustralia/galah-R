@@ -5,14 +5,14 @@
 #' and for estimating how long it will take to download. Alternatively, for some kinds
 #' of reporting, the count of observations may be all that is required, for example
 #' for understanding how observations are growing or shrinking in particular
-#' locations of for particular taxa. To this end, \code{ala_counts()} takes
+#' location of for particular taxa. To this end, \code{ala_counts()} takes
 #' arguments in the same format as \code{\link{ala_occurrences}()}, and
 #' provides either a total count of records matching the criteria, or a
 #' \code{data.frame} of counts matching the criteria supplied to the \code{groups}
 #' argument.
 #'
 #' @inheritParams ala_occurrences
-#' @param group_by \code{data.frame}: An object of class \code{ala_fields},
+#' @param group_by \code{data.frame}: An object of class \code{galah_group_by},
 #' as returned by \code{\link{galah_select}}. Alternatively a vector of field
 #' names.
 #' @param limit \code{numeric}: maximum number of categories to return, defaulting to 100.
@@ -38,18 +38,18 @@
 #' ala_counts(group_by = "stateProvince")
 #'
 #' # Count records matching a filter
-#' ala_counts(filters = galah_filter(basisOfRecord = "FossilSpecimen"))
+#' ala_counts(filter = galah_filter(basisOfRecord = "FossilSpecimen"))
 #' 
 #' # Count the number of species recorded for each kingdom
 #' ala_counts(groups = "kingdom", type = "species")
 #' 
 #' # Crosstabulate using two different variables
 #' ala_counts(
-#'   filters = galah_filter(year > 2015),
+#'   filter = galah_filter(year > 2015),
 #'   groups = galah_select("year", "basisOfRecord", expand = TRUE))
 #' }
 #' @export
-ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
+ala_counts <- function(taxa = NULL, filter = NULL, location = NULL,
                        group_by = NULL, 
                        limit = 100,
                        type = c("record" ,"species"),
@@ -60,8 +60,8 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
 
   if(missing(group_by)) {
     query <- list()
-    profile <- extract_profile(filters)
-    query <- build_query(taxa, filters, locations, profile = profile)
+    profile <- extract_profile(filter)
+    query <- build_query(taxa, filter, location, profile = profile)
     if (type == "species") {
       return(species_count(query))
     }
@@ -69,19 +69,19 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
   }                  
   
   # if `groups` is as a vector
-  if(!inherits(group_by, "ala_fields")){
-    group_by <- galah_select(group_by, expand = FALSE)
+  if(!inherits(group_by, "galah_group_by")){
+    group_by <- galah_group_by(group_by, expand = FALSE)
     if (getOption("galah_config")$run_checks) validate_fields(group_by$name)
   }
   
   # if all combinations of levels of `groups` are needed (expand = TRUE)
   if(attr(group_by, "expand")){ 
     
-    # get counts given the filters provided by the user
+    # get counts given the filter provided by the user
     field_values_df <- ala_counts_internal(
       taxa = taxa,
-      filters = filters, 
-      locations = locations,
+      filter = filter, 
+      location = location,
       type = type,
       facets = group_by$name, 
       limit = NULL)
@@ -104,7 +104,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
         function(a){a[!is.na(a)]}),
       stringsAsFactors = FALSE)
     levels_list <- split(levels_df, seq_len(nrow(levels_df)))
-    filters_list <- lapply(levels_list, function(a){paste(colnames(a), a, sep = " == ")})
+    filter_list <- lapply(levels_list, function(a){paste(colnames(a), a, sep = " == ")})
     
     # turn off validation, because 1. it's already done, and 2. it's slow
     initial_check_state <- getOption("galah_config")$run_checks
@@ -122,12 +122,12 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
           val <- (a / length(levels_list))
           setTxtProgressBar(pb, val)
         }
-        filters_this_loop <- galah_filter(filters_list[[a]])    
-        filters_final <- rbind(filters, filters_this_loop)
+        filter_this_loop <- galah_filter(filter_list[[a]])    
+        filter_final <- rbind(filter, filter_this_loop)
         counts_query <- ala_counts_internal(
           taxa = taxa,
-          filters = filters_final,
-          locations = locations,
+          filter = filter_final,
+          location = location,
           facets = n_fields_df$facets[which.max(n_fields_df$n_fields)],
           limit = limit,
           type = type)
@@ -141,7 +141,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
   # if `groups` is of nrow == 1 (expand = FALSE)
   }else{
     ala_counts_internal(
-      taxa, filters, locations, 
+      taxa, filter, location, 
       facets = group_by$name, 
       limit, type, refresh_cache,
       verbose = verbose)
@@ -150,7 +150,7 @@ ala_counts <- function(taxa = NULL, filters = NULL, locations = NULL,
 
 # workhorse function to do most of the actual processing
 ## NOTE: need to turn off caching for multiple runs
-ala_counts_internal <- function(taxa = NULL, filters = NULL, locations = NULL,
+ala_counts_internal <- function(taxa = NULL, filter = NULL, location = NULL,
                        facets, # NOTE: not `groups` as no multiply section here
                        limit = NULL, type = "record",
                        refresh_cache = FALSE,
@@ -159,8 +159,8 @@ ala_counts_internal <- function(taxa = NULL, filters = NULL, locations = NULL,
   
   page_size <- 100
   query <- list()
-  profile <- extract_profile(filters)
-  query <- build_query(taxa, filters, locations, profile = profile)
+  profile <- extract_profile(filter)
+  query <- build_query(taxa, filter, location, profile = profile)
   
   # add facets in a way that supports single or multiple queries 
   facets_temp <- as.list(facets)
@@ -240,7 +240,7 @@ ala_counts_internal <- function(taxa = NULL, filters = NULL, locations = NULL,
   }  
   
   attr(counts_final, "data_type") <- "counts"
-  query <- data_request(taxa, filters, locations, groups = facets)
+  query <- data_request(taxa, filter, location, groups = facets)
   attr(counts_final, "data_request") <- query
   
   if (caching) {

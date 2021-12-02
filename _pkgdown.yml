@@ -10,7 +10,7 @@ reference:
   contents: 
   - select_taxa
   - galah_filter
-  - galah_locations
+  - galah_location
   - select_columns
 - title: Lookup
   contents:

@@ -34,7 +34,8 @@ quality-control criteria.
 \itemize{
   \item\code{\link{galah_filter}} Filter records
   \item\code{\link{galah_select}} Fields to report information for
-  \item\code{\link{galah_locations}} Specify a location
+  \item\code{\link{galah_group_by}} Fields to group counts by
+  \item\code{\link{galah_location}} Specify a location
 }
 \strong{\code{Lookup}}
 \itemize{
@@ -82,7 +83,7 @@ designed to make filtering as simple as possible, by using functions with the
 in a different way, and again the function suffix contains this information.
 For example, you can choose which taxonomic groups are included using
 \code{\link{select_taxa}()}, or a specific location using
-\code{\link{galah_locations}()}. By combining different filter functions, it
+\code{\link{galah_location}()}. By combining different filter functions, it
 is possible to build complex queries to return only the most valuable
 information for a given problem.
 

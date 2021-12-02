@@ -14,16 +14,16 @@
 #' returned by \code{\link{ala_occurrences}} and related functions.
 #' @examples \dontrun{
 #' # Search for records using a shapefile
-#' locations <- galah_locations(st_read(path/to/shapefile))
+#' locations <- galah_location(st_read(path/to/shapefile))
 #' ala_occurrences(locations = locations)
 #' 
 #' # Search for records using a WKT
 #' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
 #' -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
-#' ala_occurrences(locations = galah_locations(wkt))
+#' ala_occurrences(locations = galah_location(wkt))
 #' }
 #' @export
-galah_locations <- function(query) {
+galah_location <- function(query) {
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons should be converted to multipolygons
   

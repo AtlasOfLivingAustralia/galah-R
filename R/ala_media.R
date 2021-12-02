@@ -11,9 +11,9 @@
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query
 #' @details \code{\link{ala_occurrences}()} works by first finding all occurrence records
-#' matching the filters which contain media, then downloading the metadata for the
-#' media and the media files. \code{\link{galah_filter}()} can take both filters
-#' relating to occurrences (e.g. basis of records), and filters relating to media
+#' matching the filter which contain media, then downloading the metadata for the
+#' media and the media files. \code{\link{galah_filter}()} can take both filter
+#' relating to occurrences (e.g. basis of records), and filter relating to media
 #' (e.g. type of licence).
 #' It may be beneficial when requesting a large number of records to show a progress
 #' bar by setting \code{verbose = TRUE} in \code{\link{galah_config}()}.
@@ -26,35 +26,35 @@
 #' # Download Regent Honeyeater multimedia
 #' media_data <- ala_media(
 #'     taxa = select_taxa("Regent Honeyeater"),
-#'     filters = galah_filter(year = 2011),
+#'     filter = galah_filter(year = 2011),
 #'     download_dir = "media")
 #' 
 #' # Specify a single media type to download
 #' media_data <- ala_media(
 #'      taxa = select_taxa("Eolophus Roseicapilla"),
-#'      filters = galah_filter(multimedia = "Sound"))
+#'      filter = galah_filter(multimedia = "Sound"))
 #' 
 #' # Filter to only records with a particular licence type
 #' media_data <- ala_media(
 #'       taxa = select_taxa("Ornithorhynchus anatinus"),
-#'       filters = galah_filter(year = 2020,
+#'       filter = galah_filter(year = 2020,
 #'       license = "http://creativecommons.org/licenses/by-nc/4.0/")
 #' )
 #' # Check how many records have media files
 #' ala_counts(
-#'      filters = galah_filter(multimedia = c("Image","Sound","Video")),
+#'      filter = galah_filter(multimedia = c("Image","Sound","Video")),
 #'      group_by = "multimedia"
 #' )
 #' }
 #' @export
-ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
-                      fields = galah_select(group = "basic"),
+ala_media <- function(taxa = NULL, filter = NULL, location = NULL,
+                      select = galah_select(group = "basic"),
                       columns = NULL, 
                       download_dir,
                       refresh_cache = FALSE) {
 
   image_url <- server_config("images_base_url")
-  if(is.null(fields) & !is.null(columns)){fields <- columns}
+  if(is.null(select) & !is.null(columns)){select <- columns}
   
   verbose <- getOption("galah_config")$verbose
   caching <- getOption("galah_config")$caching
@@ -63,37 +63,37 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
   assert_that(file.exists(download_dir))
   download_dir <- normalizePath(download_dir)
   
-  if (is.null(taxa) & is.null(filters) & is.null(locations)) {
-    warning("No filters have been provided. All images and sounds will be downloaded.")
+  if (is.null(taxa) & is.null(filter) & is.null(location)) {
+    warning("No filter have been provided. All images and sounds will be downloaded.")
   }
   
   if (caching && !refresh_cache) {
     cache_file <- cache_filename(
       "media",
-      unlist(build_query(taxa, filters, locations, fields))
+      unlist(build_query(taxa, filter, location, select))
     )
     if (file.exists(cache_file)) {
       return(read_cache_file(cache_file))
     }
   }
   
-  # Check whether any of the filters are media-specific filters and
+  # Check whether any of the filter are media-specific filter and
   # filter to records with image/sound/video
-  filters_available <- filters$variable %in% search_fields(type = "media")$id
-  media_filters <- filters[filters_available, ]
-  occ_filters <- rbind(
-    filters[!(filters_available), ],
+  filter_available <- filter$variable %in% search_select(type = "media")$id
+  media_filter <- filter[filter_available, ]
+  occ_filter <- rbind(
+    filter[!(filter_available), ],
     galah_filter(multimedia = c("Image", "Sound", "Video")))
   
   # Make sure media ids are included in results
-  occ_columns <- rbind(fields, galah_select(image_fields()))
+  occ_columns <- rbind(select, galah_select(image_select()))
 
-  # add ala_ classes to modified filters and fields
-  class(occ_filters) <- append(class(occ_filters), "ala_filters")
-  class(occ_columns) <- append(class(occ_columns), "ala_fields")
+  # add ala_ classes to modified filter and select
+  class(occ_filter) <- append(class(occ_filter), "ala_filter")
+  class(occ_columns) <- append(class(occ_columns), "ala_select")
   if (verbose) { message("Downloading records with media...") }
   
-  occ <- ala_occurrences(taxa, occ_filters, locations, occ_columns)
+  occ <- ala_occurrences(taxa, occ_filter, location, occ_columns)
 
   # occurrence data.frame has one row per occurrence record and stores all media
   # ids in a single column; this code splits the media ids and creates one row
@@ -101,7 +101,7 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
   occ_long <- data.frame(data.table::rbindlist(
     lapply(seq_len(nrow(occ)), function(x) {
       # get all the image, video and sound columns into one row
-      splt_media <- unlist(str_split(occ[x,][image_fields()],
+      splt_media <- unlist(str_split(occ[x,][image_select()],
                                      pattern = "\""))
       media <- splt_media[nchar(splt_media) > 1 & splt_media != "NA"]
       
@@ -116,13 +116,13 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
     fill = TRUE
   ))
 
-  occ_long[, image_fields()] <- NULL
+  occ_long[, image_select()] <- NULL
   
   ids <- occ_long$media_id[!is.na(occ_long$media_id)]
   
   metadata <- data.frame(filter_metadata(
     media_metadata(ids = ids),
-    media_filters
+    media_filter
   ))
   
   if (nrow(metadata) == 0) {
@@ -149,7 +149,7 @@ ala_media <- function(taxa = NULL, filters = NULL, locations = NULL,
     message("\n",nrow(all_data), " files were downloaded to ", download_dir)
   }
   attr(all_data, "data_type") <- "media"
-  query <- data_request(taxa, filters, locations, fields)
+  query <- data_request(taxa, filter, location, select)
   attr(all_data, "data_request") <- query
   
   if (caching) {
@@ -243,16 +243,16 @@ media_metadata <- function(ids) {
   return(df)
 }
 
-# Use media filters to filter returned results
-# These are filters on metadata values, as opposed to filters on occurrence
+# Use media filter to filter returned results
+# These are filter on metadata values, as opposed to filter on occurrence
 # records
-filter_metadata <- function(metadata, filters) {
-  if (is.null(filters)) {
+filter_metadata <- function(metadata, filter) {
+  if (is.null(filter)) {
     return(metadata)
   }
-  for (i in seq_len(nrow(filters))) {
-    val <- filters[i,]$value[[1]]
-    filter_name <- filters[i,]$name
+  for (i in seq_len(nrow(filter))) {
+    val <- filter[i,]$value[[1]]
+    filter_name <- filter[i,]$name
     metadata <- metadata[metadata[[filter_name]] == val]
   }
   return(metadata)

@@ -30,7 +30,7 @@ test_that("ala occurrences returns requested columns", {
   cols <- select_columns(group = "basic", "stateProvince", "ZERO_COORDINATE")
   taxa <- select_taxa("Polytelis swainsonii")
   poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
-  locations <- galah_locations(poly)
+  locations <- galah_location(poly)
   occ <- ala_occurrences(
     taxa = taxa,
     filters = filters,

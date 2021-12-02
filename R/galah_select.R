@@ -11,9 +11,7 @@
 #' @param group \code{string}: (optional) name of one or more column groups to
 #' include. Valid options are \code{"basic"}, \code{"event"} and
 #' \code{"assertion"}
-#' @param expand \code{logical}: When passed to \code{group_by} argument of 
-#' \code{ala_counts}, should factor levels be expanded? Defaults to \code{FALSE}.
-#' @return An object of class \code{data.frame} and \code{ala_fields}
+#' @return An object of class \code{data.frame} and \code{galah_select}
 #' specifying the name and type of each column to include in the 
 #' call to \code{ala_counts} or |code{ala_occurrences}.
 #' @details
@@ -46,7 +44,7 @@
 #' \code{select_columns} is deprecated and will be removed from future versions
 #' of \code{galah}.
 #' @seealso \code{\link{select_taxa}}, \code{\link{galah_filter}} and
-#' \code{\link{galah_locations}} for other ways to restrict the information returned
+#' \code{\link{galah_location}} for other ways to restrict the information returned
 #' by \code{\link{ala_occurrences}} and related functions; \code{\link{ala_counts}}
 #' for how to get counts by levels of variables returned by \code{galah_select}.
 #' @importFrom dplyr select
@@ -77,7 +75,7 @@ galah_select <- function(...,
   all_cols$type <- ifelse(str_detect(all_cols$name, "[[:lower:]]"), "field", "assertions")
     
   # add S3 class and return
-  class(all_cols) <- append(class(all_cols), "ala_fields") 
+  class(all_cols) <- append(class(all_cols), "galah_select") 
   all_cols
 }
 

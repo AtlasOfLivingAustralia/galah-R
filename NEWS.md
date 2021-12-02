@@ -103,7 +103,7 @@ functions (#18)
 * All media download types are supported
 
 ### select_ functions
-* `galah_locations` auto-detects the type of argument provided and so takes
+* `galah_location` auto-detects the type of argument provided and so takes
 a single argument, `query`, in place of `sf` and `wkt` (#17)
 * `select_taxa` auto-detects the type of argument provided and so takes a single
 argument, `query`, in place of `term` and `term_type` (#16)

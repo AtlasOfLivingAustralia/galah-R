@@ -26,8 +26,8 @@ select_filters <- function(..., profile = NULL) {
 #' Build a WKT string from an sf spatial object or verify an existing WKT
 #'
 #' @param query wkt string or sf object
-#' @describeIn galah_locations Deprecated function name
+#' @describeIn galah_location Deprecated function name
 #' @export
 select_locations <- function(query) {
-  galah_locations(query)
+  galah_location(query)
 }
