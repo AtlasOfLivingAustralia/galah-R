@@ -85,7 +85,7 @@ fix_assertion_cols <- function(df, assertion_cols) {
 ##----------------------------------------------------------------
 
 # Build query list from constituent arguments
-build_query <- function(taxa, filters, locations, columns = NULL,
+build_query <- function(taxa, filters, locations, select = NULL,
                         profile = NULL) {
   query <- list()
   if (is.null(taxa)) {
@@ -124,7 +124,7 @@ build_query <- function(taxa, filters, locations, columns = NULL,
     area_query <- locations
     query$wkt <- area_query
   }
-  if (check_for_caching(taxa_query, filter_query, area_query, columns)) {
+  if (check_for_caching(taxa_query, filter_query, area_query, select)) {
     query <- cached_query(taxa_query, filter_query, area_query)
   }
   if (getOption("galah_config")$atlas == "Australia") {

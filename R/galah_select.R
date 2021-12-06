@@ -54,6 +54,10 @@ galah_select <- function(...,
   group = c("basic", "event", "assertions")
 ){
 
+  # set group = "basic" as default if no args are supplied
+  captured_dots <- as.list(match.call(expand.dots = FALSE)$...)
+  if(missing(group) & length(captured_dots) < 1){group <- "basic"}
+  
   # match 'groups' of columns
   if (!missing(group) && !is.null(group)) {
     group <- match.arg(group, several.ok = TRUE)

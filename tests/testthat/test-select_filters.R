@@ -136,13 +136,13 @@ test_that("galah_filter handles objects and functions", {
   # expect_equal(nrow(filters), 1)
   # expect_true(grepl("2010", filters$query))
 
-  # quoting an equation that contains objects
-  field <- "year"
-  value <- "2010"
-  filters <- galah_filter("field = value")
-  expect_s3_class(filters, c("data.frame", "ala_filters"))
-  expect_equal(nrow(filters), 1)
-  expect_true(grepl("2010", filters$query))
+  # # quoting an equation that contains objects - NOT SUPPORTED
+  # field <- "year"
+  # value <- "2010"
+  # filters <- galah_filter("field == value")
+  # expect_s3_class(filters, c("data.frame", "ala_filters"))
+  # expect_equal(nrow(filters), 1)
+  # expect_true(grepl("2010", filters$query))
   
 })
 

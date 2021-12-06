@@ -59,12 +59,10 @@
 #' @export
 ala_occurrences <- function(taxa = NULL, filter = NULL, location = NULL,
                             select = galah_select(group = "basic"),
-                            columns = NULL,
                             mint_doi = FALSE, doi, refresh_cache = FALSE) {
 
   verbose <- getOption("galah_config")$verbose
   assert_that(is.logical(mint_doi))
-  if(is.null(select) & !is.null(columns)){select <- columns}
   
   if (!missing(doi) && !is.null(doi)) {
     # search for data using DOI
@@ -85,7 +83,7 @@ ala_occurrences <- function(taxa = NULL, filter = NULL, location = NULL,
   
   # Add select to query
   assertion_select <- select[select$type == "assertions", ]
-  query$select <- build_columns(select[select$type != "assertions", ])
+  query$fields <- build_columns(select[select$type != "assertions", ])
   query$qa <- build_assertion_columns(assertion_select)
   if (mint_doi) {
     query$mintDoi <- "true"
