@@ -86,11 +86,12 @@
 galah_filter <- function(..., profile = NULL){
   
   dots <- enquos(..., .ignore_empty = "all")
+  check_filter(dots)
  
-  # clean up user-provided objects
+  # The following code cleans user arguments
   if(length(dots) > 0){
     
-    # first parse named objects using no subfunctions and calling quosure directly
+    # First, parse named objects by using quosure directly
     is_function_call <- is_function_grepl(lapply(dots, as_label))
     if(any(is_function_call)){
       dots[which(is_function_call)] <- lapply(
@@ -99,43 +100,71 @@ galah_filter <- function(..., profile = NULL){
       })
     }
     
-    # parse out equations
-    exprs <- unlist(lapply(dots, as_label)) # this returns text that you can check with regex
+    # Second, parse user-supplied filters to build ALA query
+    exprs <- unlist(lapply(dots, as_label)) # This returns text that you can 
+                                            # check with regex
     # alternative is `unlist(lapply(dots, get_expr))` which returns calls etc
     environments <- lapply(dots, get_env)  
-    df <- parse_inputs(exprs, environments)
-    df$query <- parse_query(df)
+    named_filters <- parse_inputs(exprs, environments)
+    named_filters$query <- parse_query(named_filters)
     
-    # validate variables to ensure they exist in ALA
-    if (getOption("galah_config")$run_checks) validate_fields(df$variable)
+    # Validate that variables exist in ALA
+    if (getOption("galah_config")$run_checks) validate_fields(named_filters$variable)
     
-  }else{ # ensure something is returned even if no fields are given
-    df <- data.frame(variable = character(),
+  }else{ 
+    # If no fields are given, return an empty data frame of arguments
+    named_filters <- data.frame(variable = character(),
                      logical = character(),
                      value = character(),
                      query = character())
   }
   
-  # set class etc
-  class(df) <- append(class(df), "galah_filter")
+  # Set class
+  class(named_filters) <- append(class(named_filters), "galah_filter")
   
-  # sort out profiles
+  # Check and apply profiles to query
   profile_attr <- NULL
   if (!is.null(profile)) {
     short_name <- profile_short_name(profile)
     if (is.null(short_name) || is.na(short_name)) {
-      stop("'", profile, "' is not a valid data quality id, short name or name.
-      Use `find_profiles` to list valid profiles.")
+      bullets <- c(
+        "Profile must be a valid name, short name, or data quality ID.",
+        i = glue::glue("Use `find_profiles()` to list valid profiles"),
+        x = glue::glue("'{profile}' is not recognised.")
+      )
+      rlang::abort(bullets, call = rlang::caller_env())
     }
     profile_attr <- short_name
   }  
-  attr(df, "dq_profile") <- profile_attr
+  attr(named_filters, "dq_profile") <- profile_attr
   
-  df
+  named_filters
 }
 
 
-# catch-all function to do formula splitting etc
+check_filter <- function(dots) {
+  named <- rlang::have_name(dots)
+  
+  for (i in which(named)) {
+    quo <- dots[[i]]
+    
+    # only allow named logical vectors, anything else
+    # is suspicious
+    expr <- rlang::quo_get_expr(quo)
+    if (!is.logical(expr)) {
+      name <- names(dots)[i]
+      bullets <- c(
+        "We detected a named input.",
+        i = glue::glue("This usually means that you've used `=` instead of `==`."),
+        i = glue::glue("Did you mean `{name} == {as_label(expr)}`?")
+      )
+      rlang::abort(bullets, call = rlang::caller_env())
+    }
+    
+  }
+}
+
+# Catch-all function to do formula splitting etc
 parse_inputs <- function(x, env){
   
   # remove quote marks
@@ -323,3 +352,4 @@ is_function_grepl <- function(x){
     grepl("\\$|\\[", x) 
   ) & !grepl( ">|<|>=|<=|==", x)
 }
+
