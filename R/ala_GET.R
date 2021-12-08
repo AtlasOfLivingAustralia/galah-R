@@ -44,7 +44,7 @@ ala_GET <- function(url, path, params = list(), on_error = NULL,
     }
   } else {
     if (res$status_code != 200) {
-      stop("Status code ", res$status_code, "returned for url ",
+      stop("Status code ", res$status_code, " returned for url ",
            res$request$url)
     }
   }
