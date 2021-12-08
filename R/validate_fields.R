@@ -1,11 +1,11 @@
 # Validate fields passed as arguments in `galah`
 # Internal use only
 
-validate_fields <- function(x){
+validate_fields <- function(named_field){
 
   load_fields()
   
-  invalid_fields <- x[!is.element(x, galah_config()$valid_fields)]
+  invalid_fields <- named_field[!is.element(named_field, galah_config()$valid_fields)]
   if (length(invalid_fields) > 0) {
     if(!all(invalid_fields %in% image_fields())){ # exception for ala_media
       message("The following fields may be invalid: ",
