@@ -38,7 +38,20 @@
 #' select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 #' }
 #' @export
-select_taxa <- function(query, is_id = FALSE) {
+select_taxa <- function(...) {
+  UseMethod("select_taxa")
+}
+
+#' @export
+#' @rdname select_taxa
+select_taxa.data_request <- function(request, ...) {
+  request$taxa <- do.call(select_taxa, merge_args(request, list(...)))
+  return(request)
+}
+
+#' @export
+#' @rdname select_taxa
+select_taxa.default <- function(query, is_id = FALSE) {
   assert_that(is.logical(is_id))
   if(missing(is_id)){is_id <- FALSE}
   verbose <- getOption("galah_config")$verbose

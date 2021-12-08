@@ -2,9 +2,15 @@
 % Please edit documentation in R/select_taxa.R
 \name{select_taxa}
 \alias{select_taxa}
+\alias{select_taxa.data_request}
+\alias{select_taxa.default}
 \title{Taxon information}
 \usage{
-select_taxa(query, is_id = FALSE)
+select_taxa(...)
+
+\method{select_taxa}{data_request}(request, ...)
+
+\method{select_taxa}{default}(query, is_id = FALSE)
 }
 \arguments{
 \item{query}{\code{string}: A vector containing one or more search terms,
