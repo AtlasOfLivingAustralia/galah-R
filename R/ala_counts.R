@@ -49,7 +49,19 @@
 #'   groups = galah_select("year", "basisOfRecord", expand = TRUE))
 #' }
 #' @export
-ala_counts <- function(taxa = NULL, filter = NULL, location = NULL,
+ala_counts <- function(...) {
+  UseMethod("ala_counts")
+}
+
+#' @export
+#' @rdname ala_counts
+ala_counts.data_request <- function(request, ...) {
+  do.call(ala_counts, merge_args(request, list(...)))
+}
+
+#' @export
+#' @rdname ala_counts
+ala_counts.default <- function(taxa = NULL, filter = NULL, location = NULL,
                        group_by = NULL, 
                        limit = 100,
                        type = c("record" ,"species"),

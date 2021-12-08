@@ -2,9 +2,15 @@
 % Please edit documentation in R/ala_counts.R
 \name{ala_counts}
 \alias{ala_counts}
+\alias{ala_counts.data_request}
+\alias{ala_counts.default}
 \title{Count of ALA records}
 \usage{
-ala_counts(
+ala_counts(...)
+
+\method{ala_counts}{data_request}(request, ...)
+
+\method{ala_counts}{default}(
   taxa = NULL,
   filter = NULL,
   location = NULL,
