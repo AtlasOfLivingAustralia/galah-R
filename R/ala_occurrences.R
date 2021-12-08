@@ -244,9 +244,22 @@ user_email <- function() {
   email
 }
 
-occ_error_handler <- function(code) {
+occ_error_handler <- function(code, error_call = rlang::caller_env()) {
   if (code == 403) {
-    stop("Status code 403 was returned for this occurrence download request. This may be because
-  the email you provided is not registered with the ALA. Please check and try again.")
+    bullets <- c(
+      "Status code 403 was returned.",
+      i = glue::glue("Is the email you provided to `galah_config()` registered with the ALA?")
+    )
+    rlang::abort(bullets, call = error_call)
+  #   stop("Status code 403 was returned for this occurrence download request. This may be because
+  # the email you provided is not registered with the ALA. Please check and try again.")
+  }
+  if (code == 504) {
+    bullets <- c(
+      "Status code 504 was returned.",
+      i = glue::glue("This usually means that the ALA system is down."),
+      i = glue::glue("If you continue to receive this error, please email support@ala.org.au")
+    )
+    rlang::abort(bullets, call = error_call)
   }
 }
