@@ -75,7 +75,7 @@
 #' galah_filter(cl22 >= "Tasmania")
 #' # queries all Australian States & Territories alphabetically after "Tasmania"
 #' }
-#' @importFrom rlang enquos as_label get_env eval_tidy new_quosure
+#' @importFrom rlang enquos as_label get_env eval_tidy new_quosure abort caller_env
 #' @export
 
 # TODO: provide a useful error message for bad queries e.g. galah_filter(year == 2010 | 2021)
@@ -88,21 +88,13 @@ galah_filter <- function(..., profile = NULL){
   dots <- enquos(..., .ignore_empty = "all")
   check_filter(dots)
  
-  # The following code cleans user arguments
+  # Clean user arguments
   if(length(dots) > 0){
-    
-    # First, parse named objects by using quosure directly
-    is_function_call <- is_function_grepl(lapply(dots, as_label))
-    if(any(is_function_call)){
-      dots[which(is_function_call)] <- lapply(
-        dots[which(is_function_call)], 
-        function(a){new_quosure(eval_tidy(a))
-      })
-    }
+    # First, evaluate filters that use functions (if there are any)
+    evaluate_functions(dots)
     
     # Second, parse user-supplied filters to build ALA query
-    exprs <- unlist(lapply(dots, as_label)) # This returns text that you can 
-                                            # check with regex
+    exprs <- unlist(lapply(dots, as_label)) # You can check this with regex
     # alternative is `unlist(lapply(dots, get_expr))` which returns calls etc
     environments <- lapply(dots, get_env)  
     named_filters <- parse_inputs(exprs, environments)
@@ -112,7 +104,7 @@ galah_filter <- function(..., profile = NULL){
     if (getOption("galah_config")$run_checks) validate_fields(named_filters$variable)
     
   }else{ 
-    # If no fields are given, return an empty data frame of arguments
+    # If no fields are entered, return an empty data frame of arguments
     named_filters <- data.frame(variable = character(),
                      logical = character(),
                      value = character(),
@@ -123,26 +115,13 @@ galah_filter <- function(..., profile = NULL){
   class(named_filters) <- append(class(named_filters), "galah_filter")
   
   # Check and apply profiles to query
-  profile_attr <- NULL
-  if (!is.null(profile)) {
-    short_name <- profile_short_name(profile)
-    if (is.null(short_name) || is.na(short_name)) {
-      bullets <- c(
-        "Profile must be a valid name, short name, or data quality ID.",
-        i = glue::glue("Use `find_profiles()` to list valid profiles"),
-        x = glue::glue("'{profile}' is not recognised.")
-      )
-      rlang::abort(bullets, call = rlang::caller_env())
-    }
-    profile_attr <- short_name
-  }  
-  attr(named_filters, "dq_profile") <- profile_attr
+  apply_profiles(profile, named_filters)
   
   named_filters
 }
 
 
-check_filter <- function(dots) {
+check_filter <- function(dots, error_call = caller_env()) {
   named <- rlang::have_name(dots)
   
   for (i in which(named)) {
@@ -158,11 +137,53 @@ check_filter <- function(dots) {
         i = glue::glue("This usually means that you've used `=` instead of `==`."),
         i = glue::glue("Did you mean `{name} == {as_label(expr)}`?")
       )
-      rlang::abort(bullets, call = rlang::caller_env())
+      abort(bullets, call = error_call)
     }
     
   }
 }
+
+evaluate_functions <- function(dots) {
+  # Check if there are any functions in filters
+  is_function_call <- is_function_grepl(lapply(dots, as_label))
+  
+  # If yes, evaluate them correctly as functions
+  if(any(is_function_call)){
+    dots[which(is_function_call)] <- lapply(
+      dots[which(is_function_call)], 
+      function(a){new_quosure(eval_tidy(a))
+      })
+  }
+}
+
+is_function_grepl <- function(dots){
+  if(is.list(dots)){x <- unlist(dots)}
+  (
+    (grepl("^(([[:alnum:]]|\\.|_)+\\()", dots) & grepl("\\)", dots)) |
+      grepl("\\$|\\[", dots) 
+  ) & !grepl( ">|<|>=|<=|==", dots)
+}
+
+apply_profiles <- function(profile, named_filters, error_call = caller_env()) {
+  profile_attr <- NULL
+  if (!is.null(profile)) {
+    short_name <- profile_short_name(profile)
+    if (is.null(short_name) || is.na(short_name)) {
+      bullets <- c(
+        "Profile must be a valid name, short name, or data quality ID.",
+        i = glue::glue("Use `find_profiles()` to list valid profiles"),
+        x = glue::glue("'{profile}' is not recognised.")
+      )
+      abort(bullets, call = error_call)
+    }
+    profile_attr <- short_name
+  }
+  attr(named_filters, "dq_profile") <- profile_attr
+}
+
+
+
+#----------- Note: We may be able to delete functions below this line
 
 # Catch-all function to do formula splitting etc
 parse_inputs <- function(x, env){
@@ -321,7 +342,7 @@ parse_logical <- function(df){
 }
 
 
-# question: does the below work when df$value is a characater? May add 2x quotes
+# question: does the below work when df$value is a character? May add 2x quotes
 parse_vector <- function(df){
   values <- eval(parse(text = df$value))
   paste0(
@@ -344,12 +365,4 @@ parse_assertion <- function(df){
   parse_logical(rows)
 }
 
-
-is_function_grepl <- function(x){
-  if(is.list(x)){x <- unlist(x)}
-  (
-    (grepl("^(([[:alnum:]]|\\.|_)+\\()", x) & grepl("\\)", x)) |
-    grepl("\\$|\\[", x) 
-  ) & !grepl( ">|<|>=|<=|==", x)
-}
 
