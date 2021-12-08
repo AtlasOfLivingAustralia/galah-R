@@ -49,16 +49,15 @@
 #' for how to get counts by levels of variables returned by \code{galah_select}.
 #' @importFrom dplyr select
 #' @export
-
 galah_select <- function(...,
-  group = c("basic", "event", "assertions")
-){
+                         group = c("basic", "event", "assertions")
+                         ) {
 
-  # set group = "basic" as default if no args are supplied
-  captured_dots <- as.list(match.call(expand.dots = FALSE)$...)
-  if(missing(group) & length(captured_dots) < 1){group <- "basic"}
+  # If no args are supplied, set default columns returned as group = "basic"  
+  dots <- as.list(match.call(expand.dots = FALSE)$...)
+  if(missing(group) & length(dots) < 1){group <- "basic"}
   
-  # match 'groups' of columns
+  # Match 'groups' of columns
   if (!missing(group) && !is.null(group)) {
     group <- match.arg(group, several.ok = TRUE)
     group_cols <- unlist(lapply(group, preset_cols))
@@ -66,20 +65,22 @@ galah_select <- function(...,
     group_cols <- NULL
   }
     
-  # build a data.frame with a standardised set of names, stored by galah_config()
+  # Build a data.frame with a standardised set of names,
+  # stored by galah_config()
   load_fields()
   field_names <- galah_config()$valid_fields 
   df <- as.data.frame(
    matrix(data = NA, nrow = 0, ncol = length(field_names),
      dimnames = list(NULL, field_names)))
   
-  # make a data.frame listing valid fields and their type
+  # Make a data.frame listing valid fields and their type
   all_cols <- data.frame(
     name = unique(c(group_cols, colnames(select(df, ...)))))
   all_cols$type <- ifelse(str_detect(all_cols$name, "[[:lower:]]"), "field", "assertions")
     
-  # add S3 class and return
+  # Add S3 class
   class(all_cols) <- append(class(all_cols), "galah_select") 
+  
   all_cols
 }
 

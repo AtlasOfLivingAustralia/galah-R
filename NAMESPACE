@@ -2,8 +2,6 @@
 
 S3method(ala_counts,data_request)
 S3method(ala_counts,default)
-S3method(galah_select,data_request)
-S3method(galah_select,default)
 S3method(select_taxa,data_request)
 S3method(select_taxa,default)
 export(ala_citation)
