@@ -260,6 +260,6 @@ occ_error_handler <- function(code, error_call = rlang::caller_env()) {
       i = glue::glue("This usually means that the ALA system is down."),
       i = glue::glue("If you continue to receive this error, please email support@ala.org.au")
     )
-    rlang::abort(bullets, call = error_call)
+    rlang::inform(bullets, call = error_call)
   }
 }
