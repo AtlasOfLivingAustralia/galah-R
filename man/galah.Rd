@@ -23,12 +23,12 @@ quality-control criteria.
 
 \strong{\code{Data}}
 \itemize{
-  \item\code{\link{ala_counts}} Count the number of records or species returned by a query
-  \item\code{\link{ala_taxonomy}} Return a section of the ALA taxonomic tree
-  \item\code{\link{ala_species}} Download species lists
-  \item\code{\link{ala_occurrences}} Download occurrence records
-  \item\code{\link{ala_media}} Download images and sounds
-  \item\code{\link{ala_citation}} Citation for a dataset
+  \item\code{\link{atlas_counts}} Count the number of records or species returned by a query
+  \item\code{\link{atlas_taxonomy}} Return a section of the ALA taxonomic tree
+  \item\code{\link{atlas_species}} Download species lists
+  \item\code{\link{atlas_occurrences}} Download occurrence records
+  \item\code{\link{atlas_media}} Download images and sounds
+  \item\code{\link{atlas_citation}} Citation for a dataset
 }
 \strong{\code{Filter}}
 \itemize{
@@ -107,26 +107,26 @@ Australian bird species.
 
 In most cases, users will be primarily interested in using \code{galah} to
 return data from one of the living atlases. These functions are named with 
-the prefix \code{ala_},
+the prefix \code{atlas_},
 followed by a suffix describing the information that they provide. For
 example, we anticipate that users will wish to download occurrence data,
-which can be achieved using the function \code{\link{ala_occurrences}()}.
+which can be achieved using the function \code{\link{atlas_occurrences}()}.
 However, it is also possible to download data on species via
-\code{\link{ala_species}()}, or media content (largely images) via
-\code{\link{ala_media}()}. Alternatively, users can assess how many records
-meet their particular criteria using \code{\link{ala_counts}()}. All 
+\code{\link{atlas_species}()}, or media content (largely images) via
+\code{\link{atlas_media}()}. Alternatively, users can assess how many records
+meet their particular criteria using \code{\link{atlas_counts}()}. All 
 functions return a \code{data.frame} as their standard format, except 
-\code{\link{ala_taxonomy}()} which returns a \code{data.tree}.
+\code{\link{atlas_taxonomy}()} which returns a \code{data.tree}.
 
 Functions in \code{galah} are designed
 according to a nested architecture. Users that require data should begin by
-locating the relevant \code{ala_} function; the arguments within that
+locating the relevant \code{atlas_} function; the arguments within that
 function then call correspondingly-named \code{select_} functions; and
 finally the specific values that can be interpreted by those \code{select_}
 functions are given by functions with the prefix \code{search_} or
 \code{find_}. So, to limit occurrence downloads to a specific taxonomic
 group, for example, you pass the reult of \code{\link{select_taxa}()} to the
-\code{taxa} argument of \code{\link{ala_occurrences}()}.
+\code{taxa} argument of \code{\link{atlas_occurrences}()}.
 }
 
 \references{

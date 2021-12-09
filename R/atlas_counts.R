@@ -5,13 +5,13 @@
 #' and for estimating how long it will take to download. Alternatively, for some kinds
 #' of reporting, the count of observations may be all that is required, for example
 #' for understanding how observations are growing or shrinking in particular
-#' location of for particular taxa. To this end, \code{ala_counts()} takes
-#' arguments in the same format as \code{\link{ala_occurrences}()}, and
+#' location of for particular taxa. To this end, \code{atlas_counts()} takes
+#' arguments in the same format as \code{\link{atlas_occurrences}()}, and
 #' provides either a total count of records matching the criteria, or a
 #' \code{data.frame} of counts matching the criteria supplied to the \code{groups}
 #' argument.
 #'
-#' @inheritParams ala_occurrences
+#' @inheritParams atlas_occurrences
 #' @param group_by \code{data.frame}: An object of class \code{galah_group_by},
 #' as returned by \code{\link{galah_select}}. Alternatively a vector of field
 #' names.
@@ -32,36 +32,36 @@
 #'}
 #' @examples \dontrun{
 #' # With no arguments, return the total number of records in the ALA
-#' ala_counts()
+#' atlas_counts()
 #'
 #' # Group counts by state and territory
-#' ala_counts(group_by = "stateProvince")
+#' atlas_counts(group_by = "stateProvince")
 #'
 #' # Count records matching a filter
-#' ala_counts(filter = galah_filter(basisOfRecord = "FossilSpecimen"))
+#' atlas_counts(filter = galah_filter(basisOfRecord = "FossilSpecimen"))
 #' 
 #' # Count the number of species recorded for each kingdom
-#' ala_counts(groups = "kingdom", type = "species")
+#' atlas_counts(groups = "kingdom", type = "species")
 #' 
 #' # Crosstabulate using two different variables
-#' ala_counts(
+#' atlas_counts(
 #'   filter = galah_filter(year > 2015),
 #'   groups = galah_select("year", "basisOfRecord", expand = TRUE))
 #' }
 #' @export
-ala_counts <- function(...) {
-  UseMethod("ala_counts")
+atlas_counts <- function(...) {
+  UseMethod("atlas_counts")
 }
 
 #' @export
-#' @rdname ala_counts
-ala_counts.data_request <- function(request, ...) {
-  do.call(ala_counts, merge_args(request, list(...)))
+#' @rdname atlas_counts
+atlas_counts.data_request <- function(request, ...) {
+  do.call(atlas_counts, merge_args(request, list(...)))
 }
 
 #' @export
-#' @rdname ala_counts
-ala_counts.default <- function(taxa = NULL, filter = NULL, location = NULL,
+#' @rdname atlas_counts
+atlas_counts.default <- function(taxa = NULL, filter = NULL, location = NULL,
                        group_by = NULL, 
                        limit = 100,
                        type = c("record" ,"species"),
@@ -90,7 +90,7 @@ ala_counts.default <- function(taxa = NULL, filter = NULL, location = NULL,
   if(attr(group_by, "expand")){ 
     
     # get counts given the filter provided by the user
-    field_values_df <- ala_counts_internal(
+    field_values_df <- atlas_counts_internal(
       taxa = taxa,
       filter = filter, 
       location = location,
@@ -107,7 +107,7 @@ ala_counts.default <- function(taxa = NULL, filter = NULL, location = NULL,
     facets_large <- n_fields_df$facets[which.max(n_fields_df$n_fields)]
     facets_small <- n_fields_df$facets[n_fields_df$facets != facets_large]
 
-    # work out what combinations of `group`s should be sent to ala_counts_internal
+    # work out what combinations of `group`s should be sent to atlas_counts_internal
     levels_df <- expand.grid(
       lapply(
         field_values_df[, 
@@ -125,7 +125,7 @@ ala_counts.default <- function(taxa = NULL, filter = NULL, location = NULL,
       on.exit(galah_config(run_checks = TRUE)) # correct placement?
     }
     
-    # run `ala_counts_internal` the requisite number of times
+    # run `atlas_counts_internal` the requisite number of times
     if (verbose) { pb <- txtProgressBar(max = 1, style = 3) } # start progressbar
     
     result_list <- lapply(seq_along(levels_list),
@@ -136,7 +136,7 @@ ala_counts.default <- function(taxa = NULL, filter = NULL, location = NULL,
         }
         filter_this_loop <- galah_filter(filter_list[[a]])    
         filter_final <- rbind(filter, filter_this_loop)
-        counts_query <- ala_counts_internal(
+        counts_query <- atlas_counts_internal(
           taxa = taxa,
           filter = filter_final,
           location = location,
@@ -152,7 +152,7 @@ ala_counts.default <- function(taxa = NULL, filter = NULL, location = NULL,
      
   # if `groups` is of nrow == 1 (expand = FALSE)
   }else{
-    ala_counts_internal(
+    atlas_counts_internal(
       taxa, filter, location, 
       facets = group_by$name, 
       limit, type, refresh_cache,
@@ -162,7 +162,7 @@ ala_counts.default <- function(taxa = NULL, filter = NULL, location = NULL,
 
 # workhorse function to do most of the actual processing
 ## NOTE: need to turn off caching for multiple runs
-ala_counts_internal <- function(taxa = NULL, filter = NULL, location = NULL,
+atlas_counts_internal <- function(taxa = NULL, filter = NULL, location = NULL,
                        facets, # NOTE: not `groups` as no multiply section here
                        limit = NULL, type = "record",
                        refresh_cache = FALSE,
@@ -199,12 +199,12 @@ ala_counts_internal <- function(taxa = NULL, filter = NULL, location = NULL,
   }
 
   if (sum(total_cats) > limit && sum(total_cats) > page_size) {
-    resp <- ala_GET(url, path, params = query, paginate = TRUE, limit = limit,
+    resp <- atlas_GET(url, path, params = query, paginate = TRUE, limit = limit,
                     page_size = page_size, offset_param = "foffset")
     counts <- data.table::rbindlist(fromJSON(resp)$fieldResult)
   } else {
       query$flimit <- max(limit)
-      resp <- ala_GET(url, path, params = query)
+      resp <- atlas_GET(url, path, params = query)
       counts <- data.table::rbindlist(resp$fieldResult)
   }
 
@@ -268,7 +268,7 @@ ala_counts_internal <- function(taxa = NULL, filter = NULL, location = NULL,
 record_count <- function(query) {
   query$pageSize <- 0
   url <- server_config("records_base_url")
-  resp <- ala_GET(url, "occurrences/search", query)
+  resp <- atlas_GET(url, "occurrences/search", query)
   resp$totalRecords
 }
 
@@ -289,7 +289,7 @@ validate_facet <- function(facet) {
 # Get number of categories of a filter
 total_categories <- function(url, path, query) {
   query$flimit <- 1
-  resp <- ala_GET(url, path, params = query)
+  resp <- atlas_GET(url, path, params = query)
   if (is.null(resp$count)) {
     return(0)
   }
