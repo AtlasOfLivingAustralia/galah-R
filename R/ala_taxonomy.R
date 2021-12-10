@@ -94,7 +94,7 @@ ala_taxonomy <- function(taxa, down_to){
 # Return the classification for a taxonomic id
 lookup_taxon <- function(id) {
   url <- server_config("species_base_url")
-  resp <- ala_GET(url, path = paste0("ws/species/", id))
+  resp <- atlas_GET(url, path = paste0("ws/species/", id))
   taxon_info <- resp$classification
   taxon_info$authority <- resp$taxonConcept$nameAuthority
   taxon_info$author <- resp$taxonConcept$author
@@ -108,7 +108,7 @@ get_children <- function(identifier) {
     "ws/childConcepts/",
     URLencode(as.character(identifier), reserved = TRUE)
   )
-  return(ala_GET(url, path))
+  return(atlas_GET(url, path))
 }
 
 # Take a taxon row and recurse down the taxonomic tree 

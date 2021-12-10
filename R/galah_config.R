@@ -310,7 +310,7 @@ validate_option <- function(name, value) {
 #' @export
 find_reasons <- function() {
   ## return list of valid "reasons for use" codes
-  out <- ala_GET(server_config("logger_base_url"),
+  out <- atlas_GET(server_config("logger_base_url"),
                  path = "service/logger/reasons")
   if (any(names(out) == "deprecated")) out <- out[!out$deprecated, ]
   out <- out[wanted_columns("reasons")]

@@ -101,7 +101,7 @@ name_query <- function(query) {
 
 intermediate_ranks <- function(id) {
   url <- server_config("species_base_url")
-  resp <- ala_GET(url, path = paste0("ws/species/", id))
+  resp <- atlas_GET(url, path = paste0("ws/species/", id))
   classification <- data.frame(resp$classification)
   classification <- classification[names(classification) %in%
                                      wanted_columns("extended_taxa")]
@@ -120,7 +120,7 @@ name_lookup <- function(name) {
     name <- validate_rank(name)
     query <- as.list(name)
   }
-  result <- ala_GET(url, path, query)
+  result <- atlas_GET(url, path, query)
 
   if ("homonym" %in% result$issues) {
     warning("Homonym issue with ", name,
@@ -144,7 +144,7 @@ name_lookup <- function(name) {
 
 identifier_lookup <- function(identifier) {
   taxa_url <- server_config("name_matching_base_url")
-  result <- ala_GET(taxa_url, "/api/getByTaxonID", list(taxonID = identifier))
+  result <- atlas_GET(taxa_url, "/api/getByTaxonID", list(taxonID = identifier))
   if (isFALSE(result$success) && result$issues == "noMatch") {
     message("No match found for identifier ", identifier)
   }
@@ -170,7 +170,7 @@ child_concepts <- function(identifier) {
   url <- server_config("species_base_url")
   path <- paste0("ws/childConcepts/",
                  URLencode(as.character(identifier), reserved = TRUE))
-  children <- ala_GET(url, path)
+  children <- atlas_GET(url, path)
   if (length(children) == 0) {
     message("No child concepts found for taxon id \"", identifier, "\"")
     return()

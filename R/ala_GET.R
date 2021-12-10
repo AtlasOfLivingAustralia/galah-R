@@ -1,7 +1,7 @@
 # Wrapper for getting data
 #
 # Try using crul
-ala_GET <- function(url, path, params = list(), on_error = NULL,
+atlas_GET <- function(url, path, params = list(), on_error = NULL,
                     paginate = FALSE, limit = NULL, page_size = NULL,
                     offset_param = 'offset') {
   cli <- HttpClient$new(

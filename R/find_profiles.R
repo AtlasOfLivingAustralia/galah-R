@@ -25,7 +25,7 @@
 find_profiles <- function() {
   # return only enabled profiles?
   url <- server_config("data_quality_base_url")
-  resp <- ala_GET(url, "api/v1/profiles", list(enabled = "true"))
+  resp <- atlas_GET(url, "api/v1/profiles", list(enabled = "true"))
   return(resp[wanted_columns(type = "profile")])
 }
 
@@ -56,7 +56,7 @@ find_profile_attributes <- function(profile) {
           `find_profiles` to list valid profiles.")
   }
   url <- server_config("data_quality_base_url")
-  resp <- ala_GET(url, "api/v1/quality/activeProfile",
+  resp <- atlas_GET(url, "api/v1/quality/activeProfile",
                   list(profileName = short_name))
   filters <- data.table::rbindlist(resp$categories$qualityFilters)
   subset(filters, select = wanted_columns("quality_filter"))

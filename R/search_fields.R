@@ -103,7 +103,7 @@ get_fields <- function() {
 
 get_assertions <- function() {
   url <- server_config("records_base_url")
-  assertions <- ala_GET(url, path = "assertions/codes")
+  assertions <- atlas_GET(url, path = "assertions/codes")
   assertions$data_type <- "logical"
   names(assertions) <- rename_columns(names(assertions), type = "assertions")
   assertions <- assertions[wanted_columns("assertions")]
@@ -113,7 +113,7 @@ get_assertions <- function() {
 
 get_layers <- function() {
   url <- server_config("spatial_base_url")
-  result <- ala_GET(url, "layers")
+  result <- atlas_GET(url, "layers")
   layer_id <- mapply(build_layer_id, result$type, result$id,
                      USE.NAMES = FALSE)
   result <- cbind(layer_id, result)
@@ -150,7 +150,7 @@ get_media <- function(x) {
 
 all_fields <- function() {
   url <- server_config("records_base_url")
-  ala_GET(url, path = "index/fields")
+  atlas_GET(url, path = "index/fields")
 }
 
 build_layer_id <- function(type, id) {
