@@ -1,12 +1,12 @@
-#' Species lists
+#' Return species lists
 #'
 #' While there are reasons why users may need to check every record meeting their
-#' search criteria (i.e. using \code{\link{ala_occurrences}}), a common use case
+#' search criteria (i.e. using \code{\link{atlas_occurrences}}), a common use case
 #' is to simply identify which species occur in a specified region, time period,
 #' or taxonomic group. This function returns a \code{data.frame} with one row
 #' per species, and columns giving associated taxonomic information.
 #'
-#' @inheritParams ala_occurrences
+#' @inheritParams atlas_occurrences
 #' @param refresh_cache \code{logical}: if set to `TRUE` and 
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query
@@ -20,27 +20,21 @@
 #' is simply to get taxonomic information that is not restricted by filtering,
 #' then \code{\link{select_taxa}()} is more efficient. Similarly, if counts are
 #' required that include filter but without returning taxonomic detail, then
-#' \code{\link{ala_counts}()} is more efficient (see examples).
+#' \code{\link{atlas_counts}()} is more efficient (see examples).
 #' @examples \dontrun{
 #'
-#' # Lookup genus "Heleioporus" in the ALA
+#' # Look up genus "Heleioporus" in the ALA
 #' select_taxa("Heleioporus")
 #'
-#' # How many records are there for this genus?
-#' ala_counts(select_taxa("Heleioporus"))
-#' # or equivalently:
-#' select_taxa("Heleioporus", counts = TRUE)
+#' # Find how many records there are for this genus
+#' atlas_counts(select_taxa("Heleioporus"))
 #'
-#' # How best to get taxonomic info on species within this genus?
-#' # also includes a row for genus (i.e. not just species)
-#' select_taxa("Heleioporus", children = TRUE)
-#' # returns counts by species, but no taxonomic information
-#' ala_counts(select_taxa("Heleioporus"), group_by = "species")
-#' # every row is a species with associated taxonomic data
-#' ala_species(select_taxa("Heleioporus"))
+#' # Get taxonomic information on all species within this genus
+#' # (every row is a species with associated taxonomic data)
+#' atlas_species(select_taxa("Heleioporus"))
 #' }
 #' @export
-ala_species <- function(taxa = NULL, filter = NULL, location = NULL,
+atlas_species <- function(taxa = NULL, filter = NULL, location = NULL,
                         refresh_cache = FALSE) {
   # check whether species download is possible
   species_url <- server_config("species_base_url")

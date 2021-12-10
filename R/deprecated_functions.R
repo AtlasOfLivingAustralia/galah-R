@@ -73,3 +73,38 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
     doi = doi, 
     refresh_cache = refresh_cache) 
 }
+
+#' Old version of atlas_species
+#' 
+#' @inheritParams ala_occurrences
+#' @param refresh_cache \code{logical}: if set to `TRUE` and 
+#' `galah_config(caching = TRUE)` then files cached from a previous query will 
+#' be replaced by the current query
+#' @describeIn atlas_species Deprecated function name
+#' @export
+ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
+                        refresh_cache = FALSE) {
+  atlas_species(
+    taxa = taxa,
+    filter = filters,
+    location = locations,
+    refresh_cache = refresh_cache
+  )
+}
+
+#' Old version of atlas_taxonomy
+#' 
+#' @param taxa The identity of the clade for which a taxonomic
+#' hierarchy should be returned. Should be specified using an object of class 
+#' \code{data.frame} and \code{ala_id}, as returned from
+#' \code{\link{select_taxa}()}. 
+#' @param down_to \code{string}: A taxonomic rank to search down to. See
+#' \code{\link{find_ranks}()} for valid inputs.
+#' @describeIn atlas_taxonomy Deprecated function name
+#' @export
+ala_taxonomy <- function(taxa, down_to){
+  atlas_species(
+    taxa= taxa,
+    down_to = down_to
+  )
+}

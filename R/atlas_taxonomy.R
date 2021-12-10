@@ -1,7 +1,7 @@
 #' Search taxonomic trees
 #'
 #' The ALA has its' own internal taxonomy that is derived from authoritative
-#' sources. \code{search_taxonomy} provides a means to query 
+#' sources. \code{atlas_taxonomy} provides a means to query 
 #' that taxonomy, returning a tree (class \code{Node}) showing which lower 
 #' clades are contained within the specified taxon.
 #' 
@@ -29,11 +29,11 @@
 #' argument.
 #' @examples
 #' \dontrun{
-#' search_taxonomy(select_taxa("chordata"), down_to = "class")
+#' atlas_taxonomy(select_taxa("chordata"), down_to = "class")
 #' }
 #' @export
 
-ala_taxonomy <- function(taxa, down_to){
+atlas_taxonomy <- function(taxa, down_to){
 
   if (getOption("galah_config")$atlas != "Australia") {
     stop("`search_taxonomy` only provides information on Australian taxonomy. To search taxonomy for ",
@@ -46,10 +46,10 @@ ala_taxonomy <- function(taxa, down_to){
     stop("argument `taxa` is missing, with no default")}
   
   if(!inherits(taxa, "ala_id")){
-    stop("`ala_taxonomy` requires an object of class `ala_id`; see `?select_taxa` for more information")}
+    stop("`atlas_taxonomy` requires an object of class `ala_id`; see `?select_taxa` for more information")}
   
   if(nrow(taxa) > 1){
-    stop("`ala_taxonomy` only accepts a single taxon at a time")
+    stop("`atlas_taxonomy` only accepts a single taxon at a time")
   }
   
   # error checking for `down_to`
