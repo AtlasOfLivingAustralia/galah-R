@@ -1,16 +1,16 @@
-#' Images, sounds and videos
+#' Download images, sounds and videos
 #'
-#' In addition to text data describing individual occurrences and their attributes,
-#' ALA stores images, sounds and videos associated with a given record. \code{ala_media}
-#' allows download of any and all of the media types. 
+#' In addition to text data describing individual occurrences and their 
+#' attributes, ALA stores images, sounds and videos associated with a given 
+#' record. \code{atlas_media} allows download of any and all of the media types. 
 #'
-#' @inheritParams ala_occurrences
+#' @inheritParams atlas_occurrences
 #' @param download_dir \code{string}: path to directory to store the downloaded
 #' media in
 #' @param refresh_cache \code{logical}: if set to `TRUE` and 
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query
-#' @details \code{\link{ala_occurrences}()} works by first finding all occurrence records
+#' @details \code{\link{atlas_occurrences}()} works by first finding all occurrence records
 #' matching the filter which contain media, then downloading the metadata for the
 #' media and the media files. \code{\link{galah_filter}()} can take both filter
 #' relating to occurrences (e.g. basis of records), and filter relating to media
@@ -18,40 +18,42 @@
 #' It may be beneficial when requesting a large number of records to show a progress
 #' bar by setting \code{verbose = TRUE} in \code{\link{galah_config}()}.
 #' @return \code{data.frame} of metadata of the downloaded media
-#' @seealso \code{\link{ala_counts}} to find the number of records with media- note this
+#' @seealso \code{\link{atlas_counts}} to find the number of records with media- note this
 #' is not necessarily the same as the number of media files, as each record can have
 #' more than one media file associated with it (see examples section for how to do this).
 #' @examples
 #' \dontrun{
 #' # Download Regent Honeyeater multimedia
-#' media_data <- ala_media(
+#' media_data <- atlas_media(
 #'     taxa = select_taxa("Regent Honeyeater"),
 #'     filter = galah_filter(year = 2011),
 #'     download_dir = "media")
 #' 
 #' # Specify a single media type to download
-#' media_data <- ala_media(
+#' media_data <- atlas_media(
 #'      taxa = select_taxa("Eolophus Roseicapilla"),
 #'      filter = galah_filter(multimedia = "Sound"))
 #' 
 #' # Filter to only records with a particular licence type
-#' media_data <- ala_media(
+#' media_data <- atlas_media(
 #'       taxa = select_taxa("Ornithorhynchus anatinus"),
 #'       filter = galah_filter(year = 2020,
 #'       license = "http://creativecommons.org/licenses/by-nc/4.0/")
 #' )
 #' # Check how many records have media files
-#' ala_counts(
+#' atlas_counts(
 #'      filter = galah_filter(multimedia = c("Image","Sound","Video")),
 #'      group_by = "multimedia"
 #' )
 #' }
 #' @export
-ala_media <- function(taxa = NULL, filter = NULL, location = NULL,
-                      select = galah_select(group = "basic"),
-                      columns = NULL, 
-                      download_dir,
-                      refresh_cache = FALSE) {
+atlas_media <- function(taxa = NULL, 
+                        filter = NULL, 
+                        location = NULL,
+                        select = galah_select(group = "basic"),
+                        columns = NULL, 
+                        download_dir,
+                        refresh_cache = FALSE) {
 
   image_url <- server_config("images_base_url")
   if(is.null(select) & !is.null(columns)){select <- columns}
@@ -62,6 +64,11 @@ ala_media <- function(taxa = NULL, filter = NULL, location = NULL,
   msg = "A path to an existing directory to download images to is required")
   assert_that(file.exists(download_dir))
   download_dir <- normalizePath(download_dir)
+  
+  if (getOption("galah_config")$atlas != "Australia") {
+    stop("`atlas_media` only provides media from the ALA and cannot provide 
+         media from international atlases.") #TODO: Update errors to glue
+  }
   
   if (is.null(taxa) & is.null(filter) & is.null(location)) {
     warning("No filter have been provided. All images and sounds will be downloaded.")
@@ -77,7 +84,7 @@ ala_media <- function(taxa = NULL, filter = NULL, location = NULL,
     }
   }
   
-  # Check whether any of the filter are media-specific filter and
+  # Check whether any filters are media-specific filters and
   # filter to records with image/sound/video
   filter_available <- filter$variable %in% search_select(type = "media")$id
   media_filter <- filter[filter_available, ]
@@ -88,12 +95,12 @@ ala_media <- function(taxa = NULL, filter = NULL, location = NULL,
   # Make sure media ids are included in results
   occ_columns <- rbind(select, galah_select(image_select()))
 
-  # add ala_ classes to modified filter and select
-  class(occ_filter) <- append(class(occ_filter), "ala_filter")
-  class(occ_columns) <- append(class(occ_columns), "ala_select")
+  # add galah_ classes to modified filter and select
+  class(occ_filter) <- append(class(occ_filter), "galah_filter")
+  class(occ_columns) <- append(class(occ_columns), "galah_select")
   if (verbose) { message("Downloading records with media...") }
   
-  occ <- ala_occurrences(taxa, occ_filter, location, occ_columns)
+  occ <- atlas_occurrences(taxa, occ_filter, location, occ_columns)
 
   # occurrence data.frame has one row per occurrence record and stores all media
   # ids in a single column; this code splits the media ids and creates one row

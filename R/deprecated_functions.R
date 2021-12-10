@@ -104,7 +104,32 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
 #' @export
 ala_taxonomy <- function(taxa, down_to){
   atlas_species(
-    taxa= taxa,
+    taxa = taxa,
     down_to = down_to
+  )
+}
+
+#' Old version of atlas_media
+#' 
+#' @inheritParams ala_occurrences
+#' @param download_dir \code{string}: path to directory to store the downloaded
+#' media in
+#' @param refresh_cache \code{logical}: if set to `TRUE` and 
+#' `galah_config(caching = TRUE)` then files cached from a previous query will 
+#' be replaced by the current query
+#' @describeIn atlas_media Deprecated function name
+#' @export
+ala_media <- function(taxa = NULL, 
+                      filters = NULL, 
+                      locations = NULL,
+                      columns = select_columns(group = "basic"),
+                      download_dir,
+                      refresh_cache = FALSE) {
+  atlas_media(
+    taxa = taxa,
+    filter = filters,
+    select = columns,
+    download_dir = download_dir,
+    refresh_cache = FALSE
   )
 }
