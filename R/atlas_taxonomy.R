@@ -13,7 +13,7 @@
 #' \code{\link{find_ranks}()} for valid inputs.
 #' @details The approach used by this function is recursive, meaning that it  
 #' becomes slow for large queries such as  
-#' \code{search_taxonomy(select_taxa("Plantae"), down_to = "species")}.
+#' \code{atlas_taxonomy(select_taxa("Plantae"), down_to = "species")}.
 #' Although the inputs to \code{select_taxa} and \code{down_to} are 
 #' case-insensitive, node names are always returned in title case.
 #' @return A tree consisting of objects of class \code{Node}, containing the 
@@ -36,7 +36,7 @@
 atlas_taxonomy <- function(taxa, down_to){
 
   if (getOption("galah_config")$atlas != "Australia") {
-    stop("`search_taxonomy` only provides information on Australian taxonomy. To search taxonomy for ",
+    stop("`atlas_taxonomy` only provides information on Australian taxonomy. To search taxonomy for ",
       getOption("galah_config")$atlas, 
       " use `taxize`. See vignette('international_atlases') for more information")
   }
