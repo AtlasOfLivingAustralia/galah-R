@@ -5,7 +5,7 @@
 \alias{atlas_counts.data_request}
 \alias{atlas_counts.default}
 \alias{ala_counts}
-\title{Count of ALA records}
+\title{Return a count of records}
 \usage{
 atlas_counts(...)
 

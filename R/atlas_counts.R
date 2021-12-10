@@ -1,4 +1,4 @@
-#' Count of ALA records
+#' Return a count of records
 #'
 #' Prior to downloading data it is often valuable to have some estimate of how
 #' many records are available, both for deciding if the query is feasible,
@@ -61,11 +61,13 @@ atlas_counts.data_request <- function(request, ...) {
 
 #' @export
 #' @rdname atlas_counts
-atlas_counts.default <- function(taxa = NULL, filter = NULL, location = NULL,
-                       group_by = NULL, 
-                       limit = 100,
-                       type = c("record" ,"species"),
-                       refresh_cache = FALSE) {
+atlas_counts.default <- function(taxa = NULL, 
+                                 filter = NULL, 
+                                 location = NULL,
+                                 group_by = NULL, 
+                                 limit = 100,
+                                 type = c("record" ,"species"),
+                                 refresh_cache = FALSE) {
 
   type <- match.arg(type)
   verbose <- getOption("galah_config")$verbose
