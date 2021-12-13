@@ -30,6 +30,8 @@
 #'     filter = galah_filter(year > 2015),
 #'     group_by = galah_group_by(year, species, expand = TRUE),
 #'     limit = 5)
+#'     }
+#'     
 #' @export
 
 galah_group_by <- function(..., expand = FALSE){
