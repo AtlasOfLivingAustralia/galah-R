@@ -2,7 +2,7 @@
 % Please edit documentation in R/galah_group_by.R
 \name{galah_group_by}
 \alias{galah_group_by}
-\title{Specify fields for occurrence download}
+\title{Specify fields to group when downloading record counts}
 \usage{
 galah_group_by(..., expand = FALSE)
 }
@@ -13,8 +13,11 @@ galah_group_by(..., expand = FALSE)
 \code{ala_counts}, should factor levels be expanded? Defaults to \code{FALSE}.}
 }
 \description{
-\code{ala_counts} supports server-side grouping of data, which relies on this
-function.
+\code{ala_counts} supports server-side grouping of data. Grouping can be 
+used to return record counts grouped by multiple, valid fields (found by 
+\code{search_fields}. Use \code{galah_group_by} when using the 
+\code{group_by} argument of \code{ala_counts} to return record counts summed
+by one or more valid fields.
 }
 \seealso{
 \code{\link{galah_select}}, \code{\link{galah_filter}} and
