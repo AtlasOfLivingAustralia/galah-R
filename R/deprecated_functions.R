@@ -103,7 +103,7 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
 #' @describeIn atlas_taxonomy Deprecated function name
 #' @export
 ala_taxonomy <- function(taxa, down_to){
-  atlas_species(
+  atlas_taxonomy(
     taxa = taxa,
     down_to = down_to
   )
