@@ -19,7 +19,7 @@ test_that("galah_select returns requested columns", {
 })
 
 
-test_that("galah_select builds expected columns when group = basic") {
+test_that("galah_select builds expected columns when group = basic", {
   # skip_on_cran()
   galah_config(run_checks = FALSE)
   select <- galah_select(group = "basic")
@@ -34,7 +34,7 @@ test_that("galah_select builds expected columns when group = basic") {
   expect_equal(select[1], expected_output[1])
   expect_equal(select[2], expected_output[2])
   galah_config(run_checks = TRUE)
-}
+})
 
 
 test_that("galah_select builds expected columns when group = fields", {

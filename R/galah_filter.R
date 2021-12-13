@@ -75,7 +75,7 @@
 #' galah_filter(cl22 >= "Tasmania")
 #' # queries all Australian States & Territories alphabetically after "Tasmania"
 #' }
-#' @importFrom rlang enquos as_label get_env eval_tidy new_quosure abort caller_env
+#' @importFrom rlang enquos as_label get_env quo_get_expr eval_tidy new_quosure abort caller_env
 #' @export
 
 # TODO: provide a useful error message for bad queries e.g. galah_filter(year == 2010 | 2021)
@@ -90,14 +90,10 @@ galah_filter <- function(..., profile = NULL){
  
   # Clean user arguments
   if(length(dots) > 0){
-    # First, evaluate filters that use functions (if there are any)
-    evaluate_functions(dots)
     
-    # Second, parse user-supplied filters to build ALA query
-    exprs <- unlist(lapply(dots, as_label)) # You can check this with regex
-    # alternative is `unlist(lapply(dots, get_expr))` which returns calls etc
-    environments <- lapply(dots, get_env)  
-    named_filters <- parse_inputs(exprs, environments)
+    # First, evaluate filters that use functions (if there are any)
+    dots <- parse_objects_or_functions(dots)
+    named_filters <- parse_inputs(dots)
     named_filters$query <- parse_query(named_filters)
     
     # Validate that variables exist in ALA
@@ -116,11 +112,11 @@ galah_filter <- function(..., profile = NULL){
   
   # Check and apply profiles to query
   apply_profiles(profile, named_filters)
-  
-  named_filters
+
 }
 
 
+# stop function to enforce new syntax, based on `dplyr` syntax
 check_filter <- function(dots, error_call = caller_env()) {
   named <- rlang::have_name(dots)
   
@@ -129,7 +125,7 @@ check_filter <- function(dots, error_call = caller_env()) {
     
     # only allow named logical vectors, anything else
     # is suspicious
-    expr <- rlang::quo_get_expr(quo)
+    expr <- quo_get_expr(quo)
     if (!is.logical(expr)) {
       name <- names(dots)[i]
       bullets <- c(
@@ -138,62 +134,68 @@ check_filter <- function(dots, error_call = caller_env()) {
         i = glue::glue("Did you mean `{name} == {as_label(expr)}`?")
       )
       abort(bullets, call = error_call)
-    }
-    
+    }   
   }
 }
 
-evaluate_functions <- function(dots) {
-  # Check if there are any functions in filters
-  is_function_call <- is_function_grepl(lapply(dots, as_label))
-  
+
+# function to identify objects or functions in quosures, and eval them
+# this is used twice; first to identify named objects passed to `galah_filter`,
+# and again to parse variables and values for object status
+parse_objects_or_functions <- function(dots){
+  is_either <- is_function_check(dots) | is_object_check(dots)
   # If yes, evaluate them correctly as functions
-  if(any(is_function_call)){
-    dots[which(is_function_call)] <- lapply(
-      dots[which(is_function_call)], 
+  if(any(is_either)){
+    index <- which(is_either)
+    dots[index] <- lapply(
+      dots[index], 
       function(a){new_quosure(eval_tidy(a))
       })
-  }
-}
-
-is_function_grepl <- function(dots){
-  if(is.list(dots)){x <- unlist(dots)}
-  (
-    (grepl("^(([[:alnum:]]|\\.|_)+\\()", dots) & grepl("\\)", dots)) |
-      grepl("\\$|\\[", dots) 
-  ) & !grepl( ">|<|>=|<=|==", dots)
-}
-
-apply_profiles <- function(profile, named_filters, error_call = caller_env()) {
-  profile_attr <- NULL
-  if (!is.null(profile)) {
-    short_name <- profile_short_name(profile)
-    if (is.null(short_name) || is.na(short_name)) {
-      bullets <- c(
-        "Profile must be a valid name, short name, or data quality ID.",
-        i = glue::glue("Use `find_profiles()` to list valid profiles"),
-        x = glue::glue("'{profile}' is not recognised.")
-      )
-      abort(bullets, call = error_call)
+      
+      ## from parse_objects() - check whether to reimplement for `dots`
+      # # parse out objects that have been discovered  
+      # index <- which(is_either)
+      # object_list <- lapply(index, function(a){
+      #  eval(parse(text = x[[a]]), envir = env[[a]]) 
+      # })
+      # 
+      # # where a vector is long, replace with c rather than original values
+      # length_lookup <- lengths(object_list) > 1
+      # if(any(length_lookup)){
+      #  object_list[length_lookup] <- lapply(
+      #    object_list[length_lookup],
+      #    function(a){paste0("c(", paste(a, collapse = ", "), ")")}) 
+      # }  
+      # 
+      # # output replacement
+      # x[index] <- unlist(object_list)
     }
-    profile_attr <- short_name
-  }
-  attr(named_filters, "dq_profile") <- profile_attr
+  dots
 }
 
+is_function_check <- function(dots){ # where x is a list of strings
+  x <- unlist(lapply(dots, as_label))
+  if(is.list(x)){x <- unlist(x)}
+  # (
+    (grepl("^(([[:alnum:]]|\\.|_)+\\()", x) & grepl("\\)", x)) |
+      grepl("\\$|\\[", x) 
+  # ) & !grepl( "!=|>=|<=|==|>|<", x)
+}
 
+is_object_check <- function(dots){
+  unlist(lapply(dots, function(a){
+    exists(x = as_label(a), envir = get_env(a))
+  }))
+}
 
-#----------- Note: We may be able to delete functions below this line
 
 # Catch-all function to do formula splitting etc
-parse_inputs <- function(x, env){
+parse_inputs <- function(dots){
   
-  # remove quote marks
-  quoting_regex <- grepl("(^\").+(\"$)", x)
-  if(any(quoting_regex)){
-    quotes_tr <- which(quoting_regex)
-    x[quotes_tr] <- gsub("(^\")|(\"$)", "", x[quotes_tr])
-  }
+  x <- unlist(lapply(dots, as_label))
+  env <- lapply(dots, get_env)
+  
+  x <- dequote(x)
 
   # remove problematic and/or statements
   x <- parse_or(unlist(x))
@@ -207,7 +209,8 @@ parse_inputs <- function(x, env){
   x <- unlist(x)
 
   # parse formulae
-  formula_regex <- ">|<|>=|<=|=="
+  formula_regex <- "!=|>=|<=|==|>|<" # NOTE: order matters here
+  # if '<' occurs before '<=', then '<=' is never detected
 
   formula_df <- data.frame(
     index = index_df$index,
@@ -226,47 +229,38 @@ parse_inputs <- function(x, env){
   # remove values with NA rows
   formula_df <- formula_df[apply(formula_df[, 2:4], 1, function(a){!all(is.na(a))}), ]
 
-  formula_df$variable <- parse_objects(formula_df$variable, env[formula_df$index])
-  formula_df$value <- parse_objects(formula_df$value, env[formula_df$index])
+  # check whether variables or values are named objects or functions, and return if they are
+  var_quo <- lapply(
+    seq_len(nrow(formula_df)),
+    function(a){new_quosure(formula_df$variable[a], env[[formula_df$index[a]]])})
 
+  formula_df$variable <- dequote(unlist(
+    lapply(parse_objects_or_functions(var_quo), as_label)))
+  
+  value_quo <- lapply(
+    seq_len(nrow(formula_df)),
+    function(a){new_quosure(formula_df$value[a], env[[formula_df$index[a]]])})
+    
+  formula_df$value <- dequote(unlist(
+    lapply(parse_objects_or_functions(value_quo), as_label)))
+
+  # return minus the index field
   formula_df[, -1]
 }
 
 
-parse_objects <- function(x, env){
-  is_object <- unlist(lapply(
-   seq_along(x),
-   function(a){
-     exists(x[[a]], envir = env[[a]]) &
-     !exists(x[[a]], envir = env[[a]], mode = "function") 
-   }))
-  is_function_call <- is_function_grepl(x) 
-  is_either <- is_object | is_function_call
-
-  if(any(is_either)){
-
-    # parse out objects that have been discovered  
-    index <- which(is_either)
-    object_list <- lapply(index, function(a){
-     eval(parse(text = x[[a]]), envir = env[[a]]) 
-    })
-
-    # where a vector is long, replace with c rather than original values
-    length_lookup <- lengths(object_list) > 1
-    if(any(length_lookup)){
-     object_list[length_lookup] <- lapply(
-       object_list[length_lookup],
-       function(a){paste0("c(", paste(a, collapse = ", "), ")")}) 
-    }  
-
-    # output replacement
-    x[index] <- unlist(object_list)
-   
+# remove quote marks
+dequote <- function(x){
+  quoting_regex <- grepl("(^\").+(\"$)", x)
+  if(any(quoting_regex)){
+    quotes_tr <- which(quoting_regex)
+    x[quotes_tr] <- gsub("(^\")|(\"$)", "", x[quotes_tr])
   }
   x
 }
 
 
+# various parse functions
 parse_and <- function(x){
   and_lookup <- grepl("&{1,2}", x)
   if(any(and_lookup)){
@@ -274,7 +268,6 @@ parse_and <- function(x){
     return(trimws(unlist(x)))
   }else{x}
 }
-
 
 parse_or <- function(x){
   or_lookup <- grepl("\\|{1,2}", x)
@@ -298,7 +291,6 @@ parse_or <- function(x){
     x
   }
 }  
-
 
 parse_query <- function(df){
 
@@ -328,7 +320,6 @@ parse_query <- function(df){
   return(df$query)
 }
 
-
 parse_logical <- function(df){
   switch(df$logical,
     "=" = {query_term(df$variable, df$value, TRUE)},
@@ -340,7 +331,6 @@ parse_logical <- function(df){
     "<" = {paste0(df$variable, ":[* TO ", df$value, "] AND -", query_term(df$variable, df$value, TRUE))}
   )
 }
-
 
 # question: does the below work when df$value is a character? May add 2x quotes
 parse_vector <- function(df){
@@ -354,7 +344,6 @@ parse_vector <- function(df){
     ")")
 }
 
-
 parse_assertion <- function(df){
   logical <- isTRUE(as.logical(df$value))
   if(df$logical == "!="){logical <- !logical} # case where `variable != FALSE`
@@ -366,3 +355,21 @@ parse_assertion <- function(df){
 }
 
 
+# ensure profiles are handled correctly
+apply_profiles <- function(profile, named_filters, error_call = caller_env()) {
+  profile_attr <- NULL
+  if (!is.null(profile)) {
+    short_name <- profile_short_name(profile)
+    if (is.null(short_name) || is.na(short_name)) {
+      bullets <- c(
+        "Profile must be a valid name, short name, or data quality ID.",
+        i = glue::glue("Use `find_profiles()` to list valid profiles"),
+        x = glue::glue("'{profile}' is not recognised.")
+      )
+      abort(bullets, call = error_call)
+    }
+    profile_attr <- short_name
+  }
+  attr(named_filters, "dq_profile") <- profile_attr
+  named_filters
+}
