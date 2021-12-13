@@ -107,7 +107,7 @@ atlas_occurrences <- function(taxa = NULL, filter = NULL, location = NULL,
   query <- c(query, email = user_email(), dwcHeaders = "true")
   download_resp <- wait_for_download(url, query)
   download_path <- download_resp$download_path
-  data_path <- atlas_download(url = server_config("records_download_base_url"),
+  data_path <- ala_download(url = server_config("records_download_base_url"),
                        path = download_path,
                        cache_file = tmp, ext = ".zip")
 
@@ -211,7 +211,7 @@ doi_download <- function(doi) {
          have a prefix of 10.26197/ala.")
   }
 
-  path <- atlas_download(server_config("doi_base_url"),
+  path <- ala_download(server_config("doi_base_url"),
                        path = paste0("/doi/", doi_str, "/download"),
                        ext = ".zip", cache_file = tempfile(pattern = "data"))
   record_file <- grep("^records", unzip(path, list=TRUE)$Name, 

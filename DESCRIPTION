@@ -37,6 +37,7 @@ Imports:
     dplyr,
     httr,
     jsonlite (>= 0.9.8),
+    lifecycle (>= 1.0.0),
     rlang,
     sf,
     sp,
