@@ -75,7 +75,7 @@
 #' galah_filter(cl22 >= "Tasmania")
 #' # queries all Australian States & Territories alphabetically after "Tasmania"
 #' }
-#' @importFrom rlang enquos as_label get_env quo_get_expr eval_tidy new_quosure abort caller_env
+#' @importFrom rlang enquos as_label get_env quo_get_expr eval_tidy new_quosure abort caller_env parse_expr
 #' @export
 
 # TODO: provide a useful error message for bad queries e.g. galah_filter(year == 2010 | 2021)
@@ -149,42 +149,40 @@ parse_objects_or_functions <- function(dots){
     index <- which(is_either)
     dots[index] <- lapply(
       dots[index], 
-      function(a){new_quosure(eval_tidy(a))
+      function(a){
+        result <- eval_tidy(a)
+        if(length(result) > 1){
+          new_quosure(paste0("c(", paste(result, collapse = ", "), ")"))
+        }else{
+          new_quosure(result)
+        }
       })
-      
-      ## from parse_objects() - check whether to reimplement for `dots`
-      # # parse out objects that have been discovered  
-      # index <- which(is_either)
-      # object_list <- lapply(index, function(a){
-      #  eval(parse(text = x[[a]]), envir = env[[a]]) 
-      # })
-      # 
-      # # where a vector is long, replace with c rather than original values
-      # length_lookup <- lengths(object_list) > 1
-      # if(any(length_lookup)){
-      #  object_list[length_lookup] <- lapply(
-      #    object_list[length_lookup],
-      #    function(a){paste0("c(", paste(a, collapse = ", "), ")")}) 
-      # }  
-      # 
-      # # output replacement
-      # x[index] <- unlist(object_list)
     }
   dots
 }
 
+
 is_function_check <- function(dots){ # where x is a list of strings
   x <- unlist(lapply(dots, as_label))
-  if(is.list(x)){x <- unlist(x)}
-  # (
-    (grepl("^(([[:alnum:]]|\\.|_)+\\()", x) & grepl("\\)", x)) |
-      grepl("\\$|\\[", x) 
-  # ) & !grepl( "!=|>=|<=|==|>|<", x)
+  
+  # detect whether function-like text is present
+  functionish_text <- grepl("^(([[:alnum:]]|\\.|_)+\\()", x) & grepl("\\)", x)
+  dollar_sign_square_bracket <- grepl("\\$|\\[", x)
+  functions_present <- functionish_text | dollar_sign_square_bracket
+  
+  # if there are equations, that's only ok if they are quoted
+  contains_equations <- grepl( "!=|>=|<=|==|>|<", x)
+  quoted_equations <- grepl("(\"|\')\\s*(!=|>=|<=|==|>|<)\\s*(\"|\')", x) 
+  equations_ok <- (contains_equations & quoted_equations) | !contains_equations
+  
+  # parse only if both conditions are met
+  functions_present & equations_ok
 }
+
 
 is_object_check <- function(dots){
   unlist(lapply(dots, function(a){
-    exists(x = as_label(a), envir = get_env(a))
+    exists(x = dequote(as_label(a)), envir = get_env(a))
   }))
 }
 
@@ -232,14 +230,18 @@ parse_inputs <- function(dots){
   # check whether variables or values are named objects or functions, and return if they are
   var_quo <- lapply(
     seq_len(nrow(formula_df)),
-    function(a){new_quosure(formula_df$variable[a], env[[formula_df$index[a]]])})
+    function(a){new_quosure(
+      expr = parse_expr(formula_df$variable[a]), 
+      env = env[[formula_df$index[a]]])})
 
   formula_df$variable <- dequote(unlist(
     lapply(parse_objects_or_functions(var_quo), as_label)))
   
   value_quo <- lapply(
     seq_len(nrow(formula_df)),
-    function(a){new_quosure(formula_df$value[a], env[[formula_df$index[a]]])})
+    function(a){new_quosure(
+      expr = parse_expr(formula_df$value[a]), 
+      env = env[[formula_df$index[a]]])})
     
   formula_df$value <- dequote(unlist(
     lapply(parse_objects_or_functions(value_quo), as_label)))
@@ -269,6 +271,7 @@ parse_and <- function(x){
   }else{x}
 }
 
+
 parse_or <- function(x){
   or_lookup <- grepl("\\|{1,2}", x)
   if(any(or_lookup)){
@@ -291,6 +294,7 @@ parse_or <- function(x){
     x
   }
 }  
+
 
 parse_query <- function(df){
 
@@ -320,6 +324,7 @@ parse_query <- function(df){
   return(df$query)
 }
 
+
 parse_logical <- function(df){
   switch(df$logical,
     "=" = {query_term(df$variable, df$value, TRUE)},
@@ -332,6 +337,7 @@ parse_logical <- function(df){
   )
 }
 
+
 # question: does the below work when df$value is a character? May add 2x quotes
 parse_vector <- function(df){
   values <- eval(parse(text = df$value))
@@ -343,6 +349,7 @@ parse_vector <- function(df){
     collapse = " OR "),
     ")")
 }
+
 
 parse_assertion <- function(df){
   logical <- isTRUE(as.logical(df$value))

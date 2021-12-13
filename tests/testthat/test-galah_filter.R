@@ -126,7 +126,7 @@ test_that("galah_filter can take an object as a value", {
 })
 
 test_that("galah_filter can take an object with length >1 as a value", { 
-  years <- c(2010, 2021) 
+  years <- c(2010, 2021)
   filters <- galah_filter(year == years)
   expect_s3_class(filters, c("data.frame", "galah_filter"))
   expect_equal(nrow(filters), 1)
