@@ -3,15 +3,14 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #' 
-#' The following functions are deprecated as of `galah` version 2.0.0.
-#' 
 #' Use [galah_select()] instead of `select_columns()`.
 #' 
 #' @export
 #' @name deprecated
 select_columns <- function(..., group){
-  galah_select(..., group = group)
   lifecycle::deprecate_warn("2.0.0", "select_columns()", "galah_select()")
+  
+  galah_select(..., group = group)
 }
 
 #' @description
@@ -20,6 +19,8 @@ select_columns <- function(..., group){
 #' @export
 #' @name deprecated
 select_filters <- function(..., profile = NULL) {
+  lifecycle::deprecate_warn("2.0.0", "select_filters()", "galah_filter()")
+  
   galah_filter(..., profile = profile)
 }
 
@@ -30,6 +31,8 @@ select_filters <- function(..., profile = NULL) {
 #' @export
 #' @name deprecated
 select_locations <- function(query) {
+  lifecycle::deprecate_warn("2.0.0", "select_locations()", "galah_location()")
+  
   galah_location(query)
 }
 
@@ -41,6 +44,8 @@ select_locations <- function(query) {
 ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
                             columns = select_columns(group = "basic"),
                             mint_doi = FALSE, doi, refresh_cache = FALSE) {
+  lifecycle::deprecate_warn("2.0.0", "ala_occurrences()", "atlas_occurrences()")
+  
   atlas_occurrences(
     taxa = taxa, 
     filter = filters, 
@@ -64,6 +69,9 @@ ala_counts <- function(taxa = NULL,
                        type = c("record" ,"species"),
                        refresh_cache = FALSE) {
   type <- match.arg(type)
+  
+  lifecycle::deprecate_warn("2.0.0", "ala_counts()", "atlas_counts()")
+  
   atlas_counts.default(
     taxa = {if(missing(taxa)){NULL}else{taxa}}, 
     filter = {if(missing(filters)){NULL}else{filters}}, 
@@ -81,6 +89,8 @@ ala_counts <- function(taxa = NULL,
 #' @name deprecated
 ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
                         refresh_cache = FALSE) {
+  lifecycle::deprecate_warn("2.0.0", "ala_species()", "atlas_species()")
+  
   atlas_species(
     taxa = taxa,
     filter = filters,
@@ -95,6 +105,8 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
 #' @export
 #' @name deprecated
 ala_taxonomy <- function(taxa, down_to){
+  lifecycle::deprecate_warn("2.0.0", "ala_taxonomy()", "atlas_taxonomy()")
+  
   atlas_taxonomy(
     taxa = taxa,
     down_to = down_to
@@ -112,6 +124,8 @@ ala_media <- function(taxa = NULL,
                       columns = select_columns(group = "basic"),
                       download_dir,
                       refresh_cache = FALSE) {
+  lifecycle::deprecate_warn("2.0.0", "ala_media()", "atlas_media()")
+  
   atlas_media(
     taxa = taxa,
     filter = filters,
@@ -127,6 +141,8 @@ ala_media <- function(taxa = NULL,
 #' @export
 #' @name deprecated
 ala_citation <- function(data) {
+  lifecycle::deprecate_warn("2.0.0", "ala_citation()", "atlas_citation()")
+  
   atlas_citation(
     data = data
   )
