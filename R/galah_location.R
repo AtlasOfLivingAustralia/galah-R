@@ -39,7 +39,7 @@ galah_location <- function(query) {
     }
     out_query <- query
   }
-  class(out_query) <- append(class(out_query), "ala_locations")
+  class(out_query) <- append(class(out_query), "galah_location")
   out_query
 
 }
