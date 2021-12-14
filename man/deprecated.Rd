@@ -61,13 +61,13 @@ ala_citation(data)
 \description{
 `r lifecycle::badge("deprecated")`
 
-The following functions are deprecated as of `galah` version 2.0.0.
-
 Use [galah_select()] instead of `select_columns()`.
 
 Use [galah_filter()] instead of `select_filters()`.
 
 Use [galah_location()] instead of `select_locations()`.
+
+Use [atlas_occurrences()] instead of `ala_occurrences()`.
 
 Use [atlas_counts()] instead of `ala_counts()`.
 

@@ -49,7 +49,7 @@
 #' @export
 atlas_media <- function(taxa = NULL, 
                         filter = NULL, 
-                        location = NULL,
+                        geolocate = NULL,
                         select = galah_select(group = "basic"),
                         columns = NULL, 
                         download_dir,
@@ -70,14 +70,14 @@ atlas_media <- function(taxa = NULL,
          media from international atlases.") #TODO: Update errors to glue
   }
   
-  if (is.null(taxa) & is.null(filter) & is.null(location)) {
+  if (is.null(taxa) & is.null(filter) & is.null(geolocate)) {
     warning("No filter have been provided. All images and sounds will be downloaded.")
   }
   
   if (caching && !refresh_cache) {
     cache_file <- cache_filename(
       "media",
-      unlist(build_query(taxa, filter, location, select))
+      unlist(build_query(taxa, filter, geolocate, select))
     )
     if (file.exists(cache_file)) {
       return(read_cache_file(cache_file))
@@ -100,7 +100,7 @@ atlas_media <- function(taxa = NULL,
   class(occ_columns) <- append(class(occ_columns), "galah_select")
   if (verbose) { message("Downloading records with media...") }
   
-  occ <- atlas_occurrences(taxa, occ_filter, location, occ_columns)
+  occ <- atlas_occurrences(taxa, occ_filter, geolocate, occ_columns)
 
   # occurrence data.frame has one row per occurrence record and stores all media
   # ids in a single column; this code splits the media ids and creates one row
@@ -156,7 +156,7 @@ atlas_media <- function(taxa = NULL,
     message("\n",nrow(all_data), " files were downloaded to ", download_dir)
   }
   attr(all_data, "data_type") <- "media"
-  query <- data_request(taxa, filter, location, select)
+  query <- data_request(taxa, filter, geolocate, select)
   attr(all_data, "data_request") <- query
   
   if (caching) {

@@ -63,7 +63,7 @@ atlas_counts.data_request <- function(request, ...) {
 #' @rdname atlas_counts
 atlas_counts.default <- function(taxa = NULL, 
                                  filter = NULL, 
-                                 location = NULL,
+                                 geolocate = NULL,
                                  group_by = NULL, 
                                  limit = 100,
                                  type = c("record" ,"species"),
@@ -75,7 +75,7 @@ atlas_counts.default <- function(taxa = NULL,
   if(missing(group_by)) {
     query <- list()
     profile <- extract_profile(filter)
-    query <- build_query(taxa, filter, location, profile = profile)
+    query <- build_query(taxa, filter, geolocate, profile = profile)
     if (type == "species") {
       return(species_count(query))
     }
@@ -95,7 +95,7 @@ atlas_counts.default <- function(taxa = NULL,
     field_values_df <- atlas_counts_internal(
       taxa = taxa,
       filter = filter, 
-      location = location,
+      geolocate = geolocate,
       type = type,
       facets = group_by$name, 
       limit = NULL)
@@ -141,7 +141,7 @@ atlas_counts.default <- function(taxa = NULL,
         counts_query <- atlas_counts_internal(
           taxa = taxa,
           filter = filter_final,
-          location = location,
+          geolocate = geolocate,
           facets = n_fields_df$facets[which.max(n_fields_df$n_fields)],
           limit = limit,
           type = type)
@@ -155,7 +155,7 @@ atlas_counts.default <- function(taxa = NULL,
   # if `groups` is of nrow == 1 (expand = FALSE)
   }else{
     atlas_counts_internal(
-      taxa, filter, location, 
+      taxa, filter, geolocate, 
       facets = group_by$name, 
       limit, type, refresh_cache,
       verbose = verbose)
@@ -164,17 +164,19 @@ atlas_counts.default <- function(taxa = NULL,
 
 # workhorse function to do most of the actual processing
 ## NOTE: need to turn off caching for multiple runs
-atlas_counts_internal <- function(taxa = NULL, filter = NULL, location = NULL,
-                       facets, # NOTE: not `groups` as no multiply section here
-                       limit = NULL, type = "record",
-                       refresh_cache = FALSE,
-                       verbose = FALSE # NOTE: internally `verbose` is manual, not from galah_config
-                     ) {
+atlas_counts_internal <- function(taxa = NULL, 
+                                  filter = NULL, 
+                                  geolocate = NULL,
+                                  facets, # NOTE: not `groups` as no multiply section here
+                                  limit = NULL, type = "record",
+                                  refresh_cache = FALSE,
+                                  verbose = FALSE # NOTE: internally `verbose` is manual, not from galah_config
+                                  ) {
   
   page_size <- 100
   query <- list()
   profile <- extract_profile(filter)
-  query <- build_query(taxa, filter, location, profile = profile)
+  query <- build_query(taxa, filter, geolocate, profile = profile)
   
   # add facets in a way that supports single or multiple queries 
   facets_temp <- as.list(facets)
@@ -254,7 +256,7 @@ atlas_counts_internal <- function(taxa = NULL, filter = NULL, location = NULL,
   }  
   
   attr(counts_final, "data_type") <- "counts"
-  query <- data_request(taxa, filter, location, groups = facets)
+  query <- data_request(taxa, filter, geolocate, groups = facets)
   attr(counts_final, "data_request") <- query
   
   if (caching) {

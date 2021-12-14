@@ -31,13 +31,14 @@ select_filters <- function(..., profile = NULL) {
 #' @export
 #' @name deprecated
 select_locations <- function(query) {
-  lifecycle::deprecate_warn("2.0.0", "select_locations()", "galah_location()")
+  lifecycle::deprecate_warn("2.0.0", "select_locations()", "galah_geolocate()")
   
-  galah_location(query)
+  galah_geolocate(query)
 }
 
 
-#' Old version of atlas_occurrences
+#' @description 
+#' Use [atlas_occurrences()] instead of `ala_occurrences()`.
 #'
 #' @export
 #' @name deprecated
@@ -49,7 +50,7 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
   atlas_occurrences(
     taxa = taxa, 
     filter = filters, 
-    location = locations,
+    geolocate = locations,
     select = columns,
     mint_doi = mint_doi, 
     doi = doi, 
@@ -75,7 +76,7 @@ ala_counts <- function(taxa = NULL,
   atlas_counts.default(
     taxa = {if(missing(taxa)){NULL}else{taxa}}, 
     filter = {if(missing(filters)){NULL}else{filters}}, 
-    location = {if(missing(locations)){NULL}else{locations}},
+    geolocate = {if(missing(locations)){NULL}else{locations}},
     limit = limit,
     type = type,
     refresh_cache = refresh_cache)
@@ -94,7 +95,7 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
   atlas_species(
     taxa = taxa,
     filter = filters,
-    location = locations,
+    geolocate = locations,
     refresh_cache = refresh_cache
   )
 }
@@ -129,6 +130,7 @@ ala_media <- function(taxa = NULL,
   atlas_media(
     taxa = taxa,
     filter = filters,
+    geolocate = geolocate,
     select = columns,
     download_dir = download_dir,
     refresh_cache = FALSE
