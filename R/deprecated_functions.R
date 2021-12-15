@@ -3,6 +3,21 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #' 
+#' Use [search_taxa()] instead of `select_taxa()`.
+#' 
+#' @export
+#' @name deprecated
+select_taxa <- function(query, is_id = FALSE) {
+  lifecycle::deprecate_warn("2.0.0", "select_taxa()", "search_taxa()")
+  
+  search_taxa.default(
+    query = query,
+    is_id = {if(missing(is_id)){FALSE}else{is_id}})
+}
+
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' 
 #' Use [galah_select()] instead of `select_columns()`.
 #' 
 #' @export

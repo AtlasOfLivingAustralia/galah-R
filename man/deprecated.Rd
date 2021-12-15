@@ -2,6 +2,7 @@
 % Please edit documentation in R/deprecated_functions.R
 \name{deprecated}
 \alias{deprecated}
+\alias{select_taxa}
 \alias{select_columns}
 \alias{select_filters}
 \alias{select_locations}
@@ -13,6 +14,8 @@
 \alias{ala_citation}
 \title{Deprecated functions}
 \usage{
+select_taxa(query, is_id = FALSE)
+
 select_columns(..., group)
 
 select_filters(..., profile = NULL)
@@ -59,6 +62,10 @@ ala_media(
 ala_citation(data)
 }
 \description{
+`r lifecycle::badge("deprecated")`
+
+Use [search_taxa()] instead of `select_taxa()`.
+
 `r lifecycle::badge("deprecated")`
 
 Use [galah_select()] instead of `select_columns()`.
