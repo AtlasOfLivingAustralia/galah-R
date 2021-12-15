@@ -167,17 +167,30 @@ test_that("galah_filter can accept an equation built with `paste`", {
   
 test_that("galah_filter handles taxonomic queries", {
   # ensure a taxonomic query to galah_filter works
-  filters <- galah_filter(taxonConceptID == select_taxa("Animalia")$taxon_concept_id)
+  filters <- galah_filter(taxonConceptID == search_taxa("Animalia")$taxon_concept_id)
   expect_s3_class(filters, c("data.frame", "galah_filter"))
   expect_equal(nrow(filters), 1)
-  expect_false(grepl("select_taxa", filters$query))
+  expect_false(grepl("search_taxa", filters$query))
 })
 
 test_that("galah_filter handles taxonomic exclusions", {
   filters <- galah_filter(
-    taxonConceptID == select_taxa("Animalia")$taxon_concept_id,
-    taxonConceptID != select_taxa("Chordata")$taxon_concept_id)
+    taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
+    taxonConceptID != search_taxa("Chordata")$taxon_concept_id)
   expect_s3_class(filters, c("data.frame", "galah_filter"))
   expect_equal(nrow(filters), 2)
-  expect_false(any(grepl("select_taxa", filters$query)))
+  expect_false(any(grepl("search_taxa", filters$query)))
+})
+
+test_that("galah_filter fails when given invalid AND syntax", {
+  filters <- galah_filter(year >= 2020 & 2021)
+  expect_equal(nrow(filters), 1)
+  expect_false(any(filters$value == 2021))
+})
+
+test_that("galah_filter fails when given invalid OR syntax", {
+  galah_filter(year == 2020 | 2021)
+  expect_equal(nrow(filters), 1)
+  expect_false(any(filters$value == 2021))
+  expect_false(grepl("OR", filters$query))
 })

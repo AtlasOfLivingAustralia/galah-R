@@ -276,17 +276,23 @@ parse_or <- function(x){
   or_lookup <- grepl("\\|{1,2}", x)
   if(any(or_lookup)){
     c_list <- lapply(
-      strsplit(x[or_lookup], "\\|{1,2}"),
+      strsplit(unlist(x[or_lookup]), "\\|{1,2}"),
       function(a){
         split_formulae <- strsplit(a, "(=|>|<|!)+")
-        variable <- lapply(split_formulae, function(b){b[[1]]})[[1]]
-        values <- paste0("c(", paste(
-          trimws(unlist(
-            lapply(split_formulae, function(b){b[[2]]})
-          )), 
-          collapse = ", "), ")")
-        logical <- str_extract(a, "(=|>|<|!)+")[1]
-        return(paste(variable, logical, values))
+        are_formulae <- lengths(split_formulae) == 2
+        if(any(are_formulae)){
+          split_formulae <- split_formulae[are_formulae]
+          variable <- lapply(split_formulae, function(b){b[[1]]})[[1]]
+          values <- paste0("c(", paste(
+            trimws(unlist(
+              lapply(split_formulae, function(b){b[[2]]})
+            )), 
+            collapse = ", "), ")")
+          logical <- str_extract(a, "(=|>|<|!)+")[1]
+          return(paste(variable, logical, values))
+        }else{
+          NULL
+        }
     })
     x[or_lookup] <- unlist(c_list)
     x
