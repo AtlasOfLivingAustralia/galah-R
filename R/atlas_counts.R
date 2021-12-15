@@ -35,7 +35,7 @@
 #' atlas_counts()
 #'
 #' # Group counts by state and territory
-#' atlas_counts(group_by = "stateProvince")
+#' atlas_counts(group_by = galah_group_by(stateProvince))
 #'
 #' # Count records matching a filter
 #' atlas_counts(filter = galah_filter(basisOfRecord = "FossilSpecimen"))
