@@ -38,10 +38,10 @@
 #' atlas_counts(group_by = galah_group_by(stateProvince))
 #'
 #' # Count records matching a filter
-#' atlas_counts(filter = galah_filter(basisOfRecord = "FossilSpecimen"))
+#' atlas_counts(filter = galah_filter(basisOfRecord == "FossilSpecimen"))
 #' 
 #' # Count the number of species recorded for each kingdom
-#' atlas_counts(groups = "kingdom", type = "species")
+#' atlas_counts(group_by = galah_group_by(kingdom), type = "species")
 #' 
 #' # Crosstabulate using two different variables
 #' atlas_counts(
