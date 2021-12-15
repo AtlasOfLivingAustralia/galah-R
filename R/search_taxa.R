@@ -3,7 +3,7 @@
 #' In the ALA, all records are associated with an identifier that uniquely
 #' identifies the taxon to which that record belongs. However, taxonomic names
 #' are often ambiguous due to homonymy; i.e. re-use of names (common or
-#' scientific) in different clades. Hence, \code{select_taxa} provides a means
+#' scientific) in different clades. Hence, \code{search_taxa} provides a means
 #' to search for taxonomic names and check the results are 'correct' before
 #' proceeded to download data via \code{\link{ala_occurrences}()},
 #' \code{\link{ala_species}()} or \code{\link{ala_counts}()}. The resulting
@@ -27,42 +27,42 @@
 #' @examples
 #' \dontrun{
 #' # Search using a single term
-#' select_taxa("Reptilia")
+#' search_taxa("Reptilia")
 #' # or equivalently:
-#' select_taxa("reptilia") # not case sensitive
+#' search_taxa("reptilia") # not case sensitive
 #'
 #' # Search using an unique taxon identifier
-#' select_taxa(query = "https://id.biodiversity.org.au/node/apni/2914510")
+#' search_taxa(query = "https://id.biodiversity.org.au/node/apni/2914510")
 #'
 #' # Search multiple taxa
-#' select_taxa(c("reptilia", "mammalia")) # returns one row per taxon
+#' search_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 #' }
 #' @export
-select_taxa <- function(...) {
-  UseMethod("select_taxa")
+search_taxa <- function(...) {
+  UseMethod("search_taxa")
 }
 
 #' @export
-#' @rdname select_taxa
-select_taxa.data_request <- function(request, ...) {
-  request$taxa <- do.call(select_taxa, merge_args(request, list(...)))
+#' @rdname search_taxa
+search_taxa.data_request <- function(request, ...) {
+  request$taxa <- do.call(search_taxa, merge_args(request, list(...)))
   return(request)
 }
 
 #' @export
-#' @rdname select_taxa
-select_taxa.default <- function(query, is_id = FALSE) {
+#' @rdname search_taxa
+search_taxa.default <- function(query, is_id = FALSE) {
   assert_that(is.logical(is_id))
   if(missing(is_id)){is_id <- FALSE}
   verbose <- getOption("galah_config")$verbose
 
   if (getOption("galah_config")$atlas != "Australia") {
-    stop("`select_taxa` only provides information on Australian taxonomy. To search taxonomy for ",
+    stop("`search_taxa` only provides information on Australian taxonomy. To search taxonomy for ",
          getOption("galah_config")$atlas, " use `taxize`. See vignette('international_atlases') for more information")
   }
 
   if (missing(query)) {
-    stop("`select_taxa` requires a query to search for")
+    stop("`search_taxa` requires a query to search for")
   }
   
   if (is_id) {
