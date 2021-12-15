@@ -2,16 +2,16 @@
 #' 
 #' Return taxonomic ranks recognised by the ALA.
 #' 
-#' @export find_ranks
+#' @export show_all_ranks
 #' @return A \code{data.frame} of available ranks
 #' @seealso This function provides a
 #' reference that is useful when specifying the \code{down_to} argument of 
-#' \code{\link{ala_taxonomy}}.
+#' \code{\link{atlas_taxonomy}}.
 #' @examples \dontrun{
-#' rank_df <- find_ranks()
+#' rank_df <- show_all_ranks()
 #' }
 
-find_ranks <- function() {
+show_all_ranks <- function() {
   data.frame(
     id = seq_len(69),
     name = c("root", "superkingdom", "kingdom", "subkingdom",

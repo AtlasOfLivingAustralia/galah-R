@@ -3,26 +3,26 @@
 #' The ALA provides a number of pre-built data quality profiles for 
 #' filtering data according to quality checks. A data quality profile can
 #' be specified in the \code{profile} argument in \code{\link{galah_filter}()}
-#' and used to filter searches in \code{\link{ala_occurrences}()},
-#' \code{\link{ala_counts}()} and \code{\link{ala_species}()}.
+#' and used to filter searches in \code{\link{atlas_occurrences}()},
+#' \code{\link{atlas_counts}()} and \code{\link{atlas_species}()}.
 #'
-#' @export find_profiles
+#' @export show_all_profiles
 #' @return A \code{data.frame} of available profiles
-#' @seealso This function gives viable profle names for passing to
+#' @seealso This function gives viable profile names for passing to
 #' \code{\link{galah_filter}()}. For more detail on a given profile see
 #' \code{\link{find_profile_attributes}()}.
 #' @examples \dontrun{
 #' # Get available profiles
-#' profile_df <- find_profiles()
+#' profile_df <- show_all_profiles()
 #' # Values given in the 'shortName' column are accepted by select_filter(), i.e.
-#' galah_filter(profile = profile_df$shortName[1])
+#' galah_filter(profile == profile_df$shortName[1])
 #' # is equivalent to:
-#' galah_filter(profile = "ALA")
+#' galah_filter(profile == "ALA")
 #' }
 
 # this will return names and descriptions of data profiles
 # should id be exposed to the user?
-find_profiles <- function() {
+show_all_profiles <- function() {
   # return only enabled profiles?
   url <- server_config("data_quality_base_url")
   resp <- atlas_GET(url, "api/v1/profiles", list(enabled = "true"))
@@ -37,11 +37,11 @@ find_profiles <- function() {
 #' This function gives all of the arguments built into a specific profile.
 #'
 #' @param profile \code{string}: a data quality profile name, short name or id.
-#' See \code{\link{find_profiles}()} for valid filters
+#' See \code{\link{show_all_profiles}()} for valid filters
 #' @export find_profile_attributes
 #' @return A \code{data.frame} of profile attributes, consisting of a
 #' free text \code{description} and the actual \code{filter} used.
-#' @seealso \code{\link{find_profiles}()} for a list of valid profiles;
+#' @seealso \code{\link{show_all_profiles}()} for a list of valid profiles;
 #' \code{\link{galah_filter}()} for how to include this information in a data
 #' query.
 #' @examples
@@ -53,7 +53,7 @@ find_profile_attributes <- function(profile) {
   short_name <- profile_short_name(profile)
   if (is.na(short_name)) {
     stop(profile, " is not a valid data quality id, short name or name. Use
-          `find_profiles` to list valid profiles.")
+          `show_all_profiles` to list valid profiles.")
   }
   url <- server_config("data_quality_base_url")
   resp <- atlas_GET(url, "api/v1/quality/activeProfile",
@@ -63,7 +63,7 @@ find_profile_attributes <- function(profile) {
 }
 
 profile_short_name <- function(profile) {
-  valid_profiles <- find_profiles()
+  valid_profiles <- show_all_profiles()
   short_name <- NA
   if (suppressWarnings(!is.na(as.numeric(profile)))) {
     # assume a profile id has been provided

@@ -7,14 +7,14 @@
 #' ## configure caching and create a query to cache
 #' \dontrun{
 #' galah_config(caching = TRUE)
-#' dat <- ala_counts(group_by = "year")
+#' dat <- atlas_counts(group_by = galah_group_by("year"))
 #'
 #' ## list cached files
-#' find_cached_files()
+#' show_all_cached_files()
 #' }
 #' @export
 
-find_cached_files <- function() {
+show_all_cached_files <- function() {
   # return a data.frame of all cached files
   metadata_path <- file.path(getOption("galah_config")$cache_directory,
                              "metadata.rds")

@@ -6,7 +6,7 @@
 #' @return a \code{data.frame} of Living Atlas information, including taxonomy
 #' source and information for each atlas.
 #' @export
-find_atlases <- function() {
+show_all_atlases <- function() {
   gbif_info <- "https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
   ala_info <- "https://bie.ala.org.au/"
   nbn_info <- "https://www.nhm.ac.uk/our-science/data/uk-species.html"

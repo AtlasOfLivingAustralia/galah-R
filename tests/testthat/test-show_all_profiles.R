@@ -1,9 +1,9 @@
 context("Test ALA data profiles")
 
-test_that("find_profiles returns profiles", {
+test_that("show_all_profiles returns profiles", {
   # vcr can't handle dq service
   skip_on_cran()
-  profiles <- find_profiles()
+  profiles <- show_all_profiles()
   expect_s3_class(profiles, "data.frame")
   expect_equal(ncol(profiles), 4)
 })
