@@ -15,7 +15,7 @@ test_that("atlas_counts works with no arguments", {
 
 test_that("atlas_counts returns expected output", {
   vcr::use_cassette("taxa_count", {
-    counts <- atlas_counts(taxa = select_taxa("Mammalia"))
+    counts <- atlas_counts(taxa = search_taxa("Mammalia"))
   })
   expect_type(counts, "integer")
 })
@@ -24,7 +24,7 @@ test_that("atlas_counts returns expected output", {
 test_that("grouped atlas_counts returns expected output", {
   vcr::use_cassette("record_count_group_by", {
     counts <- atlas_counts(
-      taxa = select_taxa("Mammalia"),
+      taxa = search_taxa("Mammalia"),
       group_by = "basisOfRecord"
     )
   })
@@ -35,7 +35,8 @@ test_that("grouped atlas_counts returns expected output", {
 
 test_that("atlas_counts returns all counts if no limit is provided", {
   vcr::use_cassette("record_count_no_limit", {
-    counts <- atlas_counts(group_by = "month", limit = NULL)
+    counts <- atlas_counts(group_by = galah_group_by(month), 
+                           limit = NULL)
   })
   expect_s3_class(counts, "data.frame")
   expect_equal(nrow(counts), 12)
@@ -45,9 +46,9 @@ test_that("atlas_counts returns all counts if no limit is provided", {
 test_that("grouped atlas_counts for species returns expected output", {
   vcr::use_cassette("species_count_group_by", {
     counts <- atlas_counts(
-      taxa = select_taxa("Mammalia"),
+      taxa = search_taxa("Mammalia"),
       filter = galah_filter(year == 2020),
-      group_by = galah_group_by("month"),
+      group_by = galah_group_by(month),
       type = "species"
     )
   })
@@ -67,8 +68,9 @@ test_that("atlas_counts returns species counts", {
 
 test_that("atlas_counts handles empty count", {
   vcr::use_cassette("empty_count", {
-    filters <- galah_filter(kingdom = "non-existent")
-    counts <- atlas_counts(filters = filters, group_by = "basisOfRecord")
+    filters <- galah_filter(kingdom == "non-existent")
+    counts <- atlas_counts(filter = filters, 
+                           group_by = galah_group_by(basisOfRecord))
   })
   expect_s3_class(counts, "data.frame")
   expect_equal(nrow(counts), 0)
@@ -76,9 +78,10 @@ test_that("atlas_counts handles empty count", {
 })
 
 
-test_that("atlas_counts handles pagination", { # This currently fails
+test_that("atlas_counts handles pagination", {
   vcr::use_cassette("paginated_counts", {
-    counts <- atlas_counts(group_by = galah_group_by("year"), limit = 101)
+    counts <- atlas_counts(group_by = galah_group_by(year), 
+                           limit = 101)
   })
   expect_s3_class(counts, "data.frame")
   expect_equal(nrow(counts), 101)
@@ -88,14 +91,14 @@ test_that("atlas_counts handles pagination", { # This currently fails
 test_that("atlas_counts caches as expected", {
   skip_on_cran()
   galah_config(caching = TRUE, verbose = TRUE)
-  filters <- galah_filter(basisOfRecord = "FossilSpecimen")
+  filters <- galah_filter(basisOfRecord == "FossilSpecimen")
   counts <- atlas_counts(filter = filters,
-                         group_by = galah_group_by("year"), 
+                         group_by = galah_group_by(year), 
                          limit = 100)
   expect_message(
     counts2 <- atlas_counts(
       filter = filters, 
-      group_by = galah_group_by("year"),
+      group_by = galah_group_by(year),
       limit = 100
     ),
     "Using cached file"
@@ -106,8 +109,8 @@ test_that("atlas_counts caches as expected", {
 test_that("atlas_counts returns consistent data from cached/non-cached calls", {
   skip_on_cran()
   galah_config(caching = TRUE, verbose = TRUE)
-  counts1 <- atlas_counts(group = "year")
-  counts2 <- atlas_counts(group = "year")
+  counts1 <- atlas_counts(group_by = galah_group_by(year))
+  counts2 <- atlas_counts(group_by = galah_group_by(year))
   expect_equal(
     class(counts1$year),
     class(counts2$year)

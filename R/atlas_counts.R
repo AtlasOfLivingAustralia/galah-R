@@ -205,7 +205,9 @@ atlas_counts_internal <- function(taxa = NULL,
   if (sum(total_cats) > limit && sum(total_cats) > page_size) {
     resp <- atlas_GET(url, path, params = query, paginate = TRUE, limit = limit,
                     page_size = page_size, offset_param = "foffset")
-    counts <- data.table::rbindlist(fromJSON(resp)$fieldResult)
+    counts <- data.table::rbindlist(lapply(resp, function(a) {
+      data.frame(jsonlite::fromJSON(a)$fieldResult)
+      }))
   } else {
       query$flimit <- max(limit)
       resp <- atlas_GET(url, path, params = query)
