@@ -189,8 +189,13 @@ test_that("galah_filter fails when given invalid AND syntax", {
 })
 
 test_that("galah_filter fails when given invalid OR syntax", {
-  galah_filter(year == 2020 | 2021)
+  filters <- galah_filter(year == 2020 | 2021)
   expect_equal(nrow(filters), 1)
   expect_false(any(filters$value == 2021))
   expect_false(grepl("OR", filters$query))
+})
+
+test_that("galah_filter handles concatenated queries", { # this is not properly good yet
+  c_filters <- galah_filter(multimedia == c("Image", "Sound", "Video"))
+  expect_equal(nrow(filters), 3)
 })
