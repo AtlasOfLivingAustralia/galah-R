@@ -8,13 +8,13 @@
 #' @param taxa The identity of the clade for which a taxonomic
 #' hierarchy should be returned. Should be specified using an object of class 
 #' \code{data.frame} and \code{ala_id}, as returned from
-#' \code{\link{select_taxa}()}. 
+#' \code{\link{search_taxa}()}. 
 #' @param down_to \code{string}: A taxonomic rank to search down to. See
-#' \code{\link{find_ranks}()} for valid inputs.
+#' \code{\link{show_all_ranks}()} for valid inputs.
 #' @details The approach used by this function is recursive, meaning that it  
 #' becomes slow for large queries such as  
-#' \code{atlas_taxonomy(select_taxa("Plantae"), down_to = "species")}.
-#' Although the inputs to \code{select_taxa} and \code{down_to} are 
+#' \code{atlas_taxonomy(search_taxa("Plantae"), down_to = "species")}.
+#' Although the inputs to \code{search_taxa} and \code{down_to} are 
 #' case-insensitive, node names are always returned in title case.
 #' @return A tree consisting of objects of class \code{Node}, containing the 
 #' requested taxonomy. Each node contains the following attributes:
@@ -24,12 +24,12 @@
 #'   \item\code{guid}: A unique identifier used by the ALA
 #'   \item\code{authority}: The source of the taxonomic name & identifier
 #' }
-#' @seealso \code{\link{select_taxa}} to search for an individual taxon; 
-#' \code{\link{find_ranks}} for valid ranks used to specify the \code{down_to}
+#' @seealso \code{\link{search_taxa}} to search for an individual taxon; 
+#' \code{\link{show_all_ranks}} for valid ranks used to specify the \code{down_to}
 #' argument.
 #' @examples
 #' \dontrun{
-#' atlas_taxonomy(select_taxa("chordata"), down_to = "class")
+#' atlas_taxonomy(search_taxa("chordata"), down_to = "class")
 #' }
 #' @export
 
@@ -46,7 +46,7 @@ atlas_taxonomy <- function(taxa, down_to){
     stop("argument `taxa` is missing, with no default")}
   
   if(!inherits(taxa, "ala_id")){
-    stop("`atlas_taxonomy` requires an object of class `ala_id`; see `?select_taxa` for more information")}
+    stop("`atlas_taxonomy` requires an object of class `ala_id`; see `?search_taxa` for more information")}
   
   if(nrow(taxa) > 1){
     stop("`atlas_taxonomy` only accepts a single taxon at a time")
