@@ -13,6 +13,10 @@
 \alias{ala_media}
 \alias{ala_citation}
 \alias{find_reasons}
+\alias{find_cached_files}
+\alias{find_ranks}
+\alias{find_profiles}
+\alias{find_atlases}
 \alias{ala_config}
 \title{Deprecated functions}
 \usage{
@@ -65,6 +69,14 @@ ala_citation(data)
 
 find_reasons()
 
+find_cached_files()
+
+find_ranks()
+
+find_profiles()
+
+find_atlases()
+
 ala_config(..., profile_path = NULL)
 }
 \description{
@@ -93,6 +105,14 @@ Use [atlas_media()] instead of `ala_media()`.
 Use [atlas_citation()] instead of `ala_citation()`.
 
 Use [show_all_reasons()] instead of `find_reasons()`.
+
+Use [show_all_cached_files()] instead of `find_cached_files()`.
+
+Use [show_all_ranks()] instead of `find_ranks()`.
+
+Use [show_all_profiles()] instead of `find_profiles()`.
+
+Use [show_all_atlases()] instead of `find_atlases()`.
 
 Use [galah_config()] instead of `ala_config()`.
 }

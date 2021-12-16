@@ -8,7 +8,7 @@
 #' @export
 #' @name deprecated
 select_taxa <- function(query, is_id = FALSE) {
-  lifecycle::deprecate_warn("2.0.0", "select_taxa()", "search_taxa()")
+  lifecycle::deprecate_warn("1.4.0", "select_taxa()", "search_taxa()")
   
   search_taxa.default(
     query = query,
@@ -23,7 +23,7 @@ select_taxa <- function(query, is_id = FALSE) {
 #' @export
 #' @name deprecated
 select_columns <- function(..., group){
-  lifecycle::deprecate_warn("2.0.0", "select_columns()", "galah_select()")
+  lifecycle::deprecate_warn("1.4.0", "select_columns()", "galah_select()")
   
   galah_select(..., group = group)
 }
@@ -34,7 +34,7 @@ select_columns <- function(..., group){
 #' @export
 #' @name deprecated
 select_filters <- function(..., profile = NULL) {
-  lifecycle::deprecate_warn("2.0.0", "select_filters()", "galah_filter()")
+  lifecycle::deprecate_warn("1.4.0", "select_filters()", "galah_filter()")
   
   galah_filter(..., profile = profile)
 }
@@ -46,7 +46,7 @@ select_filters <- function(..., profile = NULL) {
 #' @export
 #' @name deprecated
 select_locations <- function(query) {
-  lifecycle::deprecate_warn("2.0.0", "select_locations()", "galah_geolocate()")
+  lifecycle::deprecate_warn("1.4.0", "select_locations()", "galah_geolocate()")
   
   galah_geolocate(query)
 }
@@ -60,7 +60,7 @@ select_locations <- function(query) {
 ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
                             columns = select_columns(group = "basic"),
                             mint_doi = FALSE, doi, refresh_cache = FALSE) {
-  lifecycle::deprecate_warn("2.0.0", "ala_occurrences()", "atlas_occurrences()")
+  lifecycle::deprecate_warn("1.4.0", "ala_occurrences()", "atlas_occurrences()")
   
   atlas_occurrences(
     taxa = taxa, 
@@ -86,7 +86,7 @@ ala_counts <- function(taxa = NULL,
                        refresh_cache = FALSE) {
   type <- match.arg(type)
   
-  lifecycle::deprecate_warn("2.0.0", "ala_counts()", "atlas_counts()")
+  lifecycle::deprecate_warn("1.4.0", "ala_counts()", "atlas_counts()")
   
   atlas_counts.default(
     taxa = {if(missing(taxa)){NULL}else{taxa}}, 
@@ -105,7 +105,7 @@ ala_counts <- function(taxa = NULL,
 #' @name deprecated
 ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
                         refresh_cache = FALSE) {
-  lifecycle::deprecate_warn("2.0.0", "ala_species()", "atlas_species()")
+  lifecycle::deprecate_warn("1.4.0", "ala_species()", "atlas_species()")
   
   atlas_species(
     taxa = taxa,
@@ -121,7 +121,7 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
 #' @export
 #' @name deprecated
 ala_taxonomy <- function(taxa, down_to){
-  lifecycle::deprecate_warn("2.0.0", "ala_taxonomy()", "atlas_taxonomy()")
+  lifecycle::deprecate_warn("1.4.0", "ala_taxonomy()", "atlas_taxonomy()")
   
   atlas_taxonomy(
     taxa = taxa,
@@ -140,7 +140,7 @@ ala_media <- function(taxa = NULL,
                       columns = select_columns(group = "basic"),
                       download_dir,
                       refresh_cache = FALSE) {
-  lifecycle::deprecate_warn("2.0.0", "ala_media()", "atlas_media()")
+  lifecycle::deprecate_warn("1.4.0", "ala_media()", "atlas_media()")
   
   atlas_media(
     taxa = taxa,
@@ -158,7 +158,7 @@ ala_media <- function(taxa = NULL,
 #' @export
 #' @name deprecated
 ala_citation <- function(data) {
-  lifecycle::deprecate_warn("2.0.0", "ala_citation()", "atlas_citation()")
+  lifecycle::deprecate_warn("1.4.0", "ala_citation()", "atlas_citation()")
   
   atlas_citation(
     data = data
@@ -171,12 +171,55 @@ ala_citation <- function(data) {
 #' @export
 #' @name deprecated
 find_reasons <- function() {
-  lifecycle::deprecate_warn("2.0.0", "find_reasons()", "show_all_reasons()")
+  lifecycle::deprecate_warn("1.4.0", "find_reasons()", "show_all_reasons()")
   
   return(show_all_reasons())
 }
 
+#' @description 
+#' Use [show_all_cached_files()] instead of `find_cached_files()`.
+#' 
+#' @export
+#' @name deprecated
+find_cached_files <- function() {
+  lifecycle::deprecate_warn("1.4.0", "find_cached_files()", 
+                            "show_all_cached_files()")
+  
+  show_all_cached_files()
+}
 
+#' @description 
+#' Use [show_all_ranks()] instead of `find_ranks()`.
+#' 
+#' @export
+#' @name deprecated
+find_ranks <- function() {
+  lifecycle::deprecate_warn("1.4.0", "find_ranks()", "show_all_ranks()")
+  
+  show_all_ranks()
+}
+
+#' @description 
+#' Use [show_all_profiles()] instead of `find_profiles()`.
+#' 
+#' @export
+#' @name deprecated
+find_profiles <- function() {
+  lifecycle::deprecate_warn("1.4.0", "find_profiles()", "show_all_profiles()")
+  
+  show_all_profiles()
+}
+
+#' @description 
+#' Use [show_all_atlases()] instead of `find_atlases()`.
+#' 
+#' @export
+#' @name deprecated
+find_atlases <- function() {
+  lifecycle::deprecate_warn("1.4.0", "find_atlases()", "show_all_atlases()")
+  
+  show_all_atlases()
+}
 
 #' @description 
 #' Use [galah_config()] instead of `ala_config()`.
