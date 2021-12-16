@@ -86,7 +86,7 @@ atlas_media <- function(taxa = NULL,
   
   # Check whether any filters are media-specific filters and
   # filter to records with image/sound/video
-  filter_available <- filter$variable %in% search_select(type = "media")$id
+  filter_available <- filter$variable %in% show_all_fields(type = "media")$id
   media_filter <- filter[filter_available, ]
   occ_filter <- rbind(
     filter[!(filter_available), ],

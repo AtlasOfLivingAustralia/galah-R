@@ -71,10 +71,9 @@ number of records to show a progress bar by setting \code{verbose = TRUE} in
 \examples{
 \dontrun{
 # Search for occurrences matching a taxon identifier
-occ <- atlas_occurrences(taxa = select_taxa("Reptilia"))
+occ <- atlas_occurrences(taxa = search_taxa("Reptilia"))
 
 # Search for occurrences in a year range
-occ <- atlas_occurrences(filter = galah_filter(year = seq(2010, 2020)))
 
 # Search for occurrences in a WKT-specified area
 polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 \

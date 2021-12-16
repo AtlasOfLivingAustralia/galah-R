@@ -18,6 +18,6 @@ validate_fields <- function(named_field){
 
 load_fields <- function(){
   if(length(galah_config()$valid_fields) < 1){
-    galah_config(valid_fields = unique(c(search_fields()$id, all_fields()$name)))
+    galah_config(valid_fields = show_all_fields()$id)
   }
 }
