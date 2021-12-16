@@ -12,6 +12,8 @@
 \alias{ala_taxonomy}
 \alias{ala_media}
 \alias{ala_citation}
+\alias{find_reasons}
+\alias{ala_config}
 \title{Deprecated functions}
 \usage{
 select_taxa(query, is_id = FALSE)
@@ -60,6 +62,10 @@ ala_media(
 )
 
 ala_citation(data)
+
+find_reasons()
+
+ala_config(..., profile_path = NULL)
 }
 \description{
 `r lifecycle::badge("deprecated")`
@@ -85,4 +91,8 @@ Use [atlas_taxonomy()] instead of `ala_taxonomy()`.
 Use [atlas_media()] instead of `ala_media()`.
 
 Use [atlas_citation()] instead of `ala_citation()`.
+
+Use [show_all_reasons()] instead of `find_reasons()`.
+
+Use [galah_config()] instead of `ala_config()`.
 }

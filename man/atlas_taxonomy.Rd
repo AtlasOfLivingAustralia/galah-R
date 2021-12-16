@@ -10,10 +10,10 @@ atlas_taxonomy(taxa, down_to)
 \item{taxa}{The identity of the clade for which a taxonomic
 hierarchy should be returned. Should be specified using an object of class 
 \code{data.frame} and \code{ala_id}, as returned from
-\code{\link{select_taxa}()}.}
+\code{\link{search_taxa}()}.}
 
 \item{down_to}{\code{string}: A taxonomic rank to search down to. See
-\code{\link{find_ranks}()} for valid inputs.}
+\code{\link{show_all_ranks}()} for valid inputs.}
 }
 \value{
 A tree consisting of objects of class \code{Node}, containing the 
@@ -34,17 +34,17 @@ clades are contained within the specified taxon.
 \details{
 The approach used by this function is recursive, meaning that it  
 becomes slow for large queries such as  
-\code{atlas_taxonomy(select_taxa("Plantae"), down_to = "species")}.
-Although the inputs to \code{select_taxa} and \code{down_to} are 
+\code{atlas_taxonomy(search_taxa("Plantae"), down_to = "species")}.
+Although the inputs to \code{search_taxa} and \code{down_to} are 
 case-insensitive, node names are always returned in title case.
 }
 \examples{
 \dontrun{
-atlas_taxonomy(select_taxa("chordata"), down_to = "class")
+atlas_taxonomy(search_taxa("chordata"), down_to = "class")
 }
 }
 \seealso{
-\code{\link{select_taxa}} to search for an individual taxon; 
-\code{\link{find_ranks}} for valid ranks used to specify the \code{down_to}
+\code{\link{search_taxa}} to search for an individual taxon; 
+\code{\link{show_all_ranks}} for valid ranks used to specify the \code{down_to}
 argument.
 }

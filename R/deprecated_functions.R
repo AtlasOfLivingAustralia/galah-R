@@ -164,3 +164,27 @@ ala_citation <- function(data) {
     data = data
   )
 }
+
+#' @description 
+#' Use [show_all_reasons()] instead of `find_reasons()`.
+#' 
+#' @export
+#' @name deprecated
+find_reasons <- function() {
+  lifecycle::deprecate_warn("2.0.0", "find_reasons()", "show_all_reasons()")
+  
+  return(show_all_reasons())
+}
+
+
+
+#' @description 
+#' Use [galah_config()] instead of `ala_config()`.
+#' 
+#' @export
+#' @name deprecated
+ala_config <- function(..., profile_path = NULL) {
+  lifecycle::deprecate_warn("1.3.0", "ala_config()", "galah_config()")
+
+  galah_config(..., profile_path = profile_path)
+}
