@@ -25,25 +25,25 @@
 #' \dontrun{
 #' # Download Regent Honeyeater multimedia
 #' media_data <- atlas_media(
-#'     taxa = select_taxa("Regent Honeyeater"),
-#'     filter = galah_filter(year = 2011),
+#'     taxa = search_taxa("Regent Honeyeater"),
+#'     filter = galah_filter(year == 2011),
 #'     download_dir = "media")
 #' 
 #' # Specify a single media type to download
 #' media_data <- atlas_media(
-#'      taxa = select_taxa("Eolophus Roseicapilla"),
-#'      filter = galah_filter(multimedia = "Sound"))
+#'      taxa = search_taxa("Eolophus Roseicapilla"),
+#'      filter = galah_filter(multimedia == "Sound"))
 #' 
 #' # Filter to only records with a particular licence type
 #' media_data <- atlas_media(
-#'       taxa = select_taxa("Ornithorhynchus anatinus"),
-#'       filter = galah_filter(year = 2020,
+#'       taxa = search_taxa("Ornithorhynchus anatinus"),
+#'       filter = galah_filter(year == 2020,
 #'       license = "http://creativecommons.org/licenses/by-nc/4.0/")
 #' )
 #' # Check how many records have media files
 #' atlas_counts(
-#'      filter = galah_filter(multimedia = c("Image","Sound","Video")),
-#'      group_by = "multimedia"
+#'      filter = galah_filter(multimedia == c("Image","Sound","Video")),
+#'      group_by = galah_group_by(multimedia)
 #' )
 #' }
 #' @export
