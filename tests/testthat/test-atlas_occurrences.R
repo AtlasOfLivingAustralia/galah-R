@@ -9,7 +9,7 @@ vcr::use_cassette("atlas_occurrences_no_filters", {
 test_that("atlas_occurrences gives a nice error for invalid emails", {
   skip_on_cran()
   galah_config(email = "test@test.org.au")
-  expect_error(atlas_occurrences(taxa = select_taxa("Thylacinus cynocephalus")))
+  expect_error(atlas_occurrences(taxa = search_taxa("Thylacinus cynocephalus")))
   galah_config(email = "test@test.org.au")
 })
 
@@ -21,21 +21,21 @@ test_that("atlas_occurrences fails nicely if no email is provided", {
   
 
   # test all filters and type of columns in one call
-test_that("atlas_occurrences returns requested columns", {
+test_that("atlas_occurrences returns requested columns", { # FIXME
   skip_on_cran()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
                      "dataResourceName", "stateProvince", "ZERO_COORDINATE")
   filters <- galah_filter(year == seq(2018, 2020))
-  cols <- galah_select(group = "basic", "stateProvince", "ZERO_COORDINATE")
-  taxa <- select_taxa("Polytelis swainsonii")
+  cols <- galah_select(group = "basic", stateProvince, ZERO_COORDINATE)
+  taxa <- search_taxa("Polytelis swainsonii")
   poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
-  locations <- galah_location(poly)
+  locations <- galah_geolocate(poly)
   occ <- atlas_occurrences(
     taxa = taxa,
     filter = filters,
     select = cols,
-    location = locations)
+    geolocate = locations)
   expect_setequal(names(occ), expected_cols)
   expect_equal(unique(occ$stateProvince), "New South Wales")
 })
@@ -44,14 +44,14 @@ test_that("atlas_occurrences caches data as expected", {
   skip_on_cran()
   galah_config(caching = TRUE, verbose = TRUE)
   taxa <- select_taxa("Wurmbea dioica")
-  filters <- galah_filter(year == 2000)
+  filter <- galah_filter(year == 2000)
   columns <- galah_select(group = "basic", basisOfRecord)
 
   # Download data
-  occ <- atlas_occurrences(taxa = taxa, filter = filters, select = columns)
+  occ <- atlas_occurrences(taxa = taxa, filter = filter, select = columns)
   # Re-download data
   expect_message(
-    atlas_occurrences(taxa = taxa, filter = filters, select = columns), 
+    atlas_occurrences(taxa = taxa, filter = filter, select = columns), 
     "Using cached file")
   galah_config(caching = FALSE)
 })
