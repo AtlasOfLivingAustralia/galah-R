@@ -2,8 +2,7 @@ context("Taxa search")
 
 test_that("search_taxa checks inputs", {
   expect_error(search_taxa())
-  expect_warning( #FIXME: There are no warnings, just an error. Did this change since adding ala_taxonomy()?
-    expect_error(search_taxa("Varanus varius", children = "false")))
+  expect_error(search_taxa("Varanus varius", children = "false"))
 })
 
 test_that("search_taxa check atlas", {
@@ -52,19 +51,6 @@ vcr::use_cassette("search_taxa_invalid", {
     expect_message(search_taxa("1234", is_id = TRUE))
   })
 })
-
-vcr::use_cassette("search_taxa_extended", { # FIXME: search_taxa() fails - search_taxa no longer accepts these arguments
-  test_that("search_taxa uses additional arguments", {
-    expect_warning(
-      taxa <- search_taxa("Anas", all_ranks = TRUE, children = TRUE,
-                          counts = TRUE)
-      )
-    expect_true("subfamily" %in% names(taxa))
-    expect_gt(nrow(taxa), 1)
-    expect_true("count" %in% names(taxa))
-  })
-})
-
 
 test_that("child_concepts behaves correctly", {
   vcr::use_cassette("child_concepts", {

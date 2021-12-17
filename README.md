@@ -22,9 +22,9 @@ eDNA records, etc.), taxonomic information, or associated media such as
 images or sounds, and to restrict their queries to particular taxa or
 locations. Users can specify which columns are returned by a query, or
 restrict their results to occurrences that meet particular data-quality
-criteria. All functions return a `data.frame` as their standard format, except
-`ala_taxonomy` which returns tree consisting of `Node` objects using the 
-`data.tree` package.
+criteria. All functions return a `data.frame` as their standard format,
+except `atlas_taxonomy` which returns tree consisting of `Node` objects
+using the `data.tree` package.
 
 The ALA is an aggregator of biodiversity data, focussed primarily on
 observations of individual life forms. Like the Global Biodiversity
@@ -66,7 +66,7 @@ remotes::install_github("AtlasOfLivingAustralia/galah")
 ```
 
 On Linux you will first need to ensure that `libcurl` and `v8` (version
-&lt;= 3.15) are installed on your system — e.g. on Ubuntu/Debian, open a
+\<= 3.15) are installed on your system — e.g. on Ubuntu/Debian, open a
 terminal and do:
 
 ``` sh
@@ -89,11 +89,12 @@ citation(package = "galah")
 If you’re using occurrence data downloaded through `galah` in a
 publication, please generate a DOI and cite it. To request a DOI for a
 download of ocurrence record, set `mint_doi = TRUE` in a call to
-`ala_occurrences()`. To generate a citation for the downloaded
-occurrence records, pass the `data.frame` generated to `ala_citation()`.
+`atlas_occurrences()`. To generate a citation for the downloaded
+occurrence records, pass the `data.frame` generated to
+`atlas_citation()`.
 
 ``` r
-occ <- ala_occurrences(..., mint_doi = TRUE)
+occ <- atlas_occurrences(..., mint_doi = TRUE)
 doi <- attr(occ, "doi")
 cit <- ala_citation(occ)
 ```

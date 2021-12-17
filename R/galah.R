@@ -20,17 +20,6 @@
 #' @references For more information on the ALA API, visit <https://api.ala.org.au/>.
 #' If you have any questions, comments or suggestions, please email
 #' [support@ala.org.au](mailto:support@ala.org.au).
-#' @import assertthat sp sf httr
-#' @importFrom crul HttpClient Paginator Async url_build url_parse
-#' @importFrom data.tree Do Set Prune Aggregate FromListExplicit ToDataFrameTypeCol ToDataFrameTree
-#' @importFrom digest digest
-#' @importFrom jsonlite fromJSON
-#' @importFrom stringr regex str_c str_detect str_extract str_locate
-#' str_match str_match_all str_to_title
-#' @importFrom stringr str_replace str_replace_all str_split str_trim str_match
-#' @importFrom utils data packageVersion read.csv write.csv read.table str
-#' unzip URLencode download.file setTxtProgressBar txtProgressBar tail
-#' @importFrom wellknown lint
 #'
 #' @section Functions:
 #' **`Data`**

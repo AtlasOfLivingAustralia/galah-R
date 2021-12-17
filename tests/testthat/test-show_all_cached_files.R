@@ -12,9 +12,9 @@ test_that("show_all_cached_files reads metadata", {
   # create some metadata
   dir.create('tmp')
   galah_config(caching = TRUE, cache_directory = 'tmp/')
-  atlas_counts(group_by = galah_group_by("year"))
+  atlas_counts(group_by = galah_group_by(year))
   expect_type(show_all_cached_files(), "list")
-  expect_s3_class(find_cached_files()[[1]]$data_request, "data_request")
+  expect_s3_class(show_all_cached_files()[[1]]$data_request, "data_request")
   unlink('tmp', recursive = TRUE)
   galah_config(caching = FALSE)
 })

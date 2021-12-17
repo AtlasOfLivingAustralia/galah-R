@@ -27,7 +27,7 @@ test_that("galah_filter gives an error for single equals sign", {
   test_that("galah_filter handles assertion filters", {
     filters <- galah_filter(ZERO_COORDINATE == FALSE)
     expect_s3_class(filters, "data.frame")
-    expect_true(grepl("assertions", filters$query))    
+    expect_true(grepl("assertions", filters$query))   # FIXME 
   })
 # })
 
@@ -195,7 +195,7 @@ test_that("galah_filter fails when given invalid OR syntax", {
   expect_false(grepl("OR", filters$query))
 })
 
-test_that("galah_filter handles concatenated queries", { # this is not properly good yet
+test_that("galah_filter handles concatenated queries", { # FIXME: this is not a correct test yet
   c_filters <- galah_filter(multimedia == c("Image", "Sound", "Video"))
   expect_equal(nrow(filters), 3)
 })

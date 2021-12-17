@@ -25,7 +25,7 @@ test_that("grouped atlas_counts returns expected output", {
   vcr::use_cassette("record_count_group_by", {
     counts <- atlas_counts(
       taxa = search_taxa("Mammalia"),
-      group_by = "basisOfRecord"
+      group_by = galah_group_by(basisOfRecord)
     )
   })
   expect_s3_class(counts, "data.frame")

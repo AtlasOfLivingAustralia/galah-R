@@ -29,7 +29,7 @@ images or sounds, and to restrict their queries to particular taxa or
 locations. Users can specify which columns are returned by a query, or restrict
 their results to occurrences that meet particular data-quality criteria. All 
 functions return a `data.frame` as their standard format, except
-`ala_taxonomy` which returns tree consisting of `Node` objects using the 
+`atlas_taxonomy` which returns tree consisting of `Node` objects using the 
 `data.tree` package.
 
 The ALA is an aggregator of biodiversity data, focussed primarily on
@@ -79,12 +79,12 @@ To generate a citation for the package version you are using, you can run
 citation(package = "galah")
 ```
 If you're using occurrence data downloaded through `galah` in a publication, please generate a DOI and cite it. 
-To request a DOI for a download of ocurrence record, set `mint_doi = TRUE` in a call to `ala_occurrences()`.
+To request a DOI for a download of ocurrence record, set `mint_doi = TRUE` in a call to `atlas_occurrences()`.
 To generate a citation for the downloaded occurrence records, pass the `data.frame`
-generated to `ala_citation()`.
+generated to `atlas_citation()`.
 
 ```{r eval = FALSE}
-occ <- ala_occurrences(..., mint_doi = TRUE)
+occ <- atlas_occurrences(..., mint_doi = TRUE)
 doi <- attr(occ, "doi")
 cit <- ala_citation(occ)
 ```

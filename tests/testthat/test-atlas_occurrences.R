@@ -21,7 +21,7 @@ test_that("atlas_occurrences fails nicely if no email is provided", {
   
 
   # test all filters and type of columns in one call
-test_that("atlas_occurrences returns requested columns", { # FIXME
+test_that("atlas_occurrences returns requested columns", { 
   skip_on_cran()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",

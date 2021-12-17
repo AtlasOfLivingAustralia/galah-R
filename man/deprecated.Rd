@@ -114,3 +114,4 @@ Use \code{\link[=show_all_atlases]{show_all_atlases()}} instead of \code{find_at
 
 Use \code{\link[=galah_config]{galah_config()}} instead of \code{ala_config()}.
 }
+\keyword{internal}

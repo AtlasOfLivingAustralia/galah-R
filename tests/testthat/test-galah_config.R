@@ -1,9 +1,5 @@
 context("Test galah_config")
 
-test_that("Use of ala_config gives deprecation warning", {
-  expect_warning(ala_config())
-})
-
 test_that("galah_config sets default options", {
   skip_on_cran()
   # set to null

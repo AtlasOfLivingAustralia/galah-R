@@ -5,6 +5,7 @@
 #' 
 #' Use [search_taxa()] instead of `select_taxa()`.
 #' 
+#' @keywords internal
 #' @export
 #' @name deprecated
 select_taxa <- function(query, is_id = FALSE) {
@@ -18,6 +19,7 @@ select_taxa <- function(query, is_id = FALSE) {
 #' @description
 #' Use [galah_select()] instead of `select_columns()`.
 #' 
+#' @keywords internal
 #' @export
 #' @name deprecated
 select_columns <- function(..., group){
@@ -29,6 +31,7 @@ select_columns <- function(..., group){
 #' @description
 #' Use [galah_filter()] instead of `select_filters()`.
 #'
+#' @keywords internal
 #' @export
 #' @name deprecated
 select_filters <- function(..., profile = NULL) {
@@ -41,6 +44,7 @@ select_filters <- function(..., profile = NULL) {
 #' @description 
 #' Use [galah_location()] instead of `select_locations()`.
 #'
+#' @keywords internal
 #' @export
 #' @name deprecated
 select_locations <- function(query) {
@@ -53,6 +57,7 @@ select_locations <- function(query) {
 #' @description 
 #' Use [atlas_occurrences()] instead of `ala_occurrences()`.
 #'
+#' @keywords internal
 #' @export
 #' @name deprecated
 ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
@@ -74,6 +79,7 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
 #' @description
 #' Use [atlas_counts()] instead of `ala_counts()`.
 #'
+#' @keywords internal
 #' @export
 #' @name deprecated
 ala_counts <- function(taxa = NULL, 
@@ -99,6 +105,7 @@ ala_counts <- function(taxa = NULL,
 #' @description 
 #' Use [atlas_species()] instead of `ala_species()`.
 #' 
+#' @keywords internal
 #' @export
 #' @name deprecated
 ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
@@ -116,6 +123,7 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
 #' @description
 #' Use [atlas_taxonomy()] instead of `ala_taxonomy()`.
 #' 
+#' @keywords internal
 #' @export
 #' @name deprecated
 ala_taxonomy <- function(taxa, down_to){
@@ -130,6 +138,7 @@ ala_taxonomy <- function(taxa, down_to){
 #' @description
 #' Use [atlas_media()] instead of `ala_media()`.
 #' 
+#' @keywords internal
 #' @export
 #' @name deprecated
 ala_media <- function(taxa = NULL, 
@@ -153,6 +162,7 @@ ala_media <- function(taxa = NULL,
 #' @description 
 #' Use [atlas_citation()] instead of `ala_citation()`.
 #' 
+#' @keywords internal
 #' @export
 #' @name deprecated
 ala_citation <- function(data) {
@@ -166,6 +176,7 @@ ala_citation <- function(data) {
 #' @description 
 #' Use [show_all_reasons()] instead of `find_reasons()`.
 #' 
+#' @keywords internal
 #' @export
 #' @name deprecated
 find_reasons <- function() {
@@ -177,6 +188,7 @@ find_reasons <- function() {
 #' @description 
 #' Use [show_all_cached_files()] instead of `find_cached_files()`.
 #' 
+#' @keywords internal
 #' @export
 #' @name deprecated
 find_cached_files <- function() {
@@ -189,6 +201,7 @@ find_cached_files <- function() {
 #' @description 
 #' Use [show_all_ranks()] instead of `find_ranks()`.
 #' 
+#' @keywords internal
 #' @export
 #' @name deprecated
 find_ranks <- function() {
@@ -200,6 +213,7 @@ find_ranks <- function() {
 #' @description 
 #' Use [show_all_profiles()] instead of `find_profiles()`.
 #' 
+#' @keywords internal
 #' @export
 #' @name deprecated
 find_profiles <- function() {
@@ -211,6 +225,7 @@ find_profiles <- function() {
 #' @description 
 #' Use [show_all_atlases()] instead of `find_atlases()`.
 #' 
+#' @keywords internal
 #' @export
 #' @name deprecated
 find_atlases <- function() {
@@ -221,7 +236,8 @@ find_atlases <- function() {
 
 #' @description 
 #' Use [galah_config()] instead of `ala_config()`.
-#' 
+#'
+#' @keywords internal 
 #' @export
 #' @name deprecated
 ala_config <- function(..., profile_path = NULL) {
