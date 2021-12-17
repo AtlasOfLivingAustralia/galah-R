@@ -12,18 +12,24 @@
 search_fields <- function(
   query,
   type = c("all", "fields", "layers", "assertions", "media", "other")
-){
+  ) {
 
   if (missing(query) || is.null(query)) {
     as.data.frame(
       matrix(nrow = 0, ncol = 4, 
         dimnames = list(NULL, c("id", "description", "type", "link")))
     )
-  }else{
+    bullets <- c(
+      "We didn't detect a field to search for.",
+      i = "Try entering text to search for matching fields.",
+      i = "To see all valid fields, use `show_all_fields()`."
+    )
+    rlang::warn(message = bullets, error = rlang::caller_env())
+  } else {
     type <- match.arg(type)
     df <- show_all_fields(type = type)
     
-    # merge info together into searchable strings
+    # merge information together into searchable strings
     df_string <- tolower(
       apply(df[, 1:2], 1, function(a){paste(a, collapse = " ")}))
       

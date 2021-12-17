@@ -1,10 +1,9 @@
 context("Test search_fields")
 
 
-test_that("search_fields returns nothing with blank argument", {
+test_that("search_fields helpful warning with blank argument", {
   skip_on_cran()
-  fields <- search_fields()
-  expect_equal(nrow(fields), 0)
+  expect_warning(search_fields(), "didn't detect a field")
 })
 
 
