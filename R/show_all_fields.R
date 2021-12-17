@@ -1,33 +1,33 @@
 #' Query layers, fields or assertions by free text search
 #'
 #' This function can be used to find relevant fields and/or layers
-#' for use in building a set of filters with \code{\link{galah_filter}()} or
-#' specifying required columns with \code{\link{galah_select}()}.
-#' This function returns a \code{data.frame} of all fields matching the type
+#' for use in building a set of filters with [galah_filter()] or
+#' specifying required columns with [galah_select()].
+#' This function returns a `data.frame` of all fields matching the type
 #' specified.
 #' Field names are in Darwin Core format, except in the case where the field is
 #' specific to the ALA database, in which case the ALA field name is returned.
 #'
-#' @references \itemize{
-#' \item Darwin Core terms \url{https://dwc.tdwg.org/terms/}
-#' \item ALA fields \url{https://api.ala.org.au/#ws72}
-#' \item ALA assertions fields \url{https://api.ala.org.au/#ws81}
-#' }
-#' @param type \code{string}: What type of parameters should be searched?
-#' Should be one or more of \code{fields}, \code{layers}, \code{assertions},
-#' \code{media} or \code{all}.
-#' @return A \code{data.frame} with three columns:
-#' \itemize{
-#'  \item{id: The identifier for that layer or field. This is the value that should
-#'  be used when referring to a field in another function.}
-#'  \item{description: Detailed information on a given field}
-#'  \item{type: Whether the field is a \code{field} or \code{layer}}
-#'  \item{link: For layers, a link to the source data (if available)}
-#' }
+#' @references 
+#' *  Darwin Core terms <https://dwc.tdwg.org/terms/>
+#' *  ALA fields <https://api.ala.org.au/#ws72>
+#' *  ALA assertions fields <https://api.ala.org.au/#ws81>
+#' 
+#' @param type `string`: What type of parameters should be searched?
+#' Should be one or more of `fields`, `layers`, `assertions`,
+#' `media` or `all`.
+#' @return A `data.frame` with three columns:
+#' 
+#'  * id: The identifier for that layer or field. This is the value that should
+#'  be used when referring to a field in another function.
+#'  * description: Detailed information on a given field
+#'  * type: Whether the field is a `field` or `layer`
+#'  * link: For layers, a link to the source data (if available)
+#' 
 #' @seealso This function is used to pass valid arguments to
-#' \code{\link{select_columns}()} and \code{\link{galah_filter}()}.
+#' [galah_select()] and [galah_filter()].
 #' To view valid values for a layer with categorical values, use
-#' \code{\link{find_field_values}()}.
+#' [find_field_values()].
 #' @export show_all_fields
 #'
 #' @details
@@ -36,7 +36,7 @@
 #' (gridded) layers and 'cl' for contextual (polygon) layers,  followed by an
 #' id number.
 #' @examples
-#' \dontrun{
+#' 
 #' # Return a data.frame containing all data on fields and layers
 #' all_fields <- show_all_fields()
 #' 
@@ -45,7 +45,7 @@
 #'
 #' # Find all WorldClim layers
 #' worldclim <- search_fields("worldclim", type = "layers")
-#' }
+#' 
 
 show_all_fields <- function(
   type = c("all", "fields", "layers", "assertions", "media", "other")

@@ -10,7 +10,7 @@ galah_geolocate(query)
 \item{query}{wkt string or sf object}
 }
 \value{
-length-1 object of class \code{character} and \code{ala_locations},
+length-1 object of class \code{character} and \code{atlas_locations},
 containing a WKT string representing the area provided.
 }
 \description{
@@ -23,19 +23,18 @@ accepted by the ALA- so the sf object or WKT string may need to be
 simplified.
 }
 \examples{
-\dontrun{
 # Search for records using a shapefile
 location <- galah_geolocate(st_read(path/to/shapefile))
-atlas_occurrences(locations = locations)
+atlas_occurrences(location = location)
 
 # Search for records using a WKT
 wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
 atlas_occurrences(geolocate = galah_geolocate(wkt))
-}
+
 }
 \seealso{
-\code{\link{select_taxa}}, \code{\link{galah_filter}} and
-\code{\link{select_columns}} for other ways to restrict the information
-returned by \code{\link{ala_occurrences}} and related functions.
+\code{\link[=search_taxa]{search_taxa()}}, \code{\link[=galah_filter]{galah_filter()}} and
+\code{\link[=galah_select]{galah_select()}} for other ways to restrict the information
+returned by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions.
 }

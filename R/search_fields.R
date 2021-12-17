@@ -1,11 +1,11 @@
 #' Query layers, fields or assertions by free text search
 #'
-#' @param query \code{string}: A search string. Not case sensitive.
-#' @param type \code{string}: What type of parameters should be searched?
-#' Should be one or more of \code{fields}, \code{layers}, \code{assertions},
-#' \code{media} or \code{all}.
-#' @return if \code{query} is missing, an empty \code{data.frame}; otherwise 
-#' a \code{data.frame} containing fields that match the search query.
+#' @param query `string`: A search string. Not case sensitive.
+#' @param type `string`: What type of parameters should be searched?
+#' Should be one or more of `fields`, `layers`, `assertions`,
+#' `media` or `all`.
+#' @return if `query` is missing, an empty `data.frame`; otherwise 
+#' a `data.frame` containing fields that match the search query.
 #' @rdname show_all_fields
 #' @export search_fields
 

@@ -7,21 +7,21 @@
 #' @details WKT strings longer than 10000 characters will not be
 #' accepted by the ALA- so the sf object or WKT string may need to be
 #' simplified.
-#' @return length-1 object of class \code{character} and \code{ala_locations},
+#' @return length-1 object of class `character` and `atlas_locations`,
 #' containing a WKT string representing the area provided.
-#' @seealso \code{\link{select_taxa}}, \code{\link{galah_filter}} and
-#' \code{\link{select_columns}} for other ways to restrict the information
-#' returned by \code{\link{ala_occurrences}} and related functions.
-#' @examples \dontrun{
+#' @seealso [search_taxa()], [galah_filter()] and
+#' [galah_select()] for other ways to restrict the information
+#' returned by [atlas_occurrences()] and related functions.
+#' @examples
 #' # Search for records using a shapefile
 #' location <- galah_geolocate(st_read(path/to/shapefile))
-#' atlas_occurrences(locations = locations)
+#' atlas_occurrences(location = location)
 #' 
 #' # Search for records using a WKT
 #' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
 #' -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
 #' atlas_occurrences(geolocate = galah_geolocate(wkt))
-#' }
+#' 
 #' @export
 galah_geolocate <- function(query) {
   # currently a bug where the ALA doesn't accept some polygons

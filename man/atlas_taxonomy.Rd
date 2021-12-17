@@ -8,43 +8,42 @@ atlas_taxonomy(taxa, down_to)
 }
 \arguments{
 \item{taxa}{The identity of the clade for which a taxonomic
-hierarchy should be returned. Should be specified using an object of class 
+hierarchy should be returned. Should be specified using an object of class
 \code{data.frame} and \code{ala_id}, as returned from
-\code{\link{search_taxa}()}.}
+\code{\link[=search_taxa]{search_taxa()}}.}
 
 \item{down_to}{\code{string}: A taxonomic rank to search down to. See
-\code{\link{show_all_ranks}()} for valid inputs.}
+\code{\link[=show_all_ranks]{show_all_ranks()}} for valid inputs.}
 }
 \value{
-A tree consisting of objects of class \code{Node}, containing the 
+A tree consisting of objects of class \code{Node}, containing the
 requested taxonomy. Each node contains the following attributes:
 \itemize{
-  \item\code{name}: The scientific name of the taxon in question
-  \item\code{rank}: The taxonomic rank to which that taxon belongs
-  \item\code{guid}: A unique identifier used by the ALA
-  \item\code{authority}: The source of the taxonomic name & identifier
+\item \code{name}: The scientific name of the taxon in question
+\item \code{rank}: The taxonomic rank to which that taxon belongs
+\item \code{guid}: A unique identifier used by the ALA
+\item \code{authority}: The source of the taxonomic name & identifier
 }
 }
 \description{
 The ALA has its' own internal taxonomy that is derived from authoritative
-sources. \code{atlas_taxonomy} provides a means to query 
-that taxonomy, returning a tree (class \code{Node}) showing which lower 
+sources. \code{atlas_taxonomy} provides a means to query
+that taxonomy, returning a tree (class \code{Node}) showing which lower
 clades are contained within the specified taxon.
 }
 \details{
-The approach used by this function is recursive, meaning that it  
-becomes slow for large queries such as  
+The approach used by this function is recursive, meaning that it
+becomes slow for large queries such as
 \code{atlas_taxonomy(search_taxa("Plantae"), down_to = "species")}.
-Although the inputs to \code{search_taxa} and \code{down_to} are 
+Although the inputs to \code{search_taxa} and \code{down_to} are
 case-insensitive, node names are always returned in title case.
 }
 \examples{
-\dontrun{
 atlas_taxonomy(search_taxa("chordata"), down_to = "class")
-}
+
 }
 \seealso{
-\code{\link{search_taxa}} to search for an individual taxon; 
-\code{\link{show_all_ranks}} for valid ranks used to specify the \code{down_to}
+\code{\link[=search_taxa]{search_taxa()}} to search for an individual taxon;
+\code{\link[=show_all_ranks]{show_all_ranks()}} for valid ranks used to specify the \code{down_to}
 argument.
 }

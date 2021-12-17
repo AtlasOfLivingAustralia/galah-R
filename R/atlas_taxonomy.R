@@ -1,36 +1,35 @@
 #' Search taxonomic trees
 #'
 #' The ALA has its' own internal taxonomy that is derived from authoritative
-#' sources. \code{atlas_taxonomy} provides a means to query 
-#' that taxonomy, returning a tree (class \code{Node}) showing which lower 
+#' sources. `atlas_taxonomy` provides a means to query 
+#' that taxonomy, returning a tree (class `Node`) showing which lower 
 #' clades are contained within the specified taxon.
 #' 
 #' @param taxa The identity of the clade for which a taxonomic
 #' hierarchy should be returned. Should be specified using an object of class 
-#' \code{data.frame} and \code{ala_id}, as returned from
-#' \code{\link{search_taxa}()}. 
-#' @param down_to \code{string}: A taxonomic rank to search down to. See
-#' \code{\link{show_all_ranks}()} for valid inputs.
+#' `data.frame` and `ala_id`, as returned from
+#' [search_taxa()]. 
+#' @param down_to `string`: A taxonomic rank to search down to. See
+#' [show_all_ranks()] for valid inputs.
 #' @details The approach used by this function is recursive, meaning that it  
 #' becomes slow for large queries such as  
-#' \code{atlas_taxonomy(search_taxa("Plantae"), down_to = "species")}.
-#' Although the inputs to \code{search_taxa} and \code{down_to} are 
+#' `atlas_taxonomy(search_taxa("Plantae"), down_to = "species")`.
+#' Although the inputs to `search_taxa` and `down_to` are 
 #' case-insensitive, node names are always returned in title case.
-#' @return A tree consisting of objects of class \code{Node}, containing the 
+#' @return A tree consisting of objects of class `Node`, containing the 
 #' requested taxonomy. Each node contains the following attributes:
-#' \itemize{
-#'   \item\code{name}: The scientific name of the taxon in question
-#'   \item\code{rank}: The taxonomic rank to which that taxon belongs
-#'   \item\code{guid}: A unique identifier used by the ALA
-#'   \item\code{authority}: The source of the taxonomic name & identifier
-#' }
-#' @seealso \code{\link{search_taxa}} to search for an individual taxon; 
-#' \code{\link{show_all_ranks}} for valid ranks used to specify the \code{down_to}
+#' 
+#'   * `name`: The scientific name of the taxon in question
+#'   * `rank`: The taxonomic rank to which that taxon belongs
+#'   * `guid`: A unique identifier used by the ALA
+#'   * `authority`: The source of the taxonomic name & identifier
+#' 
+#' @seealso [search_taxa()] to search for an individual taxon; 
+#' [show_all_ranks()] for valid ranks used to specify the `down_to`
 #' argument.
 #' @examples
-#' \dontrun{
 #' atlas_taxonomy(search_taxa("chordata"), down_to = "class")
-#' }
+#' 
 #' @export
 
 atlas_taxonomy <- function(taxa, down_to){

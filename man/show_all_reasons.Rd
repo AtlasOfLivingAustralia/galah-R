@@ -11,13 +11,13 @@ A \code{data.frame} of valid download reasons, containing the id
 and name for each reason.
 }
 \description{
-When downloading occurrence data with \code{\link{ala_occurrences}} the
+When downloading occurrence data with \code{\link[=ala_occurrences]{ala_occurrences()}} the
 ALA APIs require a reason for download to be specified. By default, a
 download reason of 'scientific research' is set for you, but if you wish to
-change this you can do so with \code{\link{galah_config}()}. Use this function
+change this you can do so with \code{\link[=galah_config]{galah_config()}}. Use this function
 to view the list of download reason code and names. When specifying a reason,
 you can use either the download code or name.
 }
 \seealso{
-This function is helpful in setting up \code{\link{galah_config}()}.
+This function is helpful in setting up \code{\link[=galah_config]{galah_config()}}.
 }

@@ -80,39 +80,37 @@ find_atlases()
 ala_config(..., profile_path = NULL)
 }
 \description{
-`r lifecycle::badge("deprecated")`
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-Use [search_taxa()] instead of `select_taxa()`.
+Use \code{\link[=search_taxa]{search_taxa()}} instead of \code{select_taxa()}.
 
-`r lifecycle::badge("deprecated")`
+Use \code{\link[=galah_select]{galah_select()}} instead of \code{select_columns()}.
 
-Use [galah_select()] instead of `select_columns()`.
+Use \code{\link[=galah_filter]{galah_filter()}} instead of \code{select_filters()}.
 
-Use [galah_filter()] instead of `select_filters()`.
+Use \code{\link[=galah_location]{galah_location()}} instead of \code{select_locations()}.
 
-Use [galah_location()] instead of `select_locations()`.
+Use \code{\link[=atlas_occurrences]{atlas_occurrences()}} instead of \code{ala_occurrences()}.
 
-Use [atlas_occurrences()] instead of `ala_occurrences()`.
+Use \code{\link[=atlas_counts]{atlas_counts()}} instead of \code{ala_counts()}.
 
-Use [atlas_counts()] instead of `ala_counts()`.
+Use \code{\link[=atlas_species]{atlas_species()}} instead of \code{ala_species()}.
 
-Use [atlas_species()] instead of `ala_species()`.
+Use \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} instead of \code{ala_taxonomy()}.
 
-Use [atlas_taxonomy()] instead of `ala_taxonomy()`.
+Use \code{\link[=atlas_media]{atlas_media()}} instead of \code{ala_media()}.
 
-Use [atlas_media()] instead of `ala_media()`.
+Use \code{\link[=atlas_citation]{atlas_citation()}} instead of \code{ala_citation()}.
 
-Use [atlas_citation()] instead of `ala_citation()`.
+Use \code{\link[=show_all_reasons]{show_all_reasons()}} instead of \code{find_reasons()}.
 
-Use [show_all_reasons()] instead of `find_reasons()`.
+Use \code{\link[=show_all_cached_files]{show_all_cached_files()}} instead of \code{find_cached_files()}.
 
-Use [show_all_cached_files()] instead of `find_cached_files()`.
+Use \code{\link[=show_all_ranks]{show_all_ranks()}} instead of \code{find_ranks()}.
 
-Use [show_all_ranks()] instead of `find_ranks()`.
+Use \code{\link[=show_all_profiles]{show_all_profiles()}} instead of \code{find_profiles()}.
 
-Use [show_all_profiles()] instead of `find_profiles()`.
+Use \code{\link[=show_all_atlases]{show_all_atlases()}} instead of \code{find_atlases()}.
 
-Use [show_all_atlases()] instead of `find_atlases()`.
-
-Use [galah_config()] instead of `ala_config()`.
+Use \code{\link[=galah_config]{galah_config()}} instead of \code{ala_config()}.
 }

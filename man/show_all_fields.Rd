@@ -22,22 +22,22 @@ Should be one or more of \code{fields}, \code{layers}, \code{assertions},
 \code{media} or \code{all}.}
 }
 \value{
-if \code{query} is missing, an empty \code{data.frame}; otherwise 
+if \code{query} is missing, an empty \code{data.frame}; otherwise
 a \code{data.frame} containing fields that match the search query.
 
 A \code{data.frame} with three columns:
 \itemize{
- \item{id: The identifier for that layer or field. This is the value that should
- be used when referring to a field in another function.}
- \item{description: Detailed information on a given field}
- \item{type: Whether the field is a \code{field} or \code{layer}}
- \item{link: For layers, a link to the source data (if available)}
+\item id: The identifier for that layer or field. This is the value that should
+be used when referring to a field in another function.
+\item description: Detailed information on a given field
+\item type: Whether the field is a \code{field} or \code{layer}
+\item link: For layers, a link to the source data (if available)
 }
 }
 \description{
 This function can be used to find relevant fields and/or layers
-for use in building a set of filters with \code{\link{galah_filter}()} or
-specifying required columns with \code{\link{galah_select}()}.
+for use in building a set of filters with \code{\link[=galah_filter]{galah_filter()}} or
+specifying required columns with \code{\link[=galah_select]{galah_select()}}.
 This function returns a \code{data.frame} of all fields matching the type
 specified.
 Field names are in Darwin Core format, except in the case where the field is
@@ -50,7 +50,7 @@ by the ALA. Layer ids are comprised of a prefix: 'el' for environmental
 id number.
 }
 \examples{
-\dontrun{
+
 # Return a data.frame containing all data on fields and layers
 all_fields <- show_all_fields()
 
@@ -59,7 +59,7 @@ test <- search_fields("species")
 
 # Find all WorldClim layers
 worldclim <- search_fields("worldclim", type = "layers")
-}
+
 }
 \references{
 \itemize{
@@ -70,7 +70,7 @@ worldclim <- search_fields("worldclim", type = "layers")
 }
 \seealso{
 This function is used to pass valid arguments to
-\code{\link{select_columns}()} and \code{\link{galah_filter}()}.
+\code{\link[=galah_select]{galah_select()}} and \code{\link[=galah_filter]{galah_filter()}}.
 To view valid values for a layer with categorical values, use
-\code{\link{find_field_values}()}.
+\code{\link[=find_field_values]{find_field_values()}}.
 }

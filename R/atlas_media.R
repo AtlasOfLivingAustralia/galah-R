@@ -2,27 +2,26 @@
 #'
 #' In addition to text data describing individual occurrences and their 
 #' attributes, ALA stores images, sounds and videos associated with a given 
-#' record. \code{atlas_media} allows download of any and all of the media types. 
+#' record. `atlas_media` allows download of any and all of the media types. 
 #'
 #' @inheritParams atlas_occurrences
-#' @param download_dir \code{string}: path to directory to store the downloaded
+#' @param download_dir `string`: path to directory to store the downloaded
 #' media in
-#' @param refresh_cache \code{logical}: if set to `TRUE` and 
+#' @param refresh_cache `logical`: if set to `TRUE` and 
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query
-#' @details \code{\link{atlas_occurrences}()} works by first finding all occurrence records
+#' @details [atlas_occurrences()] works by first finding all occurrence records
 #' matching the filter which contain media, then downloading the metadata for the
-#' media and the media files. \code{\link{galah_filter}()} can take both filter
+#' media and the media files. [galah_filter()] can take both filter
 #' relating to occurrences (e.g. basis of records), and filter relating to media
 #' (e.g. type of licence).
 #' It may be beneficial when requesting a large number of records to show a progress
-#' bar by setting \code{verbose = TRUE} in \code{\link{galah_config}()}.
-#' @return \code{data.frame} of metadata of the downloaded media
-#' @seealso \code{\link{atlas_counts}} to find the number of records with media- note this
+#' bar by setting `verbose = TRUE` in [galah_config()].
+#' @return `data.frame` of metadata of the downloaded media
+#' @seealso [atlas_counts()] to find the number of records with media- note this
 #' is not necessarily the same as the number of media files, as each record can have
 #' more than one media file associated with it (see examples section for how to do this).
 #' @examples
-#' \dontrun{
 #' # Download Regent Honeyeater multimedia
 #' media_data <- atlas_media(
 #'     taxa = search_taxa("Regent Honeyeater"),
@@ -45,7 +44,7 @@
 #'      filter = galah_filter(multimedia == c("Image","Sound","Video")),
 #'      group_by = galah_group_by(multimedia)
 #' )
-#' }
+#' 
 #' @export
 atlas_media <- function(taxa = NULL, 
                         filter = NULL, 

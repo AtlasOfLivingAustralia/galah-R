@@ -3,13 +3,12 @@
 #' Return taxonomic ranks recognised by the ALA.
 #' 
 #' @export show_all_ranks
-#' @return A \code{data.frame} of available ranks
+#' @return A `data.frame` of available ranks
 #' @seealso This function provides a
-#' reference that is useful when specifying the \code{down_to} argument of 
-#' \code{\link{atlas_taxonomy}}.
-#' @examples \dontrun{
+#' reference that is useful when specifying the `down_to` argument of 
+#' [atlas_taxonomy()].
+#' @examples
 #' rank_df <- show_all_ranks()
-#' }
 
 show_all_ranks <- function() {
   data.frame(

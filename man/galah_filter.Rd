@@ -7,10 +7,10 @@
 galah_filter(..., profile = NULL)
 }
 \arguments{
-\item{...}{filters, in the form \code{field logical value}}
+\item{...}{filters, in the form \verb{field logical value}}
 
 \item{profile}{\code{string}: (optional) a data quality profile to apply to the
-records. See \code{\link{find_profiles}} for valid profiles. By default
+records. See \code{\link[=show_all_profiles]{show_all_profiles()}} for valid profiles. By default
 no profile is applied.}
 }
 \value{
@@ -18,14 +18,14 @@ An object of class \code{data.frame} and \code{galah_filter},
 containing filter values.
 }
 \description{
-'filters' are arguments of the form \code{field logical value} that are used
+'filters' are arguments of the form \verb{field logical value} that are used
 to narrow down the number of records returned by a specific query.
 For example, it is common for users to request records from a particular year
 (\code{year == 2020}), or to return all records except for fossils
- (\code{basisOfRecord != "FossilSpecimen"}).
+(\code{basisOfRecord != "FossilSpecimen"}).
 The result of \code{galah_filter} can be passed to the \code{filters}
-argument in \code{\link{ala_occurrences}()}, \code{\link{ala_species}()} or
-\code{\link{ala_counts}()}. \code{galah_filter} uses non-standard evaluation (NSE),
+argument in \code{\link[=atlas_occurrences]{atlas_occurrences()}}, \code{\link[=atlas_species]{atlas_species()}} or
+\code{\link[=atlas_counts]{atlas_counts()}}. \code{galah_filter} uses non-standard evaluation (NSE),
 and is designed to be as compatible as possible with \code{dplyr::filter}
 syntax.
 }
@@ -33,19 +33,19 @@ syntax.
 All statements passed to \code{galah_filter()} (except the \code{profile}
 argument) take the form of field - logical - value. Permissible examples include:
 \itemize{
-  \item{\code{=} or \code{==} (e.g. \code{year = 2020})}
-  \item{\code{!=}, e.g. \code{year != 2020})}
-  \item{\code{>} or \code{>=} (e.g. \code{year >= 2020})}
-  \item{\code{<} or \code{<=} (e.g. \code{year <= 2020})}
-  \item{\code{OR} statements (e.g. \code{year == 2018 | year == 2020})}
-  \item{\code{AND} statements (e.g. \code{year >= 2000 & year <= 2020})}
+\item \code{=} or \code{==} (e.g. \code{year = 2020})
+\item \code{!=}, e.g. \code{year != 2020})
+\item \code{>} or \code{>=} (e.g. \code{year >= 2020})
+\item \code{<} or \code{<=} (e.g. \code{year <= 2020})
+\item \code{OR} statements (e.g. \code{year == 2018 | year == 2020})
+\item \code{AND} statements (e.g. \code{year >= 2000 & year <= 2020})
 }
-In some cases \code{R} will fail to parse inputs with a single equals sign 
-(\code{=}), particularly where statements are separated by \code{&} or 
+
+In some cases \code{R} will fail to parse inputs with a single equals sign
+(\code{=}), particularly where statements are separated by \code{&} or
 \code{|}. This problem can be avoided by using a double-equals (\code{==}) instead.
 }
 \examples{
-\dontrun{
 # Create a custom filter for records of interest
 filters <- galah_filter(
     basisOfRecord == "HumanObservation",
@@ -82,13 +82,12 @@ galah_filter(basisOfRecord == basis_of_record)
 # solr supports range queries on text as well as numbers
 galah_filter(cl22 >= "Tasmania")
 # queries all Australian States & Territories alphabetically after "Tasmania"
-}
+
 }
 \seealso{
-\code{\link{select_taxa}}, \code{\link{select_columns}} and
-\code{\link{galah_location}} for other ways to restrict the information returned
-by \code{\link{ala_occurrences}} and related functions. Use
-\code{\link{search_fields}} to find fields that
-you can filter by, and \code{\link{find_field_values}} to find what values
+\code{\link[=search_taxa]{search_taxa()}} and \code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to restrict
+the information returned by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions. Use
+\code{\link[=search_fields]{search_fields()}} to find fields that
+you can filter by, and \code{\link[=find_field_values]{find_field_values()}} to find what values
 of those filters are available.
 }

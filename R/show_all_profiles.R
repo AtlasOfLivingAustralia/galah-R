@@ -2,23 +2,23 @@
 #'
 #' The ALA provides a number of pre-built data quality profiles for 
 #' filtering data according to quality checks. A data quality profile can
-#' be specified in the \code{profile} argument in \code{\link{galah_filter}()}
-#' and used to filter searches in \code{\link{atlas_occurrences}()},
-#' \code{\link{atlas_counts}()} and \code{\link{atlas_species}()}.
+#' be specified in the `profile` argument in [galah_filter()]
+#' and used to filter searches in [atlas_occurrences()],
+#' [atlas_counts()] and [atlas_species()].
 #'
 #' @export show_all_profiles
-#' @return A \code{data.frame} of available profiles
+#' @return A `data.frame` of available profiles
 #' @seealso This function gives viable profile names for passing to
-#' \code{\link{galah_filter}()}. For more detail on a given profile see
-#' \code{\link{find_profile_attributes}()}.
-#' @examples \dontrun{
+#' [galah_filter()]. For more detail on a given profile see
+#' [find_profile_attributes()].
+#' @examples 
 #' # Get available profiles
 #' profile_df <- show_all_profiles()
 #' # Values given in the 'shortName' column are accepted by select_filter(), i.e.
 #' galah_filter(profile == profile_df$shortName[1])
 #' # is equivalent to:
 #' galah_filter(profile == "ALA")
-#' }
+#' 
 
 # this will return names and descriptions of data profiles
 # should id be exposed to the user?
@@ -36,13 +36,13 @@ show_all_profiles <- function() {
 #' what information they return, particularly if advanced customization is needed.
 #' This function gives all of the arguments built into a specific profile.
 #'
-#' @param profile \code{string}: a data quality profile name, short name or id.
-#' See \code{\link{show_all_profiles}()} for valid filters
+#' @param profile `string`: a data quality profile name, short name or id.
+#' See [show_all_profiles()] for valid filters
 #' @export find_profile_attributes
-#' @return A \code{data.frame} of profile attributes, consisting of a
-#' free text \code{description} and the actual \code{filter} used.
-#' @seealso \code{\link{show_all_profiles}()} for a list of valid profiles;
-#' \code{\link{galah_filter}()} for how to include this information in a data
+#' @return A `data.frame` of profile attributes, consisting of a
+#' free text `description` and the actual `filter` used.
+#' @seealso [show_all_profiles()] for a list of valid profiles;
+#' [galah_filter()] for how to include this information in a data
 #' query.
 #' @examples
 #' profile_info <- find_profile_attributes("CSDM")

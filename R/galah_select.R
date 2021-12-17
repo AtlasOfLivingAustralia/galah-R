@@ -2,51 +2,51 @@
 #'
 #' The living atlases store content on hundreds of different fields, and users
 #' often require thousands or millions of records at a time. To reduce time taken
-#' to download data, and limit complexity of the resulting \code{data.frame}, it is
-#' sensible to restrict the fields returned by \code{\link{ala_occurrences}()}.
+#' to download data, and limit complexity of the resulting `data.frame`, it is
+#' sensible to restrict the fields returned by [atlas_occurrences()].
 #' This function allows easy selection of fields, or commonly-requested groups 
-#' of columns, following syntax shared with \code{dplyr::select()}.
+#' of columns, following syntax shared with `dplyr::select()`.
 #' 
 #' @param ... zero or more individual column names to include
-#' @param group \code{string}: (optional) name of one or more column groups to
-#' include. Valid options are \code{"basic"}, \code{"event"} and
-#' \code{"assertion"}
-#' @return An object of class \code{data.frame} and \code{galah_select}
+#' @param group `string`: (optional) name of one or more column groups to
+#' include. Valid options are `"basic"`, `"event"` and
+#' `"assertion"`
+#' @return An object of class `data.frame` and `galah_select`
 #' specifying the name and type of each column to include in the 
-#' call to \code{ala_counts} or |code{ala_occurrences}.
+#' call to `atlas_counts()` or `atlas_occurrences()`.
 #' @details
-#' Calling the argument \code{group = "basic"} returns the following columns:
-#' \itemize{
-#'   \item\code{decimalLatitude}
-#'   \item\code{decimalLongitude}
-#'   \item\code{eventDate}
-#'   \item\code{scientificName}
-#'   \item\code{taxonConceptID}
-#'   \item\code{recordID}
-#'   \item\code{dataResourceName}
-#' }
-#' Using \code{group = "event"} returns the following columns:
-#' \itemize{
-#'   \item\code{eventRemarks}
-#'   \item\code{eventTime}
-#'   \item\code{eventID}
-#'   \item\code{eventDate}
-#'   \item\code{samplingEffort}
-#'   \item\code{samplingProtocol}
-#' }
-#' Using \code{group = "assertions"} returns all quality assertion-related
-#' columns. The list of assertions is shown by \code{search_fields(type = "assertions")}.
+#' Calling the argument `group = "basic"` returns the following columns:
 #'
-#' The \code{expand} argument is appended as an attribute of the \code{data.frame} 
-#' returned by \code{galah_select}. It is only used by \code{ala_counts}, meaning
-#' that setting \code{expand = TRUE} will not affect calls to \code{ala_occurrences}.
-#' @note \code{select_columns} and \code{galah_select} are synonymous;
-#' \code{select_columns} is deprecated and will be removed from future versions
-#' of \code{galah}.
-#' @seealso \code{\link{select_taxa}}, \code{\link{galah_filter}} and
-#' \code{\link{galah_location}} for other ways to restrict the information returned
-#' by \code{\link{ala_occurrences}} and related functions; \code{\link{ala_counts}}
-#' for how to get counts by levels of variables returned by \code{galah_select}.
+#'   * `decimalLatitude`
+#'   * `decimalLongitude`
+#'   * `eventDate`
+#'   * `scientificName`
+#'   * `taxonConceptID`
+#'   * `recordID`
+#'   * `dataResourceName`
+#' 
+#' Using `group = "event"` returns the following columns:
+#' 
+#'   * `eventRemarks`
+#'   * `eventTime`
+#'   * `eventID`
+#'   * `eventDate`
+#'   * `samplingEffort`
+#'   * `samplingProtocol`
+#' 
+#' Using `group = "assertions"` returns all quality assertion-related
+#' columns. The list of assertions is shown by `search_fields(type = "assertions")`.
+#'
+#' The `expand` argument is appended as an attribute of the `data.frame` 
+#' returned by `galah_select`. It is only used by `atlas_counts`, meaning
+#' that setting `expand = TRUE` will not affect calls to `atlas_occurrences`.
+#' @note `select_columns` and `galah_select` are synonymous;
+#' `select_columns` is deprecated and will be removed from future versions
+#' of `galah`.
+#' @seealso [search_taxa()], [galah_filter()] and
+#' [galah_geolocate()] for other ways to restrict the information returned
+#' by [atlas_occurrences()] and related functions; [atlas_counts()]
+#' for how to get counts by levels of variables returned by `galah_select`.
 #' @importFrom dplyr select
 #' @export
 galah_select <- function(...,

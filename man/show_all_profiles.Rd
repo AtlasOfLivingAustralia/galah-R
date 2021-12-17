@@ -10,24 +10,23 @@ show_all_profiles()
 A \code{data.frame} of available profiles
 }
 \description{
-The ALA provides a number of pre-built data quality profiles for 
+The ALA provides a number of pre-built data quality profiles for
 filtering data according to quality checks. A data quality profile can
-be specified in the \code{profile} argument in \code{\link{galah_filter}()}
-and used to filter searches in \code{\link{atlas_occurrences}()},
-\code{\link{atlas_counts}()} and \code{\link{atlas_species}()}.
+be specified in the \code{profile} argument in \code{\link[=galah_filter]{galah_filter()}}
+and used to filter searches in \code{\link[=atlas_occurrences]{atlas_occurrences()}},
+\code{\link[=atlas_counts]{atlas_counts()}} and \code{\link[=atlas_species]{atlas_species()}}.
 }
 \examples{
-\dontrun{
 # Get available profiles
 profile_df <- show_all_profiles()
 # Values given in the 'shortName' column are accepted by select_filter(), i.e.
 galah_filter(profile == profile_df$shortName[1])
 # is equivalent to:
 galah_filter(profile == "ALA")
-}
+
 }
 \seealso{
 This function gives viable profile names for passing to
-\code{\link{galah_filter}()}. For more detail on a given profile see
-\code{\link{find_profile_attributes}()}.
+\code{\link[=galah_filter]{galah_filter()}}. For more detail on a given profile see
+\code{\link[=find_profile_attributes]{find_profile_attributes()}}.
 }

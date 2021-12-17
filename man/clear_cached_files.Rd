@@ -7,16 +7,15 @@
 clear_cached_files()
 }
 \description{
-Deletes cached files within the cached file directory and their query 
+Deletes cached files within the cached file directory and their query
 metadata
 }
 \examples{
-\dontrun{
 ## configure caching and create a query to cache
 galah_config(caching = TRUE)
-dat <- ala_counts(group_by = "year")
+dat <- atlas_counts(group_by = galah_group_by(year))
 
 ## clear cached files directory
 clear_cached_files()
-}
+
 }

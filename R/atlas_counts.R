@@ -5,32 +5,32 @@
 #' and for estimating how long it will take to download. Alternatively, for some kinds
 #' of reporting, the count of observations may be all that is required, for example
 #' for understanding how observations are growing or shrinking in particular
-#' location of for particular taxa. To this end, \code{atlas_counts()} takes
-#' arguments in the same format as \code{\link{atlas_occurrences}()}, and
+#' location of for particular taxa. To this end, `atlas_counts()` takes
+#' arguments in the same format as [atlas_occurrences()], and
 #' provides either a total count of records matching the criteria, or a
-#' \code{data.frame} of counts matching the criteria supplied to the \code{groups}
+#' `data.frame` of counts matching the criteria supplied to the `groups`
 #' argument.
 #'
 #' @inheritParams atlas_occurrences
-#' @param group_by \code{data.frame}: An object of class \code{galah_group_by},
-#' as returned by \code{\link{galah_select}}. Alternatively a vector of field
+#' @param group_by `data.frame`: An object of class `galah_group_by`,
+#' as returned by [galah_select()]. Alternatively a vector of field
 #' names.
-#' @param limit \code{numeric}: maximum number of categories to return, defaulting to 100.
+#' @param limit `numeric`: maximum number of categories to return, defaulting to 100.
 #' If limit is NULL, all results are returned. For some categories this will
 #' take a while.
-#' @param type \code{string}: one of \code{c("record", "species")}. Defaults to
+#' @param type `string`: one of `c("record", "species")`. Defaults to
 #' "record". If "species", the number of species matching the criteria will be
 #' returned, if "record", the number of records matching the criteria will be
 #' returned.
-#' @param refresh_cache \code{logical}: if set to `TRUE` and 
+#' @param refresh_cache `logical`: if set to `TRUE` and 
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query
 #' @return
-#' \itemize{
-#'  \item{A single number, if \code{groups} is not specified or,}
-#'  \item{A \code{data.frame} of counts by \code{groups} field(s), if specified}
-#'}
-#' @examples \dontrun{
+#' 
+#'  * A single number, if `groups` is not specified or,
+#'  * A `data.frame` of counts by `groups` field(s), if specified
+#'
+#' @examples
 #' # With no arguments, return the total number of records in the ALA
 #' atlas_counts()
 #'
@@ -46,8 +46,8 @@
 #' # Crosstabulate using two different variables
 #' atlas_counts(
 #'   filter = galah_filter(year > 2015),
-#'   groups = galah_select("year", "basisOfRecord", expand = TRUE))
-#' }
+#'   groups = galah_select(year, basisOfRecord, expand = TRUE))
+#' 
 #' @export
 atlas_counts <- function(...) {
   UseMethod("atlas_counts")

@@ -9,18 +9,17 @@ galah_group_by(..., expand = FALSE)
 \arguments{
 \item{...}{zero or more individual column names to include}
 
-\item{expand}{\code{logical}: When passed to \code{group_by} argument of 
+\item{expand}{\code{logical}: When passed to \code{group_by} argument of
 \code{ala_counts}, should factor levels be expanded? Defaults to \code{FALSE}.}
 }
 \description{
-\code{ala_counts} supports server-side grouping of data. Grouping can be 
-used to return record counts grouped by multiple, valid fields (found by 
-\code{search_fields}. Use \code{galah_group_by} when using the 
+\code{ala_counts} supports server-side grouping of data. Grouping can be
+used to return record counts grouped by multiple, valid fields (found by
+\code{search_fields}. Use \code{galah_group_by} when using the
 \code{group_by} argument of \code{ala_counts} to return record counts summed
 by one or more valid fields.
 }
 \examples{
-\dontrun{
 # Return record counts since 2010 by year
 ala_counts(
     filter = galah_filter(year > 2010),
@@ -40,10 +39,10 @@ ala_counts(
     filter = galah_filter(year > 2015),
     group_by = galah_group_by(year, species, expand = TRUE),
     limit = 5)
-    }
+
     
 }
 \seealso{
-\code{\link{galah_select}}, \code{\link{galah_filter}} and
-\code{\link{galah_location}} for related methods.
+\code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and
+\code{\link[=galah_location]{galah_location()}} for related methods.
 }

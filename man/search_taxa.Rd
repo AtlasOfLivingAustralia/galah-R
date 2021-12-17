@@ -20,7 +20,7 @@ terms, taxonomic levels can be provided explicitly via a named \code{list}
 for a single name, or a \code{data.frame} for multiple names (see examples).
 Note that searches are not case-sensitive.}
 
-\item{is_id}{\code{logical}: Is the query a unique identifier? Defaults to 
+\item{is_id}{\code{logical}: Is the query a unique identifier? Defaults to
 \code{FALSE}, meaning that queries are assumed to be taxonomic names.}
 }
 \value{
@@ -33,13 +33,12 @@ identifies the taxon to which that record belongs. However, taxonomic names
 are often ambiguous due to homonymy; i.e. re-use of names (common or
 scientific) in different clades. Hence, \code{search_taxa} provides a means
 to search for taxonomic names and check the results are 'correct' before
-proceeded to download data via \code{\link{ala_occurrences}()},
-\code{\link{ala_species}()} or \code{\link{ala_counts}()}. The resulting
+proceeded to download data via \code{\link[=atlas_occurrences]{atlas_occurrences()}},
+\code{\link[=atlas_species]{atlas_species()}} or \code{\link[=atlas_counts]{atlas_counts()}}. The resulting
 \code{data.frame} of taxonomic information can be passed directly to
-\code{ala_} functions to filter records to the specified taxon or taxa.
+\code{atlas_} functions to filter records to the specified taxon or taxa.
 }
 \examples{
-\dontrun{
 # Search using a single term
 search_taxa("Reptilia")
 # or equivalently:
@@ -50,11 +49,11 @@ search_taxa(query = "https://id.biodiversity.org.au/node/apni/2914510")
 
 # Search multiple taxa
 search_taxa(c("reptilia", "mammalia")) # returns one row per taxon
-}
+
 }
 \seealso{
-\code{\link{select_columns}}, \code{\link{galah_filter}} and
-\code{\link{galah_location}} for other ways to restrict the information returned
-by \code{\link{ala_occurrences}} and related functions.
-\code{\link{ala_taxonomy}} to look up taxonomic trees.
+\code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and
+\code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to restrict the information returned
+by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions.
+\code{\link[=atlas_taxonomy]{atlas_taxonomy()}} to look up taxonomic trees.
 }

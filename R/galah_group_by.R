@@ -1,16 +1,16 @@
 #' Specify fields to group when downloading record counts
 #'
-#' \code{ala_counts} supports server-side grouping of data. Grouping can be 
+#' `ala_counts` supports server-side grouping of data. Grouping can be 
 #' used to return record counts grouped by multiple, valid fields (found by 
-#' \code{search_fields}. Use \code{galah_group_by} when using the 
-#' \code{group_by} argument of \code{ala_counts} to return record counts summed
+#' `search_fields`. Use `galah_group_by` when using the 
+#' `group_by` argument of `ala_counts` to return record counts summed
 #' by one or more valid fields.
 #' @param ... zero or more individual column names to include
-#' @param expand \code{logical}: When passed to \code{group_by} argument of 
-#' \code{ala_counts}, should factor levels be expanded? Defaults to \code{FALSE}.
-#' @seealso \code{\link{galah_select}}, \code{\link{galah_filter}} and
-#' \code{\link{galah_location}} for related methods.
-#' @examples \dontrun{
+#' @param expand `logical`: When passed to `group_by` argument of 
+#' `ala_counts`, should factor levels be expanded? Defaults to `FALSE`.
+#' @seealso [galah_select()], [galah_filter()] and
+#' [galah_location()] for related methods.
+#' @examples
 #' # Return record counts since 2010 by year
 #' ala_counts(
 #'     filter = galah_filter(year > 2010),
@@ -30,7 +30,7 @@
 #'     filter = galah_filter(year > 2015),
 #'     group_by = galah_group_by(year, species, expand = TRUE),
 #'     limit = 5)
-#'     }
+#' 
 #'     
 #' @export
 

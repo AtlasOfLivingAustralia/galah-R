@@ -3,29 +3,28 @@
 #' In the ALA, all records are associated with an identifier that uniquely
 #' identifies the taxon to which that record belongs. However, taxonomic names
 #' are often ambiguous due to homonymy; i.e. re-use of names (common or
-#' scientific) in different clades. Hence, \code{search_taxa} provides a means
+#' scientific) in different clades. Hence, `search_taxa` provides a means
 #' to search for taxonomic names and check the results are 'correct' before
-#' proceeded to download data via \code{\link{ala_occurrences}()},
-#' \code{\link{ala_species}()} or \code{\link{ala_counts}()}. The resulting
-#' \code{data.frame} of taxonomic information can be passed directly to
-#' \code{ala_} functions to filter records to the specified taxon or taxa.
+#' proceeded to download data via [atlas_occurrences()],
+#' [atlas_species()] or [atlas_counts()]. The resulting
+#' `data.frame` of taxonomic information can be passed directly to
+#' `atlas_` functions to filter records to the specified taxon or taxa.
 #'
-#' @param query \code{string}: A vector containing one or more search terms,
+#' @param query `string`: A vector containing one or more search terms,
 #' given as strings. Search terms can be scientific or common names, or
 #' taxonomic identifiers. If greater control is required to disambiguate search
-#' terms, taxonomic levels can be provided explicitly via a named \code{list}
-#' for a single name, or a \code{data.frame} for multiple names (see examples).
+#' terms, taxonomic levels can be provided explicitly via a named `list`
+#' for a single name, or a `data.frame` for multiple names (see examples).
 #' Note that searches are not case-sensitive.
-#' @param is_id \code{logical}: Is the query a unique identifier? Defaults to 
-#' \code{FALSE}, meaning that queries are assumed to be taxonomic names.
-#' @return An object of class \code{data.frame} and \code{ala_id}
+#' @param is_id `logical`: Is the query a unique identifier? Defaults to 
+#' `FALSE`, meaning that queries are assumed to be taxonomic names.
+#' @return An object of class `data.frame` and `ala_id`
 #' containing taxonomic information.
-#' @seealso \code{\link{select_columns}}, \code{\link{galah_filter}} and
-#' \code{\link{galah_location}} for other ways to restrict the information returned
-#' by \code{\link{ala_occurrences}} and related functions.
-#' \code{\link{ala_taxonomy}} to look up taxonomic trees.
+#' @seealso [galah_select()], [galah_filter()] and
+#' [galah_geolocate()] for other ways to restrict the information returned
+#' by [atlas_occurrences()] and related functions.
+#' [atlas_taxonomy()] to look up taxonomic trees.
 #' @examples
-#' \dontrun{
 #' # Search using a single term
 #' search_taxa("Reptilia")
 #' # or equivalently:
@@ -36,7 +35,7 @@
 #'
 #' # Search multiple taxa
 #' search_taxa(c("reptilia", "mammalia")) # returns one row per taxon
-#' }
+#' 
 #' @export
 search_taxa <- function(...) {
   UseMethod("search_taxa")

@@ -1,27 +1,27 @@
 #' Return species lists
 #'
 #' While there are reasons why users may need to check every record meeting their
-#' search criteria (i.e. using \code{\link{atlas_occurrences()}}), a common use case
+#' search criteria (i.e. using [atlas_occurrences()()]), a common use case
 #' is to simply identify which species occur in a specified region, time period,
-#' or taxonomic group. This function returns a \code{data.frame} with one row
+#' or taxonomic group. This function returns a `data.frame` with one row
 #' per species, and columns giving associated taxonomic information.
 #'
 #' @inheritParams atlas_occurrences
-#' @param refresh_cache \code{logical}: if set to `TRUE` and 
+#' @param refresh_cache `logical`: if set to `TRUE` and 
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query
-#' @return A \code{data.frame} of matching species. The \code{data.frame} object 
-#' has attributes listing of the user-supplied arguments of the \code{data_request} 
+#' @return A `data.frame` of matching species. The `data.frame` object 
+#' has attributes listing of the user-supplied arguments of the `data_request` 
 #' (i.e., taxa, filter, geolocate, columns)
 #' @details
 #' The primary use case of this function is to extract species-level information
-#' given a set of criteria defined by \code{\link{search_taxa}()},
-#' \code{\link{galah_filter}()} or \code{\link{galah_geolocate}()}. If the purpose
+#' given a set of criteria defined by [search_taxa()],
+#' [galah_filter()] or [galah_geolocate()]. If the purpose
 #' is simply to get taxonomic information that is not restricted by filtering,
-#' then \code{\link{search_taxa}()} is more efficient. Similarly, if counts are
+#' then [search_taxa()] is more efficient. Similarly, if counts are
 #' required that include filter but without returning taxonomic detail, then
-#' \code{\link{atlas_counts}()} is more efficient (see examples).
-#' @examples \dontrun{
+#' [atlas_counts()] is more efficient (see examples).
+#' @examples
 #'
 #' # Look up genus "Heleioporus" in the ALA
 #' search_taxa("Heleioporus")
@@ -32,7 +32,7 @@
 #' # Get taxonomic information on all species within this genus
 #' # (every row is a species with associated taxonomic data)
 #' atlas_species(search_taxa("Heleioporus"))
-#' }
+#' 
 #' @export
 atlas_species <- function(taxa = NULL, 
                           filter = NULL, 

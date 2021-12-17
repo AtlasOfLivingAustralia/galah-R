@@ -16,8 +16,6 @@ select_taxa <- function(query, is_id = FALSE) {
 }
 
 #' @description
-#' `r lifecycle::badge("deprecated")`
-#' 
 #' Use [galah_select()] instead of `select_columns()`.
 #' 
 #' @export

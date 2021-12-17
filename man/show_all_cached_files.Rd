@@ -14,12 +14,11 @@ create them, and the filter object
 Uses query metadata stored in metadata.rds in the cache directory
 }
 \examples{
-## configure caching and create a query to cache
-\dontrun{
+## Configure caching and create a query to cache
 galah_config(caching = TRUE)
-dat <- atlas_counts(group_by = galah_group_by("year"))
+dat <- atlas_counts(group_by = galah_group_by(year))
 
 ## list cached files
 show_all_cached_files()
-}
+
 }

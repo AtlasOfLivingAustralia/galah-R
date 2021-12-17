@@ -1,43 +1,41 @@
 #' Choose filters to narrow down occurrence queries
 #'
-#' 'filters' are arguments of the form \code{field logical value} that are used
+#' 'filters' are arguments of the form `field logical value` that are used
 #' to narrow down the number of records returned by a specific query.
 #' For example, it is common for users to request records from a particular year
-#' (\code{year == 2020}), or to return all records except for fossils
-#'  (\code{basisOfRecord != "FossilSpecimen"}).
-#' The result of \code{galah_filter} can be passed to the \code{filters}
-#' argument in \code{\link{ala_occurrences}()}, \code{\link{ala_species}()} or
-#' \code{\link{ala_counts}()}. \code{galah_filter} uses non-standard evaluation (NSE),
-#' and is designed to be as compatible as possible with \code{dplyr::filter}
+#' (`year == 2020`), or to return all records except for fossils
+#'  (`basisOfRecord != "FossilSpecimen"`).
+#' The result of `galah_filter` can be passed to the `filters`
+#' argument in [atlas_occurrences()], [atlas_species()] or
+#' [atlas_counts()]. `galah_filter` uses non-standard evaluation (NSE),
+#' and is designed to be as compatible as possible with `dplyr::filter`
 #' syntax.
 #'
-#' @param ... filters, in the form \code{field logical value}
-#' @param profile \code{string}: (optional) a data quality profile to apply to the
-#' records. See \code{\link{find_profiles}} for valid profiles. By default
+#' @param ... filters, in the form `field logical value`
+#' @param profile `string`: (optional) a data quality profile to apply to the
+#' records. See [show_all_profiles()] for valid profiles. By default
 #' no profile is applied.
-#' @return An object of class \code{data.frame} and \code{galah_filter},
+#' @return An object of class `data.frame` and `galah_filter`,
 #' containing filter values.
-#' @seealso \code{\link{select_taxa}}, \code{\link{select_columns}} and
-#' \code{\link{galah_location}} for other ways to restrict the information returned
-#' by \code{\link{ala_occurrences}} and related functions. Use
-#' \code{\link{search_fields}} to find fields that
-#' you can filter by, and \code{\link{find_field_values}} to find what values
+#' @seealso [search_taxa()] and [galah_geolocate()] for other ways to restrict 
+#' the information returned by [atlas_occurrences()] and related functions. Use
+#' [search_fields()] to find fields that
+#' you can filter by, and [find_field_values()] to find what values
 #' of those filters are available.
 #' @details
-#' All statements passed to \code{galah_filter()} (except the \code{profile}
+#' All statements passed to `galah_filter()` (except the `profile`
 #' argument) take the form of field - logical - value. Permissible examples include:
-#' \itemize{
-#'   \item{\code{=} or \code{==} (e.g. \code{year = 2020})}
-#'   \item{\code{!=}, e.g. \code{year != 2020})}
-#'   \item{\code{>} or \code{>=} (e.g. \code{year >= 2020})}
-#'   \item{\code{<} or \code{<=} (e.g. \code{year <= 2020})}
-#'   \item{\code{OR} statements (e.g. \code{year == 2018 | year == 2020})}
-#'   \item{\code{AND} statements (e.g. \code{year >= 2000 & year <= 2020})}
-#' }
-#' In some cases \code{R} will fail to parse inputs with a single equals sign 
-#' (\code{=}), particularly where statements are separated by \code{&} or 
-#' \code{|}. This problem can be avoided by using a double-equals (\code{==}) instead.
-#' @examples \dontrun{
+#'   * `=` or `==` (e.g. `year = 2020`)
+#'   * `!=`, e.g. `year != 2020`)
+#'   * `>` or `>=` (e.g. `year >= 2020`)
+#'   * `<` or `<=` (e.g. `year <= 2020`)
+#'   * `OR` statements (e.g. `year == 2018 | year == 2020`)
+#'   * `AND` statements (e.g. `year >= 2000 & year <= 2020`)
+#' 
+#' In some cases `R` will fail to parse inputs with a single equals sign 
+#' (`=`), particularly where statements are separated by `&` or 
+#' `|`. This problem can be avoided by using a double-equals (`==`) instead.
+#' @examples
 #' # Create a custom filter for records of interest
 #' filters <- galah_filter(
 #'     basisOfRecord == "HumanObservation",
@@ -74,7 +72,7 @@
 #' # solr supports range queries on text as well as numbers
 #' galah_filter(cl22 >= "Tasmania")
 #' # queries all Australian States & Territories alphabetically after "Tasmania"
-#' }
+#' 
 #' @importFrom rlang enquos as_label get_env quo_get_expr eval_tidy new_quosure abort caller_env parse_expr
 #' @export
 

@@ -15,43 +15,45 @@ include. Valid options are \code{"basic"}, \code{"event"} and
 }
 \value{
 An object of class \code{data.frame} and \code{galah_select}
-specifying the name and type of each column to include in the 
-call to \code{ala_counts} or |code{ala_occurrences}.
+specifying the name and type of each column to include in the
+call to \code{atlas_counts()} or \code{atlas_occurrences()}.
 }
 \description{
 The living atlases store content on hundreds of different fields, and users
 often require thousands or millions of records at a time. To reduce time taken
 to download data, and limit complexity of the resulting \code{data.frame}, it is
-sensible to restrict the fields returned by \code{\link{ala_occurrences}()}.
-This function allows easy selection of fields, or commonly-requested groups 
+sensible to restrict the fields returned by \code{\link[=atlas_occurrences]{atlas_occurrences()}}.
+This function allows easy selection of fields, or commonly-requested groups
 of columns, following syntax shared with \code{dplyr::select()}.
 }
 \details{
 Calling the argument \code{group = "basic"} returns the following columns:
 \itemize{
-  \item\code{decimalLatitude}
-  \item\code{decimalLongitude}
-  \item\code{eventDate}
-  \item\code{scientificName}
-  \item\code{taxonConceptID}
-  \item\code{recordID}
-  \item\code{dataResourceName}
+\item \code{decimalLatitude}
+\item \code{decimalLongitude}
+\item \code{eventDate}
+\item \code{scientificName}
+\item \code{taxonConceptID}
+\item \code{recordID}
+\item \code{dataResourceName}
 }
+
 Using \code{group = "event"} returns the following columns:
 \itemize{
-  \item\code{eventRemarks}
-  \item\code{eventTime}
-  \item\code{eventID}
-  \item\code{eventDate}
-  \item\code{samplingEffort}
-  \item\code{samplingProtocol}
+\item \code{eventRemarks}
+\item \code{eventTime}
+\item \code{eventID}
+\item \code{eventDate}
+\item \code{samplingEffort}
+\item \code{samplingProtocol}
 }
+
 Using \code{group = "assertions"} returns all quality assertion-related
 columns. The list of assertions is shown by \code{search_fields(type = "assertions")}.
 
-The \code{expand} argument is appended as an attribute of the \code{data.frame} 
-returned by \code{galah_select}. It is only used by \code{ala_counts}, meaning
-that setting \code{expand = TRUE} will not affect calls to \code{ala_occurrences}.
+The \code{expand} argument is appended as an attribute of the \code{data.frame}
+returned by \code{galah_select}. It is only used by \code{atlas_counts}, meaning
+that setting \code{expand = TRUE} will not affect calls to \code{atlas_occurrences}.
 }
 \note{
 \code{select_columns} and \code{galah_select} are synonymous;
@@ -59,8 +61,8 @@ that setting \code{expand = TRUE} will not affect calls to \code{ala_occurrences
 of \code{galah}.
 }
 \seealso{
-\code{\link{select_taxa}}, \code{\link{galah_filter}} and
-\code{\link{galah_location}} for other ways to restrict the information returned
-by \code{\link{ala_occurrences}} and related functions; \code{\link{ala_counts}}
+\code{\link[=search_taxa]{search_taxa()}}, \code{\link[=galah_filter]{galah_filter()}} and
+\code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to restrict the information returned
+by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions; \code{\link[=atlas_counts]{atlas_counts()}}
 for how to get counts by levels of variables returned by \code{galah_select}.
 }
