@@ -14,7 +14,7 @@
 #' unzip URLencode download.file setTxtProgressBar txtProgressBar tail
 #' @importFrom wellknown lint
 #' @importFrom lifecycle deprecated
-#' @importFrom rlang abort warn caller_env
+#' @importFrom rlang abort warn inform caller_env
 #' @importFrom glue glue
 ## usethis namespace: end
 NULL

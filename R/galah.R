@@ -38,15 +38,18 @@
 #'   * [galah_group_by()] Fields to group counts by
 #'   * [galah_geolocate()] Specify a location
 #' 
-#' **`Lookup`**
+#' **`Search`**
 #' 
 #'   * [search_taxa()] Search for taxonomic identifiers
 #'   * [search_fields()] Free-text search for layers and fields
+#'   
+#' **`Lookup`**
+#' 
 #'   * [show_all_profiles()] List data quality profiles
 #'   * [show_all_ranks()] List available taxonomic ranks
 #'   * [show_all_reasons()] List valid download reasons
 #'   * [show_all_atlases()] List supported international atlases
-#'   * [show_all_fields()] List fields to filter or categorise queries
+#'   * [show_all_fields()] List fields to filter or categorise searches
 #'   * [find_field_values()] List possible values for a given field
 #'   * [find_profile_attributes()] List filters included in a data quality profile
 #' 
@@ -72,20 +75,25 @@
 #' **assertions** attached to the record. Each piece of information
 #' associated with a given occurrence record is stored in a **field**,
 #' which corresponds to a **column** when imported to an
-#' `R data.frame`. See [search_fields()] to view valid fields,
-#' layers and assertions.
+#' `R data.frame`. See [show_all_fields()] to view valid fields,
+#' layers and assertions, or conduct a search using [search_fields()].
 #'
 #' Data fields are important because they provide a means to **filter**
 #' occurrence records;  i.e. to return only the information that you need, and
 #' no more. Consequently, much of the architecture of `galah` has been
-#' designed to make filtering as simple as possible, by using functions with the
-#' `galah_` prefix. Each `galah_` function allows the user to filter
-#' in a different way, and again the function suffix contains this information.
-#' For example, you can choose which taxonomic groups are included using
-#' [search_taxa()], or a specific location using
-#' [galah_geolocate()]. By combining different filter functions, it
-#' is possible to build complex queries to return only the most valuable
-#' information for a given problem.
+#' designed to make filtering as simple as possible. You can use 
+#' [search_taxa()] to find correct taxonomic queries based on taxonomic names
+#' or ranks.
+#' Next, functions with the `galah_` prefix offer a ways to shape your query call. 
+#' Each `galah_` function allows the user to filter in a different way, 
+#' and again the function suffix contains this information. These suffixes
+#' intentionally match `dplyr`'s `select()`, `filter()` and `group_by` functions 
+#' both in their name and how they they are used. For example, you can use 
+#' [galah_select()] to choose what information is returned as columns, and 
+#' you can use [galah_filter()] to filter the rows. Additionally, you can choose 
+#' a specific location using [galah_geolocate()]. By combining different filter 
+#' functions, it is possible to build complex queries to return only the most 
+#' valuable information for a given problem.
 #'
 #' A notable extention of the filtering approach is to remove records with low
 #' 'quality'. ALA performs quality control checks on all records that it stores.
