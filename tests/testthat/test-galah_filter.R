@@ -195,7 +195,14 @@ test_that("galah_filter fails when given invalid OR syntax", {
   expect_false(grepl("OR", filters$query))
 })
 
-test_that("galah_filter handles concatenated queries", { # FIXME: this is not a correct test yet
-  c_filters <- galah_filter(multimedia == c("Image", "Sound", "Video"))
-  expect_equal(nrow(filters), 3)
+test_that("galah_filter handles concatenated strings", {
+  filters <- galah_filter(multimedia == c("Image", "Sound", "Video"))
+  expect_equal(nrow(filters), 1)
+  expect_true(grepl("multimedia:\"Image\"", filters$query))
+})
+
+test_that("galah_filter handles concatenated numerics", {
+  filters <- galah_filter(year == c(2010, 2015, 2020))
+  expect_equal(nrow(filters), 1)
+  expect_true(grepl("year:\"2010\"", filters$query))
 })

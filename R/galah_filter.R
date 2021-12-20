@@ -150,7 +150,14 @@ parse_objects_or_functions <- function(dots){
       function(a){
         result <- eval_tidy(a)
         if(length(result) > 1){
-          new_quosure(paste0("c(", paste(result, collapse = ", "), ")"))
+          new_quosure(
+            paste0("c(", 
+              paste(
+                paste0("\"", result, "\""), # ensure values are quoted
+                collapse = ", "
+              ), 
+            ")")
+          )
         }else{
           new_quosure(result)
         }
@@ -344,7 +351,8 @@ parse_logical <- function(df){
 
 # question: does the below work when df$value is a character? May add 2x quotes
 parse_vector <- function(df){
-  values <- eval(parse(text = df$value))
+  clean_text <- gsub("\\\\", "", df$value) # remove multiple backslahses 
+  values <- eval(parse(text = clean_text)) 
   paste0(
     if(df$logical == "!="){"-"},
     "(",
