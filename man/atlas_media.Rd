@@ -9,7 +9,6 @@ atlas_media(
   filter = NULL,
   geolocate = NULL,
   select = galah_select(group = "basic"),
-  columns = NULL,
   download_dir,
   refresh_cache = FALSE
 )

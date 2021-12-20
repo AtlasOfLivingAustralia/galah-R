@@ -8,7 +8,7 @@ test_that("atlas_media check inputs", {
                            download_dir = "non_existent"))
 })
 
-test_that("atlas_media downloads images", { # FIXME
+test_that("atlas_media downloads images", {
   skip_on_cran()
   galah_config(email = "ala4r@ala.org.au")
   media_dir <- "test_media"
