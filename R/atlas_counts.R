@@ -8,13 +8,13 @@
 #' location of for particular taxa. To this end, `atlas_counts()` takes
 #' arguments in the same format as [atlas_occurrences()], and
 #' provides either a total count of records matching the criteria, or a
-#' `data.frame` of counts matching the criteria supplied to the `groups`
+#' `data.frame` of counts matching the criteria supplied to the `group_by`
 #' argument.
 #'
 #' @inheritParams atlas_occurrences
 #' @param group_by `data.frame`: An object of class `galah_group_by`,
-#' as returned by [galah_select()]. Alternatively a vector of field
-#' names.
+#' as returned by [galah_group_by()]. Alternatively a vector of field
+#' names (see [search_fields()] and [show_all_fields()].
 #' @param limit `numeric`: maximum number of categories to return, defaulting to 100.
 #' If limit is NULL, all results are returned. For some categories this will
 #' take a while.
@@ -27,7 +27,7 @@
 #' be replaced by the current query
 #' @return
 #' 
-#'  * A single number, if `groups` is not specified or,
+#'  * A single number, if `group_by` is not specified or,
 #'  * A `data.frame` of counts by `groups` field(s), if specified
 #'
 #' @examples
@@ -46,7 +46,7 @@
 #' # Crosstabulate using two different variables
 #' atlas_counts(
 #'   filter = galah_filter(year > 2015),
-#'   groups = galah_select(year, basisOfRecord, expand = TRUE))
+#'   select = galah_select(year, basisOfRecord, expand = TRUE))
 #' 
 #' @export
 atlas_counts <- function(...) {
