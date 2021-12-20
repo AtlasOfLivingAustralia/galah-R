@@ -49,14 +49,11 @@
 atlas_media <- function(taxa = NULL, 
                         filter = NULL, 
                         geolocate = NULL,
-                        select = galah_select(group = "basic"),
-                        columns = NULL, 
+                        select = galah_select(group = "basic"), 
                         download_dir,
                         refresh_cache = FALSE) {
 
-  image_url <- server_config("images_base_url")
-  if(is.null(select) & !is.null(columns)){select <- columns}
-  
+  image_url <- server_config("images_base_url")  
   verbose <- getOption("galah_config")$verbose
   caching <- getOption("galah_config")$caching
   assert_that(!missing(download_dir),
@@ -92,7 +89,12 @@ atlas_media <- function(taxa = NULL,
     galah_filter(multimedia == c("Image", "Sound", "Video")))
   
   # Make sure media ids are included in results
-  occ_columns <- rbind(select, galah_select(image_select()))
+  occ_columns <- rbind(
+    select, 
+    # galah_select(image_fields()) # original code
+    data.frame(name = image_fields(), type = "media")
+    # also why are these fields not returned by show_all_fields()?
+  )
 
   # add galah_ classes to modified filter and select
   class(occ_filter) <- append(class(occ_filter), "galah_filter")
@@ -107,7 +109,7 @@ atlas_media <- function(taxa = NULL,
   occ_long <- data.frame(data.table::rbindlist(
     lapply(seq_len(nrow(occ)), function(x) {
       # get all the image, video and sound columns into one row
-      splt_media <- unlist(str_split(occ[x,][image_select()],
+      splt_media <- unlist(str_split(occ[x,][image_fields()],
                                      pattern = "\""))
       media <- splt_media[nchar(splt_media) > 1 & splt_media != "NA"]
       
@@ -122,7 +124,7 @@ atlas_media <- function(taxa = NULL,
     fill = TRUE
   ))
 
-  occ_long[, image_select()] <- NULL
+  occ_long[, image_fields()] <- NULL
   
   ids <- occ_long$media_id[!is.na(occ_long$media_id)]
   
