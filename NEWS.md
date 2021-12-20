@@ -1,3 +1,30 @@
+# galah 1.4.0
+
+### Revamped syntax
+
+* `ala_` functions are renamed to use use the prefix `atlas_`. This change reflects the functionality with international atlases (i.e., `atlas_occurrences`, `atlas_counts`, `atlas_species`, `atlas_media`, `atlas_taxonomy`, `atlas_citation`) (#103)
+* `search_taxa` replaces `select_taxa` to reflect its use to search valid taxonomic information, with similar functionality to `search_fields` (#112)
+* `galah_filter`, `galah_select` and `galah_geolocate` replace `select_filters`, `select_columns` and `select_locations`. These syntax changes reflect a move towards consistency with `dplyr` naming and functionality (#101, #108)
+* `show_all_` prefix replaces `find_` prefix for functions that return complete lists of possible values (i.e., `show_all_profiles`, `show_all_ranks`, `show_all_atlases`, `show_all_cached_files`, `show_all_fields`, `show_all_reasons`) (#112, #113) 
+* Updated documentation and added warnings for deprecated functions (#113)
+
+### `galah_group_by`
+
+* Group fields using `atlas_counts(group_by = galah_group_by())` which groups and summarises record counts based on groupings, similar to `dplyr::group_by` (#90)
+
+### Minor improvements
+
+* Improved error messages using {glue} and {rlang} (#117)
+* Pass vectors to `galah_filter` (#91, #92)
+* Cache valid fields for faster field look up (#73)
+* New vignettes for updated syntax (#104, #105)
+
+### Bug fixes
+
+* galah no longer returns error when ALA system is down (#102)
+* `search_taxa` returns correct IDs for search terms with parentheses (#96)
+
+
 # galah 1.3.1
 
 ### `search_taxonomy()` renamed to `ala_taxonomy()`
