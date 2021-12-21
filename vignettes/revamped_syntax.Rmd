@@ -61,7 +61,7 @@ Functions that alter or filter data requests use the prefix `galah_`. These func
 
 These functions replace or extend functions previously prefixed by `select_`. Renaming `select_` functions to `galah_` functions reflects `galah`'s embrace of `dplyr`. This change can be seen in the names of `galah_` functions; they echo `dplyr`'s `filter`, `select` and `group_by` functions.
 
-This echo isn't only in their name. `galah_filter`, `galah_select` and `galah_group_by` all use `dplyr` tidy evaluation and syntax. This means that the way you use `dplyr` functions is also how you use `galah_` functions.
+The similarity of `galah_` functions to `dplyr` doesn't end there. `galah_filter`, `galah_select` and `galah_group_by` also use `dplyr` tidy evaluation and syntax. This means that the way you use `dplyr` functions is also how you use `galah_` functions.
 
 Let's look at a few examples to show you what we mean.
 
@@ -90,11 +90,12 @@ atlas_counts(
 Use `galah_select` to choose columns returned when downloading records:
 
 ```{r, eval = FALSE}
-# Get only eventDate and kingdom of records made in 1950
+# Get records from 1930, but only 'eventDate' and 'kingdom' columns
 atlas_occurrences(
-  filter = galah_select(year == 2001),
+  filter = galah_filter(year == 1930),
   select = galah_select(eventDate, kingdom)
-  )
+  ) |>
+  head() # only return first 5 lines
 ```
 
 Use `galah_geolocate` to specify a geographic area or region to limit your search:
@@ -102,9 +103,9 @@ Use `galah_geolocate` to specify a geographic area or region to limit your searc
 ```{r, eval = FALSE}
 # Get list of parameles species only in area specified:
 # (Note: This can also be specified by a shapefile)
-wkt <- "POLYGON((148.94, -36.0,149.23, -36.0,149.23, -35.0,148.94, -35.0,148.94, -36.0]))"
+wkt <- "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))"
 
-atlas_species(geolocate = galah_geolocate(wkt))
+species <- atlas_species(geolocate = galah_geolocate(wkt))
 ```
 
 `galah_` functions also evaluate arguments just like `dplyr`. To see what we mean, let's look at an example of how `dplyr::filter()` works. Notice how `dplyr::filter` and `galah_filter` both require logical arguments to be added by using the `==` sign:
@@ -118,6 +119,17 @@ mtcars %>% filter(mpg == 21)
 ```{r}
 atlas_counts(galah_filter(year == 2021))
 ```
+
+As another example, notice how `galah_group_by` works very similarly to `dplyr::group_by` + `dplyr::summarise(sum())`:
+
+```{r}
+mtcars %>% 
+  group_by(vs) %>% 
+  summarise(sum(mpg))
+
+atlas_counts(group_by = galah_group_by(biome))
+```
+
 
 We made this move towards tidy evaluation to eventually make it possible to use piping to create a query to the Atlas of Living Australia just like how you might edit a `data.frame` with the `tidyverse`. We are not ready to add these changes, but we imagine that getting the number of records, for example, could look something like this in the future:
 
@@ -157,21 +169,31 @@ This change was made to reflect the ability for functions like `atlas_counts` an
 `atlas_` functions work the same as previous `ala_` functions, but with changes to the names of arguments they accept. Argument names are consistent with the functions that they use. With the new syntax of `galah_` functions and the update to `search_taxa`, these argument changes look like this:
 
 ```{r, eval = FALSE}
-# Get species list for Parameles (aka Bandicoots)
-atlas_species(taxa = search_taxa("parameles"))
+# Get species list for Perameles (aka Bandicoots)
+atlas_species(taxa = search_taxa("perameles"))
 
-# Get record counts of parameles by year since 2010
-atlas_counts(taxa = search_taxa("parameles"),
+# Get record counts of Perameles by year since 2010
+atlas_counts(taxa = search_taxa("perameles"),
              filter = galah_filter(year > 2010),
              group_by = galah_group_by (year))
 
-# Get records of parameles from 2010, with "basis of record" included as a column
-atlas_occurrences(taxa = search_taxa("parameles"),
+# Get records of Perameles from 2010, with "basis of record" included as a column
+atlas_occurrences(taxa = search_taxa("perameles"),
                   filter = galah_filter(year == 2010),
-                  select = galah_select(basisOfRecord, group = "basic"))
+                  select = galah_select(basisOfRecord, group = "basic"),
+                  geolocate = wkt) # wkt was defined in earlier example
+
+# Get taxonomic tree of Peramelemorphia (aka bandicoots & bilbies) down to genus
+atlas_taxonomy(taxa = search_taxa("Peramelemorphia"),
+               down_to = "genus")
+
+# Download media of Regent Honeyeater from 2010
+atlas_media(taxa = search_taxa("Regent Honeyeater"),
+            filter = galah_filter(year == 2010),
+            download_dir = "media")
 ```
 
-See R help files for more information on updates to syntax.
+See R help files for more information on using `atlas_` functions with updated syntax.
 
 
 ## `show_all_` functions
