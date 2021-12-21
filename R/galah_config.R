@@ -72,8 +72,7 @@ galah_config <- function(..., profile_path = NULL) {
     email = "",
     send_email = FALSE,
     verbose = TRUE,
-    run_checks = TRUE,
-    valid_fields = c()
+    run_checks = TRUE
   )
   
   if (length(user_options) == 0 && !is.null(current_options)) {
@@ -118,7 +117,7 @@ galah_config <- function(..., profile_path = NULL) {
     if (current_options$verbose) {
       message("The config will be stored in ", profile_path)
     }
-    save_config(profile_path, current_options[names(current_options) != "valid_fields"])
+    save_config(profile_path, current_options)
     
   } else {
     if (current_options$verbose) {
@@ -232,33 +231,9 @@ validate_option <- function(name, value) {
       stop("Atlas must be one of ",
            paste(show_all_atlases()$atlas, collapse = ", "))
     }
-  } else if (name != "valid_fields"){
+  } else {
     stop("\"", name, "\"", "is not a valid option name.")
   }
-}
-
-#' List valid download reasons
-#'
-#' When downloading occurrence data with [ala_occurrences()] the
-#' ALA APIs require a reason for download to be specified. By default, a
-#' download reason of 'scientific research' is set for you, but if you wish to
-#' change this you can do so with [galah_config()]. Use this function
-#' to view the list of download reason code and names. When specifying a reason,
-#' you can use either the download code or name.
-#' @rdname show_all_reasons
-#' @seealso This function is helpful in setting up [galah_config()].
-#' @return A `data.frame` of valid download reasons, containing the id
-#' and name for each reason.
-#' @export
-show_all_reasons <- function() {
-  ## return list of valid "reasons for use" codes
-  out <- atlas_GET(server_config("logger_base_url"),
-                 path = "service/logger/reasons")
-  if (any(names(out) == "deprecated")) out <- out[!out$deprecated, ]
-  out <- out[wanted_columns("reasons")]
-  # sort by id to make it less confusing
-  row.names(out) <- out$id
-  out[order(out$id),]
 }
 
 convert_reason <- function(reason) {

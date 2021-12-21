@@ -62,7 +62,7 @@ galah_select <- function(...,
   # Build a data.frame with a standardised set of names,
   # stored by galah_config()
   load_fields()
-  field_names <- galah_config()$valid_fields 
+  field_names <- show_all_fields()$id 
   df <- as.data.frame(
    matrix(data = NA, nrow = 0, ncol = length(field_names),
      dimnames = list(NULL, field_names)))

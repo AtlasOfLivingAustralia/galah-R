@@ -23,10 +23,17 @@
 # this will return names and descriptions of data profiles
 # should id be exposed to the user?
 show_all_profiles <- function() {
-  # return only enabled profiles?
-  url <- server_config("data_quality_base_url")
-  resp <- atlas_GET(url, "api/v1/profiles", list(enabled = "true"))
-  return(resp[wanted_columns(type = "profile")])
+  local_check <- galah_internal()$show_all_profiles
+  if(!is.null(local_check)){
+    local_check
+  }else{
+    # return only enabled profiles?
+    url <- server_config("data_quality_base_url")
+    resp <- atlas_GET(url, "api/v1/profiles", list(enabled = "true"))
+    df <- resp[wanted_columns(type = "profile")]
+    galah_internal(show_all_profiles = df)
+    df
+  }
 }
 
 #' Get data filters for a specified data quality profile

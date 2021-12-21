@@ -51,32 +51,48 @@ show_all_fields <- function(
   type = c("all", "fields", "layers", "assertions", "media", "other")
 ){
   type <- match.arg(type)
-  # ensure data can be queried
-  df <- switch(type,
-    "fields" = get_fields(),
-    "layers" = get_layers(),
-    "assertions" = get_assertions(),
-    "media" = get_media(),
-    "other" = get_other_fields(),
-    "all" = {
-      fields <- get_fields()
-      layers <- get_layers()
-      assertions <- get_assertions()
-      media <- get_media()
-      other <- get_other_fields()
-      result <- as.data.frame(
-        data.table::rbindlist(
-          list(
-            fields[!(fields$id %in% layers$id), ],
-            layers, assertions, media, other), 
-          fill = TRUE)
-      )
-    },
-    stop("`type`` must be one of c('fields', 'layers', 'assertions','other', 'all')")
-  )
+  
+  # check whether data is stored in galah_internal()
+  local_check <- galah_internal()$show_all_fields
+  if(!is.null(local_check)){
+    if(type == "all"){
+      local_check
+    }else{
+      local_check[local_check$type == type, ]
+    }
+    
+  # if not, then generate new data
+  }else{
 
-  df
-
+    df <- switch(type,
+      "fields" = get_fields(),
+      "layers" = get_layers(),
+      "assertions" = get_assertions(),
+      "media" = get_media(),
+      "other" = get_other_fields(),
+      "all" = {
+        fields <- get_fields()
+        layers <- get_layers()
+        assertions <- get_assertions()
+        media <- get_media()
+        other <- get_other_fields()
+        result <- as.data.frame(
+          data.table::rbindlist(
+            list(
+              fields[!(fields$id %in% layers$id), ],
+              layers, assertions, media, other), 
+            fill = TRUE)
+        )
+      },
+      stop("`type`` must be one of c('fields', 'layers', 'assertions','other', 'all')")
+    )
+    
+    if(type == "all"){
+      galah_internal(show_all_fields = df)
+    }
+    
+    df
+  }
 }
 
 # Helper functions to get different field classes
