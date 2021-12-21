@@ -50,15 +50,6 @@ Using \code{group = "event"} returns the following columns:
 
 Using \code{group = "assertions"} returns all quality assertion-related
 columns. The list of assertions is shown by \code{search_fields(type = "assertions")}.
-
-The \code{expand} argument is appended as an attribute of the \code{data.frame}
-returned by \code{galah_select}. It is only used by \code{atlas_counts}, meaning
-that setting \code{expand = TRUE} will not affect calls to \code{atlas_occurrences}.
-}
-\note{
-\code{select_columns} and \code{galah_select} are synonymous;
-\code{select_columns} is deprecated and will be removed from future versions
-of \code{galah}.
 }
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}}, \code{\link[=galah_filter]{galah_filter()}} and

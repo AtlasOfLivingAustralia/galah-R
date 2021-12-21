@@ -62,7 +62,6 @@
 #' **`Help`**
 #' 
 #'   * [galah_config()] Package configuration options
-#' 
 #'
 #' @section Terminology:
 #'
@@ -85,18 +84,18 @@
 #' designed to make filtering as simple as possible. You can use 
 #' [search_taxa()] to find correct taxonomic queries based on taxonomic names
 #' or ranks.
-#' Next, functions with the `galah_` prefix offer a ways to shape your query call. 
-#' Each `galah_` function allows the user to filter in a different way, 
-#' and again the function suffix contains this information. These suffixes
-#' intentionally match `dplyr`'s `select()`, `filter()` and `group_by` functions 
-#' both in their name and how they they are used. For example, you can use 
-#' [galah_select()] to choose what information is returned as columns, and 
-#' you can use [galah_filter()] to filter the rows. Additionally, you can choose 
-#' a specific location using [galah_geolocate()]. By combining different filter 
-#' functions, it is possible to build complex queries to return only the most 
-#' valuable information for a given problem.
+#' Next, functions with the `galah_` prefix offer a ways to shape your query 
+#' call. Each `galah_` function allows the user to filter in a different way. 
+#' Again, the function suffix reveals what each one does. `galah_filter`, 
+#' `galah_select` and `galah_group_by` intentionally match `dplyr`'s `select()`, 
+#' `filter()` and `group_by` functions, both in their name and how they they are
+#' used. For example, you can use [galah_select()] to choose what information
+#' is returned as columns. Alternatively, you can use [galah_filter()] to filter
+#' the rows. You can also choose a specific location using [galah_geolocate()]. 
+#' By combining different filter functions, it is possible to build complex 
+#' queries to return only the most valuable information for a given problem.
 #'
-#' A notable extention of the filtering approach is to remove records with low
+#' A notable extension of the filtering approach is to remove records with low
 #' 'quality'. ALA performs quality control checks on all records that it stores.
 #' These checks are used to generate new fields, that can then be used to filter
 #' out records that are unsuitable for particular applications. However, there
@@ -114,26 +113,24 @@
 #'
 #' In most cases, users will be primarily interested in using `galah` to
 #' return data from one of the living atlases. These functions are named with 
-#' the prefix `atlas_`,
-#' followed by a suffix describing the information that they provide. For
-#' example, we anticipate that users will wish to download occurrence data,
-#' which can be achieved using the function [atlas_occurrences()].
-#' However, it is also possible to download data on species via
-#' [atlas_species()], or media content (largely images) via
-#' [atlas_media()]. Alternatively, users can assess how many records
-#' meet their particular criteria using [atlas_counts()]. All 
-#' functions return a `data.frame` as their standard format, except 
+#' the prefix `atlas_`, followed by a suffix describing the information that 
+#' they provide. For example, users that wish to download occurrence data can 
+#' use the function [atlas_occurrences()]. Alternatively, users that wish to 
+#' download data on each species (rather than on each occurrence record) can use
+#' [atlas_species()] or download media content (largely images) 
+#' using [atlas_media()]. Users can also assess how many records
+#' meet their particular criteria using [atlas_counts()] and return a taxonomic 
+#' tree of one taxonomic clade down to a defined level, like from family to 
+#' genus. All functions return a `data.frame` as their standard format, except 
 #' [atlas_taxonomy()] which returns a `data.tree`.
 #'
-#' Functions in `galah` are designed
-#' according to a nested architecture. Users that require data should begin by
-#' locating the relevant `atlas_` function; the arguments within that
-#' function then call correspondingly-named `galah_` functions; and
-#' finally the specific values that can be interpreted by those `galah_`
+#' Functions in `galah` are designed according to a nested architecture. 
+#' Users that require data should begin by locating the relevant `atlas_` 
+#' function; the arguments within that function then call correspondingly-named 
+#' `galah_` functions; specific values that can be interpreted by those `galah_`
 #' functions are given by functions with the prefix `search_` or
-#' `find_`. So, to limit occurrence downloads to a specific taxonomic
-#' group, for example, you pass the result of [search_taxa()] to the
-#' `taxa` argument of [atlas_occurrences()].
+#' `show_all_`; desired taxa can be also be identified using [search_taxa()] and 
+#' passed to the `taxa` argument of `atlas_` functions.
 #'
 
 NULL

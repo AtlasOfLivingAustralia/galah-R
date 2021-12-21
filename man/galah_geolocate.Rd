@@ -25,7 +25,7 @@ simplified.
 \examples{
 # Search for records using a shapefile
 location <- galah_geolocate(st_read(path/to/shapefile))
-atlas_occurrences(location = location)
+atlas_occurrences(geolocate = location)
 
 # Search for records using a WKT
 wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \

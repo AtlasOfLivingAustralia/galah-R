@@ -10,7 +10,7 @@ galah_group_by(..., expand = TRUE)
 \item{...}{zero or more individual column names to include}
 
 \item{expand}{\code{logical}: When passed to \code{group_by} argument of
-\code{ala_counts}, should factor levels be expanded? Defaults to \code{TRUE}.}
+\code{atlas_counts}, should factor levels be expanded? Defaults to \code{TRUE}.}
 }
 \value{
 If any arguments are provided, returns a \code{data.frame} with
@@ -18,29 +18,29 @@ columns \code{name} and \code{type}, as per \code{\link[=galah_select]{galah_sel
 are provided, returns \code{NULL}.
 }
 \description{
-\code{ala_counts} supports server-side grouping of data. Grouping can be
+\code{atlas_counts} supports server-side grouping of data. Grouping can be
 used to return record counts grouped by multiple, valid fields (found by
 \code{search_fields}. Use \code{galah_group_by} when using the
-\code{group_by} argument of \code{ala_counts} to return record counts summed
+\code{group_by} argument of \code{atlas_counts} to return record counts summed
 by one or more valid fields.
 }
 \examples{
 # Return record counts since 2010 by year
-ala_counts(
+atlas_counts(
     filter = galah_filter(year > 2010),
     group_by = galah_group_by(year)
     )
     
 # Return record counts since 2010 by year and data provider
-ala_counts(
+atlas_counts(
     filter = galah_filter(year > 2010),
     group_by = galah_group_by(year, dataResourceName)
     )
     
 # Return record counts of Litoria species each year since 2015, limiting
 # results to the top 5 each year.
-ala_counts(
-    taxa = select_taxa("Litoria"),
+atlas_counts(
+    taxa = search_taxa("Litoria"),
     filter = galah_filter(year > 2015),
     group_by = galah_group_by(year, species),
     limit = 5)
@@ -49,5 +49,5 @@ ala_counts(
 }
 \seealso{
 \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and
-\code{\link[=galah_location]{galah_location()}} for related methods.
+\code{\link[=galah_geolocate]{galah_geolocate()}} for related methods.
 }

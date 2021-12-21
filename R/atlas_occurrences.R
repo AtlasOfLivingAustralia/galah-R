@@ -141,7 +141,7 @@ no valid field names have been provided. To check whether field names are valid,
     write_cache_file(object = df, data_type = "occurrences",
                      cache_file = cache_file)
   }
-  return(df)
+  return(as_tibble(df))
 }
 
 
