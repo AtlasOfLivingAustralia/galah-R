@@ -182,7 +182,7 @@ ala_citation <- function(data) {
 find_reasons <- function() {
   lifecycle::deprecate_warn("1.4.0", "find_reasons()", "show_all_reasons()")
   
-  return(show_all_reasons())
+  return(show_all_reasons()) |> as.data.frame()
 }
 
 #' @description 
@@ -195,7 +195,7 @@ find_cached_files <- function() {
   lifecycle::deprecate_warn("1.4.0", "find_cached_files()", 
                             "show_all_cached_files()")
   
-  show_all_cached_files()
+  show_all_cached_files() |> as.data.frame()
 }
 
 #' @description 
@@ -207,7 +207,7 @@ find_cached_files <- function() {
 find_ranks <- function() {
   lifecycle::deprecate_warn("1.4.0", "find_ranks()", "show_all_ranks()")
   
-  show_all_ranks()
+  show_all_ranks() |> as.data.frame()
 }
 
 #' @description 
@@ -219,7 +219,7 @@ find_ranks <- function() {
 find_profiles <- function() {
   lifecycle::deprecate_warn("1.4.0", "find_profiles()", "show_all_profiles()")
   
-  show_all_profiles()
+  show_all_profiles() |> as.data.frame()
 }
 
 #' @description 
@@ -231,7 +231,7 @@ find_profiles <- function() {
 find_atlases <- function() {
   lifecycle::deprecate_warn("1.4.0", "find_atlases()", "show_all_atlases()")
   
-  show_all_atlases()
+  show_all_atlases() |> as.data.frame()
 }
 
 #' @description 

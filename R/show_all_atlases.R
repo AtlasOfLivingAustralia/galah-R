@@ -21,7 +21,7 @@ show_all_atlases <- function() {
                          nbn_info)
     )
     galah_internal(show_all_atlases = df)
-    df
+    return(as_tibble(df))
   }
 }
 

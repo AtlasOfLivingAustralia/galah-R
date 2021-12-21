@@ -22,5 +22,5 @@ show_all_cached_files <- function() {
             getOption("galah_config")$cache_directory)
     return()
   }
-  readRDS(metadata_path)
+  readRDS(metadata_path) |> as_tibble()
 }

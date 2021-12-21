@@ -32,7 +32,7 @@ show_all_profiles <- function() {
     resp <- atlas_GET(url, "api/v1/profiles", list(enabled = "true"))
     df <- resp[wanted_columns(type = "profile")]
     galah_internal(show_all_profiles = df)
-    df
+    return(df |> as_tibble())
   }
 }
 
@@ -66,7 +66,7 @@ find_profile_attributes <- function(profile) {
   resp <- atlas_GET(url, "api/v1/quality/activeProfile",
                   list(profileName = short_name))
   filters <- data.table::rbindlist(resp$categories$qualityFilters)
-  subset(filters, select = wanted_columns("quality_filter"))
+  subset(filters, select = wanted_columns("quality_filter")) |> as_tibble()
 }
 
 profile_short_name <- function(profile) {

@@ -1,6 +1,6 @@
 #' List valid download reasons
 #'
-#' When downloading occurrence data with [ala_occurrences()] the
+#' When downloading occurrence data with [atlas_occurrences()] the
 #' ALA APIs require a reason for download to be specified. By default, a
 #' download reason of 'scientific research' is set for you, but if you wish to
 #' change this you can do so with [galah_config()]. Use this function
@@ -25,6 +25,6 @@ show_all_reasons <- function() {
     row.names(out) <- out$id
     df <- out[order(out$id),]
     galah_internal(show_all_reasons = df)
-    df
+    return(df |> as_tibble())
   }
 }

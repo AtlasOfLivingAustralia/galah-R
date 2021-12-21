@@ -38,6 +38,6 @@ show_all_ranks <- function() {
         "cultivar", "pathovar", "infraspecific")
     )
     galah_internal(show_all_ranks = df)
-    df
+    return(df |> as_tibble())
   }
 }

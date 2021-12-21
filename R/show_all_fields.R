@@ -91,7 +91,7 @@ show_all_fields <- function(
       galah_internal(show_all_fields = df)
     }
     
-    df
+    df |> as_tibble()
   }
 }
 
