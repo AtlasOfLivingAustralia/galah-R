@@ -9,11 +9,13 @@
 #' hierarchy should be returned. Should be specified using an object of class 
 #' `data.frame` and `ala_id`, as returned from
 #' [search_taxa()]. 
-#' @param down_to `string`: A taxonomic rank to search down to. See
-#' [show_all_ranks()] for valid inputs.
+#' @param down_to The identity of the clade at which the downwards search
+#' should stop. Should be specified using an object of class 
+#' `character` and `galah_down_to`, as returned from
+#' [galah_down_to()]. Also accepts a string.
 #' @details The approach used by this function is recursive, meaning that it  
 #' becomes slow for large queries such as  
-#' `atlas_taxonomy(search_taxa("Plantae"), down_to = "species")`.
+#' `atlas_taxonomy(search_taxa("Plantae"), down_to = galah_down_to(species))`.
 #' Although the inputs to `search_taxa` and `down_to` are 
 #' case-insensitive, node names are always returned in title case.
 #' @return A tree consisting of objects of class `Node`, containing the 
@@ -28,7 +30,7 @@
 #' [show_all_ranks()] for valid ranks used to specify the `down_to`
 #' argument.
 #' @examples
-#' atlas_taxonomy(search_taxa("chordata"), down_to = "class")
+#' atlas_taxonomy(search_taxa("chordata"), down_to = galah_down_to(class))
 #' 
 #' @export
 

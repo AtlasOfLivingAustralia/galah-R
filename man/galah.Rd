@@ -37,6 +37,7 @@ quality-control criteria.
 \item \code{\link[=galah_select]{galah_select()}} Fields to report information for
 \item \code{\link[=galah_group_by]{galah_group_by()}} Fields to group counts by
 \item \code{\link[=galah_geolocate]{galah_geolocate()}} Specify a location
+\item \code{\link[=galah_down_to]{galah_down_to()}} Specify a taxonomic rank
 }
 
 \strong{\code{Search}}

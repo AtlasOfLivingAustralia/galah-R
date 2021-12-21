@@ -12,8 +12,10 @@ hierarchy should be returned. Should be specified using an object of class
 \code{data.frame} and \code{ala_id}, as returned from
 \code{\link[=search_taxa]{search_taxa()}}.}
 
-\item{down_to}{\code{string}: A taxonomic rank to search down to. See
-\code{\link[=show_all_ranks]{show_all_ranks()}} for valid inputs.}
+\item{down_to}{The identity of the clade at which the downwards search
+should stop. Should be specified using an object of class
+\code{character} and \code{galah_down_to}, as returned from
+\code{\link[=galah_down_to]{galah_down_to()}}. Also accepts a string.}
 }
 \value{
 A tree consisting of objects of class \code{Node}, containing the
@@ -34,12 +36,12 @@ clades are contained within the specified taxon.
 \details{
 The approach used by this function is recursive, meaning that it
 becomes slow for large queries such as
-\code{atlas_taxonomy(search_taxa("Plantae"), down_to = "species")}.
+\code{atlas_taxonomy(search_taxa("Plantae"), down_to = galah_down_to(species))}.
 Although the inputs to \code{search_taxa} and \code{down_to} are
 case-insensitive, node names are always returned in title case.
 }
 \examples{
-atlas_taxonomy(search_taxa("chordata"), down_to = "class")
+atlas_taxonomy(search_taxa("chordata"), down_to = galah_down_to(class))
 
 }
 \seealso{
