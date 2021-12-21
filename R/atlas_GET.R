@@ -1,7 +1,36 @@
-# Wrapper for getting data
-#
-# Try using crul
+# Wrapper for getting data using crul
+# tryCatch() used to ensure it is impossible for {galah} to return an error
+# because the target atlas is offline.
+
+
 atlas_GET <- function(url, path, params = list(), on_error = NULL,
+                    paginate = FALSE, limit = NULL, page_size = NULL,
+                    offset_param = 'offset') {
+   tryCatch({
+     internal_GET(
+       url = url,
+       path = path,
+       params = params,
+       on_error = on_error,
+       paginate = paginate,
+       limit = limit,
+       page_size = page_size,
+       offset_param = offset_param
+     )
+   }, 
+   error = function(a){
+     message("This didn't work - please amend your query or try again later")
+     message(a)
+   },
+   warning = function(a){
+     message("This function returned a warning:")
+     message(a)
+   }
+ )
+}
+
+
+internal_GET <- function(url, path, params = list(), on_error = NULL,
                     paginate = FALSE, limit = NULL, page_size = NULL,
                     offset_param = 'offset') {
   cli <- HttpClient$new(
