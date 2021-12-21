@@ -156,7 +156,7 @@ identifier_lookup <- function(identifier) {
 validate_rank <- function(df) {
    
   ranks <- names(df)
-  ranks_check <- ranks %in% find_ranks()$name
+  ranks_check <- ranks %in% show_all_ranks()$name
   if(any(ranks_check)){
     return(df[ranks_check])
   }else{
