@@ -11,84 +11,43 @@ editor_options:
 
 First, let's have a look at all the changes, then go through each major syntax change one-by-one.
 
-<table class="table lightable-paper" style='width: auto !important; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
- <thead>
-  <tr>
-   <th style="text-align:left;"> galah 1.4.0 </th>
-   <th style="text-align:left;"> galah 1.3.1 and earlier </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> galah_filter </td>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> select_filters </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> galah_select </td>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> select_columns </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> galah_geolocate </td>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> select_locations </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> galah_group_by </td>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #f064a4 !important;"> search_taxa </td>
-   <td style="text-align:left;font-weight: bold;background-color: #f064a4 !important;"> select_taxa </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> `atlas_counts` </td>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> `ala_counts` </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> atlas_occurrences </td>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> ala_occurrences </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> atlas_species </td>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> ala_species </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> atlas_media </td>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> ala_media </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> atlas_taxonomy </td>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> ala_taxonomy </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> atlas_citation </td>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> ala_citation </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> show_all_fields </td>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> show_all_profiles </td>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> find_profiles </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> show_all_ranks </td>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> find_ranks </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> show_all_cached_files </td>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> find_cached_files </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> show_all_atlases </td>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> find_atlases </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> show_all_reasons </td>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> find_reasons </td>
-  </tr>
-</tbody>
-</table>
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(galah)
+library(kableExtra)
+library(tibble)
+library(magrittr)
+library(dplyr)
+
+tribble(
+  ~New, ~Old,
+  "galah_filter", "select_filters",
+  "galah_select", "select_columns",
+  "galah_geolocate", "select_locations",
+  "galah_group_by", " ",
+  "search_taxa", "select_taxa",
+  "`atlas_counts`", "`ala_counts`",
+  "atlas_occurrences", "ala_occurrences",
+  "atlas_species", "ala_species",
+  "atlas_media", "ala_media",
+  "atlas_taxonomy", "ala_taxonomy",
+  "atlas_citation", "ala_citation",
+  "show_all_fields", "",
+  "show_all_profiles", "find_profiles",
+  "show_all_ranks", "find_ranks",
+  "show_all_cached_files", "find_cached_files",
+  "show_all_atlases", "find_atlases",
+  "show_all_reasons", "find_reasons"
+) %>% 
+  rename("galah 1.4.0" = "New") %>% 
+  rename("galah 1.3.1 and earlier" = "Old") %>%
+  kbl() %>%
+  kable_styling(full_width = FALSE) %>%
+  kable_paper() %>%
+  row_spec(1:4, bold = T, background = "#f5b2d0") %>%
+  row_spec(5, bold = T, background = "#f064a4") %>% 
+  row_spec(6:11, bold = T, background = "#c0e6e8") %>%
+  row_spec(12:17, bold = T, background = "#78cccc")
+```
 
 
 ## `galah_` functions
@@ -108,31 +67,19 @@ Let's look at a few examples to show you what we mean.
 
 Use `galah_filter` to filter the rows of queries:
 
-
-```r
+```{r}
 # Get total record count since 2000
 atlas_counts(filter = galah_filter(year > 2000))
-```
 
-```
-## [1] 2451558
-```
-
-```r
 # Get total record count for iNaturalist in 2021
 atlas_counts(
   filter = galah_filter(year == 2021,
                         dataResourceName == "iNaturalist Australia"))
 ```
 
-```
-## [1] 0
-```
-
 Use `galah_group_by` to group record counts and summarise counts by specified fields:
 
-
-```r
+```{r}
 # Get record counts since 2010, grouped by year and basis of record
 atlas_counts(
   filter = galah_filter(year > 2010),
@@ -140,14 +87,9 @@ atlas_counts(
   )
 ```
 
-```
-## Error in load_fields(): could not find function "load_fields"
-```
-
 Use `galah_select` to choose columns returned when downloading records:
 
-
-```r
+```{r, eval = FALSE}
 # Get records from 1930, but only 'eventDate' and 'kingdom' columns
 atlas_occurrences(
   filter = galah_filter(year == 1930),
@@ -158,8 +100,7 @@ atlas_occurrences(
 
 Use `galah_geolocate` to specify a geographic area or region to limit your search:
 
-
-```r
+```{r, eval = FALSE}
 # Get list of parameles species only in area specified:
 # (Note: This can also be specified by a shapefile)
 wkt <- "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))"
@@ -169,62 +110,30 @@ species <- atlas_species(geolocate = galah_geolocate(wkt))
 
 `galah_` functions also evaluate arguments just like `dplyr`. To see what we mean, let's look at an example of how `dplyr::filter()` works. Notice how `dplyr::filter` and `galah_filter` both require logical arguments to be added by using the `==` sign:
 
-
-```r
+```{r}
 library(dplyr)
 
 mtcars %>% filter(mpg == 21)
 ```
 
-```
-##               mpg cyl disp  hp drat    wt  qsec vs am gear carb
-## Mazda RX4      21   6  160 110  3.9 2.620 16.46  0  1    4    4
-## Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4
-```
-
-
-```r
+```{r}
 atlas_counts(galah_filter(year == 2021))
-```
-
-```
-## Warning in xtfrm.data.frame(x): cannot xtfrm data frames
-```
-
-```
-## [1] 141212
 ```
 
 As another example, notice how `galah_group_by` works very similarly to `dplyr::group_by` + `dplyr::summarise(sum())`:
 
-
-```r
+```{r}
 mtcars %>% 
   group_by(vs) %>% 
   summarise(sum(mpg))
-```
 
-```
-## # A tibble: 2 x 2
-##      vs `sum(mpg)`
-##   <dbl>      <dbl>
-## 1     0       299.
-## 2     1       344.
-```
-
-```r
 atlas_counts(group_by = galah_group_by(biome))
-```
-
-```
-## Error in load_fields(): could not find function "load_fields"
 ```
 
 
 We made this move towards tidy evaluation to eventually make it possible to use piping to create a query to the Atlas of Living Australia just like how you might edit a `data.frame` with the `tidyverse`. We are not ready to add these changes, but we imagine that getting the number of records, for example, could look something like this in the future:
 
-
-```r
+```{r, eval = FALSE}
 galah_call() %>%
   search_taxa("parameles") %>%
   galah_filter(year == 2021) %>%
@@ -237,13 +146,8 @@ galah_call() %>%
 
 `search_taxa` replaces the previously named `select_taxa`. This change in syntax reflects the function's primary use - to search for taxonomic information. For example, to search for reptiles, we first need to identify whether we have the correct query and verify using additional taxonomic information:
 
-
-```r
+```{r}
 search_taxa("Reptilia")
-```
-
-```
-## Error in search_taxa.default("Reptilia"): `search_taxa` only provides information on Australian taxonomy. To search taxonomy for Austria use `taxize`. See vignette('international_atlases') for more information
 ```
 
 The output confirms that *Reptilia* is the correct search term, which we can use in `atlas_` functions to narrow our results or records. This output is consistent with the other `search_` function, `search_fields`.
@@ -264,8 +168,7 @@ This change was made to reflect the ability for functions like `atlas_counts` an
 
 `atlas_` functions work the same as previous `ala_` functions, but with changes to the names of arguments they accept. Argument names are consistent with the functions that they use. With the new syntax of `galah_` functions and the update to `search_taxa`, these argument changes look like this:
 
-
-```r
+```{r, eval = FALSE}
 # Get species list for Perameles (aka Bandicoots)
 atlas_species(taxa = search_taxa("perameles"))
 
@@ -306,31 +209,9 @@ Functions with the prefix `show_all_` return a `data.frame` doing exactly that -
 
 `show_all_` functions require no arguments. Simply call the function and it will return all accepted values:
 
-
-```r
+```{r}
 show_all_atlases()
-```
-
-```
-##       atlas taxonomy_source                                                     taxonomy_info
-## 1 Australia             ALA                                           https://bie.ala.org.au/
-## 2   Austria            GBIF https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
-## 3 Guatemala            GBIF https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
-## 4     Spain            GBIF https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
-## 5    Sweden            GBIF https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
-## 6        UK             NBN            https://www.nhm.ac.uk/our-science/data/uk-species.html
-```
-
-```r
 show_all_reasons()
-```
-
-```
-## This didn't work - please amend your query or try again later
-```
-
-```
-## Error in server_config("logger_base_url"):  is not supported for the Austria atlas.
 ```
 
 
