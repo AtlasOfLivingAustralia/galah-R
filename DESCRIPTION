@@ -48,7 +48,6 @@ Suggests:
     vcr (>= 0.6.0),
     collapsibleTree,
     covr,
-    dplyr,
     ggplot2,
     knitr,
     magrittr,
