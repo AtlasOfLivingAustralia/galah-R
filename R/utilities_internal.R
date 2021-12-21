@@ -85,7 +85,7 @@ fix_assertion_cols <- function(df, assertion_cols) {
 ##----------------------------------------------------------------
 
 # Build query list from constituent arguments
-build_query <- function(taxa, filters, locations, select = NULL,
+build_query <- function(taxa, filter, location, select = NULL,
                         profile = NULL) {
   query <- list()
   if (is.null(taxa)) {
@@ -103,25 +103,25 @@ build_query <- function(taxa, filters, locations, select = NULL,
   }
   
   # validate filters
-  if (is.null(filters)) {
+  if (is.null(filter)) {
     filter_query <- NULL
   } else {
-    assert_that(is.data.frame(filters))
+    assert_that(is.data.frame(filter))
     # remove profile from filter rows
     # filters <- filters[filters$variable != "profile",]
-    if (nrow(filters) == 0) {
+    if (nrow(filter) == 0) {
       filter_query <- NULL
     } else {
-      filter_query <- build_filter_query(filters)
+      filter_query <- build_filter_query(filter)
     }
   }
   
   query$fq <- c(taxa_query, filter_query)
   
-  if (is.null(locations)) {
+  if (is.null(location)) {
     area_query <- NULL
   } else {
-    area_query <- locations
+    area_query <- location
     query$wkt <- area_query
   }
   if (check_for_caching(taxa_query, filter_query, area_query, select)) {
@@ -295,7 +295,7 @@ galah_version_string <- function() {
   paste0("galah ", version_string)
 }
 
-# Check taxonomic argument provided to `ala_` functions is of correct form
+# Check taxonomic argument provided to `atlas_` functions is of correct form
 check_taxa_arg <- function(taxa) {
   if (!any(grepl("id", class(taxa)))) {
     if (!any(grepl("\\d", taxa))) {
