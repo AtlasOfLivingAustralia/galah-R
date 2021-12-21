@@ -32,8 +32,8 @@ species identifiers.}
 \code{\link[=galah_geolocate]{galah_geolocate()}}}
 
 \item{group_by}{\code{data.frame}: An object of class \code{galah_group_by},
-as returned by \code{\link[=galah_select]{galah_select()}}. Alternatively a vector of field
-names.}
+as returned by \code{\link[=galah_group_by]{galah_group_by()}}. Alternatively a vector of field
+names (see \code{\link[=search_fields]{search_fields()}} and \code{\link[=show_all_fields]{show_all_fields()}}.}
 
 \item{limit}{\code{numeric}: maximum number of categories to return, defaulting to 100.
 If limit is NULL, all results are returned. For some categories this will
@@ -50,7 +50,7 @@ be replaced by the current query}
 }
 \value{
 \itemize{
-\item A single number, if \code{groups} is not specified or,
+\item A single number, if \code{group_by} is not specified or,
 \item A \code{data.frame} of counts by \code{groups} field(s), if specified
 }
 }
@@ -63,7 +63,7 @@ for understanding how observations are growing or shrinking in particular
 location of for particular taxa. To this end, \code{atlas_counts()} takes
 arguments in the same format as \code{\link[=atlas_occurrences]{atlas_occurrences()}}, and
 provides either a total count of records matching the criteria, or a
-\code{data.frame} of counts matching the criteria supplied to the \code{groups}
+\code{data.frame} of counts matching the criteria supplied to the \code{group_by}
 argument.
 }
 \examples{
@@ -82,6 +82,6 @@ atlas_counts(group_by = galah_group_by(kingdom), type = "species")
 # Crosstabulate using two different variables
 atlas_counts(
   filter = galah_filter(year > 2015),
-  groups = galah_select(year, basisOfRecord, expand = TRUE))
+  select = galah_select(year, basisOfRecord, expand = TRUE))
 
 }

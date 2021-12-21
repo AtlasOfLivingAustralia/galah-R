@@ -89,7 +89,7 @@ atlas_counts.default <- function(taxa = NULL,
   }
   
   # if all combinations of levels of `groups` are needed (expand = TRUE)
-  if(attr(group_by, "expand")){ 
+  if(attr(group_by, "expand") & nrow(group_by) > 1){ 
     
     # get counts given the filter provided by the user
     field_values_df <- atlas_counts_internal(
