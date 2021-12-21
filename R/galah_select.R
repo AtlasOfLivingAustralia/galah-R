@@ -37,12 +37,6 @@
 #' Using `group = "assertions"` returns all quality assertion-related
 #' columns. The list of assertions is shown by `search_fields(type = "assertions")`.
 #'
-#' The `expand` argument is appended as an attribute of the `data.frame` 
-#' returned by `galah_select`. It is only used by `atlas_counts`, meaning
-#' that setting `expand = TRUE` will not affect calls to `atlas_occurrences`.
-#' @note `select_columns` and `galah_select` are synonymous;
-#' `select_columns` is deprecated and will be removed from future versions
-#' of `galah`.
 #' @seealso [search_taxa()], [galah_filter()] and
 #' [galah_geolocate()] for other ways to restrict the information returned
 #' by [atlas_occurrences()] and related functions; [atlas_counts()]
