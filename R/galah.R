@@ -37,6 +37,7 @@
 #'   * [galah_select()] Fields to report information for
 #'   * [galah_group_by()] Fields to group counts by
 #'   * [galah_geolocate()] Specify a location
+#'   * [galah_down_to()] Specify a taxonomic rank
 #' 
 #' **`Search`**
 #' 
