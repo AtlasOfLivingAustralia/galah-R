@@ -63,7 +63,7 @@ atlas_taxonomy <- function(taxa, down_to){
   start_row$name <- str_to_title(start_row$name)
   
   if (!is.null(down_to)) {
-    if(!any(find_ranks()$name == down_to)){
+    if(!any(show_all_ranks()$name == down_to)){
       stop("`down_to` must be a valid taxonomic rank")
     }
     down_to <- tolower(down_to)   
@@ -142,7 +142,7 @@ level_down <- function(taxon_row, down_to) {
 # Return the index of a taxonomic rank- 
 # lower index corresponds to higher up the tree
 rank_index <- function(rank) {
-  all_ranks <- find_ranks()
+  all_ranks <- show_all_ranks()
   if (rank %in% all_ranks$name) {
     return(all_ranks$id[all_ranks$name == rank])  
   }else{
