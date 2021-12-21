@@ -4,13 +4,18 @@
 \alias{galah_group_by}
 \title{Specify fields to group when downloading record counts}
 \usage{
-galah_group_by(..., expand = FALSE)
+galah_group_by(..., expand = TRUE)
 }
 \arguments{
 \item{...}{zero or more individual column names to include}
 
 \item{expand}{\code{logical}: When passed to \code{group_by} argument of
-\code{ala_counts}, should factor levels be expanded? Defaults to \code{FALSE}.}
+\code{ala_counts}, should factor levels be expanded? Defaults to \code{TRUE}.}
+}
+\value{
+If any arguments are provided, returns a \code{data.frame} with
+columns \code{name} and \code{type}, as per \code{\link[=galah_select]{galah_select()}}; if no arguments
+are provided, returns \code{NULL}.
 }
 \description{
 \code{ala_counts} supports server-side grouping of data. Grouping can be
@@ -29,7 +34,7 @@ ala_counts(
 # Return record counts since 2010 by year and data provider
 ala_counts(
     filter = galah_filter(year > 2010),
-    group_by = galah_group_by(year, dataResourceName, expand = TRUE)
+    group_by = galah_group_by(year, dataResourceName)
     )
     
 # Return record counts of Litoria species each year since 2015, limiting
@@ -37,7 +42,7 @@ ala_counts(
 ala_counts(
     taxa = select_taxa("Litoria"),
     filter = galah_filter(year > 2015),
-    group_by = galah_group_by(year, species, expand = TRUE),
+    group_by = galah_group_by(year, species),
     limit = 5)
 
     

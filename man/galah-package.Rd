@@ -8,7 +8,12 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-The Atlas of Living Australia ('ALA') provides tools to enable users of biodiversity information to find, access, combine and visualise data on Australian plants and animals; these have been made available from <https://ala.org.au/>. 'galah' provides a subset of the tools to be directly used within R. It enables the R community to directly access data and resources hosted by the 'ALA'.
+The Atlas of Living Australia ('ALA') provides tools to enable users
+    of biodiversity information to find, access, combine and visualise data on
+    Australian plants and animals; these have been made available from
+    <https://ala.org.au/>. 'galah' provides a subset of the tools to be
+    directly used within R. It enables the R community to directly access data
+    and resources hosted by the 'ALA'.
 }
 \seealso{
 Useful links:
