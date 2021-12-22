@@ -67,13 +67,24 @@ search_taxa.default <- function(query, is_id = FALSE) {
   if (is_id) {
     matches <- id_query(query)   
   } else {
-    query <- stringr::str_remove_all(query, "[()]") # remove parentheses
-    matches <- name_query(query)
+    if (is.list(query) && length(names(query)) > 0 ) {
+      # convert to dataframe for simplicity
+      query <- as.data.frame(query)
+    }
+    matches <- remove_parentheses(query) |> name_query()
   }
   
-  out_data <- as.data.frame(matches, stringsAsFactors = FALSE)
+  out_data <- as_tibble(matches) # remove data.table class
   class(out_data) <- append(class(out_data), "ala_id")
   out_data
+}
+
+remove_parentheses <- function(x){
+  if(inherits(x, "data.frame")){
+    as.data.frame(lapply(x, function(a){stringr::str_remove_all(a, "[()]")}))
+  }else{
+    stringr::str_remove_all(x, "[()]")
+  }
 }
 
 id_query <- function(query) {
@@ -83,10 +94,6 @@ id_query <- function(query) {
 }
 
 name_query <- function(query) {
-  if (is.list(query) && length(names(query)) > 0 ) {
-    # convert to dataframe for simplicity
-    query <- as.data.frame(query)
-  }
   if (is.data.frame(query)) {
     matches <- data.table::rbindlist(apply(query, 1, name_lookup),
                                      fill = TRUE)
