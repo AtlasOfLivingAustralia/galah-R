@@ -73,8 +73,7 @@ search_taxa.default <- function(query, is_id = FALSE) {
   
   out_data <- as.data.frame(matches, stringsAsFactors = FALSE)
   class(out_data) <- append(class(out_data), "ala_id")
-  out_data |>
-    as_tibble()
+  out_data
 }
 
 id_query <- function(query) {
