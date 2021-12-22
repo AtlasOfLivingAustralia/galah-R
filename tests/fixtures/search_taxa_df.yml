@@ -1,7 +1,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://namematching-ws.ala.org.au/api/search?q=c%22Banksia%22%2C%20%22Microseris%22
+    uri: https://namematching-ws.ala.org.au/api/searchByClassification?genus=Banksia&kingdom=Plantae
     body:
       encoding: ''
       string: ''
@@ -15,13 +15,13 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.21.4
-      date: Fri, 17 Dec 2021 05:29:42 GMT
+      date: Wed, 22 Dec 2021 05:48:39 GMT
       content-type: application/json
-      content-length: '60'
-      connection: keep-alive
+      content-length: '346'
       vary: Accept-Encoding
+      content-encoding: gzip
       strict-transport-security: max-age=31536000
       referrer-policy: strict-origin-when-cross-origin
       x-frame-options: DENY
@@ -30,12 +30,12 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"success":false,"nameType":"DOUBTFUL","issues":["noIssue"]}'
-  recorded_at: 2021-12-17 05:29:42 GMT
+      string: '{"success":true,"scientificName":"Banksia","scientificNameAuthorship":"L.f.","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51299884","rank":"genus","rankID":6000,"lft":579700,"rgt":580616,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51337710","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51337706","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51337705","order":"Proteales","orderID":"https://id.biodiversity.org.au/taxon/apni/51312311","family":"Proteaceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51312310","genus":"Banksia","genusID":"https://id.biodiversity.org.au/taxon/apni/51299884","speciesGroup":["Plants"],"issues":["noIssue"]}'
+  recorded_at: 2021-12-22 05:48:39 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://namematching-ws.ala.org.au/api/search?q=c%22Plantae%22%2C%20%22Plantae%22
+    uri: https://namematching-ws.ala.org.au/api/searchByClassification?genus=Microseris&kingdom=Plantae
     body:
       encoding: ''
       string: ''
@@ -49,13 +49,13 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.21.4
-      date: Fri, 17 Dec 2021 05:29:42 GMT
+      date: Wed, 22 Dec 2021 05:48:39 GMT
       content-type: application/json
-      content-length: '60'
-      connection: keep-alive
+      content-length: '346'
       vary: Accept-Encoding
+      content-encoding: gzip
       strict-transport-security: max-age=31536000
       referrer-policy: strict-origin-when-cross-origin
       x-frame-options: DENY
@@ -64,6 +64,6 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"success":false,"nameType":"DOUBTFUL","issues":["noIssue"]}'
-  recorded_at: 2021-12-17 05:29:42 GMT
+      string: '{"success":true,"scientificName":"Microseris","scientificNameAuthorship":"D.Don","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51268656","rank":"genus","rankID":6000,"lft":699190,"rgt":699200,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51337710","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51337706","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51337705","order":"Asterales","orderID":"https://id.biodiversity.org.au/taxon/apni/51311309","family":"Asteraceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51311021","genus":"Microseris","genusID":"https://id.biodiversity.org.au/taxon/apni/51268656","speciesGroup":["Plants"],"issues":["noIssue"]}'
+  recorded_at: 2021-12-22 05:48:39 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
