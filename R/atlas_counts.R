@@ -216,8 +216,11 @@ atlas_counts_internal <- function(taxa = NULL,
   }
 
   if (sum(total_cats) > limit) {
-    warning("This field has ", total_cats, " values. ", limit,
-            " will be returned. Change `limit` to return more values.")
+    bullets <- c(
+      glue::glue("This field has {total_cats} values. {limit} will be returned."),
+      i = "Increase `limit` to return more values, or decrease `limit` to return fewer."
+    )
+    warn(bullets)
   }
   
   # parse out value
@@ -288,8 +291,12 @@ species_count <- function(query) {
 
 validate_facet <- function(facet) {
   if (!all(facet %in% c(search_fields()$id, all_fields()$name))) {
-    stop("\"", facet, "\" is not a valid groups field. ",
-         "Use `search_fields()` to get a list of valid options")
+    bullets <- c(
+      glue::glue("\"{facet}\" is not a valid field."),
+      i = "Use `show_all_fields()` to get a list of all valid options.",
+      i = "Use `search_fields()` to search for the valid name of a specific field."
+    )
+    abort(bullets, call = caller_env())
   }
 }
 

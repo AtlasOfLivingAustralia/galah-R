@@ -151,7 +151,7 @@
 #' @importFrom wellknown lint
 #' @importFrom lifecycle deprecated
 #' @importFrom rlang abort warn inform caller_env
-#' @importFrom glue glue
+#' @importFrom glue glue glue_collapse
 #' @importFrom tibble as_tibble tibble
 ## usethis namespace: end
 NULL

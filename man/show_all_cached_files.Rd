@@ -7,7 +7,7 @@
 show_all_cached_files()
 }
 \value{
-An object of class \code{tbl_df} and \code{data.frame} (aka a tibble) of
+A \code{list} of
 available cached files, the function used to create them, and the filter
 object
 }

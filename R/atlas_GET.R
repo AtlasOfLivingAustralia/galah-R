@@ -19,7 +19,7 @@ atlas_GET <- function(url, path, params = list(), on_error = NULL,
      )
    }, 
    error = function(a){
-     message("This didn't work - please amend your query or try again later")
+     warn("Your query didn't work. Please amend your query or try again later.")
      message(a)
    },
    warning = function(a){
