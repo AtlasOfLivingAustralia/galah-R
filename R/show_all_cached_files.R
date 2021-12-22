@@ -1,7 +1,7 @@
 #' List previously cached files
 #' 
 #' Uses query metadata stored in metadata.rds in the cache directory
-#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
+#' @return A `list` of 
 #' available cached files, the function used to create them, and the filter 
 #' object
 #' @examples
@@ -23,5 +23,5 @@ show_all_cached_files <- function() {
             getOption("galah_config")$cache_directory)
     return()
   }
-  readRDS(metadata_path) |> as_tibble()
+  readRDS(metadata_path)
 }
