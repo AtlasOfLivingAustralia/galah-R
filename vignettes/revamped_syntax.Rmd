@@ -5,6 +5,10 @@ date: "20/12/2021"
 output: html_document
 editor_options: 
   chunk_output_type: inline
+vignette: >
+  %\VignetteIndexEntry{Syntax Changes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 `galah` 1.4.0 implements new, revised syntax for function names. These new 
@@ -17,78 +21,86 @@ change one-by-one.
 <table class="table lightable-paper" style='width: auto !important; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
  <thead>
   <tr>
-   <th style="text-align:left;"> galah 1.4.0 </th>
    <th style="text-align:left;"> galah 1.3.1 and earlier </th>
+   <th style="text-align:left;"> galah 1.4.0 </th>
   </tr>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> galah_filter </td>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> select_filters </td>
+   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> ala_counts </td>
+   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> atlas_counts </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> galah_select </td>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> select_columns </td>
+   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> ala_occurrences </td>
+   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> atlas_occurrences </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> galah_geolocate </td>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> select_locations </td>
+   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> ala_species </td>
+   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> atlas_species </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;"> galah_group_by </td>
-   <td style="text-align:left;font-weight: bold;background-color: #f5b2d0 !important;">  </td>
+   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> ala_media </td>
+   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> atlas_media </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #f064a4 !important;"> search_taxa </td>
-   <td style="text-align:left;font-weight: bold;background-color: #f064a4 !important;"> select_taxa </td>
+   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> ala_taxonomy </td>
+   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> atlas_taxonomy </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> `atlas_counts` </td>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> `ala_counts` </td>
+   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> ala_citation </td>
+   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> atlas_citation </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> atlas_occurrences </td>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> ala_occurrences </td>
+   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> select_filters </td>
+   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> galah_filter </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> atlas_species </td>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> ala_species </td>
+   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> select_columns </td>
+   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> galah_select </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> atlas_media </td>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> ala_media </td>
+   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> select_locations </td>
+   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> galah_geolocate </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> atlas_taxonomy </td>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> ala_taxonomy </td>
+   <td style="text-align:left;font-weight: bold;color: #c7902a !important;">  </td>
+   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> galah_group_by </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> atlas_citation </td>
-   <td style="text-align:left;font-weight: bold;background-color: #c0e6e8 !important;"> ala_citation </td>
+   <td style="text-align:left;font-weight: bold;color: #c7902a !important;">  </td>
+   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> galah_down_to </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> show_all_fields </td>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;">  </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> select_taxa </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> search_taxa </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> show_all_profiles </td>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> find_profiles </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> search_fields </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> search_fields </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> show_all_ranks </td>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> find_ranks </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;">  </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> show_all_fields </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> show_all_cached_files </td>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> find_cached_files </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> find_profiles </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> show_all_profiles </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> show_all_atlases </td>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> find_atlases </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> find_ranks </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> show_all_ranks </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> show_all_reasons </td>
-   <td style="text-align:left;font-weight: bold;background-color: #78cccc !important;"> find_reasons </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> find_atlases </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> show_all_atlases </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> find_reasons </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> show_all_reasons </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> find_cached_files </td>
+   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> show_all_cached_files </td>
   </tr>
 </tbody>
 </table>
@@ -231,11 +243,7 @@ mtcars %>% filter(mpg == 21)
 
 
 ```r
-atlas_counts(galah_filter(year == 2021))
-```
-
-```
-## Warning in xtfrm.data.frame(x): cannot xtfrm data frames
+atlas_counts(filter = galah_filter(year == 2021))
 ```
 
 ```
