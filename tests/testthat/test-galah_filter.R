@@ -14,32 +14,26 @@ test_that("galah_filter builds data quality filters", {
 
 
 test_that("galah_filter gives an error for invalid profile", {
-  # vcr::use_cassette("select_filter_invalid_profile", {
-    expect_error(galah_filter(profile = "bad"))
-  # })
+  expect_error(galah_filter(profile = "bad"))
 })
 
 test_that("galah_filter gives an error for single equals sign", {
   expect_error(galah_filter(year = 2010))
 })
 
-# vcr::use_cassette("select_filter_assertion", {
-  test_that("galah_filter handles assertion filters", {
-    filters <- galah_filter(ZERO_COORDINATE == FALSE)
-    expect_s3_class(filters, "data.frame")
-    expect_true(grepl("assertions", filters$query))   # FIXME 
-  })
-# })
+test_that("galah_filter handles assertion filters", {
+  filters <- galah_filter(ZERO_COORDINATE == FALSE)
+  expect_s3_class(filters, "data.frame")
+  expect_true(grepl("assertions", filters$query))   # FIXME 
+})
 
 # negative assertions:
 # galah_filter(BASIS_OF_RECORD_INVALID == FALSE)
 
-# vcr::use_cassette("galah_filter_invalid", {
-  test_that("galah_filter validates filters", {
-    galah_config(run_checks = TRUE)
-    expect_message(galah_filter(invalid_filter == 'value'))
-  })
-# })
+test_that("galah_filter validates filters", {
+  galah_config(run_checks = TRUE)
+  expect_message(galah_filter(invalid_filter == 'value'))
+})
 
 test_that("galah_filter skips checks if requested", {
   galah_config(run_checks = FALSE)
@@ -52,6 +46,7 @@ test_that("galah_filter returns empty data.frame when no arguments specified", {
   expect_s3_class(filters, "data.frame")
   expect_equal(nrow(filters), 0)
 })
+
 
 test_that("galah_filter works for a single 'equals' argument", {  
   filters <- galah_filter(year == 2010)
@@ -77,7 +72,7 @@ test_that("galah_filter treats commas and '&' the same way", {
   filter2 <- galah_filter(year >= 2010, year < 2020)
   expect_equal(filter1, filter2)
 })
-               
+
 test_that("galah_filter handles numeric queries for text fields", {             
   filters <- galah_filter(cl22 >= "Tasmania")
   expect_s3_class(filters, c("data.frame", "galah_filter"))
@@ -132,7 +127,7 @@ test_that("galah_filter can take an object with length >1 as a value", {
   expect_equal(nrow(filters), 1)
   expect_true(grepl("2010", filters$query))
 })
- 
+
 test_that("galah_filter can take an object as an equation", { 
   input_text <- "year == 2010"
   filters <- galah_filter(input_text)
@@ -155,7 +150,7 @@ test_that("galah_filter can accept an equation built with `paste`", {
   expect_equal(nrow(filters), 1)
   expect_true(grepl("2010", filters$query))
 })
-  
+
 # # quoting an equation that contains objects - NOT SUPPORTED
 # # consider writing a test to specifically exclude this
 # field <- "year"
@@ -164,7 +159,7 @@ test_that("galah_filter can accept an equation built with `paste`", {
 # expect_s3_class(filters, c("data.frame", "galah_filter"))
 # expect_equal(nrow(filters), 1)
 # expect_true(grepl("2010", filters$query))
-  
+
 test_that("galah_filter handles taxonomic queries", {
   # ensure a taxonomic query to galah_filter works
   filters <- galah_filter(taxonConceptID == search_taxa("Animalia")$taxon_concept_id)
