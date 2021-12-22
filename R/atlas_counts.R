@@ -149,7 +149,7 @@ atlas_counts.default <- function(taxa = NULL,
           as.data.frame(list(levels_list[[a]], counts_query), row.names = NULL)
         }
       }) 
-    close(pb) # close progress bar
+    if(verbose){close(pb)} # close progress bar
     return(as.data.frame(do.call(rbind, result_list)))
      
   # if `groups` is of nrow == 1 (expand = FALSE)
