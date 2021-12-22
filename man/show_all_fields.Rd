@@ -23,9 +23,11 @@ Should be one or more of \code{fields}, \code{layers}, \code{assertions},
 }
 \value{
 if \code{query} is missing, an empty \code{data.frame}; otherwise
-a \code{data.frame} containing fields that match the search query.
+an object of class \code{tbl_df} and \code{data.frame} (aka a tibble) containing
+fields that match the search query.
 
-A \code{data.frame} with three columns:
+An object of class \code{tbl_df} and \code{data.frame} (aka a tibble) with
+three columns:
 \itemize{
 \item id: The identifier for that layer or field. This is the value that should
 be used when referring to a field in another function.

@@ -130,9 +130,9 @@ download data on each species (rather than on each occurrence record) can use
 \code{\link[=atlas_species]{atlas_species()}} or download media content (largely images)
 using \code{\link[=atlas_media]{atlas_media()}}. Users can also assess how many records
 meet their particular criteria using \code{\link[=atlas_counts]{atlas_counts()}} and return a taxonomic
-tree of one taxonomic clade down to a defined level, like from family to
-genus. All functions return a \code{data.frame} as their standard format, except
-\code{\link[=atlas_taxonomy]{atlas_taxonomy()}} which returns a \code{data.tree}.
+tree for a specific clade from one level down to another level (e.g., from
+family to genus). All functions return a \code{data.frame} as their standard
+format, except \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} which returns a \code{data.tree}.
 
 Functions in \code{galah} are designed according to a nested architecture.
 Users that require data should begin by locating the relevant \code{atlas_}

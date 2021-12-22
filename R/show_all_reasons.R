@@ -8,8 +8,8 @@
 #' you can use either the download code or name.
 #' @rdname show_all_reasons
 #' @seealso This function is helpful in setting up [galah_config()].
-#' @return A `data.frame` of valid download reasons, containing the id
-#' and name for each reason.
+#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
+#' valid download reasons, containing the id and name for each reason.
 #' @export
 show_all_reasons <- function() {
   local_check <- galah_internal()$show_all_reasons

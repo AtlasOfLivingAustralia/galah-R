@@ -27,8 +27,9 @@ species identifiers.}
 be replaced by the current query}
 }
 \value{
-A \code{data.frame} of matching species. The \code{data.frame} object
-has attributes listing of the user-supplied arguments of the \code{data_request}
+An object of class \code{tbl_df} and \code{data.frame} (aka a tibble),
+returning matching species The \code{data.frame} object has attributes listing of
+the user-supplied arguments of the \code{data_request}
 (i.e., taxa, filter, geolocate, columns)
 }
 \description{

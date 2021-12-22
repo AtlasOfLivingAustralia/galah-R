@@ -7,11 +7,11 @@
 show_all_reasons()
 }
 \value{
-A \code{data.frame} of valid download reasons, containing the id
-and name for each reason.
+An object of class \code{tbl_df} and \code{data.frame} (aka a tibble) of
+valid download reasons, containing the id and name for each reason.
 }
 \description{
-When downloading occurrence data with \code{\link[=ala_occurrences]{ala_occurrences()}} the
+When downloading occurrence data with \code{\link[=atlas_occurrences]{atlas_occurrences()}} the
 ALA APIs require a reason for download to be specified. By default, a
 download reason of 'scientific research' is set for you, but if you wish to
 change this you can do so with \code{\link[=galah_config]{galah_config()}}. Use this function

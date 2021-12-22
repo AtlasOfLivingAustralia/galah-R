@@ -16,7 +16,8 @@
 #' @param type `string`: What type of parameters should be searched?
 #' Should be one or more of `fields`, `layers`, `assertions`,
 #' `media` or `all`.
-#' @return A `data.frame` with three columns:
+#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) with 
+#' three columns:
 #' 
 #'  * id: The identifier for that layer or field. This is the value that should
 #'  be used when referring to a field in another function.

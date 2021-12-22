@@ -7,7 +7,8 @@
 show_all_profiles()
 }
 \value{
-A \code{data.frame} of available profiles
+An object of class \code{tbl_df} and \code{data.frame} (aka a tibble) of
+available profiles
 }
 \description{
 The ALA provides a number of pre-built data quality profiles for

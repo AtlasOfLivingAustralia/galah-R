@@ -152,6 +152,6 @@
 #' @importFrom lifecycle deprecated
 #' @importFrom rlang abort warn inform caller_env
 #' @importFrom glue glue
-#' @importFrom tibble as_tibble
+#' @importFrom tibble as_tibble tibble
 ## usethis namespace: end
 NULL

@@ -7,8 +7,9 @@
 show_all_cached_files()
 }
 \value{
-a \code{list} of available cached files, the function used to
-create them, and the filter object
+An object of class \code{tbl_df} and \code{data.frame} (aka a tibble) of
+available cached files, the function used to create them, and the filter
+object
 }
 \description{
 Uses query metadata stored in metadata.rds in the cache directory

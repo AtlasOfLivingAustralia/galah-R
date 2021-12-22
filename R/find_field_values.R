@@ -5,8 +5,8 @@
 #' @param field `string`: field to return the categories for. Use
 #' [search_fields()] to view valid fields.
 #' @param limit `numeric`: maximum number of categories to return. 20 by default.
-#' @return A `data.frame` containing columns `field` (user-supplied)
-#' and `category` (i.e. field values).
+#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) 
+#' containing columns `field` (user-supplied) and `category` (i.e. field values).
 #' @seealso See [search_fields()] for ways to use information returned
 #' by this function.
 #' @examples
@@ -36,7 +36,7 @@ find_field_values <- function(field, limit = 20) {
   category <- vapply(resp$fieldResult[[1]]$fq, function(n) {
     extract_category_value(n)
   }, USE.NAMES = FALSE, FUN.VALUE = character(1))
-  cbind(field = field, as.data.frame(category))
+  cbind(field = field, as.data.frame(category)) |> as_tibble()
 }
 
 # function to extract value which for some reason isn't returned

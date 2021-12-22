@@ -17,7 +17,7 @@ test_that("atlas_counts returns expected output", {
   vcr::use_cassette("taxa_count", {
     counts <- atlas_counts(taxa = search_taxa("Mammalia"))
   })
-  expect_type(counts, "integer")
+  expect_type(counts$count, "integer")
 })
 
 
@@ -61,7 +61,7 @@ test_that("atlas_counts returns species counts", {
   vcr::use_cassette("species_count", {
     counts <- atlas_counts(type = "species")
   })
-  expect_type(counts, "integer")
+  expect_type(counts$count, "integer")
   expect_gt(counts, 0)
 })
 

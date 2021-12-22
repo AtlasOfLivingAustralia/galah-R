@@ -35,7 +35,8 @@ media in}
 be replaced by the current query}
 }
 \value{
-\code{data.frame} of metadata of the downloaded media
+An object of class \code{tbl_df} and \code{data.frame} (aka a tibble)
+of metadata of the downloaded media
 }
 \description{
 In addition to text data describing individual occurrences and their

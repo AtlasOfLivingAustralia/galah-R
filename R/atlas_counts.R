@@ -27,8 +27,9 @@
 #' be replaced by the current query
 #' @return
 #' 
+#' An object of class `tbl_df` and `data.frame` (aka a tibble) returning: 
 #'  * A single number, if `group_by` is not specified or,
-#'  * A `data.frame` of counts by `groups` field(s), if specified
+#'  * A summary of counts grouped by field(s), if `group_by` is specified
 #'
 #' @examples
 #' # With no arguments, return the total number of records in the ALA
@@ -46,7 +47,7 @@
 #' # Crosstabulate using two different variables
 #' atlas_counts(
 #'   filter = galah_filter(year > 2015),
-#'   select = galah_select(year, basisOfRecord, expand = TRUE))
+#'   select = galah_select(year, basisOfRecord))
 #' 
 #' @export
 atlas_counts <- function(...) {
@@ -77,9 +78,9 @@ atlas_counts.default <- function(taxa = NULL,
     profile <- extract_profile(filter)
     query <- build_query(taxa, filter, geolocate, profile = profile)
     if (type == "species") {
-      return(species_count(query))
+      return(tibble(count = species_count(query)))
     }
-    return(record_count(query))
+    return(tibble(count = record_count(query)))
   }                  
   
   # if `groups` is as a vector
@@ -150,7 +151,7 @@ atlas_counts.default <- function(taxa = NULL,
         }
       }) 
     if(verbose){close(pb)} # close progress bar
-    return(as.data.frame(do.call(rbind, result_list)))
+    return(as_tibble(do.call(rbind, result_list)))
      
   # if `groups` is of nrow == 1 (expand = FALSE)
   }else{
@@ -266,7 +267,7 @@ atlas_counts_internal <- function(taxa = NULL,
                      cache_file = cache_file)
   }
   
-  return(counts_final)
+  return(counts_final |> as_tibble())
 }
 
 # get just the record count for a query

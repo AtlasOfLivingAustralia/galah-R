@@ -17,7 +17,8 @@
 #' (e.g. type of licence).
 #' It may be beneficial when requesting a large number of records to show a progress
 #' bar by setting `verbose = TRUE` in [galah_config()].
-#' @return `data.frame` of metadata of the downloaded media
+#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) 
+#' of metadata of the downloaded media
 #' @seealso [atlas_counts()] to find the number of records with media- note this
 #' is not necessarily the same as the number of media files, as each record can have
 #' more than one media file associated with it (see examples section for how to do this).
@@ -67,7 +68,7 @@ atlas_media <- function(taxa = NULL,
   }
   
   if (is.null(taxa) & is.null(filter) & is.null(geolocate)) {
-    warning("No filter have been provided. All images and sounds will be downloaded.")
+    warning("No filters have been provided. All images and sounds will be downloaded.")
   }
   
   if (caching && !refresh_cache) {
@@ -164,7 +165,7 @@ atlas_media <- function(taxa = NULL,
     write_cache_file(object = all_data, data_type = "media",
                      cache_file = cache_file)
   }
-  return(all_data)
+  return(all_data |> as_tibble())
 }
 
 # Construct url paths to where media will be downloaded from

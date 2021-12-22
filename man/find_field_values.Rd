@@ -13,8 +13,8 @@ find_field_values(field, limit = 20)
 \item{limit}{\code{numeric}: maximum number of categories to return. 20 by default.}
 }
 \value{
-A \code{data.frame} containing columns \code{field} (user-supplied)
-and \code{category} (i.e. field values).
+An object of class \code{tbl_df} and \code{data.frame} (aka a tibble)
+containing columns \code{field} (user-supplied) and \code{category} (i.e. field values).
 }
 \description{
 When building a set of filters with \code{\link[=galah_filter]{galah_filter()}}, a user can

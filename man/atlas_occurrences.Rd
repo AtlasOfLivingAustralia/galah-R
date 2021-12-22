@@ -40,9 +40,9 @@ data.}
 be replaced by the current query}
 }
 \value{
-A \code{data.frame} of occurrences, containing columns as specified
-by \code{\link[=galah_select]{galah_select()}}. The \code{data.frame} object has the
-following attributes:
+An object of class \code{tbl_df} and \code{data.frame} (aka a tibble) of
+occurrences, containing columns as specified by \code{\link[=galah_select]{galah_select()}}.
+The \code{data.frame} object has the following attributes:
 \itemize{
 \item a listing of the user-supplied arguments of the \code{data_request}
 (i.e., taxa, filter, geolocate, select)

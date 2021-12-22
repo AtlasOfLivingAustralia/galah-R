@@ -13,7 +13,8 @@ select_taxa <- function(query, is_id = FALSE) {
   
   search_taxa.default(
     query = query,
-    is_id = {if(missing(is_id)){FALSE}else{is_id}})
+    is_id = {if(missing(is_id)){FALSE}else{is_id}}) |>
+    as.data.frame()
 }
 
 #' @description
@@ -72,7 +73,7 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
     select = columns,
     mint_doi = mint_doi, 
     doi = doi, 
-    refresh_cache = refresh_cache) 
+    refresh_cache = refresh_cache) |> as.data.frame()
 }
 
 
@@ -98,7 +99,7 @@ ala_counts <- function(taxa = NULL,
     geolocate = {if(missing(locations)){NULL}else{locations}},
     limit = limit,
     type = type,
-    refresh_cache = refresh_cache)
+    refresh_cache = refresh_cache) |> as.data.frame()
 }
 
 
@@ -117,7 +118,8 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
     filter = filters,
     geolocate = locations,
     refresh_cache = refresh_cache
-  )
+  ) |>
+    as.data.frame()
 }
 
 #' @description
@@ -156,7 +158,8 @@ ala_media <- function(taxa = NULL,
     select = columns,
     download_dir = download_dir,
     refresh_cache = FALSE
-  )
+  ) |>
+    as.data.frame()
 }
 
 #' @description 

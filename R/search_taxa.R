@@ -18,7 +18,7 @@
 #' Note that searches are not case-sensitive.
 #' @param is_id `logical`: Is the query a unique identifier? Defaults to 
 #' `FALSE`, meaning that queries are assumed to be taxonomic names.
-#' @return An object of class `data.frame` and `ala_id`
+#' @return An object of class `tbl_df`, `data.frame` (aka a tibble) and `ala_id`
 #' containing taxonomic information.
 #' @seealso [galah_select()], [galah_filter()] and
 #' [galah_geolocate()] for other ways to restrict the information returned
@@ -73,7 +73,8 @@ search_taxa.default <- function(query, is_id = FALSE) {
   
   out_data <- as.data.frame(matches, stringsAsFactors = FALSE)
   class(out_data) <- append(class(out_data), "ala_id")
-  out_data
+  out_data |>
+    as_tibble()
 }
 
 id_query <- function(query) {

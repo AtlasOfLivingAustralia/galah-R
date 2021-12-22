@@ -5,7 +5,8 @@
 #' Should be one or more of `fields`, `layers`, `assertions`,
 #' `media` or `all`.
 #' @return if `query` is missing, an empty `data.frame`; otherwise 
-#' a `data.frame` containing fields that match the search query.
+#' an object of class `tbl_df` and `data.frame` (aka a tibble) containing 
+#' fields that match the search query.
 #' @rdname show_all_fields
 #' @export search_fields
 
@@ -34,6 +35,7 @@ search_fields <- function(
       apply(df[, 1:2], 1, function(a){paste(a, collapse = " ")}))
       
     # return result of a grepl query
-    df[grepl(tolower(query), df_string), ]
+    df[grepl(tolower(query), df_string), ] |> 
+      as_tibble()
   }
 }

@@ -10,8 +10,9 @@
 #' @param refresh_cache `logical`: if set to `TRUE` and 
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query
-#' @return A `data.frame` of matching species. The `data.frame` object 
-#' has attributes listing of the user-supplied arguments of the `data_request` 
+#' @return An object of class `tbl_df` and `data.frame` (aka a tibble), 
+#' returning matching species The `data.frame` object has attributes listing of 
+#' the user-supplied arguments of the `data_request` 
 #' (i.e., taxa, filter, geolocate, columns)
 #' @details
 #' The primary use case of this function is to extract species-level information
@@ -76,5 +77,5 @@ atlas_species <- function(taxa = NULL,
     write_cache_file(object = data, data_type = "species",
                      cache_file = cache_file)
   }
-  return(data)
+  return(data |> as_tibble())
 }

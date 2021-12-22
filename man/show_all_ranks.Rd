@@ -7,7 +7,8 @@
 show_all_ranks()
 }
 \value{
-A \code{data.frame} of available ranks
+An object of class \code{tbl_df} and \code{data.frame} (aka a tibble) of
+available ranks
 }
 \description{
 Return taxonomic ranks recognised by the ALA.

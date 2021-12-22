@@ -7,7 +7,8 @@
 #' [atlas_counts()] and [atlas_species()].
 #'
 #' @export show_all_profiles
-#' @return A `data.frame` of available profiles
+#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
+#' available profiles
 #' @seealso This function gives viable profile names for passing to
 #' [galah_filter()]. For more detail on a given profile see
 #' [find_profile_attributes()].

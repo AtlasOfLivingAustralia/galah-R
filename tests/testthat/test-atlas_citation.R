@@ -10,7 +10,7 @@ test_that("atlas_citation returns an error when no DOI or search url exists", {
   data <- data.frame()
   attr(data, "doi") <- NA
   attr(data, "search_url") <- NA
-  expect_error(aatlas_citation(data))
+  expect_error(atlas_citation(data))
 })
 
 test_that("atlas_citation produces a citation using a search url", {

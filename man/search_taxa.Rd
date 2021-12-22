@@ -24,7 +24,7 @@ Note that searches are not case-sensitive.}
 \code{FALSE}, meaning that queries are assumed to be taxonomic names.}
 }
 \value{
-An object of class \code{data.frame} and \code{ala_id}
+An object of class \code{tbl_df}, \code{data.frame} (aka a tibble) and \code{ala_id}
 containing taxonomic information.
 }
 \description{

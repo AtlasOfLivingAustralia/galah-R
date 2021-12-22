@@ -63,11 +63,11 @@ test_that("child_concepts behaves correctly", {
 })
 
 
-test_that("search_taxa searches using multiple ranks", {
+test_that("search_taxa searches using multiple ranks", { # FIXME
   vcr::use_cassette("search_taxa_rank_search", {
     taxa <- search_taxa(list(genus = "Acacia", kingdom = "Plantae"))
   })
-    expect_s3_class(taxa, "data.frame")
+    expect_s3_class(taxa, c("tbl_df", "tbl", "data.frame"))
     expect_equal(taxa$rank, "genus")
     expect_equal(nrow(taxa), 1)
 })

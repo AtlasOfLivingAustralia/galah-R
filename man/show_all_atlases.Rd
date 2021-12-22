@@ -7,7 +7,8 @@
 show_all_atlases()
 }
 \value{
-a \code{data.frame} of Living Atlas information, including taxonomy
+An object of class \code{tbl_df} and \code{data.frame} (aka a tibble) of
+Living Atlas information, including taxonomy
 source and information for each atlas.
 }
 \description{

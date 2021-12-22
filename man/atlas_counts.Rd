@@ -49,9 +49,10 @@ returned.}
 be replaced by the current query}
 }
 \value{
+An object of class \code{tbl_df} and \code{data.frame} (aka a tibble) returning:
 \itemize{
 \item A single number, if \code{group_by} is not specified or,
-\item A \code{data.frame} of counts by \code{groups} field(s), if specified
+\item A summary of counts grouped by field(s), if \code{group_by} is specified
 }
 }
 \description{
@@ -82,6 +83,6 @@ atlas_counts(group_by = galah_group_by(kingdom), type = "species")
 # Crosstabulate using two different variables
 atlas_counts(
   filter = galah_filter(year > 2015),
-  select = galah_select(year, basisOfRecord, expand = TRUE))
+  select = galah_select(year, basisOfRecord))
 
 }

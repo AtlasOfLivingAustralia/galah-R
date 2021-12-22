@@ -1,8 +1,9 @@
 #' List previously cached files
 #' 
 #' Uses query metadata stored in metadata.rds in the cache directory
-#' @return a `list` of available cached files, the function used to
-#' create them, and the filter object
+#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
+#' available cached files, the function used to create them, and the filter 
+#' object
 #' @examples
 #' ## Configure caching and create a query to cache
 #' galah_config(caching = TRUE)

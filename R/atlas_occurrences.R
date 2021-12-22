@@ -33,9 +33,9 @@
 #' `atlas_occurrences`(). It may also be beneficial when requesting a large
 #' number of records to show a progress bar by setting `verbose = TRUE` in
 #' [galah_config()].
-#' @return A `data.frame` of occurrences, containing columns as specified
-#' by [galah_select()]. The `data.frame` object has the 
-#' following attributes:
+#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
+#' occurrences, containing columns as specified by [galah_select()]. 
+#' The `data.frame` object has the following attributes:
 #' 
 #' * a listing of the user-supplied arguments of the `data_request` 
 #' (i.e., taxa, filter, geolocate, select)

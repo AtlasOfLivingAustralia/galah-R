@@ -3,7 +3,8 @@
 #' Return taxonomic ranks recognised by the ALA.
 #' 
 #' @export show_all_ranks
-#' @return A `data.frame` of available ranks
+#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
+#' available ranks
 #' @seealso This function provides a
 #' reference that is useful when specifying the `down_to` argument of 
 #' [atlas_taxonomy()].
