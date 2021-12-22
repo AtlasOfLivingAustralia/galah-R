@@ -84,10 +84,10 @@ This can be useful for paraphyletic concepts such as invertebrates:
 
 ```{r invert-filter}
 invertebrate_filter <- galah_filter(
-   taxonConceptID == select_taxa("Animalia")$taxon_concept_id,
-   taxonConceptID != select_taxa("Chordata")$taxon_concept_id)
+   taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
+   taxonConceptID != search_taxa("Chordata")$taxon_concept_id)
 head(atlas_counts(galah_filter = invertebrate_filter, 
-                  group_by = galah_group_by("class")))
+                  group_by = galah_group_by(class)))
 ```
 
 ## Taxonomic trees
@@ -106,7 +106,8 @@ The function then searches 'downwards' from `taxa` to build the tree.
 
 ```{r search}
 library(data.tree)
-classes <- atlas_taxonomy(taxa = search_taxa("Chordata"), down_to = "class")
+classes <- atlas_taxonomy(taxa = search_taxa("Chordata"), 
+                          down_to = galah_down_to(class))
 print(classes, "rank")
 ```
 
@@ -173,7 +174,7 @@ The same approach can be used to find the number of species within a clade
 # get species counts
 leaf_spp_counts <- lapply(
   Get(leaves, "guid"),
-  function(x){ala_counts(x, type = "species")})
+  function(x){atlas_counts(taxa = x, type = "species")})
 
 # add back to the tree, then sum
 classes$Set(n_species = 0)
@@ -210,7 +211,7 @@ levels and ranks, then converting to a `data.frame`
 # create a label that uniquely identifies unranked nodes
 classes$Do(
   function(a){
-    if(a$rank %in% find_ranks()$name){
+    if(a$rank %in% show_all_ranks()$name){
       a$rank_level <- a$rank
     }else{
       a$rank_level <- paste0(a$rank, "-level-", a$level)

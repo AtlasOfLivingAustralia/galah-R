@@ -7,9 +7,12 @@ editor_options:
   chunk_output_type: inline
 ---
 
-`galah` 1.4.0 implements new, revised syntax for function names. These new function names are intended to improve users' ability to know what each function does and what output they can expect. <br>
+`galah` 1.4.0 implements new, revised syntax for function names. These new 
+function names are intended to improve users' ability to know what each function 
+does and what output they can expect. <br>
 
-First, let's have a look at all the changes, then go through each major syntax change one-by-one.
+First, let's have a look at all the changes, then go through each major syntax 
+change one-by-one.
 
 <table class="table lightable-paper" style='width: auto !important; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
  <thead>
@@ -100,9 +103,15 @@ Functions that alter or filter data requests use the prefix `galah_`. These func
 -   `galah_group_by`
 -   `galah_geolocate`
 
-These functions replace or extend functions previously prefixed by `select_`. Renaming `select_` functions to `galah_` functions reflects `galah`'s embrace of `dplyr`. This change can be seen in the names of `galah_` functions; they echo `dplyr`'s `filter`, `select` and `group_by` functions.
+These functions replace or extend functions previously prefixed by `select_`. 
+Renaming `select_` functions to `galah_` functions reflects `galah`'s embrace of
+`dplyr`. This change can be seen in the names of `galah_` functions; they echo 
+`dplyr`'s `filter`, `select` and `group_by` functions.
 
-The similarity of `galah_` functions to `dplyr` doesn't end there. `galah_filter`, `galah_select` and `galah_group_by` also use `dplyr` tidy evaluation and syntax. This means that the way you use `dplyr` functions is also how you use `galah_` functions.
+The similarity of `galah_` functions to `dplyr` doesn't end there. `galah_filter`, 
+`galah_select` and `galah_group_by` also use `dplyr` tidy evaluation and syntax. 
+This means that the way you use `dplyr` functions is also how you use `galah_` 
+functions.
 
 Let's look at a few examples to show you what we mean.
 
@@ -115,7 +124,7 @@ atlas_counts(filter = galah_filter(year > 2000))
 ```
 
 ```
-## [1] 2451558
+## [1] 62703130
 ```
 
 ```r
@@ -126,7 +135,7 @@ atlas_counts(
 ```
 
 ```
-## [1] 0
+## [1] 889799
 ```
 
 Use `galah_group_by` to group record counts and summarise counts by specified fields:
@@ -134,14 +143,50 @@ Use `galah_group_by` to group record counts and summarise counts by specified fi
 
 ```r
 # Get record counts since 2010, grouped by year and basis of record
+galah_config(verbose = FALSE)
 atlas_counts(
-  filter = galah_filter(year > 2010),
-  group_by = galah_group_by(year, species, expand = TRUE)
+  filter = galah_filter(year > 2015 & year <= 2020),
+  group_by = galah_group_by(year, basisOfRecord, expand = TRUE)
   )
 ```
 
 ```
-## Error in load_fields(): could not find function "load_fields"
+##    year       basisOfRecord   count
+## 1  2020   HUMAN_OBSERVATION 5813680
+## 2  2020  PRESERVED_SPECIMEN   13587
+## 3  2020         OBSERVATION    2863
+## 4  2020             UNKNOWN     365
+## 5  2020     MATERIAL_SAMPLE     250
+## 6  2020     LIVING_SPECIMEN     127
+## 7  2020 MACHINE_OBSERVATION      37
+## 8  2019   HUMAN_OBSERVATION 5397407
+## 9  2019             UNKNOWN   51747
+## 10 2019  PRESERVED_SPECIMEN   38060
+## 11 2019         OBSERVATION    6858
+## 12 2019     MATERIAL_SAMPLE    5515
+## 13 2019     LIVING_SPECIMEN    1460
+## 14 2019 MACHINE_OBSERVATION     652
+## 15 2018   HUMAN_OBSERVATION 5266669
+## 16 2018             UNKNOWN   80208
+## 17 2018  PRESERVED_SPECIMEN   44186
+## 18 2018         OBSERVATION   17057
+## 19 2018     MATERIAL_SAMPLE    3945
+## 20 2018 MACHINE_OBSERVATION     579
+## 21 2018     LIVING_SPECIMEN      69
+## 22 2017   HUMAN_OBSERVATION 4342497
+## 23 2017     MATERIAL_SAMPLE  167368
+## 24 2017  PRESERVED_SPECIMEN   72426
+## 25 2017             UNKNOWN   30950
+## 26 2017         OBSERVATION   26229
+## 27 2017     LIVING_SPECIMEN     428
+## 28 2017 MACHINE_OBSERVATION     279
+## 29 2016   HUMAN_OBSERVATION 3568570
+## 30 2016     MATERIAL_SAMPLE  129231
+## 31 2016  PRESERVED_SPECIMEN   76877
+## 32 2016         OBSERVATION   31327
+## 33 2016 MACHINE_OBSERVATION   18370
+## 34 2016             UNKNOWN   16516
+## 35 2016     LIVING_SPECIMEN     653
 ```
 
 Use `galah_select` to choose columns returned when downloading records:
@@ -167,7 +212,9 @@ wkt <- "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134
 species <- atlas_species(geolocate = galah_geolocate(wkt))
 ```
 
-`galah_` functions also evaluate arguments just like `dplyr`. To see what we mean, let's look at an example of how `dplyr::filter()` works. Notice how `dplyr::filter` and `galah_filter` both require logical arguments to be added by using the `==` sign:
+`galah_` functions also evaluate arguments just like `dplyr`. To see what we mean, 
+let's look at an example of how `dplyr::filter()` works. Notice how `dplyr::filter` 
+and `galah_filter` both require logical arguments to be added by using the `==` sign:
 
 
 ```r
@@ -192,10 +239,11 @@ atlas_counts(galah_filter(year == 2021))
 ```
 
 ```
-## [1] 141212
+## [1] 1073650
 ```
 
-As another example, notice how `galah_group_by` works very similarly to `dplyr::group_by` + `dplyr::summarise(sum())`:
+As another example, notice how `galah_group_by` works very similarly to
+ `dplyr::group_by` + `dplyr::summarise(sum())`:
 
 
 ```r
@@ -205,7 +253,7 @@ mtcars %>%
 ```
 
 ```
-## # A tibble: 2 x 2
+## # A tibble: 2 × 2
 ##      vs `sum(mpg)`
 ##   <dbl>      <dbl>
 ## 1     0       299.
@@ -217,11 +265,17 @@ atlas_counts(group_by = galah_group_by(biome))
 ```
 
 ```
-## Error in load_fields(): could not find function "load_fields"
+##         biome    count
+## 1 TERRESTRIAL 93280944
+## 2      MARINE  3504573
 ```
 
 
-We made this move towards tidy evaluation to eventually make it possible to use piping to create a query to the Atlas of Living Australia just like how you might edit a `data.frame` with the `tidyverse`. We are not ready to add these changes, but we imagine that getting the number of records, for example, could look something like this in the future:
+We made this move towards tidy evaluation to eventually make it possible to use
+ piping to create a query to the Atlas of Living Australia just like how you might 
+ edit a `data.frame` with the `tidyverse`. We are not ready to add these changes, 
+ but we imagine that getting the number of records, for example, could look 
+ something like this in the future:
 
 
 ```r
@@ -235,7 +289,10 @@ galah_call() %>%
 
 ## `search_taxa`
 
-`search_taxa` replaces the previously named `select_taxa`. This change in syntax reflects the function's primary use - to search for taxonomic information. For example, to search for reptiles, we first need to identify whether we have the correct query and verify using additional taxonomic information:
+`search_taxa` replaces the previously named `select_taxa`. This change in syntax 
+reflects the function's primary use - to search for taxonomic information. For 
+example, to search for reptiles, we first need to identify whether we have the 
+correct query and verify using additional taxonomic information:
 
 
 ```r
@@ -243,10 +300,15 @@ search_taxa("Reptilia")
 ```
 
 ```
-## Error in search_taxa.default("Reptilia"): `search_taxa` only provides information on Australian taxonomy. To search taxonomy for Austria use `taxize`. See vignette('international_atlases') for more information
+##   search_term scientific_name                                                            taxon_concept_id  rank match_type  kingdom
+## 1    Reptilia        REPTILIA urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia
+##     phylum    class  issues
+## 1 Chordata Reptilia noIssue
 ```
 
-The output confirms that *Reptilia* is the correct search term, which we can use in `atlas_` functions to narrow our results or records. This output is consistent with the other `search_` function, `search_fields`.
+The output confirms that *Reptilia* is the correct search term, which we can use 
+in `atlas_` functions to narrow our results or records. This output is consistent 
+with the other `search_` function, `search_fields`.
 
 
 ## `atlas_` functions
@@ -260,9 +322,14 @@ The prefix `atlas_` replaces `ala_` for the functions
 -   `atlas_taxonomy`
 -   `atlas_citation`
 
-This change was made to reflect the ability for functions like `atlas_counts` and `atlas_occurrences` to use international atlases since galah 1.2.0 (see `vignette("international_atlases")`).
+This change was made to reflect the ability for functions like `atlas_counts` and 
+`atlas_occurrences` to use international atlases since galah 1.2.0 
+(see `vignette("international_atlases")`).
 
-`atlas_` functions work the same as previous `ala_` functions, but with changes to the names of arguments they accept. Argument names are consistent with the functions that they use. With the new syntax of `galah_` functions and the update to `search_taxa`, these argument changes look like this:
+`atlas_` functions work the same as previous `ala_` functions, but with changes 
+to the names of arguments they accept. Argument names are consistent with the 
+functions that they use. With the new syntax of `galah_` functions and the
+ update to `search_taxa`, these argument changes look like this:
 
 
 ```r
@@ -295,7 +362,8 @@ See R help files for more information on using `atlas_` functions with updated s
 
 ## `show_all_` functions
 
-Functions with the prefix `show_all_` return a `data.frame` doing exactly that - showing all the possible values of the category specified. These functions include:
+Functions with the prefix `show_all_` return a `data.frame` doing exactly that 
+- showing all the possible values of the category specified. These functions include:
 
 -   `show_all_fields`
 -   `show_all_atlases`
@@ -304,7 +372,8 @@ Functions with the prefix `show_all_` return a `data.frame` doing exactly that -
 -   `show_all_reasons`
 -   `show_all_cached_files`
 
-`show_all_` functions require no arguments. Simply call the function and it will return all accepted values:
+`show_all_` functions require no arguments. Simply call the function and it will 
+return all accepted values:
 
 
 ```r
@@ -326,11 +395,20 @@ show_all_reasons()
 ```
 
 ```
-## This didn't work - please amend your query or try again later
-```
-
-```
-## Error in server_config("logger_base_url"):  is not supported for the Austria atlas.
+##    id                             name
+## 0   0 conservation management/planning
+## 1   1  biosecurity management/planning
+## 2   2         environmental assessment
+## 3   3                        education
+## 4   4              scientific research
+## 5   5            collection management
+## 6   6                            other
+## 7   7              ecological research
+## 8   8     systematic research/taxonomy
+## 10 10                          testing
+## 11 11                  citizen science
+## 12 12          restoration/remediation
+## 13 13                species modelling
 ```
 
 
@@ -338,5 +416,8 @@ show_all_reasons()
 
 Old syntax will now return an error when used, suggesting the new syntax. 
 
-New syntax are not fully decided on and can be changed in future versions of `galah`. We would appreciate any feedback from users about what works or what doesn't work. It is our goal to create a package that is as easy and intuitive for users as possible!
+New syntax are not fully decided on and can be changed in future versions of 
+`galah`. We would appreciate any feedback from users about what works or what 
+doesn't work. It is our goal to create a package that is as easy and intuitive 
+for users as possible!
 

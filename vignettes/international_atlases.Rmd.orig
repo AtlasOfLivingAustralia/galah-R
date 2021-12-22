@@ -18,11 +18,11 @@ Atlas the package points to, and how to put in a pull request if you would like
 to see another Living Atlas supported in `galah`.
 
 ## Supported Atlases
-To show the Atlases currently supported by `galah`, use `find_atlases()`. This
+To show the Atlases currently supported by `galah`, use `show_all_atlases()`. This
 function also provides information on which taxonomic source each Atlas uses.
 ```{r}
 library(galah)
-find_atlases()
+show_all_atlases()
 ```
 
 ## Set Atlas
@@ -43,7 +43,7 @@ ala_counts()
 ## Using taxonomic filters for another atlas
 `galah` only supports searching for Australian taxonomy; for other Atlases,
 `taxize` should be used to search for the taxonomic id, and this id can be passed
-to the `taxa` argument of `ala_` functions. For example:
+to the `taxa` argument of `atlas_` functions. For example:
 ```{r,error=TRUE}
 library(taxize)
 # Use UK taxonomy
@@ -64,7 +64,7 @@ occ <- read.csv('bombina_variegata.csv')
 ```
 
 ```{r eval = FALSE}
-occ <- ala_occurrences(taxa = id)
+occ <- atlas_occurrences(taxa = id)
 ```
 
 ```{r}

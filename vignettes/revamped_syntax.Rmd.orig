@@ -7,9 +7,12 @@ editor_options:
   chunk_output_type: inline
 ---
 
-`galah` 1.4.0 implements new, revised syntax for function names. These new function names are intended to improve users' ability to know what each function does and what output they can expect. <br>
+`galah` 1.4.0 implements new, revised syntax for function names. These new 
+function names are intended to improve users' ability to know what each function 
+does and what output they can expect. <br>
 
-First, let's have a look at all the changes, then go through each major syntax change one-by-one.
+First, let's have a look at all the changes, then go through each major syntax 
+change one-by-one.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 library(galah)
@@ -59,9 +62,15 @@ Functions that alter or filter data requests use the prefix `galah_`. These func
 -   `galah_group_by`
 -   `galah_geolocate`
 
-These functions replace or extend functions previously prefixed by `select_`. Renaming `select_` functions to `galah_` functions reflects `galah`'s embrace of `dplyr`. This change can be seen in the names of `galah_` functions; they echo `dplyr`'s `filter`, `select` and `group_by` functions.
+These functions replace or extend functions previously prefixed by `select_`. 
+Renaming `select_` functions to `galah_` functions reflects `galah`'s embrace of
+`dplyr`. This change can be seen in the names of `galah_` functions; they echo 
+`dplyr`'s `filter`, `select` and `group_by` functions.
 
-The similarity of `galah_` functions to `dplyr` doesn't end there. `galah_filter`, `galah_select` and `galah_group_by` also use `dplyr` tidy evaluation and syntax. This means that the way you use `dplyr` functions is also how you use `galah_` functions.
+The similarity of `galah_` functions to `dplyr` doesn't end there. `galah_filter`, 
+`galah_select` and `galah_group_by` also use `dplyr` tidy evaluation and syntax. 
+This means that the way you use `dplyr` functions is also how you use `galah_` 
+functions.
 
 Let's look at a few examples to show you what we mean.
 
@@ -81,9 +90,10 @@ Use `galah_group_by` to group record counts and summarise counts by specified fi
 
 ```{r}
 # Get record counts since 2010, grouped by year and basis of record
+galah_config(verbose = FALSE)
 atlas_counts(
-  filter = galah_filter(year > 2010),
-  group_by = galah_group_by(year, species, expand = TRUE)
+  filter = galah_filter(year > 2015 & year <= 2020),
+  group_by = galah_group_by(year, basisOfRecord, expand = TRUE)
   )
 ```
 
@@ -108,7 +118,9 @@ wkt <- "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134
 species <- atlas_species(geolocate = galah_geolocate(wkt))
 ```
 
-`galah_` functions also evaluate arguments just like `dplyr`. To see what we mean, let's look at an example of how `dplyr::filter()` works. Notice how `dplyr::filter` and `galah_filter` both require logical arguments to be added by using the `==` sign:
+`galah_` functions also evaluate arguments just like `dplyr`. To see what we mean, 
+let's look at an example of how `dplyr::filter()` works. Notice how `dplyr::filter` 
+and `galah_filter` both require logical arguments to be added by using the `==` sign:
 
 ```{r}
 library(dplyr)
@@ -120,7 +132,8 @@ mtcars %>% filter(mpg == 21)
 atlas_counts(galah_filter(year == 2021))
 ```
 
-As another example, notice how `galah_group_by` works very similarly to `dplyr::group_by` + `dplyr::summarise(sum())`:
+As another example, notice how `galah_group_by` works very similarly to
+ `dplyr::group_by` + `dplyr::summarise(sum())`:
 
 ```{r}
 mtcars %>% 
@@ -131,7 +144,11 @@ atlas_counts(group_by = galah_group_by(biome))
 ```
 
 
-We made this move towards tidy evaluation to eventually make it possible to use piping to create a query to the Atlas of Living Australia just like how you might edit a `data.frame` with the `tidyverse`. We are not ready to add these changes, but we imagine that getting the number of records, for example, could look something like this in the future:
+We made this move towards tidy evaluation to eventually make it possible to use
+ piping to create a query to the Atlas of Living Australia just like how you might 
+ edit a `data.frame` with the `tidyverse`. We are not ready to add these changes, 
+ but we imagine that getting the number of records, for example, could look 
+ something like this in the future:
 
 ```{r, eval = FALSE}
 galah_call() %>%
@@ -144,13 +161,18 @@ galah_call() %>%
 
 ## `search_taxa`
 
-`search_taxa` replaces the previously named `select_taxa`. This change in syntax reflects the function's primary use - to search for taxonomic information. For example, to search for reptiles, we first need to identify whether we have the correct query and verify using additional taxonomic information:
+`search_taxa` replaces the previously named `select_taxa`. This change in syntax 
+reflects the function's primary use - to search for taxonomic information. For 
+example, to search for reptiles, we first need to identify whether we have the 
+correct query and verify using additional taxonomic information:
 
 ```{r}
 search_taxa("Reptilia")
 ```
 
-The output confirms that *Reptilia* is the correct search term, which we can use in `atlas_` functions to narrow our results or records. This output is consistent with the other `search_` function, `search_fields`.
+The output confirms that *Reptilia* is the correct search term, which we can use 
+in `atlas_` functions to narrow our results or records. This output is consistent 
+with the other `search_` function, `search_fields`.
 
 
 ## `atlas_` functions
@@ -164,9 +186,14 @@ The prefix `atlas_` replaces `ala_` for the functions
 -   `atlas_taxonomy`
 -   `atlas_citation`
 
-This change was made to reflect the ability for functions like `atlas_counts` and `atlas_occurrences` to use international atlases since galah 1.2.0 (see `vignette("international_atlases")`).
+This change was made to reflect the ability for functions like `atlas_counts` and 
+`atlas_occurrences` to use international atlases since galah 1.2.0 
+(see `vignette("international_atlases")`).
 
-`atlas_` functions work the same as previous `ala_` functions, but with changes to the names of arguments they accept. Argument names are consistent with the functions that they use. With the new syntax of `galah_` functions and the update to `search_taxa`, these argument changes look like this:
+`atlas_` functions work the same as previous `ala_` functions, but with changes 
+to the names of arguments they accept. Argument names are consistent with the 
+functions that they use. With the new syntax of `galah_` functions and the
+ update to `search_taxa`, these argument changes look like this:
 
 ```{r, eval = FALSE}
 # Get species list for Perameles (aka Bandicoots)
@@ -198,7 +225,8 @@ See R help files for more information on using `atlas_` functions with updated s
 
 ## `show_all_` functions
 
-Functions with the prefix `show_all_` return a `data.frame` doing exactly that - showing all the possible values of the category specified. These functions include:
+Functions with the prefix `show_all_` return a `data.frame` doing exactly that 
+- showing all the possible values of the category specified. These functions include:
 
 -   `show_all_fields`
 -   `show_all_atlases`
@@ -207,7 +235,8 @@ Functions with the prefix `show_all_` return a `data.frame` doing exactly that -
 -   `show_all_reasons`
 -   `show_all_cached_files`
 
-`show_all_` functions require no arguments. Simply call the function and it will return all accepted values:
+`show_all_` functions require no arguments. Simply call the function and it will 
+return all accepted values:
 
 ```{r}
 show_all_atlases()
@@ -219,5 +248,8 @@ show_all_reasons()
 
 Old syntax will now return an error when used, suggesting the new syntax. 
 
-New syntax are not fully decided on and can be changed in future versions of `galah`. We would appreciate any feedback from users about what works or what doesn't work. It is our goal to create a package that is as easy and intuitive for users as possible!
+New syntax are not fully decided on and can be changed in future versions of 
+`galah`. We would appreciate any feedback from users about what works or what 
+doesn't work. It is our goal to create a package that is as easy and intuitive 
+for users as possible!
 

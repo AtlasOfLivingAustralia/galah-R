@@ -16,10 +16,12 @@ options(width=120)
 ```
 
 # About
-`galah` is an R interface to biodiversity data hosted by the [Atlas of Living Australia](https://ala.org.au) (ALA). The ALA is a repository of biodiversity
-data, focussed primarily on observations of individual life forms. Like the
-Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)), the
-basic unit of data at ALA is an **occurrence** record, based on the ['Darwin Core'](https://dwc.tdwg.org) data standard.
+`galah` is an R interface to biodiversity data hosted by the 
+[Atlas of Living Australia](https://ala.org.au) (ALA). The ALA is a repository 
+of biodiversity data, focussed primarily on observations of individual life forms. 
+Like the Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)), 
+the basic unit of data at ALA is an **occurrence** record, based on the 
+['Darwin Core'](https://dwc.tdwg.org) data standard.
 
 `galah` enables users to locate and download species observations, taxonomic
 information, or associated media such images or sounds, and to restrict their
@@ -29,11 +31,75 @@ particular quality-control criteria. All functions return a `data.frame` as
 their standard format.
 
 Functions in `galah` are designed according to a nested architecture. Users
-that require data should begin by locating the relevant `ala_` function (see
+that require data should begin by locating the relevant `atlas_` function (see
 [downloading data section](#downloading-data)); the arguments within that
-function then call correspondingly-named [`select_` functions](#filtering-data);
-and finally the specific values that can be interpreted by those `select_`
-functions are given by `find_` functions.
+function then call correspondingly-named [`galah_` functions](#filtering-data);
+and finally the specific values that can be interpreted by those `galah_`
+functions are given by `search_`, `show_all_`, or `find_` functions. The
+relationships between these functions are as follows:
+
+
+```{r, eval = FALSE, echo = FALSE}
+DiagrammeR::grViz("
+digraph boxes_and_circles {
+
+  # a 'graph' statement
+  graph [overlap = true, fontsize = 15, rankdir = LR]
+
+  # several 'node' statements
+  node [shape = box,
+        fontname = Helvetica,
+        fixedsize = TRUE,
+        width = 2.0,
+        height = 0.5,
+        fontcolor = '#E06E53',
+        color = '#E06E53']
+  atlas_counts; atlas_species; atlas_occurrences; atlas_media; atlas_taxonomy
+
+  node  [shape = box,
+        fontname = Helvetica,
+        fontcolor = '#c7902a'
+        color = '#c7902a']
+  galah_filter; galah_select; galah_geolocate; galah_group_by; galah_down_to
+  
+  node  [shape = box,
+        fontname = Helvetica,
+        fontcolor = '#7f9959',
+        color = '#7f9959']
+  search_taxa; show_all_fields; search_fields; show_all_profiles; show_all_ranks; find_field_values; find_profile_attributes
+  
+  edge [ color = 'grey50' , dir = 'none']
+  atlas_counts->search_taxa
+  atlas_counts->galah_filter
+  atlas_counts->galah_geolocate
+  atlas_counts->galah_group_by
+  atlas_species->search_taxa
+  atlas_species->galah_filter
+  atlas_species->galah_geolocate
+  atlas_media->search_taxa
+  atlas_media->galah_filter
+  atlas_media->galah_select
+  atlas_media->galah_geolocate
+  atlas_occurrences->search_taxa 
+  atlas_occurrences->galah_filter
+  atlas_occurrences->galah_select
+  atlas_occurrences->galah_geolocate
+  atlas_taxonomy->search_taxa
+  atlas_taxonomy->galah_down_to
+  galah_group_by->search_fields
+  galah_group_by->show_all_fields
+  galah_filter->search_fields
+  galah_filter->show_all_fields
+  galah_filter->show_all_profiles->find_profile_attributes
+  galah_select->search_fields
+  galah_select->show_all_fields
+  show_all_fields->find_field_values
+  search_fields->find_field_values
+  galah_down_to->show_all_ranks 
+}
+", width = 1000, height = 500)
+```
+<img src="galah-DiagrammeR-plot.png" title="plot of function relationships" alt="plot of function relationships" width="100%" />
 
 ## Installation
 
@@ -68,19 +134,19 @@ Data fields are important because they provide a means to *filter*
 occurrence records;  i.e. to return only the information that you need, and
 no more. Consequently, much of the architecture of `galah` has been
 designed to make filtering as simple as possible, by using functions with the
-`select_` prefix.
+`galah_` prefix.
 
 ## Taxonomic filtering
-`select_taxa()` enables users search for taxonomic names and check the results
+`search_taxa()` enables users search for taxonomic names and check the results
 are 'correct' before using the result to download data.
 The function allows both free-text searches and searches where the rank(s) are
 specified. Specifying the rank can be useful when names are ambiguous.
 ```{r}
 # free text search
-taxa_filter <- select_taxa("Eolophus")
+taxa_filter <- search_taxa("Eolophus")
 
 # specifying ranks
-select_taxa(query = list(genus = "Eolophus", kingdom = "Aves"))
+search_taxa(query = list(genus = "Eolophus", kingdom = "Aves"))
 ```
 
 For more detailed taxonomic information use `search_taxonomy()`, as outlined in 
@@ -90,14 +156,14 @@ For more detailed taxonomic information use `search_taxonomy()`, as outlined in
 Users can provide an `sf` object or a Well-Known Text (WKT) string for
 location-based filtering.
 ```{r eval = FALSE}
-locations <- galah_location(query = st_read('act_rect.shp'))
+locations <- galah_geolocate(query = st_read('act_rect.shp'))
 ```
 
 ## Field based filtering
 As mentioned above, all occurrence records in the ALA contain additional
 information about the record, stored in **fields**. Field-based filters are
 specified with `galah_filter()`, which takes individual filters, in the form
-`field = value`, and/or a [data quality profile](#data-quality-profiles).
+`field logical value`, and/or a [data quality profile](#data-quality-profiles).
 
 To find available fields and corresponding valid values, field lookup 
 functions are provided. For finding field names, use `search_fields()`, for
@@ -109,13 +175,13 @@ field_values <- find_field_values("basisOfRecord")
 Build a field filter
 
 ```{r}
-filters <- galah_filter(basisOfRecord = "HumanObservation")
+filters <- galah_filter(basisOfRecord == "HumanObservation")
 ```
 
 It is also possible to pass other kinds of logical statement to
 `galah_filter()`.
 ```{r}
-filters <- galah_filter(basisOfRecord = "HumanObservation",
+filters <- galah_filter(basisOfRecord == "HumanObservation",
                           year >= 2010,
                           occurrenceStatus != "absent")
 ```
@@ -133,7 +199,7 @@ remove undesirable records. A full list of data quality profiles is returned by
 `find_profiles()`.
 
 ```{r}
-profiles <- find_profiles()
+profiles <- show_all_profiles()
 ```
 View filters included in a profile
 ```{r}
@@ -141,33 +207,33 @@ find_profile_attributes("ALA")
 ```
 Include a profile in the filters
 ```{r}
-filters <- galah_filter(basisOfRecord = "HumanObservation",
+filters <- galah_filter(basisOfRecord == "HumanObservation",
                           profile = "ALA")
 ```
 
 # Downloading data
 
-Functions that return data from ALA are named with the prefix `ala_`,
+Functions that return data from ALA are named with the prefix `atlas_`,
 followed by a suffix describing the information that they provide.
 
 By combining different filter functions, it is possible to build complex
 queries to return only the most valuable information for a given problem.
 Once you have retrieved taxon information, you can use this to [search for
-occurrence records](#occurrence-data) with `ala_occurrences()`. However, it is
-also possible to [download data on species](#species-data) via `ala_species()`,
-or [media content](#media_downloads) (largely images) via `ala_media()`.
-Alternatively, users can [retrieve record counts](#record-counts) using `ala_counts()`.
+occurrence records](#occurrence-data) with `atlas_occurrences()`. However, it is
+also possible to [download data on species](#species-data) via `atlas_species()`,
+or [media content](#media_downloads) (largely images) via `atlas_media()`.
+Alternatively, users can [retrieve record counts](#record-counts) using `atlas_counts()`.
 
 ## Occurrence data
 
 In addition to the [filter functions](#filtering-data) above, when downloading
 occurrence data users can specify which columns are returned using
-`select_columns()`. Individual column names and/or column groups can be
+`galah_select()`. Individual column names and/or column groups can be
 specified.
-To view the fields for each group, see the documentation for `select_columns()`.
+To view the fields for each group, see the documentation for `galah_select()`.
 To view the list of available fields, run `search_fields()`.
 ```{r}
-cols <- select_columns("institutionID", group = "basic")
+cols <- galah_select("institutionID", group = "basic")
 ```
 
 To download occurrence data you will need to specify your email in
@@ -184,11 +250,11 @@ galah_config(email = your_email_here, atlas = "Australia")
 
 Download occurrence records for *Eolophus roseicapilla*
 ```{r}
-occ <- ala_occurrences(taxa = select_taxa("Eolophus roseicapilla"),
-                       filters = galah_filter(stateProvince = "Australian Capital Territory",
+occ <- atlas_occurrences(taxa = search_taxa("Eolophus roseicapilla"),
+                       filter = galah_filter(stateProvince == "Australian Capital Territory",
                                                 year >= 2010,
                                                 profile = "ALA"),
-                       columns = select_columns("institutionID", group = "basic"))
+                       select = galah_select("institutionID", group = "basic"))
 ```
 
 ```{r}
@@ -197,7 +263,7 @@ head(occ)
 
 ## Species data
 A common use case of the ALA is to identify which species occur in a specified
-region, time period, or taxonomic group. `ala_species()` enables the user to 
+region, time period, or taxonomic group. `atlas_species()` enables the user to 
 look up this information, using the common set of filter functions.
 ```{r include = FALSE}
 galah_config(cache_directory = tempdir())
@@ -205,39 +271,41 @@ galah_config(cache_directory = tempdir())
 
 ```{r}
 # List rodent species in the NT
-species <- ala_species(taxa = select_taxa("Rodentia"),
-            filters = galah_filter(stateProvince = "Northern Territory"))
+species <- atlas_species(taxa = search_taxa("Rodentia"),
+            filter = galah_filter(stateProvince == "Northern Territory"))
 head(species)
 ```
 
 ## Record counts
-`ala_counts()` provides summary counts on records in the ALA, without needing
+`atlas_counts()` provides summary counts on records in the ALA, without needing
 to download all the records. In addition to the filter arguments, it has an
 optional `group_by` argument, which provides counts binned by the requested
 field.
 ```{r warning = FALSE}
 # Total number of records in the ALA
-ala_counts()
+atlas_counts()
 
 # Total number of records, broken down by kindgom
-ala_counts(group_by = "kingdom")
+atlas_counts(group_by = galah_group_by(kingdom))
 ```
 
 
 ## Media downloads
-In addition to text data describing individual occurrences and their attributes, ALA stores images, sounds and videos associated with a given record. These can be downloaded to `R` using `ala_media()` and the same
-set of filters as the other data download functions.
+In addition to text data describing individual occurrences and their attributes, 
+ALA stores images, sounds and videos associated with a given record. These can 
+be downloaded to `R` using `atlas_media()` and the same set of filters as the 
+other data download functions.
+
 ```{r warning=FALSE, message=FALSE, eval = FALSE}
 # Use the occurrences previously downloaded
-media_data <- ala_media(
-     taxa = select_taxa("Eolophus roseicapilla"),
-     filters = galah_filter(year = 2020),
+media_data <- atlas_media(
+     taxa = search_taxa("Eolophus roseicapilla"),
+     filter = galah_filter(year == 2020),
      download_dir = "media")
 ```
 
 
 # Config
-
 Various aspects of the galah package can be customized. To preserve
 configuration for future sessions, set `profile_path` to a location of a
 `.Rprofile` file.
@@ -247,7 +315,7 @@ To download occurrence records, you will need to provide an email address
 registered with the ALA. You can create an account [here](https://auth.ala.org.au/userdetails/registration/createAccount).
 Once an email is registered with the ALA, it should be stored in the config:
 ```{r eval=FALSE}
-galah_config(email="myemail@gmail.com")
+galah_config(email = "myemail@gmail.com")
 ```
 
 ## Caching
@@ -260,25 +328,30 @@ session is ended. This behaviour can be altered so that caching is permanent,
 by setting the caching directory to a non-temporary location.
 
 ```{r eval=FALSE}
-galah_config(cache_directory="example/dir")
+galah_config(cache_directory = "example/dir")
 ```
 
 By default, caching is turned off. To turn caching on, run
 ```{r eval=FALSE}
-galah_config(caching=FALSE)
+galah_config(caching = FALSE)
 ```
 
 
 ## Debugging
-If things aren't working as expected, more detail (particularly about web requests and caching behaviour) can be obtained by setting the `verbose` configuration option:
+If things aren't working as expected, more detail (particularly about web 
+requests and caching behaviour) can be obtained by setting the `verbose` 
+configuration option:
 
 ```{r eval=FALSE}
-galah_config(verbose=TRUE)
+galah_config(verbose = TRUE)
 ```
 
 ## Setting the download reason
-ALA requires that you provide a reason when downloading occurrence data (via the galah `ala_occurrences()` function). The reason is set as "scientific research" by default, but you can change this using `galah_config()`. See `find_reasons()` for valid download reasons.
+ALA requires that you provide a reason when downloading occurrence data 
+(via the galah `atlas_occurrences()` function). The reason is set as 
+"scientific research" by default, but you can change this using `galah_config()`. 
+See `show_all_reasons()` for valid download reasons.
 
 ```{r eval=FALSE}
-galah_config(download_reason_id=your_reason_id)
+galah_config(download_reason_id = your_reason_id)
 ```

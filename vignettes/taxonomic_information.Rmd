@@ -1,7 +1,7 @@
 ---
 title: "Taxonomic information"
 author: "Martin Westgate & Matilda Stevenson"
-date: '2021-08-18'
+date: '2021-12-22'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -18,18 +18,20 @@ outlined.
 
 ## Searching for a single species or clade
 
-The simplest way to get taxonomic information is to use `select_taxa`. This function
+The simplest way to get taxonomic information is to use `search_taxa`. This function
 takes one or more scientific names and checks them against the ALA's taxonomy 
 service.
 
 ```r
 library(galah)
-select_taxa("Chordata")
+search_taxa("Chordata")
 ```
 
 ```
-##   search_term scientific_name                                                            taxon_concept_id   rank match_type  kingdom   phylum vernacular_name  issues
-## 1    Chordata        CHORDATA urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd phylum exactMatch Animalia Chordata     vertebrates noIssue
+##   search_term scientific_name                                                            taxon_concept_id   rank match_type  kingdom
+## 1    Chordata        CHORDATA urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd phylum exactMatch Animalia
+##     phylum vernacular_name  issues
+## 1 Chordata     vertebrates noIssue
 ```
 
 By default, this function shows the search term, the match (if any) within the ALA,
@@ -39,35 +41,35 @@ returns a unique identifier for that clade, stored in the column
 return data that is specific to the taxon in question, i.e.:
 
 ```r
-ala_counts(taxa = select_taxa("Chordata"))
+atlas_counts(taxa = search_taxa("Chordata"))
 ```
 
 ```
-## [1] 68909129
+## [1] 69148103
 ```
 
-`select_taxa` can accept a vector or a `data.frame` of taxonomic names,
+`search_taxa` can accept a vector or a `data.frame` of taxonomic names,
 and always returns a `data.frame` with the same number of rows as there are 
 names to query. 
 
-One final, useful feature of `select_taxa` is that it works in reverse. That is,
+One final, useful feature of `search_taxa` is that it works in reverse. That is,
 if you have a unique identifier and would like to know which taxon it refers to,
 you can find that out by setting `is_id` to `TRUE`:
 
 
 ```r
-select_taxa("urn:lsid:biodiversity.org.au:afd.taxon:97764bed-9492-4066-a45f-e5b0c6c4280d", is_id = TRUE)
+search_taxa("urn:lsid:biodiversity.org.au:afd.taxon:97764bed-9492-4066-a45f-e5b0c6c4280d", is_id = TRUE)
 ```
 
 ## Searching for lists of species
 A common use case for atlas data is to identify the list of species that 
 occur within a clade, in a particular location, or according to
-some other criterion. This is provided by the `ala_species` function.
+some other criterion. This is provided by the `atlas_species` function.
 
 
 ```r
-burrowing_frogs <- ala_species(
-  taxa = select_taxa("Heleioporus"))
+burrowing_frogs <- atlas_species(
+  taxa = search_taxa("Heleioporus"))
 str(burrowing_frogs, give.attr = FALSE)
 ```
 
@@ -84,17 +86,17 @@ str(burrowing_frogs, give.attr = FALSE)
 ##  $ species_guid   : chr  "urn:lsid:biodiversity.org.au:afd.taxon:cf991494-ccee-433d-b049-f2a0996a0a3b" "urn:lsid:biodiversity.org.au:afd.taxon:20119b25-a27c-4174-b3e0-8639e8a21131" "urn:lsid:biodiversity.org.au:afd.taxon:c1d18a1e-5aec-4441-aa3c-e0ac799f51e8" "urn:lsid:biodiversity.org.au:afd.taxon:0efbf288-1526-4551-af83-52e4fb9dae59" ...
 ##  $ vernacular_name: chr  "Moaning Frog" "Giant Burrowing Frog" "Western Spotted Frog" "Sand Frog" ...
 ```
-`ala_species` is similar to `select_taxa`, in that it returns taxonomic information
+`atlas_species` is similar to `search_taxa`, in that it returns taxonomic information
 and unique identifiers in a `data.frame`. It differs in not being able to return 
 information on taxonomic levels other than the species; but also in being more flexible 
 by supporting filtering e.g.:
 
 
 ```r
-burrowing_frogs <- ala_species(
-  taxa = select_taxa("Heleioporus"),
-  filters = galah_filter(
-    stateProvince = "New South Wales", 
+burrowing_frogs <- atlas_species(
+  taxa = search_taxa("Heleioporus"),
+  filter = galah_filter(
+    stateProvince == "New South Wales", 
     year > 2010))
 str(burrowing_frogs, give.attr = FALSE)
 ```
@@ -122,31 +124,26 @@ This can be useful for paraphyletic concepts such as invertebrates:
 
 ```r
 invertebrate_filter <- galah_filter(
-   taxonConceptID = select_taxa("Animalia")$taxon_concept_id,
-   taxonConceptID != select_taxa("Chordata")$taxon_concept_id)
-head(ala_counts(filters = invertebrate_filter, group_by = "class"))
+   taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
+   taxonConceptID != search_taxa("Chordata")$taxon_concept_id)
+head(atlas_counts(galah_filter = invertebrate_filter, 
+                  group_by = galah_group_by(class)))
 ```
 
 ```
-##          class   count
-## 1      Insecta 3120780
-## 2   Gastropoda  824225
-## 3 Malacostraca  508120
-## 4    Arachnida  494441
-## 5  Maxillopoda  462423
-## 6   Polychaeta  256523
+## Error in atlas_counts.default(galah_filter = invertebrate_filter, group_by = galah_group_by(class)): unused argument (galah_filter = invertebrate_filter)
 ```
 
 ## Taxonomic trees
 
-While many users want to restrict searches to particular taxa using `select_taxa()`,
+While many users want to restrict searches to particular taxa using `search_taxa()`,
 there are many cases where the taxonoimc hierarchy is itself the parameter of 
 investigation. In that case you can return taxonomic information as a tree
-(from package `data.tree`) using `ala_taxonomy()`. This function requires 
+(from package `data.tree`) using `atlas_taxonomy()`. This function requires 
 two arguments:
   
   - `taxa` supplies the higher taxonomic group for which data is required
-  - `down_to` is the lowest rank of the taxonomic hierarchy that the user requires (see `find_ranks()` for valid options)
+  - `down_to` is the lowest rank of the taxonomic hierarchy that the user requires (see `show_all_ranks()` for valid options)
 
 The function then searches 'downwards' from `taxa` to build the tree.
 
@@ -154,7 +151,8 @@ The function then searches 'downwards' from `taxa` to build the tree.
 
 ```r
 library(data.tree)
-classes <- ala_taxonomy(taxa = select_taxa("Chordata"), down_to = "class")
+classes <- atlas_taxonomy(taxa = search_taxa("Chordata"), 
+                          down_to = galah_down_to(class))
 print(classes, "rank")
 ```
 
@@ -186,7 +184,7 @@ print(classes, "rank")
 
 
 Note that if you are traversing more than 3 ranks, it might be more efficient
-to use `ala_species`, as `search_taxonomy` is inefficient when the search tree
+to use `atlas_species`, as `atlas_taxonomy` is inefficient when the search tree
 is large.
 
 ### Manipulating trees
@@ -240,15 +238,15 @@ print(classes, "authority")
 
 Note that the above syntax is slightly unusual, in that the tree 
 (`classes`) is updated even though we don't assign the result to an obect. 
-This is because `classes` is an `S6` object. In fact, trees created from 
+This is because `classes` is an `R6` object. In fact, trees created from 
 `data.tree` Nodes have a few unusual properties that we can exploit to do 
 interesting things. A common task, for example, is to calculate the number of 
 records present for each node in the tree. A quick way to do this would be to 
-extract all the `guid` values and query them using `ala_counts()`.
+extract all the `guid` values and query them using `atlas_counts()`.
   
 
 ```r
-counts <- lapply(classes$Get("guid"), ala_counts)
+counts <- lapply(classes$Get("guid"), atlas_counts)
 ```
 
 While this approach works, it is inefficient, because each node has to be searched
@@ -263,7 +261,7 @@ logic to run fewer queries via the ALA, and thereby get a neater result in less 
 leaves <- Traverse(classes, filterFun = isLeaf)
 
 # get data on record counts
-leaf_counts <- lapply(Get(leaves, "guid"), ala_counts)
+leaf_counts <- lapply(Get(leaves, "guid"), atlas_counts)
 
 # add back on to the tree
 classes$Set(n_records = 0)
@@ -277,18 +275,18 @@ print(classes, "n_records")
 ## 2   ¦--Cephalochordata                  564
 ## 3   ¦--Tunicata                           0
 ## 4   ¦   ¦--Appendicularia             74591
-## 5   ¦   ¦--Ascidiacea                 24267
-## 6   ¦   °--Thaliacea                   9458
+## 5   ¦   ¦--Ascidiacea                 24864
+## 6   ¦   °--Thaliacea                   9469
 ## 7   °--Vertebrata                         0
 ## 8       °--Gnathostomata                  0
-## 9           ¦--Amphibia              814058
-## 10          ¦--Aves                59712719
-## 11          ¦--Mammalia             3195438
+## 9           ¦--Amphibia              823125
+## 10          ¦--Aves                59831201
+## 11          ¦--Mammalia             3240703
 ## 12          ¦--Pisces                     0
-## 13          ¦   ¦--Actinopterygii   2915369
-## 14          ¦   ¦--Chondrichthyes    841450
-## 15          ¦   °--Sarcopterygii       4353
-## 16          °--Reptilia             1296302
+## 13          ¦   ¦--Actinopterygii   2955130
+## 14          ¦   ¦--Chondrichthyes    849854
+## 15          ¦   °--Sarcopterygii       4357
+## 16          °--Reptilia             1313633
 ```
 
 ```r
@@ -302,22 +300,22 @@ print(classes, "n_records")
 
 ```
 ##                         levelName n_records
-## 1  Chordata                        68888569
+## 1  Chordata                        69127491
 ## 2   ¦--Cephalochordata                  564
-## 3   ¦--Tunicata                      108316
+## 3   ¦--Tunicata                      108924
 ## 4   ¦   ¦--Appendicularia             74591
-## 5   ¦   ¦--Ascidiacea                 24267
-## 6   ¦   °--Thaliacea                   9458
-## 7   °--Vertebrata                  68779689
-## 8       °--Gnathostomata           68779689
-## 9           ¦--Amphibia              814058
-## 10          ¦--Aves                59712719
-## 11          ¦--Mammalia             3195438
-## 12          ¦--Pisces               3761172
-## 13          ¦   ¦--Actinopterygii   2915369
-## 14          ¦   ¦--Chondrichthyes    841450
-## 15          ¦   °--Sarcopterygii       4353
-## 16          °--Reptilia             1296302
+## 5   ¦   ¦--Ascidiacea                 24864
+## 6   ¦   °--Thaliacea                   9469
+## 7   °--Vertebrata                  69018003
+## 8       °--Gnathostomata           69018003
+## 9           ¦--Amphibia              823125
+## 10          ¦--Aves                59831201
+## 11          ¦--Mammalia             3240703
+## 12          ¦--Pisces               3809341
+## 13          ¦   ¦--Actinopterygii   2955130
+## 14          ¦   ¦--Chondrichthyes    849854
+## 15          ¦   °--Sarcopterygii       4357
+## 16          °--Reptilia             1313633
 ```
 
 The same approach can be used to find the number of species within a clade
@@ -326,7 +324,7 @@ The same approach can be used to find the number of species within a clade
 # get species counts
 leaf_spp_counts <- lapply(
   Get(leaves, "guid"),
-  function(x){ala_counts(x, type = "species")})
+  function(x){atlas_counts(taxa = x, type = "species")})
 
 # add back to the tree, then sum
 classes$Set(n_species = 0)
@@ -342,19 +340,19 @@ print(classes, "n_species")
 
 ```
 ##                         levelName n_species
-## 1  Chordata                            9174
+## 1  Chordata                            9179
 ## 2   ¦--Cephalochordata                    7
-## 3   ¦--Tunicata                         809
+## 3   ¦--Tunicata                         810
 ## 4   ¦   ¦--Appendicularia                10
 ## 5   ¦   ¦--Ascidiacea                   784
-## 6   ¦   °--Thaliacea                     15
-## 7   °--Vertebrata                      8358
-## 8       °--Gnathostomata               8358
+## 6   ¦   °--Thaliacea                     16
+## 7   °--Vertebrata                      8362
+## 8       °--Gnathostomata               8362
 ## 9           ¦--Amphibia                 245
 ## 10          ¦--Aves                     952
 ## 11          ¦--Mammalia                 421
-## 12          ¦--Pisces                  5649
-## 13          ¦   ¦--Actinopterygii      5292
+## 12          ¦--Pisces                  5653
+## 13          ¦   ¦--Actinopterygii      5296
 ## 14          ¦   ¦--Chondrichthyes       356
 ## 15          ¦   °--Sarcopterygii          1
 ## 16          °--Reptilia                1091
@@ -416,7 +414,7 @@ levels and ranks, then converting to a `data.frame`
 # create a label that uniquely identifies unranked nodes
 classes$Do(
   function(a){
-    if(a$rank %in% find_ranks()$name){
+    if(a$rank %in% show_all_ranks()$name){
       a$rank_level <- a$rank
     }else{
       a$rank_level <- paste0(a$rank, "-level-", a$level)

@@ -1,7 +1,7 @@
 ---
 title: "International Atlases"
 author: "Matilda Stevenson"
-date: '2021-08-06'
+date: '2021-12-22'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -18,12 +18,12 @@ Atlas the package points to, and how to put in a pull request if you would like
 to see another Living Atlas supported in `galah`.
 
 ## Supported Atlases
-To show the Atlases currently supported by `galah`, use `find_atlases()`. This
+To show the Atlases currently supported by `galah`, use `show_all_atlases()`. This
 function also provides information on which taxonomic source each Atlas uses.
 
 ```r
 library(galah)
-find_atlases()
+show_all_atlases()
 ```
 
 ```
@@ -54,13 +54,20 @@ ala_counts()
 ```
 
 ```
-## [1] 200068504
+## Warning: `ala_counts()` was deprecated in galah 1.4.0.
+## Please use `atlas_counts()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+```
+
+```
+## [1] 203767067
 ```
 
 ## Using taxonomic filters for another atlas
 `galah` only supports searching for Australian taxonomy; for other Atlases,
 `taxize` should be used to search for the taxonomic id, and this id can be passed
-to the `taxa` argument of `ala_` functions. For example:
+to the `taxa` argument of `atlas_` functions. For example:
 
 ```r
 library(taxize)
@@ -69,7 +76,7 @@ id <- get_nbnid("Vulpes vulpes", rows = 1)
 ```
 
 ```
-## ==  1 queries  ===============
+## ══  1 queries  ═══════════════
 ```
 
 ```
@@ -78,12 +85,12 @@ id <- get_nbnid("Vulpes vulpes", rows = 1)
 ```
 
 ```
-## v  Found:  Vulpes vulpes
-## ==  Results  =================
+## ✔  Found:  Vulpes vulpes
+## ══  Results  ═════════════════
 ## 
-## * Total: 1 
-## * Found: 1 
-## * Not Found: 0
+## • Total: 1 
+## • Found: 1 
+## • Not Found: 0
 ```
 
 ```r
@@ -91,7 +98,7 @@ ala_counts(taxa = id)
 ```
 
 ```
-## [1] 149388
+## [1] 151307
 ```
 
 ## Retrieving occurrence records
@@ -103,7 +110,7 @@ id <- get_gbifid("bombina variegata", rows = 1)
 ```
 
 ```
-## ==  1 queries  ===============
+## ══  1 queries  ═══════════════
 ```
 
 ```
@@ -112,12 +119,12 @@ id <- get_gbifid("bombina variegata", rows = 1)
 ```
 
 ```
-## v  Found:  bombina variegata
-## ==  Results  =================
+## ✔  Found:  bombina variegata
+## ══  Results  ═════════════════
 ## 
-## * Total: 1 
-## * Found: 1 
-## * Not Found: 0
+## • Total: 1 
+## • Found: 1 
+## • Not Found: 0
 ```
 
 ```r
@@ -125,14 +132,14 @@ ala_counts(taxa = id)
 ```
 
 ```
-## [1] 392
+## [1] 4938
 ```
 
 
 
 
 ```r
-occ <- ala_occurrences(taxa = id)
+occ <- atlas_occurrences(taxa = id)
 ```
 
 
