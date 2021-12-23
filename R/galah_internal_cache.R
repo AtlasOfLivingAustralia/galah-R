@@ -2,15 +2,16 @@
 # This increases speed by ensuring that the atlas is only queried when needed.
 # When run with no arguments, it returns a list with currently stored objects.
 # When a named field is given, it stores that field in options("galah_internal")
-galah_internal <- function(...){
-  
+galah_internal_cache <- function(...){
+
   # set all options
-  ala_option_name <- "galah_internal"
+  ala_option_name <- "galah_internal_cache"
   current_options <- getOption(ala_option_name)
   user_options <- list(...)
-  default_options <- vector(mode = "list", length = 5)
-  names(default_options) <- paste0("show_all_",
-    c("atlases", "fields", "profiles", "ranks", "reasons"))
+  
+  # load an archived version as the default
+  default_options <- galah_internal_archived # stored in R/sysdata.rda
+  # get0("galah_internal_archived", envir = asNamespace("galah")) # alternate code
     
   # deal with different kinds of query
   if (length(user_options) == 0 && !is.null(current_options)) {
@@ -36,3 +37,27 @@ galah_internal <- function(...){
   options(temp)
  
 }
+
+internal_cache_update_needed <- function(function_name){
+  df <- galah_internal_cache()[[function_name]]
+  if(is.null(attr(df, "ARCHIVED"))){ # i.e. the cache has been updated
+    FALSE
+  }else{
+    TRUE
+  }
+}
+
+# # code to load the data into R/sysdata.rda
+# # NOTE: "show_all_ranks"  and "show_all_atlases" are not included,
+# # as they don't query a web service
+# devtools::load_all()
+# stored_functions <- c("show_all_fields", "show_all_profiles", "show_all_reasons")
+# # load all data
+# galah_internal_archived <- lapply(stored_functions,
+#   function(a){
+#     result <- eval(parse(text = paste0(a, "()")))
+#     attr(result, "ARCHIVED") <- TRUE
+#     result
+#   })
+# names(galah_internal_archived) <- stored_functions
+# usethis::use_data(galah_internal_archived, internal = TRUE, overwrite = TRUE)

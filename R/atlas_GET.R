@@ -18,17 +18,10 @@ atlas_GET <- function(url, path, params = list(), on_error = NULL,
        offset_param = offset_param
      )
    }, 
-   error = function(a){
-     warn("Your query didn't work. Please amend your query or try again later.")
-     message(a)
-   },
-   warning = function(a){
-     message("This function returned a warning:")
-     message(a)
-   }
+   error = function(a){return(NULL)},
+   warning = function(a){return(NULL)}
  )
 }
-
 
 internal_GET <- function(url, path, params = list(), on_error = NULL,
                     paginate = FALSE, limit = NULL, page_size = NULL,

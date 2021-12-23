@@ -51,20 +51,14 @@
 show_all_fields <- function(
   type = c("all", "fields", "layers", "assertions", "media", "other")
 ){
-  type <- match.arg(type)
   
-  # check whether data is stored in galah_internal()
-  local_check <- galah_internal()$show_all_fields
-  if(!is.null(local_check)){
-    if(type == "all"){
-      local_check
-    }else{
-      local_check[local_check$type == type, ]
-    }
-    
-  # if not, then generate new data
-  }else{
+  # check type is valid, and return an error if it is not
+  type <- match.arg(type)
 
+  # check whether the cache has been updated this session
+  update_needed <- internal_cache_update_needed("show_all_fields")
+ 
+  if(update_needed){ # i.e. we'd like to run a query
     df <- switch(type,
       "fields" = get_fields(),
       "layers" = get_layers(),
@@ -77,64 +71,96 @@ show_all_fields <- function(
         assertions <- get_assertions()
         media <- get_media()
         other <- get_other_fields()
-        result <- as.data.frame(
-          data.table::rbindlist(
-            list(
-              fields[!(fields$id %in% layers$id), ],
-              layers, assertions, media, other), 
-            fill = TRUE)
-        )
-      },
-      stop("`type`` must be one of c('fields', 'layers', 'assertions','other', 'all')")
+        if(any(
+          is.null(fields),
+          is.null(layers),
+          is.null(assertions),
+          # is.null(media) # internally generated
+          is.null(other)
+        )){
+          NULL
+        }else{
+          as.data.frame(
+            data.table::rbindlist(
+              list(
+                fields[!(fields$id %in% layers$id), ],
+                layers, assertions, media, other), 
+              fill = TRUE)
+          )
+        }
+      }
     )
-    
-    if(type == "all"){
-      galah_internal(show_all_fields = df)
+    if(is.null(df)){ # if calling the API fails, return cached data
+      message("Calling the API failed for `show_all_fields`; Returning cached values")
+      df <- galah_internal_cache()$show_all_fields
+      attr(df, "ARCHIVED") <- NULL # remove identifying attributes
+    }else{ # otherwise, update the cache
+      galah_internal_cache(show_all_fields = df)
     }
-    
-    df |> as_tibble()
+  }else{ # i.e. internal data has been updated this session
+    df <- galah_internal_cache()$show_all_fields
+  }   
+  
+  # return
+  if(type == "all"){
+    as_tibble(df)
+  }else{
+    as_tibble(df[df$type == type, ])
   }
+ 
 }
 
 # Helper functions to get different field classes
 get_fields <- function() {
   fields <- all_fields()
-  # remove fields where class is contextual or environmental
-  fields <- fields[!(fields$classs %in% c("Contextual", "Environmental")),]
+  if(is.null(fields)){
+    NULL
+  }else{
+    # remove fields where class is contextual or environmental
+    fields <- fields[!(fields$classs %in% c("Contextual", "Environmental")),]
 
-  names(fields) <- rename_columns(names(fields), type = "fields")
-  fields <- fields[wanted_columns("fields")]
-  fields$type <- "fields"
+    names(fields) <- rename_columns(names(fields), type = "fields")
+    fields <- fields[wanted_columns("fields")]
+    fields$type <- "fields"
 
-  fields
+    fields
+  }
 }
 
 get_assertions <- function() {
   url <- server_config("records_base_url")
   assertions <- atlas_GET(url, path = "assertions/codes")
-  assertions$data_type <- "logical"
-  names(assertions) <- rename_columns(names(assertions), type = "assertions")
-  assertions <- assertions[wanted_columns("assertions")]
-  assertions$type <- "assertions"
-  assertions
+  if(is.null(assertions)){
+    NULL
+  }else{
+    assertions$data_type <- "logical"
+    names(assertions) <- rename_columns(names(assertions), type = "assertions")
+    assertions <- assertions[wanted_columns("assertions")]
+    assertions$type <- "assertions"
+    assertions
+  }
 }
 
 get_layers <- function() {
   url <- server_config("spatial_base_url")
   result <- atlas_GET(url, "layers")
-  layer_id <- mapply(build_layer_id, result$type, result$id,
-                     USE.NAMES = FALSE)
-  result <- cbind(layer_id, result)
-  result$description <- apply(
-    result[, c("displayname", "description")],
-    1,
-    function(a){paste(a, collapse = " ")}
-  )
-  names(result) <- rename_columns(names(result), type = "layer")
-  result <- result[wanted_columns("layer")]
-  names(result)[1] <- "id"
-  result$type <- "layers"
-  result
+  if(is.null(result)){
+    NULL
+  }else{
+    layer_id <- mapply(build_layer_id, result$type, result$id,
+                       USE.NAMES = FALSE)
+    result <- cbind(layer_id, result)
+    result$description <- apply(
+      result[, c("displayname", "description")],
+      1,
+      function(a){paste(a, collapse = " ")}
+    )
+    names(result) <- rename_columns(names(result), type = "layer")
+    result <- result[wanted_columns("layer")]
+    names(result)[1] <- "id"
+    result$type <- "layers"
+    result
+  }
 }
 
 # Return fields not returned by the API

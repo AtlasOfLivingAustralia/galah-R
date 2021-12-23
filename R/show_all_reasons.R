@@ -12,19 +12,27 @@
 #' valid download reasons, containing the id and name for each reason.
 #' @export
 show_all_reasons <- function() {
-  local_check <- galah_internal()$show_all_reasons
-  if(!is.null(local_check)){
-    local_check
-  }else{
+   
+  # check whether the cache has been updated this session
+  update_needed <- internal_cache_update_needed("show_all_reasons")
+ 
+  if(update_needed){ # i.e. we'd like to run a query
     ## return list of valid "reasons for use" codes
     out <- atlas_GET(server_config("logger_base_url"),
-                   path = "service/logger/reasons")
-    if (any(names(out) == "deprecated")) out <- out[!out$deprecated, ]
-    out <- out[wanted_columns("reasons")]
-    # sort by id to make it less confusing
-    row.names(out) <- out$id
-    df <- out[order(out$id),]
-    galah_internal(show_all_reasons = df)
-    return(df |> as_tibble())
+                   path = "service/logger/reasons")   
+    if(is.null(out)){
+      message("Calling the API failed for `show_all_reasons`; Returning cached values")
+      df <- galah_internal_cache()$show_all_reasons
+      attr(df, "ARCHIVED") <- NULL # remove identifying attributes
+    }else{
+      if (any(names(out) == "deprecated")) out <- out[!out$deprecated, ]
+      out <- out[wanted_columns("reasons")]
+      # sort by id to make it less confusing
+      row.names(out) <- out$id
+      df <- as_tibble(out[order(out$id), ])
+    }
+  }else{
+    df <- galah_internal_cache()$show_all_reasons
   }
+  df
 }

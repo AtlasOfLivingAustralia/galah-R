@@ -24,18 +24,28 @@
 # this will return names and descriptions of data profiles
 # should id be exposed to the user?
 show_all_profiles <- function() {
-  local_check <- galah_internal()$show_all_profiles
-  if(!is.null(local_check)){
-    local_check
-  }else{
+  
+  # check whether the cache has been updated this session
+  update_needed <- internal_cache_update_needed("show_all_profiles")
+ 
+  if(update_needed){ # i.e. we'd like to run a query
     # return only enabled profiles?
     url <- server_config("data_quality_base_url")
     resp <- atlas_GET(url, "api/v1/profiles", list(enabled = "true"))
-    df <- resp[wanted_columns(type = "profile")]
-    galah_internal(show_all_profiles = df)
-    return(df |> as_tibble())
+    if(is.null(resp)){ # if calling the API fails, return cached data
+      message("Calling the API failed for `show_all_profiles`; Returning cached values")
+      df <- galah_internal_cache()$show_all_profiles
+      attr(df, "ARCHIVED") <- NULL # remove identifying attributes
+    }else{
+      df <- as_tibble(resp[wanted_columns(type = "profile")])
+      galah_internal_cache(show_all_profiles = df)
+    }    
+  }else{
+     df <- galah_internal_cache()$show_all_profiles
   }
+  df
 }
+
 
 #' Get data filters for a specified data quality profile
 #'

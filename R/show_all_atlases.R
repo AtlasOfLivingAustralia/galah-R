@@ -7,23 +7,21 @@
 #' Living Atlas information, including taxonomy
 #' source and information for each atlas.
 #' @export
+
+
+# Note: It might be quicker to load this from galah_cache_internal
+# but as no web query involved it's not a big deal
 show_all_atlases <- function() {
-  local_check <- galah_internal()$show_all_atlases
-  if(!is.null(local_check)){
-    local_check
-  }else{
-    gbif_info <- "https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
-    ala_info <- "https://bie.ala.org.au/"
-    nbn_info <- "https://www.nhm.ac.uk/our-science/data/uk-species.html"
-    df <- data.frame(
-      atlas = c("Australia", "Austria", "Guatemala", "Spain", "Sweden", "UK"),
-      taxonomy_source = c("ALA", "GBIF", "GBIF", "GBIF", "GBIF", "NBN"),
-      taxonomy_info  = c(ala_info, gbif_info, gbif_info, gbif_info, gbif_info,
-                         nbn_info)
-    )
-    galah_internal(show_all_atlases = df)
-    return(as_tibble(df))
-  }
+  gbif_info <- "https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
+  ala_info <- "https://bie.ala.org.au/"
+  nbn_info <- "https://www.nhm.ac.uk/our-science/data/uk-species.html"
+  df <- data.frame(
+    atlas = c("Australia", "Austria", "Guatemala", "Spain", "Sweden", "UK"),
+    taxonomy_source = c("ALA", "GBIF", "GBIF", "GBIF", "GBIF", "NBN"),
+    taxonomy_info  = c(ala_info, gbif_info, gbif_info, gbif_info, gbif_info,
+                       nbn_info)
+  )
+  return(as_tibble(df))
 }
 
 server_config <- function(url) {
