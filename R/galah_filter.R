@@ -106,6 +106,7 @@ galah_filter <- function(..., profile = NULL){
   }
   
   # Set class
+  named_filters <- as_tibble(named_filters)
   class(named_filters) <- append(class(named_filters), "galah_filter")
   
   # Check and apply profiles to query

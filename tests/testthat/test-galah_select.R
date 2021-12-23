@@ -24,12 +24,12 @@ test_that("galah_select builds expected columns when group = basic", {
   galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
   select <- galah_select(group = "basic")
   expected_output <- structure(
-    data.frame(name = c("decimalLatitude", "decimalLongitude",
+    tibble(name = c("decimalLatitude", "decimalLongitude",
                         "eventDate", "scientificName",
                         "taxonConceptID", "recordID",
                         "dataResourceName"),
                type = rep("field", times = 7)),
-    class = c("data.frame", "galah_select"))
+    class = c("tbl_df", "tbl", "data.frame", "galah_select"))
   expect_s3_class(select, "data.frame")
   expect_equal(nrow(select), nrow(expected_output))
   expect_equal(names(select), names(expected_output))
@@ -52,12 +52,12 @@ test_that("galah_select defaults to group = basic when there are no args", {
   # skip_on_cran()
   galah_config(run_checks = FALSE)
   expected_output <- structure(
-    data.frame(name = c("decimalLatitude", "decimalLongitude",
+    tibble(name = c("decimalLatitude", "decimalLongitude",
                         "eventDate", "scientificName",
                         "taxonConceptID", "recordID",
                         "dataResourceName"),
                type = rep("field", times = 7)),
-    class = c("data.frame", "galah_select"))
+    class = c("tbl_df", "tbl", "data.frame", "galah_select"))
   expect_s3_class(galah_select(), "data.frame")
   expect_equal(nrow(galah_select()), nrow(expected_output))
   expect_equal(names(galah_select()), names(expected_output))

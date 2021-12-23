@@ -40,7 +40,7 @@
 galah_group_by <- function(..., expand = TRUE){
   if(length(as.list(match.call(expand.dots = FALSE)$...)) > 0){
     df <- galah_select(...)
-    class(df) <- c("data.frame", "galah_group_by") 
+    class(df) <- append(class(df), "galah_group_by")
     attr(df, "expand") <- expand
     df
   }else{NULL}

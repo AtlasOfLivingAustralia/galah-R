@@ -42,6 +42,7 @@
 #' by [atlas_occurrences()] and related functions; [atlas_counts()]
 #' for how to get counts by levels of variables returned by `galah_select`.
 #' @importFrom dplyr select
+#' @importFrom tibble as_tibble
 #' @export
 galah_select <- function(...,
                          group = c("basic", "event", "assertions")
@@ -72,6 +73,7 @@ galah_select <- function(...,
   all_cols$type <- ifelse(str_detect(all_cols$name, "[[:lower:]]"), "field", "assertions")
     
   # Add S3 class
+  all_cols <- as_tibble(all_cols)
   class(all_cols) <- append(class(all_cols), "galah_select") 
   
   all_cols

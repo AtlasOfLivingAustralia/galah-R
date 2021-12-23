@@ -41,6 +41,7 @@ Imports:
     sf,
     sp,
     stringr (>= 1.0.0),
+    tibble,
     utils,
     wellknown
 Suggests:

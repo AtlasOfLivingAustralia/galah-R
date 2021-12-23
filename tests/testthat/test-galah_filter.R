@@ -32,7 +32,7 @@ test_that("galah_filter handles assertion filters", {
 
 test_that("galah_filter validates filters", {
   galah_config(run_checks = TRUE)
-  expect_message(galah_filter(invalid_filter == 'value'))
+  expect_warning(galah_filter(invalid_filter == 'value'))
 })
 
 test_that("galah_filter skips checks if requested", {
