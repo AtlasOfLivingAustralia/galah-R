@@ -15,11 +15,11 @@ show_all_reasons <- function() {
    
   # check whether the cache has been updated this session
   update_needed <- internal_cache_update_needed("show_all_reasons")
- 
+  url <- server_config("logger_base_url")
+  
   if(update_needed){ # i.e. we'd like to run a query
     ## return list of valid "reasons for use" codes
-    out <- atlas_GET(server_config("logger_base_url"),
-                   path = "service/logger/reasons")   
+    out <- atlas_GET(url, path = "service/logger/reasons")   
     if(is.null(out)){
       message("Calling the API failed for `show_all_reasons`; Returning cached values")
       df <- galah_internal_cache()$show_all_reasons

@@ -215,12 +215,12 @@ atlas_counts_internal <- function(taxa = NULL,
       counts <- data.table::rbindlist(resp$fieldResult)
   }
 
-  if (sum(total_cats) > limit) {
+  if (sum(total_cats) > limit & galah_config()$verbose) {
     bullets <- c(
       glue::glue("This field has {total_cats} values. {limit} will be returned."),
       i = "Increase `limit` to return more values, or decrease `limit` to return fewer."
     )
-    warn(bullets)
+    inform(bullets) 
   }
   
   # parse out value

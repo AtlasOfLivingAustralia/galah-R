@@ -43,7 +43,7 @@ test_that("atlas_occurrences returns requested columns", {
 test_that("atlas_occurrences caches data as expected", {
   skip_on_cran()
   galah_config(caching = TRUE, verbose = TRUE)
-  taxa <- select_taxa("Wurmbea dioica")
+  taxa <- search_taxa("Wurmbea dioica")
   filter <- galah_filter(year == 2000)
   columns <- galah_select(group = "basic", basisOfRecord)
 

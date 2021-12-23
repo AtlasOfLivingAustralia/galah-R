@@ -27,10 +27,11 @@ show_all_profiles <- function() {
   
   # check whether the cache has been updated this session
   update_needed <- internal_cache_update_needed("show_all_profiles")
+  url <- server_config("data_quality_base_url") #  this doesn't run a query,
+    # but does ping an error if the selected atlas doesn't support profiles
  
   if(update_needed){ # i.e. we'd like to run a query
     # return only enabled profiles?
-    url <- server_config("data_quality_base_url")
     resp <- atlas_GET(url, "api/v1/profiles", list(enabled = "true"))
     if(is.null(resp)){ # if calling the API fails, return cached data
       message("Calling the API failed for `show_all_profiles`; Returning cached values")
@@ -45,7 +46,7 @@ show_all_profiles <- function() {
   }
   df
 }
-
+ 
 
 #' Get data filters for a specified data quality profile
 #'

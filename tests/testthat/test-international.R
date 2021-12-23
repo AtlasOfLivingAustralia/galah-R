@@ -11,7 +11,7 @@ test_that("Other international atlas functions work", {
 })
 
 test_that("Unsupported international functions fail gracefully", {
-  galah_config(atlas = "Austria")
+  galah_config(atlas = "Austria", verbose = FALSE)
   expect_error(show_all_profiles(),
                "Data quality filtering is not supported for the Austria atlas.")
 })
