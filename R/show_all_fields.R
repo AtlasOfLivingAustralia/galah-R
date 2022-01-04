@@ -93,8 +93,10 @@ show_all_fields <- function(
     if(is.null(df)){ # if calling the API fails, return cached data
       df <- galah_internal_cache()$show_all_fields
       attr(df, "ARCHIVED") <- NULL # remove identifying attributes
-    }else{ # otherwise, update the cache
-      galah_internal_cache(show_all_fields = df)
+    }else{ # if the API call worked, and the request was for `type = 'all'`, then update cache
+      if(type == "all"){
+        galah_internal_cache(show_all_fields = df)
+      }
     }
   }else{ # i.e. internal data has been updated this session
     df <- galah_internal_cache()$show_all_fields

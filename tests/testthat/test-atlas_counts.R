@@ -66,18 +66,6 @@ test_that("atlas_counts returns species counts", {
 })
 
 
-test_that("atlas_counts handles empty count", {
-  vcr::use_cassette("empty_count", {
-    filters <- galah_filter(kingdom == "non-existent")
-    counts <- atlas_counts(filter = filters, 
-                           group_by = galah_group_by(basisOfRecord))
-  })
-  expect_s3_class(counts, "data.frame")
-  expect_equal(nrow(counts), 0)
-  expect_equal(names(counts), c("name", "count"))
-})
-
-
 test_that("atlas_counts handles pagination", {
   vcr::use_cassette("paginated_counts", {
     counts <- atlas_counts(group_by = galah_group_by(year), 
