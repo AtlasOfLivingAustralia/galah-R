@@ -60,19 +60,17 @@ search_taxa.default <- function(query) {
   }
   
   if (is.list(query) && length(names(query)) > 0 ) {
-    # convert to dataframe for simplicity
-    query <- as.data.frame(query)
+    query <- as.data.frame(query) # convert to dataframe for simplicity
   }
+  
   matches <- remove_parentheses(query) |> name_query()
 
   if(is.null(matches) & galah_config()$verbose){
     inform("Calling the API failed for `search_taxa`")
-    return(tibble())
-  }
-  
-  out_data <- as_tibble(matches) # remove data.table class
-  class(out_data) <- append(class(out_data), "ala_id")
-  out_data
+    return(set_galah_object_class(class = "ala_id"))
+  }else{
+    set_galah_object_class(matches, "ala_id")
+  } 
 }
 
 

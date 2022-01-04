@@ -39,12 +39,11 @@ find_taxa <- function(identifier) {
     if(galah_config()$verbose){
       inform("Calling the API failed for `find_taxa`")
     }
-    return(tibble())
-  }else{  
-    out_data <- as_tibble(
-      data.table::rbindlist(matches, fill = TRUE))# remove data.table class
-    class(out_data) <- append(class(out_data), "ala_id")
-    out_data
+    return(set_galah_object_class(class = "ala_id"))
+  }else{ 
+    set_galah_object_class(
+      data.table::rbindlist(matches, fill = TRUE), 
+      class = "ala_id") 
   }
 }
 

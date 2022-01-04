@@ -80,6 +80,15 @@ fix_assertion_cols <- function(df, assertion_cols) {
   df
 }
 
+# ensure outputs are tibbles, with an appropriate class
+# if no object is given, create an empty tibble with that class
+set_galah_object_class <- function(input, class_name){
+  if(missing(input)){input <- tibble()}
+  if(!is_tibble(input)){input <- as_tibble(input)}
+  class(input) <- append(class(input), class_name)
+  input
+}
+
 ##----------------------------------------------------------------
 ##                   Query-building functions                   --
 ##----------------------------------------------------------------
