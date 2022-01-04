@@ -21,7 +21,6 @@ show_all_reasons <- function() {
     ## return list of valid "reasons for use" codes
     out <- atlas_GET(url, path = "service/logger/reasons")   
     if(is.null(out)){
-      message("Calling the API failed for `show_all_reasons`; Returning cached values")
       df <- galah_internal_cache()$show_all_reasons
       attr(df, "ARCHIVED") <- NULL # remove identifying attributes
     }else{

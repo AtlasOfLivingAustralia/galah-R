@@ -91,7 +91,6 @@ show_all_fields <- function(
       }
     )
     if(is.null(df)){ # if calling the API fails, return cached data
-      message("Calling the API failed for `show_all_fields`; Returning cached values")
       df <- galah_internal_cache()$show_all_fields
       attr(df, "ARCHIVED") <- NULL # remove identifying attributes
     }else{ # otherwise, update the cache
