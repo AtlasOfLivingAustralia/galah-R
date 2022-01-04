@@ -10,7 +10,7 @@ search_taxa(...)
 
 \method{search_taxa}{data_request}(request, ...)
 
-\method{search_taxa}{default}(query, is_id = FALSE)
+\method{search_taxa}{default}(query)
 }
 \arguments{
 \item{query}{\code{string}: A vector containing one or more search terms,
@@ -19,9 +19,6 @@ taxonomic identifiers. If greater control is required to disambiguate search
 terms, taxonomic levels can be provided explicitly via a named \code{list}
 for a single name, or a \code{data.frame} for multiple names (see examples).
 Note that searches are not case-sensitive.}
-
-\item{is_id}{\code{logical}: Is the query a unique identifier? Defaults to
-\code{FALSE}, meaning that queries are assumed to be taxonomic names.}
 }
 \value{
 An object of class \code{tbl_df}, \code{data.frame} (aka a tibble) and \code{ala_id}
@@ -44,15 +41,13 @@ search_taxa("Reptilia")
 # or equivalently:
 search_taxa("reptilia") # not case sensitive
 
-# Search using an unique taxon identifier
-search_taxa(query = "https://id.biodiversity.org.au/node/apni/2914510")
-
 # Search multiple taxa
 search_taxa(c("reptilia", "mammalia")) # returns one row per taxon
 
 }
 \seealso{
-\code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and
+\code{\link[=find_taxa]{find_taxa()}} for how to get names if taxonomic identifiers are
+already known. \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and
 \code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to restrict the information returned
 by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions.
 \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} to look up taxonomic trees.

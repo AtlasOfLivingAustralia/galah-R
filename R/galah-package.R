@@ -51,6 +51,7 @@
 #'   * [show_all_reasons()] List valid download reasons
 #'   * [show_all_atlases()] List supported international atlases
 #'   * [show_all_fields()] List fields to filter or categorise searches
+#'   * [find_taxa()] List information for a given taxonomic identifier
 #'   * [find_field_values()] List possible values for a given field
 #'   * [find_profile_attributes()] List filters included in a data quality profile
 #' 

@@ -16,11 +16,10 @@
 #' terms, taxonomic levels can be provided explicitly via a named `list`
 #' for a single name, or a `data.frame` for multiple names (see examples).
 #' Note that searches are not case-sensitive.
-#' @param is_id `logical`: Is the query a unique identifier? Defaults to 
-#' `FALSE`, meaning that queries are assumed to be taxonomic names.
 #' @return An object of class `tbl_df`, `data.frame` (aka a tibble) and `ala_id`
 #' containing taxonomic information.
-#' @seealso [galah_select()], [galah_filter()] and
+#' @seealso [find_taxa()] for how to get names if taxonomic identifiers are 
+#' already known. [galah_select()], [galah_filter()] and
 #' [galah_geolocate()] for other ways to restrict the information returned
 #' by [atlas_occurrences()] and related functions.
 #' [atlas_taxonomy()] to look up taxonomic trees.
@@ -29,9 +28,6 @@
 #' search_taxa("Reptilia")
 #' # or equivalently:
 #' search_taxa("reptilia") # not case sensitive
-#'
-#' # Search using an unique taxon identifier
-#' search_taxa(query = "https://id.biodiversity.org.au/node/apni/2914510")
 #'
 #' # Search multiple taxa
 #' search_taxa(c("reptilia", "mammalia")) # returns one row per taxon
@@ -50,9 +46,8 @@ search_taxa.data_request <- function(request, ...) {
 
 #' @export
 #' @rdname search_taxa
-search_taxa.default <- function(query, is_id = FALSE) {
-  assert_that(is.logical(is_id))
-  if(missing(is_id)){is_id <- FALSE}
+search_taxa.default <- function(query) {
+
   verbose <- getOption("galah_config")$verbose
 
   if (getOption("galah_config")$atlas != "Australia") {
@@ -64,20 +59,22 @@ search_taxa.default <- function(query, is_id = FALSE) {
     stop("`search_taxa` requires a query to search for")
   }
   
-  if (is_id) {
-    matches <- id_query(query)   
-  } else {
-    if (is.list(query) && length(names(query)) > 0 ) {
-      # convert to dataframe for simplicity
-      query <- as.data.frame(query)
-    }
-    matches <- remove_parentheses(query) |> name_query()
+  if (is.list(query) && length(names(query)) > 0 ) {
+    # convert to dataframe for simplicity
+    query <- as.data.frame(query)
+  }
+  matches <- remove_parentheses(query) |> name_query()
+
+  if(is.null(matches) & galah_config()$verbose){
+    inform("Calling the API failed for `search_taxa`")
+    return(tibble())
   }
   
   out_data <- as_tibble(matches) # remove data.table class
   class(out_data) <- append(class(out_data), "ala_id")
   out_data
 }
+
 
 remove_parentheses <- function(x){
   if(inherits(x, "data.frame")){
@@ -87,32 +84,22 @@ remove_parentheses <- function(x){
   }
 }
 
-id_query <- function(query) {
-  matches <- data.table::rbindlist(lapply(query, function(t) {
-    identifier_lookup(t)
-  }), fill = TRUE)
-}
 
 name_query <- function(query) {
   if (is.data.frame(query)) {
-    matches <- data.table::rbindlist(apply(query, 1, name_lookup),
-                                     fill = TRUE)
+    matches <- lapply(split(query, seq_len(nrow(query))), name_lookup)
   } else {
-    matches <- data.table::rbindlist(lapply(query, function(t) {
-      name_lookup(t)
-    }), fill = TRUE)
+    matches <- lapply(query, name_lookup)
+  } 
+  if(all(unlist(lapply(matches, is.null)))){
+    return(NULL)
+  }else{
+    return(
+      as_tibble(data.table::rbindlist(matches, fill = TRUE))
+    )
   }
-  return(matches)
 }
 
-intermediate_ranks <- function(id) {
-  url <- server_config("species_base_url")
-  resp <- atlas_GET(url, path = paste0("ws/species/", id))
-  classification <- data.frame(resp$classification)
-  classification <- classification[names(classification) %in%
-                                     wanted_columns("extended_taxa")]
-  return(classification)
-}
 
 name_lookup <- function(name) {
   url <- server_config("name_matching_base_url")
@@ -127,13 +114,17 @@ name_lookup <- function(name) {
     query <- as.list(name)
   }
   result <- atlas_GET(url, path, query)
+  
+  if(is.null(result)){
+    return(NULL)
+  }
 
   if ("homonym" %in% result$issues) {
     warning("Homonym issue with ", name,
          ". Please also provide another rank to clarify.")
     # return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
   }  #else 
-  if (isFALSE(result$success)) {
+  if (isFALSE(result$success) && galah_config()$verbose) {
     message("No taxon matches were found for \"", name, "\"")
     return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
   }
@@ -148,20 +139,9 @@ name_lookup <- function(name) {
                       stringsAsFactors = FALSE))
 }
 
-identifier_lookup <- function(identifier) {
-  taxa_url <- server_config("name_matching_base_url")
-  result <- atlas_GET(taxa_url, "/api/getByTaxonID", list(taxonID = identifier))
-  if (isFALSE(result$success) && result$issues == "noMatch") {
-    message("No match found for identifier ", identifier)
-  }
-  names(result) <- rename_columns(names(result), type = "taxa")
-  result[names(result) %in% wanted_columns("taxa")]
-}
-
 
 # make sure rank provided is in accepted list
-validate_rank <- function(df) {
-   
+validate_rank <- function(df) { 
   ranks <- names(df)
   ranks_check <- ranks %in% show_all_ranks()$name
   if(any(ranks_check)){
@@ -169,27 +149,4 @@ validate_rank <- function(df) {
   }else{
     return(NULL)
   }
-
-}
-
-child_concepts <- function(identifier) {
-  url <- server_config("species_base_url")
-  path <- paste0("ws/childConcepts/",
-                 URLencode(as.character(identifier), reserved = TRUE))
-  children <- atlas_GET(url, path)
-  if (length(children) == 0) {
-    message("No child concepts found for taxon id \"", identifier, "\"")
-    return()
-  }
-
-  # lookup details for each child concept
-  child_info <- suppressWarnings(data.table::rbindlist(lapply(children$guid,
-                                                              function(id) {
-    result <- identifier_lookup(id)
-    # keep child even if it can"t be found?
-    names(result) <- rename_columns(names(result), type = "taxa")
-    result <- result[names(result) %in% wanted_columns("taxa")]
-    as.data.frame(result, stringsAsFactors = FALSE)
-  }), fill = TRUE))
-  child_info
 }

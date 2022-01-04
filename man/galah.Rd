@@ -54,6 +54,7 @@ quality-control criteria.
 \item \code{\link[=show_all_reasons]{show_all_reasons()}} List valid download reasons
 \item \code{\link[=show_all_atlases]{show_all_atlases()}} List supported international atlases
 \item \code{\link[=show_all_fields]{show_all_fields()}} List fields to filter or categorise searches
+\item \code{\link[=find_taxa]{find_taxa()}} List information for a given taxonomic identifier
 \item \code{\link[=find_field_values]{find_field_values()}} List possible values for a given field
 \item \code{\link[=find_profile_attributes]{find_profile_attributes()}} List filters included in a data quality profile
 }

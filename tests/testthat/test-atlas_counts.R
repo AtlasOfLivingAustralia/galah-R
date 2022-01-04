@@ -104,3 +104,13 @@ test_that("atlas_counts handles pagination", {
 #     class(counts2$year)
 #   )
 # })
+
+test_that("atlas_counts handles multiple 'group by' variables", {
+  vcr::use_cassette("multiple_group_by_counts", {
+    counts <- atlas_counts(
+      filter = galah_filter(year >= 2018),
+      group_by = galah_group_by(year, basisOfRecord))
+  })
+  expect_s3_class(counts, "data.frame")
+  expect_equal(names(counts), c("year", "basisOfRecord", "count"))
+})

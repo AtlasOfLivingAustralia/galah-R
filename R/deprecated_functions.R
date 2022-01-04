@@ -10,11 +10,11 @@
 #' @name deprecated
 select_taxa <- function(query, is_id = FALSE) {
   lifecycle::deprecate_warn("1.4.0", "select_taxa()", "search_taxa()")
-  
-  search_taxa.default(
-    query = query,
-    is_id = {if(missing(is_id)){FALSE}else{is_id}}) |>
-    as.data.frame()
+  if(is_id){
+    find_taxa(identifier = query)
+  }else{
+    search_taxa.default(query = query) |> as.data.frame()
+  }
 }
 
 #' @description
