@@ -1,22 +1,20 @@
 context("Test ALA data profiles")
+# NOTE: vcr not used here as it can't handle dq service
 
+ 
 test_that("show_all_profiles returns profiles", {
-  # vcr can't handle dq service
   skip_on_cran()
   profiles <- show_all_profiles()
   expect_s3_class(profiles, "data.frame")
   expect_equal(ncol(profiles), 4)
 })
 
-vcr::use_cassette("find_profiles_attrs_invalid", {
-  test_that("find_profile_attributes checks input", {
-    expect_error(find_profile_attributes(10))
-    expect_error(find_profile_attributes("invalid"))
-  })
+test_that("find_profile_attributes checks input", {
+  expect_error(find_profile_attributes(10))
+  expect_error(find_profile_attributes("invalid"))
 })
 
 test_that("find_profile_attributes returns dataframe", {
-  # vcr can't handle dq service
   skip_on_cran()
   atts <- find_profile_attributes(92)
   expect_equal(ncol(atts), 2)

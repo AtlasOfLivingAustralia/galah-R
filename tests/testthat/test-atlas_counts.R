@@ -76,31 +76,31 @@ test_that("atlas_counts handles pagination", {
   expect_equal(names(counts), c("year", "count"))
 })
 
-test_that("atlas_counts caches as expected", {
-  skip_on_cran()
-  galah_config(caching = TRUE, verbose = TRUE)
-  filters <- galah_filter(basisOfRecord == "FossilSpecimen")
-  counts <- atlas_counts(filter = filters,
-                         group_by = galah_group_by(year), 
-                         limit = 100)
-  expect_message(
-    counts2 <- atlas_counts(
-      filter = filters, 
-      group_by = galah_group_by(year),
-      limit = 100
-    ),
-    "Using cached file"
-  )
-  expect_equal(nrow(counts), nrow(counts2))
-})
-
-test_that("atlas_counts returns consistent data from cached/non-cached calls", {
-  skip_on_cran()
-  galah_config(caching = TRUE, verbose = TRUE)
-  counts1 <- atlas_counts(group_by = galah_group_by(year))
-  counts2 <- atlas_counts(group_by = galah_group_by(year))
-  expect_equal(
-    class(counts1$year),
-    class(counts2$year)
-  )
-})
+# test_that("atlas_counts caches as expected", {
+#   skip_on_cran()
+#   galah_config(caching = TRUE, verbose = TRUE)
+#   filters <- galah_filter(basisOfRecord == "FossilSpecimen")
+#   counts <- atlas_counts(filter = filters,
+#                          group_by = galah_group_by(year), 
+#                          limit = 100)
+#   expect_message(
+#     counts2 <- atlas_counts(
+#       filter = filters, 
+#       group_by = galah_group_by(year),
+#       limit = 100
+#     ),
+#     "Using cached file"
+#   )
+#   expect_equal(nrow(counts), nrow(counts2))
+# })
+# 
+# test_that("atlas_counts returns consistent data from cached/non-cached calls", {
+#   skip_on_cran()
+#   galah_config(caching = TRUE, verbose = TRUE)
+#   counts1 <- atlas_counts(group_by = galah_group_by(year))
+#   counts2 <- atlas_counts(group_by = galah_group_by(year))
+#   expect_equal(
+#     class(counts1$year),
+#     class(counts2$year)
+#   )
+# })

@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.3.1
+      User-Agent: galah 1.4.0
   response:
     status:
       status_code: '200'
@@ -19,30 +19,28 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Mon, 13 Dec 2021 04:02:10 GMT
+      date: Tue, 04 Jan 2022 01:09:54 GMT
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.21.4
+      server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=MMxLU4QSJyXoJ5s1/XZ9OQ4iPrjRyglViMY/dDmsrHU/TFIEPnxCVlIeJR5nSsC6ffgTfHyAHHJDJwUNJ2aXqE+0QHyUrJDopqFU6OBFCrY7sYBrNYCaPQlDZGt4GtQ/apnj4hfQlW8iBjXNwDPwutNxF63QfBWKC93DG6TsrXeC;
-        Expires=Mon, 20 Dec 2021 04:02:10 GMT; Path=/
-      - AWSALBTGCORS=MMxLU4QSJyXoJ5s1/XZ9OQ4iPrjRyglViMY/dDmsrHU/TFIEPnxCVlIeJR5nSsC6ffgTfHyAHHJDJwUNJ2aXqE+0QHyUrJDopqFU6OBFCrY7sYBrNYCaPQlDZGt4GtQ/apnj4hfQlW8iBjXNwDPwutNxF63QfBWKC93DG6TsrXeC;
-        Expires=Mon, 20 Dec 2021 04:02:10 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=+fphGmADoSg3j+vHnpd1Js27qrqA07SlmOFnlqjSK8+n3YulWIpvo+HwpJXk8FWyWoWotMqc2ow5noNNqC6ggnlTAjGktv0GUGd1ebS4R2YTXxRwD3pWo4KlvySi;
-        Expires=Mon, 20 Dec 2021 04:02:10 GMT; Path=/
-      - AWSALBCORS=+fphGmADoSg3j+vHnpd1Js27qrqA07SlmOFnlqjSK8+n3YulWIpvo+HwpJXk8FWyWoWotMqc2ow5noNNqC6ggnlTAjGktv0GUGd1ebS4R2YTXxRwD3pWo4KlvySi;
-        Expires=Mon, 20 Dec 2021 04:02:10 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=z4AahptzEJwh2lFj1HgGCcPNhyYxJIA5IQ1Ak5QQLnlnsCXNajpcpE3h7rdzssdWauv/Yc8OPDM/CTisYKWB3jY4Ho/m/bDXkSdzYQZPlP7Hp5vXOzMfJt+tkNWmxB4u8awYUeYaHKned8uqRaKvhhoyHZgw+ty1vYO+iRYoU8f+;
+        Expires=Tue, 11 Jan 2022 01:09:54 GMT; Path=/
+      - AWSALBTGCORS=z4AahptzEJwh2lFj1HgGCcPNhyYxJIA5IQ1Ak5QQLnlnsCXNajpcpE3h7rdzssdWauv/Yc8OPDM/CTisYKWB3jY4Ho/m/bDXkSdzYQZPlP7Hp5vXOzMfJt+tkNWmxB4u8awYUeYaHKned8uqRaKvhhoyHZgw+ty1vYO+iRYoU8f+;
+        Expires=Tue, 11 Jan 2022 01:09:54 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=8XdI8To4U8m7W49blPnNeQE7AP7DZPHhAx7kIemFbOGJC58oqL4HueMmBvxFR5BxyZhpb2wbSLFvOD0XWHt0r4X26lW7jsZaO9GaJS6WB/k/Jiq/PFTAoXCW3JCM;
+        Expires=Tue, 11 Jan 2022 01:09:54 GMT; Path=/
+      - AWSALBCORS=8XdI8To4U8m7W49blPnNeQE7AP7DZPHhAx7kIemFbOGJC58oqL4HueMmBvxFR5BxyZhpb2wbSLFvOD0XWHt0r4X26lW7jsZaO9GaJS6WB/k/Jiq/PFTAoXCW3JCM;
+        Expires=Tue, 11 Jan 2022 01:09:54 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":101659537,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true","urlParameters":"?q=*%3A*&disableAllQualityFilters=true","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":101752080,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true","urlParameters":"?q=*%3A*&disableAllQualityFilters=true","queryTitle":"[all
         records]","activeFacetMap":{},"activeFacetObj":{}}'
-  recorded_at: 2021-12-13 04:02:10 GMT
+  recorded_at: 2022-01-04 01:09:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

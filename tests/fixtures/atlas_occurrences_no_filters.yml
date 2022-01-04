@@ -1,14 +1,14 @@
 http_interactions:
 - request:
     method: get
-    uri: https://biocache-ws.ala.org.au/ws/occurrences/search?disableAllQualityFilters=true&pageSize=0
+    uri: https://biocache-ws.ala.org.au/ws/occurrences/offline/download?disableAllQualityFilters=true&fields=decimalLatitude%2CdecimalLongitude%2CeventDate%2CscientificName%2CtaxonConceptID%2CrecordID%2CdataResourceName&qa=none&emailNotify=false&sourceTypeId=2004&reasonTypeId=10&email=ala4r%40ala.org.au&dwcHeaders=true
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.3.1
+      User-Agent: galah 1.4.0
   response:
     status:
       status_code: '200'
@@ -19,30 +19,25 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      connection: keep-alive
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Wed, 15 Dec 2021 03:28:59 GMT
+      date: Tue, 04 Jan 2022 01:10:29 GMT
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.21.4
+      server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=NLN9c8kQ7o0zs63K0OpuDzJ2vOeBntPMcmWb7V/ylV9bDHLiFbkMoAPKv6B4kYe6q7me089x34URp8/TlKBudu3ZthnSeX2pJY6ImizmhZ9sTi1bh8pwxwQ2yAVI/h2o4HiaKR+GXSmX5ZZzs7M9TC2BXbt9LN5OkqOFZ5YvD3IH;
-        Expires=Wed, 22 Dec 2021 03:28:59 GMT; Path=/
-      - AWSALBTGCORS=NLN9c8kQ7o0zs63K0OpuDzJ2vOeBntPMcmWb7V/ylV9bDHLiFbkMoAPKv6B4kYe6q7me089x34URp8/TlKBudu3ZthnSeX2pJY6ImizmhZ9sTi1bh8pwxwQ2yAVI/h2o4HiaKR+GXSmX5ZZzs7M9TC2BXbt9LN5OkqOFZ5YvD3IH;
-        Expires=Wed, 22 Dec 2021 03:28:59 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=Njz0NIEJg7pZI+wnmOTcq1TeFSJTf0mzVS6wZqD0C0ytVFH0yhaP1rfpK7PykV5qZGfuN2aOfJa86SZZDfNVFeq0Znlj1yO06rqyuOR6mdM2x9IQVk6qBvT1xwmA;
-        Expires=Wed, 22 Dec 2021 03:28:59 GMT; Path=/
-      - AWSALBCORS=Njz0NIEJg7pZI+wnmOTcq1TeFSJTf0mzVS6wZqD0C0ytVFH0yhaP1rfpK7PykV5qZGfuN2aOfJa86SZZDfNVFeq0Znlj1yO06rqyuOR6mdM2x9IQVk6qBvT1xwmA;
-        Expires=Wed, 22 Dec 2021 03:28:59 GMT; Path=/; SameSite=None; Secure
-      status: 'HTTP/1.1 200 '
+      - AWSALBTG=BqhHYjop3slgfhBjWQd2d/AdEkOtc1MraGBYCWASP0/KwdY2A+unUtFm4CooVIRkVJpIPSjpMCDlzDgAnIkybprEhd72/6iNFEyFiCtS3gjjimJw6U61aHQKWAU6IlR0bAo3ls7hZdoSfCR8oZgteRpHHXWEOaOOv0Uyf1xJHPGn;
+        Expires=Tue, 11 Jan 2022 01:10:29 GMT; Path=/
+      - AWSALBTGCORS=BqhHYjop3slgfhBjWQd2d/AdEkOtc1MraGBYCWASP0/KwdY2A+unUtFm4CooVIRkVJpIPSjpMCDlzDgAnIkybprEhd72/6iNFEyFiCtS3gjjimJw6U61aHQKWAU6IlR0bAo3ls7hZdoSfCR8oZgteRpHHXWEOaOOv0Uyf1xJHPGn;
+        Expires=Tue, 11 Jan 2022 01:10:29 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      transfer-encoding: chunked
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":101680881,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true","urlParameters":"?q=*%3A*&disableAllQualityFilters=true","queryTitle":"[all
-        records]","activeFacetMap":{},"activeFacetObj":{}}'
-  recorded_at: 2021-12-15 03:28:59 GMT
+      string: '{"downloadUrl":"https://biocache.ala.org.au/biocache-download","status":"skipped","message":"Too
+        many records requested. Bulk download files for Lifeforms are available.","error":"Requested
+        to many records (101752080). The maximum is (50000000)","searchUrl":"https://biocache.ala.org.au/occurrences/search?&q=*%3A*&disableAllQualityFilters=true"}'
+  recorded_at: 2022-01-04 01:10:29 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

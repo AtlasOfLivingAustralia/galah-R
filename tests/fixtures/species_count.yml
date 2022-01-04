@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.3.0
+      User-Agent: galah 1.4.0
   response:
     status:
       status_code: '200'
@@ -22,24 +22,24 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Wed, 18 Aug 2021 05:40:07 GMT
+      date: Tue, 04 Jan 2022 01:10:02 GMT
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.21.1
+      server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=zn7Q9WjsbC8RSZ1wz6hyC8q/wT2IR5+9tjZRBrpJCl/PrsuEICP3zDmLB2m5HwsC3ZuirR815Mu+fpGBoehKb+3xBShq1ayEnyz70vKERnkJs44cIVN7Qi2n16U11gzNwUJFtq54vVotDp0pfmWpcP17hxgRfaky4a+3IZSnqInn;
-        Expires=Wed, 25 Aug 2021 05:40:06 GMT; Path=/
-      - AWSALBTGCORS=zn7Q9WjsbC8RSZ1wz6hyC8q/wT2IR5+9tjZRBrpJCl/PrsuEICP3zDmLB2m5HwsC3ZuirR815Mu+fpGBoehKb+3xBShq1ayEnyz70vKERnkJs44cIVN7Qi2n16U11gzNwUJFtq54vVotDp0pfmWpcP17hxgRfaky4a+3IZSnqInn;
-        Expires=Wed, 25 Aug 2021 05:40:06 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=FbUkPpAVnJfErfrLC6MddHN98AGMNi5fxKwmzMLQEKhilMI2Mcz/c6QsVaoRGUaiumvad7FU2qUTlyL3qz5o8d2jRib9unUVC/ABltyYAX6QgFJQynGoAwgWK22b;
-        Expires=Wed, 25 Aug 2021 05:40:06 GMT; Path=/
-      - AWSALBCORS=FbUkPpAVnJfErfrLC6MddHN98AGMNi5fxKwmzMLQEKhilMI2Mcz/c6QsVaoRGUaiumvad7FU2qUTlyL3qz5o8d2jRib9unUVC/ABltyYAX6QgFJQynGoAwgWK22b;
-        Expires=Wed, 25 Aug 2021 05:40:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=V8jrAMVfsu8d057xHLEzBceF6hWDhCjb+UcCIt03uHXaV6lUHbzvJ9jp/02d835XueeMbHUIjwVy6XLOnzhKH9a5tQe4OlWB0pHy0ilBbNdLYB5BXWmzw0y0yrdFVNHJUPSxgMHQBjLXMNPdnCoLJvK9boH9Goloq9LnS1Vs+GEp;
+        Expires=Tue, 11 Jan 2022 01:10:01 GMT; Path=/
+      - AWSALBTGCORS=V8jrAMVfsu8d057xHLEzBceF6hWDhCjb+UcCIt03uHXaV6lUHbzvJ9jp/02d835XueeMbHUIjwVy6XLOnzhKH9a5tQe4OlWB0pHy0ilBbNdLYB5BXWmzw0y0yrdFVNHJUPSxgMHQBjLXMNPdnCoLJvK9boH9Goloq9LnS1Vs+GEp;
+        Expires=Tue, 11 Jan 2022 01:10:01 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=kckI9gwJzipfYfPnu2301EXkd9h4tR0CNj8jxP1tyJbe4ncswSViG2UjNAwf5TIg/ZNjrr9I3WyZYS3nfp2nWu52sBEBvQ5UZGohjxT2TJ/lpjLHp4uahjLe8HSs;
+        Expires=Tue, 11 Jan 2022 01:10:01 GMT; Path=/
+      - AWSALBCORS=kckI9gwJzipfYfPnu2301EXkd9h4tR0CNj8jxP1tyJbe4ncswSViG2UjNAwf5TIg/ZNjrr9I3WyZYS3nfp2nWu52sBEBvQ5UZGohjxT2TJ/lpjLHp4uahjLe8HSs;
+        Expires=Tue, 11 Jan 2022 01:10:01 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f","count":1444102,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f\""}],"count":152542}]'
-  recorded_at: 2021-08-18 05:40:07 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f","count":1447527,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f\""}],"count":153144}]'
+  recorded_at: 2022-01-04 01:10:02 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

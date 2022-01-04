@@ -39,22 +39,22 @@ test_that("atlas_occurrences returns requested columns", {
   expect_setequal(names(occ), expected_cols)
   expect_equal(unique(occ$stateProvince), "New South Wales")
 })
-
-test_that("atlas_occurrences caches data as expected", {
-  skip_on_cran()
-  galah_config(caching = TRUE, verbose = TRUE)
-  taxa <- search_taxa("Wurmbea dioica")
-  filter <- galah_filter(year == 2000)
-  columns <- galah_select(group = "basic", basisOfRecord)
-
-  # Download data
-  occ <- atlas_occurrences(taxa = taxa, filter = filter, select = columns)
-  # Re-download data
-  expect_message(
-    atlas_occurrences(taxa = taxa, filter = filter, select = columns), 
-    "Using cached file")
-  galah_config(caching = FALSE)
-})
+# 
+# test_that("atlas_occurrences caches data as expected", {
+#   skip_on_cran()
+#   galah_config(caching = TRUE, verbose = TRUE)
+#   taxa <- search_taxa("Wurmbea dioica")
+#   filter <- galah_filter(year == 2000)
+#   columns <- galah_select(group = "basic", basisOfRecord)
+# 
+#   # Download data
+#   occ <- atlas_occurrences(taxa = taxa, filter = filter, select = columns)
+#   # Re-download data
+#   expect_message(
+#     atlas_occurrences(taxa = taxa, filter = filter, select = columns), 
+#     "Using cached file")
+#   galah_config(caching = FALSE)
+# })
 
 test_that("atlas_occurrences downloads data from a DOI", {
   skip_on_cran()
