@@ -78,9 +78,14 @@ atlas_counts.default <- function(taxa = NULL,
     profile <- extract_profile(filter)
     query <- build_query(taxa, filter, geolocate, profile = profile)
     if (type == "species") {
-      return(tibble(count = species_count(query)))
+      result <- species_count(query)
+    }else{
+      result <- record_count(query)
     }
-    return(tibble(count = record_count(query)))
+    if(is.null(result)){
+      inform("Calling the API failed for `atlas_counts`")
+    }
+    return(tibble(count = result))
   }                  
   
   # if `groups` is as a vector
@@ -151,15 +156,26 @@ atlas_counts.default <- function(taxa = NULL,
         }
       }) 
     if(verbose){close(pb)} # close progress bar
-    return(as_tibble(do.call(rbind, result_list)))
+    if(all(unlist(lapply(result_list, is.null)))){
+      inform("Calling the API failed for `atlas_counts`")
+       return(tibble())
+    }else{
+      return(as_tibble(do.call(rbind, result_list)))
+    }   
      
   # if `groups` is of nrow == 1 (expand = FALSE)
   }else{
-    atlas_counts_internal(
+    result <- atlas_counts_internal(
       taxa, filter, geolocate, 
       facets = group_by$name, 
       limit, type, refresh_cache,
       verbose = verbose)
+    if(is.null(result)){
+      inform("Calling the API failed for `atlas_counts`")
+      return(tibble())
+    }else{
+      result
+    }
   } 
 }
 
@@ -195,9 +211,7 @@ atlas_counts_internal <- function(taxa = NULL,
   }
 
   total_cats <- total_categories(url, path, query)
-  if (all(total_cats < 1)) {
-    return(data.frame(name = as.character(), count = as.numeric()))
-  }
+  if(is.null(total_cats)) {return(NULL)}
 
   if (is.null(limit)) {
     limit <- sum(total_cats)
@@ -206,12 +220,14 @@ atlas_counts_internal <- function(taxa = NULL,
   if (sum(total_cats) > limit && sum(total_cats) > page_size) {
     resp <- atlas_GET(url, path, params = query, paginate = TRUE, limit = limit,
                     page_size = page_size, offset_param = "foffset")
+    if(is.null(resp)){return(NULL)}
     counts <- data.table::rbindlist(lapply(resp, function(a) {
       data.frame(jsonlite::fromJSON(a)$fieldResult)
       }))
   } else {
       query$flimit <- max(limit)
       resp <- atlas_GET(url, path, params = query)
+      if(is.null(resp)){return(NULL)}
       counts <- data.table::rbindlist(resp$fieldResult)
   }
 
@@ -239,7 +255,7 @@ atlas_counts_internal <- function(taxa = NULL,
                             query_term(name = facets, value = value[[x]],
                             include = TRUE))
       count <- species_count(species_query)
-      data.frame(name = value[[x]], count = count)
+      data.frame(name = value[[x]], count = count) |> as_tibble()
     }))
   } else {
     counts_final <- data.frame(
@@ -261,6 +277,7 @@ atlas_counts_internal <- function(taxa = NULL,
     names(counts_final) <- c(facets, "count")
   }  
   
+  counts_final <- as_tibble(counts_final)
   attr(counts_final, "data_type") <- "counts"
   query <- data_request(taxa, filter, geolocate, groups = facets)
   attr(counts_final, "data_request") <- query
@@ -270,7 +287,7 @@ atlas_counts_internal <- function(taxa = NULL,
                      cache_file = cache_file)
   }
   
-  return(counts_final |> as_tibble())
+  return(counts_final)
 }
 
 # get just the record count for a query
@@ -304,10 +321,7 @@ validate_facet <- function(facet) {
 total_categories <- function(url, path, query) {
   query$flimit <- 1
   resp <- atlas_GET(url, path, params = query)
-  if (is.null(resp$count)) {
-    return(0)
-  }
-  resp$count
+  resp$count # NOTE: returns NULL if `resp` is NULL
 }
 
 # # Extract filter names and values returned from API
