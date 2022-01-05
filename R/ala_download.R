@@ -2,6 +2,20 @@
 # so far needs to handle zip files and csv
 ala_download <- function(url, path, params = list(), ext = ".csv",
                          cache_file = NULL) {
+  tryCatch({
+    internal_download(
+      url = url,
+      path = path,
+      params = params,
+      ext = ext,
+      cache_file = cache_file)
+    }, 
+    error = function(a){return(NULL)},
+    warning = function(a){return(NULL)}
+  )
+}
+
+internal_download <- function(url, path, params, ext, cache_file) {
   assert_that(is.character(url))
   cli <- HttpClient$new(
     url = url,

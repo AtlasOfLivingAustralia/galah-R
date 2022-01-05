@@ -61,6 +61,7 @@ atlas_media <- function(taxa = NULL,
   msg = "A path to an existing directory to download images to is required")
   assert_that(file.exists(download_dir))
   download_dir <- normalizePath(download_dir)
+  if(is_tibble(taxa)){if(nrow(taxa) < 1){taxa <- NULL}}
   
   if (getOption("galah_config")$atlas != "Australia") {
     stop("`atlas_media` only provides media from the ALA and cannot provide 
@@ -103,6 +104,10 @@ atlas_media <- function(taxa = NULL,
   if (verbose) { message("Downloading records with media...") }
   
   occ <- atlas_occurrences(taxa, occ_filter, geolocate, occ_columns)
+  if(nrow(occ) < 1){
+    inform("Exiting `atlas_media`")
+    return(occ)
+  }
 
   # occurrence data.frame has one row per occurrence record and stores all media
   # ids in a single column; this code splits the media ids and creates one row
@@ -124,18 +129,24 @@ atlas_media <- function(taxa = NULL,
     }),
     fill = TRUE
   ))
-
   occ_long[, image_fields()] <- NULL
-  
   ids <- occ_long$media_id[!is.na(occ_long$media_id)]
   
-  metadata <- data.frame(filter_metadata(
-    media_metadata(ids = ids),
-    media_filter
-  ))
+  # get metadata from the relevant atlas
+  online_metadata <- media_metadata(ids = ids)
+  if(is.null(online_metadata)){
+    inform("Calling the metadata API failed for `atlas_media`")
+    return(tibble())
+  }
+  metadata <- data.frame(
+    filter_metadata(online_metadata, media_filter))
   
+  # i.e. service is online, but no data available
   if (nrow(metadata) == 0) {
-    stop("Metadata could not be found for any images for the species provided.")
+    if(verbose){
+      inform("Metadata could not be found for any images for the species provided.")
+    }
+    return(tibble())
   } 
   
   # Select only the columns we want
@@ -143,20 +154,9 @@ atlas_media <- function(taxa = NULL,
   metadata <- metadata[names(metadata) %in% wanted_columns("media")]
 
   # join image metadata with occurrence data
-  all_data <- merge(metadata, occ_long, by = "media_id")
+  all_data <- merge(metadata, occ_long, by = "media_id") |> as_tibble()
   
-  # download images
-  urls <- media_urls(all_data$media_id)
-  outfiles <- media_outfiles(all_data$media_id, all_data$mimetype, download_dir)
-
-  if (verbose) {
-    message("Downloading ", length(urls), " media files...")
-  }
-  download_media(urls, outfiles, verbose)
-  all_data$download_path <- outfiles
-  if (verbose) {
-    message("\n",nrow(all_data), " files were downloaded to ", download_dir)
-  }
+  # create exportable dataset
   attr(all_data, "data_type") <- "media"
   query <- data_request(taxa, filter, geolocate, select)
   attr(all_data, "data_request") <- query
@@ -164,8 +164,30 @@ atlas_media <- function(taxa = NULL,
   if (caching) {
     write_cache_file(object = all_data, data_type = "media",
                      cache_file = cache_file)
+  } 
+  
+  # set up download
+  urls <- media_urls(all_data$media_id)
+  outfiles <- media_outfiles(all_data$media_id, all_data$mimetype, download_dir)
+  all_data$download_path <- outfiles
+   
+  # download images
+  if (verbose) {
+    message("Downloading ", length(urls), " media files...")
   }
-  return(all_data |> as_tibble())
+  download_ok <- download_media(urls, outfiles, verbose)
+  if(is.null(download_ok)){
+    inform("Calling the media API failed for `atlas_media`")
+    return(all_data)
+  }
+  # NOTE: This only gets triggered if the image service is down,
+  # but the biocache and metadata services are still working
+  
+  if (verbose) {
+    message("\n",nrow(all_data), " files were downloaded to ", download_dir)
+  }
+ 
+  return(all_data)
 }
 
 # Construct url paths to where media will be downloaded from
@@ -203,20 +225,26 @@ media_outfiles <- function(ids, types, download_dir) {
 # number of concurrently open connections.
 # The asynchronous method is slightly quicker than downloading all
 # images in a loop
+# BUT this means that files are created even if they are empty
+# Ergo we need a process for detecting failed calls and deleting the 
+# associated 'images'
 download_media <- function(urls, outfiles, verbose) {
   if (verbose) { pb <- txtProgressBar(max = 1, style = 3) }
   calls <- ceiling(length(urls) / 124)
   results <- lapply(seq_len(calls - 1), function(x) {
     start <- 1 + (x - 1) * 124
     end <- x * 124
-    cc <- Async$new(
-      urls = urls[start:end]
-    )
+    cc <- Async$new(urls = urls[start:end])
     res <- cc$get(disk = outfiles[start:end])
+    status_failed <- unlist(lapply(res, function(a){a$status_code})) == 0
+    if(any(status_failed)){
+      unlink(outfiles[start:end][which(status_failed)])
+    }    
     if (verbose) {
       val <- (end / length(urls))
       setTxtProgressBar(pb, val)
     }
+    status_failed
   })
   
   # TODO: Extract this part into to a function like ala_async_get()
@@ -230,26 +258,41 @@ download_media <- function(urls, outfiles, verbose) {
     )
   )
   res <- cc$get(disk = outfiles[start:end])
+  status_failed <- unlist(lapply(res, function(a){a$status_code})) == 0
+  if(any(status_failed)){
+    unlink(outfiles[start:end][which(status_failed)])
+  } 
+  results[[calls]] <- status_failed
   if (verbose) {
     val <- (end / length(urls))
     setTxtProgressBar(pb, val)
+  }
+  
+  # if all calls failed, return NULL
+  if(all(do.call(c, results))){
+    return(NULL)
+  }else{
+    return("OK")
   }
 }
 
 # Get metadata for a list of media ids
 media_metadata <- function(ids) {
-  res <- ala_POST(
+  res <- atlas_POST(
     url = server_config("images_base_url"),
     path = "/ws/imageInfoForList",
     body = list(imageIds = ids),
     encode = "json"
     )
-
-  # parse result and convert to data.frame
-  data <- fromJSON(res)
-  # suppress warnings caused by different list lengths
-  df <- suppressWarnings(data.table::rbindlist(data$results))
-  return(df)
+  if(is.null(res)){
+    return(NULL)
+  }else{
+    # parse result and convert to data.frame
+    data <- fromJSON(res)
+    # suppress warnings caused by different list lengths
+    df <- suppressWarnings(data.table::rbindlist(data$results))
+    return(df)
+  }
 }
 
 # Use media filter to filter returned results

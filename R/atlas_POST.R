@@ -1,7 +1,21 @@
 # Wrapper for getting data
 # 
 # Try using crul
-ala_POST <- function(url, path, body = list(), encode = "form") {
+
+atlas_POST <- function(url, path, body = list(), encode = "form") {
+  tryCatch({
+    internal_POST(
+      url = url,
+      path = path,
+      body = body,
+      encode = encode)
+    }, 
+    error = function(a){return(NULL)},
+    warning = function(a){return(NULL)}
+  )  
+}
+
+internal_POST <- function(url, path, body, encode) {
   cli <- HttpClient$new(
     url = url,
     headers = list(

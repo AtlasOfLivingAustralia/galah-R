@@ -15,12 +15,11 @@ atlas_GET <- function(url, path, params = list(), on_error = NULL,
        paginate = paginate,
        limit = limit,
        page_size = page_size,
-       offset_param = offset_param
-     )
-   }, 
-   error = function(a){return(NULL)},
-   warning = function(a){return(NULL)}
- )
+       offset_param = offset_param)
+     }, 
+     error = function(a){return(NULL)},
+     warning = function(a){return(NULL)}
+   )
 }
 
 internal_GET <- function(url, path, params = list(), on_error = NULL,

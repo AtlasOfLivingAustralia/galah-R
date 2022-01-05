@@ -99,16 +99,20 @@ build_query <- function(taxa, filter, location, select = NULL,
   query <- list()
   if (is.null(taxa)) {
     taxa_query <- NULL
-  } else {
-    check_taxa_arg(taxa)
-    # include <- !inherits(taxa, "exclude") # obsolete
-    if (inherits(taxa, "data.frame") &&
-        "taxon_concept_id" %in% colnames(taxa)) {
-      taxa <- taxa$taxon_concept_id
+  } else { # assumes a tibble or data.frame has been given
+    if(nrow(taxa) < 1){
+      taxa_query <- NULL
+    } else {
+      check_taxa_arg(taxa)
+      # include <- !inherits(taxa, "exclude") # obsolete
+      if (inherits(taxa, "data.frame") &&
+          "taxon_concept_id" %in% colnames(taxa)) {
+        taxa <- taxa$taxon_concept_id
+      }
+      #TODO: Implement a useful check here- i.e. string or integer
+      # assert_that(is.character(taxa))
+      taxa_query <- build_taxa_query(taxa)
     }
-    #TODO: Implement a useful check here- i.e. string or integer
-    # assert_that(is.character(taxa))
-    taxa_query <- build_taxa_query(taxa)
   }
   
   # validate filters
