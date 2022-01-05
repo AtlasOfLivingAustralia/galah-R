@@ -65,17 +65,22 @@ atlas_species <- function(taxa = NULL,
   tmp <- tempfile()
   data <- ala_download(url, path = path, params = query,
                        cache_file = tmp)
+  if(is.null(data)){
+    inform("Calling the API failed for `atlas_species`")
+    return(tibble())
+  }else{
   
-  # overwrite file with fixed names
-  names(data) <- rename_columns(names(data), type = "checklist")
-  data <- data[,wanted_columns("checklist")]
-  
-  query <- data_request(taxa, filter, geolocate)
-  attr(data, "data_request") <- query
-  
-  if (caching) {
-    write_cache_file(object = data, data_type = "species",
-                     cache_file = cache_file)
+    # overwrite file with fixed names
+    names(data) <- rename_columns(names(data), type = "checklist")
+    data <- data[,wanted_columns("checklist")]
+    
+    query <- data_request(taxa, filter, geolocate)
+    attr(data, "data_request") <- query
+    
+    if (caching) {
+      write_cache_file(object = data, data_type = "species",
+                       cache_file = cache_file)
+    }
+    return(data |> as_tibble())
   }
-  return(data |> as_tibble())
 }

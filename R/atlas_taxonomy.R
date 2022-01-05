@@ -55,20 +55,29 @@ atlas_taxonomy <- function(taxa, down_to){
   
   # error checking for `down_to`
   if (missing(down_to)) {
-    stop("argument `down_to` is missing, with no default")}
-    
-  assert_that(is.string(down_to))
+    stop("argument `down_to` is missing, with no default")
+  }
+  assert_that(is.string(down_to)) # picks up NULL etc
+  down_to <- tolower(down_to) 
+  if(!any(show_all_ranks()$name == down_to)){
+    stop("`down_to` must be a valid taxonomic rank")
+  }
   
   # extract required information from `taxa`
   start_row <- taxa[, c("scientific_name", "rank", "taxon_concept_id")]
   names(start_row) <- c("name", "rank", "guid")
   start_row$name <- str_to_title(start_row$name)
   
-  if (!is.null(down_to)) {
-    if(!any(show_all_ranks()$name == down_to)){
-      stop("`down_to` must be a valid taxonomic rank")
-    }
-    down_to <- tolower(down_to)   
+  # run a test to check whether the search will work
+  test <- get_children(start_row$guid)
+  if(is.null(test)){
+    inform("Calling the API failed for `atlas_taxonomy`")
+    id_tree <- Node$new(
+      name = taxa$scientific_name,
+      rank = taxa$rank,
+      guid = taxa$taxon_concept_id
+    )
+  }else{
     id_list <- level_down(start_row, down_to) # run recursive queries
     id_tree <- FromListExplicit(id_list) # convert to data.tree
     
@@ -87,19 +96,23 @@ atlas_taxonomy <- function(taxa, down_to){
     id_tree$Set(authority = unlist(lapply(
       ToDataFrameTree(id_tree, "guid")$guid,
       function(id){lookup_taxon(id)$authority})))
-  
-    return(id_tree)    
   }
+  return(id_tree)    
+
 }
 
 # Return the classification for a taxonomic id
 lookup_taxon <- function(id) {
   url <- server_config("species_base_url")
   resp <- atlas_GET(url, path = paste0("ws/species/", id))
-  taxon_info <- resp$classification
-  taxon_info$authority <- resp$taxonConcept$nameAuthority
-  taxon_info$author <- resp$taxonConcept$author
-  data.frame(taxon_info)
+  if(is.null(resp)){
+    return(NULL)
+  }else{
+    taxon_info <- resp$classification
+    taxon_info$authority <- resp$taxonConcept$nameAuthority
+    taxon_info$author <- resp$taxonConcept$author
+    return(data.frame(taxon_info))
+  }
 }
 
 # Get the child concepts for a taxonomic ID 
