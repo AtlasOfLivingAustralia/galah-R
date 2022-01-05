@@ -46,7 +46,7 @@ atlas_species <- function(taxa = NULL,
   query <- list()
 
   if (missing(taxa) & missing(filter) & missing(geolocate)) {
-    warning("This query will return a list of all species in the ALA")
+    warn("This query will return a list of all species in the ALA.")
   }
 
   profile <- extract_profile(filter)
@@ -66,7 +66,12 @@ atlas_species <- function(taxa = NULL,
   data <- ala_download(url, path = path, params = query,
                        cache_file = tmp)
   if(is.null(data)){
-    inform("Calling the API failed for `atlas_species`")
+    bullets <- c(
+      "Calling the API failed for `atlas_species`.",
+      i = "This might mean that the ALA system is down. Double check that your query is correct.",
+      i = "If you continue to see this message, please email support@ala.org.au."
+    )
+    inform(bullets)
     return(tibble())
   }else{
   

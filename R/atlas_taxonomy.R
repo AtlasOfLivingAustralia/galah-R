@@ -37,30 +37,61 @@
 atlas_taxonomy <- function(taxa, down_to){
 
   if (getOption("galah_config")$atlas != "Australia") {
-    stop("`atlas_taxonomy` only provides information on Australian taxonomy. To search taxonomy for ",
-      getOption("galah_config")$atlas, 
-      " use `taxize`. See vignette('international_atlases') for more information")
+    international_atlas <- getOption("galah_config")$atlas
+    bullets <- c(
+      "`atlas_taxonomy` only provides information on Australian taxonomy.",
+      i = glue::glue("To search taxonomy for {international_atlas} use `taxsize`."),
+      i = "See vignette('international_atlases' for more information."
+    )
+    abort(bullets, call = caller_env())
   }
  
   # error checking for `taxa`
   if (missing(taxa)) {
-    stop("argument `taxa` is missing, with no default")}
+    bullets <- c(
+      "Argument `taxa` is missing, with no default.",
+      i = "Did you forget to specify a taxa?"
+    )
+    abort(bullets, call = caller_env())
+    }
   
   if(!inherits(taxa, "ala_id")){
-    stop("`atlas_taxonomy` requires an object of class `ala_id`; see `?search_taxa` for more information")}
+    bullets <- c(
+      "Argument `taxa` requires an object of class `ala_id`.",
+      i = "Did you use `search_taxa` to search and/or taxon information? Is your query formatted correctly?",
+      i = "See `?search_taxa` for more information."
+    )
+    abort(bullets, call = caller_env())
+    }
   
   if(nrow(taxa) > 1){
-    stop("`atlas_taxonomy` only accepts a single taxon at a time")
+    number_of_taxa <- nrow(taxa)
+    bullets <- c(
+      "Can't provide tree more than one taxon to start with.",
+      i = "atlas_taxonomy` only accepts a single taxon at a time.",
+      x = glue::glue("`taxa` has length of {number_of_taxa}.")
+    )
+    abort(bullets, call = caller_env())
   }
   
   # error checking for `down_to`
   if (missing(down_to)) {
-    stop("argument `down_to` is missing, with no default")
+    bullets <- c(
+      "Argument `down_to` is missing, with no default.",
+      i = "Did you forget to specify a taxonomic level?",
+      i = "See `?galah_down_to` for more information."
+    )
+    abort(bullets, call = caller_env())
   }
   assert_that(is.string(down_to)) # picks up NULL etc
   down_to <- tolower(down_to) 
   if(!any(show_all_ranks()$name == down_to)){
-    stop("`down_to` must be a valid taxonomic rank")
+    bullets <- c(
+      "Invalid taxonomic rank provided.",
+      i = "The rank provided to `down_to` must be a valid taxonomic rank.",
+      x = glue::glue("{down_to} is not a valid rank.")
+    )
+    abort(bullets, call = caller_env())
   }
   
   # extract required information from `taxa`
@@ -71,7 +102,12 @@ atlas_taxonomy <- function(taxa, down_to){
   # run a test to check whether the search will work
   test <- get_children(start_row$guid)
   if(is.null(test)){
-    inform("Calling the API failed for `atlas_taxonomy`")
+    bullets <- c(
+      "Calling the API failed for `atlas_taxonomy`.",
+      i = "This might mean that the ALA system is down. Double check that your query is correct.",
+      i = "If you continue to see this message, please email support@ala.org.au."
+    )
+    inform(bullets)
     id_tree <- Node$new(
       name = taxa$scientific_name,
       rank = taxa$rank,

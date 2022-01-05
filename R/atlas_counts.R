@@ -83,7 +83,12 @@ atlas_counts.default <- function(taxa = NULL,
       result <- record_count(query)
     }
     if(is.null(result)){
-      inform("Calling the API failed for `atlas_counts`")
+      bullets <- c(
+        "Calling the API failed for `atlas_counts`.",
+        i = "This might mean that the ALA system is down. Double check that your query is correct.",
+        i = "If you continue to see this message, please email support@ala.org.au."
+      )
+      inform(bullets)
     }
     return(tibble(count = result))
   }                  
@@ -156,12 +161,17 @@ atlas_counts.default <- function(taxa = NULL,
         }
       }) 
     if(verbose){close(pb)} # close progress bar
-    if(all(unlist(lapply(result_list, is.null)))){
-      inform("Calling the API failed for `atlas_counts`")
-       return(tibble())
-    }else{
+    if (all(unlist(lapply(result_list, is.null)))) {
+      bullets <- c(
+        "Calling the API failed for `atlas_counts`.",
+        i = "This might mean that the ALA system is down. Double check that your query is correct.",
+        i = "If you continue to see this message, please email support@ala.org.au."
+      )
+      inform(bullets)
+      return(tibble())
+    } else {
       return(as_tibble(do.call(rbind, result_list)))
-    }   
+    } 
      
   # if `groups` is of nrow == 1 (expand = FALSE)
   }else{
@@ -171,7 +181,12 @@ atlas_counts.default <- function(taxa = NULL,
       limit, type, refresh_cache,
       verbose = verbose)
     if(is.null(result)){
-      inform("Calling the API failed for `atlas_counts`")
+      bullets <- c(
+        "Calling the API failed for `atlas_counts`.",
+        i = "This might mean that the ALA system is down. Double check that your query is correct.",
+        i = "If you continue to see this message, please email support@ala.org.au."
+      )
+      inform(bullets)
       return(tibble())
     }else{
       result

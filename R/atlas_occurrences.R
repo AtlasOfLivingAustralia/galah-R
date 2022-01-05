@@ -71,7 +71,12 @@ atlas_occurrences <- function(taxa = NULL,
     # search for data using DOI
     result <- doi_download(doi)
     if(is.null(result)){
-      inform("Calling the API failed for `atlas_occurrences`")
+      bullets <- c(
+        "Calling the API failed for `atlas_occurrences`.",
+        i = "This might mean that the ALA system is down. Double check that your query is correct.",
+        i = "If you continue to see this message, please email support@ala.org.au."
+      )
+      inform(bullets)
       return(tibble())
     }else{
       return(result)
@@ -88,7 +93,12 @@ atlas_occurrences <- function(taxa = NULL,
   if (getOption("galah_config")$run_checks) {
     count <- record_count(query)
     if (is.null(count)){
-      inform("Calling the API failed for `atlas_occurrences`")
+      bullets <- c(
+        "Calling the API failed for `atlas_occurrences`.",
+        i = "This might mean that the ALA system is down. Double check that your query is correct.",
+        i = "If you continue to see this message, please email support@ala.org.au."
+      )
+      inform(bullets)
       return(tibble())
     }else{
       check_count(count) # aborts under selected circumstances
@@ -139,7 +149,8 @@ atlas_occurrences <- function(taxa = NULL,
     error = function(e) {
       bullets <- c(
         "There was a problem reading the occurrence data and it looks like no data were returned.",
-        i = "This may be because no valid field names were provided. To check whether field names are valid, use `search_fields()`."
+        i = "This may be because no valid field names were provided.",
+        i = "To check whether field names are valid, use `search_fields()`."
       )
       inform(bullets, call = caller_env())
     }
@@ -298,9 +309,9 @@ occ_error_handler <- function(code, error_call = rlang::caller_env()) {
   if (code == 504) {
     bullets <- c(
       "Status code 504 was returned.",
-      i = glue::glue("This usually means that the ALA system is down."),
-      i = glue::glue("If you continue to receive this error, please email support@ala.org.au")
+      i = "This usually means that the ALA system is down.",
+      i = "If you continue to receive this error, please email support@ala.org.au"
     )
-    rlang::inform(bullets, call = error_call)
+    rlang::inform(bullets)
   }
 }

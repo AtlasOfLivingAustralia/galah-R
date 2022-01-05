@@ -64,12 +64,17 @@ atlas_media <- function(taxa = NULL,
   if(is_tibble(taxa)){if(nrow(taxa) < 1){taxa <- NULL}}
   
   if (getOption("galah_config")$atlas != "Australia") {
-    stop("`atlas_media` only provides media from the ALA and cannot provide 
-         media from international atlases.") #TODO: Update errors to glue
+    international_atlas <- getOption("galah_config")$atlas
+    bullets <- c(
+      "`atlas_taxonomy` only provides information on Australian taxonomy.",
+      i = glue::glue("To search taxonomy for {international_atlas} use `taxsize`."),
+      i = "See vignette('international_atlases' for more information."
+    )
+    abort(bullets, call = caller_env())
   }
   
   if (is.null(taxa) & is.null(filter) & is.null(geolocate)) {
-    warning("No filters have been provided. All images and sounds will be downloaded.")
+    warn("No filters have been provided. All images and sounds will be downloaded.")
   }
   
   if (caching && !refresh_cache) {
@@ -101,7 +106,7 @@ atlas_media <- function(taxa = NULL,
   # add galah_ classes to modified filter and select
   class(occ_filter) <- append(class(occ_filter), "galah_filter")
   class(occ_columns) <- append(class(occ_columns), "galah_select")
-  if (verbose) { message("Downloading records with media...") }
+  if (verbose) { inform("Downloading records with media...") }
   
   occ <- atlas_occurrences(taxa, occ_filter, geolocate, occ_columns)
   if(nrow(occ) < 1){
@@ -144,7 +149,12 @@ atlas_media <- function(taxa = NULL,
   # i.e. service is online, but no data available
   if (nrow(metadata) == 0) {
     if(verbose){
-      inform("Metadata could not be found for any images for the species provided.")
+      bullets <- c(
+        "Calling the API failed for `atlas_media`.",
+        i = "This might mean that the ALA system is down. Double check that your query is correct.",
+        i = "If you continue to see this message, please email support@ala.org.au."
+      )
+      inform(bullets)
     }
     return(tibble())
   } 
@@ -173,18 +183,32 @@ atlas_media <- function(taxa = NULL,
    
   # download images
   if (verbose) {
-    message("Downloading ", length(urls), " media files...")
+    n_files <- length(urls)
+    # NOTE: the blank space tells glue to add a leading newline before message
+    inform(glue("
+                
+                Downloading {n_files} media files..."))
   }
   download_ok <- download_media(urls, outfiles, verbose)
   if(is.null(download_ok)){
-    inform("Calling the media API failed for `atlas_media`")
+    bullets <- c(
+      "Calling the API failed for `atlas_species`.",
+      i = "This might mean that the ALA system is down. Double check that your query is correct.",
+      i = "If you continue to see this message, please email support@ala.org.au."
+    )
+    inform(bullets)
     return(all_data)
   }
   # NOTE: This only gets triggered if the image service is down,
   # but the biocache and metadata services are still working
   
   if (verbose) {
-    message("\n",nrow(all_data), " files were downloaded to ", download_dir)
+    n_files <- nrow(all_data)
+    # NOTE: Do not delete blank space
+    inform(glue("
+                
+                
+                {n_files} files were downloaded to {download_dir}"))
   }
  
   return(all_data)
