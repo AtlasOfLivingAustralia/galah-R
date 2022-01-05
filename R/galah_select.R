@@ -59,6 +59,8 @@ galah_select <- function(...,
     }else{
       is_data_request <- FALSE
     }
+  }else{
+    is_data_request <- FALSE
   }
   
   # If no args are supplied, set default columns returned as group = "basic"  

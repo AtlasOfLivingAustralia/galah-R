@@ -38,10 +38,42 @@
 #' @export
 
 galah_group_by <- function(..., expand = TRUE){
-  if(length(as.list(match.call(expand.dots = FALSE)$...)) > 0){
-    df <- galah_select(...)
-    class(df) <- append(class(df), "galah_group_by")
-    attr(df, "expand") <- expand
+  
+  # check to see if any of the inputs are a data request
+  dots <- enquos(..., .ignore_empty = "all")
+  if(length(dots) > 0){
+    checked_dots <- detect_data_request(dots)
+    if(!inherits(checked_dots, "quosures")){
+      is_data_request <- TRUE
+      data_request <- checked_dots[[1]]
+      dots <- checked_dots[[2]]
+    }else{
+      is_data_request <- FALSE
+    }
+  }else{
+    is_data_request <- FALSE
+  }
+  
+  # if there are any arguments provided, parse them
+  if(length(dots) > 0){
+    provided_variables <- unlist(lapply(dots, as_label))
+    available_variables <- provided_variables[provided_variables %in% show_all_fields()$id]
+    if(length(available_variables) > 0){
+      df <- tibble(name = available_variables)
+      df$type <- ifelse(str_detect(df$name, "[[:lower:]]"), "field", "assertions")
+      class(df) <- append(class(df), "galah_group_by")
+      attr(df, "expand") <- expand
+    }else{
+      df <- set_galah_object_class(class = "galah_group_by")
+    }
+  }else{
+    df <- set_galah_object_class(class = "galah_group_by")
+  }
+ 
+  # if a data request was supplied, return one
+  if(is_data_request){
+    update_galah_call(data_request, group_by = df)
+  }else{
     df
-  }else{NULL}
+  }
 }
