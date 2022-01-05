@@ -7,7 +7,7 @@
 galah_down_to(...)
 }
 \arguments{
-\item{...}{the name of a single taxonoimc rank}
+\item{...}{the name of a single taxonomic rank}
 }
 \value{
 A string with the named rank
@@ -26,5 +26,5 @@ atlas_taxonomy(
 }
 \seealso{
 \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and
-\code{\link[=galah_location]{galah_location()}} for related methods.
+\code{\link[=galah_geolocate]{galah_geolocate()}} for related methods.
 }

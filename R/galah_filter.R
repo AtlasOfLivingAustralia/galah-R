@@ -77,14 +77,21 @@
 #' @export
 
 # TODO: provide a useful error message for bad queries e.g. galah_filter(year == 2010 | 2021)
-# TODO: handle commas
-# NOTE: help for ?parse says `call` is an order of magnitude faster
-  # check if that's possible (perhaps with `do.call()`?) 
   
 galah_filter <- function(..., profile = NULL){
   
   dots <- enquos(..., .ignore_empty = "all")
   check_filter(dots)
+  
+  # check to see if any of the inputs are a data request
+  checked_dots <- detect_data_request(dots)
+  if(!inherits(checked_dots, "quosures")){
+    is_data_request <- TRUE
+    data_request <- checked_dots[[1]]
+    dots <- checked_dots[[2]]
+  }else{
+    is_data_request <- FALSE
+  }
  
   # Clean user arguments
   if(length(dots) > 0){
@@ -110,7 +117,14 @@ galah_filter <- function(..., profile = NULL){
   class(named_filters) <- append(class(named_filters), "galah_filter")
   
   # Check and apply profiles to query
-  apply_profiles(profile, named_filters)
+  named_filters <- apply_profiles(profile, named_filters)
+  
+  # if a data request was supplied, return one
+  if(is_data_request){
+    update_galah_call(data_request, filter = named_filters)
+  }else{
+    named_filters
+  }
 
 }
 
@@ -138,6 +152,24 @@ check_filter <- function(dots, error_call = caller_env()) {
 }
 
 
+detect_data_request <- function(dots){
+  is_either <- (is_function_check(dots) | is_object_check(dots))[[1]]
+  if(is_either){
+    eval_result <- eval_tidy(dots[[1]])
+    if(inherits(eval_result, "data_request")){
+      return(list(
+        data_request = eval_result,
+        dots = dots[-1]
+      ))
+    }else{
+      return(dots)
+    }
+  }else{
+    return(dots)
+  }  
+}
+
+
 # function to identify objects or functions in quosures, and eval them
 # this is used twice; first to identify named objects passed to `galah_filter`,
 # and again to parse variables and values for object status
@@ -159,7 +191,7 @@ parse_objects_or_functions <- function(dots){
               ), 
             ")")
           )
-        }else{
+        } else {
           new_quosure(result)
         }
       })
@@ -180,9 +212,11 @@ is_function_check <- function(dots){ # where x is a list of strings
   contains_equations <- grepl( "!=|>=|<=|==|>|<", x)
   quoted_equations <- grepl("(\"|\')\\s*(!=|>=|<=|==|>|<)\\s*(\"|\')", x) 
   equations_ok <- (contains_equations & quoted_equations) | !contains_equations
+  # ...except where they start with the name `galah_`
+  is_galah <- grepl("^galah_", x)
   
   # parse only if both conditions are met
-  functions_present & equations_ok
+  functions_present & (equations_ok | is_galah)
 }
 
 

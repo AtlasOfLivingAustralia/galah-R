@@ -42,14 +42,26 @@
 #' by [atlas_occurrences()] and related functions; [atlas_counts()]
 #' for how to get counts by levels of variables returned by `galah_select`.
 #' @importFrom dplyr select
+#' @importFrom rlang as_label
 #' @importFrom tibble as_tibble
 #' @export
 galah_select <- function(...,
                          group = c("basic", "event", "assertions")
-                         ) {
-
+                         ) {  
+  # check to see if any of the inputs are a data request
+  dots <- enquos(..., .ignore_empty = "all")
+  if(length(dots) > 0){
+    checked_dots <- detect_data_request(dots)
+    if(!inherits(checked_dots, "quosures")){
+      is_data_request <- TRUE
+      data_request <- checked_dots[[1]]
+      dots <- checked_dots[[2]]
+    }else{
+      is_data_request <- FALSE
+    }
+  }
+  
   # If no args are supplied, set default columns returned as group = "basic"  
-  dots <- as.list(match.call(expand.dots = FALSE)$...)
   if(missing(group) & length(dots) < 1){group <- "basic"}
   
   # Match 'groups' of columns
@@ -67,16 +79,24 @@ galah_select <- function(...,
    matrix(data = NA, nrow = 0, ncol = length(field_names),
      dimnames = list(NULL, field_names)))
   
-  # Make a data.frame listing valid fields and their type
+  ## Make a data.frame listing valid fields and their type
+  provided_variables <- unlist(lapply(dots, as_label))
+  names(provided_variables) <- NULL
+  selection <- select(df, all_of(provided_variables)) # NOTE: new behaviour
   all_cols <- data.frame(
-    name = unique(c(group_cols, colnames(select(df, ...)))))
+    name = unique(c(group_cols, colnames(selection))))
   all_cols$type <- ifelse(str_detect(all_cols$name, "[[:lower:]]"), "field", "assertions")
     
   # Add S3 class
   all_cols <- as_tibble(all_cols)
   class(all_cols) <- append(class(all_cols), "galah_select") 
   
-  all_cols
+  # if a data request was supplied, return one
+  if(is_data_request){
+    update_galah_call(data_request, select = all_cols)
+  }else{
+    all_cols
+  }
 }
 
 

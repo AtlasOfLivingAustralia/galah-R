@@ -2,6 +2,9 @@
 
 S3method(atlas_counts,data_request)
 S3method(atlas_counts,default)
+S3method(atlas_occurrences,data_request)
+S3method(atlas_occurrences,default)
+S3method(print,data_request)
 S3method(search_taxa,data_request)
 S3method(search_taxa,default)
 export(ala_citation)

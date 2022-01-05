@@ -2,9 +2,15 @@
 % Please edit documentation in R/atlas_occurrences.R
 \name{atlas_occurrences}
 \alias{atlas_occurrences}
+\alias{atlas_occurrences.data_request}
+\alias{atlas_occurrences.default}
 \title{Occurrence records}
 \usage{
-atlas_occurrences(
+atlas_occurrences(...)
+
+\method{atlas_occurrences}{data_request}(request, ...)
+
+\method{atlas_occurrences}{default}(
   taxa = NULL,
   filter = NULL,
   geolocate = NULL,
@@ -78,6 +84,5 @@ occ <- atlas_occurrences(taxa = search_taxa("Reptilia"))
 polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 \
 -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
 occ <- atlas_occurrences(geolocate = galah_geolocate(polygon))
-
 
 }

@@ -54,9 +54,20 @@
 #' -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
 #' occ <- atlas_occurrences(geolocate = galah_geolocate(polygon))
 #' 
-#' 
 #' @export
-atlas_occurrences <- function(taxa = NULL, 
+atlas_occurrences <- function(...) {
+  UseMethod("atlas_occurrences")
+}
+
+#' @export
+#' @rdname atlas_occurrences
+atlas_occurrences.data_request <- function(request, ...) {
+  do.call(atlas_occurrences, merge_args(request, list(...)))
+}
+
+#' @export
+#' @rdname atlas_occurrences
+atlas_occurrences.default <- function(taxa = NULL, 
                               filter = NULL, 
                               geolocate = NULL,
                               select = galah_select(group = "basic"),
@@ -167,7 +178,7 @@ atlas_occurrences <- function(taxa = NULL,
   # add DOI as attribute
   attr(df, "doi") <- get_doi(mint_doi, data_path)
   attr(df, "search_url") <- download_resp$search_url
-  query <- data_request(taxa, filter, geolocate)
+  query <- data_request(taxa, filter, geolocate, select)
   attr(df, "data_request") <- query
     
   if (caching) {
