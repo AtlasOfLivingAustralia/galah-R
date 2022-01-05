@@ -57,7 +57,9 @@ atlas_counts <- function(...) {
 #' @export
 #' @rdname atlas_counts
 atlas_counts.data_request <- function(request, ...) {
-  do.call(atlas_counts, merge_args(request, list(...)))
+  current_call <- update_galah_call(request, list(...))
+  custom_call <- current_call[names(current_call) != "select"]
+  do.call(atlas_counts, custom_call)
 }
 
 #' @export
@@ -73,7 +75,7 @@ atlas_counts.default <- function(taxa = NULL,
   type <- match.arg(type)
   verbose <- getOption("galah_config")$verbose
 
-  if(missing(group_by)) {
+  if(is.null(group_by)) {
     query <- list()
     profile <- extract_profile(filter)
     query <- build_query(taxa, filter, geolocate, profile = profile)
