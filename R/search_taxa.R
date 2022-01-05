@@ -51,12 +51,21 @@ search_taxa.default <- function(query) {
   verbose <- getOption("galah_config")$verbose
 
   if (getOption("galah_config")$atlas != "Australia") {
-    stop("`search_taxa` only provides information on Australian taxonomy. To search taxonomy for ",
-         getOption("galah_config")$atlas, " use `taxize`. See vignette('international_atlases') for more information")
+    international_atlas <- getOption("galah_config")$atlas
+    bullets <- c(
+      "`search_taxa` only provides information on Australian taxonomy.",
+      i = glue::glue("To search taxonomy for {international_atlas} use `taxsize`."),
+      i = "See vignette('international_atlases' for more information."
+    )
+    abort(bullets, call = caller_env())
   }
 
   if (missing(query)) {
-    stop("`search_taxa` requires a query to search for")
+    bullets <- c(
+      "Argument `query` is missing, with no default.",
+      i = "`search_taxa` requires a query to search for."
+    )
+    abort(bullets, call = caller_env())
   }
   
   if (is.list(query) && length(names(query)) > 0 ) {
@@ -66,7 +75,12 @@ search_taxa.default <- function(query) {
   matches <- remove_parentheses(query) |> name_query()
 
   if(is.null(matches) & galah_config()$verbose){
-    inform("Calling the API failed for `search_taxa`")
+    bullets <- c(
+      "Calling the API failed for `search_taxa`.",
+      i = "This might mean that the ALA system is down. Double check that your query is correct.",
+      i = "If you continue to see this message, please email support@ala.org.au."
+    )
+    inform(bullets)
     return(set_galah_object_class(class = "ala_id"))
   }else{
     set_galah_object_class(matches, "ala_id")
@@ -118,12 +132,18 @@ name_lookup <- function(name) {
   }
 
   if ("homonym" %in% result$issues) {
-    warning("Homonym issue with ", name,
-         ". Please also provide another rank to clarify.")
+    bullets <- c(
+      "Your search returned multiple taxa due to a homonym issue.",
+      i = "Please provide another rank in your search to clarify taxa.",
+      x = glue("Homonym issue with \"{name}\".")
+    )
+    warn(bullets)
     # return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
   }  #else 
   if (isFALSE(result$success) && galah_config()$verbose) {
-    message("No taxon matches were found for \"", name, "\"")
+    list_invalid_taxa <- glue::glue_collapse(name, 
+                                             sep = ", ")
+    warn(glue::glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
     return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
   }
   names(result) <- rename_columns(names(result), type = "taxa")

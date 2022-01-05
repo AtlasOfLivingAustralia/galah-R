@@ -38,8 +38,8 @@ server_config <- function(url) {
     url <- "records_base_url"
   }
   if (!(url %in% names(conf))) {
-    stop(service_name(url), " is not supported for the ", atlas,
-         " atlas.")
+    service <- service_name(url)
+    abort("{service} is not supported for the {atlas} atlas.", call = caller_env())
   }
   return(conf[[url]])
 }

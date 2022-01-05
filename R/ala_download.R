@@ -26,8 +26,13 @@ internal_download <- function(url, path, params, ext, cache_file) {
 
   # check cache file exists
   if (!is.null(cache_file) && !dir.exists(dirname(cache_file))) {
-    stop(dirname(cache_file),
-         " does not exist. Please create it and try again.")
+    directory <- dirname(cache_file)
+    bullets <- c(
+      "Cannot find directory.",
+      i = "Please enter a valid directory and try again.",
+      x = glue("{directory} does not exist.")
+    )
+    abort(bullets, call = caller_env())
   }
 
   # ws needs to be added for 
@@ -45,12 +50,12 @@ internal_download <- function(url, path, params, ext, cache_file) {
   }
 
   if (ext == ".csv") {
-    # error message is specific to ala_species because it is the only function which
+    # error message is specific to atlas_species because it is the only function that
     # gets to this point
     tryCatch(
       df <- read.csv(res$content, stringsAsFactors = FALSE),
       error = function(e) {
-        e$message <- "No species matching the supplied filters were found."
+        e$message <- inform("No species matching the supplied filters were found.")
         close(file(cache_file))
         unlink(cache_file)
         stop(e)

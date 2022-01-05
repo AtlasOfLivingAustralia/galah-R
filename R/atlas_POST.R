@@ -24,7 +24,9 @@ internal_POST <- function(url, path, body, encode) {
   )
   res <- cli$post(path = path, body = body, encode = encode)
   if (res$status_code != 200) {
-    stop("Status code ", res$status_code, "returned for url ", res$request$url)
+    code_number <- res$status_code
+    request_url <- res$request$url
+    abort("Status code {code_number} returned for url {request_url}.")
   }
   res$parse("UTF-8")
 }

@@ -26,18 +26,31 @@ find_taxa <- function(identifier) {
   verbose <- getOption("galah_config")$verbose
 
   if (getOption("galah_config")$atlas != "Australia") {
-    stop("`find_taxa` only provides information on Australian taxonomy. To search taxonomy for ",
-         getOption("galah_config")$atlas, " use `taxize`. See vignette('international_atlases') for more information")
+    international_atlas <- getOption("galah_config")$atlas
+    bullets <- c(
+      "`find_taxa` only provides information on Australian taxonomy.",
+      i = glue::glue("To search taxonomy for {international_atlas} use `taxsize`."),
+      i = "See vignette('international_atlases' for more information."
+    )
+    abort(bullets, call = caller_env())
   }
 
   if (missing(identifier)) {
-    stop("`find_taxa` requires one or more taxonomic identifiers")
+    bullets <- c(
+      "Argument `identifier` is missing, with no default.",
+      i = "Did you forget to specify one or more identifiers?"
+    )
+    abort(bullets, call = caller_env())
   }
   
   matches <- lapply(identifier, identifier_lookup)
   if(all(unlist(lapply(matches, is.null)))){
     if(galah_config()$verbose){
-      inform("Calling the API failed for `find_taxa`")
+      bullets <- c(
+        "Calling the API failed for `find_taxa`.",
+        i = "This might mean that the ALA system is down. Double check that your query is correct."
+      )
+      inform(bullets)
     }
     return(set_galah_object_class(class = "ala_id"))
   }else{ 
@@ -53,7 +66,9 @@ identifier_lookup <- function(identifier) {
   result <- atlas_GET(taxa_url, "/api/getByTaxonID", list(taxonID = identifier))
   if (is.null(result)){return(NULL)}
   if (isFALSE(result$success) && result$issues == "noMatch" && galah_config()$verbose) {
-    message("No match found for identifier ", identifier)
+    list_invalid_taxa <- glue::glue_collapse(name, 
+                                             sep = ", ")
+    warn(glue::glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
   }
   names(result) <- rename_columns(names(result), type = "taxa")
   result[names(result) %in% wanted_columns("taxa")]
