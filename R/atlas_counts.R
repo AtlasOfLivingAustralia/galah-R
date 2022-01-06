@@ -57,7 +57,7 @@ atlas_counts <- function(...) {
 #' @export
 #' @rdname atlas_counts
 atlas_counts.data_request <- function(request, ...) {
-  current_call <- update_galah_call(request, list(...)) 
+  current_call <- update_galah_call(request, ...) 
   # subset to only those arguments that can be accepted by atlas_counts
   custom_call <- current_call[
     names(current_call) %in% names(formals(atlas_counts.default))
@@ -272,9 +272,13 @@ atlas_counts_internal <- function(taxa = NULL,
       }
       species_query <- list()
       species_query$fq <- c(query$fq,
-                            query_term(name = facets, value = value[[x]],
-                            include = TRUE))
+         # query_term(name = facets, value = value[[x]], include = TRUE))
+         counts$fq[[x]])
+      if(!is.null(geolocate)){
+        species_query$wkt <- query$wkt
+      }
       count <- species_count(species_query)
+      if(is.null(count)){count <- NA}
       data.frame(name = value[[x]], count = count) |> as_tibble()
     }))
   } else {

@@ -47,7 +47,22 @@
 #' )
 #' 
 #' @export
-atlas_media <- function(taxa = NULL, 
+atlas_media <- function(...) {
+  UseMethod("atlas_media")
+}
+
+#' @export
+#' @rdname atlas_media
+atlas_media.data_request <- function(request, ...) {
+  current_call <- update_galah_call(request, ...) 
+  custom_call <- current_call[
+    names(current_call) %in% names(formals(atlas_media.default))]
+  do.call(atlas_media.default, custom_call)
+}
+
+#' @export
+#' @rdname atlas_media
+atlas_media.default <- function(taxa = NULL, 
                         filter = NULL, 
                         geolocate = NULL,
                         select = galah_select(group = "basic"), 

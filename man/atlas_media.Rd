@@ -2,9 +2,15 @@
 % Please edit documentation in R/atlas_media.R
 \name{atlas_media}
 \alias{atlas_media}
+\alias{atlas_media.data_request}
+\alias{atlas_media.default}
 \title{Download images, sounds and videos}
 \usage{
-atlas_media(
+atlas_media(...)
+
+\method{atlas_media}{data_request}(request, ...)
+
+\method{atlas_media}{default}(
   taxa = NULL,
   filter = NULL,
   geolocate = NULL,

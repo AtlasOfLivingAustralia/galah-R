@@ -62,11 +62,9 @@ atlas_occurrences <- function(...) {
 #' @export
 #' @rdname atlas_occurrences
 atlas_occurrences.data_request <- function(request, ...) {
-  current_call <- update_galah_call(request, list(...)) 
-  # subset to only those arguments that can be accepted by atlas_occurrences
+  current_call <- update_galah_call(request, ...) 
   custom_call <- current_call[
-    names(current_call) %in% names(formals(atlas_occurrences.default))
-    ]
+    names(current_call) %in% names(formals(atlas_occurrences.default))]
   do.call(atlas_occurrences.default, custom_call)
 }
 

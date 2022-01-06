@@ -35,7 +35,22 @@
 #' atlas_species(search_taxa("Heleioporus"))
 #' 
 #' @export
-atlas_species <- function(taxa = NULL, 
+atlas_species <- function(...) {
+  UseMethod("atlas_species")
+}
+
+#' @export
+#' @rdname atlas_species
+atlas_species.data_request <- function(request, ...) {
+  current_call <- update_galah_call(request, ...) 
+  custom_call <- current_call[
+    names(current_call) %in% names(formals(atlas_species.default))]
+  do.call(atlas_species.default, custom_call)
+}
+
+#' @export
+#' @rdname atlas_species
+atlas_species.default <- function(taxa = NULL, 
                           filter = NULL, 
                           geolocate = NULL,
                           refresh_cache = FALSE) {

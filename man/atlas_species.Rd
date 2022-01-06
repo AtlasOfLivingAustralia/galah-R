@@ -2,9 +2,15 @@
 % Please edit documentation in R/atlas_species.R
 \name{atlas_species}
 \alias{atlas_species}
+\alias{atlas_species.data_request}
+\alias{atlas_species.default}
 \title{Return species lists}
 \usage{
-atlas_species(
+atlas_species(...)
+
+\method{atlas_species}{data_request}(request, ...)
+
+\method{atlas_species}{default}(
   taxa = NULL,
   filter = NULL,
   geolocate = NULL,

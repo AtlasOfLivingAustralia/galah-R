@@ -72,6 +72,12 @@ update_galah_call <- function(data_request, ...){
       }
     })
   names(result) <- names(data_request)
+  
+  # check if any names in `dots` have been missed from `results`
+  missing_names <- !(names(dots) %in% names(result))
+  if(any(missing_names)){
+    result <- append(result, dots[missing_names])
+  }
   class(result) <- "data_request"
   result
 }

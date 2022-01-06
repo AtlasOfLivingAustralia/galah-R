@@ -52,7 +52,7 @@ galah_geolocate <- function(...) {
     
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons should be converted to multipolygons
-  if ("sf" %in% class(query) || "sfc" %in% class(query)) {
+  if(inherits(query, "sf") || inherits(query, "sfc")) {
     out_query <- build_wkt(query)
   } else {
     validate_wkt(query)
@@ -90,6 +90,7 @@ build_wkt <- function(polygon) {
 }
 
 validate_wkt <- function(wkt) {
+  assert_that(is.string(wkt))
   max_char <- 10000
   if (nchar(wkt) > max_char) {
     stop("The WKT string provided is greater than ", max_char,

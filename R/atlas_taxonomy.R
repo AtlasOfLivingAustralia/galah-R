@@ -40,11 +40,9 @@ atlas_taxonomy <- function(...) {
 #' @export
 #' @rdname atlas_taxonomy
 atlas_taxonomy.data_request <- function(request, ...) {
-  current_call <- update_galah_call(request, list(...)) 
-  # subset to only those arguments that can be accepted by atlas_counts
+  current_call <- update_galah_call(request, ...) 
   custom_call <- current_call[
-    names(current_call) %in% names(formals(atlas_taxonomy.default))
-    ]
+    names(current_call) %in% names(formals(atlas_taxonomy.default))]
   do.call(atlas_taxonomy.default, custom_call)
 }
 
