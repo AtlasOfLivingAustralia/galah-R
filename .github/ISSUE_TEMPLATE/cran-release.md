@@ -17,6 +17,8 @@ assignees: ''
 
 ## Testing
 - [ ] Delete all files from the `tests/fixtures/` folder
+- [ ] Delete all files from the `tests/testhat/_snaps/` folder (these need to be deleted each time before running `devtools::test()`)
+- [ ] Restart R (Ctrl/Cmd + Shift + F10)
 - [ ] All automated tests are passing locally with `devtools::test()` (including slow skipped tests)
 - [ ] All functional tests documented [here](https://confluence.csiro.au/display/ALASD/galah+and+ALA4R+functional+tests) have been performed, ideally by someone other than the developer
 - [ ] Code has been merged into the `master` branch and pushed to Git (including re-generated fixtures)
