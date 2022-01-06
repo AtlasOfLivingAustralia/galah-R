@@ -2,15 +2,9 @@
 % Please edit documentation in R/search_taxa.R
 \name{search_taxa}
 \alias{search_taxa}
-\alias{search_taxa.data_request}
-\alias{search_taxa.default}
 \title{Taxon information}
 \usage{
 search_taxa(...)
-
-\method{search_taxa}{data_request}(request, ...)
-
-\method{search_taxa}{default}(query)
 }
 \arguments{
 \item{query}{\code{string}: A vector containing one or more search terms,

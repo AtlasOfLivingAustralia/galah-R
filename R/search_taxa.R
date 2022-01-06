@@ -34,20 +34,7 @@
 #' 
 #' @export
 search_taxa <- function(...) {
-  UseMethod("search_taxa")
-}
-
-#' @export
-#' @rdname search_taxa
-search_taxa.data_request <- function(request, ...) {
-  request$taxa <- do.call(search_taxa, merge_args(request, list(...)))
-  return(request)
-}
-
-#' @export
-#' @rdname search_taxa
-search_taxa.default <- function(query) {
-
+  
   verbose <- getOption("galah_config")$verbose
 
   if (getOption("galah_config")$atlas != "Australia") {
@@ -59,8 +46,19 @@ search_taxa.default <- function(query) {
     )
     abort(bullets, call = caller_env())
   }
-
-  if (missing(query)) {
+  
+  # check to see if any of the inputs are a data request
+  dots <- enquos(..., .ignore_empty = "all")
+  checked_dots <- detect_data_request(dots)
+  if(!inherits(checked_dots, "quosures")){
+    is_data_request <- TRUE
+    data_request <- checked_dots[[1]]
+    dots <- checked_dots[[2]]
+  }else{
+    is_data_request <- FALSE
+  }
+  
+  if(length(dots) < 1){
     bullets <- c(
       "Argument `query` is missing, with no default.",
       i = "`search_taxa` requires a query to search for."
@@ -68,11 +66,16 @@ search_taxa.default <- function(query) {
     abort(bullets, call = caller_env())
   }
   
+  # convert dots to query
+  query <- parse_taxonomic_queries(dots)
+   
   if (is.list(query) && length(names(query)) > 0 ) {
     query <- as.data.frame(query) # convert to dataframe for simplicity
   }
   
-  matches <- remove_parentheses(query) |> name_query()
+  matches <- remove_parentheses(query) |> 
+    name_query() |>
+    set_galah_object_class(class = "ala_id")
 
   if(is.null(matches) & galah_config()$verbose){
     bullets <- c(
@@ -83,8 +86,36 @@ search_taxa.default <- function(query) {
     inform(bullets)
     return(set_galah_object_class(class = "ala_id"))
   }else{
-    set_galah_object_class(matches, "ala_id")
+    # if a data request was supplied, return one
+    if(is_data_request){
+      update_galah_call(data_request, taxa = matches)
+    }else{
+      matches
+    }   
   } 
+}
+
+
+# function to identify objects or functions in quosures, and eval them
+# this is used twice; first to identify named objects passed to `galah_filter`,
+# and again to parse variables and values for object status
+parse_taxonomic_queries <- function(dots){
+  is_either <- is_function_check(dots) | is_object_check(dots)
+  result <- vector("list", length(dots))
+  # If yes, evaluate them correctly as functions
+  if(any(is_either)){
+    result[is_either] <- lapply(dots[is_either], eval_tidy)
+  }
+  if(any(!is_either)){
+    result[!is_either] <- lapply(dots[!is_either], 
+      function(a){dequote(as_label(a))})
+  }
+  if(all(unlist(lapply(result, is.character)))){
+    return(do.call(c, result))
+  }
+  if(all(unlist(lapply(result, is.data.frame)))){
+    return(do.call(rbind, result))
+  }
 }
 
 
