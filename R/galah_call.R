@@ -89,3 +89,24 @@ print.data_request <- function(object){
     cat("An empty object of type `data_request`")
   }
 }
+
+
+# function used in `galah_` and `search_` functions to determine 
+# whether a quosure list contains an object of class `data_request`
+# as its' first argument
+detect_data_request <- function(dots){
+  is_either <- (is_function_check(dots) | is_object_check(dots))[[1]]
+  if(is_either){
+    eval_result <- eval_tidy(dots[[1]])
+    if(inherits(eval_result, "data_request")){
+      return(list(
+        data_request = eval_result,
+        dots = dots[-1]
+      ))
+    }else{
+      return(dots)
+    }
+  }else{
+    return(dots)
+  }  
+}

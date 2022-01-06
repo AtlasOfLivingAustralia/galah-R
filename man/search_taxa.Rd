@@ -7,12 +7,11 @@
 search_taxa(...)
 }
 \arguments{
-\item{query}{\code{string}: A vector containing one or more search terms,
+\item{...}{: A vector containing one or more search terms,
 given as strings. Search terms can be scientific or common names, or
 taxonomic identifiers. If greater control is required to disambiguate search
-terms, taxonomic levels can be provided explicitly via a named \code{list}
-for a single name, or a \code{data.frame} for multiple names (see examples).
-Note that searches are not case-sensitive.}
+terms, taxonomic levels can be provided explicitly via a \code{data.frame}
+(see examples). Note that searches are not case-sensitive.}
 }
 \value{
 An object of class \code{tbl_df}, \code{data.frame} (aka a tibble) and \code{ala_id}

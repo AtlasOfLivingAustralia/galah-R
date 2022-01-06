@@ -10,12 +10,11 @@
 #' `data.frame` of taxonomic information can be passed directly to
 #' `atlas_` functions to filter records to the specified taxon or taxa.
 #'
-#' @param query `string`: A vector containing one or more search terms,
+#' @param ... : A vector containing one or more search terms,
 #' given as strings. Search terms can be scientific or common names, or
 #' taxonomic identifiers. If greater control is required to disambiguate search
-#' terms, taxonomic levels can be provided explicitly via a named `list`
-#' for a single name, or a `data.frame` for multiple names (see examples).
-#' Note that searches are not case-sensitive.
+#' terms, taxonomic levels can be provided explicitly via a `data.frame` 
+#' (see examples). Note that searches are not case-sensitive.
 #' @return An object of class `tbl_df`, `data.frame` (aka a tibble) and `ala_id`
 #' containing taxonomic information.
 #' @seealso [find_taxa()] for how to get names if taxonomic identifiers are 
@@ -67,7 +66,7 @@ search_taxa <- function(...) {
   }
   
   # convert dots to query
-  query <- parse_taxonomic_queries(dots)
+  query <- parse_basic_quosures(dots)
    
   if (is.list(query) && length(names(query)) > 0 ) {
     query <- as.data.frame(query) # convert to dataframe for simplicity
@@ -93,29 +92,6 @@ search_taxa <- function(...) {
       matches
     }   
   } 
-}
-
-
-# function to identify objects or functions in quosures, and eval them
-# this is used twice; first to identify named objects passed to `galah_filter`,
-# and again to parse variables and values for object status
-parse_taxonomic_queries <- function(dots){
-  is_either <- is_function_check(dots) | is_object_check(dots)
-  result <- vector("list", length(dots))
-  # If yes, evaluate them correctly as functions
-  if(any(is_either)){
-    result[is_either] <- lapply(dots[is_either], eval_tidy)
-  }
-  if(any(!is_either)){
-    result[!is_either] <- lapply(dots[!is_either], 
-      function(a){dequote(as_label(a))})
-  }
-  if(all(unlist(lapply(result, is.character)))){
-    return(do.call(c, result))
-  }
-  if(all(unlist(lapply(result, is.data.frame)))){
-    return(do.call(rbind, result))
-  }
 }
 
 

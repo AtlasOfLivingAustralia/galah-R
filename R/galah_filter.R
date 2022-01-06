@@ -152,24 +152,6 @@ check_filter <- function(dots, error_call = caller_env()) {
 }
 
 
-detect_data_request <- function(dots){
-  is_either <- (is_function_check(dots) | is_object_check(dots))[[1]]
-  if(is_either){
-    eval_result <- eval_tidy(dots[[1]])
-    if(inherits(eval_result, "data_request")){
-      return(list(
-        data_request = eval_result,
-        dots = dots[-1]
-      ))
-    }else{
-      return(dots)
-    }
-  }else{
-    return(dots)
-  }  
-}
-
-
 # function to identify objects or functions in quosures, and eval them
 # this is used twice; first to identify named objects passed to `galah_filter`,
 # and again to parse variables and values for object status

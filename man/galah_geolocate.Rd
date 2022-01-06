@@ -4,10 +4,10 @@
 \alias{galah_geolocate}
 \title{Build a WKT string from an sf spatial object or verify an existing WKT}
 \usage{
-galah_geolocate(query)
+galah_geolocate(...)
 }
 \arguments{
-\item{query}{wkt string or sf object}
+\item{...}{a single wkt string or sf object}
 }
 \value{
 length-1 object of class \code{character} and \code{atlas_locations},
@@ -30,7 +30,7 @@ atlas_occurrences(geolocate = location)
 # Search for records using a WKT
 wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
-atlas_occurrences(geolocate = galah_geolocate(wkt))
+atlas_counts(geolocate = galah_geolocate(wkt))
 
 }
 \seealso{

@@ -3,7 +3,7 @@
 #' Restrict results to those from a specified area. Areas must be polygons
 #' and be specified as either an sf object, or a 'well-known text' (wkt) string.
 #'
-#' @param query wkt string or sf object
+#' @param ... a single wkt string or sf object
 #' @details WKT strings longer than 10000 characters will not be
 #' accepted by the ALA- so the sf object or WKT string may need to be
 #' simplified.
@@ -20,13 +20,38 @@
 #' # Search for records using a WKT
 #' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
 #' -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
-#' atlas_occurrences(geolocate = galah_geolocate(wkt))
+#' atlas_counts(geolocate = galah_geolocate(wkt))
 #' 
 #' @export
-galah_geolocate <- function(query) {
+galah_geolocate <- function(...) {
+  
+  # check to see if any of the inputs are a data request
+  dots <- enquos(..., .ignore_empty = "all")
+  checked_dots <- detect_data_request(dots)
+  if(!inherits(checked_dots, "quosures")){
+    is_data_request <- TRUE
+    data_request <- checked_dots[[1]]
+    dots <- checked_dots[[2]]
+  }else{
+    is_data_request <- FALSE
+  }
+  
+  # error check for multiple ranks
+  if(length(dots) > 1){
+    n_geolocations <- length(dots)
+    bullets <- c(
+      "Can't provide more than one spatial area.",
+      i = "galah_geolocate` only accepts a single area at a time.",
+      x = glue("`galah_geolocate` has length of {n_geolocations}.")
+    )
+    abort(bullets, call = caller_env())
+  }
+  
+  # convert dots to query
+  query <- parse_basic_quosures(dots)
+    
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons should be converted to multipolygons
-  
   if ("sf" %in% class(query) || "sfc" %in% class(query)) {
     out_query <- build_wkt(query)
   } else {
@@ -40,7 +65,15 @@ galah_geolocate <- function(query) {
     out_query <- query
   }
   class(out_query) <- append(class(out_query), "galah_geolocate")
-  out_query
+  
+  # if a data request was supplied, return one
+  if(is_data_request){
+    update_galah_call(data_request, geolocate = out_query)
+  }else{
+    out_query
+  }   
+  
+  
 
 }
 

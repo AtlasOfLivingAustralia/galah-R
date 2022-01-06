@@ -89,6 +89,34 @@ set_galah_object_class <- function(input, class_name){
   input
 }
 
+
+##----------------------------------------------------------------
+##                   Parsing functions                          --
+##----------------------------------------------------------------
+
+
+# function to identify objects or functions in quosures, and eval them
+# this is used by `search_taxa` and `galah_geolocate`
+# It differs from functions in `galah_filter` by being more straightforward
+parse_basic_quosures <- function(dots){
+  is_either <- is_function_check(dots) | is_object_check(dots)
+  result <- vector("list", length(dots))
+  # If yes, evaluate them correctly as functions
+  if(any(is_either)){
+    result[is_either] <- lapply(dots[is_either], eval_tidy)
+  }
+  if(any(!is_either)){
+    result[!is_either] <- lapply(dots[!is_either], 
+      function(a){dequote(as_label(a))})
+  }
+  if(all(unlist(lapply(result, is.character)))){
+    return(do.call(c, result))
+  }
+  if(all(unlist(lapply(result, is.data.frame)))){
+    return(do.call(rbind, result))
+  }
+}
+
 ##----------------------------------------------------------------
 ##                   Query-building functions                   --
 ##----------------------------------------------------------------
