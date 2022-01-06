@@ -11,12 +11,12 @@ test_that("select_taxa is deprecated", {
 test_that("select_columns is deprecated", {
   local_edition(3)
   expect_snapshot({
-    deprecated <- select_columns("eventDate")
-    correct <- structure(data.frame(name = "eventDate", 
-                                    type = "field"), 
-                         class = c("data.frame", "galah_select"))
-    class(correct)
+    deprecated <- select_columns(eventDate)
+    correct <- structure(tibble(name = "eventDate",
+                                type = "field"))
+    class(correct) <- append(class(correct), "galah_select")
     expect_equal(deprecated, correct)
+    expect_s3_class(deprecated, "galah_select")
   })
 })
 
@@ -42,9 +42,10 @@ test_that("ala_occurrences is deprecated", {
   skip_on_cran()
   local_edition(3)
   expect_snapshot({
-    expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
-                       "scientificName", "taxonConceptID", "recordID",
-                       "dataResourceName", "stateProvince", "ZERO_COORDINATE")
+    galah_config(email = "ala4r@ala.org.au")
+    # expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
+    #                    "scientificName", "taxonConceptID", "recordID",
+    #                    "dataResourceName", "stateProvince", "ZERO_COORDINATE")
     filters <- select_filters(year == seq(2018, 2020))
     cols <- select_columns(group = "basic", stateProvince, ZERO_COORDINATE)
     taxa <- select_taxa("Polytelis swainsonii")
@@ -56,7 +57,7 @@ test_that("ala_occurrences is deprecated", {
       filters = filters,
       columns = cols,
       locations = locations)
-    expect_setequal(names(occ), expected_cols)
+    expect_equal(names(occ)[c(4, 8, 9)], c("scientificName", "stateProvince", "ZERO_COORDINATE"))
     expect_equal(unique(occ$stateProvince), "New South Wales")
   })
 })
@@ -126,12 +127,10 @@ test_that("find_reasons is deprecated", {
 test_that("find_cached_files is deprecated", {
   local_edition(3)
   expect_snapshot({
-    # create some metadata
-    dir.create('tmp')
-    galah_config(caching = TRUE, cache_directory = 'tmp/')
+    galah_config(caching = TRUE)
     atlas_counts(group_by = galah_group_by(biome))
     expect_type(find_cached_files(), "list")
-    unlink('tmp', recursive = TRUE)
+    clear_cached_files()
     galah_config(caching = FALSE)
   })
 })
