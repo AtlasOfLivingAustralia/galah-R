@@ -13,7 +13,9 @@ select_taxa <- function(query, is_id = FALSE) {
   if(is_id){
     find_taxa(identifier = query)
   }else{
-    search_taxa.default(query = query) |> as.data.frame()
+    result <- search_taxa(query = query) |> as.data.frame()
+    class(result) <- append(class(result), "ala_id")
+    return(result)
   }
 }
 
@@ -198,7 +200,7 @@ find_cached_files <- function() {
   lifecycle::deprecate_warn("1.4.0", "find_cached_files()", 
                             "show_all_cached_files()")
   
-  show_all_cached_files() |> as.data.frame()
+  show_all_cached_files()
 }
 
 #' @description 
