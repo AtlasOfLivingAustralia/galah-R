@@ -48,8 +48,13 @@
 galah_select <- function(...,
                          group = c("basic", "event", "assertions")
                          ) {  
-  # check to see if any of the inputs are a data request
+
   dots <- enquos(..., .ignore_empty = "all")
+  
+  # Check whether user has quotes around selected fields
+  check_for_quotes(dots)
+  
+  # Check to see if any of the inputs are a data request
   if(length(dots) > 0){
     checked_dots <- detect_data_request(dots)
     if(!inherits(checked_dots, "quosures")){
@@ -110,4 +115,17 @@ preset_cols <- function(type) {
                              "samplingProtocol"),
                  "assertions" = search_fields(type = "assertions")$id)
   return(cols)
+}
+
+check_for_quotes <- function(dots) {
+  for (i in which(grepl("\"", dots))) {
+    quo <- dots[[i]]
+    expr <- quo_get_expr(quo)
+    bullets <- c(
+      "Argument of class `character` detected.",
+      i = glue("`galah_select` does not accept character strings as arguments. \\
+      Did you use `\"\"` around a field name?")
+    )
+    abort(bullets, call = caller_env())
+  }
 }
