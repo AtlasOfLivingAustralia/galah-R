@@ -11,6 +11,7 @@ galah_call(
   select = NULL,
   geolocate = NULL,
   group_by = NULL,
+  down_to = NULL,
   ...
 )
 

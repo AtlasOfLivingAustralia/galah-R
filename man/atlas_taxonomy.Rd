@@ -2,9 +2,15 @@
 % Please edit documentation in R/atlas_taxonomy.R
 \name{atlas_taxonomy}
 \alias{atlas_taxonomy}
+\alias{atlas_taxonomy.data_request}
+\alias{atlas_taxonomy.default}
 \title{Search taxonomic trees}
 \usage{
-atlas_taxonomy(taxa, down_to)
+atlas_taxonomy(...)
+
+\method{atlas_taxonomy}{data_request}(request, ...)
+
+\method{atlas_taxonomy}{default}(taxa, down_to)
 }
 \arguments{
 \item{taxa}{The identity of the clade for which a taxonomic

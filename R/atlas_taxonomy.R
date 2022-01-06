@@ -33,8 +33,24 @@
 #' atlas_taxonomy(search_taxa("chordata"), down_to = galah_down_to(class))
 #' 
 #' @export
+atlas_taxonomy <- function(...) {
+  UseMethod("atlas_taxonomy")
+}
 
-atlas_taxonomy <- function(taxa, down_to){
+#' @export
+#' @rdname atlas_taxonomy
+atlas_taxonomy.data_request <- function(request, ...) {
+  current_call <- update_galah_call(request, list(...)) 
+  # subset to only those arguments that can be accepted by atlas_counts
+  custom_call <- current_call[
+    names(current_call) %in% names(formals(atlas_taxonomy.default))
+    ]
+  do.call(atlas_taxonomy.default, custom_call)
+}
+
+#' @export
+#' @rdname atlas_taxonomy
+atlas_taxonomy.default <- function(taxa, down_to){
 
   if (getOption("galah_config")$atlas != "Australia") {
     international_atlas <- getOption("galah_config")$atlas
@@ -50,11 +66,19 @@ atlas_taxonomy <- function(taxa, down_to){
   if (missing(taxa)) {
     bullets <- c(
       "Argument `taxa` is missing, with no default.",
-      i = "Did you forget to specify a taxa?"
+      i = "Did you forget to specify a taxon?"
     )
     abort(bullets, call = caller_env())
     }
-  
+    
+  if (is.null(taxa)) {
+    bullets <- c(
+      "Argument `taxa` is missing, with no default.",
+      i = "Did you forget to specify a taxon?"
+    )
+    abort(bullets, call = caller_env())
+    }
+
   if(!inherits(taxa, "ala_id")){
     bullets <- c(
       "Argument `taxa` requires an object of class `ala_id`.",
@@ -82,6 +106,17 @@ atlas_taxonomy <- function(taxa, down_to){
       i = "See `?galah_down_to` for more information."
     )
     abort(bullets, call = caller_env())
+  }
+  if (is.null(down_to)) {
+    bullets <- c(
+      "Argument `down_to` is missing, with no default.",
+      i = "Did you forget to specify a taxonomic level?",
+      i = "See `?galah_down_to` for more information."
+    )
+    abort(bullets, call = caller_env())
+  }
+  if(inherits(down_to, "galah_down_to")){
+    down_to <- down_to$rank
   }
   assert_that(is.string(down_to)) # picks up NULL etc
   down_to <- tolower(down_to) 

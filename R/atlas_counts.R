@@ -57,9 +57,12 @@ atlas_counts <- function(...) {
 #' @export
 #' @rdname atlas_counts
 atlas_counts.data_request <- function(request, ...) {
-  current_call <- update_galah_call(request, list(...))
-  custom_call <- current_call[names(current_call) != "select"]
-  do.call(atlas_counts, custom_call)
+  current_call <- update_galah_call(request, list(...)) 
+  # subset to only those arguments that can be accepted by atlas_counts
+  custom_call <- current_call[
+    names(current_call) %in% names(formals(atlas_counts.default))
+    ]
+  do.call(atlas_counts.default, custom_call)
 }
 
 #' @export
