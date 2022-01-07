@@ -153,19 +153,10 @@ atlas_counts(group_by = galah_group_by(biome))
 ```
 
 
-We made this move towards tidy evaluation to eventually make it possible to use
+We made this move towards tidy evaluation to make it possible to use
  piping to create a query to the Atlas of Living Australia just like how you might 
- edit a `data.frame` with the `tidyverse`. We are not ready to add these changes, 
- but we imagine that getting the number of records, for example, could look 
- something like this in the future:
-
-```{r, eval = FALSE}
-galah_call() %>%
-  search_taxa("parameles") %>%
-  galah_filter(year == 2021) %>%
-  galah_group_by(species, year) %>%
-  atlas_counts()
-```
+ edit a `data.frame` with the `tidyverse`. To learn how, see the 
+ [Piping with `galah_call`] section.
 
 
 ## `search_taxa`
@@ -252,8 +243,39 @@ show_all_atlases()
 show_all_reasons()
 ```
 
+# Piping with `galah_call`
 
-## Deprecated syntax
+All of these syntax changes towards tidy evaluation now make it possible to use 
+pipes (i.e., `|>` or `%>%`) to build queries to the Atlas of Living Australia. 
+In order to use piping, you first use the `galah_call()` function. Let's look 
+at an example:
+
+```{r}
+galah_call() %>%
+  search_taxa("perameles") %>%
+  galah_filter(year == 2021) %>%
+  galah_group_by(species, year) %>%
+  atlas_counts()
+```
+This is equivalent to:
+
+```{r, eval = FALSE}
+atlas_counts(taxa = search_taxa("perameles"),
+             filter = galah_filter(year == 2001),
+             group_by = galah_group_by(species, year))
+```
+
+To begin building a query with piping, use `galah_call()` followed by your 
+preferred pipe (`|>` from `base` or `%>%` from `magrittr`) - be sure to add the 
+parentheses! Next, narrow your query with `galah_` functions or the 
+`search_taxa` function. Finally, end with an `atlas_` function to identify what 
+information you want from your query.  
+  
+Importantly, piping only works with revamped syntax. We hope that users who 
+prefer `tidyverse` syntax will find this change useful and exciting!
+
+
+# Deprecated syntax
 
 Old syntax will now return an error when used, suggesting the new syntax. 
 
@@ -261,4 +283,3 @@ New syntax are not fully decided on and can be changed in future versions of
 `galah`. We would appreciate any feedback from users about what works or what 
 doesn't work. It is our goal to create a package that is as easy and intuitive 
 for users as possible!
-

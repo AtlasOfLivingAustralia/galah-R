@@ -254,11 +254,29 @@ occ <- atlas_occurrences(taxa = search_taxa("Eolophus roseicapilla"),
                        filter = galah_filter(stateProvince == "Australian Capital Territory",
                                                 year >= 2010,
                                                 profile = "ALA"),
-                       select = galah_select("institutionID", group = "basic"))
+                       select = galah_select(institutionID, group = "basic"))
 ```
 
 ```{r}
 head(occ)
+```
+
+As of `galah` 1.4.0, you can also do the same as above with piping:
+```{r}
+library(magrittr)
+
+occ <-
+  galah_call() %>%
+  search_taxa("Eolophus roseicapilla") %>%
+  galah_filter(
+    stateProvince == "Australian Capital Territory",
+    year >= 2010,
+    profile = "ALA"
+  ) %>%
+  galah_select(institutionID, group = "basic") %>%
+  atlas_occurrences()
+  
+occ %>% head()
 ```
 
 ## Species data
@@ -276,6 +294,19 @@ species <- atlas_species(taxa = search_taxa("Rodentia"),
 head(species)
 ```
 
+As of `galah` 1.4.0 you can also do the same as above with piping:
+```{r}
+library(magrittr)
+
+species <-
+  galah_call() %>%
+  search_taxa("Rodentia") %>%
+  galah_filter(stateProvince == "Northern Territory") %>%
+  atlas_species()
+  
+species %>% head()
+```
+
 ## Record counts
 `atlas_counts()` provides summary counts on records in the ALA, without needing
 to download all the records. In addition to the filter arguments, it has an
@@ -287,6 +318,15 @@ atlas_counts()
 
 # Total number of records, broken down by kindgom
 atlas_counts(group_by = galah_group_by(kingdom))
+```
+
+As of `galah` 1.4.0 you can also do the same as above with piping:
+```{r warning = FALSE}
+library(magrittr)
+
+galah_call() %>%
+  galah_group_by(kingdom) %>%
+  atlas_counts()
 ```
 
 
@@ -302,6 +342,16 @@ media_data <- atlas_media(
      taxa = search_taxa("Eolophus roseicapilla"),
      filter = galah_filter(year == 2020),
      download_dir = "media")
+```
+
+As of `galah` 1.4.0 you can also do the same as above with piping:
+```{r warning=FALSE, message=FALSE, eval = FALSE}
+library(magrittr)
+
+media_data <- galah_call() %>%
+  search_taxa("Eolophus roseicapilla") %>%
+  galah_filter(year == 2020) %>%
+  atlas_media(download_dir = "media")
 ```
 
 
