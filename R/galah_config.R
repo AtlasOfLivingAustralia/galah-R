@@ -111,18 +111,21 @@ galah_config <- function(..., profile_path = NULL) {
   
   if (!is.null(profile_path)) {
     if (!file.exists(profile_path) || basename(profile_path) != ".Rprofile") {
-      stop("No .Rprofile file exists at '", profile_path,
-           "' . Please create the file and try again.")
+      bullets <- c(
+        glue("No .Rprofile file exists at \"{profile_path}\"."),
+        i = "Please create fhe file and try again."
+      )
+      abort(bullets, call = caller_env())
     }
     if (current_options$verbose) {
-      message("The config will be stored in ", profile_path)
+      inform(glue("The config will be stored in {profile_path}."))
     }
     save_config(profile_path, current_options)
     
   } else {
     if (current_options$verbose) {
-      msg <- "These configuration options will only be saved for this session.
-    Set `preserve = TRUE` to preserve them for future sessions."
+      msg <- inform("These configuration options will only be saved for this session.
+    Set `preserve = TRUE` to preserve them for future sessions.")
     }
   }
 }
@@ -131,8 +134,8 @@ galah_config <- function(..., profile_path = NULL) {
 
 save_config <- function(profile_path, new_options) {
   if (!file.exists(profile_path)) {
-    message(".Rprofile file doesn't exist yet. It will be created at ",
-            profile_path)
+    inform(glue(".Rprofile file doesn't exist yet. \\
+                It will be created at \"{profile_path}\"."))
     file.create(profile_path)
     existing_options <- list()
     old_profile <- ""
@@ -211,28 +214,49 @@ quoted_options <- function(opts) {
 validate_option <- function(name, value) {
   if (name %in% c("caching", "send_email", "verbose", "run_checks")) {
     if (!is.logical(value)) {
-      stop("\"", name, "\"", " must be TRUE or FALSE")
+      abort(glue("\"{name}\" must be TRUE or FALSE."), call = caller_env())
     }
   } else if (name == "cache_directory") {
     if (!dir.exists(value)) {
-      stop("Cache directory does not exist, please create it and try again.")
+      bullets <- c(
+        "Cache directory does not exist.",
+        i = "Does the directory entered exist?"
+      )
+      abort(bullets, call = caller_env())
     }
   } else if (name == "email") {
     if (!is.character(value)) {
-      stop("Email must be a string")
+      bullets <- c(
+        "Invalid email.",
+        i = "Email must be entered as a string."
+      )
+      abort(bullets, call = caller_env())
     }
   } else if (name == "download_reason_id") {
     if (!(value %in% show_all_reasons()$id)) {
-      stop("Download reason must be a valid reason id or name ",
-           "See `show_all_reasons()` for valid reasons.")
+      bullets <- c(
+        "Invalid download reason ID or name.",
+        i = "Use `show_all_reasons()` to see all valid reasons.",
+        x = glue("{value} does not match an existing reason ID.")
+      )
+      abort(bullets, call = caller_env())
     }
   } else if (name == "atlas") {
     if (!value %in% show_all_atlases()$atlas) {
-      stop("Atlas must be one of ",
-           paste(show_all_atlases()$atlas, collapse = ", "))
+      bullets <- c(
+        "Unsupported atlas provided.",
+        i = glue("Use `show_all_atlases()` to see supported atlases."),
+        x = glue("\"{value}\" is not a valid atlas.")
+      )
+      abort(bullets, call = caller_env())
     }
   } else {
-    stop("\"", name, "\"", "is not a valid option name.")
+    bullets <- c(
+      "Invalid option name.",
+      i = "See `?galah_config()` for valid options.",
+      x = glue("\"{name}\" is not a valid option name.")
+    )
+    abort(bullets, call = caller_env())
   }
 }
 
@@ -245,8 +269,12 @@ convert_reason <- function(reason) {
       reason <- valid_reasons$id[valid_reasons$name == reason]
     },
     error = function(e) {
-      stop("could not match download_reason_id string \"", reason,
-           "\" to valid reason id: see show_all_reasons() for valid reasons")
+      bullets <- c(
+        "Invalid reason provided to `download_reason_id`.",
+        i = "Use `show_all_reasons()` to see list of valid reasons.",
+        x = glue("Couldn't match \"{reason}\" to a valid reason ID.")
+      )
+      abort(bullets, call = caller_env())
     })
   }
   reason

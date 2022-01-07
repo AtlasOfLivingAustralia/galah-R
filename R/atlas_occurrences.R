@@ -294,7 +294,7 @@ email_notify <- function() {
   ifelse(notify, "true", "false")
 }
 
-user_email <- function() {
+user_email <- function(error_call = rlang::caller_env()) {
   email <- getOption("galah_config")$email
   if (email == "") {
     email <- Sys.getenv("email")
@@ -302,10 +302,10 @@ user_email <- function() {
   if (email == "") {
     bullets <- c(
       "No user email was found.",
-      i = glue::glue("To download occurrence records you must provide a valid email ",
+      i = glue("To download occurrence records you must provide a valid email ",
                      "address registered with the ALA using `galah_config(email = )`")
     )
-    rlang::abort(bullets, call = rlang::caller_env())
+    abort(bullets, call = error_call)
   }
   email
 }
@@ -316,7 +316,7 @@ occ_error_handler <- function(code, error_call = rlang::caller_env()) {
       "Status code 403 was returned.",
       i = glue::glue("Is the email you provided to `galah_config()` registered with the ALA?")
     )
-    rlang::inform(bullets, call = error_call)
+    rlang::inform(bullets)
   #   stop("Status code 403 was returned for this occurrence download request. This may be because
   # the email you provided is not registered with the ALA. Please check and try again.")
   }
