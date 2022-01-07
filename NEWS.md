@@ -12,16 +12,21 @@
 
 * Group fields using `atlas_counts(group_by = galah_group_by())` which groups and summarises record counts based on groupings, similar to `dplyr::group_by` (#90)
 
+### Pipe queries using `galah_call`
+
+* Build data queries using piping syntax (i.e., `|>`, `%>%`) by first using `galah_call()`, narrowing queries with `galah_` functions and `search_taxa`, and finishing with an `atlas_` function (#120)
+
 ### Minor improvements
 
 * Improved error messages using {glue} and {rlang} (#117)
+* Revamped syntax functions return output as tibbles (#110, #118)
 * Pass vectors to `galah_filter` (#91, #92)
 * Cache valid fields for faster field look up (#73)
 * New vignettes for updated syntax (#104, #105)
 
 ### Bug fixes
 
-* galah no longer returns error when ALA system is down (#102)
+* galah no longer returns error when ALA system is down (#102, #119)
 * `search_taxa` returns correct IDs for search terms with parentheses (#96)
 
 
