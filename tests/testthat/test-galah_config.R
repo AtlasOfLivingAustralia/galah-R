@@ -24,7 +24,7 @@ test_that("galah_config checks inputs", {
   expect_error(galah_config(cache_directory = "non/existent/dir"))
   expect_error(galah_config(bad_option = "value"))
   expect_error(galah_config(atlas = "world"))
-  expect_silent(galah_config(atlas = "Australia"))
+  expect_silent(galah_config(verbose = FALSE, atlas = "Australia"))
   expect_error(galah_config(run_checks = "value"))
   expect_silent(galah_config(run_checks = TRUE))
 })
