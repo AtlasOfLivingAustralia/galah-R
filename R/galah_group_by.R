@@ -56,7 +56,10 @@ galah_group_by <- function(..., expand = TRUE){
   
   # if there are any arguments provided, parse them
   if(length(dots) > 0){
-    provided_variables <- unlist(lapply(dots, as_label))
+    provided_variables <- dequote(unlist(lapply(dots, as_label)))
+    if (getOption("galah_config")$run_checks){
+      validate_fields(provided_variables)
+    } 
     available_variables <- provided_variables[provided_variables %in% show_all_fields()$id]
     if(length(available_variables) > 0){
       df <- tibble(name = available_variables)
@@ -64,10 +67,17 @@ galah_group_by <- function(..., expand = TRUE){
       class(df) <- append(class(df), "galah_group_by")
       attr(df, "expand") <- expand
     }else{
-      df <- set_galah_object_class(class = "galah_group_by")
+      df <- tibble(name = "name", type = "type", .rows = 0)
+      df <- set_galah_object_class(df, class = "galah_group_by")
+      attr(df, "expand") <- expand
+      df
     }
   }else{
-    df <- set_galah_object_class(class = "galah_group_by")
+    df <- tibble(name = "name", type = "type", .rows = 0)
+    df <- tibble(name = "name", type = "type", .rows = 0)
+    df <- set_galah_object_class(df, class = "galah_group_by")
+    attr(df, "expand") <- expand
+    df
   }
  
   # if a data request was supplied, return one

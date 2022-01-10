@@ -1,7 +1,7 @@
 context("Test atlas_counts")
 
 test_that("atlas_counts checks group_by field", {
-  expect_error(atlas_counts(group_by = "invalid"))
+  expect_warning(atlas_counts(group_by = "invalid"))
 })
 
 

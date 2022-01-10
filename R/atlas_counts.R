@@ -78,6 +78,17 @@ atlas_counts.default <- function(taxa = NULL,
   type <- match.arg(type)
   verbose <- getOption("galah_config")$verbose
 
+  # if `group_by` is as a vector
+  if(!is.null(group_by)){
+    if(!inherits(group_by, "galah_group_by")){
+      group_by <- galah_group_by(group_by)
+    }
+    if(nrow(group_by) < 1){
+      group_by <- NULL
+    }
+  }
+    
+  # set options if group_by = NULL
   if(is.null(group_by)) {
     query <- list()
     profile <- extract_profile(filter)
@@ -98,13 +109,7 @@ atlas_counts.default <- function(taxa = NULL,
     return(tibble(count = result))
   }                  
   
-  # if `groups` is as a vector
-  if(!inherits(group_by, "galah_group_by")){
-    group_by <- galah_group_by(group_by, expand = FALSE)
-    if (getOption("galah_config")$run_checks) validate_fields(group_by$name)
-  }
-  
-  # if all combinations of levels of `groups` are needed (expand = TRUE)
+  # if all combinations of levels of `group_by` are needed (expand = TRUE)
   if(attr(group_by, "expand") & nrow(group_by) > 1){ 
     
     # get counts given the filter provided by the user
