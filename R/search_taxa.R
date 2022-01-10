@@ -49,6 +49,13 @@ search_taxa <- function(...) {
   # check to see if any of the inputs are a data request
   dots <- enquos(..., .ignore_empty = "all")
   checked_dots <- detect_data_request(dots)
+  
+  # check for invalid options
+  user_options <- list(...)
+  for (x in names(user_options)) {
+    check_for_invalid_options(x, user_options[[x]])
+  }
+  
   if(!inherits(checked_dots, "quosures")){
     is_data_request <- TRUE
     data_request <- checked_dots[[1]]
@@ -150,7 +157,7 @@ name_lookup <- function(name) {
   if (isFALSE(result$success) && galah_config()$verbose) {
     list_invalid_taxa <- glue::glue_collapse(name, 
                                              sep = ", ")
-    warn(glue::glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
+    inform(glue::glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
     return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
   }
   names(result) <- rename_columns(names(result), type = "taxa")
@@ -164,6 +171,16 @@ name_lookup <- function(name) {
                       stringsAsFactors = FALSE))
 }
 
+check_for_invalid_options <- function(name, value) {
+  if(name == "children") {
+    bullets <- c(
+      "Invalid option entered for `search_taxa`.",
+      i = "See `?search_taxa` for more information.",
+      x = glue("\"{name}\" is not a valid option")
+    )
+    abort(bullets, call = caller_env())
+  }
+}
 
 # make sure rank provided is in accepted list
 validate_rank <- function(df) { 
