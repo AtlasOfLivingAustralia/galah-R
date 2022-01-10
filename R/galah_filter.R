@@ -73,7 +73,16 @@
 #' galah_filter(cl22 >= "Tasmania")
 #' # queries all Australian States & Territories alphabetically after "Tasmania"
 #' 
-#' @importFrom rlang enquos as_label get_env quo_get_expr eval_tidy new_quosure abort caller_env parse_expr
+#' @importFrom rlang abort
+#' @importFrom rlang as_label  
+#' @importFrom rlang caller_env         
+#' @importFrom rlang enquos
+#' @importFrom rlang eval_tidy
+#' @importFrom rlang have_name
+#' @importFrom rlang get_env
+#' @importFrom rlang new_quosure
+#' @importFrom rlang parse_expr
+#' @importFrom rlang quo_get_expr
 #' @export
 
 # TODO: provide a useful error message for bad queries e.g. galah_filter(year == 2010 | 2021)
@@ -131,7 +140,7 @@ galah_filter <- function(..., profile = NULL){
 
 # stop function to enforce new syntax, based on `dplyr` syntax
 check_filter <- function(dots, error_call = caller_env()) {
-  named <- rlang::have_name(dots)
+  named <- have_name(dots)
   
   for (i in which(named)) {
     quo <- dots[[i]]

@@ -49,13 +49,6 @@ search_taxa <- function(...) {
   # check to see if any of the inputs are a data request
   dots <- enquos(..., .ignore_empty = "all")
   checked_dots <- detect_data_request(dots)
-  
-  # check for invalid options
-  user_options <- list(...)
-  for (x in names(user_options)) {
-    check_for_invalid_options(x, user_options[[x]])
-  }
-  
   if(!inherits(checked_dots, "quosures")){
     is_data_request <- TRUE
     data_request <- checked_dots[[1]]
@@ -64,18 +57,23 @@ search_taxa <- function(...) {
     is_data_request <- FALSE
   }
   
+  # check for missing queries
   if(length(dots) < 1){
     bullets <- c(
-      "Argument `query` is missing, with no default.",
+      "Query is missing, with no default.",
       i = "`search_taxa` requires a query to search for."
     )
     abort(bullets, call = caller_env())
   }
+  # # capture named inputs
+  check_queries(dots)
   
   # convert dots to query
   query <- parse_basic_quosures(dots)
    
-  if (is.list(query) && length(names(query)) > 0 ) {
+  if (is.list(query)
+  # && length(names(query)) > 0 
+  ) {
     query <- as.data.frame(query) # convert to dataframe for simplicity
   }
   
@@ -99,6 +97,28 @@ search_taxa <- function(...) {
       matches
     }   
   } 
+}
+
+
+# checker function based on `galah_filter.R/check_filters`
+check_queries <- function(dots, error_call = caller_env()) {
+  if(any(have_name(dots))){
+    if(any(names(dots) == "children")){  # formerly an option under `select_taxa`   
+      bullets <- c(
+        "Invalid option entered for `search_taxa`.",
+        i = "See `?search_taxa` for more information.",
+        x = "`children` is not a valid option"
+      )
+      abort(bullets, call = error_call)     
+    }else{
+      bullets <- c(
+        "We detected a named input.",
+        i = glue::glue("This usually means that you've used `=` somewhere"),
+        i = glue::glue("`search_taxa` doesn't require equations")
+      )
+      abort(bullets, call = error_call)
+    }
+  }
 }
 
 
@@ -171,16 +191,6 @@ name_lookup <- function(name) {
                       stringsAsFactors = FALSE))
 }
 
-check_for_invalid_options <- function(name, value) {
-  if(name == "children") {
-    bullets <- c(
-      "Invalid option entered for `search_taxa`.",
-      i = "See `?search_taxa` for more information.",
-      x = glue("\"{name}\" is not a valid option")
-    )
-    abort(bullets, call = caller_env())
-  }
-}
 
 # make sure rank provided is in accepted list
 validate_rank <- function(df) { 

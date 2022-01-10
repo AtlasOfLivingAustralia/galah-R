@@ -2,7 +2,7 @@ context("Taxa search")
 
 test_that("search_taxa checks inputs", {
   expect_error(search_taxa())
-  expect_error(search_taxa("Varanus varius", children = "false"))
+  expect_error(search_taxa("Varanus varius", children = "false")) 
 })
 
 test_that("search_taxa check atlas", {
@@ -74,7 +74,7 @@ test_that("find_taxa searches using identifier", {
 vcr::use_cassette("find_taxa_invalid", {
   test_that("find_taxa gives a message for invalid ids", {
     galah_config(verbose = TRUE)
-    expect_message(find_taxa("1234"))
+    expect_warning(find_taxa("1234"))
     galah_config(verbose = FALSE)
   })
 })
