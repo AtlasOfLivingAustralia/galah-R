@@ -213,7 +213,8 @@ is_function_check <- function(dots){ # where x is a list of strings
 
 is_object_check <- function(dots){
   unlist(lapply(dots, function(a){
-    exists(x = dequote(as_label(a)), envir = get_env(a))
+    exists(x = dequote(as_label(a)), envir = get_env(a)) &
+    !exists(x = dequote(as_label(a)), envir = get_env(a), mode = "function")
   }))
 }
 
