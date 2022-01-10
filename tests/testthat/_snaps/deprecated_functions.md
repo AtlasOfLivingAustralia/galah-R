@@ -55,6 +55,10 @@
 
     Code
       galah_config(email = "ala4r@ala.org.au")
+    Message <message>
+      These configuration options will only be saved for this session.
+          Set `preserve = TRUE` to preserve them for future sessions.
+    Code
       filters <- select_filters(year == seq(2018, 2020))
       cols <- select_columns(group = "basic", stateProvince, ZERO_COORDINATE)
       taxa <- select_taxa("Polytelis swainsonii")
@@ -133,33 +137,6 @@
       Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
     Code
       expect_equal(nrow(deprecated), 13)
-
-# find_cached_files is deprecated
-
-    Code
-      galah_config(caching = TRUE)
-      atlas_counts(group_by = galah_group_by(biome))
-    Output
-      # A tibble: 2 x 2
-        biome          count
-        <chr>          <int>
-      1 TERRESTRIAL 93288002
-      2 MARINE       3504573
-    Code
-      expect_type(find_cached_files(), "list")
-    Warning <lifecycle_warning_deprecated>
-      `find_cached_files()` was deprecated in galah 1.4.0.
-      Please use `show_all_cached_files()` instead.
-      This warning is displayed once every 8 hours.
-      Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
-    Code
-      clear_cached_files()
-    Message <message>
-      Cache filtes deleted: 
-      
-      C:\Users\KEL329\AppData\Local\Temp\Rtmpikjuto\f1512f804177b9da33bef0c4b6ea14d5.rds
-    Code
-      galah_config(caching = FALSE)
 
 # find_ranks is deprecated
 

@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Tue, 04 Jan 2022 01:11:01 GMT
+      date: Mon, 10 Jan 2022 21:36:43 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -32,9 +32,9 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":37315742,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":37317811,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{},"activeFacetObj":{}}'
-  recorded_at: 2022-01-04 01:11:04 GMT
+  recorded_at: 2022-01-10 21:36:46 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -53,7 +53,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Tue, 04 Jan 2022 01:11:01 GMT
+      date: Mon, 10 Jan 2022 21:36:44 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -371,7 +371,7 @@ http_interactions:
         associated with a record","downloadName":"videos"},{"name":"water_body","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Water
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody","dwcTerm":"waterBody","downloadName":"water_body","classs":"Location"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"The
         year in which an occurrence was observed. http://rs.tdwg.org/dwc/terms/year","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2022-01-04 01:11:04 GMT
+  recorded_at: 2022-01-10 21:36:46 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -390,7 +390,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Tue, 04 Jan 2022 01:11:04 GMT
+      date: Mon, 10 Jan 2022 21:36:46 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -406,6 +406,6 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2007","i18nCode":"year.2007","count":1311771,"fq":"year:\"2007\""},{"label":"2019","i18nCode":"year.2019","count":917544,"fq":"year:\"2019\""},{"label":"2015","i18nCode":"year.2015","count":898585,"fq":"year:\"2015\""},{"label":"2006","i18nCode":"year.2006","count":837685,"fq":"year:\"2006\""},{"label":"2018","i18nCode":"year.2018","count":833872,"fq":"year:\"2018\""},{"label":"2011","i18nCode":"year.2011","count":830467,"fq":"year:\"2011\""},{"label":"2010","i18nCode":"year.2010","count":819208,"fq":"year:\"2010\""},{"label":"2016","i18nCode":"year.2016","count":816637,"fq":"year:\"2016\""},{"label":"2009","i18nCode":"year.2009","count":764339,"fq":"year:\"2009\""},{"label":"2014","i18nCode":"year.2014","count":761017,"fq":"year:\"2014\""},{"label":"2017","i18nCode":"year.2017","count":755564,"fq":"year:\"2017\""},{"label":"2005","i18nCode":"year.2005","count":730038,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":713373,"fq":"year:\"2004\""},{"label":"2012","i18nCode":"year.2012","count":696028,"fq":"year:\"2012\""},{"label":"2008","i18nCode":"year.2008","count":665044,"fq":"year:\"2008\""},{"label":"2003","i18nCode":"year.2003","count":635820,"fq":"year:\"2003\""},{"label":"2013","i18nCode":"year.2013","count":625358,"fq":"year:\"2013\""},{"label":"2000","i18nCode":"year.2000","count":603522,"fq":"year:\"2000\""},{"label":"2002","i18nCode":"year.2002","count":598935,"fq":"year:\"2002\""},{"label":"2001","i18nCode":"year.2001","count":547795,"fq":"year:\"2001\""}],"count":314}]'
-  recorded_at: 2022-01-04 01:11:04 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2007","i18nCode":"year.2007","count":1311849,"fq":"year:\"2007\""},{"label":"2019","i18nCode":"year.2019","count":917647,"fq":"year:\"2019\""},{"label":"2015","i18nCode":"year.2015","count":898659,"fq":"year:\"2015\""},{"label":"2006","i18nCode":"year.2006","count":837795,"fq":"year:\"2006\""},{"label":"2018","i18nCode":"year.2018","count":833886,"fq":"year:\"2018\""},{"label":"2011","i18nCode":"year.2011","count":830565,"fq":"year:\"2011\""},{"label":"2010","i18nCode":"year.2010","count":819366,"fq":"year:\"2010\""},{"label":"2016","i18nCode":"year.2016","count":816651,"fq":"year:\"2016\""},{"label":"2009","i18nCode":"year.2009","count":764410,"fq":"year:\"2009\""},{"label":"2014","i18nCode":"year.2014","count":761093,"fq":"year:\"2014\""},{"label":"2017","i18nCode":"year.2017","count":755580,"fq":"year:\"2017\""},{"label":"2005","i18nCode":"year.2005","count":730170,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":713432,"fq":"year:\"2004\""},{"label":"2012","i18nCode":"year.2012","count":696108,"fq":"year:\"2012\""},{"label":"2008","i18nCode":"year.2008","count":665302,"fq":"year:\"2008\""},{"label":"2003","i18nCode":"year.2003","count":635826,"fq":"year:\"2003\""},{"label":"2013","i18nCode":"year.2013","count":625451,"fq":"year:\"2013\""},{"label":"2000","i18nCode":"year.2000","count":603598,"fq":"year:\"2000\""},{"label":"2002","i18nCode":"year.2002","count":598953,"fq":"year:\"2002\""},{"label":"2001","i18nCode":"year.2001","count":547797,"fq":"year:\"2001\""}],"count":314}]'
+  recorded_at: 2022-01-10 21:36:46 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

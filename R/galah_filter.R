@@ -152,8 +152,8 @@ check_filter <- function(dots, error_call = caller_env()) {
       name <- names(dots)[i]
       bullets <- c(
         "We detected a named input.",
-        i = glue::glue("This usually means that you've used `=` instead of `==`."),
-        i = glue::glue("Did you mean `{name} == {as_label(expr)}`?")
+        i = glue("This usually means that you've used `=` instead of `==`."),
+        i = glue("Did you mean `{name} == {as_label(expr)}`?")
       )
       abort(bullets, call = error_call)
     }   
@@ -408,8 +408,8 @@ apply_profiles <- function(profile, named_filters, error_call = caller_env()) {
     if (is.null(short_name) || is.na(short_name)) {
       bullets <- c(
         "Profile must be a valid name, short name, or data quality ID.",
-        i = glue::glue("Use `find_profiles()` to list valid profiles"),
-        x = glue::glue("'{profile}' is not recognised.")
+        i = glue("Use `find_profiles()` to list valid profiles"),
+        x = glue("'{profile}' is not recognised.")
       )
       abort(bullets, call = error_call)
     }

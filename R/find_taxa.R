@@ -29,7 +29,7 @@ find_taxa <- function(identifier) {
     international_atlas <- getOption("galah_config")$atlas
     bullets <- c(
       "`find_taxa` only provides information on Australian taxonomy.",
-      i = glue::glue("To search taxonomy for {international_atlas} use `taxsize`."),
+      i = glue("To search taxonomy for {international_atlas} use `taxsize`."),
       i = "See vignette('international_atlases' for more information."
     )
     abort(bullets, call = caller_env())
@@ -68,7 +68,7 @@ identifier_lookup <- function(identifier) {
   if (isFALSE(result$success) && result$issues == "noMatch" && galah_config()$verbose) {
     list_invalid_taxa <- glue::glue_collapse(identifier, 
                                              sep = ", ")
-    warn(glue::glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
+    warn(glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
   }
   names(result) <- rename_columns(names(result), type = "taxa")
   result[names(result) %in% wanted_columns("taxa")]

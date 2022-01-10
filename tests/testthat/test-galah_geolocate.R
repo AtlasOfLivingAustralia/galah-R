@@ -4,9 +4,10 @@ test_that("galah_geolocate checks inputs", {
   skip_on_cran()
   poly_path <- "../testdata/act_state_polygon_shp/ACT_STATE_POLYGON_shp.shp"
   expect_error(
-    galah_geolocate(st_read(poly_path),
-                 readLines("../testdata/short_act_wkt.txt")))
-  expect_error(galah_geolocate(st_read(poly_path)))
+    galah_geolocate(
+      st_read(poly_path, quiet = TRUE),
+      readLines("../testdata/short_act_wkt.txt")))
+  expect_error(galah_geolocate(st_read(poly_path, quiet = TRUE)))
   expect_error(galah_geolocate(readLines("../testdata/long_act_wkt.txt")))
 })
 

@@ -39,7 +39,7 @@ server_config <- function(url) {
   }
   if (!(url %in% names(conf))) {
     service <- service_name(url)
-    abort("{service} is not supported for the {atlas} atlas.", call = caller_env())
+    abort(glue("{service} is not supported for the {atlas} atlas."), call = caller_env())
   }
   return(conf[[url]])
 }

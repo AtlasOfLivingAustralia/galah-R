@@ -254,7 +254,7 @@ check_count <- function(count) {
     abort(bullets, call = caller_env())
   } else {
     if (getOption("galah_config")$verbose) {
-      inform(glue::glue("This query will return {count} records"), call = caller_env())
+      inform(glue("This query will return {count} records"), call = caller_env())
       }
   }
 }
@@ -314,7 +314,7 @@ occ_error_handler <- function(code, error_call = rlang::caller_env()) {
   if (code == 403) {
     bullets <- c(
       "Status code 403 was returned.",
-      i = glue::glue("Is the email you provided to `galah_config()` registered with the ALA?")
+      i = glue("Is the email you provided to `galah_config()` registered with the ALA?")
     )
     rlang::inform(bullets)
   #   stop("Status code 403 was returned for this occurrence download request. This may be because

@@ -258,7 +258,7 @@ atlas_counts_internal <- function(taxa = NULL,
 
   if (sum(total_cats) > limit & galah_config()$verbose) {
     bullets <- c(
-      glue::glue("This field has {total_cats} values. {limit} will be returned."),
+      glue("This field has {total_cats} values. {limit} will be returned."),
       i = "Increase `limit` to return more values, or decrease `limit` to return fewer."
     )
     inform(bullets) 
@@ -338,7 +338,7 @@ species_count <- function(query) {
 validate_facet <- function(facet) {
   if (!all(facet %in% c(search_fields()$id, all_fields()$name))) {
     bullets <- c(
-      glue::glue("\"{facet}\" is not a valid field."),
+      glue("\"{facet}\" is not a valid field."),
       i = "Use `show_all_fields()` to get a list of all valid options.",
       i = "Use `search_fields()` to search for the valid name of a specific field."
     )

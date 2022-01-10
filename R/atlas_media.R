@@ -82,7 +82,7 @@ atlas_media.default <- function(taxa = NULL,
     international_atlas <- getOption("galah_config")$atlas
     bullets <- c(
       "`atlas_taxonomy` only provides information on Australian taxonomy.",
-      i = glue::glue("To search taxonomy for {international_atlas} use `taxsize`."),
+      i = glue("To search taxonomy for {international_atlas} use `taxsize`."),
       i = "See vignette('international_atlases' for more information."
     )
     abort(bullets, call = caller_env())

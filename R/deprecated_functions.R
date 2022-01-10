@@ -13,7 +13,7 @@ select_taxa <- function(query, is_id = FALSE) {
   if(is_id){
     find_taxa(identifier = query)
   }else{
-    result <- search_taxa(query = query) |> as.data.frame()
+    result <- search_taxa(query) |> as.data.frame()
     class(result) <- append(class(result), "ala_id")
     return(result)
   }

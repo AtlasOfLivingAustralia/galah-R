@@ -40,7 +40,7 @@ search_taxa <- function(...) {
     international_atlas <- getOption("galah_config")$atlas
     bullets <- c(
       "`search_taxa` only provides information on Australian taxonomy.",
-      i = glue::glue("To search taxonomy for {international_atlas} use `taxsize`."),
+      i = glue("To search taxonomy for {international_atlas} use `taxsize`."),
       i = "See vignette('international_atlases' for more information."
     )
     abort(bullets, call = caller_env())
@@ -113,8 +113,8 @@ check_queries <- function(dots, error_call = caller_env()) {
     }else{
       bullets <- c(
         "We detected a named input.",
-        i = glue::glue("This usually means that you've used `=` somewhere"),
-        i = glue::glue("`search_taxa` doesn't require equations")
+        i = glue("This usually means that you've used `=` somewhere"),
+        i = glue("`search_taxa` doesn't require equations")
       )
       abort(bullets, call = error_call)
     }
@@ -177,7 +177,7 @@ name_lookup <- function(name) {
   if (isFALSE(result$success) && galah_config()$verbose) {
     list_invalid_taxa <- glue::glue_collapse(name, 
                                              sep = ", ")
-    inform(glue::glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
+    inform(glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
     return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
   }
   names(result) <- rename_columns(names(result), type = "taxa")

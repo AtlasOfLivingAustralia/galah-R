@@ -54,7 +54,7 @@ atlas_taxonomy.default <- function(taxa, down_to){
     international_atlas <- getOption("galah_config")$atlas
     bullets <- c(
       "`atlas_taxonomy` only provides information on Australian taxonomy.",
-      i = glue::glue("To search taxonomy for {international_atlas} use `taxsize`."),
+      i = glue("To search taxonomy for {international_atlas} use `taxsize`."),
       i = "See vignette('international_atlases' for more information."
     )
     abort(bullets, call = caller_env())
@@ -91,7 +91,7 @@ atlas_taxonomy.default <- function(taxa, down_to){
     bullets <- c(
       "Can't provide tree more than one taxon to start with.",
       i = "atlas_taxonomy` only accepts a single taxon at a time.",
-      x = glue::glue("`taxa` has length of {number_of_taxa}.")
+      x = glue("`taxa` has length of {number_of_taxa}.")
     )
     abort(bullets, call = caller_env())
   }
@@ -122,7 +122,7 @@ atlas_taxonomy.default <- function(taxa, down_to){
     bullets <- c(
       "Invalid taxonomic rank provided.",
       i = "The rank provided to `down_to` must be a valid taxonomic rank.",
-      x = glue::glue("{down_to} is not a valid rank.")
+      x = glue("{down_to} is not a valid rank.")
     )
     abort(bullets, call = caller_env())
   }

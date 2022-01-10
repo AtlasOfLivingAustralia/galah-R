@@ -9,7 +9,7 @@ vcr::use_cassette("atlas_occurrences_no_filters", {
 test_that("atlas_occurrences gives a nice error for invalid emails", {
   skip_on_cran()
   galah_config(email = "test@test.org.au")
-  expect_error(atlas_occurrences(taxa = search_taxa("Thylacinus cynocephalus")))
+  expect_message(atlas_occurrences(taxa = search_taxa("Thylacinus cynocephalus")))
   galah_config(email = "test@test.org.au")
 })
 
