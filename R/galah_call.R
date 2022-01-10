@@ -101,7 +101,12 @@ print.data_request <- function(object){
 # whether a quosure list contains an object of class `data_request`
 # as its' first argument
 detect_data_request <- function(dots){
-  is_either <- (is_function_check(dots) | is_object_check(dots))[[1]]
+  is_either <- (is_function_check(dots) | is_object_check(dots))
+  if(length(is_either) < 1){
+    is_either <- FALSE
+  }else{
+    is_either <- is_either[[1]]
+  }
   if(is_either){
     eval_result <- try({eval_tidy(dots[[1]])}, silent = TRUE)
     if(inherits(eval_result, "try-error")){
