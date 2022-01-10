@@ -24,19 +24,28 @@ the basic unit of data at ALA is an **occurrence** record, based on the
 ['Darwin Core'](https://dwc.tdwg.org) data standard.
 
 `galah` enables users to locate and download species observations, taxonomic
-information, or associated media such images or sounds, and to restrict their
-queries to particular taxa or locations. Users can specify which columns are
-returned by a query, or restrict their results to observations that meet
-particular quality-control criteria. All functions return a `data.frame` as
-their standard format.
+information, record counts, or associated media such as images or sounds. Users 
+can restrict their queries to particular taxa or locations by specifying which 
+columns and rows are returned by a query, or by restricting their results to 
+observations that meet particular quality-control criteria. All functions 
+return a `tibble` as their standard format.
 
 Functions in `galah` are designed according to a nested architecture. Users
-that require data should begin by locating the relevant `atlas_` function (see
-[downloading data section](#downloading-data)); the arguments within that
-function then call correspondingly-named [`galah_` functions](#filtering-data);
-and finally the specific values that can be interpreted by those `galah_`
-functions are given by `search_`, `show_all_`, or `find_` functions. The
-relationships between these functions are as follows:
+that require data should begin by locating the relevant `atlas_` function, 
+which determines the type of data that will be downloaded 
+(see [downloading data section](#Download-data)). 
+Users can then filter their data queries with filtering functions like 
+`search_taxa` and the [`galah_` functions](#Filter-data). The specific fields 
+and values that users can filter their data by can be found using `show_all_`, or 
+`find_` functions. 
+
+This nested architecture allows a method of step-by-step filtering prior to 
+downloading data. To make this easier, as of `galah` 1.4.0, 
+data queries can also be built using piping syntax (e.g., `%>%` or `|>`) by first 
+using the `galah_call()` function (see the `vignette("taxonomic_information")`). 
+
+For a better view of the relationships between functions in `galah`, here is a 
+diagram of how they all link together:
 
 
 ```{r, eval = FALSE, echo = FALSE}
@@ -122,70 +131,83 @@ library(galah)
 galah_config(atlas = "Australia") # This is the default atlas
 ```
 
-# Filtering data
+# Filter data queries
 
-Each occurrence record contains taxonomic information, and also some
-information about the observation itself, such as its location and the date
-of the observation. Each piece of information associated with a
-given occurrence is stored in a **field**,  which corresponds to a **column**
-when imported to a `data.frame`.
+Each occurrence record contains taxonomic information and 
+information about the observation itself, like its location and the date
+of observation. These pieces of information are recorded and categorised into 
+respective **fields**. When you import a `data.frame`, **columns** of the 
+`data.frame` correspond to these **fields**.
 
 Data fields are important because they provide a means to *filter*
 occurrence records;  i.e. to return only the information that you need, and
 no more. Consequently, much of the architecture of `galah` has been
-designed to make filtering as simple as possible, by using functions with the
-`galah_` prefix.
+designed to make filtering as simple as possible. Let's look at some of ways 
+you can filter data requests in `galah`.
 
 ## Taxonomic filtering
-`search_taxa()` enables users search for taxonomic names and check the results
-are 'correct' before using the result to download data.
-The function allows both free-text searches and searches where the rank(s) are
-specified. Specifying the rank can be useful when names are ambiguous.
+`search_taxa()` enables users to search for taxonomic names, check that the results
+are 'correct', and use their results to download data.
+The function allows both free-text searches and searches that specify by rank(s). 
+Specifying additional ranks in a `data.frame` or `tibble` can be useful when 
+names are ambiguous.
 ```{r}
-# free text search
-taxa_filter <- search_taxa("Eolophus")
+# Free-text search
+taxa <- search_taxa("Eolophus")
 
-# specifying ranks
-search_taxa(query = list(genus = "Eolophus", kingdom = "Aves"))
+# Search specifying ranks
+search_taxa(query = data.frame(genus = "Eolophus", kingdom = "Aves"))
 ```
 
-For more detailed taxonomic information use `search_taxonomy()`, as outlined in 
-`vignette("taxonomic_information")`
+For more detailed taxonomic information, you can also use `atlas_taxonomy()`, 
+as outlined in `vignette("taxonomic_information")`
 
-## Location-based filtering
-Users can provide an `sf` object or a Well-Known Text (WKT) string for
-location-based filtering.
-```{r eval = FALSE}
-locations <- galah_geolocate(query = st_read('act_rect.shp'))
+
+## Field-based filtering
+All occurrence records in the ALA contain additional
+information about each record, stored in **fields**.  
+  
+Narrow searches by filtering rows with `galah_filter()`.
+```{r}
+filter <- galah_filter(basisOfRecord == "HumanObservation")
 ```
 
-## Field based filtering
-As mentioned above, all occurrence records in the ALA contain additional
-information about the record, stored in **fields**. Field-based filters are
-specified with `galah_filter()`, which takes individual filters, in the form
-`field logical value`, and/or a [data quality profile](#data-quality-profiles).
+It is also possible to pass other kinds of logical statements to
+`galah_filter`.
+```{r}
+filter <- galah_filter(basisOfRecord == "HumanObservation",
+                       year >= 2010,
+                       occurrenceStatus != "absent")
+```
 
-To find available fields and corresponding valid values, field lookup 
-functions are provided. For finding field names, use `search_fields()`, for
-finding valid field values, use `find_field_values()`.
+Narrow searches by filtering columns with `galah_select`.
+```{r}
+select <- galah_select(year, eventDate, group = "basic")
+```
+
+It is also possible to use helper functions from `dplyr::select` with 
+`galah_select`.
+```{r}
+select <- galah_select(starts_with("el") & ends_with("on"))
+```
+
+When downloading summary data (like in `atlas_counts`), group data with 
+`galah_group_by`.
+```{r}
+group_by <- galah_group_by(year, species)
+```
+
+### Find valid fields
+To find available fields and corresponding valid values, use the field lookup 
+functions `show_all_fields`, `search_fields` and `find_field_values`.  
+  
+To see a listing of all valid fields, use `show_all_fields`. To find specific 
+field names, use `search_fields()`. To find valid values of a specific field to 
+filter your data query by, use `find_field_values()`.
 ```{r}
 search_fields("basis")
 field_values <- find_field_values("basisOfRecord")
 ```
-Build a field filter
-
-```{r}
-filters <- galah_filter(basisOfRecord == "HumanObservation")
-```
-
-It is also possible to pass other kinds of logical statement to
-`galah_filter()`.
-```{r}
-filters <- galah_filter(basisOfRecord == "HumanObservation",
-                          year >= 2010,
-                          occurrenceStatus != "absent")
-```
-
 
 ### Data quality profiles
 A notable extention of the filtering approach is to remove records with low
@@ -195,8 +217,8 @@ out records that are unsuitable for particular applications. However, there
 are many possible data quality checks, and it is not always clear which are
 most appropriate in a given instance. Therefore, `galah` supports ALA
 data quality **profiles**, which can be passed to `galah_filter()`to quickly
-remove undesirable records. A full list of data quality profiles is returned by
-`find_profiles()`.
+remove undesirable records. To see a full list of data quality profiles, use
+`show_all_profiles()`.
 
 ```{r}
 profiles <- show_all_profiles()
@@ -208,33 +230,34 @@ find_profile_attributes("ALA")
 Include a profile in the filters
 ```{r}
 filters <- galah_filter(basisOfRecord == "HumanObservation",
-                          profile = "ALA")
+                        profile = "ALA")
 ```
 
-# Downloading data
+## Location-based filtering
+Narrow searches to specific locations with `galah_geolocate`. 
+Users can provide an `sf` object or a Well-Known Text (WKT) string for
+location-based filtering.
+```{r eval = FALSE}
+locations <- galah_geolocate(query = st_read('act_rect.shp'))
+```
 
-Functions that return data from ALA are named with the prefix `atlas_`,
-followed by a suffix describing the information that they provide.
+
+# Download data
+
+Functions that return data from ALA (or other atlases) are named with the 
+prefix `atlas_`, followed by a suffix describing the information that they 
+provide.
 
 By combining different filter functions, it is possible to build complex
 queries to return only the most valuable information for a given problem.
 Once you have retrieved taxon information, you can use this to [search for
-occurrence records](#occurrence-data) with `atlas_occurrences()`. However, it is
-also possible to [download data on species](#species-data) via `atlas_species()`,
-or [media content](#media_downloads) (largely images) via `atlas_media()`.
-Alternatively, users can [retrieve record counts](#record-counts) using `atlas_counts()`.
+occurrence records](#occurrence-data) with `atlas_occurrences()`, 
+[download data on species](#species-data) with `atlas_species()`, 
+[return taxonomic trees](#taxonomic-trees) with `atlas_taxonomy`, 
+[retrieve numbers of records](#record-counts) with `atlas_counts()`, or 
+[download media content](#media_downloads) (largely images) with `atlas_media()`.
 
 ## Occurrence data
-
-In addition to the [filter functions](#filtering-data) above, when downloading
-occurrence data users can specify which columns are returned using
-`galah_select()`. Individual column names and/or column groups can be
-specified.
-To view the fields for each group, see the documentation for `galah_select()`.
-To view the list of available fields, run `search_fields()`.
-```{r}
-cols <- galah_select("institutionID", group = "basic")
-```
 
 To download occurrence data you will need to specify your email in
 `galah_config()`. This email must be associated with an active ALA account. See
@@ -251,17 +274,18 @@ galah_config(email = your_email_here, atlas = "Australia")
 Download occurrence records for *Eolophus roseicapilla*
 ```{r}
 occ <- atlas_occurrences(taxa = search_taxa("Eolophus roseicapilla"),
-                       filter = galah_filter(stateProvince == "Australian Capital Territory",
-                                                year >= 2010,
-                                                profile = "ALA"),
-                       select = galah_select(institutionID, group = "basic"))
+                         filter = galah_filter(stateProvince == "Australian Capital Territory",
+                                               year >= 2010,
+                                               profile = "ALA"),
+                         select = galah_select(institutionID, group = "basic"))
 ```
 
 ```{r}
 head(occ)
 ```
 
-As of `galah` 1.4.0, you can also do the same as above with piping:
+As of `galah` 1.4.0, you can also do the same as above by piping with `%>%` 
+or `|>`:
 ```{r}
 library(magrittr)
 
@@ -281,7 +305,7 @@ occ %>% head()
 
 ## Species data
 A common use case of the ALA is to identify which species occur in a specified
-region, time period, or taxonomic group. `atlas_species()` enables the user to 
+region, time period, or taxonomic group. `atlas_species()` enables users to 
 look up this information, using the common set of filter functions.
 ```{r include = FALSE}
 galah_config(cache_directory = tempdir())
@@ -294,7 +318,8 @@ species <- atlas_species(taxa = search_taxa("Rodentia"),
 head(species)
 ```
 
-As of `galah` 1.4.0 you can also do the same as above with piping:
+As of `galah` 1.4.0, you can also do the same as above by piping with `%>%` 
+or `|>`:
 ```{r}
 library(magrittr)
 
@@ -320,7 +345,8 @@ atlas_counts()
 atlas_counts(group_by = galah_group_by(kingdom))
 ```
 
-As of `galah` 1.4.0 you can also do the same as above with piping:
+As of `galah` 1.4.0, you can also do the same as above by piping with `%>%` 
+or `|>`:
 ```{r warning = FALSE}
 library(magrittr)
 
@@ -329,6 +355,26 @@ galah_call() %>%
   atlas_counts()
 ```
 
+## Taxonomic trees
+`atlas_taxonomy` provides a way to build taxonomic trees from one clade down to 
+another using ALA's internal taxonomy. Specify which taxonomic level your tree 
+will go down to with `galah_down_to`.
+```{r}
+# Taxonomic tree of Fungi to phylum level
+atlas_taxonomy(taxa = search_taxa("fungi"),
+               down_to = galah_down_to(phylum))
+```
+
+As of `galah` 1.4.0, you can also do the same as above by piping with `%>%` 
+or `|>`:
+```{r warning = FALSE}
+library(magrittr)
+
+galah_call() %>%
+  search_taxa("fungi") %>%
+  galah_down_to(phylum) %>%
+  atlas_taxonomy()
+```
 
 ## Media downloads
 In addition to text data describing individual occurrences and their attributes, 
@@ -344,7 +390,8 @@ media_data <- atlas_media(
      download_dir = "media")
 ```
 
-As of `galah` 1.4.0 you can also do the same as above with piping:
+As of `galah` 1.4.0, you can also do the same as above by piping with `%>%` 
+or `|>`:
 ```{r warning=FALSE, message=FALSE, eval = FALSE}
 library(magrittr)
 

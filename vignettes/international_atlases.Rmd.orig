@@ -37,7 +37,7 @@ galah_config(atlas = "UK", email = "your_email_here")
 
 ## Get data for another atlas
 ```{r}
-ala_counts()
+atlas_counts()
 ```
 
 ## Using taxonomic filters for another atlas
@@ -48,7 +48,7 @@ to the `taxa` argument of `atlas_` functions. For example:
 library(taxize)
 # Use UK taxonomy
 id <- get_nbnid("Vulpes vulpes", rows = 1)
-ala_counts(taxa = id)
+atlas_counts(taxa = id)
 ```
 
 ## Retrieving occurrence records
@@ -56,7 +56,7 @@ ala_counts(taxa = id)
 # Download records from the Austrian atlas
 galah_config(atlas = "Austria")
 id <- get_gbifid("bombina variegata", rows = 1)
-ala_counts(taxa = id)
+atlas_counts(taxa = id)
 ```
 
 ```{r include = FALSE}
@@ -74,4 +74,4 @@ head(occ)
 ## Supporting another Atlas
 `galah` currently supports a subset of the existing Living Atlases. If you would
 like to see another Living Atlas supported, add the server configuration for the 
-Atlas in the `R/find_atlases.R` file, and put in a pull request.
+Atlas in the `R/show_all_atlases.R` file, and put in a pull request.
