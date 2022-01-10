@@ -79,3 +79,31 @@ test_that("galah_select combines requested columns and group columns", {
                           "year", "basisOfRecord")
   expect_equal(names(query), expected_columns)
 })
+
+
+test_that("galah_select can use tidyselect::contains", {
+  query <- galah_select(tidyselect::contains("el"))
+  expect_gt(nrow(query), 0)
+  expect_true(all(grepl("el", tolower(query$name))))
+})
+
+test_that("galah_select can use tidyselect::starts_with", {
+  query <- galah_select(tidyselect::starts_with("el"))
+  expect_gt(nrow(query), 0)
+  expect_true(all(grepl("^el", tolower(query$name))))
+})
+
+test_that("galah_select can use tidyselect::last_col", {
+  query <- galah_select(tidyselect::last_col())
+  expect_equal(nrow(query), 1)
+})
+
+test_that("galah_select can use tidyselect::last_col & user-defined queries", {
+  query <- galah_select(year, basisOfRecord, tidyselect::last_col())
+  expect_equal(nrow(query), 3)
+})
+
+test_that("galah_select can use tidyselect::last_col & group", {
+  query <- galah_select(tidyselect::last_col(), group = "basic")
+  expect_equal(nrow(query), 8)
+})

@@ -41,7 +41,7 @@
 #' [galah_geolocate()] for other ways to restrict the information returned
 #' by [atlas_occurrences()] and related functions; [atlas_counts()]
 #' for how to get counts by levels of variables returned by `galah_select`.
-#' @importFrom dplyr select
+#' @importFrom tidyselect eval_select
 #' @importFrom rlang as_label
 #' @importFrom tibble as_tibble
 #' @export
@@ -50,9 +50,6 @@ galah_select <- function(...,
                          ) {  
 
   dots <- enquos(..., .ignore_empty = "all")
-  
-  # Check whether user has quotes around selected fields
-  check_for_quotes(dots)
   
   # Check to see if any of the inputs are a data request
   if(length(dots) > 0){
@@ -78,7 +75,10 @@ galah_select <- function(...,
   } else {
     group_cols <- NULL
   }
-    
+
+  ## Check whether user has quotes around selected fields
+  # check_for_quotes(dots)
+      
   # Build a data.frame with a standardised set of names,
   # stored by galah_config()
   field_names <- show_all_fields()$id 
@@ -87,11 +87,11 @@ galah_select <- function(...,
      dimnames = list(NULL, field_names)))
   
   ## Make a data.frame listing valid fields and their type
-  provided_variables <- unlist(lapply(dots, as_label))
-  names(provided_variables) <- NULL
-  selection <- select(df, all_of(provided_variables)) # NOTE: new behaviour
+  selection <- unlist(lapply(dots, function(a){
+    names(tidyselect::eval_select(a, data = df))
+    }))
   all_cols <- data.frame(
-    name = unique(c(group_cols, colnames(selection))))
+    name = unique(c(group_cols, selection)))
   all_cols$type <- ifelse(str_detect(all_cols$name, "[[:lower:]]"), "field", "assertions")
     
   # Add S3 class
@@ -117,15 +117,17 @@ preset_cols <- function(type) {
   return(cols)
 }
 
-check_for_quotes <- function(dots) {
-  for (i in which(grepl("\"", dots))) {
-    quo <- dots[[i]]
-    expr <- quo_get_expr(quo)
-    bullets <- c(
-      "Argument of class `character` detected.",
-      i = glue("`galah_select` does not accept character strings as arguments. \\
-      Did you use `\"\"` around a field name?")
-    )
-    abort(bullets, call = caller_env())
-  }
-}
+## function to detect quotes and stop `galah_select`
+## deactivated to allow calls like `galah_select(contains("el"))`
+# check_for_quotes <- function(dots) {
+#   for (i in which(grepl("\"", dots))) {
+#     quo <- dots[[i]]
+#     expr <- quo_get_expr(quo)
+#     bullets <- c(
+#       "Argument of class `character` detected.",
+#       i = glue("`galah_select` does not accept character strings as arguments. \\
+#       Did you use `\"\"` around a field name?")
+#     )
+#     abort(bullets, call = caller_env())
+#   }
+# }

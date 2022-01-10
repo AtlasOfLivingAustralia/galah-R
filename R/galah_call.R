@@ -103,8 +103,10 @@ print.data_request <- function(object){
 detect_data_request <- function(dots){
   is_either <- (is_function_check(dots) | is_object_check(dots))[[1]]
   if(is_either){
-    eval_result <- eval_tidy(dots[[1]])
-    if(inherits(eval_result, "data_request")){
+    eval_result <- try({eval_tidy(dots[[1]])}, silent = TRUE)
+    if(inherits(eval_result, "try-error")){
+      return(dots)
+    }else if(inherits(eval_result, "data_request")){
       return(list(
         data_request = eval_result,
         dots = dots[-1]
