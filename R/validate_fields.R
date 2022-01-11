@@ -9,9 +9,9 @@ validate_fields <- function(named_field){
       list_invalid_fields <- glue::glue_collapse(invalid_fields, 
                                                  sep = ", ")
       bullets <- c(
-        glue("We've detected invalid fields."),
-        i = "Use `show_all_fields()` to get a list of valid options.",
-        i = "Use `search_fields()` to search for the valid name of a specific field.",
+        glue("Invalid field(s) detected."),
+        i = "See a listing of all valid fields with `show_all_fields()`.",
+        i = "Search for the valid name of a desired field with `search_fields()`.",
         x = glue("Invalid field(s): {list_invalid_fields}."))
       warn(bullets)
     }
