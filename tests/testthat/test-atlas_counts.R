@@ -114,3 +114,28 @@ test_that("atlas_counts handles multiple 'group by' variables", {
   expect_s3_class(counts, "data.frame")
   expect_equal(names(counts), c("year", "basisOfRecord", "count"))
 })
+
+test_that("atlas_counts handles piping", {
+  vcr::use_cassette("piped_counts_1", {
+    counts <- galah_call() |>
+      galah_filter(year >= 2018) |>
+      galah_group_by(year, basisOfRecord) |>
+      atlas_counts()
+  })
+  expect_s3_class(counts, "data.frame")
+  expect_equal(names(counts), c("year", "basisOfRecord", "count"))
+})
+
+test_that("atlas_counts ignores superflueous piped arguments", {
+  vcr::use_cassette("piped_counts_2", {
+    counts <- galah_call() |>
+      galah_filter(year >= 2018) |>
+      galah_group_by(year) |>
+      galah_down_to(species) |>
+      galah_select(taxonConceptID) |>
+      atlas_counts()
+  })
+  expect_s3_class(counts, "data.frame")
+  expect_equal(names(counts), c("year", "count"))
+  expect_gt(nrow(counts), 0)
+})

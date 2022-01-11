@@ -45,7 +45,6 @@ atlas_counts(
     group_by = galah_group_by(year, species),
     limit = 5)
 
-    
 }
 \seealso{
 \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and
