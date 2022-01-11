@@ -246,14 +246,14 @@ atlas_counts_internal <- function(taxa = NULL,
     resp <- atlas_GET(url, path, params = query, paginate = TRUE, limit = limit,
                     page_size = page_size, offset_param = "foffset")
     if(is.null(resp)){return(NULL)}
-    counts <- data.table::rbindlist(lapply(resp, function(a) {
+    counts <- rbindlist(lapply(resp, function(a) {
       data.frame(jsonlite::fromJSON(a)$fieldResult)
       }))
   } else {
       query$flimit <- max(limit)
       resp <- atlas_GET(url, path, params = query)
       if(is.null(resp)){return(NULL)}
-      counts <- data.table::rbindlist(resp$fieldResult)
+      counts <- rbindlist(resp$fieldResult)
   }
 
   if (sum(total_cats) > limit & galah_config()$verbose) {
@@ -270,7 +270,7 @@ atlas_counts_internal <- function(taxa = NULL,
   if (type == "species") {
     # this can take a while so add progress bar
     if (verbose) { pb <- txtProgressBar(max = 1, style = 3) }
-    counts_final <- data.table::rbindlist(lapply(seq_along(value), function(x) {
+    counts_final <- rbindlist(lapply(seq_along(value), function(x) {
       if (verbose) {
         val <- (x / length(value))
         setTxtProgressBar(pb, val)
@@ -295,7 +295,7 @@ atlas_counts_internal <- function(taxa = NULL,
   if(length(facets) > 1){
     counts_final$field_name <- parse_field(counts$fq)
     counts_list <- split(counts_final, counts_final$field_name)
-    counts_final <- as.data.frame(data.table::rbindlist(lapply(
+    counts_final <- as.data.frame(rbindlist(lapply(
       seq_along(facets), function(a){
         names(counts_list[[a]])[1] <- names(counts_list)[a]
         counts_list[[a]]

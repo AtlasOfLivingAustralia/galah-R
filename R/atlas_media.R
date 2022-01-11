@@ -132,7 +132,7 @@ atlas_media.default <- function(taxa = NULL,
   # occurrence data.frame has one row per occurrence record and stores all media
   # ids in a single column; this code splits the media ids and creates one row
   # per media id in the returned data.frame
-  occ_long <- data.frame(data.table::rbindlist(
+  occ_long <- data.frame(rbindlist(
     lapply(seq_len(nrow(occ)), function(x) {
       # get all the image, video and sound columns into one row
       splt_media <- unlist(str_split(occ[x,][image_fields()],
@@ -329,7 +329,7 @@ media_metadata <- function(ids) {
     # parse result and convert to data.frame
     data <- fromJSON(res)
     # suppress warnings caused by different list lengths
-    df <- suppressWarnings(data.table::rbindlist(data$results))
+    df <- suppressWarnings(rbindlist(data$results))
     return(df)
   }
 }

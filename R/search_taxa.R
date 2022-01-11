@@ -141,7 +141,7 @@ name_query <- function(query) {
     return(NULL)
   }else{
     return(
-      as_tibble(data.table::rbindlist(matches, fill = TRUE))
+      as_tibble(rbindlist(matches, fill = TRUE))
     )
   }
 }

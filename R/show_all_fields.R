@@ -81,7 +81,7 @@ show_all_fields <- function(
           NULL
         }else{
           as.data.frame(
-            data.table::rbindlist(
+            rbindlist(
               list(
                 fields[!(fields$id %in% layers$id), ],
                 layers, assertions, media, other), 

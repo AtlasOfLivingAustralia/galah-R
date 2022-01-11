@@ -31,7 +31,7 @@ find_profile_attributes <- function(profile) {
     inform("Calling the API failed for `find_profile_attributes`")
     tibble()
   }else{
-    filters <- data.table::rbindlist(resp$categories$qualityFilters)
+    filters <- rbindlist(resp$categories$qualityFilters)
     subset(filters, select = wanted_columns("quality_filter")) |> as_tibble()
   }  
 }

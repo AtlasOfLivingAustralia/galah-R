@@ -13,7 +13,6 @@
 #'     taxa = search_taxa("Chordata")
 #'     down_to = galah_down_to(class)
 #'     )
-#' @importFrom dplyr filter  
 #' @export
 
 galah_down_to <- function(...){
