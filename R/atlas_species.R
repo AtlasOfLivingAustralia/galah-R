@@ -23,7 +23,7 @@
 #' required that include filter but without returning taxonomic detail, then
 #' [atlas_counts()] is more efficient (see examples).
 #' @examples
-#'
+#' \dontrun{
 #' # Look up genus "Heleioporus" in the ALA
 #' search_taxa("Heleioporus")
 #'
@@ -33,6 +33,7 @@
 #' # Get taxonomic information on all species within this genus
 #' # (every row is a species with associated taxonomic data)
 #' atlas_species(search_taxa("Heleioporus"))
+#' }
 #' 
 #' @export
 atlas_species <- function(...) {

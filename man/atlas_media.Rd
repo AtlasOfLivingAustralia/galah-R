@@ -59,11 +59,12 @@ It may be beneficial when requesting a large number of records to show a progres
 bar by setting \code{verbose = TRUE} in \code{\link[=galah_config]{galah_config()}}.
 }
 \examples{
+\dontrun{
 # Download Regent Honeyeater multimedia
 media_data <- atlas_media(
     taxa = search_taxa("Regent Honeyeater"),
     filter = galah_filter(year == 2011),
-    download_dir = "media")
+    download_dir = "folder/your-directory")
 
 # Specify a single media type to download
 media_data <- atlas_media(
@@ -81,6 +82,7 @@ atlas_counts(
      filter = galah_filter(multimedia == c("Image","Sound","Video")),
      group_by = galah_group_by(multimedia)
 )
+}
 
 }
 \seealso{

@@ -23,6 +23,7 @@ accepted by the ALA- so the sf object or WKT string may need to be
 simplified.
 }
 \examples{
+\dontrun{
 # Search for records using a shapefile
 location <- galah_geolocate(st_read(path/to/shapefile))
 atlas_occurrences(geolocate = location)
@@ -31,6 +32,7 @@ atlas_occurrences(geolocate = location)
 wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
 atlas_counts(geolocate = galah_geolocate(wkt))
+}
 
 }
 \seealso{

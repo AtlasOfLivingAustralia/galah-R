@@ -6,23 +6,22 @@
 #' and used to filter searches in [atlas_occurrences()],
 #' [atlas_counts()] and [atlas_species()].
 #'
-#' @export show_all_profiles
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
 #' available profiles
 #' @seealso This function gives viable profile names for passing to
 #' [galah_filter()]. For more detail on a given profile see
 #' [find_profile_attributes()].
 #' @examples 
+#' \dontrun{
 #' # Get available profiles
 #' profile_df <- show_all_profiles()
 #' # Values given in the 'shortName' column are accepted by select_filter(), i.e.
 #' galah_filter(profile == profile_df$shortName[1])
 #' # is equivalent to:
 #' galah_filter(profile == "ALA")
+#' }
 #' 
-
-# this will return names and descriptions of data profiles
-# should id be exposed to the user?
+#' @export show_all_profiles
 show_all_profiles <- function() {
   
   # check whether the cache has been updated this session

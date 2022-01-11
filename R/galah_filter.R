@@ -36,6 +36,7 @@
 #' (`=`), particularly where statements are separated by `&` or 
 #' `|`. This problem can be avoided by using a double-equals (`==`) instead.
 #' @examples
+#' \dontrun{
 #' # Create a custom filter for records of interest
 #' filters <- galah_filter(
 #'     basisOfRecord == "HumanObservation",
@@ -72,7 +73,7 @@
 #' # solr supports range queries on text as well as numbers
 #' galah_filter(cl22 >= "Tasmania")
 #' # queries all Australian States & Territories alphabetically after "Tasmania"
-#' 
+#' }
 #' @importFrom rlang abort
 #' @importFrom rlang as_label  
 #' @importFrom rlang caller_env         

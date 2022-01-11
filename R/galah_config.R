@@ -45,13 +45,13 @@
 #' @return For `galah_config()`, a `list` of all options.
 #' When `galah_config(...)` is called with arguments, nothing is returned
 #' but the configuration is set.
-#' @seealso As of galah v1.3.0 please use `galah_config()` instead
-#' of `ala_config`.
 #' @examples
+#' \dontrun{
 #'  galah_config()
 #'  galah_config(caching = FALSE)
 #'  show_all_reasons()
 #'  galah_config(download_reason_id = 0,verbose = TRUE)
+#' }
 #' 
 #' @export galah_config
 

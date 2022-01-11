@@ -24,8 +24,10 @@ on the taxon in question. Effectively this is the inverse function to
 \code{atlas_} functions to filter records to the specified taxon or taxa.
 }
 \examples{
+\dontrun{
 # Look up a unique taxon identifier
 find_taxa(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
+}
 
 }
 \seealso{

@@ -46,6 +46,7 @@ In some cases \code{R} will fail to parse inputs with a single equals sign
 \code{|}. This problem can be avoided by using a double-equals (\code{==}) instead.
 }
 \examples{
+\dontrun{
 # Create a custom filter for records of interest
 filters <- galah_filter(
     basisOfRecord == "HumanObservation",
@@ -82,7 +83,7 @@ galah_filter(basisOfRecord == basis_of_record)
 # solr supports range queries on text as well as numbers
 galah_filter(cl22 >= "Tasmania")
 # queries all Australian States & Territories alphabetically after "Tasmania"
-
+}
 }
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} and \code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to restrict

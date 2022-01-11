@@ -10,6 +10,10 @@
 #' @seealso This function is helpful in setting up [galah_config()].
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
 #' valid download reasons, containing the id and name for each reason.
+#' @examples 
+#' \dontrun{
+#' show_all_reasons()
+#' }
 #' @export
 show_all_reasons <- function() {
    

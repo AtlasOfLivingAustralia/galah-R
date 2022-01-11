@@ -17,9 +17,11 @@
 #' [galah_geolocate()] for other ways to restrict the information returned
 #' by [atlas_occurrences()] and related functions.
 #' @examples
+#' \dontrun{
 #' # Look up a unique taxon identifier
 #' find_taxa(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
-#'
+#' }
+#' 
 #' @export
 find_taxa <- function(identifier) {
 

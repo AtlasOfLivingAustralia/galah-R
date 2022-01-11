@@ -10,6 +10,7 @@
 #' @seealso See [search_fields()] for ways to use information returned
 #' by this function.
 #' @examples
+#' 
 #' find_field_values("basisOfRecord")
 #' find_field_values("stateProvince")
 #' 

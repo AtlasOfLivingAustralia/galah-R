@@ -21,6 +21,7 @@ When building a set of filters with \code{\link[=galah_filter]{galah_filter()}},
 use this function to check that the values provided are valid options.
 }
 \examples{
+
 find_field_values("basisOfRecord")
 find_field_values("stateProvince")
 

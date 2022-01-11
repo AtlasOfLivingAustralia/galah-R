@@ -52,7 +52,7 @@ by the ALA. Layer ids are comprised of a prefix: 'el' for environmental
 id number.
 }
 \examples{
-
+\dontrun{
 # Return a data.frame containing all data on fields and layers
 all_fields <- show_all_fields()
 
@@ -61,6 +61,7 @@ test <- search_fields("species")
 
 # Find all WorldClim layers
 worldclim <- search_fields("worldclim", type = "layers")
+}
 
 }
 \references{

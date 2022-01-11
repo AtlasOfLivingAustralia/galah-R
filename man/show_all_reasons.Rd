@@ -18,6 +18,11 @@ change this you can do so with \code{\link[=galah_config]{galah_config()}}. Use 
 to view the list of download reason code and names. When specifying a reason,
 you can use either the download code or name.
 }
+\examples{
+\dontrun{
+show_all_reasons()
+}
+}
 \seealso{
 This function is helpful in setting up \code{\link[=galah_config]{galah_config()}}.
 }

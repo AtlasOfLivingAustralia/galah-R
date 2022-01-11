@@ -31,6 +31,7 @@ proceeded to download data via \code{\link[=atlas_occurrences]{atlas_occurrences
 \examples{
 # Search using a single term
 search_taxa("Reptilia")
+
 # or equivalently:
 search_taxa("reptilia") # not case sensitive
 

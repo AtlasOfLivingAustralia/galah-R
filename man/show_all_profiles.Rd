@@ -18,12 +18,14 @@ and used to filter searches in \code{\link[=atlas_occurrences]{atlas_occurrences
 \code{\link[=atlas_counts]{atlas_counts()}} and \code{\link[=atlas_species]{atlas_species()}}.
 }
 \examples{
+\dontrun{
 # Get available profiles
 profile_df <- show_all_profiles()
 # Values given in the 'shortName' column are accepted by select_filter(), i.e.
 galah_filter(profile == profile_df$shortName[1])
 # is equivalent to:
 galah_filter(profile == "ALA")
+}
 
 }
 \seealso{

@@ -14,6 +14,7 @@
 #' @seealso [galah_select()], [galah_filter()] and
 #' [galah_geolocate()] for related methods.
 #' @examples
+#' \dontrun{
 #' # Return record counts since 2010 by year
 #' atlas_counts(
 #'     filter = galah_filter(year > 2010),
@@ -33,6 +34,7 @@
 #'     filter = galah_filter(year > 2015),
 #'     group_by = galah_group_by(year, species),
 #'     limit = 5)
+#' }
 #' 
 #' @export
 

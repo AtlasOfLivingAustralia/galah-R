@@ -25,6 +25,7 @@ used to return record counts grouped by multiple, valid fields (found by
 by one or more valid fields.
 }
 \examples{
+\dontrun{
 # Return record counts since 2010 by year
 atlas_counts(
     filter = galah_filter(year > 2010),
@@ -44,6 +45,7 @@ atlas_counts(
     filter = galah_filter(year > 2015),
     group_by = galah_group_by(year, species),
     limit = 5)
+}
 
 }
 \seealso{

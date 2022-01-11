@@ -41,13 +41,15 @@
 #' # Count records matching a filter
 #' atlas_counts(filter = galah_filter(basisOfRecord == "FossilSpecimen"))
 #' 
+#' \dontrun{
 #' # Count the number of species recorded for each kingdom
 #' atlas_counts(group_by = galah_group_by(kingdom), type = "species")
 #' 
 #' # Crosstabulate using two different variables
 #' atlas_counts(
 #'   filter = galah_filter(year > 2015),
-#'   select = galah_select(year, basisOfRecord))
+#'   group_by = galah_group_by(year, basisOfRecord))
+#' }
 #' 
 #' @export
 atlas_counts <- function(...) {

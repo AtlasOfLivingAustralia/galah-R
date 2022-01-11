@@ -1,36 +1,80 @@
+url: https://atlasoflivingaustralia.github.io/galah/
+
+template:
+  bootstrap: 5
+  params:
+    bootswatch: cerulean
+
+navbar: 
+  structure:
+    left: [home, reference, getstarted, articles]
+    right: [news, github]
+  components:
+    getstarted:
+      text: Get Started
+      href: articles/galah.html
+      
+    articles:
+      text: Articles
+      menu: 
+        - text: Revamped syntax in `galah` 1.4.0
+          href: articles/revamped_syntax.html
+        - text: Taxonomic information
+          href: articles/taxonomic_information.html
+        - text: International atlases
+          href: articles/international_atlases.html
+    
+    news:
+      text: News
+      href: news/index.html 
+
 reference:
-- title: Data
+- title: Start a data query
   contents:
-  - ala_occurrences
-  - ala_taxonomy
-  - ala_counts
-  - ala_species
-  - ala_media
-- title: Filter
+  - galah_call
+  
+- title: Narrow results
   contents: 
-  - select_taxa
+  - search_taxa
   - galah_filter
-  - galah_location
-  - select_columns
+  - galah_select
+  - galah_group_by
+  - galah_geolocate
+  - galah_down_to
+  
+- title: Download Data
+  contents:
+  - atlas_occurrences
+  - atlas_counts
+  - atlas_species
+  - atlas_taxonomy
+  - atlas_media
+  
 - title: Lookup
   contents:
   - search_fields
+  - show_all_profiles
+  - show_all_fields
+  - show_all_fields
+  - show_all_reasons
+  - show_all_atlases
+  - show_all_ranks
+  - find_taxa
   - find_field_values
-  - find_profiles
   - find_profile_attributes
-  - find_reasons
-  - find_atlases
+  
 - title: Cache management
   contents:
-  - find_cached_files
+  - show_all_cached_files
   - clear_cached_files
+  
 - title: Help
   contents:
   - galah_config
-  - ala_citation
-template:
-  params:
-    bootswatch: cerulean
-url: https://atlasoflivingaustralia.github.io/galah/
+  
+- title: Cite
+  contents:
+  - atlas_citation
+
 
   

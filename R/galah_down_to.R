@@ -7,12 +7,22 @@
 #' @return A string with the named rank
 #' @seealso [galah_select()], [galah_filter()] and
 #' [galah_geolocate()] for related methods.
+#' 
 #' @examples
-#' # A basic case
+#' \dontrun{
+#' # Example of usage with atlas_taxonomy()
 #' atlas_taxonomy(
-#'     taxa = search_taxa("Chordata")
+#'     taxa = search_taxa("Chordata"),
 #'     down_to = galah_down_to(class)
 #'     )
+#' 
+#' # Piping example
+#' galah_call() %>%
+#'     search_taxa("Chordata") %>%
+#'     galah_down_to(class) %>%
+#'     atlas_taxonomy()
+#' }
+#' 
 #' @export
 
 galah_down_to <- function(...){

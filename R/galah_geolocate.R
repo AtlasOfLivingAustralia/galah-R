@@ -13,6 +13,7 @@
 #' [galah_select()] for other ways to restrict the information
 #' returned by [atlas_occurrences()] and related functions.
 #' @examples
+#' \dontrun{
 #' # Search for records using a shapefile
 #' location <- galah_geolocate(st_read(path/to/shapefile))
 #' atlas_occurrences(geolocate = location)
@@ -21,6 +22,7 @@
 #' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
 #' -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
 #' atlas_counts(geolocate = galah_geolocate(wkt))
+#' }
 #' 
 #' @export
 galah_geolocate <- function(...) {

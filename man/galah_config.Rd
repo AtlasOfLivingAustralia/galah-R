@@ -57,13 +57,11 @@ provide a registered email address and reason for downloading data. The
 as possible.
 }
 \examples{
+\dontrun{
  galah_config()
  galah_config(caching = FALSE)
  show_all_reasons()
  galah_config(download_reason_id = 0,verbose = TRUE)
-
 }
-\seealso{
-As of galah v1.3.0 please use \code{galah_config()} instead
-of \code{ala_config}.
+
 }

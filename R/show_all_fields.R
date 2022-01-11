@@ -29,7 +29,6 @@
 #' [galah_select()] and [galah_filter()].
 #' To view valid values for a layer with categorical values, use
 #' [find_field_values()].
-#' @export show_all_fields
 #'
 #' @details
 #' Layers are the subset of fields that are spatially appended to each record
@@ -37,7 +36,7 @@
 #' (gridded) layers and 'cl' for contextual (polygon) layers,  followed by an
 #' id number.
 #' @examples
-#' 
+#' \dontrun{
 #' # Return a data.frame containing all data on fields and layers
 #' all_fields <- show_all_fields()
 #' 
@@ -46,7 +45,9 @@
 #'
 #' # Find all WorldClim layers
 #' worldclim <- search_fields("worldclim", type = "layers")
+#' }
 #' 
+#' @export show_all_fields
 
 show_all_fields <- function(
   type = c("all", "fields", "layers", "assertions", "media", "other")

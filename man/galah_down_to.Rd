@@ -18,11 +18,20 @@ function can be used to specify the name of a valid taxonomic rank using
 non-standard evaluation (NSE), for consistency with other \code{galah_} functions.
 }
 \examples{
-# A basic case
+\dontrun{
+# Example of usage with atlas_taxonomy()
 atlas_taxonomy(
-    taxa = search_taxa("Chordata")
+    taxa = search_taxa("Chordata"),
     down_to = galah_down_to(class)
     )
+
+# Piping example
+galah_call() \%>\%
+    search_taxa("Chordata") \%>\%
+    galah_down_to(class) \%>\%
+    atlas_taxonomy()
+}
+
 }
 \seealso{
 \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and

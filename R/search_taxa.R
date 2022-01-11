@@ -25,6 +25,7 @@
 #' @examples
 #' # Search using a single term
 #' search_taxa("Reptilia")
+#' 
 #' # or equivalently:
 #' search_taxa("reptilia") # not case sensitive
 #'

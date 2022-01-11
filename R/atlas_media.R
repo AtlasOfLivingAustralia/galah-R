@@ -23,11 +23,12 @@
 #' is not necessarily the same as the number of media files, as each record can have
 #' more than one media file associated with it (see examples section for how to do this).
 #' @examples
+#' \dontrun{
 #' # Download Regent Honeyeater multimedia
 #' media_data <- atlas_media(
 #'     taxa = search_taxa("Regent Honeyeater"),
 #'     filter = galah_filter(year == 2011),
-#'     download_dir = "media")
+#'     download_dir = "folder/your-directory")
 #' 
 #' # Specify a single media type to download
 #' media_data <- atlas_media(
@@ -45,6 +46,7 @@
 #'      filter = galah_filter(multimedia == c("Image","Sound","Video")),
 #'      group_by = galah_group_by(multimedia)
 #' )
+#' }
 #' 
 #' @export
 atlas_media <- function(...) {

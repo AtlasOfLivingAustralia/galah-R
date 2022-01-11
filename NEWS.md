@@ -10,24 +10,26 @@
 
 ### `galah_group_by`
 
-* Group fields using `atlas_counts(group_by = galah_group_by())` which groups and summarises record counts based on groupings, similar to `dplyr::group_by` (#90)
+* Group fields using `atlas_counts(group_by = galah_group_by())` which groups and summarises record counts based on groupings, similar to `dplyr::group_by` (#90, #95)
 
 ### Pipe queries using `galah_call`
 
-* Build data queries using piping syntax (i.e., `|>`, `%>%`) by first using `galah_call()`, narrowing queries with `galah_` functions and `search_taxa`, and finishing with an `atlas_` function (#120)
+* Build data queries using piping syntax (i.e., `|>`, `%>%`) by first using `galah_call()`, narrowing queries with `galah_` functions and `search_taxa`, and finishing with an `atlas_` function (#60, #120). 
+* S3 methods are now implemented to functions to allow for piping (#40)
 
 ### Minor improvements
 
 * Improved error messages using {glue} and {rlang} (#117)
 * Revamped syntax functions return output as tibbles (#110, #118)
 * Pass vectors to `galah_filter` (#91, #92)
-* Cache valid fields for faster field look up (#73)
+* Cache valid fields for faster field look up (#73, #116)
 * New vignettes for updated syntax (#104, #105)
 
 ### Bug fixes
 
-* galah no longer returns error when ALA system is down (#102, #119)
+* galah no longer returns error when ALA system is down and/or API fails (#102, #119)
 * `search_taxa` returns correct IDs for search terms with parentheses (#96)
+* `search_taxa` returns best-fit taxonomic result when ranks are specified in `data.frame` or `tibble` (#115)
 
 
 # galah 1.3.1

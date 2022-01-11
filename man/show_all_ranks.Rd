@@ -14,7 +14,10 @@ available ranks
 Return taxonomic ranks recognised by the ALA.
 }
 \examples{
-rank_df <- show_all_ranks()
+\dontrun{
+show_all_ranks()
+}
+
 }
 \seealso{
 This function provides a

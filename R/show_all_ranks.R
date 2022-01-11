@@ -2,15 +2,17 @@
 #' 
 #' Return taxonomic ranks recognised by the ALA.
 #' 
-#' @export show_all_ranks
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
 #' available ranks
 #' @seealso This function provides a
 #' reference that is useful when specifying the `down_to` argument of 
 #' [atlas_taxonomy()].
 #' @examples
-#' rank_df <- show_all_ranks()
-
+#' \dontrun{
+#' show_all_ranks()
+#' }
+#' 
+#' @export show_all_ranks
 show_all_ranks <- function() {
   df <- data.frame(
     id = seq_len(69),
