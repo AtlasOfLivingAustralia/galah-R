@@ -335,16 +335,18 @@ species_count <- function(query) {
   total_categories(url, "occurrence/facets", query)
 }
 
-validate_facet <- function(facet) {
-  if (!all(facet %in% c(search_fields()$id, all_fields()$name))) {
-    bullets <- c(
-      glue("\"{facet}\" is not a valid field."),
-      i = "Use `show_all_fields()` to get a list of all valid options.",
-      i = "Use `search_fields()` to search for the valid name of a specific field."
-    )
-    abort(bullets, call = caller_env())
-  }
-}
+# Replaced by `R/validate_fields.R`
+# validate_facet <- function(facet) {
+#   if (!all(facet %in% c(search_fields()$id, all_fields()$name))) {
+#     bullets <- c(
+#       glue("Invalid field(s) detected."),
+#       i = "See a listing of all valid fields with `show_all_fields()`.",
+#       i = "Search for the valid name of a desired field with `search_fields()`.",
+#       x = glue("Invalid field(s): \"{facet}\"")
+#     )
+#     abort(bullets, call = caller_env())
+#   }
+# }
 
 # Get number of categories of a filter
 total_categories <- function(url, path, query) {

@@ -75,9 +75,6 @@ galah_select <- function(...,
   } else {
     group_cols <- NULL
   }
-
-  ## Check whether user has quotes around selected fields
-  # check_for_quotes(dots)
       
   # Build a data.frame with a standardised set of names,
   # stored by galah_config()
@@ -116,18 +113,3 @@ preset_cols <- function(type) {
                  "assertions" = search_fields(type = "assertions")$id)
   return(cols)
 }
-
-## function to detect quotes and stop `galah_select`
-## deactivated to allow calls like `galah_select(contains("el"))`
-# check_for_quotes <- function(dots) {
-#   for (i in which(grepl("\"", dots))) {
-#     quo <- dots[[i]]
-#     expr <- quo_get_expr(quo)
-#     bullets <- c(
-#       "Argument of class `character` detected.",
-#       i = glue("`galah_select` does not accept character strings as arguments. \\
-#       Did you use `\"\"` around a field name?")
-#     )
-#     abort(bullets, call = caller_env())
-#   }
-# }
