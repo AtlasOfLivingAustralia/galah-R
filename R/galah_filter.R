@@ -169,53 +169,27 @@ parse_objects_or_functions <- function(dots){
   # If yes, evaluate them correctly as functions
   if(any(is_either)){
     index <- which(is_either)
-    dots[index] <- lapply(
-      dots[index], 
-      function(a){
-        result <- eval_tidy(a)
-        if(length(result) > 1){
-          new_quosure(
-            paste0("c(", 
-              paste(
-                paste0("\"", result, "\""), # ensure values are quoted
-                collapse = ", "
-              ), 
-            ")")
-          )
-        } else {
-          new_quosure(result)
-        }
-      })
+    dots[index] <- lapply(dots[index], 
+      function(a){eval_tidy(a) |> serialise_quosure()})
     }
   dots
 }
 
 
-is_function_check <- function(dots){ # where x is a list of strings
-  x <- unlist(lapply(dots, as_label))
-  
-  # detect whether function-like text is present
-  functionish_text <- grepl("^(([[:alnum:]]|\\.|_)+\\()", x) & grepl("\\)", x)
-  dollar_sign_square_bracket <- grepl("\\$|\\[", x)
-  functions_present <- functionish_text | dollar_sign_square_bracket
-  
-  # if there are equations, that's only ok if they are quoted
-  contains_equations <- grepl( "!=|>=|<=|==|>|<", x)
-  quoted_equations <- grepl("(\"|\')\\s*(!=|>=|<=|==|>|<)\\s*(\"|\')", x) 
-  equations_ok <- (contains_equations & quoted_equations) | !contains_equations
-  # ...except where they start with the name `galah_`
-  is_galah <- grepl("^galah_", x)
-  
-  # parse only if both conditions are met
-  functions_present & (equations_ok | is_galah)
-}
-
-
-is_object_check <- function(dots){
-  unlist(lapply(dots, function(a){
-    exists(x = dequote(as_label(a)), envir = get_env(a)) &
-    !exists(x = dequote(as_label(a)), envir = get_env(a), mode = "function")
-  }))
+# new function to clean up internals of parse_objects_or_functions
+serialise_quosure <- function(x){
+  if(length(x) > 1){
+    new_quosure(
+      paste0("c(", 
+        paste(
+          paste0("\"", x, "\""), # ensure values are quoted
+          collapse = ", "
+        ), 
+      ")")
+    )
+  } else {
+    new_quosure(x)
+  }
 }
 
 

@@ -117,6 +117,50 @@ parse_basic_quosures <- function(dots){
   }
 }
 
+is_function_check <- function(dots){ # where x is a list of strings
+  x <- unlist(lapply(dots, as_label))
+  
+  # detect whether function-like text is present
+  functionish_text <- grepl("^(([[:alnum:]]|\\.|_)+\\()", x) & grepl("\\)", x)
+  dollar_sign_square_bracket <- grepl("\\$|\\[", x)
+  functions_present <- functionish_text | dollar_sign_square_bracket
+  
+  # if there are equations, that's only ok if they are quoted
+  contains_equations <- grepl( "!=|>=|<=|==|>|<", x)
+  quoted_equations <- grepl("(\"|\')\\s*(!=|>=|<=|==|>|<)\\s*(\"|\')", x) 
+  equations_ok <- (contains_equations & quoted_equations) | !contains_equations
+  # ...except where they start with the name `galah_`
+  is_galah <- grepl("^galah_", x)
+  
+  # parse only if both conditions are met
+  functions_present & (equations_ok | is_galah)
+}
+
+is_object_check <- function(dots){
+  # get list of options from ?typeof & ?mode
+  available_types <- c("logical", "numeric", 
+    "complex", "character", "raw", "list", "NULL", "function",
+    "name", "call", "any")
+  # attempt to check multiple types
+  unlist(lapply(dots, function(a){
+    modes_df <- data.frame(
+      name = available_types,
+      exists = unlist(lapply(available_types, function(b){
+        exists(x = dequote(as_label(a)), envir = get_env(a), mode = b)
+      }))
+    )
+    if(any(modes_df$exists)){
+      if(all(modes_df$name[modes_df$exists] %in% c("any", "function"))){
+        FALSE  # only functions exist here
+      }else{
+        TRUE # this avoids issues when a function and object are both valid
+      }
+    }else{
+      FALSE # i.e. no objects
+    }
+  }))
+}
+
 ##----------------------------------------------------------------
 ##                   Query-building functions                   --
 ##----------------------------------------------------------------
