@@ -154,12 +154,12 @@ atlas_counts(filter = galah_filter(year == 2021))
 ```
 
 As another example, notice how `galah_group_by` works very similarly to
- `dplyr::group_by` + `dplyr::summarise(sum())`:
+ `dplyr::group_by` + `dplyr::count()`:
 
 ```{r}
 mtcars %>% 
   group_by(vs) %>% 
-  summarise(sum(mpg))
+  count()
 
 atlas_counts(group_by = galah_group_by(biome))
 ```
@@ -314,9 +314,11 @@ prefer `tidyverse` syntax will find this change useful and exciting!
 
 # Deprecated syntax
 
-Old syntax will now return an error when used, suggesting the new syntax. 
+Old syntax will now return a warning message when used that suggests users the 
+new syntax. 
 
-New syntax are not fully decided on and can be changed in future versions of 
-`galah`. We would appreciate any feedback from users about what works or what 
-doesn't work. It is our goal to create a package that is as easy and intuitive 
-for users as possible!
+New syntax changes are by no means set in stone - it is absolutely possible to 
+change syntax in future versions of `galah` if alternative names are easier to 
+use and understand. We would appreciate any feedback from users about what works 
+or what doesn't work. It is our goal to create a package that is as easy and 
+intuitive for users as possible!
