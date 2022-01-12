@@ -26,7 +26,7 @@ internal_POST <- function(url, path, body, encode) {
   if (res$status_code != 200) {
     code_number <- res$status_code
     request_url <- res$request$url
-    abort("Status code {code_number} returned for url {request_url}.")
+    rlang_abort(glue("Status code {code_number} returned for url {request_url}."))
   }
   res$parse("UTF-8")
 }

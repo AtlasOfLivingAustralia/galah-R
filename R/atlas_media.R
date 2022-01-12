@@ -87,7 +87,7 @@ atlas_media.default <- function(taxa = NULL,
       i = glue("To search taxonomy for {international_atlas} use `taxize`."),
       i = "See vignette('international_atlases' for more information."
     )
-    abort(bullets, call = caller_env())
+    rlang_abort(bullets)
   }
   
   if (is.null(taxa) & is.null(filter) & is.null(geolocate)) {

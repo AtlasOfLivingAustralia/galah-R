@@ -36,7 +36,7 @@
 search_taxa <- function(...) {
   
   verbose <- getOption("galah_config")$verbose
-
+  
   if (getOption("galah_config")$atlas != "Australia") {
     international_atlas <- getOption("galah_config")$atlas
     bullets <- c(
@@ -44,12 +44,13 @@ search_taxa <- function(...) {
       i = glue("To search taxonomy for {international_atlas} use `taxize`."),
       i = "See vignette('international_atlases' for more information."
     )
-    abort(bullets, call = caller_env())
+    rlang_abort(bullets)
   }
   
   # check to see if any of the inputs are a data request
-  dots <- enquos(..., .ignore_empty = "all")
+  dots <- enquos(..., .ignore_empty = "all")   
   checked_dots <- detect_data_request(dots)
+
   if(!inherits(checked_dots, "quosures")){
     is_data_request <- TRUE
     data_request <- checked_dots[[1]]
@@ -64,11 +65,11 @@ search_taxa <- function(...) {
       "Query is missing, with no default.",
       i = "`search_taxa` requires a query to search for."
     )
-    abort(bullets, call = caller_env())
+    rlang_abort(bullets)
   }
-  # # capture named inputs
-  check_queries(dots)
-  
+  # capture named inputs
+  check_queries(dots) 
+
   # convert dots to query
   query <- parse_basic_quosures(dots)
    
@@ -102,7 +103,7 @@ search_taxa <- function(...) {
 
 
 # checker function based on `galah_filter.R/check_filters`
-check_queries <- function(dots, error_call = caller_env()) {
+check_queries <- function(dots) {
   if(any(have_name(dots))){
     if(any(names(dots) == "children")){  # formerly an option under `select_taxa`   
       bullets <- c(
@@ -110,14 +111,14 @@ check_queries <- function(dots, error_call = caller_env()) {
         i = "See `?search_taxa` for more information.",
         x = "`children` is not a valid option"
       )
-      abort(bullets, call = error_call)     
+      rlang_abort(bullets)     
     }else{
       bullets <- c(
         "We detected a named input.",
         i = glue("This usually means that you've used `=` somewhere"),
         i = glue("`search_taxa` doesn't require equations")
       )
-      abort(bullets, call = error_call)
+      rlang_abort(bullets)
     }
   }
 }

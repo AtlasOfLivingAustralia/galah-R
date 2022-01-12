@@ -47,7 +47,8 @@ server_config <- function(url) {
       "Guatemala" = "Guatemalan",
       "Spain" = "Spanish"
     )
-    abort(glue("{service} is not supported for the {atlas_origin} atlas."), call = caller_env())
+    rlang_abort(
+      glue("{service} is not supported for the {atlas_origin} atlas."))
   }
   return(conf[[url]])
 }

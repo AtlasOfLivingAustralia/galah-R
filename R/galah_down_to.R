@@ -33,7 +33,7 @@ galah_down_to <- function(...){
       i = "Did you forget to specify a taxonomic level?",
       i = "See `?galah_down_to` for more information."
     )
-    abort(bullets, call = caller_env())
+    rlang_abort(bullets)
   }
   
   # check to see if any of the inputs are a data request
@@ -58,7 +58,7 @@ galah_down_to <- function(...){
       i = "Did you forget to specify a taxonomic level?",
       i = "See `?galah_down_to` for more information."
     )
-    abort(bullets, call = caller_env())
+    rlang_abort(bullets)
   }
   
   # error check for multiple ranks
@@ -69,7 +69,7 @@ galah_down_to <- function(...){
       i = "galah_down_to` only accepts a single rank at a time.",
       x = glue("`galah_down_to` has length of {n_down_to}.")
     )
-    abort(bullets, call = caller_env())
+    rlang_abort(bullets)
   }
 
   # create tibble containing specified rank
@@ -83,7 +83,7 @@ galah_down_to <- function(...){
       i = "The rank provided to `galah_down_to` must be a valid taxonomic rank.",
       x = glue("{rank} is not a valid rank.")
     )
-    abort(bullets, call = caller_env())
+    rlang_abort(bullets)
   }
 
   # if a data request was supplied, return one

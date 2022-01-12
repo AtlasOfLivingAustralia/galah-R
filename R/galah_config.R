@@ -115,7 +115,7 @@ galah_config <- function(..., profile_path = NULL) {
         glue("No .Rprofile file exists at \"{profile_path}\"."),
         i = "Please create fhe file and try again."
       )
-      abort(bullets, call = caller_env())
+      rlang_abort(bullets)
     }
     if (current_options$verbose) {
       inform(glue("The config will be stored in {profile_path}."))
@@ -124,7 +124,7 @@ galah_config <- function(..., profile_path = NULL) {
     
   } else {
     if (current_options$verbose) {
-      msg <- inform("These configuration options will only be saved for this session.
+      inform("These configuration options will only be saved for this session.
     Set `preserve = TRUE` to preserve them for future sessions.")
     }
   }
@@ -214,7 +214,7 @@ quoted_options <- function(opts) {
 validate_option <- function(name, value) {
   if (name %in% c("caching", "send_email", "verbose", "run_checks")) {
     if (!is.logical(value)) {
-      abort(glue("\"{name}\" must be TRUE or FALSE."), call = caller_env())
+      rlang_abort(glue("\"{name}\" must be TRUE or FALSE."))
     }
   } else if (name == "cache_directory") {
     if (!dir.exists(value)) {
@@ -222,7 +222,7 @@ validate_option <- function(name, value) {
         "Cache directory does not exist.",
         i = "Does the directory entered exist?"
       )
-      abort(bullets, call = caller_env())
+      rlang_abort(bullets)
     }
   } else if (name == "email") {
     if (!is.character(value)) {
@@ -230,7 +230,7 @@ validate_option <- function(name, value) {
         "Invalid email.",
         i = "Email must be entered as a string."
       )
-      abort(bullets, call = caller_env())
+      rlang_abort(bullets)
     }
   } else if (name == "download_reason_id") {
     if (!(value %in% show_all_reasons()$id)) {
@@ -239,7 +239,7 @@ validate_option <- function(name, value) {
         i = "Use `show_all_reasons()` to see all valid reasons.",
         x = glue("{value} does not match an existing reason ID.")
       )
-      abort(bullets, call = caller_env())
+      rlang_abort(bullets)
     }
   } else if (name == "atlas") {
     if (!value %in% show_all_atlases()$atlas) {
@@ -248,7 +248,7 @@ validate_option <- function(name, value) {
         i = glue("Use `show_all_atlases()` to see supported atlases."),
         x = glue("\"{value}\" is not a valid atlas.")
       )
-      abort(bullets, call = caller_env())
+      rlang_abort(bullets)
     }
   } else {
     bullets <- c(
@@ -256,7 +256,7 @@ validate_option <- function(name, value) {
       i = "See `?galah_config()` for valid options.",
       x = glue("\"{name}\" is not a valid option name.")
     )
-    abort(bullets, call = caller_env())
+    rlang_abort(bullets)
   }
 }
 
@@ -274,7 +274,7 @@ convert_reason <- function(reason) {
         i = "Use `show_all_reasons()` to see list of valid reasons.",
         x = glue("Couldn't match \"{reason}\" to a valid reason ID.")
       )
-      abort(bullets, call = caller_env())
+      rlang_abort(bullets)
     })
   }
   reason

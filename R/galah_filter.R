@@ -74,7 +74,6 @@
 #' galah_filter(cl22 >= "Tasmania")
 #' # queries all Australian States & Territories alphabetically after "Tasmania"
 #' }
-#' @importFrom rlang abort
 #' @importFrom rlang as_label  
 #' @importFrom rlang caller_env         
 #' @importFrom rlang enquos
@@ -156,7 +155,7 @@ check_filter <- function(dots, error_call = caller_env()) {
         i = glue("This usually means that you've used `=` instead of `==`."),
         i = glue("Did you mean `{name} == {as_label(expr)}`?")
       )
-      abort(bullets, call = error_call)
+      rlang_abort(bullets)
     }   
   }
 }
@@ -387,7 +386,7 @@ apply_profiles <- function(profile, named_filters, error_call = caller_env()) {
         i = glue("Use `find_profiles()` to list valid profiles"),
         x = glue("'{profile}' is not recognised.")
       )
-      abort(bullets, call = error_call)
+      rlang_abort(bullets)
     }
     profile_attr <- short_name
   }

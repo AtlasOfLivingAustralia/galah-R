@@ -67,7 +67,7 @@ internal_GET <- function(url, path, params = list(), on_error = NULL,
     if (res$status_code != 200) {
       code_number <- res$status_code
       request_url <- res$request$url
-      abort("Status code {code_number} returned for url {request_url}.")
+      rlang_abort(glue("Status code {code_number} returned for url {request_url}."))
     }
   }
 

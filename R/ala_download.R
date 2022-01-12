@@ -32,7 +32,7 @@ internal_download <- function(url, path, params, ext, cache_file) {
       i = "Please enter a valid directory and try again.",
       x = glue("{directory} does not exist.")
     )
-    abort(bullets, call = caller_env())
+    rlang_abort(bullets)
   }
 
   # ws needs to be added for 
