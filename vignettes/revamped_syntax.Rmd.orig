@@ -29,6 +29,12 @@ tribble(
   ~Old, ~New, 
   
   " ", "galah_call"
+    
+  "select_filters", "galah_filter",
+  "select_columns", "galah_select",
+  "select_locations", "galah_geolocate",  
+  " ", "galah_group_by",
+  " ", "galah_down_to",  
   
   "ala_counts", "atlas_counts", 
   "ala_occurrences", "atlas_occurrences", 
@@ -36,13 +42,7 @@ tribble(
   "ala_media", "atlas_media", 
   "ala_taxonomy", "atlas_taxonomy", 
   "ala_citation", "atlas_citation", 
-    
-  "select_filters", "galah_filter",
-  "select_columns", "galah_select",
-  "select_locations", "galah_geolocate",  
-  " ", "galah_group_by",
-  " ", "galah_down_to",  
-
+  
   "select_taxa", "search_taxa & find_taxa", 
   "search_fields", "search_fields",
   "", "show_all_fields", 
@@ -59,8 +59,8 @@ tribble(
   kable_styling(full_width = FALSE) %>%
   kable_paper() %>%
   row_spec(1, bold = T, color = "#f064a4") %>%
-  row_spec(2:7, bold = T, color = "#E06E53") %>%
-  row_spec(8:12, bold = T, color = "#c7902a") %>%
+  row_spec(2:6, bold = T, color = "#E06E53") %>%
+  row_spec(7:12, bold = T, color = "#c7902a") %>%
   row_spec(13:20, bold = T, color = "#7f9959")
 ```
 
@@ -110,7 +110,7 @@ atlas_counts(
   )
 ```
 
-Use `galah_select` to choose columns returned when downloading records:
+Use `galah_select` to choose which columns are returned when downloading records:
 
 ```{r, eval = FALSE}
 # Get records from 1930, but only 'eventDate' and 'kingdom' columns
@@ -124,7 +124,7 @@ atlas_occurrences(
 Use `galah_geolocate` to specify a geographic area or region to limit your search:
 
 ```{r, eval = FALSE}
-# Get list of parameles species only in area specified:
+# Get list of perameles species only in area specified:
 # (Note: This can also be specified by a shapefile)
 wkt <- "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))"
 
@@ -176,10 +176,14 @@ To learn how, see the [Piping with `galah_call`] section.
 
 `search_taxa` and `find_taxa` replace the previously named `select_taxa`.  
   
-`search_taxa` replaces the most commonly used functionality of `select_taxa` - 
-to search for taxonomic information. `search_taxa` uses fuzzy matching to work 
+`search_taxa` now does what most people used `select_taxa for most often, and 
+this its new name is intended to reflect the function's use - 
+it searches for taxonomic information. `search_taxa` uses fuzzy matching to work 
 a lot like the search bar on the [Atlas of Living Australia website](https://bie-ws.ala.org.au/), 
-and the new name is intended to reflect the function's use. 
+and you can use it to search for taxa by name. Finding your desired taxa with 
+`search_taxa` is an important step to using this taxonomic information to download 
+data with `galah`.  
+  
 For example, to search for reptiles, we first need to identify whether we have 
 the correct query and verify using additional taxonomic information:
 
@@ -188,8 +192,9 @@ search_taxa("Reptilia")
 ```
 
 The output confirms that *Reptilia* is the correct search term, which we can use 
-in `atlas_` functions to narrow our results or records. This output is consistent 
-with the other `search_` function, `search_fields`.
+in `atlas_` functions to narrow our results or records. Furthermore, the output 
+we get from `search_taxa` is consistent with the other `search_` function, 
+`search_fields`.
 
 Alternatively, `find_taxa` replaces the previous ability of `select_taxa` to use 
 unique identifiers to identify taxa. `find_taxa` only accepts identifiers and, 
@@ -283,10 +288,11 @@ In practice, this means that you can now build queries like how you would
 filter or wrangle a `data.frame` using `dplyr`.  
   
 In order to use piping, you must use the `galah_call()` function. Let's 
-look at an example:
+look at an examples:
 
 ```{r}
 # Find number of records of bandicoot species in 2021
+# With piping
 galah_call() %>%
   search_taxa("perameles") %>%
   galah_filter(year == 2021) %>%
@@ -296,15 +302,36 @@ galah_call() %>%
 This is equivalent to:
 
 ```{r, eval = FALSE}
+# Without piping
 atlas_counts(taxa = search_taxa("perameles"),
              filter = galah_filter(year == 2001),
              group_by = galah_group_by(species, year))
 ```
 
+And a second example:
+
+```{r, eval = FALSE}
+# Download occurrence records of bandicoots in 2021, with coordinates
+# With piping
+galah_call() %>%
+  search_taxa("perameles") %>%
+  galah_filter(year == 2021) %>%
+  galah_select(group = "basic", ZERO_COORDINATE) %>%
+  atlas_occurrences()
+```
+This is equivalent to:
+
+```{r, eval = FALSE}
+# Without piping
+atlas_occurrences(taxa = search_taxa("perameles"),
+                  filter = galah_filter(year == 2001),
+                  select = galah_select(group = "basic", ZERO_COORDINATE))
+```
+
 Beginning a query with `galah_call()` (be sure to add the parentheses!) tells 
 `galah` that you will be using pipes to construct your query. Follow this with 
-your preferred pipe (`|>` from `base` or `%>%` from `magrittr`). In following 
-lines, you can narrow your query with `galah_` functions or the `search_taxa` 
+your preferred pipe (`|>` from `base` or `%>%` from `magrittr`). You can then 
+narrow your query with line-by-line using `galah_` functions or the `search_taxa` 
 function. Finally, end with an `atlas_` function to identify what type of data
 you want from your query.  
   
