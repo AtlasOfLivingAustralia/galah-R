@@ -4,28 +4,67 @@
 h1, h2, h3, h4, .h1, .h2, .h3, .main-title, .main-subtitle {
   font-family: Lato;
   font-weight: normal;
-  color: #003A70;
+  color: #F064A4;
 }
 
 a {
-    color: #003A70;
+    color: #60a3a3;
     text-decoration: none;
 }
 
+a:hover {
+  color: #78CCCC;
+}
 
 body { font-family: Roboto; }
 
 .navbar {
-  background: #37B2F7;
-  background-image: -moz-linear-gradient(top, #6BDAD5, #32c7c0);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6BDAD5), to(#32c7c0));
-  background-image: -webkit-linear-gradient(top, #6BDAD5, #32c7c0);
-  background-image: -o-linear-gradient(top, #6BDAD5, #32c7c0);
-  background-image: linear-gradient(to bottom, #6BDAD5, #32c7c0);
+  background: #78CCCC;
   transition: all 0.3s ease;
-  box-shadow: 0 0 15px 5px rgba(0,0,0,.15);
+  box-shadow: 0 0 10px 2px rgba(0,0,0,.15);
   border: none;
   min-height: 40px;
+}
+
+.navbar.bg-primary {
+  background-image: linear-gradient(to bottom, #fef7fa, #fce7f0);
+  /*background-image: linear-gradient(#93d6d6, #78CCCC 60%, #6cb7b7);*/
+}
+
+.navbar-dark .navbar-brand {
+    color: #182828;
+}
+
+.navbar-dark .navbar-brand:hover {
+    color: #78CCCC;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(24,40,40,0.8);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(24,40,40,0.8);
+}
+
+.navbar-dark .navbar-nav .nav-link:focus {
+    color: rgba(24,40,40,0.8);
+}
+
+.nav-item:selection {
+  background-color: #C0E6E8;
+}
+
+.nav-item:hover {
+  background-color: #C0E6E8;
+}
+
+.dropdown-item:hover {
+  background-color: #60a3a3;
+}
+
+.navlink:hover {
+  background-color: #f8fcfc;
 }
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus .navbar-nav>.drop>a:hover{
@@ -53,10 +92,15 @@ body { font-family: Roboto; }
   margin-top: 100px;
 }
 
+pre {
+    background-color: #f8fcfc;
+}
+
+/*
 .text-muted {
   color: #f5b2d0!important;
 }
-
+/*
 /*.navbar a:active, .dropdown:active .dropbtn {
   background-color: #003A70;
   background: #003A70;
