@@ -41,7 +41,7 @@ search_taxa <- function(...) {
     international_atlas <- getOption("galah_config")$atlas
     bullets <- c(
       "`search_taxa` only provides information on Australian taxonomy.",
-      i = glue("To search taxonomy for {international_atlas} use `taxsize`."),
+      i = glue("To search taxonomy for {international_atlas} use `taxize`."),
       i = "See vignette('international_atlases' for more information."
     )
     abort(bullets, call = caller_env())
