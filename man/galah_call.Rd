@@ -46,25 +46,36 @@ Users then finish their query with an \code{atlas_} function to identify which
 type of data they wish to download (i.e., \code{\link[=atlas_occurrences]{atlas_occurrences()}},
 \code{\link[=atlas_counts]{atlas_counts()}}, \code{\link[=atlas_species]{atlas_species()}}, \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} or \code{\link[=atlas_media]{atlas_media()}}).
 }
-\examples{
-\dontrun{
-# Find number of records of Aves from 2001 to 2004 by year
-galah_call() |>
-  search_taxa("Aves") |>
-  galah_filter(year > 2000 & year < 2005) |>
-  galah_group_by() |>
+\section{Examples}{
+
+
+Using \code{galah_call()} with pipes allows you to build, filter
+and download data queries the same way that you would wrangle your own data
+with \code{dplyr} and the \code{tidyverse}. Begin your query with \code{galah_call()}, then
+use either \verb{\%>\%} from \code{magrittr} or \verb{|>} from \code{base} to narrow/filter your
+results line-by-line.
+
+Find number of records of \emph{Aves} from 2001 to 2004 by year\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(magrittr)
+
+galah_call() \%>\%
+  search_taxa("Aves") \%>\%
+  galah_filter(year > 2000 & year < 2005) \%>\%
+  galah_group_by() \%>\%
   atlas_counts()
-  
-# Download Eolophus records from 2001 to 2004
-galah_call() |>
-  search_taxa("Eolophus") |>
-  galah_filter(year > 2000 & year < 2005) |>
+}\if{html}{\out{</div>}}
+
+Download \emph{Eolophus} records from 2001 to 2004\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+
+galah_call() \%>\%
+  search_taxa("Eolophus") \%>\%
+  galah_filter(year > 2000 & year < 2005) \%>\%
   atlas_occurrences()
-  
-# Find information for all species in Cacatuidae family
-galah_call() |>
-  search_taxa("Cacatuidae") |>
+}\if{html}{\out{</div>}}
+
+Find information for all species in \emph{Cacatuidae} family\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
+  search_taxa("Cacatuidae") \%>\%
   atlas_species()
+}\if{html}{\out{</div>}}
 }
-}
+
 \keyword{internal}

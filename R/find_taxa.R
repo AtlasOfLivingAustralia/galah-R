@@ -27,17 +27,6 @@
 #' find_taxa(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
 #' ```
 #' 
-#' To use this identifier to filter data returned by `atlas_` functions, pass 
-#' the result of `find_taxa()` to [search_taxa()]
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' taxa_id <- find_taxa(
-#'   identifier = "https://id.biodiversity.org.au/node/apni/2914510"
-#'   )
-#' 
-#' atlas_counts(taxa = search_taxa(taxa))
-#' ```
-#' 
 #' @export
 find_taxa <- function(identifier) {
 

@@ -23,13 +23,17 @@ on the taxon in question. Effectively this is the inverse function to
 \code{data.frame} of taxonomic information can also be passed directly to
 \code{atlas_} functions to filter records to the specified taxon or taxa.
 }
-\examples{
-\dontrun{
-# Look up a unique taxon identifier
-find_taxa(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
+\section{Examples}{
+
+
+Look up a unique taxon identifier\if{html}{\out{<div class="sourceCode r">}}\preformatted{find_taxa(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
+#> # A tibble: 1 x 13
+#>   scientific_name     scientific_name_authorship taxon_concept_id        rank   match_type  kingdom phylum  class   order family genus species   issues
+#>   <chr>               <chr>                      <chr>                   <chr>  <chr>       <chr>   <chr>   <chr>   <chr> <chr>  <chr> <chr>     <chr> 
+#> 1 Eucalyptus blakelyi Maiden                     https://id.biodiversit~ speci~ taxonIdMat~ Plantae Charop~ Equise~ Myrt~ Myrta~ Euca~ Eucalypt~ noIss~
+}\if{html}{\out{</div>}}
 }
 
-}
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} for how to find species by (scientific) names.
 \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and

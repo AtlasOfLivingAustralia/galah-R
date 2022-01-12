@@ -2,15 +2,22 @@
 #' 
 #' Deletes cached files within the cached file directory and their query 
 #' metadata
-#' @examples
-#' \dontrun{
-#' ## configure caching and create a query to cache
+#' 
+#' @section Examples:
+#' 
+#' First, set caching to true with [galah_config()]. Then create a data query. 
+#' The data you download will be cached in a temporary directory.
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
 #' galah_config(caching = TRUE)
 #' dat <- atlas_counts(group_by = galah_group_by(year))
+#' ```
 #'
-#' ## clear cached files directory
+#' To clear your cached files directory, use `clear_cached_files()`
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
 #' clear_cached_files()
-#' }
+#' ```
 #' 
 #' @export
 

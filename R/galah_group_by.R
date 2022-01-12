@@ -13,28 +13,65 @@
 #' are provided, returns `NULL`.
 #' @seealso [galah_select()], [galah_filter()] and
 #' [galah_geolocate()] for related methods.
-#' @examples
-#' \dontrun{
-#' # Return record counts since 2010 by year
-#' atlas_counts(
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Return record counts since 2010 by year
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
+#' records <- atlas_counts(
 #'     filter = galah_filter(year > 2010),
 #'     group_by = galah_group_by(year)
 #'     )
-#'     
-#' # Return record counts since 2010 by year and data provider
-#' atlas_counts(
+#' ```
+#' ```{r, comment = "#>", collapse = TRUE}
+#' records
+#' ```
+#'  
+#' Return record counts since 2010 by year and data provider
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
+#' records <- atlas_counts(
 #'     filter = galah_filter(year > 2010),
 #'     group_by = galah_group_by(year, dataResourceName)
 #'     )
+#' ```
+#' ```{r, comment = "#>", collapse = TRUE}
+#' records
+#' ```
 #'     
-#' # Return record counts of Litoria species each year since 2015, limiting
-#' # results to the top 5 each year.
-#' atlas_counts(
+#' Return record counts of *Litoria* species each year since 2015, limiting
+#' results to the top 5 each year
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
+#' records <- atlas_counts(
 #'     taxa = search_taxa("Litoria"),
 #'     filter = galah_filter(year > 2015),
 #'     group_by = galah_group_by(year, species),
 #'     limit = 5)
-#' }
+#' ```
+#' ```{r, comment = "#>", collapse = TRUE}
+#' records
+#' ```
+#' 
+#' You can also use `galah_group_by` when piping with `%>%` or `|>`. Just begin 
+#' your query with [galah_call()].  
+#'   
+#' `galah_group_by(vars) %>% atlas_counts()` works very similarly to using 
+#' `group_by(vars) %>% count()` from the `dplyr` package.
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
+#' records <- galah_call() |>
+#'   search_taxa("Litoria") |>
+#'   galah_filter(year > 2015) |>
+#'   galah_group_by(year, species) |>
+#'   atlas_counts(limit = 5)
+#' ```
+#' ```{r, comment = "#>", collapse = TRUE}
+#' records
+#' ```
 #' 
 #' @export
 

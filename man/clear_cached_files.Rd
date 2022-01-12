@@ -10,14 +10,15 @@ clear_cached_files()
 Deletes cached files within the cached file directory and their query
 metadata
 }
-\examples{
-\dontrun{
-## configure caching and create a query to cache
-galah_config(caching = TRUE)
+\section{Examples}{
+
+
+First, set caching to true with \code{\link[=galah_config]{galah_config()}}. Then create a data query.
+The data you download will be cached in a temporary directory.\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(caching = TRUE)
 dat <- atlas_counts(group_by = galah_group_by(year))
+}\if{html}{\out{</div>}}
 
-## clear cached files directory
-clear_cached_files()
+To clear your cached files directory, use \code{clear_cached_files()}\if{html}{\out{<div class="sourceCode r">}}\preformatted{clear_cached_files()
+}\if{html}{\out{</div>}}
 }
 
-}
