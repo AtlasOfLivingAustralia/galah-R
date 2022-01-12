@@ -31,25 +31,65 @@
 #'  * A single number, if `group_by` is not specified or,
 #'  * A summary of counts grouped by field(s), if `group_by` is specified
 #'
-#' @examples
-#' # With no arguments, return the total number of records in the ALA
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' With no arguments, return the total number of records in the ALA
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' atlas_counts()
+#' ```
 #'
-#' # Group counts by state and territory
+#' You can group counts by state and territory with `galah_group_by`
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' atlas_counts(group_by = galah_group_by(stateProvince))
+#' ```
 #'
-#' # Count records matching a filter
-#' atlas_counts(filter = galah_filter(basisOfRecord == "FossilSpecimen"))
+#' You can add a filter to narrow your search
 #' 
-#' \dontrun{
-#' # Count the number of species recorded for each kingdom
-#' atlas_counts(group_by = galah_group_by(kingdom), type = "species")
+#' ```{r, comment = "#>", collapse = TRUE}
+#' records <- atlas_counts(
+#'   filter = galah_filter(basisOfRecord == "FossilSpecimen")
+#'   ) 
+#' records
+#' ```
 #' 
-#' # Crosstabulate using two different variables
-#' atlas_counts(
+#' Specify `type = species` to count the number of species, and group record
+#' counts by kingdom
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
+#' records <- atlas_counts(group_by = galah_group_by(kingdom), 
+#'                         type = "species")
+#' ```
+#' ```{r, comment = "#>", collapse = TRUE}
+#' records
+#' ```
+#' 
+#' Using `galah_group_by` allows you to cross-tabulate using two different 
+#' variables, similar to using `dplyr::group_by() %>% dplyr::count()`
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
+#' records <- atlas_counts(
 #'   filter = galah_filter(year > 2015),
-#'   group_by = galah_group_by(year, basisOfRecord))
-#' }
+#'   group_by = galah_group_by(year, basisOfRecord)
+#'   )
+#' ```{r, comment = "#>", collapse = TRUE}
+#' records
+#' ```
+#' 
+#' You can also filter and download record counts by piping with `%>%` or `|>`. 
+#' Just begin your query with [galah_call()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
+#' records <- galah_call() |>
+#'   galah_filter(year > 2015) |>
+#'   galah_group_by(year, basisOfRecord) |>
+#'   atlas_counts()
+#' ```{r, comment = "#>", collapse = TRUE}
+#' records
+#' ```
 #' 
 #' @export
 atlas_counts <- function(...) {

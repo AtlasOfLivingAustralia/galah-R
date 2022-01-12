@@ -67,24 +67,104 @@ provides either a total count of records matching the criteria, or a
 \code{data.frame} of counts matching the criteria supplied to the \code{group_by}
 argument.
 }
-\examples{
-# With no arguments, return the total number of records in the ALA
-atlas_counts()
+\section{Examples}{
 
-# Group counts by state and territory
-atlas_counts(group_by = galah_group_by(stateProvince))
 
-# Count records matching a filter
-atlas_counts(filter = galah_filter(basisOfRecord == "FossilSpecimen"))
+With no arguments, return the total number of records in the ALA\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_counts()
+#> # A tibble: 1 x 1
+#>       count
+#>       <int>
+#> 1 101892823
+}\if{html}{\out{</div>}}
 
-\dontrun{
-# Count the number of species recorded for each kingdom
-atlas_counts(group_by = galah_group_by(kingdom), type = "species")
+You can group counts by state and territory with \code{galah_group_by}\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_counts(group_by = galah_group_by(stateProvince))
+#> # A tibble: 100 x 2
+#>    stateProvince                   count
+#>    <chr>                           <int>
+#>  1 New South Wales              24920903
+#>  2 Victoria                     21768881
+#>  3 Queensland                   17402411
+#>  4 South Australia               8447455
+#>  5 Western Australia             7455532
+#>  6 Northern Territory            4790796
+#>  7 Tasmania                      4503179
+#>  8 Australian Capital Territory  3810619
+#>  9 Canterbury Land District        69098
+#> 10 Wellington Land District        67212
+#> # ... with 90 more rows
+}\if{html}{\out{</div>}}
 
-# Crosstabulate using two different variables
-atlas_counts(
+You can add a filter to narrow your search\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- atlas_counts(
+  filter = galah_filter(basisOfRecord == "FossilSpecimen")
+  ) 
+records
+#> # A tibble: 1 x 1
+#>   count
+#>   <int>
+#> 1  5354
+}\if{html}{\out{</div>}}
+
+Specify \code{type = species} to count the number of species, and group record
+counts by kingdom\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- atlas_counts(group_by = galah_group_by(kingdom), 
+                        type = "species")
+}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
+#> # A tibble: 10 x 2
+#>    kingdom   count
+#>    <chr>     <int>
+#>  1 Animalia  90826
+#>  2 Plantae   39883
+#>  3 Fungi     16752
+#>  4 Chromista  1822
+#>  5 Protista    634
+#>  6 Bacteria    525
+#>  7 Protozoa    491
+#>  8 Archaea      NA
+#>  9 Eukaryota    NA
+#> 10 Virus        NA
+}\if{html}{\out{</div>}}
+
+Using \code{galah_group_by} allows you to cross-tabulate using two different
+variables, similar to using \code{dplyr::group_by() \%>\% dplyr::count()}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- atlas_counts(
   filter = galah_filter(year > 2015),
-  group_by = galah_group_by(year, basisOfRecord))
+  group_by = galah_group_by(year, basisOfRecord)
+  )
+}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
+#> # A tibble: 41 x 3
+#>    basisOfRecord     year    count
+#>    <chr>             <chr>   <int>
+#>  1 HUMAN_OBSERVATION 2020  5820506
+#>  2 HUMAN_OBSERVATION 2019  5399921
+#>  3 HUMAN_OBSERVATION 2018  5267743
+#>  4 HUMAN_OBSERVATION 2017  4348103
+#>  5 HUMAN_OBSERVATION 2016  3569835
+#>  6 HUMAN_OBSERVATION 2021  1144698
+#>  7 HUMAN_OBSERVATION 2022    22397
+#>  8 MATERIAL_SAMPLE   2017   167368
+#>  9 MATERIAL_SAMPLE   2016   129231
+#> 10 MATERIAL_SAMPLE   2019     5515
+#> # ... with 31 more rows
+}\if{html}{\out{</div>}}
+
+You can also filter and download record counts by piping with \verb{\%>\%} or \verb{|>}.
+Just begin your query with \code{\link[=galah_call]{galah_call()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
+  galah_filter(year > 2015) |>
+  galah_group_by(year, basisOfRecord) |>
+  atlas_counts()
+}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
+#> # A tibble: 41 x 3
+#>    basisOfRecord     year    count
+#>    <chr>             <chr>   <int>
+#>  1 HUMAN_OBSERVATION 2020  5820506
+#>  2 HUMAN_OBSERVATION 2019  5399921
+#>  3 HUMAN_OBSERVATION 2018  5267743
+#>  4 HUMAN_OBSERVATION 2017  4348103
+#>  5 HUMAN_OBSERVATION 2016  3569835
+#>  6 HUMAN_OBSERVATION 2021  1144698
+#>  7 HUMAN_OBSERVATION 2022    22397
+#>  8 MATERIAL_SAMPLE   2017   167368
+#>  9 MATERIAL_SAMPLE   2016   129231
+#> 10 MATERIAL_SAMPLE   2019     5515
+#> # ... with 31 more rows
+}\if{html}{\out{</div>}}
 }
 
-}

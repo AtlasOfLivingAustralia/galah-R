@@ -74,17 +74,27 @@ can test whether this threshold will be reached by first calling
 number of records to show a progress bar by setting \code{verbose = TRUE} in
 \code{\link[=galah_config]{galah_config()}}.
 }
-\examples{
-\dontrun{
-# Search for occurrences matching a taxon identifier
-occ <- atlas_occurrences(taxa = search_taxa("Reptilia"))
+\section{Examples}{
 
-# Search for occurrences in a year range
-occ <- atlas_occurrences(filter = galah_filter(year == seq(2010, 2020)))
 
-# Search for occurrences in a WKT-specified area
-polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
+Search for occurrences matching a taxon identifier\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+
+atlas_occurrences(taxa = search_taxa("Reptilia"))
+}\if{html}{\out{</div>}}
+
+Search for occurrences in a year range\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_occurrences(filter = galah_filter(year == seq(2010, 2020)))
+}\if{html}{\out{</div>}}
+
+Search for occurrences in a WKT-specified area\if{html}{\out{<div class="sourceCode r">}}\preformatted{polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
 occ <- atlas_occurrences(geolocate = galah_geolocate(polygon))
+}\if{html}{\out{</div>}}
+
+You can also download occurrence records by piping with \verb{\%>\%} or \verb{|>}. Just
+begin your query with \code{\link[=galah_call]{galah_call()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+  search_taxa("Reptilia") |>
+  galah_filter(year >= 2010) |>
+  galah_geolocate(polygon) |>
+  atlas_occurrences()
+}\if{html}{\out{</div>}}
 }
 
-}

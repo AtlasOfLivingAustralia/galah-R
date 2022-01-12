@@ -22,18 +22,39 @@
 #' then [search_taxa()] is more efficient. Similarly, if counts are
 #' required that include filter but without returning taxonomic detail, then
 #' [atlas_counts()] is more efficient (see examples).
-#' @examples
-#' \dontrun{
-#' # Look up genus "Heleioporus" in the ALA
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' First, look up a genus of interest in the ALA with [search_taxa()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' search_taxa("Heleioporus")
-#'
-#' # Find how many records there are for this genus
+#' ```
+#' 
+#' It's a good idea to find how many records there are for the taxon you are 
+#' interested in - in our case, genus *Heleioporus* - with [atlas_counts()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' atlas_counts(search_taxa("Heleioporus"))
+#' ```
 #'
-#' # Get taxonomic information on all species within this genus
+#' Now get taxonomic information on all species within this genus with 
+#' `atlas_species()`
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' # (every row is a species with associated taxonomic data)
 #' atlas_species(search_taxa("Heleioporus"))
-#' }
+#' ```
+#' 
+#' You can also get taxonomic information on species by piping with `%>%` or 
+#' `|>`. Just begin your query with [galah_call()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' galah_call() |>
+#'   search_taxa("Heleioporus") |>
+#'   atlas_species()
+#' ```
 #' 
 #' @export
 atlas_species <- function(...) {

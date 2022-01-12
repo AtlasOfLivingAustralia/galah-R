@@ -7,15 +7,29 @@
 #'
 #' @param profile `string`: a data quality profile name, short name or id.
 #' See [show_all_profiles()] for valid filters
-#' @export find_profile_attributes
 #' @return A `data.frame` of profile attributes, consisting of a
 #' free text `description` and the actual `filter` used.
 #' @seealso [show_all_profiles()] for a list of valid profiles;
 #' [galah_filter()] for how to include this information in a data
 #' query.
-#' @examples
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' To find all the data quality arguments used in the profile "CSDM"
+#' ```{r, comment = "#>", collapse = TRUE}
+#' find_profile_attributes("CSDM")
+#' ```
+#' 
+#' Then get a free-text description of each filter used in the "CSDM" profile
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' profile_info <- find_profile_attributes("CSDM")
-#' profile_info$description # free-text description of each filter in the "CSDM" profile
+#' profile_info$description
+#' ```
+#' 
+#' @export find_profile_attributes
 
 find_profile_attributes <- function(profile) {
   # check if is numeric or can be converted to numeric

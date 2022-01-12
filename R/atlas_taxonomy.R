@@ -29,8 +29,36 @@
 #' @seealso [search_taxa()] to search for an individual taxon; 
 #' [show_all_ranks()] for valid ranks used to specify the `down_to`
 #' argument.
-#' @examples
-#' atlas_taxonomy(search_taxa("chordata"), down_to = galah_down_to(class))
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Get a taxonomic tree of *Chordata* down to the class level
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' atlas_taxonomy(taxa = search_taxa("chordata"), 
+#'                down_to = galah_down_to(class))
+#' ```
+#' 
+#' You can also get taxonomic trees by piping with `%>%` or `|>`. Just begin 
+#' your query with [galah_call()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' galah_call() |>
+#'   search_taxa("chordata") |>
+#'   galah_down_to(class) |>
+#'   atlas_taxonomy()
+#' ```
+#' 
+#' Get a taxonomic tree of *Fungi* down to the phylum level
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' galah_call() |>
+#'   search_taxa("fungi") |>
+#'   galah_down_to(class) |>
+#'   atlas_taxonomy()
+#' ```
 #' 
 #' @export
 atlas_taxonomy <- function(...) {

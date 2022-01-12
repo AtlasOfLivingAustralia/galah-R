@@ -58,33 +58,42 @@ relating to occurrences (e.g. basis of records), and filter relating to media
 It may be beneficial when requesting a large number of records to show a progress
 bar by setting \code{verbose = TRUE} in \code{\link[=galah_config]{galah_config()}}.
 }
-\examples{
-\dontrun{
-# Download Regent Honeyeater multimedia
-media_data <- atlas_media(
+\section{Examples}{
+
+
+Download Regent Honeyeater multimedia\if{html}{\out{<div class="sourceCode r">}}\preformatted{media_data <- atlas_media(
     taxa = search_taxa("Regent Honeyeater"),
     filter = galah_filter(year == 2011),
     download_dir = "folder/your-directory")
+}\if{html}{\out{</div>}}
 
-# Specify a single media type to download
-media_data <- atlas_media(
+Specify a single media type to download\if{html}{\out{<div class="sourceCode r">}}\preformatted{media_data <- atlas_media(
      taxa = search_taxa("Eolophus Roseicapilla"),
      filter = galah_filter(multimedia == "Sound"))
+}\if{html}{\out{</div>}}
 
-# Filter to only records with a particular licence type
-media_data <- atlas_media(
+Filter to only records with a particular licence type\if{html}{\out{<div class="sourceCode r">}}\preformatted{media_data <- atlas_media(
       taxa = search_taxa("Ornithorhynchus anatinus"),
-      filter = galah_filter(year == 2020,
+      filter = galah_filter(year == 2020),
       license = "http://creativecommons.org/licenses/by-nc/4.0/")
 )
-# Check how many records have media files
-atlas_counts(
+}\if{html}{\out{</div>}}
+
+You can also filter and download media by piping with \verb{\%>\%} or \verb{|>}. Just
+begin your query with \code{\link[=galah_call]{galah_call()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+  search_taxa("Ornithorhynchus anatinus") |>
+  galah_filter(year == 2020) |>
+  atlas_media(licence = "http://creativecommons.org/licenses/by-nc/4.0/")
+}\if{html}{\out{</div>}}
+
+You might also want to check how many records have media files before you
+download them. Do this with \code{\link[=atlas_counts]{atlas_counts()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_counts(
      filter = galah_filter(multimedia == c("Image","Sound","Video")),
      group_by = galah_group_by(multimedia)
 )
+}\if{html}{\out{</div>}}
 }
 
-}
 \seealso{
 \code{\link[=atlas_counts]{atlas_counts()}} to find the number of records with media- note this
 is not necessarily the same as the number of media files, as each record can have

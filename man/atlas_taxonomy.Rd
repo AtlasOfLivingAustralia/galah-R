@@ -46,10 +46,142 @@ becomes slow for large queries such as
 Although the inputs to \code{search_taxa} and \code{down_to} are
 case-insensitive, node names are always returned in title case.
 }
-\examples{
-atlas_taxonomy(search_taxa("chordata"), down_to = galah_down_to(class))
+\section{Examples}{
 
+
+Get a taxonomic tree of \emph{Chordata} down to the class level\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_taxonomy(taxa = search_taxa("chordata"), 
+               down_to = galah_down_to(class))
+#>                             levelName
+#> 1  Chordata                          
+#> 2   ¦--Cephalochordata               
+#> 3   ¦   °--Amphioxi                  
+#> 4   ¦--Craniata                      
+#> 5   ¦   °--Agnatha                   
+#> 6   ¦       ¦--Cephalasipidomorphi   
+#> 7   ¦       °--Myxini                
+#> 8   ¦--Tunicata                      
+#> 9   ¦   ¦--Appendicularia            
+#> 10  ¦   ¦--Ascidiacea                
+#> 11  ¦   °--Thaliacea                 
+#> 12  °--Vertebrata                    
+#> 13      °--Gnathostomata             
+#> 14          ¦--Amphibia              
+#> 15          ¦--Aves                  
+#> 16          ¦--Mammalia              
+#> 17          ¦--Pisces                
+#> 18          ¦   ¦--Actinopterygii    
+#> 19          ¦   ¦--Chondrichthyes    
+#> 20          ¦   ¦--Cephalaspidomorphi
+#> 21          ¦   °--Sarcopterygii     
+#> 22          °--Reptilia
+}\if{html}{\out{</div>}}
+
+You can also get taxonomic trees by piping with \verb{\%>\%} or \verb{|>}. Just begin
+your query with \code{\link[=galah_call]{galah_call()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+  search_taxa("chordata") |>
+  galah_down_to(class) |>
+  atlas_taxonomy()
+#>                             levelName
+#> 1  Chordata                          
+#> 2   ¦--Cephalochordata               
+#> 3   ¦   °--Amphioxi                  
+#> 4   ¦--Craniata                      
+#> 5   ¦   °--Agnatha                   
+#> 6   ¦       ¦--Cephalasipidomorphi   
+#> 7   ¦       °--Myxini                
+#> 8   ¦--Tunicata                      
+#> 9   ¦   ¦--Appendicularia            
+#> 10  ¦   ¦--Ascidiacea                
+#> 11  ¦   °--Thaliacea                 
+#> 12  °--Vertebrata                    
+#> 13      °--Gnathostomata             
+#> 14          ¦--Amphibia              
+#> 15          ¦--Aves                  
+#> 16          ¦--Mammalia              
+#> 17          ¦--Pisces                
+#> 18          ¦   ¦--Actinopterygii    
+#> 19          ¦   ¦--Chondrichthyes    
+#> 20          ¦   ¦--Cephalaspidomorphi
+#> 21          ¦   °--Sarcopterygii     
+#> 22          °--Reptilia
+}\if{html}{\out{</div>}}
+
+Get a taxonomic tree of \emph{Fungi} down to the phylum level\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+  search_taxa("fungi") |>
+  galah_down_to(class) |>
+  atlas_taxonomy()
+#>                              levelName
+#> 1  Fungi                              
+#> 2   ¦--Ascomycota                     
+#> 3   ¦   ¦--Ascomycetes                
+#> 4   ¦   ¦--Discomycetes               
+#> 5   ¦   ¦--Pezizomycotina             
+#> 6   ¦   ¦   ¦--Arthoniomycetes        
+#> 7   ¦   ¦   ¦--Dothideomycetes        
+#> 8   ¦   ¦   ¦--Eurotiomycetes         
+#> 9   ¦   ¦   ¦--Geoglossomycetes       
+#> 10  ¦   ¦   ¦--Laboulbeniomycetes     
+#> 11  ¦   ¦   ¦--Lecanoromycetes        
+#> 12  ¦   ¦   ¦--Leotiomycetes          
+#> 13  ¦   ¦   ¦--Lichinomycetes         
+#> 14  ¦   ¦   ¦--Orbiliomycetes         
+#> 15  ¦   ¦   ¦--Pezizomycetes          
+#> 16  ¦   ¦   ¦--Sordariomycetes        
+#> 17  ¦   ¦   °--Xylonomycetes          
+#> 18  ¦   ¦--Saccharomycotina           
+#> 19  ¦   ¦   °--Saccharomycetes        
+#> 20  ¦   ¦--Taphrinomycotina           
+#> 21  ¦   ¦   ¦--Neolectomycetes        
+#> 22  ¦   ¦   ¦--Pneumocystidomycetes   
+#> 23  ¦   ¦   ¦--Schizosaccharomycetes  
+#> 24  ¦   ¦   °--Taphrinomycetes        
+#> 25  ¦   °--Pyrenomycete               
+#> 26  ¦--Basidiomycota                  
+#> 27  ¦   ¦--Agaricomycotina            
+#> 28  ¦   ¦   ¦--Agaricomycetes         
+#> 29  ¦   ¦   ¦--Dacrymycetes           
+#> 30  ¦   ¦   °--Tremellomycetes        
+#> 31  ¦   ¦--Basidiomycetes             
+#> 32  ¦   ¦--Entorrhizomycetes          
+#> 33  ¦   ¦--Pucciniomycotina           
+#> 34  ¦   ¦   ¦--Agaricostilbomycetes   
+#> 35  ¦   ¦   ¦--Atractiellomycetes     
+#> 36  ¦   ¦   ¦--Classiculomycetes      
+#> 37  ¦   ¦   ¦--Cryptomycocolacomycetes
+#> 38  ¦   ¦   ¦--Cystobasidiomycetes    
+#> 39  ¦   ¦   ¦--Microbotryomycetes     
+#> 40  ¦   ¦   ¦--Pucciniomycetes        
+#> 41  ¦   ¦   ¦--Spiculogloeomycetes    
+#> 42  ¦   ¦   ¦--Tritirachiomycetes     
+#> 43  ¦   ¦   °--Urediniomycetes        
+#> 44  ¦   ¦--Ustilaginomycotina         
+#> 45  ¦   ¦   ¦--Exobasidiomycetes      
+#> 46  ¦   ¦   ¦--Malasseziomycetes      
+#> 47  ¦   ¦   ¦--Monilielliomycetes     
+#> 48  ¦   ¦   ¦--Ustilaginomycetes      
+#> 49  ¦   ¦   °--Ustomycetes            
+#> 50  ¦   ¦--Wallemiomycetes            
+#> 51  ¦   °--Wallemiomycotina           
+#> 52  ¦       °--Wallemiomycetes        
+#> 53  ¦--Chytridiomycota                
+#> 54  ¦   ¦--Blastocladiomycetes        
+#> 55  ¦   ¦--Chytridiomycetes           
+#> 56  ¦   ¦--Monoblepharidomycetes      
+#> 57  ¦   °--Neocallimastigomycetes     
+#> 58  ¦--Glomeromycota                  
+#> 59  ¦   °--Glomeromycetes             
+#> 60  ¦--Microspora                     
+#> 61  ¦   °--Microsporea                
+#> 62  °--Zygomycota                     
+#> 63      ¦--Entomophthoromycotina      
+#> 64      ¦   ¦--Basidiobolomycetes     
+#> 65      ¦   ¦--Entomophthoromycetes   
+#> 66      ¦   °--Neozygitomycetes       
+#> 67      ¦--Trichomycetes              
+#> 68      °--Zygomycetes
+}\if{html}{\out{</div>}}
 }
+
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} to search for an individual taxon;
 \code{\link[=show_all_ranks]{show_all_ranks()}} for valid ranks used to specify the \code{down_to}

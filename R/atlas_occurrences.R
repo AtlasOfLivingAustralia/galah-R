@@ -42,18 +42,41 @@
 #' * a `doi` of the data download
 #' * the `search_url` of the query to ALA API
 #' 
-#' @examples
-#' \dontrun{
-#' # Search for occurrences matching a taxon identifier
-#' occ <- atlas_occurrences(taxa = search_taxa("Reptilia"))
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Search for occurrences matching a taxon identifier
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' galah_config(email = "your-email@email.com")
+#' 
+#' atlas_occurrences(taxa = search_taxa("Reptilia"))
+#' ```
 #'
-#' # Search for occurrences in a year range
-#' occ <- atlas_occurrences(filter = galah_filter(year == seq(2010, 2020)))
+#' Search for occurrences in a year range
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' atlas_occurrences(filter = galah_filter(year == seq(2010, 2020)))
+#' ```
 #'
-#' # Search for occurrences in a WKT-specified area
+#' Search for occurrences in a WKT-specified area
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
 #' polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
 #' occ <- atlas_occurrences(geolocate = galah_geolocate(polygon))
-#' }
+#' ```
+#' 
+#' You can also download occurrence records by piping with `%>%` or `|>`. Just 
+#' begin your query with [galah_call()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' galah_call() |>
+#'   search_taxa("Reptilia") |>
+#'   galah_filter(year >= 2010) |>
+#'   galah_geolocate(polygon) |>
+#'   atlas_occurrences()
+#' ```
 #' 
 #' @export
 atlas_occurrences <- function(...) {

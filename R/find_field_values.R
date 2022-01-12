@@ -9,10 +9,33 @@
 #' containing columns `field` (user-supplied) and `category` (i.e. field values).
 #' @seealso See [search_fields()] for ways to use information returned
 #' by this function.
-#' @examples
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
 #' 
+#' Find valid values you can use to filter or categorise results for the field 
+#' "basisOfRecord"
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' find_field_values("basisOfRecord")
+#' ```
+#' 
+#' Find valid values to filter or categorise results for the field 
+#' "stateProvince"
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' find_field_values("stateProvince")
+#' ```
+#' 
+#' Use these values to with [galah_filter()] tp filter results of `atlas_` 
+#' functions. For example, we can return the number of records only from 
+#' Tasmania
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' galah_call() |>
+#'   galah_filter(stateProvince == "Tasmania") |>
+#'   atlas_counts()
+#' ```
 #' 
 #' @export find_field_values
 

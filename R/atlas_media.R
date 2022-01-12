@@ -22,31 +22,57 @@
 #' @seealso [atlas_counts()] to find the number of records with media- note this
 #' is not necessarily the same as the number of media files, as each record can have
 #' more than one media file associated with it (see examples section for how to do this).
-#' @examples
-#' \dontrun{
-#' # Download Regent Honeyeater multimedia
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Download Regent Honeyeater multimedia
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
 #' media_data <- atlas_media(
 #'     taxa = search_taxa("Regent Honeyeater"),
 #'     filter = galah_filter(year == 2011),
 #'     download_dir = "folder/your-directory")
+#' ```
 #' 
-#' # Specify a single media type to download
+#' Specify a single media type to download
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
 #' media_data <- atlas_media(
 #'      taxa = search_taxa("Eolophus Roseicapilla"),
 #'      filter = galah_filter(multimedia == "Sound"))
+#' ```
 #' 
-#' # Filter to only records with a particular licence type
+#' Filter to only records with a particular licence type
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
 #' media_data <- atlas_media(
 #'       taxa = search_taxa("Ornithorhynchus anatinus"),
-#'       filter = galah_filter(year == 2020,
+#'       filter = galah_filter(year == 2020),
 #'       license = "http://creativecommons.org/licenses/by-nc/4.0/")
 #' )
-#' # Check how many records have media files
+#' ```
+#' 
+#' You can also filter and download media by piping with `%>%` or `|>`. Just 
+#' begin your query with [galah_call()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' galah_call() |>
+#'   search_taxa("Ornithorhynchus anatinus") |>
+#'   galah_filter(year == 2020) |>
+#'   atlas_media(licence = "http://creativecommons.org/licenses/by-nc/4.0/")
+#' ```
+#' 
+#' You might also want to check how many records have media files before you 
+#' download them. Do this with [atlas_counts()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
 #' atlas_counts(
 #'      filter = galah_filter(multimedia == c("Image","Sound","Video")),
 #'      group_by = galah_group_by(multimedia)
 #' )
-#' }
+#' ```
 #' 
 #' @export
 atlas_media <- function(...) {
