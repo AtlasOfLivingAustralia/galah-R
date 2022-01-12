@@ -7,6 +7,7 @@ galah_internal_cache <- function(...){
   # set all options
   ala_option_name <- "galah_internal_cache"
   current_options <- getOption(ala_option_name)
+  atlas <- getOption("galah_config")$atlas
   user_options <- list(...)
   
   # load an archived version as the default
@@ -40,11 +41,11 @@ galah_internal_cache <- function(...){
 
 internal_cache_update_needed <- function(function_name){
   df <- galah_internal_cache()[[function_name]]
-  if(is.null(attr(df, "ARCHIVED"))){ # i.e. the cache has been updated
-    FALSE
-  }else{
-    TRUE
-  }
+  is_local <- !is.null(attr(df, "ARCHIVED"))
+  is_wrong_atlas <- attr(df, "atlas_name") != getOption("galah_config")$atlas
+  result <- is_local | is_wrong_atlas # if either, update is needed 
+  if(length(result) < 1){result <- TRUE} # bug catcher
+  result
 }
 
 # # code to load the data into R/sysdata.rda
@@ -57,7 +58,9 @@ internal_cache_update_needed <- function(function_name){
 #   function(a){
 #     result <- eval(parse(text = paste0(a, "()")))
 #     attr(result, "ARCHIVED") <- TRUE
+#     attr(result, "atlas_name") <- "Australia"
 #     result
 #   })
+# # lapply(galah_internal_archived, attributes) # check
 # names(galah_internal_archived) <- stored_functions
 # usethis::use_data(galah_internal_archived, internal = TRUE, overwrite = TRUE)

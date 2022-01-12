@@ -39,7 +39,15 @@ server_config <- function(url) {
   }
   if (!(url %in% names(conf))) {
     service <- service_name(url)
-    abort(glue("{service} is not supported for the {atlas} atlas."), call = caller_env())
+    atlas_origin <- switch(atlas,
+      "Australia" = "Australian",
+      "UK" = "UK",
+      "Sweden" = "Swedish",
+      "Austria" = "Austrian",
+      "Guatemala" = "Guatemalan",
+      "Spain" = "Spanish"
+    )
+    abort(glue("{service} is not supported for the {atlas_origin} atlas."), call = caller_env())
   }
   return(conf[[url]])
 }
@@ -69,7 +77,8 @@ service_name <- function(url) {
   switch (url,
           data_quality_base_url = "Data quality filtering",
           images_base_url = "Image downloading",
-          species_base_url = "Species information"
+          species_base_url = "Species information",
+          logger_base_url = "Logger service"
   )
 }
 

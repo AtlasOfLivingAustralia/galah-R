@@ -57,6 +57,7 @@ show_all_fields <- function(
   type <- match.arg(type)
 
   # check whether the cache has been updated this session
+  atlas <- getOption("galah_config")$atlas
   update_needed <- internal_cache_update_needed("show_all_fields")
  
   if(update_needed){ # i.e. we'd like to run a query
@@ -91,25 +92,50 @@ show_all_fields <- function(
         }
       }
     )
-    if(is.null(df)){ # if calling the API fails, return cached data
+    
+    # if calling the API fails
+    if(is.null(df)){ 
       df <- galah_internal_cache()$show_all_fields
-      attr(df, "ARCHIVED") <- NULL # remove identifying attributes
-    }else{ # if the API call worked, and the request was for `type = 'all'`, then update cache
+      # if cached values reflect the correct atlas, return requested info
+      if(attr(df, "atlas_name") == atlas){ 
+        attr(df, "ARCHIVED") <- NULL # remove identifying attributes
+        if(type == "all"){
+          return(df)
+        }else{
+          return(df[df$type == type, ])
+        }
+      # otherwise return a message
+      }else{ 
+        bullets <- c(
+          "Calling the API failed for `show_all_fields`.",
+          i = "This might mean that the system is down."
+        )
+        inform(bullets)
+        return(tibble())
+      }
+    # if the API call worked
+    }else{ 
+      # and the request was for `type = 'all'`, then update cache
       if(type == "all"){
+        df <- as_tibble(df)
+        attr(df, "atlas_name") <- atlas
         galah_internal_cache(show_all_fields = df)
+        return(df)
+      # otherwise just return required df
+      }else{
+        df <- as_tibble(df)
+        attr(df, "atlas_name") <- atlas
+        return(df)       
       }
     }
-  }else{ # i.e. internal data has been updated this session
+  }else{ # i.e. no update needed    
     df <- galah_internal_cache()$show_all_fields
+    if(type == "all"){
+      return(df)
+    }else{
+      return(df[df$type == type, ])
+    }
   }   
-  
-  # return
-  if(type == "all"){
-    as_tibble(df)
-  }else{
-    as_tibble(df[df$type == type, ])
-  }
- 
 }
 
 # Helper functions to get different field classes
