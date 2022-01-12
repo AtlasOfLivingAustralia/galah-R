@@ -1,138 +1,80 @@
 ---
-title: "Taxonomic information"
-author: "Martin Westgate & Matilda Stevenson"
-date: '2021-12-22'
+title: "Taxonomic trees"
+author: "Martin Westgate, Dax Kellie & Matilda Stevenson"
+date: '2022-01-12'
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Taxonomic information}
+  %\VignetteIndexEntry{Taxonomic trees}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+  
+  
 
 
+  ## Taxonomic trees
+  `atlas_taxonomy` provides a way to build taxonomic trees from one clade down to 
+  another using ALA's internal taxonomy. Specify which taxonomic level your tree 
+  will go down to with `galah_down_to`.
+  
+  ```r
+  # Taxonomic tree of Fungi to phylum level
+  atlas_taxonomy(taxa = search_taxa("fungi"),
+                 down_to = galah_down_to(phylum))
+  ```
+  
+  ```
+  ##                    levelName
+  ## 1  Fungi                    
+  ## 2   ¦--Dikarya              
+  ## 3   ¦   °--Entorrhizomycota 
+  ## 4   ¦--Ascomycota           
+  ## 5   ¦--Basidiomycota        
+  ## 6   ¦--Blastocladiomycota   
+  ## 7   ¦--Chytridiomycota      
+  ## 8   ¦--Cryptomycota         
+  ## 9   ¦--Glomeromycota        
+  ## 10  ¦--Microspora           
+  ## 11  ¦--Microsporidia        
+  ## 12  ¦--Mucoromycota         
+  ## 13  ¦--Neocallimastigomycota
+  ## 14  ¦--Zoopagomycota        
+  ## 15  °--Zygomycota
+  ```
 
-`galah` provides multiple ways of retrieving taxonomic information, and the best
-method depends of the type of information required. Below, some use cases are
-outlined. 
-
-## Searching for a single species or clade
-
-The simplest way to get taxonomic information is to use `search_taxa`. This function
-takes one or more scientific names and checks them against the ALA's taxonomy 
-service.
-
-```r
-library(galah)
-search_taxa("Chordata")
-```
-
-```
-##   search_term scientific_name                                                            taxon_concept_id   rank match_type  kingdom
-## 1    Chordata        CHORDATA urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd phylum exactMatch Animalia
-##     phylum vernacular_name  issues
-## 1 Chordata     vertebrates noIssue
-```
-
-By default, this function shows the search term, the match (if any) within the ALA,
-and some information on higher taxonomy of that clade. Critically, it also
-returns a unique identifier for that clade, stored in the column 
-`taxon_concept_id`. This identifer is the information that the ALA needs to 
-return data that is specific to the taxon in question, i.e.:
-
-```r
-atlas_counts(taxa = search_taxa("Chordata"))
-```
-
-```
-## [1] 69148103
-```
-
-`search_taxa` can accept a vector or a `data.frame` of taxonomic names,
-and always returns a `data.frame` with the same number of rows as there are 
-names to query. 
-
-One final, useful feature of `search_taxa` is that it works in reverse. That is,
-if you have a unique identifier and would like to know which taxon it refers to,
-you can find that out by setting `is_id` to `TRUE`:
-
-
-```r
-search_taxa("urn:lsid:biodiversity.org.au:afd.taxon:97764bed-9492-4066-a45f-e5b0c6c4280d", is_id = TRUE)
-```
-
-## Searching for lists of species
-A common use case for atlas data is to identify the list of species that 
-occur within a clade, in a particular location, or according to
-some other criterion. This is provided by the `atlas_species` function.
-
-
-```r
-burrowing_frogs <- atlas_species(
-  taxa = search_taxa("Heleioporus"))
-str(burrowing_frogs, give.attr = FALSE)
-```
-
-```
-## 'data.frame':	6 obs. of  10 variables:
-##  $ kingdom        : chr  "Animalia" "Animalia" "Animalia" "Animalia" ...
-##  $ phylum         : chr  "Chordata" "Chordata" "Chordata" "Chordata" ...
-##  $ class          : chr  "Amphibia" "Amphibia" "Amphibia" "Amphibia" ...
-##  $ order          : chr  "Anura" "Anura" "Anura" "Anura" ...
-##  $ family         : chr  "Limnodynastidae" "Limnodynastidae" "Limnodynastidae" "Limnodynastidae" ...
-##  $ genus          : chr  "Heleioporus" "Heleioporus" "Heleioporus" "Heleioporus" ...
-##  $ species        : chr  "Heleioporus eyrei" "Heleioporus australiacus" "Heleioporus albopunctatus" "Heleioporus psammophilus" ...
-##  $ author         : chr  "(Gray, 1845)" "(Shaw & Nodder, 1795)" "Gray, 1841" "(Lee & Main, 1954)" ...
-##  $ species_guid   : chr  "urn:lsid:biodiversity.org.au:afd.taxon:cf991494-ccee-433d-b049-f2a0996a0a3b" "urn:lsid:biodiversity.org.au:afd.taxon:20119b25-a27c-4174-b3e0-8639e8a21131" "urn:lsid:biodiversity.org.au:afd.taxon:c1d18a1e-5aec-4441-aa3c-e0ac799f51e8" "urn:lsid:biodiversity.org.au:afd.taxon:0efbf288-1526-4551-af83-52e4fb9dae59" ...
-##  $ vernacular_name: chr  "Moaning Frog" "Giant Burrowing Frog" "Western Spotted Frog" "Sand Frog" ...
-```
-`atlas_species` is similar to `search_taxa`, in that it returns taxonomic information
-and unique identifiers in a `data.frame`. It differs in not being able to return 
-information on taxonomic levels other than the species; but also in being more flexible 
-by supporting filtering e.g.:
+  As of `galah` 1.4.0, you can also do the same as above by piping with `%>%` 
+  or `|>`:
+  
+  ```r
+  library(magrittr)
+  
+  galah_call() %>%
+    search_taxa("fungi") %>%
+    galah_down_to(phylum) %>%
+    atlas_taxonomy()
+  ```
+  
+  ```
+  ##                    levelName
+  ## 1  Fungi                    
+  ## 2   ¦--Dikarya              
+  ## 3   ¦   °--Entorrhizomycota 
+  ## 4   ¦--Ascomycota           
+  ## 5   ¦--Basidiomycota        
+  ## 6   ¦--Blastocladiomycota   
+  ## 7   ¦--Chytridiomycota      
+  ## 8   ¦--Cryptomycota         
+  ## 9   ¦--Glomeromycota        
+  ## 10  ¦--Microspora           
+  ## 11  ¦--Microsporidia        
+  ## 12  ¦--Mucoromycota         
+  ## 13  ¦--Neocallimastigomycota
+  ## 14  ¦--Zoopagomycota        
+  ## 15  °--Zygomycota
+  ```
 
 
-```r
-burrowing_frogs <- atlas_species(
-  taxa = search_taxa("Heleioporus"),
-  filter = galah_filter(
-    stateProvince == "New South Wales", 
-    year > 2010))
-str(burrowing_frogs, give.attr = FALSE)
-```
-
-```
-## 'data.frame':	4 obs. of  10 variables:
-##  $ kingdom        : chr  "Animalia" "Animalia" "Animalia" "Animalia"
-##  $ phylum         : chr  "Chordata" "Chordata" "Chordata" "Chordata"
-##  $ class          : chr  "Amphibia" "Amphibia" "Amphibia" "Amphibia"
-##  $ order          : chr  "Anura" "Anura" "Anura" "Anura"
-##  $ family         : chr  "Limnodynastidae" "Limnodynastidae" "Limnodynastidae" "Limnodynastidae"
-##  $ genus          : chr  "Heleioporus" "Heleioporus" "Heleioporus" "Heleioporus"
-##  $ species        : chr  "Heleioporus australiacus" "Heleioporus inornatus" "Heleioporus eyrei" "Heleioporus barycragus"
-##  $ author         : chr  "(Shaw & Nodder, 1795)" "(Lee & Main, 1954)" "(Gray, 1845)" "Lee, 1967"
-##  $ species_guid   : chr  "urn:lsid:biodiversity.org.au:afd.taxon:20119b25-a27c-4174-b3e0-8639e8a21131" "urn:lsid:biodiversity.org.au:afd.taxon:16fcc761-685a-4527-b5e4-e6c7042ae2c6" "urn:lsid:biodiversity.org.au:afd.taxon:cf991494-ccee-433d-b049-f2a0996a0a3b" "urn:lsid:biodiversity.org.au:afd.taxon:c527388c-1cc7-4a10-800a-243b5a2dcd3c"
-##  $ vernacular_name: chr  "Giant Burrowing Frog" "Plains Frog" "Moaning Frog" "Western Marsh Frog"
-```
-
-## Advanced taxonomic queries
-Although we have focussed above on functions that are built to integrate
-taxonomic concepts, the more general `galah_filter` can be used to 
-build more flexible queries using the `taxonConceptID` field.
-This can be useful for paraphyletic concepts such as invertebrates:
-
-
-```r
-invertebrate_filter <- galah_filter(
-   taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
-   taxonConceptID != search_taxa("Chordata")$taxon_concept_id)
-head(atlas_counts(galah_filter = invertebrate_filter, 
-                  group_by = galah_group_by(class)))
-```
-
-```
-## Error in atlas_counts.default(galah_filter = invertebrate_filter, group_by = galah_group_by(class)): unused argument (galah_filter = invertebrate_filter)
-```
 
 ## Taxonomic trees
 
@@ -249,6 +191,10 @@ extract all the `guid` values and query them using `atlas_counts()`.
 counts <- lapply(classes$Get("guid"), atlas_counts)
 ```
 
+```
+## Error in if (nrow(taxa) < 1) {: argument is of length zero
+```
+
 While this approach works, it is inefficient, because each node has to be searched
 separately. A more efficient solution is to recognise that counts for higher 
 taxonomic groups/nodes should be the sum of their child nodes. We can use this 
@@ -262,31 +208,44 @@ leaves <- Traverse(classes, filterFun = isLeaf)
 
 # get data on record counts
 leaf_counts <- lapply(Get(leaves, "guid"), atlas_counts)
+```
 
+```
+## Error in if (nrow(taxa) < 1) {: argument is of length zero
+```
+
+```r
 # add back on to the tree
 classes$Set(n_records = 0)
 Set(leaves, n_records = unlist(leaf_counts))
+```
+
+```
+## Error in unlist(leaf_counts): object 'leaf_counts' not found
+```
+
+```r
 print(classes, "n_records")
 ```
 
 ```
 ##                         levelName n_records
 ## 1  Chordata                               0
-## 2   ¦--Cephalochordata                  564
+## 2   ¦--Cephalochordata                    0
 ## 3   ¦--Tunicata                           0
-## 4   ¦   ¦--Appendicularia             74591
-## 5   ¦   ¦--Ascidiacea                 24864
-## 6   ¦   °--Thaliacea                   9469
+## 4   ¦   ¦--Appendicularia                 0
+## 5   ¦   ¦--Ascidiacea                     0
+## 6   ¦   °--Thaliacea                      0
 ## 7   °--Vertebrata                         0
 ## 8       °--Gnathostomata                  0
-## 9           ¦--Amphibia              823125
-## 10          ¦--Aves                59831201
-## 11          ¦--Mammalia             3240703
+## 9           ¦--Amphibia                   0
+## 10          ¦--Aves                       0
+## 11          ¦--Mammalia                   0
 ## 12          ¦--Pisces                     0
-## 13          ¦   ¦--Actinopterygii   2955130
-## 14          ¦   ¦--Chondrichthyes    849854
-## 15          ¦   °--Sarcopterygii       4357
-## 16          °--Reptilia             1313633
+## 13          ¦   ¦--Actinopterygii         0
+## 14          ¦   ¦--Chondrichthyes         0
+## 15          ¦   °--Sarcopterygii          0
+## 16          °--Reptilia                   0
 ```
 
 ```r
@@ -300,22 +259,22 @@ print(classes, "n_records")
 
 ```
 ##                         levelName n_records
-## 1  Chordata                        69127491
-## 2   ¦--Cephalochordata                  564
-## 3   ¦--Tunicata                      108924
-## 4   ¦   ¦--Appendicularia             74591
-## 5   ¦   ¦--Ascidiacea                 24864
-## 6   ¦   °--Thaliacea                   9469
-## 7   °--Vertebrata                  69018003
-## 8       °--Gnathostomata           69018003
-## 9           ¦--Amphibia              823125
-## 10          ¦--Aves                59831201
-## 11          ¦--Mammalia             3240703
-## 12          ¦--Pisces               3809341
-## 13          ¦   ¦--Actinopterygii   2955130
-## 14          ¦   ¦--Chondrichthyes    849854
-## 15          ¦   °--Sarcopterygii       4357
-## 16          °--Reptilia             1313633
+## 1  Chordata                               0
+## 2   ¦--Cephalochordata                    0
+## 3   ¦--Tunicata                           0
+## 4   ¦   ¦--Appendicularia                 0
+## 5   ¦   ¦--Ascidiacea                     0
+## 6   ¦   °--Thaliacea                      0
+## 7   °--Vertebrata                         0
+## 8       °--Gnathostomata                  0
+## 9           ¦--Amphibia                   0
+## 10          ¦--Aves                       0
+## 11          ¦--Mammalia                   0
+## 12          ¦--Pisces                     0
+## 13          ¦   ¦--Actinopterygii         0
+## 14          ¦   ¦--Chondrichthyes         0
+## 15          ¦   °--Sarcopterygii          0
+## 16          °--Reptilia                   0
 ```
 
 The same approach can be used to find the number of species within a clade
@@ -325,10 +284,23 @@ The same approach can be used to find the number of species within a clade
 leaf_spp_counts <- lapply(
   Get(leaves, "guid"),
   function(x){atlas_counts(taxa = x, type = "species")})
+```
 
+```
+## Error in if (nrow(taxa) < 1) {: argument is of length zero
+```
+
+```r
 # add back to the tree, then sum
 classes$Set(n_species = 0)
 Set(leaves, n_species = unlist(leaf_spp_counts))
+```
+
+```
+## Error in unlist(leaf_spp_counts): object 'leaf_spp_counts' not found
+```
+
+```r
 classes$Do(
   function(a){
     a$n_species <- Aggregate(node = a, attribute = "n_species", aggFun = sum)},
@@ -340,22 +312,22 @@ print(classes, "n_species")
 
 ```
 ##                         levelName n_species
-## 1  Chordata                            9179
-## 2   ¦--Cephalochordata                    7
-## 3   ¦--Tunicata                         810
-## 4   ¦   ¦--Appendicularia                10
-## 5   ¦   ¦--Ascidiacea                   784
-## 6   ¦   °--Thaliacea                     16
-## 7   °--Vertebrata                      8362
-## 8       °--Gnathostomata               8362
-## 9           ¦--Amphibia                 245
-## 10          ¦--Aves                     952
-## 11          ¦--Mammalia                 421
-## 12          ¦--Pisces                  5653
-## 13          ¦   ¦--Actinopterygii      5296
-## 14          ¦   ¦--Chondrichthyes       356
-## 15          ¦   °--Sarcopterygii          1
-## 16          °--Reptilia                1091
+## 1  Chordata                               0
+## 2   ¦--Cephalochordata                    0
+## 3   ¦--Tunicata                           0
+## 4   ¦   ¦--Appendicularia                 0
+## 5   ¦   ¦--Ascidiacea                     0
+## 6   ¦   °--Thaliacea                      0
+## 7   °--Vertebrata                         0
+## 8       °--Gnathostomata                  0
+## 9           ¦--Amphibia                   0
+## 10          ¦--Aves                       0
+## 11          ¦--Mammalia                   0
+## 12          ¦--Pisces                     0
+## 13          ¦   ¦--Actinopterygii         0
+## 14          ¦   ¦--Chondrichthyes         0
+## 15          ¦   °--Sarcopterygii          0
+## 16          °--Reptilia                   0
 ```
 
 ### Conversion

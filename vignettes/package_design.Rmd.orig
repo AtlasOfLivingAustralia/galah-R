@@ -1,0 +1,431 @@
+---
+title: "Package design"
+author: "Dax Kellie & Martin Westgate"
+date: "20/12/2021"
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+vignette: >
+  %\VignetteIndexEntry{Package design}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+  
+Functions in `galah` are designed according to a nested architecture. Users
+that require data should begin by locating the relevant `atlas_` function, 
+which determines the type of data that will be downloaded 
+(see [downloading data section](#Download-data)). 
+Users can then filter their data queries with filtering functions like 
+`search_taxa` and the [`galah_` functions](#Filter-data). The specific fields 
+and values that users can filter their data by can be found using `show_all_`, or 
+`find_` functions. 
+
+This nested architecture allows a method of step-by-step filtering prior to 
+downloading data. To make this easier, as of `galah` 1.4.0, 
+data queries can also be built using piping syntax (e.g., `%>%` or `|>`) by first 
+using the `galah_call()` function (see the `vignette("taxonomic_information")`). 
+
+For a better view of the relationships between functions in `galah`, here is a 
+diagram of how they all link together:
+
+
+```{r, eval = FALSE, echo = FALSE}
+DiagrammeR::grViz("
+digraph boxes_and_circles {
+
+  # a 'graph' statement
+  graph [overlap = true, fontsize = 15, rankdir = LR]
+
+  # several 'node' statements
+  node [shape = box,
+        fontname = Helvetica,
+        fixedsize = TRUE,
+        width = 2.0,
+        height = 0.5,
+        fontcolor = '#E06E53',
+        color = '#E06E53']
+  atlas_counts; atlas_species; atlas_occurrences; atlas_media; atlas_taxonomy
+
+  node  [shape = box,
+        fontname = Helvetica,
+        fontcolor = '#c7902a'
+        color = '#c7902a']
+  galah_filter; galah_select; galah_geolocate; galah_group_by; galah_down_to
+  
+  node  [shape = box,
+        fontname = Helvetica,
+        fontcolor = '#7f9959',
+        color = '#7f9959']
+  search_taxa; show_all_fields; search_fields; show_all_profiles; show_all_ranks; find_field_values; find_profile_attributes
+  
+  edge [ color = 'grey50' , dir = 'none']
+  atlas_counts->search_taxa
+  atlas_counts->galah_filter
+  atlas_counts->galah_geolocate
+  atlas_counts->galah_group_by
+  atlas_species->search_taxa
+  atlas_species->galah_filter
+  atlas_species->galah_geolocate
+  atlas_media->search_taxa
+  atlas_media->galah_filter
+  atlas_media->galah_select
+  atlas_media->galah_geolocate
+  atlas_occurrences->search_taxa 
+  atlas_occurrences->galah_filter
+  atlas_occurrences->galah_select
+  atlas_occurrences->galah_geolocate
+  atlas_taxonomy->search_taxa
+  atlas_taxonomy->galah_down_to
+  galah_group_by->search_fields
+  galah_group_by->show_all_fields
+  galah_filter->search_fields
+  galah_filter->show_all_fields
+  galah_filter->show_all_profiles->find_profile_attributes
+  galah_select->search_fields
+  galah_select->show_all_fields
+  show_all_fields->find_field_values
+  search_fields->find_field_values
+  galah_down_to->show_all_ranks 
+}
+", width = 1000, height = 500)
+```
+<img src="galah-DiagrammeR-plot.png" title="plot of function relationships" alt="plot of function relationships" width="100%" />
+
+
+
+
+
+## `galah_` functions
+
+Functions that alter or filter data requests use the prefix `galah_`. They include:
+
+-   `galah_filter`
+-   `galah_select`
+-   `galah_group_by`
+-   `galah_geolocate`
+-   `galah_down_to`
+
+These functions replace or extend functions previously prefixed by `select_`. 
+Renaming `select_` functions to `galah_` functions reflects `galah`'s embrace of
+`dplyr`. This new embrace can be seen in the names of `galah_` functions; they echo 
+`dplyr`'s `filter`, `select` and `group_by` functions.
+
+The similarity of `galah_` functions to `dplyr` doesn't end there. `galah_filter`, 
+`galah_select` and `galah_group_by` also use `dplyr` tidy evaluation and syntax. 
+This means that the way you use `dplyr` functions is also how you use `galah_` 
+functions.
+
+Let's look at a few examples to show you what we mean.
+
+Use `galah_filter` to filter the rows of queries:
+
+```{r}
+# Get total record count since 2000
+atlas_counts(filter = galah_filter(year > 2000))
+
+# Get total record count for iNaturalist in 2021
+atlas_counts(
+  filter = galah_filter(year == 2021,
+                        dataResourceName == "iNaturalist Australia"))
+```
+
+Use `galah_group_by` to group record counts and summarise counts by specified fields:
+
+```{r}
+# Get record counts since 2010, grouped by year and basis of record
+galah_config(verbose = FALSE)
+atlas_counts(
+  filter = galah_filter(year > 2015 & year <= 2020),
+  group_by = galah_group_by(year, basisOfRecord, expand = TRUE)
+  )
+```
+
+Use `galah_select` to choose which columns are returned when downloading records:
+
+```{r, eval = FALSE}
+# Get records from 1930, but only 'eventDate' and 'kingdom' columns
+atlas_occurrences(
+  filter = galah_filter(year == 1930),
+  select = galah_select(eventDate, kingdom)
+  ) |>
+  head() # only return first 5 lines
+```
+
+Use `galah_geolocate` to specify a geographic area or region to limit your search:
+
+```{r, eval = FALSE}
+# Get list of perameles species only in area specified:
+# (Note: This can also be specified by a shapefile)
+wkt <- "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))"
+
+species <- atlas_species(geolocate = galah_geolocate(wkt))
+```
+
+Use `galah_down_to` to specify the lowest taxonomic level to contruct a taxonomic 
+tree:
+
+```{r, eval = FALSE}
+atlas_taxonomy(taxa = search_taxa("fungi"),
+               galah_down_to(phylum))
+```
+
+`galah_` functions also evaluate arguments just like `dplyr`. To see what we mean, 
+let's look at an example of how `dplyr::filter()` works. Notice how `dplyr::filter` 
+and `galah_filter` both require logical arguments to be added by using the `==` sign:
+
+```{r}
+library(dplyr)
+
+mtcars %>% filter(mpg == 21)
+```
+
+```{r}
+atlas_counts(filter = galah_filter(year == 2021))
+```
+
+As another example, notice how `galah_group_by` works very similarly to
+ `dplyr::group_by` + `dplyr::count()`:
+
+```{r}
+mtcars %>% 
+  group_by(vs) %>% 
+  count()
+
+atlas_counts(group_by = galah_group_by(biome))
+```
+
+
+We made this move towards tidy evaluation to make it possible to use 
+piping for building queries to the Atlas of Living Australia. In practice, this 
+means that data queries can be filtered just like how you might 
+filter a `data.frame` with the `tidyverse` suite of functions. 
+To learn how, see the [Piping with `galah_call`] section.
+
+
+## `search_taxa` & `find_taxa`
+
+`search_taxa` and `find_taxa` replace the previously named `select_taxa`.  
+  
+`search_taxa` now does what most people used `select_taxa for most often, and 
+this its new name is intended to reflect the function's use - 
+it searches for taxonomic information. `search_taxa` uses fuzzy matching to work 
+a lot like the search bar on the [Atlas of Living Australia website](https://bie-ws.ala.org.au/), 
+and you can use it to search for taxa by name. Finding your desired taxa with 
+`search_taxa` is an important step to using this taxonomic information to download 
+data with `galah`.  
+  
+For example, to search for reptiles, we first need to identify whether we have 
+the correct query and verify using additional taxonomic information:
+
+```{r}
+search_taxa("Reptilia")
+```
+
+The output confirms that *Reptilia* is the correct search term, which we can use 
+in `atlas_` functions to narrow our results or records. Furthermore, the output 
+we get from `search_taxa` is consistent with the other `search_` function, 
+`search_fields`.
+
+Alternatively, `find_taxa` replaces the previous ability of `select_taxa` to use 
+unique identifiers to identify taxa. `find_taxa` only accepts identifiers and, 
+unlike `search_taxa`, cannot be used to filter data queries:
+
+```{r}
+find_taxa("https://id.biodiversity.org.au/node/apni/2914510")
+```
+
+Instead, to use `find_taxa` results to filter queries, you can nest them 
+within `search_taxa`:
+
+```{r}
+taxa <- find_taxa("https://id.biodiversity.org.au/node/apni/2914510")
+atlas_counts(taxa = search_taxa(taxa))
+```
+
+## `atlas_` functions
+
+The prefix `atlas_` replaces `ala_` for the functions
+
+-   `atlas_counts`
+-   `atlas_occurrences`
+-   `atlas_species`
+-   `atlas_media`
+-   `atlas_taxonomy`
+-   `atlas_citation`
+
+This change was made to reflect the ability for functions like `atlas_counts` and 
+`atlas_occurrences` to use international atlases since `galah` 1.2.0 
+(see `vignette("international_atlases")`).
+
+`atlas_` functions work the same as previous `ala_` functions, but with changes 
+to the names of arguments they accept. Argument names are consistent with the 
+functions that they use. With the new syntax of `galah_` functions and the 
+update to `search_taxa`, these argument changes look like this:
+
+```{r, eval = FALSE}
+# Get species list for Perameles (aka Bandicoots)
+atlas_species(taxa = search_taxa("perameles"))
+
+# Get record counts of Perameles by year since 2010
+atlas_counts(taxa = search_taxa("perameles"),
+             filter = galah_filter(year > 2010),
+             group_by = galah_group_by (year))
+
+# Get records of Perameles from 2010, with "basis of record" included as a column
+atlas_occurrences(taxa = search_taxa("perameles"),
+                  filter = galah_filter(year == 2010),
+                  select = galah_select(basisOfRecord, group = "basic"),
+                  geolocate = wkt) # wkt was defined in earlier example
+
+# Get taxonomic tree of Peramelemorphia (aka bandicoots & bilbies) down to genus
+atlas_taxonomy(taxa = search_taxa("Peramelemorphia"),
+               down_to = galah_down_to("genus"))
+
+# Download media of Regent Honeyeater from 2010
+atlas_media(taxa = search_taxa("Regent Honeyeater"),
+            filter = galah_filter(year == 2010),
+            download_dir = "media")
+```
+
+See R help files for more information on using `atlas_` functions with updated syntax.
+
+
+## `show_all_` functions
+
+Functions with the prefix `show_all_` return a `data.frame` doing exactly that 
+- showing all the possible values of the category specified. These functions include:
+
+-   `show_all_fields`
+-   `show_all_atlases`
+-   `show_all_ranks`
+-   `show_all_profiles`
+-   `show_all_reasons`
+-   `show_all_cached_files`
+
+`show_all_` functions require no arguments. Simply call the function and it will 
+return all accepted values:
+
+```{r}
+show_all_atlases()
+show_all_reasons()
+```
+
+# Piping with `galah_call()`
+
+All of these syntax changes towards tidy evaluation now make it possible to use 
+pipes (i.e., `|>` or `%>%`) to build queries to the Atlas of Living Australia. 
+In practice, this means that you can now build queries like how you would 
+filter or wrangle a `data.frame` using `dplyr`.  
+  
+In order to use piping, you must use the `galah_call()` function. Let's 
+look at an examples:
+
+```{r}
+# Find number of records of bandicoot species in 2021
+# With piping
+galah_call() %>%
+  search_taxa("perameles") %>%
+  galah_filter(year == 2021) %>%
+  galah_group_by(species, year) %>%
+  atlas_counts()
+```
+This is equivalent to:
+
+```{r, eval = FALSE}
+# Without piping
+atlas_counts(taxa = search_taxa("perameles"),
+             filter = galah_filter(year == 2001),
+             group_by = galah_group_by(species, year))
+```
+
+And a second example:
+
+```{r, eval = FALSE}
+# Download occurrence records of bandicoots in 2021, with coordinates
+# With piping
+galah_call() %>%
+  search_taxa("perameles") %>%
+  galah_filter(year == 2021) %>%
+  galah_select(group = "basic", ZERO_COORDINATE) %>%
+  atlas_occurrences()
+```
+This is equivalent to:
+
+```{r, eval = FALSE}
+# Without piping
+atlas_occurrences(taxa = search_taxa("perameles"),
+                  filter = galah_filter(year == 2001),
+                  select = galah_select(group = "basic", ZERO_COORDINATE))
+```
+
+Beginning a query with `galah_call()` (be sure to add the parentheses!) tells 
+`galah` that you will be using pipes to construct your query. Follow this with 
+your preferred pipe (`|>` from `base` or `%>%` from `magrittr`). You can then 
+narrow your query with line-by-line using `galah_` functions or the `search_taxa` 
+function. Finally, end with an `atlas_` function to identify what type of data
+you want from your query.  
+  
+Importantly, piping only works with revamped syntax. We hope that users who 
+prefer `tidyverse` syntax will find this change useful and exciting!
+
+
+# Deprecated syntax
+
+Before version 1.4.0, galah had an entirely different architecture.
+
+Old syntax will now return a warning message when used that suggests users the 
+new syntax. 
+
+New syntax changes are by no means set in stone - it is absolutely possible to 
+change syntax in future versions of `galah` if alternative names are easier to 
+use and understand. We would appreciate any feedback from users about what works 
+or what doesn't work. It is our goal to create a package that is as easy and 
+intuitive for users as possible!
+
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(galah)
+library(kableExtra)
+library(tibble)
+library(magrittr)
+library(dplyr)
+
+tribble(
+  ~Old, ~New, 
+  
+  " ", "galah_call"
+    
+  "select_filters", "galah_filter",
+  "select_columns", "galah_select",
+  "select_locations", "galah_geolocate",  
+  " ", "galah_group_by",
+  " ", "galah_down_to",  
+  
+  "ala_counts", "atlas_counts", 
+  "ala_occurrences", "atlas_occurrences", 
+  "ala_species", "atlas_species", 
+  "ala_media", "atlas_media", 
+  "ala_taxonomy", "atlas_taxonomy", 
+  "ala_citation", "atlas_citation", 
+  
+  "select_taxa", "search_taxa & find_taxa", 
+  "search_fields", "search_fields",
+  "", "show_all_fields", 
+  "find_profiles", "show_all_profiles", 
+  "find_ranks", "show_all_ranks", 
+  "find_atlases", "show_all_atlases", 
+  "find_reasons", "show_all_reasons",
+  "find_cached_files", "show_all_cached_files"
+  
+) %>% 
+  rename("galah 1.4.0" = "New") %>% 
+  rename("galah 1.3.1 and earlier" = "Old") %>%
+  kbl() %>%
+  kable_styling(full_width = FALSE) %>%
+  kable_paper() %>%
+  row_spec(1, bold = T, color = "#f064a4") %>%
+  row_spec(2:6, bold = T, color = "#E06E53") %>%
+  row_spec(7:12, bold = T, color = "#c7902a") %>%
+  row_spec(13:20, bold = T, color = "#7f9959")
+```

@@ -1,68 +1,40 @@
 ---
-title: "Revamped syntax in galah 1.4.0"
-author: "Dax Kellie"
+title: "Package design"
+author: "Dax Kellie & Martin Westgate"
 date: "20/12/2021"
 output: html_document
 editor_options: 
   chunk_output_type: inline
 vignette: >
-  %\VignetteIndexEntry{Syntax Changes}
+  %\VignetteIndexEntry{Package design}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-`galah` 1.4.0 implements new, revised syntax for function names. These new 
-function names are intended to improve users' ability to know what each function 
-does and what output they can expect. <br>
-
-First, let's have a look at all the changes, then go through each major syntax 
-change one-by-one.
-
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
-library(galah)
-library(kableExtra)
-library(tibble)
-library(magrittr)
-library(dplyr)
-
-tribble(
-  ~Old, ~New, 
   
-  " ", "galah_call"
-    
-  "select_filters", "galah_filter",
-  "select_columns", "galah_select",
-  "select_locations", "galah_geolocate",  
-  " ", "galah_group_by",
-  " ", "galah_down_to",  
   
-  "ala_counts", "atlas_counts", 
-  "ala_occurrences", "atlas_occurrences", 
-  "ala_species", "atlas_species", 
-  "ala_media", "atlas_media", 
-  "ala_taxonomy", "atlas_taxonomy", 
-  "ala_citation", "atlas_citation", 
-  
-  "select_taxa", "search_taxa & find_taxa", 
-  "search_fields", "search_fields",
-  "", "show_all_fields", 
-  "find_profiles", "show_all_profiles", 
-  "find_ranks", "show_all_ranks", 
-  "find_atlases", "show_all_atlases", 
-  "find_reasons", "show_all_reasons",
-  "find_cached_files", "show_all_cached_files"
-  
-) %>% 
-  rename("galah 1.4.0" = "New") %>% 
-  rename("galah 1.3.1 and earlier" = "Old") %>%
-  kbl() %>%
-  kable_styling(full_width = FALSE) %>%
-  kable_paper() %>%
-  row_spec(1, bold = T, color = "#f064a4") %>%
-  row_spec(2:6, bold = T, color = "#E06E53") %>%
-  row_spec(7:12, bold = T, color = "#c7902a") %>%
-  row_spec(13:20, bold = T, color = "#7f9959")
-```
+Functions in `galah` are designed according to a nested architecture. Users
+that require data should begin by locating the relevant `atlas_` function, 
+which determines the type of data that will be downloaded 
+(see [downloading data section](#Download-data)). 
+Users can then filter their data queries with filtering functions like 
+`search_taxa` and the [`galah_` functions](#Filter-data). The specific fields 
+and values that users can filter their data by can be found using `show_all_`, or 
+`find_` functions. 
+
+This nested architecture allows a method of step-by-step filtering prior to 
+downloading data. To make this easier, as of `galah` 1.4.0, 
+data queries can also be built using piping syntax (e.g., `%>%` or `|>`) by first 
+using the `galah_call()` function (see the `vignette("taxonomic_information")`). 
+
+For a better view of the relationships between functions in `galah`, here is a 
+diagram of how they all link together:
+
+
+
+<img src="galah-DiagrammeR-plot.png" title="plot of function relationships" alt="plot of function relationships" width="100%" />
+
+
+
 
 
 ## `galah_` functions
@@ -89,19 +61,37 @@ Let's look at a few examples to show you what we mean.
 
 Use `galah_filter` to filter the rows of queries:
 
-```{r}
+
+```r
 # Get total record count since 2000
 atlas_counts(filter = galah_filter(year > 2000))
+```
 
+```
+## # A tibble: 1 × 1
+##      count
+##      <int>
+## 1 62834053
+```
+
+```r
 # Get total record count for iNaturalist in 2021
 atlas_counts(
   filter = galah_filter(year == 2021,
                         dataResourceName == "iNaturalist Australia"))
 ```
 
+```
+## # A tibble: 1 × 1
+##    count
+##    <int>
+## 1 940050
+```
+
 Use `galah_group_by` to group record counts and summarise counts by specified fields:
 
-```{r}
+
+```r
 # Get record counts since 2010, grouped by year and basis of record
 galah_config(verbose = FALSE)
 atlas_counts(
@@ -110,9 +100,27 @@ atlas_counts(
   )
 ```
 
+```
+## # A tibble: 35 × 3
+##    year  basisOfRecord         count
+##    <chr> <chr>                 <int>
+##  1 2020  HUMAN_OBSERVATION   5820506
+##  2 2020  PRESERVED_SPECIMEN    13637
+##  3 2020  OBSERVATION            2863
+##  4 2020  UNKNOWN                 365
+##  5 2020  MATERIAL_SAMPLE         250
+##  6 2020  LIVING_SPECIMEN         127
+##  7 2020  MACHINE_OBSERVATION      37
+##  8 2019  HUMAN_OBSERVATION   5399921
+##  9 2019  UNKNOWN               51747
+## 10 2019  PRESERVED_SPECIMEN    38117
+## # … with 25 more rows
+```
+
 Use `galah_select` to choose which columns are returned when downloading records:
 
-```{r, eval = FALSE}
+
+```r
 # Get records from 1930, but only 'eventDate' and 'kingdom' columns
 atlas_occurrences(
   filter = galah_filter(year == 1930),
@@ -123,7 +131,8 @@ atlas_occurrences(
 
 Use `galah_geolocate` to specify a geographic area or region to limit your search:
 
-```{r, eval = FALSE}
+
+```r
 # Get list of perameles species only in area specified:
 # (Note: This can also be specified by a shapefile)
 wkt <- "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))"
@@ -134,7 +143,8 @@ species <- atlas_species(geolocate = galah_geolocate(wkt))
 Use `galah_down_to` to specify the lowest taxonomic level to contruct a taxonomic 
 tree:
 
-```{r, eval = FALSE}
+
+```r
 atlas_taxonomy(taxa = search_taxa("fungi"),
                galah_down_to(phylum))
 ```
@@ -143,25 +153,60 @@ atlas_taxonomy(taxa = search_taxa("fungi"),
 let's look at an example of how `dplyr::filter()` works. Notice how `dplyr::filter` 
 and `galah_filter` both require logical arguments to be added by using the `==` sign:
 
-```{r}
+
+```r
 library(dplyr)
 
 mtcars %>% filter(mpg == 21)
 ```
 
-```{r}
+```
+##               mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4      21   6  160 110  3.9 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4
+```
+
+
+```r
 atlas_counts(filter = galah_filter(year == 2021))
+```
+
+```
+## # A tibble: 1 × 1
+##     count
+##     <int>
+## 1 1154055
 ```
 
 As another example, notice how `galah_group_by` works very similarly to
  `dplyr::group_by` + `dplyr::count()`:
 
-```{r}
+
+```r
 mtcars %>% 
   group_by(vs) %>% 
   count()
+```
 
+```
+## # A tibble: 2 × 2
+## # Groups:   vs [2]
+##      vs     n
+##   <dbl> <int>
+## 1     0    18
+## 2     1    14
+```
+
+```r
 atlas_counts(group_by = galah_group_by(biome))
+```
+
+```
+## # A tibble: 2 × 2
+##   biome          count
+##   <chr>          <int>
+## 1 TERRESTRIAL 93413775
+## 2 MARINE       3519441
 ```
 
 
@@ -187,8 +232,16 @@ data with `galah`.
 For example, to search for reptiles, we first need to identify whether we have 
 the correct query and verify using additional taxonomic information:
 
-```{r}
+
+```r
 search_taxa("Reptilia")
+```
+
+```
+## # A tibble: 1 × 9
+##   search_term scientific_name taxon_concept_id                           rank  match_type kingdom  phylum  class  issues
+##   <chr>       <chr>           <chr>                                      <chr> <chr>      <chr>    <chr>   <chr>  <chr> 
+## 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:68… class exactMatch Animalia Chorda… Repti… noIss…
 ```
 
 The output confirms that *Reptilia* is the correct search term, which we can use 
@@ -200,16 +253,33 @@ Alternatively, `find_taxa` replaces the previous ability of `select_taxa` to use
 unique identifiers to identify taxa. `find_taxa` only accepts identifiers and, 
 unlike `search_taxa`, cannot be used to filter data queries:
 
-```{r}
+
+```r
 find_taxa("https://id.biodiversity.org.au/node/apni/2914510")
+```
+
+```
+## # A tibble: 1 × 13
+##   scientific_name     scientific_name… taxon_concept_id rank  match_type kingdom phylum class order family genus species
+##   <chr>               <chr>            <chr>            <chr> <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>  
+## 1 Eucalyptus blakelyi Maiden           https://id.biod… spec… taxonIdMa… Plantae Charo… Equi… Myrt… Myrta… Euca… Eucaly…
+## # … with 1 more variable: issues <chr>
 ```
 
 Instead, to use `find_taxa` results to filter queries, you can nest them 
 within `search_taxa`:
 
-```{r}
+
+```r
 taxa <- find_taxa("https://id.biodiversity.org.au/node/apni/2914510")
 atlas_counts(taxa = search_taxa(taxa))
+```
+
+```
+## # A tibble: 1 × 1
+##     count
+##     <int>
+## 1 1112798
 ```
 
 ## `atlas_` functions
@@ -232,7 +302,8 @@ to the names of arguments they accept. Argument names are consistent with the
 functions that they use. With the new syntax of `galah_` functions and the 
 update to `search_taxa`, these argument changes look like this:
 
-```{r, eval = FALSE}
+
+```r
 # Get species list for Perameles (aka Bandicoots)
 atlas_species(taxa = search_taxa("perameles"))
 
@@ -275,9 +346,44 @@ Functions with the prefix `show_all_` return a `data.frame` doing exactly that
 `show_all_` functions require no arguments. Simply call the function and it will 
 return all accepted values:
 
-```{r}
+
+```r
 show_all_atlases()
+```
+
+```
+## # A tibble: 6 × 3
+##   atlas     taxonomy_source taxonomy_info                                                    
+##   <chr>     <chr>           <chr>                                                            
+## 1 Australia ALA             https://bie.ala.org.au/                                          
+## 2 Austria   GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+## 3 Guatemala GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+## 4 Spain     GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+## 5 Sweden    GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+## 6 UK        NBN             https://www.nhm.ac.uk/our-science/data/uk-species.html
+```
+
+```r
 show_all_reasons()
+```
+
+```
+## # A tibble: 13 × 2
+##       id name                            
+##    <int> <chr>                           
+##  1     0 conservation management/planning
+##  2     1 biosecurity management/planning 
+##  3     2 environmental assessment        
+##  4     3 education                       
+##  5     4 scientific research             
+##  6     5 collection management           
+##  7     6 other                           
+##  8     7 ecological research             
+##  9     8 systematic research/taxonomy    
+## 10    10 testing                         
+## 11    11 citizen science                 
+## 12    12 restoration/remediation         
+## 13    13 species modelling
 ```
 
 # Piping with `galah_call()`
@@ -290,7 +396,8 @@ filter or wrangle a `data.frame` using `dplyr`.
 In order to use piping, you must use the `galah_call()` function. Let's 
 look at an examples:
 
-```{r}
+
+```r
 # Find number of records of bandicoot species in 2021
 # With piping
 galah_call() %>%
@@ -299,9 +406,18 @@ galah_call() %>%
   galah_group_by(species, year) %>%
   atlas_counts()
 ```
+
+```
+## # A tibble: 2 × 3
+##   year  species          count
+##   <chr> <chr>            <int>
+## 1 2021  Perameles nasuta   510
+## 2 2021  Perameles gunnii    49
+```
 This is equivalent to:
 
-```{r, eval = FALSE}
+
+```r
 # Without piping
 atlas_counts(taxa = search_taxa("perameles"),
              filter = galah_filter(year == 2001),
@@ -310,7 +426,8 @@ atlas_counts(taxa = search_taxa("perameles"),
 
 And a second example:
 
-```{r, eval = FALSE}
+
+```r
 # Download occurrence records of bandicoots in 2021, with coordinates
 # With piping
 galah_call() %>%
@@ -321,7 +438,8 @@ galah_call() %>%
 ```
 This is equivalent to:
 
-```{r, eval = FALSE}
+
+```r
 # Without piping
 atlas_occurrences(taxa = search_taxa("perameles"),
                   filter = galah_filter(year == 2001),
@@ -341,6 +459,8 @@ prefer `tidyverse` syntax will find this change useful and exciting!
 
 # Deprecated syntax
 
+Before version 1.4.0, galah had an entirely different architecture.
+
 Old syntax will now return a warning message when used that suggests users the 
 new syntax. 
 
@@ -349,3 +469,12 @@ change syntax in future versions of `galah` if alternative names are easier to
 use and understand. We would appreciate any feedback from users about what works 
 or what doesn't work. It is our goal to create a package that is as easy and 
 intuitive for users as possible!
+
+
+
+```
+## Error: <text>:12:3: unexpected string constant
+## 11:     
+## 12:   "select_filters"
+##       ^
+```

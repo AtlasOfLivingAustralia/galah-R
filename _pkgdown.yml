@@ -10,20 +10,30 @@ navbar:
     left: [home, reference, getstarted, articles]
     right: [news, github]
   components:
-    getstarted:
-      text: Get Started
-      href: articles/galah.html
-      
+    introduction:
+      text: Introduction
+      menu:
+       - text: What is galah?
+         href: articles/what_is_galah.html
+       - text: Installation
+         href: articles/installation.html
+       - text: Package design
+         href: articles/package_design.html 
     articles:
       text: Articles
       menu: 
-        - text: Revamped syntax in `galah` 1.4.0
-          href: articles/revamped_syntax.html
-        - text: Taxonomic information
-          href: articles/taxonomic_information.html
-        - text: International atlases
-          href: articles/international_atlases.html
-    
+      - text: Data types
+      - text: Occurrences, species, and counts
+        href: articles/occurrences_et_al.html
+      - text: Multimedia
+        href: articles/multimedia.html
+      - text: Taxonomic trees
+        href: articles/taxonomic_trees.html
+      - text: Queries      
+      - text: Taxonomic searches
+        href: articles/taxonomic_searches.html
+      - text: Filter, select & group_by
+        href: articles/filter_select_group_by.html   
     news:
       text: News
       href: news/index.html 

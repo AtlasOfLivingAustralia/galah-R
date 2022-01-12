@@ -1,0 +1,36 @@
+---
+title: "Multimedia"
+author: "Martin Westgate, Dax Kellie & Matilda Stevenson"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Multimedia}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Media downloads
+In addition to text data describing individual occurrences and their attributes, 
+ALA stores images, sounds and videos associated with a given record. These can 
+be downloaded to `R` using `atlas_media()` and the same set of filters as the 
+other data download functions.
+
+```{r warning=FALSE, message=FALSE, eval = FALSE}
+# Use the occurrences previously downloaded
+media_data <- atlas_media(
+     taxa = search_taxa("Eolophus roseicapilla"),
+     filter = galah_filter(year == 2020),
+     download_dir = "media")
+```
+
+As of `galah` 1.4.0, you can also do the same as above by piping with `%>%` 
+or `|>`:
+```{r warning=FALSE, message=FALSE, eval = FALSE}
+library(magrittr)
+
+media_data <- galah_call() %>%
+  search_taxa("Eolophus roseicapilla") %>%
+  galah_filter(year == 2020) %>%
+  atlas_media(download_dir = "media")
+```

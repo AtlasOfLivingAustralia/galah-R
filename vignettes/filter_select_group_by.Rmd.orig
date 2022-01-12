@@ -1,0 +1,115 @@
+---
+title: "filter"
+author: "Martin Westgate, Dax Kellie & Matilda Stevenson"
+date: "20/12/2021"
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+vignette: >
+  %\VignetteIndexEntry{filter}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# filter
+
+Each occurrence record contains taxonomic information and 
+information about the observation itself, like its location and the date
+of observation. These pieces of information are recorded and categorised into 
+respective **fields**. When you import a `data.frame`, **columns** of the 
+`data.frame` correspond to these **fields**.
+
+Data fields are important because they provide a means to *filter*
+occurrence records;  i.e. to return only the information that you need, and
+no more. Consequently, much of the architecture of `galah` has been
+designed to make filtering as simple as possible. Let's look at some of ways 
+you can filter data requests in `galah`.
+
+
+
+All occurrence records in the ALA contain additional
+information about each record, stored in **fields**.  
+  
+Narrow searches by filtering rows with `galah_filter()`.
+```{r}
+filter <- galah_filter(basisOfRecord == "HumanObservation")
+```
+
+It is also possible to pass other kinds of logical statements to
+`galah_filter`.
+```{r}
+filter <- galah_filter(basisOfRecord == "HumanObservation",
+                       year >= 2010,
+                       occurrenceStatus != "absent")
+```
+
+
+
+### Find valid fields
+To find available fields and corresponding valid values, use the field lookup 
+functions `show_all_fields`, `search_fields` and `find_field_values`.  
+  
+To see a listing of all valid fields, use `show_all_fields`. To find specific 
+field names, use `search_fields()`. To find valid values of a specific field to 
+filter your data query by, use `find_field_values()`.
+```{r}
+search_fields("basis")
+field_values <- find_field_values("basisOfRecord")
+```
+
+### Data quality profiles
+A notable extention of the filtering approach is to remove records with low
+'quality'. ALA performs quality control checks on all records that it stores.
+These checks are used to generate new fields, that can then be used to filter
+out records that are unsuitable for particular applications. However, there
+are many possible data quality checks, and it is not always clear which are
+most appropriate in a given instance. Therefore, `galah` supports ALA
+data quality **profiles**, which can be passed to `galah_filter()`to quickly
+remove undesirable records. To see a full list of data quality profiles, use
+`show_all_profiles()`.
+
+```{r}
+profiles <- show_all_profiles()
+```
+View filters included in a profile
+```{r}
+find_profile_attributes("ALA")
+```
+Include a profile in the filters
+```{r}
+filters <- galah_filter(basisOfRecord == "HumanObservation",
+                        profile = "ALA")
+```
+
+## Location-based filtering
+Narrow searches to specific locations with `galah_geolocate`. 
+Users can provide an `sf` object or a Well-Known Text (WKT) string for
+location-based filtering.
+```{r eval = FALSE}
+locations <- galah_geolocate(query = st_read('act_rect.shp'))
+```
+
+# select
+
+
+Narrow searches by filtering columns with `galah_select`.
+```{r}
+select <- galah_select(year, eventDate, group = "basic")
+```
+
+It is also possible to use helper functions from `dplyr::select` with 
+`galah_select`.
+```{r}
+select <- galah_select(starts_with("el") & ends_with("on"))
+```
+
+
+# group by
+
+When downloading summary data (like in `atlas_counts`), group data with 
+`galah_group_by`.
+```{r}
+group_by <- galah_group_by(year, species)
+```
+
+### example using atlas_counts

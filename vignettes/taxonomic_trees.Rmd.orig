@@ -1,94 +1,40 @@
 ---
-title: "Taxonomic information"
-author: "Martin Westgate & Matilda Stevenson"
+title: "Taxonomic trees"
+author: "Martin Westgate, Dax Kellie & Matilda Stevenson"
 date: '`r Sys.Date()`'
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Taxonomic information}
+  %\VignetteIndexEntry{Taxonomic trees}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+  
+  
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
 
-  fig.path = "./vignettes/taxonomic_information-"
-)
-```
+  ## Taxonomic trees
+  `atlas_taxonomy` provides a way to build taxonomic trees from one clade down to 
+  another using ALA's internal taxonomy. Specify which taxonomic level your tree 
+  will go down to with `galah_down_to`.
+  ```{r}
+  # Taxonomic tree of Fungi to phylum level
+  atlas_taxonomy(taxa = search_taxa("fungi"),
+                 down_to = galah_down_to(phylum))
+  ```
 
-`galah` provides multiple ways of retrieving taxonomic information, and the best
-method depends of the type of information required. Below, some use cases are
-outlined. 
+  As of `galah` 1.4.0, you can also do the same as above by piping with `%>%` 
+  or `|>`:
+  ```{r warning = FALSE}
+  library(magrittr)
 
-## Searching for a single species or clade
+  galah_call() %>%
+    search_taxa("fungi") %>%
+    galah_down_to(phylum) %>%
+    atlas_taxonomy()
+  ```
 
-The simplest way to get taxonomic information is to use `search_taxa`. This function
-takes one or more scientific names and checks them against the ALA's taxonomy 
-service.
-```{r load-galah}
-library(galah)
-search_taxa("Chordata")
-```
 
-By default, this function shows the search term, the match (if any) within the ALA,
-and some information on higher taxonomy of that clade. Critically, it also
-returns a unique identifier for that clade, stored in the column 
-`taxon_concept_id`. This identifer is the information that the ALA needs to 
-return data that is specific to the taxon in question, i.e.:
-```{r count-mammals}
-atlas_counts(taxa = search_taxa("Chordata"))
-```
-
-`search_taxa` can accept a vector or a `data.frame` of taxonomic names,
-and always returns a `data.frame` with the same number of rows as there are 
-names to query. 
-
-One final, useful feature of `search_taxa` is that it works in reverse. That is,
-if you have a unique identifier and would like to know which taxon it refers to,
-you can find that out by setting `is_id` to `TRUE`:
-
-```{r select-taxa, eval = FALSE}
-search_taxa("urn:lsid:biodiversity.org.au:afd.taxon:97764bed-9492-4066-a45f-e5b0c6c4280d", is_id = TRUE)
-```
-
-## Searching for lists of species
-A common use case for atlas data is to identify the list of species that 
-occur within a clade, in a particular location, or according to
-some other criterion. This is provided by the `atlas_species` function.
-
-```{r ala-species}
-burrowing_frogs <- atlas_species(
-  taxa = search_taxa("Heleioporus"))
-str(burrowing_frogs, give.attr = FALSE)
-```
-`atlas_species` is similar to `search_taxa`, in that it returns taxonomic information
-and unique identifiers in a `data.frame`. It differs in not being able to return 
-information on taxonomic levels other than the species; but also in being more flexible 
-by supporting filtering e.g.:
-
-```{r filter-ala-species}
-burrowing_frogs <- atlas_species(
-  taxa = search_taxa("Heleioporus"),
-  filter = galah_filter(
-    stateProvince == "New South Wales", 
-    year > 2010))
-str(burrowing_frogs, give.attr = FALSE)
-```
-
-## Advanced taxonomic queries
-Although we have focussed above on functions that are built to integrate
-taxonomic concepts, the more general `galah_filter` can be used to 
-build more flexible queries using the `taxonConceptID` field.
-This can be useful for paraphyletic concepts such as invertebrates:
-
-```{r invert-filter}
-invertebrate_filter <- galah_filter(
-   taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
-   taxonConceptID != search_taxa("Chordata")$taxon_concept_id)
-head(atlas_counts(galah_filter = invertebrate_filter, 
-                  group_by = galah_group_by(class)))
-```
 
 ## Taxonomic trees
 

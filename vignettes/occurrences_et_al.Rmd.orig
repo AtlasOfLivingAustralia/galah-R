@@ -1,0 +1,185 @@
+---
+title: "Occurrences"
+author: "Martin Westgate, Dax Kellie & Matilda Stevenson"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Occurrences}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+# Config
+Various aspects of the galah package can be customized. To preserve
+configuration for future sessions, set `profile_path` to a location of a
+`.Rprofile` file.
+
+## Email
+To download occurrence records, you will need to provide an email address
+registered with the ALA. You can create an account [here](https://auth.ala.org.au/userdetails/registration/createAccount).
+Once an email is registered with the ALA, it should be stored in the config:
+```{r eval=FALSE}
+galah_config(email = "myemail@gmail.com")
+```
+
+## Caching
+`galah` can cache most results to local files. This means that if the same code
+is run multiple times, the second and subsequent iterations will be faster.
+
+By default, this caching is session-based, meaning that the local files are
+stored in a temporary directory that is automatically deleted when the R
+session is ended. This behaviour can be altered so that caching is permanent,
+by setting the caching directory to a non-temporary location.
+
+```{r eval=FALSE}
+galah_config(cache_directory = "example/dir")
+```
+
+By default, caching is turned off. To turn caching on, run
+```{r eval=FALSE}
+galah_config(caching = FALSE)
+```
+## Setting the download reason
+ALA requires that you provide a reason when downloading occurrence data 
+(via the galah `atlas_occurrences()` function). The reason is set as 
+"scientific research" by default, but you can change this using `galah_config()`. 
+See `show_all_reasons()` for valid download reasons.
+
+```{r eval=FALSE}
+galah_config(download_reason_id = your_reason_id)
+```
+
+## Debugging
+If things aren't working as expected, more detail (particularly about web 
+requests and caching behaviour) can be obtained by setting the `verbose` 
+configuration option:
+
+```{r eval=FALSE}
+galah_config(verbose = TRUE)
+```
+
+# Record counts
+`atlas_counts()` provides summary counts on records in the ALA, without needing
+to download all the records. In addition to the filter arguments, it has an
+optional `group_by` argument, which provides counts binned by the requested
+field.
+```{r warning = FALSE}
+# Total number of records in the ALA
+atlas_counts()
+
+# Total number of records, broken down by kindgom
+atlas_counts(group_by = galah_group_by(kingdom))
+```
+
+As of `galah` 1.4.0, you can also do the same as above by piping with `%>%` 
+or `|>`:
+```{r warning = FALSE}
+library(magrittr)
+
+galah_call() %>%
+  galah_group_by(kingdom) %>%
+  atlas_counts()
+```
+
+
+## Species data
+A common use case of the ALA is to identify which species occur in a specified
+region, time period, or taxonomic group. `atlas_species()` enables users to 
+look up this information, using the common set of filter functions.
+```{r include = FALSE}
+galah_config(cache_directory = tempdir())
+```
+
+```{r}
+# List rodent species in the NT
+species <- atlas_species(taxa = search_taxa("Rodentia"),
+            filter = galah_filter(stateProvince == "Northern Territory"))
+head(species)
+```
+
+As of `galah` 1.4.0, you can also do the same as above by piping with `%>%` 
+or `|>`:
+```{r}
+library(magrittr)
+
+species <-
+  galah_call() %>%
+  search_taxa("Rodentia") %>%
+  galah_filter(stateProvince == "Northern Territory") %>%
+  atlas_species()
+  
+species %>% head()
+```
+
+## Searching for lists of species
+A common use case for atlas data is to identify the list of species that 
+occur within a clade, in a particular location, or according to
+some other criterion. This is provided by the `atlas_species` function.
+
+```{r ala-species}
+burrowing_frogs <- atlas_species(
+  taxa = search_taxa("Heleioporus"))
+str(burrowing_frogs, give.attr = FALSE)
+```
+`atlas_species` is similar to `search_taxa`, in that it returns taxonomic information
+and unique identifiers in a `data.frame`. It differs in not being able to return 
+information on taxonomic levels other than the species; but also in being more flexible 
+by supporting filtering e.g.:
+
+```{r filter-ala-species}
+burrowing_frogs <- atlas_species(
+  taxa = search_taxa("Heleioporus"),
+  filter = galah_filter(
+    stateProvince == "New South Wales", 
+    year > 2010))
+str(burrowing_frogs, give.attr = FALSE)
+```
+
+
+## Occurrence data
+
+To download occurrence data you will need to specify your email in
+`galah_config()`. This email must be associated with an active ALA account. See
+more information in the [config section](#config)
+```{r include = FALSE}
+galah_config(email = "ala4r@ala.org.au", atlas = "Australia", caching = FALSE, 
+verbose = FALSE)
+```
+
+```{r eval = FALSE}
+galah_config(email = your_email_here, atlas = "Australia")
+```
+
+Download occurrence records for *Eolophus roseicapilla*
+```{r}
+occ <- atlas_occurrences(taxa = search_taxa("Eolophus roseicapilla"),
+                         filter = galah_filter(stateProvince == "Australian Capital Territory",
+                                               year >= 2010,
+                                               profile = "ALA"),
+                         select = galah_select(institutionID, group = "basic"))
+```
+
+```{r}
+head(occ)
+```
+
+As of `galah` 1.4.0, you can also do the same as above by piping with `%>%` 
+or `|>`:
+```{r}
+library(magrittr)
+
+occ <-
+  galah_call() %>%
+  search_taxa("Eolophus roseicapilla") %>%
+  galah_filter(
+    stateProvince == "Australian Capital Territory",
+    year >= 2010,
+    profile = "ALA"
+  ) %>%
+  galah_select(institutionID, group = "basic") %>%
+  atlas_occurrences()
+  
+occ %>% head()
+```

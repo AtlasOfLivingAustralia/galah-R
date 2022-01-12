@@ -1,0 +1,97 @@
+---
+title: "Taxonomic searches"
+author: "Martin Westgate & Matilda Stevenson"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Taxonomic searches}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+
+  fig.path = "./vignettes/taxonomic_information-"
+)
+```
+
+`galah` provides multiple ways of retrieving taxonomic information, and the best
+method depends of the type of information required. Below, some use cases are
+outlined. 
+
+## Searching for a single species or clade
+
+The simplest way to get taxonomic information is to use `search_taxa`. This function
+takes one or more scientific names and checks them against the ALA's taxonomy 
+service.
+```{r load-galah}
+library(galah)
+search_taxa("Chordata")
+```
+
+By default, this function shows the search term, the match (if any) within the ALA,
+and some information on higher taxonomy of that clade. Critically, it also
+returns a unique identifier for that clade, stored in the column 
+`taxon_concept_id`. This identifer is the information that the ALA needs to 
+return data that is specific to the taxon in question, i.e.:
+```{r count-mammals}
+atlas_counts(taxa = search_taxa("Chordata"))
+```
+
+`search_taxa` can accept a vector or a `data.frame` of taxonomic names,
+and always returns a `data.frame` with the same number of rows as there are 
+names to query. 
+
+One final, useful feature of `search_taxa` is that it works in reverse. That is,
+if you have a unique identifier and would like to know which taxon it refers to,
+you can find that out by setting `is_id` to `TRUE`:
+
+```{r select-taxa, eval = FALSE}
+search_taxa("urn:lsid:biodiversity.org.au:afd.taxon:97764bed-9492-4066-a45f-e5b0c6c4280d", is_id = TRUE)
+```
+
+## Taxonomic filtering
+`search_taxa()` enables users to search for taxonomic names, check that the results
+are 'correct', and use their results to download data.
+The function allows both free-text searches and searches that specify by rank(s). 
+Specifying additional ranks in a `data.frame` or `tibble` can be useful when 
+names are ambiguous.
+```{r}
+# Free-text search
+taxa <- search_taxa("Eolophus")
+
+# Search specifying ranks
+search_taxa(query = data.frame(genus = "Eolophus", kingdom = "Aves"))
+```
+
+For more detailed taxonomic information, you can also use `atlas_taxonomy()`, 
+as outlined in `vignette("taxonomic_information")`
+
+
+
+## Advanced taxonomic queries
+Although we have focussed above on functions that are built to integrate
+taxonomic concepts, the more general `galah_filter` can be used to 
+build more flexible queries using the `taxonConceptID` field.
+This can be useful for paraphyletic concepts such as invertebrates:
+
+```{r invert-filter}
+invertebrate_filter <- galah_filter(
+   taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
+   taxonConceptID != search_taxa("Chordata")$taxon_concept_id)
+head(atlas_counts(galah_filter = invertebrate_filter, 
+                  group_by = galah_group_by(class)))
+```
+
+## Using taxonomic filters for another atlas
+`galah` only supports searching for Australian taxonomy; for other Atlases,
+`taxize` should be used to search for the taxonomic id, and this id can be passed
+to the `taxa` argument of `atlas_` functions. For example:
+```{r,error=TRUE}
+library(taxize)
+# Use UK taxonomy
+id <- get_nbnid("Vulpes vulpes", rows = 1)
+atlas_counts(taxa = id)
+```

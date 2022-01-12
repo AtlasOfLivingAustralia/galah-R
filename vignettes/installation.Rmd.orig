@@ -1,0 +1,50 @@
+---
+title: "Installation"
+author: "Martin Westgate, Dax Kellie & Matilda Stevenson"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Installation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Installation
+
+Install from CRAN:
+```{r eval=FALSE}
+install.packages("galah")
+```
+
+Install the development version from GitHub:
+```{r eval=FALSE}
+install.packages("remotes")
+remotes::install_github("AtlasOfLivingAustralia/galah")
+```
+
+See the [README](https://github.com/AtlasOfLivingAustralia/galah/blob/master/README.md) for system requirements.
+
+Load the package
+```{r eval=FALSE}
+library(galah)
+```
+
+# Setting an Atlas
+The living atlas community consists of a number of atlases that use a common 
+computational infrastructure. Each atlas maintains its' own database containing
+information relevant to them and their stakeholders. Currently, not all living 
+atlases are supported in `galah`; but you can get a list of those that are using
+`show_all_atlases`:
+
+```{r}
+show_all_atlases()
+```
+
+To chose one, use `galah_config()`:
+  
+```{r eval=FALSE}
+galah_config(atlas = "Spain")
+galah_config(atlas = "Australia") # This is the default atlas
+```
+
