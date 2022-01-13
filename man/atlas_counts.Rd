@@ -71,34 +71,28 @@ argument.
 
 
 With no arguments, return the total number of records in the ALA\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_counts()
-#> # A tibble: 1 × 1
+#> # A tibble: 1 x 1
 #>       count
 #>       <int>
 #> 1 101892823
 }\if{html}{\out{</div>}}
 
 You can group counts by state and territory with \code{galah_group_by}\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_counts(group_by = galah_group_by(stateProvince))
-#> # A tibble: 100 × 2
-#>    stateProvince                   count
-#>    <chr>                           <int>
-#>  1 New South Wales              24920903
-#>  2 Victoria                     21768881
-#>  3 Queensland                   17402411
-#>  4 South Australia               8447455
-#>  5 Western Australia             7455532
-#>  6 Northern Territory            4790796
-#>  7 Tasmania                      4503179
-#>  8 Australian Capital Territory  3810619
-#>  9 Canterbury Land District        69098
-#> 10 Wellington Land District        67212
-#> # … with 90 more rows
+#> # A tibble: 100 x 2
+#>   stateProvince      count
+#>   <chr>              <int>
+#> 1 New South Wales 24920903
+#> 2 Victoria        21768881
+#> 3 Queensland      17402411
+#> 4 South Australia  8447455
+#> # ... with 96 more rows
 }\if{html}{\out{</div>}}
 
 You can add a filter to narrow your search\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- atlas_counts(
   filter = galah_filter(basisOfRecord == "FossilSpecimen")
   ) 
 records
-#> # A tibble: 1 × 1
+#> # A tibble: 1 x 1
 #>   count
 #>   <int>
 #> 1  5354
@@ -108,7 +102,7 @@ Specify \code{type = species} to count the number of species, and group record
 counts by kingdom\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- atlas_counts(group_by = galah_group_by(kingdom), 
                         type = "species")
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 10 × 2
+#> # A tibble: 10 x 2
 #>    kingdom   count
 #>    <chr>     <int>
 #>  1 Animalia  90826
@@ -129,20 +123,14 @@ variables, similar to using \code{dplyr::group_by() \%>\% dplyr::count()}\if{htm
   group_by = galah_group_by(year, basisOfRecord)
   )
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 41 × 3
-#>    basisOfRecord     year    count
-#>    <chr>             <chr>   <int>
-#>  1 HUMAN_OBSERVATION 2020  5820506
-#>  2 HUMAN_OBSERVATION 2019  5399921
-#>  3 HUMAN_OBSERVATION 2018  5267743
-#>  4 HUMAN_OBSERVATION 2017  4348103
-#>  5 HUMAN_OBSERVATION 2016  3569835
-#>  6 HUMAN_OBSERVATION 2021  1144698
-#>  7 HUMAN_OBSERVATION 2022    22397
-#>  8 MATERIAL_SAMPLE   2017   167368
-#>  9 MATERIAL_SAMPLE   2016   129231
-#> 10 MATERIAL_SAMPLE   2019     5515
-#> # … with 31 more rows
+#> # A tibble: 41 x 3
+#>   basisOfRecord     year    count
+#>   <chr>             <chr>   <int>
+#> 1 HUMAN_OBSERVATION 2020  5820506
+#> 2 HUMAN_OBSERVATION 2019  5399921
+#> 3 HUMAN_OBSERVATION 2018  5267743
+#> 4 HUMAN_OBSERVATION 2017  4348103
+#> # ... with 37 more rows
 }\if{html}{\out{</div>}}
 
 You can also filter and download record counts by piping with \verb{\%>\%} or \verb{|>}.
@@ -151,20 +139,14 @@ Just begin your query with \code{\link[=galah_call]{galah_call()}}\if{html}{\out
   galah_group_by(year, basisOfRecord) \%>\%
   atlas_counts()
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 41 × 3
-#>    basisOfRecord     year    count
-#>    <chr>             <chr>   <int>
-#>  1 HUMAN_OBSERVATION 2020  5820506
-#>  2 HUMAN_OBSERVATION 2019  5399921
-#>  3 HUMAN_OBSERVATION 2018  5267743
-#>  4 HUMAN_OBSERVATION 2017  4348103
-#>  5 HUMAN_OBSERVATION 2016  3569835
-#>  6 HUMAN_OBSERVATION 2021  1144698
-#>  7 HUMAN_OBSERVATION 2022    22397
-#>  8 MATERIAL_SAMPLE   2017   167368
-#>  9 MATERIAL_SAMPLE   2016   129231
-#> 10 MATERIAL_SAMPLE   2019     5515
-#> # … with 31 more rows
+#> # A tibble: 41 x 3
+#>   basisOfRecord     year    count
+#>   <chr>             <chr>   <int>
+#> 1 HUMAN_OBSERVATION 2020  5820506
+#> 2 HUMAN_OBSERVATION 2019  5399921
+#> 3 HUMAN_OBSERVATION 2018  5267743
+#> 4 HUMAN_OBSERVATION 2017  4348103
+#> # ... with 37 more rows
 }\if{html}{\out{</div>}}
 }
 

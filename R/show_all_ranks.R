@@ -8,7 +8,7 @@
 #' reference that is useful when specifying the `down_to` argument of 
 #' [atlas_taxonomy()].
 #' 
-#' @section
+#' @section Examples:
 #' ```{r, child = "man/rmd/setup.Rmd"}
 #' ```
 #' 
