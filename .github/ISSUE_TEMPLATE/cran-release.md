@@ -9,14 +9,14 @@ assignees: ''
 
 ## Documentation
 - [ ] Vignettes have been updated by opening the `vignettes/precompile.R` file and running the script
-- [ ] Documentation has been built with `roxygen::roxygenise()`
+- [ ] Documentation has been built with `roxygen2md::roxygen2md()`
 - [ ] `_pkgdown.yml` has been updated with any new/updated changes
 - [ ] `pkgdown` site has been built locally with `pkgdown::build_site()` and all the pages are rendering as expected
 - [ ] NEWS.md has been updated with all the changes since the last release, including links to issue numbers
 - [ ] Version number has been increased in the `DESCRIPTION` in [semantic versioning style](https://semver.org/)
 
 ## Testing
-- [ ] Delete all files from the `tests/fixtures/` folder
+- [ ] Delete all files from the `tests/fixtures/` folder (except any international atlas fixtures not working because an API system is down)
 - [ ] Delete all files from the `tests/testhat/_snaps/` folder (these need to be deleted each time before running `devtools::test()`)
 - [ ] Restart R (Ctrl/Cmd + Shift + F10)
 - [ ] All automated tests are passing locally with `devtools::test()` (including slow skipped tests)
