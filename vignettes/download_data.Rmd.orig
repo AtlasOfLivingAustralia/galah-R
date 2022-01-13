@@ -1,11 +1,11 @@
 ---
-title: "04 Download data"
+title: "Download data"
 author: "Martin Westgate & Dax Kellie"
 date: '`r Sys.Date()`'
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{04 Download data}
+  %\VignetteIndexEntry{Download data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

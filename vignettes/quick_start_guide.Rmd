@@ -1,11 +1,11 @@
 ---
-title: "01 Quick start guide"
+title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '`r Sys.Date()`'
+date: '2022-01-13'
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{01 Quick start guide}
+  %\VignetteIndexEntry{Quick start guide}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -27,18 +27,21 @@ exceptions, all functions return a `tibble` as their standard format.
 
 # Installation
 To install from CRAN:
-```{r eval=FALSE}
+
+```r
 install.packages("galah")
 ```
 
 Or install the development version from GitHub:
-```{r eval=FALSE}
+
+```r
 install.packages("remotes")
 remotes::install_github("AtlasOfLivingAustralia/galah")
 ```
 
 Load the package
-```{r eval=FALSE}
+
+```r
 library(galah)
 ```
 
@@ -47,14 +50,28 @@ By default, `galah` downloads information from the Atlas of Living Australia (AL
 To show the full list of Atlases currently supported by `galah`, use 
 `show_all_atlases()`.
 
-```{r}
+
+```r
 show_all_atlases()
+```
+
+```
+## # A tibble: 6 × 3
+##   atlas     taxonomy_source taxonomy_info                                                    
+##   <chr>     <chr>           <chr>                                                            
+## 1 Australia ALA             https://bie.ala.org.au/                                          
+## 2 Austria   GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+## 3 Guatemala GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+## 4 Spain     GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+## 5 Sweden    GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+## 6 UK        NBN             https://www.nhm.ac.uk/our-science/data/uk-species.html
 ```
 
 Use `galah_config()` to set the Atlas to use. This will automatically populate the 
 server configuration for your selected Atlas. By default, the atlas is Australia.
 
-```{r eval=FALSE}
+
+```r
 galah_config(atlas = "UK")
 ```
 
@@ -62,28 +79,52 @@ galah_config(atlas = "UK")
 Functions that return data from the chosen atlas have the prefix `atlas_`; e.g.
 to find the total number of records in the atlas, use:
   
-```{r}
+
+```r
 atlas_counts()
+```
+
+```
+## # A tibble: 1 × 1
+##       count
+##       <int>
+## 1 101892823
 ```
 
 To pass more complex queries, start with the `galah_call()` function and pipe
 additional arguments to modify the query. modifying functions have a `galah_`
 prefix and support non-standard evaluation (NSE).
 
-```{r}
+
+```r
 galah_call() |> 
   galah_filter(year >= 2020) |> 
   atlas_counts()
 ```
 
+```
+## # A tibble: 1 × 1
+##     count
+##     <int>
+## 1 7014237
+```
+
 To narrow the search to a particular taxonomic group, use `search_taxa`. Note
 that this function only accepts scientific names and is not case sensitive.
 
-```{r}
+
+```r
 galah_call() |>
   galah_filter(year >= 2020) |> 
   search_taxa("reptilia") |> 
   atlas_counts()
+```
+
+```
+## # A tibble: 1 × 1
+##   count
+##   <int>
+## 1 44387
 ```
 
 # Downloading records
@@ -91,15 +132,15 @@ The most common use case for `galah` is to download 'occurrence' records;
 observations of plants or animals made by contributors to the atlas. To download,
 first register with the relevant atlas, then provide your registration email. 
 
-```{r, eval=FALSE}
+
+```r
 galah_config(email = "email@email.com")
 ```
 
-```{r, echo=FALSE}
-galah_config(verbose = FALSE)
-```
+
 Then you can customise records you require and query the atlas in question:
-```{r}
+
+```r
 result <- galah_call() |>
   search_taxa("Litoria") |>
   galah_filter(year >= 2020, cl22 == "Tasmania") |>
@@ -107,6 +148,18 @@ result <- galah_call() |>
   atlas_occurrences()
 
 result |> head()
+```
+
+```
+## # A tibble: 6 × 8
+##   decimalLatitude decimalLongitude eventDate   scientificName  taxonConceptID       recordID   dataResourceName  basisOfRecord
+##             <dbl>            <dbl> <chr>       <chr>           <chr>                <chr>      <chr>             <chr>        
+## 1           -43.4             147. ""          Litoria ewingii urn:lsid:biodiversi… 780cf8e0-… iNaturalist Aust… HUMAN_OBSERV…
+## 2           -43.2             147. "2020-01-1… Litoria ewingii urn:lsid:biodiversi… cc9d437b-… iNaturalist Aust… HUMAN_OBSERV…
+## 3           -43.2             147. ""          Litoria ewingii urn:lsid:biodiversi… d208d476-… iNaturalist Aust… HUMAN_OBSERV…
+## 4           -43.1             147. ""          Litoria ewingii urn:lsid:biodiversi… 95fab19c-… iNaturalist Aust… HUMAN_OBSERV…
+## 5           -43.1             147. "2020-04-3… Litoria ewingii urn:lsid:biodiversi… 2b7fdc5c-… Earth Guardians … HUMAN_OBSERV…
+## 6           -43.1             147. "2020-06-2… Litoria ewingii urn:lsid:biodiversi… 3524080e-… Earth Guardians … HUMAN_OBSERV…
 ```
 
 Check out our other vignettes for more detail on how to use these functions.
@@ -117,65 +170,6 @@ with a `search_` or `galah_` prefix). A network diagram showing accepted argumen
 is shown below. Note that if you pipe your queries starting with `galah_call()`,
 then irrelevant arguments will be (silently) ignored. 
 
-```{r, eval = FALSE, echo = FALSE}
-DiagrammeR::grViz("
-digraph boxes_and_circles {
 
-  # a 'graph' statement
-  graph [overlap = true, fontsize = 15, rankdir = LR]
-
-  # several 'node' statements
-  node [shape = box,
-        fontname = Helvetica,
-        fixedsize = TRUE,
-        width = 2.0,
-        height = 0.5,
-        fontcolor = '#E06E53',
-        color = '#E06E53']
-  atlas_counts; atlas_species; atlas_occurrences; atlas_media; atlas_taxonomy
-
-  node  [shape = box,
-        fontname = Helvetica,
-        fontcolor = '#c7902a'
-        color = '#c7902a']
-  galah_filter; galah_select; galah_geolocate; galah_group_by; galah_down_to
-  
-  node  [shape = box,
-        fontname = Helvetica,
-        fontcolor = '#7f9959',
-        color = '#7f9959']
-  search_taxa; show_all_fields; search_fields; show_all_profiles; show_all_ranks; find_field_values; find_profile_attributes
-  
-  edge [ color = 'grey50' , dir = 'none']
-  atlas_counts->search_taxa
-  atlas_counts->galah_filter
-  atlas_counts->galah_geolocate
-  atlas_counts->galah_group_by
-  atlas_species->search_taxa
-  atlas_species->galah_filter
-  atlas_species->galah_geolocate
-  atlas_media->search_taxa
-  atlas_media->galah_filter
-  atlas_media->galah_select
-  atlas_media->galah_geolocate
-  atlas_occurrences->search_taxa 
-  atlas_occurrences->galah_filter
-  atlas_occurrences->galah_select
-  atlas_occurrences->galah_geolocate
-  atlas_taxonomy->search_taxa
-  atlas_taxonomy->galah_down_to
-  galah_group_by->search_fields
-  galah_group_by->show_all_fields
-  galah_filter->search_fields
-  galah_filter->show_all_fields
-  galah_filter->show_all_profiles->find_profile_attributes
-  galah_select->search_fields
-  galah_select->show_all_fields
-  show_all_fields->find_field_values
-  search_fields->find_field_values
-  galah_down_to->show_all_ranks 
-}
-", width = 1000, height = 500)
-```
 <img src="galah-DiagrammeR-plot.png" title="plot of function relationships" alt="plot of function relationships" width="100%" />
 

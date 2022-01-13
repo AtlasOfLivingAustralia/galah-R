@@ -12,18 +12,18 @@ navbar:
   components:
     quickstart:
       text: Quick start guide
-      href: articles/01_quick_start_guide.html
+      href: articles/quick_start_guide.html
     articles:
       text: Articles
       menu: 
       - text: Narrow your results
-        href: articles/02_narrow_your_results.html
+        href: articles/narrow_your_results.html
       - text: Look up information
-        href: articles/03_look_up_information.html
+        href: articles/look_up_information.html
       - text: Download data
-        href: articles/04_download_data.html
+        href: articles/download_data.html
       - text: Syntax changes
-        href: articles/05_syntax_changes.html
+        href: articles/syntax_changes.html
     news:
       text: News
       href: news/index.html 

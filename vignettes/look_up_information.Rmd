@@ -1,11 +1,11 @@
 ---
-title: "03 Look up information"
+title: "Look up information"
 author: "Martin Westgate & Dax Kellie"
 date: '2022-01-13'
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{03 Look up information}
+  %\VignetteIndexEntry{Look up information}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -1,12 +1,12 @@
 ---
-title: "02 Narrow your results"
+title: "Narrow your results"
 author: "Martin Westgate & Dax Kellie"
 date: "20/12/2021"
 output: html_document
 editor_options: 
   chunk_output_type: inline
 vignette: >
-  %\VignetteIndexEntry{02 Narrow your results}
+  %\VignetteIndexEntry{Narrow your results}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -1,11 +1,11 @@
 ---
-title: "05 Syntax changes"
+title: "Syntax changes"
 author: "Martin Westgate & Dax Kellie"
 date: '2022-01-13'
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{05 Syntax changes}
+  %\VignetteIndexEntry{Syntax changes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
