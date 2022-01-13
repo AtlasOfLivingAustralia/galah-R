@@ -56,44 +56,44 @@ id number.
 
 Search for all fields that use include the word "date"\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("date")
 #> # A tibble: 32 x 4
-#>   id             description                                                                                       type  link 
-#>   <chr>          <chr>                                                                                             <chr> <chr>
-#> 1 dateIdentified http://rs.tdwg.org/dwc/terms/dateIdentified                                                       fiel~ <NA> 
-#> 2 datePrecision  The precision of the date information for the record. Values include Day, Month, Year, Year rang~ fiel~ <NA> 
-#> 3 eventDate      The ISO formatted date of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/ev~ fiel~ <NA> 
-#> 4 eventDateEnd   <NA>                                                                                              fiel~ <NA> 
+#>   id             description                                                                                                    type   link 
+#>   <chr>          <chr>                                                                                                          <chr>  <chr>
+#> 1 dateIdentified http://rs.tdwg.org/dwc/terms/dateIdentified                                                                    fields <NA> 
+#> 2 datePrecision  The precision of the date information for the record. Values include Day, Month, Year, Year range, Month range fields <NA> 
+#> 3 eventDate      The ISO formatted date of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/eventDate        fields <NA> 
+#> 4 eventDateEnd   <NA>                                                                                                           fields <NA> 
 #> # ... with 28 more rows
 }\if{html}{\out{</div>}}
 
 Search for all fields with the string "basisofrecord"\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("basisofrecord")
 #> # A tibble: 2 x 4
-#>   id                description                                                                                    type  link 
-#>   <chr>             <chr>                                                                                          <chr> <chr>
-#> 1 basisOfRecord     What this is a record of e.g. specimen, human observation, fossil http://rs.tdwg.org/dwc/term~ fiel~ <NA> 
-#> 2 raw_basisOfRecord The basis of record as supplied by the data publisher http://rs.tdwg.org/dwc/terms/verbatimBa~ fiel~ <NA>
+#>   id                description                                                                                                  type   link 
+#>   <chr>             <chr>                                                                                                        <chr>  <chr>
+#> 1 basisOfRecord     What this is a record of e.g. specimen, human observation, fossil http://rs.tdwg.org/dwc/terms/basisOfRecord fields <NA> 
+#> 2 raw_basisOfRecord The basis of record as supplied by the data publisher http://rs.tdwg.org/dwc/terms/verbatimBasisOfRecord     fields <NA>
 }\if{html}{\out{</div>}}
 
 Search for all fields that have information for "marine"\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("marine") |> 
   head() # only show first 5 results
 #> # A tibble: 6 x 4
-#>   id      description                                               type   link                                               
-#>   <chr>   <chr>                                                     <chr>  <chr>                                              
-#> 1 biome   "A field indicating if the record has been located in Te~ fields  <NA>                                              
-#> 2 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Marine~ layers "http://www.fao.org/geonetwork/srv/en/main.home?uu~
-#> 3 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian Pro~ layers "http://www.environment.gov.au/fed/catalog/search/~
-#> 4 cl10957 "CAPAD 2018 Marine The Collaborative Australian Protecte~ layers "http://www.environment.gov.au/fed/catalog/search/~
-#> 5 el1056  "Endemism (Non-marine) Endemism (Non-marine) based on Cr~ layers ""                                                 
-#> 6 el957   "Averaged Topographic Relief  This data represents the a~ layers "http://www.ga.gov.au/meta/ANZCW0703015076.html"
+#>   id      description                                                                  type  link                                                      
+#>   <chr>   <chr>                                                                        <chr> <chr>                                                     
+#> 1 biome   "A field indicating if the record has been located in Terrestrial, Marine o~ fiel~  <NA>                                                     
+#> 2 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Marine)"                   laye~ "http://www.fao.org/geonetwork/srv/en/main.home?uuid=ac02~
+#> 3 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian Protected Areas Databa~ laye~ "http://www.environment.gov.au/fed/catalog/search/resourc~
+#> 4 cl10957 "CAPAD 2018 Marine The Collaborative Australian Protected Areas Database (C~ laye~ "http://www.environment.gov.au/fed/catalog/search/resourc~
+#> 5 el1056  "Endemism (Non-marine) Endemism (Non-marine) based on Crisp, M.D., Laffan, ~ laye~ ""                                                        
+#> 6 el957   "Averaged Topographic Relief  This data represents the averaged topographic~ laye~ "http://www.ga.gov.au/meta/ANZCW0703015076.html"
 }\if{html}{\out{</div>}}
 
 Search for all Wordclim layers\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("worldclim", type = "layers")
 #> # A tibble: 38 x 4
-#>   id      description                                                                     type   link                         
-#>   <chr>   <chr>                                                                           <chr>  <chr>                        
-#> 1 el10982 WorldClim 2.1: Temperature - warmest month max Max Temperature of Warmest Month layers https://www.worldclim.org/da~
-#> 2 el10981 WorldClim 2.1: Temperature - seasonality Temperature Seasonality                layers https://www.worldclim.org/da~
-#> 3 el10980 WorldClim 2.1: Temperature - isothermality Isothermality                        layers https://www.worldclim.org/da~
-#> 4 el10990 WorldClim 2.1: Precipitation - wettest month Precipitation of Wettest Month     layers https://www.worldclim.org/da~
+#>   id      description                                                                     type   link                                           
+#>   <chr>   <chr>                                                                           <chr>  <chr>                                          
+#> 1 el10982 WorldClim 2.1: Temperature - warmest month max Max Temperature of Warmest Month layers https://www.worldclim.org/data/worldclim21.html
+#> 2 el10981 WorldClim 2.1: Temperature - seasonality Temperature Seasonality                layers https://www.worldclim.org/data/worldclim21.html
+#> 3 el10980 WorldClim 2.1: Temperature - isothermality Isothermality                        layers https://www.worldclim.org/data/worldclim21.html
+#> 4 el10990 WorldClim 2.1: Precipitation - wettest month Precipitation of Wettest Month     layers https://www.worldclim.org/data/worldclim21.html
 #> # ... with 34 more rows
 }\if{html}{\out{</div>}}
 

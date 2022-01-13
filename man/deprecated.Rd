@@ -88,7 +88,7 @@ Use \code{\link[=galah_select]{galah_select()}} instead of \code{select_columns(
 
 Use \code{\link[=galah_filter]{galah_filter()}} instead of \code{select_filters()}.
 
-Use \code{\link[=galah_location]{galah_location()}} instead of \code{select_locations()}.
+Use \code{\link[=galah_geolocate]{galah_geolocate()}} instead of \code{select_locations()}.
 
 Use \code{\link[=atlas_occurrences]{atlas_occurrences()}} instead of \code{ala_occurrences()}.
 

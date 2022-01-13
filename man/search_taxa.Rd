@@ -33,24 +33,24 @@ proceeded to download data via \code{\link[=atlas_occurrences]{atlas_occurrences
 
 Search using a single term\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("Reptilia")
 #> # A tibble: 1 x 9
-#>   search_term scientific_name taxon_concept_id                                 rank  match_type kingdom  phylum  class  issues
-#>   <chr>       <chr>           <chr>                                            <chr> <chr>      <chr>    <chr>   <chr>  <chr> 
-#> 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228~ class exactMatch Animalia Chorda~ Repti~ noIss~
+#>   search_term scientific_name taxon_concept_id                                                            rank  match_type kingdom  phylum class issues
+#>   <chr>       <chr>           <chr>                                                                       <chr> <chr>      <chr>    <chr>  <chr> <chr> 
+#> 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chord~ Rept~ noIss~
 }\if{html}{\out{</div>}}
 
 Note that \code{search_taxa()} is not case sensitive\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("reptilia") # not case sensitive
 #> # A tibble: 1 x 9
-#>   search_term scientific_name taxon_concept_id                                 rank  match_type kingdom  phylum  class  issues
-#>   <chr>       <chr>           <chr>                                            <chr> <chr>      <chr>    <chr>   <chr>  <chr> 
-#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228~ class exactMatch Animalia Chorda~ Repti~ noIss~
+#>   search_term scientific_name taxon_concept_id                                                            rank  match_type kingdom  phylum class issues
+#>   <chr>       <chr>           <chr>                                                                       <chr> <chr>      <chr>    <chr>  <chr> <chr> 
+#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chord~ Rept~ noIss~
 }\if{html}{\out{</div>}}
 
 Search multiple taxa. \code{search_taxa()} will return one row per taxon\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa(c("reptilia", "mammalia"))
 #> # A tibble: 2 x 10
-#>   search_term scientific_name taxon_concept_id                  rank  match_type kingdom  phylum  class issues vernacular_name
-#>   <chr>       <chr>           <chr>                             <chr> <chr>      <chr>    <chr>   <chr> <chr>  <chr>          
-#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd~ class exactMatch Animalia Chorda~ Rept~ noIss~ <NA>           
-#> 2 mammalia    MAMMALIA        urn:lsid:biodiversity.org.au:afd~ class exactMatch Animalia Chorda~ Mamm~ noIss~ Mammals
+#>   search_term scientific_name taxon_concept_id                                         rank  match_type kingdom  phylum  class   issues vernacular_name
+#>   <chr>       <chr>           <chr>                                                    <chr> <chr>      <chr>    <chr>   <chr>   <chr>  <chr>          
+#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45~ class exactMatch Animalia Chorda~ Reptil~ noIss~ <NA>           
+#> 2 mammalia    MAMMALIA        urn:lsid:biodiversity.org.au:afd.taxon:e9e7db31-04df-41~ class exactMatch Animalia Chorda~ Mammal~ noIss~ Mammals
 }\if{html}{\out{</div>}}
 
 Use \code{search_taxa()} to narrow your data queries\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_counts(taxa = search_taxa("reptilia"))
