@@ -13,5 +13,5 @@ test_that("Taxa arguments are checked", {
 })
 
 vcr::use_cassette("select_taxa", {
-  expect_silent(check_taxa_arg(select_taxa("Vulpes vulpes")))
+  expect_silent(check_taxa_arg(search_taxa("Vulpes vulpes")))
 })

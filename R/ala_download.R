@@ -2,6 +2,21 @@
 # so far needs to handle zip files and csv
 ala_download <- function(url, path, params = list(), ext = ".csv",
                          cache_file = NULL) {
+  tryCatch({
+    internal_download(
+      url = url,
+      path = path,
+      params = params,
+      ext = ext,
+      cache_file = cache_file)
+    }, 
+    error = function(a){return(NULL)},
+    warning = function(a){return(NULL)}
+  )
+}
+
+internal_download <- function(url, path, params, ext, cache_file, 
+                              error_call = caller_env()) {
   assert_that(is.character(url))
   cli <- HttpClient$new(
     url = url,
@@ -12,8 +27,13 @@ ala_download <- function(url, path, params = list(), ext = ".csv",
 
   # check cache file exists
   if (!is.null(cache_file) && !dir.exists(dirname(cache_file))) {
-    stop(dirname(cache_file),
-         " does not exist. Please create it and try again.")
+    directory <- dirname(cache_file)
+    bullets <- c(
+      "Cannot find directory.",
+      i = "Please enter a valid directory and try again.",
+      x = glue("{directory} does not exist.")
+    )
+    abort(bullets, call = error_call)
   }
 
   # ws needs to be added for 
@@ -31,12 +51,12 @@ ala_download <- function(url, path, params = list(), ext = ".csv",
   }
 
   if (ext == ".csv") {
-    # error message is specific to ala_species because it is the only function which
+    # error message is specific to atlas_species because it is the only function that
     # gets to this point
     tryCatch(
       df <- read.csv(res$content, stringsAsFactors = FALSE),
       error = function(e) {
-        e$message <- "No species matching the supplied filters were found."
+        e$message <- inform("No species matching the supplied filters were found.")
         close(file(cache_file))
         unlink(cache_file)
         stop(e)

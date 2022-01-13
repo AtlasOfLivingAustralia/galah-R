@@ -1,0 +1,81 @@
+---
+title: "03 Look up information"
+author: "Martin Westgate & Dax Kellie"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{03 Look up information}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# `show_all_` functions
+Functions with the prefix `show_all_` return a `tibble` doing exactly that 
+- showing all the possible values of the category specified. These functions include:
+
+-   `show_all_fields`
+-   `show_all_atlases`
+-   `show_all_ranks`
+-   `show_all_profiles`
+-   `show_all_reasons`
+-   `show_all_cached_files`
+
+`show_all_` functions require no arguments. Simply call the function and it will 
+return all accepted values as a tibble:
+
+```{r}
+show_all_atlases()
+show_all_reasons()
+```
+
+Of these functions, the one that has by far the largest output is `show_all_fields`.
+Given how important fields are to the proper use of `galah`, we've added the 
+additional function `search_fields` to make the results of this function easier 
+to navigate. As with `search_taxa`, `search_fields` requires a query to work.
+
+```{r}
+search_fields("date") |> head()
+```
+
+
+# `find_` functions
+The second subset of lookup functions use the `find_` prefix, and differ from
+`show_all_` in that they require a query to work. They are used to find 
+detailed information that can't be summarised across the whole atlas, and include:
+
+-   `find_field_values`
+-   `find_profile attributes`
+-   `find_taxa`
+
+`find_field_values` is used to find values to pass to `galah_filter`
+
+```{r}
+find_field_values("basisOfRecord")
+galah_call() |> galah_filter(basisOfRecord == "LIVING_SPECIMEN") |> atlas_counts()
+``` 
+
+`find_profile_attributes` is used to give more information on criteria used
+to remove records in data quality profiles, e.g.
+
+```{r}
+find_profile_attributes("ALA") |> head()
+```
+
+`find_taxa` is the partner function to `search_taxa`, and is used to return
+information on one or more known taxonomic identifers.
+
+```{r}
+find_taxa("https://id.biodiversity.org.au/node/apni/2914510")
+```
+
+Unlike `search_taxa`, `find_taxa` cannot be used to filter data queries. 
+Instead, to use `find_taxa` results to filter queries, you can nest them 
+within `search_taxa`:
+
+```{r}
+taxa <- find_taxa("https://id.biodiversity.org.au/node/apni/2914510")
+galah_call() |> 
+  search_taxa(taxa) |>
+  atlas_counts()
+```

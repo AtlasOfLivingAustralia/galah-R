@@ -1,36 +1,80 @@
-reference:
-- title: Data
-  contents:
-  - ala_occurrences
-  - ala_taxonomy
-  - ala_counts
-  - ala_species
-  - ala_media
-- title: Filter
-  contents: 
-  - select_taxa
-  - select_filters
-  - select_locations
-  - select_columns
-- title: Lookup
-  contents:
-  - search_fields
-  - find_field_values
-  - find_profiles
-  - find_profile_attributes
-  - find_reasons
-  - find_atlases
-- title: Cache management
-  contents:
-  - find_cached_files
-  - clear_cached_files
-- title: Help
-  contents:
-  - galah_config
-  - ala_citation
+url: https://atlasoflivingaustralia.github.io/galah/
+
 template:
+  bootstrap: 5
   params:
     bootswatch: cerulean
-url: https://atlasoflivingaustralia.github.io/galah/
+
+navbar: 
+  structure:
+    left: [home, quickstart, articles, reference]
+    right: [news, github]
+  components:
+    quickstart:
+      text: Quick start guide
+      href: articles/01_quick_start_guide.html
+    articles:
+      text: Articles
+      menu: 
+      - text: Narrow your results
+        href: articles/02_narrow_your_results.html
+      - text: Look up information
+        href: articles/03_look_up_information.html
+      - text: Download data
+        href: articles/04_download_data.html
+      - text: Syntax changes
+        href: articles/05_syntax_changes.html
+    news:
+      text: News
+      href: news/index.html 
+
+reference:
+- title: Start a data query
+  contents:
+  - galah_call
+  
+- title: Narrow results
+  contents: 
+  - search_taxa
+  - galah_filter
+  - galah_select
+  - galah_group_by
+  - galah_geolocate
+  - galah_down_to
+  
+- title: Download data
+  contents:
+  - atlas_occurrences
+  - atlas_counts
+  - atlas_species
+  - atlas_taxonomy
+  - atlas_media
+  
+- title: Look up information
+  contents:
+  - search_fields
+  - show_all_profiles
+  - show_all_fields
+  - show_all_fields
+  - show_all_reasons
+  - show_all_atlases
+  - show_all_ranks
+  - find_taxa
+  - find_field_values
+  - find_profile_attributes
+  
+- title: Manage cache
+  contents:
+  - show_all_cached_files
+  - clear_cached_files
+  
+- title: Configure session
+  contents:
+  - galah_config
+  
+- title: Cite
+  contents:
+  - atlas_citation
+
 
   

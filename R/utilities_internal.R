@@ -80,51 +80,136 @@ fix_assertion_cols <- function(df, assertion_cols) {
   df
 }
 
+# ensure outputs are tibbles, with an appropriate class
+# if no object is given, create an empty tibble with that class
+set_galah_object_class <- function(input, class_name){
+  if(missing(input)){input <- tibble()}
+  if(!is_tibble(input)){input <- as_tibble(input)}
+  class(input) <- append(class(input), class_name)
+  input
+}
+
+
+##----------------------------------------------------------------
+##                   Parsing functions                          --
+##----------------------------------------------------------------
+
+
+# function to identify objects or functions in quosures, and eval them
+# this is used by `search_taxa` and `galah_geolocate`
+# It differs from functions in `galah_filter` by being more straightforward
+parse_basic_quosures <- function(dots){
+  is_either <- is_function_check(dots) | is_object_check(dots)
+  result <- vector("list", length(dots))
+  # If yes, evaluate them correctly as functions
+  if(any(is_either)){
+    result[is_either] <- lapply(dots[is_either], eval_tidy)
+  }
+  if(any(!is_either)){
+    result[!is_either] <- lapply(dots[!is_either], 
+      function(a){dequote(as_label(a))})
+  }
+  if(all(unlist(lapply(result, is.character)))){
+    return(do.call(c, result))
+  }
+  if(all(unlist(lapply(result, is.data.frame)))){
+    return(do.call(rbind, result))
+  }
+}
+
+is_function_check <- function(dots){ # where x is a list of strings
+  x <- unlist(lapply(dots, as_label))
+  
+  # detect whether function-like text is present
+  functionish_text <- grepl("^(([[:alnum:]]|\\.|_)+\\()", x) & grepl("\\)", x)
+  dollar_sign_square_bracket <- grepl("\\$|\\[", x)
+  functions_present <- functionish_text | dollar_sign_square_bracket
+  
+  # if there are equations, that's only ok if they are quoted
+  contains_equations <- grepl( "!=|>=|<=|==|>|<", x)
+  quoted_equations <- grepl("(\"|\')\\s*(!=|>=|<=|==|>|<)\\s*(\"|\')", x) 
+  equations_ok <- (contains_equations & quoted_equations) | !contains_equations
+  # ...except where they start with the name `galah_`
+  is_galah <- grepl("^galah_", x)
+  
+  # parse only if both conditions are met
+  functions_present & (equations_ok | is_galah)
+}
+
+is_object_check <- function(dots){
+  # get list of options from ?typeof & ?mode
+  available_types <- c("logical", "numeric", 
+    "complex", "character", "raw", "list", "NULL", "function",
+    "name", "call", "any")
+  # attempt to check multiple types
+  unlist(lapply(dots, function(a){
+    modes_df <- data.frame(
+      name = available_types,
+      exists = unlist(lapply(available_types, function(b){
+        exists(x = dequote(as_label(a)), envir = get_env(a), mode = b)
+      }))
+    )
+    if(any(modes_df$exists)){
+      if(all(modes_df$name[modes_df$exists] %in% c("any", "function"))){
+        FALSE  # only functions exist here
+      }else{
+        TRUE # this avoids issues when a function and object are both valid
+      }
+    }else{
+      FALSE # i.e. no objects
+    }
+  }))
+}
+
 ##----------------------------------------------------------------
 ##                   Query-building functions                   --
 ##----------------------------------------------------------------
 
 # Build query list from constituent arguments
-build_query <- function(taxa, filters, locations, columns = NULL,
+build_query <- function(taxa, filter, location, select = NULL,
                         profile = NULL) {
   query <- list()
   if (is.null(taxa)) {
     taxa_query <- NULL
-  } else {
-    check_taxa_arg(taxa)
-    # include <- !inherits(taxa, "exclude") # obsolete
-    if (inherits(taxa, "data.frame") &&
-        "taxon_concept_id" %in% colnames(taxa)) {
-      taxa <- taxa$taxon_concept_id
+  } else { # assumes a tibble or data.frame has been given
+    if(nrow(taxa) < 1){
+      taxa_query <- NULL
+    } else {
+      check_taxa_arg(taxa)
+      # include <- !inherits(taxa, "exclude") # obsolete
+      if (inherits(taxa, "data.frame") &&
+          "taxon_concept_id" %in% colnames(taxa)) {
+        taxa <- taxa$taxon_concept_id
+      }
+      #TODO: Implement a useful check here- i.e. string or integer
+      # assert_that(is.character(taxa))
+      taxa_query <- build_taxa_query(taxa)
     }
-    #TODO: Implement a useful check here- i.e. string or integer
-    # assert_that(is.character(taxa))
-    taxa_query <- build_taxa_query(taxa)
   }
   
   # validate filters
-  if (is.null(filters)) {
+  if (is.null(filter)) {
     filter_query <- NULL
   } else {
-    assert_that(is.data.frame(filters))
+    assert_that(is.data.frame(filter))
     # remove profile from filter rows
     # filters <- filters[filters$variable != "profile",]
-    if (nrow(filters) == 0) {
+    if (nrow(filter) == 0) {
       filter_query <- NULL
     } else {
-      filter_query <- build_filter_query(filters)
+      filter_query <- build_filter_query(filter)
     }
   }
   
   query$fq <- c(taxa_query, filter_query)
   
-  if (is.null(locations)) {
+  if (is.null(location)) {
     area_query <- NULL
   } else {
-    area_query <- locations
+    area_query <- location
     query$wkt <- area_query
   }
-  if (check_for_caching(taxa_query, filter_query, area_query, columns)) {
+  if (check_for_caching(taxa_query, filter_query, area_query, select)) {
     query <- cached_query(taxa_query, filter_query, area_query)
   }
   if (getOption("galah_config")$atlas == "Australia") {
@@ -148,7 +233,7 @@ build_taxa_query <- function(ids) {
   value_str
 }
 
-# Takes a dataframe produced by select_filters and return query as a list
+# Takes a dataframe produced by galah_filter and return query as a list
 # Construct individual query term
 # Add required brackets, quotes to make valid SOLR query syntax
 query_term <- function(name, value, include) {
@@ -214,7 +299,7 @@ new_build_filter_query <- function(filters) {
   return(query)
 }
 
-# Extract profile row from filters dataframe created by select_filters
+# Extract profile row from filters dataframe created by galah_filter
 extract_profile <- function(filters) {
   profile <- NULL
   if (!is.null(filters)){
@@ -256,9 +341,9 @@ build_assertion_columns <- function(col_df) {
 # Check whether caching of some url parameters is required.
 # Note: it is only possible to cache one fq so filters can't be cached
 check_for_caching <- function(taxa_query, filter_query, area_query,
-                              columns = NULL) {
+                              columns = NULL, error_call = caller_env()) {
   if (nchar(paste(filter_query, collapse = "&fq=")) > 1948) {
-    stop("Too many filters provided.")
+    abort("Too many filters provided.", call = error_call)
   }
   if (sum(nchar(taxa_query), nchar(filter_query), nchar(area_query),
           nchar(paste(columns$name, collapse = ",")), na.rm = TRUE) > 1948) {
@@ -295,11 +380,16 @@ galah_version_string <- function() {
   paste0("galah ", version_string)
 }
 
-# Check taxonomic argument provided to `ala_` functions is of correct form
-check_taxa_arg <- function(taxa) {
+# Check taxonomic argument provided to `atlas_` functions is of correct form
+check_taxa_arg <- function(taxa, error_call = caller_env()) {
   if (!any(grepl("id", class(taxa)))) {
     if (!any(grepl("\\d", taxa))) {
-      stop("`taxa` argument requires an identifier input generated by `select_taxa()` or a `taxize` function.")
+      bullets <- c(
+        "Wrong type of input provided to `taxa` argument.",
+        i = glue("`taxa` argument requires an identifier input generated by \\
+        `select_taxa()` or a `taxize` function.")
+      )
+      abort(bullets, call = error_call)
     }
   }
 }
@@ -311,7 +401,7 @@ check_taxa_arg <- function(taxa) {
 # Read cached file
 read_cache_file <- function(filename) {
   if (getOption("galah_config")$verbose) {
-    message("Using cached file '", filename, "'")
+    inform(glue("Using cached file \"{filename}\"."))
   }
   readRDS(filename)
 }
@@ -319,15 +409,23 @@ read_cache_file <- function(filename) {
 # Write file to cache and metadata to metadata cache
 write_cache_file <- function(object, data_type, cache_file) {
   if (getOption("galah_config")$verbose) {
-    message("Writing to cache file '", cache_file, "'")
+    inform(glue("
+                
+                Writing to cache file \"{cache_file}\".
+                
+                "))
     }
   tryCatch({
     saveRDS(object, cache_file)
     write_metadata(attributes(object)$data_request, data_type, cache_file)
     },
     error = function(e) {
-      warning("There was an error writing to the cache file. Possibly the cache directory '",
-              dirname(cache_file), "' doesn't exist.")
+      directory <- dirname(cache_file)
+      bullets <- c(
+        "There was an error writing to the cache file.",
+        x = glue("Cache directory \"{directory}\" does not exist.")
+      )
+      warn(bullets)
     }
   )
 }
@@ -354,8 +452,12 @@ write_metadata <- function(request, data_type, cache_file) {
   tryCatch(
     saveRDS(metadata, metadata_file),
     error = function(e) {
-      warning("There was an error writing to the cache metadata. Possibly the cache directory ",
-              dirname(cache_file), " doesn't exist.")
+      directory <- dirname(cache_file)
+      bullets <- c(
+        "There was an error writing to the cache file.",
+        x = glue("Cache directory \"{directory}\" does not exist.")
+      )
+      warn(bullets)
     }
   )
 }

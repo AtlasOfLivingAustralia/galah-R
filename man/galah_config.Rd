@@ -10,34 +10,34 @@ galah_config(..., profile_path = NULL)
 \item{\dots}{Options can be defined using the form \code{name = value}.
 Valid arguments are:
 \itemize{
-  \item \code{atlas} string: Living Atlas to point to, Australia by default
-  \item \code{caching} logical: if TRUE, results will be cached, and any cached
-    results will be re-used). If FALSE, data will be downloaded.
-  \item \code{cache_directory} string: the directory to use for the cache.
-    By default this is a temporary directory, which means that results will
-    only be cached
-    within an R session and cleared automatically when the user exits R.
-    The user may wish to set this to a non-temporary directory for
-    caching across sessions. The directory must exist on the file system.
-  \item \code{download_reason_id} numeric or string: the "download reason" required.
-  by some ALA services, either as a numeric ID (currently 0--11)
-  or a string (see \code{\link{find_reasons}()} for a list of valid ID codes and
-  names). By default this is NA. Some ALA services require a valid
-  download_reason_id code, either specified here or directly to the
-  associated R function.
-  \item \code{email} string: An email address that has been registered with
-    ALA at \href{https://auth.ala.org.au/userdetails/registration/createAccount}{this address}.
-    A registered email is required for some functions in \code{galah}.
-  \item \code{send_email} logical: should you receive an email for each query to
-    \code{\link{ala_occurrences}()}? Defaults to \code{FALSE}; but can be
-    useful in some instances, for example for tracking DOIs assigned to
-    specific downloads for later citation.
-  \item \code{verbose} logical: should \code{galah} give verbose output to assist
-  debugging? Defaults to FALSE.
-  \item \code{run_checks} logical: should \code{galah} run checks for filters
-  and columns. If making lots of requests sequentially, checks can slow down
-  the process and lead to HTTP 500 errors, so should be turned off. Defaults
-  to TRUE. 
+\item \code{atlas} string: Living Atlas to point to, Australia by default
+\item \code{caching} logical: if TRUE, results will be cached, and any cached
+results will be re-used). If FALSE, data will be downloaded.
+\item \code{cache_directory} string: the directory to use for the cache.
+By default this is a temporary directory, which means that results will
+only be cached
+within an R session and cleared automatically when the user exits R.
+The user may wish to set this to a non-temporary directory for
+caching across sessions. The directory must exist on the file system.
+\item \code{download_reason_id} numeric or string: the "download reason" required.
+by some ALA services, either as a numeric ID (currently 0--13)
+or a string (see \code{\link[=show_all_reasons]{show_all_reasons()}} for a list of valid ID codes and
+names). By default this is NA. Some ALA services require a valid
+download_reason_id code, either specified here or directly to the
+associated R function.
+\item \code{email} string: An email address that has been registered with
+ALA at \href{https://auth.ala.org.au/userdetails/registration/createAccount}{this address}.
+A registered email is required for some functions in \code{galah}.
+\item \code{send_email} logical: should you receive an email for each query to
+\code{\link[=atlas_occurrences]{atlas_occurrences()}}? Defaults to \code{FALSE}; but can be
+useful in some instances, for example for tracking DOIs assigned to
+specific downloads for later citation.
+\item \code{verbose} logical: should \code{galah} give verbose output to assist
+debugging? Defaults to FALSE.
+\item \code{run_checks} logical: should \code{galah} run checks for filters
+and columns. If making lots of requests sequentially, checks can slow down
+the process and lead to HTTP 500 errors, so should be turned off. Defaults
+to TRUE.
 }}
 
 \item{profile_path}{string: (optional), path to a directory to store
@@ -57,10 +57,43 @@ provide a registered email address and reason for downloading data. The
 as possible.
 }
 \examples{
-\dontrun{
- galah_config()
+```{r, child = "man/rmd/setup.Rmd"}
+```
+
+To configure your session to allow you to download occurrence records, enter 
+your email in `galah_config()`. This email should be registered with the 
+ALA, which you can do 
+[here](https://auth.ala.org.au/userdetails/registration/createAccount)
+
+```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+ galah_config(email = "your-email@email.com")
+ ```
+ 
+ Turn on caching in your session
+ 
+ ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
  galah_config(caching = FALSE)
- find_reasons()
- galah_config(download_reason_id = 0,verbose = TRUE)
-}
+ ```
+ 
+ It is required by some ALA services that you add a reason for downloading 
+ data. To look up all valid reasons to enter, use [show_all_reasons()]
+ 
+ ```{r, comment = "#>", collapse = TRUE}
+ show_all_reasons()
+ ```
+ 
+ Add your selected reason using the option `download_reason_id`
+ 
+ ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+ galah_config(download_reason_id = 0)
+```
+
+You can also make debugging in your session easier by setting 
+`verbose = TRUE`
+
+```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+galah_config(download_reason_id = 0,
+             verbose = TRUE)
+```
+
 }

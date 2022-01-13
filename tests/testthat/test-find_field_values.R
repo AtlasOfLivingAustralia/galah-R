@@ -13,8 +13,10 @@ vcr::use_cassette("find_field_value_invalid", {
 
 vcr::use_cassette("find_field_values", {
   test_that("find_field_values handles fields with lots of options", {
+    galah_config(verbose = TRUE)
     expect_warning(vals <- find_field_values("dataResourceUid", limit = 10))
     expect_equal(nrow(vals), 10)
     expect_equal(names(vals), c("field", "category"))
+    galah_config(verbose = FALSE)
   })
 })

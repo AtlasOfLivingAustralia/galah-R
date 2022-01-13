@@ -1,65 +1,97 @@
 #' Get or set configuration options that control galah behaviour
 #'
-#' The \code{galah} package supports large data downloads, and also
+#' The `galah` package supports large data downloads, and also
 #' interfaces with the ALA which requires that users of some services
 #' provide a registered email address and reason for downloading data. The
-#' \code{ala_config} function provides a way to manage these issues as simply
+#' `galah_config` function provides a way to manage these issues as simply
 #' as possible.
 #'
 #' @param profile_path string: (optional), path to a directory to store
 #' config values in. If provided, config values will be written to a new or
-#' existing .Rprofile file for future sessions. \code{NULL} by default.
-#' @param \dots Options can be defined using the form \code{name = value}.
+#' existing .Rprofile file for future sessions. `NULL` by default.
+#' @param \dots Options can be defined using the form `name = value`.
 #' Valid arguments are:
-#' \itemize{
-#'   \item \code{atlas} string: Living Atlas to point to, Australia by default
-#'   \item \code{caching} logical: if TRUE, results will be cached, and any cached
+#' 
+#'   *  `atlas` string: Living Atlas to point to, Australia by default
+#'   *  `caching` logical: if TRUE, results will be cached, and any cached
 #'     results will be re-used). If FALSE, data will be downloaded.
-#'   \item \code{cache_directory} string: the directory to use for the cache.
+#'   *  `cache_directory` string: the directory to use for the cache.
 #'     By default this is a temporary directory, which means that results will
 #'     only be cached
 #'     within an R session and cleared automatically when the user exits R.
 #'     The user may wish to set this to a non-temporary directory for
 #'     caching across sessions. The directory must exist on the file system.
-#'   \item \code{download_reason_id} numeric or string: the "download reason" required.
-#'   by some ALA services, either as a numeric ID (currently 0--11)
-#'   or a string (see \code{\link{find_reasons}()} for a list of valid ID codes and
+#'   *  `download_reason_id` numeric or string: the "download reason" required.
+#'   by some ALA services, either as a numeric ID (currently 0--13)
+#'   or a string (see [show_all_reasons()] for a list of valid ID codes and
 #'   names). By default this is NA. Some ALA services require a valid
 #'   download_reason_id code, either specified here or directly to the
 #'   associated R function.
-#'   \item \code{email} string: An email address that has been registered with
-#'     ALA at \href{https://auth.ala.org.au/userdetails/registration/createAccount}{this address}.
-#'     A registered email is required for some functions in \code{galah}.
-#'   \item \code{send_email} logical: should you receive an email for each query to
-#'     \code{\link{ala_occurrences}()}? Defaults to \code{FALSE}; but can be
+#'   *  `email` string: An email address that has been registered with
+#'     ALA at [this address](https://auth.ala.org.au/userdetails/registration/createAccount).
+#'     A registered email is required for some functions in `galah`.
+#'   *  `send_email` logical: should you receive an email for each query to
+#'     [atlas_occurrences()]? Defaults to `FALSE`; but can be
 #'     useful in some instances, for example for tracking DOIs assigned to
 #'     specific downloads for later citation.
-#'   \item \code{verbose} logical: should \code{galah} give verbose output to assist
+#'   *  `verbose` logical: should `galah` give verbose output to assist
 #'   debugging? Defaults to FALSE.
-#'   \item \code{run_checks} logical: should \code{galah} run checks for filters
+#'   *  `run_checks` logical: should `galah` run checks for filters
 #'   and columns. If making lots of requests sequentially, checks can slow down
 #'   the process and lead to HTTP 500 errors, so should be turned off. Defaults
 #'   to TRUE. 
-#' }
+#' 
 #'
-#' @return For \code{ala_config()}, a \code{list} of all options.
-#' When \code{ala_config(...)} is called with arguments, nothing is returned
+#' @return For `galah_config()`, a `list` of all options.
+#' When `galah_config(...)` is called with arguments, nothing is returned
 #' but the configuration is set.
-#' @seealso As of galah v1.3.0 please use \code{galah_config()} instead
-#' of \code{ala_config}.
+#' 
 #' @examples
-#' \dontrun{
-#'  ala_config()
-#'  ala_config(caching = FALSE)
-#'  find_reasons()
-#'  ala_config(download_reason_id = 0,verbose = TRUE)
-#' }
-#' @export ala_config
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' To configure your session to allow you to download occurrence records, enter 
+#' your email in `galah_config()`. This email should be registered with the 
+#' ALA, which you can do 
+#' [here](https://auth.ala.org.au/userdetails/registration/createAccount)
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#'  galah_config(email = "your-email@email.com")
+#'  ```
+#'  
+#'  Turn on caching in your session
+#'  
+#'  ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#'  galah_config(caching = FALSE)
+#'  ```
+#'  
+#'  It is required by some ALA services that you add a reason for downloading 
+#'  data. To look up all valid reasons to enter, use [show_all_reasons()]
+#'  
+#'  ```{r, comment = "#>", collapse = TRUE}
+#'  show_all_reasons()
+#'  ```
+#'  
+#'  Add your selected reason using the option `download_reason_id`
+#'  
+#'  ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#'  galah_config(download_reason_id = 0)
+#' ```
+#' 
+#' You can also make debugging in your session easier by setting 
+#' `verbose = TRUE`
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' galah_config(download_reason_id = 0,
+#'              verbose = TRUE)
+#' ```
+#' 
+#' @export galah_config
 
-ala_config <- function(..., profile_path = NULL) {
-  if (as.character(match.call()[[1]]) == "ala_config") {
-    warning("As of galah v1.3.0 please use galah_config() instead of ala_config().", call. = FALSE)
-  }
+galah_config <- function(..., profile_path = NULL) {
+  # if (as.character(match.call()[[1]]) == "ala_config") {
+  #   warning("As of galah v1.3.0 please use galah_config() instead of ala_config().", call. = FALSE)
+  # }
   ala_option_name <- "galah_config"
   current_options <- getOption(ala_option_name)
   
@@ -112,85 +144,31 @@ ala_config <- function(..., profile_path = NULL) {
   
   if (!is.null(profile_path)) {
     if (!file.exists(profile_path) || basename(profile_path) != ".Rprofile") {
-      stop("No .Rprofile file exists at '", profile_path,
-           "' . Please create the file and try again.")
+      bullets <- c(
+        glue("No .Rprofile file exists at \"{profile_path}\"."),
+        i = "Please create fhe file and try again."
+      )
+      abort(bullets, call = caller_env())
     }
     if (current_options$verbose) {
-      message("The config will be stored in ", profile_path)
+      inform(glue("The config will be stored in {profile_path}."))
     }
     save_config(profile_path, current_options)
     
   } else {
     if (current_options$verbose) {
-      msg <- "These configuration options will only be saved for this session.
-    Set `preserve = TRUE` to preserve them for future sessions."
+      inform("These configuration options will only be saved for this session.
+    Set `preserve = TRUE` to preserve them for future sessions.")
     }
   }
 }
 
-#' Get or set configuration options that control galah behaviour
-#'
-#' The \code{galah} package supports large data downloads, and also
-#' interfaces with the ALA which requires that users of some services
-#' provide a registered email address and reason for downloading data. The
-#' \code{galah_config} function provides a way to manage these issues as simply
-#' as possible.
-#'
-#' @param profile_path string: (optional), path to a directory to store
-#' config values in. If provided, config values will be written to a new or
-#' existing .Rprofile file for future sessions. \code{NULL} by default.
-#' @param \dots Options can be defined using the form \code{name = value}.
-#' Valid arguments are:
-#' \itemize{
-#'   \item \code{atlas} string: Living Atlas to point to, Australia by default
-#'   \item \code{caching} logical: if TRUE, results will be cached, and any cached
-#'     results will be re-used). If FALSE, data will be downloaded.
-#'   \item \code{cache_directory} string: the directory to use for the cache.
-#'     By default this is a temporary directory, which means that results will
-#'     only be cached
-#'     within an R session and cleared automatically when the user exits R.
-#'     The user may wish to set this to a non-temporary directory for
-#'     caching across sessions. The directory must exist on the file system.
-#'   \item \code{download_reason_id} numeric or string: the "download reason" required.
-#'   by some ALA services, either as a numeric ID (currently 0--11)
-#'   or a string (see \code{\link{find_reasons}()} for a list of valid ID codes and
-#'   names). By default this is NA. Some ALA services require a valid
-#'   download_reason_id code, either specified here or directly to the
-#'   associated R function.
-#'   \item \code{email} string: An email address that has been registered with
-#'     ALA at \href{https://auth.ala.org.au/userdetails/registration/createAccount}{this address}.
-#'     A registered email is required for some functions in \code{galah}.
-#'   \item \code{send_email} logical: should you receive an email for each query to
-#'     \code{\link{ala_occurrences}()}? Defaults to \code{FALSE}; but can be
-#'     useful in some instances, for example for tracking DOIs assigned to
-#'     specific downloads for later citation.
-#'   \item \code{verbose} logical: should \code{galah} give verbose output to assist
-#'   debugging? Defaults to FALSE.
-#'   \item \code{run_checks} logical: should \code{galah} run checks for filters
-#'   and columns. If making lots of requests sequentially, checks can slow down
-#'   the process and lead to HTTP 500 errors, so should be turned off. Defaults
-#'   to TRUE. 
-#' }
-#'
-#' @return For \code{galah_config()}, a \code{list} of all options.
-#' When \code{galah_config(...)} is called with arguments, nothing is returned
-#' but the configuration is set.
-#'
-#' @examples
-#' \dontrun{
-#'  galah_config()
-#'  galah_config(caching = FALSE)
-#'  find_reasons()
-#'  galah_config(download_reason_id = 0,verbose = TRUE)
-#' }
-#' @export
-#' @rdname galah_config
-galah_config <- ala_config
+
 
 save_config <- function(profile_path, new_options) {
   if (!file.exists(profile_path)) {
-    message(".Rprofile file doesn't exist yet. It will be created at ",
-            profile_path)
+    inform(glue(".Rprofile file doesn't exist yet. \\
+                It will be created at \"{profile_path}\"."))
     file.create(profile_path)
     existing_options <- list()
     old_profile <- ""
@@ -266,69 +244,70 @@ quoted_options <- function(opts) {
   })
 }
 
-validate_option <- function(name, value) {
+validate_option <- function(name, value, error_call = caller_env()) {
   if (name %in% c("caching", "send_email", "verbose", "run_checks")) {
     if (!is.logical(value)) {
-      stop("\"", name, "\"", " must be TRUE or FALSE")
+      abort(glue("\"{name}\" must be TRUE or FALSE."), call = error_call)
     }
   } else if (name == "cache_directory") {
     if (!dir.exists(value)) {
-      stop("Cache directory does not exist, please create it and try again.")
+      bullets <- c(
+        "Cache directory does not exist.",
+        i = "Does the directory entered exist?"
+      )
+      abort(bullets, call = error_call)
     }
   } else if (name == "email") {
     if (!is.character(value)) {
-      stop("Email must be a string")
+      bullets <- c(
+        "Invalid email.",
+        i = "Email must be entered as a string."
+      )
+      abort(bullets, call = error_call)
     }
   } else if (name == "download_reason_id") {
-    if (!(value %in% find_reasons()$id)) {
-      stop("Download reason must be a valid reason id or name ",
-           "See `find_reasons()` for valid reasons.")
+    if (!(value %in% show_all_reasons()$id)) {
+      bullets <- c(
+        "Invalid download reason ID or name.",
+        i = "Use `show_all_reasons()` to see all valid reasons.",
+        x = glue("{value} does not match an existing reason ID.")
+      )
+      abort(bullets, call = error_call)
     }
   } else if (name == "atlas") {
-    if (!value %in% find_atlases()$atlas) {
-      stop("Atlas must be one of ",
-           paste(find_atlases()$atlas, collapse = ", "))
+    if (!value %in% show_all_atlases()$atlas) {
+      bullets <- c(
+        "Unsupported atlas provided.",
+        i = glue("Use `show_all_atlases()` to see supported atlases."),
+        x = glue("\"{value}\" is not a valid atlas.")
+      )
+      abort(bullets, call = error_call)
     }
   } else {
-    stop("\"", name, "\"", "is not a valid option name.")
+    bullets <- c(
+      "Invalid option name.",
+      i = "See `?galah_config()` for valid options.",
+      x = glue("\"{name}\" is not a valid option name.")
+    )
+    abort(bullets, call = error_call)
   }
 }
 
-#' List valid download reasons
-#'
-#' When downloading occurrence data with \code{\link{ala_occurrences}} the
-#' ALA APIs require a reason for download to be specified. By default, a
-#' download reason of 'scientific research' is set for you, but if you wish to
-#' change this you can do so with \code{\link{galah_config}()}. Use this function
-#' to view the list of download reason code and names. When specifying a reason,
-#' you can use either the download code or name.
-#' @rdname find_reasons
-#' @seealso This function is helpful in setting up \code{\link{galah_config}()}.
-#' @return A \code{data.frame} of valid download reasons, containing the id
-#' and name for each reason.
-#' @export
-find_reasons <- function() {
-  ## return list of valid "reasons for use" codes
-  out <- ala_GET(server_config("logger_base_url"),
-                 path = "service/logger/reasons")
-  if (any(names(out) == "deprecated")) out <- out[!out$deprecated, ]
-  out <- out[wanted_columns("reasons")]
-  # sort by id to make it less confusing
-  row.names(out) <- out$id
-  out[order(out$id),]
-}
-
-convert_reason <- function(reason) {
+convert_reason <- function(reason, error_call = caller_env()) {
   ## unexported function to convert string reason to numeric id
   if (is.character(reason)) {
-    valid_reasons <- find_reasons()
+    valid_reasons <- show_all_reasons()
     tryCatch({
       reason <- match.arg(tolower(reason), valid_reasons$name)
       reason <- valid_reasons$id[valid_reasons$name == reason]
     },
     error = function(e) {
-      stop("could not match download_reason_id string \"", reason,
-           "\" to valid reason id: see find_reasons() for valid reasons")
+      bullets <- c(
+        "Invalid reason provided to `download_reason_id`.",
+        i = "Use `show_all_reasons()` to see list of valid reasons.",
+        x = glue("Couldn't match \"{reason}\" to a valid reason ID.")
+      )
+      abort(bullets, call = error_call)
     })
   }
   reason

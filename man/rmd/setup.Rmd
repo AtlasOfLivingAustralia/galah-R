@@ -1,0 +1,11 @@
+
+```{r, include = FALSE}
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+galah_config(verbose = FALSE)
+```
+

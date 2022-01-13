@@ -1,0 +1,181 @@
+---
+title: "01 Quick start guide"
+author: "Martin Westgate & Dax Kellie"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{01 Quick start guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+# About
+`galah` is an R interface to biodiversity data hosted by the 
+[Atlas of Living Australia](https://ala.org.au) (ALA). The ALA is a repository 
+of biodiversity data, focussed primarily on observations of individual life forms. 
+Like the Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)), 
+the basic unit of data at ALA is an **occurrence** record, based on the 
+['Darwin Core'](https://dwc.tdwg.org) data standard.
+
+`galah` enables users to locate and download species observations, taxonomic
+information, record counts, or associated media such as images or sounds. Users 
+can restrict their queries to particular taxa or locations by specifying which 
+columns and rows are returned by a query, or by restricting their results to 
+observations that meet particular quality-control criteria. With a few minor
+exceptions, all functions return a `tibble` as their standard format.
+
+
+# Installation
+To install from CRAN:
+```{r eval=FALSE}
+install.packages("galah")
+```
+
+Or install the development version from GitHub:
+```{r eval=FALSE}
+install.packages("remotes")
+remotes::install_github("AtlasOfLivingAustralia/galah")
+```
+
+Load the package
+```{r eval=FALSE}
+library(galah)
+```
+
+# Choosing an atlas
+By default, `galah` downloads information from the Atlas of Living Australia (ALA).
+To show the full list of Atlases currently supported by `galah`, use 
+`show_all_atlases()`.
+
+```{r}
+show_all_atlases()
+```
+
+Use `galah_config()` to set the Atlas to use. This will automatically populate the 
+server configuration for your selected Atlas. By default, the atlas is Australia.
+
+```{r eval=FALSE}
+galah_config(atlas = "UK")
+```
+
+# Building queries
+Functions that return data from the chosen atlas have the prefix `atlas_`; e.g.
+to find the total number of records in the atlas, use:
+  
+```{r}
+atlas_counts()
+```
+
+To pass more complex queries, start with the `galah_call()` function and pipe
+additional arguments to modify the query. modifying functions have a `galah_`
+prefix and support non-standard evaluation (NSE).
+
+```{r}
+galah_call() |> 
+  galah_filter(year >= 2020) |> 
+  atlas_counts()
+```
+
+To narrow the search to a particular taxonomic group, use `search_taxa`. Note
+that this function only accepts scientific names and is not case sensitive.
+
+```{r}
+galah_call() |>
+  galah_filter(year >= 2020) |> 
+  search_taxa("reptilia") |> 
+  atlas_counts()
+```
+
+# Downloading records
+The most common use case for `galah` is to download 'occurrence' records; 
+observations of plants or animals made by contributors to the atlas. To download,
+first register with the relevant atlas, then provide your registration email. 
+
+```{r, eval=FALSE}
+galah_config(email = "email@email.com")
+```
+
+```{r, echo=FALSE}
+galah_config(verbose = FALSE)
+```
+Then you can customise records you require and query the atlas in question:
+```{r}
+result <- galah_call() |>
+  search_taxa("Litoria") |>
+  galah_filter(year >= 2020, cl22 == "Tasmania") |>
+  galah_select(basisOfRecord, group = "basic") |>
+  atlas_occurrences()
+
+result |> head()
+```
+
+Check out our other vignettes for more detail on how to use these functions.
+
+# Function map
+Not all `atlas_` functions support all possible query modifiers (i.e. functions
+with a `search_` or `galah_` prefix). A network diagram showing accepted arguments
+is shown below. Note that if you pipe your queries starting with `galah_call()`,
+then irrelevant arguments will be (silently) ignored. 
+
+```{r, eval = FALSE, echo = FALSE}
+DiagrammeR::grViz("
+digraph boxes_and_circles {
+
+  # a 'graph' statement
+  graph [overlap = true, fontsize = 15, rankdir = LR]
+
+  # several 'node' statements
+  node [shape = box,
+        fontname = Helvetica,
+        fixedsize = TRUE,
+        width = 2.0,
+        height = 0.5,
+        fontcolor = '#E06E53',
+        color = '#E06E53']
+  atlas_counts; atlas_species; atlas_occurrences; atlas_media; atlas_taxonomy
+
+  node  [shape = box,
+        fontname = Helvetica,
+        fontcolor = '#c7902a'
+        color = '#c7902a']
+  galah_filter; galah_select; galah_geolocate; galah_group_by; galah_down_to
+  
+  node  [shape = box,
+        fontname = Helvetica,
+        fontcolor = '#7f9959',
+        color = '#7f9959']
+  search_taxa; show_all_fields; search_fields; show_all_profiles; show_all_ranks; find_field_values; find_profile_attributes
+  
+  edge [ color = 'grey50' , dir = 'none']
+  atlas_counts->search_taxa
+  atlas_counts->galah_filter
+  atlas_counts->galah_geolocate
+  atlas_counts->galah_group_by
+  atlas_species->search_taxa
+  atlas_species->galah_filter
+  atlas_species->galah_geolocate
+  atlas_media->search_taxa
+  atlas_media->galah_filter
+  atlas_media->galah_select
+  atlas_media->galah_geolocate
+  atlas_occurrences->search_taxa 
+  atlas_occurrences->galah_filter
+  atlas_occurrences->galah_select
+  atlas_occurrences->galah_geolocate
+  atlas_taxonomy->search_taxa
+  atlas_taxonomy->galah_down_to
+  galah_group_by->search_fields
+  galah_group_by->show_all_fields
+  galah_filter->search_fields
+  galah_filter->show_all_fields
+  galah_filter->show_all_profiles->find_profile_attributes
+  galah_select->search_fields
+  galah_select->show_all_fields
+  show_all_fields->find_field_values
+  search_fields->find_field_values
+  galah_down_to->show_all_ranks 
+}
+", width = 1000, height = 500)
+```
+<img src="galah-DiagrammeR-plot.png" title="plot of function relationships" alt="plot of function relationships" width="100%" />
+

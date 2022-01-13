@@ -1,0 +1,378 @@
+#' Download images, sounds and videos
+#'
+#' In addition to text data describing individual occurrences and their 
+#' attributes, ALA stores images, sounds and videos associated with a given 
+#' record. `atlas_media` allows download of any and all of the media types. 
+#'
+#' @inheritParams atlas_occurrences
+#' @param download_dir `string`: path to directory to store the downloaded
+#' media in
+#' @param refresh_cache `logical`: if set to `TRUE` and 
+#' `galah_config(caching = TRUE)` then files cached from a previous query will 
+#' be replaced by the current query
+#' @details [atlas_occurrences()] works by first finding all occurrence records
+#' matching the filter which contain media, then downloading the metadata for the
+#' media and the media files. [galah_filter()] can take both filter
+#' relating to occurrences (e.g. basis of records), and filter relating to media
+#' (e.g. type of licence).
+#' It may be beneficial when requesting a large number of records to show a progress
+#' bar by setting `verbose = TRUE` in [galah_config()].
+#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) 
+#' of metadata of the downloaded media
+#' @seealso [atlas_counts()] to find the number of records with media- note this
+#' is not necessarily the same as the number of media files, as each record can have
+#' more than one media file associated with it (see examples section for how to do this).
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Download Regent Honeyeater multimedia
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' media_data <- atlas_media(
+#'     taxa = search_taxa("Regent Honeyeater"),
+#'     filter = galah_filter(year == 2011),
+#'     download_dir = "folder/your-directory")
+#' ```
+#' 
+#' Specify a single media type to download
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' media_data <- atlas_media(
+#'      taxa = search_taxa("Eolophus Roseicapilla"),
+#'      filter = galah_filter(multimedia == "Sound"))
+#' ```
+#' 
+#' Filter to only records with a particular licence type
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' media_data <- atlas_media(
+#'       taxa = search_taxa("Ornithorhynchus anatinus"),
+#'       filter = galah_filter(year == 2020),
+#'       license = "http://creativecommons.org/licenses/by-nc/4.0/")
+#' )
+#' ```
+#' 
+#' You can also filter and download media by piping with `%>%` or `|>`. Just 
+#' begin your query with [galah_call()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' galah_call() |>
+#'   search_taxa("Ornithorhynchus anatinus") |>
+#'   galah_filter(year == 2020) |>
+#'   atlas_media(licence = "http://creativecommons.org/licenses/by-nc/4.0/")
+#' ```
+#' 
+#' You might also want to check how many records have media files before you 
+#' download them. Do this with [atlas_counts()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' atlas_counts(
+#'      filter = galah_filter(multimedia == c("Image","Sound","Video")),
+#'      group_by = galah_group_by(multimedia)
+#' )
+#' ```
+#' 
+#' @export
+atlas_media <- function(...) {
+  UseMethod("atlas_media")
+}
+
+#' @export
+#' @rdname atlas_media
+atlas_media.data_request <- function(request, ...) {
+  current_call <- update_galah_call(request, ...) 
+  custom_call <- current_call[
+    names(current_call) %in% names(formals(atlas_media.default))]
+  do.call(atlas_media.default, custom_call)
+}
+
+#' @export
+#' @rdname atlas_media
+atlas_media.default <- function(taxa = NULL, 
+                        filter = NULL, 
+                        geolocate = NULL,
+                        select = galah_select(group = "basic"), 
+                        download_dir,
+                        refresh_cache = FALSE) {
+
+  image_url <- server_config("images_base_url")  
+  verbose <- getOption("galah_config")$verbose
+  caching <- getOption("galah_config")$caching
+  assert_that(!missing(download_dir),
+  msg = "A path to an existing directory to download images to is required")
+  assert_that(file.exists(download_dir))
+  download_dir <- normalizePath(download_dir)
+  if(is_tibble(taxa)){if(nrow(taxa) < 1){taxa <- NULL}}
+  
+  if (getOption("galah_config")$atlas != "Australia") {
+    international_atlas <- getOption("galah_config")$atlas
+    bullets <- c(
+      "`atlas_taxonomy` only provides information on Australian taxonomy.",
+      i = glue("To search taxonomy for {international_atlas} use `taxize`."),
+      i = "See vignette('international_atlases' for more information."
+    )
+    abort(bullets, call = caller_env())
+  }
+  
+  if (is.null(taxa) & is.null(filter) & is.null(geolocate)) {
+    warn("No filters have been provided. All images and sounds will be downloaded.")
+  }
+  
+  if (caching && !refresh_cache) {
+    cache_file <- cache_filename(
+      "media",
+      unlist(build_query(taxa, filter, geolocate, select))
+    )
+    if (file.exists(cache_file)) {
+      return(read_cache_file(cache_file))
+    }
+  }
+  
+  # Check whether any filters are media-specific filters and
+  # filter to records with image/sound/video
+  filter_available <- filter$variable %in% show_all_fields(type = "media")$id
+  media_filter <- filter[filter_available, ]
+  occ_filter <- rbind(
+    filter[!(filter_available), ],
+    galah_filter(multimedia == c("Image", "Sound", "Video")))
+  
+  # Make sure media ids are included in results
+  occ_columns <- rbind(
+    select, 
+    # galah_select(image_fields()) # original code
+    data.frame(name = image_fields(), type = "media")
+    # also why are these fields not returned by show_all_fields()?
+  )
+
+  # add galah_ classes to modified filter and select
+  class(occ_filter) <- append(class(occ_filter), "galah_filter")
+  class(occ_columns) <- append(class(occ_columns), "galah_select")
+  if (verbose) { inform("Downloading records with media...") }
+  
+  occ <- atlas_occurrences(taxa, occ_filter, geolocate, occ_columns)
+  if(nrow(occ) < 1){
+    inform("Exiting `atlas_media`")
+    return(occ)
+  }
+
+  # occurrence data.frame has one row per occurrence record and stores all media
+  # ids in a single column; this code splits the media ids and creates one row
+  # per media id in the returned data.frame
+  occ_long <- data.frame(rbindlist(
+    lapply(seq_len(nrow(occ)), function(x) {
+      # get all the image, video and sound columns into one row
+      splt_media <- unlist(str_split(occ[x,][image_fields()],
+                                     pattern = "\""))
+      media <- splt_media[nchar(splt_media) > 1 & splt_media != "NA"]
+      
+      if (length(media) > 0) {
+        rows <- occ[x,][rep(seq_len(nrow(occ[x,])), each = length(media)), ]
+        rows$media_id <- media
+      } else {
+        rows <- occ[x,]
+      }
+      rows
+    }),
+    fill = TRUE
+  ))
+  occ_long[, image_fields()] <- NULL
+  ids <- occ_long$media_id[!is.na(occ_long$media_id)]
+  
+  # get metadata from the relevant atlas
+  online_metadata <- media_metadata(ids = ids)
+  if(is.null(online_metadata)){
+    inform("Calling the metadata API failed for `atlas_media`")
+    return(tibble())
+  }
+  metadata <- data.frame(
+    filter_metadata(online_metadata, media_filter))
+  
+  # i.e. service is online, but no data available
+  if (nrow(metadata) == 0) {
+    if(verbose){
+      bullets <- c(
+        "Calling the API failed for `atlas_media`.",
+        i = "This might mean that the ALA system is down. Double check that your query is correct.",
+        i = "If you continue to see this message, please email support@ala.org.au."
+      )
+      inform(bullets)
+    }
+    return(tibble())
+  } 
+  
+  # Select only the columns we want
+  names(metadata) <- rename_columns(names(metadata), type = "media")
+  metadata <- metadata[names(metadata) %in% wanted_columns("media")]
+
+  # join image metadata with occurrence data
+  all_data <- merge(metadata, occ_long, by = "media_id") |> as_tibble()
+  
+  # create exportable dataset
+  attr(all_data, "data_type") <- "media"
+  query <- data_request(taxa, filter, geolocate, select)
+  attr(all_data, "data_request") <- query
+  
+  if (caching) {
+    write_cache_file(object = all_data, data_type = "media",
+                     cache_file = cache_file)
+  } 
+  
+  # set up download
+  urls <- media_urls(all_data$media_id)
+  outfiles <- media_outfiles(all_data$media_id, all_data$mimetype, download_dir)
+  all_data$download_path <- outfiles
+   
+  # download images
+  if (verbose) {
+    n_files <- length(urls)
+    # NOTE: the blank space tells glue to add a leading newline before message
+    inform(glue("
+                
+                Downloading {n_files} media files..."))
+  }
+  download_ok <- download_media(urls, outfiles, verbose)
+  if(is.null(download_ok)){
+    bullets <- c(
+      "Calling the API failed for `atlas_species`.",
+      i = "This might mean that the ALA system is down. Double check that your query is correct.",
+      i = "If you continue to see this message, please email support@ala.org.au."
+    )
+    inform(bullets)
+    return(all_data)
+  }
+  # NOTE: This only gets triggered if the image service is down,
+  # but the biocache and metadata services are still working
+  
+  if (verbose) {
+    n_files <- nrow(all_data)
+    # NOTE: Do not delete blank space
+    inform(glue("
+                
+                
+                {n_files} files were downloaded to {download_dir}"))
+  }
+ 
+  return(all_data)
+}
+
+# Construct url paths to where media will be downloaded from
+# Returns a vector of urls; one per id
+media_urls <- function(ids) {
+  url <- parse_url(server_config("images_base_url"))
+  unlist(lapply(seq_len(length(ids)), function(x) {
+    url$path <- c("image", as.character(ids[x]), "original")
+    # may be quicker to use `paste` here?
+    build_url(url)
+  }))
+}
+
+# Construct paths to where media will be downloaded
+# Returns a vector of paths; one per id
+media_outfiles <- function(ids, types, download_dir) {
+  unlist(lapply(seq_len(length(ids)), function(x) {
+    ext <- switch(types[x],
+                  "image/jpeg" = ".jpg",
+                  "image/png" = ".png",
+                  "audio/mpeg" = ".mpg",
+                  "audio/x-wav" = ".wav",
+                  "audio/mp4" = ".mp4",
+                  "image/gif" = ".gif",
+                  "video/3gpp" = ".3gp",
+                  "video/quicktime" = ".mov",
+                  "audio/vnd.wave" = ".wav",
+                  ""
+    )
+    file.path(download_dir, paste0(ids[x], ext))
+  }))
+}
+
+# Download images in batches of 124. The limit is due to a max on the
+# number of concurrently open connections.
+# The asynchronous method is slightly quicker than downloading all
+# images in a loop
+# BUT this means that files are created even if they are empty
+# Ergo we need a process for detecting failed calls and deleting the 
+# associated 'images'
+download_media <- function(urls, outfiles, verbose) {
+  if (verbose) { pb <- txtProgressBar(max = 1, style = 3) }
+  calls <- ceiling(length(urls) / 124)
+  results <- lapply(seq_len(calls - 1), function(x) {
+    start <- 1 + (x - 1) * 124
+    end <- x * 124
+    cc <- Async$new(urls = urls[start:end])
+    res <- cc$get(disk = outfiles[start:end])
+    status_failed <- unlist(lapply(res, function(a){a$status_code})) == 0
+    if(any(status_failed)){
+      unlink(outfiles[start:end][which(status_failed)])
+    }    
+    if (verbose) {
+      val <- (end / length(urls))
+      setTxtProgressBar(pb, val)
+    }
+    status_failed
+  })
+  
+  # TODO: Extract this part into to a function like ala_async_get()
+  # Download remaining images
+  start <- 1 + (calls - 1) * 124
+  end <- length(urls)
+  cc <- Async$new(
+    urls = c(urls[start:end]), 
+    headers = list(
+      "User-Agent" = galah_version_string()
+    )
+  )
+  res <- cc$get(disk = outfiles[start:end])
+  status_failed <- unlist(lapply(res, function(a){a$status_code})) == 0
+  if(any(status_failed)){
+    unlink(outfiles[start:end][which(status_failed)])
+  } 
+  results[[calls]] <- status_failed
+  if (verbose) {
+    val <- (end / length(urls))
+    setTxtProgressBar(pb, val)
+  }
+  
+  # if all calls failed, return NULL
+  if(all(do.call(c, results))){
+    return(NULL)
+  }else{
+    return("OK")
+  }
+}
+
+# Get metadata for a list of media ids
+media_metadata <- function(ids) {
+  res <- atlas_POST(
+    url = server_config("images_base_url"),
+    path = "/ws/imageInfoForList",
+    body = list(imageIds = ids),
+    encode = "json"
+    )
+  if(is.null(res)){
+    return(NULL)
+  }else{
+    # parse result and convert to data.frame
+    data <- fromJSON(res)
+    # suppress warnings caused by different list lengths
+    df <- suppressWarnings(rbindlist(data$results))
+    return(df)
+  }
+}
+
+# Use media filter to filter returned results
+# These are filter on metadata values, as opposed to filter on occurrence
+# records
+filter_metadata <- function(metadata, filter) {
+  if (is.null(filter)) {
+    return(metadata)
+  }
+  for (i in seq_len(nrow(filter))) {
+    val <- filter[i,]$value[[1]]
+    filter_name <- filter[i,]$name
+    metadata <- metadata[metadata[[filter_name]] == val]
+  }
+  return(metadata)
+}

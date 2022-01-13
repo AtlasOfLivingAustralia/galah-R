@@ -2,15 +2,23 @@
 #' 
 #' Deletes cached files within the cached file directory and their query 
 #' metadata
-#' @examples
-#' \dontrun{
-#' ## configure caching and create a query to cache
+#' 
+#' @section Examples:
+#' 
+#' First, set caching to true with [galah_config()]. Then create a data query. 
+#' The data you download will be cached in a temporary directory.
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
 #' galah_config(caching = TRUE)
-#' dat <- ala_counts(group_by = "year")
+#' dat <- atlas_counts(group_by = galah_group_by(year))
+#' ```
 #'
-#' ## clear cached files directory
+#' To clear your cached files directory, use `clear_cached_files()`
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
 #' clear_cached_files()
-#' }
+#' ```
+#' 
 #' @export
 
 clear_cached_files <- function() {
@@ -19,14 +27,17 @@ clear_cached_files <- function() {
                              "metadata.rds")
   
   if (!file.exists(metadata_path)) {
-    message("No cached file information was found in ",
-            getOption("galah_config")$cache_directory)
+    directory <- getOption("galah_config")$cache_directory
+    inform("No cached file information was found in {directory}.")
     return()
   }
   metadata_file_names <- paste0(getOption("galah_config")$cache_directory, "\\",
                                 names(readRDS(metadata_path)), ".rds")
   invisible(sapply(metadata_file_names, unlink))
   invisible(unlink(metadata_path))
-  message("Cache files deleted: \n", paste(metadata_file_names,
-                                           collapse = "\n"))
+  list_files <- glue::glue_collapse(metadata_file_names, 
+                                             sep = "\n")
+  inform(glue("Cache filtes deleted: 
+              
+              {list_files}"))
 }

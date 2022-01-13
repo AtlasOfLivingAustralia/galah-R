@@ -1,162 +1,71 @@
 #' Query layers, fields or assertions by free text search
 #'
-#' This function can be used to find relevant fields and/or layers
-#' for use in building a set of filters with \code{\link{select_filters}()} or
-#' specifying required columns with \code{\link{select_columns}()}.
-#' This function returns a \code{data.frame} of all fields matching the type
-#' specified.
-#' Field names are in Darwin Core format, except in the case where the field is
-#' specific to the ALA database, in which case the ALA field name is returned.
-#'
-#' @references \itemize{
-#' \item Darwin Core terms \url{https://dwc.tdwg.org/terms/}
-#' \item ALA fields \url{https://api.ala.org.au/#ws72}
-#' \item ALA assertions fields \url{https://api.ala.org.au/#ws81}
-#' }
-#' @param query \code{string}: A search string. Not case sensitive.
-#' @param type \code{string}: What type of parameters should be searched?
-#' Should be one or more of \code{fields}, \code{layers}, \code{assertions},
-#' \code{media} or \code{all}.
-#' @return A \code{data.frame} with three columns:
-#' \itemize{
-#'  \item{id: The identifier for that layer or field. This is the value that should
-#'  be used when referring to a field in another function.}
-#'  \item{description: Detailed information on a given field}
-#'  \item{type: Whether the field is a \code{field} or \code{layer}}
-#'  \item{link: For layers, a link to the source data (if available)}
-#' }
-#' @seealso This function is used to pass valid arguments to
-#' \code{\link{select_columns}()} and \code{\link{select_filters}()}.
-#' To view valid values for a layer with categorical values, use
-#' \code{\link{find_field_values}()}.
+#' @param query `string`: A search string. Not case sensitive.
+#' @param type `string`: What type of parameters should be searched?
+#' Should be one or more of `fields`, `layers`, `assertions`,
+#' `media` or `all`.
+#' @return if `query` is missing, an empty `data.frame`; otherwise 
+#' an object of class `tbl_df` and `data.frame` (aka a tibble) containing 
+#' fields that match the search query.
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Search for all fields that use include the word "date"
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' search_fields("date")
+#' ```
+#' 
+#' Search for all fields with the string "basisofrecord"
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' search_fields("basisofrecord")
+#' ```
+#' 
+#' Search for all fields that have information for "marine"
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' search_fields("marine") |> 
+#'   head() # only show first 5 results
+#' ```
+#' 
+#' Search for all Wordclim layers
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' search_fields("worldclim", type = "layers")
+#' ```
+#' 
+#' @rdname show_all_fields
 #' @export search_fields
-#'
-#' @details
-#' Layers are the subset of fields that are spatially appended to each record
-#' by the ALA. Layer ids are comprised of a prefix: 'el' for environmental
-#' (gridded) layers and 'cl' for contextual (polygon) layers,  followed by an
-#' id number.
-#' @examples
-#' \dontrun{
-#' test <- search_fields("species")
-#'
-#' # Find all WorldClim layers
-#' worldclim <- search_fields("worldclim", type = "layers")
-#'
-#' # Return a data.frame containing all data on fields and layers
-#' all_fields <- search_fields()
-#' }
 
 search_fields <- function(
   query,
   type = c("all", "fields", "layers", "assertions", "media", "other")
-){
-  type <- match.arg(type)
-  # ensure data can be queried
-  df <- switch(type,
-    "fields" = get_fields(),
-    "layers" = get_layers(),
-    "assertions" = get_assertions(),
-    "media" = get_media(),
-    "other" = get_other_fields(),
-    "all" = {
-      fields <- get_fields()
-      layers <- get_layers()
-      assertions <- get_assertions()
-      media <- get_media()
-      other <- get_other_fields()
-      result <- as.data.frame(
-        data.table::rbindlist(
-          list(
-            fields[!(fields$id %in% layers$id), ],
-            layers, assertions, media, other), 
-          fill = TRUE)
-      )
-    },
-    stop("`type`` must be one of c('fields', 'layers', 'assertions','other', 'all')")
-  )
-
-  # merge info together into searchable strings
-  df_string <- tolower(
-    apply(df[, 1:2], 1, function(a){paste(a, collapse = " ")}))
+  ) {
 
   if (missing(query) || is.null(query)) {
-    return(df)
-  }
-  # run a query
-  return(df[grepl(tolower(query), df_string), ])
-
-}
-
-# Helper functions to get different field classes
-get_fields <- function() {
-  fields <- all_fields()
-  # remove fields where class is contextual or environmental
-  fields <- fields[!(fields$classs %in% c("Contextual", "Environmental")),]
-
-  names(fields) <- rename_columns(names(fields), type = "fields")
-  fields <- fields[wanted_columns("fields")]
-  fields$type <- "fields"
-
-  fields
-}
-
-get_assertions <- function() {
-  url <- server_config("records_base_url")
-  assertions <- ala_GET(url, path = "assertions/codes")
-  assertions$data_type <- "logical"
-  names(assertions) <- rename_columns(names(assertions), type = "assertions")
-  assertions <- assertions[wanted_columns("assertions")]
-  assertions$type <- "assertions"
-  assertions
-}
-
-get_layers <- function() {
-  url <- server_config("spatial_base_url")
-  result <- ala_GET(url, "layers")
-  layer_id <- mapply(build_layer_id, result$type, result$id,
-                     USE.NAMES = FALSE)
-  result <- cbind(layer_id, result)
-  result$description <- apply(
-    result[, c("displayname", "description")],
-    1,
-    function(a){paste(a, collapse = " ")}
-  )
-  names(result) <- rename_columns(names(result), type = "layer")
-  result <- result[wanted_columns("layer")]
-  names(result)[1] <- "id"
-  result$type <- "layers"
-  result
-}
-
-# Return fields not returned by the API
-get_other_fields <- function() {
-  data.frame(id = "qid", description = "Reference to pre-generated query",
-             type = "other")
-}
-
-# There is no API call to get these fields, so for now they are manually
-# specified
-get_media <- function(x) {
-  fields <- data.frame(id = c("imageId", "height", "width", "tileZoomLevels",
-                              "thumbHeight", "thumbWidth", "filesize", "mimetype",
-                              "creator", "title", "description", "rights",
-                              "rightsHolder", "license", "imageUrl", "thumbUrl",
-                              "largeThumbUrl", "squareThumbUrl", "tilesUrlPattern"))
-  fields$description <- "Media filter field"
-  fields$type <- "media"
-  fields
-}
-
-all_fields <- function() {
-  url <- server_config("records_base_url")
-  ala_GET(url, path = "index/fields")
-}
-
-build_layer_id <- function(type, id) {
-  if (type == "Environmental") {
-    paste0("el", id)
+    as.data.frame(
+      matrix(nrow = 0, ncol = 4, 
+        dimnames = list(NULL, c("id", "description", "type", "link")))
+    )
+    bullets <- c(
+      "We didn't detect a field to search for.",
+      i = "Try entering text to search for matching fields.",
+      i = "To see all valid fields, use `show_all_fields()`."
+    )
+    rlang::warn(message = bullets, error = rlang::caller_env())
   } else {
-    paste0("cl", id)
+    type <- match.arg(type)
+    df <- show_all_fields(type = type)
+    
+    # merge information together into searchable strings
+    df_string <- tolower(
+      apply(df[, 1:2], 1, function(a){paste(a, collapse = " ")}))
+      
+    # return result of a grepl query
+    df[grepl(tolower(query), df_string), ] |> 
+      as_tibble()
   }
 }

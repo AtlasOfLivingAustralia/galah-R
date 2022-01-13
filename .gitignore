@@ -9,3 +9,5 @@ doc
 Meta
 docs/*
 .github/ISSUE_TEMPLATE/bug_report.md
+/doc/
+/Meta/

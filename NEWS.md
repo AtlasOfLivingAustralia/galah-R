@@ -1,3 +1,41 @@
+# galah 1.4.0
+
+### Revamped syntax
+
+* `ala_` functions are renamed to use use the prefix `atlas_`. This change reflects the functionality with international atlases (i.e., `atlas_occurrences`, `atlas_counts`, `atlas_species`, `atlas_media`, `atlas_taxonomy`, `atlas_citation`) (#103)
+* `search_taxa` replaces `select_taxa` to reflect its use to search valid taxonomic information, with similar functionality to `search_fields` (#112)
+* `galah_filter`, `galah_select` and `galah_geolocate` replace `select_filters`, `select_columns` and `select_locations`. These syntax changes reflect a move towards consistency with `dplyr` naming and functionality (#101, #108)
+* `show_all_` prefix replaces `find_` prefix for functions that return complete lists of possible values (i.e., `show_all_profiles`, `show_all_ranks`, `show_all_atlases`, `show_all_cached_files`, `show_all_fields`, `show_all_reasons`) (#112, #113) 
+* Updated R Markdown-style documentation and added warnings for deprecated functions (#113, #121)
+
+### `galah_group_by`
+
+* Group fields using `atlas_counts(group_by = galah_group_by())` which groups and summarises record counts based on groupings, similar to `dplyr::group_by` (#90, #95)
+
+### `galah_down_to`
+
+* Select which taxonomic level a taxonomic tree will go down to with `galah_down_to()` + `atlas_taxonomy()`, which uses tidy evaluation like other `galah_` functions (#101, #120)
+
+### Pipe queries using `galah_call`
+
+* Build data queries using piping syntax (i.e., `|>`, `%>%`) by first using `galah_call()`, narrowing queries with `galah_` functions and `search_taxa`, and finishing with an `atlas_` function (#60, #120). 
+* S3 methods are now implemented to functions to allow for piping (#40)
+
+### Minor improvements
+
+* Improved error messages using {glue} and {rlang} (#117)
+* Revamped syntax functions return output as tibbles (#110, #118)
+* Pass vectors to `galah_filter` (#91, #92)
+* Cache valid fields for faster field look up (#73, #116)
+* New vignettes for updated syntax (#104, #105), plus improvements to previous vignettes.
+
+### Bug fixes
+
+* galah no longer returns error when ALA system is down and/or API fails (#102, #119)
+* `search_taxa` returns correct IDs for search terms with parentheses (#96)
+* `search_taxa` returns best-fit taxonomic result when ranks are specified in `data.frame` or `tibble` (#115)
+
+
 # galah 1.3.1
 
 ### `search_taxonomy()` renamed to `ala_taxonomy()`
@@ -43,7 +81,7 @@ including data DOI, search url (#55, #32, #28)
 * Users can now optionally skip filter and count validation checks to spatial 
 and biocache web services by setting `galah_config(run_checks = FALSE)`. This 
 helps users avoid slowing down data request download speeds when many requests 
-are made in quick succession via `select_filters()` or `ala_occurrences()` (#61,
+are made in quick succession via `galah_filter()` or `ala_occurrences()` (#61,
 #80)
 * `ala_counts()`, `select_columns()` and `search_fields()` now use `match.arg` 
 to approximate strings through fuzzy matching (#66)
@@ -81,7 +119,7 @@ rank information (#35)
 characters are provided (#23)
 * Caching functionality for `ala_occurrences()` uses the `columns` as expected
 (#30)
-* `select_filters()` negates assertion filters when required, fixing the issue
+* `galah_filter()` negates assertion filters when required, fixing the issue
 of assertion values being ignored (#27)
 * `select_taxa()` no longer throws an error when queries of more than one term
 have a differing number of columns in the return value (#41)
@@ -103,7 +141,7 @@ functions (#18)
 * All media download types are supported
 
 ### select_ functions
-* `select_locations` auto-detects the type of argument provided and so takes
+* `galah_location` auto-detects the type of argument provided and so takes
 a single argument, `query`, in place of `sf` and `wkt` (#17)
 * `select_taxa` auto-detects the type of argument provided and so takes a single
 argument, `query`, in place of `term` and `term_type` (#16)

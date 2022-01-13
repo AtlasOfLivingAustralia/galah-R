@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.3.0
+      User-Agent: galah 1.4.0
   response:
     status:
       status_code: '200'
@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Wed, 18 Aug 2021 05:54:19 GMT
+      date: Wed, 12 Jan 2022 00:59:22 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -32,9 +32,9 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":37384247,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":37318572,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{},"activeFacetObj":{}}'
-  recorded_at: 2021-08-18 05:54:28 GMT
+  recorded_at: 2022-01-12 00:59:38 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -45,7 +45,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.3.0
+      User-Agent: galah 1.4.0
   response:
     status:
       status_code: '200'
@@ -53,7 +53,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Wed, 18 Aug 2021 05:54:19 GMT
+      date: Wed, 12 Jan 2022 00:59:22 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -89,7 +89,25 @@ http_interactions:
         Of Record","classs":"Record"},{"name":"behavior","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Behavior","info":"http://rs.tdwg.org/dwc/terms/behavior","dwcTerm":"behavior","downloadName":"behavior","classs":"Occurrence"},{"name":"bibliographic_citation","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Bibliographic
         citation for this record","dwcTerm":"dcterms:bibliographicCitation","downloadName":"bibliographic_citation","classs":"Record"},{"name":"catalogue_number","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Catalogue
         Number","info":"http://rs.tdwg.org/dwc/terms/catalogNumber","jsonName":"raw_catalogNumber","dwcTerm":"catalogNumber","downloadName":"catalogue_number","downloadDescription":"Catalogue
-        Number","classs":"Occurrence"},{"name":"cl1","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl1","downloadName":"cl1","classs":"Contextual"},{"name":"cl11","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl11","downloadName":"cl11","classs":"Contextual"},{"name":"cl2","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl2","downloadName":"cl2","classs":"Contextual"},{"name":"cl3","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl3","downloadName":"cl3","classs":"Contextual"},{"name":"cl4","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl4","downloadName":"cl4","classs":"Contextual"},{"name":"cl5","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl5","downloadName":"cl5","classs":"Contextual"},{"name":"cl6","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl6","downloadName":"cl6","classs":"Contextual"},{"name":"cl7","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl7","downloadName":"cl7","classs":"Contextual"},{"name":"cl8","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl8","downloadName":"cl8","classs":"Contextual"},{"name":"class","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Class","info":"The
+        Number","classs":"Occurrence"},{"name":"cl11","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Espacios
+        Naturales Protegidos","info":"https://espacial.gbif.es/ws/layers/view/more/cl11","downloadName":"cl11","downloadDescription":"Espacios
+        Naturales Protegidos","classs":"Contextual"},{"name":"cl12","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Parques
+        Nacionales","info":"https://espacial.gbif.es/ws/layers/view/more/cl12","downloadName":"cl12","downloadDescription":"Parques
+        Nacionales","classs":"Contextual"},{"name":"cl13","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Reservas
+        de la Biosfera","info":"https://espacial.gbif.es/ws/layers/view/more/cl13","downloadName":"cl13","downloadDescription":"Reservas
+        de la Biosfera","classs":"Contextual"},{"name":"cl14","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Espacios
+        marinos integrados en la Red de Áreas Marinas Protegidas de España (RAMPE)","info":"https://espacial.gbif.es/ws/layers/view/more/cl14","downloadName":"cl14","downloadDescription":"Espacios
+        marinos integrados en la Red de Áreas Marinas Protegidas de España (RAMPE)","classs":"Contextual"},{"name":"cl2","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Provincias","info":"https://espacial.gbif.es/ws/layers/view/more/cl2","downloadName":"cl2","downloadDescription":"Provincias","classs":"Contextual"},{"name":"cl3","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Países
+        del Mundo","info":"https://espacial.gbif.es/ws/layers/view/more/cl3","downloadName":"cl3","downloadDescription":"Países
+        del Mundo","classs":"Contextual"},{"name":"cl4","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Regiones
+        Biogeográficas Estatal","info":"https://espacial.gbif.es/ws/layers/view/more/cl4","downloadName":"cl4","downloadDescription":"Regiones
+        Biogeográficas Estatal","classs":"Contextual"},{"name":"cl5","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Zona
+        de Especial Protección para las Aves","info":"https://espacial.gbif.es/ws/layers/view/more/cl5","downloadName":"cl5","downloadDescription":"Zona
+        de Especial Protección para las Aves","classs":"Contextual"},{"name":"cl6","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Autonomías","info":"https://espacial.gbif.es/ws/layers/view/more/cl6","downloadName":"cl6","downloadDescription":"Autonomías","classs":"Contextual"},{"name":"cl7","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Lugares
+        de Importancia Comunitaria","info":"https://espacial.gbif.es/ws/layers/view/more/cl7","downloadName":"cl7","downloadDescription":"Lugares
+        de Importancia Comunitaria","classs":"Contextual"},{"name":"cl8","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Humedales
+        incluidos en la Lista del Convenio de Ramsar. Ramsar_ES","info":"https://espacial.gbif.es/ws/layers/view/more/cl8","downloadName":"cl8","downloadDescription":"Humedales
+        incluidos en la Lista del Convenio de Ramsar. Ramsar_ES","classs":"Contextual"},{"name":"class","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Class","info":"The
         class the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/class","jsonName":"classs","dwcTerm":"class","downloadName":"class","downloadDescription":"Class","classs":"Taxon"},{"name":"class_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
         GUID for the taxonomic Class associated with this record","downloadName":"class_id"},{"name":"collection_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Collection
         Code","info":"The collection code for this record. This will be populated
@@ -124,10 +142,52 @@ http_interactions:
         precision","info":"The precision of the date information for the record. Values
         include ''Day'', ''Month'', ''Year'', ''Year range'', ''Month range''","downloadName":"date_precision","downloadDescription":"Date
         precision"},{"name":"datum","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Geodetic
-        datum","downloadName":"datum","downloadDescription":"Geodetic datum"},{"name":"day","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Day","info":"http://rs.tdwg.org/dwc/terms/day","dwcTerm":"day","downloadName":"day","downloadDescription":"Day","classs":"Event"},{"name":"disposition","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Disposition","info":"http://rs.tdwg.org/dwc/terms/disposition","dwcTerm":"disposition","downloadName":"disposition","classs":"Occurrence"},{"name":"duplicate_record","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"downloadName":"duplicate_record"},{"name":"duplicate_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Associated
+        datum","info":"http://rs.tdwg.org/dwc/terms/geodeticDatum","dwcTerm":"geodeticDatum","downloadName":"datum","downloadDescription":"Geodetic
+        datum","classs":"Location"},{"name":"day","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Day","info":"http://rs.tdwg.org/dwc/terms/day","dwcTerm":"day","downloadName":"day","downloadDescription":"Day","classs":"Event"},{"name":"disposition","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Disposition","info":"http://rs.tdwg.org/dwc/terms/disposition","dwcTerm":"disposition","downloadName":"disposition","classs":"Occurrence"},{"name":"duplicate_record","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"info":"This
+        field is used to identify possible duplicate records associated with this
+        record. The ALA attempts to find the most complete record in a set of duplicates
+        and identifies it as the principal occurrence or representative record.","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/duplicate_record","downloadName":"duplicate_record"},{"name":"duplicate_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Associated
         records","info":"Identifies suspected duplicates (D), and what appears to
         be the best representation of suspected duplicate records (R)","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/duplicate_status","downloadName":"duplicate_status"},{"name":"dynamic_properties","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Dynamic
-        Properties","info":"http://rs.tdwg.org/dwc/terms/dynamicProperties","dwcTerm":"dynamicProperties","downloadName":"dynamic_properties","classs":"Record"},{"name":"el10038","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10038","downloadName":"el10038","classs":"Environmental"},{"name":"el10039","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10039","downloadName":"el10039","classs":"Environmental"},{"name":"el10040","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10040","downloadName":"el10040","classs":"Environmental"},{"name":"el10041","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10041","downloadName":"el10041","classs":"Environmental"},{"name":"el10042","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10042","downloadName":"el10042","classs":"Environmental"},{"name":"el10043","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10043","downloadName":"el10043","classs":"Environmental"},{"name":"el10044","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10044","downloadName":"el10044","classs":"Environmental"},{"name":"el10045","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10045","downloadName":"el10045","classs":"Environmental"},{"name":"el10046","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10046","downloadName":"el10046","classs":"Environmental"},{"name":"el10047","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10047","downloadName":"el10047","classs":"Environmental"},{"name":"el10048","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10048","downloadName":"el10048","classs":"Environmental"},{"name":"el10049","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10049","downloadName":"el10049","classs":"Environmental"},{"name":"el10050","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10050","downloadName":"el10050","classs":"Environmental"},{"name":"el10051","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10051","downloadName":"el10051","classs":"Environmental"},{"name":"el10052","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10052","downloadName":"el10052","classs":"Environmental"},{"name":"el10053","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10053","downloadName":"el10053","classs":"Environmental"},{"name":"el10054","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10054","downloadName":"el10054","classs":"Environmental"},{"name":"el10055","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10055","downloadName":"el10055","classs":"Environmental"},{"name":"el10056","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10056","downloadName":"el10056","classs":"Environmental"},{"name":"elevation","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
+        Properties","info":"http://rs.tdwg.org/dwc/terms/dynamicProperties","dwcTerm":"dynamicProperties","downloadName":"dynamic_properties","classs":"Record"},{"name":"el10038","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Annual Mean Temperature","info":"https://espacial.gbif.es/ws/layers/view/more/el10038","downloadName":"el10038","downloadDescription":"WorldClim
+        10m Annual Mean Temperature","classs":"Environmental"},{"name":"el10039","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Mean Diurnal Range","info":"https://espacial.gbif.es/ws/layers/view/more/el10039","downloadName":"el10039","downloadDescription":"WorldClim
+        10m Mean Diurnal Range","classs":"Environmental"},{"name":"el10040","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Isothermality ","info":"https://espacial.gbif.es/ws/layers/view/more/el10040","downloadName":"el10040","downloadDescription":"WorldClim
+        10m Isothermality ","classs":"Environmental"},{"name":"el10041","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m  Temperature Seasonality","info":"https://espacial.gbif.es/ws/layers/view/more/el10041","downloadName":"el10041","downloadDescription":"WorldClim
+        10m  Temperature Seasonality","classs":"Environmental"},{"name":"el10042","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Max Temperature of Warmest Month","info":"https://espacial.gbif.es/ws/layers/view/more/el10042","downloadName":"el10042","downloadDescription":"WorldClim
+        10m Max Temperature of Warmest Month","classs":"Environmental"},{"name":"el10043","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Min Temperature of Coldest Month","info":"https://espacial.gbif.es/ws/layers/view/more/el10043","downloadName":"el10043","downloadDescription":"WorldClim
+        10m Min Temperature of Coldest Month","classs":"Environmental"},{"name":"el10044","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Temperature Annual Range","info":"https://espacial.gbif.es/ws/layers/view/more/el10044","downloadName":"el10044","downloadDescription":"WorldClim
+        10m Temperature Annual Range","classs":"Environmental"},{"name":"el10045","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Mean Temperature of Wettest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10045","downloadName":"el10045","downloadDescription":"WorldClim
+        10m Mean Temperature of Wettest Quarter","classs":"Environmental"},{"name":"el10046","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Mean Temperature of Driest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10046","downloadName":"el10046","downloadDescription":"WorldClim
+        10m Mean Temperature of Driest Quarter","classs":"Environmental"},{"name":"el10047","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Mean Temperature of Warmest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10047","downloadName":"el10047","downloadDescription":"WorldClim
+        10m Mean Temperature of Warmest Quarter","classs":"Environmental"},{"name":"el10048","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Mean Temperature of Driest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10048","downloadName":"el10048","downloadDescription":"WorldClim
+        10m Mean Temperature of Driest Quarter","classs":"Environmental"},{"name":"el10049","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Annual Precipitation","info":"https://espacial.gbif.es/ws/layers/view/more/el10049","downloadName":"el10049","downloadDescription":"WorldClim
+        10m Annual Precipitation","classs":"Environmental"},{"name":"el10050","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation of Wettest Month","info":"https://espacial.gbif.es/ws/layers/view/more/el10050","downloadName":"el10050","downloadDescription":"WorldClim
+        10m Precipitation of Wettest Month","classs":"Environmental"},{"name":"el10051","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation of Driest Month","info":"https://espacial.gbif.es/ws/layers/view/more/el10051","downloadName":"el10051","downloadDescription":"WorldClim
+        10m Precipitation of Driest Month","classs":"Environmental"},{"name":"el10052","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation Seasonality","info":"https://espacial.gbif.es/ws/layers/view/more/el10052","downloadName":"el10052","downloadDescription":"WorldClim
+        10m Precipitation Seasonality","classs":"Environmental"},{"name":"el10053","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation of Wettest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10053","downloadName":"el10053","downloadDescription":"WorldClim
+        10m Precipitation of Wettest Quarter","classs":"Environmental"},{"name":"el10054","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation of Driest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10054","downloadName":"el10054","downloadDescription":"WorldClim
+        10m Precipitation of Driest Quarter","classs":"Environmental"},{"name":"el10055","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation of Warmest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10055","downloadName":"el10055","downloadDescription":"WorldClim
+        10m Precipitation of Warmest Quarter","classs":"Environmental"},{"name":"el10056","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation of Coldest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10056","downloadName":"el10056","downloadDescription":"WorldClim
+        10m Precipitation of Coldest Quarter","classs":"Environmental"},{"name":"elevation","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
         Elevation","info":"http://rs.tdwg.org/dwc/terms/verbatimElevation","dwcTerm":"verbatimElevation","downloadName":"elevation","classs":"Location"},{"name":"elevation_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"downloadName":"elevation_d"},{"name":"elevation_d_rng","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Elevation","downloadName":"elevation_d_rng"},{"name":"end_day_of_year","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"End
         Day Of Year","info":"http://rs.tdwg.org/dwc/terms/endDayOfYear","dwcTerm":"endDayOfYear","downloadName":"end_day_of_year","classs":"Event"},{"name":"establishment_means","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Establishment
         means","info":"http://rs.tdwg.org/dwc/terms/establishmentMeans","dwcTerm":"establishmentMeans","downloadName":"establishment_means","classs":"Occurrence"},{"name":"event_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Event
@@ -187,7 +247,7 @@ http_interactions:
         value. http://rs.tdwg.org/dwc/terms/decimalLatitude","jsonName":"decimalLatitude","dwcTerm":"decimalLatitude","downloadName":"latitude","downloadDescription":"Latitude","classs":"Location"},{"name":"lft","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
         left value in the nested set for this record. Used for retrieving records
         within taxonomic groups.","jsonName":"left","downloadName":"lft"},{"name":"license","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"License","info":"The
-        data licence for this record.","jsonName":"license","dwcTerm":"dcterms:license","downloadName":"license","downloadDescription":"Licence","classs":"Record"},{"name":"location_according_to","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Location
+        license applying to a record.","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/license","jsonName":"license","dwcTerm":"dcterms:license","downloadName":"license","downloadDescription":"Licence","classs":"Record"},{"name":"location_according_to","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Location
         According To","info":"http://rs.tdwg.org/dwc/terms/locationAccordingTo","dwcTerm":"locationAccordingTo","downloadName":"location_according_to","classs":"Location"},{"name":"location_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Location
         ID","info":"http://rs.tdwg.org/dwc/terms/locationID","dwcTerm":"locationID","downloadName":"location_id","classs":"Location"},{"name":"location_remarks","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"description":"Location
         Remarks","info":"http://rs.tdwg.org/dwc/terms/locationRemarks","jsonName":"raw_locationRemarks","dwcTerm":"locationRemarks","downloadName":"location_remarks","classs":"Location"},{"name":"longitude","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Longitude","info":"The
@@ -227,7 +287,7 @@ http_interactions:
         Quantity Type","info":"http://rs.tdwg.org/dwc/terms/organismQuantityType","dwcTerm":"organismQuantityType","downloadName":"organism_quantity_type","classs":"Occurrence"},{"name":"original_name_usage","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Original
         name usage","info":"http://rs.tdwg.org/dwc/terms/originalNameUsage","dwcTerm":"originalNameUsage","downloadName":"original_name_usage","classs":"Taxon"},{"name":"other_catalog_numbers","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Other
         Catalog Numbers","info":"http://rs.tdwg.org/dwc/terms/otherCatalogNumbers","dwcTerm":"otherCatalogNumbers","downloadName":"other_catalog_numbers","classs":"Occurrence"},{"name":"outlier_layer_count","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Outlier
-        layer count","info":"The number of envinonmental spatial layers for which
+        layer count","info":"The number of environmental spatial layers for which
         this record has been identified as an outlier by the Reverse Jackknife method","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/outlier_layer_count","downloadName":"outlier_layer_count"},{"name":"owner_institution_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Owner
         Institution Code","info":"http://rs.tdwg.org/dwc/terms/ownerInstitutionCode","dwcTerm":"ownerInstitutionCode","downloadName":"owner_institution_code","classs":"Record"},{"name":"parent_name_usage","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Parent
         Name Usage","info":"http://rs.tdwg.org/dwc/terms/parentNameUsage","dwcTerm":"parentNameUsage","downloadName":"parent_name_usage","classs":"Taxon"},{"name":"phylum","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Phylum","info":"The
@@ -297,7 +357,8 @@ http_interactions:
         Quality"},{"name":"taxonomic_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Taxonomic
         Status","info":"http://rs.tdwg.org/dwc/terms/taxonomicStatus","dwcTerm":"taxonomicStatus","downloadName":"taxonomic_status","classs":"Taxon"},{"name":"type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Specimen
         type","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"user_assertions","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Has
-        user assertions","jsonName":"hasUserAssertions","downloadName":"user_assertions","i18nValues":true},{"name":"verbatim_coordinate_system","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
+        user assertions","info":"Lists the current state of any user assertions raised
+        by ALA end users or data providers about an occurrence record.","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/user_assertions","jsonName":"hasUserAssertions","downloadName":"user_assertions","i18nValues":true},{"name":"verbatim_coordinate_system","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
         Coordinate System","info":"http://rs.tdwg.org/dwc/terms/verbatimCoordinateSystem","dwcTerm":"verbatimCoordinateSystem","downloadName":"verbatim_coordinate_system","classs":"Location"},{"name":"verbatim_coordinates","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
         Coordinates","info":"http://rs.tdwg.org/dwc/terms/verbatimCoordinates","dwcTerm":"verbatimCoordinates","downloadName":"verbatim_coordinates","classs":"Location"},{"name":"verbatim_event_date","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
         event date","info":"http://rs.tdwg.org/dwc/terms/verbatimEventDate","dwcTerm":"verbatimEventDate","downloadName":"verbatim_event_date","downloadDescription":"Verbatim
@@ -308,8 +369,9 @@ http_interactions:
         SRS","info":"http://rs.tdwg.org/dwc/terms/verbatimSRS","dwcTerm":"verbatimSRS","downloadName":"verbatim_srs","classs":"Location"},{"name":"verbatim_taxon_rank","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
         Taxon Rank","info":"http://rs.tdwg.org/dwc/terms/verbatimTaxonRank","dwcTerm":"verbatimTaxonRank","downloadName":"verbatim_taxon_rank","classs":"Taxon"},{"name":"videos","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Videos
         associated with a record","downloadName":"videos"},{"name":"water_body","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Water
-        Body","info":"http://rs.tdwg.org/dwc/terms/waterBody","dwcTerm":"waterBody","downloadName":"water_body","classs":"Location"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2021-08-18 05:54:28 GMT
+        Body","info":"http://rs.tdwg.org/dwc/terms/waterBody","dwcTerm":"waterBody","downloadName":"water_body","classs":"Location"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"The
+        year in which an occurrence was observed. http://rs.tdwg.org/dwc/terms/year","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
+  recorded_at: 2022-01-12 00:59:38 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -320,7 +382,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.3.0
+      User-Agent: galah 1.4.0
   response:
     status:
       status_code: '200'
@@ -328,7 +390,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Wed, 18 Aug 2021 05:54:22 GMT
+      date: Wed, 12 Jan 2022 00:32:30 GMT
       server: nginx/1.17.10
       content-type: application/json;charset=UTF-8
       x-application-context: application:production
@@ -558,7 +620,7 @@ http_interactions:
         marinas de la Región Biogeográfica Mediterránea de la Red Natura 2000 y el
         Área Marina Protegida Corredor de migración de cetáceos del Mediterráneo","licence_level":"1","source":"Ministerio
         para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/es/)","citation_date":"2021-03-03"}]'
-  recorded_at: 2021-08-18 05:54:28 GMT
+  recorded_at: 2022-01-12 00:59:38 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -569,7 +631,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.3.0
+      User-Agent: galah 1.4.0
   response:
     status:
       status_code: '200'
@@ -577,7 +639,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Wed, 18 Aug 2021 05:54:23 GMT
+      date: Wed, 12 Jan 2022 00:59:30 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -688,7 +750,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2021-08-18 05:54:28 GMT
+  recorded_at: 2022-01-12 00:59:38 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -699,7 +761,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.3.0
+      User-Agent: galah 1.4.0
   response:
     status:
       status_code: '200'
@@ -707,7 +769,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Wed, 18 Aug 2021 05:54:25 GMT
+      date: Wed, 12 Jan 2022 00:59:31 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -743,7 +805,25 @@ http_interactions:
         Of Record","classs":"Record"},{"name":"behavior","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Behavior","info":"http://rs.tdwg.org/dwc/terms/behavior","dwcTerm":"behavior","downloadName":"behavior","classs":"Occurrence"},{"name":"bibliographic_citation","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Bibliographic
         citation for this record","dwcTerm":"dcterms:bibliographicCitation","downloadName":"bibliographic_citation","classs":"Record"},{"name":"catalogue_number","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Catalogue
         Number","info":"http://rs.tdwg.org/dwc/terms/catalogNumber","jsonName":"raw_catalogNumber","dwcTerm":"catalogNumber","downloadName":"catalogue_number","downloadDescription":"Catalogue
-        Number","classs":"Occurrence"},{"name":"cl1","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl1","downloadName":"cl1","classs":"Contextual"},{"name":"cl11","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl11","downloadName":"cl11","classs":"Contextual"},{"name":"cl2","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl2","downloadName":"cl2","classs":"Contextual"},{"name":"cl3","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl3","downloadName":"cl3","classs":"Contextual"},{"name":"cl4","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl4","downloadName":"cl4","classs":"Contextual"},{"name":"cl5","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl5","downloadName":"cl5","classs":"Contextual"},{"name":"cl6","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl6","downloadName":"cl6","classs":"Contextual"},{"name":"cl7","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl7","downloadName":"cl7","classs":"Contextual"},{"name":"cl8","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/cl8","downloadName":"cl8","classs":"Contextual"},{"name":"class","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Class","info":"The
+        Number","classs":"Occurrence"},{"name":"cl11","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Espacios
+        Naturales Protegidos","info":"https://espacial.gbif.es/ws/layers/view/more/cl11","downloadName":"cl11","downloadDescription":"Espacios
+        Naturales Protegidos","classs":"Contextual"},{"name":"cl12","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Parques
+        Nacionales","info":"https://espacial.gbif.es/ws/layers/view/more/cl12","downloadName":"cl12","downloadDescription":"Parques
+        Nacionales","classs":"Contextual"},{"name":"cl13","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Reservas
+        de la Biosfera","info":"https://espacial.gbif.es/ws/layers/view/more/cl13","downloadName":"cl13","downloadDescription":"Reservas
+        de la Biosfera","classs":"Contextual"},{"name":"cl14","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Espacios
+        marinos integrados en la Red de Áreas Marinas Protegidas de España (RAMPE)","info":"https://espacial.gbif.es/ws/layers/view/more/cl14","downloadName":"cl14","downloadDescription":"Espacios
+        marinos integrados en la Red de Áreas Marinas Protegidas de España (RAMPE)","classs":"Contextual"},{"name":"cl2","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Provincias","info":"https://espacial.gbif.es/ws/layers/view/more/cl2","downloadName":"cl2","downloadDescription":"Provincias","classs":"Contextual"},{"name":"cl3","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Países
+        del Mundo","info":"https://espacial.gbif.es/ws/layers/view/more/cl3","downloadName":"cl3","downloadDescription":"Países
+        del Mundo","classs":"Contextual"},{"name":"cl4","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Regiones
+        Biogeográficas Estatal","info":"https://espacial.gbif.es/ws/layers/view/more/cl4","downloadName":"cl4","downloadDescription":"Regiones
+        Biogeográficas Estatal","classs":"Contextual"},{"name":"cl5","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Zona
+        de Especial Protección para las Aves","info":"https://espacial.gbif.es/ws/layers/view/more/cl5","downloadName":"cl5","downloadDescription":"Zona
+        de Especial Protección para las Aves","classs":"Contextual"},{"name":"cl6","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Autonomías","info":"https://espacial.gbif.es/ws/layers/view/more/cl6","downloadName":"cl6","downloadDescription":"Autonomías","classs":"Contextual"},{"name":"cl7","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Lugares
+        de Importancia Comunitaria","info":"https://espacial.gbif.es/ws/layers/view/more/cl7","downloadName":"cl7","downloadDescription":"Lugares
+        de Importancia Comunitaria","classs":"Contextual"},{"name":"cl8","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Humedales
+        incluidos en la Lista del Convenio de Ramsar. Ramsar_ES","info":"https://espacial.gbif.es/ws/layers/view/more/cl8","downloadName":"cl8","downloadDescription":"Humedales
+        incluidos en la Lista del Convenio de Ramsar. Ramsar_ES","classs":"Contextual"},{"name":"class","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Class","info":"The
         class the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/class","jsonName":"classs","dwcTerm":"class","downloadName":"class","downloadDescription":"Class","classs":"Taxon"},{"name":"class_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
         GUID for the taxonomic Class associated with this record","downloadName":"class_id"},{"name":"collection_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Collection
         Code","info":"The collection code for this record. This will be populated
@@ -778,10 +858,52 @@ http_interactions:
         precision","info":"The precision of the date information for the record. Values
         include ''Day'', ''Month'', ''Year'', ''Year range'', ''Month range''","downloadName":"date_precision","downloadDescription":"Date
         precision"},{"name":"datum","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Geodetic
-        datum","downloadName":"datum","downloadDescription":"Geodetic datum"},{"name":"day","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Day","info":"http://rs.tdwg.org/dwc/terms/day","dwcTerm":"day","downloadName":"day","downloadDescription":"Day","classs":"Event"},{"name":"disposition","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Disposition","info":"http://rs.tdwg.org/dwc/terms/disposition","dwcTerm":"disposition","downloadName":"disposition","classs":"Occurrence"},{"name":"duplicate_record","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"downloadName":"duplicate_record"},{"name":"duplicate_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Associated
+        datum","info":"http://rs.tdwg.org/dwc/terms/geodeticDatum","dwcTerm":"geodeticDatum","downloadName":"datum","downloadDescription":"Geodetic
+        datum","classs":"Location"},{"name":"day","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Day","info":"http://rs.tdwg.org/dwc/terms/day","dwcTerm":"day","downloadName":"day","downloadDescription":"Day","classs":"Event"},{"name":"disposition","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Disposition","info":"http://rs.tdwg.org/dwc/terms/disposition","dwcTerm":"disposition","downloadName":"disposition","classs":"Occurrence"},{"name":"duplicate_record","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"info":"This
+        field is used to identify possible duplicate records associated with this
+        record. The ALA attempts to find the most complete record in a set of duplicates
+        and identifies it as the principal occurrence or representative record.","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/duplicate_record","downloadName":"duplicate_record"},{"name":"duplicate_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Associated
         records","info":"Identifies suspected duplicates (D), and what appears to
         be the best representation of suspected duplicate records (R)","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/duplicate_status","downloadName":"duplicate_status"},{"name":"dynamic_properties","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Dynamic
-        Properties","info":"http://rs.tdwg.org/dwc/terms/dynamicProperties","dwcTerm":"dynamicProperties","downloadName":"dynamic_properties","classs":"Record"},{"name":"el10038","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10038","downloadName":"el10038","classs":"Environmental"},{"name":"el10039","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10039","downloadName":"el10039","classs":"Environmental"},{"name":"el10040","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10040","downloadName":"el10040","classs":"Environmental"},{"name":"el10041","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10041","downloadName":"el10041","classs":"Environmental"},{"name":"el10042","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10042","downloadName":"el10042","classs":"Environmental"},{"name":"el10043","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10043","downloadName":"el10043","classs":"Environmental"},{"name":"el10044","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10044","downloadName":"el10044","classs":"Environmental"},{"name":"el10045","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10045","downloadName":"el10045","classs":"Environmental"},{"name":"el10046","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10046","downloadName":"el10046","classs":"Environmental"},{"name":"el10047","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10047","downloadName":"el10047","classs":"Environmental"},{"name":"el10048","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10048","downloadName":"el10048","classs":"Environmental"},{"name":"el10049","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10049","downloadName":"el10049","classs":"Environmental"},{"name":"el10050","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10050","downloadName":"el10050","classs":"Environmental"},{"name":"el10051","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10051","downloadName":"el10051","classs":"Environmental"},{"name":"el10052","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10052","downloadName":"el10052","classs":"Environmental"},{"name":"el10053","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10053","downloadName":"el10053","classs":"Environmental"},{"name":"el10054","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10054","downloadName":"el10054","classs":"Environmental"},{"name":"el10055","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10055","downloadName":"el10055","classs":"Environmental"},{"name":"el10056","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://espacial.gbif.es/ws/layers/view/more/el10056","downloadName":"el10056","classs":"Environmental"},{"name":"elevation","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
+        Properties","info":"http://rs.tdwg.org/dwc/terms/dynamicProperties","dwcTerm":"dynamicProperties","downloadName":"dynamic_properties","classs":"Record"},{"name":"el10038","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Annual Mean Temperature","info":"https://espacial.gbif.es/ws/layers/view/more/el10038","downloadName":"el10038","downloadDescription":"WorldClim
+        10m Annual Mean Temperature","classs":"Environmental"},{"name":"el10039","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Mean Diurnal Range","info":"https://espacial.gbif.es/ws/layers/view/more/el10039","downloadName":"el10039","downloadDescription":"WorldClim
+        10m Mean Diurnal Range","classs":"Environmental"},{"name":"el10040","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Isothermality ","info":"https://espacial.gbif.es/ws/layers/view/more/el10040","downloadName":"el10040","downloadDescription":"WorldClim
+        10m Isothermality ","classs":"Environmental"},{"name":"el10041","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m  Temperature Seasonality","info":"https://espacial.gbif.es/ws/layers/view/more/el10041","downloadName":"el10041","downloadDescription":"WorldClim
+        10m  Temperature Seasonality","classs":"Environmental"},{"name":"el10042","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Max Temperature of Warmest Month","info":"https://espacial.gbif.es/ws/layers/view/more/el10042","downloadName":"el10042","downloadDescription":"WorldClim
+        10m Max Temperature of Warmest Month","classs":"Environmental"},{"name":"el10043","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Min Temperature of Coldest Month","info":"https://espacial.gbif.es/ws/layers/view/more/el10043","downloadName":"el10043","downloadDescription":"WorldClim
+        10m Min Temperature of Coldest Month","classs":"Environmental"},{"name":"el10044","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Temperature Annual Range","info":"https://espacial.gbif.es/ws/layers/view/more/el10044","downloadName":"el10044","downloadDescription":"WorldClim
+        10m Temperature Annual Range","classs":"Environmental"},{"name":"el10045","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Mean Temperature of Wettest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10045","downloadName":"el10045","downloadDescription":"WorldClim
+        10m Mean Temperature of Wettest Quarter","classs":"Environmental"},{"name":"el10046","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Mean Temperature of Driest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10046","downloadName":"el10046","downloadDescription":"WorldClim
+        10m Mean Temperature of Driest Quarter","classs":"Environmental"},{"name":"el10047","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Mean Temperature of Warmest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10047","downloadName":"el10047","downloadDescription":"WorldClim
+        10m Mean Temperature of Warmest Quarter","classs":"Environmental"},{"name":"el10048","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Mean Temperature of Driest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10048","downloadName":"el10048","downloadDescription":"WorldClim
+        10m Mean Temperature of Driest Quarter","classs":"Environmental"},{"name":"el10049","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Annual Precipitation","info":"https://espacial.gbif.es/ws/layers/view/more/el10049","downloadName":"el10049","downloadDescription":"WorldClim
+        10m Annual Precipitation","classs":"Environmental"},{"name":"el10050","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation of Wettest Month","info":"https://espacial.gbif.es/ws/layers/view/more/el10050","downloadName":"el10050","downloadDescription":"WorldClim
+        10m Precipitation of Wettest Month","classs":"Environmental"},{"name":"el10051","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation of Driest Month","info":"https://espacial.gbif.es/ws/layers/view/more/el10051","downloadName":"el10051","downloadDescription":"WorldClim
+        10m Precipitation of Driest Month","classs":"Environmental"},{"name":"el10052","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation Seasonality","info":"https://espacial.gbif.es/ws/layers/view/more/el10052","downloadName":"el10052","downloadDescription":"WorldClim
+        10m Precipitation Seasonality","classs":"Environmental"},{"name":"el10053","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation of Wettest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10053","downloadName":"el10053","downloadDescription":"WorldClim
+        10m Precipitation of Wettest Quarter","classs":"Environmental"},{"name":"el10054","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation of Driest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10054","downloadName":"el10054","downloadDescription":"WorldClim
+        10m Precipitation of Driest Quarter","classs":"Environmental"},{"name":"el10055","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation of Warmest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10055","downloadName":"el10055","downloadDescription":"WorldClim
+        10m Precipitation of Warmest Quarter","classs":"Environmental"},{"name":"el10056","dataType":"tfloat","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"WorldClim
+        10m Precipitation of Coldest Quarter","info":"https://espacial.gbif.es/ws/layers/view/more/el10056","downloadName":"el10056","downloadDescription":"WorldClim
+        10m Precipitation of Coldest Quarter","classs":"Environmental"},{"name":"elevation","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
         Elevation","info":"http://rs.tdwg.org/dwc/terms/verbatimElevation","dwcTerm":"verbatimElevation","downloadName":"elevation","classs":"Location"},{"name":"elevation_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"downloadName":"elevation_d"},{"name":"elevation_d_rng","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Elevation","downloadName":"elevation_d_rng"},{"name":"end_day_of_year","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"End
         Day Of Year","info":"http://rs.tdwg.org/dwc/terms/endDayOfYear","dwcTerm":"endDayOfYear","downloadName":"end_day_of_year","classs":"Event"},{"name":"establishment_means","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Establishment
         means","info":"http://rs.tdwg.org/dwc/terms/establishmentMeans","dwcTerm":"establishmentMeans","downloadName":"establishment_means","classs":"Occurrence"},{"name":"event_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Event
@@ -841,7 +963,7 @@ http_interactions:
         value. http://rs.tdwg.org/dwc/terms/decimalLatitude","jsonName":"decimalLatitude","dwcTerm":"decimalLatitude","downloadName":"latitude","downloadDescription":"Latitude","classs":"Location"},{"name":"lft","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
         left value in the nested set for this record. Used for retrieving records
         within taxonomic groups.","jsonName":"left","downloadName":"lft"},{"name":"license","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"License","info":"The
-        data licence for this record.","jsonName":"license","dwcTerm":"dcterms:license","downloadName":"license","downloadDescription":"Licence","classs":"Record"},{"name":"location_according_to","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Location
+        license applying to a record.","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/license","jsonName":"license","dwcTerm":"dcterms:license","downloadName":"license","downloadDescription":"Licence","classs":"Record"},{"name":"location_according_to","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Location
         According To","info":"http://rs.tdwg.org/dwc/terms/locationAccordingTo","dwcTerm":"locationAccordingTo","downloadName":"location_according_to","classs":"Location"},{"name":"location_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Location
         ID","info":"http://rs.tdwg.org/dwc/terms/locationID","dwcTerm":"locationID","downloadName":"location_id","classs":"Location"},{"name":"location_remarks","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"description":"Location
         Remarks","info":"http://rs.tdwg.org/dwc/terms/locationRemarks","jsonName":"raw_locationRemarks","dwcTerm":"locationRemarks","downloadName":"location_remarks","classs":"Location"},{"name":"longitude","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Longitude","info":"The
@@ -881,7 +1003,7 @@ http_interactions:
         Quantity Type","info":"http://rs.tdwg.org/dwc/terms/organismQuantityType","dwcTerm":"organismQuantityType","downloadName":"organism_quantity_type","classs":"Occurrence"},{"name":"original_name_usage","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Original
         name usage","info":"http://rs.tdwg.org/dwc/terms/originalNameUsage","dwcTerm":"originalNameUsage","downloadName":"original_name_usage","classs":"Taxon"},{"name":"other_catalog_numbers","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Other
         Catalog Numbers","info":"http://rs.tdwg.org/dwc/terms/otherCatalogNumbers","dwcTerm":"otherCatalogNumbers","downloadName":"other_catalog_numbers","classs":"Occurrence"},{"name":"outlier_layer_count","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Outlier
-        layer count","info":"The number of envinonmental spatial layers for which
+        layer count","info":"The number of environmental spatial layers for which
         this record has been identified as an outlier by the Reverse Jackknife method","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/outlier_layer_count","downloadName":"outlier_layer_count"},{"name":"owner_institution_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Owner
         Institution Code","info":"http://rs.tdwg.org/dwc/terms/ownerInstitutionCode","dwcTerm":"ownerInstitutionCode","downloadName":"owner_institution_code","classs":"Record"},{"name":"parent_name_usage","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Parent
         Name Usage","info":"http://rs.tdwg.org/dwc/terms/parentNameUsage","dwcTerm":"parentNameUsage","downloadName":"parent_name_usage","classs":"Taxon"},{"name":"phylum","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Phylum","info":"The
@@ -951,7 +1073,8 @@ http_interactions:
         Quality"},{"name":"taxonomic_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Taxonomic
         Status","info":"http://rs.tdwg.org/dwc/terms/taxonomicStatus","dwcTerm":"taxonomicStatus","downloadName":"taxonomic_status","classs":"Taxon"},{"name":"type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Specimen
         type","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"user_assertions","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Has
-        user assertions","jsonName":"hasUserAssertions","downloadName":"user_assertions","i18nValues":true},{"name":"verbatim_coordinate_system","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
+        user assertions","info":"Lists the current state of any user assertions raised
+        by ALA end users or data providers about an occurrence record.","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/user_assertions","jsonName":"hasUserAssertions","downloadName":"user_assertions","i18nValues":true},{"name":"verbatim_coordinate_system","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
         Coordinate System","info":"http://rs.tdwg.org/dwc/terms/verbatimCoordinateSystem","dwcTerm":"verbatimCoordinateSystem","downloadName":"verbatim_coordinate_system","classs":"Location"},{"name":"verbatim_coordinates","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
         Coordinates","info":"http://rs.tdwg.org/dwc/terms/verbatimCoordinates","dwcTerm":"verbatimCoordinates","downloadName":"verbatim_coordinates","classs":"Location"},{"name":"verbatim_event_date","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
         event date","info":"http://rs.tdwg.org/dwc/terms/verbatimEventDate","dwcTerm":"verbatimEventDate","downloadName":"verbatim_event_date","downloadDescription":"Verbatim
@@ -962,8 +1085,9 @@ http_interactions:
         SRS","info":"http://rs.tdwg.org/dwc/terms/verbatimSRS","dwcTerm":"verbatimSRS","downloadName":"verbatim_srs","classs":"Location"},{"name":"verbatim_taxon_rank","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
         Taxon Rank","info":"http://rs.tdwg.org/dwc/terms/verbatimTaxonRank","dwcTerm":"verbatimTaxonRank","downloadName":"verbatim_taxon_rank","classs":"Taxon"},{"name":"videos","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Videos
         associated with a record","downloadName":"videos"},{"name":"water_body","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Water
-        Body","info":"http://rs.tdwg.org/dwc/terms/waterBody","dwcTerm":"waterBody","downloadName":"water_body","classs":"Location"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2021-08-18 05:54:28 GMT
+        Body","info":"http://rs.tdwg.org/dwc/terms/waterBody","dwcTerm":"waterBody","downloadName":"water_body","classs":"Location"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"The
+        year in which an occurrence was observed. http://rs.tdwg.org/dwc/terms/year","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
+  recorded_at: 2022-01-12 00:59:38 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -974,7 +1098,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.3.0
+      User-Agent: galah 1.4.0
   response:
     status:
       status_code: '200'
@@ -982,7 +1106,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Wed, 18 Aug 2021 05:54:27 GMT
+      date: Wed, 12 Jan 2022 00:59:35 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -998,6 +1122,46 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2007","i18nCode":"year.2007","count":1312744,"fq":"year:\"2007\""},{"label":"2019","i18nCode":"year.2019","count":917271,"fq":"year:\"2019\""},{"label":"2015","i18nCode":"year.2015","count":898970,"fq":"year:\"2015\""},{"label":"2006","i18nCode":"year.2006","count":838706,"fq":"year:\"2006\""},{"label":"2018","i18nCode":"year.2018","count":833182,"fq":"year:\"2018\""},{"label":"2011","i18nCode":"year.2011","count":831139,"fq":"year:\"2011\""},{"label":"2010","i18nCode":"year.2010","count":819958,"fq":"year:\"2010\""},{"label":"2016","i18nCode":"year.2016","count":817025,"fq":"year:\"2016\""},{"label":"2009","i18nCode":"year.2009","count":764933,"fq":"year:\"2009\""},{"label":"2014","i18nCode":"year.2014","count":761232,"fq":"year:\"2014\""},{"label":"2017","i18nCode":"year.2017","count":755794,"fq":"year:\"2017\""},{"label":"2005","i18nCode":"year.2005","count":730363,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":713241,"fq":"year:\"2004\""},{"label":"2012","i18nCode":"year.2012","count":696739,"fq":"year:\"2012\""},{"label":"2008","i18nCode":"year.2008","count":665566,"fq":"year:\"2008\""},{"label":"2003","i18nCode":"year.2003","count":634456,"fq":"year:\"2003\""},{"label":"2013","i18nCode":"year.2013","count":625925,"fq":"year:\"2013\""},{"label":"2002","i18nCode":"year.2002","count":600389,"fq":"year:\"2002\""},{"label":"2000","i18nCode":"year.2000","count":599147,"fq":"year:\"2000\""},{"label":"2001","i18nCode":"year.2001","count":547384,"fq":"year:\"2001\""}],"count":314}]'
-  recorded_at: 2021-08-18 05:54:28 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2007","i18nCode":"year.2007","count":1312159,"fq":"year:\"2007\""},{"label":"2019","i18nCode":"year.2019","count":917647,"fq":"year:\"2019\""},{"label":"2015","i18nCode":"year.2015","count":898760,"fq":"year:\"2015\""},{"label":"2006","i18nCode":"year.2006","count":838070,"fq":"year:\"2006\""},{"label":"2018","i18nCode":"year.2018","count":833886,"fq":"year:\"2018\""},{"label":"2011","i18nCode":"year.2011","count":830817,"fq":"year:\"2011\""},{"label":"2010","i18nCode":"year.2010","count":819654,"fq":"year:\"2010\""},{"label":"2016","i18nCode":"year.2016","count":816807,"fq":"year:\"2016\""},{"label":"2009","i18nCode":"year.2009","count":764423,"fq":"year:\"2009\""},{"label":"2014","i18nCode":"year.2014","count":761143,"fq":"year:\"2014\""},{"label":"2017","i18nCode":"year.2017","count":755581,"fq":"year:\"2017\""},{"label":"2005","i18nCode":"year.2005","count":730235,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":713625,"fq":"year:\"2004\""},{"label":"2012","i18nCode":"year.2012","count":696604,"fq":"year:\"2012\""},{"label":"2008","i18nCode":"year.2008","count":665462,"fq":"year:\"2008\""},{"label":"2003","i18nCode":"year.2003","count":635837,"fq":"year:\"2003\""},{"label":"2013","i18nCode":"year.2013","count":625517,"fq":"year:\"2013\""},{"label":"2000","i18nCode":"year.2000","count":603616,"fq":"year:\"2000\""},{"label":"2002","i18nCode":"year.2002","count":598958,"fq":"year:\"2002\""},{"label":"2001","i18nCode":"year.2001","count":547837,"fq":"year:\"2001\""}],"count":314}]'
+  recorded_at: 2022-01-12 00:59:38 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://logger.gbif.es/service/logger/reasons
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 OK
+      date: Wed, 12 Jan 2022 00:59:37 GMT
+      server: Apache/2.4.18 (Ubuntu)
+      x-application-context: application:production
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
+      access-control-allow-methods: POST, GET, OPTIONS
+      access-control-max-age: '3600'
+      content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"rkey":"logger.download.reason.biosecurity","name":"Gestión de bioseguridad","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"Ciencia
+        ciudadana","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"Gestión
+        de colecciones","id":5,"deprecated":false},{"rkey":"logger.download.reason.conservation","name":"conservation
+        management/planning","id":0,"deprecated":false},{"rkey":"logger.download.reason.ecological.research","name":"Investigación
+        en ecología","id":7,"deprecated":false},{"rkey":"logger.download.reason.education","name":"Educación","id":3,"deprecated":false},{"rkey":"logger.download.reason.environmental","name":"Evaluación
+        ambiental","id":2,"deprecated":false},{"rkey":"logger.download.reason.restoration.remediation","name":"Restauración/remediación","id":12,"deprecated":false},{"rkey":"logger.download.reason.research","name":"Investigación
+        científica","id":4,"deprecated":false},{"rkey":"logger.download.reason.systematic.research","name":"Investigación
+        sistemática/taxonomía","id":8,"deprecated":false},{"rkey":"logger.download.reason.other","name":"Otros","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"Otro
+        tipo de investigación científica","id":9,"deprecated":true}]'
+  recorded_at: 2022-01-12 00:59:38 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
