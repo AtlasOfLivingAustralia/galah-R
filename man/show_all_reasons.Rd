@@ -22,7 +22,7 @@ you can use either the download code or name.
 
 
 Show a listing of all accepted reasons for downloading occurrence data\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_reasons()
-#> # A tibble: 13 x 2
+#> # A tibble: 13 × 2
 #>       id name                            
 #>    <int> <chr>                           
 #>  1     0 conservation management/planning

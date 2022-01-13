@@ -24,7 +24,7 @@ This function gives all of the arguments built into a specific profile.
 
 
 To find all the data quality arguments used in the profile "CSDM"\if{html}{\out{<div class="sourceCode r">}}\preformatted{find_profile_attributes("CSDM")
-#> # A tibble: 4 x 2
+#> # A tibble: 4 × 2
 #>   description                                                               filter                       
 #>   <chr>                                                                     <chr>                        
 #> 1 "Include only records where Spatial validity is \\"true\\""                 "spatiallyValid:\\"true\\""    
@@ -35,8 +35,10 @@ To find all the data quality arguments used in the profile "CSDM"\if{html}{\out{
 
 Then get a free-text description of each filter used in the "CSDM" profile\if{html}{\out{<div class="sourceCode r">}}\preformatted{profile_info <- find_profile_attributes("CSDM")
 profile_info$description
-#> [1] "Include only records where Spatial validity is \\"true\\""                 "Exclude potential duplicate records"                                    
-#> [3] "Exclude all records that are an outlier against any environmental layer" "Include only records where Year is 1970 to 2099"
+#> [1] "Include only records where Spatial validity is \\"true\\""                
+#> [2] "Exclude potential duplicate records"                                    
+#> [3] "Exclude all records that are an outlier against any environmental layer"
+#> [4] "Include only records where Year is 1970 to 2099"
 }\if{html}{\out{</div>}}
 }
 

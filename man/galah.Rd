@@ -22,18 +22,14 @@ quality-control criteria.
 }
 \section{Functions}{
 
-\strong{\code{Data}}
+\strong{Start a data query}
 \itemize{
-\item \code{\link[=atlas_counts]{atlas_counts()}} Count the number of records or species returned by a query
-\item \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} Return a section of the ALA taxonomic tree
-\item \code{\link[=atlas_species]{atlas_species()}} Download species lists
-\item \code{\link[=atlas_occurrences]{atlas_occurrences()}} Download occurrence records
-\item \code{\link[=atlas_media]{atlas_media()}} Download images and sounds
-\item \code{\link[=atlas_citation]{atlas_citation()}} Citation for a dataset
+\item \code{\link[=galah_call]{galah_call()}} Start to build a data query
 }
 
-\strong{\code{Filter}}
+\strong{Narrow your results}
 \itemize{
+\item \code{\link[=search_taxa]{search_taxa()}} Search for taxonomic identifiers
 \item \code{\link[=galah_filter]{galah_filter()}} Filter records
 \item \code{\link[=galah_select]{galah_select()}} Fields to report information for
 \item \code{\link[=galah_group_by]{galah_group_by()}} Fields to group counts by
@@ -41,33 +37,41 @@ quality-control criteria.
 \item \code{\link[=galah_down_to]{galah_down_to()}} Specify a taxonomic rank
 }
 
-\strong{\code{Search}}
+\strong{Download data}
 \itemize{
-\item \code{\link[=search_taxa]{search_taxa()}} Search for taxonomic identifiers
-\item \code{\link[=search_fields]{search_fields()}} Free-text search for layers and fields
+\item \code{\link[=atlas_occurrences]{atlas_occurrences()}} Download occurrence records
+\item \code{\link[=atlas_counts]{atlas_counts()}} Count the number of records or species returned by a query
+\item \code{\link[=atlas_species]{atlas_species()}} Download species lists
+\item \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} Return a section of the ALA taxonomic tree
+\item \code{\link[=atlas_media]{atlas_media()}} Download images and sounds
 }
 
-\strong{\code{Lookup}}
+\strong{Look up information}
 \itemize{
+\item \code{\link[=search_fields]{search_fields()}} \code{\link[=show_all_fields]{show_all_fields()}} List fields to filter or categorise searches
 \item \code{\link[=show_all_profiles]{show_all_profiles()}} List data quality profiles
-\item \code{\link[=show_all_ranks]{show_all_ranks()}} List available taxonomic ranks
 \item \code{\link[=show_all_reasons]{show_all_reasons()}} List valid download reasons
 \item \code{\link[=show_all_atlases]{show_all_atlases()}} List supported international atlases
-\item \code{\link[=show_all_fields]{show_all_fields()}} List fields to filter or categorise searches
+\item \code{\link[=show_all_ranks]{show_all_ranks()}} List available taxonomic ranks
 \item \code{\link[=find_taxa]{find_taxa()}} List information for a given taxonomic identifier
 \item \code{\link[=find_field_values]{find_field_values()}} List possible values for a given field
 \item \code{\link[=find_profile_attributes]{find_profile_attributes()}} List filters included in a data quality profile
 }
 
-\strong{\verb{Cache management}}
+\strong{Manage cache}
 \itemize{
-\item \code{\link[=find_cached_files]{find_cached_files()}} List previously cached files and their metadata
+\item \code{\link[=show_all_cached_files]{show_all_cached_files()}} List previously cached files and their metadata
 \item \code{\link[=clear_cached_files]{clear_cached_files()}} Clear previously cached files and their metadata
 }
 
-\strong{\code{Help}}
+\strong{Configure session}
 \itemize{
 \item \code{\link[=galah_config]{galah_config()}} Package configuration options
+}
+
+\strong{Cite}
+\itemize{
+\item \code{\link[=atlas_citation]{atlas_citation()}} Citation for a dataset
 }
 }
 

@@ -64,7 +64,7 @@ Add the default ALA data quality profile\if{html}{\out{<div class="sourceCode r"
 Use filters to exclude particular values\if{html}{\out{<div class="sourceCode r">}}\preformatted{filter <- galah_filter(year >= 2010 & year != 2021)
 
 atlas_counts(filter = filter)
-#> # A tibble: 1 x 1
+#> # A tibble: 1 × 1
 #>      count
 #>      <int>
 #> 1 43853752
@@ -87,7 +87,7 @@ year_value <- 2010
 galah_call() \%>\%
   galah_filter(year > year_value) \%>\%
   atlas_counts()
-#> # A tibble: 1 x 1
+#> # A tibble: 1 × 1
 #>      count
 #>      <int>
 #> 1 42750795
@@ -98,7 +98,7 @@ basis_of_record <- c("HumanObservation", "MaterialSample")
 galah_call() \%>\%
   galah_filter(basisOfRecord == basis_of_record) \%>\%
   atlas_counts()
-#> # A tibble: 1 x 1
+#> # A tibble: 1 × 1
 #>      count
 #>      <int>
 #> 1 82772897
@@ -108,7 +108,7 @@ galah_call() \%>\%
 queries all Australian States and Territories alphabetically after "Tasmania"\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
   galah_filter(cl22 >= "Tasmania") \%>\%
   atlas_counts()
-#> # A tibble: 1 x 1
+#> # A tibble: 1 × 1
 #>      count
 #>      <int>
 #> 1 30221084

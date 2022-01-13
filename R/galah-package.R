@@ -22,48 +22,50 @@
 #' [support@ala.org.au](mailto:support@ala.org.au).
 #'
 #' @section Functions:
-#' **`Data`**
+#' **Start a data query**
+#'
+#'   * [galah_call()] Start to build a data query
 #' 
-#'   * [atlas_counts()] Count the number of records or species returned by a query
-#'   * [atlas_taxonomy()] Return a section of the ALA taxonomic tree
-#'   * [atlas_species()] Download species lists
-#'   * [atlas_occurrences()] Download occurrence records
-#'   * [atlas_media()] Download images and sounds
-#'   * [atlas_citation()] Citation for a dataset
+#' **Narrow your results**
 #' 
-#' **`Filter`**
-#' 
+#'   * [search_taxa()] Search for taxonomic identifiers
 #'   * [galah_filter()] Filter records
 #'   * [galah_select()] Fields to report information for
 #'   * [galah_group_by()] Fields to group counts by
 #'   * [galah_geolocate()] Specify a location
 #'   * [galah_down_to()] Specify a taxonomic rank
 #' 
-#' **`Search`**
+#' **Download data**
 #' 
-#'   * [search_taxa()] Search for taxonomic identifiers
-#'   * [search_fields()] Free-text search for layers and fields
+#'   * [atlas_occurrences()] Download occurrence records
+#'   * [atlas_counts()] Count the number of records or species returned by a query
+#'   * [atlas_species()] Download species lists
+#'   * [atlas_taxonomy()] Return a section of the ALA taxonomic tree
+#'   * [atlas_media()] Download images and sounds
 #'   
-#' **`Lookup`**
+#' **Look up information**
 #' 
+#'   * [search_fields()] [show_all_fields()] List fields to filter or categorise searches
 #'   * [show_all_profiles()] List data quality profiles
-#'   * [show_all_ranks()] List available taxonomic ranks
 #'   * [show_all_reasons()] List valid download reasons
 #'   * [show_all_atlases()] List supported international atlases
-#'   * [show_all_fields()] List fields to filter or categorise searches
+#'   * [show_all_ranks()] List available taxonomic ranks
 #'   * [find_taxa()] List information for a given taxonomic identifier
 #'   * [find_field_values()] List possible values for a given field
 #'   * [find_profile_attributes()] List filters included in a data quality profile
 #' 
-#' **`Cache management`**
+#' **Manage cache**
 #' 
-#'   * [find_cached_files()] List previously cached files and their metadata
+#'   * [show_all_cached_files()] List previously cached files and their metadata
 #'   * [clear_cached_files()] Clear previously cached files and their metadata
 #' 
-#' **`Help`**
+#' **Configure session**
 #' 
 #'   * [galah_config()] Package configuration options
 #' 
+#' **Cite**
+#' 
+#'   * [atlas_citation()] Citation for a dataset
 #'
 #' @section Terminology:
 #'

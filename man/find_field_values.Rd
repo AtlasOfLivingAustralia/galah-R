@@ -25,7 +25,7 @@ use this function to check that the values provided are valid options.
 
 Find valid values you can use to filter or categorise results for the field
 "basisOfRecord"\if{html}{\out{<div class="sourceCode r">}}\preformatted{find_field_values("basisOfRecord")
-#> # A tibble: 8 x 2
+#> # A tibble: 8 × 2
 #>   field         category           
 #>   <chr>         <chr>              
 #> 1 basisOfRecord HUMAN_OBSERVATION  
@@ -40,7 +40,7 @@ Find valid values you can use to filter or categorise results for the field
 
 Find valid values to filter or categorise results for the field
 "stateProvince"\if{html}{\out{<div class="sourceCode r">}}\preformatted{find_field_values("stateProvince")
-#> # A tibble: 20 x 2
+#> # A tibble: 20 × 2
 #>    field         category                    
 #>    <chr>         <chr>                       
 #>  1 stateProvince New South Wales             
@@ -70,7 +70,7 @@ functions. For example, we can return the number of records only from
 Tasmania\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
   galah_filter(stateProvince == "Tasmania") |>
   atlas_counts()
-#> # A tibble: 1 x 1
+#> # A tibble: 1 × 1
 #>     count
 #>     <int>
 #> 1 4503179

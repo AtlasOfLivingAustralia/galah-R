@@ -55,77 +55,77 @@ id number.
 
 
 Search for all fields that use include the word "date"\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("date")
-#> # A tibble: 32 x 4
-#>    id                        description                                                                                                    type   link 
-#>    <chr>                     <chr>                                                                                                          <chr>  <chr>
-#>  1 dateIdentified            http://rs.tdwg.org/dwc/terms/dateIdentified                                                                    fields <NA> 
-#>  2 datePrecision             The precision of the date information for the record. Values include Day, Month, Year, Year range, Month range fields <NA> 
-#>  3 eventDate                 The ISO formatted date of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/eventDate        fields <NA> 
-#>  4 eventDateEnd              <NA>                                                                                                           fields <NA> 
-#>  5 firstLoadedDate           <NA>                                                                                                           fields <NA> 
-#>  6 georeferencedDate         http://rs.tdwg.org/dwc/terms/georeferencedDate                                                                 fields <NA> 
-#>  7 lastAssertionDate         <NA>                                                                                                           fields <NA> 
-#>  8 lastLoadDate              <NA>                                                                                                           fields <NA> 
-#>  9 lastProcessedDate         <NA>                                                                                                           fields <NA> 
-#> 10 measurementDeterminedDate http://rs.tdwg.org/dwc/terms/measurementDeterminedDate                                                         fields <NA> 
-#> # ... with 22 more rows
+#> # A tibble: 32 × 4
+#>    id                        description                                                                    type  link 
+#>    <chr>                     <chr>                                                                          <chr> <chr>
+#>  1 dateIdentified            http://rs.tdwg.org/dwc/terms/dateIdentified                                    fiel… <NA> 
+#>  2 datePrecision             The precision of the date information for the record. Values include Day, Mon… fiel… <NA> 
+#>  3 eventDate                 The ISO formatted date of observation, specimen collection date. http://rs.td… fiel… <NA> 
+#>  4 eventDateEnd              <NA>                                                                           fiel… <NA> 
+#>  5 firstLoadedDate           <NA>                                                                           fiel… <NA> 
+#>  6 georeferencedDate         http://rs.tdwg.org/dwc/terms/georeferencedDate                                 fiel… <NA> 
+#>  7 lastAssertionDate         <NA>                                                                           fiel… <NA> 
+#>  8 lastLoadDate              <NA>                                                                           fiel… <NA> 
+#>  9 lastProcessedDate         <NA>                                                                           fiel… <NA> 
+#> 10 measurementDeterminedDate http://rs.tdwg.org/dwc/terms/measurementDeterminedDate                         fiel… <NA> 
+#> # … with 22 more rows
 }\if{html}{\out{</div>}}
 
 Search for all fields with the string "basisofrecord"\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("basisofrecord")
-#> # A tibble: 2 x 4
-#>   id                description                                                                                                  type   link 
-#>   <chr>             <chr>                                                                                                        <chr>  <chr>
-#> 1 basisOfRecord     What this is a record of e.g. specimen, human observation, fossil http://rs.tdwg.org/dwc/terms/basisOfRecord fields <NA> 
-#> 2 raw_basisOfRecord The basis of record as supplied by the data publisher http://rs.tdwg.org/dwc/terms/verbatimBasisOfRecord     fields <NA>
+#> # A tibble: 2 × 4
+#>   id                description                                                                             type  link 
+#>   <chr>             <chr>                                                                                   <chr> <chr>
+#> 1 basisOfRecord     What this is a record of e.g. specimen, human observation, fossil http://rs.tdwg.org/d… fiel… <NA> 
+#> 2 raw_basisOfRecord The basis of record as supplied by the data publisher http://rs.tdwg.org/dwc/terms/ver… fiel… <NA>
 }\if{html}{\out{</div>}}
 
 Search for all fields that have information for "marine"\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("marine") |> 
   head() # only show first 5 results
-#> # A tibble: 6 x 4
-#>   id      description                                                                  type   link                                                      
-#>   <chr>   <chr>                                                                        <chr>  <chr>                                                     
-#> 1 biome   "A field indicating if the record has been located in Terrestrial, Marine o~ fields  <NA>                                                     
-#> 2 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Marine)"                   layers "http://www.fao.org/geonetwork/srv/en/main.home?uuid=ac02~
-#> 3 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian Protected Areas Databa~ layers "http://www.environment.gov.au/fed/catalog/search/resourc~
-#> 4 cl10957 "CAPAD 2018 Marine The Collaborative Australian Protected Areas Database (C~ layers "http://www.environment.gov.au/fed/catalog/search/resourc~
-#> 5 el1056  "Endemism (Non-marine) Endemism (Non-marine) based on Crisp, M.D., Laffan, ~ layers ""                                                        
-#> 6 el957   "Averaged Topographic Relief  This data represents the averaged topographic~ layers "http://www.ga.gov.au/meta/ANZCW0703015076.html"
+#> # A tibble: 6 × 4
+#>   id      description                                           type   link                                            
+#>   <chr>   <chr>                                                 <chr>  <chr>                                           
+#> 1 biome   "A field indicating if the record has been located i… fields  <NA>                                           
+#> 2 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Ma… layers "http://www.fao.org/geonetwork/srv/en/main.home…
+#> 3 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian… layers "http://www.environment.gov.au/fed/catalog/sear…
+#> 4 cl10957 "CAPAD 2018 Marine The Collaborative Australian Prot… layers "http://www.environment.gov.au/fed/catalog/sear…
+#> 5 el1056  "Endemism (Non-marine) Endemism (Non-marine) based o… layers ""                                              
+#> 6 el957   "Averaged Topographic Relief  This data represents t… layers "http://www.ga.gov.au/meta/ANZCW0703015076.html"
 }\if{html}{\out{</div>}}
 
 Search for all Wordclim layers\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("worldclim", type = "layers")
-#> # A tibble: 38 x 4
-#>    id      description                                                                     type   link                                           
-#>    <chr>   <chr>                                                                           <chr>  <chr>                                          
-#>  1 el10982 WorldClim 2.1: Temperature - warmest month max Max Temperature of Warmest Month layers https://www.worldclim.org/data/worldclim21.html
-#>  2 el10981 WorldClim 2.1: Temperature - seasonality Temperature Seasonality                layers https://www.worldclim.org/data/worldclim21.html
-#>  3 el10980 WorldClim 2.1: Temperature - isothermality Isothermality                        layers https://www.worldclim.org/data/worldclim21.html
-#>  4 el10990 WorldClim 2.1: Precipitation - wettest month Precipitation of Wettest Month     layers https://www.worldclim.org/data/worldclim21.html
-#>  5 el10995 WorldClim 2.1: Precipitation - warmest quarter Precipitation of Warmest Quarter layers https://www.worldclim.org/data/worldclim21.html
-#>  6 el10994 WorldClim 2.1: Precipitation - driest quarter Precipitation of Driest Quarter   layers https://www.worldclim.org/data/worldclim21.html
-#>  7 el10992 WorldClim 2.1: Precipitation - seasonality Precipitation Seasonality            layers https://www.worldclim.org/data/worldclim21.html
-#>  8 el10991 WorldClim 2.1: Precipitation - driest month Precipitation of Driest Month       layers https://www.worldclim.org/data/worldclim21.html
-#>  9 el10978 WorldClim 2.1: Temperature - annual mean Annual Mean Temperature                layers https://www.worldclim.org/data/worldclim21.html
-#> 10 el10983 WorldClim 2.1: Temperature - coldest month min Min Temperature of Coldest Month layers https://www.worldclim.org/data/worldclim21.html
-#> # ... with 28 more rows
+#> # A tibble: 38 × 4
+#>    id      description                                                                     type   link                 
+#>    <chr>   <chr>                                                                           <chr>  <chr>                
+#>  1 el10982 WorldClim 2.1: Temperature - warmest month max Max Temperature of Warmest Month layers https://www.worldcli…
+#>  2 el10981 WorldClim 2.1: Temperature - seasonality Temperature Seasonality                layers https://www.worldcli…
+#>  3 el10980 WorldClim 2.1: Temperature - isothermality Isothermality                        layers https://www.worldcli…
+#>  4 el10990 WorldClim 2.1: Precipitation - wettest month Precipitation of Wettest Month     layers https://www.worldcli…
+#>  5 el10995 WorldClim 2.1: Precipitation - warmest quarter Precipitation of Warmest Quarter layers https://www.worldcli…
+#>  6 el10994 WorldClim 2.1: Precipitation - driest quarter Precipitation of Driest Quarter   layers https://www.worldcli…
+#>  7 el10992 WorldClim 2.1: Precipitation - seasonality Precipitation Seasonality            layers https://www.worldcli…
+#>  8 el10991 WorldClim 2.1: Precipitation - driest month Precipitation of Driest Month       layers https://www.worldcli…
+#>  9 el10978 WorldClim 2.1: Temperature - annual mean Annual Mean Temperature                layers https://www.worldcli…
+#> 10 el10983 WorldClim 2.1: Temperature - coldest month min Min Temperature of Coldest Month layers https://www.worldcli…
+#> # … with 28 more rows
 }\if{html}{\out{</div>}}
 
 
 
 See a listing of all valid fields and layers\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_fields()
-#> # A tibble: 794 x 4
-#>    id                    description                                                                                        type   link 
-#>    <chr>                 <chr>                                                                                              <chr>  <chr>
-#>  1 abcdTypeStatus        ABCD field in use by herbaria                                                                      fields <NA> 
-#>  2 acceptedNameUsage     http://rs.tdwg.org/dwc/terms/acceptedNameUsage                                                     fields <NA> 
-#>  3 acceptedNameUsageID   http://rs.tdwg.org/dwc/terms/acceptedNameUsageID                                                   fields <NA> 
-#>  4 accessRights          <NA>                                                                                               fields <NA> 
-#>  5 assertionUserId       User ID of the person who has made an assertion about this record                                  fields <NA> 
-#>  6 assertions            A list of all assertions (user and system supplied) for a record resulting from data quality tests fields <NA> 
-#>  7 associatedMedia       http://rs.tdwg.org/dwc/terms/associatedMedia                                                       fields <NA> 
-#>  8 associatedOccurrences http://rs.tdwg.org/dwc/terms/associatedOccurrences                                                 fields <NA> 
-#>  9 associatedReferences  http://rs.tdwg.org/dwc/terms/associatedReferences                                                  fields <NA> 
-#> 10 associatedSequences   http://rs.tdwg.org/dwc/terms/associatedSequences                                                   fields <NA> 
-#> # ... with 784 more rows
+#> # A tibble: 794 × 4
+#>    id                    description                                                                        type  link 
+#>    <chr>                 <chr>                                                                              <chr> <chr>
+#>  1 abcdTypeStatus        ABCD field in use by herbaria                                                      fiel… <NA> 
+#>  2 acceptedNameUsage     http://rs.tdwg.org/dwc/terms/acceptedNameUsage                                     fiel… <NA> 
+#>  3 acceptedNameUsageID   http://rs.tdwg.org/dwc/terms/acceptedNameUsageID                                   fiel… <NA> 
+#>  4 accessRights          <NA>                                                                               fiel… <NA> 
+#>  5 assertionUserId       User ID of the person who has made an assertion about this record                  fiel… <NA> 
+#>  6 assertions            A list of all assertions (user and system supplied) for a record resulting from d… fiel… <NA> 
+#>  7 associatedMedia       http://rs.tdwg.org/dwc/terms/associatedMedia                                       fiel… <NA> 
+#>  8 associatedOccurrences http://rs.tdwg.org/dwc/terms/associatedOccurrences                                 fiel… <NA> 
+#>  9 associatedReferences  http://rs.tdwg.org/dwc/terms/associatedReferences                                  fiel… <NA> 
+#> 10 associatedSequences   http://rs.tdwg.org/dwc/terms/associatedSequences                                   fiel… <NA> 
+#> # … with 784 more rows
 }\if{html}{\out{</div>}}
 
 Use this function with \code{\link[=search_fields]{search_fields()}} to find fields and layers you wish

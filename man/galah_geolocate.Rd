@@ -34,7 +34,7 @@ atlas_occurrences(geolocate = location)
 Search for records using a Well-known Text geometry (WKT)\if{html}{\out{<div class="sourceCode r">}}\preformatted{wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
 
 atlas_counts(geolocate = galah_geolocate(wkt))
-#> # A tibble: 1 x 1
+#> # A tibble: 1 × 1
 #>   count
 #>   <int>
 #> 1  3297

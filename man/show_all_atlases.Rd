@@ -19,7 +19,7 @@ Atlases. Use this function to get a list of all currently supported atlases.
 
 
 See all supported atlases\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_atlases()
-#> # A tibble: 6 x 3
+#> # A tibble: 6 × 3
 #>   atlas     taxonomy_source taxonomy_info                                                    
 #>   <chr>     <chr>           <chr>                                                            
 #> 1 Australia ALA             https://bie.ala.org.au/                                          
