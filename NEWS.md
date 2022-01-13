@@ -6,11 +6,15 @@
 * `search_taxa` replaces `select_taxa` to reflect its use to search valid taxonomic information, with similar functionality to `search_fields` (#112)
 * `galah_filter`, `galah_select` and `galah_geolocate` replace `select_filters`, `select_columns` and `select_locations`. These syntax changes reflect a move towards consistency with `dplyr` naming and functionality (#101, #108)
 * `show_all_` prefix replaces `find_` prefix for functions that return complete lists of possible values (i.e., `show_all_profiles`, `show_all_ranks`, `show_all_atlases`, `show_all_cached_files`, `show_all_fields`, `show_all_reasons`) (#112, #113) 
-* Updated documentation and added warnings for deprecated functions (#113)
+* Updated R Markdown-style documentation and added warnings for deprecated functions (#113, #121)
 
 ### `galah_group_by`
 
 * Group fields using `atlas_counts(group_by = galah_group_by())` which groups and summarises record counts based on groupings, similar to `dplyr::group_by` (#90, #95)
+
+### `galah_down_to`
+
+* Select which taxonomic level a taxonomic tree will go down to with `galah_down_to()` + `atlas_taxonomy()`, which uses tidy evaluation like other `galah_` functions (#101, #120)
 
 ### Pipe queries using `galah_call`
 
