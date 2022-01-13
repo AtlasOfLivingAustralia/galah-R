@@ -148,7 +148,7 @@ galah_config <- function(..., profile_path = NULL) {
         glue("No .Rprofile file exists at \"{profile_path}\"."),
         i = "Please create fhe file and try again."
       )
-      rlang_abort(bullets)
+      abort(bullets, call = caller_env())
     }
     if (current_options$verbose) {
       inform(glue("The config will be stored in {profile_path}."))
@@ -244,10 +244,10 @@ quoted_options <- function(opts) {
   })
 }
 
-validate_option <- function(name, value) {
+validate_option <- function(name, value, error_call = caller_env()) {
   if (name %in% c("caching", "send_email", "verbose", "run_checks")) {
     if (!is.logical(value)) {
-      rlang_abort(glue("\"{name}\" must be TRUE or FALSE."))
+      abort(glue("\"{name}\" must be TRUE or FALSE."), call = error_call)
     }
   } else if (name == "cache_directory") {
     if (!dir.exists(value)) {
@@ -255,7 +255,7 @@ validate_option <- function(name, value) {
         "Cache directory does not exist.",
         i = "Does the directory entered exist?"
       )
-      rlang_abort(bullets)
+      abort(bullets, call = error_call)
     }
   } else if (name == "email") {
     if (!is.character(value)) {
@@ -263,7 +263,7 @@ validate_option <- function(name, value) {
         "Invalid email.",
         i = "Email must be entered as a string."
       )
-      rlang_abort(bullets)
+      abort(bullets, call = error_call)
     }
   } else if (name == "download_reason_id") {
     if (!(value %in% show_all_reasons()$id)) {
@@ -272,7 +272,7 @@ validate_option <- function(name, value) {
         i = "Use `show_all_reasons()` to see all valid reasons.",
         x = glue("{value} does not match an existing reason ID.")
       )
-      rlang_abort(bullets)
+      abort(bullets, call = error_call)
     }
   } else if (name == "atlas") {
     if (!value %in% show_all_atlases()$atlas) {
@@ -281,7 +281,7 @@ validate_option <- function(name, value) {
         i = glue("Use `show_all_atlases()` to see supported atlases."),
         x = glue("\"{value}\" is not a valid atlas.")
       )
-      rlang_abort(bullets)
+      abort(bullets, call = error_call)
     }
   } else {
     bullets <- c(
@@ -289,11 +289,11 @@ validate_option <- function(name, value) {
       i = "See `?galah_config()` for valid options.",
       x = glue("\"{name}\" is not a valid option name.")
     )
-    rlang_abort(bullets)
+    abort(bullets, call = error_call)
   }
 }
 
-convert_reason <- function(reason) {
+convert_reason <- function(reason, error_call = caller_env()) {
   ## unexported function to convert string reason to numeric id
   if (is.character(reason)) {
     valid_reasons <- show_all_reasons()
@@ -307,7 +307,7 @@ convert_reason <- function(reason) {
         i = "Use `show_all_reasons()` to see list of valid reasons.",
         x = glue("Couldn't match \"{reason}\" to a valid reason ID.")
       )
-      rlang_abort(bullets)
+      abort(bullets, call = error_call)
     })
   }
   reason

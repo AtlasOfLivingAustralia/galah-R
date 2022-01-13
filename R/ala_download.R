@@ -15,7 +15,8 @@ ala_download <- function(url, path, params = list(), ext = ".csv",
   )
 }
 
-internal_download <- function(url, path, params, ext, cache_file) {
+internal_download <- function(url, path, params, ext, cache_file, 
+                              error_call = caller_env()) {
   assert_that(is.character(url))
   cli <- HttpClient$new(
     url = url,
@@ -32,7 +33,7 @@ internal_download <- function(url, path, params, ext, cache_file) {
       i = "Please enter a valid directory and try again.",
       x = glue("{directory} does not exist.")
     )
-    rlang_abort(bullets)
+    abort(bullets, call = error_call)
   }
 
   # ws needs to be added for 

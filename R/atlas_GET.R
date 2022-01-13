@@ -24,7 +24,8 @@ atlas_GET <- function(url, path, params = list(), on_error = NULL,
 
 internal_GET <- function(url, path, params = list(), on_error = NULL,
                     paginate = FALSE, limit = NULL, page_size = NULL,
-                    offset_param = 'offset') {
+                    offset_param = 'offset',
+                    error_call = caller_env()) {
   cli <- HttpClient$new(
     url = url,
     headers = list(
@@ -67,7 +68,8 @@ internal_GET <- function(url, path, params = list(), on_error = NULL,
     if (res$status_code != 200) {
       code_number <- res$status_code
       request_url <- res$request$url
-      rlang_abort(glue("Status code {code_number} returned for url {request_url}."))
+      abort(glue("Status code {code_number} returned for url {request_url}."),
+            call = error_call)
     }
   }
 

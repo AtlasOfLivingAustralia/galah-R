@@ -56,7 +56,7 @@ galah_geolocate <- function(...) {
       i = "galah_geolocate` only accepts a single area at a time.",
       x = glue("`galah_geolocate` has length of {n_geolocations}.")
     )
-    rlang_abort(bullets)
+    abort(bullets, call = caller_env())
   }
   
   # convert dots to query
@@ -90,26 +90,31 @@ galah_geolocate <- function(...) {
 }
 
 # build a valid wkt string from a spatial polygon
-build_wkt <- function(polygon) {
+build_wkt <- function(polygon, error_call = caller_env()) {
   if (st_geometry_type(polygon) == "POLYGON") {
     polygon <- st_cast(polygon, "MULTIPOLYGON")
   }
   wkt <- st_as_text(st_geometry(polygon))
   if (nchar(wkt) > 10000) {
-    stop("The area provided is too complex. Please simplify it and try again.")
+    abort("The area provided is too complex. Please simplify it and try again.",
+          call = error_call)
   }
   wkt
 }
 
-validate_wkt <- function(wkt) {
+validate_wkt <- function(wkt, error_call = caller_env()) {
   assert_that(is.string(wkt))
   max_char <- 10000
   if (nchar(wkt) > max_char) {
-    stop("The WKT string provided is greater than ", max_char,
-         " characters , please simplify and try again.")
+    bullets <- c(
+      "Invalid WKT detected.",
+      i = "The WKT string provided may be too big.",
+      x = "WKT string greater than {max_char} characters."
+    )
+    abort(bullets, call = error_call)
   }
   else if (!wellknown::lint(wkt)) {
-    warning("The WKT provided may be invalid.")
+    warn("The WKT provided may be invalid.")
   }
   # check that first and last point of match if object is a polygon
   else {
@@ -118,7 +123,7 @@ validate_wkt <- function(wkt) {
       first_coord <- trimws(str_split(str_split(wkt, "\\(\\(")[[1]][2], ",")[[1]][1])
       last_coord <- gsub("\\)\\)", "",trimws(tail(str_split(wkt, ",")[[1]], n = 1)))
       if (isFALSE(first_coord == last_coord)) {
-        warning("The first and last coordinates of the polygon provided may not be the same.")
+        warn("The first and last coordinates of the polygon provided may not be the same.")
       }
     }
   }

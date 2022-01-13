@@ -15,7 +15,7 @@ atlas_POST <- function(url, path, body = list(), encode = "form") {
   )  
 }
 
-internal_POST <- function(url, path, body, encode) {
+internal_POST <- function(url, path, body, encode, error_call = caller_env()) {
   cli <- HttpClient$new(
     url = url,
     headers = list(
@@ -26,7 +26,8 @@ internal_POST <- function(url, path, body, encode) {
   if (res$status_code != 200) {
     code_number <- res$status_code
     request_url <- res$request$url
-    rlang_abort(glue("Status code {code_number} returned for url {request_url}."))
+    abort(glue("Status code {code_number} returned for url {request_url}."),
+                call = error_call)
   }
   res$parse("UTF-8")
 }

@@ -41,24 +41,40 @@
 
 find_field_values <- function(field, limit = 20) {
   if (missing(field)) {
-    stop("`find_field_values` requires a field to search for")
+    bullets <- c(
+      "Nothing field detected.",
+      i = "Did you forget to add a field to search for?"
+    )
+    abort(bullets, call = caller_env())
   }
 
   if (!(field %in% all_fields()$name)) {
-    stop("\"", field,
-         "\" is not a valid field. See valid fields with `search_fields()`.")
+    bullets <- c(
+      "Invalid field detected.",
+      i = "Search for the valid name of a desired field with `search_fields()`.",
+      x = glue("\"{field}\" is not a valid field.")
+    )
+    abort(bullets, call = caller_env())
   }
   assert_that(is.numeric(limit))
   url <- server_config("records_base_url")
   resp <- atlas_GET(url, "occurrence/facets",
                     params = list(facets = field, flimit = limit))
   if(is.null(resp)){
-    inform("Calling the API failed for `find_field_values`")
+    bullets <- c(
+      "Calling the API failed for `atlas_taxonomy`.",
+      i = "This might mean that the ALA system is down. Double check that your query is correct."
+      )
+    inform(bullets)
     return(tibble())
   }else{
     if (resp$count > limit & galah_config()$verbose) {
-      warning("This field has ", resp$count, " possible values. Only the first ",
-      limit, " will be returned. Change `limit` to return more values.")
+      values <- resp$count
+      bullets <- c(
+        glue("This field has {values} possible values. Only the first {limit} will be returned."),
+        i = "Change `limit` to return more values."
+      )
+      warn(bullets)
     }
     category <- vapply(resp$fieldResult[[1]]$fq, function(n) {
       extract_category_value(n)

@@ -193,7 +193,7 @@ check_filter <- function(dots, error_call = caller_env()) {
         i = glue("This usually means that you've used `=` instead of `==`."),
         i = glue("Did you mean `{name} == {as_label(expr)}`?")
       )
-      rlang_abort(bullets)
+      abort(bullets, call = error_call)
     }   
   }
 }

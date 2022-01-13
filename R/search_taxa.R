@@ -72,7 +72,7 @@ search_taxa <- function(...) {
       i = glue("To search taxonomy for {international_atlas} use `taxize`."),
       i = "See vignette('international_atlases' for more information."
     )
-    rlang_abort(bullets)
+    abort(bullets, call = caller_env())
   }
   
   # check to see if any of the inputs are a data request
@@ -93,7 +93,7 @@ search_taxa <- function(...) {
       "Query is missing, with no default.",
       i = "`search_taxa` requires a query to search for."
     )
-    rlang_abort(bullets)
+    abort(bullets, call = caller_env())
   }
   # capture named inputs
   check_queries(dots) 
@@ -131,7 +131,7 @@ search_taxa <- function(...) {
 
 
 # checker function based on `galah_filter.R/check_filters`
-check_queries <- function(dots) {
+check_queries <- function(dots, error_call = caller_env()) {
   if(any(have_name(dots))){
     if(any(names(dots) == "children")){  # formerly an option under `select_taxa`   
       bullets <- c(
@@ -139,14 +139,14 @@ check_queries <- function(dots) {
         i = "See `?search_taxa` for more information.",
         x = "`children` is not a valid option"
       )
-      rlang_abort(bullets)     
+      abort(bullets, call = error_call)     
     }else{
       bullets <- c(
         "We detected a named input.",
         i = glue("This usually means that you've used `=` somewhere"),
         i = glue("`search_taxa` doesn't require equations")
       )
-      rlang_abort(bullets)
+      abort(bullets, call = error_call)
     }
   }
 }

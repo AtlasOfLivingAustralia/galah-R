@@ -35,14 +35,22 @@ find_profile_attributes <- function(profile) {
   # check if is numeric or can be converted to numeric
   short_name <- profile_short_name(profile)
   if (is.na(short_name)) {
-    stop(profile, " is not a valid data quality id, short name or name. Use
-          `show_all_profiles` to list valid profiles.")
+    bullets <- c(
+      "Invalid data quality ID.",
+      i = "Use `show_all_profiles` to see a listing of valid profiles.",
+      x = glue("{profile} is not a valid ID, short name or name.")
+    )
+    abort(bullets, call = caller_env())
   }
   url <- server_config("data_quality_base_url")
   resp <- atlas_GET(url, "api/v1/quality/activeProfile",
                   list(profileName = short_name))
   if(is.null(resp)){
-    inform("Calling the API failed for `find_profile_attributes`")
+    bullets <- c(
+      "Calling the API failed for `atlas_taxonomy`.",
+      i = "This might mean that the ALA system is down. Double check that your query is correct."
+    )
+    inform(bullets)
     tibble()
   }else{
     filters <- rbindlist(resp$categories$qualityFilters)

@@ -85,7 +85,7 @@ atlas_taxonomy.default <- function(taxa, down_to){
       i = glue("To search taxonomy for {international_atlas} use `taxize`."),
       i = "See vignette('international_atlases' for more information."
     )
-    rlang_abort(bullets)
+    abort(bullets, call = caller_env())
   }
  
   # error checking for `taxa`
@@ -94,7 +94,7 @@ atlas_taxonomy.default <- function(taxa, down_to){
       "Argument `taxa` is missing, with no default.",
       i = "Did you forget to specify a taxon?"
     )
-    rlang_abort(bullets)
+    abort(bullets, call = caller_env())
     }
     
   if (is.null(taxa)) {
@@ -102,7 +102,7 @@ atlas_taxonomy.default <- function(taxa, down_to){
       "Argument `taxa` is missing, with no default.",
       i = "Did you forget to specify a taxon?"
     )
-    rlang_abort(bullets)
+    abort(bullets, call = caller_env())
     }
 
   if(!inherits(taxa, "ala_id")){
@@ -111,7 +111,7 @@ atlas_taxonomy.default <- function(taxa, down_to){
       i = "Did you use `search_taxa` to search and/or taxon information? Is your query formatted correctly?",
       i = "See `?search_taxa` for more information."
     )
-    rlang_abort(bullets)
+    abort(bullets, call = caller_env())
     }
   
   if(nrow(taxa) > 1){
@@ -121,7 +121,7 @@ atlas_taxonomy.default <- function(taxa, down_to){
       i = "atlas_taxonomy` only accepts a single taxon at a time.",
       x = glue("`taxa` has length of {number_of_taxa}.")
     )
-    rlang_abort(bullets)
+    abort(bullets, call = caller_env())
   }
   
   # error checking for `down_to`
@@ -131,7 +131,7 @@ atlas_taxonomy.default <- function(taxa, down_to){
       i = "Did you forget to specify a taxonomic level?",
       i = "See `?galah_down_to` for more information."
     )
-    rlang_abort(bullets)
+    abort(bullets, call = caller_env())
   }
   if (is.null(down_to)) {
     bullets <- c(
@@ -139,7 +139,7 @@ atlas_taxonomy.default <- function(taxa, down_to){
       i = "Did you forget to specify a taxonomic level?",
       i = "See `?galah_down_to` for more information."
     )
-    rlang_abort(bullets)
+    abort(bullets, call = caller_env())
   }
   if(inherits(down_to, "galah_down_to")){
     down_to <- down_to$rank
@@ -152,7 +152,7 @@ atlas_taxonomy.default <- function(taxa, down_to){
       i = "The rank provided to `down_to` must be a valid taxonomic rank.",
       x = glue("{down_to} is not a valid rank.")
     )
-    rlang_abort(bullets)
+    abort(bullets, call = caller_env())
   }
   
   # extract required information from `taxa`

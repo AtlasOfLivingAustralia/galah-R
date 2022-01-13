@@ -35,7 +35,7 @@ show_all_atlases <- function() {
   return(as_tibble(df))
 }
 
-server_config <- function(url) {
+server_config <- function(url, error_call = caller_env()) {
   atlas <- getOption("galah_config")$atlas
   conf <- switch(atlas,
                   "Australia" = aus_config(),
@@ -58,8 +58,9 @@ server_config <- function(url) {
       "Guatemala" = "Guatemalan",
       "Spain" = "Spanish"
     )
-    rlang_abort(
-      glue("{service} is not supported for the {atlas_origin} atlas."))
+    abort(
+      glue("{service} is not supported for the {atlas_origin} atlas."),
+      call = error_call)
   }
   return(conf[[url]])
 }

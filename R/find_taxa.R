@@ -39,7 +39,7 @@ find_taxa <- function(identifier) {
       i = glue("To search taxonomy for {international_atlas} use `taxize`."),
       i = "See vignette('international_atlases' for more information."
     )
-    rlang_abort(bullets)
+    abort(bullets, call = caller_env())
   }
 
   if (missing(identifier)) {
@@ -47,7 +47,7 @@ find_taxa <- function(identifier) {
       "Argument `identifier` is missing, with no default.",
       i = "Did you forget to specify one or more identifiers?"
     )
-    rlang_abort(bullets)
+    abort(bullets, call = caller_env())
   }
   
   matches <- lapply(identifier, identifier_lookup)

@@ -33,7 +33,7 @@ show_all_cached_files <- function() {
                              "metadata.rds")
   if (!file.exists(metadata_path)) {
     directory <- getOption("galah_config")$cache_directory
-    inform("No cached file information was found in {directory}.")
+    inform(glue("No cached file information was found in {directory}."))
     return()
   }
   readRDS(metadata_path)
