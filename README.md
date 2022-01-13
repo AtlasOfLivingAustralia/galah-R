@@ -33,13 +33,15 @@ data at ALA is an occurrence record, based on the [‘Darwin
 Core’](https://dwc.tdwg.org) data standard.
 
 The `galah` package is named for the bird of the same name (*Eolophus
-roseicapilla*), a widely-distributed endemic Australian species.
-
-The `galah` logo was designed by [Ian
-Brennan](http://www.iangbrennan.org/).
+roseicapilla*), a widely-distributed endemic Australian species. The
+logo was designed by [Ian Brennan](http://www.iangbrennan.org/).
 
 If you have any comments, questions or suggestions, please [contact
 us](mailto:support@ala.org.au).
+
+<br>
+
+------------------------------------------------------------------------
 
 ## Getting started
 
@@ -49,6 +51,8 @@ us](mailto:support@ala.org.au).
 -   For an outline of the package structure, and a list of all the
     available functions, run `?galah` or view the [reference
     page](https://atlasoflivingaustralia.github.io/galah/reference/index.html).
+
+------------------------------------------------------------------------
 
 ## Installation
 
@@ -66,7 +70,7 @@ remotes::install_github("AtlasOfLivingAustralia/galah")
 ```
 
 On Linux you will first need to ensure that `libcurl` and `v8` (version
-\<= 3.15) are installed on your system — e.g. on Ubuntu/Debian, open a
+\<= 3.15) are installed on your system — e.g. on Ubuntu/Debian, open a
 terminal and do:
 
 ``` sh
@@ -88,46 +92,21 @@ citation(package = "galah")
 
 If you’re using occurrence data downloaded through `galah` in a
 publication, please generate a DOI and cite it. To request a DOI for a
-download of ocurrence record, set `mint_doi = TRUE` in a call to
+download of occurrence record, set `mint_doi = TRUE` in a call to
 `atlas_occurrences()`. To generate a citation for the downloaded
 occurrence records, pass the `data.frame` generated to
 `atlas_citation()`.
 
 ``` r
+# Download occurrence records with a DOI 
 occ <- atlas_occurrences(..., mint_doi = TRUE)
-doi <- attr(occ, "doi")
-cit <- ala_citation(occ)
+
+# See DOI
+attr(occ, "doi")
+
+# Generate citation
+atlas_citation(occ)
 ```
-
-## Contributing
-
-### Running tests
-
-Tests should be run locally on any new code changes before pushing to
-GitHub. When code is pushed, tests will also be run on Travis CI. The
-results of the remote tests are available
-[here](https://travis-ci.com/AtlasOfLivingAustralia/galah/).
-
-``` r
-# All tests
-devtools::test()
-
-# Individual files
-devtools::test_file()
-```
-
-### Writing tests
-
-Tests are in the `tests/testthat/` folder.
-[codecov](https://codecov.io/github/AtlasOfLivingAustralia/galah) gives
-the percentage of code covered by tests. Ideally this should stay above
-85%.
-
-### Updating the `pkgdown` site
-
-The [package homepage](https://atlasoflivingaustralia.github.io/galah/)
-is rebuilt and updated automatically whenever code is pushed/merged into
-the `master` branch.
 
 ### Other Living Atlases
 
