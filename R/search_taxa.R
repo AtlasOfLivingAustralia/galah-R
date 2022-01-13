@@ -22,15 +22,43 @@
 #' [galah_geolocate()] for other ways to restrict the information returned
 #' by [atlas_occurrences()] and related functions.
 #' [atlas_taxonomy()] to look up taxonomic trees.
-#' @examples
-#' # Search using a single term
-#' search_taxa("Reptilia")
 #' 
-#' # or equivalently:
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Search using a single term
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' search_taxa("Reptilia")
+#' ```
+#' 
+#' Note that `search_taxa()` is not case sensitive
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' search_taxa("reptilia") # not case sensitive
+#' ```
 #'
-#' # Search multiple taxa
-#' search_taxa(c("reptilia", "mammalia")) # returns one row per taxon
+#' Search multiple taxa. `search_taxa()` will return one row per taxon
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' search_taxa(c("reptilia", "mammalia"))
+#' ```
+#' 
+#' Use `search_taxa()` to narrow your data queries
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' atlas_counts(taxa = search_taxa("reptilia"))
+#' ```
+#' 
+#' You can also use `search_taxa()` with pipes, using either `%>%` or `|>`. 
+#' Just begin with [galah_call()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' galah_call() %>%
+#'   search_taxa("reptilia") %>%
+#'   atlas_counts()
+#' ```
 #' 
 #' @export
 search_taxa <- function(...) {

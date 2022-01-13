@@ -12,17 +12,27 @@
 #' @seealso [search_taxa()], [galah_filter()] and
 #' [galah_select()] for other ways to restrict the information
 #' returned by [atlas_occurrences()] and related functions.
-#' @examples
-#' \dontrun{
-#' # Search for records using a shapefile
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Search for records using a shapefile
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' galah_config(email = "your-email@email.com")
+#' 
 #' location <- galah_geolocate(st_read(path/to/shapefile))
 #' atlas_occurrences(geolocate = location)
+#' ```
 #' 
-#' # Search for records using a WKT
-#' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
-#' -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
+#' Search for records using a Well-known Text geometry (WKT)
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
+#' 
 #' atlas_counts(geolocate = galah_geolocate(wkt))
-#' }
+#' ```
 #' 
 #' @export
 galah_geolocate <- function(...) {

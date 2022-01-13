@@ -83,9 +83,9 @@
 #' Just begin your query with [galah_call()]
 #' 
 #' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
-#' records <- galah_call() |>
-#'   galah_filter(year > 2015) |>
-#'   galah_group_by(year, basisOfRecord) |>
+#' records <- galah_call() %>%
+#'   galah_filter(year > 2015) %>%
+#'   galah_group_by(year, basisOfRecord) %>%
 #'   atlas_counts()
 #' ```{r, comment = "#>", collapse = TRUE}
 #' records

@@ -10,10 +10,23 @@
 #' @seealso This function is helpful in setting up [galah_config()].
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
 #' valid download reasons, containing the id and name for each reason.
-#' @examples 
-#' \dontrun{
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Show a listing of all accepted reasons for downloading occurrence data
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' show_all_reasons()
-#' }
+#' ```
+#' 
+#' Add your download reason when configuring your session with [galah_config()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' galah_config(download_reason_id = 3)
+#' ```
+#' 
 #' @export
 show_all_reasons <- function() {
    

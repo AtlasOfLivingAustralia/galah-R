@@ -146,9 +146,9 @@ variables, similar to using \code{dplyr::group_by() \%>\% dplyr::count()}\if{htm
 }\if{html}{\out{</div>}}
 
 You can also filter and download record counts by piping with \verb{\%>\%} or \verb{|>}.
-Just begin your query with \code{\link[=galah_call]{galah_call()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
-  galah_filter(year > 2015) |>
-  galah_group_by(year, basisOfRecord) |>
+Just begin your query with \code{\link[=galah_call]{galah_call()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() \%>\%
+  galah_filter(year > 2015) \%>\%
+  galah_group_by(year, basisOfRecord) \%>\%
   atlas_counts()
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 41 x 3

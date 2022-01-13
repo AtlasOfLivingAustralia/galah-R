@@ -13,12 +13,6 @@ available ranks
 \description{
 Return taxonomic ranks recognised by the ALA.
 }
-\examples{
-\dontrun{
-show_all_ranks()
-}
-
-}
 \seealso{
 This function provides a
 reference that is useful when specifying the \code{down_to} argument of

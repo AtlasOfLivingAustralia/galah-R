@@ -12,16 +12,18 @@ available cached files, the function used to create them, and the filter
 object
 }
 \description{
-Uses query metadata stored in metadata.rds in the cache directory
+When using caching by setting \code{galah_config(caching = TRUE)}, show a list of
+all previously cached files. This function acheives this by using query
+metadata stored in metadata.rds in the cache directory
 }
-\examples{
-\dontrun{
-## Configure caching and create a query to cache
-galah_config(caching = TRUE)
+\section{Examples}{
+
+
+Configure caching and create a query to cache with \code{\link[=galah_config]{galah_config()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(caching = TRUE)
 dat <- atlas_counts(group_by = galah_group_by(year))
+}\if{html}{\out{</div>}}
 
-## list cached files
-show_all_cached_files()
+Show a listing of previously cached files\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_cached_files()
+}\if{html}{\out{</div>}}
 }
 
-}

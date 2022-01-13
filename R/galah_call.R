@@ -136,10 +136,10 @@ update_galah_call <- function(data_request, ...){
 }
 
 
-#' @rdname galah_call
-#' @name galah_call
+
 #' @keywords internal
 #' @export
+#' @rdname galah_call
 print.data_request <- function(object){
   filled_slots <- !unlist(lapply(object, is.null))
   if(any(filled_slots)){

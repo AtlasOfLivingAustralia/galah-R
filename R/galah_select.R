@@ -41,6 +41,41 @@
 #' [galah_geolocate()] for other ways to restrict the information returned
 #' by [atlas_occurrences()] and related functions; [atlas_counts()]
 #' for how to get counts by levels of variables returned by `galah_select`.
+#' 
+#' @section Examples: 
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Download occurrence records of *Perameles* taken in 2001, only returning 
+#' scientific name and event date
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' galah_config(email = "your-email@email.com")
+#' 
+#' atlas_occurrences(taxa = search_taxa("perameles"),
+#'                   filter = galah_filter(year == 2001),
+#'                   select = galah_select(scientificName, eventDate))
+#' ```
+#' 
+#' Download occurrence record of *Perameles* taken in 2001, returning the 
+#' "basic" group of columns plus the Basis of Record
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' atlas_occurrences(taxa = search_taxa("perameles"),
+#'                   filter = galah_filter(year == 2001),
+#'                   select = galah_select(group = "basic", basisOfRecord))
+#' ```
+#' 
+#' Use `galah_select()` with pipes, using either `%>%` or `|>`. Just begin with 
+#' [galah_call()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' galah_call() %>%
+#'   search_taxa("perameles") %>%
+#'   galah_select(group = "basic", basisOfRecord) %>%
+#'   atlas_occurrences()
+#' ```
+#' 
 #' @importFrom tidyselect eval_select
 #' @importFrom rlang as_label
 #' @importFrom tibble as_tibble

@@ -20,7 +20,7 @@ within an R session and cleared automatically when the user exits R.
 The user may wish to set this to a non-temporary directory for
 caching across sessions. The directory must exist on the file system.
 \item \code{download_reason_id} numeric or string: the "download reason" required.
-by some ALA services, either as a numeric ID (currently 0--11)
+by some ALA services, either as a numeric ID (currently 0--13)
 or a string (see \code{\link[=show_all_reasons]{show_all_reasons()}} for a list of valid ID codes and
 names). By default this is NA. Some ALA services require a valid
 download_reason_id code, either specified here or directly to the
@@ -57,11 +57,43 @@ provide a registered email address and reason for downloading data. The
 as possible.
 }
 \examples{
-\dontrun{
- galah_config()
+```{r, child = "man/rmd/setup.Rmd"}
+```
+
+To configure your session to allow you to download occurrence records, enter 
+your email in `galah_config()`. This email should be registered with the 
+ALA, which you can do 
+[here](https://auth.ala.org.au/userdetails/registration/createAccount)
+
+```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+ galah_config(email = "your-email@email.com")
+ ```
+ 
+ Turn on caching in your session
+ 
+ ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
  galah_config(caching = FALSE)
+ ```
+ 
+ It is required by some ALA services that you add a reason for downloading 
+ data. To look up all valid reasons to enter, use [show_all_reasons()]
+ 
+ ```{r, comment = "#>", collapse = TRUE}
  show_all_reasons()
- galah_config(download_reason_id = 0,verbose = TRUE)
-}
+ ```
+ 
+ Add your selected reason using the option `download_reason_id`
+ 
+ ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+ galah_config(download_reason_id = 0)
+```
+
+You can also make debugging in your session easier by setting 
+`verbose = TRUE`
+
+```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+galah_config(download_reason_id = 0,
+             verbose = TRUE)
+```
 
 }

@@ -35,45 +35,85 @@
 #' In some cases `R` will fail to parse inputs with a single equals sign 
 #' (`=`), particularly where statements are separated by `&` or 
 #' `|`. This problem can be avoided by using a double-equals (`==`) instead.
-#' @examples
-#' \dontrun{
-#' # Create a custom filter for records of interest
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Create a custom filter for records of interest
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' filters <- galah_filter(
 #'     basisOfRecord == "HumanObservation",
 #'     year >= 2010,
 #'     stateProvince == "New South Wales")
+#' ```
 #'
-#' # Add the default ALA data quality profile
+#' Add the default ALA data quality profile
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' filters <- galah_filter(
 #'     basisOfRecord == "HumanObservation",
 #'     year >= 2020,
 #'     stateProvince == "New South Wales",
 #'     profile = "ALA")
-#'     
-#' # Use filters to exclude particular values
-#' galah_filter(year >= 2010 & year != 2021)
+#' ```
+#'  
+#' Use filters to exclude particular values
 #' 
-#' # Separating statements with a comma is equivalent to an 'and' statement
+#' ```{r, comment = "#>", collapse = TRUE}
+#' filter <- galah_filter(year >= 2010 & year != 2021)
+#' 
+#' atlas_counts(filter = filter)
+#' ```
+#' 
+#' Separating statements with a comma is equivalent to an `AND` statement
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' galah_filter(year >= 2010 & year < 2020) # is the same as:
 #' galah_filter(year >= 2010, year < 2020)
+#' ```
 #' 
-#' # All statements must include the field name
+#' All statements must include the field name
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' galah_filter(year == 2010 | year == 2021) # this works (note double equals)
 #' galah_filter(year == c(2010, 2021)) # same as above 
 #' galah_filter(year == 2010 | 2021) # this fails
+#' ```
 #'
-#' # It is possible to use an object to specify required values
-#' # numeric example
+#' It is possible to use an object to specify required values
+#' numeric example
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' # Numeric example
+#' 
 #' year_value <- 2010
-#' galah_filter(year > year_value)
-#' # categorical example
+#' 
+#' galah_call() %>%
+#'   galah_filter(year > year_value) %>%
+#'   atlas_counts()
+#' ```
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' # Categorical example
+#' 
 #' basis_of_record <- c("HumanObservation", "MaterialSample")
-#' galah_filter(basisOfRecord == basis_of_record) 
+#' 
+#' galah_call() %>%
+#'   galah_filter(basisOfRecord == basis_of_record) %>%
+#'   atlas_counts()
+#' ```
 #'
-#' # solr supports range queries on text as well as numbers
-#' galah_filter(cl22 >= "Tasmania")
-#' # queries all Australian States & Territories alphabetically after "Tasmania"
-#' }
+#' `solr` supports range queries on text as well as numbers. The following 
+#' queries all Australian States and Territories alphabetically after "Tasmania"
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' galah_call() %>%
+#'   galah_filter(cl22 >= "Tasmania") %>%
+#'   atlas_counts()
+#' ```
+#' 
 #' @importFrom rlang as_label  
 #' @importFrom rlang caller_env         
 #' @importFrom rlang enquos
@@ -84,8 +124,6 @@
 #' @importFrom rlang parse_expr
 #' @importFrom rlang quo_get_expr
 #' @export
-
-# TODO: provide a useful error message for bad queries e.g. galah_filter(year == 2010 | 2021)
   
 galah_filter <- function(..., profile = NULL){
   

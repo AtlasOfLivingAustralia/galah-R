@@ -11,15 +11,23 @@
 #' @seealso This function gives viable profile names for passing to
 #' [galah_filter()]. For more detail on a given profile see
 #' [find_profile_attributes()].
-#' @examples 
-#' \dontrun{
-#' # Get available profiles
-#' profile_df <- show_all_profiles()
-#' # Values given in the 'shortName' column are accepted by select_filter(), i.e.
-#' galah_filter(profile == profile_df$shortName[1])
-#' # is equivalent to:
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Show a list of all available data quality profiles
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' show_all_profiles()
+#' ```
+#' 
+#' Values in the `shortName` column can be used with [galah_filter()] to 
+#' narrow your data query results
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' galah_filter(profile == "ALA")
-#' }
+#' ```
 #' 
 #' @export show_all_profiles
 show_all_profiles <- function() {

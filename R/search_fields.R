@@ -7,6 +7,36 @@
 #' @return if `query` is missing, an empty `data.frame`; otherwise 
 #' an object of class `tbl_df` and `data.frame` (aka a tibble) containing 
 #' fields that match the search query.
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Search for all fields that use include the word "date"
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' search_fields("date")
+#' ```
+#' 
+#' Search for all fields with the string "basisofrecord"
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' search_fields("basisofrecord")
+#' ```
+#' 
+#' Search for all fields that have information for "marine"
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' search_fields("marine") |> 
+#'   head() # only show first 5 results
+#' ```
+#' 
+#' Search for all Wordclim layers
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' search_fields("worldclim", type = "layers")
+#' ```
+#' 
 #' @rdname show_all_fields
 #' @export search_fields
 

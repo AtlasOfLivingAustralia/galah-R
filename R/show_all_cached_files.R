@@ -1,18 +1,29 @@
 #' List previously cached files
 #' 
-#' Uses query metadata stored in metadata.rds in the cache directory
+#' When using caching by setting `galah_config(caching = TRUE)`, show a list of 
+#' all previously cached files. This function acheives this by using query 
+#' metadata stored in metadata.rds in the cache directory
+#' 
 #' @return A `list` of 
 #' available cached files, the function used to create them, and the filter 
 #' object
-#' @examples
-#' \dontrun{
-#' ## Configure caching and create a query to cache
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Configure caching and create a query to cache with [galah_config()]
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' galah_config(caching = TRUE)
 #' dat <- atlas_counts(group_by = galah_group_by(year))
+#' ```
 #'
-#' ## list cached files
+#' Show a listing of previously cached files
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' show_all_cached_files()
-#' }
+#' ```
 #' 
 #' @export
 

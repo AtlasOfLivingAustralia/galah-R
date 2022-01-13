@@ -6,6 +6,17 @@
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
 #' Living Atlas information, including taxonomy
 #' source and information for each atlas.
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' See all supported atlases
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' show_all_atlases()
+#' ```
+#' 
 #' @export
 
 

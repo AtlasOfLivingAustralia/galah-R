@@ -35,17 +35,20 @@
 #' by the ALA. Layer ids are comprised of a prefix: 'el' for environmental
 #' (gridded) layers and 'cl' for contextual (polygon) layers,  followed by an
 #' id number.
-#' @examples
-#' \dontrun{
-#' # Return a data.frame containing all data on fields and layers
-#' all_fields <- show_all_fields()
 #' 
-#' # A 'global' search for a given term
-#' test <- search_fields("species")
-#'
-#' # Find all WorldClim layers
-#' worldclim <- search_fields("worldclim", type = "layers")
-#' }
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' See a listing of all valid fields and layers
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' show_all_fields()
+#' ```
+#' 
+#' Use this function with [search_fields()] to find fields and layers you wish 
+#' to use to filter your data queries
+#' 
 #' 
 #' @export show_all_fields
 

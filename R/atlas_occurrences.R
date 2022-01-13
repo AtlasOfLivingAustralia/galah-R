@@ -71,10 +71,10 @@
 #' begin your query with [galah_call()]
 #' 
 #' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
-#' galah_call() |>
-#'   search_taxa("Reptilia") |>
-#'   galah_filter(year >= 2010) |>
-#'   galah_geolocate(polygon) |>
+#' galah_call() %>%
+#'   search_taxa("Reptilia") %>%
+#'   galah_filter(year >= 2010) %>%
+#'   galah_geolocate(polygon) %>%
 #'   atlas_occurrences()
 #' ```
 #' 

@@ -22,19 +22,25 @@ WKT strings longer than 10000 characters will not be
 accepted by the ALA- so the sf object or WKT string may need to be
 simplified.
 }
-\examples{
-\dontrun{
-# Search for records using a shapefile
+\section{Examples}{
+
+
+Search for records using a shapefile\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+
 location <- galah_geolocate(st_read(path/to/shapefile))
 atlas_occurrences(geolocate = location)
+}\if{html}{\out{</div>}}
 
-# Search for records using a WKT
-wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \
--29.39064,142.36228 -29.39064,142.36228 -29.00703))"
+Search for records using a Well-known Text geometry (WKT)\if{html}{\out{<div class="sourceCode r">}}\preformatted{wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
+
 atlas_counts(geolocate = galah_geolocate(wkt))
+#> # A tibble: 1 x 1
+#>   count
+#>   <int>
+#> 1  3297
+}\if{html}{\out{</div>}}
 }
 
-}
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}}, \code{\link[=galah_filter]{galah_filter()}} and
 \code{\link[=galah_select]{galah_select()}} for other ways to restrict the information

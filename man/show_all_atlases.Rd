@@ -15,6 +15,22 @@ source and information for each atlas.
 galah supports downloading data from a number of International Living
 Atlases. Use this function to get a list of all currently supported atlases.
 }
+\section{Examples}{
+
+
+See all supported atlases\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_atlases()
+#> # A tibble: 6 x 3
+#>   atlas     taxonomy_source taxonomy_info                                                    
+#>   <chr>     <chr>           <chr>                                                            
+#> 1 Australia ALA             https://bie.ala.org.au/                                          
+#> 2 Austria   GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+#> 3 Guatemala GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+#> 4 Spain     GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+#> 5 Sweden    GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
+#> 6 UK        NBN             https://www.nhm.ac.uk/our-science/data/uk-species.html
+}\if{html}{\out{</div>}}
+}
+
 \seealso{
 This function is helpful in setting up \code{\link[=galah_config]{galah_config()}}.
 }

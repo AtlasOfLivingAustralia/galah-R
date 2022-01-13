@@ -18,11 +18,32 @@ change this you can do so with \code{\link[=galah_config]{galah_config()}}. Use 
 to view the list of download reason code and names. When specifying a reason,
 you can use either the download code or name.
 }
-\examples{
-\dontrun{
-show_all_reasons()
+\section{Examples}{
+
+
+Show a listing of all accepted reasons for downloading occurrence data\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_reasons()
+#> # A tibble: 13 x 2
+#>       id name                            
+#>    <int> <chr>                           
+#>  1     0 conservation management/planning
+#>  2     1 biosecurity management/planning 
+#>  3     2 environmental assessment        
+#>  4     3 education                       
+#>  5     4 scientific research             
+#>  6     5 collection management           
+#>  7     6 other                           
+#>  8     7 ecological research             
+#>  9     8 systematic research/taxonomy    
+#> 10    10 testing                         
+#> 11    11 citizen science                 
+#> 12    12 restoration/remediation         
+#> 13    13 species modelling
+}\if{html}{\out{</div>}}
+
+Add your download reason when configuring your session with \code{\link[=galah_config]{galah_config()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(download_reason_id = 3)
+}\if{html}{\out{</div>}}
 }
-}
+
 \seealso{
 This function is helpful in setting up \code{\link[=galah_config]{galah_config()}}.
 }

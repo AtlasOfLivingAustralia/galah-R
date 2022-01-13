@@ -45,46 +45,76 @@ In some cases \code{R} will fail to parse inputs with a single equals sign
 (\code{=}), particularly where statements are separated by \code{&} or
 \code{|}. This problem can be avoided by using a double-equals (\code{==}) instead.
 }
-\examples{
-\dontrun{
-# Create a custom filter for records of interest
-filters <- galah_filter(
+\section{Examples}{
+
+
+Create a custom filter for records of interest\if{html}{\out{<div class="sourceCode r">}}\preformatted{filters <- galah_filter(
     basisOfRecord == "HumanObservation",
     year >= 2010,
     stateProvince == "New South Wales")
+}\if{html}{\out{</div>}}
 
-# Add the default ALA data quality profile
-filters <- galah_filter(
+Add the default ALA data quality profile\if{html}{\out{<div class="sourceCode r">}}\preformatted{filters <- galah_filter(
     basisOfRecord == "HumanObservation",
     year >= 2020,
     stateProvince == "New South Wales",
     profile = "ALA")
-    
-# Use filters to exclude particular values
-galah_filter(year >= 2010 & year != 2021)
+}\if{html}{\out{</div>}}
 
-# Separating statements with a comma is equivalent to an 'and' statement
-galah_filter(year >= 2010 & year < 2020) # is the same as:
+Use filters to exclude particular values\if{html}{\out{<div class="sourceCode r">}}\preformatted{filter <- galah_filter(year >= 2010 & year != 2021)
+
+atlas_counts(filter = filter)
+#> # A tibble: 1 x 1
+#>      count
+#>      <int>
+#> 1 43853752
+}\if{html}{\out{</div>}}
+
+Separating statements with a comma is equivalent to an \code{AND} statement\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_filter(year >= 2010 & year < 2020) # is the same as:
 galah_filter(year >= 2010, year < 2020)
+}\if{html}{\out{</div>}}
 
-# All statements must include the field name
-galah_filter(year == 2010 | year == 2021) # this works (note double equals)
+All statements must include the field name\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_filter(year == 2010 | year == 2021) # this works (note double equals)
 galah_filter(year == c(2010, 2021)) # same as above 
 galah_filter(year == 2010 | 2021) # this fails
+}\if{html}{\out{</div>}}
 
-# It is possible to use an object to specify required values
-# numeric example
+It is possible to use an object to specify required values
+numeric example\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Numeric example
+
 year_value <- 2010
-galah_filter(year > year_value)
-# categorical example
-basis_of_record <- c("HumanObservation", "MaterialSample")
-galah_filter(basisOfRecord == basis_of_record) 
 
-# solr supports range queries on text as well as numbers
-galah_filter(cl22 >= "Tasmania")
-# queries all Australian States & Territories alphabetically after "Tasmania"
+galah_call() \%>\%
+  galah_filter(year > year_value) \%>\%
+  atlas_counts()
+#> # A tibble: 1 x 1
+#>      count
+#>      <int>
+#> 1 42750795
+}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Categorical example
+
+basis_of_record <- c("HumanObservation", "MaterialSample")
+
+galah_call() \%>\%
+  galah_filter(basisOfRecord == basis_of_record) \%>\%
+  atlas_counts()
+#> # A tibble: 1 x 1
+#>      count
+#>      <int>
+#> 1 82772897
+}\if{html}{\out{</div>}}
+
+\code{solr} supports range queries on text as well as numbers. The following
+queries all Australian States and Territories alphabetically after "Tasmania"\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
+  galah_filter(cl22 >= "Tasmania") \%>\%
+  atlas_counts()
+#> # A tibble: 1 x 1
+#>      count
+#>      <int>
+#> 1 30221084
+}\if{html}{\out{</div>}}
 }
-}
+
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} and \code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to restrict
 the information returned by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions. Use

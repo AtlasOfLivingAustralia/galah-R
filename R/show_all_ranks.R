@@ -7,10 +7,26 @@
 #' @seealso This function provides a
 #' reference that is useful when specifying the `down_to` argument of 
 #' [atlas_taxonomy()].
-#' @examples
-#' \dontrun{
+#' 
+#' @section
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Show a listing of all taxonomic ranks
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
 #' show_all_ranks()
-#' }
+#' ```
+#' 
+#' Use ranks with [galah_down_to()] and [atlas_taxonomy()] to get taxonomic 
+#' trees
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' galah_call() %>%
+#'   search_taxa("fungi") %>%
+#'   galah_down_to(subphylum) %>%
+#'   atlas_taxonomy()
+#' ```
 #' 
 #' @export show_all_ranks
 show_all_ranks <- function() {

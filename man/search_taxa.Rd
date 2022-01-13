@@ -28,17 +28,49 @@ proceeded to download data via \code{\link[=atlas_occurrences]{atlas_occurrences
 \code{data.frame} of taxonomic information can be passed directly to
 \code{atlas_} functions to filter records to the specified taxon or taxa.
 }
-\examples{
-# Search using a single term
-search_taxa("Reptilia")
+\section{Examples}{
 
-# or equivalently:
-search_taxa("reptilia") # not case sensitive
 
-# Search multiple taxa
-search_taxa(c("reptilia", "mammalia")) # returns one row per taxon
+Search using a single term\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("Reptilia")
+#> # A tibble: 1 x 9
+#>   search_term scientific_name taxon_concept_id                                                            rank  match_type kingdom  phylum  class issues
+#>   <chr>       <chr>           <chr>                                                                       <chr> <chr>      <chr>    <chr>   <chr> <chr> 
+#> 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chorda~ Rept~ noIss~
+}\if{html}{\out{</div>}}
 
+Note that \code{search_taxa()} is not case sensitive\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("reptilia") # not case sensitive
+#> # A tibble: 1 x 9
+#>   search_term scientific_name taxon_concept_id                                                            rank  match_type kingdom  phylum  class issues
+#>   <chr>       <chr>           <chr>                                                                       <chr> <chr>      <chr>    <chr>   <chr> <chr> 
+#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chorda~ Rept~ noIss~
+}\if{html}{\out{</div>}}
+
+Search multiple taxa. \code{search_taxa()} will return one row per taxon\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa(c("reptilia", "mammalia"))
+#> # A tibble: 2 x 10
+#>   search_term scientific_name taxon_concept_id                                          rank  match_type kingdom  phylum  class   issues vernacular_name
+#>   <chr>       <chr>           <chr>                                                     <chr> <chr>      <chr>    <chr>   <chr>   <chr>  <chr>          
+#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45f~ class exactMatch Animalia Chorda~ Reptil~ noIss~ <NA>           
+#> 2 mammalia    MAMMALIA        urn:lsid:biodiversity.org.au:afd.taxon:e9e7db31-04df-41f~ class exactMatch Animalia Chorda~ Mammal~ noIss~ Mammals
+}\if{html}{\out{</div>}}
+
+Use \code{search_taxa()} to narrow your data queries\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_counts(taxa = search_taxa("reptilia"))
+#> # A tibble: 1 x 1
+#>     count
+#>     <int>
+#> 1 1316451
+}\if{html}{\out{</div>}}
+
+You can also use \code{search_taxa()} with pipes, using either \verb{\%>\%} or \verb{|>}.
+Just begin with \code{\link[=galah_call]{galah_call()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
+  search_taxa("reptilia") \%>\%
+  atlas_counts()
+#> # A tibble: 1 x 1
+#>     count
+#>     <int>
+#> 1 1316451
+}\if{html}{\out{</div>}}
 }
+
 \seealso{
 \code{\link[=find_taxa]{find_taxa()}} for how to get names if taxonomic identifiers are
 already known. \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and

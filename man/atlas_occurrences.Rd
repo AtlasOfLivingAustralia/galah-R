@@ -90,10 +90,10 @@ occ <- atlas_occurrences(geolocate = galah_geolocate(polygon))
 }\if{html}{\out{</div>}}
 
 You can also download occurrence records by piping with \verb{\%>\%} or \verb{|>}. Just
-begin your query with \code{\link[=galah_call]{galah_call()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
-  search_taxa("Reptilia") |>
-  galah_filter(year >= 2010) |>
-  galah_geolocate(polygon) |>
+begin your query with \code{\link[=galah_call]{galah_call()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
+  search_taxa("Reptilia") \%>\%
+  galah_filter(year >= 2010) \%>\%
+  galah_geolocate(polygon) \%>\%
   atlas_occurrences()
 }\if{html}{\out{</div>}}
 }
