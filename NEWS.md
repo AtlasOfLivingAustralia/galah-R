@@ -27,7 +27,7 @@
 * Revamped syntax functions return output as tibbles (#110, #118)
 * Pass vectors to `galah_filter` (#91, #92)
 * Cache valid fields for faster field look up (#73, #116)
-* New vignettes for updated syntax (#104, #105)
+* New vignettes for updated syntax (#104, #105), plus improvements to previous vignettes.
 
 ### Bug fixes
 
