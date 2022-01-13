@@ -32,7 +32,7 @@ Return record counts since 2010 by year\if{html}{\out{<div class="sourceCode r">
     group_by = galah_group_by(year)
     )
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 12 × 2
+#> # A tibble: 12 x 2
 #>    year    count
 #>    <chr>   <int>
 #>  1 2020  5837785
@@ -54,20 +54,14 @@ Return record counts since 2010 by year and data provider\if{html}{\out{<div cla
     group_by = galah_group_by(year, dataResourceName)
     )
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 1,046 × 3
-#>    year  dataResourceName               count
-#>    <chr> <chr>                          <int>
-#>  1 2020  eBird Australia              4589800
-#>  2 2020  iNaturalist Australia         670608
-#>  3 2020  NSW BioNet Atlas              368522
-#>  4 2020  Earth Guardians Weekly Feed    71778
-#>  5 2020  SA Fauna (BDBSA)               36446
-#>  6 2020  SA Flora (BDBSA)               20215
-#>  7 2020  Canberra Nature Map            19449
-#>  8 2020  Butterflies Australia           7973
-#>  9 2020  Flora Atlas N.T.                7759
-#> 10 2020  Victorian Biodiversity Atlas    4171
-#> # … with 1,036 more rows
+#> # A tibble: 1,046 x 3
+#>   year  dataResourceName              count
+#>   <chr> <chr>                         <int>
+#> 1 2020  eBird Australia             4589800
+#> 2 2020  iNaturalist Australia        670608
+#> 3 2020  NSW BioNet Atlas             368522
+#> 4 2020  Earth Guardians Weekly Feed   71778
+#> # ... with 1,042 more rows
 }\if{html}{\out{</div>}}
 
 Return record counts of \emph{Litoria} species each year since 2015, limiting
@@ -77,20 +71,14 @@ results to the top 5 each year\if{html}{\out{<div class="sourceCode r">}}\prefor
     group_by = galah_group_by(year, species),
     limit = 5)
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 35 × 3
-#>    year  species            count
-#>    <chr> <chr>              <int>
-#>  1 2018  Litoria peronii    10497
-#>  2 2018  Litoria fallax      7013
-#>  3 2018  Litoria caerulea    3073
-#>  4 2018  Litoria verreauxii  2980
-#>  5 2018  Litoria ewingii     2884
-#>  6 2019  Litoria peronii     6600
-#>  7 2019  Litoria fallax      5769
-#>  8 2019  Litoria ewingii     2131
-#>  9 2019  Litoria verreauxii  2110
-#> 10 2019  Litoria tyleri      1627
-#> # … with 25 more rows
+#> # A tibble: 35 x 3
+#>   year  species            count
+#>   <chr> <chr>              <int>
+#> 1 2018  Litoria peronii    10497
+#> 2 2018  Litoria fallax      7013
+#> 3 2018  Litoria caerulea    3073
+#> 4 2018  Litoria verreauxii  2980
+#> # ... with 31 more rows
 }\if{html}{\out{</div>}}
 
 You can also use \code{galah_group_by} when piping with \verb{\%>\%} or \verb{|>}. Just begin
@@ -103,20 +91,14 @@ your query with \code{\link[=galah_call]{galah_call()}}.
   galah_group_by(year, species) |>
   atlas_counts(limit = 5)
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 35 × 3
-#>    year  species            count
-#>    <chr> <chr>              <int>
-#>  1 2018  Litoria peronii    10497
-#>  2 2018  Litoria fallax      7013
-#>  3 2018  Litoria caerulea    3073
-#>  4 2018  Litoria verreauxii  2980
-#>  5 2018  Litoria ewingii     2884
-#>  6 2019  Litoria peronii     6600
-#>  7 2019  Litoria fallax      5769
-#>  8 2019  Litoria ewingii     2131
-#>  9 2019  Litoria verreauxii  2110
-#> 10 2019  Litoria tyleri      1627
-#> # … with 25 more rows
+#> # A tibble: 35 x 3
+#>   year  species            count
+#>   <chr> <chr>              <int>
+#> 1 2018  Litoria peronii    10497
+#> 2 2018  Litoria fallax      7013
+#> 3 2018  Litoria caerulea    3073
+#> 4 2018  Litoria verreauxii  2980
+#> # ... with 31 more rows
 }\if{html}{\out{</div>}}
 }
 

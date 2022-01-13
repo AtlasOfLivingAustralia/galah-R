@@ -24,7 +24,7 @@ This function gives all of the arguments built into a specific profile.
 
 
 To find all the data quality arguments used in the profile "CSDM"\if{html}{\out{<div class="sourceCode r">}}\preformatted{find_profile_attributes("CSDM")
-#> # A tibble: 4 × 2
+#> # A tibble: 4 x 2
 #>   description                                                               filter                       
 #>   <chr>                                                                     <chr>                        
 #> 1 "Include only records where Spatial validity is \\"true\\""                 "spatiallyValid:\\"true\\""    

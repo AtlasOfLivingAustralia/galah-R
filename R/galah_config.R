@@ -46,7 +46,7 @@
 #' When `galah_config(...)` is called with arguments, nothing is returned
 #' but the configuration is set.
 #' 
-#' @examples
+#' @section Examples:
 #' ```{r, child = "man/rmd/setup.Rmd"}
 #' ```
 #' 
@@ -56,26 +56,26 @@
 #' [here](https://auth.ala.org.au/userdetails/registration/createAccount)
 #' 
 #' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
-#'  galah_config(email = "your-email@email.com")
-#'  ```
+#' galah_config(email = "your-email@email.com")
+#' ```
 #'  
-#'  Turn on caching in your session
+#' Turn on caching in your session
 #'  
-#'  ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
-#'  galah_config(caching = FALSE)
-#'  ```
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' galah_config(caching = FALSE)
+#' ```
 #'  
-#'  It is required by some ALA services that you add a reason for downloading 
-#'  data. To look up all valid reasons to enter, use [show_all_reasons()]
+#' It is required by some ALA services that you add a reason for downloading 
+#' data. To look up all valid reasons to enter, use [show_all_reasons()]
 #'  
-#'  ```{r, comment = "#>", collapse = TRUE}
-#'  show_all_reasons()
-#'  ```
+#' ```{r, comment = "#>", collapse = TRUE}
+#' show_all_reasons()
+#' ```
 #'  
-#'  Add your selected reason using the option `download_reason_id`
+#' Add your selected reason using the option `download_reason_id`
 #'  
-#'  ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
-#'  galah_config(download_reason_id = 0)
+#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' galah_config(download_reason_id = 0)
 #' ```
 #' 
 #' You can also make debugging in your session easier by setting 
