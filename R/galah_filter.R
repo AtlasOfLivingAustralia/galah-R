@@ -424,7 +424,7 @@ apply_profiles <- function(profile, named_filters, error_call = caller_env()) {
         i = glue("Use `find_profiles()` to list valid profiles"),
         x = glue("'{profile}' is not recognised.")
       )
-      rlang_abort(bullets)
+      abort(bullets, call = error_call)
     }
     profile_attr <- short_name
   }
