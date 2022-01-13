@@ -45,7 +45,7 @@ select_filters <- function(..., profile = NULL) {
 
 
 #' @description 
-#' Use [galah_location()] instead of `select_locations()`.
+#' Use [galah_geolocate()] instead of `select_locations()`.
 #'
 #' @keywords internal
 #' @export

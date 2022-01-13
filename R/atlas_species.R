@@ -1,7 +1,7 @@
 #' Return species lists
 #'
 #' While there are reasons why users may need to check every record meeting their
-#' search criteria (i.e. using [atlas_occurrences()()]), a common use case
+#' search criteria (i.e. using [atlas_occurrences()]), a common use case
 #' is to simply identify which species occur in a specified region, time period,
 #' or taxonomic group. This function returns a `data.frame` with one row
 #' per species, and columns giving associated taxonomic information.
