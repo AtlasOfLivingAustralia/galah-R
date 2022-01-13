@@ -1,17 +1,10 @@
 # Precompile vignettes to avoid risk of CRAN failures
 
-library(galah)
-galah_config(email = "email@email.com") # add your email
-
+# setup
 library(knitr)
-# knit("vignettes/galah.Rmd.orig", 
-#      "vignettes/galah.Rmd")
-# knit("vignettes/international_atlases.Rmd.orig",
-#      "vignettes/international_atlases.Rmd")
-# knit("vignettes/taxonomic_information.Rmd.orig",
-#      "vignettes/taxonomic_information.Rmd")
-# knit("vignettes/revamped_syntax.Rmd.orig",
-#      "vignettes/revamped_syntax.Rmd")
+library(galah)
+library(dplyr)
+# galah_config(email = "email@email.com") # add your email
 
 # workflow for automated detection and processing of vignettes
 folder <- "./vignettes/"
@@ -24,6 +17,6 @@ lapply(seq_along(selected_files), function(a){knit(
   out_files[[a]]
 )})
 
-# # to render to HTML:
+# # next steps
 # devtools::build_vignettes()
 # pkgdown::build_site()

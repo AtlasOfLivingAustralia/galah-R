@@ -7,33 +7,25 @@ template:
 
 navbar: 
   structure:
-    left: [home, reference, getstarted, articles]
+    left: [home, quickstart, articles, reference]
     right: [news, github]
   components:
-    introduction:
-      text: Introduction
-      menu:
-       - text: What is galah?
-         href: articles/what_is_galah.html
-       - text: Installation
-         href: articles/installation.html
-       - text: Package design
-         href: articles/package_design.html 
+    quickstart:
+      text: Quick start guide
+      href: articles/01_quick_start_guide.html
     articles:
       text: Articles
       menu: 
-      - text: Data types
-      - text: Occurrences, species, and counts
-        href: articles/occurrences_et_al.html
-      - text: Multimedia
-        href: articles/multimedia.html
-      - text: Taxonomic trees
-        href: articles/taxonomic_trees.html
-      - text: Queries      
-      - text: Taxonomic searches
-        href: articles/taxonomic_searches.html
-      - text: Filter, select & group_by
-        href: articles/filter_select_group_by.html   
+      - text: galah_ functions
+        href: articles/02_galah_functions.html
+      - text: show_all_ functions
+        href: articles/03_show_all_functions.html
+      - text: search_ functions
+        href: articles/04_search_functions.html
+      - text: atlas_ functions
+        href: articles/05_atlas_functions.html
+      - text: Syntax changes
+        href: articles/06_syntax_changes.html
     news:
       text: News
       href: news/index.html 

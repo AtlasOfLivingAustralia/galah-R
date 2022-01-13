@@ -1,0 +1,168 @@
+---
+title: "04 `search_` functions"
+author: "Martin Westgate & Dax Kellie"
+date: '2022-01-13'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{04 `search_` functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+# search_taxa
+`search_taxa` and `find_taxa` replace the previously named `select_taxa`.  
+  
+`search_taxa` now does what most people used `select_taxa` for most often, and 
+this its new name is intended to reflect the function's use - 
+it searches for taxonomic information. `search_taxa` uses fuzzy matching to work 
+a lot like the search bar on the [Atlas of Living Australia website](https://bie-ws.ala.org.au/), 
+and you can use it to search for taxa by name. Finding your desired taxa with 
+`search_taxa` is an important step to using this taxonomic information to download 
+data with `galah`.  
+  
+For example, to search for reptiles, we first need to identify whether we have 
+the correct query and verify using additional taxonomic information:
+
+
+```r
+search_taxa("Reptilia")
+```
+
+```
+## # A tibble: 1 × 9
+##   search_term scientific_name taxon_concept_id                                                            rank  match_type kingdom  phylum   class  issues
+##   <chr>       <chr>           <chr>                                                                       <chr> <chr>      <chr>    <chr>    <chr>  <chr> 
+## 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chordata Repti… noIss…
+```
+
+The output confirms that *Reptilia* is the correct search term, which we can use 
+in `atlas_` functions to narrow our results or records. Furthermore, the output 
+we get from `search_taxa` is consistent with the other `search_` function, 
+`search_fields`.
+
+If we want to be more specific by providing additional taxonomic information
+to `search_taxa`, you can provide a `data.frame` containing more levels of the
+taxonomic hierarchy:
+
+```r
+search_taxa(data.frame(genus = "Eolophus", kingdom = "Aves"))
+```
+
+```
+## # A tibble: 1 × 13
+##   search_term   scientific_name scientific_name_authorship taxon_concept_id             rank  match_type kingdom  phylum  class order  family genus issues
+##   <chr>         <chr>           <chr>                      <chr>                        <chr> <chr>      <chr>    <chr>   <chr> <chr>  <chr>  <chr> <chr> 
+## 1 Eolophus_Aves Eolophus        Bonaparte, 1854            urn:lsid:biodiversity.org.a… genus exactMatch Animalia Chorda… Aves  Psitt… Cacat… Eolo… noIss…
+```
+
+## Advanced taxonomic queries
+If you want to exclude taxa, or make more complex taxonomic queries, you can use
+ the more general `galah_filter` in combination with the `taxonConceptID` field.
+This can be useful for paraphyletic concepts such as invertebrates:
+
+
+```r
+galah_call() |>
+  galah_filter(
+     taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
+     taxonConceptID != search_taxa("Chordata")$taxon_concept_id
+  ) |>
+  galah_group_by(class) |>
+  atlas_counts()
+```
+
+```
+## # A tibble: 83 × 2
+##    class          count
+##    <chr>          <int>
+##  1 Insecta      3307548
+##  2 Gastropoda    837104
+##  3 Arachnida     525840
+##  4 Malacostraca  515797
+##  5 Maxillopoda   462743
+##  6 Polychaeta    256905
+##  7 Bivalvia      206137
+##  8 Anthozoa      163329
+##  9 Demospongiae  107498
+## 10 Ostracoda      56295
+## # … with 73 more rows
+```
+
+## Using taxonomic filters for another atlas
+`galah` only supports searching for Australian taxonomy; for other Atlases,
+`taxize` should be used to search for the taxonomic id, and this id can be passed
+to the `taxa` argument of `atlas_` functions. For example:
+
+```r
+library(taxize)
+# Use UK taxonomy
+id <- get_nbnid("Vulpes vulpes", rows = 1)
+```
+
+```
+## ══  1 queries  ═══════════════
+```
+
+```
+## 
+## Retrieving data for taxon 'Vulpes vulpes'
+```
+
+```
+## ✔  Found:  Vulpes vulpes
+## ══  Results  ═════════════════
+## 
+## • Total: 1 
+## • Found: 1 
+## • Not Found: 0
+```
+
+```r
+galah_filter(taxonConceptId = id) |> atlas_counts()
+```
+
+```
+## Error in validate_signal_message(message, class): object 'mesg' not found
+```
+
+# find_taxa
+A special case of `search_taxa` is when the taxon IDs are already known.
+
+NOTE: This is probably silly. Two use cases for find_taxa
+  - pipe known taxon ids into a chain ('galah_taxa'?), perhaps without lookup
+  - lookup information on known ids ()
+
+Alternatively, `find_taxa` replaces the previous ability of `select_taxa` to use 
+unique identifiers to identify taxa. `find_taxa` only accepts identifiers and, 
+unlike `search_taxa`, cannot be used to filter data queries:
+
+
+```r
+find_taxa("https://id.biodiversity.org.au/node/apni/2914510")
+```
+
+```
+## # A tibble: 1 × 13
+##   scientific_name     scientific_name_authorship taxon_concept_id         rank   match_type  kingdom phylum  class   order  family genus  species   issues
+##   <chr>               <chr>                      <chr>                    <chr>  <chr>       <chr>   <chr>   <chr>   <chr>  <chr>  <chr>  <chr>     <chr> 
+## 1 Eucalyptus blakelyi Maiden                     https://id.biodiversity… speci… taxonIdMat… Plantae Charop… Equise… Myrta… Myrta… Eucal… Eucalypt… noIss…
+```
+
+Instead, to use `find_taxa` results to filter queries, you can nest them 
+within `search_taxa`:
+
+
+```r
+taxa <- find_taxa("https://id.biodiversity.org.au/node/apni/2914510")
+atlas_counts(taxa = search_taxa(taxa))
+```
+
+```
+## # A tibble: 1 × 1
+##     count
+##     <int>
+## 1 1112798
+```
+
+# search_fields
+Doesn't need to be pipable, but should perhaps support select_ functions (like starts_with())
