@@ -1,11 +1,11 @@
 ---
-title: "05 `atlas_` functions"
+title: "04 Download data"
 author: "Martin Westgate & Dax Kellie"
-date: '`r Sys.Date()`'
+date: '2022-01-13'
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{05 `atlas_` functions}
+  %\VignetteIndexEntry{04 Download data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -29,18 +29,43 @@ functions are described below.
 `atlas_counts()` provides summary counts on records in the specified atlas, 
 without needing to download all the records. 
 
-```{r warning = FALSE}
+
+```r
 # Total number of records in the ALA
 atlas_counts()
+```
+
+```
+## # A tibble: 1 × 1
+##       count
+##       <int>
+## 1 101892823
 ```
 
 In addition to the filter arguments, it has an optional `group_by` argument, 
 which provides counts binned by the requested field.
 
-```{r warning = FALSE}
+
+```r
 galah_call() |>
   galah_group_by(kingdom) |>
   atlas_counts()
+```
+
+```
+## # A tibble: 10 × 2
+##    kingdom      count
+##    <chr>        <int>
+##  1 Animalia  76286044
+##  2 Plantae   21842728
+##  3 Fungi      1892947
+##  4 Chromista   915158
+##  5 Protista     67363
+##  6 Bacteria     58152
+##  7 Protozoa     23567
+##  8 Archaea       1103
+##  9 Eukaryota      735
+## 10 Virus          470
 ```
 
 
@@ -51,7 +76,8 @@ region, time period, or taxonomic group. `atlas_species()` is similar to
 in a `tibble`. It differs in not being able to return information on taxonomic 
 levels other than the species; but also in being more flexible by supporting filtering:
 
-```{r}
+
+```r
 species <- galah_call() |>
   search_taxa("Rodentia") |>
   galah_filter(stateProvince == "Northern Territory") |>
@@ -60,25 +86,34 @@ species <- galah_call() |>
 species |> head()
 ```
 
+```
+## # A tibble: 6 × 10
+##   kingdom  phylum   class    order    family  genus        species                     author  species_guid    vernacular_name
+##   <chr>    <chr>    <chr>    <chr>    <chr>   <chr>        <chr>                       <chr>   <chr>           <chr>          
+## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. … urn:lsid:biodi… Black-footed T…
+## 2 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thoma… urn:lsid:biodi… Common Rock-rat
+## 3 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite… urn:lsid:biodi… Sandy Inland M…
+## 4 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas… urn:lsid:biodi… Spinifex Hoppi…
+## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsa… urn:lsid:biodi… Grassland Melo…
+## 6 Animalia Chordata Mammalia Rodentia Muridae Mus          Mus musculus                Linnae… urn:lsid:biodi… House Mouse
+```
+
 
 # Occurrence data
 To download occurrence data you will need to specify your email in
 `galah_config()`. This email must be associated with an active ALA account. See
 more information in the [config section](#config)
-```{r include = FALSE}
-galah_config(email = "ala4r@ala.org.au",
-             atlas = "Australia", 
-             caching = FALSE, 
-             verbose = FALSE)
-```
 
-```{r eval = FALSE}
+
+
+```r
 galah_config(email = your_email_here, atlas = "Australia")
 ```
 
 Download occurrence records for *Eolophus roseicapilla*
 
-```{r}
+
+```r
 occ <- galah_call() |>
   search_taxa("Eolophus roseicapilla") |>
   galah_filter(
@@ -92,6 +127,18 @@ occ <- galah_call() |>
 occ |> head()
 ```
 
+```
+## # A tibble: 6 × 8
+##   decimalLatitude decimalLongitude eventDate   scientificName  taxonConceptID       recordID   dataResourceName  institutionID
+##             <dbl>            <dbl> <chr>       <chr>           <chr>                <chr>      <chr>             <chr>        
+## 1           -35.9             149. ""          Eolophus rosei… urn:lsid:biodiversi… 17f46d49-… eBird Australia   ""           
+## 2           -35.9             149. ""          Eolophus rosei… urn:lsid:biodiversi… ef2b9066-… eBird Australia   ""           
+## 3           -35.9             149. "2012-01-1… Eolophus rosei… urn:lsid:biodiversi… 4f7cd714-… BirdLife Austral… ""           
+## 4           -35.9             149. ""          Eolophus rosei… urn:lsid:biodiversi… 3236c470-… eBird Australia   ""           
+## 5           -35.8             149. ""          Eolophus rosei… urn:lsid:biodiversi… eec91d83-… eBird Australia   ""           
+## 6           -35.8             149. ""          Eolophus rosei… urn:lsid:biodiversi… e340c423-… eBird Australia   ""
+```
+
 
 # Media downloads
 In addition to text data describing individual occurrences and their attributes, 
@@ -99,7 +146,8 @@ ALA stores images, sounds and videos associated with a given record. These can
 be downloaded to `R` using `atlas_media()` and the same set of filters as the 
 other data download functions.
 
-```{r warning=FALSE, message=FALSE, eval = FALSE}
+
+```r
 media_data <- galah_call() |>
   search_taxa("Eolophus roseicapilla") |>
   galah_filter(year == 2020) |>
@@ -111,7 +159,8 @@ media_data <- galah_call() |>
 another using ALA's internal taxonomy. Specify which taxonomic level your tree 
 will go down to with `galah_down_to`.
 
-```{r warning = FALSE}
+
+```r
 classes <- galah_call() |>
   search_taxa("chordata") |>
   galah_down_to(class) |>
@@ -121,20 +170,53 @@ classes <- galah_call() |>
 This function is unique within `galah` as it is the only function that returns
 a `data.tree`, rather than a `tibble`. 
 
-```{r, echo = FALSE}
-classes
+
+```
+##                             levelName
+## 1  Chordata                          
+## 2   ¦--Cephalochordata               
+## 3   ¦   °--Amphioxi                  
+## 4   ¦--Craniata                      
+## 5   ¦   °--Agnatha                   
+## 6   ¦       ¦--Cephalasipidomorphi   
+## 7   ¦       °--Myxini                
+## 8   ¦--Tunicata                      
+## 9   ¦   ¦--Appendicularia            
+## 10  ¦   ¦--Ascidiacea                
+## 11  ¦   °--Thaliacea                 
+## 12  °--Vertebrata                    
+## 13      °--Gnathostomata             
+## 14          ¦--Amphibia              
+## 15          ¦--Aves                  
+## 16          ¦--Mammalia              
+## 17          ¦--Pisces                
+## 18          ¦   ¦--Actinopterygii    
+## 19          ¦   ¦--Chondrichthyes    
+## 20          ¦   ¦--Cephalaspidomorphi
+## 21          ¦   °--Sarcopterygii     
+## 22          °--Reptilia
 ```
 
 Although the tree format is useful, 
 converting to a `data.frame` is straightforward.
 
-```{r to-df}
-ToDataFrameTypeCol(classes, type = "rank") |> head()
 
+```r
+ToDataFrameTypeCol(classes, type = "rank") |> head()
+```
+
+```
+##   rank_phylum  rank_subphylum rank_superclass rank_informal          rank_class
+## 1    Chordata Cephalochordata            <NA>          <NA>            Amphioxi
+## 2    Chordata        Craniata         Agnatha          <NA> Cephalasipidomorphi
+## 3    Chordata        Craniata         Agnatha          <NA>              Myxini
+## 4    Chordata        Tunicata            <NA>          <NA>      Appendicularia
+## 5    Chordata        Tunicata            <NA>          <NA>          Ascidiacea
+## 6    Chordata        Tunicata            <NA>          <NA>           Thaliacea
 ```
 
 
-# Config
+# Configuring `galah`
 Various aspects of the galah package can be customized. To preserve
 configuration for future sessions, set `profile_path` to a location of a
 `.Rprofile` file.
@@ -143,7 +225,8 @@ configuration for future sessions, set `profile_path` to a location of a
 To download occurrence records, you will need to provide an email address
 registered with the ALA. You can create an account [here](https://auth.ala.org.au/userdetails/registration/createAccount).
 Once an email is registered with the ALA, it should be stored in the config:
-```{r eval=FALSE}
+
+```r
 galah_config(email = "myemail@gmail.com")
 ```
 
@@ -156,12 +239,14 @@ stored in a temporary directory that is automatically deleted when the R
 session is ended. This behaviour can be altered so that caching is permanent,
 by setting the caching directory to a non-temporary location.
 
-```{r eval=FALSE}
+
+```r
 galah_config(cache_directory = "example/dir")
 ```
 
 By default, caching is turned off. To turn caching on, run
-```{r eval=FALSE}
+
+```r
 galah_config(caching = FALSE)
 ```
 ## Setting the download reason
@@ -170,7 +255,8 @@ ALA requires that you provide a reason when downloading occurrence data
 "scientific research" by default, but you can change this using `galah_config()`. 
 See `show_all_reasons()` for valid download reasons.
 
-```{r eval=FALSE}
+
+```r
 galah_config(download_reason_id = your_reason_id)
 ```
 
@@ -179,6 +265,7 @@ If things aren't working as expected, more detail (particularly about web
 requests and caching behaviour) can be obtained by setting the `verbose` 
 configuration option:
 
-```{r eval=FALSE}
+
+```r
 galah_config(verbose = TRUE)
 ```

@@ -66,7 +66,7 @@ remotes::install_github("AtlasOfLivingAustralia/galah")
 ```
 
 On Linux you will first need to ensure that `libcurl` and `v8` (version
-\<= 3.15) are installed on your system — e.g. on Ubuntu/Debian, open a
+\<= 3.15) are installed on your system — e.g. on Ubuntu/Debian, open a
 terminal and do:
 
 ``` sh

@@ -1,11 +1,11 @@
 ---
-title: "06 Syntax changes"
+title: "05 Syntax changes"
 author: "Martin Westgate & Dax Kellie"
 date: '`r Sys.Date()`'
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{06 Syntax changes}
+  %\VignetteIndexEntry{05 Syntax changes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,8 +16,8 @@ Version 1.4.0 brings in three major changes in how `galah` works:
 - updated function naming
 - support for piping via `galah_call`
   
-Below we discuss each of these changes in turn. Note, however, that these changes
-are by no means set in stone - it is absolutely possible to 
+Below we discuss each of these changes in turn. Please note, however, that these 
+changes are by no means set in stone - it is absolutely possible to 
 change syntax in future versions of `galah` if alternative names are easier to 
 use and understand. We would appreciate any feedback from users about what works 
 or what doesn't work. It is our goal to create a package that is as easy and 
@@ -155,15 +155,13 @@ And a second example, of how to download occurrence records of bandicoots in
 2021, with coordinates:
   
 ```{r, eval = FALSE}
-# previously
 atlas_occurrences(taxa = search_taxa("perameles"),
                   filter = galah_filter(year == 2001),
                   select = galah_select(group = "basic", ZERO_COORDINATE))
 ```
 
-
+Now with piping:
 ```{r, eval = FALSE}
-# With piping
 galah_call() %>%
   search_taxa("perameles") %>%
   galah_filter(year == 2021) %>%

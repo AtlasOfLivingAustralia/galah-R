@@ -16,16 +16,14 @@ navbar:
     articles:
       text: Articles
       menu: 
-      - text: galah_ functions
-        href: articles/02_galah_functions.html
-      - text: show_all_ functions
-        href: articles/03_show_all_functions.html
-      - text: search_ functions
-        href: articles/04_search_functions.html
-      - text: atlas_ functions
-        href: articles/05_atlas_functions.html
+      - text: Narrow your results
+        href: articles/02_narrow_your_results.html
+      - text: Look up information
+        href: articles/03_look_up_information.html
+      - text: Download data
+        href: articles/04_download_data.html
       - text: Syntax changes
-        href: articles/06_syntax_changes.html
+        href: articles/05_syntax_changes.html
     news:
       text: News
       href: news/index.html 
