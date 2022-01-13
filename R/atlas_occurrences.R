@@ -268,7 +268,7 @@ wait_for_download <- function(url, query) {
 
 check_count <- function(count, error_call = caller_env()) {
   if (count == 0) {
-    rlang_abort("This query does not match any records.")
+    abort("This query does not match any records.", call = error_call)
   } else if (count > 50000000) {
     bullets <- c(
       "Your data request was too large.",
