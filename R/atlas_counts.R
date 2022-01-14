@@ -92,13 +92,29 @@
 #' ```
 #' 
 #' @export
-atlas_counts <- function(...) {
+atlas_counts <- function(request, 
+                         taxa = NULL, 
+                         filter = NULL, 
+                         geolocate = NULL,
+                         group_by = NULL, 
+                         limit = 100,
+                         type = c("record" ,"species"),
+                         refresh_cache = FALSE,
+                         ...) {
   UseMethod("atlas_counts")
 }
 
 #' @export
 #' @rdname atlas_counts
-atlas_counts.data_request <- function(request, ...) {
+atlas_counts.data_request <- function(request, 
+                                      taxa = NULL, 
+                                      filter = NULL, 
+                                      geolocate = NULL,
+                                      group_by = NULL, 
+                                      limit = 100,
+                                      type = c("record" ,"species"),
+                                      refresh_cache = FALSE,
+                                      ...) {
   current_call <- update_galah_call(request, ...) 
   # subset to only those arguments that can be accepted by atlas_counts
   custom_call <- current_call[
@@ -109,13 +125,15 @@ atlas_counts.data_request <- function(request, ...) {
 
 #' @export
 #' @rdname atlas_counts
-atlas_counts.default <- function(taxa = NULL, 
+atlas_counts.default <- function(request, 
+                                 taxa = NULL, 
                                  filter = NULL, 
                                  geolocate = NULL,
                                  group_by = NULL, 
                                  limit = 100,
                                  type = c("record" ,"species"),
-                                 refresh_cache = FALSE) {
+                                 refresh_cache = FALSE,
+                                 ...) {
 
   type <- match.arg(type)
   verbose <- getOption("galah_config")$verbose
@@ -186,8 +204,8 @@ atlas_counts.default <- function(taxa = NULL,
     # turn off validation, because 1. it's already done, and 2. it's slow
     initial_check_state <- getOption("galah_config")$run_checks
     if(initial_check_state){
-      galah_config(run_checks = FALSE)
-      on.exit(galah_config(run_checks = TRUE)) # correct placement?
+      galah_config(run_checks = FALSE, verbose = FALSE)
+      on.exit(galah_config(run_checks = TRUE, verbose = TRUE)) # correct placement?
     }
     
     # run `atlas_counts_internal` the requisite number of times

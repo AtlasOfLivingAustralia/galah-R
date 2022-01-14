@@ -79,13 +79,29 @@
 #' ```
 #' 
 #' @export
-atlas_occurrences <- function(...) {
+atlas_occurrences <- function(request, 
+                              taxa = NULL, 
+                              filter = NULL, 
+                              geolocate = NULL,
+                              select = galah_select(group = "basic"),
+                              mint_doi = FALSE, 
+                              doi, 
+                              refresh_cache = FALSE,
+                              ...) {
   UseMethod("atlas_occurrences")
 }
 
 #' @export
 #' @rdname atlas_occurrences
-atlas_occurrences.data_request <- function(request, ...) {
+atlas_occurrences.data_request <- function(request, 
+                                           taxa = NULL, 
+                                           filter = NULL, 
+                                           geolocate = NULL,
+                                           select = galah_select(group = "basic"),
+                                           mint_doi = FALSE, 
+                                           doi, 
+                                           refresh_cache = FALSE, 
+                                           ...) {
   current_call <- update_galah_call(request, ...) 
   custom_call <- current_call[
     names(current_call) %in% names(formals(atlas_occurrences.default))]
@@ -94,13 +110,15 @@ atlas_occurrences.data_request <- function(request, ...) {
 
 #' @export
 #' @rdname atlas_occurrences
-atlas_occurrences.default <- function(taxa = NULL, 
-                              filter = NULL, 
-                              geolocate = NULL,
-                              select = galah_select(group = "basic"),
-                              mint_doi = FALSE, 
-                              doi, 
-                              refresh_cache = FALSE) {
+atlas_occurrences.default <- function(request, 
+                                      taxa = NULL, 
+                                      filter = NULL, 
+                                      geolocate = NULL,
+                                      select = galah_select(group = "basic"),
+                                      mint_doi = FALSE, 
+                                      doi, 
+                                      refresh_cache = FALSE,
+                                      ...) {
 
   verbose <- getOption("galah_config")$verbose
   assert_that(is.logical(mint_doi))
@@ -143,7 +161,11 @@ atlas_occurrences.default <- function(taxa = NULL,
     }
   }
   
-  # Add select to query
+  # Add select default to query when piped
+  if(is.null(select)) {
+    select <- galah_select(group = "basic")
+  }
+  
   assertion_select <- select[select$type == "assertions", ]
   query$fields <- build_columns(select[select$type != "assertions", ])
   query$qa <- build_assertion_columns(assertion_select)

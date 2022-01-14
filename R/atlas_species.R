@@ -57,13 +57,23 @@
 #' ```
 #' 
 #' @export
-atlas_species <- function(...) {
+atlas_species <- function(request,
+                          taxa = NULL, 
+                          filter = NULL, 
+                          geolocate = NULL,
+                          refresh_cache = FALSE,
+                          ...) {
   UseMethod("atlas_species")
 }
 
 #' @export
 #' @rdname atlas_species
-atlas_species.data_request <- function(request, ...) {
+atlas_species.data_request <- function(request,
+                                       taxa = NULL, 
+                                       filter = NULL, 
+                                       geolocate = NULL,
+                                       refresh_cache = FALSE,
+                                       ...) {
   current_call <- update_galah_call(request, ...) 
   custom_call <- current_call[
     names(current_call) %in% names(formals(atlas_species.default))]
@@ -72,10 +82,12 @@ atlas_species.data_request <- function(request, ...) {
 
 #' @export
 #' @rdname atlas_species
-atlas_species.default <- function(taxa = NULL, 
-                          filter = NULL, 
-                          geolocate = NULL,
-                          refresh_cache = FALSE) {
+atlas_species.default <- function(request, 
+                                  taxa = NULL, 
+                                  filter = NULL, 
+                                  geolocate = NULL,
+                                  refresh_cache = FALSE,
+                                  ...) {
   # check whether species download is possible
   species_url <- server_config("species_base_url")
 

@@ -61,13 +61,19 @@
 #' ```
 #' 
 #' @export
-atlas_taxonomy <- function(...) {
+atlas_taxonomy <- function(request,
+                           taxa, 
+                           down_to,
+                           ...) {
   UseMethod("atlas_taxonomy")
 }
 
 #' @export
 #' @rdname atlas_taxonomy
-atlas_taxonomy.data_request <- function(request, ...) {
+atlas_taxonomy.data_request <- function(request,
+                                        taxa, 
+                                        down_to,
+                                        ...) {
   current_call <- update_galah_call(request, ...) 
   custom_call <- current_call[
     names(current_call) %in% names(formals(atlas_taxonomy.default))]
@@ -76,7 +82,10 @@ atlas_taxonomy.data_request <- function(request, ...) {
 
 #' @export
 #' @rdname atlas_taxonomy
-atlas_taxonomy.default <- function(taxa, down_to){
+atlas_taxonomy.default <- function(request,
+                                   taxa, 
+                                   down_to,
+                                   ...){
 
   if (getOption("galah_config")$atlas != "Australia") {
     international_atlas <- getOption("galah_config")$atlas

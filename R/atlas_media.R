@@ -75,13 +75,27 @@
 #' ```
 #' 
 #' @export
-atlas_media <- function(...) {
+atlas_media <- function(request,
+                        taxa = NULL, 
+                        filter = NULL, 
+                        geolocate = NULL,
+                        select = galah_select(group = "basic"), 
+                        download_dir,
+                        refresh_cache = FALSE,
+                        ...) {
   UseMethod("atlas_media")
 }
 
 #' @export
 #' @rdname atlas_media
-atlas_media.data_request <- function(request, ...) {
+atlas_media.data_request <- function(request,
+                                     taxa = NULL, 
+                                     filter = NULL, 
+                                     geolocate = NULL,
+                                     select = galah_select(group = "basic"), 
+                                     download_dir,
+                                     refresh_cache = FALSE,
+                                     ...) {
   current_call <- update_galah_call(request, ...) 
   custom_call <- current_call[
     names(current_call) %in% names(formals(atlas_media.default))]
@@ -90,12 +104,14 @@ atlas_media.data_request <- function(request, ...) {
 
 #' @export
 #' @rdname atlas_media
-atlas_media.default <- function(taxa = NULL, 
-                        filter = NULL, 
-                        geolocate = NULL,
-                        select = galah_select(group = "basic"), 
-                        download_dir,
-                        refresh_cache = FALSE) {
+atlas_media.default <- function(request, 
+                                taxa = NULL, 
+                                filter = NULL, 
+                                geolocate = NULL,
+                                select = galah_select(group = "basic"), 
+                                download_dir,
+                                refresh_cache = FALSE,
+                                ...) {
 
   image_url <- server_config("images_base_url")  
   verbose <- getOption("galah_config")$verbose
@@ -137,6 +153,11 @@ atlas_media.default <- function(taxa = NULL,
   occ_filter <- rbind(
     filter[!(filter_available), ],
     galah_filter(multimedia == c("Image", "Sound", "Video")))
+  
+  # # Add select default to query when piped
+  # if(is.null(select)) {
+  #   select <- galah_select(group = "basic")
+  # }
   
   # Make sure media ids are included in results
   occ_columns <- rbind(
