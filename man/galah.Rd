@@ -29,7 +29,7 @@ quality-control criteria.
 
 \strong{Narrow your results}
 \itemize{
-\item \code{\link[=search_taxa]{search_taxa()}} Search for taxonomic identifiers
+\item \code{\link[=galah_identify]{galah_identify()}} Search for taxonomic identifiers
 \item \code{\link[=galah_filter]{galah_filter()}} Filter records
 \item \code{\link[=galah_select]{galah_select()}} Fields to report information for
 \item \code{\link[=galah_group_by]{galah_group_by()}} Fields to group counts by
@@ -48,14 +48,16 @@ quality-control criteria.
 
 \strong{Look up information}
 \itemize{
-\item \code{\link[=search_fields]{search_fields()}} \code{\link[=show_all_fields]{show_all_fields()}} List fields to filter or categorise searches
+\item \code{\link[=search_taxa]{search_taxa()}} Search for taxa using a text-search
+\item \code{\link[=search_identifiers]{search_identifiers()}} Search for taxa using taxonomic identifiers
+\item \code{\link[=search_fields]{search_fields()}} Search for specific valid fields to filter queries
+\item \code{\link[=search_field_values]{search_field_values()}} Search for possible values to filter by for a given field
+\item \code{\link[=search_profile_attributes]{search_profile_attributes()}} List the quality filters of a data quality profile
+\item \code{\link[=show_all_fields]{show_all_fields()}} List valid fields to filter or categorise queries
 \item \code{\link[=show_all_profiles]{show_all_profiles()}} List data quality profiles
 \item \code{\link[=show_all_reasons]{show_all_reasons()}} List valid download reasons
 \item \code{\link[=show_all_atlases]{show_all_atlases()}} List supported international atlases
 \item \code{\link[=show_all_ranks]{show_all_ranks()}} List available taxonomic ranks
-\item \code{\link[=find_taxa]{find_taxa()}} List information for a given taxonomic identifier
-\item \code{\link[=find_field_values]{find_field_values()}} List possible values for a given field
-\item \code{\link[=find_profile_attributes]{find_profile_attributes()}} List filters included in a data quality profile
 }
 
 \strong{Manage cache}
@@ -104,7 +106,8 @@ Again, the function suffix reveals what each one does. \code{galah_filter},
 \code{filter()} and \code{group_by} functions, both in their name and how they they are
 used. For example, you can use \code{\link[=galah_select]{galah_select()}} to choose what information
 is returned as columns. Alternatively, you can use \code{\link[=galah_filter]{galah_filter()}} to filter
-the rows. You can also choose a specific location using \code{\link[=galah_geolocate]{galah_geolocate()}}.
+the rows. You can also choose specific taxa with \code{\link[=galah_identify]{galah_identify()}} or choose
+a specific location using \code{\link[=galah_geolocate]{galah_geolocate()}}.
 By combining different filter functions, it is possible to build complex
 queries to return only the most valuable information for a given problem.
 
@@ -145,7 +148,7 @@ function; the arguments within that function then call correspondingly-named
 \code{galah_} functions; specific values that can be interpreted by those \code{galah_}
 functions are given by functions with the prefix \code{search_} or
 \code{show_all_}; desired taxa can be also be identified using \code{\link[=search_taxa]{search_taxa()}} and
-passed to the \code{taxa} argument of \code{atlas_} functions.
+passed within \code{\link[=galah_identify]{galah_identify()}} to the \code{taxa} argument of \code{atlas_} functions.
 }
 
 \references{

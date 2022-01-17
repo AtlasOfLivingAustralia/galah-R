@@ -1,4 +1,4 @@
-#' List valid options for a categorical field
+#' Search for valid options of a categorical field
 #'
 #' When building a set of filters with [galah_filter()], a user can
 #' use this function to check that the values provided are valid options.
@@ -17,14 +17,14 @@
 #' "basisOfRecord"
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' find_field_values("basisOfRecord")
+#' search_field_values("basisOfRecord")
 #' ```
 #' 
 #' Find valid values to filter or categorise results for the field 
 #' "stateProvince"
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' find_field_values("stateProvince")
+#' search_field_values("stateProvince")
 #' ```
 #' 
 #' Use these values to with [galah_filter()] tp filter results of `atlas_` 
@@ -37,9 +37,9 @@
 #'   atlas_counts()
 #' ```
 #' 
-#' @export find_field_values
+#' @export search_field_values
 
-find_field_values <- function(field, limit = 20) {
+search_field_values <- function(field, limit = 20) {
   if (missing(field)) {
     bullets <- c(
       "Nothing field detected.",

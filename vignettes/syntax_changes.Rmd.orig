@@ -62,7 +62,7 @@ filter a `data.frame` with the `tidyverse` suite of functions.
 Prior to version 1.4.0, `galah` naming conventions had two major problems:
 
 - download functions used the prefix `ala`, but actually could query many other living atlases
-- query modifying functions used the prefix `select`, but this is reserved in `dplyr` (and elsewhere) for operations on rows
+- query modifying functions used the prefix `select`, but this is reserved in `dplyr` (and elsewhere) for operations specifically on columns
 
 To address these concerns (and other smaller points), we have completed a 
 rewrite of our function names to increase clarity (see table below).
@@ -94,14 +94,16 @@ tribble(
   "ala_taxonomy", "atlas_taxonomy", 
   "ala_citation", "atlas_citation", 
   
-  "select_taxa", "search_taxa & find_taxa", 
+  "select_taxa", "search_taxa, find_taxa & galah_identify", 
   "search_fields", "search_fields",
-  "", "show_all_fields", 
+  " ", "show_all_fields", 
   "find_profiles", "show_all_profiles", 
   "find_ranks", "show_all_ranks", 
   "find_atlases", "show_all_atlases", 
   "find_reasons", "show_all_reasons",
-  "find_cached_files", "show_all_cached_files"
+  "find_cached_files", "show_all_cached_files",
+  "find_field_values", "search_field_values",
+  "find_profile_attributes", "search_profile_attributes"
   
 ) %>% 
   rename("galah 1.4.0" = "New") %>% 
@@ -112,7 +114,7 @@ tribble(
   row_spec(1, bold = T, color = "#f064a4") %>%
   row_spec(2:6, bold = T, color = "#E06E53") %>%
   row_spec(7:12, bold = T, color = "#c7902a") %>%
-  row_spec(13:20, bold = T, color = "#7f9959")
+  row_spec(13:22, bold = T, color = "#7f9959")
 ```
 
 # Piping with `galah_call()`
@@ -123,9 +125,8 @@ using `galah_call()`.
 Beginning a query with `galah_call()` (be sure to add the parentheses!) tells 
 `galah` that you will be using pipes to construct your query. Follow this with 
 your preferred pipe (`|>` from `base` or `%>%` from `magrittr`). You can then 
-narrow your query with line-by-line using `galah_` functions or the `search_taxa` 
-function. Finally, end with an `atlas_` function to identify what type of data
-you want from your query.  
+narrow your query line-by-line using `galah_` functions. Finally, end with an 
+`atlas_` function to identify what type of data you want from your query.  
   
 Unlike old function names, which will be removed from future versions, we do intend to 
 continue supported un-piped syntax in future, although piping only works with 

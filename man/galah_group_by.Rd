@@ -35,31 +35,33 @@ Return record counts since 2010 by year\if{html}{\out{<div class="sourceCode r">
 #> # A tibble: 12 x 2
 #>    year    count
 #>    <chr>   <int>
-#>  1 2020  5837785
-#>  2 2019  5504270
+#>  1 2020  5841880
+#>  2 2019  5505407
 #>  3 2018  5413796
 #>  4 2017  4645785
 #>  5 2016  3842809
 #>  6 2014  3762501
 #>  7 2015  3602542
 #>  8 2013  3500108
-#>  9 2012  2929729
+#>  9 2012  2929728
 #> 10 2011  2535018
-#> 11 2021  1154055
-#> 12 2022    22397
+#> 11 2021  1155614
+#> 12 2022    22398
 }\if{html}{\out{</div>}}
 
 Return record counts since 2010 by year and data provider\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- atlas_counts(
     filter = galah_filter(year > 2010),
     group_by = galah_group_by(year, dataResourceName)
     )
+#> These configuration options will only be saved for this session.
+#>     Set `preserve = TRUE` to preserve them for future sessions.
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 1,046 x 3
 #>   year  dataResourceName              count
 #>   <chr> <chr>                         <int>
 #> 1 2020  eBird Australia             4589800
 #> 2 2020  iNaturalist Australia        670608
-#> 3 2020  NSW BioNet Atlas             368522
+#> 3 2020  NSW BioNet Atlas             372617
 #> 4 2020  Earth Guardians Weekly Feed   71778
 #> # ... with 1,042 more rows
 }\if{html}{\out{</div>}}
@@ -70,6 +72,8 @@ results to the top 5 each year\if{html}{\out{<div class="sourceCode r">}}\prefor
     filter = galah_filter(year > 2015),
     group_by = galah_group_by(year, species),
     limit = 5)
+#> These configuration options will only be saved for this session.
+#>     Set `preserve = TRUE` to preserve them for future sessions.
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 35 x 3
 #>   year  species            count
@@ -90,15 +94,17 @@ your query with \code{\link[=galah_call]{galah_call()}}.
   galah_filter(year > 2015) |>
   galah_group_by(year, species) |>
   atlas_counts(limit = 5)
+#> These configuration options will only be saved for this session.
+#>     Set `preserve = TRUE` to preserve them for future sessions.
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 35 x 3
+#> # A tibble: 341 x 3
 #>   year  species            count
 #>   <chr> <chr>              <int>
 #> 1 2018  Litoria peronii    10497
 #> 2 2018  Litoria fallax      7013
 #> 3 2018  Litoria caerulea    3073
 #> 4 2018  Litoria verreauxii  2980
-#> # ... with 31 more rows
+#> # ... with 337 more rows
 }\if{html}{\out{</div>}}
 }
 

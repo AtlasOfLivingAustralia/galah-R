@@ -6,17 +6,37 @@
 \alias{atlas_media.default}
 \title{Download images, sounds and videos}
 \usage{
-atlas_media(...)
-
-\method{atlas_media}{data_request}(request, ...)
-
-\method{atlas_media}{default}(
+atlas_media(
+  request,
   taxa = NULL,
   filter = NULL,
   geolocate = NULL,
   select = galah_select(group = "basic"),
   download_dir,
-  refresh_cache = FALSE
+  refresh_cache = FALSE,
+  ...
+)
+
+\method{atlas_media}{data_request}(
+  request,
+  taxa = NULL,
+  filter = NULL,
+  geolocate = NULL,
+  select = galah_select(group = "basic"),
+  download_dir,
+  refresh_cache = FALSE,
+  ...
+)
+
+\method{atlas_media}{default}(
+  request,
+  taxa = NULL,
+  filter = NULL,
+  geolocate = NULL,
+  select = galah_select(group = "basic"),
+  download_dir,
+  refresh_cache = FALSE,
+  ...
 )
 }
 \arguments{

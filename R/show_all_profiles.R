@@ -1,4 +1,4 @@
-#' Data quality profiles
+#' List data quality profiles
 #'
 #' The ALA provides a number of pre-built data quality profiles for 
 #' filtering data according to quality checks. A data quality profile can
@@ -10,7 +10,7 @@
 #' available profiles
 #' @seealso This function gives viable profile names for passing to
 #' [galah_filter()]. For more detail on a given profile see
-#' [find_profile_attributes()].
+#' [search_profile_attributes()].
 #' 
 #' @section Examples:
 #' ```{r, child = "man/rmd/setup.Rmd"}

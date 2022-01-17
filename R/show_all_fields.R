@@ -28,7 +28,7 @@
 #' @seealso This function is used to pass valid arguments to
 #' [galah_select()] and [galah_filter()].
 #' To view valid values for a layer with categorical values, use
-#' [find_field_values()].
+#' [search_field_values()].
 #'
 #' @details
 #' Layers are the subset of fields that are spatially appended to each record

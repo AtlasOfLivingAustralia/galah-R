@@ -1,4 +1,4 @@
-#' Taxonomic identifiers
+#' Search for taxa with taxonomic identifiers
 #'
 #' In the ALA, all records are associated with an identifier that uniquely
 #' identifies the taxon to which that record belongs. Once those identifiers
@@ -13,7 +13,7 @@
 #' @return An object of class `tbl_df`, `data.frame` (aka a tibble) and `ala_id`
 #' containing taxonomic information.
 #' @seealso [search_taxa()] for how to find species by (scientific) names. 
-#' [galah_select()], [galah_filter()] and
+#' [galah_identify()], [galah_select()], [galah_filter()] and
 #' [galah_geolocate()] for other ways to restrict the information returned
 #' by [atlas_occurrences()] and related functions.
 #' 
@@ -24,18 +24,18 @@
 #' Look up a unique taxon identifier
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' find_taxa(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
+#' search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
 #' ```
 #' 
 #' @export
-find_taxa <- function(identifier) {
+search_identifiers <- function(identifier) {
 
   verbose <- getOption("galah_config")$verbose
 
   if (getOption("galah_config")$atlas != "Australia") {
     international_atlas <- getOption("galah_config")$atlas
     bullets <- c(
-      "`find_taxa` only provides information on Australian taxonomy.",
+      "`search_identifiers` only provides information on Australian taxonomy.",
       i = glue("To search taxonomy for {international_atlas} use `taxize`."),
       i = "See vignette('international_atlases' for more information."
     )
@@ -54,7 +54,7 @@ find_taxa <- function(identifier) {
   if(all(unlist(lapply(matches, is.null)))){
     if(galah_config()$verbose){
       bullets <- c(
-        "Calling the API failed for `find_taxa`.",
+        "Calling the API failed for `search_identifiers`.",
         i = "This might mean that the ALA system is down. Double check that your query is correct."
       )
       inform(bullets)

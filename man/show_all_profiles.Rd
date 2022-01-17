@@ -2,7 +2,7 @@
 % Please edit documentation in R/show_all_profiles.R
 \name{show_all_profiles}
 \alias{show_all_profiles}
-\title{Data quality profiles}
+\title{List data quality profiles}
 \usage{
 show_all_profiles()
 }
@@ -22,14 +22,14 @@ and used to filter searches in \code{\link[=atlas_occurrences]{atlas_occurrences
 
 Show a list of all available data quality profiles\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_profiles()
 #> # A tibble: 7 x 4
-#>      id name                                                  shortName        description                                                             
-#>   <int> <chr>                                                 <chr>            <chr>                                                                   
-#> 1     2 ALA General (pre-pipelines)                           ALA-legacy       "The default ALA profile filters out records based on the filter groups~
-#> 2    35 Species Distribution Modelling (CSDM) (pre-pipelines) CSDM-legacy      "Base filters for the Collaborative Species Distribution Modelling prog~
-#> 3    44 Data licensed for all uses (pre-pipelines)            re-usable-legacy "Data licensed for re-use, including commercial uses. This profile only~
-#> 4    92 ALA General                                           ALA              "The default ALA profile filters out records based on the filter groups~
-#> 5   124 Species Distribution Modelling (CSDM)                 CSDM             "Base filters for the Collaborative Species Distribution Modelling prog~
-#> 6   133 Data licensed for all uses                            re-usable        "Data licensed for re-use, including commercial uses. This profile only~
+#>      id name                                                  shortName        description                                                          
+#>   <int> <chr>                                                 <chr>            <chr>                                                                
+#> 1     2 ALA General (pre-pipelines)                           ALA-legacy       "The default ALA profile filters out records based on the filter gro~
+#> 2    35 Species Distribution Modelling (CSDM) (pre-pipelines) CSDM-legacy      "Base filters for the Collaborative Species Distribution Modelling p~
+#> 3    44 Data licensed for all uses (pre-pipelines)            re-usable-legacy "Data licensed for re-use, including commercial uses. This profile o~
+#> 4    92 ALA General                                           ALA              "The default ALA profile filters out records based on the filter gro~
+#> 5   124 Species Distribution Modelling (CSDM)                 CSDM             "Base filters for the Collaborative Species Distribution Modelling p~
+#> 6   133 Data licensed for all uses                            re-usable        "Data licensed for re-use, including commercial uses. This profile o~
 #> 7   224 AVH                                                   AVH              "AVH data quality profile"
 }\if{html}{\out{</div>}}
 
@@ -49,5 +49,5 @@ narrow your data query results\if{html}{\out{<div class="sourceCode r">}}\prefor
 \seealso{
 This function gives viable profile names for passing to
 \code{\link[=galah_filter]{galah_filter()}}. For more detail on a given profile see
-\code{\link[=find_profile_attributes]{find_profile_attributes()}}.
+\code{\link[=search_profile_attributes]{search_profile_attributes()}}.
 }

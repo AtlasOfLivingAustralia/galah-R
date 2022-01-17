@@ -6,18 +6,40 @@
 \alias{atlas_counts.default}
 \title{Return a count of records}
 \usage{
-atlas_counts(...)
-
-\method{atlas_counts}{data_request}(request, ...)
-
-\method{atlas_counts}{default}(
+atlas_counts(
+  request,
   taxa = NULL,
   filter = NULL,
   geolocate = NULL,
   group_by = NULL,
   limit = 100,
   type = c("record", "species"),
-  refresh_cache = FALSE
+  refresh_cache = FALSE,
+  ...
+)
+
+\method{atlas_counts}{data_request}(
+  request,
+  taxa = NULL,
+  filter = NULL,
+  geolocate = NULL,
+  group_by = NULL,
+  limit = 100,
+  type = c("record", "species"),
+  refresh_cache = FALSE,
+  ...
+)
+
+\method{atlas_counts}{default}(
+  request,
+  taxa = NULL,
+  filter = NULL,
+  geolocate = NULL,
+  group_by = NULL,
+  limit = 100,
+  type = c("record", "species"),
+  refresh_cache = FALSE,
+  ...
 )
 }
 \arguments{
@@ -74,16 +96,16 @@ With no arguments, return the total number of records in the ALA\if{html}{\out{<
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 101892823
+#> 1 101899614
 }\if{html}{\out{</div>}}
 
 You can group counts by state and territory with \code{galah_group_by}\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_counts(group_by = galah_group_by(stateProvince))
 #> # A tibble: 100 x 2
 #>   stateProvince      count
 #>   <chr>              <int>
-#> 1 New South Wales 24920903
+#> 1 New South Wales 24927692
 #> 2 Victoria        21768881
-#> 3 Queensland      17402411
+#> 3 Queensland      17402413
 #> 4 South Australia  8447455
 #> # ... with 96 more rows
 }\if{html}{\out{</div>}}
@@ -122,12 +144,14 @@ variables, similar to using \code{dplyr::group_by() \%>\% dplyr::count()}\if{htm
   filter = galah_filter(year > 2015),
   group_by = galah_group_by(year, basisOfRecord)
   )
+#> These configuration options will only be saved for this session.
+#>     Set `preserve = TRUE` to preserve them for future sessions.
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 41 x 3
 #>   basisOfRecord     year    count
 #>   <chr>             <chr>   <int>
-#> 1 HUMAN_OBSERVATION 2020  5820506
-#> 2 HUMAN_OBSERVATION 2019  5399921
+#> 1 HUMAN_OBSERVATION 2020  5824601
+#> 2 HUMAN_OBSERVATION 2019  5401058
 #> 3 HUMAN_OBSERVATION 2018  5267743
 #> 4 HUMAN_OBSERVATION 2017  4348103
 #> # ... with 37 more rows
@@ -138,12 +162,14 @@ Just begin your query with \code{\link[=galah_call]{galah_call()}}\if{html}{\out
   galah_filter(year > 2015) \%>\%
   galah_group_by(year, basisOfRecord) \%>\%
   atlas_counts()
+#> These configuration options will only be saved for this session.
+#>     Set `preserve = TRUE` to preserve them for future sessions.
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 41 x 3
 #>   basisOfRecord     year    count
 #>   <chr>             <chr>   <int>
-#> 1 HUMAN_OBSERVATION 2020  5820506
-#> 2 HUMAN_OBSERVATION 2019  5399921
+#> 1 HUMAN_OBSERVATION 2020  5824601
+#> 2 HUMAN_OBSERVATION 2019  5401058
 #> 3 HUMAN_OBSERVATION 2018  5267743
 #> 4 HUMAN_OBSERVATION 2017  4348103
 #> # ... with 37 more rows

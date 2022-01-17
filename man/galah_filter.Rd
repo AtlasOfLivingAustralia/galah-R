@@ -67,7 +67,7 @@ atlas_counts(filter = filter)
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 43853752
+#> 1 43858984
 }\if{html}{\out{</div>}}
 
 Separating statements with a comma is equivalent to an \code{AND} statement\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_filter(year >= 2010 & year < 2020) # is the same as:
@@ -90,7 +90,7 @@ galah_call() \%>\%
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 42750795
+#> 1 42757586
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Categorical example
 
 basis_of_record <- c("HumanObservation", "MaterialSample")
@@ -101,7 +101,7 @@ galah_call() \%>\%
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 82772897
+#> 1 82779688
 }\if{html}{\out{</div>}}
 
 \code{solr} supports range queries on text as well as numbers. The following

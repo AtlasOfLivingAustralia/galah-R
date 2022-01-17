@@ -37,7 +37,7 @@ atlas_counts(geolocate = galah_geolocate(wkt))
 #> # A tibble: 1 x 1
 #>   count
 #>   <int>
-#> 1  3297
+#> 1  3300
 }\if{html}{\out{</div>}}
 }
 

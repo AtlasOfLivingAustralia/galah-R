@@ -1,4 +1,4 @@
-#' Get data filters for a specified data quality profile
+#' Search for which quality filters are applied by a data quality profile
 #'
 #' Each data quality profile is made up of a series of filters. While some users
 #' may wish to simply trust the default filters, it is often useful to check
@@ -19,19 +19,19 @@
 #' 
 #' To find all the data quality arguments used in the profile "CSDM"
 #' ```{r, comment = "#>", collapse = TRUE}
-#' find_profile_attributes("CSDM")
+#' search_profile_attributes("CSDM")
 #' ```
 #' 
 #' Then get a free-text description of each filter used in the "CSDM" profile
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' profile_info <- find_profile_attributes("CSDM")
+#' profile_info <- search_profile_attributes("CSDM")
 #' profile_info$description
 #' ```
 #' 
-#' @export find_profile_attributes
+#' @export search_profile_attributes
 
-find_profile_attributes <- function(profile) {
+search_profile_attributes <- function(profile) {
   # check if is numeric or can be converted to numeric
   short_name <- profile_short_name(profile)
   if (is.na(short_name)) {
@@ -47,7 +47,7 @@ find_profile_attributes <- function(profile) {
                   list(profileName = short_name))
   if(is.null(resp)){
     bullets <- c(
-      "Calling the API failed for `atlas_taxonomy`.",
+      "Calling the API failed for `search_profile_attributes`.",
       i = "This might mean that the ALA system is down. Double check that your query is correct."
     )
     inform(bullets)

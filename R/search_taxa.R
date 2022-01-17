@@ -5,10 +5,11 @@
 #' are often ambiguous due to homonymy; i.e. re-use of names (common or
 #' scientific) in different clades. Hence, `search_taxa` provides a means
 #' to search for taxonomic names and check the results are 'correct' before
-#' proceeded to download data via [atlas_occurrences()],
-#' [atlas_species()] or [atlas_counts()]. The resulting
-#' `data.frame` of taxonomic information can be passed directly to
-#' `atlas_` functions to filter records to the specified taxon or taxa.
+#' proceeding to download data via 
+#' [atlas_occurrences()], [atlas_species()] or [atlas_counts()]. The resulting
+#' `data.frame` of taxonomic information can be passed to [galah_identify()] as 
+#' the `taxa` argument of `atlas_` functions to filter records to the specified 
+#' taxon or taxa.
 #'
 #' @param ... : A vector containing one or more search terms,
 #' given as strings. Search terms can be scientific or common names, or
@@ -17,9 +18,9 @@
 #' (see examples). Note that searches are not case-sensitive.
 #' @return An object of class `tbl_df`, `data.frame` (aka a tibble) and `ala_id`
 #' containing taxonomic information.
-#' @seealso [find_taxa()] for how to get names if taxonomic identifiers are 
-#' already known. [galah_select()], [galah_filter()] and
-#' [galah_geolocate()] for other ways to restrict the information returned
+#' @seealso [search_identifiers()] for how to get names if taxonomic identifiers 
+#' are already known. [galah_identify()], [galah_select()], [galah_filter()] and
+#' [galah_geolocate()] for ways to restrict the information returned
 #' by [atlas_occurrences()] and related functions.
 #' [atlas_taxonomy()] to look up taxonomic trees.
 #' 

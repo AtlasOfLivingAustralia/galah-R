@@ -28,7 +28,7 @@
 #' 
 #' **Narrow your results**
 #' 
-#'   * [search_taxa()] Search for taxonomic identifiers
+#'   * [galah_identify()] Search for taxonomic identifiers
 #'   * [galah_filter()] Filter records
 #'   * [galah_select()] Fields to report information for
 #'   * [galah_group_by()] Fields to group counts by
@@ -44,15 +44,17 @@
 #'   * [atlas_media()] Download images and sounds
 #'   
 #' **Look up information**
-#' 
-#'   * [search_fields()] [show_all_fields()] List fields to filter or categorise searches
+#'
+#'   * [search_taxa()] Search for taxa using a text-search
+#'   * [search_identifiers()] Search for taxa using taxonomic identifiers
+#'   * [search_fields()] Search for specific valid fields to filter queries
+#'   * [search_field_values()] Search for possible values to filter by for a given field
+#'   * [search_profile_attributes()] List the quality filters of a data quality profile
+#'   * [show_all_fields()] List valid fields to filter or categorise queries
 #'   * [show_all_profiles()] List data quality profiles
 #'   * [show_all_reasons()] List valid download reasons
 #'   * [show_all_atlases()] List supported international atlases
 #'   * [show_all_ranks()] List available taxonomic ranks
-#'   * [find_taxa()] List information for a given taxonomic identifier
-#'   * [find_field_values()] List possible values for a given field
-#'   * [find_profile_attributes()] List filters included in a data quality profile
 #' 
 #' **Manage cache**
 #' 
@@ -95,7 +97,8 @@
 #' `filter()` and `group_by` functions, both in their name and how they they are
 #' used. For example, you can use [galah_select()] to choose what information
 #' is returned as columns. Alternatively, you can use [galah_filter()] to filter
-#' the rows. You can also choose a specific location using [galah_geolocate()]. 
+#' the rows. You can also choose specific taxa with [galah_identify()] or choose 
+#' a specific location using [galah_geolocate()]. 
 #' By combining different filter functions, it is possible to build complex 
 #' queries to return only the most valuable information for a given problem.
 #'
@@ -134,7 +137,7 @@
 #' `galah_` functions; specific values that can be interpreted by those `galah_`
 #' functions are given by functions with the prefix `search_` or
 #' `show_all_`; desired taxa can be also be identified using [search_taxa()] and 
-#' passed to the `taxa` argument of `atlas_` functions.
+#' passed within [galah_identify()] to the `taxa` argument of `atlas_` functions.
 #'
 
 #' @keywords internal

@@ -55,35 +55,35 @@ id number.
 
 
 Search for all fields that use include the word "date"\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("date")
-#> # A tibble: 32 x 4
-#>   id             description                                                                                                    type   link 
-#>   <chr>          <chr>                                                                                                          <chr>  <chr>
-#> 1 dateIdentified http://rs.tdwg.org/dwc/terms/dateIdentified                                                                    fields <NA> 
-#> 2 datePrecision  The precision of the date information for the record. Values include Day, Month, Year, Year range, Month range fields <NA> 
-#> 3 eventDate      The ISO formatted date of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/eventDate        fields <NA> 
-#> 4 eventDateEnd   <NA>                                                                                                           fields <NA> 
-#> # ... with 28 more rows
+#> # A tibble: 33 x 4
+#>   id             description     type   link 
+#>   <chr>          <chr>           <chr>  <chr>
+#> 1 dateIdentified Date Identified fields <NA> 
+#> 2 datePrecision  Date precision  fields <NA> 
+#> 3 eventDate      Event Date      fields <NA> 
+#> 4 eventDateEnd   <NA>            fields <NA> 
+#> # ... with 29 more rows
 }\if{html}{\out{</div>}}
 
 Search for all fields with the string "basisofrecord"\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("basisofrecord")
 #> # A tibble: 2 x 4
-#>   id                description                                                                                                  type   link 
-#>   <chr>             <chr>                                                                                                        <chr>  <chr>
-#> 1 basisOfRecord     What this is a record of e.g. specimen, human observation, fossil http://rs.tdwg.org/dwc/terms/basisOfRecord fields <NA> 
-#> 2 raw_basisOfRecord The basis of record as supplied by the data publisher http://rs.tdwg.org/dwc/terms/verbatimBasisOfRecord     fields <NA>
+#>   id                description               type   link 
+#>   <chr>             <chr>                     <chr>  <chr>
+#> 1 basisOfRecord     Record type               fields <NA> 
+#> 2 raw_basisOfRecord Record type (unprocessed) fields <NA>
 }\if{html}{\out{</div>}}
 
 Search for all fields that have information for "marine"\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("marine") |> 
   head() # only show first 5 results
 #> # A tibble: 6 x 4
-#>   id      description                                                                  type  link                                                      
-#>   <chr>   <chr>                                                                        <chr> <chr>                                                     
-#> 1 biome   "A field indicating if the record has been located in Terrestrial, Marine o~ fiel~  <NA>                                                     
-#> 2 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Marine)"                   laye~ "http://www.fao.org/geonetwork/srv/en/main.home?uuid=ac02~
-#> 3 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian Protected Areas Databa~ laye~ "http://www.environment.gov.au/fed/catalog/search/resourc~
-#> 4 cl10957 "CAPAD 2018 Marine The Collaborative Australian Protected Areas Database (C~ laye~ "http://www.environment.gov.au/fed/catalog/search/resourc~
-#> 5 el1056  "Endemism (Non-marine) Endemism (Non-marine) based on Crisp, M.D., Laffan, ~ laye~ ""                                                        
-#> 6 el957   "Averaged Topographic Relief  This data represents the averaged topographic~ laye~ "http://www.ga.gov.au/meta/ANZCW0703015076.html"
+#>   id      description                                                               type   link                                                     
+#>   <chr>   <chr>                                                                     <chr>  <chr>                                                    
+#> 1 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Marine)"                layers "http://www.fao.org/geonetwork/srv/en/main.home?uuid=ac0~
+#> 2 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian Protected Areas Dat~ layers "http://www.environment.gov.au/fed/catalog/search/resour~
+#> 3 cl10957 "CAPAD 2018 Marine The Collaborative Australian Protected Areas Database~ layers "http://www.environment.gov.au/fed/catalog/search/resour~
+#> 4 el1056  "Endemism (Non-marine) Endemism (Non-marine) based on Crisp, M.D., Laffa~ layers ""                                                       
+#> 5 el957   "Averaged Topographic Relief  This data represents the averaged topograp~ layers "http://www.ga.gov.au/meta/ANZCW0703015076.html"         
+#> 6 cl11033 "CAPAD 2020 Terrestrial The Collaborative Australian Protected Areas Dat~ layers "http://www.environment.gov.au/fed/catalog/search/resour~
 }\if{html}{\out{</div>}}
 
 Search for all Wordclim layers\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("worldclim", type = "layers")
@@ -100,14 +100,14 @@ Search for all Wordclim layers\if{html}{\out{<div class="sourceCode r">}}\prefor
 
 
 See a listing of all valid fields and layers\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_fields()
-#> # A tibble: 794 x 4
-#>   id                  description                                      type   link 
-#>   <chr>               <chr>                                            <chr>  <chr>
-#> 1 abcdTypeStatus      ABCD field in use by herbaria                    fields <NA> 
-#> 2 acceptedNameUsage   http://rs.tdwg.org/dwc/terms/acceptedNameUsage   fields <NA> 
-#> 3 acceptedNameUsageID http://rs.tdwg.org/dwc/terms/acceptedNameUsageID fields <NA> 
-#> 4 accessRights        <NA>                                             fields <NA> 
-#> # ... with 790 more rows
+#> # A tibble: 790 x 4
+#>   id                  description        type   link 
+#>   <chr>               <chr>              <chr>  <chr>
+#> 1 acceptedNameUsage   Accepted name      fields <NA> 
+#> 2 acceptedNameUsageID Accepted name      fields <NA> 
+#> 3 accessRights        Access rights      fields <NA> 
+#> 4 assertionUserId     Assertions by user fields <NA> 
+#> # ... with 786 more rows
 }\if{html}{\out{</div>}}
 
 Use this function with \code{\link[=search_fields]{search_fields()}} to find fields and layers you wish
@@ -125,5 +125,5 @@ to use to filter your data queries
 This function is used to pass valid arguments to
 \code{\link[=galah_select]{galah_select()}} and \code{\link[=galah_filter]{galah_filter()}}.
 To view valid values for a layer with categorical values, use
-\code{\link[=find_field_values]{find_field_values()}}.
+\code{\link[=search_field_values]{search_field_values()}}.
 }
