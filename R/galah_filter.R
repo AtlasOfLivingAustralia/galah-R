@@ -20,7 +20,7 @@
 #' @seealso [search_taxa()] and [galah_geolocate()] for other ways to restrict 
 #' the information returned by [atlas_occurrences()] and related functions. Use
 #' [search_fields()] to find fields that
-#' you can filter by, and [find_field_values()] to find what values
+#' you can filter by, and [search_field_values()] to find what values
 #' of those filters are available.
 #' @details
 #' All statements passed to `galah_filter()` (except the `profile`
@@ -421,7 +421,7 @@ apply_profiles <- function(profile, named_filters, error_call = caller_env()) {
     if (is.null(short_name) || is.na(short_name)) {
       bullets <- c(
         "Profile must be a valid name, short name, or data quality ID.",
-        i = glue("Use `find_profiles()` to list valid profiles"),
+        i = glue("Use `show_all_profiles()` to list valid profiles"),
         x = glue("'{profile}' is not recognised.")
       )
       abort(bullets, call = error_call)

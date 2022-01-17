@@ -138,13 +138,13 @@ digraph boxes_and_circles {
         fontname = Helvetica,
         fontcolor = '#c7902a'
         color = '#c7902a']
-  galah_filter; galah_select; galah_geolocate; galah_group_by; galah_down_to
+  galah_identify; galah_filter; galah_select; galah_geolocate; galah_group_by; galah_down_to
   
   node  [shape = box,
         fontname = Helvetica,
         fontcolor = '#7f9959',
         color = '#7f9959']
-  search_taxa; show_all_fields; search_fields; show_all_profiles; show_all_ranks; find_field_values; find_profile_attributes
+  search_taxa; search_identifiers; show_all_fields; search_fields; show_all_profiles; show_all_ranks; search_field_values; search_profile_attributes
   
   edge [ color = 'grey50' , dir = 'none']
   atlas_counts->search_taxa
@@ -168,7 +168,7 @@ digraph boxes_and_circles {
   galah_group_by->show_all_fields
   galah_filter->search_fields
   galah_filter->show_all_fields
-  galah_filter->show_all_profiles->find_profile_attributes
+  galah_filter->show_all_profiles->search_profile_attributes
   galah_select->search_fields
   galah_select->show_all_fields
   show_all_fields->find_field_values

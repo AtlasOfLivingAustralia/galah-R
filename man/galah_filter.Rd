@@ -119,6 +119,6 @@ queries all Australian States and Territories alphabetically after "Tasmania"\if
 \code{\link[=search_taxa]{search_taxa()}} and \code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to restrict
 the information returned by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions. Use
 \code{\link[=search_fields]{search_fields()}} to find fields that
-you can filter by, and \code{\link[=find_field_values]{find_field_values()}} to find what values
+you can filter by, and \code{\link[=search_field_values]{search_field_values()}} to find what values
 of those filters are available.
 }

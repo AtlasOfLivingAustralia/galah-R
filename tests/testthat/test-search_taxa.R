@@ -60,8 +60,8 @@ test_that("search_taxa searches using multiple ranks", { # FIXME
     expect_equal(nrow(taxa), 1)
 })
 
-test_that("find_taxa searches using identifier", {
-  vcr::use_cassette("find_taxa_id_search", {
+test_that("search_identifiers searches using identifier", {
+  vcr::use_cassette("search_identifiers_id_search", {
     # check different types of id
     identifier <- c("urn:lsid:biodiversity.org.au:afd.taxon:08b9a1f0-62ae-45ca-9208-e773b00021ed",
                "NZOR-6-1742", "https://id.biodiversity.org.au/node/apni/2910467")
@@ -71,8 +71,8 @@ test_that("find_taxa searches using identifier", {
     expect_equal(nrow(taxa), 3)
 })
 
-vcr::use_cassette("find_taxa_invalid", {
-  test_that("find_taxa gives a message for invalid ids", {
+vcr::use_cassette("search_identifiers_invalid", {
+  test_that("search_identifiers gives a message for invalid ids", {
     galah_config(verbose = TRUE)
     expect_warning(search_identifiers("1234"))
     galah_config(verbose = FALSE)
