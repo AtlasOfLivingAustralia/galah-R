@@ -7,9 +7,9 @@ test_that("galah_call builds objects of class 'data_request'", {
 
 # prints properly?
 
-test_that("galah_call works with all `galah_` & `search_` functions", {
+test_that("galah_call works with all `galah_` functions", {
   result <- galah_call() |> 
-    search_taxa("Litoria") |>
+    galah_identify(search_taxa("Litoria")) |>
     galah_filter(year == 2021, cl22 == "Tasmania") |>
     galah_select(year) |>
     galah_geolocate("POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))") |>
@@ -18,22 +18,22 @@ test_that("galah_call works with all `galah_` & `search_` functions", {
   expect_false(any(unlist(lapply(result, is.null))))   
 })
 
-test_that("galah_call works irrespective of `galah_` & `search_` function order", {
+test_that("galah_call works irrespective of `galah_` function order", {
   result <- galah_call() |> 
     galah_down_to(rank = species) |>
     galah_group_by(year, basisOfRecord) |>
     galah_geolocate("POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))") |>
     galah_select(year) |>
     galah_filter(year == 2021, cl22 == "Tasmania") |>
-    search_taxa("Litoria") 
+    galah_identify(search_taxa("Litoria"))
   expect_false(any(unlist(lapply(result, is.null))))   
 })
   
 test_that("repeated calls to `search_taxa` are added correctly", {
   result <- galah_call() |> 
-    search_taxa("Litoria") |>
-    search_taxa("Aves") 
-  expect_equal(nrow(result$taxa), 2)
+    galah_identify(search_taxa("Litoria")) |>
+    galah_identify(search_taxa("Aves"))
+  expect_equal(nrow(result$identify), 2)
 })
 
 test_that("repeated calls to `galah_filter` are added correctly", { 

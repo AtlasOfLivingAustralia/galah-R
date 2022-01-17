@@ -53,7 +53,7 @@ galah_geolocate <- function(...) {
     n_geolocations <- length(dots)
     bullets <- c(
       "Can't provide more than one spatial area.",
-      i = "galah_geolocate` only accepts a single area at a time.",
+      i = "`galah_geolocate` only accepts a single area at a time.",
       x = glue("`galah_geolocate` has length of {n_geolocations}.")
     )
     abort(bullets, call = caller_env())

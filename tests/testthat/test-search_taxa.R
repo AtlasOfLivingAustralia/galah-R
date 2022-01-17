@@ -65,7 +65,7 @@ test_that("find_taxa searches using identifier", {
     # check different types of id
     identifier <- c("urn:lsid:biodiversity.org.au:afd.taxon:08b9a1f0-62ae-45ca-9208-e773b00021ed",
                "NZOR-6-1742", "https://id.biodiversity.org.au/node/apni/2910467")
-    taxa <- find_taxa(identifier)
+    taxa <- search_identifiers(identifier)
   })
     expect_s3_class(taxa, "data.frame")
     expect_equal(nrow(taxa), 3)
@@ -74,7 +74,7 @@ test_that("find_taxa searches using identifier", {
 vcr::use_cassette("find_taxa_invalid", {
   test_that("find_taxa gives a message for invalid ids", {
     galah_config(verbose = TRUE)
-    expect_warning(find_taxa("1234"))
+    expect_warning(search_identifiers("1234"))
     galah_config(verbose = FALSE)
   })
 })

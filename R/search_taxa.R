@@ -11,9 +11,8 @@
 #' the `taxa` argument of `atlas_` functions to filter records to the specified 
 #' taxon or taxa.
 #'
-#' @param ... : A vector containing one or more search terms,
-#' given as strings. Search terms can be scientific or common names, or
-#' taxonomic identifiers. If greater control is required to disambiguate search
+#' @param ... : One or more scientific names, separated by commas and
+#' given as strings. If greater control is required to disambiguate search
 #' terms, taxonomic levels can be provided explicitly via a `data.frame` 
 #' (see examples). Note that searches are not case-sensitive.
 #' @return An object of class `tbl_df`, `data.frame` (aka a tibble) and `ala_id`
@@ -64,54 +63,22 @@
 #' @export
 search_taxa <- function(...) {
   
-  verbose <- getOption("galah_config")$verbose
-  
-  if (getOption("galah_config")$atlas != "Australia") {
-    international_atlas <- getOption("galah_config")$atlas
-    bullets <- c(
-      "`search_taxa` only provides information on Australian taxonomy.",
-      i = glue("To search taxonomy for {international_atlas} use `taxize`."),
-      i = "See vignette('international_atlases' for more information."
-    )
-    abort(bullets, call = caller_env())
+  query <- list(...)
+  if(length(query) == 1L){
+    query <- query[[1]]
+    if (is.list(query)) {
+      query <- as.data.frame(query)
+    }
   }
   
-  # check to see if any of the inputs are a data request
-  dots <- enquos(..., .ignore_empty = "all")   
-  checked_dots <- detect_data_request(dots)
-
-  if(!inherits(checked_dots, "quosures")){
-    is_data_request <- TRUE
-    data_request <- checked_dots[[1]]
-    dots <- checked_dots[[2]]
-  }else{
-    is_data_request <- FALSE
+  if(all(lengths(query) == 1L)){
+    query <- unlist(query)
   }
   
-  # check for missing queries
-  if(length(dots) < 1){
-    bullets <- c(
-      "Query is missing, with no default.",
-      i = "`search_taxa` requires a query to search for."
-    )
-    abort(bullets, call = caller_env())
-  }
-  # capture named inputs
-  check_queries(dots) 
-
-  # convert dots to query
-  query <- parse_basic_quosures(dots)
-   
-  if (is.list(query)
-  # && length(names(query)) > 0 
-  ) {
-    query <- as.data.frame(query) # convert to dataframe for simplicity
-  }
-  
+ 
   matches <- remove_parentheses(query) |> 
-    name_query() |>
-    set_galah_object_class(class = "ala_id")
-
+    name_query() 
+    
   if(is.null(matches) & galah_config()$verbose){
     bullets <- c(
       "Calling the API failed for `search_taxa`.",
@@ -121,35 +88,8 @@ search_taxa <- function(...) {
     inform(bullets)
     return(set_galah_object_class(class = "ala_id"))
   }else{
-    # if a data request was supplied, return one
-    if(is_data_request){
-      update_galah_call(data_request, taxa = matches)
-    }else{
-      matches
-    }   
+    set_galah_object_class(matches, class = "ala_id")
   } 
-}
-
-
-# checker function based on `galah_filter.R/check_filters`
-check_queries <- function(dots, error_call = caller_env()) {
-  if(any(have_name(dots))){
-    if(any(names(dots) == "children")){  # formerly an option under `select_taxa`   
-      bullets <- c(
-        "Invalid option entered for `search_taxa`.",
-        i = "See `?search_taxa` for more information.",
-        x = "`children` is not a valid option"
-      )
-      abort(bullets, call = error_call)     
-    }else{
-      bullets <- c(
-        "We detected a named input.",
-        i = glue("This usually means that you've used `=` somewhere"),
-        i = glue("`search_taxa` doesn't require equations")
-      )
-      abort(bullets, call = error_call)
-    }
-  }
 }
 
 
