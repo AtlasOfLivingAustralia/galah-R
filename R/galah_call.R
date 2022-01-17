@@ -72,7 +72,7 @@ galah_call <- function(identify = NULL,
   
   extra_args <- list(...)
   
-  if(!is.null(taxa)){ check_taxa_arg(taxa) }
+  if(!is.null(identify)){ check_taxa_arg(identify) }
   check_call_args(filter, "filter")
   check_call_args(select, "select")
   check_call_args(geolocate, "geolocate")

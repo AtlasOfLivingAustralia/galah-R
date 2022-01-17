@@ -11,7 +11,7 @@
 #' are already known.
 #' 
 #' @export
-galah_identify <- function(...) {
+galah_identify <- function(..., search = TRUE) {
   
   # check to see if any of the inputs are a data request
   dots <- enquos(..., .ignore_empty = "all")
@@ -24,39 +24,54 @@ galah_identify <- function(...) {
     is_data_request <- FALSE
   }
   
-  # if empty, return correct class, but no values
-  if(length(dots) < 1){
-    result <- as_tibble(data.frame(name = character()))
-
-  }else{
+  if(length(dots) > 0){
   
-    # capture named inputs
-    check_queries(dots) 
+    # basic checking
+    check_queries(dots) # capture named inputs
+    input_query <- parse_basic_quosures(dots) # convert dots to query
     
-    # convert dots to query
-    query <- parse_basic_quosures(dots)
+    # get cached behaviour
+    atlas <- getOption("galah_config")$atlas
+    run_checks <- getOption("galah_config")$run_checks
+    verbose <- getOption("galah_config")$verbose
     
-    # check for types
-    if(inherits(query, "ala_id")){
-      query <- query$taxon_concept_id
-    }else if(inherits(query, c("gbifid", "nbnid"))){ # from taxize
-      query <- as.character(query)
-    } 
-    if(!inherits(query, "character")){
-      bullets <- c(
-        "Object passed to `galah_identify` isn't from a recognised class",
-        i = "Recognised classes are `ala_id`, `gbifid`, `nbnid` or `character`",
-        i = "Perhaps try using `search_taxa`?"
-      )
-      abort(bullets, call = caller_env())
-    }
+    # check for types first
+    if(inherits(input_query, "ala_id")){
+      query <- input_query$taxon_concept_id
+    }else if(inherits(input_query, c("gbifid", "nbnid"))){ # from taxize
+      query <- as.character(input_query)
+    } else{ # if the input isn't of known type, try to find IDs    
+      if(search){
+        check_atlas(atlas)
+        lookup <- search_taxa(input_query)
+        query <- lookup$taxon_concept_id[!is.na(lookup$taxon_concept_id)]
+        if(verbose){
+          n_provided <- length(input_query)
+          n_returned <- length(query)
+          check_number_returned(n_provided, n_returned)
+        }
+      }else{ # i.e. user has passed search = FALSE
+        if(atlas == "Australia" && run_checks){
+          lookup <- search_identifiers(input_query)
+          query <- lookup$taxon_concept_id[!is.na(lookup$taxon_concept_id)]
+          n_provided <- length(input_query)
+          n_returned <- length(query)
+          check_number_returned(n_provided, n_returned)
+        } else{
+          query <- input_query # pass unchanged
+        }    
+      } # end for search == FALSE
+    } # end for unknown types
     
-    result <- tibble(name = query)
+    check_is_character(query)
+    result <- tibble(identifier = query)
+    
+  } else{  # if empty, return correct class, but no values
+    result <- as_tibble(data.frame(identifier = character()))
   }
   
-  class(result) <- append(class(result), "galah_identify") 
-  
   # if a data request was supplied, return one
+  class(result) <- append(class(result), "galah_identify") 
   if(is_data_request){
     update_galah_call(data_request, identify = result)
   }else{
@@ -72,6 +87,48 @@ check_queries <- function(dots, error_call = caller_env()) {
       "We detected a named input.",
       i = glue("This usually means that you've used `=` somewhere"),
       i = glue("`galah_identity` doesn't require equations")
+    )
+    abort(bullets, call = error_call)
+  }
+}
+
+
+check_number_returned <- function(n_in, n_out, error_call = caller_env()) {
+  if(n_out < n_in){
+    warn(
+      glue("{n_out} of {n_in} IDs found"),
+      call = error_call
+    )
+  }
+}
+
+check_atlas <- function(atlas, error_call = caller_env()) {
+  if(atlas != "Australia"){
+    atlas_origin <- switch(atlas,
+      "UK" = "UK",
+      "Sweden" = "Swedish",
+      "Austria" = "Austrian",
+      "Guatemala" = "Guatemalan",
+      "Spain" = "Spanish"
+    )
+    bullets <- c(glue("Searching is not supported for the {atlas_origin} atlas."),
+      i = "try using the `taxize` package to search instead",
+      i = "taxonomic identifiers can be passed to `galah_identify` by setting `search = FALSE`"
+    )
+    abort(bullets, call = error_call)
+  }
+}
+
+
+# it is possible that the above will lead to non-character 
+# arguments being passed (if search = FALSE and run_checks = FALSE)
+# check this
+check_is_character <- function(query, error_call = caller_env()){
+  if(!inherits(query, "character")){
+    bullets <- c(
+      "Object passed to `galah_identify` isn't from a recognised class",
+      i = "Recognised classes are `ala_id`, `gbifid`, `nbnid` or `character`",
+      i = "Perhaps try using `search_taxa`?"
     )
     abort(bullets, call = error_call)
   }
