@@ -2,21 +2,16 @@
 % Please edit documentation in R/atlas_occurrences.R
 \name{atlas_occurrences}
 \alias{atlas_occurrences}
-\alias{atlas_occurrences.data_request}
-\alias{atlas_occurrences.default}
 \title{Occurrence records}
 \usage{
-atlas_occurrences(...)
-
-\method{atlas_occurrences}{data_request}(request, ...)
-
-\method{atlas_occurrences}{default}(
+atlas_occurrences(
+  request = NULL,
   taxa = NULL,
   filter = NULL,
   geolocate = NULL,
   select = galah_select(group = "basic"),
   mint_doi = FALSE,
-  doi,
+  doi = NULL,
   refresh_cache = FALSE
 )
 }

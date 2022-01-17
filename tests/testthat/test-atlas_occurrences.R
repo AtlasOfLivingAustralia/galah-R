@@ -20,8 +20,8 @@ test_that("atlas_occurrences fails nicely if no email is provided", {
 })
   
 
-  # test all filters and type of columns in one call
-test_that("atlas_occurrences returns requested columns", { 
+# test all filters and type of columns in one call
+test_that("atlas_occurrences accepts all narrowing functions inline", { 
   skip_on_cran()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
@@ -39,7 +39,24 @@ test_that("atlas_occurrences returns requested columns", {
   expect_setequal(names(occ), expected_cols)
   expect_equal(unique(occ$stateProvince), "New South Wales")
 })
-# 
+
+# repeat above using galah_call
+test_that("atlas_occurrences accepts all narrowing functions in pipe", { 
+  skip_on_cran()
+  expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
+                     "scientificName", "taxonConceptID", "recordID",
+                     "dataResourceName", "stateProvince", "ZERO_COORDINATE")
+  poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
+  occ <- galah_call() |>
+    galah_filter(year >= 2018, year <= 2020) |>
+    galah_select(group = "basic", stateProvince, ZERO_COORDINATE) |>
+    search_taxa("Polytelis swainsonii") |> 
+    galah_geolocate(poly) |>
+    atlas_occurrences()
+  expect_setequal(names(occ), expected_cols)
+  expect_equal(unique(occ$stateProvince), "New South Wales")
+})
+
 # test_that("atlas_occurrences caches data as expected", {
 #   skip_on_cran()
 #   galah_config(caching = TRUE, verbose = TRUE)

@@ -68,7 +68,7 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
                             mint_doi = FALSE, doi, refresh_cache = FALSE) {
   lifecycle::deprecate_warn("1.4.0", "ala_occurrences()", "atlas_occurrences()")
   
-  atlas_occurrences(
+  atlas_occurrences_internal(
     taxa = taxa, 
     filter = filters, 
     geolocate = locations,

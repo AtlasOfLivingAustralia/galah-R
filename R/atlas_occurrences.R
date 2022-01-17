@@ -79,52 +79,84 @@
 #' ```
 #' 
 #' @export
-atlas_occurrences <- function(request, 
+atlas_occurrences <- function(request = NULL, 
                               taxa = NULL, 
                               filter = NULL, 
                               geolocate = NULL,
                               select = galah_select(group = "basic"),
                               mint_doi = FALSE, 
-                              doi, 
-                              refresh_cache = FALSE,
-                              ...) {
-  UseMethod("atlas_occurrences")
+                              doi = NULL, 
+                              refresh_cache = FALSE
+                              ) {
+   if(!is.null(request)){
+     # check format is correct
+     if(!inherits(request, "data_request")){
+       bullets <- c(
+         "Argument `request` requires an object of type `data_request`.",
+         i = "You can create this object using `galah_call()`",
+         i = "Did you specify the incorrect argument?"
+       )
+       abort(bullets, call = caller_env())      
+     }     
+     
+     # update with any other named arguments that have been given
+     current_call <- update_galah_call(request, 
+       taxa = taxa,
+       filter = filter,
+       geolocate = geolocate,
+       select = select,
+       mint_doi = mint_doi, # NOTE: check behaviour of update_galah_call here
+       doi = doi,
+       refresh_cache = refresh_cache
+      ) 
+      
+      # subset to available arguments
+      custom_call <- current_call[
+        names(current_call) %in% names(formals(atlas_occurrences_internal))]
+        
+      # call using do.call
+      do.call(atlas_occurrences_internal, custom_call)
+      
+   }else{
+     atlas_occurrences_internal(
+       taxa = taxa,
+       filter = filter,
+       geolocate = geolocate,
+       select = select,
+       mint_doi = mint_doi,
+       doi = doi,
+       refresh_cache = refresh_cache    
+     )
+   }
+                                
 }
 
-#' @export
-#' @rdname atlas_occurrences
-atlas_occurrences.data_request <- function(request, 
-                                           taxa = NULL, 
-                                           filter = NULL, 
-                                           geolocate = NULL,
-                                           select = galah_select(group = "basic"),
-                                           mint_doi = FALSE, 
-                                           doi, 
-                                           refresh_cache = FALSE, 
-                                           ...) {
-  current_call <- update_galah_call(request, ...) 
-  custom_call <- current_call[
-    names(current_call) %in% names(formals(atlas_occurrences.default))]
-  do.call(atlas_occurrences.default, custom_call)
-}
-
-#' @export
-#' @rdname atlas_occurrences
-atlas_occurrences.default <- function(request, 
-                                      taxa = NULL, 
-                                      filter = NULL, 
-                                      geolocate = NULL,
-                                      select = galah_select(group = "basic"),
-                                      mint_doi = FALSE, 
-                                      doi, 
-                                      refresh_cache = FALSE,
-                                      ...) {
+# internal workhorse function
+atlas_occurrences_internal <- function(taxa = NULL,
+                                       filter = NULL, 
+                                       geolocate = NULL,
+                                       select = galah_select(group = "basic"),
+                                       mint_doi = FALSE, 
+                                       doi, # missingness is risky
+                                       refresh_cache = FALSE) {
 
   verbose <- getOption("galah_config")$verbose
   assert_that(is.logical(mint_doi))
   
+  # If no filters are specified, reject
+  if(all(
+    unlist(lapply(list(taxa, filter, geolocate), is.null))
+  )){
+    bullets <- c(
+      "Your data request was too large.",
+      i = "A maximum of 50 million records can be retrieved at once.",
+      i = "Please narrow the query and try again."
+    )
+    abort(bullets, call = caller_env())
+  }
+  
+  # search for data using DOI
   if (!missing(doi) && !is.null(doi)) {
-    # search for data using DOI
     result <- doi_download(doi)
     if(is.null(result)){
       bullets <- c(

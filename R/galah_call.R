@@ -114,19 +114,35 @@ update_galah_call <- function(data_request, ...){
         if(is.null(data_request[[a]])){
           dots[[a]]
         }else{
-          removed_class <- class(data_request[[a]])[4]
-          class(data_request[[a]]) <- class(data_request[[a]])[1:3]
-          class(dots[[a]]) <- class(dots[[a]])[1:3]
-          set_galah_object_class(
-            rbindlist(list(data_request[[a]], dots[[a]]), fill = TRUE),
-            class = removed_class)        
+          if(is.null(dots[[a]])){
+            data_request[[a]]
+          }else{
+            removed_class <- class(data_request[[a]])[4]
+            class(data_request[[a]]) <- class(data_request[[a]])[1:3]
+            class(dots[[a]]) <- class(dots[[a]])[1:3]
+            result <- switch(a,
+              "taxa" = {
+                bind_unique_rows(data_request[[a]], dots[[a]], "taxon_concept_id")
+              },
+              "filter" = {
+                bind_unique_rows(data_request[[a]], dots[[a]], "query")
+              },
+              "select" = {
+                bind_unique_rows(data_request[[a]], dots[[a]], "name")
+              }, 
+              # for below, we assume that in all other circumstances we 
+              # simply pass the most recent result
+              dots[[a]] # default
+            )
+            result <- set_galah_object_class(result, class = removed_class)
+          }      
         }
       }else{
         data_request[[a]]
       }
     })
   names(result) <- names(data_request)
-  
+
   # check if any names in `dots` have been missed from `results`
   missing_names <- !(names(dots) %in% names(result))
   if(any(missing_names)){
@@ -134,6 +150,13 @@ update_galah_call <- function(data_request, ...){
   }
   class(result) <- "data_request"
   result
+}
+
+
+# 
+bind_unique_rows <- function(x, y, column){
+  result <- rbindlist(list(x, y), fill = TRUE)
+  result[!duplicated(result[[column]]), ]
 }
 
 
