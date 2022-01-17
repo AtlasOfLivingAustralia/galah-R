@@ -74,7 +74,7 @@ test_that("search_identifiers searches using identifier", {
 vcr::use_cassette("search_identifiers_invalid", {
   test_that("search_identifiers gives a message for invalid ids", {
     galah_config(verbose = TRUE)
-    expect_warning(search_identifiers("1234"))
+    expect_message(search_identifiers("1234"))
     galah_config(verbose = FALSE)
   })
 })

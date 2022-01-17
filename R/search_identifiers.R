@@ -75,7 +75,7 @@ identifier_lookup <- function(identifier) {
   if (isFALSE(result$success) && result$issues == "noMatch" && galah_config()$verbose) {
     list_invalid_taxa <- glue::glue_collapse(identifier, 
                                              sep = ", ")
-    warn(glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
+    inform(glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
   }
   names(result) <- rename_columns(names(result), type = "taxa")
   result[names(result) %in% wanted_columns("taxa")]
