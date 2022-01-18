@@ -83,7 +83,6 @@
 #' ```
 #'
 #' It is possible to use an object to specify required values
-#' numeric example
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
 #' # Numeric example
