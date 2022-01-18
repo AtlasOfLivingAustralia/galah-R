@@ -51,24 +51,26 @@
 #' You can group counts by state and territory with `galah_group_by`
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' atlas_counts(group_by = galah_group_by(stateProvince))
+#' galah_call() |>
+#'   galah_group_by(stateProvince) |>
+#'   atlas_counts()
 #' ```
 #'
 #' You can add a filter to narrow your search
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' records <- atlas_counts(
-#'   filter = galah_filter(basisOfRecord == "FossilSpecimen")
-#'   ) 
-#' records
+#' galah_call() |>
+#'   galah_filter(basisOfRecord == "FossilSpecimen")
+#'   atlas_counts() 
 #' ```
 #' 
 #' Specify `type = species` to count the number of species, and group record
 #' counts by kingdom
 #' 
 #' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
-#' records <- atlas_counts(group_by = galah_group_by(kingdom), 
-#'                         type = "species")
+#' records <- galah_call() |>
+#'   galah_group_by(kingdom) |>
+#'   atlas_counts(type = "species")
 #' ```
 #' ```{r, comment = "#>", collapse = TRUE}
 #' records
@@ -78,21 +80,9 @@
 #' variables, similar to using `dplyr::group_by() %>% dplyr::count()`
 #' 
 #' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
-#' records <- atlas_counts(
-#'   filter = galah_filter(year > 2015),
-#'   group_by = galah_group_by(year, basisOfRecord)
-#'   )
-#' ```{r, comment = "#>", collapse = TRUE}
-#' records
-#' ```
-#' 
-#' You can also filter and download record counts by piping with `%>%` or `|>`. 
-#' Just begin your query with [galah_call()]
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
-#' records <- galah_call() %>%
-#'   galah_filter(year > 2015) %>%
-#'   galah_group_by(year, basisOfRecord) %>%
+#' records <- galah_call() |>
+#'   galah_filter(year > 2015) |>
+#'   galah_group_by(year, basisOfRecord) |>
 #'   atlas_counts()
 #' ```{r, comment = "#>", collapse = TRUE}
 #' records
@@ -138,6 +128,7 @@ atlas_counts <- function(request = NULL,
   # subset to available arguments
   custom_call <- current_call[
      names(current_call) %in% names(formals(atlas_counts_internal))]
+  class(custom_call) <- "data_request"
 
   # check for caching
   caching <- getOption("galah_config")$caching
@@ -162,13 +153,13 @@ atlas_counts <- function(request = NULL,
 }
 
 
-atlas_counts_internal <- function(identify, 
-                                  filter, 
-                                  geolocate,
-                                  group_by, 
-                                  limit,
-                                  type,
-                                  refresh_cache
+atlas_counts_internal <- function(identify = NULL, 
+                                  filter = NULL, 
+                                  geolocate = NULL,
+                                  group_by = NULL, 
+                                  limit = 100,
+                                  type = "record",
+                                  refresh_cache = FALSE
                                   ) {
 
   verbose <- getOption("galah_config")$verbose

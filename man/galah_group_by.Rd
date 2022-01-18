@@ -27,10 +27,10 @@ by one or more valid fields.
 \section{Examples}{
 
 
-Return record counts since 2010 by year\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- atlas_counts(
-    filter = galah_filter(year > 2010),
-    group_by = galah_group_by(year)
-    )
+Return record counts since 2010 by year\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |> 
+    galah_filter(year > 2010) |>
+    galah_group_by(year) |>
+    atlas_counts()
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 12 x 2
 #>    year    count
@@ -49,12 +49,10 @@ Return record counts since 2010 by year\if{html}{\out{<div class="sourceCode r">
 #> 12 2022    22398
 }\if{html}{\out{</div>}}
 
-Return record counts since 2010 by year and data provider\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- atlas_counts(
-    filter = galah_filter(year > 2010),
-    group_by = galah_group_by(year, dataResourceName)
-    )
-#> These configuration options will only be saved for this session.
-#>     Set `preserve = TRUE` to preserve them for future sessions.
+Return record counts since 2010 by year and data provider\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
+    galah_filter(year > 2010) |>
+    galah_group_by(year, dataResourceName) |>
+    atlas_counts()
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 1,046 x 3
 #>   year  dataResourceName              count
@@ -67,13 +65,11 @@ Return record counts since 2010 by year and data provider\if{html}{\out{<div cla
 }\if{html}{\out{</div>}}
 
 Return record counts of \emph{Litoria} species each year since 2015, limiting
-results to the top 5 each year\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- atlas_counts(
-    taxa = search_taxa("Litoria"),
-    filter = galah_filter(year > 2015),
-    group_by = galah_group_by(year, species),
-    limit = 5)
-#> These configuration options will only be saved for this session.
-#>     Set `preserve = TRUE` to preserve them for future sessions.
+results to the top 5 each year\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
+    galah_identify("Litoria") |>
+    galah_filter(year > 2015) |>
+    galah_group_by(year, species) |>
+    atlas_counts(limit = 5)
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 35 x 3
 #>   year  species            count
@@ -83,28 +79,6 @@ results to the top 5 each year\if{html}{\out{<div class="sourceCode r">}}\prefor
 #> 3 2018  Litoria caerulea    3073
 #> 4 2018  Litoria verreauxii  2980
 #> # ... with 31 more rows
-}\if{html}{\out{</div>}}
-
-You can also use \code{galah_group_by} when piping with \verb{\%>\%} or \verb{|>}. Just begin
-your query with \code{\link[=galah_call]{galah_call()}}.
-
-\code{galah_group_by(vars) \%>\% atlas_counts()} works very similarly to using
-\code{group_by(vars) \%>\% count()} from the \code{dplyr} package.\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
-  search_taxa("Litoria") |>
-  galah_filter(year > 2015) |>
-  galah_group_by(year, species) |>
-  atlas_counts(limit = 5)
-#> These configuration options will only be saved for this session.
-#>     Set `preserve = TRUE` to preserve them for future sessions.
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 341 x 3
-#>   year  species            count
-#>   <chr> <chr>              <int>
-#> 1 2018  Litoria peronii    10497
-#> 2 2018  Litoria fallax      7013
-#> 3 2018  Litoria caerulea    3073
-#> 4 2018  Litoria verreauxii  2980
-#> # ... with 337 more rows
 }\if{html}{\out{</div>}}
 }
 

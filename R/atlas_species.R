@@ -39,11 +39,13 @@
 #' search_taxa("Heleioporus")
 #' ```
 #' 
-#' It's a good idea to find how many records there are for the taxon you are 
+#' It's a good idea to find how many species there are for the taxon you are 
 #' interested in - in our case, genus *Heleioporus* - with [atlas_counts()]
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' atlas_counts(galah_identify("Heleioporus"))
+#' galah_call() |>
+#'   galah_identify("Heleioporus") |>
+#'   atlas_counts(type = "species")
 #' ```
 #'
 #' Now get taxonomic information on all species within this genus with 
@@ -51,7 +53,9 @@
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
 #' # (every row is a species with associated taxonomic data)
-#' atlas_species(galah_identify("Heleioporus"))
+#' galah_call() |>
+#'   galah_identify("Heleioporus") |>
+#'   atlas_species()
 #' ```
 #' 
 #' You can also get taxonomic information on species by piping with `%>%` or 
@@ -93,6 +97,7 @@ atlas_species <- function(request = NULL,
   # subset to available arguments
   custom_call <- current_call[
      names(current_call) %in% names(formals(atlas_species_internal))]
+  class(custom_call) <- "data_request"
   
   # check for caching
   caching <- getOption("galah_config")$caching

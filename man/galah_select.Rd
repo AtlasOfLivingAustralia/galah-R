@@ -56,22 +56,18 @@ columns. The list of assertions is shown by \code{search_fields(type = "assertio
 
 Download occurrence records of \emph{Perameles} taken in 2001, only returning
 scientific name and event date\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
-
-atlas_occurrences(taxa = search_taxa("perameles"),
-                  filter = galah_filter(year == 2001),
-                  select = galah_select(scientificName, eventDate))
+galah_call() |>
+  galah_identify("perameles")|>
+  galah_filter(year == 2001) |>
+  galah_select(scientificName, eventDate) |>
+  atlas_occurrences()
 }\if{html}{\out{</div>}}
 
 Download occurrence record of \emph{Perameles} taken in 2001, returning the
-"basic" group of columns plus the Basis of Record\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_occurrences(taxa = search_taxa("perameles"),
-                  filter = galah_filter(year == 2001),
-                  select = galah_select(group = "basic", basisOfRecord))
-}\if{html}{\out{</div>}}
-
-Use \code{galah_select()} with pipes, using either \verb{\%>\%} or \verb{|>}. Just begin with
-\code{\link[=galah_call]{galah_call()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
-  search_taxa("perameles") \%>\%
-  galah_select(group = "basic", basisOfRecord) \%>\%
+"basic" group of columns plus the Basis of Record\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+  galah_identify("perameles") |>
+  galah_filter(year == 2001) |>
+  galah_select(group = "basic", basisOfRecord) |>
   atlas_occurrences()
 }\if{html}{\out{</div>}}
 }

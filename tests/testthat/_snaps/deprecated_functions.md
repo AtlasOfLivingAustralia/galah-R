@@ -4,7 +4,7 @@
       deprecated <- select_taxa("Microseris lanceolata")
     Warning <lifecycle_warning_deprecated>
       `select_taxa()` was deprecated in galah 1.4.0.
-      Please use `search_taxa()` instead.
+      Please use `galah_identify()` instead.
       This warning is displayed once every 8 hours.
       Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
     Code
@@ -85,7 +85,7 @@
       This warning is displayed once every 8 hours.
       Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
     Code
-      expect_gt(deprecated, 0)
+      expect_gt(deprecated$count, 0)
 
 # ala_species is deprecated
 

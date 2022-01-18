@@ -14,7 +14,7 @@ select_taxa <- function(query, is_id = FALSE) {
     galah_identify(query, search = FALSE)
   }else{
     result <- galah_identify(query, search = TRUE) |> as.data.frame()
-    class(result) <- append(class(result), "ala_id")
+    class(result) <- append(class(result), "galah_identify")
     return(result)
   }
 }
@@ -65,7 +65,7 @@ select_locations <- function(query) {
 #' @name deprecated
 ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
                             columns = select_columns(group = "basic"),
-                            mint_doi = FALSE, doi, refresh_cache = FALSE) {
+                            mint_doi = FALSE, doi = NULL, refresh_cache = FALSE) {
   lifecycle::deprecate_warn("1.4.0", "ala_occurrences()", "atlas_occurrences()")
   
   atlas_occurrences_internal(

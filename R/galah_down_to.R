@@ -16,19 +16,9 @@
 #' taxonomic tree of *Chordata* down to the class level
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' atlas_taxonomy(
-#'     taxa = search_taxa("Chordata"),
-#'     down_to = galah_down_to(class)
-#'     )
-#' ```
-#' 
-#' You can also get taxonomic trees by piping with `%>%` or `|>`. Just 
-#' begin your query with [galah_call()]
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() %>%
-#'     search_taxa("Chordata") %>%
-#'     galah_down_to(class) %>%
+#' galah_call() |>
+#'     galah_identify("Chordata") |>
+#'     galah_down_to(class) |>
 #'     atlas_taxonomy()
 #' ```
 #' 
@@ -37,7 +27,7 @@
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
 #' galah_call() |>
-#'   search_taxa("Cacatuidae") |>
+#'   galah_identify("Cacatuidae") |>
 #'   galah_down_to(genus) |>
 #'   atlas_taxonomy()
 #' ```

@@ -67,7 +67,7 @@ test_that("ala_counts is deprecated", {
   expect_snapshot({
     deprecated <- ala_counts()
     # atlas_counts with no arguments gives the n records in the ALA
-    expect_gt(deprecated, 0)
+    expect_gt(deprecated$count, 0)
   })
 })
 

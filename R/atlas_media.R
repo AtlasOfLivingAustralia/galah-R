@@ -108,7 +108,8 @@ atlas_media <- function(request = NULL,
   # subset to available arguments
   custom_call <- current_call[
      names(current_call) %in% names(formals(atlas_media_internal))]
-        
+  class(custom_call) <- "data_request"
+     
   # check for caching
   caching <- getOption("galah_config")$caching
   cache_file <- cache_filename("media", unlist(custom_call))

@@ -1,0 +1,34 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://namematching-ws.ala.org.au/api/getByTaxonID?taxonID=1234
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.21.5
+      date: Tue, 18 Jan 2022 04:19:06 GMT
+      content-type: application/json
+      content-length: '38'
+      vary: Accept-Encoding
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+    body:
+      encoding: UTF-8
+      file: no
+      string: '{"success":false,"issues":["noMatch"]}'
+  recorded_at: 2022-01-18 04:19:06 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

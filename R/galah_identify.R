@@ -5,6 +5,7 @@
 #' provide data only for the biological group of interest.
 #'
 #' @param ... an object of class `ala_id`, `gbifid`, `nbnid` or `character`.
+#' @param search (logical); should the results in question be passed to `search_taxa`?
 #'
 #' @seealso [search_taxa()] to find identifiers from scientific names;
 #' [search_identifiers()] for how to get names if taxonomic identifiers 
@@ -96,7 +97,7 @@ check_queries <- function(dots, error_call = caller_env()) {
 check_number_returned <- function(n_in, n_out, error_call = caller_env()) {
   if(n_out < n_in){
     warn(
-      glue("{n_out} of {n_in} IDs found"),
+      glue("Only {n_out} of {n_in} IDs found"),
       call = error_call
     )
   }

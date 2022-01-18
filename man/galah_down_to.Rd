@@ -21,39 +21,9 @@ non-standard evaluation (NSE), for consistency with other \code{galah_} function
 
 
 An example of using \code{galah_down_to()} with \code{\link[=atlas_taxonomy]{atlas_taxonomy()}}. Return a
-taxonomic tree of \emph{Chordata} down to the class level\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_taxonomy(
-    taxa = search_taxa("Chordata"),
-    down_to = galah_down_to(class)
-    )
-#>                             levelName
-#> 1  Chordata                          
-#> 2   ¦--Cephalochordata               
-#> 3   ¦   °--Amphioxi                  
-#> 4   ¦--Craniata                      
-#> 5   ¦   °--Agnatha                   
-#> 6   ¦       ¦--Cephalasipidomorphi   
-#> 7   ¦       °--Myxini                
-#> 8   ¦--Tunicata                      
-#> 9   ¦   ¦--Appendicularia            
-#> 10  ¦   ¦--Ascidiacea                
-#> 11  ¦   °--Thaliacea                 
-#> 12  °--Vertebrata                    
-#> 13      °--Gnathostomata             
-#> 14          ¦--Amphibia              
-#> 15          ¦--Aves                  
-#> 16          ¦--Mammalia              
-#> 17          ¦--Pisces                
-#> 18          ¦   ¦--Actinopterygii    
-#> 19          ¦   ¦--Chondrichthyes    
-#> 20          ¦   ¦--Cephalaspidomorphi
-#> 21          ¦   °--Sarcopterygii     
-#> 22          °--Reptilia
-}\if{html}{\out{</div>}}
-
-You can also get taxonomic trees by piping with \verb{\%>\%} or \verb{|>}. Just
-begin your query with \code{\link[=galah_call]{galah_call()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
-    search_taxa("Chordata") \%>\%
-    galah_down_to(class) \%>\%
+taxonomic tree of \emph{Chordata} down to the class level\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+    galah_identify("Chordata") |>
+    galah_down_to(class) |>
     atlas_taxonomy()
 #>                             levelName
 #> 1  Chordata                          
@@ -82,7 +52,7 @@ begin your query with \code{\link[=galah_call]{galah_call()}}\if{html}{\out{<div
 
 Another example: return a taxonomic tree of \emph{Cacatuidae} down to the genus
 level\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
-  search_taxa("Cacatuidae") |>
+  galah_identify("Cacatuidae") |>
   galah_down_to(genus) |>
   atlas_taxonomy()
 #>                    levelName

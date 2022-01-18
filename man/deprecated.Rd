@@ -34,7 +34,7 @@ ala_occurrences(
   locations = NULL,
   columns = select_columns(group = "basic"),
   mint_doi = FALSE,
-  doi,
+  doi = NULL,
   refresh_cache = FALSE
 )
 

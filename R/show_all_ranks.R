@@ -23,7 +23,7 @@
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
 #' galah_call() %>%
-#'   search_taxa("fungi") %>%
+#'   galah_identify("fungi") %>%
 #'   galah_down_to(subphylum) %>%
 #'   atlas_taxonomy()
 #' ```

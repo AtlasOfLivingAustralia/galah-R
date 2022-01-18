@@ -15,13 +15,14 @@ test_that("galah_identify runs a search on multiple strings", {
   expect_equal(nrow(result), 4)
 })
 
-test_that("galah_identify drops unknown rows", {
-  expect_warning(galah_identify("amphibia", "reptilia", "aves", "nothing"))
-})
+# test_that("galah_identify drops unknown rows", {
+#   expect_warning(galah_identify("amphibia", "reptilia", "aves", "nothing"))
+# })
 
 test_that("galah_identify works with search = FALSE", {
-  galah_identify("urn:lsid:biodiversity.org.au:afd.taxon:0490a9ba-0d08-473d-a709-6c42e354f118",
-    search = FALSE)
+  id <- "urn:lsid:biodiversity.org.au:afd.taxon:0490a9ba-0d08-473d-a709-6c42e354f118"
+  result <- galah_identify(id, search = FALSE)
+  expect_equal(result$identifier[1], id)
 })
 
 test_that("galah_identify returns an error when using other atlases", {

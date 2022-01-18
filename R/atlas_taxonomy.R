@@ -37,15 +37,7 @@
 #' Get a taxonomic tree of *Chordata* down to the class level
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' atlas_taxonomy(identify = galah_identify("chordata"), 
-#'                down_to = galah_down_to(class))
-#' ```
-#' 
-#' You can also get taxonomic trees by piping with `%>%` or `|>`. Just begin 
-#' your query with [galah_call()]
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() |>
+#' galah_call() |> 
 #'   galah_identify("chordata") |>
 #'   galah_down_to(class) |>
 #'   atlas_taxonomy()
@@ -80,6 +72,7 @@ atlas_taxonomy <- function(request = NULL,
   # subset to available arguments
   custom_call <- current_call[
     names(current_call) %in% names(formals(atlas_taxonomy_internal))]
+  class(custom_call) <- "data_request"
       
   # call using do.call
   do.call(atlas_taxonomy_internal, custom_call)

@@ -1,8 +1,7 @@
 context("Taxa search")
 
 test_that("search_taxa checks inputs", {
-  expect_error(search_taxa())
-  expect_error(search_taxa("Varanus varius", children = "false")) 
+  expect_warning(search_taxa())
 })
 
 test_that("search_taxa check atlas", {

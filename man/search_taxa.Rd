@@ -7,9 +7,8 @@
 search_taxa(...)
 }
 \arguments{
-\item{...}{: A vector containing one or more search terms,
-given as strings. Search terms can be scientific or common names, or
-taxonomic identifiers. If greater control is required to disambiguate search
+\item{...}{: One or more scientific names, separated by commas and
+given as strings. If greater control is required to disambiguate search
 terms, taxonomic levels can be provided explicitly via a \code{data.frame}
 (see examples). Note that searches are not case-sensitive.}
 }
@@ -34,36 +33,28 @@ taxon or taxa.
 
 Search using a single term\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("Reptilia")
 #> # A tibble: 1 x 9
-#>   search_term scientific_name taxon_concept_id                                                    rank  match_type kingdom  phylum   class    issues
-#>   <chr>       <chr>           <chr>                                                               <chr> <chr>      <chr>    <chr>    <chr>    <chr> 
-#> 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550~ class exactMatch Animalia Chordata Reptilia noIss~
+#>   search_term scientific_name taxon_concept_id                                      rank  match_type kingdom  phylum   class  issues
+#>   <chr>       <chr>           <chr>                                                 <chr> <chr>      <chr>    <chr>    <chr>  <chr> 
+#> 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c~ class exactMatch Animalia Chordata Repti~ noIss~
 }\if{html}{\out{</div>}}
 
 Note that \code{search_taxa()} is not case sensitive\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("reptilia") # not case sensitive
 #> # A tibble: 1 x 9
-#>   search_term scientific_name taxon_concept_id                                                    rank  match_type kingdom  phylum   class    issues
-#>   <chr>       <chr>           <chr>                                                               <chr> <chr>      <chr>    <chr>    <chr>    <chr> 
-#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550~ class exactMatch Animalia Chordata Reptilia noIss~
+#>   search_term scientific_name taxon_concept_id                                      rank  match_type kingdom  phylum   class  issues
+#>   <chr>       <chr>           <chr>                                                 <chr> <chr>      <chr>    <chr>    <chr>  <chr> 
+#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c~ class exactMatch Animalia Chordata Repti~ noIss~
 }\if{html}{\out{</div>}}
 
 Search multiple taxa. \code{search_taxa()} will return one row per taxon\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa(c("reptilia", "mammalia"))
 #> # A tibble: 2 x 10
-#>   search_term scientific_name taxon_concept_id                                      rank  match_type kingdom  phylum   class  issues vernacular_name
-#>   <chr>       <chr>           <chr>                                                 <chr> <chr>      <chr>    <chr>    <chr>  <chr>  <chr>          
-#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c~ class exactMatch Animalia Chordata Repti~ noIss~ <NA>           
-#> 2 mammalia    MAMMALIA        urn:lsid:biodiversity.org.au:afd.taxon:e9e7db31-04df~ class exactMatch Animalia Chordata Mamma~ noIss~ Mammals
+#>   search_term scientific_name taxon_concept_id                        rank  match_type kingdom  phylum class  issues vernacular_name
+#>   <chr>       <chr>           <chr>                                   <chr> <chr>      <chr>    <chr>  <chr>  <chr>  <chr>          
+#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon~ class exactMatch Animalia Chord~ Repti~ noIss~ <NA>           
+#> 2 mammalia    MAMMALIA        urn:lsid:biodiversity.org.au:afd.taxon~ class exactMatch Animalia Chord~ Mamma~ noIss~ Mammals
 }\if{html}{\out{</div>}}
 
-Use \code{search_taxa()} to narrow your data queries\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_counts(taxa = search_taxa("reptilia"))
-#> # A tibble: 1 x 1
-#>     count
-#>     <int>
-#> 1 1316451
-}\if{html}{\out{</div>}}
-
-You can also use \code{search_taxa()} with pipes, using either \verb{\%>\%} or \verb{|>}.
-Just begin with \code{\link[=galah_call]{galah_call()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
-  search_taxa("reptilia") \%>\%
+\code{galah_identify()} uses \code{search_taxa()} to narrow data queries\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+  galah_identify("reptilia") |>
   atlas_counts()
 #> # A tibble: 1 x 1
 #>     count

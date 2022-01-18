@@ -28,7 +28,7 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
                      "dataResourceName", "stateProvince", "ZERO_COORDINATE")
   filters <- galah_filter(year >= 2018)
   cols <- galah_select(group = "basic", stateProvince, ZERO_COORDINATE)
-  taxa <- galah_identify("Polytelis swainsonii")
+  identify <- galah_identify("Polytelis swainsonii")
   poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
   locations <- galah_geolocate(poly)
   occ <- atlas_occurrences(

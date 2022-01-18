@@ -45,18 +45,11 @@
 #' search_taxa(c("reptilia", "mammalia"))
 #' ```
 #' 
-#' Use `search_taxa()` to narrow your data queries
+#' `galah_identify()` uses `search_taxa()` to narrow data queries
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' atlas_counts(taxa = search_taxa("reptilia"))
-#' ```
-#' 
-#' You can also use `search_taxa()` with pipes, using either `%>%` or `|>`. 
-#' Just begin with [galah_call()]
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() %>%
-#'   search_taxa("reptilia") %>%
+#' galah_call() |>
+#'   galah_identify("reptilia") |>
 #'   atlas_counts()
 #' ```
 #' 
@@ -64,17 +57,22 @@
 search_taxa <- function(...) {
   
   query <- list(...)
-  if(length(query) == 1L){
+  if(length(query) < 1){
+    warn("No query passed to `search_taxa`")
+    return(tibble())
+  } else if(length(query) == 1L){
     query <- query[[1]]
-    if (is.list(query)) {
+    if (is.list(query) & !is.data.frame(query)) {
       query <- as.data.frame(query)
     }
-  }
-  
-  if(all(lengths(query) == 1L)){
-    query <- unlist(query)
-  }
-  
+  } else {
+    if(
+      all(lengths(query) == 1L) | 
+      all(unlist(lapply(query, is.character)))
+    ){
+      query <- unlist(query)
+    }
+  } 
  
   matches <- remove_parentheses(query) |> 
     name_query() 

@@ -51,28 +51,21 @@
 #' 
 #' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' galah_config(email = "your-email@email.com")
-#' 
-#' atlas_occurrences(taxa = search_taxa("perameles"),
-#'                   filter = galah_filter(year == 2001),
-#'                   select = galah_select(scientificName, eventDate))
+#' galah_call() |>
+#'   galah_identify("perameles")|>
+#'   galah_filter(year == 2001) |>
+#'   galah_select(scientificName, eventDate) |>
+#'   atlas_occurrences()
 #' ```
 #' 
 #' Download occurrence record of *Perameles* taken in 2001, returning the 
 #' "basic" group of columns plus the Basis of Record
 #' 
 #' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
-#' atlas_occurrences(taxa = search_taxa("perameles"),
-#'                   filter = galah_filter(year == 2001),
-#'                   select = galah_select(group = "basic", basisOfRecord))
-#' ```
-#' 
-#' Use `galah_select()` with pipes, using either `%>%` or `|>`. Just begin with 
-#' [galah_call()]
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
-#' galah_call() %>%
-#'   search_taxa("perameles") %>%
-#'   galah_select(group = "basic", basisOfRecord) %>%
+#' galah_call() |>
+#'   galah_identify("perameles") |>
+#'   galah_filter(year == 2001) |>
+#'   galah_select(group = "basic", basisOfRecord) |>
 #'   atlas_occurrences()
 #' ```
 #' 

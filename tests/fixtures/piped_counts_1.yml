@@ -22,27 +22,27 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 11 Jan 2022 03:24:05 GMT
+      date: Tue, 18 Jan 2022 04:17:46 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=UPpUFh/0yNyu9Wy/ylBfJ2BCaOvgpJoWMEU3tjkae/Y5lv8Zfu17vuI/fiW2mvhhbGN4vzW3rjgjUYdMp/4Op66oadBpvDrws5QNCH9m/3nEw2sYCcBIV6bmyqpfvQQCOymTOXz+IEDEFIxdM1sMo3auFVyzVKqA9rQoW0Q6lMV1;
-        Expires=Tue, 18 Jan 2022 03:24:04 GMT; Path=/
-      - AWSALBTGCORS=UPpUFh/0yNyu9Wy/ylBfJ2BCaOvgpJoWMEU3tjkae/Y5lv8Zfu17vuI/fiW2mvhhbGN4vzW3rjgjUYdMp/4Op66oadBpvDrws5QNCH9m/3nEw2sYCcBIV6bmyqpfvQQCOymTOXz+IEDEFIxdM1sMo3auFVyzVKqA9rQoW0Q6lMV1;
-        Expires=Tue, 18 Jan 2022 03:24:04 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=NpTfgK9JdJYmpOJD4bUby6VHlPp1RcPZ7X9DO6Iee/bdQa+icKSacCDmLzbEAsn4L1sfqzYolmUHiRiX40KAMYRc0KY4qaXRwNc3SyOusZyP/qOPx1EHE+LHGYn2;
-        Expires=Tue, 18 Jan 2022 03:24:04 GMT; Path=/
-      - AWSALBCORS=NpTfgK9JdJYmpOJD4bUby6VHlPp1RcPZ7X9DO6Iee/bdQa+icKSacCDmLzbEAsn4L1sfqzYolmUHiRiX40KAMYRc0KY4qaXRwNc3SyOusZyP/qOPx1EHE+LHGYn2;
-        Expires=Tue, 18 Jan 2022 03:24:04 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=9j6UkpUmO81fM8ZSnoeOnLbcKiHbLtGP4XkdcczfG7jj10GdS+RDNItsETUNTPS0gUiIYa3YuWztTWoj/amgLrZNPgBBdzrYshhEe1xnHSb3vKZ3Youdw6UkBiKnT1S75W3U+pqNQKxN3RtxDAFNh8qgtseXc7lByymFfZ98Ea97;
+        Expires=Tue, 25 Jan 2022 04:17:45 GMT; Path=/
+      - AWSALBTGCORS=9j6UkpUmO81fM8ZSnoeOnLbcKiHbLtGP4XkdcczfG7jj10GdS+RDNItsETUNTPS0gUiIYa3YuWztTWoj/amgLrZNPgBBdzrYshhEe1xnHSb3vKZ3Youdw6UkBiKnT1S75W3U+pqNQKxN3RtxDAFNh8qgtseXc7lByymFfZ98Ea97;
+        Expires=Tue, 25 Jan 2022 04:17:45 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=IMnGVAL4WyFxZSLRbhM9puC54EOSrjxrrUvchBn9PRVX7tijvHjkp1V9Ag7i1jyRVSOcf9f0Dx2sD0m3VdMP4GdAG1cfCU787muT1sy492a6JrVKXgJZs1huP51L;
+        Expires=Tue, 25 Jan 2022 04:17:45 GMT; Path=/
+      - AWSALBCORS=IMnGVAL4WyFxZSLRbhM9puC54EOSrjxrrUvchBn9PRVX7tijvHjkp1V9Ag7i1jyRVSOcf9f0Dx2sD0m3VdMP4GdAG1cfCU787muT1sy492a6JrVKXgJZs1huP51L;
+        Expires=Tue, 25 Jan 2022 04:17:45 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":5837254,"fq":"year:\"2020\""}],"count":5},{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human
-        observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":17628606,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":5}]'
-  recorded_at: 2022-01-11 03:24:06 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":5841880,"fq":"year:\"2020\""}],"count":5},{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human
+        observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":17662057,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":5}]'
+  recorded_at: 2022-01-18 04:17:47 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -67,31 +67,31 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 11 Jan 2022 03:24:06 GMT
+      date: Tue, 18 Jan 2022 04:17:46 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=DnKNW78ZOK/Ag9Gnqo6FxsmYXN8mStoy8iEI7rRVsls40Uf1wey+r1GN8u6nk+vvrOhxlBHqrG9mfFI0vkO3ry3zFDeOKQezC3TQUfCYFqZ3SXCrf17RRtAj5pj5XuPKBlEUvPw3PiH6QdF0CgMZR/jByfXFwtxok+9fRFtS8bLd;
-        Expires=Tue, 18 Jan 2022 03:24:05 GMT; Path=/
-      - AWSALBTGCORS=DnKNW78ZOK/Ag9Gnqo6FxsmYXN8mStoy8iEI7rRVsls40Uf1wey+r1GN8u6nk+vvrOhxlBHqrG9mfFI0vkO3ry3zFDeOKQezC3TQUfCYFqZ3SXCrf17RRtAj5pj5XuPKBlEUvPw3PiH6QdF0CgMZR/jByfXFwtxok+9fRFtS8bLd;
-        Expires=Tue, 18 Jan 2022 03:24:05 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=JWvI0XVlWgb9WnNOJ/Cgx7Xtlehsxs+aiQpN9dx8pbai8kBO0lDvxONtbpFHOtQaYWo4NlZSCWMMjpTBj1nwjJYbzBW1Gvrx8Pw8yfG1LLUlGmQx8vHaMK6Qi/rA;
-        Expires=Tue, 18 Jan 2022 03:24:05 GMT; Path=/
-      - AWSALBCORS=JWvI0XVlWgb9WnNOJ/Cgx7Xtlehsxs+aiQpN9dx8pbai8kBO0lDvxONtbpFHOtQaYWo4NlZSCWMMjpTBj1nwjJYbzBW1Gvrx8Pw8yfG1LLUlGmQx8vHaMK6Qi/rA;
-        Expires=Tue, 18 Jan 2022 03:24:05 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=Seo+qoTFt3ogrTpHYy9cmK54mcshVem8uSvbXn2R/UxFawgrBxAhDWJXOQ6HFz4kNUkI1Ohl8V3SOl/bHxFzRJGyS98pMWJWNI1nnF7kDkPxlhpYQd13egF1hs7+mr119AHVbHpWC8qWXtHBlrRDK9sVoBC/47w9qph+AesKnKVT;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/
+      - AWSALBTGCORS=Seo+qoTFt3ogrTpHYy9cmK54mcshVem8uSvbXn2R/UxFawgrBxAhDWJXOQ6HFz4kNUkI1Ohl8V3SOl/bHxFzRJGyS98pMWJWNI1nnF7kDkPxlhpYQd13egF1hs7+mr119AHVbHpWC8qWXtHBlrRDK9sVoBC/47w9qph+AesKnKVT;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=FnDv+baWFQJOW6cjZi2zVy3pFbinycIvaVg3R0PZzLKb02E6kLzdFXMPU26QZxYaNriW9su/eKZnG/vTXpmEr7vH6ZxxUmt6JCmTcSzPvnmCDg+zYszi8z8vzBUE;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/
+      - AWSALBCORS=FnDv+baWFQJOW6cjZi2zVy3pFbinycIvaVg3R0PZzLKb02E6kLzdFXMPU26QZxYaNriW9su/eKZnG/vTXpmEr7vH6ZxxUmt6JCmTcSzPvnmCDg+zYszi8z8vzBUE;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":5837254,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":5503999,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":5413565,"fq":"year:\"2018\""},{"label":"2021","i18nCode":"year.2021","count":1147094,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":3732,"fq":"year:\"2022\""}],"count":5},{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human
-        observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":17628606,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"Unknown","i18nCode":"basisOfRecord.UNKNOWN","count":132475,"fq":"basisOfRecord:\"UNKNOWN\""},{"label":"Preserved
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":5841880,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":5505407,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":5413796,"fq":"year:\"2018\""},{"label":"2021","i18nCode":"year.2021","count":1155614,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":22398,"fq":"year:\"2022\""}],"count":5},{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human
+        observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":17662057,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"Unknown","i18nCode":"basisOfRecord.UNKNOWN","count":132475,"fq":"basisOfRecord:\"UNKNOWN\""},{"label":"Preserved
         specimen","i18nCode":"basisOfRecord.PRESERVED_SPECIMEN","count":102894,"fq":"basisOfRecord:\"PRESERVED_SPECIMEN\""},{"label":"Observation","i18nCode":"basisOfRecord.OBSERVATION","count":28128,"fq":"basisOfRecord:\"OBSERVATION\""},{"label":"Material
         Sample","i18nCode":"basisOfRecord.MATERIAL_SAMPLE","count":10617,"fq":"basisOfRecord:\"MATERIAL_SAMPLE\""},{"label":"Living
         specimen","i18nCode":"basisOfRecord.LIVING_SPECIMEN","count":1656,"fq":"basisOfRecord:\"LIVING_SPECIMEN\""},{"label":"Machine
         observation","i18nCode":"basisOfRecord.MACHINE_OBSERVATION","count":1268,"fq":"basisOfRecord:\"MACHINE_OBSERVATION\""}],"count":5}]'
-  recorded_at: 2022-01-11 03:24:06 GMT
+  recorded_at: 2022-01-18 04:17:47 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -116,26 +116,26 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 11 Jan 2022 03:24:06 GMT
+      date: Tue, 18 Jan 2022 04:17:46 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=NZEW9qwgAdpqnxc5NdX98/Pe657wtqGuYuOHCNImLZ39OL1c+88Nyu+78G2Vl08f0MZhKcR4qCa/ES/cHklkG+BicK5DHboBYyMlSBKJXsQ9whUzG7ru1n1K+5Wxm98/nnf+upp8GOf8cJ2axiCobTARbr+TuTCkNIhDrvIdKTZH;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBTGCORS=NZEW9qwgAdpqnxc5NdX98/Pe657wtqGuYuOHCNImLZ39OL1c+88Nyu+78G2Vl08f0MZhKcR4qCa/ES/cHklkG+BicK5DHboBYyMlSBKJXsQ9whUzG7ru1n1K+5Wxm98/nnf+upp8GOf8cJ2axiCobTARbr+TuTCkNIhDrvIdKTZH;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=mQ82WH5dDgWuXxUdxKd9ghSDeGBrJDYu6WPXGor91rSKrELNSiI9+O4tgUY81Tc/6nnilKQRZrqc+efkkZScXnP3No6HuHtkQpRTwKn7gRaanzk1dRuxDu5cdqPQ;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBCORS=mQ82WH5dDgWuXxUdxKd9ghSDeGBrJDYu6WPXGor91rSKrELNSiI9+O4tgUY81Tc/6nnilKQRZrqc+efkkZScXnP3No6HuHtkQpRTwKn7gRaanzk1dRuxDu5cdqPQ;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=K+UPF4oSMlp48PWMo0iFKwQIVElVMbtt+U1aPq83WDA3vbcLq17iJICPiGpAuNVzWvAtlKNeQbKo8/JP5l7x83JNWp2wuKNMBZtW71GM8cpbdnj22HkyiJymm7rQMWx3lEPDAdimKZJvdDurojsh0IL+JWYb+5e1paUQ50QaoPYU;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/
+      - AWSALBTGCORS=K+UPF4oSMlp48PWMo0iFKwQIVElVMbtt+U1aPq83WDA3vbcLq17iJICPiGpAuNVzWvAtlKNeQbKo8/JP5l7x83JNWp2wuKNMBZtW71GM8cpbdnj22HkyiJymm7rQMWx3lEPDAdimKZJvdDurojsh0IL+JWYb+5e1paUQ50QaoPYU;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=7T0wphL+Kku7mtDQOKHmLzzaAkoWU3isYCrB1LPX+ywfCr3y50vEmyQd+vWAxDAJzlxJeUPivyGrBhHhGowjlNMNWRwhYtl/w/DzPySvJvHu6hJRGyqaoA3t39md;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/
+      - AWSALBCORS=7T0wphL+Kku7mtDQOKHmLzzaAkoWU3isYCrB1LPX+ywfCr3y50vEmyQd+vWAxDAJzlxJeUPivyGrBhHhGowjlNMNWRwhYtl/w/DzPySvJvHu6hJRGyqaoA3t39md;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":5819975,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":7}]'
-  recorded_at: 2022-01-11 03:24:06 GMT
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":5824601,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":7}]'
+  recorded_at: 2022-01-18 04:17:47 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -160,30 +160,30 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 11 Jan 2022 03:24:06 GMT
+      date: Tue, 18 Jan 2022 04:17:46 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=Uq5O9ElZOyutCzpV4lNcLp8PjtoJJ+DOHmSYHPh+U3Mxbxoa8u4YNroPJzLoZNPik+jk4Qks+DBrVv9oWwko55uMDKy0d/Q7cLVhN8wbQQW0U5jWL8CkuSdOdpLWnwWp3WZaSUXyxJKuagP8MlAmoFnr2g13y3UyLhUDGu4+ETG8;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBTGCORS=Uq5O9ElZOyutCzpV4lNcLp8PjtoJJ+DOHmSYHPh+U3Mxbxoa8u4YNroPJzLoZNPik+jk4Qks+DBrVv9oWwko55uMDKy0d/Q7cLVhN8wbQQW0U5jWL8CkuSdOdpLWnwWp3WZaSUXyxJKuagP8MlAmoFnr2g13y3UyLhUDGu4+ETG8;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=xc18DUEJ+fLqqL4IVg6IloV6HUeQx3ZpA5qZ2CVW07wa+AcYGTOTNusXrpWMsGL9kw4RkblbaOM3vRMdW1wDkFO63+PN10kjRuQAH0i0hlnrO3l2NPnki8Tgyta5;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBCORS=xc18DUEJ+fLqqL4IVg6IloV6HUeQx3ZpA5qZ2CVW07wa+AcYGTOTNusXrpWMsGL9kw4RkblbaOM3vRMdW1wDkFO63+PN10kjRuQAH0i0hlnrO3l2NPnki8Tgyta5;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=0kPjniFQM99/vlhC0BFLEA+FkAi0XXBr0KMnV4gQRwM3rrrPQNnNOUHlRKL19aFKW3rmhMO7b2cqn/azZBxt8oxvQmsjKOeY8UB9CIcdzlcy7ggNOz7A91Tm6o64nW+3g6oQ3rlfuEX0qJC2y+yZLDI1+WndELh9kE6TStEpxp6j;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/
+      - AWSALBTGCORS=0kPjniFQM99/vlhC0BFLEA+FkAi0XXBr0KMnV4gQRwM3rrrPQNnNOUHlRKL19aFKW3rmhMO7b2cqn/azZBxt8oxvQmsjKOeY8UB9CIcdzlcy7ggNOz7A91Tm6o64nW+3g6oQ3rlfuEX0qJC2y+yZLDI1+WndELh9kE6TStEpxp6j;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=1D7SMtZEZQHOzLCIXW0a4VzckTyY90rD3UiqWfP9gadLIPzKXMgMjkkwxKPqIsliY3OMO8TD8EYrHlcbYat+IL0esK9UovG4zYyFCKroNVyWNA9wtdbPONfD63bi;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/
+      - AWSALBCORS=1D7SMtZEZQHOzLCIXW0a4VzckTyY90rD3UiqWfP9gadLIPzKXMgMjkkwxKPqIsliY3OMO8TD8EYrHlcbYat+IL0esK9UovG4zYyFCKroNVyWNA9wtdbPONfD63bi;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":5819975,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"Preserved
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":5824601,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"Preserved
         specimen","i18nCode":"basisOfRecord.PRESERVED_SPECIMEN","count":13637,"fq":"basisOfRecord:\"PRESERVED_SPECIMEN\""},{"label":"Observation","i18nCode":"basisOfRecord.OBSERVATION","count":2863,"fq":"basisOfRecord:\"OBSERVATION\""},{"label":"Unknown","i18nCode":"basisOfRecord.UNKNOWN","count":365,"fq":"basisOfRecord:\"UNKNOWN\""},{"label":"Material
         Sample","i18nCode":"basisOfRecord.MATERIAL_SAMPLE","count":250,"fq":"basisOfRecord:\"MATERIAL_SAMPLE\""},{"label":"Living
         specimen","i18nCode":"basisOfRecord.LIVING_SPECIMEN","count":127,"fq":"basisOfRecord:\"LIVING_SPECIMEN\""},{"label":"Machine
         observation","i18nCode":"basisOfRecord.MACHINE_OBSERVATION","count":37,"fq":"basisOfRecord:\"MACHINE_OBSERVATION\""}],"count":7}]'
-  recorded_at: 2022-01-11 03:24:06 GMT
+  recorded_at: 2022-01-18 04:17:47 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -208,26 +208,26 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 11 Jan 2022 03:24:06 GMT
+      date: Tue, 18 Jan 2022 04:17:46 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=JwgF4ol7bj0bPgUcrq3FQJFxicqKZeS7NOJG9qy27hDEp5uoBGB7OC0hod7qVv80DYBIZfERdG9Oo5ZEovVnXCfCxcEYNE4eW14P37GQSqxQAt+3TfD1rl9Sq1EaYB0sJ499tm7LLzItNLXvu0YxEDEe2KTW/MRTyMprFMiLpDl+;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBTGCORS=JwgF4ol7bj0bPgUcrq3FQJFxicqKZeS7NOJG9qy27hDEp5uoBGB7OC0hod7qVv80DYBIZfERdG9Oo5ZEovVnXCfCxcEYNE4eW14P37GQSqxQAt+3TfD1rl9Sq1EaYB0sJ499tm7LLzItNLXvu0YxEDEe2KTW/MRTyMprFMiLpDl+;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=xXkYDtjMVGEAIJ++Q+3tgeyVQarA46eO748xDdokwSGIIZoyk7lxsXWB+T3Qj96brb6xL7C7549fsJN5azIyAMD/xV1YDdlg3KDnuqI2rSIKf9g7l5rr1D4PVOFg;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBCORS=xXkYDtjMVGEAIJ++Q+3tgeyVQarA46eO748xDdokwSGIIZoyk7lxsXWB+T3Qj96brb6xL7C7549fsJN5azIyAMD/xV1YDdlg3KDnuqI2rSIKf9g7l5rr1D4PVOFg;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=/2zE3QArBf3PPASw1Mfr/PKy8fF/YFQn4NF0x6wu4ySYX+9BTjQCeHom9eRGSw+j7fCByMLtuK9q71zOaDfGfNTZtkgvuBQ9mY8ZFyH3APykiGxkMp8Synlul7EeHZct33Iq5gvHjpEI1UY2bu53bYYKKAdnB+O5/dpiR7UPbJeM;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/
+      - AWSALBTGCORS=/2zE3QArBf3PPASw1Mfr/PKy8fF/YFQn4NF0x6wu4ySYX+9BTjQCeHom9eRGSw+j7fCByMLtuK9q71zOaDfGfNTZtkgvuBQ9mY8ZFyH3APykiGxkMp8Synlul7EeHZct33Iq5gvHjpEI1UY2bu53bYYKKAdnB+O5/dpiR7UPbJeM;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=i7Rd7rJcjdgB6Qs9JBhexIRqHEZTRgsV6XmLXUM/tXQ4Qyy8ZZBxZE4+V9hQhu3vWpPPCaVJbP/1yJX7xZkSu+QCAxSFCZpp0qYZAhds528rZ6LDhOWB2yz4uu0I;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/
+      - AWSALBCORS=i7Rd7rJcjdgB6Qs9JBhexIRqHEZTRgsV6XmLXUM/tXQ4Qyy8ZZBxZE4+V9hQhu3vWpPPCaVJbP/1yJX7xZkSu+QCAxSFCZpp0qYZAhds528rZ6LDhOWB2yz4uu0I;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":5399650,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":7}]'
-  recorded_at: 2022-01-11 03:24:06 GMT
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":5401058,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":7}]'
+  recorded_at: 2022-01-18 04:17:47 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -252,30 +252,30 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 11 Jan 2022 03:24:06 GMT
+      date: Tue, 18 Jan 2022 04:17:46 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=bBZeUdfzd8kogVNMBT5DoSiPhsPsF501NfkZe6SvAwSkFlNEZgaJRzOjnFlrGrXHRK7/IWXmNK2F5B+dn3xrxHNy240fTgzU0rsYK6wjdLzLJDCZQb4UfOSj4PfgAvpYfVU4SQFfJA1u1viHb/tH+WoXG1IIy6aMkVioEkZsXfhu;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBTGCORS=bBZeUdfzd8kogVNMBT5DoSiPhsPsF501NfkZe6SvAwSkFlNEZgaJRzOjnFlrGrXHRK7/IWXmNK2F5B+dn3xrxHNy240fTgzU0rsYK6wjdLzLJDCZQb4UfOSj4PfgAvpYfVU4SQFfJA1u1viHb/tH+WoXG1IIy6aMkVioEkZsXfhu;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=KlYzIulsjB2zQPrjnn3yhglEo7ecd0ROixFwBhiH2RUNk21R3/sC4DHT6wjqS7xcu1AuHTb/TOVDgGM6jYqTEJl/bWTrJy71o4xS7/GmxN12to+R93n4mQf/lQsC;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBCORS=KlYzIulsjB2zQPrjnn3yhglEo7ecd0ROixFwBhiH2RUNk21R3/sC4DHT6wjqS7xcu1AuHTb/TOVDgGM6jYqTEJl/bWTrJy71o4xS7/GmxN12to+R93n4mQf/lQsC;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=UWHDFaHQK8R1W9lm4K8e8+64EPQ9249cCwFOWSm4N35Jt7zxu2PmcEdW97iVdoLeNX2YNGSRh2Xh2PnSZuHHf5x0dM2uaZAuET1iZ9198FL5DySeM57fikk38Wa0PZuD+5tMgd0KPQTcGsp76au+OI/wnzKaYTSLll1L+wqFzVV7;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/
+      - AWSALBTGCORS=UWHDFaHQK8R1W9lm4K8e8+64EPQ9249cCwFOWSm4N35Jt7zxu2PmcEdW97iVdoLeNX2YNGSRh2Xh2PnSZuHHf5x0dM2uaZAuET1iZ9198FL5DySeM57fikk38Wa0PZuD+5tMgd0KPQTcGsp76au+OI/wnzKaYTSLll1L+wqFzVV7;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=9xBGeIHNe2bh8Ug+qPjadrx1UU3SDLmlrb2KvvHNHkGD4oqmv7jW9NM3l0AgcjdEYvhgRPmv/57pNIr0SOUkQ9IvyBqLVbsvg0qZel01WQcn6U14z9pW6p+CCQBm;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/
+      - AWSALBCORS=9xBGeIHNe2bh8Ug+qPjadrx1UU3SDLmlrb2KvvHNHkGD4oqmv7jW9NM3l0AgcjdEYvhgRPmv/57pNIr0SOUkQ9IvyBqLVbsvg0qZel01WQcn6U14z9pW6p+CCQBm;
+        Expires=Tue, 25 Jan 2022 04:17:46 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":5399650,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"Unknown","i18nCode":"basisOfRecord.UNKNOWN","count":51747,"fq":"basisOfRecord:\"UNKNOWN\""},{"label":"Preserved
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":5401058,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"Unknown","i18nCode":"basisOfRecord.UNKNOWN","count":51747,"fq":"basisOfRecord:\"UNKNOWN\""},{"label":"Preserved
         specimen","i18nCode":"basisOfRecord.PRESERVED_SPECIMEN","count":38117,"fq":"basisOfRecord:\"PRESERVED_SPECIMEN\""},{"label":"Observation","i18nCode":"basisOfRecord.OBSERVATION","count":6858,"fq":"basisOfRecord:\"OBSERVATION\""},{"label":"Material
         Sample","i18nCode":"basisOfRecord.MATERIAL_SAMPLE","count":5515,"fq":"basisOfRecord:\"MATERIAL_SAMPLE\""},{"label":"Living
         specimen","i18nCode":"basisOfRecord.LIVING_SPECIMEN","count":1460,"fq":"basisOfRecord:\"LIVING_SPECIMEN\""},{"label":"Machine
         observation","i18nCode":"basisOfRecord.MACHINE_OBSERVATION","count":652,"fq":"basisOfRecord:\"MACHINE_OBSERVATION\""}],"count":7}]'
-  recorded_at: 2022-01-11 03:24:06 GMT
+  recorded_at: 2022-01-18 04:17:47 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -300,26 +300,26 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 11 Jan 2022 03:24:06 GMT
+      date: Tue, 18 Jan 2022 04:17:47 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=dfOUFCXw9oTP7c8WMLjgYmZ5hAhP2lUyAYxrh2orL1bRaRoTLO0wb8ADMOtLvPG1ln890bA0VRi0OUH6FE2dYBr55e4VfEoX00UB+nhI3wRiCkEVY9QHxGMdjcNqfJZMftwERBaK9kptj0FgAiOCH0Ug/7dyW6dzx2CpOskRFX2P;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBTGCORS=dfOUFCXw9oTP7c8WMLjgYmZ5hAhP2lUyAYxrh2orL1bRaRoTLO0wb8ADMOtLvPG1ln890bA0VRi0OUH6FE2dYBr55e4VfEoX00UB+nhI3wRiCkEVY9QHxGMdjcNqfJZMftwERBaK9kptj0FgAiOCH0Ug/7dyW6dzx2CpOskRFX2P;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=2E5hV3/ZwaPVJdR4OZnoBb5reNrf4j91PcLH5/LkGzkO4C1R2KaK7TQ701tpDRpV0oTyW8gwIMuHa3VTfN0c3RMyFhKi/dvekM5qYlJxqMr1Nm0a7IxO5kMOpZvT;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBCORS=2E5hV3/ZwaPVJdR4OZnoBb5reNrf4j91PcLH5/LkGzkO4C1R2KaK7TQ701tpDRpV0oTyW8gwIMuHa3VTfN0c3RMyFhKi/dvekM5qYlJxqMr1Nm0a7IxO5kMOpZvT;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=0OW66tE9zrrrQ6noKEIfSP81ZUI4s9Rs1rklt3dPAfhryfQWH/gkJppgR1+W3/oAD/XVqOrTZm3+/JL5IOO5KznGD1xdAtYMWrholSYPGAOWMmdaaMFQHU6jou8EIU4Q8DnCA0zmMIOQ9RZE1w7nIINEMwVQ4MqPHuLQxUJ7tCjq;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/
+      - AWSALBTGCORS=0OW66tE9zrrrQ6noKEIfSP81ZUI4s9Rs1rklt3dPAfhryfQWH/gkJppgR1+W3/oAD/XVqOrTZm3+/JL5IOO5KznGD1xdAtYMWrholSYPGAOWMmdaaMFQHU6jou8EIU4Q8DnCA0zmMIOQ9RZE1w7nIINEMwVQ4MqPHuLQxUJ7tCjq;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=fxGZRl91h7pJ/6+1PMepI+qiJSo1f2aRwM+2LmgDzG/xhinrcoDjxpKI5M9y47Y+OBR6XurmGI3VSiZ8p7FLJB9nHgVPy1tNH6kdMyH3Et66YRq6tI088FRlx4sy;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/
+      - AWSALBCORS=fxGZRl91h7pJ/6+1PMepI+qiJSo1f2aRwM+2LmgDzG/xhinrcoDjxpKI5M9y47Y+OBR6XurmGI3VSiZ8p7FLJB9nHgVPy1tNH6kdMyH3Et66YRq6tI088FRlx4sy;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":5267512,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":7}]'
-  recorded_at: 2022-01-11 03:24:06 GMT
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":5267743,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":7}]'
+  recorded_at: 2022-01-18 04:17:47 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -344,30 +344,30 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 11 Jan 2022 03:24:06 GMT
+      date: Tue, 18 Jan 2022 04:17:47 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=7N3nG41VjTl0+cB5H7RZUo1p3T/VKDlEsqpTYTrQ031l/a0wIZtQ37oJ1l55hPeoTdaOOukniIOA0qX9JHokhFlDhrum3vgHXhqxc5XbFfWRwj5X6baQVmnqrQl1/+9FUXt/fYOli+ZfEefP5YcetOmueXYZPM0wkzK9NpJ7z2I9;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBTGCORS=7N3nG41VjTl0+cB5H7RZUo1p3T/VKDlEsqpTYTrQ031l/a0wIZtQ37oJ1l55hPeoTdaOOukniIOA0qX9JHokhFlDhrum3vgHXhqxc5XbFfWRwj5X6baQVmnqrQl1/+9FUXt/fYOli+ZfEefP5YcetOmueXYZPM0wkzK9NpJ7z2I9;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=JnhJYbnY8rpIdbDqIgbFEpoEzBhKPX3kKFYuiSANCyHx368PVazCzKG2YEV8YRFHhKTTU7XCKE5HPZ+js//wdsfwWJktSOolmp/ZIu9aKQhkAByrs9uOFzMVcxjj;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBCORS=JnhJYbnY8rpIdbDqIgbFEpoEzBhKPX3kKFYuiSANCyHx368PVazCzKG2YEV8YRFHhKTTU7XCKE5HPZ+js//wdsfwWJktSOolmp/ZIu9aKQhkAByrs9uOFzMVcxjj;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=YkSKP02KtAuIsaMJvegdu46PQILBxzqSpmwQaigN/Zscn9jgNsSJyWFR7RKM4YbAW/vCWHbld3nrF5YzZS4OSEeRWOKDB90DLE0PjGomCgs76LyW9wlY0kxHU+v5OxvCcJ6LPPsKhJM0D72KI0ZBRLovCgqjKNBJX4/zDh0fO5vf;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/
+      - AWSALBTGCORS=YkSKP02KtAuIsaMJvegdu46PQILBxzqSpmwQaigN/Zscn9jgNsSJyWFR7RKM4YbAW/vCWHbld3nrF5YzZS4OSEeRWOKDB90DLE0PjGomCgs76LyW9wlY0kxHU+v5OxvCcJ6LPPsKhJM0D72KI0ZBRLovCgqjKNBJX4/zDh0fO5vf;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=J7v7LtdOxJ2JSjh3akrC4Vvv1MV4hBcx7oEzoI+B8NybC4NqTQJo3ZA24fT3jJTQpp1gLiE+HCtn0KErJJCN1iAa46pA0SL2Z34bbWzpx+92TO3DPttW0yWdpvFS;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/
+      - AWSALBCORS=J7v7LtdOxJ2JSjh3akrC4Vvv1MV4hBcx7oEzoI+B8NybC4NqTQJo3ZA24fT3jJTQpp1gLiE+HCtn0KErJJCN1iAa46pA0SL2Z34bbWzpx+92TO3DPttW0yWdpvFS;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":5267512,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"Unknown","i18nCode":"basisOfRecord.UNKNOWN","count":80208,"fq":"basisOfRecord:\"UNKNOWN\""},{"label":"Preserved
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":5267743,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"Unknown","i18nCode":"basisOfRecord.UNKNOWN","count":80208,"fq":"basisOfRecord:\"UNKNOWN\""},{"label":"Preserved
         specimen","i18nCode":"basisOfRecord.PRESERVED_SPECIMEN","count":44195,"fq":"basisOfRecord:\"PRESERVED_SPECIMEN\""},{"label":"Observation","i18nCode":"basisOfRecord.OBSERVATION","count":17057,"fq":"basisOfRecord:\"OBSERVATION\""},{"label":"Material
         Sample","i18nCode":"basisOfRecord.MATERIAL_SAMPLE","count":3945,"fq":"basisOfRecord:\"MATERIAL_SAMPLE\""},{"label":"Machine
         observation","i18nCode":"basisOfRecord.MACHINE_OBSERVATION","count":579,"fq":"basisOfRecord:\"MACHINE_OBSERVATION\""},{"label":"Living
         specimen","i18nCode":"basisOfRecord.LIVING_SPECIMEN","count":69,"fq":"basisOfRecord:\"LIVING_SPECIMEN\""}],"count":7}]'
-  recorded_at: 2022-01-11 03:24:06 GMT
+  recorded_at: 2022-01-18 04:17:47 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -392,26 +392,26 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 11 Jan 2022 03:24:06 GMT
+      date: Tue, 18 Jan 2022 04:17:47 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=3stUDgUU7YnmaXeYXMZHNNvkBmhburRNQztYveNifim8djUDjKhlKKgh3RT63KsAepsX6mVMuN0aAxELgGi2r57oh6c6G583cWY6iJvCVgesSuXJuJeEoC0lj8BilElHY7cOGhG+xpeen1NADielt9XsgN82ZeVqzYNAkdr5F0eH;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBTGCORS=3stUDgUU7YnmaXeYXMZHNNvkBmhburRNQztYveNifim8djUDjKhlKKgh3RT63KsAepsX6mVMuN0aAxELgGi2r57oh6c6G583cWY6iJvCVgesSuXJuJeEoC0lj8BilElHY7cOGhG+xpeen1NADielt9XsgN82ZeVqzYNAkdr5F0eH;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=hc16trI54IFyzRIS4OZdI6puBK2FHIbiAx5Y3HZphmkj3otlRbu6P9No+5yU03j8G3EnQovBo/dEzfMXYFxVhoRrMNUXwkDcWiG9qKaLH1DKIBFz9Tg0erALbPHE;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBCORS=hc16trI54IFyzRIS4OZdI6puBK2FHIbiAx5Y3HZphmkj3otlRbu6P9No+5yU03j8G3EnQovBo/dEzfMXYFxVhoRrMNUXwkDcWiG9qKaLH1DKIBFz9Tg0erALbPHE;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=BkhjZq44/lWqOy8SppL1RrD6Vn0QUry0GxlHbv8IAjbRYeRBU/RQQEb/mDf3bTWoAAocYVvPFVyhvBXXvzP9pi2decYuI0Ebac5/oXEl4XS2Ltp9fJdbNncTQ7/obBgmbmFXU1Rzh+LJ7kvip9NzDwCWXirY68DCpWXqBbEcqjVC;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/
+      - AWSALBTGCORS=BkhjZq44/lWqOy8SppL1RrD6Vn0QUry0GxlHbv8IAjbRYeRBU/RQQEb/mDf3bTWoAAocYVvPFVyhvBXXvzP9pi2decYuI0Ebac5/oXEl4XS2Ltp9fJdbNncTQ7/obBgmbmFXU1Rzh+LJ7kvip9NzDwCWXirY68DCpWXqBbEcqjVC;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=AR0bu2wbCSTePqRNX/gbCaqnZelBeJANQ9o8u45YX9G4MRJnzMv4wqP62VfkUTivdu3PHf6S9XgtuHVNgrQEQ4MjM+N6+BN/tePxOITfmwNDY5fpQMln+5ZZ66SG;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/
+      - AWSALBCORS=AR0bu2wbCSTePqRNX/gbCaqnZelBeJANQ9o8u45YX9G4MRJnzMv4wqP62VfkUTivdu3PHf6S9XgtuHVNgrQEQ4MjM+N6+BN/tePxOITfmwNDY5fpQMln+5ZZ66SG;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":1137737,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":5}]'
-  recorded_at: 2022-01-11 03:24:06 GMT
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":1146257,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":5}]'
+  recorded_at: 2022-01-18 04:17:47 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -436,28 +436,28 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 11 Jan 2022 03:24:06 GMT
+      date: Tue, 18 Jan 2022 04:17:47 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=yQE6ik9V205US6sTk1YV997Klq+Kam7u8/Rf0ki9Ru0nS59DJJBfYrUxJaMIgKY2LwwnRHZ4iDs09Sbi0x1i/lLQ33A8m1HZcSg4hxXwOAn95DAuzc54jRNa4JAZmGNYV396OyQAZndeIkPf4JhiVyUlhmpsnZxDd2r/RUOHVh7M;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBTGCORS=yQE6ik9V205US6sTk1YV997Klq+Kam7u8/Rf0ki9Ru0nS59DJJBfYrUxJaMIgKY2LwwnRHZ4iDs09Sbi0x1i/lLQ33A8m1HZcSg4hxXwOAn95DAuzc54jRNa4JAZmGNYV396OyQAZndeIkPf4JhiVyUlhmpsnZxDd2r/RUOHVh7M;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=2UxmU0VV9tSg9wK7C8YJvve4c5zAT5DyxlJvMXGjNLg/nXDkz5bHM+NFbazwG89jfKsI/uPBn+QRLAybfzqEr+wQTAcyTbnC9kdXXPRvnPWKMVn1d3wvjEyQsE1P;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBCORS=2UxmU0VV9tSg9wK7C8YJvve4c5zAT5DyxlJvMXGjNLg/nXDkz5bHM+NFbazwG89jfKsI/uPBn+QRLAybfzqEr+wQTAcyTbnC9kdXXPRvnPWKMVn1d3wvjEyQsE1P;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=rPNkkHtx3ikzAiyY9VJCJ0OtC0kKv7cU7kpr/uhvrqUd2bdeMUKSrH/7D+rkZUY51ToAIdiKIw304y8iiV4VfFf9jV9v+F7UJZfnMxu0rI7+epH4gMUrLhK1485bQyhtTq3SgSaSJIL8VErI2Gf6gKBEbXn5R0gJsZmegskpgUw+;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/
+      - AWSALBTGCORS=rPNkkHtx3ikzAiyY9VJCJ0OtC0kKv7cU7kpr/uhvrqUd2bdeMUKSrH/7D+rkZUY51ToAIdiKIw304y8iiV4VfFf9jV9v+F7UJZfnMxu0rI7+epH4gMUrLhK1485bQyhtTq3SgSaSJIL8VErI2Gf6gKBEbXn5R0gJsZmegskpgUw+;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=YSQWgE67aDc45chkmsyku2Cc+umSkFkwqKD344qcRKZlKb51Kp8xiIqT7L7f7547kHr35ORrTFY8VJlFZKTUCvOO0aCylQ/rS1z6DiwXTZB/wg3gPskbbCAONCgt;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/
+      - AWSALBCORS=YSQWgE67aDc45chkmsyku2Cc+umSkFkwqKD344qcRKZlKb51Kp8xiIqT7L7f7547kHr35ORrTFY8VJlFZKTUCvOO0aCylQ/rS1z6DiwXTZB/wg3gPskbbCAONCgt;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":1137737,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"Preserved
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":1146257,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"Preserved
         specimen","i18nCode":"basisOfRecord.PRESERVED_SPECIMEN","count":6945,"fq":"basisOfRecord:\"PRESERVED_SPECIMEN\""},{"label":"Observation","i18nCode":"basisOfRecord.OBSERVATION","count":1350,"fq":"basisOfRecord:\"OBSERVATION\""},{"label":"Material
         Sample","i18nCode":"basisOfRecord.MATERIAL_SAMPLE","count":907,"fq":"basisOfRecord:\"MATERIAL_SAMPLE\""},{"label":"Unknown","i18nCode":"basisOfRecord.UNKNOWN","count":155,"fq":"basisOfRecord:\"UNKNOWN\""}],"count":5}]'
-  recorded_at: 2022-01-11 03:24:06 GMT
+  recorded_at: 2022-01-18 04:17:47 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -482,26 +482,26 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 11 Jan 2022 03:24:06 GMT
+      date: Tue, 18 Jan 2022 04:17:47 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=LkjuOCmfDtGI8kWZjc9UAdu1pB2G3KqqHCq8qQRc9vaOvtCU3+O/nN9fXa98h/E26AMTYVrl33FIR22ZnMnLjiJadLVFVvRbmkopM0fEf/2ulJiF3TIzI3a+UXy+t5TFc13XfOm5KqSgj1kt1rPIXpFHfxXGPgWgIXFR7fv9NUAD;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBTGCORS=LkjuOCmfDtGI8kWZjc9UAdu1pB2G3KqqHCq8qQRc9vaOvtCU3+O/nN9fXa98h/E26AMTYVrl33FIR22ZnMnLjiJadLVFVvRbmkopM0fEf/2ulJiF3TIzI3a+UXy+t5TFc13XfOm5KqSgj1kt1rPIXpFHfxXGPgWgIXFR7fv9NUAD;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=6UXj3Hfzf+k25vq2rhQ5uijp5H0K1IjCku8xqOf5Edg3EtztH1SSp9k/5Z4BNESk1OQKUtYE+vnmIFg4qLsgDKHoshQXE7/LwtxApFbzFmOl2ok6SEzOWeU2T9WT;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBCORS=6UXj3Hfzf+k25vq2rhQ5uijp5H0K1IjCku8xqOf5Edg3EtztH1SSp9k/5Z4BNESk1OQKUtYE+vnmIFg4qLsgDKHoshQXE7/LwtxApFbzFmOl2ok6SEzOWeU2T9WT;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=wmW11sERD5VyeRKkJxjKSRd+r2GmrePmLP+3FiLDo4hL5tNfSmSOTBzBc3TRPWylh4NKXxnrdPOa/VM0KDXbN4HEi2D7wtTtChS5NlT8iECh339w2L7G25jf580BHhZMQy+aGs5osu+58tkn/i3+zlZV0YhESy6SFyw8B5nPIyDS;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/
+      - AWSALBTGCORS=wmW11sERD5VyeRKkJxjKSRd+r2GmrePmLP+3FiLDo4hL5tNfSmSOTBzBc3TRPWylh4NKXxnrdPOa/VM0KDXbN4HEi2D7wtTtChS5NlT8iECh339w2L7G25jf580BHhZMQy+aGs5osu+58tkn/i3+zlZV0YhESy6SFyw8B5nPIyDS;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=R7Cs85Cle9ahoRk0pdUKqJ78aHtKRbRZRKv7FVe/l5cMjdicxy95byO+Dymx0HaojlzqzJjwXJ8Ols+miV26Qx0xAiy6GOKBmz94wNZ3bXXBLagI1NMkl3RwSCzI;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/
+      - AWSALBCORS=R7Cs85Cle9ahoRk0pdUKqJ78aHtKRbRZRKv7FVe/l5cMjdicxy95byO+Dymx0HaojlzqzJjwXJ8Ols+miV26Qx0xAiy6GOKBmz94wNZ3bXXBLagI1NMkl3RwSCzI;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":3732,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":1}]'
-  recorded_at: 2022-01-11 03:24:06 GMT
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":22398,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":1}]'
+  recorded_at: 2022-01-18 04:17:47 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -526,24 +526,24 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 11 Jan 2022 03:24:06 GMT
+      date: Tue, 18 Jan 2022 04:17:47 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=90hkEfD/+oVNxiOtKKXxpLB63kenF3du6lbbtD++TfsCe/tVlMaO8uDovDDvO0upd6YL+weVZ1FAqCWz0miq/b7uDuZKFYsA0HBAcrscwomQi9fhKQCm5SRvLk2G437JuwcFsI80ZPzu7qHVFvUXmxe08GnjLfFF5/QSoEvGqjqH;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBTGCORS=90hkEfD/+oVNxiOtKKXxpLB63kenF3du6lbbtD++TfsCe/tVlMaO8uDovDDvO0upd6YL+weVZ1FAqCWz0miq/b7uDuZKFYsA0HBAcrscwomQi9fhKQCm5SRvLk2G437JuwcFsI80ZPzu7qHVFvUXmxe08GnjLfFF5/QSoEvGqjqH;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=aogt4Xh0qyvBdICxxeXYbHZbQuVY/hYk8Fc7AcTnjPKmgD9WOnvxJ/3E0sR8RYxc9+Z+YnNolrGQcDOIBe0UQTbqHUO83tH4boMGsRTg2b67nyuerkZg6KDs3j+1;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/
-      - AWSALBCORS=aogt4Xh0qyvBdICxxeXYbHZbQuVY/hYk8Fc7AcTnjPKmgD9WOnvxJ/3E0sR8RYxc9+Z+YnNolrGQcDOIBe0UQTbqHUO83tH4boMGsRTg2b67nyuerkZg6KDs3j+1;
-        Expires=Tue, 18 Jan 2022 03:24:06 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=ze10CxqSUeyLDDU4KYBUwyEDam8SWighez+51JatQ0umH2ROI535dFlWYKSThBn9gHaXgZwYKd+sSBPkxRUzu2HPVurgxij/O/lM6jcRSmXn0snENClqN7UOqsg65BazCBEMs3iS6vqhEPWDGieuTurpcF1oazm2UUtyJX4GtLZr;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/
+      - AWSALBTGCORS=ze10CxqSUeyLDDU4KYBUwyEDam8SWighez+51JatQ0umH2ROI535dFlWYKSThBn9gHaXgZwYKd+sSBPkxRUzu2HPVurgxij/O/lM6jcRSmXn0snENClqN7UOqsg65BazCBEMs3iS6vqhEPWDGieuTurpcF1oazm2UUtyJX4GtLZr;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=Ov7zNUpBGb/Z85qqnafmCcEw+ua4knFHIABYJj8JBzZoIeSqlHutr2BVe64+PL2fp/nWd4yshlK4Z3xPP61LnXJ7ogLcWGN9iGB1ah/q2/9u6qpNKkkG14DPUnVf;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/
+      - AWSALBCORS=Ov7zNUpBGb/Z85qqnafmCcEw+ua4knFHIABYJj8JBzZoIeSqlHutr2BVe64+PL2fp/nWd4yshlK4Z3xPP61LnXJ7ogLcWGN9iGB1ah/q2/9u6qpNKkkG14DPUnVf;
+        Expires=Tue, 25 Jan 2022 04:17:47 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":3732,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":1}]'
-  recorded_at: 2022-01-11 03:24:06 GMT
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":22398,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":1}]'
+  recorded_at: 2022-01-18 04:17:47 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

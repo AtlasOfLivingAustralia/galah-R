@@ -29,7 +29,7 @@ Show a listing of all taxonomic ranks\if{html}{\out{<div class="sourceCode r">}}
 
 Use ranks with \code{\link[=galah_down_to]{galah_down_to()}} and \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} to get taxonomic
 trees\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
-  search_taxa("fungi") \%>\%
+  galah_identify("fungi") \%>\%
   galah_down_to(subphylum) \%>\%
   atlas_taxonomy()
 #>                        levelName
