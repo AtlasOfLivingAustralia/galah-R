@@ -9,7 +9,7 @@ vcr::use_cassette("atlas_occurrences_no_filters", {
 test_that("atlas_occurrences gives a nice error for invalid emails", {
   skip_on_cran()
   galah_config(email = "test@test.org.au")
-  expect_message(atlas_occurrences(taxa = search_taxa("Thylacinus cynocephalus")))
+  expect_message(atlas_occurrences(identify = galah_identify("Thylacinus cynocephalus")))
   galah_config(email = "test@test.org.au")
 })
 
@@ -26,13 +26,13 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
                      "dataResourceName", "stateProvince", "ZERO_COORDINATE")
-  filters <- galah_filter(year == seq(2018, 2020))
+  filters <- galah_filter(year >= 2018)
   cols <- galah_select(group = "basic", stateProvince, ZERO_COORDINATE)
-  taxa <- search_taxa("Polytelis swainsonii")
+  taxa <- galah_identify("Polytelis swainsonii")
   poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
   locations <- galah_geolocate(poly)
   occ <- atlas_occurrences(
-    taxa = taxa,
+    identify = identify,
     filter = filters,
     select = cols,
     geolocate = locations)
@@ -48,9 +48,9 @@ test_that("atlas_occurrences accepts all narrowing functions in pipe", {
                      "dataResourceName", "stateProvince", "ZERO_COORDINATE")
   poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
   occ <- galah_call() |>
-    galah_filter(year >= 2018, year <= 2020) |>
+    galah_filter(year >= 2018) |>
     galah_select(group = "basic", stateProvince, ZERO_COORDINATE) |>
-    search_taxa("Polytelis swainsonii") |> 
+    galah_identify("Polytelis swainsonii") |> 
     galah_geolocate(poly) |>
     atlas_occurrences()
   expect_setequal(names(occ), expected_cols)

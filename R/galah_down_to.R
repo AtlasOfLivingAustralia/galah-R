@@ -92,7 +92,7 @@ galah_down_to <- function(...){
   }
 
   # create tibble containing specified rank
-  rank <- unlist(lapply(dots, as_label))
+  rank <- dequote(unlist(lapply(dots, as_label)))
   if(rank %in% show_all_ranks()$name){
     result <- tibble(rank = rank)
     class(result) <- append(class(result), "galah_down_to")

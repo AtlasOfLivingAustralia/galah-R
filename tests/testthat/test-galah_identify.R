@@ -1,11 +1,13 @@
 context("Test galah_identify")
 
 test_that("galah_identify returns an empty tibble when no args provided", {
-  galah_identify()
+  result <- galah_identify()
+  expect_equal(nrow(result), 0)
 })
 
 test_that("galah_identify runs a search when given a string", {
-  galah_identify("Litoria_peronii")
+  result <- galah_identify("Litoria_peronii")
+  expect_equal(nrow(result), 1)
 })
 
 test_that("galah_identify runs a search on multiple strings", {
@@ -13,11 +15,9 @@ test_that("galah_identify runs a search on multiple strings", {
   expect_equal(nrow(result), 4)
 })
 
-
 test_that("galah_identify drops unknown rows", {
   expect_warning(galah_identify("amphibia", "reptilia", "aves", "nothing"))
 })
-
 
 test_that("galah_identify works with search = FALSE", {
   galah_identify("urn:lsid:biodiversity.org.au:afd.taxon:0490a9ba-0d08-473d-a709-6c42e354f118",
@@ -29,7 +29,6 @@ test_that("galah_identify returns an error when using other atlases", {
   expect_error(galah_identify("aves"))
   galah_config(atlas = "Australia")
 })
-
 
 test_that("galah_identify can pass a string unchanged when run_checks = FALSE", {
   galah_config(run_checks = FALSE)

@@ -11,7 +11,7 @@ test_that("galah_select returns error when columns don't exist", {
 test_that("galah_select returns requested columns", {
   galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
   selected_columns <- galah_select(year, basisOfRecord)
-  query <- atlas_occurrences(taxa = search_taxa("oxyopes dingo"),
+  query <- atlas_occurrences(identify = galah_identify("oxyopes dingo"),
                             select = selected_columns)
   expect_equal(selected_columns[[1]], c("year", "basisOfRecord"))
   expect_equal(names(query), c("year", "basisOfRecord"))
@@ -68,9 +68,9 @@ test_that("galah_select defaults to group = basic when there are no args", {
 
 test_that("galah_select combines requested columns and group columns", {
   galah_config(run_checks = FALSE)
-  taxa <- search_taxa("oxyopes dingo")
+  identify <- galah_identify("oxyopes dingo")
   columns <- galah_select(year, basisOfRecord, group = "basic")
-  query <- atlas_occurrences(taxa = taxa,
+  query <- atlas_occurrences(identify = identify,
                              select = columns)
   expected_columns <- c("decimalLatitude", "decimalLongitude",
                           "eventDate", "scientificName",

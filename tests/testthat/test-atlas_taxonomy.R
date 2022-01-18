@@ -11,16 +11,17 @@ test_that("atlas_taxonomy 'taxa' must be specified", {
 })
 
 test_that("atlas_taxonomy 'down_to' must be specified", {
-  expect_error(atlas_taxonomy(taxa = search_taxa("Animalia")))
+  expect_error(atlas_taxonomy(identify = galah_identify("Animalia")))
 })
 
-test_that("atlas_taxonomy 'taxa' must be passed via search_taxa", {
-  expect_error(atlas_taxonomy(taxa = "Animalia", down_to = "phylum"))
+test_that("atlas_taxonomy 'identify' must be passed via `galah_identify`", {
+  expect_error(atlas_taxonomy(identify = "Animalia", 
+  down_to = galah_down_to(phylum)))
 })
 
 test_that("atlas_taxonomy requires a single taxon", {
   expect_error(atlas_taxonomy(
-    taxa = search_taxa(c("Animalia", "Plantae")),
-    down_to = "phylum"))
+    identify = galah_identify("Animalia", "Plantae"),
+    down_to = galah_down_to(phylum)))
 })
 

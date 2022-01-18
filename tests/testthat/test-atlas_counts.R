@@ -1,7 +1,7 @@
 context("Test atlas_counts")
 
 test_that("atlas_counts checks group_by field", {
-  expect_warning(atlas_counts(group_by = "invalid"))
+  expect_warning(atlas_counts(group_by = galah_group_by("invalid")))
 })
 
 
@@ -15,7 +15,7 @@ test_that("atlas_counts works with no arguments", {
 
 test_that("atlas_counts returns expected output", {
   vcr::use_cassette("taxa_count", {
-    counts <- atlas_counts(taxa = search_taxa("Mammalia"))
+    counts <- atlas_counts(identify = galah_identify("Mammalia"))
   })
   expect_type(counts$count, "integer")
 })
@@ -24,7 +24,7 @@ test_that("atlas_counts returns expected output", {
 test_that("grouped atlas_counts returns expected output", {
   vcr::use_cassette("record_count_group_by", {
     counts <- atlas_counts(
-      taxa = search_taxa("Mammalia"),
+      identify = galah_identify("Mammalia"),
       group_by = galah_group_by(basisOfRecord)
     )
   })
@@ -46,7 +46,7 @@ test_that("atlas_counts returns all counts if no limit is provided", {
 test_that("grouped atlas_counts for species returns expected output", {
   vcr::use_cassette("species_count_group_by", {
     counts <- atlas_counts(
-      taxa = search_taxa("Mammalia"),
+      identify = galah_identify("Mammalia"),
       filter = galah_filter(year == 2020),
       group_by = galah_group_by(month),
       type = "species"

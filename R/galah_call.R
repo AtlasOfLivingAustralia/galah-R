@@ -121,7 +121,7 @@ update_galah_call <- function(data_request, ...){
             class(dots[[a]]) <- class(dots[[a]])[1:3]
             result <- switch(a,
               "identify" = {
-                bind_unique_rows(data_request[[a]], dots[[a]], "name")
+                bind_unique_rows(data_request[[a]], dots[[a]], "identifier")
               },
               "filter" = {
                 bind_unique_rows(data_request[[a]], dots[[a]], "query")

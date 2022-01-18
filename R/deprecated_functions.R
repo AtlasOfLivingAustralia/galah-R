@@ -9,11 +9,11 @@
 #' @export
 #' @name deprecated
 select_taxa <- function(query, is_id = FALSE) {
-  lifecycle::deprecate_warn("1.4.0", "select_taxa()", "search_taxa()")
+  lifecycle::deprecate_warn("1.4.0", "select_taxa()", "galah_identify()")
   if(is_id){
-    find_taxa(identifier = query)
+    galah_identify(query, search = FALSE)
   }else{
-    result <- search_taxa(query) |> as.data.frame()
+    result <- galah_identify(query, search = TRUE) |> as.data.frame()
     class(result) <- append(class(result), "ala_id")
     return(result)
   }
@@ -69,7 +69,7 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
   lifecycle::deprecate_warn("1.4.0", "ala_occurrences()", "atlas_occurrences()")
   
   atlas_occurrences_internal(
-    taxa = taxa, 
+    identify = taxa, 
     filter = filters, 
     geolocate = locations,
     select = columns,
@@ -95,8 +95,8 @@ ala_counts <- function(taxa = NULL,
   
   lifecycle::deprecate_warn("1.4.0", "ala_counts()", "atlas_counts()")
   
-  atlas_counts.default(
-    taxa = {if(missing(taxa)){NULL}else{taxa}}, 
+  atlas_counts_internal(
+    identify = {if(missing(taxa)){NULL}else{taxa}}, 
     filter = {if(missing(filters)){NULL}else{filters}}, 
     geolocate = {if(missing(locations)){NULL}else{locations}},
     limit = limit,
@@ -115,8 +115,8 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
                         refresh_cache = FALSE) {
   lifecycle::deprecate_warn("1.4.0", "ala_species()", "atlas_species()")
   
-  atlas_species(
-    taxa = taxa,
+  atlas_species_internal(
+    identify = taxa,
     filter = filters,
     geolocate = locations,
     refresh_cache = refresh_cache
@@ -133,8 +133,8 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
 ala_taxonomy <- function(taxa, down_to){
   lifecycle::deprecate_warn("1.4.0", "ala_taxonomy()", "atlas_taxonomy()")
   
-  atlas_taxonomy(
-    taxa = taxa,
+  atlas_taxonomy_internal(
+    identify = taxa,
     down_to = down_to
   )
 }
@@ -153,8 +153,8 @@ ala_media <- function(taxa = NULL,
                       refresh_cache = FALSE) {
   lifecycle::deprecate_warn("1.4.0", "ala_media()", "atlas_media()")
   
-  atlas_media(
-    taxa = taxa,
+  atlas_media_internal(
+    identify = taxa,
     filter = filters,
     geolocate = geolocate,
     select = columns,
