@@ -25,3 +25,16 @@ test_that("atlas_taxonomy requires a single taxon", {
     down_to = galah_down_to(phylum)))
 })
 
+test_that("atlas_taxonomy makes a tree when piped", {
+  vcr::use_cassette("taxonomy_tree_with_pipes", {
+    tree <- ToDataFrameTypeCol(
+      galah_call() |>
+        galah_identify("fungi") |>
+        galah_down_to(phylum) |>
+        atlas_taxonomy()
+    )
+  })
+  expect_equal(tree[c(1:3), 2], 
+               c("Dikarya", "Ascomycota", "Basidiomycota"))
+})
+
