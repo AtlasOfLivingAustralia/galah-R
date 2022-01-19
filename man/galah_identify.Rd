@@ -2,19 +2,24 @@
 % Please edit documentation in R/galah_identify.R
 \name{galah_identify}
 \alias{galah_identify}
-\title{Build a query that contains taxonomic identifiers}
+\title{Narrow a query by passing taxonomic identifiers}
 \usage{
 galah_identify(..., search = TRUE)
 }
 \arguments{
-\item{...}{an object of class \code{ala_id}, \code{gbifid}, \code{nbnid} or \code{character}.}
+\item{...}{one or more scientific names (if \code{search = TRUE}) or taxonomic
+identifiers (if \code{search = FALSE}); or an object of class \code{ala_id} (from
+\code{search_taxa}), \code{gbifid}, or \code{nbnid} (from \code{taxize}) for
+international atlases.}
 
-\item{search}{(logical); should the results in question be passed to \code{search_taxa}?}
+\item{search}{(logical); should the results in question be passed to
+\code{search_taxa}? Ignored if an object of class \code{ala_id}, \code{gbifid}, or \code{nbnid}
+is given to \code{...}.}
 }
 \description{
 When conducting a search or creating a data query, it is common to identify
 a known taxon or group of taxa to narrow down the records or results returned.
-This function allows users to pass identifiers found using \code{search_taxa}
+This function allows users to pass scientific names or taxonomic identifiers
 with pipes to provide data only for the biological group of interest.
 }
 \section{Examples}{

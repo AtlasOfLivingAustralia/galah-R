@@ -1,4 +1,4 @@
-#' Start to build a data query
+#' Start building a data query
 #' 
 #' To download data from the ALA (or another atlas), one must construct a data 
 #' query. This query tells the atlas API what data to download and return, as 

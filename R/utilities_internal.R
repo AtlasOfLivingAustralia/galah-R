@@ -109,12 +109,33 @@ parse_basic_quosures <- function(dots){
     result[!is_either] <- lapply(dots[!is_either], 
       function(a){dequote(as_label(a))})
   }
-  if(all(unlist(lapply(result, is.character)))){
+  
+  # return correct type
+  if(check_taxize(result)){
+    keep_class <- class(result[[1]])
+    result <- unlist(do.call(as.character, result))
+    class(result) <- paste0(keep_class, "+")
+    return(result)
+  }else if(check_character(result)){
     return(do.call(c, result))
-  }
-  if(all(unlist(lapply(result, is.data.frame)))){
+  } else if(check_df(result)){
     return(do.call(rbind, result))
   }
+}
+
+check_taxize <- function(x){ # where x is a list
+  all(unlist(lapply(
+    x,
+    function(y){inherits(y, c("gbifid", "nbnid"))
+  })))
+}
+
+check_character <- function(x){
+  all(unlist(lapply(x, is.character)))
+}
+
+check_df <- function(x){
+  all(unlist(lapply(x, is.data.frame)))
 }
 
 is_function_check <- function(dots){ # where x is a list of strings

@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-01-19'
+date: '2022-01-20'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -56,7 +56,7 @@ show_all_atlases()
 ```
 
 ```
-## # A tibble: 6 × 3
+## # A tibble: 6 x 3
 ##   atlas     taxonomy_source taxonomy_info                                                    
 ##   <chr>     <chr>           <chr>                                                            
 ## 1 Australia ALA             https://bie.ala.org.au/                                          
@@ -85,10 +85,10 @@ atlas_counts()
 ```
 
 ```
-## # A tibble: 1 × 1
+## # A tibble: 1 x 1
 ##       count
 ##       <int>
-## 1 102066657
+## 1 102070026
 ```
 
 To pass more complex queries, start with the `galah_call()` function and pipe
@@ -103,10 +103,10 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 1 × 1
+## # A tibble: 1 x 1
 ##     count
 ##     <int>
-## 1 7045688
+## 1 7046687
 ```
 
 To narrow the search to a particular taxonomic group, use `galah_identify()`. Note
@@ -120,10 +120,10 @@ search_taxa("reptilia") # Check whether taxonomic info is correct
 ```
 
 ```
-## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                                 rank  match_type kingdom  phylum   class   issues
-##   <chr>       <chr>           <chr>                                                            <chr> <chr>      <chr>    <chr>    <chr>   <chr> 
-## 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-… class exactMatch Animalia Chordata Reptil… noIss…
+## # A tibble: 1 x 9
+##   search_term scientific_name taxon_concept_id                                       rank  match_type kingdom  phylum   class  issues
+##   <chr>       <chr>           <chr>                                                  <chr> <chr>      <chr>    <chr>    <chr>  <chr> 
+## 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-~ class exactMatch Animalia Chordata Repti~ noIss~
 ```
 
 ```r
@@ -134,10 +134,10 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 1 × 1
+## # A tibble: 1 x 1
 ##   count
 ##   <int>
-## 1 44996
+## 1 45020
 ```
 
 # Downloading records
@@ -164,15 +164,15 @@ result |> head()
 ```
 
 ```
-## # A tibble: 6 × 8
-##   decimalLatitude decimalLongitude eventDate              scientificName  taxonConceptID           recordID      dataResourceName  basisOfRecord
-##             <dbl>            <dbl> <chr>                  <chr>           <chr>                    <chr>         <chr>             <chr>        
-## 1           -43.4             147. ""                     Litoria ewingii urn:lsid:biodiversity.o… 780cf8e0-26b… iNaturalist Aust… HUMAN_OBSERV…
-## 2           -43.2             147. "2020-01-18T22:31:00Z" Litoria ewingii urn:lsid:biodiversity.o… cc9d437b-46a… iNaturalist Aust… HUMAN_OBSERV…
-## 3           -43.2             147. ""                     Litoria ewingii urn:lsid:biodiversity.o… d208d476-eec… iNaturalist Aust… HUMAN_OBSERV…
-## 4           -43.1             147. ""                     Litoria ewingii urn:lsid:biodiversity.o… 95fab19c-39f… iNaturalist Aust… HUMAN_OBSERV…
-## 5           -43.1             147. "2020-04-30T06:10:00Z" Litoria ewingii urn:lsid:biodiversity.o… 2b7fdc5c-6dc… Earth Guardians … HUMAN_OBSERV…
-## 6           -43.1             147. "2020-06-23T02:48:00Z" Litoria ewingii urn:lsid:biodiversity.o… 3524080e-763… Earth Guardians … HUMAN_OBSERV…
+## # A tibble: 6 x 8
+##   decimalLatitude decimalLongitude eventDate              scientificName  taxonConceptID    recordID   dataResourceName basisOfRecord
+##             <dbl>            <dbl> <chr>                  <chr>           <chr>             <chr>      <chr>            <chr>        
+## 1           -43.4             147. ""                     Litoria ewingii urn:lsid:biodive~ 780cf8e0-~ iNaturalist Aus~ HUMAN_OBSERV~
+## 2           -43.2             147. "2020-01-18T22:31:00Z" Litoria ewingii urn:lsid:biodive~ cc9d437b-~ iNaturalist Aus~ HUMAN_OBSERV~
+## 3           -43.2             147. ""                     Litoria ewingii urn:lsid:biodive~ d208d476-~ iNaturalist Aus~ HUMAN_OBSERV~
+## 4           -43.1             147. ""                     Litoria ewingii urn:lsid:biodive~ 95fab19c-~ iNaturalist Aus~ HUMAN_OBSERV~
+## 5           -43.1             147. "2020-04-30T06:10:00Z" Litoria ewingii urn:lsid:biodive~ 2b7fdc5c-~ Earth Guardians~ HUMAN_OBSERV~
+## 6           -43.1             147. "2020-06-23T02:48:00Z" Litoria ewingii urn:lsid:biodive~ 3524080e-~ Earth Guardians~ HUMAN_OBSERV~
 ```
 
 Check out our other vignettes for more detail on how to use these functions.

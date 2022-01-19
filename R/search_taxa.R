@@ -7,9 +7,9 @@
 #' to search for taxonomic names and check the results are 'correct' before
 #' proceeding to download data via 
 #' [atlas_occurrences()], [atlas_species()] or [atlas_counts()]. The resulting
-#' `data.frame` of taxonomic information can be passed to [galah_identify()] as 
-#' the `taxa` argument of `atlas_` functions to filter records to the specified 
-#' taxon or taxa.
+#' `data.frame` of taxonomic information can be passed to [galah_identify()] to 
+#' provide the `identify` argument of `atlas_` functions, which then filters  
+#' the resulting records to the specified taxon or taxa.
 #'
 #' @param ... : One or more scientific names, separated by commas and
 #' given as strings. If greater control is required to disambiguate search

@@ -1,4 +1,4 @@
-#' Choose filters to narrow down occurrence queries
+#' Narrow a query by specifying filters
 #'
 #' 'filters' are arguments of the form `field logical value` that are used
 #' to narrow down the number of records returned by a specific query.

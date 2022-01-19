@@ -1,4 +1,4 @@
-#' Build a WKT string from an sf spatial object or verify an existing WKT
+#' Narrow a query using a WKT string
 #'
 #' Restrict results to those from a specified area. Areas must be polygons
 #' and be specified as either an sf object, or a 'well-known text' (wkt) string.

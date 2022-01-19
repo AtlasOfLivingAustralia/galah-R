@@ -40,13 +40,13 @@ Return record counts since 2010 by year\if{html}{\out{<div class="sourceCode r">
 #>  3 2018  5418009
 #>  4 2017  4648403
 #>  5 2016  3844787
-#>  6 2014  3767370
+#>  6 2014  3767573
 #>  7 2015  3605917
-#>  8 2013  3503489
-#>  9 2012  2933979
+#>  8 2013  3505658
+#>  9 2012  2933981
 #> 10 2011  2539004
-#> 11 2021  1160586
-#> 12 2022    41762
+#> 11 2021  1161557
+#> 12 2022    41790
 }\if{html}{\out{</div>}}
 
 Return record counts since 2010 by year and data provider\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>

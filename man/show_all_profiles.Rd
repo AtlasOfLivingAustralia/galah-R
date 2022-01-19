@@ -22,23 +22,19 @@ and used to filter searches in \code{\link[=atlas_occurrences]{atlas_occurrences
 
 Show a list of all available data quality profiles\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_profiles()
 #> # A tibble: 7 x 4
-#>      id name                                                  shortName        description                                                              
-#>   <int> <chr>                                                 <chr>            <chr>                                                                    
-#> 1     2 ALA General (pre-pipelines)                           ALA-legacy       "The default ALA profile filters out records based on the filter groups ~
-#> 2    35 Species Distribution Modelling (CSDM) (pre-pipelines) CSDM-legacy      "Base filters for the Collaborative Species Distribution Modelling progr~
-#> 3    44 Data licensed for all uses (pre-pipelines)            re-usable-legacy "Data licensed for re-use, including commercial uses. This profile only ~
-#> 4    92 ALA General                                           ALA              "The default ALA profile filters out records based on the filter groups ~
-#> 5   124 Species Distribution Modelling (CSDM)                 CSDM             "Base filters for the Collaborative Species Distribution Modelling progr~
-#> 6   133 Data licensed for all uses                            re-usable        "Data licensed for re-use, including commercial uses. This profile only ~
+#>      id name                                                  shortName        description                                           
+#>   <int> <chr>                                                 <chr>            <chr>                                                 
+#> 1     2 ALA General (pre-pipelines)                           ALA-legacy       "The default ALA profile filters out records based on~
+#> 2    35 Species Distribution Modelling (CSDM) (pre-pipelines) CSDM-legacy      "Base filters for the Collaborative Species Distribut~
+#> 3    44 Data licensed for all uses (pre-pipelines)            re-usable-legacy "Data licensed for re-use, including commercial uses.~
+#> 4    92 ALA General                                           ALA              "The default ALA profile filters out records based on~
+#> 5   124 Species Distribution Modelling (CSDM)                 CSDM             "Base filters for the Collaborative Species Distribut~
+#> 6   133 Data licensed for all uses                            re-usable        "Data licensed for re-use, including commercial uses.~
 #> 7   224 AVH                                                   AVH              "AVH data quality profile"
 }\if{html}{\out{</div>}}
 
 Values in the \code{shortName} column can be used with \code{\link[=galah_filter]{galah_filter()}} to
 narrow your data query results\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_filter(profile == "ALA")
-#> Warning: Invalid field(s) detected.
-#> i See a listing of all valid fields with `show_all_fields()`.
-#> i Search for the valid name of a desired field with `search_fields()`.
-#> x Invalid field(s): profile.
 #> # A tibble: 1 x 4
 #>   variable logical value query              
 #>   <chr>    <chr>   <chr> <chr>              

@@ -1,12 +1,17 @@
-#' Build a query that contains taxonomic identifiers
+#' Narrow a query by passing taxonomic identifiers
 #'
 #' When conducting a search or creating a data query, it is common to identify 
 #' a known taxon or group of taxa to narrow down the records or results returned. 
-#' This function allows users to pass identifiers found using `search_taxa` 
+#' This function allows users to pass scientific names or taxonomic identifiers
 #' with pipes to provide data only for the biological group of interest.
 #'
-#' @param ... an object of class `ala_id`, `gbifid`, `nbnid` or `character`.
-#' @param search (logical); should the results in question be passed to `search_taxa`?
+#' @param ... one or more scientific names (if `search = TRUE`) or taxonomic 
+#'   identifiers (if `search = FALSE`); or an object of class `ala_id` (from
+#'   `search_taxa`), `gbifid`, or `nbnid` (from `taxize`) for 
+#'   international atlases.
+#' @param search (logical); should the results in question be passed to
+#'   `search_taxa`? Ignored if an object of class `ala_id`, `gbifid`, or `nbnid` 
+#'   is given to `...`.
 #'
 #' @seealso [search_taxa()] to find identifiers from scientific names;
 #' [search_identifiers()] for how to get names if taxonomic identifiers 
@@ -79,7 +84,7 @@ galah_identify <- function(..., search = TRUE) {
     # check for types first
     if (inherits(input_query, "ala_id")) {
       query <- input_query$taxon_concept_id
-    } else if (inherits(input_query, c("gbifid", "nbnid"))) { # from taxize
+    } else if (inherits(input_query, c("gbifid+", "nbnid+"))) { # from taxize
       query <- as.character(input_query)
     } else { # if the input isn't of known type, try to find IDs
       if (search) {

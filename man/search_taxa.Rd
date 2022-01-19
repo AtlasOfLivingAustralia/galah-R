@@ -24,33 +24,33 @@ scientific) in different clades. Hence, \code{search_taxa} provides a means
 to search for taxonomic names and check the results are 'correct' before
 proceeding to download data via
 \code{\link[=atlas_occurrences]{atlas_occurrences()}}, \code{\link[=atlas_species]{atlas_species()}} or \code{\link[=atlas_counts]{atlas_counts()}}. The resulting
-\code{data.frame} of taxonomic information can be passed to \code{\link[=galah_identify]{galah_identify()}} as
-the \code{taxa} argument of \code{atlas_} functions to filter records to the specified
-taxon or taxa.
+\code{data.frame} of taxonomic information can be passed to \code{\link[=galah_identify]{galah_identify()}} to
+provide the \code{identify} argument of \code{atlas_} functions, which then filters
+the resulting records to the specified taxon or taxa.
 }
 \section{Examples}{
 
 
 Search using a single term\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("Reptilia")
 #> # A tibble: 1 x 9
-#>   search_term scientific_name taxon_concept_id                                                            rank  match_type kingdom  phylum  class issues
-#>   <chr>       <chr>           <chr>                                                                       <chr> <chr>      <chr>    <chr>   <chr> <chr> 
-#> 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chorda~ Rept~ noIss~
+#>   search_term scientific_name taxon_concept_id                                       rank  match_type kingdom  phylum   class  issues
+#>   <chr>       <chr>           <chr>                                                  <chr> <chr>      <chr>    <chr>    <chr>  <chr> 
+#> 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-~ class exactMatch Animalia Chordata Repti~ noIss~
 }\if{html}{\out{</div>}}
 
 Note that \code{search_taxa()} is not case sensitive\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("reptilia") # not case sensitive
 #> # A tibble: 1 x 9
-#>   search_term scientific_name taxon_concept_id                                                            rank  match_type kingdom  phylum  class issues
-#>   <chr>       <chr>           <chr>                                                                       <chr> <chr>      <chr>    <chr>   <chr> <chr> 
-#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chorda~ Rept~ noIss~
+#>   search_term scientific_name taxon_concept_id                                       rank  match_type kingdom  phylum   class  issues
+#>   <chr>       <chr>           <chr>                                                  <chr> <chr>      <chr>    <chr>    <chr>  <chr> 
+#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-~ class exactMatch Animalia Chordata Repti~ noIss~
 }\if{html}{\out{</div>}}
 
 Search multiple taxa. \code{search_taxa()} will return one row per taxon\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa(c("reptilia", "mammalia"))
 #> # A tibble: 2 x 10
-#>   search_term scientific_name taxon_concept_id                                          rank  match_type kingdom  phylum  class   issues vernacular_name
-#>   <chr>       <chr>           <chr>                                                     <chr> <chr>      <chr>    <chr>   <chr>   <chr>  <chr>          
-#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45f~ class exactMatch Animalia Chorda~ Reptil~ noIss~ <NA>           
-#> 2 mammalia    MAMMALIA        urn:lsid:biodiversity.org.au:afd.taxon:e9e7db31-04df-41f~ class exactMatch Animalia Chorda~ Mammal~ noIss~ Mammals
+#>   search_term scientific_name taxon_concept_id                         rank  match_type kingdom  phylum class  issues vernacular_name
+#>   <chr>       <chr>           <chr>                                    <chr> <chr>      <chr>    <chr>  <chr>  <chr>  <chr>          
+#> 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:~ class exactMatch Animalia Chord~ Repti~ noIss~ <NA>           
+#> 2 mammalia    MAMMALIA        urn:lsid:biodiversity.org.au:afd.taxon:~ class exactMatch Animalia Chord~ Mamma~ noIss~ Mammals
 }\if{html}{\out{</div>}}
 
 \code{galah_identify()} uses \code{search_taxa()} to narrow data queries\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
@@ -59,7 +59,7 @@ Search multiple taxa. \code{search_taxa()} will return one row per taxon\if{html
 #> # A tibble: 1 x 1
 #>     count
 #>     <int>
-#> 1 1317107
+#> 1 1317131
 }\if{html}{\out{</div>}}
 }
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/galah_geolocate.R
 \name{galah_geolocate}
 \alias{galah_geolocate}
-\title{Build a WKT string from an sf spatial object or verify an existing WKT}
+\title{Narrow a query using a WKT string}
 \usage{
 galah_geolocate(...)
 }

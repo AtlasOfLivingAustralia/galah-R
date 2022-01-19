@@ -28,9 +28,9 @@ on the taxon in question. Effectively this is the inverse function to
 
 Look up a unique taxon identifier\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
 #> # A tibble: 1 x 13
-#>   scientific_name     scientific_name_authorship taxon_concept_id        rank   match_type  kingdom phylum  class   order family genus  species   issues
-#>   <chr>               <chr>                      <chr>                   <chr>  <chr>       <chr>   <chr>   <chr>   <chr> <chr>  <chr>  <chr>     <chr> 
-#> 1 Eucalyptus blakelyi Maiden                     https://id.biodiversit~ speci~ taxonIdMat~ Plantae Charop~ Equise~ Myrt~ Myrta~ Eucal~ Eucalypt~ noIss~
+#>   scientific_name     scientific_name_~ taxon_concept_id    rank   match_type  kingdom phylum class order family genus species issues
+#>   <chr>               <chr>             <chr>               <chr>  <chr>       <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>   <chr> 
+#> 1 Eucalyptus blakelyi Maiden            https://id.biodive~ speci~ taxonIdMat~ Plantae Charo~ Equi~ Myrt~ Myrta~ Euca~ Eucaly~ noIss~
 }\if{html}{\out{</div>}}
 }
 

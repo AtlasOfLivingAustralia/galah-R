@@ -35,7 +35,7 @@ reference:
   
 - title: Narrow results
   contents: 
-  - search_taxa
+  - galah_identify
   - galah_filter
   - galah_select
   - galah_group_by
@@ -52,16 +52,17 @@ reference:
   
 - title: Look up information
   contents:
+  - search_taxa
+  - search_identifiers
   - search_fields
+  - search_field_values
+  - search_profile_attributes
   - show_all_profiles
   - show_all_fields
   - show_all_fields
   - show_all_reasons
   - show_all_atlases
   - show_all_ranks
-  - find_taxa
-  - find_field_values
-  - find_profile_attributes
   
 - title: Manage cache
   contents:

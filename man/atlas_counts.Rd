@@ -71,7 +71,7 @@ With no arguments, return the total number of records in the ALA\if{html}{\out{<
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 102066657
+#> 1 102070026
 }\if{html}{\out{</div>}}
 
 You can group counts by state and territory with \code{galah_group_by}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
@@ -80,7 +80,7 @@ You can group counts by state and territory with \code{galah_group_by}\if{html}{
 #> # A tibble: 100 x 2
 #>   stateProvince      count
 #>   <chr>              <int>
-#> 1 New South Wales 24934733
+#> 1 New South Wales 24938082
 #> 2 Victoria        21775800
 #> 3 Queensland      17550396
 #> 4 South Australia  8449336
@@ -100,7 +100,7 @@ You can add a filter to narrow your search\if{html}{\out{<div class="sourceCode 
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 102066657
+#> 1 102070026
 }\if{html}{\out{</div>}}
 
 Specify \code{type = species} to count the number of species, and group record

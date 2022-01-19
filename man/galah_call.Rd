@@ -3,7 +3,7 @@
 \name{galah_call}
 \alias{galah_call}
 \alias{print.data_request}
-\title{Start to build a data query}
+\title{Start building a data query}
 \usage{
 galah_call(
   identify = NULL,

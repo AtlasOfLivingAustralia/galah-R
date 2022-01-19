@@ -25,7 +25,7 @@ Description: The Atlas of Living Australia ('ALA') provides tools to enable user
     directly used within R. It enables the R community to directly access data
     and resources hosted by the 'ALA'.
 Depends:
-    R (>= 4.1.0)
+    R (>= 4.0.5)
 Imports:
     assertthat,
     crul,
