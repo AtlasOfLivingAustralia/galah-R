@@ -1,8 +1,9 @@
 #' Build a query that contains taxonomic identifiers
 #'
-#' A common task is to restrict searches to known taxonomic groups. This function
-#' allows users to pass identifiers found using `search_taxa` within a pipe to 
-#' provide data only for the biological group of interest.
+#' When conducting a search or creating a data query, it is common to identify 
+#' a known taxon or group of taxa to narrow down the records or results returned. 
+#' This function allows users to pass identifiers found using `search_taxa` 
+#' with pipes to provide data only for the biological group of interest.
 #'
 #' @param ... an object of class `ala_id`, `gbifid`, `nbnid` or `character`.
 #' @param search (logical); should the results in question be passed to `search_taxa`?
@@ -15,11 +16,12 @@
 #' ```{r, child = "man/rmd/setup.Rmd"}
 #' ```
 #' 
-#' `galah_identify()` is used to specify taxa in order to narrow data queries. 
-#' Use [search_taxa()] and [search_identifiers()] to check that the taxa you 
-#' desire return the correct results before using `galah_identify()`.
+#' `galah_identify()` is used to identify taxa you want returned in a search or 
+#' a data query. It is good to use [search_taxa()] and [search_identifiers()] 
+#' first to check that the taxa you provide to `galah_identify()` return the 
+#' correct results.
 #' 
-#' Specify a taxon. A correct taxon will return an identifier.
+#' Specify a taxon. A valid taxon will return an identifier.
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
 #' galah_identify("reptilia")
@@ -31,12 +33,6 @@
 #' galah_identify("reptilia", "mammalia", "aves", "pisces")
 #' ```
 #' 
-#' If you already know a valid taxon identifier
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_identify("urn:lsid:biodiversity.org.au:afd.taxon:b2de5e40-df8f-4339-827d-25e63454a4a2", search = FALSE)
-#' ```
-#' 
 #' Use `galah_identify()` to narrow your queries
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
@@ -46,6 +42,7 @@
 #' ```
 #' 
 #' If you already know a valid taxon identifier, add it and set `search = FALSE`.
+#'
 #' ```{r, comment = "#>", collapse = TRUE}
 #' galah_call() %>% 
 #'   galah_identify("urn:lsid:biodiversity.org.au:afd.taxon:b2de5e40-df8f-4339-827d-25e63454a4a2", 
@@ -53,7 +50,6 @@
 #'   atlas_counts()
 #' ```
 #' 
-#' Or use `galah_identify()` 
 #' 
 #' @export
 galah_identify <- function(..., search = TRUE) {
@@ -90,8 +86,11 @@ galah_identify <- function(..., search = TRUE) {
         check_atlas(atlas)
         lookup <- search_taxa(input_query)
         if (is.null(lookup$taxon_concept_id)) {
-          abort("Taxa provided to `galah_identify` returned no matches.", 
-                call = caller_env())
+          bullets <- c(
+            "`galah_identify` didn't return anything.",
+            i = "Did you use `search_taxa` to check whether your search species the correct taxa?"
+          )
+          abort(bullets, call = caller_env())
         } else {
           query <- lookup$taxon_concept_id[!is.na(lookup$taxon_concept_id)]
           if (verbose) {
@@ -104,8 +103,11 @@ galah_identify <- function(..., search = TRUE) {
         if (atlas == "Australia" && run_checks) {
           lookup <- search_identifiers(input_query)
           if (is.null(lookup$taxon_concept_id)) {
-            abort("Taxa provided to `galah_identify` returned no matches.", 
-                  call = caller_env())
+            bullets <- c(
+              "`galah_identify` didn't return anything.",
+              i = "Did you use `search_identifiers` to check whether your search species the correct taxa?"
+            )
+            abort(bullets, call = caller_env())
           } else {
             query <- lookup$taxon_concept_id[!is.na(lookup$taxon_concept_id)]
             n_provided <- length(input_query)
@@ -117,9 +119,10 @@ galah_identify <- function(..., search = TRUE) {
         }
       } # end for search == FALSE
     } # end for unknown types
-
+    
     check_is_character(query)
     result <- tibble(identifier = query)
+    
   } else { # if empty, return correct class, but no values
     result <- as_tibble(data.frame(identifier = character()))
   }
