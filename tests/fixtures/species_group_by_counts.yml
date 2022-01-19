@@ -1,0 +1,484 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://namematching-ws.ala.org.au/api/search?q=perameles
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.21.5
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      content-type: application/json
+      content-length: '505'
+      vary: Accept-Encoding
+      content-encoding: gzip
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+    body:
+      encoding: UTF-8
+      file: no
+      string: '{"success":true,"scientificName":"Perameles","scientificNameAuthorship":"Geoffroy,
+        1803","taxonConceptID":"urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f","rank":"genus","rankID":6000,"lft":202082,"rgt":202110,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"urn:lsid:biodiversity.org.au:afd.taxon:e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","order":"Peramelemorphia","orderID":"urn:lsid:biodiversity.org.au:afd.taxon:94032c42-8ed7-4bf1-bff6-952262dab315","family":"Peramelidae","familyID":"urn:lsid:biodiversity.org.au:afd.taxon:359987d0-2904-445a-9d56-ea3a87d415e0","genus":"Perameles","genusID":"urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f","speciesGroup":["Animals","Mammals"],"speciesSubgroup":["Bandicoots,
+        Bilbies"],"issues":["noIssue"]}'
+  recorded_at: 2022-01-19 02:12:15 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=species&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=5iEdhZYsD/c5x9lcoC+uK7VL6/xvwsTr2fjP6sheHnnCAKcICN95hfBnYxZ1gd+1eqSOG2fvZJWwIwyMre7m8VhQz7/shnMMAwpzG61/J7g5PKewZkoVJ1XiShjElLHqqVV7pDqMDS144tv8zEgahLIO46mpajRRl7B1BCw7TwmT;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=5iEdhZYsD/c5x9lcoC+uK7VL6/xvwsTr2fjP6sheHnnCAKcICN95hfBnYxZ1gd+1eqSOG2fvZJWwIwyMre7m8VhQz7/shnMMAwpzG61/J7g5PKewZkoVJ1XiShjElLHqqVV7pDqMDS144tv8zEgahLIO46mpajRRl7B1BCw7TwmT;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=aT3C25k3LefQnIoOAHOVNWlZLJGL0dDs9bMoM1HvzGl9IE9OZgg1QhevOiQRWycAflx4u8jatuhoYN7pZXbvzUje2Gz268TsbuDA1TuJZhBY5WaY2bQ983t1QNxm;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=aT3C25k3LefQnIoOAHOVNWlZLJGL0dDs9bMoM1HvzGl9IE9OZgg1QhevOiQRWycAflx4u8jatuhoYN7pZXbvzUje2Gz268TsbuDA1TuJZhBY5WaY2bQ983t1QNxm;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"species","fieldResult":[{"label":"Perameles nasuta","i18nCode":"species.Perameles
+        nasuta","count":20988,"fq":"species:\"Perameles nasuta\""}],"count":4},{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":6612,"fq":"year:\"2015\""}],"count":4}]'
+  recorded_at: 2022-01-19 02:12:15 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=species&facets=year&flimit=8&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=I8ipy6sLXJFTNcanzvT8Kb+uyu3xYzBcdvunjpM5XtlDYTEUtA6/sWoLUWaeexBNPMr+XmGFLoqyOAkpn4GjHqlFnUMUHWwNj6YK5yux5AHN5Ja10e/dI4+cEDPf3pdgivfvYAd8wxxzIC5alf/zt5F5WbTJ6sh/Qmwxp1+UgrEG;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=I8ipy6sLXJFTNcanzvT8Kb+uyu3xYzBcdvunjpM5XtlDYTEUtA6/sWoLUWaeexBNPMr+XmGFLoqyOAkpn4GjHqlFnUMUHWwNj6YK5yux5AHN5Ja10e/dI4+cEDPf3pdgivfvYAd8wxxzIC5alf/zt5F5WbTJ6sh/Qmwxp1+UgrEG;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=msg6KaHt1YjU9bkVURld+fHxVnC2gtjI8Q3jBKGO4nRbK9V0MDIlyNbabzIoG3JD+zZoHVc5YFomjzHav1jqiBRcCDvf2sZoWlc21n9fSnDsQtzzNK6Jk+ZJw9fJ;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=msg6KaHt1YjU9bkVURld+fHxVnC2gtjI8Q3jBKGO4nRbK9V0MDIlyNbabzIoG3JD+zZoHVc5YFomjzHav1jqiBRcCDvf2sZoWlc21n9fSnDsQtzzNK6Jk+ZJw9fJ;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"species","fieldResult":[{"label":"Perameles nasuta","i18nCode":"species.Perameles
+        nasuta","count":20988,"fq":"species:\"Perameles nasuta\""},{"label":"Perameles
+        gunnii","i18nCode":"species.Perameles gunnii","count":121,"fq":"species:\"Perameles
+        gunnii\""},{"label":"Perameles bougainville","i18nCode":"species.Perameles
+        bougainville","count":75,"fq":"species:\"Perameles bougainville\""},{"label":"Perameles
+        pallescens","i18nCode":"species.Perameles pallescens","count":43,"fq":"species:\"Perameles
+        pallescens\""}],"count":4},{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":6612,"fq":"year:\"2015\""},{"label":"2013","i18nCode":"year.2013","count":3138,"fq":"year:\"2013\""},{"label":"2014","i18nCode":"year.2014","count":2569,"fq":"year:\"2014\""},{"label":"2012","i18nCode":"year.2012","count":2451,"fq":"year:\"2012\""},{"label":"2016","i18nCode":"year.2016","count":1398,"fq":"year:\"2016\""},{"label":"2018","i18nCode":"year.2018","count":1012,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":983,"fq":"year:\"2017\""},{"label":"2020","i18nCode":"year.2020","count":959,"fq":"year:\"2020\""}],"count":4}]'
+  recorded_at: 2022-01-19 02:12:15 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(species:%22Perameles%20nasuta%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=9jY4WbffpYhz+CRmTfFhxPHBQKQV1UBcyN+Cemk35yfmXUa4efYHCc94b81zeYLAaouxsCBS4Jkn/VXuhItu80bG0SXM6T4yMuSxBLxWtYnJLWWkdhheh7SJuyvDjEsfQzMG9I6hUguiOvI0dcf7ihsuqMTtS0DZKU80bfBn9wZO;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=9jY4WbffpYhz+CRmTfFhxPHBQKQV1UBcyN+Cemk35yfmXUa4efYHCc94b81zeYLAaouxsCBS4Jkn/VXuhItu80bG0SXM6T4yMuSxBLxWtYnJLWWkdhheh7SJuyvDjEsfQzMG9I6hUguiOvI0dcf7ihsuqMTtS0DZKU80bfBn9wZO;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=eec+i5FCzTqpd9kFgd5Sia8SL140YTl8X3G6QVcyO0ivL6eRbnCkFPlVBqRl2hgcVcjEFIuomSICdoKOKx9MR3AhDQw6BIx0kz32t4mSHlQ2fY93KqH+EUlzhkW/;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=eec+i5FCzTqpd9kFgd5Sia8SL140YTl8X3G6QVcyO0ivL6eRbnCkFPlVBqRl2hgcVcjEFIuomSICdoKOKx9MR3AhDQw6BIx0kz32t4mSHlQ2fY93KqH+EUlzhkW/;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":6608,"fq":"year:\"2015\""}],"count":12}]'
+  recorded_at: 2022-01-19 02:12:15 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(species:%22Perameles%20nasuta%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=FfgixDwvVVG4BWVSwgGJXLKXU+2Ac5dotQYRO1MZlwOIu5Oo8+nRXXnXWHJl1hbEkELEzBKD9Pd2mlt7p+VIH1Su0fE0Zviu5gSXw5V60cighfzpjPzT/NKFL2+a0Qy6EbzfJqG5Ab1wCsVwQ8ephu0eEnf0oaRisvN0bVuLyMMT;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=FfgixDwvVVG4BWVSwgGJXLKXU+2Ac5dotQYRO1MZlwOIu5Oo8+nRXXnXWHJl1hbEkELEzBKD9Pd2mlt7p+VIH1Su0fE0Zviu5gSXw5V60cighfzpjPzT/NKFL2+a0Qy6EbzfJqG5Ab1wCsVwQ8ephu0eEnf0oaRisvN0bVuLyMMT;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=sJxYldSQiWrsY5Gh1IXae8PWDcPWDo1h37UQRjSt1Hu4f+kJea3m6XoK067wy0qeOz8WYxMRo1bmIQ72BICFWIBivzPCFWKY/cqLmUAxAK/BzryAZTfbh+YXvfSo;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=sJxYldSQiWrsY5Gh1IXae8PWDcPWDo1h37UQRjSt1Hu4f+kJea3m6XoK067wy0qeOz8WYxMRo1bmIQ72BICFWIBivzPCFWKY/cqLmUAxAK/BzryAZTfbh+YXvfSo;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":6608,"fq":"year:\"2015\""},{"label":"2013","i18nCode":"year.2013","count":3121,"fq":"year:\"2013\""},{"label":"2014","i18nCode":"year.2014","count":2557,"fq":"year:\"2014\""},{"label":"2012","i18nCode":"year.2012","count":2423,"fq":"year:\"2012\""},{"label":"2016","i18nCode":"year.2016","count":1385,"fq":"year:\"2016\""},{"label":"2018","i18nCode":"year.2018","count":985,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":955,"fq":"year:\"2017\""},{"label":"2020","i18nCode":"year.2020","count":928,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":832,"fq":"year:\"2019\""},{"label":"2011","i18nCode":"year.2011","count":682,"fq":"year:\"2011\""},{"label":"2021","i18nCode":"year.2021","count":511,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":1,"fq":"year:\"2022\""}],"count":12}]'
+  recorded_at: 2022-01-19 02:12:15 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(species:%22Perameles%20gunnii%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=fCHGM0E3uxzSu4KFoDJBhmRl/ML1yVI28ATCbTD76KWh7eD1xk/MGfUPxa5ruEbJNxKpKpOHH2IztGuhVWCneGG2Wk17r0s42EVb7qBIoBx/TeYKTWDzgBC3XD07r3C0r6SCgWFhUSGXnuEeifAIxDa17O1MvcGMEZtHLDDwZ81v;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=fCHGM0E3uxzSu4KFoDJBhmRl/ML1yVI28ATCbTD76KWh7eD1xk/MGfUPxa5ruEbJNxKpKpOHH2IztGuhVWCneGG2Wk17r0s42EVb7qBIoBx/TeYKTWDzgBC3XD07r3C0r6SCgWFhUSGXnuEeifAIxDa17O1MvcGMEZtHLDDwZ81v;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=H8bsX459qftf/fCdE9SmoiY8rbeM+FX/8QQFMq6Claa2s9a4JBdpPu+/JCe53G7pNoDZ/abf8TljAoeA2Blb6ftaCdp19sr8977B4HFnHQfx/Z6LCivhJdbiUM0z;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=H8bsX459qftf/fCdE9SmoiY8rbeM+FX/8QQFMq6Claa2s9a4JBdpPu+/JCe53G7pNoDZ/abf8TljAoeA2Blb6ftaCdp19sr8977B4HFnHQfx/Z6LCivhJdbiUM0z;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":49,"fq":"year:\"2021\""}],"count":11}]'
+  recorded_at: 2022-01-19 02:12:15 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(species:%22Perameles%20gunnii%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=ll0VG9o2yCRbrX+ddxHFNmq1ZtFy36rRXDtJBnm/s3wbzQhZD8+rmxWxaMJP+lwWatAMX/suaXSawfoP+8eShNmK06PI+rv/+ypInV2RQyUMh8cHXjixBE4HC9oWVmLb00/NE0MOSjl/vsWrljaL3iwYVdZFXeyithYtT7wRHISi;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=ll0VG9o2yCRbrX+ddxHFNmq1ZtFy36rRXDtJBnm/s3wbzQhZD8+rmxWxaMJP+lwWatAMX/suaXSawfoP+8eShNmK06PI+rv/+ypInV2RQyUMh8cHXjixBE4HC9oWVmLb00/NE0MOSjl/vsWrljaL3iwYVdZFXeyithYtT7wRHISi;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=IOXqPU0wQlGFYqYz3i3F7TCI8WwNn/8m08H5x8HnZ8q33gi+AWm6rCIi/1teJ2LfElQT+vgDy3Ju30EdmEzZt2Cyz+uJzdleeT4pgW4euIcjk2/BbwjokIQMr6ZD;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=IOXqPU0wQlGFYqYz3i3F7TCI8WwNn/8m08H5x8HnZ8q33gi+AWm6rCIi/1teJ2LfElQT+vgDy3Ju30EdmEzZt2Cyz+uJzdleeT4pgW4euIcjk2/BbwjokIQMr6ZD;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":49,"fq":"year:\"2021\""},{"label":"2020","i18nCode":"year.2020","count":30,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":12,"fq":"year:\"2019\""},{"label":"2016","i18nCode":"year.2016","count":6,"fq":"year:\"2016\""},{"label":"2012","i18nCode":"year.2012","count":5,"fq":"year:\"2012\""},{"label":"2013","i18nCode":"year.2013","count":5,"fq":"year:\"2013\""},{"label":"2017","i18nCode":"year.2017","count":4,"fq":"year:\"2017\""},{"label":"2011","i18nCode":"year.2011","count":3,"fq":"year:\"2011\""},{"label":"2018","i18nCode":"year.2018","count":3,"fq":"year:\"2018\""},{"label":"2014","i18nCode":"year.2014","count":2,"fq":"year:\"2014\""},{"label":"2015","i18nCode":"year.2015","count":2,"fq":"year:\"2015\""}],"count":11}]'
+  recorded_at: 2022-01-19 02:12:15 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(species:%22Perameles%20bougainville%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=bgAargeRGM8nKXoMPnJnkmj3CM0ThIKt4sNsalM75O3rowSdvM/tvmVrUgc1egqSQ6RZjU89w9/IyvKDM7XjbBVFsD9hvZa1ARle78APE1Nb7CCXcXsraYaulABRFoEAexDWajeR4hCSRNP451kQkt1FBTuSuDImdBDUpEOate8p;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=bgAargeRGM8nKXoMPnJnkmj3CM0ThIKt4sNsalM75O3rowSdvM/tvmVrUgc1egqSQ6RZjU89w9/IyvKDM7XjbBVFsD9hvZa1ARle78APE1Nb7CCXcXsraYaulABRFoEAexDWajeR4hCSRNP451kQkt1FBTuSuDImdBDUpEOate8p;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=0KMfHzod/hQRmyHeEI44L593eOq09QKrLg9fU6kXMyeh/KzsLmiVSL5M3/egxUy9mJpeqWK016VKT4Zo3R8QO5NM9Lv28Ennf+5pgZv9cRXZbfiQ5/BcmO9Ndudf;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=0KMfHzod/hQRmyHeEI44L593eOq09QKrLg9fU6kXMyeh/KzsLmiVSL5M3/egxUy9mJpeqWK016VKT4Zo3R8QO5NM9Lv28Ennf+5pgZv9cRXZbfiQ5/BcmO9Ndudf;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2018","i18nCode":"year.2018","count":23,"fq":"year:\"2018\""}],"count":7}]'
+  recorded_at: 2022-01-19 02:12:15 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(species:%22Perameles%20bougainville%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=XYhY7l1DTDwnjSDoYO/dWGvTzVAjHCCXgu4HwbpsfMQ1kfuWbRcZg9J5cp+ZBuufvT6E2sZdC8wkwP9/YDSjrzNB12Z5cH1qYRTDfd2VjGeKeXj8VVFYx6VN1KW6Sn6EC6juXsOgjklAfdIMSLq8NSn+5Q7vt1iRYTMq/3csKrzu;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=XYhY7l1DTDwnjSDoYO/dWGvTzVAjHCCXgu4HwbpsfMQ1kfuWbRcZg9J5cp+ZBuufvT6E2sZdC8wkwP9/YDSjrzNB12Z5cH1qYRTDfd2VjGeKeXj8VVFYx6VN1KW6Sn6EC6juXsOgjklAfdIMSLq8NSn+5Q7vt1iRYTMq/3csKrzu;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=aDEbfSXsjJeKiGKK0+uzQ9Am37BziSiC3AAagLb8Z2YyXht4OK0AEkbNcN1uqHiGSdwfBNrzrGGZ7VId2xAf7yMLr7WD6ADABsYrNAGVFu9HfWCmKQDfBpRTFKbB;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=aDEbfSXsjJeKiGKK0+uzQ9Am37BziSiC3AAagLb8Z2YyXht4OK0AEkbNcN1uqHiGSdwfBNrzrGGZ7VId2xAf7yMLr7WD6ADABsYrNAGVFu9HfWCmKQDfBpRTFKbB;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2018","i18nCode":"year.2018","count":23,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":21,"fq":"year:\"2017\""},{"label":"2019","i18nCode":"year.2019","count":12,"fq":"year:\"2019\""},{"label":"2012","i18nCode":"year.2012","count":10,"fq":"year:\"2012\""},{"label":"2016","i18nCode":"year.2016","count":6,"fq":"year:\"2016\""},{"label":"2013","i18nCode":"year.2013","count":2,"fq":"year:\"2013\""},{"label":"2020","i18nCode":"year.2020","count":1,"fq":"year:\"2020\""}],"count":7}]'
+  recorded_at: 2022-01-19 02:12:15 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(species:%22Perameles%20pallescens%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=/amf4GIFeSibXEDaTpshtNqtCdw7Xmo76DIboSBdJymoH60b1PjVT3aaD5EHnkQAKXIpBnmr4vcAHyjWriFiMIWlUp+UQf26YM9CG7eGuzAZwrVt1AhvfQfBlexImLGX+sI7auyESndeTFWlENpo9Ps0VSIiLIAIjUOkdhzVKZ+z;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=/amf4GIFeSibXEDaTpshtNqtCdw7Xmo76DIboSBdJymoH60b1PjVT3aaD5EHnkQAKXIpBnmr4vcAHyjWriFiMIWlUp+UQf26YM9CG7eGuzAZwrVt1AhvfQfBlexImLGX+sI7auyESndeTFWlENpo9Ps0VSIiLIAIjUOkdhzVKZ+z;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=ODIvD+FpTUSTdOEl8yvryFzZ2B/s8mCwzfbPn2XrrQEMKpMKIeY0F6Y7f4ziwN2AtcTxzfppRIHoi4Kp6Tq6a4EiRPsBPo09ld65y3+2e8MogWe/9ZiC/rfNYYC5;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=ODIvD+FpTUSTdOEl8yvryFzZ2B/s8mCwzfbPn2XrrQEMKpMKIeY0F6Y7f4ziwN2AtcTxzfppRIHoi4Kp6Tq6a4EiRPsBPo09ld65y3+2e8MogWe/9ZiC/rfNYYC5;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2012","i18nCode":"year.2012","count":12,"fq":"year:\"2012\""}],"count":6}]'
+  recorded_at: 2022-01-19 02:12:15 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(species:%22Perameles%20pallescens%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=cOHhT5f+zFI/ueaUyfqzoclM6MvWP2OfnnO1utjRy7MhpxlnVfgKjZ7+qMlNKYeiNzpy/wxTkruu0Q/4ATpvdTKpwHyNLURnT9NYDDwttPNGEeUCBSdx0RUxG6TJu05mWEi3VieBvEyM5gBHaeNzGykTomg7PvGRanC6AKl9d6xL;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=cOHhT5f+zFI/ueaUyfqzoclM6MvWP2OfnnO1utjRy7MhpxlnVfgKjZ7+qMlNKYeiNzpy/wxTkruu0Q/4ATpvdTKpwHyNLURnT9NYDDwttPNGEeUCBSdx0RUxG6TJu05mWEi3VieBvEyM5gBHaeNzGykTomg7PvGRanC6AKl9d6xL;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=URJ4ut8Ru708fcx2tUuSk4cD6zLnBVi/PvWhWz1veniMTSX4whBa4daTZ6FKqRBgwmWSRCxly829JycGMjNdgEV5EI7lRvk5Ebi2Mp6pQk5s2tWVRu5hodd8sUvs;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=URJ4ut8Ru708fcx2tUuSk4cD6zLnBVi/PvWhWz1veniMTSX4whBa4daTZ6FKqRBgwmWSRCxly829JycGMjNdgEV5EI7lRvk5Ebi2Mp6pQk5s2tWVRu5hodd8sUvs;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2012","i18nCode":"year.2012","count":12,"fq":"year:\"2012\""},{"label":"2013","i18nCode":"year.2013","count":10,"fq":"year:\"2013\""},{"label":"2014","i18nCode":"year.2014","count":10,"fq":"year:\"2014\""},{"label":"2011","i18nCode":"year.2011","count":8,"fq":"year:\"2011\""},{"label":"2015","i18nCode":"year.2015","count":2,"fq":"year:\"2015\""},{"label":"2017","i18nCode":"year.2017","count":1,"fq":"year:\"2017\""}],"count":6}]'
+  recorded_at: 2022-01-19 02:12:15 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

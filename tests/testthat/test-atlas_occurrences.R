@@ -1,9 +1,7 @@
 context("Test atlas_occurrences")
 
-vcr::use_cassette("atlas_occurrences_no_filters", {
-  test_that("atlas_occurrences doesn't allow large downloads", {
-    expect_error(atlas_occurrences())
-  })
+test_that("atlas_occurrences doesn't allow large downloads", {
+  expect_error(atlas_occurrences())
 })
 
 test_that("atlas_occurrences gives a nice error for invalid emails", {

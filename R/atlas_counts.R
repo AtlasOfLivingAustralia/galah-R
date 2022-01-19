@@ -229,7 +229,11 @@ atlas_counts_internal <- function(identify = NULL,
         function(a){a[!is.na(a)]}),
       stringsAsFactors = FALSE)
     levels_list <- split(levels_df, seq_len(nrow(levels_df)))
-    filter_list <- lapply(levels_list, function(a){paste(colnames(a), a, sep = " == ")})
+    filter_list <- lapply(levels_list, function(a){
+      field <- colnames(a)
+      value <- paste0("\'", a, "\'")
+      paste(field, value, sep = " == ")
+    })
     
     # run `atlas_counts_lookup` the requisite number of times
     if (verbose) { pb <- txtProgressBar(max = 1, style = 3) } # start progressbar

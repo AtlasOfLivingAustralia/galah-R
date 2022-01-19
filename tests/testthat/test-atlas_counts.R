@@ -1,7 +1,9 @@
 context("Test atlas_counts")
 
 test_that("atlas_counts checks group_by field", {
+  galah_config(run_checks = TRUE)
   expect_warning(atlas_counts(group_by = galah_group_by("invalid")))
+  galah_config(run_checks = FALSE)
 })
 
 
@@ -114,6 +116,31 @@ test_that("atlas_counts handles multiple 'group by' variables", {
   expect_s3_class(counts, "data.frame")
   expect_equal(names(counts), c("year", "basisOfRecord", "count"))
 })
+
+test_that("atlas_counts handles 'species' as a 'group by' variable", {
+  vcr::use_cassette("species_group_by_counts", {
+    counts <- galah_call() |>
+       galah_identify("perameles") |>
+       galah_filter(year > 2010) |> 
+       galah_group_by(species, year) |>
+       atlas_counts()
+  })
+  expect_s3_class(counts, "data.frame")
+  expect_equal(names(counts), c("species", "year", "count"))
+})
+
+test_that("atlas_counts handles 'taxonConceptID' as a 'group by' variable", {
+  vcr::use_cassette("taxonConceptID_group_by_counts", {
+    counts <- galah_call() |>
+       galah_identify("perameles") |>
+       galah_filter(year > 2010) |> 
+       galah_group_by(taxonConceptID, year) |>
+       atlas_counts()
+  })
+  expect_s3_class(counts, "data.frame")
+  expect_equal(names(counts), c("taxonConceptID", "year", "count"))
+})
+
 
 test_that("atlas_counts handles piping", {
   vcr::use_cassette("piped_counts_1", {

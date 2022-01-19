@@ -1,0 +1,917 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://namematching-ws.ala.org.au/api/search?q=perameles
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.21.5
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      content-type: application/json
+      content-length: '505'
+      vary: Accept-Encoding
+      content-encoding: gzip
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+    body:
+      encoding: UTF-8
+      file: no
+      string: '{"success":true,"scientificName":"Perameles","scientificNameAuthorship":"Geoffroy,
+        1803","taxonConceptID":"urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f","rank":"genus","rankID":6000,"lft":202082,"rgt":202110,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"urn:lsid:biodiversity.org.au:afd.taxon:e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","order":"Peramelemorphia","orderID":"urn:lsid:biodiversity.org.au:afd.taxon:94032c42-8ed7-4bf1-bff6-952262dab315","family":"Peramelidae","familyID":"urn:lsid:biodiversity.org.au:afd.taxon:359987d0-2904-445a-9d56-ea3a87d415e0","genus":"Perameles","genusID":"urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f","speciesGroup":["Animals","Mammals"],"speciesSubgroup":["Bandicoots,
+        Bilbies"],"issues":["noIssue"]}'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=taxonConceptID&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=KFpkwVGcL5Fo8LV7QBgKzedncQVf9twJU0y6YQtw3WrAe5oNnxVMW0OeY1QpSBGWEWgCq2rXc00qqnzGPI5FWGMHfqKfwDcSNACjaia9NV+F/ylpUZkhyWc8+AxRDacMGNnPdY95Kc9AZXpSLjuIr6c/WN/L5DJAGneE6e8kCjh9;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=KFpkwVGcL5Fo8LV7QBgKzedncQVf9twJU0y6YQtw3WrAe5oNnxVMW0OeY1QpSBGWEWgCq2rXc00qqnzGPI5FWGMHfqKfwDcSNACjaia9NV+F/ylpUZkhyWc8+AxRDacMGNnPdY95Kc9AZXpSLjuIr6c/WN/L5DJAGneE6e8kCjh9;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=R8Xso7lzU8aDNhMBMYoBWXqFmS029Zn9KjlUjQLLTajNrp34deSFFmKKYniFgqOVKqvQsjZMj6YAzKjC20yh1r09IavY+tEzoPseCnth1PLoJF46WWiuibk6Ved1;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=R8Xso7lzU8aDNhMBMYoBWXqFmS029Zn9KjlUjQLLTajNrp34deSFFmKKYniFgqOVKqvQsjZMj6YAzKjC20yh1r09IavY+tEzoPseCnth1PLoJF46WWiuibk6Ved1;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"taxonConceptID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:a72e7e4b-96c4-4967-be05-f93e8f4102d3","i18nCode":"taxonConceptID.urn:lsid:biodiversity.org.au:afd.taxon:a72e7e4b-96c4-4967-be05-f93e8f4102d3","count":20988,"fq":"taxonConceptID:\"urn:lsid:biodiversity.org.au:afd.taxon:a72e7e4b-96c4-4967-be05-f93e8f4102d3\""}],"count":9},{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":6612,"fq":"year:\"2015\""}],"count":9}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=taxonConceptID&facets=year&flimit=18&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=MSKNb9k6JAh00MlIxJ6J9aBczDTy/aei7XPRA5sVQNMnefXNUmVguL9y8t/wAK4dQUvWOv7myw0Yl2UuOGFSIj102zUpFJehWTQwXRyPaMoahpA5yWGI/NfpgTv/+YLFCB3Px6NtH2uRRKC0Nq/NxCDtcMPxgJ2arzZtiu82o8ZD;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=MSKNb9k6JAh00MlIxJ6J9aBczDTy/aei7XPRA5sVQNMnefXNUmVguL9y8t/wAK4dQUvWOv7myw0Yl2UuOGFSIj102zUpFJehWTQwXRyPaMoahpA5yWGI/NfpgTv/+YLFCB3Px6NtH2uRRKC0Nq/NxCDtcMPxgJ2arzZtiu82o8ZD;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=CX8ou5gXQoh/KwYbpy1oKgikb8b6O2nngyshQQe5VXSScHQDdvCpKKQvps0a3X3y2X422I3r4Z4nIdINhWlkW9OOhLQt1EebGZ+CH229A2EVuCuvgcnskZDBaOC7;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=CX8ou5gXQoh/KwYbpy1oKgikb8b6O2nngyshQQe5VXSScHQDdvCpKKQvps0a3X3y2X422I3r4Z4nIdINhWlkW9OOhLQt1EebGZ+CH229A2EVuCuvgcnskZDBaOC7;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"taxonConceptID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:a72e7e4b-96c4-4967-be05-f93e8f4102d3","i18nCode":"taxonConceptID.urn:lsid:biodiversity.org.au:afd.taxon:a72e7e4b-96c4-4967-be05-f93e8f4102d3","count":20988,"fq":"taxonConceptID:\"urn:lsid:biodiversity.org.au:afd.taxon:a72e7e4b-96c4-4967-be05-f93e8f4102d3\""},{"label":"urn:lsid:biodiversity.org.au:afd.taxon:241463eb-b202-4095-9eea-2bcbfc7f999b","i18nCode":"taxonConceptID.urn:lsid:biodiversity.org.au:afd.taxon:241463eb-b202-4095-9eea-2bcbfc7f999b","count":121,"fq":"taxonConceptID:\"urn:lsid:biodiversity.org.au:afd.taxon:241463eb-b202-4095-9eea-2bcbfc7f999b\""},{"label":"urn:lsid:biodiversity.org.au:afd.taxon:9ccfa778-edc6-409f-a932-9becf8e77c24","i18nCode":"taxonConceptID.urn:lsid:biodiversity.org.au:afd.taxon:9ccfa778-edc6-409f-a932-9becf8e77c24","count":43,"fq":"taxonConceptID:\"urn:lsid:biodiversity.org.au:afd.taxon:9ccfa778-edc6-409f-a932-9becf8e77c24\""},{"label":"urn:lsid:biodiversity.org.au:afd.taxon:43ceb071-6dfd-4771-a544-5f2620e0c02a","i18nCode":"taxonConceptID.urn:lsid:biodiversity.org.au:afd.taxon:43ceb071-6dfd-4771-a544-5f2620e0c02a","count":34,"fq":"taxonConceptID:\"urn:lsid:biodiversity.org.au:afd.taxon:43ceb071-6dfd-4771-a544-5f2620e0c02a\""},{"label":"urn:lsid:biodiversity.org.au:afd.taxon:a13aa0fe-821d-4789-aab8-814d3f5247e2","i18nCode":"taxonConceptID.urn:lsid:biodiversity.org.au:afd.taxon:a13aa0fe-821d-4789-aab8-814d3f5247e2","count":32,"fq":"taxonConceptID:\"urn:lsid:biodiversity.org.au:afd.taxon:a13aa0fe-821d-4789-aab8-814d3f5247e2\""},{"label":"urn:lsid:biodiversity.org.au:afd.taxon:65624ac7-c99e-4db7-b210-9a67e7ba9d60","i18nCode":"taxonConceptID.urn:lsid:biodiversity.org.au:afd.taxon:65624ac7-c99e-4db7-b210-9a67e7ba9d60","count":9,"fq":"taxonConceptID:\"urn:lsid:biodiversity.org.au:afd.taxon:65624ac7-c99e-4db7-b210-9a67e7ba9d60\""},{"label":"urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f","i18nCode":"taxonConceptID.urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f","count":8,"fq":"taxonConceptID:\"urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f\""},{"label":"ALA_Perameles_gunnii_Victorian_subspecies","i18nCode":"taxonConceptID.ALA_Perameles_gunnii_Victorian_subspecies","count":6,"fq":"taxonConceptID:\"ALA_Perameles_gunnii_Victorian_subspecies\""},{"label":"ALA_Perameles_gunnii_gunnii","i18nCode":"taxonConceptID.ALA_Perameles_gunnii_gunnii","count":2,"fq":"taxonConceptID:\"ALA_Perameles_gunnii_gunnii\""}],"count":9},{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":6612,"fq":"year:\"2015\""},{"label":"2013","i18nCode":"year.2013","count":3138,"fq":"year:\"2013\""},{"label":"2014","i18nCode":"year.2014","count":2569,"fq":"year:\"2014\""},{"label":"2012","i18nCode":"year.2012","count":2451,"fq":"year:\"2012\""},{"label":"2016","i18nCode":"year.2016","count":1398,"fq":"year:\"2016\""},{"label":"2018","i18nCode":"year.2018","count":1012,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":983,"fq":"year:\"2017\""},{"label":"2020","i18nCode":"year.2020","count":959,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":861,"fq":"year:\"2019\""},{"label":"2011","i18nCode":"year.2011","count":693,"fq":"year:\"2011\""},{"label":"2021","i18nCode":"year.2021","count":566,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":1,"fq":"year:\"2022\""}],"count":9}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:a72e7e4b-96c4-4967-be05-f93e8f4102d3%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=Z9sTOa1rc3o6i7lYDQAHjBokgaqPxWx69VavNe/M1z2/6tWEb34v482RICAMC83OWyEpOOzY5d/PQKePnUzJAF0ATVA2FZkh2WfBcLetEQV3SV3wAuDWpUI/VHwtkW99nz44S609saJBmQuCNaiAZ1sVN0wN/sIb5P/zv7NcfCGL;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=Z9sTOa1rc3o6i7lYDQAHjBokgaqPxWx69VavNe/M1z2/6tWEb34v482RICAMC83OWyEpOOzY5d/PQKePnUzJAF0ATVA2FZkh2WfBcLetEQV3SV3wAuDWpUI/VHwtkW99nz44S609saJBmQuCNaiAZ1sVN0wN/sIb5P/zv7NcfCGL;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=eYgbDEJ9dZAuD6d36G7rQiWGa+DIFUVlLg91JalyvUFSAZq3vn1rETCJ1i4KZv8qVB+QNbVEkKu8+r7Kf6kLNowplwOP7h9Afvp4RU91kqZe9+oz/vdn1lD1GJ2R;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=eYgbDEJ9dZAuD6d36G7rQiWGa+DIFUVlLg91JalyvUFSAZq3vn1rETCJ1i4KZv8qVB+QNbVEkKu8+r7Kf6kLNowplwOP7h9Afvp4RU91kqZe9+oz/vdn1lD1GJ2R;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":6608,"fq":"year:\"2015\""}],"count":12}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:a72e7e4b-96c4-4967-be05-f93e8f4102d3%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=c8LPd4bJD72TfZ3TwPeffKQq9H0qvgxJtJqtxOeoTncvfaaAXcZ5/QaJypFyYoi46Isbp0fk5Hl9GWFDcZ2CNZELzjQyAipDVUnaDBLLrU4C1LTCoPE/g8z7TwUniKxmKV834KE10my4NM1qlCcWu+5xYa8MESKEnHMDo8iosXTO;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=c8LPd4bJD72TfZ3TwPeffKQq9H0qvgxJtJqtxOeoTncvfaaAXcZ5/QaJypFyYoi46Isbp0fk5Hl9GWFDcZ2CNZELzjQyAipDVUnaDBLLrU4C1LTCoPE/g8z7TwUniKxmKV834KE10my4NM1qlCcWu+5xYa8MESKEnHMDo8iosXTO;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=2i94fNA2o61fXUZlmCuLpRjgKm4r0ym2snC4QCku37ngjh3jBEPPswfqK/BtMwUP5FdDzGG8fvPCM1ilijYB4P8eNJh9bDd9fmOcIcojpzwM4Gm4zSBSmmZ/zObV;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=2i94fNA2o61fXUZlmCuLpRjgKm4r0ym2snC4QCku37ngjh3jBEPPswfqK/BtMwUP5FdDzGG8fvPCM1ilijYB4P8eNJh9bDd9fmOcIcojpzwM4Gm4zSBSmmZ/zObV;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":6608,"fq":"year:\"2015\""},{"label":"2013","i18nCode":"year.2013","count":3121,"fq":"year:\"2013\""},{"label":"2014","i18nCode":"year.2014","count":2557,"fq":"year:\"2014\""},{"label":"2012","i18nCode":"year.2012","count":2423,"fq":"year:\"2012\""},{"label":"2016","i18nCode":"year.2016","count":1385,"fq":"year:\"2016\""},{"label":"2018","i18nCode":"year.2018","count":985,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":955,"fq":"year:\"2017\""},{"label":"2020","i18nCode":"year.2020","count":928,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":832,"fq":"year:\"2019\""},{"label":"2011","i18nCode":"year.2011","count":682,"fq":"year:\"2011\""},{"label":"2021","i18nCode":"year.2021","count":511,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":1,"fq":"year:\"2022\""}],"count":12}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:241463eb-b202-4095-9eea-2bcbfc7f999b%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=0R7o65AfAqrT3ryOikoKc93DXHCiw0eIjyWclYArBU6P8WKRlYe4HQI8T6phksXsTtSa6zB18qmw3mn9veR210uN+woA1YiWmN4ySUrvwwaVBrWiArQbrb6Fy43vEhFMBrr6/c1kO6S/ENgl/G140zqo7ObDfc3EKuWPDz8RBSRa;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=0R7o65AfAqrT3ryOikoKc93DXHCiw0eIjyWclYArBU6P8WKRlYe4HQI8T6phksXsTtSa6zB18qmw3mn9veR210uN+woA1YiWmN4ySUrvwwaVBrWiArQbrb6Fy43vEhFMBrr6/c1kO6S/ENgl/G140zqo7ObDfc3EKuWPDz8RBSRa;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=owsaYnRonY/K7Y2dRhZCl/PQHdRJs2sZ45OAH5VYefeEsFz5S74KwLLp+7VMRYzGWybw/E4c3tMaNf1v0PuaV/Eh9SxcNvJ5RfpEtNRNuy40MH3ACR2ut+xKGfYZ;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=owsaYnRonY/K7Y2dRhZCl/PQHdRJs2sZ45OAH5VYefeEsFz5S74KwLLp+7VMRYzGWybw/E4c3tMaNf1v0PuaV/Eh9SxcNvJ5RfpEtNRNuy40MH3ACR2ut+xKGfYZ;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":49,"fq":"year:\"2021\""}],"count":11}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:241463eb-b202-4095-9eea-2bcbfc7f999b%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=LUIZcIJrXh3Ww5uLzALRl7WP2cvBu2+AiqUPFXIPkvn7b0y7+4D38IXUHqtwNoUZA2WrTqa2KJKJC7S2K6XAxIZcRXOqL5FyBBG/ZP3Qy2WVjhdi8h9ZEh1Fm7tpzTGFHW047mkeaIETG0l/Ycdr9BkIxIKzJsh5Ldwdo8mY1iYR;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=LUIZcIJrXh3Ww5uLzALRl7WP2cvBu2+AiqUPFXIPkvn7b0y7+4D38IXUHqtwNoUZA2WrTqa2KJKJC7S2K6XAxIZcRXOqL5FyBBG/ZP3Qy2WVjhdi8h9ZEh1Fm7tpzTGFHW047mkeaIETG0l/Ycdr9BkIxIKzJsh5Ldwdo8mY1iYR;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=sz1t3U8EtUr/g/n6GpXjtYU8mHoJ+gBDcK+mMkjj/8Vs71WHla9tbAkvYa3ak+m1UKD6rFtBKA3Ol3DPCgJSsgAbdDzIVbpM6eePi5YHH+/UC+Q3322RySR4sNKH;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=sz1t3U8EtUr/g/n6GpXjtYU8mHoJ+gBDcK+mMkjj/8Vs71WHla9tbAkvYa3ak+m1UKD6rFtBKA3Ol3DPCgJSsgAbdDzIVbpM6eePi5YHH+/UC+Q3322RySR4sNKH;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":49,"fq":"year:\"2021\""},{"label":"2020","i18nCode":"year.2020","count":30,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":12,"fq":"year:\"2019\""},{"label":"2016","i18nCode":"year.2016","count":6,"fq":"year:\"2016\""},{"label":"2012","i18nCode":"year.2012","count":5,"fq":"year:\"2012\""},{"label":"2013","i18nCode":"year.2013","count":5,"fq":"year:\"2013\""},{"label":"2017","i18nCode":"year.2017","count":4,"fq":"year:\"2017\""},{"label":"2011","i18nCode":"year.2011","count":3,"fq":"year:\"2011\""},{"label":"2018","i18nCode":"year.2018","count":3,"fq":"year:\"2018\""},{"label":"2014","i18nCode":"year.2014","count":2,"fq":"year:\"2014\""},{"label":"2015","i18nCode":"year.2015","count":2,"fq":"year:\"2015\""}],"count":11}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:9ccfa778-edc6-409f-a932-9becf8e77c24%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=kmHwQ1iBAYdZzicY+MPqV5mqPTBQhXyd8k8QmKOj7MSOS74tGRH7rHFsEGXDp9gi01qh0HFnvoSOXRCBeGXA5b+uGRHPYZgePnAn3rT8EbY9EDUZt+e1InoPHeF+I38S6EdWYvUAximPJ1cQu4olAyWRmXZaeypARY/yK/9gp4HS;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=kmHwQ1iBAYdZzicY+MPqV5mqPTBQhXyd8k8QmKOj7MSOS74tGRH7rHFsEGXDp9gi01qh0HFnvoSOXRCBeGXA5b+uGRHPYZgePnAn3rT8EbY9EDUZt+e1InoPHeF+I38S6EdWYvUAximPJ1cQu4olAyWRmXZaeypARY/yK/9gp4HS;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=AnNX0+qP4OQoEC0r31R0rmhEsb4el2RT7O7/eO9sr3Gw2YO6PEMjIE7TP7u9fUIIt4SEXME7nvzc+CvU6uwVGja+4+Vrz+ZqSoA4PSqMC9/ww17ZW4dt4gOEXPgf;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=AnNX0+qP4OQoEC0r31R0rmhEsb4el2RT7O7/eO9sr3Gw2YO6PEMjIE7TP7u9fUIIt4SEXME7nvzc+CvU6uwVGja+4+Vrz+ZqSoA4PSqMC9/ww17ZW4dt4gOEXPgf;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2012","i18nCode":"year.2012","count":12,"fq":"year:\"2012\""}],"count":6}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:9ccfa778-edc6-409f-a932-9becf8e77c24%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=B9WUHv9xmdQZlZa9RBz8ei49U6Av1OPQd+/PFM3+FFrUk3SDcDKzsulMBLSQVsTbF+WemXBwpgOLehAtimUambBysq9BypyVCZujWXyyCpt6tOhu3wkXH1R/pL37voJQ3u1KzgQTRW1lmaEnyPQT4ppRKF9hNSg1OM2efti9tQLy;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=B9WUHv9xmdQZlZa9RBz8ei49U6Av1OPQd+/PFM3+FFrUk3SDcDKzsulMBLSQVsTbF+WemXBwpgOLehAtimUambBysq9BypyVCZujWXyyCpt6tOhu3wkXH1R/pL37voJQ3u1KzgQTRW1lmaEnyPQT4ppRKF9hNSg1OM2efti9tQLy;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=iE0ZbTC7L/0sNfjDsMWjK/1kla+sBlxeslYeJddjA1U8BOLfsGv6QcwOyeSacq+dhq3sc8znZDTIr0AD2l8rau7ryseKp43xOvNndg6zWHw0D1BkjJv9iIp6ErDk;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=iE0ZbTC7L/0sNfjDsMWjK/1kla+sBlxeslYeJddjA1U8BOLfsGv6QcwOyeSacq+dhq3sc8znZDTIr0AD2l8rau7ryseKp43xOvNndg6zWHw0D1BkjJv9iIp6ErDk;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2012","i18nCode":"year.2012","count":12,"fq":"year:\"2012\""},{"label":"2013","i18nCode":"year.2013","count":10,"fq":"year:\"2013\""},{"label":"2014","i18nCode":"year.2014","count":10,"fq":"year:\"2014\""},{"label":"2011","i18nCode":"year.2011","count":8,"fq":"year:\"2011\""},{"label":"2015","i18nCode":"year.2015","count":2,"fq":"year:\"2015\""},{"label":"2017","i18nCode":"year.2017","count":1,"fq":"year:\"2017\""}],"count":6}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:43ceb071-6dfd-4771-a544-5f2620e0c02a%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=pDKoEMG021sts3iIMZJJ+YjCYV7lyAs82PA76+40/fAWkQyha4yBJw1Ig0wGoY3azwjMrMZ8OYHz3MV+FxyEbW+l0D2+Z9GmcW8TE4tEbCey0NGIFG+ZoDtmo9niTO9/f6ccxwATh7jFt4faS4NaSQNssJLU9qDZOr2/LvLmv+/H;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=pDKoEMG021sts3iIMZJJ+YjCYV7lyAs82PA76+40/fAWkQyha4yBJw1Ig0wGoY3azwjMrMZ8OYHz3MV+FxyEbW+l0D2+Z9GmcW8TE4tEbCey0NGIFG+ZoDtmo9niTO9/f6ccxwATh7jFt4faS4NaSQNssJLU9qDZOr2/LvLmv+/H;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=honay+elH/23JuK4ddtGpI25UnbCIkCzTRFzCiBKzG5sOCpJ+j9st/ITbS/MTJHMQIEP6e44bM/qvF+UbvNke//+LK92lRetMQ+2Bo62WsBrFEnfCpSgK7L3NDOk;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=honay+elH/23JuK4ddtGpI25UnbCIkCzTRFzCiBKzG5sOCpJ+j9st/ITbS/MTJHMQIEP6e44bM/qvF+UbvNke//+LK92lRetMQ+2Bo62WsBrFEnfCpSgK7L3NDOk;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2018","i18nCode":"year.2018","count":23,"fq":"year:\"2018\""}],"count":7}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:43ceb071-6dfd-4771-a544-5f2620e0c02a%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=mtG1V8clr0B4/2+EUWCrpcDG0tRSG+Vom8DmZQQZEYXZxCh2aEbpjjezNwKOyyw2sGCaQfH6BxYvb6wEapC1k5HHohjWQ+sTbKHyW4Q4+qgE3JsoExU+xQDYxVf5nzBJQyV/K8ltesw6tvQk1COrXaK9F6jRI0LdvPwcihBT/aCn;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBTGCORS=mtG1V8clr0B4/2+EUWCrpcDG0tRSG+Vom8DmZQQZEYXZxCh2aEbpjjezNwKOyyw2sGCaQfH6BxYvb6wEapC1k5HHohjWQ+sTbKHyW4Q4+qgE3JsoExU+xQDYxVf5nzBJQyV/K8ltesw6tvQk1COrXaK9F6jRI0LdvPwcihBT/aCn;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=5q8OO8avPydnumPYNK1v2BCYz7DsfuHWhPV2eolIAsALSOyZPXp4i8JQJ8MFvWf1+9U1CYfY2rX2WZRfBOx/R6kS82RbzV6CBQ03Y/OnknL6SgBwNPRYTBAGPxQ+;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/
+      - AWSALBCORS=5q8OO8avPydnumPYNK1v2BCYz7DsfuHWhPV2eolIAsALSOyZPXp4i8JQJ8MFvWf1+9U1CYfY2rX2WZRfBOx/R6kS82RbzV6CBQ03Y/OnknL6SgBwNPRYTBAGPxQ+;
+        Expires=Wed, 26 Jan 2022 02:12:15 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2018","i18nCode":"year.2018","count":23,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":21,"fq":"year:\"2017\""},{"label":"2019","i18nCode":"year.2019","count":12,"fq":"year:\"2019\""},{"label":"2012","i18nCode":"year.2012","count":10,"fq":"year:\"2012\""},{"label":"2016","i18nCode":"year.2016","count":6,"fq":"year:\"2016\""},{"label":"2013","i18nCode":"year.2013","count":2,"fq":"year:\"2013\""},{"label":"2020","i18nCode":"year.2020","count":1,"fq":"year:\"2020\""}],"count":7}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:a13aa0fe-821d-4789-aab8-814d3f5247e2%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=L1ZG3DWPHDCTrrWWlEsEsgXkdztjBnVvIX+z/o8ICQfAvwecMNn267phpVen3q8P+Uc3kZyDqiIlcs+yfryFsW7THxmqyzvWxD1mdu9grRsbHlE6oW8IDKy33dxOMalFHewPRGmgOqaVvPT4e9+6ebYsQ6mwrVmgZ5uslmi62guV;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBTGCORS=L1ZG3DWPHDCTrrWWlEsEsgXkdztjBnVvIX+z/o8ICQfAvwecMNn267phpVen3q8P+Uc3kZyDqiIlcs+yfryFsW7THxmqyzvWxD1mdu9grRsbHlE6oW8IDKy33dxOMalFHewPRGmgOqaVvPT4e9+6ebYsQ6mwrVmgZ5uslmi62guV;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=WUg3si7jnG0v5RGax/Uil6HRc1Jp2Ylxs52yP7yLthNfX6ssMkIN5REUTgs0wXb6vtBM2AKsA7bglBh8jVRbrsHJuYJv6fa22poCvDZZDpVYedq4aJRWly/OTVzZ;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBCORS=WUg3si7jnG0v5RGax/Uil6HRc1Jp2Ylxs52yP7yLthNfX6ssMkIN5REUTgs0wXb6vtBM2AKsA7bglBh8jVRbrsHJuYJv6fa22poCvDZZDpVYedq4aJRWly/OTVzZ;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2017","i18nCode":"year.2017","count":18,"fq":"year:\"2017\""}],"count":4}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:a13aa0fe-821d-4789-aab8-814d3f5247e2%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=XMJpkWpArNMTvq1Lr8DYDcFTE8tGBQIwPo8kEWq+LsAskiDrAx3Gp0T1xn0ehDFDq5hRI9brUTPzHWZrPXNb/mdqwLFgim2/fPIxl7RodcB2IJoWaaBLBC08m7fup8pxXZl/6rgiys8EeOGfNqbvMpQ0eARkchkRos9xxcvrY710;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBTGCORS=XMJpkWpArNMTvq1Lr8DYDcFTE8tGBQIwPo8kEWq+LsAskiDrAx3Gp0T1xn0ehDFDq5hRI9brUTPzHWZrPXNb/mdqwLFgim2/fPIxl7RodcB2IJoWaaBLBC08m7fup8pxXZl/6rgiys8EeOGfNqbvMpQ0eARkchkRos9xxcvrY710;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=ZBVWWE8Z0dUqyIXyqyDbnUFU5B6qElZ7uAPVqzetxcrId/r5+yW/MoqCcO0pFZ5eWpoKFuBxb0j3HWdYFcYjH+oWypkFGI5k0krq06RDo6o20kCyelMt0jVb5/ac;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBCORS=ZBVWWE8Z0dUqyIXyqyDbnUFU5B6qElZ7uAPVqzetxcrId/r5+yW/MoqCcO0pFZ5eWpoKFuBxb0j3HWdYFcYjH+oWypkFGI5k0krq06RDo6o20kCyelMt0jVb5/ac;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2017","i18nCode":"year.2017","count":18,"fq":"year:\"2017\""},{"label":"2019","i18nCode":"year.2019","count":12,"fq":"year:\"2019\""},{"label":"2012","i18nCode":"year.2012","count":1,"fq":"year:\"2012\""},{"label":"2013","i18nCode":"year.2013","count":1,"fq":"year:\"2013\""}],"count":4}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:65624ac7-c99e-4db7-b210-9a67e7ba9d60%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=54inMusa/WXd8Draolf3QH2WdAenHsqIP89iTRi0YOBdr/F2oWWQTx9Ovt3SpReVNyTiu0q7bhLySzmvBeNjti3Pm6gLvPOAzN2f+PC0B3r/u5tUAMZxIeFRKuQXKpFlL+5b1i3AuYH4fihgUxbtXfyT96dtg9/ETx81SCIFOTCc;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBTGCORS=54inMusa/WXd8Draolf3QH2WdAenHsqIP89iTRi0YOBdr/F2oWWQTx9Ovt3SpReVNyTiu0q7bhLySzmvBeNjti3Pm6gLvPOAzN2f+PC0B3r/u5tUAMZxIeFRKuQXKpFlL+5b1i3AuYH4fihgUxbtXfyT96dtg9/ETx81SCIFOTCc;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=i4foVIrV56EA8n5B1lche9adXn08qItrtn+MQqYgu4ggRy2y88QbH0i5v3wEik1FCCwaW7k6/Dpn8zhdy9bprdY9B+8XOsWKuW6bxn0eF1/bgL0RFGRo8fvhHug/;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBCORS=i4foVIrV56EA8n5B1lche9adXn08qItrtn+MQqYgu4ggRy2y88QbH0i5v3wEik1FCCwaW7k6/Dpn8zhdy9bprdY9B+8XOsWKuW6bxn0eF1/bgL0RFGRo8fvhHug/;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2012","i18nCode":"year.2012","count":9,"fq":"year:\"2012\""}],"count":1}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:65624ac7-c99e-4db7-b210-9a67e7ba9d60%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=TxSW+opWKNdkR0mk+TmOZID3Q5tsYXYfwVvbFvihKhcszzfXF3nb0H73lYiOclow7A+Z5/glx5U2AbKJ9wBSfciMz8BjlZ8jDMba8FdhOCiYCqVBZJzDRqjkRazsIF2s1nY66nxumeqfLCIwiKPCNy95cllbzOIMVvLiE08FEcvM;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBTGCORS=TxSW+opWKNdkR0mk+TmOZID3Q5tsYXYfwVvbFvihKhcszzfXF3nb0H73lYiOclow7A+Z5/glx5U2AbKJ9wBSfciMz8BjlZ8jDMba8FdhOCiYCqVBZJzDRqjkRazsIF2s1nY66nxumeqfLCIwiKPCNy95cllbzOIMVvLiE08FEcvM;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=b1DNjF5N+PB3rWRJQ431g9pwZZxUAs+K9jCldnQXtRxncm2ZrhYEfViBY4504B+jp5pcr11u9unDJhxwJVecd7UOVPhK6/5JA0uhcVjkLBe0Fcg4TYOLpms8xHX2;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBCORS=b1DNjF5N+PB3rWRJQ431g9pwZZxUAs+K9jCldnQXtRxncm2ZrhYEfViBY4504B+jp5pcr11u9unDJhxwJVecd7UOVPhK6/5JA0uhcVjkLBe0Fcg4TYOLpms8xHX2;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2012","i18nCode":"year.2012","count":9,"fq":"year:\"2012\""}],"count":1}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=M97x6hkdO6ca9qdF09Xf+fwytLvo9mIpP+iOdW4rinpwOIL0zvPaOP8iEsDUudnT/uqNuB6bAAD5oNXz4xZ8rt0rj2A4fF5PyO/yBA6WpzVWrlHOW+plM2z0KCCM04yaGRjnCbNWt9yz8bNooLz1R15WgNYzTJWSWL+rPq3E3bz9;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBTGCORS=M97x6hkdO6ca9qdF09Xf+fwytLvo9mIpP+iOdW4rinpwOIL0zvPaOP8iEsDUudnT/uqNuB6bAAD5oNXz4xZ8rt0rj2A4fF5PyO/yBA6WpzVWrlHOW+plM2z0KCCM04yaGRjnCbNWt9yz8bNooLz1R15WgNYzTJWSWL+rPq3E3bz9;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=bMI9WfR8lXKjSKmeuFR03iqYfmJlvfw16iNEi7PqkNICnW+BEa2TAz9b2t58Btv8pE6BxXM88VnzX/+bk9EZBgFArzt4ndJcvojt9nQyZeW7aK4mpOvWXugM2Lt8;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBCORS=bMI9WfR8lXKjSKmeuFR03iqYfmJlvfw16iNEi7PqkNICnW+BEa2TAz9b2t58Btv8pE6BxXM88VnzX/+bk9EZBgFArzt4ndJcvojt9nQyZeW7aK4mpOvWXugM2Lt8;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":6612,"fq":"year:\"2015\""}],"count":12}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=YTtA9XwdhW8H/JIuRP8PDPDX8/QzRni+B9IcFGgqDZDUIwmun1ZdjUQxFsB8Tf7oast7rw5RLa0xcNb3TWPNMwpmNnQGktnGjrplmiqIF9Y1Xv4Pg3mEUpRdOY7twESs7lCW5bLDu9v0SbFLjxFb8ZFlifIVZgp32lTYH4fpca3w;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBTGCORS=YTtA9XwdhW8H/JIuRP8PDPDX8/QzRni+B9IcFGgqDZDUIwmun1ZdjUQxFsB8Tf7oast7rw5RLa0xcNb3TWPNMwpmNnQGktnGjrplmiqIF9Y1Xv4Pg3mEUpRdOY7twESs7lCW5bLDu9v0SbFLjxFb8ZFlifIVZgp32lTYH4fpca3w;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=Qi0di9nU0r3wdxfg7GpHEwzTaPGCN2HKAGPJ52sQ+Vc0SOMroaQ/rB+ldsTRXMPZAe5PGJhJbNpMGchlVJnyGgWNu/76P061BYYI4mYCVC7I+AqUbCF4gF4CiQ1L;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBCORS=Qi0di9nU0r3wdxfg7GpHEwzTaPGCN2HKAGPJ52sQ+Vc0SOMroaQ/rB+ldsTRXMPZAe5PGJhJbNpMGchlVJnyGgWNu/76P061BYYI4mYCVC7I+AqUbCF4gF4CiQ1L;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":6612,"fq":"year:\"2015\""},{"label":"2013","i18nCode":"year.2013","count":3138,"fq":"year:\"2013\""},{"label":"2014","i18nCode":"year.2014","count":2569,"fq":"year:\"2014\""},{"label":"2012","i18nCode":"year.2012","count":2451,"fq":"year:\"2012\""},{"label":"2016","i18nCode":"year.2016","count":1398,"fq":"year:\"2016\""},{"label":"2018","i18nCode":"year.2018","count":1012,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":983,"fq":"year:\"2017\""},{"label":"2020","i18nCode":"year.2020","count":959,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":861,"fq":"year:\"2019\""},{"label":"2011","i18nCode":"year.2011","count":693,"fq":"year:\"2011\""},{"label":"2021","i18nCode":"year.2021","count":566,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":1,"fq":"year:\"2022\""}],"count":12}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22ALA_Perameles_gunnii_Victorian_subspecies%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=kJbUdyT6qDFDqoGelrqydqK72YzRZPCT5jnddHrylbe4LYPsDdoborCWuIdgo3Gr17sVykB00bYTFhE/Mxz95p4avQKJmxGo+SiPkEezJMdlAaYfDICKhpL1A7BAdIeGzTRaXolXq6uRKT92g5FZW9ZcqOFvqGJXhuNbta0Kij2K;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBTGCORS=kJbUdyT6qDFDqoGelrqydqK72YzRZPCT5jnddHrylbe4LYPsDdoborCWuIdgo3Gr17sVykB00bYTFhE/Mxz95p4avQKJmxGo+SiPkEezJMdlAaYfDICKhpL1A7BAdIeGzTRaXolXq6uRKT92g5FZW9ZcqOFvqGJXhuNbta0Kij2K;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=QBYgbZii/5gN6EaelOGRV7ky1Z62tqdsT8zkeMdyZICpT2bEGlzLV6dt0JTC438VHWJbwvFco8wM9ghfMNcFaUdOp8kLgCdmnGC7xyvAxQ46NtDSiQFo1eMLlL3E;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBCORS=QBYgbZii/5gN6EaelOGRV7ky1Z62tqdsT8zkeMdyZICpT2bEGlzLV6dt0JTC438VHWJbwvFco8wM9ghfMNcFaUdOp8kLgCdmnGC7xyvAxQ46NtDSiQFo1eMLlL3E;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2019","i18nCode":"year.2019","count":3,"fq":"year:\"2019\""}],"count":4}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22ALA_Perameles_gunnii_Victorian_subspecies%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=dE42loh03x/u7scA5QfpSd7xak7ge129s9ZcebTux8hN4xTc2g/mnNnb0lt2qwkASTN83g0N8j8NotvqwCYcaLKmIIfYMHF+VZ3ipV+QU9NagOxKU/3A33i02jW28/SqNISYQF9oin0h2dTbh4pZul1ProLe+/iEpePZTKgD2D6r;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBTGCORS=dE42loh03x/u7scA5QfpSd7xak7ge129s9ZcebTux8hN4xTc2g/mnNnb0lt2qwkASTN83g0N8j8NotvqwCYcaLKmIIfYMHF+VZ3ipV+QU9NagOxKU/3A33i02jW28/SqNISYQF9oin0h2dTbh4pZul1ProLe+/iEpePZTKgD2D6r;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=mq4D9CVcYgmGTo7lHh0XewpKRA2G/aIJ9hRJ1xZP96zEC9pzEzSeMZGyWcsNVxXVRIqKF/4iSL8LpqpIe4qgoM++2cz8Zn/jc+W0nMaq9eUOX1uXkrMz697fK7bo;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBCORS=mq4D9CVcYgmGTo7lHh0XewpKRA2G/aIJ9hRJ1xZP96zEC9pzEzSeMZGyWcsNVxXVRIqKF/4iSL8LpqpIe4qgoM++2cz8Zn/jc+W0nMaq9eUOX1uXkrMz697fK7bo;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2019","i18nCode":"year.2019","count":3,"fq":"year:\"2019\""},{"label":"2016","i18nCode":"year.2016","count":1,"fq":"year:\"2016\""},{"label":"2017","i18nCode":"year.2017","count":1,"fq":"year:\"2017\""},{"label":"2018","i18nCode":"year.2018","count":1,"fq":"year:\"2018\""}],"count":4}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22ALA_Perameles_gunnii_gunnii%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=KOSaK5mLvRxXoZsXvmotMlNuXWUK4/GUjMS9Hbh5y+ZM5lCssP/TcPjX/DGvSY/D9ZLvbAD5/iZzv6jtaTprht2lbPjEjSuQbC0fE30A3pgmI3jdWCTC7f7yHxIjxurm5IQIC7AHUjXTStbjaU2cEWYONPUGXPwmRja42kr2z4Pt;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBTGCORS=KOSaK5mLvRxXoZsXvmotMlNuXWUK4/GUjMS9Hbh5y+ZM5lCssP/TcPjX/DGvSY/D9ZLvbAD5/iZzv6jtaTprht2lbPjEjSuQbC0fE30A3pgmI3jdWCTC7f7yHxIjxurm5IQIC7AHUjXTStbjaU2cEWYONPUGXPwmRja42kr2z4Pt;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=r1yPsDIetSYfX9oiYmqoZXYlVFNsEdMhqQOqQisFrejl6Q6Tz0+EbHHHr1mLzcVWB2dQYz0TG4/t0c3WFgul/lirGFqDJRxJHIsJAZmMXU4Ts2/ewTus1XNKpUG8;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBCORS=r1yPsDIetSYfX9oiYmqoZXYlVFNsEdMhqQOqQisFrejl6Q6Tz0+EbHHHr1mLzcVWB2dQYz0TG4/t0c3WFgul/lirGFqDJRxJHIsJAZmMXU4Ts2/ewTus1XNKpUG8;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2012","i18nCode":"year.2012","count":1,"fq":"year:\"2012\""}],"count":2}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=year&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:9eae0c93-c97f-4f43-93c8-aef121c68e6f)&fq=year:[2010%20TO%20*]%20AND%20-(year:%222010%22)%20AND%20(taxonConceptID:%22ALA_Perameles_gunnii_gunnii%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 19 Jan 2022 02:12:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=fh0VvjR3t8qj566ho9VLy3F//XdvqyHwe6hrAYM8Pkzrd9/ebhKV/q6AVymjBpaxt5srP0NEibc1fdj3dcrfi3hZJp68875zhiEIsrTgZTVhUAxWnVdvRDWqnXuu6nDr8Eq2abkqC5wqSEf81KQ9qufQtGyKx5lQgZdWVpEO9Dt/;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBTGCORS=fh0VvjR3t8qj566ho9VLy3F//XdvqyHwe6hrAYM8Pkzrd9/ebhKV/q6AVymjBpaxt5srP0NEibc1fdj3dcrfi3hZJp68875zhiEIsrTgZTVhUAxWnVdvRDWqnXuu6nDr8Eq2abkqC5wqSEf81KQ9qufQtGyKx5lQgZdWVpEO9Dt/;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=Cp2fslWlgryYFhHOSNX48YrSiO4LWCVlAy6JNBmDLVBFnCtC+PoZdTZ+rXmNR+EEBDHHIMvnOAT74Z67sjmNM9mwlCAUdwwU5/xeDdyHki65ydzyVKiBv8Yzl3bP;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/
+      - AWSALBCORS=Cp2fslWlgryYFhHOSNX48YrSiO4LWCVlAy6JNBmDLVBFnCtC+PoZdTZ+rXmNR+EEBDHHIMvnOAT74Z67sjmNM9mwlCAUdwwU5/xeDdyHki65ydzyVKiBv8Yzl3bP;
+        Expires=Wed, 26 Jan 2022 02:12:16 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2012","i18nCode":"year.2012","count":1,"fq":"year:\"2012\""},{"label":"2017","i18nCode":"year.2017","count":1,"fq":"year:\"2017\""}],"count":2}]'
+  recorded_at: 2022-01-19 02:12:16 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
