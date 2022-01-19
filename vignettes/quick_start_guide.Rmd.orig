@@ -76,13 +76,17 @@ galah_call() |>
   atlas_counts()
 ```
 
-To narrow the search to a particular taxonomic group, use `search_taxa`. Note
-that this function only accepts scientific names and is not case sensitive.
+To narrow the search to a particular taxonomic group, use `galah_identify()`. Note
+that this function only accepts scientific names and is not case sensitive. It's 
+good practice to first use `search_taxa()` to check that the taxa you provide 
+returns the correct taxonomic results.
 
 ```{r}
+search_taxa("reptilia") # Check whether taxonomic info is correct
+
 galah_call() |>
   galah_filter(year >= 2020) |> 
-  search_taxa("reptilia") |> 
+  galah_identify("reptilia") |> 
   atlas_counts()
 ```
 
@@ -101,7 +105,7 @@ galah_config(verbose = FALSE)
 Then you can customise records you require and query the atlas in question:
 ```{r}
 result <- galah_call() |>
-  search_taxa("Litoria") |>
+  galah_identify("Litoria") |>
   galah_filter(year >= 2020, cl22 == "Tasmania") |>
   galah_select(basisOfRecord, group = "basic") |>
   atlas_occurrences()

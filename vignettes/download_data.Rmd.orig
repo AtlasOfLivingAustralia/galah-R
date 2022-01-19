@@ -29,7 +29,7 @@ functions are described below.
 `atlas_counts()` provides summary counts on records in the specified atlas, 
 without needing to download all the records. 
 
-```{r warning = FALSE}
+```{r, warning = FALSE}
 # Total number of records in the ALA
 atlas_counts()
 ```
@@ -37,7 +37,7 @@ atlas_counts()
 In addition to the filter arguments, it has an optional `group_by` argument, 
 which provides counts binned by the requested field.
 
-```{r warning = FALSE}
+```{r, warning = FALSE}
 galah_call() |>
   galah_group_by(kingdom) |>
   atlas_counts()
@@ -53,7 +53,7 @@ levels other than the species; but also in being more flexible by supporting fil
 
 ```{r}
 species <- galah_call() |>
-  search_taxa("Rodentia") |>
+  galah_identify("Rodentia") |>
   galah_filter(stateProvince == "Northern Territory") |>
   atlas_species()
   
@@ -72,7 +72,7 @@ galah_config(email = "ala4r@ala.org.au",
              verbose = FALSE)
 ```
 
-```{r eval = FALSE}
+```{r, eval = FALSE}
 galah_config(email = your_email_here, atlas = "Australia")
 ```
 
@@ -80,7 +80,7 @@ Download occurrence records for *Eolophus roseicapilla*
 
 ```{r}
 occ <- galah_call() |>
-  search_taxa("Eolophus roseicapilla") |>
+  galah_identify("Eolophus roseicapilla") |>
   galah_filter(
     stateProvince == "Australian Capital Territory",
     year >= 2010,
@@ -99,9 +99,9 @@ ALA stores images, sounds and videos associated with a given record. These can
 be downloaded to `R` using `atlas_media()` and the same set of filters as the 
 other data download functions.
 
-```{r warning=FALSE, message=FALSE, eval = FALSE}
+```{r, warning=FALSE, message=FALSE, eval = FALSE}
 media_data <- galah_call() |>
-  search_taxa("Eolophus roseicapilla") |>
+  galah_identify("Eolophus roseicapilla") |>
   galah_filter(year == 2020) |>
   atlas_media(download_dir = "media")
 ```
@@ -111,9 +111,9 @@ media_data <- galah_call() |>
 another using ALA's internal taxonomy. Specify which taxonomic level your tree 
 will go down to with `galah_down_to`.
 
-```{r warning = FALSE}
+```{r, warning = FALSE}
 classes <- galah_call() |>
-  search_taxa("chordata") |>
+  galah_identify("chordata") |>
   galah_down_to(class) |>
   atlas_taxonomy()
 ```

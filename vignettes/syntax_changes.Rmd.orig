@@ -32,15 +32,16 @@ and `galah_filter` both require logical arguments to be added by using the `==` 
 ```{r}
 library(dplyr)
 
-mtcars %>% filter(mpg == 21)
+mtcars %>% 
+  filter(mpg == 21)
+
+galah_call() %>% 
+  galah_filter(year == 2021) %>% 
+  atlas_counts()
 ```
 
-```{r}
-galah_call() %>% galah_filter(year == 2021) %>% atlas_counts()
-```
-
-As another example, notice how `galah_group_by` works very similarly to
- `dplyr::group_by` + `dplyr::count()`:
+As another example, notice how `galah_group_by()` + `atlas_counts()` works very 
+similarly to `dplyr::group_by` + `dplyr::count()`:
 
 ```{r}
 mtcars %>% 
@@ -80,7 +81,8 @@ tribble(
   ~Old, ~New, 
   
   " ", "galah_call",
-    
+  
+  "select_taxa", "galah_identify"  
   "select_filters", "galah_filter",
   "select_columns", "galah_select",
   "select_locations", "galah_geolocate",  
@@ -94,7 +96,7 @@ tribble(
   "ala_taxonomy", "atlas_taxonomy", 
   "ala_citation", "atlas_citation", 
   
-  "select_taxa", "search_taxa, find_taxa & galah_identify", 
+  "select_taxa", "search_taxa, search_identifiers", 
   "search_fields", "search_fields",
   " ", "show_all_fields", 
   "find_profiles", "show_all_profiles", 
@@ -112,14 +114,14 @@ tribble(
   kable_styling(full_width = FALSE) %>%
   kable_paper() %>%
   row_spec(1, bold = T, color = "#f064a4") %>%
-  row_spec(2:6, bold = T, color = "#E06E53") %>%
-  row_spec(7:12, bold = T, color = "#c7902a") %>%
-  row_spec(13:22, bold = T, color = "#7f9959")
+  row_spec(2:7, bold = T, color = "#E06E53") %>%
+  row_spec(7:13, bold = T, color = "#c7902a") %>%
+  row_spec(13:23, bold = T, color = "#7f9959")
 ```
 
 # Piping with `galah_call()`
 
-Perhaps the largest change from `galah` v. 0.4.0 is the implementation of piping 
+Perhaps the largest change from `galah` 1.4.0 is the implementation of piping 
 using `galah_call()`. 
 
 Beginning a query with `galah_call()` (be sure to add the parentheses!) tells 
@@ -133,38 +135,49 @@ continue supported un-piped syntax in future, although piping only works with
 revamped function names. If you're new to piping, here's a comparison against
 code from previous versions of `galah`.
 
-Previously, if you wanted to look up the number of records of bandicoot species 
-in 2021, you'd have done something like this:
+Previously, if you wanted to look up the number of records of each bandicoot 
+species every year from 2010 to 2021, you'd would have had to have done 
+something like this:
   
-```{r, eval = FALSE}
-atlas_counts(taxa = search_taxa("perameles"),
-             filter = galah_filter(year == 2001),
-             group_by = galah_group_by(species, year))
+```{r, eval = FALSE, warning = FALSE, message = FALSE}
+library(purrr)
+librar(dplyr)
+
+taxa <- ala_species(taxa = select_taxa("perameles"))$species
+years <- select_filters(year = seq(2010:2021))
+
+taxa %>%
+  map_dfr( ~ ala_counts(
+    taxa = select_taxa(list(species = .x)),
+    filters = years,
+    group_by = "year")
 ```
   
-This is equivalent to:
+Not very easy because you had to use multiple `atlas_` functions and you had to 
+use loops. However, now with piping you can do it like this:
 
 ```{r, eval = FALSE}
 galah_call() %>%
-  search_taxa("perameles") %>%
-  galah_filter(year == 2021) %>%
+  galah_identify("perameles") %>%
+  galah_filter(year > 2010) %>%
   galah_group_by(species, year) %>%
   atlas_counts()
 ```
 
-And a second example, of how to download occurrence records of bandicoots in 
-2021, with coordinates:
+And a second example, if you wanted to download occurrence records of bandicoots 
+in 2021 with zero coordinates, previously you would have had to do this:
   
-```{r, eval = FALSE}
-atlas_occurrences(taxa = search_taxa("perameles"),
-                  filter = galah_filter(year == 2001),
-                  select = galah_select(group = "basic", ZERO_COORDINATE))
+```{r, eval = FALSE, warning = FALSE, message = FALSE}
+atlas_occurrences(taxa = select_taxa("perameles"),
+                  filters = select_filters(year = 2021),
+                  columns = select_columns(group = "basic", "ZERO_COORDINATE"))
 ```
 
 Now with piping:
+
 ```{r, eval = FALSE}
 galah_call() %>%
-  search_taxa("perameles") %>%
+  galah_identify("perameles") %>%
   galah_filter(year == 2021) %>%
   galah_select(group = "basic", ZERO_COORDINATE) %>%
   atlas_occurrences()

@@ -7,8 +7,8 @@ editor_options:
   chunk_output_type: inline
 vignette: >
   %\VignetteIndexEntry{Narrow your results}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
   
 Each occurrence record contains taxonomic information and 
@@ -22,7 +22,7 @@ to return only the information that you need, and no more. Consequently, much of
 the architecture of `galah` has been designed to make narrowing as simple as possible. 
 These functions include:
 
--   `search_taxa`
+-   `galah_identify`
 -   `galah_filter`
 -   `galah_select`
 -   `galah_group_by`
@@ -34,8 +34,8 @@ These names have been chosen to echo comparable functions from `dplyr`; namely
 also use `dplyr` tidy evaluation and syntax. This means that the 
 way you use `dplyr` functions is also how you use `galah_` functions.
 
-# search_taxa
-Perhaps unsurprisingly, `search_taxa`searches for taxonomic information. 
+# galah_identify & search_taxa
+Perhaps unsurprisingly, `search_taxa` searches for taxonomic information. 
 It uses fuzzy matching to work a lot like the search bar on the 
 [Atlas of Living Australia website](https://bie-ws.ala.org.au/), 
 and you can use it to search for taxa by their scientific name. Finding your 
@@ -54,6 +54,22 @@ to `search_taxa`, you can provide a `data.frame` containing more levels of the
 taxonomic hierarchy:
 ```{r}
 search_taxa(data.frame(genus = "Eolophus", kingdom = "Aves"))
+```
+
+Once we know that our search matches the correct taxon or taxa, we 
+can use `galah_identify` to narrow the results of our queries:
+```{r}
+galah_call() |>
+  galah_identify("Reptilia") |>
+  atlas_counts()
+```
+
+```{r}
+taxa <- search_taxa(data.frame(genus = "Eolophus", kingdom = "Aves"))
+
+galah_call() |>
+ galah_identify(taxa) |>
+ atlas_counts()
 ```
 
 # galah_filter
@@ -136,7 +152,7 @@ Use `galah_geolocate` to specify a geographic area or region to limit your searc
 wkt <- "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))"
 
 galah_call() |>
-  search_taxa("perameles") |>
+  galah_identify("perameles") |>
   galah_geolocate(wkt) |>
   atlas_species()
 ```
@@ -147,7 +163,7 @@ tree:
 
 ```{r, eval = FALSE}
 galah_call() |>
-  search_taxa("fungi") |>
+  galah_identify("fungi") |>
   galah_down_to(phylum) |>
   atlas_taxonomy()
   
