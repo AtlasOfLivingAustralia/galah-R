@@ -7,8 +7,8 @@ editor_options:
   chunk_output_type: inline
 vignette: >
   %\VignetteIndexEntry{Narrow your results}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
   
 Each occurrence record contains taxonomic information and 
@@ -22,7 +22,7 @@ to return only the information that you need, and no more. Consequently, much of
 the architecture of `galah` has been designed to make narrowing as simple as possible. 
 These functions include:
 
--   `search_taxa`
+-   `galah_identify`
 -   `galah_filter`
 -   `galah_select`
 -   `galah_group_by`
@@ -34,8 +34,8 @@ These names have been chosen to echo comparable functions from `dplyr`; namely
 also use `dplyr` tidy evaluation and syntax. This means that the 
 way you use `dplyr` functions is also how you use `galah_` functions.
 
-# search_taxa
-Perhaps unsurprisingly, `search_taxa`searches for taxonomic information. 
+# galah_identify & search_taxa
+Perhaps unsurprisingly, `search_taxa` searches for taxonomic information. 
 It uses fuzzy matching to work a lot like the search bar on the 
 [Atlas of Living Australia website](https://bie-ws.ala.org.au/), 
 and you can use it to search for taxa by their scientific name. Finding your 
@@ -52,9 +52,9 @@ search_taxa("Reptilia")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                 rank  match_type kingdom  phylum  class  issues
-##   <chr>       <chr>           <chr>                                            <chr> <chr>      <chr>    <chr>   <chr>  <chr> 
-## 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228… class exactMatch Animalia Chorda… Repti… noIss…
+##   search_term scientific_name taxon_concept_id                                                 rank  match_type kingdom  phylum   class   issues
+##   <chr>       <chr>           <chr>                                                            <chr> <chr>      <chr>    <chr>    <chr>   <chr> 
+## 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-… class exactMatch Animalia Chordata Reptil… noIss…
 ```
 
 If we want to be more specific by providing additional taxonomic information
@@ -67,10 +67,41 @@ search_taxa(data.frame(genus = "Eolophus", kingdom = "Aves"))
 
 ```
 ## # A tibble: 1 × 13
-##   search_term   scientific_name scientific_name_… taxon_concept_id    rank  match_type kingdom phylum class order family genus
-##   <chr>         <chr>           <chr>             <chr>               <chr> <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr>
-## 1 Eolophus_Aves Eolophus        Bonaparte, 1854   urn:lsid:biodivers… genus exactMatch Animal… Chord… Aves  Psit… Cacat… Eolo…
-## # … with 1 more variable: issues <chr>
+##   search_term   scientific_name scientific_name_authorship taxon_concept_id     rank  match_type kingdom  phylum class order family genus issues
+##   <chr>         <chr>           <chr>                      <chr>                <chr> <chr>      <chr>    <chr>  <chr> <chr> <chr>  <chr> <chr> 
+## 1 Eolophus_Aves Eolophus        Bonaparte, 1854            urn:lsid:biodiversi… genus exactMatch Animalia Chord… Aves  Psit… Cacat… Eolo… noIss…
+```
+
+Once we know that our search matches the correct taxon or taxa, we 
+can use `galah_identify` to narrow the results of our queries:
+
+```r
+galah_call() |>
+  galah_identify("Reptilia") |>
+  atlas_counts()
+```
+
+```
+## # A tibble: 1 × 1
+##     count
+##     <int>
+## 1 1317107
+```
+
+
+```r
+taxa <- search_taxa(data.frame(genus = "Eolophus", kingdom = "Aves"))
+
+galah_call() |>
+ galah_identify(taxa) |>
+ atlas_counts()
+```
+
+```
+## # A tibble: 1 × 1
+##    count
+##    <int>
+## 1 856571
 ```
 
 # galah_filter
@@ -89,7 +120,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 62834053
+## 1 62999808
 ```
 
 ```r
@@ -106,7 +137,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 2647108
+## 1 2673224
 ```
 
 To find available fields and corresponding valid values, use the field lookup 
@@ -126,7 +157,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 55520901
+## 1 55551594
 ```
 
 To see a full list of data quality profiles, use `show_all_profiles()`.
@@ -151,15 +182,15 @@ galah_call() |>
 ## # A tibble: 83 × 2
 ##    class          count
 ##    <chr>          <int>
-##  1 Insecta      3307548
-##  2 Gastropoda    837104
-##  3 Arachnida     525840
-##  4 Malacostraca  515797
-##  5 Maxillopoda   462743
-##  6 Polychaeta    256905
-##  7 Bivalvia      206137
-##  8 Anthozoa      163329
-##  9 Demospongiae  107498
+##  1 Insecta      3317770
+##  2 Gastropoda    837702
+##  3 Arachnida     527555
+##  4 Malacostraca  515971
+##  5 Maxillopoda   462762
+##  6 Polychaeta    256938
+##  7 Bivalvia      206242
+##  8 Anthozoa      163386
+##  9 Demospongiae  107520
 ## 10 Ostracoda      56295
 ## # … with 73 more rows
 ```
@@ -180,14 +211,14 @@ galah_call() |>
 ## # A tibble: 35 × 3
 ##    year  basisOfRecord         count
 ##    <chr> <chr>                 <int>
-##  1 2020  HUMAN_OBSERVATION   5820506
+##  1 2020  HUMAN_OBSERVATION   5825030
 ##  2 2020  PRESERVED_SPECIMEN    13637
-##  3 2020  OBSERVATION            2863
+##  3 2020  OBSERVATION            3894
 ##  4 2020  UNKNOWN                 365
 ##  5 2020  MATERIAL_SAMPLE         250
 ##  6 2020  LIVING_SPECIMEN         127
 ##  7 2020  MACHINE_OBSERVATION      37
-##  8 2019  HUMAN_OBSERVATION   5399921
+##  8 2019  HUMAN_OBSERVATION   5401216
 ##  9 2019  UNKNOWN               51747
 ## 10 2019  PRESERVED_SPECIMEN    38117
 ## # … with 25 more rows
@@ -215,7 +246,7 @@ Use `galah_geolocate` to specify a geographic area or region to limit your searc
 wkt <- "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))"
 
 galah_call() |>
-  search_taxa("perameles") |>
+  galah_identify("perameles") |>
   galah_geolocate(wkt) |>
   atlas_species()
 ```
@@ -227,7 +258,7 @@ tree:
 
 ```r
 galah_call() |>
-  search_taxa("fungi") |>
+  galah_identify("fungi") |>
   galah_down_to(phylum) |>
   atlas_taxonomy()
 ```

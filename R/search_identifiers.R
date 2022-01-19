@@ -59,11 +59,11 @@ search_identifiers <- function(identifier) {
       )
       inform(bullets)
     }
-    return(set_galah_object_class(class = "ala_id"))
+    return(set_galah_object_class(new_class = "ala_id"))
   }else{ 
     set_galah_object_class(
       rbindlist(matches, fill = TRUE), 
-      class = "ala_id") 
+      new_class = "ala_id") 
   }
 }
 

@@ -1,7 +1,7 @@
 ---
 title: "Download data"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-01-13'
+date: '2022-01-19'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -39,7 +39,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 101892823
+## 1 102066657
 ```
 
 In addition to the filter arguments, it has an optional `group_by` argument, 
@@ -56,16 +56,16 @@ galah_call() |>
 ## # A tibble: 10 × 2
 ##    kingdom      count
 ##    <chr>        <int>
-##  1 Animalia  76286044
-##  2 Plantae   21842728
-##  3 Fungi      1892947
-##  4 Chromista   915158
-##  5 Protista     67363
-##  6 Bacteria     58152
-##  7 Protozoa     23567
+##  1 Animalia  76304926
+##  2 Plantae   21995547
+##  3 Fungi      1893778
+##  4 Chromista   915235
+##  5 Protista     67365
+##  6 Bacteria     58156
+##  7 Protozoa     23635
 ##  8 Archaea       1103
 ##  9 Eukaryota      735
-## 10 Virus          470
+## 10 Virus          472
 ```
 
 
@@ -79,7 +79,7 @@ levels other than the species; but also in being more flexible by supporting fil
 
 ```r
 species <- galah_call() |>
-  search_taxa("Rodentia") |>
+  galah_identify("Rodentia") |>
   galah_filter(stateProvince == "Northern Territory") |>
   atlas_species()
   
@@ -88,14 +88,14 @@ species |> head()
 
 ```
 ## # A tibble: 6 × 10
-##   kingdom  phylum   class    order    family  genus        species                     author  species_guid    vernacular_name
-##   <chr>    <chr>    <chr>    <chr>    <chr>   <chr>        <chr>                       <chr>   <chr>           <chr>          
-## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. … urn:lsid:biodi… Black-footed T…
-## 2 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thoma… urn:lsid:biodi… Common Rock-rat
-## 3 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite… urn:lsid:biodi… Sandy Inland M…
-## 4 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas… urn:lsid:biodi… Spinifex Hoppi…
-## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsa… urn:lsid:biodi… Grassland Melo…
-## 6 Animalia Chordata Mammalia Rodentia Muridae Mus          Mus musculus                Linnae… urn:lsid:biodi… House Mouse
+##   kingdom  phylum   class    order    family  genus        species                     author            species_guid           vernacular_name 
+##   <chr>    <chr>    <chr>    <chr>    <chr>   <chr>        <chr>                       <chr>             <chr>                  <chr>           
+## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. Gray, 1843) urn:lsid:biodiversity… Black-footed Tr…
+## 2 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thomas, 1889)    urn:lsid:biodiversity… Common Rock-rat 
+## 3 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite, 1896)     urn:lsid:biodiversity… Sandy Inland Mo…
+## 4 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas, 1922      urn:lsid:biodiversity… Spinifex Hoppin…
+## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsay, 1887)    urn:lsid:biodiversity… Grassland Melom…
+## 6 Animalia Chordata Mammalia Rodentia Muridae Mus          Mus musculus                Linnaeus, 1758    urn:lsid:biodiversity… House Mouse
 ```
 
 
@@ -115,7 +115,7 @@ Download occurrence records for *Eolophus roseicapilla*
 
 ```r
 occ <- galah_call() |>
-  search_taxa("Eolophus roseicapilla") |>
+  galah_identify("Eolophus roseicapilla") |>
   galah_filter(
     stateProvince == "Australian Capital Territory",
     year >= 2010,
@@ -129,14 +129,14 @@ occ |> head()
 
 ```
 ## # A tibble: 6 × 8
-##   decimalLatitude decimalLongitude eventDate   scientificName  taxonConceptID       recordID   dataResourceName  institutionID
-##             <dbl>            <dbl> <chr>       <chr>           <chr>                <chr>      <chr>             <chr>        
-## 1           -35.9             149. ""          Eolophus rosei… urn:lsid:biodiversi… 17f46d49-… eBird Australia   ""           
-## 2           -35.9             149. ""          Eolophus rosei… urn:lsid:biodiversi… ef2b9066-… eBird Australia   ""           
-## 3           -35.9             149. "2012-01-1… Eolophus rosei… urn:lsid:biodiversi… 4f7cd714-… BirdLife Austral… ""           
-## 4           -35.9             149. ""          Eolophus rosei… urn:lsid:biodiversi… 3236c470-… eBird Australia   ""           
-## 5           -35.8             149. ""          Eolophus rosei… urn:lsid:biodiversi… eec91d83-… eBird Australia   ""           
-## 6           -35.8             149. ""          Eolophus rosei… urn:lsid:biodiversi… e340c423-… eBird Australia   ""
+##   decimalLatitude decimalLongitude eventDate              scientificName        taxonConceptID        recordID   dataResourceName  institutionID
+##             <dbl>            <dbl> <chr>                  <chr>                 <chr>                 <chr>      <chr>             <chr>        
+## 1           -35.9             149. ""                     Eolophus roseicapilla urn:lsid:biodiversit… 17f46d49-… eBird Australia   ""           
+## 2           -35.9             149. ""                     Eolophus roseicapilla urn:lsid:biodiversit… ef2b9066-… eBird Australia   ""           
+## 3           -35.9             149. "2012-01-18T13:00:00Z" Eolophus roseicapilla urn:lsid:biodiversit… 4f7cd714-… BirdLife Austral… ""           
+## 4           -35.9             149. ""                     Eolophus roseicapilla urn:lsid:biodiversit… 3236c470-… eBird Australia   ""           
+## 5           -35.8             149. ""                     Eolophus roseicapilla urn:lsid:biodiversit… eec91d83-… eBird Australia   ""           
+## 6           -35.8             149. ""                     Eolophus roseicapilla urn:lsid:biodiversit… e340c423-… eBird Australia   ""
 ```
 
 
@@ -149,7 +149,7 @@ other data download functions.
 
 ```r
 media_data <- galah_call() |>
-  search_taxa("Eolophus roseicapilla") |>
+  galah_identify("Eolophus roseicapilla") |>
   galah_filter(year == 2020) |>
   atlas_media(download_dir = "media")
 ```
@@ -162,7 +162,7 @@ will go down to with `galah_down_to`.
 
 ```r
 classes <- galah_call() |>
-  search_taxa("chordata") |>
+  galah_identify("chordata") |>
   galah_down_to(class) |>
   atlas_taxonomy()
 ```

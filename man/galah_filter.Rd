@@ -67,7 +67,7 @@ atlas_counts(filter = filter)
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 43858984
+#> 1 43914259
 }\if{html}{\out{</div>}}
 
 Separating statements with a comma is equivalent to an \code{AND} statement\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_filter(year >= 2010 & year < 2020) # is the same as:
@@ -79,8 +79,7 @@ galah_filter(year == c(2010, 2021)) # same as above
 galah_filter(year == 2010 | 2021) # this fails
 }\if{html}{\out{</div>}}
 
-It is possible to use an object to specify required values
-numeric example\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Numeric example
+It is possible to use an object to specify required values\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Numeric example
 
 year_value <- 2010
 
@@ -90,7 +89,7 @@ galah_call() \%>\%
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 42757586
+#> 1 42813570
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Categorical example
 
 basis_of_record <- c("HumanObservation", "MaterialSample")
@@ -101,7 +100,7 @@ galah_call() \%>\%
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 82779688
+#> 1 82806095
 }\if{html}{\out{</div>}}
 
 \code{solr} supports range queries on text as well as numbers. The following
@@ -111,7 +110,7 @@ queries all Australian States and Territories alphabetically after "Tasmania"\if
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 30221084
+#> 1 30230213
 }\if{html}{\out{</div>}}
 }
 

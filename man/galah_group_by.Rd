@@ -35,18 +35,18 @@ Return record counts since 2010 by year\if{html}{\out{<div class="sourceCode r">
 #> # A tibble: 12 x 2
 #>    year    count
 #>    <chr>   <int>
-#>  1 2020  5841880
-#>  2 2019  5505407
-#>  3 2018  5413796
-#>  4 2017  4645785
-#>  5 2016  3842809
-#>  6 2014  3762501
-#>  7 2015  3602542
-#>  8 2013  3500108
-#>  9 2012  2929728
-#> 10 2011  2535018
-#> 11 2021  1155614
-#> 12 2022    22398
+#>  1 2020  5843340
+#>  2 2019  5506924
+#>  3 2018  5418009
+#>  4 2017  4648403
+#>  5 2016  3844787
+#>  6 2014  3767370
+#>  7 2015  3605917
+#>  8 2013  3503489
+#>  9 2012  2933979
+#> 10 2011  2539004
+#> 11 2021  1160586
+#> 12 2022    41762
 }\if{html}{\out{</div>}}
 
 Return record counts since 2010 by year and data provider\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
@@ -54,14 +54,14 @@ Return record counts since 2010 by year and data provider\if{html}{\out{<div cla
     galah_group_by(year, dataResourceName) |>
     atlas_counts()
 }\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 1,046 x 3
+#> # A tibble: 1,048 x 3
 #>   year  dataResourceName              count
 #>   <chr> <chr>                         <int>
 #> 1 2020  eBird Australia             4589800
-#> 2 2020  iNaturalist Australia        670608
+#> 2 2020  iNaturalist Australia        671032
 #> 3 2020  NSW BioNet Atlas             372617
-#> 4 2020  Earth Guardians Weekly Feed   71778
-#> # ... with 1,042 more rows
+#> 4 2020  Earth Guardians Weekly Feed   71783
+#> # ... with 1,044 more rows
 }\if{html}{\out{</div>}}
 
 Return record counts of \emph{Litoria} species each year since 2015, limiting

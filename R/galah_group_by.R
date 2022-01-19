@@ -89,13 +89,13 @@ galah_group_by <- function(..., expand = TRUE){
       attr(df, "expand") <- expand
     }else{
       df <- tibble(name = "name", type = "type", .rows = 0)
-      df <- set_galah_object_class(df, class = "galah_group_by")
+      df <- set_galah_object_class(df, new_class = "galah_group_by")
       attr(df, "expand") <- expand
       df
     }
   }else{
     df <- tibble(name = "name", type = "type", .rows = 0)
-    df <- set_galah_object_class(df, class = "galah_group_by")
+    df <- set_galah_object_class(df, new_class = "galah_group_by")
     attr(df, "expand") <- expand
     df
   }

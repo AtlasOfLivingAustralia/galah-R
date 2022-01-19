@@ -37,7 +37,7 @@
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
 #' galah_call() %>% 
-#'   galah_identify("Eolophus")) %>%
+#'   galah_identify("Eolophus") %>%
 #'   atlas_counts()
 #' ```
 #' 
@@ -46,7 +46,7 @@
 #' ```{r, comment = "#>", collapse = TRUE}
 #' galah_call() %>% 
 #'   galah_identify("urn:lsid:biodiversity.org.au:afd.taxon:b2de5e40-df8f-4339-827d-25e63454a4a2", 
-#'                  search = FALSE)) %>%
+#'                  search = FALSE) %>%
 #'   atlas_counts()
 #' ```
 #' 
@@ -183,7 +183,7 @@ check_atlas <- function(atlas, error_call = caller_env()) {
 # check this
 check_is_character <- function(query, error_call = caller_env()){
   if(!inherits(query, "character")){
-    lookup <- search_taxa(input_query)
+    lookup <- search_taxa(query)
     query <- lookup$taxon_concept_id[!is.na(lookup$taxon_concept_id)]
     
     bullets <- c(

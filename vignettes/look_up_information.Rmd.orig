@@ -83,5 +83,5 @@ galah_call() |> galah_filter(basisOfRecord == "LIVING_SPECIMEN") |> atlas_counts
 to remove records in data quality profiles, for example:
 
 ```{r}
-find_profile_attributes("ALA") |> head()
+search_profile_attributes("ALA") |> head()
 ```

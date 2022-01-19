@@ -133,7 +133,7 @@ update_galah_call <- function(data_request, ...){
               # simply pass the most recent result
               dots[[a]] # default
             )
-            result <- set_galah_object_class(result, class = removed_class)
+            result <- set_galah_object_class(result, new_class = removed_class)
           }      
         }
       }else{
@@ -163,11 +163,12 @@ bind_unique_rows <- function(x, y, column){
 #' @keywords internal
 #' @export
 #' @rdname galah_call
-print.data_request <- function(object){
-  filled_slots <- !unlist(lapply(object, is.null))
+# NOTE: use of `x` here is for consistency with `print()`; do not change
+print.data_request <- function(x, ...){
+  filled_slots <- !unlist(lapply(x, is.null))
   if(any(filled_slots)){
     cat("An object of type `data_request` containing:\n\n")
-    print(as.list(object[filled_slots]))
+    print(as.list(x[filled_slots]))
   }else{
     cat("An empty object of type `data_request`")
   }

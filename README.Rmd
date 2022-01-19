@@ -50,7 +50,7 @@ If you have any comments, questions or suggestions, please [contact us](mailto:s
 
 ## Getting started
 
-- The [vignette](https://atlasoflivingaustralia.github.io/galah/articles/galah.html) provides an introduction to the package functions.
+- The [vignette](https://atlasoflivingaustralia.github.io/galah/articles/quick_start_guide.html) provides an introduction to the package functions.
 - For an outline of the package structure, and a list of all the available functions, run `?galah` or view the [reference page](https://atlasoflivingaustralia.github.io/galah/reference/index.html).
 
 ---
@@ -99,8 +99,3 @@ attr(occ, "doi")
 # Generate citation
 atlas_citation(occ)
 ```
-
-
-### Other Living Atlases
-`galah` supports retrieving data from a number of other Living Atlases; how to
-do this is explained in the [international atlases vignette](https://atlasoflivingaustralia.github.io/galah/articles/international_atlases.html).

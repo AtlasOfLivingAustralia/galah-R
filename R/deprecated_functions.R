@@ -156,7 +156,7 @@ ala_media <- function(taxa = NULL,
   atlas_media_internal(
     identify = taxa,
     filter = filters,
-    geolocate = geolocate,
+    geolocate = locations,
     select = columns,
     download_dir = download_dir,
     refresh_cache = FALSE

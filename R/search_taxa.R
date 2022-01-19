@@ -84,9 +84,9 @@ search_taxa <- function(...) {
       i = "If you continue to see this message, please email support@ala.org.au."
     )
     inform(bullets)
-    return(set_galah_object_class(class = "ala_id"))
+    return(set_galah_object_class(new_class = "ala_id"))
   }else{
-    set_galah_object_class(matches, class = "ala_id")
+    set_galah_object_class(matches, new_class = "ala_id")
   } 
 }
 

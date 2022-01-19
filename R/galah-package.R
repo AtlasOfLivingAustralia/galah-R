@@ -147,7 +147,7 @@
 #' @import assertthat sp sf httr
 #' @importFrom crul HttpClient Paginator Async url_build url_parse
 #' @importFrom data.table rbindlist
-#' @importFrom data.tree Do Set Prune Aggregate FromListExplicit ToDataFrameTypeCol ToDataFrameTree
+#' @importFrom data.tree Do Set Prune Aggregate FromListExplicit ToDataFrameTypeCol ToDataFrameTree as.Node
 #' @importFrom digest digest
 #' @importFrom jsonlite fromJSON
 #' @importFrom stringr regex str_c str_detect str_extract str_locate

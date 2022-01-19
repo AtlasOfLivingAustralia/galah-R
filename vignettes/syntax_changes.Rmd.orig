@@ -82,7 +82,7 @@ tribble(
   
   " ", "galah_call",
   
-  "select_taxa", "galah_identify"  
+  "select_taxa", "galah_identify", 
   "select_filters", "galah_filter",
   "select_columns", "galah_select",
   "select_locations", "galah_geolocate",  
@@ -114,9 +114,9 @@ tribble(
   kable_styling(full_width = FALSE) %>%
   kable_paper() %>%
   row_spec(1, bold = T, color = "#f064a4") %>%
-  row_spec(2:7, bold = T, color = "#E06E53") %>%
-  row_spec(7:13, bold = T, color = "#c7902a") %>%
-  row_spec(13:23, bold = T, color = "#7f9959")
+  row_spec(2:8, bold = F, color = "#E06E53") %>%
+  row_spec(8:13, bold = F, color = "#c7902a") %>%
+  row_spec(14:23, bold = F, color = "#7f9959")
 ```
 
 # Piping with `galah_call()`
@@ -165,7 +165,8 @@ galah_call() %>%
 ```
 
 And a second example, if you wanted to download occurrence records of bandicoots 
-in 2021 with zero coordinates, previously you would have had to do this:
+in 2021, and also to include information on which records had zero coordinates, 
+previously you would have had to do this:
   
 ```{r, eval = FALSE, warning = FALSE, message = FALSE}
 atlas_occurrences(taxa = select_taxa("perameles"),

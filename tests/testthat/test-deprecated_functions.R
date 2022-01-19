@@ -1,4 +1,5 @@
 context("Test that functions are deprecated")
+galah_config(verbose = FALSE)
 
 test_that("select_taxa is deprecated", {
   local_edition(3)
@@ -43,21 +44,18 @@ test_that("ala_occurrences is deprecated", {
   local_edition(3)
   expect_snapshot({
     galah_config(email = "ala4r@ala.org.au")
-    # expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
-    #                    "scientificName", "taxonConceptID", "recordID",
-    #                    "dataResourceName", "stateProvince", "ZERO_COORDINATE")
-    filters <- select_filters(year == seq(2018, 2020))
-    cols <- select_columns(group = "basic", stateProvince, ZERO_COORDINATE)
-    taxa <- select_taxa("Polytelis swainsonii")
+    filters <- select_filters(year == 1900)
+    cols <- select_columns(group = "basic", stateProvince)
     poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
     locations <- select_locations(poly)
     galah_config(verbose = FALSE)
     occ <- ala_occurrences(
-      taxa = taxa,
       filters = filters,
       columns = cols,
       locations = locations)
-    expect_equal(names(occ)[c(4, 8, 9)], c("scientificName", "stateProvince", "ZERO_COORDINATE"))
+    expect_equal(
+      names(occ)[c(4, 8)], 
+      c("scientificName", "stateProvince"))
     expect_equal(unique(occ$stateProvince), "New South Wales")
   })
 })

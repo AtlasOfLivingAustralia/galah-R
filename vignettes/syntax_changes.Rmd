@@ -1,7 +1,7 @@
 ---
 title: "Syntax changes"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-01-13'
+date: '2022-01-19'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -33,7 +33,8 @@ and `galah_filter` both require logical arguments to be added by using the `==` 
 ```r
 library(dplyr)
 
-mtcars %>% filter(mpg == 21)
+mtcars %>% 
+  filter(mpg == 21)
 ```
 
 ```
@@ -42,20 +43,21 @@ mtcars %>% filter(mpg == 21)
 ## Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4
 ```
 
-
 ```r
-galah_call() %>% galah_filter(year == 2021) %>% atlas_counts()
+galah_call() %>% 
+  galah_filter(year == 2021) %>% 
+  atlas_counts()
 ```
 
 ```
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 1154055
+## 1 1160586
 ```
 
-As another example, notice how `galah_group_by` works very similarly to
- `dplyr::group_by` + `dplyr::count()`:
+As another example, notice how `galah_group_by()` + `atlas_counts()` works very 
+similarly to `dplyr::group_by` + `dplyr::count()`:
 
 
 ```r
@@ -83,8 +85,8 @@ galah_call() %>%
 ## # A tibble: 2 × 2
 ##   biome          count
 ##   <chr>          <int>
-## 1 TERRESTRIAL 93413775
-## 2 MARINE       3519441
+## 1 TERRESTRIAL 93587590
+## 2 MARINE       3519460
 ```
 
 We made this move towards tidy evaluation to make it possible to use 
@@ -97,7 +99,7 @@ filter a `data.frame` with the `tidyverse` suite of functions.
 Prior to version 1.4.0, `galah` naming conventions had two major problems:
 
 - download functions used the prefix `ala`, but actually could query many other living atlases
-- query modifying functions used the prefix `select`, but this is reserved in `dplyr` (and elsewhere) for operations on rows
+- query modifying functions used the prefix `select`, but this is reserved in `dplyr` (and elsewhere) for operations specifically on columns
 
 To address these concerns (and other smaller points), we have completed a 
 rewrite of our function names to increase clarity (see table below).
@@ -117,137 +119,160 @@ to users that they switch to the new syntax.
    <td style="text-align:left;font-weight: bold;color: #f064a4 !important;"> galah_call </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> select_filters </td>
-   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> galah_filter </td>
+   <td style="text-align:left;color: #E06E53 !important;"> select_taxa </td>
+   <td style="text-align:left;color: #E06E53 !important;"> galah_identify </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> select_columns </td>
-   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> galah_select </td>
+   <td style="text-align:left;color: #E06E53 !important;"> select_filters </td>
+   <td style="text-align:left;color: #E06E53 !important;"> galah_filter </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> select_locations </td>
-   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> galah_geolocate </td>
+   <td style="text-align:left;color: #E06E53 !important;"> select_columns </td>
+   <td style="text-align:left;color: #E06E53 !important;"> galah_select </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;">  </td>
-   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> galah_group_by </td>
+   <td style="text-align:left;color: #E06E53 !important;"> select_locations </td>
+   <td style="text-align:left;color: #E06E53 !important;"> galah_geolocate </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;">  </td>
-   <td style="text-align:left;font-weight: bold;color: #E06E53 !important;"> galah_down_to </td>
+   <td style="text-align:left;color: #E06E53 !important;">  </td>
+   <td style="text-align:left;color: #E06E53 !important;"> galah_group_by </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> ala_counts </td>
-   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> atlas_counts </td>
+   <td style="text-align:left;color: #E06E53 !important;">  </td>
+   <td style="text-align:left;color: #E06E53 !important;"> galah_down_to </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> ala_occurrences </td>
-   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> atlas_occurrences </td>
+   <td style="text-align:left;color: #E06E53 !important;color: #c7902a !important;"> ala_counts </td>
+   <td style="text-align:left;color: #E06E53 !important;color: #c7902a !important;"> atlas_counts </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> ala_species </td>
-   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> atlas_species </td>
+   <td style="text-align:left;color: #c7902a !important;"> ala_occurrences </td>
+   <td style="text-align:left;color: #c7902a !important;"> atlas_occurrences </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> ala_media </td>
-   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> atlas_media </td>
+   <td style="text-align:left;color: #c7902a !important;"> ala_species </td>
+   <td style="text-align:left;color: #c7902a !important;"> atlas_species </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> ala_taxonomy </td>
-   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> atlas_taxonomy </td>
+   <td style="text-align:left;color: #c7902a !important;"> ala_media </td>
+   <td style="text-align:left;color: #c7902a !important;"> atlas_media </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> ala_citation </td>
-   <td style="text-align:left;font-weight: bold;color: #c7902a !important;"> atlas_citation </td>
+   <td style="text-align:left;color: #c7902a !important;"> ala_taxonomy </td>
+   <td style="text-align:left;color: #c7902a !important;"> atlas_taxonomy </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> select_taxa </td>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> search_taxa &amp; find_taxa </td>
+   <td style="text-align:left;color: #c7902a !important;"> ala_citation </td>
+   <td style="text-align:left;color: #c7902a !important;"> atlas_citation </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> search_fields </td>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> search_fields </td>
+   <td style="text-align:left;color: #7f9959 !important;"> select_taxa </td>
+   <td style="text-align:left;color: #7f9959 !important;"> search_taxa, search_identifiers </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;">  </td>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> show_all_fields </td>
+   <td style="text-align:left;color: #7f9959 !important;"> search_fields </td>
+   <td style="text-align:left;color: #7f9959 !important;"> search_fields </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> find_profiles </td>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> show_all_profiles </td>
+   <td style="text-align:left;color: #7f9959 !important;">  </td>
+   <td style="text-align:left;color: #7f9959 !important;"> show_all_fields </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> find_ranks </td>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> show_all_ranks </td>
+   <td style="text-align:left;color: #7f9959 !important;"> find_profiles </td>
+   <td style="text-align:left;color: #7f9959 !important;"> show_all_profiles </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> find_atlases </td>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> show_all_atlases </td>
+   <td style="text-align:left;color: #7f9959 !important;"> find_ranks </td>
+   <td style="text-align:left;color: #7f9959 !important;"> show_all_ranks </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> find_reasons </td>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> show_all_reasons </td>
+   <td style="text-align:left;color: #7f9959 !important;"> find_atlases </td>
+   <td style="text-align:left;color: #7f9959 !important;"> show_all_atlases </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> find_cached_files </td>
-   <td style="text-align:left;font-weight: bold;color: #7f9959 !important;"> show_all_cached_files </td>
+   <td style="text-align:left;color: #7f9959 !important;"> find_reasons </td>
+   <td style="text-align:left;color: #7f9959 !important;"> show_all_reasons </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #7f9959 !important;"> find_cached_files </td>
+   <td style="text-align:left;color: #7f9959 !important;"> show_all_cached_files </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #7f9959 !important;"> find_field_values </td>
+   <td style="text-align:left;color: #7f9959 !important;"> search_field_values </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: #7f9959 !important;"> find_profile_attributes </td>
+   <td style="text-align:left;color: #7f9959 !important;"> search_profile_attributes </td>
   </tr>
 </tbody>
 </table>
 
 # Piping with `galah_call()`
 
-Perhaps the largest change from `galah` v. 0.4.0 is the implementation of piping 
+Perhaps the largest change from `galah` 1.4.0 is the implementation of piping 
 using `galah_call()`. 
 
 Beginning a query with `galah_call()` (be sure to add the parentheses!) tells 
 `galah` that you will be using pipes to construct your query. Follow this with 
 your preferred pipe (`|>` from `base` or `%>%` from `magrittr`). You can then 
-narrow your query with line-by-line using `galah_` functions or the `search_taxa` 
-function. Finally, end with an `atlas_` function to identify what type of data
-you want from your query.  
+narrow your query line-by-line using `galah_` functions. Finally, end with an 
+`atlas_` function to identify what type of data you want from your query.  
   
 Unlike old function names, which will be removed from future versions, we do intend to 
 continue supported un-piped syntax in future, although piping only works with 
 revamped function names. If you're new to piping, here's a comparison against
 code from previous versions of `galah`.
 
-Previously, if you wanted to look up the number of records of bandicoot species 
-in 2021, you'd have done something like this:
+Previously, if you wanted to look up the number of records of each bandicoot 
+species every year from 2010 to 2021, you'd would have had to have done 
+something like this:
   
 
 ```r
-atlas_counts(taxa = search_taxa("perameles"),
-             filter = galah_filter(year == 2001),
-             group_by = galah_group_by(species, year))
+library(purrr)
+librar(dplyr)
+
+taxa <- ala_species(taxa = select_taxa("perameles"))$species
+years <- select_filters(year = seq(2010:2021))
+
+taxa %>%
+  map_dfr( ~ ala_counts(
+    taxa = select_taxa(list(species = .x)),
+    filters = years,
+    group_by = "year")
 ```
   
-This is equivalent to:
+Not very easy because you had to use multiple `atlas_` functions and you had to 
+use loops. However, now with piping you can do it like this:
 
 
 ```r
 galah_call() %>%
-  search_taxa("perameles") %>%
-  galah_filter(year == 2021) %>%
+  galah_identify("perameles") %>%
+  galah_filter(year > 2010) %>%
   galah_group_by(species, year) %>%
   atlas_counts()
 ```
 
-And a second example, of how to download occurrence records of bandicoots in 
-2021, with coordinates:
+And a second example, if you wanted to download occurrence records of bandicoots 
+in 2021, and also to include information on which records had zero coordinates, 
+previously you would have had to do this:
   
 
 ```r
-atlas_occurrences(taxa = search_taxa("perameles"),
-                  filter = galah_filter(year == 2001),
-                  select = galah_select(group = "basic", ZERO_COORDINATE))
+atlas_occurrences(taxa = select_taxa("perameles"),
+                  filters = select_filters(year = 2021),
+                  columns = select_columns(group = "basic", "ZERO_COORDINATE"))
 ```
 
 Now with piping:
 
+
 ```r
 galah_call() %>%
-  search_taxa("perameles") %>%
+  galah_identify("perameles") %>%
   galah_filter(year == 2021) %>%
   galah_select(group = "basic", ZERO_COORDINATE) %>%
   atlas_occurrences()

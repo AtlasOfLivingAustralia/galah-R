@@ -55,24 +55,19 @@
 
     Code
       galah_config(email = "ala4r@ala.org.au")
-    Message <message>
-      These configuration options will only be saved for this session.
-          Set `preserve = TRUE` to preserve them for future sessions.
-    Code
-      filters <- select_filters(year == seq(2018, 2020))
-      cols <- select_columns(group = "basic", stateProvince, ZERO_COORDINATE)
-      taxa <- select_taxa("Polytelis swainsonii")
+      filters <- select_filters(year == 1900)
+      cols <- select_columns(group = "basic", stateProvince)
       poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
       locations <- select_locations(poly)
       galah_config(verbose = FALSE)
-      occ <- ala_occurrences(taxa = taxa, filters = filters, columns = cols, locations = locations)
+      occ <- ala_occurrences(filters = filters, columns = cols, locations = locations)
     Warning <lifecycle_warning_deprecated>
       `ala_occurrences()` was deprecated in galah 1.4.0.
       Please use `atlas_occurrences()` instead.
       This warning is displayed once every 8 hours.
       Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
     Code
-      expect_equal(names(occ)[c(4, 8, 9)], c("scientificName", "stateProvince", "ZERO_COORDINATE"))
+      expect_equal(names(occ)[c(4, 8)], c("scientificName", "stateProvince"))
       expect_equal(unique(occ$stateProvince), "New South Wales")
 
 # ala_counts is deprecated

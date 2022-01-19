@@ -171,7 +171,7 @@ atlas_media_internal <- function(request,
   media_filter <- filter[filter_available, ]
   occ_filter <- rbind(
     filter[!(filter_available), ],
-    galah_filter(multimedia == c("Image", "Sound", "Video")))
+    galah_filter('multimedia' == c("Image", "Sound", "Video"))) # quoting here to pass R CMD check
   
   # Make sure media ids are included in results
   occ_columns <- rbind(

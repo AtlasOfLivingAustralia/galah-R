@@ -12,10 +12,56 @@ galah_identify(..., search = TRUE)
 \item{search}{(logical); should the results in question be passed to \code{search_taxa}?}
 }
 \description{
-A common task is to restrict searches to known taxonomic groups. This function
-allows users to pass identifiers found using \code{search_taxa} within a pipe to
-provide data only for the biological group of interest.
+When conducting a search or creating a data query, it is common to identify
+a known taxon or group of taxa to narrow down the records or results returned.
+This function allows users to pass identifiers found using \code{search_taxa}
+with pipes to provide data only for the biological group of interest.
 }
+\section{Examples}{
+
+
+\code{galah_identify()} is used to identify taxa you want returned in a search or
+a data query. It is good to use \code{\link[=search_taxa]{search_taxa()}} and \code{\link[=search_identifiers]{search_identifiers()}}
+first to check that the taxa you provide to \code{galah_identify()} return the
+correct results.
+
+Specify a taxon. A valid taxon will return an identifier.\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_identify("reptilia")
+#> # A tibble: 1 x 1
+#>   identifier                                                                 
+#>   <chr>                                                                      
+#> 1 urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399
+}\if{html}{\out{</div>}}
+
+Specify more than one taxon at a time.\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_identify("reptilia", "mammalia", "aves", "pisces")
+#> # A tibble: 4 x 1
+#>   identifier                                                                 
+#>   <chr>                                                                      
+#> 1 urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399
+#> 2 urn:lsid:biodiversity.org.au:afd.taxon:e9e7db31-04df-41fb-bd8d-e0b0f3c332d6
+#> 3 urn:lsid:biodiversity.org.au:afd.taxon:5ed80139-31bb-48a8-9f57-42d8015dacbb
+#> 4 urn:lsid:biodiversity.org.au:afd.taxon:e22efeb4-2cb5-4250-8d71-61c48bdaa051
+}\if{html}{\out{</div>}}
+
+Use \code{galah_identify()} to narrow your queries\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\% 
+  galah_identify("Eolophus") \%>\%
+  atlas_counts()
+#> # A tibble: 1 x 1
+#>    count
+#>    <int>
+#> 1 856571
+}\if{html}{\out{</div>}}
+
+If you already know a valid taxon identifier, add it and set \code{search = FALSE}.\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\% 
+  galah_identify("urn:lsid:biodiversity.org.au:afd.taxon:b2de5e40-df8f-4339-827d-25e63454a4a2", 
+                 search = FALSE) \%>\%
+  atlas_counts()
+#> # A tibble: 1 x 1
+#>    count
+#>    <int>
+#> 1 856571
+}\if{html}{\out{</div>}}
+}
+
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} to find identifiers from scientific names;
 \code{\link[=search_identifiers]{search_identifiers()}} for how to get names if taxonomic identifiers

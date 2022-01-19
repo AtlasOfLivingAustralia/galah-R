@@ -151,23 +151,25 @@ digraph boxes_and_circles {
   search_taxa; search_identifiers; show_all_fields; search_fields; show_all_profiles; show_all_ranks; search_field_values; search_profile_attributes
   
   edge [ color = 'grey50' , dir = 'none']
-  atlas_counts->search_taxa
+  atlas_counts->galah_identify
   atlas_counts->galah_filter
   atlas_counts->galah_geolocate
   atlas_counts->galah_group_by
-  atlas_species->search_taxa
+  atlas_species->galah_identify
   atlas_species->galah_filter
   atlas_species->galah_geolocate
-  atlas_media->search_taxa
+  atlas_media->galah_identify
   atlas_media->galah_filter
   atlas_media->galah_select
   atlas_media->galah_geolocate
-  atlas_occurrences->search_taxa 
+  atlas_occurrences->galah_identify 
   atlas_occurrences->galah_filter
   atlas_occurrences->galah_select
   atlas_occurrences->galah_geolocate
-  atlas_taxonomy->search_taxa
+  atlas_taxonomy->galah_identify
   atlas_taxonomy->galah_down_to
+  galah_identify->search_taxa
+  galah_identify->search_identifiers
   galah_group_by->search_fields
   galah_group_by->show_all_fields
   galah_filter->search_fields
@@ -175,8 +177,8 @@ digraph boxes_and_circles {
   galah_filter->show_all_profiles->search_profile_attributes
   galah_select->search_fields
   galah_select->show_all_fields
-  show_all_fields->find_field_values
-  search_fields->find_field_values
+  show_all_fields->search_field_values
+  search_fields->search_field_values
   galah_down_to->show_all_ranks 
 }
 ", width = 1000, height = 500)

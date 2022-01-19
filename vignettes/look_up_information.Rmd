@@ -1,7 +1,7 @@
 ---
 title: "Look up information"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-01-13'
+date: '2022-01-19'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -65,9 +65,70 @@ show_all_reasons()
 ```
 
 Of these functions, the one that has by far the largest output is `show_all_fields`.
-Given how important fields are to the proper use of `galah`, we've added the 
-additional function `search_fields` to make the results of this function easier 
-to navigate. As with `search_taxa`, `search_fields` requires a query to work.
+Given how important fields are to the proper use of `galah`, it might be more 
+useful to search for a specific field. This need for a more detailed search is when
+`search_` functions come in handy.
+
+
+# `search_` functions
+The second subset of lookup functions use the `search_` prefix, and differ from
+`show_all_` in that they require a query to work. They are used to search for 
+detailed information that can't be summarised across the whole atlas, and include:
+
+-   `search_taxa`
+-   `search_identifiers`
+-   `search_fields`
+-   `search_field_values`
+-   `search_profile attributes`
+
+Search for a single taxon or multiple taxa by name with `search_taxa`.
+
+
+```r
+search_taxa("reptilia")
+```
+
+```
+## # A tibble: 1 × 9
+##   search_term scientific_name taxon_concept_id                                                 rank  match_type kingdom  phylum   class   issues
+##   <chr>       <chr>           <chr>                                                            <chr> <chr>      <chr>    <chr>    <chr>   <chr> 
+## 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-… class exactMatch Animalia Chordata Reptil… noIss…
+```
+
+```r
+search_taxa("reptilia", "aves", "mammalia", "pisces")
+```
+
+```
+## # A tibble: 4 × 10
+##   search_term scientific_name taxon_concept_id                             rank         match_type kingdom  phylum class  issues vernacular_name
+##   <chr>       <chr>           <chr>                                        <chr>        <chr>      <chr>    <chr>  <chr>  <chr>  <chr>          
+## 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e… class        exactMatch Animalia Chord… Repti… noIss… <NA>           
+## 2 aves        AVES            urn:lsid:biodiversity.org.au:afd.taxon:5ed8… class        exactMatch Animalia Chord… Aves   noIss… Birds          
+## 3 mammalia    MAMMALIA        urn:lsid:biodiversity.org.au:afd.taxon:e9e7… class        exactMatch Animalia Chord… Mamma… noIss… Mammals        
+## 4 pisces      PISCES          urn:lsid:biodiversity.org.au:afd.taxon:e22e… species inq… exactMatch Animalia Chord… <NA>   noIss… fishes
+```
+
+Alternatively, `search_identifiers` is the partner function to `search_taxa`. 
+If we already know a taxonomic identifier, we can search for 
+which taxa the identifier belongs to with `search_identifiers`:
+
+
+```r
+search_identifiers("urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399")
+```
+
+```
+## # A tibble: 1 × 8
+##   scientific_name taxon_concept_id                                                            rank  match_type   kingdom  phylum   class  issues
+##   <chr>           <chr>                                                                       <chr> <chr>        <chr>    <chr>    <chr>  <chr> 
+## 1 REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399 class taxonIdMatch Animalia Chordata Repti… noIss…
+```
+
+Sifting through the output of `show_all_fields` to find a specific field can be 
+inefficient. Instead, we might wish to use `search_fields` to look for specific 
+fields that match a search. As with `search_taxa`, `search_fields` requires a 
+query to work.
 
 
 ```r
@@ -76,31 +137,22 @@ search_fields("date") |> head()
 
 ```
 ## # A tibble: 6 × 4
-##   id                description                                                                                    type  link 
-##   <chr>             <chr>                                                                                          <chr> <chr>
-## 1 dateIdentified    http://rs.tdwg.org/dwc/terms/dateIdentified                                                    fiel… <NA> 
-## 2 datePrecision     The precision of the date information for the record. Values include Day, Month, Year, Year r… fiel… <NA> 
-## 3 eventDate         The ISO formatted date of observation, specimen collection date. http://rs.tdwg.org/dwc/terms… fiel… <NA> 
-## 4 eventDateEnd      <NA>                                                                                           fiel… <NA> 
-## 5 firstLoadedDate   <NA>                                                                                           fiel… <NA> 
-## 6 georeferencedDate http://rs.tdwg.org/dwc/terms/georeferencedDate                                                 fiel… <NA>
+##   id                description        type   link 
+##   <chr>             <chr>              <chr>  <chr>
+## 1 dateIdentified    Date Identified    fields <NA> 
+## 2 datePrecision     Date precision     fields <NA> 
+## 3 eventDate         Event Date         fields <NA> 
+## 4 eventDateEnd      <NA>               fields <NA> 
+## 5 firstLoadedDate   Date first indexed fields <NA> 
+## 6 georeferencedDate Georeferenced Date fields <NA>
 ```
 
-
-# `find_` functions
-The second subset of lookup functions use the `find_` prefix, and differ from
-`show_all_` in that they require a query to work. They are used to find 
-detailed information that can't be summarised across the whole atlas, and include:
-
--   `find_field_values`
--   `find_profile attributes`
--   `find_taxa`
-
-`find_field_values` is used to find values to pass to `galah_filter`
+Once a desired field is found, use `search_field_values` to find values to pass 
+to `galah_filter`
 
 
 ```r
-find_field_values("basisOfRecord")
+search_field_values("basisOfRecord")
 ```
 
 ```
@@ -128,56 +180,22 @@ galah_call() |> galah_filter(basisOfRecord == "LIVING_SPECIMEN") |> atlas_counts
 ## 1 216371
 ```
 
-`find_profile_attributes` is used to give more information on criteria used
-to remove records in data quality profiles, e.g.
+`search_profile_attributes` gives more information on criteria used
+to remove records in data quality profiles, for example:
 
 
 ```r
-find_profile_attributes("ALA") |> head()
+search_profile_attributes("ALA") |> head()
 ```
 
 ```
 ## # A tibble: 6 × 2
-##   description                                                                                     filter                      
-##   <chr>                                                                                           <chr>                       
-## 1 "Exclude all records where spatial validity is \"false\""                                       "-spatiallyValid:\"false\"" 
-## 2 "Exclude all records with an assertion that the scientific name provided does not match any of… "-assertions:TAXON_MATCH_NO…
-## 3 "Exclude all records with an assertion that the scientific name provided is not structured as … "-assertions:INVALID_SCIENT…
-## 4 "Exclude all records with an assertion that the name and classification supplied can't be used… "-assertions:TAXON_HOMONYM" 
-## 5 "Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g… "-assertions:UNKNOWN_KINGDO…
-## 6 "Exclude all records with an assertion that the scientific name provided in the record does no… "-assertions:TAXON_SCOPE_MI…
-```
-
-`find_taxa` is the partner function to `search_taxa`, and is used to return
-information on one or more known taxonomic identifers.
-
-
-```r
-find_taxa("https://id.biodiversity.org.au/node/apni/2914510")
-```
-
-```
-## # A tibble: 1 × 13
-##   scientific_name  scientific_name_… taxon_concept_id  rank  match_type kingdom phylum class order family genus species issues
-##   <chr>            <chr>             <chr>             <chr> <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>   <chr> 
-## 1 Eucalyptus blak… Maiden            https://id.biodi… spec… taxonIdMa… Plantae Charo… Equi… Myrt… Myrta… Euca… Eucaly… noIss…
-```
-
-Unlike `search_taxa`, `find_taxa` cannot be used to filter data queries. 
-Instead, to use `find_taxa` results to filter queries, you can nest them 
-within `search_taxa`:
-
-
-```r
-taxa <- find_taxa("https://id.biodiversity.org.au/node/apni/2914510")
-galah_call() |> 
-  search_taxa(taxa) |>
-  atlas_counts()
-```
-
-```
-## # A tibble: 1 × 1
-##     count
-##     <int>
-## 1 1112798
+##   description                                                                                                      filter                       
+##   <chr>                                                                                                            <chr>                        
+## 1 "Exclude all records where spatial validity is \"false\""                                                        "-spatiallyValid:\"false\""  
+## 2 "Exclude all records with an assertion that the scientific name provided does not match any of the names lists … "-assertions:TAXON_MATCH_NON…
+## 3 "Exclude all records with an assertion that the scientific name provided is not structured as a valid scientifi… "-assertions:INVALID_SCIENTI…
+## 4 "Exclude all records with an assertion that the name and classification supplied can't be used to choose betwee… "-assertions:TAXON_HOMONYM"  
+## 5 "Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g. Animalia, Plant… "-assertions:UNKNOWN_KINGDOM"
+## 6 "Exclude all records with an assertion that the scientific name provided in the record does not match the expec… "-assertions:TAXON_SCOPE_MIS…
 ```

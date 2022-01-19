@@ -176,11 +176,11 @@ atlas_taxonomy_internal <- function(request,
       i = "If you continue to see this message, please email support@ala.org.au."
     )
     inform(bullets)
-    id_tree <- Node$new(
+    id_tree <- as.Node(list(
       name = identify$scientific_name,
       rank = identify$rank,
       guid = identify$taxon_concept_id
-    )
+    ))
   }else{
     id_list <- level_down(start_row, down_to) # run recursive queries
     id_tree <- FromListExplicit(id_list) # convert to data.tree

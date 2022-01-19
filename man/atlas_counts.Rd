@@ -71,7 +71,7 @@ With no arguments, return the total number of records in the ALA\if{html}{\out{<
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 101899614
+#> 1 102066657
 }\if{html}{\out{</div>}}
 
 You can group counts by state and territory with \code{galah_group_by}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
@@ -80,10 +80,10 @@ You can group counts by state and territory with \code{galah_group_by}\if{html}{
 #> # A tibble: 100 x 2
 #>   stateProvince      count
 #>   <chr>              <int>
-#> 1 New South Wales 24927692
-#> 2 Victoria        21768881
-#> 3 Queensland      17402413
-#> 4 South Australia  8447455
+#> 1 New South Wales 24934733
+#> 2 Victoria        21775800
+#> 3 Queensland      17550396
+#> 4 South Australia  8449336
 #> # ... with 96 more rows
 }\if{html}{\out{</div>}}
 
@@ -100,7 +100,7 @@ You can add a filter to narrow your search\if{html}{\out{<div class="sourceCode 
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 101899614
+#> 1 102066657
 }\if{html}{\out{</div>}}
 
 Specify \code{type = species} to count the number of species, and group record
@@ -111,13 +111,13 @@ counts by kingdom\if{html}{\out{<div class="sourceCode r">}}\preformatted{record
 #> # A tibble: 10 x 2
 #>    kingdom   count
 #>    <chr>     <dbl>
-#>  1 Animalia  90826
+#>  1 Animalia  90821
 #>  2 Plantae   39883
 #>  3 Fungi     16752
 #>  4 Chromista  1822
-#>  5 Protista    634
+#>  5 Protista    635
 #>  6 Bacteria    525
-#>  7 Protozoa    491
+#>  7 Protozoa    493
 #>  8 Archaea       0
 #>  9 Eukaryota     0
 #> 10 Virus         0
@@ -132,10 +132,10 @@ variables, similar to using \code{dplyr::group_by() \%>\% dplyr::count()}\if{htm
 #> # A tibble: 41 x 3
 #>   basisOfRecord     year    count
 #>   <chr>             <chr>   <int>
-#> 1 HUMAN_OBSERVATION 2020  5824601
-#> 2 HUMAN_OBSERVATION 2019  5401058
-#> 3 HUMAN_OBSERVATION 2018  5267743
-#> 4 HUMAN_OBSERVATION 2017  4348103
+#> 1 HUMAN_OBSERVATION 2020  5825030
+#> 2 HUMAN_OBSERVATION 2019  5401216
+#> 3 HUMAN_OBSERVATION 2018  5267959
+#> 4 HUMAN_OBSERVATION 2017  4348547
 #> # ... with 37 more rows
 }\if{html}{\out{</div>}}
 }

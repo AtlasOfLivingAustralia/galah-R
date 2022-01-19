@@ -73,7 +73,7 @@ Tasmania\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
 #> # A tibble: 1 x 1
 #>     count
 #>     <int>
-#> 1 4503179
+#> 1 4504419
 }\if{html}{\out{</div>}}
 }
 

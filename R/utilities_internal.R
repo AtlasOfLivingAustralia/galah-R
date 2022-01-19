@@ -82,10 +82,10 @@ fix_assertion_cols <- function(df, assertion_cols) {
 
 # ensure outputs are tibbles, with an appropriate class
 # if no object is given, create an empty tibble with that class
-set_galah_object_class <- function(input, class_name){
+set_galah_object_class <- function(input, new_class){
   if(missing(input)){input <- tibble()}
   if(!is_tibble(input)){input <- as_tibble(input)}
-  class(input) <- append(class(input), class_name)
+  class(input) <- append(class(input), new_class)
   input
 }
 
@@ -359,7 +359,7 @@ check_for_caching <- function(taxa_query, filter_query, area_query,
 cached_query <- function(taxa_query, filter_query, area_query,
                          columns = NULL) {
   url <- server_config("records_base_url")
-  resp <- ala_POST(url, path = "ws/webportal/params",
+  resp <- atlas_POST(url, path = "ws/webportal/params",
                    body = list(wkt = area_query, fq = taxa_query,
                                fields = columns))
   list(fq = filter_query, q = paste0("qid:", resp))
