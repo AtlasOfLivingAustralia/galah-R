@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Tue, 18 Jan 2022 04:18:50 GMT
+      date: Wed, 19 Jan 2022 08:26:34 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -34,7 +34,7 @@ http_interactions:
       file: no
       string: '{"pageSize":0,"startIndex":0,"totalRecords":37326774,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{},"activeFacetObj":{}}'
-  recorded_at: 2022-01-18 04:19:04 GMT
+  recorded_at: 2022-01-19 08:26:45 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -53,7 +53,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Tue, 18 Jan 2022 04:18:50 GMT
+      date: Wed, 19 Jan 2022 08:26:35 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -371,7 +371,7 @@ http_interactions:
         associated with a record","downloadName":"videos"},{"name":"water_body","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Water
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody","dwcTerm":"waterBody","downloadName":"water_body","classs":"Location"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"The
         year in which an occurrence was observed. http://rs.tdwg.org/dwc/terms/year","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2022-01-18 04:19:04 GMT
+  recorded_at: 2022-01-19 08:26:45 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -390,7 +390,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Tue, 18 Jan 2022 03:47:54 GMT
+      date: Wed, 19 Jan 2022 07:54:48 GMT
       server: nginx/1.17.10
       content-type: application/json;charset=UTF-8
       x-application-context: application:production
@@ -620,7 +620,7 @@ http_interactions:
         marinas de la Región Biogeográfica Mediterránea de la Red Natura 2000 y el
         Área Marina Protegida Corredor de migración de cetáceos del Mediterráneo","licence_level":"1","source":"Ministerio
         para la Transición Ecológica y el Reto Demográfico (www.miteco.gob.es/es/)","citation_date":"2021-03-03"}]'
-  recorded_at: 2022-01-18 04:19:04 GMT
+  recorded_at: 2022-01-19 08:26:45 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -639,7 +639,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Tue, 18 Jan 2022 04:18:58 GMT
+      date: Wed, 19 Jan 2022 08:26:38 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -750,7 +750,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2022-01-18 04:19:04 GMT
+  recorded_at: 2022-01-19 08:26:45 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -769,7 +769,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Tue, 18 Jan 2022 04:18:59 GMT
+      date: Wed, 19 Jan 2022 08:26:39 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -1087,7 +1087,7 @@ http_interactions:
         associated with a record","downloadName":"videos"},{"name":"water_body","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Water
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody","dwcTerm":"waterBody","downloadName":"water_body","classs":"Location"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"The
         year in which an occurrence was observed. http://rs.tdwg.org/dwc/terms/year","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2022-01-18 04:19:04 GMT
+  recorded_at: 2022-01-19 08:26:45 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1106,7 +1106,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Tue, 18 Jan 2022 04:19:02 GMT
+      date: Wed, 19 Jan 2022 08:26:43 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -1123,7 +1123,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2007","i18nCode":"year.2007","count":1312241,"fq":"year:\"2007\""},{"label":"2019","i18nCode":"year.2019","count":918532,"fq":"year:\"2019\""},{"label":"2015","i18nCode":"year.2015","count":898764,"fq":"year:\"2015\""},{"label":"2006","i18nCode":"year.2006","count":838165,"fq":"year:\"2006\""},{"label":"2018","i18nCode":"year.2018","count":833891,"fq":"year:\"2018\""},{"label":"2011","i18nCode":"year.2011","count":830825,"fq":"year:\"2011\""},{"label":"2010","i18nCode":"year.2010","count":819664,"fq":"year:\"2010\""},{"label":"2016","i18nCode":"year.2016","count":816811,"fq":"year:\"2016\""},{"label":"2009","i18nCode":"year.2009","count":764445,"fq":"year:\"2009\""},{"label":"2014","i18nCode":"year.2014","count":761152,"fq":"year:\"2014\""},{"label":"2017","i18nCode":"year.2017","count":755582,"fq":"year:\"2017\""},{"label":"2005","i18nCode":"year.2005","count":730239,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":713627,"fq":"year:\"2004\""},{"label":"2012","i18nCode":"year.2012","count":696605,"fq":"year:\"2012\""},{"label":"2008","i18nCode":"year.2008","count":665511,"fq":"year:\"2008\""},{"label":"2003","i18nCode":"year.2003","count":635839,"fq":"year:\"2003\""},{"label":"2013","i18nCode":"year.2013","count":625533,"fq":"year:\"2013\""},{"label":"2000","i18nCode":"year.2000","count":603620,"fq":"year:\"2000\""},{"label":"2002","i18nCode":"year.2002","count":598961,"fq":"year:\"2002\""},{"label":"2001","i18nCode":"year.2001","count":547843,"fq":"year:\"2001\""}],"count":314}]'
-  recorded_at: 2022-01-18 04:19:04 GMT
+  recorded_at: 2022-01-19 08:26:45 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1142,7 +1142,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Tue, 18 Jan 2022 04:19:03 GMT
+      date: Wed, 19 Jan 2022 08:26:45 GMT
       server: Apache/2.4.18 (Ubuntu)
       x-application-context: application:production
       access-control-allow-origin: '*'
@@ -1163,5 +1163,5 @@ http_interactions:
         científica","id":4,"deprecated":false},{"rkey":"logger.download.reason.systematic.research","name":"Investigación
         sistemática/taxonomía","id":8,"deprecated":false},{"rkey":"logger.download.reason.other","name":"Otros","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"Otro
         tipo de investigación científica","id":9,"deprecated":true}]'
-  recorded_at: 2022-01-18 04:19:04 GMT
+  recorded_at: 2022-01-19 08:26:45 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

@@ -144,7 +144,7 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @import assertthat sp sf httr
+#' @import assertthat sf httr
 #' @importFrom crul HttpClient Paginator Async url_build url_parse
 #' @importFrom data.table rbindlist
 #' @importFrom data.tree Do Set Prune Aggregate FromListExplicit ToDataFrameTypeCol ToDataFrameTree as.Node

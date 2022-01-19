@@ -15,12 +15,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.21.5
-      date: Wed, 19 Jan 2022 05:22:50 GMT
+      date: Wed, 19 Jan 2022 08:25:15 GMT
       content-type: application/json
       content-length: '224'
-      connection: keep-alive
       vary: Accept-Encoding
       content-encoding: gzip
       strict-transport-security: max-age=31536000
@@ -32,7 +31,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"success":true,"scientificName":"Fungi","scientificNameAuthorship":"Engl.","taxonConceptID":"urn:lsid:indexfungorum.org:names:90156","rank":"kingdom","rankID":1000,"lft":740323,"rgt":804393,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Fungi","kingdomID":"urn:lsid:indexfungorum.org:names:90156","issues":["noIssue"]}'
-  recorded_at: 2022-01-19 05:22:55 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -50,12 +49,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
+      status: 'HTTP/2 200 '
       server: nginx/1.21.5
-      date: Wed, 19 Jan 2022 05:22:50 GMT
+      date: Wed, 19 Jan 2022 08:25:15 GMT
       content-type: application/json
       content-length: '208'
-      connection: keep-alive
       vary: Accept-Encoding
       content-encoding: gzip
       strict-transport-security: max-age=31536000
@@ -67,7 +65,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"success":true,"scientificName":"Fungi","scientificNameAuthorship":"Engl.","taxonConceptID":"urn:lsid:indexfungorum.org:names:90156","rank":"kingdom","rankID":1000,"lft":740323,"rgt":804393,"matchType":"taxonIdMatch","kingdom":"Fungi","kingdomID":"urn:lsid:indexfungorum.org:names:90156","issues":["noIssue"]}'
-  recorded_at: 2022-01-19 05:22:55 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -85,11 +83,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:50 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:16 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -642,10 +638,10 @@ http_interactions:
         9417)<\u002fspan><\u002fspan>","author":null,"rank":"unranked","rankID":null},{"guid":"ALA_Gerronema_longipes","parentGuid":"urn:lsid:indexfungorum.org:names:90156","name":"Gerronema
         longipes","nameComplete":"Gerronema longipes","nameFormatted":"<span class=\"scientific-name
         rank-unknown\"><span class=\"name\">Gerronema longipes<\u002fspan><\u002fspan>","author":null,"rank":"unranked","rankID":null},{"guid":"urn:lsid:indexfungorum.org:names:90511","parentGuid":"urn:lsid:indexfungorum.org:names:90156","name":"Glomeromycota","nameComplete":"Glomeromycota
-        C. Walker & A. Schüßler","nameFormatted":"<span class=\"scientific-name
-        rank-phylum\"><span class=\"name\">Glomeromycota<\u002fspan> <span class=\"author\">C.
-        Walker &amp; A. Sch&uuml;&szlig;ler<\u002fspan><\u002fspan>","author":"C.
-        Walker & A. Schüßler","rank":"phylum","rankID":2000},{"guid":"ALA_Graphidastra_multiformis","parentGuid":"urn:lsid:indexfungorum.org:names:90156","name":"Graphidastra
+        C. Walker & A. Schüßler","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
+        class=\"name\">Glomeromycota<\u002fspan> <span class=\"author\">C. Walker
+        &amp; A. Sch&uuml;&szlig;ler<\u002fspan><\u002fspan>","author":"C. Walker
+        & A. Schüßler","rank":"phylum","rankID":2000},{"guid":"ALA_Graphidastra_multiformis","parentGuid":"urn:lsid:indexfungorum.org:names:90156","name":"Graphidastra
         multiformis","nameComplete":"Graphidastra multiformis","nameFormatted":"<span
         class=\"scientific-name rank-unknown\"><span class=\"name\">Graphidastra multiformis<\u002fspan><\u002fspan>","author":null,"rank":"unranked","rankID":null},{"guid":"ALA_Gymnopus_alkalivirens","parentGuid":"urn:lsid:indexfungorum.org:names:90156","name":"Gymnopus
         alkalivirens","nameComplete":"Gymnopus alkalivirens","nameFormatted":"<span
@@ -1315,7 +1311,7 @@ http_interactions:
         M.E. Smith, Stajich & Spatafora","rank":"phylum","rankID":2000},{"guid":"urn:lsid:indexfungorum.org:names:90405","parentGuid":"urn:lsid:indexfungorum.org:names:90156","name":"Zygomycota","nameComplete":"Zygomycota
         Moreau","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">Zygomycota<\u002fspan> <span class=\"author\">Moreau<\u002fspan><\u002fspan>","author":"Moreau","rank":"phylum","rankID":2000}]'
-  recorded_at: 2022-01-19 05:22:55 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1333,11 +1329,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:50 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:16 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -1890,10 +1884,10 @@ http_interactions:
         9417)<\u002fspan><\u002fspan>","author":null,"rank":"unranked","rankID":null},{"guid":"ALA_Gerronema_longipes","parentGuid":"urn:lsid:indexfungorum.org:names:90156","name":"Gerronema
         longipes","nameComplete":"Gerronema longipes","nameFormatted":"<span class=\"scientific-name
         rank-unknown\"><span class=\"name\">Gerronema longipes<\u002fspan><\u002fspan>","author":null,"rank":"unranked","rankID":null},{"guid":"urn:lsid:indexfungorum.org:names:90511","parentGuid":"urn:lsid:indexfungorum.org:names:90156","name":"Glomeromycota","nameComplete":"Glomeromycota
-        C. Walker & A. Schüßler","nameFormatted":"<span class=\"scientific-name
-        rank-phylum\"><span class=\"name\">Glomeromycota<\u002fspan> <span class=\"author\">C.
-        Walker &amp; A. Sch&uuml;&szlig;ler<\u002fspan><\u002fspan>","author":"C.
-        Walker & A. Schüßler","rank":"phylum","rankID":2000},{"guid":"ALA_Graphidastra_multiformis","parentGuid":"urn:lsid:indexfungorum.org:names:90156","name":"Graphidastra
+        C. Walker & A. Schüßler","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
+        class=\"name\">Glomeromycota<\u002fspan> <span class=\"author\">C. Walker
+        &amp; A. Sch&uuml;&szlig;ler<\u002fspan><\u002fspan>","author":"C. Walker
+        & A. Schüßler","rank":"phylum","rankID":2000},{"guid":"ALA_Graphidastra_multiformis","parentGuid":"urn:lsid:indexfungorum.org:names:90156","name":"Graphidastra
         multiformis","nameComplete":"Graphidastra multiformis","nameFormatted":"<span
         class=\"scientific-name rank-unknown\"><span class=\"name\">Graphidastra multiformis<\u002fspan><\u002fspan>","author":null,"rank":"unranked","rankID":null},{"guid":"ALA_Gymnopus_alkalivirens","parentGuid":"urn:lsid:indexfungorum.org:names:90156","name":"Gymnopus
         alkalivirens","nameComplete":"Gymnopus alkalivirens","nameFormatted":"<span
@@ -2563,7 +2557,7 @@ http_interactions:
         M.E. Smith, Stajich & Spatafora","rank":"phylum","rankID":2000},{"guid":"urn:lsid:indexfungorum.org:names:90405","parentGuid":"urn:lsid:indexfungorum.org:names:90156","name":"Zygomycota","nameComplete":"Zygomycota
         Moreau","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">Zygomycota<\u002fspan> <span class=\"author\">Moreau<\u002fspan><\u002fspan>","author":"Moreau","rank":"phylum","rankID":2000}]'
-  recorded_at: 2022-01-19 05:22:55 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2581,11 +2575,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:50 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:16 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -2603,7 +2595,7 @@ http_interactions:
         <span class=\"author\">R. Bauer, Garnica, Oberwinkler, Riess, Wei&szlig; &amp;
         Begerow<\u002fspan><\u002fspan>","author":"R. Bauer, Garnica, Oberwinkler,
         Riess, Weiß & Begerow","rank":"phylum","rankID":2000}]'
-  recorded_at: 2022-01-19 05:22:55 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2621,11 +2613,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:51 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:17 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -2657,7 +2647,7 @@ http_interactions:
         class=\"name\">Fungi<\u002fspan> <span class=\"author\">Engl.<\u002fspan><\u002fspan>","identifier":"urn:lsid:indexfungorum.org:names:90156","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AusFungi","taxonRemarks":null,"provenance":null,"infoSourceName":"AusFungi","infoSourceURL":"https://collections.ala.org.au/public/show/dr2702","datasetURL":"https://collections.ala.org.au/public/show/dr2702","priority":1000000},{"nameString":"Fungi","nameComplete":"Fungi","nameFormatted":"<span
         class=\"scientific-name rank-kingdom\"><span class=\"name\">Fungi<\u002fspan><\u002fspan>","identifier":"8e43417ba4bde2d9eb861cac5e4bf8b8","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CoL","taxonRemarks":null,"provenance":["Scientific
         name reallocated to Fungi Engl. by taxonomy builder"],"infoSourceName":"CoL","infoSourceURL":"https://collections.ala.org.au/public/show/dr2705","datasetURL":"https://collections.ala.org.au/public/show/dr2705","priority":1000}]}'
-  recorded_at: 2022-01-19 05:22:55 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2675,11 +2665,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:51 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:17 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -2695,7 +2683,7 @@ http_interactions:
         class=\"scientific-name rank-kingdom\">Dikarya<\u002fspan>","author":null,"nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"rankString":"subkingdom","nameAuthority":"NZOR","rankID":1200,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"taxonRemarks":null,"provenance":null,"favourite":null,"infoSourceURL":"http://data.nzor.org.nz/names/211d4fd8-2df2-45bc-87e9-6f381c5c5751","datasetURL":"https://collections.ala.org.au/public/show/dr2707","scientificNameID":"http://data.nzor.org.nz/names/211d4fd8-2df2-45bc-87e9-6f381c5c5751"},"taxonName":[],"classification":{"kingdom":"Fungi","kingdomGuid":"urn:lsid:indexfungorum.org:names:90156","scientificName":"Dikarya","guid":"NZOR-6-79752","subkingdom":"Dikarya","subkingdomGuid":"NZOR-6-79752"},"synonyms":[],"commonNames":[],"imageIdentifier":null,"conservationStatuses":{},"extantStatuses":[],"habitats":[],"categories":[],"simpleProperties":[],"images":[],"identifiers":[{"identifier":"http://data.nzor.org.nz/names/211d4fd8-2df2-45bc-87e9-6f381c5c5751","nameString":"Scientific
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/211d4fd8-2df2-45bc-87e9-6f381c5c5751","datasetURL":"https://collections.ala.org.au/public/show/dr2707"},{"identifier":"NZOR-6-79752","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/211d4fd8-2df2-45bc-87e9-6f381c5c5751","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Dikarya","nameComplete":"Dikarya","nameFormatted":"<span
         class=\"scientific-name rank-kingdom\">Dikarya<\u002fspan>","identifier":"NZOR-6-79752","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/211d4fd8-2df2-45bc-87e9-6f381c5c5751","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-01-19 05:22:55 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2713,11 +2701,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:51 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:17 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -2740,7 +2726,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\"><span class=\"name\">Entorrhizomycota<\u002fspan>
         <span class=\"author\">R. Bauer, Garnica, Oberwinkler, Riess, Wei&szlig; &amp;
         Begerow<\u002fspan><\u002fspan>","identifier":"NZOR-6-19335","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2015","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/fa3e2097-fffe-4d83-a2b1-87ee2a008c80","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-01-19 05:22:55 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2758,11 +2744,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:52 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:18 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -2789,7 +2773,7 @@ http_interactions:
         name reallocated to Ascomycota Caval.-Sm. by taxonomy builder"],"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/f9359d68-c73d-4f4b-9326-17a968bee03f","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"Ascomycota","nameComplete":"Ascomycota
         Caval.-Sm.","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">Ascomycota<\u002fspan> <span class=\"author\">Caval.-Sm.<\u002fspan><\u002fspan>","identifier":"urn:lsid:indexfungorum.org:names:90031","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AusFungi","taxonRemarks":null,"provenance":null,"infoSourceName":"AusFungi","infoSourceURL":"https://collections.ala.org.au/public/show/dr2702","datasetURL":"https://collections.ala.org.au/public/show/dr2702","priority":6000}]}'
-  recorded_at: 2022-01-19 05:22:55 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2807,11 +2791,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:52 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:18 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -2839,7 +2821,7 @@ http_interactions:
         name reallocated to Basidiomycota R.T. Moore by taxonomy builder"],"infoSourceName":"CoL","infoSourceURL":"https://collections.ala.org.au/public/show/dr2705","datasetURL":"https://collections.ala.org.au/public/show/dr2705","priority":1000},{"nameString":"Basidiomycota","nameComplete":"Basidiomycota
         R.T. Moore","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">Basidiomycota<\u002fspan> <span class=\"author\">R.T. Moore<\u002fspan><\u002fspan>","identifier":"NZOR-6-112901","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"1980","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/9f0c9875-f458-4d7f-be75-ff772a359725","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-01-19 05:22:55 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2857,11 +2839,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:52 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:18 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -2881,7 +2861,7 @@ http_interactions:
         T.W. James","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">Blastocladiomycota<\u002fspan> <span class=\"author\">T.W.
         James<\u002fspan><\u002fspan>","identifier":"NZOR-6-45238","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2007","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/93e7862c-4367-4679-b4c4-f31241bfbbc1","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-01-19 05:22:55 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2899,11 +2879,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:53 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:18 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -2929,7 +2907,7 @@ http_interactions:
         class=\"name\">Chytridiomycota<\u002fspan> <span class=\"author\">Doweld<\u002fspan><\u002fspan>","identifier":"urn:lsid:indexfungorum.org:names:90736","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AusFungi","taxonRemarks":null,"provenance":null,"infoSourceName":"AusFungi","infoSourceURL":"https://collections.ala.org.au/public/show/dr2702","datasetURL":"https://collections.ala.org.au/public/show/dr2702","priority":6000},{"nameString":"Chytridiomycota","nameComplete":"Chytridiomycota","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">Chytridiomycota<\u002fspan><\u002fspan>","identifier":"94f99c93eeb1c362571fa5f249dc753e","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CoL","taxonRemarks":null,"provenance":["Scientific
         name reallocated to Chytridiomycota Doweld by taxonomy builder"],"infoSourceName":"CoL","infoSourceURL":"https://collections.ala.org.au/public/show/dr2705","datasetURL":"https://collections.ala.org.au/public/show/dr2705","priority":1000}]}'
-  recorded_at: 2022-01-19 05:22:55 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2947,11 +2925,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:53 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:19 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -2972,7 +2948,7 @@ http_interactions:
         M.D.M. Jones & T.A. Richards","nameFormatted":"<span class=\"scientific-name
         rank-phylum\"><span class=\"name\">Cryptomycota<\u002fspan> <span class=\"author\">M.D.M.
         Jones &amp; T.A. Richards<\u002fspan><\u002fspan>","identifier":"NZOR-6-131723","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2011","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/889aee45-7ccf-45e7-a066-ee0930f80e67","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-01-19 05:22:55 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2990,11 +2966,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:53 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:19 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -3007,20 +2981,20 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"taxonConcept":{"guid":"urn:lsid:indexfungorum.org:names:90511","parentGuid":"urn:lsid:indexfungorum.org:names:90156","nameString":"Glomeromycota","nameComplete":"Glomeromycota
-        C. Walker & A. Schüßler","nameFormatted":"<span class=\"scientific-name
-        rank-phylum\"><span class=\"name\">Glomeromycota<\u002fspan> <span class=\"author\">C.
-        Walker &amp; A. Sch&uuml;&szlig;ler<\u002fspan><\u002fspan>","author":"C.
-        Walker & A. Schüßler","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"rankString":"phylum","nameAuthority":"AusFungi","rankID":2000,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"taxonRemarks":null,"provenance":null,"favourite":null,"infoSourceURL":"https://collections.ala.org.au/public/show/dr2702","datasetURL":"https://collections.ala.org.au/public/show/dr2702","taxonConceptID":"urn:lsid:indexfungorum.org:names:90511","scientificNameID":"urn:lsid:indexfungorum.org:names:90511"},"taxonName":[],"classification":{"kingdom":"Fungi","kingdomGuid":"urn:lsid:indexfungorum.org:names:90156","scientificName":"Glomeromycota","guid":"urn:lsid:indexfungorum.org:names:90511","phylum":"Glomeromycota","phylumGuid":"urn:lsid:indexfungorum.org:names:90511"},"synonyms":[],"commonNames":[],"imageIdentifier":"2248d2df-0e16-42bf-a18d-7704467a704a","conservationStatuses":{},"extantStatuses":[],"habitats":[],"categories":[],"simpleProperties":[],"images":[],"identifiers":[{"identifier":"urn:lsid:indexfungorum.org:names:90511","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"AusFungi","infoSourceURL":"https://collections.ala.org.au/public/show/dr2702","datasetURL":"https://collections.ala.org.au/public/show/dr2702"},{"identifier":"NZOR-6-94578","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/f5f40b7c-c37c-4884-aa2e-a1d9ee31c2bd","datasetURL":"https://collections.ala.org.au/public/show/dr2707"},{"identifier":"urn:lsid:indexfungorum.org:names:90511","nameString":"Taxon
+        C. Walker & A. Schüßler","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
+        class=\"name\">Glomeromycota<\u002fspan> <span class=\"author\">C. Walker
+        &amp; A. Sch&uuml;&szlig;ler<\u002fspan><\u002fspan>","author":"C. Walker
+        & A. Schüßler","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"rankString":"phylum","nameAuthority":"AusFungi","rankID":2000,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"taxonRemarks":null,"provenance":null,"favourite":null,"infoSourceURL":"https://collections.ala.org.au/public/show/dr2702","datasetURL":"https://collections.ala.org.au/public/show/dr2702","taxonConceptID":"urn:lsid:indexfungorum.org:names:90511","scientificNameID":"urn:lsid:indexfungorum.org:names:90511"},"taxonName":[],"classification":{"kingdom":"Fungi","kingdomGuid":"urn:lsid:indexfungorum.org:names:90156","scientificName":"Glomeromycota","guid":"urn:lsid:indexfungorum.org:names:90511","phylum":"Glomeromycota","phylumGuid":"urn:lsid:indexfungorum.org:names:90511"},"synonyms":[],"commonNames":[],"imageIdentifier":"2248d2df-0e16-42bf-a18d-7704467a704a","conservationStatuses":{},"extantStatuses":[],"habitats":[],"categories":[],"simpleProperties":[],"images":[],"identifiers":[{"identifier":"urn:lsid:indexfungorum.org:names:90511","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"AusFungi","infoSourceURL":"https://collections.ala.org.au/public/show/dr2702","datasetURL":"https://collections.ala.org.au/public/show/dr2702"},{"identifier":"NZOR-6-94578","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/f5f40b7c-c37c-4884-aa2e-a1d9ee31c2bd","datasetURL":"https://collections.ala.org.au/public/show/dr2707"},{"identifier":"urn:lsid:indexfungorum.org:names:90511","nameString":"Taxon
         Concept","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"AusFungi","infoSourceURL":"https://collections.ala.org.au/public/show/dr2702","datasetURL":"https://collections.ala.org.au/public/show/dr2702"},{"identifier":"urn:lsid:indexfungorum.org:names:90511","nameString":"Scientific
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"AusFungi","infoSourceURL":"https://collections.ala.org.au/public/show/dr2702","datasetURL":"https://collections.ala.org.au/public/show/dr2702"},{"identifier":"http://data.nzor.org.nz/names/f5f40b7c-c37c-4884-aa2e-a1d9ee31c2bd","nameString":"Scientific
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/f5f40b7c-c37c-4884-aa2e-a1d9ee31c2bd","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Glomeromycota","nameComplete":"Glomeromycota
-        C. Walker & A. Schüssler","nameFormatted":"<span class=\"scientific-name
-        rank-phylum\"><span class=\"name\">Glomeromycota<\u002fspan> <span class=\"author\">C.
-        Walker &amp; A. Sch&uuml;ssler<\u002fspan><\u002fspan>","identifier":"NZOR-6-94578","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2001","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/f5f40b7c-c37c-4884-aa2e-a1d9ee31c2bd","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"Glomeromycota","nameComplete":"Glomeromycota
-        C. Walker & A. Schüßler","nameFormatted":"<span class=\"scientific-name
-        rank-phylum\"><span class=\"name\">Glomeromycota<\u002fspan> <span class=\"author\">C.
-        Walker &amp; A. Sch&uuml;&szlig;ler<\u002fspan><\u002fspan>","identifier":"urn:lsid:indexfungorum.org:names:90511","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AusFungi","taxonRemarks":null,"provenance":null,"infoSourceName":"AusFungi","infoSourceURL":"https://collections.ala.org.au/public/show/dr2702","datasetURL":"https://collections.ala.org.au/public/show/dr2702","priority":6000}]}'
-  recorded_at: 2022-01-19 05:22:55 GMT
+        C. Walker & A. Schüssler","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
+        class=\"name\">Glomeromycota<\u002fspan> <span class=\"author\">C. Walker
+        &amp; A. Sch&uuml;ssler<\u002fspan><\u002fspan>","identifier":"NZOR-6-94578","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2001","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/f5f40b7c-c37c-4884-aa2e-a1d9ee31c2bd","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"Glomeromycota","nameComplete":"Glomeromycota
+        C. Walker & A. Schüßler","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
+        class=\"name\">Glomeromycota<\u002fspan> <span class=\"author\">C. Walker
+        &amp; A. Sch&uuml;&szlig;ler<\u002fspan><\u002fspan>","identifier":"urn:lsid:indexfungorum.org:names:90511","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AusFungi","taxonRemarks":null,"provenance":null,"infoSourceName":"AusFungi","infoSourceURL":"https://collections.ala.org.au/public/show/dr2702","datasetURL":"https://collections.ala.org.au/public/show/dr2702","priority":6000}]}'
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -3038,11 +3012,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:53 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:19 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -3058,7 +3030,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\">Microspora<\u002fspan>","author":null,"nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"rankString":"phylum","nameAuthority":"NZOR","rankID":2000,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"taxonRemarks":null,"provenance":null,"favourite":null,"infoSourceURL":"http://data.nzor.org.nz/names/e0f8b938-0e19-4d15-a20a-2a46417d9604","datasetURL":"https://collections.ala.org.au/public/show/dr2707","scientificNameID":"http://data.nzor.org.nz/names/e0f8b938-0e19-4d15-a20a-2a46417d9604"},"taxonName":[],"classification":{"kingdom":"Fungi","kingdomGuid":"urn:lsid:indexfungorum.org:names:90156","scientificName":"Microspora","guid":"NZOR-6-68860","phylum":"Microspora","phylumGuid":"NZOR-6-68860"},"synonyms":[],"commonNames":[],"imageIdentifier":null,"conservationStatuses":{},"extantStatuses":[],"habitats":[],"categories":[],"simpleProperties":[],"images":[],"identifiers":[{"identifier":"http://data.nzor.org.nz/names/e0f8b938-0e19-4d15-a20a-2a46417d9604","nameString":"Scientific
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/e0f8b938-0e19-4d15-a20a-2a46417d9604","datasetURL":"https://collections.ala.org.au/public/show/dr2707"},{"identifier":"NZOR-6-68860","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/e0f8b938-0e19-4d15-a20a-2a46417d9604","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Microspora","nameComplete":"Microspora","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Microspora<\u002fspan>","identifier":"NZOR-6-68860","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/e0f8b938-0e19-4d15-a20a-2a46417d9604","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-01-19 05:22:56 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -3076,11 +3048,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:54 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:20 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -3096,7 +3066,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\">Microsporidia<\u002fspan>","author":null,"nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"rankString":"phylum","nameAuthority":"NZOR","rankID":2000,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"taxonRemarks":null,"provenance":null,"favourite":null,"infoSourceURL":"http://data.nzor.org.nz/names/e3d35437-ee47-4ef3-a531-1d5ec5fe47df","datasetURL":"https://collections.ala.org.au/public/show/dr2707","scientificNameID":"http://data.nzor.org.nz/names/e3d35437-ee47-4ef3-a531-1d5ec5fe47df"},"taxonName":[],"classification":{"kingdom":"Fungi","kingdomGuid":"urn:lsid:indexfungorum.org:names:90156","scientificName":"Microsporidia","guid":"NZOR-6-44068","phylum":"Microsporidia","phylumGuid":"NZOR-6-44068"},"synonyms":[],"commonNames":[],"imageIdentifier":null,"conservationStatuses":{},"extantStatuses":[],"habitats":[],"categories":[],"simpleProperties":[],"images":[],"identifiers":[{"identifier":"http://data.nzor.org.nz/names/e3d35437-ee47-4ef3-a531-1d5ec5fe47df","nameString":"Scientific
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/e3d35437-ee47-4ef3-a531-1d5ec5fe47df","datasetURL":"https://collections.ala.org.au/public/show/dr2707"},{"identifier":"NZOR-6-44068","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/e3d35437-ee47-4ef3-a531-1d5ec5fe47df","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Microsporidia","nameComplete":"Microsporidia","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Microsporidia<\u002fspan>","identifier":"NZOR-6-44068","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/e3d35437-ee47-4ef3-a531-1d5ec5fe47df","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-01-19 05:22:56 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -3114,11 +3084,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:54 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:20 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -3136,7 +3104,7 @@ http_interactions:
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/f1b3ac4b-c115-4d03-95c6-97d2fc4d2dd9","datasetURL":"https://collections.ala.org.au/public/show/dr2707"},{"identifier":"NZOR-6-95922","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/f1b3ac4b-c115-4d03-95c6-97d2fc4d2dd9","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Mucoromycota","nameComplete":"Mucoromycota
         Doweld","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">Mucoromycota<\u002fspan> <span class=\"author\">Doweld<\u002fspan><\u002fspan>","identifier":"NZOR-6-95922","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2001","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/f1b3ac4b-c115-4d03-95c6-97d2fc4d2dd9","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-01-19 05:22:56 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -3154,11 +3122,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:54 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:20 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -3178,7 +3144,7 @@ http_interactions:
         M.J. Powell","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">Neocallimastigomycota<\u002fspan> <span class=\"author\">M.J.
         Powell<\u002fspan><\u002fspan>","identifier":"NZOR-6-117717","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2007","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/9df838a9-8e0c-4774-9716-44508f3fba8c","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-01-19 05:22:56 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -3196,11 +3162,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:55 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:21 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -3221,7 +3185,7 @@ http_interactions:
         Gryganskyi, M.E. Smith, Stajich & Spatafora","nameFormatted":"<span class=\"scientific-name
         rank-phylum\"><span class=\"name\">Zoopagomycota<\u002fspan> <span class=\"author\">Gryganskyi,
         M.E. Smith, Stajich &amp; Spatafora<\u002fspan><\u002fspan>","identifier":"NZOR-6-119157","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2016","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/44dc40cc-9283-427b-aeee-61e186d8c8fd","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-01-19 05:22:56 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -3239,11 +3203,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Wed, 19 Jan 2022 05:22:55 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 19 Jan 2022 08:25:21 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       server: nginx/1.21.5
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -3265,5 +3227,5 @@ http_interactions:
         class=\"name\">Zygomycota<\u002fspan> <span class=\"author\">Moreau<\u002fspan><\u002fspan>","identifier":"urn:lsid:indexfungorum.org:names:90405","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"AusFungi","taxonRemarks":null,"provenance":null,"infoSourceName":"AusFungi","infoSourceURL":"https://collections.ala.org.au/public/show/dr2702","datasetURL":"https://collections.ala.org.au/public/show/dr2702","priority":6000},{"nameString":"Zygomycota","nameComplete":"Zygomycota
         Moreau","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">Zygomycota<\u002fspan> <span class=\"author\">Moreau<\u002fspan><\u002fspan>","identifier":"NZOR-6-61536","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"1954","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/b558535b-bdc5-4a17-841f-9726373db064","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-01-19 05:22:56 GMT
+  recorded_at: 2022-01-19 08:25:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

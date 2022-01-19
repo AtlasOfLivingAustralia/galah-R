@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.21.5
-      date: Tue, 18 Jan 2022 04:18:17 GMT
+      date: Wed, 19 Jan 2022 08:25:48 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -33,7 +33,7 @@ http_interactions:
       file: no
       string: '{"pageSize":0,"startIndex":0,"totalRecords":101781210,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{},"activeFacetObj":{}}'
-  recorded_at: 2022-01-18 04:18:25 GMT
+  recorded_at: 2022-01-19 08:25:58 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -53,7 +53,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.21.5
-      date: Tue, 18 Jan 2022 04:18:17 GMT
+      date: Wed, 19 Jan 2022 08:25:49 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -410,7 +410,7 @@ http_interactions:
         SRS","info":"http://rs.tdwg.org/dwc/terms/verbatimSRS","dwcTerm":"verbatimSRS","downloadName":"verbatim_srs","classs":"Location"},{"name":"verbatim_taxon_rank","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
         Taxon Rank","info":"http://rs.tdwg.org/dwc/terms/verbatimTaxonRank","dwcTerm":"verbatimTaxonRank","downloadName":"verbatim_taxon_rank","classs":"Taxon"},{"name":"water_body","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Water
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody","dwcTerm":"waterBody","downloadName":"water_body","classs":"Location"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2022-01-18 04:18:25 GMT
+  recorded_at: 2022-01-19 08:25:58 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -430,7 +430,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.21.5
-      date: Tue, 18 Jan 2022 04:18:20 GMT
+      date: Wed, 19 Jan 2022 08:25:51 GMT
       content-type: application/json;charset=UTF-8
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -737,7 +737,7 @@ http_interactions:
         BY","environmentalvaluemax":"","classification1":"political","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"2","source":"SCB","citation_date":""},{"source_link":"http://www.worldclim.org/current","environmentalvaluemin":"-53.70207214355469","shape":false,"classification2":"","displayname":"WorldClim
         Annual Mean Temperature","id":10000,"grid":true,"path_orig":"layer/worldclim_bio_1","minlongitude":-180.0,"maxlatitude":90.0,"maxlongitude":180.0,"dt_added":1572530462152,"minlatitude":-90.0,"displaypath":"https://spatial.biodiversitydata.se/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:worldclim_bio_1&format=image/png&styles=","name":"worldclim_bio_1","metadatapath":"","type":"Environmental","environmentalvaluemax":"33.26063537597656","classification1":"climate","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial
         & Marine","description":"Annual Mean Temperature","licence_level":"2","source":"Worldclim"}]'
-  recorded_at: 2022-01-18 04:18:25 GMT
+  recorded_at: 2022-01-19 08:25:58 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -757,7 +757,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.21.5
-      date: Tue, 18 Jan 2022 04:18:21 GMT
+      date: Wed, 19 Jan 2022 08:25:53 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -866,7 +866,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2022-01-18 04:18:25 GMT
+  recorded_at: 2022-01-19 08:25:58 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -886,7 +886,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.21.5
-      date: Tue, 18 Jan 2022 04:18:21 GMT
+      date: Wed, 19 Jan 2022 08:25:54 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -1243,7 +1243,7 @@ http_interactions:
         SRS","info":"http://rs.tdwg.org/dwc/terms/verbatimSRS","dwcTerm":"verbatimSRS","downloadName":"verbatim_srs","classs":"Location"},{"name":"verbatim_taxon_rank","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Verbatim
         Taxon Rank","info":"http://rs.tdwg.org/dwc/terms/verbatimTaxonRank","dwcTerm":"verbatimTaxonRank","downloadName":"verbatim_taxon_rank","classs":"Taxon"},{"name":"water_body","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Water
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody","dwcTerm":"waterBody","downloadName":"water_body","classs":"Location"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2022-01-18 04:18:25 GMT
+  recorded_at: 2022-01-19 08:25:58 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1263,7 +1263,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.21.5
-      date: Tue, 18 Jan 2022 04:18:24 GMT
+      date: Wed, 19 Jan 2022 08:25:57 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -1278,5 +1278,5 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":5764817,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":5176020,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":4702697,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":4653110,"fq":"year:\"2017\""},{"label":"2014","i18nCode":"year.2014","count":4576797,"fq":"year:\"2014\""},{"label":"2016","i18nCode":"year.2016","count":4454396,"fq":"year:\"2016\""},{"label":"2015","i18nCode":"year.2015","count":4278327,"fq":"year:\"2015\""},{"label":"2012","i18nCode":"year.2012","count":4230643,"fq":"year:\"2012\""},{"label":"2013","i18nCode":"year.2013","count":4198659,"fq":"year:\"2013\""},{"label":"2011","i18nCode":"year.2011","count":4112831,"fq":"year:\"2011\""},{"label":"2010","i18nCode":"year.2010","count":3937602,"fq":"year:\"2010\""},{"label":"2009","i18nCode":"year.2009","count":3840970,"fq":"year:\"2009\""},{"label":"2008","i18nCode":"year.2008","count":3795227,"fq":"year:\"2008\""},{"label":"2005","i18nCode":"year.2005","count":3344882,"fq":"year:\"2005\""},{"label":"2007","i18nCode":"year.2007","count":3336675,"fq":"year:\"2007\""},{"label":"2006","i18nCode":"year.2006","count":2929702,"fq":"year:\"2006\""},{"label":"2004","i18nCode":"year.2004","count":2059105,"fq":"year:\"2004\""},{"label":"2003","i18nCode":"year.2003","count":1712986,"fq":"year:\"2003\""},{"label":"1999","i18nCode":"year.1999","count":1580786,"fq":"year:\"1999\""},{"label":"2002","i18nCode":"year.2002","count":1402628,"fq":"year:\"2002\""}],"count":310}]'
-  recorded_at: 2022-01-18 04:18:25 GMT
+  recorded_at: 2022-01-19 08:25:58 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

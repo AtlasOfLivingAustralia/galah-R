@@ -76,14 +76,14 @@ Search for all fields with the string "basisofrecord"\if{html}{\out{<div class="
 Search for all fields that have information for "marine"\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("marine") |> 
   head() # only show first 5 results
 #> # A tibble: 6 x 4
-#>   id      description                                                                                        type   link                                                            
-#>   <chr>   <chr>                                                                                              <chr>  <chr>                                                           
-#> 1 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Marine)"                                         layers "http://www.fao.org/geonetwork/srv/en/main.home?uuid=ac02a460-d~
-#> 2 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian Protected Areas Database (CAPAD) 2018 provid~ layers "http://www.environment.gov.au/fed/catalog/search/resource/deta~
-#> 3 cl10957 "CAPAD 2018 Marine The Collaborative Australian Protected Areas Database (CAPAD) 2018 provides bo~ layers "http://www.environment.gov.au/fed/catalog/search/resource/deta~
-#> 4 el1056  "Endemism (Non-marine) Endemism (Non-marine) based on Crisp, M.D., Laffan, S., Linder, H.P. and M~ layers ""                                                              
-#> 5 el957   "Averaged Topographic Relief  This data represents the averaged topographic relief for the Austra~ layers "http://www.ga.gov.au/meta/ANZCW0703015076.html"                
-#> 6 cl11033 "CAPAD 2020 Terrestrial The Collaborative Australian Protected Areas Database (CAPAD) 2020 provid~ layers "http://www.environment.gov.au/fed/catalog/search/resource/deta~
+#>   id      description                                                                  type   link                                                      
+#>   <chr>   <chr>                                                                        <chr>  <chr>                                                     
+#> 1 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Marine)"                   layers "http://www.fao.org/geonetwork/srv/en/main.home?uuid=ac02~
+#> 2 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian Protected Areas Databa~ layers "http://www.environment.gov.au/fed/catalog/search/resourc~
+#> 3 cl10957 "CAPAD 2018 Marine The Collaborative Australian Protected Areas Database (C~ layers "http://www.environment.gov.au/fed/catalog/search/resourc~
+#> 4 el1056  "Endemism (Non-marine) Endemism (Non-marine) based on Crisp, M.D., Laffan, ~ layers ""                                                        
+#> 5 el957   "Averaged Topographic Relief  This data represents the averaged topographic~ layers "http://www.ga.gov.au/meta/ANZCW0703015076.html"          
+#> 6 cl11033 "CAPAD 2020 Terrestrial The Collaborative Australian Protected Areas Databa~ layers "http://www.environment.gov.au/fed/catalog/search/resourc~
 }\if{html}{\out{</div>}}
 
 Search for all Wordclim layers\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("worldclim", type = "layers")

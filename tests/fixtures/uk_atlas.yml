@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Tue, 18 Jan 2022 04:17:48 GMT
+      date: Wed, 19 Jan 2022 08:25:20 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -27,9 +27,9 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":203767076,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":203767072,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{}}'
-  recorded_at: 2022-01-18 04:18:36 GMT
+  recorded_at: 2022-01-19 08:26:20 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -48,7 +48,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Tue, 18 Jan 2022 04:17:50 GMT
+      date: Wed, 19 Jan 2022 08:25:23 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -708,7 +708,7 @@ http_interactions:
         year the event occurred in.  http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year_p","downloadDescription":"Year
         - parsed","classs":"Event"},{"name":"zone","dataType":"string","indexed":false,"stored":false,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset","downloadName":"zone"}]'
-  recorded_at: 2022-01-18 04:18:36 GMT
+  recorded_at: 2022-01-19 08:26:20 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -727,7 +727,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Tue, 18 Jan 2022 04:18:30 GMT
+      date: Wed, 19 Jan 2022 08:26:06 GMT
       server: Apache/2.4.7 (Ubuntu)
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -1893,7 +1893,7 @@ http_interactions:
         Inshore Conservation Zone (Northern Ireland)","enabled":true,"name":"MCZ_Inshore_DAERA_NI_20161212_SHARING","id":286,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"},{"shape":true,"path_orig":"shape/MCZ_Inshore_DAERA_NI_20161212_SHARING","maxlatitude":55.38081,"minlatitude":54.07755,"minlongitude":-6.301,"maxlongitude":-5.45782,"displaypath":"http://layers.nbnatlas.org/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:MCZ_Inshore_DAERA_NI_20161212_SHARING&format=image/png&styles=","description":"Marine
         Inshore Conservation Zone (Northern Ireland)","uid":"287","displayname":"Marine
         Inshore Conservation Zone (Northern Ireland)","enabled":true,"name":"MCZ_Inshore_DAERA_NI_20161212_SHARING","id":287,"type":"Contextual","path":"/data/ala/data/layers/ready/shape"}]'
-  recorded_at: 2022-01-18 04:18:36 GMT
+  recorded_at: 2022-01-19 08:26:20 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1912,7 +1912,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Tue, 18 Jan 2022 04:17:54 GMT
+      date: Wed, 19 Jan 2022 08:25:30 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -2022,7 +2022,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2022-01-18 04:18:36 GMT
+  recorded_at: 2022-01-19 08:26:20 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2041,7 +2041,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Tue, 18 Jan 2022 04:17:54 GMT
+      date: Wed, 19 Jan 2022 08:25:32 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -2701,7 +2701,7 @@ http_interactions:
         year the event occurred in.  http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year_p","downloadDescription":"Year
         - parsed","classs":"Event"},{"name":"zone","dataType":"string","indexed":false,"stored":false,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset","downloadName":"zone"}]'
-  recorded_at: 2022-01-18 04:18:36 GMT
+  recorded_at: 2022-01-19 08:26:20 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2720,7 +2720,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Tue, 18 Jan 2022 04:17:55 GMT
+      date: Wed, 19 Jan 2022 08:25:37 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -2731,6 +2731,6 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":9579122,"fq":"year:\"2015\""},{"label":"2019","i18nCode":"year.2019","count":9575831,"fq":"year:\"2019\""},{"label":"2008","i18nCode":"year.2008","count":9351549,"fq":"year:\"2008\""},{"label":"2017","i18nCode":"year.2017","count":9332658,"fq":"year:\"2017\""},{"label":"2016","i18nCode":"year.2016","count":9217917,"fq":"year:\"2016\""},{"label":"2014","i18nCode":"year.2014","count":9206737,"fq":"year:\"2014\""},{"label":"2018","i18nCode":"year.2018","count":9148451,"fq":"year:\"2018\""},{"label":"2009","i18nCode":"year.2009","count":8946056,"fq":"year:\"2009\""},{"label":"2010","i18nCode":"year.2010","count":8924199,"fq":"year:\"2010\""},{"label":"2013","i18nCode":"year.2013","count":8511404,"fq":"year:\"2013\""},{"label":"2011","i18nCode":"year.2011","count":8271823,"fq":"year:\"2011\""},{"label":"2012","i18nCode":"year.2012","count":7589912,"fq":"year:\"2012\""},{"label":"2007","i18nCode":"year.2007","count":7216574,"fq":"year:\"2007\""},{"label":"2006","i18nCode":"year.2006","count":6224778,"fq":"year:\"2006\""},{"label":"2005","i18nCode":"year.2005","count":5875230,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":5206537,"fq":"year:\"2004\""},{"label":"2003","i18nCode":"year.2003","count":5042444,"fq":"year:\"2003\""},{"label":"2002","i18nCode":"year.2002","count":4368311,"fq":"year:\"2002\""},{"label":"2000","i18nCode":"year.2000","count":3793575,"fq":"year:\"2000\""},{"label":"1999","i18nCode":"year.1999","count":3741699,"fq":"year:\"1999\""}],"count":358}]'
-  recorded_at: 2022-01-18 04:18:36 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":9579122,"fq":"year:\"2015\""},{"label":"2019","i18nCode":"year.2019","count":9575831,"fq":"year:\"2019\""},{"label":"2008","i18nCode":"year.2008","count":9351549,"fq":"year:\"2008\""},{"label":"2017","i18nCode":"year.2017","count":9332658,"fq":"year:\"2017\""},{"label":"2016","i18nCode":"year.2016","count":9217917,"fq":"year:\"2016\""},{"label":"2014","i18nCode":"year.2014","count":9206737,"fq":"year:\"2014\""},{"label":"2018","i18nCode":"year.2018","count":9148451,"fq":"year:\"2018\""},{"label":"2009","i18nCode":"year.2009","count":8946057,"fq":"year:\"2009\""},{"label":"2010","i18nCode":"year.2010","count":8924199,"fq":"year:\"2010\""},{"label":"2013","i18nCode":"year.2013","count":8511404,"fq":"year:\"2013\""},{"label":"2011","i18nCode":"year.2011","count":8271823,"fq":"year:\"2011\""},{"label":"2012","i18nCode":"year.2012","count":7589912,"fq":"year:\"2012\""},{"label":"2007","i18nCode":"year.2007","count":7216574,"fq":"year:\"2007\""},{"label":"2006","i18nCode":"year.2006","count":6224778,"fq":"year:\"2006\""},{"label":"2005","i18nCode":"year.2005","count":5875230,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":5206537,"fq":"year:\"2004\""},{"label":"2003","i18nCode":"year.2003","count":5042444,"fq":"year:\"2003\""},{"label":"2002","i18nCode":"year.2002","count":4368311,"fq":"year:\"2002\""},{"label":"2000","i18nCode":"year.2000","count":3793575,"fq":"year:\"2000\""},{"label":"1999","i18nCode":"year.1999","count":3741699,"fq":"year:\"1999\""}],"count":358}]'
+  recorded_at: 2022-01-19 08:26:20 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
