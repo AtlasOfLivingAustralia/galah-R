@@ -52,7 +52,8 @@ Suggests:
     taxize,
     testthat
 License: MPL-2.0
-URL: https://github.com/AtlasOfLivingAustralia/galah
+URL: https://github.com/AtlasOfLivingAustralia/galah,
+    https://atlasoflivingaustralia.github.io/galah
 BugReports: https://github.com/AtlasOfLivingAustralia/galah/issues
 Maintainer: Martin Westgate <martin.westgate@csiro.au>
 LazyLoad: yes

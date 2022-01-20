@@ -1,21 +1,25 @@
-url: https://atlasoflivingaustralia.github.io/galah/
-
+url: https://atlasoflivingaustralia.github.io/galah
 template:
   bootstrap: 5
   params:
     bootswatch: cerulean
-
-navbar: 
+navbar:
   structure:
-    left: [home, quickstart, articles, reference]
-    right: [news, github]
+    left:
+    - home
+    - quickstart
+    - articles
+    - reference
+    right:
+    - news
+    - github
   components:
     quickstart:
       text: Quick start guide
       href: articles/quick_start_guide.html
     articles:
       text: Articles
-      menu: 
+      menu:
       - text: Narrow your results
         href: articles/narrow_your_results.html
       - text: Look up information
@@ -26,22 +30,18 @@ navbar:
         href: articles/syntax_changes.html
     news:
       text: News
-      href: news/index.html 
-
+      href: news/index.html
 reference:
 - title: Start a data query
-  contents:
-  - galah_call
-  
+  contents: galah_call
 - title: Narrow results
-  contents: 
+  contents:
   - galah_identify
   - galah_filter
   - galah_select
   - galah_group_by
   - galah_geolocate
   - galah_down_to
-  
 - title: Download data
   contents:
   - atlas_occurrences
@@ -49,7 +49,6 @@ reference:
   - atlas_species
   - atlas_taxonomy
   - atlas_media
-  
 - title: Look up information
   contents:
   - search_taxa
@@ -63,19 +62,12 @@ reference:
   - show_all_reasons
   - show_all_atlases
   - show_all_ranks
-  
 - title: Manage cache
   contents:
   - show_all_cached_files
   - clear_cached_files
-  
 - title: Configure session
-  contents:
-  - galah_config
-  
+  contents: galah_config
 - title: Cite
-  contents:
-  - atlas_citation
+  contents: atlas_citation
 
-
-  

@@ -55,6 +55,7 @@ notifications:
   slack:
     secure: "PGhowadCkFSLSmiBLbR5CZ6Bdkiaijz3PJ9GtBa6kLGtLtKIMkvK+9LrDkIdJuElNUNBz6iz4wqBlTaLOo83HEHt6Sf8nL1WcJfGQCaQMo0Xn/ivU0slwdjA08u9Trcr9UySNJGFbbwu3vzEevd6DityFRibEP4vm8t38tNttKM="
 deploy:
+  skip_cleanup: true
   provider: pages
   github-token: $GITHUB_PAT
   keep-history: true

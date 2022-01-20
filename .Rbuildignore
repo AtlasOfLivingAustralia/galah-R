@@ -13,3 +13,4 @@
 ^.*\.orig$
 ^.*precompile\.R$
 ^.github$
+^\.github$
