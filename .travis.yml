@@ -19,7 +19,7 @@ addons:
 matrix:
   include:
   - os: linux
-    r: release
+    r: 4.1.0
     dist: bionic
     env:
     - BUILD_NAME=release
