@@ -20,12 +20,10 @@ Authors@R:
              role = "aut"))
 Description: The Atlas of Living Australia ('ALA') provides tools to enable users
     of biodiversity information to find, access, combine and visualise data on
-    Australian plants and animals; these have been made available from
-    [https://ala.org.au/]. 'galah' provides a subset of the tools to be
-    directly used within R. It enables the R community to directly access data
-    and resources hosted by the 'ALA'.
+    Australian plants and animals. 'galah' enables the R community to directly 
+    access data and resources hosted by the ALA and other living atlases.
 Depends:
-    R (>= 4.0.5)
+    R (>= 4.1.0)
 Imports:
     assertthat,
     crul,

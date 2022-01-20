@@ -76,24 +76,24 @@ Search for all fields with the string "basisofrecord"\if{html}{\out{<div class="
 Search for all fields that have information for "marine"\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("marine") |> 
   head() # only show first 5 results
 #> # A tibble: 6 x 4
-#>   id      description                                                    type   link                                                 
-#>   <chr>   <chr>                                                          <chr>  <chr>                                                
-#> 1 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Marine)"     layers "http://www.fao.org/geonetwork/srv/en/main.home?uuid~
-#> 2 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian Protecte~ layers "http://www.environment.gov.au/fed/catalog/search/re~
-#> 3 cl10957 "CAPAD 2018 Marine The Collaborative Australian Protected Are~ layers "http://www.environment.gov.au/fed/catalog/search/re~
-#> 4 el1056  "Endemism (Non-marine) Endemism (Non-marine) based on Crisp, ~ layers ""                                                   
-#> 5 el957   "Averaged Topographic Relief  This data represents the averag~ layers "http://www.ga.gov.au/meta/ANZCW0703015076.html"     
-#> 6 cl11033 "CAPAD 2020 Terrestrial The Collaborative Australian Protecte~ layers "http://www.environment.gov.au/fed/catalog/search/re~
+#>   id      description                                                                                                            type  link                                                                 
+#>   <chr>   <chr>                                                                                                                  <chr> <chr>                                                                
+#> 1 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Marine)"                                                             laye~ "http://www.fao.org/geonetwork/srv/en/main.home?uuid=ac02a460-da52-1~
+#> 2 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian Protected Areas Database (CAPAD) 2018 provides both spatial and ~ laye~ "http://www.environment.gov.au/fed/catalog/search/resource/details.p~
+#> 3 cl10957 "CAPAD 2018 Marine The Collaborative Australian Protected Areas Database (CAPAD) 2018 provides both spatial and textu~ laye~ "http://www.environment.gov.au/fed/catalog/search/resource/details.p~
+#> 4 el1056  "Endemism (Non-marine) Endemism (Non-marine) based on Crisp, M.D., Laffan, S., Linder, H.P. and Monro, A (2001). Ende~ laye~ ""                                                                   
+#> 5 el957   "Averaged Topographic Relief  This data represents the averaged topographic relief for the Australian continent, the ~ laye~ "http://www.ga.gov.au/meta/ANZCW0703015076.html"                     
+#> 6 cl11033 "CAPAD 2020 Terrestrial The Collaborative Australian Protected Areas Database (CAPAD) 2020 provides both spatial and ~ laye~ "http://www.environment.gov.au/fed/catalog/search/resource/details.p~
 }\if{html}{\out{</div>}}
 
 Search for all Wordclim layers\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("worldclim", type = "layers")
 #> # A tibble: 38 x 4
-#>   id      description                                                                     type   link                                
-#>   <chr>   <chr>                                                                           <chr>  <chr>                               
-#> 1 el10982 WorldClim 2.1: Temperature - warmest month max Max Temperature of Warmest Month layers https://www.worldclim.org/data/worl~
-#> 2 el10981 WorldClim 2.1: Temperature - seasonality Temperature Seasonality                layers https://www.worldclim.org/data/worl~
-#> 3 el10980 WorldClim 2.1: Temperature - isothermality Isothermality                        layers https://www.worldclim.org/data/worl~
-#> 4 el10990 WorldClim 2.1: Precipitation - wettest month Precipitation of Wettest Month     layers https://www.worldclim.org/data/worl~
+#>   id      description                                                                     type   link                                           
+#>   <chr>   <chr>                                                                           <chr>  <chr>                                          
+#> 1 el10982 WorldClim 2.1: Temperature - warmest month max Max Temperature of Warmest Month layers https://www.worldclim.org/data/worldclim21.html
+#> 2 el10981 WorldClim 2.1: Temperature - seasonality Temperature Seasonality                layers https://www.worldclim.org/data/worldclim21.html
+#> 3 el10980 WorldClim 2.1: Temperature - isothermality Isothermality                        layers https://www.worldclim.org/data/worldclim21.html
+#> 4 el10990 WorldClim 2.1: Precipitation - wettest month Precipitation of Wettest Month     layers https://www.worldclim.org/data/worldclim21.html
 #> # ... with 34 more rows
 }\if{html}{\out{</div>}}
 

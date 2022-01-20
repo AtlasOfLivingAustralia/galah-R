@@ -30,7 +30,7 @@ show_all_atlases()
 ```
 
 ```
-## # A tibble: 6 x 3
+## # A tibble: 6 × 3
 ##   atlas     taxonomy_source taxonomy_info                                                    
 ##   <chr>     <chr>           <chr>                                                            
 ## 1 Australia ALA             https://bie.ala.org.au/                                          
@@ -46,7 +46,7 @@ show_all_reasons()
 ```
 
 ```
-## # A tibble: 13 x 2
+## # A tibble: 13 × 2
 ##       id name                            
 ##    <int> <chr>                           
 ##  1     0 conservation management/planning
@@ -89,10 +89,10 @@ search_taxa("reptilia")
 ```
 
 ```
-## # A tibble: 1 x 9
-##   search_term scientific_name taxon_concept_id                                       rank  match_type kingdom  phylum   class  issues
-##   <chr>       <chr>           <chr>                                                  <chr> <chr>      <chr>    <chr>    <chr>  <chr> 
-## 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-~ class exactMatch Animalia Chordata Repti~ noIss~
+## # A tibble: 1 × 9
+##   search_term scientific_name taxon_concept_id                                    rank  match_type kingdom  phylum   class  issues
+##   <chr>       <chr>           <chr>                                               <chr> <chr>      <chr>    <chr>    <chr>  <chr> 
+## 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b… class exactMatch Animalia Chordata Repti… noIss…
 ```
 
 ```r
@@ -100,13 +100,13 @@ search_taxa("reptilia", "aves", "mammalia", "pisces")
 ```
 
 ```
-## # A tibble: 4 x 10
-##   search_term scientific_name taxon_concept_id                     rank       match_type kingdom  phylum class issues vernacular_name
-##   <chr>       <chr>           <chr>                                <chr>      <chr>      <chr>    <chr>  <chr> <chr>  <chr>          
-## 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.ta~ class      exactMatch Animalia Chord~ Rept~ noIss~ <NA>           
-## 2 aves        AVES            urn:lsid:biodiversity.org.au:afd.ta~ class      exactMatch Animalia Chord~ Aves  noIss~ Birds          
-## 3 mammalia    MAMMALIA        urn:lsid:biodiversity.org.au:afd.ta~ class      exactMatch Animalia Chord~ Mamm~ noIss~ Mammals        
-## 4 pisces      PISCES          urn:lsid:biodiversity.org.au:afd.ta~ species i~ exactMatch Animalia Chord~ <NA>  noIss~ fishes
+## # A tibble: 4 × 10
+##   search_term scientific_name taxon_concept_id                   rank      match_type kingdom  phylum class issues vernacular_name
+##   <chr>       <chr>           <chr>                              <chr>     <chr>      <chr>    <chr>  <chr> <chr>  <chr>          
+## 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.… class     exactMatch Animalia Chord… Rept… noIss… <NA>           
+## 2 aves        AVES            urn:lsid:biodiversity.org.au:afd.… class     exactMatch Animalia Chord… Aves  noIss… Birds          
+## 3 mammalia    MAMMALIA        urn:lsid:biodiversity.org.au:afd.… class     exactMatch Animalia Chord… Mamm… noIss… Mammals        
+## 4 pisces      PISCES          urn:lsid:biodiversity.org.au:afd.… species … exactMatch Animalia Chord… <NA>  noIss… fishes
 ```
 
 Alternatively, `search_identifiers` is the partner function to `search_taxa`. 
@@ -119,10 +119,10 @@ search_identifiers("urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-83
 ```
 
 ```
-## # A tibble: 1 x 8
-##   scientific_name taxon_concept_id                                                rank  match_type   kingdom  phylum   class   issues
-##   <chr>           <chr>                                                           <chr> <chr>        <chr>    <chr>    <chr>   <chr> 
-## 1 REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b~ class taxonIdMatch Animalia Chordata Reptil~ noIss~
+## # A tibble: 1 × 8
+##   scientific_name taxon_concept_id                                              rank  match_type   kingdom  phylum  class   issues
+##   <chr>           <chr>                                                         <chr> <chr>        <chr>    <chr>   <chr>   <chr> 
+## 1 REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-83… class taxonIdMatch Animalia Chorda… Reptil… noIss…
 ```
 
 Sifting through the output of `show_all_fields` to find a specific field can be 
@@ -136,7 +136,7 @@ search_fields("date") |> head()
 ```
 
 ```
-## # A tibble: 6 x 4
+## # A tibble: 6 × 4
 ##   id                description        type   link 
 ##   <chr>             <chr>              <chr>  <chr>
 ## 1 dateIdentified    Date Identified    fields <NA> 
@@ -156,7 +156,7 @@ search_field_values("basisOfRecord")
 ```
 
 ```
-## # A tibble: 8 x 2
+## # A tibble: 8 × 2
 ##   field         category           
 ##   <chr>         <chr>              
 ## 1 basisOfRecord HUMAN_OBSERVATION  
@@ -174,7 +174,7 @@ galah_call() |> galah_filter(basisOfRecord == "LIVING_SPECIMEN") |> atlas_counts
 ```
 
 ```
-## # A tibble: 1 x 1
+## # A tibble: 1 × 1
 ##    count
 ##    <int>
 ## 1 216371
@@ -189,13 +189,13 @@ search_profile_attributes("ALA") |> head()
 ```
 
 ```
-## # A tibble: 6 x 2
-##   description                                                                                           filter                       
-##   <chr>                                                                                                 <chr>                        
-## 1 "Exclude all records where spatial validity is \"false\""                                             "-spatiallyValid:\"false\""  
-## 2 "Exclude all records with an assertion that the scientific name provided does not match any of the n~ "-assertions:TAXON_MATCH_NON~
-## 3 "Exclude all records with an assertion that the scientific name provided is not structured as a vali~ "-assertions:INVALID_SCIENTI~
-## 4 "Exclude all records with an assertion that the name and classification supplied can't be used to ch~ "-assertions:TAXON_HOMONYM"  
-## 5 "Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g. Anim~ "-assertions:UNKNOWN_KINGDOM"
-## 6 "Exclude all records with an assertion that the scientific name provided in the record does not matc~ "-assertions:TAXON_SCOPE_MIS~
+## # A tibble: 6 × 2
+##   description                                                                                        filter                       
+##   <chr>                                                                                              <chr>                        
+## 1 "Exclude all records where spatial validity is \"false\""                                          "-spatiallyValid:\"false\""  
+## 2 "Exclude all records with an assertion that the scientific name provided does not match any of th… "-assertions:TAXON_MATCH_NON…
+## 3 "Exclude all records with an assertion that the scientific name provided is not structured as a v… "-assertions:INVALID_SCIENTI…
+## 4 "Exclude all records with an assertion that the name and classification supplied can't be used to… "-assertions:TAXON_HOMONYM"  
+## 5 "Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g. A… "-assertions:UNKNOWN_KINGDOM"
+## 6 "Exclude all records with an assertion that the scientific name provided in the record does not m… "-assertions:TAXON_SCOPE_MIS…
 ```

@@ -51,10 +51,10 @@ search_taxa("Reptilia")
 ```
 
 ```
-## # A tibble: 1 x 9
-##   search_term scientific_name taxon_concept_id                                       rank  match_type kingdom  phylum   class  issues
-##   <chr>       <chr>           <chr>                                                  <chr> <chr>      <chr>    <chr>    <chr>  <chr> 
-## 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-~ class exactMatch Animalia Chordata Repti~ noIss~
+## # A tibble: 1 × 9
+##   search_term scientific_name taxon_concept_id                                    rank  match_type kingdom  phylum   class  issues
+##   <chr>       <chr>           <chr>                                               <chr> <chr>      <chr>    <chr>    <chr>  <chr> 
+## 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b… class exactMatch Animalia Chordata Repti… noIss…
 ```
 
 If we want to be more specific by providing additional taxonomic information
@@ -66,10 +66,10 @@ search_taxa(data.frame(genus = "Eolophus", kingdom = "Aves"))
 ```
 
 ```
-## # A tibble: 1 x 13
-##   search_term   scientific_name scientific_name_~ taxon_concept_id    rank  match_type kingdom phylum class order family genus issues
-##   <chr>         <chr>           <chr>             <chr>               <chr> <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr> 
-## 1 Eolophus_Aves Eolophus        Bonaparte, 1854   urn:lsid:biodivers~ genus exactMatch Animal~ Chord~ Aves  Psit~ Cacat~ Eolo~ noIss~
+## # A tibble: 1 × 13
+##   search_term   scientific_name scientific_name_… taxon_concept_id rank  match_type kingdom phylum class order family genus issues
+##   <chr>         <chr>           <chr>             <chr>            <chr> <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr> 
+## 1 Eolophus_Aves Eolophus        Bonaparte, 1854   urn:lsid:biodiv… genus exactMatch Animal… Chord… Aves  Psit… Cacat… Eolo… noIss…
 ```
 
 Once we know that our search matches the correct taxon or taxa, we 
@@ -82,7 +82,7 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 1 x 1
+## # A tibble: 1 × 1
 ##     count
 ##     <int>
 ## 1 1317131
@@ -98,7 +98,7 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 1 x 1
+## # A tibble: 1 × 1
 ##    count
 ##    <int>
 ## 1 856571
@@ -124,7 +124,7 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 4 x 2
+## # A tibble: 4 × 2
 ##   species            count
 ##   <chr>              <int>
 ## 1 Lepus granatensis   8360
@@ -148,7 +148,7 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 2 x 2
+## # A tibble: 2 × 2
 ##   species        count
 ##   <chr>          <int>
 ## 1 Vulpes vulpes 151307
@@ -170,7 +170,7 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 1 x 1
+## # A tibble: 1 × 1
 ##      count
 ##      <int>
 ## 1 63003181
@@ -187,7 +187,7 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 1 x 1
+## # A tibble: 1 × 1
 ##     count
 ##     <int>
 ## 1 2673224
@@ -207,7 +207,7 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 1 x 1
+## # A tibble: 1 × 1
 ##      count
 ##      <int>
 ## 1 55682003
@@ -232,14 +232,20 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 83 x 2
-##   class          count
-##   <chr>          <int>
-## 1 Insecta      3317770
-## 2 Gastropoda    837702
-## 3 Arachnida     527555
-## 4 Malacostraca  515971
-## # ... with 79 more rows
+## # A tibble: 83 × 2
+##    class          count
+##    <chr>          <int>
+##  1 Insecta      3317770
+##  2 Gastropoda    837702
+##  3 Arachnida     527555
+##  4 Malacostraca  515971
+##  5 Maxillopoda   462762
+##  6 Polychaeta    256938
+##  7 Bivalvia      206242
+##  8 Anthozoa      163386
+##  9 Demospongiae  107520
+## 10 Ostracoda      56295
+## # … with 73 more rows
 ```
 
 # galah_group_by
@@ -255,14 +261,20 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 35 x 3
-##   year  basisOfRecord        count
-##   <chr> <chr>                <int>
-## 1 2020  HUMAN_OBSERVATION  5825030
-## 2 2020  PRESERVED_SPECIMEN   13637
-## 3 2020  OBSERVATION           3894
-## 4 2020  UNKNOWN                365
-## # ... with 31 more rows
+## # A tibble: 35 × 3
+##    year  basisOfRecord         count
+##    <chr> <chr>                 <int>
+##  1 2020  HUMAN_OBSERVATION   5825030
+##  2 2020  PRESERVED_SPECIMEN    13637
+##  3 2020  OBSERVATION            3894
+##  4 2020  UNKNOWN                 365
+##  5 2020  MATERIAL_SAMPLE         250
+##  6 2020  LIVING_SPECIMEN         127
+##  7 2020  MACHINE_OBSERVATION      37
+##  8 2019  HUMAN_OBSERVATION   5401216
+##  9 2019  UNKNOWN               51747
+## 10 2019  PRESERVED_SPECIMEN    38117
+## # … with 25 more rows
 ```
 
 # galah_select

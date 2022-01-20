@@ -22,18 +22,18 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Wed, 19 Jan 2022 08:24:26 GMT
+      date: Thu, 20 Jan 2022 01:22:19 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=xO7qozgZD07ZU+XXDWMk2UA0L/mgwi+iISv1j+vDmlg53zMicuSiOE1RjnOU6W9xTGjpyz6G6jm+e6JfzfZMDjyvdylIG82BdKTy2sxvg7eGDVG2V2MAly+DfFL3urZO5NIZ3Bk399mnJQ0a1r6lwEZRdXJzvQlpPl2p4QQZvP6l;
-        Expires=Wed, 26 Jan 2022 08:24:25 GMT; Path=/
-      - AWSALBTGCORS=xO7qozgZD07ZU+XXDWMk2UA0L/mgwi+iISv1j+vDmlg53zMicuSiOE1RjnOU6W9xTGjpyz6G6jm+e6JfzfZMDjyvdylIG82BdKTy2sxvg7eGDVG2V2MAly+DfFL3urZO5NIZ3Bk399mnJQ0a1r6lwEZRdXJzvQlpPl2p4QQZvP6l;
-        Expires=Wed, 26 Jan 2022 08:24:25 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=4M6ra0rP2t2phmMUXpr9eLJ+4Q+4datYBMGB4EJ0KldpsUZ42M/HX6Qw97DX//Rf5E7pqYKvlmWR17P2q69OitabyVcl0hL60T46irpI78P2aEKthAcyMZ1apSua;
-        Expires=Wed, 26 Jan 2022 08:24:25 GMT; Path=/
-      - AWSALBCORS=4M6ra0rP2t2phmMUXpr9eLJ+4Q+4datYBMGB4EJ0KldpsUZ42M/HX6Qw97DX//Rf5E7pqYKvlmWR17P2q69OitabyVcl0hL60T46irpI78P2aEKthAcyMZ1apSua;
-        Expires=Wed, 26 Jan 2022 08:24:25 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=5NhmMyBdgmVG1x+r4dqhMqG/CjqnPGu87m9o2N2tmKE/La57thysJupBZeSdpNjmuvzI4gxM9ZXajJF+1PC7fmcC55F3N1BWYJeSSkV9rZgCnZtaFuyrtBBnllxaEteyYsK67MQOH5uzhV0fiTQyyttcVDRpNYKoQqJFRTe5Md19;
+        Expires=Thu, 27 Jan 2022 01:22:19 GMT; Path=/
+      - AWSALBTGCORS=5NhmMyBdgmVG1x+r4dqhMqG/CjqnPGu87m9o2N2tmKE/La57thysJupBZeSdpNjmuvzI4gxM9ZXajJF+1PC7fmcC55F3N1BWYJeSSkV9rZgCnZtaFuyrtBBnllxaEteyYsK67MQOH5uzhV0fiTQyyttcVDRpNYKoQqJFRTe5Md19;
+        Expires=Thu, 27 Jan 2022 01:22:19 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=OGH6+tdBqRt4Y6qSOlEfUqmVbpod7ydtzQ0nqDbQQlcbbJ6bVLMz/LgR+8brh/k8zU4yEMIUaPKQkrjSxdPXmxA/3JQJk3sLVnE/AooqzY8iRJzFzrdAFcGPukFO;
+        Expires=Thu, 27 Jan 2022 01:22:19 GMT; Path=/
+      - AWSALBCORS=OGH6+tdBqRt4Y6qSOlEfUqmVbpod7ydtzQ0nqDbQQlcbbJ6bVLMz/LgR+8brh/k8zU4yEMIUaPKQkrjSxdPXmxA/3JQJk3sLVnE/AooqzY8iRJzFzrdAFcGPukFO;
+        Expires=Thu, 27 Jan 2022 01:22:19 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
@@ -41,7 +41,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":5843340,"fq":"year:\"2020\""}],"count":5}]'
-  recorded_at: 2022-01-19 08:24:26 GMT
+  recorded_at: 2022-01-20 01:22:19 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -66,24 +66,24 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Wed, 19 Jan 2022 08:24:26 GMT
+      date: Thu, 20 Jan 2022 01:22:20 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.21.5
       set-cookie:
-      - AWSALBTG=DeWKNdGiA1jDaWXugDWP+8G8t9FV43SG5ibcSp3YDqDbixpB18qxZPLH2gXTIug8JY3CFmtstAyC98jsYth3P/GE8s/sq3mEYcymCrhr8nLH5Df0s6kPgSH2qor03tOq9Kvmkwqb+oEMvaF474eud6QZDQA+zcM3lbOsJA0ZpUJ0;
-        Expires=Wed, 26 Jan 2022 08:24:26 GMT; Path=/
-      - AWSALBTGCORS=DeWKNdGiA1jDaWXugDWP+8G8t9FV43SG5ibcSp3YDqDbixpB18qxZPLH2gXTIug8JY3CFmtstAyC98jsYth3P/GE8s/sq3mEYcymCrhr8nLH5Df0s6kPgSH2qor03tOq9Kvmkwqb+oEMvaF474eud6QZDQA+zcM3lbOsJA0ZpUJ0;
-        Expires=Wed, 26 Jan 2022 08:24:26 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=vlx2JUxSpnFLnxKSftPGUFYxGRWsQEEpL4omGH9gB7DBHWiAxxVxU3vQ3f3j/hiI7Bl2g6EJ7k+Z59NCjGO7i1JItfKbcmjKXSsLrw/qkPaMXi85YvPv2tPgwuNZ;
-        Expires=Wed, 26 Jan 2022 08:24:26 GMT; Path=/
-      - AWSALBCORS=vlx2JUxSpnFLnxKSftPGUFYxGRWsQEEpL4omGH9gB7DBHWiAxxVxU3vQ3f3j/hiI7Bl2g6EJ7k+Z59NCjGO7i1JItfKbcmjKXSsLrw/qkPaMXi85YvPv2tPgwuNZ;
-        Expires=Wed, 26 Jan 2022 08:24:26 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=txN+PawIpJBdRX9etyqsBwvtwUW/ae/9NDvcBfqY06bIejubF+HK8UBE35EuTSPzYNd70oriEL8VKCO+SJ7LWwLv7YYE4uilfaPK5XD8nevwoliFUNoi9GCrRC69LGM2GXogsA9aSaQgaxR3e3qixdQe60gQJAc2DTO5GlyJrzA5;
+        Expires=Thu, 27 Jan 2022 01:22:19 GMT; Path=/
+      - AWSALBTGCORS=txN+PawIpJBdRX9etyqsBwvtwUW/ae/9NDvcBfqY06bIejubF+HK8UBE35EuTSPzYNd70oriEL8VKCO+SJ7LWwLv7YYE4uilfaPK5XD8nevwoliFUNoi9GCrRC69LGM2GXogsA9aSaQgaxR3e3qixdQe60gQJAc2DTO5GlyJrzA5;
+        Expires=Thu, 27 Jan 2022 01:22:19 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=gLl2zBVnwiDOiqHOppyO+gTTtQdD37KrLFQT+tGhgXZmPghmsTRAW04x7wm06oS/3Iu7mS/SVPljpihPG+eMdmLf2h1NBd0hTHOpQAAbWT2b58gaHB/9LGZOJTmF;
+        Expires=Thu, 27 Jan 2022 01:22:19 GMT; Path=/
+      - AWSALBCORS=gLl2zBVnwiDOiqHOppyO+gTTtQdD37KrLFQT+tGhgXZmPghmsTRAW04x7wm06oS/3Iu7mS/SVPljpihPG+eMdmLf2h1NBd0hTHOpQAAbWT2b58gaHB/9LGZOJTmF;
+        Expires=Thu, 27 Jan 2022 01:22:19 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":5843340,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":5506924,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":5418009,"fq":"year:\"2018\""},{"label":"2021","i18nCode":"year.2021","count":1160586,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":41762,"fq":"year:\"2022\""}],"count":5}]'
-  recorded_at: 2022-01-19 08:24:26 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":5843340,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":5506924,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":5418009,"fq":"year:\"2018\""},{"label":"2021","i18nCode":"year.2021","count":1161557,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":41790,"fq":"year:\"2022\""}],"count":5}]'
+  recorded_at: 2022-01-20 01:22:19 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

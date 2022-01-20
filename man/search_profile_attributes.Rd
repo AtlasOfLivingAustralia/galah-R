@@ -35,10 +35,8 @@ To find all the data quality arguments used in the profile "CSDM"\if{html}{\out{
 
 Then get a free-text description of each filter used in the "CSDM" profile\if{html}{\out{<div class="sourceCode r">}}\preformatted{profile_info <- search_profile_attributes("CSDM")
 profile_info$description
-#> [1] "Include only records where Spatial validity is \\"true\\""                
-#> [2] "Exclude potential duplicate records"                                    
-#> [3] "Exclude all records that are an outlier against any environmental layer"
-#> [4] "Include only records where Year is 1970 to 2099"
+#> [1] "Include only records where Spatial validity is \\"true\\""                 "Exclude potential duplicate records"                                    
+#> [3] "Exclude all records that are an outlier against any environmental layer" "Include only records where Year is 1970 to 2099"
 }\if{html}{\out{</div>}}
 }
 

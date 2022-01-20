@@ -38,9 +38,9 @@ mtcars %>%
 ```
 
 ```
-##               mpg cyl disp  hp drat  wt qsec vs am gear carb
-## Mazda RX4      21   6  160 110  3.9 2.6   16  0  1    4    4
-## Mazda RX4 Wag  21   6  160 110  3.9 2.9   17  0  1    4    4
+##               mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4      21   6  160 110  3.9 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4
 ```
 
 ```r
@@ -50,7 +50,7 @@ galah_call() %>%
 ```
 
 ```
-## # A tibble: 1 x 1
+## # A tibble: 1 × 1
 ##     count
 ##     <int>
 ## 1 1161557
@@ -67,7 +67,7 @@ mtcars %>%
 ```
 
 ```
-## # A tibble: 2 x 2
+## # A tibble: 2 × 2
 ## # Groups:   vs [2]
 ##      vs     n
 ##   <dbl> <int>
@@ -82,7 +82,7 @@ galah_call() %>%
 ```
 
 ```
-## # A tibble: 2 x 2
+## # A tibble: 2 × 2
 ##   biome          count
 ##   <chr>          <int>
 ## 1 TERRESTRIAL 93590939

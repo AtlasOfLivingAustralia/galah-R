@@ -18,5 +18,5 @@ lapply(seq_along(selected_files), function(a){knit(
 )})
 
 # # next steps
-# devtools::build_vignettes()
-# pkgdown::build_site()
+devtools::build_vignettes()
+pkgdown::build_site()

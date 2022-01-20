@@ -13,7 +13,7 @@ test_that("Other international atlas functions work", {
   }
 })
 
-vcr::use_cassette("swedish_atlas", {
+vcr::use_cassette("international_atlases_Sweden", {
   test_that("Swedish atlas returns data", {
     expect_silent(galah_config(atlas = "Sweden"))
     expect_gt(atlas_counts()$count, 0)
@@ -25,7 +25,7 @@ vcr::use_cassette("swedish_atlas", {
   })
 })
 
-vcr::use_cassette("uk_atlas", {
+vcr::use_cassette("international_atlases_UK", {
   test_that("UK atlas returns data", {
     expect_silent(galah_config(atlas = "UK"))
     expect_gt(atlas_counts()$count, 0)
@@ -38,7 +38,7 @@ vcr::use_cassette("uk_atlas", {
   })
 })
 
-vcr::use_cassette("austrian_atlas", {
+vcr::use_cassette("international_atlases_Austria", {
   test_that("Austrian atlas returns data", {
     expect_silent(galah_config(atlas = "Austria"))
     expect_gt(atlas_counts()$count, 0)
@@ -50,7 +50,7 @@ vcr::use_cassette("austrian_atlas", {
   })
 })
 
-vcr::use_cassette("guatemalan_atlas", {
+vcr::use_cassette("international_atlases_Guatemala", {
   test_that("Guatemalan atlas returns data", {
     expect_silent(galah_config(atlas = "Guatemala"))
     expect_gt(atlas_counts()$count, 0)
@@ -62,12 +62,12 @@ vcr::use_cassette("guatemalan_atlas", {
   })
 })
 
-vcr::use_cassette("spanish_atlas", {
+vcr::use_cassette("international_atlases_Spain", {
   test_that("Spanish atlas returns data", {
     expect_silent(galah_config(atlas = "Spain"))
     expect_gt(atlas_counts()$count, 0)
     expect_gt(nrow(show_all_fields()), 1)
-    expect_equal(class(search_field_values("year")), 
+    expect_equal(class(show_all_fields()), 
                  c("tbl_df", "tbl", "data.frame"))
     expect_gt(nrow(show_all_reasons()), 1)
     expect_error(show_all_profiles())
