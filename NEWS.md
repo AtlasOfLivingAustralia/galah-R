@@ -2,15 +2,14 @@
 
 ### Revamped syntax
 
-* `ala_` functions are renamed to use use the prefix `atlas_`. This change reflects the functionality with international atlases (i.e., `atlas_occurrences`, `atlas_counts`, `atlas_species`, `atlas_media`, `atlas_taxonomy`, `atlas_citation`) (#103)
-* `search_taxa` replaces `select_taxa` to reflect its use to search valid taxonomic information, with similar functionality to `search_fields` (#112)
-* `galah_filter`, `galah_select` and `galah_geolocate` replace `select_filters`, `select_columns` and `select_locations`. These syntax changes reflect a move towards consistency with `dplyr` naming and functionality (#101, #108)
-* `show_all_` prefix replaces `find_` prefix for functions that return complete lists of possible values (i.e., `show_all_profiles`, `show_all_ranks`, `show_all_atlases`, `show_all_cached_files`, `show_all_fields`, `show_all_reasons`) (#112, #113) 
-* Updated R Markdown-style documentation and added warnings for deprecated functions (#113, #121)
+* `ala_` functions are renamed to use the prefix `atlas_`. This change reflects their functionality with international atlases (i.e., `atlas_occurrences`, `atlas_counts`, `atlas_species`, `atlas_media`, `atlas_taxonomy`, `atlas_citation`) (#103)
+* `select_taxa` is replaced by 3 functions: `galah_identify`, `search_taxa` and `search_identifiers`. `galah_identify` is used when building data queries, whereas `search_taxa` and `search_identifiers` are now exclusively used to search for taxonomic information. Syntax changes are intended to reflect their usage and expected output (#112, #122)
+* `select_` functions are renamed to use the prefix `galah_`. Specifically, `galah_filter`, `galah_select` and `galah_geolocate` replace `select_filters`, `select_columns` and `select_locations`. These syntax changes reflect a move towards consistency with `dplyr` naming and functionality (#101, #108)
+* `find_` functions that provide a listing of all possible values renamed to `show_all_` (i.e., `show_all_profiles`, `show_all_ranks`, `show_all_atlases`, `show_all_cached_files`, `show_all_fields`, `show_all_reasons`). `find_` functions that require and input and return specific results renamed to `search_` (i.e., `search_field_values`, `search_profile_attributes`) (#112, #113) 
 
 ### `galah_group_by`
 
-* Group fields using `atlas_counts(group_by = galah_group_by())` which groups and summarises record counts based on groupings, similar to `dplyr::group_by` (#90, #95)
+* Group fields using `galah_group_by()`, which groups and summarises record counts based on categorical field values, similar to `dplyr::group_by()` (#90, #95)
 
 ### `galah_down_to`
 
@@ -18,7 +17,7 @@
 
 ### Pipe queries using `galah_call`
 
-* Build data queries using piping syntax (i.e., `|>`, `%>%`) by first using `galah_call()`, narrowing queries with `galah_` functions and `search_taxa`, and finishing with an `atlas_` function (#60, #120). 
+* Build data queries using piping syntax (i.e., `|>`, `%>%`) by first using `galah_call()`, narrowing queries with `galah_` functions and finishing queries with an `atlas_` function (#60, #120). 
 * S3 methods are now implemented to functions to allow for piping (#40)
 
 ### Minor improvements
@@ -28,6 +27,7 @@
 * Pass vectors to `galah_filter` (#91, #92)
 * Cache valid fields for faster field look up (#73, #116)
 * New vignettes for updated syntax (#104, #105), plus improvements to previous vignettes.
+* Updated R Markdown-style documentation and added warnings for deprecated functions (#113, #121)
 
 ### Bug fixes
 
