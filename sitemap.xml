@@ -1,84 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//index.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/404.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_citation.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/articles/download_data.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_config.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_counts.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/articles/look_up_information.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_media.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/articles/narrow_your_results.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_occurrences.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/articles/quick_start_guide.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_species.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/articles/syntax_changes.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/ala_taxonomy.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/authors.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/clear_cached_files.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/index.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/exclude.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/news/index.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_atlases.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/atlas_citation.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_cached_files.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/atlas_counts.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_field_values.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/atlas_media.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_profile_attributes.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/atlas_occurrences.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_profiles.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/atlas_species.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_ranks.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/atlas_taxonomy.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/find_reasons.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/clear_cached_files.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/galah.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/deprecated.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/galah_config.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/galah.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/search_fields.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/galah_call.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/select_columns.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/galah_config.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/select_filters.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/galah_down_to.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/select_locations.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/galah_filter.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//reference/select_taxa.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/galah_geolocate.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//articles/galah.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/galah_group_by.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//articles/international_atlases.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/galah_identify.html</loc>
   </url>
   <url>
-    <loc>https://atlasoflivingaustralia.github.io/galah//articles/taxonomic_information.html</loc>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/galah_select.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/search_field_values.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/search_identifiers.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/search_profile_attributes.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/search_taxa.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/show_all_atlases.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/show_all_cached_files.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/show_all_fields.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/show_all_profiles.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/show_all_ranks.html</loc>
+  </url>
+  <url>
+    <loc>https://atlasoflivingaustralia.github.io/galah/reference/show_all_reasons.html</loc>
   </url>
 </urlset>
