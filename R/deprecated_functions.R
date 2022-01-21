@@ -3,7 +3,7 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #' 
-#' Use [search_taxa()] instead of `select_taxa()`.
+#' Use [galah_identify()] instead of `select_taxa()`.
 #' 
 #' @keywords internal
 #' @export
