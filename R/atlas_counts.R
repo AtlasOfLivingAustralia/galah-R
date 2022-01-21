@@ -232,7 +232,9 @@ atlas_counts_internal <- function(identify = NULL,
     filter_list <- lapply(levels_list, function(a){
       field <- colnames(a)
       value <- paste0("\'", a, "\'")
-      paste(field, value, sep = " == ")
+      paste(
+        paste(field, value, sep = " == "),
+        collapse = " & ")
     })
     
     # run `atlas_counts_lookup` the requisite number of times
@@ -267,7 +269,7 @@ atlas_counts_internal <- function(identify = NULL,
       inform(bullets)
       return(tibble())
     } else {
-      return(as_tibble(do.call(rbind, result_list)))
+      return(as_tibble(rbindlist(result_list, fill = TRUE)))
     } 
      
   # if `groups` is of nrow == 1 (expand = FALSE)
