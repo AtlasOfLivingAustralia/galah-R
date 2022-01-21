@@ -166,3 +166,16 @@ test_that("atlas_counts ignores superflueous piped arguments", {
   expect_equal(names(counts), c("year", "count"))
   expect_gt(nrow(counts), 0)
 })
+
+test_that("atlas_counts works for three groups", {
+  vcr::use_cassette("piped_counts_3_groups", {
+    counts <- galah_call() %>%
+      galah_identify("cacatuidae") %>%
+      galah_filter(year >= 2020) %>%
+      galah_group_by(biome, year, basisOfRecord, stateProvince) %>%
+      atlas_counts()
+  })
+  expect_s3_class(counts, "data.frame")
+  expect_gt(nrow(counts), 1)
+  expect_equal(names(counts), c("basisOfRecord", "biome", "year", "stateProvince", "count"))
+})

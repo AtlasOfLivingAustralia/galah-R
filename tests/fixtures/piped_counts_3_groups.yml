@@ -1,0 +1,1799 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://namematching-ws.ala.org.au/api/search?q=cacatuidae
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 OK
+      server: nginx/1.21.5
+      date: Fri, 21 Jan 2022 06:18:36 GMT
+      content-type: application/json
+      content-length: '448'
+      connection: keep-alive
+      vary: Accept-Encoding
+      content-encoding: gzip
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+    body:
+      encoding: UTF-8
+      file: no
+      string: '{"success":true,"scientificName":"CACATUIDAE","taxonConceptID":"urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a","rank":"family","rankID":5000,"lft":179669,"rgt":179795,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Aves","classID":"urn:lsid:biodiversity.org.au:afd.taxon:5ed80139-31bb-48a8-9f57-42d8015dacbb","order":"Psittaciformes","orderID":"urn:lsid:biodiversity.org.au:afd.taxon:14e84142-af7c-4b26-b923-15c3db4623cc","family":"Cacatuidae","familyID":"urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a","speciesGroup":["Animals","Birds","Birds"],"speciesSubgroup":["Parrots"],"issues":["noIssue"]}'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=biome&facets=year&facets=basisOfRecord&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:37 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=pr/MUhWbhNJOCz49z2zNd4Z60IrYS/hZ6bC1ChrJG+s3hMoDQkWYatbA3wAJZ5TgK2lG+hrRWY1HAwuUUILbzpzsiH6HomdQDb9e2d1m32LTHb1t3fVXgnFswnfABRlZ8vSHlT5SXXcDaldN0b96F/wUnyd/O81MhrTwyUU/GeR2;
+        Expires=Fri, 28 Jan 2022 06:18:36 GMT; Path=/
+      - AWSALBTGCORS=pr/MUhWbhNJOCz49z2zNd4Z60IrYS/hZ6bC1ChrJG+s3hMoDQkWYatbA3wAJZ5TgK2lG+hrRWY1HAwuUUILbzpzsiH6HomdQDb9e2d1m32LTHb1t3fVXgnFswnfABRlZ8vSHlT5SXXcDaldN0b96F/wUnyd/O81MhrTwyUU/GeR2;
+        Expires=Fri, 28 Jan 2022 06:18:36 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=Q+uEA6IuWLlo9AOp3HxpBSb/hyEn+++/1Dxsnmx1ps+VdpNGo4rBWkP3qdjTjrUToMLs2MjeKRH1XH5h4oSwHofdCErpU4wWpDAAppcOLFdu1dDMOfKy0WgJZX0d;
+        Expires=Fri, 28 Jan 2022 06:18:36 GMT; Path=/
+      - AWSALBCORS=Q+uEA6IuWLlo9AOp3HxpBSb/hyEn+++/1Dxsnmx1ps+VdpNGo4rBWkP3qdjTjrUToMLs2MjeKRH1XH5h4oSwHofdCErpU4wWpDAAppcOLFdu1dDMOfKy0WgJZX0d;
+        Expires=Fri, 28 Jan 2022 06:18:36 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"biome","fieldResult":[{"label":"TERRESTRIAL","i18nCode":"biome.TERRESTRIAL","count":236618,"fq":"biome:\"TERRESTRIAL\""}],"count":2},{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":227013,"fq":"year:\"2020\""}],"count":2},{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human
+        observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":236597,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":2},{"fieldName":"stateProvince","fieldResult":[{"label":"Victoria","i18nCode":"stateProvince.Victoria","count":66523,"fq":"stateProvince:\"Victoria\""}],"count":2}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=biome&facets=year&facets=basisOfRecord&facets=stateProvince&flimit=8&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:37 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=0ih8JGUePWr20u7xF1GGk6tB7JNTr/ARTuDSl5uHEE7RALrznc46N+6QOknMZI0M8QiIGT6aydqET+zK0gKGwP/cw/LVRIeseEU/gGJrQisg5+CLbDop7GUCkShZ84dXq5Tjc/Nr76govQvid2yTtXo/qFtjwDOfQiA+lPPX3Z1V;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/
+      - AWSALBTGCORS=0ih8JGUePWr20u7xF1GGk6tB7JNTr/ARTuDSl5uHEE7RALrznc46N+6QOknMZI0M8QiIGT6aydqET+zK0gKGwP/cw/LVRIeseEU/gGJrQisg5+CLbDop7GUCkShZ84dXq5Tjc/Nr76govQvid2yTtXo/qFtjwDOfQiA+lPPX3Z1V;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=6mIY100IfScNZ9H418vNELm1XNKC7bcLWuNb5Srbv9F8CliNhn0+ivKpqWo8dmFWoeYsimCk6WlVt1HzSkkATsLFKejHjGIPnO3criCc7Tl5cdqCL/0dwDESWCzp;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/
+      - AWSALBCORS=6mIY100IfScNZ9H418vNELm1XNKC7bcLWuNb5Srbv9F8CliNhn0+ivKpqWo8dmFWoeYsimCk6WlVt1HzSkkATsLFKejHjGIPnO3criCc7Tl5cdqCL/0dwDESWCzp;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"biome","fieldResult":[{"label":"TERRESTRIAL","i18nCode":"biome.TERRESTRIAL","count":236618,"fq":"biome:\"TERRESTRIAL\""},{"label":"MARINE","i18nCode":"biome.MARINE","count":10,"fq":"biome:\"MARINE\""}],"count":2},{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":227013,"fq":"year:\"2020\""},{"label":"2021","i18nCode":"year.2021","count":9299,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":316,"fq":"year:\"2022\""}],"count":2},{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human
+        observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":236597,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"Unknown","i18nCode":"basisOfRecord.UNKNOWN","count":24,"fq":"basisOfRecord:\"UNKNOWN\""},{"label":"Preserved
+        specimen","i18nCode":"basisOfRecord.PRESERVED_SPECIMEN","count":4,"fq":"basisOfRecord:\"PRESERVED_SPECIMEN\""},{"label":"Material
+        Sample","i18nCode":"basisOfRecord.MATERIAL_SAMPLE","count":3,"fq":"basisOfRecord:\"MATERIAL_SAMPLE\""}],"count":2},{"fieldName":"stateProvince","fieldResult":[{"label":"Victoria","i18nCode":"stateProvince.Victoria","count":66523,"fq":"stateProvince:\"Victoria\""},{"label":"New
+        South Wales","i18nCode":"stateProvince.New South Wales","count":66046,"fq":"stateProvince:\"New
+        South Wales\""},{"label":"Queensland","i18nCode":"stateProvince.Queensland","count":49209,"fq":"stateProvince:\"Queensland\""},{"label":"Australian
+        Capital Territory","i18nCode":"stateProvince.Australian Capital Territory","count":26640,"fq":"stateProvince:\"Australian
+        Capital Territory\""},{"label":"Western Australia","i18nCode":"stateProvince.Western
+        Australia","count":11439,"fq":"stateProvince:\"Western Australia\""},{"label":"South
+        Australia","i18nCode":"stateProvince.South Australia","count":7521,"fq":"stateProvince:\"South
+        Australia\""},{"label":"Northern Territory","i18nCode":"stateProvince.Northern
+        Territory","count":5006,"fq":"stateProvince:\"Northern Territory\""},{"label":"Tasmania","i18nCode":"stateProvince.Tasmania","count":4242,"fq":"stateProvince:\"Tasmania\""}],"count":2}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22HUMAN_OBSERVATION%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222020%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:37 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=mMj1MP5f0FNAsfssyB/Pon2hodX5TJuC88G+4OOxbiWrk5EaUPqOyTtVUXI/7BtWQRYVw5OXznsAY5XoWgBNhGt3AE4LipTALnrDs3DKsJLpldZOMjuzzf8LW14QvMLxHylkn1RAtqnPuiBPAwJGeDFgWMsCw+4YtPGvzswQCZtZ;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/
+      - AWSALBTGCORS=mMj1MP5f0FNAsfssyB/Pon2hodX5TJuC88G+4OOxbiWrk5EaUPqOyTtVUXI/7BtWQRYVw5OXznsAY5XoWgBNhGt3AE4LipTALnrDs3DKsJLpldZOMjuzzf8LW14QvMLxHylkn1RAtqnPuiBPAwJGeDFgWMsCw+4YtPGvzswQCZtZ;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=WHPs0XUMKhsH/Wxgc6KZ99Tq0VpKPF/eFCIdSiu1zk6UYp0XWVeFSOvCoHORwydaFH91Z7/tCKoRASzcuvRWecB8yfVH0l8NaOkR2H9blY3SPGfqE27uNgdn4oIy;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/
+      - AWSALBCORS=WHPs0XUMKhsH/Wxgc6KZ99Tq0VpKPF/eFCIdSiu1zk6UYp0XWVeFSOvCoHORwydaFH91Z7/tCKoRASzcuvRWecB8yfVH0l8NaOkR2H9blY3SPGfqE27uNgdn4oIy;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"Victoria","i18nCode":"stateProvince.Victoria","count":63840,"fq":"stateProvince:\"Victoria\""}],"count":8}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22HUMAN_OBSERVATION%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222020%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:37 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=c6x2VrEJsAVQ/i8HshCh5IplsQ0zEhJMOWGNYlJlvsLfhm9cOu8WUS6dRW44kfp3Ka2WGUdeI/P+w58XwNIRcWedsT0wTc/bME3Dz0MNwF7JMX44779LCh/CVJc3669DJHvC83f7NjPMwcITucYKH06cBsS2BbPt7wKuMlrXAuKl;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/
+      - AWSALBTGCORS=c6x2VrEJsAVQ/i8HshCh5IplsQ0zEhJMOWGNYlJlvsLfhm9cOu8WUS6dRW44kfp3Ka2WGUdeI/P+w58XwNIRcWedsT0wTc/bME3Dz0MNwF7JMX44779LCh/CVJc3669DJHvC83f7NjPMwcITucYKH06cBsS2BbPt7wKuMlrXAuKl;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=AY9yjCRwN7BoOWOAvbAxu3fIzSvGsowApAZ2QRje2QOyPDt90Nz87taYlFFWWkuAZgiR0wKI6MG8Cl+lplh+JH2BomtkPPiTucYX4npkhrtALM1L54+A+aINGJoB;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/
+      - AWSALBCORS=AY9yjCRwN7BoOWOAvbAxu3fIzSvGsowApAZ2QRje2QOyPDt90Nz87taYlFFWWkuAZgiR0wKI6MG8Cl+lplh+JH2BomtkPPiTucYX4npkhrtALM1L54+A+aINGJoB;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"Victoria","i18nCode":"stateProvince.Victoria","count":63840,"fq":"stateProvince:\"Victoria\""},{"label":"New
+        South Wales","i18nCode":"stateProvince.New South Wales","count":62684,"fq":"stateProvince:\"New
+        South Wales\""},{"label":"Queensland","i18nCode":"stateProvince.Queensland","count":47941,"fq":"stateProvince:\"Queensland\""},{"label":"Australian
+        Capital Territory","i18nCode":"stateProvince.Australian Capital Territory","count":26098,"fq":"stateProvince:\"Australian
+        Capital Territory\""},{"label":"Western Australia","i18nCode":"stateProvince.Western
+        Australia","count":10880,"fq":"stateProvince:\"Western Australia\""},{"label":"South
+        Australia","i18nCode":"stateProvince.South Australia","count":6441,"fq":"stateProvince:\"South
+        Australia\""},{"label":"Northern Territory","i18nCode":"stateProvince.Northern
+        Territory","count":4924,"fq":"stateProvince:\"Northern Territory\""},{"label":"Tasmania","i18nCode":"stateProvince.Tasmania","count":4171,"fq":"stateProvince:\"Tasmania\""}],"count":8}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22UNKNOWN%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222020%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:38 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=fX68ryDnab9YyilP7I+08OuJtVq6UnEb/SN4RCYuWc2cs6r0EcRCIQ6oatJNRhdzHrdnZHL9asu9G9XwWWKxOVhG+Way+aeMMmTPD0Va0fSk7OXQj52gKWXpExHi2wLpqzOzwhAv4YdgUiZAS+Zmq+X74g+BWR8UgLK2MOdJY+1U;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/
+      - AWSALBTGCORS=fX68ryDnab9YyilP7I+08OuJtVq6UnEb/SN4RCYuWc2cs6r0EcRCIQ6oatJNRhdzHrdnZHL9asu9G9XwWWKxOVhG+Way+aeMMmTPD0Va0fSk7OXQj52gKWXpExHi2wLpqzOzwhAv4YdgUiZAS+Zmq+X74g+BWR8UgLK2MOdJY+1U;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=qLaE1iegGU53hkm3ucTmAS2UayLBzuJh09rfLOL+FcKmpqb647ka9mVFP3tB0OpOCBqw6+Nmn1NtwiNfzE9+tURBibqisoa/z50HgQjyU+ZQ+ClegsDEg4RmpliI;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/
+      - AWSALBCORS=qLaE1iegGU53hkm3ucTmAS2UayLBzuJh09rfLOL+FcKmpqb647ka9mVFP3tB0OpOCBqw6+Nmn1NtwiNfzE9+tURBibqisoa/z50HgQjyU+ZQ+ClegsDEg4RmpliI;
+        Expires=Fri, 28 Jan 2022 06:18:37 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"New South Wales","i18nCode":"stateProvince.New
+        South Wales","count":21,"fq":"stateProvince:\"New South Wales\""}],"count":1}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22UNKNOWN%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222020%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:38 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=mDOoI+q2svG2/MQEp6zLlvNEfAzHH1dnEDVF8wq7p24RWkh7epWcF0vzLg19f27QrMYMba72KUm2qv5MGA03+C0XrR1FvgMOSC+nPxdQk4yQjiYQHy+h4K0tC1jLnE36B58vJbvB/3uOVLAB6sldxjXDa7s6QR5JeaqRtgmoJsBU;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBTGCORS=mDOoI+q2svG2/MQEp6zLlvNEfAzHH1dnEDVF8wq7p24RWkh7epWcF0vzLg19f27QrMYMba72KUm2qv5MGA03+C0XrR1FvgMOSC+nPxdQk4yQjiYQHy+h4K0tC1jLnE36B58vJbvB/3uOVLAB6sldxjXDa7s6QR5JeaqRtgmoJsBU;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=ej05guXvtyH3m343QhjsSP3GOaym5vlwuIyYtPxcHLViltHUFYXia94CL4TDN0D6cWNgOEQS/3qeEDiWwLeu4JndWs/RsNp1QJDNEUKDBp41ZRCc6ijpbW4n+kBA;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBCORS=ej05guXvtyH3m343QhjsSP3GOaym5vlwuIyYtPxcHLViltHUFYXia94CL4TDN0D6cWNgOEQS/3qeEDiWwLeu4JndWs/RsNp1QJDNEUKDBp41ZRCc6ijpbW4n+kBA;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"New South Wales","i18nCode":"stateProvince.New
+        South Wales","count":21,"fq":"stateProvince:\"New South Wales\""}],"count":1}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22PRESERVED_SPECIMEN%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222020%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:38 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=hlafMI0UQ6gkpe5XCnobZpC5G1Tj9wE/mkrGIM/X0xXouH59S3VC+DTkIHkvMTtdCT2aVp0Iy6uWrvib12QRkArfHzPsNFeLejsGOT+Xio8GdMlhGz07VU9mZtAu02eQzmrp1TThQ/KSy+AstgRfu74hvx3Sm2obEF02rO5lU0SI;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBTGCORS=hlafMI0UQ6gkpe5XCnobZpC5G1Tj9wE/mkrGIM/X0xXouH59S3VC+DTkIHkvMTtdCT2aVp0Iy6uWrvib12QRkArfHzPsNFeLejsGOT+Xio8GdMlhGz07VU9mZtAu02eQzmrp1TThQ/KSy+AstgRfu74hvx3Sm2obEF02rO5lU0SI;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=Xfxq1kLwEKtuaZvGRYG1GoFjMRAFzn0FauJMwtUtwgo5rC8XQxs89oChbgfctLyeqadhr062kzF9Sdb0k6G2MbcMy39SvHsRhF9W6J/WN/RD2dPLX+08eQ+4ZodU;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBCORS=Xfxq1kLwEKtuaZvGRYG1GoFjMRAFzn0FauJMwtUtwgo5rC8XQxs89oChbgfctLyeqadhr062kzF9Sdb0k6G2MbcMy39SvHsRhF9W6J/WN/RD2dPLX+08eQ+4ZodU;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"Queensland","i18nCode":"stateProvince.Queensland","count":2,"fq":"stateProvince:\"Queensland\""}],"count":2}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22PRESERVED_SPECIMEN%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222020%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:38 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=S/sF58tgC/i9e0D4/ra8HlYuoC9/U+pDroKrTNreT8K3U0wQ8TD9cGtIaMxbgYpwb+mW2jWvpcmNVjny1I/Gg0QY2UjEJWFnBRG1KKLW3thNGs9ySCIYXhCrzWsjDhLGlTUvSeLtvB5NQOFH/NZ9DfD7ZoPgZEAfHchHRBc1ASHD;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBTGCORS=S/sF58tgC/i9e0D4/ra8HlYuoC9/U+pDroKrTNreT8K3U0wQ8TD9cGtIaMxbgYpwb+mW2jWvpcmNVjny1I/Gg0QY2UjEJWFnBRG1KKLW3thNGs9ySCIYXhCrzWsjDhLGlTUvSeLtvB5NQOFH/NZ9DfD7ZoPgZEAfHchHRBc1ASHD;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=LWvlSSJ8XAgZ42aUKCXPHTE0z96xtlU8KnAbZEShUhh7uCTUfjucFjomgtEuOXm5SFw5+zQbYWHXDPmeCfenW5u+e08UakuQ1SXYywP0NYYM+HiRQ6GPVwTpzcgl;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBCORS=LWvlSSJ8XAgZ42aUKCXPHTE0z96xtlU8KnAbZEShUhh7uCTUfjucFjomgtEuOXm5SFw5+zQbYWHXDPmeCfenW5u+e08UakuQ1SXYywP0NYYM+HiRQ6GPVwTpzcgl;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"Queensland","i18nCode":"stateProvince.Queensland","count":2,"fq":"stateProvince:\"Queensland\""},{"label":"Australian
+        Capital Territory","i18nCode":"stateProvince.Australian Capital Territory","count":1,"fq":"stateProvince:\"Australian
+        Capital Territory\""}],"count":2}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22MATERIAL_SAMPLE%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222020%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:38 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=oA0sdcoLcUpFks7++8z9ZWGSVx5R8OHckc/Wo8we6NDbPwy7KlWJ1c/M8jS8uhqHy1BE6YTQQT0zf/OAvPVacIGLLxTqpRQgq7elr7BiKVyZK8l8Ix2EEFwgIGPnOtgmlUxwNiPNRNooQPzo7wJPZ7BzWlJAwkjphLMeK3EZlcAa;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBTGCORS=oA0sdcoLcUpFks7++8z9ZWGSVx5R8OHckc/Wo8we6NDbPwy7KlWJ1c/M8jS8uhqHy1BE6YTQQT0zf/OAvPVacIGLLxTqpRQgq7elr7BiKVyZK8l8Ix2EEFwgIGPnOtgmlUxwNiPNRNooQPzo7wJPZ7BzWlJAwkjphLMeK3EZlcAa;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=nh1uyTpjsC4BKYPELoBnaa2sHDx36KIzaIJHerntTXLcSps7+geD+xdqWje9g8SEgU+inBRDmRwLl5TnmZjOuU/NoviS8OQKW5YMnlnBMybfsKN61eg0UxAQfzsZ;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBCORS=nh1uyTpjsC4BKYPELoBnaa2sHDx36KIzaIJHerntTXLcSps7+geD+xdqWje9g8SEgU+inBRDmRwLl5TnmZjOuU/NoviS8OQKW5YMnlnBMybfsKN61eg0UxAQfzsZ;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"Australian Capital
+        Territory","i18nCode":"stateProvince.Australian Capital Territory","count":1,"fq":"stateProvince:\"Australian
+        Capital Territory\""}],"count":2}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22MATERIAL_SAMPLE%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222020%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:38 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=2liw+cclJOkTuHs9AsOHK3YFrYIbXdYKcfurthW5OAlE/TA/foTVg2k6B5IFHRrhfy9VN0U0M+CKvwxCziSHKh8vb2E3oJvM4rLYW+0HusMkpPMe7i7W9vSeLwVroIhelYSFaSz+x3ow+R56P0+x6ocYRKBGVxJYX8ZyeL03uYB7;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBTGCORS=2liw+cclJOkTuHs9AsOHK3YFrYIbXdYKcfurthW5OAlE/TA/foTVg2k6B5IFHRrhfy9VN0U0M+CKvwxCziSHKh8vb2E3oJvM4rLYW+0HusMkpPMe7i7W9vSeLwVroIhelYSFaSz+x3ow+R56P0+x6ocYRKBGVxJYX8ZyeL03uYB7;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=iq+f3YX12EZtj7G9sIAHjQ68WQ4BwuUwNaERkHYAIgq5pxm+gTLXAnUpuIE4hesmRlltAMMgb6+ei39zUJBT5Tdu+P0k0ASS1uYervwYbB5n1jSsvo9mSJEwW1Jb;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBCORS=iq+f3YX12EZtj7G9sIAHjQ68WQ4BwuUwNaERkHYAIgq5pxm+gTLXAnUpuIE4hesmRlltAMMgb6+ei39zUJBT5Tdu+P0k0ASS1uYervwYbB5n1jSsvo9mSJEwW1Jb;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"Australian Capital
+        Territory","i18nCode":"stateProvince.Australian Capital Territory","count":1,"fq":"stateProvince:\"Australian
+        Capital Territory\""},{"label":"Queensland","i18nCode":"stateProvince.Queensland","count":1,"fq":"stateProvince:\"Queensland\""}],"count":2}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22HUMAN_OBSERVATION%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222020%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:38 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=UY6T5T8wWUSeG3hIpo0a8b6CJPj3UEhn49b6HScywXWnMzTdaSnxBozqX+ExLumVbGuswd1AK/M4M8E7Ut+oGzoZBHubkfuXsuLDN0kgbim9aX/ldC81s2z48O3CJdxOqR8WKPOOS610X3NAYHHBw+lpmXhYVYd1cnrPzEIRcjYG;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBTGCORS=UY6T5T8wWUSeG3hIpo0a8b6CJPj3UEhn49b6HScywXWnMzTdaSnxBozqX+ExLumVbGuswd1AK/M4M8E7Ut+oGzoZBHubkfuXsuLDN0kgbim9aX/ldC81s2z48O3CJdxOqR8WKPOOS610X3NAYHHBw+lpmXhYVYd1cnrPzEIRcjYG;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=RQkGuC4LNVtuzyd+EUHzNIUPOGQsdfOYrZn/UuoD5wXP0umA+mmbfxdvcuJ/KvnCGBTLOTdIHqQVcrBjlRQPWmggzjNkRVgjveec40A8M/pxoTHhgqiC+8PA/qCI;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBCORS=RQkGuC4LNVtuzyd+EUHzNIUPOGQsdfOYrZn/UuoD5wXP0umA+mmbfxdvcuJ/KvnCGBTLOTdIHqQVcrBjlRQPWmggzjNkRVgjveec40A8M/pxoTHhgqiC+8PA/qCI;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"New South Wales","i18nCode":"stateProvince.New
+        South Wales","count":5,"fq":"stateProvince:\"New South Wales\""}],"count":3}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22HUMAN_OBSERVATION%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222020%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:39 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=DFO4VuO/3tCPWSO+H045/fcW9mn89I29OULRfuSNvceN32yDVx9pygdhQyTCJKK2vRT8BiYDOPfwVaDSnicUfnH85NbJywQTmU3RkPNHE3Od6M7ET83dZ3j9nTsVGO2NWoFzCrMZ1iHxJvz4hZXe3kzihxgGhWVyvd6DtZHU6FOb;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBTGCORS=DFO4VuO/3tCPWSO+H045/fcW9mn89I29OULRfuSNvceN32yDVx9pygdhQyTCJKK2vRT8BiYDOPfwVaDSnicUfnH85NbJywQTmU3RkPNHE3Od6M7ET83dZ3j9nTsVGO2NWoFzCrMZ1iHxJvz4hZXe3kzihxgGhWVyvd6DtZHU6FOb;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=XfnZs5x0SqZ7BgcUqoAERfvJACZNyD5SYxQVuOS/G/VKlBPyIMCeRXvO4wtroCI98RjdX/bqi6NQ+TpbRZRBQ09PnceImeqUAb/IUl8Bzkn35FTXUC654aclgcsB;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/
+      - AWSALBCORS=XfnZs5x0SqZ7BgcUqoAERfvJACZNyD5SYxQVuOS/G/VKlBPyIMCeRXvO4wtroCI98RjdX/bqi6NQ+TpbRZRBQ09PnceImeqUAb/IUl8Bzkn35FTXUC654aclgcsB;
+        Expires=Fri, 28 Jan 2022 06:18:38 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"New South Wales","i18nCode":"stateProvince.New
+        South Wales","count":5,"fq":"stateProvince:\"New South Wales\""},{"label":"Western
+        Australia","i18nCode":"stateProvince.Western Australia","count":2,"fq":"stateProvince:\"Western
+        Australia\""},{"label":"Victoria","i18nCode":"stateProvince.Victoria","count":1,"fq":"stateProvince:\"Victoria\""}],"count":3}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22UNKNOWN%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222020%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:39 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=aayEHy1CtAqsyw82lp4YrYK2ehM+8lHY54hPCcq5DDJNBQT4Tea8miR2b2qKvMBbrjffs4exesJoyTM1JGvi/tzNWWA8AHRFnmaqGHuQ0r7Q+QkQCO1ZOO4jj0oQuhbdA9oAhIEDK7HY/3syizVMQfRu7nI6+wpdSP7vgjtG4y6f;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/
+      - AWSALBTGCORS=aayEHy1CtAqsyw82lp4YrYK2ehM+8lHY54hPCcq5DDJNBQT4Tea8miR2b2qKvMBbrjffs4exesJoyTM1JGvi/tzNWWA8AHRFnmaqGHuQ0r7Q+QkQCO1ZOO4jj0oQuhbdA9oAhIEDK7HY/3syizVMQfRu7nI6+wpdSP7vgjtG4y6f;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=rAhWSrV1HpH3Kvm3oR3QxzDeAKtivdEormp4vTnzEKRCnG7RPW63gvL2o667Gx+emmvjNeG4kqM1lFPjg+UoLIEx+LFYnfqyjcaeEOKCvVtgzPVINKDdFzLHJzQJ;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/
+      - AWSALBCORS=rAhWSrV1HpH3Kvm3oR3QxzDeAKtivdEormp4vTnzEKRCnG7RPW63gvL2o667Gx+emmvjNeG4kqM1lFPjg+UoLIEx+LFYnfqyjcaeEOKCvVtgzPVINKDdFzLHJzQJ;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22PRESERVED_SPECIMEN%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222020%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:39 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=Dr54xeVJuxh+hQzip8LXNtagr56zIaG5BL3HAuOTrTelOJZMHR9gZWcQMtgwGq/ff23ucG0fWWLtcVaF9UoqLmsT8ZiLjvCH4SpBLBaulLvzYt3lH6CvGi1cuPBwmLpCrq8zjsb05vOGVo6PzxWbXTi4SPAyn7Yy16FeGxDcEwWS;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/
+      - AWSALBTGCORS=Dr54xeVJuxh+hQzip8LXNtagr56zIaG5BL3HAuOTrTelOJZMHR9gZWcQMtgwGq/ff23ucG0fWWLtcVaF9UoqLmsT8ZiLjvCH4SpBLBaulLvzYt3lH6CvGi1cuPBwmLpCrq8zjsb05vOGVo6PzxWbXTi4SPAyn7Yy16FeGxDcEwWS;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=+Lejid2NarVJx36pNj5HXBDXaVNhDIlqLfJpBaCvRMjpYBYx/hq4BPwiOsBbK5k19L/XHklo4Aquw4cQgjbENiVONJbUCSvn7nalJBtgddRflA3NDVLsiAzvBpxE;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/
+      - AWSALBCORS=+Lejid2NarVJx36pNj5HXBDXaVNhDIlqLfJpBaCvRMjpYBYx/hq4BPwiOsBbK5k19L/XHklo4Aquw4cQgjbENiVONJbUCSvn7nalJBtgddRflA3NDVLsiAzvBpxE;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22MATERIAL_SAMPLE%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222020%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:39 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=oMl1lSZfzUVaiHTO+ZkOqcpVgQTZ6MerKJSowI0btZ8E/kVQV52/2nuL+9nbxv/OUrsqPfZ3medJmktkLXF5+qi8HQ9w/yt7jbtMVuwcAxGWqPNXEZJTB/vPMMU8wj1q28Xqkowy5IUXc4n3hdQwpwBJEUWEQFQCvHz+1/OK+c95;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/
+      - AWSALBTGCORS=oMl1lSZfzUVaiHTO+ZkOqcpVgQTZ6MerKJSowI0btZ8E/kVQV52/2nuL+9nbxv/OUrsqPfZ3medJmktkLXF5+qi8HQ9w/yt7jbtMVuwcAxGWqPNXEZJTB/vPMMU8wj1q28Xqkowy5IUXc4n3hdQwpwBJEUWEQFQCvHz+1/OK+c95;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=4MmcKpYZBdFqx0A+kG9gu1D1MaPdySccYsIFp9gMpYRm7NjG6C2D/abieZDZiZmbiss7XBIyPIw1W53mYSDTbsgYLJ15Ixol91ePe5er4nVqvtMXJfPQH3Awwa/Q;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/
+      - AWSALBCORS=4MmcKpYZBdFqx0A+kG9gu1D1MaPdySccYsIFp9gMpYRm7NjG6C2D/abieZDZiZmbiss7XBIyPIw1W53mYSDTbsgYLJ15Ixol91ePe5er4nVqvtMXJfPQH3Awwa/Q;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22HUMAN_OBSERVATION%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222021%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:39 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=dqubI+uVu1/hSVLmwtTSqfjuTfHdWiAWrXmmZZ0oXHZPd0rzTCqSJX3FLGpQGI5DJYgJqhbOMccUqIPee6Ybc0+WST3YuExfLO5IiH4e4Cq2Aub3dvCnRRAvnNT/hprtwHlvJhh5cvYDPbEd7EmRAS2EK+BrDhrrQDSaY5X0I3VA;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/
+      - AWSALBTGCORS=dqubI+uVu1/hSVLmwtTSqfjuTfHdWiAWrXmmZZ0oXHZPd0rzTCqSJX3FLGpQGI5DJYgJqhbOMccUqIPee6Ybc0+WST3YuExfLO5IiH4e4Cq2Aub3dvCnRRAvnNT/hprtwHlvJhh5cvYDPbEd7EmRAS2EK+BrDhrrQDSaY5X0I3VA;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=ePpAwHMixTmTBh/vAebiNZoDNA3jQQveiL5rzlpgL8jFAPwUHLIDHTz+3dc7hHZxfImdpNraxoQOmVB+ddtfHrDzlocyW4AkMNT74UKn7cd9P2TR4d7jTdClDoLz;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/
+      - AWSALBCORS=ePpAwHMixTmTBh/vAebiNZoDNA3jQQveiL5rzlpgL8jFAPwUHLIDHTz+3dc7hHZxfImdpNraxoQOmVB+ddtfHrDzlocyW4AkMNT74UKn7cd9P2TR4d7jTdClDoLz;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"New South Wales","i18nCode":"stateProvince.New
+        South Wales","count":3242,"fq":"stateProvince:\"New South Wales\""}],"count":8}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22HUMAN_OBSERVATION%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222021%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:39 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=4MqTGc5aUpcaxDRCjy+5Nm7gpmyXkH+Lvjmf+0D6qWvTSXWzKydsSViDBWJhQKUnA4hpFoPOZ38kAwYdrrM70udrrfXUIQk4KiiD7PyRefrYhNnsj9yEAjDfWiY13+ElOQXyTMAq9j/HYWmWBm5cPQhseJNL7+MNh8s+8YwyKGlw;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/
+      - AWSALBTGCORS=4MqTGc5aUpcaxDRCjy+5Nm7gpmyXkH+Lvjmf+0D6qWvTSXWzKydsSViDBWJhQKUnA4hpFoPOZ38kAwYdrrM70udrrfXUIQk4KiiD7PyRefrYhNnsj9yEAjDfWiY13+ElOQXyTMAq9j/HYWmWBm5cPQhseJNL7+MNh8s+8YwyKGlw;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=E0GZJIwjG8Y+9+3XP5Q52AfVU89SZ17kOXah48cj9v6hm/n8kpzU1gVL+W7zIDd6irXT+PlZ3gaopqvjcA+thwTSSaR/BNUI/N2gwQYgPHs2xVyw2RlZ7HSS9gBj;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/
+      - AWSALBCORS=E0GZJIwjG8Y+9+3XP5Q52AfVU89SZ17kOXah48cj9v6hm/n8kpzU1gVL+W7zIDd6irXT+PlZ3gaopqvjcA+thwTSSaR/BNUI/N2gwQYgPHs2xVyw2RlZ7HSS9gBj;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"New South Wales","i18nCode":"stateProvince.New
+        South Wales","count":3242,"fq":"stateProvince:\"New South Wales\""},{"label":"Victoria","i18nCode":"stateProvince.Victoria","count":2600,"fq":"stateProvince:\"Victoria\""},{"label":"Queensland","i18nCode":"stateProvince.Queensland","count":1230,"fq":"stateProvince:\"Queensland\""},{"label":"South
+        Australia","i18nCode":"stateProvince.South Australia","count":1028,"fq":"stateProvince:\"South
+        Australia\""},{"label":"Western Australia","i18nCode":"stateProvince.Western
+        Australia","count":535,"fq":"stateProvince:\"Western Australia\""},{"label":"Australian
+        Capital Territory","i18nCode":"stateProvince.Australian Capital Territory","count":509,"fq":"stateProvince:\"Australian
+        Capital Territory\""},{"label":"Northern Territory","i18nCode":"stateProvince.Northern
+        Territory","count":80,"fq":"stateProvince:\"Northern Territory\""},{"label":"Tasmania","i18nCode":"stateProvince.Tasmania","count":67,"fq":"stateProvince:\"Tasmania\""}],"count":8}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22UNKNOWN%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222021%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:40 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=jLP33JW4K+gz3v+K8x+99t1BmZhQVDoGpVbtb7mKc132jQFL53QUynNC3tFpTW91V95OcN7SmpBpec3jjUlKxpiS5s0a9LCThMFc5gOMge/BOw1fHSVHi5gBM7aEN+4jTEAUYTuI2QAmNfmoiP4G+6I+/P9v/LC2W5avbB1nwe0a;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/
+      - AWSALBTGCORS=jLP33JW4K+gz3v+K8x+99t1BmZhQVDoGpVbtb7mKc132jQFL53QUynNC3tFpTW91V95OcN7SmpBpec3jjUlKxpiS5s0a9LCThMFc5gOMge/BOw1fHSVHi5gBM7aEN+4jTEAUYTuI2QAmNfmoiP4G+6I+/P9v/LC2W5avbB1nwe0a;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=EH7poHodAf/Ix9dDczENgZQ9NvrmGlGhA49A8ExDZM7RoTEGoVyUBsEpVav0vy2bWDdxjJXOVLk00L/ODf3+Oh+Nr8GqaAspjHjvwB54tf13qoCFRukK4hUdlnO/;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/
+      - AWSALBCORS=EH7poHodAf/Ix9dDczENgZQ9NvrmGlGhA49A8ExDZM7RoTEGoVyUBsEpVav0vy2bWDdxjJXOVLk00L/ODf3+Oh+Nr8GqaAspjHjvwB54tf13qoCFRukK4hUdlnO/;
+        Expires=Fri, 28 Jan 2022 06:18:39 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"New South Wales","i18nCode":"stateProvince.New
+        South Wales","count":3,"fq":"stateProvince:\"New South Wales\""}],"count":1}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22UNKNOWN%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222021%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:40 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=0Kz8rOLzqgyEMhB8dc6HU+IebmLsQ66JcneCh9i4pagYabdCdh2GltTAN6nO/6E3JkmQqMWj4QcLR1PQfj07wcB3ljrjrlQrVUvXaa78+e1aw1iXu+CdZ7C4zsKwHvAu6P30q834tGDEqy+VYd96lSWaV097QSdNxGF8HMoDA9rL;
+        Expires=Fri, 28 Jan 2022 06:18:40 GMT; Path=/
+      - AWSALBTGCORS=0Kz8rOLzqgyEMhB8dc6HU+IebmLsQ66JcneCh9i4pagYabdCdh2GltTAN6nO/6E3JkmQqMWj4QcLR1PQfj07wcB3ljrjrlQrVUvXaa78+e1aw1iXu+CdZ7C4zsKwHvAu6P30q834tGDEqy+VYd96lSWaV097QSdNxGF8HMoDA9rL;
+        Expires=Fri, 28 Jan 2022 06:18:40 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=co4NlmDZwuayRcrDkjKEKno0Ci/QlS8CLcfQkXdeLgrQe37J/5zAOUXcFNupQg4/sI2TjEx4w8RJ3QyQKxsrqGP0Dqx0ui+NNN2+PRiP48fgogCfX8JEFeU/tvT2;
+        Expires=Fri, 28 Jan 2022 06:18:40 GMT; Path=/
+      - AWSALBCORS=co4NlmDZwuayRcrDkjKEKno0Ci/QlS8CLcfQkXdeLgrQe37J/5zAOUXcFNupQg4/sI2TjEx4w8RJ3QyQKxsrqGP0Dqx0ui+NNN2+PRiP48fgogCfX8JEFeU/tvT2;
+        Expires=Fri, 28 Jan 2022 06:18:40 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"New South Wales","i18nCode":"stateProvince.New
+        South Wales","count":3,"fq":"stateProvince:\"New South Wales\""}],"count":1}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22PRESERVED_SPECIMEN%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222021%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:41 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=Fqri8WwqgMCU3/x6CNx3AKr+onvX/CltkEhVZv23X0Lqs35mIubn9+7mGjD8YvIWFDl8ev/EY0KecNSUqiPKxBzKjt94G539otg+fSdGRaQ8kO/arV9HqC+34fU5q42gft08PJ0r0Nt+XiGcN8zJ6Flf0DLdXq3PpCmPhQjPvVo5;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBTGCORS=Fqri8WwqgMCU3/x6CNx3AKr+onvX/CltkEhVZv23X0Lqs35mIubn9+7mGjD8YvIWFDl8ev/EY0KecNSUqiPKxBzKjt94G539otg+fSdGRaQ8kO/arV9HqC+34fU5q42gft08PJ0r0Nt+XiGcN8zJ6Flf0DLdXq3PpCmPhQjPvVo5;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=ODihs/fdV5DisCUQQ476lX5KoEPEqIr6hTq6/drDV7WZ8Zmx0QxX8UbVj+3L2Z9wyv0hGGfeq678vGLtxJILDShtKFHSn1PsrWgQM5W5nXmy9ytfQz0AZyHYSLSw;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBCORS=ODihs/fdV5DisCUQQ476lX5KoEPEqIr6hTq6/drDV7WZ8Zmx0QxX8UbVj+3L2Z9wyv0hGGfeq678vGLtxJILDShtKFHSn1PsrWgQM5W5nXmy9ytfQz0AZyHYSLSw;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"Australian Capital
+        Territory","i18nCode":"stateProvince.Australian Capital Territory","count":1,"fq":"stateProvince:\"Australian
+        Capital Territory\""}],"count":1}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22PRESERVED_SPECIMEN%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222021%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:41 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=Kk3ojgMwAzjaP4dbRt7tmawQqRGnbkS7+oQa9PhWm40e0o/NSlVTJWNbPSCr0imvXqc18MW8qyP9afWpiB9zoZMUAgxAeCz57JsoGNdB250wMiCCKRMKuqRO/tN0Yrv+QfwS1o0/z1CxMo3fdbVTIRR9AdVXCW9TZ3n9qJ2t2jnT;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBTGCORS=Kk3ojgMwAzjaP4dbRt7tmawQqRGnbkS7+oQa9PhWm40e0o/NSlVTJWNbPSCr0imvXqc18MW8qyP9afWpiB9zoZMUAgxAeCz57JsoGNdB250wMiCCKRMKuqRO/tN0Yrv+QfwS1o0/z1CxMo3fdbVTIRR9AdVXCW9TZ3n9qJ2t2jnT;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=YPYZsTFgI5oVML7E3+xZ9EOmLPJoEsbcfQU+5BQ9TSW7GvNaS9GTi2Fmw+T1EKeRtOMw5rRsxhhAKonKhueX/KO6RrbJyya7ONeLyRE5VoRfUYHlA/9mfYfSd9aA;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBCORS=YPYZsTFgI5oVML7E3+xZ9EOmLPJoEsbcfQU+5BQ9TSW7GvNaS9GTi2Fmw+T1EKeRtOMw5rRsxhhAKonKhueX/KO6RrbJyya7ONeLyRE5VoRfUYHlA/9mfYfSd9aA;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"Australian Capital
+        Territory","i18nCode":"stateProvince.Australian Capital Territory","count":1,"fq":"stateProvince:\"Australian
+        Capital Territory\""}],"count":1}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22MATERIAL_SAMPLE%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222021%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:41 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=56MCQczbkt9JiKCyLdGAfFgJnjNKJh8D/I7/D+/tXTHIV8K3HOJfLODhSPutX+51z/70+AOb+IdpBTOrmBgb49pr0j1v+htDr0J+to+lrH9UkmNXkPEG29E8/QWWaIowGF8zk8BkSgV9qJ1xzEJ2qjVuWJv3EcVKw8pDW1MpNUGs;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBTGCORS=56MCQczbkt9JiKCyLdGAfFgJnjNKJh8D/I7/D+/tXTHIV8K3HOJfLODhSPutX+51z/70+AOb+IdpBTOrmBgb49pr0j1v+htDr0J+to+lrH9UkmNXkPEG29E8/QWWaIowGF8zk8BkSgV9qJ1xzEJ2qjVuWJv3EcVKw8pDW1MpNUGs;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=oDV/C5Ho0b4x154r0D1kJsTJJAkWSApd5IAQn1llWPqrgOAikgXIachq+8yQRaCzjxVLgvCR0FLsIT6ypJ+FZoD8Korxe9eJ/tU8JQEje/L9eaJlJdLHAUf2gQbJ;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBCORS=oDV/C5Ho0b4x154r0D1kJsTJJAkWSApd5IAQn1llWPqrgOAikgXIachq+8yQRaCzjxVLgvCR0FLsIT6ypJ+FZoD8Korxe9eJ/tU8JQEje/L9eaJlJdLHAUf2gQbJ;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"Australian Capital
+        Territory","i18nCode":"stateProvince.Australian Capital Territory","count":1,"fq":"stateProvince:\"Australian
+        Capital Territory\""}],"count":1}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22MATERIAL_SAMPLE%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222021%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:41 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=96/sS4r4nnPxWiW96PNiKjUo037nRJBa2CVtyPNxhnPUD7HG5xw0x6Zof69onM8q3C7uObCj8GAj8IT4tiICV5zeSvVJjAcbnl2GECh7r/sbn0uQd0leNdagOFOVdu8ZZh7XQl+DEFoqpZ87bRhk4+qbxuTQzyC1TwPhn1YqFGVr;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBTGCORS=96/sS4r4nnPxWiW96PNiKjUo037nRJBa2CVtyPNxhnPUD7HG5xw0x6Zof69onM8q3C7uObCj8GAj8IT4tiICV5zeSvVJjAcbnl2GECh7r/sbn0uQd0leNdagOFOVdu8ZZh7XQl+DEFoqpZ87bRhk4+qbxuTQzyC1TwPhn1YqFGVr;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=WGbDunoGC3rGAAeaGUcrEeokUg4FFRccOR5cb4KsxUvXPzBge+MURcOesZWgRNmPTaQhVQ8+ioBYmoTZqvxRaKDu/YGLZQ7hdckrmtemNseuRNaCzjQWk5IHrxpT;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBCORS=WGbDunoGC3rGAAeaGUcrEeokUg4FFRccOR5cb4KsxUvXPzBge+MURcOesZWgRNmPTaQhVQ8+ioBYmoTZqvxRaKDu/YGLZQ7hdckrmtemNseuRNaCzjQWk5IHrxpT;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"Australian Capital
+        Territory","i18nCode":"stateProvince.Australian Capital Territory","count":1,"fq":"stateProvince:\"Australian
+        Capital Territory\""}],"count":1}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22HUMAN_OBSERVATION%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222021%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:41 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=ypYTPaGhwsDfXKFoUKKkP3A8XrbcdfIsmlpzZkNztz1xyVXkWabVlfy2EBAxLvuKZYqNDm4NVQWlyysUSHsQ4D9Ic2terbfwb3ynu4eI30aI6RW769njH22KbaQgztrtrURAclfbZxrvWiHTri7OpmRYn+lG+qLR0B84rgvdav2v;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBTGCORS=ypYTPaGhwsDfXKFoUKKkP3A8XrbcdfIsmlpzZkNztz1xyVXkWabVlfy2EBAxLvuKZYqNDm4NVQWlyysUSHsQ4D9Ic2terbfwb3ynu4eI30aI6RW769njH22KbaQgztrtrURAclfbZxrvWiHTri7OpmRYn+lG+qLR0B84rgvdav2v;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=dqve66KU32C/Ic/88HfMfwiWkH5htRxcsrfPjRFp+hET33dGAzyjW8qDWZRZiSp1SZhCyyxlaIurKKI5VdeAyUc3WUub0csfBah778oiEXDYHXH4moOzlOhihaj4;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBCORS=dqve66KU32C/Ic/88HfMfwiWkH5htRxcsrfPjRFp+hET33dGAzyjW8qDWZRZiSp1SZhCyyxlaIurKKI5VdeAyUc3WUub0csfBah778oiEXDYHXH4moOzlOhihaj4;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"South Australia","i18nCode":"stateProvince.South
+        Australia","count":1,"fq":"stateProvince:\"South Australia\""}],"count":1}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22HUMAN_OBSERVATION%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222021%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:41 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=iy/l+hrRhSfMZu3MgiTKkVdynTCo/OlT7z7n5aNhviHyS97gcfJk6LXYHSycns6ePnCtSxLMB9RZuHDZOBf65iS5MaxSBJBYMqcz6XyvZR8KhyCnvJNQc3KW8Q5+x/Pn+yON+hhkvfDNJ1opyBTQx7ETc1a/ZKtTEGlrMyFGY7AV;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBTGCORS=iy/l+hrRhSfMZu3MgiTKkVdynTCo/OlT7z7n5aNhviHyS97gcfJk6LXYHSycns6ePnCtSxLMB9RZuHDZOBf65iS5MaxSBJBYMqcz6XyvZR8KhyCnvJNQc3KW8Q5+x/Pn+yON+hhkvfDNJ1opyBTQx7ETc1a/ZKtTEGlrMyFGY7AV;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=uMUA2BE057Q0VY6PP8jtWlIOqabZJ4y4yYHLe3ThRbFw4zOGgF4y02ezYvza/reUfppgoErV/OarIte6X0gNF4URfVe+UcpHLI+N4wtQxXUh/I2NVMfMy0fR93on;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBCORS=uMUA2BE057Q0VY6PP8jtWlIOqabZJ4y4yYHLe3ThRbFw4zOGgF4y02ezYvza/reUfppgoErV/OarIte6X0gNF4URfVe+UcpHLI+N4wtQxXUh/I2NVMfMy0fR93on;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"South Australia","i18nCode":"stateProvince.South
+        Australia","count":1,"fq":"stateProvince:\"South Australia\""}],"count":1}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22UNKNOWN%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222021%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:42 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=03cCzvGnGnF6usTALpVVkt+qro2qc77illrzZeomu2hX1jRZc8SREWljUubzezlheTzFn2r7OX9payN6F1U1mL1sfUb1HvO1w3OWEj2HE3p08VPOyB8CE2o3a0KQ2/KkzP7sAO1eFSohPmb/SsVUhE7XXxoWadTNxja/N+yZAH9/;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBTGCORS=03cCzvGnGnF6usTALpVVkt+qro2qc77illrzZeomu2hX1jRZc8SREWljUubzezlheTzFn2r7OX9payN6F1U1mL1sfUb1HvO1w3OWEj2HE3p08VPOyB8CE2o3a0KQ2/KkzP7sAO1eFSohPmb/SsVUhE7XXxoWadTNxja/N+yZAH9/;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=6GJRgxuWINcj2EeY+/SBLNsLyFwAO95AVr7kvmMtYywJ9NhSWs+SDTv6ZxEgY3pSWLpSsaVFKETKrk9KljVa3fwHZZEisABh+cpGtSTWsEyptDyhGGE9egHjtXgO;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/
+      - AWSALBCORS=6GJRgxuWINcj2EeY+/SBLNsLyFwAO95AVr7kvmMtYywJ9NhSWs+SDTv6ZxEgY3pSWLpSsaVFKETKrk9KljVa3fwHZZEisABh+cpGtSTWsEyptDyhGGE9egHjtXgO;
+        Expires=Fri, 28 Jan 2022 06:18:41 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22PRESERVED_SPECIMEN%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222021%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:42 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=XHS/DKwhoShMPzBi/fo8PdmAvLlzSrqBJSZjPBgYi0AjHTiFH+LXH2AFh6Wd3se628wryyFPZiiIbaORjhuqkEk70RuOjLXIw4/EEabx+k7OlfevCgKscgJrNg8GU/y/oayGxXqnndmIjzxobRm4VEGvo01Che2k7glLcdswB1AZ;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBTGCORS=XHS/DKwhoShMPzBi/fo8PdmAvLlzSrqBJSZjPBgYi0AjHTiFH+LXH2AFh6Wd3se628wryyFPZiiIbaORjhuqkEk70RuOjLXIw4/EEabx+k7OlfevCgKscgJrNg8GU/y/oayGxXqnndmIjzxobRm4VEGvo01Che2k7glLcdswB1AZ;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=vUsgyZ4LTC62uVYzARv2VM3Y9uxaC+Bo+18NxDCGN2j/HPqsC4a4Iomh2YrvslieGSMAwR0Aeijc3rp0RUaBE4KtrY/Ri6b1fdPrgd/HHU+Cr5V2YFv6gGHOEOte;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBCORS=vUsgyZ4LTC62uVYzARv2VM3Y9uxaC+Bo+18NxDCGN2j/HPqsC4a4Iomh2YrvslieGSMAwR0Aeijc3rp0RUaBE4KtrY/Ri6b1fdPrgd/HHU+Cr5V2YFv6gGHOEOte;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22MATERIAL_SAMPLE%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222021%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:42 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=SCJxipMaLOEVa6TlQTO23mFwO6d47iQ5C/IX0+8lHdSWZdvPLGd15rxwa7bO0wsUUKjzn2XaayxriJy40M7E0bL5PVpueGXEsFdm8cBT3cS25lLe5SP8RkY/+UB46HEMvm38nj+JxT+uNhSLud/qu7wS/93TwGS+Qu6aGf05VHoO;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBTGCORS=SCJxipMaLOEVa6TlQTO23mFwO6d47iQ5C/IX0+8lHdSWZdvPLGd15rxwa7bO0wsUUKjzn2XaayxriJy40M7E0bL5PVpueGXEsFdm8cBT3cS25lLe5SP8RkY/+UB46HEMvm38nj+JxT+uNhSLud/qu7wS/93TwGS+Qu6aGf05VHoO;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=ZJEcf2dprKAGdsE22vY+EPJo4JApLUNdIw9/j31lCn+C+0PeE95QEFKXoaxeqEjZmFjcrLgYoR9AcnYUVZq/iu/fghQj0f6l5X8PVgDHFbTTBgbyjAYXREYjXOyq;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBCORS=ZJEcf2dprKAGdsE22vY+EPJo4JApLUNdIw9/j31lCn+C+0PeE95QEFKXoaxeqEjZmFjcrLgYoR9AcnYUVZq/iu/fghQj0f6l5X8PVgDHFbTTBgbyjAYXREYjXOyq;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22HUMAN_OBSERVATION%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222022%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:42 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=ePeSBmyAiydQzZ5A/hMTt0VsB2B1C9VI5TzWFNexFNOssBBttLejIVRcq6SPqhDq3RWWnBrO28LmD51ldmyvwpXBvFMcvP/sd+SmoNnbDdn2Jx2VQfGcpsWEUTzvejdF6J3IHL4gor0evd8J0ghjaQ+yetuMucDEbYKMl9hFQWaz;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBTGCORS=ePeSBmyAiydQzZ5A/hMTt0VsB2B1C9VI5TzWFNexFNOssBBttLejIVRcq6SPqhDq3RWWnBrO28LmD51ldmyvwpXBvFMcvP/sd+SmoNnbDdn2Jx2VQfGcpsWEUTzvejdF6J3IHL4gor0evd8J0ghjaQ+yetuMucDEbYKMl9hFQWaz;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=IAypTIhsDtOQ9RLIge8cKhhUCvQnA/O6errfYh1DOIhxLec1n1pxhRalhWOPvC0655jF/2YDUOIo5btbVu3QZ6C8m8pwwymWdQnzSxU5971G7nCQ0bVPgTKWISJb;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBCORS=IAypTIhsDtOQ9RLIge8cKhhUCvQnA/O6errfYh1DOIhxLec1n1pxhRalhWOPvC0655jF/2YDUOIo5btbVu3QZ6C8m8pwwymWdQnzSxU5971G7nCQ0bVPgTKWISJb;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"New South Wales","i18nCode":"stateProvince.New
+        South Wales","count":91,"fq":"stateProvince:\"New South Wales\""}],"count":8}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=100&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22HUMAN_OBSERVATION%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222022%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:42 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=ALoeGFi9LS9mWhGoZTI79hLWd2AwY2fuu0rRLHX34WDeTIBHia7LWNBBdv0Kf4qlaUwBwPA7idc2CNv6QGXLYw7foJUtzrOqrcp0bgQ8tXsGQNPysaR8otVHdLZRRB6NwZXLZ/WmosgZCEwA6MCle9MvhFi6K0c9Nqxr9r6RX6Zf;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBTGCORS=ALoeGFi9LS9mWhGoZTI79hLWd2AwY2fuu0rRLHX34WDeTIBHia7LWNBBdv0Kf4qlaUwBwPA7idc2CNv6QGXLYw7foJUtzrOqrcp0bgQ8tXsGQNPysaR8otVHdLZRRB6NwZXLZ/WmosgZCEwA6MCle9MvhFi6K0c9Nqxr9r6RX6Zf;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=ydtC381cXCQUSeZ8Z5RrdwPuk/ZBFuQ/kx47Wdo1Lxvmk3VumJ3woKgdfpzjktxC1MjQBsav4ntk/Uod93yDuxwcGA3EDaIF9DwRftn+ifEhnVMs3XZM1xp0OanR;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBCORS=ydtC381cXCQUSeZ8Z5RrdwPuk/ZBFuQ/kx47Wdo1Lxvmk3VumJ3woKgdfpzjktxC1MjQBsav4ntk/Uod93yDuxwcGA3EDaIF9DwRftn+ifEhnVMs3XZM1xp0OanR;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"stateProvince","fieldResult":[{"label":"New South Wales","i18nCode":"stateProvince.New
+        South Wales","count":91,"fq":"stateProvince:\"New South Wales\""},{"label":"Victoria","i18nCode":"stateProvince.Victoria","count":82,"fq":"stateProvince:\"Victoria\""},{"label":"South
+        Australia","i18nCode":"stateProvince.South Australia","count":51,"fq":"stateProvince:\"South
+        Australia\""},{"label":"Queensland","i18nCode":"stateProvince.Queensland","count":35,"fq":"stateProvince:\"Queensland\""},{"label":"Australian
+        Capital Territory","i18nCode":"stateProvince.Australian Capital Territory","count":29,"fq":"stateProvince:\"Australian
+        Capital Territory\""},{"label":"Western Australia","i18nCode":"stateProvince.Western
+        Australia","count":22,"fq":"stateProvince:\"Western Australia\""},{"label":"Tasmania","i18nCode":"stateProvince.Tasmania","count":4,"fq":"stateProvince:\"Tasmania\""},{"label":"Northern
+        Territory","i18nCode":"stateProvince.Northern Territory","count":2,"fq":"stateProvince:\"Northern
+        Territory\""}],"count":8}]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22UNKNOWN%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222022%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:42 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=h2tNFd6aiuwMkg/WNsMeF6bPyJjKxofR7Ss2eeKjS/Ld91cJ6wDmBg1utnhBlPVEMglYsPoDvsle/anLOmJdF0LRIzhx8vXNoHJN530cXZWLmK/RqM6Or1OfAC7lXaLkI9SZ56e5IsR+IUT94+ot0DOrbpuxfS1cDDIBw67JNHmL;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBTGCORS=h2tNFd6aiuwMkg/WNsMeF6bPyJjKxofR7Ss2eeKjS/Ld91cJ6wDmBg1utnhBlPVEMglYsPoDvsle/anLOmJdF0LRIzhx8vXNoHJN530cXZWLmK/RqM6Or1OfAC7lXaLkI9SZ56e5IsR+IUT94+ot0DOrbpuxfS1cDDIBw67JNHmL;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=U11EFKMN7lR3uApMdr+apv2BsT9B470rH3r/wmP/gzSHzvKjvCqv9Oe39u2lH2VtH9W9kvDqtimQYo+71+AsoLAsVI2wE/j7eb5ucgUYcA9VC0PDSIwzTbwxI1cG;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBCORS=U11EFKMN7lR3uApMdr+apv2BsT9B470rH3r/wmP/gzSHzvKjvCqv9Oe39u2lH2VtH9W9kvDqtimQYo+71+AsoLAsVI2wE/j7eb5ucgUYcA9VC0PDSIwzTbwxI1cG;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22PRESERVED_SPECIMEN%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222022%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:42 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=eQCZ4pSdBZM0DVnNBFiTSudfWIXgDLYDYP3EIyrSmMqtkTsXTTNFzZJNyyfdjpTrNzG1zHwvmZ5OE+JJ6XM3XIPAwsI4anP8toz7f13tIK3453XRTTpf1hcJErcIuTS3UNeKKOSJoydYKGsi8BKK07NePkVQL+3q7pnWZDRRQX8G;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBTGCORS=eQCZ4pSdBZM0DVnNBFiTSudfWIXgDLYDYP3EIyrSmMqtkTsXTTNFzZJNyyfdjpTrNzG1zHwvmZ5OE+JJ6XM3XIPAwsI4anP8toz7f13tIK3453XRTTpf1hcJErcIuTS3UNeKKOSJoydYKGsi8BKK07NePkVQL+3q7pnWZDRRQX8G;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=bddI3dJl3m5t9PjHPcXxPnITjMCreL75Czh3FY/5xN9mGMj8LSGUvVAUX1lkSF0FiKDNNTYdN2KPmAKUVGHqIe6yI02eW3I5dHnjISyqGYroh2gL5XtUQz9J+PaH;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBCORS=bddI3dJl3m5t9PjHPcXxPnITjMCreL75Czh3FY/5xN9mGMj8LSGUvVAUX1lkSF0FiKDNNTYdN2KPmAKUVGHqIe6yI02eW3I5dHnjISyqGYroh2gL5XtUQz9J+PaH;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22MATERIAL_SAMPLE%22)%20AND%20(biome:%22TERRESTRIAL%22)%20AND%20(year:%222022%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:42 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=JNEPKJ1IpBenbnq59ime1+bQN1Y9DtyBkbYDlf7evLM2pbBBejdq2G6MDE+eaSDy+vlcRvbUShbSrVea0J9X56dKNZxu60Mg9ZqQaI89p4lC8JDoC96Ir5fThIvpaGkDotM5g4CRRElDGSsrLkKGkTa+5JueSWHWytV+gmkJop7L;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBTGCORS=JNEPKJ1IpBenbnq59ime1+bQN1Y9DtyBkbYDlf7evLM2pbBBejdq2G6MDE+eaSDy+vlcRvbUShbSrVea0J9X56dKNZxu60Mg9ZqQaI89p4lC8JDoC96Ir5fThIvpaGkDotM5g4CRRElDGSsrLkKGkTa+5JueSWHWytV+gmkJop7L;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=GTZ1/RwqMsklaTbuWG3g0/cvIbPJDxFD6S6n6nvYgEOshRwD8ACuy1WnvT2beCHqGvUwFVfCSD/FU8XsGR6UePIQwKCJVxv/ivrCmKJq/Qzfbd8M300mmFWSPQJZ;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/
+      - AWSALBCORS=GTZ1/RwqMsklaTbuWG3g0/cvIbPJDxFD6S6n6nvYgEOshRwD8ACuy1WnvT2beCHqGvUwFVfCSD/FU8XsGR6UePIQwKCJVxv/ivrCmKJq/Qzfbd8M300mmFWSPQJZ;
+        Expires=Fri, 28 Jan 2022 06:18:42 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22HUMAN_OBSERVATION%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222022%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:43 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=iwl1t2Lm9U1o7Fq8wHnL6CDyvykPK22/EOEyjCjwQrdTYMSE0i9dBGmOpKfaFqDkko07GdPE4tyKEVAlJs6Chh9Hv/s+sdAvvDVos/WQ6CxzInwkf26YUA157z8lVXGiSIaNUGuiHT1MZg9UYfCtsIg5D5O7S+AS0PFIWm4c0c/P;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/
+      - AWSALBTGCORS=iwl1t2Lm9U1o7Fq8wHnL6CDyvykPK22/EOEyjCjwQrdTYMSE0i9dBGmOpKfaFqDkko07GdPE4tyKEVAlJs6Chh9Hv/s+sdAvvDVos/WQ6CxzInwkf26YUA157z8lVXGiSIaNUGuiHT1MZg9UYfCtsIg5D5O7S+AS0PFIWm4c0c/P;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=JVIgMdS7ZNDjYAZz76yLm6n6YvqB9iJvGwPdNZm2dmL4bmjSQeN/gwjawT8hgKCaT1uUZUXiLjPmPxPgRgEA16iFXSbjeWgRhosaapHeYCPevb5YKfG5k1mzg0ub;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/
+      - AWSALBCORS=JVIgMdS7ZNDjYAZz76yLm6n6YvqB9iJvGwPdNZm2dmL4bmjSQeN/gwjawT8hgKCaT1uUZUXiLjPmPxPgRgEA16iFXSbjeWgRhosaapHeYCPevb5YKfG5k1mzg0ub;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22UNKNOWN%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222022%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:43 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=SokhcGSNUPL7COewjDTwVZGZz5gVcIQV1V2fT62xn49AkuUCCL2pQ8LPKpqJ1rcXlQeztQucvGQx8dlxwloibI/yJEJBHVzFOPJvEqTcPKCRB5jsv6fpDY8vr9OOGHXAfI8fQxCSlY/yTDNoYY9ktIXKouM9EDR2+FnRYCfdOSZm;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/
+      - AWSALBTGCORS=SokhcGSNUPL7COewjDTwVZGZz5gVcIQV1V2fT62xn49AkuUCCL2pQ8LPKpqJ1rcXlQeztQucvGQx8dlxwloibI/yJEJBHVzFOPJvEqTcPKCRB5jsv6fpDY8vr9OOGHXAfI8fQxCSlY/yTDNoYY9ktIXKouM9EDR2+FnRYCfdOSZm;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=cqhBrAqpdD8gftQ/ip/700g9asedJTWF+qWNXjWoJgqkosHXWgi7myuYITKHlr+PJ6vtwHprwRRNBuAshR+syueNZc59wSRER8kZ8K6L+D7eYU6Cbc5tgw0GuOxG;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/
+      - AWSALBCORS=cqhBrAqpdD8gftQ/ip/700g9asedJTWF+qWNXjWoJgqkosHXWgi7myuYITKHlr+PJ6vtwHprwRRNBuAshR+syueNZc59wSRER8kZ8K6L+D7eYU6Cbc5tgw0GuOxG;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22PRESERVED_SPECIMEN%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222022%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:43 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=wQszKyEnw9dwXnfRHilGvxm3PxE7/Pld71e/MUVF0rDfJb3taFTc6ReVGvgn2ZKwB57jh00awWh5tiwp1hDt9e87GlprE0D4iteNdAItl560DFML9npuJJmb4n9Ad+yxF2bAQerkxsEe4z/L0f7XJz3fyo6ji+he6J7x6VZzLC4m;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/
+      - AWSALBTGCORS=wQszKyEnw9dwXnfRHilGvxm3PxE7/Pld71e/MUVF0rDfJb3taFTc6ReVGvgn2ZKwB57jh00awWh5tiwp1hDt9e87GlprE0D4iteNdAItl560DFML9npuJJmb4n9Ad+yxF2bAQerkxsEe4z/L0f7XJz3fyo6ji+he6J7x6VZzLC4m;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=VdkdC/DmWVQVNdDLXlY5lP/wO75rSodeAZMNOxMGBLWEYrPgzzhS5qHhH7rX8fPjWNWGc8BxAdb2ZG5Zthb006p2svpbkwha8RS6Zu1q1DtqM+8j2TbS0VIMj9fG;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/
+      - AWSALBCORS=VdkdC/DmWVQVNdDLXlY5lP/wO75rSodeAZMNOxMGBLWEYrPgzzhS5qHhH7rX8fPjWNWGc8BxAdb2ZG5Zthb006p2svpbkwha8RS6Zu1q1DtqM+8j2TbS0VIMj9fG;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=stateProvince&flimit=1&fq=(lsid:urn:lsid:biodiversity.org.au:afd.taxon:1b42665c-e2d5-48a5-95ae-f273a2d66c3a)&fq=year:[2020%20TO%20*]%20AND%20(basisOfRecord:%22MATERIAL_SAMPLE%22)%20AND%20(biome:%22MARINE%22)%20AND%20(year:%222022%22)
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.4.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      connection: keep-alive
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Fri, 21 Jan 2022 06:18:43 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.21.5
+      set-cookie:
+      - AWSALBTG=HiYLdgMtfxv4zZjyv7wsGIk3rLosAwzIBwVFSbWSMPffuJdEjGIlHrbt7kMksw+mfBpkX0+bMNXuQqJLm6xIqDPPWmIv2G5NmenmXuDtaIU+A3wMdfsfU7kZpcjxQ0ZU/paoOEWEfxvFcPwMLkmY5KTHSnsnBc7mkeIvaajL5Gre;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/
+      - AWSALBTGCORS=HiYLdgMtfxv4zZjyv7wsGIk3rLosAwzIBwVFSbWSMPffuJdEjGIlHrbt7kMksw+mfBpkX0+bMNXuQqJLm6xIqDPPWmIv2G5NmenmXuDtaIU+A3wMdfsfU7kZpcjxQ0ZU/paoOEWEfxvFcPwMLkmY5KTHSnsnBc7mkeIvaajL5Gre;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=MzpIF8YBJ202pxrCKd9QHQktFoRP6oglj/dhXL2vMIoacDH+nkdh1gYj1mnUPngIf/eiPoi4DD+Gv6VngGdLDWuIO7VNMEJ7i+XZL4LYNDb2ubqEZkXjQ0bUEwPb;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/
+      - AWSALBCORS=MzpIF8YBJ202pxrCKd9QHQktFoRP6oglj/dhXL2vMIoacDH+nkdh1gYj1mnUPngIf/eiPoi4DD+Gv6VngGdLDWuIO7VNMEJ7i+XZL4LYNDb2ubqEZkXjQ0bUEwPb;
+        Expires=Fri, 28 Jan 2022 06:18:43 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/1.1 200 '
+      strict-transport-security: max-age=31536000
+      transfer-encoding: chunked
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2022-01-21 06:18:43 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
