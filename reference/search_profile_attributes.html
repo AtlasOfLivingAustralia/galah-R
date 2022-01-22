@@ -101,8 +101,10 @@ free text <code>description</code> and the actual <code>filter</code> used.</p>
 <span class="co">#&gt; 4 "Include only records where Year is 1970 to 2099"                         "year:[1970 TO *]"</span></code></pre><p></p></div>
 <p>Then get a free-text description of each filter used in the "CSDM" profile</p><div class="sourceCode r"><pre><code><span class="va">profile_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_profile_attributes.html">search_profile_attributes</a></span><span class="op">(</span><span class="st">"CSDM"</span><span class="op">)</span>
 <span class="va">profile_info</span><span class="op">$</span><span class="va">description</span>
-<span class="co">#&gt; [1] "Include only records where Spatial validity is \"true\""                 "Exclude potential duplicate records"                                    </span>
-<span class="co">#&gt; [3] "Exclude all records that are an outlier against any environmental layer" "Include only records where Year is 1970 to 2099"</span></code></pre><p></p></div>
+<span class="co">#&gt; [1] "Include only records where Spatial validity is \"true\""                </span>
+<span class="co">#&gt; [2] "Exclude potential duplicate records"                                    </span>
+<span class="co">#&gt; [3] "Exclude all records that are an outlier against any environmental layer"</span>
+<span class="co">#&gt; [4] "Include only records where Year is 1970 to 2099"</span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
