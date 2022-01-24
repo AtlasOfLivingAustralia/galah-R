@@ -129,7 +129,7 @@ Although the tree format is useful,
 converting to a `data.frame` is straightforward.
 
 ```{r to-df}
-ToDataFrameTypeCol(classes, type = "rank") |> head()
+data.tree::ToDataFrameTypeCol(classes, type = "rank") |> head()
 
 ```
 

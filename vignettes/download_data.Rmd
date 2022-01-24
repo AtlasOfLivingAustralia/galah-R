@@ -1,7 +1,7 @@
 ---
 title: "Download data"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-01-20'
+date: '2022-01-24'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -107,7 +107,7 @@ more information in the [config section](#config)
 
 
 ```r
-galah_config(email = your_email_here, atlas = "Australia")
+galah_config(email = "your_email@email.com", atlas = "Australia")
 ```
 
 Download occurrence records for *Eolophus roseicapilla*
@@ -202,7 +202,7 @@ converting to a `data.frame` is straightforward.
 
 
 ```r
-ToDataFrameTypeCol(classes, type = "rank") |> head()
+data.tree::ToDataFrameTypeCol(classes, type = "rank") |> head()
 ```
 
 ```

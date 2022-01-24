@@ -31,8 +31,8 @@ These functions include:
 
 These names have been chosen to echo comparable functions from `dplyr`; namely
 `filter`, `select` and `group_by`. With the exception of `galah_geolocate`, they
-also use `dplyr` tidy evaluation and syntax. This means that the 
-way you use `dplyr` functions is also how you use `galah_` functions.
+also use `dplyr` tidy evaluation and syntax. This means that how you use 
+`dplyr` functions is also how you use `galah_` functions.
 
 # galah_identify & search_taxa
 Perhaps unsurprisingly, `search_taxa` searches for taxonomic information. 
@@ -210,7 +210,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 55682003
+## 1 55681954
 ```
 
 To see a full list of data quality profiles, use `show_all_profiles()`.
@@ -281,12 +281,48 @@ galah_call() |>
 Use `galah_select` to choose which columns are returned when downloading records:
 
 
+
+
 ```r
-# Get records from 1930, but only 'eventDate' and 'kingdom' columns
-galah_call() |>
+# Get *Reptilia* records from 1930, but only 'eventDate' and 'kingdom' columns
+occurrences <- galah_call() |>
+  galah_identify("reptilia") |>
   galah_filter(year == 1930) |>
   galah_select(eventDate, kingdom) |>
   atlas_occurrences()
+
+occurrences
+```
+
+```
+## # A tibble: 29 × 8
+##    eventDate            kingdom  decimalLatitude decimalLongitude scientificName          taxonConceptID recordID dataResourceName
+##    <chr>                <chr>              <dbl>            <dbl> <chr>                   <chr>          <chr>    <chr>           
+##  1 1929-12-31T14:00:00Z Animalia           -36.4             150. Acanthophis antarcticus urn:lsid:biod… 38dab01… NSW BioNet Atlas
+##  2 1929-12-31T14:00:00Z Animalia           -26.8             151. Demansia psammophis     urn:lsid:biod… c770504… WildNet - Queen…
+##  3 1929-12-31T14:00:00Z Animalia           -24.4             152. Oxyuranus scutellatus   urn:lsid:biod… cfb4279… WildNet - Queen…
+##  4 1929-12-31T14:00:00Z Animalia           -20.8             145. Lerista wilkinsi        urn:lsid:biod… 1b64a15… WildNet - Queen…
+##  5 1929-12-31T14:00:00Z Animalia           -23.9             150. Furina barnardi         urn:lsid:biod… 03e06c9… WildNet - Queen…
+##  6 1929-12-31T14:00:00Z Animalia           -37.7             145. Tiliqua scincoides      urn:lsid:biod… e1e459c… Victorian Biodi…
+##  7 1929-12-31T14:00:00Z Animalia           -15.5             145. Antaresia maculosa      urn:lsid:biod… 084bc0a… WildNet - Queen…
+##  8 1929-12-31T14:00:00Z Animalia           -37.7             145. Tiliqua scincoides      urn:lsid:biod… 675f976… Victorian Biodi…
+##  9 1929-12-31T14:00:00Z Animalia           -17.3             146. Simalia kinghorni       urn:lsid:biod… 0bd4268… WildNet - Queen…
+## 10 1930-04-22T14:00:00Z Animalia            NA                NA  COLUBRIDAE              urn:lsid:biod… 815d01e… South Australia…
+## # … with 19 more rows
+```
+
+You can also use other `dplyr` functions that work with `dplyr::select()` with 
+`galah_select()`
+
+
+```r
+occurrences <- galah_call() |>
+  galah_identify("reptilia") |>
+  galah_filter(year == 1930) |>
+  galah_select(starts_with("elev") & ends_with("n")) |>
+  atlas_occurrences()
+
+occurrences
 ```
 
 # galah_geolocate
@@ -304,6 +340,14 @@ galah_call() |>
   atlas_species()
 ```
 
+```
+## # A tibble: 2 × 10
+##   kingdom  phylum   class    order           family      genus     species                author  species_guid     vernacular_name
+##   <chr>    <chr>    <chr>    <chr>           <chr>       <chr>     <chr>                  <chr>   <chr>            <chr>          
+## 1 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles eremiana     Spence… urn:lsid:biodiv… Desert Bandico…
+## 2 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles bougainville Quoy &… urn:lsid:biodiv… Western Barred…
+```
+
 # galah_down_to
 Use `galah_down_to` to specify the lowest taxonomic level to contruct a taxonomic 
 tree:
@@ -314,4 +358,23 @@ galah_call() |>
   galah_identify("fungi") |>
   galah_down_to(phylum) |>
   atlas_taxonomy()
+```
+
+```
+##                    levelName
+## 1  Fungi                    
+## 2   ¦--Dikarya              
+## 3   ¦   °--Entorrhizomycota 
+## 4   ¦--Ascomycota           
+## 5   ¦--Basidiomycota        
+## 6   ¦--Blastocladiomycota   
+## 7   ¦--Chytridiomycota      
+## 8   ¦--Cryptomycota         
+## 9   ¦--Glomeromycota        
+## 10  ¦--Microspora           
+## 11  ¦--Microsporidia        
+## 12  ¦--Mucoromycota         
+## 13  ¦--Neocallimastigomycota
+## 14  ¦--Zoopagomycota        
+## 15  °--Zygomycota
 ```
