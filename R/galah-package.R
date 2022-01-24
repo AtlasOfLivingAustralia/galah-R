@@ -87,14 +87,12 @@
 #' Data fields are important because they provide a means to **filter**
 #' occurrence records;  i.e. to return only the information that you need, and
 #' no more. Consequently, much of the architecture of `galah` has been
-#' designed to make filtering as simple as possible. You can use 
-#' [search_taxa()] to find correct taxonomic queries based on taxonomic names
-#' or ranks.
-#' Next, functions with the `galah_` prefix offer a ways to shape your query 
+#' designed to make filtering as simple as possible. 
+#' Functions with the `galah_` prefix offer ways to shape your query 
 #' call. Each `galah_` function allows the user to filter in a different way. 
 #' Again, the function suffix reveals what each one does. `galah_filter`, 
 #' `galah_select` and `galah_group_by` intentionally match `dplyr`'s `select()`, 
-#' `filter()` and `group_by` functions, both in their name and how they they are
+#' `filter()` and `group_by()` functions, both in their name and how they they are
 #' used. For example, you can use [galah_select()] to choose what information
 #' is returned as columns. Alternatively, you can use [galah_filter()] to filter
 #' the rows. You can also choose specific taxa with [galah_identify()] or choose 

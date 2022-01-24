@@ -16,7 +16,7 @@ records, etc.), taxonomic information, or associated media such as
 images or sounds, and to restrict their queries to particular taxa or
 locations. Users can specify which columns are returned by a query, or restrict
 their results to occurrences that meet particular data-quality criteria. All 
-functions return a `data.frame` as their standard format, except
+functions return a `tibble` as their standard format, except
 `atlas_taxonomy` which returns tree consisting of `Node` objects using the 
 `data.tree` package.
 

@@ -31,8 +31,8 @@ These functions include:
 
 These names have been chosen to echo comparable functions from `dplyr`; namely
 `filter`, `select` and `group_by`. With the exception of `galah_geolocate`, they
-also use `dplyr` tidy evaluation and syntax. This means that the 
-way you use `dplyr` functions is also how you use `galah_` functions.
+also use `dplyr` tidy evaluation and syntax. This means that how you use 
+`dplyr` functions is also how you use `galah_` functions.
 
 # galah_identify & search_taxa
 Perhaps unsurprisingly, `search_taxa` searches for taxonomic information. 
@@ -170,18 +170,41 @@ galah_call() |>
 # galah_select
 Use `galah_select` to choose which columns are returned when downloading records:
 
-```{r, eval = FALSE}
-# Get records from 1930, but only 'eventDate' and 'kingdom' columns
-galah_call() |>
+```{r include = FALSE}
+galah_config(email = "ala4r@ala.org.au",
+             atlas = "Australia", 
+             caching = FALSE, 
+             verbose = FALSE)
+```
+
+```{r}
+# Get *Reptilia* records from 1930, but only 'eventDate' and 'kingdom' columns
+occurrences <- galah_call() |>
+  galah_identify("reptilia") |>
   galah_filter(year == 1930) |>
   galah_select(eventDate, kingdom) |>
   atlas_occurrences()
+
+occurrences
+```
+
+You can also use other `dplyr` functions that work with `dplyr::select()` with 
+`galah_select()`
+
+```{r, eval = FALSE}
+occurrences <- galah_call() |>
+  galah_identify("reptilia") |>
+  galah_filter(year == 1930) |>
+  galah_select(starts_with("elev") & ends_with("n")) |>
+  atlas_occurrences()
+
+occurrences
 ```
 
 # galah_geolocate
 Use `galah_geolocate` to specify a geographic area or region to limit your search:
 
-```{r, eval = FALSE}
+```{r}
 # Get list of perameles species only in area specified:
 # (Note: This can also be specified by a shapefile)
 wkt <- "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))"
@@ -196,7 +219,7 @@ galah_call() |>
 Use `galah_down_to` to specify the lowest taxonomic level to contruct a taxonomic 
 tree:
 
-```{r, eval = FALSE}
+```{r}
 galah_call() |>
   galah_identify("fungi") |>
   galah_down_to(phylum) |>

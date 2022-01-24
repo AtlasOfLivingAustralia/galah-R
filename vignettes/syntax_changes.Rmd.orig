@@ -41,7 +41,7 @@ galah_call() %>%
 ```
 
 As another example, notice how `galah_group_by()` + `atlas_counts()` works very 
-similarly to `dplyr::group_by` + `dplyr::count()`:
+similarly to `dplyr::group_by()` + `dplyr::count()`:
 
 ```{r}
 mtcars %>% 
@@ -136,12 +136,12 @@ revamped function names. If you're new to piping, here's a comparison against
 code from previous versions of `galah`.
 
 Previously, if you wanted to look up the number of records of each bandicoot 
-species every year from 2010 to 2021, you'd would have had to have done 
+species every year from 2010 to 2021, you'd have had to do 
 something like this:
   
 ```{r, eval = FALSE, warning = FALSE, message = FALSE}
 library(purrr)
-librar(dplyr)
+library(dplyr)
 
 taxa <- ala_species(taxa = select_taxa("perameles"))$species
 years <- select_filters(year = seq(2010:2021))
@@ -168,6 +168,13 @@ And a second example, if you wanted to download occurrence records of bandicoots
 in 2021, and also to include information on which records had zero coordinates, 
 previously you would have had to do this:
   
+```{r include = FALSE}
+galah_config(email = "ala4r@ala.org.au",
+             atlas = "Australia", 
+             caching = FALSE, 
+             verbose = FALSE)
+```
+
 ```{r, eval = FALSE, warning = FALSE, message = FALSE}
 atlas_occurrences(taxa = select_taxa("perameles"),
                   filters = select_filters(year = 2021),

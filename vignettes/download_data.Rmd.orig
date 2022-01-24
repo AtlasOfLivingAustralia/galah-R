@@ -73,7 +73,7 @@ galah_config(email = "ala4r@ala.org.au",
 ```
 
 ```{r, eval = FALSE}
-galah_config(email = your_email_here, atlas = "Australia")
+galah_config(email = "your_email@email.com", atlas = "Australia")
 ```
 
 Download occurrence records for *Eolophus roseicapilla*

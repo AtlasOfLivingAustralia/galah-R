@@ -56,9 +56,10 @@ required that include filter but without returning taxonomic detail, then
 
 First, look up a genus of interest in the ALA with \code{\link[=search_taxa]{search_taxa()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("Heleioporus")
 #> # A tibble: 1 x 13
-#>   search_term scientific_name scientific_name_authorship taxon_concept_id                                                            rank  match_type kingdom  phylum   class    order family   genus issues
-#>   <chr>       <chr>           <chr>                      <chr>                                                                       <chr> <chr>      <chr>    <chr>    <chr>    <chr> <chr>    <chr> <chr> 
-#> 1 Heleioporus Heleioporus     Gray, 1841                 urn:lsid:biodiversity.org.au:afd.taxon:990ee116-dd7d-40c6-93dc-40d5773e3e6e genus exactMatch Animalia Chordata Amphibia Anura Limnody~ Hele~ noIss~
+#>   search_term scientific_name scientific_name_~ taxon_concept_id   rank  match_type kingdom phylum class order family genus
+#>   <chr>       <chr>           <chr>             <chr>              <chr> <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr>
+#> 1 Heleioporus Heleioporus     Gray, 1841        urn:lsid:biodiver~ genus exactMatch Animal~ Chord~ Amph~ Anura Limno~ Hele~
+#> # ... with 1 more variable: issues <chr>
 }\if{html}{\out{</div>}}
 
 It's a good idea to find how many species there are for the taxon you are
@@ -77,14 +78,14 @@ galah_call() |>
   galah_identify("Heleioporus") |>
   atlas_species()
 #> # A tibble: 6 x 10
-#>   kingdom  phylum   class    order family          genus       species                   author                species_guid                                                                vernacular_name  
-#>   <chr>    <chr>    <chr>    <chr> <chr>           <chr>       <chr>                     <chr>                 <chr>                                                                       <chr>            
-#> 1 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus eyrei         (Gray, 1845)          urn:lsid:biodiversity.org.au:afd.taxon:cf991494-ccee-433d-b049-f2a0996a0a3b Moaning Frog     
-#> 2 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus australiacus  (Shaw & Nodder, 1795) urn:lsid:biodiversity.org.au:afd.taxon:20119b25-a27c-4174-b3e0-8639e8a21131 Giant Burrowing ~
-#> 3 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus albopunctatus Gray, 1841            urn:lsid:biodiversity.org.au:afd.taxon:c1d18a1e-5aec-4441-aa3c-e0ac799f51e8 Western Spotted ~
-#> 4 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus psammophilus  (Lee & Main, 1954)    urn:lsid:biodiversity.org.au:afd.taxon:0efbf288-1526-4551-af83-52e4fb9dae59 Sand Frog        
-#> 5 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus inornatus     (Lee & Main, 1954)    urn:lsid:biodiversity.org.au:afd.taxon:16fcc761-685a-4527-b5e4-e6c7042ae2c6 Plains Frog      
-#> 6 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus barycragus    Lee, 1967             urn:lsid:biodiversity.org.au:afd.taxon:c527388c-1cc7-4a10-800a-243b5a2dcd3c Western Marsh Fr~
+#>   kingdom  phylum   class    order family          genus       species     author    species_guid           vernacular_name
+#>   <chr>    <chr>    <chr>    <chr> <chr>           <chr>       <chr>       <chr>     <chr>                  <chr>          
+#> 1 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Gray, 1~ urn:lsid:biodiversity~ Moaning Frog   
+#> 2 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Shaw & ~ urn:lsid:biodiversity~ Giant Burrowin~
+#> 3 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ Gray, 18~ urn:lsid:biodiversity~ Western Spotte~
+#> 4 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Lee & M~ urn:lsid:biodiversity~ Sand Frog      
+#> 5 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Lee & M~ urn:lsid:biodiversity~ Plains Frog    
+#> 6 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ Lee, 1967 urn:lsid:biodiversity~ Western Marsh ~
 }\if{html}{\out{</div>}}
 
 You can also get taxonomic information on species by piping with \verb{\%>\%} or
@@ -92,14 +93,14 @@ You can also get taxonomic information on species by piping with \verb{\%>\%} or
   galah_identify("Heleioporus") |>
   atlas_species()
 #> # A tibble: 6 x 10
-#>   kingdom  phylum   class    order family          genus       species                   author                species_guid                                                                vernacular_name  
-#>   <chr>    <chr>    <chr>    <chr> <chr>           <chr>       <chr>                     <chr>                 <chr>                                                                       <chr>            
-#> 1 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus eyrei         (Gray, 1845)          urn:lsid:biodiversity.org.au:afd.taxon:cf991494-ccee-433d-b049-f2a0996a0a3b Moaning Frog     
-#> 2 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus australiacus  (Shaw & Nodder, 1795) urn:lsid:biodiversity.org.au:afd.taxon:20119b25-a27c-4174-b3e0-8639e8a21131 Giant Burrowing ~
-#> 3 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus albopunctatus Gray, 1841            urn:lsid:biodiversity.org.au:afd.taxon:c1d18a1e-5aec-4441-aa3c-e0ac799f51e8 Western Spotted ~
-#> 4 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus psammophilus  (Lee & Main, 1954)    urn:lsid:biodiversity.org.au:afd.taxon:0efbf288-1526-4551-af83-52e4fb9dae59 Sand Frog        
-#> 5 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus inornatus     (Lee & Main, 1954)    urn:lsid:biodiversity.org.au:afd.taxon:16fcc761-685a-4527-b5e4-e6c7042ae2c6 Plains Frog      
-#> 6 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporus barycragus    Lee, 1967             urn:lsid:biodiversity.org.au:afd.taxon:c527388c-1cc7-4a10-800a-243b5a2dcd3c Western Marsh Fr~
+#>   kingdom  phylum   class    order family          genus       species     author    species_guid           vernacular_name
+#>   <chr>    <chr>    <chr>    <chr> <chr>           <chr>       <chr>       <chr>     <chr>                  <chr>          
+#> 1 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Gray, 1~ urn:lsid:biodiversity~ Moaning Frog   
+#> 2 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Shaw & ~ urn:lsid:biodiversity~ Giant Burrowin~
+#> 3 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ Gray, 18~ urn:lsid:biodiversity~ Western Spotte~
+#> 4 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Lee & M~ urn:lsid:biodiversity~ Sand Frog      
+#> 5 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Lee & M~ urn:lsid:biodiversity~ Plains Frog    
+#> 6 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ Lee, 1967 urn:lsid:biodiversity~ Western Marsh ~
 }\if{html}{\out{</div>}}
 }
 

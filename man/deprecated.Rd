@@ -82,7 +82,7 @@ ala_config(..., profile_path = NULL)
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-Use \code{\link[=search_taxa]{search_taxa()}} instead of \code{select_taxa()}.
+Use \code{\link[=galah_identify]{galah_identify()}} instead of \code{select_taxa()}.
 
 Use \code{\link[=galah_select]{galah_select()}} instead of \code{select_columns()}.
 

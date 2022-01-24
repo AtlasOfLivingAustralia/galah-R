@@ -96,14 +96,12 @@ layers and assertions, or conduct a search using \code{\link[=search_fields]{sea
 Data fields are important because they provide a means to \strong{filter}
 occurrence records;  i.e. to return only the information that you need, and
 no more. Consequently, much of the architecture of \code{galah} has been
-designed to make filtering as simple as possible. You can use
-\code{\link[=search_taxa]{search_taxa()}} to find correct taxonomic queries based on taxonomic names
-or ranks.
-Next, functions with the \code{galah_} prefix offer a ways to shape your query
+designed to make filtering as simple as possible.
+Functions with the \code{galah_} prefix offer ways to shape your query
 call. Each \code{galah_} function allows the user to filter in a different way.
 Again, the function suffix reveals what each one does. \code{galah_filter},
 \code{galah_select} and \code{galah_group_by} intentionally match \code{dplyr}'s \code{select()},
-\code{filter()} and \code{group_by} functions, both in their name and how they they are
+\code{filter()} and \code{group_by()} functions, both in their name and how they they are
 used. For example, you can use \code{\link[=galah_select]{galah_select()}} to choose what information
 is returned as columns. Alternatively, you can use \code{\link[=galah_filter]{galah_filter()}} to filter
 the rows. You can also choose specific taxa with \code{\link[=galah_identify]{galah_identify()}} or choose
