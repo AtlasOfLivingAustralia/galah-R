@@ -80,12 +80,14 @@
   </div>
 </nav><div class="container template-article">
 
-<div class="row">
+
+
+<script src="download_data_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Download data</h1>
                         <h4 data-toc-skip class="author">Martin Westgate &amp; Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2022-01-20</h4>
+            <h4 data-toc-skip class="date">2022-01-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah/blob/HEAD/vignettes/download_data.Rmd" class="external-link"><code>vignettes/download_data.Rmd</code></a></small>
       <div class="d-none name"><code>download_data.Rmd</code></div>
@@ -158,7 +160,7 @@
 </h2>
 <p>To download occurrence data you will need to specify your email in <code><a href="../reference/galah_config.html">galah_config()</a></code>. This email must be associated with an active ALA account. See more information in the <a href="#config">config section</a></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="va">your_email_here</span>, atlas <span class="op">=</span> <span class="st">"Australia"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your_email@email.com"</span>, atlas <span class="op">=</span> <span class="st">"Australia"</span><span class="op">)</span></code></pre></div>
 <p>Download occurrence records for <em>Eolophus roseicapilla</em></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">occ</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> |&gt;
@@ -227,7 +229,7 @@
 <span class="co">## 22          °--Reptilia</span></code></pre>
 <p>Although the tree format is useful, converting to a <code>data.frame</code> is straightforward.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ToDataFrameTypeCol</span><span class="op">(</span><span class="va">classes</span>, type <span class="op">=</span> <span class="st">"rank"</span><span class="op">)</span> |&gt; <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">data.tree</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.tree/man/as.data.frame.Node.html" class="external-link">ToDataFrameTypeCol</a></span><span class="op">(</span><span class="va">classes</span>, type <span class="op">=</span> <span class="st">"rank"</span><span class="op">)</span> |&gt; <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##   rank_phylum  rank_subphylum rank_superclass rank_informal          rank_class</span>
 <span class="co">## 1    Chordata Cephalochordata            &lt;NA&gt;          &lt;NA&gt;            Amphioxi</span>
 <span class="co">## 2    Chordata        Craniata         Agnatha          &lt;NA&gt; Cephalasipidomorphi</span>

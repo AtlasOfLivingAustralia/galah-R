@@ -80,12 +80,14 @@
   </div>
 </nav><div class="container template-article">
 
-<div class="row">
+
+
+<script src="syntax_changes_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Syntax changes</h1>
                         <h4 data-toc-skip class="author">Martin Westgate &amp; Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2022-01-20</h4>
+            <h4 data-toc-skip class="date">2022-01-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah/blob/HEAD/vignettes/syntax_changes.Rmd" class="external-link"><code>vignettes/syntax_changes.Rmd</code></a></small>
       <div class="d-none name"><code>syntax_changes.Rmd</code></div>
@@ -121,7 +123,7 @@
 <span class="co">##     count</span>
 <span class="co">##     &lt;int&gt;</span>
 <span class="co">## 1 1161557</span></code></pre>
-<p>As another example, notice how <code><a href="../reference/galah_group_by.html">galah_group_by()</a></code> + <code><a href="../reference/atlas_counts.html">atlas_counts()</a></code> works very similarly to <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by</a></code> + <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code>:</p>
+<p>As another example, notice how <code><a href="../reference/galah_group_by.html">galah_group_by()</a></code> + <code><a href="../reference/atlas_counts.html">atlas_counts()</a></code> works very similarly to <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by()</a></code> + <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">vs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
@@ -351,18 +353,18 @@ search_profile_attributes
 <p>Perhaps the largest change from <code>galah</code> 1.4.0 is the implementation of piping using <code><a href="../reference/galah_call.html">galah_call()</a></code>.</p>
 <p>Beginning a query with <code><a href="../reference/galah_call.html">galah_call()</a></code> (be sure to add the parentheses!) tells <code>galah</code> that you will be using pipes to construct your query. Follow this with your preferred pipe (<code>|&gt;</code> from <code>base</code> or <code>%&gt;%</code> from <code>magrittr</code>). You can then narrow your query line-by-line using <code>galah_</code> functions. Finally, end with an <code>atlas_</code> function to identify what type of data you want from your query.</p>
 <p>Unlike old function names, which will be removed from future versions, we do intend to continue supported un-piped syntax in future, although piping only works with revamped function names. If you’re new to piping, here’s a comparison against code from previous versions of <code>galah</code>.</p>
-<p>Previously, if you wanted to look up the number of records of each bandicoot species every year from 2010 to 2021, you’d would have had to have done something like this:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">library</span>(purrr)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">librar</span>(dplyr)</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">taxa &lt;-<span class="st"> </span><span class="kw">ala_species</span>(<span class="dt">taxa =</span> <span class="kw">select_taxa</span>(<span class="st">"perameles"</span>))<span class="op">$</span>species</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">years &lt;-<span class="st"> </span><span class="kw">select_filters</span>(<span class="dt">year =</span> <span class="kw">seq</span>(<span class="dv">2010</span><span class="op">:</span><span class="dv">2021</span>))</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">taxa <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="st">  </span><span class="kw">map_dfr</span>( <span class="op">~</span><span class="st"> </span><span class="kw">ala_counts</span>(</a>
-<a class="sourceLine" id="cb9-9" data-line-number="9">    <span class="dt">taxa =</span> <span class="kw">select_taxa</span>(<span class="kw">list</span>(<span class="dt">species =</span> .x)),</a>
-<a class="sourceLine" id="cb9-10" data-line-number="10">    <span class="dt">filters =</span> years,</a>
-<a class="sourceLine" id="cb9-11" data-line-number="11">    <span class="dt">group_by =</span> <span class="st">"year"</span>)</a></code></pre></div>
+<p>Previously, if you wanted to look up the number of records of each bandicoot species every year from 2010 to 2021, you’d have had to do something like this:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(purrr)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a>taxa &lt;-<span class="st"> </span><span class="kw">ala_species</span>(<span class="dt">taxa =</span> <span class="kw">select_taxa</span>(<span class="st">"perameles"</span>))<span class="op">$</span>species</span>
+<span id="cb9-5"><a href="#cb9-5"></a>years &lt;-<span class="st"> </span><span class="kw">select_filters</span>(<span class="dt">year =</span> <span class="kw">seq</span>(<span class="dv">2010</span><span class="op">:</span><span class="dv">2021</span>))</span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-7"><a href="#cb9-7"></a>taxa <span class="op">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="st">  </span><span class="kw">map_dfr</span>( <span class="op">~</span><span class="st"> </span><span class="kw">ala_counts</span>(</span>
+<span id="cb9-9"><a href="#cb9-9"></a>    <span class="dt">taxa =</span> <span class="kw">select_taxa</span>(<span class="kw">list</span>(<span class="dt">species =</span> .x)),</span>
+<span id="cb9-10"><a href="#cb9-10"></a>    <span class="dt">filters =</span> years,</span>
+<span id="cb9-11"><a href="#cb9-11"></a>    <span class="dt">group_by =</span> <span class="st">"year"</span>)</span></code></pre></div>
 <p>Not very easy because you had to use multiple <code>atlas_</code> functions and you had to use loops. However, now with piping you can do it like this:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
