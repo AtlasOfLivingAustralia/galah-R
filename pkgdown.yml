@@ -1,4 +1,4 @@
-pandoc: 2.7.3
+pandoc: '2.2'
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
@@ -7,7 +7,7 @@ articles:
   narrow_your_results: narrow_your_results.html
   quick_start_guide: quick_start_guide.html
   syntax_changes: syntax_changes.html
-last_built: 2022-01-24T03:38Z
+last_built: 2022-01-24T03:51Z
 urls:
   reference: https://atlasoflivingaustralia.github.io/galah/reference
   article: https://atlasoflivingaustralia.github.io/galah/articles
