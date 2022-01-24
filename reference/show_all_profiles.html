@@ -90,14 +90,14 @@ available profiles</p>
 
 <p>Show a list of all available data quality profiles</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/show_all_profiles.html">show_all_profiles</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 7 x 4</span>
-<span class="co">#&gt;      id name                                                  shortName        description                                                                                                                  </span>
-<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;                                                 &lt;chr&gt;            &lt;chr&gt;                                                                                                                        </span>
-<span class="co">#&gt; 1     2 ALA General (pre-pipelines)                           ALA-legacy       "The default ALA profile filters out records based on the filter groups outlined below.  This is a moderately restricted set~</span>
-<span class="co">#&gt; 2    35 Species Distribution Modelling (CSDM) (pre-pipelines) CSDM-legacy      "Base filters for the Collaborative Species Distribution Modelling program"                                                  </span>
-<span class="co">#&gt; 3    44 Data licensed for all uses (pre-pipelines)            re-usable-legacy "Data licensed for re-use, including commercial uses. This profile only filters on license, no \"quality\" filters are appli~</span>
-<span class="co">#&gt; 4    92 ALA General                                           ALA              "The default ALA profile filters out records based on the filter groups outlined below.  This is a moderately restricted set~</span>
-<span class="co">#&gt; 5   124 Species Distribution Modelling (CSDM)                 CSDM             "Base filters for the Collaborative Species Distribution Modelling program"                                                  </span>
-<span class="co">#&gt; 6   133 Data licensed for all uses                            re-usable        "Data licensed for re-use, including commercial uses. This profile only filters on license, no \"quality\" filters are appli~</span>
+<span class="co">#&gt;      id name                                                  shortName        description                                 </span>
+<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;                                                 &lt;chr&gt;            &lt;chr&gt;                                       </span>
+<span class="co">#&gt; 1     2 ALA General (pre-pipelines)                           ALA-legacy       "The default ALA profile filters out record~</span>
+<span class="co">#&gt; 2    35 Species Distribution Modelling (CSDM) (pre-pipelines) CSDM-legacy      "Base filters for the Collaborative Species~</span>
+<span class="co">#&gt; 3    44 Data licensed for all uses (pre-pipelines)            re-usable-legacy "Data licensed for re-use, including commer~</span>
+<span class="co">#&gt; 4    92 ALA General                                           ALA              "The default ALA profile filters out record~</span>
+<span class="co">#&gt; 5   124 Species Distribution Modelling (CSDM)                 CSDM             "Base filters for the Collaborative Species~</span>
+<span class="co">#&gt; 6   133 Data licensed for all uses                            re-usable        "Data licensed for re-use, including commer~</span>
 <span class="co">#&gt; 7   224 AVH                                                   AVH              "AVH data quality profile"</span></code></pre><p></p></div>
 <p>Values in the <code>shortName</code> column can be used with <code><a href="galah_filter.html">galah_filter()</a></code> to
 narrow your data query results</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">profile</span> <span class="op">==</span> <span class="st">"ALA"</span><span class="op">)</span>

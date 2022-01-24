@@ -149,14 +149,12 @@ layers and assertions, or conduct a search using <code><a href="show_all_fields.
 <p>Data fields are important because they provide a means to <strong>filter</strong>
 occurrence records;  i.e. to return only the information that you need, and
 no more. Consequently, much of the architecture of <code>galah</code> has been
-designed to make filtering as simple as possible. You can use
-<code><a href="search_taxa.html">search_taxa()</a></code> to find correct taxonomic queries based on taxonomic names
-or ranks.
-Next, functions with the <code>galah_</code> prefix offer a ways to shape your query
+designed to make filtering as simple as possible.
+Functions with the <code>galah_</code> prefix offer ways to shape your query
 call. Each <code>galah_</code> function allows the user to filter in a different way.
 Again, the function suffix reveals what each one does. <code>galah_filter</code>,
 <code>galah_select</code> and <code>galah_group_by</code> intentionally match <code>dplyr</code>'s <code>select()</code>,
-<code><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter()</a></code> and <code>group_by</code> functions, both in their name and how they they are
+<code><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter()</a></code> and <code>group_by()</code> functions, both in their name and how they they are
 used. For example, you can use <code><a href="galah_select.html">galah_select()</a></code> to choose what information
 is returned as columns. Alternatively, you can use <code><a href="galah_filter.html">galah_filter()</a></code> to filter
 the rows. You can also choose specific taxa with <code><a href="galah_identify.html">galah_identify()</a></code> or choose
