@@ -128,10 +128,10 @@ galah_call() |>
 ```
 
 To find available fields and corresponding valid values, use the field lookup 
-functions `show_all_fields`, `search_fields` and `find_field_values`.  
+functions `show_all_fields`, `search_fields` and `search_field_values`.  
 
 A further notable feature of `galah_filter` is the ability to specify a `profile` to 
-remove records that are suspect in some way. 
+remove records that are suspect in some way.
 
 ```{r}
 galah_call() |>
