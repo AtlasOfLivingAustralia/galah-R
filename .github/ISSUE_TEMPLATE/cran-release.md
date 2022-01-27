@@ -34,9 +34,11 @@ assignees: ''
 ## Change Advisory Board (CAB) submission
 - [ ] Change request submitted to CAB in [JIRA](https://jira-sd.csiro.au/projects/ACRR/queues/custom/367)
 - [ ] Change request approved by CAB
+- [ ] After change request approval, update the CAB submission with an expected deployment date
 
 ## Submit to CRAN
 - [ ] Upload package to CRAN here: https://cran.r-project.org/submit.html
 - [ ] Click on link in email from CRAN and confirm submission
 - [ ] Fix any errors from CRAN and repeat all steps :(
+- [ ] After the package is accepted on CRAN, update CAB submission with actual depolyment date (this will complete the CAB request process and close the request)
 - [ ] Celebrate!
