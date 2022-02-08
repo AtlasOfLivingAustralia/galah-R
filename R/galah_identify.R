@@ -192,7 +192,7 @@ check_is_character <- function(query, error_call = caller_env()){
     query <- lookup$taxon_concept_id[!is.na(lookup$taxon_concept_id)]
     
     bullets <- c(
-      "We didn't recognise the object passed to `galah_identify` isn't from a recognised class.",
+      "The object passed to `galah_identify` isn't from a recognised class.",
       i = "Recognised classes are `ala_id`, `gbifid`, `nbnid` or `character`",
       i = "Use `search_taxa` to lookup taxon information."
     )
