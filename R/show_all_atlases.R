@@ -102,6 +102,7 @@ aus_config <- function() {
     species_base_url = "https://bie-ws.ala.org.au/ws",
     name_matching_base_url = "https://namematching-ws.ala.org.au/",
     records_base_url = "https://biocache-ws.ala.org.au/ws",
+    collections_base_url = "https://collections.ala.org.au/ws/",
     # this is only different in aus
     records_download_base_url = "https://biocache-ws.ala.org.au/",
     data_quality_base_url = "https://data-quality-service.ala.org.au",
