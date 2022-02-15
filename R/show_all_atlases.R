@@ -1,27 +1,5 @@
-#' List supported Living Atlases
-#' 
-#' galah supports downloading data from a number of International Living
-#' Atlases. Use this function to get a list of all currently supported atlases.
-#' @seealso This function is helpful in setting up [galah_config()].
-#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
-#' Living Atlas information, including taxonomy
-#' source and information for each atlas.
-#' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' See all supported atlases
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' show_all_atlases()
-#' ```
-#' 
-#' @export
-
-
-# Note: It might be quicker to load this from galah_cache_internal
-# but as no web query involved it's not a big deal
+#' @export show_all_atlases
+#' @rdname show_all_minifunctions
 show_all_atlases <- function() {
   gbif_info <- "https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
   ala_info <- "https://bie.ala.org.au/"
@@ -35,6 +13,14 @@ show_all_atlases <- function() {
   return(as_tibble(df))
 }
 
+#' @rdname search_minifunctions
+#' @export search_atlases
+search_atlases <- function(query){
+  df <- show_all_atlases()
+  df[grepl(tolower(query), tolower(df$atlas)), ]
+}
+
+# internal functions
 server_config <- function(url, error_call = caller_env()) {
   atlas <- getOption("galah_config")$atlas
   conf <- switch(atlas,
@@ -108,7 +94,8 @@ aus_config <- function() {
     data_quality_base_url = "https://data-quality-service.ala.org.au",
     doi_base_url = "https://doi.ala.org.au",
     images_base_url = "https://images.ala.org.au/",
-    logger_base_url = "https://logger.ala.org.au/"
+    logger_base_url = "https://logger.ala.org.au/",
+    lists_base_url = "https://lists.ala.org.au/ws/"
   )
 }
 

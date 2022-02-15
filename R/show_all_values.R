@@ -1,41 +1,5 @@
-#' Search for valid options of a categorical field
-#'
-#' When building a set of filters with [galah_filter()], a user can
-#' use this function to check that the values provided are valid options.
-#' @param field `string`: field to return the categories for. Use
-#' [search_fields()] to view valid fields.
-#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) 
-#' containing columns `field` (user-supplied) and `category` (i.e. field values).
-#' @seealso See [search_fields()] for ways to use information returned
-#' by this function.
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Find valid values you can use to filter or categorise results for the field 
-#' "basisOfRecord"
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' show_all_values("basisOfRecord")
-#' ```
-#' 
-#' Find valid values to filter or categorise results for the field 
-#' "stateProvince"
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' show_all_values("stateProvince")
-#' ```
-#' 
-#' Use these values to with [galah_filter()] tp filter results of `atlas_` 
-#' functions. For example, we can return the number of records only from 
-#' Tasmania
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() |>
-#'   galah_filter(stateProvince == "Tasmania") |>
-#'   atlas_counts()
-#' ```
-#' 
+#' @rdname show_all_minifunctions
+#' @param field `string`: field to return the categories for
 #' @export show_all_values
 
 show_all_values <- function(field) {
@@ -72,6 +36,13 @@ show_all_values <- function(field) {
     }, USE.NAMES = FALSE, FUN.VALUE = character(1))
     cbind(field = field, as.data.frame(category)) |> as_tibble()
   }
+}
+
+#' @rdname search_minifunctions
+#' @export search_values
+search_values <- function(query, field){
+  df <- show_all_values(field = field)
+  df[grepl(tolower(query), tolower(df$category)), ]
 }
 
 # function to extract value which for some reason isn't returned

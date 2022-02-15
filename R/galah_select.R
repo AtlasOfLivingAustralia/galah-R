@@ -35,7 +35,7 @@
 #'   * `samplingProtocol`
 #' 
 #' Using `group = "assertions"` returns all quality assertion-related
-#' columns. The list of assertions is shown by `search_fields(type = "assertions")`.
+#' columns. The list of assertions is shown by `show_all_assertions()`.
 #'
 #' @seealso [search_taxa()], [galah_filter()] and
 #' [galah_geolocate()] for other ways to restrict the information returned
@@ -138,6 +138,6 @@ preset_cols <- function(type) {
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),
-                 "assertions" = search_fields(type = "assertions")$id)
+                 "assertions" = show_all_assertions()$id)
   return(cols)
 }

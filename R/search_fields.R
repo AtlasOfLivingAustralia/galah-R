@@ -1,49 +1,7 @@
-#' Query layers, fields or assertions by free text search
-#'
-#' @param query `string`: A search string. Not case sensitive.
-#' @param type `string`: What type of parameters should be searched?
-#' Should be one or more of `fields`, `layers`, `assertions`,
-#' `media` or `all`.
-#' @return if `query` is missing, an empty `data.frame`; otherwise 
-#' an object of class `tbl_df` and `data.frame` (aka a tibble) containing 
-#' fields that match the search query.
-#' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Search for all fields that use include the word "date"
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_fields("date")
-#' ```
-#' 
-#' Search for all fields with the string "basisofrecord"
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_fields("basisofrecord")
-#' ```
-#' 
-#' Search for all fields that have information for "marine"
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_fields("marine") |> 
-#'   head() # only show first 5 results
-#' ```
-#' 
-#' Search for all Wordclim layers
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_fields("worldclim", type = "layers")
-#' ```
-#' 
-#' @rdname show_all_fields
+#' @rdname search_minifunctions
 #' @export search_fields
 
-search_fields <- function(
-  query,
-  type = c("all", "fields", "layers", "assertions", "media", "other")
-  ) {
+search_fields <- function(query){
 
   if (missing(query) || is.null(query)) {
     as.data.frame(
@@ -57,8 +15,7 @@ search_fields <- function(
     )
     rlang::warn(message = bullets, error = rlang::caller_env())
   } else {
-    type <- match.arg(type)
-    df <- show_all_fields(type = type)
+    df <- show_all_fields()
     
     # merge information together into searchable strings
     df_string <- tolower(

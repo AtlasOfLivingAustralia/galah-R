@@ -49,7 +49,7 @@ Using \code{group = "event"} returns the following columns:
 }
 
 Using \code{group = "assertions"} returns all quality assertion-related
-columns. The list of assertions is shown by \code{search_fields(type = "assertions")}.
+columns. The list of assertions is shown by \code{show_all_assertions()}.
 }
 \section{Examples}{
 

@@ -1,34 +1,4 @@
-#' List data quality profiles
-#'
-#' The ALA provides a number of pre-built data quality profiles for 
-#' filtering data according to quality checks. A data quality profile can
-#' be specified in the `profile` argument in [galah_filter()]
-#' and used to filter searches in [atlas_occurrences()],
-#' [atlas_counts()] and [atlas_species()].
-#'
-#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
-#' available profiles
-#' @seealso This function gives viable profile names for passing to
-#' [galah_filter()]. For more detail on a given profile see
-#' [search_profile_attributes()].
-#' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Show a list of all available data quality profiles
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' show_all_profiles()
-#' ```
-#' 
-#' Values in the `shortName` column can be used with [galah_filter()] to 
-#' narrow your data query results
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_filter(profile == "ALA")
-#' ```
-#' 
+#' @rdname show_all_minifunctions
 #' @export show_all_profiles
 show_all_profiles <- function() {
   
@@ -51,4 +21,12 @@ show_all_profiles <- function() {
      df <- galah_internal_cache()$show_all_profiles
   }
   df
+}
+
+#' @rdname search_minifunctions
+#' @export search_ranks
+search_profiles <- function(query){
+  df <- show_all_profiles()
+  text_string <- apply(df[, -1], 1, function(a){paste(a, collapse = " ")})
+  df[grepl(tolower(query), tolower(text_string)), ]
 }

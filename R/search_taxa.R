@@ -1,58 +1,8 @@
-#' Taxon information
-#'
-#' In the ALA, all records are associated with an identifier that uniquely
-#' identifies the taxon to which that record belongs. However, taxonomic names
-#' are often ambiguous due to homonymy; i.e. re-use of names (common or
-#' scientific) in different clades. Hence, `search_taxa` provides a means
-#' to search for taxonomic names and check the results are 'correct' before
-#' proceeding to download data via 
-#' [atlas_occurrences()], [atlas_species()] or [atlas_counts()]. The resulting
-#' `data.frame` of taxonomic information can be passed to [galah_identify()] to 
-#' provide the `identify` argument of `atlas_` functions, which then filters  
-#' the resulting records to the specified taxon or taxa.
-#'
 #' @param ... : One or more scientific names, separated by commas and
 #' given as strings. If greater control is required to disambiguate search
 #' terms, taxonomic levels can be provided explicitly via a `data.frame` 
 #' (see examples). Note that searches are not case-sensitive.
-#' @return An object of class `tbl_df`, `data.frame` (aka a tibble) and `ala_id`
-#' containing taxonomic information.
-#' @seealso [search_identifiers()] for how to get names if taxonomic identifiers 
-#' are already known. [galah_identify()], [galah_select()], [galah_filter()] and
-#' [galah_geolocate()] for ways to restrict the information returned
-#' by [atlas_occurrences()] and related functions.
-#' [atlas_taxonomy()] to look up taxonomic trees.
-#' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Search using a single term
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_taxa("Reptilia")
-#' ```
-#' 
-#' Note that `search_taxa()` is not case sensitive
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_taxa("reptilia") # not case sensitive
-#' ```
-#'
-#' Search multiple taxa. `search_taxa()` will return one row per taxon
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_taxa(c("reptilia", "mammalia"))
-#' ```
-#' 
-#' `galah_identify()` uses `search_taxa()` to narrow data queries
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() |>
-#'   galah_identify("reptilia") |>
-#'   atlas_counts()
-#' ```
-#' 
+#' @rdname search_minifunctions
 #' @export
 search_taxa <- function(...) {
   

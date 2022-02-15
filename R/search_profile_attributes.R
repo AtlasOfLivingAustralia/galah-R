@@ -1,34 +1,6 @@
-#' Search for which quality filters are applied by a data quality profile
-#'
-#' Each data quality profile is made up of a series of filters. While some users
-#' may wish to simply trust the default filters, it is often useful to check
-#' what information they return, particularly if advanced customization is needed.
-#' This function gives all of the arguments built into a specific profile.
-#'
 #' @param profile `string`: a data quality profile name, short name or id.
 #' See [show_all_profiles()] for valid filters
-#' @return A `data.frame` of profile attributes, consisting of a
-#' free text `description` and the actual `filter` used.
-#' @seealso [show_all_profiles()] for a list of valid profiles;
-#' [galah_filter()] for how to include this information in a data
-#' query.
-#' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' To find all the data quality arguments used in the profile "CSDM"
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_profile_attributes("CSDM")
-#' ```
-#' 
-#' Then get a free-text description of each filter used in the "CSDM" profile
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' profile_info <- search_profile_attributes("CSDM")
-#' profile_info$description
-#' ```
-#' 
+#' @rdname search_minifunctions
 #' @export search_profile_attributes
 
 search_profile_attributes <- function(profile) {

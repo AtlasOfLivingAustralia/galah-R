@@ -1,10 +1,7 @@
-#' Search for a value within a field
-#'
-#' Descriptive text goes here.
-#'
 #' @param field `string`: field to return the categories for. Use
 #' [search_fields()] to view valid fields.
 #' @param query `string`: A search string. Not case sensitive.
+#' @rdname search_minifunctions
 #' @export
 
 search_values <- function(field, query){

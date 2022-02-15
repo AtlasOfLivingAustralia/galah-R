@@ -33,8 +33,9 @@ internal_GET <- function(url, path, params = list(), on_error = NULL,
     )
   )
   # Workaround for use of 'ws/' path in base urls
-  if (!is.na(url_parse(url)$path) & !grepl("ws", path)) {
-    path <- paste0(url_parse(url)$path,"/", path)
+  included_path <- url_parse(url)$path
+  if (!is.na(included_path) & !grepl("ws", path)) {
+    path <- paste0(included_path, "/", path)
   }
 
   # workaround for fq troubles

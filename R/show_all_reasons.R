@@ -1,32 +1,4 @@
-#' List valid download reasons
-#'
-#' When downloading occurrence data with [atlas_occurrences()] the
-#' ALA APIs require a reason for download to be specified. By default, a
-#' download reason of 'scientific research' is set for you, but if you wish to
-#' change this you can do so with [galah_config()]. Use this function
-#' to view the list of download reason code and names. When specifying a reason,
-#' you can use either the download code or name.
-#' @rdname show_all_reasons
-#' @seealso This function is helpful in setting up [galah_config()].
-#' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
-#' valid download reasons, containing the id and name for each reason.
-#' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Show a listing of all accepted reasons for downloading occurrence data
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' show_all_reasons()
-#' ```
-#' 
-#' Add your download reason when configuring your session with [galah_config()]
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
-#' galah_config(download_reason_id = 3)
-#' ```
-#' 
+#' @rdname show_all_minifunctions
 #' @export
 show_all_reasons <- function() {
    
@@ -67,4 +39,11 @@ show_all_reasons <- function() {
   }else{
     return(galah_internal_cache()$show_all_reasons)
   }
+}
+
+#' @rdname search_minifunctions
+#' @export search_reasons
+search_reasons <- function(query){
+  df <- show_all_reasons()
+  df[grepl(tolower(query), tolower(df$name)), ]
 }

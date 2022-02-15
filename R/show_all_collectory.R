@@ -1,51 +1,39 @@
-#' Show collections
-#'
-#' Show collections
+#' @rdname show_all_minifunctions
 #' @export
 show_all_collections <- function(){
   url <- server_config("collections_base_url")
   atlas_GET(url, path = "collection") |> tibble()
 }
 
-#' Show Datasets
-#'
-#' Show Datasets
+#' @rdname show_all_minifunctions
 #' @export
 show_all_datasets <- function(){
   url <- server_config("collections_base_url")
   atlas_GET(url, path = "dataResource") |> tibble()
 }
 
-#' Show providers
-#'
-#' Show providers
+#' @rdname show_all_minifunctions
 #' @export
 show_all_providers <- function(){
   url <- server_config("collections_base_url")
   atlas_GET(url, path = "dataProvider") |> tibble()
 }
 
-#' Search collections
-#'
-#' Search collections
+#' @rdname search_minifunctions
 #' @export
 search_collections <- function(query){
   df <- show_all_collections()
   df[grepl(tolower(query), tolower(df$name)), ]
 }
 
-#' Search datasets
-#'
-#' Search datasets
+#' @rdname search_minifunctions
 #' @export
 search_datasets <- function(query){
   df <- show_all_datasets()
   df[grepl(tolower(query), tolower(df$name)), ]
 }
 
-#' Search providers
-#'
-#' Search providers
+#' @rdname search_minifunctions
 #' @export
 search_providers <- function(query){
   df <- show_all_providers()
