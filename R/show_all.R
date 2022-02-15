@@ -76,23 +76,6 @@ show_all <- function(type, field){
   do.call(paste0("show_all_", type), args)
 }
 
-#' search atlas metadata
-#' @param query `string`: A search string. Not case sensitive.
-#' @export
-#' @rdname show_all
-search_all <- function(query, type){
-  
-  # vector of valid types for this function
-  valid_types <- c(
-    "taxa", "identifiers", "ranks", 
-    "fields", "values", "assertions",
-    "profiles", "profile_values", "species_lists",
-    "atlases", "reasons", 
-    "collections", "datasets", "providers")
-    
-   
-}
-
 check_type_valid <- function(type, valid, error_call = caller_env()) {
   if(!any(valid == type)){
     bullets <- c(
