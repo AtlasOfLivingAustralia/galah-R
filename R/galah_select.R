@@ -1,16 +1,18 @@
 #' Specify fields for occurrence download
 #'
-#' The living atlases store content on hundreds of different fields, and users
+#' The living atlases store content in hundreds of different fields, and users
 #' often require thousands or millions of records at a time. To reduce time taken
 #' to download data, and limit complexity of the resulting `data.frame`, it is
 #' sensible to restrict the fields returned by [atlas_occurrences()].
-#' This function allows easy selection of fields, or commonly-requested groups 
-#' of columns, following syntax shared with `dplyr::select()`.
+#' This function allows easy selection of fields, or commonly requested groups 
+#' of fields, following syntax shared with `dplyr::select()`.
+#'
+#' The full list of available fields can be viewed with `show_all_fields(type = "fields")`.
 #' 
 #' @param ... zero or more individual column names to include
 #' @param group `string`: (optional) name of one or more column groups to
 #' include. Valid options are `"basic"`, `"event"` and
-#' `"assertion"`
+#' `"assertions"`
 #' @return An object of class `data.frame` and `galah_select`
 #' specifying the name and type of each column to include in the 
 #' call to `atlas_counts()` or `atlas_occurrences()`.
@@ -40,7 +42,8 @@
 #' @seealso [search_taxa()], [galah_filter()] and
 #' [galah_geolocate()] for other ways to restrict the information returned
 #' by [atlas_occurrences()] and related functions; [atlas_counts()]
-#' for how to get counts by levels of variables returned by `galah_select`.
+#' for how to get counts by levels of variables returned by `galah_select`;
+#' [show_all_fields()] to list available fields.
 #' 
 #' @section Examples: 
 #' ```{r, child = "man/rmd/setup.Rmd"}
@@ -59,13 +62,13 @@
 #' ```
 #' 
 #' Download occurrence record of *Perameles* taken in 2001, returning the 
-#' "basic" group of columns plus the Basis of Record
+#' "basic"  and "event" groups of columns plus the Basis of Record column
 #' 
 #' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' galah_call() |>
 #'   galah_identify("perameles") |>
 #'   galah_filter(year == 2001) |>
-#'   galah_select(group = "basic", basisOfRecord) |>
+#'   galah_select(group = c("basic", "event"), basisOfRecord) |>
 #'   atlas_occurrences()
 #' ```
 #' 
@@ -138,6 +141,6 @@ preset_cols <- function(type) {
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),
-                 "assertions" = search_fields(type = "assertions")$id)
+                 "assertions" = show_all_fields(type = "assertions")$id)
   return(cols)
 }
