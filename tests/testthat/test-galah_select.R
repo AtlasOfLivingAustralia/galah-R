@@ -19,9 +19,17 @@ test_that("galah_select returns requested columns", {
 })
 
 
-test_that("galah_select builds expected columns when group = basic", {
-  # skip_on_cran()
+test_that("galah_select returns requested columns when piped", {
   galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
+  query <- galah_call() |>
+    galah_identify("oxyopes dingo") |>
+    galah_select(year, basisOfRecord) |>
+    atlas_occurrences()
+  expect_equal(names(query), c("year", "basisOfRecord"))
+})
+
+
+test_that("galah_select builds expected columns when group = basic", {
   select <- galah_select(group = "basic")
   expected_output <- structure(
     tibble(name = c("decimalLatitude", "decimalLongitude",
@@ -35,17 +43,34 @@ test_that("galah_select builds expected columns when group = basic", {
   expect_equal(names(select), names(expected_output))
   expect_equal(select[1], expected_output[1])
   expect_equal(select[2], expected_output[2])
-  galah_config(run_checks = TRUE)
 })
 
 
-# test_that("galah_select builds expected columns when group = fields", {
-#   
-# })
+test_that("galah_select builds expected columns when group = event", {
+  select <- galah_select(group = "event")
+  expected_output <- structure(
+    tibble(name = c(
+      paste0("event", c("Remarks", "Time", "ID", "Date")),
+      "samplingEffort", "samplingProtocol"  
+      ),
+      type = rep("field", times = 6)),
+    class = c("tbl_df", "tbl", "data.frame", "galah_select"))
+  expect_s3_class(select, "data.frame")
+  expect_equal(nrow(select), nrow(expected_output))
+  expect_equal(names(select), names(expected_output))
+  expect_equal(select[1], expected_output[1])
+  expect_equal(select[2], expected_output[2])  
+})
 
-# test_that("galah_select builds expected columns when group = assertions", {
-#   
-# })
+
+# test multiple groups work
+test_that("galah_select accepts multiple groups", {
+  select <- galah_select(group = c("basic", "assertions"))
+  expect_equal(unique(select$type), c("field", "assertions"))
+  expect_gt(nrow(select), 10)
+  expect_true(any(select$name == "decimalLatitude"))
+  expect_true(any(select$name == "AMBIGUOUS_COLLECTION"))
+})
 
 
 test_that("galah_select defaults to group = basic when there are no args", {
