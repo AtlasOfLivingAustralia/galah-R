@@ -5,7 +5,13 @@
 # @export
 show_all_species_lists <- function(){
   url <- server_config("lists_base_url")
-  atlas_GET(url, path = "speciesList")$lists |> tibble()
+  do.call(rbind, list(
+    atlas_GET(url, path = "speciesList?max=1000&offset=0")$lists,
+    atlas_GET(url, path = "speciesList?max=1000&offset=1000")$lists,
+    atlas_GET(url, path = "speciesList?max=1000&offset=2000")$lists
+  )) |> 
+    tibble()
+
 }
 
 # @rdname search_minifunctions
