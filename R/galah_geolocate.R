@@ -113,9 +113,9 @@ validate_wkt <- function(wkt, error_call = caller_env()) {
     )
     abort(bullets, call = error_call)
   }
-  else if (!wellknown::lint(wkt)) {
-    warn("The WKT provided may be invalid.")
-  }
+  # else if (!wellknown::lint(wkt)) {
+  #   warn("The WKT provided may be invalid.")
+  # }
   # check that first and last point of match if object is a polygon
   else {
     sf_obj <- st_as_sfc(wkt)
