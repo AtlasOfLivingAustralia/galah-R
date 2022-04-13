@@ -76,7 +76,7 @@ galah_geolocate <- function(...) {
     }
     out_query <- query
   }
-  class(out_query) <- append(class(out_query), "galah_geolocate")
+  attr(out_query, "call") <- "galah_geolocate"
   
   # if a data request was supplied, return one
   if(is_data_request){

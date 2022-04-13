@@ -33,11 +33,13 @@ search_identifiers <- function(identifier) {
       )
       inform(bullets)
     }
-    return(set_galah_object_class(new_class = "ala_id"))
-  }else{ 
-    set_galah_object_class(
-      rbindlist(matches, fill = TRUE), 
-      new_class = "ala_id") 
+    df <- tibble()
+    attr(df, "call") <- "ala_id"
+    return(df)
+  }else{
+    df <- as_tibble(rbindlist(matches, fill = TRUE)) 
+    attr(df, "call") <- "ala_id"
+    return(df) 
   }
 }
 

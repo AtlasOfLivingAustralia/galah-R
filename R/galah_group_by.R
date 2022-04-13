@@ -85,17 +85,17 @@ galah_group_by <- function(..., expand = TRUE){
     if(length(available_variables) > 0){
       df <- tibble(name = available_variables)
       df$type <- ifelse(str_detect(df$name, "[[:lower:]]"), "field", "assertions")
-      class(df) <- append(class(df), "galah_group_by")
+      attr(df, "call") <- "galah_group_by"
       attr(df, "expand") <- expand
     }else{
       df <- tibble(name = "name", type = "type", .rows = 0)
-      df <- set_galah_object_class(df, new_class = "galah_group_by")
+      attr(df, "call") <- "galah_group_by"
       attr(df, "expand") <- expand
       df
     }
   }else{
     df <- tibble(name = "name", type = "type", .rows = 0)
-    df <- set_galah_object_class(df, new_class = "galah_group_by")
+    attr(df, "call") <- "galah_group_by"
     attr(df, "expand") <- expand
     df
   }

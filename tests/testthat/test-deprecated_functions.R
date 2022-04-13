@@ -15,9 +15,8 @@ test_that("select_columns is deprecated", {
     deprecated <- select_columns(eventDate)
     correct <- structure(tibble(name = "eventDate",
                                 type = "field"))
-    class(correct) <- append(class(correct), "galah_select")
     expect_equal(deprecated, correct)
-    expect_s3_class(deprecated, "galah_select")
+    expect_equal(attr(deprecated, "call"), "galah_select")
   })
 })
 

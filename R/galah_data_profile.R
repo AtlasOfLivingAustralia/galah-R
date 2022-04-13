@@ -43,7 +43,7 @@ galah_data_profile <- function(...){
   }
   
   # if a data request was supplied, return one
-  class(result) <- append(class(result), "galah_data_profile")
+  attr(result, "call") <- "galah_data_profile"
   if (is_data_request) {
     update_galah_call(data_request, data_profile = result)
   } else {

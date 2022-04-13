@@ -12,11 +12,11 @@
 #' syntax.
 #'
 #' @param ... filters, in the form `field logical value`
-#' @param profile `string`: (optional) a data quality profile to apply to the
-#' records. See [show_all_profiles()] for valid profiles. By default
+#' @param profile DEPRECATED: use `galah_data_profile` instead. If supplied, 
+#' should be a `string` recording a data quality profile to apply to the
+#' query. See [show_all_profiles()] for valid profiles. By default
 #' no profile is applied.
-#' @return An object of class `data.frame` and `galah_filter`,
-#' containing filter values.
+#' @return A tibble containing filter values.
 #' @seealso [search_taxa()] and [galah_geolocate()] for other ways to restrict 
 #' the information returned by [atlas_occurrences()] and related functions. Use
 #' [search_fields()] to find fields that
@@ -148,7 +148,9 @@ galah_filter <- function(..., profile = NULL){
     named_filters$query <- parse_query(named_filters)
     
     # Validate that variables exist in ALA
-    if (getOption("galah_config")$run_checks) validate_fields(named_filters$variable)
+    if (getOption("galah_config")$run_checks){     
+      validate_fields(named_filters$variable)
+    }
     
   }else{ 
     # If no fields are entered, return an empty data frame of arguments
@@ -158,10 +160,10 @@ galah_filter <- function(..., profile = NULL){
                      query = character())
   }
   
-  # Set class
+  # Set class and 'call' attribute
   named_filters <- as_tibble(named_filters)
-  class(named_filters) <- append(class(named_filters), "galah_filter")
-  
+  attr(named_filters, "call") <- "galah_filter"
+
   # Check and apply profiles to query
   named_filters <- apply_profiles(profile, named_filters)
   

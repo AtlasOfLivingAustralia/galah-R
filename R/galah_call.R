@@ -98,7 +98,7 @@ galah_call <- function(identify = NULL,
 
 check_call_args <- function(arg_supplied, arg_name, error_call = caller_env()){
   if(
-    !is.null(arg_supplied) && 
+    !is.null(arg_supplied) &&
     !inherits(arg_supplied, paste0("galah_", arg_name))
   ){
     abort(

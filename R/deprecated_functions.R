@@ -14,7 +14,7 @@ select_taxa <- function(query, is_id = FALSE) {
     galah_identify(query, search = FALSE)
   }else{
     result <- galah_identify(query, search = TRUE) |> as.data.frame()
-    class(result) <- append(class(result), "galah_identify")
+    attr(result, "call") <- "galah_identify"
     return(result)
   }
 }

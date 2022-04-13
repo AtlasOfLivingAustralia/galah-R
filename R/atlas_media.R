@@ -193,15 +193,16 @@ atlas_media_internal <- function(request,
   )
 
   # add galah_ classes to modified filter and select
-  class(occ_filter) <- append(class(occ_filter), "galah_filter")
-  class(occ_columns) <- append(class(occ_columns), "galah_select")
+  attr(occ_filter, "call") <- "galah_filter"
+  attr(occ_columns, "call") <- "galah_media"
   if (verbose) { inform("Downloading records with media...") }
   
-  occ <- atlas_occurrences_internal(identify, 
-    occ_filter, 
-    geolocate, 
-    data_profile, 
-    occ_columns)
+  occ <- atlas_occurrences_internal(
+    identify = identify, 
+    filter = occ_filter, 
+    geolocate = geolocate, 
+    profile = data_profile, 
+    select = occ_columns)
     
   if(nrow(occ) < 1){
     inform("Exiting `atlas_media`")

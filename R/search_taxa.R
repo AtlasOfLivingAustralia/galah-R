@@ -25,7 +25,8 @@ search_taxa <- function(...) {
   } 
  
   matches <- remove_parentheses(query) |> 
-    name_query() 
+    name_query() |>
+    as_tibble()
     
   if(is.null(matches) & galah_config()$verbose){
     bullets <- c(
@@ -34,9 +35,12 @@ search_taxa <- function(...) {
       i = "If you continue to see this message, please email support@ala.org.au."
     )
     inform(bullets)
-    return(set_galah_object_class(new_class = "ala_id"))
+    df <- tibble()
+    attr(df, "call") <- "ala_id"
+    return(df)
   }else{
-    set_galah_object_class(matches, new_class = "ala_id")
+    attr(matches, "call") <- "ala_id"
+    return(matches)
   } 
 }
 

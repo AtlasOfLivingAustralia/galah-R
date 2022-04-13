@@ -12,7 +12,7 @@
 #' @param search (logical); should the results in question be passed to
 #'   `search_taxa`? Ignored if an object of class `ala_id`, `gbifid`, or `nbnid` 
 #'   is given to `...`.
-#'
+#' @return A tibble containing identified taxa.
 #' @seealso [search_taxa()] to find identifiers from scientific names;
 #' [search_identifiers()] for how to get names if taxonomic identifiers 
 #' are already known.
@@ -133,7 +133,7 @@ galah_identify <- function(..., search = TRUE) {
   }
 
   # if a data request was supplied, return one
-  class(result) <- append(class(result), "galah_identify")
+  attr(result, "call") <- "galah_identify"
   if (is_data_request) {
     update_galah_call(data_request, identify = result)
   } else {

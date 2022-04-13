@@ -13,7 +13,7 @@
 #' @param group `string`: (optional) name of one or more column groups to
 #' include. Valid options are `"basic"`, `"event"` and
 #' `"assertions"`
-#' @return An object of class `data.frame` and `galah_select`
+#' @return A tibble
 #' specifying the name and type of each column to include in the 
 #' call to `atlas_counts()` or `atlas_occurrences()`.
 #' @details
@@ -124,7 +124,7 @@ galah_select <- function(...,
     
   # Add S3 class
   all_cols <- as_tibble(all_cols)
-  class(all_cols) <- append(class(all_cols), "galah_select") 
+  attr(all_cols, "call") <- "galah_select" 
   
   # if a data request was supplied, return one
   if(is_data_request){
