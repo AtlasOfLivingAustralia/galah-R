@@ -4,48 +4,63 @@ show_all_atlases <- function() {
   gbif_info <- "https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"
   ala_info <- "https://bie.ala.org.au/"
   nbn_info <- "https://www.nhm.ac.uk/our-science/data/uk-species.html"
-  df <- data.frame(
-    atlas = c("Australia", "Austria", "Guatemala", "Spain", "Sweden", "UK"),
-    taxonomy_source = c("ALA", "GBIF", "GBIF", "GBIF", "GBIF", "NBN"),
-    taxonomy_info  = c(ala_info, gbif_info, gbif_info, gbif_info, gbif_info,
-                       nbn_info)
+  tibble(
+    acronym = c("ALA", "BAO", "GBIF", "SNIBgt",
+                "GBIF.es", "SBDI", "NBN"),
+    region = c("Australia", "Austria", "Global", "Guatemala", 
+              "Spain", "Sweden", "UK"),
+    url = c(
+      "https://www.ala.org.au",
+      "https://biodiversityatlas.at",
+      "https://gbif.org",
+      "https://snib.conap.gob.gt",
+      "https://www.gbif.es",
+      "https://biodiversitydata.se",
+      "https://nbn.org.uk"
+    ),
+    taxonomy_source = c("ALA", "GBIF", "GBIF", "GBIF", 
+                        "GBIF", "GBIF", "NBN"),
+    taxonomy_info  = c(ala_info, gbif_info, gbif_info, gbif_info, 
+                       gbif_info, gbif_info, nbn_info)
   )
-  return(as_tibble(df))
 }
 
 #' @rdname search_minifunctions
 #' @export search_atlases
 search_atlases <- function(query){
   df <- show_all_atlases()
-  df[grepl(tolower(query), tolower(df$atlas)), ]
+  df[grepl(
+    tolower(query), 
+    tolower(apply(
+      df[, c("acronym", "region")], 1, 
+      function(a){paste(a, collapse = "-")})
+    )
+  ), ]
 }
 
 # internal functions
 server_config <- function(url, error_call = caller_env()) {
   atlas <- getOption("galah_config")$atlas
+  
+  # set configuration
   conf <- switch(atlas,
                   "Australia" = aus_config(),
-                  "UK" = uk_config(),
-                  "Sweden" = sweden_config(),
                   "Austria" = austria_config(),
+                  "Global" = gbif_config(),
                   "Guatemala" = guatemala_config(),
-                  "Spain" = spain_config()
+                  "Spain" = spain_config(),
+                  "Sweden" = sweden_config(),
+                  "UK" = uk_config()
   )
   if (url == "records_download_base_url" & !url %in% names(conf)) {
     url <- "records_base_url"
   }
   if (!(url %in% names(conf))) {
     service <- service_name(url)
-    atlas_origin <- switch(atlas,
-      "Australia" = "Australian",
-      "UK" = "UK",
-      "Sweden" = "Swedish",
-      "Austria" = "Austrian",
-      "Guatemala" = "Guatemalan",
-      "Spain" = "Spanish"
-    )
+    lookup <- show_all_atlases()
+    atlas_acronym <- lookup$acronym[lookup$region == atlas]
     abort(
-      glue("{service} is not supported for the {atlas_origin} atlas."),
+      glue("{service} is not supported for {atlas_acronym}"),
       call = error_call)
   }
   return(conf[[url]])
@@ -81,6 +96,8 @@ service_name <- function(url) {
   )
 }
 
+
+# config for specific services, in same order as show_all_atlases()
 aus_config <- function() {
   list(
     support_email = "support@ala.org.au", ## contact email
@@ -99,25 +116,6 @@ aus_config <- function() {
   )
 }
 
-sweden_config <- function() {
-  list(
-    # Uses GBIF taxonomy
-    spatial_base_url = "https://spatial.biodiversitydata.se/ws/",
-    species_base_url = "https://species.biodiversitydata.se/ws/",
-    records_base_url = "https://records.biodiversitydata.se/ws/"
-  )
-}
-
-uk_config <- function() {
-  list(
-    # Uses NBN taxonomy
-    spatial_base_url = "https://layers.nbnatlas.org/ws",
-    species_base_url = "https://species-ws.nbnatlas.org",
-    records_base_url = "https://records-ws.nbnatlas.org",
-    images_base_url = "https://images.nbnatlas.org/"
-  )
-}
-
 austria_config <- function() {
   # Uses GBIF taxonomy
   list(
@@ -126,6 +124,13 @@ austria_config <- function() {
     spatial_base_url = "https://spatial.biodiversityatlas.at/ws",
     # Occurrence download only returns the first image
     images_base_url = "https://images.biodiversityatlas.at/"
+  )
+}
+
+gbif_config <- function() {
+  list(
+    name_matching_base_url = "https://api.gbif.org/v1"
+    # records_base_url = "https://api.gbif.org/v1/occurrence/"
   )
 }
 
@@ -151,3 +156,21 @@ spain_config <- function() {
   )
 }
 
+sweden_config <- function() {
+  list(
+    # Uses GBIF taxonomy
+    spatial_base_url = "https://spatial.biodiversitydata.se/ws/",
+    species_base_url = "https://species.biodiversitydata.se/ws/",
+    records_base_url = "https://records.biodiversitydata.se/ws/"
+  )
+}
+
+uk_config <- function() {
+  list(
+    # Uses NBN taxonomy
+    spatial_base_url = "https://layers.nbnatlas.org/ws",
+    species_base_url = "https://species-ws.nbnatlas.org",
+    records_base_url = "https://records-ws.nbnatlas.org",
+    images_base_url = "https://images.nbnatlas.org/"
+  )
+}

@@ -155,12 +155,12 @@ galah_config <- function(..., profile_path = NULL) {
     }
     save_config(profile_path, current_options)
     
-  } else {
-    if (current_options$verbose) {
-      inform("These configuration options will only be saved for this session.
-    Set `preserve = TRUE` to preserve them for future sessions.")
-    }
-  }
+  } # else {
+  #   if (current_options$verbose) {
+  #     inform("These configuration options will only be saved for this session.
+  #   Set `profile_path` to preserve them for future sessions.")
+  #   }
+  # }
 }
 
 
@@ -275,7 +275,7 @@ validate_option <- function(name, value, error_call = caller_env()) {
       abort(bullets, call = error_call)
     }
   } else if (name == "atlas") {
-    if (!value %in% show_all_atlases()$atlas) {
+    if (!value %in% show_all_atlases()$region) {
       bullets <- c(
         "Unsupported atlas provided.",
         i = glue("Use `show_all_atlases()` to see supported atlases."),

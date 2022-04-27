@@ -61,26 +61,32 @@ name_query <- function(query) {
     matches <- lapply(query, name_lookup)
   } 
   if(all(unlist(lapply(matches, is.null)))){
-    return(NULL)
+    NULL
   }else{
-    return(
-      as_tibble(rbindlist(matches, fill = TRUE))
-    )
+    as_tibble(rbindlist(matches, fill = TRUE))
   }
 }
 
 
 name_lookup <- function(name) {
   url <- server_config("name_matching_base_url")
-  if (is.null(names(name)) || isTRUE(names(name) == "")) {
-    # search by scientific name
-    path <- "api/search"
-    query <- list(q = name[[1]])
-  } else {
-    # search by classification
-    path <- "api/searchByClassification"
-    name <- validate_rank(name)
-    query <- as.list(name)
+  
+  if(getOption("galah_config")$atlas == "Global"){
+    path <- "species/match"
+    query <- list(
+      verbose = FALSE,
+      name = name[[1]])   
+  }else{
+    if (is.null(names(name)) || isTRUE(names(name) == "")) {
+      # search by scientific name
+      path <- "api/search"
+      query <- list(q = name[[1]])
+    } else {
+      # search by classification
+      path <- "api/searchByClassification"
+      name <- validate_rank(name)
+      query <- as.list(name)
+    }
   }
   result <- atlas_GET(url, path, query)
   
@@ -109,9 +115,13 @@ name_lookup <- function(name) {
   if (length(name) > 1) {
     name <- paste(unname(unlist(name)), collapse  = "_")
   }
-  cbind(search_term = name,
-        as.data.frame(result[names(result) %in% wanted_columns("taxa")],
-                      stringsAsFactors = FALSE))
+  
+  cbind(
+    search_term = name,
+    as.data.frame(
+      result[names(result) %in% wanted_columns("taxa")],
+      stringsAsFactors = FALSE)
+  )
 }
 
 

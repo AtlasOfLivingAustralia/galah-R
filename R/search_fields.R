@@ -19,7 +19,10 @@ search_fields <- function(query){
     
     # merge information together into searchable strings
     df_string <- tolower(
-      apply(df[, 1:2], 1, function(a){paste(a, collapse = " ")}))
+      apply(
+        df[, seq_len(min(c(2, ncol(df))))], 
+        1, 
+        function(a){paste(a, collapse = " ")}))
       
     # return result of a grepl query
     df[grepl(tolower(query), df_string), ] |> 

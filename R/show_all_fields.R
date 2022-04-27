@@ -8,25 +8,29 @@ show_all_fields <- function(){
   update_needed <- internal_cache_update_needed("show_all_fields")
  
   if(update_needed){ # i.e. we'd like to run a query
-    fields <- get_fields()
-    layers <- get_layers()
-    media <- get_media()
-    other <- get_other_fields()
-    if(any(
-      is.null(fields),
-      is.null(layers),
-      # is.null(media) # internally generated
-      is.null(other)
-    )){
-      df <- NULL
+    if(atlas == "Global"){
+      df <- gbif_fields() # slightly untidy solution to GBIF hard-coded fields
     }else{
-      df <- as.data.frame(
-        rbindlist(
-          list(
-            fields[!(fields$id %in% layers$id), ],
-            layers, media, other), 
-          fill = TRUE)
-      )
+      fields <- get_fields()
+      layers <- get_layers()
+      media <- get_media()
+      other <- get_other_fields()
+      if(any(
+        is.null(fields),
+        is.null(layers),
+        # is.null(media) # internally generated
+        is.null(other)
+      )){
+        df <- NULL
+      }else{
+        df <- as.data.frame(
+          rbindlist(
+            list(
+              fields[!(fields$id %in% layers$id), ],
+              layers, media, other), 
+            fill = TRUE)
+        )
+      }
     }
     
     # if calling the API fails
@@ -130,4 +134,26 @@ build_layer_id <- function(type, id) {
   } else {
     paste0("cl", id)
   }
+}
+
+# there is no API for GBIF fields, so hard-code them
+# this list can be found using sort(rgbif::occ_fields)
+gbif_fields <- function(){
+  data.frame(id = c(
+    "basisOfRecord", "catalogNumber", "class", "classKey",       
+    "collectionCode", "country", "countryCode", "datasetKey",
+    "datasetName", "dateIdentified", "day", "decimalLatitude",
+    "decimalLongitude", "eventDate", "eventTime", "extensions",
+    "facts", "family", "familyKey", "gbifID", "genericName",
+    "genus", "genusKey", "geodeticDatum", "identificationID",
+    "identifier", "identifiers", "institutionCode", "issues",
+    "key", "kingdom", "kingdomKey", "lastCrawled", 
+    "lastInterpreted", "lastParsed", "modified", "month",
+    "name", "occurrenceRemarks", "order", "orderKey",
+    "phylum", "phylumKey", "protocol", "publishingCountry",
+    "publishingOrgKey", "recordedBy", "references", "relations",
+    "rights", "rightsHolder", "scientificName", "species",
+    "speciesKey", "specificEpithet", "taxonID", "taxonKey",
+    "taxonRank", "verbatimEventDate", "year" 
+  ))
 }

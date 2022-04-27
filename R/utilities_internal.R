@@ -7,7 +7,11 @@
 wanted_columns <- function(type) {
     switch(type,
            "taxa" = c("search_term", "scientific_name",
-                      "scientific_name_authorship", "taxon_concept_id", "rank",
+                      "scientific_name_authorship", 
+                      "taxon_concept_id", # ALA
+                      "usage_key", # GBIF
+                      "canonical_name", "status", 
+                      "rank",
                       "match_type", "kingdom", "phylum", "class", "order",
                       "family", "genus", "species", "vernacular_name",
                       "issues","subkingdom", "superclass", "infraclass",
