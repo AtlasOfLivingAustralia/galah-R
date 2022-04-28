@@ -134,6 +134,7 @@ galah_select <- function(...,
   }
 }
 
+# NOTE: gbif doesn't appear to support column specification in downloads
 
 preset_cols <- function(type) {
   cols <- switch(type,

@@ -26,3 +26,5 @@ search_values <- function(field, query){
    field_text <- show_all_values(field)
    field_text[grepl(query, tolower(field_text$category)), ]
 }
+
+# equivalents in rgbif: isocodes (for countries)

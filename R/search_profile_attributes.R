@@ -4,6 +4,14 @@
 #' @export search_profile_attributes
 
 search_profile_attributes <- function(profile) {
+  
+  if (getOption("galah_config")$atlas != "Australia") {
+    bullets <- c(
+      "Data profiles are only available for the Australian atlas"
+    )
+    abort(bullets, call = caller_env())
+  }
+  
   # check if is numeric or can be converted to numeric
   short_name <- profile_short_name(profile)
   if (is.na(short_name)) {

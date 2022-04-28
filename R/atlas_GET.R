@@ -75,12 +75,7 @@ internal_GET <- function(url, path, params = list(), on_error = NULL,
   }
 
   data <- res$parse("UTF-8")
-  result <- fromJSON(data, flatten = TRUE)
-  if(is.list(result)){
-    as.data.frame(result) # necessary as GBIF returns a list
-  }else{
-    result
-  }
+  fromJSON(data, flatten = TRUE)
 }
 
 cache_filename <- function(args, ext) {

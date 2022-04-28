@@ -82,10 +82,10 @@ galah_identify <- function(..., search = TRUE) {
     verbose <- getOption("galah_config")$verbose
 
     # check for types first
-    if (inherits(input_query, "ala_id")) {
+    if (!is.null(attr(input_query, "call"))) {
       query <- input_query$taxon_concept_id
-    } else if (inherits(input_query, c("gbifid+", "nbnid+"))) { # from taxize
-      query <- as.character(input_query)
+    # } else if (inherits(input_query, c("gbifid+", "nbnid+"))) { # from taxize
+    #   query <- as.character(input_query)
     } else { # if the input isn't of known type, try to find IDs
       if (search) {
         check_atlas(atlas)
@@ -166,18 +166,15 @@ check_number_returned <- function(n_in, n_out, error_call = caller_env()) {
 }
 
 check_atlas <- function(atlas, error_call = caller_env()) {
-  if(atlas != "Australia"){
-    atlas_origin <- switch(atlas,
-      "UK" = "UK",
-      "Sweden" = "Swedish",
-      "Austria" = "Austrian",
-      "Guatemala" = "Guatemalan",
-      "Spain" = "Spanish"
-    )
-    bullets <- c(glue("Searching is not supported for the {atlas_origin} atlas."),
-      i = "try using the `taxize` package to search instead",
-      i = "taxonomic identifiers can be passed to `galah_identify` by setting `search = FALSE`"
-    )
+  if(atlas == "UK"){
+    # atlas_origin <- switch(atlas,
+    #   "UK" = "UK",
+    #   "Sweden" = "Swedish",
+    #   "Austria" = "Austrian",
+    #   "Guatemala" = "Guatemalan",
+    #   "Spain" = "Spanish"
+    # )
+    bullets <- c("Searching is not supported for the NBN.")
     abort(bullets, call = error_call)
   }
 }

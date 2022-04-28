@@ -414,6 +414,17 @@ atlas_counts_lookup <- function(identify = NULL,
   as_tibble(counts_final)
 }
 
+# Supporting GBIF uses one of two APIs
+# To use group by, but no filters:
+# group by -> `path <- /occurrence/counts` 
+# this facets by basisOfRecord or year, but no filtering
+
+# To use filters but not group by:
+# path <- /occurrence/search then set limit = 0 to only get counts
+  # https://api.gbif.org/v1/occurrence/search?taxonKey=1&limit=0
+# This option requires some hard-coding of what values are allowable by gbif
+  # i.e. show_all_values() would not call an API for atlas == "Global"
+
 # get just the record count for a query
 # handle too long queries in here?
 record_count <- function(query) {

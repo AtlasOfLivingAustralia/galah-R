@@ -71,11 +71,13 @@ name_query <- function(query) {
 name_lookup <- function(name) {
   url <- server_config("name_matching_base_url")
   
-  if(getOption("galah_config")$atlas == "Global"){
+  atlas_lookup <- show_all_atlases()
+  taxonomy <- atlas_lookup$taxonomy_source[
+    atlas_lookup$atlas == getOption("galah_config")$atlas
+  ]
+  if(taxonomy == "GBIF"){
     path <- "species/match"
-    query <- list(
-      verbose = FALSE,
-      name = name[[1]])   
+    query <- list(verbose = FALSE, name = name[[1]])   
   }else{
     if (is.null(names(name)) || isTRUE(names(name) == "")) {
       # search by scientific name
@@ -110,6 +112,13 @@ name_lookup <- function(name) {
     return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
   }
   names(result) <- rename_columns(names(result), type = "taxa")
+  
+  # rename `usage_key` to `taxon_concept_id`
+  usage_key_check <- names(result) == "usage_key"
+  if(any(usage_key_check)){
+    names(result)[usage_key_check] <- "taxon_concept_id"
+    result$taxon_concept_id <- as.character(result$taxon_concept_id)
+  }
 
   # if search term includes more than one rank, how to include in output?
   if (length(name) > 1) {

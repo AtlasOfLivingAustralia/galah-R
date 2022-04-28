@@ -275,7 +275,7 @@ validate_option <- function(name, value, error_call = caller_env()) {
       abort(bullets, call = error_call)
     }
   } else if (name == "atlas") {
-    if (!value %in% show_all_atlases()$region) {
+    if (!value %in% show_all_atlases()$atlas) {
       bullets <- c(
         "Unsupported atlas provided.",
         i = glue("Use `show_all_atlases()` to see supported atlases."),

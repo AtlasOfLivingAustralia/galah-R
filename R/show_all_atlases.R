@@ -5,10 +5,10 @@ show_all_atlases <- function() {
   ala_info <- "https://bie.ala.org.au/"
   nbn_info <- "https://www.nhm.ac.uk/our-science/data/uk-species.html"
   tibble(
+    atlas = c("Australia", "Austria", "Global", "Guatemala", 
+              "Spain", "Sweden", "UK"),
     acronym = c("ALA", "BAO", "GBIF", "SNIBgt",
                 "GBIF.es", "SBDI", "NBN"),
-    region = c("Australia", "Austria", "Global", "Guatemala", 
-              "Spain", "Sweden", "UK"),
     url = c(
       "https://www.ala.org.au",
       "https://biodiversityatlas.at",
@@ -58,7 +58,7 @@ server_config <- function(url, error_call = caller_env()) {
   if (!(url %in% names(conf))) {
     service <- service_name(url)
     lookup <- show_all_atlases()
-    atlas_acronym <- lookup$acronym[lookup$region == atlas]
+    atlas_acronym <- lookup$acronym[lookup$atlas == atlas]
     abort(
       glue("{service} is not supported for {atlas_acronym}"),
       call = error_call)
@@ -123,7 +123,8 @@ austria_config <- function() {
     records_base_url = "https://biocache-ws.biodiversityatlas.at/",
     spatial_base_url = "https://spatial.biodiversityatlas.at/ws",
     # Occurrence download only returns the first image
-    images_base_url = "https://images.biodiversityatlas.at/"
+    images_base_url = "https://images.biodiversityatlas.at/",
+    name_matching_base_url = "https://api.gbif.org/v1"
   )
 }
 
@@ -139,7 +140,8 @@ guatemala_config <- function() {
   list(
     images_base_url = "https://imagenes.snib.conap.gob.gt/",
     spatial_base_url = "https://geoespacial.snib.conap.gob.gt/ws",
-    records_base_url = "https://snib.conap.gob.gt/registros-ws/"
+    records_base_url = "https://snib.conap.gob.gt/registros-ws/",
+    name_matching_base_url = "https://api.gbif.org/v1"
     # No species pages available
   )
 }
@@ -149,6 +151,7 @@ spain_config <- function() {
   list(
     records_base_url = "https://registros-ws.gbif.es/",
     species_base_url = "https://especies-ws.gbif.es/",
+    name_matching_base_url = "https://api.gbif.org/v1",
     images_base_url = "https://imagenes.gbif.es/",
     spatial_base_url = "https://espacial.gbif.es/ws",
     doi_base_url = "https://doi.gbif.es/",
@@ -161,7 +164,8 @@ sweden_config <- function() {
     # Uses GBIF taxonomy
     spatial_base_url = "https://spatial.biodiversitydata.se/ws/",
     species_base_url = "https://species.biodiversitydata.se/ws/",
-    records_base_url = "https://records.biodiversitydata.se/ws/"
+    records_base_url = "https://records.biodiversitydata.se/ws/",
+    name_matching_base_url = "https://api.gbif.org/v1"
   )
 }
 
@@ -171,6 +175,6 @@ uk_config <- function() {
     spatial_base_url = "https://layers.nbnatlas.org/ws",
     species_base_url = "https://species-ws.nbnatlas.org",
     records_base_url = "https://records-ws.nbnatlas.org",
-    images_base_url = "https://images.nbnatlas.org/"
+    images_base_url = "https://images.nbnatlas.org/",
   )
 }
