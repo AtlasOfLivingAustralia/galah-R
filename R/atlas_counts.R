@@ -170,16 +170,6 @@ atlas_counts_internal <- function(identify = NULL,
 
   verbose <- getOption("galah_config")$verbose
 
-  # if `group_by` is as a vector
-  if(!is.null(group_by)){
-    if(!inherits(group_by, "galah_group_by")){
-      group_by <- galah_group_by(group_by)
-    }
-    if(nrow(group_by) < 1){
-      group_by <- NULL
-    }
-  }
-  
   # ensure profile works from galah_filter as well as galah_profile  
   if(inherits(data_profile, "galah_data_profile")){
     profile <- data_profile

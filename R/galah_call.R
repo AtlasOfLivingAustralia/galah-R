@@ -79,7 +79,7 @@ galah_call <- function(identify = NULL,
   check_call_args(select, "select")
   check_call_args(geolocate, "geolocate")
   check_call_args(group_by, "group_by")
-  check_call_args(group_by, "data_profile")
+  check_call_args(data_profile, "data_profile")
   check_call_args(down_to, "down_to")
   
   request <- structure(c(list(identify = identify,

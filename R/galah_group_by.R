@@ -80,10 +80,9 @@ galah_group_by <- function(..., expand = TRUE){
     provided_variables <- dequote(unlist(lapply(dots, as_label)))
     if (getOption("galah_config")$run_checks){
       validate_fields(provided_variables)
-    }else{
-      available_variables <- provided_variables[
-        provided_variables %in% show_all_fields()$id]
     }
+    available_variables <- provided_variables[
+      provided_variables %in% show_all_fields()$id]
     if(length(available_variables) > 0){
       df <- tibble(name = available_variables)
       df$type <- ifelse(str_detect(df$name, "[[:lower:]]"), "field", "assertions")
