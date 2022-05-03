@@ -370,7 +370,20 @@ parse_query <- function(df){
         "assertion" = parse_assertion(a)
       )
     }))
-
+    
+  # exception for missingness
+  missing_check <- grepl("\"\"\"\"", df$query)
+  if(any(missing_check)){
+    df$query[missing_check] <- unlist(lapply(
+      split(df[missing_check, ], seq_along(which(missing_check))),
+      function(a){
+        switch(a$logical,
+          "==" = paste0("(*:* AND -", a$variable, ":*)"),
+          paste0("(", a$variable, ":*)")
+        )
+      }))
+   }  
+    
   # return query only
   return(df$query)
 }
