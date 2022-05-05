@@ -19,7 +19,7 @@
 #' 
 #' | **Category** | **Type** | **Description** | **Sub-functions** |
 #' |---|---|---|---|
-#' | atlases  |`"atlases"`| Show what atlases are available | [show_all_atlases()], [search_atlases()]|
+#' | configuration  |`"atlases"`| Show what atlases are available | [show_all_atlases()], [search_atlases()]|
 #' | |`"reasons"`| Show what values are acceptable as 'download reasons' for a specified atlas | [show_all_reasons()], [search_reasons()]|
 #' | taxonomy | `"taxa"` | Search for one or more taxonomic names | [search_taxa()] |
 #' | |`"identifiers"`| Take a universal identifier and return taxonomic information | [search_identifiers()] |
@@ -27,10 +27,10 @@
 #' | filters |`"fields"`| Show fields that are stored in an atlas | [show_all_fields()], [search_fields()] |
 #'  | |`"values"`| Show the values of a particular field |[show_all_values()], [search_values()]|
 #'  | |`"assertions"`| Show results of data quality checks run by each atlas | [show_all_assertions()], [search_assertions()] |
-#' |data groupings|`"profiles"`| Show what data profiles are available | [show_all_profiles()], [search_profiles()] |
+#' |group filters|`"profiles"`| Show what data profiles are available | [show_all_profiles()], [search_profiles()] |
 #' | |`"profile_values"`| Show the attributes of a single profile| [show_profile_attributes()], [search_profile_attributes()] |
 #' | |`"species_lists"`| Show what species lists are available||
-#' |collections|`"providers"`| Show which institutions have provided data |[show_all_providers()], [search_providers()]|
+#' |data providers|`"providers"`| Show which institutions have provided data |[show_all_providers()], [search_providers()]|
 #' | |`"collections"`|Show the specific collections within those institutions| [show_all_collections()], [search_collections()]|
 #' | |`"datasets"`|Shows all the data groupings within those collections|[show_all_datasets()], [search_datasets()]|   
 #' 
