@@ -184,9 +184,19 @@ is_object_check <- function(dots){
 # Build query list from constituent arguments
 build_query <- function(identify, filter, location, select = NULL,
                         profile = NULL) {
-  query <- list()
+                          
+  if(getOption("galah_config")$atlas == "Global"){
+    api_engine <- "gbif"
+  }else{
+    api_engine <- "ala"
+  }
+
   if (is.null(identify)) {
-    taxa_query <- NULL
+    if(api_engine == "gbif"){
+      taxa_query <- list(taxonKey = 1)
+    }else{
+      taxa_query <- NULL
+    }
   } else { # assumes a tibble or data.frame has been given
     if(nrow(identify) < 1){
       taxa_query <- NULL
@@ -217,7 +227,11 @@ build_query <- function(identify, filter, location, select = NULL,
     }
   }
   
-  query$fq <- c(taxa_query, filter_query)
+  if(api_engine == "gbif"){
+    query <- c(taxa_query, filter_query)
+  }else{
+    query <- list(fq = c(taxa_query, filter_query)) 
+  } 
   
   if (is.null(location)) {
     area_query <- NULL
@@ -241,12 +255,14 @@ build_query <- function(identify, filter, location, select = NULL,
 # Build query from vector of taxonomic ids
 build_taxa_query <- function(ids) {
   ids <- ids[order(ids)]
-  # if (include) {
-     value_str <- paste0("(lsid:", paste(ids, collapse = " OR lsid:"), ")")
-  # } else {
-  #   value_str <- paste0("(-lsid:", paste(ids, collapse = " AND -lsid:"), ")")
-  # }
-  value_str
+  if(getOption("galah_config")$atlas == "Global"){
+    return(list(taxonKey = ids))
+  }else{
+    taxon_code <- "lsid"
+    return(paste0("(lsid:", 
+      paste(ids, collapse = paste0(" OR lsid:")), 
+    ")"))
+  }
 }
 
 # Takes a dataframe produced by galah_filter and return query as a list
@@ -295,8 +311,14 @@ old_query_term <- function(name, value, include) {
 }
 
 build_filter_query <- function(filters) {
-  queries <- unique(filters$query)
-  paste0(queries, collapse = " AND ")
+  if(getOption("galah_config")$atlas == "Global"){
+    queries <- as.list(filters$value)
+    names(queries) <- filters$variable
+    queries
+  }else{
+    queries <- unique(filters$query)
+    paste0(queries, collapse = " AND ")
+  }
 }
 
 new_build_filter_query <- function(filters) {

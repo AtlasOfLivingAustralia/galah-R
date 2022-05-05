@@ -87,7 +87,11 @@ build_fq_url <- function(url, path, params = list()) {
   url <- parse_url(url)
   url$path <- path
   url$query <- params[names(params) != "fq"]
-  join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
-  fq <- paste(params$fq, collapse = "&fq=")
-  paste0(build_url(url), join_char, URLencode(fq))
+  if(any(names(params) == "fq")){
+    join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
+    fq <- paste(params$fq, collapse = "&fq=")
+    paste0(build_url(url), join_char, URLencode(fq))
+  }else{
+    build_url(url)
+  }
 }

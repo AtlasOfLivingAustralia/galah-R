@@ -130,8 +130,8 @@ austria_config <- function() {
 
 gbif_config <- function() {
   list(
-    name_matching_base_url = "https://api.gbif.org/v1"
-    # records_base_url = "https://api.gbif.org/v1/occurrence/"
+    name_matching_base_url = "https://api.gbif.org/v1",
+    records_base_url = "https://api.gbif.org/v1"
   )
 }
 

@@ -181,7 +181,7 @@ atlas_counts_internal <- function(identify = NULL,
   
   # set options if group_by = NULL
   if(is.null(group_by)) {
-    query <- list()
+    # query <- list()
     query <- build_query(identify, filter, geolocate, profile = profile)
     if (type == "species") {
       result <- species_count(query)
@@ -323,8 +323,12 @@ atlas_counts_lookup <- function(identify = NULL,
 
   # build url etc
   url <- server_config("records_base_url")
-  path <- "occurrence/facets"
-
+  # if(getOption("galah_config")$atlas == "Global"){
+  #   path <- "occurrence/search"
+  # }else{
+  #   path <- "occurrence/facets"
+  # }
+  
   total_cats <- total_categories(url, path, query)
   if(is.null(total_cats)) {
     return(NULL)
@@ -418,11 +422,19 @@ atlas_counts_lookup <- function(identify = NULL,
 # get just the record count for a query
 # handle too long queries in here?
 record_count <- function(query) {
-  query$pageSize <- 0
   url <- server_config("records_base_url")
-  resp <- atlas_GET(url, "occurrences/search", query)
-  resp$totalRecords
+  if(getOption("galah_config")$atlas == "Global"){
+    query$limit <- 0
+    col_name <- "count"
+  }else{
+    query$pageSize <- 0
+    col_name <- "totalRecords"
+  }
+  resp <- atlas_GET(url, path = "occurrence/search", query)
+  resp[[col_name]]
 }
+# above doesn't work because ALA requires queries get put in an &fq= statement
+# whereas gbif just needs list(limit = 0, ...) where ... is named params
 
 species_count <- function(query) {
   query$flimit <- 1
