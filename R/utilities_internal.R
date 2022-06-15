@@ -27,8 +27,8 @@ wanted_columns <- function(type) {
                            "genus", "species", "author", "species_guid",
                            "vernacular_name"),
            "profile" = c("id", "name", "shortName", "description"),
-           "media" = c("rightsHolder", "license", "creator", "title", "rights",
-                       "mimetype", "media_id"),
+           "media" = c("media_id", "imageUrl", "mimeType", 
+              "rightsHolder", "license", "creator"),
            "layer" = c("layer_id", "description", "link"),
            "fields" = c("id", "description"),
            "assertions" = c("id", "description"),
@@ -39,7 +39,7 @@ wanted_columns <- function(type) {
 # Rename specific columns, and convert to snake_case
 rename_columns <- function(varnames, type) {
     if (type == "media") {
-        varnames[varnames == "imageId"] <- "media_id"
+        varnames[varnames == "imageIdentifier"] <- "media_id"
     }
     else if (type == "taxa") {
         varnames[varnames == "classs"] <- "class"
