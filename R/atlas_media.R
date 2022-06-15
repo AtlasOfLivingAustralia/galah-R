@@ -276,7 +276,7 @@ atlas_media_internal <- function(request,
    
   # download images
   if (verbose) {
-    n_files <- length(urls)
+    n_files <- nrow(all_data)
     # NOTE: the blank space tells glue to add a leading newline before message
     inform(glue("
                 

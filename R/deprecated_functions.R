@@ -157,7 +157,6 @@ ala_media <- function(taxa = NULL,
     identify = taxa,
     filter = filters,
     geolocate = locations,
-    select = columns,
     download_dir = download_dir,
     refresh_cache = FALSE
   ) |>
