@@ -8,9 +8,9 @@ show_all_fields <- function(){
   update_needed <- internal_cache_update_needed("show_all_fields")
  
   if(update_needed){ # i.e. we'd like to run a query
-    if(atlas == "Global"){
-      df <- gbif_fields() # slightly untidy solution to GBIF hard-coded fields
-    }else{
+    # if(atlas == "Global"){
+    #   df <- gbif_fields() # slightly untidy solution to GBIF hard-coded fields
+    # }else{
       fields <- get_fields()
       layers <- get_layers()
       media <- get_media()
@@ -30,7 +30,7 @@ show_all_fields <- function(){
               layers, media, other), 
             fill = TRUE)
         )
-      }
+      # }
     }
     
     # if calling the API fails

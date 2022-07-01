@@ -323,11 +323,6 @@ atlas_counts_lookup <- function(identify = NULL,
 
   # build url etc
   url <- server_config("records_base_url")
-  # if(getOption("galah_config")$atlas == "Global"){
-  #   path <- "occurrence/search"
-  # }else{
-  #   path <- "occurrence/facets"
-  # }
   
   total_cats <- total_categories(url, path, query)
   if(is.null(total_cats)) {
