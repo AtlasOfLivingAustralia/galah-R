@@ -47,20 +47,3 @@ internal_cache_update_needed <- function(function_name){
   if(length(result) < 1){result <- TRUE} # bug catcher
   result
 }
-
-# # code to load the data into R/sysdata.rda
-# # NOTE: "show_all_ranks"  and "show_all_atlases" are not included,
-# # as they don't query a web service
-# devtools::load_all()
-# stored_functions <- c("show_all_fields", "show_all_profiles", "show_all_reasons")
-# # load all data
-# galah_internal_archived <- lapply(stored_functions,
-#   function(a){
-#     result <- eval(parse(text = paste0(a, "()")))
-#     attr(result, "ARCHIVED") <- TRUE
-#     attr(result, "atlas_name") <- "Australia"
-#     result
-#   })
-# # lapply(galah_internal_archived, attributes) # check
-# names(galah_internal_archived) <- stored_functions
-# usethis::use_data(galah_internal_archived, internal = TRUE, overwrite = TRUE)

@@ -135,25 +135,3 @@ build_layer_id <- function(type, id) {
     paste0("cl", id)
   }
 }
-
-# there is no API for GBIF fields, so hard-code them
-# this list can be found using sort(rgbif::occ_fields)
-gbif_fields <- function(){
-  data.frame(id = c(
-    "basisOfRecord", "catalogNumber", "class", "classKey",       
-    "collectionCode", "country", "countryCode", "datasetKey",
-    "datasetName", "dateIdentified", "day", "decimalLatitude",
-    "decimalLongitude", "eventDate", "eventTime", "extensions",
-    "facts", "family", "familyKey", "gbifID", "genericName",
-    "genus", "genusKey", "geodeticDatum", "identificationID",
-    "identifier", "identifiers", "institutionCode", "issues",
-    "key", "kingdom", "kingdomKey", "lastCrawled", 
-    "lastInterpreted", "lastParsed", "modified", "month",
-    "name", "occurrenceRemarks", "order", "orderKey",
-    "phylum", "phylumKey", "protocol", "publishingCountry",
-    "publishingOrgKey", "recordedBy", "references", "relations",
-    "rights", "rightsHolder", "scientificName", "species",
-    "speciesKey", "specificEpithet", "taxonID", "taxonKey",
-    "taxonRank", "verbatimEventDate", "year" 
-  ))
-}
