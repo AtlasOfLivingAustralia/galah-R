@@ -69,29 +69,49 @@ name_query <- function(query) {
 
 
 name_lookup <- function(name) {
-  url <- server_config("name_matching_base_url")
   
-  atlas_lookup <- show_all_atlases()
-  taxonomy <- atlas_lookup$taxonomy_source[
-    atlas_lookup$atlas == getOption("galah_config")$atlas
-  ]
-  if(taxonomy == "GBIF"){
-    path <- "species/match"
-    query <- list(verbose = FALSE, name = name[[1]])   
-  }else{
-    if (is.null(names(name)) || isTRUE(names(name) == "")) {
-      # search by scientific name
-      path <- "api/search"
-      query <- list(q = name[[1]])
-    } else {
-      # search by classification
-      path <- "api/searchByClassification"
-      name <- validate_rank(name)
-      query <- as.list(name)
+  atlas <- getOption("galah_config")$atlas
+  lookup_type <- switch(atlas,
+    "Australia" = "ALA-namematching",
+    "Canada" = "GBIF",
+    "France" = "GBIF",
+    "ALA-species"
+  )
+  
+  switch(lookup_type,
+    "ALA-namematching" = {
+      url <- server_config("name_matching_base_url")
+      if (is.null(names(name)) || isTRUE(names(name) == "")) {
+        # search by scientific name
+        path <- "api/search"
+        query <- list(q = name[[1]])
+      } else {
+        # search by classification
+        path <- "api/searchByClassification"
+        name <- validate_rank(name)
+        query <- as.list(name)
+      }
+    },
+    "GBIF" = {
+      url <- server_config("species_base_url")
+      path <- "species/match"
+      query <- list(verbose = FALSE, name = name[[1]])       
+    },
+    "ALA-species" = {
+      url <- server_config("species_base_url")
+      path <- "/search"
+      query <- list(q = name, pageSize = 1)    
     }
-  }
+  )
+
+  # run query
   result <- atlas_GET(url, path, query)
-  
+
+  # extra processing step for ALA-species - make df-like
+  if(lookup_type == "ALA-species"){
+    result <- result$searchResults$results
+  }
+
   if(is.null(result)){
     return(NULL)
   }
@@ -111,14 +131,9 @@ name_lookup <- function(name) {
     inform(glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
     return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
   }
+
+  # update column names
   names(result) <- rename_columns(names(result), type = "taxa")
-  
-  # rename `usage_key` to `taxon_concept_id`
-  usage_key_check <- names(result) == "usage_key"
-  if(any(usage_key_check)){
-    names(result)[usage_key_check] <- "taxon_concept_id"
-    result$taxon_concept_id <- as.character(result$taxon_concept_id)
-  }
 
   # if search term includes more than one rank, how to include in output?
   if (length(name) > 1) {
@@ -128,7 +143,10 @@ name_lookup <- function(name) {
   cbind(
     search_term = name,
     as.data.frame(
-      result[names(result) %in% wanted_columns("taxa")],
+      result[names(result) %in% wanted_columns("taxa")[1:10]],
+      stringsAsFactors = FALSE),
+    as.data.frame(
+      result[names(result) %in% wanted_columns("taxa")[11:33]],
       stringsAsFactors = FALSE)
   )
 }

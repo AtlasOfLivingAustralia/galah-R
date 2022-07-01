@@ -10,6 +10,7 @@ wanted_columns <- function(type) {
                       "scientific_name_authorship", 
                       "taxon_concept_id", # ALA
                       "usage_key", # GBIF
+                      "guid", # species search
                       "canonical_name", "status", 
                       "rank",
                       "match_type", "kingdom", "phylum", "class", "order",
@@ -43,6 +44,9 @@ rename_columns <- function(varnames, type) {
     }
     else if (type == "taxa") {
         varnames[varnames == "classs"] <- "class"
+        varnames[varnames == "usage_key"] <- "taxon_concept_id"
+        varnames[varnames == "usageKey"] <- "taxon_concept_id"
+        varnames[varnames == "guid"] <- "taxon_concept_id"
     } else if (type == "layer") {
         varnames[varnames == "displayname"] <- "name"
         varnames[varnames == "source_link"] <- "link"
