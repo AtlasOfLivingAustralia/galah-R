@@ -75,7 +75,9 @@ internal_GET <- function(url, path, params = list(), on_error = NULL,
   }
 
   data <- res$parse("UTF-8")
-  fromJSON(data, flatten = TRUE)
+  result <- fromJSON(data, flatten = TRUE)
+  attr(result, "url") <- res$url
+  return(result)
 }
 
 cache_filename <- function(args, ext) {
