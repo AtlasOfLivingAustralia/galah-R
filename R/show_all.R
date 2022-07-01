@@ -49,9 +49,11 @@
 #'
 #' @export
 
+test_fun <- function(x){enquos(x)}
+
 show_all <- function(type, field){
   # NOTE: `field` works for show_all_values() but not show_all_profile_attributes()
-
+  
   # vector of valid types for this function
   valid_types <- c(
     "ranks",
@@ -62,11 +64,15 @@ show_all <- function(type, field){
     # show_all_cached_files?
 
   # check 'type' is ok
-  if(missing(type)){type <- "fields"}
-  if(length(type) > 1){type <- type[[1]]}
-  assert_that(is.character(type))
-  check_type_valid(type, valid_types)
-  
+  if(missing(type)){
+    type <- "fields"
+  }else{
+    type <- enquos(type) |> parse_objects_or_functions()   
+    type <-  gsub("\"", "", as_label(type[[1]]))
+    assert_that(is.character(type))
+    check_type_valid(type, valid_types)   
+  }
+ 
   # run the appropriate function for each type
   if(type == "values" & !missing(field)){
     args <- list(field = field)
@@ -75,6 +81,43 @@ show_all <- function(type, field){
   }
   do.call(paste0("show_all_", type), args)
 }
+
+
+#' search atlas metadata
+#' @param query `string`: A search string. Not case sensitive.
+#' @rdname show_all
+#' @export
+search_all <- function(type, query){
+  
+  # vector of valid types for this function
+  valid_types <- c(
+    "ranks",
+    "fields", "values", "assertions",
+    "profiles", "profile_values", "species_lists",
+    "atlases", "reasons", 
+    "providers", "collections", "datasets")
+    # show_all_cached_files?
+
+  # check 'type' is ok
+  if(missing(type)){
+    type <- "fields"
+  }else{
+    type <- enquos(type) |> parse_objects_or_functions()   
+    type <-  gsub("\"", "", as_label(type[[1]]))
+    assert_that(is.character(type))
+    check_type_valid(type, valid_types)   
+  }
+   
+  # check query
+  if(missing(query)){
+    abort("No query provided")
+  }
+  
+  # run query
+  do.call(paste0("search_", type), args = list(query = query))
+   
+}
+
 
 check_type_valid <- function(type, valid, error_call = caller_env()) {
   if(!any(valid == type)){
