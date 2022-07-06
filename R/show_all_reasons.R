@@ -11,6 +11,7 @@ show_all_reasons <- function() {
     ## return list of valid "reasons for use" codes
     out <- atlas_GET(url, path = "service/logger/reasons")  
     if(is.null(out)){
+      df <- galah_internal_cache()$show_all_reasons
       # if cached values reflect the correct atlas, return requested info
       if(attr(df, "atlas_name") == atlas){ 
         df <- galah_internal_cache()$show_all_reasons

@@ -30,20 +30,3 @@ get_assertions <- function() {
     }
   }
 }
-
-# https://gbif.github.io/gbif-api/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html
-gbif_assertions <- function() {
-  tibble(
-    id = c(
-      "AMBIGUOUS_COLLECTION",
-      "AMBIGUOUS_INSTITUTION",
-      "BASIS_OF_RECORD_INVALID"
-    ),
-    description = c(
-      "The given collection matches with more than 1 GRSciColl collection",
-      "The given institution matches with more than 1 GRSciColl institution",
-      "The given basis of record is impossible to interpret or significantly different from the recommended vocabulary"
-    ),
-    type = "assertions"
-  )
-}

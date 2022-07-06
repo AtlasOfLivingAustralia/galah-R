@@ -92,11 +92,13 @@ all_atlas_config <- list(
   ),
   Austria = list(
     species_base_url = "https://bie-ws.biodiversityatlas.at/",
-    records_base_url = "https://biocache-ws.biodiversityatlas.at/",
+    records_base_url = "https://biocache-ws.biodiversityatlas.at",
     spatial_base_url = "https://spatial.biodiversityatlas.at/ws",
     # Occurrence download only returns the first image
     images_base_url = "https://images.biodiversityatlas.at/",
-    collections_base_url = "https://collectory.biodiversityatlas.at"
+    collections_base_url = "https://collectory.biodiversityatlas.at/ws/",
+    logger_base_url = "https://logger.biodiversityatlas.at/",
+    lists_base_url = "https://lists.biodiversityatlas.at/"
   ),
   Brazil = list(
     species_base_url = "https://bie-webservice.sibbr.gov.br/bie-index/",
@@ -201,4 +203,21 @@ usethis::use_data(
 #     "speciesKey", "specificEpithet", "taxonID", "taxonKey",
 #     "taxonRank", "verbatimEventDate", "year" 
 #   ))
+# }
+
+# # https://gbif.github.io/gbif-api/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html
+# gbif_assertions <- function() {
+#   tibble(
+#     id = c(
+#       "AMBIGUOUS_COLLECTION",
+#       "AMBIGUOUS_INSTITUTION",
+#       "BASIS_OF_RECORD_INVALID"
+#     ),
+#     description = c(
+#       "The given collection matches with more than 1 GRSciColl collection",
+#       "The given institution matches with more than 1 GRSciColl institution",
+#       "The given basis of record is impossible to interpret or significantly different from the recommended vocabulary"
+#     ),
+#     type = "assertions"
+#   )
 # }

@@ -155,7 +155,7 @@ atlas_species_internal <- function(request,
   }
   
   query <- build_query(identify, filter, geolocate, profile = profile)
-  query$facets <- "speciesID"
+  query$facets <- species_facets()
   query$lookup  <- "true"
   
   path <- "occurrences/facets/download"
@@ -172,9 +172,11 @@ atlas_species_internal <- function(request,
     return(tibble())
   }else{
   
-    # overwrite file with fixed names
-    names(data) <- rename_columns(names(data), type = "checklist")
-    data <- data[, wanted_columns("checklist")]
+    if(getOption("galah_config")$atlas == "Australia"){
+      # overwrite file with fixed names
+      names(data) <- rename_columns(names(data), type = "checklist")
+      data <- data[, wanted_columns("checklist")]
+    }
     return(data |> as_tibble())
   }
 }
