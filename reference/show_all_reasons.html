@@ -78,12 +78,14 @@ you can use either the download code or name.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">show_all_reasons</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">show_all_reasons</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class <code>tbl_df</code> and <code>data.frame</code> (aka a tibble) of
+    
+
+<p>An object of class <code>tbl_df</code> and <code>data.frame</code> (aka a tibble) of
 valid download reasons, containing the id and name for each reason.</p>
     </div>
     <div class="section level2">
@@ -91,24 +93,24 @@ valid download reasons, containing the id and name for each reason.</p>
     
 
 
-<p>Show a listing of all accepted reasons for downloading occurrence data</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/show_all_reasons.html">show_all_reasons</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 13 x 2</span>
-<span class="co">#&gt;       id name                            </span>
-<span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;                           </span>
-<span class="co">#&gt;  1     0 conservation management/planning</span>
-<span class="co">#&gt;  2     1 biosecurity management/planning </span>
-<span class="co">#&gt;  3     2 environmental assessment        </span>
-<span class="co">#&gt;  4     3 education                       </span>
-<span class="co">#&gt;  5     4 scientific research             </span>
-<span class="co">#&gt;  6     5 collection management           </span>
-<span class="co">#&gt;  7     6 other                           </span>
-<span class="co">#&gt;  8     7 ecological research             </span>
-<span class="co">#&gt;  9     8 systematic research/taxonomy    </span>
-<span class="co">#&gt; 10    10 testing                         </span>
-<span class="co">#&gt; 11    11 citizen science                 </span>
-<span class="co">#&gt; 12    12 restoration/remediation         </span>
-<span class="co">#&gt; 13    13 species modelling</span></code></pre><p></p></div>
-<p>Add your download reason when configuring your session with <code><a href="galah_config.html">galah_config()</a></code></p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>download_reason_id <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre><p></p></div>
+<p>Show a listing of all accepted reasons for downloading occurrence data</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/show_all_reasons.html">show_all_reasons</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 13 x 2</span></span>
+<span><span class="co">#&gt;       id name                            </span></span>
+<span><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;                           </span></span>
+<span><span class="co">#&gt;  1     0 conservation management/planning</span></span>
+<span><span class="co">#&gt;  2     1 biosecurity management/planning </span></span>
+<span><span class="co">#&gt;  3     2 environmental assessment        </span></span>
+<span><span class="co">#&gt;  4     3 education                       </span></span>
+<span><span class="co">#&gt;  5     4 scientific research             </span></span>
+<span><span class="co">#&gt;  6     5 collection management           </span></span>
+<span><span class="co">#&gt;  7     6 other                           </span></span>
+<span><span class="co">#&gt;  8     7 ecological research             </span></span>
+<span><span class="co">#&gt;  9     8 systematic research/taxonomy    </span></span>
+<span><span class="co">#&gt; 10    10 testing                         </span></span>
+<span><span class="co">#&gt; 11    11 citizen science                 </span></span>
+<span><span class="co">#&gt; 12    12 restoration/remediation         </span></span>
+<span><span class="co">#&gt; 13    13 species modelling</span></span></code></pre><p></p></div>
+<p>Add your download reason when configuring your session with <code><a href="galah_config.html">galah_config()</a></code></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>download_reason_id <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -124,7 +126,7 @@ valid download reasons, containing the id and name for each reason.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

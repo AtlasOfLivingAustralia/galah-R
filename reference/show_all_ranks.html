@@ -63,12 +63,14 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">show_all_ranks</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">show_all_ranks</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class <code>tbl_df</code> and <code>data.frame</code> (aka a tibble) of
+    
+
+<p>An object of class <code>tbl_df</code> and <code>data.frame</code> (aka a tibble) of
 available ranks</p>
     </div>
     <div class="section level2">
@@ -76,39 +78,39 @@ available ranks</p>
     
 
 
-<p>Show a listing of all taxonomic ranks</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/show_all_ranks.html">show_all_ranks</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 69 x 2</span>
-<span class="co">#&gt;      id name        </span>
-<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;       </span>
-<span class="co">#&gt; 1     1 root        </span>
-<span class="co">#&gt; 2     2 superkingdom</span>
-<span class="co">#&gt; 3     3 kingdom     </span>
-<span class="co">#&gt; 4     4 subkingdom  </span>
-<span class="co">#&gt; # ... with 65 more rows</span></code></pre><p></p></div>
+<p>Show a listing of all taxonomic ranks</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/show_all_ranks.html">show_all_ranks</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 69 x 2</span></span>
+<span><span class="co">#&gt;      id name        </span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;       </span></span>
+<span><span class="co">#&gt; 1     1 root        </span></span>
+<span><span class="co">#&gt; 2     2 superkingdom</span></span>
+<span><span class="co">#&gt; 3     3 kingdom     </span></span>
+<span><span class="co">#&gt; 4     4 subkingdom  </span></span>
+<span><span class="co">#&gt; # ... with 65 more rows</span></span></code></pre><p></p></div>
 <p>Use ranks with <code><a href="galah_down_to.html">galah_down_to()</a></code> and <code><a href="atlas_taxonomy.html">atlas_taxonomy()</a></code> to get taxonomic
-trees</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"fungi"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/galah_down_to.html">galah_down_to</a></span><span class="op">(</span><span class="va">subphylum</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/atlas_taxonomy.html">atlas_taxonomy</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt;                        levelName</span>
-<span class="co">#&gt; 1  Fungi                        </span>
-<span class="co">#&gt; 2   ¦--Ascomycota               </span>
-<span class="co">#&gt; 3   ¦   ¦--Pezizomycotina       </span>
-<span class="co">#&gt; 4   ¦   ¦--Saccharomycotina     </span>
-<span class="co">#&gt; 5   ¦   °--Taphrinomycotina     </span>
-<span class="co">#&gt; 6   ¦--Basidiomycota            </span>
-<span class="co">#&gt; 7   ¦   ¦--Agaricomycotina      </span>
-<span class="co">#&gt; 8   ¦   ¦--Pucciniomycotina     </span>
-<span class="co">#&gt; 9   ¦   ¦--Ustilaginomycotina   </span>
-<span class="co">#&gt; 10  ¦   °--Wallemiomycotina     </span>
-<span class="co">#&gt; 11  ¦--Mucoromycota             </span>
-<span class="co">#&gt; 12  ¦   °--Glomeromycotina      </span>
-<span class="co">#&gt; 13  °--Zygomycota               </span>
-<span class="co">#&gt; 14      ¦--Entomophthoromycotina</span>
-<span class="co">#&gt; 15      ¦--Kickxellomycotina    </span>
-<span class="co">#&gt; 16      ¦--Mortierellomycotina  </span>
-<span class="co">#&gt; 17      ¦--Mucoromycotina       </span>
-<span class="co">#&gt; 18      °--Zoopagomycotina</span></code></pre><p></p></div>
+trees</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"fungi"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/galah_down_to.html">galah_down_to</a></span><span class="op">(</span><span class="va">subphylum</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/atlas_taxonomy.html">atlas_taxonomy</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                        levelName</span></span>
+<span><span class="co">#&gt; 1  Fungi                        </span></span>
+<span><span class="co">#&gt; 2   ¦--Ascomycota               </span></span>
+<span><span class="co">#&gt; 3   ¦   ¦--Pezizomycotina       </span></span>
+<span><span class="co">#&gt; 4   ¦   ¦--Saccharomycotina     </span></span>
+<span><span class="co">#&gt; 5   ¦   °--Taphrinomycotina     </span></span>
+<span><span class="co">#&gt; 6   ¦--Basidiomycota            </span></span>
+<span><span class="co">#&gt; 7   ¦   ¦--Agaricomycotina      </span></span>
+<span><span class="co">#&gt; 8   ¦   ¦--Pucciniomycotina     </span></span>
+<span><span class="co">#&gt; 9   ¦   ¦--Ustilaginomycotina   </span></span>
+<span><span class="co">#&gt; 10  ¦   °--Wallemiomycotina     </span></span>
+<span><span class="co">#&gt; 11  ¦--Mucoromycota             </span></span>
+<span><span class="co">#&gt; 12  ¦   °--Glomeromycotina      </span></span>
+<span><span class="co">#&gt; 13  °--Zygomycota               </span></span>
+<span><span class="co">#&gt; 14      ¦--Entomophthoromycotina</span></span>
+<span><span class="co">#&gt; 15      ¦--Kickxellomycotina    </span></span>
+<span><span class="co">#&gt; 16      ¦--Mortierellomycotina  </span></span>
+<span><span class="co">#&gt; 17      ¦--Mucoromycotina       </span></span>
+<span><span class="co">#&gt; 18      °--Zoopagomycotina</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -126,7 +128,7 @@ reference that is useful when specifying the <code>down_to</code> argument of
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

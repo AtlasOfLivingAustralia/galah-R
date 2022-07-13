@@ -81,31 +81,38 @@ specific to the ALA database, in which case the ALA field name is returned.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">search_fields</span><span class="op">(</span>
-  <span class="va">query</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"fields"</span>, <span class="st">"layers"</span>, <span class="st">"assertions"</span>, <span class="st">"media"</span>, <span class="st">"other"</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu">show_all_fields</span><span class="op">(</span>
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"fields"</span>, <span class="st">"layers"</span>, <span class="st">"assertions"</span>, <span class="st">"media"</span>, <span class="st">"other"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">search_fields</span><span class="op">(</span></span>
+<span>  <span class="va">query</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"fields"</span>, <span class="st">"layers"</span>, <span class="st">"assertions"</span>, <span class="st">"media"</span>, <span class="st">"other"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">show_all_fields</span><span class="op">(</span></span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"fields"</span>, <span class="st">"layers"</span>, <span class="st">"assertions"</span>, <span class="st">"media"</span>, <span class="st">"other"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>query</dt>
 <dd><p><code>string</code>: A search string. Not case sensitive.</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>string</code>: What type of parameters should be searched?
 Should be one or more of <code>fields</code>, <code>layers</code>, <code>assertions</code>,
 <code>media</code> or <code>all</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>if <code>query</code> is missing, an empty <code>data.frame</code>; otherwise
+    
+
+<p>if <code>query</code> is missing, an empty <code>data.frame</code>; otherwise
 an object of class <code>tbl_df</code> and <code>data.frame</code> (aka a tibble) containing
-fields that match the search query.
-An object of class <code>tbl_df</code> and <code>data.frame</code> (aka a tibble) with
+fields that match the search query.</p>
+
+
+<p>An object of class <code>tbl_df</code> and <code>data.frame</code> (aka a tibble) with
 three columns:</p><ul><li><p>id: The identifier for that layer or field. This is the value that should
 be used when referring to a field in another function.</p></li>
 <li><p>description: Detailed information on a given field</p></li>
@@ -124,52 +131,52 @@ id number.</p>
     
 
 
-<p>Search for all fields that use include the word "date"</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/show_all_fields.html">search_fields</a></span><span class="op">(</span><span class="st">"date"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 33 x 4</span>
-<span class="co">#&gt;   id             description     type   link </span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;           &lt;chr&gt;  &lt;chr&gt;</span>
-<span class="co">#&gt; 1 dateIdentified Date Identified fields &lt;NA&gt; </span>
-<span class="co">#&gt; 2 datePrecision  Date precision  fields &lt;NA&gt; </span>
-<span class="co">#&gt; 3 eventDate      Event Date      fields &lt;NA&gt; </span>
-<span class="co">#&gt; 4 eventDateEnd   &lt;NA&gt;            fields &lt;NA&gt; </span>
-<span class="co">#&gt; # ... with 29 more rows</span></code></pre><p></p></div>
-<p>Search for all fields with the string "basisofrecord"</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/show_all_fields.html">search_fields</a></span><span class="op">(</span><span class="st">"basisofrecord"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 x 4</span>
-<span class="co">#&gt;   id                description               type   link </span>
-<span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;                     &lt;chr&gt;  &lt;chr&gt;</span>
-<span class="co">#&gt; 1 basisOfRecord     Record type               fields &lt;NA&gt; </span>
-<span class="co">#&gt; 2 raw_basisOfRecord Record type (unprocessed) fields &lt;NA&gt;</span></code></pre><p></p></div>
-<p>Search for all fields that have information for "marine"</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/show_all_fields.html">search_fields</a></span><span class="op">(</span><span class="st">"marine"</span><span class="op">)</span> |&gt; 
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># only show first 5 results</span>
-<span class="co">#&gt; # A tibble: 6 x 4</span>
-<span class="co">#&gt;   id      description                                             type   link                                              </span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                                                   &lt;chr&gt;  &lt;chr&gt;                                             </span>
-<span class="co">#&gt; 1 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Mari~ layers "http://www.fao.org/geonetwork/srv/en/main.home?u~</span>
-<span class="co">#&gt; 2 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian P~ layers "http://www.environment.gov.au/fed/catalog/search~</span>
-<span class="co">#&gt; 3 cl10957 "CAPAD 2018 Marine The Collaborative Australian Protec~ layers "http://www.environment.gov.au/fed/catalog/search~</span>
-<span class="co">#&gt; 4 el1056  "Endemism (Non-marine) Endemism (Non-marine) based on ~ layers ""                                                </span>
-<span class="co">#&gt; 5 el957   "Averaged Topographic Relief  This data represents the~ layers "http://www.ga.gov.au/meta/ANZCW0703015076.html"  </span>
-<span class="co">#&gt; 6 cl11033 "CAPAD 2020 Terrestrial The Collaborative Australian P~ layers "http://www.environment.gov.au/fed/catalog/search~</span></code></pre><p></p></div>
-<p>Search for all Wordclim layers</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/show_all_fields.html">search_fields</a></span><span class="op">(</span><span class="st">"worldclim"</span>, type <span class="op">=</span> <span class="st">"layers"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 38 x 4</span>
-<span class="co">#&gt;   id      description                                                                     type   link                      </span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                                                                           &lt;chr&gt;  &lt;chr&gt;                     </span>
-<span class="co">#&gt; 1 el10982 WorldClim 2.1: Temperature - warmest month max Max Temperature of Warmest Month layers https://www.worldclim.org~</span>
-<span class="co">#&gt; 2 el10981 WorldClim 2.1: Temperature - seasonality Temperature Seasonality                layers https://www.worldclim.org~</span>
-<span class="co">#&gt; 3 el10980 WorldClim 2.1: Temperature - isothermality Isothermality                        layers https://www.worldclim.org~</span>
-<span class="co">#&gt; 4 el10990 WorldClim 2.1: Precipitation - wettest month Precipitation of Wettest Month     layers https://www.worldclim.org~</span>
-<span class="co">#&gt; # ... with 34 more rows</span></code></pre><p></p></div>
+<p>Search for all fields that use include the word "date"</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/show_all_fields.html">search_fields</a></span><span class="op">(</span><span class="st">"date"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 33 x 4</span></span>
+<span><span class="co">#&gt;   id             description     type   link </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;           &lt;chr&gt;  &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 dateIdentified Date Identified fields &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 2 datePrecision  Date precision  fields &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 3 eventDate      Event Date      fields &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 4 eventDateEnd   &lt;NA&gt;            fields &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; # ... with 29 more rows</span></span></code></pre><p></p></div>
+<p>Search for all fields with the string "basisofrecord"</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/show_all_fields.html">search_fields</a></span><span class="op">(</span><span class="st">"basisofrecord"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 x 4</span></span>
+<span><span class="co">#&gt;   id                description               type   link </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;                     &lt;chr&gt;  &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 basisOfRecord     Record type               fields &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 2 raw_basisOfRecord Record type (unprocessed) fields &lt;NA&gt;</span></span></code></pre><p></p></div>
+<p>Search for all fields that have information for "marine"</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/show_all_fields.html">search_fields</a></span><span class="op">(</span><span class="st">"marine"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># only show first 5 results</span></span>
+<span><span class="co">#&gt; # A tibble: 6 x 4</span></span>
+<span><span class="co">#&gt;   id      description                                             type   link                                              </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                                                   &lt;chr&gt;  &lt;chr&gt;                                             </span></span>
+<span><span class="co">#&gt; 1 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Mari~ layers "http://www.fao.org/geonetwork/srv/en/main.home?u~</span></span>
+<span><span class="co">#&gt; 2 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian P~ layers "http://www.environment.gov.au/fed/catalog/search~</span></span>
+<span><span class="co">#&gt; 3 cl10957 "CAPAD 2018 Marine The Collaborative Australian Protec~ layers "http://www.environment.gov.au/fed/catalog/search~</span></span>
+<span><span class="co">#&gt; 4 el1056  "Endemism (Non-marine) Endemism (Non-marine) based on ~ layers ""                                                </span></span>
+<span><span class="co">#&gt; 5 el957   "Averaged Topographic Relief  This data represents the~ layers "http://www.ga.gov.au/meta/ANZCW0703015076.html"  </span></span>
+<span><span class="co">#&gt; 6 cl11033 "CAPAD 2020 Terrestrial The Collaborative Australian P~ layers "http://www.environment.gov.au/fed/catalog/search~</span></span></code></pre><p></p></div>
+<p>Search for all Wordclim layers</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/show_all_fields.html">search_fields</a></span><span class="op">(</span><span class="st">"worldclim"</span>, type <span class="op">=</span> <span class="st">"layers"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 38 x 4</span></span>
+<span><span class="co">#&gt;   id      description                                                                     type   link                      </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                                                                           &lt;chr&gt;  &lt;chr&gt;                     </span></span>
+<span><span class="co">#&gt; 1 el10982 WorldClim 2.1: Temperature - warmest month max Max Temperature of Warmest Month layers https://www.worldclim.org~</span></span>
+<span><span class="co">#&gt; 2 el10981 WorldClim 2.1: Temperature - seasonality Temperature Seasonality                layers https://www.worldclim.org~</span></span>
+<span><span class="co">#&gt; 3 el10980 WorldClim 2.1: Temperature - isothermality Isothermality                        layers https://www.worldclim.org~</span></span>
+<span><span class="co">#&gt; 4 el10990 WorldClim 2.1: Precipitation - wettest month Precipitation of Wettest Month     layers https://www.worldclim.org~</span></span>
+<span><span class="co">#&gt; # ... with 34 more rows</span></span></code></pre><p></p></div>
 
 
-<p>See a listing of all valid fields and layers</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/show_all_fields.html">show_all_fields</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 790 x 4</span>
-<span class="co">#&gt;   id                  description        type   link </span>
-<span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt;              &lt;chr&gt;  &lt;chr&gt;</span>
-<span class="co">#&gt; 1 acceptedNameUsage   Accepted name      fields &lt;NA&gt; </span>
-<span class="co">#&gt; 2 acceptedNameUsageID Accepted name      fields &lt;NA&gt; </span>
-<span class="co">#&gt; 3 accessRights        Access rights      fields &lt;NA&gt; </span>
-<span class="co">#&gt; 4 assertionUserId     Assertions by user fields &lt;NA&gt; </span>
-<span class="co">#&gt; # ... with 786 more rows</span></code></pre><p></p></div>
+<p>See a listing of all valid fields and layers</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/show_all_fields.html">show_all_fields</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 790 x 4</span></span>
+<span><span class="co">#&gt;   id                  description        type   link </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt;              &lt;chr&gt;  &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 acceptedNameUsage   Accepted name      fields &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 2 acceptedNameUsageID Accepted name      fields &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 3 accessRights        Access rights      fields &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 4 assertionUserId     Assertions by user fields &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; # ... with 786 more rows</span></span></code></pre><p></p></div>
 <p>Use this function with <code>search_fields()</code> to find fields and layers you wish
 to use to filter your data queries</p>
     </div>
@@ -197,7 +204,7 @@ To view valid values for a layer with categorical values, use
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

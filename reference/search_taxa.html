@@ -90,7 +90,7 @@ the resulting records to the specified taxon or taxa.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">search_taxa</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">search_taxa</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -100,39 +100,45 @@ the resulting records to the specified taxon or taxa.</p>
 given as strings. If greater control is required to disambiguate search
 terms, taxonomic levels can be provided explicitly via a <code>data.frame</code>
 (see examples). Note that searches are not case-sensitive.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class <code>tbl_df</code>, <code>data.frame</code> (aka a tibble) and <code>ala_id</code>containing taxonomic information.</p>
+    
+
+<p>An object of class <code>tbl_df</code>, <code>data.frame</code> (aka a tibble) and <code>ala_id</code></p>
+
+
+<p>containing taxonomic information.</p>
     </div>
     <div class="section level2">
     <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h2>
     
 
 
-<p>Search using a single term</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"Reptilia"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 9</span>
-<span class="co">#&gt;   search_term scientific_name taxon_concept_id                              rank  match_type kingdom  phylum  class  issues</span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                         &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; </span>
-<span class="co">#&gt; 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1~ class exactMatch Animalia Chorda~ Repti~ noIss~</span></code></pre><p></p></div>
-<p>Note that <code>search_taxa()</code> is not case sensitive</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="co"># not case sensitive</span>
-<span class="co">#&gt; # A tibble: 1 x 9</span>
-<span class="co">#&gt;   search_term scientific_name taxon_concept_id                              rank  match_type kingdom  phylum  class  issues</span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                         &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; </span>
-<span class="co">#&gt; 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1~ class exactMatch Animalia Chorda~ Repti~ noIss~</span></code></pre><p></p></div>
-<p>Search multiple taxa. <code>search_taxa()</code> will return one row per taxon</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"reptilia"</span>, <span class="st">"mammalia"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 x 10</span>
-<span class="co">#&gt;   search_term scientific_name taxon_concept_id                rank  match_type kingdom  phylum class issues vernacular_name</span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                           &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;          </span>
-<span class="co">#&gt; 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:a~ class exactMatch Animalia Chord~ Rept~ noIss~ &lt;NA&gt;           </span>
-<span class="co">#&gt; 2 mammalia    MAMMALIA        urn:lsid:biodiversity.org.au:a~ class exactMatch Animalia Chord~ Mamm~ noIss~ Mammals</span></code></pre><p></p></div>
-<p><code><a href="galah_identify.html">galah_identify()</a></code> uses <code>search_taxa()</code> to narrow data queries</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 1</span>
-<span class="co">#&gt;     count</span>
-<span class="co">#&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1 1317131</span></code></pre><p></p></div>
+<p>Search using a single term</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"Reptilia"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 9</span></span>
+<span><span class="co">#&gt;   search_term scientific_name taxon_concept_id                              rank  match_type kingdom  phylum  class  issues</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                         &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1~ class exactMatch Animalia Chorda~ Repti~ noIss~</span></span></code></pre><p></p></div>
+<p>Note that <code>search_taxa()</code> is not case sensitive</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="co"># not case sensitive</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 9</span></span>
+<span><span class="co">#&gt;   search_term scientific_name taxon_concept_id                              rank  match_type kingdom  phylum  class  issues</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                         &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1~ class exactMatch Animalia Chorda~ Repti~ noIss~</span></span></code></pre><p></p></div>
+<p>Search multiple taxa. <code>search_taxa()</code> will return one row per taxon</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"reptilia"</span>, <span class="st">"mammalia"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 x 10</span></span>
+<span><span class="co">#&gt;   search_term scientific_name taxon_concept_id                rank  match_type kingdom  phylum class issues vernacular_name</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                           &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;          </span></span>
+<span><span class="co">#&gt; 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:a~ class exactMatch Animalia Chord~ Rept~ noIss~ &lt;NA&gt;           </span></span>
+<span><span class="co">#&gt; 2 mammalia    MAMMALIA        urn:lsid:biodiversity.org.au:a~ class exactMatch Animalia Chord~ Mamm~ noIss~ Mammals</span></span></code></pre><p></p></div>
+<p><code><a href="galah_identify.html">galah_identify()</a></code> uses <code>search_taxa()</code> to narrow data queries</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
+<span><span class="co">#&gt;     count</span></span>
+<span><span class="co">#&gt;     &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 1317131</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -152,7 +158,7 @@ by <code><a href="atlas_occurrences.html">atlas_occurrences()</a></code> and rel
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

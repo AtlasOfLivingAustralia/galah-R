@@ -75,12 +75,14 @@ and used to filter searches in <code><a href="atlas_occurrences.html">atlas_occu
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">show_all_profiles</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">show_all_profiles</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class <code>tbl_df</code> and <code>data.frame</code> (aka a tibble) of
+    
+
+<p>An object of class <code>tbl_df</code> and <code>data.frame</code> (aka a tibble) of
 available profiles</p>
     </div>
     <div class="section level2">
@@ -88,27 +90,27 @@ available profiles</p>
     
 
 
-<p>Show a list of all available data quality profiles</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/show_all_profiles.html">show_all_profiles</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 7 x 4</span>
-<span class="co">#&gt;      id name                                                  shortName        description                                 </span>
-<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;                                                 &lt;chr&gt;            &lt;chr&gt;                                       </span>
-<span class="co">#&gt; 1     2 ALA General (pre-pipelines)                           ALA-legacy       "The default ALA profile filters out record~</span>
-<span class="co">#&gt; 2    35 Species Distribution Modelling (CSDM) (pre-pipelines) CSDM-legacy      "Base filters for the Collaborative Species~</span>
-<span class="co">#&gt; 3    44 Data licensed for all uses (pre-pipelines)            re-usable-legacy "Data licensed for re-use, including commer~</span>
-<span class="co">#&gt; 4    92 ALA General                                           ALA              "The default ALA profile filters out record~</span>
-<span class="co">#&gt; 5   124 Species Distribution Modelling (CSDM)                 CSDM             "Base filters for the Collaborative Species~</span>
-<span class="co">#&gt; 6   133 Data licensed for all uses                            re-usable        "Data licensed for re-use, including commer~</span>
-<span class="co">#&gt; 7   224 AVH                                                   AVH              "AVH data quality profile"</span></code></pre><p></p></div>
+<p>Show a list of all available data quality profiles</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/show_all_profiles.html">show_all_profiles</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 7 x 4</span></span>
+<span><span class="co">#&gt;      id name                                                  shortName        description                                 </span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;                                                 &lt;chr&gt;            &lt;chr&gt;                                       </span></span>
+<span><span class="co">#&gt; 1     2 ALA General (pre-pipelines)                           ALA-legacy       "The default ALA profile filters out record~</span></span>
+<span><span class="co">#&gt; 2    35 Species Distribution Modelling (CSDM) (pre-pipelines) CSDM-legacy      "Base filters for the Collaborative Species~</span></span>
+<span><span class="co">#&gt; 3    44 Data licensed for all uses (pre-pipelines)            re-usable-legacy "Data licensed for re-use, including commer~</span></span>
+<span><span class="co">#&gt; 4    92 ALA General                                           ALA              "The default ALA profile filters out record~</span></span>
+<span><span class="co">#&gt; 5   124 Species Distribution Modelling (CSDM)                 CSDM             "Base filters for the Collaborative Species~</span></span>
+<span><span class="co">#&gt; 6   133 Data licensed for all uses                            re-usable        "Data licensed for re-use, including commer~</span></span>
+<span><span class="co">#&gt; 7   224 AVH                                                   AVH              "AVH data quality profile"</span></span></code></pre><p></p></div>
 <p>Values in the <code>shortName</code> column can be used with <code><a href="galah_filter.html">galah_filter()</a></code> to
-narrow your data query results</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">profile</span> <span class="op">==</span> <span class="st">"ALA"</span><span class="op">)</span>
-<span class="co">#&gt; Warning: Invalid field(s) detected.</span>
-<span class="co">#&gt; i See a listing of all valid fields with `show_all_fields()`.</span>
-<span class="co">#&gt; i Search for the valid name of a desired field with `search_fields()`.</span>
-<span class="co">#&gt; x Invalid field(s): profile.</span>
-<span class="co">#&gt; # A tibble: 1 x 4</span>
-<span class="co">#&gt;   variable logical value query              </span>
-<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;              </span>
-<span class="co">#&gt; 1 profile  ==      ALA   "(profile:\"ALA\")"</span></code></pre><p></p></div>
+narrow your data query results</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">profile</span> <span class="op">==</span> <span class="st">"ALA"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Invalid field(s) detected.</span></span>
+<span><span class="co">#&gt; i See a listing of all valid fields with `show_all_fields()`.</span></span>
+<span><span class="co">#&gt; i Search for the valid name of a desired field with `search_fields()`.</span></span>
+<span><span class="co">#&gt; x Invalid field(s): profile.</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 4</span></span>
+<span><span class="co">#&gt;   variable logical value query              </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;              </span></span>
+<span><span class="co">#&gt; 1 profile  ==      ALA   "(profile:\"ALA\")"</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -126,7 +128,7 @@ narrow your data query results</p><div class="sourceCode r"><pre><code><span cla
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

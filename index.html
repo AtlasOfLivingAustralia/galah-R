@@ -86,9 +86,7 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><img src="reference/figures/logo.png" align="left" style="margin: 0px 10px 0px 0px;" alt="" width="120"><h2>
-galah
-</h2>
+  <main id="main" class="col-md-9"><img src="reference/figures/logo.png" align="left" style="margin: 0px 10px 0px 0px;" alt="" width="120"><h2>galah</h2>
 
 <hr>
 <p><code>galah</code> is an R interface to biodiversity data hosted by the <a href="https://www.ala.org.au/" class="external-link">Atlas of Living Australia</a> (ALA). It enables users to locate and download species occurrence records (observations, specimens, eDNA records, etc.), taxonomic information, or associated media such as images or sounds, and to restrict their queries to particular taxa or locations. Users can specify which columns are returned by a query, or restrict their results to occurrences that meet particular data-quality criteria. All functions return a <code>tibble</code> as their standard format, except <code>atlas_taxonomy</code> which returns tree consisting of <code>Node</code> objects using the <code>data.tree</code> package.</p>
@@ -111,13 +109,13 @@ galah
 </h2>
 <p>Install from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"galah"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"galah"</span><span class="op">)</span></span></code></pre></div>
 <p>Install the development version from GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"AtlasOfLivingAustralia/galah"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"AtlasOfLivingAustralia/galah"</span><span class="op">)</span></span></code></pre></div>
 <p>On Linux you will first need to ensure that <code>libcurl</code> and <code>v8</code> (version &lt;= 3.15) are installed on your system — e.g. on Ubuntu/Debian, open a terminal and do:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="fu">sudo</span> apt-get install libcurl4-openssl-dev libv8-3.14-dev</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">sudo</span> apt-get install libcurl4-openssl-dev libv8-3.14-dev</span></code></pre></div>
 <p><code>galah</code> depends on <code>sf</code> for location-based searches. To install <code>galah</code> you will need to make sure your system meets the <code>sf</code> system requirements, as specified <a href="https://cran.r-project.org/package=sf" class="external-link">here</a></p>
 </div>
 <div class="section level2">
@@ -125,17 +123,17 @@ galah
 </h2>
 <p>To generate a citation for the package version you are using, you can run</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"galah"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"galah"</span><span class="op">)</span></span></code></pre></div>
 <p>If you’re using occurrence data downloaded through <code>galah</code> in a publication, please generate a DOI and cite it. To request a DOI for a download of occurrence record, set <code>mint_doi = TRUE</code> in a call to <code><a href="reference/atlas_occurrences.html">atlas_occurrences()</a></code>. To generate a citation for the downloaded occurrence records, pass the <code>data.frame</code> generated to <code><a href="reference/atlas_citation.html">atlas_citation()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Download occurrence records with a DOI </span>
-<span class="va">occ</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="va">...</span>, mint_doi <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co"># See DOI</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">occ</span>, <span class="st">"doi"</span><span class="op">)</span>
-
-<span class="co"># Generate citation</span>
-<span class="fu"><a href="reference/atlas_citation.html">atlas_citation</a></span><span class="op">(</span><span class="va">occ</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Download occurrence records with a DOI </span></span>
+<span><span class="va">occ</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="va">...</span>, mint_doi <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># See DOI</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">occ</span>, <span class="st">"doi"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate citation</span></span>
+<span><span class="fu"><a href="reference/atlas_citation.html">atlas_citation</a></span><span class="op">(</span><span class="va">occ</span><span class="op">)</span></span></code></pre></div>
 </div>
 
   </main><aside class="col-md-3"><div class="links">
@@ -193,7 +191,7 @@ galah
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>

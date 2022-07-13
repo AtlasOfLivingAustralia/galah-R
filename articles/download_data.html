@@ -80,8 +80,10 @@
   </div>
 </nav><div class="container template-article">
 
-<div class="row">
-  <main id="main"><div class="page-header">
+
+
+<script src="download_data_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Download data</h1>
                         <h4 data-toc-skip class="author">Martin Westgate &amp; Dax Kellie</h4>
             
@@ -107,134 +109,134 @@
 </h2>
 <p><code><a href="../reference/atlas_counts.html">atlas_counts()</a></code> provides summary counts on records in the specified atlas, without needing to download all the records.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Total number of records in the ALA</span>
-<span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## # A tibble: 1 × 1</span>
-<span class="co">##       count</span>
-<span class="co">##       &lt;int&gt;</span>
-<span class="co">## 1 102070026</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Total number of records in the ALA</span></span>
+<span><span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
+<span><span class="co">##       count</span></span>
+<span><span class="co">##       &lt;int&gt;</span></span>
+<span><span class="co">## 1 102070026</span></span></code></pre>
 <p>In addition to the filter arguments, it has an optional <code>group_by</code> argument, which provides counts binned by the requested field.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/galah_group_by.html">galah_group_by</a></span><span class="op">(</span><span class="va">kingdom</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## # A tibble: 10 × 2</span>
-<span class="co">##    kingdom      count</span>
-<span class="co">##    &lt;chr&gt;        &lt;int&gt;</span>
-<span class="co">##  1 Animalia  76305582</span>
-<span class="co">##  2 Plantae   21998260</span>
-<span class="co">##  3 Fungi      1893778</span>
-<span class="co">##  4 Chromista   915235</span>
-<span class="co">##  5 Protista     67365</span>
-<span class="co">##  6 Bacteria     58156</span>
-<span class="co">##  7 Protozoa     23635</span>
-<span class="co">##  8 Archaea       1103</span>
-<span class="co">##  9 Eukaryota      735</span>
-<span class="co">## 10 Virus          472</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_group_by.html">galah_group_by</a></span><span class="op">(</span><span class="va">kingdom</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 10 × 2</span></span>
+<span><span class="co">##    kingdom      count</span></span>
+<span><span class="co">##    &lt;chr&gt;        &lt;int&gt;</span></span>
+<span><span class="co">##  1 Animalia  76305582</span></span>
+<span><span class="co">##  2 Plantae   21998260</span></span>
+<span><span class="co">##  3 Fungi      1893778</span></span>
+<span><span class="co">##  4 Chromista   915235</span></span>
+<span><span class="co">##  5 Protista     67365</span></span>
+<span><span class="co">##  6 Bacteria     58156</span></span>
+<span><span class="co">##  7 Protozoa     23635</span></span>
+<span><span class="co">##  8 Archaea       1103</span></span>
+<span><span class="co">##  9 Eukaryota      735</span></span>
+<span><span class="co">## 10 Virus          472</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="species-lists">Species lists<a class="anchor" aria-label="anchor" href="#species-lists"></a>
 </h2>
 <p>A common use case of atlas data is to identify which species occur in a specified region, time period, or taxonomic group. <code><a href="../reference/atlas_species.html">atlas_species()</a></code> is similar to <code>search_taxa</code>, in that it returns taxonomic information and unique identifiers in a <code>tibble</code>. It differs in not being able to return information on taxonomic levels other than the species; but also in being more flexible by supporting filtering:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Rodentia"</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">stateProvince</span> <span class="op">==</span> <span class="st">"Northern Territory"</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/atlas_species.html">atlas_species</a></span><span class="op">(</span><span class="op">)</span>
-  
-<span class="va">species</span> |&gt; <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## # A tibble: 6 × 10</span>
-<span class="co">##   kingdom  phylum   class    order    family  genus        species                     author   species_guid       vernacular_name</span>
-<span class="co">##   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;        &lt;chr&gt;                       &lt;chr&gt;    &lt;chr&gt;              &lt;chr&gt;          </span>
-<span class="co">## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. G… urn:lsid:biodiver… Black-footed T…</span>
-<span class="co">## 2 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thomas… urn:lsid:biodiver… Common Rock-rat</span>
-<span class="co">## 3 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite,… urn:lsid:biodiver… Sandy Inland M…</span>
-<span class="co">## 4 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas,… urn:lsid:biodiver… Spinifex Hoppi…</span>
-<span class="co">## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsay… urn:lsid:biodiver… Grassland Melo…</span>
-<span class="co">## 6 Animalia Chordata Mammalia Rodentia Muridae Mus          Mus musculus                Linnaeu… urn:lsid:biodiver… House Mouse</span></code></pre>
+<code class="sourceCode R"><span><span class="va">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Rodentia"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">stateProvince</span> <span class="op">==</span> <span class="st">"Northern Territory"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_species.html">atlas_species</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="va">species</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 6 × 10</span></span>
+<span><span class="co">##   kingdom  phylum   class    order    family  genus        species                     author   species_guid       vernacular_name</span></span>
+<span><span class="co">##   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;        &lt;chr&gt;                       &lt;chr&gt;    &lt;chr&gt;              &lt;chr&gt;          </span></span>
+<span><span class="co">## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. G… urn:lsid:biodiver… Black-footed T…</span></span>
+<span><span class="co">## 2 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thomas… urn:lsid:biodiver… Common Rock-rat</span></span>
+<span><span class="co">## 3 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite,… urn:lsid:biodiver… Sandy Inland M…</span></span>
+<span><span class="co">## 4 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas,… urn:lsid:biodiver… Spinifex Hoppi…</span></span>
+<span><span class="co">## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsay… urn:lsid:biodiver… Grassland Melo…</span></span>
+<span><span class="co">## 6 Animalia Chordata Mammalia Rodentia Muridae Mus          Mus musculus                Linnaeu… urn:lsid:biodiver… House Mouse</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="occurrence-data">Occurrence data<a class="anchor" aria-label="anchor" href="#occurrence-data"></a>
 </h2>
 <p>To download occurrence data you will need to specify your email in <code><a href="../reference/galah_config.html">galah_config()</a></code>. This email must be associated with an active ALA account. See more information in the <a href="#config">config section</a></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your_email@email.com"</span>, atlas <span class="op">=</span> <span class="st">"Australia"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your_email@email.com"</span>, atlas <span class="op">=</span> <span class="st">"Australia"</span><span class="op">)</span></span></code></pre></div>
 <p>Download occurrence records for <em>Eolophus roseicapilla</em></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">occ</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Eolophus roseicapilla"</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span>
-    <span class="va">stateProvince</span> <span class="op">==</span> <span class="st">"Australian Capital Territory"</span>,
-    <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span>,
-    profile <span class="op">=</span> <span class="st">"ALA"</span>
-  <span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/galah_select.html">galah_select</a></span><span class="op">(</span><span class="va">institutionID</span>, group <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="op">)</span>
-  
-<span class="va">occ</span> |&gt; <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## # A tibble: 6 × 8</span>
-<span class="co">##   decimalLatitude decimalLongitude eventDate              scientificName  taxonConceptID   recordID dataResourceName institutionID</span>
-<span class="co">##             &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;                  &lt;chr&gt;           &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;        </span>
-<span class="co">## 1           -35.9             149. ""                     Eolophus rosei… urn:lsid:biodiv… 17f46d4… eBird Australia  ""           </span>
-<span class="co">## 2           -35.9             149. ""                     Eolophus rosei… urn:lsid:biodiv… ef2b906… eBird Australia  ""           </span>
-<span class="co">## 3           -35.9             149. "2012-01-18T13:00:00Z" Eolophus rosei… urn:lsid:biodiv… 4f7cd71… BirdLife Austra… ""           </span>
-<span class="co">## 4           -35.9             149. ""                     Eolophus rosei… urn:lsid:biodiv… 3236c47… eBird Australia  ""           </span>
-<span class="co">## 5           -35.8             149. ""                     Eolophus rosei… urn:lsid:biodiv… eec91d8… eBird Australia  ""           </span>
-<span class="co">## 6           -35.8             149. ""                     Eolophus rosei… urn:lsid:biodiv… e340c42… eBird Australia  ""</span></code></pre>
+<code class="sourceCode R"><span><span class="va">occ</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Eolophus roseicapilla"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span></span>
+<span>    <span class="va">stateProvince</span> <span class="op">==</span> <span class="st">"Australian Capital Territory"</span>,</span>
+<span>    <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span>,</span>
+<span>    profile <span class="op">=</span> <span class="st">"ALA"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_select.html">galah_select</a></span><span class="op">(</span><span class="va">institutionID</span>, group <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="va">occ</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 6 × 8</span></span>
+<span><span class="co">##   decimalLatitude decimalLongitude eventDate              scientificName  taxonConceptID   recordID dataResourceName institutionID</span></span>
+<span><span class="co">##             &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;                  &lt;chr&gt;           &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;        </span></span>
+<span><span class="co">## 1           -35.9             149. ""                     Eolophus rosei… urn:lsid:biodiv… 17f46d4… eBird Australia  ""           </span></span>
+<span><span class="co">## 2           -35.9             149. ""                     Eolophus rosei… urn:lsid:biodiv… ef2b906… eBird Australia  ""           </span></span>
+<span><span class="co">## 3           -35.9             149. "2012-01-18T13:00:00Z" Eolophus rosei… urn:lsid:biodiv… 4f7cd71… BirdLife Austra… ""           </span></span>
+<span><span class="co">## 4           -35.9             149. ""                     Eolophus rosei… urn:lsid:biodiv… 3236c47… eBird Australia  ""           </span></span>
+<span><span class="co">## 5           -35.8             149. ""                     Eolophus rosei… urn:lsid:biodiv… eec91d8… eBird Australia  ""           </span></span>
+<span><span class="co">## 6           -35.8             149. ""                     Eolophus rosei… urn:lsid:biodiv… e340c42… eBird Australia  ""</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="media-downloads">Media downloads<a class="anchor" aria-label="anchor" href="#media-downloads"></a>
 </h2>
 <p>In addition to text data describing individual occurrences and their attributes, ALA stores images, sounds and videos associated with a given record. These can be downloaded to <code>R</code> using <code><a href="../reference/atlas_media.html">atlas_media()</a></code> and the same set of filters as the other data download functions.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">media_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Eolophus roseicapilla"</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2020</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/atlas_media.html">atlas_media</a></span><span class="op">(</span>download_dir <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">media_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Eolophus roseicapilla"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_media.html">atlas_media</a></span><span class="op">(</span>download_dir <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="taxonomic-trees">Taxonomic trees<a class="anchor" aria-label="anchor" href="#taxonomic-trees"></a>
 </h2>
 <p><code>atlas_taxonomy</code> provides a way to build taxonomic trees from one clade down to another using ALA’s internal taxonomy. Specify which taxonomic level your tree will go down to with <code>galah_down_to</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">classes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"chordata"</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/galah_down_to.html">galah_down_to</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/atlas_taxonomy.html">atlas_taxonomy</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">classes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"chordata"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_down_to.html">galah_down_to</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_taxonomy.html">atlas_taxonomy</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This function is unique within <code>galah</code> as it is the only function that returns a <code>data.tree</code>, rather than a <code>tibble</code>.</p>
-<pre><code><span class="co">##                             levelName</span>
-<span class="co">## 1  Chordata                          </span>
-<span class="co">## 2   ¦--Cephalochordata               </span>
-<span class="co">## 3   ¦   °--Amphioxi                  </span>
-<span class="co">## 4   ¦--Craniata                      </span>
-<span class="co">## 5   ¦   °--Agnatha                   </span>
-<span class="co">## 6   ¦       ¦--Cephalasipidomorphi   </span>
-<span class="co">## 7   ¦       °--Myxini                </span>
-<span class="co">## 8   ¦--Tunicata                      </span>
-<span class="co">## 9   ¦   ¦--Appendicularia            </span>
-<span class="co">## 10  ¦   ¦--Ascidiacea                </span>
-<span class="co">## 11  ¦   °--Thaliacea                 </span>
-<span class="co">## 12  °--Vertebrata                    </span>
-<span class="co">## 13      °--Gnathostomata             </span>
-<span class="co">## 14          ¦--Amphibia              </span>
-<span class="co">## 15          ¦--Aves                  </span>
-<span class="co">## 16          ¦--Mammalia              </span>
-<span class="co">## 17          ¦--Pisces                </span>
-<span class="co">## 18          ¦   ¦--Actinopterygii    </span>
-<span class="co">## 19          ¦   ¦--Chondrichthyes    </span>
-<span class="co">## 20          ¦   ¦--Cephalaspidomorphi</span>
-<span class="co">## 21          ¦   °--Sarcopterygii     </span>
-<span class="co">## 22          °--Reptilia</span></code></pre>
+<pre><code><span><span class="co">##                             levelName</span></span>
+<span><span class="co">## 1  Chordata                          </span></span>
+<span><span class="co">## 2   ¦--Cephalochordata               </span></span>
+<span><span class="co">## 3   ¦   °--Amphioxi                  </span></span>
+<span><span class="co">## 4   ¦--Craniata                      </span></span>
+<span><span class="co">## 5   ¦   °--Agnatha                   </span></span>
+<span><span class="co">## 6   ¦       ¦--Cephalasipidomorphi   </span></span>
+<span><span class="co">## 7   ¦       °--Myxini                </span></span>
+<span><span class="co">## 8   ¦--Tunicata                      </span></span>
+<span><span class="co">## 9   ¦   ¦--Appendicularia            </span></span>
+<span><span class="co">## 10  ¦   ¦--Ascidiacea                </span></span>
+<span><span class="co">## 11  ¦   °--Thaliacea                 </span></span>
+<span><span class="co">## 12  °--Vertebrata                    </span></span>
+<span><span class="co">## 13      °--Gnathostomata             </span></span>
+<span><span class="co">## 14          ¦--Amphibia              </span></span>
+<span><span class="co">## 15          ¦--Aves                  </span></span>
+<span><span class="co">## 16          ¦--Mammalia              </span></span>
+<span><span class="co">## 17          ¦--Pisces                </span></span>
+<span><span class="co">## 18          ¦   ¦--Actinopterygii    </span></span>
+<span><span class="co">## 19          ¦   ¦--Chondrichthyes    </span></span>
+<span><span class="co">## 20          ¦   ¦--Cephalaspidomorphi</span></span>
+<span><span class="co">## 21          ¦   °--Sarcopterygii     </span></span>
+<span><span class="co">## 22          °--Reptilia</span></span></code></pre>
 <p>Although the tree format is useful, converting to a <code>data.frame</code> is straightforward.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">data.tree</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.tree/man/as.data.frame.Node.html" class="external-link">ToDataFrameTypeCol</a></span><span class="op">(</span><span class="va">classes</span>, type <span class="op">=</span> <span class="st">"rank"</span><span class="op">)</span> |&gt; <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##   rank_phylum  rank_subphylum rank_superclass rank_informal          rank_class</span>
-<span class="co">## 1    Chordata Cephalochordata            &lt;NA&gt;          &lt;NA&gt;            Amphioxi</span>
-<span class="co">## 2    Chordata        Craniata         Agnatha          &lt;NA&gt; Cephalasipidomorphi</span>
-<span class="co">## 3    Chordata        Craniata         Agnatha          &lt;NA&gt;              Myxini</span>
-<span class="co">## 4    Chordata        Tunicata            &lt;NA&gt;          &lt;NA&gt;      Appendicularia</span>
-<span class="co">## 5    Chordata        Tunicata            &lt;NA&gt;          &lt;NA&gt;          Ascidiacea</span>
-<span class="co">## 6    Chordata        Tunicata            &lt;NA&gt;          &lt;NA&gt;           Thaliacea</span></code></pre>
+<code class="sourceCode R"><span><span class="fu">data.tree</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.tree/man/as.data.frame.Node.html" class="external-link">ToDataFrameTypeCol</a></span><span class="op">(</span><span class="va">classes</span>, type <span class="op">=</span> <span class="st">"rank"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   rank_phylum  rank_subphylum rank_superclass rank_informal          rank_class</span></span>
+<span><span class="co">## 1    Chordata Cephalochordata            &lt;NA&gt;          &lt;NA&gt;            Amphioxi</span></span>
+<span><span class="co">## 2    Chordata        Craniata         Agnatha          &lt;NA&gt; Cephalasipidomorphi</span></span>
+<span><span class="co">## 3    Chordata        Craniata         Agnatha          &lt;NA&gt;              Myxini</span></span>
+<span><span class="co">## 4    Chordata        Tunicata            &lt;NA&gt;          &lt;NA&gt;      Appendicularia</span></span>
+<span><span class="co">## 5    Chordata        Tunicata            &lt;NA&gt;          &lt;NA&gt;          Ascidiacea</span></span>
+<span><span class="co">## 6    Chordata        Tunicata            &lt;NA&gt;          &lt;NA&gt;           Thaliacea</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="configuring-galah">Configuring <code>galah</code><a class="anchor" aria-label="anchor" href="#configuring-galah"></a>
@@ -245,7 +247,7 @@
 </h3>
 <p>To download occurrence records, you will need to provide an email address registered with the ALA. You can create an account <a href="https://auth.ala.org.au/userdetails/registration/createAccount" class="external-link">here</a>. Once an email is registered with the ALA, it should be stored in the config:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"myemail@gmail.com"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"myemail@gmail.com"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="caching">Caching<a class="anchor" aria-label="anchor" href="#caching"></a>
@@ -253,24 +255,24 @@
 <p><code>galah</code> can cache most results to local files. This means that if the same code is run multiple times, the second and subsequent iterations will be faster.</p>
 <p>By default, this caching is session-based, meaning that the local files are stored in a temporary directory that is automatically deleted when the R session is ended. This behaviour can be altered so that caching is permanent, by setting the caching directory to a non-temporary location.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>cache_directory <span class="op">=</span> <span class="st">"example/dir"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>cache_directory <span class="op">=</span> <span class="st">"example/dir"</span><span class="op">)</span></span></code></pre></div>
 <p>By default, caching is turned off. To turn caching on, run</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>caching <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>caching <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="setting-the-download-reason">Setting the download reason<a class="anchor" aria-label="anchor" href="#setting-the-download-reason"></a>
 </h3>
 <p>ALA requires that you provide a reason when downloading occurrence data (via the galah <code><a href="../reference/atlas_occurrences.html">atlas_occurrences()</a></code> function). The reason is set as “scientific research” by default, but you can change this using <code><a href="../reference/galah_config.html">galah_config()</a></code>. See <code><a href="../reference/show_all_reasons.html">show_all_reasons()</a></code> for valid download reasons.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>download_reason_id <span class="op">=</span> <span class="va">your_reason_id</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>download_reason_id <span class="op">=</span> <span class="va">your_reason_id</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="debugging">Debugging<a class="anchor" aria-label="anchor" href="#debugging"></a>
 </h3>
 <p>If things aren’t working as expected, more detail (particularly about web requests and caching behaviour) can be obtained by setting the <code>verbose</code> configuration option:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -286,7 +288,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>

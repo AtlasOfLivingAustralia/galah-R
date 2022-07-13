@@ -111,64 +111,64 @@ Use galah_config() instead of ala_config()."><meta property="og:image" content="
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">select_taxa</span><span class="op">(</span><span class="va">query</span>, is_id <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">select_columns</span><span class="op">(</span><span class="va">...</span>, <span class="va">group</span><span class="op">)</span>
-
-<span class="fu">select_filters</span><span class="op">(</span><span class="va">...</span>, profile <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="fu">select_locations</span><span class="op">(</span><span class="va">query</span><span class="op">)</span>
-
-<span class="fu">ala_occurrences</span><span class="op">(</span>
-  taxa <span class="op">=</span> <span class="cn">NULL</span>,
-  filters <span class="op">=</span> <span class="cn">NULL</span>,
-  locations <span class="op">=</span> <span class="cn">NULL</span>,
-  columns <span class="op">=</span> <span class="fu">select_columns</span><span class="op">(</span>group <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span>,
-  mint_doi <span class="op">=</span> <span class="cn">FALSE</span>,
-  doi <span class="op">=</span> <span class="cn">NULL</span>,
-  refresh_cache <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">ala_counts</span><span class="op">(</span>
-  taxa <span class="op">=</span> <span class="cn">NULL</span>,
-  filters <span class="op">=</span> <span class="cn">NULL</span>,
-  locations <span class="op">=</span> <span class="cn">NULL</span>,
-  limit <span class="op">=</span> <span class="fl">100</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"record"</span>, <span class="st">"species"</span><span class="op">)</span>,
-  refresh_cache <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">ala_species</span><span class="op">(</span>
-  taxa <span class="op">=</span> <span class="cn">NULL</span>,
-  filters <span class="op">=</span> <span class="cn">NULL</span>,
-  locations <span class="op">=</span> <span class="cn">NULL</span>,
-  refresh_cache <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">ala_taxonomy</span><span class="op">(</span><span class="va">taxa</span>, <span class="va">down_to</span><span class="op">)</span>
-
-<span class="fu">ala_media</span><span class="op">(</span>
-  taxa <span class="op">=</span> <span class="cn">NULL</span>,
-  filters <span class="op">=</span> <span class="cn">NULL</span>,
-  locations <span class="op">=</span> <span class="cn">NULL</span>,
-  columns <span class="op">=</span> <span class="fu">select_columns</span><span class="op">(</span>group <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span>,
-  <span class="va">download_dir</span>,
-  refresh_cache <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">ala_citation</span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-
-<span class="fu">find_reasons</span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu">find_cached_files</span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu">find_ranks</span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu">find_profiles</span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu">find_atlases</span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu">ala_config</span><span class="op">(</span><span class="va">...</span>, profile_path <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">select_taxa</span><span class="op">(</span><span class="va">query</span>, is_id <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">select_columns</span><span class="op">(</span><span class="va">...</span>, <span class="va">group</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">select_filters</span><span class="op">(</span><span class="va">...</span>, profile <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">select_locations</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ala_occurrences</span><span class="op">(</span></span>
+<span>  taxa <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  locations <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  columns <span class="op">=</span> <span class="fu">select_columns</span><span class="op">(</span>group <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span>,</span>
+<span>  mint_doi <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  doi <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  refresh_cache <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ala_counts</span><span class="op">(</span></span>
+<span>  taxa <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  locations <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  limit <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"record"</span>, <span class="st">"species"</span><span class="op">)</span>,</span>
+<span>  refresh_cache <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ala_species</span><span class="op">(</span></span>
+<span>  taxa <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  locations <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  refresh_cache <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ala_taxonomy</span><span class="op">(</span><span class="va">taxa</span>, <span class="va">down_to</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ala_media</span><span class="op">(</span></span>
+<span>  taxa <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  locations <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  columns <span class="op">=</span> <span class="fu">select_columns</span><span class="op">(</span>group <span class="op">=</span> <span class="st">"basic"</span><span class="op">)</span>,</span>
+<span>  <span class="va">download_dir</span>,</span>
+<span>  refresh_cache <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ala_citation</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">find_reasons</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">find_cached_files</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">find_ranks</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">find_profiles</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">find_atlases</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ala_config</span><span class="op">(</span><span class="va">...</span>, profile_path <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
 
@@ -180,7 +180,7 @@ Use galah_config() instead of ala_config()."><meta property="og:image" content="
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

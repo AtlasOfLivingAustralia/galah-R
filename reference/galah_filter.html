@@ -90,21 +90,26 @@ syntax.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">galah_filter</span><span class="op">(</span><span class="va">...</span>, profile <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">galah_filter</span><span class="op">(</span><span class="va">...</span>, profile <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
 <dd><p>filters, in the form <code>field logical value</code></p></dd>
+
+
 <dt>profile</dt>
 <dd><p><code>string</code>: (optional) a data quality profile to apply to the
 records. See <code><a href="show_all_profiles.html">show_all_profiles()</a></code> for valid profiles. By default
 no profile is applied.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class <code>data.frame</code> and <code>galah_filter</code>,
+    
+
+<p>An object of class <code>data.frame</code> and <code>galah_filter</code>,
 containing filter values.</p>
     </div>
     <div class="section level2">
@@ -125,56 +130,56 @@ argument) take the form of field - logical - value. Permissible examples include
     
 
 
-<p>Create a custom filter for records of interest</p><div class="sourceCode r"><pre><code><span class="va">filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span>
-    <span class="va">basisOfRecord</span> <span class="op">==</span> <span class="st">"HumanObservation"</span>,
-    <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span>,
-    <span class="va">stateProvince</span> <span class="op">==</span> <span class="st">"New South Wales"</span><span class="op">)</span></code></pre><p></p></div>
-<p>Add the default ALA data quality profile</p><div class="sourceCode r"><pre><code><span class="va">filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span>
-    <span class="va">basisOfRecord</span> <span class="op">==</span> <span class="st">"HumanObservation"</span>,
-    <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span>,
-    <span class="va">stateProvince</span> <span class="op">==</span> <span class="st">"New South Wales"</span>,
-    profile <span class="op">=</span> <span class="st">"ALA"</span><span class="op">)</span></code></pre><p></p></div>
-<p>Use filters to exclude particular values</p><div class="sourceCode r"><pre><code><span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">!=</span> <span class="fl">2021</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="va">filter</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 1</span>
-<span class="co">#&gt;      count</span>
-<span class="co">#&gt;      &lt;int&gt;</span>
-<span class="co">#&gt; 1 43916661</span></code></pre><p></p></div>
-<p>Separating statements with a comma is equivalent to an <code>AND</code> statement</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&lt;</span> <span class="fl">2020</span><span class="op">)</span> <span class="co"># is the same as:</span>
-<span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span>, <span class="va">year</span> <span class="op">&lt;</span> <span class="fl">2020</span><span class="op">)</span></code></pre><p></p></div>
-<p>All statements must include the field name</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2010</span> <span class="op">|</span> <span class="va">year</span> <span class="op">==</span> <span class="fl">2021</span><span class="op">)</span> <span class="co"># this works (note double equals)</span>
-<span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2010</span>, <span class="fl">2021</span><span class="op">)</span><span class="op">)</span> <span class="co"># same as above </span>
-<span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2010</span> <span class="op">|</span> <span class="fl">2021</span><span class="op">)</span> <span class="co"># this fails</span></code></pre><p></p></div>
-<p>It is possible to use an object to specify required values</p><div class="sourceCode r"><pre><code><span class="co"># Numeric example</span>
-
-<span class="va">year_value</span> <span class="op">&lt;-</span> <span class="fl">2010</span>
-
-<span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="va">year_value</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 1</span>
-<span class="co">#&gt;      count</span>
-<span class="co">#&gt;      &lt;int&gt;</span>
-<span class="co">#&gt; 1 42816943</span></code></pre><p></p></div><div class="sourceCode r"><pre><code><span class="co"># Categorical example</span>
-
-<span class="va">basis_of_record</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"HumanObservation"</span>, <span class="st">"MaterialSample"</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">basisOfRecord</span> <span class="op">==</span> <span class="va">basis_of_record</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 1</span>
-<span class="co">#&gt;      count</span>
-<span class="co">#&gt;      &lt;int&gt;</span>
-<span class="co">#&gt; 1 82809464</span></code></pre><p></p></div>
+<p>Create a custom filter for records of interest</p><div class="sourceCode r"><pre><code><span><span class="va">filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span></span>
+<span>    <span class="va">basisOfRecord</span> <span class="op">==</span> <span class="st">"HumanObservation"</span>,</span>
+<span>    <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span>,</span>
+<span>    <span class="va">stateProvince</span> <span class="op">==</span> <span class="st">"New South Wales"</span><span class="op">)</span></span></code></pre><p></p></div>
+<p>Add the default ALA data quality profile</p><div class="sourceCode r"><pre><code><span><span class="va">filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span></span>
+<span>    <span class="va">basisOfRecord</span> <span class="op">==</span> <span class="st">"HumanObservation"</span>,</span>
+<span>    <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span>,</span>
+<span>    <span class="va">stateProvince</span> <span class="op">==</span> <span class="st">"New South Wales"</span>,</span>
+<span>    profile <span class="op">=</span> <span class="st">"ALA"</span><span class="op">)</span></span></code></pre><p></p></div>
+<p>Use filters to exclude particular values</p><div class="sourceCode r"><pre><code><span><span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">!=</span> <span class="fl">2021</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="va">filter</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
+<span><span class="co">#&gt;      count</span></span>
+<span><span class="co">#&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 43916661</span></span></code></pre><p></p></div>
+<p>Separating statements with a comma is equivalent to an <code>AND</code> statement</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&lt;</span> <span class="fl">2020</span><span class="op">)</span> <span class="co"># is the same as:</span></span>
+<span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span>, <span class="va">year</span> <span class="op">&lt;</span> <span class="fl">2020</span><span class="op">)</span></span></code></pre><p></p></div>
+<p>All statements must include the field name</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2010</span> <span class="op">|</span> <span class="va">year</span> <span class="op">==</span> <span class="fl">2021</span><span class="op">)</span> <span class="co"># this works (note double equals)</span></span>
+<span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2010</span>, <span class="fl">2021</span><span class="op">)</span><span class="op">)</span> <span class="co"># same as above </span></span>
+<span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2010</span> <span class="op">|</span> <span class="fl">2021</span><span class="op">)</span> <span class="co"># this fails</span></span></code></pre><p></p></div>
+<p>It is possible to use an object to specify required values</p><div class="sourceCode r"><pre><code><span><span class="co"># Numeric example</span></span>
+<span></span>
+<span><span class="va">year_value</span> <span class="op">&lt;-</span> <span class="fl">2010</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="va">year_value</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
+<span><span class="co">#&gt;      count</span></span>
+<span><span class="co">#&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 42816943</span></span></code></pre><p></p></div><div class="sourceCode r"><pre><code><span><span class="co"># Categorical example</span></span>
+<span></span>
+<span><span class="va">basis_of_record</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"HumanObservation"</span>, <span class="st">"MaterialSample"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">basisOfRecord</span> <span class="op">==</span> <span class="va">basis_of_record</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
+<span><span class="co">#&gt;      count</span></span>
+<span><span class="co">#&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 82809464</span></span></code></pre><p></p></div>
 <p><code>solr</code> supports range queries on text as well as numbers. The following
-queries all Australian States and Territories alphabetically after "Tasmania"</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">cl22</span> <span class="op">&gt;=</span> <span class="st">"Tasmania"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 1</span>
-<span class="co">#&gt;      count</span>
-<span class="co">#&gt;      &lt;int&gt;</span>
-<span class="co">#&gt; 1 30230213</span></code></pre><p></p></div>
+queries all Australian States and Territories alphabetically after "Tasmania"</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">cl22</span> <span class="op">&gt;=</span> <span class="st">"Tasmania"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
+<span><span class="co">#&gt;      count</span></span>
+<span><span class="co">#&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 30230213</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -194,7 +199,7 @@ of those filters are available.</p></div>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

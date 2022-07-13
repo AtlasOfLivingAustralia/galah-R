@@ -69,17 +69,20 @@ non-standard evaluation (NSE), for consistency with other <code>galah_</code> fu
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">galah_down_to</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">galah_down_to</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
 <dd><p>the name of a single taxonomic rank</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A string with the named rank</p>
+    
+
+<p>A string with the named rank</p>
     </div>
     <div class="section level2">
     <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h2>
@@ -87,52 +90,52 @@ non-standard evaluation (NSE), for consistency with other <code>galah_</code> fu
 
 
 <p>An example of using <code>galah_down_to()</code> with <code><a href="atlas_taxonomy.html">atlas_taxonomy()</a></code>. Return a
-taxonomic tree of <em>Chordata</em> down to the class level</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Chordata"</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="../reference/galah_down_to.html">galah_down_to</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="../reference/atlas_taxonomy.html">atlas_taxonomy</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt;                             levelName</span>
-<span class="co">#&gt; 1  Chordata                          </span>
-<span class="co">#&gt; 2   ¦--Cephalochordata               </span>
-<span class="co">#&gt; 3   ¦   °--Amphioxi                  </span>
-<span class="co">#&gt; 4   ¦--Craniata                      </span>
-<span class="co">#&gt; 5   ¦   °--Agnatha                   </span>
-<span class="co">#&gt; 6   ¦       ¦--Cephalasipidomorphi   </span>
-<span class="co">#&gt; 7   ¦       °--Myxini                </span>
-<span class="co">#&gt; 8   ¦--Tunicata                      </span>
-<span class="co">#&gt; 9   ¦   ¦--Appendicularia            </span>
-<span class="co">#&gt; 10  ¦   ¦--Ascidiacea                </span>
-<span class="co">#&gt; 11  ¦   °--Thaliacea                 </span>
-<span class="co">#&gt; 12  °--Vertebrata                    </span>
-<span class="co">#&gt; 13      °--Gnathostomata             </span>
-<span class="co">#&gt; 14          ¦--Amphibia              </span>
-<span class="co">#&gt; 15          ¦--Aves                  </span>
-<span class="co">#&gt; 16          ¦--Mammalia              </span>
-<span class="co">#&gt; 17          ¦--Pisces                </span>
-<span class="co">#&gt; 18          ¦   ¦--Actinopterygii    </span>
-<span class="co">#&gt; 19          ¦   ¦--Chondrichthyes    </span>
-<span class="co">#&gt; 20          ¦   ¦--Cephalaspidomorphi</span>
-<span class="co">#&gt; 21          ¦   °--Sarcopterygii     </span>
-<span class="co">#&gt; 22          °--Reptilia</span></code></pre><p></p></div>
+taxonomic tree of <em>Chordata</em> down to the class level</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Chordata"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="../reference/galah_down_to.html">galah_down_to</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="../reference/atlas_taxonomy.html">atlas_taxonomy</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                             levelName</span></span>
+<span><span class="co">#&gt; 1  Chordata                          </span></span>
+<span><span class="co">#&gt; 2   ¦--Cephalochordata               </span></span>
+<span><span class="co">#&gt; 3   ¦   °--Amphioxi                  </span></span>
+<span><span class="co">#&gt; 4   ¦--Craniata                      </span></span>
+<span><span class="co">#&gt; 5   ¦   °--Agnatha                   </span></span>
+<span><span class="co">#&gt; 6   ¦       ¦--Cephalasipidomorphi   </span></span>
+<span><span class="co">#&gt; 7   ¦       °--Myxini                </span></span>
+<span><span class="co">#&gt; 8   ¦--Tunicata                      </span></span>
+<span><span class="co">#&gt; 9   ¦   ¦--Appendicularia            </span></span>
+<span><span class="co">#&gt; 10  ¦   ¦--Ascidiacea                </span></span>
+<span><span class="co">#&gt; 11  ¦   °--Thaliacea                 </span></span>
+<span><span class="co">#&gt; 12  °--Vertebrata                    </span></span>
+<span><span class="co">#&gt; 13      °--Gnathostomata             </span></span>
+<span><span class="co">#&gt; 14          ¦--Amphibia              </span></span>
+<span><span class="co">#&gt; 15          ¦--Aves                  </span></span>
+<span><span class="co">#&gt; 16          ¦--Mammalia              </span></span>
+<span><span class="co">#&gt; 17          ¦--Pisces                </span></span>
+<span><span class="co">#&gt; 18          ¦   ¦--Actinopterygii    </span></span>
+<span><span class="co">#&gt; 19          ¦   ¦--Chondrichthyes    </span></span>
+<span><span class="co">#&gt; 20          ¦   ¦--Cephalaspidomorphi</span></span>
+<span><span class="co">#&gt; 21          ¦   °--Sarcopterygii     </span></span>
+<span><span class="co">#&gt; 22          °--Reptilia</span></span></code></pre><p></p></div>
 <p>Another example: return a taxonomic tree of <em>Cacatuidae</em> down to the genus
-level</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Cacatuidae"</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/galah_down_to.html">galah_down_to</a></span><span class="op">(</span><span class="va">genus</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="../reference/atlas_taxonomy.html">atlas_taxonomy</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt;                    levelName</span>
-<span class="co">#&gt; 1  Cacatuidae               </span>
-<span class="co">#&gt; 2   ¦--Cacatuinae           </span>
-<span class="co">#&gt; 3   ¦   ¦--Cacatuini        </span>
-<span class="co">#&gt; 4   ¦   ¦   ¦--Cacatua      </span>
-<span class="co">#&gt; 5   ¦   ¦   ¦--Callocephalon</span>
-<span class="co">#&gt; 6   ¦   ¦   ¦--Eolophus     </span>
-<span class="co">#&gt; 7   ¦   ¦   °--Lophochroa   </span>
-<span class="co">#&gt; 8   ¦   °--Microglossini    </span>
-<span class="co">#&gt; 9   ¦       °--Probosciger  </span>
-<span class="co">#&gt; 10  ¦--Calyptorhynchinae    </span>
-<span class="co">#&gt; 11  ¦   °--Calyptorhynchus  </span>
-<span class="co">#&gt; 12  °--Nymphicinae          </span>
-<span class="co">#&gt; 13      °--Nymphicus</span></code></pre><p></p></div>
+level</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Cacatuidae"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_down_to.html">galah_down_to</a></span><span class="op">(</span><span class="va">genus</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_taxonomy.html">atlas_taxonomy</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                    levelName</span></span>
+<span><span class="co">#&gt; 1  Cacatuidae               </span></span>
+<span><span class="co">#&gt; 2   ¦--Cacatuinae           </span></span>
+<span><span class="co">#&gt; 3   ¦   ¦--Cacatuini        </span></span>
+<span><span class="co">#&gt; 4   ¦   ¦   ¦--Cacatua      </span></span>
+<span><span class="co">#&gt; 5   ¦   ¦   ¦--Callocephalon</span></span>
+<span><span class="co">#&gt; 6   ¦   ¦   ¦--Eolophus     </span></span>
+<span><span class="co">#&gt; 7   ¦   ¦   °--Lophochroa   </span></span>
+<span><span class="co">#&gt; 8   ¦   °--Microglossini    </span></span>
+<span><span class="co">#&gt; 9   ¦       °--Probosciger  </span></span>
+<span><span class="co">#&gt; 10  ¦--Calyptorhynchinae    </span></span>
+<span><span class="co">#&gt; 11  ¦   °--Calyptorhynchus  </span></span>
+<span><span class="co">#&gt; 12  °--Nymphicinae          </span></span>
+<span><span class="co">#&gt; 13      °--Nymphicus</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -149,7 +152,7 @@ level</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../refer
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

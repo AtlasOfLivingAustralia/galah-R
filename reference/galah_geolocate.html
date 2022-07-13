@@ -66,17 +66,20 @@ and be specified as either an sf object, or a 'well-known text' (wkt) string.</p
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">galah_geolocate</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">galah_geolocate</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
 <dd><p>a single wkt string or sf object</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>length-1 object of class <code>character</code> and <code>atlas_locations</code>,
+    
+
+<p>length-1 object of class <code>character</code> and <code>atlas_locations</code>,
 containing a WKT string representing the area provided.</p>
     </div>
     <div class="section level2">
@@ -90,17 +93,17 @@ simplified.</p>
     
 
 
-<p>Search for records using a shapefile</p><div class="sourceCode r"><pre><code><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your-email@email.com"</span><span class="op">)</span>
-
-<span class="va">location</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_geolocate.html">galah_geolocate</a></span><span class="op">(</span><span class="fu">st_read</span><span class="op">(</span><span class="va">path</span><span class="op">/</span><span class="va">to</span><span class="op">/</span><span class="va">shapefile</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span>geolocate <span class="op">=</span> <span class="va">location</span><span class="op">)</span></code></pre><p></p></div>
-<p>Search for records using a Well-known Text geometry (WKT)</p><div class="sourceCode r"><pre><code><span class="va">wkt</span> <span class="op">&lt;-</span> <span class="st">"POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"</span>
-
-<span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span>geolocate <span class="op">=</span> <span class="fu"><a href="../reference/galah_geolocate.html">galah_geolocate</a></span><span class="op">(</span><span class="va">wkt</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 1</span>
-<span class="co">#&gt;   count</span>
-<span class="co">#&gt;   &lt;int&gt;</span>
-<span class="co">#&gt; 1  3300</span></code></pre><p></p></div>
+<p>Search for records using a shapefile</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your-email@email.com"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">location</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_geolocate.html">galah_geolocate</a></span><span class="op">(</span><span class="fu">st_read</span><span class="op">(</span><span class="va">path</span><span class="op">/</span><span class="va">to</span><span class="op">/</span><span class="va">shapefile</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span>geolocate <span class="op">=</span> <span class="va">location</span><span class="op">)</span></span></code></pre><p></p></div>
+<p>Search for records using a Well-known Text geometry (WKT)</p><div class="sourceCode r"><pre><code><span><span class="va">wkt</span> <span class="op">&lt;-</span> <span class="st">"POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span>geolocate <span class="op">=</span> <span class="fu"><a href="../reference/galah_geolocate.html">galah_geolocate</a></span><span class="op">(</span><span class="va">wkt</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
+<span><span class="co">#&gt;   count</span></span>
+<span><span class="co">#&gt;   &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1  3300</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -118,7 +121,7 @@ returned by <code><a href="atlas_occurrences.html">atlas_occurrences()</a></code
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
