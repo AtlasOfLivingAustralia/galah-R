@@ -1,48 +1,54 @@
-#' Taxon information
+#' Look up taxon information
 #'
-#' In the ALA, all records are associated with an identifier that uniquely
-#' identifies the taxon to which that record belongs. However, taxonomic names
-#' are often ambiguous due to homonymy; i.e. re-use of names (common or
-#' scientific) in different clades. Hence, `search_taxa` provides a means
-#' to search for taxonomic names and check the results are 'correct' before
-#' proceeding to download data via 
-#' [atlas_occurrences()], [atlas_species()] or [atlas_counts()]. The resulting
-#' `data.frame` of taxonomic information can be passed to [galah_identify()] to 
-#' provide the `identify` argument of `atlas_` functions, which then filters  
-#' the resulting records to the specified taxon or taxa.
+#' `search_taxa()` enables users to look up taxonomic names before downloading 
+#' data from the ALA using [atlas_occurrences()], [atlas_species()] or 
+#' [atlas_counts()]. Taxon information returned by `search_taxa()` may be
+#' passed to [galah_identify()] to provide the `identify` argument of 
+#' `atlas_` functions. `search_taxa()` allows users to disambiguate homonyms 
+#' (i.e. where the same name refers to taxa in different clades) prior to  
+#' downloading data. 
 #'
-#' @param ... : One or more scientific names, separated by commas and
-#' given as strings. If greater control is required to disambiguate search
-#' terms, taxonomic levels can be provided explicitly via a `data.frame` 
-#' (see examples). Note that searches are not case-sensitive.
-#' @return An object of class `tbl_df`, `data.frame` (aka a tibble) and `ala_id`
+#' @param ... : A string of one or more scientific names, separated by commas, 
+#' or a data frame specifying taxonomic levels. Note that searches are not 
+#' case-sensitive. 
+#' 
+#' @returns An object of class `tbl_df`, `data.frame` (aka a tibble) and `ala_id`
 #' containing taxonomic information.
+#' 
 #' @seealso [search_identifiers()] for how to get names if taxonomic identifiers 
-#' are already known. [galah_identify()], [galah_select()], [galah_filter()] and
-#' [galah_geolocate()] for ways to restrict the information returned
-#' by [atlas_occurrences()] and related functions.
-#' [atlas_taxonomy()] to look up taxonomic trees.
+#' are already known. [galah_identify()], [galah_select()], [galah_filter()], and
+#' [galah_geolocate()] for ways to restrict the information returned by
+#' [atlas_occurrences()] and related functions. [atlas_taxonomy()] to look 
+#' up taxonomic trees.
 #' 
 #' @section Examples:
 #' ```{r, child = "man/rmd/setup.Rmd"}
 #' ```
 #' 
-#' Search using a single term
+#' Search using a single string. Note that `search_taxa()` is not case sensitive
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
 #' search_taxa("Reptilia")
 #' ```
-#' 
-#' Note that `search_taxa()` is not case sensitive
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_taxa("reptilia") # not case sensitive
-#' ```
 #'
-#' Search multiple taxa. `search_taxa()` will return one row per taxon
+#' Search using multiple strings. `search_taxa()` will return one row per taxon
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' search_taxa(c("reptilia", "mammalia"))
+#' search_taxa("reptilia", "mammalia")
+#' ```
+#' 
+#' Search using a data frame to specify taxonomic levels
+#' 
+#'  ```{r, comment = "#>", collapse = TRUE}
+#'search_taxa(data.frame(class = "aves", 
+#'                       family = "pardalotidae", 
+#'                       genus = "pardalotus", 
+#'                       specificEpithet = "punctatus"))
+#'                       
+#'search_taxa(data.frame(family = c("pardalotidae", 
+#'                                   "maluridae"),
+#'                       scientificName = c("Pardalotus punctatus", 
+#'                                          "malurus cyaneus")))
 #' ```
 #' 
 #' `galah_identify()` uses `search_taxa()` to narrow data queries
@@ -125,7 +131,7 @@ name_lookup <- function(name) {
   } else {
     # search by classification
     path <- "api/searchByClassification"
-    name <- validate_rank(name)
+    #name <- validate_rank(name)
     query <- as.list(name)
   }
   result <- atlas_GET(url, path, query)
@@ -162,12 +168,12 @@ name_lookup <- function(name) {
 
 
 # make sure rank provided is in accepted list
-validate_rank <- function(df) { 
-  ranks <- names(df)
-  ranks_check <- ranks %in% show_all_ranks()$name
-  if(any(ranks_check)){
-    return(df[ranks_check])
-  }else{
-    return(NULL)
-  }
-}
+# validate_rank <- function(df) {
+#   ranks <- names(df)
+#   ranks_check <- ranks %in% show_all_ranks()$name
+#   if(any(ranks_check)){
+#     return(df[ranks_check])
+#   }else{
+#     return(NULL)
+#   }
+# }
