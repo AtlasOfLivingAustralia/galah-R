@@ -37,19 +37,22 @@
 #' search_taxa("reptilia", "mammalia")
 #' ```
 #' 
-#' Search using a data frame to specify taxonomic levels
+#' Specify taxonomic levels in a search using a data frame (tibble). Taxa may 
+#' be specified using either the specificEpithet argument to designate the second 
+#' element of a Latin binomial, or the scientificName argument to specify the 
+#' scientific name, which may include the subspecific epithet if required. 
 #' 
 #'  ```{r, comment = "#>", collapse = TRUE}
-#'search_taxa(tibble(class = "aves", 
-#'                       family = "pardalotidae", 
-#'                       genus = "pardalotus", 
-#'                       specificEpithet = "punctatus"))
+#' search_taxa(tibble(
+#'   class = "aves", 
+#'   family = "pardalotidae", 
+#'   genus = "pardalotus", 
+#'   specificEpithet = "punctatus"))
 #'                       
-#'search_taxa(tibble(family = c("pardalotidae", 
-#'                                   "maluridae"),
-#'                       scientificName = c("Pardalotus punctatus", 
-#'                                          "malurus cyaneus")))
-#' ```
+#' search_taxa(tibble(
+#'   family = c("pardalotidae", "maluridae"), 
+#'   scientificName = c("Pardalotus striatus striatus", "malurus cyaneus")))
+#'  ```
 #' 
 #' `galah_identify()` uses `search_taxa()` to narrow data queries
 #' 
