@@ -40,12 +40,12 @@
 #' Search using a data frame to specify taxonomic levels
 #' 
 #'  ```{r, comment = "#>", collapse = TRUE}
-#'search_taxa(data.frame(class = "aves", 
+#'search_taxa(tibble(class = "aves", 
 #'                       family = "pardalotidae", 
 #'                       genus = "pardalotus", 
 #'                       specificEpithet = "punctatus"))
 #'                       
-#'search_taxa(data.frame(family = c("pardalotidae", 
+#'search_taxa(tibble(family = c("pardalotidae", 
 #'                                   "maluridae"),
 #'                       scientificName = c("Pardalotus punctatus", 
 #'                                          "malurus cyaneus")))
