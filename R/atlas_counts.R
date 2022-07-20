@@ -421,11 +421,13 @@ record_count <- function(query) {
   if(getOption("galah_config")$atlas == "Global"){
     query$limit <- 0
     col_name <- "count"
+    path <- "occurrence/search"
   }else{
     query$pageSize <- 0
+    path <- "occurrences/search"
     col_name <- "totalRecords"
   }
-  resp <- atlas_GET(url, path = "occurrence/search", query)
+  resp <- atlas_GET(url, path = path, query)
   resp[[col_name]]
 }
 # above doesn't work because ALA requires queries get put in an &fq= statement
@@ -433,7 +435,7 @@ record_count <- function(query) {
 
 species_count <- function(query) {
   query$flimit <- 1
-  query$facets <- "speciesID"
+  query$facets <- species_facets()
   url <- server_config("records_base_url")
   total_categories(url, "occurrence/facets", query)
 }

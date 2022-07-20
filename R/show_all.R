@@ -95,6 +95,7 @@ search_all <- function(type, query){
     "fields", "values", "assertions",
     "profiles", "profile_values", "species_lists",
     "atlases", "reasons", 
+    "taxa",
     "providers", "collections", "datasets")
     # show_all_cached_files?
 

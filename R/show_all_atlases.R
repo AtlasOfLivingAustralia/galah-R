@@ -34,7 +34,6 @@ server_config <- function(url, error_call = caller_env()) {
   return(conf[[url]])
 }
 
-
 image_fields <- function() {
   atlas <- getOption("galah_config")$atlas
   switch (atlas,
@@ -61,5 +60,14 @@ service_name <- function(url) {
           images_base_url = "Image downloading",
           species_base_url = "Species information",
           logger_base_url = "Logger service"
+  )
+}
+
+species_facets <- function(){
+  atlas <- getOption("galah_config")$atlas
+  switch(atlas,
+    # Australia = "speciesID",
+    Austria = "species_guid",
+    "speciesID"
   )
 }

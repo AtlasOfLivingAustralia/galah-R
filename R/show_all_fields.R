@@ -15,7 +15,7 @@ show_all_fields <- function(){
       layers <- get_layers()
       media <- get_media()
       other <- get_other_fields()
-      if(any(
+      if(all(
         is.null(fields),
         is.null(layers),
         # is.null(media) # internally generated
