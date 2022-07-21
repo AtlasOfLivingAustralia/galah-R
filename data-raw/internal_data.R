@@ -86,7 +86,7 @@ all_atlas_config <- list(
     records_download_base_url = "https://biocache-ws.ala.org.au/",
     data_quality_base_url = "https://data-quality-service.ala.org.au",
     doi_base_url = "https://doi.ala.org.au",
-    images_base_url = "https://images.ala.org.au/",
+    images_base_url = "https://images.ala.org.au/ws/",
     logger_base_url = "https://logger.ala.org.au/",
     lists_base_url = "https://lists.ala.org.au/ws/"
   ),
