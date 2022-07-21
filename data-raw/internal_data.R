@@ -3,6 +3,8 @@
 # Hadley Wickham, section 8.3 'Internal data'
 # https://r-pkgs.org/data.html
 
+devtools::load_all()
+
 # show_all_atlases
 all_atlas_metadata <- tibble(
   atlas = c(
@@ -157,7 +159,6 @@ all_atlas_config <- list(
 # user-visible lookup tables 
 # NOTE: "show_all_ranks"  and "show_all_atlases" are not included,
 # as they don't query a web service
-devtools::load_all()
 stored_functions <- c(
   "show_all_fields", "show_all_profiles", "show_all_reasons")
 # load all data
