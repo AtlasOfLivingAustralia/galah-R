@@ -58,6 +58,7 @@ show_all <- function(type, field){
   valid_types <- c(
     "ranks",
     "fields", "values", "assertions",
+    "licences",
     "profiles", "profile_values", "species_lists",
     "atlases", "reasons", 
     "providers", "collections", "datasets")
@@ -93,6 +94,7 @@ search_all <- function(type, query){
   valid_types <- c(
     "ranks",
     "fields", "values", "assertions",
+    "licences",
     "profiles", "profile_values", "species_lists",
     "atlases", "reasons", 
     "taxa",
