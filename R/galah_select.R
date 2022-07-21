@@ -36,6 +36,14 @@
 #'   * `samplingEffort`
 #'   * `samplingProtocol`
 #' 
+#' Using `group = "media"` returns the following columns:
+#' 
+#'   * `multimedia`
+#'   * `multimediaLicence`
+#'   * `images`
+#'   * `videos`
+#'   * `sounds`
+#' 
 #' Using `group = "assertions"` returns all quality assertion-related
 #' columns. The list of assertions is shown by `show_all_assertions()`.
 #'
@@ -77,7 +85,7 @@
 #' @importFrom tibble as_tibble
 #' @export
 galah_select <- function(...,
-                         group = c("basic", "event", "assertions")
+                         group = c("basic", "event", "media", "assertions")
                          ) {  
 
   dots <- enquos(..., .ignore_empty = "all")
@@ -142,6 +150,9 @@ preset_cols <- function(type) {
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),
-                 "assertions" = show_all_assertions()$id)
+                 "media" = c("multimedia", "multimediaLicence", 
+                             "images", "videos", "sounds"),
+                 "assertions" = show_all_assertions()$id
+               )
   return(cols)
 }
