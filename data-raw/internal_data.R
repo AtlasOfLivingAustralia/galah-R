@@ -3,6 +3,8 @@
 # Hadley Wickham, section 8.3 'Internal data'
 # https://r-pkgs.org/data.html
 
+devtools::load_all()
+
 # show_all_atlases
 all_atlas_metadata <- tibble(
   atlas = c(
@@ -86,7 +88,7 @@ all_atlas_config <- list(
     records_download_base_url = "https://biocache-ws.ala.org.au/",
     data_quality_base_url = "https://data-quality-service.ala.org.au",
     doi_base_url = "https://doi.ala.org.au",
-    images_base_url = "https://images.ala.org.au/",
+    images_base_url = "https://images.ala.org.au/ws/",
     logger_base_url = "https://logger.ala.org.au/",
     lists_base_url = "https://lists.ala.org.au/ws/"
   ),
@@ -157,7 +159,6 @@ all_atlas_config <- list(
 # user-visible lookup tables 
 # NOTE: "show_all_ranks"  and "show_all_atlases" are not included,
 # as they don't query a web service
-devtools::load_all()
 stored_functions <- c(
   "show_all_fields", "show_all_profiles", "show_all_reasons")
 # load all data

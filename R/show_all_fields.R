@@ -113,14 +113,19 @@ get_other_fields <- function() {
 # There is no API call to get these fields, so for now they are manually
 # specified
 get_media <- function(x) {
-  fields <- data.frame(id = c("imageId", "height", "width", "tileZoomLevels",
-                              "thumbHeight", "thumbWidth", "filesize", "mimetype",
-                              "creator", "title", "description", "rights",
-                              "rightsHolder", "license", "imageUrl", "thumbUrl",
-                              "largeThumbUrl", "squareThumbUrl", "tilesUrlPattern"))
-  fields$description <- "Media filter field"
-  fields$type <- "media"
-  fields
+  
+  ## Original code showed fields returned by `show_all_media`
+  ## These can't be queried with `galah_filter` and have been replaced
+  # fields <- data.frame(id = c("imageId", "height", "width", "tileZoomLevels",
+  #                             "thumbHeight", "thumbWidth", "filesize", "mimetype",
+  #                             "creator", "title", "description", "rights",
+  #                             "rightsHolder", "license", "imageUrl", "thumbUrl",
+  #                             "largeThumbUrl", "squareThumbUrl", "tilesUrlPattern"))
+  data.frame(
+    id = c("multimedia", "multimediaLicence", "images", "videos", "sounds"),
+    description = "Media filter field",
+    type = "media"
+  )
 }
 
 all_fields <- function() {
