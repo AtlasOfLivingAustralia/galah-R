@@ -25,7 +25,11 @@ collect_media <- function(df, type = c("full", "thumbnail"), download_dir, refre
   assert_that(file.exists(download_dir))
   download_dir <- normalizePath(download_dir)
   
-  # if required, add content for piping here
+  # remove rows with no information
+  assert_that(all(c("mime_type", "media_id") %in% colnames(df)))  
+  df <- df[apply(
+    df[, c("mime_type", "media_id")], 1, 
+    function(a){all(!is.na(a))}), ]
 
   # set up download
   df$url <- media_urls(df$media_id, 

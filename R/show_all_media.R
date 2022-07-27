@@ -7,26 +7,37 @@ show_all_media <- function(df){
   # run checks that 1. a df is supplied, 2. it contains requisite columns
   assert_that(inherits(df, "data.frame"))
   default_cols <- c("images", "videos", "sounds")
-  if(!any(colnames(ids) %in% default_cols)){
-    return(tibble())
+  if(!any(colnames(df) %in% default_cols)){
+    return(df)
   }
   
   # convert multi-column IDs to single-column
   cols <- df[, colnames(df) %in% default_cols]
   if(ncol(cols) > 1){
-    ids <- apply(cols, 1, function(a){paste(a[a != ""], collapse = " | ")})
+    ids <- apply(cols, 1, function(a){
+      valid_check <- (a != "") & !is.na(a)
+      if(any(valid_check)){
+        paste(a[valid_check], collapse = " | ")
+      }else{
+        ""
+      }
+    })
   }
 
   # split strings
   ids_list <- str_split(ids, pattern = "\\s\\|\\s")
-  ids_vector <- unlist(ids_list)
   
   # create long-form version of non-media rows
   df_long <- df[
     rep(seq_len(nrow(df)), lengths(ids_list)),
     !(colnames(df) %in% default_cols)]
+  row_index <- seq_len(nrow(df_long))
+  df_long$row <- row_index
   
   # get metadata from the relevant atlas
+  ids_vector <- unlist(ids_list)
+  names(ids_vector) <- row_index
+  ids_vector <- ids_vector[ids_vector != ""]
   metadata <- media_metadata(ids = ids_vector)
   if(is.null(metadata)){
     inform("Calling the metadata API failed for `atlas_media`")
@@ -40,7 +51,7 @@ show_all_media <- function(df){
   if (nrow(metadata) == 0) {
     if(verbose){
       bullets <- c(
-        "Calling the API failed for `atlas_media`.",
+        "Calling the API failed for `show_all_media`.",
         i = "This might mean that the ALA system is down. Double check that your query is correct.",
         i = "If you continue to see this message, please email support@ala.org.au."
       )
@@ -52,9 +63,11 @@ show_all_media <- function(df){
   # Select only the columns we want
   colnames(metadata) <- rename_columns(names(metadata), type = "media")
   metadata <- metadata[colnames(metadata) %in% wanted_columns("media")]
+  metadata$row <- as.integer(names(ids_vector))
 
   # join image metadata with occurrence data
-  tibble(cbind(df_long, metadata))
+  all_data <- merge(df_long, metadata, by = "row", all = TRUE)
+  tibble(all_data[, -1])
  
 }
 

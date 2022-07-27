@@ -165,9 +165,7 @@ atlas_media_internal <- function(request,
   if (getOption("galah_config")$atlas != "Australia") {
     international_atlas <- getOption("galah_config")$atlas
     bullets <- c(
-      "`atlas_taxonomy` only provides information on Australian taxonomy.",
-      i = glue("To search taxonomy for {international_atlas} use `taxize`."),
-      i = "See vignette('international_atlases' for more information."
+      "`atlas_media` is only available for Australia and Austria."
     )
     abort(bullets, call = caller_env())
   }
@@ -206,8 +204,7 @@ atlas_media_internal <- function(request,
     select = occ_columns)
     
   if(nrow(occ) < 1){
-    inform("Exiting `atlas_media`")
-    return(occ)
+    return(tibble())
   }
 
   all_data <- show_all_media(occ)
