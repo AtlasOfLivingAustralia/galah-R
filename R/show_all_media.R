@@ -2,57 +2,39 @@
 #' @param ids either a `tibble` from `atlas_occurrences` or a vector giving media ids (parsed or unparsed)
 #' @export
 
-show_all_media <- function(ids){
+show_all_media <- function(df){
   
-  assert_that(inherits(ids, "data.frame") | inherits(ids, "character"))
+  # run checks that 1. a df is supplied, 2. it contains requisite columns
+  assert_that(inherits(df, "data.frame"))
   default_cols <- c("images", "videos", "sounds")
-  
-  if(inherits(ids, "data.frame")){
-    if(any(colnames(ids) %in% default_cols)){
-      cols <- ids[, default_cols[default_cols %in% colnames(ids)]]
-    }else{
-      cols <- ids
-    }
-    ids_vector <- do.call(c, cols)
-  }else{
-    ids_vector <- ids
+  if(!any(colnames(ids) %in% default_cols)){
+    return(tibble())
   }
-  ids_vector <- ids_vector[!is.na(ids_vector) & ids_vector != ""]
-  names(ids_vector) <- NULL
+  
+  # convert multi-column IDs to single-column
+  cols <- df[, colnames(df) %in% default_cols]
+  if(ncol(cols) > 1){
+    ids <- apply(cols, 1, function(a){paste(a[a != ""], collapse = " | ")})
+  }
 
   # split strings
-  ids_vector <- unlist(str_split(ids_vector, pattern = "\\s\\|\\s"))
-   
-  # # occurrence data.frame has one row per occurrence record and stores all media
-  # # ids in a single column; this code splits the media ids and creates one row
-  # # per media id in the returned data.frame
-  # occ_long <- data.frame(rbindlist(
-  #   lapply(seq_len(nrow(occ)), function(x) {
-  #     # get all the image, video and sound columns into one row
-  #     splt_media <- unlist(str_split(occ[x,][image_fields()],
-  #                                    pattern = "\\s\\|\\s"))
-  #     media <- splt_media[nchar(splt_media) > 1 & splt_media != "NA"]
-  # 
-  #     if (length(media) > 0) {
-  #       rows <- occ[x,][rep(seq_len(nrow(occ[x,])), each = length(media)), ]
-  #       rows$media_id <- media
-  #     } else {
-  #       rows <- occ[x,]
-  #     }
-  #     rows
-  #   }),
-  #   fill = TRUE
-  # ))
-  # occ_long[, image_fields()] <- NULL
-  # ids <- occ_long$media_id[!is.na(occ_long$media_id)]
-
+  ids_list <- str_split(ids, pattern = "\\s\\|\\s")
+  ids_vector <- unlist(ids_list)
+  
+  # create long-form version of non-media rows
+  df_long <- df[
+    rep(seq_len(nrow(df)), lengths(ids_list)),
+    !(colnames(df) %in% default_cols)]
+  
   # get metadata from the relevant atlas
   metadata <- media_metadata(ids = ids_vector)
   if(is.null(metadata)){
     inform("Calling the metadata API failed for `atlas_media`")
     return(tibble())
   }
-  # metadata <- filter_metadata(online_metadata, media_filter)
+  
+  # DEPRECATED - capture filters from galah_filter and apply post-hoc
+  # metadata <- filter_metadata(online_metadata, media_filter)  
 
   # i.e. service is online, but no data available
   if (nrow(metadata) == 0) {
@@ -64,17 +46,16 @@ show_all_media <- function(ids){
       )
       inform(bullets)
     }
-    return(tibble())
+    return(df_long)
   } 
 
   # Select only the columns we want
   colnames(metadata) <- rename_columns(names(metadata), type = "media")
-  metadata[colnames(metadata) %in% wanted_columns("media")] |> tibble()
+  metadata <- metadata[colnames(metadata) %in% wanted_columns("media")]
 
   # join image metadata with occurrence data
-  # all_data <- merge(metadata, occ_long, by = "media_id") |> as_tibble()
-  # all_data
-  
+  tibble(cbind(df_long, metadata))
+ 
 }
 
 # Get metadata for a list of media ids
@@ -90,26 +71,6 @@ media_metadata <- function(ids){
   df <- rbindlist(result, fill = TRUE)
   as.data.frame(df)
 }
-
-# # Get metadata for a list of media ids
-## This is original code, but currently fails
-# media_metadata <- function(ids) {
-#   res <- atlas_POST(
-#     url = server_config("images_base_url"),
-#     path = "/ws/imageInfoForList",
-#     body = list(imageIds = ids),
-#     encode = "json"
-#     )
-#   if(is.null(res)){
-#     return(NULL)
-#   }else{
-#     # parse result and convert to data.frame
-#     data <- fromJSON(res)
-#     # suppress warnings caused by different list lengths
-#     df <- suppressWarnings(rbindlist(data$results))
-#     return(df)
-#   }
-# }
 
 # # Use media filter to filter returned results
 # # These are filter on metadata values, as opposed to filter on occurrence
