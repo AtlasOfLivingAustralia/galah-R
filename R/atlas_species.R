@@ -146,12 +146,14 @@ atlas_species_internal <- function(request,
   }
 
   # ensure profile works from galah_filter as well as galah_profile   
-  if(inherits(data_profile, "galah_data_profile")){
-    profile <- data_profile
-  }else{
-    if(is.null(data_profile)){
+  if(is.null(data_profile)){
+    if(is.null(filter)){
+      profile <- NULL
+    }else{
       profile <- extract_profile(filter)
     }
+  }else{
+    profile <- data_profile$data_profile
   }
   
   query <- build_query(identify, filter, geolocate, profile = profile)

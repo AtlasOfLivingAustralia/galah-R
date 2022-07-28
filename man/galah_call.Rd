@@ -57,7 +57,9 @@ with \code{dplyr} and the \code{tidyverse}. Begin your query with \code{galah_ca
 use either \verb{\%>\%} from \code{magrittr} or \verb{|>} from \code{base} to narrow/filter your
 results line-by-line.
 
-Find number of records of \emph{Aves} from 2001 to 2004 by year\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(magrittr)
+Find number of records of \emph{Aves} from 2001 to 2004 by year
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(magrittr)
 
 galah_call() \%>\%
   galah_identify("Aves") \%>\%
@@ -66,7 +68,9 @@ galah_call() \%>\%
   atlas_counts()
 }\if{html}{\out{</div>}}
 
-Download \emph{Eolophus} records from 2001 to 2004\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+Download \emph{Eolophus} records from 2001 to 2004
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
 
 galah_call() \%>\%
    galah_identify("Eolophus") \%>\%
@@ -74,7 +78,9 @@ galah_call() \%>\%
   atlas_occurrences()
 }\if{html}{\out{</div>}}
 
-Find information for all species in \emph{Cacatuidae} family\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
+Find information for all species in \emph{Cacatuidae} family
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
   galah_identify("Cacatuidae") \%>\%
   atlas_species()
 }\if{html}{\out{</div>}}

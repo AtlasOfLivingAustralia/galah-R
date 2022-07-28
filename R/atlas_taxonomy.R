@@ -111,15 +111,6 @@ atlas_taxonomy_internal <- function(request,
     )
     abort(bullets, call = error_call)
     }
-
-  if(!inherits(identify, "galah_identify")){
-    bullets <- c(
-      "Argument `identify` requires an object of class `galah_identify`.",
-      i = "Did you use `galah_identify` or `search_taxa` to search for taxon information? Is your query formatted correctly?",
-      i = "See `?search_taxa` for more information."
-    )
-    abort(bullets, call = error_call)
-    }
   
   if(nrow(identify) > 1){
     number_of_taxa <- nrow(identify)
@@ -148,9 +139,13 @@ atlas_taxonomy_internal <- function(request,
     )
     abort(bullets, call = error_call)
   }
-  if(inherits(down_to, "galah_down_to")){
-    down_to <- down_to$rank
+  
+  if(!is.null(attr(down_to, "call"))){
+    if(attr(down_to, "call") == "galah_down_to"){
+      down_to <- down_to$rank
+    }
   }
+  
   assert_that(is.string(down_to)) # picks up NULL etc
   down_to <- tolower(down_to) 
   if(!any(show_all_ranks()$name == down_to)){

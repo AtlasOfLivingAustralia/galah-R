@@ -86,6 +86,7 @@
 #'   galah_filter(year > 2015) |>
 #'   galah_group_by(year, basisOfRecord) |>
 #'   atlas_counts()
+#' ```
 #' ```{r, comment = "#>", collapse = TRUE}
 #' records
 #' ```
@@ -170,13 +171,15 @@ atlas_counts_internal <- function(identify = NULL,
 
   verbose <- getOption("galah_config")$verbose
 
-  # ensure profile works from galah_filter as well as galah_profile  
-  if(inherits(data_profile, "galah_data_profile")){
-    profile <- data_profile
-  }else{
-    if(is.null(data_profile)){
+  # ensure profile works from galah_filter as well as galah_profile
+  if(is.null(data_profile)){
+    if(is.null(filter)){
+      profile <- NULL
+    }else{
       profile <- extract_profile(filter)
     }
+  }else{
+    profile <- data_profile$data_profile
   }
   
   # set options if group_by = NULL
@@ -323,6 +326,7 @@ atlas_counts_lookup <- function(identify = NULL,
 
   # build url etc
   url <- server_config("records_base_url")
+  path <- "occurrence/facets"
   
   total_cats <- total_categories(url, path, query)
   if(is.null(total_cats)) {

@@ -6,24 +6,30 @@
 #' @param type `string`: either `"full"` to download original images, or 
 #' `"thumbnail"` to download thumbnails
 #' @param path `string`: path to directory where downloaded media will
-#' be stored. [Formerly `download_dir`]
+#' be stored
+#' @param download_dir DEPRECATED: use `path` instead
 #' @param refresh_cache `logical`: if set to `TRUE` and 
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query. NOTE: unclear that this works right now.
 #'
 #' @export collect_media
 
-collect_media <- function(df, type = c("full", "thumbnail"), download_dir, refresh_cache
+collect_media <- function(df, type = c("full", "thumbnail"), path,
+download_dir, refresh_cache
 ){
 
   # check inputs
   type <- match.arg(type)
   caching <- getOption("galah_config")$caching
   verbose <- getOption("galah_config")$verbose
-  assert_that(!missing(download_dir),
+  assert_that(!missing(path) | !missing(download_dir),
     msg = "A path to an existing directory to download images to is required")
-  assert_that(file.exists(download_dir))
-  download_dir <- normalizePath(download_dir)
+  if(missing(path)){
+    inform("The argument `download_dir` is deprecated, use `path` instead")
+    path <- download_dir
+  }
+  assert_that(file.exists(path))
+  download_dir <- normalizePath(path)
   
   # remove rows with no information
   assert_that(all(c("mime_type", "media_id") %in% colnames(df)))  
@@ -37,7 +43,7 @@ collect_media <- function(df, type = c("full", "thumbnail"), download_dir, refre
                      thumbnail = (type == "thumbnail"))
   df$download_path <- media_outfiles(df$media_id, 
                                      df$mime_type, 
-                                     download_dir)
+                                     path)
    
   # download images
   if (verbose) {

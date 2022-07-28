@@ -27,58 +27,72 @@ by one or more valid fields.
 \section{Examples}{
 
 
-Return record counts since 2010 by year\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |> 
+Return record counts since 2010 by year
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |> 
     galah_filter(year > 2010) |>
     galah_group_by(year) |>
     atlas_counts()
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 12 x 2
 #>    year    count
 #>    <chr>   <int>
-#>  1 2020  5843340
-#>  2 2019  5506924
-#>  3 2018  5418009
-#>  4 2017  4648403
-#>  5 2016  3844787
-#>  6 2014  3767573
-#>  7 2015  3605917
-#>  8 2013  3505658
-#>  9 2012  2933981
-#> 10 2011  2539004
-#> 11 2021  1161557
-#> 12 2022    41790
+#>  1 2021  6913695
+#>  2 2020  6230657
+#>  3 2019  5647752
+#>  4 2018  5541644
+#>  5 2017  4796450
+#>  6 2014  4013308
+#>  7 2016  3956847
+#>  8 2015  3790978
+#>  9 2013  3701702
+#> 10 2012  3114584
+#> 11 2011  2741646
+#> 12 2022   642992
 }\if{html}{\out{</div>}}
 
-Return record counts since 2010 by year and data provider\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
+Return record counts since 2010 by year and data provider
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
     galah_filter(year > 2010) |>
     galah_group_by(year, dataResourceName) |>
     atlas_counts()
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 1,048 x 3
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
+#> # A tibble: 1,110 x 3
 #>   year  dataResourceName              count
 #>   <chr> <chr>                         <int>
-#> 1 2020  eBird Australia             4589800
-#> 2 2020  iNaturalist Australia        671032
-#> 3 2020  NSW BioNet Atlas             372617
-#> 4 2020  Earth Guardians Weekly Feed   71783
-#> # ... with 1,044 more rows
+#> 1 2021  eBird Australia             5473631
+#> 2 2021  iNaturalist Australia        972354
+#> 3 2021  NSW BioNet Atlas             267230
+#> 4 2021  Earth Guardians Weekly Feed   56462
+#> # ... with 1,106 more rows
+#> # i Use `print(n = ...)` to see more rows
 }\if{html}{\out{</div>}}
 
 Return record counts of \emph{Litoria} species each year since 2015, limiting
-results to the top 5 each year\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
+results to the top 5 each year
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
     galah_identify("Litoria") |>
     galah_filter(year > 2015) |>
     galah_group_by(year, species) |>
     atlas_counts(limit = 5)
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 35 x 3
 #>   year  species            count
 #>   <chr> <chr>              <int>
-#> 1 2018  Litoria peronii    10497
-#> 2 2018  Litoria fallax      7013
-#> 3 2018  Litoria caerulea    3073
-#> 4 2018  Litoria verreauxii  2980
+#> 1 2020  Litoria peronii    18228
+#> 2 2020  Litoria fallax     15987
+#> 3 2020  Litoria verreauxii  5708
+#> 4 2020  Litoria ewingii     4955
 #> # ... with 31 more rows
+#> # i Use `print(n = ...)` to see more rows
 }\if{html}{\out{</div>}}
 }
 

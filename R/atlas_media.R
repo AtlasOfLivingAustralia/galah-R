@@ -157,11 +157,6 @@ atlas_media_internal <- function(request,
   }
   if(is_tibble(identify)){if(nrow(identify) < 1){identify <- NULL}}
   
-  # ensure profile works from galah_filter as well as galah_profile  
-  if(is.null(data_profile)){
-    data_profile <- extract_profile(filter)
-  }
-  
   if (getOption("galah_config")$atlas != "Australia") {
     international_atlas <- getOption("galah_config")$atlas
     bullets <- c(

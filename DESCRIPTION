@@ -1,11 +1,11 @@
 Package: galah
 Type: Package
-Title: Atlas of Living Australia (ALA) Data and Resources in R
+Title: Data and Resources from the Living Atlas community in R
 Version: 1.4.0.9999
 Authors@R:
     c(person(given = "Martin",
              family = "Westgate",
-             email = "martin.westgate@csiro.au",
+             email = "martinjwestgate@gmail.com",
              role = c("aut", "cre")),
       person(given = "Matilda",
              family = "Stevenson",
@@ -18,10 +18,10 @@ Authors@R:
              family = "Newman",
              email = "peggy.newman@csiro.au",
              role = "aut"))
-Description: The Atlas of Living Australia ('ALA') provides tools to enable users
+Description: The living atlas community provides tools to enable users
     of biodiversity information to find, access, combine and visualise data on
-    Australian plants and animals. 'galah' enables the R community to directly 
-    access data and resources hosted by the ALA and other living atlases.
+    plants, animals and fungi. 'galah' enables the R community to directly 
+    access data and resources hosted by the living atlases.
 Depends:
     R (>= 4.1.0)
 Imports:
@@ -54,9 +54,9 @@ License: MPL-2.0
 URL: https://github.com/AtlasOfLivingAustralia/galah,
     https://atlasoflivingaustralia.github.io/galah/
 BugReports: https://github.com/AtlasOfLivingAustralia/galah/issues
-Maintainer: Martin Westgate <martin.westgate@csiro.au>
+Maintainer: Martin Westgate <martinjwestgate@gmail.com>
 LazyLoad: yes
 VignetteBuilder: knitr
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

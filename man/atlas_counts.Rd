@@ -71,27 +71,34 @@ argument.
 \section{Examples}{
 
 
-With no arguments, return the total number of records in the ALA\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_counts()
+With no arguments, return the total number of records in the ALA
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{atlas_counts()
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 102400701
+#> 1 112360733
 }\if{html}{\out{</div>}}
 
-You can group counts by state and territory with \code{galah_group_by}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+You can group counts by state and territory with \code{galah_group_by}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
   galah_group_by(stateProvince) |>
   atlas_counts()
 #> # A tibble: 100 x 2
 #>   stateProvince      count
 #>   <chr>              <int>
-#> 1 New South Wales 25059932
-#> 2 Victoria        21826452
-#> 3 Queensland      17600257
-#> 4 South Australia  8505556
+#> 1 New South Wales 27834043
+#> 2 Victoria        23587665
+#> 3 Queensland      20358297
+#> 4 South Australia  8875585
 #> # ... with 96 more rows
+#> # i Use `print(n = ...)` to see more rows
 }\if{html}{\out{</div>}}
 
-You can add a filter to narrow your search\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+You can add a filter to narrow your search
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
   galah_filter(basisOfRecord == "FossilSpecimen")
 #> An object of type `data_request` containing:
 #> 
@@ -104,43 +111,52 @@ You can add a filter to narrow your search\if{html}{\out{<div class="sourceCode 
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 102400701
+#> 1 112360733
 }\if{html}{\out{</div>}}
 
 Specify \code{type = species} to count the number of species, and group record
-counts by kingdom\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
+counts by kingdom
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
   galah_group_by(kingdom) |>
   atlas_counts(type = "species")
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 10 x 2
 #>    kingdom   count
 #>    <chr>     <dbl>
-#>  1 Animalia  90864
-#>  2 Plantae   39885
-#>  3 Fungi     16752
-#>  4 Chromista  1822
-#>  5 Protista    636
-#>  6 Bacteria    525
-#>  7 Protozoa    494
-#>  8 Archaea       0
-#>  9 Eukaryota     0
+#>  1 Animalia  91016
+#>  2 Plantae   38589
+#>  3 Fungi     19685
+#>  4 Chromista  1523
+#>  5 Protista   1212
+#>  6 Bacteria    720
+#>  7 Protozoa     13
+#>  8 Eukaryota     9
+#>  9 Archaea       3
 #> 10 Virus         0
 }\if{html}{\out{</div>}}
 
 Using \code{galah_group_by} allows you to cross-tabulate using two different
-variables, similar to using \code{dplyr::group_by() \%>\% dplyr::count()}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
+variables, similar to using \code{dplyr::group_by() \%>\% dplyr::count()}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
   galah_filter(year > 2015) |>
   galah_group_by(year, basisOfRecord) |>
   atlas_counts()
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 41 x 3
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
+#> # A tibble: 46 x 3
 #>   basisOfRecord     year    count
 #>   <chr>             <chr>   <int>
-#> 1 HUMAN_OBSERVATION 2020  5968936
-#> 2 HUMAN_OBSERVATION 2019  5482845
-#> 3 HUMAN_OBSERVATION 2018  5339573
-#> 4 HUMAN_OBSERVATION 2017  4374403
-#> # ... with 37 more rows
+#> 1 HUMAN_OBSERVATION 2021  6863220
+#> 2 HUMAN_OBSERVATION 2020  6178583
+#> 3 HUMAN_OBSERVATION 2019  5557695
+#> 4 HUMAN_OBSERVATION 2018  5411030
+#> # ... with 42 more rows
+#> # i Use `print(n = ...)` to see more rows
 }\if{html}{\out{</div>}}
 }
 

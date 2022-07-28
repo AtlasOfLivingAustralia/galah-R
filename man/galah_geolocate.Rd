@@ -25,19 +25,23 @@ simplified.
 \section{Examples}{
 
 
-Search for records using a shapefile\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+Search for records using a shapefile
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
 
 location <- galah_geolocate(st_read(path/to/shapefile))
 atlas_occurrences(geolocate = location)
 }\if{html}{\out{</div>}}
 
-Search for records using a Well-known Text geometry (WKT)\if{html}{\out{<div class="sourceCode r">}}\preformatted{wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
+Search for records using a Well-known Text geometry (WKT)
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
 
 atlas_counts(geolocate = galah_geolocate(wkt))
 #> # A tibble: 1 x 1
 #>   count
 #>   <int>
-#> 1  3300
+#> 1  3714
 }\if{html}{\out{</div>}}
 }
 

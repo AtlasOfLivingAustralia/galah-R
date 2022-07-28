@@ -164,7 +164,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Martin Westgate \email{martin.westgate@csiro.au}
+\strong{Maintainer}: Martin Westgate \email{martinjwestgate@gmail.com}
 
 Authors:
 \itemize{

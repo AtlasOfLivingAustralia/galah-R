@@ -50,7 +50,7 @@
 #'
 #' ```{r, comment = "#>", collapse = TRUE}
 #' galah_call() %>% 
-#'   galah_identify("urn:lsid:biodiversity.org.au:afd.taxon:b2de5e40-df8f-4339-827d-25e63454a4a2", 
+#'   galah_identify("https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c", 
 #'                  search = FALSE) %>%
 #'   atlas_counts()
 #' ```

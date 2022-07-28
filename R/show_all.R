@@ -49,8 +49,6 @@
 #'
 #' @export
 
-test_fun <- function(x){enquos(x)}
-
 show_all <- function(type, field){
   # NOTE: `field` works for show_all_values() but not show_all_profile_attributes()
   

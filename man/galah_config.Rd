@@ -62,14 +62,20 @@ as possible.
 To configure your session to allow you to download occurrence records, enter
 your email in \code{galah_config()}. This email should be registered with the
 ALA, which you can do
-\href{https://auth.ala.org.au/userdetails/registration/createAccount}{here}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+\href{https://auth.ala.org.au/userdetails/registration/createAccount}{here}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
 }\if{html}{\out{</div>}}
 
-Turn on caching in your session\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(caching = FALSE)
+Turn on caching in your session
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(caching = FALSE)
 }\if{html}{\out{</div>}}
 
 It is required by some ALA services that you add a reason for downloading
-data. To look up all valid reasons to enter, use \code{\link[=show_all_reasons]{show_all_reasons()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_reasons()
+data. To look up all valid reasons to enter, use \code{\link[=show_all_reasons]{show_all_reasons()}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_reasons()
 #> # A tibble: 13 x 2
 #>       id name                            
 #>    <int> <chr>                           
@@ -88,11 +94,15 @@ data. To look up all valid reasons to enter, use \code{\link[=show_all_reasons]{
 #> 13    13 species modelling
 }\if{html}{\out{</div>}}
 
-Add your selected reason using the option \code{download_reason_id}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(download_reason_id = 0)
+Add your selected reason using the option \code{download_reason_id}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(download_reason_id = 0)
 }\if{html}{\out{</div>}}
 
 You can also make debugging in your session easier by setting
-\code{verbose = TRUE}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(download_reason_id = 0,
+\code{verbose = TRUE}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(download_reason_id = 0,
              verbose = TRUE)
 }\if{html}{\out{</div>}}
 }
