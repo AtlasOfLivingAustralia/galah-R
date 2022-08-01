@@ -66,7 +66,7 @@ test_that("search_identifiers searches using identifier", {
                "NZOR-6-1742", "https://id.biodiversity.org.au/node/apni/2910467")
     taxa <- search_identifiers(identifier)
   })
-    expect_s3_class(taxa, "data.frame")
+    expect_s3_class(taxa, c("tbl_df", "tbl", "data.frame"))
     expect_equal(nrow(taxa), 3)
 })
 

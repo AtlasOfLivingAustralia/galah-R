@@ -72,7 +72,7 @@ test_that("ala_species is deprecated", {
   local_edition(3)
   expect_snapshot({
     species <- ala_species(taxa = select_taxa("Osphranter"))
-    expect_s3_class(species, "data.frame")
+    expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
     expect_gt(nrow(species), 1)
   })
 })

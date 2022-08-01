@@ -30,7 +30,7 @@ test_that("grouped atlas_counts returns expected output", {
       group_by = galah_group_by(basisOfRecord)
     )
   })
-  expect_s3_class(counts, "data.frame")
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(counts), c("basisOfRecord", "count"))
 })
 
@@ -40,7 +40,7 @@ test_that("atlas_counts returns all counts if no limit is provided", {
     counts <- atlas_counts(group_by = galah_group_by(month), 
                            limit = NULL)
   })
-  expect_s3_class(counts, "data.frame")
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(counts), 12)
 })
 
@@ -54,7 +54,7 @@ test_that("grouped atlas_counts for species returns expected output", {
       type = "species"
     )
   })
-  expect_s3_class(counts, "data.frame")
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(counts), c("month", "count"))
 })
 
@@ -73,7 +73,7 @@ test_that("atlas_counts handles pagination", {
     counts <- atlas_counts(group_by = galah_group_by(year), 
                            limit = 101)
   })
-  expect_s3_class(counts, "data.frame")
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(counts), 101)
   expect_equal(names(counts), c("year", "count"))
 })
@@ -113,7 +113,7 @@ test_that("atlas_counts handles multiple 'group by' variables", {
       filter = galah_filter(year >= 2018),
       group_by = galah_group_by(year, basisOfRecord))
   })
-  expect_s3_class(counts, "data.frame")
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(counts), c("year", "basisOfRecord", "count"))
 })
 
@@ -125,7 +125,7 @@ test_that("atlas_counts handles 'species' as a 'group by' variable", {
        galah_group_by(species, year) |>
        atlas_counts()
   })
-  expect_s3_class(counts, "data.frame")
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(counts), c("species", "year", "count"))
 })
 
@@ -137,7 +137,7 @@ test_that("atlas_counts handles 'taxonConceptID' as a 'group by' variable", {
        galah_group_by(taxonConceptID, year) |>
        atlas_counts()
   })
-  expect_s3_class(counts, "data.frame")
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(counts), c("taxonConceptID", "year", "count"))
 })
 
@@ -149,7 +149,7 @@ test_that("atlas_counts handles piping", {
       galah_group_by(year, basisOfRecord) |>
       atlas_counts()
   })
-  expect_s3_class(counts, "data.frame")
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(counts), c("year", "basisOfRecord", "count"))
 })
 
@@ -162,7 +162,7 @@ test_that("atlas_counts ignores superflueous piped arguments", {
       galah_select(taxonConceptID) |>
       atlas_counts()
   })
-  expect_s3_class(counts, "data.frame")
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(counts), c("year", "count"))
   expect_gt(nrow(counts), 0)
 })
@@ -175,7 +175,7 @@ test_that("atlas_counts works for three groups", {
       galah_group_by(biome, year, basisOfRecord, stateProvince) %>%
       atlas_counts()
   })
-  expect_s3_class(counts, "data.frame")
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(counts), 1)
   expect_equal(names(counts), c("basisOfRecord", "biome", "year", "stateProvince", "count"))
 })

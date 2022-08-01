@@ -5,7 +5,7 @@ test_that("galah_filter builds data quality filters", {
   # skip_on_cran()
   galah_config(run_checks = FALSE)
   filters <- galah_filter(profile = "ALA")
-  expect_s3_class(filters, "data.frame")
+  expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(filters), 0)
   expect_equal(names(filters), c("variable", "logical", "value", "query"))
   expect_equal(attr(filters, "dq_profile"), "ALA")
@@ -23,7 +23,7 @@ test_that("galah_filter gives an error for single equals sign", {
 
 test_that("galah_filter handles assertion filters", {
   filters <- galah_filter(ZERO_COORDINATE == FALSE)
-  expect_s3_class(filters, "data.frame")
+  expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
   expect_true(grepl("assertions", filters$query))   # FIXME 
 })
 
@@ -43,26 +43,26 @@ test_that("galah_filter skips checks if requested", {
 
 test_that("galah_filter returns empty data.frame when no arguments specified", {
   filters <- galah_filter()
-  expect_s3_class(filters, "data.frame")
+  expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(filters), 0)
 })
 
 
 test_that("galah_filter works for a single 'equals' argument", {  
   filters <- galah_filter(year == 2010)
-  expect_s3_class(filters, "data.frame")
+  expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(filters), 1)
 })
 
 test_that("galah_filter works for two 'equals' arguments", {  
   filters <- galah_filter(year == 2010, basisOfRecord == "HUMAN_OBSERVATION")
-  expect_s3_class(filters, "data.frame")
+  expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(filters), 2)
 })
 
 test_that("galah_filter works for two arguments of the same variable", {  
   filters <- galah_filter(year >= 2010, year <= 2015)
-  expect_s3_class(filters, "data.frame")
+  expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(filters), 2)
   expect_equal(">=", filters$logical[1])
 })
