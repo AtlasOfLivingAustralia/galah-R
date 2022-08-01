@@ -13,7 +13,11 @@ collect_doi <- function(doi){
   if(missing(doi)){
     stop <- TRUE
   }else{
-    if(is.null(doi)){ stop <- TRUE}
+    if(is.null(doi)){
+      stop <- TRUE
+    }else{
+      stop <- FALSE
+    }
   }
   if(stop){
     abort("Argument `doi` is missing, with no default")
@@ -29,7 +33,7 @@ collect_doi <- function(doi){
     inform(bullets)
     return(tibble())
   }else{
-    return(result)
+    return(tibble(result))
   }
 }
 

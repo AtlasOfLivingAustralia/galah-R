@@ -28,7 +28,13 @@ download_dir, refresh_cache
     inform("The argument `download_dir` is deprecated, use `path` instead")
     path <- download_dir
   }
-  assert_that(file.exists(path))
+  if(is.null(path)){
+    abort("argument `path` is missing, with no default")
+  }else{
+    if(!file.exists(path)){
+      abort("argument `path` is missing, with no default")
+    }
+  }
   download_dir <- normalizePath(path)
   
   # remove rows with no information
