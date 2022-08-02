@@ -13,10 +13,9 @@ test_that("select_columns is deprecated", {
   local_edition(3)
   expect_snapshot({
     deprecated <- select_columns(eventDate)
-    correct <- structure(tibble(name = "eventDate",
-                                type = "field"))
-    expect_equal(deprecated, correct)
-    expect_equal(attr(deprecated, "call"), "galah_select")
+    expect_s3_class(deprecated, c("tbl_df", "tbl", "data.frame"))
+    expect_equal(nrow(deprecated), 1)
+    expect_equal(colnames(deprecated), c("eventDate", "field"))
   })
 })
 
@@ -153,7 +152,7 @@ test_that("find_atlases is deprecated", {
   local_edition(3)
   expect_snapshot({
     deprecated <- find_atlases()
-    expect_equal(nrow(deprecated), 6)
+    expect_gt(nrow(deprecated), 1)
   })
 })
 

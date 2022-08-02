@@ -115,7 +115,7 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
                         refresh_cache = FALSE) {
   lifecycle::deprecate_warn("1.4.0", "ala_species()", "atlas_species()")
   
-  atlas_species_internal(
+  atlas_species(
     identify = taxa,
     filter = filters,
     geolocate = locations,

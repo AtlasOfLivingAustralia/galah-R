@@ -294,21 +294,26 @@ validate_option <- function(name, value, error_call = caller_env()) {
 }
 
 convert_reason <- function(reason, error_call = caller_env()) {
+  valid_reasons <- show_all_reasons()
+  bullets <- c(
+    "Invalid reason provided to `download_reason_id`.",
+    i = "Use `show_all_reasons()` to see list of valid reasons.",
+    x = glue("Couldn't match \"{reason}\" to a valid reason ID.")
+  )
   ## unexported function to convert string reason to numeric id
   if (is.character(reason)) {
-    valid_reasons <- show_all_reasons()
     tryCatch({
       reason <- match.arg(tolower(reason), valid_reasons$name)
       reason <- valid_reasons$id[valid_reasons$name == reason]
-    },
-    error = function(e) {
-      bullets <- c(
-        "Invalid reason provided to `download_reason_id`.",
-        i = "Use `show_all_reasons()` to see list of valid reasons.",
-        x = glue("Couldn't match \"{reason}\" to a valid reason ID.")
-      )
-      abort(bullets, call = error_call)
-    })
+      },
+      error = function(e) {abort(bullets, call = error_call)}
+    )
+  }else{
+    if(is.numeric(reason)){
+      if(reason > nrow(valid_reasons)){
+        abort(bullets, call = error_call)
+      }
+    }
   }
   reason
 }

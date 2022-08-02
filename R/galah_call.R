@@ -143,6 +143,7 @@ update_galah_call <- function(data_request, ...){
               dots[[a]] # default
             )
             attr(result, "call") <- paste0("galah_", a) # add the `call` attr
+            result
           }      
         }
       }else{ # if supplied object is not named in `data_request`
