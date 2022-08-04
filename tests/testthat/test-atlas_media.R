@@ -34,7 +34,7 @@ vcr::use_cassette("atlas_media-1", {
   })
 })
 
-vcr::use_cassette("atlas_media-1", {
+vcr::use_cassette("atlas_media-2", {
   test_that("atlas_occurrences |> show_all_media duplicates atlas_media", {
     galah_config(email = "ala4r@ala.org.au")
 
@@ -43,7 +43,7 @@ vcr::use_cassette("atlas_media-1", {
        filter = galah_filter(year == 2019, multimedia == "Image"),
        select = galah_select(group = c("basic", "media"))) |>
       show_all_media()
-     
+
     media_2 <- atlas_media(
        identify = galah_identify("Microseris lanceolata"),
        filter = galah_filter(year == 2019))

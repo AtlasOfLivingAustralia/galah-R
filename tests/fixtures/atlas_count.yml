@@ -1,14 +1,14 @@
 http_interactions:
 - request:
     method: get
-    uri: https://biocache-ws.ala.org.au/ws/occurrences/search?disableAllQualityFilters=true&pageSize=0
+    uri: https://biocache-ws.ala.org.au/ws/occurrences/search?fq=&disableAllQualityFilters=true&pageSize=0
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.4.0.9999
   response:
     status:
       status_code: '200'
@@ -22,25 +22,25 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Thu, 20 Jan 2022 01:21:59 GMT
+      date: Tue, 02 Aug 2022 06:33:20 GMT
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.21.5
+      server: nginx/1.23.1
       set-cookie:
-      - AWSALBTG=v5naYIu3lJZgg7xFGhghac+N/uEoAcTTEK6l5Fb3p/cxcqH0A+WbkTIa0uYzpEnoeavJIT3ssmRxUbrtT6MXzAxp/I25Qj44oBXdH8Kpj7DdSALoIXNsL7RxblNXk5eAcjJ/Qd4aF7fLksfQfgpiHa5uH7wlVueBsVpiOgU+5kW+;
-        Expires=Thu, 27 Jan 2022 01:21:59 GMT; Path=/
-      - AWSALBTGCORS=v5naYIu3lJZgg7xFGhghac+N/uEoAcTTEK6l5Fb3p/cxcqH0A+WbkTIa0uYzpEnoeavJIT3ssmRxUbrtT6MXzAxp/I25Qj44oBXdH8Kpj7DdSALoIXNsL7RxblNXk5eAcjJ/Qd4aF7fLksfQfgpiHa5uH7wlVueBsVpiOgU+5kW+;
-        Expires=Thu, 27 Jan 2022 01:21:59 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=lkJliCxyt9UszFT0+sGdcLQJfYZETH89CwJM3vN+AX1yqMaqKpuQqbZg42TDihals55EVaOpA3biq01+NV1ukE+NoGerPupKzCVlo6/w77kMRzPVZLtf7IjaGP9q;
-        Expires=Thu, 27 Jan 2022 01:21:59 GMT; Path=/
-      - AWSALBCORS=lkJliCxyt9UszFT0+sGdcLQJfYZETH89CwJM3vN+AX1yqMaqKpuQqbZg42TDihals55EVaOpA3biq01+NV1ukE+NoGerPupKzCVlo6/w77kMRzPVZLtf7IjaGP9q;
-        Expires=Thu, 27 Jan 2022 01:21:59 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=V6U2ALI6rrudbi9E4yX6+mbCHw5IBWP1rgV5BimnyKzcgZPaw0Ab0NaBXfww4oovvtOVnn6U2qb4uGhSUL8eHTyne0G1r6R6pkoOop84NcmTYfS+AUTuVLucih2UPMYoqEaSqm3o2psW8+sMEfgPU2mYWg6jUi+BnNXyEXzr4EaF;
+        Expires=Tue, 09 Aug 2022 06:33:20 GMT; Path=/
+      - AWSALBTGCORS=V6U2ALI6rrudbi9E4yX6+mbCHw5IBWP1rgV5BimnyKzcgZPaw0Ab0NaBXfww4oovvtOVnn6U2qb4uGhSUL8eHTyne0G1r6R6pkoOop84NcmTYfS+AUTuVLucih2UPMYoqEaSqm3o2psW8+sMEfgPU2mYWg6jUi+BnNXyEXzr4EaF;
+        Expires=Tue, 09 Aug 2022 06:33:20 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=AgtjGR9nCgESS2CR0eW+VtAo8XrmwHHHb3UAVF9eAZ1Ox/Qv7a5zl/cQJ981f9VPXt8XUmSBWlGo/c20MVIeTAOpZu8z8q8q/Sx8oEb9P28sDQlfpiOG1ruefNlf;
+        Expires=Tue, 09 Aug 2022 06:33:20 GMT; Path=/
+      - AWSALBCORS=AgtjGR9nCgESS2CR0eW+VtAo8XrmwHHHb3UAVF9eAZ1Ox/Qv7a5zl/cQJ981f9VPXt8XUmSBWlGo/c20MVIeTAOpZu8z8q8q/Sx8oEb9P28sDQlfpiOG1ruefNlf;
+        Expires=Tue, 09 Aug 2022 06:33:20 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":102070026,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true","urlParameters":"?q=*%3A*&disableAllQualityFilters=true","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":112473471,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true","urlParameters":"?q=*%3A*&disableAllQualityFilters=true","queryTitle":"[all
         records]","activeFacetMap":{},"activeFacetObj":{}}'
-  recorded_at: 2022-01-20 01:21:59 GMT
+  recorded_at: 2022-08-02 06:33:20 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

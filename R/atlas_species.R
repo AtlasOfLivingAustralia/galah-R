@@ -136,7 +136,7 @@ atlas_species_internal <- function(request,
                                    refresh_cache
                                    ) {
   # check whether species download is possible
-  species_url <- server_config("species_base_url")
+  # species_url <- server_config("species_base_url")
 
   url <- server_config("records_base_url")
   query <- list()

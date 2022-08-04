@@ -1,14 +1,14 @@
 http_interactions:
 - request:
     method: get
-    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&flimit=1&facets=speciesID
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?fq=&disableAllQualityFilters=true&flimit=1&facets=speciesID
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.4.0.9999
   response:
     status:
       status_code: '200'
@@ -22,24 +22,24 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Thu, 20 Jan 2022 01:22:05 GMT
+      date: Tue, 02 Aug 2022 06:33:28 GMT
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.21.5
+      server: nginx/1.23.1
       set-cookie:
-      - AWSALBTG=DFNE/Luww/LqivJeAoGxrapQ8lFZo1sKAEElInLkp/BK+dOTj5edzzTzg7AsqSrOGqXiAa4N4wFVroHIQ36gebGOFB4+y+THAIco9V4pNpAFK0JcoVsNHtDK1SLZrAgM0khUJgitfPKdO8Qw3oxHMIOoGctR9A9cxAaqnBXKjLw+;
-        Expires=Thu, 27 Jan 2022 01:22:04 GMT; Path=/
-      - AWSALBTGCORS=DFNE/Luww/LqivJeAoGxrapQ8lFZo1sKAEElInLkp/BK+dOTj5edzzTzg7AsqSrOGqXiAa4N4wFVroHIQ36gebGOFB4+y+THAIco9V4pNpAFK0JcoVsNHtDK1SLZrAgM0khUJgitfPKdO8Qw3oxHMIOoGctR9A9cxAaqnBXKjLw+;
-        Expires=Thu, 27 Jan 2022 01:22:04 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=IJ+89D9esTIyGZeNuqtISt7QRSApRTqUEd9UnrpIFvskthXxUSWf0ELoONqL7zqgNum5mOvlXKsqVGN5ddsVhRdSNwgfw9uX3LdHnHnebEjgu8XE3G1rlzYLeC//;
-        Expires=Thu, 27 Jan 2022 01:22:04 GMT; Path=/
-      - AWSALBCORS=IJ+89D9esTIyGZeNuqtISt7QRSApRTqUEd9UnrpIFvskthXxUSWf0ELoONqL7zqgNum5mOvlXKsqVGN5ddsVhRdSNwgfw9uX3LdHnHnebEjgu8XE3G1rlzYLeC//;
-        Expires=Thu, 27 Jan 2022 01:22:04 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=KdmEz08xqWpoIBRnA0Qx23pPGVf7WmTaIfd5ZflqOT3bOscOKvCPGfvNNIKyM2MwOSz8pKv9GGvkQtmQqirHlLE2jXI43brSPgZOgL/enZXBqYTd7xTMGVwEjyX2ff8ThLhk/TBHWdz3sUB2oqXGgWBRCDCwgdk1PtmrIksMMw9t;
+        Expires=Tue, 09 Aug 2022 06:33:26 GMT; Path=/
+      - AWSALBTGCORS=KdmEz08xqWpoIBRnA0Qx23pPGVf7WmTaIfd5ZflqOT3bOscOKvCPGfvNNIKyM2MwOSz8pKv9GGvkQtmQqirHlLE2jXI43brSPgZOgL/enZXBqYTd7xTMGVwEjyX2ff8ThLhk/TBHWdz3sUB2oqXGgWBRCDCwgdk1PtmrIksMMw9t;
+        Expires=Tue, 09 Aug 2022 06:33:26 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=zyeG5RPecHT2zfsNpmfB3rOd4D1lC8ztoicdyL4HwZnpfTYWu7N1ga19V8fOZpisDhFHyAie/8haG22TeGLYVwvjqSFM0f3WbSGDiK6coauMkbUalQxbSQVDcQqs;
+        Expires=Tue, 09 Aug 2022 06:33:26 GMT; Path=/
+      - AWSALBCORS=zyeG5RPecHT2zfsNpmfB3rOd4D1lC8ztoicdyL4HwZnpfTYWu7N1ga19V8fOZpisDhFHyAie/8haG22TeGLYVwvjqSFM0f3WbSGDiK6coauMkbUalQxbSQVDcQqs;
+        Expires=Tue, 09 Aug 2022 06:33:26 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f","i18nCode":"speciesID.urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f","count":1447961,"fq":"speciesID:\"urn:lsid:biodiversity.org.au:afd.taxon:4e01d6fd-18c9-4169-92ab-7e6d6d9f023f\""}],"count":153176}]'
-  recorded_at: 2022-01-20 01:22:05 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/5291343e-fdeb-4a65-8ba5-928f5b96acf5","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/5291343e-fdeb-4a65-8ba5-928f5b96acf5","count":1682292,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/5291343e-fdeb-4a65-8ba5-928f5b96acf5\""}],"count":151486}]'
+  recorded_at: 2022-08-02 06:33:27 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

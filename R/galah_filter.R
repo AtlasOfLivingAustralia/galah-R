@@ -346,6 +346,27 @@ parse_or <- function(x){
   }
 }  
 
+# ensure profiles are handled correctly
+apply_profiles <- function(profile, named_filters, error_call = caller_env()) {
+  profile_attr <- NULL
+  if (!is.null(profile)) {
+    short_name <- profile_short_name(profile)
+    if (is.null(short_name) || is.na(short_name)) {
+      bullets <- c(
+        "Profile must be a valid name, short name, or data quality ID.",
+        i = glue("Use `show_all_profiles()` to list valid profiles"),
+        x = glue("'{profile}' is not recognised.")
+      )
+      abort(bullets, call = error_call)
+    }
+    profile_attr <- short_name
+  }
+  attr(named_filters, "dq_profile") <- profile_attr
+  named_filters
+}
+
+
+## BELOW HERE available as honeybee/parse_solr ##
 
 parse_query <- function(df){
 
@@ -424,24 +445,4 @@ parse_assertion <- function(df){
                      logical = logical_str,
                      value = df$variable)
   parse_logical(rows)
-}
-
-
-# ensure profiles are handled correctly
-apply_profiles <- function(profile, named_filters, error_call = caller_env()) {
-  profile_attr <- NULL
-  if (!is.null(profile)) {
-    short_name <- profile_short_name(profile)
-    if (is.null(short_name) || is.na(short_name)) {
-      bullets <- c(
-        "Profile must be a valid name, short name, or data quality ID.",
-        i = glue("Use `show_all_profiles()` to list valid profiles"),
-        x = glue("'{profile}' is not recognised.")
-      )
-      abort(bullets, call = error_call)
-    }
-    profile_attr <- short_name
-  }
-  attr(named_filters, "dq_profile") <- profile_attr
-  named_filters
 }

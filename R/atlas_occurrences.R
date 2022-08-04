@@ -307,8 +307,23 @@ wait_for_download <- function(url, query) {
     pb <- txtProgressBar(max = 1, style = 3)
   }
   
+  # time_start <- Sys.time()
+  # run_number <- 1
+  # interval_time <- rep(
+  #   seq_len(6) - 1,
+  #   c(10, rev(seq_len(5))))
+  
+
   while(status$status == "inQueue") {
+    # if(run_number > 5){
+    # 
+    # }
     status <- atlas_GET(url, path = status_url$path)
+    # time_taken <- as.numeric(difftime(Sys.time(), time_start, units = "secs"))
+    ## throttle this after n runs (HW says n = 5)
+    ## set error message on failure
+    ## API for cancelling downloads? - if so, run before erroring
+    # n_runs <- n_runs + 1
   }
 
   while (tolower(status$status) == "running") {
