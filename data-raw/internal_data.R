@@ -96,7 +96,6 @@ all_atlas_config <- list(
     species_base_url = "https://bie-ws.biodiversityatlas.at/",
     records_base_url = "https://biocache-ws.biodiversityatlas.at",
     spatial_base_url = "https://spatial.biodiversityatlas.at/ws",
-    # Occurrence download only returns the first image
     images_base_url = "https://images.biodiversityatlas.at/",
     collections_base_url = "https://collectory.biodiversityatlas.at/ws/",
     logger_base_url = "https://logger.biodiversityatlas.at/",
@@ -105,7 +104,9 @@ all_atlas_config <- list(
   Brazil = list(
     species_base_url = "https://bie-webservice.sibbr.gov.br/bie-index/",
     records_base_url = "https://biocache-service.sibbr.gov.br/biocache-service/",
-    spatial_base_url = "https://portal-espacial.sibbr.gov.br/spatial-hub/"
+    spatial_base_url = "https://portal-espacial.sibbr.gov.br/spatial-hub/",
+    images_base_url = "https://images.sibbr.gov.br/images/",
+    collections_base_url = "https://collectory.sibbr.gov.br/collectory/"
   ),
   Canada = list(
     species_base_url = "https://api.gbif.org/v1",
