@@ -119,6 +119,8 @@ parse_basic_quosures <- function(dots){
     return(do.call(c, result))
   } else if(check_df(result)){
     return(do.call(rbind, result))
+  } else {
+    return(result)
   }
 }
 
