@@ -1,4 +1,4 @@
-#' Narrow a query using a simple spatial object or WKT
+#' Narrow a query using a spatial object, shapefile or WKT
 #'
 #' Restrict results to those from a specified area. Areas must be polygons
 #' and be specified as either an sf object, or a 'well-known text' (WKT) string.
@@ -23,7 +23,10 @@
 #' galah_config(email = "your-email@email.com")
 #' 
 #' location <- galah_geolocate(st_read(path/to/shapefile))
-#' atlas_occurrences(geolocate = location)
+#' galah_call() |>
+#'   galah_identify("vulpes") |>
+#'   galah_polygon(location) |>
+#'   atlas_occurrences()
 #' ```
 #' 
 #' Search for records using a Well-known Text geometry (WKT)
@@ -31,13 +34,17 @@
 #' ```{r, comment = "#>", collapse = TRUE}
 #' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
 #' 
-#' atlas_counts(geolocate = galah_geolocate(wkt))
+#' galah_call() |>
+#'   galah_identify("vulpes") |>
+#'   galah_polygon(wkt) |>
+#'   atlas_counts()
 #' ```
 #' 
 #' @importFrom sf st_cast 
 #' @importFrom sf st_as_text 
 #' @importFrom sf st_as_sfc
 #' @importFrom sf st_is_empty
+#' @importFrom sf st_is_simple
 #' @importFrom sf st_is_valid
 #' @importFrom sf st_geometry type
 #' 
@@ -102,8 +109,8 @@ galah_polygon <- function(...) {
   }
   
   # check number of vertices of WKT
-  # if(npts(query) > 8) {
-  #   n_verts <- npts(query)
+  # if(n_points(query) > 8) {
+  #   n_verts <- n_points(query)
   #   bullets <- c(
   #     "WKT object is too complex.",
   #     i = "`galah_polygon` only returns a query for simple polygons.",
@@ -143,7 +150,7 @@ galah_polygon <- function(...) {
   
 }
 
-npts <- function(x) {
+n_points <- function(x) {
   count_vertices(sf::st_geometry(x))
 }
 
