@@ -109,15 +109,15 @@ galah_polygon <- function(...) {
   }
   
   # check number of vertices of WKT
-  # if(n_points(query) > 8) {
-  #   n_verts <- n_points(query)
-  #   bullets <- c(
-  #     "WKT object is too complex.",
-  #     i = "`galah_polygon` only returns a query for simple polygons.",
-  #     x = glue("Polygon must have 8 or fewer vertices, not {n_verts}.")
-  #   )
-  #   abort(bullets, call = caller_env())
-  # }
+  if(n_points(query) > 10000) {
+    n_verts <- n_points(query)
+    bullets <- c(
+      "WKT object is too complex.",
+      i = "`galah_polygon` only returns a query for simple polygons.",
+      x = glue("Polygon must have 8 or fewer vertices, not {n_verts}.")
+    )
+    abort(bullets, call = caller_env())
+  }
   
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons are converted to multipolygons
@@ -175,8 +175,10 @@ build_wkt <- function(polygon, error_call = caller_env()) {
     polygon <- st_cast(polygon, "MULTIPOLYGON")
   }
   if (!st_is_simple(polygon)) {
-    abort("The area provided it too complex. Please simplify using mapview::ms_simplify() and try again.", 
-          call = error_call)
+    bullets <- c(
+      "The area provided to `galah_polygon` is too complex. ",
+      i = "Try simplifying using `mapview::ms_simplify()` and try again.")
+    abort(bullets, call = caller_env())
   }
   wkt <- st_as_text(st_geometry(polygon))
   
