@@ -3,9 +3,9 @@
 #' Restrict results to those from a specified area. Areas must be polygons
 #' and be specified as either an sf object, or a 'well-known text' (WKT) string.
 #'
-#' @param ... a single wkt string or sf object
+#' @param ... a single WKT string or sf object
 #' @details WKT strings longer than 10000 characters will not be
-#' accepted by the ALA- so the sf object or WKT string may need to be
+#' accepted by the ALA - so the sf object or WKT string may need to be
 #' simplified.
 #' @return length-1 object of class `character` and `atlas_locations`,
 #' containing a WKT string representing the area provided.
@@ -60,16 +60,19 @@ galah_polygon <- function(...) {
     n_geolocations <- length(dots)
     bullets <- c(
       "More than 1 spatial area provided to `galah_polygon`.",
-      "*" = glue("Using first argument only, ignoring additional {n_geolocations - 1} location(s).")
+      "*" = glue("Using first location only, ignoring additional {n_geolocations - 1} location(s).")
     )
     warn(bullets, call = caller_env())
   }
-  
+
   # convert dots to query
-  query <- parse_basic_quosures(dots)[[1]]
+  query <- parse_basic_quosures(dots[1])
+  
+  # make sure shapefiles are processed correctly
+  if (!inherits(query, "sf")) {query <- query[[1]]} else {query <- query}
   
   # check object is accepted class
-  if (!inherits(query, c("character", "list", "matrix", "data.frame", "tbl", "sf", "sfc"))) {
+  if (!inherits(query, c("character", "list", "matrix", "data.frame", "tbl", "sf", "sfc", "XY"))) {
     
     unrecognised_class <- class(query)
     bullets <- c(
@@ -80,10 +83,13 @@ galah_polygon <- function(...) {
     abort(bullets, call = caller_env())
   }
   
+  if (inherits(query, "XY")) query <- sf::st_as_sfc(query) # handle shapefiles
+  
   # make sure spatial object or wkt is valid
   if (!inherits(query, c("sf", "sfc"))) {
     validate_wkt(query)
-    valid <- query |> st_as_sfc() |> st_is_valid() }
+    query <- query |> st_as_sfc()
+    valid <- query |> st_is_valid() }
     else {
     valid <- query |> st_is_valid()
     }
@@ -96,15 +102,15 @@ galah_polygon <- function(...) {
   }
   
   # check number of vertices of WKT
-  if(count_vertices(query) > 8) {
-    n_verts <- count_vertices(query)
-    bullets <- c(
-      "WKT object is too complex.",
-      i = "`galah_polygon` only returns a query for simple polygons.",
-      x = "Polygon must have 8 or fewer vertices, not {n_verts}."
-    )
-    abort(bullets, call = caller_env())
-  }
+  # if(npts(query) > 8) {
+  #   n_verts <- npts(query)
+  #   bullets <- c(
+  #     "WKT object is too complex.",
+  #     i = "`galah_polygon` only returns a query for simple polygons.",
+  #     x = glue("Polygon must have 8 or fewer vertices, not {n_verts}.")
+  #   )
+  #   abort(bullets, call = caller_env())
+  # }
   
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons are converted to multipolygons
@@ -137,19 +143,20 @@ galah_polygon <- function(...) {
   
 }
 
+npts <- function(x) {
+  count_vertices(sf::st_geometry(x))
+}
 
 # count number of vertices
 count_vertices <- function(wkt_string, error_call = caller_env()) {
-  if (is.string(wkt_string))
-    wkt_string <- wkt_string |> st_as_sfc()
-  
   out <- if (is.list(wkt_string)) 
     sapply(sapply(wkt_string, count_vertices), sum) 
   else {
     if (is.matrix(wkt_string))
         nrow(wkt_string)
     else {
-      if (sf::st_is_empty(wkt_string)) 0 else 1
+      if (!sf::st_is_empty(wkt_string)) 1 else
+        0
       }
   }
   unname(out)
@@ -160,11 +167,18 @@ build_wkt <- function(polygon, error_call = caller_env()) {
   if (st_geometry_type(polygon) == "POLYGON") {
     polygon <- st_cast(polygon, "MULTIPOLYGON")
   }
-  wkt <- st_as_text(st_geometry(polygon))
-  if (nchar(wkt) > 10000) {
-    abort("The area provided is too complex. Please simplify it and try again.",
+  if (!st_is_simple(polygon)) {
+    abort("The area provided it too complex. Please simplify using mapview::ms_simplify() and try again.", 
           call = error_call)
   }
+  wkt <- st_as_text(st_geometry(polygon))
+  
+  
+  # if (nchar(wkt) > 10000) {
+  #   abort("The area provided is too complex. Please simplify it and try again.",
+  #         call = error_call)
+  # }
+  
   wkt
 }
 
