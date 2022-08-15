@@ -47,6 +47,7 @@
 #' @importFrom sf st_is_simple
 #' @importFrom sf st_is_valid
 #' @importFrom sf st_geometry type
+#' @importFrom rlang try_fetch
 #' 
 #' @export
 galah_polygon <- function(...) {
@@ -90,20 +91,33 @@ galah_polygon <- function(...) {
     abort(bullets, call = caller_env())
   }
   
-  if (inherits(query, "XY")) query <- sf::st_as_sfc(query) # handle shapefiles
+  # handle shapefiles
+  if (inherits(query, "XY")) query <- sf::st_as_sfc(query) 
   
   # make sure spatial object or wkt is valid
   if (!inherits(query, c("sf", "sfc"))) {
-    validate_wkt(query)
-    query <- query |> st_as_sfc()
+    check_wkt_length(query)
+    
+    # handle errors from converting impossible WKTs
+    query <- rlang::try_fetch(
+      query |> st_as_sfc(), 
+      error = function(cnd) {
+        bullets <- c(
+        "Invalid WKT detected.",
+        i = "Check that the spatial feature or WKT in `galah_polygon` is correct."
+      )
+      abort(bullets, call = caller_env())
+      })
+    
+    # validate that wkt/spatial object is real
     valid <- query |> st_is_valid() }
     else {
     valid <- query |> st_is_valid()
     }
   if(is.na(valid)) {
       bullets <- c(
-        "Invalid spatial object or WKT.",
-        i = "Check that the spatial feature or WKT you entered is correct."
+        "Invalid spatial object or WKT detected.",
+        i = "Check that the spatial feature or WKT in `galah_polygon` is correct."
       )
       abort(bullets, call = caller_env())
   }
@@ -191,7 +205,7 @@ build_wkt <- function(polygon, error_call = caller_env()) {
   wkt
 }
 
-validate_wkt <- function(wkt, error_call = caller_env()) {
+check_wkt_length <- function(wkt, error_call = caller_env()) {
   if (is.string(wkt) == TRUE |
     is.matrix(wkt) == TRUE  | 
     is.list(wkt) == TRUE | 
