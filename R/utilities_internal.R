@@ -183,6 +183,17 @@ is_object_check <- function(dots){
   }))
 }
 
+check_n_inputs <- function(dots, error_call = caller_env()) {
+  if(length(dots) > 1){
+    n_geolocations <- length(dots)
+    bullets <- c(
+      "More than 1 spatial area provided.",
+      "*" = glue("Using first location, ignoring additional {n_geolocations} location(s).")
+    )
+    warn(bullets, call = caller_env())
+  }
+}
+
 ##----------------------------------------------------------------
 ##                   Query-building functions                   --
 ##----------------------------------------------------------------

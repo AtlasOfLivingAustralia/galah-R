@@ -64,14 +64,7 @@ galah_polygon <- function(...) {
   }
   
   # check that only 1 WKT is supplied at a time
-  if(length(dots) > 1){
-    n_geolocations <- length(dots)
-    bullets <- c(
-      "More than 1 spatial area provided to `galah_polygon`.",
-      "*" = glue("Using first location only, ignoring additional {n_geolocations - 1} location(s).")
-    )
-    warn(bullets, call = caller_env())
-  }
+  check_n_inputs(dots)
 
   # convert dots to query
   query <- parse_basic_quosures(dots[1])
@@ -123,12 +116,12 @@ galah_polygon <- function(...) {
   }
   
   # check number of vertices of WKT
-  if(n_points(query) > 10000) {
+  if(n_points(query) > 500) {
     n_verts <- n_points(query)
     bullets <- c(
-      "WKT object is too complex.",
+      glue("Polygon must have 500 or fewer vertices, not {n_verts}."),
       i = "`galah_polygon` only returns a query for simple polygons.",
-      x = glue("Polygon must have 8 or fewer vertices, not {n_verts}.")
+      i = "See `?sf::st_simplify` for how to simplify geospatial objects."
     )
     abort(bullets, call = caller_env())
   }
@@ -195,13 +188,6 @@ build_wkt <- function(polygon, error_call = caller_env()) {
     abort(bullets, call = caller_env())
   }
   wkt <- st_as_text(st_geometry(polygon))
-  
-  
-  # if (nchar(wkt) > 10000) {
-  #   abort("The area provided is too complex. Please simplify it and try again.",
-  #         call = error_call)
-  # }
-  
   wkt
 }
 
