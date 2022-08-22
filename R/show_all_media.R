@@ -22,6 +22,8 @@ show_all_media <- function(df){
         ""
       }
     })
+  }else{
+    ids <- cols[[1]]
   }
 
   # split strings
