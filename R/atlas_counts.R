@@ -328,7 +328,7 @@ atlas_counts_lookup <- function(identify = NULL,
   url <- server_config("records_base_url")
   path <- "occurrence/facets"
   
-  total_cats <- total_categories(url, path, query)
+  total_cats <- total_categories(url, path, query)[1]
   if(is.null(total_cats)) {
     return(NULL)
   }
@@ -345,7 +345,8 @@ atlas_counts_lookup <- function(identify = NULL,
                     page_size = page_size, offset_param = "foffset")
     if(is.null(resp)){return(NULL)}
     counts <- rbindlist(lapply(resp, function(a) {
-      data.frame(jsonlite::fromJSON(a)$fieldResult)
+      count_results <- jsonlite::fromJSON(a)$fieldResult
+      rbindlist(count_results)
       }))
   } else {
       query$flimit <- max(limit)
