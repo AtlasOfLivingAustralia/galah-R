@@ -184,7 +184,7 @@ build_wkt <- function(polygon, error_call = caller_env()) {
   if (!st_is_simple(polygon)) {
     bullets <- c(
       "The area provided to `galah_polygon` is too complex. ",
-      i = "Try simplifying using `mapview::ms_simplify()` and try again.")
+      i = "See `?sf::st_simplify` for how to simplify geospatial objects.")
     abort(bullets, call = caller_env())
   }
   wkt <- st_as_text(st_geometry(polygon))

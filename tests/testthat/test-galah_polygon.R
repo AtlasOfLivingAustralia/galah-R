@@ -35,6 +35,15 @@ test_that("galah_polygon converts to multipolygon", {
   expect_match(galah_polygon(wkt), "MULTIPOLYGON")
 })
 
+#FIXME: Urgh why does this not work?
+# test_that("galah_polygon converts wkt strings with spaces", {
+#   wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
+#   wkt_with_spaces <- "POLYGON ((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
+#   converted_wkt <- galah_polygon(wkt)
+#   converted_wkt_with_spaces <- galah_polygon(wkt_with_spaces)
+#   expect_match(converted_wkt, converted_wkt_with_spaces)
+# })
+
 test_that("galah_polygon converts sf object to multipolygon", {
   wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
   wkt_with_spaces <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))"
@@ -42,10 +51,10 @@ test_that("galah_polygon converts sf object to multipolygon", {
   expect_match(build_wkt(st_as_sfc(wkt_with_spaces)), "MULTIPOLYGON")
 })
 
-# test_that("galah_polygon counts vertices correctly", {
-#   wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
-#   expect_match(n_points(st_as_sfc(wkt)), "4")
-# })
+test_that("galah_polygon counts vertices correctly", {
+  wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
+  expect_equal(n_points(st_as_sfc(wkt)), 4)
+})
 
 # galah_polygon accepts wkt strings with spaces
 # galah_polygon accepts sf and sfc objects
