@@ -162,7 +162,7 @@ is_object_check <- function(dots){
   # get list of options from ?typeof & ?mode
   available_types <- c("logical", "numeric", 
     "complex", "character", "raw", "list", "NULL", "function",
-    "name", "call", "any")
+    "name", "call", "any", "bbox")
   # attempt to check multiple types
   unlist(lapply(dots, function(a){
     modes_df <- data.frame(

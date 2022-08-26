@@ -112,14 +112,19 @@ galah_bbox <- function(...) {
   if (!inherits(query, c("sf", "sfc"))) {
     if(inherits(query, c("tbl", "data.frame"))) {
       query <- st_bbox(c(xmin = query$xmin,
-                         xmax = query$xmax,
-                         ymin = query$ymin,
-                         ymax = query$ymax),
-                       crs = st_crs("WGS84"))
+                  xmax = query$xmax,
+                  ymin = query$ymin,
+                  ymax = query$ymax),
+                crs = st_crs("WGS84"))
     }
-    valid <- query |>
+    log <- NULL # see log object to read any warnings that may have happened
+    valid <- rlang::try_fetch( # prevent warnings
+      query |>
       st_as_sfc() |>
-      st_is_valid()
+      st_is_valid(), warning = function(cnd) {
+        log <<- cnd
+        ""
+      })
   } 
   else {
     valid <- query |> st_is_valid()
@@ -128,17 +133,17 @@ galah_bbox <- function(...) {
   if (valid != TRUE) {
     bullets <- c(
       "Invalid spatial object or WKT detected.",
-      i = "Check that the spatial feature or WKT in `galah_bbox` is correct."
+      i = "Check that the spatial feature or bounding box in `galah_bbox` is correct."
     )
     abort(bullets, call = caller_env())
   } else {
     if (inherits(query, c("tbl", "data.frame", "bbox"))) {
-      bbox_coords <- paste0(tibble(round(query, 5)))
+      bbox_coords <- (round(query, 5))
       query <- query |> st_as_sfc(crs = st_crs("WGS84"))
     } else {
       if (inherits(query, c("sf", "sfc"))) {
         query <- query |> st_bbox(crs = st_crs("WGS84"))
-        bbox_coords <- paste0(tibble(round(query, 5)))
+        bbox_coords <- (round(query, 5))
         query <- query |> st_as_sfc(crs = st_crs("WGS84")) # FIXME: should we define the projection?
       }
     }
@@ -148,12 +153,14 @@ galah_bbox <- function(...) {
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons are converted to multipolygons
   if (inherits(query, "sf") || inherits(query, "sfc")) {
-    inform(glue("
+    inform(glue::glue("
              Data returned for bounding box:
-             {bbox_coords}"))
+             xmin = {bbox_coords$xmin} xmax = {bbox_coords$xmax} \\
+             ymin = {bbox_coords$ymin} ymax = {bbox_coords$ymax}"))
     out_query <- build_wkt(query)
   }
 
+  attr(out_query, "bbox") <- bbox_coords
   attr(out_query, "call") <- "galah_geolocate"
 
   # if a data request was supplied, return one
@@ -183,6 +190,9 @@ build_wkt <- function(polygon, error_call = caller_env()) {
 
 
 check_n_rows <- function(tibble) {
+  if (is.null(nrow(tibble))) {
+    tibble <- tibble
+  } else {
   if (nrow(tibble) > 1) {
     ignored_rows <- paste(2:(nrow(tibble)))
     bullets <- c(
@@ -193,7 +203,7 @@ check_n_rows <- function(tibble) {
     tibble <- tibble[1, ]
   } else {
     tibble <- tibble
-  }
+  }}
   return(tibble)
 }
 
