@@ -30,25 +30,20 @@ test_that("galah_polygon finds polygon errors", {
   expect_error(galah_polygon(invalid_wkt))
 })
 
-test_that("galah_polygon converts to multipolygon", {
+test_that("galah_polygon converts WKT strings to multipolygon", {
   wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
   expect_match(galah_polygon(wkt), "MULTIPOLYGON")
 })
 
-#FIXME: Urgh why does this not work?
-# test_that("galah_polygon converts wkt strings with spaces", {
-#   wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
-#   wkt_with_spaces <- "POLYGON ((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
-#   converted_wkt <- galah_polygon(wkt)
-#   converted_wkt_with_spaces <- galah_polygon(wkt_with_spaces)
-#   expect_match(converted_wkt, converted_wkt_with_spaces)
-# })
+test_that("galah_polygon converts WKT strings with spaces", {
+  wkt_with_spaces <- "POLYGON ((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
+  converted_wkt_with_spaces <- build_wkt(st_as_sfc(wkt_with_spaces))
+  expect_match(converted_wkt_with_spaces, "MULTIPOLYGON \\(\\(\\(143\\.32")
+})
 
 test_that("galah_polygon converts sf object to multipolygon", {
-  wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
-  wkt_with_spaces <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))"
-  expect_match(build_wkt(st_as_sfc(wkt)), "MULTIPOLYGON")
-  expect_match(build_wkt(st_as_sfc(wkt_with_spaces)), "MULTIPOLYGON")
+  sf_wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |> st_as_sfc()
+  expect_match(galah_polygon(sf_wkt), "MULTIPOLYGON")
 })
 
 test_that("galah_polygon counts vertices correctly", {
@@ -56,9 +51,22 @@ test_that("galah_polygon counts vertices correctly", {
   expect_equal(n_points(st_as_sfc(wkt)), 4)
 })
 
-# galah_polygon accepts wkt strings with spaces
-# galah_polygon accepts sf and sfc objects
-# galah_polygon checks that the polygon is simple
+test_that("galah_polygon checks for simple polygons only", {
+  poly_path <- "../testdata/act_state_polygon_shp/ACT_STATE_POLYGON_shp.shp"
+  shapefile_complex <- st_read(poly_path, quiet = TRUE)
+  shapefile_simple <- st_simplify(shapefile_complex, dTolerance = 1000)
+  expect_error(galah_polygon(shapefile_complex), "Polygon must have 500 or fewer vertices")
+  expect_match(galah_polygon(shapefile_simple), "MULTIPOLYGON")
+})
+
+test_that("galah_polygon counts n vertices correctly", {
+  sf_wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |> st_as_sfc()
+  poly_path <- "../testdata/act_state_polygon_shp/ACT_STATE_POLYGON_shp.shp"
+  shapefile_complex <- st_read(poly_path, quiet = TRUE)
+  expect_equal(n_points(shapefile_complex), 2787)
+  expect_equal(n_points(sf_wkt), 4)
+})
+
 
 # Future: galah_polygon accepts nothing as an input and ignores when it's invalid
 

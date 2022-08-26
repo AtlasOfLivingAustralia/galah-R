@@ -1,14 +1,17 @@
-#' Narrow a query to within a bounding box using a spatial object or shapefile
+#' Narrow a query to within a bounding box
 #'
-#' Restrict results to be within a bounding box (a box constructed from latitude
-#' & longitude coordinates). Bounding box coordinates can be supplied or
-#' extracted from supplied `sf` objects or shapefiles.
+#' Restrict results to be within a bounding box (a box constructed from min/max 
+#' latitude & longitude coordinates). 
+#' Bounding box coordinates can be supplied from a `bbox` object (i.e. a 
+#' bounding box created from `sf::st_bbox`) or a `tibble`/`data.frame`. Bounding
+#' box coordinates can also be extracted a supplied `sfc` object or shapefile.
 #'
-#' @param ... bounding box coordinates supplied as a `data.frame` or `tibble` or
-#' an `sf` object
-#' @details `sf` objects will be simplified to their bbox coordinates.
-#' @return length-1 object of class `character` and `atlas_locations`,
-#' containing a WKT string representing the area provided.
+#' @param ... bounding box coordinates supplied as a `bbox`, a `data.frame` or 
+#' `tibble`, an `sf` object, or a shapefile (.shp)
+#' @details `sf` objects and shapefile polygons will be simplified to their 
+#' bbox coordinates.
+#' @return length-1 object of class `character` and `galah_geolocate`,
+#' containing a WKT string representing the bounding box of the area provided.
 #' @seealso [galah_polygon()] & [galah_geolocate()] for other ways to narrow
 #' queries by location. See [search_taxa()], [galah_filter()] and
 #' [galah_select()] for other ways to restrict the information
@@ -18,19 +21,19 @@
 #' ```{r, child = "man/rmd/setup.Rmd"}
 #' ```
 #'
-#' Search for records using a shapefile
+#' Search for records using a bounding box of coordinates
 #'
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
-#' galah_config(email = "your-email@email.com")
+#' ```{r, comment = "#>", collapse = TRUE}
+#' b_box <- sf::st_bbox(c(xmin = 143, xmax = 148, ymin = -29, ymax = -28), 
+#'                      crs = st_crs("WGS84"))
 #'
-#' location <- galah_geolocate(st_read(path/to/shapefile))
 #' galah_call() |>
-#'   galah_identify("vulpes") |>
-#'   galah_bbox(location) |>
-#'   atlas_occurrences()
+#'   galah_identify("reptilia") |>
+#'   galah_bbox(b_box) |>
+#'   atlas_counts()
 #' ```
 #'
-#' Search for records using a `tibble` or `data.frame` of coordinates
+#' Search for records using a bounding box in a `tibble` or `data.frame`
 #'
 #' ```{r, comment = "#>", collapse = TRUE}
 #' b_box <- tibble(xmin = 148, ymin = -29, xmax = 143, ymax = -21)
@@ -39,6 +42,34 @@
 #'   galah_identify("vulpes") |>
 #'   galah_bbox(b_box) |>
 #'   atlas_counts()
+#' ```
+#'
+#' Search for records within the bounding box of a shapefile
+#'
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' galah_config(email = "your-email@email.com")
+#'
+#' location <- 
+#' "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
+#'  st_as_sfc()
+#'  
+#' galah_call() |>
+#'   galah_identify("vulpes") |>
+#'   galah_bbox(location) |>
+#'   atlas_occurrences()
+#' ```
+#' 
+#'  
+#' Search for records within the bounding box of a shapefile
+#'
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' galah_config(email = "your-email@email.com")
+#'
+#' location <- st_read(path/to/shapefile.shp)
+#' galah_call() |>
+#'   galah_identify("vulpes") |>
+#'   galah_bbox(location) |>
+#'   atlas_occurrences()
 #' ```
 #'
 #' @importFrom sf st_cast
@@ -112,19 +143,14 @@ galah_bbox <- function(...) {
   if (!inherits(query, c("sf", "sfc"))) {
     if(inherits(query, c("tbl", "data.frame"))) {
       query <- st_bbox(c(xmin = query$xmin,
-                  xmax = query$xmax,
-                  ymin = query$ymin,
-                  ymax = query$ymax),
-                crs = st_crs("WGS84"))
+                         xmax = query$xmax,
+                         ymin = query$ymin,
+                         ymax = query$ymax),
+                       crs = st_crs("WGS84"))
     }
-    log <- NULL # see log object to read any warnings that may have happened
-    valid <- rlang::try_fetch( # prevent warnings
-      query |>
+    valid <- query |> # FIXME add try_fetch()
       st_as_sfc() |>
-      st_is_valid(), warning = function(cnd) {
-        log <<- cnd
-        ""
-      })
+      st_is_valid()
   } 
   else {
     valid <- query |> st_is_valid()
@@ -138,12 +164,12 @@ galah_bbox <- function(...) {
     abort(bullets, call = caller_env())
   } else {
     if (inherits(query, c("tbl", "data.frame", "bbox"))) {
-      bbox_coords <- (round(query, 5))
+      bbox_coords <- paste0(tibble(round(query, 5)))
       query <- query |> st_as_sfc(crs = st_crs("WGS84"))
     } else {
       if (inherits(query, c("sf", "sfc"))) {
         query <- query |> st_bbox(crs = st_crs("WGS84"))
-        bbox_coords <- (round(query, 5))
+        bbox_coords <- paste0(tibble(round(query, 5)))
         query <- query |> st_as_sfc(crs = st_crs("WGS84")) # FIXME: should we define the projection?
       }
     }
@@ -153,14 +179,12 @@ galah_bbox <- function(...) {
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons are converted to multipolygons
   if (inherits(query, "sf") || inherits(query, "sfc")) {
-    inform(glue::glue("
+    inform(glue("
              Data returned for bounding box:
-             xmin = {bbox_coords$xmin} xmax = {bbox_coords$xmax} \\
-             ymin = {bbox_coords$ymin} ymax = {bbox_coords$ymax}"))
+             {bbox_coords}"))
     out_query <- build_wkt(query)
   }
 
-  attr(out_query, "bbox") <- bbox_coords
   attr(out_query, "call") <- "galah_geolocate"
 
   # if a data request was supplied, return one
@@ -190,9 +214,6 @@ build_wkt <- function(polygon, error_call = caller_env()) {
 
 
 check_n_rows <- function(tibble) {
-  if (is.null(nrow(tibble))) {
-    tibble <- tibble
-  } else {
   if (nrow(tibble) > 1) {
     ignored_rows <- paste(2:(nrow(tibble)))
     bullets <- c(
@@ -203,7 +224,7 @@ check_n_rows <- function(tibble) {
     tibble <- tibble[1, ]
   } else {
     tibble <- tibble
-  }}
+  }
   return(tibble)
 }
 
