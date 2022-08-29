@@ -1,15 +1,19 @@
-#' Narrow a query using a spatial object, shapefile or WKT
+#' Narrow a query to within a specified polygon
 #'
-#' Restrict results to those from a specified area. Areas must be polygons
-#' and be specified as either an sf object, or a 'well-known text' (WKT) string.
+#' Restrict results to those from a specified area. Areas must be polygons. 
+#' Polygons must be supplied as an `sf` object, a 'well-known text' (WKT) 
+#' string, or a shapefile. Polygons and shapefiles must not be overly complex
+#' (i.e. have too many characters or too many vertices) or they will not be
+#' accepted in a query to the ALA.
 #'
-#' @param ... a single WKT string or sf object
-#' @details WKT strings longer than 10000 characters will not be
-#' accepted by the ALA - so the sf object or WKT string may need to be
-#' simplified.
-#' @return length-1 object of class `character` and `atlas_locations`,
-#' containing a WKT string representing the area provided.
-#' @seealso [search_taxa()], [galah_filter()] and
+#' @param ... a single `sf` object, WKT string or shapefile. 
+#' @details WKT strings longer than 10000 characters and 
+#' `sf` objects with more than 500 vertices will not be
+#' accepted by the ALA. Some polygons  may need to be simplified.
+#' @return length-1 object of class `character` and `galah_geolocate`,
+#' containing a multipolygon WKT string representing the area provided.
+#' @seealso [galah_bbox()] & [galah_geolocate()] for other ways to narrow
+#' queries by location. [search_taxa()], [galah_filter()] and
 #' [galah_select()] for other ways to restrict the information
 #' returned by [atlas_occurrences()] and related functions.
 #' 
@@ -17,19 +21,32 @@
 #' ```{r, child = "man/rmd/setup.Rmd"}
 #' ```
 #' 
+#' Search for records within a polygon using an `sf` object
+#'
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' location <- 
+#' "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
+#'  sf::st_as_sfc()
+#'  
+#' galah_call() |>
+#'   galah_identify("reptilia") |>
+#'   galah_polygon(location) |>
+#'   atlas_counts()
+#' ```
+#' 
 #' Search for records using a shapefile
 #' 
 #' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' galah_config(email = "your-email@email.com")
 #' 
-#' location <- galah_geolocate(st_read(path/to/shapefile))
+#' location <- galah_geolocate(sf::st_read(path/to/shapefile.shp))
 #' galah_call() |>
 #'   galah_identify("vulpes") |>
 #'   galah_polygon(location) |>
 #'   atlas_occurrences()
 #' ```
 #' 
-#' Search for records using a Well-known Text geometry (WKT)
+#' Search for records using a Well-known Text string (WKT)
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
 #' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"

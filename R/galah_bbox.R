@@ -1,17 +1,21 @@
 #' Narrow a query to within a bounding box
 #'
-#' Restrict results to be within a bounding box (a box constructed from min/max 
+#' Restrict results to within a bounding box (a box constructed from min/max 
 #' latitude & longitude coordinates). 
-#' Bounding box coordinates can be supplied from a `bbox` object (i.e. a 
-#' bounding box created from `sf::st_bbox`) or a `tibble`/`data.frame`. Bounding
-#' box coordinates can also be extracted a supplied `sfc` object or shapefile.
+#' Bounding boxes can be extracted from a supplied `sf`/`sfc` object or 
+#' a shapefile. A bounding box can also be supplied as a `bbox` object 
+#' (via `sf::st_bbox`) or a `tibble`/`data.frame`.
 #'
-#' @param ... bounding box coordinates supplied as a `bbox`, a `data.frame` or 
-#' `tibble`, an `sf` object, or a shapefile (.shp)
-#' @details `sf` objects and shapefile polygons will be simplified to their 
-#' bbox coordinates.
+#' @param ... an `sf` object or a shapefile (.shp), or bounding box coordinates 
+#' supplied as a `bbox`, a `tibble`/`data.frame`
+#' @details an `sf` object or a shapefile polygon will be simplified to its 
+#' bbox coordinates. A bounding box can be supplied as a `bbox` object or as 
+#' a `tibble`/`data.frame`. Bounding boxes supplied as a `tibble`/`data.frame` 
+#' must have "xmin", "xmax", "ymin" and "ymax" columns with valid `numeric` 
+#' values.
 #' @return length-1 object of class `character` and `galah_geolocate`,
-#' containing a WKT string representing the bounding box of the area provided.
+#' containing a multipolygon WKT string representing the bounding box of the 
+#' area provided.
 #' @seealso [galah_polygon()] & [galah_geolocate()] for other ways to narrow
 #' queries by location. See [search_taxa()], [galah_filter()] and
 #' [galah_select()] for other ways to restrict the information
@@ -44,14 +48,14 @@
 #'   atlas_counts()
 #' ```
 #'
-#' Search for records within the bounding box of a shapefile
+#' Search for records within the bounding box of an `sf` object
 #'
 #' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' galah_config(email = "your-email@email.com")
 #'
 #' location <- 
 #' "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
-#'  st_as_sfc()
+#'  sf::st_as_sfc()
 #'  
 #' galah_call() |>
 #'   galah_identify("vulpes") |>
@@ -65,7 +69,7 @@
 #' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' galah_config(email = "your-email@email.com")
 #'
-#' location <- st_read(path/to/shapefile.shp)
+#' location <- sf::st_read(path/to/shapefile.shp)
 #' galah_call() |>
 #'   galah_identify("vulpes") |>
 #'   galah_bbox(location) |>
@@ -78,9 +82,9 @@
 #' @importFrom sf st_is_empty
 #' @importFrom sf st_is_simple
 #' @importFrom sf st_is_valid
+#' @importFrom sf st_bbox
 #' @importFrom sf st_geometry type
 #' @importFrom rlang try_fetch
-#' @importFrom sf st_bbox
 #'
 #' @export
 galah_bbox <- function(...) {
@@ -135,22 +139,27 @@ galah_bbox <- function(...) {
 
   # make sure coordinates can be extracted from data.frame/tibble
   if (inherits(query, c("tbl", "data.frame"))) {
-    check_col_names(query)
     query <- check_n_rows(query)
   }
 
   # validate spatial objects & coordinates
   if (!inherits(query, c("sf", "sfc"))) {
     if(inherits(query, c("tbl", "data.frame"))) {
+      check_col_names(query)
       query <- st_bbox(c(xmin = query$xmin,
                          xmax = query$xmax,
                          ymin = query$ymin,
                          ymax = query$ymax),
                        crs = st_crs("WGS84"))
     }
-    valid <- query |> # FIXME add try_fetch()
-      st_as_sfc() |>
-      st_is_valid()
+    log <- NULL # see log object to read any warnings that may have happened
+    valid <- rlang::try_fetch( # prevent warnings
+      query |>
+        st_as_sfc() |>
+        st_is_valid(), warning = function(cnd) {
+          log <<- cnd
+          ""
+        })
   } 
   else {
     valid <- query |> st_is_valid()
@@ -163,13 +172,13 @@ galah_bbox <- function(...) {
     )
     abort(bullets, call = caller_env())
   } else {
-    if (inherits(query, c("tbl", "data.frame", "bbox"))) {
-      bbox_coords <- paste0(tibble(round(query, 5)))
+    if (inherits(query, c("tbl", "data.frame", "bbox")) && !inherits(query, c("sf", "sfc"))) {
+      bbox_coords <- round(query, 5)
       query <- query |> st_as_sfc(crs = st_crs("WGS84"))
     } else {
       if (inherits(query, c("sf", "sfc"))) {
         query <- query |> st_bbox(crs = st_crs("WGS84"))
-        bbox_coords <- paste0(tibble(round(query, 5)))
+        bbox_coords <- round(query, 5)
         query <- query |> st_as_sfc(crs = st_crs("WGS84")) # FIXME: should we define the projection?
       }
     }
@@ -179,12 +188,14 @@ galah_bbox <- function(...) {
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons are converted to multipolygons
   if (inherits(query, "sf") || inherits(query, "sfc")) {
-    inform(glue("
+    inform(glue::glue("
              Data returned for bounding box:
-             {bbox_coords}"))
+             xmin = {bbox_coords$xmin} xmax = {bbox_coords$xmax} \\
+             ymin = {bbox_coords$ymin} ymax = {bbox_coords$ymax}"))
     out_query <- build_wkt(query)
   }
 
+  attr(out_query, "bbox") <- bbox_coords
   attr(out_query, "call") <- "galah_geolocate"
 
   # if a data request was supplied, return one
@@ -214,7 +225,10 @@ build_wkt <- function(polygon, error_call = caller_env()) {
 
 
 check_n_rows <- function(tibble) {
-  if (nrow(tibble) > 1) {
+  if (is.null(nrow(tibble))) {
+    tibble <- tibble
+  } 
+  else {if (nrow(tibble) > 1) {
     ignored_rows <- paste(2:(nrow(tibble)))
     bullets <- c(
       "More than 1 set of coordinates supplied to `galah_bbox`.",
@@ -224,7 +238,7 @@ check_n_rows <- function(tibble) {
     tibble <- tibble[1, ]
   } else {
     tibble <- tibble
-  }
+  }}
   return(tibble)
 }
 
@@ -244,16 +258,16 @@ check_col_names <- function(tibble, error_call = caller_env()) {
   }
 }
 
-nesting_depth <- function(object, object_depth = 0) {
-  if (!is.list(object)) {
-    return(object_depth)
-  } else {
-    return(
-      max(
-        unlist(
-          lapply(object, nesting_depth, object_depth = object_depth + 1)
-        )
-      )
-    )
-  }
-}
+# nesting_depth <- function(object, object_depth = 0) {
+#   if (!is.list(object)) {
+#     return(object_depth)
+#   } else {
+#     return(
+#       max(
+#         unlist(
+#           lapply(object, nesting_depth, object_depth = object_depth + 1)
+#         )
+#       )
+#     )
+#   }
+# }
