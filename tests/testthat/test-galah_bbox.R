@@ -13,11 +13,11 @@ test_that("galah_bbox returns bbox for sf", {
 })
 
 test_that("galah_bbox returns bbox for shapefile", {
-  poly_path <- "../testdata/act_state_polygon_shp/ACT_STATE_POLYGON_shp.shp"
+  poly_path <- test_path("testdata", "act_state_polygon_shp", "ACT_STATE_POLYGON_shp.shp")
   shapefile <- st_read(poly_path, quiet = TRUE)
   shapefile_bbox <- galah_bbox(shapefile)
   expected_polygon <- "MULTIPOLYGON (((148.7628 -35.92053, 149.3993 -35.92053, 149.3993 -35.12442, 148.7628 -35.12442, 148.7628 -35.92053)))"
-  expected_bbox <- attributes(shapefile)$bbox
+  expected_bbox <- attributes(shapefile_bbox)$bbox
   
   expect_message(galah_bbox(shapefile), "Data returned for bounding box:")
   expect_equal(galah_bbox(shapefile)[1], expected_polygon)
@@ -54,17 +54,17 @@ test_that("galah_bbox does not accept incorrect tibbles", {
   expect_error(galah_bbox(tibble_multiple_values))
 })
 
-test_that("galah_bbox uses only first coordinates of tibble with many coordinates" {
-  tibble_many_coords <- tibble(xmin = c(148, 147), 
-                               ymin = c(-29, -28), 
-                               xmax = c(143, 142), 
-                               ymax = c(-29, -30))
+test_that("galah_bbox uses only first coordinates of tibble with many coordinates", {
+  tibble_many_coords <- tibble(xmin = c(148, 145), 
+                               ymin = c(-29, -42), 
+                               xmax = c(143, 146), 
+                               ymax = c(-30, -41))
   
   expect_warning(galah_bbox(tibble_many_coords), "More than 1 set of coordinates supplied to")
 })
 
 test_that("galah_bbox checks number of inputs, uses first argument", { # FIXME
-  skip_on_cran()
+  # skip_on_cran()
   wkt_1 <- glue("POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 \\
                 -29.39064,142.36228 -29.39064,142.36228 -29.00703))") |> st_as_sfc()
   wkt_2 <- glue("POLYGON((145.6765 -42.13203, 145.9652 -42.63203, 146.5425 \\
@@ -81,7 +81,7 @@ test_that("galah_bbox checks number of inputs, uses first argument", { # FIXME
 
 
 test_that("galah_bbox checks inputs", {
-  skip_on_cran()
+  # skip_on_cran()
   wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
   number <- 45
   c_char <- c("a", "b", "c", "d")
