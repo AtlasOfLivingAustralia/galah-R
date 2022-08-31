@@ -1,0 +1,23 @@
+"institution","region","acronym","url","supported"
+"Atlas of Living Australia","Australia","ALA","https://www.ala.org.au",TRUE
+"Biodiversitäts-Atlas Österreich","Austria","BAO","https://biodiversityatlas.at",TRUE
+"Sistemas de Informações sobre a Biodiversidade Brasileira","Brazil","SiBBr","https://sibbr.gov.br",TRUE
+"Candensys","Canada",NA,"http://www.canadensys.net",TRUE
+"eElurikkus","Estonia",NA,"https://elurikkus.ee",TRUE
+"Inventaire National du Patrimoine Naturel","France","INPN","https://inpn.mnhn.fr",TRUE
+"Sistema Nacional de Información sobre Diversidad Biológica de Guatemala","Guatemala","SNIBgt","https://snib.conap.gob.gt",TRUE
+"GBIF Portugal","Portugal","GBIF.pt","https://www.gbif.pt",TRUE
+"GBIF Spain","Spain","GBIF.es","https://www.gbif.es",TRUE
+"Swedish Biodiversity Data Infrastructure","Sweden","SBDI","https://biodiversitydata.se",TRUE
+"National Biodiversity Network","United Kingdom","NBN","https://nbn.org.uk",TRUE
+"Vermont Atlas of Life","Vermont","VAL","https://val.vtecostudies.org",TRUE
+"Global Biodiversity Information Facility","Global","GBIF","https://gbif.org",FALSE
+"Sistema de Información sobre Biodiversidad de Colombia","Colombia","SiB Colombia","https://biodiversidad.co/",FALSE
+"GBIF US","United States and Territories","GBIF.us","https://gbif.us/",FALSE
+"GBIF North America Region","North America",NA,"https://www.gbif-north-america.org",FALSE
+"Virtuelles Herbarium Deutschland","Germany","VHD","https://herbarium.gbif.de/",FALSE
+"Virtual Collection of the Natural History Museum Rotterdam","Netherlands",NA,"https://specimens.hetnatuurhistorisch.nl/",FALSE
+"Legume Data Portal","Global","LDP","https://www.legumedata.org/",FALSE
+"Living Norway","Norway","LN","https://data.livingnorway.no/",FALSE
+"South African National Biodiversity Institute","South Africa","SANBI-GBIF","https://www.sanbi-gbif.org/",FALSE
+"Pacific Biodiversity Information Facility","Pacific","PBIF","https://pbif.sprep.org/",FALSE
