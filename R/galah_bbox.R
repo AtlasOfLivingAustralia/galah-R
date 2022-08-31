@@ -115,7 +115,7 @@ galah_bbox <- function(...) {
     query <- query
   }
 
-  # if(exists("query") == FALSE) {abort(glue("Object {{query}} not found."))}
+  # if(exists("query") == FALSE) {abort(glue("Object {{query}} not found."))} # need something for if blank
 
   # check that object is accepted class
   if (!inherits(query, c("bbox", "list", "matrix", "data.frame", "tbl", "sf", "sfc", "XY"))) {
@@ -152,7 +152,7 @@ galah_bbox <- function(...) {
                          ymax = query$ymax),
                        crs = st_crs("WGS84"))
     }
-    log <- NULL # see log object to read any warnings that may have happened
+    log <- NULL # see `log` to read any warnings that may have been silenced
     valid <- rlang::try_fetch( # prevent warnings
       query |>
         st_as_sfc() |>

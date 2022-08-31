@@ -30,3 +30,22 @@ test_that("atlas_species returns correct results when piped", {
   expect_gt(nrow(species), 1)
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })
+
+test_that("atlas_species returns correct results filtered by galah_geolocate", {
+  skip_on_cran()
+  wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 
+147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))"
+  species <- galah_call() |>
+    galah_identify("perameles") |>
+    galah_filter(year > 2000) |>
+    galah_geolocate(wkt) |>
+    atlas_species()
+  expected_species <- c("Perameles gunnii")
+  expected_cols <- c("kingdom", "phylum", "class", "order", "family",
+                     "genus", "species", "author", "species_guid", 
+                     "vernacular_name")
+  expect_setequal(names(species), expected_cols)
+  expect_equal(species$species[1], expected_species)
+  expect_gt(nrow(species), 0)
+  expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
+})

@@ -1,7 +1,6 @@
 context("Test galah_polygon")
 
-test_that("galah_polygon uses first argument", { # FIXME
-  skip_on_cran()
+test_that("galah_polygon uses first argument", {
   wkt_1 <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
   wkt_2 <- "POLYGON((145.6765 -42.13203, 145.9652 -42.63203, 146.5425 -42.63203, 146.8312 -42.13203, 146.5425 -41.63203, 145.9652 -41.63203, 145.6765 -42.13203))"
   expected_polygon <- "MULTIPOLYGON (((142.3623 -29.00703, 142.7413 -29.00703, 142.7413 -29.39064, 142.3623 -29.39064, 142.3623 -29.00703)))"
@@ -12,7 +11,6 @@ test_that("galah_polygon uses first argument", { # FIXME
 })
 
 test_that("galah_polygon checks inputs", {
-  skip_on_cran()
   poly_path <- test_path("testdata", "act_state_polygon_shp", "ACT_STATE_POLYGON_shp.shp")
   expect_error(
     galah_polygon(
@@ -68,5 +66,5 @@ test_that("galah_polygon counts n vertices correctly", {
 })
 
 
-# Future: galah_polygon accepts nothing as an input and ignores when it's invalid
+# Future: test that galah_polygon accepts nothing as an input and ignores
 

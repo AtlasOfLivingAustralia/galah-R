@@ -79,7 +79,6 @@ test_that("galah_bbox checks number of inputs, uses first argument", { # FIXME
                expected_polygon)
 })
 
-
 test_that("galah_bbox checks inputs", {
   # skip_on_cran()
   wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
@@ -92,7 +91,6 @@ test_that("galah_bbox checks inputs", {
   expect_error(galah_bbox(c_char))
   expect_error(galah_bbox(c_numbers))
 })
-
 
 test_that("galah_bbox detects invalid spatial objects", {
   impossible_bbox <- st_bbox(c(xmin = 148000, 
@@ -108,11 +106,5 @@ test_that("galah_bbox converts to multipolygon", {
   sf_wkt <- wkt |> st_as_sfc()
   expect_match(galah_bbox(sf_wkt), "MULTIPOLYGON")
 })
-
-
-# test_that("galah_polygon counts vertices correctly", {
-#   wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"
-#   expect_equal(n_points(st_as_sfc(wkt)), 4)
-# })
 
 # test that galah_bbox unnests sf object & shapefiles correctly after converting from dots
