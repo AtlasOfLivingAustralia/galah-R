@@ -179,3 +179,42 @@ test_that("atlas_counts works for three groups", {
   expect_gt(nrow(counts), 1)
   expect_equal(names(counts), c("basisOfRecord", "biome", "year", "stateProvince", "count"))
 })
+
+test_that("atlas_counts filters correctly with galah_geolocate/galah_polygon", {
+  vcr::use_cassette("piped_counts_3_groups", {
+    wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 
+147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))"
+    counts <- galah_call() %>%
+      galah_identify("dasyurus hallucatus") %>%
+      galah_filter(year >= 2020) %>%
+      atlas_counts()
+    counts_filtered <- galah_call() %>%
+      galah_identify("dasyurus hallucatus") %>%
+      galah_filter(year >= 2020) %>%
+      galah_geolocate(wkt) %>%
+      atlas_counts()
+  })
+  expect_s3_class(counts, "data.frame")
+  expect_gt(counts, 1)
+  expect_lt(counts_filtered, 1)
+})
+
+test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
+  vcr::use_cassette("piped_counts_3_groups", {
+    wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 
+147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
+      sf::st_as_sfc()
+    counts <- galah_call() %>%
+      galah_identify("dasyurus hallucatus") %>%
+      galah_filter(year >= 2020) %>%
+      atlas_counts()
+    counts_filtered <- galah_call() %>%
+      galah_identify("dasyurus hallucatus") %>%
+      galah_filter(year >= 2020) %>%
+      galah_geolocate(wkt, type = "bbox") %>%
+      atlas_counts()
+  })
+  expect_s3_class(counts, "data.frame")
+  expect_gt(counts, 1)
+  expect_lt(counts_filtered, 1)
+})
