@@ -3,7 +3,7 @@
 
 # @rdname show_all_minifunctions
 # @export
-show_all_species_lists <- function(){
+show_all_lists <- function(){
   url <- server_config("lists_base_url")
   do.call(rbind, list(
     atlas_GET(url, path = "speciesList?max=1000&offset=0")$lists,
@@ -16,7 +16,7 @@ show_all_species_lists <- function(){
 
 # @rdname search_minifunctions
 # @export
-search_species_lists <- function(query){
-  df <- show_all_species_lists()
+search_lists <- function(query){
+  df <- show_all_lists()
   df[grepl(tolower(query), tolower(df$name)), ]
 }

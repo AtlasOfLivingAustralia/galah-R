@@ -2,8 +2,7 @@
 % Please edit documentation in R/show_all_assertions.R, R/show_all_atlases.R,
 %   R/show_all_cached_files.R, R/show_all_collectory.R, R/show_all_fields.R,
 %   R/show_all_licences.R, R/show_all_media.R, R/show_all_minifunctions.R,
-%   R/show_all_profiles.R, R/show_all_ranks.R, R/show_all_reasons.R,
-%   R/show_all_values.R
+%   R/show_all_profiles.R, R/show_all_ranks.R, R/show_all_reasons.R
 \name{show_all_assertions}
 \alias{show_all_assertions}
 \alias{show_all_atlases}
@@ -44,12 +43,8 @@ show_all_profiles()
 show_all_ranks()
 
 show_all_reasons()
-
-show_all_values(field)
 }
 \arguments{
-\item{field}{\code{string}: field to return the categories for}
-
 \item{ids}{either a \code{tibble} from \code{atlas_occurrences} or a vector giving media ids (parsed or unparsed)}
 }
 \value{
@@ -61,147 +56,62 @@ Some text
 \section{Examples}{
 
 
+\if{html}{\out{<div class="sourceCode {r, child = "man/rmd/setup.Rmd"}">}}\preformatted{}\if{html}{\out{</div>}}
+
 See all supported atlases
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_atlases()
-#> # A tibble: 12 x 4
-#>    atlas     institution                                           acronym url  
-#>    <chr>     <chr>                                                 <chr>   <chr>
-#>  1 Australia Atlas of Living Australia                             ALA     http~
-#>  2 Austria   Biodiversitäts-Atlas Österreich                       BAO     http~
-#>  3 Brazil    Sistemas de Informações sobre a Biodiversidade Brasi~ SiBBr   http~
-#>  4 Canada    Candensys                                             <NA>    http~
-#>  5 Estonia   eElurikkus                                            <NA>    http~
-#>  6 France    Inventaire National du Patrimoine Naturel             INPN    http~
-#>  7 Guatemala Sistema Nacional de Información sobre Diversidad Bio~ SNIBgt  http~
-#>  8 Portugal  GBIF Portugal                                         GBIF.pt http~
-#>  9 Spain     GBIF Spain                                            GBIF.es http~
-#> 10 Sweden    Swedish Biodiversity Data Infrastructure              SBDI    http~
-#> 11 UK        National Biodiversity Network                         NBN     http~
-#> 12 Vermont   Vermont Atlas of Life                                 VAL     http~
+\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE}">}}\preformatted{show_all_atlases()
 }\if{html}{\out{</div>}}
 
 See a listing of all valid fields and layers
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_fields()
-#> # A tibble: 813 x 4
-#>   id                  description                                    type  link 
-#>   <chr>               <chr>                                          <chr> <chr>
-#> 1 abcdTypeStatus      ABCD field in use by herbaria                  fiel~ <NA> 
-#> 2 acceptedNameUsage   http://rs.tdwg.org/dwc/terms/acceptedNameUsage fiel~ <NA> 
-#> 3 acceptedNameUsageID http://rs.tdwg.org/dwc/terms/acceptedNameUsag~ fiel~ <NA> 
-#> 4 accessRights        <NA>                                           fiel~ <NA> 
-#> # ... with 809 more rows
-#> # i Use `print(n = ...)` to see more rows
+\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE}">}}\preformatted{show_all_fields()
 }\if{html}{\out{</div>}}
 
 Show a listing of all accepted reasons for downloading occurrence data
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_reasons()
-#> # A tibble: 13 x 2
-#>       id name                            
-#>    <int> <chr>                           
-#>  1     0 conservation management/planning
-#>  2     1 biosecurity management/planning 
-#>  3     2 environmental assessment        
-#>  4     3 education                       
-#>  5     4 scientific research             
-#>  6     5 collection management           
-#>  7     6 other                           
-#>  8     7 ecological research             
-#>  9     8 systematic research/taxonomy    
-#> 10    10 testing                         
-#> 11    11 citizen science                 
-#> 12    12 restoration/remediation         
-#> 13    13 species modelling
+\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE}">}}\preformatted{show_all_reasons()
 }\if{html}{\out{</div>}}
 
 Add your download reason when configuring your session with \code{\link[=galah_config]{galah_config()}}
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(download_reason_id = 3)
+\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE, eval = FALSE}">}}\preformatted{galah_config(download_reason_id = 3)
 }\if{html}{\out{</div>}}
 
 Show a list of all available data quality profiles
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_profiles()
-#> # A tibble: 7 x 4
-#>      id name                                                  shortName  descr~1
-#>   <int> <chr>                                                 <chr>      <chr>  
-#> 1     2 ALA General (pre-pipelines 3)                         ALA-legacy "The d~
-#> 2    35 Species Distribution Modelling (CSDM) (pre-pipelines) CSDM-lega~ "Base ~
-#> 3    44 Data licensed for all uses (pre-pipelines)            re-usable~ "Data ~
-#> 4    92 ALA General                                           ALA        "The d~
-#> 5   124 Species Distribution Modelling (CSDM)                 CSDM       "Base ~
-#> 6   133 Data licensed for all uses                            re-usable  "Data ~
-#> 7   224 AVH                                                   AVH        "AVH d~
-#> # ... with abbreviated variable name 1: description
+\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE}">}}\preformatted{show_all_profiles()
 }\if{html}{\out{</div>}}
 
 Values in the \code{shortName} column can be used with \code{\link[=galah_filter]{galah_filter()}} to
 narrow your data query results
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_filter(profile == "ALA")
-#> Warning: Invalid field(s) detected.
-#> i See a listing of all valid fields with `show_all_fields()`.
-#> i Search for the valid name of a desired field with `search_fields()`.
-#> x Invalid field(s): profile.
-#> # A tibble: 1 x 4
-#>   variable logical value query              
-#>   <chr>    <chr>   <chr> <chr>              
-#> 1 profile  ==      ALA   "(profile:\\"ALA\\")"
+\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE}">}}\preformatted{galah_filter(profile == "ALA")
 }\if{html}{\out{</div>}}
 
 Show a listing of all taxonomic ranks
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_ranks()
-#> # A tibble: 69 x 2
-#>      id name        
-#>   <int> <chr>       
-#> 1     1 root        
-#> 2     2 superkingdom
-#> 3     3 kingdom     
-#> 4     4 subkingdom  
-#> # ... with 65 more rows
-#> # i Use `print(n = ...)` to see more rows
+\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE}">}}\preformatted{show_all_ranks()
 }\if{html}{\out{</div>}}
 
 Use ranks with \code{\link[=galah_down_to]{galah_down_to()}} and \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} to get taxonomic
 trees
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
+\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE}">}}\preformatted{galah_call() \%>\%
   galah_identify("fungi") \%>\%
   galah_down_to(subphylum) \%>\%
   atlas_taxonomy()
-#>                        levelName
-#> 1  Fungi                        
-#> 2   ¦--Ascomycota               
-#> 3   ¦   ¦--Pezizomycotina       
-#> 4   ¦   ¦--Saccharomycotina     
-#> 5   ¦   °--Taphrinomycotina     
-#> 6   ¦--Basidiomycota            
-#> 7   ¦   ¦--Agaricomycotina      
-#> 8   ¦   ¦--Pucciniomycotina     
-#> 9   ¦   ¦--Ustilaginomycotina   
-#> 10  ¦   °--Wallemiomycotina     
-#> 11  ¦--Mucoromycota             
-#> 12  ¦   °--Glomeromycotina      
-#> 13  °--Zygomycota               
-#> 14      ¦--Entomophthoromycotina
-#> 15      ¦--Kickxellomycotina    
-#> 16      ¦--Mortierellomycotina  
-#> 17      ¦--Mucoromycotina       
-#> 18      °--Zoopagomycotina
 }\if{html}{\out{</div>}}
 
 Configure caching and create a query to cache with \code{\link[=galah_config]{galah_config()}}
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(caching = TRUE)
+\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE, eval = FALSE}">}}\preformatted{galah_config(caching = TRUE)
 dat <- atlas_counts(group_by = galah_group_by(year))
 }\if{html}{\out{</div>}}
 
 Show a listing of previously cached files
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_cached_files()
+\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE, eval = FALSE}">}}\preformatted{show_all_cached_files()
 }\if{html}{\out{</div>}}
 }
 

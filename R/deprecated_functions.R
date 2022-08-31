@@ -249,3 +249,20 @@ ala_config <- function(..., profile_path = NULL) {
 
   galah_config(..., profile_path = profile_path)
 }
+
+
+#' @description 
+#' Use [show_values(field)] or [show_field_values()] instead of `show_all_values()`.
+#'
+#' @keywords internal 
+#' @export
+#' @name deprecated
+show_all_values <- function(field){
+  lifecycle::deprecate_warn("1.5.0", "show_all_values()", "show_field_values")
+  show_field_values(field)
+}
+
+search_profile_attributes <- function(profile){
+  lifecycle::deprecate_warn("1.5.0", "search_profile_attributes()", "show_profile_values")
+  show_profile_values(profile)
+}

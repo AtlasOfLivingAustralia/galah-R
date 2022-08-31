@@ -1,9 +1,9 @@
 #' @param profile `string`: a data quality profile name, short name or id.
 #' See [show_all_profiles()] for valid filters
-#' @rdname search_minifunctions
-#' @export search_profile_attributes
+#' @rdname show_values
+#' @export show_profile_values
 
-search_profile_attributes <- function(profile) {
+show_profile_values <- function(profile) {
   
   if (getOption("galah_config")$atlas != "Australia") {
     bullets <- c(

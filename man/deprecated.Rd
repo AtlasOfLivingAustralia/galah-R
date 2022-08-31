@@ -18,6 +18,7 @@
 \alias{find_profiles}
 \alias{find_atlases}
 \alias{ala_config}
+\alias{show_all_values}
 \title{Deprecated functions}
 \usage{
 select_taxa(query, is_id = FALSE)
@@ -78,6 +79,8 @@ find_profiles()
 find_atlases()
 
 ala_config(..., profile_path = NULL)
+
+show_all_values(field)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -113,5 +116,7 @@ Use \code{\link[=show_all_profiles]{show_all_profiles()}} instead of \code{find_
 Use \code{\link[=show_all_atlases]{show_all_atlases()}} instead of \code{find_atlases()}.
 
 Use \code{\link[=galah_config]{galah_config()}} instead of \code{ala_config()}.
+
+Use \link{show_values(field)} or \code{\link[=show_field_values]{show_field_values()}} instead of \code{show_all_values()}.
 }
 \keyword{internal}

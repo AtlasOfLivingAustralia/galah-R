@@ -1,8 +1,8 @@
-#' @rdname show_all_minifunctions
+#' @rdname show_values
 #' @param field `string`: field to return the categories for
-#' @export show_all_values
+#' @export show_field_values
 
-show_all_values <- function(field) {
+show_field_values <- function(field) {
   if (missing(field)) {
     bullets <- c(
       "No field detected.",
@@ -38,12 +38,12 @@ show_all_values <- function(field) {
   }
 }
 
-#' @rdname search_minifunctions
-#' @export search_values
-search_values <- function(query, field){
-  df <- show_all_values(field = field)
-  df[grepl(tolower(query), tolower(df$category)), ]
-}
+# #' @rdname search_minifunctions
+# #' @export search_values
+# search_values <- function(query, field){
+#   df <- show_all_values(field = field)
+#   df[grepl(tolower(query), tolower(df$category)), ]
+# }
 
 # function to extract value which for some reason isn't returned
 extract_category_value <- function(name) {
