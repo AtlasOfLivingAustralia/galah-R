@@ -20,9 +20,8 @@ show_field_values <- function(field) {
     abort(bullets, call = caller_env())
   }
  
-  url <- server_config("records_base_url")
-  resp <- atlas_GET(url, "occurrence/facets",
-                    params = list(facets = field, flimit = 10^4))
+  resp <- atlas_url("records_facets") |>
+          atlas_GET(params = list(facets = field, flimit = 10^4))
   if(is.null(resp)){
     bullets <- c(
       "Calling the API failed for `show_all_values()`.",
@@ -38,14 +37,27 @@ show_field_values <- function(field) {
   }
 }
 
-# #' @rdname search_minifunctions
-# #' @export search_values
-# search_values <- function(query, field){
-#   df <- show_all_values(field = field)
-#   df[grepl(tolower(query), tolower(df$category)), ]
-# }
-
 # function to extract value which for some reason isn't returned
 extract_category_value <- function(name) {
   str_split(name, '"')[[1]][2]
+}
+
+#' @param field `string`: field to return the categories for. Use
+#' [search_fields()] to view valid fields.
+#' @param query `string`: A search string. Not case sensitive.
+#' @rdname show_values
+#' @export search_field_values
+
+search_field_values <- function(field, query){
+  
+   if (missing(query) || is.null(query)) {
+     bullets <- c(
+       "We didn't detect a valid query.",
+       i = "Try entering text to search for matching values."
+     )
+     rlang::warn(message = bullets, error = rlang::caller_env())
+   }
+   
+   field_text <- show_field_values(field)
+   field_text[grepl(query, tolower(field_text$category)), ]
 }

@@ -1,4 +1,4 @@
-atlas_url <- function(api_name, error_call = caller_env()){
+atlas_url <- function(api_name, ..., error_call = caller_env()){
   
   # run a check that a row in `node_config` matches your specification
   current_atlas <- getOption("galah_config")$atlas
@@ -6,7 +6,7 @@ atlas_url <- function(api_name, error_call = caller_env()){
                 node_config$atlas == current_atlas
   
   if(any(url_lookup)){
-    node_config$api_url[which(url_lookup)[1]]
+    glue(node_config$api_url[which(url_lookup)[1]])
   }else{
     bullets <- c(
       glue("The `{api_name}` API is not available for the selected atlas ({current_atlas})"),

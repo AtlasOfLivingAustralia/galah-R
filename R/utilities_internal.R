@@ -37,7 +37,7 @@ wanted_columns <- function(type) {
                      ),
            "layer" = c("layer_id", "description", "link"),
            "fields" = c("id", "description"),
-           "assertions" = c("id", "description"),
+           "assertions" = c("id", "description", "category"),
            "quality_filter" = c("description", "filter"),
            "reasons" = c("id", "name"))
 }

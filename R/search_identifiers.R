@@ -44,9 +44,11 @@ search_identifiers <- function(identifier) {
 
 
 identifier_lookup <- function(identifier) {
-  taxa_url <- server_config("name_matching_base_url")
-  result <- atlas_GET(taxa_url, "/api/getByTaxonID", list(taxonID = identifier))
-  if (is.null(result)){return(NULL)}
+  result <- atlas_url("names_lookup") |>
+    atlas_GET(list(taxonID = identifier))
+  if (is.null(result)){
+    return(NULL)
+  }
   if (isFALSE(result$success) && result$issues == "noMatch" && galah_config()$verbose) {
     list_invalid_taxa <- glue::glue_collapse(identifier, 
                                              sep = ", ")
