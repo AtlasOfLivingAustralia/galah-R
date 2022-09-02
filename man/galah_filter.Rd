@@ -73,7 +73,7 @@ atlas_counts(filter = filter)
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 46615486
+#> 1 47281441
 }\if{html}{\out{</div>}}
 
 Separating statements with a comma is equivalent to an \code{AND} statement
@@ -101,7 +101,7 @@ galah_call() \%>\%
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 51092255
+#> 1 51883659
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# Categorical example
@@ -114,7 +114,7 @@ galah_call() \%>\%
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 92807472
+#> 1 88743467
 }\if{html}{\out{</div>}}
 
 \code{solr} supports range queries on text as well as numbers. The following
@@ -126,7 +126,7 @@ queries all Australian States and Territories alphabetically after "Tasmania"
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 32639780
+#> 1 33497959
 }\if{html}{\out{</div>}}
 }
 

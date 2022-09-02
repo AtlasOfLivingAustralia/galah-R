@@ -57,13 +57,8 @@
 #'   atlas_counts()
 #' ```
 #' 
-#' @importFrom sf st_cast 
-#' @importFrom sf st_as_text 
-#' @importFrom sf st_as_sfc
-#' @importFrom sf st_is_empty
-#' @importFrom sf st_is_simple
-#' @importFrom sf st_is_valid
-#' @importFrom sf st_geometry type
+#' @importFrom sf st_cast st_as_text st_as_sfc st_is_empty st_is_simple
+#' @importFrom sf st_is_valid st_geometry st_geometry_type
 #' @importFrom rlang try_fetch
 #' 
 #' @export
@@ -226,7 +221,7 @@ check_wkt_length <- function(wkt, error_call = caller_env()) {
     }
   } 
 
-  # check that first and last point of match if object is a polygon
+  # check that first and last point match if object is a polygon
   # FIXME: Do we need this to work anymore? Or does st_is_valid() solve this?
   # else {
   #   sf_obj <- st_as_sfc(wkt)

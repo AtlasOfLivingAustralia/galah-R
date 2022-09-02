@@ -67,7 +67,6 @@ scientific name, which may include the subspecific epithet if required.
 #> #   vernacular_name <chr>, issues <chr>, and abbreviated variable names
 #> #   1: scientific_name, 2: scientific_name_authorship, 3: taxon_concept_id,
 #> #   4: match_type
-#> # i Use `colnames()` to see all variable names
                      
 search_taxa(tibble(
  family = c("pardalotidae", "maluridae"), 
@@ -81,7 +80,6 @@ search_taxa(tibble(
 #> #   issues <chr>, vernacular_name <chr>, and abbreviated variable names
 #> #   1: scientific_name, 2: scientific_name_authorship, 3: taxon_concept_id,
 #> #   4: match_type
-#> # i Use `colnames()` to see all variable names
 }\if{html}{\out{</div>}}
 
 \code{galah_identify()} uses \code{search_taxa()} to narrow data queries
@@ -92,7 +90,7 @@ search_taxa(tibble(
 #> # A tibble: 1 x 1
 #>     count
 #>     <int>
-#> 1 1443658
+#> 1 1457953
 }\if{html}{\out{</div>}}
 }
 

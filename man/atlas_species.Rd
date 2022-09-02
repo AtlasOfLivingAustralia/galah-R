@@ -68,7 +68,6 @@ First, look up a genus of interest in the ALA with \code{\link[=search_taxa]{sea
 #> # ... with 3 more variables: family <chr>, genus <chr>, issues <chr>, and
 #> #   abbreviated variable names 1: scientific_name,
 #> #   2: scientific_name_authorship, 3: taxon_concept_id, 4: match_type
-#> # i Use `colnames()` to see all variable names
 }\if{html}{\out{</div>}}
 
 It's a good idea to find how many species there are for the taxon you are

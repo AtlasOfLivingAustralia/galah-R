@@ -112,7 +112,6 @@ Look up a unique taxon identifier
 #> # ... with 3 more variables: species <chr>, vernacular_name <chr>,
 #> #   issues <chr>, and abbreviated variable names 1: scientific_name,
 #> #   2: scientific_name_authorship, 3: taxon_concept_id, 4: match_type
-#> # i Use `colnames()` to see all variable names
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
@@ -121,7 +120,7 @@ Look up a unique taxon identifier
 #> # A tibble: 1 x 1
 #>     count
 #>     <int>
-#> 1 1443658
+#> 1 1457953
 }\if{html}{\out{</div>}}
 
 Search for all fields that use include the word "date"
@@ -135,7 +134,6 @@ Search for all fields that use include the word "date"
 #> 3 eventDate      The ISO formatted date of observation, specimen co~ fiel~ <NA> 
 #> 4 eventDateEnd   <NA>                                                fiel~ <NA> 
 #> # ... with 18 more rows
-#> # i Use `print(n = ...)` to see more rows
 }\if{html}{\out{</div>}}
 
 Search for all fields with the string "basisofrecord"
@@ -174,7 +172,6 @@ Search for all Wordclim layers
 #> 3 el10980 WorldClim 2.1: Temperature - isothermality Isothermality   laye~ http~
 #> 4 el10990 WorldClim 2.1: Precipitation - wettest month Precipitatio~ laye~ http~
 #> # ... with 34 more rows
-#> # i Use `print(n = ...)` to see more rows
 }\if{html}{\out{</div>}}
 
 To find all the data quality arguments used in the profile "CSDM"

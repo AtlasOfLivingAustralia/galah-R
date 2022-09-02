@@ -76,14 +76,8 @@
 #'   atlas_occurrences()
 #' ```
 #'
-#' @importFrom sf st_cast
-#' @importFrom sf st_as_text
-#' @importFrom sf st_as_sfc
-#' @importFrom sf st_is_empty
-#' @importFrom sf st_is_simple
-#' @importFrom sf st_is_valid
-#' @importFrom sf st_bbox
-#' @importFrom sf st_geometry type
+#' @importFrom sf st_cast st_as_text st_as_sfc st_is_empty st_is_simple
+#' @importFrom sf st_is_valid st_bbox st_geometry_type
 #' @importFrom rlang try_fetch
 #'
 #' @export

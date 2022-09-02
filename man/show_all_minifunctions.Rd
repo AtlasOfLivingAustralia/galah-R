@@ -92,7 +92,6 @@ See a listing of all valid fields and layers
 #> 3 acceptedNameUsageID http://rs.tdwg.org/dwc/terms/acceptedNameUsag~ fiel~ <NA> 
 #> 4 accessRights        <NA>                                           fiel~ <NA> 
 #> # ... with 809 more rows
-#> # i Use `print(n = ...)` to see more rows
 }\if{html}{\out{</div>}}
 
 Show a listing of all accepted reasons for downloading occurrence data
@@ -162,7 +161,6 @@ Show a listing of all taxonomic ranks
 #> 3     3 kingdom     
 #> 4     4 subkingdom  
 #> # ... with 65 more rows
-#> # i Use `print(n = ...)` to see more rows
 }\if{html}{\out{</div>}}
 
 Use ranks with \code{\link[=galah_down_to]{galah_down_to()}} and \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} to get taxonomic

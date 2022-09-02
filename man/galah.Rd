@@ -50,6 +50,38 @@ quality-control criteria.
 \itemize{
 \item \code{\link[=search_taxa]{search_taxa()}} Search for taxa using a text-search
 \item \code{\link[=search_identifiers]{search_identifiers()}} Search for taxa using taxonomic identifiers
+\item \code{\link[=search_all]{search_all()}} & \code{\link[=show_all]{show_all()}} Search for or show all valid:
+\itemize{
+\item configuration
+\itemize{
+\item atlases
+\item reasons
+}
+\item taxonomy
+\itemize{
+\item taxa
+\item identifiers
+\item ranks
+}
+\item filters
+\itemize{
+\item fields
+\item values
+\item assertions
+}
+\item group filters
+\itemize{
+\item profiles (data quality filters)
+\item profile_values
+\item species_lists
+}
+\item data providers
+\itemize{
+\item providers
+\item collections
+\item datasets
+}
+}
 \item \code{\link[=search_fields]{search_fields()}} Search for specific valid fields to filter queries
 \item \code{\link[=search_field_values]{search_field_values()}} Search for possible values to filter by for a given field
 \item \code{\link[=search_profile_attributes]{search_profile_attributes()}} List the quality filters of a data quality profile
@@ -117,7 +149,7 @@ are many possible data quality checks, and it is not always clear which are
 most appropriate in a given instance. Therefore, \code{galah} supports ALA
 data quality \strong{profiles}, which can be passed to
 \code{\link[=galah_filter]{galah_filter()}} to quickly remove undesirable records. A full
-list of data quality profiles is returned by \code{\link[=show_all_profiles]{show_all_profiles()}}.
+list of data quality profiles is returned by \code{show_all(profiles)}.
 
 For those outside Australia, 'galah' is the common name of
 \emph{Eolophus roseicapilla}, a widely-distributed
@@ -144,8 +176,8 @@ Functions in \code{galah} are designed according to a nested architecture.
 Users that require data should begin by locating the relevant \code{atlas_}
 function; the arguments within that function then call correspondingly-named
 \code{galah_} functions; specific values that can be interpreted by those \code{galah_}
-functions are given by functions with the prefix \code{search_} or
-\code{show_all_}; desired taxa can be also be identified using \code{\link[=search_taxa]{search_taxa()}} and
+functions can be searched for or listed using \code{\link[=search_all]{search_all()}} and \code{\link[=show_all]{show_all()}}
+functions; desired taxa can be also be identified using \code{\link[=search_taxa]{search_taxa()}} and
 passed within \code{\link[=galah_identify]{galah_identify()}} to the \code{taxa} argument of \code{atlas_} functions.
 }
 
