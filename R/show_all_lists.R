@@ -4,14 +4,14 @@
 # @rdname show_all_minifunctions
 # @export
 show_all_lists <- function(){
-  url <- server_config("lists_base_url")
-  do.call(rbind, list(
-    atlas_GET(url, path = "speciesList?max=1000&offset=0")$lists,
-    atlas_GET(url, path = "speciesList?max=1000&offset=1000")$lists,
-    atlas_GET(url, path = "speciesList?max=1000&offset=2000")$lists
-  )) |> 
+  url <- atlas_url("lists_all") |> 
+    paste0(c(
+      "?max=1000&offset=0", 
+      "?max=1000&offset=1000", 
+      "?max=1000&offset=2000")) 
+  do.call(rbind, 
+    lapply(url, function(a){atlas_GET(a)$lists})) |> 
     tibble()
-
 }
 
 # @rdname search_minifunctions

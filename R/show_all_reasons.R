@@ -9,7 +9,7 @@ show_all_reasons <- function() {
   
   if(update_needed){ # i.e. we'd like to run a query
     ## return list of valid "reasons for use" codes
-    out <- atlas_GET(url, path = "service/logger/reasons")  
+    out <- atlas_url("logger_reasons") |> atlas_GET()
     if(is.null(out)){
       df <- galah_internal_cache()$show_all_reasons
       # if cached values reflect the correct atlas, return requested info

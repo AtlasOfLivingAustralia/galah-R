@@ -1,9 +1,10 @@
 #' @rdname show_all_minifunctions
 #' @export
 show_all_licences <- function(){
-  url <- server_config("images_base_url")
-  result <- atlas_GET(url, path = "licence")
-  result[, c("id", "name", "acronym", "url")] |> tibble()
+  result <- atlas_url("image_licences") |> 
+    atlas_GET() |> 
+    tibble()
+  result[, c("id", "name", "acronym", "url")] 
 }
 
 #' @rdname search_minifunctions

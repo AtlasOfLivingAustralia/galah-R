@@ -45,9 +45,6 @@ show_all_media <- function(df){
     inform("Calling the metadata API failed for `atlas_media`")
     return(tibble())
   }
-  
-  # DEPRECATED - capture filters from galah_filter and apply post-hoc
-  # metadata <- filter_metadata(online_metadata, media_filter)  
 
   # i.e. service is online, but no data available
   if (nrow(metadata) == 0) {
@@ -77,10 +74,8 @@ show_all_media <- function(df){
 media_metadata <- function(ids){
   
   result <- lapply(ids, function(a){
-    x <- atlas_GET(
-      url = server_config("images_base_url"),
-      path = paste0("image/", a)
-    )
+    x <- atlas_url("image_metadata", id = a) |> 
+         atlas_GET()
     as.data.frame(x[lengths(x) == 1])
   })
   df <- rbindlist(result, fill = TRUE)

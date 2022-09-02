@@ -1,22 +1,25 @@
 #' @rdname show_all_minifunctions
 #' @export
 show_all_collections <- function(){
-  url <- server_config("collections_base_url")
-  atlas_GET(url, path = "collection") |> tibble()
+  atlas_url("collections_collections") |>
+     atlas_GET() |>
+     tibble()
 }
 
 #' @rdname show_all_minifunctions
 #' @export
 show_all_datasets <- function(){
-  url <- server_config("collections_base_url")
-  atlas_GET(url, path = "dataResource") |> tibble()
+  atlas_url("collections_datasets") |>
+     atlas_GET() |>
+     tibble()
 }
 
 #' @rdname show_all_minifunctions
 #' @export
 show_all_providers <- function(){
-  url <- server_config("collections_base_url")
-  atlas_GET(url, path = "dataProvider") |> tibble()
+  atlas_url("collections_providers") |>
+     atlas_GET() |>
+     tibble()
 }
 
 #' @rdname search_minifunctions

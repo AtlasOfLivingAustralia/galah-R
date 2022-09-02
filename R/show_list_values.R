@@ -3,5 +3,16 @@
 #' @export show_list_values
 
 show_list_values <- function(list){
-  return(cat("This function is not built yet"))
+  
+  if (missing(list)) {
+    bullets <- c(
+      "No field detected.",
+      i = "Did you forget to add a list to show values for?"
+    )
+    abort(bullets, call = caller_env())
+  }
+  
+  atlas_url("lists_lookup", list_id = list) |> 
+    atlas_GET() |>
+    tibble()
 }

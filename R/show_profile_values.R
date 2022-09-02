@@ -5,9 +5,10 @@
 
 show_profile_values <- function(profile) {
   
-  if (getOption("galah_config")$atlas != "Australia") {
+  if (missing(profile)) {
     bullets <- c(
-      "Data profiles are only available for the Australian atlas"
+      "No profile detected.",
+      i = "Did you forget to add a profile to show values for?"
     )
     abort(bullets, call = caller_env())
   }
@@ -22,9 +23,9 @@ show_profile_values <- function(profile) {
     )
     abort(bullets, call = caller_env())
   }
-  url <- server_config("data_quality_base_url")
-  resp <- atlas_GET(url, "api/v1/quality/activeProfile",
-                  list(profileName = short_name))
+  
+  resp <- atlas_url("quality_details", profile = profile) |>
+          atlas_GET()
   if(is.null(resp)){
     bullets <- c(
       "Calling the API failed for `search_profile_attributes`.",
