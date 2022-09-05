@@ -5,7 +5,6 @@ show_all_reasons <- function() {
   # check whether the cache has been updated this session
   update_needed <- internal_cache_update_needed("show_all_reasons")
   atlas <- getOption("galah_config")$atlas
-  url <- server_config("logger_base_url")
   
   if(update_needed){ # i.e. we'd like to run a query
     ## return list of valid "reasons for use" codes

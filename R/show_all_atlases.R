@@ -16,25 +16,6 @@ search_atlases <- function(query){
 }
 
 ## internal functions
-
-# server_config <- function(url, error_call = caller_env()) {
-#   atlas <- getOption("galah_config")$atlas
-#   conf <- all_atlas_config[[atlas]]
-# 
-#   if (url == "records_download_base_url" & !url %in% names(conf)) {
-#     url <- "records_base_url"
-#   }
-#   if (!(url %in% names(conf))) {
-#     service <- service_name(url)
-#     lookup <- show_all_atlases()
-#     atlas_acronym <- lookup$acronym[lookup$atlas == atlas]
-#     abort(
-#       glue("{service} is not supported for {atlas_acronym}"),
-#       call = error_call)
-#   }
-#   return(conf[[url]])
-# }
-
 image_fields <- function() {
   atlas <- getOption("galah_config")$atlas
   switch (atlas,

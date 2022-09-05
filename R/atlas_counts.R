@@ -324,10 +324,7 @@ atlas_counts_lookup <- function(identify = NULL,
   names(facets_temp) <- rep("facets", length(facets_temp))
   query <- c(query, facets_temp)
 
-  # build url etc
-  url <- server_config("records_base_url")
-  path <- "occurrence/facets"
-  
+  ## build url etc
   total_cats <- total_categories(url, path, query)[1]
   if(is.null(total_cats)) {
     return(NULL)
@@ -341,8 +338,9 @@ atlas_counts_lookup <- function(identify = NULL,
   }
 
   if (sum(total_cats) > limit && sum(total_cats) > page_size) {
-    resp <- atlas_GET(url, path, params = query, paginate = TRUE, limit = limit,
-                    page_size = page_size, offset_param = "foffset")
+    resp <- atlas_url("records_facets") |>
+            atlas_GET(params = query, paginate = TRUE, limit = limit,
+                      page_size = page_size, offset_param = "foffset")
     if(is.null(resp)){return(NULL)}
     counts <- rbindlist(lapply(resp, function(a) {
       count_results <- jsonlite::fromJSON(a)$fieldResult
@@ -350,7 +348,8 @@ atlas_counts_lookup <- function(identify = NULL,
       }))
   } else {
       query$flimit <- max(limit)
-      resp <- atlas_GET(url, path, params = query)
+      resp <- atlas_url("records_facets") |> 
+              atlas_GET(params = query)
       if(is.null(resp)){return(NULL)}
       counts <- rbindlist(resp$fieldResult)
   }
@@ -422,17 +421,16 @@ atlas_counts_lookup <- function(identify = NULL,
 # get just the record count for a query
 # handle too long queries in here?
 record_count <- function(query) {
-  url <- server_config("records_base_url")
-  if(getOption("galah_config")$atlas == "Global"){
-    query$limit <- 0
-    col_name <- "count"
-    path <- "occurrence/search"
-  }else{
+  # if(getOption("galah_config")$atlas == "Global"){
+  #   query$limit <- 0
+  #   col_name <- "count"
+  #   path <- "occurrence/search"
+  # }else{
     query$pageSize <- 0
-    path <- "occurrences/search"
     col_name <- "totalRecords"
-  }
-  resp <- atlas_GET(url, path = path, query)
+  # }
+  resp <- atlas_url("records_counts") |> 
+          atlas_GET(query)
   resp[[col_name]]
 }
 # above doesn't work because ALA requires queries get put in an &fq= statement
@@ -441,14 +439,14 @@ record_count <- function(query) {
 species_count <- function(query) {
   query$flimit <- 1
   query$facets <- species_facets()
-  url <- server_config("records_base_url")
-  total_categories(url, "occurrence/facets", query)
+  total_categories(query)
 }
 
 # Get number of categories of a filter
-total_categories <- function(url, path, query) {
+total_categories <- function(query) {
   query$flimit <- 1
-  resp <- atlas_GET(url, path, params = query)
+  resp <- atlas_url("records_facets") |> 
+          atlas_GET(query = query)
   if(is.null(resp)){
     NULL
   }else if(length(resp) < 1){

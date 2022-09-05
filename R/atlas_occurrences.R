@@ -235,17 +235,17 @@ atlas_occurrences_internal <- function(identify = NULL,
 
   # Get data
   tmp <- tempfile()
-  url <- server_config("records_base_url")
   query <- c(query, email = user_email(), dwcHeaders = "true")
-  download_resp <- wait_for_download(url, query)
+  download_resp <- wait_for_download(query)
   if(is.null(download_resp)){
     inform("Calling the API failed for `atlas_occurrences`")
     return(tibble())
   }
   download_path <- download_resp$download_path
-  data_path <- ala_download(url = server_config("records_download_base_url"),
-                       path = download_path,
-                       cache_file = tmp, ext = ".zip")
+  data_path <- atlas_url("records_base") |>
+               paste(download_path, collapse = "/") |>
+               atlas_download(cache_file = tmp, ext = ".zip")
+  
   if(is.null(data_path)){
     inform("Calling the API failed for `atlas_occurrences`")
     return(tibble())
@@ -294,46 +294,57 @@ get_doi <- function(mint_doi, data_path) {
   return(doi)
 }
 
-wait_for_download <- function(url, query) {
-  status <- atlas_GET(url, "occurrences/offline/download",
-                    params = query, on_error = occ_error_handler)
-  if(is.null(status)){return(NULL)}
+wait_for_download <- function(query) {
+  url <- atlas_url("records_occurrences")
+  status <- url |>
+            atlas_GET(params = query, on_error = occ_error_handler)
+  if(is.null(status)){
+    return(NULL)
+  }
   search_url <- status$searchUrl
   status_url <- parse_url(status$statusUrl)
-  status <- atlas_GET(url, path = status_url$path)
+  status <- atlas_GET(paste(url, status_url$path, sep = "/"))
   verbose <- getOption("galah_config")$verbose
   # create a progress bar
   if (verbose) {
     pb <- txtProgressBar(max = 1, style = 3)
   }
   
-  # time_start <- Sys.time()
-  # run_number <- 1
-  # interval_time <- rep(
-  #   seq_len(6) - 1,
-  #   c(10, rev(seq_len(5))))
+  # check queue status, with rate limiting
+  interval_time <- seq_len(10)
   
-
-  while(status$status == "inQueue") {
-    # if(run_number > 5){
-    # 
-    # }
-    status <- atlas_GET(url, path = status_url$path)
-    # time_taken <- as.numeric(difftime(Sys.time(), time_start, units = "secs"))
-    ## throttle this after n runs (HW says n = 5)
-    ## set error message on failure
-    ## API for cancelling downloads? - if so, run before erroring
-    # n_runs <- n_runs + 1
+  for(i in seq_len(10)){
+    status <- atlas_GET(paste(url, status_url$path, sep = "/"))
+    if(status$status == "inQueue"){
+      Sys.sleep(interval_time[i])
+    }else{
+      break
+    }
   }
-
-  while (tolower(status$status) == "running") {
+  
+  if(status$status == "inQueue"){
+    abort("Function timed out while in processing queue")
+  }
+  
+  # check running status, with rate limiting
+  for(i in seq_len(30)){
     val <- (status$records / status$totalRecords)
     if (verbose) {
       setTxtProgressBar(pb, val)
     }
-    status <- atlas_GET(url, path = status_url$path)
-    Sys.sleep(2)
+    status <- atlas_GET(paste(url, status_url$path, sep = "/"))
+    if(tolower(status$status) == "running"){
+      Sys.sleep(2)
+    }else{
+      break
+    }  
   }
+
+  if(tolower(status$status) == "running"){
+    abort("Function timed out while running")
+  }
+  
+  # resume previous code
   if (verbose) {
     setTxtProgressBar(pb, value = 1)
     close(pb)

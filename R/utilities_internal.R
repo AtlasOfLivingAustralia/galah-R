@@ -405,10 +405,11 @@ check_for_caching <- function(taxa_query, filter_query, area_query,
 # long query
 cached_query <- function(taxa_query, filter_query, area_query,
                          columns = NULL) {
-  url <- server_config("records_base_url")
-  resp <- atlas_POST(url, path = "ws/webportal/params",
-                   body = list(wkt = area_query, fq = taxa_query,
-                               fields = columns))
+  resp <- atlas_url("records_query") |> 
+          atlas_POST(body = list(
+            wkt = area_query, 
+            fq = taxa_query,
+            fields = columns))
   list(fq = filter_query, q = paste0("qid:", resp))
 }
 

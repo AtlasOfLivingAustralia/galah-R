@@ -1,4 +1,5 @@
 ﻿atlas,system,api_name,api_url,called_by
+Australia,records,records_base,https://biocache-ws.ala.org.au/,atlas_occurrences
 Australia,records,records_facets,https://biocache-ws.ala.org.au/ws/occurrence/facets,"atlas_counts, show_field_values"
 Australia,records,records_counts,https://biocache-ws.ala.org.au/ws/occurrences/search,atlas_counts
 Australia,records,records_occurrences,https://biocache-ws.ala.org.au/ws/occurrences/offline/download,atlas_occurrences
@@ -7,8 +8,8 @@ Australia,records,records_assertions,https://biocache-ws.ala.org.au/ws/assertion
 Australia,records,records_fields,https://biocache-ws.ala.org.au/ws/index/fields,show_all_fields
 Australia,records,records_query,https://biocache-ws.ala.org.au/ws/webportal/params,atlas_occurrences
 Australia,spatial,spatial_layers,https://spatial.ala.org.au/ws/layers,show_all_fields
-Australia,species,species_lookup,https://bie-ws.ala.org.au/ws/species,atlas_taxonomy
-Australia,species,species_children,https://bie-ws.ala.org.au/ws/childConcepts/,atlas_taxonomy
+Australia,species,species_lookup,https://bie-ws.ala.org.au/ws/species/{id},atlas_taxonomy
+Australia,species,species_children,https://bie-ws.ala.org.au/ws/childConcepts/{id},atlas_taxonomy
 Australia,name-matching,names_search_single,https://namematching-ws.ala.org.au/api/search?q={name},search_taxa
 Australia,name-matching,names_search_multiple,https://namematching-ws.ala.org.au/api/searchByClassification,search_taxa
 Australia,name-matching,names_lookup,https://namematching-ws.ala.org.au/api/getByTaxonID,search_identifiers
