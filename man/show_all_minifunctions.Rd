@@ -65,7 +65,16 @@ See all supported atlases
 
 See a listing of all valid fields and layers
 
-\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE}">}}\preformatted{show_all_fields()
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_fields()
+#> # A tibble: 813 x 4
+#>   id                  description                                    type  link 
+#>   <chr>               <chr>                                          <chr> <chr>
+#> 1 abcdTypeStatus      ABCD field in use by herbaria                  fiel~ <NA> 
+#> 2 acceptedNameUsage   http://rs.tdwg.org/dwc/terms/acceptedNameUsage fiel~ <NA> 
+#> 3 acceptedNameUsageID http://rs.tdwg.org/dwc/terms/acceptedNameUsag~ fiel~ <NA> 
+#> 4 accessRights        <NA>                                           fiel~ <NA> 
+#> # ... with 809 more rows
 }\if{html}{\out{</div>}}
 
 Show a listing of all accepted reasons for downloading occurrence data
@@ -91,7 +100,15 @@ narrow your data query results
 
 Show a listing of all taxonomic ranks
 
-\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE}">}}\preformatted{show_all_ranks()
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_ranks()
+#> # A tibble: 69 x 2
+#>      id name        
+#>   <int> <chr>       
+#> 1     1 root        
+#> 2     2 superkingdom
+#> 3     3 kingdom     
+#> 4     4 subkingdom  
+#> # ... with 65 more rows
 }\if{html}{\out{</div>}}
 
 Use ranks with \code{\link[=galah_down_to]{galah_down_to()}} and \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} to get taxonomic

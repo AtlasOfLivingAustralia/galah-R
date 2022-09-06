@@ -124,6 +124,8 @@ parse_basic_quosures <- function(dots){
     return(do.call(c, result))
   } else if(check_df(result)){
     return(do.call(rbind, result))
+  } else {
+    return(result)
   }
 }
 
@@ -165,7 +167,7 @@ is_object_check <- function(dots){
   # get list of options from ?typeof & ?mode
   available_types <- c("logical", "numeric", 
     "complex", "character", "raw", "list", "NULL", "function",
-    "name", "call", "any")
+    "name", "call", "any", "bbox")
   # attempt to check multiple types
   unlist(lapply(dots, function(a){
     modes_df <- data.frame(
@@ -184,6 +186,17 @@ is_object_check <- function(dots){
       FALSE # i.e. no objects
     }
   }))
+}
+
+check_n_inputs <- function(dots, error_call = caller_env()) {
+  if(length(dots) > 1){
+    n_geolocations <- length(dots)
+    bullets <- c(
+      "More than 1 spatial area provided.",
+      "*" = glue("Using first location, ignoring additional {n_geolocations - 1} location(s).")
+    )
+    warn(bullets, call = caller_env())
+  }
 }
 
 ##----------------------------------------------------------------

@@ -77,7 +77,7 @@ With no arguments, return the total number of records in the ALA
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 112360733
+#> 1 113659037
 }\if{html}{\out{</div>}}
 
 You can group counts by state and territory with \code{galah_group_by}
@@ -88,12 +88,11 @@ You can group counts by state and territory with \code{galah_group_by}
 #> # A tibble: 100 x 2
 #>   stateProvince      count
 #>   <chr>              <int>
-#> 1 New South Wales 27834043
-#> 2 Victoria        23587665
-#> 3 Queensland      20358297
-#> 4 South Australia  8875585
+#> 1 New South Wales 28049060
+#> 2 Victoria        24438794
+#> 3 Queensland      20407325
+#> 4 South Australia  8890956
 #> # ... with 96 more rows
-#> # i Use `print(n = ...)` to see more rows
 }\if{html}{\out{</div>}}
 
 You can add a filter to narrow your search
@@ -111,7 +110,7 @@ You can add a filter to narrow your search
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 112360733
+#> 1 113659037
 }\if{html}{\out{</div>}}
 
 Specify \code{type = species} to count the number of species, and group record
@@ -126,14 +125,14 @@ counts by kingdom
 #> # A tibble: 10 x 2
 #>    kingdom   count
 #>    <chr>     <dbl>
-#>  1 Animalia  91016
-#>  2 Plantae   38589
+#>  1 Animalia  91668
+#>  2 Plantae   38732
 #>  3 Fungi     19685
-#>  4 Chromista  1523
-#>  5 Protista   1212
-#>  6 Bacteria    720
+#>  4 Chromista  1530
+#>  5 Protista   1213
+#>  6 Bacteria    722
 #>  7 Protozoa     13
-#>  8 Eukaryota     9
+#>  8 Eukaryota     8
 #>  9 Archaea       3
 #> 10 Virus         0
 }\if{html}{\out{</div>}}
@@ -148,15 +147,14 @@ variables, similar to using \code{dplyr::group_by() \%>\% dplyr::count()}
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 46 x 3
+#> # A tibble: 47 x 3
 #>   basisOfRecord     year    count
 #>   <chr>             <chr>   <int>
-#> 1 HUMAN_OBSERVATION 2021  6863220
-#> 2 HUMAN_OBSERVATION 2020  6178583
-#> 3 HUMAN_OBSERVATION 2019  5557695
-#> 4 HUMAN_OBSERVATION 2018  5411030
-#> # ... with 42 more rows
-#> # i Use `print(n = ...)` to see more rows
+#> 1 HUMAN_OBSERVATION 2021  6993974
+#> 2 HUMAN_OBSERVATION 2020  6287914
+#> 3 HUMAN_OBSERVATION 2019  5510979
+#> 4 HUMAN_OBSERVATION 2018  5233218
+#> # ... with 43 more rows
 }\if{html}{\out{</div>}}
 }
 

@@ -39,18 +39,18 @@ Return record counts since 2010 by year
 #> # A tibble: 12 x 2
 #>    year    count
 #>    <chr>   <int>
-#>  1 2021  6913695
-#>  2 2020  6230657
-#>  3 2019  5647752
-#>  4 2018  5541644
-#>  5 2017  4796450
-#>  6 2014  4013308
-#>  7 2016  3956847
-#>  8 2015  3790978
-#>  9 2013  3701702
-#> 10 2012  3114584
-#> 11 2011  2741646
-#> 12 2022   642992
+#>  1 2021  7068825
+#>  2 2020  6384033
+#>  3 2019  5735874
+#>  4 2018  5612001
+#>  5 2017  4837764
+#>  6 2014  4030040
+#>  7 2016  3991306
+#>  8 2015  3822633
+#>  9 2013  3713901
+#> 10 2012  3139786
+#> 11 2011  2776021
+#> 12 2022   825716
 }\if{html}{\out{</div>}}
 
 Return record counts since 2010 by year and data provider
@@ -62,15 +62,14 @@ Return record counts since 2010 by year and data provider
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 1,110 x 3
-#>   year  dataResourceName              count
-#>   <chr> <chr>                         <int>
-#> 1 2021  eBird Australia             5473631
-#> 2 2021  iNaturalist Australia        972354
-#> 3 2021  NSW BioNet Atlas             267230
-#> 4 2021  Earth Guardians Weekly Feed   56462
-#> # ... with 1,106 more rows
-#> # i Use `print(n = ...)` to see more rows
+#> # A tibble: 127 x 3
+#>   dataResourceName year    count
+#>   <chr>            <chr>   <int>
+#> 1 eBird Australia  2021  5473631
+#> 2 eBird Australia  2020  4613576
+#> 3 eBird Australia  2019  4181309
+#> 4 eBird Australia  2018  3630154
+#> # ... with 123 more rows
 }\if{html}{\out{</div>}}
 
 Return record counts of \emph{Litoria} species each year since 2015, limiting
@@ -85,14 +84,13 @@ results to the top 5 each year
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 35 x 3
-#>   year  species            count
-#>   <chr> <chr>              <int>
-#> 1 2020  Litoria peronii    18228
-#> 2 2020  Litoria fallax     15987
-#> 3 2020  Litoria verreauxii  5708
-#> 4 2020  Litoria ewingii     4955
+#>   species         year  count
+#>   <chr>           <chr> <int>
+#> 1 Litoria peronii 2020  18365
+#> 2 Litoria peronii 2019  11120
+#> 3 Litoria peronii 2018  11091
+#> 4 Litoria peronii 2017   6385
 #> # ... with 31 more rows
-#> # i Use `print(n = ...)` to see more rows
 }\if{html}{\out{</div>}}
 }
 

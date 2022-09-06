@@ -7,7 +7,7 @@
 galah_config(..., profile_path = NULL)
 }
 \arguments{
-\item{\dots}{Options can be defined using the form \code{name = value}.
+\item{\dots}{Options can be defined using the form \code{name = "value"}.
 Valid arguments are:
 \itemize{
 \item \code{atlas} string: Living Atlas to point to, Australia by default
@@ -40,9 +40,10 @@ the process and lead to HTTP 500 errors, so should be turned off. Defaults
 to TRUE.
 }}
 
-\item{profile_path}{string: (optional), path to a directory to store
-config values in. If provided, config values will be written to a new or
-existing .Rprofile file for future sessions. \code{NULL} by default.}
+\item{profile_path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+Keeping for compatibility with older package versions. It is preferable to
+not save \code{galah_config} options.}
 }
 \value{
 For \code{galah_config()}, a \code{list} of all options.
@@ -75,7 +76,7 @@ Turn on caching in your session
 It is required by some ALA services that you add a reason for downloading
 data. To look up all valid reasons to enter, use \code{\link[=show_all_reasons]{show_all_reasons()}}
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_reasons()
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all(reasons)
 #> # A tibble: 13 x 2
 #>       id name                            
 #>    <int> <chr>                           

@@ -81,17 +81,36 @@ Search multiple taxa. \code{search_taxa()} will return one row per taxon
 
 Look up a unique taxon identifier
 
-\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE}">}}\preformatted{search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
+#> # A tibble: 1 x 14
+#>   scient~1 scien~2 taxon~3 rank  match~4 kingdom phylum class order family genus
+#>   <chr>    <chr>   <chr>   <chr> <chr>   <chr>   <chr>  <chr> <chr> <chr>  <chr>
+#> 1 Eucalyp~ Maiden  https:~ spec~ taxonI~ Plantae Charo~ Equi~ Myrt~ Myrta~ Euca~
+#> # ... with 3 more variables: species <chr>, vernacular_name <chr>,
+#> #   issues <chr>, and abbreviated variable names 1: scientific_name,
+#> #   2: scientific_name_authorship, 3: taxon_concept_id, 4: match_type
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE}">}}\preformatted{galah_call() |>
   galah_identify("reptilia") |>
   atlas_counts()
+#> # A tibble: 1 x 1
+#>     count
+#>     <int>
+#> 1 1458841
 }\if{html}{\out{</div>}}
 
 Search for all fields that use include the word "date"
-
-\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE}">}}\preformatted{search_fields("date")
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("date")
+#> # A tibble: 22 x 4
+#>   id             description                                         type  link 
+#>   <chr>          <chr>                                               <chr> <chr>
+#> 1 dateIdentified http://rs.tdwg.org/dwc/terms/dateIdentified         fiel~ <NA> 
+#> 2 datePrecision  The precision of the date information for the reco~ fiel~ <NA> 
+#> 3 eventDate      The ISO formatted date of observation, specimen co~ fiel~ <NA> 
+#> 4 eventDateEnd   <NA>                                                fiel~ <NA> 
+#> # ... with 18 more rows
 }\if{html}{\out{</div>}}
 
 Search for all fields with the string "basisofrecord"
@@ -106,8 +125,15 @@ Search for all fields that have information for "marine"
 }\if{html}{\out{</div>}}
 
 Search for all Wordclim layers
-
-\if{html}{\out{<div class="sourceCode {r, comment = "#>", collapse = TRUE}">}}\preformatted{search_fields("worldclim")
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("worldclim")
+#> # A tibble: 38 x 4
+#>   id      description                                                type  link 
+#>   <chr>   <chr>                                                      <chr> <chr>
+#> 1 el10982 WorldClim 2.1: Temperature - warmest month max Max Temper~ laye~ http~
+#> 2 el10981 WorldClim 2.1: Temperature - seasonality Temperature Seas~ laye~ http~
+#> 3 el10980 WorldClim 2.1: Temperature - isothermality Isothermality   laye~ http~
+#> 4 el10990 WorldClim 2.1: Precipitation - wettest month Precipitatio~ laye~ http~
+#> # ... with 34 more rows
 }\if{html}{\out{</div>}}
 
 To find all the data quality arguments used in the profile "CSDM"

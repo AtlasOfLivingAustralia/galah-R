@@ -9,10 +9,11 @@ galah_filter(..., profile = NULL)
 \arguments{
 \item{...}{filters, in the form \verb{field logical value}}
 
-\item{profile}{DEPRECATED: use \code{galah_data_profile} instead. If supplied,
-should be a \code{string} recording a data quality profile to apply to the
-query. See \code{\link[=show_all_profiles]{show_all_profiles()}} for valid profiles. By default
-no profile is applied.}
+\item{profile}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#soft-deprecated}{\figure{lifecycle-soft-deprecated.svg}{options: alt='[Soft-deprecated]'}}}{\strong{[Soft-deprecated]}} Use \code{galah_data_profile} instead.
+
+If supplied, should be a \code{string} recording a data quality profile to
+apply to the query. See \code{\link[=show_all_profiles]{show_all_profiles()}} for valid profiles. By
+default no profile is applied.}
 }
 \value{
 A tibble containing filter values.
@@ -73,7 +74,7 @@ atlas_counts(filter = filter)
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 46615486
+#> 1 47334381
 }\if{html}{\out{</div>}}
 
 Separating statements with a comma is equivalent to an \code{AND} statement
@@ -101,7 +102,7 @@ galah_call() \%>\%
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 51092255
+#> 1 51937900
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# Categorical example
@@ -114,7 +115,7 @@ galah_call() \%>\%
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 92807472
+#> 1 88796319
 }\if{html}{\out{</div>}}
 
 \code{solr} supports range queries on text as well as numbers. The following
@@ -126,7 +127,7 @@ queries all Australian States and Territories alphabetically after "Tasmania"
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 32639780
+#> 1 33519572
 }\if{html}{\out{</div>}}
 }
 

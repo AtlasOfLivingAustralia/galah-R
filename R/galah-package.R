@@ -47,6 +47,26 @@
 #'
 #'   * [search_taxa()] Search for taxa using a text-search
 #'   * [search_identifiers()] Search for taxa using taxonomic identifiers
+#'   * [search_all()] & [show_all()] Search for or show all valid: 
+#'       * configuration
+#'            - atlases
+#'            - reasons
+#'       * taxonomy 
+#'            - taxa
+#'            - identifiers
+#'            - ranks
+#'       * filters
+#'            - fields
+#'            - values
+#'            - assertions
+#'       * group filters
+#'            - profiles (data quality filters) 
+#'            - profile_values
+#'            - species_lists
+#'       * data providers
+#'            - providers
+#'            - collections
+#'            - datasets
 #'   * [search_fields()] Search for specific valid fields to filter queries
 #'   * [search_field_values()] Search for possible values to filter by for a given field
 #'   * [search_profile_attributes()] List the quality filters of a data quality profile
@@ -108,7 +128,7 @@
 #' most appropriate in a given instance. Therefore, `galah` supports ALA
 #' data quality **profiles**, which can be passed to
 #' [galah_filter()] to quickly remove undesirable records. A full
-#' list of data quality profiles is returned by [show_all_profiles()].
+#' list of data quality profiles is returned by `show_all(profiles)`.
 #'
 #' For those outside Australia, 'galah' is the common name of
 #' *Eolophus roseicapilla*, a widely-distributed
@@ -133,8 +153,8 @@
 #' Users that require data should begin by locating the relevant `atlas_` 
 #' function; the arguments within that function then call correspondingly-named 
 #' `galah_` functions; specific values that can be interpreted by those `galah_`
-#' functions are given by functions with the prefix `search_` or
-#' `show_all_`; desired taxa can be also be identified using [search_taxa()] and 
+#' functions can be searched for or listed using [search_all()] and [show_all()] 
+#' functions; desired taxa can be also be identified using [search_taxa()] and 
 #' passed within [galah_identify()] to the `taxa` argument of `atlas_` functions.
 #'
 
