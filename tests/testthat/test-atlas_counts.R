@@ -182,7 +182,7 @@ test_that("atlas_counts works for three groups", {
 })
 
 test_that("atlas_counts filters correctly with galah_geolocate/galah_polygon", {
-  vcr::use_cassette("piped_counts_3_groups", {
+  vcr::use_cassette("piped_counts_polygon", {
     wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 
 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))"
     counts <- galah_call() %>%
@@ -201,7 +201,7 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_polygon", {
 })
 
 test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
-  vcr::use_cassette("piped_counts_3_groups", {
+  vcr::use_cassette("piped_counts_bbox", {
     wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 
 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
       sf::st_as_sfc()
