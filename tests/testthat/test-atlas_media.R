@@ -1,13 +1,6 @@
 context("Test atlas_media")
 teardown(unlink("test_media", recursive = TRUE))
 
-test_that("atlas_media check inputs", {
-  skip_on_cran()
-  expect_error(atlas_media())
-  expect_error(atlas_media(identify = galah_identify("Microseris lanceolata"),
-                           download_dir = "non_existent"))
-})
-
 test_that("atlas_media gives a warning when old arguments are used", {
   galah_config(email = "ala4r@ala.org.au")
   expect_message({
@@ -16,6 +9,10 @@ test_that("atlas_media gives a warning when old arguments are used", {
       filter = galah_filter(year == 2019),
       download_dir = "test")
   })
+})
+
+test_that("atlas_media fails when no filters are provided", {
+  expect_error(atlas_media())
 })
 
 vcr::use_cassette("atlas_media-1", {

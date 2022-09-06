@@ -32,7 +32,7 @@ download_dir, refresh_cache
     abort("argument `path` is missing, with no default")
   }else{
     if(!file.exists(path)){
-      abort("argument `path` is missing, with no default")
+      abort("The specified `path` does not exist")
     }
   }
   download_dir <- normalizePath(path)

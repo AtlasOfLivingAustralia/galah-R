@@ -41,8 +41,8 @@ test_that("galah_select builds expected columns when group = basic", {
   expect_s3_class(select, "data.frame")
   expect_equal(nrow(select), nrow(expected_output))
   expect_equal(names(select), names(expected_output))
-  expect_equal(select[1], expected_output[1])
-  expect_equal(select[2], expected_output[2])
+  expect_true(all(select[1] == expected_output[1]))
+  expect_true(all(select[2] == expected_output[2]))
 })
 
 
@@ -58,8 +58,8 @@ test_that("galah_select builds expected columns when group = event", {
   expect_s3_class(select, "data.frame")
   expect_equal(nrow(select), nrow(expected_output))
   expect_equal(names(select), names(expected_output))
-  expect_equal(select[1], expected_output[1])
-  expect_equal(select[2], expected_output[2])  
+  expect_true(all(select[1] == expected_output[1]))
+  expect_true(all(select[2] == expected_output[2])) 
 })
 
 
@@ -86,7 +86,7 @@ test_that("galah_select defaults to group = basic when there are no args", {
   expect_s3_class(galah_select(), "data.frame")
   expect_equal(nrow(galah_select()), nrow(expected_output))
   expect_equal(names(galah_select()), names(expected_output))
-  expect_equal(galah_select()[1], expected_output[1])
+  expect_true(all(galah_select()[1] == expected_output[1]))
   galah_config(run_checks = TRUE)
 })
 

@@ -43,7 +43,7 @@ internal_download <- function(url, params, ext, cache_file,
   
   # workaround for fq troubles
   if (length(params$fq) > 1) {
-    cli$url <- build_fq_url(url, path, params)
+    cli$url <- build_fq_url(url, params)
     res <- cli$get(disk = cache_file)
   } else {
     cli$url <- url

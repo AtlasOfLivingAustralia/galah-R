@@ -114,7 +114,7 @@ test_that("atlas_counts handles multiple 'group by' variables", {
       group_by = galah_group_by(year, basisOfRecord))
   })
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts), c("year", "basisOfRecord", "count"))
+  expect_true(all(names(counts) %in% c("year", "basisOfRecord", "count")))
 })
 
 test_that("atlas_counts handles 'species' as a 'group by' variable", {
@@ -126,7 +126,7 @@ test_that("atlas_counts handles 'species' as a 'group by' variable", {
        atlas_counts()
   })
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts), c("species", "year", "count"))
+  expect_true(all(names(counts) %in% c("year", "species", "count")))
 })
 
 test_that("atlas_counts handles 'taxonConceptID' as a 'group by' variable", {
@@ -138,7 +138,7 @@ test_that("atlas_counts handles 'taxonConceptID' as a 'group by' variable", {
        atlas_counts()
   })
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts), c("taxonConceptID", "year", "count"))
+  expect_true(all(names(counts) %in% c("year", "taxonConceptID", "count")))
 })
 
 
@@ -150,7 +150,7 @@ test_that("atlas_counts handles piping", {
       atlas_counts()
   })
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(names(counts), c("year", "basisOfRecord", "count"))
+  expect_true(all(names(counts) %in% c("year", "basisOfRecord", "count")))
 })
 
 test_that("atlas_counts ignores superflueous piped arguments", {
@@ -177,5 +177,6 @@ test_that("atlas_counts works for three groups", {
   })
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(counts), 1)
-  expect_equal(names(counts), c("basisOfRecord", "biome", "year", "stateProvince", "count"))
+  expect_true(all(names(counts) %in% 
+    c("basisOfRecord", "biome", "year", "stateProvince", "count")))
 })

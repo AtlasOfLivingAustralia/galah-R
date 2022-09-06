@@ -165,7 +165,7 @@ atlas_media_internal <- function(request,
   }
   
   if (is.null(identify) & is.null(filter) & is.null(geolocate)) {
-    warn("No filters have been provided. All images and sounds will be downloaded.")
+    abort("No filters have been provided")
   }
   
   # Check whether any filters are media-specific filters and

@@ -15,20 +15,24 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      server: nginx/1.23.1
-      date: Tue, 02 Aug 2022 08:48:52 GMT
-      content-type: application/json;charset=UTF-8
-      access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       access-control-allow-methods: POST, GET, OPTIONS
+      access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      content-security-policy: upgrade-insecure-requests
-      x-cache-status: HIT
       content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Tue, 06 Sep 2022 05:34:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.23.1
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      vary:
+      - Origin
+      - Access-Control-Request-Method
+      - Access-Control-Request-Headers
+      x-cache-status: HIT
+      x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
@@ -42,7 +46,7 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-08-02 08:48:53 GMT
+  recorded_at: 2022-09-06 05:34:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -60,20 +64,24 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      server: nginx/1.23.1
-      date: Tue, 02 Aug 2022 08:48:53 GMT
-      content-type: application/json;charset=UTF-8
-      access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       access-control-allow-methods: POST, GET, OPTIONS
+      access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      content-security-policy: upgrade-insecure-requests
-      x-cache-status: HIT
       content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Tue, 06 Sep 2022 05:34:15 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.23.1
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      vary:
+      - Origin
+      - Access-Control-Request-Method
+      - Access-Control-Request-Headers
+      x-cache-status: HIT
+      x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
@@ -87,7 +95,7 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-08-02 08:48:53 GMT
+  recorded_at: 2022-09-06 05:34:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -105,20 +113,24 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      server: nginx/1.23.1
-      date: Tue, 02 Aug 2022 08:48:53 GMT
-      content-type: application/json;charset=UTF-8
-      access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       access-control-allow-methods: POST, GET, OPTIONS
+      access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      content-security-policy: upgrade-insecure-requests
-      x-cache-status: HIT
       content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Tue, 06 Sep 2022 05:34:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.23.1
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      vary:
+      - Origin
+      - Access-Control-Request-Method
+      - Access-Control-Request-Headers
+      x-cache-status: HIT
+      x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
@@ -132,7 +144,7 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-08-02 08:48:53 GMT
+  recorded_at: 2022-09-06 05:34:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -150,20 +162,24 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      server: nginx/1.23.1
-      date: Tue, 02 Aug 2022 08:48:53 GMT
-      content-type: application/json;charset=UTF-8
-      access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       access-control-allow-methods: POST, GET, OPTIONS
+      access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      content-security-policy: upgrade-insecure-requests
-      x-cache-status: HIT
       content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Tue, 06 Sep 2022 05:34:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.23.1
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      vary:
+      - Origin
+      - Access-Control-Request-Method
+      - Access-Control-Request-Headers
+      x-cache-status: HIT
+      x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
@@ -177,7 +193,7 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-08-02 08:48:53 GMT
+  recorded_at: 2022-09-06 05:34:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -195,20 +211,24 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      server: nginx/1.23.1
-      date: Tue, 02 Aug 2022 08:48:53 GMT
-      content-type: application/json;charset=UTF-8
-      access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       access-control-allow-methods: POST, GET, OPTIONS
+      access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      content-security-policy: upgrade-insecure-requests
-      x-cache-status: HIT
       content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Tue, 06 Sep 2022 05:34:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.23.1
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      vary:
+      - Origin
+      - Access-Control-Request-Method
+      - Access-Control-Request-Headers
+      x-cache-status: HIT
+      x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
@@ -222,7 +242,7 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-08-02 08:48:53 GMT
+  recorded_at: 2022-09-06 05:34:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -240,20 +260,24 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      server: nginx/1.23.1
-      date: Tue, 02 Aug 2022 08:48:53 GMT
-      content-type: application/json;charset=UTF-8
-      access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       access-control-allow-methods: POST, GET, OPTIONS
+      access-control-allow-origin: '*'
       access-control-max-age: '3600'
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      content-security-policy: upgrade-insecure-requests
-      x-cache-status: HIT
       content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Tue, 06 Sep 2022 05:34:16 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.23.1
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      vary:
+      - Origin
+      - Access-Control-Request-Method
+      - Access-Control-Request-Headers
+      x-cache-status: HIT
+      x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
@@ -267,5 +291,5 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-08-02 08:48:53 GMT
+  recorded_at: 2022-09-06 05:34:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

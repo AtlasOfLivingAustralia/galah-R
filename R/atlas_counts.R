@@ -325,7 +325,7 @@ atlas_counts_lookup <- function(identify = NULL,
   query <- c(query, facets_temp)
 
   ## build url etc
-  total_cats <- total_categories(url, path, query)[1]
+  total_cats <- total_categories(query)[1]
   if(is.null(total_cats)) {
     return(NULL)
   }
@@ -446,7 +446,7 @@ species_count <- function(query) {
 total_categories <- function(query) {
   query$flimit <- 1
   resp <- atlas_url("records_facets") |> 
-          atlas_GET(query = query)
+          atlas_GET(params = query)
   if(is.null(resp)){
     NULL
   }else if(length(resp) < 1){

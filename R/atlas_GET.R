@@ -3,14 +3,13 @@
 # because the target atlas is offline.
 
 
-atlas_GET <- function(url, # path, 
+atlas_GET <- function(url, 
                     params = list(), on_error = NULL,
                     paginate = FALSE, limit = NULL, page_size = NULL,
                     offset_param = 'offset') {
    tryCatch({
      internal_GET(
        url = url,
-       # path = path,
        params = params,
        on_error = on_error,
        paginate = paginate,
@@ -85,19 +84,4 @@ internal_GET <- function(url, params = list(), on_error = NULL,
 cache_filename <- function(args, ext) {
   filename <- paste0(digest(sort(args)), ext)
   file.path(getOption("galah_config")$cache_directory, filename)
-}
-
-build_fq_url <- function(url, #path, 
-  params = list()
-) {
-  url <- parse_url(url)
-  # url$path <- path
-  url$query <- params[names(params) != "fq"]
-  if(any(names(params) == "fq")){
-    join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
-    fq <- paste(params$fq, collapse = "&fq=")
-    paste0(build_url(url), join_char, URLencode(fq))
-  }else{
-    build_url(url)
-  }
 }
