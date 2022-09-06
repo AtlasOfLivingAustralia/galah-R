@@ -5,7 +5,6 @@ atlas_download <- function(url, path, params = list(), ext = ".csv",
   tryCatch({
     internal_download(
       url = url,
-      # path = path,
       params = params,
       ext = ext,
       cache_file = cache_file)

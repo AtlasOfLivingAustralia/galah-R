@@ -18,7 +18,7 @@ collect_occurrences <- function(doi, url){
 
   if(!missing(doi)){
     if(is.null(doi)){
-      abort("Please specify a valid `doi`")}
+      abort("Please specify a valid `doi`")
     }else{
       result <- doi_download(doi)
     }
@@ -28,7 +28,19 @@ collect_occurrences <- function(doi, url){
     if(is.null(url)){
       abort("Please specify a valid `url`")
     }else{
-      result <- atlas_GET(url)
+      tmp <- tempfile()
+      local_file <- atlas_download(url, cache_file = tmp, ext = ".zip")
+      tryCatch(
+        result <- read.csv(unz(local_file, "data.csv"), stringsAsFactors = FALSE),
+        error = function(e) {
+          bullets <- c(
+            "There was a problem reading the occurrence data and it looks like no data were returned.",
+            i = "This may be because no valid field names were provided.",
+            i = "To check whether field names are valid, use `search_fields()`."
+          )
+          inform(bullets)
+        }
+      )
     }
   } 
     

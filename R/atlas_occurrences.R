@@ -307,9 +307,7 @@ wait_for_download <- function(query) {
   
   # check running status, with rate limiting
   status <- check_queue(status)
-  if(status$status != "finished"){
-    status <- check_running(status)
-  }
+  status <- check_running(status)
  
   # resume previous code
   if (verbose) {
