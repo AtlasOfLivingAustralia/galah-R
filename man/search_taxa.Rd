@@ -90,7 +90,7 @@ search_taxa(tibble(
 #> # A tibble: 1 x 1
 #>     count
 #>     <int>
-#> 1 1457953
+#> 1 1458841
 }\if{html}{\out{</div>}}
 }
 

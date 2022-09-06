@@ -120,7 +120,7 @@ Look up a unique taxon identifier
 #> # A tibble: 1 x 1
 #>     count
 #>     <int>
-#> 1 1457953
+#> 1 1458841
 }\if{html}{\out{</div>}}
 
 Search for all fields that use include the word "date"
