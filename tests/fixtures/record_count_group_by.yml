@@ -16,56 +16,22 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 02 Aug 2022 06:33:21 GMT
+      date: Tue, 06 Sep 2022 03:16:05 GMT
       content-type: application/json
       content-length: '356'
       server: nginx/1.23.1
       vary: Accept-Encoding
       content-encoding: gzip
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      x-content-type-options: nosniff
-      content-security-policy: upgrade-insecure-requests
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
     body:
       encoding: UTF-8
       file: no
       string: '{"success":true,"scientificName":"MAMMALIA","taxonConceptID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","rank":"class","rankID":3000,"lft":67388,"rgt":69420,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","vernacularName":"Mammals","speciesGroup":["Animals","Mammals"],"issues":["noIssue"]}'
-  recorded_at: 2022-08-02 06:33:21 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
-- request:
-    method: get
-    uri: https://namematching-ws.ala.org.au/api/search?q=Mammalia
-    body:
-      encoding: ''
-      string: ''
-    headers:
-      Accept-Encoding: gzip, deflate
-      Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0.9999
-  response:
-    status:
-      status_code: '200'
-      message: OK
-      explanation: Request fulfilled, document follows
-    headers:
-      status: 'HTTP/2 200 '
-      date: Tue, 02 Aug 2022 06:33:21 GMT
-      content-type: application/json
-      content-length: '356'
-      server: nginx/1.23.1
-      vary: Accept-Encoding
-      content-encoding: gzip
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      x-content-type-options: nosniff
-      content-security-policy: upgrade-insecure-requests
-    body:
-      encoding: UTF-8
-      file: no
-      string: '{"success":true,"scientificName":"MAMMALIA","taxonConceptID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","rank":"class","rankID":3000,"lft":67388,"rgt":69420,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","vernacularName":"Mammals","speciesGroup":["Animals","Mammals"],"issues":["noIssue"]}'
-  recorded_at: 2022-08-02 06:33:21 GMT
+  recorded_at: 2022-09-06 03:16:05 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -90,26 +56,26 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 02 Aug 2022 06:33:21 GMT
+      date: Tue, 06 Sep 2022 03:16:05 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.1
       set-cookie:
-      - AWSALBTG=N9iIwSzTIdJ3s89bZ1sJPP7kRGwnZUyds65OGTIp3qlixyLV8k0PUxq3nSmka3jpU8ZFp4uJQ2hs/CNTzBZsLgYKSj/kHEahXKK/jH+IgdoAqzlTM72ynhmBVhBsWVPRdsnxF7yULMKX+mJcRfiv8LhxPvJ0Zh2jFIwUapOYhWrh;
-        Expires=Tue, 09 Aug 2022 06:33:21 GMT; Path=/
-      - AWSALBTGCORS=N9iIwSzTIdJ3s89bZ1sJPP7kRGwnZUyds65OGTIp3qlixyLV8k0PUxq3nSmka3jpU8ZFp4uJQ2hs/CNTzBZsLgYKSj/kHEahXKK/jH+IgdoAqzlTM72ynhmBVhBsWVPRdsnxF7yULMKX+mJcRfiv8LhxPvJ0Zh2jFIwUapOYhWrh;
-        Expires=Tue, 09 Aug 2022 06:33:21 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=RDJE8aqtdM2LGVRvWWf6EdGeGmEsPMkV/fq92aMFNRK3NIf1TVQgntE03nJOfeTz9/1BQad7e4buW4VklbDtx7O+Hh4PYAlvomrWu11Izi5OeUdhPzcWDGkuYlqo;
-        Expires=Tue, 09 Aug 2022 06:33:21 GMT; Path=/
-      - AWSALBCORS=RDJE8aqtdM2LGVRvWWf6EdGeGmEsPMkV/fq92aMFNRK3NIf1TVQgntE03nJOfeTz9/1BQad7e4buW4VklbDtx7O+Hh4PYAlvomrWu11Izi5OeUdhPzcWDGkuYlqo;
-        Expires=Tue, 09 Aug 2022 06:33:21 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=59WQ5sKGGcxcORxEVpbUCkS7u+N3cXvGq8UpgYRcgFgVMCiPU/Arnb9R+2ljrDpeX7mIEmHQbr1cN4iDZi1aOx/S+mFWA1HoXZnmDBuAc/Oo1ZYiUfOnsIOhB7NuEI8oYkXEdwO065aaOi+JzfznRFpFqrsf8z1T+dowx0KAF+Ok;
+        Expires=Tue, 13 Sep 2022 03:16:05 GMT; Path=/
+      - AWSALBTGCORS=59WQ5sKGGcxcORxEVpbUCkS7u+N3cXvGq8UpgYRcgFgVMCiPU/Arnb9R+2ljrDpeX7mIEmHQbr1cN4iDZi1aOx/S+mFWA1HoXZnmDBuAc/Oo1ZYiUfOnsIOhB7NuEI8oYkXEdwO065aaOi+JzfznRFpFqrsf8z1T+dowx0KAF+Ok;
+        Expires=Tue, 13 Sep 2022 03:16:05 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=8BTGKy5Y/tYFAbsCw0J+vZtJVCD4r5lT2/qqkoae5nbxAqBIFwMera5m2KfrLUj8FbHP5y2MKMJAF4VFmqROl6u8QT4Svz/TwwuYfo5HRlsdrzeeH/MFwmTpEH3T;
+        Expires=Tue, 13 Sep 2022 03:16:05 GMT; Path=/
+      - AWSALBCORS=8BTGKy5Y/tYFAbsCw0J+vZtJVCD4r5lT2/qqkoae5nbxAqBIFwMera5m2KfrLUj8FbHP5y2MKMJAF4VFmqROl6u8QT4Svz/TwwuYfo5HRlsdrzeeH/MFwmTpEH3T;
+        Expires=Tue, 13 Sep 2022 03:16:05 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":2950846,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":8}]'
-  recorded_at: 2022-08-02 06:33:21 GMT
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":2682990,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":9}]'
+  recorded_at: 2022-09-06 03:16:05 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -134,29 +100,29 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 02 Aug 2022 06:33:21 GMT
+      date: Tue, 06 Sep 2022 03:16:05 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.1
       set-cookie:
-      - AWSALBTG=70Y1cyLE3IZJFSw7nD5psclAIKo6Jds6NyVkZBXdiHkRCdfj2vsBfnOa/LDWEn23Hm+SJ8uIMePSH35hB24QZVwcPC5E1tu3tu+DTmoSMRpsUQ1syGdHF7X333yYv8iJ45GIGoVFI//ZvoCw6sNcOyAOXWM6+bPzYr36C/nXzaYJ;
-        Expires=Tue, 09 Aug 2022 06:33:21 GMT; Path=/
-      - AWSALBTGCORS=70Y1cyLE3IZJFSw7nD5psclAIKo6Jds6NyVkZBXdiHkRCdfj2vsBfnOa/LDWEn23Hm+SJ8uIMePSH35hB24QZVwcPC5E1tu3tu+DTmoSMRpsUQ1syGdHF7X333yYv8iJ45GIGoVFI//ZvoCw6sNcOyAOXWM6+bPzYr36C/nXzaYJ;
-        Expires=Tue, 09 Aug 2022 06:33:21 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=msgE4twDR+5JGligzJCqrRS22ZvOzm4x+oOjZfq9Zex72NCnppUQE2ZPT5y9RZ4M14GYqjAi/zMwEnFcqAzcZL6VRGd+XRTAwOasauW5cttKfmfSnjwNnxnQ5gP8;
-        Expires=Tue, 09 Aug 2022 06:33:21 GMT; Path=/
-      - AWSALBCORS=msgE4twDR+5JGligzJCqrRS22ZvOzm4x+oOjZfq9Zex72NCnppUQE2ZPT5y9RZ4M14GYqjAi/zMwEnFcqAzcZL6VRGd+XRTAwOasauW5cttKfmfSnjwNnxnQ5gP8;
-        Expires=Tue, 09 Aug 2022 06:33:21 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=kHikp6oDyhj07hap1W+TtvWwCXqwvZ5UNlmr0voJRlSEuORsKzvJgdnmbEQaRoIKSci00veYumJrFmd84vD/WXOE4xUKOswWP27ZN3p0OwNDMMCcBMXsDqFp4SUs3H1oQ7wkfPxoOIezCrmK5rOtxL0EIvaAoZgDodEOJCazCfui;
+        Expires=Tue, 13 Sep 2022 03:16:05 GMT; Path=/
+      - AWSALBTGCORS=kHikp6oDyhj07hap1W+TtvWwCXqwvZ5UNlmr0voJRlSEuORsKzvJgdnmbEQaRoIKSci00veYumJrFmd84vD/WXOE4xUKOswWP27ZN3p0OwNDMMCcBMXsDqFp4SUs3H1oQ7wkfPxoOIezCrmK5rOtxL0EIvaAoZgDodEOJCazCfui;
+        Expires=Tue, 13 Sep 2022 03:16:05 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=SfD90KuDkCAG9nKsZOOcxBnF4IawJ9j8wChYvIJFKJ8CHV7grHJmbZvTyRYmH4E/x8/Z5LUC2X49jy3S6uBAEj3qUVyahLlAJ/cvQtu/z3XzQc4UGlRqXud4VzIl;
+        Expires=Tue, 13 Sep 2022 03:16:05 GMT; Path=/
+      - AWSALBCORS=SfD90KuDkCAG9nKsZOOcxBnF4IawJ9j8wChYvIJFKJ8CHV7grHJmbZvTyRYmH4E/x8/Z5LUC2X49jy3S6uBAEj3qUVyahLlAJ/cvQtu/z3XzQc4UGlRqXud4VzIl;
+        Expires=Tue, 13 Sep 2022 03:16:05 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":2950846,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"Preserved
-        specimen","i18nCode":"basisOfRecord.PRESERVED_SPECIMEN","count":275274,"fq":"basisOfRecord:\"PRESERVED_SPECIMEN\""},{"label":"Observation","i18nCode":"basisOfRecord.OBSERVATION","count":107751,"fq":"basisOfRecord:\"OBSERVATION\""},{"label":"OCCURRENCE","i18nCode":"basisOfRecord.OCCURRENCE","count":74720,"fq":"basisOfRecord:\"OCCURRENCE\""},{"label":"Material
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":2682990,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"OCCURRENCE","i18nCode":"basisOfRecord.OCCURRENCE","count":342657,"fq":"basisOfRecord:\"OCCURRENCE\""},{"label":"Preserved
+        specimen","i18nCode":"basisOfRecord.PRESERVED_SPECIMEN","count":292839,"fq":"basisOfRecord:\"PRESERVED_SPECIMEN\""},{"label":"Observation","i18nCode":"basisOfRecord.OBSERVATION","count":210432,"fq":"basisOfRecord:\"OBSERVATION\""},{"label":"Material
         Sample","i18nCode":"basisOfRecord.MATERIAL_SAMPLE","count":44645,"fq":"basisOfRecord:\"MATERIAL_SAMPLE\""},{"label":"Machine
-        observation","i18nCode":"basisOfRecord.MACHINE_OBSERVATION","count":27754,"fq":"basisOfRecord:\"MACHINE_OBSERVATION\""},{"label":"Fossil
+        observation","i18nCode":"basisOfRecord.MACHINE_OBSERVATION","count":27754,"fq":"basisOfRecord:\"MACHINE_OBSERVATION\""},{"label":"MATERIAL_CITATION","i18nCode":"basisOfRecord.MATERIAL_CITATION","count":3433,"fq":"basisOfRecord:\"MATERIAL_CITATION\""},{"label":"Fossil
         specimen","i18nCode":"basisOfRecord.FOSSIL_SPECIMEN","count":1519,"fq":"basisOfRecord:\"FOSSIL_SPECIMEN\""},{"label":"Living
-        specimen","i18nCode":"basisOfRecord.LIVING_SPECIMEN","count":219,"fq":"basisOfRecord:\"LIVING_SPECIMEN\""}],"count":8}]'
-  recorded_at: 2022-08-02 06:33:21 GMT
+        specimen","i18nCode":"basisOfRecord.LIVING_SPECIMEN","count":220,"fq":"basisOfRecord:\"LIVING_SPECIMEN\""}],"count":9}]'
+  recorded_at: 2022-09-06 03:16:05 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

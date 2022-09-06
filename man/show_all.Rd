@@ -13,9 +13,6 @@ search_all(type, query)
 \item{type}{\code{string}: What type of parameters should be searched?
 See \code{Details} (below) for accepted values.}
 
-\item{field}{\code{string}: For \code{type = "values"} or \code{"profile_values"}, which
-field or profile should information be returned for?}
-
 \item{query}{\code{string}: A search string. Not case sensitive.}
 }
 \value{
@@ -33,26 +30,25 @@ number of sub-functions.
 There are five different categories of metadata, each with their own
 sub-functions. Valid \code{type}s are:\tabular{llll}{
    \strong{Category} \tab \strong{Type} \tab \strong{Description} \tab \strong{Sub-functions} \cr
-   configuration \tab \code{"atlases"} \tab Show what atlases are available \tab \code{\link[=show_all_atlases]{show_all_atlases()}}, \code{\link[=search_atlases]{search_atlases()}} \cr
-    \tab \code{"reasons"} \tab Show what values are acceptable as 'download reasons' for a specified atlas \tab \code{\link[=show_all_reasons]{show_all_reasons()}}, \code{\link[=search_reasons]{search_reasons()}} \cr
-   taxonomy \tab \code{"taxa"} \tab Search for one or more taxonomic names \tab \code{\link[=search_taxa]{search_taxa()}} \cr
-    \tab \code{"identifiers"} \tab Take a universal identifier and return taxonomic information \tab \code{\link[=search_identifiers]{search_identifiers()}} \cr
-    \tab \code{"ranks"} \tab Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) \tab \code{\link[=show_all_ranks]{show_all_ranks()}}, \code{\link[=search_ranks]{search_ranks()}}) \cr
-   filters \tab \code{"fields"} \tab Show fields that are stored in an atlas \tab \code{\link[=show_all_fields]{show_all_fields()}}, \code{\link[=search_fields]{search_fields()}} \cr
-    \tab \code{"values"} \tab Show the values of a particular field \tab \code{\link[=show_all_values]{show_all_values()}}, \code{\link[=search_values]{search_values()}} \cr
-    \tab \code{"assertions"} \tab Show results of data quality checks run by each atlas \tab \code{\link[=show_all_assertions]{show_all_assertions()}}, \code{\link[=search_assertions]{search_assertions()}} \cr
-   group filters \tab \code{"profiles"} \tab Show what data profiles are available \tab \code{\link[=show_all_profiles]{show_all_profiles()}}, \code{\link[=search_profiles]{search_profiles()}} \cr
-    \tab \code{"profile_values"} \tab Show the attributes of a single profile \tab \code{\link[=show_profile_attributes]{show_profile_attributes()}}, \code{\link[=search_profile_attributes]{search_profile_attributes()}} \cr
-    \tab \code{"species_lists"} \tab Show what species lists are available \tab  \cr
-   data providers \tab \code{"providers"} \tab Show which institutions have provided data \tab \code{\link[=show_all_providers]{show_all_providers()}}, \code{\link[=search_providers]{search_providers()}} \cr
-    \tab \code{"collections"} \tab Show the specific collections within those institutions \tab \code{\link[=show_all_collections]{show_all_collections()}}, \code{\link[=search_collections]{search_collections()}} \cr
-    \tab \code{"datasets"} \tab Shows all the data groupings within those collections \tab \code{\link[=show_all_datasets]{show_all_datasets()}}, \code{\link[=search_datasets]{search_datasets()}} \cr
+   configuration \tab \verb{atlases"} \tab Show what atlases are available \tab \code{\link[=show_all_atlases]{show_all_atlases()}}, \code{\link[=search_atlases]{search_atlases()}} \cr
+    \tab \code{apis} \tab Show what APIs & functions are available for each atlas \tab \code{\link[=show_all_apis]{show_all_apis()}}, \code{\link[=search_apis]{search_apis()}} \cr
+    \tab \code{reasons} \tab Show what values are acceptable as 'download reasons' for a specified atlas \tab \code{\link[=show_all_reasons]{show_all_reasons()}}, \code{\link[=search_reasons]{search_reasons()}} \cr
+   taxonomy \tab \code{taxa} \tab Search for one or more taxonomic names \tab \code{\link[=search_taxa]{search_taxa()}} \cr
+    \tab \code{identifiers} \tab Take a universal identifier and return taxonomic information \tab \code{\link[=search_identifiers]{search_identifiers()}} \cr
+    \tab \code{ranks} \tab Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) \tab \code{\link[=show_all_ranks]{show_all_ranks()}}, \code{\link[=search_ranks]{search_ranks()}}) \cr
+   filters \tab \code{fields} \tab Show fields that are stored in an atlas \tab \code{\link[=show_all_fields]{show_all_fields()}}, \code{\link[=search_fields]{search_fields()}} \cr
+    \tab \code{assertions} \tab Show results of data quality checks run by each atlas \tab \code{\link[=show_all_assertions]{show_all_assertions()}}, \code{\link[=search_assertions]{search_assertions()}} \cr
+   group filters \tab \code{profiles} \tab Show what data profiles are available \tab \code{\link[=show_all_profiles]{show_all_profiles()}}, \code{\link[=search_profiles]{search_profiles()}} \cr
+    \tab \code{lists} \tab Show what species lists are available \tab  \cr
+   data providers \tab \code{providers} \tab Show which institutions have provided data \tab \code{\link[=show_all_providers]{show_all_providers()}}, \code{\link[=search_providers]{search_providers()}} \cr
+    \tab \code{collections} \tab Show the specific collections within those institutions \tab \code{\link[=show_all_collections]{show_all_collections()}}, \code{\link[=search_collections]{search_collections()}} \cr
+    \tab \code{datasets} \tab Shows all the data groupings within those collections \tab \code{\link[=show_all_datasets]{show_all_datasets()}}, \code{\link[=search_datasets]{search_datasets()}} \cr
 }
 
 
 Each valid \code{type} within \code{show_all} has a corresponding internal function where
-type is used as a suffix. For example, \code{show_all(type = "fields")} is
-synonymous with \code{show_all_fields()}, while \code{search_all("basisOfRecord", type = "fields")}
+type is used as a suffix. For example, \code{show_all(fields)} is
+synonymous with \code{show_all_fields()}, while \code{search_all(fields, "basisOfRecord")}
 is synonymous with \code{search_fields("basisOfRecord")}
 }
 \references{

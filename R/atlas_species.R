@@ -135,10 +135,6 @@ atlas_species_internal <- function(request,
                                    data_profile,
                                    refresh_cache
                                    ) {
-  # check whether species download is possible
-  # species_url <- server_config("species_base_url")
-
-  url <- server_config("records_base_url")
   query <- list()
 
   if (missing(identify) & missing(filter) & missing(geolocate)) {
@@ -160,10 +156,10 @@ atlas_species_internal <- function(request,
   query$facets <- species_facets()
   query$lookup  <- "true"
   
-  path <- "occurrences/facets/download"
   tmp <- tempfile()
-  data <- ala_download(url, path = path, params = query,
-                       cache_file = tmp)
+  data <- atlas_url("records_species") |>
+          atlas_download(params = query, cache_file = tmp)
+
   if(is.null(data)){
     bullets <- c(
       "Calling the API failed for `atlas_species`.",

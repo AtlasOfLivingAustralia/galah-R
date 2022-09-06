@@ -1,7 +1,16 @@
 #' @export show_all_assertions
 #' @rdname show_all_minifunctions
 show_all_assertions <- function(){
-  get_assertions() |> as_tibble()
+  assertions <- atlas_url("records_assertions") |> atlas_GET()
+  if(is.null(assertions)){
+    tibble()
+  }else{
+    assertions$data_type <- "logical"
+    names(assertions) <- rename_columns(names(assertions), type = "assertions")
+    assertions <- assertions[wanted_columns("assertions")]
+    assertions$type <- "assertions"
+    as_tibble(assertions)
+  }
 }
 
 #' @rdname search_minifunctions
@@ -9,24 +18,4 @@ show_all_assertions <- function(){
 search_assertions <- function(query){
   df <- show_all_assertions()
   df[grepl(tolower(query), tolower(df$description)), ]
-}
-
-
-# internal function
-get_assertions <- function() {
-  if(getOption("galah_config")$atlas == "Global"){
-    gbif_assertions()
-  }else{
-    url <- server_config("records_base_url")
-    assertions <- atlas_GET(url, path = "assertions/codes")
-    if(is.null(assertions)){
-      NULL
-    }else{
-      assertions$data_type <- "logical"
-      names(assertions) <- rename_columns(names(assertions), type = "assertions")
-      assertions <- assertions[wanted_columns("assertions")]
-      assertions$type <- "assertions"
-      assertions
-    }
-  }
 }

@@ -147,7 +147,6 @@ atlas_media_internal <- function(request,
                                  refresh_cache
                                  ) {
   # set basic information
-  image_url <- server_config("images_base_url")  
   verbose <- getOption("galah_config")$verbose
   if(!is.null(download_dir)){
     inform("Argument `download_dir` is deprecated; use `collect_media()` instead")
@@ -166,7 +165,7 @@ atlas_media_internal <- function(request,
   }
   
   if (is.null(identify) & is.null(filter) & is.null(geolocate)) {
-    warn("No filters have been provided. All images and sounds will be downloaded.")
+    abort("No filters have been provided")
   }
   
   # Check whether any filters are media-specific filters and

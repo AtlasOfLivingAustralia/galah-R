@@ -37,7 +37,7 @@ wanted_columns <- function(type) {
                      ),
            "layer" = c("layer_id", "description", "link"),
            "fields" = c("id", "description"),
-           "assertions" = c("id", "description"),
+           "assertions" = c("id", "description", "category"),
            "quality_filter" = c("description", "filter"),
            "reasons" = c("id", "name"))
 }
@@ -418,10 +418,11 @@ check_for_caching <- function(taxa_query, filter_query, area_query,
 # long query
 cached_query <- function(taxa_query, filter_query, area_query,
                          columns = NULL) {
-  url <- server_config("records_base_url")
-  resp <- atlas_POST(url, path = "ws/webportal/params",
-                   body = list(wkt = area_query, fq = taxa_query,
-                               fields = columns))
+  resp <- atlas_url("records_query") |> 
+          atlas_POST(body = list(
+            wkt = area_query, 
+            fq = taxa_query,
+            fields = columns))
   list(fq = filter_query, q = paste0("qid:", resp))
 }
 
@@ -538,13 +539,25 @@ write_metadata <- function(request, data_type, cache_file) {
 ##                   Request helper functions                   --
 ##----------------------------------------------------------------
 
-build_fq_url <- function(url, path, params = list()) {
+# build_fq_url <- function(url, path, params = list()) {
+#   url <- parse_url(url)
+#   url$path <- path
+#   url$query <- params[names(params) != "fq"]
+#   join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
+#   fq <- paste(params$fq, collapse = "&fq=")
+#   paste0(build_url(url), join_char, URLencode(fq))
+# }
+
+build_fq_url <- function(url, params = list()) {
   url <- parse_url(url)
-  url$path <- path
   url$query <- params[names(params) != "fq"]
-  join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
-  fq <- paste(params$fq, collapse = "&fq=")
-  paste0(build_url(url), join_char, URLencode(fq))
+  if(any(names(params) == "fq")){
+    join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
+    fq <- paste(params$fq, collapse = "&fq=")
+    paste0(build_url(url), join_char, URLencode(fq))
+  }else{
+    build_url(url)
+  }
 }
 
 ##---------------------------------------------------------------

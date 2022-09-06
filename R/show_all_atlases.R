@@ -1,6 +1,6 @@
 #' @export show_all_atlases
 #' @rdname show_all_minifunctions
-show_all_atlases <- function() {all_atlas_metadata}
+show_all_atlases <- function() {node_metadata}
 
 #' @rdname search_minifunctions
 #' @export search_atlases
@@ -15,25 +15,7 @@ search_atlases <- function(query){
   ), ]
 }
 
-# internal functions
-server_config <- function(url, error_call = caller_env()) {
-  atlas <- getOption("galah_config")$atlas
-  conf <- all_atlas_config[[atlas]]
-
-  if (url == "records_download_base_url" & !url %in% names(conf)) {
-    url <- "records_base_url"
-  }
-  if (!(url %in% names(conf))) {
-    service <- service_name(url)
-    lookup <- show_all_atlases()
-    atlas_acronym <- lookup$acronym[lookup$atlas == atlas]
-    abort(
-      glue("{service} is not supported for {atlas_acronym}"),
-      call = error_call)
-  }
-  return(conf[[url]])
-}
-
+## internal functions
 image_fields <- function() {
   atlas <- getOption("galah_config")$atlas
   switch (atlas,
@@ -54,14 +36,14 @@ default_columns <- function() {
   )
 }
 
-service_name <- function(url) {
-  switch (url,
-          data_quality_base_url = "Data quality filtering",
-          images_base_url = "Image downloading",
-          species_base_url = "Species information",
-          logger_base_url = "Logger service"
-  )
-}
+# service_name <- function(url) {
+#   switch (url,
+#           data_quality_base_url = "Data quality filtering",
+#           images_base_url = "Image downloading",
+#           species_base_url = "Species information",
+#           logger_base_url = "Logger service"
+#   )
+# }
 
 species_facets <- function(){
   atlas <- getOption("galah_config")$atlas

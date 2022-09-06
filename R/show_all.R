@@ -8,8 +8,6 @@
 #' @aliases search_all
 #' @param type `string`: What type of parameters should be searched?
 #' See `Details` (below) for accepted values.
-#' @param field `string`: For `type = "values"` or `"profile_values"`, which
-#' field or profile should information be returned for?
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble)  
 #' containing all data of interest (for `show_all()`), or those that match the 
 #' search query (for `search_all()`).
@@ -19,24 +17,23 @@
 #' 
 #' | **Category** | **Type** | **Description** | **Sub-functions** |
 #' |---|---|---|---|
-#' | configuration  |`"atlases"`| Show what atlases are available | [show_all_atlases()], [search_atlases()]|
-#' | |`"reasons"`| Show what values are acceptable as 'download reasons' for a specified atlas | [show_all_reasons()], [search_reasons()]|
-#' | taxonomy | `"taxa"` | Search for one or more taxonomic names | [search_taxa()] |
-#' | |`"identifiers"`| Take a universal identifier and return taxonomic information | [search_identifiers()] |
-#' | |`"ranks"`| Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) | [show_all_ranks()], [search_ranks()]) |
-#' | filters |`"fields"`| Show fields that are stored in an atlas | [show_all_fields()], [search_fields()] |
-#'  | |`"values"`| Show the values of a particular field |[show_all_values()], [search_values()]|
-#'  | |`"assertions"`| Show results of data quality checks run by each atlas | [show_all_assertions()], [search_assertions()] |
-#' |group filters|`"profiles"`| Show what data profiles are available | [show_all_profiles()], [search_profiles()] |
-#' | |`"profile_values"`| Show the attributes of a single profile| [show_profile_attributes()], [search_profile_attributes()] |
-#' | |`"species_lists"`| Show what species lists are available||
-#' |data providers|`"providers"`| Show which institutions have provided data |[show_all_providers()], [search_providers()]|
-#' | |`"collections"`|Show the specific collections within those institutions| [show_all_collections()], [search_collections()]|
-#' | |`"datasets"`|Shows all the data groupings within those collections|[show_all_datasets()], [search_datasets()]|   
+#' | configuration  |`atlases"`| Show what atlases are available | [show_all_atlases()], [search_atlases()]|
+#' | |`apis`| Show what APIs & functions are available for each atlas | [show_all_apis()], [search_apis()]|
+#' | |`reasons`| Show what values are acceptable as 'download reasons' for a specified atlas | [show_all_reasons()], [search_reasons()]|
+#' | taxonomy | `taxa` | Search for one or more taxonomic names | [search_taxa()] |
+#' | |`identifiers`| Take a universal identifier and return taxonomic information | [search_identifiers()] |
+#' | |`ranks`| Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) | [show_all_ranks()], [search_ranks()]) |
+#' | filters |`fields`| Show fields that are stored in an atlas | [show_all_fields()], [search_fields()] |
+#'  | |`assertions`| Show results of data quality checks run by each atlas | [show_all_assertions()], [search_assertions()] |
+#' |group filters|`profiles`| Show what data profiles are available | [show_all_profiles()], [search_profiles()] |
+#' | |`lists`| Show what species lists are available||
+#' |data providers|`providers`| Show which institutions have provided data |[show_all_providers()], [search_providers()]|
+#' | |`collections`|Show the specific collections within those institutions| [show_all_collections()], [search_collections()]|
+#' | |`datasets`|Shows all the data groupings within those collections|[show_all_datasets()], [search_datasets()]|   
 #' 
 #' Each valid `type` within `show_all` has a corresponding internal function where
-#' type is used as a suffix. For example, `show_all(type = "fields")` is 
-#' synonymous with `show_all_fields()`, while `search_all("basisOfRecord", type = "fields")`
+#' type is used as a suffix. For example, `show_all(fields)` is 
+#' synonymous with `show_all_fields()`, while `search_all(fields, "basisOfRecord")`
 #' is synonymous with `search_fields("basisOfRecord")`
 #'
 #' @references 
@@ -50,15 +47,14 @@
 #' @export
 
 show_all <- function(type, field){
-  # NOTE: `field` works for show_all_values() but not show_all_profile_attributes()
   
   # vector of valid types for this function
   valid_types <- c(
     "ranks",
-    "fields", "values", "assertions",
+    "fields", "assertions",
     "licences",
-    "profiles", "profile_values", "species_lists",
-    "atlases", "reasons", 
+    "profiles", "lists",
+    "atlases", "apis", "reasons", 
     "providers", "collections", "datasets")
     # show_all_cached_files?
 
@@ -91,10 +87,10 @@ search_all <- function(type, query){
   # vector of valid types for this function
   valid_types <- c(
     "ranks",
-    "fields", "values", "assertions",
+    "fields", "assertions",
     "licences",
-    "profiles", "profile_values", "species_lists",
-    "atlases", "reasons", 
+    "profiles", "species_lists",
+    "atlases", "apis", "reasons", 
     "taxa",
     "providers", "collections", "datasets")
     # show_all_cached_files?

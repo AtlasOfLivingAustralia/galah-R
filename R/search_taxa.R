@@ -128,63 +128,23 @@ name_query <- function(query) {
 
 
 name_lookup <- function(name) {
-  url <- server_config("name_matching_base_url")
   if (is.null(names(name)) || isTRUE(names(name) == "")) {
     # search by scientific name
-    path <- "api/search"
-    query <- list(q = name[[1]])
+    result <- atlas_url("names_search_single", name = name[[1]]) |> 
+              atlas_GET()
   } else {
-    # search by classification
-    path <- "api/searchByClassification"
-    #name <- validate_rank(name)
-    query <- as.list(name)
-  }
-  result <- atlas_GET(url, path, query)
-
-  atlas <- getOption("galah_config")$atlas
-  lookup_type <- switch(atlas,
-    "Australia" = "ALA-namematching",
-    "Canada" = "GBIF",
-    "France" = "GBIF",
-    "ALA-species"
-  )
-  
-  switch(lookup_type,
-    "ALA-namematching" = {
-      url <- server_config("name_matching_base_url")
-      if (is.null(names(name)) || isTRUE(names(name) == "")) {
-        # search by scientific name
-        path <- "api/search"
-        query <- list(q = name[[1]])
-      } else {
-        # search by classification
-        path <- "api/searchByClassification"
-        #name <- validate_rank(name)
-        query <- as.list(name)
-      }
-    },
-    "GBIF" = {
-      url <- server_config("species_base_url")
-      path <- "species/match"
-      query <- list(verbose = FALSE, name = name[[1]])       
-    },
-    "ALA-species" = {
-      url <- server_config("species_base_url")
-      path <- "/search"
-      query <- list(q = name, pageSize = 1)    
-    }
-  )
-
-  # run query
-  result <- atlas_GET(url, path, query)
-
-  # extra processing step for ALA-species - make df-like
-  if(lookup_type == "ALA-species"){
-    result <- result$searchResults$results
+    # search by classification - NOTE - NOT implemented for other atlases yet
+    result <- atlas_url("names_search_multiple") |> 
+              atlas_GET(as.list(name))      
   }
 
   if(is.null(result)){
     return(NULL)
+  }
+
+  # extra processing step for ALA-species - make df-like
+  if(!is.null(result$searchResults$results)){
+    result <- result$searchResults$results
   }
 
   if ("homonym" %in% result$issues) {

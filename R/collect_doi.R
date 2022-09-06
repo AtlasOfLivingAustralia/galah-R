@@ -49,9 +49,9 @@ doi_download <- function(doi, error_call = caller_env()) {
     abort(bullets, call = error_call)
   }
 
-  path <- ala_download(server_config("doi_base_url"),
-                       path = paste0("/doi/", doi_str, "/download"),
-                       ext = ".zip", cache_file = tempfile(pattern = "data"))
+  path <- atlas_url("doi_download", doi_string = doi_str) |>
+          atlas_download(ext = ".zip", cache_file = tempfile(pattern = "data"))
+
   if(is.null(path)){
     NULL
   }else{

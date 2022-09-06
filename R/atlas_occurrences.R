@@ -217,11 +217,6 @@ atlas_occurrences_internal <- function(identify = NULL,
     }
   }
   
-  # Add select default to query when piped
-  if(is.null(select)) {
-    select <- galah_select(group = "basic")
-  }
-  
   assertion_select <- select[select$type == "assertions", ]
   query$fields <- build_columns(select[select$type != "assertions", ])
   query$qa <- build_assertion_columns(assertion_select)
@@ -237,17 +232,16 @@ atlas_occurrences_internal <- function(identify = NULL,
 
   # Get data
   tmp <- tempfile()
-  url <- server_config("records_base_url")
   query <- c(query, email = user_email(), dwcHeaders = "true")
-  download_resp <- wait_for_download(url, query)
+  download_resp <- wait_for_download(query)
   if(is.null(download_resp)){
     inform("Calling the API failed for `atlas_occurrences`")
     return(tibble())
   }
-  download_path <- download_resp$download_path
-  data_path <- ala_download(url = server_config("records_download_base_url"),
-                       path = download_path,
-                       cache_file = tmp, ext = ".zip")
+  data_path <- atlas_url("records_base") |>
+               paste0(download_resp$download_path) |>
+               atlas_download(cache_file = tmp, ext = ".zip")
+  
   if(is.null(data_path)){
     inform("Calling the API failed for `atlas_occurrences`")
     return(tibble())
@@ -296,54 +290,72 @@ get_doi <- function(mint_doi, data_path) {
   return(doi)
 }
 
-wait_for_download <- function(url, query) {
-  status <- atlas_GET(url, "occurrences/offline/download",
-                    params = query, on_error = occ_error_handler)
-  if(is.null(status)){return(NULL)}
-  search_url <- status$searchUrl
-  status_url <- parse_url(status$statusUrl)
-  status <- atlas_GET(url, path = status_url$path)
+wait_for_download <- function(query) {
+
+  status <- atlas_url("records_occurrences") |>
+            atlas_GET(params = query, on_error = occ_error_handler)
+            
+  if(is.null(status)){
+    return(NULL)
+  }
+
   verbose <- getOption("galah_config")$verbose
   # create a progress bar
   if (verbose) {
     pb <- txtProgressBar(max = 1, style = 3)
   }
   
-  # time_start <- Sys.time()
-  # run_number <- 1
-  # interval_time <- rep(
-  #   seq_len(6) - 1,
-  #   c(10, rev(seq_len(5))))
-  
-
-  while(status$status == "inQueue") {
-    # if(run_number > 5){
-    # 
-    # }
-    status <- atlas_GET(url, path = status_url$path)
-    # time_taken <- as.numeric(difftime(Sys.time(), time_start, units = "secs"))
-    ## throttle this after n runs (HW says n = 5)
-    ## set error message on failure
-    ## API for cancelling downloads? - if so, run before erroring
-    # n_runs <- n_runs + 1
+  # check running status, with rate limiting
+  status <- check_queue(status)
+  if(status$status != "finished"){
+    status <- check_running(status)
   }
-
-  while (tolower(status$status) == "running") {
-    val <- (status$records / status$totalRecords)
-    if (verbose) {
-      setTxtProgressBar(pb, val)
-    }
-    status <- atlas_GET(url, path = status_url$path)
-    Sys.sleep(2)
-  }
+ 
+  # resume previous code
   if (verbose) {
     setTxtProgressBar(pb, value = 1)
     close(pb)
   }
-  
+
   resp <- list(download_path = parse_url(status$downloadUrl)$path,
-               search_url = search_url)
+               search_url = status$search_url)
   return(resp)
+}
+
+# check queue status, with rate limiting
+check_queue <- function(status){
+  interval_time <- seq_len(10)
+  for(i in interval_time){
+    status <- atlas_GET(status$statusUrl)
+    if(is.null(status$statusUrl)){
+      return(status)
+    }else{
+      if(i == 10){ # i.e. last run
+        abort("Function timed out in processing queue")
+      }else{
+        Sys.sleep(i)
+      }
+    }
+  }
+}
+
+check_running <- function(status){
+  for(i in seq_len(30)){
+    val <- (status$records / status$totalRecords)
+    if (verbose) {
+      setTxtProgressBar(pb, val)
+    }
+    status <- atlas_GET(status$statusUrl)
+    if(tolower(status$status) == "running"){
+      if(i == 30){
+        abort("Function timed out while running the query")
+      }else{
+        Sys.sleep(2)
+      }
+    }else{
+      return(status)
+    }  
+  }
 }
 
 check_count <- function(count, error_call = caller_env()) {

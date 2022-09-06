@@ -9,6 +9,14 @@ test_that("collect_media fails when `path` is not set", {
   })
 })
 
+test_that("collect_media fails when `path` doesn't exist", {
+  skip_on_cran()
+  atlas_query <- atlas_media(
+    identify = galah_identify("Microseris lanceolata"),
+    filter = galah_filter(year == 2021))
+  expect_error(collect_media(atlas_query, path = "non_existent"))
+})
+
 test_that("collect_media downloads images", {
   skip_on_cran()
   galah_config(email = "ala4r@ala.org.au")

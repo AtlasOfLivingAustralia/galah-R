@@ -3,13 +3,13 @@
 # because the target atlas is offline.
 
 
-atlas_GET <- function(url, path, params = list(), on_error = NULL,
+atlas_GET <- function(url, 
+                    params = list(), on_error = NULL,
                     paginate = FALSE, limit = NULL, page_size = NULL,
                     offset_param = 'offset') {
    tryCatch({
      internal_GET(
        url = url,
-       path = path,
        params = params,
        on_error = on_error,
        paginate = paginate,
@@ -22,7 +22,7 @@ atlas_GET <- function(url, path, params = list(), on_error = NULL,
    )
 }
 
-internal_GET <- function(url, path, params = list(), on_error = NULL,
+internal_GET <- function(url, params = list(), on_error = NULL,
                     paginate = FALSE, limit = NULL, page_size = NULL,
                     offset_param = 'offset',
                     error_call = caller_env()) {
@@ -32,15 +32,16 @@ internal_GET <- function(url, path, params = list(), on_error = NULL,
       "User-Agent" = galah_version_string()
     )
   )
-  # Workaround for use of 'ws/' path in base urls
-  included_path <- url_parse(url)$path
-  if (!is.na(included_path) & !grepl("ws", path)) {
-    path <- paste0(included_path, "/", path)
-  }
+  
+  # # Workaround for use of 'ws/' path in base urls
+  # included_path <- url_parse(url)$path
+  # if (!is.na(included_path) & !grepl("ws", path)) {
+  #   path <- paste0(included_path, "/", path)
+  # }
 
   # workaround for fq troubles
   if (length(params$fq) > 1) {
-    cli$url <- build_fq_url(url, path, params)
+    cli$url <- build_fq_url(url, params) # path
     if (paginate) {
       p <- Paginator$new(cli, chunk = page_size, limit_param = 'flimit',
                          offset_param = offset_param, limit = limit)
@@ -54,11 +55,11 @@ internal_GET <- function(url, path, params = list(), on_error = NULL,
     if (paginate) {
       p <- Paginator$new(cli, chunk = page_size, limit_param = 'flimit',
                          offset_param = offset_param, limit = limit)
-      p$get(path = path, query = params, encode = "json")
+      p$get(query = params, encode = "json") # path = path,
       res <- p$parse("UTF-8")
       return(res)
     }
-    res <- cli$get(path = path, query = params, encode = "json")
+    res <- cli$get(query = params, encode = "json") #path = path, 
   }
   #print(res$request$url)
   if (!is.null(on_error)) {
@@ -83,17 +84,4 @@ internal_GET <- function(url, path, params = list(), on_error = NULL,
 cache_filename <- function(args, ext) {
   filename <- paste0(digest(sort(args)), ext)
   file.path(getOption("galah_config")$cache_directory, filename)
-}
-
-build_fq_url <- function(url, path, params = list()) {
-  url <- parse_url(url)
-  url$path <- path
-  url$query <- params[names(params) != "fq"]
-  if(any(names(params) == "fq")){
-    join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
-    fq <- paste(params$fq, collapse = "&fq=")
-    paste0(build_url(url), join_char, URLencode(fq))
-  }else{
-    build_url(url)
-  }
 }

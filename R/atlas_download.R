@@ -1,11 +1,11 @@
 # Download a file
 # so far needs to handle zip files and csv
-ala_download <- function(url, path, params = list(), ext = ".csv",
+atlas_download <- function(url, path, params = list(), ext = ".csv",
                          cache_file = NULL) {
   tryCatch({
     internal_download(
       url = url,
-      path = path,
+      # path = path,
       params = params,
       ext = ext,
       cache_file = cache_file)
@@ -15,7 +15,7 @@ ala_download <- function(url, path, params = list(), ext = ".csv",
   )
 }
 
-internal_download <- function(url, path, params, ext, cache_file, 
+internal_download <- function(url, params, ext, cache_file, 
                               error_call = caller_env()) {
   assert_that(is.character(url))
   cli <- HttpClient$new(
@@ -36,18 +36,18 @@ internal_download <- function(url, path, params, ext, cache_file,
     abort(bullets, call = error_call)
   }
 
-  # ws needs to be added for 
-  if (!is.na(url_parse(url)$path) & !grepl("ws", path)) {
-    path <- paste0(url_parse(url)$path,"/", path)
-  }
+  # # ws needs to be added for 
+  # if (!is.na(url_parse(url)$path) & !grepl("ws", path)) {
+  #   path <- paste0(url_parse(url)$path,"/", path)
+  # }
   
   # workaround for fq troubles
   if (length(params$fq) > 1) {
-    cli$url <- build_fq_url(url, path, params)
+    cli$url <- build_fq_url(url, params)
     res <- cli$get(disk = cache_file)
   } else {
     cli$url <- url
-    res <- cli$get(path = path, query = params, disk = cache_file)
+    res <- cli$get(query = params, disk = cache_file)
   }
 
   if (ext == ".csv") {

@@ -32,7 +32,7 @@ download_dir, refresh_cache
     abort("argument `path` is missing, with no default")
   }else{
     if(!file.exists(path)){
-      abort("argument `path` is missing, with no default")
+      abort("The specified `path` does not exist")
     }
   }
   download_dir <- normalizePath(path)
@@ -115,68 +115,12 @@ download_media <- function(df, verbose) {
   }
 }
 
-# ## OLD CODE: fails at `cc$get(disk = outfiles[start:end])` for unknown reasons
-# # Download images in batches of 124. The limit is due to a max on the
-# # number of concurrently open connections.
-# # The asynchronous method is slightly quicker than downloading all
-# # images in a loop
-# # BUT this means that files are created even if they are empty
-# # Ergo we need a process for detecting failed calls and deleting the 
-# # associated 'images'
-# download_media_async <- function(urls, outfiles, verbose) {
-#   if (verbose) { pb <- txtProgressBar(max = 1, style = 3) }
-#   calls <- ceiling(length(urls) / 124)
-#   if(calls > 1){
-#     results <- lapply(seq_len(calls - 1), function(x) {
-#       start <- 1 + (x - 1) * 124
-#       end <- x * 124
-#       cc <- Async$new(urls = urls[start:end])
-#       res <- cc$get(disk = outfiles[start:end])
-#       status_failed <- unlist(lapply(res, function(a){a$status_code})) == 0
-#       if(any(status_failed)){
-#         unlink(outfiles[start:end][which(status_failed)])
-#       }    
-#       if (verbose) {
-#         val <- (end / length(urls))
-#         setTxtProgressBar(pb, val)
-#       }
-#       status_failed
-#     })
-#   }
-# 
-#   # TODO: Extract this part into to a function like ala_async_get()
-#   # Download remaining images
-#   start <- 1 + (calls - 1) * 124
-#   end <- length(urls)
-#   cc <- Async$new(
-#     urls = c(urls[start:end]), 
-#     headers = list(
-#       "User-Agent" = galah_version_string()
-#     )
-#   )
-#   res <- cc$get(disk = outfiles)#[start:end])
-#   status_failed <- unlist(lapply(res, function(a){a$status_code})) == 0
-#   if(any(status_failed)){
-#     unlink(outfiles[start:end][which(status_failed)])
-#   } 
-#   results[[calls]] <- status_failed
-#   if (verbose) {
-#     val <- (end / length(urls))
-#     setTxtProgressBar(pb, val)
-#   }
-# 
-#   # if all calls failed, return NULL
-#   if(all(do.call(c, results))){
-#     return(NULL)
-#   }else{
-#     return("OK")
-#   }
-# }
 
 # Construct url paths to where media will be downloaded from
 # Returns a vector of urls; one per id
 media_urls <- function(ids, is_image, thumbnail = TRUE) {
-  url <- parse_url(server_config("images_base_url"))
+  url <- atlas_url("image_metadata") |>
+         parse_url()
   # if(thumbnail){
   #   end_text <- "thumbnail"
   # }else{

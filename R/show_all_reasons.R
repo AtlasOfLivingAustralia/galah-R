@@ -5,11 +5,10 @@ show_all_reasons <- function() {
   # check whether the cache has been updated this session
   update_needed <- internal_cache_update_needed("show_all_reasons")
   atlas <- getOption("galah_config")$atlas
-  url <- server_config("logger_base_url")
   
   if(update_needed){ # i.e. we'd like to run a query
     ## return list of valid "reasons for use" codes
-    out <- atlas_GET(url, path = "service/logger/reasons")  
+    out <- atlas_url("logger_reasons") |> atlas_GET()
     if(is.null(out)){
       df <- galah_internal_cache()$show_all_reasons
       # if cached values reflect the correct atlas, return requested info
