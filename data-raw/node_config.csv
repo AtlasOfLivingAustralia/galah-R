@@ -104,6 +104,14 @@ Guatemala,species,species_children,https://snib.conap.gob.gt/especies-ws/childCo
 Guatemala,species,names_search_single,https://snib.conap.gob.gt/especies-ws/search?q={name}&pageSize=1,search_taxa
 Guatemala,images,image_licences,https://imagenes.snib.conap.gob.gt/licence,show_all_licences
 Guatemala,images,image_metadata,https://imagenes.snib.conap.gob.gt/image/,media_metadata
+Portugal,records,records_base,https://registos-ws.gbif.pt/,atlas_occurrences
+Portugal,records,records_facets,https://registos-ws.gbif.pt/occurrence/facets,"atlas_counts, show_field_values"
+Portugal,records,records_counts,https://registos-ws.gbif.pt/occurrences/search,atlas_counts
+Portugal,records,records_occurrences,https://registos-ws.gbif.pt/occurrences/offline/download,atlas_occurrences
+Portugal,records,records_species,https://registos-ws.gbif.pt/occurrences/facets/download,atlas_species
+Portugal,records,records_assertions,https://registos-ws.gbif.pt/assertions/codes,show_all_assertions
+Portugal,records,records_fields,https://registos-ws.gbif.pt/index/fields,show_all_fields
+Portugal,records,records_query,https://registos-ws.gbif.pt/webportal/params,atlas_occurrences
 Spain,records,records_facets,https://registros-ws.gbif.es/occurrence/facets,"atlas_counts, show_all_values"
 Spain,records,records_counts,https://registros-ws.gbif.es/occurrences/search,atlas_counts
 Spain,records,records_occurrences,https://registros-ws.gbif.es/occurrences/offline/download,atlas_occurrences
@@ -130,26 +138,16 @@ Sweden,spatial,spatial_layers,https://spatial.biodiversitydata.se/layers,show_al
 Sweden,species,species_lookup,https://species.biodiversitydata.se/ws/species,"atlas_taxonomy, search_identifiers(?)"
 Sweden,species,species_children,https://species.biodiversitydata.se/ws/childConcepts/,atlas_taxonomy
 Sweden,species,names_search_single,https://species.biodiversitydata.se/ws/search?q={name}&pageSize=1,search_taxa
-UK,records,records_facets,https://records-ws.nbnatlas.org/occurrence/facets,"atlas_counts, show_all_values"
-UK,records,records_counts,https://records-ws.nbnatlas.org/occurrences/search,atlas_counts
-UK,records,records_occurrences,https://records-ws.nbnatlas.org/occurrences/offline/download,atlas_occurrences
-UK,records,records_species,https://records-ws.nbnatlas.org/occurrences/facets/download,atlas_species
-UK,records,records_assertions,https://records-ws.nbnatlas.org/assertions/codes,show_all_assertions
-UK,records,records_fields,https://records-ws.nbnatlas.org/index/fields,show_all_fields
-UK,records,records_query,https://records-ws.nbnatlas.org/webportal/params,atlas_occurrences
-UK,spatial,spatial_layers,https://spatial.nbnatlas.org/layers,show_all_fields
-UK,species,species_lookup,https://species-ws.nbnatlas.org/species,atlas_taxonomy
-UK,species,species_children,https://species-ws.nbnatlas.org/childConcepts/,atlas_taxonomy
-UK,species,names_search_single,https://species-ws.nbnatlas.org/search?q={name}&pageSize=1,search_taxa
-UK,images,image_licences,https://images.nbnatlas.org/licence,show_all_licences
-UK,images,image_metadata,https://images.nbnatlas.org/image/,media_metadata
-Vermont,records,records_facets,https://biocache-ws.vtatlasoflife.org/occurrence/facets,"atlas_counts, show_all_values"
-Vermont,records,records_counts,https://biocache-ws.vtatlasoflife.org/occurrences/search,atlas_counts
-Vermont,records,records_occurrences,https://biocache-ws.vtatlasoflife.org/occurrences/offline/download,atlas_occurrences
-Vermont,records,records_species,https://biocache-ws.vtatlasoflife.org/occurrences/facets/download,atlas_species
-Vermont,records,records_assertions,https://biocache-ws.vtatlasoflife.org/assertions/codes,show_all_assertions
-Vermont,records,records_fields,https://biocache-ws.vtatlasoflife.org/index/fields,show_all_fields
-Vermont,records,records_query,https://biocache-ws.vtatlasoflife.org/webportal/params,atlas_occurrences
-Vermont,species,species_lookup,https://bie-ws.vtatlasoflife.org/species,"atlas_taxonomy, search_identifiers(?)"
-Vermont,species,species_children,https://bie-ws.vtatlasoflife.org/childConcepts/,atlas_taxonomy
-Vermont,species,names_search_single,https://bie-ws.vtatlasoflife.org/search?q={name}&pageSize=1,search_taxa
+United Kingdom,records,records_facets,https://records-ws.nbnatlas.org/occurrence/facets,"atlas_counts, show_all_values"
+United Kingdom,records,records_counts,https://records-ws.nbnatlas.org/occurrences/search,atlas_counts
+United Kingdom,records,records_occurrences,https://records-ws.nbnatlas.org/occurrences/offline/download,atlas_occurrences
+United Kingdom,records,records_species,https://records-ws.nbnatlas.org/occurrences/facets/download,atlas_species
+United Kingdom,records,records_assertions,https://records-ws.nbnatlas.org/assertions/codes,show_all_assertions
+United Kingdom,records,records_fields,https://records-ws.nbnatlas.org/index/fields,show_all_fields
+United Kingdom,records,records_query,https://records-ws.nbnatlas.org/webportal/params,atlas_occurrences
+United Kingdom,spatial,spatial_layers,https://spatial.nbnatlas.org/layers,show_all_fields
+United Kingdom,species,species_lookup,https://species-ws.nbnatlas.org/species,atlas_taxonomy
+United Kingdom,species,species_children,https://species-ws.nbnatlas.org/childConcepts/,atlas_taxonomy
+United Kingdom,species,names_search_single,https://species-ws.nbnatlas.org/search?q={name}&pageSize=1,search_taxa
+United Kingdom,images,image_licences,https://images.nbnatlas.org/licence,show_all_licences
+United Kingdom,images,image_metadata,https://images.nbnatlas.org/image/,media_metadata
