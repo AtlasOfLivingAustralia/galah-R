@@ -18,10 +18,10 @@ Australia,collections,collections_datasets,https://collections.ala.org.au/ws/dat
 Australia,collections,collections_providers,https://collections.ala.org.au/ws/dataProvider,show_all_providers
 Australia,data-quality,quality_details,https://data-quality-service.ala.org.au/api/v1/quality/activeProfile?profileName={profile},show_profile_values
 Australia,data-quality,quality_profiles,https://data-quality-service.ala.org.au/api/v1/data-profiles,show_all_profiles
-Australia,doi,doi_download,https://doi.ala.org.au/doi/{doi_string}/download,doi_download
+Australia,doi,doi_download,https://apis.ala.org.au/doi/api/doi/{doi_string}/download,doi_download
 Australia,images,image_licences,https://images.ala.org.au/ws/licence,show_all_licences
 Australia,images,image_metadata,https://images.ala.org.au/ws/image/{id},media_metadata
-Australia,logger,logger_reasons,https://logger.ala.org.au/service/logger/reasons,show_all_reasons
+Australia,logger,logger_reasons,https://apis.ala.org.au/logger/service/logger/reasons,show_all_reasons
 Australia,lists,lists_all,https://lists.ala.org.au/ws/speciesList,show_all_lists
 Australia,lists,lists_lookup,https://lists.ala.org.au/ws/speciesListItems/{list_id},show_list_values
 Austria,records,records_facets,https://biocache-ws.biodiversityatlas.at/occurrence/facets,"atlas_counts, show_field_values"

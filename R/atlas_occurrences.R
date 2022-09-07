@@ -225,14 +225,17 @@ atlas_occurrences_internal <- function(identify = NULL,
   }
   
   if (getOption("galah_config")$atlas == "Australia") {
-    query$emailNotify <- email_notify()
-    query$sourceTypeId <- 2004
-    query$reasonTypeId <- getOption("galah_config")$download_reason_id
+    query <- c(query, 
+      emailNotify = email_notify(),
+      sourceTypeId = 2004,
+      reasonTypeId = getOption("galah_config")$download_reason_id)
   }
 
   # Get data
   tmp <- tempfile()
-  query <- c(query, email = user_email(), dwcHeaders = "true")
+  query <- c(query, 
+    email = user_email(), 
+    dwcHeaders = "true")
   download_resp <- wait_for_download(query)
   if(is.null(download_resp)){
     inform("Calling the API failed for `atlas_occurrences`")
@@ -301,16 +304,21 @@ wait_for_download <- function(query) {
 
   verbose <- getOption("galah_config")$verbose
   # create a progress bar
-  if (verbose) {
+  if(verbose) {
     pb <- txtProgressBar(max = 1, style = 3)
+  }else{
+    pb <- NULL
   }
   
   # check running status, with rate limiting
   status <- check_queue(status)
-  status <- check_running(status)
- 
+  if(!is.null(status$status)){
+    if(status$status != "finished"){
+      status <- check_running(status, pb = pb)
+  }}
+  
   # resume previous code
-  if (verbose) {
+  if(verbose) {
     setTxtProgressBar(pb, value = 1)
     close(pb)
   }
@@ -337,10 +345,10 @@ check_queue <- function(status){
   }
 }
 
-check_running <- function(status){
+check_running <- function(status, pb = NULL){
   for(i in seq_len(30)){
     val <- (status$records / status$totalRecords)
-    if (verbose) {
+    if(!is.null(pb)) {
       setTxtProgressBar(pb, val)
     }
     status <- atlas_GET(status$statusUrl)

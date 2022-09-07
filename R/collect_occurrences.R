@@ -19,6 +19,12 @@ collect_occurrences <- function(doi, url){
   if(!missing(doi)){
     if(is.null(doi)){
       abort("Please specify a valid `doi`")
+    }else if(grepl("^http", doi)){
+      bullets <- c(
+        "It looks like you have supplied a URL to the `doi` argument",
+        i = "The `doi` argument does not accept DOIs formatted as URLs",
+        i = "If you are supplying an ALA download url, pass it to `url` instead")
+      abort(bullets)
     }else{
       result <- doi_download(doi)
     }
@@ -28,19 +34,7 @@ collect_occurrences <- function(doi, url){
     if(is.null(url)){
       abort("Please specify a valid `url`")
     }else{
-      tmp <- tempfile()
-      local_file <- atlas_download(url, cache_file = tmp, ext = ".zip")
-      tryCatch(
-        result <- read.csv(unz(local_file, "data.csv"), stringsAsFactors = FALSE),
-        error = function(e) {
-          bullets <- c(
-            "There was a problem reading the occurrence data and it looks like no data were returned.",
-            i = "This may be because no valid field names were provided.",
-            i = "To check whether field names are valid, use `search_fields()`."
-          )
-          inform(bullets)
-        }
-      )
+      result <- url_download(url)
     }
   } 
     
@@ -82,4 +76,32 @@ doi_download <- function(doi, error_call = caller_env()) {
     attr(df, "doi") <- doi
     return(df)
   }
+}
+
+
+url_download <- function(url){
+  local_file <- atlas_download(url, 
+    cache_file = tempfile(pattern = "data"), 
+    ext = ".zip")
+  tryCatch(
+    result <- read.csv(unz(local_file, "data.csv"), stringsAsFactors = FALSE),
+    error = function(e) {
+      bullets <- c(
+        "There was a problem reading the occurrence data and it looks like no data were returned."
+      )
+      inform(bullets)
+    }
+  )
+  
+  # rename cols so they match requested cols
+  names(result) <- rename_columns(names(result), type = "occurrence")
+  
+  # replace 'true' and 'false' with boolean
+  valid_assertions <- show_all_assertions()$id
+  assertions_check <- names(result) %in% valid_assertions
+  if(any(assertions_check)){
+    result <- fix_assertion_cols(result, names(result)[assertions_check])
+  }
+  
+  return(result)
 }

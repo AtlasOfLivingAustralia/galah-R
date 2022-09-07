@@ -34,11 +34,6 @@ internal_download <- function(url, params, ext, cache_file,
     )
     abort(bullets, call = error_call)
   }
-
-  # # ws needs to be added for 
-  # if (!is.na(url_parse(url)$path) & !grepl("ws", path)) {
-  #   path <- paste0(url_parse(url)$path,"/", path)
-  # }
   
   # workaround for fq troubles
   if (length(params$fq) > 1) {

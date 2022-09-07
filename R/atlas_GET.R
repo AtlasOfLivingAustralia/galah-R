@@ -32,12 +32,6 @@ internal_GET <- function(url, params = list(), on_error = NULL,
       "User-Agent" = galah_version_string()
     )
   )
-  
-  # # Workaround for use of 'ws/' path in base urls
-  # included_path <- url_parse(url)$path
-  # if (!is.na(included_path) & !grepl("ws", path)) {
-  #   path <- paste0(included_path, "/", path)
-  # }
 
   # workaround for fq troubles
   if (length(params$fq) > 1) {
