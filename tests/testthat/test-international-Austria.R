@@ -12,15 +12,16 @@ vcr::use_cassette("IA_Austria_show_all", {
     ## collectory
     expect_gt(nrow(show_all(collections)), 1)
     expect_gt(nrow(show_all(datasets)), 1)
-    expect_gt(nrow(show_all(providers)), 1)   
+    expect_gt(nrow(show_all(providers)), 1)  
     ## records
     expect_gt(nrow(show_all(assertions)), 1)
     expect_gt(nrow(show_all(fields)), 1)
-    expect_gt(nrow(show_all(values, "year")), 1)
     # logger
     expect_gt(nrow(show_all(reasons)), 1)
     # profiles
     expect_error(show_all(profiles))
+    # lists
+    expect_gt(nrow(show_all(lists)), 1)
   })
 }) 
 
@@ -29,6 +30,14 @@ vcr::use_cassette("IA_Austria_search_all", {
     expect_equal(class(search_all(fields, "year")), 
                  c("tbl_df", "tbl", "data.frame"))
     expect_equal(nrow(search_all(taxa, "Vulpes vulpes")), 1) 
+  })
+})
+
+vcr::use_cassette("IA_Austria_show_values", {
+  test_that("show_values works for Austria", {
+    expect_gt(nrow(show_field_values("basis_of_record")), 1)
+    expect_gt(nrow(show_list_values("dr113")), 1)
+    expect_error(show_profile_values("profile"))
   })
 })
 
@@ -41,15 +50,18 @@ vcr::use_cassette("IA_Austria_atlas_counts", {
 
 vcr::use_cassette("IA_Austria_atlas_counts2", {
   test_that("atlas_counts works with group_by for Austria", {
-    galah_call() |>
-      galah_filter(year >= 2020)
-      group_by(year) |>
+    result <- galah_call() |>
+      galah_filter(year >= 2020) |>
+      galah_group_by(year) |>
       atlas_counts()
+    expect_gt(nrow(result), 1)
+    expect_equal(names(result), c("year", "count"))
   })
 })
 
 vcr::use_cassette("IA_Austria_atlas_occurrences", {
   test_that("atlas_occurrences works for Austria", {
+    galah_config()
     skip_on_cran()
     occ <- galah_call() |>
       galah_identify("Vulpes vulpes") |>

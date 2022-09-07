@@ -83,7 +83,8 @@ get_fields <- function() {
 }
 
 get_layers <- function() {
-  result <- atlas_url("spatial_layers") |> atlas_GET()
+  url <- atlas_url("spatial_layers", quiet = TRUE)
+  result <- atlas_GET(url)
   
   if(is.null(result)){
     NULL
@@ -129,7 +130,8 @@ get_media <- function(x) {
 }
 
 all_fields <- function() {
-  atlas_url("records_fields") |> atlas_GET()
+  url <- atlas_url("records_fields")
+  atlas_GET(url)
 }
 
 build_layer_id <- function(type, id) {

@@ -20,8 +20,8 @@ show_field_values <- function(field) {
     abort(bullets, call = caller_env())
   }
  
-  resp <- atlas_url("records_facets") |>
-          atlas_GET(params = list(facets = field, flimit = 10^4))
+  url <- atlas_url("records_facets")
+  resp <- atlas_GET(url, params = list(facets = field, flimit = 10^4))
   if(is.null(resp)){
     bullets <- c(
       "Calling the API failed for `show_all_values()`.",

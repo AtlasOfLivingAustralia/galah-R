@@ -1,25 +1,22 @@
 #' @rdname show_all_minifunctions
 #' @export
 show_all_collections <- function(){
-  atlas_url("collections_collections") |>
-     atlas_GET() |>
-     tibble()
+  url <- atlas_url("collections_collections")
+  atlas_GET(url) |> tibble()
 }
 
 #' @rdname show_all_minifunctions
 #' @export
 show_all_datasets <- function(){
-  atlas_url("collections_datasets") |>
-     atlas_GET() |>
-     tibble()
+  url <- atlas_url("collections_datasets")
+  atlas_GET(url) |> tibble()
 }
 
 #' @rdname show_all_minifunctions
 #' @export
 show_all_providers <- function(){
-  atlas_url("collections_providers") |>
-     atlas_GET() |>
-     tibble()
+  url <- atlas_url("collections_providers")
+  atlas_GET(url) |> tibble()
 }
 
 #' @rdname search_minifunctions

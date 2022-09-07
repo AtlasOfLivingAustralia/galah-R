@@ -44,8 +44,8 @@ search_identifiers <- function(identifier) {
 
 
 identifier_lookup <- function(identifier) {
-  result <- atlas_url("names_lookup") |>
-    atlas_GET(list(taxonID = identifier))
+  url <- atlas_url("names_lookup")
+  result <- atlas_GET(url, list(taxonID = identifier))
   if (is.null(result)){
     return(NULL)
   }

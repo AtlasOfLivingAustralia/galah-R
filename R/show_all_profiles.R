@@ -7,7 +7,8 @@ show_all_profiles <- function() {
  
   if(update_needed){ # i.e. we'd like to run a query
     # return only enabled profiles?
-    resp <- atlas_url("quality_profiles") |> atlas_GET()
+    url <- atlas_url("profiles_all")
+    resp <- atlas_GET(url)
     if(is.null(resp)){ # if calling the API fails, return cached data
       df <- galah_internal_cache()$show_all_profiles
       attr(df, "ARCHIVED") <- NULL # remove identifying attributes

@@ -74,8 +74,8 @@ show_all_media <- function(df){
 media_metadata <- function(ids){
   
   result <- lapply(ids, function(a){
-    x <- atlas_url("image_metadata", id = a) |> 
-         atlas_GET()
+    url <- atlas_url("image_metadata", id = a) 
+    x <- atlas_GET(url)
     as.data.frame(x[lengths(x) == 1])
   })
   df <- rbindlist(result, fill = TRUE)

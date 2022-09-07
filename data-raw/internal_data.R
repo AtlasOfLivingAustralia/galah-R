@@ -5,11 +5,14 @@
 
 library(readr)
 library(usethis)
+library(dplyr)
 
 # table of information on supported atlases
 # placed here as hard-coded for galah 
-node_metadata <- read_csv("./data-raw/node_metadata.csv")
-
+node_metadata <- read_csv("./data-raw/node_metadata.csv") |>
+  filter(supported == TRUE) |>
+  select(-supported)
+  
 # configuration for web services of all atlases
 # NOTE:
   # Australia, Brazil & UK use their own taxonomy

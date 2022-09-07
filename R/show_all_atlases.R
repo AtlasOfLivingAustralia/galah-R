@@ -36,15 +36,6 @@ default_columns <- function() {
   )
 }
 
-# service_name <- function(url) {
-#   switch (url,
-#           data_quality_base_url = "Data quality filtering",
-#           images_base_url = "Image downloading",
-#           species_base_url = "Species information",
-#           logger_base_url = "Logger service"
-#   )
-# }
-
 species_facets <- function(){
   atlas <- getOption("galah_config")$atlas
   switch(atlas,

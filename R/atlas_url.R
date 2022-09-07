@@ -7,7 +7,7 @@
 #'
 #' @importFrom(glue, glue_data)
 
-atlas_url <- function(api_name, ..., error_call = caller_env()){
+atlas_url <- function(api_name, ..., quiet = FALSE, error_call = caller_env()){
   
   dots <- list(...)
   
@@ -24,10 +24,14 @@ atlas_url <- function(api_name, ..., error_call = caller_env()){
       string
     }
   }else{
-    bullets <- c(
-      glue("The `{api_name}` API is not available for the selected atlas ({current_atlas})"),
-      i = "Use `show_all_apis()` to list valid API calls"
-    )
-    abort(bullets, call = error_call)
+    if(quiet){
+      return(NULL)
+    }else{
+      bullets <- c(
+        glue("The `{api_name}` API is not available for the selected atlas ({current_atlas})"),
+        i = "Use `show_all_apis()` to list valid API calls"
+      )
+      abort(bullets, call = error_call)
+    }
   }
 }

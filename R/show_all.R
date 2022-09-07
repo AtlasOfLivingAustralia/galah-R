@@ -17,7 +17,7 @@
 #' 
 #' | **Category** | **Type** | **Description** | **Sub-functions** |
 #' |---|---|---|---|
-#' | configuration  |`atlases"`| Show what atlases are available | [show_all_atlases()], [search_atlases()]|
+#' | configuration  |`atlases`| Show what atlases are available | [show_all_atlases()], [search_atlases()]|
 #' | |`apis`| Show what APIs & functions are available for each atlas | [show_all_apis()], [search_apis()]|
 #' | |`reasons`| Show what values are acceptable as 'download reasons' for a specified atlas | [show_all_reasons()], [search_reasons()]|
 #' | taxonomy | `taxa` | Search for one or more taxonomic names | [search_taxa()] |

@@ -12,7 +12,6 @@ show_list_values <- function(list){
     abort(bullets, call = caller_env())
   }
   
-  atlas_url("lists_lookup", list_id = list) |> 
-    atlas_GET() |>
-    tibble()
+  url <- atlas_url("lists_lookup", list_id = list)
+  atlas_GET(url) |> tibble()
 }

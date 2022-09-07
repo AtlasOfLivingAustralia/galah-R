@@ -295,8 +295,8 @@ get_doi <- function(mint_doi, data_path) {
 
 wait_for_download <- function(query) {
 
-  status <- atlas_url("records_occurrences") |>
-            atlas_GET(params = query, on_error = occ_error_handler)
+  url <- atlas_url("records_occurrences")
+  status <- atlas_GET(url, params = query, on_error = occ_error_handler)
             
   if(is.null(status)){
     return(NULL)

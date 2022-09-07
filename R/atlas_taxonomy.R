@@ -203,8 +203,8 @@ atlas_taxonomy_internal <- function(request,
 
 # Return the classification for a taxonomic id
 lookup_taxon <- function(id) {
-  resp <- atlas_url("species_lookup", id = id) |>
-          atlas_GET()
+  url <- atlas_url("species_lookup", id = id) 
+  resp <- atlas_GET(url)
   if(is.null(resp)){
     return(NULL)
   }else{
@@ -217,9 +217,9 @@ lookup_taxon <- function(id) {
 
 # Get the child concepts for a taxonomic ID 
 get_children <- function(identifier) {
-  atlas_url("species_children", 
-    id = URLencode(as.character(identifier), reserved = TRUE)) |>
-  atlas_GET()
+  url <- atlas_url("species_children", 
+    id = URLencode(as.character(identifier), reserved = TRUE))
+  atlas_GET(url)
 }
 
 # Take a taxon row and recurse down the taxonomic tree 

@@ -16,8 +16,8 @@ Australia,name-matching,names_lookup,https://namematching-ws.ala.org.au/api/getB
 Australia,collections,collections_collections,https://collections.ala.org.au/ws/collection,show_all_collections
 Australia,collections,collections_datasets,https://collections.ala.org.au/ws/dataResource,show_all_datasets
 Australia,collections,collections_providers,https://collections.ala.org.au/ws/dataProvider,show_all_providers
-Australia,data-quality,quality_details,https://data-quality-service.ala.org.au/api/v1/quality/activeProfile?profileName={profile},show_profile_values
-Australia,data-quality,quality_profiles,https://data-quality-service.ala.org.au/api/v1/data-profiles,show_all_profiles
+Australia,data-quality,profiles_all,https://data-quality-service.ala.org.au/api/v1/data-profiles,show_all_profiles
+Australia,data-quality,profiles_lookup,https://data-quality-service.ala.org.au/api/v1/quality/activeProfile?profileName={profile},show_profile_values
 Australia,doi,doi_download,https://apis.ala.org.au/doi/api/doi/{doi_string}/download,doi_download
 Australia,images,image_licences,https://images.ala.org.au/ws/licence,show_all_licences
 Australia,images,image_metadata,https://images.ala.org.au/ws/image/{id},media_metadata
@@ -35,13 +35,14 @@ Austria,spatial,spatial_layers,https://spatial.biodiversityatlas.at/ws/layers,sh
 Austria,species,species_lookup,https://bie-ws.biodiversityatlas.at/species,"atlas_taxonomy, search_identifiers(?)"
 Austria,species,species_children,https://bie-ws.biodiversityatlas.at/childConcepts/,atlas_taxonomy
 Austria,species,names_search_single,https://bie-ws.biodiversityatlas.at/search?q={name}&pageSize=1,search_taxa
-Austria,collections,collections_colls,https://collectory.biodiversityatlas.at/ws/collection,show_all_collections
+Austria,collections,collections_collections,https://collectory.biodiversityatlas.at/ws/collection,show_all_collections
 Austria,collections,collections_datasets,https://collectory.biodiversityatlas.at/ws/dataResource,show_all_datasets
 Austria,collections,collections_providers,https://collectory.biodiversityatlas.at/ws/dataProvider,show_all_providers
 Austria,images,image_licences,https://images.biodiversityatlas.at/ws/licence,show_all_licences
 Austria,images,image_metadata,https://images.biodiversityatlas.at/ws/image/,media_metadata
 Austria,logger,logger_reasons,https://logger.biodiversityatlas.at/service/logger/reasons,show_all_reasons
-Austria,lists,lists_lookup,https://lists.biodiversityatlas.at/ws/speciesList/,show_all_lists
+Austria,lists,lists_all,https://lists.biodiversityatlas.at/ws/speciesList/,show_all_lists
+Austria,lists,lists_lookup,https://lists.biodiversityatlas.at/ws/speciesListItems/{list_id},show_list_values
 Brazil,records,records_facets,https://biocache-service.sibbr.gov.br/biocache-service/occurrence/facets,"atlas_counts, show_all_values"
 Brazil,records,records_counts,https://biocache-service.sibbr.gov.br/biocache-service/occurrences/search,atlas_counts
 Brazil,records,records_occurrences,https://biocache-service.sibbr.gov.br/biocache-service/occurrences/offline/download,atlas_occurrences
@@ -53,11 +54,13 @@ Brazil,spatial,spatial_layers,https://portal-espacial.sibbr.gov.br/spatial-hub/l
 Brazil,species,species_lookup,https://bie-webservice.sibbr.gov.br/bie-index/species,atlas_taxonomy
 Brazil,species,species_children,https://bie-webservice.sibbr.gov.br/bie-index/childConcepts/,atlas_taxonomy
 Brazil,species,names_search_single,https://bie-webservice.sibbr.gov.br/bie-index/search?q={name}&pageSize=1,search_taxa
-Brazil,images,image_licences,https://images.sibbr.gov.br/images/licence,show_all_licences
-Brazil,images,image_metadata,https://images.sibbr.gov.br/images/image/,media_metadata
-Brazil,collections,collections_colls,https://collectory.sibbr.gov.br/collectory/collection,show_all_collections
-Brazil,collections,collections_datasets,https://collectory.sibbr.gov.br/collectory/dataResource,show_all_datasets
-Brazil,collections,collections_providers,https://collectory.sibbr.gov.br/collectory/dataProvider,show_all_providers
+Brazil,images,image_licences,https://images.sibbr.gov.br/images/ws/licence,show_all_licences
+Brazil,images,image_metadata,https://images.sibbr.gov.br/images/ws/image/,media_metadata
+Brazil,collections,collections_collections,https://collectory.sibbr.gov.br/collectory/ws/collection,show_all_collections
+Brazil,collections,collections_datasets,https://collectory.sibbr.gov.br/collectory/ws/dataResource,show_all_datasets
+Brazil,collections,collections_providers,https://collectory.sibbr.gov.br/collectory/ws/dataProvider,show_all_providers
+Brazil,lists,lists_all,https://specieslist.sibbr.gov.br/ws/speciesList/,show_all_lists
+Brazil,lists,lists_lookup,https://specieslist.sibbr.gov.br/ws/speciesListItems/{list_id},show_list_values
 Canada,records,records_facets,http://explorer-ws.canadensys.net/occurrence/facets,"atlas_counts, show_all_values"
 Canada,records,records_counts, http://explorer-ws.canadensys.net/occurrences/search,atlas_counts
 Canada,records,records_occurrences,http://explorer-ws.canadensys.net/occurrences/offline/download,atlas_occurrences
@@ -66,9 +69,10 @@ Canada,records,records_assertions,http://explorer-ws.canadensys.net/assertions/c
 Canada,records,records_fields,http://explorer-ws.canadensys.net/index/fields,show_all_fields
 Canada,records,records_query,http://explorer-ws.canadensys.net/webportal/params,atlas_occurrences
 Canada,species,names_search_single,https://api.gbif.org/v1/species/match?verbose=FALSE&name={name},search_taxa
-Canada,collections,collections_colls,http://collections.canadensys.net/collection,show_all_collections
-Canada,collections,collections_datasets,http://collections.canadensys.net/dataResource,show_all_datasets
-Canada,collections,collections_providers,http://collections.canadensys.net/dataProvider,show_all_providers
+Canada,logger,logger_reasons,http://logger.canadensys.net/service/logger/reasons,show_all_reasons
+Canada,collections,collections_collections,http://collections.canadensys.net/ws/collection,show_all_collections
+Canada,collections,collections_datasets,http://collections.canadensys.net/ws/dataResource,show_all_datasets
+Canada,collections,collections_providers,http://collections.canadensys.net/ws/dataProvider,show_all_providers
 Estonia,records,records_facets,https://elurikkus.ee/biocache-service/occurrence/facets,"atlas_counts, show_all_values"
 Estonia,records,records_counts,https://elurikkus.ee/biocache-service/occurrences/search,atlas_counts
 Estonia,records,records_occurrences,https://elurikkus.ee/biocache-service/occurrences/offline/download,atlas_occurrences

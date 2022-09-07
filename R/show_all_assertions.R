@@ -1,7 +1,8 @@
 #' @export show_all_assertions
 #' @rdname show_all_minifunctions
 show_all_assertions <- function(){
-  assertions <- atlas_url("records_assertions") |> atlas_GET()
+  url <- atlas_url("records_assertions") 
+  assertions <- atlas_GET(url)
   if(is.null(assertions)){
     tibble()
   }else{

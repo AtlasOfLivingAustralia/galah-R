@@ -1,9 +1,8 @@
 #' @rdname show_all_minifunctions
 #' @export
 show_all_licences <- function(){
-  result <- atlas_url("image_licences") |> 
-    atlas_GET() |> 
-    tibble()
+  url <- atlas_url("image_licences")
+  result <- atlas_GET(url) |> tibble()
   result[, c("id", "name", "acronym", "url")] 
 }
 

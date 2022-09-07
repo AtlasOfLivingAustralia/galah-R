@@ -130,12 +130,12 @@ name_query <- function(query) {
 name_lookup <- function(name) {
   if (is.null(names(name)) || isTRUE(names(name) == "")) {
     # search by scientific name
-    result <- atlas_url("names_search_single", name = name[[1]]) |> 
-              atlas_GET()
+    url <- atlas_url("names_search_single", name = name[[1]])
+    result <- atlas_GET(url)
   } else {
     # search by classification - NOTE - NOT implemented for other atlases yet
-    result <- atlas_url("names_search_multiple") |> 
-              atlas_GET(as.list(name))      
+    url <- atlas_url("names_search_multiple") 
+    result <- atlas_GET(url, as.list(name))      
   }
 
   if(is.null(result)){

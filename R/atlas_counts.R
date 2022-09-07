@@ -338,8 +338,8 @@ atlas_counts_lookup <- function(identify = NULL,
   }
 
   if (sum(total_cats) > limit && sum(total_cats) > page_size) {
-    resp <- atlas_url("records_facets") |>
-            atlas_GET(params = query, paginate = TRUE, limit = limit,
+    url <- atlas_url("records_facets")
+    resp <- atlas_GET(url, params = query, paginate = TRUE, limit = limit,
                       page_size = page_size, offset_param = "foffset")
     if(is.null(resp)){return(NULL)}
     counts <- rbindlist(lapply(resp, function(a) {
@@ -348,8 +348,8 @@ atlas_counts_lookup <- function(identify = NULL,
       }))
   } else {
       query$flimit <- max(limit)
-      resp <- atlas_url("records_facets") |> 
-              atlas_GET(params = query)
+      url <- atlas_url("records_facets")
+      resp <- atlas_GET(url, params = query)
       if(is.null(resp)){return(NULL)}
       counts <- rbindlist(resp$fieldResult)
   }
@@ -429,8 +429,8 @@ record_count <- function(query) {
     query$pageSize <- 0
     col_name <- "totalRecords"
   # }
-  resp <- atlas_url("records_counts") |> 
-          atlas_GET(query)
+  url <- atlas_url("records_counts")
+  resp <- atlas_GET(url, query)
   resp[[col_name]]
 }
 # above doesn't work because ALA requires queries get put in an &fq= statement
@@ -445,8 +445,8 @@ species_count <- function(query) {
 # Get number of categories of a filter
 total_categories <- function(query) {
   query$flimit <- 1
-  resp <- atlas_url("records_facets") |> 
-          atlas_GET(params = query)
+  url <- atlas_url("records_facets") 
+  resp <- atlas_GET(url, params = query)
   if(is.null(resp)){
     NULL
   }else if(length(resp) < 1){

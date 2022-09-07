@@ -24,8 +24,8 @@ show_profile_values <- function(profile) {
     abort(bullets, call = caller_env())
   }
   
-  resp <- atlas_url("quality_details", profile = profile) |>
-          atlas_GET()
+  url <- atlas_url("profiles_lookup", profile = profile)
+  resp <- atlas_GET(url)
   if(is.null(resp)){
     bullets <- c(
       "Calling the API failed for `search_profile_attributes`.",
