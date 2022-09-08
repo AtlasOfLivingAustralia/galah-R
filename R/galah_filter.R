@@ -124,9 +124,9 @@
 #' @importFrom rlang new_quosure
 #' @importFrom rlang parse_expr
 #' @importFrom rlang quo_get_expr
-#' @export
+#' @export galah_filter
   
-galah_filter <- function(..., profile = NULL){
+galah_filter_original <- function(..., profile = NULL){
   
   dots <- enquos(..., .ignore_empty = "all")
   check_filter(dots)
@@ -177,7 +177,6 @@ galah_filter <- function(..., profile = NULL){
   }
 
 }
-
 
 # stop function to enforce new syntax, based on `dplyr` syntax
 check_filter <- function(dots, error_call = caller_env()) {

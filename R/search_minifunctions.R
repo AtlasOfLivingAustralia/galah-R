@@ -61,17 +61,6 @@
 #' ```{r, comment = "#>", collapse = TRUE}
 #' search_fields("worldclim")
 #' ```
-#' To find all the data quality arguments used in the profile "CSDM"
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_profile_attributes("CSDM")
-#' ```
-#' 
-#' Then get a free-text description of each filter used in the "CSDM" profile
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' profile_info <- search_profile_attributes("CSDM")
-#' profile_info$description
-#' ```
 #'
 
 NULL
