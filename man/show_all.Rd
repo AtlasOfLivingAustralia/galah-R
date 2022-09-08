@@ -30,7 +30,7 @@ number of sub-functions.
 There are five different categories of metadata, each with their own
 sub-functions. Valid \code{type}s are:\tabular{llll}{
    \strong{Category} \tab \strong{Type} \tab \strong{Description} \tab \strong{Sub-functions} \cr
-   configuration \tab \verb{atlases"} \tab Show what atlases are available \tab \code{\link[=show_all_atlases]{show_all_atlases()}}, \code{\link[=search_atlases]{search_atlases()}} \cr
+   configuration \tab \code{atlases} \tab Show what atlases are available \tab \code{\link[=show_all_atlases]{show_all_atlases()}}, \code{\link[=search_atlases]{search_atlases()}} \cr
     \tab \code{apis} \tab Show what APIs & functions are available for each atlas \tab \code{\link[=show_all_apis]{show_all_apis()}}, \code{\link[=search_apis]{search_apis()}} \cr
     \tab \code{reasons} \tab Show what values are acceptable as 'download reasons' for a specified atlas \tab \code{\link[=show_all_reasons]{show_all_reasons()}}, \code{\link[=search_reasons]{search_reasons()}} \cr
    taxonomy \tab \code{taxa} \tab Search for one or more taxonomic names \tab \code{\link[=search_taxa]{search_taxa()}} \cr

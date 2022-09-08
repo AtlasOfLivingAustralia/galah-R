@@ -62,7 +62,7 @@
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
 #' galah_call() |>
-#'   galah_filter(basisOfRecord == "FossilSpecimen")
+#'   galah_filter(basisOfRecord == "FossilSpecimen") |>
 #'   atlas_counts() 
 #' ```
 #' 

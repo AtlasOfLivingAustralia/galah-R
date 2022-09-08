@@ -40,10 +40,10 @@ the process and lead to HTTP 500 errors, so should be turned off. Defaults
 to TRUE.
 }}
 
-\item{profile_path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\item{profile_path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#soft-deprecated}{\figure{lifecycle-soft-deprecated.svg}{options: alt='[Soft-deprecated]'}}}{\strong{[Soft-deprecated]}}
 
 Keeping for compatibility with older package versions. It is preferable to
-not save \code{galah_config} options.}
+not save \code{galah_config} options to a .Rprofile file.}
 }
 \value{
 For \code{galah_config()}, a \code{list} of all options.
@@ -74,7 +74,7 @@ Turn on caching in your session
 }\if{html}{\out{</div>}}
 
 It is required by some ALA services that you add a reason for downloading
-data. To look up all valid reasons to enter, use \code{\link[=show_all_reasons]{show_all_reasons()}}
+data. To look up all valid reasons to enter, use \code{\link[=show_all]{show_all()}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all(reasons)
 #> # A tibble: 13 x 2

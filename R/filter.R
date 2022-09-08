@@ -9,7 +9,7 @@ filter.data_request <- function(data, ...){
 
 }
 
-galah_filter <- function(...){
+galah_filter <- function(..., profile = NULL){
   dots <- enquos(..., .ignore_empty = "all")
   check_filter(dots)
   
@@ -25,7 +25,12 @@ galah_filter <- function(...){
   
   # if a data request was supplied, return one
   if(is_data_request){
-    update_galah_call(data_request, filter = dot_parsing(dots))
+    named_filters <- dot_parsing(dots)
+    # Check and apply profiles to query
+    if(!is.null(profile)){
+      named_filters <- apply_profiles(profile, named_filters)
+    }
+    update_galah_call(data_request, filter = named_filters)
   }else{
     filter.data_request(galah_call(), ...)$filter
   }

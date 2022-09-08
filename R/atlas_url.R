@@ -5,7 +5,7 @@
 #' a csv (`./data-raw/node_config.csv`). Entries in that tibble can contain
 #' `glue`-like syntax for infilling new data, passed using `...`
 #'
-#' @importFrom(glue, glue_data)
+#' @importFrom glue glue_data
 
 atlas_url <- function(api_name, ..., quiet = FALSE, error_call = caller_env()){
   

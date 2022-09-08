@@ -1,5 +1,7 @@
-# @rdname show_all
-# @export
+#' Show values
+#' 
+#' In early development
+#' @export
 show_values <- function(type, entry){
 
   # vector of valid types for this function

@@ -77,7 +77,7 @@ With no arguments, return the total number of records in the ALA
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 113659037
+#> 1 113660291
 }\if{html}{\out{</div>}}
 
 You can group counts by state and territory with \code{galah_group_by}
@@ -88,29 +88,22 @@ You can group counts by state and territory with \code{galah_group_by}
 #> # A tibble: 100 x 2
 #>   stateProvince      count
 #>   <chr>              <int>
-#> 1 New South Wales 28049060
-#> 2 Victoria        24438794
-#> 3 Queensland      20407325
-#> 4 South Australia  8890956
+#> 1 New South Wales 28049785
+#> 2 Victoria        24438838
+#> 3 Queensland      20407396
+#> 4 South Australia  8890957
 #> # ... with 96 more rows
 }\if{html}{\out{</div>}}
 
 You can add a filter to narrow your search
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
-  galah_filter(basisOfRecord == "FossilSpecimen")
-#> An object of type `data_request` containing:
-#> 
-#> $filter
-#> # A tibble: 1 x 4
-#>   variable      logical value          query                               
-#>   <chr>         <chr>   <chr>          <chr>                               
-#> 1 basisOfRecord ==      FossilSpecimen "(basisOfRecord:\\"FossilSpecimen\\")"
+  galah_filter(basisOfRecord == "FossilSpecimen") |>
   atlas_counts() 
 #> # A tibble: 1 x 1
-#>       count
-#>       <int>
-#> 1 113659037
+#>   count
+#>   <int>
+#> 1  5359
 }\if{html}{\out{</div>}}
 
 Specify \code{type = species} to count the number of species, and group record
@@ -150,10 +143,10 @@ variables, similar to using \code{dplyr::group_by() \%>\% dplyr::count()}
 #> # A tibble: 47 x 3
 #>   basisOfRecord     year    count
 #>   <chr>             <chr>   <int>
-#> 1 HUMAN_OBSERVATION 2021  6993974
-#> 2 HUMAN_OBSERVATION 2020  6287914
-#> 3 HUMAN_OBSERVATION 2019  5510979
-#> 4 HUMAN_OBSERVATION 2018  5233218
+#> 1 HUMAN_OBSERVATION 2021  6994550
+#> 2 HUMAN_OBSERVATION 2020  6287918
+#> 3 HUMAN_OBSERVATION 2019  5510981
+#> 4 HUMAN_OBSERVATION 2018  5233220
 #> # ... with 43 more rows
 }\if{html}{\out{</div>}}
 }
