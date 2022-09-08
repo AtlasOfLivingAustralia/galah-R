@@ -13,21 +13,28 @@
 
 atlas_citation <- function(data) {
   if (is.na(attributes(data)$doi)) {
-    search_url <- attributes(data)$search_url
-    if (is.na(search_url)) {
+    if (is.null(attributes(data)$search_url) || 
+        is.na(attributes(data)$search_url)) {
       bullets <- c(
-        "This dataset does not have a DOI or associated search url.",
-        i = "Please download again and then use `ala_citation`."
+        "This data does not have a DOI or associated search url.",
+        i = "Did you set `atlas_occurrences(mint_doi = TRUE)`?",
+        i = "`atlas_citation` extracts this citation info when present."
       )
       abort(bullets, call = caller_env())
     }
-    return(paste0("ALA occurrence download accessed from R with galah",
-           " (https://github.com/AtlasOfLivingAustralia/galah/) on ",
-           Sys.Date(), ". Search url: ", search_url)
-    )
+    search_url <- attributes(data)$search_url
+    return(glue("
+                ALA occurrence download accessed from R with galah {galah_version_string()} \\
+                (https://github.com/AtlasOfLivingAustralia/galah/) on \\
+                {Sys.Date()}. 
+                Search url: {search_url})
+                "
+    ))
   }
-  paste0("ALA occurrence download ", attributes(data)$doi,
-         ". Accessed from R with ", galah_version_string(),
-         " (https://github.com/AtlasOfLivingAustralia/galah/) on ",
-         Sys.Date(), ".")
+  search_url <- attributes(data)$search_url
+  glue("
+       ALA occurrence download {attributes(data)$doi}.
+       Accessed from R with {galah_version_string()} \\
+       (https://github.com/AtlasOfLivingAustralia/galah/) on {Sys.Date()}.
+       ")
 }
