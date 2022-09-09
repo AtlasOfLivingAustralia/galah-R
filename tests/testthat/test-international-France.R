@@ -1,14 +1,14 @@
-context("Test international atlases: Estonia")
+context("Test international atlases: France")
 
 # set verbose to off
 galah_config(verbose = FALSE)
 
-test_that("swapping to atlas = Estonia works", {
-  expect_silent(galah_config(atlas = "Estonia"))
+test_that("swapping to atlas = France works", {
+  expect_silent(galah_config(atlas = "France"))
 })
 
-vcr::use_cassette("IA_Estonia_show_all", {
-  test_that("show_all works for Estonia", {
+vcr::use_cassette("IA_France_show_all", {
+  test_that("show_all works for France", {
     ## collectory
     expect_gt(nrow(show_all(collections)), 1)
     expect_gt(nrow(show_all(datasets)), 1)
