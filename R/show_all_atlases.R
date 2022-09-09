@@ -38,9 +38,11 @@ default_columns <- function() {
 
 species_facets <- function(){
   atlas <- getOption("galah_config")$atlas
+  
   switch(atlas,
-    # Australia = "speciesID",
-    Austria = "species_guid",
+    "Australia" = "speciesID",
+    "Austria" = "species_guid",
+    "Brazil" = "species_guid",
     "speciesID"
   )
 }

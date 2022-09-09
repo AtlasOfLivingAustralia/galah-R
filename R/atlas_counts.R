@@ -34,6 +34,7 @@
 #' @param refresh_cache `logical`: if set to `TRUE` and 
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query
+#' @importFrom glue glue_collapse
 #' @return
 #' 
 #' An object of class `tbl_df` and `data.frame` (aka a tibble) returning: 

@@ -129,9 +129,7 @@ Portugal,records,records_occurrences,https://registos-ws.gbif.pt/occurrences/off
 Portugal,records,records_query,https://registos-ws.gbif.pt/webportal/params,atlas_occurrences
 Portugal,records,records_species,https://registos-ws.gbif.pt/occurrences/facets/download,atlas_species
 Portugal,spatial,spatial_layers,https://espacial.gbif.pt/ws/layers,show_all_fields
-Portugal,species,names_search_single,https://especies.gbif.pt/ws/search?q={name}&pageSize=1,search_taxa
-Portugal,species,species_children,https://especies.gbif.pt/ws/childConcepts/,atlas_taxonomy
-Portugal,species,species_lookup,https://especies.gbif.pt/ws/species,atlas_taxonomy
+Portugal,species,names_search_single,https://api.gbif.org/v1/species/match?verbose=FALSE&name={name},search_taxa
 Spain,collections,collections_collections,https://colecciones.gbif.es/ws/collection,show_all_collections
 Spain,collections,collections_datasets,https://colecciones.gbif.es/ws/dataResource,show_all_datasets
 Spain,collections,collections_providers,https://colecciones.gbif.es/ws/dataProvider,show_all_providers
@@ -147,9 +145,9 @@ Spain,records,records_occurrences,https://registros-ws.gbif.es/occurrences/offli
 Spain,records,records_query,https://registros-ws.gbif.es/webportal/params,atlas_occurrences
 Spain,records,records_species,https://registros-ws.gbif.es/occurrences/facets/download,atlas_species
 Spain,spatial,spatial_layers,https://espacial.gbif.es/layers,show_all_fields
-Spain,species,names_search_single,https://listas.gbif.es/search?q={name}&pageSize=1,search_taxa
-Spain,species,species_children,https://listas.gbif.es/childConcepts/,atlas_taxonomy
-Spain,species,species_lookup,https://listas.gbif.es/species,atlas_taxonomy
+Spain,species,names_search_single,https://especies-ws.gbif.es/search?q={name}&pageSize=1,search_taxa
+Spain,species,species_children,https://especies-ws.gbif.es/childConcepts/,atlas_taxonomy
+Spain,species,species_lookup,https://especies-ws.gbif.es/species,atlas_taxonomy
 Sweden,collections,collections_collections,https://collections.biodiversitydata.se/ws/collection,show_all_collections
 Sweden,collections,collections_datasets,https://collections.biodiversitydata.se/ws/dataResource,show_all_datasets
 Sweden,collections,collections_providers,https://collections.biodiversitydata.se/ws/dataProvider,show_all_providers

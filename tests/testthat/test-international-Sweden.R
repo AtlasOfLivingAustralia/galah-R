@@ -16,7 +16,7 @@ vcr::use_cassette("IA_Sweden_show_all", {
     expect_gt(nrow(show_all(providers)), 0)  
     ## records
     expect_gt(nrow(show_all(assertions)), 1)
-    # expect_gt(nrow(show_all(fields)), 1) # errors at result$type
+    expect_gt(nrow(show_all(fields)), 1) 
     # logger
     expect_gt(nrow(show_all(reasons)), 1)
     # profiles

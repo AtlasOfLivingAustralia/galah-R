@@ -224,7 +224,6 @@ build_query <- function(identify, filter, location, select = NULL,
       taxa_query <- NULL
     } else {
       check_taxa_arg(identify)
-      # include <- !inherits(taxa, "exclude") # obsolete
       if (inherits(identify, "data.frame") &&
           "identifier" %in% colnames(identify)) {
         identify <- identify$identifier
@@ -277,13 +276,20 @@ build_query <- function(identify, filter, location, select = NULL,
 # Build query from vector of taxonomic ids
 build_taxa_query <- function(ids) {
   ids <- ids[order(ids)]
+  variable_name <- switch(
+    getOption("galah_config")$atlas,
+    # "Australia" = "lsid",
+    # "Austria" = "lsid",
+    # "Brazil" = "taxon_concept_lsid",
+    "lsid"
+  )
   if(getOption("galah_config")$atlas == "Global"){
-    return(list(taxonKey = ids))
+    list(taxonKey = ids)
   }else{
-    taxon_code <- "lsid"
-    return(paste0("(lsid:", 
-      paste(ids, collapse = paste0(" OR lsid:")), 
-    ")"))
+    glue(
+      "({variable_name}:",
+      glue_collapse(ids, sep = glue(" OR {variable_name}:")),
+      ")")
   }
 }
 

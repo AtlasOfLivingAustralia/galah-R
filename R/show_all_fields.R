@@ -89,19 +89,23 @@ get_layers <- function() {
   if(is.null(result)){
     NULL
   }else{
-    layer_id <- mapply(build_layer_id, result$type, result$id,
-                       USE.NAMES = FALSE)
-    result <- cbind(layer_id, result)
-    result$description <- apply(
-      result[, c("displayname", "description")],
-      1,
-      function(a){paste(a, collapse = " ")}
-    )
-    names(result) <- rename_columns(names(result), type = "layer")
-    result <- result[wanted_columns("layer")]
-    names(result)[1] <- "id"
-    result$type <- "layers"
-    result
+    if(all(c("type", "id") %in% names(result))){
+      layer_id <- mapply(build_layer_id, result$type, result$id,
+                         USE.NAMES = FALSE)
+      result <- cbind(layer_id, result)
+      result$description <- apply(
+        result[, c("displayname", "description")],
+        1,
+        function(a){paste(a, collapse = " ")}
+      )
+      names(result) <- rename_columns(names(result), type = "layer")
+      result <- result[wanted_columns("layer")]
+      names(result)[1] <- "id"
+      result$type <- "layers"
+      result
+    }else{
+      NULL
+    }
   }
 }
 
