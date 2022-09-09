@@ -126,7 +126,7 @@
 #' @importFrom rlang quo_get_expr
 #' @export galah_filter
   
-galah_filter_original <- function(..., profile = NULL){
+galah_filter <- function(..., profile = NULL){
   
   dots <- enquos(..., .ignore_empty = "all")
   check_filter(dots)
