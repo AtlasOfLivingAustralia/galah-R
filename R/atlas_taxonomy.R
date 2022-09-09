@@ -27,7 +27,7 @@
 #'   * `authority`: The source of the taxonomic name & identifier
 #' 
 #' @seealso [search_taxa()] to search for an individual taxon; 
-#' [show_all_ranks()] for valid ranks used to specify the `down_to`
+#' `show_all(ranks)` for valid ranks used to specify the `down_to`
 #' argument.
 #' 
 #' @section Examples:

@@ -21,7 +21,7 @@ The user may wish to set this to a non-temporary directory for
 caching across sessions. The directory must exist on the file system.
 \item \code{download_reason_id} numeric or string: the "download reason" required.
 by some ALA services, either as a numeric ID (currently 0--13)
-or a string (see \code{\link[=show_all_reasons]{show_all_reasons()}} for a list of valid ID codes and
+or a string (see \code{show_all(reasons)} for a list of valid ID codes and
 names). By default this is NA. Some ALA services require a valid
 download_reason_id code, either specified here or directly to the
 associated R function.

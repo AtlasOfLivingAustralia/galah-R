@@ -59,12 +59,10 @@ results line-by-line.
 
 Find number of records of \emph{Aves} from 2001 to 2004 by year
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(magrittr)
-
-galah_call() \%>\%
-  galah_identify("Aves") \%>\%
-  galah_filter(year > 2000 & year < 2005) \%>\%
-  galah_group_by() \%>\%
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+  galah_identify("Aves") |>
+  galah_filter(year > 2000 & year < 2005) |>
+  galah_group_by() |>
   atlas_counts()
 }\if{html}{\out{</div>}}
 
@@ -72,16 +70,16 @@ Download \emph{Eolophus} records from 2001 to 2004
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
 
-galah_call() \%>\%
-   galah_identify("Eolophus") \%>\%
-  galah_filter(year > 2000 & year < 2005) \%>\%
+galah_call() |>
+   galah_identify("Eolophus") |>
+  galah_filter(year > 2000 & year < 2005) |>
   atlas_occurrences()
 }\if{html}{\out{</div>}}
 
 Find information for all species in \emph{Cacatuidae} family
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
-  galah_identify("Cacatuidae") \%>\%
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+  galah_identify("Cacatuidae") |>
   atlas_species()
 }\if{html}{\out{</div>}}
 }

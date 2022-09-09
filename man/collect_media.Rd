@@ -2,7 +2,7 @@
 % Please edit documentation in R/collect_media.R
 \name{collect_media}
 \alias{collect_media}
-\title{Collect media}
+\title{Collect media files}
 \usage{
 collect_media(
   df,
@@ -13,7 +13,7 @@ collect_media(
 )
 }
 \arguments{
-\item{df}{tibble returned by \code{atlas_media()} or \code{show_all_media()}}
+\item{df}{tibble returned by \code{atlas_media()} or \code{show_all(media)}}
 
 \item{type}{\code{string}: either \code{"full"} to download original images, or
 \code{"thumbnail"} to download thumbnails}
@@ -21,12 +21,66 @@ collect_media(
 \item{path}{\code{string}: path to directory where downloaded media will
 be stored}
 
-\item{download_dir}{DEPRECATED: use \code{path} instead}
+\item{download_dir}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use \code{path} instead.}
 
 \item{refresh_cache}{\code{logical}: if set to \code{TRUE} and
 \code{galah_config(caching = TRUE)} then files cached from a previous query will
 be replaced by the current query. NOTE: unclear that this works right now.}
 }
-\description{
-This function downloads images using information from \code{atlas_media}
+\value{
+Available image & media files downloaded to a user local directory.
 }
+\description{
+This function downloads full-sized or thumbnail images and media files using
+information from \code{atlas_media} to a local directory.
+}
+\section{Examples}{
+
+
+Use \code{atlas_media()} to return a \code{tibble} of records that contain media
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |> 
+  galah_identify("perameles") |>
+  galah_filter(year == 2015) |>
+  atlas_media()
+#> # A tibble: 20 x 19
+#>    decimalLati~1 decim~2 event~3 scien~4 taxon~5 recor~6 dataR~7 multi~8 media~9
+#>            <dbl>   <dbl> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#>  1         -41.1    146. 2015-0~ Perame~ https:~ ecc503~ BowerB~ Image   b4fd76~
+#>  2         -41.1    146. 2015-0~ Perame~ https:~ 70cfdd~ iNatur~ Image   2da828~
+#>  3         -38.5    147. 2015-0~ Perame~ https:~ 49bc00~ ALA sp~ Image   b44574~
+#>  4         -38.5    144. 2015-0~ Perame~ https:~ 23e4c0~ iNatur~ Image   9455db~
+#>  5         -37.8    149. 2015-0~ Perame~ https:~ d07e79~ ALA sp~ Image   6dc6e7~
+#>  6         -37.5    145. 2015-0~ Perame~ https:~ e9244f~ ALA sp~ Image   174fbf~
+#>  7         -37.5    145. 2015-0~ Perame~ https:~ 5f6aea~ ALA sp~ Image   70b465~
+#>  8         -37.5    145. 2015-0~ Perame~ https:~ ee25df~ ALA sp~ Image   0746eb~
+#>  9         -37.1    150. 2015-0~ Perame~ https:~ f4d9fd~ BowerB~ Image   73a37d~
+#> 10         -37.1    150. 2015-0~ Perame~ https:~ 8f569a~ iNatur~ Image   6d4d56~
+#> 11         -37.1    150. 2015-0~ Perame~ https:~ 8f569a~ iNatur~ Image   a0653f~
+#> 12         -33.8    151. 2015-0~ Perame~ https:~ b271c7~ iNatur~ Image   acb254~
+#> 13         -30.5    153. 2015-0~ Perame~ https:~ d16039~ Earth ~ Image   1df45b~
+#> 14         -30.5    153. 2015-0~ Perame~ https:~ d16039~ Earth ~ Image   66f293~
+#> 15         -30.5    153. 2015-0~ Perame~ https:~ d16039~ Earth ~ Image   e17584~
+#> 16         -19.0    146. 2015-1~ Perame~ https:~ 855861~ iNatur~ Image   2cd593~
+#> 17         -19.0    146. 2015-1~ Perame~ https:~ 855861~ iNatur~ Image   e9ab6b~
+#> 18         -17.3    146. 2015-0~ Perame~ https:~ 923b26~ iNatur~ Image   629e16~
+#> 19         -17.3    146. 2015-0~ Perame~ https:~ 923b26~ iNatur~ Image   f59f72~
+#> 20         -16.7    145. 2015-1~ Perame~ https:~ 78c44d~ iNatur~ Image   30107e~
+#> # ... with 10 more variables: mime_type <chr>, size_in_bytes <int>,
+#> #   date_uploaded <chr>, date_taken <chr>, height <int>, width <int>,
+#> #   creator <chr>, license <chr>, ..., and abbreviated variable names
+#> #   1: decimalLatitude, 2: decimalLongitude, 3: eventDate, 4: scientificName,
+#> #   5: taxonConceptID, 6: recordID, 7: dataResourceName, 8: multimedia,
+#> #   9: media_id
+}\if{html}{\out{</div>}}
+
+Then add \code{collect_media()} to the end of a query to download media files
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |> 
+  galah_identify("perameles") |>
+  galah_filter(year == 2015) |>
+  atlas_media() |>
+  collect_media(path = here::here("folder", "subfolder"))
+}\if{html}{\out{</div>}}
+}
+

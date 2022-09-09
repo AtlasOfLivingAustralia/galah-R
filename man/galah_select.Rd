@@ -27,7 +27,7 @@ This function allows easy selection of fields, or commonly-requested groups
 of columns, following syntax shared with \code{dplyr::select()}.
 }
 \details{
-The full list of available fields can be viewed with \code{show_all_fields()}.
+The full list of available fields can be viewed with \code{show_all(fields)}.
 
 Calling the argument \code{group = "basic"} returns the following columns:
 \itemize{
@@ -92,5 +92,5 @@ Download occurrence record of \emph{Perameles} taken in 2001, returning the
 \code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to restrict the information returned
 by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions; \code{\link[=atlas_counts]{atlas_counts()}}
 for how to get counts by levels of variables returned by \code{galah_select};
-\code{\link[=show_all_fields]{show_all_fields()}} to list available fields.
+\code{show_all(fields)} to list available fields.
 }

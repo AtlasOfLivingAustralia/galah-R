@@ -78,14 +78,14 @@ See all supported atlases
 See a listing of all valid fields and layers
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_fields()
-#> # A tibble: 457 x 3
-#>   id                  description                                      type  
-#>   <chr>               <chr>                                            <chr> 
-#> 1 abcdTypeStatus      ABCD field in use by herbaria                    fields
-#> 2 acceptedNameUsage   http://rs.tdwg.org/dwc/terms/acceptedNameUsage   fields
-#> 3 acceptedNameUsageID http://rs.tdwg.org/dwc/terms/acceptedNameUsageID fields
-#> 4 accessRights        <NA>                                             fields
-#> # ... with 453 more rows
+#> # A tibble: 813 x 4
+#>   id                  description                                    type  link 
+#>   <chr>               <chr>                                          <chr> <chr>
+#> 1 abcdTypeStatus      ABCD field in use by herbaria                  fiel~ <NA> 
+#> 2 acceptedNameUsage   http://rs.tdwg.org/dwc/terms/acceptedNameUsage fiel~ <NA> 
+#> 3 acceptedNameUsageID http://rs.tdwg.org/dwc/terms/acceptedNameUsag~ fiel~ <NA> 
+#> 4 accessRights        <NA>                                           fiel~ <NA> 
+#> # ... with 809 more rows
 }\if{html}{\out{</div>}}
 
 Show a listing of all accepted reasons for downloading occurrence data

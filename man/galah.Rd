@@ -50,46 +50,42 @@ quality-control criteria.
 \itemize{
 \item \code{\link[=search_taxa]{search_taxa()}} Search for taxa using a text-search
 \item \code{\link[=search_identifiers]{search_identifiers()}} Search for taxa using taxonomic identifiers
-\item \code{\link[=search_all]{search_all()}} & \code{\link[=show_all]{show_all()}} Search for or show all valid:
+\item \code{\link[=show_all]{show_all()}} & \code{\link[=search_all]{search_all()}} Show or search for:
 \itemize{
 \item configuration
 \itemize{
-\item atlases
-\item reasons
+\item \code{atlases}: Supported international living atlases
+\item \code{apis}: Supported API urls
+\item \code{reasons}: Valid download reasons
 }
 \item taxonomy
 \itemize{
-\item taxa
-\item identifiers
-\item ranks
+\item \code{taxa}
+\item \code{identifiers}
+\item \code{ranks}: Available taxonomic ranks
 }
 \item filters
 \itemize{
-\item fields
-\item values
-\item assertions
+\item \code{fields}: Valid fields to filter or categorise queries
+\item \code{assertions}: Data quality categories
+\item \code{licenses}: Attribution licenses
 }
 \item group filters
 \itemize{
-\item profiles (data quality filters)
-\item profile_values
-\item species_lists
+\item \code{profiles}: Sets of filters to improve data quality
+\item \code{lists}: Available species lists (e.g. threatened)
 }
 \item data providers
 \itemize{
-\item providers
-\item collections
-\item datasets
+\item \code{providers}: Institutions that provide data
+\item \code{collections}: Specific collections within those institutions
+\item \code{datasets}: The data groupings within those collections
 }
 }
-\item \code{\link[=search_fields]{search_fields()}} Search for specific valid fields to filter queries
-\item \code{\link[=search_field_values]{search_field_values()}} Search for possible values to filter by for a given field
-\item \code{\link[=search_profile_attributes]{search_profile_attributes()}} List the quality filters of a data quality profile
-\item \code{\link[=show_all_fields]{show_all_fields()}} List valid fields to filter or categorise queries
-\item \code{\link[=show_all_profiles]{show_all_profiles()}} List data quality profiles
-\item \code{\link[=show_all_reasons]{show_all_reasons()}} List valid download reasons
-\item \code{\link[=show_all_atlases]{show_all_atlases()}} List supported international atlases
-\item \code{\link[=show_all_ranks]{show_all_ranks()}} List available taxonomic ranks
+\item \code{\link[=show_values]{show_values()}} & \code{\link[=search_values]{search_values()}} Show or search for values \emph{within}:
+- \code{fields}: Possible values to filter by for a given field
+- \code{profiles}: The data quality filters of a data quality profile
+- \code{lists}: ...
 }
 
 \strong{Manage cache}
@@ -122,8 +118,8 @@ also runs a number of quality checks against each record, resulting in
 \strong{assertions} attached to the record. Each piece of information
 associated with a given occurrence record is stored in a \strong{field},
 which corresponds to a \strong{column} when imported to an
-\verb{R data.frame}. See \code{\link[=show_all_fields]{show_all_fields()}} to view valid fields,
-layers and assertions, or conduct a search using \code{\link[=search_fields]{search_fields()}}.
+\verb{R data.frame}. See \code{show_all(fields)} to view valid fields,
+layers and assertions, or conduct a search using \code{search_all(fields)}.
 
 Data fields are important because they provide a means to \strong{filter}
 occurrence records;  i.e. to return only the information that you need, and

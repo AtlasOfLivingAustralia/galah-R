@@ -154,6 +154,6 @@ Get a taxonomic tree of \emph{Fungi} down to the phylum level
 
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} to search for an individual taxon;
-\code{\link[=show_all_ranks]{show_all_ranks()}} for valid ranks used to specify the \code{down_to}
+\code{show_all(ranks)} for valid ranks used to specify the \code{down_to}
 argument.
 }

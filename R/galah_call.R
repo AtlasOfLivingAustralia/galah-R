@@ -34,12 +34,10 @@
 #' Find number of records of *Aves* from 2001 to 2004 by year
 #' 
 #' ```{r, comment = "#>", collapse = TRUE, results = "hide", message = FALSE}
-#' library(magrittr)
-#' 
-#' galah_call() %>%
-#'   galah_identify("Aves") %>%
-#'   galah_filter(year > 2000 & year < 2005) %>%
-#'   galah_group_by() %>%
+#' galah_call() |>
+#'   galah_identify("Aves") |>
+#'   galah_filter(year > 2000 & year < 2005) |>
+#'   galah_group_by() |>
 #'   atlas_counts()
 #' ```
 #'   
@@ -48,17 +46,17 @@
 #' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
 #' galah_config(email = "your-email@email.com")
 #' 
-#' galah_call() %>%
-#'    galah_identify("Eolophus") %>%
-#'   galah_filter(year > 2000 & year < 2005) %>%
+#' galah_call() |>
+#'    galah_identify("Eolophus") |>
+#'   galah_filter(year > 2000 & year < 2005) |>
 #'   atlas_occurrences()
 #' ```
 #' 
 #' Find information for all species in *Cacatuidae* family
 #' 
 #' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
-#' galah_call() %>%
-#'   galah_identify("Cacatuidae") %>%
+#' galah_call() |>
+#'   galah_identify("Cacatuidae") |>
 #'   atlas_species()
 #' ```
 #' 

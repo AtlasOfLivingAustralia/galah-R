@@ -34,7 +34,7 @@ atlas_counts(
 
 \item{group_by}{\code{data.frame}: An object of class \code{galah_group_by},
 as returned by \code{\link[=galah_group_by]{galah_group_by()}}. Alternatively a vector of field
-names (see \code{\link[=search_fields]{search_fields()}} and \code{\link[=show_all_fields]{show_all_fields()}}.}
+names (see \code{search_all(fields)} and \code{show_all(fields)}.}
 
 \item{limit}{\code{numeric}: maximum number of categories to return, defaulting to 100.
 If limit is NULL, all results are returned. For some categories this will

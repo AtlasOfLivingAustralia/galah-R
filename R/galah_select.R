@@ -7,7 +7,7 @@
 #' This function allows easy selection of fields, or commonly-requested groups 
 #' of columns, following syntax shared with `dplyr::select()`.
 #' 
-#' The full list of available fields can be viewed with `show_all_fields()`.
+#' The full list of available fields can be viewed with `show_all(fields)`.
 #'
 #' @param ... zero or more individual column names to include
 #' @param group `string`: (optional) name of one or more column groups to
@@ -51,7 +51,7 @@
 #' [galah_geolocate()] for other ways to restrict the information returned
 #' by [atlas_occurrences()] and related functions; [atlas_counts()]
 #' for how to get counts by levels of variables returned by `galah_select`;
-#' [show_all_fields()] to list available fields.
+#' `show_all(fields)` to list available fields.
 #' 
 #' @section Examples: 
 #' ```{r, child = "man/rmd/setup.Rmd"}

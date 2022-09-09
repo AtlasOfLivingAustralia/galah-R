@@ -1,7 +1,7 @@
 #' Look up taxon information
 #'
-#' `search_taxa()` enables users to look up taxonomic names before downloading 
-#' data from the ALA using [atlas_occurrences()], [atlas_species()] or 
+#' Look up taxonomic names before downloading 
+#' data from the ALA, using [atlas_occurrences()], [atlas_species()] or 
 #' [atlas_counts()]. Taxon information returned by `search_taxa()` may be
 #' passed to [galah_identify()] to provide the `identify` argument of 
 #' `atlas_` functions. `search_taxa()` allows users to disambiguate homonyms 

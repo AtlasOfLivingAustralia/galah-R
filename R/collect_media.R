@@ -1,16 +1,43 @@
-#' Collect media
+#' Collect media files
 #'
-#' This function downloads images using information from `atlas_media`
+#' This function downloads full-sized or thumbnail images and media files using 
+#' information from `atlas_media` to a local directory.
 #'
-#' @param df tibble returned by `atlas_media()` or `show_all_media()`
+#' @param df tibble returned by `atlas_media()` or `show_all(media)`
 #' @param type `string`: either `"full"` to download original images, or 
 #' `"thumbnail"` to download thumbnails
 #' @param path `string`: path to directory where downloaded media will
 #' be stored
-#' @param download_dir DEPRECATED: use `path` instead
+#' @param download_dir 
+#'    `r lifecycle::badge("deprecated")` Use `path` instead.
 #' @param refresh_cache `logical`: if set to `TRUE` and 
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query. NOTE: unclear that this works right now.
+#'
+#' @return Available image & media files downloaded to a user local directory.
+#'
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Use `atlas_media()` to return a `tibble` of records that contain media
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' galah_call() |> 
+#'   galah_identify("perameles") |>
+#'   galah_filter(year == 2015) |>
+#'   atlas_media()
+#' ```
+#' 
+#' Then add `collect_media()` to the end of a query to download media files
+#' 
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' galah_call() |> 
+#'   galah_identify("perameles") |>
+#'   galah_filter(year == 2015) |>
+#'   atlas_media() |>
+#'   collect_media(path = here::here("folder", "subfolder"))
+#' ```
 #'
 #' @export collect_media
 

@@ -20,7 +20,7 @@ are provided, returns \code{NULL}.
 \description{
 \code{atlas_counts} supports server-side grouping of data. Grouping can be
 used to return record counts grouped by multiple, valid fields (found by
-\code{search_fields}. Use \code{galah_group_by} when using the
+\code{search_all(fields)}. Use \code{galah_group_by} when using the
 \code{group_by} argument of \code{atlas_counts} to return record counts summed
 by one or more valid fields.
 }

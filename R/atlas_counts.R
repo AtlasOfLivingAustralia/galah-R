@@ -23,7 +23,7 @@
 #' [galah_data_profile()]
 #' @param group_by `data.frame`: An object of class `galah_group_by`,
 #' as returned by [galah_group_by()]. Alternatively a vector of field
-#' names (see [search_fields()] and [show_all_fields()].
+#' names (see `search_all(fields)` and `show_all(fields)`.
 #' @param limit `numeric`: maximum number of categories to return, defaulting to 100.
 #' If limit is NULL, all results are returned. For some categories this will
 #' take a while.

@@ -41,17 +41,17 @@
 #' Use `galah_identify()` to narrow your queries
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() %>% 
-#'   galah_identify("Eolophus") %>%
+#' galah_call() |> 
+#'   galah_identify("Eolophus") |>
 #'   atlas_counts()
 #' ```
 #' 
 #' If you already know a valid taxon identifier, add it and set `search = FALSE`.
 #'
 #' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() %>% 
+#' galah_call() |> 
 #'   galah_identify("https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c", 
-#'                  search = FALSE) %>%
+#'                  search = FALSE) |>
 #'   atlas_counts()
 #' ```
 #' 

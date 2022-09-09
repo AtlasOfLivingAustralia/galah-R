@@ -16,8 +16,8 @@ An object of class \code{tbl_df}, \code{data.frame} (aka a tibble) and \code{ala
 containing taxonomic information.
 }
 \description{
-\code{search_taxa()} enables users to look up taxonomic names before downloading
-data from the ALA using \code{\link[=atlas_occurrences]{atlas_occurrences()}}, \code{\link[=atlas_species]{atlas_species()}} or
+Look up taxonomic names before downloading
+data from the ALA, using \code{\link[=atlas_occurrences]{atlas_occurrences()}}, \code{\link[=atlas_species]{atlas_species()}} or
 \code{\link[=atlas_counts]{atlas_counts()}}. Taxon information returned by \code{search_taxa()} may be
 passed to \code{\link[=galah_identify]{galah_identify()}} to provide the \code{identify} argument of
 \code{atlas_} functions. \code{search_taxa()} allows users to disambiguate homonyms

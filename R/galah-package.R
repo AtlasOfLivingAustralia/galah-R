@@ -47,34 +47,30 @@
 #'
 #'   * [search_taxa()] Search for taxa using a text-search
 #'   * [search_identifiers()] Search for taxa using taxonomic identifiers
-#'   * [search_all()] & [show_all()] Search for or show all valid: 
+#'   * [show_all()] & [search_all()] Show or search for: 
 #'       * configuration
-#'            - atlases
-#'            - reasons
+#'            - `atlases`: Supported international living atlases
+#'            - `apis`: Supported API urls 
+#'            - `reasons`: Valid download reasons
 #'       * taxonomy 
-#'            - taxa
-#'            - identifiers
-#'            - ranks
+#'            - `taxa`
+#'            - `identifiers`
+#'            - `ranks`: Available taxonomic ranks
 #'       * filters
-#'            - fields
-#'            - values
-#'            - assertions
+#'            - `fields`: Valid fields to filter or categorise queries
+#'            - `assertions`: Data quality categories
+#'            - `licenses`: Attribution licenses
 #'       * group filters
-#'            - profiles (data quality filters) 
-#'            - profile_values
-#'            - species_lists
+#'            - `profiles`: Sets of filters to improve data quality
+#'            - `lists`: Available species lists (e.g. threatened)
 #'       * data providers
-#'            - providers
-#'            - collections
-#'            - datasets
-#'   * [search_fields()] Search for specific valid fields to filter queries
-#'   * [search_field_values()] Search for possible values to filter by for a given field
-#'   * [search_profile_attributes()] List the quality filters of a data quality profile
-#'   * [show_all_fields()] List valid fields to filter or categorise queries
-#'   * [show_all_profiles()] List data quality profiles
-#'   * [show_all_reasons()] List valid download reasons
-#'   * [show_all_atlases()] List supported international atlases
-#'   * [show_all_ranks()] List available taxonomic ranks
+#'            - `providers`: Institutions that provide data
+#'            - `collections`: Specific collections within those institutions
+#'            - `datasets`: The data groupings within those collections
+#'   * [show_values()] & [search_values()] Show or search for values _within_: 
+#'            - `fields`: Possible values to filter by for a given field
+#'            - `profiles`: The data quality filters of a data quality profile
+#'            - `lists`: ...
 #' 
 #' **Manage cache**
 #' 
@@ -101,8 +97,8 @@
 #' **assertions** attached to the record. Each piece of information
 #' associated with a given occurrence record is stored in a **field**,
 #' which corresponds to a **column** when imported to an
-#' `R data.frame`. See [show_all_fields()] to view valid fields,
-#' layers and assertions, or conduct a search using [search_fields()].
+#' `R data.frame`. See `show_all(fields)` to view valid fields,
+#' layers and assertions, or conduct a search using `search_all(fields)`.
 #'
 #' Data fields are important because they provide a means to **filter**
 #' occurrence records;  i.e. to return only the information that you need, and

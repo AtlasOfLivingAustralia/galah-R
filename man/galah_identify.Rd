@@ -56,8 +56,8 @@ Specify more than one taxon at a time.
 
 Use \code{galah_identify()} to narrow your queries
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\% 
-  galah_identify("Eolophus") \%>\%
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |> 
+  galah_identify("Eolophus") |>
   atlas_counts()
 #> # A tibble: 1 x 1
 #>    count
@@ -67,9 +67,9 @@ Use \code{galah_identify()} to narrow your queries
 
 If you already know a valid taxon identifier, add it and set \code{search = FALSE}.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |> 
   galah_identify("https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c", 
-                 search = FALSE) \%>\%
+                 search = FALSE) |>
   atlas_counts()
 #> # A tibble: 1 x 1
 #>    count

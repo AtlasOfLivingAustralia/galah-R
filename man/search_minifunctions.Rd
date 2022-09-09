@@ -111,55 +111,52 @@ Look up a unique taxon identifier
 Search for all fields that use include the word "date"
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("date")
-#> # A tibble: 19 x 3
-#>    id                          description                                 type 
-#>    <chr>                       <chr>                                       <chr>
-#>  1 dateIdentified              http://rs.tdwg.org/dwc/terms/dateIdentified fiel~
-#>  2 datePrecision               The precision of the date information for ~ fiel~
-#>  3 eventDate                   The ISO formatted date of observation, spe~ fiel~
-#>  4 eventDateEnd                <NA>                                        fiel~
-#>  5 firstLoadedDate             <NA>                                        fiel~
-#>  6 georeferencedDate           http://rs.tdwg.org/dwc/terms/georeferenced~ fiel~
-#>  7 lastAssertionDate           <NA>                                        fiel~
-#>  8 lastLoadDate                <NA>                                        fiel~
-#>  9 lastProcessedDate           <NA>                                        fiel~
-#> 10 measurementDeterminedDate   http://rs.tdwg.org/dwc/terms/measurementDe~ fiel~
-#> 11 month                       Month of observation, specimen collection ~ fiel~
-#> 12 raw_dateIdentified          <NA>                                        fiel~
-#> 13 raw_datePrecision           <NA>                                        fiel~
-#> 14 raw_eventDate               <NA>                                        fiel~
-#> 15 raw_georeferencedDate       <NA>                                        fiel~
-#> 16 raw_lastLoadDate            <NA>                                        fiel~
-#> 17 raw_lastProcessedDate       <NA>                                        fiel~
-#> 18 relationshipEstablishedDate http://rs.tdwg.org/dwc/terms/relationshipE~ fiel~
-#> 19 verbatimEventDate           http://rs.tdwg.org/dwc/terms/verbatimEvent~ fiel~
+#> # A tibble: 22 x 4
+#>   id             description                                         type  link 
+#>   <chr>          <chr>                                               <chr> <chr>
+#> 1 dateIdentified http://rs.tdwg.org/dwc/terms/dateIdentified         fiel~ <NA> 
+#> 2 datePrecision  The precision of the date information for the reco~ fiel~ <NA> 
+#> 3 eventDate      The ISO formatted date of observation, specimen co~ fiel~ <NA> 
+#> 4 eventDateEnd   <NA>                                                fiel~ <NA> 
+#> # ... with 18 more rows
 }\if{html}{\out{</div>}}
 
 Search for all fields with the string "basisofrecord"
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("basisofrecord")
-#> # A tibble: 2 x 3
-#>   id                description                                            type 
-#>   <chr>             <chr>                                                  <chr>
-#> 1 basisOfRecord     What this is a record of e.g. specimen, human observa~ fiel~
-#> 2 raw_basisOfRecord The basis of record as supplied by the data publisher~ fiel~
+#> # A tibble: 2 x 4
+#>   id                description                                      type  link 
+#>   <chr>             <chr>                                            <chr> <chr>
+#> 1 basisOfRecord     What this is a record of e.g. specimen, human o~ fiel~ <NA> 
+#> 2 raw_basisOfRecord The basis of record as supplied by the data pub~ fiel~ <NA>
 }\if{html}{\out{</div>}}
 
 Search for all fields that have information for "marine"
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("marine") |> 
   head() # only show first 5 results
-#> # A tibble: 1 x 3
-#>   id    description                                                        type 
-#>   <chr> <chr>                                                              <chr>
-#> 1 biome "A field indicating if the record has been located in Terrestrial~ fiel~
+#> # A tibble: 6 x 4
+#>   id      description                                                type  link 
+#>   <chr>   <chr>                                                      <chr> <chr>
+#> 1 biome   "A field indicating if the record has been located in Ter~ fiel~  <NA>
+#> 2 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Marine)" laye~ "htt~
+#> 3 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian Prot~ laye~ "htt~
+#> 4 cl10957 "CAPAD 2018 Marine The Collaborative Australian Protected~ laye~ "htt~
+#> 5 el1056  "Endemism (Non-marine) Endemism (Non-marine) based on Cri~ laye~ ""   
+#> 6 el957   "Averaged Topographic Relief  This data represents the av~ laye~ "htt~
 }\if{html}{\out{</div>}}
 
 Search for all Wordclim layers
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("worldclim")
-#> # A tibble: 0 x 3
-#> # ... with 3 variables: id <chr>, description <chr>, type <chr>
+#> # A tibble: 38 x 4
+#>   id      description                                                type  link 
+#>   <chr>   <chr>                                                      <chr> <chr>
+#> 1 el10982 WorldClim 2.1: Temperature - warmest month max Max Temper~ laye~ http~
+#> 2 el10981 WorldClim 2.1: Temperature - seasonality Temperature Seas~ laye~ http~
+#> 3 el10980 WorldClim 2.1: Temperature - isothermality Isothermality   laye~ http~
+#> 4 el10990 WorldClim 2.1: Precipitation - wettest month Precipitatio~ laye~ http~
+#> # ... with 34 more rows
 }\if{html}{\out{</div>}}
 }
 

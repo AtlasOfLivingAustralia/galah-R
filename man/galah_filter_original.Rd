@@ -9,7 +9,7 @@ galah_filter_original(..., profile = NULL)
 \arguments{
 \item{...}{filters, in the form \verb{field logical value}}
 
-\item{profile}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#soft-deprecated}{\figure{lifecycle-soft-deprecated.svg}{options: alt='[Soft-deprecated]'}}}{\strong{[Soft-deprecated]}} Use \code{galah_data_profile} instead.
+\item{profile}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#soft-deprecated}{\figure{lifecycle-soft-deprecated.svg}{options: alt='[Soft-deprecated]'}}}{\strong{[Soft-deprecated]}} Use \code{galah_apply_profile} instead.
 
 If supplied, should be a \code{string} recording a data quality profile to
 apply to the query. See \code{\link[=show_all_profiles]{show_all_profiles()}} for valid profiles. By
@@ -124,10 +124,6 @@ queries all Australian States and Territories alphabetically after "Tasmania"
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
   galah_filter(cl22 >= "Tasmania") \%>\%
   atlas_counts()
-#> Warning: Invalid field(s) detected.
-#> i See a listing of all valid fields with `show_all_fields()`.
-#> i Search for the valid name of a desired field with `search_fields()`.
-#> x Invalid field(s): cl22.
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
@@ -138,7 +134,7 @@ queries all Australian States and Territories alphabetically after "Tasmania"
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} and \code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to restrict
 the information returned by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions. Use
-\code{\link[=search_fields]{search_fields()}} to find fields that
+\code{search_all(fields)} to find fields that
 you can filter by, and \code{\link[=search_field_values]{search_field_values()}} to find what values
 of those filters are available.
 }
