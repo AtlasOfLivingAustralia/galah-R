@@ -24,3 +24,57 @@ vcr::use_cassette("IA_Canada_show_all", {
     expect_error(show_all(lists))
   })
 }) 
+
+vcr::use_cassette("IA_Canada_search_all", {
+  test_that("search_all works for Canada", {
+    expect_equal(class(search_all(fields, "year")), 
+                 c("tbl_df", "tbl", "data.frame"))
+    expect_equal(nrow(search_all(taxa, "Mammalia")), 1) 
+  })
+})
+
+vcr::use_cassette("IA_Canada_show_values", {
+  test_that("show_values works for Canada", {
+    expect_gt(nrow(show_field_values("basis_of_record")), 1)
+    expect_error(show_list_values("a_list"))
+    expect_error(show_profile_values("profile"))
+  })
+})
+
+vcr::use_cassette("IA_Canada_atlas_counts", {
+  test_that("atlas_counts works for Canada", {
+    expect_gt(atlas_counts()$count, 0)
+    expect_gt(atlas_counts(type = "species")$count, 0)
+  })
+})
+
+vcr::use_cassette("IA_Canada_atlas_counts2", {
+  test_that("atlas_counts works with galah_identify for Canada", {
+    result <- galah_call() |>
+      galah_identify("Mammalia") |>
+      atlas_counts()
+    expect_gt(result$count, 1)
+    
+    result2 <- galah_call() |>
+      galah_filter(class == "Mammalia") |>
+      atlas_counts()
+    
+    expect_lt(
+      sqrt((result2$count - result$count)^2) / result$count, 
+      0.1) # i.e. <1% margin of error
+  })
+})
+
+vcr::use_cassette("IA_Canada_atlas_counts3", {
+  test_that("atlas_counts works with group_by for Canada", {
+    result <- galah_call() |>
+      galah_identify("Mammalia") |>
+      galah_filter(year >= 2000) |>
+      galah_group_by(basis_of_record) |>
+      atlas_counts()
+    expect_gt(nrow(result), 1)
+    expect_equal(names(result), c("basis_of_record", "count"))
+  })
+})
+
+galah_config(atlas = "Australia")

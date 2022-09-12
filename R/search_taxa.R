@@ -146,6 +146,10 @@ name_lookup <- function(name) {
   if(!is.null(result$searchResults$results)){
     result <- result$searchResults$results
   }
+  
+  if(is.null(result$success)){
+    result$success <- result$scientificName == name
+  }
 
   if ("homonym" %in% result$issues) {
     bullets <- c(
@@ -155,11 +159,12 @@ name_lookup <- function(name) {
     )
     warn(bullets)
     # return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
-  }  #else 
+  }
+   
   if (isFALSE(result$success) && galah_config()$verbose) {
     list_invalid_taxa <- glue::glue_collapse(name, 
                                              sep = ", ")
-    inform(glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
+    inform(glue("No taxon matches were found for \"{list_invalid_taxa}\" in the selected atlas ({getOption('galah_config')$atlas})."))
     return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
   }
 

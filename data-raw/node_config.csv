@@ -66,7 +66,7 @@ Canada,collections,collections_datasets,http://collections.canadensys.net/ws/dat
 Canada,collections,collections_providers,http://collections.canadensys.net/ws/dataProvider,show_all_providers
 Canada,logger,logger_reasons,http://logger.canadensys.net/service/logger/reasons,show_all_reasons
 Canada,records,records_assertions,http://explorer-ws.canadensys.net/assertions/codes,show_all_assertions
-Canada,records,records_counts, http://explorer-ws.canadensys.net/occurrences/search,atlas_counts
+Canada,records,records_counts,http://explorer-ws.canadensys.net/occurrences/search,atlas_counts
 Canada,records,records_facets,http://explorer-ws.canadensys.net/occurrence/facets,"atlas_counts, show_all_values"
 Canada,records,records_fields,http://explorer-ws.canadensys.net/index/fields,show_all_fields
 Canada,records,records_occurrences,http://explorer-ws.canadensys.net/occurrences/offline/download,atlas_occurrences
@@ -83,7 +83,7 @@ Estonia,records,records_fields,https://elurikkus.ee/biocache-service/index/field
 Estonia,records,records_occurrences,https://elurikkus.ee/biocache-service/occurrences/offline/download,atlas_occurrences
 Estonia,records,records_query,https://elurikkus.ee/biocache-service/webportal/params,atlas_occurrences
 Estonia,records,records_species,https://elurikkus.ee/biocache-service/occurrences/facets/download,atlas_species
-Estonia,species,names_search,https://elurikkus.ee/bie-index/search?q={name}&pageSize=1,search_taxa
+Estonia,species,names_search_single,https://elurikkus.ee/bie-index/search?q={name}&pageSize=1,search_taxa
 Estonia,species,species_children,https://elurikkus.ee/bie-index/childConcepts/,atlas_taxonomy
 Estonia,species,species_lookup,https://elurikkus.ee/bie-index/species,"atlas_taxonomy, search_identifiers(?)"
 France,collections,collections_collections,http://metadonnees.gbif.fr/ws/collection,show_all_collections

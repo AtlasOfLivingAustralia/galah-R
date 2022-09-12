@@ -19,9 +19,9 @@ atlas_url <- function(api_name, ..., quiet = FALSE, error_call = caller_env()){
   if(any(url_lookup)){
     string <- node_config$api_url[which(url_lookup)[1]]
     if(length(dots) > 0){
-      glue_data(dots, string)
+      glue_data(dots, string) |> URLencode()
     }else{
-      string
+      URLencode(string)
     }
   }else{
     if(quiet){

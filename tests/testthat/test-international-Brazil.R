@@ -29,7 +29,7 @@ vcr::use_cassette("IA_Brazil_search_all", {
   test_that("search_all works for Brazil", {
     expect_equal(class(search_all(fields, "year")), 
                  c("tbl_df", "tbl", "data.frame"))
-    expect_equal(nrow(search_all(taxa, "Vulpes vulpes")), 1) 
+    expect_equal(nrow(search_all(taxa, "Mammalia")), 1) 
   })
 })
 
@@ -49,9 +49,25 @@ vcr::use_cassette("IA_Brazil_atlas_counts", {
 })
 
 vcr::use_cassette("IA_Brazil_atlas_counts2", {
+  test_that("atlas_counts works with galah_identify for Brazil", {
+    result <- galah_call() |>
+      galah_identify("Mammalia") |>
+      atlas_counts()
+    expect_gt(result$count, 1)
+    
+    result2 <- galah_call() |>
+      galah_filter(class == "Mammalia") |>
+      atlas_counts()
+    
+    expect_lt(
+      sqrt((result2$count - result$count)^2) / result$count, 
+      0.1) # i.e. <1% margin of error
+  })
+})
+
+vcr::use_cassette("IA_Brazil_atlas_counts3", {
   test_that("atlas_counts works with group_by for Brazil", {
     result <- galah_call() |>
-      galah_identify("Vulpes vulpes") |>
       galah_filter(year >= 2020) |>
       galah_group_by(year) |>
       atlas_counts()
@@ -59,3 +75,5 @@ vcr::use_cassette("IA_Brazil_atlas_counts2", {
     expect_equal(names(result), c("year", "count"))
   })
 })
+
+galah_config(atlas = "Australia")

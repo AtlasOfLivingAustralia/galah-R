@@ -90,7 +90,7 @@ galah_identify <- function(..., search = TRUE) {
       if (search) {
         check_atlas(atlas)
         lookup <- search_taxa(input_query)
-        if (is.null(lookup$taxon_concept_id)) {
+        if (!any(names(lookup) == "taxon_concept_id")){
           bullets <- c(
             "`galah_identify` didn't return anything.",
             i = "Did you use `search_taxa` to check whether your search species the correct taxa?"
@@ -125,8 +125,8 @@ galah_identify <- function(..., search = TRUE) {
       } # end for search == FALSE
     } # end for unknown types
     
-    check_is_character(query)
-    result <- tibble(identifier = query)
+    # check_is_character(query) # Q: do we need this function? Is it called elsewhere?
+    result <- tibble(identifier = as.character(query))
     
   } else { # if empty, return correct class, but no values
     result <- as_tibble(data.frame(identifier = character()))

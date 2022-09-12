@@ -41,8 +41,20 @@ species_facets <- function(){
   
   switch(atlas,
     "Australia" = "speciesID",
-    "Austria" = "species_guid",
-    "Brazil" = "species_guid",
-    "speciesID"
+    # "Austria" = "species_guid",
+    # "Brazil" = "species_guid",
+    # "Canada" = "species_guid"
+    "species_guid"
   )
 }
+
+# taxon_key_type <- function(){
+#   atlas <- getOption("galah_config")$atlas
+#   if(any(atlas == c("Estonia"))){
+#     "GBIF"
+#   }else{
+#     "ALA"
+#   }  
+# }
+
+taxon_key_type <- function(){"ALA"}

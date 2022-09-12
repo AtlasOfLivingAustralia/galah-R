@@ -49,6 +49,23 @@ vcr::use_cassette("IA_Austria_atlas_counts", {
 })
 
 vcr::use_cassette("IA_Austria_atlas_counts2", {
+  test_that("atlas_counts works with galah_identify for Austria", {
+    result <- galah_call() |>
+      galah_identify("Mammalia") |>
+      atlas_counts()
+    expect_gt(result$count, 1)
+    
+    result2 <- galah_call() |>
+      galah_filter(class == "Mammalia") |>
+      atlas_counts()
+    
+    expect_lt(
+      sqrt((result2$count - result$count)^2) / result$count, 
+      0.1) # i.e. <1% margin of error
+  })
+})
+
+vcr::use_cassette("IA_Austria_atlas_counts3", {
   test_that("atlas_counts works with group_by for Austria", {
     result <- galah_call() |>
       galah_filter(year >= 2020) |>
