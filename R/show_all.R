@@ -1,5 +1,6 @@
 #' Look up record metadata
 #' 
+#' @description `r lifecycle::lifecycle::badge("experimental")`  
 #' The living atlases store a huge amount of information, above and beyond the 
 #' occurrence records that are their main output. In `galah`, users can investigate 
 #' the metadata needed to build complex queries using two meta-functions or a larger 
@@ -120,7 +121,7 @@ check_type_valid <- function(type, valid, error_call = caller_env()) {
   if(!any(valid == type)){
     bullets <- c(
       glue("type `{type}` is not recognised"),
-      i = "see ?show_all for a list of valid types"
+      i = "see ?show_all for a list of valid information types."
     )
     abort(bullets, call = error_call)   
   }
