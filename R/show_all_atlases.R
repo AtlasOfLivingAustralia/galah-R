@@ -9,7 +9,7 @@ search_atlases <- function(query){
   df[grepl(
     tolower(query), 
     tolower(apply(
-      df[, c("acronym", "region")], 1, 
+      df[, c("acronym", "atlas")], 1, 
       function(a){paste(a, collapse = "-")})
     )
   ), ]
