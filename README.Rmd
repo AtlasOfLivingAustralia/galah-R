@@ -28,7 +28,7 @@ records, etc.), taxonomic information, or associated media such as
 images or sounds, and to restrict their queries to particular taxa or
 locations. Users can specify which columns are returned by a query, or restrict
 their results to occurrences that meet particular data-quality criteria. All 
-functions return a `data.frame` as their standard format, except
+functions return a `tibble` as their standard format, except
 `atlas_taxonomy` which returns tree consisting of `Node` objects using the 
 `data.tree` package.
 
@@ -50,8 +50,8 @@ If you have any comments, questions or suggestions, please [contact us](mailto:s
 
 ## Getting started
 
-- The [vignette](https://atlasoflivingaustralia.github.io/galah/articles/quick_start_guide.html) provides an introduction to the package functions.
-- For an outline of the package structure, and a list of all the available functions, run `?galah` or view the [reference page](https://atlasoflivingaustralia.github.io/galah/reference/index.html).
+- The [quick start guide](http://galah.ala.org.au/articles/quick_start_guide.html) provides an introduction to the package functions.
+- For an outline of the package structure, and a list of all the available functions, run `?galah` or view the [reference page](http://galah.ala.org.au/index.html).
 
 ---
 
