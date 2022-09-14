@@ -29,7 +29,23 @@ show_all_atlases()
 show_all_reasons()
 ```
 
-Of these functions, the one that has by far the largest output is `show_all_fields`.
+Of these functions, the one that has by far the largest output is 
+`show_all_fields()`. Fields are used to filter and narrow queries. The full 
+list of fields is too long to display, but here is a slice of the 
+results of `show_all_fields()`.
+
+```{r}
+show_all(fields) |>
+  dplyr::slice(1:10) # Take slice of first 10 rows
+```
+
+One way to browse all fields is to use `View()` or `dplyr::view()` to open the 
+results in a new tab in R to scroll through.
+
+```{r eval = FALSE}
+show_all_fields() |> View() # Open table in new tab
+```
+
 Given how important fields are to the proper use of `galah`, it might be more 
 useful to search for a specific field. This need for a more detailed search is when
 `search_` functions come in handy.
@@ -72,11 +88,13 @@ search_fields("date") |> head()
 ```
 
 Once a desired field is found, use `search_field_values` to find values to pass 
-to `galah_filter`
+to `galah_filter`.
 
 ```{r}
 search_field_values("basisOfRecord")
-galah_call() |> galah_filter(basisOfRecord == "LIVING_SPECIMEN") |> atlas_counts()
+galah_call() |> 
+  galah_filter(basisOfRecord == "LIVING_SPECIMEN") |> 
+  atlas_counts()
 ``` 
 
 `search_profile_attributes` gives more information on criteria used
@@ -84,4 +102,80 @@ to remove records in data quality profiles, for example:
 
 ```{r}
 search_profile_attributes("ALA") |> head()
+```
+
+
+# `show_all()` & search_all()
+
+As of galah 1.5.0, there are two simplified functions to look up information: 
+`show_all()` and `search_all()`. 
+
+These are individual functions that are able to return all types of information 
+in one place, rather than using specific sub-functions to look up information.
+
+For example, to show all available Living Atlases supported:
+
+```{r}
+show_all(atlases)
+```
+
+To search for a specific available Living Atlas:
+
+```{r}
+search_all(atlases, "Spain")
+```
+
+To show all fields:
+
+```{r eval = FALSE}
+show_all(fields)
+```
+
+And to search for a specific field:
+
+```{r}
+search_all(fields, "australian states")
+```
+
+
+
+Here is a list of information types that can be used with `show_all()` and 
+`search_all()`:
+
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+library(kableExtra)
+library(tibble)
+library(magrittr)
+library(dplyr)
+
+tribble(
+  ~Lookup, ~Description, ~Subfunctions,
+  
+  "atlases", "Show what living atlases are available", "show_all_atlases(), search_atlases()",
+  "apis", "Show what APIs & functions are available for each atlas", "show_all_apis(), search_apis()",
+  "reasons", "Show what values are acceptable as 'download reasons' for a specified atlas", "show_all_reasons(), search_reasons()",
+  "taxa", "Search for one or more taxonomic names", "	search_taxa()",
+  "identifiers", "Take a universal identifier and return taxonomic information", "search_identifiers()",
+  "ranks", "Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.)", "show_all_ranks(), search_ranks())",
+  "fields", "Show fields that are stored in an atlas", "show_all_fields(), search_fields()",
+  "assertions", "Show results of data quality checks run by each atlas", "show_all_assertions(), search_assertions()",
+  "profiles", "Show what data quality profiles are available", "show_all_profiles(), search_profiles()",
+  "lists", "Show what species lists are available", "show_lists(), search_lists()",
+  "providers", "Show which institutions have provided data", "show_all_providers(), search_providers()",
+  "collections", "Show the specific collections within those institutions", "show_all_collections(), search_collections()",
+  "datasets", "Shows all the data groupings within those collections", "show_all_datasets(), search_datasets()"
+  
+) %>% 
+  rename("Information type" = "Lookup") %>%
+  rename("Sub-functions" = "Subfunctions") %>%
+  kbl() %>%
+  kable_styling(full_width = FALSE) %>%
+  kable_paper() %>%
+  column_spec(1, monospace = TRUE) %>%
+  column_spec(3, monospace = TRUE) %>%
+  pack_rows("Configuration", 1, 3, label_row_css = "background-color: #fdebf2; color: #343a40;") %>%
+  pack_rows("Taxonomy", 4, 6, label_row_css = "background-color: #fdebf2; color: #343a40;") %>%
+  pack_rows("Filters", 7, 8, label_row_css = "background-color: #fdebf2; color: #343a40;") %>%
+  pack_rows("Group filters", 9, 10, label_row_css = "background-color: #fdebf2; color: #343a40;") %>%
+  pack_rows("Data providers", 11, 13, label_row_css = "background-color: #fdebf2; color: #343a40;")
 ```
