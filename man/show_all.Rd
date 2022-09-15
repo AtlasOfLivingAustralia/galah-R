@@ -3,7 +3,7 @@
 \name{show_all}
 \alias{show_all}
 \alias{search_all}
-\title{Look up record metadata}
+\title{Look up record information}
 \usage{
 show_all(type, field)
 
@@ -21,13 +21,15 @@ containing all data of interest (for \code{show_all()}), or those that match the
 search query (for \code{search_all()}).
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 The living atlases store a huge amount of information, above and beyond the
 occurrence records that are their main output. In \code{galah}, users can investigate
-the metadata needed to build complex queries using two meta-functions or a larger
+the inormation needed to build complex queries using two meta-functions or a larger
 number of sub-functions.
 }
 \details{
-There are five different categories of metadata, each with their own
+There are five different categories of information, each with their own
 sub-functions. Valid \code{type}s are:\tabular{llll}{
    \strong{Category} \tab \strong{Type} \tab \strong{Description} \tab \strong{Sub-functions} \cr
    configuration \tab \code{atlases} \tab Show what atlases are available \tab \code{\link[=show_all_atlases]{show_all_atlases()}}, \code{\link[=search_atlases]{search_atlases()}} \cr
@@ -40,6 +42,7 @@ sub-functions. Valid \code{type}s are:\tabular{llll}{
     \tab \code{assertions} \tab Show results of data quality checks run by each atlas \tab \code{\link[=show_all_assertions]{show_all_assertions()}}, \code{\link[=search_assertions]{search_assertions()}} \cr
    group filters \tab \code{profiles} \tab Show what data profiles are available \tab \code{\link[=show_all_profiles]{show_all_profiles()}}, \code{\link[=search_profiles]{search_profiles()}} \cr
     \tab \code{lists} \tab Show what species lists are available \tab  \cr
+    \tab \code{licenses} \tab Show what copyright licenses are applied to records or media \tab \code{\link[=show_all_licenses]{show_all_licenses()}}, \code{search_licenses()} \cr
    data providers \tab \code{providers} \tab Show which institutions have provided data \tab \code{\link[=show_all_providers]{show_all_providers()}}, \code{\link[=search_providers]{search_providers()}} \cr
     \tab \code{collections} \tab Show the specific collections within those institutions \tab \code{\link[=show_all_collections]{show_all_collections()}}, \code{\link[=search_collections]{search_collections()}} \cr
     \tab \code{datasets} \tab Shows all the data groupings within those collections \tab \code{\link[=show_all_datasets]{show_all_datasets()}}, \code{\link[=search_datasets]{search_datasets()}} \cr

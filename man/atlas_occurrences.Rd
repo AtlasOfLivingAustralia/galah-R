@@ -59,7 +59,7 @@ The \code{data.frame} object has the following attributes:
 }
 }
 \description{
-The most common form of data stored by ALA are observations of
+The most common form of data stored by living atlases are observations of
 individual life forms, known as 'occurrences'. This function allows the
 user to search for occurrence records that match their specific criteria,
 and return them as a \code{data.frame} for analysis. Optionally,

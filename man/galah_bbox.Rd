@@ -46,7 +46,7 @@ galah_call() |>
 #> # A tibble: 1 x 1
 #>   count
 #>   <int>
-#> 1  1768
+#> 1  1773
 }\if{html}{\out{</div>}}
 
 Search for records using a bounding box in a \code{tibble} or \code{data.frame}
@@ -62,7 +62,7 @@ galah_call() |>
 #> # A tibble: 1 x 1
 #>   count
 #>   <int>
-#> 1    95
+#> 1   225
 }\if{html}{\out{</div>}}
 
 Search for records within the bounding box of an \code{sf} object

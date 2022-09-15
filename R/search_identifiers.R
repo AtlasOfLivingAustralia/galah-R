@@ -1,6 +1,32 @@
+#' Search for taxa with taxonomic identifiers
+#'
+#' In the ALA, all records are associated with an identifier that uniquely
+#' identifies the taxon to which that record belongs. Once those identifiers
+#' are known, this function allows you to use them to look up further information
+#' on the taxon in question. Effectively this is the inverse function to 
+#' [search_taxa()], which takes names and provides identifiers. The resulting
+#' `data.frame` of taxonomic information can also be passed directly to
+#' `atlas_` functions to filter records to the specified taxon or taxa.
+#'
 #' @param identifier `string`: A vector containing one or more taxonomic
 #' identifiers, given as strings. 
-#' @rdname search_minifunctions 
+#' @return An object of class `tbl_df`, `data.frame` (aka a tibble) and `ala_id`
+#' containing taxonomic information.
+#' @seealso [search_taxa()] for how to find species by (scientific) names. 
+#' [galah_identify()], [galah_select()], [galah_filter()] and
+#' [galah_geolocate()] for other ways to restrict the information returned
+#' by [atlas_occurrences()] and related functions.
+#' 
+#' @section Examples:
+#' ```{r, child = "man/rmd/setup.Rmd"}
+#' ```
+#' 
+#' Look up a unique taxon identifier
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
+#' ```
+#' 
 #' @export
 search_identifiers <- function(identifier) {
 

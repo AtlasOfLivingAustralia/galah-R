@@ -570,3 +570,142 @@ merge_args <- function(request, extra) {
   non_null_request <- request[!unlist(lapply(request, is.null))]
   c(non_null_request, extra)
 }
+
+##---------------------------------------------------------------
+##     show_all_ & search_ sub-function internal functions     --
+##---------------------------------------------------------------
+
+#--------------------------#
+## show_all_atlases / search_atlases
+#---
+
+image_fields <- function() {
+  atlas <- getOption("galah_config")$atlas
+  switch (atlas,
+          "Austria" = "all_image_url",
+          "Guatemala" = "all_image_url",
+          "Spain" = "all_image_url",
+          c("images", "videos", "sounds")
+  )
+}
+
+default_columns <- function() {
+  atlas <- getOption("galah_config")$atlas
+  switch (atlas,
+          "Guatemala" = c("latitude", "longtitude", "species_guid",
+                          "data_resource_uid", "occurrence_date", "id"),
+          c("decimalLatitude", "decimalLongitude", "eventDate",
+            "scientificName", "taxonConceptID", "recordID", "dataResourceName")
+  )
+}
+
+species_facets <- function(){
+  atlas <- getOption("galah_config")$atlas
+  
+  switch(atlas,
+         "Australia" = "speciesID",
+         # "Austria" = "species_guid",
+         # "Brazil" = "species_guid",
+         # "Canada" = "species_guid"
+         "species_guid"
+  )
+}
+
+# taxon_key_type <- function(){
+#   atlas <- getOption("galah_config")$atlas
+#   if(any(atlas == c("Estonia"))){
+#     "GBIF"
+#   }else{
+#     "ALA"
+#   }  
+# }
+
+taxon_key_type <- function(){"ALA"}
+
+
+#--------------------------#
+# show_all_fields
+#---
+
+# Helper functions to get different field classes
+get_fields <- function() {
+  fields <- all_fields()
+  if(is.null(fields)){
+    NULL
+  }else{
+    # remove fields where class is contextual or environmental
+    fields <- fields[!(fields$classs %in% c("Contextual", "Environmental")),]
+    
+    names(fields) <- rename_columns(names(fields), type = "fields")
+    fields <- fields[wanted_columns("fields")]
+    fields$type <- "fields"
+    
+    fields
+  }
+}
+
+get_layers <- function() {
+  url <- atlas_url("spatial_layers", quiet = TRUE)
+  result <- atlas_GET(url)
+  
+  if(is.null(result)){
+    NULL
+  }else{
+    if(all(c("type", "id") %in% names(result))){
+      layer_id <- mapply(build_layer_id, result$type, result$id,
+                         USE.NAMES = FALSE)
+      result <- cbind(layer_id, result)
+      result$description <- apply(
+        result[, c("displayname", "description")],
+        1,
+        function(a){paste(a, collapse = " ")}
+      )
+      names(result) <- rename_columns(names(result), type = "layer")
+      result <- result[wanted_columns("layer")]
+      names(result)[1] <- "id"
+      result$type <- "layers"
+      result
+    }else{
+      NULL
+    }
+  }
+}
+
+# Return fields not returned by the API
+get_other_fields <- function() {
+  data.frame(id = "qid", description = "Reference to pre-generated query",
+             type = "other")
+}
+
+# There is no API call to get these fields, so for now they are manually
+# specified
+get_media <- function(x) {
+  
+  ## Original code showed fields returned by `show_all_media`
+  ## These can't be queried with `galah_filter` and have been replaced
+  # fields <- data.frame(id = c("imageId", "height", "width", "tileZoomLevels",
+  #                             "thumbHeight", "thumbWidth", "filesize", "mimetype",
+  #                             "creator", "title", "description", "rights",
+  #                             "rightsHolder", "license", "imageUrl", "thumbUrl",
+  #                             "largeThumbUrl", "squareThumbUrl", "tilesUrlPattern"))
+  data.frame(
+    id = c("multimedia", "multimediaLicence", "images", "videos", "sounds"),
+    description = "Media filter field",
+    type = "media"
+  )
+}
+
+all_fields <- function() {
+  url <- atlas_url("records_fields")
+  atlas_GET(url)
+}
+
+build_layer_id <- function(type, id) {
+  if (type == "Environmental") {
+    paste0("el", id)
+  } else {
+    paste0("cl", id)
+  }
+}
+
+#--------------------------#

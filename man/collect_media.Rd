@@ -58,9 +58,9 @@ Use \code{atlas_media()} to return a \code{tibble} of records that contain media
 #> 10         -37.1    150. 2015-0~ Perame~ https:~ 8f569a~ iNatur~ Image   6d4d56~
 #> 11         -37.1    150. 2015-0~ Perame~ https:~ 8f569a~ iNatur~ Image   a0653f~
 #> 12         -33.8    151. 2015-0~ Perame~ https:~ b271c7~ iNatur~ Image   acb254~
-#> 13         -30.5    153. 2015-0~ Perame~ https:~ d16039~ Earth ~ Image   1df45b~
-#> 14         -30.5    153. 2015-0~ Perame~ https:~ d16039~ Earth ~ Image   66f293~
-#> 15         -30.5    153. 2015-0~ Perame~ https:~ d16039~ Earth ~ Image   e17584~
+#> 13         -30.5    153. 2015-0~ Perame~ https:~ d16039~ Earth ~ Image   d300ab~
+#> 14         -30.5    153. 2015-0~ Perame~ https:~ d16039~ Earth ~ Image   d8d785~
+#> 15         -30.5    153. 2015-0~ Perame~ https:~ d16039~ Earth ~ Image   efaf25~
 #> 16         -19.0    146. 2015-1~ Perame~ https:~ 855861~ iNatur~ Image   2cd593~
 #> 17         -19.0    146. 2015-1~ Perame~ https:~ 855861~ iNatur~ Image   e9ab6b~
 #> 18         -17.3    146. 2015-0~ Perame~ https:~ 923b26~ iNatur~ Image   629e16~

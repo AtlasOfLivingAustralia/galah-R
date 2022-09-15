@@ -1,6 +1,8 @@
-#' @rdname show_all_minifunctions
+#' Show media in occurrence records
+#' @description Text here
 #' @param ids either a `tibble` from `atlas_occurrences` or a vector giving media ids (parsed or unparsed)
-#' @export
+#' @rdname show_all_media
+#' @export show_all_media
 
 show_all_media <- function(df){
   

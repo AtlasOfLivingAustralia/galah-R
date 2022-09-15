@@ -1,9 +1,10 @@
-#' Look up record metadata
+#' Look up record information
 #' 
-#' @description `r lifecycle::lifecycle::badge("experimental")`  
+#' @description `r lifecycle::badge("experimental")`  
+#' 
 #' The living atlases store a huge amount of information, above and beyond the 
 #' occurrence records that are their main output. In `galah`, users can investigate 
-#' the metadata needed to build complex queries using two meta-functions or a larger 
+#' the inormation needed to build complex queries using two meta-functions or a larger 
 #' number of sub-functions.
 #'
 #' @aliases search_all
@@ -13,7 +14,7 @@
 #' containing all data of interest (for `show_all()`), or those that match the 
 #' search query (for `search_all()`).
 #' @md
-#' @details There are five different categories of metadata, each with their own 
+#' @details There are five different categories of information, each with their own 
 #' sub-functions. Valid `type`s are:
 #' 
 #' | **Category** | **Type** | **Description** | **Sub-functions** |
@@ -28,6 +29,7 @@
 #'  | |`assertions`| Show results of data quality checks run by each atlas | [show_all_assertions()], [search_assertions()] |
 #' |group filters|`profiles`| Show what data profiles are available | [show_all_profiles()], [search_profiles()] |
 #' | |`lists`| Show what species lists are available||
+#' | |`licenses`| Show what copyright licenses are applied to records or media | [show_all_licenses()], `search_licenses()`|
 #' |data providers|`providers`| Show which institutions have provided data |[show_all_providers()], [search_providers()]|
 #' | |`collections`|Show the specific collections within those institutions| [show_all_collections()], [search_collections()]|
 #' | |`datasets`|Shows all the data groupings within those collections|[show_all_datasets()], [search_datasets()]|   
