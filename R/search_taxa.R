@@ -147,8 +147,24 @@ name_lookup <- function(name) {
     result <- result$searchResults$results
   }
   
-  if(is.null(result$success)){
-    result$success <- result$scientificName == name
+  if(is.list(result)){result <- as.data.frame(result)}
+  
+  if(nrow(result) > 1){
+    string_distance <- adist(
+      tolower(result$scientificName), 
+      tolower(name)
+    )[, 1]
+    if(any(string_distance < 5)){
+      result <- result[which.min(string_distance), ]
+      result$success <- TRUE
+    }else{
+      result <- result[1, ]
+      result$success <- FALSE
+    }
+  }else{
+    if(!any(names(result) == "success")){
+      success <- TRUE
+    }
   }
 
   if ("homonym" %in% result$issues) {

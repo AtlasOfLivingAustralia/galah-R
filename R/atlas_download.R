@@ -1,6 +1,6 @@
 # Download a file
 # so far needs to handle zip files and csv
-atlas_download <- function(url, path, params = list(), ext = ".csv",
+atlas_download <- function(url, params = list(), ext = ".csv",
                          cache_file = NULL) {
   tryCatch({
     internal_download(

@@ -76,4 +76,23 @@ vcr::use_cassette("IA_Brazil_atlas_counts3", {
   })
 })
 
+vcr::use_cassette("IA_Brazil_atlas_occurrences", {
+  test_that("atlas_occurrences works for Brazil", {
+    galah_config(
+      atlas = "Brazil",
+      email = "ala4r@ala.org.au", 
+      send_email = FALSE)
+    skip_on_cran()
+    occ <- galah_call() |>
+      galah_identify("Mammalia") |>
+      galah_filter(year == 1970) |>
+      galah_select(taxon_name, year) |>
+      atlas_occurrences()
+      
+    expect_gt(nrow(occ), 0)
+    expect_equal(ncol(occ), 2)
+    expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
+  })
+})
+
 galah_config(atlas = "Australia")

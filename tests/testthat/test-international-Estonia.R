@@ -48,22 +48,6 @@ vcr::use_cassette("IA_Estonia_atlas_counts", {
   })
 })
 
-vcr::use_cassette("IA_Estonia_atlas_counts2", {
-  test_that("atlas_counts works with galah_identify for Estonia", {
-    result <- galah_call() |>
-      galah_identify("Mammalia") |>
-      atlas_counts()
-
-    result2 <- galah_call() |>
-      galah_filter(class == "Mammalia") |>
-      atlas_counts()
-    
-    expect_lt(
-      sqrt((result2$count - result$count)^2) / result$count, 
-      0.1) # i.e. <1% margin of error
-  })
-})
-
 vcr::use_cassette("IA_Estonia_atlas_counts3", {
   test_that("atlas_counts works with group_by for Estonia", {
     result <- galah_call() |>
@@ -73,6 +57,12 @@ vcr::use_cassette("IA_Estonia_atlas_counts3", {
     expect_gt(nrow(result), 1)
     expect_equal(names(result), c("basis_of_record", "count"))
   })
+})
+
+test_that("atlas_occurrences returns error for Estonia", {
+  expect_error(atlas_occurrences(
+    filter = galah_filter(year == 2020)
+  ))
 })
 
 galah_config(atlas = "Australia")

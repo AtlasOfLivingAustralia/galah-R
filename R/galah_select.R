@@ -117,7 +117,7 @@ galah_select <- function(...,
       
   # Build a data.frame with a standardised set of names,
   # stored by galah_config()
-  field_names <- c(show_all_fields()$id, show_all_assertions()$id)
+  field_names <- unique(c(show_all_fields()$id, show_all_assertions()$id))
   df <- as.data.frame(
    matrix(data = NA, nrow = 0, ncol = length(field_names),
      dimnames = list(NULL, field_names)))

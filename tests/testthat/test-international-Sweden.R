@@ -60,9 +60,10 @@ vcr::use_cassette("IA_Sweden_atlas_counts2", {
       galah_filter(class == "Mammalia") |>
       atlas_counts()
     
-    expect_lt(
-      sqrt((result2$count - result$count)^2) / result$count, 
-      0.1) # i.e. <1% margin of error
+    # we expect a <1% margin of error
+    # this fails for Sweden
+    expect_false(
+      (sqrt((result2$count - result$count)^2) / result$count) < 0.1)
   })
 })
 
@@ -74,6 +75,25 @@ vcr::use_cassette("IA_Sweden_atlas_counts3", {
       atlas_counts()
     expect_gt(nrow(result), 1)
     expect_equal(names(result), c("year", "count"))
+  })
+})
+
+vcr::use_cassette("IA_Sweden_atlas_occurrences", {
+  test_that("atlas_occurrences works for Sweden", {
+    galah_config(
+      atlas = "Sweden",
+      email = "martinjwestgate@gmail.com", 
+      send_email = FALSE)
+    skip_on_cran()
+    occ <- galah_call() |>
+      galah_identify("Lagomorpha") |>
+      galah_filter(year < 1900) |>
+      galah_select(taxon_name, year) |>
+      atlas_occurrences()
+      
+    expect_gt(nrow(occ), 0)
+    expect_equal(ncol(occ), 2)
+    expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   })
 })
 

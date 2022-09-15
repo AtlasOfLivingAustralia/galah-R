@@ -1,6 +1,6 @@
 #' Return occurrence records
 #'
-#' The most common form of data stored by ALA are observations of
+#' The most common form of data stored by living atlases are observations of
 #' individual life forms, known as 'occurrences'. This function allows the
 #' user to search for occurrence records that match their specific criteria,
 #' and return them as a `data.frame` for analysis. Optionally,
@@ -164,6 +164,9 @@ atlas_occurrences_internal <- function(identify = NULL,
                                        mint_doi = FALSE, 
                                        doi = NULL, 
                                        refresh_cache = FALSE) {
+                                         
+  # check whether API exists
+  occurrences_url <- atlas_url("records_occurrences")
 
   verbose <- getOption("galah_config")$verbose
   assert_that(is.logical(mint_doi))
@@ -207,7 +210,7 @@ atlas_occurrences_internal <- function(identify = NULL,
     if (is.null(count)){
       bullets <- c(
         "Calling the API failed for `atlas_occurrences`.",
-        i = "This might mean that the ALA system is down. Double check that your query is correct.",
+        i = "This might mean that the selected system is down. Double check that your query is correct.",
         i = "If you continue to see this message, please email support@ala.org.au."
       )
       inform(bullets)
@@ -218,32 +221,28 @@ atlas_occurrences_internal <- function(identify = NULL,
   }
   
   assertion_select <- select[select$type == "assertions", ]
-  query$fields <- build_columns(select[select$type != "assertions", ])
-  query$qa <- build_assertion_columns(assertion_select)
-  if (mint_doi) {
-    query$mintDoi <- "true"
-  }
-  
-  if (getOption("galah_config")$atlas == "Australia") {
-    query <- c(query, 
-      emailNotify = email_notify(),
-      sourceTypeId = 2004,
-      reasonTypeId = getOption("galah_config")$download_reason_id)
-  }
 
-  # Get data
-  tmp <- tempfile()
   query <- c(query, 
+    fields = build_columns(select[select$type != "assertions", ]),
+    qa = build_assertion_columns(assertion_select),
+    emailNotify = email_notify(),
+    sourceTypeId = 2004,
+    reasonTypeId = getOption("galah_config")$download_reason_id,
     email = user_email(), 
     dwcHeaders = "true")
+
+  if (mint_doi & getOption("galah_config")$atlas == "Australia") {
+    query$mintDoi <- "true"
+  }
+    
+  # Get data
+  tmp <- tempfile()
   download_resp <- wait_for_download(query)
   if(is.null(download_resp)){
     inform("Calling the API failed for `atlas_occurrences`")
     return(tibble())
   }
-  data_path <- atlas_url("records_base") |>
-               paste0(download_resp$download_path) |>
-               atlas_download(cache_file = tmp, ext = ".zip")
+  data_path <- atlas_download(download_resp, cache_file = tmp, ext = ".zip")
   
   if(is.null(data_path)){
     inform("Calling the API failed for `atlas_occurrences`")
@@ -273,7 +272,6 @@ atlas_occurrences_internal <- function(identify = NULL,
   # add DOI as attribute
   df <- as_tibble(df)
   attr(df, "doi") <- get_doi(mint_doi, data_path)
-  attr(df, "search_url") <- download_resp$search_url
   df
 }
 
@@ -297,7 +295,7 @@ wait_for_download <- function(query) {
 
   url <- atlas_url("records_occurrences")
   status <- atlas_GET(url, params = query, on_error = occ_error_handler)
-            
+    
   if(is.null(status)){
     return(NULL)
   }
@@ -323,9 +321,7 @@ wait_for_download <- function(query) {
     close(pb)
   }
 
-  resp <- list(download_path = parse_url(status$downloadUrl)$path,
-               search_url = status$search_url)
-  return(resp)
+  return(status$downloadUrl)
 }
 
 # check queue status, with rate limiting
@@ -399,7 +395,7 @@ user_email <- function(error_call = rlang::caller_env()) {
     bullets <- c(
       "No user email was found.",
       i = glue("To download occurrence records you must provide a valid email ",
-                     "address registered with the ALA using `galah_config(email = )`")
+                     "address registered with the selected atlas using `galah_config(email = )`")
     )
     abort(bullets, call = error_call)
   }
@@ -410,16 +406,14 @@ occ_error_handler <- function(code, error_call = rlang::caller_env()) {
   if (code == 403) {
     bullets <- c(
       "Status code 403 was returned.",
-      i = glue("Is the email you provided to `galah_config()` registered with the ALA?")
+      i = glue("Is the email you provided to `galah_config()` registered with the selected atlas?")
     )
     inform(bullets)
-  #   stop("Status code 403 was returned for this occurrence download request. This may be because
-  # the email you provided is not registered with the ALA. Please check and try again.")
   }
   if (code == 504) {
     bullets <- c(
       "Status code 504 was returned.",
-      i = "This usually means that the ALA system is down.",
+      i = "This usually means that the selected API is down.",
       i = "If you continue to receive this error, please email support@ala.org.au"
     )
     inform(bullets)

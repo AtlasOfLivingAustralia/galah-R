@@ -51,7 +51,7 @@ vcr::use_cassette("IA_France_atlas_counts", {
 vcr::use_cassette("IA_France_atlas_counts2", {
   test_that("atlas_counts works with galah_identify for France", {
     result <- galah_call() |>
-      galah_identify("Chordata") |>
+      galah_identify("Mammalia") |>
       atlas_counts()
 
     result2 <- galah_call() |>
@@ -73,6 +73,12 @@ vcr::use_cassette("IA_France_atlas_counts3", {
     expect_gt(nrow(result), 1)
     expect_equal(names(result), c("basis_of_record", "count"))
   })
+})
+
+test_that("atlas_occurrences returns error for France", {
+  expect_error(atlas_occurrences(
+    filter = galah_filter(year == 2020)
+  ))
 })
 
 galah_config(atlas = "Australia")

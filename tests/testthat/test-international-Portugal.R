@@ -76,4 +76,10 @@ vcr::use_cassette("IA_Portugal_atlas_counts3", {
   })
 })
 
+test_that("atlas_occurrences returns error for Portugal", {
+  expect_error(atlas_occurrences(
+    filter = galah_filter(year == 2020)
+  ))
+})
+
 galah_config(atlas = "Australia")

@@ -77,4 +77,23 @@ vcr::use_cassette("IA_Canada_atlas_counts3", {
   })
 })
 
+vcr::use_cassette("IA_Canada_atlas_occurrences", {
+  test_that("atlas_occurrences works for Canada", {
+    galah_config(
+      atlas = "Canada",
+      email = "test@ala.org.au", 
+      send_email = FALSE)
+    skip_on_cran()
+    occ <- galah_call() |>
+      galah_identify("Mammalia") |>
+      galah_filter(year == 1970) |>
+      galah_select(taxon_name, year) |>
+      atlas_occurrences()
+      
+    expect_gt(nrow(occ), 0)
+    expect_equal(ncol(occ), 2)
+    expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
+  })
+})
+
 galah_config(atlas = "Australia")

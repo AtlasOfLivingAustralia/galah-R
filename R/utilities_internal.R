@@ -543,11 +543,18 @@ write_metadata <- function(request, data_type, cache_file) {
 
 build_fq_url <- function(url, params = list()) {
   url <- parse_url(url)
-  url$query <- params[names(params) != "fq"]
   if(any(names(params) == "fq")){
-    join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
-    fq <- paste(params$fq, collapse = "&fq=")
-    paste0(build_url(url), join_char, URLencode(fq))
+    # join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
+    
+    # ensure all arguments from galah_filter are enclosed in brackets
+    fq <- params$fq
+    missing_brackets <- !grepl("^\\(", fq)
+    if(any(missing_brackets)){
+      fq[missing_brackets] <- paste0("(", fq[missing_brackets], ")")
+    }
+    fq_single <- paste(fq, collapse = "AND")
+    url$query <- c(fq = fq_single, params[names(params) != "fq"])
+    build_url(url)
   }else{
     build_url(url)
   }
