@@ -1,0 +1,125 @@
+---
+title: "International Atlases"
+author: "Martin Westgate, Dax Kellie"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{International Atlases}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The architecture developed by the ALA to store biodiversity data is used by over
+20 International Living Atlases. Although there are slight differences in the 
+core components of each Atlas's architecture, `galah` is flexible enough to 
+handle most of these differences. As a result, it is possible to change which 
+Living Atlas you get data from in `galah` 
+
+
+## Supported Atlases
+
+To see which international Living Atlases `galah` currently supports, use  
+`show_all_atlases()`.
+
+```{r}
+library(galah)
+show_all_atlases()
+```
+
+Some atlases support more types of data queries than others (e.g. counts, 
+occurrences, species lists). To see what kinds of information and data can be 
+returned from each atlase, you can see the list of supported Application 
+Programming Interfaces (APIs).
+
+```{r}
+show_all_apis()
+```
+
+## Set Atlas
+
+Set which atlas you want to use by changing the `atlas` argument in 
+`galah_config()`. This will automatically update `galah`'s server configuration 
+to your selected Atlas. The default `atlas` is Australia.
+
+If you intend to download records, you may need to register a user profile with 
+the relevant Atlas first. 
+
+```{r eval=TRUE}
+galah_config(atlas = "Canada", email = "your_email_here")
+```
+
+## Look up Information
+
+You can use the same look-up functions to find useful information about the 
+Atlas you have set.
+
+```{r}
+galah_config(atlas = "Guatemala")
+
+show_all_datasets()
+show_all_fields()
+search_fields("year")
+search_taxa("lagomorpha")
+```
+
+
+## Download data
+
+You can build queries as you normally would in `galah`. For taxonomic 
+queries, use `search_taxa()` to make sure your taxonomic searches are 
+returning the correct taxonomic data.
+
+```{r}
+galah_config(atlas = "Canada")
+
+search_taxa("vlps")   # Returns no data
+search_taxa("vulpes") # Returns data
+
+galah_call() |>
+  galah_identify("vulpes") |>
+  galah_filter(year > 2010) |>
+  atlas_counts()
+```
+
+Download species occurrence records from other atlases with 
+`atlas_occurrences()`
+
+```{r}
+galah_config(atlas = "Guatemala")
+
+galah_call() |>
+  galah_identify("Lagomorpha") |>
+  galah_filter(year <= 1980) |>
+  galah_select(taxon_name, year) |>
+  atlas_occurrences()
+```
+
+# Complex queries with multiple Atlases
+
+It is also possible to create mor complex queries that return data from multiple 
+Living Atlases. As an example, setting atlases within a loop with 
+`galah_config()` and `purrr::map()` allows us to return the total number of 
+species records in each Living Atlas in one table.
+
+```{r}
+library(purrr)
+library(tibble)
+library(dplyr)
+
+atlases <- show_all_atlases()
+
+counts <- map(atlases$atlas, 
+  function(x){
+    galah_config(atlas = x)
+    atlas_counts()
+})
+
+tibble(
+  atlas = atlases$atlas, 
+  n = unlist(counts)) |> 
+  arrange(desc(n)) |>
+  gt() |> 
+  fmt_number(columns = n)
+```
+
