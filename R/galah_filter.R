@@ -42,31 +42,35 @@
 #' ```{r, child = "man/rmd/setup.Rmd"}
 #' ```
 #' 
-#' Create a custom filter for records of interest
+#' Filter query results to return records of interest
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' filters <- galah_filter(
-#'     basisOfRecord == "HumanObservation",
-#'     year >= 2010,
-#'     stateProvince == "New South Wales")
+#' galah_call() |>
+#'   galah_filter(year >= 2019) |>
+#'   atlas_counts()
 #' ```
-#'
-#' Add the default ALA data quality profile
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' filters <- galah_filter(
-#'     basisOfRecord == "HumanObservation",
-#'     year >= 2020,
-#'     stateProvince == "New South Wales",
-#'     profile = "ALA")
+#' galah_call() |>
+#'   galah_filter(year >= 2019,
+#'                basisOfRecord == "HumanObservation") |>
+#'   atlas_counts()
+#' ```
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' galah_call() |>
+#'   galah_filter(year >= 2019,
+#'                basisOfRecord == "HumanObservation",
+#'                stateProvince == "New South Wales") |>
+#'   atlas_counts()
 #' ```
 #'  
 #' Use filters to exclude particular values
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' filter <- galah_filter(year >= 2010 & year != 2021)
-#' 
-#' atlas_counts(filter = filter)
+#' galah_call() |> 
+#'   galah_filter(year >= 2010 & year != 2021) |>
+#'   atlas_counts()
 #' ```
 #' 
 #' Separating statements with a comma is equivalent to an `AND` statement
@@ -112,6 +116,16 @@
 #' ```{r, comment = "#>", collapse = TRUE}
 #' galah_call() %>%
 #'   galah_filter(cl22 >= "Tasmania") %>%
+#'   atlas_counts()
+#' ```
+#' 
+#' Filter out specific records that could be unreliable using "assertions"
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' search_assertions("coordinate invalid")
+#' 
+#' galah_call() %>%
+#'   galah_filter(COORDINATE_INVALID == FALSE) %>%
 #'   atlas_counts()
 #' ```
 #' 
