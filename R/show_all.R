@@ -114,7 +114,9 @@ search_all <- function(type, query){
   }
   
   # run query
-  do.call(paste0("search_", type), args = list(query = query))
+  x <- do.call(paste0("search_", type), args = list(query = query))
+  attr(x, "call") <- paste0("show_all_", type)
+  return(x)
    
 }
 

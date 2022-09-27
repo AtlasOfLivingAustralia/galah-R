@@ -105,6 +105,7 @@ NULL
 #' @export search_assertions
 search_assertions <- function(query){
   df <- show_all_assertions()
+  attr(df, "call") <- "search_assertions"
   df[grepl(tolower(query), tolower(df$description)), ]
 }
 

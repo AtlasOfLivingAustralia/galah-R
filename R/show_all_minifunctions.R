@@ -113,14 +113,16 @@ show_all_assertions <- function(){
   url <- atlas_url("records_assertions") 
   assertions <- atlas_GET(url)
   if(is.null(assertions)){
-    tibble()
+    result <- tibble()
   }else{
     assertions$data_type <- "logical"
     names(assertions) <- rename_columns(names(assertions), type = "assertions")
     assertions <- assertions[wanted_columns("assertions")]
     assertions$type <- "assertions"
-    as_tibble(assertions)
+    result <- as_tibble(assertions)
   }
+  attr(result, "call") <- "show_all_assertions"
+  return(result)
 }
 
 
