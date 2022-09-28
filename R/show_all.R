@@ -197,7 +197,10 @@ show_all <- function(type, field){
   }else{
     args <- list()
   }
-  do.call(paste0("show_all_", type), args)
+  
+  df <- do.call(paste0("show_all_", type), args)
+  
+  return(df)
 }
 
 

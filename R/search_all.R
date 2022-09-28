@@ -212,7 +212,7 @@ search_all <- function(type, query){
     "ranks",
     "fields", "assertions",
     "licences",
-    "profiles", "species_lists",
+    "profiles", "lists",
     "atlases", "apis", "reasons", 
     "taxa",
     "providers", "collections", "datasets")
@@ -234,9 +234,11 @@ search_all <- function(type, query){
   }
   
   # run query
-  x <- do.call(paste0("search_", type), args = list(query = query))
-  attr(x, "call") <- paste0("show_all_", type)
-  return(x)
+  df <- do.call(paste0("search_", type), args = list(query = query))
+  
+  # attach correct 'search_' class attribute
+  attr(df, "call") <- paste0("search_", type)
+  return(df)
   
 }
 
@@ -245,6 +247,7 @@ search_all <- function(type, query){
 #' @export search_apis
 search_apis <- function(query){
   df <- node_config
+  attr(df, "call") <- "search_apis"
   df_string <- apply(
     df[, c("atlas", "system", "api_name", "called_by")], 
     1, 
@@ -265,6 +268,7 @@ search_assertions <- function(query){
 #' @export search_atlases
 search_atlases <- function(query){
   df <- show_all_atlases()
+  attr(df, "call") <- "search_atlases"
   df[grepl(
     tolower(query), 
     tolower(apply(
@@ -279,6 +283,7 @@ search_atlases <- function(query){
 #' @export search_collections
 search_collections <- function(query){
   df <- show_all_collections()
+  attr(df, "call") <- "search_collections"
   df[grepl(tolower(query), tolower(df$name)), ]
 }
 
@@ -287,6 +292,7 @@ search_collections <- function(query){
 #' @export search_datasets
 search_datasets <- function(query){
   df <- show_all_datasets()
+  attr(df, "call") <- "search_datasets"
   df[grepl(tolower(query), tolower(df$name)), ]
 }
 
@@ -295,6 +301,7 @@ search_datasets <- function(query){
 #' @export search_providers
 search_providers <- function(query){
   df <- show_all_providers()
+  attr(df, "call") <- "search_providers"
   df[grepl(tolower(query), tolower(df$name)), ]
 }
 
@@ -316,6 +323,8 @@ search_fields <- function(query){
     rlang::warn(message = bullets, error = rlang::caller_env())
   } else {
     df <- show_all_fields()
+    attr(df, "call") <- "search_fields"
+    attr(df, "search") <- {{query}}
     
     # merge information together into searchable strings
     df_string <- tolower(
@@ -335,6 +344,7 @@ search_fields <- function(query){
 #' @export search_licences
 search_licences <- function(query){
   df <- show_all_licences()
+  attr(df, "call") <- "search_licences"
   df[grepl(
     tolower(query), 
     tolower(
@@ -350,6 +360,7 @@ search_licences <- function(query){
 #' @export search_reasons
 search_reasons <- function(query){
   df <- show_all_reasons()
+  attr(df, "call") <- "search_reasons"
   df[grepl(tolower(query), tolower(df$name)), ]
 }
 
@@ -358,6 +369,7 @@ search_reasons <- function(query){
 #' @export search_ranks
 search_ranks <- function(query){
   df <- show_all_ranks()
+  attr(df, "call") <- "search_ranks"
   df[grepl(tolower(query), tolower(df$name)), ]
 }
 
@@ -366,6 +378,8 @@ search_ranks <- function(query){
 #' @export search_profiles
 search_profiles <- function(query){
   df <- show_all_profiles()
+  attr(df, "call") <- "search_profiles"
+  attr(df, "search") <- {{query}}
   text_string <- apply(df[, -1], 1, function(a){paste(a, collapse = " ")})
   df[grepl(tolower(query), tolower(text_string)), ]
 }
@@ -375,5 +389,7 @@ search_profiles <- function(query){
 #' @export search_lists
 search_lists <- function(query){
   df <- show_all_lists()
+  attr(df, "call") <- "search_lists"
+  attr(df, "search") <- {{query}}
   df[grepl(tolower(query), tolower(df$listName)), ]
 }
