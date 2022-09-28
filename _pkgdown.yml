@@ -43,6 +43,7 @@ reference:
   - galah_select
   - galah_group_by
   - galah_geolocate
+  - galah_apply_profile
   - galah_down_to
 - title: Download data
   contents:
@@ -51,19 +52,23 @@ reference:
   - atlas_species
   - atlas_taxonomy
   - atlas_media
+  - collect_media
+  - collect_occurrences
 - title: Look up information
   contents:
+  - show_all
+  - search_all
   - search_taxa
   - search_identifiers
   - search_fields
-  - search_field_values
-  - search_profile_attributes
+  - search_media
+  - search_values
   - show_all_profiles
   - show_all_fields
-  - show_all_fields
-  - show_all_reasons
   - show_all_atlases
+  - show_all_reasons
   - show_all_ranks
+  - show_values
 - title: Manage cache
   contents:
   - show_all_cached_files
