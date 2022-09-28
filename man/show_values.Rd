@@ -17,7 +17,7 @@ show_list_values(list)
 
 show_profile_values(profile)
 
-show_values(type, entry)
+show_values(df, type, entry)
 }
 \arguments{
 \item{field}{\code{string}: field to return the categories for. Use

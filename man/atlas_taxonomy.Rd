@@ -123,13 +123,13 @@ Get a taxonomic tree of \emph{Fungi} down to the phylum level
 #> 39  ¦   ¦   ¦--Spiculogloeomycetes    
 #> 40  ¦   ¦   ¦--Tritirachiomycetes     
 #> 41  ¦   ¦   °--Urediniomycetes        
-#> 42  ¦   ¦--Ustilaginomycotina         
-#> 43  ¦   ¦   ¦--Exobasidiomycetes      
-#> 44  ¦   ¦   ¦--Malasseziomycetes      
-#> 45  ¦   ¦   ¦--Monilielliomycetes     
-#> 46  ¦   ¦   ¦--Ustilaginomycetes      
-#> 47  ¦   ¦   °--Ustomycetes            
-#> 48  ¦   °--Wallemiomycetes            
+#> 42  ¦   ¦--Wallemiomycetes            
+#> 43  ¦   °--Ustilaginomycotina         
+#> 44  ¦       ¦--Exobasidiomycetes      
+#> 45  ¦       ¦--Malasseziomycetes      
+#> 46  ¦       ¦--Monilielliomycetes     
+#> 47  ¦       ¦--Ustilaginomycetes      
+#> 48  ¦       °--Ustomycetes            
 #> 49  ¦--Chytridiomycota                
 #> 50  ¦   ¦--Blastocladiomycetes        
 #> 51  ¦   ¦--Chytridiomycetes           

@@ -572,12 +572,24 @@ merge_args <- function(request, extra) {
 }
 
 ##---------------------------------------------------------------
-##     show_all_ & search_ sub-function internal functions     --
+##             show_all_ & search_ internal functions          --
 ##---------------------------------------------------------------
 
-#--------------------------#
-## show_all_atlases / search_atlases
-#---
+## show_all() & search_all()
+
+# Check for valid `type`
+check_type_valid <- function(type, valid, error_call = caller_env()) {
+  if(!any(valid == type)){
+    bullets <- c(
+      glue("type `{type}` is not recognised"),
+      i = "see ?show_all for a list of valid information types."
+    )
+    abort(bullets, call = error_call)   
+  }
+}
+
+
+## show_all_atlases / search_atlases --------------------------#
 
 image_fields <- function() {
   atlas <- getOption("galah_config")$atlas
@@ -623,9 +635,8 @@ species_facets <- function(){
 taxon_key_type <- function(){"ALA"}
 
 
-#--------------------------#
-# show_all_fields
-#---
+## show_all_fields --------------------------#
+
 
 # Helper functions to get different field classes
 get_fields <- function() {

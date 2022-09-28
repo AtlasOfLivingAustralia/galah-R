@@ -49,32 +49,47 @@ In some cases \code{R} will fail to parse inputs with a single equals sign
 \section{Examples}{
 
 
-Create a custom filter for records of interest
+Filter query results to return records of interest
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{filters <- galah_filter(
-    basisOfRecord == "HumanObservation",
-    year >= 2010,
-    stateProvince == "New South Wales")
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+  galah_filter(year >= 2019) |>
+  atlas_counts()
+#> # A tibble: 1 x 1
+#>      count
+#>      <int>
+#> 1 20227482
 }\if{html}{\out{</div>}}
 
-Add the default ALA data quality profile
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+  galah_filter(year >= 2019,
+               basisOfRecord == "HumanObservation") |>
+  atlas_counts()
+#> # A tibble: 1 x 1
+#>      count
+#>      <int>
+#> 1 19775386
+}\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{filters <- galah_filter(
-    basisOfRecord == "HumanObservation",
-    year >= 2020,
-    stateProvince == "New South Wales",
-    profile = "ALA")
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+  galah_filter(year >= 2019,
+               basisOfRecord == "HumanObservation",
+               stateProvince == "New South Wales") |>
+  atlas_counts()
+#> # A tibble: 1 x 1
+#>     count
+#>     <int>
+#> 1 5670812
 }\if{html}{\out{</div>}}
 
 Use filters to exclude particular values
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{filter <- galah_filter(year >= 2010 & year != 2021)
-
-atlas_counts(filter = filter)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |> 
+  galah_filter(year >= 2010 & year != 2021) |>
+  atlas_counts()
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 47539424
+#> 1 47621829
 }\if{html}{\out{</div>}}
 
 Separating statements with a comma is equivalent to an \code{AND} statement
@@ -102,7 +117,7 @@ galah_call() \%>\%
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 52161443
+#> 1 52245323
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# Categorical example
@@ -115,7 +130,7 @@ galah_call() \%>\%
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 88980571
+#> 1 89071170
 }\if{html}{\out{</div>}}
 
 \code{solr} supports range queries on text as well as numbers. The following
@@ -127,7 +142,24 @@ queries all Australian States and Territories alphabetically after "Tasmania"
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 33580057
+#> 1 33616058
+}\if{html}{\out{</div>}}
+
+Filter out specific records that could be unreliable using "assertions"
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_assertions("coordinate invalid")
+#> # A tibble: 1 x 4
+#>   id                 description        category type      
+#>   <chr>              <chr>              <chr>    <chr>     
+#> 1 COORDINATE_INVALID Coordinate invalid Warning  assertions
+
+galah_call() \%>\%
+  galah_filter(COORDINATE_INVALID == FALSE) \%>\%
+  atlas_counts()
+#> # A tibble: 1 x 1
+#>       count
+#>       <int>
+#> 1 110535966
 }\if{html}{\out{</div>}}
 }
 

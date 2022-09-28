@@ -39,18 +39,18 @@ Return record counts since 2010 by year
 #> # A tibble: 12 x 2
 #>    year    count
 #>    <chr>   <int>
-#>  1 2021  7092134
-#>  2 2020  6400153
-#>  3 2019  5758061
-#>  4 2018  5622984
-#>  5 2017  4852553
-#>  6 2014  4036242
-#>  7 2016  4006605
-#>  8 2015  3831609
-#>  9 2013  3721779
-#> 10 2012  3152528
-#> 11 2011  2786765
-#> 12 2022   900030
+#>  1 2021  7093684
+#>  2 2020  6398688
+#>  3 2019  5760000
+#>  4 2018  5624616
+#>  5 2017  4855112
+#>  6 2014  4036577
+#>  7 2016  4007890
+#>  8 2015  3831928
+#>  9 2013  3722077
+#> 10 2012  3152720
+#> 11 2011  2786921
+#> 12 2022   975110
 }\if{html}{\out{</div>}}
 
 Return record counts since 2010 by year and data provider
@@ -86,8 +86,8 @@ results to the top 5 each year
 #> # A tibble: 35 x 3
 #>   species         year  count
 #>   <chr>           <chr> <int>
-#> 1 Litoria peronii 2020  18365
-#> 2 Litoria peronii 2019  11120
+#> 1 Litoria peronii 2020  18371
+#> 2 Litoria peronii 2019  11121
 #> 3 Litoria peronii 2018  11091
 #> 4 Litoria peronii 2017   6385
 #> # ... with 31 more rows

@@ -1,10 +1,10 @@
 #' Show values
 #' 
-#' In early development
+#' @description In early development
 #' @export
 show_values <- function(df, type, entry){
   
-  if(!grepl("^search_", attr(df, "call")){
+  if(!grepl("^search_", attr(df, "call"))){
     abort("`show_values` requires an input from `search_`")
   }
 

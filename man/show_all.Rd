@@ -2,58 +2,283 @@
 % Please edit documentation in R/show_all.R
 \name{show_all}
 \alias{show_all}
-\alias{search_all}
-\title{Look up record information}
+\alias{show_all_assertions}
+\alias{show_all_atlases}
+\alias{show_all_cached_files}
+\alias{show_all_collections}
+\alias{show_all_datasets}
+\alias{show_all_providers}
+\alias{show_all_fields}
+\alias{show_all_reasons}
+\alias{show_all_ranks}
+\alias{show_all_profiles}
+\alias{show_all_licences}
+\alias{show_all_apis}
+\alias{show_all_lists}
+\title{Show valid record information}
 \usage{
 show_all(type, field)
 
-search_all(type, query)
+show_all_assertions()
+
+show_all_atlases()
+
+show_all_cached_files()
+
+show_all_apis()
+
+show_all_collections()
+
+show_all_datasets()
+
+show_all_providers()
+
+show_all_fields()
+
+show_all_licences()
+
+show_all_reasons()
+
+show_all_ranks()
+
+show_all_profiles()
+
+show_all_lists()
 }
 \arguments{
-\item{type}{\code{string}: What type of parameters should be searched?
-See \code{Details} (below) for accepted values.}
-
-\item{query}{\code{string}: A search string. Not case sensitive.}
+\item{type}{A string to specify what type of parameters should be shown.}
 }
 \value{
 An object of class \code{tbl_df} and \code{data.frame} (aka a tibble)
-containing all data of interest (for \code{show_all()}), or those that match the
-search query (for \code{search_all()}).
+containing all data of interest.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 The living atlases store a huge amount of information, above and beyond the
-occurrence records that are their main output. In \code{galah}, users can investigate
-the inormation needed to build complex queries using two meta-functions or a larger
-number of sub-functions.
+occurrence records that are their main output. In \code{galah}, one way that
+users can investigate this information is by showing all the available
+options or categories for the type of information they are interested in.
+Functions prefixed with \code{show_all_} do this, displaying all valid options
+for the information specified by the suffix.
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\code{show_all()} is a helper function that can display multiple types of
+information from \code{show_all_} sub-functions.
+See \code{Details} (below) for accepted values.
 }
 \details{
-There are five different categories of information, each with their own
-sub-functions. Valid \code{type}s are:\tabular{llll}{
+There are five categories of information, each with their own
+specific sub-functions to look-up each type of information.
+The available types of information for \code{show_all_} are:\tabular{llll}{
    \strong{Category} \tab \strong{Type} \tab \strong{Description} \tab \strong{Sub-functions} \cr
-   configuration \tab \code{atlases} \tab Show what atlases are available \tab \code{\link[=show_all_atlases]{show_all_atlases()}}, \code{\link[=search_atlases]{search_atlases()}} \cr
-    \tab \code{apis} \tab Show what APIs & functions are available for each atlas \tab \code{\link[=show_all_apis]{show_all_apis()}}, \code{\link[=search_apis]{search_apis()}} \cr
-    \tab \code{reasons} \tab Show what values are acceptable as 'download reasons' for a specified atlas \tab \code{\link[=show_all_reasons]{show_all_reasons()}}, \code{\link[=search_reasons]{search_reasons()}} \cr
-   taxonomy \tab \code{taxa} \tab Search for one or more taxonomic names \tab \code{\link[=search_taxa]{search_taxa()}} \cr
-    \tab \code{identifiers} \tab Take a universal identifier and return taxonomic information \tab \code{\link[=search_identifiers]{search_identifiers()}} \cr
-    \tab \code{ranks} \tab Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) \tab \code{\link[=show_all_ranks]{show_all_ranks()}}, \code{\link[=search_ranks]{search_ranks()}}) \cr
-   filters \tab \code{fields} \tab Show fields that are stored in an atlas \tab \code{\link[=show_all_fields]{show_all_fields()}}, \code{\link[=search_fields]{search_fields()}} \cr
-    \tab \code{assertions} \tab Show results of data quality checks run by each atlas \tab \code{\link[=show_all_assertions]{show_all_assertions()}}, \code{\link[=search_assertions]{search_assertions()}} \cr
-   group filters \tab \code{profiles} \tab Show what data profiles are available \tab \code{\link[=show_all_profiles]{show_all_profiles()}}, \code{\link[=search_profiles]{search_profiles()}} \cr
-    \tab \code{lists} \tab Show what species lists are available \tab  \cr
-    \tab \code{licenses} \tab Show what copyright licenses are applied to records or media \tab \code{\link[=show_all_licenses]{show_all_licenses()}}, \code{search_licenses()} \cr
-   data providers \tab \code{providers} \tab Show which institutions have provided data \tab \code{\link[=show_all_providers]{show_all_providers()}}, \code{\link[=search_providers]{search_providers()}} \cr
-    \tab \code{collections} \tab Show the specific collections within those institutions \tab \code{\link[=show_all_collections]{show_all_collections()}}, \code{\link[=search_collections]{search_collections()}} \cr
-    \tab \code{datasets} \tab Shows all the data groupings within those collections \tab \code{\link[=show_all_datasets]{show_all_datasets()}}, \code{\link[=search_datasets]{search_datasets()}} \cr
+   configuration \tab \code{atlases} \tab Show what atlases are available \tab \code{\link[=show_all_atlases]{show_all_atlases()}} \cr
+    \tab \code{apis} \tab Show what APIs & functions are available for each atlas \tab \code{\link[=show_all_apis]{show_all_apis()}} \cr
+    \tab \code{reasons} \tab Show what values are acceptable as 'download reasons' for a specified atlas \tab \code{\link[=show_all_reasons]{show_all_reasons()}} \cr
+   taxonomy \tab \code{ranks} \tab Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) \tab \code{\link[=show_all_ranks]{show_all_ranks()}}) \cr
+   filters \tab \code{fields} \tab Show fields that are stored in an atlas \tab \code{\link[=show_all_fields]{show_all_fields()}} \cr
+    \tab \code{assertions} \tab Show results of data quality checks run by each atlas \tab \code{\link[=show_all_assertions]{show_all_assertions()}} \cr
+    \tab \code{licenses} \tab Show what copyright licenses are applied to media \tab \code{\link[=show_all_licenses]{show_all_licenses()}} \cr
+   group filters \tab \code{profiles} \tab Show what data profiles are available \tab \code{\link[=show_all_profiles]{show_all_profiles()}} \cr
+    \tab \code{lists} \tab Show what species lists are available \tab \code{show_all_lists()} \cr
+   data providers \tab \code{providers} \tab Show which institutions have provided data \tab \code{\link[=show_all_providers]{show_all_providers()}} \cr
+    \tab \code{collections} \tab Show the specific collections within those institutions \tab \code{\link[=show_all_collections]{show_all_collections()}} \cr
+    \tab \code{datasets} \tab Shows all the data groupings within those collections \tab \code{\link[=show_all_datasets]{show_all_datasets()}} \cr
+}
+}
+\section{Examples}{
+
+\subsection{Atlases}{
+
+See all supported atlases
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_atlases()
+#> # A tibble: 11 x 4
+#>    atlas          institution                                      acronym url  
+#>    <chr>          <chr>                                            <chr>   <chr>
+#>  1 Australia      Atlas of Living Australia                        ALA     http~
+#>  2 Austria        Biodiversitäts-Atlas Österreich                  BAO     http~
+#>  3 Brazil         Sistemas de Informações sobre a Biodiversidade ~ SiBBr   http~
+#>  4 Canada         Candensys                                        <NA>    http~
+#>  5 Estonia        eElurikkus                                       <NA>    http~
+#>  6 France         Inventaire National du Patrimoine Naturel        INPN    http~
+#>  7 Guatemala      Sistema Nacional de Información sobre Diversida~ SNIBgt  http~
+#>  8 Portugal       GBIF Portugal                                    GBIF.pt http~
+#>  9 Spain          GBIF Spain                                       GBIF.es http~
+#> 10 Sweden         Swedish Biodiversity Data Infrastructure         SBDI    http~
+#> 11 United Kingdom National Biodiversity Network                    NBN     http~
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all(atlases) # equivalent
+}\if{html}{\out{</div>}}
 }
 
+\subsection{Fields}{
 
-Each valid \code{type} within \code{show_all} has a corresponding internal function where
-type is used as a suffix. For example, \code{show_all(fields)} is
-synonymous with \code{show_all_fields()}, while \code{search_all(fields, "basisOfRecord")}
-is synonymous with \code{search_fields("basisOfRecord")}
+See a listing of all valid fields and layers
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_fields()
+#> # A tibble: 813 x 4
+#>   id                  description                                    type  link 
+#>   <chr>               <chr>                                          <chr> <chr>
+#> 1 abcdTypeStatus      ABCD field in use by herbaria                  fiel~ <NA> 
+#> 2 acceptedNameUsage   http://rs.tdwg.org/dwc/terms/acceptedNameUsage fiel~ <NA> 
+#> 3 acceptedNameUsageID http://rs.tdwg.org/dwc/terms/acceptedNameUsag~ fiel~ <NA> 
+#> 4 accessRights        <NA>                                           fiel~ <NA> 
+#> # ... with 809 more rows
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all(fields) # equivalent
+}\if{html}{\out{</div>}}
 }
+
+\subsection{Reasons}{
+
+Show a listing of all accepted reasons for downloading occurrence data
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_reasons()
+#> # A tibble: 13 x 2
+#>       id name                            
+#>    <int> <chr>                           
+#>  1     0 conservation management/planning
+#>  2     1 biosecurity management/planning 
+#>  3     2 environmental assessment        
+#>  4     3 education                       
+#>  5     4 scientific research             
+#>  6     5 collection management           
+#>  7     6 other                           
+#>  8     7 ecological research             
+#>  9     8 systematic research/taxonomy    
+#> 10    10 testing                         
+#> 11    11 citizen science                 
+#> 12    12 restoration/remediation         
+#> 13    13 species modelling
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all(reasons) # equivalent
+}\if{html}{\out{</div>}}
+
+Add your download reason when configuring your session with \code{\link[=galah_config]{galah_config()}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(download_reason_id = 3)
+}\if{html}{\out{</div>}}
+}
+
+\subsection{Profiles}{
+
+Show a list of all available data quality profiles
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_profiles()
+#> # A tibble: 7 x 4
+#>      id name                                                  shortName  descr~1
+#>   <int> <chr>                                                 <chr>      <chr>  
+#> 1     2 ALA General (pre-pipelines 3)                         ALA-legacy "The d~
+#> 2    35 Species Distribution Modelling (CSDM) (pre-pipelines) CSDM-lega~ "Base ~
+#> 3    44 Data licensed for all uses (pre-pipelines)            re-usable~ "Data ~
+#> 4    92 ALA General                                           ALA        "The d~
+#> 5   124 Species Distribution Modelling (CSDM)                 CSDM       "Base ~
+#> 6   133 Data licensed for all uses                            re-usable  "Data ~
+#> 7   224 AVH                                                   AVH        "AVH d~
+#> # ... with abbreviated variable name 1: description
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all(profiles) # equivalent
+}\if{html}{\out{</div>}}
+
+Values in the \code{shortName} column can be used with \code{\link[=galah_apply_profile]{galah_apply_profile()}} to
+narrow your data query results
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |> 
+  galah_apply_profile("ALA") |> 
+  atlas_counts()
+#> # A tibble: 1 x 1
+#>       count
+#>       <int>
+#> 1 100350007
+}\if{html}{\out{</div>}}
+}
+
+\subsection{Lists}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_lists()
+#> # A tibble: 3,000 x 16
+#>   dataR~1 listN~2 listT~3 dateC~4 lastU~5 usern~6 fullN~7 itemC~8 region categ~9
+#>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <lgl>     <int> <chr>  <chr>  
+#> 1 dr14140 " Rive~ LOCAL_~ 2019-1~ 2022-0~ matild~ NA           41 <NA>   <NA>   
+#> 2 dr14507 "*Brig~ SPATIA~ 2020-0~ 2020-0~ andy.d~ NA           38 <NA>   <NA>   
+#> 3 dr15874 "13-19" SPATIA~ 2020-0~ 2020-0~ jane.m~ NA            7 <NA>   <NA>   
+#> 4 dr1266  "2 b) ~ LOCAL_~ 2014-0~ 2017-0~ glen.j~ NA            3 <NA>   <NA>   
+#> # ... with 2,996 more rows, 6 more variables: generalisation <chr>,
+#> #   authority <chr>, sdsType <chr>, isAuthoritative <lgl>, isInvasive <lgl>,
+#> #   isThreatened <lgl>, and abbreviated variable names 1: dataResourceUid,
+#> #   2: listName, 3: listType, 4: dateCreated, 5: lastUpdated, 6: username,
+#> #   7: fullName, 8: itemCount, 9: category
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all(lists) # equivalent
+}\if{html}{\out{</div>}}
+}
+
+\subsection{Ranks}{
+
+Show a listing of all taxonomic ranks
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_ranks()
+#> # A tibble: 69 x 2
+#>      id name        
+#>   <int> <chr>       
+#> 1     1 root        
+#> 2     2 superkingdom
+#> 3     3 kingdom     
+#> 4     4 subkingdom  
+#> # ... with 65 more rows
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all(ranks) # equivalent
+}\if{html}{\out{</div>}}
+
+Use ranks with \code{\link[=galah_down_to]{galah_down_to()}} and \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} to get taxonomic
+trees
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
+  galah_identify("fungi") \%>\%
+  galah_down_to(subphylum) \%>\%
+  atlas_taxonomy()
+#>                        levelName
+#> 1  Fungi                        
+#> 2   ¦--Ascomycota               
+#> 3   ¦   ¦--Pezizomycotina       
+#> 4   ¦   ¦--Saccharomycotina     
+#> 5   ¦   °--Taphrinomycotina     
+#> 6   ¦--Basidiomycota            
+#> 7   ¦   ¦--Agaricomycotina      
+#> 8   ¦   ¦--Pucciniomycotina     
+#> 9   ¦   ¦--Ustilaginomycotina   
+#> 10  ¦   °--Wallemiomycotina     
+#> 11  ¦--Mucoromycota             
+#> 12  ¦   °--Glomeromycotina      
+#> 13  °--Zygomycota               
+#> 14      ¦--Entomophthoromycotina
+#> 15      ¦--Kickxellomycotina    
+#> 16      ¦--Mortierellomycotina  
+#> 17      ¦--Mucoromycotina       
+#> 18      °--Zoopagomycotina
+}\if{html}{\out{</div>}}
+}
+
+\subsection{Cache files}{
+
+Configure caching and create a query to cache with \code{\link[=galah_config]{galah_config()}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(caching = TRUE)
+dat <- atlas_counts(group_by = galah_group_by(year))
+}\if{html}{\out{</div>}}
+
+Show a listing of previously cached files
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_cached_files()
+}\if{html}{\out{</div>}}
+}
+}
+
 \references{
 \itemize{
 \item Darwin Core terms \url{https://dwc.tdwg.org/terms/}
@@ -62,6 +287,7 @@ is synonymous with \code{search_fields("basisOfRecord")}
 }
 }
 \seealso{
-These functions are used to pass valid arguments to
+Use the \code{\link[=search_all]{search_all()}} function and \code{search_()} sub-functions to
+search for information. These functions are used to pass valid arguments to
 \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}}, and related functions.
 }

@@ -119,7 +119,7 @@ galah_call() |>
 #> # A tibble: 1 x 1
 #>   count
 #>   <int>
-#> 1  1773
+#> 1  1776
 }\if{html}{\out{</div>}}
 
 Search for records using a bounding box in a \code{tibble} or \code{data.frame}

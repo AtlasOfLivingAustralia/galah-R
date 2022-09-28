@@ -62,7 +62,7 @@ Use \code{galah_identify()} to narrow your queries
 #> # A tibble: 1 x 1
 #>    count
 #>    <int>
-#> 1 993949
+#> 1 993965
 }\if{html}{\out{</div>}}
 
 If you already know a valid taxon identifier, add it and set \code{search = FALSE}.
@@ -74,7 +74,7 @@ If you already know a valid taxon identifier, add it and set \code{search = FALS
 #> # A tibble: 1 x 1
 #>    count
 #>    <int>
-#> 1 993949
+#> 1 993965
 }\if{html}{\out{</div>}}
 }
 

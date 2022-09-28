@@ -15,5 +15,9 @@ data.}
 records previously downloaded from the ALA, using the URL provided via email.}
 }
 \description{
-This should be generated from \code{atlas_occurrences} or online
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+Download occurrence records using an existing DOI or URL. Pre-existing DOIs
+and URLs come from previously generated downloads using \code{atlas_occurrences}
+or online.
 }

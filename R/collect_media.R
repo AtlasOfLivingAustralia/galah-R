@@ -22,7 +22,7 @@
 #' 
 #' Use `atlas_media()` to return a `tibble` of records that contain media
 #' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' galah_call() |> 
 #'   galah_identify("perameles") |>
 #'   galah_filter(year == 2015) |>
