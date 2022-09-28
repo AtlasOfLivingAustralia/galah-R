@@ -201,7 +201,7 @@ atlas_media_internal <- function(request,
     return(tibble())
   }
 
-  all_data <- show_all_media(occ)
+  all_data <- search_media(occ)
  
   return(all_data)
 }
