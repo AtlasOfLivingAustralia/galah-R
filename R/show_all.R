@@ -225,7 +225,11 @@ show_all_assertions <- function(){
 
 #' @export show_all_atlases
 #' @rdname show_all
-show_all_atlases <- function() {node_metadata}
+show_all_atlases <- function() {
+  df <- node_metadata
+  attr(df, "call") <- "show_all_atlases"
+  return(df)
+  }
 
 
 #' @rdname show_all
@@ -247,7 +251,9 @@ show_all_cached_files <- function() {
 #' @rdname show_all
 #' @export show_all_apis
 show_all_apis <- function(){
-  node_config
+  df <- node_config
+  attr(df, "call") <- "show_all_apis"
+  return(df)
 }
 
 
@@ -255,7 +261,9 @@ show_all_apis <- function(){
 #' @export show_all_collections
 show_all_collections <- function(){
   url <- atlas_url("collections_collections")
-  atlas_GET(url) |> tibble()
+  df <- atlas_GET(url) |> tibble()
+  attr(df, "call") <- "show_all_collections"
+  return(df)
 }
 
 
@@ -263,7 +271,9 @@ show_all_collections <- function(){
 #' @export show_all_datasets
 show_all_datasets <- function(){
   url <- atlas_url("collections_datasets")
-  atlas_GET(url) |> tibble()
+  df <- atlas_GET(url) |> tibble()
+  attr(df, "call") <- "show_all_datasets"
+  return(df)
 }
 
 
@@ -271,7 +281,9 @@ show_all_datasets <- function(){
 #' @export show_all_providers
 show_all_providers <- function(){
   url <- atlas_url("collections_providers")
-  atlas_GET(url) |> tibble()
+  df <- atlas_GET(url) |> tibble()
+  attr(df, "call") <- "show_all_providers"
+  return(df)
 }
 
 
@@ -331,12 +343,14 @@ show_all_fields <- function(){
       df <- as_tibble(df)
       attr(df, "atlas_name") <- atlas
       galah_internal_cache(show_all_fields = df)
+      attr(df, "call") <- "show_all_fields"
       return(df)
     }
     
     # if no update needed
   }else{    
     df <- galah_internal_cache()$show_all_fields
+    attr(df, "call") <- "show_all_fields"
     return(df)
   }   
 }
@@ -346,7 +360,9 @@ show_all_fields <- function(){
 show_all_licences <- function(){
   url <- atlas_url("image_licences")
   result <- atlas_GET(url) |> tibble()
-  result[, c("id", "name", "acronym", "url")] 
+  df <- result[, c("id", "name", "acronym", "url")] 
+  attr(df, "call") <- "show_all_licences"
+  return(df)
 }
 
 #' @rdname show_all
@@ -385,10 +401,12 @@ show_all_reasons <- function() {
       row.names(out) <- out$id
       df <- as_tibble(out[order(out$id), ])
       attr(df, "atlas_name") <- atlas
+      attr(df, "call") <- "show_all_reasons"
       return(df)
     }
     # if no update is needed
   }else{
+    attr(df, "call") <- "show_all_reasons"
     return(galah_internal_cache()$show_all_reasons)
   }
 }
@@ -428,6 +446,7 @@ show_all_ranks <- function() {
                "cultivar", "pathovar", "infraspecific")
     )
   }
+  attr(df, "call") <- "show_all_ranks"
   return(df)
 }
 
@@ -453,6 +472,7 @@ show_all_profiles <- function() {
   }else{
     df <- galah_internal_cache()$show_all_profiles
   }
+  attr(df, "call") <- "show_all_profiles"
   df
 }
 
@@ -465,7 +485,9 @@ show_all_lists <- function(){
       "?max=1000&offset=0", 
       "?max=1000&offset=1000", 
       "?max=1000&offset=2000")) 
-  do.call(rbind, 
+  df <- do.call(rbind, 
           lapply(url, function(a){atlas_GET(a)$lists})) |> 
     tibble()
+  attr(df, "call") <- "show_all_lists"
+  return(df)
 }
