@@ -202,7 +202,7 @@ Search multiple taxa. \code{search_taxa()} will return one row per taxon
 #> # A tibble: 1 x 1
 #>     count
 #>     <int>
-#> 1 1471578
+#> 1 1471577
 }\if{html}{\out{</div>}}
 }
 

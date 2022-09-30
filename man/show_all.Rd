@@ -17,7 +17,7 @@
 \alias{show_all_lists}
 \title{Show valid record information}
 \usage{
-show_all(type, field)
+show_all(type)
 
 show_all_assertions()
 
@@ -192,7 +192,7 @@ narrow your data query results
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 100350006
+#> 1 100354565
 }\if{html}{\out{</div>}}
 }
 

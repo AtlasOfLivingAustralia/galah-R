@@ -169,7 +169,7 @@ NULL
 #' @rdname show_all
 #' @param type A string to specify what type of parameters should be shown.
 #' @export show_all
-show_all <- function(type, field){
+show_all <- function(type){
   
   # vector of valid types for this function
   valid_types <- c(
@@ -192,11 +192,11 @@ show_all <- function(type, field){
   }
   
   # run the appropriate function for each type
-  if(type == "values" & !missing(field)){
-    args <- list(field = field)
-  }else{
+  # if(type == "values" & !missing(field)){
+    # args <- list(field = field)
+  # }else{
     args <- list()
-  }
+  # }
   
   df <- do.call(paste0("show_all_", type), args)
   

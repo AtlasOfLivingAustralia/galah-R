@@ -228,10 +228,8 @@ search_all <- function(type, query){
     check_type_valid(type, valid_types)   
   }
   
-  # check query
-  if(missing(query)){
-    abort("No query provided")
-  }
+  # check for query
+  check_if_missing(query)
   
   # run query
   df <- do.call(paste0("search_", type), args = list(query = query))
@@ -246,6 +244,7 @@ search_all <- function(type, query){
 #' @rdname search_all
 #' @export search_apis
 search_apis <- function(query){
+  check_if_missing(query)
   df <- node_config
   attr(df, "call") <- "search_apis"
   df_string <- apply(
@@ -259,6 +258,7 @@ search_apis <- function(query){
 #' @rdname search_all
 #' @export search_assertions
 search_assertions <- function(query){
+  check_if_missing(query)
   df <- show_all_assertions()
   attr(df, "call") <- "search_assertions"
   df[grepl(tolower(query), tolower(df$description)), ]
@@ -267,6 +267,7 @@ search_assertions <- function(query){
 #' @rdname search_all
 #' @export search_atlases
 search_atlases <- function(query){
+  check_if_missing(query)
   df <- show_all_atlases()
   attr(df, "call") <- "search_atlases"
   df[grepl(
@@ -282,6 +283,7 @@ search_atlases <- function(query){
 #' @rdname search_all
 #' @export search_collections
 search_collections <- function(query){
+  check_if_missing(query)
   df <- show_all_collections()
   attr(df, "call") <- "search_collections"
   df[grepl(tolower(query), tolower(df$name)), ]
@@ -291,6 +293,7 @@ search_collections <- function(query){
 #' @rdname search_all
 #' @export search_datasets
 search_datasets <- function(query){
+  check_if_missing(query)
   df <- show_all_datasets()
   attr(df, "call") <- "search_datasets"
   df[grepl(tolower(query), tolower(df$name)), ]
@@ -300,6 +303,7 @@ search_datasets <- function(query){
 #' @rdname search_all
 #' @export search_providers
 search_providers <- function(query){
+  check_if_missing(query)
   df <- show_all_providers()
   attr(df, "call") <- "search_providers"
   df[grepl(tolower(query), tolower(df$name)), ]
@@ -343,6 +347,7 @@ search_fields <- function(query){
 #' @rdname search_all
 #' @export search_licences
 search_licences <- function(query){
+  check_if_missing(query)
   df <- show_all_licences()
   attr(df, "call") <- "search_licences"
   df[grepl(
@@ -359,6 +364,7 @@ search_licences <- function(query){
 #' @rdname search_all
 #' @export search_reasons
 search_reasons <- function(query){
+  check_if_missing(query)
   df <- show_all_reasons()
   attr(df, "call") <- "search_reasons"
   df[grepl(tolower(query), tolower(df$name)), ]
@@ -368,6 +374,7 @@ search_reasons <- function(query){
 #' @rdname search_all
 #' @export search_ranks
 search_ranks <- function(query){
+  check_if_missing(query)
   df <- show_all_ranks()
   attr(df, "call") <- "search_ranks"
   df[grepl(tolower(query), tolower(df$name)), ]
@@ -377,6 +384,7 @@ search_ranks <- function(query){
 #' @rdname search_all
 #' @export search_profiles
 search_profiles <- function(query){
+  check_if_missing(query)
   df <- show_all_profiles()
   attr(df, "call") <- "search_profiles"
   attr(df, "search") <- {{query}}
@@ -388,8 +396,22 @@ search_profiles <- function(query){
 #' @rdname search_all
 #' @export search_lists
 search_lists <- function(query){
+  check_if_missing(query)
   df <- show_all_lists()
   attr(df, "call") <- "search_lists"
   attr(df, "search") <- {{query}}
   df[grepl(tolower(query), tolower(df$listName)), ]
+}
+
+
+# internal functions ----------------------------------------
+
+check_if_missing <- function(query, error_call = caller_env()) {
+  if (missing(query)) {
+    bullets <- c(
+      "We didn't detect a valid query.",
+      i = "Try entering text to search for matching values."
+    )
+    abort(bullets, call = caller_env())
+  }
 }
