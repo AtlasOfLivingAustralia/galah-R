@@ -338,8 +338,15 @@ search_fields <- function(query){
         function(a){paste(a, collapse = " ")}))
     
     # return result of a grepl query
-    df[grepl(tolower(query), df_string), ] |> 
+    df <- df[grepl(tolower(query), df_string), ] |> 
       as_tibble()
+    
+    # calculate similarity of results to query, reorder results
+    similarity <- adist(df$id, query)[, 1]
+    df <- df[order(similarity), ]
+    
+    # return results in order of similarity to search term
+    return(df)
   }
 }
 
@@ -389,7 +396,16 @@ search_profiles <- function(query){
   attr(df, "call") <- "search_profiles"
   attr(df, "search") <- {{query}}
   text_string <- apply(df[, -1], 1, function(a){paste(a, collapse = " ")})
-  df[grepl(tolower(query), tolower(text_string)), ]
+  
+  # return result of grepl query
+  df <- df[grepl(tolower(query), tolower(text_string)), ]
+  
+  # calculate similarity of results to query, reorder results
+  similarity <- adist(df$name, query, ignore.case = TRUE)[, 1]
+  df <- df[order(similarity), ]
+  
+  # return results
+  return(df)
 }
 
 
@@ -400,7 +416,16 @@ search_lists <- function(query){
   df <- show_all_lists()
   attr(df, "call") <- "search_lists"
   attr(df, "search") <- {{query}}
-  df[grepl(tolower(query), tolower(df$listName)), ]
+  
+  # return result of grepl query
+  df <- df[grepl(tolower(query), tolower(df$listName)), ]
+  
+  # calculate similarity of results to query, reorder results
+  similarity <- adist(df$listName, query, ignore.case = TRUE)[, 1]
+  df <- df[order(similarity), ]
+  
+  # return results
+  return(df)
 }
 
 

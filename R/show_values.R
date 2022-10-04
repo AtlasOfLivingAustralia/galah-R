@@ -31,7 +31,11 @@
 #' @param entry The query searched, automatically generated from the `search_` query
 #' @return A `tibble` of values
 #' @examples
+#' # Show values in field 'cl22'
 #' search_fields("cl22") |> show_values()
+#' 
+#' # Search for any values in field 'cl22' that match 'tas'
+#' search_fields("cl22") |> search_values("tas")
 #' 
 #' # See individual filters within data quality profile "ALA"
 #' search_profiles("ALA") |> show_values()
@@ -59,17 +63,9 @@ show_values <- function(df){
     }
   }
 
-  # vector of valid types for this function
-  valid_types <- c("field", "profile", "list")
-
   # check 'type' is ok
   if(missing(type)){
     type <- "fields"
-  }else{
-    type <- enquos(type) |> parse_objects_or_functions()   
-    type <-  gsub("\"", "", as_label(type[[1]]))
-    assert_that(is.character(type))
-    check_type_valid(type, valid_types)   
   }
   
   # get first row of matched fields
@@ -135,17 +131,9 @@ search_values <- function(df, query) {
     }
   }
   
-  # vector of valid types for this function
-  valid_types <- c("field", "profile", "list")
-  
   # check 'type' is ok
   if(missing(type)){
     type <- "fields"
-  }else{
-    type <- enquos(type) |> parse_objects_or_functions()   
-    type <-  gsub("\"", "", as_label(type[[1]]))
-    assert_that(is.character(type))
-    check_type_valid(type, valid_types)   
   }
   
   # get first row of matched fields
@@ -189,7 +177,7 @@ search_values <- function(df, query) {
 }
 
 
-# internal values look-up functions ----------------------------------------
+# internal functions for values look-up ----------------------------------------
 
 show_field_values <- function(field) {
   if (missing(field)) {

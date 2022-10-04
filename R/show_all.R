@@ -49,121 +49,79 @@
 #' @seealso Use the [search_all()] function and `search_()` sub-functions to 
 #' search for information. These functions are used to pass valid arguments to
 #' [galah_select()], [galah_filter()], and related functions.
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
+#' @examples
 #' 
-#' ## Atlases
+#' ## Atlases ---------------------------
 #' 
-#' See all supported atlases
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # See all supported atlases
 #' show_all_atlases()
-#' ```
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' show_all(atlases) # equivalent
-#' ```
 #' 
-#' ## Fields
-#'
-#' See a listing of all valid fields and layers
+#' ## Fields ----------------------------
 #' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # See a listing of all valid fields and layers
 #' show_all_fields()
-#' ```
-#'
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' show_all(fields) # equivalent
-#' ```
 #'
-#' ## Reasons
+#' ## Reasons ---------------------------
 #'
-#' Show a listing of all accepted reasons for downloading occurrence data
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # Show a listing of all accepted reasons for downloading occurrence data
 #' show_all_reasons()
-#' ```
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' show_all(reasons) # equivalent
-#' ```
 #' 
-#' Add your download reason when configuring your session with [galah_config()]
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' # Add your download reason when configuring your session with [galah_config()]
+#' \dontrun{
 #' galah_config(download_reason_id = 3)
-#' ```
+#' }
 #'
-#' ## Profiles
+#' ## Profiles --------------------------
 #'
-#' Show a list of all available data quality profiles
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # Show a list of all available data quality profiles
 #' show_all_profiles()
-#' ```
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' show_all(profiles) # equivalent
-#' ```
 #' 
-#' Values in the `shortName` column can be used with [galah_apply_profile()] to 
-#' narrow your data query results
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # Values in the `shortName` column can be used with [galah_apply_profile()] 
+#' # to narrow your data query results
+#' \dontrun{
 #' galah_call() |> 
 #'   galah_apply_profile("ALA") |> 
 #'   atlas_counts()
-#' ```
+#' }
 #' 
-#' ## Lists
+#' ## Lists ----------------------------
 #' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # Show a listing of species lists
 #' show_all_lists()
-#' ```
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' show_all(lists) # equivalent
-#' ```
 #' 
-#' ## Ranks
+#' ## Ranks ---------------------------
 #' 
-#' Show a listing of all taxonomic ranks
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # Show a listing of all taxonomic ranks
 #' show_all_ranks()
-#' ```
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' show_all(ranks) # equivalent
-#' ```
 #' 
-#' Use ranks with [galah_down_to()] and [atlas_taxonomy()] to get taxonomic 
-#' trees
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # Use ranks with [galah_down_to()] and [atlas_taxonomy()] to get taxonomic 
+#' # trees
+#' \dontrun{
 #' galah_call() %>%
 #'   galah_identify("fungi") %>%
 #'   galah_down_to(subphylum) %>%
 #'   atlas_taxonomy()
-#' ```
+#' }
 #' 
-#' ## Cache files
+#' ## Cache files ---------------------
 #' 
-#' Configure caching and create a query to cache with [galah_config()]
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' # Configure caching and create a query to cache with [galah_config()]
+#' \dontrun{
 #' galah_config(caching = TRUE)
 #' dat <- atlas_counts(group_by = galah_group_by(year))
-#' ```
+#' 
 #'
-#' Show a listing of previously cached files
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' # Show a listing of previously cached files
 #' show_all_cached_files()
-#' ```
+#' }
 #' 
-#' 
+#' @md
 NULL
 
 #' @rdname show_all
