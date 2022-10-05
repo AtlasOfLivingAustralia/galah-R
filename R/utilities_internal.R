@@ -607,7 +607,8 @@ default_columns <- function() {
           "Guatemala" = c("latitude", "longtitude", "species_guid",
                           "data_resource_uid", "occurrence_date", "id"),
           c("decimalLatitude", "decimalLongitude", "eventDate",
-            "scientificName", "taxonConceptID", "recordID", "dataResourceName")
+            "scientificName", "taxonConceptID", "recordID", "dataResourceName",
+            "occurrenceStatus")
   )
 }
 

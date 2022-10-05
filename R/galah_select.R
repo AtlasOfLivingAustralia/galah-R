@@ -149,7 +149,7 @@ preset_cols <- function(type) {
                  "basic" = default_columns(),
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
-                             "samplingProtocol"),
+                             "samplingProtocol", "occurrenceStatus"),
                  "media" = c("multimedia", "multimediaLicence", 
                              "images", "videos", "sounds"),
                  "assertions" = show_all_assertions()$id
