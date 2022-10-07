@@ -210,7 +210,6 @@ show_field_values <- function(field) {
     category <- vapply(resp$fieldResult[[1]]$fq, function(n) {
       extract_category_value(n)
     }, USE.NAMES = FALSE, FUN.VALUE = character(1))
-    # browser()
     cbind(field = field, as.data.frame(category)) |> as_tibble()
   }
 }

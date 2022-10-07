@@ -261,7 +261,8 @@ search_assertions <- function(query){
   check_if_missing(query)
   df <- show_all_assertions()
   attr(df, "call") <- "search_assertions"
-  df[grepl(tolower(query), tolower(df$description)), ]
+  df[with(df, grepl(tolower(query), 
+                    paste(tolower(df$description), tolower(df$id)))), ]
 }
 
 #' @rdname search_all
@@ -343,6 +344,8 @@ search_fields <- function(query){
     
     # calculate similarity of results to query, reorder results
     similarity <- adist(df$id, query)[, 1]
+    # browser()
+    # similarity <- mapply(stringdist::afind, df$description, query)
     df <- df[order(similarity), ]
     
     # return results in order of similarity to search term

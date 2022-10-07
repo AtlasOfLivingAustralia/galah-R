@@ -35,7 +35,7 @@ test_that("galah_select builds expected columns when group = basic", {
     tibble(name = c("decimalLatitude", "decimalLongitude",
                         "eventDate", "scientificName",
                         "taxonConceptID", "recordID",
-                        "dataResourceName"),
+                        "dataResourceName", "occurrenceStatus"),
                type = rep("field", times = 7)),
     class = c("tbl_df", "tbl", "data.frame", "galah_select"))
   expect_s3_class(select, "data.frame")
