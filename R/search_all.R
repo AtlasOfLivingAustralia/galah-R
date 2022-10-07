@@ -42,8 +42,8 @@
 #' 
 #' @aliases search_all
 #' @aliases search_atlases search_reasons
-#' @aliases search_ranks search_fields search_values search_assertions 
-#' @aliases search_profiles search_profile_attributes search_providers 
+#' @aliases search_ranks search_fields search_assertions 
+#' @aliases search_profiles search_providers 
 #' @aliases search_collections search_datasets search_licences search_apis
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) 
 #' containing all data that match the search query.

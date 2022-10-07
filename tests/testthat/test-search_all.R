@@ -1,9 +1,5 @@
 context("Test search_fields")
 
-# search_all returns results for valid types
-# search_all returns correct input
-# search
-
 test_that("search_all checks inputs, returns helpful error", {
   skip_on_cran()
   expect_error(search_all(attributes, ""), "is not recognised")

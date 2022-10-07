@@ -40,7 +40,7 @@ Apply a data profile to a query
 #> # A tibble: 1 x 1
 #>   count
 #>   <int>
-#> 1 29089
+#> 1 29110
 }\if{html}{\out{</div>}}
 }
 

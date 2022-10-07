@@ -3,7 +3,7 @@
 \name{show_values}
 \alias{show_values}
 \alias{search_values}
-\title{Show values of a specific field}
+\title{Show or search for values within a specified field}
 \usage{
 show_values(df)
 
@@ -14,22 +14,15 @@ search_values(df, query)
 \code{\link[=search_lists]{search_lists()}}.}
 
 \item{query}{A string specifying a search term. Not case sensitive.}
-
-\item{type}{The type of information, automatically generated from the
-\code{search_} query.}
-
-\item{entry}{The query searched, automatically generated from the \code{search_} query}
-
-\item{field}{A string specifying a field to return the categories for. Use
-\code{\link[=search_fields]{search_fields()}} to view valid fields.}
 }
 \value{
-A \code{tibble} of values
+A \code{tibble} of values for a specified field, profile or list.
 }
 \description{
 Users may wish to see the specific values \emph{within} a chosen field, profile
 or list to narrow queries or understand more about the information of
-interest. \code{show_values()} provides users with these values.
+interest. \code{show_values()} provides users with these values. \code{search_values()}
+allows users for search for specific values within a specified field.
 }
 \details{
 Each \strong{Field} contains categorical or numeric values.
@@ -40,16 +33,16 @@ For example:
 These are used to narrow queries with \code{\link[=galah_filter]{galah_filter()}}.
 }
 
-Each \strong{Profile} contains individual filters.
-For example, the "ALA" profile filter values include:
+Each \strong{Profile} consists of many individual quality filters.
+For example, the "ALA" profile consists of values:
 \itemize{
 \item Exclude all records where spatial validity is FALSE
 \item Exclude all records with a latitude value of zero
 \item Exclude all records with a longitude value of zero
 }
 
-Each \strong{List} contains list items (usually taxonomic names).
-For example, the Endangered Plant species list values include:
+Each \strong{List} contains a list of species, usually by taxonomic name.
+For example, the Endangered Plant species list contains values:
 \itemize{
 \item Acacia curranii (Curly-bark Wattle)
 \item Brachyscome papillosa (Mossgiel Daisy)
@@ -57,7 +50,12 @@ For example, the Endangered Plant species list values include:
 }
 }
 \examples{
+
+# Show values in field 'cl22'
 search_fields("cl22") |> show_values()
+
+# Search for any values in field 'cl22' that match 'tas'
+search_fields("cl22") |> search_values("tas")
 
 # See individual filters within data quality profile "ALA"
 search_profiles("ALA") |> show_values()

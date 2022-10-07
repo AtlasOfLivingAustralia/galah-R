@@ -6,10 +6,8 @@
 \alias{search_reasons}
 \alias{search_ranks}
 \alias{search_fields}
-\alias{search_values}
 \alias{search_assertions}
 \alias{search_profiles}
-\alias{search_profile_attributes}
 \alias{search_providers}
 \alias{search_collections}
 \alias{search_datasets}
@@ -97,12 +95,12 @@ Search for all fields that use include the word "date"
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("date")
 #> # A tibble: 22 x 4
-#>   id             description                                         type  link 
-#>   <chr>          <chr>                                               <chr> <chr>
-#> 1 dateIdentified http://rs.tdwg.org/dwc/terms/dateIdentified         fiel~ <NA> 
-#> 2 datePrecision  The precision of the date information for the reco~ fiel~ <NA> 
-#> 3 eventDate      The ISO formatted date of observation, specimen co~ fiel~ <NA> 
-#> 4 eventDateEnd   <NA>                                                fiel~ <NA> 
+#>   id        description                                              type  link 
+#>   <chr>     <chr>                                                    <chr> <chr>
+#> 1 month     "Month of observation, specimen collection date. http:/~ fiel~ <NA> 
+#> 2 cl23      "Local Government Areas 2012 deprecated LGA Boundaries ~ laye~ http~
+#> 3 eventDate "The ISO formatted date of observation, specimen collec~ fiel~ <NA> 
+#> 4 cl10903   "Tenure of Australia's forests (2013) v2.0 Tenure of Au~ laye~ http~
 #> # ... with 18 more rows
 }\if{html}{\out{</div>}}
 
@@ -127,14 +125,14 @@ Search for all fields that have information for "marine"
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("marine") |> 
   head() # only show first 5 results
 #> # A tibble: 6 x 4
-#>   id      description                                                type  link 
-#>   <chr>   <chr>                                                      <chr> <chr>
-#> 1 biome   "A field indicating if the record has been located in Ter~ fiel~  <NA>
-#> 2 cl2105  "FAO Fishery Statistical Areas FAO Fishing areas (Marine)" laye~ "htt~
-#> 3 cl10948 "CAPAD 2018 Terrestrial The Collaborative Australian Prot~ laye~ "htt~
-#> 4 cl10957 "CAPAD 2018 Marine The Collaborative Australian Protected~ laye~ "htt~
-#> 5 el1056  "Endemism (Non-marine) Endemism (Non-marine) based on Cri~ laye~ ""   
-#> 6 el957   "Averaged Topographic Relief  This data represents the av~ laye~ "htt~
+#>   id     description                                                 type  link 
+#>   <chr>  <chr>                                                       <chr> <chr>
+#> 1 biome  "A field indicating if the record has been located in Terr~ fiel~  <NA>
+#> 2 cl2105 "FAO Fishery Statistical Areas FAO Fishing areas (Marine)"  laye~ "htt~
+#> 3 el1056 "Endemism (Non-marine) Endemism (Non-marine) based on Cris~ laye~ ""   
+#> 4 el957  "Averaged Topographic Relief  This data represents the ave~ laye~ "htt~
+#> 5 cl988  "Marine Ecoregions of the World Marine Ecoregions of the W~ laye~ "htt~
+#> 6 cl2085 "Global 200 priority ecoregions - Marine WWF's Global 200 ~ laye~ "htt~
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(fields, "marine") # equivalent
@@ -202,7 +200,7 @@ Search multiple taxa. \code{search_taxa()} will return one row per taxon
 #> # A tibble: 1 x 1
 #>     count
 #>     <int>
-#> 1 1471577
+#> 1 1472352
 }\if{html}{\out{</div>}}
 }
 
@@ -246,13 +244,13 @@ Search for species lists that match "endangered"
 #> # A tibble: 7 x 16
 #>   dataR~1 listN~2 listT~3 dateC~4 lastU~5 usern~6 fullN~7 itemC~8 region categ~9
 #>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <lgl>     <int> <chr>  <chr>  
-#> 1 dr19750 Endang~ OTHER   2022-0~ 2022-0~ anneke~ NA           73 <NA>   <NA>   
-#> 2 dr19257 Endang~ OTHER   2022-0~ 2022-0~ alanah~ NA           17 <NA>   <NA>   
-#> 3 dr4890  Endang~ CONSER~ 2016-0~ 2016-0~ kiashe~ NA          340 <NA>   <NA>   
+#> 1 dr19257 Endang~ OTHER   2022-0~ 2022-0~ alanah~ NA           17 <NA>   <NA>   
+#> 2 dr4890  Endang~ CONSER~ 2016-0~ 2016-0~ kiashe~ NA          340 <NA>   <NA>   
+#> 3 dr17208 My spe~ OTHER   2021-0~ 2021-0~ caterp~ NA            1 <NA>   <NA>   
 #> 4 dr17134 Endang~ CONSER~ 2021-0~ 2021-0~ 100588~ NA           20 <NA>   <NA>   
-#> 5 dr16203 EPBC A~ SPATIA~ 2020-0~ 2020-0~ robina~ NA           10 <NA>   <NA>   
-#> 6 dr17208 My spe~ OTHER   2021-0~ 2021-0~ caterp~ NA            1 <NA>   <NA>   
-#> 7 dr16896 Rare a~ CONSER~ 2021-0~ 2021-0~ matthe~ NA            1 <NA>   <NA>   
+#> 5 dr16896 Rare a~ CONSER~ 2021-0~ 2021-0~ matthe~ NA            1 <NA>   <NA>   
+#> 6 dr16203 EPBC A~ SPATIA~ 2020-0~ 2020-0~ robina~ NA           10 <NA>   <NA>   
+#> 7 dr19750 Endang~ OTHER   2022-0~ 2022-0~ anneke~ NA           73 <NA>   <NA>   
 #> # ... with 6 more variables: generalisation <chr>, authority <chr>,
 #> #   sdsType <chr>, isAuthoritative <lgl>, isInvasive <lgl>, isThreatened <lgl>,
 #> #   and abbreviated variable names 1: dataResourceUid, 2: listName,

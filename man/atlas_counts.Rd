@@ -77,7 +77,7 @@ With no arguments, return the total number of records in the ALA
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 113936525
+#> 1 113976424
 }\if{html}{\out{</div>}}
 
 You can group counts by state and territory with \code{galah_group_by}
@@ -88,10 +88,10 @@ You can group counts by state and territory with \code{galah_group_by}
 #> # A tibble: 100 x 2
 #>   stateProvince      count
 #>   <chr>              <int>
-#> 1 New South Wales 28142511
-#> 2 Victoria        24512024
-#> 3 Queensland      20452295
-#> 4 South Australia  8920806
+#> 1 New South Wales 28150499
+#> 2 Victoria        24525573
+#> 3 Queensland      20461311
+#> 4 South Australia  8924072
 #> # ... with 96 more rows
 }\if{html}{\out{</div>}}
 
@@ -118,7 +118,7 @@ counts by kingdom
 #> # A tibble: 10 x 2
 #>    kingdom   count
 #>    <chr>     <dbl>
-#>  1 Animalia  91709
+#>  1 Animalia  91725
 #>  2 Plantae   38744
 #>  3 Fungi     19685
 #>  4 Chromista  1530
@@ -143,10 +143,10 @@ variables, similar to using \code{dplyr::group_by() \%>\% dplyr::count()}
 #> # A tibble: 47 x 3
 #>   basisOfRecord     year    count
 #>   <chr>             <chr>   <int>
-#> 1 HUMAN_OBSERVATION 2021  7006909
-#> 2 HUMAN_OBSERVATION 2020  6292765
-#> 3 HUMAN_OBSERVATION 2019  5517045
-#> 4 HUMAN_OBSERVATION 2018  5237418
+#> 1 HUMAN_OBSERVATION 2021  7007652
+#> 2 HUMAN_OBSERVATION 2020  6292943
+#> 3 HUMAN_OBSERVATION 2019  5517222
+#> 4 HUMAN_OBSERVATION 2018  5237592
 #> # ... with 43 more rows
 }\if{html}{\out{</div>}}
 }

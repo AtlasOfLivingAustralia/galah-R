@@ -245,24 +245,35 @@ find_atlases <- function() {
 #' @export
 #' @name deprecated
 ala_config <- function(..., profile_path = NULL) {
-  lifecycle::deprecate_warn("1.3.0", "ala_config()", "galah_config()")
+  lifecycle::deprecate_stop("1.3.0", "ala_config()", "galah_config()")
 
   galah_config(..., profile_path = profile_path)
 }
 
 
 #' @description 
-#' Use [show_values(field)] or [show_field_values()] instead of `show_all_values()`.
+#' Use [show_values()] instead of `search_field_values()`
 #'
 #' @keywords internal 
 #' @export
 #' @name deprecated
-show_all_values <- function(field){
-  lifecycle::deprecate_warn("1.5.0", "show_all_values()", "show_field_values")
-  show_field_values(field)
+search_field_values <- function(field){
+  lifecycle::deprecate_warn(when = "1.5.0", 
+                            what = "search_field_values()", 
+                            details = "Please use `search_fields('query') |> show_values()` instead.")
+  search_all(fields, paste({field})) |> show_values()
 }
 
+
+#' @description 
+#' Use [show_values()] instead of `search_profile_attributes()`
+#'
+#' @keywords internal 
+#' @export
+#' @name deprecated
 search_profile_attributes <- function(profile){
-  lifecycle::deprecate_warn("1.5.0", "search_profile_attributes()", "show_profile_values")
-  show_profile_values(profile)
+  lifecycle::deprecate_warn(when = "1.5.0", 
+                            what = "search_profile_attributes()", 
+                            details = "Please use `search_profiles('query') |> show_values()` instead.")
+  search_all(profiles, paste({profile})) |> show_values()
 }

@@ -1,9 +1,10 @@
-#' Show values of a specific field
+#' Show or search for values within a specified field
 #' 
 #' @description 
 #' Users may wish to see the specific values *within* a chosen field, profile 
 #' or list to narrow queries or understand more about the information of 
-#' interest. `show_values()` provides users with these values.
+#' interest. `show_values()` provides users with these values. `search_values()` 
+#' allows users for search for specific values within a specified field.
 #' 
 #' @details
 #' Each **Field** contains categorical or numeric values.
@@ -12,25 +13,23 @@
 #'   *  The `field` "stateProvince" contains values New South Wales, Victoria, Queensland, etc.
 #' These are used to narrow queries with [galah_filter()]. 
 #' 
-#' Each **Profile** contains individual filters. 
-#' For example, the "ALA" profile filter values include:
+#' Each **Profile** consists of many individual quality filters. 
+#' For example, the "ALA" profile consists of values:
 #'   *  Exclude all records where spatial validity is FALSE
 #'   *  Exclude all records with a latitude value of zero
 #'   *  Exclude all records with a longitude value of zero
 #' 
-#' Each **List** contains list items (usually taxonomic names). 
-#' For example, the Endangered Plant species list values include: 
+#' Each **List** contains a list of species, usually by taxonomic name. 
+#' For example, the Endangered Plant species list contains values: 
 #'   *  Acacia curranii (Curly-bark Wattle)
 #'   *  Brachyscome papillosa (Mossgiel Daisy)
 #'   *  Solanum karsense (Menindee Nightshade)
 #' 
 #' @param df A search result from [search_fields()], [search_profiles()] or 
 #' [search_lists()].
-#' @param type The type of information, automatically generated from the 
-#' `search_` query.
-#' @param entry The query searched, automatically generated from the `search_` query
-#' @return A `tibble` of values
+#' @return A `tibble` of values for a specified field, profile or list.
 #' @examples
+#' 
 #' # Show values in field 'cl22'
 #' search_fields("cl22") |> show_values()
 #' 
@@ -47,8 +46,7 @@
 show_values <- function(df){
   
   # Check inputs
-  type <- paste(attr(df, "call")) # 'type' of info requested
-  check_inputs_to_values(df, type)
+  check_inputs_to_values(df)
   
   # Get correct information 'type'
   if(attr(df, "call") %in% c("search_fields", "show_all_fields")) {
@@ -64,7 +62,7 @@ show_values <- function(df){
   }
 
   # check 'type' is ok
-  if(missing(type)){
+  if(is.null(attr(df, "call"))){
     type <- "fields"
   }
   
@@ -106,8 +104,7 @@ show_values <- function(df){
 }
 
 
-#' @param field A string specifying a field to return the categories for. Use
-#' [search_fields()] to view valid fields.
+
 #' @param query A string specifying a search term. Not case sensitive.
 #' @rdname show_values
 #' @export search_values
@@ -115,7 +112,6 @@ show_values <- function(df){
 search_values <- function(df, query) {
   
   # Check for input
-  type <- paste(attr(df, "call")) # 'type' of info requested
   check_inputs_to_values(df)
   
   # Get correct information 'type'
@@ -132,7 +128,7 @@ search_values <- function(df, query) {
   }
   
   # check 'type' is ok
-  if(missing(type)){
+  if(is.null(attr(df, "call"))){
     type <- "fields"
   }
   
@@ -173,8 +169,10 @@ search_values <- function(df, query) {
   args <- list(match_name, query)
   names(args) <- list(type, paste("query"))
   do.call(paste0("search_", type, "_values"), args)
-  # df[grepl(tolower(query), tolower(df$description)), ]
 }
+
+
+
 
 
 # internal functions for values look-up ----------------------------------------
@@ -201,7 +199,7 @@ show_field_values <- function(field) {
   resp <- atlas_GET(url, params = list(facets = field, flimit = 10^4))
   if(is.null(resp)){
     bullets <- c(
-      "Calling the API failed for `show_all_values()`.",
+      "Calling the API failed for `show_values()`.",
       i = "This might mean that the ALA system is down. Double check that your query is correct."
     )
     inform(bullets)
@@ -279,6 +277,20 @@ profile_short_name <- function(profile) {
   short_name
 }
 
+search_profile_values <- function(profile, query){
+  
+  if (missing(query) || is.null(query)) {
+    bullets <- c(
+      "We didn't detect a valid query.",
+      i = "Try entering text to search for matching values."
+    )
+    rlang::warn(message = bullets, error = rlang::caller_env())
+  }
+  
+  profile_text <- show_profile_values(profile)
+  profile_text[grepl(query, tolower(profile_text$description)), ]
+}
+
 
 show_list_values <- function(list){
   
@@ -295,8 +307,25 @@ show_list_values <- function(list){
 }
 
 
+search_list_values <- function(list, query){
+  
+  if (missing(query) || is.null(query)) {
+    bullets <- c(
+      "We didn't detect a valid query.",
+      i = "Try entering text to search for matching values."
+    )
+    rlang::warn(message = bullets, error = rlang::caller_env())
+  }
+  
+  list_text <- show_list_values(list)
+  list_text[with(list_text, grepl(tolower(query), 
+                                  paste(tolower(list_text$commonName), 
+                                        tolower(list_text$scientificName)))), ]
+}
+
+
 # checks inputs to `show_values()` & `search_values()`
-check_inputs_to_values <- function(df, type, error_call = caller_env()) {
+check_inputs_to_values <- function(df, error_call = caller_env()) {
   # Check if missing input
   if(missing(df)) {
     bullets <- c(
@@ -319,6 +348,7 @@ check_inputs_to_values <- function(df, type, error_call = caller_env()) {
   if(!(attr(df, "call") %in% c("search_fields", "search_profiles", "search_lists", 
                               "show_all_fields", "show_all_profiles", "show_all_lists"))){
     # type <- stringr::word(paste(attr(df, "call")), 2, sep="_")
+    type <- attr(df, "call")
     bullets <- c(
       "Unsupported 'type' for values look-up.",
       i = "Must supply a search for a field, profile or list.",
