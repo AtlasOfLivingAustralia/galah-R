@@ -1,11 +1,12 @@
 context("Test atlas_counts")
 
-test_that("atlas_counts checks group_by field", {
-  galah_config(run_checks = TRUE)
-  expect_warning(atlas_counts(group_by = galah_group_by("invalid")))
-  galah_config(run_checks = FALSE)
+vcr::use_cassette("atlas_counts_startup", {
+  test_that("atlas_counts checks group_by field", {
+    galah_config(run_checks = TRUE)
+    expect_warning(atlas_counts(group_by = galah_group_by("invalid")))
+    galah_config(run_checks = FALSE)
+  })
 })
-
 
 test_that("atlas_counts works with no arguments", {
   vcr::use_cassette("atlas_count", {

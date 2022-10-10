@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0.9999
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -22,26 +22,26 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 06 Sep 2022 03:16:13 GMT
+      date: Sun, 09 Oct 2022 23:43:54 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.1
       set-cookie:
-      - AWSALBTG=WdBIHAkSXClO6ZMt1yEDqii3mWs3u+y0WZq4Y7E7oNk/IIrmzMy0RH2qS4h0YW1CYn+KABP0fBCsl4pM239zIxCyL6I8sbAfpWevEEuXB0SrJhri1jDHWg4rJPuzAaFCOEchy6NvUyxK99CWT7D41trkng4ONV8a13ga+TA+zF1I;
-        Expires=Tue, 13 Sep 2022 03:16:11 GMT; Path=/
-      - AWSALBTGCORS=WdBIHAkSXClO6ZMt1yEDqii3mWs3u+y0WZq4Y7E7oNk/IIrmzMy0RH2qS4h0YW1CYn+KABP0fBCsl4pM239zIxCyL6I8sbAfpWevEEuXB0SrJhri1jDHWg4rJPuzAaFCOEchy6NvUyxK99CWT7D41trkng4ONV8a13ga+TA+zF1I;
-        Expires=Tue, 13 Sep 2022 03:16:11 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=MdZxRomEFpRguDk6BYrda8DYmxRsy+V+Xt4sQM+ItkPRWRjXBkFL0Y8bdoR5SosIc7YzXjsjHcJ4ZJN9VYI424fPVOtSUv2kv8ze7y5FiZ4ucFQMXioVhnP05vKQ;
-        Expires=Tue, 13 Sep 2022 03:16:11 GMT; Path=/
-      - AWSALBCORS=MdZxRomEFpRguDk6BYrda8DYmxRsy+V+Xt4sQM+ItkPRWRjXBkFL0Y8bdoR5SosIc7YzXjsjHcJ4ZJN9VYI424fPVOtSUv2kv8ze7y5FiZ4ucFQMXioVhnP05vKQ;
-        Expires=Tue, 13 Sep 2022 03:16:11 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=EP1PIISe5ioLI0QmzCZpGqYXKdNfR2T2keqCHOx1KQJ+N0oQaw5tFa+T8JbtKIkyyiKLG4v14WNK47tcg6a+HFNHyPIjbndgX4DtEjdEUGvIYAMiui5LFF2CRpKb9eS0uPsGnRiDoybrtefT0ob1IJdz+gp8FsGYknPY8Vjq/jXZ;
+        Expires=Sun, 16 Oct 2022 23:43:53 GMT; Path=/
+      - AWSALBTGCORS=EP1PIISe5ioLI0QmzCZpGqYXKdNfR2T2keqCHOx1KQJ+N0oQaw5tFa+T8JbtKIkyyiKLG4v14WNK47tcg6a+HFNHyPIjbndgX4DtEjdEUGvIYAMiui5LFF2CRpKb9eS0uPsGnRiDoybrtefT0ob1IJdz+gp8FsGYknPY8Vjq/jXZ;
+        Expires=Sun, 16 Oct 2022 23:43:53 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=X+dAXh7UGevWaj6qINfyq5qj1zFJRlB6gjZjH5kaWeZaSBoox1v5mzeCg6Fdlfg94L9bgSCPXSV0RorAwgpmS7sy7hHikYdUS1Oggy2G2c8jPcm9UcJ+YBOXD063;
+        Expires=Sun, 16 Oct 2022 23:43:53 GMT; Path=/
+      - AWSALBCORS=X+dAXh7UGevWaj6qINfyq5qj1zFJRlB6gjZjH5kaWeZaSBoox1v5mzeCg6Fdlfg94L9bgSCPXSV0RorAwgpmS7sy7hHikYdUS1Oggy2G2c8jPcm9UcJ+YBOXD063;
+        Expires=Sun, 16 Oct 2022 23:43:53 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":7068825,"fq":"year:\"2021\""}],"count":282}]'
-  recorded_at: 2022-09-06 03:16:15 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":7097294,"fq":"year:\"2021\""}],"count":282}]'
+  recorded_at: 2022-10-09 23:43:57 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -52,7 +52,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0.9999
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -66,26 +66,26 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 06 Sep 2022 03:16:14 GMT
+      date: Sun, 09 Oct 2022 23:43:56 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.1
       set-cookie:
-      - AWSALBTG=HUL4B16Ho9pZqGty5JGfaZ1L9nbCvIypnvywg/Y9xUlb1bOmPpzmczDU5PYCVRtp9eL0wJY+kLgOJ6DjR9rDxzSkXN/5XdwRpnDyPjiJ7dk/Nz0/wob1I//FU0DIs7b2ENTROSnzii+g/aNaGuuEBx/v7OLpPBQdSjZXIwT7M6J+;
-        Expires=Tue, 13 Sep 2022 03:16:13 GMT; Path=/
-      - AWSALBTGCORS=HUL4B16Ho9pZqGty5JGfaZ1L9nbCvIypnvywg/Y9xUlb1bOmPpzmczDU5PYCVRtp9eL0wJY+kLgOJ6DjR9rDxzSkXN/5XdwRpnDyPjiJ7dk/Nz0/wob1I//FU0DIs7b2ENTROSnzii+g/aNaGuuEBx/v7OLpPBQdSjZXIwT7M6J+;
-        Expires=Tue, 13 Sep 2022 03:16:13 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=7YFnBTF58ZWl/xvGJ7DwvK5OMiXwsqqcOKfMRDeBvDQwbo8pyOeoTEk72+XU+471v+57Rv0Nm3rbmJ4mNFF6DPXIruKsgNOwXgtlSbfE9BXbl1CY+1lY43NFruDy;
-        Expires=Tue, 13 Sep 2022 03:16:13 GMT; Path=/
-      - AWSALBCORS=7YFnBTF58ZWl/xvGJ7DwvK5OMiXwsqqcOKfMRDeBvDQwbo8pyOeoTEk72+XU+471v+57Rv0Nm3rbmJ4mNFF6DPXIruKsgNOwXgtlSbfE9BXbl1CY+1lY43NFruDy;
-        Expires=Tue, 13 Sep 2022 03:16:13 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=MkdbrieW8ruF5HY5/EISJxi+qdVlgNHPHtxaqi62nY4cmpZ/Tb6e43E9OM8sie0fTX14RYUqaVOL9cTMDJ4TmVCSx6wRtMamueCzvrQZ4YjWMU0ir4xMTy82FBIrMYDrABEU7Ktz9XTdiFEK3F3W2B2v3epNLloDWjBX3/HgL1Ul;
+        Expires=Sun, 16 Oct 2022 23:43:54 GMT; Path=/
+      - AWSALBTGCORS=MkdbrieW8ruF5HY5/EISJxi+qdVlgNHPHtxaqi62nY4cmpZ/Tb6e43E9OM8sie0fTX14RYUqaVOL9cTMDJ4TmVCSx6wRtMamueCzvrQZ4YjWMU0ir4xMTy82FBIrMYDrABEU7Ktz9XTdiFEK3F3W2B2v3epNLloDWjBX3/HgL1Ul;
+        Expires=Sun, 16 Oct 2022 23:43:54 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=ssVQD0u/dn0J3kpixIkCshj+bVmkifjdlv0HuGdenZCQS4sJTgqe8HqF3VM9EmTL/FD5sXf2CjwWfZwQTyxSY/cIVkbj8XkrBSL/Gnhdzu13UvRUfw4zJumW4BuE;
+        Expires=Sun, 16 Oct 2022 23:43:54 GMT; Path=/
+      - AWSALBCORS=ssVQD0u/dn0J3kpixIkCshj+bVmkifjdlv0HuGdenZCQS4sJTgqe8HqF3VM9EmTL/FD5sXf2CjwWfZwQTyxSY/cIVkbj8XkrBSL/Gnhdzu13UvRUfw4zJumW4BuE;
+        Expires=Sun, 16 Oct 2022 23:43:54 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":7068825,"fq":"year:\"2021\""},{"label":"2020","i18nCode":"year.2020","count":6384033,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":5735874,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":5612001,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":4837764,"fq":"year:\"2017\""},{"label":"2014","i18nCode":"year.2014","count":4030040,"fq":"year:\"2014\""},{"label":"2016","i18nCode":"year.2016","count":3991306,"fq":"year:\"2016\""},{"label":"2015","i18nCode":"year.2015","count":3822633,"fq":"year:\"2015\""},{"label":"2013","i18nCode":"year.2013","count":3713901,"fq":"year:\"2013\""},{"label":"2012","i18nCode":"year.2012","count":3139786,"fq":"year:\"2012\""},{"label":"2001","i18nCode":"year.2001","count":2780926,"fq":"year:\"2001\""},{"label":"2011","i18nCode":"year.2011","count":2776021,"fq":"year:\"2011\""},{"label":"1999","i18nCode":"year.1999","count":2745105,"fq":"year:\"1999\""},{"label":"2000","i18nCode":"year.2000","count":2701085,"fq":"year:\"2000\""},{"label":"2010","i18nCode":"year.2010","count":2465306,"fq":"year:\"2010\""},{"label":"2009","i18nCode":"year.2009","count":2313157,"fq":"year:\"2009\""},{"label":"2008","i18nCode":"year.2008","count":2244804,"fq":"year:\"2008\""},{"label":"2002","i18nCode":"year.2002","count":2173589,"fq":"year:\"2002\""},{"label":"2007","i18nCode":"year.2007","count":1949280,"fq":"year:\"2007\""},{"label":"2005","i18nCode":"year.2005","count":1915369,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":1873016,"fq":"year:\"2004\""},{"label":"2006","i18nCode":"year.2006","count":1861102,"fq":"year:\"2006\""},{"label":"2003","i18nCode":"year.2003","count":1800636,"fq":"year:\"2003\""},{"label":"1998","i18nCode":"year.1998","count":1448542,"fq":"year:\"1998\""},{"label":"1997","i18nCode":"year.1997","count":1184176,"fq":"year:\"1997\""},{"label":"1993","i18nCode":"year.1993","count":1175839,"fq":"year:\"1993\""},{"label":"1996","i18nCode":"year.1996","count":1158807,"fq":"year:\"1996\""},{"label":"1992","i18nCode":"year.1992","count":1120857,"fq":"year:\"1992\""},{"label":"1991","i18nCode":"year.1991","count":1042840,"fq":"year:\"1991\""},{"label":"1995","i18nCode":"year.1995","count":1042653,"fq":"year:\"1995\""},{"label":"1994","i18nCode":"year.1994","count":1030677,"fq":"year:\"1994\""},{"label":"1990","i18nCode":"year.1990","count":892873,"fq":"year:\"1990\""},{"label":"2022","i18nCode":"year.2022","count":825716,"fq":"year:\"2022\""},{"label":"1980","i18nCode":"year.1980","count":813172,"fq":"year:\"1980\""},{"label":"1987","i18nCode":"year.1987","count":786802,"fq":"year:\"1987\""},{"label":"1988","i18nCode":"year.1988","count":774162,"fq":"year:\"1988\""},{"label":"1986","i18nCode":"year.1986","count":762082,"fq":"year:\"1986\""},{"label":"1978","i18nCode":"year.1978","count":747811,"fq":"year:\"1978\""},{"label":"1979","i18nCode":"year.1979","count":734715,"fq":"year:\"1979\""},{"label":"1977","i18nCode":"year.1977","count":716260,"fq":"year:\"1977\""},{"label":"1989","i18nCode":"year.1989","count":707597,"fq":"year:\"1989\""},{"label":"1985","i18nCode":"year.1985","count":646337,"fq":"year:\"1985\""},{"label":"1981","i18nCode":"year.1981","count":626937,"fq":"year:\"1981\""},{"label":"1984","i18nCode":"year.1984","count":615993,"fq":"year:\"1984\""},{"label":"1983","i18nCode":"year.1983","count":523124,"fq":"year:\"1983\""},{"label":"1982","i18nCode":"year.1982","count":483002,"fq":"year:\"1982\""},{"label":"1970","i18nCode":"year.1970","count":369418,"fq":"year:\"1970\""},{"label":"1976","i18nCode":"year.1976","count":360526,"fq":"year:\"1976\""},{"label":"1975","i18nCode":"year.1975","count":327698,"fq":"year:\"1975\""},{"label":"1973","i18nCode":"year.1973","count":304518,"fq":"year:\"1973\""},{"label":"1974","i18nCode":"year.1974","count":293035,"fq":"year:\"1974\""},{"label":"1972","i18nCode":"year.1972","count":281121,"fq":"year:\"1972\""},{"label":"1971","i18nCode":"year.1971","count":278714,"fq":"year:\"1971\""},{"label":"1969","i18nCode":"year.1969","count":245803,"fq":"year:\"1969\""},{"label":"1968","i18nCode":"year.1968","count":229859,"fq":"year:\"1968\""},{"label":"1967","i18nCode":"year.1967","count":198922,"fq":"year:\"1967\""},{"label":"1966","i18nCode":"year.1966","count":193405,"fq":"year:\"1966\""},{"label":"1965","i18nCode":"year.1965","count":174527,"fq":"year:\"1965\""},{"label":"1964","i18nCode":"year.1964","count":170181,"fq":"year:\"1964\""},{"label":"1963","i18nCode":"year.1963","count":165953,"fq":"year:\"1963\""},{"label":"1962","i18nCode":"year.1962","count":146741,"fq":"year:\"1962\""},{"label":"1960","i18nCode":"year.1960","count":123254,"fq":"year:\"1960\""},{"label":"1961","i18nCode":"year.1961","count":115141,"fq":"year:\"1961\""},{"label":"1958","i18nCode":"year.1958","count":112170,"fq":"year:\"1958\""},{"label":"1959","i18nCode":"year.1959","count":101631,"fq":"year:\"1959\""},{"label":"1957","i18nCode":"year.1957","count":94389,"fq":"year:\"1957\""},{"label":"1954","i18nCode":"year.1954","count":87710,"fq":"year:\"1954\""},{"label":"1953","i18nCode":"year.1953","count":86783,"fq":"year:\"1953\""},{"label":"1955","i18nCode":"year.1955","count":85354,"fq":"year:\"1955\""},{"label":"1956","i18nCode":"year.1956","count":80765,"fq":"year:\"1956\""},{"label":"1948","i18nCode":"year.1948","count":74904,"fq":"year:\"1948\""},{"label":"1952","i18nCode":"year.1952","count":67688,"fq":"year:\"1952\""},{"label":"1950","i18nCode":"year.1950","count":64759,"fq":"year:\"1950\""},{"label":"1949","i18nCode":"year.1949","count":63121,"fq":"year:\"1949\""},{"label":"1947","i18nCode":"year.1947","count":53949,"fq":"year:\"1947\""},{"label":"1951","i18nCode":"year.1951","count":53010,"fq":"year:\"1951\""},{"label":"1938","i18nCode":"year.1938","count":45805,"fq":"year:\"1938\""},{"label":"1946","i18nCode":"year.1946","count":44121,"fq":"year:\"1946\""},{"label":"1939","i18nCode":"year.1939","count":43662,"fq":"year:\"1939\""},{"label":"1900","i18nCode":"year.1900","count":43011,"fq":"year:\"1900\""},{"label":"1937","i18nCode":"year.1937","count":40650,"fq":"year:\"1937\""},{"label":"1931","i18nCode":"year.1931","count":37393,"fq":"year:\"1931\""},{"label":"1930","i18nCode":"year.1930","count":34889,"fq":"year:\"1930\""},{"label":"1935","i18nCode":"year.1935","count":34493,"fq":"year:\"1935\""},{"label":"1922","i18nCode":"year.1922","count":34265,"fq":"year:\"1922\""},{"label":"1928","i18nCode":"year.1928","count":33978,"fq":"year:\"1928\""},{"label":"1921","i18nCode":"year.1921","count":30606,"fq":"year:\"1921\""},{"label":"1945","i18nCode":"year.1945","count":30533,"fq":"year:\"1945\""},{"label":"1910","i18nCode":"year.1910","count":30089,"fq":"year:\"1910\""},{"label":"1936","i18nCode":"year.1936","count":30059,"fq":"year:\"1936\""},{"label":"1932","i18nCode":"year.1932","count":30012,"fq":"year:\"1932\""},{"label":"1941","i18nCode":"year.1941","count":29911,"fq":"year:\"1941\""},{"label":"1912","i18nCode":"year.1912","count":29745,"fq":"year:\"1912\""},{"label":"1934","i18nCode":"year.1934","count":29488,"fq":"year:\"1934\""},{"label":"1909","i18nCode":"year.1909","count":29478,"fq":"year:\"1909\""},{"label":"1933","i18nCode":"year.1933","count":29413,"fq":"year:\"1933\""},{"label":"1929","i18nCode":"year.1929","count":29006,"fq":"year:\"1929\""},{"label":"1911","i18nCode":"year.1911","count":28599,"fq":"year:\"1911\""},{"label":"1940","i18nCode":"year.1940","count":28470,"fq":"year:\"1940\""},{"label":"1913","i18nCode":"year.1913","count":28380,"fq":"year:\"1913\""}],"count":282}]'
-  recorded_at: 2022-09-06 03:16:15 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":7097294,"fq":"year:\"2021\""},{"label":"2020","i18nCode":"year.2020","count":6398914,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":5760202,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":5624770,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":4855262,"fq":"year:\"2017\""},{"label":"2014","i18nCode":"year.2014","count":4036627,"fq":"year:\"2014\""},{"label":"2016","i18nCode":"year.2016","count":4008014,"fq":"year:\"2016\""},{"label":"2015","i18nCode":"year.2015","count":3832102,"fq":"year:\"2015\""},{"label":"2013","i18nCode":"year.2013","count":3722104,"fq":"year:\"2013\""},{"label":"2012","i18nCode":"year.2012","count":3152779,"fq":"year:\"2012\""},{"label":"2011","i18nCode":"year.2011","count":2786956,"fq":"year:\"2011\""},{"label":"2001","i18nCode":"year.2001","count":2783529,"fq":"year:\"2001\""},{"label":"1999","i18nCode":"year.1999","count":2747508,"fq":"year:\"1999\""},{"label":"2000","i18nCode":"year.2000","count":2702157,"fq":"year:\"2000\""},{"label":"2010","i18nCode":"year.2010","count":2470210,"fq":"year:\"2010\""},{"label":"2009","i18nCode":"year.2009","count":2319563,"fq":"year:\"2009\""},{"label":"2008","i18nCode":"year.2008","count":2247900,"fq":"year:\"2008\""},{"label":"2002","i18nCode":"year.2002","count":2174768,"fq":"year:\"2002\""},{"label":"2007","i18nCode":"year.2007","count":1953172,"fq":"year:\"2007\""},{"label":"2005","i18nCode":"year.2005","count":1917404,"fq":"year:\"2005\""},{"label":"2004","i18nCode":"year.2004","count":1874494,"fq":"year:\"2004\""},{"label":"2006","i18nCode":"year.2006","count":1862912,"fq":"year:\"2006\""},{"label":"2003","i18nCode":"year.2003","count":1802199,"fq":"year:\"2003\""},{"label":"1998","i18nCode":"year.1998","count":1450711,"fq":"year:\"1998\""},{"label":"1997","i18nCode":"year.1997","count":1186952,"fq":"year:\"1997\""},{"label":"1993","i18nCode":"year.1993","count":1177190,"fq":"year:\"1993\""},{"label":"1996","i18nCode":"year.1996","count":1160372,"fq":"year:\"1996\""},{"label":"1992","i18nCode":"year.1992","count":1122201,"fq":"year:\"1992\""},{"label":"1995","i18nCode":"year.1995","count":1044737,"fq":"year:\"1995\""},{"label":"1991","i18nCode":"year.1991","count":1043627,"fq":"year:\"1991\""},{"label":"1994","i18nCode":"year.1994","count":1031861,"fq":"year:\"1994\""},{"label":"2022","i18nCode":"year.2022","count":1015151,"fq":"year:\"2022\""},{"label":"1990","i18nCode":"year.1990","count":894695,"fq":"year:\"1990\""},{"label":"1980","i18nCode":"year.1980","count":814361,"fq":"year:\"1980\""},{"label":"1987","i18nCode":"year.1987","count":788281,"fq":"year:\"1987\""},{"label":"1988","i18nCode":"year.1988","count":775484,"fq":"year:\"1988\""},{"label":"1986","i18nCode":"year.1986","count":763164,"fq":"year:\"1986\""},{"label":"1978","i18nCode":"year.1978","count":748453,"fq":"year:\"1978\""},{"label":"1979","i18nCode":"year.1979","count":735761,"fq":"year:\"1979\""},{"label":"1977","i18nCode":"year.1977","count":717529,"fq":"year:\"1977\""},{"label":"1989","i18nCode":"year.1989","count":709187,"fq":"year:\"1989\""},{"label":"1985","i18nCode":"year.1985","count":647423,"fq":"year:\"1985\""},{"label":"1981","i18nCode":"year.1981","count":628288,"fq":"year:\"1981\""},{"label":"1984","i18nCode":"year.1984","count":617999,"fq":"year:\"1984\""},{"label":"1983","i18nCode":"year.1983","count":525952,"fq":"year:\"1983\""},{"label":"1982","i18nCode":"year.1982","count":484085,"fq":"year:\"1982\""},{"label":"1970","i18nCode":"year.1970","count":369915,"fq":"year:\"1970\""},{"label":"1976","i18nCode":"year.1976","count":361021,"fq":"year:\"1976\""},{"label":"1975","i18nCode":"year.1975","count":328227,"fq":"year:\"1975\""},{"label":"1973","i18nCode":"year.1973","count":305240,"fq":"year:\"1973\""},{"label":"1974","i18nCode":"year.1974","count":293422,"fq":"year:\"1974\""},{"label":"1972","i18nCode":"year.1972","count":281690,"fq":"year:\"1972\""},{"label":"1971","i18nCode":"year.1971","count":278985,"fq":"year:\"1971\""},{"label":"1969","i18nCode":"year.1969","count":245917,"fq":"year:\"1969\""},{"label":"1968","i18nCode":"year.1968","count":229934,"fq":"year:\"1968\""},{"label":"1967","i18nCode":"year.1967","count":199024,"fq":"year:\"1967\""},{"label":"1966","i18nCode":"year.1966","count":193505,"fq":"year:\"1966\""},{"label":"1965","i18nCode":"year.1965","count":174682,"fq":"year:\"1965\""},{"label":"1964","i18nCode":"year.1964","count":170301,"fq":"year:\"1964\""},{"label":"1963","i18nCode":"year.1963","count":166003,"fq":"year:\"1963\""},{"label":"1962","i18nCode":"year.1962","count":146877,"fq":"year:\"1962\""},{"label":"1960","i18nCode":"year.1960","count":123304,"fq":"year:\"1960\""},{"label":"1961","i18nCode":"year.1961","count":115190,"fq":"year:\"1961\""},{"label":"1958","i18nCode":"year.1958","count":112182,"fq":"year:\"1958\""},{"label":"1959","i18nCode":"year.1959","count":101648,"fq":"year:\"1959\""},{"label":"1957","i18nCode":"year.1957","count":94401,"fq":"year:\"1957\""},{"label":"1954","i18nCode":"year.1954","count":87715,"fq":"year:\"1954\""},{"label":"1953","i18nCode":"year.1953","count":86789,"fq":"year:\"1953\""},{"label":"1955","i18nCode":"year.1955","count":85401,"fq":"year:\"1955\""},{"label":"1956","i18nCode":"year.1956","count":80784,"fq":"year:\"1956\""},{"label":"1948","i18nCode":"year.1948","count":74911,"fq":"year:\"1948\""},{"label":"1952","i18nCode":"year.1952","count":67699,"fq":"year:\"1952\""},{"label":"1950","i18nCode":"year.1950","count":64768,"fq":"year:\"1950\""},{"label":"1949","i18nCode":"year.1949","count":63134,"fq":"year:\"1949\""},{"label":"1947","i18nCode":"year.1947","count":53955,"fq":"year:\"1947\""},{"label":"1951","i18nCode":"year.1951","count":53020,"fq":"year:\"1951\""},{"label":"1938","i18nCode":"year.1938","count":45809,"fq":"year:\"1938\""},{"label":"1946","i18nCode":"year.1946","count":44125,"fq":"year:\"1946\""},{"label":"1939","i18nCode":"year.1939","count":43668,"fq":"year:\"1939\""},{"label":"1900","i18nCode":"year.1900","count":43027,"fq":"year:\"1900\""},{"label":"1937","i18nCode":"year.1937","count":40653,"fq":"year:\"1937\""},{"label":"1931","i18nCode":"year.1931","count":37407,"fq":"year:\"1931\""},{"label":"1930","i18nCode":"year.1930","count":34890,"fq":"year:\"1930\""},{"label":"1935","i18nCode":"year.1935","count":34498,"fq":"year:\"1935\""},{"label":"1922","i18nCode":"year.1922","count":34264,"fq":"year:\"1922\""},{"label":"1928","i18nCode":"year.1928","count":33987,"fq":"year:\"1928\""},{"label":"1921","i18nCode":"year.1921","count":30611,"fq":"year:\"1921\""},{"label":"1945","i18nCode":"year.1945","count":30535,"fq":"year:\"1945\""},{"label":"1910","i18nCode":"year.1910","count":30098,"fq":"year:\"1910\""},{"label":"1936","i18nCode":"year.1936","count":30062,"fq":"year:\"1936\""},{"label":"1932","i18nCode":"year.1932","count":30015,"fq":"year:\"1932\""},{"label":"1941","i18nCode":"year.1941","count":29918,"fq":"year:\"1941\""},{"label":"1912","i18nCode":"year.1912","count":29755,"fq":"year:\"1912\""},{"label":"1934","i18nCode":"year.1934","count":29490,"fq":"year:\"1934\""},{"label":"1909","i18nCode":"year.1909","count":29482,"fq":"year:\"1909\""},{"label":"1933","i18nCode":"year.1933","count":29417,"fq":"year:\"1933\""},{"label":"1929","i18nCode":"year.1929","count":29007,"fq":"year:\"1929\""},{"label":"1911","i18nCode":"year.1911","count":28605,"fq":"year:\"1911\""},{"label":"1940","i18nCode":"year.1940","count":28474,"fq":"year:\"1940\""},{"label":"1913","i18nCode":"year.1913","count":28380,"fq":"year:\"1913\""}],"count":282}]'
+  recorded_at: 2022-10-09 23:43:57 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -96,7 +96,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0.9999
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -110,24 +110,24 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Tue, 06 Sep 2022 03:16:15 GMT
+      date: Sun, 09 Oct 2022 23:43:57 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.1
       set-cookie:
-      - AWSALBTG=Gyw01R12+q+d8OVm7qGafISGgWwmfqH1mYGy2CdG6U21pK7EchkUGTDmVk7Q5UNOvt2jYHsvjQs0C9jhTVjoOkSsrBlR5y8y/FahPHiXCMi9IIIkRXEvbf9b4PqLv7CprWjuUtD1hn11IehotEnP3bYr35zvg3D7T6koAA5C9bG0;
-        Expires=Tue, 13 Sep 2022 03:16:15 GMT; Path=/
-      - AWSALBTGCORS=Gyw01R12+q+d8OVm7qGafISGgWwmfqH1mYGy2CdG6U21pK7EchkUGTDmVk7Q5UNOvt2jYHsvjQs0C9jhTVjoOkSsrBlR5y8y/FahPHiXCMi9IIIkRXEvbf9b4PqLv7CprWjuUtD1hn11IehotEnP3bYr35zvg3D7T6koAA5C9bG0;
-        Expires=Tue, 13 Sep 2022 03:16:15 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=UaNuERvsr+qnjRObiUtX8jRj30VnQawZnkTc/A5XJ7O+IXVfzrqbHz99cp3vU07LyTTL0J27qgj3xEY36Ubi9QR9Z7+unMmKDUFYNXtttLjSOWrOUFMcHtYDYl08;
-        Expires=Tue, 13 Sep 2022 03:16:15 GMT; Path=/
-      - AWSALBCORS=UaNuERvsr+qnjRObiUtX8jRj30VnQawZnkTc/A5XJ7O+IXVfzrqbHz99cp3vU07LyTTL0J27qgj3xEY36Ubi9QR9Z7+unMmKDUFYNXtttLjSOWrOUFMcHtYDYl08;
-        Expires=Tue, 13 Sep 2022 03:16:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=qQ8nD9et6Sl5ZrxGXTo94gMJoX/HIxZ0HeBJ5XvFs/aFnxtpNmHlNECZJg/7iudqsjGMsoeHSnYkdBNmek+Ocbpew+qEFa+3vyVaqcyZCC4nfLSnB+gw6gv58ajZ9jbQ/T0iQK5coXRAFSHWmXZlgOE8ZAQ3cA/WSvNIGX3c816e;
+        Expires=Sun, 16 Oct 2022 23:43:56 GMT; Path=/
+      - AWSALBTGCORS=qQ8nD9et6Sl5ZrxGXTo94gMJoX/HIxZ0HeBJ5XvFs/aFnxtpNmHlNECZJg/7iudqsjGMsoeHSnYkdBNmek+Ocbpew+qEFa+3vyVaqcyZCC4nfLSnB+gw6gv58ajZ9jbQ/T0iQK5coXRAFSHWmXZlgOE8ZAQ3cA/WSvNIGX3c816e;
+        Expires=Sun, 16 Oct 2022 23:43:56 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=YJWm3uk2gmSDcRGFkWCb8L81pDwEbGPL+HDJ//ghTzJjqnEJclNws5dv6HCCJrmobZdr4c+iea+9MHSA/jF2+XsHHKRFMnzzuVK8LgXseEF/l2sKXrYdLdYhVdy6;
+        Expires=Sun, 16 Oct 2022 23:43:56 GMT; Path=/
+      - AWSALBCORS=YJWm3uk2gmSDcRGFkWCb8L81pDwEbGPL+HDJ//ghTzJjqnEJclNws5dv6HCCJrmobZdr4c+iea+9MHSA/jF2+XsHHKRFMnzzuVK8LgXseEF/l2sKXrYdLdYhVdy6;
+        Expires=Sun, 16 Oct 2022 23:43:56 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"1920","i18nCode":"year.1920","count":26559,"fq":"year:\"1920\""}],"count":1}]'
-  recorded_at: 2022-09-06 03:16:15 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"1920","i18nCode":"year.1920","count":26567,"fq":"year:\"1920\""}],"count":1}]'
+  recorded_at: 2022-10-09 23:43:57 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

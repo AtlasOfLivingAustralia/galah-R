@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0.9999
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Wed, 07 Sep 2022 00:38:09 GMT
+      date: Sun, 09 Oct 2022 23:44:21 GMT
       content-type: application/json
       content-length: '562'
       server: nginx/1.23.1
@@ -35,7 +35,7 @@ http_interactions:
         hallucatus","speciesID":"https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88","vernacularName":"Northern
         Quoll","speciesGroup":["Animals","Mammals"],"speciesSubgroup":["Carnivorous
         Marsupials"],"issues":["noIssue"]}'
-  recorded_at: 2022-09-07 00:38:09 GMT
+  recorded_at: 2022-10-09 23:44:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -46,7 +46,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0.9999
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -60,18 +60,18 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Wed, 07 Sep 2022 00:38:09 GMT
+      date: Sun, 09 Oct 2022 23:44:21 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.1
       set-cookie:
-      - AWSALBTG=HFP7NdvWC18TfKbdzt6g0uBA6ZhqiOQdVIGXDl6s8ibJ5gfAbLhr5Gj5bYMdJes08hnG4rWRs5vSq/oKqxqUq/Cr+6QHQ9mvSWH677QSDaeFLNVagymtIrkUz1MmubnkzQScmurm8mt22x+zCFVono3LMaDEBpgGA/0Vq/GWsWqF;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/
-      - AWSALBTGCORS=HFP7NdvWC18TfKbdzt6g0uBA6ZhqiOQdVIGXDl6s8ibJ5gfAbLhr5Gj5bYMdJes08hnG4rWRs5vSq/oKqxqUq/Cr+6QHQ9mvSWH677QSDaeFLNVagymtIrkUz1MmubnkzQScmurm8mt22x+zCFVono3LMaDEBpgGA/0Vq/GWsWqF;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=GUq/2x+yRysS0fV7DrFQ9FzF8pWUDKQgFoFj+4JfYhr5zhzngr84Z5TdsiOPzuNGqXoaWAw48afA7oZJBzp97MmZ64D9sCrt8Jm8nhP6iQer+0DD+Sf0ZRnlvzg2;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/
-      - AWSALBCORS=GUq/2x+yRysS0fV7DrFQ9FzF8pWUDKQgFoFj+4JfYhr5zhzngr84Z5TdsiOPzuNGqXoaWAw48afA7oZJBzp97MmZ64D9sCrt8Jm8nhP6iQer+0DD+Sf0ZRnlvzg2;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=XmYXBkNkW7ptuXZbl8jeNb0iZavgfox3vesMtrVDfhd8esoYPs8+7U2pRwIykBehNxSgDxYDR9oTIDJ61kt/ptvAFAVsfGd++/u5xVv5adq8RI47CIP7d4OdlxQHPYdQHYZMCxJna1bC7NDBkczzRuSwLjvx+ytI+VmcBkiDY24R;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/
+      - AWSALBTGCORS=XmYXBkNkW7ptuXZbl8jeNb0iZavgfox3vesMtrVDfhd8esoYPs8+7U2pRwIykBehNxSgDxYDR9oTIDJ61kt/ptvAFAVsfGd++/u5xVv5adq8RI47CIP7d4OdlxQHPYdQHYZMCxJna1bC7NDBkczzRuSwLjvx+ytI+VmcBkiDY24R;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=JhDD5Kwqql9d+rshLT5QmCcFpdpzelB6f2bfBQie/ZWeHBQ0n+qn/mENhpKcJKg1iFa67SIIq8n6F0B5lWWXzGj8LtVsm9dL4oQWhGs49la3hRJMtFQJ74x0Y8Ry;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/
+      - AWSALBCORS=JhDD5Kwqql9d+rshLT5QmCcFpdpzelB6f2bfBQie/ZWeHBQ0n+qn/mENhpKcJKg1iFa67SIIq8n6F0B5lWWXzGj8LtVsm9dL4oQWhGs49la3hRJMtFQJ74x0Y8Ry;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
@@ -195,18 +195,18 @@ http_interactions:
         error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
         occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
         coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","decimalLongitude"]}]'
-  recorded_at: 2022-09-07 00:38:09 GMT
+  recorded_at: 2022-10-09 23:44:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://biocache-ws.ala.org.au/ws/occurrences/search?disableAllQualityFilters=true&pageSize=0&fq=(lsid:https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88)&fq=year:[2020%20TO%20*]
+    uri: https://biocache-ws.ala.org.au/ws/occurrences/search?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F5d7aeda8-2ec1-4111-830e-847f34321f88%29AND%28year%3A%5B2020%20TO%20%2A%5D%29&disableAllQualityFilters=true&pageSize=0
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0.9999
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -220,33 +220,33 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Wed, 07 Sep 2022 00:38:09 GMT
+      date: Sun, 09 Oct 2022 23:44:21 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.1
       set-cookie:
-      - AWSALBTG=wKwvq0Y8Zr+mtSXALW1Wt6MPAJUBGt8MN43HmxAlLdCUsvnN0F+kmX+EdGnQQMWtzgNHV81m5JIibv9gTRBkt1GmByjCNhFhe+xBrrsESKPxt4KG1JSdJORhT/R+pzd1QibC1qaahTX3GAS1x6VLwlov1Uj554k0ws8Wby3eOixq;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/
-      - AWSALBTGCORS=wKwvq0Y8Zr+mtSXALW1Wt6MPAJUBGt8MN43HmxAlLdCUsvnN0F+kmX+EdGnQQMWtzgNHV81m5JIibv9gTRBkt1GmByjCNhFhe+xBrrsESKPxt4KG1JSdJORhT/R+pzd1QibC1qaahTX3GAS1x6VLwlov1Uj554k0ws8Wby3eOixq;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=QkBqtvHOOQ7FK+QeSSEMrf91GhaMtlgSgrcoYZhu9G2xG8HoSLipmMvtZ/ODH/rX/4OrsxWiIWbRUi2l3mejEfSj9PE0KAB/NJVYx9lrVk0nNijLeqMPMoi1w/Ko;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/
-      - AWSALBCORS=QkBqtvHOOQ7FK+QeSSEMrf91GhaMtlgSgrcoYZhu9G2xG8HoSLipmMvtZ/ODH/rX/4OrsxWiIWbRUi2l3mejEfSj9PE0KAB/NJVYx9lrVk0nNijLeqMPMoi1w/Ko;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=nGVSavMzdlA7rSZ5wZ+psYW0Tye9e3u9py0kpLFzkGWP85IE1EGHVzUIsAaEZk9aoEyXTfq7/W4dbbYknEG80noU7pSHur8WSAWz/7J267lp3nSzcTyTpQrY839I0A0YLL6YwPa3JFi3yiUBBZueLItn22tkS+TNktGI1EGXky1h;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/
+      - AWSALBTGCORS=nGVSavMzdlA7rSZ5wZ+psYW0Tye9e3u9py0kpLFzkGWP85IE1EGHVzUIsAaEZk9aoEyXTfq7/W4dbbYknEG80noU7pSHur8WSAWz/7J267lp3nSzcTyTpQrY839I0A0YLL6YwPa3JFi3yiUBBZueLItn22tkS+TNktGI1EGXky1h;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=TgZT78C52svYUqeGYyeOvQTsMB/s5SnGabDy4flufWU1OXA2HRaDaoP9A2MJsz3WbLWlLVNFthYYUe+4g2ma4BvJvoxLqwb/B3bexGETaTWp+tS6ASO6b2CAzlI6;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/
+      - AWSALBCORS=TgZT78C52svYUqeGYyeOvQTsMB/s5SnGabDy4flufWU1OXA2HRaDaoP9A2MJsz3WbLWlLVNFthYYUe+4g2ma4BvJvoxLqwb/B3bexGETaTWp+tS6ASO6b2CAzlI6;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":28,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F5d7aeda8-2ec1-4111-830e-847f34321f88)&fq=year%3A%5B2020%20TO%20*%5D","urlParameters":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F5d7aeda8-2ec1-4111-830e-847f34321f88)&fq=year%3A%5B2020%20TO%20*%5D","queryTitle":"[all
-        records]","activeFacetMap":{"year":{"name":"year","displayName":"Year:[2020
-        TO *]","value":"[2020 TO *]"},"(lsid":{"name":"(lsid","displayName":"(<span
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":33,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F5d7aeda8-2ec1-4111-830e-847f34321f88)AND(year%3A%5B2020%20TO%20*%5D)","urlParameters":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F5d7aeda8-2ec1-4111-830e-847f34321f88)AND(year%3A%5B2020%20TO%20*%5D)","queryTitle":"[all
+        records]","activeFacetMap":{"(lsid":{"name":"(lsid","displayName":"(<span
         class=''lsid'' id=''https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88''>species:
-        Dasyurus hallucatus</span>)","value":"https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88)"}},"activeFacetObj":{"lsid":[{"name":"lsid","displayName":"(<span
-        class=''lsid'' id=''https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88''>species:
-        Dasyurus hallucatus</span>)","value":"(lsid:https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88)"}],"year":[{"name":"year","displayName":"Year:[2020
-        TO *]","value":"year:[2020 TO *]"}]}}'
-  recorded_at: 2022-09-07 00:38:09 GMT
+        Dasyurus hallucatus</span>)AND(year:[2020 TO *])","value":"https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88)AND(year:[2020
+        TO *])"}},"activeFacetObj":{"lsid":[{"name":"lsid","displayName":"(<span class=''lsid''
+        id=''https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88''>species:
+        Dasyurus hallucatus</span>)AND(year:[2020 TO *])","value":"(lsid:https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88)AND(year:[2020
+        TO *])"}]}}'
+  recorded_at: 2022-10-09 23:44:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -257,7 +257,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0.9999
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -265,7 +265,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Wed, 07 Sep 2022 00:38:09 GMT
+      date: Sun, 09 Oct 2022 23:44:21 GMT
       content-type: application/json
       content-length: '562'
       server: nginx/1.23.1
@@ -284,7 +284,7 @@ http_interactions:
         hallucatus","speciesID":"https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88","vernacularName":"Northern
         Quoll","speciesGroup":["Animals","Mammals"],"speciesSubgroup":["Carnivorous
         Marsupials"],"issues":["noIssue"]}'
-  recorded_at: 2022-09-07 00:38:09 GMT
+  recorded_at: 2022-10-09 23:44:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -295,7 +295,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0.9999
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -309,18 +309,18 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Wed, 07 Sep 2022 00:38:09 GMT
+      date: Sun, 09 Oct 2022 23:44:21 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.1
       set-cookie:
-      - AWSALBTG=QEUNRW1FiStPD5OI1RQE9oA95th6KU8kjUqE4syzq8YG/20DoPbDtjsHgqcKYA5VSz7J/ly4/OwVIt5aGNTqRYWjwhcUkd3OLj5IqG5iwNvhqK4J7sVl5ULLO7YUkRBwoaEHMCWLcSC4cQGlmQkcfarqP44/HQBDxJx4NSsVYWpW;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/
-      - AWSALBTGCORS=QEUNRW1FiStPD5OI1RQE9oA95th6KU8kjUqE4syzq8YG/20DoPbDtjsHgqcKYA5VSz7J/ly4/OwVIt5aGNTqRYWjwhcUkd3OLj5IqG5iwNvhqK4J7sVl5ULLO7YUkRBwoaEHMCWLcSC4cQGlmQkcfarqP44/HQBDxJx4NSsVYWpW;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=WtGDU6WB+eCN2YXhy+nCRryc/uDTfIpui5TXjzOvp7SiceyHKQr7QFmvQnH4PfS1ClF+mCM3GAwnu6RH/Nz8di1TcerHqQwA36BRkzZPkWAdafKfv/dh1utHZexH;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/
-      - AWSALBCORS=WtGDU6WB+eCN2YXhy+nCRryc/uDTfIpui5TXjzOvp7SiceyHKQr7QFmvQnH4PfS1ClF+mCM3GAwnu6RH/Nz8di1TcerHqQwA36BRkzZPkWAdafKfv/dh1utHZexH;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=8gbd0tq6A9MOPIMiQzO0T1UwkJ+3tg/QUkJ6QSmpRdry/ZngwzGv65kr/iy6ZoVAwbFG5RYLMwvqGJLcCXenc3iBrj6UG/jLBRHUwdCdgP9jPehCQOGNhTBV0I75FXMiI8GYIX0wveLhRjHUYDIJRMOyJgwDZkE+KyBDZV2dCOdT;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/
+      - AWSALBTGCORS=8gbd0tq6A9MOPIMiQzO0T1UwkJ+3tg/QUkJ6QSmpRdry/ZngwzGv65kr/iy6ZoVAwbFG5RYLMwvqGJLcCXenc3iBrj6UG/jLBRHUwdCdgP9jPehCQOGNhTBV0I75FXMiI8GYIX0wveLhRjHUYDIJRMOyJgwDZkE+KyBDZV2dCOdT;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=RynGDSubVdkVy0MjEsUG99CEkGIMaRp2d7qOKZLArkjouu6ymbAKF5zveHkRPrLrqsyZF3uv67QGVRrHHERaX/KNMMi24FQYpFlv0WnvFAs4Je8Kufc/meYdTDzD;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/
+      - AWSALBCORS=RynGDSubVdkVy0MjEsUG99CEkGIMaRp2d7qOKZLArkjouu6ymbAKF5zveHkRPrLrqsyZF3uv67QGVRrHHERaX/KNMMi24FQYpFlv0WnvFAs4Je8Kufc/meYdTDzD;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
@@ -444,18 +444,18 @@ http_interactions:
         error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
         occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
         coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","decimalLongitude"]}]'
-  recorded_at: 2022-09-07 00:38:09 GMT
+  recorded_at: 2022-10-09 23:44:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://biocache-ws.ala.org.au/ws/occurrences/search?wkt=MULTIPOLYGON%20%28%28%28146.5425%20-43.13203%2C%20147.6972%20-43.13203%2C%20147.6972%20-42.13203%2C%20146.5425%20-42.13203%2C%20146.5425%20-43.13203%29%29%29&disableAllQualityFilters=true&pageSize=0&fq=(lsid:https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88)&fq=year:[2020%20TO%20*]
+    uri: https://biocache-ws.ala.org.au/ws/occurrences/search?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F5d7aeda8-2ec1-4111-830e-847f34321f88%29AND%28year%3A%5B2020%20TO%20%2A%5D%29&wkt=MULTIPOLYGON%20%28%28%28146.5425%20-43.13203%2C%20147.6972%20-43.13203%2C%20147.6972%20-42.13203%2C%20146.5425%20-42.13203%2C%20146.5425%20-43.13203%29%29%29&disableAllQualityFilters=true&pageSize=0
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0.9999
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -469,31 +469,31 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Wed, 07 Sep 2022 00:38:09 GMT
+      date: Sun, 09 Oct 2022 23:44:21 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.1
       set-cookie:
-      - AWSALBTG=ft6vE10n0CbGvCpdhviD4wtYnzbVakbbdVY2Qcp80onzynsPaQ/bTd93nIbRhlrAE4918WtRREpKC5Isub1xbAZzdPJbpDOB9iMYY1YrbzYkDU3F/j7zXgc/uwYaaZ+U1Kayo6lVftQybXNEjszvLq2tEzu5LbFu2CIRWuCpCPqf;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/
-      - AWSALBTGCORS=ft6vE10n0CbGvCpdhviD4wtYnzbVakbbdVY2Qcp80onzynsPaQ/bTd93nIbRhlrAE4918WtRREpKC5Isub1xbAZzdPJbpDOB9iMYY1YrbzYkDU3F/j7zXgc/uwYaaZ+U1Kayo6lVftQybXNEjszvLq2tEzu5LbFu2CIRWuCpCPqf;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=e4p0Ji/c+JOfHl+96A3o6CIIEbL7OuuogmfTYPr8djnAobzDTkDMS0QExpPpttG1EgLG0vWiKWRiWMnjbq3o7MuL2v892VDESxz4B3J9cMxMLhhU9T9L5Og/8geK;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/
-      - AWSALBCORS=e4p0Ji/c+JOfHl+96A3o6CIIEbL7OuuogmfTYPr8djnAobzDTkDMS0QExpPpttG1EgLG0vWiKWRiWMnjbq3o7MuL2v892VDESxz4B3J9cMxMLhhU9T9L5Og/8geK;
-        Expires=Wed, 14 Sep 2022 00:38:09 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=WI6z7EVTjcls2sdN3JouoSolbtP4pcrmfzMoNo0QUyt4+XyEoCf3TZlsl6Pi7yu/4t6YU4q7M2uFxkZNrJWpRarEVE0qWC5YJuRwPFGJcj/63V5lzXcMusJimmzSO1c+vJ7c7pICRjrcbH7m7UrnXqUYunSzp3YmPPhOrq4xiBZa;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/
+      - AWSALBTGCORS=WI6z7EVTjcls2sdN3JouoSolbtP4pcrmfzMoNo0QUyt4+XyEoCf3TZlsl6Pi7yu/4t6YU4q7M2uFxkZNrJWpRarEVE0qWC5YJuRwPFGJcj/63V5lzXcMusJimmzSO1c+vJ7c7pICRjrcbH7m7UrnXqUYunSzp3YmPPhOrq4xiBZa;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=yDDAS/eaoHMlh7w081iToA4LBX1+6sn7f7DNAxOOxtWJuNS8z6t2K8w+vSKcFtpVWzhJFyPHCoAARH/TW8pYv4XnEluq5XMegH5ZdiuvL3WHoodrI11UzgSlqtg/;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/
+      - AWSALBCORS=yDDAS/eaoHMlh7w081iToA4LBX1+6sn7f7DNAxOOxtWJuNS8z6t2K8w+vSKcFtpVWzhJFyPHCoAARH/TW8pYv4XnEluq5XMegH5ZdiuvL3WHoodrI11UzgSlqtg/;
+        Expires=Sun, 16 Oct 2022 23:44:21 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":0,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F5d7aeda8-2ec1-4111-830e-847f34321f88)&fq=year%3A%5B2020%20TO%20*%5D&wkt=MULTIPOLYGON%20(((146.5425%20-43.13203%2C%20147.6972%20-43.13203%2C%20147.6972%20-42.13203%2C%20146.5425%20-42.13203%2C%20146.5425%20-43.13203)))","urlParameters":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F5d7aeda8-2ec1-4111-830e-847f34321f88)&fq=year%3A%5B2020%20TO%20*%5D&wkt=MULTIPOLYGON%20(((146.5425%20-43.13203%2C%20147.6972%20-43.13203%2C%20147.6972%20-42.13203%2C%20146.5425%20-42.13203%2C%20146.5425%20-43.13203)))","queryTitle":"[all
-        records] - within user defined polygon","activeFacetMap":{"year":{"name":"year","displayName":"Year:[2020
-        TO *] - within user defined polygon","value":"[2020 TO *]"},"(lsid":{"name":"(lsid","displayName":"(<span
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":0,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F5d7aeda8-2ec1-4111-830e-847f34321f88)AND(year%3A%5B2020%20TO%20*%5D)&wkt=MULTIPOLYGON%20(((146.5425%20-43.13203%2C%20147.6972%20-43.13203%2C%20147.6972%20-42.13203%2C%20146.5425%20-42.13203%2C%20146.5425%20-43.13203)))","urlParameters":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F5d7aeda8-2ec1-4111-830e-847f34321f88)AND(year%3A%5B2020%20TO%20*%5D)&wkt=MULTIPOLYGON%20(((146.5425%20-43.13203%2C%20147.6972%20-43.13203%2C%20147.6972%20-42.13203%2C%20146.5425%20-42.13203%2C%20146.5425%20-43.13203)))","queryTitle":"[all
+        records] - within user defined polygon","activeFacetMap":{"(lsid":{"name":"(lsid","displayName":"(<span
         class=''lsid'' id=''https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88''>species:
-        Dasyurus hallucatus</span>) - within user defined polygon","value":"https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88)"}},"activeFacetObj":{"lsid":[{"name":"lsid","displayName":"(<span
-        class=''lsid'' id=''https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88''>species:
-        Dasyurus hallucatus</span>) - within user defined polygon","value":"(lsid:https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88)"}],"year":[{"name":"year","displayName":"Year:[2020
-        TO *] - within user defined polygon","value":"year:[2020 TO *]"}]}}'
-  recorded_at: 2022-09-07 00:38:09 GMT
+        Dasyurus hallucatus</span>)AND(year:[2020 TO *]) - within user defined polygon","value":"https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88)AND(year:[2020
+        TO *])"}},"activeFacetObj":{"lsid":[{"name":"lsid","displayName":"(<span class=''lsid''
+        id=''https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88''>species:
+        Dasyurus hallucatus</span>)AND(year:[2020 TO *]) - within user defined polygon","value":"(lsid:https://biodiversity.org.au/afd/taxa/5d7aeda8-2ec1-4111-830e-847f34321f88)AND(year:[2020
+        TO *])"}]}}'
+  recorded_at: 2022-10-09 23:44:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

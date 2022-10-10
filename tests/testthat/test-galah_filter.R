@@ -1,5 +1,13 @@
 context("Test galah_filter")
 
+vcr::use_cassette("galah_filter_startup", {
+  test_that("galah_filter works for a single 'equals' argument", {  
+    filters <- galah_filter(year == 2010)
+    expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
+    expect_equal(nrow(filters), 1)
+  })
+})
+
 test_that("galah_filter builds data quality filters", {
   # vcr can't handle this request
   # skip_on_cran()
@@ -45,13 +53,6 @@ test_that("galah_filter returns empty data.frame when no arguments specified", {
   filters <- galah_filter()
   expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(filters), 0)
-})
-
-
-test_that("galah_filter works for a single 'equals' argument", {  
-  filters <- galah_filter(year == 2010)
-  expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(filters), 1)
 })
 
 test_that("galah_filter works for two 'equals' arguments", {  
