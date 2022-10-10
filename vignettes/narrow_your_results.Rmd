@@ -52,9 +52,9 @@ search_taxa("Reptilia")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                    rank  match_type kingdom  phylum   class  issues
-##   <chr>       <chr>           <chr>                                               <chr> <chr>      <chr>    <chr>    <chr>  <chr> 
-## 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b… class exactMatch Animalia Chordata Repti… noIss…
+##   search_term taxon_concept_id scientific_name scientific_name_authorship rank  kingdom  superclass phylum  class
+##   <chr>       <chr>            <chr>           <chr>                      <chr> <chr>    <chr>      <chr>   <chr>
+## 1 Reptilia    NHMSYS0000375236 Reptilia        Laurenti, 1768             class Animalia Tetrapoda  Chorda… Rept…
 ```
 
 If we want to be more specific by providing additional taxonomic information
@@ -66,10 +66,9 @@ search_taxa(data.frame(genus = "Eolophus", kingdom = "Aves"))
 ```
 
 ```
-## # A tibble: 1 × 13
-##   search_term   scientific_name scientific_name_… taxon_concept_id rank  match_type kingdom phylum class order family genus issues
-##   <chr>         <chr>           <chr>             <chr>            <chr> <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr> 
-## 1 Eolophus_Aves Eolophus        Bonaparte, 1854   urn:lsid:biodiv… genus exactMatch Animal… Chord… Aves  Psit… Cacat… Eolo… noIss…
+## Error in `FUN()`:
+## ! The `names_search_multiple` API is not available for the selected atlas (United Kingdom)
+## ℹ Use `show_all_apis()` to list valid API calls
 ```
 
 Once we know that our search matches the correct taxon or taxa, we 
@@ -83,15 +82,23 @@ galah_call() |>
 
 ```
 ## # A tibble: 1 × 1
-##     count
-##     <int>
-## 1 1317131
+##    count
+##    <int>
+## 1 251078
 ```
 
 
 ```r
 taxa <- search_taxa(data.frame(genus = "Eolophus", kingdom = "Aves"))
+```
 
+```
+## Error in `FUN()`:
+## ! The `names_search_multiple` API is not available for the selected atlas (United Kingdom)
+## ℹ Use `show_all_apis()` to list valid API calls
+```
+
+```r
 galah_call() |>
  galah_identify(taxa) |>
  atlas_counts()
@@ -99,9 +106,9 @@ galah_call() |>
 
 ```
 ## # A tibble: 1 × 1
-##    count
-##    <int>
-## 1 856571
+##   count
+##   <int>
+## 1   354
 ```
 
 If you're using an international atlas, `search_taxa` won't work; instead you
@@ -115,8 +122,21 @@ can then be passed directly to `galah_identify`.
 galah_config(atlas = "Spain")
 
 library(taxize)
-id <- get_gbifid("Lepus", messages = FALSE, rows = 1)
+```
 
+```
+## Error in library(taxize): there is no package called 'taxize'
+```
+
+```r
+id <- get_gbifid("Lepus", messages = FALSE, rows = 1)
+```
+
+```
+## Error in get_gbifid("Lepus", messages = FALSE, rows = 1): could not find function "get_gbifid"
+```
+
+```r
 galah_call() |> 
   galah_identify(id) |> 
   galah_group_by(species) |> 
@@ -124,13 +144,21 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 4 × 2
-##   species            count
-##   <chr>              <int>
-## 1 Lepus granatensis   8360
-## 2 Lepus europaeus     2913
-## 3 Lepus castroviejoi   149
-## 4 Lepus capensis        41
+## Warning: Unknown or uninitialised column: `taxon_concept_id`.
+```
+
+```
+## Warning: Invalid field(s) detected.
+## ℹ See a listing of all valid fields with `show_all_fields()`.
+## ℹ Search for the valid name of a desired field with `search_fields()`.
+## ✖ Invalid field(s): galah_identify(galah_call(), id).
+```
+
+```
+## Error in `atlas_counts()`:
+## ! Argument `request` requires an object of type `data_request`.
+## ℹ You can create this object using `galah_call()`
+## ℹ Did you specify the incorrect argument?
 ```
 
 The exception is the UK [National Biodiversity Network](https://nbn.org.uk) (NBN), 
@@ -140,7 +168,24 @@ which has its' own taxonomic backbone (note this information is also given by
 
 ```r
 galah_config(atlas = "UK")
+```
+
+```
+## Error in `galah_config()`:
+## ! Unsupported atlas provided.
+## ℹ Use `show_all(atlases)` to see supported atlases.
+## ✖ "UK" is not a valid atlas.
+```
+
+```r
 id <- get_nbnid(c("Vulpes vulpes", "Meles meles"), messages = FALSE, rows = 1)
+```
+
+```
+## Error in get_nbnid(c("Vulpes vulpes", "Meles meles"), messages = FALSE, : could not find function "get_nbnid"
+```
+
+```r
 galah_call() |> 
   galah_identify(id) |> 
   galah_group_by(species) |> 
@@ -148,11 +193,21 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 2 × 2
-##   species        count
-##   <chr>          <int>
-## 1 Vulpes vulpes 151307
-## 2 Meles meles    87712
+## Warning: Unknown or uninitialised column: `taxon_concept_id`.
+```
+
+```
+## Warning: Invalid field(s) detected.
+## ℹ See a listing of all valid fields with `show_all_fields()`.
+## ℹ Search for the valid name of a desired field with `search_fields()`.
+## ✖ Invalid field(s): galah_identify(galah_call(), id).
+```
+
+```
+## Error in `atlas_counts()`:
+## ! Argument `request` requires an object of type `data_request`.
+## ℹ You can create this object using `galah_call()`
+## ℹ Did you specify the incorrect argument?
 ```
 
 
@@ -173,7 +228,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 63003181
+## 1 73696326
 ```
 
 ```r
@@ -190,14 +245,14 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 2673224
+## 1 3562472
 ```
 
 To find available fields and corresponding valid values, use the field lookup 
-functions `show_all_fields`, `search_fields` and `find_field_values`.  
+functions `show_all_fields`, `search_fields` and `search_field_values`.  
 
 A further notable feature of `galah_filter` is the ability to specify a `profile` to 
-remove records that are suspect in some way. 
+remove records that are suspect in some way.
 
 
 ```r
@@ -210,7 +265,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 55681954
+## 1 66680667
 ```
 
 To see a full list of data quality profiles, use `show_all_profiles()`.
@@ -235,16 +290,16 @@ galah_call() |>
 ## # A tibble: 83 × 2
 ##    class          count
 ##    <chr>          <int>
-##  1 Insecta      3317770
-##  2 Gastropoda    837702
-##  3 Arachnida     527555
-##  4 Malacostraca  515971
-##  5 Maxillopoda   462762
-##  6 Polychaeta    256938
-##  7 Bivalvia      206242
-##  8 Anthozoa      163386
-##  9 Demospongiae  107520
-## 10 Ostracoda      56295
+##  1 Insecta      3930664
+##  2 Gastropoda    876882
+##  3 Malacostraca  573510
+##  4 Arachnida     551093
+##  5 Maxillopoda   473345
+##  6 Polychaeta    258880
+##  7 Bivalvia      215223
+##  8 Anthozoa      169036
+##  9 Demospongiae  113262
+## 10 Ostracoda      58698
 ## # … with 73 more rows
 ```
 
@@ -261,20 +316,20 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 35 × 3
-##    year  basisOfRecord         count
-##    <chr> <chr>                 <int>
-##  1 2020  HUMAN_OBSERVATION   5825030
-##  2 2020  PRESERVED_SPECIMEN    13637
-##  3 2020  OBSERVATION            3894
-##  4 2020  UNKNOWN                 365
-##  5 2020  MATERIAL_SAMPLE         250
-##  6 2020  LIVING_SPECIMEN         127
-##  7 2020  MACHINE_OBSERVATION      37
-##  8 2019  HUMAN_OBSERVATION   5401216
-##  9 2019  UNKNOWN               51747
-## 10 2019  PRESERVED_SPECIMEN    38117
-## # … with 25 more rows
+## # A tibble: 25 × 3
+##    basisOfRecord     year    count
+##    <chr>             <chr>   <int>
+##  1 HUMAN_OBSERVATION 2020  6292943
+##  2 HUMAN_OBSERVATION 2019  5517222
+##  3 HUMAN_OBSERVATION 2018  5237592
+##  4 HUMAN_OBSERVATION 2017  4347152
+##  5 HUMAN_OBSERVATION 2016  3512405
+##  6 OCCURRENCE        2016   165997
+##  7 OCCURRENCE        2018   116242
+##  8 OCCURRENCE        2017   102206
+##  9 OCCURRENCE        2019    91640
+## 10 OCCURRENCE        2020    39429
+## # … with 15 more rows
 ```
 
 # galah_select
@@ -295,20 +350,20 @@ occurrences
 ```
 
 ```
-## # A tibble: 29 × 8
-##    eventDate            kingdom  decimalLatitude decimalLongitude scientificName          taxonConceptID recordID dataResourceName
-##    <chr>                <chr>              <dbl>            <dbl> <chr>                   <chr>          <chr>    <chr>           
-##  1 1929-12-31T14:00:00Z Animalia           -36.4             150. Acanthophis antarcticus urn:lsid:biod… 38dab01… NSW BioNet Atlas
-##  2 1929-12-31T14:00:00Z Animalia           -26.8             151. Demansia psammophis     urn:lsid:biod… c770504… WildNet - Queen…
-##  3 1929-12-31T14:00:00Z Animalia           -24.4             152. Oxyuranus scutellatus   urn:lsid:biod… cfb4279… WildNet - Queen…
-##  4 1929-12-31T14:00:00Z Animalia           -20.8             145. Lerista wilkinsi        urn:lsid:biod… 1b64a15… WildNet - Queen…
-##  5 1929-12-31T14:00:00Z Animalia           -23.9             150. Furina barnardi         urn:lsid:biod… 03e06c9… WildNet - Queen…
-##  6 1929-12-31T14:00:00Z Animalia           -37.7             145. Tiliqua scincoides      urn:lsid:biod… e1e459c… Victorian Biodi…
-##  7 1929-12-31T14:00:00Z Animalia           -15.5             145. Antaresia maculosa      urn:lsid:biod… 084bc0a… WildNet - Queen…
-##  8 1929-12-31T14:00:00Z Animalia           -37.7             145. Tiliqua scincoides      urn:lsid:biod… 675f976… Victorian Biodi…
-##  9 1929-12-31T14:00:00Z Animalia           -17.3             146. Simalia kinghorni       urn:lsid:biod… 0bd4268… WildNet - Queen…
-## 10 1930-04-22T14:00:00Z Animalia            NA                NA  COLUBRIDAE              urn:lsid:biod… 815d01e… South Australia…
-## # … with 19 more rows
+## # A tibble: 54 × 2
+##    eventDate            kingdom 
+##    <chr>                <chr>   
+##  1 1929-12-31T14:00:00Z Animalia
+##  2 1929-12-31T14:00:00Z Animalia
+##  3 1929-12-31T14:00:00Z Animalia
+##  4 1929-12-31T14:00:00Z Animalia
+##  5 1929-12-31T14:00:00Z Animalia
+##  6 1929-12-31T14:00:00Z Animalia
+##  7 1929-12-31T14:00:00Z Animalia
+##  8 1929-12-31T14:00:00Z Animalia
+##  9 1929-12-31T14:00:00Z Animalia
+## 10 1929-12-31T14:00:00Z Animalia
+## # … with 44 more rows
 ```
 
 You can also use other `dplyr` functions that work with `dplyr::select()` with 
@@ -342,10 +397,11 @@ galah_call() |>
 
 ```
 ## # A tibble: 2 × 10
-##   kingdom  phylum   class    order           family      genus     species                author  species_guid     vernacular_name
-##   <chr>    <chr>    <chr>    <chr>           <chr>       <chr>     <chr>                  <chr>   <chr>            <chr>          
-## 1 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles eremiana     Spence… urn:lsid:biodiv… Desert Bandico…
-## 2 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles bougainville Quoy &… urn:lsid:biodiv… Western Barred…
+##   kingdom  phylum   class    order           family      genus     species                author  speci…¹ verna…²
+##   <chr>    <chr>    <chr>    <chr>           <chr>       <chr>     <chr>                  <chr>   <chr>   <chr>  
+## 1 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles eremiana     Spence… https:… Desert…
+## 2 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles bougainville Quoy &… https:… Shark …
+## # … with abbreviated variable names ¹​species_guid, ²​vernacular_name
 ```
 
 # galah_down_to

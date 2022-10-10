@@ -1,0 +1,232 @@
+---
+title: "International Atlases"
+author: "Martin Westgate, Dax Kellie"
+date: '2022-10-10'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{International Atlases}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The architecture developed by the ALA to store biodiversity data is used by over
+20 International Living Atlases. Although there are slight differences in the 
+core components of each Atlas's architecture, `galah` is flexible enough to 
+handle most of these differences. As a result, it is possible to change which 
+Living Atlas you get data from in `galah` 
+
+
+## Supported Atlases
+
+To see which international Living Atlases `galah` currently supports, use  
+`show_all_atlases()`.
+
+
+```r
+library(galah)
+show_all_atlases()
+```
+
+```
+## # A tibble: 11 × 4
+##    atlas          institution                                                             acronym url            
+##    <chr>          <chr>                                                                   <chr>   <chr>          
+##  1 Australia      Atlas of Living Australia                                               ALA     https://www.al…
+##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiv…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.…
+##  4 Canada         Candensys                                                               <NA>    http://www.can…
+##  5 Estonia        eElurikkus                                                              <NA>    https://elurik…
+##  6 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.m…
+##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.c…
+##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gb…
+##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gb…
+## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiv…
+## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.or…
+```
+
+Some atlases support more types of data queries than others (e.g. counts, 
+occurrences, species lists). To see what kinds of information and data can be 
+returned from each atlase, you can see the list of supported Application 
+Programming Interfaces (APIs).
+
+
+```r
+show_all_apis()
+```
+
+```
+## Error in show_all_apis(): could not find function "show_all_apis"
+```
+
+## Set Atlas
+
+Set which atlas you want to use by changing the `atlas` argument in 
+`galah_config()`. This will automatically update `galah`'s server configuration 
+to your selected Atlas. The default `atlas` is Australia.
+
+If you intend to download records, you may need to register a user profile with 
+the relevant Atlas first. 
+
+
+```r
+galah_config(atlas = "Spain", email = "your_email_here")
+```
+
+## Look up Information
+
+You can use the same look-up functions to find useful information about the 
+Atlas you have set. Available information may vary for each Living Atlas.
+
+
+```r
+galah_config(atlas = "Guatemala")
+
+show_all_datasets()
+```
+
+```
+## Error in `show_all_datasets()`:
+## ! The `collections_datasets` API is not available for the selected atlas (Guatemala)
+## ℹ Use `show_all_apis()` to list valid API calls
+```
+
+```r
+show_all_fields()
+```
+
+```
+## # A tibble: 129 × 4
+##    id                   description                                                                   type  link 
+##    <chr>                <chr>                                                                         <chr> <chr>
+##  1 all_image_url        Image URLs for this record                                                    fiel… <NA> 
+##  2 assertion_user_id    User ID of the person who has made an assertion about this record             fiel… <NA> 
+##  3 assertions           A list of all assertions (user and system supplied) for a record resulting f… fiel… <NA> 
+##  4 assertions_missing   Assertion indicating missing field values for a record. E.g. missing basis o… fiel… <NA> 
+##  5 assertions_passed    Assertion indicating a data quality test has been passed by this record       fiel… <NA> 
+##  6 assertions_unchecked Assertion indicating a data quality test was not performed for this record t… fiel… <NA> 
+##  7 basis_of_record      The basis of record e.g. Specimen, Observation http://rs.tdwg.org/dwc/terms/… fiel… <NA> 
+##  8 catalogue_number     http://rs.tdwg.org/dwc/terms/catalogNumber                                    fiel… <NA> 
+##  9 class                The class the Atlas has matched this record to in the NSL http://rs.tdwg.org… fiel… <NA> 
+## 10 collection_code      The collection code for this record. This will be populated if the data has … fiel… <NA> 
+## # … with 119 more rows
+```
+
+```r
+search_fields("year")
+```
+
+```
+## # A tibble: 3 × 4
+##   id              description                                                                         type  link 
+##   <chr>           <chr>                                                                               <chr> <chr>
+## 1 date_precision  The precision of the date information for the record. Values include 'Day', 'Month… fiel… <NA> 
+## 2 occurrence_year Year ranges for a search. Calculated based on the unique values for a query.        fiel… <NA> 
+## 3 year            http://rs.tdwg.org/dwc/terms/year                                                   fiel… <NA>
+```
+
+```r
+search_taxa("lagomorpha")
+```
+
+```
+## # A tibble: 1 × 12
+##   search_term taxon_concept_id scientific_name      scien…¹ rank  kingdom phylum class order family genus species
+##   <chr>       <chr>            <chr>                <chr>   <chr> <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>  
+## 1 lagomorpha  1561720          Scaptodrosophila la… (Okada… spec… Animal… Arthr… Inse… Dipt… Droso… Scap… Scapto…
+## # … with abbreviated variable name ¹​scientific_name_authorship
+```
+
+
+## Download data
+
+You can build queries as you normally would in `galah`. For taxonomic 
+queries, use `search_taxa()` to make sure your searches are 
+returning the correct taxonomic data.
+
+
+```r
+galah_config(atlas = "Canada")
+
+search_taxa("vlps")   # Returns no data due to misspelling
+```
+
+```
+## Error in data.frame(..., check.names = FALSE): arguments imply differing number of rows: 1, 0
+```
+
+```r
+search_taxa("vulpes") # Returns data
+```
+
+```
+## # A tibble: 1 × 13
+##   search_term taxon_concept_id scientific_…¹ canon…² rank  status match…³ kingdom phylum order family genus class
+##   <chr>                  <int> <chr>         <chr>   <chr> <chr>  <chr>   <chr>   <chr>  <chr> <chr>  <chr> <chr>
+## 1 vulpes               5219234 Vulpes Frisc… Vulpes  GENUS ACCEP… EXACT   Animal… Chord… Carn… Canid… Vulp… Mamm…
+## # … with abbreviated variable names ¹​scientific_name, ²​canonical_name, ³​match_type
+```
+
+```r
+galah_call() |>
+  galah_identify("vulpes") |>
+  galah_filter(year > 2010) |>
+  atlas_counts()
+```
+
+```
+## Error in data.frame(..., check.names = FALSE): arguments imply differing number of rows: 1, 0
+```
+
+Download species occurrence records from other atlases with 
+`atlas_occurrences()`
+
+
+```r
+galah_config(atlas = "Guatemala")
+
+galah_call() |>
+  galah_identify("Lagomorpha") |>
+  galah_filter(year <= 1980) |>
+  galah_select(taxon_name, year) |>
+  atlas_occurrences()
+```
+
+```
+## Error:
+## ! This query does not match any records.
+```
+
+# Complex queries with multiple Atlases
+
+It is also possible to create more complex queries that return data from 
+multiple Living Atlases. As an example, setting atlases within a loop with 
+`galah_config()` and `purrr::map()` allows us to return the total number of 
+species records in each Living Atlas in one table.
+
+
+```r
+library(purrr)
+library(tibble)
+library(dplyr)
+
+atlases <- show_all_atlases()
+
+counts <- map(atlases$atlas, 
+  function(x){
+    galah_config(atlas = x)
+    atlas_counts()
+})
+
+tibble(
+  atlas = atlases$atlas, 
+  n = unlist(counts)) |> 
+  arrange(desc(n)) |>
+  gt() |> 
+  fmt_number(columns = n)
+```
+
+```
+## Error in fmt_number(gt(arrange(tibble(atlas = atlases$atlas, n = unlist(counts)), : could not find function "fmt_number"
+```
+

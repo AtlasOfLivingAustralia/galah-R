@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-01-24'
+date: '2022-10-10'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -56,15 +56,20 @@ show_all_atlases()
 ```
 
 ```
-## # A tibble: 6 × 3
-##   atlas     taxonomy_source taxonomy_info                                                    
-##   <chr>     <chr>           <chr>                                                            
-## 1 Australia ALA             https://bie.ala.org.au/                                          
-## 2 Austria   GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
-## 3 Guatemala GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
-## 4 Spain     GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
-## 5 Sweden    GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c
-## 6 UK        NBN             https://www.nhm.ac.uk/our-science/data/uk-species.html
+## # A tibble: 11 × 4
+##    atlas          institution                                                             acronym url            
+##    <chr>          <chr>                                                                   <chr>   <chr>          
+##  1 Australia      Atlas of Living Australia                                               ALA     https://www.al…
+##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiv…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.…
+##  4 Canada         Candensys                                                               <NA>    http://www.can…
+##  5 Estonia        eElurikkus                                                              <NA>    https://elurik…
+##  6 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.m…
+##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.c…
+##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gb…
+##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gb…
+## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiv…
+## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.or…
 ```
 
 Use `galah_config()` to set the Atlas to use. This will automatically populate the 
@@ -88,7 +93,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 102070026
+## 1 113976424
 ```
 
 To pass more complex queries, start with the `galah_call()` function and pipe
@@ -104,9 +109,9 @@ galah_call() |>
 
 ```
 ## # A tibble: 1 × 1
-##     count
-##     <int>
-## 1 7046687
+##      count
+##      <int>
+## 1 14511359
 ```
 
 To narrow the search to a particular taxonomic group, use `galah_identify()`. Note
@@ -121,9 +126,10 @@ search_taxa("reptilia") # Check whether taxonomic info is correct
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                    rank  match_type kingdom  phylum   class  issues
-##   <chr>       <chr>           <chr>                                               <chr> <chr>      <chr>    <chr>    <chr>  <chr> 
-## 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b… class exactMatch Animalia Chordata Repti… noIss…
+##   search_term scientific_name taxon_concept_id                          rank  match…¹ kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                     <chr> <chr>   <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682… class exactM… Animal… Chord… Rept… noIss…
+## # … with abbreviated variable name ¹​match_type
 ```
 
 ```r
@@ -137,7 +143,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##   count
 ##   <int>
-## 1 45020
+## 1 87752
 ```
 
 # Downloading records
@@ -165,14 +171,15 @@ result |> head()
 
 ```
 ## # A tibble: 6 × 8
-##   decimalLatitude decimalLongitude eventDate              scientificName  taxonConceptID   recordID dataResourceName basisOfRecord
-##             <dbl>            <dbl> <chr>                  <chr>           <chr>            <chr>    <chr>            <chr>        
-## 1           -43.4             147. ""                     Litoria ewingii urn:lsid:biodiv… 780cf8e… iNaturalist Aus… HUMAN_OBSERV…
-## 2           -43.2             147. "2020-01-18T22:31:00Z" Litoria ewingii urn:lsid:biodiv… cc9d437… iNaturalist Aus… HUMAN_OBSERV…
-## 3           -43.2             147. ""                     Litoria ewingii urn:lsid:biodiv… d208d47… iNaturalist Aus… HUMAN_OBSERV…
-## 4           -43.1             147. ""                     Litoria ewingii urn:lsid:biodiv… 95fab19… iNaturalist Aus… HUMAN_OBSERV…
-## 5           -43.1             147. "2020-04-30T06:10:00Z" Litoria ewingii urn:lsid:biodiv… 2b7fdc5… Earth Guardians… HUMAN_OBSERV…
-## 6           -43.1             147. "2020-06-23T02:48:00Z" Litoria ewingii urn:lsid:biodiv… 3524080… Earth Guardians… HUMAN_OBSERV…
+##   decimalLatitude decimalLongitude eventDate            scientificName    taxonConceptID  recor…¹ dataR…² basis…³
+##             <dbl>            <dbl> <chr>                <chr>             <chr>           <chr>   <chr>   <chr>  
+## 1           -43.4             147. 2020-09-04T14:00:00Z Litoria ewingii   https://biodiv… e8045b… FrogID  HUMAN_…
+## 2           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiv… 44187a… FrogID  HUMAN_…
+## 3           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiv… bc34a7… FrogID  HUMAN_…
+## 4           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiv… ca4707… FrogID  HUMAN_…
+## 5           -43.4             146. 2020-01-01T13:00:00Z Litoria burrowsae https://biodiv… 9c71f5… FrogID  HUMAN_…
+## 6           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiv… 4bbaad… FrogID  HUMAN_…
+## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​basisOfRecord
 ```
 
 Check out our other vignettes for more detail on how to use these functions.

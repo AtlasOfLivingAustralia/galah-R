@@ -1,7 +1,7 @@
 ---
 title: "Syntax changes"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-01-24'
+date: '2022-10-10'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -53,7 +53,7 @@ galah_call() %>%
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 1161557
+## 1 7097294
 ```
 
 As another example, notice how `galah_group_by()` + `atlas_counts()` works very 
@@ -83,10 +83,10 @@ galah_call() %>%
 
 ```
 ## # A tibble: 2 × 2
-##   biome          count
-##   <chr>          <int>
-## 1 TERRESTRIAL 93590939
-## 2 MARINE       3519480
+##   biome           count
+##   <chr>           <int>
+## 1 TERRESTRIAL 105475070
+## 2 MARINE        3526639
 ```
 
 We made this move towards tidy evaluation to make it possible to use 
@@ -106,108 +106,14 @@ rewrite of our function names to increase clarity (see table below).
 Deprecated function names will now return a warning message when used, suggesting
 to users that they switch to the new syntax. 
 
-<table class="table lightable-paper" style='width: auto !important; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
- <thead>
-  <tr>
-   <th style="text-align:left;"> galah 1.3.1 and earlier </th>
-   <th style="text-align:left;"> galah 1.4.0 </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: #f064a4 !important;">  </td>
-   <td style="text-align:left;font-weight: bold;color: #f064a4 !important;"> galah_call </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #E06E53 !important;"> select_taxa </td>
-   <td style="text-align:left;color: #E06E53 !important;"> galah_identify </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #E06E53 !important;"> select_filters </td>
-   <td style="text-align:left;color: #E06E53 !important;"> galah_filter </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #E06E53 !important;"> select_columns </td>
-   <td style="text-align:left;color: #E06E53 !important;"> galah_select </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #E06E53 !important;"> select_locations </td>
-   <td style="text-align:left;color: #E06E53 !important;"> galah_geolocate </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #E06E53 !important;">  </td>
-   <td style="text-align:left;color: #E06E53 !important;"> galah_group_by </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #E06E53 !important;">  </td>
-   <td style="text-align:left;color: #E06E53 !important;"> galah_down_to </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #E06E53 !important;color: #c7902a !important;"> ala_counts </td>
-   <td style="text-align:left;color: #E06E53 !important;color: #c7902a !important;"> atlas_counts </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #c7902a !important;"> ala_occurrences </td>
-   <td style="text-align:left;color: #c7902a !important;"> atlas_occurrences </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #c7902a !important;"> ala_species </td>
-   <td style="text-align:left;color: #c7902a !important;"> atlas_species </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #c7902a !important;"> ala_media </td>
-   <td style="text-align:left;color: #c7902a !important;"> atlas_media </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #c7902a !important;"> ala_taxonomy </td>
-   <td style="text-align:left;color: #c7902a !important;"> atlas_taxonomy </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #c7902a !important;"> ala_citation </td>
-   <td style="text-align:left;color: #c7902a !important;"> atlas_citation </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #7f9959 !important;"> select_taxa </td>
-   <td style="text-align:left;color: #7f9959 !important;"> search_taxa, search_identifiers </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #7f9959 !important;"> search_fields </td>
-   <td style="text-align:left;color: #7f9959 !important;"> search_fields </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #7f9959 !important;">  </td>
-   <td style="text-align:left;color: #7f9959 !important;"> show_all_fields </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #7f9959 !important;"> find_profiles </td>
-   <td style="text-align:left;color: #7f9959 !important;"> show_all_profiles </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #7f9959 !important;"> find_ranks </td>
-   <td style="text-align:left;color: #7f9959 !important;"> show_all_ranks </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #7f9959 !important;"> find_atlases </td>
-   <td style="text-align:left;color: #7f9959 !important;"> show_all_atlases </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #7f9959 !important;"> find_reasons </td>
-   <td style="text-align:left;color: #7f9959 !important;"> show_all_reasons </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #7f9959 !important;"> find_cached_files </td>
-   <td style="text-align:left;color: #7f9959 !important;"> show_all_cached_files </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #7f9959 !important;"> find_field_values </td>
-   <td style="text-align:left;color: #7f9959 !important;"> search_field_values </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;color: #7f9959 !important;"> find_profile_attributes </td>
-   <td style="text-align:left;color: #7f9959 !important;"> search_profile_attributes </td>
-  </tr>
-</tbody>
-</table>
+
+```
+## Error in library(kableExtra): there is no package called 'kableExtra'
+```
+
+```
+## Error in row_spec(., 14:23, bold = F, color = "#7f9959"): could not find function "row_spec"
+```
 
 # Piping with `galah_call()`
 

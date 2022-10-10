@@ -30,6 +30,8 @@ navbar:
         href: articles/download_data.html
       - text: Syntax changes
         href: articles/syntax_changes.html
+      - text: International atlases
+        href: articles/international_atlases.html
     news:
       text: News
       href: news/index.html

@@ -1,7 +1,7 @@
 ---
 title: "Download data"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-01-24'
+date: '2022-10-10'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -39,7 +39,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 102070026
+## 1 113976424
 ```
 
 In addition to the filter arguments, it has an optional `group_by` argument, 
@@ -56,16 +56,16 @@ galah_call() |>
 ## # A tibble: 10 × 2
 ##    kingdom      count
 ##    <chr>        <int>
-##  1 Animalia  76305582
-##  2 Plantae   21998260
-##  3 Fungi      1893778
-##  4 Chromista   915235
-##  5 Protista     67365
-##  6 Bacteria     58156
-##  7 Protozoa     23635
-##  8 Archaea       1103
-##  9 Eukaryota      735
-## 10 Virus          472
+##  1 Animalia  86651355
+##  2 Plantae   23650585
+##  3 Fungi      2067000
+##  4 Chromista   851892
+##  5 Protista    141901
+##  6 Bacteria     71326
+##  7 Protozoa      3168
+##  8 Eukaryota     1338
+##  9 Archaea       1106
+## 10 Virus          510
 ```
 
 
@@ -88,14 +88,15 @@ species |> head()
 
 ```
 ## # A tibble: 6 × 10
-##   kingdom  phylum   class    order    family  genus        species                     author   species_guid       vernacular_name
-##   <chr>    <chr>    <chr>    <chr>    <chr>   <chr>        <chr>                       <chr>    <chr>              <chr>          
-## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. G… urn:lsid:biodiver… Black-footed T…
-## 2 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thomas… urn:lsid:biodiver… Common Rock-rat
-## 3 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite,… urn:lsid:biodiver… Sandy Inland M…
-## 4 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas,… urn:lsid:biodiver… Spinifex Hoppi…
-## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsay… urn:lsid:biodiver… Grassland Melo…
-## 6 Animalia Chordata Mammalia Rodentia Muridae Mus          Mus musculus                Linnaeu… urn:lsid:biodiver… House Mouse
+##   kingdom  phylum   class    order    family  genus        species                     author     speci…¹ verna…²
+##   <chr>    <chr>    <chr>    <chr>    <chr>   <chr>        <chr>                       <chr>      <chr>   <chr>  
+## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. Gra… https:… Black-…
+## 2 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thomas, … https:… Common…
+## 3 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite, 1… https:… Sandy …
+## 4 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas, 1… https:… Spinif…
+## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsay, … https:… Grassl…
+## 6 Animalia Chordata Mammalia Rodentia Muridae Mus          Mus musculus                Linnaeus,… https:… House …
+## # … with abbreviated variable names ¹​species_guid, ²​vernacular_name
 ```
 
 
@@ -129,14 +130,15 @@ occ |> head()
 
 ```
 ## # A tibble: 6 × 8
-##   decimalLatitude decimalLongitude eventDate              scientificName  taxonConceptID   recordID dataResourceName institutionID
-##             <dbl>            <dbl> <chr>                  <chr>           <chr>            <chr>    <chr>            <chr>        
-## 1           -35.9             149. ""                     Eolophus rosei… urn:lsid:biodiv… 17f46d4… eBird Australia  ""           
-## 2           -35.9             149. ""                     Eolophus rosei… urn:lsid:biodiv… ef2b906… eBird Australia  ""           
-## 3           -35.9             149. "2012-01-18T13:00:00Z" Eolophus rosei… urn:lsid:biodiv… 4f7cd71… BirdLife Austra… ""           
-## 4           -35.9             149. ""                     Eolophus rosei… urn:lsid:biodiv… 3236c47… eBird Australia  ""           
-## 5           -35.8             149. ""                     Eolophus rosei… urn:lsid:biodiv… eec91d8… eBird Australia  ""           
-## 6           -35.8             149. ""                     Eolophus rosei… urn:lsid:biodiv… e340c42… eBird Australia  ""
+##   decimalLatitude decimalLongitude eventDate            scientificName        taxonConc…¹ recor…² dataR…³ insti…⁴
+##             <dbl>            <dbl> <chr>                <chr>                 <chr>       <chr>   <chr>   <chr>  
+## 1           -35.9             149. 2020-09-12T14:00:00Z Eolophus roseicapilla https://bi… 17f46d… eBird … ""     
+## 2           -35.9             149. 2014-10-24T02:00:00Z Eolophus roseicapilla https://bi… b0e189… Nature… ""     
+## 3           -35.9             149. 2021-09-27T14:00:00Z Eolophus roseicapilla https://bi… dbb711… eBird … ""     
+## 4           -35.9             149. 2012-01-18T13:00:00Z Eolophus roseicapilla https://bi… 4f7cd7… BirdLi… ""     
+## 5           -35.9             149. 2012-01-18T02:00:00Z Eolophus roseicapilla https://bi… 147acb… Nature… ""     
+## 6           -35.9             149. 2017-03-17T13:00:00Z Eolophus roseicapilla https://bi… 3236c4… eBird … ""     
+## # … with abbreviated variable names ¹​taxonConceptID, ²​recordID, ³​dataResourceName, ⁴​institutionID
 ```
 
 
