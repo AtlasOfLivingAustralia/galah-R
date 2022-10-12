@@ -1,7 +1,7 @@
 ---
 title: "Look up information"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-10-10'
+date: '2022-10-11'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -31,19 +31,19 @@ show_all_atlases()
 
 ```
 ## # A tibble: 11 × 4
-##    atlas          institution                                                             acronym url            
-##    <chr>          <chr>                                                                   <chr>   <chr>          
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.al…
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiv…
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.…
-##  4 Canada         Candensys                                                               <NA>    http://www.can…
-##  5 Estonia        eElurikkus                                                              <NA>    https://elurik…
-##  6 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.m…
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.c…
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gb…
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gb…
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiv…
-## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.or…
+##    atlas          institution                                                             acronym url                       
+##    <chr>          <chr>                                                                   <chr>   <chr>                     
+##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au    
+##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br      
+##  4 Canada         Candensys                                                               <NA>    http://www.canadensys.net 
+##  5 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee      
+##  6 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.mnhn.fr      
+##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt 
+##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt       
+##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es       
+## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.…
+## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
 ```
 
 ```r
@@ -51,9 +51,17 @@ show_all_reasons()
 ```
 
 ```
-## Error in `show_all_reasons()`:
-## ! The `logger_reasons` API is not available for the selected atlas (United Kingdom)
-## ℹ Use `show_all_apis()` to list valid API calls
+## # A tibble: 8 × 2
+##      id name                                                                                                                
+##   <int> <chr>                                                                                                               
+## 1     3 education|Download is for primary, secondary or tertiary educational purposes                                       
+## 2    10 testing|Testing                                                                                                     
+## 3    13 statutory|Download is by a government-linked body or local authority for their statutory work                       
+## 4    14 LERC work|Download is for use by a local environmental records centre to support the provision of its services      
+## 5    15 public|Download is for personal use only                                                                            
+## 6    16 volunteer researcher/publisher|Download may lead to amateur (non-funded) publication, which could include National …
+## 7    17 professional researcher/publisher|Download may lead to professional publication (including universities, NGOs etc. …
+## 8    18 commercial|Download is for the purposes of fulfilling a commercial contract
 ```
 
 Of these functions, the one that has by far the largest output is 
@@ -69,18 +77,18 @@ show_all(fields) |>
 
 ```
 ## # A tibble: 10 × 3
-##    id                    description                                                                        type 
-##    <chr>                 <chr>                                                                              <chr>
-##  1 acceptedNameUsage     The full name, with authorship and date information if known, of the currently va… fiel…
-##  2 acceptedNameUsageID   An identifier for the name usage (documented meaning of the name according to a s… fiel…
-##  3 accessRights          <NA>                                                                               fiel…
-##  4 all_image_url         <NA>                                                                               fiel…
-##  5 assertion_user_id     Assertions by user                                                                 fiel…
-##  6 assertions            Record issues                                                                      fiel…
-##  7 assertions_missing    <NA>                                                                               fiel…
-##  8 assertions_passed     <NA>                                                                               fiel…
-##  9 associatedMedia       A list (concatenated and separated) of identifiers (publication, global unique id… fiel…
-## 10 associatedOccurrences A list (concatenated and separated) of identifiers of other Occurrence records an… fiel…
+##    id                    description                                                                                   type 
+##    <chr>                 <chr>                                                                                         <chr>
+##  1 acceptedNameUsage     The full name, with authorship and date information if known, of the currently valid (zoolog… fiel…
+##  2 acceptedNameUsageID   An identifier for the name usage (documented meaning of the name according to a source) of t… fiel…
+##  3 accessRights          <NA>                                                                                          fiel…
+##  4 all_image_url         <NA>                                                                                          fiel…
+##  5 assertion_user_id     Assertions by user                                                                            fiel…
+##  6 assertions            Record issues                                                                                 fiel…
+##  7 assertions_missing    <NA>                                                                                          fiel…
+##  8 assertions_passed     <NA>                                                                                          fiel…
+##  9 associatedMedia       A list (concatenated and separated) of identifiers (publication, global unique identifier, U… fiel…
+## 10 associatedOccurrences A list (concatenated and separated) of identifiers of other Occurrence records and their ass… fiel…
 ```
 
 One way to browse all fields is to use `View()` or `dplyr::view()` to open the 
@@ -116,9 +124,9 @@ search_taxa("reptilia")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term taxon_concept_id scientific_name scientific_name_authorship rank  kingdom  superclass phylum  class
-##   <chr>       <chr>            <chr>           <chr>                      <chr> <chr>    <chr>      <chr>   <chr>
-## 1 reptilia    NHMSYS0000375236 Reptilia        Laurenti, 1768             class Animalia Tetrapoda  Chorda… Rept…
+##   search_term taxon_concept_id scientific_name scientific_name_authorship rank  kingdom  superclass phylum   class   
+##   <chr>       <chr>            <chr>           <chr>                      <chr> <chr>    <chr>      <chr>    <chr>   
+## 1 reptilia    NHMSYS0000375236 Reptilia        Laurenti, 1768             class Animalia Tetrapoda  Chordata Reptilia
 ```
 
 ```r
@@ -127,12 +135,12 @@ search_taxa("reptilia", "aves", "mammalia", "pisces")
 
 ```
 ## # A tibble: 4 × 9
-##   search_term taxon_concept_id scientific_name scientific_name_authorship rank  kingdom  superclass phylum  class
-##   <chr>       <chr>            <chr>           <chr>                      <chr> <chr>    <chr>      <chr>   <chr>
-## 1 reptilia    NHMSYS0000375236 Reptilia        Laurenti, 1768             class Animalia Tetrapoda  Chorda… Rept…
-## 2 aves        NHMSYS0000841313 Aves            <NA>                       class Animalia Tetrapoda  Chorda… Aves 
-## 3 mammalia    NHMSYS0000376154 Mammalia        Linnaeus, 1758             class Animalia Tetrapoda  Chorda… Mamm…
-## 4 pisces      NHMSYS0000841378 Pisces          <NA>                       class Animalia <NA>       Chorda… Pisc…
+##   search_term taxon_concept_id scientific_name scientific_name_authorship rank  kingdom  superclass phylum   class   
+##   <chr>       <chr>            <chr>           <chr>                      <chr> <chr>    <chr>      <chr>    <chr>   
+## 1 reptilia    NHMSYS0000375236 Reptilia        Laurenti, 1768             class Animalia Tetrapoda  Chordata Reptilia
+## 2 aves        NHMSYS0000841313 Aves            <NA>                       class Animalia Tetrapoda  Chordata Aves    
+## 3 mammalia    NHMSYS0000376154 Mammalia        Linnaeus, 1758             class Animalia Tetrapoda  Chordata Mammalia
+## 4 pisces      NHMSYS0000841378 Pisces          <NA>                       class Animalia <NA>       Chordata Pisces
 ```
 
 Alternatively, `search_identifiers` is the partner function to `search_taxa`. 
@@ -162,14 +170,14 @@ search_fields("date") |> head()
 
 ```
 ## # A tibble: 6 × 3
-##   id                description                                                                             type 
-##   <chr>             <chr>                                                                                   <chr>
-## 1 acceptedNameUsage The full name, with authorship and date information if known, of the currently valid (… fiel…
-## 2 dateDeleted       <NA>                                                                                    fiel…
-## 3 dateIdentified    The date on which the subject was identified as representing the Taxon. Recommended be… fiel…
-## 4 dateIdentified_p  <NA>                                                                                    fiel…
-## 5 date_precision    Date precision                                                                          fiel…
-## 6 eventDate         The date-time or interval during which an Event occurred. For occurrences, this is the… fiel…
+##   id             description                                                                                           type 
+##   <chr>          <chr>                                                                                                 <chr>
+## 1 eventDate      The date-time or interval during which an Event occurred. For occurrences, this is the date-time whe… fiel…
+## 2 dateDeleted    <NA>                                                                                                  fiel…
+## 3 modified_date  <NA>                                                                                                  fiel…
+## 4 dateIdentified The date on which the subject was identified as representing the Taxon. Recommended best practice is… fiel…
+## 5 date_precision Date precision                                                                                        fiel…
+## 6 last_load_date <NA>                                                                                                  fiel…
 ```
 
 Once a desired field is found, use `search_field_values` to find values to pass 
@@ -181,7 +189,15 @@ search_field_values("basisOfRecord")
 ```
 
 ```
-## Error in search_field_values("basisOfRecord"): could not find function "search_field_values"
+## Warning: We didn't detect a valid query.
+## ℹ Try entering text to search for matching values.
+```
+
+```
+## Error in `search_field_values()`:
+## ! Invalid field detected.
+## ℹ Search for the valid name of a desired field with `search_fields()`.
+## ✖ "basisOfRecord" is not a valid field.
 ```
 
 ```r
@@ -213,7 +229,9 @@ search_profile_attributes("ALA") |> head()
 ```
 
 ```
-## Error in search_profile_attributes("ALA"): could not find function "search_profile_attributes"
+## Error in `show_all_profiles()` at ]8;line=398:col=2;file://C:\Users\KEL329\OneDrive - CSIRO\Documents\ALA\Github\galah\R\search_all.Rgalah/R/search_all.R:398:2]8;;:
+## ! The `profiles_all` API is not available for the selected atlas (United Kingdom)
+## ℹ Use `show_all_apis()` to list valid API calls
 ```
 
 
@@ -234,19 +252,19 @@ show_all(atlases)
 
 ```
 ## # A tibble: 11 × 4
-##    atlas          institution                                                             acronym url            
-##    <chr>          <chr>                                                                   <chr>   <chr>          
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.al…
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiv…
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.…
-##  4 Canada         Candensys                                                               <NA>    http://www.can…
-##  5 Estonia        eElurikkus                                                              <NA>    https://elurik…
-##  6 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.m…
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.c…
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gb…
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gb…
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiv…
-## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.or…
+##    atlas          institution                                                             acronym url                       
+##    <chr>          <chr>                                                                   <chr>   <chr>                     
+##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au    
+##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br      
+##  4 Canada         Candensys                                                               <NA>    http://www.canadensys.net 
+##  5 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee      
+##  6 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.mnhn.fr      
+##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt 
+##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt       
+##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es       
+## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.…
+## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
 ```
 
 To search for a specific available Living Atlas:
@@ -257,9 +275,10 @@ search_all(atlases, "Spain")
 ```
 
 ```
-## Error in `df[, c("acronym", "region")]`:
-## ! Can't subset columns that don't exist.
-## ✖ Column `region` doesn't exist.
+## # A tibble: 1 × 4
+##   atlas institution acronym url                
+##   <chr> <chr>       <chr>   <chr>              
+## 1 Spain GBIF Spain  GBIF.es https://www.gbif.es
 ```
 
 To show all fields:
@@ -286,11 +305,84 @@ search_all(fields, "australian states")
 Here is a list of information types that can be used with `show_all()` and 
 `search_all()`:
 
-
-```
-## Error in library(kableExtra): there is no package called 'kableExtra'
-```
-
-```
-## Error in pack_rows(., "Data providers", 11, 13, label_row_css = "background-color: #fdebf2; color: #343a40;"): could not find function "pack_rows"
-```
+<table class="table lightable-paper" style='width: auto !important; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Information type </th>
+   <th style="text-align:left;"> Description </th>
+   <th style="text-align:left;"> Sub-functions </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr grouplength="3"><td colspan="3" style="background-color: #fdebf2; color: #343a40;"><strong>Configuration</strong></td></tr>
+<tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> atlases </td>
+   <td style="text-align:left;"> Show what living atlases are available </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_atlases(), search_atlases() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> apis </td>
+   <td style="text-align:left;"> Show what APIs &amp; functions are available for each atlas </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_apis(), search_apis() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> reasons </td>
+   <td style="text-align:left;"> Show what values are acceptable as 'download reasons' for a specified atlas </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_reasons(), search_reasons() </td>
+  </tr>
+  <tr grouplength="3"><td colspan="3" style="background-color: #fdebf2; color: #343a40;"><strong>Taxonomy</strong></td></tr>
+<tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> taxa </td>
+   <td style="text-align:left;"> Search for one or more taxonomic names </td>
+   <td style="text-align:left;font-family: monospace;"> search_taxa() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> identifiers </td>
+   <td style="text-align:left;"> Take a universal identifier and return taxonomic information </td>
+   <td style="text-align:left;font-family: monospace;"> search_identifiers() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> ranks </td>
+   <td style="text-align:left;"> Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_ranks(), search_ranks()) </td>
+  </tr>
+  <tr grouplength="2"><td colspan="3" style="background-color: #fdebf2; color: #343a40;"><strong>Filters</strong></td></tr>
+<tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> fields </td>
+   <td style="text-align:left;"> Show fields that are stored in an atlas </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_fields(), search_fields() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> assertions </td>
+   <td style="text-align:left;"> Show results of data quality checks run by each atlas </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_assertions(), search_assertions() </td>
+  </tr>
+  <tr grouplength="2"><td colspan="3" style="background-color: #fdebf2; color: #343a40;"><strong>Group filters</strong></td></tr>
+<tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> profiles </td>
+   <td style="text-align:left;"> Show what data quality profiles are available </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_profiles(), search_profiles() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> lists </td>
+   <td style="text-align:left;"> Show what species lists are available </td>
+   <td style="text-align:left;font-family: monospace;"> show_lists(), search_lists() </td>
+  </tr>
+  <tr grouplength="3"><td colspan="3" style="background-color: #fdebf2; color: #343a40;"><strong>Data providers</strong></td></tr>
+<tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> providers </td>
+   <td style="text-align:left;"> Show which institutions have provided data </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_providers(), search_providers() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> collections </td>
+   <td style="text-align:left;"> Show the specific collections within those institutions </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_collections(), search_collections() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-family: monospace;padding-left: 2em;" indentlevel="1"> datasets </td>
+   <td style="text-align:left;"> Shows all the data groupings within those collections </td>
+   <td style="text-align:left;font-family: monospace;"> show_all_datasets(), search_datasets() </td>
+  </tr>
+</tbody>
+</table>

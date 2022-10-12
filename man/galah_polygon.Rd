@@ -72,3 +72,4 @@ queries by location. \code{\link[=search_taxa]{search_taxa()}}, \code{\link[=gal
 \code{\link[=galah_select]{galah_select()}} for other ways to restrict the information
 returned by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions.
 }
+\keyword{internal}

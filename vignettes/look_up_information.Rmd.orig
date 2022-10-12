@@ -87,6 +87,8 @@ query to work.
 search_fields("date") |> head()
 ```
 
+# `show_values()` & `search_values()`
+
 Once a desired field is found, use `search_field_values` to find values to pass 
 to `galah_filter`.
 

@@ -6,6 +6,7 @@
 #' `glue`-like syntax for infilling new data, passed using `...`
 #'
 #' @importFrom glue glue_data
+#' @keywords internal
 
 atlas_url <- function(api_name, ..., quiet = FALSE, error_call = caller_env()){
   

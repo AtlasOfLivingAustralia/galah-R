@@ -10,6 +10,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, include = FALSE}
+library(galah)
+galah_config(atlas = "Australia", verbose = FALSE)
+```
+
 The architecture developed by the ALA to store biodiversity data is used by over
 20 International Living Atlases. Although there are slight differences in the 
 core components of each Atlas's architecture, `galah` is flexible enough to 
@@ -45,7 +50,7 @@ to your selected Atlas. The default `atlas` is Australia.
 If you intend to download records, you may need to register a user profile with 
 the relevant Atlas first. 
 
-```{r eval=TRUE}
+```{r eval=FALSE}
 galah_config(atlas = "Spain", email = "your_email_here")
 ```
 
@@ -85,7 +90,7 @@ galah_call() |>
 Download species occurrence records from other atlases with 
 `atlas_occurrences()`
 
-```{r}
+```{r, eval = TRUE}
 galah_config(atlas = "Guatemala")
 
 galah_call() |>
@@ -94,6 +99,7 @@ galah_call() |>
   galah_select(taxon_name, year) |>
   atlas_occurrences()
 ```
+
 
 # Complex queries with multiple Atlases
 
@@ -106,6 +112,7 @@ species records in each Living Atlas in one table.
 library(purrr)
 library(tibble)
 library(dplyr)
+library(gt)
 
 atlases <- show_all_atlases()
 
@@ -120,6 +127,6 @@ tibble(
   n = unlist(counts)) |> 
   arrange(desc(n)) |>
   gt() |> 
-  fmt_number(columns = n)
+  gt::fmt_number(columns = n)
 ```
 

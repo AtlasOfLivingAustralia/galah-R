@@ -46,7 +46,7 @@ galah_call() |>
 #> # A tibble: 1 x 1
 #>   count
 #>   <int>
-#> 1  1776
+#> 1  1782
 }\if{html}{\out{</div>}}
 
 Search for records using a bounding box in a \code{tibble} or \code{data.frame}
@@ -97,3 +97,4 @@ queries by location. See \code{\link[=search_taxa]{search_taxa()}}, \code{\link[
 \code{\link[=galah_select]{galah_select()}} for other ways to restrict the information
 returned by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions.
 }
+\keyword{internal}

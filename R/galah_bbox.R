@@ -79,7 +79,9 @@
 #' @importFrom sf st_cast st_as_text st_as_sfc st_is_empty st_is_simple
 #' @importFrom sf st_is_valid st_bbox st_geometry_type
 #' @importFrom rlang try_fetch
-#'
+#' 
+#' @keywords internal
+#' 
 #' @export
 galah_bbox <- function(...) {
 

@@ -12,3 +12,4 @@ base URLs from an internal tibble (\code{node_config}), itself imported from
 a csv (\code{./data-raw/node_config.csv}). Entries in that tibble can contain
 \code{glue}-like syntax for infilling new data, passed using \code{...}
 }
+\keyword{internal}

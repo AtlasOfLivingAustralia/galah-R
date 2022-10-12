@@ -10,7 +10,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 ---
-  
+
+```{r, include = FALSE}
+galah_config(atlas = "Australia", verbose = FALSE)
+```
+
 Each occurrence record contains taxonomic information and 
 information about the observation itself, like its location and the date
 of observation. These pieces of information are recorded and categorised into 
@@ -44,6 +48,7 @@ information to download  data with `galah`.
   
 For example, to search for reptiles, we first need to identify whether we have 
 the correct query:
+
 
 ```{r}
 search_taxa("Reptilia")
@@ -95,10 +100,10 @@ which has its' own taxonomic backbone (note this information is also given by
 `show_all_atlases()`). You can search the NBN taxonomy with `get_nbnid`.
 
 ```{r}
-galah_config(atlas = "UK")
-id <- get_nbnid(c("Vulpes vulpes", "Meles meles"), messages = FALSE, rows = 1)
+galah_config(atlas = "United Kingdom")
+
 galah_call() |> 
-  galah_identify(id) |> 
+  galah_identify(c("Vulpes vulpes", "Meles meles")) |> 
   galah_group_by(species) |> 
   atlas_counts()
 ```

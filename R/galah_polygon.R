@@ -61,6 +61,8 @@
 #' @importFrom sf st_is_valid st_geometry st_geometry_type
 #' @importFrom rlang try_fetch
 #' 
+#' @keywords internal
+#' 
 #' @export
 galah_polygon <- function(...) {
   

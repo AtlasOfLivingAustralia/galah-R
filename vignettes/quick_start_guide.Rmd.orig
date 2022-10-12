@@ -55,7 +55,7 @@ Use `galah_config()` to set the Atlas to use. This will automatically populate t
 server configuration for your selected Atlas. By default, the atlas is Australia.
 
 ```{r eval=FALSE}
-galah_config(atlas = "UK")
+galah_config(atlas = "United Kingdom")
 ```
 
 # Building queries

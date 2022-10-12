@@ -1,7 +1,7 @@
 ---
 title: "Download data"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-10-10'
+date: '2022-10-11'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -39,7 +39,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 113976424
+## 1 114020314
 ```
 
 In addition to the filter arguments, it has an optional `group_by` argument, 
@@ -56,13 +56,13 @@ galah_call() |>
 ## # A tibble: 10 × 2
 ##    kingdom      count
 ##    <chr>        <int>
-##  1 Animalia  86651355
-##  2 Plantae   23650585
-##  3 Fungi      2067000
-##  4 Chromista   851892
-##  5 Protista    141901
-##  6 Bacteria     71326
-##  7 Protozoa      3168
+##  1 Animalia  86678165
+##  2 Plantae   23666279
+##  3 Fungi      2068344
+##  4 Chromista   851932
+##  5 Protista    141953
+##  6 Bacteria     71328
+##  7 Protozoa      3172
 ##  8 Eukaryota     1338
 ##  9 Archaea       1106
 ## 10 Virus          510
@@ -88,14 +88,14 @@ species |> head()
 
 ```
 ## # A tibble: 6 × 10
-##   kingdom  phylum   class    order    family  genus        species                     author     speci…¹ verna…²
-##   <chr>    <chr>    <chr>    <chr>    <chr>   <chr>        <chr>                       <chr>      <chr>   <chr>  
-## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. Gra… https:… Black-…
-## 2 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thomas, … https:… Common…
-## 3 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite, 1… https:… Sandy …
-## 4 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas, 1… https:… Spinif…
-## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsay, … https:… Grassl…
-## 6 Animalia Chordata Mammalia Rodentia Muridae Mus          Mus musculus                Linnaeus,… https:… House …
+##   kingdom  phylum   class    order    family  genus        species                     author            species_g…¹ verna…²
+##   <chr>    <chr>    <chr>    <chr>    <chr>   <chr>        <chr>                       <chr>             <chr>       <chr>  
+## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. Gray, 1843) https://bi… Black-…
+## 2 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thomas, 1889)    https://bi… Common…
+## 3 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite, 1896)     https://bi… Sandy …
+## 4 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas, 1922      https://bi… Spinif…
+## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsay, 1887)    https://bi… Grassl…
+## 6 Animalia Chordata Mammalia Rodentia Muridae Mus          Mus musculus                Linnaeus, 1758    https://bi… House …
 ## # … with abbreviated variable names ¹​species_guid, ²​vernacular_name
 ```
 
@@ -124,21 +124,19 @@ occ <- galah_call() |>
   ) |>
   galah_select(institutionID, group = "basic") |>
   atlas_occurrences()
-  
+```
+
+```
+## Error in `check_queue()` at ]8;line=312:col=2;file://C:\Users\KEL329\OneDrive - CSIRO\Documents\ALA\Github\galah\R\atlas_occurrences.Rgalah/R/atlas_occurrences.R:312:2]8;;:
+## ! Function timed out in processing queue
+```
+
+```r
 occ |> head()
 ```
 
 ```
-## # A tibble: 6 × 8
-##   decimalLatitude decimalLongitude eventDate            scientificName        taxonConc…¹ recor…² dataR…³ insti…⁴
-##             <dbl>            <dbl> <chr>                <chr>                 <chr>       <chr>   <chr>   <chr>  
-## 1           -35.9             149. 2020-09-12T14:00:00Z Eolophus roseicapilla https://bi… 17f46d… eBird … ""     
-## 2           -35.9             149. 2014-10-24T02:00:00Z Eolophus roseicapilla https://bi… b0e189… Nature… ""     
-## 3           -35.9             149. 2021-09-27T14:00:00Z Eolophus roseicapilla https://bi… dbb711… eBird … ""     
-## 4           -35.9             149. 2012-01-18T13:00:00Z Eolophus roseicapilla https://bi… 4f7cd7… BirdLi… ""     
-## 5           -35.9             149. 2012-01-18T02:00:00Z Eolophus roseicapilla https://bi… 147acb… Nature… ""     
-## 6           -35.9             149. 2017-03-17T13:00:00Z Eolophus roseicapilla https://bi… 3236c4… eBird … ""     
-## # … with abbreviated variable names ¹​taxonConceptID, ²​recordID, ³​dataResourceName, ⁴​institutionID
+## Error in head(occ): object 'occ' not found
 ```
 
 
