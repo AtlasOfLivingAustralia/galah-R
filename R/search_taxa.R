@@ -147,7 +147,9 @@ name_lookup <- function(name) {
     result <- result$searchResults$results
   }
   
-  if(is.list(result)){result <- as.data.frame(result)}
+  if(is.list(result)){
+    result <- as.data.frame(lapply(result, function(a){a[1]}))
+  }
   
   if(nrow(result) > 1){
     string_distance <- adist(
