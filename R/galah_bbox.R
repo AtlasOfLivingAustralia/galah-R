@@ -133,15 +133,11 @@ galah_bbox <- function(...) {
   # handle shapefiles
   if (inherits(query, "XY")) query <- sf::st_as_sfc(query)
 
-  # make sure coordinates can be extracted from data.frame/tibble
-  if (inherits(query, c("tbl", "data.frame"))) {
-    query <- check_n_rows(query)
-  }
-
   # validate spatial objects & coordinates
   if (!inherits(query, c("sf", "sfc"))) {
     if(inherits(query, c("tbl", "data.frame"))) {
       check_col_names(query)
+      query <- check_n_rows(query)
       query <- st_bbox(c(xmin = query$xmin,
                          xmax = query$xmax,
                          ymin = query$ymin,

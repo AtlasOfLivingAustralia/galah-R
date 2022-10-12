@@ -15,7 +15,7 @@ test_that("select_columns is deprecated", {
     deprecated <- select_columns(eventDate)
     expect_s3_class(deprecated, c("tbl_df", "tbl", "data.frame"))
     expect_equal(nrow(deprecated), 1)
-    expect_equal(colnames(deprecated), c("eventDate", "field"))
+    expect_equal(colnames(deprecated), c("name", "type"))
   })
 })
 
@@ -51,9 +51,9 @@ test_that("ala_occurrences is deprecated", {
       filters = filters,
       columns = cols,
       locations = locations)
-    expect_equal(
-      names(occ)[c(4, 8)], 
-      c("scientificName", "stateProvince"))
+    expect_true(
+      all(c("scientificName", "stateProvince", "occurrenceStatus") %in% names(occ))
+    )
     expect_equal(unique(occ$stateProvince), "New South Wales")
   })
 })
@@ -157,11 +157,5 @@ test_that("find_atlases is deprecated", {
 })
 
 test_that("ala_config is deprecated", {
-  local_edition(3)
-  expect_snapshot({
-    # set to null
-    options(galah_config = NULL)
-    # check that defaults are used
-    expect_equal(ala_config()$verbose, TRUE)
-  })
+  expect_error(ala_config())
 })

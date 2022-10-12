@@ -12,7 +12,7 @@ test_that("galah_call works with all `galah_` functions", {
     galah_identify("Litoria") |>
     galah_filter(year == 2021, cl22 == "Tasmania") |>
     galah_select(year) |>
-    galah_data_profile(ALA) |>
+    galah_apply_profile(ALA) |>
     galah_geolocate("POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))") |>
     galah_group_by(year, basisOfRecord) |>
     galah_down_to(rank = species)
@@ -21,7 +21,7 @@ test_that("galah_call works with all `galah_` functions", {
 
 test_that("galah_call works irrespective of `galah_` function order", {
   result <- galah_call() |> 
-    galah_data_profile(ALA) |>
+    galah_apply_profile(ALA) |>
     galah_down_to(rank = species) |>
     galah_group_by(year, basisOfRecord) |>
     galah_geolocate("POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))") |>

@@ -26,6 +26,7 @@
 #'   * `taxonConceptID`
 #'   * `recordID`
 #'   * `dataResourceName`
+#'   * `occurrenceStatus`
 #' 
 #' Using `group = "event"` returns the following columns:
 #' 

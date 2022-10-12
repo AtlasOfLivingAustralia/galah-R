@@ -48,10 +48,10 @@ test_that("galah_bbox returns bbox for tibble", {
 test_that("galah_bbox does not accept incorrect tibbles", {
   tibble_wrong <- tibble(c1 = c("hi", "hello"), c2 = 1:2)
   tibble_bad_colnames <- tibble(top = 148, bottom = -29, ymin = -29, ymax = -29)
-  tibble_multiple_values <- tibble(xmin = 148, ymin = c(-29, -28), xmax = 143, ymax = -29)
+  tibble_invalid_bbox <- tibble(xmin = 148, ymin = -29, xmax = 143, ymax = -29)
   expect_error(galah_bbox(tibble_wrong))
   expect_error(galah_bbox(tibble_bad_colnames))
-  expect_error(galah_bbox(tibble_multiple_values))
+  expect_error(galah_bbox(tibble_invalid_bbox))
 })
 
 test_that("galah_bbox uses only first coordinates of tibble with many coordinates", {
@@ -73,10 +73,10 @@ test_that("galah_bbox checks number of inputs, uses first argument", { # FIXME
   expected_polygon <- glue("MULTIPOLYGON (((142.3623 -29.39064, 142.7413 -29.39064, \\
                            142.7413 -29.00703, 142.3623 -29.00703, 142.3623 -29.39064)))")
   
-  expect_warning(galah_bbox(wkt_1, wkt_2), "More than 1 spatial area provided")
-  expect_equal(galah_bbox(wkt_1, wkt_2)[1], 
-               galah_bbox(wkt_1)[1], 
-               expected_polygon)
+  bbox_1 <- expect_warning(galah_bbox(wkt_1, wkt_2), "More than 1 spatial area provided")
+  expect_equal(as.character(bbox_1), 
+               as.character(galah_bbox(wkt_1)[1]), 
+               as.character(expected_polygon))
 })
 
 test_that("galah_bbox checks inputs", {

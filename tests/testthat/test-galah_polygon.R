@@ -4,20 +4,17 @@ test_that("galah_polygon uses first argument", {
   wkt_1 <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
   wkt_2 <- "POLYGON((145.6765 -42.13203, 145.9652 -42.63203, 146.5425 -42.63203, 146.8312 -42.13203, 146.5425 -41.63203, 145.9652 -41.63203, 145.6765 -42.13203))"
   expected_polygon <- "MULTIPOLYGON (((142.3623 -29.00703, 142.7413 -29.00703, 142.7413 -29.39064, 142.3623 -29.39064, 142.3623 -29.00703)))"
-  expect_warning(galah_polygon(wkt_1, wkt_2))
-  expect_equal(galah_polygon(wkt_1, wkt_2)[1], 
+  polygon_1 <- expect_warning(galah_polygon(wkt_1, wkt_2))
+  expect_equal(as.character(polygon_1), 
                galah_polygon(wkt_1)[1], 
                expected_polygon)
 })
 
 test_that("galah_polygon checks inputs", {
   poly_path <- test_path("testdata", "act_state_polygon_shp", "ACT_STATE_POLYGON_shp.shp")
-  expect_error(
-    galah_polygon(
-      st_read(poly_path, quiet = TRUE),
-      readLines("../testdata/short_act_wkt.txt")))
+  wkt_path <- test_path("testdata", "long_act_wkt.txt")
   expect_error(galah_polygon(st_read(poly_path, quiet = TRUE)))
-  expect_error(galah_polygon(readLines("../testdata/long_act_wkt.txt")))
+  expect_error(galah_polygon(readLines(wkt_path)))
 })
 
 test_that("galah_polygon finds polygon errors", {

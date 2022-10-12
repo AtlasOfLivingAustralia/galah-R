@@ -23,7 +23,8 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
   skip_on_cran()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
-                     "dataResourceName", "stateProvince", "ZERO_COORDINATE")
+                     "dataResourceName", "occurrenceStatus", "stateProvince", 
+                     "ZERO_COORDINATE")
   filters <- galah_filter(year >= 2018)
   cols <- galah_select(group = "basic", stateProvince, ZERO_COORDINATE)
   identify <- galah_identify("Polytelis swainsonii")
@@ -43,7 +44,8 @@ test_that("atlas_occurrences accepts all narrowing functions in pipe", {
   skip_on_cran()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
-                     "dataResourceName", "stateProvince", "ZERO_COORDINATE")
+                     "dataResourceName", "occurrenceStatus", "stateProvince", 
+                     "ZERO_COORDINATE")
   poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
   occ <- galah_call() |>
     galah_filter(year >= 2018) |>

@@ -10,10 +10,11 @@ test_that("galah_select returns error when columns don't exist", {
 
 vcr::use_cassette("galah_select_1", {
   test_that("galah_select returns requested columns", {
+    skip_on_cran()
     galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
     selected_columns <- galah_select(year, basisOfRecord)
     query <- atlas_occurrences(identify = galah_identify("oxyopes dingo"),
-                              select = selected_columns)
+                               select = selected_columns)
     expect_equal(selected_columns[[1]], c("year", "basisOfRecord"))
     expect_equal(names(query), c("year", "basisOfRecord"))
     expect_equal(names(query), selected_columns[[1]])
@@ -23,6 +24,7 @@ vcr::use_cassette("galah_select_1", {
 
 vcr::use_cassette("galah_select_2", {
   test_that("galah_select returns requested columns when piped", {
+    skip_on_cran()
     galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
     query <- galah_call() |>
       galah_identify("oxyopes dingo") |>
@@ -40,7 +42,7 @@ test_that("galah_select builds expected columns when group = basic", {
                         "eventDate", "scientificName",
                         "taxonConceptID", "recordID",
                         "dataResourceName", "occurrenceStatus"),
-               type = rep("field", times = 7)),
+               type = rep("field", times = 8)),
     class = c("tbl_df", "tbl", "data.frame", "galah_select"))
   expect_s3_class(select, "data.frame")
   expect_equal(nrow(select), nrow(expected_output))
@@ -84,8 +86,8 @@ test_that("galah_select defaults to group = basic when there are no args", {
     tibble(name = c("decimalLatitude", "decimalLongitude",
                         "eventDate", "scientificName",
                         "taxonConceptID", "recordID",
-                        "dataResourceName"),
-               type = rep("field", times = 7)),
+                        "dataResourceName", "occurrenceStatus"),
+               type = rep("field", times = 8)),
     class = c("tbl_df", "tbl", "data.frame", "galah_select"))
   expect_s3_class(galah_select(), "data.frame")
   expect_equal(nrow(galah_select()), nrow(expected_output))
@@ -105,7 +107,7 @@ vcr::use_cassette("galah_select_3", {
     expected_columns <- c("decimalLatitude", "decimalLongitude",
                             "eventDate", "scientificName",
                             "taxonConceptID", "recordID",
-                            "dataResourceName", 
+                            "dataResourceName", "occurrenceStatus",
                             "year", "basisOfRecord")
     expect_equal(names(query), expected_columns)
   })
@@ -135,5 +137,5 @@ test_that("galah_select can use tidyselect::last_col & user-defined queries", {
 
 test_that("galah_select can use tidyselect::last_col & group", {
   query <- galah_select(tidyselect::last_col(), group = "basic")
-  expect_equal(nrow(query), 8)
+  expect_equal(nrow(query), 9)
 })
