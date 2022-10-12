@@ -8,30 +8,26 @@ test_that("galah_select returns error when columns don't exist", {
 })
 
 
-vcr::use_cassette("galah_select_1", {
-  test_that("galah_select returns requested columns", {
-    skip_on_cran()
-    galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
-    selected_columns <- galah_select(year, basisOfRecord)
-    query <- atlas_occurrences(identify = galah_identify("oxyopes dingo"),
-                               select = selected_columns)
-    expect_equal(selected_columns[[1]], c("year", "basisOfRecord"))
-    expect_equal(names(query), c("year", "basisOfRecord"))
-    expect_equal(names(query), selected_columns[[1]])
-  })
+test_that("galah_select returns requested columns", {
+  skip_on_cran()
+  galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
+  selected_columns <- galah_select(year, basisOfRecord)
+  query <- atlas_occurrences(identify = galah_identify("oxyopes dingo"),
+                             select = selected_columns)
+  expect_equal(selected_columns[[1]], c("year", "basisOfRecord"))
+  expect_equal(names(query), c("year", "basisOfRecord"))
+  expect_equal(names(query), selected_columns[[1]])
 })
 
 
-vcr::use_cassette("galah_select_2", {
-  test_that("galah_select returns requested columns when piped", {
-    skip_on_cran()
-    galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
-    query <- galah_call() |>
-      galah_identify("oxyopes dingo") |>
-      galah_select(year, basisOfRecord) |>
-      atlas_occurrences()
-    expect_equal(names(query), c("year", "basisOfRecord"))
-  })
+test_that("galah_select returns requested columns when piped", {
+  skip_on_cran()
+  galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
+  query <- galah_call() |>
+    galah_identify("oxyopes dingo") |>
+    galah_select(year, basisOfRecord) |>
+    atlas_occurrences()
+  expect_equal(names(query), c("year", "basisOfRecord"))
 })
 
 
@@ -97,21 +93,21 @@ test_that("galah_select defaults to group = basic when there are no args", {
 })
 
 
-vcr::use_cassette("galah_select_3", {
-  test_that("galah_select combines requested columns and group columns", {
-    galah_config(run_checks = FALSE)
-    identify <- galah_identify("oxyopes dingo")
-    columns <- galah_select(year, basisOfRecord, group = "basic")
-    query <- atlas_occurrences(identify = identify,
-                               select = columns)
-    expected_columns <- c("decimalLatitude", "decimalLongitude",
-                            "eventDate", "scientificName",
-                            "taxonConceptID", "recordID",
-                            "dataResourceName", "occurrenceStatus",
-                            "year", "basisOfRecord")
-    expect_equal(names(query), expected_columns)
-  })
+test_that("galah_select combines requested columns and group columns", {
+  skip_on_cran()
+  galah_config(run_checks = FALSE)
+  identify <- galah_identify("oxyopes dingo")
+  columns <- galah_select(year, basisOfRecord, group = "basic")
+  query <- atlas_occurrences(identify = identify,
+                             select = columns)
+  expected_columns <- c("decimalLatitude", "decimalLongitude",
+                          "eventDate", "scientificName",
+                          "taxonConceptID", "recordID",
+                          "dataResourceName", "occurrenceStatus",
+                          "year", "basisOfRecord")
+  expect_equal(names(query), expected_columns)
 })
+  
 
 test_that("galah_select can use tidyselect::contains", {
   query <- galah_select(tidyselect::contains("el"))

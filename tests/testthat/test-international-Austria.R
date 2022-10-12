@@ -76,23 +76,20 @@ vcr::use_cassette("IA_Austria_atlas_counts3", {
   })
 })
 
-vcr::use_cassette("IA_Austria_atlas_occurrences", {
-  test_that("atlas_occurrences works for Austria", {
-    galah_config(
-      atlas = "Austria",
-      email = "ala4r@ala.org.au", 
-      send_email = FALSE)
-    skip_on_cran()
-    occ <- galah_call() |>
-      galah_identify("Vulpes vulpes") |>
-      galah_filter(year == 1990) |>
-      galah_select(species, year) |>
-      atlas_occurrences()
-      
-    expect_gt(nrow(occ), 0)
-    expect_equal(ncol(occ), 2)
-    expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
-  })
+test_that("atlas_occurrences works for Austria", {
+  skip_on_cran()
+  galah_config(
+    atlas = "Austria",
+    email = "ala4r@ala.org.au", 
+    send_email = FALSE)
+  occ <- galah_call() |>
+    galah_identify("Vulpes vulpes") |>
+    galah_filter(year == 1990) |>
+    galah_select(species, year) |>
+    atlas_occurrences()   
+  expect_gt(nrow(occ), 0)
+  expect_equal(ncol(occ), 2)
+  expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
 })
 
 #     ## species

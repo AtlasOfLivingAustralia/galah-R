@@ -1,0 +1,38 @@
+http_interactions:
+- request:
+    method: get
+    uri: http://data.canadensys.net/explorer-ws/occurrence/facets?facets=basis_of_record&flimit=10000
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 OK
+      server: nginx/1.18.0 (Ubuntu)
+      date: Wed, 12 Oct 2022 05:33:58 GMT
+      content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+      connection: keep-alive
+      access-control-allow-origin: '*'
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-max-age: '3600'
+      access-control-allow-headers: x-requested-with
+      strict-transport-security: max-age=31536000
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Preserved
+        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":5795234,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Human
+        observation","i18nCode":"basis_of_record.HumanObservation","count":349250,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Fossil
+        specimen","i18nCode":"basis_of_record.FossilSpecimen","count":154507,"fq":"basis_of_record:\"FossilSpecimen\""},{"label":"Living
+        specimen","i18nCode":"basis_of_record.LivingSpecimen","count":43552,"fq":"basis_of_record:\"LivingSpecimen\""}],"count":4}]'
+  recorded_at: 2022-10-12 05:33:56 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

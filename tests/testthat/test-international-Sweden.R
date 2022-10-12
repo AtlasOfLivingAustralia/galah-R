@@ -78,23 +78,20 @@ vcr::use_cassette("IA_Sweden_atlas_counts3", {
   })
 })
 
-vcr::use_cassette("IA_Sweden_atlas_occurrences", {
-  test_that("atlas_occurrences works for Sweden", {
-    galah_config(
-      atlas = "Sweden",
-      email = "martinjwestgate@gmail.com", 
-      send_email = FALSE)
-    skip_on_cran()
-    occ <- galah_call() |>
-      galah_identify("Lagomorpha") |>
-      galah_filter(year < 1900) |>
-      galah_select(taxon_name, year) |>
-      atlas_occurrences()
-      
-    expect_gt(nrow(occ), 0)
-    expect_equal(ncol(occ), 2)
-    expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
-  })
+test_that("atlas_occurrences works for Sweden", {
+  skip_on_cran()
+  galah_config(
+    atlas = "Sweden",
+    email = "martinjwestgate@gmail.com", 
+    send_email = FALSE)
+  occ <- galah_call() |>
+    galah_identify("Lagomorpha") |>
+    galah_filter(year < 1900) |>
+    galah_select(taxon_name, year) |>
+    atlas_occurrences()
+  expect_gt(nrow(occ), 0)
+  expect_equal(ncol(occ), 2)
+  expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
 })
 
 galah_config(atlas = "Australia")
