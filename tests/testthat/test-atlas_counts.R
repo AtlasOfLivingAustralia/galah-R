@@ -35,6 +35,19 @@ test_that("grouped atlas_counts returns expected output", {
   expect_equal(names(counts), c("basisOfRecord", "count"))
 })
 
+test_that("grouped atlas_counts returns expected output when limit != NULL", {
+  vcr::use_cassette("record_count_group_by_with_limit", {
+    counts <- atlas_counts(
+      identify = galah_identify("Mammalia"),
+      group_by = galah_group_by(basisOfRecord),
+      limit = 3
+    )
+  })
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(names(counts), c("basisOfRecord", "count"))
+  expect_equal(nrow(counts), 3)
+})
+
 
 test_that("atlas_counts returns all counts if no limit is provided", {
   vcr::use_cassette("record_count_no_limit", {

@@ -1,0 +1,124 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://namematching-ws.ala.org.au/api/search?q=Mammalia
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Wed, 12 Oct 2022 03:10:19 GMT
+      content-type: application/json
+      content-length: '356'
+      server: nginx/1.23.1
+      vary: Accept-Encoding
+      content-encoding: gzip
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
+    body:
+      encoding: UTF-8
+      file: no
+      string: '{"success":true,"scientificName":"MAMMALIA","taxonConceptID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","rank":"class","rankID":3000,"lft":67388,"rgt":69420,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","vernacularName":"Mammals","speciesGroup":["Animals","Mammals"],"issues":["noIssue"]}'
+  recorded_at: 2022-10-12 03:10:19 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Fe9e7db31-04df-41fb-bd8d-e0b0f3c332d6%29&disableAllQualityFilters=true&facets=basisOfRecord&flimit=1
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 12 Oct 2022 03:10:19 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.23.1
+      set-cookie:
+      - AWSALBTG=tU2DgimaYRQxufmSmrsXCw/TUJ6gI087dPjgm7RdZ5m4Lb+b/ACGdiZtslgg2fI7c+0ADMFifSfrPcpz5Drx+2Lk891/oystEsKbIbgQuZrJxPA2rxNh9XofcFnyRMwaBhjlV/aOGXm/oI82R2GZBb9w4ij5VP/VFAWPdv1vRLDe;
+        Expires=Wed, 19 Oct 2022 03:10:19 GMT; Path=/
+      - AWSALBTGCORS=tU2DgimaYRQxufmSmrsXCw/TUJ6gI087dPjgm7RdZ5m4Lb+b/ACGdiZtslgg2fI7c+0ADMFifSfrPcpz5Drx+2Lk891/oystEsKbIbgQuZrJxPA2rxNh9XofcFnyRMwaBhjlV/aOGXm/oI82R2GZBb9w4ij5VP/VFAWPdv1vRLDe;
+        Expires=Wed, 19 Oct 2022 03:10:19 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=AyoUV/08iYOFYPEDYwaaj/l0h+gUnQP6Sgcmy7pPjQPckrhzPMXEvB6/0TOTy3Gz5I5LKcxanO0IEqyZjqC2IT49oQeADnDA8B6zWQEPCfyYP8z77PI4UJIwF9uz;
+        Expires=Wed, 19 Oct 2022 03:10:19 GMT; Path=/
+      - AWSALBCORS=AyoUV/08iYOFYPEDYwaaj/l0h+gUnQP6Sgcmy7pPjQPckrhzPMXEvB6/0TOTy3Gz5I5LKcxanO0IEqyZjqC2IT49oQeADnDA8B6zWQEPCfyYP8z77PI4UJIwF9uz;
+        Expires=Wed, 19 Oct 2022 03:10:19 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":2691486,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":9}]'
+  recorded_at: 2022-10-12 03:10:19 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Fe9e7db31-04df-41fb-bd8d-e0b0f3c332d6%29&disableAllQualityFilters=true&facets=basisOfRecord&flimit=3
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json;charset=UTF-8
+      date: Wed, 12 Oct 2022 03:10:19 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.23.1
+      set-cookie:
+      - AWSALBTG=mC9kyn7BuDqsYlhKhH9fFzUjzTQMS750NizTS9G7ITGG3OJtt3XYUrJv6aaL3+sNzPh6+hPHNRN/7G72lAr3+fgyY59TUvYylISgddK2esBYoFU3dVp145y123n4aL39cUdvX/WrlRy9or+YOoRn72DNnmdI+FJQ11Vs+y3Y1dem;
+        Expires=Wed, 19 Oct 2022 03:10:19 GMT; Path=/
+      - AWSALBTGCORS=mC9kyn7BuDqsYlhKhH9fFzUjzTQMS750NizTS9G7ITGG3OJtt3XYUrJv6aaL3+sNzPh6+hPHNRN/7G72lAr3+fgyY59TUvYylISgddK2esBYoFU3dVp145y123n4aL39cUdvX/WrlRy9or+YOoRn72DNnmdI+FJQ11Vs+y3Y1dem;
+        Expires=Wed, 19 Oct 2022 03:10:19 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=H43fGBqQknMGYl0btUuFwLv3UQekx0YKk/RN2ONwhHsMcFvYJYlQTMY2ofOqHS/bZZsncGEssNbhOYaGvhuSYlsog8Di24KowKEiIF0S164LQ8NMza8LKKL27bzB;
+        Expires=Wed, 19 Oct 2022 03:10:19 GMT; Path=/
+      - AWSALBCORS=H43fGBqQknMGYl0btUuFwLv3UQekx0YKk/RN2ONwhHsMcFvYJYlQTMY2ofOqHS/bZZsncGEssNbhOYaGvhuSYlsog8Di24KowKEiIF0S164LQ8NMza8LKKL27bzB;
+        Expires=Wed, 19 Oct 2022 03:10:19 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-frame-options: DENY
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":2691486,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"OCCURRENCE","i18nCode":"basisOfRecord.OCCURRENCE","count":430618,"fq":"basisOfRecord:\"OCCURRENCE\""},{"label":"Preserved
+        specimen","i18nCode":"basisOfRecord.PRESERVED_SPECIMEN","count":292879,"fq":"basisOfRecord:\"PRESERVED_SPECIMEN\""}],"count":9}]'
+  recorded_at: 2022-10-12 03:10:19 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

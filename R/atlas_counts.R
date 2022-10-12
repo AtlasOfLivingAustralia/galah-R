@@ -315,7 +315,6 @@ atlas_counts_lookup <- function(identify = NULL,
                                   refresh_cache = FALSE,
                                   verbose = FALSE # NOTE: internally `verbose` is manual, not from galah_config
                                   ) {
-  
   page_size <- 100
   query <- list()
   query <- build_query(identify, filter, geolocate, profile = profile)
@@ -338,11 +337,13 @@ atlas_counts_lookup <- function(identify = NULL,
     limit <- sum(total_cats)
   }
 
-  if (sum(total_cats) > limit && sum(total_cats) > page_size) {
+  if (limit > page_size) {
     url <- atlas_url("records_facets")
     resp <- atlas_GET(url, params = query, paginate = TRUE, limit = limit,
                       page_size = page_size, offset_param = "foffset")
-    if(is.null(resp)){return(NULL)}
+    if(is.null(resp)){
+      return(NULL)
+    }
     counts <- rbindlist(lapply(resp, function(a) {
       count_results <- jsonlite::fromJSON(a)$fieldResult
       rbindlist(count_results)
