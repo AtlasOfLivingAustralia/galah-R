@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Wed, 12 Oct 2022 05:33:58 GMT
+      date: Thu, 13 Oct 2022 00:32:21 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -34,5 +34,5 @@ http_interactions:
         observation","i18nCode":"basis_of_record.HumanObservation","count":349250,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Fossil
         specimen","i18nCode":"basis_of_record.FossilSpecimen","count":154507,"fq":"basis_of_record:\"FossilSpecimen\""},{"label":"Living
         specimen","i18nCode":"basis_of_record.LivingSpecimen","count":43552,"fq":"basis_of_record:\"LivingSpecimen\""}],"count":4}]'
-  recorded_at: 2022-10-12 05:33:56 GMT
+  recorded_at: 2022-10-13 00:32:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

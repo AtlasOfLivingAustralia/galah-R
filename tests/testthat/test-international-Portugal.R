@@ -12,7 +12,6 @@ vcr::use_cassette("IA_Portugal_show_all", {
     ## collectory
     expect_gt(nrow(show_all(collections)), 1)
     expect_gt(nrow(show_all(datasets)), 1)
-    expect_gt(nrow(show_all(providers)), 1)  
     ## records
     expect_gt(nrow(show_all(assertions)), 1)
     expect_gt(nrow(show_all(fields)), 1)

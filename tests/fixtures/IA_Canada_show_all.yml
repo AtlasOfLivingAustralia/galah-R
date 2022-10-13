@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Wed, 12 Oct 2022 05:33:52 GMT
+      date: Thu, 13 Oct 2022 00:32:15 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -115,7 +115,7 @@ http_interactions:
         of Lethbridge herbarium","uri":"https://data.canadensys.net/collections/ws/collection/co38","uid":"co38"},{"name":"University
         of Manitoba Herbarium","uri":"https://data.canadensys.net/collections/ws/collection/co10","uid":"co10"},{"name":"Ville
         de Trois-Rivières","uri":"https://data.canadensys.net/collections/ws/collection/co80","uid":"co80"}]'
-  recorded_at: 2022-10-12 05:33:53 GMT
+  recorded_at: 2022-10-13 00:32:19 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -135,7 +135,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Wed, 12 Oct 2022 05:33:52 GMT
+      date: Thu, 13 Oct 2022 00:32:16 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -252,7 +252,7 @@ http_interactions:
         of Manitoba - Lichen Collection","uri":"https://data.canadensys.net/collections/ws/dataResource/dr89","uid":"dr89"},{"name":"University
         of Manitoba Herbarium - Vascular Plant Collection","uri":"https://data.canadensys.net/collections/ws/dataResource/dr17","uid":"dr17"},{"name":"Ville
         de Trois-Rivières - Bioblitz 2012","uri":"https://data.canadensys.net/collections/ws/dataResource/dr90","uid":"dr90"}]'
-  recorded_at: 2022-10-12 05:33:53 GMT
+  recorded_at: 2022-10-13 00:32:19 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -272,7 +272,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Wed, 12 Oct 2022 05:33:53 GMT
+      date: Thu, 13 Oct 2022 00:32:17 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -285,7 +285,7 @@ http_interactions:
       file: no
       string: '[{"name":"Canadian node of the Ocean Biogeographic Information System","uri":"https://data.canadensys.net/collections/ws/dataProvider/dp1","uid":"dp1"},{"name":"Conservation
         of Arctic Flora and Fauna","uri":"https://data.canadensys.net/collections/ws/dataProvider/dp0","uid":"dp0"}]'
-  recorded_at: 2022-10-12 05:33:53 GMT
+  recorded_at: 2022-10-13 00:32:19 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -305,7 +305,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Wed, 12 Oct 2022 05:33:53 GMT
+      date: Thu, 13 Oct 2022 00:32:17 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -411,7 +411,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2022-10-12 05:33:53 GMT
+  recorded_at: 2022-10-13 00:32:19 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -431,7 +431,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Wed, 12 Oct 2022 05:33:54 GMT
+      date: Thu, 13 Oct 2022 00:32:18 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -690,7 +690,7 @@ http_interactions:
         scientific name, publication) applied to the subject.","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"user_assertions","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Has
         user assertions","jsonName":"hasUserAssertions","downloadName":"user_assertions","i18nValues":true},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"description":"The
         four-digit year in which the Event occurred, according to the Common Era Calendar.","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2022-10-12 05:33:53 GMT
+  recorded_at: 2022-10-13 00:32:19 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -710,7 +710,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Wed, 12 Oct 2022 05:33:55 GMT
+      date: Thu, 13 Oct 2022 00:32:19 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -727,5 +727,5 @@ http_interactions:
         research","id":4,"deprecated":false},{"rkey":"logger.download.reason.systematic.research","name":"systematic
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-10-12 05:33:53 GMT
+  recorded_at: 2022-10-13 00:32:19 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

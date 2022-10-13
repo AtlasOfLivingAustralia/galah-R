@@ -85,8 +85,8 @@ test_that("atlas_occurrences works for Sweden", {
     email = "martinjwestgate@gmail.com", 
     send_email = FALSE)
   occ <- galah_call() |>
-    galah_identify("Lagomorpha") |>
-    galah_filter(year < 1900) |>
+    galah_identify("Mammalia") |>
+    galah_filter(year < 1850) |>
     galah_select(taxon_name, year) |>
     atlas_occurrences()
   expect_gt(nrow(occ), 0)

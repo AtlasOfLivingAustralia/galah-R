@@ -25,7 +25,7 @@ vcr::use_cassette("IA_United_Kingdom_show_all", {
   })
 }) 
 
-vcr::use_cassette("IA_United Kingdom_search_all", {
+vcr::use_cassette("IA_United_Kingdom_search_all", {
   test_that("search_all works for United Kingdom", {
     expect_equal(class(search_all(fields, "year")), 
                  c("tbl_df", "tbl", "data.frame"))
@@ -33,7 +33,7 @@ vcr::use_cassette("IA_United Kingdom_search_all", {
   })
 })
 
-vcr::use_cassette("IA_United Kingdom_show_values", {
+vcr::use_cassette("IA_United_Kingdom_show_values", {
   test_that("show_values works for United Kingdom", {
     expect_gt(nrow(show_field_values("basis_of_record")), 1)
     expect_gt(nrow(show_list_values("dr556")), 1)
@@ -41,14 +41,14 @@ vcr::use_cassette("IA_United Kingdom_show_values", {
   })
 })
 
-vcr::use_cassette("IA_United Kingdom_atlas_counts", {
+vcr::use_cassette("IA_United_Kingdom_atlas_counts", {
   test_that("atlas_counts works for United Kingdom", {
     expect_gt(atlas_counts()$count, 0)
     expect_gt(atlas_counts(type = "species")$count, 0)
   })
 })
 
-vcr::use_cassette("IA_United Kingdom_atlas_counts2", {
+vcr::use_cassette("IA_United_Kingdom_atlas_counts2", {
   test_that("atlas_counts works with galah_identify for United Kingdom", {
     result <- galah_call() |>
       galah_identify("Mammalia") |>
@@ -65,7 +65,7 @@ vcr::use_cassette("IA_United Kingdom_atlas_counts2", {
   })
 })
 
-vcr::use_cassette("IA_United Kingdom_atlas_counts3", {
+vcr::use_cassette("IA_United_Kingdom_atlas_counts3", {
   test_that("atlas_counts works with group_by for United Kingdom", {
     result <- galah_call() |>
       galah_filter(year >= 2020) |>

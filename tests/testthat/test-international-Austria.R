@@ -83,7 +83,7 @@ test_that("atlas_occurrences works for Austria", {
     email = "ala4r@ala.org.au", 
     send_email = FALSE)
   occ <- galah_call() |>
-    galah_identify("Vulpes vulpes") |>
+    galah_identify("Mammalia") |>
     galah_filter(year == 1990) |>
     galah_select(species, year) |>
     atlas_occurrences()   
@@ -91,14 +91,5 @@ test_that("atlas_occurrences works for Austria", {
   expect_equal(ncol(occ), 2)
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
 })
-
-#     ## species
-#     expect_gt(
-#       nrow(atlas_species(identify = species, filter = filter)),
-#       0
-#     ) 
-#     # media - not checked yet
-#   })
-# })
 
 galah_config(atlas = "Australia")
