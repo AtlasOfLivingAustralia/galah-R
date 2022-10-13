@@ -38,6 +38,7 @@ Calling the argument \code{group = "basic"} returns the following columns:
 \item \code{taxonConceptID}
 \item \code{recordID}
 \item \code{dataResourceName}
+\item \code{occurrenceStatus}
 }
 
 Using \code{group = "event"} returns the following columns:

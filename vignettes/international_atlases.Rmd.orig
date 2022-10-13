@@ -108,7 +108,7 @@ multiple Living Atlases. As an example, setting atlases within a loop with
 `galah_config()` and `purrr::map()` allows us to return the total number of 
 species records in each Living Atlas in one table.
 
-```{r}
+```{r, message = FALSE, warning = FALSE}
 library(purrr)
 library(tibble)
 library(dplyr)
@@ -127,6 +127,6 @@ tibble(
   n = unlist(counts)) |> 
   arrange(desc(n)) |>
   gt() |> 
-  gt::fmt_number(columns = n)
+  gt::fmt_number(columns = round(n, 0))
 ```
 

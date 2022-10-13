@@ -57,7 +57,7 @@ Filter query results to return records of interest
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 20306214
+#> 1 20333544
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
@@ -67,7 +67,7 @@ Filter query results to return records of interest
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 19853742
+#> 1 19880988
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
@@ -78,7 +78,7 @@ Filter query results to return records of interest
 #> # A tibble: 1 x 1
 #>     count
 #>     <int>
-#> 1 5685233
+#> 1 5711026
 }\if{html}{\out{</div>}}
 
 Use filters to exclude particular values
@@ -89,7 +89,7 @@ Use filters to exclude particular values
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 47706021
+#> 1 47714880
 }\if{html}{\out{</div>}}
 
 Separating statements with a comma is equivalent to an \code{AND} statement
@@ -117,7 +117,7 @@ galah_call() \%>\%
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 52333331
+#> 1 52360714
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# Categorical example
@@ -130,7 +130,7 @@ galah_call() \%>\%
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 89149533
+#> 1 89177046
 }\if{html}{\out{</div>}}
 
 \code{solr} supports range queries on text as well as numbers. The following
@@ -142,7 +142,7 @@ queries all Australian States and Territories alphabetically after "Tasmania"
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 33647277
+#> 1 33647900
 }\if{html}{\out{</div>}}
 
 Filter out specific records that could be unreliable using "assertions"
@@ -159,7 +159,7 @@ galah_call() \%>\%
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 110625313
+#> 1 110653207
 }\if{html}{\out{</div>}}
 }
 

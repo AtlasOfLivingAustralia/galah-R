@@ -1,7 +1,7 @@
 ---
 title: "Syntax changes"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-10-11'
+date: '2022-10-13'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -53,7 +53,7 @@ galah_call() %>%
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 7097692
+## 1 7116298
 ```
 
 As another example, notice how `galah_group_by()` + `atlas_counts()` works very 
@@ -85,8 +85,8 @@ galah_call() %>%
 ## # A tibble: 2 × 2
 ##   biome           count
 ##   <chr>           <int>
-## 1 TERRESTRIAL 105518885
-## 2 MARINE        3526692
+## 1 TERRESTRIAL 105546865
+## 2 MARINE        3526694
 ```
 
 We made this move towards tidy evaluation to make it possible to use 

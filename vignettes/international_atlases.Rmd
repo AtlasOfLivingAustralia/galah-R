@@ -1,7 +1,7 @@
 ---
 title: "International Atlases"
 author: "Martin Westgate, Dax Kellie"
-date: '2022-10-11'
+date: '2022-10-13'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -32,18 +32,18 @@ show_all_atlases()
 
 ```
 ## # A tibble: 11 × 4
-##    atlas          institution                                                             acronym url                       
-##    <chr>          <chr>                                                                   <chr>   <chr>                     
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au    
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas…
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br      
-##  4 Canada         Candensys                                                               <NA>    http://www.canadensys.net 
-##  5 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee      
-##  6 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.mnhn.fr      
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt 
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt       
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es       
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.…
+##    atlas          institution                                                             acronym url                         
+##    <chr>          <chr>                                                                   <chr>   <chr>                       
+##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
+##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
+##  4 Canada         Candensys                                                               <NA>    http://www.canadensys.net   
+##  5 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
+##  6 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.mnhn.fr        
+##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
+##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
+##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
+## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
 ## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
 ```
 
@@ -59,12 +59,12 @@ show_all_apis()
 
 ```
 ## # A tibble: 179 × 5
-##   atlas     system       api_name                api_url                                                      called_by     
-##   <chr>     <chr>        <chr>                   <chr>                                                        <chr>         
-## 1 Australia collections  collections_collections https://collections.ala.org.au/ws/collection                 show_all_coll…
-## 2 Australia collections  collections_datasets    https://collections.ala.org.au/ws/dataResource               show_all_data…
-## 3 Australia collections  collections_providers   https://collections.ala.org.au/ws/dataProvider               show_all_prov…
-## 4 Australia data-quality profiles_all            https://data-quality-service.ala.org.au/api/v1/data-profiles show_all_prof…
+##   atlas     system       api_name                api_url                                                      called_by           
+##   <chr>     <chr>        <chr>                   <chr>                                                        <chr>               
+## 1 Australia collections  collections_collections https://collections.ala.org.au/ws/collection                 show_all_collections
+## 2 Australia collections  collections_datasets    https://collections.ala.org.au/ws/dataResource               show_all_datasets   
+## 3 Australia collections  collections_providers   https://collections.ala.org.au/ws/dataProvider               show_all_providers  
+## 4 Australia data-quality profiles_all            https://data-quality-service.ala.org.au/api/v1/data-profiles show_all_profiles   
 ## # … with 175 more rows
 ```
 
@@ -96,12 +96,12 @@ show_all_datasets()
 
 ```
 ## # A tibble: 522 × 3
-##   name                                                                                                           uri   uid  
-##   <chr>                                                                                                          <chr> <chr>
-## 1 A Distribution and Taxonomic Reference Dataset of Geranium (Geraniaceae) in the New World                      http… dr321
-## 2 A global database for the distributions of crop wild relatives                                                 http… dr12 
-## 3 A matrix-based revision of the genus Hypogena Dejean, 1834 (Coleoptera Tenebrionidae)                          http… dr467
-## 4 A new Mexican species of Chrysina Kirby (Coleoptera: Scarabaeidae: Rutelinae), with nomenclatural changes, ne… http… dr554
+##   name                                                                                                                                                      uri   uid  
+##   <chr>                                                                                                                                                     <chr> <chr>
+## 1 A Distribution and Taxonomic Reference Dataset of Geranium (Geraniaceae) in the New World                                                                 http… dr321
+## 2 A global database for the distributions of crop wild relatives                                                                                            http… dr12 
+## 3 A matrix-based revision of the genus Hypogena Dejean, 1834 (Coleoptera Tenebrionidae)                                                                     http… dr467
+## 4 A new Mexican species of Chrysina Kirby (Coleoptera: Scarabaeidae: Rutelinae), with nomenclatural changes, new records, and a key to the C. quiche speci… http… dr554
 ## # … with 518 more rows
 ```
 
@@ -111,12 +111,12 @@ show_all_fields()
 
 ```
 ## # A tibble: 129 × 4
-##   id                 description                                                                                 type  link 
-##   <chr>              <chr>                                                                                       <chr> <chr>
-## 1 all_image_url      Image URLs for this record                                                                  fiel… <NA> 
-## 2 assertion_user_id  User ID of the person who has made an assertion about this record                           fiel… <NA> 
-## 3 assertions         A list of all assertions (user and system supplied) for a record resulting from data quali… fiel… <NA> 
-## 4 assertions_missing Assertion indicating missing field values for a record. E.g. missing basis of record        fiel… <NA> 
+##   id                 description                                                                                        type   link 
+##   <chr>              <chr>                                                                                              <chr>  <chr>
+## 1 all_image_url      Image URLs for this record                                                                         fields <NA> 
+## 2 assertion_user_id  User ID of the person who has made an assertion about this record                                  fields <NA> 
+## 3 assertions         A list of all assertions (user and system supplied) for a record resulting from data quality tests fields <NA> 
+## 4 assertions_missing Assertion indicating missing field values for a record. E.g. missing basis of record               fields <NA> 
 ## # … with 125 more rows
 ```
 
@@ -126,11 +126,11 @@ search_fields("year")
 
 ```
 ## # A tibble: 3 × 4
-##   id              description                                                                                    type  link 
-##   <chr>           <chr>                                                                                          <chr> <chr>
-## 1 year            http://rs.tdwg.org/dwc/terms/year                                                              fiel… <NA> 
-## 2 occurrence_year Year ranges for a search. Calculated based on the unique values for a query.                   fiel… <NA> 
-## 3 date_precision  The precision of the date information for the record. Values include 'Day', 'Month', 'Year', … fiel… <NA>
+##   id              description                                                                                                              type   link 
+##   <chr>           <chr>                                                                                                                    <chr>  <chr>
+## 1 year            http://rs.tdwg.org/dwc/terms/year                                                                                        fields <NA> 
+## 2 occurrence_year Year ranges for a search. Calculated based on the unique values for a query.                                             fields <NA> 
+## 3 date_precision  The precision of the date information for the record. Values include 'Day', 'Month', 'Year', 'Year range', 'Month range' fields <NA>
 ```
 
 ```r
@@ -139,10 +139,9 @@ search_taxa("lagomorpha")
 
 ```
 ## # A tibble: 1 × 12
-##   search_term taxon_concept_id scientific_name scientific_name_autho…¹ rank  kingdom phylum class order family genus species
-##   <chr>       <chr>            <chr>           <chr>                   <chr> <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>  
-## 1 lagomorpha  785              Lagomorpha      <NA>                    order Animal… Chord… Mamm… Lago… <NA>   <NA>  <NA>   
-## # … with abbreviated variable name ¹​scientific_name_authorship
+##   search_term taxon_concept_id scientific_name             scientific_name_authorship rank    kingdom  phylum     class   order   family        genus           species
+##   <chr>       <chr>            <chr>                       <chr>                      <chr>   <chr>    <chr>      <chr>   <chr>   <chr>         <chr>           <chr>  
+## 1 lagomorpha  1561720          Scaptodrosophila lagomorpha (Okada & Carson, 1982)     species Animalia Arthropoda Insecta Diptera Drosophilidae Scaptodrosophi… Scapto…
 ```
 
 
@@ -172,10 +171,9 @@ search_taxa("vulpes") # Returns data
 
 ```
 ## # A tibble: 1 × 13
-##   search_term taxon_concept_id scientific_name     canonical_…¹ rank  status match…² kingdom phylum order family genus class
-##   <chr>                  <int> <chr>               <chr>        <chr> <chr>  <chr>   <chr>   <chr>  <chr> <chr>  <chr> <chr>
-## 1 vulpes               5219234 Vulpes Frisch, 1775 Vulpes       GENUS ACCEP… EXACT   Animal… Chord… Carn… Canid… Vulp… Mamm…
-## # … with abbreviated variable names ¹​canonical_name, ²​match_type
+##   search_term taxon_concept_id scientific_name     canonical_name rank  status   match_type kingdom  phylum   order     family  genus  class   
+##   <chr>                  <int> <chr>               <chr>          <chr> <chr>    <chr>      <chr>    <chr>    <chr>     <chr>   <chr>  <chr>   
+## 1 vulpes               5219234 Vulpes Frisch, 1775 Vulpes         GENUS ACCEPTED EXACT      Animalia Chordata Carnivora Canidae Vulpes Mammalia
 ```
 
 ```r
@@ -207,14 +205,8 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 39 × 2
-##   scientificName                                         year
-##   <chr>                                                 <int>
-## 1 Sylvilagus floridanus subsp. aztecus (J. Allen, 1890)  1924
-## 2 Sylvilagus floridanus subsp. aztecus (J. Allen, 1890)  1924
-## 3 Sylvilagus brasiliensis subsp. truei (J. Allen, 1890)  1934
-## 4 Sylvilagus floridanus (J. A. Allen, 1890)              1957
-## # … with 35 more rows
+## Error:
+## ! This query does not match any records.
 ```
 
 
@@ -245,448 +237,11 @@ tibble(
   n = unlist(counts)) |> 
   arrange(desc(n)) |>
   gt() |> 
-  gt::fmt_number(columns = n)
+  gt::fmt_number(columns = round(n, 0))
 ```
 
-<!--html_preserve--><div id="igocqctwzq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-#igocqctwzq .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#igocqctwzq .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#igocqctwzq .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#igocqctwzq .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#igocqctwzq .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#igocqctwzq .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#igocqctwzq .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#igocqctwzq .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#igocqctwzq .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#igocqctwzq .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#igocqctwzq .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#igocqctwzq .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#igocqctwzq .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#igocqctwzq .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#igocqctwzq .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#igocqctwzq .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#igocqctwzq .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#igocqctwzq .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#igocqctwzq .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#igocqctwzq .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#igocqctwzq .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#igocqctwzq .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#igocqctwzq .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#igocqctwzq .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#igocqctwzq .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#igocqctwzq .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#igocqctwzq .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#igocqctwzq .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#igocqctwzq .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#igocqctwzq .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#igocqctwzq .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#igocqctwzq .gt_left {
-  text-align: left;
-}
-
-#igocqctwzq .gt_center {
-  text-align: center;
-}
-
-#igocqctwzq .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#igocqctwzq .gt_font_normal {
-  font-weight: normal;
-}
-
-#igocqctwzq .gt_font_bold {
-  font-weight: bold;
-}
-
-#igocqctwzq .gt_font_italic {
-  font-style: italic;
-}
-
-#igocqctwzq .gt_super {
-  font-size: 65%;
-}
-
-#igocqctwzq .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 75%;
-  vertical-align: 0.4em;
-}
-
-#igocqctwzq .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#igocqctwzq .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#igocqctwzq .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#igocqctwzq .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#igocqctwzq .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#igocqctwzq .gt_indent_5 {
-  text-indent: 25px;
-}
-</style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col">atlas</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">n</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">United Kingdom</td>
-<td class="gt_row gt_right">205,571,135.00</td></tr>
-    <tr><td class="gt_row gt_left">Australia</td>
-<td class="gt_row gt_right">114,020,314.00</td></tr>
-    <tr><td class="gt_row gt_left">Sweden</td>
-<td class="gt_row gt_right">103,417,222.00</td></tr>
-    <tr><td class="gt_row gt_left">France</td>
-<td class="gt_row gt_right">87,443,384.00</td></tr>
-    <tr><td class="gt_row gt_left">Spain</td>
-<td class="gt_row gt_right">38,268,734.00</td></tr>
-    <tr><td class="gt_row gt_left">Brazil</td>
-<td class="gt_row gt_right">23,039,675.00</td></tr>
-    <tr><td class="gt_row gt_left">Portugal</td>
-<td class="gt_row gt_right">16,043,865.00</td></tr>
-    <tr><td class="gt_row gt_left">Austria</td>
-<td class="gt_row gt_right">7,786,013.00</td></tr>
-    <tr><td class="gt_row gt_left">Estonia</td>
-<td class="gt_row gt_right">6,943,354.00</td></tr>
-    <tr><td class="gt_row gt_left">Canada</td>
-<td class="gt_row gt_right">6,342,543.00</td></tr>
-    <tr><td class="gt_row gt_left">Guatemala</td>
-<td class="gt_row gt_right">3,041,473.00</td></tr>
-  </tbody>
-  
-  
-</table>
-</div><!--/html_preserve-->
+```
+## Error in `round()`:
+## ! non-numeric argument to mathematical function
+```
 

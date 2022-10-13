@@ -29,18 +29,21 @@
 #' [search_lists()].
 #' @return A `tibble` of values for a specified field, profile or list.
 #' @examples
-#' 
 #' # Show values in field 'cl22'
-#' search_fields("cl22") |> show_values()
+#' search_fields("cl22") |> 
+#'   show_values()
 #' 
 #' # Search for any values in field 'cl22' that match 'tas'
-#' search_fields("cl22") |> search_values("tas")
+#' search_fields("cl22") |> 
+#'   search_values("tas")
 #' 
 #' # See individual filters within data quality profile "ALA"
-#' search_profiles("ALA") |> show_values()
+#' search_profiles("ALA") |> 
+#'   show_values()
 #' 
 #' # See items within species list "dr19257"
-#' search_lists("dr19257") |> show_values()
+#' search_lists("dr19257") |> 
+#'   show_values()
 #' 
 #' @export
 show_values <- function(df){
