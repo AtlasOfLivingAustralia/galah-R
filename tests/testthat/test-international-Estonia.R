@@ -52,7 +52,7 @@ vcr::use_cassette("IA_Estonia_atlas_counts3", {
   test_that("atlas_counts works with group_by for Estonia", {
     result <- galah_call() |>
       galah_filter(year >= 2018) |>
-      galah_group_by(year) |>
+      galah_group_by(basis_of_record) |>
       atlas_counts()
     expect_gt(nrow(result), 1)
     expect_equal(names(result), c("basis_of_record", "count"))

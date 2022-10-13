@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Thu, 13 Oct 2022 00:32:15 GMT
+      date: Thu, 13 Oct 2022 03:59:22 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -115,8 +115,8 @@ http_interactions:
         of Lethbridge herbarium","uri":"https://data.canadensys.net/collections/ws/collection/co38","uid":"co38"},{"name":"University
         of Manitoba Herbarium","uri":"https://data.canadensys.net/collections/ws/collection/co10","uid":"co10"},{"name":"Ville
         de Trois-Rivières","uri":"https://data.canadensys.net/collections/ws/collection/co80","uid":"co80"}]'
-  recorded_at: 2022-10-13 00:32:19 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 03:59:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://data.canadensys.net/collections/ws/dataResource
@@ -135,7 +135,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Thu, 13 Oct 2022 00:32:16 GMT
+      date: Thu, 13 Oct 2022 03:59:23 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -252,8 +252,8 @@ http_interactions:
         of Manitoba - Lichen Collection","uri":"https://data.canadensys.net/collections/ws/dataResource/dr89","uid":"dr89"},{"name":"University
         of Manitoba Herbarium - Vascular Plant Collection","uri":"https://data.canadensys.net/collections/ws/dataResource/dr17","uid":"dr17"},{"name":"Ville
         de Trois-Rivières - Bioblitz 2012","uri":"https://data.canadensys.net/collections/ws/dataResource/dr90","uid":"dr90"}]'
-  recorded_at: 2022-10-13 00:32:19 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 03:59:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://data.canadensys.net/collections/ws/dataProvider
@@ -272,7 +272,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Thu, 13 Oct 2022 00:32:17 GMT
+      date: Thu, 13 Oct 2022 03:59:23 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -285,8 +285,8 @@ http_interactions:
       file: no
       string: '[{"name":"Canadian node of the Ocean Biogeographic Information System","uri":"https://data.canadensys.net/collections/ws/dataProvider/dp1","uid":"dp1"},{"name":"Conservation
         of Arctic Flora and Fauna","uri":"https://data.canadensys.net/collections/ws/dataProvider/dp0","uid":"dp0"}]'
-  recorded_at: 2022-10-13 00:32:19 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 03:59:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: http://data.canadensys.net/explorer-ws/assertions/codes
@@ -305,7 +305,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Thu, 13 Oct 2022 00:32:17 GMT
+      date: Thu, 13 Oct 2022 03:59:24 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -411,287 +411,8 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2022-10-13 00:32:19 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
-- request:
-    method: get
-    uri: http://data.canadensys.net/explorer-ws/index/fields
-    body:
-      encoding: ''
-      string: ''
-    headers:
-      Accept-Encoding: gzip, deflate
-      Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
-  response:
-    status:
-      status_code: '200'
-      message: OK
-      explanation: Request fulfilled, document follows
-    headers:
-      status: HTTP/1.1 200 OK
-      server: nginx/1.18.0 (Ubuntu)
-      date: Thu, 13 Oct 2022 00:32:18 GMT
-      content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
-      access-control-allow-origin: '*'
-      access-control-allow-methods: POST, GET, OPTIONS, DELETE
-      access-control-max-age: '3600'
-      access-control-allow-headers: x-requested-with
-      strict-transport-security: max-age=31536000
-    body:
-      encoding: UTF-8
-      file: no
-      string: '[{"name":"all_image_url","dataType":"string","indexed":true,"stored":true,"multivalue":true,"info":"Image
-        URLs for this record","downloadName":"all_image_url"},{"name":"assertion_user_id","dataType":"string","indexed":true,"stored":false,"multivalue":true,"description":"Assertions
-        by user","info":"Atlas user ID of the person who has made an assertion about
-        this record","downloadName":"assertion_user_id"},{"name":"assertions","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"Record
-        issues","info":"A list of all assertions (user and system supplied) for a
-        record resulting from data quality tests","jsonName":"assertions","downloadName":"assertions","i18nValues":true},{"name":"assertions_missing","dataType":"string","indexed":true,"stored":true,"multivalue":true,"info":"Assertion
-        indicating missing field values for a record. E.g. missing basis of record","downloadName":"assertions_missing"},{"name":"assertions_passed","dataType":"string","indexed":true,"stored":true,"multivalue":true,"info":"Assertion
-        indicating a data quality test has been passed by this record","downloadName":"assertions_passed"},{"name":"assertions_unchecked","dataType":"string","indexed":true,"stored":true,"multivalue":true,"info":"Assertion
-        indicating a data quality test was not performed for this record typically
-        due to the absence of fields required by the test.","downloadName":"assertions_unchecked"},{"name":"basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        specific nature of the data record.","info":"The basis of record e.g. Specimen,
-        Observation http://rs.tdwg.org/dwc/terms/basisOfRecord","jsonName":"basisOfRecord","dwcTerm":"basisOfRecord","downloadName":"basis_of_record","downloadDescription":"Basis
-        Of Record","classs":"Record"},{"name":"catalogue_number","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"An
-        identifier (preferably unique) for the record within the data set or collection.","info":"http://rs.tdwg.org/dwc/terms/catalogNumber","jsonName":"raw_catalogNumber","dwcTerm":"catalogNumber","downloadName":"catalogue_number","downloadDescription":"Catalogue
-        Number","classs":"Occurrence"},{"name":"class","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Class","info":"The
-        class the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/class","jsonName":"classs","dwcTerm":"class","downloadName":"class","downloadDescription":"Class","classs":"Taxon"},{"name":"collection_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        name, acronym, coden, or initialism identifying the collection or data set
-        from which the record was derived.","info":"The collection code for this record.
-        This will be populated if the data has come from a museum or herbaria http://rs.tdwg.org/dwc/terms/collectionCode","jsonName":"raw_collectionCode","dwcTerm":"collectionCode","downloadName":"collection_code","downloadDescription":"Collection
-        Code","classs":"Record"},{"name":"collection_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Collection","info":"The
-        name of the collection for this record e.g. Entomology Collection","jsonName":"collectionName","downloadName":"collection_name","downloadDescription":"Collection"},{"name":"collection_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Collection","info":"Atlas
-        ID for this collection","jsonName":"collectionUid","downloadName":"collection_uid","downloadDescription":"Collection
-        ID"},{"name":"collector","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
-        list (concatenated and separated) of names of people, groups, or organizations
-        responsible for recording the original Occurrence. The primary collector or
-        observer, especially one who applies a personal identifier (recordNumber),
-        should be listed first.","info":"http://rs.tdwg.org/dwc/terms/recordedBy","jsonName":"collector","dwcTerm":"recordedBy","downloadName":"collector","downloadDescription":"Collector","classs":"Occurrence"},{"name":"common_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
-        common or vernacular name.","info":"http://rs.tdwg.org/dwc/terms/vernacularName","jsonName":"vernacularName","dwcTerm":"vernacularName","downloadName":"common_name","downloadDescription":"Vernacular
-        name","classs":"Taxon"},{"name":"common_name_and_lsid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Concatenation
-        of common name and LSID, useful for species breakdowns and sorting by common
-        name","downloadName":"common_name_and_lsid"},{"name":"coordinate_uncertainty","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"description":"The
-        horizontal distance (in meters) from the given decimalLatitude and decimalLongitude
-        describing the smallest circle containing the whole of the Location. Leave
-        the value empty if the uncertainty is unknown, cannot be estimated, or is
-        not applicable (because there are no coordinates). Zero is not a valid value
-        for this term.","info":"http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters","dwcTerm":"coordinateUncertaintyInMeters","downloadName":"coordinate_uncertainty","downloadDescription":"Coordinate
-        Uncertainty in Metres","classs":"Location"},{"name":"country","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        name of the country or major administrative unit in which the Location occurs.
-        Recommended best practice is to use a controlled vocabulary such as the Getty
-        Thesaurus of Geographic Names.","info":"The country where the specimen was
-        collected or observation was made http://rs.tdwg.org/dwc/terms/country","jsonName":"country","dwcTerm":"country","downloadName":"country","downloadDescription":"Country
-        - parsed","i18nValues":true,"classs":"Location"},{"name":"country_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        standard code for the country in which the Location occurs. Recommended best
-        practice is to use ISO 3166-1-alpha-2 country codes.","info":"http://rs.tdwg.org/dwc/terms/countryCode","jsonName":"raw_countryCode","dwcTerm":"countryCode","downloadName":"country_code","classs":"Location"},{"name":"data_provider","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"The
-        data provider for this record","jsonName":"dataProviderName","downloadName":"data_provider"},{"name":"data_provider_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Data
-        provider","info":"Atlas ID for this data provider","jsonName":"dataProviderUid","downloadName":"data_provider_uid"},{"name":"data_resource","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Dataset","info":"The
-        data resource that supplies the record. This is typically a CSV or DwCA file,
-        or a webservice.","jsonName":"dataResourceName","downloadName":"data_resource","downloadDescription":"Data
-        Resource Name"},{"name":"data_resource_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Dataset","info":"The
-        Atlas ID for the data resource","jsonName":"dataResourceUid","downloadName":"data_resource_uid","downloadDescription":"Data
-        Resource ID"},{"name":"dataset_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        name identifying the data set from which the record was derived.","info":"The
-        name of the dataset for this record. Typically used to share the name of the
-        survey when data has been supplied with multiple surveys in a single data
-        resource. http://rs.tdwg.org/dwc/terms/datasetName","dwcTerm":"datasetName","downloadName":"dataset_name","classs":"Record"},{"name":"date_precision","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Date
-        precision","info":"The precision of the date information for the record. Values
-        include ''Day'', ''Month'', ''Year'', ''Year range'', ''Month range''","downloadName":"date_precision","downloadDescription":"Date
-        precision"},{"name":"depth_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"downloadName":"depth_d"},{"name":"elevation_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"downloadName":"elevation_d"},{"name":"elevation_d_rng","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"description":"Elevation","downloadName":"elevation_d_rng"},{"name":"establishment_means","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"The
-        process by which the biological individual(s) represented in the Occurrence
-        became established at the location. Recommended best practice is to use a
-        controlled vocabulary.","info":"http://rs.tdwg.org/dwc/terms/establishmentMeans","dwcTerm":"establishmentMeans","downloadName":"establishment_means","classs":"Occurrence"},{"name":"event_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"An
-        identifier for the set of information associated with an Event (something
-        that occurs at a place and time). May be a global unique identifier or an
-        identifier specific to the data set.","info":"http://rs.tdwg.org/dwc/terms/eventID","dwcTerm":"eventID","downloadName":"event_id","classs":"Event"},{"name":"family","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        full scientific name of the family in which the taxon is classified.","info":"The
-        family the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/family","jsonName":"family","dwcTerm":"family","downloadName":"family","downloadDescription":"Family","classs":"Taxon"},{"name":"first_loaded_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"description":"Date
-        first indexed","downloadName":"first_loaded_date"},{"name":"genus","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        full scientific name of the genus in which the taxon is classified.","info":"The
-        genus the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/genus","jsonName":"genus","dwcTerm":"genus","downloadName":"genus","downloadDescription":"Genus","classs":"Taxon"},{"name":"genus_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Genus","info":"Genus
-        ID for this record","jsonName":"genusGuid","downloadName":"genus_guid"},{"name":"georeference_verification_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
-        categorical description of the extent to which the georeference has been verified
-        to represent the best possible spatial description. Recommended best practice
-        is to use a controlled vocabulary.","info":"http://rs.tdwg.org/dwc/terms/georeferenceVerificationStatus","dwcTerm":"georeferenceVerificationStatus","downloadName":"georeference_verification_status","classs":"Location"},{"name":"geospatial_kosher","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Spatial
-        validity","info":"A single value statement on the spatial validity. Records
-        that have failed 1 or more critical geospatial data quality tests have a value
-        of false","jsonName":"geospatialKosher","downloadName":"geospatial_kosher","downloadDescription":"Location
-        Quality","i18nValues":true},{"name":"id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Record
-        ID","info":"Atlas unique ID for this record http://rs.tdwg.org/dwc/terms/recordID","jsonName":"uuid","dwcTerm":"recordID","downloadName":"id","downloadDescription":"Record
-        ID","classs":"Occurrence"},{"name":"identification_qualifier","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
-        brief phrase or a standard term (\"cf.\", \"aff.\") to express the determiner''s
-        doubts about the Identification.","info":"http://rs.tdwg.org/dwc/terms/identificationQualifier","dwcTerm":"identificationQualifier","downloadName":"identification_qualifier","classs":"Identification"},{"name":"identification_verification_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
-        categorical indicator of the extent to which the taxonomic identification
-        has been verified to be correct. Recommended best practice is to use a controlled
-        vocabulary such as that used in HISPID/ABCD.","info":"http://rs.tdwg.org/dwc/terms/identificationVerificationStatus","dwcTerm":"identificationVerificationStatus","downloadName":"identification_verification_status","classs":"Identification"},{"name":"identified_by","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
-        list (concatenated and separated) of names of people, groups, or organizations
-        who assigned the Taxon to the subject.","info":"http://rs.tdwg.org/dwc/terms/identifiedBy","dwcTerm":"identifiedBy","downloadName":"identified_by","classs":"Identification"},{"name":"identified_date","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"description":"The
-        date on which the subject was identified as representing the Taxon. Recommended
-        best practice is to use an encoding scheme, such as ISO 8601:2004(E).","info":"http://rs.tdwg.org/dwc/terms/dateIdentified","dwcTerm":"dateIdentified","downloadName":"identified_date","classs":"Identification"},{"name":"image_url","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Single
-        image URL for this record.","jsonName":"image","downloadName":"image_url"},{"name":"individual_count","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        number of individuals represented present at the time of the Occurrence.","info":"http://rs.tdwg.org/dwc/terms/individualCount","dwcTerm":"individualCount","downloadName":"individual_count","downloadDescription":"Individual
-        count","classs":"Occurrence"},{"name":"institution_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        name (or acronym) in use by the institution having custody of the object(s)
-        or information referred to in the record.","info":"The institution code for
-        this record. This will be populated if the data has come from a museum or
-        herbaria http://rs.tdwg.org/dwc/terms/institutionCode","jsonName":"raw_institutionCode","dwcTerm":"institutionCode","downloadName":"institution_code","downloadDescription":"Institution
-        Code","classs":"Record"},{"name":"institution_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Institution","info":"The
-        name in use by the institution having custody of the object(s) or information
-        referred to in the record.","jsonName":"institutionName","downloadName":"institution_name","downloadDescription":"Institution"},{"name":"institution_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Institution","info":"Atlas
-        ID for this institution","jsonName":"institutionUid","downloadName":"institution_uid","downloadDescription":"Institution
-        ID"},{"name":"interaction","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"Species
-        interaction","info":"Species interactions for this record","downloadName":"interaction"},{"name":"kingdom","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        full scientific name of the kingdom in which the taxon is classified.","info":"The
-        kingdom the Atlas has matched this record to in the system classification
-        http://rs.tdwg.org/dwc/terms/kingdom","jsonName":"kingdom","dwcTerm":"kingdom","downloadName":"kingdom","downloadDescription":"Kingdom","classs":"Taxon"},{"name":"last_assertion_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"description":"Date
-        last annotated","downloadName":"last_assertion_date"},{"name":"last_load_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"description":"Date
-        added","downloadName":"last_load_date"},{"name":"last_processed_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"downloadName":"last_processed_date"},{"name":"lat_long","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Decimal
-        coordinates as single comma separated string value e.g. -35.3,149.1","jsonName":"latLong","downloadName":"lat_long"},{"name":"latitude","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"description":"The
-        geographic latitude (in decimal degrees, using the spatial reference system
-        given in geodeticDatum) of the geographic center of a Location. Positive values
-        are north of the Equator, negative values are south of it. Legal values lie
-        between -90 and 90, inclusive.","info":"The decimal latitude associated with
-        this record. If the original latitude was supplied in degrees, minutes, seconds,
-        this value represents the converted value. http://rs.tdwg.org/dwc/terms/decimalLatitude","jsonName":"decimalLatitude","dwcTerm":"decimalLatitude","downloadName":"latitude","downloadDescription":"Latitude","classs":"Location"},{"name":"lft","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"info":"The
-        left value in the nested set for this record. Used for retrieving records
-        within taxonomic groups.","jsonName":"left","downloadName":"lft"},{"name":"license","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"License","info":"The
-        data licence for this record.","jsonName":"license","dwcTerm":"dcterms:license","downloadName":"license","downloadDescription":"Licence","classs":"Record"},{"name":"location_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"An
-        identifier for the set of location information (data associated with dcterms:Location).
-        May be a global unique identifier or an identifier specific to the data set.","info":"http://rs.tdwg.org/dwc/terms/locationID","dwcTerm":"locationID","downloadName":"location_id","classs":"Location"},{"name":"location_remarks","dataType":"string","indexed":false,"stored":true,"multivalue":false,"description":"Comments
-        or notes about the Location.","info":"http://rs.tdwg.org/dwc/terms/locationRemarks","jsonName":"raw_locationRemarks","dwcTerm":"locationRemarks","downloadName":"location_remarks","classs":"Location"},{"name":"longitude","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"description":"The
-        geographic longitude (in decimal degrees, using the spatial reference system
-        given in geodeticDatum) of the geographic center of a Location. Positive values
-        are east of the Greenwich Meridian, negative values are west of it. Legal
-        values lie between -180 and 180, inclusive.","info":"The decimal longitude
-        associated with this record. If the original longitude was supplied in degrees,
-        minutes, seconds, this value represents the converted value. http://rs.tdwg.org/dwc/terms/decimalLongitude","jsonName":"decimalLongitude","dwcTerm":"decimalLongitude","downloadName":"longitude","downloadDescription":"Longitude","classs":"Location"},{"name":"mappable","dataType":"string","indexed":true,"stored":true,"multivalue":false,"downloadName":"mappable"},{"name":"max_depth_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"description":"The
-        greater depth of a range of depth below the local surface, in meters.","info":"http://rs.tdwg.org/dwc/terms/maximumDepthInMeters","dwcTerm":"maximumDepthInMeters","downloadName":"max_depth_d","downloadDescription":"Maximum
-        depth in meters","classs":"Location"},{"name":"max_elevation_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"description":"The
-        upper limit of the range of elevation (altitude, usually above sea level),
-        in meters.","info":"http://rs.tdwg.org/dwc/terms/maximumElevationInMeters","dwcTerm":"maximumElevationInMeters","downloadName":"max_elevation_d","downloadDescription":"Minimum
-        elevation in meters","classs":"Location"},{"name":"min_depth_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"description":"The
-        greater depth of a range of depth below the local surface, in meters.","info":"http://rs.tdwg.org/dwc/terms/maximumDepthInMeters","dwcTerm":"maximumDepthInMeters","downloadName":"min_depth_d","downloadDescription":"Minimum
-        depth in meters","classs":"Location"},{"name":"min_elevation_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"description":"The
-        lower limit of the range of elevation (altitude, usually above sea level),
-        in meters.","info":"http://rs.tdwg.org/dwc/terms/minimumElevationInMeters","dwcTerm":"minimumElevationInMeters","downloadName":"min_elevation_d","downloadDescription":"Maximum
-        elevation in meters","classs":"Location"},{"name":"min_elevation_d_rng","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"description":"Min
-        elevation","downloadName":"min_elevation_d_rng"},{"name":"modified_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"info":"http://rs.tdwg.org/dwc/terms/dcterms:modified","dwcTerm":"dcterms:modified","downloadName":"modified_date"},{"name":"month","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        ordinal month in which the Event occurred.","info":"Month of observation,
-        specimen collection date. http://rs.tdwg.org/dwc/terms/month","jsonName":"month","dwcTerm":"month","downloadName":"month","downloadDescription":"Month","i18nValues":true,"classs":"Event"},{"name":"multimedia","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"Multimedia","jsonName":"multimedia","downloadName":"multimedia"},{"name":"name_match_metric","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Name
-        match metric","info":"An indication of how a match to a concept was achieved.
-        e.g. fuzzyMatch, exactMatch","downloadName":"name_match_metric"},{"name":"name_parse_type","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"The
-        scientific name parse type used when matching this record to a taxonomic concept.","downloadName":"name_parse_type"},{"name":"names_and_lsid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Concatenation
-        of common name and LSID, useful for species breakdowns and sorting by taxon
-        name","jsonName":"namesLsid","downloadName":"names_and_lsid"},{"name":"occurrence_date","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"description":"The
-        date-time or interval during which an Event occurred. For occurrences, this
-        is the date-time when the event was recorded. Not suitable for a time in a
-        geological context. Recommended best practice is to use an encoding scheme,
-        such as ISO 8601:2004(E).","info":"http://rs.tdwg.org/dwc/terms/eventDate","jsonName":"eventDate","dwcTerm":"eventDate","downloadName":"occurrence_date","downloadDescription":"Event
-        Date - parsed","classs":"Event"},{"name":"occurrence_date_end_dt","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"jsonName":"eventDateEnd","downloadName":"occurrence_date_end_dt"},{"name":"occurrence_decade_i","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"description":"Decade","info":"The
-        decade for this record e.g. 1910","downloadName":"occurrence_decade_i"},{"name":"occurrence_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"An
-        identifier for the Occurrence (as opposed to a particular digital record of
-        the occurrence). In the absence of a persistent global unique identifier,
-        construct one from a combination of identifiers in the record that will most
-        closely make the occurrenceID globally unique.","info":"http://rs.tdwg.org/dwc/terms/occurrenceID","jsonName":"occurrenceID","dwcTerm":"occurrenceID","downloadName":"occurrence_id","classs":"Occurrence"},{"name":"occurrence_remarks","dataType":"string","indexed":false,"stored":true,"multivalue":false,"description":"Comments
-        or notes about the Occurrence.","info":"http://rs.tdwg.org/dwc/terms/occurrenceRemarks","jsonName":"raw_occurrenceRemarks","dwcTerm":"occurrenceRemarks","downloadName":"occurrence_remarks","classs":"Occurrence"},{"name":"occurrence_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
-        statement about the presence or absence of a Taxon at a Location. Recommended
-        best practice is to use a controlled vocabulary.","info":"http://rs.tdwg.org/dwc/terms/occurrenceStatus","dwcTerm":"occurrenceStatus","downloadName":"occurrence_status","downloadDescription":"Occurrence
-        status","classs":"Occurrence"},{"name":"occurrence_year","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"description":"Date
-        (by decade)","info":"Year ranges for a search. Calculated based on the unique
-        values for a query.","downloadName":"occurrence_year"},{"name":"order","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        full scientific name of the order in which the taxon is classified.","info":"The
-        order the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/order","jsonName":"order","dwcTerm":"order","downloadName":"order","downloadDescription":"Order","classs":"Taxon"},{"name":"outlier_layer_count","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"description":"Outlier
-        layer count","downloadName":"outlier_layer_count"},{"name":"phylum","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        full scientific name of the phylum or division in which the taxon is classified.","info":"The
-        phylum the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/phylum","jsonName":"phylum","dwcTerm":"phylum","downloadName":"phylum","downloadDescription":"Phylum","classs":"Taxon"},{"name":"point-0.0001","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Decimal
-        coordinates at 0.0001 degree resolution","jsonName":"point00001","downloadName":"point-0.0001"},{"name":"point-0.001","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Decimal
-        coordinates at 0.001 degree resolution","jsonName":"point0001","downloadName":"point-0.001"},{"name":"point-0.01","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Decimal
-        coordinates at 0.01 degree resolution","jsonName":"point001","downloadName":"point-0.01"},{"name":"point-0.02","dataType":"string","indexed":true,"stored":true,"multivalue":false,"downloadName":"point-0.02"},{"name":"point-0.1","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Decimal
-        coordinates at 0.1 degree resolution e.g. -35.3,149.1","jsonName":"point01","downloadName":"point-0.1"},{"name":"point-1","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Decimal
-        coordinates at 1 degree resolution e.g -35,149","jsonName":"point1","downloadName":"point-1"},{"name":"provenance","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Provenance","info":"Provenance
-        of this dataset. e.g. Published dataset, Draft, Individual sightings","dwcTerm":"dcterms:provenance","downloadName":"provenance","classs":"Record"},{"name":"rank","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        taxonomic rank of the most specific name in the scientificName. Recommended
-        best practice is to use a controlled vocabulary.","info":"http://rs.tdwg.org/dwc/terms/taxonRank","jsonName":"taxonRank","dwcTerm":"taxonRank","downloadName":"rank","downloadDescription":"Taxon
-        Rank","i18nValues":true,"classs":"Taxon"},{"name":"rank_id","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"info":"Numeric
-        rank ID value. E.g. 7000 = species, 6000 = genus","jsonName":"taxonRankID","downloadName":"rank_id"},{"name":"raw_basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Basis
-        Of Record - original","info":"The basis of record as supplied by the data
-        publisher http://rs.tdwg.org/dwc/terms/verbatimBasisOfRecord","jsonName":"raw_basisOfRecord","dwcTerm":"verbatimBasisOfRecord","downloadName":"raw_basis_of_record","downloadDescription":"Basis
-        Of Record - original"},{"name":"raw_common_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Common
-        name (unprocessed)","info":"The original common name value supplied by the
-        data provider","jsonName":"raw_vernacularName","downloadName":"raw_common_name","downloadDescription":"Vernacular
-        name - original"},{"name":"raw_datum","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        spatial coordinate system for the verbatimLatitude and verbatimLongitude or
-        the verbatimCoordinates of the Location. Recommended best practice is to use
-        a controlled vocabulary.","info":"http://rs.tdwg.org/dwc/terms/verbatimCoordinateSystem","dwcTerm":"verbatimCoordinateSystem","downloadName":"raw_datum","downloadDescription":"Geodetic
-        datum - original","classs":"Location"},{"name":"raw_geo_validation_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"The
-        original ''geoValidationStatus'' value supplied by the data provider","downloadName":"raw_geo_validation_status"},{"name":"raw_identification_qualifier","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"http://rs.tdwg.org/dwc/terms/verbatimIdentificationQualifier","dwcTerm":"verbatimIdentificationQualifier","downloadName":"raw_identification_qualifier"},{"name":"raw_latitude","dataType":"string","indexed":false,"stored":true,"multivalue":false,"description":"The
-        verbatim original latitude of the Location. The coordinate ellipsoid, geodeticDatum,
-        or full Spatial Reference System (SRS) for these coordinates should be stored
-        in verbatimSRS and the coordinate system should be stored in verbatimCoordinateSystem.","info":"http://rs.tdwg.org/dwc/terms/verbatimLatitude","dwcTerm":"verbatimLatitude","downloadName":"raw_latitude","downloadDescription":"Latitude
-        - original","classs":"Location"},{"name":"raw_locality","dataType":"string","indexed":false,"stored":true,"multivalue":true,"description":"The
-        specific description of the place. Less specific geographic information can
-        be provided in other geographic terms (higherGeography, continent, country,
-        stateProvince, county, municipality, waterBody, island, islandGroup). This
-        term may contain information modified from the original to correct perceived
-        errors or standardize the description.","info":"http://rs.tdwg.org/dwc/terms/locality","dwcTerm":"locality","downloadName":"raw_locality","downloadDescription":"Locality","classs":"Location"},{"name":"raw_longitude","dataType":"string","indexed":false,"stored":true,"multivalue":false,"description":"The
-        verbatim original longitude of the Location. The coordinate ellipsoid, geodeticDatum,
-        or full Spatial Reference System (SRS) for these coordinates should be stored
-        in verbatimSRS and the coordinate system should be stored in verbatimCoordinateSystem.","info":"http://rs.tdwg.org/dwc/terms/verbatimLongitude","dwcTerm":"verbatimLongitude","downloadName":"raw_longitude","downloadDescription":"Longitude
-        - original","classs":"Location"},{"name":"raw_name","dataType":"textgen","indexed":true,"stored":false,"multivalue":true,"downloadName":"raw_name"},{"name":"raw_occurrence_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"The
-        original ''occurrence status'' value supplied by the data provider","downloadName":"raw_occurrence_status"},{"name":"raw_sex","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        sex of the biological individual(s) represented in the Occurrence. Recommended
-        best practice is to use a controlled vocabulary.","info":"http://rs.tdwg.org/dwc/terms/sex","dwcTerm":"sex","downloadName":"raw_sex","downloadDescription":"Sex","classs":"Occurrence"},{"name":"raw_taxon_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        full scientific name, with authorship and date information if known. When
-        forming part of an Identification, this should be the name in lowest level
-        taxonomic rank that can be determined. This term should not contain identification
-        qualifications, which should instead be supplied in the IdentificationQualifier
-        term.","info":"http://rs.tdwg.org/dwc/terms/scientificName","jsonName":"raw_scientificName","dwcTerm":"scientificName","downloadName":"raw_taxon_name","downloadDescription":"Scientific
-        Name - original","classs":"Taxon"},{"name":"raw_type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"The
-        original ''type status'' value supplied by the data provider","jsonName":"raw_typeStatus","downloadName":"raw_type_status"},{"name":"record_number","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"An
-        identifier given to the Occurrence at the time it was recorded. Often serves
-        as a link between field notes and an Occurrence record, such as a specimen
-        collector''s number.","info":"http://rs.tdwg.org/dwc/terms/recordNumber","jsonName":"recordNumber","dwcTerm":"recordNumber","downloadName":"record_number","downloadDescription":"Record
-        number","classs":"Occurrence"},{"name":"reproductive_condition","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        reproductive condition of the biological individual(s) represented in the
-        Occurrence. Recommended best practice is to use a controlled vocabulary.","info":"http://rs.tdwg.org/dwc/terms/reproductiveCondition","dwcTerm":"reproductiveCondition","downloadName":"reproductive_condition","classs":"Occurrence"},{"name":"rgt","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"info":"The
-        right value in the nested set for this record. Used for retrieving records
-        within taxonomic groups.","jsonName":"right","downloadName":"rgt"},{"name":"species","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Species","info":"The
-        species the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/species","jsonName":"species","dwcTerm":"species","downloadName":"species","downloadDescription":"Species","i18nValues":true,"classs":"Taxon"},{"name":"species_group","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"Lifeform","info":"Higher
-        level group for this record e.g. Birds","jsonName":"speciesGroups","downloadName":"species_group"},{"name":"species_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Species","info":"The
-        species ID for this record","jsonName":"speciesGuid","downloadName":"species_guid"},{"name":"species_subgroup","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"Species
-        subgroups","info":"Higher level subgroup for this record e.g. Parrots","downloadName":"species_subgroup"},{"name":"state","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        name of the next smaller administrative region than country (state, province,
-        canton, department, region, etc.) in which the Location occurs.","info":"http://rs.tdwg.org/dwc/terms/stateProvince","jsonName":"stateProvince","dwcTerm":"stateProvince","downloadName":"state","downloadDescription":"State
-        - parsed","classs":"Location"},{"name":"subspecies_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Subspecies","info":"The
-        subspecies ID for this record","jsonName":"subspeciesGuid","downloadName":"subspecies_guid"},{"name":"subspecies_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Subspecies","info":"The
-        subspecies name for this record","downloadName":"subspecies_name"},{"name":"suitable_modelling","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"Whether
-        this record is suitable for use in species distribution modelling.","downloadName":"suitable_modelling"},{"name":"system_assertions","dataType":"string","indexed":true,"stored":true,"multivalue":false,"info":"All
-        the assertions created for this record as part of the system data quality
-        processing","downloadName":"system_assertions"},{"name":"taxon_concept_lsid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"An
-        identifier for the taxonomic concept to which the record refers - not for
-        the nomenclatural details of a taxon.","info":"http://rs.tdwg.org/dwc/terms/taxonConceptID","jsonName":"taxonConceptID","dwcTerm":"taxonConceptID","downloadName":"taxon_concept_lsid","downloadDescription":"Taxon
-        Concept GUID","classs":"Taxon"},{"name":"taxon_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"The
-        full scientific name, with authorship and date information if known. When
-        forming part of an Identification, this should be the name in lowest level
-        taxonomic rank that can be determined. This term should not contain identification
-        qualifications, which should instead be supplied in the IdentificationQualifier
-        term.","info":"http://rs.tdwg.org/dwc/terms/scientificName","jsonName":"scientificName","dwcTerm":"scientificName","downloadName":"taxon_name","downloadDescription":"Scientific
-        Name","classs":"Taxon"},{"name":"taxonomic_issue","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"Taxon
-        identification issue","info":"The taxonomic data quality issues detected.
-        See https://biocache.ala.org.au/ws/assertions/codes","downloadName":"taxonomic_issue","downloadDescription":"Taxon
-        identification issue"},{"name":"taxonomic_kosher","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Taxonomic
-        Quality","info":"A flag indicating if there are serious taxonomic problems
-        with a record. false indicates problems.","jsonName":"taxonomicKosher","downloadName":"taxonomic_kosher","downloadDescription":"Taxonomic
-        Quality"},{"name":"type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"A
-        list (concatenated and separated) of nomenclatural types (type status, typified
-        scientific name, publication) applied to the subject.","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"user_assertions","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Has
-        user assertions","jsonName":"hasUserAssertions","downloadName":"user_assertions","i18nValues":true},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"description":"The
-        four-digit year in which the Event occurred, according to the Common Era Calendar.","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
-  recorded_at: 2022-10-13 00:32:19 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 03:59:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://logger.canadensys.net/service/logger/reasons
@@ -710,7 +431,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Thu, 13 Oct 2022 00:32:19 GMT
+      date: Thu, 13 Oct 2022 03:59:25 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -727,5 +448,5 @@ http_interactions:
         research","id":4,"deprecated":false},{"rkey":"logger.download.reason.systematic.research","name":"systematic
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-10-13 00:32:19 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 03:59:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2

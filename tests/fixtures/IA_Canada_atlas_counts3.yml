@@ -15,7 +15,7 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
+      status: HTTP/1.1 200 OK
       vary: Origin, Access-Control-Request-Method, Access-Control-Request-Headers
       x-content-type-options: nosniff
       x-xss-protection: 1; mode=block
@@ -23,19 +23,20 @@ http_interactions:
       expires: '0'
       x-frame-options: DENY
       content-type: application/json
-      date: Thu, 13 Oct 2022 00:24:40 GMT
+      date: Thu, 13 Oct 2022 03:57:43 GMT
       cache-control: public, max-age=3601
-      x-varnish: 978551830 967838901
-      age: '464'
+      x-varnish: 62293926 87982147
+      age: '108'
       via: 1.1 varnish (Varnish/6.0)
       accept-ranges: bytes
       content-length: '263'
+      connection: keep-alive
     body:
       encoding: UTF-8
       file: no
       string: '{"usageKey":359,"scientificName":"Mammalia","canonicalName":"Mammalia","rank":"CLASS","status":"ACCEPTED","confidence":94,"matchType":"EXACT","kingdom":"Animalia","phylum":"Chordata","kingdomKey":1,"phylumKey":44,"classKey":359,"synonym":false,"class":"Mammalia"}'
-  recorded_at: 2022-10-13 00:32:27 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 03:59:34 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: http://data.canadensys.net/explorer-ws/assertions/codes
@@ -54,7 +55,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Thu, 13 Oct 2022 00:32:25 GMT
+      date: Thu, 13 Oct 2022 03:59:32 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -160,8 +161,8 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2022-10-13 00:32:27 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 03:59:34 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: http://data.canadensys.net/explorer-ws/assertions/codes
@@ -180,7 +181,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Thu, 13 Oct 2022 00:32:26 GMT
+      date: Thu, 13 Oct 2022 03:59:32 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -286,8 +287,8 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2022-10-13 00:32:27 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 03:59:34 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: http://data.canadensys.net/explorer-ws/assertions/codes
@@ -306,7 +307,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Thu, 13 Oct 2022 00:32:26 GMT
+      date: Thu, 13 Oct 2022 03:59:33 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -412,8 +413,8 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2022-10-13 00:32:27 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 03:59:34 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: http://data.canadensys.net/explorer-ws/occurrence/facets?fq=%28lsid%3A359%29AND%28year%3A%5B2000%20TO%20%2A%5D%29&facets=basis_of_record&flimit=1
@@ -432,7 +433,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Thu, 13 Oct 2022 00:32:27 GMT
+      date: Thu, 13 Oct 2022 03:59:33 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -446,8 +447,8 @@ http_interactions:
       file: no
       string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Preserved
         specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":87843,"fq":"basis_of_record:\"PreservedSpecimen\""}],"count":3}]'
-  recorded_at: 2022-10-13 00:32:27 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 03:59:34 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: http://data.canadensys.net/explorer-ws/occurrence/facets?fq=%28lsid%3A359%29AND%28year%3A%5B2000%20TO%20%2A%5D%29&facets=basis_of_record&flimit=100
@@ -466,7 +467,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Thu, 13 Oct 2022 00:32:27 GMT
+      date: Thu, 13 Oct 2022 03:59:33 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -482,5 +483,5 @@ http_interactions:
         specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":87843,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Human
         observation","i18nCode":"basis_of_record.HumanObservation","count":211,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Fossil
         specimen","i18nCode":"basis_of_record.FossilSpecimen","count":77,"fq":"basis_of_record:\"FossilSpecimen\""}],"count":3}]'
-  recorded_at: 2022-10-13 00:32:27 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 03:59:34 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2

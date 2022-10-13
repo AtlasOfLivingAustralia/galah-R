@@ -15,12 +15,14 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      date: Wed, 12 Oct 2022 05:01:52 GMT
+      status: 'HTTP/1.1 200 '
+      date: Thu, 13 Oct 2022 04:04:38 GMT
       content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+      connection: keep-alive
       content-location: https://collectory.sibbr.gov.br/collectory/ws/collection
-      last-modified: Tue, 11 Oct 2022 21:57:33 GMT
-      etag: '"3a40918d7c006bb38445f8618ac61730"'
+      last-modified: Wed, 12 Oct 2022 17:16:25 GMT
+      etag: '"4f30be118943123703ef2d41ceaa6d0d"'
       strict-transport-security: max-age=15724800; includeSubDomains
       access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
@@ -241,6 +243,7 @@ http_interactions:
         de Répteis do Museu de Ciências Naturais do Rio Grande do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co448","uid":"co448"},{"name":"Coleção
         de Répteis do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co359","uid":"co359"},{"name":"Coleção
         de répteis e anfíbios do MHNCI","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co88","uid":"co88"},{"name":"Coleção
+        de Scorpionida do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co515","uid":"co515"},{"name":"Coleção
         de Simulídeos do Instituto Oswaldo Cruz","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co47","uid":"co47"},{"name":"Coleção
         de Tecidos Animais da Universidade Federal do Espírito Santo","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co388","uid":"co388"},{"name":"Coleção
         de Triatomíneos do Instituto Oswaldo Cruz","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co48","uid":"co48"},{"name":"Coleção
@@ -305,6 +308,7 @@ http_interactions:
         Ictiológica do Museu de Biodiversidade do Cerrado da Universidade Federal
         de Uberlândia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co498","uid":"co498"},{"name":"Coleção
         Ictiológica do Museu Goeldi","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co111","uid":"co111"},{"name":"Coleção
+        Ictiológica GERPEL da UNIOESTE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co516","uid":"co516"},{"name":"Coleção
         Internacional de Cultura de Glomeromycota da FURB","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co233","uid":"co233"},{"name":"Coleção
         Invertebrados Não - artrópodos do Museu Goeldi","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co91","uid":"co91"},{"name":"Coleção
         Malacológica do LEBIO/CEM/UFPR","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co418","uid":"co418"},{"name":"Coleção
@@ -479,8 +483,8 @@ http_interactions:
         de Zoologia do Museu de Ciências Naturais da UCS - Mastozoologia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co313","uid":"co313"},{"name":"Setor
         de Zoologia do Museu de Ciências Naturais da UCS - Peixes","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co311","uid":"co311"},{"name":"Xiloteca
         (madeiras) do JBRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co509","uid":"co509"}]'
-  recorded_at: 2022-10-12 05:01:55 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 04:04:44 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://collectory.sibbr.gov.br/collectory/ws/dataResource
@@ -497,11 +501,13 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      date: Wed, 12 Oct 2022 05:01:53 GMT
+      status: 'HTTP/1.1 200 '
+      date: Thu, 13 Oct 2022 04:04:39 GMT
       content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+      connection: keep-alive
       content-location: https://collectory.sibbr.gov.br/collectory/ws/dataResource
-      last-modified: Wed, 12 Oct 2022 02:05:02 GMT
+      last-modified: Wed, 12 Oct 2022 20:31:44 GMT
       etag: '"9e9d3c2822f3daa9995d27dad20e64d5"'
       strict-transport-security: max-age=15724800; includeSubDomains
       access-control-allow-origin: '*'
@@ -1096,8 +1102,8 @@ http_interactions:
         Virtual REFLORA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr228","uid":"dr228"},{"name":"Xiloteca
         do Herbário Dendrológico Jeanine Felfili","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr511","uid":"dr511"},{"name":"Xiloteca
         do Herbário Joinvillea","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr519","uid":"dr519"}]'
-  recorded_at: 2022-10-12 05:01:55 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 04:04:44 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://collectory.sibbr.gov.br/collectory/ws/dataProvider
@@ -1114,9 +1120,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      date: Wed, 12 Oct 2022 05:01:54 GMT
+      status: 'HTTP/1.1 200 '
+      date: Thu, 13 Oct 2022 04:04:40 GMT
       content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+      connection: keep-alive
       content-location: https://collectory.sibbr.gov.br/collectory/ws/dataProvider
       last-modified: Mon, 10 Oct 2022 16:47:32 GMT
       etag: '"294cf9dc20fb3d73f92722c7864ff35a"'
@@ -1185,8 +1193,8 @@ http_interactions:
         de Ferramentas Genéticas, Matemáticas e Tecnológicas para avaliar o risco
         de transmissão e fortalecer a vigilância do vírus da Febre Amarela nas 5 regiões
         brasileiras","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataProvider/dp46","uid":"dp46"}]'
-  recorded_at: 2022-10-12 05:01:55 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 04:04:44 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://biocache-service.sibbr.gov.br/biocache-service/assertions/codes
@@ -1203,9 +1211,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      date: Wed, 12 Oct 2022 05:01:54 GMT
+      status: 'HTTP/1.1 200 '
+      date: Thu, 13 Oct 2022 04:04:41 GMT
       content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+      connection: keep-alive
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
@@ -1311,8 +1321,8 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2022-10-12 05:01:55 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 04:04:44 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://biocache-service.sibbr.gov.br/biocache-service/index/fields
@@ -1329,9 +1339,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      date: Wed, 12 Oct 2022 05:01:55 GMT
+      status: 'HTTP/1.1 200 '
+      date: Thu, 13 Oct 2022 04:04:41 GMT
       content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+      connection: keep-alive
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
@@ -1496,8 +1508,8 @@ http_interactions:
         with a record. false indicates problems.","jsonName":"taxonomicKosher","downloadName":"taxonomic_kosher","downloadDescription":"Taxonomic
         Quality"},{"name":"type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Specimen
         type","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"year","classs":"Event"}]'
-  recorded_at: 2022-10-12 05:01:55 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 04:04:44 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://portal-espacial.sibbr.gov.br/spatial-hub/layers
@@ -1514,10 +1526,12 @@ http_interactions:
       message: Not Found
       explanation: Nothing matches the given URI
     headers:
-      status: 'HTTP/2 404 '
-      date: Wed, 12 Oct 2022 05:01:56 GMT
+      status: 'HTTP/1.1 404 '
+      date: Thu, 13 Oct 2022 04:04:42 GMT
       content-type: text/html;charset=UTF-8
-      set-cookie: INGRESSCOOKIE=1665550917.35.43.878102; Path=/spatial-hub; Secure;
+      transfer-encoding: chunked
+      connection: keep-alive
+      set-cookie: INGRESSCOOKIE=1665633883.82.42.882640; Path=/spatial-hub; Secure;
         HttpOnly
       content-language: en-US
       strict-transport-security: max-age=15724800; includeSubDomains
@@ -1526,8 +1540,8 @@ http_interactions:
       file: no
       string: "<!DOCTYPE html>\n<html>\n<head>\n    \n</head>\n\n<body>\n\n    <ul
         class=\"errors\">\n        <li>An error has occurred</li>\n    </ul>\n\n</body>\n</html>\n"
-  recorded_at: 2022-10-12 05:01:55 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 04:04:44 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://specieslist.sibbr.gov.br/ws/speciesList/?max=1000&offset=0
@@ -1544,9 +1558,11 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      date: Wed, 12 Oct 2022 05:01:57 GMT
+      status: 'HTTP/1.1 200 '
+      date: Thu, 13 Oct 2022 04:04:43 GMT
       content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+      connection: keep-alive
       x-application-context: application:production
       strict-transport-security: max-age=15724800; includeSubDomains
     body:
@@ -1657,8 +1673,8 @@ http_interactions:
         ICMBio","listType":"CONSERVATION_LIST","dateCreated":"2019-10-31T21:28:48Z","lastUpdated":"2019-10-31T21:28:48Z","username":"sibbr.brasil@gmail.com","fullName":null,"itemCount":12254,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1565629445693","listName":"Livro
         Vermelho da Fauna Brasileira Ameaçada de Extinção 2014 - ICMBio","listType":"CONSERVATION_LIST","dateCreated":"2019-08-12T17:04:10Z","lastUpdated":"2019-09-05T18:33:14Z","username":"angelica.santos@consultores.rnp.br","fullName":null,"itemCount":1090,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1565628927666","listName":"Vernaculares
         espécies icônicas","listType":"CONSERVATION_LIST","dateCreated":"2019-08-12T03:00:00Z","lastUpdated":"2021-08-26T22:07:27Z","username":"angelica.santos@consultores.rnp.br","fullName":null,"itemCount":153,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false}]}'
-  recorded_at: 2022-10-12 05:01:55 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 04:04:44 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://specieslist.sibbr.gov.br/ws/speciesList/?max=1000&offset=1000
@@ -1675,17 +1691,19 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      date: Wed, 12 Oct 2022 05:01:57 GMT
+      status: 'HTTP/1.1 200 '
+      date: Thu, 13 Oct 2022 04:04:44 GMT
       content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+      connection: keep-alive
       x-application-context: application:production
       strict-transport-security: max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
       file: no
       string: '{"listCount":58,"sort":"listName","order":"asc","max":1000,"offset":"1000","lists":[]}'
-  recorded_at: 2022-10-12 05:01:55 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 04:04:44 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://specieslist.sibbr.gov.br/ws/speciesList/?max=1000&offset=2000
@@ -1702,14 +1720,16 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      date: Wed, 12 Oct 2022 05:01:57 GMT
+      status: 'HTTP/1.1 200 '
+      date: Thu, 13 Oct 2022 04:04:44 GMT
       content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+      connection: keep-alive
       x-application-context: application:production
       strict-transport-security: max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
       file: no
       string: '{"listCount":58,"sort":"listName","order":"asc","max":1000,"offset":"2000","lists":[]}'
-  recorded_at: 2022-10-12 05:01:55 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 04:04:44 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2

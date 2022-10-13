@@ -21,11 +21,12 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
       content-type: application/json;charset=UTF-8
-      date: Thu, 13 Oct 2022 00:39:04 GMT
-      expires: Thu, 13 Oct 2022 01:08:58 GMT
+      date: Thu, 13 Oct 2022 04:53:28 GMT
+      expires: Thu, 13 Oct 2022 05:11:22 GMT
       referrer-policy: strict-origin-when-cross-origin
-      status: 'HTTP/2 200 '
+      status: HTTP/1.1 200 OK
       strict-transport-security: max-age=31536000; preload
+      transfer-encoding: chunked
       vary:
       - Accept-Encoding
       - Accept-Encoding
@@ -128,11 +129,11 @@ http_interactions:
         issue","category":"error","fatal":false},{"name":"homonymIssue","code":10006,"isFatal":false,"description":"Homonym
         issues with supplied name","category":"error","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2022-10-13 00:39:06 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2022-10-13 04:53:28 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
-    uri: https://elurikkus.ee/biocache-service/occurrence/facets?fq=year%3A%5B2018%20TO%20%2A%5D&facets=year&flimit=1
+    uri: https://elurikkus.ee/biocache-service/occurrence/facets?fq=year%3A%5B2018%20TO%20%2A%5D&facets=basis_of_record&flimit=1
     body:
       encoding: ''
       string: ''
@@ -152,11 +153,12 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
       content-type: application/json;charset=UTF-8
-      date: Thu, 13 Oct 2022 00:39:05 GMT
-      expires: Thu, 13 Oct 2022 01:09:05 GMT
+      date: Thu, 13 Oct 2022 04:53:28 GMT
+      expires: Thu, 13 Oct 2022 05:17:25 GMT
       referrer-policy: strict-origin-when-cross-origin
-      status: 'HTTP/2 200 '
+      status: HTTP/1.1 200 OK
       strict-transport-security: max-age=31536000; preload
+      transfer-encoding: chunked
       vary:
       - Accept-Encoding
       - Accept-Encoding
@@ -165,12 +167,12 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2020","count":342834,"fq":"year:\"2020\""}],"count":5}]'
-  recorded_at: 2022-10-13 00:39:06 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"HumanObservation","count":1308697,"fq":"basis_of_record:\"HumanObservation\""}],"count":5}]'
+  recorded_at: 2022-10-13 04:53:28 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
-    uri: https://elurikkus.ee/biocache-service/occurrence/facets?fq=year%3A%5B2018%20TO%20%2A%5D&facets=year&flimit=100
+    uri: https://elurikkus.ee/biocache-service/occurrence/facets?fq=year%3A%5B2018%20TO%20%2A%5D&facets=basis_of_record&flimit=100
     body:
       encoding: ''
       string: ''
@@ -190,11 +192,12 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
       content-type: application/json;charset=UTF-8
-      date: Thu, 13 Oct 2022 00:39:05 GMT
-      expires: Thu, 13 Oct 2022 01:09:05 GMT
+      date: Thu, 13 Oct 2022 04:53:28 GMT
+      expires: Thu, 13 Oct 2022 05:17:26 GMT
       referrer-policy: strict-origin-when-cross-origin
-      status: 'HTTP/2 200 '
+      status: HTTP/1.1 200 OK
       strict-transport-security: max-age=31536000; preload
+      transfer-encoding: chunked
       vary:
       - Accept-Encoding
       - Accept-Encoding
@@ -203,6 +206,6 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2020","count":342834,"fq":"year:\"2020\""},{"label":"2019","count":322737,"fq":"year:\"2019\""},{"label":"2021","count":293414,"fq":"year:\"2021\""},{"label":"2018","count":277930,"fq":"year:\"2018\""},{"label":"2022","count":191136,"fq":"year:\"2022\""}],"count":5}]'
-  recorded_at: 2022-10-13 00:39:06 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"HumanObservation","count":1308697,"fq":"basis_of_record:\"HumanObservation\""},{"label":"PreservedSpecimen","count":92891,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"MachineObservation","count":20975,"fq":"basis_of_record:\"MachineObservation\""},{"label":"GenomicDNA","count":5372,"fq":"basis_of_record:\"GenomicDNA\""},{"label":"Literature","count":117,"fq":"basis_of_record:\"Literature\""}],"count":5}]'
+  recorded_at: 2022-10-13 04:53:28 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2

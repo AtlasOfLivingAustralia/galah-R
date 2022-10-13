@@ -1,7 +1,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://data.canadensys.net/explorer-ws/occurrence/facets?facets=basis_of_record&flimit=10000
+    uri: http://data.canadensys.net/explorer-ws/occurrence/facets?facets=multimedia&flimit=10000
     body:
       encoding: ''
       string: ''
@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.18.0 (Ubuntu)
-      date: Thu, 13 Oct 2022 00:32:21 GMT
+      date: Thu, 13 Oct 2022 03:59:27 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -29,10 +29,6 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Preserved
-        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":5795234,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Human
-        observation","i18nCode":"basis_of_record.HumanObservation","count":349250,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Fossil
-        specimen","i18nCode":"basis_of_record.FossilSpecimen","count":154507,"fq":"basis_of_record:\"FossilSpecimen\""},{"label":"Living
-        specimen","i18nCode":"basis_of_record.LivingSpecimen","count":43552,"fq":"basis_of_record:\"LivingSpecimen\""}],"count":4}]'
-  recorded_at: 2022-10-13 00:32:21 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+      string: '[{"fieldName":"multimedia","fieldResult":[{"label":"None","i18nCode":"multimedia.None","count":6130832,"fq":"multimedia:\"None\""},{"label":"Image","i18nCode":"multimedia.Image","count":211711,"fq":"multimedia:\"Image\""}],"count":2}]'
+  recorded_at: 2022-10-13 03:59:27 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
