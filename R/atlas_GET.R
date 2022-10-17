@@ -55,7 +55,7 @@ internal_GET <- function(url, params = list(), on_error = NULL,
     }
     res <- cli$get(query = params, encode = "json") #path = path, 
   }
-  #print(res$request$url)
+  # print(res$request$url) # uncomment and load package to see url calls
   if (!is.null(on_error)) {
     if (res$status_code != 200) {
       on_error(res$status_code)

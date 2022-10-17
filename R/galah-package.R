@@ -41,7 +41,9 @@
 #'   * [atlas_counts()] Count the number of records or species returned by a query
 #'   * [atlas_species()] Download species lists
 #'   * [atlas_taxonomy()] Return a section of the ALA taxonomic tree
-#'   * [atlas_media()] Download images and sounds
+#'   * [atlas_media()] View images and sounds available to download
+#'   * [collect_media()] Download images and sounds
+#'   * [coolect_occurrences()] Download previously downloaded occurrence records
 #'   
 #' **Look up information**
 #'
@@ -59,7 +61,7 @@
 #'       * filters
 #'            - `fields`: Valid fields to filter or categorise queries
 #'            - `assertions`: Data quality categories
-#'            - `licenses`: Attribution licenses
+#'            - `licences`: Attribution licenses
 #'       * group filters
 #'            - `profiles`: Sets of filters to improve data quality
 #'            - `lists`: Available species lists (e.g. threatened)
@@ -67,10 +69,8 @@
 #'            - `providers`: Institutions that provide data
 #'            - `collections`: Specific collections within those institutions
 #'            - `datasets`: The data groupings within those collections
-#'   * [show_values()] & [search_values()] Show or search for values _within_: 
-#'            - `fields`: Possible values to filter by for a given field
-#'            - `profiles`: The data quality filters of a data quality profile
-#'            - `lists`: ...
+#'   * [show_values()] & [search_values()] Show or search for values _within_ 
+#'   `fields`, `profiles` and `lists`.
 #' 
 #' **Manage cache**
 #' 

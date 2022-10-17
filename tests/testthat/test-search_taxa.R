@@ -4,11 +4,11 @@ test_that("search_taxa checks inputs", {
   expect_warning(search_taxa())
 })
 
-test_that("search_taxa check atlas", {
-  galah_config(atlas = "Austria")
-  expect_error(search_taxa("Vulpes vulpes"))
-  galah_config(atlas = "Australia")
-})
+# test_that("search_taxa check atlas", { # FIXME: is this still true?
+#   galah_config(atlas = "Austria")
+#   expect_error(search_taxa("Vulpes vulpes"))
+#   galah_config(atlas = "Australia")
+# })
 
 test_that("search_taxa works for simple queries", {
   vcr::use_cassette("search_taxa_simple", {
@@ -36,8 +36,8 @@ test_that("search_taxa handles data.frame input", {
 vcr::use_cassette("search_taxa_valid_invalid", {
   test_that("search_taxa handles a mix of valid and invalid queries", {
     galah_config(verbose = TRUE)
-    expect_message(taxa <- search_taxa(c("Eucalyptus", "Banksia", "Wattle")))
-    expect_equal(nrow(taxa), 3)
+    expect_message(taxa <- search_taxa(c("Eucalyptus", "Banksia", "Wattle", "wootle")))
+    expect_equal(nrow(taxa), 4)
     galah_config(verbose = FALSE)
   })
 })

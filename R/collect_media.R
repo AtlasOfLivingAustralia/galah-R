@@ -12,7 +12,7 @@
 #'    `r lifecycle::badge("deprecated")` Use `path` instead.
 #' @param refresh_cache `logical`: if set to `TRUE` and 
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
-#' be replaced by the current query. NOTE: unclear that this works right now.
+#' be replaced by the current query. NOTE: Unclear that this works right now.
 #'
 #' @return Available image & media files downloaded to a user local directory.
 #'

@@ -21,8 +21,8 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
       content-type: application/json;charset=UTF-8
-      date: Thu, 13 Oct 2022 04:53:28 GMT
-      expires: Thu, 13 Oct 2022 05:11:22 GMT
+      date: Mon, 17 Oct 2022 01:29:03 GMT
+      expires: Mon, 17 Oct 2022 01:59:03 GMT
       referrer-policy: strict-origin-when-cross-origin
       status: HTTP/1.1 200 OK
       strict-transport-security: max-age=31536000; preload
@@ -129,7 +129,7 @@ http_interactions:
         issue","category":"error","fatal":false},{"name":"homonymIssue","code":10006,"isFatal":false,"description":"Homonym
         issues with supplied name","category":"error","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2022-10-13 04:53:28 GMT
+  recorded_at: 2022-10-17 01:29:05 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
@@ -153,8 +153,8 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
       content-type: application/json;charset=UTF-8
-      date: Thu, 13 Oct 2022 04:53:28 GMT
-      expires: Thu, 13 Oct 2022 05:17:25 GMT
+      date: Mon, 17 Oct 2022 01:29:04 GMT
+      expires: Mon, 17 Oct 2022 01:59:04 GMT
       referrer-policy: strict-origin-when-cross-origin
       status: HTTP/1.1 200 OK
       strict-transport-security: max-age=31536000; preload
@@ -167,8 +167,8 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"HumanObservation","count":1308697,"fq":"basis_of_record:\"HumanObservation\""}],"count":5}]'
-  recorded_at: 2022-10-13 04:53:28 GMT
+      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"HumanObservation","count":1311402,"fq":"basis_of_record:\"HumanObservation\""}],"count":5}]'
+  recorded_at: 2022-10-17 01:29:05 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
@@ -192,8 +192,8 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
       content-type: application/json;charset=UTF-8
-      date: Thu, 13 Oct 2022 04:53:28 GMT
-      expires: Thu, 13 Oct 2022 05:17:26 GMT
+      date: Mon, 17 Oct 2022 01:29:05 GMT
+      expires: Mon, 17 Oct 2022 01:59:05 GMT
       referrer-policy: strict-origin-when-cross-origin
       status: HTTP/1.1 200 OK
       strict-transport-security: max-age=31536000; preload
@@ -206,6 +206,6 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"HumanObservation","count":1308697,"fq":"basis_of_record:\"HumanObservation\""},{"label":"PreservedSpecimen","count":92891,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"MachineObservation","count":20975,"fq":"basis_of_record:\"MachineObservation\""},{"label":"GenomicDNA","count":5372,"fq":"basis_of_record:\"GenomicDNA\""},{"label":"Literature","count":117,"fq":"basis_of_record:\"Literature\""}],"count":5}]'
-  recorded_at: 2022-10-13 04:53:28 GMT
+      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"HumanObservation","count":1311402,"fq":"basis_of_record:\"HumanObservation\""},{"label":"PreservedSpecimen","count":93876,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"MachineObservation","count":20975,"fq":"basis_of_record:\"MachineObservation\""},{"label":"GenomicDNA","count":15256,"fq":"basis_of_record:\"GenomicDNA\""},{"label":"Literature","count":117,"fq":"basis_of_record:\"Literature\""}],"count":5}]'
+  recorded_at: 2022-10-17 01:29:05 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.2

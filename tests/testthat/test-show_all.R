@@ -48,7 +48,7 @@ test_that("show_all_apis returns apis", {
   apis <- show_all_apis()
   expect_s3_class(apis, c("tbl_df", "tbl", "data.frame"))
   expect_equal(attributes(apis)$call, "show_all_apis")
-  expect_equal(ncol(apis), 4)
+  expect_equal(ncol(apis), 5)
 })
 
 test_that("show_all_collections returns collections", {
