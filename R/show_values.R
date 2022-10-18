@@ -52,33 +52,26 @@ show_values <- function(df){
   check_inputs_to_values(df)
   
   # Get correct information 'type'
-  if(attr(df, "call") %in% c("search_fields", "show_all_fields")) {
+  call_suffixes <- c("field", "profile", "list", 
+                     "collection", "dataset", "provider")
+  call_value <- attr(df, "call")
+  call_lookup <- unlist(lapply(call_suffixes, function(a){
+    grepl(paste0("_", a, "s$"), call_value)
+  }))
+  
+  if(any(call_lookup)){
+    type <- call_suffixes[which(call_lookup)[1]]
+  }else{
     type <- "field"
-  } else {
-    if(attr(df, "call") %in% c("search_profiles", "show_all_profiles")) {
-      type <- "profile"
-    } else {
-      if(attr(df, "call") %in% c("search_lists", 'show_all_lists')) {
-        type <- "list"
-      }
-    }
-  }
-
-  # check 'type' is ok
-  if(is.null(attr(df, "call"))){
-    type <- "fields"
   }
   
   # get first row of matched fields
-  if(type == "field") {
-    match_name <- df$id[1]
-  } else {
-    if(type == "list") {
-      match_name <- df$dataResourceUid[1]
-    } else {
-      if(type == "profile") {
-        match_name <- df$shortName[1]
-      }}}
+  match_name <- switch(type,
+    "field" = df$id[1],
+    "list" = df$dataResourceUid[1],
+    "profile" = df$shortName[1],
+    df$uid[1] # last option selected if above are exhausted
+  )
   
   # specify the number matched fields
   # specify for which field the values are displayed
@@ -118,33 +111,26 @@ search_values <- function(df, query) {
   check_inputs_to_values(df)
   
   # Get correct information 'type'
-  if(attr(df, "call") %in% c("search_fields", "show_all_fields")) {
-    type <- "field"
-  } else {
-    if(attr(df, "call") %in% c("search_profiles", "show_all_profiles")) {
-      type <- "profile"
-    } else {
-      if(attr(df, "call") %in% c("search_lists", 'show_all_lists')) {
-        type <- "list"
-      }
-    }
-  }
+  call_suffixes <- c("field", "profile", "list", 
+                     "collection", "dataset", "provider")
+  call_value <- attr(df, "call")
+  call_lookup <- unlist(lapply(call_suffixes, function(a){
+    grepl(paste0("_", a, "s$"), call_value)
+  }))
   
-  # check 'type' is ok
-  if(is.null(attr(df, "call"))){
-    type <- "fields"
+  if(any(call_lookup)){
+    type <- call_suffixes[which(call_lookup)[1]]
+  }else{
+    type <- "field"
   }
   
   # get first row of matched fields
-  if(type == "field") {
-    match_name <- df$id[1]
-  } else {
-    if(type == "list") {
-      match_name <- df$dataResourceUid[1]
-    } else {
-      if(type == "profile") {
-        match_name <- df$shortName[1]
-      }}}
+  match_name <- switch(type,
+                       "field" = df$id[1],
+                       "list" = df$dataResourceUid[1],
+                       "profile" = df$shortName[1],
+                       df$uid[1] # last option selected if above are exhausted
+  )
   
   # check for query
   check_if_missing(query)
@@ -170,7 +156,7 @@ search_values <- function(df, query) {
   
   # run query
   args <- list(match_name, query)
-  names(args) <- list(type, paste("query"))
+  names(args) <- list(type, "query")
   do.call(paste0("search_", type, "_values"), args)
 }
 
@@ -327,6 +313,75 @@ search_list_values <- function(list, query){
 }
 
 
+show_collection_values <- function(collection){
+  if (missing(collection)) {
+    bullets <- c(
+      "No field detected.",
+      i = "Did you forget to add a collection to show values for?"
+    )
+    abort(bullets, call = caller_env())
+  }
+  
+  url <- atlas_url("collections_collections") |> paste0("/", collection)
+  x <- atlas_GET(url)
+  x[lengths(x) == 1] |> as_tibble()
+}
+
+search_collection_values <- function(collection, query){
+  bullets <- c(
+    "`query` is not defined for collections",
+    i = "Use `show_values` instead"
+  )
+  rlang::warn(message = bullets, error = rlang::caller_env())
+  show_collection_values(collection)
+}
+
+show_provider_values <- function(provider){
+  if (missing(provider)) {
+    bullets <- c(
+      "No field detected.",
+      i = "Did you forget to add a provider to show values for?"
+    )
+    abort(bullets, call = caller_env())
+  }
+  
+  url <- atlas_url("collections_providers") |> paste0("/", provider)
+  x <- atlas_GET(url)
+  x[lengths(x) == 1] |> as_tibble()
+}
+
+search_provider_values <- function(provider, query){
+  bullets <- c(
+    "`query` is not defined for providers",
+    i = "Use `show_values` instead"
+  )
+  rlang::warn(message = bullets, error = rlang::caller_env())
+  show_provider_values(provider)
+}
+
+show_dataset_values <- function(dataset){
+  if (missing(dataset)) {
+    bullets <- c(
+      "No field detected.",
+      i = "Did you forget to add a dataset to show values for?"
+    )
+    abort(bullets, call = caller_env())
+  }
+  
+  url <- atlas_url("collections_datasets") |> paste0("/", dataset)
+  x <- atlas_GET(url)
+  x[lengths(x) == 1] |> as_tibble()
+}
+
+search_dataset_values <- function(dataset, query){
+  bullets <- c(
+    "`query` is not defined for datasets",
+    i = "Use `show_values` instead"
+  )
+  rlang::warn(message = bullets, error = rlang::caller_env())
+  show_dataset_values(dataset)
+}
+
 # checks inputs to `show_values()` & `search_values()`
 check_inputs_to_values <- function(df, error_call = caller_env()) {
   # Check if missing input
@@ -348,8 +403,13 @@ check_inputs_to_values <- function(df, error_call = caller_env()) {
   }
   
   # Input must be from valid `show_all` or `search_all` tibble
-  if(!(attr(df, "call") %in% c("search_fields", "search_profiles", "search_lists", 
-                              "show_all_fields", "show_all_profiles", "show_all_lists"))){
+  valid_calls <- expand.grid(
+    c("search_", "show_all_"),
+    c("field", "profile", "list", "collection", "dataset", "provider")
+  ) |>
+    apply(X = _, 1, function(x){paste0(paste(x, collapse = ""), "s")})
+    
+  if(!any(valid_calls == attr(df, "call"))){
     # type <- stringr::word(paste(attr(df, "call")), 2, sep="_")
     type <- attr(df, "call")
     bullets <- c(

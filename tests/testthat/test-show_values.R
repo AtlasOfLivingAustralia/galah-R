@@ -126,3 +126,60 @@ test_that("search_values specifies matched field", {
   expect_message(search2 |> show_values(), n_fields2)
   expect_message(search3 |> show_values(), n_fields3)
 })
+
+test_that("show_values and search_values work for collections", {
+  skip_on_cran()
+  result <- expect_message({
+    show_all_collections() |>
+    show_values()
+  })
+  expect_equal(nrow(result), 1)
+  result <- expect_message({
+    search_collections("co43") |> 
+    show_values()
+  })
+  expect_equal(nrow(result), 1)
+  result <- expect_warning({
+    show_all_collections() |>
+    search_values("something")
+  })
+  expect_equal(nrow(result), 1)
+})
+
+test_that("show_values and search_values work for datasets", {
+  skip_on_cran()
+  result <- expect_message({
+    show_all_datasets() |>
+    show_values()
+  })
+  expect_equal(nrow(result), 1)
+  result <- expect_message({
+    search_datasets("dr14507") |> 
+    show_values()
+  })
+  expect_equal(nrow(result), 1)
+  result <- expect_warning({
+    show_all_datasets() |>
+    search_values("something")
+  })
+  expect_equal(nrow(result), 1)
+})
+
+test_that("show_values and search_values work for providers", {
+  skip_on_cran()
+  result <- expect_message({
+    show_all_providers() |>
+    show_values()
+  })
+  expect_equal(nrow(result), 1)
+  result <- expect_message({
+    search_providers("dp1977") |> 
+    show_values()
+  })
+  expect_equal(nrow(result), 1)
+  result <- expect_warning({
+    show_all_providers() |>
+    search_values("something")
+  })
+  expect_equal(nrow(result), 1)
+})
