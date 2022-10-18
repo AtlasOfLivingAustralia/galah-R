@@ -141,9 +141,7 @@ name_lookup <- function(name) {
     result <- result$searchResults$results
   }
   
-  if(is.list(result)){
-    result <- as.data.frame(lapply(result, function(a){a[1]}))
-  }
+  result <- lapply(result, function(a){a[1]}) |> as_tibble()
   
   if(nrow(result) > 1){
     string_distance <- adist(
@@ -163,16 +161,18 @@ name_lookup <- function(name) {
     }
   }
 
-  if ("homonym" %in% result$issues) {
-    bullets <- c(
-      "Your search returned multiple taxa due to a homonym issue.",
-      i = "Please provide another rank in your search to clarify taxa.",
-      x = glue("Homonym issue with \"{name}\".")
-    )
-    warn(bullets)
-    # return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
+  if(any(colnames(result) == "issues")){
+    if ("homonym" %in% result$issues) {
+      bullets <- c(
+        "Your search returned multiple taxa due to a homonym issue.",
+        i = "Please provide another rank in your search to clarify taxa.",
+        x = glue("Homonym issue with \"{name}\".")
+      )
+      warn(bullets)
+      # return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
+    }
   }
-   
+  
   if (isFALSE(result$success) && galah_config()$verbose) {
     list_invalid_taxa <- glue::glue_collapse(name, 
                                              sep = ", ")

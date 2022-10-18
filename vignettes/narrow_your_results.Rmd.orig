@@ -77,27 +77,21 @@ galah_call() |>
  atlas_counts()
 ```
 
-If you're using an international atlas, `search_taxa` won't work; instead you
-need to use the `taxize` package to look up the relevant identifiers. Most
-atlases use the GBIF taxonomic backbone, meaning that you can use the 
-`get_gbifid` function to download the relevant identifiers. These identifiers
-can then be passed directly to `galah_identify`.
+If you're using an international atlas, `search_taxa` will automatically 
+switch to using the local name-matching service. For example, Spain uses the
+GBIF taxonoimc backbone:
 
 ```{r}
 galah_config(atlas = "Spain")
 
-library(taxize)
-id <- get_gbifid("Lepus", messages = FALSE, rows = 1)
-
 galah_call() |> 
-  galah_identify(id) |> 
+  galah_identify("Lepus") |> 
   galah_group_by(species) |> 
   atlas_counts()
 ```
 
-The exception is the UK [National Biodiversity Network](https://nbn.org.uk) (NBN), 
-which has its' own taxonomic backbone (note this information is also given by
-`show_all_atlases()`). You can search the NBN taxonomy with `get_nbnid`.
+Conversely, the UK's [National Biodiversity Network](https://nbn.org.uk) (NBN), 
+has its' own taxonomic backbone, but is supported using the same function call.
 
 ```{r}
 galah_config(atlas = "United Kingdom")

@@ -44,6 +44,7 @@ Suggests:
     vcr (>= 0.6.0),
     covr,
     dplyr,
+    kableExtra,
     knitr,
     magrittr,
     pkgdown,

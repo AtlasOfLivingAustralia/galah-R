@@ -19,7 +19,8 @@ node_metadata <- read_csv("./data-raw/node_metadata.csv") |>
   # All other atlases use GBIF taxonomy
   # Order of priority is local-namematching > local-species > GBIF-namematching
   # France and Canada use GBIF due to lack of species service
-node_config <- read_csv("./data-raw/node_config.csv")
+node_config <- read_csv("./data-raw/node_config.csv") |> 
+  filter(atlas %in% node_metadata$atlas)
 
 # cached versions of some show_all functions
 # NOTE: may be necessaary to expand this given changes to show_all

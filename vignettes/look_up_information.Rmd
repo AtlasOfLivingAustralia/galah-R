@@ -1,7 +1,7 @@
 ---
 title: "Look up information"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-10-13'
+date: '2022-10-18'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -25,25 +25,25 @@ Functions with the prefix `show_all_` return a `tibble` doing exactly that
 return all accepted values as a tibble:
 
 
+
 ```r
 show_all_atlases()
 ```
 
 ```
-## # A tibble: 11 × 4
-##    atlas          institution                                                             acronym url                         
-##    <chr>          <chr>                                                                   <chr>   <chr>                       
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
-##  4 Canada         Candensys                                                               <NA>    http://www.canadensys.net   
-##  5 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
-##  6 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.mnhn.fr        
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
-## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
+## # A tibble: 10 × 4
+##    atlas          institution                                                             acronym url            
+##    <chr>          <chr>                                                                   <chr>   <chr>          
+##  1 Australia      Atlas of Living Australia                                               ALA     https://www.al…
+##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiv…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.…
+##  4 Estonia        eElurikkus                                                              <NA>    https://elurik…
+##  5 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.m…
+##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.c…
+##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gb…
+##  8 Spain          GBIF Spain                                                              GBIF.es https://www.gb…
+##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiv…
+## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.or…
 ```
 
 ```r
@@ -51,17 +51,22 @@ show_all_reasons()
 ```
 
 ```
-## # A tibble: 8 × 2
-##      id name                                                                                                                                                           
-##   <int> <chr>                                                                                                                                                          
-## 1     3 education|Download is for primary, secondary or tertiary educational purposes                                                                                  
-## 2    10 testing|Testing                                                                                                                                                
-## 3    13 statutory|Download is by a government-linked body or local authority for their statutory work                                                                  
-## 4    14 LERC work|Download is for use by a local environmental records centre to support the provision of its services                                                 
-## 5    15 public|Download is for personal use only                                                                                                                       
-## 6    16 volunteer researcher/publisher|Download may lead to amateur (non-funded) publication, which could include National or Local scheme collators and verifiers     
-## 7    17 professional researcher/publisher|Download may lead to professional publication (including universities, NGOs etc. where people are being paid to research and…
-## 8    18 commercial|Download is for the purposes of fulfilling a commercial contract
+## # A tibble: 13 × 2
+##       id name                            
+##    <int> <chr>                           
+##  1     0 conservation management/planning
+##  2     1 biosecurity management/planning 
+##  3     2 environmental assessment        
+##  4     3 education                       
+##  5     4 scientific research             
+##  6     5 collection management           
+##  7     6 other                           
+##  8     7 ecological research             
+##  9     8 systematic research/taxonomy    
+## 10    10 testing                         
+## 11    11 citizen science                 
+## 12    12 restoration/remediation         
+## 13    13 species modelling
 ```
 
 Of these functions, the one that has by far the largest output is 
@@ -76,19 +81,19 @@ show_all(fields) |>
 ```
 
 ```
-## # A tibble: 10 × 3
-##    id                    description                                                                                                                              type 
-##    <chr>                 <chr>                                                                                                                                    <chr>
-##  1 acceptedNameUsage     The full name, with authorship and date information if known, of the currently valid (zoological) or accepted (botanical) taxon.         fiel…
-##  2 acceptedNameUsageID   An identifier for the name usage (documented meaning of the name according to a source) of the currently valid (zoological) or accepted… fiel…
-##  3 accessRights          <NA>                                                                                                                                     fiel…
-##  4 all_image_url         <NA>                                                                                                                                     fiel…
-##  5 assertion_user_id     Assertions by user                                                                                                                       fiel…
-##  6 assertions            Record issues                                                                                                                            fiel…
-##  7 assertions_missing    <NA>                                                                                                                                     fiel…
-##  8 assertions_passed     <NA>                                                                                                                                     fiel…
-##  9 associatedMedia       A list (concatenated and separated) of identifiers (publication, global unique identifier, URI) of media associated with the Occurrence. fiel…
-## 10 associatedOccurrences A list (concatenated and separated) of identifiers of other Occurrence records and their associations to this Occurrence.                fiel…
+## # A tibble: 10 × 4
+##    id                    description                                                                  type  link 
+##    <chr>                 <chr>                                                                        <chr> <chr>
+##  1 abcdTypeStatus        ABCD field in use by herbaria                                                fiel… <NA> 
+##  2 acceptedNameUsage     http://rs.tdwg.org/dwc/terms/acceptedNameUsage                               fiel… <NA> 
+##  3 acceptedNameUsageID   http://rs.tdwg.org/dwc/terms/acceptedNameUsageID                             fiel… <NA> 
+##  4 accessRights          <NA>                                                                         fiel… <NA> 
+##  5 assertionUserId       User ID of the person who has made an assertion about this record            fiel… <NA> 
+##  6 assertions            A list of all assertions (user and system supplied) for a record resulting … fiel… <NA> 
+##  7 associatedMedia       http://rs.tdwg.org/dwc/terms/associatedMedia                                 fiel… <NA> 
+##  8 associatedOccurrences http://rs.tdwg.org/dwc/terms/associatedOccurrences                           fiel… <NA> 
+##  9 associatedOrganisms   http://rs.tdwg.org/dwc/terms/associatedOrganisms                             fiel… <NA> 
+## 10 associatedReferences  http://rs.tdwg.org/dwc/terms/associatedReferences                            fiel… <NA>
 ```
 
 One way to browse all fields is to use `View()` or `dplyr::view()` to open the 
@@ -124,9 +129,10 @@ search_taxa("reptilia")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term taxon_concept_id scientific_name scientific_name_authorship rank  kingdom  superclass phylum   class   
-##   <chr>       <chr>            <chr>           <chr>                      <chr> <chr>    <chr>      <chr>    <chr>   
-## 1 reptilia    NHMSYS0000375236 Reptilia        Laurenti, 1768             class Animalia Tetrapoda  Chordata Reptilia
+##   search_term scientific_name taxon_concept_id                          rank  match…¹ kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                     <chr> <chr>   <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682… class exactM… Animal… Chord… Rept… noIss…
+## # … with abbreviated variable name ¹​match_type
 ```
 
 ```r
@@ -134,7 +140,14 @@ search_taxa("reptilia", "aves", "mammalia", "pisces")
 ```
 
 ```
-## Error in (function (..., row.names = NULL, check.rows = FALSE, check.names = TRUE, : arguments imply differing number of rows: 1, 0
+## # A tibble: 4 × 10
+##   search_term scientific_name taxon_concept_id                  rank  match…¹ kingdom phylum class issues verna…²
+##   <chr>       <chr>           <chr>                             <chr> <chr>   <chr>   <chr>  <chr> <chr>  <chr>  
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/… class exactM… Animal… Chord… Rept… noIss… <NA>   
+## 2 aves        AVES            https://biodiversity.org.au/afd/… class exactM… Animal… Chord… Aves  noIss… Birds  
+## 3 mammalia    MAMMALIA        https://biodiversity.org.au/afd/… class exactM… Animal… Chord… Mamm… noIss… Mammals
+## 4 pisces      PISCES          https://biodiversity.org.au/afd/… <NA>  exactM… Animal… Chord… <NA>  noIss… Fishes 
+## # … with abbreviated variable names ¹​match_type, ²​vernacular_name
 ```
 
 Alternatively, `search_identifiers` is the partner function to `search_taxa`. 
@@ -147,9 +160,11 @@ search_identifiers("urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-83
 ```
 
 ```
-## Error in `FUN()`:
-## ! `search_identifiers` only provides information on Australian taxonomy.
-## ℹ To search for a species name, use `search_taxa()` instead.
+## # A tibble: 1 × 8
+##   scientific_name taxon_concept_id                                      rank  match…¹ kingdom phylum class issues
+##   <chr>           <chr>                                                 <chr> <chr>   <chr>   <chr>  <chr> <chr> 
+## 1 REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-4… class taxonI… Animal… Chord… Rept… noIss…
+## # … with abbreviated variable name ¹​match_type
 ```
 
 Sifting through the output of `show_all_fields` to find a specific field can be 
@@ -163,15 +178,15 @@ search_fields("date") |> head()
 ```
 
 ```
-## # A tibble: 6 × 3
-##   id             description                                                                                                                                      type 
-##   <chr>          <chr>                                                                                                                                            <chr>
-## 1 eventDate      The date-time or interval during which an Event occurred. For occurrences, this is the date-time when the event was recorded. Not suitable for … fiel…
-## 2 dateDeleted    <NA>                                                                                                                                             fiel…
-## 3 modified_date  <NA>                                                                                                                                             fiel…
-## 4 dateIdentified The date on which the subject was identified as representing the Taxon. Recommended best practice is to use an encoding scheme, such as ISO 860… fiel…
-## 5 date_precision Date precision                                                                                                                                   fiel…
-## 6 last_load_date <NA>                                                                                                                                             fiel…
+## # A tibble: 6 × 4
+##   id           description                                                                            type  link 
+##   <chr>        <chr>                                                                                  <chr> <chr>
+## 1 month        "Month of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/month"   fiel… <NA> 
+## 2 cl23         "Local Government Areas 2012 deprecated LGA Boundaries (superceeded by update Local G… laye… http…
+## 3 eventDate    "The ISO formatted date of observation, specimen collection date. http://rs.tdwg.org/… fiel… <NA> 
+## 4 cl10903      "Tenure of Australia's forests (2013) v2.0 Tenure of Australia's forests (2013) v2.0 … laye… http…
+## 5 cl10955      "National Indicative Aggregated Fire Extent Dataset 2019-2020 - v20200324 The Nationa… laye… http…
+## 6 lastLoadDate  <NA>                                                                                  fiel… <NA>
 ```
 
 # `show_values()` & `search_values()`
@@ -181,19 +196,22 @@ to `galah_filter`.
 
 
 ```r
-search_field_values("basisOfRecord")
+show_field_values("basisOfRecord")
 ```
 
 ```
-## Warning: We didn't detect a valid query.
-## ℹ Try entering text to search for matching values.
-```
-
-```
-## Error in `search_field_values()`:
-## ! Invalid field detected.
-## ℹ Search for the valid name of a desired field with `search_fields()`.
-## ✖ "basisOfRecord" is not a valid field.
+## # A tibble: 9 × 2
+##   field         category           
+##   <chr>         <chr>              
+## 1 basisOfRecord HUMAN_OBSERVATION  
+## 2 basisOfRecord PRESERVED_SPECIMEN 
+## 3 basisOfRecord OBSERVATION        
+## 4 basisOfRecord OCCURRENCE         
+## 5 basisOfRecord MACHINE_OBSERVATION
+## 6 basisOfRecord MATERIAL_SAMPLE    
+## 7 basisOfRecord LIVING_SPECIMEN    
+## 8 basisOfRecord MATERIAL_CITATION  
+## 9 basisOfRecord FOSSIL_SPECIMEN
 ```
 
 ```r
@@ -203,17 +221,10 @@ galah_call() |>
 ```
 
 ```
-## Warning: Invalid field(s) detected.
-## ℹ See a listing of all valid fields with `show_all_fields()`.
-## ℹ Search for the valid name of a desired field with `search_fields()`.
-## ✖ Invalid field(s): basisOfRecord.
-```
-
-```
 ## # A tibble: 1 × 1
-##   count
-##   <int>
-## 1     0
+##    count
+##    <int>
+## 1 213918
 ```
 
 `search_profile_attributes` gives more information on criteria used
@@ -221,22 +232,28 @@ to remove records in data quality profiles, for example:
 
 
 ```r
-search_profile_attributes("ALA") |> head()
+search_profiles("ALA") |> show_values() |> head()
 ```
 
 ```
-## Warning: `search_profile_attributes()` was deprecated in galah 1.5.0.
-## Please use `search_profiles('query') |> show_values()` instead.
+## ! Search returned 2 matched profiles.
+## • Showing values for 'ALA'.
 ```
 
 ```
-## Error in `show_all_profiles()` at ]8;line=398:col=2;file://C:\Users\KEL329\OneDrive - CSIRO\Documents\ALA\Github\galah\R\search_all.Rgalah/R/search_all.R:398:2]8;;:
-## ! The `profiles_all` API is not available for the selected atlas (United Kingdom)
-## ℹ Use `show_all_apis()` to list valid API calls
+## # A tibble: 6 × 2
+##   description                                                                                              filter
+##   <chr>                                                                                                    <chr> 
+## 1 "Exclude all records where spatial validity is \"false\""                                                "-spa…
+## 2 "Exclude all records with an assertion that the scientific name provided does not match any of the name… "-ass…
+## 3 "Exclude all records with an assertion that the scientific name provided is not structured as a valid s… "-ass…
+## 4 "Exclude all records with an assertion that the name and classification supplied can't be used to choos… "-ass…
+## 5 "Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g. Animali… "-ass…
+## 6 "Exclude all records with an assertion that the scientific name provided in the record does not match t… "-ass…
 ```
 
 
-# `show_all()` & search_all()
+# `show_all()` & `search_all()`
 
 As of galah 1.5.0, there are two simplified functions to look up information: 
 `show_all()` and `search_all()`. 
@@ -252,20 +269,19 @@ show_all(atlases)
 ```
 
 ```
-## # A tibble: 11 × 4
-##    atlas          institution                                                             acronym url                         
-##    <chr>          <chr>                                                                   <chr>   <chr>                       
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
-##  4 Canada         Candensys                                                               <NA>    http://www.canadensys.net   
-##  5 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
-##  6 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.mnhn.fr        
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
-## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
+## # A tibble: 10 × 4
+##    atlas          institution                                                             acronym url            
+##    <chr>          <chr>                                                                   <chr>   <chr>          
+##  1 Australia      Atlas of Living Australia                                               ALA     https://www.al…
+##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiv…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.…
+##  4 Estonia        eElurikkus                                                              <NA>    https://elurik…
+##  5 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.m…
+##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.c…
+##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gb…
+##  8 Spain          GBIF Spain                                                              GBIF.es https://www.gb…
+##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiv…
+## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.or…
 ```
 
 To search for a specific available Living Atlas:
@@ -297,8 +313,11 @@ search_all(fields, "australian states")
 ```
 
 ```
-## # A tibble: 0 × 3
-## # … with 3 variables: id <chr>, description <chr>, type <chr>
+## # A tibble: 2 × 4
+##   id     description                                                                                  type  link 
+##   <chr>  <chr>                                                                                        <chr> <chr>
+## 1 cl2013 ASGS Australian States and Territories Australian Statistical Geography Standard  Australia… laye… http…
+## 2 cl22   Australian States and Territories Australian States and Territories                          laye… http…
 ```
 
 

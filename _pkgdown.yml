@@ -73,7 +73,6 @@ reference:
   - show_values
 - title: Manage cache
   contents:
-  - show_all_cached_files
   - clear_cached_files
 - title: Configure session
   contents: galah_config

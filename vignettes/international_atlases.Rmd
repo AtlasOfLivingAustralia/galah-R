@@ -1,7 +1,7 @@
 ---
 title: "International Atlases"
 author: "Martin Westgate, Dax Kellie"
-date: '2022-10-13'
+date: '2022-10-18'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -31,20 +31,19 @@ show_all_atlases()
 ```
 
 ```
-## # A tibble: 11 × 4
-##    atlas          institution                                                             acronym url                         
-##    <chr>          <chr>                                                                   <chr>   <chr>                       
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
-##  4 Canada         Candensys                                                               <NA>    http://www.canadensys.net   
-##  5 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
-##  6 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.mnhn.fr        
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
-## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
+## # A tibble: 10 × 4
+##    atlas          institution                                                             acronym url            
+##    <chr>          <chr>                                                                   <chr>   <chr>          
+##  1 Australia      Atlas of Living Australia                                               ALA     https://www.al…
+##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiv…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.…
+##  4 Estonia        eElurikkus                                                              <NA>    https://elurik…
+##  5 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.m…
+##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.c…
+##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gb…
+##  8 Spain          GBIF Spain                                                              GBIF.es https://www.gb…
+##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiv…
+## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.or…
 ```
 
 Some atlases support more types of data queries than others (e.g. counts, 
@@ -59,13 +58,19 @@ show_all_apis()
 
 ```
 ## # A tibble: 179 × 5
-##   atlas     system       api_name                api_url                                                      called_by           
-##   <chr>     <chr>        <chr>                   <chr>                                                        <chr>               
-## 1 Australia collections  collections_collections https://collections.ala.org.au/ws/collection                 show_all_collections
-## 2 Australia collections  collections_datasets    https://collections.ala.org.au/ws/dataResource               show_all_datasets   
-## 3 Australia collections  collections_providers   https://collections.ala.org.au/ws/dataProvider               show_all_providers  
-## 4 Australia data-quality profiles_all            https://data-quality-service.ala.org.au/api/v1/data-profiles show_all_profiles   
-## # … with 175 more rows
+##    atlas     system       api_name                api_url                                                 calle…¹
+##    <chr>     <chr>        <chr>                   <chr>                                                   <chr>  
+##  1 Australia collections  collections_collections https://collections.ala.org.au/ws/collection            show_a…
+##  2 Australia collections  collections_datasets    https://collections.ala.org.au/ws/dataResource          show_a…
+##  3 Australia collections  collections_providers   https://collections.ala.org.au/ws/dataProvider          show_a…
+##  4 Australia data-quality profiles_all            https://data-quality-service.ala.org.au/api/v1/data-pr… show_a…
+##  5 Australia data-quality profiles_lookup         https://data-quality-service.ala.org.au/api/v1/quality… show_p…
+##  6 Australia doi          doi_download            https://apis.ala.org.au/doi/api/doi/{doi_string}/downl… doi_do…
+##  7 Australia images       image_licences          https://images.ala.org.au/ws/licence                    show_a…
+##  8 Australia images       image_metadata          https://images.ala.org.au/ws/image/{id}                 media_…
+##  9 Australia lists        lists_all               https://lists.ala.org.au/ws/speciesList                 show_a…
+## 10 Australia lists        lists_lookup            https://lists.ala.org.au/ws/speciesListItems/{list_id}  show_l…
+## # … with 169 more rows, and abbreviated variable name ¹​called_by
 ```
 
 ## Set Atlas
@@ -96,13 +101,19 @@ show_all_datasets()
 
 ```
 ## # A tibble: 522 × 3
-##   name                                                                                                                                                      uri   uid  
-##   <chr>                                                                                                                                                     <chr> <chr>
-## 1 A Distribution and Taxonomic Reference Dataset of Geranium (Geraniaceae) in the New World                                                                 http… dr321
-## 2 A global database for the distributions of crop wild relatives                                                                                            http… dr12 
-## 3 A matrix-based revision of the genus Hypogena Dejean, 1834 (Coleoptera Tenebrionidae)                                                                     http… dr467
-## 4 A new Mexican species of Chrysina Kirby (Coleoptera: Scarabaeidae: Rutelinae), with nomenclatural changes, new records, and a key to the C. quiche speci… http… dr554
-## # … with 518 more rows
+##    name                                                                                               uri   uid  
+##    <chr>                                                                                              <chr> <chr>
+##  1 A Distribution and Taxonomic Reference Dataset of Geranium (Geraniaceae) in the New World          http… dr321
+##  2 A global database for the distributions of crop wild relatives                                     http… dr12 
+##  3 A matrix-based revision of the genus Hypogena Dejean, 1834 (Coleoptera Tenebrionidae)              http… dr467
+##  4 A new Mexican species of Chrysina Kirby (Coleoptera: Scarabaeidae: Rutelinae), with nomenclatural… http… dr554
+##  5 A new species of Setostylus Matile and new records of Setostylus bellulus (Williston) (Diptera: K… http… dr538
+##  6 A revision of the genus Bromeloecia Spuler (Diptera: Sphaeroceridae: Limosininae)                  http… dr481
+##  7 A synopsis of American Caraphia Gahan, 1906 (Coleoptera: Cerambycidae: Lepturinae) with descripti… http… dr539
+##  8 A synopsis of the Neotropical genus Protoneura (Odonata: Coenagrionidae)                           http… dr448
+##  9 A systematic revision of the genus Archocentrus (Perciformes: Cichlidae), with the description of… http… dr362
+## 10 A taxonomic monograph of the genus Tylodinus Champion (Coleoptera: Curculionidae: Cryptorhynchina… http… dr564
+## # … with 512 more rows
 ```
 
 ```r
@@ -111,13 +122,19 @@ show_all_fields()
 
 ```
 ## # A tibble: 129 × 4
-##   id                 description                                                                                        type   link 
-##   <chr>              <chr>                                                                                              <chr>  <chr>
-## 1 all_image_url      Image URLs for this record                                                                         fields <NA> 
-## 2 assertion_user_id  User ID of the person who has made an assertion about this record                                  fields <NA> 
-## 3 assertions         A list of all assertions (user and system supplied) for a record resulting from data quality tests fields <NA> 
-## 4 assertions_missing Assertion indicating missing field values for a record. E.g. missing basis of record               fields <NA> 
-## # … with 125 more rows
+##    id                   description                                                                   type  link 
+##    <chr>                <chr>                                                                         <chr> <chr>
+##  1 all_image_url        Image URLs for this record                                                    fiel… <NA> 
+##  2 assertion_user_id    User ID of the person who has made an assertion about this record             fiel… <NA> 
+##  3 assertions           A list of all assertions (user and system supplied) for a record resulting f… fiel… <NA> 
+##  4 assertions_missing   Assertion indicating missing field values for a record. E.g. missing basis o… fiel… <NA> 
+##  5 assertions_passed    Assertion indicating a data quality test has been passed by this record       fiel… <NA> 
+##  6 assertions_unchecked Assertion indicating a data quality test was not performed for this record t… fiel… <NA> 
+##  7 basis_of_record      The basis of record e.g. Specimen, Observation http://rs.tdwg.org/dwc/terms/… fiel… <NA> 
+##  8 catalogue_number     http://rs.tdwg.org/dwc/terms/catalogNumber                                    fiel… <NA> 
+##  9 class                The class the Atlas has matched this record to in the NSL http://rs.tdwg.org… fiel… <NA> 
+## 10 collection_code      The collection code for this record. This will be populated if the data has … fiel… <NA> 
+## # … with 119 more rows
 ```
 
 ```r
@@ -126,11 +143,11 @@ search_fields("year")
 
 ```
 ## # A tibble: 3 × 4
-##   id              description                                                                                                              type   link 
-##   <chr>           <chr>                                                                                                                    <chr>  <chr>
-## 1 year            http://rs.tdwg.org/dwc/terms/year                                                                                        fields <NA> 
-## 2 occurrence_year Year ranges for a search. Calculated based on the unique values for a query.                                             fields <NA> 
-## 3 date_precision  The precision of the date information for the record. Values include 'Day', 'Month', 'Year', 'Year range', 'Month range' fields <NA>
+##   id              description                                                                         type  link 
+##   <chr>           <chr>                                                                               <chr> <chr>
+## 1 year            http://rs.tdwg.org/dwc/terms/year                                                   fiel… <NA> 
+## 2 occurrence_year Year ranges for a search. Calculated based on the unique values for a query.        fiel… <NA> 
+## 3 date_precision  The precision of the date information for the record. Values include 'Day', 'Month… fiel… <NA>
 ```
 
 ```r
@@ -139,9 +156,10 @@ search_taxa("lagomorpha")
 
 ```
 ## # A tibble: 1 × 12
-##   search_term taxon_concept_id scientific_name             scientific_name_authorship rank    kingdom  phylum     class   order   family        genus           species
-##   <chr>       <chr>            <chr>                       <chr>                      <chr>   <chr>    <chr>      <chr>   <chr>   <chr>         <chr>           <chr>  
-## 1 lagomorpha  1561720          Scaptodrosophila lagomorpha (Okada & Carson, 1982)     species Animalia Arthropoda Insecta Diptera Drosophilidae Scaptodrosophi… Scapto…
+##   search_term taxon_concept_id scientific_name      scien…¹ rank  kingdom phylum class order family genus species
+##   <chr>       <chr>            <chr>                <chr>   <chr> <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>  
+## 1 lagomorpha  1561720          Scaptodrosophila la… (Okada… spec… Animal… Arthr… Inse… Dipt… Droso… Scap… Scapto…
+## # … with abbreviated variable name ¹​scientific_name_authorship
 ```
 
 
@@ -153,16 +171,13 @@ returning the correct taxonomic data.
 
 
 ```r
-galah_config(atlas = "Canada")
+galah_config(atlas = "United Kingdom")
 
 search_taxa("vlps")   # Returns no data due to misspelling
 ```
 
 ```
-## # A tibble: 1 × 2
-##   search_term match_type
-##   <chr>       <chr>     
-## 1 vlps        NONE
+## Error in data.frame(..., check.names = FALSE): arguments imply differing number of rows: 1, 0
 ```
 
 ```r
@@ -171,9 +186,10 @@ search_taxa("vulpes") # Returns data
 
 ```
 ## # A tibble: 1 × 13
-##   search_term taxon_concept_id scientific_name     canonical_name rank  status   match_type kingdom  phylum   order     family  genus  class   
-##   <chr>                  <int> <chr>               <chr>          <chr> <chr>    <chr>      <chr>    <chr>    <chr>     <chr>   <chr>  <chr>   
-## 1 vulpes               5219234 Vulpes Frisch, 1775 Vulpes         GENUS ACCEPTED EXACT      Animalia Chordata Carnivora Canidae Vulpes Mammalia
+##   search_term taxon_concept_id scientific…¹ scien…² rank  kingdom super…³ order class genus phylum family species
+##   <chr>       <chr>            <chr>        <chr>   <chr> <chr>   <chr>   <chr> <chr> <chr> <chr>  <chr>  <chr>  
+## 1 vulpes      NHMSYS0000080188 Vulpes vulp… (Linna… spec… Animal… Tetrap… Carn… Mamm… Vulp… Chord… Canid… Vulpes…
+## # … with abbreviated variable names ¹​scientific_name, ²​scientific_name_authorship, ³​superclass
 ```
 
 ```r
@@ -187,7 +203,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##   count
 ##   <int>
-## 1    10
+## 1 97221
 ```
 
 Download species occurrence records from other atlases with 
@@ -241,7 +257,9 @@ tibble(
 ```
 
 ```
-## Error in `round()`:
+## Error in `resolve_cols_i()`:
+## ! Problem while evaluating `round(n, 0)`.
+## Caused by error in `round()`:
 ## ! non-numeric argument to mathematical function
 ```
 

@@ -104,6 +104,8 @@ media_data <- galah_call() |>
   galah_identify("Eolophus roseicapilla") |>
   galah_filter(year == 2020) |>
   atlas_media(download_dir = "media")
+  
+media_data
 ```
 
 # Taxonomic trees

@@ -76,7 +76,7 @@ queries, use `search_taxa()` to make sure your searches are
 returning the correct taxonomic data.
 
 ```{r}
-galah_config(atlas = "Canada")
+galah_config(atlas = "United Kingdom")
 
 search_taxa("vlps")   # Returns no data due to misspelling
 search_taxa("vulpes") # Returns data

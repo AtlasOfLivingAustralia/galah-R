@@ -23,6 +23,9 @@ Functions with the prefix `show_all_` return a `tibble` doing exactly that
 
 `show_all_` functions require no arguments. Simply call the function and it will 
 return all accepted values as a tibble:
+```{r, echo = FALSE}
+galah_config(atlas = "Australia")
+```
 
 ```{r}
 show_all_atlases()
@@ -93,7 +96,7 @@ Once a desired field is found, use `search_field_values` to find values to pass
 to `galah_filter`.
 
 ```{r}
-search_field_values("basisOfRecord")
+show_field_values("basisOfRecord")
 galah_call() |> 
   galah_filter(basisOfRecord == "LIVING_SPECIMEN") |> 
   atlas_counts()
@@ -103,11 +106,11 @@ galah_call() |>
 to remove records in data quality profiles, for example:
 
 ```{r}
-search_profile_attributes("ALA") |> head()
+search_profiles("ALA") |> show_values() |> head()
 ```
 
 
-# `show_all()` & search_all()
+# `show_all()` & `search_all()`
 
 As of galah 1.5.0, there are two simplified functions to look up information: 
 `show_all()` and `search_all()`. 

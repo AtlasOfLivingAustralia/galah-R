@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-10-13'
+date: '2022-10-18'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -56,20 +56,19 @@ show_all_atlases()
 ```
 
 ```
-## # A tibble: 11 × 4
-##    atlas          institution                                                             acronym url                         
-##    <chr>          <chr>                                                                   <chr>   <chr>                       
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
-##  4 Canada         Candensys                                                               <NA>    http://www.canadensys.net   
-##  5 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
-##  6 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.mnhn.fr        
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
-## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
+## # A tibble: 10 × 4
+##    atlas          institution                                                             acronym url            
+##    <chr>          <chr>                                                                   <chr>   <chr>          
+##  1 Australia      Atlas of Living Australia                                               ALA     https://www.al…
+##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiv…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.…
+##  4 Estonia        eElurikkus                                                              <NA>    https://elurik…
+##  5 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.m…
+##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.c…
+##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gb…
+##  8 Spain          GBIF Spain                                                              GBIF.es https://www.gb…
+##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiv…
+## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.or…
 ```
 
 Use `galah_config()` to set the Atlas to use. This will automatically populate the 
@@ -93,7 +92,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 114048208
+## 1 114080945
 ```
 
 To pass more complex queries, start with the `galah_call()` function and pipe
@@ -111,7 +110,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 14573041
+## 1 14604620
 ```
 
 To narrow the search to a particular taxonomic group, use `galah_identify()`. Note
@@ -126,9 +125,10 @@ search_taxa("reptilia") # Check whether taxonomic info is correct
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                                          rank  match_type kingdom  phylum   class    issues 
-##   <chr>       <chr>           <chr>                                                                     <chr> <chr>      <chr>    <chr>    <chr>    <chr>  
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chordata Reptilia noIssue
+##   search_term scientific_name taxon_concept_id                          rank  match…¹ kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                     <chr> <chr>   <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682… class exactM… Animal… Chord… Rept… noIss…
+## # … with abbreviated variable name ¹​match_type
 ```
 
 ```r
@@ -142,7 +142,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##   count
 ##   <int>
-## 1 88811
+## 1 89643
 ```
 
 # Downloading records
@@ -170,25 +170,16 @@ result |> head()
 
 ```
 ## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate            scientificName    taxonConceptID                                                recor…¹ dataR…² occur…³ basis…⁴
-##             <dbl>            <dbl> <chr>                <chr>             <chr>                                                         <chr>   <chr>   <chr>   <chr>  
-## 1           -43.4             147. 2020-09-04T14:00:00Z Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511… e8045b… FrogID  PRESENT HUMAN_…
-## 2           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511… 44187a… FrogID  PRESENT HUMAN_…
-## 3           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511… bc34a7… FrogID  PRESENT HUMAN_…
-## 4           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511… ca4707… FrogID  PRESENT HUMAN_…
-## 5           -43.4             146. 2020-01-01T13:00:00Z Litoria burrowsae https://biodiversity.org.au/afd/taxa/e9f41129-f946-4e81-889b… 9c71f5… FrogID  PRESENT HUMAN_…
-## 6           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511… 4bbaad… FrogID  PRESENT HUMAN_…
-## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​basisOfRecord
+##   decimalLatitude decimalLongitude eventDate            scientificName    taxon…¹ recor…² dataR…³ occur…⁴ basis…⁵
+##             <dbl>            <dbl> <chr>                <chr>             <chr>   <chr>   <chr>   <chr>   <chr>  
+## 1           -43.4             147. 2020-09-04T14:00:00Z Litoria ewingii   https:… e8045b… FrogID  PRESENT HUMAN_…
+## 2           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https:… 44187a… FrogID  PRESENT HUMAN_…
+## 3           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https:… bc34a7… FrogID  PRESENT HUMAN_…
+## 4           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https:… ca4707… FrogID  PRESENT HUMAN_…
+## 5           -43.4             146. 2020-01-01T13:00:00Z Litoria burrowsae https:… 9c71f5… FrogID  PRESENT HUMAN_…
+## 6           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https:… 4bbaad… FrogID  PRESENT HUMAN_…
+## # … with abbreviated variable names ¹​taxonConceptID, ²​recordID, ³​dataResourceName, ⁴​occurrenceStatus,
+## #   ⁵​basisOfRecord
 ```
 
 Check out our other vignettes for more detail on how to use these functions.
-
-# Function map
-Not all `atlas_` functions support all possible query modifiers (i.e. functions
-with a `search_` or `galah_` prefix). A network diagram showing accepted arguments
-is shown below. Note that if you pipe your queries starting with `galah_call()`,
-then irrelevant arguments will be (silently) ignored. 
-
-
-<img src="galah-DiagrammeR-plot.png" title="plot of function relationships" alt="plot of function relationships" width="100%" />
-
