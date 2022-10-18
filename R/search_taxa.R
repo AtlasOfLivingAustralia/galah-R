@@ -81,11 +81,9 @@ search_taxa <- function(...) {
     ){
       query <- unlist(query)
     }
-  } 
- 
-  matches <- remove_parentheses(query) |> 
-    name_query() |>
-    as_tibble()
+  }
+  
+  matches <- remove_parentheses(query) |> name_query()
     
   if(is.null(matches) & galah_config()$verbose){
     bullets <- c(

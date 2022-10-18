@@ -287,7 +287,8 @@ search_collections <- function(query){
   check_if_missing(query)
   df <- show_all_collections()
   attr(df, "call") <- "search_collections"
-  df[grepl(tolower(query), tolower(df$name)), ]
+  df[with(df, grepl(tolower(query), 
+                    paste(tolower(df$name), tolower(df$uid)))), ]
 }
 
 
@@ -297,7 +298,8 @@ search_datasets <- function(query){
   check_if_missing(query)
   df <- show_all_datasets()
   attr(df, "call") <- "search_datasets"
-  df[grepl(tolower(query), tolower(df$name)), ]
+  df[with(df, grepl(tolower(query), 
+                    paste(tolower(df$name), tolower(df$uid)))), ]
 }
 
 
@@ -307,7 +309,8 @@ search_providers <- function(query){
   check_if_missing(query)
   df <- show_all_providers()
   attr(df, "call") <- "search_providers"
-  df[grepl(tolower(query), tolower(df$name)), ]
+  df[with(df, grepl(tolower(query), 
+                    paste(tolower(df$name), tolower(df$uid)))), ]
 }
 
 

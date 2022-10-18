@@ -83,10 +83,9 @@ test_that("atlas_occurrences works for United Kingdom", {
     atlas = "United Kingdom",
     email = "ala4r@ala.org.au",
     send_email = FALSE)
-  skip_on_cran()
   occ <- galah_call() |>
-    galah_identify("Lagomorpha") |>
-    galah_filter(year >= 1900 & basis_of_record == PreservedSpecimen) |>
+    galah_identify("Mammalia") |>
+    galah_filter(year <= 1900 & basis_of_record == PreservedSpecimen) |>
     galah_select(taxon_name, year) |>
     atlas_occurrences()
   expect_gt(nrow(occ), 0)

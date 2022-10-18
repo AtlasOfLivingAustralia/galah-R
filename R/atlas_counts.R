@@ -100,10 +100,9 @@ atlas_counts <- function(request = NULL,
                          data_profile = NULL,
                          group_by = NULL, 
                          limit = 100,
-                         type = c("record" ,"species"),
+                         type = c("record", "species"),
                          refresh_cache = FALSE
                          ) {
-                           
   type <- match.arg(type)
 
   if(!is.null(request)){

@@ -2,7 +2,7 @@ atlas,institution,acronym,url,supported
 Australia,Atlas of Living Australia,ALA,https://www.ala.org.au,TRUE
 Austria,Biodiversitäts-Atlas Österreich,BAO,https://biodiversityatlas.at,TRUE
 Brazil,Sistemas de Informações sobre a Biodiversidade Brasileira,SiBBr,https://sibbr.gov.br,TRUE
-Canada,Candensys,NA,http://www.canadensys.net,TRUE
+Canada,Candensys,NA,http://www.canadensys.net,FALSE
 Estonia,eElurikkus,NA,https://elurikkus.ee,TRUE
 France,Inventaire National du Patrimoine Naturel,INPN,https://inpn.mnhn.fr,TRUE
 Guatemala,Sistema Nacional de Información sobre Diversidad Biológica de Guatemala,SNIBgt,https://snib.conap.gob.gt,TRUE

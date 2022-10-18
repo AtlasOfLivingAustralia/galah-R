@@ -248,15 +248,19 @@ build_query <- function(identify, filter, location, select = NULL,
     query <- list(fq = c(taxa_query, filter_query)) 
   } 
   
+  # geographic stuff
   if (is.null(location)) {
     area_query <- NULL
   } else {
     area_query <- location
     query$wkt <- area_query
   }
+  
   if (check_for_caching(taxa_query, filter_query, area_query, select)) {
     query <- cached_query(taxa_query, filter_query, area_query)
   }
+
+  # add profiles information (ALA only)  
   if (getOption("galah_config")$atlas == "Australia") {
     if (!is.null(profile)) {
       query$qualityProfile <- profile
@@ -264,6 +268,7 @@ build_query <- function(identify, filter, location, select = NULL,
       query$disableAllQualityFilters <- "true"
     }
   }
+  
   query
 }
 

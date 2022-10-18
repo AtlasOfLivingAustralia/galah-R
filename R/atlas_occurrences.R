@@ -250,7 +250,7 @@ atlas_occurrences_internal <- function(identify = NULL,
   }
 
   tryCatch(
-    df <- read.csv(unz(data_path, "data.csv"), stringsAsFactors = FALSE),
+    result_df <- read.csv(unz(data_path, "data.csv"), stringsAsFactors = FALSE),
     error = function(e) {
       bullets <- c(
         "There was a problem reading the occurrence data and it looks like no data were returned.",
@@ -262,17 +262,17 @@ atlas_occurrences_internal <- function(identify = NULL,
   )
 
   # rename cols so they match requested cols
-  names(df) <- rename_columns(names(df), type = "occurrence")
+  names(result_df) <- rename_columns(names(result_df), type = "occurrence")
 
   # replace 'true' and 'false' with boolean
   if (nrow(assertion_select) > 0) {
-    df <- fix_assertion_cols(df, assertion_select$name)
+    result_df <- fix_assertion_cols(result_df, assertion_select$name)
   }
 
   # add DOI as attribute
-  df <- as_tibble(df)
-  attr(df, "doi") <- get_doi(mint_doi, data_path)
-  df
+  result_df <- as_tibble(result_df)
+  attr(result_df, "doi") <- get_doi(mint_doi, data_path)
+  result_df
 }
 
 

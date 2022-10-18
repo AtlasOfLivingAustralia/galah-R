@@ -192,7 +192,6 @@ show_all_atlases <- function() {
 
 #' @rdname show_all
 #' @export show_all_cached_files
-
 show_all_cached_files <- function() {
   # return a data.frame of all cached files
   metadata_path <- file.path(getOption("galah_config")$cache_directory,
