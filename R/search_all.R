@@ -24,20 +24,20 @@
 #' 
 #' | **Category** | **Type** | **Description** | **Sub-functions** |
 #' |---|---|---|---|
-#' | configuration  |`atlases`| Search for what atlases are available | [search_atlases()]|
-#' | |`apis`| Search for what APIs & functions are available for each atlas | [search_apis()]|
-#' | |`reasons`| Search for what values are acceptable as 'download reasons' for a specified atlas | [search_reasons()]|
-#' | taxonomy | `taxa` | Search for one or more taxonomic names | [search_taxa()] |
-#' | |`identifiers`| Take a universal identifier and return taxonomic information | [search_identifiers()] |
-#' | |`ranks`| Search for valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) | [search_ranks()]) |
-#' | filters |`fields`| Search for fields that are stored in an atlas | [search_fields()] |
-#'  | |`assertions`| Search for results of data quality checks run by each atlas | [search_assertions()] |
+#' | configuration  |`atlases`| Search for what atlases are available | `search_atlases()`|
+#' | |`apis`| Search for what APIs & functions are available for each atlas | `search_apis()`|
+#' | |`reasons`| Search for what values are acceptable as 'download reasons' for a specified atlas | `search_reasons()`|
+#' | taxonomy | `taxa` | Search for one or more taxonomic names | `search_taxa()` |
+#' | |`identifiers`| Take a universal identifier and return taxonomic information | `search_identifiers()` |
+#' | |`ranks`| Search for valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) | `search_ranks()` |
+#' | filters |`fields`| Search for fields that are stored in an atlas | `search_fields()` |
+#'  | |`assertions`| Search for results of data quality checks run by each atlas | `search_assertions()` |
 #' | |`licenses`| Search for copyright licences applied to media | `search_licenses()`|
-#' |group filters|`profiles`| Search for what data profiles are available | [search_profiles()] |
+#' |group filters|`profiles`| Search for what data profiles are available | `search_profiles()` |
 #' | |`lists`| Search for what species lists are available| `search_lists()` |
-#' |data providers|`providers`| Search for which institutions have provided data | [search_providers()]|
-#' | |`collections`|Search for the specific collections within those institutions| [search_collections()]|
-#' | |`datasets`|Search for the data groupings within those collections| [search_datasets()]|  
+#' |data providers|`providers`| Search for which institutions have provided data | `search_providers()`|
+#' | |`collections`|Search for the specific collections within those institutions| `search_collections()`|
+#' | |`datasets`|Search for the data groupings within those collections| `search_datasets()`|  
 #' 
 #' 
 #' @aliases search_all
@@ -141,7 +141,7 @@
 #' 
 #' ## Identifiers
 #' 
-#' Look up a unique taxon identifier (See [search_identifier()] for more info)
+#' Look up a unique taxon identifier (See [search_identifiers()] for more info)
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
 #' search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
@@ -203,6 +203,7 @@ NULL
 
 #' search atlas metadata
 #' @param type A string to specify what type of parameters should be searched.
+#' @importFrom utils adist
 #' @rdname search_all
 #' @export search_all
 search_all <- function(type, query){

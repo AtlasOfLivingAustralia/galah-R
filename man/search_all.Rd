@@ -71,20 +71,20 @@ There are five categories of information, each with their own
 specific sub-functions to look-up each type of information.
 The available types of information for \code{search_all()} are:\tabular{llll}{
    \strong{Category} \tab \strong{Type} \tab \strong{Description} \tab \strong{Sub-functions} \cr
-   configuration \tab \code{atlases} \tab Search for what atlases are available \tab \code{\link[=search_atlases]{search_atlases()}} \cr
-    \tab \code{apis} \tab Search for what APIs & functions are available for each atlas \tab \code{\link[=search_apis]{search_apis()}} \cr
-    \tab \code{reasons} \tab Search for what values are acceptable as 'download reasons' for a specified atlas \tab \code{\link[=search_reasons]{search_reasons()}} \cr
-   taxonomy \tab \code{taxa} \tab Search for one or more taxonomic names \tab \code{\link[=search_taxa]{search_taxa()}} \cr
-    \tab \code{identifiers} \tab Take a universal identifier and return taxonomic information \tab \code{\link[=search_identifiers]{search_identifiers()}} \cr
-    \tab \code{ranks} \tab Search for valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) \tab \code{\link[=search_ranks]{search_ranks()}}) \cr
-   filters \tab \code{fields} \tab Search for fields that are stored in an atlas \tab \code{\link[=search_fields]{search_fields()}} \cr
-    \tab \code{assertions} \tab Search for results of data quality checks run by each atlas \tab \code{\link[=search_assertions]{search_assertions()}} \cr
+   configuration \tab \code{atlases} \tab Search for what atlases are available \tab \code{search_atlases()} \cr
+    \tab \code{apis} \tab Search for what APIs & functions are available for each atlas \tab \code{search_apis()} \cr
+    \tab \code{reasons} \tab Search for what values are acceptable as 'download reasons' for a specified atlas \tab \code{search_reasons()} \cr
+   taxonomy \tab \code{taxa} \tab Search for one or more taxonomic names \tab \code{search_taxa()} \cr
+    \tab \code{identifiers} \tab Take a universal identifier and return taxonomic information \tab \code{search_identifiers()} \cr
+    \tab \code{ranks} \tab Search for valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) \tab \code{search_ranks()} \cr
+   filters \tab \code{fields} \tab Search for fields that are stored in an atlas \tab \code{search_fields()} \cr
+    \tab \code{assertions} \tab Search for results of data quality checks run by each atlas \tab \code{search_assertions()} \cr
     \tab \code{licenses} \tab Search for copyright licences applied to media \tab \code{search_licenses()} \cr
-   group filters \tab \code{profiles} \tab Search for what data profiles are available \tab \code{\link[=search_profiles]{search_profiles()}} \cr
+   group filters \tab \code{profiles} \tab Search for what data profiles are available \tab \code{search_profiles()} \cr
     \tab \code{lists} \tab Search for what species lists are available \tab \code{search_lists()} \cr
-   data providers \tab \code{providers} \tab Search for which institutions have provided data \tab \code{\link[=search_providers]{search_providers()}} \cr
-    \tab \code{collections} \tab Search for the specific collections within those institutions \tab \code{\link[=search_collections]{search_collections()}} \cr
-    \tab \code{datasets} \tab Search for the data groupings within those collections \tab \code{\link[=search_datasets]{search_datasets()}} \cr
+   data providers \tab \code{providers} \tab Search for which institutions have provided data \tab \code{search_providers()} \cr
+    \tab \code{collections} \tab Search for the specific collections within those institutions \tab \code{search_collections()} \cr
+    \tab \code{datasets} \tab Search for the data groupings within those collections \tab \code{search_datasets()} \cr
 }
 }
 \section{Examples}{
@@ -200,13 +200,13 @@ Search multiple taxa. \code{search_taxa()} will return one row per taxon
 #> # A tibble: 1 x 1
 #>     count
 #>     <int>
-#> 1 1473468
+#> 1 1474321
 }\if{html}{\out{</div>}}
 }
 
 \subsection{Identifiers}{
 
-Look up a unique taxon identifier (See \code{\link[=search_identifier]{search_identifier()}} for more info)
+Look up a unique taxon identifier (See \code{\link[=search_identifiers]{search_identifiers()}} for more info)
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
 #> # A tibble: 1 x 14
@@ -232,7 +232,7 @@ that \code{search = FALSE}.
 #> # A tibble: 1 x 1
 #>   count
 #>   <int>
-#> 1 13463
+#> 1 13464
 }\if{html}{\out{</div>}}
 }
 

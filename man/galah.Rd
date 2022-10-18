@@ -43,49 +43,18 @@ quality-control criteria.
 \item \code{\link[=atlas_counts]{atlas_counts()}} Count the number of records or species returned by a query
 \item \code{\link[=atlas_species]{atlas_species()}} Download species lists
 \item \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} Return a section of the ALA taxonomic tree
-\item \code{\link[=atlas_media]{atlas_media()}} Download images and sounds
+\item \code{\link[=atlas_media]{atlas_media()}} View images and sounds available to download
+\item \code{\link[=collect_media]{collect_media()}} Download images and sounds
+\item \code{\link[=collect_occurrences]{collect_occurrences()}} Download previously downloaded occurrence records
 }
 
 \strong{Look up information}
 \itemize{
 \item \code{\link[=search_taxa]{search_taxa()}} Search for taxa using a text-search
 \item \code{\link[=search_identifiers]{search_identifiers()}} Search for taxa using taxonomic identifiers
-\item \code{\link[=show_all]{show_all()}} & \code{\link[=search_all]{search_all()}} Show or search for:
-\itemize{
-\item configuration
-\itemize{
-\item \code{atlases}: Supported international living atlases
-\item \code{apis}: Supported API urls
-\item \code{reasons}: Valid download reasons
-}
-\item taxonomy
-\itemize{
-\item \code{taxa}
-\item \code{identifiers}
-\item \code{ranks}: Available taxonomic ranks
-}
-\item filters
-\itemize{
-\item \code{fields}: Valid fields to filter or categorise queries
-\item \code{assertions}: Data quality categories
-\item \code{licenses}: Attribution licenses
-}
-\item group filters
-\itemize{
-\item \code{profiles}: Sets of filters to improve data quality
-\item \code{lists}: Available species lists (e.g. threatened)
-}
-\item data providers
-\itemize{
-\item \code{providers}: Institutions that provide data
-\item \code{collections}: Specific collections within those institutions
-\item \code{datasets}: The data groupings within those collections
-}
-}
-\item \code{\link[=show_values]{show_values()}} & \code{\link[=search_values]{search_values()}} Show or search for values \emph{within}:
-- \code{fields}: Possible values to filter by for a given field
-- \code{profiles}: The data quality filters of a data quality profile
-- \code{lists}: ...
+\item \code{\link[=show_all]{show_all()}} & \code{\link[=search_all]{search_all()}} Data for generating filter queries
+\item \code{\link[=show_values]{show_values()}} & \code{\link[=search_values]{search_values()}} Show or search for values \emph{within}
+\code{fields}, \code{profiles}, \code{lists}, \code{collections}, \code{datasets} or \code{providers}
 }
 
 \strong{Manage cache}

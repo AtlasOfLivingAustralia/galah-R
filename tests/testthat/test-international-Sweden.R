@@ -36,6 +36,7 @@ vcr::use_cassette("IA_Sweden_search_all", {
 
 vcr::use_cassette("IA_Sweden_show_values", {
   test_that("show_values works for Sweden", {
+    skip_on_cran()
     expect_gt(nrow(show_field_values("basis_of_record")), 1)
     expect_error(show_list_values("a_list"))
     expect_error(show_profile_values("a_profile"))
@@ -69,6 +70,7 @@ vcr::use_cassette("IA_Sweden_atlas_counts2", {
 
 vcr::use_cassette("IA_Sweden_atlas_counts3", {
   test_that("atlas_counts works with group_by for Sweden", {
+    skip_on_cran()
     result <- galah_call() |>
       galah_filter(year >= 2020) |>
       galah_group_by(year) |>

@@ -43,34 +43,15 @@
 #'   * [atlas_taxonomy()] Return a section of the ALA taxonomic tree
 #'   * [atlas_media()] View images and sounds available to download
 #'   * [collect_media()] Download images and sounds
-#'   * [coolect_occurrences()] Download previously downloaded occurrence records
+#'   * [collect_occurrences()] Download previously downloaded occurrence records
 #'   
 #' **Look up information**
 #'
 #'   * [search_taxa()] Search for taxa using a text-search
 #'   * [search_identifiers()] Search for taxa using taxonomic identifiers
-#'   * [show_all()] & [search_all()] Show or search for: 
-#'       * configuration
-#'            - `atlases`: Supported international living atlases
-#'            - `apis`: Supported API urls 
-#'            - `reasons`: Valid download reasons
-#'       * taxonomy 
-#'            - `taxa`
-#'            - `identifiers`
-#'            - `ranks`: Available taxonomic ranks
-#'       * filters
-#'            - `fields`: Valid fields to filter or categorise queries
-#'            - `assertions`: Data quality categories
-#'            - `licences`: Attribution licenses
-#'       * group filters
-#'            - `profiles`: Sets of filters to improve data quality
-#'            - `lists`: Available species lists (e.g. threatened)
-#'       * data providers
-#'            - `providers`: Institutions that provide data
-#'            - `collections`: Specific collections within those institutions
-#'            - `datasets`: The data groupings within those collections
+#'   * [show_all()] & [search_all()] Data for generating filter queries
 #'   * [show_values()] & [search_values()] Show or search for values _within_ 
-#'   `fields`, `profiles` and `lists`.
+#'   `fields`, `profiles`, `lists`, `collections`, `datasets` or `providers`
 #' 
 #' **Manage cache**
 #' 

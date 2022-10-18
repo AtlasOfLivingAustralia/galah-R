@@ -20,18 +20,18 @@
 #' 
 #' | **Category** | **Type** | **Description** | **Sub-functions** |
 #' |---|---|---|---|
-#' | configuration  |`atlases`| Show what atlases are available | [show_all_atlases()] |
-#' | |`apis`| Show what APIs & functions are available for each atlas | [show_all_apis()] |
-#' | |`reasons`| Show what values are acceptable as 'download reasons' for a specified atlas | [show_all_reasons()] |
-#' | taxonomy | `ranks`| Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) | [show_all_ranks()]) |
-#' | filters |`fields`| Show fields that are stored in an atlas | [show_all_fields()] |
-#' | |`assertions`| Show results of data quality checks run by each atlas | [show_all_assertions()] |
-#' | |`licenses`| Show what copyright licenses are applied to media | [show_all_licenses()] |
-#' |group filters|`profiles`| Show what data profiles are available | [show_all_profiles()] |
+#' | configuration  |`atlases`| Show what atlases are available | `show_all_atlases()` |
+#' | |`apis`| Show what APIs & functions are available for each atlas | `show_all_apis()` |
+#' | |`reasons`| Show what values are acceptable as 'download reasons' for a specified atlas | `show_all_reasons()` |
+#' | taxonomy | `ranks`| Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) | `show_all_ranks()` |
+#' | filters |`fields`| Show fields that are stored in an atlas | `show_all_fields()` |
+#' | |`assertions`| Show results of data quality checks run by each atlas | `show_all_assertions()` |
+#' | |`licenses`| Show what copyright licenses are applied to media | `show_all_licenses()` |
+#' |group filters|`profiles`| Show what data profiles are available | `show_all_profiles()` |
 #' | |`lists`| Show what species lists are available| `show_all_lists()` |
-#' |data providers|`providers`| Show which institutions have provided data | [show_all_providers()] |
-#' | |`collections`|Show the specific collections within those institutions| [show_all_collections()] |
-#' | |`datasets`|Shows all the data groupings within those collections| [show_all_datasets()] |   
+#' |data providers|`providers`| Show which institutions have provided data | `show_all_providers()` |
+#' | |`collections`|Show the specific collections within those institutions| `show_all_collections()` |
+#' | |`datasets`|Shows all the data groupings within those collections| `show_all_datasets()` |   
 #' 
 #' 
 #' @aliases show_all

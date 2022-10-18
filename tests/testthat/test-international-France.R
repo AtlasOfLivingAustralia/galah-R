@@ -50,6 +50,7 @@ vcr::use_cassette("IA_France_atlas_counts", {
 
 vcr::use_cassette("IA_France_atlas_counts2", {
   test_that("atlas_counts works with galah_identify for France", { # FIXME: galah_identify does returns count of 0
+    skip_on_cran()
     result <- galah_call() |>
       galah_identify("Mammalia") |>
       atlas_counts()
@@ -66,6 +67,7 @@ vcr::use_cassette("IA_France_atlas_counts2", {
 
 vcr::use_cassette("IA_France_atlas_counts3", {
   test_that("atlas_counts works with group_by for France", {
+    skip_on_cran()
     result <- galah_call() |>
       galah_filter(year >= 2018) |>
       galah_group_by(basis_of_record) |>

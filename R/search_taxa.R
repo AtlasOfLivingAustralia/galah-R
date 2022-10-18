@@ -61,7 +61,8 @@
 #'   galah_identify("reptilia") |>
 #'   atlas_counts()
 #' ```
-#' 
+#'
+#' @importFrom utils adist 
 #' @export
 search_taxa <- function(...) {
   

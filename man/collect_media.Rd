@@ -25,7 +25,7 @@ be stored}
 
 \item{refresh_cache}{\code{logical}: if set to \code{TRUE} and
 \code{galah_config(caching = TRUE)} then files cached from a previous query will
-be replaced by the current query. NOTE: unclear that this works right now.}
+be replaced by the current query. NOTE: Unclear that this works right now.}
 }
 \value{
 Available image & media files downloaded to a user local directory.

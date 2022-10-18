@@ -275,5 +275,5 @@ search_profile_attributes <- function(profile){
   lifecycle::deprecate_warn(when = "1.5.0", 
                             what = "search_profile_attributes()", 
                             details = "Please use `search_profiles('query') |> show_values()` instead.")
-  search_all(profiles, paste({profile})) |> show_values()
+  search_profiles(paste({profile})) |> show_values()
 }
