@@ -192,12 +192,7 @@ atlas_counts_internal <- function(identify = NULL,
       result <- record_count(query)
     }
     if(is.null(result)){
-      bullets <- c(
-        "Calling the API failed for `atlas_counts`.",
-        i = "This might mean that the ALA system is down. Double check that your query is correct.",
-        i = "If you continue to see this message, please email support@ala.org.au."
-      )
-      inform(bullets)
+      system_down_message("atlas_counts")
     }
     return(tibble(count = result))
   }                  
@@ -270,12 +265,7 @@ atlas_counts_internal <- function(identify = NULL,
       }) 
     if(verbose){close(pb)} # close progress bar
     if (all(unlist(lapply(result_list, is.null)))) {
-      bullets <- c(
-        "Calling the API failed for `atlas_counts`.",
-        i = "This might mean that the ALA system is down. Double check that your query is correct.",
-        i = "If you continue to see this message, please email support@ala.org.au."
-      )
-      inform(bullets)
+      system_down_message("atlas_counts")
       return(tibble())
     } else {
       return(as_tibble(rbindlist(result_list, fill = TRUE)))
@@ -289,12 +279,7 @@ atlas_counts_internal <- function(identify = NULL,
       limit, type, refresh_cache,
       verbose = verbose)
     if(is.null(result)){
-      bullets <- c(
-        "Calling the API failed for `atlas_counts`.",
-        i = "This might mean that the ALA system is down. Double check that your query is correct.",
-        i = "If you continue to see this message, please email support@ala.org.au."
-      )
-      inform(bullets)
+      system_down_message("atlas_counts")
       return(tibble())
     }else{
       result

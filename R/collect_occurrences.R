@@ -43,12 +43,7 @@ collect_occurrences <- function(url, doi){
   } 
     
   if(is.null(result)){
-    bullets <- c(
-      "Calling the API failed for `atlas_occurrences`.",
-      i = "This might mean that the ALA system is down. Double check that your query is correct.",
-      i = "If you continue to see this message, please email support@ala.org.au."
-    ) 
-    inform(bullets)
+    system_down_message("collect_occurrences")
     return(tibble())
   }else{
     return(tibble(result))

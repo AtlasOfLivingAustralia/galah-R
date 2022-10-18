@@ -161,12 +161,7 @@ atlas_species_internal <- function(request,
           atlas_download(params = query, cache_file = tmp)
 
   if(is.null(data)){
-    bullets <- c(
-      "Calling the API failed for `atlas_species`.",
-      i = "This might mean that the ALA system is down. Double check that your query is correct.",
-      i = "If you continue to see this message, please email support@ala.org.au."
-    )
-    inform(bullets)
+    system_down_message("atlas_species")
     return(tibble())
   }else{
   

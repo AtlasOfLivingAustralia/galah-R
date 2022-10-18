@@ -86,12 +86,7 @@ search_taxa <- function(...) {
   matches <- remove_parentheses(query) |> name_query()
     
   if(is.null(matches) & galah_config()$verbose){
-    bullets <- c(
-      "Calling the API failed for `search_taxa`.",
-      i = "This might mean that the ALA system is down. Double check that your query is correct.",
-      i = "If you continue to see this message, please email support@ala.org.au."
-    )
-    inform(bullets)
+    system_down_message("search_taxa")
     df <- tibble()
     attr(df, "call") <- "ala_id"
     return(df)

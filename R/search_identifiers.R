@@ -52,11 +52,7 @@ search_identifiers <- function(identifier) {
   matches <- lapply(identifier, identifier_lookup)
   if(all(unlist(lapply(matches, is.null)))){
     if(galah_config()$verbose){
-      bullets <- c(
-        "Calling the API failed for `search_identifiers`.",
-        i = "This might mean that the ALA system is down. Double check that your query is correct."
-      )
-      inform(bullets)
+      system_down_message("search_identifiers")
     }
     df <- tibble()
     attr(df, "call") <- "ala_id"

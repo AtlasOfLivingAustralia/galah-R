@@ -725,4 +725,17 @@ build_layer_id <- function(type, id) {
   }
 }
 
-#--------------------------#
+
+##---------------------------------------------------------------
+##                      System down message                    --
+##---------------------------------------------------------------
+
+system_down_message <- function(function_name){
+  bullets <- c(
+    glue("Calling the API failed for `{function_name}`."),
+    i = "This might mean that the API is down",
+    i = "Double check that your query is correct, or try again later"
+  )
+  inform(bullets)
+}
+

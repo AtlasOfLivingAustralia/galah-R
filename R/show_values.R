@@ -187,11 +187,7 @@ show_field_values <- function(field) {
   url <- atlas_url("records_facets")
   resp <- atlas_GET(url, params = list(facets = field, flimit = 10^4))
   if(is.null(resp)){
-    bullets <- c(
-      "Calling the API failed for `show_values()`.",
-      i = "This might mean that the ALA system is down. Double check that your query is correct."
-    )
-    inform(bullets)
+    system_down_message("show_values")
     return(tibble())
   }else{
     category <- vapply(resp$fieldResult[[1]]$fq, function(n) {
@@ -233,11 +229,7 @@ show_profile_values <- function(profile) {
   url <- atlas_url("profiles_lookup", profile = profile)
   resp <- atlas_GET(url)
   if(is.null(resp)){
-    bullets <- c(
-      "Calling the API failed for `search_profile_attributes`.",
-      i = "This might mean that the ALA system is down. Double check that your query is correct."
-    )
-    inform(bullets)
+    system_down_message("show_values")
     tibble()
   }else{
     filters <- rbindlist(resp$categories$qualityFilters)

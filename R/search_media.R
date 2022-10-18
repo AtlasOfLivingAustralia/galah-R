@@ -72,12 +72,7 @@ search_media <- function(df){
   # i.e. service is online, but no data available
   if (nrow(metadata) == 0) {
     if(verbose){
-      bullets <- c(
-        "Calling the API failed for `show_all_media`.",
-        i = "This might mean that the ALA system is down. Double check that your query is correct.",
-        i = "If you continue to see this message, please email support@ala.org.au."
-      )
-      inform(bullets)
+      system_down_message("search_media")
     }
     return(df_long)
   } 

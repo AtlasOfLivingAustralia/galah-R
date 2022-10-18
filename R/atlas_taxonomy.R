@@ -165,12 +165,7 @@ atlas_taxonomy_internal <- function(request,
   # run a test to check whether the search will work
   test <- get_children(start_row$guid)
   if(is.null(test)){
-    bullets <- c(
-      "Calling the API failed for `atlas_taxonomy`.",
-      i = "This might mean that the ALA system is down. Double check that your query is correct.",
-      i = "If you continue to see this message, please email support@ala.org.au."
-    )
-    inform(bullets)
+    system_down_message("atlas_taxonomy")
     id_tree <- as.Node(list(
       name = identify$scientific_name,
       rank = identify$rank,

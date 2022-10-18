@@ -90,12 +90,7 @@ download_dir, refresh_cache
     df = df[, c("url", "download_path")], 
     verbose)
   if(is.null(download_ok)){
-    bullets <- c(
-      "Calling the API failed for `atlas_species`.",
-      i = "This might mean that the ALA system is down. Double check that your query is correct.",
-      i = "If you continue to see this message, please email support@ala.org.au."
-    )
-    inform(bullets)
+    system_down_message("collect_media")
     # return(df)
   }
   # NOTE: This only gets triggered if the image service is down,
