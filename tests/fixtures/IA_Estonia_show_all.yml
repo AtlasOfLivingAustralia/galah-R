@@ -25,11 +25,11 @@ http_interactions:
       content-location: https://elurikkus.ee/collectory/ws/collection
       content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
       content-type: application/json;charset=UTF-8
-      date: Thu, 13 Oct 2022 00:38:57 GMT
+      date: Tue, 18 Oct 2022 08:59:32 GMT
       etag: W/"b07ef7da2964fefcfdfe9546c4d5b483"
       last-modified: Tue, 02 Nov 2021 14:07:45 GMT
       referrer-policy: strict-origin-when-cross-origin
-      set-cookie: JSESSIONID=DB08C8E180E2746F5BC4962CED39D88C; Path=/collectory/;
+      set-cookie: JSESSIONID=0A99BAC17FBF7B149D6FA95EFC326170; Path=/collectory/;
         HttpOnly; Secure; HttpOnly;
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000; preload
@@ -54,7 +54,7 @@ http_interactions:
         Ülikooli loodusmuuseumi botaaniline kogu","uri":"https://elurikkus.ee/collectory/ws/collection/co15","uid":"co15"},{"name":"Tartu
         Ülikooli loodusmuuseumi seene- ja samblikukogu","uri":"https://elurikkus.ee/collectory/ws/collection/co17","uid":"co17"},{"name":"Tartu
         Ülikooli loodusmuuseumi zooloogiline kogu","uri":"https://elurikkus.ee/collectory/ws/collection/co9","uid":"co9"}]'
-  recorded_at: 2022-10-13 00:38:59 GMT
+  recorded_at: 2022-10-18 08:59:33 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -82,11 +82,11 @@ http_interactions:
       content-location: https://elurikkus.ee/collectory/ws/dataResource
       content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
       content-type: application/json;charset=UTF-8
-      date: Thu, 13 Oct 2022 00:38:57 GMT
+      date: Tue, 18 Oct 2022 08:59:32 GMT
       etag: W/"d7349ca529f0579ed72cf76e356be950"
-      last-modified: Thu, 13 Oct 2022 00:31:02 GMT
+      last-modified: Tue, 18 Oct 2022 08:31:14 GMT
       referrer-policy: strict-origin-when-cross-origin
-      set-cookie: JSESSIONID=8A9654841DC2957463960BBD59A69D5E; Path=/collectory/;
+      set-cookie: JSESSIONID=17FFC3BB6B8FCBAB7593A20859165982; Path=/collectory/;
         HttpOnly; Secure; HttpOnly;
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000; preload
@@ -105,7 +105,7 @@ http_interactions:
         Platform Reference-Based Occurrences","uri":"https://elurikkus.ee/collectory/ws/dataResource/dr23","uid":"dr23"},{"name":"PlutoF
         Platform Specimens","uri":"https://elurikkus.ee/collectory/ws/dataResource/dr16","uid":"dr16"},{"name":"Riiklik
         keskkonnaseire andmekogu KESE","uri":"https://elurikkus.ee/collectory/ws/dataResource/dr22","uid":"dr22"}]'
-  recorded_at: 2022-10-13 00:38:59 GMT
+  recorded_at: 2022-10-18 08:59:33 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -133,11 +133,11 @@ http_interactions:
       content-location: https://elurikkus.ee/collectory/ws/dataProvider
       content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
       content-type: application/json;charset=UTF-8
-      date: Thu, 13 Oct 2022 00:38:58 GMT
+      date: Tue, 18 Oct 2022 08:59:33 GMT
       etag: W/"9ff9a3fd55474c847dba581698357889"
       last-modified: Wed, 25 Oct 2017 14:12:35 GMT
       referrer-policy: strict-origin-when-cross-origin
-      set-cookie: JSESSIONID=AED16E3C3B490EE8645CEBF2249BFC31; Path=/collectory/;
+      set-cookie: JSESSIONID=D16A0897DBA62F758EA0045EE574DFE2; Path=/collectory/;
         HttpOnly; Secure; HttpOnly;
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000; preload
@@ -151,7 +151,7 @@ http_interactions:
       file: no
       string: '[{"name":"Estonian Environment Agency","uri":"https://elurikkus.ee/collectory/ws/dataProvider/dp1","uid":"dp1"},{"name":"PlutoF
         Platform","uri":"https://elurikkus.ee/collectory/ws/dataProvider/dp0","uid":"dp0"}]'
-  recorded_at: 2022-10-13 00:38:59 GMT
+  recorded_at: 2022-10-18 08:59:33 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -175,8 +175,8 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
       content-type: application/json;charset=UTF-8
-      date: Thu, 13 Oct 2022 00:38:58 GMT
-      expires: Thu, 13 Oct 2022 01:08:58 GMT
+      date: Tue, 18 Oct 2022 08:59:33 GMT
+      expires: Tue, 18 Oct 2022 09:29:33 GMT
       referrer-policy: strict-origin-when-cross-origin
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000; preload
@@ -282,7 +282,7 @@ http_interactions:
         issue","category":"error","fatal":false},{"name":"homonymIssue","code":10006,"isFatal":false,"description":"Homonym
         issues with supplied name","category":"error","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2022-10-13 00:38:59 GMT
+  recorded_at: 2022-10-18 08:59:33 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -306,8 +306,8 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
       content-type: application/json;charset=UTF-8
-      date: Thu, 13 Oct 2022 00:38:58 GMT
-      expires: Thu, 13 Oct 2022 01:08:58 GMT
+      date: Tue, 18 Oct 2022 08:59:33 GMT
+      expires: Tue, 18 Oct 2022 09:29:33 GMT
       referrer-policy: strict-origin-when-cross-origin
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000; preload
@@ -460,5 +460,5 @@ http_interactions:
         Name","classs":"Taxon"},{"name":"videos","dataType":"string","indexed":false,"stored":false,"multivalue":false,"downloadName":"videos"},{"name":"videos.p","dataType":"string","indexed":false,"stored":false,"multivalue":false,"downloadName":"videos.p"},{"name":"waterBody","dataType":"string","indexed":false,"stored":false,"multivalue":false,"dwcTerm":"waterBody","downloadName":"waterBody","classs":"Location"},{"name":"year","dataType":"string","indexed":false,"stored":false,"multivalue":false,"dwcTerm":"year_raw","downloadName":"year","classs":"Event"},{"name":"year","dataType":"string","indexed":true,"stored":true,"multivalue":false,"description":"Year
         - parsed","info":"Year of observation, specimen collection date.","dwcTerm":"year","downloadName":"year.p","downloadDescription":"Year
         - parsed","classs":"Event"},{"name":"zone","dataType":"string","indexed":false,"stored":false,"multivalue":false,"downloadName":"zone"}]'
-  recorded_at: 2022-10-13 00:38:59 GMT
+  recorded_at: 2022-10-18 08:59:33 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

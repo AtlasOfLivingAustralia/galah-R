@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.21.3
-      date: Thu, 13 Oct 2022 00:39:41 GMT
+      date: Tue, 18 Oct 2022 09:03:28 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -30,7 +30,7 @@ http_interactions:
       file: no
       string: '{"pageSize":0,"startIndex":0,"totalRecords":87443384,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{}}'
-  recorded_at: 2022-10-13 00:39:45 GMT
+  recorded_at: 2022-10-18 09:03:34 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -50,7 +50,7 @@ http_interactions:
     headers:
       status: HTTP/1.1 200 OK
       server: nginx/1.21.3
-      date: Thu, 13 Oct 2022 00:39:45 GMT
+      date: Tue, 18 Oct 2022 09:03:33 GMT
       content-type: application/json;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -62,5 +62,5 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"species_guid","fieldResult":[{"label":"urn:lsid:dyntaxa.se:Taxon:102998","i18nCode":"species_guid.urn:lsid:dyntaxa.se:Taxon:102998","count":381957,"fq":"species_guid:\"urn:lsid:dyntaxa.se:Taxon:102998\""}],"count":37792}]'
-  recorded_at: 2022-10-13 00:39:45 GMT
+  recorded_at: 2022-10-18 09:03:34 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

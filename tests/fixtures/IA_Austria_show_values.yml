@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Wed, 12 Oct 2022 03:56:29 GMT
+      date: Tue, 18 Oct 2022 09:01:44 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -32,9 +32,9 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Menschliche
-        Beobachtung","i18nCode":"basis_of_record.HumanObservation","count":2356553,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Konserviertes
+        Beobachtung","i18nCode":"basis_of_record.HumanObservation","count":2054880,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Konserviertes
         Sammlungsobjekt","i18nCode":"basis_of_record.PreservedSpecimen","count":969758,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Literature","i18nCode":"basis_of_record.Literature","count":256284,"fq":"basis_of_record:\"Literature\""}],"count":3}]'
-  recorded_at: 2022-10-12 03:56:30 GMT
+  recorded_at: 2022-10-18 09:01:45 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -54,7 +54,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Wed, 12 Oct 2022 03:56:30 GMT
+      date: Tue, 18 Oct 2022 09:01:45 GMT
       content-type: application/json;charset=UTF-8
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -106,5 +106,5 @@ http_interactions:
         tenella","commonName":null,"scientificName":"Prunus tenella","lsid":"7865779","dataResourceUid":"dr113"},{"id":14980,"name":"Taxus
         baccata","commonName":null,"scientificName":"Taxus baccata","lsid":"8235017","dataResourceUid":"dr113"},{"id":14981,"name":"Thesium
         ebracteatum","commonName":null,"scientificName":"Thesium ebracteatum","lsid":"7774938","dataResourceUid":"dr113"}]'
-  recorded_at: 2022-10-12 03:56:30 GMT
+  recorded_at: 2022-10-18 09:01:45 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

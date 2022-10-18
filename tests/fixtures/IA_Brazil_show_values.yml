@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Wed, 12 Oct 2022 05:01:59 GMT
+      date: Tue, 18 Oct 2022 09:02:27 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -28,12 +28,12 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Preserved
-        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":11569079,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Human
-        observation","i18nCode":"basis_of_record.HumanObservation","count":10720520,"fq":"basis_of_record:\"HumanObservation\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":185003,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Machine
+        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":12245489,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Human
+        observation","i18nCode":"basis_of_record.HumanObservation","count":10720520,"fq":"basis_of_record:\"HumanObservation\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":194159,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Machine
         observation","i18nCode":"basis_of_record.MachineObservation","count":11834,"fq":"basis_of_record:\"MachineObservation\""},{"label":"Living
-        specimen","i18nCode":"basis_of_record.LivingSpecimen","count":6422,"fq":"basis_of_record:\"LivingSpecimen\""},{"label":"Fossil
+        specimen","i18nCode":"basis_of_record.LivingSpecimen","count":10126,"fq":"basis_of_record:\"LivingSpecimen\""},{"label":"Fossil
         specimen","i18nCode":"basis_of_record.FossilSpecimen","count":189,"fq":"basis_of_record:\"FossilSpecimen\""}],"count":6}]'
-  recorded_at: 2022-10-12 05:01:57 GMT
+  recorded_at: 2022-10-18 09:02:28 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -52,7 +52,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Wed, 12 Oct 2022 05:01:59 GMT
+      date: Tue, 18 Oct 2022 09:02:27 GMT
       content-type: application/json;charset=UTF-8
       x-application-context: application:production
       strict-transport-security: max-age=15724800; includeSubDomains
@@ -195,5 +195,5 @@ http_interactions:
         latirostris","lsid":"244729","dataResourceUid":"drt1565630923841"},{"id":498598,"name":"Antrodia
         neotropica","commonName":null,"scientificName":null,"lsid":null,"dataResourceUid":"drt1565630923841"},{"id":498580,"name":"Amanita
         viscidolutea","commonName":null,"scientificName":"Amanita viscidolutea","lsid":"341519","dataResourceUid":"drt1565630923841"}]'
-  recorded_at: 2022-10-12 05:01:57 GMT
+  recorded_at: 2022-10-18 09:02:28 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

@@ -137,11 +137,23 @@ name_lookup <- function(name) {
   }
 
   # extra processing step for ALA-species - make df-like
-  if(!is.null(result$searchResults$results)){
-    result <- result$searchResults$results
+  if(is.list(result)){
+    if(!is.null(result$searchResults$results)){
+      result <- result$searchResults$results
+    }else{
+      result <- lapply(result, function(a){a[1]}) 
+    }
   }
   
-  result <- lapply(result, function(a){a[1]}) |> as_tibble()
+  # cure issue where some colnames are empty
+  col_names <- names(result)
+  name_check <- is.na(col_names) | nchar(col_names) < 1
+  if(any(name_check)){
+    result <- result[!name_check]
+  }
+  
+  # convert to tibble
+  result <- as_tibble(result)
   
   if(nrow(result) > 1){
     string_distance <- adist(
@@ -157,7 +169,7 @@ name_lookup <- function(name) {
     }
   }else{
     if(!any(names(result) == "success")){
-      success <- TRUE
+      result$success <- TRUE
     }
   }
 

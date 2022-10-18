@@ -391,7 +391,7 @@ parse_query <- function(df){
   if(any(vector_check)){
     df$type[vector_check] <- "vector"
   }
-  assertion_check <- df$variable %in% show_all_assertions()$id
+  assertion_check <- df$variable %in% show_all_assertions()[["id"]]
   if(any(assertion_check)){
     df$type[assertion_check] <- "assertion"
   }

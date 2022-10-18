@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.16.1
-      date: Thu, 13 Oct 2022 00:39:52 GMT
+      date: Tue, 18 Oct 2022 09:03:29 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -37,5 +37,5 @@ http_interactions:
         observation","i18nCode":"basis_of_record.MachineObservation","count":369245,"fq":"basis_of_record:\"MachineObservation\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":171503,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Fossil
         specimen","i18nCode":"basis_of_record.FossilSpecimen","count":114926,"fq":"basis_of_record:\"FossilSpecimen\""},{"label":"Living
         specimen","i18nCode":"basis_of_record.LivingSpecimen","count":6998,"fq":"basis_of_record:\"LivingSpecimen\""},{"label":"Literature","i18nCode":"basis_of_record.Literature","count":119,"fq":"basis_of_record:\"Literature\""}],"count":7}]'
-  recorded_at: 2022-10-13 00:41:59 GMT
+  recorded_at: 2022-10-18 09:05:39 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

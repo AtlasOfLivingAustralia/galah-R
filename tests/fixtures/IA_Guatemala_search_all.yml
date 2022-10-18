@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.21.4
-      date: Thu, 13 Oct 2022 00:40:18 GMT
+      date: Tue, 18 Oct 2022 09:05:03 GMT
       content-type: application/json;charset=UTF-8
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -66,5 +66,5 @@ http_interactions:
         Nicté (2017): The taxonomic status of Long-tailed shrews (Mammalia: genus
         Sorex) from Nuclear Central America. Zootaxa 4236 (3): 461-483, DOI: https://doi.org/10.11646/zootaxa.4236.3.3"},{"id":"kb6000196777","guid":"https://support.ala.org.au/support/solutions/articles/6000196777-ala-api-how-to-access-ala-web-services","linkIdentifier":null,"idxtype":"KNOWLEDGEBASE","name":"ALA
         API - how to access ALA web services","description":null}],"queryTitle":"Mammalia"}}'
-  recorded_at: 2022-10-13 00:40:18 GMT
+  recorded_at: 2022-10-18 09:05:03 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

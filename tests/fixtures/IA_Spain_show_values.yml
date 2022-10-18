@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/1.1 200 '
-      date: Thu, 13 Oct 2022 00:47:09 GMT
+      date: Tue, 18 Oct 2022 09:06:26 GMT
       server: nginx/1.19.4
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
@@ -33,9 +33,9 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Human observation","i18nCode":"basis_of_record.HumanObservation","count":30270904,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Preserved
-        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":5390395,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":602729,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Machine
+        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":5391262,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":602729,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Machine
         observation","i18nCode":"basis_of_record.MachineObservation","count":473365,"fq":"basis_of_record:\"MachineObservation\""},{"label":"Fossil
         specimen","i18nCode":"basis_of_record.FossilSpecimen","count":254692,"fq":"basis_of_record:\"FossilSpecimen\""},{"label":"Living
         specimen","i18nCode":"basis_of_record.LivingSpecimen","count":52926,"fq":"basis_of_record:\"LivingSpecimen\""}],"count":6}]'
-  recorded_at: 2022-10-13 00:47:09 GMT
+  recorded_at: 2022-10-18 09:06:26 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

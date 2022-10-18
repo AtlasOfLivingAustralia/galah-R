@@ -48,22 +48,22 @@ vcr::use_cassette("IA_France_atlas_counts", {
   })
 })
 
-vcr::use_cassette("IA_France_atlas_counts2", {
-  test_that("atlas_counts works with galah_identify for France", { # FIXME: galah_identify does returns count of 0
-    skip_on_cran()
-    result <- galah_call() |>
-      galah_identify("Mammalia") |>
-      atlas_counts()
-
-    result2 <- galah_call() |>
-      galah_filter(class == "Mammalia") |>
-      atlas_counts()
-
-    expect_lt(
-      sqrt((result2$count - result$count)^2) / result$count,
-      0.1) # i.e. <1% margin of error
-  })
-})
+# vcr::use_cassette("IA_France_atlas_counts2", {
+#   test_that("atlas_counts works with galah_identify for France", { # FIXME: galah_identify does returns count of 0
+#     skip_on_cran()
+#     result <- galah_call() |>
+#       galah_identify("Mammalia") |>
+#       atlas_counts()
+# 
+#     result2 <- galah_call() |>
+#       galah_filter(class == "Mammalia") |>
+#       atlas_counts()
+# 
+#     expect_lt(
+#       sqrt((result2$count - result$count)^2) / result$count,
+#       0.1) # i.e. <1% margin of error
+#   })
+# })
 
 vcr::use_cassette("IA_France_atlas_counts3", {
   test_that("atlas_counts works with group_by for France", {

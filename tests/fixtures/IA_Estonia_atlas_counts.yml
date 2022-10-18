@@ -21,8 +21,8 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
       content-type: application/json;charset=UTF-8
-      date: Thu, 13 Oct 2022 00:39:01 GMT
-      expires: Thu, 13 Oct 2022 01:09:01 GMT
+      date: Tue, 18 Oct 2022 08:59:35 GMT
+      expires: Tue, 18 Oct 2022 09:29:35 GMT
       referrer-policy: strict-origin-when-cross-origin
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000; preload
@@ -34,9 +34,9 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":6945107,"sort":"score asc","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":6971507,"sort":"score asc","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{}}'
-  recorded_at: 2022-10-13 00:39:04 GMT
+  recorded_at: 2022-10-18 08:59:38 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -60,8 +60,8 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
       content-type: application/json;charset=UTF-8
-      date: Thu, 13 Oct 2022 00:39:03 GMT
-      expires: Thu, 13 Oct 2022 01:09:03 GMT
+      date: Tue, 18 Oct 2022 08:59:38 GMT
+      expires: Tue, 18 Oct 2022 09:29:38 GMT
       referrer-policy: strict-origin-when-cross-origin
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000; preload
@@ -73,6 +73,6 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"species_guid","fieldResult":[{"label":"62543","count":54246,"fq":"species_guid:\"62543\""},{"label":"","count":1624004,"fq":"-species_guid:*"}],"count":65622}]'
-  recorded_at: 2022-10-13 00:39:04 GMT
+      string: '[{"fieldName":"species_guid","fieldResult":[{"label":"62543","count":54251,"fq":"species_guid:\"62543\""},{"label":"","count":1646624,"fq":"-species_guid:*"}],"count":65630}]'
+  recorded_at: 2022-10-18 08:59:38 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.21.4
-      date: Thu, 13 Oct 2022 00:40:18 GMT
+      date: Tue, 18 Oct 2022 09:05:04 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -32,9 +32,9 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":3041473,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":3509690,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{}}'
-  recorded_at: 2022-10-13 00:40:19 GMT
+  recorded_at: 2022-10-18 09:05:04 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -54,7 +54,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.21.4
-      date: Thu, 13 Oct 2022 00:40:18 GMT
+      date: Tue, 18 Oct 2022 09:05:04 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -69,6 +69,6 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"species_guid","fieldResult":[{"label":"2484142","i18nCode":"species_guid.2484142","count":53404,"fq":"species_guid:\"2484142\""}],"count":30119}]'
-  recorded_at: 2022-10-13 00:40:19 GMT
+      string: '[{"fieldName":"species_guid","fieldResult":[{"label":"2484142","i18nCode":"species_guid.2484142","count":64971,"fq":"species_guid:\"2484142\""}],"count":30119}]'
+  recorded_at: 2022-10-18 09:05:04 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

@@ -15,14 +15,12 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Thu, 13 Oct 2022 04:04:38 GMT
+      status: 'HTTP/2 200 '
+      date: Tue, 18 Oct 2022 09:02:17 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       content-location: https://collectory.sibbr.gov.br/collectory/ws/collection
-      last-modified: Wed, 12 Oct 2022 17:16:25 GMT
-      etag: '"4f30be118943123703ef2d41ceaa6d0d"'
+      last-modified: Sun, 16 Oct 2022 19:20:48 GMT
+      etag: '"b6cfb621901dea5b963b6fbc6f95b0ea"'
       strict-transport-security: max-age=15724800; includeSubDomains
       access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
@@ -36,7 +34,7 @@ http_interactions:
         de DNA de Espécies da Flora Brasileira","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co510","uid":"co510"},{"name":"Banco
         de Fungos Vivos do JBRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co513","uid":"co513"},{"name":"Banco
         de Sementes do JBRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co512","uid":"co512"},{"name":"Carpoteca
-        do JBRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co511","uid":"co511"},{"name":"Coleção
+        - Dry Fruits do JBRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co511","uid":"co511"},{"name":"Coleção
         Acarológica do IBSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co115","uid":"co115"},{"name":"Coleção
         Aracnológica do Museu de Biodiversidade do Cerrado da Universidade Federal
         de Uberlândia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co496","uid":"co496"},{"name":"Coleção
@@ -483,8 +481,8 @@ http_interactions:
         de Zoologia do Museu de Ciências Naturais da UCS - Mastozoologia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co313","uid":"co313"},{"name":"Setor
         de Zoologia do Museu de Ciências Naturais da UCS - Peixes","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co311","uid":"co311"},{"name":"Xiloteca
         (madeiras) do JBRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co509","uid":"co509"}]'
-  recorded_at: 2022-10-13 04:04:44 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.2
+  recorded_at: 2022-10-18 09:02:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
     uri: https://collectory.sibbr.gov.br/collectory/ws/dataResource
@@ -501,14 +499,12 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Thu, 13 Oct 2022 04:04:39 GMT
+      status: 'HTTP/2 200 '
+      date: Tue, 18 Oct 2022 09:02:18 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       content-location: https://collectory.sibbr.gov.br/collectory/ws/dataResource
-      last-modified: Wed, 12 Oct 2022 20:31:44 GMT
-      etag: '"9e9d3c2822f3daa9995d27dad20e64d5"'
+      last-modified: Mon, 17 Oct 2022 14:11:08 GMT
+      etag: '"ba347ecbe4e42003653642452c413a46"'
       strict-transport-security: max-age=15724800; includeSubDomains
       access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
@@ -547,7 +543,6 @@ http_interactions:
         de dados de  Scarabaeoidea da UFMT","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr435","uid":"dr435"},{"name":"Base
         de dados de Ácaros do Instituto Butantan","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr423","uid":"dr423"},{"name":"Base
         de dados de Algae do Herbário R do Museu Nacional","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr770","uid":"dr770"},{"name":"Base
-        de dados de Algas do Herbário de São José do Rio Preto da UNESP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr318","uid":"dr318"},{"name":"Base
         de dados de Amphibia da ZUFMS ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr395","uid":"dr395"},{"name":"Base
         de dados de Anfíbios da Coleção Zoológica MBML do INMA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr451","uid":"dr451"},{"name":"Base
         de dados de Anfíbios do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr187","uid":"dr187"},{"name":"Base
@@ -558,7 +553,6 @@ http_interactions:
         de dados de Aves do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr478","uid":"dr478"},{"name":"Base
         de dados de Avifauna da UNIR","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr422","uid":"dr422"},{"name":"Base
         de dados de Blattodea do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr203","uid":"dr203"},{"name":"Base
-        de dados de Bryophyta do Herbário de São José do Rio Preto da UNESP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr319","uid":"dr319"},{"name":"Base
         de dados de Carcinologia do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr194","uid":"dr194"},{"name":"Base
         de dados de Chelicerata da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr396","uid":"dr396"},{"name":"Base
         de dados de Chiroptera da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr397","uid":"dr397"},{"name":"Base
@@ -609,7 +603,6 @@ http_interactions:
         de dados de Plecoptera da DZUP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr74","uid":"dr74"},{"name":"Base
         de dados de Plecoptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr209","uid":"dr209"},{"name":"Base
         de dados de Psocoptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr210","uid":"dr210"},{"name":"Base
-        de dados de Pteridophyta do Herbário de São José do Rio Preto da UNESP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr320","uid":"dr320"},{"name":"Base
         de dados de Répteis da Coleção Zoológica MBML do INMA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr456","uid":"dr456"},{"name":"Base
         de dados de Reptilia da UFMT","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr426","uid":"dr426"},{"name":"Base
         de dados de Reptilia da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr407","uid":"dr407"},{"name":"Base
@@ -622,16 +615,10 @@ http_interactions:
         de dados de Zygentoma","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr214","uid":"dr214"},{"name":"Base
         de dados do Herbário Alarich Rudolf Holger Schultz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr306","uid":"dr306"},{"name":"Base
         de dados do Herbário Alexandre Leal Costa da UFBA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr259","uid":"dr259"},{"name":"Base
-        de dados do Herbário Caririense Dárdano de Andrade-Lima","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr335","uid":"dr335"},{"name":"Base
         de dados do Herbário da Amazônia Meridional","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr415","uid":"dr415"},{"name":"Base
-        de dados do Herbário da Fundação Universidade Federal de Mato Grosso do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr338","uid":"dr338"},{"name":"Base
-        de dados do Herbário da Reserva Natural Vale","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr315","uid":"dr315"},{"name":"Base
         de dados do Herbário da UCS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr308","uid":"dr308"},{"name":"Base
-        de dados do Herbário da UEL","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr276","uid":"dr276"},{"name":"Base
         de dados do Herbário da UENF ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr494","uid":"dr494"},{"name":"Base
         de dados do Herbário da UFG","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr489","uid":"dr489"},{"name":"Base
-        de dados do Herbário da UFRN","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr271","uid":"dr271"},{"name":"Base
-        de dados do Herbário da UNICENTRO","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr251","uid":"dr251"},{"name":"Base
         de dados do Herbário da UNIP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr257","uid":"dr257"},{"name":"Base
         de dados do Herbário da Universidade Estadual da Paraíba","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr512","uid":"dr512"},{"name":"Base
         de dados do Herbário da Universidade Estadual de Campinas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr245","uid":"dr245"},{"name":"Base
@@ -640,21 +627,15 @@ http_interactions:
         de dados do Herbário do Jardim Botânico Plantarum","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr417","uid":"dr417"},{"name":"Base
         de dados do Herbário do Recôncavo da Bahia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr420","uid":"dr420"},{"name":"Base
         de dados do Herbário Evaldo Buttura","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr457","uid":"dr457"},{"name":"Base
-        de dados do Herbário Friburguense","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr336","uid":"dr336"},{"name":"Base
         de dados do Herbário HSTM da Universidade UFOPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr237","uid":"dr237"},{"name":"Base
-        de dados do Herbário Jaime Coelho de Moraes","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr312","uid":"dr312"},{"name":"Base
-        de dados do Herbário Jaime Coelho de Moraes","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr332","uid":"dr332"},{"name":"Base
         de dados do Herbário Jataiense","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr495","uid":"dr495"},{"name":"Base
-        de dados do Herbário Leopoldo Krieger","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr277","uid":"dr277"},{"name":"Base
         de dados do Herbário Padre Balduino Rambo","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr416","uid":"dr416"},{"name":"Base
         de dados do Herbário PE. Camille Torrend","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr428","uid":"dr428"},{"name":"Base
         de dados do Herbário Rioclarense da UNESP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr425","uid":"dr425"},{"name":"Base
-        de dados do Herbário Vale do São Francisco","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr272","uid":"dr272"},{"name":"Base
         de dados do Herbarium Anchieta","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr434","uid":"dr434"},{"name":"Base
         de dados do PortalBio do ICMBio: Atlas de Registro de Aves Brasileiras","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr326","uid":"dr326"},{"name":"Base
         de dados do PortalBio do ICMBio: Quelônios","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr328","uid":"dr328"},{"name":"Base
         de dados do site Xenocanto para o Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr387","uid":"dr387"},{"name":"Base
-        de dados Herbário Centro Norte Mato Grossense","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr278","uid":"dr278"},{"name":"Base
         de dados Herbário do IMA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr254","uid":"dr254"},{"name":"Base
         de dados repatriados do tropicos.org","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr324","uid":"dr324"},{"name":"Base
         de Orthoptera da Coleção Zoológica Dr. Joachim Adis da UEPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr437","uid":"dr437"},{"name":"BHCB-SL
@@ -753,8 +734,7 @@ http_interactions:
         do Ceará","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr692","uid":"dr692"},{"name":"Coleção
         Micológica do Herbário UB da Universidade de Brasília","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr635","uid":"dr635"},{"name":"Coleção
         teste imagens dr SiBBr","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr477","uid":"dr477"},{"name":"Coleção
-        Zoológica da Universidade Federal de Mato Grosso do Sul - Peixes","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr406","uid":"dr406"},{"name":"CPAP
-        - Herbário CPAP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr275","uid":"dr275"},{"name":"Crustacea
+        Zoológica da Universidade Federal de Mato Grosso do Sul - Peixes","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr406","uid":"dr406"},{"name":"Crustacea
         Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr809","uid":"dr809"},{"name":"Dados
         do Herbário Profª. Drª. Marlene Freitas da Silva","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr421","uid":"dr421"},{"name":"Dados
         repatriados do AntWeb para o Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr383","uid":"dr383"},{"name":"DCBU
@@ -808,8 +788,7 @@ http_interactions:
         -  Coleção de Simulídeos do Instituto Oswaldo Cruz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr710","uid":"dr710"},{"name":"Fiocruz/CTIOC
         - Coleção de Triatomíneos do Instituto Oswaldo Cruz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr713","uid":"dr713"},{"name":"Fiocruz/CYP
         - Coleção de Yersinia pestis","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr704","uid":"dr704"},{"name":"Flora
-        e Funga do Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr66","uid":"dr66"},{"name":"FURB
-        - Herbário Dr. Roberto Miguel Klein","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr268","uid":"dr268"},{"name":"Galeria
+        e Funga do Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr66","uid":"dr66"},{"name":"Galeria
         de imagens do GBIF para ferramenta de espécies icônicas brasileiras do Atlas
         do SiBBr","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr436","uid":"dr436"},{"name":"Galeria
         de imagens do GBIF para lista de valor econômico atual ou potencial de espécies
@@ -817,12 +796,18 @@ http_interactions:
         - Herbário Amapaense","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr333","uid":"dr333"},{"name":"HBRA
         - Herbário do Instituto de Estudos Costeiros da Universidade Federal do Pará","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr334","uid":"dr334"},{"name":"Hemiptera  Collection
         - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr810","uid":"dr810"},{"name":"Herbário
+        Caririense Dárdano de Andrade-Lima","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr335","uid":"dr335"},{"name":"Herbário
         Central da Universidade Federal do Espírito Santo","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr515","uid":"dr515"},{"name":"Herbário
+        Centro Norte Mato Grossense","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr278","uid":"dr278"},{"name":"Herbário
         CNPO de Embrapa Pecuária Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr473","uid":"dr473"},{"name":"Herbário
+        CPAP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr275","uid":"dr275"},{"name":"Herbário
         da Embrapa Clima Temperado","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr238","uid":"dr238"},{"name":"Herbário
         da Embrapa Recursos Genéticos e Biotecnologia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr260","uid":"dr260"},{"name":"Herbário
         da Escola Superior de Agricultura Luiz de Queiroz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr263","uid":"dr263"},{"name":"Herbário
+        da Fundação Universidade Federal de Mato Grosso do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr338","uid":"dr338"},{"name":"Herbário
         da Pontifícia Universidade Católica do Paraná","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr250","uid":"dr250"},{"name":"Herbário
+        da Reserva Natural Vale","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr315","uid":"dr315"},{"name":"Herbário
+        da UEL","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr276","uid":"dr276"},{"name":"Herbário
         da UEMG","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr244","uid":"dr244"},{"name":"Herbário
         da Universidade Católica de Pernambuco","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr520","uid":"dr520"},{"name":"Herbário
         da Universidade de Brasília","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr247","uid":"dr247"},{"name":"Herbário
@@ -830,9 +815,11 @@ http_interactions:
         da Universidade de Tocantins","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr572","uid":"dr572"},{"name":"Herbário
         da Universidade Estadual de Feira de Santana","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr241","uid":"dr241"},{"name":"Herbário
         da Universidade Estadual de Maringá","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr612","uid":"dr612"},{"name":"Herbário
+        da Universidade Estadual do Centro-Oeste","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr251","uid":"dr251"},{"name":"Herbário
         da Universidade Federal de Mato Grosso do Sul / Campus Pantanal","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr248","uid":"dr248"},{"name":"Herbário
         da Universidade Federal de Minas Gerais","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr266","uid":"dr266"},{"name":"Herbário
         da Universidade Federal de Minas Gerais","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr602","uid":"dr602"},{"name":"Herbário
+        da Universidade Federal do Rio Grande do Norte","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr271","uid":"dr271"},{"name":"Herbário
         da Universidade Federal Rural do Rio de Janeiro","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr469","uid":"dr469"},{"name":"Herbário
         da Universidade Tecnológica Federal do Paraná Campus Campo Mourão","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr474","uid":"dr474"},{"name":"Herbário
         de fungos de São José do Rio Preto","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr568","uid":"dr568"},{"name":"Herbário
@@ -840,7 +827,6 @@ http_interactions:
         de Pteridophyta de São José do Rio Preto","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr569","uid":"dr569"},{"name":"Herbário
         de São José do Rio Preto","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr313","uid":"dr313"},{"name":"Herbário
         Dendrológico Jeanine Felfili","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr510","uid":"dr510"},{"name":"Herbário
-        do Centro de Ciências e Tecnologias para a Sustentabilidade","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr316","uid":"dr316"},{"name":"Herbário
         do Centro de Pesquisas do Cacau","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr261","uid":"dr261"},{"name":"Herbário
         do Departamento de Botânica da Universidade Federal de Santa Catarina","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr269","uid":"dr269"},{"name":"Herbário
         do Instituto Agronômico de Campinas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr289","uid":"dr289"},{"name":"Herbário
@@ -854,25 +840,31 @@ http_interactions:
         do Pantanal \"Vali Joana Pott\"","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr523","uid":"dr523"},{"name":"Herbário
         do Tocantins","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr240","uid":"dr240"},{"name":"Herbário
         do Trópico Semiárido","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr522","uid":"dr522"},{"name":"Herbário
+        Dr. Roberto Miguel Klein","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr268","uid":"dr268"},{"name":"Herbário
         Escola de Florestas Curitiba","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr311","uid":"dr311"},{"name":"Herbário
         Ezechias Paulo Heringer - HEPH","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr342","uid":"dr342"},{"name":"Herbário
+        Friburguense","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr336","uid":"dr336"},{"name":"Herbário
         IBGE","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr475","uid":"dr475"},{"name":"Herbário
         Irina Delanova Gemtchújnicov","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr267","uid":"dr267"},{"name":"Herbário
+        Jaime Coelho de Moraes","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr312","uid":"dr312"},{"name":"Herbário
         Lauro Pires Xavier","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr229","uid":"dr229"},{"name":"Herbário
+        Leopoldo Krieger","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr277","uid":"dr277"},{"name":"Herbário
         Maria Eneyda Pacheco Kauffmann Fidalgo - Coleção de Fungi","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr565","uid":"dr565"},{"name":"Herbário
         Mello Leitão","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr255","uid":"dr255"},{"name":"Herbário
         Municipal de São Paulo","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr256","uid":"dr256"},{"name":"Herbário
-        Nova Xavantina","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr330","uid":"dr330"},{"name":"Herbário
+        Nova Xavantina","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr849","uid":"dr849"},{"name":"Herbário
+        Nova Xavantina (Criptogamos)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr330","uid":"dr330"},{"name":"Herbário
         Pe. Dr. Raulino Reitz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr314","uid":"dr314"},{"name":"Herbário
         PEL - Universidade Federal de Pelotas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr239","uid":"dr239"},{"name":"Herbário
-        Prisco Bezerra - EAC","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr337","uid":"dr337"},{"name":"Herbário
+        Prisco Bezerra","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr337","uid":"dr337"},{"name":"Herbário
         Professor Vasconcelos Sobrinho","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr325","uid":"dr325"},{"name":"Herbário
         RADAMBRASIL","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr633","uid":"dr633"},{"name":"Herbário
         RFA da UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr516","uid":"dr516"},{"name":"Herbário
         Rondoniense João Geraldo Kuhlmann","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr249","uid":"dr249"},{"name":"Herbário
         Rosa Mochel","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr317","uid":"dr317"},{"name":"Herbário
         Uberlandense","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr262","uid":"dr262"},{"name":"Herbário
-        UFP Geraldo Mariz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr411","uid":"dr411"},{"name":"Herbarium
+        UFP Geraldo Mariz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr411","uid":"dr411"},{"name":"Herbário
+        Vale do São Francisco","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr272","uid":"dr272"},{"name":"Herbarium
         - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr799","uid":"dr799"},{"name":"Herpetology
         Collection - Instituto Nacional de Pesquisas da Amazônia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr833","uid":"dr833"},{"name":"HISA
         - Herbário de Ilha Solteira","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr688","uid":"dr688"},{"name":"HST
@@ -1084,7 +1076,8 @@ http_interactions:
         Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr825","uid":"dr825"},{"name":"SHPR
         - Herbário da Universidade Tecnológica Federal do Paraná. Jabot - Banco de
         Dados da Flora Brasileira","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr559","uid":"dr559"},{"name":"Solifugae
-        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr822","uid":"dr822"},{"name":"SP
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr822","uid":"dr822"},{"name":"SORO
+        - Herbário do Centro de Ciências e Tecnologias para a Sustentabilidade","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr316","uid":"dr316"},{"name":"SP
         - Herbário do Estado \"Maria Eneyda P. Kaufmann Fidalgo\" - Coleção de Fanerógamas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr286","uid":"dr286"},{"name":"SP-Algae
         do Herbário do Estado \"Maria Eneyda P. Kaufmann Fidalgo - Coleção de Algas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr563","uid":"dr563"},{"name":"SP-Bryophyta
         - Maria Eneyda P. Kauffman Fidalgo","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr564","uid":"dr564"},{"name":"Sub-coleção
@@ -1102,8 +1095,8 @@ http_interactions:
         Virtual REFLORA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr228","uid":"dr228"},{"name":"Xiloteca
         do Herbário Dendrológico Jeanine Felfili","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr511","uid":"dr511"},{"name":"Xiloteca
         do Herbário Joinvillea","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr519","uid":"dr519"}]'
-  recorded_at: 2022-10-13 04:04:44 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.2
+  recorded_at: 2022-10-18 09:02:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
     uri: https://collectory.sibbr.gov.br/collectory/ws/dataProvider
@@ -1120,11 +1113,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Thu, 13 Oct 2022 04:04:40 GMT
+      status: 'HTTP/2 200 '
+      date: Tue, 18 Oct 2022 09:02:19 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       content-location: https://collectory.sibbr.gov.br/collectory/ws/dataProvider
       last-modified: Mon, 10 Oct 2022 16:47:32 GMT
       etag: '"294cf9dc20fb3d73f92722c7864ff35a"'
@@ -1193,8 +1184,8 @@ http_interactions:
         de Ferramentas Genéticas, Matemáticas e Tecnológicas para avaliar o risco
         de transmissão e fortalecer a vigilância do vírus da Febre Amarela nas 5 regiões
         brasileiras","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataProvider/dp46","uid":"dp46"}]'
-  recorded_at: 2022-10-13 04:04:44 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.2
+  recorded_at: 2022-10-18 09:02:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
     uri: https://biocache-service.sibbr.gov.br/biocache-service/assertions/codes
@@ -1211,11 +1202,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Thu, 13 Oct 2022 04:04:41 GMT
+      status: 'HTTP/2 200 '
+      date: Tue, 18 Oct 2022 09:02:20 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
@@ -1321,8 +1310,8 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2022-10-13 04:04:44 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.2
+  recorded_at: 2022-10-18 09:02:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
     uri: https://biocache-service.sibbr.gov.br/biocache-service/index/fields
@@ -1339,11 +1328,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Thu, 13 Oct 2022 04:04:41 GMT
+      status: 'HTTP/2 200 '
+      date: Tue, 18 Oct 2022 09:02:20 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-max-age: '3600'
@@ -1508,8 +1495,8 @@ http_interactions:
         with a record. false indicates problems.","jsonName":"taxonomicKosher","downloadName":"taxonomic_kosher","downloadDescription":"Taxonomic
         Quality"},{"name":"type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Specimen
         type","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"year","classs":"Event"}]'
-  recorded_at: 2022-10-13 04:04:44 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.2
+  recorded_at: 2022-10-18 09:02:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
     uri: https://portal-espacial.sibbr.gov.br/spatial-hub/layers
@@ -1526,12 +1513,10 @@ http_interactions:
       message: Not Found
       explanation: Nothing matches the given URI
     headers:
-      status: 'HTTP/1.1 404 '
-      date: Thu, 13 Oct 2022 04:04:42 GMT
+      status: 'HTTP/2 404 '
+      date: Tue, 18 Oct 2022 09:02:22 GMT
       content-type: text/html;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
-      set-cookie: INGRESSCOOKIE=1665633883.82.42.882640; Path=/spatial-hub; Secure;
+      set-cookie: INGRESSCOOKIE=1666083743.773.124.79759; Path=/spatial-hub; Secure;
         HttpOnly
       content-language: en-US
       strict-transport-security: max-age=15724800; includeSubDomains
@@ -1540,8 +1525,8 @@ http_interactions:
       file: no
       string: "<!DOCTYPE html>\n<html>\n<head>\n    \n</head>\n\n<body>\n\n    <ul
         class=\"errors\">\n        <li>An error has occurred</li>\n    </ul>\n\n</body>\n</html>\n"
-  recorded_at: 2022-10-13 04:04:44 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.2
+  recorded_at: 2022-10-18 09:02:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
     uri: https://specieslist.sibbr.gov.br/ws/speciesList/?max=1000&offset=0
@@ -1558,11 +1543,9 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Thu, 13 Oct 2022 04:04:43 GMT
+      status: 'HTTP/2 200 '
+      date: Tue, 18 Oct 2022 09:02:24 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       x-application-context: application:production
       strict-transport-security: max-age=15724800; includeSubDomains
     body:
@@ -1673,8 +1656,8 @@ http_interactions:
         ICMBio","listType":"CONSERVATION_LIST","dateCreated":"2019-10-31T21:28:48Z","lastUpdated":"2019-10-31T21:28:48Z","username":"sibbr.brasil@gmail.com","fullName":null,"itemCount":12254,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1565629445693","listName":"Livro
         Vermelho da Fauna Brasileira Ameaçada de Extinção 2014 - ICMBio","listType":"CONSERVATION_LIST","dateCreated":"2019-08-12T17:04:10Z","lastUpdated":"2019-09-05T18:33:14Z","username":"angelica.santos@consultores.rnp.br","fullName":null,"itemCount":1090,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1565628927666","listName":"Vernaculares
         espécies icônicas","listType":"CONSERVATION_LIST","dateCreated":"2019-08-12T03:00:00Z","lastUpdated":"2021-08-26T22:07:27Z","username":"angelica.santos@consultores.rnp.br","fullName":null,"itemCount":153,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false}]}'
-  recorded_at: 2022-10-13 04:04:44 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.2
+  recorded_at: 2022-10-18 09:02:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
     uri: https://specieslist.sibbr.gov.br/ws/speciesList/?max=1000&offset=1000
@@ -1691,19 +1674,17 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Thu, 13 Oct 2022 04:04:44 GMT
+      status: 'HTTP/2 200 '
+      date: Tue, 18 Oct 2022 09:02:25 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       x-application-context: application:production
       strict-transport-security: max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
       file: no
       string: '{"listCount":58,"sort":"listName","order":"asc","max":1000,"offset":"1000","lists":[]}'
-  recorded_at: 2022-10-13 04:04:44 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.2
+  recorded_at: 2022-10-18 09:02:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
     uri: https://specieslist.sibbr.gov.br/ws/speciesList/?max=1000&offset=2000
@@ -1720,16 +1701,14 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/1.1 200 '
-      date: Thu, 13 Oct 2022 04:04:44 GMT
+      status: 'HTTP/2 200 '
+      date: Tue, 18 Oct 2022 09:02:25 GMT
       content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
       x-application-context: application:production
       strict-transport-security: max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
       file: no
       string: '{"listCount":58,"sort":"listName","order":"asc","max":1000,"offset":"2000","lists":[]}'
-  recorded_at: 2022-10-13 04:04:44 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.2
+  recorded_at: 2022-10-18 09:02:25 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
