@@ -7,7 +7,7 @@
 galah_config(..., profile_path = NULL)
 }
 \arguments{
-\item{\dots}{Options can be defined using the form \code{name = value}.
+\item{\dots}{Options can be defined using the form \code{name = "value"}.
 Valid arguments are:
 \itemize{
 \item \code{atlas} string: Living Atlas to point to, Australia by default
@@ -21,7 +21,7 @@ The user may wish to set this to a non-temporary directory for
 caching across sessions. The directory must exist on the file system.
 \item \code{download_reason_id} numeric or string: the "download reason" required.
 by some ALA services, either as a numeric ID (currently 0--13)
-or a string (see \code{\link[=show_all_reasons]{show_all_reasons()}} for a list of valid ID codes and
+or a string (see \code{show_all(reasons)} for a list of valid ID codes and
 names). By default this is NA. Some ALA services require a valid
 download_reason_id code, either specified here or directly to the
 associated R function.
@@ -40,9 +40,10 @@ the process and lead to HTTP 500 errors, so should be turned off. Defaults
 to TRUE.
 }}
 
-\item{profile_path}{string: (optional), path to a directory to store
-config values in. If provided, config values will be written to a new or
-existing .Rprofile file for future sessions. \code{NULL} by default.}
+\item{profile_path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#soft-deprecated}{\figure{lifecycle-soft-deprecated.svg}{options: alt='[Soft-deprecated]'}}}{\strong{[Soft-deprecated]}}
+
+Keeping for compatibility with older package versions. It is preferable to
+not save \code{galah_config} options to a .Rprofile file.}
 }
 \value{
 For \code{galah_config()}, a \code{list} of all options.
@@ -62,14 +63,20 @@ as possible.
 To configure your session to allow you to download occurrence records, enter
 your email in \code{galah_config()}. This email should be registered with the
 ALA, which you can do
-\href{https://auth.ala.org.au/userdetails/registration/createAccount}{here}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+\href{https://auth.ala.org.au/userdetails/registration/createAccount}{here}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
 }\if{html}{\out{</div>}}
 
-Turn on caching in your session\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(caching = FALSE)
+Turn on caching in your session
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(caching = FALSE)
 }\if{html}{\out{</div>}}
 
 It is required by some ALA services that you add a reason for downloading
-data. To look up all valid reasons to enter, use \code{\link[=show_all_reasons]{show_all_reasons()}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all_reasons()
+data. To look up all valid reasons to enter, use \code{\link[=show_all]{show_all()}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{show_all(reasons)
 #> # A tibble: 13 x 2
 #>       id name                            
 #>    <int> <chr>                           
@@ -88,11 +95,15 @@ data. To look up all valid reasons to enter, use \code{\link[=show_all_reasons]{
 #> 13    13 species modelling
 }\if{html}{\out{</div>}}
 
-Add your selected reason using the option \code{download_reason_id}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(download_reason_id = 0)
+Add your selected reason using the option \code{download_reason_id}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(download_reason_id = 0)
 }\if{html}{\out{</div>}}
 
 You can also make debugging in your session easier by setting
-\code{verbose = TRUE}\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(download_reason_id = 0,
+\code{verbose = TRUE}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(download_reason_id = 0,
              verbose = TRUE)
 }\if{html}{\out{</div>}}
 }

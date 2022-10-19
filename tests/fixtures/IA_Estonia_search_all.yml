@@ -1,0 +1,52 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://elurikkus.ee/bie-index/search?q=Mammalia&pageSize=5
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-methods:
+      - GET, PUT, POST, OPTIONS, HEAD
+      - GET, PUT, POST, OPTIONS, HEAD
+      access-control-allow-origin:
+      - '*'
+      - '*'
+      content-encoding: gzip
+      content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
+      content-type: application/json;charset=utf-8
+      date: Tue, 18 Oct 2022 08:59:34 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000; preload
+      vary:
+      - Accept-Encoding
+      - Accept-Encoding
+      x-content-type-options: nosniff
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: UTF-8
+      file: no
+      string: '{"searchResults":{"totalRecords":2,"facetResults":[],"results":[{"id":"8cafb002-a4fa-45c8-99b2-eecab2a65390","guid":"11618","linkIdentifier":null,"idxtype":"TAXON","name":"Mammalia","kingdom":null,"scientificName":"Mammalia","author":"Linnaeus","nameComplete":"Mammalia
+        Linnaeus","nameFormatted":"<span class=\"scientific-name\"><span class=\"scientific-name__primary\">Mammalia<\u002fspan><span
+        class=\"scientific-name__source\">Linnaeus, 1758<\u002fspan><\u002fspan>","taxonomicStatus":"accepted","nomenclaturalStatus":null,"parentGuid":"11565","rank":"class","rankID":3000,"commonName":"imetajad","commonNameSingle":"imetajad","occurrenceCount":117585,"conservationStatus":null,"infoSourceName":"PlutoF
+        Taxonomy","infoSourceURL":"http://localhost:8080/collectory/public/show/null","image":"https://elurikkus.ee/biocache-media/dr1/31044/133e0f4b-a666-49b3-b69a-9276781caf6e/FED6A52EBC4400F8768DF3C0CAF564B9B2D266577B1590ACD31D0CA3EE06A7FD.jpg","imageUrl":"https://elurikkus.ee/biocache-media/dr1/31044/133e0f4b-a666-49b3-b69a-9276781caf6e/FED6A52EBC4400F8768DF3C0CAF564B9B2D266577B1590ACD31D0CA3EE06A7FD.jpg","thumbnailUrl":"https://elurikkus.ee/biocache-media/dr1/31044/133e0f4b-a666-49b3-b69a-9276781caf6e/FED6A52EBC4400F8768DF3C0CAF564B9B2D266577B1590ACD31D0CA3EE06A7FD__thumb.jpg","smallImageUrl":"https://elurikkus.ee/biocache-media/dr1/31044/133e0f4b-a666-49b3-b69a-9276781caf6e/FED6A52EBC4400F8768DF3C0CAF564B9B2D266577B1590ACD31D0CA3EE06A7FD__small.jpg","largeImageUrl":"https://elurikkus.ee/biocache-media/dr1/31044/133e0f4b-a666-49b3-b69a-9276781caf6e/FED6A52EBC4400F8768DF3C0CAF564B9B2D266577B1590ACD31D0CA3EE06A7FD__large.jpg","":null,"class":"Mammalia","classGuid":null,"highlight":"<b>Mammalia<\u002fb>
+        Linnaeus"},{"id":"f165700c-ae8f-421c-99a8-961b0edd02bc","guid":"11618","linkIdentifier":null,"idxtype":"TAXON","name":"Mammalia
+        ord Incertae sedis","kingdom":null,"scientificName":"Mammalia ord Incertae
+        sedis","author":"","nameComplete":"Mammalia ord Incertae sedis ","nameFormatted":"<span
+        class=\"scientific-name\"><span class=\"scientific-name__primary\">Mammalia
+        ord Incertae sedis<\u002fspan><span class=\"scientific-name__source\"><\u002fspan><\u002fspan>","taxonomicStatus":"synonym","nomenclaturalStatus":null,"parentGuid":"11565","rank":"order","rankID":4000,"commonName":"","commonNameSingle":"","occurrenceCount":0,"conservationStatus":null,"infoSourceName":"PlutoF
+        Taxonomy","infoSourceURL":"http://localhost:8080/collectory/public/show/null","acceptedConceptID":"11618","acceptedConceptName":"Mammalia
+        Linnaeus","":null,"order":"Mammalia ord Incertae sedis","orderGuid":null,"highlight":"<b>Mammalia<\u002fb>
+        ord Incertae sedis "}],"queryTitle":"Mammalia"}}'
+  recorded_at: 2022-10-18 08:59:34 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

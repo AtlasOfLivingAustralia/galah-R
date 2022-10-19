@@ -8,31 +8,33 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:30:15 GMT
+      status: HTTP/1.1 200 OK
+      date: Thu, 13 Oct 2022 04:42:27 GMT
       content-type: application/json
-      content-length: '346'
+      content-length: '409'
+      connection: keep-alive
+      server: nginx/1.23.1
       vary: Accept-Encoding
       content-encoding: gzip
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      x-content-type-options: nosniff
-      content-security-policy: upgrade-insecure-requests
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
     body:
       encoding: UTF-8
       file: no
-      string: '{"success":true,"scientificName":"Banksia","scientificNameAuthorship":"L.f.","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51299884","rank":"genus","rankID":6000,"lft":579700,"rgt":580616,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51337710","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51337706","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51337705","order":"Proteales","orderID":"https://id.biodiversity.org.au/taxon/apni/51312311","family":"Proteaceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51312310","genus":"Banksia","genusID":"https://id.biodiversity.org.au/taxon/apni/51299884","speciesGroup":["Plants"],"issues":["noIssue"]}'
-  recorded_at: 2022-01-20 01:30:15 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+      string: '{"success":true,"scientificName":"Banksia","scientificNameAuthorship":"L.f.","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51299884","rank":"genus","rankID":6000,"lft":544453,"rgt":545397,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51414459","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51414458","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51414457","order":"Proteales","orderID":"https://id.biodiversity.org.au/taxon/apni/51370811","family":"Proteaceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51370813","genus":"Banksia","genusID":"https://id.biodiversity.org.au/taxon/apni/51299884","vernacularName":"Honeysuckle","speciesGroup":["Plants","Angiosperms","Dicots"],"speciesSubgroup":["Dicots","Flowering
+        plants"],"issues":["matchedToMisappliedName"]}'
+  recorded_at: 2022-10-13 04:42:27 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://namematching-ws.ala.org.au/api/searchByClassification?genus=Microseris&kingdom=Plantae
@@ -42,28 +44,30 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:30:16 GMT
+      status: HTTP/1.1 200 OK
+      date: Thu, 13 Oct 2022 04:42:27 GMT
       content-type: application/json
-      content-length: '346'
+      content-length: '378'
+      connection: keep-alive
+      server: nginx/1.23.1
       vary: Accept-Encoding
       content-encoding: gzip
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      x-content-type-options: nosniff
-      content-security-policy: upgrade-insecure-requests
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
     body:
       encoding: UTF-8
       file: no
-      string: '{"success":true,"scientificName":"Microseris","scientificNameAuthorship":"D.Don","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51268656","rank":"genus","rankID":6000,"lft":699190,"rgt":699200,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51337710","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51337706","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51337705","order":"Asterales","orderID":"https://id.biodiversity.org.au/taxon/apni/51311309","family":"Asteraceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51311021","genus":"Microseris","genusID":"https://id.biodiversity.org.au/taxon/apni/51268656","speciesGroup":["Plants"],"issues":["noIssue"]}'
-  recorded_at: 2022-01-20 01:30:15 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+      string: '{"success":true,"scientificName":"Microseris","scientificNameAuthorship":"D.Don","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51268656","rank":"genus","rankID":6000,"lft":612911,"rgt":612919,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51414459","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51414458","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51414457","order":"Asterales","orderID":"https://id.biodiversity.org.au/taxon/apni/51369484","family":"Asteraceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51369485","genus":"Microseris","genusID":"https://id.biodiversity.org.au/taxon/apni/51268656","speciesGroup":["Plants","Angiosperms","Dicots"],"speciesSubgroup":["Dicots","Flowering
+        plants"],"issues":["noIssue"]}'
+  recorded_at: 2022-10-13 04:42:27 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2

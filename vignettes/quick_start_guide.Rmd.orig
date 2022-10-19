@@ -45,17 +45,17 @@ library(galah)
 # Choosing an atlas
 By default, `galah` downloads information from the Atlas of Living Australia (ALA).
 To show the full list of Atlases currently supported by `galah`, use 
-`show_all_atlases()`.
+`show_all(atlases)`.
 
 ```{r}
-show_all_atlases()
+show_all(atlases)
 ```
 
 Use `galah_config()` to set the Atlas to use. This will automatically populate the 
 server configuration for your selected Atlas. By default, the atlas is Australia.
 
 ```{r eval=FALSE}
-galah_config(atlas = "UK")
+galah_config(atlas = "United Kingdom")
 ```
 
 # Building queries
@@ -114,74 +114,3 @@ result |> head()
 ```
 
 Check out our other vignettes for more detail on how to use these functions.
-
-# Function map
-Not all `atlas_` functions support all possible query modifiers (i.e. functions
-with a `search_` or `galah_` prefix). A network diagram showing accepted arguments
-is shown below. Note that if you pipe your queries starting with `galah_call()`,
-then irrelevant arguments will be (silently) ignored. 
-
-```{r, eval = FALSE, echo = FALSE}
-DiagrammeR::grViz("
-digraph boxes_and_circles {
-
-  # a 'graph' statement
-  graph [overlap = true, fontsize = 15, rankdir = LR]
-
-  # several 'node' statements
-  node [shape = box,
-        fontname = Helvetica,
-        fixedsize = TRUE,
-        width = 2.0,
-        height = 0.5,
-        fontcolor = '#E06E53',
-        color = '#E06E53']
-  atlas_counts; atlas_species; atlas_occurrences; atlas_media; atlas_taxonomy
-
-  node  [shape = box,
-        fontname = Helvetica,
-        fontcolor = '#c7902a'
-        color = '#c7902a']
-  galah_identify; galah_filter; galah_select; galah_geolocate; galah_group_by; galah_down_to
-  
-  node  [shape = box,
-        fontname = Helvetica,
-        fontcolor = '#7f9959',
-        color = '#7f9959']
-  search_taxa; search_identifiers; show_all_fields; search_fields; show_all_profiles; show_all_ranks; search_field_values; search_profile_attributes
-  
-  edge [ color = 'grey50' , dir = 'none']
-  atlas_counts->galah_identify
-  atlas_counts->galah_filter
-  atlas_counts->galah_geolocate
-  atlas_counts->galah_group_by
-  atlas_species->galah_identify
-  atlas_species->galah_filter
-  atlas_species->galah_geolocate
-  atlas_media->galah_identify
-  atlas_media->galah_filter
-  atlas_media->galah_select
-  atlas_media->galah_geolocate
-  atlas_occurrences->galah_identify 
-  atlas_occurrences->galah_filter
-  atlas_occurrences->galah_select
-  atlas_occurrences->galah_geolocate
-  atlas_taxonomy->galah_identify
-  atlas_taxonomy->galah_down_to
-  galah_identify->search_taxa
-  galah_identify->search_identifiers
-  galah_group_by->search_fields
-  galah_group_by->show_all_fields
-  galah_filter->search_fields
-  galah_filter->show_all_fields
-  galah_filter->show_all_profiles->search_profile_attributes
-  galah_select->search_fields
-  galah_select->show_all_fields
-  show_all_fields->search_field_values
-  search_fields->search_field_values
-  galah_down_to->show_all_ranks 
-}
-", width = 1000, height = 500)
-```
-<img src="galah-DiagrammeR-plot.png" title="plot of function relationships" alt="plot of function relationships" width="100%" />
-

@@ -36,8 +36,7 @@ search_identifiers <- function(identifier) {
     international_atlas <- getOption("galah_config")$atlas
     bullets <- c(
       "`search_identifiers` only provides information on Australian taxonomy.",
-      i = glue("To search taxonomy for {international_atlas} use `taxize`."),
-      i = "See vignette('international_atlases' for more information."
+      i = glue("To search for a species name, use `search_taxa()` instead.")
     )
     abort(bullets, call = caller_env())
   }
@@ -53,25 +52,25 @@ search_identifiers <- function(identifier) {
   matches <- lapply(identifier, identifier_lookup)
   if(all(unlist(lapply(matches, is.null)))){
     if(galah_config()$verbose){
-      bullets <- c(
-        "Calling the API failed for `search_identifiers`.",
-        i = "This might mean that the ALA system is down. Double check that your query is correct."
-      )
-      inform(bullets)
+      system_down_message("search_identifiers")
     }
-    return(set_galah_object_class(new_class = "ala_id"))
-  }else{ 
-    set_galah_object_class(
-      rbindlist(matches, fill = TRUE), 
-      new_class = "ala_id") 
+    df <- tibble()
+    attr(df, "call") <- "ala_id"
+    return(df)
+  }else{
+    df <- as_tibble(rbindlist(matches, fill = TRUE)) 
+    attr(df, "call") <- "ala_id"
+    return(df) 
   }
 }
 
 
 identifier_lookup <- function(identifier) {
-  taxa_url <- server_config("name_matching_base_url")
-  result <- atlas_GET(taxa_url, "/api/getByTaxonID", list(taxonID = identifier))
-  if (is.null(result)){return(NULL)}
+  url <- atlas_url("names_lookup")
+  result <- atlas_GET(url, list(taxonID = identifier))
+  if (is.null(result)){
+    return(NULL)
+  }
   if (isFALSE(result$success) && result$issues == "noMatch" && galah_config()$verbose) {
     list_invalid_taxa <- glue::glue_collapse(identifier, 
                                              sep = ", ")

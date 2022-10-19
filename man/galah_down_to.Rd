@@ -21,7 +21,9 @@ non-standard evaluation (NSE), for consistency with other \code{galah_} function
 
 
 An example of using \code{galah_down_to()} with \code{\link[=atlas_taxonomy]{atlas_taxonomy()}}. Return a
-taxonomic tree of \emph{Chordata} down to the class level\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+taxonomic tree of \emph{Chordata} down to the class level
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
     galah_identify("Chordata") |>
     galah_down_to(class) |>
     atlas_taxonomy()
@@ -51,7 +53,9 @@ taxonomic tree of \emph{Chordata} down to the class level\if{html}{\out{<div cla
 }\if{html}{\out{</div>}}
 
 Another example: return a taxonomic tree of \emph{Cacatuidae} down to the genus
-level\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+level
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
   galah_identify("Cacatuidae") |>
   galah_down_to(genus) |>
   atlas_taxonomy()
@@ -66,9 +70,10 @@ level\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
 #> 8   ¦   °--Microglossini    
 #> 9   ¦       °--Probosciger  
 #> 10  ¦--Calyptorhynchinae    
-#> 11  ¦   °--Calyptorhynchus  
-#> 12  °--Nymphicinae          
-#> 13      °--Nymphicus
+#> 11  ¦   ¦--Calyptorhynchus  
+#> 12  ¦   °--Zanda            
+#> 13  °--Nymphicinae          
+#> 14      °--Nymphicus
 }\if{html}{\out{</div>}}
 }
 

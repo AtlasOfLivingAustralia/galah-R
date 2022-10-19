@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -16,22 +16,22 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:22:58 GMT
+      date: Wed, 12 Oct 2022 03:43:14 GMT
       content-type: application/json
       content-length: '363'
+      server: nginx/1.23.1
       vary: Accept-Encoding
       content-encoding: gzip
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      x-content-type-options: nosniff
-      content-security-policy: upgrade-insecure-requests
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
     body:
       encoding: UTF-8
       file: no
-      string: '{"success":true,"scientificName":"AMPHIBIA","taxonConceptID":"urn:lsid:biodiversity.org.au:afd.taxon:0490a9ba-0d08-473d-a709-6c42e354f118","rank":"class","rankID":3000,"lft":183759,"rgt":184373,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Amphibia","classID":"urn:lsid:biodiversity.org.au:afd.taxon:0490a9ba-0d08-473d-a709-6c42e354f118","vernacularName":"Frogs","speciesGroup":["Animals","Amphibians"],"issues":["noIssue"]}'
-  recorded_at: 2022-01-20 01:22:58 GMT
+      string: '{"success":true,"scientificName":"AMPHIBIA","taxonConceptID":"https://biodiversity.org.au/afd/taxa/0490a9ba-0d08-473d-a709-6c42e354f118","rank":"class","rankID":3000,"lft":39134,"rgt":39762,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Amphibia","classID":"https://biodiversity.org.au/afd/taxa/0490a9ba-0d08-473d-a709-6c42e354f118","vernacularName":"Frogs","speciesGroup":["Animals","Amphibians"],"issues":["noIssue"]}'
+  recorded_at: 2022-10-12 03:43:14 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -42,7 +42,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -50,22 +50,22 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:22:59 GMT
+      date: Wed, 12 Oct 2022 03:43:14 GMT
       content-type: application/json
       content-length: '350'
+      server: nginx/1.23.1
       vary: Accept-Encoding
       content-encoding: gzip
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      x-content-type-options: nosniff
-      content-security-policy: upgrade-insecure-requests
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
     body:
       encoding: UTF-8
       file: no
-      string: '{"success":true,"scientificName":"REPTILIA","taxonConceptID":"urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399","rank":"class","rankID":3000,"lft":180617,"rgt":183757,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Reptilia","classID":"urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399","speciesGroup":["Animals","Reptiles"],"issues":["noIssue"]}'
-  recorded_at: 2022-01-20 01:22:58 GMT
+      string: '{"success":true,"scientificName":"REPTILIA","taxonConceptID":"https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399","rank":"class","rankID":3000,"lft":46718,"rgt":49924,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Reptilia","classID":"https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399","speciesGroup":["Animals","Reptiles"],"issues":["noIssue"]}'
+  recorded_at: 2022-10-12 03:43:14 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -76,7 +76,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -84,22 +84,22 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:22:59 GMT
+      date: Wed, 12 Oct 2022 03:43:14 GMT
       content-type: application/json
-      content-length: '357'
+      content-length: '355'
+      server: nginx/1.23.1
       vary: Accept-Encoding
       content-encoding: gzip
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      x-content-type-options: nosniff
-      content-security-policy: upgrade-insecure-requests
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
     body:
       encoding: UTF-8
       file: no
-      string: '{"success":true,"scientificName":"AVES","taxonConceptID":"urn:lsid:biodiversity.org.au:afd.taxon:5ed80139-31bb-48a8-9f57-42d8015dacbb","rank":"class","rankID":3000,"lft":173701,"rgt":180615,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Aves","classID":"urn:lsid:biodiversity.org.au:afd.taxon:5ed80139-31bb-48a8-9f57-42d8015dacbb","vernacularName":"Birds","speciesGroup":["Animals","Birds","Birds"],"issues":["noIssue"]}'
-  recorded_at: 2022-01-20 01:22:58 GMT
+      string: '{"success":true,"scientificName":"AVES","taxonConceptID":"https://biodiversity.org.au/afd/taxa/65625205-db74-4a87-b566-ca387b119974","rank":"class","rankID":3000,"lft":39764,"rgt":46716,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Aves","classID":"https://biodiversity.org.au/afd/taxa/65625205-db74-4a87-b566-ca387b119974","vernacularName":"Birds","speciesGroup":["Animals","Birds"],"issues":["noIssue"]}'
+  recorded_at: 2022-10-12 03:43:14 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -110,7 +110,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -118,20 +118,20 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:22:59 GMT
+      date: Wed, 12 Oct 2022 03:43:14 GMT
       content-type: application/json
-      content-length: '357'
+      content-length: '356'
+      server: nginx/1.23.1
       vary: Accept-Encoding
       content-encoding: gzip
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      x-content-type-options: nosniff
-      content-security-policy: upgrade-insecure-requests
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
     body:
       encoding: UTF-8
       file: no
-      string: '{"success":true,"scientificName":"MAMMALIA","taxonConceptID":"urn:lsid:biodiversity.org.au:afd.taxon:e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","rank":"class","rankID":3000,"lft":201763,"rgt":203781,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"urn:lsid:biodiversity.org.au:afd.taxon:e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","vernacularName":"Mammals","speciesGroup":["Animals","Mammals"],"issues":["noIssue"]}'
-  recorded_at: 2022-01-20 01:22:58 GMT
+      string: '{"success":true,"scientificName":"MAMMALIA","taxonConceptID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","rank":"class","rankID":3000,"lft":67388,"rgt":69420,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","vernacularName":"Mammals","speciesGroup":["Animals","Mammals"],"issues":["noIssue"]}'
+  recorded_at: 2022-10-12 03:43:14 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

@@ -1,7 +1,7 @@
 ---
 title: "Narrow your results"
 author: "Martin Westgate & Dax Kellie"
-date: "20/12/2021"
+date: '`r Sys.Date()`'
 output: html_document
 editor_options: 
   chunk_output_type: inline
@@ -10,7 +10,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 ---
-  
+
+```{r, include = FALSE}
+galah_config(atlas = "Australia", verbose = FALSE)
+```
+
 Each occurrence record contains taxonomic information and 
 information about the observation itself, like its location and the date
 of observation. These pieces of information are recorded and categorised into 
@@ -45,6 +49,7 @@ information to download  data with `galah`.
 For example, to search for reptiles, we first need to identify whether we have 
 the correct query:
 
+
 ```{r}
 search_taxa("Reptilia")
 ```
@@ -72,33 +77,27 @@ galah_call() |>
  atlas_counts()
 ```
 
-If you're using an international atlas, `search_taxa` won't work; instead you
-need to use the `taxize` package to look up the relevant identifiers. Most
-atlases use the GBIF taxonomic backbone, meaning that you can use the 
-`get_gbifid` function to download the relevant identifiers. These identifiers
-can then be passed directly to `galah_identify`.
+If you're using an international atlas, `search_taxa` will automatically 
+switch to using the local name-matching service. For example, Spain uses the
+GBIF taxonomic backbone, but integrates seamlessly with our standard workflow.
 
 ```{r}
 galah_config(atlas = "Spain")
 
-library(taxize)
-id <- get_gbifid("Lepus", messages = FALSE, rows = 1)
-
 galah_call() |> 
-  galah_identify(id) |> 
+  galah_identify("Lepus") |> 
   galah_group_by(species) |> 
   atlas_counts()
 ```
 
-The exception is the UK [National Biodiversity Network](https://nbn.org.uk) (NBN), 
-which has its' own taxonomic backbone (note this information is also given by
-`show_all_atlases()`). You can search the NBN taxonomy with `get_nbnid`.
+Conversely, the UK's [National Biodiversity Network](https://nbn.org.uk) (NBN), 
+has its' own taxonomic backbone, but is supported using the same function call.
 
 ```{r}
-galah_config(atlas = "UK")
-id <- get_nbnid(c("Vulpes vulpes", "Meles meles"), messages = FALSE, rows = 1)
+galah_config(atlas = "United Kingdom")
+
 galah_call() |> 
-  galah_identify(id) |> 
+  galah_identify("Bufo") |> 
   galah_group_by(species) |> 
   atlas_counts()
 ```
@@ -128,18 +127,7 @@ galah_call() |>
 ```
 
 To find available fields and corresponding valid values, use the field lookup 
-functions `show_all_fields`, `search_fields` and `find_field_values`.  
-
-A further notable feature of `galah_filter` is the ability to specify a `profile` to 
-remove records that are suspect in some way. 
-
-```{r}
-galah_call() |>
-  galah_filter(year > 2000, profile = "ALA") |>
-  atlas_counts()
-```
-
-To see a full list of data quality profiles, use `show_all_profiles()`.
+functions `show_all_fields`, `search_fields` and `search_field_values`.  
 
 Finally, a special case of `galah_filter` is to make more complex taxonomic
 queries than are possible using `search_taxa`. By using the `taxonConceptID` 
@@ -155,6 +143,19 @@ galah_call() |>
   galah_group_by(class) |>
   atlas_counts()
 ```
+
+# galah_apply_profile
+When working with the ALA, a notable feature is the ability to specify a `profile` to 
+remove records that are suspect in some way.
+
+```{r}
+galah_call() |>
+  galah_filter(year > 2000) |>
+  galah_apply_profile(ALA) |>
+  atlas_counts()
+```
+
+To see a full list of data quality profiles, use `show_all(profiles)`.
 
 # galah_group_by
 Use `galah_group_by` to group record counts and summarise counts by specified fields:
@@ -191,7 +192,7 @@ occurrences
 You can also use other `dplyr` functions that work with `dplyr::select()` with 
 `galah_select()`
 
-```{r, eval = FALSE}
+```{r}
 occurrences <- galah_call() |>
   galah_identify("reptilia") |>
   galah_filter(year == 1930) |>

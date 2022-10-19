@@ -1,0 +1,80 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://bie-ws.biodiversityatlas.at/search?q=Vulpes%20vulpes&pageSize=5
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.18.0 (Ubuntu)
+      date: Tue, 18 Oct 2022 09:01:44 GMT
+      content-type: application/json;charset=UTF-8
+      x-application-context: application:production
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+    body:
+      encoding: UTF-8
+      file: no
+      string: '{"searchResults":{"totalRecords":222,"facetResults":[],"results":[{"id":"b46d2db6-9779-4ceb-996b-856e2ec98793","guid":"7193880","linkIdentifier":"Vulpes
+        vulpes vulpes","idxtype":"TAXON","name":"Vulpes vulpes vulpes","kingdom":"Animalia","nomenclaturalCode":null,"scientificName":"Vulpes
+        vulpes vulpes","scientificNameAuthorship":"(Linnaeus, 1758)","author":"(Linnaeus,
+        1758)","nameComplete":"Vulpes vulpes vulpes (Linnaeus, 1758)","nameFormatted":"<span
+        class=\"scientific-name rank-subspecies\"><span class=\"name\">Vulpes vulpes
+        vulpes<\u002fspan> <span class=\"author\">(Linnaeus, 1758)<\u002fspan><\u002fspan>","taxonomicStatus":"accepted","nomenclaturalStatus":null,"parentGuid":"5219243","rank":"subspecies","rankID":8000,"commonName":"","commonNameSingle":"","occurrenceCount":0,"conservationStatus":null,"infoSourceName":"GBIF
+        Backbone Taxonomy","infoSourceURL":"https://collections.ala.org.au/public/show/7ddf754f-d193-4cc9-b351-99906754a03b","kingdomGuid":"1","orderGuid":"732","order":"Carnivora","class":"Mammalia","genus":"Vulpes","phylum":"Chordata","species":"Vulpes
+        vulpes","genusGuid":"5219234","family":"Canidae","classGuid":"359","familyGuid":"9701","speciesGuid":"5219243","phylumGuid":"44","subspecies":"Vulpes
+        vulpes vulpes","subspeciesGuid":"7193880","highlight":"<b>Vulpes<\u002fb>
+        <b>vulpes<\u002fb> <b>vulpes<\u002fb> (Linnaeus, 1758)<br><b>Vulpes vulpes
+        vulpes<\u002fb><br><b>vulpes<\u002fb>"},{"id":"5711f9a9-0e86-4698-b9df-09519fff3e77","guid":"5219243","linkIdentifier":null,"idxtype":"TAXON","name":"Vulpes
+        vulpes","kingdom":"Animalia","nomenclaturalCode":null,"scientificName":"Vulpes
+        vulpes","scientificNameAuthorship":"(Linnaeus, 1758)","author":"(Linnaeus,
+        1758)","nameComplete":"Vulpes vulpes (Linnaeus, 1758)","nameFormatted":"<span
+        class=\"scientific-name rank-species\"><span class=\"name\">Vulpes vulpes<\u002fspan>
+        <span class=\"author\">(Linnaeus, 1758)<\u002fspan><\u002fspan>","taxonomicStatus":"accepted","nomenclaturalStatus":null,"parentGuid":"5219234","rank":"species","rankID":7000,"commonName":"\"Rotfuchs\",
+        Rotfuchs","commonNameSingle":"\"Rotfuchs\"","occurrenceCount":1650,"conservationStatus":null,"infoSourceName":"GBIF
+        Backbone Taxonomy","infoSourceURL":"https://collections.ala.org.au/public/show/7ddf754f-d193-4cc9-b351-99906754a03b","image":"88f37329-6024-4d58-b85a-c618d3e5c0ad","imageUrl":"https://images.biodiversityatlas.at/image/proxyImageThumbnailLarge?imageId=88f37329-6024-4d58-b85a-c618d3e5c0ad","thumbnailUrl":"https://images.biodiversityatlas.at/image/proxyImageThumbnail?imageId=88f37329-6024-4d58-b85a-c618d3e5c0ad","smallImageUrl":"https://images.biodiversityatlas.at/image/proxyImageThumbnailLarge?imageId=88f37329-6024-4d58-b85a-c618d3e5c0ad","largeImageUrl":"https://images.biodiversityatlas.at/image/proxyImage?imageId=88f37329-6024-4d58-b85a-c618d3e5c0ad","kingdomGuid":"1","orderGuid":"732","order":"Carnivora","class":"Mammalia","genus":"Vulpes","phylum":"Chordata","genusGuid":"5219234","family":"Canidae","classGuid":"359","familyGuid":"9701","phylumGuid":"44","species":"Vulpes
+        vulpes","speciesGuid":"5219243","highlight":"<b>vulpes<\u002fb><br><b>Vulpes<\u002fb>
+        <b>vulpes<\u002fb> (Linnaeus, 1758)<br><b>Vulpes vulpes<\u002fb>"},{"id":"f3e0a1f2-3884-44c6-9641-aa0391c7c0ff","guid":"6164265","linkIdentifier":null,"idxtype":"TAXON","name":"Vulpes
+        vulpes stepensis","kingdom":"Animalia","nomenclaturalCode":null,"scientificName":"Vulpes
+        vulpes stepensis","scientificNameAuthorship":"Brauner, 1914","author":"Brauner,
+        1914","nameComplete":"Vulpes vulpes stepensis Brauner, 1914","nameFormatted":"<span
+        class=\"scientific-name rank-subspecies\"><span class=\"name\">Vulpes vulpes
+        stepensis<\u002fspan> <span class=\"author\">Brauner, 1914<\u002fspan><\u002fspan>","taxonomicStatus":"accepted","nomenclaturalStatus":null,"parentGuid":"5219243","rank":"subspecies","rankID":8000,"commonName":"","commonNameSingle":"","occurrenceCount":0,"conservationStatus":null,"infoSourceName":"GBIF
+        Backbone Taxonomy","infoSourceURL":"https://collections.ala.org.au/public/show/7ddf754f-d193-4cc9-b351-99906754a03b","kingdomGuid":"1","orderGuid":"732","order":"Carnivora","class":"Mammalia","genus":"Vulpes","phylum":"Chordata","species":"Vulpes
+        vulpes","genusGuid":"5219234","family":"Canidae","classGuid":"359","familyGuid":"9701","speciesGuid":"5219243","phylumGuid":"44","subspecies":"Vulpes
+        vulpes stepensis","subspeciesGuid":"6164265","highlight":"<b>Vulpes<\u002fb>
+        <b>vulpes<\u002fb> stepensis Brauner, 1914<br><b>Vulpes vulpes stepensis<\u002fb><br><b>vulpes<\u002fb>"},{"id":"17145caf-c203-48f1-8018-af427f25dd55","guid":"6164277","linkIdentifier":"Vulpes
+        vulpes rubricosa","idxtype":"TAXON","name":"Vulpes vulpes rubricosa","kingdom":"Animalia","nomenclaturalCode":null,"scientificName":"Vulpes
+        vulpes rubricosa","scientificNameAuthorship":"Bangs, 1898","author":"Bangs,
+        1898","nameComplete":"Vulpes vulpes rubricosa Bangs, 1898","nameFormatted":"<span
+        class=\"scientific-name rank-subspecies\"><span class=\"name\">Vulpes vulpes
+        rubricosa<\u002fspan> <span class=\"author\">Bangs, 1898<\u002fspan><\u002fspan>","taxonomicStatus":"accepted","nomenclaturalStatus":null,"parentGuid":"5219243","rank":"subspecies","rankID":8000,"commonName":"","commonNameSingle":"","occurrenceCount":0,"conservationStatus":null,"infoSourceName":"GBIF
+        Backbone Taxonomy","infoSourceURL":"https://collections.ala.org.au/public/show/7ddf754f-d193-4cc9-b351-99906754a03b","kingdomGuid":"1","orderGuid":"732","order":"Carnivora","class":"Mammalia","genus":"Vulpes","phylum":"Chordata","species":"Vulpes
+        vulpes","genusGuid":"5219234","family":"Canidae","classGuid":"359","familyGuid":"9701","speciesGuid":"5219243","phylumGuid":"44","subspecies":"Vulpes
+        vulpes rubricosa","subspeciesGuid":"6164277","highlight":"<b>vulpes<\u002fb><br><b>Vulpes<\u002fb>
+        <b>vulpes<\u002fb> rubricosa Bangs, 1898<br><b>Vulpes vulpes rubricosa<\u002fb>"},{"id":"1846b3fd-68e0-4ec1-9b4d-afe4d8630712","guid":"6164298","linkIdentifier":"Vulpes
+        vulpes alascensis","idxtype":"TAXON","name":"Vulpes vulpes alascensis","kingdom":"Animalia","nomenclaturalCode":null,"scientificName":"Vulpes
+        vulpes alascensis","scientificNameAuthorship":"Merriam, 1900","author":"Merriam,
+        1900","nameComplete":"Vulpes vulpes alascensis Merriam, 1900","nameFormatted":"<span
+        class=\"scientific-name rank-subspecies\"><span class=\"name\">Vulpes vulpes
+        alascensis<\u002fspan> <span class=\"author\">Merriam, 1900<\u002fspan><\u002fspan>","taxonomicStatus":"accepted","nomenclaturalStatus":null,"parentGuid":"5219243","rank":"subspecies","rankID":8000,"commonName":"","commonNameSingle":"","occurrenceCount":0,"conservationStatus":null,"infoSourceName":"GBIF
+        Backbone Taxonomy","infoSourceURL":"https://collections.ala.org.au/public/show/7ddf754f-d193-4cc9-b351-99906754a03b","kingdomGuid":"1","orderGuid":"732","order":"Carnivora","class":"Mammalia","genus":"Vulpes","phylum":"Chordata","species":"Vulpes
+        vulpes","genusGuid":"5219234","family":"Canidae","classGuid":"359","familyGuid":"9701","speciesGuid":"5219243","phylumGuid":"44","subspecies":"Vulpes
+        vulpes alascensis","subspeciesGuid":"6164298","highlight":"<b>vulpes<\u002fb><br><b>Vulpes<\u002fb>
+        <b>vulpes<\u002fb> alascensis Merriam, 1900<br><b>Vulpes vulpes alascensis<\u002fb>"}],"queryTitle":"Vulpes
+        vulpes"}}'
+  recorded_at: 2022-10-18 09:01:44 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

@@ -1,14 +1,14 @@
 http_interactions:
 - request:
     method: get
-    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=month&flimit=1
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?fq=&disableAllQualityFilters=true&facets=month&flimit=1
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -22,37 +22,37 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Thu, 20 Jan 2022 01:22:01 GMT
+      date: Sun, 09 Oct 2022 23:43:47 GMT
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.21.5
+      server: nginx/1.23.1
       set-cookie:
-      - AWSALBTG=P1MGMVXlXh2YA4m+v7BoDrh3nf/8Z9gZIr31iHzJpMuT0Y4ohMDeB2rfy3MohBUxYeTqLaomob+F+pzMDA9j6FiaqcDlXSdDQRukS1UlTtSOBxjS7T8pxm0R4+ch+p7QyfJvkZBNCn9x6orFHdx965vDKzvn0rouZ9VMIugApTRK;
-        Expires=Thu, 27 Jan 2022 01:22:00 GMT; Path=/
-      - AWSALBTGCORS=P1MGMVXlXh2YA4m+v7BoDrh3nf/8Z9gZIr31iHzJpMuT0Y4ohMDeB2rfy3MohBUxYeTqLaomob+F+pzMDA9j6FiaqcDlXSdDQRukS1UlTtSOBxjS7T8pxm0R4+ch+p7QyfJvkZBNCn9x6orFHdx965vDKzvn0rouZ9VMIugApTRK;
-        Expires=Thu, 27 Jan 2022 01:22:00 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=iOiFo8gxy/Hi/JnVK7AONAq4i7TKRNjd4QqErQ9aZHS4vY5uUVOHpleZC16Wf1WqLhM/Js5aESwt4ImYJUHhdZWxxuiBX1/Gt/+F3NPbfgpCQDsIAvmZ4Cjtwabe;
-        Expires=Thu, 27 Jan 2022 01:22:00 GMT; Path=/
-      - AWSALBCORS=iOiFo8gxy/Hi/JnVK7AONAq4i7TKRNjd4QqErQ9aZHS4vY5uUVOHpleZC16Wf1WqLhM/Js5aESwt4ImYJUHhdZWxxuiBX1/Gt/+F3NPbfgpCQDsIAvmZ4Cjtwabe;
-        Expires=Thu, 27 Jan 2022 01:22:00 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=3uncZhmAGyiODo+YuA2TDTdfY+6ZECb/PM8kYxCp8PDRuRvaG7YmjgthsL8CZWy2Xe2inmeUU2ooMqeQNhuLg/3QAZbVeX//JaMgqA/RM5dL+6uciXOVZKUvwDzfzgko+RIFMf8YoVT2WBM1kCc+YdfZLKkod/i21w7lBCZDx5FP;
+        Expires=Sun, 16 Oct 2022 23:43:45 GMT; Path=/
+      - AWSALBTGCORS=3uncZhmAGyiODo+YuA2TDTdfY+6ZECb/PM8kYxCp8PDRuRvaG7YmjgthsL8CZWy2Xe2inmeUU2ooMqeQNhuLg/3QAZbVeX//JaMgqA/RM5dL+6uciXOVZKUvwDzfzgko+RIFMf8YoVT2WBM1kCc+YdfZLKkod/i21w7lBCZDx5FP;
+        Expires=Sun, 16 Oct 2022 23:43:45 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=ewC1zTfRXK9w1XorvVgCviyff7Cd5Cip/VYkFe/yJsfs+6zJr8kiAln7M74nLA47pXiYjJTJ2VjbieixHM1rAPQv2yRL5a0soYGYpMPS1AD+8pYWSv+EcOpH/K3a;
+        Expires=Sun, 16 Oct 2022 23:43:45 GMT; Path=/
+      - AWSALBCORS=ewC1zTfRXK9w1XorvVgCviyff7Cd5Cip/VYkFe/yJsfs+6zJr8kiAln7M74nLA47pXiYjJTJ2VjbieixHM1rAPQv2yRL5a0soYGYpMPS1AD+8pYWSv+EcOpH/K3a;
+        Expires=Sun, 16 Oct 2022 23:43:45 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"month","fieldResult":[{"label":"October","i18nCode":"month.10","count":10598523,"fq":"month:\"10\""}],"count":12}]'
-  recorded_at: 2022-01-20 01:22:02 GMT
+      string: '[{"fieldName":"month","fieldResult":[{"label":"October","i18nCode":"month.10","count":11949497,"fq":"month:\"10\""}],"count":12}]'
+  recorded_at: 2022-10-09 23:43:49 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?disableAllQualityFilters=true&facets=month&flimit=12
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?fq=&disableAllQualityFilters=true&facets=month&flimit=12
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -66,24 +66,24 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Thu, 20 Jan 2022 01:22:03 GMT
+      date: Sun, 09 Oct 2022 23:43:49 GMT
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.21.5
+      server: nginx/1.23.1
       set-cookie:
-      - AWSALBTG=ZgQhEm0tnO3Kph/BkKjVmSU8wLJxDdFQWz70RHPmjudWt3FRV/CtxRmShWZQan3c7Lo8esmyaVRgqU5IvYd4NYqsQ4sKOir6O2AHIFavllwx1d/Mx9pNwcSBN1Qzs0sQ0N5wbjpKRvPABIewHelwyL9WA49lRv74UpGJVxNfv6XL;
-        Expires=Thu, 27 Jan 2022 01:22:01 GMT; Path=/
-      - AWSALBTGCORS=ZgQhEm0tnO3Kph/BkKjVmSU8wLJxDdFQWz70RHPmjudWt3FRV/CtxRmShWZQan3c7Lo8esmyaVRgqU5IvYd4NYqsQ4sKOir6O2AHIFavllwx1d/Mx9pNwcSBN1Qzs0sQ0N5wbjpKRvPABIewHelwyL9WA49lRv74UpGJVxNfv6XL;
-        Expires=Thu, 27 Jan 2022 01:22:01 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=q02kaFfJsH1DKvIRiXPN79bMhowpkX2Xa2LabmXo3VRjOzSm1pVkq3Og3MuTi6c6PG61YEF1HxeXe1mt41DN57Vdtsy1XUXGGKQJmFnkl/yxjBvwkoGxMU75Ba1T;
-        Expires=Thu, 27 Jan 2022 01:22:01 GMT; Path=/
-      - AWSALBCORS=q02kaFfJsH1DKvIRiXPN79bMhowpkX2Xa2LabmXo3VRjOzSm1pVkq3Og3MuTi6c6PG61YEF1HxeXe1mt41DN57Vdtsy1XUXGGKQJmFnkl/yxjBvwkoGxMU75Ba1T;
-        Expires=Thu, 27 Jan 2022 01:22:01 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=LHnUmNif1fsKD78LVVB5/TnBK1j7qQ0ec08LgZIAyvNBC8AcNnMJIuJ1+wHGtasqAjH9AEcZpJQuFoVqcI9GCDyrpn86MdGUdaadwE52od9G6ryJCW+yeIgZhb57nmKXgupc6TKnIFZbzQCFT9p4hp9XEHZTF9X2md7OHKAahxfC;
+        Expires=Sun, 16 Oct 2022 23:43:47 GMT; Path=/
+      - AWSALBTGCORS=LHnUmNif1fsKD78LVVB5/TnBK1j7qQ0ec08LgZIAyvNBC8AcNnMJIuJ1+wHGtasqAjH9AEcZpJQuFoVqcI9GCDyrpn86MdGUdaadwE52od9G6ryJCW+yeIgZhb57nmKXgupc6TKnIFZbzQCFT9p4hp9XEHZTF9X2md7OHKAahxfC;
+        Expires=Sun, 16 Oct 2022 23:43:47 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=P5hGQSFpfVdOtZiFcUhCDtUPi/idZtI7GqAdbooJ6doOkBK29uaJBx7TCCJTkDN3KXtgL+6/r9xhPn8tzIZl8Tj66ufQuimHJxpX90Jmv+7puwXvvKLc1MAMqql8;
+        Expires=Sun, 16 Oct 2022 23:43:47 GMT; Path=/
+      - AWSALBCORS=P5hGQSFpfVdOtZiFcUhCDtUPi/idZtI7GqAdbooJ6doOkBK29uaJBx7TCCJTkDN3KXtgL+6/r9xhPn8tzIZl8Tj66ufQuimHJxpX90Jmv+7puwXvvKLc1MAMqql8;
+        Expires=Sun, 16 Oct 2022 23:43:47 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       x-frame-options: DENY
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"month","fieldResult":[{"label":"October","i18nCode":"month.10","count":10598523,"fq":"month:\"10\""},{"label":"November","i18nCode":"month.11","count":9499060,"fq":"month:\"11\""},{"label":"January","i18nCode":"month.1","count":8692122,"fq":"month:\"1\""},{"label":"September","i18nCode":"month.9","count":8616085,"fq":"month:\"9\""},{"label":"December","i18nCode":"month.12","count":7832980,"fq":"month:\"12\""},{"label":"March","i18nCode":"month.3","count":7353305,"fq":"month:\"3\""},{"label":"April","i18nCode":"month.4","count":7101570,"fq":"month:\"4\""},{"label":"May","i18nCode":"month.5","count":6748964,"fq":"month:\"5\""},{"label":"August","i18nCode":"month.8","count":6735100,"fq":"month:\"8\""},{"label":"February","i18nCode":"month.2","count":6302602,"fq":"month:\"2\""},{"label":"July","i18nCode":"month.7","count":6217609,"fq":"month:\"7\""},{"label":"June","i18nCode":"month.6","count":5935175,"fq":"month:\"6\""}],"count":12}]'
-  recorded_at: 2022-01-20 01:22:02 GMT
+      string: '[{"fieldName":"month","fieldResult":[{"label":"October","i18nCode":"month.10","count":11949497,"fq":"month:\"10\""},{"label":"November","i18nCode":"month.11","count":10632245,"fq":"month:\"11\""},{"label":"January","i18nCode":"month.1","count":9837656,"fq":"month:\"1\""},{"label":"September","i18nCode":"month.9","count":9761183,"fq":"month:\"9\""},{"label":"December","i18nCode":"month.12","count":8861803,"fq":"month:\"12\""},{"label":"March","i18nCode":"month.3","count":8361129,"fq":"month:\"3\""},{"label":"April","i18nCode":"month.4","count":8088409,"fq":"month:\"4\""},{"label":"May","i18nCode":"month.5","count":7652091,"fq":"month:\"5\""},{"label":"August","i18nCode":"month.8","count":7645501,"fq":"month:\"8\""},{"label":"February","i18nCode":"month.2","count":7182029,"fq":"month:\"2\""},{"label":"July","i18nCode":"month.7","count":7015640,"fq":"month:\"7\""},{"label":"June","i18nCode":"month.6","count":6742187,"fq":"month:\"6\""}],"count":12}]'
+  recorded_at: 2022-10-09 23:43:49 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

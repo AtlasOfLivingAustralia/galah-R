@@ -12,7 +12,7 @@
 #' @param search (logical); should the results in question be passed to
 #'   `search_taxa`? Ignored if an object of class `ala_id`, `gbifid`, or `nbnid` 
 #'   is given to `...`.
-#'
+#' @return A tibble containing identified taxa.
 #' @seealso [search_taxa()] to find identifiers from scientific names;
 #' [search_identifiers()] for how to get names if taxonomic identifiers 
 #' are already known.
@@ -41,17 +41,17 @@
 #' Use `galah_identify()` to narrow your queries
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() %>% 
-#'   galah_identify("Eolophus") %>%
+#' galah_call() |> 
+#'   galah_identify("Eolophus") |>
 #'   atlas_counts()
 #' ```
 #' 
 #' If you already know a valid taxon identifier, add it and set `search = FALSE`.
 #'
 #' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() %>% 
-#'   galah_identify("urn:lsid:biodiversity.org.au:afd.taxon:b2de5e40-df8f-4339-827d-25e63454a4a2", 
-#'                  search = FALSE) %>%
+#' galah_call() |> 
+#'   galah_identify("https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c", 
+#'                  search = FALSE) |>
 #'   atlas_counts()
 #' ```
 #' 
@@ -82,15 +82,15 @@ galah_identify <- function(..., search = TRUE) {
     verbose <- getOption("galah_config")$verbose
 
     # check for types first
-    if (inherits(input_query, "ala_id")) {
+    if (!is.null(attr(input_query, "call"))) {
       query <- input_query$taxon_concept_id
-    } else if (inherits(input_query, c("gbifid+", "nbnid+"))) { # from taxize
-      query <- as.character(input_query)
+    # } else if (inherits(input_query, c("gbifid+", "nbnid+"))) { # from taxize
+    #   query <- as.character(input_query)
     } else { # if the input isn't of known type, try to find IDs
       if (search) {
         check_atlas(atlas)
         lookup <- search_taxa(input_query)
-        if (is.null(lookup$taxon_concept_id)) {
+        if (!any(names(lookup) == "taxon_concept_id")){
           bullets <- c(
             "`galah_identify` didn't return anything.",
             i = "Did you use `search_taxa` to check whether your search species the correct taxa?"
@@ -125,15 +125,15 @@ galah_identify <- function(..., search = TRUE) {
       } # end for search == FALSE
     } # end for unknown types
     
-    check_is_character(query)
-    result <- tibble(identifier = query)
+    # check_is_character(query) # Q: do we need this function? Is it called elsewhere?
+    result <- tibble(identifier = as.character(query))
     
   } else { # if empty, return correct class, but no values
     result <- as_tibble(data.frame(identifier = character()))
   }
 
   # if a data request was supplied, return one
-  class(result) <- append(class(result), "galah_identify")
+  attr(result, "call") <- "galah_identify"
   if (is_data_request) {
     update_galah_call(data_request, identify = result)
   } else {
@@ -166,18 +166,15 @@ check_number_returned <- function(n_in, n_out, error_call = caller_env()) {
 }
 
 check_atlas <- function(atlas, error_call = caller_env()) {
-  if(atlas != "Australia"){
-    atlas_origin <- switch(atlas,
-      "UK" = "UK",
-      "Sweden" = "Swedish",
-      "Austria" = "Austrian",
-      "Guatemala" = "Guatemalan",
-      "Spain" = "Spanish"
-    )
-    bullets <- c(glue("Searching is not supported for the {atlas_origin} atlas."),
-      i = "try using the `taxize` package to search instead",
-      i = "taxonomic identifiers can be passed to `galah_identify` by setting `search = FALSE`"
-    )
+  if(atlas == "UK"){
+    # atlas_origin <- switch(atlas,
+    #   "UK" = "UK",
+    #   "Sweden" = "Swedish",
+    #   "Austria" = "Austrian",
+    #   "Guatemala" = "Guatemalan",
+    #   "Spain" = "Spanish"
+    # )
+    bullets <- c("Searching is not supported for the NBN.")
     abort(bullets, call = error_call)
   }
 }
@@ -192,7 +189,7 @@ check_is_character <- function(query, error_call = caller_env()){
     query <- lookup$taxon_concept_id[!is.na(lookup$taxon_concept_id)]
     
     bullets <- c(
-      "We didn't recognise the object passed to `galah_identify` isn't from a recognised class.",
+      "The object passed to `galah_identify` isn't from a recognised class.",
       i = "Recognised classes are `ala_id`, `gbifid`, `nbnid` or `character`",
       i = "Use `search_taxa` to lookup taxon information."
     )

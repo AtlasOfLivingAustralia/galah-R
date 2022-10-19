@@ -1,0 +1,37 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://species-ws.nbnatlas.org/search?q=Mammalia&pageSize=5
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 OK
+      date: Wed, 19 Oct 2022 04:05:20 GMT
+      server: Apache/2.4.7 (Ubuntu)
+      x-application-context: application:production
+      content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+    body:
+      encoding: UTF-8
+      file: no
+      string: '{"searchResults":{"totalRecords":2,"facetResults":[],"results":[{"id":"90e36d48-6e86-4447-b09f-4b199a27d00b","guid":"NHMSYS0000376154","linkIdentifier":null,"idxtype":"TAXON","name":"Mammalia","kingdom":"Animalia","nomenclaturalCode":null,"scientificName":"Mammalia","scientificNameAuthorship":"Linnaeus,
+        1758","author":"Linnaeus, 1758","nameComplete":"Mammalia Linnaeus, 1758","nameFormatted":"<span
+        class=\"scientific-name rank-class\"><span class=\"name\">Mammalia<\u002fspan>
+        <span class=\"author\">Linnaeus, 1758<\u002fspan><\u002fspan>","taxonomicStatus":"accepted","nomenclaturalStatus":null,"parentGuid":"NHMSYS0021053521","rank":"class","rankID":3000,"commonName":"Herbivore,
+        Mammal, Mammals","commonNameSingle":"Mammals","occurrenceCount":3292674,"conservationStatus":null,"infoSourceName":"UKSI","infoSourceURL":"https://registry.nbnatlas.org/public/show/null","taxonGroup_s":"terrestrial
+        mammal","establishmentMeans":"Native","establishmentStatus_s":null,"datasetID":null,"listMembership_m_s":null,"riskAssessment_m_s":null,"managementPlans_m_s":null,"habitat_s":"marine/terrestrial","habitat_m_s":["marine","terrestrial"],"speciesGroup":null,"synonymComplete":["Mammalia"],"superclass":"Tetrapoda","kingdomGuid":"NBNSYS0100001342","phylum":"Chordata","superclassGuid":"NHMSYS0021053521","phylumGuid":"NBNSYS0100002380","class":"Mammalia","classGuid":"NHMSYS0000376154","highlight":"<b>Mammalia<\u002fb>
+        Linnaeus, 1758<br><b>Mammalia<\u002fb>"},{"id":"5a7c72be-b358-4457-abaf-33a38a7c44f1","guid":"NBNSYS0000005076","linkIdentifier":null,"idxtype":"TAXON","name":"Mammalia","kingdom":null,"nomenclaturalCode":null,"scientificName":"Mammalia","scientificNameAuthorship":null,"author":null,"nameComplete":"Mammalia","nameFormatted":"<span
+        class=\"scientific-name rank-class\"><span class=\"name\">Mammalia<\u002fspan><\u002fspan>","taxonomicStatus":"synonym","nomenclaturalStatus":null,"parentGuid":null,"rank":"class","rankID":3000,"commonName":"","commonNameSingle":"","occurrenceCount":0,"conservationStatus":null,"infoSourceName":"UKSI","infoSourceURL":"https://registry.nbnatlas.org/public/show/null","acceptedConceptID":"NHMSYS0000376154","acceptedConceptName":"Mammalia
+        Linnaeus, 1758","taxonGroup_s":null,"establishmentMeans":"Native","establishmentStatus_s":null,"datasetID":null,"listMembership_m_s":null,"riskAssessment_m_s":null,"managementPlans_m_s":null,"habitat_s":null,"habitat_m_s":null,"speciesGroup":null,"synonymComplete":null,"class":"Mammalia","classGuid":"NBNSYS0000005076","highlight":"<b>Mammalia<\u002fb>"}],"queryTitle":"Mammalia"}}'
+  recorded_at: 2022-10-19 04:05:23 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

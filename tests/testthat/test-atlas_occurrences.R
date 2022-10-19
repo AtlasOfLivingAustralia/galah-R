@@ -23,7 +23,8 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
   skip_on_cran()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
-                     "dataResourceName", "stateProvince", "ZERO_COORDINATE")
+                     "dataResourceName", "occurrenceStatus", "stateProvince", 
+                     "ZERO_COORDINATE")
   filters <- galah_filter(year >= 2018)
   cols <- galah_select(group = "basic", stateProvince, ZERO_COORDINATE)
   identify <- galah_identify("Polytelis swainsonii")
@@ -43,7 +44,8 @@ test_that("atlas_occurrences accepts all narrowing functions in pipe", {
   skip_on_cran()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
-                     "dataResourceName", "stateProvince", "ZERO_COORDINATE")
+                     "dataResourceName", "occurrenceStatus", "stateProvince", 
+                     "ZERO_COORDINATE")
   poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
   occ <- galah_call() |>
     galah_filter(year >= 2018) |>
@@ -71,14 +73,8 @@ test_that("atlas_occurrences accepts all narrowing functions in pipe", {
 #   galah_config(caching = FALSE)
 # })
 
-test_that("atlas_occurrences downloads data from a DOI", {
+test_that("atlas_occurrences does not download data from a DOI", {
   skip_on_cran()
     doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
-    occ <- atlas_occurrences(doi = doi)
-    expect_s3_class(occ, "data.frame")
-    expect_gt(nrow(atlas_occurrences(doi = doi)), 0)
-})
-
-test_that("atlas_occurrences checks DOI provided", {
-  expect_error(atlas_occurrences(doi = "random_doi"))
+    expect_error(atlas_occurrences(doi = doi))
 })

@@ -9,7 +9,6 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
 The `atlas_` functions are used to return data from the atlas chosen using 
 `galah_config()`. They are:
 
@@ -30,6 +29,7 @@ functions are described below.
 without needing to download all the records. 
 
 ```{r, warning = FALSE}
+galah_config(atlas = "Australia")
 # Total number of records in the ALA
 atlas_counts()
 ```
@@ -104,6 +104,8 @@ media_data <- galah_call() |>
   galah_identify("Eolophus roseicapilla") |>
   galah_filter(year == 2020) |>
   atlas_media(download_dir = "media")
+  
+media_data
 ```
 
 # Taxonomic trees

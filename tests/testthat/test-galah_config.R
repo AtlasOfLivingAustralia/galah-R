@@ -12,9 +12,9 @@ vcr::use_cassette("logger_config", {
   test_that("galah_config checks download_id", {
     galah_config(verbose = TRUE)
     expect_error(galah_config(download_reason_id = 17))
-    expect_message(galah_config(download_reason_id = "testing"))
-    expect_message(galah_config(download_reason_id = "Testing"))
-    expect_error(galah_config(download_reason_id = "tsting"))
+    expect_error(galah_config(download_reason_id = "NOTHING"))
+    expect_silent(galah_config(download_reason_id = 3))
+    expect_silent(galah_config(download_reason_id = "education"))
     galah_config(verbose = FALSE)
   })
 })

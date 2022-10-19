@@ -7,7 +7,12 @@
 wanted_columns <- function(type) {
     switch(type,
            "taxa" = c("search_term", "scientific_name",
-                      "scientific_name_authorship", "taxon_concept_id", "rank",
+                      "scientific_name_authorship", 
+                      "taxon_concept_id", # ALA
+                      "usage_key", # GBIF
+                      "guid", # species search
+                      "canonical_name", "status", 
+                      "rank",
                       "match_type", "kingdom", "phylum", "class", "order",
                       "family", "genus", "species", "vernacular_name",
                       "issues","subkingdom", "superclass", "infraclass",
@@ -23,11 +28,16 @@ wanted_columns <- function(type) {
                            "genus", "species", "author", "species_guid",
                            "vernacular_name"),
            "profile" = c("id", "name", "shortName", "description"),
-           "media" = c("rightsHolder", "license", "creator", "title", "rights",
-                       "mimetype", "media_id"),
+           "media" = c("media_id", "occurrence_id",
+                       "creator", "license",
+                       "data_resource_uid",
+                       "date_taken", "date_uploaded",
+                       "mime_type", "width", "height", "size_in_bytes"
+                       # "image_url"
+                     ),
            "layer" = c("layer_id", "description", "link"),
            "fields" = c("id", "description"),
-           "assertions" = c("id", "description"),
+           "assertions" = c("id", "description", "category"),
            "quality_filter" = c("description", "filter"),
            "reasons" = c("id", "name"))
 }
@@ -35,10 +45,13 @@ wanted_columns <- function(type) {
 # Rename specific columns, and convert to snake_case
 rename_columns <- function(varnames, type) {
     if (type == "media") {
-        varnames[varnames == "imageId"] <- "media_id"
+        varnames[varnames == "imageIdentifier"] <- "media_id"
     }
     else if (type == "taxa") {
         varnames[varnames == "classs"] <- "class"
+        varnames[varnames == "usage_key"] <- "taxon_concept_id"
+        varnames[varnames == "usageKey"] <- "taxon_concept_id"
+        varnames[varnames == "guid"] <- "taxon_concept_id"
     } else if (type == "layer") {
         varnames[varnames == "displayname"] <- "name"
         varnames[varnames == "source_link"] <- "link"
@@ -53,7 +66,7 @@ rename_columns <- function(varnames, type) {
       varnames[varnames == "Species.Name"] <- "species"
     }
     # change all to snake case?
-    if (type == "taxa") {
+    if (type %in% c("taxa", "media")) {
         varnames <- tolower(gsub("([a-z])([A-Z])", "\\1_\\L\\2", varnames,
                          perl = TRUE))
         varnames <- tolower(gsub("\\.", "_", varnames))
@@ -78,15 +91,6 @@ fix_assertion_cols <- function(df, assertion_cols) {
     df[, col] <- as.logical(df[, col])
   }
   df
-}
-
-# ensure outputs are tibbles, with an appropriate class
-# if no object is given, create an empty tibble with that class
-set_galah_object_class <- function(input, new_class){
-  if(missing(input)){input <- tibble()}
-  if(!is_tibble(input)){input <- as_tibble(input)}
-  class(input) <- append(class(input), new_class)
-  input
 }
 
 
@@ -120,6 +124,8 @@ parse_basic_quosures <- function(dots){
     return(do.call(c, result))
   } else if(check_df(result)){
     return(do.call(rbind, result))
+  } else {
+    return(result)
   }
 }
 
@@ -161,7 +167,7 @@ is_object_check <- function(dots){
   # get list of options from ?typeof & ?mode
   available_types <- c("logical", "numeric", 
     "complex", "character", "raw", "list", "NULL", "function",
-    "name", "call", "any")
+    "name", "call", "any", "bbox")
   # attempt to check multiple types
   unlist(lapply(dots, function(a){
     modes_df <- data.frame(
@@ -182,6 +188,17 @@ is_object_check <- function(dots){
   }))
 }
 
+check_n_inputs <- function(dots, error_call = caller_env()) {
+  if(length(dots) > 1){
+    n_geolocations <- length(dots)
+    bullets <- c(
+      "More than 1 spatial area provided.",
+      "*" = glue("Using first location, ignoring additional {n_geolocations - 1} location(s).")
+    )
+    warn(bullets, call = caller_env())
+  }
+}
+
 ##----------------------------------------------------------------
 ##                   Query-building functions                   --
 ##----------------------------------------------------------------
@@ -189,15 +206,18 @@ is_object_check <- function(dots){
 # Build query list from constituent arguments
 build_query <- function(identify, filter, location, select = NULL,
                         profile = NULL) {
-  query <- list()
+                          
   if (is.null(identify)) {
-    taxa_query <- NULL
+    if(taxon_key_type() == "GBIF"){
+      taxa_query <- list(taxonKey = 1)
+    }else{
+      taxa_query <- NULL
+    }
   } else { # assumes a tibble or data.frame has been given
     if(nrow(identify) < 1){
       taxa_query <- NULL
     } else {
       check_taxa_arg(identify)
-      # include <- !inherits(taxa, "exclude") # obsolete
       if (inherits(identify, "data.frame") &&
           "identifier" %in% colnames(identify)) {
         identify <- identify$identifier
@@ -222,17 +242,25 @@ build_query <- function(identify, filter, location, select = NULL,
     }
   }
   
-  query$fq <- c(taxa_query, filter_query)
+  if(taxon_key_type() == "GBIF"){
+    query <- c(taxa_query, filter_query)
+  }else{
+    query <- list(fq = c(taxa_query, filter_query)) 
+  } 
   
+  # geographic stuff
   if (is.null(location)) {
     area_query <- NULL
   } else {
     area_query <- location
     query$wkt <- area_query
   }
+  
   if (check_for_caching(taxa_query, filter_query, area_query, select)) {
     query <- cached_query(taxa_query, filter_query, area_query)
   }
+
+  # add profiles information (ALA only)  
   if (getOption("galah_config")$atlas == "Australia") {
     if (!is.null(profile)) {
       query$qualityProfile <- profile
@@ -240,18 +268,21 @@ build_query <- function(identify, filter, location, select = NULL,
       query$disableAllQualityFilters <- "true"
     }
   }
+  
   query
 }
 
 # Build query from vector of taxonomic ids
 build_taxa_query <- function(ids) {
   ids <- ids[order(ids)]
-  # if (include) {
-     value_str <- paste0("(lsid:", paste(ids, collapse = " OR lsid:"), ")")
-  # } else {
-  #   value_str <- paste0("(-lsid:", paste(ids, collapse = " AND -lsid:"), ")")
-  # }
-  value_str
+  if(taxon_key_type() == "GBIF"){
+    list(taxonKey = ids)
+  }else{
+    glue(
+      "(lsid:",
+      glue_collapse(ids, sep = glue(" OR lsid:")),
+      ")")
+  }
 }
 
 # Takes a dataframe produced by galah_filter and return query as a list
@@ -300,8 +331,14 @@ old_query_term <- function(name, value, include) {
 }
 
 build_filter_query <- function(filters) {
-  queries <- unique(filters$query)
-  paste0(queries, collapse = " AND ")
+  if(getOption("galah_config")$atlas == "Global"){
+    queries <- as.list(filters$value)
+    names(queries) <- filters$variable
+    queries
+  }else{
+    queries <- unique(filters$query)
+    paste0(queries, collapse = " AND ")
+  }
 }
 
 new_build_filter_query <- function(filters) {
@@ -379,10 +416,11 @@ check_for_caching <- function(taxa_query, filter_query, area_query,
 # long query
 cached_query <- function(taxa_query, filter_query, area_query,
                          columns = NULL) {
-  url <- server_config("records_base_url")
-  resp <- atlas_POST(url, path = "ws/webportal/params",
-                   body = list(wkt = area_query, fq = taxa_query,
-                               fields = columns))
+  resp <- atlas_url("records_query") |> 
+          atlas_POST(body = list(
+            wkt = area_query, 
+            fq = taxa_query,
+            fields = columns))
   list(fq = filter_query, q = paste0("qid:", resp))
 }
 
@@ -499,13 +537,32 @@ write_metadata <- function(request, data_type, cache_file) {
 ##                   Request helper functions                   --
 ##----------------------------------------------------------------
 
-build_fq_url <- function(url, path, params = list()) {
+# build_fq_url <- function(url, path, params = list()) {
+#   url <- parse_url(url)
+#   url$path <- path
+#   url$query <- params[names(params) != "fq"]
+#   join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
+#   fq <- paste(params$fq, collapse = "&fq=")
+#   paste0(build_url(url), join_char, URLencode(fq))
+# }
+
+build_fq_url <- function(url, params = list()) {
   url <- parse_url(url)
-  url$path <- path
-  url$query <- params[names(params) != "fq"]
-  join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
-  fq <- paste(params$fq, collapse = "&fq=")
-  paste0(build_url(url), join_char, URLencode(fq))
+  if(any(names(params) == "fq")){
+    # join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
+    
+    # ensure all arguments from galah_filter are enclosed in brackets
+    fq <- params$fq
+    missing_brackets <- !grepl("^\\(", fq)
+    if(any(missing_brackets)){
+      fq[missing_brackets] <- paste0("(", fq[missing_brackets], ")")
+    }
+    fq_single <- paste(fq, collapse = "AND")
+    url$query <- c(fq = fq_single, params[names(params) != "fq"])
+    build_url(url)
+  }else{
+    build_url(url)
+  }
 }
 
 ##---------------------------------------------------------------
@@ -518,3 +575,167 @@ merge_args <- function(request, extra) {
   non_null_request <- request[!unlist(lapply(request, is.null))]
   c(non_null_request, extra)
 }
+
+##---------------------------------------------------------------
+##             show_all_ & search_ internal functions          --
+##---------------------------------------------------------------
+
+## show_all() & search_all()
+
+# Check for valid `type`
+check_type_valid <- function(type, valid, error_call = caller_env()) {
+  if(!any(valid == type)){
+    bullets <- c(
+      glue("type `{type}` is not recognised"),
+      i = "see ?show_all for a list of valid information types."
+    )
+    abort(bullets, call = error_call)   
+  }
+}
+
+
+## show_all_atlases / search_atlases --------------------------#
+
+image_fields <- function() {
+  atlas <- getOption("galah_config")$atlas
+  switch (atlas,
+          "Austria" = "all_image_url",
+          "Guatemala" = "all_image_url",
+          "Spain" = "all_image_url",
+          c("images", "videos", "sounds")
+  )
+}
+
+default_columns <- function() {
+  atlas <- getOption("galah_config")$atlas
+  switch (atlas,
+          "Guatemala" = c("latitude", "longtitude", "species_guid",
+                          "data_resource_uid", "occurrence_date", "id"),
+          c("decimalLatitude", "decimalLongitude", "eventDate",
+            "scientificName", "taxonConceptID", "recordID", "dataResourceName",
+            "occurrenceStatus")
+  )
+}
+
+species_facets <- function(){
+  atlas <- getOption("galah_config")$atlas
+  
+  switch(atlas,
+         "Australia" = "speciesID",
+         # "Austria" = "species_guid",
+         # "Brazil" = "species_guid",
+         # "Canada" = "species_guid"
+         "species_guid"
+  )
+}
+
+# taxon_key_type <- function(){
+#   atlas <- getOption("galah_config")$atlas
+#   if(any(atlas == c("Estonia"))){
+#     "GBIF"
+#   }else{
+#     "ALA"
+#   }  
+# }
+
+taxon_key_type <- function(){"ALA"}
+
+
+## show_all_fields --------------------------#
+
+
+# Helper functions to get different field classes
+get_fields <- function() {
+  fields <- all_fields()
+  if(is.null(fields)){
+    NULL
+  }else{
+    # remove fields where class is contextual or environmental
+    fields <- fields[!(fields$classs %in% c("Contextual", "Environmental")),]
+    
+    names(fields) <- rename_columns(names(fields), type = "fields")
+    fields <- fields[wanted_columns("fields")]
+    fields$type <- "fields"
+    
+    fields
+  }
+}
+
+get_layers <- function() {
+  url <- atlas_url("spatial_layers", quiet = TRUE)
+  result <- atlas_GET(url)
+  
+  if(is.null(result)){
+    NULL
+  }else{
+    if(all(c("type", "id") %in% names(result))){
+      layer_id <- mapply(build_layer_id, result$type, result$id,
+                         USE.NAMES = FALSE)
+      result <- cbind(layer_id, result)
+      result$description <- apply(
+        result[, c("displayname", "description")],
+        1,
+        function(a){paste(a, collapse = " ")}
+      )
+      names(result) <- rename_columns(names(result), type = "layer")
+      result <- result[wanted_columns("layer")]
+      names(result)[1] <- "id"
+      result$type <- "layers"
+      result
+    }else{
+      NULL
+    }
+  }
+}
+
+# Return fields not returned by the API
+get_other_fields <- function() {
+  data.frame(id = "qid", description = "Reference to pre-generated query",
+             type = "other")
+}
+
+# There is no API call to get these fields, so for now they are manually
+# specified
+get_media <- function(x) {
+  
+  ## Original code showed fields returned by `show_all_media`
+  ## These can't be queried with `galah_filter` and have been replaced
+  # fields <- data.frame(id = c("imageId", "height", "width", "tileZoomLevels",
+  #                             "thumbHeight", "thumbWidth", "filesize", "mimetype",
+  #                             "creator", "title", "description", "rights",
+  #                             "rightsHolder", "license", "imageUrl", "thumbUrl",
+  #                             "largeThumbUrl", "squareThumbUrl", "tilesUrlPattern"))
+  data.frame(
+    id = c("multimedia", "multimediaLicence", "images", "videos", "sounds"),
+    description = "Media filter field",
+    type = "media"
+  )
+}
+
+all_fields <- function() {
+  url <- atlas_url("records_fields")
+  atlas_GET(url)
+}
+
+build_layer_id <- function(type, id) {
+  if (type == "Environmental") {
+    paste0("el", id)
+  } else {
+    paste0("cl", id)
+  }
+}
+
+
+##---------------------------------------------------------------
+##                      System down message                    --
+##---------------------------------------------------------------
+
+system_down_message <- function(function_name){
+  bullets <- c(
+    glue("Calling the API failed for `{function_name}`."),
+    i = "This might mean that the API is down",
+    i = "Double check that your query is correct, or try again later"
+  )
+  inform(bullets)
+}
+

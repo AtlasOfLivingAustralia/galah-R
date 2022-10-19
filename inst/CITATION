@@ -5,8 +5,9 @@ citHeader("To cite galah in publications use:")
 
 bibentry(bibtype = "Manual",
     "title" = "galah: Atlas of Living Australia (ALA) Data and Resources in R",
-    author = c(person("Matilda", "Stevenson"),
-             person("Martin", "Westgate"),
+    author = c(person("Martin", "Westgate"),
+             person("Matilda", "Stevenson"),
+             person("Dax", "Kellie"),
              person("Peggy", "Newman")),
      year = year,
      note = note,

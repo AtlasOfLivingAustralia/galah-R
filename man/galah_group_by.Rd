@@ -20,64 +20,76 @@ are provided, returns \code{NULL}.
 \description{
 \code{atlas_counts} supports server-side grouping of data. Grouping can be
 used to return record counts grouped by multiple, valid fields (found by
-\code{search_fields}. Use \code{galah_group_by} when using the
+\code{search_all(fields)}. Use \code{galah_group_by} when using the
 \code{group_by} argument of \code{atlas_counts} to return record counts summed
 by one or more valid fields.
 }
 \section{Examples}{
 
 
-Return record counts since 2010 by year\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |> 
+Return record counts since 2010 by year
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |> 
     galah_filter(year > 2010) |>
     galah_group_by(year) |>
     atlas_counts()
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 12 x 2
 #>    year    count
 #>    <chr>   <int>
-#>  1 2020  5843340
-#>  2 2019  5506924
-#>  3 2018  5418009
-#>  4 2017  4648403
-#>  5 2016  3844787
-#>  6 2014  3767573
-#>  7 2015  3605917
-#>  8 2013  3505658
-#>  9 2012  2933981
-#> 10 2011  2539004
-#> 11 2021  1161557
-#> 12 2022    41790
+#>  1 2021  7116810
+#>  2 2020  6399360
+#>  3 2019  5760754
+#>  4 2018  5625132
+#>  5 2017  4856867
+#>  6 2014  4037070
+#>  7 2016  4010106
+#>  8 2015  3834154
+#>  9 2013  3723807
+#> 10 2012  3153628
+#> 11 2011  2786974
+#> 12 2022  1088450
 }\if{html}{\out{</div>}}
 
-Return record counts since 2010 by year and data provider\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
+Return record counts since 2010 by year and data provider
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
     galah_filter(year > 2010) |>
     galah_group_by(year, dataResourceName) |>
     atlas_counts()
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 1,048 x 3
-#>   year  dataResourceName              count
-#>   <chr> <chr>                         <int>
-#> 1 2020  eBird Australia             4589800
-#> 2 2020  iNaturalist Australia        671032
-#> 3 2020  NSW BioNet Atlas             372617
-#> 4 2020  Earth Guardians Weekly Feed   71783
-#> # ... with 1,044 more rows
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
+#> # A tibble: 127 x 3
+#>   dataResourceName year    count
+#>   <chr>            <chr>   <int>
+#> 1 eBird Australia  2021  5473631
+#> 2 eBird Australia  2020  4613576
+#> 3 eBird Australia  2019  4181309
+#> 4 eBird Australia  2018  3630154
+#> # ... with 123 more rows
 }\if{html}{\out{</div>}}
 
 Return record counts of \emph{Litoria} species each year since 2015, limiting
-results to the top 5 each year\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
+results to the top 5 each year
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
     galah_identify("Litoria") |>
     galah_filter(year > 2015) |>
     galah_group_by(year, species) |>
     atlas_counts(limit = 5)
-}\if{html}{\out{</div>}}\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
 #> # A tibble: 35 x 3
-#>   year  species            count
-#>   <chr> <chr>              <int>
-#> 1 2018  Litoria peronii    10497
-#> 2 2018  Litoria fallax      7013
-#> 3 2018  Litoria caerulea    3073
-#> 4 2018  Litoria verreauxii  2980
+#>   species         year  count
+#>   <chr>           <chr> <int>
+#> 1 Litoria peronii 2020  18370
+#> 2 Litoria peronii 2019  11122
+#> 3 Litoria peronii 2018  11093
+#> 4 Litoria peronii 2017   6385
 #> # ... with 31 more rows
 }\if{html}{\out{</div>}}
 }

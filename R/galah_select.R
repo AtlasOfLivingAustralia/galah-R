@@ -1,17 +1,19 @@
 #' Specify fields for occurrence download
 #'
-#' The living atlases store content on hundreds of different fields, and users
+#' The living atlases store content in hundreds of different fields, and users
 #' often require thousands or millions of records at a time. To reduce time taken
 #' to download data, and limit complexity of the resulting `data.frame`, it is
 #' sensible to restrict the fields returned by [atlas_occurrences()].
 #' This function allows easy selection of fields, or commonly-requested groups 
 #' of columns, following syntax shared with `dplyr::select()`.
 #' 
+#' The full list of available fields can be viewed with `show_all(fields)`.
+#'
 #' @param ... zero or more individual column names to include
 #' @param group `string`: (optional) name of one or more column groups to
 #' include. Valid options are `"basic"`, `"event"` and
-#' `"assertion"`
-#' @return An object of class `data.frame` and `galah_select`
+#' `"assertions"`
+#' @return A tibble
 #' specifying the name and type of each column to include in the 
 #' call to `atlas_counts()` or `atlas_occurrences()`.
 #' @details
@@ -24,6 +26,7 @@
 #'   * `taxonConceptID`
 #'   * `recordID`
 #'   * `dataResourceName`
+#'   * `occurrenceStatus`
 #' 
 #' Using `group = "event"` returns the following columns:
 #' 
@@ -34,13 +37,22 @@
 #'   * `samplingEffort`
 #'   * `samplingProtocol`
 #' 
+#' Using `group = "media"` returns the following columns:
+#' 
+#'   * `multimedia`
+#'   * `multimediaLicence`
+#'   * `images`
+#'   * `videos`
+#'   * `sounds`
+#' 
 #' Using `group = "assertions"` returns all quality assertion-related
-#' columns. The list of assertions is shown by `search_fields(type = "assertions")`.
+#' columns. The list of assertions is shown by `show_all_assertions()`.
 #'
 #' @seealso [search_taxa()], [galah_filter()] and
 #' [galah_geolocate()] for other ways to restrict the information returned
 #' by [atlas_occurrences()] and related functions; [atlas_counts()]
-#' for how to get counts by levels of variables returned by `galah_select`.
+#' for how to get counts by levels of variables returned by `galah_select`;
+#' `show_all(fields)` to list available fields.
 #' 
 #' @section Examples: 
 #' ```{r, child = "man/rmd/setup.Rmd"}
@@ -65,7 +77,7 @@
 #' galah_call() |>
 #'   galah_identify("perameles") |>
 #'   galah_filter(year == 2001) |>
-#'   galah_select(group = "basic", basisOfRecord) |>
+#'   galah_select(group = c("basic", "event"), basisOfRecord) |>
 #'   atlas_occurrences()
 #' ```
 #' 
@@ -74,7 +86,7 @@
 #' @importFrom tibble as_tibble
 #' @export
 galah_select <- function(...,
-                         group = c("basic", "event", "assertions")
+                         group = c("basic", "event", "media", "assertions")
                          ) {  
 
   dots <- enquos(..., .ignore_empty = "all")
@@ -106,7 +118,7 @@ galah_select <- function(...,
       
   # Build a data.frame with a standardised set of names,
   # stored by galah_config()
-  field_names <- show_all_fields()$id 
+  field_names <- unique(c(show_all_fields()$id, show_all_assertions()$id))
   df <- as.data.frame(
    matrix(data = NA, nrow = 0, ncol = length(field_names),
      dimnames = list(NULL, field_names)))
@@ -121,7 +133,7 @@ galah_select <- function(...,
     
   # Add S3 class
   all_cols <- as_tibble(all_cols)
-  class(all_cols) <- append(class(all_cols), "galah_select") 
+  attr(all_cols, "call") <- "galah_select" 
   
   # if a data request was supplied, return one
   if(is_data_request){
@@ -131,6 +143,7 @@ galah_select <- function(...,
   }
 }
 
+# NOTE: gbif doesn't appear to support column specification in downloads
 
 preset_cols <- function(type) {
   cols <- switch(type,
@@ -138,6 +151,9 @@ preset_cols <- function(type) {
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
                              "samplingProtocol"),
-                 "assertions" = search_fields(type = "assertions")$id)
+                 "media" = c("multimedia", "multimediaLicence", 
+                             "images", "videos", "sounds"),
+                 "assertions" = show_all_assertions()$id
+               )
   return(cols)
 }

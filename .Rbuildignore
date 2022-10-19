@@ -5,12 +5,14 @@
 ^codecov\.yml$
 ^README\.Rmd$
 ^docs/
+^docs$
 ^doc$
 ^Meta$
 ^_pkgdown\.yml$
-^docs$
 ^pkgdown$
 ^.*\.orig$
 ^.*precompile\.R$
 ^.github$
 ^\.github$
+^data-raw/
+^data-raw$

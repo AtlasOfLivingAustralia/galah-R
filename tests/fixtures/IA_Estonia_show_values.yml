@@ -1,0 +1,39 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://elurikkus.ee/biocache-service/occurrence/facets?facets=basis_of_record&flimit=10000
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-methods: GET, PUT, POST, OPTIONS, HEAD
+      access-control-allow-origin: '*'
+      cache-control: max-age=1800
+      content-encoding: gzip
+      content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
+      content-type: application/json;charset=UTF-8
+      date: Tue, 18 Oct 2022 08:59:35 GMT
+      expires: Tue, 18 Oct 2022 09:29:35 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000; preload
+      vary:
+      - Accept-Encoding
+      - Accept-Encoding
+      x-content-type-options: nosniff
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"HumanObservation","count":4020686,"fq":"basis_of_record:\"HumanObservation\""},{"label":"PreservedSpecimen","count":1598812,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"GenomicDNA","count":1141601,"fq":"basis_of_record:\"GenomicDNA\""},{"label":"Literature","count":95732,"fq":"basis_of_record:\"Literature\""},{"label":"MachineObservation","count":34988,"fq":"basis_of_record:\"MachineObservation\""},{"label":"FossilSpecimen","count":191,"fq":"basis_of_record:\"FossilSpecimen\""},{"label":"","count":79497,"fq":"-basis_of_record:*"}],"count":7}]'
+  recorded_at: 2022-10-18 08:59:35 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

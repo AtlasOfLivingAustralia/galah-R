@@ -1,0 +1,1209 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://metadados.gbif.pt/ws/collection
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.16.1
+      date: Tue, 18 Oct 2022 09:03:21 GMT
+      content-type: application/json;charset=UTF-8
+      content-location: https://metadados.gbif.pt/ws/collection
+      last-modified: Mon, 10 Jan 2022 15:00:54 GMT
+      etag: W/"9257e83dfe2f28f91b633819c24a7395"
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      content-encoding: gzip
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"name":"African Decapoda Crustacea collection - MUHNAC","uri":"https://metadados.gbif.pt/ws/collection/co22","uid":"co22"},{"name":"Amphibia
+        collection of the Museu Nacional de História Natural e da Ciência, Universidade
+        de Lisboa, Portugal","uri":"https://metadados.gbif.pt/ws/collection/co23","uid":"co23"},{"name":"Angolan
+        Herpetological Collection - IICT","uri":"https://metadados.gbif.pt/ws/collection/co24","uid":"co24"},{"name":"Aquatic
+        Hyphomycetes from insular streams (Madeira, Portugal)","uri":"https://metadados.gbif.pt/ws/collection/co190","uid":"co190"},{"name":"Arthropods
+        from Praia da Vitória (Terceira, Azores, Portugal)","uri":"https://metadados.gbif.pt/ws/collection/co26","uid":"co26"},{"name":"Asian
+        Herpetological Collection - IICT","uri":"https://metadados.gbif.pt/ws/collection/co25","uid":"co25"},{"name":"Atlas
+        of Amphibians and Reptiles of Portugal","uri":"https://metadados.gbif.pt/ws/collection/co252","uid":"co252"},{"name":"Atlas
+        of Bats from Continental Portugal 2013","uri":"https://metadados.gbif.pt/ws/collection/co234","uid":"co234"},{"name":"Atlas
+        of Breeding Birds 1999-2005 - Other Species","uri":"https://metadados.gbif.pt/ws/collection/co236","uid":"co236"},{"name":"Atlas
+        of Freshwater Bivalves 2007","uri":"https://metadados.gbif.pt/ws/collection/co235","uid":"co235"},{"name":"Azorean
+        Biodiversity Portal","uri":"https://metadados.gbif.pt/ws/collection/co27","uid":"co27"},{"name":"Beta
+        patula Population Assessment from 2014 to 2018 in Madeira Archipelago, Portugal","uri":"https://metadados.gbif.pt/ws/collection/co126","uid":"co126"},{"name":"Bibliographic
+        records of Angola mammals","uri":"https://metadados.gbif.pt/ws/collection/co29","uid":"co29"},{"name":"Biodiversity
+        data of ladybeetles (Coleoptera: Coccinellidae) of the Azores archipelago
+        (Portugal)","uri":"https://metadados.gbif.pt/ws/collection/co238","uid":"co238"},{"name":"Biodiversity
+        of the epiphytic lichenic vegetation in the Alentejo Coast (area of Sines)","uri":"https://metadados.gbif.pt/ws/collection/co243","uid":"co243"},{"name":"Biodiversity4all
+        Research-Grade Observations","uri":"https://metadados.gbif.pt/ws/collection/co124","uid":"co124"},{"name":"Bird
+        Community of the Regional Protected Landscape of the Vila do Conde Shoreline
+        and the Mindelo Ornithological Reserve (PPRLVCROM) (2013-2014)","uri":"https://metadados.gbif.pt/ws/collection/co270","uid":"co270"},{"name":"Birds
+        Distribution from the Birds Directive (2013-2018)","uri":"https://metadados.gbif.pt/ws/collection/co228","uid":"co228"},{"name":"Birds
+        Distribution from the Birds Directive 2008-2012 RN2000","uri":"https://metadados.gbif.pt/ws/collection/co229","uid":"co229"},{"name":"Birds
+        from Praia da Vitória marshes (Terceira, Azores, Portugal)","uri":"https://metadados.gbif.pt/ws/collection/co113","uid":"co113"},{"name":"Brown
+        Marmorated Stink Bug (Halyomorpha halys) in Portugal","uri":"https://metadados.gbif.pt/ws/collection/co131","uid":"co131"},{"name":"Bryophyte
+        collection","uri":"https://metadados.gbif.pt/ws/collection/co30","uid":"co30"},{"name":"Bryophyte
+        collection of Porto Herbarium (PO)","uri":"https://metadados.gbif.pt/ws/collection/co32","uid":"co32"},{"name":"Bryophytes
+        from Praia da Vitória (Terceira, Azores, Portugal)","uri":"https://metadados.gbif.pt/ws/collection/co114","uid":"co114"},{"name":"Cape
+        Verde Herpetological Collection - IICT","uri":"https://metadados.gbif.pt/ws/collection/co31","uid":"co31"},{"name":"Catalogue
+        of the plant communities of Madeira and Porto Santo","uri":"https://metadados.gbif.pt/ws/collection/co210","uid":"co210"},{"name":"Coimbra
+        Collection of Algae","uri":"https://metadados.gbif.pt/ws/collection/co33","uid":"co33"},{"name":"COLETA
+        - IMAR/DOP-Uac reference collection from 1977 to 2012","uri":"https://metadados.gbif.pt/ws/collection/co35","uid":"co35"},{"name":"Contribution
+        to a study of plant cartography in Portugal - degree internship report - Part
+        1","uri":"https://metadados.gbif.pt/ws/collection/co213","uid":"co213"},{"name":"Contribution
+        to the phytosociological study of the municipalities of Alenquer, Arruda dos
+        Vinhos and Sobral de Monte Agraço, Portugal","uri":"https://metadados.gbif.pt/ws/collection/co214","uid":"co214"},{"name":"Cyanobacteria
+        Checklist of the Azores Archipelago, Portugal","uri":"https://metadados.gbif.pt/ws/collection/co189","uid":"co189"},{"name":"Cyanobacteria
+        of the Azores Archipelago, Portugal","uri":"https://metadados.gbif.pt/ws/collection/co116","uid":"co116"},{"name":"Dados
+        de ocorrência de espécies da flora da Guiné-Bissau","uri":"https://metadados.gbif.pt/ws/collection/co34","uid":"co34"},{"name":"Demersais
+        survey in the Azores between 1996 and 2013","uri":"https://metadados.gbif.pt/ws/collection/co36","uid":"co36"},{"name":"Diatom
+        distribution in Madeira Island streams (Portugal)","uri":"https://metadados.gbif.pt/ws/collection/co144","uid":"co144"},{"name":"Diatoms
+        from Deserta Grande (Madeira Archipelago, Portugal)","uri":"https://metadados.gbif.pt/ws/collection/co143","uid":"co143"},{"name":"Distribution
+        of Arbuscular Mycorrhizal Fungi in Terceira and S. Miguel (Azores, Portugal)","uri":"https://metadados.gbif.pt/ws/collection/co37","uid":"co37"},{"name":"Diversity
+        of Spiders from Azorean Trails","uri":"https://metadados.gbif.pt/ws/collection/co139","uid":"co139"},{"name":"Eden
+        Arthropod Azores Database","uri":"https://metadados.gbif.pt/ws/collection/co135","uid":"co135"},{"name":"EDP
+        Baixo Sabor: Acoustic Bat Monitoring – Construction and Reservoir Filling
+        Phases [2008-2014]","uri":"https://metadados.gbif.pt/ws/collection/co39","uid":"co39"},{"name":"EDP
+        Baixo Sabor: Aquatic and Riparian Birds - Construction and Reservoir Filling
+        Phases [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co165","uid":"co165"},{"name":"EDP
+        Baixo Sabor: Bat acoustic sampling - Compensatory Measures Program (MC1) [2013-2014]","uri":"https://metadados.gbif.pt/ws/collection/co38","uid":"co38"},{"name":"EDP
+        Baixo Sabor: Bat Roosts - Ecological Monitoring Program (PME) (2008-2014)","uri":"https://metadados.gbif.pt/ws/collection/co150","uid":"co150"},{"name":"EDP
+        Baixo Sabor: Bat Roosts [acoustic sampling] - Ecological Monitoring Program
+        (PME) (2012-2014)","uri":"https://metadados.gbif.pt/ws/collection/co154","uid":"co154"},{"name":"EDP
+        Baixo Sabor: Birds - Construction and Reservoir Filling Phases - Vilariça
+        Stream (MC1) [2013-2014]","uri":"https://metadados.gbif.pt/ws/collection/co174","uid":"co174"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Cliff-nesting species:
+        Breeding sites [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co155","uid":"co155"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Eagle Owl (Bubo bubo)
+        & Nocturnal Birds Surveys - [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co166","uid":"co166"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Iberian Wolf (Canis
+        lupus) [Sign surveys] [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co149","uid":"co149"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Iberian Wolf [howling
+        surveys] - [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co170","uid":"co170"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Iberian Wolf [spotlight
+        counts] - [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co158","uid":"co158"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Otter: camera-trapping
+        - [2010-2013]","uri":"https://metadados.gbif.pt/ws/collection/co168","uid":"co168"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Riparian Birds, priority
+        conservation species: fixed points & complementary observations - [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co164","uid":"co164"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Bonneli’s Eagle prey
+        species: Rabbit (Oryctolagus cuniculus) [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co163","uid":"co163"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Cliff-nesting birds,
+        prioritary conservation species: fixed observation points [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co173","uid":"co173"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Kingfisher (Alcedo
+        atthis and Dipper (Cinclus cinclus) - [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co162","uid":"co162"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Natural Wolf Prey
+        (Roe Deer) [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co159","uid":"co159"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Natural Wolf Prey
+        (Wild Boar) [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co160","uid":"co160"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Otter [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co161","uid":"co161"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Partridge, Rock Pigeon
+        and Wood Pigeon [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co167","uid":"co167"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Vascular Flora and
+        Habitats: species from prioritary conservation habitats - [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co267","uid":"co267"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Vascular Flora and
+        Habitats: species of conservation concern (RELAPE) - [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co268","uid":"co268"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Wolf, (Canis lupus)
+        Wild Boar (Sus scrofa) and Roe Deer (Capreolus capreolus) [camera-trapping]
+        - [2011-2014]","uri":"https://metadados.gbif.pt/ws/collection/co171","uid":"co171"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases: Cliff-nesting Birds,
+        priority conservation species: Complementary Observations - [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co172","uid":"co172"},{"name":"EDP
+        Baixo Sabor: Construction Phase – Invasive Species (work fronts)  [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co253","uid":"co253"},{"name":"EDP
+        Baixo Sabor: Construction Phase – Vascular Flora and Habitats in the Work
+        Fronts: species and habitats of conservation concern - [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co245","uid":"co245"},{"name":"EDP
+        Baixo Sabor: Fishes – Ecological Monitoring Program [2012]","uri":"https://metadados.gbif.pt/ws/collection/co259","uid":"co259"},{"name":"EDP
+        Baixo Sabor: Herpetology – Baseline Studies [2009]","uri":"https://metadados.gbif.pt/ws/collection/co40","uid":"co40"},{"name":"EDP
+        Baixo Sabor: Land Birds - Construction and Reservoir Filling Phases (Sabor
+        river valley) [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co147","uid":"co147"},{"name":"EDP
+        Baixo Sabor: Land Birds - Construction and Reservoir Filling Phases: complementary
+        work sites [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co152","uid":"co152"},{"name":"EDP
+        Baixo Sabor: Land Birds - Construction and Reservoir Filling Phases: Maçãs
+        and Angueira river valleys [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co157","uid":"co157"},{"name":"EDP
+        Baixo Sabor: Land Birds - Construction and Reservoir Filling Phases: stream
+        weirs in the Sabor tributaries [2010-2014]","uri":"https://metadados.gbif.pt/ws/collection/co156","uid":"co156"},{"name":"EDP
+        Baixo Sabor: Phytobenthos – Ecological Monitoring Program [2012]","uri":"https://metadados.gbif.pt/ws/collection/co257","uid":"co257"},{"name":"EDP
+        Baixo Sabor: Phytoplankton - Ecological Monitoring Program [2016]","uri":"https://metadados.gbif.pt/ws/collection/co41","uid":"co41"},{"name":"EDP
+        Foz Tua - Terrestrial Vertebrates (occasional observations) - Ecological Monitoring
+        Program [2011-17]","uri":"https://metadados.gbif.pt/ws/collection/co117","uid":"co117"},{"name":"EDP
+        Foz Tua Large Mammals (camera -trapping) - Ecological Monitoring Program  [2011-2017]","uri":"https://metadados.gbif.pt/ws/collection/co118","uid":"co118"},{"name":"EDP
+        Foz Tua Large Mammals (nocturnal transects) - Ecological Monitoring Program
+        [2011]","uri":"https://metadados.gbif.pt/ws/collection/co175","uid":"co175"},{"name":"EDP
+        Foz Tua Nocturnal Birds - Ecological Monitoring Program [2011-2017]","uri":"https://metadados.gbif.pt/ws/collection/co119","uid":"co119"},{"name":"EDP
+        Foz Tua Otter (Lutra lutra) - Complementary Studies [2010]","uri":"https://metadados.gbif.pt/ws/collection/co151","uid":"co151"},{"name":"EDP
+        Foz Tua Otter (Lutra lutra) - Ecological Monitoring Program (2010-11)","uri":"https://metadados.gbif.pt/ws/collection/co153","uid":"co153"},{"name":"EDP
+        Foz Tua Otter (Lutra lutra) [transects] - Ecological Monitoring Program (2011-17)","uri":"https://metadados.gbif.pt/ws/collection/co177","uid":"co177"},{"name":"EDP
+        Foz Tua Reptiles - Ecological Monitoring Program [2011-2017]","uri":"https://metadados.gbif.pt/ws/collection/co182","uid":"co182"},{"name":"EDP
+        Foz Tua – Aquatic taxa recorded during fish sampling for population genetic
+        analysis (Complementary Studies – Element 24) [2017]","uri":"https://metadados.gbif.pt/ws/collection/co258","uid":"co258"},{"name":"EDP
+        Foz Tua: Amphibians - Complementary Studies [2009-2010]","uri":"https://metadados.gbif.pt/ws/collection/co42","uid":"co42"},{"name":"EDP
+        Foz Tua: Amphibians - Ecological Monitoring Program [2010-2017]","uri":"https://metadados.gbif.pt/ws/collection/co43","uid":"co43"},{"name":"EDP
+        Foz Tua: Arthropoda – Environmental Impact Assessment [2006-2008]","uri":"https://metadados.gbif.pt/ws/collection/co44","uid":"co44"},{"name":"EDP
+        Foz Tua: Bat Habitats - Complementary Studies [2010]","uri":"https://metadados.gbif.pt/ws/collection/co47","uid":"co47"},{"name":"EDP
+        Foz Tua: Bat Habitats - Ecological & Compensatory Measures Monitoring Programs
+        [2011-2017]","uri":"https://metadados.gbif.pt/ws/collection/co45","uid":"co45"},{"name":"EDP
+        Foz Tua: Bat Roosts -  Baseline and Complementary Studies [2008-2010]","uri":"https://metadados.gbif.pt/ws/collection/co46","uid":"co46"},{"name":"EDP
+        Foz Tua: Bat Roosts - Ecological & Compensatory Measures Monitoring Programs
+        [2011-2017]","uri":"https://metadados.gbif.pt/ws/collection/co48","uid":"co48"},{"name":"EDP
+        Foz Tua: Bivalvia – Complementary Studies [2011]","uri":"https://metadados.gbif.pt/ws/collection/co49","uid":"co49"},{"name":"EDP
+        Foz Tua: Black Wheatear (Oenanthe leucura) (Aves) - Ecological Monitoring
+        Program [2012-2017]","uri":"https://metadados.gbif.pt/ws/collection/co120","uid":"co120"},{"name":"EDP
+        Foz Tua: Fish – Complementary Studies [2011]","uri":"https://metadados.gbif.pt/ws/collection/co50","uid":"co50"},{"name":"EDP
+        Foz Tua: Terrestrial Birds (transects) - Ecological Monitoring Program [2009-2012]","uri":"https://metadados.gbif.pt/ws/collection/co180","uid":"co180"},{"name":"EDP
+        Foz Tua: Terrestrial Birds, Spring (point counts) - Ecological Monitoring
+        Program [2011-2017]","uri":"https://metadados.gbif.pt/ws/collection/co51","uid":"co51"},{"name":"EDP
+        Foz Tua: Terrestrial Birds, Winter (point counts) - Ecological Monitoring
+        Program [2011-2017]","uri":"https://metadados.gbif.pt/ws/collection/co52","uid":"co52"},{"name":"EDP
+        Foz Tua: Terrestrial Vertebrates Baseline_studies (EIA) [2006]","uri":"https://metadados.gbif.pt/ws/collection/co53","uid":"co53"},{"name":"EDP
+        Foz-Tua: Amphibians (nocturnal transects): Ecological Monitoring Program [2012-2016]","uri":"https://metadados.gbif.pt/ws/collection/co128","uid":"co128"},{"name":"EDP
+        Foz-Tua: Black Wheatear (Oenanthe leucura) (transects) - Ecological Monitoring
+        Program [2011-12]","uri":"https://metadados.gbif.pt/ws/collection/co181","uid":"co181"},{"name":"EDP
+        Foz-Tua: Bryophyte flora – Complementary Studies [2011] and Ecological Monitoring
+        Program [2012-2015]","uri":"https://metadados.gbif.pt/ws/collection/co140","uid":"co140"},{"name":"EDP
+        Foz-Tua: Cabrera vole (Microtus cabrerae) & Small Mammals - Baseline Studies
+        [2008]","uri":"https://metadados.gbif.pt/ws/collection/co54","uid":"co54"},{"name":"EDP
+        Foz-Tua: Cabrera vole (Microtus cabrerae) - Ecological Monitoring Program
+        Baseline Studies [2011-2017]","uri":"https://metadados.gbif.pt/ws/collection/co121","uid":"co121"},{"name":"EDP
+        Foz-Tua: Dipper (Cinclus cinclus) (point counts) - Ecological Monitoring Program
+        [2013-16]","uri":"https://metadados.gbif.pt/ws/collection/co141","uid":"co141"},{"name":"EDP
+        Foz-Tua: Dipper (Cinclus cinclus), River Tinhela (transects) - Ecological
+        Monitoring Program [2012-17]","uri":"https://metadados.gbif.pt/ws/collection/co178","uid":"co178"},{"name":"EDP
+        Foz-Tua: Diurnal Butterflies (Lepidoptera) - Ecological Monitoring Program
+        (2014-2017)","uri":"https://metadados.gbif.pt/ws/collection/co184","uid":"co184"},{"name":"EDP
+        Foz-Tua: Dragonflies and Damselflies (Odonata) - Ecological Monitoring Program
+        (2011-2017)","uri":"https://metadados.gbif.pt/ws/collection/co127","uid":"co127"},{"name":"EDP
+        Foz-Tua: Fishes – Ecological Monitoring Program [2011-2017]","uri":"https://metadados.gbif.pt/ws/collection/co148","uid":"co148"},{"name":"EDP
+        Foz-Tua: Large and Medium-sized Mammals (occasional observations): Complementary
+        Studies [2009-10]","uri":"https://metadados.gbif.pt/ws/collection/co122","uid":"co122"},{"name":"EDP
+        Foz-Tua: Large and Medium-sized Mammals (point counts): Complementary Studies
+        [2009-10]","uri":"https://metadados.gbif.pt/ws/collection/co55","uid":"co55"},{"name":"EDP
+        Foz-Tua: Large and Medium-sized Mammals (transects): Complementary Studies
+        [2010]","uri":"https://metadados.gbif.pt/ws/collection/co56","uid":"co56"},{"name":"EDP
+        Foz-Tua: Large Mammals (camera-trapping): Complementary Studies [2010]","uri":"https://metadados.gbif.pt/ws/collection/co57","uid":"co57"},{"name":"EDP
+        Foz-Tua: Large Mammals (diurnal transects): Ecological Monitoring Program
+        [2011-2017]","uri":"https://metadados.gbif.pt/ws/collection/co179","uid":"co179"},{"name":"EDP
+        Foz-Tua: Lichen flora – Complementary Studies [2011] and Ecological Monitoring
+        Program [2012-2015]","uri":"https://metadados.gbif.pt/ws/collection/co142","uid":"co142"},{"name":"EDP
+        Foz-Tua: Macrophytes – Ecological Monitoring Program [2011-2015]","uri":"https://metadados.gbif.pt/ws/collection/co146","uid":"co146"},{"name":"EDP
+        Foz-Tua: Nocturnal Birds - Complementary Studies [2010]","uri":"https://metadados.gbif.pt/ws/collection/co58","uid":"co58"},{"name":"EDP
+        Foz-Tua: Phytobenthos – Ecological Monitoring Program [2011-2015]","uri":"https://metadados.gbif.pt/ws/collection/co132","uid":"co132"},{"name":"EDP
+        Foz-Tua: Pyrenean Desman (Galemys pyrenaicus) - Ecological Monitoring Program
+        (2011-17)","uri":"https://metadados.gbif.pt/ws/collection/co129","uid":"co129"},{"name":"EDP
+        Foz-Tua: Reptiles (point counts): Complementary Studies [2010]","uri":"https://metadados.gbif.pt/ws/collection/co59","uid":"co59"},{"name":"EDP
+        Foz-Tua: Riparian Birds (point counts) Ecological Monitoring Program [2011]","uri":"https://metadados.gbif.pt/ws/collection/co60","uid":"co60"},{"name":"EDP
+        Foz-Tua: Riparian Birds (transects) - Ecological Monitoring Program [2011-17]","uri":"https://metadados.gbif.pt/ws/collection/co183","uid":"co183"},{"name":"EDP
+        Foz-Tua: Small Mammals - Complementary Studies [2010] & Monitoring Ecological
+        Program [2011]","uri":"https://metadados.gbif.pt/ws/collection/co61","uid":"co61"},{"name":"EDP
+        Foz-Tua: Terrestrial Birds (occasional observations)- Complementary Studies
+        [2009-10]","uri":"https://metadados.gbif.pt/ws/collection/co62","uid":"co62"},{"name":"EDP
+        Foz-Tua: Terrestrial Birds (point counts) Complementary Studies [2010]","uri":"https://metadados.gbif.pt/ws/collection/co63","uid":"co63"},{"name":"EDP
+        Foz-Tua: Terrestrial Birds (transects) Complementary Studies [2009-10]","uri":"https://metadados.gbif.pt/ws/collection/co64","uid":"co64"},{"name":"EDP
+        Foz-Tua: Vascular Flora and Habitats – Ecological and Complementary Measures
+        Monitoring Programs – Construction Phase II [2015-2016] and Flooding Phase
+        [2016-2017]","uri":"https://metadados.gbif.pt/ws/collection/co264","uid":"co264"},{"name":"EDP
+        Foz-Tua: Vascular Flora – Complementary Studies and Baseline Year of the Ecological
+        Monitoring Program [2011]","uri":"https://metadados.gbif.pt/ws/collection/co138","uid":"co138"},{"name":"EDP
+        Foz-Tua: Vascular Flora – Ecological and Complentary Measures Monitoring Programs
+        – Contruction Phase I [2012-2014]","uri":"https://metadados.gbif.pt/ws/collection/co266","uid":"co266"},{"name":"Fauna
+        species from the Sectoral Plan of the Natura 2000 (Lines)","uri":"https://metadados.gbif.pt/ws/collection/co225","uid":"co225"},{"name":"Fauna
+        species from the Sectoral Plan of the Natura 2000 (Points)","uri":"https://metadados.gbif.pt/ws/collection/co223","uid":"co223"},{"name":"Fauna
+        species from the Sectoral Plan of the Natura 2000 (Polygons)","uri":"https://metadados.gbif.pt/ws/collection/co224","uid":"co224"},{"name":"Fish
+        larvae from May to June ''95 of the \"Capricórnio\" campaign in the Republic
+        of Guinea Bissau","uri":"https://metadados.gbif.pt/ws/collection/co261","uid":"co261"},{"name":"Flora
+        species from the Sectoral Plan of the Natura 2000 (Points)","uri":"https://metadados.gbif.pt/ws/collection/co221","uid":"co221"},{"name":"Flora
+        species from the Sectoral Plan of the Natura 2000 (Polygons)","uri":"https://metadados.gbif.pt/ws/collection/co222","uid":"co222"},{"name":"Flora-On:
+        occurrence data of the flora of mainland Portugal","uri":"https://metadados.gbif.pt/ws/collection/co65","uid":"co65"},{"name":"Floristic
+        Study in Orchards - Beira Interior, Portugal","uri":"https://metadados.gbif.pt/ws/collection/co211","uid":"co211"},{"name":"Floristic
+        Study in Orchards - Mafra and Torres Vedras, Portugal","uri":"https://metadados.gbif.pt/ws/collection/co212","uid":"co212"},{"name":"Forestry
+        Inventory 1995","uri":"https://metadados.gbif.pt/ws/collection/co219","uid":"co219"},{"name":"Forestry
+        Inventory 2005","uri":"https://metadados.gbif.pt/ws/collection/co218","uid":"co218"},{"name":"Forestry
+        Inventory 2010","uri":"https://metadados.gbif.pt/ws/collection/co217","uid":"co217"},{"name":"Forestry
+        Inventory 2015","uri":"https://metadados.gbif.pt/ws/collection/co216","uid":"co216"},{"name":"Global
+        database of alien macrofungi","uri":"https://metadados.gbif.pt/ws/collection/co176","uid":"co176"},{"name":"Guinea-Bissau
+        Herpetological Collection - IICT","uri":"https://metadados.gbif.pt/ws/collection/co67","uid":"co67"},{"name":"Habitats
+        Directive Portuguese Report: Species 2007-2012","uri":"https://metadados.gbif.pt/ws/collection/co227","uid":"co227"},{"name":"Habitats
+        Directive Portuguese Report: Species 2013-2018","uri":"https://metadados.gbif.pt/ws/collection/co226","uid":"co226"},{"name":"Herbário
+        João de Carvalho e Vasconcellos, I.S.A./U.L.","uri":"https://metadados.gbif.pt/ws/collection/co66","uid":"co66"},{"name":"Herbarium
+        collection of intertidal macroalgae biodiversity along the Northwestern Iberian
+        coast in 2020/2021","uri":"https://metadados.gbif.pt/ws/collection/co209","uid":"co209"},{"name":"Herbarium
+        of University of Coimbra (COI )","uri":"https://metadados.gbif.pt/ws/collection/co125","uid":"co125"},{"name":"Ichthyological
+        Collection of the Museu Oceanográfico D. Carlos I","uri":"https://metadados.gbif.pt/ws/collection/co68","uid":"co68"},{"name":"II
+        Atlas of nesting birds - target species (1999-2005)","uri":"https://metadados.gbif.pt/ws/collection/co233","uid":"co233"},{"name":"IICT
+        Colecção Zoológica","uri":"https://metadados.gbif.pt/ws/collection/co69","uid":"co69"},{"name":"IICT
+        Herbário LISC","uri":"https://metadados.gbif.pt/ws/collection/co70","uid":"co70"},{"name":"IICT
+        Tabanidae Collection","uri":"https://metadados.gbif.pt/ws/collection/co71","uid":"co71"},{"name":"ImagDOP
+        Benthic Video Annotations in Condor seamount in 2010","uri":"https://metadados.gbif.pt/ws/collection/co73","uid":"co73"},{"name":"ImageDOP
+        Bentic Video Annotations in the Faial-Pico Channel in 2011","uri":"https://metadados.gbif.pt/ws/collection/co74","uid":"co74"},{"name":"Insect
+        Collection from the Museu Nacional de História Natural e da Ciência, Universidade
+        de Lisboa, Portugal","uri":"https://metadados.gbif.pt/ws/collection/co72","uid":"co72"},{"name":"Intertidal
+        Biodiversity along the Portuguese coast (2001-2002)","uri":"https://metadados.gbif.pt/ws/collection/co249","uid":"co249"},{"name":"Intertidal
+        macroalgae species distribution along the Northwestern Iberian coast in 2020/2021","uri":"https://metadados.gbif.pt/ws/collection/co242","uid":"co242"},{"name":"Inventory
+        of the Azorean rove-beetles (Insecta, Coleoptera, Staphylinidae)","uri":"https://metadados.gbif.pt/ws/collection/co215","uid":"co215"},{"name":"Larvae
+        of decapods off Portuguese coast from 1986 to 1994","uri":"https://metadados.gbif.pt/ws/collection/co262","uid":"co262"},{"name":"LISU
+        Herbario Angola","uri":"https://metadados.gbif.pt/ws/collection/co76","uid":"co76"},{"name":"LISU
+        Lichen collection","uri":"https://metadados.gbif.pt/ws/collection/co75","uid":"co75"},{"name":"Long-term
+        monitoring of Azorean forest spiders","uri":"https://metadados.gbif.pt/ws/collection/co255","uid":"co255"},{"name":"LTER
+        Baixo Sabor: Long term monitoring of freshwater fish - Sabor watershed [2012
+        - 2020]","uri":"https://metadados.gbif.pt/ws/collection/co244","uid":"co244"},{"name":"Macroinvertebrates
+        distribution in Madeira Island streams (Portugal)","uri":"https://metadados.gbif.pt/ws/collection/co251","uid":"co251"},{"name":"Macromycetes
+        in Portugal Update","uri":"https://metadados.gbif.pt/ws/collection/co78","uid":"co78"},{"name":"Marine
+        algal (seaweed) flora of Faial Island, Azores","uri":"https://metadados.gbif.pt/ws/collection/co134","uid":"co134"},{"name":"Marine
+        algal (seaweed) flora of Formigas Islets, Azores","uri":"https://metadados.gbif.pt/ws/collection/co186","uid":"co186"},{"name":"Marine
+        algal (seaweed) flora of Graciosa Island, Azores","uri":"https://metadados.gbif.pt/ws/collection/co188","uid":"co188"},{"name":"Marine
+        algal (seaweed) flora of Pico Island, Azores","uri":"https://metadados.gbif.pt/ws/collection/co185","uid":"co185"},{"name":"Marine
+        algal (seaweed) flora of São Jorge Island, Azores","uri":"https://metadados.gbif.pt/ws/collection/co133","uid":"co133"},{"name":"Marine
+        algal (seaweed) flora of Terceira Island, Azores","uri":"https://metadados.gbif.pt/ws/collection/co187","uid":"co187"},{"name":"Marine
+        algal flora of Flores and Corvo Islands, Azores","uri":"https://metadados.gbif.pt/ws/collection/co137","uid":"co137"},{"name":"Marine
+        algal flora of Santa Maria Island, Azores","uri":"https://metadados.gbif.pt/ws/collection/co136","uid":"co136"},{"name":"Marine
+        algal flora of São Miguel Island, Azores","uri":"https://metadados.gbif.pt/ws/collection/co263","uid":"co263"},{"name":"Mesopelagic
+        Community off the North Western Portuguese Coast between 1998 and 2000","uri":"https://metadados.gbif.pt/ws/collection/co77","uid":"co77"},{"name":"Mesopelagic
+        Crustaceans of the North Western Portuguese Coast between 1998 and 2000","uri":"https://metadados.gbif.pt/ws/collection/co260","uid":"co260"},{"name":"Micoteca
+        da Universidade do Minho","uri":"https://metadados.gbif.pt/ws/collection/co79","uid":"co79"},{"name":"Moluscos
+        Marinhos de Augusto Nobre","uri":"https://metadados.gbif.pt/ws/collection/co80","uid":"co80"},{"name":"Monitoring
+        Arthropods in Azorean Agroecosystems: the project AGRO-ECOSERVICES","uri":"https://metadados.gbif.pt/ws/collection/co246","uid":"co246"},{"name":"Monitoring
+        of lichenic diversity in the surrounding area of the Urban Solid Waste Treatment
+        Plant of Meia-Serra, Madeira, Portugal","uri":"https://metadados.gbif.pt/ws/collection/co145","uid":"co145"},{"name":"Mozambique
+        Herpetological Collection - IICT","uri":"https://metadados.gbif.pt/ws/collection/co81","uid":"co81"},{"name":"Myriapoda
+        collection from Museu Nacional de História Natural e da Ciência da Universidade
+        de Lisboa, Portugal","uri":"https://metadados.gbif.pt/ws/collection/co82","uid":"co82"},{"name":"National
+        Census of the Iberian Wolf (2002-2003) - Packs","uri":"https://metadados.gbif.pt/ws/collection/co232","uid":"co232"},{"name":"National
+        census of the Iberian wolf (2002-2003) - Presence type","uri":"https://metadados.gbif.pt/ws/collection/co231","uid":"co231"},{"name":"Occurrence
+        records of rust fungi (Pucciniales) in Portugal","uri":"https://metadados.gbif.pt/ws/collection/co83","uid":"co83"},{"name":"Ornithological
+        Collection of the Museu Oceanográfico D. Carlos I","uri":"https://metadados.gbif.pt/ws/collection/co84","uid":"co84"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Accessory species caught in the
+        Azores tuna fishery between 2000 and 2013","uri":"https://metadados.gbif.pt/ws/collection/co85","uid":"co85"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Discards in the Azores tuna fishery
+        from 1998 to 2013","uri":"https://metadados.gbif.pt/ws/collection/co86","uid":"co86"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Fish caught to be used as bait in
+        the Azores tuna fishery from 1998 to 2013","uri":"https://metadados.gbif.pt/ws/collection/co87","uid":"co87"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Marine mammal sightings in the Azores
+        between 2004 and 2013 recorded by Biosphere Expedition","uri":"https://metadados.gbif.pt/ws/collection/co89","uid":"co89"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Marine mammal sightings in the Azores
+        tuna fishery from 1998 on: during navigation or search mode","uri":"https://metadados.gbif.pt/ws/collection/co90","uid":"co90"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Marine mammal sightings in the Azores
+        tuna fishery from 1998 to 2013: during the capture of live bait","uri":"https://metadados.gbif.pt/ws/collection/co88","uid":"co88"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Marine mammal sightings in the Azores
+        tuna fishery from 1998 to 2013: while fishing","uri":"https://metadados.gbif.pt/ws/collection/co91","uid":"co91"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Sea bird sightings in the Azores
+        between 2004 and 2013 recorded by Biosphere Expedition","uri":"https://metadados.gbif.pt/ws/collection/co92","uid":"co92"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Sea turtle sightings in the Azores
+        between 2004 and 2013 recorded by Biosphere Expedition","uri":"https://metadados.gbif.pt/ws/collection/co93","uid":"co93"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Seabird sightings in the Azores
+        tuna fishery from 1998 to 2013: during the capture of live bait","uri":"https://metadados.gbif.pt/ws/collection/co94","uid":"co94"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Seabird sightings in the Azores
+        tuna fishery from 1998 to 2013: while fishing","uri":"https://metadados.gbif.pt/ws/collection/co95","uid":"co95"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Seabird sightings in the Azores
+        tuna fishery from 2000 on: during navigation or search mode","uri":"https://metadados.gbif.pt/ws/collection/co96","uid":"co96"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Tuna species caught in the Azores
+        tuna fishery from 1998 to 2013","uri":"https://metadados.gbif.pt/ws/collection/co97","uid":"co97"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Turtle sightings in the Azores tuna
+        fishery from 2000 on: during navigation or search mode.","uri":"https://metadados.gbif.pt/ws/collection/co98","uid":"co98"},{"name":"Portuguese
+        Decapoda Crustacea - Museu Nacional de História Natural e da Ciência collections","uri":"https://metadados.gbif.pt/ws/collection/co265","uid":"co265"},{"name":"Portuguese
+        Lepidoptera records compiled by Martin Corley''s database","uri":"https://metadados.gbif.pt/ws/collection/co220","uid":"co220"},{"name":"Portuguese
+        Seaweeds","uri":"https://metadados.gbif.pt/ws/collection/co99","uid":"co99"},{"name":"Pycnogonida
+        collection from the Museu Nacional de História Natural e da Ciência da Universidade
+        de Lisboa, Portugal","uri":"https://metadados.gbif.pt/ws/collection/co100","uid":"co100"},{"name":"Records
+        of testate amoebae in São Miguel island (Azores archipelago)","uri":"https://metadados.gbif.pt/ws/collection/co269","uid":"co269"},{"name":"Reptilia
+        collection of the Museu Nacional de História Natural e da Ciência, Universidade
+        de Lisboa, Portugal","uri":"https://metadados.gbif.pt/ws/collection/co101","uid":"co101"},{"name":"Ringing
+        or Bird Recapture","uri":"https://metadados.gbif.pt/ws/collection/co237","uid":"co237"},{"name":"São
+        Tomé and Príncipe Herpetological Collection - IICT","uri":"https://metadados.gbif.pt/ws/collection/co102","uid":"co102"},{"name":"Sightings
+        Map of Invasive Plants in Portugal","uri":"https://metadados.gbif.pt/ws/collection/co103","uid":"co103"},{"name":"Specimens
+        of Huffmanela lusitana of the Collection of Pathology of IPMA","uri":"https://metadados.gbif.pt/ws/collection/co104","uid":"co104"},{"name":"Spiders
+        from Macaronesia_Azores","uri":"https://metadados.gbif.pt/ws/collection/co106","uid":"co106"},{"name":"Spiders
+        from Macaronesia_Madeira","uri":"https://metadados.gbif.pt/ws/collection/co105","uid":"co105"},{"name":"The
+        Hummingbird Collection of the Natural History and Science Museum of the University
+        of Porto (MHNC-UP)","uri":"https://metadados.gbif.pt/ws/collection/co107","uid":"co107"},{"name":"The
+        InBIO Barcoding Initiative Database: A taxonomic revision of the Western Palaearctic
+        genus Cacochroa Heinemann, 1870 (Lepidoptera, Depressariidae)","uri":"https://metadados.gbif.pt/ws/collection/co193","uid":"co193"},{"name":"The
+        InBIO Barcoding Initiative Database: Blattodea 01","uri":"https://metadados.gbif.pt/ws/collection/co130","uid":"co130"},{"name":"The
+        InBIO Barcoding Initiative Database: Borkhausenia crimnodes Meyrick, 1912
+        (Lepidoptera, Oecophoridae), a southern hemisphere species resident in Portugal","uri":"https://metadados.gbif.pt/ws/collection/co192","uid":"co192"},{"name":"The
+        InBIO Barcoding Initiative Database: contribution to the knowledge on DNA
+        barcodes of Iberian Plecoptera","uri":"https://metadados.gbif.pt/ws/collection/co202","uid":"co202"},{"name":"The
+        InBIO Barcoding Initiative Database: Depressaria infernella Corley & Buchner,
+        a new Iberian species of the Depressaria douglasella group","uri":"https://metadados.gbif.pt/ws/collection/co196","uid":"co196"},{"name":"The
+        InBIO Barcoding Initiative Database: Diptera 01","uri":"https://metadados.gbif.pt/ws/collection/co191","uid":"co191"},{"name":"The
+        InBIO Barcoding Initiative Database: Diptera 03 - Further records on Portuguese
+        Limoniidae, Pediciidae and Tipulidae","uri":"https://metadados.gbif.pt/ws/collection/co240","uid":"co240"},{"name":"The
+        InBIO Barcoding Initiative Database: DNA barcodes of Portuguese Diptera 02
+        - Limoniidae, Pediciidae and Tipulidae","uri":"https://metadados.gbif.pt/ws/collection/co241","uid":"co241"},{"name":"The
+        InBIO Barcoding Initiative Database: DNA barcoding of Sialis sp. (Megaloptera)
+        in Portugal: the missing tool to species identification","uri":"https://metadados.gbif.pt/ws/collection/co199","uid":"co199"},{"name":"The
+        InBIO Barcoding Initiative Database: DNA Barcoding reveals sexual dimorphism
+        in Isotrias penedana Trematerra, 2013 (Lepidoptera: Tortricidae, Chlidanotinae)","uri":"https://metadados.gbif.pt/ws/collection/co195","uid":"co195"},{"name":"The
+        InBIO Barcoding Initiative Database: Gluvia dorsalis (Latreille, 1817) (Solifugae)","uri":"https://metadados.gbif.pt/ws/collection/co201","uid":"co201"},{"name":"The
+        InBIO Barcoding Initiative Database: Hemiptera 01","uri":"https://metadados.gbif.pt/ws/collection/co254","uid":"co254"},{"name":"The
+        InBIO Barcoding Initiative Database: Lacewings (Neuroptera) 01","uri":"https://metadados.gbif.pt/ws/collection/co250","uid":"co250"},{"name":"The
+        InBIO Barcoding Initiative Database: Lacewings (Neuroptera) 02","uri":"https://metadados.gbif.pt/ws/collection/co248","uid":"co248"},{"name":"The
+        InBIO Barcoding Initiative Database: Mondeguina, a new genus for Apatetris
+        mediterranella Nel & Varenne, 2012, with description of a new species from
+        Portugal (Lepidoptera, Gelechiidae)","uri":"https://metadados.gbif.pt/ws/collection/co198","uid":"co198"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Bats (Chiroptera)","uri":"https://metadados.gbif.pt/ws/collection/co203","uid":"co203"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Earwigs (Dermaptera)","uri":"https://metadados.gbif.pt/ws/collection/co207","uid":"co207"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Mantises (Mantodea)","uri":"https://metadados.gbif.pt/ws/collection/co247","uid":"co247"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Scorpionflies (Mecoptera,
+        Panorpidae)","uri":"https://metadados.gbif.pt/ws/collection/co204","uid":"co204"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Snakeflies (Raphidioptera)","uri":"https://metadados.gbif.pt/ws/collection/co206","uid":"co206"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Stag beetles (Coleoptera,
+        Lucanidae)","uri":"https://metadados.gbif.pt/ws/collection/co123","uid":"co123"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Stick Insects (Phasmatodea)","uri":"https://metadados.gbif.pt/ws/collection/co205","uid":"co205"},{"name":"The
+        InBIO Barcoding Initiative Database: Taxonomic notes on Portuguese Microlepidoptera
+        II. Cochylimorpha punctiferana (Ragonot, 1881)","uri":"https://metadados.gbif.pt/ws/collection/co194","uid":"co194"},{"name":"The
+        InBIO Barcoding Initiative Database: Wesmaelius (Kimninsia) nervosus (Neuroptera,
+        Hemerobiidae): a new species of brown lacewing for the Portuguese fauna","uri":"https://metadados.gbif.pt/ws/collection/co200","uid":"co200"},{"name":"The
+        InBIO Barcoding Initiative Database: Ypsolopha rhinolophi sp. nov. (Lepidoptera:
+        Ypsolophidae), a new species from Portugal and France unveiled by bats","uri":"https://metadados.gbif.pt/ws/collection/co197","uid":"co197"},{"name":"The
+        Lichen Flora of Serra de São Mamede Natural Park","uri":"https://metadados.gbif.pt/ws/collection/co239","uid":"co239"},{"name":"The
+        Orthoptera of Castro Verde Special Protection Area (Southern Portugal)","uri":"https://metadados.gbif.pt/ws/collection/co108","uid":"co108"},{"name":"Transcription
+        of selected miombo timber species of a floristic inventory in Cuando-Cubango,
+        Angola","uri":"https://metadados.gbif.pt/ws/collection/co256","uid":"co256"},{"name":"Underwater
+        fish visual census in the Azores from 1997 to 2015","uri":"https://metadados.gbif.pt/ws/collection/co109","uid":"co109"},{"name":"Vascular
+        Plants from Praia da Vitória (Terceira, Azores, Portugal)","uri":"https://metadados.gbif.pt/ws/collection/co28","uid":"co28"},{"name":"Vertebrate
+        observation dataset of North and West Africa (CIBIO-Biodeserts)","uri":"https://metadados.gbif.pt/ws/collection/co110","uid":"co110"},{"name":"Waterbird
+        Census in Portugal","uri":"https://metadados.gbif.pt/ws/collection/co230","uid":"co230"},{"name":"Wildlife
+        inventory in the Azores using camera trapping","uri":"https://metadados.gbif.pt/ws/collection/co111","uid":"co111"},{"name":"Zostera
+        noltei seagrass meadows spatial distribution at LTER site Ria de Aveiro lagoon
+        in 2014","uri":"https://metadados.gbif.pt/ws/collection/co112","uid":"co112"}]'
+  recorded_at: 2022-10-18 09:05:37 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://metadados.gbif.pt/ws/dataResource
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.16.1
+      date: Tue, 18 Oct 2022 09:03:21 GMT
+      content-type: application/json;charset=UTF-8
+      content-location: https://metadados.gbif.pt/ws/dataResource
+      last-modified: Fri, 16 Sep 2022 13:27:39 GMT
+      etag: W/"2cf5709b5a68b5629dc5d75754c59fb2"
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      content-encoding: gzip
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"name":"African Decapoda Crustacea collection - MUHNAC","uri":"https://metadados.gbif.pt/ws/dataResource/dr25","uid":"dr25"},{"name":"Amphibia
+        collection of the Museu Nacional de História Natural e da Ciência, Universidade
+        de Lisboa, Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr26","uid":"dr26"},{"name":"Angolan
+        Herpetological Collection - IICT","uri":"https://metadados.gbif.pt/ws/dataResource/dr27","uid":"dr27"},{"name":"Aquatic
+        Hyphomycetes from insular streams (Madeira, Portugal)","uri":"https://metadados.gbif.pt/ws/dataResource/dr212","uid":"dr212"},{"name":"Arthropods
+        from Praia da Vitória (Terceira, Azores, Portugal)","uri":"https://metadados.gbif.pt/ws/dataResource/dr100","uid":"dr100"},{"name":"Asian
+        Herpetological Collection - IICT","uri":"https://metadados.gbif.pt/ws/dataResource/dr28","uid":"dr28"},{"name":"Atlas
+        of Amphibians and Reptiles of Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr290","uid":"dr290"},{"name":"Atlas
+        of Bats from Continental Portugal 2013","uri":"https://metadados.gbif.pt/ws/dataResource/dr240","uid":"dr240"},{"name":"Atlas
+        of Breeding Birds 1999-2005 - Other Species","uri":"https://metadados.gbif.pt/ws/dataResource/dr258","uid":"dr258"},{"name":"Atlas
+        of Freshwater Bivalves 2007","uri":"https://metadados.gbif.pt/ws/dataResource/dr235","uid":"dr235"},{"name":"Azorean
+        Biodiversity Portal","uri":"https://metadados.gbif.pt/ws/dataResource/dr73","uid":"dr73"},{"name":"Beta
+        patula Population Assessment from 2014 to 2018 in Madeira Archipelago, Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr131","uid":"dr131"},{"name":"Bibliographic
+        records of Angola mammals","uri":"https://metadados.gbif.pt/ws/dataResource/dr16","uid":"dr16"},{"name":"Biodiversity
+        data of ladybeetles (Coleoptera: Coccinellidae) of the Azores archipelago
+        (Portugal)","uri":"https://metadados.gbif.pt/ws/dataResource/dr291","uid":"dr291"},{"name":"Biodiversity
+        of the epiphytic lichenic vegetation in the Alentejo Coast (area of Sines)","uri":"https://metadados.gbif.pt/ws/dataResource/dr275","uid":"dr275"},{"name":"Biodiversity4all
+        Research-Grade Observations","uri":"https://metadados.gbif.pt/ws/dataResource/dr129","uid":"dr129"},{"name":"Bird
+        Community of the Regional Protected Landscape of the Vila do Conde Shoreline
+        and the Mindelo Ornithological Reserve (PPRLVCROM) (2013-2014)","uri":"https://metadados.gbif.pt/ws/dataResource/dr271","uid":"dr271"},{"name":"Birds
+        Distribution from the Birds Directive (2013-2018)","uri":"https://metadados.gbif.pt/ws/dataResource/dr282","uid":"dr282"},{"name":"Birds
+        Distribution from the Birds Directive 2008-2012 RN2000","uri":"https://metadados.gbif.pt/ws/dataResource/dr242","uid":"dr242"},{"name":"Birds
+        from Praia da Vitória marshes (Terceira, Azores, Portugal)","uri":"https://metadados.gbif.pt/ws/dataResource/dr117","uid":"dr117"},{"name":"Brown
+        Marmorated Stink Bug (Halyomorpha halys) in Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr148","uid":"dr148"},{"name":"Bryophyte
+        collection","uri":"https://metadados.gbif.pt/ws/dataResource/dr29","uid":"dr29"},{"name":"Bryophyte
+        collection of Porto Herbarium (PO)","uri":"https://metadados.gbif.pt/ws/dataResource/dr30","uid":"dr30"},{"name":"Bryophytes
+        from Praia da Vitória (Terceira, Azores, Portugal)","uri":"https://metadados.gbif.pt/ws/dataResource/dr118","uid":"dr118"},{"name":"Cape
+        Verde Herpetological Collection - IICT","uri":"https://metadados.gbif.pt/ws/dataResource/dr32","uid":"dr32"},{"name":"Catalogue
+        of the plant communities of Madeira and Porto Santo","uri":"https://metadados.gbif.pt/ws/dataResource/dr274","uid":"dr274"},{"name":"Checklist
+        of rust fungi (Pucciniales) occurring in Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr119","uid":"dr119"},{"name":"Coimbra
+        Collection of Algae","uri":"https://metadados.gbif.pt/ws/dataResource/dr17","uid":"dr17"},{"name":"COLETA
+        - IMAR/DOP-Uac reference collection from 1977 to 2012","uri":"https://metadados.gbif.pt/ws/dataResource/dr31","uid":"dr31"},{"name":"Contribution
+        to a study of plant cartography in Portugal - degree internship report - Part
+        1","uri":"https://metadados.gbif.pt/ws/dataResource/dr233","uid":"dr233"},{"name":"Contribution
+        to the phytosociological study of the municipalities of Alenquer, Arruda dos
+        Vinhos and Sobral de Monte Agraço, Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr254","uid":"dr254"},{"name":"Cyanobacteria
+        Checklist of the Azores Archipelago, Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr211","uid":"dr211"},{"name":"Cyanobacteria
+        of the Azores Archipelago, Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr115","uid":"dr115"},{"name":"Dados
+        de ocorrência de espécies da flora da Guiné-Bissau","uri":"https://metadados.gbif.pt/ws/dataResource/dr18","uid":"dr18"},{"name":"Dados
+        de ocorrência para Portugal publicados por instituições estrangeiras","uri":"https://metadados.gbif.pt/ws/dataResource/dr293","uid":"dr293"},{"name":"Demersais
+        survey in the Azores between 1996 and 2013","uri":"https://metadados.gbif.pt/ws/dataResource/dr33","uid":"dr33"},{"name":"Diatom
+        distribution in Madeira Island streams (Portugal)","uri":"https://metadados.gbif.pt/ws/dataResource/dr162","uid":"dr162"},{"name":"Diatoms
+        from Deserta Grande (Madeira Archipelago, Portugal)","uri":"https://metadados.gbif.pt/ws/dataResource/dr161","uid":"dr161"},{"name":"Distribution
+        of Arbuscular Mycorrhizal Fungi in Terceira and S. Miguel (Azores, Portugal)","uri":"https://metadados.gbif.pt/ws/dataResource/dr106","uid":"dr106"},{"name":"Diversity
+        of Spiders from Azorean Trails","uri":"https://metadados.gbif.pt/ws/dataResource/dr157","uid":"dr157"},{"name":"Eden
+        Arthropod Azores Database","uri":"https://metadados.gbif.pt/ws/dataResource/dr153","uid":"dr153"},{"name":"EDP
+        Baixo Sabor:  Birds - Construction and Reservoir Filling Phases - Vilariça
+        Stream (MC1) [2013-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr195","uid":"dr195"},{"name":"EDP
+        Baixo Sabor: Acoustic Bat Monitoring – Construction and Reservoir Filling
+        Phases [2008-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr77","uid":"dr77"},{"name":"EDP
+        Baixo Sabor: Aquatic and Riparian Birds - Construction and Reservoir Filling
+        Phases [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr185","uid":"dr185"},{"name":"EDP
+        Baixo Sabor: Bat acoustic sampling - Compensatory Measures Program (MC1) [2013-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr97","uid":"dr97"},{"name":"EDP
+        Baixo Sabor: Bat Roosts - Ecological Monitoring Program (PME) (2008-2014)","uri":"https://metadados.gbif.pt/ws/dataResource/dr170","uid":"dr170"},{"name":"EDP
+        Baixo Sabor: Bat Roosts [acoustic sampling] - Ecological Monitoring Program
+        (PME) (2012-2014)","uri":"https://metadados.gbif.pt/ws/dataResource/dr174","uid":"dr174"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Cliff-nesting species:
+        Breeding sites [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr175","uid":"dr175"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Eagle Owl (Bubo bubo)
+        & Nocturnal Birds Surveys - [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr186","uid":"dr186"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Iberian Wolf (Canis
+        lupus) [Sign surveys] [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr169","uid":"dr169"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Iberian Wolf [howling
+        surveys]  - [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr189","uid":"dr189"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Iberian Wolf [spotlight
+        counts]  - [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr178","uid":"dr178"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Otter: camera-trapping
+        - [2010-2013]","uri":"https://metadados.gbif.pt/ws/dataResource/dr188","uid":"dr188"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases - Riparian Birds, priority
+        conservation species: fixed points & complementary observations - [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr184","uid":"dr184"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Bonneli’s Eagle prey
+        species: Rabbit (Oryctolagus cuniculus) [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr183","uid":"dr183"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Cliff-nesting birds,
+        prioritary conservation species: fixed observation points [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr192","uid":"dr192"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Kingfisher (Alcedo
+        atthis and Dipper (Cinclus cinclus) - [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr182","uid":"dr182"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Natural Wolf Prey
+        (Roe Deer) [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr179","uid":"dr179"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Natural Wolf Prey
+        (Wild Boar) [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr180","uid":"dr180"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Otter [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr181","uid":"dr181"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Partridge, Rock Pigeon
+        and Wood Pigeon [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr187","uid":"dr187"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Vascular Flora and
+        Habitats: species from prioritary conservation habitats - [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr273","uid":"dr273"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Vascular Flora and
+        Habitats: species of conservation concern (RELAPE) - [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr283","uid":"dr283"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases – Wolf, (Canis lupus)
+        Wild Boar (Sus scrofa) and Roe Deer (Capreolus capreolus)  [camera-trapping]
+        - [2011-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr190","uid":"dr190"},{"name":"EDP
+        Baixo Sabor: Construction and Reservoir Filling Phases: Cliff-nesting Birds,
+        priority conservation species: Complementary Observations - [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr191","uid":"dr191"},{"name":"EDP
+        Baixo Sabor: Construction Phase – Invasive Species (work fronts)  [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr289","uid":"dr289"},{"name":"EDP
+        Baixo Sabor: Construction Phase – Vascular Flora and Habitats in the Work
+        Fronts: species and habitats of conservation concern - [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr268","uid":"dr268"},{"name":"EDP
+        Baixo Sabor: Fishes – Ecological Monitoring Program [2012]","uri":"https://metadados.gbif.pt/ws/dataResource/dr244","uid":"dr244"},{"name":"EDP
+        Baixo Sabor: Herpetology – Baseline Studies [2009]","uri":"https://metadados.gbif.pt/ws/dataResource/dr34","uid":"dr34"},{"name":"EDP
+        Baixo Sabor: Land Birds - Construction and Reservoir Filling Phases  (Sabor
+        river valley) [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr165","uid":"dr165"},{"name":"EDP
+        Baixo Sabor: Land Birds - Construction and Reservoir Filling Phases:  Maçãs
+        and Angueira river valleys [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr177","uid":"dr177"},{"name":"EDP
+        Baixo Sabor: Land Birds - Construction and Reservoir Filling Phases:  stream
+        weirs in the Sabor tributaries [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr176","uid":"dr176"},{"name":"EDP
+        Baixo Sabor: Land Birds - Construction and Reservoir Filling Phases: complementary
+        work sites [2010-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr172","uid":"dr172"},{"name":"EDP
+        Baixo Sabor: Phytobenthos – Ecological Monitoring Program [2012]","uri":"https://metadados.gbif.pt/ws/dataResource/dr284","uid":"dr284"},{"name":"EDP
+        Baixo Sabor: Phytoplankton - Ecological Monitoring Program [2016]","uri":"https://metadados.gbif.pt/ws/dataResource/dr90","uid":"dr90"},{"name":"EDP
+        Foz Tua - Terrestrial Vertebrates (occasional observations) - Ecological Monitoring
+        Program [2011-17]","uri":"https://metadados.gbif.pt/ws/dataResource/dr114","uid":"dr114"},{"name":"EDP
+        Foz Tua Large Mammals (camera -trapping) - Ecological Monitoring Program  [2011-2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr113","uid":"dr113"},{"name":"EDP
+        Foz Tua Large Mammals (nocturnal transects) - Ecological Monitoring Program  [2011]","uri":"https://metadados.gbif.pt/ws/dataResource/dr196","uid":"dr196"},{"name":"EDP
+        Foz Tua Nocturnal Birds - Ecological Monitoring Program [2011-2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr112","uid":"dr112"},{"name":"EDP
+        Foz Tua Otter (Lutra lutra) - Complementary Studies  [2010]","uri":"https://metadados.gbif.pt/ws/dataResource/dr171","uid":"dr171"},{"name":"EDP
+        Foz Tua Otter (Lutra lutra) - Ecological Monitoring Program (2010-11)","uri":"https://metadados.gbif.pt/ws/dataResource/dr173","uid":"dr173"},{"name":"EDP
+        Foz Tua Otter (Lutra lutra) [transects] - Ecological Monitoring Program (2011-17)","uri":"https://metadados.gbif.pt/ws/dataResource/dr198","uid":"dr198"},{"name":"EDP
+        Foz Tua Reptiles - Ecological Monitoring Program [2011-2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr203","uid":"dr203"},{"name":"EDP
+        Foz Tua – Aquatic taxa recorded during fish sampling for population genetic
+        analysis (Complementary Studies – Element 24) [2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr238","uid":"dr238"},{"name":"EDP
+        Foz Tua: Amphibians - Complementary Studies [2009-2010]","uri":"https://metadados.gbif.pt/ws/dataResource/dr91","uid":"dr91"},{"name":"EDP
+        Foz Tua: Amphibians - Ecological Monitoring Program [2010-2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr84","uid":"dr84"},{"name":"EDP
+        Foz Tua: Arthropoda – Environmental Impact Assessment [2006-2008]","uri":"https://metadados.gbif.pt/ws/dataResource/dr19","uid":"dr19"},{"name":"EDP
+        Foz Tua: Bat Habitats - Complementary Studies [2010]","uri":"https://metadados.gbif.pt/ws/dataResource/dr94","uid":"dr94"},{"name":"EDP
+        Foz Tua: Bat Habitats - Ecological & Compensatory Measures Monitoring Programs
+        [2011-2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr104","uid":"dr104"},{"name":"EDP
+        Foz Tua: Bat Roosts -  Baseline and Complementary Studies [2008-2010]","uri":"https://metadados.gbif.pt/ws/dataResource/dr99","uid":"dr99"},{"name":"EDP
+        Foz Tua: Bat Roosts - Ecological & Compensatory Measures Monitoring Programs
+        [2011-2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr86","uid":"dr86"},{"name":"EDP
+        Foz Tua: Bivalvia – Complementary Studies [2011]","uri":"https://metadados.gbif.pt/ws/dataResource/dr80","uid":"dr80"},{"name":"EDP
+        Foz Tua: Black Wheatear (Oenanthe leucura) (Aves) - Ecological Monitoring
+        Program [2012-2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr110","uid":"dr110"},{"name":"EDP
+        Foz Tua: Fish – Complementary Studies [2011]","uri":"https://metadados.gbif.pt/ws/dataResource/dr75","uid":"dr75"},{"name":"EDP
+        Foz Tua: Terrestrial Birds (transects) - Ecological Monitoring Program [2009-2012]","uri":"https://metadados.gbif.pt/ws/dataResource/dr201","uid":"dr201"},{"name":"EDP
+        Foz Tua: Terrestrial Birds, Spring (point counts) - Ecological Monitoring
+        Program [2011-2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr98","uid":"dr98"},{"name":"EDP
+        Foz Tua: Terrestrial Birds, Winter (point counts) - Ecological Monitoring
+        Program [2011-2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr78","uid":"dr78"},{"name":"EDP
+        Foz Tua: Terrestrial Vertebrates Baseline_studies (EIA) [2006]","uri":"https://metadados.gbif.pt/ws/dataResource/dr92","uid":"dr92"},{"name":"EDP
+        Foz-Tua:  Fishes – Ecological Monitoring Program [2011-2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr166","uid":"dr166"},{"name":"EDP
+        Foz-Tua: Amphibians (nocturnal transects): Ecological Monitoring Program [2012-2016]","uri":"https://metadados.gbif.pt/ws/dataResource/dr133","uid":"dr133"},{"name":"EDP
+        Foz-Tua: Black Wheatear (Oenanthe leucura) (transects) - Ecological Monitoring
+        Program [2011-12]","uri":"https://metadados.gbif.pt/ws/dataResource/dr202","uid":"dr202"},{"name":"EDP
+        Foz-Tua: Bryophyte flora – Complementary Studies [2011] and Ecological Monitoring
+        Program [2012-2015]","uri":"https://metadados.gbif.pt/ws/dataResource/dr158","uid":"dr158"},{"name":"EDP
+        Foz-Tua: Cabrera vole (Microtus cabrerae) & Small Mammals - Baseline Studies
+        [2008]","uri":"https://metadados.gbif.pt/ws/dataResource/dr76","uid":"dr76"},{"name":"EDP
+        Foz-Tua: Cabrera vole (Microtus cabrerae) - Ecological Monitoring Program
+        Baseline Studies [2011-2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr111","uid":"dr111"},{"name":"EDP
+        Foz-Tua: Dipper (Cinclus cinclus) (point counts) - Ecological Monitoring Program
+        [2013-16]","uri":"https://metadados.gbif.pt/ws/dataResource/dr159","uid":"dr159"},{"name":"EDP
+        Foz-Tua: Dipper (Cinclus cinclus), River Tinhela  (transects) - Ecological
+        Monitoring Program [2012-17]","uri":"https://metadados.gbif.pt/ws/dataResource/dr199","uid":"dr199"},{"name":"EDP
+        Foz-Tua: Dipper (Cinclus cinclus), River Tinhela  (transects) - Ecological
+        Monitoring Program [2012-17]","uri":"https://metadados.gbif.pt/ws/dataResource/dr199","uid":"dr199"},{"name":"EDP
+        Foz-Tua: Diurnal Butterflies (Lepidoptera) - Ecological Monitoring Program  (2014-2017)","uri":"https://metadados.gbif.pt/ws/dataResource/dr205","uid":"dr205"},{"name":"EDP
+        Foz-Tua: Dragonflies and Damselflies (Odonata) -  Ecological Monitoring Program  (2011-2017)","uri":"https://metadados.gbif.pt/ws/dataResource/dr132","uid":"dr132"},{"name":"EDP
+        Foz-Tua: Large and Medium-sized Mammals (occasional observations): Complementary
+        Studies [2009-10]","uri":"https://metadados.gbif.pt/ws/dataResource/dr116","uid":"dr116"},{"name":"EDP
+        Foz-Tua: Large and Medium-sized Mammals (point counts): Complementary Studies
+        [2009-10]","uri":"https://metadados.gbif.pt/ws/dataResource/dr82","uid":"dr82"},{"name":"EDP
+        Foz-Tua: Large and Medium-sized Mammals (transects): Complementary Studies
+        [2010]","uri":"https://metadados.gbif.pt/ws/dataResource/dr89","uid":"dr89"},{"name":"EDP
+        Foz-Tua: Large Mammals (camera-trapping): Complementary Studies [2010]","uri":"https://metadados.gbif.pt/ws/dataResource/dr79","uid":"dr79"},{"name":"EDP
+        Foz-Tua: Large Mammals (diurnal transects): Ecological Monitoring Program
+        [2011-2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr200","uid":"dr200"},{"name":"EDP
+        Foz-Tua: Lichen flora – Complementary Studies [2011] and Ecological Monitoring
+        Program [2012-2015]","uri":"https://metadados.gbif.pt/ws/dataResource/dr160","uid":"dr160"},{"name":"EDP
+        Foz-Tua: Macrophytes – Ecological Monitoring Program [2011-2015]","uri":"https://metadados.gbif.pt/ws/dataResource/dr164","uid":"dr164"},{"name":"EDP
+        Foz-Tua: Nocturnal Birds - Complementary Studies [2010]","uri":"https://metadados.gbif.pt/ws/dataResource/dr101","uid":"dr101"},{"name":"EDP
+        Foz-Tua: Phytobenthos – Ecological Monitoring Program [2011-2015]","uri":"https://metadados.gbif.pt/ws/dataResource/dr149","uid":"dr149"},{"name":"EDP
+        Foz-Tua: Pyrenean Desman (Galemys pyrenaicus) - Ecological Monitoring Program  (2011-17)","uri":"https://metadados.gbif.pt/ws/dataResource/dr134","uid":"dr134"},{"name":"EDP
+        Foz-Tua: Reptiles (point counts): Complementary Studies [2010]","uri":"https://metadados.gbif.pt/ws/dataResource/dr103","uid":"dr103"},{"name":"EDP
+        Foz-Tua: Riparian Birds (point counts) Ecological Monitoring Program [2011]","uri":"https://metadados.gbif.pt/ws/dataResource/dr88","uid":"dr88"},{"name":"EDP
+        Foz-Tua: Riparian Birds (transects) - Ecological Monitoring Program [2011-17]","uri":"https://metadados.gbif.pt/ws/dataResource/dr204","uid":"dr204"},{"name":"EDP
+        Foz-Tua: Small Mammals - Complementary Studies [2010] & Monitoring Ecological
+        Program [2011]","uri":"https://metadados.gbif.pt/ws/dataResource/dr74","uid":"dr74"},{"name":"EDP
+        Foz-Tua: Terrestrial Birds (occasional observations)- Complementary Studies
+        [2009-10]","uri":"https://metadados.gbif.pt/ws/dataResource/dr83","uid":"dr83"},{"name":"EDP
+        Foz-Tua: Terrestrial Birds (point counts) Complementary Studies [2010]","uri":"https://metadados.gbif.pt/ws/dataResource/dr85","uid":"dr85"},{"name":"EDP
+        Foz-Tua: Terrestrial Birds (transects) Complementary Studies [2009-10]","uri":"https://metadados.gbif.pt/ws/dataResource/dr105","uid":"dr105"},{"name":"EDP
+        Foz-Tua: Vascular Flora and Habitats – Ecological and Complementary Measures
+        Monitoring Programs – Construction Phase II [2015-2016] and Flooding Phase
+        [2016-2017]","uri":"https://metadados.gbif.pt/ws/dataResource/dr288","uid":"dr288"},{"name":"EDP
+        Foz-Tua: Vascular Flora – Complementary Studies and Baseline Year of the Ecological
+        Monitoring Program [2011]","uri":"https://metadados.gbif.pt/ws/dataResource/dr156","uid":"dr156"},{"name":"EDP
+        Foz-Tua: Vascular Flora – Ecological and Complentary Measures Monitoring Programs
+        – Contruction Phase I [2012-2014]","uri":"https://metadados.gbif.pt/ws/dataResource/dr266","uid":"dr266"},{"name":"EOD
+        - eBird Observation Dataset","uri":"https://metadados.gbif.pt/ws/dataResource/dr120","uid":"dr120"},{"name":"Fauna
+        species from the Sectoral Plan of the Natura 2000 (Lines)","uri":"https://metadados.gbif.pt/ws/dataResource/dr281","uid":"dr281"},{"name":"Fauna
+        species from the Sectoral Plan of the Natura 2000 (Points)","uri":"https://metadados.gbif.pt/ws/dataResource/dr246","uid":"dr246"},{"name":"Fauna
+        species from the Sectoral Plan of the Natura 2000 (Polygons)","uri":"https://metadados.gbif.pt/ws/dataResource/dr245","uid":"dr245"},{"name":"Fish
+        larvae from May to June ''95 of the \"Capricórnio\" campaign in the Republic
+        of Guinea Bissau","uri":"https://metadados.gbif.pt/ws/dataResource/dr255","uid":"dr255"},{"name":"Flora
+        species from the Sectoral Plan of the Natura 2000 (Points)","uri":"https://metadados.gbif.pt/ws/dataResource/dr265","uid":"dr265"},{"name":"Flora
+        species from the Sectoral Plan of the Natura 2000 (Polygons)","uri":"https://metadados.gbif.pt/ws/dataResource/dr260","uid":"dr260"},{"name":"Flora-On:
+        occurrence data of the flora of mainland Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr20","uid":"dr20"},{"name":"Floristic
+        Study in Orchards - Beira Interior, Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr232","uid":"dr232"},{"name":"Floristic
+        Study in Orchards - Mafra and Torres Vedras, Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr272","uid":"dr272"},{"name":"Forestry
+        Inventory 1995","uri":"https://metadados.gbif.pt/ws/dataResource/dr252","uid":"dr252"},{"name":"Forestry
+        Inventory 2005","uri":"https://metadados.gbif.pt/ws/dataResource/dr257","uid":"dr257"},{"name":"Forestry
+        Inventory 2010","uri":"https://metadados.gbif.pt/ws/dataResource/dr243","uid":"dr243"},{"name":"Forestry
+        Inventory 2015","uri":"https://metadados.gbif.pt/ws/dataResource/dr286","uid":"dr286"},{"name":"Global
+        database of alien macrofungi","uri":"https://metadados.gbif.pt/ws/dataResource/dr197","uid":"dr197"},{"name":"Global
+        database of alien macrofungi","uri":"https://metadados.gbif.pt/ws/dataResource/dr197","uid":"dr197"},{"name":"Global
+        Register of Introduced and Invasive Species - Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr124","uid":"dr124"},{"name":"Guinea-Bissau
+        Herpetological Collection - IICT","uri":"https://metadados.gbif.pt/ws/dataResource/dr35","uid":"dr35"},{"name":"Habitats
+        Directive Portuguese Report: Species 2007-2012","uri":"https://metadados.gbif.pt/ws/dataResource/dr253","uid":"dr253"},{"name":"Habitats
+        Directive Portuguese Report: Species 2013-2018","uri":"https://metadados.gbif.pt/ws/dataResource/dr250","uid":"dr250"},{"name":"Herbário
+        João de Carvalho e Vasconcellos, I.S.A./U.L.","uri":"https://metadados.gbif.pt/ws/dataResource/dr230","uid":"dr230"},{"name":"Herbarium
+        collection of intertidal macroalgae biodiversity along the Northwestern Iberian
+        coast in 2020/2021","uri":"https://metadados.gbif.pt/ws/dataResource/dr231","uid":"dr231"},{"name":"Herbarium
+        of University of Coimbra (COI )","uri":"https://metadados.gbif.pt/ws/dataResource/dr130","uid":"dr130"},{"name":"Ichthyological
+        Collection of the Museu Oceanográfico D. Carlos I","uri":"https://metadados.gbif.pt/ws/dataResource/dr38","uid":"dr38"},{"name":"II
+        Atlas of nesting birds - target species (1999-2005)","uri":"https://metadados.gbif.pt/ws/dataResource/dr234","uid":"dr234"},{"name":"IICT
+        Colecção Zoológica","uri":"https://metadados.gbif.pt/ws/dataResource/dr21","uid":"dr21"},{"name":"IICT
+        Herbário LISC","uri":"https://metadados.gbif.pt/ws/dataResource/dr22","uid":"dr22"},{"name":"IICT
+        Tabanidae Collection","uri":"https://metadados.gbif.pt/ws/dataResource/dr37","uid":"dr37"},{"name":"ImagDOP
+        Benthic Video Annotations in Condor seamount in 2010","uri":"https://metadados.gbif.pt/ws/dataResource/dr39","uid":"dr39"},{"name":"ImageDOP
+        Bentic Video Annotations in the Faial-Pico Channel in 2011","uri":"https://metadados.gbif.pt/ws/dataResource/dr40","uid":"dr40"},{"name":"Insect
+        Collection from the Museu Nacional de História Natural e da Ciência, Universidade
+        de Lisboa, Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr41","uid":"dr41"},{"name":"Intertidal
+        Biodiversity along the Portuguese coast (2001-2002)","uri":"https://metadados.gbif.pt/ws/dataResource/dr277","uid":"dr277"},{"name":"Intertidal
+        macroalgae species distribution along the Northwestern Iberian coast in 2020/2021","uri":"https://metadados.gbif.pt/ws/dataResource/dr269","uid":"dr269"},{"name":"Inventory
+        of the Azorean rove-beetles (Insecta, Coleoptera, Staphylinidae)","uri":"https://metadados.gbif.pt/ws/dataResource/dr261","uid":"dr261"},{"name":"Larvae
+        of decapods off Portuguese coast from 1986 to 1994","uri":"https://metadados.gbif.pt/ws/dataResource/dr262","uid":"dr262"},{"name":"Lista.Nordeste","uri":"https://metadados.gbif.pt/ws/dataResource/dr128","uid":"dr128"},{"name":"LISU
+        Herbario Angola","uri":"https://metadados.gbif.pt/ws/dataResource/dr42","uid":"dr42"},{"name":"LISU
+        Lichen collection","uri":"https://metadados.gbif.pt/ws/dataResource/dr43","uid":"dr43"},{"name":"Long-term
+        monitoring of Azorean forest spiders","uri":"https://metadados.gbif.pt/ws/dataResource/dr279","uid":"dr279"},{"name":"LTER
+        Baixo Sabor: Long term monitoring of freshwater fish - Sabor watershed [2012
+        - 2020]","uri":"https://metadados.gbif.pt/ws/dataResource/dr280","uid":"dr280"},{"name":"Macroinvertebrates
+        distribution in Madeira Island streams (Portugal)","uri":"https://metadados.gbif.pt/ws/dataResource/dr256","uid":"dr256"},{"name":"Macromycetes
+        in Portugal Update","uri":"https://metadados.gbif.pt/ws/dataResource/dr44","uid":"dr44"},{"name":"Marine
+        algal (seaweed) flora of Faial Island, Azores","uri":"https://metadados.gbif.pt/ws/dataResource/dr152","uid":"dr152"},{"name":"Marine
+        algal (seaweed) flora of Formigas Islets, Azores","uri":"https://metadados.gbif.pt/ws/dataResource/dr208","uid":"dr208"},{"name":"Marine
+        algal (seaweed) flora of Graciosa Island, Azores","uri":"https://metadados.gbif.pt/ws/dataResource/dr210","uid":"dr210"},{"name":"Marine
+        algal (seaweed) flora of Pico Island, Azores","uri":"https://metadados.gbif.pt/ws/dataResource/dr207","uid":"dr207"},{"name":"Marine
+        algal (seaweed) flora of São Jorge Island, Azores","uri":"https://metadados.gbif.pt/ws/dataResource/dr150","uid":"dr150"},{"name":"Marine
+        algal (seaweed) flora of Terceira Island, Azores","uri":"https://metadados.gbif.pt/ws/dataResource/dr209","uid":"dr209"},{"name":"Marine
+        algal flora of Flores and Corvo Islands, Azores","uri":"https://metadados.gbif.pt/ws/dataResource/dr155","uid":"dr155"},{"name":"Marine
+        algal flora of Santa Maria Island, Azores","uri":"https://metadados.gbif.pt/ws/dataResource/dr154","uid":"dr154"},{"name":"Marine
+        algal flora of São Miguel Island, Azores","uri":"https://metadados.gbif.pt/ws/dataResource/dr278","uid":"dr278"},{"name":"Mesopelagic
+        Community off the North Western Portuguese Coast between 1998 and 2000","uri":"https://metadados.gbif.pt/ws/dataResource/dr96","uid":"dr96"},{"name":"Mesopelagic
+        Crustaceans of the North Western Portuguese Coast between 1998 and 2000","uri":"https://metadados.gbif.pt/ws/dataResource/dr241","uid":"dr241"},{"name":"Micoteca
+        da Universidade do Minho","uri":"https://metadados.gbif.pt/ws/dataResource/dr45","uid":"dr45"},{"name":"Moluscos
+        Marinhos de Augusto Nobre","uri":"https://metadados.gbif.pt/ws/dataResource/dr46","uid":"dr46"},{"name":"Monitoring
+        Arthropods in Azorean Agroecosystems: the project AGRO-ECOSERVICES","uri":"https://metadados.gbif.pt/ws/dataResource/dr251","uid":"dr251"},{"name":"Monitoring
+        of lichenic diversity in the surrounding area of the Urban Solid Waste Treatment
+        Plant of Meia-Serra, Madeira, Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr163","uid":"dr163"},{"name":"Mozambique
+        Herpetological Collection - IICT","uri":"https://metadados.gbif.pt/ws/dataResource/dr47","uid":"dr47"},{"name":"Myriapoda
+        collection from Museu Nacional de História Natural e da Ciência da Universidade
+        de Lisboa, Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr48","uid":"dr48"},{"name":"National
+        Census of the Iberian Wolf (2002-2003) - Packs","uri":"https://metadados.gbif.pt/ws/dataResource/dr292","uid":"dr292"},{"name":"National
+        census of the Iberian wolf (2002-2003) - Presence type","uri":"https://metadados.gbif.pt/ws/dataResource/dr264","uid":"dr264"},{"name":"Nordeste","uri":"https://metadados.gbif.pt/ws/dataResource/dr127","uid":"dr127"},{"name":"Occurrence
+        records of rust fungi (Pucciniales) in Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr23","uid":"dr23"},{"name":"Ornithological
+        Collection of the Museu Oceanográfico D. Carlos I","uri":"https://metadados.gbif.pt/ws/dataResource/dr49","uid":"dr49"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Accessory species caught in the
+        Azores tuna fishery between 2000 and 2013","uri":"https://metadados.gbif.pt/ws/dataResource/dr50","uid":"dr50"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Discards in the Azores tuna fishery
+        from 1998 to 2013","uri":"https://metadados.gbif.pt/ws/dataResource/dr51","uid":"dr51"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Fish caught to be used as bait in
+        the Azores tuna fishery from 1998 to 2013","uri":"https://metadados.gbif.pt/ws/dataResource/dr15","uid":"dr15"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Marine mammal sightings in the Azores
+        between 2004 and 2013 recorded by Biosphere Expedition","uri":"https://metadados.gbif.pt/ws/dataResource/dr53","uid":"dr53"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Marine mammal sightings in the Azores
+        tuna fishery from 1998 on: during navigation or search mode","uri":"https://metadados.gbif.pt/ws/dataResource/dr54","uid":"dr54"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Marine mammal sightings in the Azores
+        tuna fishery from 1998 to 2013: during the capture of live bait","uri":"https://metadados.gbif.pt/ws/dataResource/dr55","uid":"dr55"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Marine mammal sightings in the Azores
+        tuna fishery from 1998 to 2013: while fishing","uri":"https://metadados.gbif.pt/ws/dataResource/dr56","uid":"dr56"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Sea bird sightings in the Azores
+        between 2004 and 2013 recorded by Biosphere Expedition","uri":"https://metadados.gbif.pt/ws/dataResource/dr13","uid":"dr13"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Sea turtle sightings in the Azores
+        between 2004 and 2013 recorded by Biosphere Expedition","uri":"https://metadados.gbif.pt/ws/dataResource/dr58","uid":"dr58"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Seabird sightings in the Azores
+        tuna fishery from 1998 to 2013: during the capture of live bait","uri":"https://metadados.gbif.pt/ws/dataResource/dr59","uid":"dr59"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Seabird sightings in the Azores
+        tuna fishery from 1998 to 2013: while fishing","uri":"https://metadados.gbif.pt/ws/dataResource/dr60","uid":"dr60"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Seabird sightings in the Azores
+        tuna fishery from 2000 on: during navigation or search mode","uri":"https://metadados.gbif.pt/ws/dataResource/dr61","uid":"dr61"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Tuna species caught in the Azores
+        tuna fishery from 1998 to 2013","uri":"https://metadados.gbif.pt/ws/dataResource/dr62","uid":"dr62"},{"name":"POPA-
+        Fisheries Observer Program of the Azores: Turtle sightings in the Azores tuna
+        fishery from 2000 on: during navigation or search mode.","uri":"https://metadados.gbif.pt/ws/dataResource/dr63","uid":"dr63"},{"name":"Portuguese
+        Decapoda Crustacea - Museu Nacional de História Natural e da Ciência collections","uri":"https://metadados.gbif.pt/ws/dataResource/dr285","uid":"dr285"},{"name":"Portuguese
+        Lepidoptera records compiled by Martin Corley''s database","uri":"https://metadados.gbif.pt/ws/dataResource/dr267","uid":"dr267"},{"name":"Portuguese
+        Seaweeds","uri":"https://metadados.gbif.pt/ws/dataResource/dr24","uid":"dr24"},{"name":"Pycnogonida
+        collection from the Museu Nacional de História Natural e da Ciência da Universidade
+        de Lisboa, Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr64","uid":"dr64"},{"name":"Records
+        of testate amoebae in São Miguel island (Azores archipelago)","uri":"https://metadados.gbif.pt/ws/dataResource/dr249","uid":"dr249"},{"name":"Reptilia
+        collection of the Museu Nacional de História Natural e da Ciência, Universidade
+        de Lisboa, Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr65","uid":"dr65"},{"name":"Ringing
+        or Bird Recapture","uri":"https://metadados.gbif.pt/ws/dataResource/dr236","uid":"dr236"},{"name":"São
+        Tomé and Príncipe Herpetological Collection - IICT","uri":"https://metadados.gbif.pt/ws/dataResource/dr68","uid":"dr68"},{"name":"Sightings
+        Map of Invasive Plants in Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr66","uid":"dr66"},{"name":"Specimens
+        of Huffmanela lusitana of the Collection of Pathology of IPMA","uri":"https://metadados.gbif.pt/ws/dataResource/dr67","uid":"dr67"},{"name":"Spiders
+        from Macaronesia_Azores","uri":"https://metadados.gbif.pt/ws/dataResource/dr102","uid":"dr102"},{"name":"Spiders
+        from Macaronesia_Madeira","uri":"https://metadados.gbif.pt/ws/dataResource/dr93","uid":"dr93"},{"name":"The
+        Hummingbird Collection of the Natural History and Science Museum of the University
+        of Porto (MHNC-UP)","uri":"https://metadados.gbif.pt/ws/dataResource/dr69","uid":"dr69"},{"name":"The
+        InBIO Barcoding Initiative Database: A taxonomic revision of the Western Palaearctic
+        genus Cacochroa Heinemann, 1870 (Lepidoptera, Depressariidae)","uri":"https://metadados.gbif.pt/ws/dataResource/dr215","uid":"dr215"},{"name":"The
+        InBIO Barcoding Initiative Database: Blattodea 01","uri":"https://metadados.gbif.pt/ws/dataResource/dr147","uid":"dr147"},{"name":"The
+        InBIO Barcoding Initiative Database: Borkhausenia crimnodes Meyrick, 1912
+        (Lepidoptera, Oecophoridae), a southern hemisphere species resident in Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr214","uid":"dr214"},{"name":"The
+        InBIO Barcoding Initiative Database: contribution to the knowledge on DNA
+        barcodes of Iberian Plecoptera","uri":"https://metadados.gbif.pt/ws/dataResource/dr224","uid":"dr224"},{"name":"The
+        InBIO Barcoding Initiative Database: contribution to the knowledge on DNA
+        barcodes of Iberian Plecoptera","uri":"https://metadados.gbif.pt/ws/dataResource/dr224","uid":"dr224"},{"name":"The
+        InBIO Barcoding Initiative Database: Depressaria infernella Corley & Buchner,
+        a new Iberian species of the Depressaria douglasella group","uri":"https://metadados.gbif.pt/ws/dataResource/dr218","uid":"dr218"},{"name":"The
+        InBIO Barcoding Initiative Database: Diptera 01","uri":"https://metadados.gbif.pt/ws/dataResource/dr213","uid":"dr213"},{"name":"The
+        InBIO Barcoding Initiative Database: Diptera 03 - Further records on Portuguese
+        Limoniidae, Pediciidae and Tipulidae","uri":"https://metadados.gbif.pt/ws/dataResource/dr276","uid":"dr276"},{"name":"The
+        InBIO Barcoding Initiative Database: DNA barcodes of Portuguese Diptera 02
+        - Limoniidae, Pediciidae and Tipulidae","uri":"https://metadados.gbif.pt/ws/dataResource/dr247","uid":"dr247"},{"name":"The
+        InBIO Barcoding Initiative Database: DNA barcoding of Sialis sp. (Megaloptera)
+        in Portugal: the missing tool to species identification","uri":"https://metadados.gbif.pt/ws/dataResource/dr221","uid":"dr221"},{"name":"The
+        InBIO Barcoding Initiative Database: DNA Barcoding reveals sexual dimorphism
+        in Isotrias penedana Trematerra, 2013 (Lepidoptera: Tortricidae, Chlidanotinae)","uri":"https://metadados.gbif.pt/ws/dataResource/dr217","uid":"dr217"},{"name":"The
+        InBIO Barcoding Initiative Database: Gluvia dorsalis (Latreille, 1817) (Solifugae)","uri":"https://metadados.gbif.pt/ws/dataResource/dr223","uid":"dr223"},{"name":"The
+        InBIO Barcoding Initiative Database: Hemiptera 01","uri":"https://metadados.gbif.pt/ws/dataResource/dr248","uid":"dr248"},{"name":"The
+        InBIO Barcoding Initiative Database: Lacewings (Neuroptera) 01","uri":"https://metadados.gbif.pt/ws/dataResource/dr263","uid":"dr263"},{"name":"The
+        InBIO Barcoding Initiative Database: Lacewings (Neuroptera) 02","uri":"https://metadados.gbif.pt/ws/dataResource/dr259","uid":"dr259"},{"name":"The
+        InBIO Barcoding Initiative Database: Mondeguina, a new genus for Apatetris
+        mediterranella Nel & Varenne, 2012, with description of a new species from
+        Portugal (Lepidoptera, Gelechiidae)","uri":"https://metadados.gbif.pt/ws/dataResource/dr220","uid":"dr220"},{"name":"The
+        InBIO Barcoding Initiative Database: Mondeguina, a new genus for Apatetris
+        mediterranella Nel & Varenne, 2012, with description of a new species from
+        Portugal (Lepidoptera, Gelechiidae)","uri":"https://metadados.gbif.pt/ws/dataResource/dr220","uid":"dr220"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Bats (Chiroptera)","uri":"https://metadados.gbif.pt/ws/dataResource/dr225","uid":"dr225"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Earwigs (Dermaptera)","uri":"https://metadados.gbif.pt/ws/dataResource/dr229","uid":"dr229"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Mantises (Mantodea)","uri":"https://metadados.gbif.pt/ws/dataResource/dr287","uid":"dr287"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Scorpionflies (Mecoptera,
+        Panorpidae)","uri":"https://metadados.gbif.pt/ws/dataResource/dr226","uid":"dr226"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Snakeflies (Raphidioptera)","uri":"https://metadados.gbif.pt/ws/dataResource/dr228","uid":"dr228"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Stag beetles (Coleoptera,
+        Lucanidae)","uri":"https://metadados.gbif.pt/ws/dataResource/dr109","uid":"dr109"},{"name":"The
+        InBIO Barcoding Initiative Database: Portuguese Stick Insects (Phasmatodea)","uri":"https://metadados.gbif.pt/ws/dataResource/dr227","uid":"dr227"},{"name":"The
+        InBIO Barcoding Initiative Database: Taxonomic notes on Portuguese Microlepidoptera
+        II. Cochylimorpha punctiferana (Ragonot, 1881)","uri":"https://metadados.gbif.pt/ws/dataResource/dr216","uid":"dr216"},{"name":"The
+        InBIO Barcoding Initiative Database: Wesmaelius (Kimninsia) nervosus (Neuroptera,
+        Hemerobiidae): a new species of brown lacewing for the Portuguese fauna","uri":"https://metadados.gbif.pt/ws/dataResource/dr222","uid":"dr222"},{"name":"The
+        InBIO Barcoding Initiative Database: Ypsolopha rhinolophi sp. nov. (Lepidoptera:
+        Ypsolophidae), a new species from Portugal and France unveiled by bats","uri":"https://metadados.gbif.pt/ws/dataResource/dr219","uid":"dr219"},{"name":"The
+        Lichen Flora of Serra de São Mamede Natural Park","uri":"https://metadados.gbif.pt/ws/dataResource/dr270","uid":"dr270"},{"name":"The
+        Orthoptera of Castro Verde Special Protection Area (Southern Portugal)","uri":"https://metadados.gbif.pt/ws/dataResource/dr95","uid":"dr95"},{"name":"Transcription
+        of selected miombo timber species of a floristic inventory in Cuando-Cubango,
+        Angola","uri":"https://metadados.gbif.pt/ws/dataResource/dr237","uid":"dr237"},{"name":"Underwater
+        fish visual census in the Azores from 1997 to 2015","uri":"https://metadados.gbif.pt/ws/dataResource/dr70","uid":"dr70"},{"name":"Vascular
+        Plants from Praia da Vitória (Terceira, Azores, Portugal)","uri":"https://metadados.gbif.pt/ws/dataResource/dr81","uid":"dr81"},{"name":"Vertebrate
+        observation dataset of North and West Africa (CIBIO-Biodeserts)","uri":"https://metadados.gbif.pt/ws/dataResource/dr71","uid":"dr71"},{"name":"Waterbird
+        Census in Portugal","uri":"https://metadados.gbif.pt/ws/dataResource/dr239","uid":"dr239"},{"name":"Wildlife
+        inventory in the Azores using camera trapping","uri":"https://metadados.gbif.pt/ws/dataResource/dr87","uid":"dr87"},{"name":"Zostera
+        noltei seagrass meadows spatial distribution at LTER site Ria de Aveiro lagoon
+        in 2014","uri":"https://metadados.gbif.pt/ws/dataResource/dr12","uid":"dr12"}]'
+  recorded_at: 2022-10-18 09:05:37 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://registos-ws.gbif.pt/assertions/codes
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.16.1
+      date: Tue, 18 Oct 2022 09:03:23 GMT
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-max-age: '3600'
+      access-control-allow-headers: x-requested-with
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      content-encoding: gzip
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"name":"invalidCollectionDate","code":30007,"isFatal":false,"description":"Invalid
+        collection date","category":"error","fatal":false},{"name":"zeroCoordinates","code":4,"isFatal":true,"description":"Supplied
+        coordinates are zero","category":"warning","fatal":true},{"name":"nameNotSupplied","code":10015,"isFatal":false,"description":"Name
+        not supplied","category":"missing","fatal":false},{"name":"incompleteCollectionDate","code":30010,"isFatal":false,"description":"Incomplete
+        collection date","category":"warning","fatal":false},{"name":"badlyFormedBasisOfRecord","code":20002,"isFatal":true,"description":"Basis
+        of record badly formed","category":"error","fatal":true},{"name":"firstOfCentury","code":30005,"isFatal":false,"description":"First
+        of the century","category":"warning","fatal":false},{"name":"detectedOutlier","code":20,"isFatal":true,"description":"Suspected
+        outlier","category":"error","fatal":true},{"name":"unrecognisedInstitutionCode","code":20006,"isFatal":false,"description":"Institution
+        code not recognised","category":"error","fatal":false},{"name":"missingIdentificationReferences","code":10011,"isFatal":false,"description":"Missing
+        identification references","category":"missing","fatal":false},{"name":"precisionRangeMismatch","code":17,"isFatal":false,"description":"Precision
+        / range mismatch","category":"error","fatal":false},{"name":"depthOutOfRange","code":11,"isFatal":false,"description":"Depth
+        out of range","category":"error","fatal":false},{"name":"uncertaintyRangeMismatch","code":24,"isFatal":false,"description":"Coordinate
+        uncertainty not valid","category":"error","fatal":false},{"name":"unknownKingdom","code":10002,"isFatal":false,"description":"Kingdom
+        not recognised","category":"error","fatal":false},{"name":"firstOfYear","code":30004,"isFatal":false,"description":"First
+        of the year","category":"warning","fatal":false},{"name":"decimalLatLongCalculationFromEastingNorthingFailed","code":50,"isFatal":true,"description":"Unable
+        to convert UTM coordinates","category":"error","fatal":true},{"name":"altitudeOutOfRange","code":7,"isFatal":false,"description":"Altitude
+        out of range","category":"error","fatal":false},{"name":"nameNotRecognised","code":10004,"isFatal":false,"description":"Name
+        not recognised","category":"error","fatal":false},{"name":"zeroLatitude","code":53,"isFatal":true,"description":"Zero
+        latitude","category":"warning","fatal":true},{"name":"altitudeNonNumeric","code":14,"isFatal":false,"description":"Altitude
+        value non-numeric","category":"error","fatal":false},{"name":"userAssertionOther","code":20019,"isFatal":false,"description":"Other
+        error","category":"error","fatal":false},{"name":"mediaUnrepresentative","code":70001,"isFatal":false,"description":"Media
+        not representative of taxon","category":"comment","fatal":false},{"name":"missingCatalogueNumber","code":20015,"isFatal":false,"description":"Missing
+        catalogue number","category":"missing","fatal":false},{"name":"minMaxAltitudeReversed","code":9,"isFatal":false,"description":"Min
+        and max altitude reversed","category":"warning","fatal":false},{"name":"unknownCountry","code":6,"isFatal":false,"description":"Supplied
+        country not recognised","category":"error","fatal":false},{"name":"identificationIncorrect","code":10007,"isFatal":false,"description":"Taxon
+        misidentified","category":"error","fatal":false},{"name":"missingBasisOfRecord","code":20001,"isFatal":true,"description":"Basis
+        of record not supplied","category":"missing","fatal":true},{"name":"decimalLatLongCalculationFromVerbatimFailed","code":48,"isFatal":true,"description":"Unparseable
+        verbatim coordinates","category":"error","fatal":true},{"name":"altitudeInFeet","code":13,"isFatal":false,"description":"Altitude
+        value supplied in feet","category":"warning","fatal":false},{"name":"missingGeoreferenceVerificationStatus","code":34,"isFatal":false,"description":"Missing
+        georeferenced verification status","category":"missing","fatal":false},{"name":"coordinatesCentreOfCountry","code":28,"isFatal":true,"description":"Coordinates
+        centre of country","category":"warning","fatal":true},{"name":"missingGeoreferenceDate","code":42,"isFatal":false,"description":"Missing
+        georeference date","category":"missing","fatal":false},{"name":"missingTaxonRank","code":10008,"isFatal":false,"description":"Missing
+        taxonomic rank","category":"missing","fatal":false},{"name":"dataAreGeneralised","code":20009,"isFatal":false,"description":"Data
+        are generalised","category":"warning","fatal":false},{"name":"negatedLatitude","code":1,"isFatal":false,"description":"Latitude
+        is negated","category":"warning","fatal":false},{"name":"geospatialIssue","code":0,"isFatal":true,"description":"Geospatial
+        issue","category":"error","fatal":true},{"name":"minMaxDepthReversed","code":12,"isFatal":false,"description":"Min
+        and max depth reversed","category":"warning","fatal":false},{"name":"geodeticDatumAssumedWgs84","code":51,"isFatal":false,"description":"Geodetic
+        datum assumed WGS84","category":"warning","fatal":false},{"name":"coordinatesOutOfRange","code":5,"isFatal":true,"description":"Coordinates
+        are out of range for species","category":"error","fatal":true},{"name":"missingGeodeticDatum","code":30,"isFatal":false,"description":"Missing
+        geodetic datum","category":"missing","fatal":false},{"name":"missingDateIdentified","code":10012,"isFatal":false,"description":"Missing
+        identification date","category":"missing","fatal":false},{"name":"unrecognisedTypeStatus","code":20004,"isFatal":false,"description":"Type
+        status not recognised","category":"error","fatal":false},{"name":"missingIdentifiedBy","code":10010,"isFatal":false,"description":"Missing
+        name of person who identified the specimen/observation","category":"missing","fatal":false},{"name":"nameNotInNationalChecklists","code":10005,"isFatal":false,"description":"Name
+        not in national checklists","category":"warning","fatal":false},{"name":"missingIdentificationQualifier","code":10009,"isFatal":false,"description":"Missing
+        an identification qualifier","category":"missing","fatal":false},{"name":"erroneousAltitude","code":8,"isFatal":false,"description":"Badly
+        formed altitude","category":"error","fatal":false},{"name":"speciesOutsideExpertRange","code":26,"isFatal":true,"description":"Outside
+        expert range for species","category":"error","fatal":true},{"name":"userVerified","code":50000,"isFatal":true,"description":"Record
+        Verified","category":"verified","fatal":true},{"name":"dayMonthTransposed","code":30009,"isFatal":false,"description":"Day
+        and month transposed","category":"warning","fatal":false},{"name":"missingCollectionDate","code":30008,"isFatal":false,"description":"No
+        collection date supplied","category":"missing","fatal":false},{"name":"processingError","code":60000,"isFatal":true,"description":"The
+        system has incorrectly processed a record","category":"error","fatal":true},{"name":"decimalLatLongConverted","code":45,"isFatal":false,"description":"Coordinates
+        converted to WGS84","category":"warning","fatal":false},{"name":"unrecognisedOccurrenceStatus","code":20017,"isFatal":false,"description":"Occurrence
+        status not recognised","category":"error","fatal":false},{"name":"coordinatePrecisionMismatch","code":23,"isFatal":false,"description":"Coordinate
+        precision not valid","category":"error","fatal":false},{"name":"occCultivatedEscapee","code":20010,"isFatal":false,"description":"Cultivated
+        / escapee","category":"warning","fatal":false},{"name":"decimalLatLongCalculatedFromEastingNorthing","code":49,"isFatal":false,"description":"Coordinates
+        converted from UTM","category":"warning","fatal":false},{"name":"countryInferredByCoordinates","code":21,"isFatal":false,"description":"Country
+        inferred from coordinates","category":"warning","fatal":false},{"name":"depthNonNumeric","code":15,"isFatal":false,"description":"Depth
+        value non-numeric","category":"error","fatal":false},{"name":"invalidScientificName","code":10001,"isFatal":false,"description":"Invalid
+        scientific name","category":"error","fatal":false},{"name":"missingGeoreferenceProtocol","code":32,"isFatal":false,"description":"Missing
+        georeferenced protocol","category":"missing","fatal":false},{"name":"unrecognisedCollectionCode","code":20005,"isFatal":false,"description":"Collection
+        code not recognised","category":"error","fatal":false},{"name":"uncertaintyInPrecision","code":25,"isFatal":false,"description":"Coordinate
+        precision and uncertainty transposed","category":"error","fatal":false},{"name":"depthInFeet","code":10,"isFatal":false,"description":"Depth
+        value supplied in feet","category":"warning","fatal":false},{"name":"missingGeorefencedBy","code":31,"isFatal":false,"description":"Missing
+        name of person who georeferenced the occurrence","category":"missing","fatal":false},{"name":"decimalLatLongCalculatedFromGridReference","code":55,"isFatal":false,"description":"Latitude
+        Longitude calculated from grid reference","category":"warning","fatal":false},{"name":"uncertaintyNotSpecified","code":27,"isFatal":false,"description":"Coordinate
+        uncertainty not specified","category":"missing","fatal":false},{"name":"invalidImageUrl","code":20007,"isFatal":false,"description":"Image
+        URL invalid","category":"error","fatal":false},{"name":"resourceTaxonomicScopeMismatch","code":20008,"isFatal":false,"description":"Resource
+        taxonomic scope mismatch","category":"error","fatal":false},{"name":"countryCoordinateMismatch","code":16,"isFatal":false,"description":"Coordinates
+        dont match supplied country","category":"error","fatal":false},{"name":"assumedPresentOccurrenceStatus","code":20018,"isFatal":false,"description":"Occurrence
+        status assumed to be present","category":"warning","fatal":false},{"name":"datePrecisionMismatch","code":30006,"isFatal":false,"description":"Date
+        precision invalid","category":"error","fatal":false},{"name":"unrecognizedGeodeticDatum","code":52,"isFatal":false,"description":"Unrecognized
+        geodetic datum","category":"error","fatal":false},{"name":"coordinatesCentreOfStateProvince","code":22,"isFatal":true,"description":"Supplied
+        coordinates centre of state","category":"warning","fatal":true},{"name":"decimalLatLongCalculatedFromVerbatim","code":47,"isFatal":false,"description":"Coordinates
+        derived from verbatim coordinates","category":"warning","fatal":false},{"name":"decimalLatLongConversionFailed","code":46,"isFatal":true,"description":"Decimal
+        latitude/longitude conversion failed","category":"error","fatal":true},{"name":"temporalIssue","code":30000,"isFatal":false,"description":"Temporal
+        issue","category":"error","fatal":false},{"name":"negatedLongitude","code":2,"isFatal":false,"description":"Longitude
+        is negated","category":"warning","fatal":false},{"name":"ambiguousName","code":10003,"isFatal":false,"description":"Higher
+        taxonomy missing","category":"error","fatal":false},{"name":"invalidGeodeticDatum","code":35,"isFatal":false,"description":"Invalid
+        geodetic datum","category":"error","fatal":false},{"name":"invertedCoordinates","code":3,"isFatal":false,"description":"Coordinates
+        are transposed","category":"warning","fatal":false},{"name":"zeroLongitude","code":54,"isFatal":true,"description":"Zero
+        longitude","category":"warning","fatal":true},{"name":"missingCoordinatePrecision","code":29,"isFatal":false,"description":"Missing
+        coordinate precision","category":"missing","fatal":false},{"name":"idPreOccurrence","code":30001,"isFatal":false,"description":"Identification
+        date before occurrence date","category":"error","fatal":false},{"name":"recordedByUnparsable","code":20016,"isFatal":false,"description":"Collector
+        name unparseable","category":"warning","fatal":false},{"name":"stateCoordinateMismatch","code":18,"isFatal":false,"description":"Coordinates
+        dont match supplied state","category":"error","fatal":false},{"name":"habitatMismatch","code":19,"isFatal":true,"description":"Habitat
+        incorrect for species","category":"error","fatal":true},{"name":"georefPostDate","code":30002,"isFatal":false,"description":"Georeferenced
+        after occurrence date","category":"error","fatal":false},{"name":"mediaRepresentative","code":70000,"isFatal":false,"description":"Media
+        unrepresentative","category":"comment","fatal":false},{"name":"decimalCoordinatesNotSupplied","code":44,"isFatal":false,"description":"Decimal
+        coordinates not supplied","category":"missing","fatal":false},{"name":"missingGeoreferenceSources","code":33,"isFatal":false,"description":"Missing
+        georeferenced sources","category":"missing","fatal":false},{"name":"locationNotSupplied","code":43,"isFatal":false,"description":"Location
+        not supplied","category":"missing","fatal":false},{"name":"taxonomicIssue","code":10000,"isFatal":false,"description":"Taxonomic
+        issue","category":"error","fatal":false},{"name":"homonymIssue","code":10006,"isFatal":false,"description":"Homonym
+        issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
+        duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
+        of the month","category":"warning","fatal":false}]'
+  recorded_at: 2022-10-18 09:05:37 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://registos-ws.gbif.pt/index/fields
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.16.1
+      date: Tue, 18 Oct 2022 09:03:23 GMT
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-max-age: '3600'
+      access-control-allow-headers: x-requested-with
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      content-encoding: gzip
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"name":"all_image_url","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"info":"Image
+        URLs for this record","jsonName":"images","downloadName":"all_image_url"},{"name":"assertions","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Record
+        issues","info":"A list of all assertions (user and system supplied) for a
+        record resulting from data quality tests","jsonName":"assertions","downloadName":"assertions","i18nValues":true},{"name":"assertions_missing","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"info":"Assertion
+        indicating missing field values for a record. E.g. missing basis of record","downloadName":"assertions_missing"},{"name":"assertions_passed","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"info":"Assertion
+        indicating a data quality test has been passed by this record","downloadName":"assertions_passed"},{"name":"assertions_unchecked","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"info":"Assertion
+        indicating a data quality test was not performed for this record typically
+        due to the absence of fields required by the test.","downloadName":"assertions_unchecked"},{"name":"basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Record
+        type","info":"The basis of record e.g. Specimen, Observation http://rs.tdwg.org/dwc/terms/basisOfRecord","jsonName":"basisOfRecord","dwcTerm":"basisOfRecord","downloadName":"basis_of_record","downloadDescription":"Basis
+        Of Record","classs":"Record"},{"name":"catalogue_number","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Catalogue
+        Number","info":"http://rs.tdwg.org/dwc/terms/catalogNumber","jsonName":"raw_catalogNumber","dwcTerm":"catalogNumber","downloadName":"catalogue_number","downloadDescription":"Catalogue
+        Number","classs":"Occurrence"},{"name":"cl10012","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Províncias
+        de 1936","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10012","downloadName":"cl10012","downloadDescription":"Províncias
+        de 1936","classs":"Contextual"},{"name":"cl10014","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Zona
+        Económica Exclusiva","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10014","downloadName":"cl10014","downloadDescription":"Zona
+        Económica Exclusiva","classs":"Contextual"},{"name":"cl10016","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Ilhas","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10016","downloadName":"cl10016","downloadDescription":"Ilhas","classs":"Contextual"},{"name":"cl10017","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Distritos","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10017","downloadName":"cl10017","downloadDescription":"Distritos","classs":"Contextual"},{"name":"cl10019","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Natura
+        2000 - Sítios de Importância Comunitária","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10019","downloadName":"cl10019","downloadDescription":"Natura
+        2000 - Sítios de Importância Comunitária","classs":"Contextual"},{"name":"cl10020","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Natura
+        2000 - Zona de Protecção Especial","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10020","downloadName":"cl10020","downloadDescription":"Natura
+        2000 - Zona de Protecção Especial","classs":"Contextual"},{"name":"cl10021","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Sítios
+        Ramsar","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10021","downloadName":"cl10021","downloadDescription":"Sítios
+        Ramsar","classs":"Contextual"},{"name":"cl10022","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Áreas
+        Protegidas","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10022","downloadName":"cl10022","downloadDescription":"Áreas
+        Protegidas","classs":"Contextual"},{"name":"cl10023","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Countries,
+        2016 - Administrative Units - Dataset","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10023","downloadName":"cl10023","downloadDescription":"Countries,
+        2016 - Administrative Units - Dataset","classs":"Contextual"},{"name":"cl10024","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Concelhos","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10024","downloadName":"cl10024","downloadDescription":"Concelhos","classs":"Contextual"},{"name":"class","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Class","info":"The
+        class the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/class","jsonName":"classs","dwcTerm":"class","downloadName":"class","downloadDescription":"Class","classs":"Taxon"},{"name":"collection_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Collection
+        Code","info":"The collection code for this record. This will be populated
+        if the data has come from a museum or herbaria http://rs.tdwg.org/dwc/terms/collectionCode","jsonName":"raw_collectionCode","dwcTerm":"collectionCode","downloadName":"collection_code","downloadDescription":"Collection
+        Code","classs":"Record"},{"name":"collection_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Collection","info":"The
+        name of the collection for this record e.g. Entomology Collection","jsonName":"collectionName","downloadName":"collection_name","downloadDescription":"Collection"},{"name":"collection_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Collection","info":"Atlas
+        ID for this collection","jsonName":"collectionUid","downloadName":"collection_uid","downloadDescription":"Collection
+        ID"},{"name":"collector","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Collector","info":"http://rs.tdwg.org/dwc/terms/recordedBy","jsonName":"collector","dwcTerm":"recordedBy","downloadName":"collector","downloadDescription":"Collector","classs":"Occurrence"},{"name":"common_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Common
+        name (processed)","info":"http://rs.tdwg.org/dwc/terms/vernacularName","jsonName":"vernacularName","dwcTerm":"vernacularName","downloadName":"common_name","downloadDescription":"Vernacular
+        name","classs":"Taxon"},{"name":"common_name_and_lsid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Concatenation
+        of common name and LSID, useful for species breakdowns and sorting by common
+        name","downloadName":"common_name_and_lsid"},{"name":"coordinate_uncertainty","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Coordinate
+        uncertainty (in metres)","info":"http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters","jsonName":"coordinateUncertaintyInMeters","dwcTerm":"coordinateUncertaintyInMeters","downloadName":"coordinate_uncertainty","downloadDescription":"Coordinate
+        Uncertainty in Metres","classs":"Location"},{"name":"country","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Country","info":"The
+        country where the specimen was collected or observation was made http://rs.tdwg.org/dwc/terms/country","jsonName":"country","dwcTerm":"country","downloadName":"country","downloadDescription":"Country
+        - parsed","i18nValues":true,"classs":"Location"},{"name":"country_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Country
+        Code","info":"http://rs.tdwg.org/dwc/terms/countryCode","jsonName":"raw_countryCode","dwcTerm":"countryCode","downloadName":"country_code","classs":"Location"},{"name":"data_resource","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Dataset","info":"The
+        data resource that supplies the record. This is typically a CSV or DwCA file,
+        or a webservice.","jsonName":"dataResourceName","downloadName":"data_resource","downloadDescription":"Data
+        Resource Name"},{"name":"data_resource_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Dataset","info":"The
+        Atlas ID for the data resource","jsonName":"dataResourceUid","downloadName":"data_resource_uid","downloadDescription":"Data
+        Resource ID"},{"name":"dataset_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Dataset
+        / Survey name","info":"The name of the dataset for this record. Typically
+        used to share the name of the survey when data has been supplied with multiple
+        surveys in a single data resource. http://rs.tdwg.org/dwc/terms/datasetName","dwcTerm":"datasetName","downloadName":"dataset_name","classs":"Record"},{"name":"date_precision","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Date
+        precision","info":"The precision of the date information for the record. Values
+        include ''Day'', ''Month'', ''Year'', ''Year range'', ''Month range''","downloadName":"date_precision","downloadDescription":"Date
+        precision"},{"name":"depth_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"downloadName":"depth_d"},{"name":"elevation_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"downloadName":"elevation_d"},{"name":"elevation_d_rng","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Elevation","downloadName":"elevation_d_rng"},{"name":"establishment_means","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Establishment
+        means","info":"http://rs.tdwg.org/dwc/terms/establishmentMeans","dwcTerm":"establishmentMeans","downloadName":"establishment_means","classs":"Occurrence"},{"name":"event_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Event
+        ID","info":"http://rs.tdwg.org/dwc/terms/eventID","dwcTerm":"eventID","downloadName":"event_id","classs":"Event"},{"name":"family","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Family","info":"The
+        family the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/family","jsonName":"family","dwcTerm":"family","downloadName":"family","downloadDescription":"Family","classs":"Taxon"},{"name":"first_loaded_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"docvalue":false,"description":"Date
+        first indexed","downloadName":"first_loaded_date"},{"name":"genus","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Genus","info":"The
+        genus the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/genus","jsonName":"genus","dwcTerm":"genus","downloadName":"genus","downloadDescription":"Genus","classs":"Taxon"},{"name":"genus_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Genus","info":"Genus
+        ID for this record","jsonName":"genusGuid","downloadName":"genus_guid"},{"name":"georeference_verification_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Georeference
+        Verification Status","info":"http://rs.tdwg.org/dwc/terms/georeferenceVerificationStatus","dwcTerm":"georeferenceVerificationStatus","downloadName":"georeference_verification_status","classs":"Location"},{"name":"geospatial_kosher","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Spatial
+        validity","info":"A single value statement on the spatial validity. Records
+        that have failed 1 or more critical geospatial data quality tests have a value
+        of false","jsonName":"geospatialKosher","downloadName":"geospatial_kosher","downloadDescription":"Location
+        Quality","i18nValues":true},{"name":"id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Record
+        ID","info":"Atlas unique ID for this record http://rs.tdwg.org/dwc/terms/recordID","jsonName":"uuid","dwcTerm":"recordID","downloadName":"id","downloadDescription":"Record
+        ID","classs":"Occurrence"},{"name":"identification_qualifier","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Identification
+        Qualifier","info":"http://rs.tdwg.org/dwc/terms/identificationQualifier","dwcTerm":"identificationQualifier","downloadName":"identification_qualifier","classs":"Identification"},{"name":"identification_verification_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Identification
+        Verification Status","info":"http://rs.tdwg.org/dwc/terms/identificationVerificationStatus","jsonName":"identificationVerificationStatus","dwcTerm":"identificationVerificationStatus","downloadName":"identification_verification_status","classs":"Identification"},{"name":"identified_by","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Identified
+        by","info":"http://rs.tdwg.org/dwc/terms/identifiedBy","dwcTerm":"identifiedBy","downloadName":"identified_by","classs":"Identification"},{"name":"identified_date","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Date
+        Identified","info":"http://rs.tdwg.org/dwc/terms/dateIdentified","dwcTerm":"dateIdentified","downloadName":"identified_date","classs":"Identification"},{"name":"image_url","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Single
+        image URL for this record.","jsonName":"image","downloadName":"image_url"},{"name":"individual_count","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Individual
+        count","info":"http://rs.tdwg.org/dwc/terms/individualCount","dwcTerm":"individualCount","downloadName":"individual_count","downloadDescription":"Individual
+        count","classs":"Occurrence"},{"name":"institution_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Institution
+        Code","info":"The institution code for this record. This will be populated
+        if the data has come from a museum or herbaria http://rs.tdwg.org/dwc/terms/institutionCode","jsonName":"raw_institutionCode","dwcTerm":"institutionCode","downloadName":"institution_code","downloadDescription":"Institution
+        Code","classs":"Record"},{"name":"institution_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Institution","info":"The
+        name in use by the institution having custody of the object(s) or information
+        referred to in the record.","jsonName":"institutionName","downloadName":"institution_name","downloadDescription":"Institution"},{"name":"institution_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Institution","info":"Atlas
+        ID for this institution","jsonName":"institutionUid","downloadName":"institution_uid","downloadDescription":"Institution
+        ID"},{"name":"interaction","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Species
+        interaction","info":"Species interactions for this record","downloadName":"interaction"},{"name":"kingdom","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Kingdom","info":"The
+        kingdom the Atlas has matched this record to in the system classification
+        http://rs.tdwg.org/dwc/terms/kingdom","jsonName":"kingdom","dwcTerm":"kingdom","downloadName":"kingdom","downloadDescription":"Kingdom","classs":"Taxon"},{"name":"last_load_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"docvalue":false,"description":"Date
+        added","downloadName":"last_load_date"},{"name":"last_processed_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"docvalue":false,"downloadName":"last_processed_date"},{"name":"lat_long","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Decimal
+        coordinates as single comma separated string value e.g. -35.3,149.1","jsonName":"latLong","downloadName":"lat_long"},{"name":"latitude","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Latitude","info":"The
+        decimal latitude associated with this record. If the original latitude was
+        supplied in degrees, minutes, seconds, this value represents the converted
+        value. http://rs.tdwg.org/dwc/terms/decimalLatitude","jsonName":"decimalLatitude","dwcTerm":"decimalLatitude","downloadName":"latitude","downloadDescription":"Latitude","classs":"Location"},{"name":"lft","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
+        left value in the nested set for this record. Used for retrieving records
+        within taxonomic groups.","jsonName":"left","downloadName":"lft"},{"name":"license","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"License","info":"The
+        data licence for this record.","jsonName":"license","dwcTerm":"dcterms:license","downloadName":"license","downloadDescription":"Licence","classs":"Record"},{"name":"location_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Location
+        ID","info":"http://rs.tdwg.org/dwc/terms/locationID","dwcTerm":"locationID","downloadName":"location_id","classs":"Location"},{"name":"location_remarks","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"description":"Location
+        Remarks","info":"http://rs.tdwg.org/dwc/terms/locationRemarks","jsonName":"raw_locationRemarks","dwcTerm":"locationRemarks","downloadName":"location_remarks","classs":"Location"},{"name":"longitude","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Longitude","info":"The
+        decimal longitude associated with this record. If the original longitude was
+        supplied in degrees, minutes, seconds, this value represents the converted
+        value. http://rs.tdwg.org/dwc/terms/decimalLongitude","jsonName":"decimalLongitude","dwcTerm":"decimalLongitude","downloadName":"longitude","downloadDescription":"Longitude","classs":"Location"},{"name":"mappable","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"downloadName":"mappable"},{"name":"modified_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"docvalue":false,"info":"http://rs.tdwg.org/dwc/terms/dcterms:modified","dwcTerm":"dcterms:modified","downloadName":"modified_date"},{"name":"month","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Month","info":"Month
+        of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/month","jsonName":"month","dwcTerm":"month","downloadName":"month","downloadDescription":"Month","i18nValues":true,"classs":"Event"},{"name":"multimedia","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Multimedia","jsonName":"multimedia","downloadName":"multimedia"},{"name":"name_match_metric","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Name
+        match metric","info":"An indication of how a match to a concept was achieved.
+        e.g. fuzzyMatch, exactMatch","downloadName":"name_match_metric"},{"name":"name_parse_type","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
+        scientific name parse type used when matching this record to a taxonomic concept.","downloadName":"name_parse_type"},{"name":"names_and_lsid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Concatenation
+        of common name and LSID, useful for species breakdowns and sorting by taxon
+        name","jsonName":"namesLsid","downloadName":"names_and_lsid"},{"name":"occurrence_date","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Date
+        (by decade)","info":"http://rs.tdwg.org/dwc/terms/eventDate","jsonName":"eventDate","dwcTerm":"eventDate","downloadName":"occurrence_date","downloadDescription":"Event
+        Date - parsed","classs":"Event"},{"name":"occurrence_decade_i","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Decade","info":"The
+        decade for this record e.g. 1910","downloadName":"occurrence_decade_i"},{"name":"occurrence_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Occurrence
+        ID","info":"http://rs.tdwg.org/dwc/terms/occurrenceID","jsonName":"occurrenceID","dwcTerm":"occurrenceID","downloadName":"occurrence_id","classs":"Occurrence"},{"name":"occurrence_remarks","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"description":"Occurrence
+        Remarks","info":"http://rs.tdwg.org/dwc/terms/occurrenceRemarks","jsonName":"raw_occurrenceRemarks","dwcTerm":"occurrenceRemarks","downloadName":"occurrence_remarks","classs":"Occurrence"},{"name":"occurrence_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Presence/Absence","info":"http://rs.tdwg.org/dwc/terms/occurrenceStatus","dwcTerm":"occurrenceStatus","downloadName":"occurrence_status","downloadDescription":"Occurrence
+        status","classs":"Occurrence"},{"name":"occurrence_year","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Date
+        (by decade)","info":"Year ranges for a search. Calculated based on the unique
+        values for a query.","jsonName":"occurrenceYear","downloadName":"occurrence_year"},{"name":"order","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Order","info":"The
+        order the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/order","jsonName":"order","dwcTerm":"order","downloadName":"order","downloadDescription":"Order","classs":"Taxon"},{"name":"original_name_usage","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Original
+        name usage","info":"http://rs.tdwg.org/dwc/terms/originalNameUsage","dwcTerm":"originalNameUsage","downloadName":"original_name_usage","classs":"Taxon"},{"name":"outlier_layer_count","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Outlier
+        layer count","downloadName":"outlier_layer_count"},{"name":"phylum","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Phylum","info":"The
+        phylum the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/phylum","jsonName":"phylum","dwcTerm":"phylum","downloadName":"phylum","downloadDescription":"Phylum","classs":"Taxon"},{"name":"point-0.0001","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Decimal
+        coordinates at 0.0001 degree resolution","jsonName":"point00001","downloadName":"point-0.0001"},{"name":"point-0.001","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Decimal
+        coordinates at 0.001 degree resolution","jsonName":"point0001","downloadName":"point-0.001"},{"name":"point-0.01","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Decimal
+        coordinates at 0.01 degree resolution","jsonName":"point001","downloadName":"point-0.01"},{"name":"point-0.02","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"downloadName":"point-0.02"},{"name":"point-0.1","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Decimal
+        coordinates at 0.1 degree resolution e.g. -35.3,149.1","jsonName":"point01","downloadName":"point-0.1"},{"name":"point-1","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Decimal
+        coordinates at 1 degree resolution e.g -35,149","jsonName":"point1","downloadName":"point-1"},{"name":"rank","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Identified
+        to rank","info":"http://rs.tdwg.org/dwc/terms/taxonRank","jsonName":"taxonRank","dwcTerm":"taxonRank","downloadName":"rank","downloadDescription":"Taxon
+        Rank","i18nValues":true,"classs":"Taxon"},{"name":"rank_id","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Numeric
+        rank ID value. E.g. 7000 = species, 6000 = genus","jsonName":"taxonRankID","downloadName":"rank_id"},{"name":"raw_basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Basis
+        Of Record - original","info":"The basis of record as supplied by the data
+        publisher http://rs.tdwg.org/dwc/terms/verbatimBasisOfRecord","jsonName":"raw_basisOfRecord","dwcTerm":"verbatimBasisOfRecord","downloadName":"raw_basis_of_record","downloadDescription":"Basis
+        Of Record - original"},{"name":"raw_common_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Common
+        name (unprocessed)","info":"The original common name value supplied by the
+        data provider","jsonName":"raw_vernacularName","downloadName":"raw_common_name","downloadDescription":"Vernacular
+        name - original"},{"name":"raw_geo_validation_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
+        original ''geoValidationStatus'' value supplied by the data provider","downloadName":"raw_geo_validation_status"},{"name":"raw_identification_qualifier","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"http://rs.tdwg.org/dwc/terms/verbatimIdentificationQualifier","dwcTerm":"verbatimIdentificationQualifier","downloadName":"raw_identification_qualifier"},{"name":"raw_latitude","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"description":"Latitude
+        - original","info":"http://rs.tdwg.org/dwc/terms/verbatimLatitude","dwcTerm":"verbatimLatitude","downloadName":"raw_latitude","downloadDescription":"Latitude
+        - original","classs":"Location"},{"name":"raw_locality","dataType":"string","indexed":false,"stored":true,"multivalue":true,"docvalue":false,"description":"Locality","info":"http://rs.tdwg.org/dwc/terms/locality","dwcTerm":"locality","downloadName":"raw_locality","downloadDescription":"Locality","classs":"Location"},{"name":"raw_longitude","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"description":"Longitude
+        - original","info":"http://rs.tdwg.org/dwc/terms/verbatimLongitude","dwcTerm":"verbatimLongitude","downloadName":"raw_longitude","downloadDescription":"Longitude
+        - original","classs":"Location"},{"name":"raw_name","dataType":"textgen","indexed":true,"stored":false,"multivalue":true,"docvalue":false,"downloadName":"raw_name"},{"name":"raw_occurrence_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
+        original ''occurrence status'' value supplied by the data provider","downloadName":"raw_occurrence_status"},{"name":"raw_sampling_protocol","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"downloadName":"raw_sampling_protocol"},{"name":"raw_sex","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Sex","info":"http://rs.tdwg.org/dwc/terms/sex","dwcTerm":"sex","downloadName":"raw_sex","downloadDescription":"Sex","classs":"Occurrence"},{"name":"raw_taxon_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Scientific
+        name (unprocessed)","info":"http://rs.tdwg.org/dwc/terms/scientificName","jsonName":"raw_scientificName","dwcTerm":"scientificName","downloadName":"raw_taxon_name","downloadDescription":"Scientific
+        Name - original","classs":"Taxon"},{"name":"raw_type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
+        original ''type status'' value supplied by the data provider","jsonName":"raw_typeStatus","downloadName":"raw_type_status"},{"name":"record_number","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Record
+        number","info":"http://rs.tdwg.org/dwc/terms/recordNumber","jsonName":"recordNumber","dwcTerm":"recordNumber","downloadName":"record_number","downloadDescription":"Record
+        number","classs":"Occurrence"},{"name":"reproductive_condition","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Reproductive
+        Condition","info":"http://rs.tdwg.org/dwc/terms/reproductiveCondition","dwcTerm":"reproductiveCondition","downloadName":"reproductive_condition","classs":"Occurrence"},{"name":"rgt","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
+        right value in the nested set for this record. Used for retrieving records
+        within taxonomic groups.","jsonName":"right","downloadName":"rgt"},{"name":"rights","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"jsonName":"rights","dwcTerm":"dcterms:rights","downloadName":"rights","classs":"Record"},{"name":"species","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Species","info":"The
+        species the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/species","jsonName":"species","dwcTerm":"species","downloadName":"species","downloadDescription":"Species","i18nValues":true,"classs":"Taxon"},{"name":"species_group","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Lifeform","info":"Higher
+        level group for this record e.g. Birds","jsonName":"speciesGroups","downloadName":"species_group"},{"name":"species_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Species","info":"The
+        species ID for this record","jsonName":"speciesGuid","downloadName":"species_guid"},{"name":"species_subgroup","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Species
+        subgroups","info":"Higher level subgroup for this record e.g. Parrots","downloadName":"species_subgroup"},{"name":"state","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"State/Territory","info":"http://rs.tdwg.org/dwc/terms/stateProvince","jsonName":"stateProvince","dwcTerm":"stateProvince","downloadName":"state","downloadDescription":"State
+        - parsed","classs":"Location"},{"name":"subspecies_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Subspecies","info":"The
+        subspecies ID for this record","jsonName":"subspeciesGuid","downloadName":"subspecies_guid"},{"name":"subspecies_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Subspecies","info":"The
+        subspecies name for this record","downloadName":"subspecies_name"},{"name":"suitable_modelling","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Whether
+        this record is suitable for use in species distribution modelling.","downloadName":"suitable_modelling"},{"name":"system_assertions","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"All
+        the assertions created for this record as part of the system data quality
+        processing","downloadName":"system_assertions"},{"name":"taxon_concept_lsid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Taxon
+        Concept GUID","info":"http://rs.tdwg.org/dwc/terms/taxonConceptID","jsonName":"taxonConceptID","dwcTerm":"taxonConceptID","downloadName":"taxon_concept_lsid","downloadDescription":"Taxon
+        Concept GUID","classs":"Taxon"},{"name":"taxon_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Scientific
+        name","info":"http://rs.tdwg.org/dwc/terms/scientificName","jsonName":"scientificName","dwcTerm":"scientificName","downloadName":"taxon_name","downloadDescription":"Scientific
+        Name","classs":"Taxon"},{"name":"taxonomic_issue","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Taxon
+        identification issue","info":"The taxonomic data quality issues detected.
+        See https://biocache-ws.ala.org.au/ws/assertions/codes","downloadName":"taxonomic_issue","downloadDescription":"Taxon
+        identification issue"},{"name":"taxonomic_kosher","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Taxonomic
+        Quality","info":"A flag indicating if there are serious taxonomic problems
+        with a record. false indicates problems.","jsonName":"taxonomicKosher","downloadName":"taxonomic_kosher","downloadDescription":"Taxonomic
+        Quality"},{"name":"type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Specimen
+        type","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
+  recorded_at: 2022-10-18 09:05:37 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://espacial.gbif.pt/ws/layers
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.16.1
+      date: Tue, 18 Oct 2022 09:03:25 GMT
+      content-type: application/json;charset=UTF-8
+      x-application-context: application:production
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      content-encoding: gzip
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Províncias
+        1936","displayname":"Províncias de 1936","id":10012,"grid":false,"path_orig":"layer/provincias_flora_iso8859_1","minlongitude":-9.49817,"maxlatitude":42.15273,"licence_link":"","mddatest":"","maxlongitude":-6.19071,"dt_added":1579279283431,"minlatitude":36.96101,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:provincias_flora_iso8859_1&format=image/png&styles=","name":"provincias_flora_iso8859_1","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Limites","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"http://www.marineregions.org/downloads.php#eez","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"Flanders
+        Marine Institute","classification2":"Zona Económica Exclusiva","displayname":"Zona
+        Económica Exclusiva","id":10014,"grid":false,"path_orig":"layer/zee_portugal","minlongitude":-35.58558,"maxlatitude":43.06483,"licence_link":"","mddatest":"","maxlongitude":-7.25694,"dt_added":1579284352569,"minlatitude":29.24785,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:zee_portugal&format=image/png&styles=","name":"zee_portugal","metadatapath":"http://www.marineregions.org/sources.php#marbound","type":"Contextual","notes":"Preferred
+        citation:\r\nFlanders Marine Institute (2019). Maritime Boundaries Geodatabase,
+        version 11. Available online at http://www.marineregions.org/. https://doi.org/10.14284/382.","keywords":"","licence_notes":"CC
+        BY","environmentalvaluemax":"","classification1":"Limites","environmentalvalueunits":"","enabled":true,"domain":"Marine","description":"Maritime
+        Boundaries Geodatabase, version 11","licence_level":"1","source":"Flanders
+        Marine Institute","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Ilhas","displayname":"Ilhas","id":10016,"grid":false,"path_orig":"layer/ilhas_portugal","minlongitude":-31.26882,"maxlatitude":39.72618,"licence_link":"","mddatest":"","maxlongitude":-15.85367,"dt_added":1579539534554,"minlatitude":30.02878,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:ilhas_portugal&format=image/png&styles=","name":"ilhas_portugal","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Limites","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Administrativos","displayname":"Distritos","id":10017,"grid":false,"path_orig":"layer/distritos_portugal","minlongitude":-31.26882,"maxlatitude":42.15431,"licence_link":"","mddatest":"","maxlongitude":-6.18916,"dt_added":1579539691652,"minlatitude":30.02878,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:distritos_portugal&format=image/png&styles=","name":"distritos_portugal","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Limites","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Natura
+        2000 - SIC","displayname":"Natura 2000 - Sítios de Importância Comunitária","id":10019,"grid":false,"path_orig":"layer/natura2000_pt_zec_2","minlongitude":-32.36806,"maxlatitude":42.15525,"licence_link":"","mddatest":"","maxlongitude":-6.1892,"dt_added":1579540058486,"minlatitude":30.0007,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:natura2000_pt_zec_2&format=image/png&styles=","name":"natura2000_pt_zec_2","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Áreas
+        protegidas","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial,Marine","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Natura
+        2000 - ZPE","displayname":"Natura 2000 - Zona de Protecção Especial","id":10020,"grid":false,"path_orig":"layer/natura2000_pt_zpe","minlongitude":-31.26376,"maxlatitude":42.08316,"licence_link":"","mddatest":"","maxlongitude":-6.1892,"dt_added":1579540165534,"minlatitude":29.98738,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:natura2000_pt_zpe&format=image/png&styles=","name":"natura2000_pt_zpe","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Áreas
+        protegidas","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial,Marine","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Ramsar","displayname":"Sítios
+        Ramsar","id":10021,"grid":false,"path_orig":"layer/ramsar_portugal","minlongitude":-31.24507,"maxlatitude":41.78312,"licence_link":"","mddatest":"","maxlongitude":-7.41352,"dt_added":1580404929471,"minlatitude":36.96172,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:ramsar_portugal&format=image/png&styles=","name":"ramsar_portugal","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Áreas
+        protegidas","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Áreas
+        protegidas","displayname":"Áreas Protegidas","id":10022,"grid":false,"path_orig":"layer/areas_protegidas_pt","minlongitude":-34.46,"maxlatitude":44.86,"licence_link":"","mddatest":"","maxlongitude":-6.18998,"dt_added":1580404981703,"minlatitude":29.2,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:areas_protegidas_pt&format=image/png&styles=","name":"areas_protegidas_pt","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Áreas
+        protegidas","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Administrativos","displayname":"Concelhos","id":10024,"grid":false,"path_orig":"layer/concelhos_portugal","minlongitude":-31.26882,"maxlatitude":42.15431,"licence_link":"","mddatest":"","maxlongitude":-6.18916,"dt_added":1580739520232,"minlatitude":30.02878,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:concelhos_portugal&format=image/png&styles=","name":"concelhos_portugal","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Limites","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"https://ec.europa.eu/eurostat/cache/GISCO/distribution/v2/countries/download/ref-countries-2016-01m.shp.zip","datalang":"eng","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Países","displayname":"Countries,
+        2016 - Administrative Units - Dataset","id":10023,"grid":false,"path_orig":"layer/world_countries","minlongitude":-180.0,"maxlatitude":83.66498,"licence_link":"","mddatest":"2018-05-23T19:03:18","maxlongitude":179.99999,"dt_added":1580730952348,"minlatitude":-89.9,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:world_countries&format=image/png&styles=","name":"world_countries","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"Generalised
+        dataset derived from EuroGeographics and UN-FAO GI data. The dataset may be
+        used and distributed if: The source (EuroGeographics and UN-FAO) is acknowledged,
+        AND The data is not used for commercial purpose, AND The original geometry
+        is generalised to the equivalent of a scale of 1:1.000.000 or smaller. The
+        source, copyright and branding will be acknowledged if the geographic data
+        are used in Commission products. The acknowledgement will be displayed as
+        “@EuroGeographics” on the map or in an acknowledgement text. The size of the
+        text on the map will be proportional to the size of the map. The maximum length
+        of copyright texts on electronic maps (web maps or electronic applications)
+        is 20 characters. No copyright text will be applied for online icon maps with
+        less than 150 x 150 pixels","environmentalvaluemax":"","classification1":"Limites","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"This
+        data set contains the administrative boundaries at country level of the world
+        and is based on the geometry from EBM v12.x. of EuroGeographics for the members
+        of Eurogeographics, the Global Administrative Units Layer (2015) from FAO
+        (UN) and geometry from the Turkish National Statistical Office. This dataset
+        consists of 2 feature classes (regions, boundaries) per scale level and there
+        are 6 different scale levels (100K, 1M, 3M, 10M, 20M and 60M). The public
+        data set (1M - 60M) is available under the Download link indicated below.
+        The full data set (100K - 60M) GISCO.CNTR_2016 is available via the EC restricted
+        download link.","licence_level":"1","source":"European Commission, Eurostat
+        (ESTAT), GISCO","citation_date":""}]'
+  recorded_at: 2022-10-18 09:05:37 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://logger.gbif.pt/service/logger/reasons
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.16.1
+      date: Tue, 18 Oct 2022 09:03:27 GMT
+      content-type: application/json;charset=UTF-8
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      content-encoding: gzip
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
+        science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
+        management","id":5,"deprecated":false},{"rkey":"logger.download.reason.conservation","name":"conservation
+        management/planning","id":0,"deprecated":false},{"rkey":"logger.download.reason.ecological.research","name":"ecological
+        research","id":7,"deprecated":false},{"rkey":"logger.download.reason.education","name":"education","id":3,"deprecated":false},{"rkey":"logger.download.reason.environmental","name":"environmental
+        assessment","id":2,"deprecated":false},{"rkey":"logger.download.reason.restoration.remediation","name":"restoration/remediation","id":12,"deprecated":false},{"rkey":"logger.download.reason.research","name":"scientific
+        research","id":4,"deprecated":false},{"rkey":"logger.download.reason.systematic.research","name":"systematic
+        research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
+        modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
+        scientific research","id":9,"deprecated":true}]'
+  recorded_at: 2022-10-18 09:05:37 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

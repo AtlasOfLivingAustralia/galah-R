@@ -1,0 +1,83 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://lists.nbnatlas.org/ws/speciesListItems/dr556
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 OK
+      date: Wed, 19 Oct 2022 04:05:28 GMT
+      server: Apache/2.4.18 (Ubuntu)
+      x-application-context: application:production
+      content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"id":10067,"name":"Abdera biflexuosa","commonName":null,"scientificName":"Abdera
+        biflexuosa","lsid":"NBNSYS0000024889","dataResourceUid":"dr556"},{"id":10111,"name":"Abdera
+        flexuosa","commonName":null,"scientificName":"Abdera flexuosa","lsid":"NBNSYS0000024890","dataResourceUid":"dr556"},{"id":10081,"name":"Abdera
+        quadrifasciata","commonName":null,"scientificName":"Abdera quadrifasciata","lsid":"NBNSYS0000024891","dataResourceUid":"dr556"},{"id":10094,"name":"Aderus
+        populneus","commonName":null,"scientificName":"Aderus populneus","lsid":"NBNSYS0000024970","dataResourceUid":"dr556"},{"id":10073,"name":"Anaspis
+        (Anaspis) thoracica","commonName":null,"scientificName":"Anaspis thoracica","lsid":"NBNSYS0000024918","dataResourceUid":"dr556"},{"id":10068,"name":"Anaspis
+        (Nassipa) costai","commonName":null,"scientificName":"Anaspis costai","lsid":"NBNSYS0000024905","dataResourceUid":"dr556"},{"id":10071,"name":"Anisoxya
+        fuscula","commonName":null,"scientificName":"Anisoxya fuscula","lsid":"NBNSYS0000024887","dataResourceUid":"dr556"},{"id":10104,"name":"Bolitophagus
+        reticulatus","commonName":null,"scientificName":"Bolitophagus reticulatus","lsid":"NBNSYS0000024829","dataResourceUid":"dr556"},{"id":10090,"name":"Cicones
+        variegatus","commonName":null,"scientificName":"Synchita variegata","lsid":"NHMSYS0021366659","dataResourceUid":"dr556"},{"id":10062,"name":"Colydium
+        elongatum","commonName":null,"scientificName":"Colydium elongatum","lsid":"NHMSYS0020151787","dataResourceUid":"dr556"},{"id":10065,"name":"Cordicollis
+        instabilis","commonName":null,"scientificName":"Cordicollis instabilis","lsid":"NHMSYS0021125752","dataResourceUid":"dr556"},{"id":10091,"name":"Corticeus
+        bicolor","commonName":null,"scientificName":"Corticeus bicolor","lsid":"NBNSYS0000024846","dataResourceUid":"dr556"},{"id":10099,"name":"Corticeus
+        unicolor","commonName":null,"scientificName":"Corticeus unicolor","lsid":"NBNSYS0000024849","dataResourceUid":"dr556"},{"id":10107,"name":"Crypticus
+        quisquilius","commonName":null,"scientificName":"Crypticus quisquilius","lsid":"NBNSYS0000024828","dataResourceUid":"dr556"},{"id":10098,"name":"Cyclodinus
+        constrictus","commonName":null,"scientificName":"Cyclodinus constrictus","lsid":"NHMSYS0020151970","dataResourceUid":"dr556"},{"id":10110,"name":"Diaperis
+        boleti","commonName":null,"scientificName":"Diaperis boleti","lsid":"NBNSYS0000024831","dataResourceUid":"dr556"},{"id":10083,"name":"Euglenes
+        oculatus","commonName":null,"scientificName":"Euglenes oculatus","lsid":"NHMSYS0020152143","dataResourceUid":"dr556"},{"id":10066,"name":"Gonodera
+        luperus","commonName":null,"scientificName":"Gonodera luperus","lsid":"NBNSYS0000024859","dataResourceUid":"dr556"},{"id":10076,"name":"Hallomenus
+        binotatus","commonName":null,"scientificName":"Hallomenus binotatus","lsid":"NBNSYS0000024883","dataResourceUid":"dr556"},{"id":10069,"name":"Helops
+        caeruleus","commonName":null,"scientificName":"Helops caeruleus","lsid":"NBNSYS0000024852","dataResourceUid":"dr556"},{"id":10108,"name":"Ischnomera
+        sanguinicollis","commonName":null,"scientificName":"Ischnomera sanguinicollis","lsid":"NHMSYS0020152591","dataResourceUid":"dr556"},{"id":10087,"name":"Lissodema
+        denticolle","commonName":null,"scientificName":"Lissodema denticollis","lsid":"NHMSYS0021422229","dataResourceUid":"dr556"},{"id":10100,"name":"Meloe
+        rugosus","commonName":"Rugged Oil-beetle","scientificName":"Meloe rugosus","lsid":"NBNSYS0000024950","dataResourceUid":"dr556"},{"id":10092,"name":"Mordellistena
+        (Mordellistena) humeralis","commonName":null,"scientificName":"Mordellistena
+        humeralis","lsid":"NBNSYS0000024924","dataResourceUid":"dr556"},{"id":10095,"name":"Mordellistena
+        (Mordellistena) neuwaldeggiana","commonName":null,"scientificName":"Mordellistena
+        neuwaldeggiana","lsid":"NBNSYS0000024925","dataResourceUid":"dr556"},{"id":10080,"name":"Mordellistena
+        (Mordellistena) variegata","commonName":null,"scientificName":"Mordellistena
+        variegata","lsid":"NBNSYS0000024928","dataResourceUid":"dr556"},{"id":10074,"name":"Mordellistena
+        parvula","commonName":null,"scientificName":"Mordellistena parvula","lsid":"NHMSYS0020148463","dataResourceUid":"dr556"},{"id":10097,"name":"Mycetochara
+        humeralis","commonName":null,"scientificName":"Mycetochara humeralis","lsid":"NHMSYS0020152734","dataResourceUid":"dr556"},{"id":10088,"name":"Mycetophagus
+        quadriguttatus","commonName":null,"scientificName":"Mycetophagus quadriguttatus","lsid":"NHMSYS0020152743","dataResourceUid":"dr556"},{"id":10077,"name":"Oedemera
+        (Oncomera) femoralis","commonName":null,"scientificName":"Oedemera femoralis","lsid":"NHMSYS0020920000","dataResourceUid":"dr556"},{"id":10096,"name":"Omonadus
+        bifasciatus","commonName":null,"scientificName":"Omonadus bifasciatus","lsid":"NHMSYS0020152844","dataResourceUid":"dr556"},{"id":10078,"name":"Opatrum
+        sabulosum","commonName":null,"scientificName":"Opatrum sabulosum","lsid":"NBNSYS0000024826","dataResourceUid":"dr556"},{"id":10085,"name":"Orchesia
+        micans","commonName":null,"scientificName":"Orchesia micans","lsid":"NBNSYS0000024884","dataResourceUid":"dr556"},{"id":10103,"name":"Orchesia
+        minor","commonName":null,"scientificName":"Orchesia minor","lsid":"NBNSYS0000024885","dataResourceUid":"dr556"},{"id":10106,"name":"Osphya
+        bipunctata","commonName":null,"scientificName":"Osphya bipunctata","lsid":"NHMSYS0020152917","dataResourceUid":"dr556"},{"id":10109,"name":"Phaleria
+        cadaverina","commonName":null,"scientificName":"Phaleria cadaverina","lsid":"NHMSYS0020153033","dataResourceUid":"dr556"},{"id":10070,"name":"Phloiotrya
+        vaudoueri","commonName":null,"scientificName":"Phloiotrya vaudoueri","lsid":"NBNSYS0000024893","dataResourceUid":"dr556"},{"id":10084,"name":"Prionychus
+        melanarius","commonName":null,"scientificName":"Prionychus melanarius","lsid":"NBNSYS0000024858","dataResourceUid":"dr556"},{"id":10102,"name":"Pseudocistela
+        ceramboides","commonName":null,"scientificName":"Pseudocistela ceramboides","lsid":"NBNSYS0000024860","dataResourceUid":"dr556"},{"id":10082,"name":"Pseudotriphyllus
+        suturalis","commonName":null,"scientificName":"Pseudotriphyllus suturalis","lsid":"NHMSYS0020153228","dataResourceUid":"dr556"},{"id":10075,"name":"Rabocerus
+        gabrieli","commonName":null,"scientificName":"Rabocerus gabrieli","lsid":"NBNSYS0000024871","dataResourceUid":"dr556"},{"id":10064,"name":"Scraptia
+        testacea","commonName":null,"scientificName":"Scraptia testacea","lsid":"NBNSYS0000024903","dataResourceUid":"dr556"},{"id":10079,"name":"Sphaeriestes
+        ater","commonName":null,"scientificName":"Sphaeriestes reyi","lsid":"NHMSYS0020153481","dataResourceUid":"dr556"},{"id":10086,"name":"Sphaeriestes
+        reyi","commonName":null,"scientificName":"Sphaeriestes reyi","lsid":"NHMSYS0020153481","dataResourceUid":"dr556"},{"id":10105,"name":"Synchita
+        humeralis","commonName":null,"scientificName":"Synchita humeralis","lsid":"NHMSYS0020153564","dataResourceUid":"dr556"},{"id":10072,"name":"Synchita
+        separanda","commonName":null,"scientificName":"Synchita separanda","lsid":"NBNSYS0000024808","dataResourceUid":"dr556"},{"id":10061,"name":"Tetratoma
+        desmarestii","commonName":null,"scientificName":"Tetratoma desmarestii","lsid":"NBNSYS0000157831","dataResourceUid":"dr556"},{"id":10089,"name":"Tomoxia
+        bucephala","commonName":null,"scientificName":"Tomoxia bucephala","lsid":"NHMSYS0020153631","dataResourceUid":"dr556"},{"id":10093,"name":"Triphyllus
+        bicolor","commonName":null,"scientificName":"Triphyllus bicolor","lsid":"NHMSYS0020153662","dataResourceUid":"dr556"},{"id":10101,"name":"Variimorda
+        villosa","commonName":null,"scientificName":"Variimorda villosa","lsid":"NBNSYS0000024920","dataResourceUid":"dr556"},{"id":10063,"name":"Xanthomus
+        pallidus","commonName":null,"scientificName":"Xanthomus pallidus","lsid":"NHMSYS0020153725","dataResourceUid":"dr556"}]'
+  recorded_at: 2022-10-19 04:05:28 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

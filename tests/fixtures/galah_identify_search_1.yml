@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -16,22 +16,22 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:22:58 GMT
+      date: Wed, 12 Oct 2022 03:43:14 GMT
       content-type: application/json
-      content-length: '498'
+      content-length: '499'
+      server: nginx/1.23.1
       vary: Accept-Encoding
       content-encoding: gzip
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      x-content-type-options: nosniff
-      content-security-policy: upgrade-insecure-requests
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
     body:
       encoding: UTF-8
       file: no
       string: '{"success":true,"scientificName":"Litoria","scientificNameAuthorship":"Tschudi,
-        1838","taxonConceptID":"urn:lsid:biodiversity.org.au:afd.taxon:5282f9c3-12ff-4092-a8ae-ea71f2dde7da","rank":"genus","rankID":6000,"lft":183845,"rgt":183997,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Amphibia","classID":"urn:lsid:biodiversity.org.au:afd.taxon:0490a9ba-0d08-473d-a709-6c42e354f118","order":"Anura","orderID":"urn:lsid:biodiversity.org.au:afd.taxon:de0edaae-fd4a-4d37-8c7d-fb4899c81ef7","family":"Hylidae","familyID":"urn:lsid:biodiversity.org.au:afd.taxon:8350b501-0c97-4e06-af51-7368aa3f8f14","genus":"Litoria","genusID":"urn:lsid:biodiversity.org.au:afd.taxon:5282f9c3-12ff-4092-a8ae-ea71f2dde7da","speciesGroup":["Animals","Amphibians"],"speciesSubgroup":["Tree
+        1838","taxonConceptID":"https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b","rank":"genus","rankID":6000,"lft":39196,"rgt":39352,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Amphibia","classID":"https://biodiversity.org.au/afd/taxa/0490a9ba-0d08-473d-a709-6c42e354f118","order":"Anura","orderID":"https://biodiversity.org.au/afd/taxa/de0edaae-fd4a-4d37-8c7d-fb4899c81ef7","family":"Hylidae","familyID":"https://biodiversity.org.au/afd/taxa/e57fcee2-be79-4d84-b632-d61843e7c3d9","genus":"Litoria","genusID":"https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b","speciesGroup":["Animals","Amphibians"],"speciesSubgroup":["Tree
         Frogs"],"issues":["noIssue"]}'
-  recorded_at: 2022-01-20 01:22:58 GMT
+  recorded_at: 2022-10-12 03:43:14 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

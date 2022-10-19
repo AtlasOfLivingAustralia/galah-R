@@ -2,47 +2,146 @@
 % Please edit documentation in R/galah_geolocate.R
 \name{galah_geolocate}
 \alias{galah_geolocate}
-\title{Narrow a query using a WKT string}
+\title{Narrow a query to within a specified area}
 \usage{
-galah_geolocate(...)
+galah_geolocate(..., type = c("polygon", "bbox"))
 }
 \arguments{
-\item{...}{a single wkt string or sf object}
+\item{...}{a single \code{sf} object, WKT string or shapefile. Bounding boxes can
+be supplied as a \code{tibble}/\code{data.frame} or a \code{bbox}}
+
+\item{type}{\code{string}: one of \code{c("polygon", "bbox")}. Defaults to
+\code{"polygon"}. If \code{type = "polygon"}, a multipolygon will be built via
+\code{\link[=galah_polygon]{galah_polygon()}}. If \code{type = "bbox"}, a multipolygon will be built via
+\code{\link[=galah_bbox]{galah_bbox()}}. The multipolygon is used to narrow a query to the ALA.}
 }
 \value{
-length-1 object of class \code{character} and \code{atlas_locations},
-containing a WKT string representing the area provided.
+length-1 object of class \code{character} and \code{galah_geolocate},
+containing a multipolygon WKT string representing the area provided.
 }
 \description{
-Restrict results to those from a specified area. Areas must be polygons
-and be specified as either an sf object, or a 'well-known text' (wkt) string.
+Restrict results to those from a specified area. Areas can be specified as
+either polygons or bounding boxes, depending on \code{type}.
 }
 \details{
-WKT strings longer than 10000 characters will not be
-accepted by the ALA- so the sf object or WKT string may need to be
-simplified.
+By default, \code{type} is set to \code{"polygon"} which narrows queries to within an area
+supplied as a polygon. Polygons must be specified as either an \code{sf} object,
+a 'well-known text' (WKT) string, or a shapefile. Shapefiles must be simple
+to be accepted by the ALA.
+
+Alternatively, set \code{type = "bbox"} to narrow queries to within a
+bounding box. Bounding boxes can be extracted from a supplied \code{sf} object or
+a shapefile. A bounding box can also be supplied as a \code{bbox} object
+(via \code{sf::st_bbox}) or a \code{tibble}/\code{data.frame}.
+
+If \code{type = "polygon"}, WKT strings longer than 10000 characters and
+\code{sf} objects with more than 500 vertices will not be
+accepted by the ALA. Some polygons  may need to be simplified. If
+\code{type = "bbox"}, sf objects and shapefiles will be converted to a bounding
+box to query the ALA.
 }
 \section{Examples}{
 
 
-Search for records using a shapefile\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+Search for records within a polygon using an \code{sf} object
 
-location <- galah_geolocate(st_read(path/to/shapefile))
-atlas_occurrences(geolocate = location)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{location <- 
+"POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
+ sf::st_as_sfc()
+ 
+galah_call() |>
+  galah_identify("reptilia") |>
+  galah_polygon(location) |>
+  atlas_counts()
 }\if{html}{\out{</div>}}
 
-Search for records using a Well-known Text geometry (WKT)\if{html}{\out{<div class="sourceCode r">}}\preformatted{wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
+Search for records within a polygon using a shapefile
 
-atlas_counts(geolocate = galah_geolocate(wkt))
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+
+location <- galah_geolocate(sf::st_read(path/to/shapefile.shp))
+galah_call() |>
+  galah_identify("vulpes") |>
+  galah_geolocate(location) |>
+  atlas_occurrences()
+}\if{html}{\out{</div>}}
+
+Search for records using a Well-known Text string (WKT)
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
+
+galah_call() |>
+  galah_identify("vulpes") |>
+  galah_geolocate(wkt) |>
+  atlas_counts()
 #> # A tibble: 1 x 1
 #>   count
 #>   <int>
-#> 1  3300
+#> 1     1
+}\if{html}{\out{</div>}}
+
+Search for records within the bounding box extracted from an \code{sf} object
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+
+location <- 
+"POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
+ sf::st_as_sfc()
+ 
+galah_call() |>
+  galah_identify("vulpes") |>
+  galah_geolocate(location, type = "bbox") |>
+  atlas_occurrences()
+}\if{html}{\out{</div>}}
+
+Search for records within the bounding box of a shapefile
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+
+location <- sf::st_read(path/to/shapefile.shp)
+galah_call() |>
+  galah_identify("vulpes") |>
+  galah_geolocate(location, type = "bbox") |>
+  atlas_occurrences()
+}\if{html}{\out{</div>}}
+
+Search for records using a bounding box of coordinates
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{b_box <- sf::st_bbox(c(xmin = 143, xmax = 148, ymin = -29, ymax = -28), 
+                     crs = st_crs("WGS84"))
+
+galah_call() |>
+  galah_identify("reptilia") |>
+  galah_geolocate(b_box, type = "bbox") |>
+  atlas_counts()
+#> Data returned for bounding box:
+#> xmin = 143 xmax = 148 ymin = -29 ymax = -28
+#> # A tibble: 1 x 1
+#>   count
+#>   <int>
+#> 1  1782
+}\if{html}{\out{</div>}}
+
+Search for records using a bounding box in a \code{tibble} or \code{data.frame}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{b_box <- tibble(xmin = 148, ymin = -29, xmax = 143, ymax = -21)
+
+galah_call() |>
+  galah_identify("vulpes") |>
+  galah_geolocate(b_box, type = "bbox") |>
+  atlas_counts()
+#> Data returned for bounding box:
+#> xmin = 148 xmax = 143 ymin = -29 ymax = -21
+#> # A tibble: 1 x 1
+#>   count
+#>   <int>
+#> 1   225
 }\if{html}{\out{</div>}}
 }
 
 \seealso{
-\code{\link[=search_taxa]{search_taxa()}}, \code{\link[=galah_filter]{galah_filter()}} and
+\code{\link[=galah_polygon]{galah_polygon()}} and \code{\link[=galah_bbox]{galah_bbox()}} for specific functions to
+narrow queries by a specified area. \code{\link[=search_taxa]{search_taxa()}}, \code{\link[=galah_filter]{galah_filter()}} and
 \code{\link[=galah_select]{galah_select()}} for other ways to restrict the information
 returned by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions.
 }

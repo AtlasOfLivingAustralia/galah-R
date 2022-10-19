@@ -4,22 +4,22 @@
 \alias{galah_select}
 \title{Specify fields for occurrence download}
 \usage{
-galah_select(..., group = c("basic", "event", "assertions"))
+galah_select(..., group = c("basic", "event", "media", "assertions"))
 }
 \arguments{
 \item{...}{zero or more individual column names to include}
 
 \item{group}{\code{string}: (optional) name of one or more column groups to
 include. Valid options are \code{"basic"}, \code{"event"} and
-\code{"assertion"}}
+\code{"assertions"}}
 }
 \value{
-An object of class \code{data.frame} and \code{galah_select}
+A tibble
 specifying the name and type of each column to include in the
 call to \code{atlas_counts()} or \code{atlas_occurrences()}.
 }
 \description{
-The living atlases store content on hundreds of different fields, and users
+The living atlases store content in hundreds of different fields, and users
 often require thousands or millions of records at a time. To reduce time taken
 to download data, and limit complexity of the resulting \code{data.frame}, it is
 sensible to restrict the fields returned by \code{\link[=atlas_occurrences]{atlas_occurrences()}}.
@@ -27,6 +27,8 @@ This function allows easy selection of fields, or commonly-requested groups
 of columns, following syntax shared with \code{dplyr::select()}.
 }
 \details{
+The full list of available fields can be viewed with \code{show_all(fields)}.
+
 Calling the argument \code{group = "basic"} returns the following columns:
 \itemize{
 \item \code{decimalLatitude}
@@ -36,6 +38,7 @@ Calling the argument \code{group = "basic"} returns the following columns:
 \item \code{taxonConceptID}
 \item \code{recordID}
 \item \code{dataResourceName}
+\item \code{occurrenceStatus}
 }
 
 Using \code{group = "event"} returns the following columns:
@@ -48,14 +51,25 @@ Using \code{group = "event"} returns the following columns:
 \item \code{samplingProtocol}
 }
 
+Using \code{group = "media"} returns the following columns:
+\itemize{
+\item \code{multimedia}
+\item \code{multimediaLicence}
+\item \code{images}
+\item \code{videos}
+\item \code{sounds}
+}
+
 Using \code{group = "assertions"} returns all quality assertion-related
-columns. The list of assertions is shown by \code{search_fields(type = "assertions")}.
+columns. The list of assertions is shown by \code{show_all_assertions()}.
 }
 \section{Examples}{
 
 
 Download occurrence records of \emph{Perameles} taken in 2001, only returning
-scientific name and event date\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+scientific name and event date
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
 galah_call() |>
   galah_identify("perameles")|>
   galah_filter(year == 2001) |>
@@ -64,10 +78,12 @@ galah_call() |>
 }\if{html}{\out{</div>}}
 
 Download occurrence record of \emph{Perameles} taken in 2001, returning the
-"basic" group of columns plus the Basis of Record\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+"basic" group of columns plus the Basis of Record
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
   galah_identify("perameles") |>
   galah_filter(year == 2001) |>
-  galah_select(group = "basic", basisOfRecord) |>
+  galah_select(group = c("basic", "event"), basisOfRecord) |>
   atlas_occurrences()
 }\if{html}{\out{</div>}}
 }
@@ -76,5 +92,6 @@ Download occurrence record of \emph{Perameles} taken in 2001, returning the
 \code{\link[=search_taxa]{search_taxa()}}, \code{\link[=galah_filter]{galah_filter()}} and
 \code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to restrict the information returned
 by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions; \code{\link[=atlas_counts]{atlas_counts()}}
-for how to get counts by levels of variables returned by \code{galah_select}.
+for how to get counts by levels of variables returned by \code{galah_select};
+\code{show_all(fields)} to list available fields.
 }

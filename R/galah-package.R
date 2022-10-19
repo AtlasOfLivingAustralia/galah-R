@@ -41,20 +41,17 @@
 #'   * [atlas_counts()] Count the number of records or species returned by a query
 #'   * [atlas_species()] Download species lists
 #'   * [atlas_taxonomy()] Return a section of the ALA taxonomic tree
-#'   * [atlas_media()] Download images and sounds
+#'   * [atlas_media()] View images and sounds available to download
+#'   * [collect_media()] Download images and sounds
+#'   * [collect_occurrences()] Download previously downloaded occurrence records
 #'   
 #' **Look up information**
 #'
 #'   * [search_taxa()] Search for taxa using a text-search
 #'   * [search_identifiers()] Search for taxa using taxonomic identifiers
-#'   * [search_fields()] Search for specific valid fields to filter queries
-#'   * [search_field_values()] Search for possible values to filter by for a given field
-#'   * [search_profile_attributes()] List the quality filters of a data quality profile
-#'   * [show_all_fields()] List valid fields to filter or categorise queries
-#'   * [show_all_profiles()] List data quality profiles
-#'   * [show_all_reasons()] List valid download reasons
-#'   * [show_all_atlases()] List supported international atlases
-#'   * [show_all_ranks()] List available taxonomic ranks
+#'   * [show_all()] & [search_all()] Data for generating filter queries
+#'   * [show_values()] & [search_values()] Show or search for values _within_ 
+#'   `fields`, `profiles`, `lists`, `collections`, `datasets` or `providers`
 #' 
 #' **Manage cache**
 #' 
@@ -81,8 +78,8 @@
 #' **assertions** attached to the record. Each piece of information
 #' associated with a given occurrence record is stored in a **field**,
 #' which corresponds to a **column** when imported to an
-#' `R data.frame`. See [show_all_fields()] to view valid fields,
-#' layers and assertions, or conduct a search using [search_fields()].
+#' `R data.frame`. See `show_all(fields)` to view valid fields,
+#' layers and assertions, or conduct a search using `search_all(fields)`.
 #'
 #' Data fields are important because they provide a means to **filter**
 #' occurrence records;  i.e. to return only the information that you need, and
@@ -108,7 +105,7 @@
 #' most appropriate in a given instance. Therefore, `galah` supports ALA
 #' data quality **profiles**, which can be passed to
 #' [galah_filter()] to quickly remove undesirable records. A full
-#' list of data quality profiles is returned by [show_all_profiles()].
+#' list of data quality profiles is returned by `show_all(profiles)`.
 #'
 #' For those outside Australia, 'galah' is the common name of
 #' *Eolophus roseicapilla*, a widely-distributed
@@ -133,8 +130,8 @@
 #' Users that require data should begin by locating the relevant `atlas_` 
 #' function; the arguments within that function then call correspondingly-named 
 #' `galah_` functions; specific values that can be interpreted by those `galah_`
-#' functions are given by functions with the prefix `search_` or
-#' `show_all_`; desired taxa can be also be identified using [search_taxa()] and 
+#' functions can be searched for or listed using [search_all()] and [show_all()] 
+#' functions; desired taxa can be also be identified using [search_taxa()] and 
 #' passed within [galah_identify()] to the `taxa` argument of `atlas_` functions.
 #'
 
@@ -153,7 +150,6 @@
 #' @importFrom stringr str_replace str_replace_all str_split str_trim str_match
 #' @importFrom utils data packageVersion read.csv write.csv read.table str
 #' unzip URLencode download.file setTxtProgressBar txtProgressBar tail
-#' @importFrom wellknown lint
 #' @importFrom lifecycle deprecated
 #' @importFrom rlang abort warn inform caller_env
 #' @importFrom glue glue glue_collapse

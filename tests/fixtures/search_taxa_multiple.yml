@@ -8,31 +8,33 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:30:15 GMT
+      status: HTTP/1.1 200 OK
+      date: Thu, 13 Oct 2022 04:42:27 GMT
       content-type: application/json
-      content-length: '355'
+      content-length: '390'
+      connection: keep-alive
+      server: nginx/1.23.1
       vary: Accept-Encoding
       content-encoding: gzip
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      x-content-type-options: nosniff
-      content-security-policy: upgrade-insecure-requests
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
     body:
       encoding: UTF-8
       file: no
-      string: '{"success":true,"scientificName":"Eucalyptus","scientificNameAuthorship":"L''Hér.","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51302291","rank":"genus","rankID":6000,"lft":620876,"rgt":624968,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51337710","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51337706","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51337705","order":"Myrtales","orderID":"https://id.biodiversity.org.au/taxon/apni/51313354","family":"Myrtaceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51313356","genus":"Eucalyptus","genusID":"https://id.biodiversity.org.au/taxon/apni/51302291","speciesGroup":["Plants"],"issues":["noIssue"]}'
-  recorded_at: 2022-01-20 01:30:15 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+      string: '{"success":true,"scientificName":"Eucalyptus","scientificNameAuthorship":"L''Hér.","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51360942","rank":"genus","rankID":6000,"lft":565691,"rgt":569757,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51414459","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51414458","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51414457","order":"Myrtales","orderID":"https://id.biodiversity.org.au/taxon/apni/51376809","family":"Myrtaceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51376810","genus":"Eucalyptus","genusID":"https://id.biodiversity.org.au/taxon/apni/51360942","speciesGroup":["Plants","Angiosperms","Dicots"],"speciesSubgroup":["Dicots","Flowering
+        plants"],"issues":["noIssue"]}'
+  recorded_at: 2022-10-13 04:42:27 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://namematching-ws.ala.org.au/api/search?q=Banksia
@@ -42,31 +44,33 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:30:15 GMT
+      status: HTTP/1.1 200 OK
+      date: Thu, 13 Oct 2022 04:42:27 GMT
       content-type: application/json
-      content-length: '355'
+      content-length: '409'
+      connection: keep-alive
+      server: nginx/1.23.1
       vary: Accept-Encoding
       content-encoding: gzip
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      x-content-type-options: nosniff
-      content-security-policy: upgrade-insecure-requests
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
     body:
       encoding: UTF-8
       file: no
-      string: '{"success":true,"scientificName":"Banksia","scientificNameAuthorship":"L.f.","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51299884","rank":"genus","rankID":6000,"lft":579700,"rgt":580616,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51337710","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51337706","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51337705","order":"Proteales","orderID":"https://id.biodiversity.org.au/taxon/apni/51312311","family":"Proteaceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51312310","genus":"Banksia","genusID":"https://id.biodiversity.org.au/taxon/apni/51299884","speciesGroup":["Plants"],"issues":["matchedToMisappliedName"]}'
-  recorded_at: 2022-01-20 01:30:15 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+      string: '{"success":true,"scientificName":"Banksia","scientificNameAuthorship":"L.f.","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51299884","rank":"genus","rankID":6000,"lft":544453,"rgt":545397,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51414459","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51414458","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51414457","order":"Proteales","orderID":"https://id.biodiversity.org.au/taxon/apni/51370811","family":"Proteaceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51370813","genus":"Banksia","genusID":"https://id.biodiversity.org.au/taxon/apni/51299884","vernacularName":"Honeysuckle","speciesGroup":["Plants","Angiosperms","Dicots"],"speciesSubgroup":["Dicots","Flowering
+        plants"],"issues":["matchedToMisappliedName"]}'
+  recorded_at: 2022-10-13 04:42:27 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2
 - request:
     method: get
     uri: https://namematching-ws.ala.org.au/api/search?q=Acacia
@@ -76,28 +80,30 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:30:15 GMT
+      status: HTTP/1.1 200 OK
+      date: Thu, 13 Oct 2022 04:42:27 GMT
       content-type: application/json
-      content-length: '341'
+      content-length: '390'
+      connection: keep-alive
+      server: nginx/1.23.1
       vary: Accept-Encoding
       content-encoding: gzip
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      x-content-type-options: nosniff
-      content-security-policy: upgrade-insecure-requests
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
     body:
       encoding: UTF-8
       file: no
-      string: '{"success":true,"scientificName":"Acacia","scientificNameAuthorship":"Mill.","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51311124","rank":"genus","rankID":6000,"lft":604306,"rgt":608094,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51337710","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51337706","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51337705","order":"Fabales","orderID":"https://id.biodiversity.org.au/taxon/apni/51311090","family":"Fabaceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51311092","genus":"Acacia","genusID":"https://id.biodiversity.org.au/taxon/apni/51311124","speciesGroup":["Plants"],"issues":["noIssue"]}'
-  recorded_at: 2022-01-20 01:30:15 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+      string: '{"success":true,"scientificName":"Acacia","scientificNameAuthorship":"Mill.","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51382879","rank":"genus","rankID":6000,"lft":592845,"rgt":596441,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51414459","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51414458","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51414457","order":"Fabales","orderID":"https://id.biodiversity.org.au/taxon/apni/51408979","family":"Fabaceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51392276","genus":"Acacia","genusID":"https://id.biodiversity.org.au/taxon/apni/51382879","vernacularName":"Mulga","speciesGroup":["Plants","Angiosperms","Dicots"],"speciesSubgroup":["Dicots","Flowering
+        plants"],"issues":["noIssue"]}'
+  recorded_at: 2022-10-13 04:42:27 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2

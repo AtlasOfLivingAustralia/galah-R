@@ -1,3 +1,44 @@
+# galah 1.5.0
+
+### Expanded support for querying other International Living Atlases
+
+* Support for complex queries to 10 Living Atlases, including France, Guatemala and Sweden. Complex queries can be constructed using `galah_call()`, filtered with `galah_` functions, and downloaded with `atlas_` functions. Previously, this functionality was only possible with queries to the ALA (#126)
+
+### `collect_media()`
+
+* `atlas_media()` has been improved to use 2 simplified functions to show & download media (#145, #151):
+  1) **Show available media**: `atlas_media()` returns a `tibble` of available media files 
+  2) **Download media**: `collect_media()` downloads the list of media from `atlas_media()` to a local machine 
+* Download image thumbnails by specifying `type = "thumbnails"` in `collect_media()` (#140)
+
+### Updates to `galah_geolocate()`
+
+* `galah_geolocate()` now supports filtering queries using polygons and bounding boxes. Overall improvements and bug fixes to `galah_geolocate()` through new internal functions `galah_polygon()` and `galah_bbox()` (#125)
+
+### `show_all()`, `search_all()` & `show_values()`, `search_values()`
+
+* Experimental functions `show_all()` and `search_all()` are flexible look-up functions that can search for all information in {galah}, rather than by separate `search_`/`show_all_` functions (e.g. `search_fields()`, `search_atlases()`, `show_all_fields()`, `show_all_reasons()`, etc) (#127, #132)
+* Added look-up support for collections, data providers, data resources, licenses, APIs and species lists (e.g. list of endangered species) (#126, #127, #132, #151)
+* Checking for valid values _within_ fields, profiles and species lists are improved with functions `show_values()` & `search_values()` (#131)
+
+### Minor improvements
+
+* Apply data quality profiles in a pipe with the `galah_apply_profile()` function (#130)
+* Improved internal consistency of `galah_` functions (#133)
+* `galah_geolocate()` no longer depends on archived {wellknown} package (#141)
+* Added support for queries to exclude/include missing values (e.g. `galah_filter(species != "")` or `galah_filter(species == "")` (#143)
+* Re-download a previously-minted DOI with `collect_doi()` (#140)
+* More checks to ensure galah fails gracefully when an API fails (#157)
+
+### Bug fixes
+
+* `galah_select()` no longer adds "basic" group of columns automatically (#128)
+* `galah_config()` doesn't display incorrect `preserve = TRUE` message (#136)
+* Fixes error when selecting assertion columns with `galah_select()` (#137)
+* `atlas_counts()` and `atlas_occurrences()` no longer return different record numbers when a field is empty (#138)
+* `atlas_media()` results no longer differ to results returned by `galah_filter()` & `atlas_counts()` (#151)
+
+
 # galah 1.4.0
 
 ### Revamped syntax

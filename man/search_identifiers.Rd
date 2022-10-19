@@ -26,11 +26,16 @@ on the taxon in question. Effectively this is the inverse function to
 \section{Examples}{
 
 
-Look up a unique taxon identifier\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
-#> # A tibble: 1 x 13
-#>   scientific_name scientific_name~ taxon_concept_id rank  match_type kingdom phylum class order family genus species issues
-#>   <chr>           <chr>            <chr>            <chr> <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>   <chr> 
-#> 1 Eucalyptus bla~ Maiden           https://id.biod~ spec~ taxonIdMa~ Plantae Charo~ Equi~ Myrt~ Myrta~ Euca~ Eucaly~ noIss~
+Look up a unique taxon identifier
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
+#> # A tibble: 1 x 14
+#>   scient~1 scien~2 taxon~3 rank  match~4 kingdom phylum class order family genus
+#>   <chr>    <chr>   <chr>   <chr> <chr>   <chr>   <chr>  <chr> <chr> <chr>  <chr>
+#> 1 Eucalyp~ Maiden  https:~ spec~ taxonI~ Plantae Charo~ Equi~ Myrt~ Myrta~ Euca~
+#> # ... with 3 more variables: species <chr>, vernacular_name <chr>,
+#> #   issues <chr>, and abbreviated variable names 1: scientific_name,
+#> #   2: scientific_name_authorship, 3: taxon_concept_id, 4: match_type
 }\if{html}{\out{</div>}}
 }
 

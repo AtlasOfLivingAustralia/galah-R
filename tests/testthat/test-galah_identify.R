@@ -26,12 +26,6 @@ test_that("galah_identify works with search = FALSE", {
   expect_equal(result$identifier[1], id)
 })
 
-test_that("galah_identify returns an error when using other atlases", {
-  galah_config(atlas = "Austria")
-  expect_error(galah_identify("aves"))
-  galah_config(atlas = "Australia")
-})
-
 test_that("galah_identify can pass a string unchanged when run_checks = FALSE", {
   galah_config(run_checks = FALSE)
   result <- galah_identify("a_string", search = FALSE)

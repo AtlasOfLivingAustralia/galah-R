@@ -12,14 +12,16 @@
 #' syntax.
 #'
 #' @param ... filters, in the form `field logical value`
-#' @param profile `string`: (optional) a data quality profile to apply to the
-#' records. See [show_all_profiles()] for valid profiles. By default
-#' no profile is applied.
-#' @return An object of class `data.frame` and `galah_filter`,
-#' containing filter values.
+#' @param profile 
+#'    `r lifecycle::badge("soft-deprecated")` Use `galah_apply_profile` instead. 
+#'    
+#'    If supplied, should be a `string` recording a data quality profile to 
+#'    apply to the query. See [show_all_profiles()] for valid profiles. By 
+#'    default no profile is applied.
+#' @return A tibble containing filter values.
 #' @seealso [search_taxa()] and [galah_geolocate()] for other ways to restrict 
 #' the information returned by [atlas_occurrences()] and related functions. Use
-#' [search_fields()] to find fields that
+#' `search_all(fields)` to find fields that
 #' you can filter by, and [search_field_values()] to find what values
 #' of those filters are available.
 #' @details
@@ -40,31 +42,35 @@
 #' ```{r, child = "man/rmd/setup.Rmd"}
 #' ```
 #' 
-#' Create a custom filter for records of interest
+#' Filter query results to return records of interest
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' filters <- galah_filter(
-#'     basisOfRecord == "HumanObservation",
-#'     year >= 2010,
-#'     stateProvince == "New South Wales")
+#' galah_call() |>
+#'   galah_filter(year >= 2019) |>
+#'   atlas_counts()
 #' ```
-#'
-#' Add the default ALA data quality profile
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' filters <- galah_filter(
-#'     basisOfRecord == "HumanObservation",
-#'     year >= 2020,
-#'     stateProvince == "New South Wales",
-#'     profile = "ALA")
+#' galah_call() |>
+#'   galah_filter(year >= 2019,
+#'                basisOfRecord == "HumanObservation") |>
+#'   atlas_counts()
+#' ```
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' galah_call() |>
+#'   galah_filter(year >= 2019,
+#'                basisOfRecord == "HumanObservation",
+#'                stateProvince == "New South Wales") |>
+#'   atlas_counts()
 #' ```
 #'  
 #' Use filters to exclude particular values
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' filter <- galah_filter(year >= 2010 & year != 2021)
-#' 
-#' atlas_counts(filter = filter)
+#' galah_call() |> 
+#'   galah_filter(year >= 2010 & year != 2021) |>
+#'   atlas_counts()
 #' ```
 #' 
 #' Separating statements with a comma is equivalent to an `AND` statement
@@ -113,6 +119,16 @@
 #'   atlas_counts()
 #' ```
 #' 
+#' Filter out specific records that could be unreliable using "assertions"
+#' 
+#' ```{r, comment = "#>", collapse = TRUE}
+#' search_assertions("coordinate invalid")
+#' 
+#' galah_call() %>%
+#'   galah_filter(COORDINATE_INVALID == FALSE) %>%
+#'   atlas_counts()
+#' ```
+#' 
 #' @importFrom rlang as_label  
 #' @importFrom rlang caller_env         
 #' @importFrom rlang enquos
@@ -122,7 +138,7 @@
 #' @importFrom rlang new_quosure
 #' @importFrom rlang parse_expr
 #' @importFrom rlang quo_get_expr
-#' @export
+#' @export galah_filter
   
 galah_filter <- function(..., profile = NULL){
   
@@ -148,7 +164,9 @@ galah_filter <- function(..., profile = NULL){
     named_filters$query <- parse_query(named_filters)
     
     # Validate that variables exist in ALA
-    if (getOption("galah_config")$run_checks) validate_fields(named_filters$variable)
+    if (getOption("galah_config")$run_checks){     
+      validate_fields(named_filters$variable)
+    }
     
   }else{ 
     # If no fields are entered, return an empty data frame of arguments
@@ -158,10 +176,10 @@ galah_filter <- function(..., profile = NULL){
                      query = character())
   }
   
-  # Set class
+  # Set class and 'call' attribute
   named_filters <- as_tibble(named_filters)
-  class(named_filters) <- append(class(named_filters), "galah_filter")
-  
+  attr(named_filters, "call") <- "galah_filter"
+
   # Check and apply profiles to query
   named_filters <- apply_profiles(profile, named_filters)
   
@@ -173,7 +191,6 @@ galah_filter <- function(..., profile = NULL){
   }
 
 }
-
 
 # stop function to enforce new syntax, based on `dplyr` syntax
 check_filter <- function(dots, error_call = caller_env()) {
@@ -344,6 +361,27 @@ parse_or <- function(x){
   }
 }  
 
+# ensure profiles are handled correctly
+apply_profiles <- function(profile, named_filters, error_call = caller_env()) {
+  profile_attr <- NULL
+  if (!is.null(profile)) {
+    short_name <- profile_short_name(profile)
+    if (is.null(short_name) || is.na(short_name)) {
+      bullets <- c(
+        "Profile must be a valid name, short name, or data quality ID.",
+        i = glue("Use `show_all_profiles()` to list valid profiles"),
+        x = glue("'{profile}' is not recognised.")
+      )
+      abort(bullets, call = error_call)
+    }
+    profile_attr <- short_name
+  }
+  attr(named_filters, "dq_profile") <- profile_attr
+  named_filters
+}
+
+
+## BELOW HERE available as honeybee/parse_solr ##
 
 parse_query <- function(df){
 
@@ -353,7 +391,7 @@ parse_query <- function(df){
   if(any(vector_check)){
     df$type[vector_check] <- "vector"
   }
-  assertion_check <- df$variable %in% show_all_fields(type = "assertions")$id
+  assertion_check <- df$variable %in% show_all_assertions()[["id"]]
   if(any(assertion_check)){
     df$type[assertion_check] <- "assertion"
   }
@@ -368,7 +406,20 @@ parse_query <- function(df){
         "assertion" = parse_assertion(a)
       )
     }))
-
+    
+  # exception for missingness
+  missing_check <- grepl("\"\"\"\"", df$query)
+  if(any(missing_check)){
+    df$query[missing_check] <- unlist(lapply(
+      split(df[missing_check, ], seq_along(which(missing_check))),
+      function(a){
+        switch(a$logical,
+          "==" = paste0("(*:* AND -", a$variable, ":*)"),
+          paste0("(", a$variable, ":*)")
+        )
+      }))
+   }  
+    
   # return query only
   return(df$query)
 }
@@ -409,24 +460,4 @@ parse_assertion <- function(df){
                      logical = logical_str,
                      value = df$variable)
   parse_logical(rows)
-}
-
-
-# ensure profiles are handled correctly
-apply_profiles <- function(profile, named_filters, error_call = caller_env()) {
-  profile_attr <- NULL
-  if (!is.null(profile)) {
-    short_name <- profile_short_name(profile)
-    if (is.null(short_name) || is.na(short_name)) {
-      bullets <- c(
-        "Profile must be a valid name, short name, or data quality ID.",
-        i = glue("Use `show_all_profiles()` to list valid profiles"),
-        x = glue("'{profile}' is not recognised.")
-      )
-      abort(bullets, call = error_call)
-    }
-    profile_attr <- short_name
-  }
-  attr(named_filters, "dq_profile") <- profile_attr
-  named_filters
 }

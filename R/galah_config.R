@@ -6,10 +6,12 @@
 #' `galah_config` function provides a way to manage these issues as simply
 #' as possible.
 #'
-#' @param profile_path string: (optional), path to a directory to store
-#' config values in. If provided, config values will be written to a new or
-#' existing .Rprofile file for future sessions. `NULL` by default.
-#' @param \dots Options can be defined using the form `name = value`.
+#' @param profile_path 
+#'    `r lifecycle::badge("soft-deprecated")` 
+#'    
+#'    Keeping for compatibility with older package versions. It is preferable to 
+#'    not save `galah_config` options to a .Rprofile file.
+#' @param \dots Options can be defined using the form `name = "value"`.
 #' Valid arguments are:
 #' 
 #'   *  `atlas` string: Living Atlas to point to, Australia by default
@@ -23,7 +25,7 @@
 #'     caching across sessions. The directory must exist on the file system.
 #'   *  `download_reason_id` numeric or string: the "download reason" required.
 #'   by some ALA services, either as a numeric ID (currently 0--13)
-#'   or a string (see [show_all_reasons()] for a list of valid ID codes and
+#'   or a string (see `show_all(reasons)` for a list of valid ID codes and
 #'   names). By default this is NA. Some ALA services require a valid
 #'   download_reason_id code, either specified here or directly to the
 #'   associated R function.
@@ -66,10 +68,10 @@
 #' ```
 #'  
 #' It is required by some ALA services that you add a reason for downloading 
-#' data. To look up all valid reasons to enter, use [show_all_reasons()]
+#' data. To look up all valid reasons to enter, use [show_all()]
 #'  
 #' ```{r, comment = "#>", collapse = TRUE}
-#' show_all_reasons()
+#' show_all(reasons)
 #' ```
 #'  
 #' Add your selected reason using the option `download_reason_id`
@@ -89,9 +91,6 @@
 #' @export galah_config
 
 galah_config <- function(..., profile_path = NULL) {
-  # if (as.character(match.call()[[1]]) == "ala_config") {
-  #   warning("As of galah v1.3.0 please use galah_config() instead of ala_config().", call. = FALSE)
-  # }
   ala_option_name <- "galah_config"
   current_options <- getOption(ala_option_name)
   
@@ -143,6 +142,13 @@ galah_config <- function(..., profile_path = NULL) {
   
   
   if (!is.null(profile_path)) {
+    lifecycle::deprecate_soft(
+      when = "1.4.1",
+      what = "galah_config(profile_path = 'is soft-deprecated')",
+      details = c(
+        "*" = "We no longer recommend saving `galah_config()` options.",
+        i = "Reloading config options improves code reproducibility.")
+      )
     if (!file.exists(profile_path) || basename(profile_path) != ".Rprofile") {
       bullets <- c(
         glue("No .Rprofile file exists at \"{profile_path}\"."),
@@ -155,11 +161,6 @@ galah_config <- function(..., profile_path = NULL) {
     }
     save_config(profile_path, current_options)
     
-  } else {
-    if (current_options$verbose) {
-      inform("These configuration options will only be saved for this session.
-    Set `preserve = TRUE` to preserve them for future sessions.")
-    }
   }
 }
 
@@ -269,7 +270,7 @@ validate_option <- function(name, value, error_call = caller_env()) {
     if (!(value %in% show_all_reasons()$id)) {
       bullets <- c(
         "Invalid download reason ID or name.",
-        i = "Use `show_all_reasons()` to see all valid reasons.",
+        i = "Use `show_all(atlases)` to see all valid reasons.",
         x = glue("{value} does not match an existing reason ID.")
       )
       abort(bullets, call = error_call)
@@ -278,7 +279,7 @@ validate_option <- function(name, value, error_call = caller_env()) {
     if (!value %in% show_all_atlases()$atlas) {
       bullets <- c(
         "Unsupported atlas provided.",
-        i = glue("Use `show_all_atlases()` to see supported atlases."),
+        i = glue("Use `show_all(atlases)` to see supported atlases."),
         x = glue("\"{value}\" is not a valid atlas.")
       )
       abort(bullets, call = error_call)
@@ -294,21 +295,26 @@ validate_option <- function(name, value, error_call = caller_env()) {
 }
 
 convert_reason <- function(reason, error_call = caller_env()) {
+  valid_reasons <- show_all_reasons()
+  bullets <- c(
+    "Invalid reason provided to `download_reason_id`.",
+    i = "Use `show_all(reasons)` to see list of valid reasons.",
+    x = glue("Couldn't match \"{reason}\" to a valid reason ID.")
+  )
   ## unexported function to convert string reason to numeric id
   if (is.character(reason)) {
-    valid_reasons <- show_all_reasons()
     tryCatch({
       reason <- match.arg(tolower(reason), valid_reasons$name)
       reason <- valid_reasons$id[valid_reasons$name == reason]
-    },
-    error = function(e) {
-      bullets <- c(
-        "Invalid reason provided to `download_reason_id`.",
-        i = "Use `show_all_reasons()` to see list of valid reasons.",
-        x = glue("Couldn't match \"{reason}\" to a valid reason ID.")
-      )
-      abort(bullets, call = error_call)
-    })
+      },
+      error = function(e) {abort(bullets, call = error_call)}
+    )
+  }else{
+    if(is.numeric(reason)){
+      if(reason > nrow(valid_reasons)){
+        abort(bullets, call = error_call)
+      }
+    }
   }
   reason
 }

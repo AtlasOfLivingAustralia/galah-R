@@ -43,21 +43,18 @@ quality-control criteria.
 \item \code{\link[=atlas_counts]{atlas_counts()}} Count the number of records or species returned by a query
 \item \code{\link[=atlas_species]{atlas_species()}} Download species lists
 \item \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} Return a section of the ALA taxonomic tree
-\item \code{\link[=atlas_media]{atlas_media()}} Download images and sounds
+\item \code{\link[=atlas_media]{atlas_media()}} View images and sounds available to download
+\item \code{\link[=collect_media]{collect_media()}} Download images and sounds
+\item \code{\link[=collect_occurrences]{collect_occurrences()}} Download previously downloaded occurrence records
 }
 
 \strong{Look up information}
 \itemize{
 \item \code{\link[=search_taxa]{search_taxa()}} Search for taxa using a text-search
 \item \code{\link[=search_identifiers]{search_identifiers()}} Search for taxa using taxonomic identifiers
-\item \code{\link[=search_fields]{search_fields()}} Search for specific valid fields to filter queries
-\item \code{\link[=search_field_values]{search_field_values()}} Search for possible values to filter by for a given field
-\item \code{\link[=search_profile_attributes]{search_profile_attributes()}} List the quality filters of a data quality profile
-\item \code{\link[=show_all_fields]{show_all_fields()}} List valid fields to filter or categorise queries
-\item \code{\link[=show_all_profiles]{show_all_profiles()}} List data quality profiles
-\item \code{\link[=show_all_reasons]{show_all_reasons()}} List valid download reasons
-\item \code{\link[=show_all_atlases]{show_all_atlases()}} List supported international atlases
-\item \code{\link[=show_all_ranks]{show_all_ranks()}} List available taxonomic ranks
+\item \code{\link[=show_all]{show_all()}} & \code{\link[=search_all]{search_all()}} Data for generating filter queries
+\item \code{\link[=show_values]{show_values()}} & \code{\link[=search_values]{search_values()}} Show or search for values \emph{within}
+\code{fields}, \code{profiles}, \code{lists}, \code{collections}, \code{datasets} or \code{providers}
 }
 
 \strong{Manage cache}
@@ -90,8 +87,8 @@ also runs a number of quality checks against each record, resulting in
 \strong{assertions} attached to the record. Each piece of information
 associated with a given occurrence record is stored in a \strong{field},
 which corresponds to a \strong{column} when imported to an
-\verb{R data.frame}. See \code{\link[=show_all_fields]{show_all_fields()}} to view valid fields,
-layers and assertions, or conduct a search using \code{\link[=search_fields]{search_fields()}}.
+\verb{R data.frame}. See \code{show_all(fields)} to view valid fields,
+layers and assertions, or conduct a search using \code{search_all(fields)}.
 
 Data fields are important because they provide a means to \strong{filter}
 occurrence records;  i.e. to return only the information that you need, and
@@ -117,7 +114,7 @@ are many possible data quality checks, and it is not always clear which are
 most appropriate in a given instance. Therefore, \code{galah} supports ALA
 data quality \strong{profiles}, which can be passed to
 \code{\link[=galah_filter]{galah_filter()}} to quickly remove undesirable records. A full
-list of data quality profiles is returned by \code{\link[=show_all_profiles]{show_all_profiles()}}.
+list of data quality profiles is returned by \code{show_all(profiles)}.
 
 For those outside Australia, 'galah' is the common name of
 \emph{Eolophus roseicapilla}, a widely-distributed
@@ -144,8 +141,8 @@ Functions in \code{galah} are designed according to a nested architecture.
 Users that require data should begin by locating the relevant \code{atlas_}
 function; the arguments within that function then call correspondingly-named
 \code{galah_} functions; specific values that can be interpreted by those \code{galah_}
-functions are given by functions with the prefix \code{search_} or
-\code{show_all_}; desired taxa can be also be identified using \code{\link[=search_taxa]{search_taxa()}} and
+functions can be searched for or listed using \code{\link[=search_all]{search_all()}} and \code{\link[=show_all]{show_all()}}
+functions; desired taxa can be also be identified using \code{\link[=search_taxa]{search_taxa()}} and
 passed within \code{\link[=galah_identify]{galah_identify()}} to the \code{taxa} argument of \code{atlas_} functions.
 }
 
@@ -164,7 +161,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Martin Westgate \email{martin.westgate@csiro.au}
+\strong{Maintainer}: Martin Westgate \email{martinjwestgate@gmail.com}
 
 Authors:
 \itemize{

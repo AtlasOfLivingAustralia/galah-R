@@ -1,0 +1,110 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://biocache-ws.biodiversityatlas.at/occurrence/facets?facets=basis_of_record&flimit=10000
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.18.0 (Ubuntu)
+      date: Tue, 18 Oct 2022 09:01:44 GMT
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-max-age: '3600'
+      access-control-allow-headers: x-requested-with
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Menschliche
+        Beobachtung","i18nCode":"basis_of_record.HumanObservation","count":2054880,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Konserviertes
+        Sammlungsobjekt","i18nCode":"basis_of_record.PreservedSpecimen","count":969758,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Literature","i18nCode":"basis_of_record.Literature","count":256284,"fq":"basis_of_record:\"Literature\""}],"count":3}]'
+  recorded_at: 2022-10-18 09:01:45 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://lists.biodiversityatlas.at/ws/speciesListItems/dr113
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.18.0 (Ubuntu)
+      date: Tue, 18 Oct 2022 09:01:45 GMT
+      content-type: application/json;charset=UTF-8
+      x-application-context: application:production
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"id":14938,"name":"Adonis vernalis","commonName":null,"scientificName":"Adonis
+        vernalis","lsid":"7609350","dataResourceUid":"dr113"},{"id":14939,"name":"Anemone
+        sylvestris","commonName":null,"scientificName":"Anemone sylvestris","lsid":"3922888","dataResourceUid":"dr113"},{"id":14941,"name":"Betula
+        nana","commonName":null,"scientificName":"Betula nana","lsid":"5332004","dataResourceUid":"dr113"},{"id":14942,"name":"Calla
+        palustris","commonName":null,"scientificName":"Calla palustris","lsid":"7691090","dataResourceUid":"dr113"},{"id":14943,"name":"Cortusa
+        matthioli","commonName":null,"scientificName":"Cortusa matthioli","lsid":"7290560","dataResourceUid":"dr113"},{"id":14945,"name":"Cypripedium
+        calceolus","commonName":null,"scientificName":"Cypripedium calceolus","lsid":"8135690","dataResourceUid":"dr113"},{"id":14947,"name":"Dianthus
+        alpinus","commonName":null,"scientificName":"Dianthus alpinus","lsid":"8212256","dataResourceUid":"dr113"},{"id":14948,"name":"Dianthus
+        superbus ssp. alpestris","commonName":null,"scientificName":"Dianthus superbus
+        alpestris","lsid":"7758181","dataResourceUid":"dr113"},{"id":14949,"name":"Dianthus
+        superbus ssp. superbus","commonName":null,"scientificName":"Dianthus superbus
+        subsp. superbus","lsid":"7266982","dataResourceUid":"dr113"},{"id":14950,"name":"Dictamnus
+        albus","commonName":null,"scientificName":"Dictamnus albus","lsid":"5421338","dataResourceUid":"dr113"},{"id":14951,"name":"Dracocephalum
+        austriacum","commonName":null,"scientificName":"Dracocephalum austriacum","lsid":"3903269","dataResourceUid":"dr113"},{"id":14952,"name":"Drosera
+        anglica","commonName":null,"scientificName":"Drosera anglica","lsid":"3190932","dataResourceUid":"dr113"},{"id":14953,"name":"Drosera
+        rotundifolia","commonName":null,"scientificName":"Drosera rotundifolia","lsid":"8926833","dataResourceUid":"dr113"},{"id":14954,"name":"Drosera
+        x obovata","commonName":null,"scientificName":"Drosera obovata","lsid":"3190848","dataResourceUid":"dr113"},{"id":14955,"name":"Gentiana
+        clusii","commonName":null,"scientificName":"Gentiana clusii","lsid":"7270031","dataResourceUid":"dr113"},{"id":14956,"name":"Gentiana
+        pannonica","commonName":null,"scientificName":"Gentiana pannonica","lsid":"7440277","dataResourceUid":"dr113"},{"id":14957,"name":"Gentiana
+        pneumonanthe","commonName":null,"scientificName":"Gentiana pneumonanthe","lsid":"7561824","dataResourceUid":"dr113"},{"id":14958,"name":"Gladiolus
+        imbricatus","commonName":null,"scientificName":"Gladiolus imbricatus","lsid":"7880930","dataResourceUid":"dr113"},{"id":14959,"name":"Gladiolus
+        palustris","commonName":null,"scientificName":"Gladiolus palustris","lsid":"2750279","dataResourceUid":"dr113"},{"id":14960,"name":"Helleborus
+        viridis","commonName":null,"scientificName":"Helleborus viridis","lsid":"7719772","dataResourceUid":"dr113"},{"id":14961,"name":"Ilex
+        aquifolium","commonName":null,"scientificName":"Ilex aquifolium","lsid":"8015829","dataResourceUid":"dr113"},{"id":14963,"name":"Ledum
+        palustre","commonName":null,"scientificName":"Ledum palustre","lsid":"7662778","dataResourceUid":"dr113"},{"id":14964,"name":"Leontopodium
+        alpinum","commonName":null,"scientificName":"Leontopodium alpinum","lsid":"8184141","dataResourceUid":"dr113"},{"id":14965,"name":"Leucojum
+        aestivum","commonName":null,"scientificName":"Leucojum aestivum","lsid":"2860425","dataResourceUid":"dr113"},{"id":14966,"name":"Ligularia
+        sibirica","commonName":null,"scientificName":"Ligularia sibirica","lsid":"6445722","dataResourceUid":"dr113"},{"id":14967,"name":"Lilium
+        bulbiferum","commonName":null,"scientificName":"Lilium bulbiferum","lsid":"7879673","dataResourceUid":"dr113"},{"id":14968,"name":"Lilium
+        martagon","commonName":null,"scientificName":"Lilium martagon","lsid":"9196208","dataResourceUid":"dr113"},{"id":14969,"name":"Nuphar
+        lutea","commonName":null,"scientificName":"Nuphar lutea","lsid":"7551339","dataResourceUid":"dr113"},{"id":14970,"name":"Nuphar
+        pumila","commonName":null,"scientificName":"Nuphar pumila","lsid":"6435002","dataResourceUid":"dr113"},{"id":14971,"name":"Nymphaea
+        alba","commonName":null,"scientificName":"Nymphaea alba","lsid":"8058740","dataResourceUid":"dr113"},{"id":14972,"name":"Nymphaea
+        candida","commonName":null,"scientificName":"Nymphaea candida","lsid":"7410966","dataResourceUid":"dr113"},{"id":14973,"name":"Orchidaceae","commonName":null,"scientificName":"Orchidaceae","lsid":"7689","dataResourceUid":"dr113"},{"id":14974,"name":"Primula
+        auricula","commonName":null,"scientificName":"Primula auricula","lsid":"7597250","dataResourceUid":"dr113"},{"id":14975,"name":"Primula
+        clusiana","commonName":null,"scientificName":"Primula clusiana","lsid":"5414320","dataResourceUid":"dr113"},{"id":14976,"name":"Primula
+        farinosa","commonName":null,"scientificName":"Primula farinosa","lsid":"7931979","dataResourceUid":"dr113"},{"id":14977,"name":"Primula
+        minima","commonName":null,"scientificName":"Primula minima","lsid":"8411495","dataResourceUid":"dr113"},{"id":14978,"name":"Prunus
+        tenella","commonName":null,"scientificName":"Prunus tenella","lsid":"7865779","dataResourceUid":"dr113"},{"id":14980,"name":"Taxus
+        baccata","commonName":null,"scientificName":"Taxus baccata","lsid":"8235017","dataResourceUid":"dr113"},{"id":14981,"name":"Thesium
+        ebracteatum","commonName":null,"scientificName":"Thesium ebracteatum","lsid":"7774938","dataResourceUid":"dr113"}]'
+  recorded_at: 2022-10-18 09:01:45 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

@@ -14,7 +14,7 @@ select_taxa <- function(query, is_id = FALSE) {
     galah_identify(query, search = FALSE)
   }else{
     result <- galah_identify(query, search = TRUE) |> as.data.frame()
-    class(result) <- append(class(result), "galah_identify")
+    attr(result, "call") <- "galah_identify"
     return(result)
   }
 }
@@ -115,7 +115,7 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
                         refresh_cache = FALSE) {
   lifecycle::deprecate_warn("1.4.0", "ala_species()", "atlas_species()")
   
-  atlas_species_internal(
+  atlas_species(
     identify = taxa,
     filter = filters,
     geolocate = locations,
@@ -157,7 +157,6 @@ ala_media <- function(taxa = NULL,
     identify = taxa,
     filter = filters,
     geolocate = locations,
-    select = columns,
     download_dir = download_dir,
     refresh_cache = FALSE
   ) |>
@@ -246,7 +245,35 @@ find_atlases <- function() {
 #' @export
 #' @name deprecated
 ala_config <- function(..., profile_path = NULL) {
-  lifecycle::deprecate_warn("1.3.0", "ala_config()", "galah_config()")
+  lifecycle::deprecate_stop("1.3.0", "ala_config()", "galah_config()")
 
   galah_config(..., profile_path = profile_path)
+}
+
+
+#' @description 
+#' Use [show_values()] instead of `search_field_values()`
+#'
+#' @keywords internal 
+#' @export
+#' @name deprecated
+search_field_values <- function(field){
+  lifecycle::deprecate_warn(when = "1.5.0", 
+                            what = "search_field_values()", 
+                            details = "Please use `search_fields('query') |> show_values()` instead.")
+  search_all(fields, paste({field})) |> show_values()
+}
+
+
+#' @description 
+#' Use [show_values()] instead of `search_profile_attributes()`
+#'
+#' @keywords internal 
+#' @export
+#' @name deprecated
+search_profile_attributes <- function(profile){
+  lifecycle::deprecate_warn(when = "1.5.0", 
+                            what = "search_profile_attributes()", 
+                            details = "Please use `search_profiles('query') |> show_values()` instead.")
+  search_profiles(paste({profile})) |> show_values()
 }

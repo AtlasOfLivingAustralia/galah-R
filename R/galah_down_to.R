@@ -85,7 +85,7 @@ galah_down_to <- function(...){
   rank <- dequote(unlist(lapply(dots, as_label)))
   if(rank %in% show_all_ranks()$name){
     result <- tibble(rank = rank)
-    class(result) <- append(class(result), "galah_down_to")
+    attr(result, "call") <- "galah_down_to"
   }else{
     bullets <- c(
       "Invalid taxonomic rank.",

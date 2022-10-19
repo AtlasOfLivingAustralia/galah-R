@@ -1,0 +1,199 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://biocache-service.sibbr.gov.br/biocache-service/occurrence/facets?facets=basis_of_record&flimit=10000
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Tue, 18 Oct 2022 09:02:27 GMT
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-max-age: '3600'
+      access-control-allow-headers: x-requested-with
+      strict-transport-security: max-age=15724800; includeSubDomains
+      access-control-allow-credentials: 'true'
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Preserved
+        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":12245489,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Human
+        observation","i18nCode":"basis_of_record.HumanObservation","count":10720520,"fq":"basis_of_record:\"HumanObservation\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":194159,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Machine
+        observation","i18nCode":"basis_of_record.MachineObservation","count":11834,"fq":"basis_of_record:\"MachineObservation\""},{"label":"Living
+        specimen","i18nCode":"basis_of_record.LivingSpecimen","count":10126,"fq":"basis_of_record:\"LivingSpecimen\""},{"label":"Fossil
+        specimen","i18nCode":"basis_of_record.FossilSpecimen","count":189,"fq":"basis_of_record:\"FossilSpecimen\""}],"count":6}]'
+  recorded_at: 2022-10-18 09:02:28 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://specieslist.sibbr.gov.br/ws/speciesListItems/drt1565630923841
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Tue, 18 Oct 2022 09:02:27 GMT
+      content-type: application/json;charset=UTF-8
+      x-application-context: application:production
+      strict-transport-security: max-age=15724800; includeSubDomains
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"id":498583,"name":"Melocactus bahiensis","commonName":"Coroa-De-Frade","scientificName":"Melocactus
+        bahiensis","lsid":"367866","dataResourceUid":"drt1565630923841"},{"id":498612,"name":"Glaucidium
+        hardyi","commonName":"Caburé-Da-Amazônia","scientificName":"Glaucidium hardyi","lsid":"124786","dataResourceUid":"drt1565630923841"},{"id":498514,"name":"Procyon
+        cancrivorus","commonName":"Mapache Lavador","scientificName":"Procyon cancrivorus","lsid":"172270","dataResourceUid":"drt1565630923841"},{"id":498515,"name":"Hydrochoerus
+        hydrochaeris","commonName":"Capivara","scientificName":"Hydrochoerus hydrochaeris","lsid":"129660","dataResourceUid":"drt1565630923841"},{"id":498540,"name":"Ceiba
+        glaziovii","commonName":"Barriguda","scientificName":"Ceiba glaziovii","lsid":"336402","dataResourceUid":"drt1565630923841"},{"id":498529,"name":"Myrmecophaga
+        tridactyla","commonName":"Tamanduá-Bandeira","scientificName":"Myrmecophaga
+        tridactyla","lsid":"127145","dataResourceUid":"drt1565630923841"},{"id":498543,"name":"Dendrophryniscus
+        berthalutzae","commonName":"Pererequinha-Da-Restinga","scientificName":"Dendrophryniscus
+        berthalutzae","lsid":"152785","dataResourceUid":"drt1565630923841"},{"id":498534,"name":"Rupornis
+        magnirostris","commonName":"Gavião-Carijó","scientificName":"Rupornis magnirostris","lsid":"210240","dataResourceUid":"drt1565630923841"},{"id":498573,"name":"Dasyprocta","commonName":"Cutia","scientificName":"Dasyprocta","lsid":"173786","dataResourceUid":"drt1565630923841"},{"id":498504,"name":"Trichilia
+        catigua","commonName":"Catigua","scientificName":"Trichilia catigua","lsid":"339244","dataResourceUid":"drt1565630923841"},{"id":498601,"name":"Didelphis
+        albiventris","commonName":"Gambá-De-Orelha-Branca","scientificName":"Didelphis
+        albiventris","lsid":"210290","dataResourceUid":"drt1565630923841"},{"id":498519,"name":"Panthera
+        onca","commonName":"Yaguareté","scientificName":"Panthera onca","lsid":"257864","dataResourceUid":"drt1565630923841"},{"id":498611,"name":"Tapirus
+        terrestris","commonName":"Anta","scientificName":"Tapirus terrestris","lsid":"256113","dataResourceUid":"drt1565630923841"},{"id":498595,"name":"Hypsiboas
+        faber","commonName":"Sapo-Martelo","scientificName":"Hypsiboas faber","lsid":"123114","dataResourceUid":"drt1565630923841"},{"id":498579,"name":"Chrysocyon
+        brachyurus","commonName":"Lobo-Guará","scientificName":"Chrysocyon brachyurus","lsid":"126597","dataResourceUid":"drt1565630923841"},{"id":498498,"name":"Bothrops
+        jararaca","commonName":"Jararaca","scientificName":"Bothrops jararaca","lsid":"134980","dataResourceUid":"drt1565630923841"},{"id":498563,"name":"Spilotes
+        pullatus","commonName":"Caninana","scientificName":"Spilotes pullatus","lsid":"119905","dataResourceUid":"drt1565630923841"},{"id":498551,"name":"Nystalus
+        maculatus","commonName":"Anu-Coroca","scientificName":"Nystalus maculatus","lsid":"120009","dataResourceUid":"drt1565630923841"},{"id":498603,"name":"Hoplias
+        malabaricus","commonName":"Traíra","scientificName":"Hoplias malabaricus","lsid":"222850","dataResourceUid":"drt1565630923841"},{"id":498505,"name":"Micrurus
+        corallinus","commonName":"Cobra Coral-Verdadeira","scientificName":"Micrurus
+        corallinus","lsid":"215429","dataResourceUid":"drt1565630923841"},{"id":498561,"name":"Caracara
+        plancus","commonName":"Carcará","scientificName":"Caracara plancus","lsid":"131471","dataResourceUid":"drt1565630923841"},{"id":498532,"name":"Spizaetus
+        ornatus","commonName":"Gavião-De-Penacho","scientificName":"Spizaetus ornatus","lsid":"210161","dataResourceUid":"drt1565630923841"},{"id":498562,"name":"Selaginella
+        convoluta","commonName":"Jericó","scientificName":"Selaginella convoluta","lsid":"350185","dataResourceUid":"drt1565630923841"},{"id":498576,"name":"Copernicia
+        prunifera","commonName":"Carnaúba","scientificName":"Copernicia prunifera","lsid":"284411","dataResourceUid":"drt1565630923841"},{"id":498506,"name":"Caryocar
+        brasiliense","commonName":"Pequi","scientificName":"Caryocar brasiliense","lsid":"329480","dataResourceUid":"drt1565630923841"},{"id":498555,"name":"Amburana
+        cearensis","commonName":"Cerejeira","scientificName":"Amburana cearensis","lsid":"300938","dataResourceUid":"drt1565630923841"},{"id":498566,"name":"Rhinella
+        icterica","commonName":"Sapo-Cururu","scientificName":"Rhinella icterica","lsid":"184352","dataResourceUid":"drt1565630923841"},{"id":498507,"name":"Tangara
+        episcopus","commonName":"Sanhaçu-Da-Amazônia","scientificName":"Tangara episcopus","lsid":"138882","dataResourceUid":"drt1565630923841"},{"id":498522,"name":"Solanum
+        mauritianum","commonName":null,"scientificName":"Solanum mauritianum","lsid":"281834","dataResourceUid":"drt1565630923841"},{"id":498541,"name":"Penelope
+        obscura","commonName":"Jacu","scientificName":"Penelope obscura","lsid":"249620","dataResourceUid":"drt1565630923841"},{"id":498592,"name":"Croton
+        celtidifolius","commonName":"Necorana","scientificName":"Croton celtidifolius","lsid":"317930","dataResourceUid":"drt1565630923841"},{"id":498572,"name":"Cnidoscolus
+        phyllacanthus","commonName":null,"scientificName":"Cnidoscolus phyllacanthus","lsid":"317890","dataResourceUid":"drt1565630923841"},{"id":498499,"name":"Paraponera
+        clavata","commonName":"Formiga Tucandeira","scientificName":"Paraponera clavata","lsid":"136025","dataResourceUid":"drt1565630923841"},{"id":498578,"name":"Leptodactylus
+        plaumanni","commonName":"Rã-Escavadeira","scientificName":"Leptodactylus plaumanni","lsid":"199141","dataResourceUid":"drt1565630923841"},{"id":498558,"name":"Eira
+        barbara","commonName":"Irara","scientificName":"Eira barbara","lsid":"174474","dataResourceUid":"drt1565630923841"},{"id":498550,"name":"Pipa
+        pipa","commonName":"Sapo Cururu-Pé-De-Pato","scientificName":"Pipa pipa","lsid":"177876","dataResourceUid":"drt1565630923841"},{"id":498588,"name":"Brycon
+        nattereri","commonName":"Pirapitinga","scientificName":"Brycon nattereri","lsid":"119714","dataResourceUid":"drt1565630923841"},{"id":498546,"name":"Callithrix
+        jacchus","commonName":"Sagui","scientificName":"Callithrix jacchus","lsid":"188720","dataResourceUid":"drt1565630923841"},{"id":498589,"name":"Anadenanthera
+        colubrina","commonName":"Angico","scientificName":"Anadenanthera colubrina","lsid":"290434","dataResourceUid":"drt1565630923841"},{"id":498518,"name":"Brachyteles
+        hypoxanthus","commonName":"Muriqui-Do-Norte","scientificName":"Brachyteles
+        hypoxanthus","lsid":"137861","dataResourceUid":"drt1565630923841"},{"id":498533,"name":"Sida
+        cordifolia","commonName":"Malva Branca","scientificName":"Sida cordifolia","lsid":"336906","dataResourceUid":"drt1565630923841"},{"id":498581,"name":"Inia
+        geoffrensis","commonName":"Boto-Cor-De-Rosa","scientificName":"Inia geoffrensis","lsid":"222571","dataResourceUid":"drt1565630923841"},{"id":498575,"name":"Tolypeutes
+        tricinctus","commonName":"Tatu-Bola","scientificName":"Tolypeutes tricinctus","lsid":"267673","dataResourceUid":"drt1565630923841"},{"id":498560,"name":"Automolus
+        melanopezus","commonName":"Barranqueiro-Escuro","scientificName":"Automolus
+        melanopezus","lsid":"263191","dataResourceUid":"drt1565630923841"},{"id":498587,"name":"Tyto
+        furcata","commonName":"Suindara","scientificName":"Tyto furcata","lsid":"243563","dataResourceUid":"drt1565630923841"},{"id":498520,"name":"Pilosocereus
+        pachycladus","commonName":"Mandacaru-De-Facho","scientificName":"Pilosocereus
+        pachycladus","lsid":"368201","dataResourceUid":"drt1565630923841"},{"id":498571,"name":"Antilophia
+        galeata","commonName":"Soldadinho","scientificName":"Antilophia galeata","lsid":"178001","dataResourceUid":"drt1565630923841"},{"id":498584,"name":"Hydromedusa
+        tectifera","commonName":"Cágado-Pescoço-De-Cobra","scientificName":"Hydromedusa
+        tectifera","lsid":"139318","dataResourceUid":"drt1565630923841"},{"id":498610,"name":"Jabiru
+        mycteria","commonName":"Piru-Piru","scientificName":"Jabiru mycteria","lsid":"211716","dataResourceUid":"drt1565630923841"},{"id":498536,"name":"Colaptes
+        campestris","commonName":"Caraxué-De-Bico-Preto","scientificName":"Colaptes
+        campestris","lsid":"268880","dataResourceUid":"drt1565630923841"},{"id":498524,"name":"Boa
+        constrictor","commonName":"Jiboia-Constritora","scientificName":"Boa constrictor","lsid":"237650","dataResourceUid":"drt1565630923841"},{"id":498585,"name":"Clytoctantes
+        atrogularis","commonName":"Uirapuru-Estrela","scientificName":"Clytoctantes
+        atrogularis","lsid":"200163","dataResourceUid":"drt1565630923841"},{"id":498547,"name":"Solanum
+        paniculatum","commonName":null,"scientificName":"Solanum paniculatum","lsid":"281869","dataResourceUid":"drt1565630923841"},{"id":498542,"name":"Pteroglossus
+        bailloni","commonName":"Araçari-Banana","scientificName":"Pteroglossus bailloni","lsid":"115548","dataResourceUid":"drt1565630923841"},{"id":498568,"name":"Nystalus
+        chacuru","commonName":"João-Bobo","scientificName":"Nystalus chacuru","lsid":"246872","dataResourceUid":"drt1565630923841"},{"id":498539,"name":"Ameivula
+        venetacauda","commonName":"Calango-De-Cauda-Verde","scientificName":"Ameivula
+        venetacauda","lsid":"225203","dataResourceUid":"drt1565630923841"},{"id":498503,"name":"Podocnemis
+        unifilis","commonName":"Tracajá","scientificName":"Podocnemis unifilis","lsid":"116883","dataResourceUid":"drt1565630923841"},{"id":498511,"name":"Zollernia
+        ilicifolia","commonName":"Pitomba-Preta","scientificName":"Zollernia ilicifolia","lsid":"320004","dataResourceUid":"drt1565630923841"},{"id":498556,"name":"Bradypus
+        variegatus","commonName":"Bicho-Preguiça","scientificName":"Bradypus variegatus","lsid":"206961","dataResourceUid":"drt1565630923841"},{"id":498527,"name":"Ramphastos
+        toco","commonName":"Tucanuçu","scientificName":"Ramphastos toco","lsid":"148880","dataResourceUid":"drt1565630923841"},{"id":498570,"name":"Chiroxiphia
+        caudata","commonName":"Tangará","scientificName":"Chiroxiphia caudata","lsid":"114353","dataResourceUid":"drt1565630923841"},{"id":498605,"name":"Puma
+        concolor","commonName":"Leão-Baio","scientificName":"Puma concolor","lsid":"131593","dataResourceUid":"drt1565630923841"},{"id":498525,"name":"Osteoglossum
+        bicirrhosum","commonName":"Aruanã","scientificName":"Osteoglossum bicirrhosum","lsid":"191243","dataResourceUid":"drt1565630923841"},{"id":498593,"name":"Crypturellus
+        noctivagus","commonName":"Chorão","scientificName":"Crypturellus noctivagus","lsid":"139594","dataResourceUid":"drt1565630923841"},{"id":498526,"name":"Cariama
+        cristata","commonName":"Seriema","scientificName":"Cariama cristata","lsid":"223513","dataResourceUid":"drt1565630923841"},{"id":498516,"name":"Leontopithecus
+        rosalia","commonName":"Titi León Dorado","scientificName":"Leontopithecus
+        rosalia","lsid":"250906","dataResourceUid":"drt1565630923841"},{"id":498596,"name":"Sorocea
+        bonplandii","commonName":"Sorocaba","scientificName":"Sorocea bonplandii","lsid":"346529","dataResourceUid":"drt1565630923841"},{"id":498549,"name":"Aratinga
+        auricapillus","commonName":"Jandaia-De-Testa-Vermelha","scientificName":"Aratinga
+        auricapillus","lsid":"206380","dataResourceUid":"drt1565630923841"},{"id":498567,"name":"Mazama
+        americana","commonName":"Corzuela Colorada","scientificName":"Mazama americana","lsid":"262097","dataResourceUid":"drt1565630923841"},{"id":498557,"name":"Mimosa
+        quadrivalvis","commonName":null,"scientificName":"Mimosa quadrivalvis","lsid":"288043","dataResourceUid":"drt1565630923841"},{"id":498606,"name":"Tabebuia
+        impetiginosa","commonName":null,"scientificName":"Tabebuia impetiginosa","lsid":"387037","dataResourceUid":"drt1565630923841"},{"id":498577,"name":"Leopardus
+        wiedii","commonName":"Maracajá-Mirim","scientificName":"Leopardus wiedii","lsid":"131597","dataResourceUid":"drt1565630923841"},{"id":498548,"name":"Eunectes
+        murinus","commonName":"Cobra Sucuri","scientificName":"Eunectes murinus","lsid":"174872","dataResourceUid":"drt1565630923841"},{"id":498513,"name":"Smilax
+        campestris","commonName":"Legação","scientificName":"Smilax campestris","lsid":"281057","dataResourceUid":"drt1565630923841"},{"id":498508,"name":"Patagioenas
+        picazuro","commonName":"Asa-Branca","scientificName":"Patagioenas picazuro","lsid":"183869","dataResourceUid":"drt1565630923841"},{"id":498564,"name":"Ziziphus
+        joazeiro","commonName":"Juazeiro","scientificName":"Ziziphus joazeiro","lsid":"295852","dataResourceUid":"drt1565630923841"},{"id":498521,"name":"Anodorhynchus
+        leari","commonName":"Cavalaria","scientificName":"Anodorhynchus leari","lsid":"238116","dataResourceUid":"drt1565630923841"},{"id":498517,"name":"Cabralea
+        canjerana","commonName":null,"scientificName":"Cabralea canjerana","lsid":"339211","dataResourceUid":"drt1565630923841"},{"id":498535,"name":"Trigona
+        spinipes","commonName":"Irapuá","scientificName":"Trigona spinipes","lsid":"258889","dataResourceUid":"drt1565630923841"},{"id":498586,"name":"Cyanopsitta
+        spixii","commonName":"Saíra-Carijó","scientificName":"Cyanopsitta spixii","lsid":"175381","dataResourceUid":"drt1565630923841"},{"id":498599,"name":"Corythomantis
+        greeningi","commonName":"Perereca-De-Capacete","scientificName":"Corythomantis
+        greeningi","lsid":"186897","dataResourceUid":"drt1565630923841"},{"id":498590,"name":"Pygocentrus
+        nattereri","commonName":"Piranha Vermelha","scientificName":"Pygocentrus nattereri","lsid":"135734","dataResourceUid":"drt1565630923841"},{"id":498609,"name":"Phyllomedusa
+        bicolor","commonName":"Rã-Kambô","scientificName":"Phyllomedusa bicolor","lsid":"185844","dataResourceUid":"drt1565630923841"},{"id":498545,"name":"Cerdocyon
+        thous","commonName":"Cachorro-Do-Mato","scientificName":"Cerdocyon thous","lsid":"158906","dataResourceUid":"drt1565630923841"},{"id":498501,"name":"Mazama
+        gouazoubira","commonName":"Corzuela Parda","scientificName":"Mazama gouazoubira","lsid":"200015","dataResourceUid":"drt1565630923841"},{"id":498613,"name":"Piptadenia
+        stipulacea","commonName":"Jurema Branca","scientificName":"Piptadenia stipulacea","lsid":"288441","dataResourceUid":"drt1565630923841"},{"id":498565,"name":"Cereus
+        jamacaru","commonName":"Mandacaru","scientificName":"Cereus jamacaru","lsid":"367519","dataResourceUid":"drt1565630923841"},{"id":498509,"name":"Casearia
+        sylvestris","commonName":"Guaçatonga","scientificName":"Casearia sylvestris","lsid":"280502","dataResourceUid":"drt1565630923841"},{"id":498530,"name":"Piaractus
+        mesopotamicus","commonName":"Pacu Caranha","scientificName":"Piaractus mesopotamicus","lsid":"198316","dataResourceUid":"drt1565630923841"},{"id":498552,"name":"Pseudoplatystoma
+        corruscans","commonName":"Pintado","scientificName":"Pseudoplatystoma corruscans","lsid":"143106","dataResourceUid":"drt1565630923841"},{"id":498497,"name":"Cyanocorax
+        cyanopogon","commonName":"Gralha-Cancã","scientificName":"Cyanocorax cyanopogon","lsid":"154568","dataResourceUid":"drt1565630923841"},{"id":498594,"name":"Sapajus
+        macrocephalus","commonName":"Macaco-Prego","scientificName":"Sapajus macrocephalus","lsid":"225222","dataResourceUid":"drt1565630923841"},{"id":498500,"name":"Spondias
+        tuberosa","commonName":"Imburana-De-Cambão","scientificName":"Spondias tuberosa","lsid":"369908","dataResourceUid":"drt1565630923841"},{"id":498544,"name":"Antilophia
+        bokermanni","commonName":"Soldadinho-Do-Araripe","scientificName":"Antilophia
+        bokermanni","lsid":"146529","dataResourceUid":"drt1565630923841"},{"id":498528,"name":"Leopardus
+        pardalis","commonName":"Gato Onza","scientificName":"Leopardus pardalis","lsid":"195743","dataResourceUid":"drt1565630923841"},{"id":498554,"name":"Mesoclemmys
+        hogei","commonName":"Cágado-De-Hogei","scientificName":"Mesoclemmys hogei","lsid":"203087","dataResourceUid":"drt1565630923841"},{"id":498591,"name":"Cichla
+        ocellaris","commonName":"Tucunaré","scientificName":"Cichla ocellaris","lsid":"242908","dataResourceUid":"drt1565630923841"},{"id":498607,"name":"Baccharis
+        crispa","commonName":"Carqueja","scientificName":"Baccharis crispa","lsid":"324930","dataResourceUid":"drt1565630923841"},{"id":498574,"name":"Acanthochelys
+        radiolata","commonName":"Cágado Amarelo","scientificName":"Acanthochelys radiolata","lsid":"233897","dataResourceUid":"drt1565630923841"},{"id":498523,"name":"Alectrurus
+        tricolor","commonName":"Galito","scientificName":"Alectrurus tricolor","lsid":"149352","dataResourceUid":"drt1565630923841"},{"id":498600,"name":"Apostolepis
+        assimilis","commonName":"Falsa-Coral","scientificName":"Apostolepis assimilis","lsid":"212424","dataResourceUid":"drt1565630923841"},{"id":498531,"name":"Alouatta
+        puruensis","commonName":"Macaco-Guariba","scientificName":"Alouatta puruensis","lsid":"200489","dataResourceUid":"drt1565630923841"},{"id":498559,"name":"Sideroxylon
+        obtusifolium","commonName":"Quixaba","scientificName":"Sideroxylon obtusifolium","lsid":"296934","dataResourceUid":"drt1565630923841"},{"id":498569,"name":"Wilbrandia
+        ebracteata","commonName":"Tayuya","scientificName":"Wilbrandia ebracteata","lsid":"392628","dataResourceUid":"drt1565630923841"},{"id":498537,"name":"Dipteryx
+        alata","commonName":"Baru","scientificName":"Dipteryx alata","lsid":"319150","dataResourceUid":"drt1565630923841"},{"id":498604,"name":"Schinus
+        terebinthifolius","commonName":null,"scientificName":"Schinus terebinthifolius","lsid":"369895","dataResourceUid":"drt1565630923841"},{"id":498608,"name":"Leptodeira
+        annulata","commonName":"Serpente-Olho-De-Gato-Anelada","scientificName":"Leptodeira
+        annulata","lsid":"149505","dataResourceUid":"drt1565630923841"},{"id":498553,"name":"Arapaima
+        gigas","commonName":"Pirarucu","scientificName":"Arapaima gigas","lsid":"260084","dataResourceUid":"drt1565630923841"},{"id":498538,"name":"Hamadryas
+        amphinome amphinome","commonName":"Borboleta-Estaladeira","scientificName":"Hamadryas
+        amphinome amphinome","lsid":"137016","dataResourceUid":"drt1565630923841"},{"id":498582,"name":"Cyphorhinus
+        arada","commonName":"Uirapuru-Verdadeiro","scientificName":"Cyphorhinus arada","lsid":"147325","dataResourceUid":"drt1565630923841"},{"id":498512,"name":"Caesalpinia
+        pyramidalis","commonName":null,"scientificName":"Caesalpinia pyramidalis","lsid":"285919","dataResourceUid":"drt1565630923841"},{"id":498510,"name":"Mergus
+        octosetaceus","commonName":"Jacutinga-De-Garganta-Azul","scientificName":"Mergus
+        octosetaceus","lsid":"213998","dataResourceUid":"drt1565630923841"},{"id":498602,"name":"Pteronura
+        brasiliensis","commonName":"Ariranha","scientificName":"Pteronura brasiliensis","lsid":"174417","dataResourceUid":"drt1565630923841"},{"id":498502,"name":"Icterus
+        jamacaii","commonName":"Corrupião","scientificName":"Icterus jamacaii","lsid":"189837","dataResourceUid":"drt1565630923841"},{"id":498597,"name":"Caiman
+        latirostris","commonName":"Jacaré-Do-Papo-Amarelo","scientificName":"Caiman
+        latirostris","lsid":"244729","dataResourceUid":"drt1565630923841"},{"id":498598,"name":"Antrodia
+        neotropica","commonName":null,"scientificName":null,"lsid":null,"dataResourceUid":"drt1565630923841"},{"id":498580,"name":"Amanita
+        viscidolutea","commonName":null,"scientificName":"Amanita viscidolutea","lsid":"341519","dataResourceUid":"drt1565630923841"}]'
+  recorded_at: 2022-10-18 09:02:28 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

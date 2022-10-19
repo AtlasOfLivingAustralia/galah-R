@@ -1,14 +1,14 @@
 http_interactions:
 - request:
     method: get
-    uri: https://logger.ala.org.au/service/logger/reasons
+    uri: https://apis.ala.org.au/logger/service/logger/reasons
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -16,19 +16,15 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:22:57 GMT
-      content-type: application/json;charset=UTF-8
+      date: Wed, 12 Oct 2022 03:43:09 GMT
+      content-type: application/json
+      content-length: '1471'
+      x-amzn-requestid: e58fa1bd-0b5a-4279-b7c1-f3a2c6e8a7cf
       access-control-allow-origin: '*'
-      access-control-allow-credentials: 'true'
-      access-control-allow-methods: POST, GET, OPTIONS
-      access-control-max-age: '3600'
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      content-security-policy: upgrade-insecure-requests
-      x-cache-status: HIT
-      content-encoding: gzip
+      access-control-allow-headers: Content-Type
+      x-amz-apigw-id: Z32oJHBTywMF6lg=
+      access-control-allow-methods: GET, POST
+      x-amzn-trace-id: Root=1-634637cd-60cd6db5507f2c696258a1e5
     body:
       encoding: UTF-8
       file: no
@@ -42,18 +38,18 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-01-20 01:22:58 GMT
+  recorded_at: 2022-10-12 03:43:09 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://logger.ala.org.au/service/logger/reasons
+    uri: https://apis.ala.org.au/logger/service/logger/reasons
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -61,19 +57,15 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:22:57 GMT
-      content-type: application/json;charset=UTF-8
+      date: Wed, 12 Oct 2022 03:43:09 GMT
+      content-type: application/json
+      content-length: '1471'
+      x-amzn-requestid: cbefbeff-8208-4f20-bce4-ebdadfeec1dc
       access-control-allow-origin: '*'
-      access-control-allow-credentials: 'true'
-      access-control-allow-methods: POST, GET, OPTIONS
-      access-control-max-age: '3600'
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      content-security-policy: upgrade-insecure-requests
-      x-cache-status: HIT
-      content-encoding: gzip
+      access-control-allow-headers: Content-Type
+      x-amz-apigw-id: Z32oKErsSwMF4uQ=
+      access-control-allow-methods: GET, POST
+      x-amzn-trace-id: Root=1-634637cd-31a64e75348cb408618f7f31
     body:
       encoding: UTF-8
       file: no
@@ -87,18 +79,18 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-01-20 01:22:58 GMT
+  recorded_at: 2022-10-12 03:43:09 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://logger.ala.org.au/service/logger/reasons
+    uri: https://apis.ala.org.au/logger/service/logger/reasons
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -106,19 +98,15 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:22:57 GMT
-      content-type: application/json;charset=UTF-8
+      date: Wed, 12 Oct 2022 03:43:09 GMT
+      content-type: application/json
+      content-length: '1471'
+      x-amzn-requestid: 505ae343-7616-4ebc-ad4a-0947e74e4505
       access-control-allow-origin: '*'
-      access-control-allow-credentials: 'true'
-      access-control-allow-methods: POST, GET, OPTIONS
-      access-control-max-age: '3600'
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      content-security-policy: upgrade-insecure-requests
-      x-cache-status: HIT
-      content-encoding: gzip
+      access-control-allow-headers: Content-Type
+      x-amz-apigw-id: Z32oLFt-ywMF-2Q=
+      access-control-allow-methods: GET, POST
+      x-amzn-trace-id: Root=1-634637cd-4d4cdd22446640c9249a5807
     body:
       encoding: UTF-8
       file: no
@@ -132,18 +120,18 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-01-20 01:22:58 GMT
+  recorded_at: 2022-10-12 03:43:09 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://logger.ala.org.au/service/logger/reasons
+    uri: https://apis.ala.org.au/logger/service/logger/reasons
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -151,19 +139,15 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:22:58 GMT
-      content-type: application/json;charset=UTF-8
+      date: Wed, 12 Oct 2022 03:43:09 GMT
+      content-type: application/json
+      content-length: '1471'
+      x-amzn-requestid: fcd4e0fa-8924-45e9-a7a4-aa4d745446d3
       access-control-allow-origin: '*'
-      access-control-allow-credentials: 'true'
-      access-control-allow-methods: POST, GET, OPTIONS
-      access-control-max-age: '3600'
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      content-security-policy: upgrade-insecure-requests
-      x-cache-status: HIT
-      content-encoding: gzip
+      access-control-allow-headers: Content-Type
+      x-amz-apigw-id: Z32oMFMkSwMF_Ow=
+      access-control-allow-methods: GET, POST
+      x-amzn-trace-id: Root=1-634637cd-58e8e04d255305cb2f0850b7
     body:
       encoding: UTF-8
       file: no
@@ -177,18 +161,18 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-01-20 01:22:58 GMT
+  recorded_at: 2022-10-12 03:43:09 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://logger.ala.org.au/service/logger/reasons
+    uri: https://apis.ala.org.au/logger/service/logger/reasons
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -196,19 +180,15 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:22:58 GMT
-      content-type: application/json;charset=UTF-8
+      date: Wed, 12 Oct 2022 03:43:10 GMT
+      content-type: application/json
+      content-length: '1471'
+      x-amzn-requestid: 1ddb3a9a-4d68-4820-a692-4eeb2a755f2b
       access-control-allow-origin: '*'
-      access-control-allow-credentials: 'true'
-      access-control-allow-methods: POST, GET, OPTIONS
-      access-control-max-age: '3600'
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      content-security-policy: upgrade-insecure-requests
-      x-cache-status: HIT
-      content-encoding: gzip
+      access-control-allow-headers: Content-Type
+      x-amz-apigw-id: Z32oNGhdywMF8dA=
+      access-control-allow-methods: GET, POST
+      x-amzn-trace-id: Root=1-634637cd-7caea769003a32293b5a24ee
     body:
       encoding: UTF-8
       file: no
@@ -222,18 +202,18 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-01-20 01:22:58 GMT
+  recorded_at: 2022-10-12 03:43:09 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://logger.ala.org.au/service/logger/reasons
+    uri: https://apis.ala.org.au/logger/service/logger/reasons
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
@@ -241,19 +221,15 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:22:58 GMT
-      content-type: application/json;charset=UTF-8
+      date: Wed, 12 Oct 2022 03:43:10 GMT
+      content-type: application/json
+      content-length: '1471'
+      x-amzn-requestid: de273983-b6c0-4b5f-b193-7602b9abd789
       access-control-allow-origin: '*'
-      access-control-allow-credentials: 'true'
-      access-control-allow-methods: POST, GET, OPTIONS
-      access-control-max-age: '3600'
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      content-security-policy: upgrade-insecure-requests
-      x-cache-status: HIT
-      content-encoding: gzip
+      access-control-allow-headers: Content-Type
+      x-amz-apigw-id: Z32oOHGqSwMF-oA=
+      access-control-allow-methods: GET, POST
+      x-amzn-trace-id: Root=1-634637ce-15a72a9b2ce029ca452db681
     body:
       encoding: UTF-8
       file: no
@@ -267,5 +243,5 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-01-20 01:22:58 GMT
+  recorded_at: 2022-10-12 03:43:09 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

@@ -1,0 +1,100 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://especies-ws.gbif.es/search?q=Mammalia&pageSize=5
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 OK
+      date: Tue, 18 Oct 2022 09:06:24 GMT
+      server: nginx/1.21.4
+      content-type: application/json;charset=UTF-8
+      x-application-context: application:production
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      via: 1.1 especies-ws.gbif.es (Apache/2.4.41)
+      access-control-allow-origin: '*'
+      transfer-encoding: chunked
+    body:
+      encoding: UTF-8
+      file: no
+      string: '{"searchResults":{"totalRecords":2,"facetResults":[],"results":[{"id":"7b37101e-39ce-436e-ad15-e88c7390bd1a","guid":"359","linkIdentifier":null,"idxtype":"TAXON","name":"Mammalia","kingdom":"Animalia","nomenclaturalCode":null,"scientificName":"Mammalia","scientificNameAuthorship":null,"author":null,"nameComplete":"Mammalia","nameFormatted":"<span
+        class=\"scientific-name rank-class\"><span class=\"name\">Mammalia<\u002fspan><\u002fspan>","taxonomicStatus":"accepted","nomenclaturalStatus":null,"parentGuid":"44","rank":"class","rankID":3000,"commonName":"Mammals,
+        Mammifères, Mamífero, Njiccehasat, Däggdjur, Herbivore, Mammal, Pattedyr,
+        Sogdyr, Spendyr, Zoogdieren, Ссавці, 哺乳綱","commonNameSingle":"Mammals","occurrenceCount":524020,"conservationStatus":null,"favourite":null,"infoSourceName":"GBIF
+        Backbone Taxonomy","infoSourceURL":"https://colecciones.gbif.es/public/show/7ddf754f-d193-4cc9-b351-99906754a03b","image":"db9e8d12-8739-4971-bbd4-382a6050d332","imageUrl":"https://imagenes.gbif.es/image/proxyImageThumbnailLarge?imageId=db9e8d12-8739-4971-bbd4-382a6050d332","thumbnailUrl":"https://imagenes.gbif.es/image/proxyImageThumbnail?imageId=db9e8d12-8739-4971-bbd4-382a6050d332","smallImageUrl":"https://imagenes.gbif.es/image/proxyImageThumbnailLarge?imageId=db9e8d12-8739-4971-bbd4-382a6050d332","largeImageUrl":"https://imagenes.gbif.es/image/proxyImage?imageId=db9e8d12-8739-4971-bbd4-382a6050d332","kingdomGuid":"1","phylum":"Chordata","phylumGuid":"44","class":"Mammalia","classGuid":"359"},{"id":"kb6000196777","guid":"https://support.ala.org.au/support/solutions/articles/6000196777-ala-api-how-to-access-ala-web-services","linkIdentifier":null,"idxtype":"KNOWLEDGEBASE","name":"ALA
+        API - how to access ALA web services","description":null,"content":"We provide
+        access to our data via a set of Web services APIs.  Chances are that you are
+        willing to use the data we host in new ways, such as combining it with information
+        from other domains, you are not limited by our out of the box systems and
+        tools. Most of our APIs use REST conventions and support JSON as data format.
+        You can see the list of available service calls at https://api.ala.org.au/ 
+        We are also working on enabling Swagger as an API documentation tool. Go to
+        the list below for details DOI Biocache (Beta)  Examples The following examples
+        use curl to demonstrate the use of the ALA API. Occurrence Search The call
+        below uses the Biocache occurrence search service to look for occurrences
+        of the term Macropus rufus (commonly known as Red Kangaroo). The  unusual
+        page Size of 1 is used only to limit the output for this example. curl https://biocache.ala.org.au/ws/occurrences/search?q=Macropus+rufus&pageSize=1
+        The output should look similar to the one below. {     \"pageSize\": 1, \"startIndex\":
+        0,     \"totalRecords\": 47776,     \"sort\": \"score\",     \"dir\": \"asc\", 
+           \"status\": \"OK\",     \"occurrences\": [{                \"uuid\": \"54cb0ab1-8534-4fc1-8ad4-5ac90f1b3e7e\", 
+                       \"raw_catalogNumber\": \"OPM634754-1\",                 \"taxonConceptID\": \"urn:lsid:biodiversity.org.au:afd.taxon:e6aff6af-ff36-4ad5-95f2-2dfdcca8caff\", 
+                       \"eventDate\": 1342706400000,        \"occurrenceYear\": 1325336400000, 
+                       \"scientificName\": \"Osphranter rufus\",                 \"vernacularName\": \"Red
+        Kangaroo\",                 \"taxonRank\": \"species\",                 \"taxonRankID\":
+        7000,                 \"country\": \"Australia\",                 \"kingdom\": \"Animalia\", 
+                   \"phylum\": \"Chordata\",                 \"classs\": \"Mammalia\", 
+                       \"order\": \"Diprotodontia\",                 \"family\": \"Macropodidae\", 
+                       \"genus\": \"Osphranter\",                 \"genusGuid\": \"urn:lsid:biodiversity.org.au:afd.taxon:288b19b6-1b3a-4746-aecd-5b2127aa2855\", 
+                       \"species\": \"Osphranter rufus\",                 \"speciesGuid\": \"urn:lsid:biodiversity.org.au:afd.taxon:e6aff6af-ff36-4ad5-95f2-2dfdcca8caff\", 
+                       \"stateProvince\": \"South Australia\",                 \"decimalLatitude\":
+        -31.375,                 \"decimalLongitude\": 140.58,                 \"coordinateUncertaintyInMeters\":
+        5000,                 \"year\": 2012,        \"month\": \"07\",          
+              \"basisOfRecord\": \"HumanObservation\",                 \"left\": 104117, 
+                       \"right\": 104117,                 \"lga\": \"Unincorporated
+        SA\",                 \"dataProviderUid\": \"dp32\",                 \"dataProviderName\": \"South
+        Australia, Department for Environment and Water\",                 \"dataResourceUid\": \"dr365\", 
+                       \"dataResourceName\": \"SA Fauna (BDBSA)\",                 \"assertions\":
+        [                             \"decimalLatLongConverted\",                
+                    \"countryInferredByCoordinates\"                 ],          
+              \"speciesGroups\": [                             \"Animals\",       
+                             \"Mammals\"                 ],                 \"geospatialKosher\": \"true\", 
+                       \"taxonomicKosher\": \"true\",                 \"collector\": \"JENNINGS
+        S. Scott | ARNOLD C. Christine\",                 \"collectors\": [       
+                             \"Jennings, S. Scott|Arnold, C. Christine\"          
+              ],                 \"raw_scientificName\": \"Macropus rufus\",     
+                   \"raw_basisOfRecord\": \"HumanObservation\",                 \"raw_vernacularName\": \"Red
+        Kangaroo\",                 \"latLong\": \"-31.375,140.58\",              
+          \"point1\": \"-31,141\",                 \"point01\": \"-31.4,140.6\", 
+                       \"point001\": \"-31.38,140.58\",                 \"point0001\": \"-31.375,140.58\", 
+                       \"point00001\": \"-31.375,140.58\",                 \"namesLsid\": \"Osphranter
+        rufus|urn:lsid:biodiversity.org.au:afd.taxon:e6aff6af-ff36-4ad5-95f2-2dfdcca8caff|Red
+        Kangaroo|Animalia|Macropodidae\",                 \"miscStringProperties\":
+        {                             \"identification_qualifier_s\": \"Not provided\", 
+                                   \"occurrence_status_s\": \"present\"          
+              },                 \"miscIntProperties\": {                        
+            \"occurrence_decade_i\": 2010                 }     }],     \"facetResults\":
+        [],     \"query\": \"?q=Macropus%20rufus\",     \"urlParameters\": \"?q=Macropus%20rufus\", 
+           \"queryTitle\": \"<span class=''lsid'' id=''urn:lsid:biodiversity.org.au:afd.taxon:e6aff6af-ff36-4ad5-95f2-2dfdcca8caff''>SPECIES:
+        Osphranter rufus<\u002fspan>\",     \"activeFacetMap\": {} } Map Occurrence
+        Using the same search criteria as above, using the map density service we
+        can generate an image with the occurrences for Red Kangaroos.  curl -o map.png
+        https://biocache.ala.org.au/ws/density/map?q=Macropus+rufus The command above
+        will generate a file map.png that will resemble the image below. If you want
+        to see more examples and want to see some client code, go to biocache-tests
+        GitHub project."}],"queryTitle":"Mammalia"}}'
+  recorded_at: 2022-10-18 09:06:24 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

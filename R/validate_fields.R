@@ -3,7 +3,10 @@
 
 validate_fields <- function(named_field){
 
-  invalid_fields <- named_field[!is.element(named_field, show_all_fields()$id)]
+  invalid_fields <- named_field[!is.element(
+    named_field, 
+    c(show_all_fields()$id, show_all_assertions()$id)
+  )]
   if (length(invalid_fields) > 0) {
     if(!all(invalid_fields %in% image_fields())){ # exception for ala_media
       list_invalid_fields <- glue::glue_collapse(invalid_fields, 

@@ -8,30 +8,31 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.4.0
+      User-Agent: galah 1.5.0
   response:
     status:
       status_code: '200'
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: 'HTTP/2 200 '
-      server: nginx/1.21.5
-      date: Thu, 20 Jan 2022 01:30:19 GMT
+      status: HTTP/1.1 200 OK
+      date: Mon, 17 Oct 2022 01:30:46 GMT
       content-type: application/json
-      content-length: '542'
+      content-length: '543'
+      connection: keep-alive
+      server: nginx/1.23.1
       vary: Accept-Encoding
       content-encoding: gzip
-      strict-transport-security: max-age=31536000
-      referrer-policy: strict-origin-when-cross-origin
-      x-frame-options: DENY
-      x-content-type-options: nosniff
-      content-security-policy: upgrade-insecure-requests
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
     body:
       encoding: UTF-8
       file: no
       string: '{"success":true,"scientificName":"Vulpes vulpes","scientificNameAuthorship":"Linnaeus,
-        1758","taxonConceptID":"urn:lsid:biodiversity.org.au:afd.taxon:2869ce8a-8212-46c2-8327-dfb7fabb8296","rank":"species","rankID":7000,"lft":203482,"rgt":203484,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Animalia","kingdomID":"urn:lsid:biodiversity.org.au:afd.taxon:4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"urn:lsid:biodiversity.org.au:afd.taxon:065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"urn:lsid:biodiversity.org.au:afd.taxon:e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","order":"Carnivora","orderID":"urn:lsid:biodiversity.org.au:afd.taxon:ca52f7b4-9541-4fa7-bdcd-ac8e9aa1d3e2","family":"Canidae","familyID":"urn:lsid:biodiversity.org.au:afd.taxon:db861aa2-93b8-40b1-8868-4a0a41d51414","genus":"Vulpes","genusID":"urn:lsid:biodiversity.org.au:afd.taxon:593d9519-a473-45ab-b1a9-521453f75842","species":"Vulpes
-        vulpes","speciesID":"urn:lsid:biodiversity.org.au:afd.taxon:2869ce8a-8212-46c2-8327-dfb7fabb8296","vernacularName":"Fox","speciesGroup":["Animals","Mammals"],"speciesSubgroup":["Carnivores"],"issues":["noIssue"]}'
-  recorded_at: 2022-01-20 01:30:19 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+        1758","taxonConceptID":"https://biodiversity.org.au/afd/taxa/2869ce8a-8212-46c2-8327-dfb7fabb8296","rank":"species","rankID":7000,"lft":69065,"rgt":69067,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","order":"Carnivora","orderID":"https://biodiversity.org.au/afd/taxa/ca52f7b4-9541-4fa7-bdcd-ac8e9aa1d3e2","family":"Canidae","familyID":"https://biodiversity.org.au/afd/taxa/db861aa2-93b8-40b1-8868-4a0a41d51414","genus":"Vulpes","genusID":"https://biodiversity.org.au/afd/taxa/593d9519-a473-45ab-b1a9-521453f75842","species":"Vulpes
+        vulpes","speciesID":"https://biodiversity.org.au/afd/taxa/2869ce8a-8212-46c2-8327-dfb7fabb8296","vernacularName":"Fox","speciesGroup":["Animals","Mammals"],"speciesSubgroup":["Carnivores"],"issues":["noIssue"]}'
+  recorded_at: 2022-10-17 01:30:46 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.2

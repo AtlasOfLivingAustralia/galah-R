@@ -1,0 +1,37 @@
+http_interactions:
+- request:
+    method: get
+    uri: http://portail.gbif.fr/biocache-service/occurrence/facets?facets=basis_of_record&flimit=10000
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 OK
+      server: nginx/1.21.3
+      date: Tue, 18 Oct 2022 09:03:27 GMT
+      content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+      connection: keep-alive
+      access-control-allow-origin: '*'
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-max-age: '3600'
+      access-control-allow-headers: x-requested-with
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Human observation","i18nCode":"basis_of_record.HumanObservation","count":77205139,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Preserved
+        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":9300879,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Fossil
+        specimen","i18nCode":"basis_of_record.FossilSpecimen","count":431751,"fq":"basis_of_record:\"FossilSpecimen\""},{"label":"Living
+        specimen","i18nCode":"basis_of_record.LivingSpecimen","count":30431,"fq":"basis_of_record:\"LivingSpecimen\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":24738,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Machine
+        observation","i18nCode":"basis_of_record.MachineObservation","count":4,"fq":"basis_of_record:\"MachineObservation\""}],"count":6}]'
+  recorded_at: 2022-10-18 09:03:28 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
