@@ -106,37 +106,45 @@
 <p>For example, to show all available Living Atlases supported:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all</a></span><span class="op">(</span><span class="va">atlases</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in `show_all()`:</span></span>
-<span><span class="co">## ! type `c(\c(\Australia\, \Austria\, \Brazil\, \Estonia\, \France\, \Guatemala\, \Portugal\, \Spain\, \Sweden\, \United Kingdom\)\, \c(\Atlas of Living Australia\, \Biodiversitäts-Atlas Österreich\, \Sistemas de Informações sobre a Biodiversidade Brasileira\, \eElurikkus\, \Inventaire National du Patrimoine Naturel\, \Sistema Nacional de Información sobre Diversidad Biológica de Guatemala\, \GBIF Portugal\, \GBIF Spain\, \Swedish Biodiversity Data Infrastructure\, \National Biodiversity Network\)\, \c(\ALA\, \BAO\, \SiBBr\, NA, \INPN\, \SNIBgt\, \GBIF.pt\, \GBIF.es\, \SBDI\, \NBN\)\, \c(\https://www.ala.org.au\, \https://biodiversityatlas.at\, \https://sibbr.gov.br\, \https://elurikkus.ee\, \https://inpn.mnhn.fr\, \https://snib.conap.gob.gt\, \https://www.gbif.pt\, \https://www.gbif.es\, \https://biodiversitydata.se\, \https://nbn.org.uk\)\)` is not recognised</span></span>
-<span><span class="co">## ℹ see ?show_all for a list of valid information types.</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 10 × 4</span></span>
+<span><span class="co">##    atlas          institution                                                     acronym url  </span></span>
+<span><span class="co">##    &lt;chr&gt;          &lt;chr&gt;                                                           &lt;chr&gt;   &lt;chr&gt;</span></span>
+<span><span class="co">##  1 Australia      Atlas of Living Australia                                       ALA     http…</span></span>
+<span><span class="co">##  2 Austria        Biodiversitäts-Atlas Österreich                                 BAO     http…</span></span>
+<span><span class="co">##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira       SiBBr   http…</span></span>
+<span><span class="co">##  4 Estonia        eElurikkus                                                      &lt;NA&gt;    http…</span></span>
+<span><span class="co">##  5 France         Inventaire National du Patrimoine Naturel                       INPN    http…</span></span>
+<span><span class="co">##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de … SNIBgt  http…</span></span>
+<span><span class="co">##  7 Portugal       GBIF Portugal                                                   GBIF.pt http…</span></span>
+<span><span class="co">##  8 Spain          GBIF Spain                                                      GBIF.es http…</span></span>
+<span><span class="co">##  9 Sweden         Swedish Biodiversity Data Infrastructure                        SBDI    http…</span></span>
+<span><span class="co">## 10 United Kingdom National Biodiversity Network                                   NBN     http…</span></span></code></pre>
 <p>To search for a specific available Living Atlas:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">atlases</span>, <span class="st">"Spain"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Error in `search_all()`:</span></span>
-<span><span class="co">## ! type `c(\c(\Australia\, \Austria\, \Brazil\, \Estonia\, \France\, \Guatemala\, \Portugal\, \Spain\, \Sweden\, \United Kingdom\)\, \c(\Atlas of Living Australia\, \Biodiversitäts-Atlas Österreich\, \Sistemas de Informações sobre a Biodiversidade Brasileira\, \eElurikkus\, \Inventaire National du Patrimoine Naturel\, \Sistema Nacional de Información sobre Diversidad Biológica de Guatemala\, \GBIF Portugal\, \GBIF Spain\, \Swedish Biodiversity Data Infrastructure\, \National Biodiversity Network\)\, \c(\ALA\, \BAO\, \SiBBr\, NA, \INPN\, \SNIBgt\, \GBIF.pt\, \GBIF.es\, \SBDI\, \NBN\)\, \c(\https://www.ala.org.au\, \https://biodiversityatlas.at\, \https://sibbr.gov.br\, \https://elurikkus.ee\, \https://inpn.mnhn.fr\, \https://snib.conap.gob.gt\, \https://www.gbif.pt\, \https://www.gbif.es\, \https://biodiversitydata.se\, \https://nbn.org.uk\)\)` is not recognised</span></span>
-<span><span class="co">## ℹ see ?show_all for a list of valid information types.</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 1 × 4</span></span>
+<span><span class="co">##   atlas institution acronym url                </span></span>
+<span><span class="co">##   &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;              </span></span>
+<span><span class="co">## 1 Spain GBIF Spain  GBIF.es https://www.gbif.es</span></span></code></pre>
 <p>To show all fields:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all</a></span><span class="op">(</span><span class="va">fields</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 403 × 3</span></span>
-<span><span class="co">##    id                    description                                                                                            type </span></span>
-<span><span class="co">##    &lt;chr&gt;                 &lt;chr&gt;                                                                                                  &lt;chr&gt;</span></span>
-<span><span class="co">##  1 acceptedNameUsage     The full name, with authorship and date information if known, of the currently valid (zoological) or … fiel…</span></span>
-<span><span class="co">##  2 acceptedNameUsageID   An identifier for the name usage (documented meaning of the name according to a source) of the curren… fiel…</span></span>
-<span><span class="co">##  3 accessRights          &lt;NA&gt;                                                                                                   fiel…</span></span>
-<span><span class="co">##  4 all_image_url         &lt;NA&gt;                                                                                                   fiel…</span></span>
-<span><span class="co">##  5 assertion_user_id     Assertions by user                                                                                     fiel…</span></span>
-<span><span class="co">##  6 assertions            Record issues                                                                                          fiel…</span></span>
-<span><span class="co">##  7 assertions_missing    &lt;NA&gt;                                                                                                   fiel…</span></span>
-<span><span class="co">##  8 assertions_passed     &lt;NA&gt;                                                                                                   fiel…</span></span>
-<span><span class="co">##  9 associatedMedia       A list (concatenated and separated) of identifiers (publication, global unique identifier, URI) of me… fiel…</span></span>
-<span><span class="co">## 10 associatedOccurrences A list (concatenated and separated) of identifiers of other Occurrence records and their associations… fiel…</span></span>
-<span><span class="co">## # … with 393 more rows</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 813 × 4</span></span>
+<span><span class="co">##   id                  description                                      type   link </span></span>
+<span><span class="co">##   &lt;chr&gt;               &lt;chr&gt;                                            &lt;chr&gt;  &lt;chr&gt;</span></span>
+<span><span class="co">## 1 abcdTypeStatus      ABCD field in use by herbaria                    fields &lt;NA&gt; </span></span>
+<span><span class="co">## 2 acceptedNameUsage   http://rs.tdwg.org/dwc/terms/acceptedNameUsage   fields &lt;NA&gt; </span></span>
+<span><span class="co">## 3 acceptedNameUsageID http://rs.tdwg.org/dwc/terms/acceptedNameUsageID fields &lt;NA&gt; </span></span>
+<span><span class="co">## 4 accessRights        &lt;NA&gt;                                             fields &lt;NA&gt; </span></span>
+<span><span class="co">## # … with 809 more rows</span></span></code></pre>
 <p>And to search for a specific field:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"australian states"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 0 × 3</span></span>
-<span><span class="co">## # … with 3 variables: id &lt;chr&gt;, description &lt;chr&gt;, type &lt;chr&gt;</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 2 × 4</span></span>
+<span><span class="co">##   id     description                                                                type  link </span></span>
+<span><span class="co">##   &lt;chr&gt;  &lt;chr&gt;                                                                      &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">## 1 cl2013 ASGS Australian States and Territories Australian Statistical Geography S… laye… http…</span></span>
+<span><span class="co">## 2 cl22   Australian States and Territories Australian States and Territories        laye… http…</span></span></code></pre>
 <p>Here is a list of information types that can be used with <code><a href="../reference/show_all.html">show_all()</a></code> and <code><a href="../reference/search_all.html">search_all()</a></code>:</p>
 <table class="table table lightable-paper" style='width: auto !important; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
 <thead><tr>
@@ -339,18 +347,18 @@ show_all_datasets(), search_datasets()
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all_atlases</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 10 × 4</span></span>
-<span><span class="co">##    atlas          institution                                                             acronym url                         </span></span>
-<span><span class="co">##    &lt;chr&gt;          &lt;chr&gt;                                                                   &lt;chr&gt;   &lt;chr&gt;                       </span></span>
-<span><span class="co">##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      </span></span>
-<span><span class="co">##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at</span></span>
-<span><span class="co">##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        </span></span>
-<span><span class="co">##  4 Estonia        eElurikkus                                                              &lt;NA&gt;    https://elurikkus.ee        </span></span>
-<span><span class="co">##  5 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.mnhn.fr        </span></span>
-<span><span class="co">##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   </span></span>
-<span><span class="co">##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         </span></span>
-<span><span class="co">##  8 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         </span></span>
-<span><span class="co">##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se </span></span>
-<span><span class="co">## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk</span></span></code></pre>
+<span><span class="co">##    atlas          institution                                                     acronym url  </span></span>
+<span><span class="co">##    &lt;chr&gt;          &lt;chr&gt;                                                           &lt;chr&gt;   &lt;chr&gt;</span></span>
+<span><span class="co">##  1 Australia      Atlas of Living Australia                                       ALA     http…</span></span>
+<span><span class="co">##  2 Austria        Biodiversitäts-Atlas Österreich                                 BAO     http…</span></span>
+<span><span class="co">##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira       SiBBr   http…</span></span>
+<span><span class="co">##  4 Estonia        eElurikkus                                                      &lt;NA&gt;    http…</span></span>
+<span><span class="co">##  5 France         Inventaire National du Patrimoine Naturel                       INPN    http…</span></span>
+<span><span class="co">##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de … SNIBgt  http…</span></span>
+<span><span class="co">##  7 Portugal       GBIF Portugal                                                   GBIF.pt http…</span></span>
+<span><span class="co">##  8 Spain          GBIF Spain                                                      GBIF.es http…</span></span>
+<span><span class="co">##  9 Sweden         Swedish Biodiversity Data Infrastructure                        SBDI    http…</span></span>
+<span><span class="co">## 10 United Kingdom National Biodiversity Network                                   NBN     http…</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all_reasons</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 13 × 2</span></span>
@@ -374,26 +382,26 @@ show_all_datasets(), search_datasets()
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all</a></span><span class="op">(</span><span class="va">fields</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="co"># Take slice of first 10 rows</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 10 × 4</span></span>
-<span><span class="co">##    id                    description                                                                                      type  link </span></span>
-<span><span class="co">##    &lt;chr&gt;                 &lt;chr&gt;                                                                                            &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">##  1 abcdTypeStatus        ABCD field in use by herbaria                                                                    fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  2 acceptedNameUsage     http://rs.tdwg.org/dwc/terms/acceptedNameUsage                                                   fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  3 acceptedNameUsageID   http://rs.tdwg.org/dwc/terms/acceptedNameUsageID                                                 fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  4 accessRights          &lt;NA&gt;                                                                                             fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  5 assertionUserId       User ID of the person who has made an assertion about this record                                fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  6 assertions            A list of all assertions (user and system supplied) for a record resulting from data quality te… fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  7 associatedMedia       http://rs.tdwg.org/dwc/terms/associatedMedia                                                     fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  8 associatedOccurrences http://rs.tdwg.org/dwc/terms/associatedOccurrences                                               fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  9 associatedOrganisms   http://rs.tdwg.org/dwc/terms/associatedOrganisms                                                 fiel… &lt;NA&gt; </span></span>
-<span><span class="co">## 10 associatedReferences  http://rs.tdwg.org/dwc/terms/associatedReferences                                                fiel… &lt;NA&gt;</span></span></code></pre>
+<span><span class="co">##    id                    description                                                type  link </span></span>
+<span><span class="co">##    &lt;chr&gt;                 &lt;chr&gt;                                                      &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">##  1 abcdTypeStatus        ABCD field in use by herbaria                              fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  2 acceptedNameUsage     http://rs.tdwg.org/dwc/terms/acceptedNameUsage             fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  3 acceptedNameUsageID   http://rs.tdwg.org/dwc/terms/acceptedNameUsageID           fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  4 accessRights          &lt;NA&gt;                                                       fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  5 assertionUserId       User ID of the person who has made an assertion about thi… fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  6 assertions            A list of all assertions (user and system supplied) for a… fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  7 associatedMedia       http://rs.tdwg.org/dwc/terms/associatedMedia               fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  8 associatedOccurrences http://rs.tdwg.org/dwc/terms/associatedOccurrences         fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  9 associatedOrganisms   http://rs.tdwg.org/dwc/terms/associatedOrganisms           fiel… &lt;NA&gt; </span></span>
+<span><span class="co">## 10 associatedReferences  http://rs.tdwg.org/dwc/terms/associatedReferences          fiel… &lt;NA&gt;</span></span></code></pre>
 <p>One way to browse all fields is to use <code><a href="https://rdrr.io/r/utils/View.html" class="external-link">View()</a></code> or <code><a href="https://dplyr.tidyverse.org/reference/reexports.html" class="external-link">dplyr::view()</a></code> to open the results in a new tab in R to scroll through.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all_fields</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Open table in new tab</span></span></code></pre></div>
 <p>Given how important fields are to the proper use of <code>galah</code>, it might be more useful to search for a specific field. This need for a more detailed search is when <code>search_</code> functions come in handy.</p>
 </div>
 <div class="section level2">
-<h2 id="search_-functions">
-<code>search_</code> functions<a class="anchor" aria-label="anchor" href="#search_-functions"></a>
+<h2 id="search_-subfunctions">
+<code>search_</code> subfunctions<a class="anchor" aria-label="anchor" href="#search_-subfunctions"></a>
 </h2>
 <p>The second subset of lookup subfunctions use the <code>search_</code> prefix, and differ from <code>show_all_</code> in that they require a query to work. They are used to search for detailed information that can’t be summarised across the whole atlas, and include:</p>
 <ul>
@@ -407,40 +415,40 @@ show_all_datasets(), search_datasets()
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 9</span></span>
-<span><span class="co">##   search_term scientific_name taxon_concept_id                                              rank  match…¹ kingdom phylum class issues</span></span>
-<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                                         &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
-<span><span class="co">## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b… class exactM… Animal… Chord… Rept… noIss…</span></span>
+<span><span class="co">##   search_term scientific_name taxon_concept_id        rank  match…¹ kingdom phylum class issues</span></span>
+<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
+<span><span class="co">## 1 reptilia    REPTILIA        https://biodiversity.o… class exactM… Animal… Chord… Rept… noIss…</span></span>
 <span><span class="co">## # … with abbreviated variable name ¹​match_type</span></span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"reptilia"</span>, <span class="st">"aves"</span>, <span class="st">"mammalia"</span>, <span class="st">"pisces"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 4 × 10</span></span>
-<span><span class="co">##   search_term scientific_name taxon_concept_id                                      rank  match…¹ kingdom phylum class issues verna…²</span></span>
-<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                                 &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  </span></span>
-<span><span class="co">## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-4… class exactM… Animal… Chord… Rept… noIss… &lt;NA&gt;   </span></span>
-<span><span class="co">## 2 aves        AVES            https://biodiversity.org.au/afd/taxa/65625205-db74-4… class exactM… Animal… Chord… Aves  noIss… Birds  </span></span>
-<span><span class="co">## 3 mammalia    MAMMALIA        https://biodiversity.org.au/afd/taxa/e9e7db31-04df-4… class exactM… Animal… Chord… Mamm… noIss… Mammals</span></span>
-<span><span class="co">## 4 pisces      PISCES          https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4… &lt;NA&gt;  exactM… Animal… Chord… &lt;NA&gt;  noIss… Fishes </span></span>
-<span><span class="co">## # … with abbreviated variable names ¹​match_type, ²​vernacular_name</span></span></code></pre>
+<span><span class="co">##   search_term scientific_name taxon_concept…¹ rank  match…² kingdom phylum class issues verna…³</span></span>
+<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  </span></span>
+<span><span class="co">## 1 reptilia    REPTILIA        https://biodiv… class exactM… Animal… Chord… Rept… noIss… &lt;NA&gt;   </span></span>
+<span><span class="co">## 2 aves        AVES            https://biodiv… class exactM… Animal… Chord… Aves  noIss… Birds  </span></span>
+<span><span class="co">## 3 mammalia    MAMMALIA        https://biodiv… class exactM… Animal… Chord… Mamm… noIss… Mammals</span></span>
+<span><span class="co">## 4 pisces      PISCES          https://biodiv… &lt;NA&gt;  exactM… Animal… Chord… &lt;NA&gt;  noIss… Fishes </span></span>
+<span><span class="co">## # … with abbreviated variable names ¹​taxon_concept_id, ²​match_type, ³​vernacular_name</span></span></code></pre>
 <p>Alternatively, <code>search_identifiers</code> is the partner function to <code>search_taxa</code>. If we already know a taxonomic identifier, we can search for which taxa the identifier belongs to with <code>search_identifiers</code>:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_identifiers.html">search_identifiers</a></span><span class="op">(</span><span class="st">"urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-833b-550efd40c399"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 8</span></span>
-<span><span class="co">##   scientific_name taxon_concept_id                                                          rank  match…¹ kingdom phylum class issues</span></span>
-<span><span class="co">##   &lt;chr&gt;           &lt;chr&gt;                                                                     &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
-<span><span class="co">## 1 REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399 class taxonI… Animal… Chord… Rept… noIss…</span></span>
+<span><span class="co">##   scientific_name taxon_concept_id                    rank  match…¹ kingdom phylum class issues</span></span>
+<span><span class="co">##   &lt;chr&gt;           &lt;chr&gt;                               &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
+<span><span class="co">## 1 REPTILIA        https://biodiversity.org.au/afd/ta… class taxonI… Animal… Chord… Rept… noIss…</span></span>
 <span><span class="co">## # … with abbreviated variable name ¹​match_type</span></span></code></pre>
 <p>Sifting through the output of <code>show_all_fields</code> to find a specific field can be inefficient. Instead, we might wish to use <code>search_fields</code> to look for specific fields that match a search. As with <code>search_taxa</code>, <code>search_fields</code> requires a query to work.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_fields</a></span><span class="op">(</span><span class="st">"date"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 6 × 4</span></span>
-<span><span class="co">##   id           description                                                                                                type  link </span></span>
-<span><span class="co">##   &lt;chr&gt;        &lt;chr&gt;                                                                                                      &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">## 1 month        "Month of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/month"                       fiel… &lt;NA&gt; </span></span>
-<span><span class="co">## 2 cl23         "Local Government Areas 2012 deprecated LGA Boundaries (superceeded by update Local Government Areas 2012… laye… http…</span></span>
-<span><span class="co">## 3 eventDate    "The ISO formatted date of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/eventDate"  fiel… &lt;NA&gt; </span></span>
-<span><span class="co">## 4 cl10903      "Tenure of Australia's forests (2013) v2.0 Tenure of Australia's forests (2013) v2.0 is a continental dat… laye… http…</span></span>
-<span><span class="co">## 5 cl10955      "National Indicative Aggregated Fire Extent Dataset 2019-2020 - v20200324 The National Indicative Aggrega… laye… http…</span></span>
-<span><span class="co">## 6 lastLoadDate  &lt;NA&gt;                                                                                                      fiel… &lt;NA&gt;</span></span></code></pre>
+<span><span class="co">##   id           description                                                          type  link </span></span>
+<span><span class="co">##   &lt;chr&gt;        &lt;chr&gt;                                                                &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">## 1 month        "Month of observation, specimen collection date. http://rs.tdwg.org… fiel… &lt;NA&gt; </span></span>
+<span><span class="co">## 2 cl23         "Local Government Areas 2012 deprecated LGA Boundaries (superceeded… laye… http…</span></span>
+<span><span class="co">## 3 eventDate    "The ISO formatted date of observation, specimen collection date. h… fiel… &lt;NA&gt; </span></span>
+<span><span class="co">## 4 cl10903      "Tenure of Australia's forests (2013) v2.0 Tenure of Australia's fo… laye… http…</span></span>
+<span><span class="co">## 5 cl10955      "National Indicative Aggregated Fire Extent Dataset 2019-2020 - v20… laye… http…</span></span>
+<span><span class="co">## 6 lastLoadDate  &lt;NA&gt;                                                                fiel… &lt;NA&gt;</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="show_values-search_values">
@@ -492,25 +500,27 @@ show_all_datasets(), search_datasets()
 <pre><code><span><span class="co">## ! Search returned 2 matched profiles.</span></span>
 <span><span class="co">## • Showing values for 'ALA'.</span></span></code></pre>
 <pre><code><span><span class="co">## # A tibble: 6 × 2</span></span>
-<span><span class="co">##   description                                                                                                                  filter</span></span>
-<span><span class="co">##   &lt;chr&gt;                                                                                                                        &lt;chr&gt; </span></span>
-<span><span class="co">## 1 "Exclude all records where spatial validity is \"false\""                                                                    "-spa…</span></span>
-<span><span class="co">## 2 "Exclude all records with an assertion that the scientific name provided does not match any of the names lists used by the … "-ass…</span></span>
-<span><span class="co">## 3 "Exclude all records with an assertion that the scientific name provided is not structured as a valid scientific name. Also… "-ass…</span></span>
-<span><span class="co">## 4 "Exclude all records with an assertion that the name and classification supplied can't be used to choose between 2 homonyms" "-ass…</span></span>
-<span><span class="co">## 5 "Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g. Animalia, Plantae"           "-ass…</span></span>
-<span><span class="co">## 6 "Exclude all records with an assertion that the scientific name provided in the record does not match the expected taxonomi… "-ass…</span></span></code></pre>
+<span><span class="co">##   description                                                                            filter</span></span>
+<span><span class="co">##   &lt;chr&gt;                                                                                  &lt;chr&gt; </span></span>
+<span><span class="co">## 1 "Exclude all records where spatial validity is \"false\""                              "-spa…</span></span>
+<span><span class="co">## 2 "Exclude all records with an assertion that the scientific name provided does not mat… "-ass…</span></span>
+<span><span class="co">## 3 "Exclude all records with an assertion that the scientific name provided is not struc… "-ass…</span></span>
+<span><span class="co">## 4 "Exclude all records with an assertion that the name and classification supplied can'… "-ass…</span></span>
+<span><span class="co">## 5 "Exclude all records with an assertion that kingdom provided doesn't match a known ki… "-ass…</span></span>
+<span><span class="co">## 6 "Exclude all records with an assertion that the scientific name provided in the recor… "-ass…</span></span></code></pre>
 <p>Or collections:</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">collections</span>, <span class="st">"herbarium"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/show_values.html">show_values</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## ! Search returned 46 matched collections.</span></span>
 <span><span class="co">## • Showing values for 'co214'.</span></span></code></pre>
 <pre><code><span><span class="co">## # A tibble: 1 × 17</span></span>
-<span><span class="co">##   name       acronym uid   phone email pubDe…¹ latit…² longi…³ websi…⁴ alaPu…⁵ dateC…⁶ lastU…⁷ userL…⁸ active numRe…⁹ numRe…˟ geogr…˟</span></span>
-<span><span class="co">##   &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt;   &lt;int&gt; &lt;chr&gt;  </span></span>
-<span><span class="co">## 1 Allan Her… CHR     co214 +64 … Herb… "The A…   -43.6    172. http:/… https:… 2015-0… 2021-1… not av… Activ…  660000  236000 Worldw…</span></span>
-<span><span class="co">## # … with abbreviated variable names ¹​pubDescription, ²​latitude, ³​longitude, ⁴​websiteUrl, ⁵​alaPublicUrl, ⁶​dateCreated, ⁷​lastUpdated,</span></span>
-<span><span class="co">## #   ⁸​userLastModified, ⁹​numRecords, ˟​numRecordsDigitised, ˟​geographicDescription</span></span></code></pre>
+<span><span class="co">##   name        acronym uid   phone email pubDe…¹ latit…² longi…³ websi…⁴ alaPu…⁵ dateC…⁶ lastU…⁷</span></span>
+<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">## 1 Allan Herb… CHR     co214 +64 … Herb… "The A…   -43.6    172. http:/… https:… 2015-0… 2021-1…</span></span>
+<span><span class="co">## # … with 5 more variables: userLastModified &lt;chr&gt;, active &lt;chr&gt;, numRecords &lt;int&gt;,</span></span>
+<span><span class="co">## #   numRecordsDigitised &lt;int&gt;, geographicDescription &lt;chr&gt;, and abbreviated variable names</span></span>
+<span><span class="co">## #   ¹​pubDescription, ²​latitude, ³​longitude, ⁴​websiteUrl, ⁵​alaPublicUrl, ⁶​dateCreated,</span></span>
+<span><span class="co">## #   ⁷​lastUpdated</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

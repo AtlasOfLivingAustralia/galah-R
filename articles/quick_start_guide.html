@@ -100,7 +100,7 @@
 <div class="section level2">
 <h2 id="about">About<a class="anchor" aria-label="anchor" href="#about"></a>
 </h2>
-<p><code>galah</code> is an R interface to biodiversity data hosted by the <a href="https://ala.org.au" class="external-link">Atlas of Living Australia</a> (ALA). The ALA is a repository of biodiversity data, focussed primarily on observations of individual life forms. Like the Global Biodiversity Information Facility (<a href="https://www.gbif.org" class="external-link">GBIF</a>), the basic unit of data at ALA is an <strong>occurrence</strong> record, based on the <a href="https://dwc.tdwg.org" class="external-link">‘Darwin Core’</a> data standard.</p>
+<p><code>galah</code> is an R interface to biodiversity data hosted by the ‘living atlases’; a set of organisations that share a common codebase, and act as nodes of the Global Biodiversity Information Facility (<a href="https://www.gbif.org" class="external-link">GBIF</a>). These organisations collate and store observations of individual life forms, using the <a href="https://dwc.tdwg.org" class="external-link">‘Darwin Core’</a> data standard.</p>
 <p><code>galah</code> enables users to locate and download species observations, taxonomic information, record counts, or associated media such as images or sounds. Users can restrict their queries to particular taxa or locations by specifying which columns and rows are returned by a query, or by restricting their results to observations that meet particular quality-control criteria. With a few minor exceptions, all functions return a <code>tibble</code> as their standard format.</p>
 </div>
 <div class="section level2">
@@ -120,22 +120,22 @@
 <div class="section level2">
 <h2 id="choosing-an-atlas">Choosing an atlas<a class="anchor" aria-label="anchor" href="#choosing-an-atlas"></a>
 </h2>
-<p>By default, <code>galah</code> downloads information from the Atlas of Living Australia (ALA). To show the full list of Atlases currently supported by <code>galah</code>, use <code><a href="../reference/show_all.html">show_all_atlases()</a></code>.</p>
+<p>By default, <code>galah</code> downloads information from the Atlas of Living Australia (ALA). To show the full list of Atlases currently supported by <code>galah</code>, use <code>show_all(atlases)</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all_atlases</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all</a></span><span class="op">(</span><span class="va">atlases</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 10 × 4</span></span>
-<span><span class="co">##    atlas          institution                                                             acronym url                         </span></span>
-<span><span class="co">##    &lt;chr&gt;          &lt;chr&gt;                                                                   &lt;chr&gt;   &lt;chr&gt;                       </span></span>
-<span><span class="co">##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      </span></span>
-<span><span class="co">##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at</span></span>
-<span><span class="co">##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        </span></span>
-<span><span class="co">##  4 Estonia        eElurikkus                                                              &lt;NA&gt;    https://elurikkus.ee        </span></span>
-<span><span class="co">##  5 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.mnhn.fr        </span></span>
-<span><span class="co">##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   </span></span>
-<span><span class="co">##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         </span></span>
-<span><span class="co">##  8 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         </span></span>
-<span><span class="co">##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se </span></span>
-<span><span class="co">## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk</span></span></code></pre>
+<span><span class="co">##    atlas          institution                                                     acronym url  </span></span>
+<span><span class="co">##    &lt;chr&gt;          &lt;chr&gt;                                                           &lt;chr&gt;   &lt;chr&gt;</span></span>
+<span><span class="co">##  1 Australia      Atlas of Living Australia                                       ALA     http…</span></span>
+<span><span class="co">##  2 Austria        Biodiversitäts-Atlas Österreich                                 BAO     http…</span></span>
+<span><span class="co">##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira       SiBBr   http…</span></span>
+<span><span class="co">##  4 Estonia        eElurikkus                                                      &lt;NA&gt;    http…</span></span>
+<span><span class="co">##  5 France         Inventaire National du Patrimoine Naturel                       INPN    http…</span></span>
+<span><span class="co">##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de … SNIBgt  http…</span></span>
+<span><span class="co">##  7 Portugal       GBIF Portugal                                                   GBIF.pt http…</span></span>
+<span><span class="co">##  8 Spain          GBIF Spain                                                      GBIF.es http…</span></span>
+<span><span class="co">##  9 Sweden         Swedish Biodiversity Data Infrastructure                        SBDI    http…</span></span>
+<span><span class="co">## 10 United Kingdom National Biodiversity Network                                   NBN     http…</span></span></code></pre>
 <p>Use <code><a href="../reference/galah_config.html">galah_config()</a></code> to set the Atlas to use. This will automatically populate the server configuration for your selected Atlas. By default, the atlas is Australia.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"United Kingdom"</span><span class="op">)</span></span></code></pre></div>
@@ -163,9 +163,9 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="co"># Check whether taxonomic info is correct</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 9</span></span>
-<span><span class="co">##   search_term scientific_name taxon_concept_id                                              rank  match…¹ kingdom phylum class issues</span></span>
-<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                                         &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
-<span><span class="co">## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b… class exactM… Animal… Chord… Rept… noIss…</span></span>
+<span><span class="co">##   search_term scientific_name taxon_concept_id        rank  match…¹ kingdom phylum class issues</span></span>
+<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
+<span><span class="co">## 1 reptilia    REPTILIA        https://biodiversity.o… class exactM… Animal… Chord… Rept… noIss…</span></span>
 <span><span class="co">## # … with abbreviated variable name ¹​match_type</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -193,15 +193,16 @@
 <span></span>
 <span><span class="va">result</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 6 × 9</span></span>
-<span><span class="co">##   decimalLatitude decimalLongitude eventDate            scientificName    taxonConceptID              recor…¹ dataR…² occur…³ basis…⁴</span></span>
-<span><span class="co">##             &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;             &lt;chr&gt;                       &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
-<span><span class="co">## 1           -43.4             147. 2020-09-04T14:00:00Z Litoria ewingii   https://biodiversity.org.a… e8045b… FrogID  PRESENT HUMAN_…</span></span>
-<span><span class="co">## 2           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… 44187a… FrogID  PRESENT HUMAN_…</span></span>
-<span><span class="co">## 3           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… bc34a7… FrogID  PRESENT HUMAN_…</span></span>
-<span><span class="co">## 4           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… ca4707… FrogID  PRESENT HUMAN_…</span></span>
-<span><span class="co">## 5           -43.4             146. 2020-01-01T13:00:00Z Litoria burrowsae https://biodiversity.org.a… 9c71f5… FrogID  PRESENT HUMAN_…</span></span>
-<span><span class="co">## 6           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… 4bbaad… FrogID  PRESENT HUMAN_…</span></span>
-<span><span class="co">## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​basisOfRecord</span></span></code></pre>
+<span><span class="co">##   decimalLatitude decimalLongitude eventDate    scien…¹ taxon…² recor…³ dataR…⁴ occur…⁵ basis…⁶</span></span>
+<span><span class="co">##             &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">## 1           -43.4             147. 2020-09-04T… Litori… https:… e8045b… FrogID  PRESENT HUMAN_…</span></span>
+<span><span class="co">## 2           -43.4             146. 2020-01-01T… Litori… https:… 44187a… FrogID  PRESENT HUMAN_…</span></span>
+<span><span class="co">## 3           -43.4             146. 2020-01-01T… Litori… https:… bc34a7… FrogID  PRESENT HUMAN_…</span></span>
+<span><span class="co">## 4           -43.4             146. 2020-01-01T… Litori… https:… ca4707… FrogID  PRESENT HUMAN_…</span></span>
+<span><span class="co">## 5           -43.4             146. 2020-01-01T… Litori… https:… 9c71f5… FrogID  PRESENT HUMAN_…</span></span>
+<span><span class="co">## 6           -43.4             146. 2020-01-01T… Litori… https:… 4bbaad… FrogID  PRESENT HUMAN_…</span></span>
+<span><span class="co">## # … with abbreviated variable names ¹​scientificName, ²​taxonConceptID, ³​recordID,</span></span>
+<span><span class="co">## #   ⁴​dataResourceName, ⁵​occurrenceStatus, ⁶​basisOfRecord</span></span></code></pre>
 <p>Check out our other vignettes for more detail on how to use these functions.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
