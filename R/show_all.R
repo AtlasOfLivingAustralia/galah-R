@@ -149,7 +149,16 @@ show_all <- function(type){
     check_type_valid(type, valid_types)   
   }
   
-  do.call(paste0("show_all_", type), args = list())
+  # run the appropriate function for each type
+  # if(type == "values" & !missing(field)){
+    # args <- list(field = field)
+  # }else{
+    args <- list()
+  # }
+  
+  df <- do.call(paste0("show_all_", type), args)
+  
+  return(df)
 }
 
 

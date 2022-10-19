@@ -25,7 +25,7 @@ Living Atlas you get data from in `galah`
 ## Supported Atlases
 
 To see which international Living Atlases `galah` currently supports, use  
-`show_all(atlases)`.
+`show_all_atlases()`.
 
 ```{r}
 library(galah)

@@ -9,11 +9,6 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-```{r, include = FALSE}
-galah_config(atlas = "Australia", verbose = FALSE)
-```
-
 # `show_all()` & `search_all()`
 
 As of galah 1.5.0, there are two simplified functions to look up information: 
@@ -34,14 +29,10 @@ To search for a specific available Living Atlas:
 search_all(atlases, "Spain")
 ```
 
-The argument that has by far the largest output is 
-`show_all(fields)`. Fields are used to filter and narrow queries. The full 
-list of fields is too long to display, but here is a slice of the 
-results:
+To show all fields:
 
 ```{r}
-show_all(fields) |>
-  dplyr::slice(1:10) # Take slice of first 10 rows
+show_all(fields)
 ```
 
 And to search for a specific field:
@@ -116,11 +107,13 @@ show_all_atlases()
 show_all_reasons()
 ```
 
-Above, we showed an example of using `show_all(fields)`; the equivalent 
-microfunction is `show_all_fields()`.
+Of these functions, the one that has by far the largest output is 
+`show_all_fields()`. Fields are used to filter and narrow queries. The full 
+list of fields is too long to display, but here is a slice of the 
+results of `show_all_fields()`.
 
 ```{r}
-show_all_fields()) |>
+show_all(fields) |>
   dplyr::slice(1:10) # Take slice of first 10 rows
 ```
 
@@ -193,17 +186,13 @@ galah_call() |>
 This works for several other types of query, such as data profiles:
 
 ```{r}
-search_all(profiles, "ALA") |> 
-  show_values() |> 
-  dplyr::slice(1:10)
+search_all(profiles, "ALA") |> show_values() |> head()
 ```
 
 Or collections:
 
 ```{r}
-search_all(collections, "herbarium") |> 
-  show_values() |> 
-  dplyr::slice(1:10)
+search_all(collections, "herbarium") |> show_values() |> head()
 ```
 
 

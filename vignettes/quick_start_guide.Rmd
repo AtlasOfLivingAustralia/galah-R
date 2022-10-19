@@ -10,13 +10,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 # About
-`galah` is an R interface to biodiversity data hosted by the 'living atlases'; 
-a set of organisations that share a common codebase, and act as nodes of the
-Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)). These 
-organisations collate and store observations of individual life forms, using the 
-['Darwin Core'](https://dwc.tdwg.org) data standard. `galah` was built and is 
-maintained by the [Science & Decision Support Team](https://labs.ala.org.au) at 
-the [Atlas of Living Australia](https://ala.org.au) (ALA).
+`galah` is an R interface to biodiversity data hosted by the 
+[Atlas of Living Australia](https://ala.org.au) (ALA). The ALA is a repository 
+of biodiversity data, focussed primarily on observations of individual life forms. 
+Like the Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)), 
+the basic unit of data at ALA is an **occurrence** record, based on the 
+['Darwin Core'](https://dwc.tdwg.org) data standard.
 
 `galah` enables users to locate and download species observations, taxonomic
 information, record counts, or associated media such as images or sounds. Users 
@@ -49,27 +48,27 @@ library(galah)
 # Choosing an atlas
 By default, `galah` downloads information from the Atlas of Living Australia (ALA).
 To show the full list of Atlases currently supported by `galah`, use 
-`show_all(atlases)`.
+`show_all_atlases()`.
 
 
 ```r
-show_all(atlases)
+show_all_atlases()
 ```
 
 ```
 ## # A tibble: 10 × 4
-##    atlas          institution                                                     acronym url  
-##    <chr>          <chr>                                                           <chr>   <chr>
-##  1 Australia      Atlas of Living Australia                                       ALA     http…
-##  2 Austria        Biodiversitäts-Atlas Österreich                                 BAO     http…
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira       SiBBr   http…
-##  4 Estonia        eElurikkus                                                      <NA>    http…
-##  5 France         Inventaire National du Patrimoine Naturel                       INPN    http…
-##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de … SNIBgt  http…
-##  7 Portugal       GBIF Portugal                                                   GBIF.pt http…
-##  8 Spain          GBIF Spain                                                      GBIF.es http…
-##  9 Sweden         Swedish Biodiversity Data Infrastructure                        SBDI    http…
-## 10 United Kingdom National Biodiversity Network                                   NBN     http…
+##    atlas          institution                                                             acronym url                         
+##    <chr>          <chr>                                                                   <chr>   <chr>                       
+##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
+##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
+##  4 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
+##  5 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.mnhn.fr        
+##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
+##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
+##  8 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
+##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
+## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
 ```
 
 Use `galah_config()` to set the Atlas to use. This will automatically populate the 
@@ -126,9 +125,9 @@ search_taxa("reptilia") # Check whether taxonomic info is correct
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id        rank  match…¹ kingdom phylum class issues
-##   <chr>       <chr>           <chr>                   <chr> <chr>   <chr>   <chr>  <chr> <chr> 
-## 1 reptilia    REPTILIA        https://biodiversity.o… class exactM… Animal… Chord… Rept… noIss…
+##   search_term scientific_name taxon_concept_id                                              rank  match…¹ kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                                         <chr> <chr>   <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b… class exactM… Animal… Chord… Rept… noIss…
 ## # … with abbreviated variable name ¹​match_type
 ```
 
@@ -171,16 +170,15 @@ result |> head()
 
 ```
 ## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate    scien…¹ taxon…² recor…³ dataR…⁴ occur…⁵ basis…⁶
-##             <dbl>            <dbl> <chr>        <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
-## 1           -43.4             147. 2020-09-04T… Litori… https:… e8045b… FrogID  PRESENT HUMAN_…
-## 2           -43.4             146. 2020-01-01T… Litori… https:… 44187a… FrogID  PRESENT HUMAN_…
-## 3           -43.4             146. 2020-01-01T… Litori… https:… bc34a7… FrogID  PRESENT HUMAN_…
-## 4           -43.4             146. 2020-01-01T… Litori… https:… ca4707… FrogID  PRESENT HUMAN_…
-## 5           -43.4             146. 2020-01-01T… Litori… https:… 9c71f5… FrogID  PRESENT HUMAN_…
-## 6           -43.4             146. 2020-01-01T… Litori… https:… 4bbaad… FrogID  PRESENT HUMAN_…
-## # … with abbreviated variable names ¹​scientificName, ²​taxonConceptID, ³​recordID,
-## #   ⁴​dataResourceName, ⁵​occurrenceStatus, ⁶​basisOfRecord
+##   decimalLatitude decimalLongitude eventDate            scientificName    taxonConceptID              recor…¹ dataR…² occur…³ basis…⁴
+##             <dbl>            <dbl> <chr>                <chr>             <chr>                       <chr>   <chr>   <chr>   <chr>  
+## 1           -43.4             147. 2020-09-04T14:00:00Z Litoria ewingii   https://biodiversity.org.a… e8045b… FrogID  PRESENT HUMAN_…
+## 2           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… 44187a… FrogID  PRESENT HUMAN_…
+## 3           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… bc34a7… FrogID  PRESENT HUMAN_…
+## 4           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… ca4707… FrogID  PRESENT HUMAN_…
+## 5           -43.4             146. 2020-01-01T13:00:00Z Litoria burrowsae https://biodiversity.org.a… 9c71f5… FrogID  PRESENT HUMAN_…
+## 6           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… 4bbaad… FrogID  PRESENT HUMAN_…
+## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​basisOfRecord
 ```
 
 Check out our other vignettes for more detail on how to use these functions.
