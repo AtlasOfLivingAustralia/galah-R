@@ -10,11 +10,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 # About
-`galah` is an R interface to biodiversity data hosted by the 
-[Atlas of Living Australia](https://ala.org.au) (ALA). The ALA is a repository 
-of biodiversity data, focussed primarily on observations of individual life forms. 
-Like the Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)), 
-the basic unit of data at ALA is an **occurrence** record, based on the 
+`galah` is an R interface to biodiversity data hosted by the 'living atlases'; 
+a set of organisations that share a common codebase, and act as nodes of the
+Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)). These 
+organisations collate and store observations of individual life forms, using the 
 ['Darwin Core'](https://dwc.tdwg.org) data standard.
 
 `galah` enables users to locate and download species observations, taxonomic

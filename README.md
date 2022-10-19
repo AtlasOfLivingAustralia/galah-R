@@ -1,4 +1,10 @@
+---
+output: github_document
+---
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+
 
 <img src="man/figures/logo.png" align="left" style="margin: 0px 10px 0px 0px;" alt="" width="120"/><h2>galah</h2>
 
@@ -9,24 +15,24 @@
 
 ---
 
-`galah` is an R interface to biodiversity data hosted by the [Atlas of
-Living Australia](https://www.ala.org.au/) (ALA). It enables users to
-locate and download species occurrence records (observations, specimens, eDNA 
-records, etc.), taxonomic information, or associated media such as
-images or sounds, and to restrict their queries to particular taxa or
+`galah` is an R interface to biodiversity data hosted by the 'living atlases'; 
+a set of organisations that share a common codebase, and act as nodes of the
+Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)). These 
+organisations collate and store observations of individual life forms, using the 
+['Darwin Core'](https://dwc.tdwg.org) data standard. `galah` was built and is 
+maintained by the [Science & Decision Support Team](https://labs.ala.org.au) at 
+the [Atlas of Living Australia](https://ala.org.au) (ALA).
+
+`galah` enables users to locate and download species occurrence records (observations, 
+specimens, eDNA records, etc.), taxonomic information, or associated media such 
+as images or sounds, and to restrict their queries to particular taxa or
 locations. Users can specify which columns are returned by a query, or restrict
 their results to occurrences that meet particular data-quality criteria. All 
 functions return a `tibble` as their standard format, except
 `atlas_taxonomy` which returns tree consisting of `Node` objects using the 
 `data.tree` package.
 
-The ALA is an aggregator of biodiversity data, focussed primarily on
-observations of individual life forms. Like the Global Biodiversity Information
-Facility ([GBIF](https://www.gbif.org)), the basic unit of data at ALA is an 
-occurrence record, based on the ['Darwin Core'](https://dwc.tdwg.org) data
-standard.
-
-The `galah` package is named for the bird of the same name
+The package is named for the bird of the same name
 (*Eolophus roseicapilla*), a widely-distributed endemic Australian species. The 
 logo was designed by [Ian Brennan](http://www.iangbrennan.org/).
 
@@ -38,8 +44,8 @@ If you have any comments, questions or suggestions, please [contact us](mailto:s
 
 ## Getting started
 
-- The [vignette](https://atlasoflivingaustralia.github.io/galah/articles/quick_start_guide.html) provides an introduction to the package functions.
-- For an outline of the package structure, and a list of all the available functions, run `?galah` or view the [reference page](https://atlasoflivingaustralia.github.io/galah/reference/index.html).
+- The [quick start guide](http://galah.ala.org.au/articles/quick_start_guide.html) provides an introduction to the package functions.
+- For an outline of the package structure, and a list of all the available functions, run `?galah` or view the [reference page](http://galah.ala.org.au/index.html).
 
 ---
 

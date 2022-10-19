@@ -154,8 +154,7 @@ If you have any questions, comments or suggestions, please email
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/AtlasOfLivingAustralia/galah}
-  \item \url{https://atlasoflivingaustralia.github.io/galah/}
+  \item \url{https://galah.ala.org.au}
   \item Report bugs at \url{https://github.com/AtlasOfLivingAustralia/galah/issues}
 }
 

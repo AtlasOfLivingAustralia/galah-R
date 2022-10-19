@@ -9,6 +9,10 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+```{r, include = FALSE}
+galah_config(atlas = "Australia", verbose = FALSE)
+```
+
 # `show_all()` & `search_all()`
 
 As of galah 1.5.0, there are two simplified functions to look up information: 

@@ -43,7 +43,7 @@ vcr::use_cassette("IA_search_taxa_multiple_UK", {
 
 vcr::use_cassette("IA_search_taxa_types_UK", {
   test_that("search_taxa doesn't break with typos", {
-    expect_no_error(search_taxa("Vlpes"))
+    expect_silent(search_taxa("Vlpes"))
   })
 })
 

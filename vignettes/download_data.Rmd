@@ -9,7 +9,6 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
 The `atlas_` functions are used to return data from the atlas chosen using 
 `galah_config()`. They are:
 
@@ -31,6 +30,7 @@ without needing to download all the records.
 
 
 ```r
+galah_config(atlas = "Australia")
 # Total number of records in the ALA
 atlas_counts()
 ```
@@ -39,7 +39,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 205571136
+## 1 114080945
 ```
 
 In addition to the filter arguments, it has an optional `group_by` argument, 
@@ -53,14 +53,19 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 5 × 2
-##   kingdom       count
-##   <chr>         <int>
-## 1 Animalia  168560705
-## 2 Plantae    32051531
-## 3 Fungi       4156341
-## 4 Chromista    694290
-## 5 Protozoa      36670
+## # A tibble: 10 × 2
+##    kingdom      count
+##    <chr>        <int>
+##  1 Animalia  86721724
+##  2 Plantae   23682009
+##  3 Fungi      2069747
+##  4 Chromista   851968
+##  5 Protista    142019
+##  6 Bacteria     71333
+##  7 Protozoa      3177
+##  8 Eukaryota     1338
+##  9 Archaea       1106
+## 10 Virus          511
 ```
 
 
@@ -77,28 +82,21 @@ species <- galah_call() |>
   galah_identify("Rodentia") |>
   galah_filter(stateProvince == "Northern Territory") |>
   atlas_species()
-```
-
-```
-## Warning: Invalid field(s) detected.
-## ℹ See a listing of all valid fields with `show_all_fields()`.
-## ℹ Search for the valid name of a desired field with `search_fields()`.
-## ✖ Invalid field(s): stateProvince.
-```
-
-```
-## No species matching the supplied filters were found.
-## Calling the API failed for `atlas_species`.
-## ℹ This might mean that the API is down
-## ℹ Double check that your query is correct, or try again later
-```
-
-```r
+  
 species |> head()
 ```
 
 ```
-## # A tibble: 0 × 0
+## # A tibble: 6 × 10
+##   kingdom  phylum   class    order    family  genus        species       author speci…¹ verna…²
+##   <chr>    <chr>    <chr>    <chr>    <chr>   <chr>        <chr>         <chr>  <chr>   <chr>  
+## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys… (J.E.… https:… Black-…
+## 2 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argu… (Thom… https:… Common…
+## 3 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys he… (Wait… https:… Sandy …
+## 4 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alex… Thoma… https:… Spinif…
+## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burt… (Rams… https:… Grassl…
+## 6 Animalia Chordata Mammalia Rodentia Muridae Mus          Mus musculus  Linna… https:… House …
+## # … with abbreviated variable names ¹​species_guid, ²​vernacular_name
 ```
 
 
@@ -132,15 +130,16 @@ occ |> head()
 
 ```
 ## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate            scientificName        taxonConceptID          recor…¹ dataR…² occur…³ insti…⁴
-##             <dbl>            <dbl> <chr>                <chr>                 <chr>                   <chr>   <chr>   <chr>   <chr>  
-## 1           -35.9             149. 2020-09-12T14:00:00Z Eolophus roseicapilla https://biodiversity.o… 17f46d… eBird … PRESENT ""     
-## 2           -35.9             149. 2014-10-24T02:00:00Z Eolophus roseicapilla https://biodiversity.o… b0e189… Nature… PRESENT ""     
-## 3           -35.9             149. 2021-09-27T14:00:00Z Eolophus roseicapilla https://biodiversity.o… dbb711… eBird … PRESENT ""     
-## 4           -35.9             149. 2012-01-18T13:00:00Z Eolophus roseicapilla https://biodiversity.o… 4f7cd7… BirdLi… PRESENT ""     
-## 5           -35.9             149. 2012-01-18T02:00:00Z Eolophus roseicapilla https://biodiversity.o… 147acb… Nature… PRESENT ""     
-## 6           -35.9             149. 2017-03-17T13:00:00Z Eolophus roseicapilla https://biodiversity.o… 3236c4… eBird … PRESENT ""     
-## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​institutionID
+##   decimalLatitude decimalLongitude eventDate    scien…¹ taxon…² recor…³ dataR…⁴ occur…⁵ insti…⁶
+##             <dbl>            <dbl> <chr>        <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+## 1           -35.9             149. 2020-09-12T… Eoloph… https:… 17f46d… eBird … PRESENT ""     
+## 2           -35.9             149. 2014-10-24T… Eoloph… https:… b0e189… Nature… PRESENT ""     
+## 3           -35.9             149. 2021-09-27T… Eoloph… https:… dbb711… eBird … PRESENT ""     
+## 4           -35.9             149. 2012-01-18T… Eoloph… https:… 4f7cd7… BirdLi… PRESENT ""     
+## 5           -35.9             149. 2012-01-18T… Eoloph… https:… 147acb… Nature… PRESENT ""     
+## 6           -35.9             149. 2017-03-17T… Eoloph… https:… 3236c4… eBird … PRESENT ""     
+## # … with abbreviated variable names ¹​scientificName, ²​taxonConceptID, ³​recordID,
+## #   ⁴​dataResourceName, ⁵​occurrenceStatus, ⁶​institutionID
 ```
 
 

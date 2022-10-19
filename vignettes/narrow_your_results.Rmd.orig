@@ -127,7 +127,7 @@ galah_call() |>
 ```
 
 To find available fields and corresponding valid values, use the field lookup 
-functions `show_all_fields`, `search_fields` and `search_field_values`.  
+functions `show_all(fields)`, `search_all(fields)` & `show_values()`.  
 
 Finally, a special case of `galah_filter` is to make more complex taxonomic
 queries than are possible using `search_taxa`. By using the `taxonConceptID` 
