@@ -22,7 +22,7 @@ Living Atlas you get data from in `galah`
 ## Supported Atlases
 
 To see which international Living Atlases `galah` currently supports, use  
-`show_all_atlases()`.
+`show_all(atlases)`.
 
 
 ```r
@@ -31,9 +31,19 @@ show_all(atlases)
 ```
 
 ```
-## Error in `show_all()`:
-## ! type `c(\c(\Australia\, \Austria\, \Brazil\, \Estonia\, \France\, \Guatemala\, \Portugal\, \Spain\, \Sweden\, \United Kingdom\)\, \c(\Atlas of Living Australia\, \Biodiversitäts-Atlas Österreich\, \Sistemas de Informações sobre a Biodiversidade Brasileira\, \eElurikkus\, \Inventaire National du Patrimoine Naturel\, \Sistema Nacional de Información sobre Diversidad Biológica de Guatemala\, \GBIF Portugal\, \GBIF Spain\, \Swedish Biodiversity Data Infrastructure\, \National Biodiversity Network\)\, \c(\ALA\, \BAO\, \SiBBr\, NA, \INPN\, \SNIBgt\, \GBIF.pt\, \GBIF.es\, \SBDI\, \NBN\)\, \c(\https://www.ala.org.au\, \https://biodiversityatlas.at\, \https://sibbr.gov.br\, \https://elurikkus.ee\, \https://inpn.mnhn.fr\, \https://snib.conap.gob.gt\, \https://www.gbif.pt\, \https://www.gbif.es\, \https://biodiversitydata.se\, \https://nbn.org.uk\)\)` is not recognised
-## ℹ see ?show_all for a list of valid information types.
+## # A tibble: 10 × 4
+##    atlas          institution                                                     acronym url  
+##    <chr>          <chr>                                                           <chr>   <chr>
+##  1 Australia      Atlas of Living Australia                                       ALA     http…
+##  2 Austria        Biodiversitäts-Atlas Österreich                                 BAO     http…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira       SiBBr   http…
+##  4 Estonia        eElurikkus                                                      <NA>    http…
+##  5 France         Inventaire National du Patrimoine Naturel                       INPN    http…
+##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de … SNIBgt  http…
+##  7 Portugal       GBIF Portugal                                                   GBIF.pt http…
+##  8 Spain          GBIF Spain                                                      GBIF.es http…
+##  9 Sweden         Swedish Biodiversity Data Infrastructure                        SBDI    http…
+## 10 United Kingdom National Biodiversity Network                                   NBN     http…
 ```
 
 Some atlases support more types of data queries than others (e.g. counts, 
@@ -48,18 +58,18 @@ show_all(apis)
 
 ```
 ## # A tibble: 167 × 5
-##    atlas     system       api_name                api_url                                                                     calle…¹
-##    <chr>     <chr>        <chr>                   <chr>                                                                       <chr>  
-##  1 Australia collections  collections_collections https://collections.ala.org.au/ws/collection                                show_a…
-##  2 Australia collections  collections_datasets    https://collections.ala.org.au/ws/dataResource                              show_a…
-##  3 Australia collections  collections_providers   https://collections.ala.org.au/ws/dataProvider                              show_a…
-##  4 Australia data-quality profiles_all            https://data-quality-service.ala.org.au/api/v1/data-profiles                show_a…
-##  5 Australia data-quality profiles_lookup         https://data-quality-service.ala.org.au/api/v1/quality/activeProfile?profi… show_p…
-##  6 Australia doi          doi_download            https://apis.ala.org.au/doi/api/doi/{doi_string}/download                   doi_do…
-##  7 Australia images       image_licences          https://images.ala.org.au/ws/licence                                        show_a…
-##  8 Australia images       image_metadata          https://images.ala.org.au/ws/image/{id}                                     media_…
-##  9 Australia lists        lists_all               https://lists.ala.org.au/ws/speciesList                                     show_a…
-## 10 Australia lists        lists_lookup            https://lists.ala.org.au/ws/speciesListItems/{list_id}                      show_l…
+##    atlas     system       api_name                api_url                               calle…¹
+##    <chr>     <chr>        <chr>                   <chr>                                 <chr>  
+##  1 Australia collections  collections_collections https://collections.ala.org.au/ws/co… show_a…
+##  2 Australia collections  collections_datasets    https://collections.ala.org.au/ws/da… show_a…
+##  3 Australia collections  collections_providers   https://collections.ala.org.au/ws/da… show_a…
+##  4 Australia data-quality profiles_all            https://data-quality-service.ala.org… show_a…
+##  5 Australia data-quality profiles_lookup         https://data-quality-service.ala.org… show_p…
+##  6 Australia doi          doi_download            https://apis.ala.org.au/doi/api/doi/… doi_do…
+##  7 Australia images       image_licences          https://images.ala.org.au/ws/licence  show_a…
+##  8 Australia images       image_metadata          https://images.ala.org.au/ws/image/{… media_…
+##  9 Australia lists        lists_all               https://lists.ala.org.au/ws/speciesL… show_a…
+## 10 Australia lists        lists_lookup            https://lists.ala.org.au/ws/speciesL… show_l…
 ## # … with 157 more rows, and abbreviated variable name ¹​called_by
 ```
 
@@ -91,18 +101,18 @@ show_all(datasets)
 
 ```
 ## # A tibble: 522 × 3
-##    name                                                                                                                   uri   uid  
-##    <chr>                                                                                                                  <chr> <chr>
-##  1 A Distribution and Taxonomic Reference Dataset of Geranium (Geraniaceae) in the New World                              http… dr321
-##  2 A global database for the distributions of crop wild relatives                                                         http… dr12 
-##  3 A matrix-based revision of the genus Hypogena Dejean, 1834 (Coleoptera Tenebrionidae)                                  http… dr467
-##  4 A new Mexican species of Chrysina Kirby (Coleoptera: Scarabaeidae: Rutelinae), with nomenclatural changes, new record… http… dr554
-##  5 A new species of Setostylus Matile and new records of Setostylus bellulus (Williston) (Diptera: Keroplatidae)          http… dr538
-##  6 A revision of the genus Bromeloecia Spuler (Diptera: Sphaeroceridae: Limosininae)                                      http… dr481
-##  7 A synopsis of American Caraphia Gahan, 1906 (Coleoptera: Cerambycidae: Lepturinae) with description of two new species http… dr539
-##  8 A synopsis of the Neotropical genus Protoneura (Odonata: Coenagrionidae)                                               http… dr448
-##  9 A systematic revision of the genus Archocentrus (Perciformes: Cichlidae), with the description of two new genera and … http… dr362
-## 10 A taxonomic monograph of the genus Tylodinus Champion (Coleoptera: Curculionidae: Cryptorhynchinae: Tylodina) of Chia… http… dr564
+##    name                                                                             uri   uid  
+##    <chr>                                                                            <chr> <chr>
+##  1 A Distribution and Taxonomic Reference Dataset of Geranium (Geraniaceae) in the… http… dr321
+##  2 A global database for the distributions of crop wild relatives                   http… dr12 
+##  3 A matrix-based revision of the genus Hypogena Dejean, 1834 (Coleoptera Tenebrio… http… dr467
+##  4 A new Mexican species of Chrysina Kirby (Coleoptera: Scarabaeidae: Rutelinae), … http… dr554
+##  5 A new species of Setostylus Matile and new records of Setostylus bellulus (Will… http… dr538
+##  6 A revision of the genus Bromeloecia Spuler (Diptera: Sphaeroceridae: Limosinina… http… dr481
+##  7 A synopsis of American Caraphia Gahan, 1906 (Coleoptera: Cerambycidae: Lepturin… http… dr539
+##  8 A synopsis of the Neotropical genus Protoneura (Odonata: Coenagrionidae)         http… dr448
+##  9 A systematic revision of the genus Archocentrus (Perciformes: Cichlidae), with … http… dr362
+## 10 A taxonomic monograph of the genus Tylodinus Champion (Coleoptera: Curculionida… http… dr564
 ## # … with 512 more rows
 ```
 
@@ -112,18 +122,18 @@ show_all(fields)
 
 ```
 ## # A tibble: 129 × 4
-##    id                   description                                                                                       type  link 
-##    <chr>                <chr>                                                                                             <chr> <chr>
-##  1 all_image_url        Image URLs for this record                                                                        fiel… <NA> 
-##  2 assertion_user_id    User ID of the person who has made an assertion about this record                                 fiel… <NA> 
-##  3 assertions           A list of all assertions (user and system supplied) for a record resulting from data quality tes… fiel… <NA> 
-##  4 assertions_missing   Assertion indicating missing field values for a record. E.g. missing basis of record              fiel… <NA> 
-##  5 assertions_passed    Assertion indicating a data quality test has been passed by this record                           fiel… <NA> 
-##  6 assertions_unchecked Assertion indicating a data quality test was not performed for this record typically due to the … fiel… <NA> 
-##  7 basis_of_record      The basis of record e.g. Specimen, Observation http://rs.tdwg.org/dwc/terms/basisOfRecord         fiel… <NA> 
-##  8 catalogue_number     http://rs.tdwg.org/dwc/terms/catalogNumber                                                        fiel… <NA> 
-##  9 class                The class the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/class      fiel… <NA> 
-## 10 collection_code      The collection code for this record. This will be populated if the data has come from a museum o… fiel… <NA> 
+##    id                   description                                                 type  link 
+##    <chr>                <chr>                                                       <chr> <chr>
+##  1 all_image_url        Image URLs for this record                                  fiel… <NA> 
+##  2 assertion_user_id    User ID of the person who has made an assertion about this… fiel… <NA> 
+##  3 assertions           A list of all assertions (user and system supplied) for a … fiel… <NA> 
+##  4 assertions_missing   Assertion indicating missing field values for a record. E.… fiel… <NA> 
+##  5 assertions_passed    Assertion indicating a data quality test has been passed b… fiel… <NA> 
+##  6 assertions_unchecked Assertion indicating a data quality test was not performed… fiel… <NA> 
+##  7 basis_of_record      The basis of record e.g. Specimen, Observation http://rs.t… fiel… <NA> 
+##  8 catalogue_number     http://rs.tdwg.org/dwc/terms/catalogNumber                  fiel… <NA> 
+##  9 class                The class the Atlas has matched this record to in the NSL … fiel… <NA> 
+## 10 collection_code      The collection code for this record. This will be populate… fiel… <NA> 
 ## # … with 119 more rows
 ```
 
@@ -133,11 +143,11 @@ search_all(fields, "year")
 
 ```
 ## # A tibble: 3 × 4
-##   id              description                                                                                             type  link 
-##   <chr>           <chr>                                                                                                   <chr> <chr>
-## 1 year            http://rs.tdwg.org/dwc/terms/year                                                                       fiel… <NA> 
-## 2 occurrence_year Year ranges for a search. Calculated based on the unique values for a query.                            fiel… <NA> 
-## 3 date_precision  The precision of the date information for the record. Values include 'Day', 'Month', 'Year', 'Year ran… fiel… <NA>
+##   id              description                                                       type  link 
+##   <chr>           <chr>                                                             <chr> <chr>
+## 1 year            http://rs.tdwg.org/dwc/terms/year                                 fiel… <NA> 
+## 2 occurrence_year Year ranges for a search. Calculated based on the unique values … fiel… <NA> 
+## 3 date_precision  The precision of the date information for the record. Values inc… fiel… <NA>
 ```
 
 ```r
@@ -146,9 +156,11 @@ search_taxa("lagomorpha")
 
 ```
 ## # A tibble: 1 × 12
-##   search_term taxon_concept_id scientific_name scientific_name_authorship rank  kingdom  phylum   class    order family genus species
-##   <chr>       <chr>            <chr>           <chr>                      <chr> <chr>    <chr>    <chr>    <chr> <chr>  <chr> <chr>  
-## 1 lagomorpha  785              Lagomorpha      <NA>                       order Animalia Chordata Mammalia Lago… <NA>   <NA>  <NA>
+##   search_term taxon_con…¹ scien…² scien…³ rank  kingdom phylum class order family genus species
+##   <chr>       <chr>       <chr>   <chr>   <chr> <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>  
+## 1 lagomorpha  785         Lagomo… <NA>    order Animal… Chord… Mamm… Lago… <NA>   <NA>  <NA>   
+## # … with abbreviated variable names ¹​taxon_concept_id, ²​scientific_name,
+## #   ³​scientific_name_authorship
 ```
 
 ## Download data
@@ -177,10 +189,11 @@ search_taxa("vulpes") # Returns data
 
 ```
 ## # A tibble: 1 × 13
-##   search_term taxon_concept_id scientific_name scientific_name_author…¹ rank  kingdom super…² order class genus phylum family species
-##   <chr>       <chr>            <chr>           <chr>                    <chr> <chr>   <chr>   <chr> <chr> <chr> <chr>  <chr>  <chr>  
-## 1 vulpes      NBNSYS0000138878 Vulpes          Frisch, 1775             genus Animal… Tetrap… Carn… Mamm… Vulp… Chord… Canid… <NA>   
-## # … with abbreviated variable names ¹​scientific_name_authorship, ²​superclass
+##   searc…¹ taxon…² scien…³ scien…⁴ rank  kingdom super…⁵ order class genus phylum family species
+##   <chr>   <chr>   <chr>   <chr>   <chr> <chr>   <chr>   <chr> <chr> <chr> <chr>  <chr>  <chr>  
+## 1 vulpes  NBNSYS… Vulpes  Frisch… genus Animal… Tetrap… Carn… Mamm… Vulp… Chord… Canid… <NA>   
+## # … with abbreviated variable names ¹​search_term, ²​taxon_concept_id, ³​scientific_name,
+## #   ⁴​scientific_name_authorship, ⁵​superclass
 ```
 
 ```r
@@ -215,16 +228,16 @@ galah_call() |>
 ## # A tibble: 39 × 2
 ##    scientificName                                         year
 ##    <chr>                                                 <int>
-##  1 Sylvilagus floridanus (J. A. Allen, 1890)              1960
-##  2 Sylvilagus brasiliensis subsp. truei (J. Allen, 1890)  1960
-##  3 Sylvilagus floridanus (J. A. Allen, 1890)              1952
-##  4 Sylvilagus floridanus (J. A. Allen, 1890)              1955
-##  5 Sylvilagus floridanus (J. A. Allen, 1890)              1955
-##  6 Sylvilagus floridanus (J. A. Allen, 1890)              1971
-##  7 Sylvilagus brasiliensis subsp. gabbi (J. Allen, 1877)  1948
-##  8 Sylvilagus floridanus (J. A. Allen, 1890)              1971
-##  9 Sylvilagus floridanus subsp. aztecus (J. Allen, 1890)  1924
-## 10 Sylvilagus floridanus subsp. aztecus (J. Allen, 1890)  1924
+##  1 Sylvilagus floridanus subsp. aztecus (J. Allen, 1890)  1947
+##  2 Sylvilagus floridanus (J. A. Allen, 1890)              1960
+##  3 Sylvilagus floridanus (J. A. Allen, 1890)              1963
+##  4 Sylvilagus brasiliensis subsp. truei (J. Allen, 1890)  1934
+##  5 Sylvilagus floridanus (J. A. Allen, 1890)              1968
+##  6 Sylvilagus brasiliensis subsp. truei (J. Allen, 1890)  1947
+##  7 Sylvilagus floridanus (J. A. Allen, 1890)              1968
+##  8 Sylvilagus floridanus (J. A. Allen, 1890)              1968
+##  9 Sylvilagus floridanus (J. A. Allen, 1890)              1971
+## 10 Sylvilagus brasiliensis subsp. gabbi (J. Allen, 1877)  1948
 ## # … with 29 more rows
 ```
 
@@ -244,15 +257,7 @@ library(dplyr)
 library(gt)
 
 atlases <- show_all(atlases)
-```
 
-```
-## Error in `show_all()`:
-## ! type `c(\c(\Australia\, \Austria\, \Brazil\, \Estonia\, \France\, \Guatemala\, \Portugal\, \Spain\, \Sweden\, \United Kingdom\)\, \c(\Atlas of Living Australia\, \Biodiversitäts-Atlas Österreich\, \Sistemas de Informações sobre a Biodiversidade Brasileira\, \eElurikkus\, \Inventaire National du Patrimoine Naturel\, \Sistema Nacional de Información sobre Diversidad Biológica de Guatemala\, \GBIF Portugal\, \GBIF Spain\, \Swedish Biodiversity Data Infrastructure\, \National Biodiversity Network\)\, \c(\ALA\, \BAO\, \SiBBr\, NA, \INPN\, \SNIBgt\, \GBIF.pt\, \GBIF.es\, \SBDI\, \NBN\)\, \c(\https://www.ala.org.au\, \https://biodiversityatlas.at\, \https://sibbr.gov.br\, \https://elurikkus.ee\, \https://inpn.mnhn.fr\, \https://snib.conap.gob.gt\, \https://www.gbif.pt\, \https://www.gbif.es\, \https://biodiversitydata.se\, \https://nbn.org.uk\)\)` is not recognised
-## ℹ see ?show_all for a list of valid information types.
-```
-
-```r
 counts <- map(atlases$atlas, 
   function(x){
     galah_config(atlas = x)
@@ -267,12 +272,12 @@ tibble(
   gt()
 ```
 
-<!--html_preserve--><div id="seaxryzbqj" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<!--html_preserve--><div id="kbcwdcxcta" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#seaxryzbqj .gt_table {
+#kbcwdcxcta .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -297,7 +302,7 @@ tibble(
   border-left-color: #D3D3D3;
 }
 
-#seaxryzbqj .gt_heading {
+#kbcwdcxcta .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -309,7 +314,7 @@ tibble(
   border-right-color: #D3D3D3;
 }
 
-#seaxryzbqj .gt_title {
+#kbcwdcxcta .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -321,7 +326,7 @@ tibble(
   border-bottom-width: 0;
 }
 
-#seaxryzbqj .gt_subtitle {
+#kbcwdcxcta .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -333,13 +338,13 @@ tibble(
   border-top-width: 0;
 }
 
-#seaxryzbqj .gt_bottom_border {
+#kbcwdcxcta .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#seaxryzbqj .gt_col_headings {
+#kbcwdcxcta .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -354,7 +359,7 @@ tibble(
   border-right-color: #D3D3D3;
 }
 
-#seaxryzbqj .gt_col_heading {
+#kbcwdcxcta .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -374,7 +379,7 @@ tibble(
   overflow-x: hidden;
 }
 
-#seaxryzbqj .gt_column_spanner_outer {
+#kbcwdcxcta .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -386,15 +391,15 @@ tibble(
   padding-right: 4px;
 }
 
-#seaxryzbqj .gt_column_spanner_outer:first-child {
+#kbcwdcxcta .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#seaxryzbqj .gt_column_spanner_outer:last-child {
+#kbcwdcxcta .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#seaxryzbqj .gt_column_spanner {
+#kbcwdcxcta .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -406,7 +411,7 @@ tibble(
   width: 100%;
 }
 
-#seaxryzbqj .gt_group_heading {
+#kbcwdcxcta .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -431,7 +436,7 @@ tibble(
   vertical-align: middle;
 }
 
-#seaxryzbqj .gt_empty_group_heading {
+#kbcwdcxcta .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -446,15 +451,15 @@ tibble(
   vertical-align: middle;
 }
 
-#seaxryzbqj .gt_from_md > :first-child {
+#kbcwdcxcta .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#seaxryzbqj .gt_from_md > :last-child {
+#kbcwdcxcta .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#seaxryzbqj .gt_row {
+#kbcwdcxcta .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -473,7 +478,7 @@ tibble(
   overflow-x: hidden;
 }
 
-#seaxryzbqj .gt_stub {
+#kbcwdcxcta .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -486,7 +491,7 @@ tibble(
   padding-right: 5px;
 }
 
-#seaxryzbqj .gt_stub_row_group {
+#kbcwdcxcta .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -500,11 +505,11 @@ tibble(
   vertical-align: top;
 }
 
-#seaxryzbqj .gt_row_group_first td {
+#kbcwdcxcta .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#seaxryzbqj .gt_summary_row {
+#kbcwdcxcta .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -514,16 +519,16 @@ tibble(
   padding-right: 5px;
 }
 
-#seaxryzbqj .gt_first_summary_row {
+#kbcwdcxcta .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#seaxryzbqj .gt_first_summary_row.thick {
+#kbcwdcxcta .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#seaxryzbqj .gt_last_summary_row {
+#kbcwdcxcta .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -533,7 +538,7 @@ tibble(
   border-bottom-color: #D3D3D3;
 }
 
-#seaxryzbqj .gt_grand_summary_row {
+#kbcwdcxcta .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -543,7 +548,7 @@ tibble(
   padding-right: 5px;
 }
 
-#seaxryzbqj .gt_first_grand_summary_row {
+#kbcwdcxcta .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -553,11 +558,11 @@ tibble(
   border-top-color: #D3D3D3;
 }
 
-#seaxryzbqj .gt_striped {
+#kbcwdcxcta .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#seaxryzbqj .gt_table_body {
+#kbcwdcxcta .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -566,7 +571,7 @@ tibble(
   border-bottom-color: #D3D3D3;
 }
 
-#seaxryzbqj .gt_footnotes {
+#kbcwdcxcta .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -580,7 +585,7 @@ tibble(
   border-right-color: #D3D3D3;
 }
 
-#seaxryzbqj .gt_footnote {
+#kbcwdcxcta .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -589,7 +594,7 @@ tibble(
   padding-right: 5px;
 }
 
-#seaxryzbqj .gt_sourcenotes {
+#kbcwdcxcta .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -603,7 +608,7 @@ tibble(
   border-right-color: #D3D3D3;
 }
 
-#seaxryzbqj .gt_sourcenote {
+#kbcwdcxcta .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -611,36 +616,36 @@ tibble(
   padding-right: 5px;
 }
 
-#seaxryzbqj .gt_left {
+#kbcwdcxcta .gt_left {
   text-align: left;
 }
 
-#seaxryzbqj .gt_center {
+#kbcwdcxcta .gt_center {
   text-align: center;
 }
 
-#seaxryzbqj .gt_right {
+#kbcwdcxcta .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#seaxryzbqj .gt_font_normal {
+#kbcwdcxcta .gt_font_normal {
   font-weight: normal;
 }
 
-#seaxryzbqj .gt_font_bold {
+#kbcwdcxcta .gt_font_bold {
   font-weight: bold;
 }
 
-#seaxryzbqj .gt_font_italic {
+#kbcwdcxcta .gt_font_italic {
   font-style: italic;
 }
 
-#seaxryzbqj .gt_super {
+#kbcwdcxcta .gt_super {
   font-size: 65%;
 }
 
-#seaxryzbqj .gt_two_val_uncert {
+#kbcwdcxcta .gt_two_val_uncert {
   display: inline-block;
   line-height: 1em;
   text-align: right;
@@ -649,31 +654,31 @@ tibble(
   margin-left: 0.1em;
 }
 
-#seaxryzbqj .gt_footnote_marks {
+#kbcwdcxcta .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#seaxryzbqj .gt_asterisk {
+#kbcwdcxcta .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#seaxryzbqj .gt_slash_mark {
+#kbcwdcxcta .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#seaxryzbqj .gt_fraction_numerator {
+#kbcwdcxcta .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#seaxryzbqj .gt_fraction_denominator {
+#kbcwdcxcta .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -697,13 +702,13 @@ tibble(
     <tr><td class="gt_row gt_left">Spain</td>
 <td class="gt_row gt_right">38269601</td></tr>
     <tr><td class="gt_row gt_left">Brazil</td>
-<td class="gt_row gt_right">22168310</td></tr>
+<td class="gt_row gt_right">22345400</td></tr>
     <tr><td class="gt_row gt_left">Portugal</td>
 <td class="gt_row gt_right">16043865</td></tr>
     <tr><td class="gt_row gt_left">Austria</td>
 <td class="gt_row gt_right">7813712</td></tr>
     <tr><td class="gt_row gt_left">Estonia</td>
-<td class="gt_row gt_right">6972024</td></tr>
+<td class="gt_row gt_right">6972047</td></tr>
     <tr><td class="gt_row gt_left">Guatemala</td>
 <td class="gt_row gt_right">3509690</td></tr>
   </tbody>
