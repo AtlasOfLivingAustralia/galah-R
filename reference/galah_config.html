@@ -3,7 +3,7 @@
 interfaces with the ALA which requires that users of some services
 provide a registered email address and reason for downloading data. The
 galah_config function provides a way to manage these issues as simply
-as possible."><title>Get or set configuration options that control galah behaviour — galah_config • galah</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet"><meta property="og:title" content="Get or set configuration options that control galah behaviour — galah_config"><meta property="og:description" content="The galah package supports large data downloads, and also
+as possible."><title>Get or set configuration options that control galah behaviour — galah_config • galah</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet"><meta property="og:title" content="Get or set configuration options that control galah behaviour — galah_config"><meta property="og:description" content="The galah package supports large data downloads, and also
 interfaces with the ALA which requires that users of some services
 provide a registered email address and reason for downloading data. The
 galah_config function provides a way to manage these issues as simply
@@ -18,7 +18,7 @@ as possible."><meta property="og:image" content="https://atlasoflivingaustralia.
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,7 @@ as possible."><meta property="og:image" content="https://atlasoflivingaustralia.
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
     <a class="dropdown-item" href="../articles/syntax_changes.html">Syntax changes</a>
+    <a class="dropdown-item" href="../articles/international_atlases.html">International atlases</a>
   </div>
 </li>
 <li class="active nav-item">
@@ -81,7 +82,7 @@ as possible.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
-<dd><p>Options can be defined using the form <code>name = value</code>.
+<dd><p>Options can be defined using the form <code>name = "value"</code>.
 Valid arguments are:</p><ul><li><p><code>atlas</code> string: Living Atlas to point to, Australia by default</p></li>
 <li><p><code>caching</code> logical: if TRUE, results will be cached, and any cached
 results will be re-used). If FALSE, data will be downloaded.</p></li>
@@ -93,7 +94,7 @@ The user may wish to set this to a non-temporary directory for
 caching across sessions. The directory must exist on the file system.</p></li>
 <li><p><code>download_reason_id</code> numeric or string: the "download reason" required.
 by some ALA services, either as a numeric ID (currently 0--13)
-or a string (see <code><a href="show_all_reasons.html">show_all_reasons()</a></code> for a list of valid ID codes and
+or a string (see <code>show_all(reasons)</code> for a list of valid ID codes and
 names). By default this is NA. Some ALA services require a valid
 download_reason_id code, either specified here or directly to the
 associated R function.</p></li>
@@ -114,9 +115,9 @@ to TRUE.</p></li>
 
 
 <dt>profile_path</dt>
-<dd><p>string: (optional), path to a directory to store
-config values in. If provided, config values will be written to a new or
-existing .Rprofile file for future sessions. <code>NULL</code> by default.</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#soft-deprecated" class="external-link"><img src="figures/lifecycle-soft-deprecated.svg" alt="[Soft-deprecated]"></a></p>
+<p>Keeping for compatibility with older package versions. It is preferable to
+not save <code>galah_config</code> options to a .Rprofile file.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -135,10 +136,13 @@ but the configuration is set.</p>
 <p>To configure your session to allow you to download occurrence records, enter
 your email in <code>galah_config()</code>. This email should be registered with the
 ALA, which you can do
-<a href="https://auth.ala.org.au/userdetails/registration/createAccount" class="external-link">here</a></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your-email@email.com"</span><span class="op">)</span></span></code></pre><p></p></div>
-<p>Turn on caching in your session</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>caching <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre><p></p></div>
+<a href="https://auth.ala.org.au/userdetails/registration/createAccount" class="external-link">here</a></p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your-email@email.com"</span><span class="op">)</span></span></code></pre><p></p></div>
+<p>Turn on caching in your session</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>caching <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>It is required by some ALA services that you add a reason for downloading
-data. To look up all valid reasons to enter, use <code><a href="show_all_reasons.html">show_all_reasons()</a></code></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/show_all_reasons.html">show_all_reasons</a></span><span class="op">(</span><span class="op">)</span></span>
+data. To look up all valid reasons to enter, use <code><a href="show_all.html">show_all()</a></code></p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/show_all.html">show_all</a></span><span class="op">(</span><span class="va">reasons</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 13 x 2</span></span>
 <span><span class="co">#&gt;       id name                            </span></span>
 <span><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;                           </span></span>
@@ -155,9 +159,11 @@ data. To look up all valid reasons to enter, use <code><a href="show_all_reasons
 <span><span class="co">#&gt; 11    11 citizen science                 </span></span>
 <span><span class="co">#&gt; 12    12 restoration/remediation         </span></span>
 <span><span class="co">#&gt; 13    13 species modelling</span></span></code></pre><p></p></div>
-<p>Add your selected reason using the option <code>download_reason_id</code></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>download_reason_id <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre><p></p></div>
+<p>Add your selected reason using the option <code>download_reason_id</code></p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>download_reason_id <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>You can also make debugging in your session easier by setting
-<code>verbose = TRUE</code></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>download_reason_id <span class="op">=</span> <span class="fl">0</span>,</span>
+<code>verbose = TRUE</code></p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>download_reason_id <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>             verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre><p></p></div>
     </div>
 

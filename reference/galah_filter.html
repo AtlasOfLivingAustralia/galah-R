@@ -8,7 +8,7 @@ The result of galah_filter can be passed to the filters
 argument in atlas_occurrences(), atlas_species() or
 atlas_counts(). galah_filter uses non-standard evaluation (NSE),
 and is designed to be as compatible as possible with dplyr::filter
-syntax."><title>Narrow a query by specifying filters — galah_filter • galah</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet"><meta property="og:title" content="Narrow a query by specifying filters — galah_filter"><meta property="og:description" content="'filters' are arguments of the form field logical value that are used
+syntax."><title>Narrow a query by specifying filters — galah_filter • galah</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet"><meta property="og:title" content="Narrow a query by specifying filters — galah_filter"><meta property="og:description" content="'filters' are arguments of the form field logical value that are used
 to narrow down the number of records returned by a specific query.
 For example, it is common for users to request records from a particular year
 (year == 2020), or to return all records except for fossils
@@ -28,7 +28,7 @@ syntax."><meta property="og:image" content="https://atlasoflivingaustralia.githu
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,6 +46,7 @@ syntax."><meta property="og:image" content="https://atlasoflivingaustralia.githu
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
     <a class="dropdown-item" href="../articles/syntax_changes.html">Syntax changes</a>
+    <a class="dropdown-item" href="../articles/international_atlases.html">International atlases</a>
   </div>
 </li>
 <li class="active nav-item">
@@ -100,17 +101,17 @@ syntax.</p>
 
 
 <dt>profile</dt>
-<dd><p><code>string</code>: (optional) a data quality profile to apply to the
-records. See <code><a href="show_all_profiles.html">show_all_profiles()</a></code> for valid profiles. By default
-no profile is applied.</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#soft-deprecated" class="external-link"><img src="figures/lifecycle-soft-deprecated.svg" alt="[Soft-deprecated]"></a> Use <code>galah_apply_profile</code> instead.</p>
+<p>If supplied, should be a <code>string</code> recording a data quality profile to
+apply to the query. See <code><a href="show_all.html">show_all_profiles()</a></code> for valid profiles. By
+default no profile is applied.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>An object of class <code>data.frame</code> and <code>galah_filter</code>,
-containing filter values.</p>
+<p>A tibble containing filter values.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -130,63 +131,99 @@ argument) take the form of field - logical - value. Permissible examples include
     
 
 
-<p>Create a custom filter for records of interest</p><div class="sourceCode r"><pre><code><span><span class="va">filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span></span>
-<span>    <span class="va">basisOfRecord</span> <span class="op">==</span> <span class="st">"HumanObservation"</span>,</span>
-<span>    <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span>,</span>
-<span>    <span class="va">stateProvince</span> <span class="op">==</span> <span class="st">"New South Wales"</span><span class="op">)</span></span></code></pre><p></p></div>
-<p>Add the default ALA data quality profile</p><div class="sourceCode r"><pre><code><span><span class="va">filters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span></span>
-<span>    <span class="va">basisOfRecord</span> <span class="op">==</span> <span class="st">"HumanObservation"</span>,</span>
-<span>    <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span>,</span>
-<span>    <span class="va">stateProvince</span> <span class="op">==</span> <span class="st">"New South Wales"</span>,</span>
-<span>    profile <span class="op">=</span> <span class="st">"ALA"</span><span class="op">)</span></span></code></pre><p></p></div>
-<p>Use filters to exclude particular values</p><div class="sourceCode r"><pre><code><span><span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">!=</span> <span class="fl">2021</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="va">filter</span><span class="op">)</span></span>
+<p>Filter query results to return records of interest</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2019</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
 <span><span class="co">#&gt;      count</span></span>
 <span><span class="co">#&gt;      &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 43916661</span></span></code></pre><p></p></div>
-<p>Separating statements with a comma is equivalent to an <code>AND</code> statement</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&lt;</span> <span class="fl">2020</span><span class="op">)</span> <span class="co"># is the same as:</span></span>
+<span><span class="co">#&gt; 1 20365374</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2019</span>,</span>
+<span>               <span class="va">basisOfRecord</span> <span class="op">==</span> <span class="st">"HumanObservation"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
+<span><span class="co">#&gt;      count</span></span>
+<span><span class="co">#&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 19912701</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2019</span>,</span>
+<span>               <span class="va">basisOfRecord</span> <span class="op">==</span> <span class="st">"HumanObservation"</span>,</span>
+<span>               <span class="va">stateProvince</span> <span class="op">==</span> <span class="st">"New South Wales"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
+<span><span class="co">#&gt;     count</span></span>
+<span><span class="co">#&gt;     &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 5717990</span></span></code></pre><p></p></div>
+<p>Use filters to exclude particular values</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">!=</span> <span class="fl">2021</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
+<span><span class="co">#&gt;      count</span></span>
+<span><span class="co">#&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 47746771</span></span></code></pre><p></p></div>
+<p>Separating statements with a comma is equivalent to an <code>AND</code> statement</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&lt;</span> <span class="fl">2020</span><span class="op">)</span> <span class="co"># is the same as:</span></span>
 <span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span>, <span class="va">year</span> <span class="op">&lt;</span> <span class="fl">2020</span><span class="op">)</span></span></code></pre><p></p></div>
-<p>All statements must include the field name</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2010</span> <span class="op">|</span> <span class="va">year</span> <span class="op">==</span> <span class="fl">2021</span><span class="op">)</span> <span class="co"># this works (note double equals)</span></span>
+<p>All statements must include the field name</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2010</span> <span class="op">|</span> <span class="va">year</span> <span class="op">==</span> <span class="fl">2021</span><span class="op">)</span> <span class="co"># this works (note double equals)</span></span>
 <span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2010</span>, <span class="fl">2021</span><span class="op">)</span><span class="op">)</span> <span class="co"># same as above </span></span>
 <span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2010</span> <span class="op">|</span> <span class="fl">2021</span><span class="op">)</span> <span class="co"># this fails</span></span></code></pre><p></p></div>
-<p>It is possible to use an object to specify required values</p><div class="sourceCode r"><pre><code><span><span class="co"># Numeric example</span></span>
+<p>It is possible to use an object to specify required values</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="co"># Numeric example</span></span>
 <span></span>
 <span><span class="va">year_value</span> <span class="op">&lt;-</span> <span class="fl">2010</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="va">year_value</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="va">year_value</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
 <span><span class="co">#&gt;      count</span></span>
 <span><span class="co">#&gt;      &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 42816943</span></span></code></pre><p></p></div><div class="sourceCode r"><pre><code><span><span class="co"># Categorical example</span></span>
+<span><span class="co">#&gt; 1 52393112</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="co"># Categorical example</span></span>
 <span></span>
 <span><span class="va">basis_of_record</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"HumanObservation"</span>, <span class="st">"MaterialSample"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">basisOfRecord</span> <span class="op">==</span> <span class="va">basis_of_record</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">basisOfRecord</span> <span class="op">==</span> <span class="va">basis_of_record</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
 <span><span class="co">#&gt;      count</span></span>
 <span><span class="co">#&gt;      &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 82809464</span></span></code></pre><p></p></div>
+<span><span class="co">#&gt; 1 89209570</span></span></code></pre><p></p></div>
 <p><code>solr</code> supports range queries on text as well as numbers. The following
-queries all Australian States and Territories alphabetically after "Tasmania"</p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">cl22</span> <span class="op">&gt;=</span> <span class="st">"Tasmania"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+queries all Australian States and Territories alphabetically after "Tasmania"</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">cl22</span> <span class="op">&gt;=</span> <span class="st">"Tasmania"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
 <span><span class="co">#&gt;      count</span></span>
 <span><span class="co">#&gt;      &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 30230213</span></span></code></pre><p></p></div>
+<span><span class="co">#&gt; 1 33659802</span></span></code></pre><p></p></div>
+<p>Filter out specific records that could be unreliable using "assertions"</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_assertions</a></span><span class="op">(</span><span class="st">"coordinate invalid"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 4</span></span>
+<span><span class="co">#&gt;   id                 description        category type      </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;chr&gt;    &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt; 1 COORDINATE_INVALID Coordinate invalid Warning  assertions</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">COORDINATE_INVALID</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
+<span><span class="co">#&gt;       count</span></span>
+<span><span class="co">#&gt;       &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 110685944</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="search_taxa.html">search_taxa()</a></code> and <code><a href="galah_geolocate.html">galah_geolocate()</a></code> for other ways to restrict
 the information returned by <code><a href="atlas_occurrences.html">atlas_occurrences()</a></code> and related functions. Use
-<code><a href="show_all_fields.html">search_fields()</a></code> to find fields that
-you can filter by, and <code><a href="search_field_values.html">search_field_values()</a></code> to find what values
+<code>search_all(fields)</code> to find fields that
+you can filter by, and <code><a href="deprecated.html">search_field_values()</a></code> to find what values
 of those filters are available.</p></div>
     </div>
 

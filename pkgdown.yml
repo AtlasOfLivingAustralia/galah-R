@@ -3,11 +3,12 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   download_data: download_data.html
+  international_atlases: international_atlases.html
   look_up_information: look_up_information.html
   narrow_your_results: narrow_your_results.html
   quick_start_guide: quick_start_guide.html
   syntax_changes: syntax_changes.html
-last_built: 2022-10-12T06:13Z
+last_built: 2022-10-19T07:48Z
 urls:
   reference: https://atlasoflivingaustralia.github.io/galah/reference
   article: https://atlasoflivingaustralia.github.io/galah/articles

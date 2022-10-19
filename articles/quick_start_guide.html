@@ -15,7 +15,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet">
+<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Quick start guide">
@@ -34,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +54,7 @@
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
     <a class="dropdown-item" href="../articles/syntax_changes.html">Syntax changes</a>
+    <a class="dropdown-item" href="../articles/international_atlases.html">International atlases</a>
   </div>
 </li>
 <li class="nav-item">
@@ -87,7 +89,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Quick start guide</h1>
                         <h4 data-toc-skip class="author">Martin Westgate &amp; Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2022-01-24</h4>
+            <h4 data-toc-skip class="date">2022-10-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah/blob/HEAD/vignettes/quick_start_guide.Rmd" class="external-link"><code>vignettes/quick_start_guide.Rmd</code></a></small>
       <div class="d-none name"><code>quick_start_guide.Rmd</code></div>
@@ -113,26 +115,30 @@
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"AtlasOfLivingAustralia/galah"</span><span class="op">)</span></span></code></pre></div>
 <p>Load the package</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AtlasOfLivingAustralia/galah" class="external-link">galah</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://galah.ala.org.au" class="external-link">galah</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="choosing-an-atlas">Choosing an atlas<a class="anchor" aria-label="anchor" href="#choosing-an-atlas"></a>
 </h2>
-<p>By default, <code>galah</code> downloads information from the Atlas of Living Australia (ALA). To show the full list of Atlases currently supported by <code>galah</code>, use <code><a href="../reference/show_all_atlases.html">show_all_atlases()</a></code>.</p>
+<p>By default, <code>galah</code> downloads information from the Atlas of Living Australia (ALA). To show the full list of Atlases currently supported by <code>galah</code>, use <code><a href="../reference/show_all.html">show_all_atlases()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all_atlases.html">show_all_atlases</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 6 × 3</span></span>
-<span><span class="co">##   atlas     taxonomy_source taxonomy_info                                                    </span></span>
-<span><span class="co">##   &lt;chr&gt;     &lt;chr&gt;           &lt;chr&gt;                                                            </span></span>
-<span><span class="co">## 1 Australia ALA             https://bie.ala.org.au/                                          </span></span>
-<span><span class="co">## 2 Austria   GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c</span></span>
-<span><span class="co">## 3 Guatemala GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c</span></span>
-<span><span class="co">## 4 Spain     GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c</span></span>
-<span><span class="co">## 5 Sweden    GBIF            https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c</span></span>
-<span><span class="co">## 6 UK        NBN             https://www.nhm.ac.uk/our-science/data/uk-species.html</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all_atlases</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 10 × 4</span></span>
+<span><span class="co">##    atlas          institution                                                             acronym url                         </span></span>
+<span><span class="co">##    &lt;chr&gt;          &lt;chr&gt;                                                                   &lt;chr&gt;   &lt;chr&gt;                       </span></span>
+<span><span class="co">##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      </span></span>
+<span><span class="co">##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at</span></span>
+<span><span class="co">##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        </span></span>
+<span><span class="co">##  4 Estonia        eElurikkus                                                              &lt;NA&gt;    https://elurikkus.ee        </span></span>
+<span><span class="co">##  5 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.mnhn.fr        </span></span>
+<span><span class="co">##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   </span></span>
+<span><span class="co">##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         </span></span>
+<span><span class="co">##  8 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         </span></span>
+<span><span class="co">##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se </span></span>
+<span><span class="co">## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk</span></span></code></pre>
 <p>Use <code><a href="../reference/galah_config.html">galah_config()</a></code> to set the Atlas to use. This will automatically populate the server configuration for your selected Atlas. By default, the atlas is Australia.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"UK"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"United Kingdom"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="building-queries">Building queries<a class="anchor" aria-label="anchor" href="#building-queries"></a>
@@ -143,23 +149,24 @@
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##       count</span></span>
 <span><span class="co">##       &lt;int&gt;</span></span>
-<span><span class="co">## 1 102070026</span></span></code></pre>
+<span><span class="co">## 1 114080945</span></span></code></pre>
 <p>To pass more complex queries, start with the <code><a href="../reference/galah_call.html">galah_call()</a></code> function and pipe additional arguments to modify the query. modifying functions have a <code>galah_</code> prefix and support non-standard evaluation (NSE).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
-<span><span class="co">##     count</span></span>
-<span><span class="co">##     &lt;int&gt;</span></span>
-<span><span class="co">## 1 7046687</span></span></code></pre>
+<span><span class="co">##      count</span></span>
+<span><span class="co">##      &lt;int&gt;</span></span>
+<span><span class="co">## 1 14604620</span></span></code></pre>
 <p>To narrow the search to a particular taxonomic group, use <code><a href="../reference/galah_identify.html">galah_identify()</a></code>. Note that this function only accepts scientific names and is not case sensitive. It’s good practice to first use <code><a href="../reference/search_taxa.html">search_taxa()</a></code> to check that the taxa you provide returns the correct taxonomic results.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="co"># Check whether taxonomic info is correct</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 9</span></span>
-<span><span class="co">##   search_term scientific_name taxon_concept_id                                    rank  match_type kingdom  phylum   class  issues</span></span>
-<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                               &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; </span></span>
-<span><span class="co">## 1 reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b… class exactMatch Animalia Chordata Repti… noIss…</span></span></code></pre>
+<span><span class="co">##   search_term scientific_name taxon_concept_id                                              rank  match…¹ kingdom phylum class issues</span></span>
+<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                                         &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
+<span><span class="co">## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b… class exactM… Animal… Chord… Rept… noIss…</span></span>
+<span><span class="co">## # … with abbreviated variable name ¹​match_type</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -168,7 +175,7 @@
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##   count</span></span>
 <span><span class="co">##   &lt;int&gt;</span></span>
-<span><span class="co">## 1 45020</span></span></code></pre>
+<span><span class="co">## 1 89643</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="downloading-records">Downloading records<a class="anchor" aria-label="anchor" href="#downloading-records"></a>
@@ -185,22 +192,17 @@
 <span>  <span class="fu"><a href="../reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">result</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 6 × 8</span></span>
-<span><span class="co">##   decimalLatitude decimalLongitude eventDate              scientificName  taxonConceptID   recordID dataResourceName basisOfRecord</span></span>
-<span><span class="co">##             &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;                  &lt;chr&gt;           &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;        </span></span>
-<span><span class="co">## 1           -43.4             147. ""                     Litoria ewingii urn:lsid:biodiv… 780cf8e… iNaturalist Aus… HUMAN_OBSERV…</span></span>
-<span><span class="co">## 2           -43.2             147. "2020-01-18T22:31:00Z" Litoria ewingii urn:lsid:biodiv… cc9d437… iNaturalist Aus… HUMAN_OBSERV…</span></span>
-<span><span class="co">## 3           -43.2             147. ""                     Litoria ewingii urn:lsid:biodiv… d208d47… iNaturalist Aus… HUMAN_OBSERV…</span></span>
-<span><span class="co">## 4           -43.1             147. ""                     Litoria ewingii urn:lsid:biodiv… 95fab19… iNaturalist Aus… HUMAN_OBSERV…</span></span>
-<span><span class="co">## 5           -43.1             147. "2020-04-30T06:10:00Z" Litoria ewingii urn:lsid:biodiv… 2b7fdc5… Earth Guardians… HUMAN_OBSERV…</span></span>
-<span><span class="co">## 6           -43.1             147. "2020-06-23T02:48:00Z" Litoria ewingii urn:lsid:biodiv… 3524080… Earth Guardians… HUMAN_OBSERV…</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 6 × 9</span></span>
+<span><span class="co">##   decimalLatitude decimalLongitude eventDate            scientificName    taxonConceptID              recor…¹ dataR…² occur…³ basis…⁴</span></span>
+<span><span class="co">##             &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;             &lt;chr&gt;                       &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">## 1           -43.4             147. 2020-09-04T14:00:00Z Litoria ewingii   https://biodiversity.org.a… e8045b… FrogID  PRESENT HUMAN_…</span></span>
+<span><span class="co">## 2           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… 44187a… FrogID  PRESENT HUMAN_…</span></span>
+<span><span class="co">## 3           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… bc34a7… FrogID  PRESENT HUMAN_…</span></span>
+<span><span class="co">## 4           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… ca4707… FrogID  PRESENT HUMAN_…</span></span>
+<span><span class="co">## 5           -43.4             146. 2020-01-01T13:00:00Z Litoria burrowsae https://biodiversity.org.a… 9c71f5… FrogID  PRESENT HUMAN_…</span></span>
+<span><span class="co">## 6           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… 4bbaad… FrogID  PRESENT HUMAN_…</span></span>
+<span><span class="co">## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​basisOfRecord</span></span></code></pre>
 <p>Check out our other vignettes for more detail on how to use these functions.</p>
-</div>
-<div class="section level2">
-<h2 id="function-map">Function map<a class="anchor" aria-label="anchor" href="#function-map"></a>
-</h2>
-<p>Not all <code>atlas_</code> functions support all possible query modifiers (i.e. functions with a <code>search_</code> or <code>galah_</code> prefix). A network diagram showing accepted arguments is shown below. Note that if you pipe your queries starting with <code><a href="../reference/galah_call.html">galah_call()</a></code>, then irrelevant arguments will be (silently) ignored.</p>
-<p><img src="galah-DiagrammeR-plot.png" title="plot of function relationships" alt="plot of function relationships" width="100%"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

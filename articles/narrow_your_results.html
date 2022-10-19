@@ -15,7 +15,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet">
+<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Narrow your results">
@@ -34,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +54,7 @@
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
     <a class="dropdown-item" href="../articles/syntax_changes.html">Syntax changes</a>
+    <a class="dropdown-item" href="../articles/international_atlases.html">International atlases</a>
   </div>
 </li>
 <li class="nav-item">
@@ -87,7 +89,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Narrow your results</h1>
                         <h4 data-toc-skip class="author">Martin Westgate &amp; Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">20/12/2021</h4>
+            <h4 data-toc-skip class="date">2022-10-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah/blob/HEAD/vignettes/narrow_your_results.Rmd" class="external-link"><code>vignettes/narrow_your_results.Rmd</code></a></small>
       <div class="d-none name"><code>narrow_your_results.Rmd</code></div>
@@ -114,16 +116,18 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"Reptilia"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 9</span></span>
-<span><span class="co">##   search_term scientific_name taxon_concept_id                                    rank  match_type kingdom  phylum   class  issues</span></span>
-<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                               &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; </span></span>
-<span><span class="co">## 1 Reptilia    REPTILIA        urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b… class exactMatch Animalia Chordata Repti… noIss…</span></span></code></pre>
+<span><span class="co">##   search_term scientific_name taxon_concept_id                                              rank  match…¹ kingdom phylum class issues</span></span>
+<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                                         &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
+<span><span class="co">## 1 Reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b… class exactM… Animal… Chord… Rept… noIss…</span></span>
+<span><span class="co">## # … with abbreviated variable name ¹​match_type</span></span></code></pre>
 <p>If we want to be more specific by providing additional taxonomic information to <code>search_taxa</code>, you can provide a <code>data.frame</code> containing more levels of the taxonomic hierarchy:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>genus <span class="op">=</span> <span class="st">"Eolophus"</span>, kingdom <span class="op">=</span> <span class="st">"Aves"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 13</span></span>
-<span><span class="co">##   search_term   scientific_name scientific_name_… taxon_concept_id rank  match_type kingdom phylum class order family genus issues</span></span>
-<span><span class="co">##   &lt;chr&gt;         &lt;chr&gt;           &lt;chr&gt;             &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
-<span><span class="co">## 1 Eolophus_Aves Eolophus        Bonaparte, 1854   urn:lsid:biodiv… genus exactMatch Animal… Chord… Aves  Psit… Cacat… Eolo… noIss…</span></span></code></pre>
+<span><span class="co">##   search_term   scientific_name scientific_name_authorship taxon_conce…¹ rank  match…² kingdom phylum class order family genus issues</span></span>
+<span><span class="co">##   &lt;chr&gt;         &lt;chr&gt;           &lt;chr&gt;                      &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
+<span><span class="co">## 1 Eolophus_Aves Eolophus        Bonaparte, 1854            https://biod… genus exactM… Animal… Chord… Aves  Psit… Cacat… Eolo… noIss…</span></span>
+<span><span class="co">## # … with abbreviated variable names ¹​taxon_concept_id, ²​match_type</span></span></code></pre>
 <p>Once we know that our search matches the correct taxon or taxa, we can use <code>galah_identify</code> to narrow the results of our queries:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -132,7 +136,7 @@
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##     count</span></span>
 <span><span class="co">##     &lt;int&gt;</span></span>
-<span><span class="co">## 1 1317131</span></span></code></pre>
+<span><span class="co">## 1 1474321</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">taxa</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>genus <span class="op">=</span> <span class="st">"Eolophus"</span>, kingdom <span class="op">=</span> <span class="st">"Aves"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -142,38 +146,36 @@
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##    count</span></span>
 <span><span class="co">##    &lt;int&gt;</span></span>
-<span><span class="co">## 1 856571</span></span></code></pre>
-<p>If you’re using an international atlas, <code>search_taxa</code> won’t work; instead you need to use the <code>taxize</code> package to look up the relevant identifiers. Most atlases use the GBIF taxonomic backbone, meaning that you can use the <code>get_gbifid</code> function to download the relevant identifiers. These identifiers can then be passed directly to <code>galah_identify</code>.</p>
+<span><span class="co">## 1 994158</span></span></code></pre>
+<p>If you’re using an international atlas, <code>search_taxa</code> will automatically switch to using the local name-matching service. For example, Spain uses the GBIF taxonomic backbone, but integrates seamlessly with our standard workflow.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"Spain"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/taxize/" class="external-link">taxize</a></span><span class="op">)</span></span>
-<span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/taxize/reference/get_gbifid.html" class="external-link">get_gbifid</a></span><span class="op">(</span><span class="st">"Lepus"</span>, messages <span class="op">=</span> <span class="cn">FALSE</span>, rows <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Lepus"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/galah_group_by.html">galah_group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 4 × 2</span></span>
+<pre><code><span><span class="co">## # A tibble: 5 × 2</span></span>
 <span><span class="co">##   species            count</span></span>
 <span><span class="co">##   &lt;chr&gt;              &lt;int&gt;</span></span>
-<span><span class="co">## 1 Lepus granatensis   8360</span></span>
-<span><span class="co">## 2 Lepus europaeus     2913</span></span>
-<span><span class="co">## 3 Lepus castroviejoi   149</span></span>
-<span><span class="co">## 4 Lepus capensis        41</span></span></code></pre>
-<p>The exception is the UK <a href="https://nbn.org.uk" class="external-link">National Biodiversity Network</a> (NBN), which has its’ own taxonomic backbone (note this information is also given by <code><a href="../reference/show_all_atlases.html">show_all_atlases()</a></code>). You can search the NBN taxonomy with <code>get_nbnid</code>.</p>
+<span><span class="co">## 1 Lepus granatensis   9000</span></span>
+<span><span class="co">## 2 Lepus europaeus     2884</span></span>
+<span><span class="co">## 3 Lepus castroviejoi   153</span></span>
+<span><span class="co">## 4 Lepus capensis         2</span></span>
+<span><span class="co">## 5 Lepus californicus     1</span></span></code></pre>
+<p>Conversely, the UK’s <a href="https://nbn.org.uk" class="external-link">National Biodiversity Network</a> (NBN), has its’ own taxonomic backbone, but is supported using the same function call.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"UK"</span><span class="op">)</span></span>
-<span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/taxize/reference/get_nbnid.html" class="external-link">get_nbnid</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Vulpes vulpes"</span>, <span class="st">"Meles meles"</span><span class="op">)</span>, messages <span class="op">=</span> <span class="cn">FALSE</span>, rows <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"United Kingdom"</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Bufo"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/galah_group_by.html">galah_group_by</a></span><span class="op">(</span><span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 2 × 2</span></span>
-<span><span class="co">##   species        count</span></span>
-<span><span class="co">##   &lt;chr&gt;          &lt;int&gt;</span></span>
-<span><span class="co">## 1 Vulpes vulpes 151307</span></span>
-<span><span class="co">## 2 Meles meles    87712</span></span></code></pre>
+<span><span class="co">##   species       count</span></span>
+<span><span class="co">##   &lt;chr&gt;         &lt;int&gt;</span></span>
+<span><span class="co">## 1 Bufo bufo     75165</span></span>
+<span><span class="co">## 2 Bufo spinosus     1</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="galah_filter">galah_filter<a class="anchor" aria-label="anchor" href="#galah_filter"></a>
@@ -187,7 +189,7 @@
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##      count</span></span>
 <span><span class="co">##      &lt;int&gt;</span></span>
-<span><span class="co">## 1 63003181</span></span></code></pre>
+<span><span class="co">## 1 73800220</span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get total record count for iNaturalist in 2021</span></span>
 <span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -199,20 +201,10 @@
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##     count</span></span>
 <span><span class="co">##     &lt;int&gt;</span></span>
-<span><span class="co">## 1 2673224</span></span></code></pre>
-<p>To find available fields and corresponding valid values, use the field lookup functions <code>show_all_fields</code>, <code>search_fields</code> and <code>find_field_values</code>.</p>
-<p>A further notable feature of <code>galah_filter</code> is the ability to specify a <code>profile</code> to remove records that are suspect in some way.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">2000</span>, profile <span class="op">=</span> <span class="st">"ALA"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
-<span><span class="co">##      count</span></span>
-<span><span class="co">##      &lt;int&gt;</span></span>
-<span><span class="co">## 1 55681954</span></span></code></pre>
-<p>To see a full list of data quality profiles, use <code><a href="../reference/show_all_profiles.html">show_all_profiles()</a></code>.</p>
+<span><span class="co">## 1 3628323</span></span></code></pre>
+<p>To find available fields and corresponding valid values, use the field lookup functions <code>show_all_fields</code>, <code>search_fields</code> and <code>search_field_values</code>.</p>
 <p>Finally, a special case of <code>galah_filter</code> is to make more complex taxonomic queries than are possible using <code>search_taxa</code>. By using the <code>taxonConceptID</code> field, it is possible to build queries that exclude certain taxa, for example. This can be useful for paraphyletic concepts such as invertebrates:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span></span>
 <span>     <span class="va">taxonConceptID</span> <span class="op">==</span> <span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"Animalia"</span><span class="op">)</span><span class="op">$</span><span class="va">taxon_concept_id</span>,</span>
@@ -223,17 +215,32 @@
 <pre><code><span><span class="co">## # A tibble: 83 × 2</span></span>
 <span><span class="co">##    class          count</span></span>
 <span><span class="co">##    &lt;chr&gt;          &lt;int&gt;</span></span>
-<span><span class="co">##  1 Insecta      3317770</span></span>
-<span><span class="co">##  2 Gastropoda    837702</span></span>
-<span><span class="co">##  3 Arachnida     527555</span></span>
-<span><span class="co">##  4 Malacostraca  515971</span></span>
-<span><span class="co">##  5 Maxillopoda   462762</span></span>
-<span><span class="co">##  6 Polychaeta    256938</span></span>
-<span><span class="co">##  7 Bivalvia      206242</span></span>
-<span><span class="co">##  8 Anthozoa      163386</span></span>
-<span><span class="co">##  9 Demospongiae  107520</span></span>
-<span><span class="co">## 10 Ostracoda      56295</span></span>
+<span><span class="co">##  1 Insecta      3954876</span></span>
+<span><span class="co">##  2 Gastropoda    878641</span></span>
+<span><span class="co">##  3 Malacostraca  573921</span></span>
+<span><span class="co">##  4 Arachnida     553923</span></span>
+<span><span class="co">##  5 Maxillopoda   473377</span></span>
+<span><span class="co">##  6 Polychaeta    258910</span></span>
+<span><span class="co">##  7 Bivalvia      215372</span></span>
+<span><span class="co">##  8 Anthozoa      169309</span></span>
+<span><span class="co">##  9 Demospongiae  113286</span></span>
+<span><span class="co">## 10 Ostracoda      58699</span></span>
 <span><span class="co">## # … with 73 more rows</span></span></code></pre>
+</div>
+<div class="section level2">
+<h2 id="galah_apply_profile">galah_apply_profile<a class="anchor" aria-label="anchor" href="#galah_apply_profile"></a>
+</h2>
+<p>When working with the ALA, a notable feature is the ability to specify a <code>profile</code> to remove records that are suspect in some way.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">2000</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_apply_profile.html">galah_apply_profile</a></span><span class="op">(</span><span class="va">ALA</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
+<span><span class="co">##      count</span></span>
+<span><span class="co">##      &lt;int&gt;</span></span>
+<span><span class="co">## 1 66776476</span></span></code></pre>
+<p>To see a full list of data quality profiles, use <code>show_all(profiles)</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="galah_group_by">galah_group_by<a class="anchor" aria-label="anchor" href="#galah_group_by"></a>
@@ -245,20 +252,20 @@
 <span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">2015</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&lt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_group_by.html">galah_group_by</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">basisOfRecord</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 35 × 3</span></span>
-<span><span class="co">##    year  basisOfRecord         count</span></span>
-<span><span class="co">##    &lt;chr&gt; &lt;chr&gt;                 &lt;int&gt;</span></span>
-<span><span class="co">##  1 2020  HUMAN_OBSERVATION   5825030</span></span>
-<span><span class="co">##  2 2020  PRESERVED_SPECIMEN    13637</span></span>
-<span><span class="co">##  3 2020  OBSERVATION            3894</span></span>
-<span><span class="co">##  4 2020  UNKNOWN                 365</span></span>
-<span><span class="co">##  5 2020  MATERIAL_SAMPLE         250</span></span>
-<span><span class="co">##  6 2020  LIVING_SPECIMEN         127</span></span>
-<span><span class="co">##  7 2020  MACHINE_OBSERVATION      37</span></span>
-<span><span class="co">##  8 2019  HUMAN_OBSERVATION   5401216</span></span>
-<span><span class="co">##  9 2019  UNKNOWN               51747</span></span>
-<span><span class="co">## 10 2019  PRESERVED_SPECIMEN    38117</span></span>
-<span><span class="co">## # … with 25 more rows</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 25 × 3</span></span>
+<span><span class="co">##    basisOfRecord     year    count</span></span>
+<span><span class="co">##    &lt;chr&gt;             &lt;chr&gt;   &lt;int&gt;</span></span>
+<span><span class="co">##  1 HUMAN_OBSERVATION 2020  6293285</span></span>
+<span><span class="co">##  2 HUMAN_OBSERVATION 2019  5517709</span></span>
+<span><span class="co">##  3 HUMAN_OBSERVATION 2018  5237933</span></span>
+<span><span class="co">##  4 HUMAN_OBSERVATION 2017  4347304</span></span>
+<span><span class="co">##  5 HUMAN_OBSERVATION 2016  3512645</span></span>
+<span><span class="co">##  6 OCCURRENCE        2016   165997</span></span>
+<span><span class="co">##  7 OCCURRENCE        2018   116242</span></span>
+<span><span class="co">##  8 OCCURRENCE        2017   102206</span></span>
+<span><span class="co">##  9 OCCURRENCE        2019    91640</span></span>
+<span><span class="co">## 10 OCCURRENCE        2020    39429</span></span>
+<span><span class="co">## # … with 15 more rows</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="galah_select">galah_select<a class="anchor" aria-label="anchor" href="#galah_select"></a>
@@ -273,35 +280,55 @@
 <span>  <span class="fu"><a href="../reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">occurrences</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 29 × 8</span></span>
-<span><span class="co">##    eventDate            kingdom  decimalLatitude decimalLongitude scientificName          taxonConceptID recordID dataResourceName</span></span>
-<span><span class="co">##    &lt;chr&gt;                &lt;chr&gt;              &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;                   &lt;chr&gt;          &lt;chr&gt;    &lt;chr&gt;           </span></span>
-<span><span class="co">##  1 1929-12-31T14:00:00Z Animalia           -36.4             150. Acanthophis antarcticus urn:lsid:biod… 38dab01… NSW BioNet Atlas</span></span>
-<span><span class="co">##  2 1929-12-31T14:00:00Z Animalia           -26.8             151. Demansia psammophis     urn:lsid:biod… c770504… WildNet - Queen…</span></span>
-<span><span class="co">##  3 1929-12-31T14:00:00Z Animalia           -24.4             152. Oxyuranus scutellatus   urn:lsid:biod… cfb4279… WildNet - Queen…</span></span>
-<span><span class="co">##  4 1929-12-31T14:00:00Z Animalia           -20.8             145. Lerista wilkinsi        urn:lsid:biod… 1b64a15… WildNet - Queen…</span></span>
-<span><span class="co">##  5 1929-12-31T14:00:00Z Animalia           -23.9             150. Furina barnardi         urn:lsid:biod… 03e06c9… WildNet - Queen…</span></span>
-<span><span class="co">##  6 1929-12-31T14:00:00Z Animalia           -37.7             145. Tiliqua scincoides      urn:lsid:biod… e1e459c… Victorian Biodi…</span></span>
-<span><span class="co">##  7 1929-12-31T14:00:00Z Animalia           -15.5             145. Antaresia maculosa      urn:lsid:biod… 084bc0a… WildNet - Queen…</span></span>
-<span><span class="co">##  8 1929-12-31T14:00:00Z Animalia           -37.7             145. Tiliqua scincoides      urn:lsid:biod… 675f976… Victorian Biodi…</span></span>
-<span><span class="co">##  9 1929-12-31T14:00:00Z Animalia           -17.3             146. Simalia kinghorni       urn:lsid:biod… 0bd4268… WildNet - Queen…</span></span>
-<span><span class="co">## 10 1930-04-22T14:00:00Z Animalia            NA                NA  COLUBRIDAE              urn:lsid:biod… 815d01e… South Australia…</span></span>
-<span><span class="co">## # … with 19 more rows</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 54 × 2</span></span>
+<span><span class="co">##    eventDate            kingdom </span></span>
+<span><span class="co">##    &lt;chr&gt;                &lt;chr&gt;   </span></span>
+<span><span class="co">##  1 1929-12-31T14:00:00Z Animalia</span></span>
+<span><span class="co">##  2 1929-12-31T14:00:00Z Animalia</span></span>
+<span><span class="co">##  3 1929-12-31T14:00:00Z Animalia</span></span>
+<span><span class="co">##  4 1929-12-31T14:00:00Z Animalia</span></span>
+<span><span class="co">##  5 1929-12-31T14:00:00Z Animalia</span></span>
+<span><span class="co">##  6 1929-12-31T14:00:00Z Animalia</span></span>
+<span><span class="co">##  7 1929-12-31T14:00:00Z Animalia</span></span>
+<span><span class="co">##  8 1929-12-31T14:00:00Z Animalia</span></span>
+<span><span class="co">##  9 1929-12-31T14:00:00Z Animalia</span></span>
+<span><span class="co">## 10 1929-12-31T14:00:00Z Animalia</span></span>
+<span><span class="co">## # … with 44 more rows</span></span></code></pre>
 <p>You can also use other <code>dplyr</code> functions that work with <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">dplyr::select()</a></code> with <code><a href="../reference/galah_select.html">galah_select()</a></code></p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">occurrences</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">1930</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_select.html">galah_select</a></span><span class="op">(</span><span class="fu">starts_with</span><span class="op">(</span><span class="st">"elev"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu">ends_with</span><span class="op">(</span><span class="st">"n"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_select.html">galah_select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"elev"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">ends_with</a></span><span class="op">(</span><span class="st">"n"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">occurrences</span></span></code></pre></div>
+<pre><code><span><span class="co">## # A tibble: 54 × 55</span></span>
+<span><span class="co">##    recordID   catal…¹ taxon…² verba…³ raw_v…⁴ scien…⁵ taxon…⁶ verna…⁷ kingdom phylum class order family genus species subsp…⁸ dataR…⁹</span></span>
+<span><span class="co">##    &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">##  1 050d4cec-… "J3729" https:… Oxyura… "coast… Oxyura… species "Taipa… Animal… Chord… Rept… Squa… Elapi… "Oxy… "Oxyur… ""      dr1132 </span></span>
+<span><span class="co">##  2 0aee0e05-… "39139… https:… Tympan… "Lined… Tympan… species "Grass… Animal… Chord… Rept… Squa… Agami… "Tym… "Tympa… ""      dr361  </span></span>
+<span><span class="co">##  3 0cbfa7cb-… "R3683… https:… Natrix… ""      COLUBR… family  ""      Animal… Chord… Rept… Squa… Colub… ""    ""      ""      dr346  </span></span>
+<span><span class="co">##  4 0fb28f26-… ""      https:… Notech… "easte… Notech… species "Tiger… Animal… Chord… Rept… Squa… Elapi… "Not… "Notec… ""      dr1132 </span></span>
+<span><span class="co">##  5 15e65c09-… "34102" https:… Emydur… "Murra… Emydur… subspe… "Macqu… Animal… Chord… Rept… Test… Cheli… "Emy… "Emydu… "Emydu… dr1132 </span></span>
+<span><span class="co">##  6 170fbb84-… "77798" https:… Deniso… "ornam… Deniso… species "Ornam… Animal… Chord… Rept… Squa… Elapi… "Den… "Denis… ""      dr1132 </span></span>
+<span><span class="co">##  7 19851ac1-… ""      https:… Pogona… "beard… Pogona… species "Commo… Animal… Chord… Rept… Squa… Agami… "Pog… "Pogon… ""      dr1132 </span></span>
+<span><span class="co">##  8 1d52ab81-… ""      https:… Bellat… "land … Bellat… species "Land … Animal… Chord… Rept… Squa… Scinc… "Bel… "Bella… ""      dr1132 </span></span>
+<span><span class="co">##  9 1ef9fad5-… "R.124… https:… Egerni… ""      Egerni… species "Cunni… Animal… Chord… Rept… Squa… Scinc… "Ege… "Egern… ""      dr340  </span></span>
+<span><span class="co">## 10 23da98ca-… ""      https:… Antare… "spott… Antare… species "Spott… Animal… Chord… Rept… Squa… Pytho… "Ant… "Antar… ""      dr1132 </span></span>
+<span><span class="co">## # … with 44 more rows, 38 more variables: institutionUid &lt;chr&gt;, institutionName &lt;chr&gt;, collectionUid &lt;chr&gt;, collectionName &lt;chr&gt;,</span></span>
+<span><span class="co">## #   dctermsLicense &lt;chr&gt;, institutionCode &lt;chr&gt;, collectionCode &lt;chr&gt;, locality &lt;chr&gt;, verbatimLatitude &lt;dbl&gt;,</span></span>
+<span><span class="co">## #   verbatimLongitude &lt;dbl&gt;, verbatimCoordinateSystem &lt;chr&gt;, decimalLatitude &lt;dbl&gt;, decimalLongitude &lt;dbl&gt;,</span></span>
+<span><span class="co">## #   coordinatePrecision &lt;dbl&gt;, coordinateUncertaintyInMeters &lt;dbl&gt;, country &lt;chr&gt;, stateProvince &lt;chr&gt;, cl959 &lt;chr&gt;, cl21 &lt;chr&gt;,</span></span>
+<span><span class="co">## #   cl1048 &lt;chr&gt;, minimumElevationInMeters &lt;lgl&gt;, maximumElevationInMeters &lt;lgl&gt;, minimumDepthInMeters &lt;lgl&gt;,</span></span>
+<span><span class="co">## #   maximumDepthInMeters &lt;lgl&gt;, individualCount &lt;int&gt;, recordedBy &lt;chr&gt;, year &lt;int&gt;, month &lt;int&gt;, day &lt;int&gt;, eventDate &lt;chr&gt;,</span></span>
+<span><span class="co">## #   verbatimBasisOfRecord &lt;chr&gt;, basisOfRecord &lt;chr&gt;, occurrenceStatus &lt;chr&gt;, raw_sex &lt;chr&gt;, preparations &lt;chr&gt;, …</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="galah_geolocate">galah_geolocate<a class="anchor" aria-label="anchor" href="#galah_geolocate"></a>
 </h2>
 <p>Use <code>galah_geolocate</code> to specify a geographic area or region to limit your search:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get list of perameles species only in area specified:</span></span>
 <span><span class="co"># (Note: This can also be specified by a shapefile)</span></span>
 <span><span class="va">wkt</span> <span class="op">&lt;-</span> <span class="st">"POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))"</span></span>
@@ -311,16 +338,17 @@
 <span>  <span class="fu"><a href="../reference/galah_geolocate.html">galah_geolocate</a></span><span class="op">(</span><span class="va">wkt</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_species.html">atlas_species</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 2 × 10</span></span>
-<span><span class="co">##   kingdom  phylum   class    order           family      genus     species                author  species_guid     vernacular_name</span></span>
-<span><span class="co">##   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                  &lt;chr&gt;   &lt;chr&gt;            &lt;chr&gt;          </span></span>
-<span><span class="co">## 1 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles eremiana     Spence… urn:lsid:biodiv… Desert Bandico…</span></span>
-<span><span class="co">## 2 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles bougainville Quoy &amp;… urn:lsid:biodiv… Western Barred…</span></span></code></pre>
+<span><span class="co">##   kingdom  phylum   class    order           family      genus     species                author               species_guid   verna…¹</span></span>
+<span><span class="co">##   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                  &lt;chr&gt;                &lt;chr&gt;          &lt;chr&gt;  </span></span>
+<span><span class="co">## 1 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles eremiana     Spencer, 1897        https://biodi… Desert…</span></span>
+<span><span class="co">## 2 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles bougainville Quoy &amp; Gaimard, 1824 https://biodi… Shark …</span></span>
+<span><span class="co">## # … with abbreviated variable name ¹​vernacular_name</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="galah_down_to">galah_down_to<a class="anchor" aria-label="anchor" href="#galah_down_to"></a>
 </h2>
 <p>Use <code>galah_down_to</code> to specify the lowest taxonomic level to contruct a taxonomic tree:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"fungi"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_down_to.html">galah_down_to</a></span><span class="op">(</span><span class="va">phylum</span><span class="op">)</span> <span class="op">|&gt;</span></span>

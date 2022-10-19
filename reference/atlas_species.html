@@ -3,7 +3,7 @@
 search criteria (i.e. using atlas_occurrences()), a common use case
 is to simply identify which species occur in a specified region, time period,
 or taxonomic group. This function returns a data.frame with one row
-per species, and columns giving associated taxonomic information."><title>Return species lists — atlas_species • galah</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet"><meta property="og:title" content="Return species lists — atlas_species"><meta property="og:description" content="While there are reasons why users may need to check every record meeting their
+per species, and columns giving associated taxonomic information."><title>Return species lists — atlas_species • galah</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet"><meta property="og:title" content="Return species lists — atlas_species"><meta property="og:description" content="While there are reasons why users may need to check every record meeting their
 search criteria (i.e. using atlas_occurrences()), a common use case
 is to simply identify which species occur in a specified region, time period,
 or taxonomic group. This function returns a data.frame with one row
@@ -18,7 +18,7 @@ per species, and columns giving associated taxonomic information."><meta propert
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,7 @@ per species, and columns giving associated taxonomic information."><meta propert
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
     <a class="dropdown-item" href="../articles/syntax_changes.html">Syntax changes</a>
+    <a class="dropdown-item" href="../articles/international_atlases.html">International atlases</a>
   </div>
 </li>
 <li class="active nav-item">
@@ -80,6 +81,7 @@ per species, and columns giving associated taxonomic information.</p>
 <span>  identify <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  filter <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  geolocate <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data_profile <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  refresh_cache <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -87,7 +89,7 @@ per species, and columns giving associated taxonomic information.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>request</dt>
-<dd><p>optional <code>data_rquest</code> object: generated by a call to
+<dd><p>optional <code>data_request</code> object: generated by a call to
 <code><a href="galah_call.html">galah_call()</a></code>.</p></dd>
 
 
@@ -104,6 +106,11 @@ per species, and columns giving associated taxonomic information.</p>
 <dt>geolocate</dt>
 <dd><p><code>string</code>: generated by a call to
 <code><a href="galah_geolocate.html">galah_geolocate()</a></code></p></dd>
+
+
+<dt>data_profile</dt>
+<dd><p><code>string</code>: generated by a call to
+<code><a href="galah_apply_profile.html">galah_apply_profile()</a></code></p></dd>
 
 
 <dt>refresh_cache</dt>
@@ -138,14 +145,18 @@ required that include filter but without returning taxonomic detail, then
     
 
 
-<p>First, look up a genus of interest in the ALA with <code><a href="search_taxa.html">search_taxa()</a></code></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"Heleioporus"</span><span class="op">)</span></span>
+<p>First, look up a genus of interest in the ALA with <code><a href="search_taxa.html">search_taxa()</a></code></p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"Heleioporus"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 x 13</span></span>
-<span><span class="co">#&gt;   search_term scientific_name scientific_name_~ taxon_concept_id   rank  match_type kingdom phylum class order family genus</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;             &lt;chr&gt;              &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span></span>
-<span><span class="co">#&gt; 1 Heleioporus Heleioporus     Gray, 1841        urn:lsid:biodiver~ genus exactMatch Animal~ Chord~ Amph~ Anura Limno~ Hele~</span></span>
-<span><span class="co">#&gt; # ... with 1 more variable: issues &lt;chr&gt;</span></span></code></pre><p></p></div>
+<span><span class="co">#&gt;   search_term scienti~1 scien~2 taxon~3 rank  match~4 kingdom phylum class order</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 Heleioporus Heleiopo~ Gray, ~ https:~ genus exactM~ Animal~ Chord~ Amph~ Anura</span></span>
+<span><span class="co">#&gt; # ... with 3 more variables: family &lt;chr&gt;, genus &lt;chr&gt;, issues &lt;chr&gt;, and</span></span>
+<span><span class="co">#&gt; #   abbreviated variable names 1: scientific_name,</span></span>
+<span><span class="co">#&gt; #   2: scientific_name_authorship, 3: taxon_concept_id, 4: match_type</span></span></code></pre><p></p></div>
 <p>It's a good idea to find how many species there are for the taxon you are
-interested in - in our case, genus <em>Heleioporus</em> - with <code><a href="atlas_counts.html">atlas_counts()</a></code></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+interested in - in our case, genus <em>Heleioporus</em> - with <code><a href="atlas_counts.html">atlas_counts()</a></code></p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Heleioporus"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
@@ -153,32 +164,36 @@ interested in - in our case, genus <em>Heleioporus</em> - with <code><a href="at
 <span><span class="co">#&gt;   &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1     6</span></span></code></pre><p></p></div>
 <p>Now get taxonomic information on all species within this genus with
-<code>atlas_species()</code></p><div class="sourceCode r"><pre><code><span><span class="co"># (every row is a species with associated taxonomic data)</span></span>
+<code>atlas_species()</code></p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="co"># (every row is a species with associated taxonomic data)</span></span>
 <span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Heleioporus"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_species.html">atlas_species</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 x 10</span></span>
-<span><span class="co">#&gt;   kingdom  phylum   class    order family          genus       species     author    species_guid           vernacular_name</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                  &lt;chr&gt;          </span></span>
-<span><span class="co">#&gt; 1 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Gray, 1~ urn:lsid:biodiversity~ Moaning Frog   </span></span>
-<span><span class="co">#&gt; 2 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Shaw &amp; ~ urn:lsid:biodiversity~ Giant Burrowin~</span></span>
-<span><span class="co">#&gt; 3 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ Gray, 18~ urn:lsid:biodiversity~ Western Spotte~</span></span>
-<span><span class="co">#&gt; 4 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Lee &amp; M~ urn:lsid:biodiversity~ Sand Frog      </span></span>
-<span><span class="co">#&gt; 5 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Lee &amp; M~ urn:lsid:biodiversity~ Plains Frog    </span></span>
-<span><span class="co">#&gt; 6 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ Lee, 1967 urn:lsid:biodiversity~ Western Marsh ~</span></span></code></pre><p></p></div>
+<span><span class="co">#&gt;   kingdom  phylum   class    order family   genus species author speci~1 verna~2</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Gray~ https:~ Moanin~</span></span>
+<span><span class="co">#&gt; 2 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Shaw~ https:~ Giant ~</span></span>
+<span><span class="co">#&gt; 3 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ Gray,~ https:~ Wester~</span></span>
+<span><span class="co">#&gt; 4 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Lee ~ https:~ Sand F~</span></span>
+<span><span class="co">#&gt; 5 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Lee ~ https:~ Plains~</span></span>
+<span><span class="co">#&gt; 6 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ Lee, ~ https:~ Wester~</span></span>
+<span><span class="co">#&gt; # ... with abbreviated variable names 1: species_guid, 2: vernacular_name</span></span></code></pre><p></p></div>
 <p>You can also get taxonomic information on species by piping with <code>%&gt;%</code> or
-<code>|&gt;</code>. Just begin your query with <code><a href="galah_call.html">galah_call()</a></code></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<code>|&gt;</code>. Just begin your query with <code><a href="galah_call.html">galah_call()</a></code></p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Heleioporus"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_species.html">atlas_species</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 x 10</span></span>
-<span><span class="co">#&gt;   kingdom  phylum   class    order family          genus       species     author    species_guid           vernacular_name</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                  &lt;chr&gt;          </span></span>
-<span><span class="co">#&gt; 1 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Gray, 1~ urn:lsid:biodiversity~ Moaning Frog   </span></span>
-<span><span class="co">#&gt; 2 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Shaw &amp; ~ urn:lsid:biodiversity~ Giant Burrowin~</span></span>
-<span><span class="co">#&gt; 3 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ Gray, 18~ urn:lsid:biodiversity~ Western Spotte~</span></span>
-<span><span class="co">#&gt; 4 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Lee &amp; M~ urn:lsid:biodiversity~ Sand Frog      </span></span>
-<span><span class="co">#&gt; 5 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ (Lee &amp; M~ urn:lsid:biodiversity~ Plains Frog    </span></span>
-<span><span class="co">#&gt; 6 Animalia Chordata Amphibia Anura Limnodynastidae Heleioporus Heleioporu~ Lee, 1967 urn:lsid:biodiversity~ Western Marsh ~</span></span></code></pre><p></p></div>
+<span><span class="co">#&gt;   kingdom  phylum   class    order family   genus species author speci~1 verna~2</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Gray~ https:~ Moanin~</span></span>
+<span><span class="co">#&gt; 2 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Shaw~ https:~ Giant ~</span></span>
+<span><span class="co">#&gt; 3 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ Gray,~ https:~ Wester~</span></span>
+<span><span class="co">#&gt; 4 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Lee ~ https:~ Sand F~</span></span>
+<span><span class="co">#&gt; 5 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Lee ~ https:~ Plains~</span></span>
+<span><span class="co">#&gt; 6 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ Lee, ~ https:~ Wester~</span></span>
+<span><span class="co">#&gt; # ... with abbreviated variable names 1: species_guid, 2: vernacular_name</span></span></code></pre><p></p></div>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
