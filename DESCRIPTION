@@ -52,10 +52,9 @@ Suggests:
     taxize,
     testthat
 License: MPL-2.0
-URL: https://github.com/AtlasOfLivingAustralia/galah,
-    https://atlasoflivingaustralia.github.io/galah/
+URL: https://galah.ala.org.au
 BugReports: https://github.com/AtlasOfLivingAustralia/galah/issues
-Maintainer: Martin Westgate <martinjwestgate@gmail.com>
+Maintainer: Martin Westgate <martin.westgate@csiro.au>
 LazyLoad: yes
 VignetteBuilder: knitr
 RoxygenNote: 7.2.1
