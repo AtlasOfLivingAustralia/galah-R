@@ -1,7 +1,7 @@
 ---
 title: "Download data"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-10-18'
+date: '2022-10-19'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -132,16 +132,15 @@ occ |> head()
 
 ```
 ## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate            scientificName    taxon…¹ recor…² dataR…³ occur…⁴ insti…⁵
-##             <dbl>            <dbl> <chr>                <chr>             <chr>   <chr>   <chr>   <chr>   <chr>  
-## 1           -35.9             149. 2020-09-12T14:00:00Z Eolophus roseica… https:… 17f46d… eBird … PRESENT ""     
-## 2           -35.9             149. 2014-10-24T02:00:00Z Eolophus roseica… https:… b0e189… Nature… PRESENT ""     
-## 3           -35.9             149. 2021-09-27T14:00:00Z Eolophus roseica… https:… dbb711… eBird … PRESENT ""     
-## 4           -35.9             149. 2012-01-18T13:00:00Z Eolophus roseica… https:… 4f7cd7… BirdLi… PRESENT ""     
-## 5           -35.9             149. 2012-01-18T02:00:00Z Eolophus roseica… https:… 147acb… Nature… PRESENT ""     
-## 6           -35.9             149. 2017-03-17T13:00:00Z Eolophus roseica… https:… 3236c4… eBird … PRESENT ""     
-## # … with abbreviated variable names ¹​taxonConceptID, ²​recordID, ³​dataResourceName, ⁴​occurrenceStatus,
-## #   ⁵​institutionID
+##   decimalLatitude decimalLongitude eventDate            scientificName        taxonConceptID          recor…¹ dataR…² occur…³ insti…⁴
+##             <dbl>            <dbl> <chr>                <chr>                 <chr>                   <chr>   <chr>   <chr>   <chr>  
+## 1           -35.9             149. 2020-09-12T14:00:00Z Eolophus roseicapilla https://biodiversity.o… 17f46d… eBird … PRESENT ""     
+## 2           -35.9             149. 2014-10-24T02:00:00Z Eolophus roseicapilla https://biodiversity.o… b0e189… Nature… PRESENT ""     
+## 3           -35.9             149. 2021-09-27T14:00:00Z Eolophus roseicapilla https://biodiversity.o… dbb711… eBird … PRESENT ""     
+## 4           -35.9             149. 2012-01-18T13:00:00Z Eolophus roseicapilla https://biodiversity.o… 4f7cd7… BirdLi… PRESENT ""     
+## 5           -35.9             149. 2012-01-18T02:00:00Z Eolophus roseicapilla https://biodiversity.o… 147acb… Nature… PRESENT ""     
+## 6           -35.9             149. 2017-03-17T13:00:00Z Eolophus roseicapilla https://biodiversity.o… 3236c4… eBird … PRESENT ""     
+## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​institutionID
 ```
 
 

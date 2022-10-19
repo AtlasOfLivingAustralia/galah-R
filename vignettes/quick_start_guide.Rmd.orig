@@ -45,10 +45,10 @@ library(galah)
 # Choosing an atlas
 By default, `galah` downloads information from the Atlas of Living Australia (ALA).
 To show the full list of Atlases currently supported by `galah`, use 
-`show_all_atlases()`.
+`show_all(atlases)`.
 
 ```{r}
-show_all_atlases()
+show_all(atlases)
 ```
 
 Use `galah_config()` to set the Atlas to use. This will automatically populate the 

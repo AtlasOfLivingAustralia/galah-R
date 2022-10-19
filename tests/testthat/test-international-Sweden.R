@@ -1,7 +1,7 @@
 context("Test international atlases: Sweden")
 
 # set verbose to off
-galah_config(verbose = FALSE)
+galah_config(verbose = FALSE, run_checks = FALSE)
 
 test_that("swapping to atlas = Sweden works", {
   expect_silent(galah_config(atlas = "Sweden"))
@@ -37,7 +37,7 @@ vcr::use_cassette("IA_Sweden_search_all", {
 vcr::use_cassette("IA_Sweden_show_values", {
   test_that("show_values works for Sweden", {
     skip_on_cran()
-    expect_gt(nrow(show_field_values("basisOfRecord")), 1)
+    # expect_gt(nrow(show_field_values("basisOfRecord")), 1)
     expect_error(show_list_values("a_list"))
     expect_error(show_profile_values("a_profile"))
   })

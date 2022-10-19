@@ -1,10 +1,17 @@
 context("Test international atlases: Austria")
 
 # set verbose to off
-galah_config(verbose = FALSE)
+galah_config(verbose = FALSE, run_checks = FALSE)
 
 test_that("swapping to atlas = Austria works", {
   expect_silent(galah_config(atlas = "Austria"))
+})
+
+vcr::use_cassette("IA_Austria_show_all_fields", {
+  test_that("show_all works for Austria", {
+    result <- show_all_fields()
+    expect_gt(nrow(result), 1)
+  })
 })
 
 vcr::use_cassette("IA_Austria_show_all", {
@@ -15,7 +22,6 @@ vcr::use_cassette("IA_Austria_show_all", {
     expect_gt(nrow(show_all(providers)), 1)  
     ## records
     expect_gt(nrow(show_all(assertions)), 1)
-    expect_gt(nrow(show_all(fields)), 1)
     # logger
     expect_gt(nrow(show_all(reasons)), 1)
     # profiles

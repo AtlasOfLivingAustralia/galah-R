@@ -1,12 +1,22 @@
 context("Test international atlases: Portugal")
 
 # set verbose to off
-galah_config(verbose = FALSE)
+galah_config(verbose = FALSE, run_checks = FALSE)
 
 test_that("swapping to atlas = United Kingdom works", {
   expect_silent(galah_config(atlas = "United Kingdom"))
 })
 
+# putting this first to ensure show_all_fields gets cached properly
+# if this doesn't happen, later field name checks call the wrong atlas (Aus)
+# leading later tests to fail
+vcr::use_cassette("IA_United_Kingdom_show_all_fields", {
+  test_that("show_all works for United Kingdom", {
+    result <- show_all_fields()
+    expect_gt(nrow(result), 1)
+  })
+})
+  
 vcr::use_cassette("IA_United_Kingdom_show_all", {
   test_that("show_all works for United Kingdom", {
     ## collectory
@@ -15,7 +25,6 @@ vcr::use_cassette("IA_United_Kingdom_show_all", {
     expect_gt(nrow(show_all(providers)), 1)  
     ## records
     expect_gt(nrow(show_all(assertions)), 1)
-    expect_gt(nrow(show_all(fields)), 1)
     # logger
     expect_gt(nrow(show_all(reasons)), 1)
     # profiles
@@ -25,10 +34,16 @@ vcr::use_cassette("IA_United_Kingdom_show_all", {
   })
 }) 
 
-vcr::use_cassette("search_taxa_multiple_UK", {
+vcr::use_cassette("IA_search_taxa_multiple_UK", {
   test_that("search_taxa works for multiple queries", {
     taxa <- search_taxa(c("Vulpes vulpes", "Meles meles"))
     expect_equal(nrow(taxa), 2)
+  })
+})
+
+vcr::use_cassette("IA_search_taxa_types_UK", {
+  test_that("search_taxa doesn't break with typos", {
+    expect_no_error(search_taxa("Vlpes"))
   })
 })
 
@@ -40,17 +55,28 @@ vcr::use_cassette("IA_United_Kingdom_search_all", {
   })
 })
 
+vcr::use_cassette("IA_United_Kingdom_show_field_values", {
+  test_that("show_field_values works for United Kingdom", {
+    result <- show_field_values("basis_of_record")
+    expect_gt(nrow(result), 1)
+  })
+})
+
 vcr::use_cassette("IA_United_Kingdom_show_values", {
   test_that("show_values works for United Kingdom", {
-    expect_gt(nrow(show_field_values("basis_of_record")), 1)
     expect_gt(nrow(show_list_values("dr556")), 1)
     expect_error(show_profile_values("a_profile"))
   })
 })
 
-vcr::use_cassette("IA_United_Kingdom_atlas_counts", {
-  test_that("atlas_counts works for United Kingdom", {
+vcr::use_cassette("IA_United_Kingdom_atlas_counts_records", {
+  test_that("atlas_counts w records  works for United Kingdom", {
     expect_gt(atlas_counts()$count, 0)
+  })
+})
+
+vcr::use_cassette("IA_United_Kingdom_atlas_counts_species", {
+  test_that("atlas_counts w species works for United Kingdom", {
     expect_gt(atlas_counts(type = "species")$count, 0)
   })
 })

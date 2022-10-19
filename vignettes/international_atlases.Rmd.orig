@@ -29,7 +29,7 @@ To see which international Living Atlases `galah` currently supports, use
 
 ```{r}
 library(galah)
-show_all_atlases()
+show_all(atlases)
 ```
 
 Some atlases support more types of data queries than others (e.g. counts, 
@@ -38,7 +38,7 @@ returned from each atlase, you can see the list of supported Application
 Programming Interfaces (APIs).
 
 ```{r}
-show_all_apis()
+show_all(apis)
 ```
 
 ## Set Atlas
@@ -62,12 +62,11 @@ Atlas you have set. Available information may vary for each Living Atlas.
 ```{r}
 galah_config(atlas = "Guatemala")
 
-show_all_datasets()
-show_all_fields()
-search_fields("year")
+show_all(datasets)
+show_all(fields)
+search_all(fields, "year")
 search_taxa("lagomorpha")
 ```
-
 
 ## Download data
 
@@ -114,7 +113,7 @@ library(tibble)
 library(dplyr)
 library(gt)
 
-atlases <- show_all_atlases()
+atlases <- show_all(atlases)
 
 counts <- map(atlases$atlas, 
   function(x){
@@ -125,8 +124,8 @@ counts <- map(atlases$atlas,
 tibble(
   atlas = atlases$atlas, 
   n = unlist(counts)) |> 
+  filter(n > 0) |>
   arrange(desc(n)) |>
-  gt() |> 
-  gt::fmt_number(columns = round(n, 0))
+  gt()
 ```
 

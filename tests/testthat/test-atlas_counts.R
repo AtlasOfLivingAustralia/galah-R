@@ -1,5 +1,7 @@
 context("Test atlas_counts")
 
+galah_config(verbose = FALSE)
+
 vcr::use_cassette("atlas_counts_startup", {
   test_that("atlas_counts checks group_by field", {
     galah_config(run_checks = TRUE)

@@ -143,6 +143,9 @@ name_lookup <- function(name) {
     }else{
       result <- lapply(result, function(a){a[1]}) 
     }
+    if(length(result) < 1){
+      return(tibble(search_term = name))
+    }
   }
   
   # cure issue where some colnames are empty

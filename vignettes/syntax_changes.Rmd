@@ -1,7 +1,7 @@
 ---
 title: "Syntax changes"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-10-18'
+date: '2022-10-19'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -10,7 +10,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Version 1.4.0 brings in three major changes in how `galah` works:
+Starting with version 1.4.0, there have been three major improvements to how 
+`galah` works:
   
 - use of non-standard evaluation (NSE) in functions that modify queries
 - updated function naming
@@ -98,7 +99,7 @@ filter a `data.frame` with the `tidyverse` suite of functions.
 # Function naming
 Prior to version 1.4.0, `galah` naming conventions had two major problems:
 
-- download functions used the prefix `ala`, but actually could query many other living atlases
+- download functions used the prefix `ala`, but could actually query many living atlases (not just ALA)
 - query modifying functions used the prefix `select`, but this is reserved in `dplyr` (and elsewhere) for operations specifically on columns
 
 To address these concerns (and other smaller points), we have completed a 

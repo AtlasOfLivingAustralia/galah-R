@@ -1,7 +1,7 @@
 context("Test international atlases: Brazil")
 
 # set verbose to off
-galah_config(verbose = FALSE)
+galah_config(verbose = FALSE, run_checks = FALSE)
 
 test_that("swapping to atlas = Brazil works", {
   expect_silent(galah_config(atlas = "Brazil"))

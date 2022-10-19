@@ -1,0 +1,32 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://records-ws.nbnatlas.org/occurrence/facets?fq=&flimit=1&facets=species_guid
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.0
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 OK
+      date: Wed, 19 Oct 2022 04:04:12 GMT
+      server: Apache/2.4.7 (Ubuntu)
+      access-control-allow-origin: '*'
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-max-age: '3600'
+      access-control-allow-headers: x-requested-with
+      content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"fieldName":"species_guid","fieldResult":[{"label":"NHMSYS0000530674","i18nCode":"species_guid.NHMSYS0000530674","count":4749017,"fq":"species_guid:\"NHMSYS0000530674\""}],"count":50089}]'
+  recorded_at: 2022-10-19 04:05:35 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
