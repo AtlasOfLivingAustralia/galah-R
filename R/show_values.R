@@ -34,12 +34,10 @@
 #'   show_values()
 #' 
 #' # Search for any values in field 'cl22' that match 'tas'
+#' \dontrun{
 #' search_fields("cl22") |> 
 #'   search_values("tas")
-#' 
-#' # See individual filters within data quality profile "ALA"
-#' search_profiles("ALA") |> 
-#'   show_values()
+#' }
 #' 
 #' # See items within species list "dr19257"
 #' search_lists("dr19257") |> 
