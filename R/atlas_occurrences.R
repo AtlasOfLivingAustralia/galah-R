@@ -242,6 +242,11 @@ atlas_occurrences_internal <- function(identify = NULL,
     inform("Calling the API failed for `atlas_occurrences`")
     return(tibble())
   }
+  
+  # create a progress bar
+  if(verbose) {
+    cat("Downloading\n")
+  }
   data_path <- atlas_download(download_resp, cache_file = tmp, ext = ".zip")
   
   if(is.null(data_path)){
@@ -294,70 +299,107 @@ get_doi <- function(mint_doi, data_path) {
 wait_for_download <- function(query) {
 
   url <- atlas_url("records_occurrences")
-  status <- atlas_GET(url, params = query, on_error = occ_error_handler)
+  status_initial <- atlas_GET(url, params = query, on_error = occ_error_handler)
     
-  if(is.null(status)){
+  if(is.null(status_initial)){
     return(NULL)
   }
 
-  verbose <- getOption("galah_config")$verbose
-  # create a progress bar
-  if(verbose) {
-    pb <- txtProgressBar(max = 1, style = 3)
-  }else{
-    pb <- NULL
-  }
-  
-  # check running status, with rate limiting
-  status <- check_queue(status)
-  if(!is.null(status$status)){
-    if(status$status != "finished"){
-      status <- check_running(status, pb = pb)
+    # check running status, with rate limiting
+  status_post_queue <- check_queue(status_initial)
+  if(!is.null(status_post_queue$status)){
+    if(status_post_queue$status != "finished"){
+      status <- check_running(status_post_queue)
   }}
-  
-  # resume previous code
-  if(verbose) {
-    setTxtProgressBar(pb, value = 1)
-    close(pb)
-  }
 
   return(status$downloadUrl)
 }
 
-# check queue status, with rate limiting
-check_queue <- function(status){
-  interval_time <- seq_len(10)
-  for(i in interval_time){
-    status <- atlas_GET(status$statusUrl)
-    if(is.null(status$statusUrl)){
-      return(status)
-    }else{
-      if(i == 10){ # i.e. last run
-        abort("Function timed out in processing queue")
-      }else{
-        Sys.sleep(i)
-      }
-    }
-  }
+api_intervals <- function(){
+  c(
+    rep(0.5, 4),
+    rep(1, 3),
+    rep(2, 5),
+    rep(5, 8),
+    rep(10, 10),
+    rep(30, 10))
 }
 
-check_running <- function(status, pb = NULL){
-  for(i in seq_len(30)){
-    val <- (status$records / status$totalRecords)
-    if(!is.null(pb)) {
-      setTxtProgressBar(pb, val)
+# check queue status, with rate limiting
+check_queue <- function(status_initial){
+  interval_times <- api_intervals()
+  n_intervals <- length(interval_times)
+  status <- status_initial
+  iter <- 1
+  queue_size <- status$queueSize
+  
+  verbose <- getOption("galah_config")$verbose
+  if(verbose){
+    cat(paste0("Checking queue\nCurrent queue size: ", queue_size))
+  }
+  
+  while(status$status == "inQueue"){
+    if(verbose){
+      if(is.null(status$queueSize)){status$queueSize <- 0}
+      if(status$queueSize < queue_size){
+        queue_size <- status$queueSize
+        cat(paste0(" ", queue_size, " "))
+      }else{
+        cat(".")
+      }
     }
     status <- atlas_GET(status$statusUrl)
-    if(tolower(status$status) == "running"){
-      if(i == 30){
-        abort("Function timed out while running the query")
-      }else{
-        Sys.sleep(2)
-      }
+    if(is.null(status$statusUrl)){
+      break()
     }else{
-      return(status)
-    }  
+      if(iter <= n_intervals){
+        lag <- interval_times[iter]
+      }else{
+        lag <- 60
+      }
+      Sys.sleep(lag)
+    }
+    iter <- iter + 1
   }
+  return(status)
+}
+
+check_running <- function(status){
+  interval_times <- api_intervals()
+  n_intervals <- length(interval_times)
+  iter <- 1
+  
+  verbose <- getOption("galah_config")$verbose
+  if(verbose){
+    cat("\nRunning query on server side\n")
+    pb <- txtProgressBar(max = 1, style = 3)
+  }
+  
+  while(status$status == "running"){
+    if(verbose){
+      if(is.null(status$records)){status$records <- 0}
+      if(is.null(status$totalRecords)){status$totalRecords <- 1}
+      setTxtProgressBar(pb, status$records/status$totalRecords)
+    }
+    status <- atlas_GET(status$statusUrl)
+    if(is.null(status$statusUrl)){
+      break()
+    }else{
+      if(iter <= n_intervals){
+        lag <- interval_times[iter]
+      }else{
+        lag <- 60
+      }
+      Sys.sleep(lag)
+    }
+    iter <- iter + 1
+  }
+  
+  if(verbose){
+    setTxtProgressBar(pb, value = 1)
+    close(pb)
+  }
+  return(status)
 }
 
 check_count <- function(count, error_call = caller_env()) {

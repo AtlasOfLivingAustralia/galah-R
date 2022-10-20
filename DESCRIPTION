@@ -1,11 +1,11 @@
 Package: galah
 Type: Package
-Title: Data and Resources from the Living Atlas community in R
+Title: Data and Resources from the Living Atlas Community in R
 Version: 1.5.0
 Authors@R:
     c(person(given = "Martin",
              family = "Westgate",
-             email = "martinjwestgate@gmail.com",
+             email = "martin.westgate@csiro.au",
              role = c("aut", "cre")),
       person(given = "Matilda",
              family = "Stevenson",
