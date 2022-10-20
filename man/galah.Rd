@@ -160,7 +160,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Martin Westgate \email{martinjwestgate@gmail.com}
+\strong{Maintainer}: Martin Westgate \email{martin.westgate@csiro.au}
 
 Authors:
 \itemize{

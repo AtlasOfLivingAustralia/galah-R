@@ -89,20 +89,21 @@ The available types of information for \code{show_all_} are:\tabular{llll}{
 ## Atlases ---------------------------
 
 # See all supported atlases
-show_all_atlases()
-show_all(atlases) # equivalent
+show_all(atlases)
 
 ## Fields ----------------------------
 
 # See a listing of all valid fields and layers
-show_all_fields()
-show_all(fields) # equivalent
+\dontrun{
+show_all(fields)
+}
 
 ## Reasons ---------------------------
 
 # Show a listing of all accepted reasons for downloading occurrence data
-show_all_reasons()
-show_all(reasons) # equivalent
+\dontrun{
+show_all(reasons)
+}
 
 # Add your download reason when configuring your session with [galah_config()]
 \dontrun{
@@ -112,8 +113,9 @@ galah_config(download_reason_id = 3)
 ## Profiles --------------------------
 
 # Show a list of all available data quality profiles
-show_all_profiles()
-show_all(profiles) # equivalent
+\dontrun{
+show_all(profiles)
+}
 
 # Values in the `shortName` column can be used with [galah_apply_profile()] 
 # to narrow your data query results
@@ -126,14 +128,16 @@ galah_call() |>
 ## Lists ----------------------------
 
 # Show a listing of species lists
-show_all_lists()
-show_all(lists) # equivalent
+\dontrun{
+show_all(lists)
+}
 
 ## Ranks ---------------------------
 
 # Show a listing of all taxonomic ranks
-show_all_ranks()
-show_all(ranks) # equivalent
+\dontrun{
+show_all(ranks)
+}
 
 # Use ranks with [galah_down_to()] and [atlas_taxonomy()] to get taxonomic 
 # trees
