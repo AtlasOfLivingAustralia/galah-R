@@ -182,3 +182,16 @@ test_that("search_profiles returns a filtered result", {
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
 })
+
+test_that("search_lists returns a filtered result", {
+  skip_on_cran()
+  all <- show_all_lists()
+  search <- search_lists("threatened")
+  search_result_check <- all(grepl(pattern = "threatened", search$listName,
+                                   ignore.case = TRUE))
+  
+  expect_lt(nrow(search), nrow(all))
+  expect_equal(attributes(search)$call, "search_lists")
+  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
+  expect_true(search_result_check)
+})

@@ -423,9 +423,12 @@ search_lists <- function(query){
   df <- show_all_lists()
   attr(df, "call") <- "search_lists"
   attr(df, "search") <- {{query}}
+  query <- tolower(query)
   
   # return result of grepl query
-  df <- df[grepl(tolower(query), tolower(df$listName)), ]
+  df <- df[
+    grepl(query, tolower(df$listName)) |
+    grepl(query, tolower(df$dataResourceUid)), ]
   
   # calculate similarity of results to query, reorder results
   similarity <- adist(df$listName, query, ignore.case = TRUE)[, 1]

@@ -4,11 +4,10 @@ test_that("galah_bbox returns bbox for sf", {
   polygon_sfc <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))" |>
     st_as_sfc()
   polygon_bbox <- galah_bbox(polygon_sfc)
-  expected_polygon <- "MULTIPOLYGON (((142.3623 -29.39064, 142.7413 -29.39064, 142.7413 -29.00703, 142.3623 -29.00703, 142.3623 -29.39064)))"
   expected_bbox <- polygon_sfc |> st_bbox()
   
   expect_message(galah_bbox(polygon_sfc), "Data returned for bounding box:")
-  expect_equal(galah_bbox(polygon_sfc)[1], expected_polygon)
+  expect_true(grepl("MULTIPOLYGON", galah_bbox(polygon_sfc)))
   expect_equal(attributes(polygon_bbox)$bbox, expected_bbox)
 })
 
@@ -16,11 +15,10 @@ test_that("galah_bbox returns bbox for shapefile", {
   poly_path <- test_path("testdata", "act_state_polygon_shp", "ACT_STATE_POLYGON_shp.shp")
   shapefile <- st_read(poly_path, quiet = TRUE)
   shapefile_bbox <- galah_bbox(shapefile)
-  expected_polygon <- "MULTIPOLYGON (((148.7628 -35.92053, 149.3993 -35.92053, 149.3993 -35.12442, 148.7628 -35.12442, 148.7628 -35.92053)))"
   expected_bbox <- attributes(shapefile_bbox)$bbox
   
   expect_message(galah_bbox(shapefile), "Data returned for bounding box:")
-  expect_equal(galah_bbox(shapefile)[1], expected_polygon)
+  expect_true(grepl("MULTIPOLYGON", galah_bbox(shapefile)))
   expect_equal(attributes(shapefile_bbox)$bbox, expected_bbox)
 })
 

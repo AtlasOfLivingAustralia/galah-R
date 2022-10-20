@@ -17,10 +17,17 @@ test_that("galah_polygon checks inputs", {
   expect_error(galah_polygon(readLines(wkt_path)))
 })
 
-test_that("galah_polygon finds polygon errors", {
+test_that("galah_polygon finds polygon errors 1" , {
+  skip_on_cran()
   invalid_wkt <- "POLYGON((145.71622941565508 -32.17848852726597,))"
   expect_error(galah_polygon(invalid_wkt))
-  
+  # NOTE: 
+    # this code generates an extra string ('OGR: Corrupt data')
+    # that is useful, but can't be stopped by tryCatch. Skipping on CRAN
+    # to avoid unnecessary error messages
+})
+
+test_that("galah_polygon finds polygon errors 2", {
   invalid_wkt <- "POLYGON((132.8 -12.72, 132.95 -12.70, 132.92 -12.57, 132.85 -12.58))"
   expect_error(galah_polygon(invalid_wkt))
 })
@@ -64,4 +71,3 @@ test_that("galah_polygon counts n vertices correctly", {
 
 
 # Future: test that galah_polygon accepts nothing as an input and ignores
-
