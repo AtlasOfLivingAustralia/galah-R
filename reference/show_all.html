@@ -158,21 +158,7 @@ search for information. These functions are used to pass valid arguments to
 <span class="r-in"><span><span class="co">## Atlases ---------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># See all supported atlases</span></span></span>
-<span class="r-in"><span><span class="fu">show_all_atlases</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    atlas          institution                                      acronym url  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Australia      Atlas of Living Australia                        ALA     http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Austria        Biodiversitäts-Atlas Österreich                  BAO     http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Brazil         Sistemas de Informações sobre a Biodiversidade … SiBBr   http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Estonia        eElurikkus                                       <span style="color: #BB0000;">NA</span>      http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> France         Inventaire National du Patrimoine Naturel        INPN    http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Guatemala      Sistema Nacional de Información sobre Diversida… SNIBgt  http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Portugal       GBIF Portugal                                    GBIF.pt http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Spain          GBIF Spain                                       GBIF.es http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Sweden         Swedish Biodiversity Data Infrastructure         SBDI    http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> United Kingdom National Biodiversity Network                    NBN     http…</span>
-<span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">atlases</span><span class="op">)</span> <span class="co"># equivalent</span></span></span>
+<span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">atlases</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    atlas          institution                                      acronym url  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
@@ -190,74 +176,16 @@ search for information. These functions are used to pass valid arguments to
 <span class="r-in"><span><span class="co">## Fields ----------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># See a listing of all valid fields and layers</span></span></span>
-<span class="r-in"><span><span class="fu">show_all_fields</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 813 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id                    description                                 type  link </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> abcdTypeStatus        ABCD field in use by herbaria               fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> acceptedNameUsage     http://rs.tdwg.org/dwc/terms/acceptedNameU… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> acceptedNameUsageID   http://rs.tdwg.org/dwc/terms/acceptedNameU… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> accessRights          <span style="color: #BB0000;">NA</span>                                          fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> assertionUserId       User ID of the person who has made an asse… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> assertions            A list of all assertions (user and system … fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> associatedMedia       http://rs.tdwg.org/dwc/terms/associatedMed… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> associatedOccurrences http://rs.tdwg.org/dwc/terms/associatedOcc… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> associatedOrganisms   http://rs.tdwg.org/dwc/terms/associatedOrg… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> associatedReferences  http://rs.tdwg.org/dwc/terms/associatedRef… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 803 more rows</span></span>
-<span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">fields</span><span class="op">)</span> <span class="co"># equivalent</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 813 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id                    description                                 type  link </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> abcdTypeStatus        ABCD field in use by herbaria               fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> acceptedNameUsage     http://rs.tdwg.org/dwc/terms/acceptedNameU… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> acceptedNameUsageID   http://rs.tdwg.org/dwc/terms/acceptedNameU… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> accessRights          <span style="color: #BB0000;">NA</span>                                          fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> assertionUserId       User ID of the person who has made an asse… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> assertions            A list of all assertions (user and system … fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> associatedMedia       http://rs.tdwg.org/dwc/terms/associatedMed… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> associatedOccurrences http://rs.tdwg.org/dwc/terms/associatedOcc… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> associatedOrganisms   http://rs.tdwg.org/dwc/terms/associatedOrg… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> associatedReferences  http://rs.tdwg.org/dwc/terms/associatedRef… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 803 more rows</span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">fields</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Reasons ---------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Show a listing of all accepted reasons for downloading occurrence data</span></span></span>
-<span class="r-in"><span><span class="fu">show_all_reasons</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 13 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       id name                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     0 conservation management/planning</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     1 biosecurity management/planning </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>     2 environmental assessment        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     3 education                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>     4 scientific research             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     5 collection management           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>     6 other                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>     7 ecological research             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     8 systematic research/taxonomy    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>    10 testing                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>    11 citizen science                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>    12 restoration/remediation         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span>    13 species modelling               </span>
-<span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">reasons</span><span class="op">)</span> <span class="co"># equivalent</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 13 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       id name                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     0 conservation management/planning</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     1 biosecurity management/planning </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>     2 environmental assessment        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     3 education                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>     4 scientific research             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     5 collection management           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>     6 other                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>     7 ecological research             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     8 systematic research/taxonomy    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>    10 testing                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>    11 citizen science                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>    12 restoration/remediation         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span>    13 species modelling               </span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">reasons</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Add your download reason when configuring your session with [galah_config()]</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
@@ -267,30 +195,9 @@ search for information. These functions are used to pass valid arguments to
 <span class="r-in"><span><span class="co">## Profiles --------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Show a list of all available data quality profiles</span></span></span>
-<span class="r-in"><span><span class="fu">show_all_profiles</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      id name                                                  shortName  descr…¹</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     2 ALA General (pre-pipelines 3)                         ALA-legacy <span style="color: #949494;">"</span>The d…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>    35 Species Distribution Modelling (CSDM) (pre-pipelines) CSDM-lega… <span style="color: #949494;">"</span>Base …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>    44 Data licensed for all uses (pre-pipelines)            re-usable… <span style="color: #949494;">"</span>Data …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>    92 ALA General                                           ALA        <span style="color: #949494;">"</span>The d…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>   124 Species Distribution Modelling (CSDM)                 CSDM       <span style="color: #949494;">"</span>Base …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>   133 Data licensed for all uses                            re-usable  <span style="color: #949494;">"</span>Data …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>   224 AVH                                                   AVH        <span style="color: #949494;">"</span>AVH d…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable name ¹​description</span></span>
-<span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">profiles</span><span class="op">)</span> <span class="co"># equivalent</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      id name                                                  shortName  descr…¹</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     2 ALA General (pre-pipelines 3)                         ALA-legacy <span style="color: #949494;">"</span>The d…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>    35 Species Distribution Modelling (CSDM) (pre-pipelines) CSDM-lega… <span style="color: #949494;">"</span>Base …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>    44 Data licensed for all uses (pre-pipelines)            re-usable… <span style="color: #949494;">"</span>Data …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>    92 ALA General                                           ALA        <span style="color: #949494;">"</span>The d…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>   124 Species Distribution Modelling (CSDM)                 CSDM       <span style="color: #949494;">"</span>Base …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>   133 Data licensed for all uses                            re-usable  <span style="color: #949494;">"</span>Data …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>   224 AVH                                                   AVH        <span style="color: #949494;">"</span>AVH d…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable name ¹​description</span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">profiles</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Values in the `shortName` column can be used with [galah_apply_profile()] </span></span></span>
 <span class="r-in"><span><span class="co"># to narrow your data query results</span></span></span>
@@ -303,78 +210,16 @@ search for information. These functions are used to pass valid arguments to
 <span class="r-in"><span><span class="co">## Lists ----------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Show a listing of species lists</span></span></span>
-<span class="r-in"><span><span class="fu">show_all_lists</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3,000 × 16</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    dataResource…¹ listN…² listT…³ dateC…⁴ lastU…⁵ usern…⁶ fullN…⁷ itemC…⁸ region</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> dr14140        <span style="color: #949494;">"</span> Rive… LOCAL_… 2019-1… 2022-0… matild… <span style="color: #BB0000;">NA</span>           41 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> dr14507        <span style="color: #949494;">"</span>*Brig… SPATIA… 2020-0… 2020-0… andy.d… <span style="color: #BB0000;">NA</span>           38 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> dr19938        <span style="color: #949494;">"</span>06624… LOCAL_… 2022-1… 2022-1… robert… <span style="color: #BB0000;">NA</span>           41 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> dr15874        <span style="color: #949494;">"</span>13-19<span style="color: #949494;">"</span> SPATIA… 2020-0… 2020-0… jane.m… <span style="color: #BB0000;">NA</span>            7 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> dr1266         <span style="color: #949494;">"</span>2 b) … LOCAL_… 2014-0… 2017-0… glen.j… <span style="color: #BB0000;">NA</span>            3 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> dr15875        <span style="color: #949494;">"</span>20-26<span style="color: #949494;">"</span> SPATIA… 2020-0… 2020-0… jane.m… <span style="color: #BB0000;">NA</span>            6 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> dr19742        <span style="color: #949494;">"</span>20220… OTHER   2022-0… 2022-0… ddelan… <span style="color: #BB0000;">NA</span>         <span style="text-decoration: underline;">2</span>510 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> dr19741        <span style="color: #949494;">"</span>20220… OTHER   2022-0… 2022-0… ddelan… <span style="color: #BB0000;">NA</span>         <span style="text-decoration: underline;">2</span>510 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> dr17077        <span style="color: #949494;">"</span>20MT … TEST    2021-0… 2021-0… chris.… <span style="color: #BB0000;">NA</span>           59 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> dr17078        <span style="color: #949494;">"</span>20MT … TEST    2021-0… 2021-0… chris.… <span style="color: #BB0000;">NA</span>           59 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2,990 more rows, 7 more variables: category &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   generalisation &lt;chr&gt;, authority &lt;chr&gt;, sdsType &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   isAuthoritative &lt;lgl&gt;, isInvasive &lt;lgl&gt;, isThreatened &lt;lgl&gt;, and</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   abbreviated variable names ¹​dataResourceUid, ²​listName, ³​listType,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁴​dateCreated, ⁵​lastUpdated, ⁶​username, ⁷​fullName, ⁸​itemCount</span></span>
-<span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">lists</span><span class="op">)</span> <span class="co"># equivalent</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3,000 × 16</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    dataResource…¹ listN…² listT…³ dateC…⁴ lastU…⁵ usern…⁶ fullN…⁷ itemC…⁸ region</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> dr14140        <span style="color: #949494;">"</span> Rive… LOCAL_… 2019-1… 2022-0… matild… <span style="color: #BB0000;">NA</span>           41 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> dr14507        <span style="color: #949494;">"</span>*Brig… SPATIA… 2020-0… 2020-0… andy.d… <span style="color: #BB0000;">NA</span>           38 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> dr19938        <span style="color: #949494;">"</span>06624… LOCAL_… 2022-1… 2022-1… robert… <span style="color: #BB0000;">NA</span>           41 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> dr15874        <span style="color: #949494;">"</span>13-19<span style="color: #949494;">"</span> SPATIA… 2020-0… 2020-0… jane.m… <span style="color: #BB0000;">NA</span>            7 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> dr1266         <span style="color: #949494;">"</span>2 b) … LOCAL_… 2014-0… 2017-0… glen.j… <span style="color: #BB0000;">NA</span>            3 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> dr15875        <span style="color: #949494;">"</span>20-26<span style="color: #949494;">"</span> SPATIA… 2020-0… 2020-0… jane.m… <span style="color: #BB0000;">NA</span>            6 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> dr19742        <span style="color: #949494;">"</span>20220… OTHER   2022-0… 2022-0… ddelan… <span style="color: #BB0000;">NA</span>         <span style="text-decoration: underline;">2</span>510 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> dr19741        <span style="color: #949494;">"</span>20220… OTHER   2022-0… 2022-0… ddelan… <span style="color: #BB0000;">NA</span>         <span style="text-decoration: underline;">2</span>510 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> dr17077        <span style="color: #949494;">"</span>20MT … TEST    2021-0… 2021-0… chris.… <span style="color: #BB0000;">NA</span>           59 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> dr17078        <span style="color: #949494;">"</span>20MT … TEST    2021-0… 2021-0… chris.… <span style="color: #BB0000;">NA</span>           59 <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2,990 more rows, 7 more variables: category &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   generalisation &lt;chr&gt;, authority &lt;chr&gt;, sdsType &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   isAuthoritative &lt;lgl&gt;, isInvasive &lt;lgl&gt;, isThreatened &lt;lgl&gt;, and</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   abbreviated variable names ¹​dataResourceUid, ²​listName, ³​listType,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁴​dateCreated, ⁵​lastUpdated, ⁶​username, ⁷​fullName, ⁸​itemCount</span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">lists</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Ranks ---------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Show a listing of all taxonomic ranks</span></span></span>
-<span class="r-in"><span><span class="fu">show_all_ranks</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 69 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       id name        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     1 root        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     2 superkingdom</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>     3 kingdom     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     4 subkingdom  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>     5 superphylum </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     6 phylum      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>     7 subphylum   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>     8 superclass  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     9 class       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>    10 subclass    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 59 more rows</span></span>
-<span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">ranks</span><span class="op">)</span> <span class="co"># equivalent</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 69 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       id name        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     1 root        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     2 superkingdom</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>     3 kingdom     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     4 subkingdom  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>     5 superphylum </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     6 phylum      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>     7 subphylum   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>     8 superclass  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     9 class       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>    10 subclass    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 59 more rows</span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">ranks</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use ranks with [galah_down_to()] and [atlas_taxonomy()] to get taxonomic </span></span></span>
 <span class="r-in"><span><span class="co"># trees</span></span></span>
