@@ -111,28 +111,6 @@ show_all_atlases()
 show_all_reasons()
 ```
 
-Of these functions, the one that has by far the largest output is 
-`show_all_fields()`. Fields are used to filter and narrow queries. The full 
-list of fields is too long to display, but here is a slice of the 
-results of `show_all_fields()`.
-
-```{r}
-show_all(fields) |>
-  dplyr::slice(1:10) # Take slice of first 10 rows
-```
-
-One way to browse all fields is to use `View()` or `dplyr::view()` to open the 
-results in a new tab in R to scroll through.
-
-```{r eval = FALSE}
-show_all_fields() |> View() # Open table in new tab
-```
-
-Given how important fields are to the proper use of `galah`, it might be more 
-useful to search for a specific field. This need for a more detailed search is when
-`search_` functions come in handy.
-
-
 # `search_` subfunctions
 The second subset of lookup subfunctions use the `search_` prefix, and differ from
 `show_all_` in that they require a query to work. They are used to search for 
@@ -181,7 +159,6 @@ search_all(fields, "basis") |> show_values()
 This provides the information you need to pass meaningful queries to `galah_filter`.
 
 ```{r}
-show_field_values("basisOfRecord")
 galah_call() |> 
   galah_filter(basisOfRecord == "LIVING_SPECIMEN") |> 
   atlas_counts()
@@ -190,13 +167,17 @@ galah_call() |>
 This works for several other types of query, such as data profiles:
 
 ```{r}
-search_all(profiles, "ALA") |> show_values() |> head()
+search_all(profiles, "ALA") |> 
+  show_values() |> 
+  head()
 ```
 
 Or collections:
 
 ```{r}
-search_all(collections, "herbarium") |> show_values() |> head()
+search_all(collections, "herbarium") |> 
+  show_values() |> 
+  head()
 ```
 
 

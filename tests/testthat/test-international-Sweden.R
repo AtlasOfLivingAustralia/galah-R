@@ -44,13 +44,13 @@ vcr::use_cassette("IA_Sweden_show_values", {
 })
 
 ## CURRENTLY TECH PROBLEMS ON THE LA SIDE
-# vcr::use_cassette("IA_Sweden_atlas_counts", {
-#   test_that("atlas_counts works for Sweden", {
-#     expect_gt(atlas_counts()$count, 0)
-#     expect_gt(atlas_counts(type = "species")$count, 0)
-#   })
-# })
-# 
+vcr::use_cassette("IA_Sweden_atlas_counts", {
+ test_that("atlas_counts works for Sweden", {
+   expect_gt(atlas_counts()$count, 0)
+   expect_gt(atlas_counts(type = "species")$count, 0)
+ })
+})
+
 # vcr::use_cassette("IA_Sweden_atlas_counts2", {
 #   test_that("atlas_counts works with galah_identify for Sweden", {
 #     result <- galah_call() |>
@@ -68,7 +68,7 @@ vcr::use_cassette("IA_Sweden_show_values", {
 #       (sqrt((result2$count - result$count)^2) / result$count) < 0.1)
 #   })
 # })
-# 
+
 # vcr::use_cassette("IA_Sweden_atlas_counts3", {
 #   test_that("atlas_counts works with group_by for Sweden", {
 #     skip_on_cran()

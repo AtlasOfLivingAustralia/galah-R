@@ -2,7 +2,7 @@
 % Please edit documentation in R/atlas_media.R
 \name{atlas_media}
 \alias{atlas_media}
-\title{Download images, sounds and videos}
+\title{Get metadata on images, sounds and videos}
 \usage{
 atlas_media(
   request = NULL,
@@ -39,19 +39,17 @@ be replaced by the current query. DEPRECATED; use \code{collect_media()} instead
 }
 \value{
 An object of class \code{tbl_df} and \code{data.frame} (aka a tibble)
-of metadata of the downloaded media
+of metadata of the requested media.
 }
 \description{
 In addition to text data describing individual occurrences and their
 attributes, ALA stores images, sounds and videos associated with a given
-record. \code{atlas_media} allows download of any and all of the media types.
+record. \code{atlas_media} displays metadata for any and all of the media types.
 }
 \details{
-\code{\link[=atlas_occurrences]{atlas_occurrences()}} works by first finding all occurrence records
+\code{\link[=atlas_media]{atlas_media()}} works by first finding all occurrence records
 matching the filter which contain media, then downloading the metadata for the
-media and the media files. \code{\link[=galah_filter]{galah_filter()}} can take both filter
-relating to occurrences (e.g. basis of records), and filter relating to media
-(e.g. type of licence).
+media. To actually download the files themselves, use \code{\link[=collect_media]{collect_media()}}.
 It may be beneficial when requesting a large number of records to show a progress
 bar by setting \code{verbose = TRUE} in \code{\link[=galah_config]{galah_config()}}.
 }
@@ -63,38 +61,39 @@ Download Regent Honeyeater multimedia
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{media_data <- galah_call() |>
     galah_identify("Regent Honeyeater") |>
     galah_filter(year == 2011) |>
-    atlas_media(download_dir = "folder/your-directory")
+    atlas_media() |>
+    collect_media(path = "folder/your-directory")
 }\if{html}{\out{</div>}}
 
 Specify a single media type to download
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{media_data <- galah_call(
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{media_data <- galah_call() |>
      galah_identify("Eolophus Roseicapilla") |>
      galah_filter(multimedia == "Sound") |>
      atlas_media()
 }\if{html}{\out{</div>}}
 
-Filter to only records with a particular licence type (DOESN'T WORK)
+Filter to only records with a particular licence type
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{media_data <- galah_call()
-      galah_identify("Ornithorhynchus anatinus") |>
-      galah_filter(year == 2020,
-        license == "http://creativecommons.org/licenses/by-nc/4.0/") |>
-       atlas_media()
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{media_data <- galah_call() |>
+     galah_identify("Ornithorhynchus anatinus") |>
+     galah_filter(year == 2020) |>
+     atlas_media() |>
+     dplyr::filter(license == "http://creativecommons.org/licenses/by-nc/4.0/")
 }\if{html}{\out{</div>}}
 
 You might also want to check how many records have media files before you
 download them. Do this with \code{\link[=atlas_counts]{atlas_counts()}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
-     galah_filter(multimedia == c("Image","Sound","Video")) |>
+     galah_filter(multimedia == c("Image", "Sound", "Video")) |>
      galah_group_by(multimedia) |>
      atlas_counts()
 }\if{html}{\out{</div>}}
 }
 
 \seealso{
-\code{\link[=atlas_counts]{atlas_counts()}} to find the number of records with media- note this
+\code{\link[=atlas_counts]{atlas_counts()}} to find the number of records with media; but note this
 is not necessarily the same as the number of media files, as each record can have
 more than one media file associated with it (see examples section for how to do this).
 }

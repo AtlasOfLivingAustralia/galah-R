@@ -2,7 +2,6 @@
 
 # setup
 library(knitr)
-library(galah)
 library(dplyr)
 # galah_config(email = "email@email.com") # add your email
 
@@ -17,8 +16,8 @@ lapply(seq_along(selected_files), function(a){knit(
   out_files[[a]]
 )})
 
-# render README.md
-knitr::knit("README.Rmd", "README.md")
+## render README.md
+# knitr::knit("README.Rmd", "README.md")
 
 # # next steps
 devtools::build_vignettes()

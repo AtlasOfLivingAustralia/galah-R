@@ -1,7 +1,7 @@
 ---
 title: "Download data"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-10-19'
+date: '2022-10-20'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -88,15 +88,15 @@ species |> head()
 
 ```
 ## # A tibble: 6 × 10
-##   kingdom  phylum   class    order    family  genus        species       author speci…¹ verna…²
-##   <chr>    <chr>    <chr>    <chr>    <chr>   <chr>        <chr>         <chr>  <chr>   <chr>  
-## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys… (J.E.… https:… Black-…
-## 2 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argu… (Thom… https:… Common…
-## 3 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys he… (Wait… https:… Sandy …
-## 4 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alex… Thoma… https:… Spinif…
-## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burt… (Rams… https:… Grassl…
-## 6 Animalia Chordata Mammalia Rodentia Muridae Mus          Mus musculus  Linna… https:… House …
-## # … with abbreviated variable names ¹​species_guid, ²​vernacular_name
+##   kingdom  phylum   class    order    family  genus        species                     author            species_guid       verna…¹
+##   <chr>    <chr>    <chr>    <chr>    <chr>   <chr>        <chr>                       <chr>             <chr>              <chr>  
+## 1 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. Gray, 1843) https://biodivers… Black-…
+## 2 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thomas, 1889)    https://biodivers… Common…
+## 3 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite, 1896)     https://biodivers… Sandy …
+## 4 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas, 1922      https://biodivers… Spinif…
+## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsay, 1887)    https://biodivers… Grassl…
+## 6 Animalia Chordata Mammalia Rodentia Muridae Mus          Mus musculus                Linnaeus, 1758    https://biodivers… House …
+## # … with abbreviated variable name ¹​vernacular_name
 ```
 
 
@@ -130,34 +130,52 @@ occ |> head()
 
 ```
 ## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate    scien…¹ taxon…² recor…³ dataR…⁴ occur…⁵ insti…⁶
-##             <dbl>            <dbl> <chr>        <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
-## 1           -35.9             149. 2020-09-12T… Eoloph… https:… 17f46d… eBird … PRESENT ""     
-## 2           -35.9             149. 2014-10-24T… Eoloph… https:… b0e189… Nature… PRESENT ""     
-## 3           -35.9             149. 2021-09-27T… Eoloph… https:… dbb711… eBird … PRESENT ""     
-## 4           -35.9             149. 2012-01-18T… Eoloph… https:… 4f7cd7… BirdLi… PRESENT ""     
-## 5           -35.9             149. 2012-01-18T… Eoloph… https:… 147acb… Nature… PRESENT ""     
-## 6           -35.9             149. 2017-03-17T… Eoloph… https:… 3236c4… eBird … PRESENT ""     
-## # … with abbreviated variable names ¹​scientificName, ²​taxonConceptID, ³​recordID,
-## #   ⁴​dataResourceName, ⁵​occurrenceStatus, ⁶​institutionID
+##   decimalLatitude decimalLongitude eventDate            scientificName        taxonConceptID        recor…¹ dataR…² occur…³ insti…⁴
+##             <dbl>            <dbl> <chr>                <chr>                 <chr>                 <chr>   <chr>   <chr>   <chr>  
+## 1           -35.9             149. 2020-09-12T14:00:00Z Eolophus roseicapilla https://biodiversity… 17f46d… eBird … PRESENT ""     
+## 2           -35.9             149. 2014-10-24T02:00:00Z Eolophus roseicapilla https://biodiversity… b0e189… Nature… PRESENT ""     
+## 3           -35.9             149. 2021-09-27T14:00:00Z Eolophus roseicapilla https://biodiversity… dbb711… eBird … PRESENT ""     
+## 4           -35.9             149. 2012-01-18T13:00:00Z Eolophus roseicapilla https://biodiversity… 4f7cd7… BirdLi… PRESENT ""     
+## 5           -35.9             149. 2012-01-18T02:00:00Z Eolophus roseicapilla https://biodiversity… 147acb… Nature… PRESENT ""     
+## 6           -35.9             149. 2017-03-17T13:00:00Z Eolophus roseicapilla https://biodiversity… 3236c4… eBird … PRESENT ""     
+## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​institutionID
 ```
 
 
-# Media downloads
+# Media metadata
 In addition to text data describing individual occurrences and their attributes, 
-ALA stores images, sounds and videos associated with a given record. These can 
-be downloaded to `R` using `atlas_media()` and the same set of filters as the 
-other data download functions.
+ALA stores images, sounds and videos associated with a given record. Metadata on
+these records can be downloaded to `R` using `atlas_media()` and the same set of 
+filters as the other data download functions.
 
 
 ```r
 media_data <- galah_call() |>
   galah_identify("Eolophus roseicapilla") |>
-  galah_filter(year == 2020) |>
-  atlas_media(download_dir = "media")
+  galah_filter(
+    year == 2020,
+    cl22 == "Australian Capital Territory") |>
+  atlas_media()
   
-media_data
+media_data |> head()
 ```
+
+```
+## # A tibble: 6 × 20
+##   decimalLat…¹ decim…² event…³ scien…⁴ taxon…⁵ recor…⁶ dataR…⁷ occur…⁸ multi…⁹ media…˟ mime_…˟ size_…˟ date_…˟ date_…˟ height width
+##          <dbl>   <dbl> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>     <int> <chr>   <chr>    <int> <int>
+## 1        -35.6    149. 2020-0… Eoloph… https:… 063bb0… iNatur… PRESENT Image   2f4d32… image/… 2654217 2020-0… 2020-0…   1200  1800
+## 2        -35.6    149. 2020-0… Eoloph… https:… 063bb0… iNatur… PRESENT Image   734074… image/… 2422643 2020-0… 2020-0…   1200  1800
+## 3        -35.6    149. 2020-0… Eoloph… https:… 063bb0… iNatur… PRESENT Image   89171c… image/… 2212660 2020-0… 2020-0…   1200  1800
+## 4        -35.6    149. 2020-0… Eoloph… https:… 063bb0… iNatur… PRESENT Image   e681d3… image/… 3414736 2020-0… 2020-0…   1200  1800
+## 5        -35.5    149. 2020-0… Eoloph… https:… 286841… iNatur… PRESENT Image   1295c2… image/…  863158 2021-0… 2021-0…   1200  1800
+## 6        -35.5    149. 2020-1… Eoloph… https:… 064a39… iNatur… PRESENT Image   f97686… image/…  955916 2020-1… 2020-1…   1200  1800
+## # … with 4 more variables: creator <chr>, license <chr>, data_resource_uid <chr>, occurrence_id <chr>, and abbreviated variable
+## #   names ¹​decimalLatitude, ²​decimalLongitude, ³​eventDate, ⁴​scientificName, ⁵​taxonConceptID, ⁶​recordID, ⁷​dataResourceName,
+## #   ⁸​occurrenceStatus, ⁹​multimedia, ˟​media_id, ˟​mime_type, ˟​size_in_bytes, ˟​date_uploaded, ˟​date_taken
+```
+
+To actually download the media files to your computer, use [collect_media()].
 
 # Taxonomic trees
 `atlas_taxonomy` provides a way to build taxonomic trees from one clade down to 
