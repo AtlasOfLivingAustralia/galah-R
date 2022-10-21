@@ -129,6 +129,14 @@ url_download <- function(url){
     result <- fix_assertion_cols(result, names(result)[assertions_check])
   }
   
+  # get DOI, if one exists
+  doi_lookup <- grepl("doi.txt", local_file_uz)
+  if(any(doi_lookup)){
+    doi_text <- as.character(
+      read.table(unz(local_file, "doi.txt"))$V1)
+    attr(result, "doi") <- doi_text
+  }
+  
   # return tibble with correct info
   attr(result, "data_type") <- "occurrences"
   attr(result, "call") <- "atlas_occurrences"

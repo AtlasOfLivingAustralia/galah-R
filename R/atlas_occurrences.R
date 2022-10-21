@@ -245,9 +245,6 @@ atlas_occurrences_internal <- function(identify = NULL,
   # download from url
   result_df <- url_download(download_resp)
 
-  # add DOI as attribute
-  attr(result_df, "doi") <- get_doi(mint_doi, data_path)
-  
   result_df
 }
 
