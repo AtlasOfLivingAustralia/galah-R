@@ -62,35 +62,62 @@ doi_download <- function(doi, error_call = caller_env()) {
     )
     abort(bullets, call = error_call)
   }
+  
+  verbose <- getOption("galah_config")$verbose
+  if(verbose) {
+    cat("Downloading\n")
+  }
 
   path <- atlas_url("doi_download", doi_string = doi_str) |>
           atlas_download(ext = ".zip", cache_file = tempfile(pattern = "data"))
 
   if(is.null(path)){
-    NULL
+    inform("Download failed")
+    return(tibble())
   }else{
     record_file <- grep("^records", unzip(path, list=TRUE)$Name, 
                         ignore.case=TRUE, value=TRUE)
-    df <- read.csv(unz(path, record_file), stringsAsFactors = FALSE)
-    attr(df, "doi") <- doi
-    return(df)
+    result <- read.csv(unz(path, record_file), stringsAsFactors = FALSE)
+    
+    # return tibble with correct info
+    result <- as_tibble(result)
+    attr(result, "doi") <- doi
+    attr(result, "call") <- "atlas_occurrences"
+    
+    return(result)
   }
 }
 
-
+# TODO: fix multiple file import
 url_download <- function(url){
+  
+  verbose <- getOption("galah_config")$verbose
+  if(verbose) {
+    cat("Downloading\n")
+  }
+  
   local_file <- atlas_download(url, 
     cache_file = tempfile(pattern = "data"), 
     ext = ".zip")
-  tryCatch(
-    result <- read.csv(unz(local_file, "data.csv"), stringsAsFactors = FALSE),
-    error = function(e) {
-      bullets <- c(
-        "There was a problem reading the occurrence data and it looks like no data were returned."
-      )
-      inform(bullets)
-    }
-  )
+  
+  if(is.null(local_file)){
+    inform("Download failed")
+    return(tibble())
+  }
+  
+  # unzip files and read in any named "data.csv" or similar
+  local_file_uz <- unzip(local_file, list = TRUE)$Name
+  data_files <- local_file_uz[
+    grepl("data", local_file_uz) & grepl(".csv$", local_file_uz)]
+  
+  if(length(data_files) < 1){
+    inform("There was a problem reading the occurrence data and it looks like no data were returned.")
+  }else{
+    result <- do.call(rbind, 
+                      lapply(data_files, 
+                             function(a){read.csv(unz(local_file, a))})) |> 
+              as_tibble()
+  }
   
   # rename cols so they match requested cols
   names(result) <- rename_columns(names(result), type = "occurrence")
@@ -101,6 +128,10 @@ url_download <- function(url){
   if(any(assertions_check)){
     result <- fix_assertion_cols(result, names(result)[assertions_check])
   }
+  
+  # return tibble with correct info
+  attr(result, "data_type") <- "occurrences"
+  attr(result, "call") <- "atlas_occurrences"
   
   return(result)
 }

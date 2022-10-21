@@ -88,7 +88,7 @@ rename_columns <- function(varnames, type) {
 # Used in ala_occurrences output
 fix_assertion_cols <- function(df, assertion_cols) {
   for (col in assertion_cols) {
-    df[, col] <- as.logical(df[, col])
+    df[[col]] <- as.logical(df[[col]])
   }
   df
 }

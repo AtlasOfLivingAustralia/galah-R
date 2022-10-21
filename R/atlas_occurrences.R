@@ -141,7 +141,6 @@ atlas_occurrences <- function(request = NULL,
        
   # run function using do.call
   result <- do.call(atlas_occurrences_internal, custom_call)
-  attr(result, "data_type") <- "occurrences"
   attr(result, "data_request") <- custom_call
 
   # if caching requested, save
@@ -243,40 +242,12 @@ atlas_occurrences_internal <- function(identify = NULL,
     return(tibble())
   }
   
-  # create a progress bar
-  if(verbose) {
-    cat("Downloading\n")
-  }
-  data_path <- atlas_download(download_resp, cache_file = tmp, ext = ".zip")
-  
-  if(is.null(data_path)){
-    inform("Calling the API failed for `atlas_occurrences`")
-    return(tibble())
-  }
-
-  tryCatch(
-    result_df <- read.csv(unz(data_path, "data.csv"), stringsAsFactors = FALSE),
-    error = function(e) {
-      bullets <- c(
-        "There was a problem reading the occurrence data and it looks like no data were returned.",
-        i = "This may be because no valid field names were provided.",
-        i = "To check whether field names are valid, use `search_fields()`."
-      )
-      inform(bullets)
-    }
-  )
-
-  # rename cols so they match requested cols
-  names(result_df) <- rename_columns(names(result_df), type = "occurrence")
-
-  # replace 'true' and 'false' with boolean
-  if (nrow(assertion_select) > 0) {
-    result_df <- fix_assertion_cols(result_df, assertion_select$name)
-  }
+  # download from url
+  result_df <- url_download(download_resp)
 
   # add DOI as attribute
-  result_df <- as_tibble(result_df)
   attr(result_df, "doi") <- get_doi(mint_doi, data_path)
+  
   result_df
 }
 
@@ -305,12 +276,17 @@ wait_for_download <- function(query) {
     return(NULL)
   }
 
-    # check running status, with rate limiting
+  # check running status, with rate limiting
   status_post_queue <- check_queue(status_initial)
   if(!is.null(status_post_queue$status)){
     if(status_post_queue$status != "finished"){
       status <- check_running(status_post_queue)
-  }}
+    }else{
+      status <- status_post_queue
+    }
+  }else{
+    status <- NULL
+  }
 
   return(status$downloadUrl)
 }
@@ -371,7 +347,7 @@ check_running <- function(status){
   
   verbose <- getOption("galah_config")$verbose
   if(verbose){
-    cat("\nRunning query on server side\n")
+    cat("\nRunning query on selected atlas\n")
     pb <- txtProgressBar(max = 1, style = 3)
   }
   
