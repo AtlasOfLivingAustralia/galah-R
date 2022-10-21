@@ -173,7 +173,7 @@ be replaced by the current query</p></dd>
 <span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
 <span><span class="co">#&gt;       count</span></span>
 <span><span class="co">#&gt;       &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 114080945</span></span></code></pre><p></p></div>
+<span><span class="co">#&gt; 1 114082469</span></span></code></pre><p></p></div>
 <p>You can group counts by state and territory with <code>galah_group_by</code></p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_group_by.html">galah_group_by</a></span><span class="op">(</span><span class="va">stateProvince</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -181,10 +181,10 @@ be replaced by the current query</p></dd>
 <span><span class="co">#&gt; # A tibble: 100 x 2</span></span>
 <span><span class="co">#&gt;   stateProvince      count</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;              &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 New South Wales 28191327</span></span>
-<span><span class="co">#&gt; 2 Victoria        24544639</span></span>
-<span><span class="co">#&gt; 3 Queensland      20487278</span></span>
-<span><span class="co">#&gt; 4 South Australia  8931668</span></span>
+<span><span class="co">#&gt; 1 New South Wales 28192016</span></span>
+<span><span class="co">#&gt; 2 Victoria        24544695</span></span>
+<span><span class="co">#&gt; 3 Queensland      20487489</span></span>
+<span><span class="co">#&gt; 4 South Australia  8931685</span></span>
 <span><span class="co">#&gt; # ... with 96 more rows</span></span></code></pre><p></p></div>
 <p>You can add a filter to narrow your search</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -223,9 +223,9 @@ variables, similar to using <code>dplyr::group_by() %&gt;% dplyr::count()</code>
 <span><span class="co">#&gt; # A tibble: 47 x 3</span></span>
 <span><span class="co">#&gt;   basisOfRecord     year    count</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 HUMAN_OBSERVATION 2021  7027124</span></span>
-<span><span class="co">#&gt; 2 HUMAN_OBSERVATION 2020  6293285</span></span>
-<span><span class="co">#&gt; 3 HUMAN_OBSERVATION 2019  5517709</span></span>
+<span><span class="co">#&gt; 1 HUMAN_OBSERVATION 2021  7027352</span></span>
+<span><span class="co">#&gt; 2 HUMAN_OBSERVATION 2020  6293298</span></span>
+<span><span class="co">#&gt; 3 HUMAN_OBSERVATION 2019  5517712</span></span>
 <span><span class="co">#&gt; 4 HUMAN_OBSERVATION 2018  5237933</span></span>
 <span><span class="co">#&gt; # ... with 43 more rows</span></span></code></pre><p></p></div>
     </div>
