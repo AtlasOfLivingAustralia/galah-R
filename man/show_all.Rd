@@ -86,79 +86,18 @@ The available types of information for \code{show_all_} are:\tabular{llll}{
 }
 \examples{
 
-## Atlases ---------------------------
-
 # See all supported atlases
 show_all(atlases)
 
-## Fields ----------------------------
-
-# See a listing of all valid fields and layers
-\dontrun{
-show_all(fields)
-}
-
-## Reasons ---------------------------
-
 # Show a listing of all accepted reasons for downloading occurrence data
-\dontrun{
 show_all(reasons)
-}
-
-# Add your download reason when configuring your session with [galah_config()]
-\dontrun{
-galah_config(download_reason_id = 3)
-}
-
-## Profiles --------------------------
 
 # Show a list of all available data quality profiles
-\dontrun{
 show_all(profiles)
-}
-
-# Values in the `shortName` column can be used with [galah_apply_profile()] 
-# to narrow your data query results
-\dontrun{
-galah_call() |> 
-  galah_apply_profile("ALA") |> 
-  atlas_counts()
-}
-
-## Lists ----------------------------
-
-# Show a listing of species lists
-\dontrun{
-show_all(lists)
-}
-
-## Ranks ---------------------------
 
 # Show a listing of all taxonomic ranks
-\dontrun{
 show_all(ranks)
-}
 
-# Use ranks with [galah_down_to()] and [atlas_taxonomy()] to get taxonomic 
-# trees
-\dontrun{
-galah_call() \%>\%
-  galah_identify("fungi") \%>\%
-  galah_down_to(subphylum) \%>\%
-  atlas_taxonomy()
-}
-
-## Cache files ---------------------
-
-# Configure caching and create a query to cache with [galah_config()]
-\dontrun{
-galah_config(caching = TRUE)
-dat <- atlas_counts(group_by = galah_group_by(year))
-
-
-# Show a listing of previously cached files
-show_all_cached_files()
-}
 
 }
 \references{

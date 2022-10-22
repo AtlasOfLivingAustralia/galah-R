@@ -77,7 +77,7 @@ With no arguments, return the total number of records in the ALA
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 114082469
+#> 1 114082675
 }\if{html}{\out{</div>}}
 
 You can group counts by state and territory with \code{galah_group_by}
@@ -89,9 +89,9 @@ You can group counts by state and territory with \code{galah_group_by}
 #>   stateProvince      count
 #>   <chr>              <int>
 #> 1 New South Wales 28192016
-#> 2 Victoria        24544695
-#> 3 Queensland      20487489
-#> 4 South Australia  8931685
+#> 2 Victoria        24544725
+#> 3 Queensland      20487493
+#> 4 South Australia  8931687
 #> # ... with 96 more rows
 }\if{html}{\out{</div>}}
 

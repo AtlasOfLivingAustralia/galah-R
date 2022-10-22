@@ -7,8 +7,7 @@
 #'
 #' @param ... one or more scientific names (if `search = TRUE`) or taxonomic 
 #'   identifiers (if `search = FALSE`); or an object of class `ala_id` (from
-#'   `search_taxa`), `gbifid`, or `nbnid` (from `taxize`) for 
-#'   international atlases.
+#'   `search_taxa`).
 #' @param search (logical); should the results in question be passed to
 #'   `search_taxa`? Ignored if an object of class `ala_id`, `gbifid`, or `nbnid` 
 #'   is given to `...`.

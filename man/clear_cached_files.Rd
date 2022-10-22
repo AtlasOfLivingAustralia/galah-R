@@ -6,6 +6,9 @@
 \usage{
 clear_cached_files()
 }
+\value{
+No return value; called for side effect of removing files
+}
 \description{
 Deletes cached files within the cached file directory and their query
 metadata

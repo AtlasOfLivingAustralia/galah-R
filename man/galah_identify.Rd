@@ -9,8 +9,7 @@ galah_identify(..., search = TRUE)
 \arguments{
 \item{...}{one or more scientific names (if \code{search = TRUE}) or taxonomic
 identifiers (if \code{search = FALSE}); or an object of class \code{ala_id} (from
-\code{search_taxa}), \code{gbifid}, or \code{nbnid} (from \code{taxize}) for
-international atlases.}
+\code{search_taxa}).}
 
 \item{search}{(logical); should the results in question be passed to
 \code{search_taxa}? Ignored if an object of class \code{ala_id}, \code{gbifid}, or \code{nbnid}

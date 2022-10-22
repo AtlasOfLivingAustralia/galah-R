@@ -3,6 +3,7 @@
 #' Deletes cached files within the cached file directory and their query 
 #' metadata
 #' 
+#' @return No return value; called for side effect of removing files
 #' @section Examples:
 #' 
 #' First, set caching to true with [galah_config()]. Then create a data query. 

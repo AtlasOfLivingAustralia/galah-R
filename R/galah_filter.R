@@ -95,8 +95,8 @@
 #' 
 #' year_value <- 2010
 #' 
-#' galah_call() %>%
-#'   galah_filter(year > year_value) %>%
+#' galah_call() |>
+#'   galah_filter(year > year_value) |>
 #'   atlas_counts()
 #' ```
 #' 
@@ -105,8 +105,8 @@
 #' 
 #' basis_of_record <- c("HumanObservation", "MaterialSample")
 #' 
-#' galah_call() %>%
-#'   galah_filter(basisOfRecord == basis_of_record) %>%
+#' galah_call() |>
+#'   galah_filter(basisOfRecord == basis_of_record) |>
 #'   atlas_counts()
 #' ```
 #'
@@ -114,8 +114,8 @@
 #' queries all Australian States and Territories alphabetically after "Tasmania"
 #' 
 #' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() %>%
-#'   galah_filter(cl22 >= "Tasmania") %>%
+#' galah_call() |>
+#'   galah_filter(cl22 >= "Tasmania") |>
 #'   atlas_counts()
 #' ```
 #' 
@@ -124,8 +124,8 @@
 #' ```{r, comment = "#>", collapse = TRUE}
 #' search_assertions("coordinate invalid")
 #' 
-#' galah_call() %>%
-#'   galah_filter(COORDINATE_INVALID == FALSE) %>%
+#' galah_call() |>
+#'   galah_filter(COORDINATE_INVALID == FALSE) |>
 #'   atlas_counts()
 #' ```
 #' 

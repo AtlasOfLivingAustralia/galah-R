@@ -62,51 +62,17 @@
 #' ```{r, child = "man/rmd/setup.Rmd"}
 #' ```
 #' 
-#' ## Fields
-#' 
 #' Search for all fields that use include the word "date"
 #' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_fields("date")
-#' ```
-#' 
 #' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
-#' search_all(fields, "date") # equivalent
-#' ```
-#' 
-#' Search for all fields with the string "basisofrecord"
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_fields("basisofrecord")
-#' ```
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
-#' search_all(fields, "basisofrecord") # equivalent
+#' search_all(fields, "date")
 #' ```
 #' 
 #' Search for all fields that have information for "marine"
 #' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_fields("marine") |> 
-#'   head() # only show first 5 results
-#' ```
-#' 
 #' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
-#' search_all(fields, "marine") # equivalent
+#' search_all(fields, "marine")
 #' ```
-#' 
-#' Search for all Wordclim layers
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_fields("worldclim")
-#' ```
-#'
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
-#' search_all(fields, "worldclim") # equivalent
-#' ```
-#' 
-#' 
-#' ## Taxa
 #' 
 #' Search using a single term (See [search_taxa()] for more info)
 #' 
@@ -118,85 +84,24 @@
 #' search_all(taxa, "Reptilia") # equivalent
 #' ```
 #' 
-#' Note that `search_taxa()` is not case sensitive
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_taxa("reptilia") # not case sensitive
-#' ```
-#'
-#' Search multiple taxa. `search_taxa()` will return one row per taxon
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_taxa(c("reptilia", "mammalia"))
-#' ```
-#' 
-#' `galah_identify()` uses `search_taxa()` to narrow data queries
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() |>
-#'   galah_identify("reptilia") |>
-#'   atlas_counts()
-#' ```
-#' 
-#' 
-#' ## Identifiers
-#' 
 #' Look up a unique taxon identifier (See [search_identifiers()] for more info)
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
-#' ```
 #' 
 #' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' search_all(identifiers, 
 #'            "https://id.biodiversity.org.au/node/apni/2914510") # equivalent
 #' ```
 #' 
-#' `galah_identify()` uses identifiers to narrow data queries, too. Ensure 
-#' that `search = FALSE`.
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() |>
-#'   galah_identify("https://id.biodiversity.org.au/node/apni/2914510",
-#'                  search = FALSE) |>
-#'   atlas_counts()
-#' ```
-#'
-#' ## Lists
-#' 
 #' Search for species lists that match "endangered"
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_lists("endangered")
-#' ```
 #'
 #' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
 #' search_all(lists, "endangered") # equivalent
 #' ```
-#'
-#'
-#' ## Ranks
 #' 
 #' Search for a valid taxonomic rank, "subphylum"
 #' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_ranks("subphylum")
-#' ```
-#'
 #' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
-#' search_all(ranks, "subphylum") # equivalent
+#' search_all(ranks, "subphylum")
 #' ```
-#' 
-#' Use ranks with [galah_down_to()] and [atlas_taxonomy()] to get taxonomic 
-#' trees
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() %>%
-#'   galah_identify("fungi") %>%
-#'   galah_down_to(subphylum) %>%
-#'   atlas_taxonomy()
-#' ```
-#' 
 #' 
 NULL
 

@@ -8,6 +8,7 @@
 #' @keywords internal
 #' @export
 #' @name deprecated
+#' @return All deprecated functions return a `tibble`.
 select_taxa <- function(query, is_id = FALSE) {
   lifecycle::deprecate_warn("1.4.0", "select_taxa()", "galah_identify()")
   if(is_id){

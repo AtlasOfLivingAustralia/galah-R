@@ -35,6 +35,9 @@ galah_call(
 
 \item{...}{other function-specific request parameters}
 }
+\value{
+An object of class \code{data_request}.
+}
 \description{
 To download data from the ALA (or another atlas), one must construct a data
 query. This query tells the atlas API what data to download and return, as

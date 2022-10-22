@@ -274,9 +274,9 @@ Now with piping:
 
 
 ```r
-galah_call() %>%
-  galah_identify("perameles") %>%
-  galah_filter(year == 2021) %>%
-  galah_select(group = "basic", ZERO_COORDINATE) %>%
+galah_call() |>
+  galah_identify("perameles") |>
+  galah_filter(year == 2021) |>
+  galah_select(group = "basic", ZERO_COORDINATE) |>
   atlas_occurrences()
 ```

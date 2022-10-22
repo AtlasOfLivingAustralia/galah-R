@@ -89,73 +89,16 @@ The available types of information for \code{search_all()} are:\tabular{llll}{
 }
 \section{Examples}{
 
-\subsection{Fields}{
 
 Search for all fields that use include the word "date"
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("date")
-#> # A tibble: 22 x 4
-#>   id        description                                              type  link 
-#>   <chr>     <chr>                                                    <chr> <chr>
-#> 1 month     "Month of observation, specimen collection date. http:/~ fiel~ <NA> 
-#> 2 cl23      "Local Government Areas 2012 deprecated LGA Boundaries ~ laye~ http~
-#> 3 eventDate "The ISO formatted date of observation, specimen collec~ fiel~ <NA> 
-#> 4 cl10903   "Tenure of Australia's forests (2013) v2.0 Tenure of Au~ laye~ http~
-#> # ... with 18 more rows
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(fields, "date") # equivalent
-}\if{html}{\out{</div>}}
-
-Search for all fields with the string "basisofrecord"
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("basisofrecord")
-#> # A tibble: 2 x 4
-#>   id                description                                      type  link 
-#>   <chr>             <chr>                                            <chr> <chr>
-#> 1 basisOfRecord     What this is a record of e.g. specimen, human o~ fiel~ <NA> 
-#> 2 raw_basisOfRecord The basis of record as supplied by the data pub~ fiel~ <NA>
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(fields, "basisofrecord") # equivalent
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(fields, "date")
 }\if{html}{\out{</div>}}
 
 Search for all fields that have information for "marine"
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("marine") |> 
-  head() # only show first 5 results
-#> # A tibble: 6 x 4
-#>   id     description                                                 type  link 
-#>   <chr>  <chr>                                                       <chr> <chr>
-#> 1 biome  "A field indicating if the record has been located in Terr~ fiel~  <NA>
-#> 2 cl2105 "FAO Fishery Statistical Areas FAO Fishing areas (Marine)"  laye~ "htt~
-#> 3 el1056 "Endemism (Non-marine) Endemism (Non-marine) based on Cris~ laye~ ""   
-#> 4 el957  "Averaged Topographic Relief  This data represents the ave~ laye~ "htt~
-#> 5 cl988  "Marine Ecoregions of the World Marine Ecoregions of the W~ laye~ "htt~
-#> 6 cl2085 "Global 200 priority ecoregions - Marine WWF's Global 200 ~ laye~ "htt~
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(fields, "marine")
 }\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(fields, "marine") # equivalent
-}\if{html}{\out{</div>}}
-
-Search for all Wordclim layers
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_fields("worldclim")
-#> # A tibble: 38 x 4
-#>   id      description                                                type  link 
-#>   <chr>   <chr>                                                      <chr> <chr>
-#> 1 el10982 WorldClim 2.1: Temperature - warmest month max Max Temper~ laye~ http~
-#> 2 el10981 WorldClim 2.1: Temperature - seasonality Temperature Seas~ laye~ http~
-#> 3 el10980 WorldClim 2.1: Temperature - isothermality Isothermality   laye~ http~
-#> 4 el10990 WorldClim 2.1: Precipitation - wettest month Precipitatio~ laye~ http~
-#> # ... with 34 more rows
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(fields, "worldclim") # equivalent
-}\if{html}{\out{</div>}}
-}
-
-\subsection{Taxa}{
 
 Search using a single term (See \code{\link[=search_taxa]{search_taxa()}} for more info)
 
@@ -170,140 +113,21 @@ Search using a single term (See \code{\link[=search_taxa]{search_taxa()}} for mo
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(taxa, "Reptilia") # equivalent
 }\if{html}{\out{</div>}}
 
-Note that \code{search_taxa()} is not case sensitive
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("reptilia") # not case sensitive
-#> # A tibble: 1 x 9
-#>   search_term scientific_name taxon_~1 rank  match~2 kingdom phylum class issues
-#>   <chr>       <chr>           <chr>    <chr> <chr>   <chr>   <chr>  <chr> <chr> 
-#> 1 reptilia    REPTILIA        https:/~ class exactM~ Animal~ Chord~ Rept~ noIss~
-#> # ... with abbreviated variable names 1: taxon_concept_id, 2: match_type
-}\if{html}{\out{</div>}}
-
-Search multiple taxa. \code{search_taxa()} will return one row per taxon
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa(c("reptilia", "mammalia"))
-#> # A tibble: 2 x 10
-#>   search_term scient~1 taxon~2 rank  match~3 kingdom phylum class issues verna~4
-#>   <chr>       <chr>    <chr>   <chr> <chr>   <chr>   <chr>  <chr> <chr>  <chr>  
-#> 1 reptilia    REPTILIA https:~ class exactM~ Animal~ Chord~ Rept~ noIss~ <NA>   
-#> 2 mammalia    MAMMALIA https:~ class exactM~ Animal~ Chord~ Mamm~ noIss~ Mammals
-#> # ... with abbreviated variable names 1: scientific_name, 2: taxon_concept_id,
-#> #   3: match_type, 4: vernacular_name
-}\if{html}{\out{</div>}}
-
-\code{galah_identify()} uses \code{search_taxa()} to narrow data queries
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
-  galah_identify("reptilia") |>
-  atlas_counts()
-#> # A tibble: 1 x 1
-#>     count
-#>     <int>
-#> 1 1474341
-}\if{html}{\out{</div>}}
-}
-
-\subsection{Identifiers}{
-
 Look up a unique taxon identifier (See \code{\link[=search_identifiers]{search_identifiers()}} for more info)
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
-#> # A tibble: 1 x 14
-#>   scient~1 scien~2 taxon~3 rank  match~4 kingdom phylum class order family genus
-#>   <chr>    <chr>   <chr>   <chr> <chr>   <chr>   <chr>  <chr> <chr> <chr>  <chr>
-#> 1 Eucalyp~ Maiden  https:~ spec~ taxonI~ Plantae Charo~ Equi~ Myrt~ Myrta~ Euca~
-#> # ... with 3 more variables: species <chr>, vernacular_name <chr>,
-#> #   issues <chr>, and abbreviated variable names 1: scientific_name,
-#> #   2: scientific_name_authorship, 3: taxon_concept_id, 4: match_type
-}\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(identifiers, 
            "https://id.biodiversity.org.au/node/apni/2914510") # equivalent
 }\if{html}{\out{</div>}}
 
-\code{galah_identify()} uses identifiers to narrow data queries, too. Ensure
-that \code{search = FALSE}.
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
-  galah_identify("https://id.biodiversity.org.au/node/apni/2914510",
-                 search = FALSE) |>
-  atlas_counts()
-#> # A tibble: 1 x 1
-#>   count
-#>   <int>
-#> 1 13466
-}\if{html}{\out{</div>}}
-}
-
-\subsection{Lists}{
-
 Search for species lists that match "endangered"
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_lists("endangered")
-#> # A tibble: 7 x 16
-#>   dataR~1 listN~2 listT~3 dateC~4 lastU~5 usern~6 fullN~7 itemC~8 region categ~9
-#>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <lgl>     <int> <chr>  <chr>  
-#> 1 dr19257 Endang~ OTHER   2022-0~ 2022-0~ alanah~ NA           17 <NA>   <NA>   
-#> 2 dr4890  Endang~ CONSER~ 2016-0~ 2016-0~ kiashe~ NA          340 <NA>   <NA>   
-#> 3 dr17208 My spe~ OTHER   2021-0~ 2021-0~ caterp~ NA            1 <NA>   <NA>   
-#> 4 dr17134 Endang~ CONSER~ 2021-0~ 2021-0~ 100588~ NA           20 <NA>   <NA>   
-#> 5 dr16896 Rare a~ CONSER~ 2021-0~ 2021-0~ matthe~ NA            1 <NA>   <NA>   
-#> 6 dr16203 EPBC A~ SPATIA~ 2020-0~ 2020-0~ robina~ NA           10 <NA>   <NA>   
-#> 7 dr19750 Endang~ OTHER   2022-0~ 2022-0~ anneke~ NA           73 <NA>   <NA>   
-#> # ... with 6 more variables: generalisation <chr>, authority <chr>,
-#> #   sdsType <chr>, isAuthoritative <lgl>, isInvasive <lgl>, isThreatened <lgl>,
-#> #   and abbreviated variable names 1: dataResourceUid, 2: listName,
-#> #   3: listType, 4: dateCreated, 5: lastUpdated, 6: username, 7: fullName,
-#> #   8: itemCount, 9: category
-}\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(lists, "endangered") # equivalent
 }\if{html}{\out{</div>}}
-}
-
-\subsection{Ranks}{
 
 Search for a valid taxonomic rank, "subphylum"
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_ranks("subphylum")
-#> # A tibble: 1 x 2
-#>      id name     
-#>   <int> <chr>    
-#> 1     7 subphylum
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(ranks, "subphylum")
 }\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(ranks, "subphylum") # equivalent
-}\if{html}{\out{</div>}}
-
-Use ranks with \code{\link[=galah_down_to]{galah_down_to()}} and \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} to get taxonomic
-trees
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
-  galah_identify("fungi") \%>\%
-  galah_down_to(subphylum) \%>\%
-  atlas_taxonomy()
-#>                        levelName
-#> 1  Fungi                        
-#> 2   ¦--Ascomycota               
-#> 3   ¦   ¦--Pezizomycotina       
-#> 4   ¦   ¦--Saccharomycotina     
-#> 5   ¦   °--Taphrinomycotina     
-#> 6   ¦--Basidiomycota            
-#> 7   ¦   ¦--Agaricomycotina      
-#> 8   ¦   ¦--Pucciniomycotina     
-#> 9   ¦   ¦--Ustilaginomycotina   
-#> 10  ¦   °--Wallemiomycotina     
-#> 11  ¦--Mucoromycota             
-#> 12  ¦   °--Glomeromycotina      
-#> 13  °--Zygomycota               
-#> 14      ¦--Entomophthoromycotina
-#> 15      ¦--Kickxellomycotina    
-#> 16      ¦--Mortierellomycotina  
-#> 17      ¦--Mucoromycotina       
-#> 18      °--Zoopagomycotina
-}\if{html}{\out{</div>}}
-}
 }
 
 \references{

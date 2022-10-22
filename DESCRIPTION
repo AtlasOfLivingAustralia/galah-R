@@ -1,6 +1,6 @@
 Package: galah
 Type: Package
-Title: Data and Resources from the Living Atlas Community in R
+Title: Biodiversity Data from the Living Atlas Community
 Version: 1.5.0
 Authors@R:
     c(person(given = "Martin",
@@ -20,7 +20,7 @@ Authors@R:
              role = "aut"))
 Description: The living atlas community provides tools to enable users
     of biodiversity information to find, access, combine and visualise data on
-    plants, animals and fungi. 'galah' enables the R community to directly 
+    plants, animals and fungi. galah enables the R community to directly 
     access data and resources hosted by the living atlases.
 Depends:
     R (>= 4.1.0)
@@ -49,7 +49,6 @@ Suggests:
     magrittr,
     pkgdown,
     rmarkdown,
-    taxize,
     testthat
 License: MPL-2.0
 URL: https://galah.ala.org.au

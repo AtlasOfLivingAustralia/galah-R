@@ -89,9 +89,7 @@ atlas_taxonomy_internal <- function(request,
     international_atlas <- getOption("galah_config")$atlas
     bullets <- c(
       "`atlas_taxonomy` only provides information on Australian taxonomy.",
-      i = glue("To search taxonomy for {international_atlas} use `taxize`."),
-      i = "See vignette('international_atlases' for more information."
-    )
+      i = "Consider using `search_taxa()` instead.")
     abort(bullets, call = error_call)
   }
  

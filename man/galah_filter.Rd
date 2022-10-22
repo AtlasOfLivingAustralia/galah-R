@@ -57,7 +57,7 @@ Filter query results to return records of interest
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 20366547
+#> 1 20366557
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
@@ -89,7 +89,7 @@ Use filters to exclude particular values
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 47747818
+#> 1 47747836
 }\if{html}{\out{</div>}}
 
 Separating statements with a comma is equivalent to an \code{AND} statement
@@ -111,21 +111,21 @@ It is possible to use an object to specify required values
 
 year_value <- 2010
 
-galah_call() \%>\%
-  galah_filter(year > year_value) \%>\%
+galah_call() |>
+  galah_filter(year > year_value) |>
   atlas_counts()
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 52394462
+#> 1 52394484
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# Categorical example
 
 basis_of_record <- c("HumanObservation", "MaterialSample")
 
-galah_call() \%>\%
-  galah_filter(basisOfRecord == basis_of_record) \%>\%
+galah_call() |>
+  galah_filter(basisOfRecord == basis_of_record) |>
   atlas_counts()
 #> # A tibble: 1 x 1
 #>      count
@@ -136,13 +136,13 @@ galah_call() \%>\%
 \code{solr} supports range queries on text as well as numbers. The following
 queries all Australian States and Territories alphabetically after "Tasmania"
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() \%>\%
-  galah_filter(cl22 >= "Tasmania") \%>\%
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+  galah_filter(cl22 >= "Tasmania") |>
   atlas_counts()
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 33660317
+#> 1 33660354
 }\if{html}{\out{</div>}}
 
 Filter out specific records that could be unreliable using "assertions"
@@ -153,13 +153,13 @@ Filter out specific records that could be unreliable using "assertions"
 #>   <chr>              <chr>              <chr>    <chr>     
 #> 1 COORDINATE_INVALID Coordinate invalid Warning  assertions
 
-galah_call() \%>\%
-  galah_filter(COORDINATE_INVALID == FALSE) \%>\%
+galah_call() |>
+  galah_filter(COORDINATE_INVALID == FALSE) |>
   atlas_counts()
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 110687468
+#> 1 110687674
 }\if{html}{\out{</div>}}
 }
 

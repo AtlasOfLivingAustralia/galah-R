@@ -30,19 +30,19 @@
 #' @return A `tibble` of values for a specified field, profile or list.
 #' @examples
 #' # Show values in field 'cl22'
-#' \dontrun{
+#' \donttest{
 #' search_fields("cl22") |> 
 #'   show_values()
 #' }
 #' 
 #' # Search for any values in field 'cl22' that match 'tas'
-#' \dontrun{
+#' \donttest{
 #' search_fields("cl22") |> 
 #'   search_values("tas")
 #' }
 #' 
 #' # See items within species list "dr19257"
-#' \dontrun{
+#' \donttest{
 #' search_lists("dr19257") |> 
 #'   show_values()
 #' }
