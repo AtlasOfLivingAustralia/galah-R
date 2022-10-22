@@ -138,7 +138,7 @@ argument) take the form of field - logical - value. Permissible examples include
 <span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
 <span><span class="co">#&gt;      count</span></span>
 <span><span class="co">#&gt;      &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 20366547</span></span></code></pre><p></p></div>
+<span><span class="co">#&gt; 1 20366557</span></span></code></pre><p></p></div>
 <p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2019</span>,</span>
 <span>               <span class="va">basisOfRecord</span> <span class="op">==</span> <span class="st">"HumanObservation"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -163,7 +163,7 @@ argument) take the form of field - logical - value. Permissible examples include
 <span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
 <span><span class="co">#&gt;      count</span></span>
 <span><span class="co">#&gt;      &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 47747818</span></span></code></pre><p></p></div>
+<span><span class="co">#&gt; 1 47747836</span></span></code></pre><p></p></div>
 <p>Separating statements with a comma is equivalent to an <code>AND</code> statement</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&lt;</span> <span class="fl">2020</span><span class="op">)</span> <span class="co"># is the same as:</span></span>
 <span><span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2010</span>, <span class="va">year</span> <span class="op">&lt;</span> <span class="fl">2020</span><span class="op">)</span></span></code></pre><p></p></div>
@@ -176,19 +176,19 @@ argument) take the form of field - logical - value. Permissible examples include
 <span></span>
 <span><span class="va">year_value</span> <span class="op">&lt;-</span> <span class="fl">2010</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="va">year_value</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="va">year_value</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
 <span><span class="co">#&gt;      count</span></span>
 <span><span class="co">#&gt;      &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 52394462</span></span></code></pre><p></p></div>
+<span><span class="co">#&gt; 1 52394484</span></span></code></pre><p></p></div>
 <p></p><div class="sourceCode r"><pre><code><span><span class="co"># Categorical example</span></span>
 <span></span>
 <span><span class="va">basis_of_record</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"HumanObservation"</span>, <span class="st">"MaterialSample"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">basisOfRecord</span> <span class="op">==</span> <span class="va">basis_of_record</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">basisOfRecord</span> <span class="op">==</span> <span class="va">basis_of_record</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
 <span><span class="co">#&gt;      count</span></span>
@@ -196,13 +196,13 @@ argument) take the form of field - logical - value. Permissible examples include
 <span><span class="co">#&gt; 1 89210548</span></span></code></pre><p></p></div>
 <p><code>solr</code> supports range queries on text as well as numbers. The following
 queries all Australian States and Territories alphabetically after "Tasmania"</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">cl22</span> <span class="op">&gt;=</span> <span class="st">"Tasmania"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">cl22</span> <span class="op">&gt;=</span> <span class="st">"Tasmania"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
 <span><span class="co">#&gt;      count</span></span>
 <span><span class="co">#&gt;      &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 33660317</span></span></code></pre><p></p></div>
+<span><span class="co">#&gt; 1 33660354</span></span></code></pre><p></p></div>
 <p>Filter out specific records that could be unreliable using "assertions"</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_assertions</a></span><span class="op">(</span><span class="st">"coordinate invalid"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 x 4</span></span>
@@ -210,13 +210,13 @@ queries all Australian States and Territories alphabetically after "Tasmania"</p
 <span><span class="co">#&gt;   &lt;chr&gt;              &lt;chr&gt;              &lt;chr&gt;    &lt;chr&gt;     </span></span>
 <span><span class="co">#&gt; 1 COORDINATE_INVALID Coordinate invalid Warning  assertions</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">COORDINATE_INVALID</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">COORDINATE_INVALID</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
 <span><span class="co">#&gt;       count</span></span>
 <span><span class="co">#&gt;       &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 110687468</span></span></code></pre><p></p></div>
+<span><span class="co">#&gt; 1 110687674</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

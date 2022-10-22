@@ -148,59 +148,11 @@ The available types of information for <code>search_all()</code> are:</p><table 
     <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h2>
     
 
-<div class="section">
-<h3 id="fields">Fields<a class="anchor" aria-label="anchor" href="#fields"></a></h3>
-
 
 <p>Search for all fields that use include the word "date"</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_fields</a></span><span class="op">(</span><span class="st">"date"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 22 x 4</span></span>
-<span><span class="co">#&gt;   id        description                                              type  link </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                                                    &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">#&gt; 1 month     "Month of observation, specimen collection date. http:/~ fiel~ &lt;NA&gt; </span></span>
-<span><span class="co">#&gt; 2 cl23      "Local Government Areas 2012 deprecated LGA Boundaries ~ laye~ http~</span></span>
-<span><span class="co">#&gt; 3 eventDate "The ISO formatted date of observation, specimen collec~ fiel~ &lt;NA&gt; </span></span>
-<span><span class="co">#&gt; 4 cl10903   "Tenure of Australia's forests (2013) v2.0 Tenure of Au~ laye~ http~</span></span>
-<span><span class="co">#&gt; # ... with 18 more rows</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"date"</span><span class="op">)</span> <span class="co"># equivalent</span></span></code></pre><p></p></div>
-<p>Search for all fields with the string "basisofrecord"</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_fields</a></span><span class="op">(</span><span class="st">"basisofrecord"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 2 x 4</span></span>
-<span><span class="co">#&gt;   id                description                                      type  link </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;                                            &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">#&gt; 1 basisOfRecord     What this is a record of e.g. specimen, human o~ fiel~ &lt;NA&gt; </span></span>
-<span><span class="co">#&gt; 2 raw_basisOfRecord The basis of record as supplied by the data pub~ fiel~ &lt;NA&gt;</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"basisofrecord"</span><span class="op">)</span> <span class="co"># equivalent</span></span></code></pre><p></p></div>
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"date"</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>Search for all fields that have information for "marine"</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_fields</a></span><span class="op">(</span><span class="st">"marine"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># only show first 5 results</span></span>
-<span><span class="co">#&gt; # A tibble: 6 x 4</span></span>
-<span><span class="co">#&gt;   id     description                                                 type  link </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                       &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">#&gt; 1 biome  "A field indicating if the record has been located in Terr~ fiel~  &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 2 cl2105 "FAO Fishery Statistical Areas FAO Fishing areas (Marine)"  laye~ "htt~</span></span>
-<span><span class="co">#&gt; 3 el1056 "Endemism (Non-marine) Endemism (Non-marine) based on Cris~ laye~ ""   </span></span>
-<span><span class="co">#&gt; 4 el957  "Averaged Topographic Relief  This data represents the ave~ laye~ "htt~</span></span>
-<span><span class="co">#&gt; 5 cl988  "Marine Ecoregions of the World Marine Ecoregions of the W~ laye~ "htt~</span></span>
-<span><span class="co">#&gt; 6 cl2085 "Global 200 priority ecoregions - Marine WWF's Global 200 ~ laye~ "htt~</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"marine"</span><span class="op">)</span> <span class="co"># equivalent</span></span></code></pre><p></p></div>
-<p>Search for all Wordclim layers</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_fields</a></span><span class="op">(</span><span class="st">"worldclim"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 38 x 4</span></span>
-<span><span class="co">#&gt;   id      description                                                type  link </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                                                      &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">#&gt; 1 el10982 WorldClim 2.1: Temperature - warmest month max Max Temper~ laye~ http~</span></span>
-<span><span class="co">#&gt; 2 el10981 WorldClim 2.1: Temperature - seasonality Temperature Seas~ laye~ http~</span></span>
-<span><span class="co">#&gt; 3 el10980 WorldClim 2.1: Temperature - isothermality Isothermality   laye~ http~</span></span>
-<span><span class="co">#&gt; 4 el10990 WorldClim 2.1: Precipitation - wettest month Precipitatio~ laye~ http~</span></span>
-<span><span class="co">#&gt; # ... with 34 more rows</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"worldclim"</span><span class="op">)</span> <span class="co"># equivalent</span></span></code></pre><p></p></div>
-</div>
-
-<div class="section">
-<h3 id="taxa">Taxa<a class="anchor" aria-label="anchor" href="#taxa"></a></h3>
-
-
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"marine"</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>Search using a single term (See <code><a href="search_taxa.html">search_taxa()</a></code> for more info)</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"Reptilia"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 x 9</span></span>
@@ -209,121 +161,13 @@ The available types of information for <code>search_all()</code> are:</p><table 
 <span><span class="co">#&gt; 1 Reptilia    REPTILIA        https:/~ class exactM~ Animal~ Chord~ Rept~ noIss~</span></span>
 <span><span class="co">#&gt; # ... with abbreviated variable names 1: taxon_concept_id, 2: match_type</span></span></code></pre><p></p></div>
 <p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">taxa</span>, <span class="st">"Reptilia"</span><span class="op">)</span> <span class="co"># equivalent</span></span></code></pre><p></p></div>
-<p>Note that <code><a href="search_taxa.html">search_taxa()</a></code> is not case sensitive</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="co"># not case sensitive</span></span>
-<span><span class="co">#&gt; # A tibble: 1 x 9</span></span>
-<span><span class="co">#&gt;   search_term scientific_name taxon_~1 rank  match~2 kingdom phylum class issues</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
-<span><span class="co">#&gt; 1 reptilia    REPTILIA        https:/~ class exactM~ Animal~ Chord~ Rept~ noIss~</span></span>
-<span><span class="co">#&gt; # ... with abbreviated variable names 1: taxon_concept_id, 2: match_type</span></span></code></pre><p></p></div>
-<p>Search multiple taxa. <code><a href="search_taxa.html">search_taxa()</a></code> will return one row per taxon</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"reptilia"</span>, <span class="st">"mammalia"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 2 x 10</span></span>
-<span><span class="co">#&gt;   search_term scient~1 taxon~2 rank  match~3 kingdom phylum class issues verna~4</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 reptilia    REPTILIA https:~ class exactM~ Animal~ Chord~ Rept~ noIss~ &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 2 mammalia    MAMMALIA https:~ class exactM~ Animal~ Chord~ Mamm~ noIss~ Mammals</span></span>
-<span><span class="co">#&gt; # ... with abbreviated variable names 1: scientific_name, 2: taxon_concept_id,</span></span>
-<span><span class="co">#&gt; #   3: match_type, 4: vernacular_name</span></span></code></pre><p></p></div>
-<p><code><a href="galah_identify.html">galah_identify()</a></code> uses <code><a href="search_taxa.html">search_taxa()</a></code> to narrow data queries</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
-<span><span class="co">#&gt;     count</span></span>
-<span><span class="co">#&gt;     &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 1474341</span></span></code></pre><p></p></div>
-</div>
-
-<div class="section">
-<h3 id="identifiers">Identifiers<a class="anchor" aria-label="anchor" href="#identifiers"></a></h3>
-
-
 <p>Look up a unique taxon identifier (See <code><a href="search_identifiers.html">search_identifiers()</a></code> for more info)</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_identifiers.html">search_identifiers</a></span><span class="op">(</span>identifier <span class="op">=</span> <span class="st">"https://id.biodiversity.org.au/node/apni/2914510"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 x 14</span></span>
-<span><span class="co">#&gt;   scient~1 scien~2 taxon~3 rank  match~4 kingdom phylum class order family genus</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span></span>
-<span><span class="co">#&gt; 1 Eucalyp~ Maiden  https:~ spec~ taxonI~ Plantae Charo~ Equi~ Myrt~ Myrta~ Euca~</span></span>
-<span><span class="co">#&gt; # ... with 3 more variables: species &lt;chr&gt;, vernacular_name &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   issues &lt;chr&gt;, and abbreviated variable names 1: scientific_name,</span></span>
-<span><span class="co">#&gt; #   2: scientific_name_authorship, 3: taxon_concept_id, 4: match_type</span></span></code></pre><p></p></div>
 <p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">identifiers</span>, </span>
 <span>           <span class="st">"https://id.biodiversity.org.au/node/apni/2914510"</span><span class="op">)</span> <span class="co"># equivalent</span></span></code></pre><p></p></div>
-<p><code><a href="galah_identify.html">galah_identify()</a></code> uses identifiers to narrow data queries, too. Ensure
-that <code>search = FALSE</code>.</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"https://id.biodiversity.org.au/node/apni/2914510"</span>,</span>
-<span>                 search <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 x 1</span></span>
-<span><span class="co">#&gt;   count</span></span>
-<span><span class="co">#&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 13466</span></span></code></pre><p></p></div>
-</div>
-
-<div class="section">
-<h3 id="lists">Lists<a class="anchor" aria-label="anchor" href="#lists"></a></h3>
-
-
 <p>Search for species lists that match "endangered"</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_lists</a></span><span class="op">(</span><span class="st">"endangered"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 7 x 16</span></span>
-<span><span class="co">#&gt;   dataR~1 listN~2 listT~3 dateC~4 lastU~5 usern~6 fullN~7 itemC~8 region categ~9</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;lgl&gt;     &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 dr19257 Endang~ OTHER   2022-0~ 2022-0~ alanah~ NA           17 &lt;NA&gt;   &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 2 dr4890  Endang~ CONSER~ 2016-0~ 2016-0~ kiashe~ NA          340 &lt;NA&gt;   &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 3 dr17208 My spe~ OTHER   2021-0~ 2021-0~ caterp~ NA            1 &lt;NA&gt;   &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 4 dr17134 Endang~ CONSER~ 2021-0~ 2021-0~ 100588~ NA           20 &lt;NA&gt;   &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 5 dr16896 Rare a~ CONSER~ 2021-0~ 2021-0~ matthe~ NA            1 &lt;NA&gt;   &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 6 dr16203 EPBC A~ SPATIA~ 2020-0~ 2020-0~ robina~ NA           10 &lt;NA&gt;   &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 7 dr19750 Endang~ OTHER   2022-0~ 2022-0~ anneke~ NA           73 &lt;NA&gt;   &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; # ... with 6 more variables: generalisation &lt;chr&gt;, authority &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   sdsType &lt;chr&gt;, isAuthoritative &lt;lgl&gt;, isInvasive &lt;lgl&gt;, isThreatened &lt;lgl&gt;,</span></span>
-<span><span class="co">#&gt; #   and abbreviated variable names 1: dataResourceUid, 2: listName,</span></span>
-<span><span class="co">#&gt; #   3: listType, 4: dateCreated, 5: lastUpdated, 6: username, 7: fullName,</span></span>
-<span><span class="co">#&gt; #   8: itemCount, 9: category</span></span></code></pre><p></p></div>
 <p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">lists</span>, <span class="st">"endangered"</span><span class="op">)</span> <span class="co"># equivalent</span></span></code></pre><p></p></div>
-</div>
-
-<div class="section">
-<h3 id="ranks">Ranks<a class="anchor" aria-label="anchor" href="#ranks"></a></h3>
-
-
 <p>Search for a valid taxonomic rank, "subphylum"</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_ranks</a></span><span class="op">(</span><span class="st">"subphylum"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 x 2</span></span>
-<span><span class="co">#&gt;      id name     </span></span>
-<span><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;    </span></span>
-<span><span class="co">#&gt; 1     7 subphylum</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">ranks</span>, <span class="st">"subphylum"</span><span class="op">)</span> <span class="co"># equivalent</span></span></code></pre><p></p></div>
-<p>Use ranks with <code><a href="galah_down_to.html">galah_down_to()</a></code> and <code><a href="atlas_taxonomy.html">atlas_taxonomy()</a></code> to get taxonomic
-trees</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"fungi"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="../reference/galah_down_to.html">galah_down_to</a></span><span class="op">(</span><span class="va">subphylum</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="../reference/atlas_taxonomy.html">atlas_taxonomy</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                        levelName</span></span>
-<span><span class="co">#&gt; 1  Fungi                        </span></span>
-<span><span class="co">#&gt; 2   ¦--Ascomycota               </span></span>
-<span><span class="co">#&gt; 3   ¦   ¦--Pezizomycotina       </span></span>
-<span><span class="co">#&gt; 4   ¦   ¦--Saccharomycotina     </span></span>
-<span><span class="co">#&gt; 5   ¦   °--Taphrinomycotina     </span></span>
-<span><span class="co">#&gt; 6   ¦--Basidiomycota            </span></span>
-<span><span class="co">#&gt; 7   ¦   ¦--Agaricomycotina      </span></span>
-<span><span class="co">#&gt; 8   ¦   ¦--Pucciniomycotina     </span></span>
-<span><span class="co">#&gt; 9   ¦   ¦--Ustilaginomycotina   </span></span>
-<span><span class="co">#&gt; 10  ¦   °--Wallemiomycotina     </span></span>
-<span><span class="co">#&gt; 11  ¦--Mucoromycota             </span></span>
-<span><span class="co">#&gt; 12  ¦   °--Glomeromycotina      </span></span>
-<span><span class="co">#&gt; 13  °--Zygomycota               </span></span>
-<span><span class="co">#&gt; 14      ¦--Entomophthoromycotina</span></span>
-<span><span class="co">#&gt; 15      ¦--Kickxellomycotina    </span></span>
-<span><span class="co">#&gt; 16      ¦--Mortierellomycotina  </span></span>
-<span><span class="co">#&gt; 17      ¦--Mucoromycotina       </span></span>
-<span><span class="co">#&gt; 18      °--Zoopagomycotina</span></span></code></pre><p></p></div>
-</div>
-
+<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">ranks</span>, <span class="st">"subphylum"</span><span class="op">)</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

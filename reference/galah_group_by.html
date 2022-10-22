@@ -112,18 +112,18 @@ are provided, returns <code>NULL</code>.</p>
 <span><span class="co">#&gt; # A tibble: 12 x 2</span></span>
 <span><span class="co">#&gt;    year    count</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1 2021  7117113</span></span>
+<span><span class="co">#&gt;  1 2021  7117117</span></span>
 <span><span class="co">#&gt;  2 2020  6399409</span></span>
 <span><span class="co">#&gt;  3 2019  5760766</span></span>
-<span><span class="co">#&gt;  4 2018  5625143</span></span>
+<span><span class="co">#&gt;  4 2018  5625144</span></span>
 <span><span class="co">#&gt;  5 2017  4856883</span></span>
 <span><span class="co">#&gt;  6 2014  4037074</span></span>
 <span><span class="co">#&gt;  7 2016  4010111</span></span>
-<span><span class="co">#&gt;  8 2015  3834166</span></span>
+<span><span class="co">#&gt;  8 2015  3834174</span></span>
 <span><span class="co">#&gt;  9 2013  3723858</span></span>
-<span><span class="co">#&gt; 10 2012  3153655</span></span>
+<span><span class="co">#&gt; 10 2012  3153658</span></span>
 <span><span class="co">#&gt; 11 2011  2787025</span></span>
-<span><span class="co">#&gt; 12 2022  1089259</span></span></code></pre><p></p></div>
+<span><span class="co">#&gt; 12 2022  1089265</span></span></code></pre><p></p></div>
 <p>Return record counts since 2010 by year and data provider</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">records</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">2010</span><span class="op">)</span> <span class="op">|&gt;</span></span>
