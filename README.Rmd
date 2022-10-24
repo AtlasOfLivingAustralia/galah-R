@@ -14,8 +14,7 @@ knitr::opts_chunk$set(
 
 <img src="man/figures/logo.png" align="left" style="margin: 0px 10px 0px 0px;" alt="" width="120"/><h2>galah</h2>
 
-[![Travis-CI Build Status](https://travis-ci.com/AtlasOfLivingAustralia/galah.svg?branch=master)](https://app.travis-ci.com/github/AtlasOfLivingAustralia/galah)
-[![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/galah/branch/master/graph/badge.svg)](https://codecov.io/github/AtlasOfLivingAustralia/galah?branch=master)
+[![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/galah/branch/main/graph/badge.svg)](https://codecov.io/github/AtlasOfLivingAustralia/galah?branch=main)
 [![CRAN Status](https://www.r-pkg.org/badges/version/galah)](https://CRAN.R-project.org/package=galah)
 [![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/galah)](https://cran.r-project.org/package=galah)
 
