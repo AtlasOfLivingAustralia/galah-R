@@ -20,7 +20,7 @@ Authors@R:
              role = "aut"))
 Description: The living atlas community provides tools to enable users
     of biodiversity information to find, access, combine and visualise data on
-    plants, animals and fungi. galah enables the R community to directly 
+    plants, animals and fungi. 'galah' enables the R community to directly 
     access data and resources hosted by the living atlases.
 Depends:
     R (>= 4.1.0)
