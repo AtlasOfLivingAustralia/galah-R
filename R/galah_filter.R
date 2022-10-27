@@ -139,9 +139,8 @@
 #' @importFrom rlang parse_expr
 #' @importFrom rlang quo_get_expr
 #' @export galah_filter
-  
+
 galah_filter <- function(..., profile = NULL){
-  
   dots <- enquos(..., .ignore_empty = "all")
   check_filter(dots)
   
@@ -154,7 +153,35 @@ galah_filter <- function(..., profile = NULL){
   }else{
     is_data_request <- FALSE
   }
- 
+  
+  # if a data request was supplied, return one
+  if(is_data_request){
+    named_filters <- dot_parsing(dots)
+    # Check and apply profiles to query
+    if(!is.null(profile)){
+      named_filters <- apply_profiles(profile, named_filters)
+    }
+    update_galah_call(data_request, filter = named_filters)
+  }else{
+    filter.data_request(galah_call(), ...)$filter
+  }
+  
+}
+
+#' Filter for object of class `data_request`
+#' @importFrom dplyr filter
+#' @rdname galah_filter
+#' @export filter.data_request
+filter.data_request <- function(data, ...){
+  dots <- enquos(..., .ignore_empty = "all")
+  check_filter(dots)
+  update_galah_call(data, filter = dot_parsing(dots))
+  
+}
+
+
+dot_parsing <- function(dots){
+  
   # Clean user arguments
   if(length(dots) > 0){
     
@@ -171,26 +198,17 @@ galah_filter <- function(..., profile = NULL){
   }else{ 
     # If no fields are entered, return an empty data frame of arguments
     named_filters <- data.frame(variable = character(),
-                     logical = character(),
-                     value = character(),
-                     query = character())
+                                logical = character(),
+                                value = character(),
+                                query = character())
   }
   
-  # Set class and 'call' attribute
-  named_filters <- as_tibble(named_filters)
-  attr(named_filters, "call") <- "galah_filter"
-
-  # Check and apply profiles to query
-  named_filters <- apply_profiles(profile, named_filters)
+  result <- tibble(named_filters)
+  attr(result, "call") <- "galah_filter"
+  return(result)
   
-  # if a data request was supplied, return one
-  if(is_data_request){
-    update_galah_call(data_request, filter = named_filters)
-  }else{
-    named_filters
-  }
-
 }
+
 
 # stop function to enforce new syntax, based on `dplyr` syntax
 check_filter <- function(dots, error_call = caller_env()) {

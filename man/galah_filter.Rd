@@ -2,9 +2,12 @@
 % Please edit documentation in R/galah_filter.R
 \name{galah_filter}
 \alias{galah_filter}
+\alias{filter.data_request}
 \title{Narrow a query by specifying filters}
 \usage{
 galah_filter(..., profile = NULL)
+
+\method{filter}{data_request}(data, ...)
 }
 \arguments{
 \item{...}{filters, in the form \verb{field logical value}}
@@ -57,7 +60,7 @@ Filter query results to return records of interest
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 20366557
+#> 1 20402956
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
@@ -67,7 +70,7 @@ Filter query results to return records of interest
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 19913665
+#> 1 19949904
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
@@ -78,7 +81,7 @@ Filter query results to return records of interest
 #> # A tibble: 1 x 1
 #>     count
 #>     <int>
-#> 1 5718532
+#> 1 5723319
 }\if{html}{\out{</div>}}
 
 Use filters to exclude particular values
@@ -89,7 +92,7 @@ Use filters to exclude particular values
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 47747836
+#> 1 46930574
 }\if{html}{\out{</div>}}
 
 Separating statements with a comma is equivalent to an \code{AND} statement
@@ -117,7 +120,7 @@ galah_call() |>
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 52394484
+#> 1 51682837
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# Categorical example
@@ -130,7 +133,7 @@ galah_call() |>
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 89210548
+#> 1 87526378
 }\if{html}{\out{</div>}}
 
 \code{solr} supports range queries on text as well as numbers. The following
@@ -142,7 +145,7 @@ queries all Australian States and Territories alphabetically after "Tasmania"
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 33660354
+#> 1 33665146
 }\if{html}{\out{</div>}}
 
 Filter out specific records that could be unreliable using "assertions"
@@ -159,7 +162,7 @@ galah_call() |>
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 110687674
+#> 1 109004106
 }\if{html}{\out{</div>}}
 }
 
