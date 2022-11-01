@@ -22,7 +22,7 @@
 #' @seealso [search_taxa()] and [galah_geolocate()] for other ways to restrict 
 #' the information returned by [atlas_occurrences()] and related functions. Use
 #' `search_all(fields)` to find fields that
-#' you can filter by, and [search_field_values()] to find what values
+#' you can filter by, and [show_values()] to find what values
 #' of those filters are available.
 #' @details
 #' All statements passed to `galah_filter()` (except the `profile`
@@ -156,7 +156,7 @@ galah_filter <- function(..., profile = NULL){
   
   # if a data request was supplied, return one
   if(is_data_request){
-    named_filters <- dot_parsing(dots)
+    named_filters <- parse_filter(dots)
     # Check and apply profiles to query
     if(!is.null(profile)){
       named_filters <- apply_profiles(profile, named_filters)
@@ -169,18 +169,19 @@ galah_filter <- function(..., profile = NULL){
 }
 
 #' Filter for object of class `data_request`
-#' @importFrom dplyr filter
 #' @rdname galah_filter
+#' @param .data An object of class `data_request`, created using [galah_call()]
+#' @importFrom dlpyr filter
+#' @exportS3Method filter data_request
 #' @export filter.data_request
-filter.data_request <- function(data, ...){
+filter.data_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
   check_filter(dots)
-  update_galah_call(data, filter = dot_parsing(dots))
-  
+  update_galah_call(.data, filter = parse_filter(dots))
 }
 
 
-dot_parsing <- function(dots){
+parse_filter <- function(dots){
   
   # Clean user arguments
   if(length(dots) > 0){
