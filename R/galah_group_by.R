@@ -75,7 +75,18 @@ galah_group_by <- function(..., expand = TRUE){
     is_data_request <- FALSE
   }
   
-  # if there are any arguments provided, parse them
+  df <- parse_group_by(dots)
+  attr(df, "expand") <- expand
+  
+  # if a data request was supplied, return one
+  if(is_data_request){
+    update_galah_call(data_request, group_by = df)
+  }else{
+    df
+  }
+}
+
+parse_group_by <- function(dots){
   if(length(dots) > 0){
     provided_variables <- dequote(unlist(lapply(dots, as_label)))
     if (getOption("galah_config")$run_checks){
@@ -86,29 +97,17 @@ galah_group_by <- function(..., expand = TRUE){
     if(length(available_variables) > 0){
       df <- tibble(name = available_variables)
       df$type <- ifelse(str_detect(df$name, "[[:lower:]]"), "field", "assertions")
-      attr(df, "call") <- "galah_group_by"
-      attr(df, "expand") <- expand
     }else{
       df <- tibble(name = "name", type = "type", .rows = 0)
-      attr(df, "call") <- "galah_group_by"
-      attr(df, "expand") <- expand
-      df
     }
   }else{
     df <- tibble(name = "name", type = "type", .rows = 0)
-    attr(df, "call") <- "galah_group_by"
-    attr(df, "expand") <- expand
-    df
   }
- 
-  # if a data request was supplied, return one
-  if(is_data_request){
-    update_galah_call(data_request, group_by = df)
-  }else{
-    df
-  }
+  
+  # append attributes
+  attr(df, "call") <- "galah_group_by"
+  return(df)
 }
-
 # for passing to atlas_counts, see rgbif::count_facet
 # in practice, the only fields allowable by `path <- /occurrence/counts` 
 # are `year` (with optional year range);

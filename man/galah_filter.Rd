@@ -5,7 +5,7 @@
 \alias{galah_filter}
 \title{Filter for object of class \code{data_request}}
 \usage{
-filter.data_request(.data, ...)
+\method{filter}{data_request}(.data, ...)
 
 galah_filter(..., profile = NULL)
 }
@@ -62,7 +62,7 @@ Filter query results to return records of interest
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 20452803
+#> 1 20453878
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
@@ -72,7 +72,7 @@ Filter query results to return records of interest
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 20000247
+#> 1 20001322
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
@@ -83,7 +83,7 @@ Filter query results to return records of interest
 #> # A tibble: 1 x 1
 #>     count
 #>     <int>
-#> 1 5734896
+#> 1 5735971
 }\if{html}{\out{</div>}}
 
 Use filters to exclude particular values
@@ -94,7 +94,7 @@ Use filters to exclude particular values
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 46978794
+#> 1 46979375
 }\if{html}{\out{</div>}}
 
 Separating statements with a comma is equivalent to an \code{AND} statement
@@ -122,7 +122,7 @@ galah_call() |>
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 51733478
+#> 1 51734878
 }\if{html}{\out{</div>}}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# Categorical example
@@ -135,7 +135,7 @@ galah_call() |>
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 87578095
+#> 1 87579474
 }\if{html}{\out{</div>}}
 
 \code{solr} supports range queries on text as well as numbers. The following
@@ -147,7 +147,7 @@ queries all Australian States and Territories alphabetically after "Tasmania"
 #> # A tibble: 1 x 1
 #>      count
 #>      <int>
-#> 1 33687129
+#> 1 33687132
 }\if{html}{\out{</div>}}
 
 Filter out specific records that could be unreliable using "assertions"
@@ -164,7 +164,7 @@ galah_call() |>
 #> # A tibble: 1 x 1
 #>       count
 #>       <int>
-#> 1 109054056
+#> 1 109055435
 }\if{html}{\out{</div>}}
 }
 
