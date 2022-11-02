@@ -3,11 +3,10 @@
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @exportS3Method dplyr::summarise
 #' @export
-summarise.data_request <- function(.data, limit = 100, type = c("record", "species")){
+summarise.data_request <- function(.data, type = c("record", "species")){
   type <- match.arg(type)
   atlas_counts(
     request = .data,
-    limit = limit,
     type = type)
 }
 

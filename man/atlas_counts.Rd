@@ -13,12 +13,12 @@ atlas_counts(
   geolocate = NULL,
   data_profile = NULL,
   group_by = NULL,
-  limit = 100,
+  limit = NULL,
   type = c("record", "species"),
   refresh_cache = FALSE
 )
 
-\method{summarise}{data_request}(.data, limit = 100, type = c("record", "species"))
+\method{summarise}{data_request}(.data, type = c("record", "species"))
 
 \method{summarize}{data_request}(...)
 }
@@ -93,14 +93,14 @@ You can group counts by state and territory with \code{galah_group_by}
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
   galah_group_by(stateProvince) |>
   atlas_counts()
-#> # A tibble: 100 x 2
+#> # A tibble: 3,639 x 2
 #>   stateProvince      count
 #>   <chr>              <int>
 #> 1 New South Wales 27416414
 #> 2 Victoria        24566668
 #> 3 Queensland      20506231
 #> 4 South Australia  8939717
-#> # ... with 96 more rows
+#> # ... with 3,635 more rows
 }\if{html}{\out{</div>}}
 
 You can add a filter to narrow your search

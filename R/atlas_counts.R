@@ -99,7 +99,7 @@ atlas_counts <- function(request = NULL,
                          geolocate = NULL,
                          data_profile = NULL,
                          group_by = NULL, 
-                         limit = 100,
+                         limit = NULL,
                          type = c("record", "species"),
                          refresh_cache = FALSE
                          ) {

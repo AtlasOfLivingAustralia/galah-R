@@ -7,11 +7,7 @@
 \usage{
 galah_select(..., group = c("basic", "event", "media", "assertions"))
 
-select.data_request(
-  .data,
-  ...,
-  group = c("basic", "event", "media", "assertions")
-)
+\method{select}{data_request}(.data, ..., group = c("basic", "event", "media", "assertions"))
 }
 \arguments{
 \item{...}{zero or more individual column names to include}
