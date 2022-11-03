@@ -97,7 +97,7 @@ show_values <- function(df){
   # use do.call to implement sub-function
   args <- list(match_name)
   names(args)[[1]] <- type
-  do.call(paste0("show_", type, "_values"), args)
+  do.call(paste0("show_values_", type), args)
 
 }
 
@@ -159,7 +159,7 @@ search_values <- function(df, query) {
   # run query
   args <- list(match_name, query)
   names(args) <- list(type, "query")
-  do.call(paste0("search_", type, "_values"), args)
+  do.call(paste0("search_values_", type), args)
 }
 
 
@@ -168,7 +168,7 @@ search_values <- function(df, query) {
 
 # internal functions for values look-up ----------------------------------------
 
-show_field_values <- function(field) {
+show_values_field <- function(field) {
   if (missing(field)) {
     bullets <- c(
       "No field detected.",
@@ -200,7 +200,7 @@ show_field_values <- function(field) {
 }
 
 
-search_field_values <- function(field, query){
+search_values_field <- function(field, query){
   
   if (missing(query) || is.null(query)) {
     bullets <- c(
@@ -215,7 +215,7 @@ search_field_values <- function(field, query){
 }
 
 
-show_profile_values <- function(profile) {
+show_values_profile <- function(profile) {
   
   # check if is numeric or can be converted to numeric
   short_name <- profile_short_name(profile)
@@ -260,7 +260,7 @@ profile_short_name <- function(profile) {
   short_name
 }
 
-search_profile_values <- function(profile, query){
+search_values_profile <- function(profile, query){
   
   if (missing(query) || is.null(query)) {
     bullets <- c(
@@ -275,7 +275,7 @@ search_profile_values <- function(profile, query){
 }
 
 
-show_list_values <- function(list){
+show_values_list <- function(list){
   
   if (missing(list)) {
     bullets <- c(
@@ -290,7 +290,7 @@ show_list_values <- function(list){
 }
 
 
-search_list_values <- function(list, query){
+search_values_list <- function(list, query){
   
   if (missing(query) || is.null(query)) {
     bullets <- c(
@@ -307,7 +307,7 @@ search_list_values <- function(list, query){
 }
 
 
-show_collection_values <- function(collection){
+show_values_collection <- function(collection){
   if (missing(collection)) {
     bullets <- c(
       "No field detected.",
@@ -321,7 +321,7 @@ show_collection_values <- function(collection){
   x[lengths(x) == 1] |> as_tibble()
 }
 
-search_collection_values <- function(collection, query){
+search_values_collection <- function(collection, query){
   bullets <- c(
     "`query` is not defined for collections",
     i = "Use `show_values` instead"
@@ -330,7 +330,7 @@ search_collection_values <- function(collection, query){
   show_collection_values(collection)
 }
 
-show_provider_values <- function(provider){
+show_values_provider <- function(provider){
   if (missing(provider)) {
     bullets <- c(
       "No field detected.",
@@ -344,7 +344,7 @@ show_provider_values <- function(provider){
   x[lengths(x) == 1] |> as_tibble()
 }
 
-search_provider_values <- function(provider, query){
+search_values_provider <- function(provider, query){
   bullets <- c(
     "`query` is not defined for providers",
     i = "Use `show_values` instead"
@@ -353,7 +353,7 @@ search_provider_values <- function(provider, query){
   show_provider_values(provider)
 }
 
-show_dataset_values <- function(dataset){
+show_values_dataset <- function(dataset){
   if (missing(dataset)) {
     bullets <- c(
       "No field detected.",
@@ -367,7 +367,7 @@ show_dataset_values <- function(dataset){
   x[lengths(x) == 1] |> as_tibble()
 }
 
-search_dataset_values <- function(dataset, query){
+search_values_dataset <- function(dataset, query){
   bullets <- c(
     "`query` is not defined for datasets",
     i = "Use `show_values` instead"
