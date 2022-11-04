@@ -7,7 +7,7 @@
 #' as possible.
 #'
 #' @param profile_path 
-#'    `r lifecycle::badge("soft-deprecated")` 
+#'    `r lifecycle::badge("deprecated")` 
 #'    
 #'    Keeping for compatibility with older package versions. It is preferable to 
 #'    not save `galah_config` options to a .Rprofile file.
@@ -48,46 +48,26 @@
 #' When `galah_config(...)` is called with arguments, nothing is returned
 #' but the configuration is set.
 #' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' To configure your session to allow you to download occurrence records, enter 
-#' your email in `galah_config()`. This email should be registered with the 
-#' ALA, which you can do 
-#' [here](https://auth.ala.org.au/userdetails/registration/createAccount)
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' @examples \dontrun{
+#' # To download occurrence records, enter your email in `galah_config()`. 
+#' # This email should be registered with the ALA. 
+#' # You can register at:
+#' # https://auth.ala.org.au/userdetails/registration/createAccount
 #' galah_config(email = "your-email@email.com")
-#' ```
 #'  
-#' Turn on caching in your session
+#' # Turn on caching in your session
+#' galah_config(caching = TRUE)
 #'  
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
-#' galah_config(caching = FALSE)
-#' ```
-#'  
-#' It is required by some ALA services that you add a reason for downloading 
-#' data. To look up all valid reasons to enter, use [show_all()]
-#'  
-#' ```{r, comment = "#>", collapse = TRUE}
-#' show_all(reasons)
-#' ```
-#'  
-#' Add your selected reason using the option `download_reason_id`
-#'  
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' # Some ALA services require that you add a reason for downloading data. 
+#' # Add your selected reason using the option `download_reason_id`
 #' galah_config(download_reason_id = 0)
-#' ```
 #' 
-#' You can also make debugging in your session easier by setting 
-#' `verbose = TRUE`
+#' # To look up all valid reasons to enter, use `show_all(reasons)`
+#' show_all(reasons)
 #' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
-#' galah_config(download_reason_id = 0,
-#'              verbose = TRUE)
-#' ```
-#' 
+#' # Make debugging in your session easier by setting `verbose = TRUE`
+#' galah_config(verbose = TRUE)
+#' }
 #' @export galah_config
 
 galah_config <- function(..., profile_path = NULL) {

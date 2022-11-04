@@ -96,8 +96,8 @@ no more. Consequently, much of the architecture of \code{galah} has been
 designed to make filtering as simple as possible.
 Functions with the \code{galah_} prefix offer ways to shape your query
 call. Each \code{galah_} function allows the user to filter in a different way.
-Again, the function suffix reveals what each one does. \code{galah_filter},
-\code{galah_select} and \code{galah_group_by} intentionally match \code{dplyr}'s \code{select()},
+Again, the function suffix reveals what each one does. \code{\link[=galah_filter]{galah_filter()}},
+\code{\link[=galah_select]{galah_select()}} and \code{\link[=galah_group_by]{galah_group_by()}} intentionally match \code{dplyr}'s \code{select()},
 \code{filter()} and \code{group_by()} functions, both in their name and how they they are
 used. For example, you can use \code{\link[=galah_select]{galah_select()}} to choose what information
 is returned as columns. Alternatively, you can use \code{\link[=galah_filter]{galah_filter()}} to filter

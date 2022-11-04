@@ -1,4 +1,5 @@
 #' Summarise for object of class `data_request`
+#' @description `r lifecycle::badge("experimental")` 
 #' @rdname atlas_counts
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @exportS3Method dplyr::summarise

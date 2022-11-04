@@ -14,47 +14,24 @@
 #' @seealso [galah_select()], [galah_filter()] and
 #' [galah_geolocate()] for related methods.
 #' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Return record counts since 2010 by year
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
-#' records <- galah_call() |> 
-#'     galah_filter(year > 2010) |>
-#'     galah_group_by(year) |>
-#'     atlas_counts()
-#' ```
-#' ```{r, comment = "#>", collapse = TRUE}
-#' records
-#' ```
+#' @examples
+#' # Return record counts since 2010 by year
+#' galah_call() |> 
+#'   galah_filter(year > 2010) |>
+#'   galah_group_by(year) |>
+#'   atlas_counts()
 #'  
-#' Return record counts since 2010 by year and data provider
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
-#' records <- galah_call() |>
-#'     galah_filter(year > 2010) |>
-#'     galah_group_by(year, dataResourceName) |>
-#'     atlas_counts()
-#' ```
-#' ```{r, comment = "#>", collapse = TRUE}
-#' records
-#' ```
+#' # Return record counts since 2010 by year and data provider
+#' galah_call() |>
+#'   galah_filter(year > 2010) |>
+#'   galah_group_by(year, dataResourceName) |>
 #'     
-#' Return record counts of *Litoria* species each year since 2015, limiting
-#' results to the top 5 each year
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
-#' records <- galah_call() |>
-#'     galah_identify("Litoria") |>
-#'     galah_filter(year > 2015) |>
-#'     galah_group_by(year, species) |>
-#'     atlas_counts(limit = 5)
-#' ```
-#' ```{r, comment = "#>", collapse = TRUE}
-#' records
-#' ```
+#' # Return record counts of species *Litoria* each year since 2015
+#' galah_call() |>
+#'   galah_identify("Litoria") |>
+#'   galah_filter(year > 2015) |>
+#'   galah_group_by(year, species) |>
+#'   atlas_counts(limit = 5)
 #' 
 #' @export
 

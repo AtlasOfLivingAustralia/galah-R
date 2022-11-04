@@ -1,5 +1,5 @@
 #' Group by for object of class `data_request`
-#' @rdname galah_group_by
+#' @description `r lifecycle::badge("experimental")` 
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @exportS3Method dplyr::group_by
 #' @export

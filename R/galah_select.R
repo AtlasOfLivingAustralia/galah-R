@@ -54,32 +54,22 @@
 #' for how to get counts by levels of variables returned by `galah_select`;
 #' `show_all(fields)` to list available fields.
 #' 
-#' @section Examples: 
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Download occurrence records of *Perameles* taken in 2001, only returning 
-#' scientific name and event date
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' @examples \dontrun{
+#' # Download occurrence records of *Perameles*, 
+#' # Only return scientificName and eventDate columns
 #' galah_config(email = "your-email@email.com")
 #' galah_call() |>
 #'   galah_identify("perameles")|>
-#'   galah_filter(year == 2001) |>
 #'   galah_select(scientificName, eventDate) |>
 #'   atlas_occurrences()
 #' ```
 #' 
-#' Download occurrence record of *Perameles* taken in 2001, returning the 
-#' "basic" group of columns plus the Basis of Record
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' # Only return the "basic" group of columns and the basisOfRecord column
 #' galah_call() |>
 #'   galah_identify("perameles") |>
-#'   galah_filter(year == 2001) |>
 #'   galah_select(group = c("basic", "event"), basisOfRecord) |>
 #'   atlas_occurrences()
-#' ```
+#' }
 #' 
 #' @importFrom tidyselect eval_select
 #' @importFrom tidyselect all_of

@@ -19,20 +19,13 @@
 #' [galah_filter()] can be used for more bespoke editing of individual data 
 #' profile filters.
 #' 
-#' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Apply a data profile to a query
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' @examples
+#' # Apply a data quality profile to a query
 #' galah_call() |> 
 #'   galah_identify("reptilia") |>
 #'   galah_filter(year == 2021) |>
 #'   galah_apply_profile(ALA) |>
 #'   atlas_counts()
-#' ```
 #' 
 #' @export
 

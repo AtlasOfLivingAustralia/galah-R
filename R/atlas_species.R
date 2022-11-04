@@ -31,43 +31,22 @@
 #' then [search_taxa()] is more efficient. Similarly, if counts are
 #' required that include filter but without returning taxonomic detail, then
 #' [atlas_counts()] is more efficient (see examples).
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' First, look up a genus of interest in the ALA with [search_taxa()]
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_taxa("Heleioporus")
-#' ```
-#' 
-#' It's a good idea to find how many species there are for the taxon you are 
-#' interested in - in our case, genus *Heleioporus* - with [atlas_counts()]
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() |>
-#'   galah_identify("Heleioporus") |>
-#'   atlas_counts(type = "species")
-#' ```
-#'
-#' Now get taxonomic information on all species within this genus with 
-#' `atlas_species()`
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' @examples
+#' # Get a list of species within genus "Heleioporus"
 #' # (every row is a species with associated taxonomic data)
 #' galah_call() |>
 #'   galah_identify("Heleioporus") |>
 #'   atlas_species()
-#' ```
 #' 
-#' You can also get taxonomic information on species by piping with `%>%` or 
-#' `|>`. Just begin your query with [galah_call()]
+#' # Get a list of species within family "Peramelidae"
+#' galah_call() |>
+#'   galah_identify("peramelidae") |>
+#'   atlas_species()
 #' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # It's good idea to find how many species there are before downloading
 #' galah_call() |>
 #'   galah_identify("Heleioporus") |>
-#'   atlas_species()
-#' ```
+#'   atlas_counts(type = "species")
 #' 
 #' @export
 atlas_species <- function(request = NULL,

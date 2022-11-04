@@ -58,50 +58,27 @@
 #' show available options of information. These functions are used to pass valid 
 #' arguments to [galah_select()], [galah_filter()], and related functions.
 #' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Search for all fields that use include the word "date"
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' @examples
+#' # Search for fields that include the word "date"
 #' search_all(fields, "date")
-#' ```
 #' 
-#' Search for all fields that have information for "marine"
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' # Search for fields that include the word "marine"
 #' search_all(fields, "marine")
-#' ```
 #' 
-#' Search using a single term (See [search_taxa()] for more info)
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_taxa("Reptilia")
-#' ```
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' # Search using a single taxonomic term
+#' # (see `?search_taxa()` for more information)
 #' search_all(taxa, "Reptilia") # equivalent
-#' ```
 #' 
-#' Look up a unique taxon identifier (See [search_identifiers()] for more info)
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' # Look up a unique taxon identifier
+#' # (see `?search_identifiers()` for more information)
 #' search_all(identifiers, 
-#'            "https://id.biodiversity.org.au/node/apni/2914510") # equivalent
-#' ```
+#'            "https://id.biodiversity.org.au/node/apni/2914510")
 #' 
-#' Search for species lists that match "endangered"
-#'
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' # Search for species lists that match "endangered"
 #' search_all(lists, "endangered") # equivalent
-#' ```
 #' 
-#' Search for a valid taxonomic rank, "subphylum"
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' # Search for a valid taxonomic rank, "subphylum"
 #' search_all(ranks, "subphylum")
-#' ```
 #' 
 NULL
 

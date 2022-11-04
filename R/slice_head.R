@@ -1,5 +1,6 @@
 #' Slice for object of class `data_request`
 #' 
+#' @description `r lifecycle::badge("experimental")` 
 #' This is a simple function to set the 'limit' argument in [atlas_counts()]
 #' using `dplyr` syntax.
 #' @param .data An object of class `data_request`, created using [galah_call()]

@@ -85,15 +85,14 @@ The available types of information for \code{show_all_} are:\tabular{llll}{
 }
 }
 \examples{
-
 # See all supported atlases
 show_all(atlases)
 
-# Show a listing of all accepted reasons for downloading occurrence data
-show_all(reasons)
-
 # Show a list of all available data quality profiles
 show_all(profiles)
+
+# Show a listing of all accepted reasons for downloading occurrence data
+show_all(reasons)
 
 # Show a listing of all taxonomic ranks
 show_all(ranks)

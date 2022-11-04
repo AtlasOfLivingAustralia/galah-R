@@ -27,23 +27,15 @@ given, the first valid profile is used.
 
 For more bespoke editing of filters within a profile, use \code{\link[=galah_filter]{galah_filter()}}
 }
-\section{Examples}{
-
-
-Apply a data profile to a query
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |> 
+\examples{
+# Apply a data quality profile to a query
+galah_call() |> 
   galah_identify("reptilia") |>
   galah_filter(year == 2021) |>
   galah_apply_profile(ALA) |>
   atlas_counts()
-#> # A tibble: 1 x 1
-#>   count
-#>   <int>
-#> 1 29296
-}\if{html}{\out{</div>}}
-}
 
+}
 \seealso{
 \code{\link[=show_all]{show_all()}} and \code{\link[=search_all]{search_all()}} to look up available data profiles.
 \code{\link[=galah_filter]{galah_filter()}} can be used for more bespoke editing of individual data

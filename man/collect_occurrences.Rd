@@ -25,3 +25,19 @@ Download occurrence records using an existing DOI or URL. Pre-existing DOIs
 and URLs come from previously generated downloads using \code{atlas_occurrences}
 or online.
 }
+\examples{
+\dontrun{
+# Download previously retrieved records using an existing DOI or URL
+collect_occurrences(doi = "your-doi")
+
+# DOIs can be minted by adding `mint_doi = TRUE` to `atlas_occurrences()`
+records <- 
+  galah_call() |>
+  galah_identify("perameles") |>
+  galah_filter(year == 2001) |>
+  atlas_occurrences(mint_doi = TRUE)
+
+attributes(records)$doi # return minted doi
+}
+
+}

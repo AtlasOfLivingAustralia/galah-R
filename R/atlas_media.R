@@ -30,48 +30,32 @@
 #' is not necessarily the same as the number of media files, as each record can have
 #' more than one media file associated with it (see examples section for how to do this).
 #' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Download Regent Honeyeater multimedia
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
-#' media_data <- galah_call() |>
-#'     galah_identify("Regent Honeyeater") |>
-#'     galah_filter(year == 2011) |>
-#'     atlas_media() |>
-#'     collect_media(path = "folder/your-directory")
-#' ```
-#' 
-#' Specify a single media type to download
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
-#' media_data <- galah_call() |>
-#'      galah_identify("Eolophus Roseicapilla") |>
-#'      galah_filter(multimedia == "Sound") |>
-#'      atlas_media()
-#' ```
-#' 
-#' Filter to only records with a particular licence type
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
-#' media_data <- galah_call() |>
-#'      galah_identify("Ornithorhynchus anatinus") |>
-#'      galah_filter(year == 2020) |>
-#'      atlas_media() |>
-#'      dplyr::filter(license == "http://creativecommons.org/licenses/by-nc/4.0/")
-#' ```
-#' 
-#' You might also want to check how many records have media files before you 
-#' download them. Do this with [atlas_counts()]
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' @examples \dontrun{
+#' # Download Regent Honeyeater records with multimedia attached
 #' galah_call() |>
-#'      galah_filter(multimedia == c("Image", "Sound", "Video")) |>
-#'      galah_group_by(multimedia) |>
-#'      atlas_counts()
-#' ```
+#'   galah_identify("Regent Honeyeater") |>
+#'   galah_filter(year == 2011) |>
+#'   atlas_media()
+#' 
+#' # Download multimedia
+#' galah_call() |>
+#'   galah_identify("Regent Honeyeater") |>
+#'   galah_filter(year == 2011) |>
+#'   atlas_media() |>
+#'   collect_media(path = "folder/your-directory")
+#' 
+#' # Specify a single media type to download
+#' galah_call() |>
+#'   galah_identify("Eolophus Roseicapilla") |>
+#'   galah_filter(multimedia == "Sound") |>
+#'   atlas_media()
+#' 
+#' # It's good to check how many records have media files before downloading
+#' galah_call() |>
+#'   galah_filter(multimedia == c("Image", "Sound", "Video")) |>
+#'   galah_group_by(multimedia) |>
+#'   atlas_counts()
+#'}
 #' 
 #' @export
 atlas_media <- function(request = NULL, 

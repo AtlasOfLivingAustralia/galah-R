@@ -47,45 +47,29 @@
 #' * a `doi` of the data download
 #' * the `search_url` of the query to ALA API
 #' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Search for occurrences matching a taxon identifier
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
-#' galah_config(email = "your-email@email.com")
+#' @examples \dontrun{
+#' # Download occurrence records for a specific taxon
+#' galah_config(email = "your_email_here")
 #' galah_call() |>
 #'   galah_identify("Reptilia") |>
 #'   atlas_occurrences()
-#' ```
 #'
-#' Search for occurrences in a year range
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' # Download occurrence records in a year range
 #' galah_call() |>
-#'   galah_filter(year >= 2010, year <= 2020) |>
+#'   galah_identify("Litoria") |>
+#'   galah_filter(year >= 2010 & year <= 2020) |>
 #'   atlas_occurrences()
-#' ```
 #'
-#' Search for occurrences in a WKT-specified area
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' # Download occurrences records in a WKT-specified area
 #' polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
 #' galah_call() |> 
+#'   galah_identify("Reptilia") |>
+#'   galah_filter(year >= 2010, year <= 2020) |>
 #'   galah_geolocate(polygon) |>
 #'   atlas_occurrences()
-#' ```
+#' }
 #' 
-#' You can also download occurrence records by piping with `%>%` if you prefer.
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
-#' galah_call() %>%
-#'   galah_identify("Reptilia") %>%
-#'   galah_filter(year >= 2010) %>%
-#'   galah_geolocate(polygon) %>%
-#'   atlas_occurrences()
-#' ```
+#' @importFrom assertthat assert_that
 #' 
 #' @export
 atlas_occurrences <- function(request = NULL, 

@@ -2,8 +2,14 @@
 #'
 #' When conducting a search or creating a data query, it is common to identify 
 #' a known taxon or group of taxa to narrow down the records or results returned. 
-#' This function allows users to pass scientific names or taxonomic identifiers
-#' with pipes to provide data only for the biological group of interest.
+#'
+#' `galah_identify()` is used to identify taxa you want returned in a search or 
+#' a data query. Users to pass scientific names or taxonomic identifiers
+#' with pipes to provide data only for the biological group of interest. 
+#' 
+#' It is good to use [search_taxa()] and [search_identifiers()] 
+#' first to check that the taxa you provide to `galah_identify()` return the 
+#' correct results.
 #'
 #' @param ... one or more scientific names (if `search = TRUE`) or taxonomic 
 #'   identifiers (if `search = FALSE`); or an object of class `ala_id` (from
@@ -16,44 +22,23 @@
 #' [search_identifiers()] for how to get names if taxonomic identifiers 
 #' are already known.
 #' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' `galah_identify()` is used to identify taxa you want returned in a search or 
-#' a data query. It is good to use [search_taxa()] and [search_identifiers()] 
-#' first to check that the taxa you provide to `galah_identify()` return the 
-#' correct results.
-#' 
-#' Specify a taxon. A valid taxon will return an identifier.
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' @examples
+#' # Specify a taxon. A valid taxon will return an identifier.
 #' galah_identify("reptilia")
-#' ```
 #' 
-#' Specify more than one taxon at a time.
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # Specify more than one taxon at a time.
 #' galah_identify("reptilia", "mammalia", "aves", "pisces")
-#' ```
 #' 
-#' Use `galah_identify()` to narrow your queries
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # Use `galah_identify()` to narrow your queries
 #' galah_call() |> 
 #'   galah_identify("Eolophus") |>
 #'   atlas_counts()
-#' ```
 #' 
-#' If you already know a valid taxon identifier, add it and set `search = FALSE`.
-#'
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # If you know a valid taxon identifier, add it and set `search = FALSE`.
 #' galah_call() |> 
 #'   galah_identify("https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c", 
 #'                  search = FALSE) |>
 #'   atlas_counts()
-#' ```
-#' 
 #' 
 #' @export
 galah_identify <- function(..., search = TRUE) {

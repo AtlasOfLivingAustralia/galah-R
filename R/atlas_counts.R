@@ -41,57 +41,33 @@
 #'  * A single number, if `group_by` is not specified or,
 #'  * A summary of counts grouped by field(s), if `group_by` is specified
 #'
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' With no arguments, return the total number of records in the ALA
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' @examples
+#' # With no arguments, return the total number of records in the ALA
 #' atlas_counts()
-#' ```
 #'
-#' You can group counts by state and territory with `galah_group_by`
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() |>
-#'   galah_group_by(stateProvince) |>
-#'   atlas_counts()
-#' ```
-#'
-#' You can add a filter to narrow your search
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # Add a filter to narrow your search
 #' galah_call() |>
 #'   galah_filter(basisOfRecord == "FossilSpecimen") |>
 #'   atlas_counts() 
-#' ```
 #' 
-#' Specify `type = species` to count the number of species, and group record
-#' counts by kingdom
+#' # Group counts by state and territory with `galah_group_by`
+#' galah_config(verbose = FALSE) # turn off loading messages
+#' galah_call() |>
+#'   galah_group_by(stateProvince) |>
+#'   atlas_counts()
 #' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
+#' # Specify `type = species` to count the number of species
 #' records <- galah_call() |>
-#'   galah_group_by(kingdom) |>
+#'   galah_identify("aves") |>
 #'   atlas_counts(type = "species")
-#' ```
-#' ```{r, comment = "#>", collapse = TRUE}
-#' records
-#' ```
 #' 
-#' Using `galah_group_by` allows you to cross-tabulate using two different 
-#' variables, similar to using `dplyr::group_by() %>% dplyr::count()`
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
-#' records <- galah_call() |>
+#' # Cross-tabulate using two different variables.
+#' # This is similar to using `dplyr::group_by() %>% dplyr::count()`
+#' galah_call() |>
 #'   galah_filter(year > 2015) |>
 #'   galah_group_by(year, basisOfRecord) |>
 #'   atlas_counts()
-#' ```
-#' ```{r, comment = "#>", collapse = TRUE}
-#' records
-#' ```
-#' 
+#'   
 #' @export
 atlas_counts <- function(request = NULL, 
                          identify = NULL, 

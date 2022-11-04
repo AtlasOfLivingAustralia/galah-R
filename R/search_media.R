@@ -6,21 +6,15 @@
 #' @param df 
 #'   A `tibble` of species occurrence records or media IDs.
 #' @returns a `tibble` of matching media files of occurrence records or media ids
-#' @section Examples: 
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Search for media files associated with a specified set of 
-#' species occurrence records
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' @examples \dontrun{
+#' # Search for media files for a set of species occurrence records
 #' occs <- galah_call() |>
 #'   galah_identify("perameles") |>
 #'   galah_filter(year == 2001) |>
 #'   atlas_occurrences()
 #'   
 #' search_media(occs)
-#' ```
+#' }
 #' 
 #' @rdname search_media
 #' @export search_media

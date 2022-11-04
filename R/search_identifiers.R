@@ -5,8 +5,8 @@
 #' are known, this function allows you to use them to look up further information
 #' on the taxon in question. Effectively this is the inverse function to 
 #' [search_taxa()], which takes names and provides identifiers. The resulting
-#' `data.frame` of taxonomic information can also be passed directly to
-#' `atlas_` functions to filter records to the specified taxon or taxa.
+#' `tibble` of taxonomic information can also be passed to [galah_identify()] to
+#' filter queries to the specified taxon or taxa.
 #'
 #' @param identifier `string`: A vector containing one or more taxonomic
 #' identifiers, given as strings. 
@@ -17,15 +17,9 @@
 #' [galah_geolocate()] for other ways to restrict the information returned
 #' by [atlas_occurrences()] and related functions.
 #' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Look up a unique taxon identifier
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' @examples 
+#' # Look up a unique taxon identifier
 #' search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
-#' ```
 #' 
 #' @export
 search_identifiers <- function(identifier) {

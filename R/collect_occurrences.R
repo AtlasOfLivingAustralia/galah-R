@@ -15,6 +15,20 @@
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
 #' occurrences 
 #' 
+#' @examples \dontrun{
+#' # Download previously retrieved records using an existing DOI or URL
+#' collect_occurrences(doi = "your-doi")
+#' 
+#' # DOIs can be minted by adding `mint_doi = TRUE` to `atlas_occurrences()`
+#' records <- 
+#'   galah_call() |>
+#'   galah_identify("perameles") |>
+#'   galah_filter(year == 2001) |>
+#'   atlas_occurrences(mint_doi = TRUE)
+#' 
+#' attributes(records)$doi # return minted doi
+#' }
+#' 
 #' @export collect_occurrences
 
 collect_occurrences <- function(url, doi){

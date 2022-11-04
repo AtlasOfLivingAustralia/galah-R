@@ -4,7 +4,7 @@
 \alias{slice_head.data_request}
 \title{Slice for object of class \code{data_request}}
 \usage{
-\method{slice_head}{data_request}(.data, n)
+slice_head.data_request(.data, n)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
@@ -13,6 +13,7 @@
 (using \link{group_by}), this operation will be performed on each group.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 This is a simple function to set the 'limit' argument in \code{\link[=atlas_counts]{atlas_counts()}}
 using \code{dplyr} syntax.
 }

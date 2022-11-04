@@ -1,5 +1,5 @@
 #' Select for object of class `data_request`
-#' @rdname galah_select
+#' @description `r lifecycle::badge("experimental")` 
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @exportS3Method dplyr::select
 #' @export

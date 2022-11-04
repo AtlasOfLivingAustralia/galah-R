@@ -16,28 +16,20 @@
 #'
 #' @return Available image & media files downloaded to a user local directory.
 #'
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Use `atlas_media()` to return a `tibble` of records that contain media
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' @examples \dontrun{
+#' # Use `atlas_media()` to return a `tibble` of records that contain media
 #' galah_call() |> 
 #'   galah_identify("perameles") |>
 #'   galah_filter(year == 2015) |>
 #'   atlas_media()
-#' ```
 #' 
-#' Then add `collect_media()` to the end of a query to download media files
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' # To download media files, add `collect_media()` to the end of a query 
 #' galah_call() |> 
 #'   galah_identify("perameles") |>
 #'   galah_filter(year == 2015) |>
 #'   atlas_media() |>
 #'   collect_media(path = here::here("folder", "subfolder"))
-#' ```
+#' }
 #'
 #' @export collect_media
 

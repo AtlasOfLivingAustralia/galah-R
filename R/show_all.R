@@ -50,15 +50,14 @@
 #' search for information. These functions are used to pass valid arguments to
 #' [galah_select()], [galah_filter()], and related functions.
 #' @examples
-#' 
 #' # See all supported atlases
 #' show_all(atlases)
 #'
-#' # Show a listing of all accepted reasons for downloading occurrence data
-#' show_all(reasons)
-#'
 #' # Show a list of all available data quality profiles
 #' show_all(profiles)
+#' 
+#' # Show a listing of all accepted reasons for downloading occurrence data
+#' show_all(reasons)
 #' 
 #' # Show a listing of all taxonomic ranks
 #' show_all(ranks)

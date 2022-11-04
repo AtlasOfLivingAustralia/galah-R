@@ -30,27 +30,13 @@
 #' `show_all(ranks)` for valid ranks used to specify the `down_to`
 #' argument.
 #' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Get a taxonomic tree of *Chordata* down to the class level
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' @examples \donttest{
+#' # Get a taxonomic tree of *Chordata* down to the class level
 #' galah_call() |> 
 #'   galah_identify("chordata") |>
 #'   galah_down_to(class) |>
 #'   atlas_taxonomy()
-#' ```
-#' 
-#' Get a taxonomic tree of *Fungi* down to the phylum level
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() |>
-#'   galah_identify("fungi") |>
-#'   galah_down_to(class) |>
-#'   atlas_taxonomy()
-#' ```
+#' }
 #' 
 #' @export
 atlas_taxonomy <- function(request = NULL,
