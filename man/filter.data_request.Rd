@@ -4,7 +4,7 @@
 \alias{filter.data_request}
 \title{Filter for object of class \code{data_request}}
 \usage{
-filter.data_request(.data, ...)
+\method{filter}{data_request}(.data, ...)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}

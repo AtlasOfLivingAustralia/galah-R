@@ -4,11 +4,7 @@
 \alias{select.data_request}
 \title{Select for object of class \code{data_request}}
 \usage{
-select.data_request(
-  .data,
-  ...,
-  group = c("basic", "event", "media", "assertions")
-)
+\method{select}{data_request}(.data, ..., group = c("basic", "event", "media", "assertions"))
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}

@@ -4,7 +4,7 @@
 \alias{slice_head.data_request}
 \title{Slice for object of class \code{data_request}}
 \usage{
-slice_head.data_request(.data, n)
+\method{slice_head}{data_request}(.data, n)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}

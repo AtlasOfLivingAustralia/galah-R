@@ -24,7 +24,7 @@
 #' @examples
 #' # Search for records using a bounding box of coordinates
 #' b_box <- sf::st_bbox(c(xmin = 143, xmax = 148, ymin = -29, ymax = -28), 
-#'                      crs = st_crs("WGS84"))
+#'                      crs = sf::st_crs("WGS84"))
 #'
 #' galah_call() |>
 #'   galah_identify("reptilia") |>
@@ -129,7 +129,7 @@ galah_bbox <- function(...) {
                          xmax = query$xmax,
                          ymin = query$ymin,
                          ymax = query$ymax),
-                       crs = st_crs("WGS84"))
+                       crs = sf::st_crs("WGS84"))
     }
     log <- NULL # see `log` to read any warnings that may have been silenced
     valid <- rlang::try_fetch( # prevent warnings
@@ -153,12 +153,12 @@ galah_bbox <- function(...) {
   } else {
     if (inherits(query, c("tbl", "data.frame", "bbox")) && !inherits(query, c("sf", "sfc"))) {
       bbox_coords <- round(query, 5)
-      query <- query |> st_as_sfc(crs = st_crs("WGS84"))
+      query <- query |> st_as_sfc(crs = sf::st_crs("WGS84"))
     } else {
       if (inherits(query, c("sf", "sfc"))) {
-        query <- query |> st_bbox(crs = st_crs("WGS84"))
+        query <- query |> st_bbox(crs = sf::st_crs("WGS84"))
         bbox_coords <- round(query, 5)
-        query <- query |> st_as_sfc(crs = st_crs("WGS84")) # FIXME: should we define the projection?
+        query <- query |> st_as_sfc(crs = sf::st_crs("WGS84")) # FIXME: should we define the projection?
       }
     }
   }

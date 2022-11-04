@@ -4,7 +4,7 @@
 \alias{group_by.data_request}
 \title{Group by for object of class \code{data_request}}
 \usage{
-group_by.data_request(.data, ...)
+\method{group_by}{data_request}(.data, ...)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
