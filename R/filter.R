@@ -17,7 +17,6 @@
 #' @importFrom dplyr filter
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @param ... filters, in the form `field logical value`
-#' @exportS3Method dplyr::filter
 #' @export
 filter.data_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")

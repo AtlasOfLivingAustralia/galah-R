@@ -14,7 +14,6 @@
 #' columns `name` and `type`, as per [galah_select()]; if no arguments
 #' are provided, returns `NULL`.
 #' @importFrom dplyr group_by
-#' @exportS3Method dplyr::group_by
 #' @export
 group_by.data_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")

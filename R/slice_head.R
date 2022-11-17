@@ -7,7 +7,6 @@
 #' @param n The number of rows to be returned. If data are grouped 
 #' (using [group_by]), this operation will be performed on each group.
 #' @importFrom dplyr slice_head
-#' @exportS3Method dplyr::slice_head
 #' @export
 slice_head.data_request <- function(.data, n){
   update_galah_call(.data, limit = n)

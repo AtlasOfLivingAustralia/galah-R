@@ -49,7 +49,6 @@
 #' columns. The list of assertions is shown by `show_all_assertions()`.
 #' @importFrom dplyr select
 #' @param .data An object of class `data_request`, created using [galah_call()]
-#' @exportS3Method dplyr::select
 #' @export
 select.data_request <- function(.data, ..., group = c("basic", "event", "media", "assertions")
 ){

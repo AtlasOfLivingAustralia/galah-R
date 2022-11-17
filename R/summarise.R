@@ -6,7 +6,6 @@
 #' returned, if "record", the number of records matching the criteria will be
 #' returned.
 #' @importFrom dplyr summarise
-#' @exportS3Method dplyr::summarise
 #' @export
 summarise.data_request <- function(.data, type = c("record", "species")){
   type <- match.arg(type)
@@ -18,7 +17,6 @@ summarise.data_request <- function(.data, type = c("record", "species")){
 #' Summarize for object of class `data_request`
 #' @rdname summarise.data_request
 #' @importFrom dplyr summarize
-#' @exportS3Method dplyr::summarize
 #' @export
 summarize.data_request <- function(.data, type = c("record", "species")){
   type <- match.arg(type)
