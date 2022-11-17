@@ -38,6 +38,7 @@
 #'   atlas_taxonomy()
 #' }
 #' 
+#' @importFrom assertthat assert_that is.string
 #' @export
 atlas_taxonomy <- function(request = NULL,
                            identify = NULL, 

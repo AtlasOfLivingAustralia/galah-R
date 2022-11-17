@@ -2,13 +2,29 @@
 % Please edit documentation in R/filter.R
 \name{filter.data_request}
 \alias{filter.data_request}
-\title{Filter for object of class \code{data_request}}
+\title{Narrow a query by specifying filters}
 \usage{
 \method{filter}{data_request}(.data, ...)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
+
+\item{...}{filters, in the form \verb{field logical value}}
 }
 \description{
+"Filters" are arguments of the form \code{field} \code{logical} \code{value} that are used
+to narrow down the number of records returned by a specific query.
+For example, it is common for users to request records from a particular year
+(\code{year == 2020}), or to return all records except for fossils
+(\code{basisOfRecord != "FossilSpecimen"}).
+
+The result of \code{galah_filter()} can be passed to the \code{filter}
+argument in \code{\link[=atlas_occurrences]{atlas_occurrences()}}, \code{\link[=atlas_species]{atlas_species()}},
+\code{\link[=atlas_counts]{atlas_counts()}} or \code{\link[=atlas_media]{atlas_media()}}.
+}
+\details{
+\code{galah_filter} uses non-standard evaluation (NSE),
+and is designed to be as compatible as possible with \code{dplyr::filter()}
+syntax.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }

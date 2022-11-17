@@ -32,7 +32,7 @@
 #'   atlas_counts()
 #'
 #' # Search for records using a bounding box in a `tibble` or `data.frame`
-#' b_box <- tibble(xmin = 148, ymin = -29, xmax = 143, ymax = -21)
+#' b_box <- tibble::tibble(xmin = 148, ymin = -29, xmax = 143, ymax = -21)
 #'
 #' galah_call() |>
 #'   galah_identify("reptilia") |>

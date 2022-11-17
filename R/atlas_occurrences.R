@@ -61,7 +61,11 @@
 #'   atlas_occurrences()
 #'
 #' # Download occurrences records in a WKT-specified area
-#' polygon <- "POLYGON((146.24960 -34.05930,146.37045 -34.05930,146.37045 -34.152549,146.24960 -34.15254,146.24960 -34.05930))"
+#' polygon <- "POLYGON((146.24960 -34.05930,
+#'                      146.37045 -34.05930,
+#'                      146.37045 -34.152549,
+#'                      146.24960 -34.15254,
+#'                      146.24960 -34.05930))"
 #' galah_call() |> 
 #'   galah_identify("Reptilia") |>
 #'   galah_filter(year >= 2010, year <= 2020) |>

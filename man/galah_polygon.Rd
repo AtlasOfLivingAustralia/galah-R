@@ -44,7 +44,11 @@ galah_call() |>
   atlas_occurrences()
 }
 # Search for records using a Well-known Text string (WKT)
-wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
+wkt <- "POLYGON((142.36228 -29.00703,
+                 142.74131 -29.00703,
+                 142.74131 -29.39064,
+                 142.36228 -29.39064,
+                 142.36228 -29.00703))"
 galah_call() |>
   galah_identify("vulpes") |>
   galah_polygon(wkt) |>

@@ -2,13 +2,28 @@
 % Please edit documentation in R/group_by.R
 \name{group_by.data_request}
 \alias{group_by.data_request}
-\title{Group by for object of class \code{data_request}}
+\title{Specify fields to group when downloading record counts}
 \usage{
 \method{group_by}{data_request}(.data, ...)
 }
 \arguments{
-\item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
+\item{.data}{An object of class \code{data_request}}
+
+\item{...}{zero or more individual column names to include}
+
+\item{expand}{\code{logical}: When passed to \code{group_by} argument of
+\code{atlas_counts}, should factor levels be expanded? Defaults to \code{TRUE}.}
+}
+\value{
+If any arguments are provided, returns a \code{data.frame} with
+columns \code{name} and \code{type}, as per \code{\link[=galah_select]{galah_select()}}; if no arguments
+are provided, returns \code{NULL}.
 }
 \description{
+\code{atlas_counts} supports server-side grouping of data. Grouping can be
+used to return record counts grouped by multiple, valid fields (found by
+\code{search_all(fields)}. Use \code{galah_group_by} when using the
+\code{group_by} argument of \code{atlas_counts} to return record counts summed
+by one or more valid fields.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
