@@ -15,8 +15,7 @@
 #'   identifiers (if `search = FALSE`); or an object of class `ala_id` (from
 #'   `search_taxa`).
 #' @param search (logical); should the results in question be passed to
-#'   `search_taxa`? Ignored if an object of class `ala_id`, `gbifid`, or `nbnid` 
-#'   is given to `...`.
+#'   `search_taxa`?
 #' @return A tibble containing identified taxa.
 #' @seealso [search_taxa()] to find identifiers from scientific names;
 #' [search_identifiers()] for how to get names if taxonomic identifiers 
@@ -53,7 +52,16 @@ galah_identify <- function(..., search = TRUE) {
   } else {
     is_data_request <- FALSE
   }
+  
+  if (is_data_request) {
+    update_galah_call(data_request, identify = parse_identify(dots, search))
+  } else {
+    parse_identify(dots, search)
+  }
+}
 
+
+parse_identify <- function(dots, search){
   if (length(dots) > 0) {
 
     # basic checking
@@ -118,11 +126,7 @@ galah_identify <- function(..., search = TRUE) {
 
   # if a data request was supplied, return one
   attr(result, "call") <- "galah_identify"
-  if (is_data_request) {
-    update_galah_call(data_request, identify = result)
-  } else {
-    result
-  }
+  return(result)
 }
 
 
