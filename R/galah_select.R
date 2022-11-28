@@ -97,48 +97,62 @@ galah_select <- function(...,
   }
   
   # If no args are supplied, set default columns returned as group = "basic"  
-  if(missing(group) & length(dots) < 1){
-    group <- "basic"
+  if(missing(group)){
+    if(length(dots) < 1){
+      group_chosen <- "basic"
+    }else{
+      group_chosen <- NULL
+    }
+  }else{
+    group_chosen <- match.arg(group, several.ok = TRUE)
   }
   
-  # Match 'groups' of columns
-  if (!missing(group) && !is.null(group)) {
-    append_groups <- TRUE
-    group <- match.arg(group, several.ok = TRUE)
-    group_cols <- unlist(lapply(group, preset_cols))
-  } else {
-    append_groups <- FALSE
-    group_cols <- NULL
-  }
-  
-  # Build a data.frame with a standardised set of names,
-  # stored by galah_config()
-  field_names <- unique(c(show_all_fields()$id, show_all_assertions()$id))
-  df <- as.data.frame(
-    matrix(data = NA, nrow = 0, ncol = length(field_names),
-           dimnames = list(NULL, field_names)))
-  
-  ## Make a data.frame listing valid fields and their type
-  selection <- unlist(lapply(dots, function(a){
-    names(tidyselect::eval_select(a, data = df))
-  }))
-  all_cols <- data.frame(
-    name = unique(c(group_cols, selection)))
-  all_cols$type <- ifelse(str_detect(all_cols$name, "[[:lower:]]"), "field", "assertions")
-  
-  # Add S3 class
-  all_cols <- as_tibble(all_cols)
-  attr(all_cols, "call") <- "galah_select"
-  if(append_groups){
-    attr(all_cols, "groups") <- group 
-  }
+  result <- parse_select(dots, group_chosen)
   
   # if a data request was supplied, return one
   if(is_data_request){
-    update_galah_call(data_request, select = all_cols)
+    update_galah_call(data_request, select = result)
   }else{
-    all_cols
+    result
   }
+}
+
+
+# Build a data.frame with a standardised set of names
+parse_select <- function(dots, group){
+  current_assertions <- show_all_assertions()
+  field_names <- unique(c(show_all_fields()$id, current_assertions$id))
+  df <- matrix(data = NA, nrow = 0, ncol = length(field_names),
+               dimnames = list(NULL, field_names)) |>
+    as.data.frame()
+  
+  if(length(group) > 0){
+    group_cols <- lapply(group, preset_cols) |>
+                  unlist()
+    select_groups <- eval_select(all_of(group_cols), data = df) |> 
+                     names()
+  }else{
+    select_groups <- NULL
+    group <- ""
+  }
+  
+  if(length(dots) > 0){
+    select_individuals <- unlist(lapply(dots, function(a){
+      eval_select(a, data = df) |> 
+      names()
+    }))
+  }else{
+    select_individuals <- NULL
+  }
+  
+  # create output object
+  result <- tibble(name = unique(c(select_groups, select_individuals)))
+  result$type <- "field"
+  result$type[result$name %in% current_assertions$id] <- "assertion"
+  attr(result, "call") <- "galah_select" 
+  attr(result, "group") <- group
+  
+  return(result)
 }
 
 
