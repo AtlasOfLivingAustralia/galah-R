@@ -256,9 +256,9 @@ build_query <- function(identify, filter, location, select = NULL,
     query$wkt <- area_query
   }
   
-  if (check_for_caching(taxa_query, filter_query, area_query, select)) {
-    query <- cached_query(taxa_query, filter_query, area_query)
-  }
+  #if (check_for_caching(taxa_query, filter_query, area_query, select)) {
+  #  query <- cached_query(taxa_query, filter_query, area_query)
+  #}
 
   # add profiles information (ALA only)  
   if (getOption("galah_config")$atlas == "Australia") {
@@ -383,13 +383,21 @@ build_columns <- function(col_df) {
 }
 
 build_assertion_columns <- function(col_df) {
-  if (nrow(col_df) == 0) {
-    return("none")
-    # all assertions have been selected
-  } else if (nrow(col_df) == 107) {
-    return("includeall")
+  assertion_group <- any(attr(col_df, "group") == "assertions")
+  assertion_rows <- which(col_df$type == "assertion")
+  if(assertion_group){ # assertions have been selected as a group
+    if(length(assertion_rows) > 50){ # only if a certain number present
+      return("includeall")
+    }else{
+      return(paste0(col_df$name[assertion_rows], collapse = ","))
+    }
+  }else{ # assertions not selected as a group
+    if(length(assertion_rows) > 0) {
+      return(paste0(col_df$name[assertion_rows], collapse = ","))
+    }else{
+      return("none")
+    }
   }
-  paste0(col_df$name, collapse = ",")
 }
 
 ##---------------------------------------------------------------
@@ -612,7 +620,9 @@ default_columns <- function() {
           "Guatemala" = c("latitude", "longtitude", "species_guid",
                           "data_resource_uid", "occurrence_date", "id"),
           c("decimalLatitude", "decimalLongitude", "eventDate",
-            "scientificName", "taxonConceptID", "recordID", "dataResourceName",
+            "scientificName", "taxonConceptID",
+            "recordID", # note this requires that the ALA name (`id`) be corrected
+            "dataResourceName",
             "occurrenceStatus")
   )
 }
@@ -657,7 +667,14 @@ get_fields <- function() {
     fields <- fields[wanted_columns("fields")]
     fields$type <- "fields"
     
-    fields
+    # correct id for recordID
+    record_id_lookup <- grepl("http://rs.tdwg.org/dwc/terms/recordID", 
+                              fields$description)
+    if(any(record_id_lookup)){
+      fields$id[which(record_id_lookup)[1]] <- "recordID"
+    }
+    
+    return(fields)
   }
 }
 

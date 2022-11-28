@@ -190,7 +190,7 @@ atlas_occurrences_internal <- function(identify = NULL,
   }
   
   query <- build_query(identify, filter, geolocate, select, profile)
-
+  
   # Check record count
   if (getOption("galah_config")$run_checks) {
     count <- record_count(query)
@@ -206,18 +206,16 @@ atlas_occurrences_internal <- function(identify = NULL,
       check_count(count) # aborts under selected circumstances
     }
   }
-  
-  assertion_select <- select[select$type == "assertions", ]
 
   query <- c(query, 
-    fields = build_columns(select[select$type != "assertions", ]),
-    qa = build_assertion_columns(assertion_select),
+    fields = build_columns(select[select$type != "assertion", ]),
+    qa = build_assertion_columns(select),
     emailNotify = email_notify(),
     sourceTypeId = 2004,
     reasonTypeId = getOption("galah_config")$download_reason_id,
     email = user_email(), 
     dwcHeaders = "true")
-
+  
   if (mint_doi & getOption("galah_config")$atlas == "Australia") {
     query$mintDoi <- "true"
   }

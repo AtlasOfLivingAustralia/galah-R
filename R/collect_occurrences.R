@@ -29,6 +29,7 @@
 #' attributes(records)$doi # return minted doi
 #' }
 #' 
+#' @importFrom readr read_csv
 #' @export collect_occurrences
 
 collect_occurrences <- function(url, doi){
@@ -94,10 +95,7 @@ doi_download <- function(doi, error_call = caller_env()) {
   }else{
     record_file <- grep("^records", unzip(path, list=TRUE)$Name, 
                         ignore.case=TRUE, value=TRUE)
-    result <- read.csv(unz(path, record_file), stringsAsFactors = FALSE)
-    
-    # return tibble with correct info
-    result <- as_tibble(result)
+    result <- read_csv(unz(path, record_file), col_types = cols())
     attr(result, "doi") <- doi
     attr(result, "call") <- "atlas_occurrences"
     
@@ -131,9 +129,8 @@ url_download <- function(url){
     inform("There was a problem reading the occurrence data and it looks like no data were returned.")
   }else{
     result <- do.call(rbind, 
-                      lapply(data_files, 
-                             function(a){read.csv(unz(local_file, a))})) |> 
-              as_tibble()
+                      lapply(data_files, function(a){
+                        read_csv(unz(local_file, a), col_types = cols())}))
   }
   
   # rename cols so they match requested cols

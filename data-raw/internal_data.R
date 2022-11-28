@@ -3,6 +3,7 @@
 # Hadley Wickham, section 8.3 'Internal data'
 # https://r-pkgs.org/data.html
 
+devtools::load_all()
 library(readr)
 library(usethis)
 library(dplyr)

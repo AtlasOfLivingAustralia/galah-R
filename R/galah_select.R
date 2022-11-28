@@ -141,8 +141,16 @@ parse_select <- function(dots, group){
       eval_select(a, data = df) |> 
       names()
     }))
-  }else{
-    select_individuals <- NULL
+  }else{ # i.e. no fields selected
+    # code an exception here:
+    ## because assertions aren't fields, leaving `fields` empty means default fields are returned
+    ## but only when `group = assertions` and no other requests are made
+    ## this adds a single field (recordID) to the query to avoid this problem
+    if(length(group) == 1 && all(group == "assertions")){
+      select_individuals <- "recordID"
+    }else{
+      select_individuals <- NULL 
+    }
   }
   
   # create output object
