@@ -1,17 +1,14 @@
-#' Download biodiversity data from the Atlas of Living Australia
+#' Biodiversity Data from the Living Atlas Community
 #'
 #' @description
-#' `galah` is an R interface to the Atlas of
-#' Living Australia (ALA; <https://www.ala.org.au/>), 
-#' a biodiversity data repository focussed
-#' primarily on observations of individual life forms. 
-#' It also supports access to some other 'living atlases' that use the same 
-#' computational infrastructure. The
-#' basic unit of data at ALA is an **occurrence** record, based on the
-#' 'Darwin Core' data standard (<https://dwc.tdwg.org>). `galah` enables users to
-#' locate and download species observations, taxonomic information, or
-#' associated media such images or sounds, and to restrict their queries to
-#' particular taxa or locations. Users can specify which columns are returned
+#' The living atlas community provides tools to enable users to find, access, 
+#' combine and visualise data on biodiversity. 'galah' enables the R community 
+#' to directly access data and resources hosted by the living atlases. The
+#' basic unit of observation is an **occurrence** record, based on the
+#' 'Darwin Core' data standard (<https://dwc.tdwg.org>); however `galah` also 
+#' enables users to locate and download taxonomic information, 
+#' associated media such images or sounds, all while restricting their queries 
+#' to particular taxa or locations. Users can specify which columns are returned
 #' by a query, or restrict their results to observations that meet particular
 #' quality-control criteria. 
 #'
@@ -28,14 +25,14 @@
 #' 
 #' **Narrow your results**
 #' 
-#'   * [galah_identify()] or \code{\link[=identify.data_request()]{identify()}} Search for taxonomic identifiers
-#'   * [galah_filter()] or \code{\link[=filter.data_request()]{filter()}} Filter records
-#'   * [galah_select()] or \code{\link[=select.data_request()]{select()}} Fields to report information for
-#'   * [galah_group_by()] or \code{\link[=group_by.data_request()]{group_by()}} Fields to group counts by
-#'   * [galah_geolocate()] or \code{\link[=st_crop.data_request()]{st_crop()}} Specify a location
-#'   * [galah_apply_profile()] Restrict to occurrences that pass predefined checks (ALA only)
+#'   * [galah_identify()] or \code{\link[=identify.data_request]{identify()}} Search for taxonomic identifiers
+#'   * [galah_filter()] or \code{\link[=filter.data_request]{filter()}} Filter records
+#'   * [galah_select()] or \code{\link[=select.data_request]{select()}} Fields to report information for
+#'   * [galah_group_by()] or \code{\link[=group_by.data_request]{group_by()}} Fields to group counts by
+#'   * [galah_geolocate()] or \code{\link[=st_crop.data_request]{st_crop()}} Specify a location
+#'   * [galah_apply_profile()] Restrict to data that pass predefined checks (ALA only)
 #'   * [galah_down_to()] Specify a taxonomic rank
-#'   * \code{\link[=slice_head.data_request()]{slice_head()}} Choose the first n rows of a download
+#'   * \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
 #' 
 #' **Download data**
 #' 
