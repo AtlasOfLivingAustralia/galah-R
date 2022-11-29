@@ -29,23 +29,24 @@ quality-control criteria.
 
 \strong{Narrow your results}
 \itemize{
-\item \code{\link[=galah_identify]{galah_identify()}} Search for taxonomic identifiers
-\item \code{\link[=galah_filter]{galah_filter()}} Filter records
-\item \code{\link[=galah_select]{galah_select()}} Fields to report information for
-\item \code{\link[=galah_group_by]{galah_group_by()}} Fields to group counts by
-\item \code{\link[=galah_geolocate]{galah_geolocate()}} Specify a location
+\item \code{\link[=galah_identify]{galah_identify()}} or \code{\link[=identify]{identify()}} Search for taxonomic identifiers
+\item \code{\link[=galah_filter]{galah_filter()}} or \code{\link[=filter]{filter()}} Filter records
+\item \code{\link[=galah_select]{galah_select()}} or \code{\link[=select]{select()}} Fields to report information for
+\item \code{\link[=galah_group_by]{galah_group_by()}} or \code{\link[=group_by]{group_by()}} Fields to group counts by
+\item \code{\link[=galah_geolocate]{galah_geolocate()}} or \code{\link[=st_crop]{st_crop()}} Specify a location
 \item \code{\link[=galah_down_to]{galah_down_to()}} Specify a taxonomic rank
+\item \link{slice_head} Choose the first n rows of a download
 }
 
 \strong{Download data}
 \itemize{
 \item \code{\link[=atlas_occurrences]{atlas_occurrences()}} Download occurrence records
-\item \code{\link[=atlas_counts]{atlas_counts()}} Count the number of records or species returned by a query
+\item \code{\link[=atlas_counts]{atlas_counts()}} or \code{\link[=summarise]{summarise()}} Count the number of records or species returned by a query
 \item \code{\link[=atlas_species]{atlas_species()}} Download species lists
 \item \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} Return a section of the ALA taxonomic tree
 \item \code{\link[=atlas_media]{atlas_media()}} View images and sounds available to download
 \item \code{\link[=collect_media]{collect_media()}} Download images and sounds
-\item \code{\link[=collect_occurrences]{collect_occurrences()}} Download previously downloaded occurrence records
+\item \code{\link[=collect_occurrences]{collect_occurrences()}} Download previously-defined sets of occurrence records
 }
 
 \strong{Look up information}

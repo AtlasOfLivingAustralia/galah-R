@@ -47,7 +47,7 @@
 #'   atlas_counts()
 #' 
 #' @importFrom sf st_cast st_as_text st_as_sfc st_is_empty st_is_simple
-#' @importFrom sf st_is_valid st_geometry st_geometry_type st_crs
+#' @importFrom sf st_crs st_geometry st_geometry_type st_is_valid st_simplify st_read
 #' @importFrom rlang try_fetch
 #' @importFrom assertthat assert_that is.string
 #' 
@@ -69,10 +69,24 @@ galah_polygon <- function(...) {
   
   # check that only 1 WKT is supplied at a time
   check_n_inputs(dots)
-
+  
   # convert dots to query
   query <- parse_basic_quosures(dots[1])
   
+  # parse
+  out_query <- parse_polygon(query)
+  
+  # if a data request was supplied, return one
+  if(is_data_request){
+    update_galah_call(data_request, geolocate = out_query)
+  }else{
+    out_query
+  }   
+}
+
+
+parse_polygon <- function(query){
+
   # make sure shapefiles are processed correctly
   if (!inherits(query, "sf")) {query <- query[[1]]} else {query <- query}
   
@@ -100,23 +114,23 @@ galah_polygon <- function(...) {
       query |> st_as_sfc(), 
       error = function(cnd) {
         bullets <- c(
-        "Invalid WKT detected.",
-        i = "Check that the spatial feature or WKT in `galah_polygon` is correct."
-      )
-      abort(bullets, call = caller_env())
+          "Invalid WKT detected.",
+          i = "Check that the spatial feature or WKT in `galah_polygon` is correct."
+        )
+        abort(bullets, call = caller_env())
       })
     
     # validate that wkt/spatial object is real
     valid <- query |> st_is_valid() }
-    else {
+  else {
     valid <- query |> st_is_valid()
-    }
+  }
   if(is.na(valid)) {
-      bullets <- c(
-        "Invalid spatial object or WKT detected.",
-        i = "Check that the spatial feature or WKT in `galah_polygon` is correct."
-      )
-      abort(bullets, call = caller_env())
+    bullets <- c(
+      "Invalid spatial object or WKT detected.",
+      i = "Check that the spatial feature or WKT in `galah_polygon` is correct."
+    )
+    abort(bullets, call = caller_env())
   }
   
   # check number of vertices of WKT
@@ -149,17 +163,9 @@ galah_polygon <- function(...) {
     out_query <- query
   }
   attr(out_query, "call") <- "galah_geolocate"
-  
-  # if a data request was supplied, return one
-  if(is_data_request){
-    update_galah_call(data_request, geolocate = out_query)
-  }else{
-    out_query
-  }   
-  
-  
-  
+  out_query
 }
+
 
 n_points <- function(x) {
   count_vertices(sf::st_geometry(x))

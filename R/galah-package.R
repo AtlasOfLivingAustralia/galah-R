@@ -28,22 +28,23 @@
 #' 
 #' **Narrow your results**
 #' 
-#'   * [galah_identify()] Search for taxonomic identifiers
-#'   * [galah_filter()] Filter records
-#'   * [galah_select()] Fields to report information for
-#'   * [galah_group_by()] Fields to group counts by
-#'   * [galah_geolocate()] Specify a location
+#'   * [galah_identify()] or [identify()] Search for taxonomic identifiers
+#'   * [galah_filter()] or [filter()] Filter records
+#'   * [galah_select()] or [select()] Fields to report information for
+#'   * [galah_group_by()] or [group_by()] Fields to group counts by
+#'   * [galah_geolocate()] or [st_crop()] Specify a location
 #'   * [galah_down_to()] Specify a taxonomic rank
+#'   * [slice_head] Choose the first n rows of a download
 #' 
 #' **Download data**
 #' 
 #'   * [atlas_occurrences()] Download occurrence records
-#'   * [atlas_counts()] Count the number of records or species returned by a query
+#'   * [atlas_counts()] or [summarise()] Count the number of records or species returned by a query
 #'   * [atlas_species()] Download species lists
 #'   * [atlas_taxonomy()] Return a section of the ALA taxonomic tree
 #'   * [atlas_media()] View images and sounds available to download
 #'   * [collect_media()] Download images and sounds
-#'   * [collect_occurrences()] Download previously downloaded occurrence records
+#'   * [collect_occurrences()] Download previously-defined sets of occurrence records
 #'   
 #' **Look up information**
 #'

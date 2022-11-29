@@ -6,13 +6,8 @@
 #' (`year == 2020`), or to return all records except for fossils
 #'  (`basisOfRecord != "FossilSpecimen"`).
 #'  
-#' The result of `galah_filter()` can be passed to the `filter`
-#' argument in [atlas_occurrences()], [atlas_species()], 
-#' [atlas_counts()] or [atlas_media()]. 
-#' 
-#' `galah_filter` uses non-standard evaluation (NSE),
-#' and is designed to be as compatible as possible with `dplyr::filter()`
-#' syntax.
+#' `filter` is masked from `dplyr`, but when piped after [galah_call()], is 
+#' functionally  synonymous with [galah_filter()]
 #' `r lifecycle::badge("experimental")` 
 #' @importFrom dplyr filter
 #' @param .data An object of class `data_request`, created using [galah_call()]

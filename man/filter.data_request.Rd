@@ -18,13 +18,7 @@ For example, it is common for users to request records from a particular year
 (\code{year == 2020}), or to return all records except for fossils
 (\code{basisOfRecord != "FossilSpecimen"}).
 
-The result of \code{galah_filter()} can be passed to the \code{filter}
-argument in \code{\link[=atlas_occurrences]{atlas_occurrences()}}, \code{\link[=atlas_species]{atlas_species()}},
-\code{\link[=atlas_counts]{atlas_counts()}} or \code{\link[=atlas_media]{atlas_media()}}.
-}
-\details{
-\code{galah_filter} uses non-standard evaluation (NSE),
-and is designed to be as compatible as possible with \code{dplyr::filter()}
-syntax.
+\code{filter} is masked from \code{dplyr}, but when piped after \code{\link[=galah_call]{galah_call()}}, is
+functionally  synonymous with \code{\link[=galah_filter]{galah_filter()}}
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
