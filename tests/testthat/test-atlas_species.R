@@ -1,5 +1,12 @@
 context("Test atlas_species")
 
+test_that("atlas_species fails nicely if no email is provided", {
+  galah_config(email = "", run_checks = FALSE)
+  expect_error(atlas_species(identify = galah_identify("Osphranter")))
+  galah_config(email = "ala4r@ala.org.au")
+})
+
+
 test_that("atlas_species returns a dataframe", {
   skip_on_cran()
   # galah_config(caching = TRUE)

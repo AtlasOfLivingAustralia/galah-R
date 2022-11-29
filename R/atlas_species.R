@@ -131,24 +131,30 @@ atlas_species_internal <- function(request,
     profile <- data_profile$data_profile
   }
   
-  query <- build_query(identify, filter, geolocate, profile = profile)
-  query$facets <- species_facets()
-  query$lookup  <- "true"
+  query <- c(
+    build_query(identify, filter, geolocate, profile = profile),
+    emailNotify = email_notify(),
+    sourceTypeId = 2004,
+    reasonTypeId = getOption("galah_config")$download_reason_id,
+    email = user_email(), 
+    facets = species_facets(),
+    lookup = "true"
+  )
   
   tmp <- tempfile()
-  data <- atlas_url("records_species") |>
-          atlas_download(params = query, cache_file = tmp)
-
-  if(is.null(data)){
+  url <- atlas_url("records_species")
+  result <- atlas_download(url, params = query, cache_file = tmp)
+  
+  if(is.null(result)){
     system_down_message("atlas_species")
     return(tibble())
   }else{
   
     if(getOption("galah_config")$atlas == "Australia"){
       # overwrite file with fixed names
-      names(data) <- rename_columns(names(data), type = "checklist")
-      data <- data[, wanted_columns("checklist")]
+      names(result) <- rename_columns(names(result), type = "checklist")
+      result <- result[, wanted_columns("checklist")]
     }
-    return(data |> as_tibble())
+    return(result |> tibble())
   }
 }

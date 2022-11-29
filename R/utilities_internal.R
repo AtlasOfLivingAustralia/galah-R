@@ -61,9 +61,9 @@ rename_columns <- function(varnames, type) {
     } else if (type == "assertions") {
       varnames[varnames == "name"] <- "id"
     } else if (type == "checklist") {
-      varnames[varnames == "Scientific.Name.Authorship"] <- "author"
+      varnames[varnames == "Scientific Name Authorship"] <- "author"
       varnames[varnames == "Species"] <- "species_guid"
-      varnames[varnames == "Species.Name"] <- "species"
+      varnames[varnames == "Species Name"] <- "species"
     }
     # change all to snake case?
     if (type %in% c("taxa", "media")) {
@@ -71,7 +71,7 @@ rename_columns <- function(varnames, type) {
                          perl = TRUE))
         varnames <- tolower(gsub("\\.", "_", varnames))
     } else if (type == "checklist") {
-      varnames <- tolower(gsub("\\.", "_", varnames))
+      varnames <- tolower(gsub("\\.|\\s", "_", varnames))
     } else if (type == "occurrence") {
       # change dots to camel case
       varnames <- gsub("\\.(\\w?)", "\\U\\1", varnames, perl = TRUE)
