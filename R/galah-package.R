@@ -28,13 +28,14 @@
 #' 
 #' **Narrow your results**
 #' 
-#'   * [galah_identify()] or [identify()] Search for taxonomic identifiers
-#'   * [galah_filter()] or [filter()] Filter records
-#'   * [galah_select()] or [select()] Fields to report information for
-#'   * [galah_group_by()] or [group_by()] Fields to group counts by
-#'   * [galah_geolocate()] or [st_crop()] Specify a location
+#'   * [galah_identify()] or \code{\link[=identify.data_request()]{identify()}} Search for taxonomic identifiers
+#'   * [galah_filter()] or \code{\link[=filter.data_request()]{filter()}} Filter records
+#'   * [galah_select()] or \code{\link[=select.data_request()]{select()}} Fields to report information for
+#'   * [galah_group_by()] or \code{\link[=group_by.data_request()]{group_by()}} Fields to group counts by
+#'   * [galah_geolocate()] or \code{\link[=st_crop.data_request()]{st_crop()}} Specify a location
+#'   * [galah_apply_profile()] Restrict to occurrences that pass predefined checks (ALA only)
 #'   * [galah_down_to()] Specify a taxonomic rank
-#'   * [slice_head] Choose the first n rows of a download
+#'   * \code{\link[=slice_head.data_request()]{slice_head()}} Choose the first n rows of a download
 #' 
 #' **Download data**
 #' 
@@ -70,12 +71,12 @@
 #' @section Terminology:
 #'
 #' To get the most value from `galah`, it is helpful to understand some
-#' terminology used by the ALA. Each occurrence record contains taxonomic
+#' terminology. Each occurrence record contains taxonomic
 #' information, and usually some information about the observation itself, such
-#' as its location. In addition to this record-specific information, ALA
-#' appends contextual information to each record, particularly data from spatial
-#' **layers** reflecting climate gradients or political boundaries. ALA
-#' also runs a number of quality checks against each record, resulting in
+#' as its location. In addition to this record-specific information, the living 
+#' atlases append contextual information to each record, particularly data from 
+#' spatial **layers** reflecting climate gradients or political boundaries. They
+#' also run a number of quality checks against each record, resulting in
 #' **assertions** attached to the record. Each piece of information
 #' associated with a given occurrence record is stored in a **field**,
 #' which corresponds to a **column** when imported to an
@@ -95,18 +96,19 @@
 #' is returned as columns. Alternatively, you can use [galah_filter()] to filter
 #' the rows. You can also choose specific taxa with [galah_identify()] or choose 
 #' a specific location using [galah_geolocate()]. 
-#' By combining different filter functions, it is possible to build complex 
+#' By combining different filters, it is possible to build complex 
 #' queries to return only the most valuable information for a given problem.
 #'
 #' A notable extension of the filtering approach is to remove records with low
-#' 'quality'. ALA performs quality control checks on all records that it stores.
-#' These checks are used to generate new fields, that can then be used to filter
-#' out records that are unsuitable for particular applications. However, there
-#' are many possible data quality checks, and it is not always clear which are
-#' most appropriate in a given instance. Therefore, `galah` supports ALA
-#' data quality **profiles**, which can be passed to
-#' [galah_filter()] to quickly remove undesirable records. A full
-#' list of data quality profiles is returned by `show_all(profiles)`.
+#' 'quality'. All living atlases perform quality control checks on all records 
+#' that they store. These checks are used to generate new fields, that can then 
+#' be used to filter out records that are unsuitable for particular applications. 
+#' However, there are many possible data quality checks, and it is not always 
+#' clear which are most appropriate in a given instance. Therefore, `galah` 
+#' supports data quality **profiles**, which can be passed to 
+#' [galah_apply_profile()] to quickly remove undesirable records. A full list of 
+#' data quality profiles is returned by `show_all(profiles)`. Note this service 
+#' is currently only available for the Australian atlas (ALA).
 #'
 #' For those outside Australia, 'galah' is the common name of
 #' *Eolophus roseicapilla*, a widely-distributed

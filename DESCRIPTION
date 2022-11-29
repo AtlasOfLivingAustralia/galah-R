@@ -1,7 +1,7 @@
 Package: galah
 Type: Package
 Title: Biodiversity Data from the Living Atlas Community
-Version: 1.5.0
+Version: 1.5.1
 Authors@R:
     c(person(given = "Martin",
              family = "Westgate",
@@ -52,7 +52,7 @@ Suggests:
     testthat
 License: MPL-2.0
 URL: https://galah.ala.org.au
-BugReports: https://github.com/AtlasOfLivingAustralia/galah/issues
+BugReports: https://github.com/AtlasOfLivingAustralia/galah-R/issues
 Maintainer: Martin Westgate <martin.westgate@csiro.au>
 LazyLoad: yes
 VignetteBuilder: knitr
