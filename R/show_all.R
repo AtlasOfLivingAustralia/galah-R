@@ -379,25 +379,11 @@ show_all_profiles <- function() {
 #' @rdname show_all
 #' @export show_all_lists
 show_all_lists <- function(){
-  # work out how many lists there are
-  base_url <- atlas_url("lists_all") 
-  size_query <- paste0(base_url, "?max=0")
-  n_lists <- atlas_GET(size_query)$listCount
   
-  # calculate how many groups of 1000 are needed
-  offsets <- seq(0, 15000, 1000)
-  offsets_index <- (offsets <= n_lists) |>
-    which() |>
-    max() |> 
-    seq_len()
-  offsets_url <- paste0(base_url, 
-                         "?max=1000&offset=", 
-                         offsets[offsets_index])
-  
-  # call these urls
-  df <- do.call(rbind, 
-          lapply(offsets_url, function(a){atlas_GET(a)$lists})) |> 
-    tibble()
+  df <- atlas_paginate(
+    url = atlas_url("lists_all"),
+    group_size = 1000,
+    slot_name = "lists")
   attr(df, "call") <- "show_all_lists"
   
   return(df)

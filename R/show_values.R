@@ -280,7 +280,7 @@ show_values_list <- function(list){
   }
   
   url <- atlas_url("lists_lookup", list_id = list)
-  atlas_GET(url) |> tibble()
+  atlas_paginate(url, group_size = 500)
 }
 
 
