@@ -151,10 +151,12 @@ update_galah_call <- function(data_request, ...){
 }
 
 
-# 
+# internal function
 bind_unique_rows <- function(x, y, column){
-  result <- rbindlist(list(x, y), fill = TRUE)
-  as_tibble(result[!duplicated(result[[column]]), ])
+  list(x, y) |> 
+    bind_rows() |>
+    tibble() |>
+    filter(!duplicated(column))
 }
 
 

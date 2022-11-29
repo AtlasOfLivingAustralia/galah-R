@@ -210,14 +210,9 @@ show_all_fields <- function(){
     )){
       df <- NULL
     }else{
-      df <- as.data.frame(
-        rbindlist(
-          list(
-            fields[!(fields$id %in% layers$id), ],
-            layers, media, other), 
-          fill = TRUE)
-      )
-      # }
+      df <- list(fields[!(fields$id %in% layers$id), ], layers, media, other) |>
+        bind_rows() |>
+        tibble()
     }
     
     # if calling the API fails
@@ -239,7 +234,6 @@ show_all_fields <- function(){
       
       # if the API call worked
     }else{ 
-      df <- as_tibble(df)
       attr(df, "atlas_name") <- atlas
       galah_internal_cache(show_all_fields = df)
       attr(df, "call") <- "show_all_fields"

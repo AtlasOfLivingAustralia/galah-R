@@ -52,7 +52,7 @@ search_identifiers <- function(identifier) {
     attr(df, "call") <- "ala_id"
     return(df)
   }else{
-    df <- as_tibble(rbindlist(matches, fill = TRUE)) 
+    df <- bind_rows(matches) |> tibble()
     attr(df, "call") <- "ala_id"
     return(df) 
   }

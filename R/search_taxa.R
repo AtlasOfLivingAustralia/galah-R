@@ -108,7 +108,7 @@ name_query <- function(query) {
   if(all(unlist(lapply(matches, is.null)))){
     NULL
   }else{
-    as_tibble(rbindlist(matches, fill = TRUE))
+    bind_rows(matches) |> tibble()
   }
 }
 

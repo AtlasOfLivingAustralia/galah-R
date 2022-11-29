@@ -35,6 +35,7 @@
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query
 #' @importFrom glue glue_collapse
+#' @importFrom dplyr bind_rows
 #' @return
 #' 
 #' An object of class `tbl_df` and `data.frame` (aka a tibble) returning: 
@@ -239,12 +240,16 @@ atlas_counts_internal <- function(identify = NULL,
           as.data.frame(list(levels_list[[a]], counts_query), row.names = NULL)
         }
       }) 
-    if(verbose){close(pb)} # close progress bar
+    if(verbose){
+      close(pb)
+    } # close progress bar
     if (all(unlist(lapply(result_list, is.null)))) {
       system_down_message("atlas_counts")
       return(tibble())
     } else {
-      return(as_tibble(rbindlist(result_list, fill = TRUE)))
+      result_list |>
+        bind_rows() |>
+        tibble()
     } 
      
   # if `groups` is of nrow == 1 (expand = FALSE)
@@ -304,16 +309,17 @@ atlas_counts_lookup <- function(identify = NULL,
     if(is.null(resp)){
       return(NULL)
     }
-    counts <- rbindlist(lapply(resp, function(a) {
+    counts <- lapply(resp, function(a) {
       count_results <- jsonlite::fromJSON(a)$fieldResult
-      rbindlist(count_results)
-      }))
+      bind_rows(count_results)
+      }) |> 
+      bind_rows()
   } else {
       query$flimit <- max(limit)
       url <- atlas_url("records_facets")
       resp <- atlas_GET(url, params = query)
       if(is.null(resp)){return(NULL)}
-      counts <- rbindlist(resp$fieldResult)
+      counts <- bind_rows(resp$fieldResult)
   }
 
   if (sum(total_cats) > limit & galah_config()$verbose) {
@@ -330,7 +336,7 @@ atlas_counts_lookup <- function(identify = NULL,
   if (type == "species") {
     # this can take a while so add progress bar
     if (verbose) { pb <- txtProgressBar(max = 1, style = 3) }
-    counts_final <- rbindlist(lapply(seq_along(value), function(x) {
+    counts_final <- lapply(seq_along(value), function(x) {
       if (verbose) {
         val <- (x / length(value))
         setTxtProgressBar(pb, val)
@@ -345,7 +351,8 @@ atlas_counts_lookup <- function(identify = NULL,
       count <- species_count(species_query)
       if(is.null(count)){count <- NA}
       data.frame(name = value[[x]], count = count) |> as_tibble()
-    }))
+    }) |>
+    bind_rows()
   } else {
     counts_final <- data.frame(
       name = value,
@@ -355,18 +362,18 @@ atlas_counts_lookup <- function(identify = NULL,
   if(length(facets) > 1){
     counts_final$field_name <- parse_field(counts$fq)
     counts_list <- split(counts_final, counts_final$field_name)
-    counts_final <- as.data.frame(rbindlist(lapply(
+    counts_final <- lapply(
       seq_along(facets), function(a){
         names(counts_list[[a]])[1] <- names(counts_list)[a]
         counts_list[[a]]
-      }), 
-      fill = TRUE))
+      }) |>
+      bind_rows()
      counts_final <- counts_final[, c(names(counts_list), "count")]
   }else{ # i.e. only one facet
     names(counts_final) <- c(facets, "count")
   }  
   
-  as_tibble(counts_final)
+  tibble(counts_final)
 }
 
 # Supporting GBIF uses one of two APIs

@@ -228,8 +228,8 @@ show_values_profile <- function(profile, error_call = caller_env()) {
     system_down_message("show_values")
     tibble()
   }else{
-    filters <- rbindlist(resp$categories$qualityFilters)
-    subset(filters, select = wanted_columns("quality_filter")) |> as_tibble()
+    filters <- bind_rows(resp$categories$qualityFilters)
+    subset(filters, select = wanted_columns("quality_filter")) |> tibble()
   }  
 }
 

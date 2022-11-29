@@ -90,8 +90,7 @@ media_metadata <- function(ids){
     x <- atlas_GET(url)
     as.data.frame(x[lengths(x) == 1])
   })
-  df <- rbindlist(result, fill = TRUE)
-  as.data.frame(df)
+  bind_rows(result) |> tibble()
 }
 
 # # Use media filter to filter returned results

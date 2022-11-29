@@ -27,7 +27,6 @@ Depends:
 Imports:
     assertthat,
     crul,
-    data.table,
     data.tree,
     digest,
     dplyr,

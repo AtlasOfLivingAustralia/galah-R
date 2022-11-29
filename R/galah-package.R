@@ -141,7 +141,6 @@
 ## usethis namespace: start
 #' @importFrom httr parse_url build_url
 #' @importFrom crul HttpClient Paginator Async url_build url_parse
-#' @importFrom data.table rbindlist
 #' @importFrom data.tree Do Set Prune Aggregate FromListExplicit ToDataFrameTypeCol ToDataFrameTree as.Node
 #' @importFrom digest digest
 #' @importFrom jsonlite fromJSON
