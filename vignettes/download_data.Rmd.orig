@@ -23,7 +23,12 @@ return any new data. Instead it provides a citation for an existing dataset (
 downloaded using `atlas_occurrences`) that has an associated DOI. The other 
 functions are described below.
 
-
+```{r include = FALSE}
+galah_config(email = "ala4r@ala.org.au",
+             atlas = "Australia", 
+             caching = FALSE, 
+             verbose = FALSE)
+```
 # Record counts
 `atlas_counts()` provides summary counts on records in the specified atlas, 
 without needing to download all the records. 
@@ -65,12 +70,6 @@ species |> head()
 To download occurrence data you will need to specify your email in
 `galah_config()`. This email must be associated with an active ALA account. See
 more information in the [config section](#config)
-```{r include = FALSE}
-galah_config(email = "ala4r@ala.org.au",
-             atlas = "Australia", 
-             caching = FALSE, 
-             verbose = FALSE)
-```
 
 ```{r, eval = FALSE}
 galah_config(email = "your_email@email.com", atlas = "Australia")

@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-10-20'
+date: '2022-11-30'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -91,7 +91,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 114080945
+## 1 112555050
 ```
 
 To pass more complex queries, start with the `galah_call()` function and pipe
@@ -109,7 +109,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 14604620
+## 1 14884109
 ```
 
 To narrow the search to a particular taxonomic group, use `galah_identify()`. Note
@@ -124,9 +124,9 @@ search_taxa("reptilia") # Check whether taxonomic info is correct
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                              rank  match…¹ kingdom phylum class issues
-##   <chr>       <chr>           <chr>                                                         <chr> <chr>   <chr>   <chr>  <chr> <chr> 
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b… class exactM… Animal… Chord… Rept… noIss…
+##   search_term scientific_name taxon_concept_id                                            rank  match…¹ kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                                       <chr> <chr>   <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-83… class exactM… Animal… Chord… Rept… noIss…
 ## # … with abbreviated variable name ¹​match_type
 ```
 
@@ -141,7 +141,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##   count
 ##   <int>
-## 1 89643
+## 1 95317
 ```
 
 # Downloading records
@@ -169,14 +169,14 @@ result |> head()
 
 ```
 ## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate            scientificName    taxonConceptID              recor…¹ dataR…² occur…³ basis…⁴
-##             <dbl>            <dbl> <chr>                <chr>             <chr>                       <chr>   <chr>   <chr>   <chr>  
-## 1           -43.4             147. 2020-09-04T14:00:00Z Litoria ewingii   https://biodiversity.org.a… e8045b… FrogID  PRESENT HUMAN_…
-## 2           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… 44187a… FrogID  PRESENT HUMAN_…
-## 3           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… bc34a7… FrogID  PRESENT HUMAN_…
-## 4           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… ca4707… FrogID  PRESENT HUMAN_…
-## 5           -43.4             146. 2020-01-01T13:00:00Z Litoria burrowsae https://biodiversity.org.a… 9c71f5… FrogID  PRESENT HUMAN_…
-## 6           -43.4             146. 2020-01-01T13:00:00Z Litoria ewingii   https://biodiversity.org.a… 4bbaad… FrogID  PRESENT HUMAN_…
+##   decimalLatitude decimalLongitude eventDate           scientificName    taxonConceptID             recor…¹ dataR…² occur…³ basis…⁴
+##             <dbl>            <dbl> <dttm>              <chr>             <chr>                      <chr>   <chr>   <chr>   <chr>  
+## 1           -43.4             147. 2020-09-04 14:00:00 Litoria ewingii   https://biodiversity.org.… e8045b… FrogID  PRESENT HUMAN_…
+## 2           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.… 44187a… FrogID  PRESENT HUMAN_…
+## 3           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.… bc34a7… FrogID  PRESENT HUMAN_…
+## 4           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.… ca4707… FrogID  PRESENT HUMAN_…
+## 5           -43.4             146. 2020-01-01 13:00:00 Litoria burrowsae https://biodiversity.org.… 9c71f5… FrogID  PRESENT HUMAN_…
+## 6           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.… 4bbaad… FrogID  PRESENT HUMAN_…
 ## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​basisOfRecord
 ```
 

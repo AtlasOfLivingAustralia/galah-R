@@ -119,8 +119,7 @@ detailed information that can't be summarised across the whole atlas, and includ
 -   `search_taxa`
 -   `search_identifiers`
 -   `search_fields`
--   `search_field_values`
--   `search_profile attributes`
+-   `show_values`
 
 Search for a single taxon or multiple taxa by name with `search_taxa`.
 

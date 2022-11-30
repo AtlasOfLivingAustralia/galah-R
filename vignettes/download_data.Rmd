@@ -1,7 +1,7 @@
 ---
 title: "Download data"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-10-20'
+date: '2022-11-30'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -39,7 +39,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 114080945
+## 1 112555050
 ```
 
 In addition to the filter arguments, it has an optional `group_by` argument, 
@@ -56,16 +56,16 @@ galah_call() |>
 ## # A tibble: 10 × 2
 ##    kingdom      count
 ##    <chr>        <int>
-##  1 Animalia  86721724
-##  2 Plantae   23682009
-##  3 Fungi      2069747
-##  4 Chromista   851968
-##  5 Protista    142019
-##  6 Bacteria     71333
-##  7 Protozoa      3177
-##  8 Eukaryota     1338
+##  1 Animalia  85432793
+##  2 Plantae   23468480
+##  3 Fungi      2076156
+##  4 Chromista   853644
+##  5 Protista    144729
+##  6 Bacteria     71362
+##  7 Protozoa      3211
+##  8 Eukaryota     1340
 ##  9 Archaea       1106
-## 10 Virus          511
+## 10 Virus          486
 ```
 
 
@@ -106,7 +106,6 @@ To download occurrence data you will need to specify your email in
 more information in the [config section](#config)
 
 
-
 ```r
 galah_config(email = "your_email@email.com", atlas = "Australia")
 ```
@@ -124,20 +123,28 @@ occ <- galah_call() |>
   ) |>
   galah_select(institutionID, group = "basic") |>
   atlas_occurrences()
-  
+```
+
+```
+## Warning: One or more parsing issues, call `problems()` on your data frame for details, e.g.:
+##   dat <- vroom(...)
+##   problems(dat)
+```
+
+```r
 occ |> head()
 ```
 
 ```
 ## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate            scientificName        taxonConceptID        recor…¹ dataR…² occur…³ insti…⁴
-##             <dbl>            <dbl> <chr>                <chr>                 <chr>                 <chr>   <chr>   <chr>   <chr>  
-## 1           -35.9             149. 2020-09-12T14:00:00Z Eolophus roseicapilla https://biodiversity… 17f46d… eBird … PRESENT ""     
-## 2           -35.9             149. 2014-10-24T02:00:00Z Eolophus roseicapilla https://biodiversity… b0e189… Nature… PRESENT ""     
-## 3           -35.9             149. 2021-09-27T14:00:00Z Eolophus roseicapilla https://biodiversity… dbb711… eBird … PRESENT ""     
-## 4           -35.9             149. 2012-01-18T13:00:00Z Eolophus roseicapilla https://biodiversity… 4f7cd7… BirdLi… PRESENT ""     
-## 5           -35.9             149. 2012-01-18T02:00:00Z Eolophus roseicapilla https://biodiversity… 147acb… Nature… PRESENT ""     
-## 6           -35.9             149. 2017-03-17T13:00:00Z Eolophus roseicapilla https://biodiversity… 3236c4… eBird … PRESENT ""     
+##   decimalLatitude decimalLongitude eventDate           scientificName        taxonConceptID         recor…¹ dataR…² occur…³ insti…⁴
+##             <dbl>            <dbl> <dttm>              <chr>                 <chr>                  <chr>   <chr>   <chr>   <lgl>  
+## 1           -35.9             149. 2020-09-12 14:00:00 Eolophus roseicapilla https://biodiversity.… 17f46d… eBird … PRESENT NA     
+## 2           -35.9             149. 2021-09-27 14:00:00 Eolophus roseicapilla https://biodiversity.… dbb711… eBird … PRESENT NA     
+## 3           -35.9             149. 2012-01-18 13:00:00 Eolophus roseicapilla https://biodiversity.… 4f7cd7… BirdLi… PRESENT NA     
+## 4           -35.9             149. 2017-03-17 13:00:00 Eolophus roseicapilla https://biodiversity.… 3236c4… eBird … PRESENT NA     
+## 5           -35.9             149. 2020-11-14 13:00:00 Eolophus roseicapilla https://biodiversity.… ef2b90… eBird … PRESENT NA     
+## 6           -35.8             149. 2021-04-02 13:00:00 Eolophus roseicapilla https://biodiversity.… 45a589… eBird … PRESENT NA     
 ## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​institutionID
 ```
 
@@ -162,17 +169,17 @@ media_data |> head()
 
 ```
 ## # A tibble: 6 × 20
-##   decimalLat…¹ decim…² event…³ scien…⁴ taxon…⁵ recor…⁶ dataR…⁷ occur…⁸ multi…⁹ media…˟ mime_…˟ size_…˟ date_…˟ date_…˟ height width
-##          <dbl>   <dbl> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>     <int> <chr>   <chr>    <int> <int>
-## 1        -35.6    149. 2020-0… Eoloph… https:… 063bb0… iNatur… PRESENT Image   2f4d32… image/… 2654217 2020-0… 2020-0…   1200  1800
-## 2        -35.6    149. 2020-0… Eoloph… https:… 063bb0… iNatur… PRESENT Image   734074… image/… 2422643 2020-0… 2020-0…   1200  1800
-## 3        -35.6    149. 2020-0… Eoloph… https:… 063bb0… iNatur… PRESENT Image   89171c… image/… 2212660 2020-0… 2020-0…   1200  1800
-## 4        -35.6    149. 2020-0… Eoloph… https:… 063bb0… iNatur… PRESENT Image   e681d3… image/… 3414736 2020-0… 2020-0…   1200  1800
-## 5        -35.5    149. 2020-0… Eoloph… https:… 286841… iNatur… PRESENT Image   1295c2… image/…  863158 2021-0… 2021-0…   1200  1800
-## 6        -35.5    149. 2020-1… Eoloph… https:… 064a39… iNatur… PRESENT Image   f97686… image/…  955916 2020-1… 2020-1…   1200  1800
-## # … with 4 more variables: creator <chr>, license <chr>, data_resource_uid <chr>, occurrence_id <chr>, and abbreviated variable
-## #   names ¹​decimalLatitude, ²​decimalLongitude, ³​eventDate, ⁴​scientificName, ⁵​taxonConceptID, ⁶​recordID, ⁷​dataResourceName,
-## #   ⁸​occurrenceStatus, ⁹​multimedia, ˟​media_id, ˟​mime_type, ˟​size_in_bytes, ˟​date_uploaded, ˟​date_taken
+##   decimalLati…¹ decim…² eventDate           scien…³ taxon…⁴ recor…⁵ dataR…⁶ occur…⁷ multi…⁸ media…⁹ mime_…˟ size_…˟ date_…˟ date_…˟
+##           <dbl>   <dbl> <dttm>              <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>     <int> <chr>   <chr>  
+## 1         -35.6    149. 2020-08-04 01:50:00 Eoloph… https:… 063bb0… iNatur… PRESENT Image   2f4d32… image/… 2654217 2020-0… 2020-0…
+## 2         -35.6    149. 2020-08-04 01:50:00 Eoloph… https:… 063bb0… iNatur… PRESENT Image   734074… image/… 2422643 2020-0… 2020-0…
+## 3         -35.6    149. 2020-08-04 01:50:00 Eoloph… https:… 063bb0… iNatur… PRESENT Image   89171c… image/… 2212660 2020-0… 2020-0…
+## 4         -35.6    149. 2020-08-04 01:50:00 Eoloph… https:… 063bb0… iNatur… PRESENT Image   e681d3… image/… 3414736 2020-0… 2020-0…
+## 5         -35.5    149. 2020-08-26 01:53:00 Eoloph… https:… 286841… iNatur… PRESENT Image   1295c2… image/…  863158 2021-0… 2021-0…
+## 6         -35.5    149. 2020-10-14 02:34:00 Eoloph… https:… 064a39… iNatur… PRESENT Image   f97686… image/…  955916 2020-1… 2020-1…
+## # … with 6 more variables: height <int>, width <int>, creator <chr>, license <chr>, data_resource_uid <chr>, occurrence_id <chr>,
+## #   and abbreviated variable names ¹​decimalLatitude, ²​decimalLongitude, ³​scientificName, ⁴​taxonConceptID, ⁵​recordID,
+## #   ⁶​dataResourceName, ⁷​occurrenceStatus, ⁸​multimedia, ⁹​media_id, ˟​mime_type, ˟​size_in_bytes, ˟​date_uploaded, ˟​date_taken
 ```
 
 To actually download the media files to your computer, use [collect_media()].

@@ -1,7 +1,7 @@
 ---
 title: "Look up information"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-10-20'
+date: '2022-11-30'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -64,20 +64,20 @@ show_all(fields)
 ```
 
 ```
-## # A tibble: 813 × 4
-##    id                    description                                                                                      type  link 
-##    <chr>                 <chr>                                                                                            <chr> <chr>
-##  1 abcdTypeStatus        ABCD field in use by herbaria                                                                    fiel… <NA> 
-##  2 acceptedNameUsage     http://rs.tdwg.org/dwc/terms/acceptedNameUsage                                                   fiel… <NA> 
-##  3 acceptedNameUsageID   http://rs.tdwg.org/dwc/terms/acceptedNameUsageID                                                 fiel… <NA> 
-##  4 accessRights          <NA>                                                                                             fiel… <NA> 
-##  5 assertionUserId       User ID of the person who has made an assertion about this record                                fiel… <NA> 
-##  6 assertions            A list of all assertions (user and system supplied) for a record resulting from data quality te… fiel… <NA> 
-##  7 associatedMedia       http://rs.tdwg.org/dwc/terms/associatedMedia                                                     fiel… <NA> 
-##  8 associatedOccurrences http://rs.tdwg.org/dwc/terms/associatedOccurrences                                               fiel… <NA> 
-##  9 associatedOrganisms   http://rs.tdwg.org/dwc/terms/associatedOrganisms                                                 fiel… <NA> 
-## 10 associatedReferences  http://rs.tdwg.org/dwc/terms/associatedReferences                                                fiel… <NA> 
-## # … with 803 more rows
+## # A tibble: 572 × 4
+##    id                    description                                                                                    type  link 
+##    <chr>                 <chr>                                                                                          <chr> <chr>
+##  1 abcdTypeStatus        ABCD field in use by herbaria                                                                  fiel… <NA> 
+##  2 acceptedNameUsage     http://rs.tdwg.org/dwc/terms/acceptedNameUsage                                                 fiel… <NA> 
+##  3 acceptedNameUsageID   http://rs.tdwg.org/dwc/terms/acceptedNameUsageID                                               fiel… <NA> 
+##  4 accessRights          <NA>                                                                                           fiel… <NA> 
+##  5 assertionUserId       User ID of the person who has made an assertion about this record                              fiel… <NA> 
+##  6 assertions            A list of all assertions (user and system supplied) for a record resulting from data quality … fiel… <NA> 
+##  7 associatedMedia       http://rs.tdwg.org/dwc/terms/associatedMedia                                                   fiel… <NA> 
+##  8 associatedOccurrences http://rs.tdwg.org/dwc/terms/associatedOccurrences                                             fiel… <NA> 
+##  9 associatedOrganisms   http://rs.tdwg.org/dwc/terms/associatedOrganisms                                               fiel… <NA> 
+## 10 associatedReferences  http://rs.tdwg.org/dwc/terms/associatedReferences                                              fiel… <NA> 
+## # … with 562 more rows
 ```
 
 And to search for a specific field:
@@ -89,10 +89,10 @@ search_all(fields, "australian states")
 
 ```
 ## # A tibble: 2 × 4
-##   id     description                                                                                                      type  link 
-##   <chr>  <chr>                                                                                                            <chr> <chr>
-## 1 cl2013 ASGS Australian States and Territories Australian Statistical Geography Standard  Australian States and Territo… laye… http…
-## 2 cl22   Australian States and Territories Australian States and Territories                                              laye… http…
+##   id     description                                                                                                    type  link 
+##   <chr>  <chr>                                                                                                          <chr> <chr>
+## 1 cl2013 ASGS Australian States and Territories Australian Statistical Geography Standard  Australian States and Terri… laye… http…
+## 2 cl22   Australian States and Territories Australian States and Territories                                            laye… http…
 ```
 
 Here is a list of information types that can be used with `show_all()` and 
@@ -250,8 +250,7 @@ detailed information that can't be summarised across the whole atlas, and includ
 -   `search_taxa`
 -   `search_identifiers`
 -   `search_fields`
--   `search_field_values`
--   `search_profile attributes`
+-   `show_values`
 
 Search for a single taxon or multiple taxa by name with `search_taxa`.
 
@@ -262,9 +261,9 @@ search_taxa("reptilia")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                              rank  match…¹ kingdom phylum class issues
-##   <chr>       <chr>           <chr>                                                         <chr> <chr>   <chr>   <chr>  <chr> <chr> 
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b… class exactM… Animal… Chord… Rept… noIss…
+##   search_term scientific_name taxon_concept_id                                            rank  match…¹ kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                                       <chr> <chr>   <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-83… class exactM… Animal… Chord… Rept… noIss…
 ## # … with abbreviated variable name ¹​match_type
 ```
 
@@ -274,12 +273,12 @@ search_taxa("reptilia", "aves", "mammalia", "pisces")
 
 ```
 ## # A tibble: 4 × 10
-##   search_term scientific_name taxon_concept_id                                      rank  match…¹ kingdom phylum class issues verna…²
-##   <chr>       <chr>           <chr>                                                 <chr> <chr>   <chr>   <chr>  <chr> <chr>  <chr>  
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-4… class exactM… Animal… Chord… Rept… noIss… <NA>   
-## 2 aves        AVES            https://biodiversity.org.au/afd/taxa/65625205-db74-4… class exactM… Animal… Chord… Aves  noIss… Birds  
-## 3 mammalia    MAMMALIA        https://biodiversity.org.au/afd/taxa/e9e7db31-04df-4… class exactM… Animal… Chord… Mamm… noIss… Mammals
-## 4 pisces      PISCES          https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4… <NA>  exactM… Animal… Chord… <NA>  noIss… Fishes 
+##   search_term scientific_name taxon_concept_id                                    rank  match…¹ kingdom phylum class issues verna…²
+##   <chr>       <chr>           <chr>                                               <chr> <chr>   <chr>   <chr>  <chr> <chr>  <chr>  
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c… class exactM… Animal… Chord… Rept… noIss… <NA>   
+## 2 aves        AVES            https://biodiversity.org.au/afd/taxa/65625205-db74… class exactM… Animal… Chord… Aves  noIss… Birds  
+## 3 mammalia    MAMMALIA        https://biodiversity.org.au/afd/taxa/e9e7db31-04df… class exactM… Animal… Chord… Mamm… noIss… Mammals
+## 4 pisces      PISCES          https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5… <NA>  exactM… Animal… Chord… <NA>  noIss… Fishes 
 ## # … with abbreviated variable names ¹​match_type, ²​vernacular_name
 ```
 
@@ -294,9 +293,9 @@ search_identifiers("urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-83
 
 ```
 ## # A tibble: 1 × 8
-##   scientific_name taxon_concept_id                                                          rank  match…¹ kingdom phylum class issues
-##   <chr>           <chr>                                                                     <chr> <chr>   <chr>   <chr>  <chr> <chr> 
-## 1 REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399 class taxonI… Animal… Chord… Rept… noIss…
+##   scientific_name taxon_concept_id                                                        rank  match…¹ kingdom phylum class issues
+##   <chr>           <chr>                                                                   <chr> <chr>   <chr>   <chr>  <chr> <chr> 
+## 1 REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c… class taxonI… Animal… Chord… Rept… noIss…
 ## # … with abbreviated variable name ¹​match_type
 ```
 
@@ -312,14 +311,14 @@ search_fields("date") |> head()
 
 ```
 ## # A tibble: 6 × 4
-##   id           description                                                                                                type  link 
-##   <chr>        <chr>                                                                                                      <chr> <chr>
-## 1 month        "Month of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/month"                       fiel… <NA> 
-## 2 cl23         "Local Government Areas 2012 deprecated LGA Boundaries (superceeded by update Local Government Areas 2012… laye… http…
-## 3 eventDate    "The ISO formatted date of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/eventDate"  fiel… <NA> 
-## 4 cl10903      "Tenure of Australia's forests (2013) v2.0 Tenure of Australia's forests (2013) v2.0 is a continental dat… laye… http…
-## 5 cl10955      "National Indicative Aggregated Fire Extent Dataset 2019-2020 - v20200324 The National Indicative Aggrega… laye… http…
-## 6 lastLoadDate  <NA>                                                                                                      fiel… <NA>
+##   id            description                                                                                             type  link 
+##   <chr>         <chr>                                                                                                   <chr> <chr>
+## 1 month         "Month of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/month"                    fiel… <NA> 
+## 2 eventDate     "The ISO formatted date of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/eventDa… fiel… <NA> 
+## 3 cl10903       "Tenure of Australia's forests (2013) v2.0 Tenure of Australia's forests (2013) v2.0 is a continental … laye… http…
+## 4 cl10955       "National Indicative Aggregated Fire Extent Dataset 2019-2020 - v20200324 The National Indicative Aggr… laye… http…
+## 5 lastLoadDate   <NA>                                                                                                   fiel… <NA> 
+## 6 datePrecision "The precision of the date information for the record. Values include Day, Month, Year, Year range, Mo… fiel… <NA>
 ```
 
 # `show_values()` & `search_values()`
@@ -384,14 +383,14 @@ search_all(profiles, "ALA") |>
 
 ```
 ## # A tibble: 6 × 2
-##   description                                                                                                                  filter
-##   <chr>                                                                                                                        <chr> 
-## 1 "Exclude all records where spatial validity is \"false\""                                                                    "-spa…
-## 2 "Exclude all records with an assertion that the scientific name provided does not match any of the names lists used by the … "-ass…
-## 3 "Exclude all records with an assertion that the scientific name provided is not structured as a valid scientific name. Also… "-ass…
-## 4 "Exclude all records with an assertion that the name and classification supplied can't be used to choose between 2 homonyms" "-ass…
-## 5 "Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g. Animalia, Plantae"           "-ass…
-## 6 "Exclude all records with an assertion that the scientific name provided in the record does not match the expected taxonomi… "-ass…
+##   description                                                                                                                filter
+##   <chr>                                                                                                                      <chr> 
+## 1 "Exclude all records where spatial validity is \"false\""                                                                  "-spa…
+## 2 "Exclude all records with an assertion that the scientific name provided does not match any of the names lists used by th… "-ass…
+## 3 "Exclude all records with an assertion that the scientific name provided is not structured as a valid scientific name. Al… "-ass…
+## 4 "Exclude all records with an assertion that the name and classification supplied can't be used to choose between 2 homony… "-ass…
+## 5 "Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g. Animalia, Plantae"         "-ass…
+## 6 "Exclude all records with an assertion that the scientific name provided in the record does not match the expected taxono… "-ass…
 ```
 
 Or collections:
@@ -410,11 +409,11 @@ search_all(collections, "herbarium") |>
 
 ```
 ## # A tibble: 1 × 17
-##   name       acronym uid   phone email pubDe…¹ latit…² longi…³ websi…⁴ alaPu…⁵ dateC…⁶ lastU…⁷ userL…⁸ active numRe…⁹ numRe…˟ geogr…˟
-##   <chr>      <chr>   <chr> <chr> <chr> <chr>     <dbl>   <dbl> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>    <int>   <int> <chr>  
-## 1 Allan Her… CHR     co214 +64 … Herb… "The A…   -43.6    172. http:/… https:… 2015-0… 2021-1… not av… Activ…  660000  236000 Worldw…
-## # … with abbreviated variable names ¹​pubDescription, ²​latitude, ³​longitude, ⁴​websiteUrl, ⁵​alaPublicUrl, ⁶​dateCreated, ⁷​lastUpdated,
-## #   ⁸​userLastModified, ⁹​numRecords, ˟​numRecordsDigitised, ˟​geographicDescription
+##   name     acronym uid   phone email pubDe…¹ latit…² longi…³ websi…⁴ alaPu…⁵ dateC…⁶ lastU…⁷ userL…⁸ active numRe…⁹ numRe…˟ geogr…˟
+##   <chr>    <chr>   <chr> <chr> <chr> <chr>     <dbl>   <dbl> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>    <int>   <int> <chr>  
+## 1 Allan H… CHR     co214 +64 … Herb… "The A…   -43.6    172. http:/… https:… 2015-0… 2021-1… not av… Activ…  660000  236000 Worldw…
+## # … with abbreviated variable names ¹​pubDescription, ²​latitude, ³​longitude, ⁴​websiteUrl, ⁵​alaPublicUrl, ⁶​dateCreated,
+## #   ⁷​lastUpdated, ⁸​userLastModified, ⁹​numRecords, ˟​numRecordsDigitised, ˟​geographicDescription
 ```
 
 

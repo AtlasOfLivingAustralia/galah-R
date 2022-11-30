@@ -3,7 +3,7 @@
 # setup
 library(knitr)
 library(dplyr)
-# galah_config(email = "email@email.com") # add your email
+galah_config(email = "martinjwestgate@gmail.com") # add your email
 
 # workflow for automated detection and processing of vignettes
 folder <- "./vignettes/"

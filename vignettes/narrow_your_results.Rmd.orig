@@ -78,11 +78,11 @@ galah_call() |>
 ```
 
 If you're using an international atlas, `search_taxa` will automatically 
-switch to using the local name-matching service. For example, Spain uses the
+switch to using the local name-matching service. For example, Portugal uses the
 GBIF taxonomic backbone, but integrates seamlessly with our standard workflow.
 
 ```{r}
-galah_config(atlas = "Spain")
+galah_config(atlas = "Portugal")
 
 galah_call() |> 
   galah_identify("Lepus") |> 
@@ -121,8 +121,7 @@ galah_call() |>
 galah_call() |>
   galah_filter(
     year > 2000,
-    dataResourceName == "iNaturalist Australia"
-  ) |>
+    dataResourceName == "iNaturalist Australia") |>
   atlas_counts()
 ```
 
@@ -186,7 +185,7 @@ occurrences <- galah_call() |>
   galah_select(eventDate, kingdom) |>
   atlas_occurrences()
 
-occurrences
+occurrences |> head()
 ```
 
 You can also use other `dplyr` functions that work with `dplyr::select()` with 
@@ -199,7 +198,7 @@ occurrences <- galah_call() |>
   galah_select(starts_with("elev") & ends_with("n")) |>
   atlas_occurrences()
 
-occurrences
+occurrences |> head()
 ```
 
 # galah_geolocate
