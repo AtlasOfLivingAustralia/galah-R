@@ -10,9 +10,6 @@
 \item{.data}{An object of class \code{data_request}}
 
 \item{...}{zero or more individual column names to include}
-
-\item{expand}{\code{logical}: When passed to \code{group_by} argument of
-\code{atlas_counts}, should factor levels be expanded? Defaults to \code{TRUE}.}
 }
 \value{
 If any arguments are provided, returns a \code{data.frame} with
@@ -26,4 +23,7 @@ used to return record counts grouped by multiple, valid fields (found by
 \code{group_by} argument of \code{atlas_counts} to return record counts summed
 by one or more valid fields.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+}
+\seealso{
+\code{\link[=galah_group_by]{galah_group_by()}}, with which this function is synonymous.
 }

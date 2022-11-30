@@ -18,7 +18,8 @@ For example, it is common for users to request records from a particular year
 (\code{year == 2020}), or to return all records except for fossils
 (\code{basisOfRecord != "FossilSpecimen"}).
 
-\code{filter} is masked from \code{dplyr}, but when piped after \code{\link[=galah_call]{galah_call()}}, is
-functionally  synonymous with \code{\link[=galah_filter]{galah_filter()}}
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+}
+\seealso{
+\code{\link[=galah_filter]{galah_filter()}}, with which this function is synonymous.
 }

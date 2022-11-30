@@ -4,9 +4,11 @@
 \alias{identify.data_request}
 \title{Narrow a query by passing taxonomic identifiers}
 \usage{
-\method{identify}{data_request}(.data, ..., search = TRUE)
+\method{identify}{data_request}(x, ..., search = TRUE)
 }
 \arguments{
+\item{x}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
+
 \item{...}{one or more scientific names (if \code{search = TRUE}) or taxonomic
 identifiers (if \code{search = FALSE}); or an object of class \code{ala_id} (from
 \code{search_taxa}).}
@@ -31,6 +33,7 @@ first to check that the taxa you provide to \code{galah_identify()} return the
 correct results.
 }
 \seealso{
+\code{\link[=galah_identify]{galah_identify()}}, with which this function is synonymous;
 \code{\link[=search_taxa]{search_taxa()}} to find identifiers from scientific names;
 \code{\link[=search_identifiers]{search_identifiers()}} for how to get names if taxonomic identifiers
 are already known.

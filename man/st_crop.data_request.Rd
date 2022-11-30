@@ -20,5 +20,10 @@ accepted in a query to the ALA.
 
 \code{st_crop} is masked from \code{sf}, but when piped after \code{\link[=galah_call]{galah_call()}}, is
 functionally  synonymous with \code{\link[=galah_polygon]{galah_polygon()}}
+}
+\details{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+}
+\seealso{
+\code{\link[=galah_polygon]{galah_polygon()}}, with which this function is synonymous.
 }

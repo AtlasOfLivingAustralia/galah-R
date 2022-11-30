@@ -8,7 +8,9 @@
 #'  
 #' `st_crop` is masked from `sf`, but when piped after [galah_call()], is 
 #' functionally  synonymous with [galah_polygon()]
+#' 
 #' `r lifecycle::badge("experimental")` 
+#' @seealso  [galah_polygon()], with which this function is synonymous.
 #' @importFrom sf st_crop
 #' @param x An object of class `data_request`, created using [galah_call()]
 #' @param y A single `sf` object, WKT string or shapefile.

@@ -72,12 +72,11 @@ galah_call() |>
   galah_identify("perameles")|>
   galah_select(scientificName, eventDate) |>
   atlas_occurrences()
-```
 
 # Only return the "basic" group of columns and the basisOfRecord column
 galah_call() |>
   galah_identify("perameles") |>
-  galah_select(group = c("basic", "event"), basisOfRecord) |>
+  galah_select(basisOfRecord, group = "basic") |>
   atlas_occurrences()
 }
 

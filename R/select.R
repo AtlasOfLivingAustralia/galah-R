@@ -47,6 +47,7 @@
 #' 
 #' Using `group = "assertions"` returns all quality assertion-related
 #' columns. The list of assertions is shown by `show_all_assertions()`.
+#' @seealso  [galah_select()], with which this function is synonymous.
 #' @importFrom dplyr select
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @export

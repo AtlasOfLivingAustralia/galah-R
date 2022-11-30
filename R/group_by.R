@@ -8,11 +8,10 @@
 #' `r lifecycle::badge("experimental")`
 #' @param .data An object of class `data_request`
 #' @param ... zero or more individual column names to include
-#' @param expand `logical`: When passed to `group_by` argument of 
-#' `atlas_counts`, should factor levels be expanded? Defaults to `TRUE`.
 #' @return If any arguments are provided, returns a `data.frame` with
 #' columns `name` and `type`, as per [galah_select()]; if no arguments
 #' are provided, returns `NULL`.
+#' @seealso  [galah_group_by()], with which this function is synonymous.
 #' @importFrom dplyr group_by
 #' @export
 group_by.data_request <- function(.data, ...){

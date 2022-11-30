@@ -6,9 +6,8 @@
 #' (`year == 2020`), or to return all records except for fossils
 #'  (`basisOfRecord != "FossilSpecimen"`).
 #'  
-#' `filter` is masked from `dplyr`, but when piped after [galah_call()], is 
-#' functionally  synonymous with [galah_filter()]
 #' `r lifecycle::badge("experimental")` 
+#' @seealso  [galah_filter()], with which this function is synonymous.
 #' @importFrom dplyr filter
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @param ... filters, in the form `field logical value`

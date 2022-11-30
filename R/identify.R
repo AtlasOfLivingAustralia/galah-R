@@ -11,20 +11,22 @@
 #' first to check that the taxa you provide to `galah_identify()` return the 
 #' correct results.
 #'
+#' @param x An object of class `data_request`, created using [galah_call()]
 #' @param ... one or more scientific names (if `search = TRUE`) or taxonomic 
 #'   identifiers (if `search = FALSE`); or an object of class `ala_id` (from
 #'   `search_taxa`).
 #' @param search (logical); should the results in question be passed to
 #'   `search_taxa`?
 #' @return A tibble containing identified taxa.
-#' @seealso [search_taxa()] to find identifiers from scientific names;
+#' @seealso  [galah_identify()], with which this function is synonymous; 
+#' [search_taxa()] to find identifiers from scientific names;
 #' [search_identifiers()] for how to get names if taxonomic identifiers 
 #' are already known.
 #'
 #' @importFrom graphics identify
 #' @export
-identify.data_request <- function(.data, ..., search = TRUE){
+identify.data_request <- function(x, ..., search = TRUE){
   dots <- enquos(..., .ignore_empty = "all")
   check_filter(dots)
-  update_galah_call(.data, identify = parse_identify(dots, search))
+  update_galah_call(x, identify = parse_identify(dots, search))
 }

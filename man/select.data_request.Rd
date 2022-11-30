@@ -66,3 +66,6 @@ Using \code{group = "media"} returns the following columns:
 Using \code{group = "assertions"} returns all quality assertion-related
 columns. The list of assertions is shown by \code{show_all_assertions()}.
 }
+\seealso{
+\code{\link[=galah_select]{galah_select()}}, with which this function is synonymous.
+}
