@@ -22,8 +22,6 @@
 #' [search_taxa()] to find identifiers from scientific names;
 #' [search_identifiers()] for how to get names if taxonomic identifiers 
 #' are already known.
-#'
-#' @importFrom graphics identify
 #' @export
 identify.data_request <- function(x, ..., search = TRUE){
   dots <- enquos(..., .ignore_empty = "all")

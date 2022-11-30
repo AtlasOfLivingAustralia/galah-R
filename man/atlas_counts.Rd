@@ -80,19 +80,8 @@ galah_call() |>
 # Group counts by state and territory with `galah_group_by`
 galah_config(verbose = FALSE) # turn off loading messages
 galah_call() |>
+  galah_identify("Litoria") |> 
   galah_group_by(stateProvince) |>
-  atlas_counts()
-
-# Specify `type = species` to count the number of species
-records <- galah_call() |>
-  galah_identify("aves") |>
-  atlas_counts(type = "species")
-
-# Cross-tabulate using two different variables.
-# This is similar to using `dplyr::group_by() \%>\% dplyr::count()`
-galah_call() |>
-  galah_filter(year > 2015) |>
-  galah_group_by(year, basisOfRecord) |>
   atlas_counts()
   
 }

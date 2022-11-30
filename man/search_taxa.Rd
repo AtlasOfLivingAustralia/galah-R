@@ -41,14 +41,14 @@ search_taxa("Reptilia")
 search_taxa("reptilia", "mammalia")
 
 # Specify taxonomic levels in a tibble using "specificEpiphet"
-search_taxa(tibble(
+search_taxa(tibble::tibble(
   class = "aves", 
   family = "pardalotidae", 
   genus = "pardalotus", 
   specificEpithet = "punctatus"))
 
 # Specify taxonomic levels in a tibble using "scientificName"                    
-search_taxa(tibble(
+search_taxa(tibble::tibble(
   family = c("pardalotidae", "maluridae"), 
   scientificName = c("Pardalotus striatus striatus", "malurus cyaneus")))
 

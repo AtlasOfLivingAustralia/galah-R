@@ -4,12 +4,14 @@
 \alias{st_crop.data_request}
 \title{Narrow a query to within a specified polygon}
 \usage{
-\method{st_crop}{data_request}(x, y)
+\method{st_crop}{data_request}(x, y, ...)
 }
 \arguments{
 \item{x}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
 
-\item{y}{A single \code{sf} object, WKT string or shapefile.}
+\item{y}{A single \code{sf} object, WKT string or shapefile}
+
+\item{...}{currently ignored}
 }
 \description{
 Restrict results to those from a specified area. Areas must be polygons.

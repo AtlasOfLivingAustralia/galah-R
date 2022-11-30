@@ -41,6 +41,22 @@ accepted by the ALA. Some polygons  may need to be simplified. If
 box to query the ALA.
 }
 \examples{
+\dontrun{
+# Search for records within a polygon using a shapefile
+location <- sf::st_read("path/to/shapefile.shp")
+galah_call() |>
+  galah_identify("vulpes") |>
+  galah_geolocate(location) |>
+  atlas_counts()
+  
+# Search for records within the bounding box of a shapefile
+location <- sf::st_read("path/to/shapefile.shp")
+galah_call() |>
+  galah_identify("vulpes") |>
+  galah_geolocate(location, type = "bbox") |>
+  atlas_counts()
+}
+
 # Search for records within a polygon using an `sf` object
 location <- 
 "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
@@ -49,14 +65,7 @@ galah_call() |>
   galah_identify("reptilia") |>
   galah_polygon(location) |>
   atlas_counts()
- 
-# Search for records within a polygon using a shapefile
-location <- sf::st_read("path/to/shapefile.shp")
-galah_call() |>
-  galah_identify("vulpes") |>
-  galah_geolocate(location) |>
-  atlas_counts()
-
+   
 # Search for records using a Well-known Text string (WKT)
 wkt <- "POLYGON((142.36228 -29.00703,
                  142.74131 -29.00703,
@@ -77,23 +86,16 @@ galah_call() |>
   galah_geolocate(location, type = "bbox") |>
   atlas_counts()
 
-# Search for records within the bounding box of a shapefile
-location <- sf::st_read("path/to/shapefile.shp")
-galah_call() |>
-  galah_identify("vulpes") |>
-  galah_geolocate(location, type = "bbox") |>
-  atlas_counts()
-
 # Search for records using a bounding box of coordinates
 b_box <- sf::st_bbox(c(xmin = 143, xmax = 148, ymin = -29, ymax = -28), 
-                     crs = st_crs("WGS84"))
+                     crs = sf::st_crs("WGS84"))
 galah_call() |>
   galah_identify("reptilia") |>
   galah_geolocate(b_box, type = "bbox") |>
   atlas_counts()
 
 # Search for records using a bounding box in a `tibble` or `data.frame`
-b_box <- tibble(xmin = 148, ymin = -29, xmax = 143, ymax = -21)
+b_box <- tibble::tibble(xmin = 148, ymin = -29, xmax = 143, ymax = -21)
 galah_call() |>
   galah_identify("vulpes") |>
   galah_geolocate(b_box, type = "bbox") |>

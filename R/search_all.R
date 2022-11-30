@@ -97,7 +97,7 @@ search_all <- function(type, query){
     "licences",
     "profiles", "lists",
     "atlases", "apis", "reasons", 
-    "taxa",
+    "taxa", "identifiers",
     "providers", "collections", "datasets")
   # show_all_cached_files?
   

@@ -51,7 +51,6 @@ In some cases \code{R} will fail to parse inputs with a single equals sign
 }
 \examples{
 # Filter query results to return records of interest
-
 galah_call() |>
   galah_filter(year >= 2019) |>
   atlas_counts()

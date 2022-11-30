@@ -80,6 +80,7 @@ reference:
   - st_crop.data_request
   - slice_head.data_request
   - count.data_request
+  - reexports
 - title: Manage cache
   contents:
   - clear_cached_files

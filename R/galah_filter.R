@@ -43,7 +43,6 @@
 #' 
 #' @examples
 #' # Filter query results to return records of interest
-#' 
 #' galah_call() |>
 #'   galah_filter(year >= 2019) |>
 #'   atlas_counts()

@@ -8,7 +8,7 @@
 #' `tibble` of taxonomic information can also be passed to [galah_identify()] to
 #' filter queries to the specified taxon or taxa.
 #'
-#' @param identifier `string`: A vector containing one or more taxonomic
+#' @param query `string`: A vector containing one or more taxonomic
 #' identifiers, given as strings. 
 #' @return An object of class `tbl_df`, `data.frame` (aka a tibble) and `ala_id`
 #' containing taxonomic information.
@@ -19,10 +19,10 @@
 #' 
 #' @examples 
 #' # Look up a unique taxon identifier
-#' search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
+#' search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
 #' 
 #' @export
-search_identifiers <- function(identifier) {
+search_identifiers <- function(query) {
 
   verbose <- getOption("galah_config")$verbose
 
@@ -35,15 +35,15 @@ search_identifiers <- function(identifier) {
     abort(bullets, call = caller_env())
   }
 
-  if (missing(identifier)) {
+  if (missing(query)) {
     bullets <- c(
-      "Argument `identifier` is missing, with no default.",
+      "Argument `query` is missing, with no default.",
       i = "Did you forget to specify one or more identifiers?"
     )
     abort(bullets, call = caller_env())
   }
   
-  matches <- lapply(identifier, identifier_lookup)
+  matches <- lapply(query, identifier_lookup)
   if(all(unlist(lapply(matches, is.null)))){
     if(galah_config()$verbose){
       system_down_message("search_identifiers")

@@ -30,11 +30,6 @@ galah_call() |>
   galah_filter(year > 2010) |>
   galah_group_by(year) |>
   atlas_counts()
- 
-# Return record counts since 2010 by year and data provider
-galah_call() |>
-  galah_filter(year > 2010) |>
-  galah_group_by(year, dataResourceName) |>
     
 # Return record counts of species *Litoria* each year since 2015
 galah_call() |>

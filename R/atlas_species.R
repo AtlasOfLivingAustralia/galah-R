@@ -32,6 +32,9 @@
 #' required that include filter but without returning taxonomic detail, then
 #' [atlas_counts()] is more efficient (see examples).
 #' @examples
+#' # First register a valid email address
+#' galah_config(email = "ala4r@ala.org.au")
+#' 
 #' # Get a list of species within genus "Heleioporus"
 #' # (every row is a species with associated taxonomic data)
 #' galah_call() |>

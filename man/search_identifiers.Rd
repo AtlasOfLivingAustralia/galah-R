@@ -4,10 +4,10 @@
 \alias{search_identifiers}
 \title{Search for taxa with taxonomic identifiers}
 \usage{
-search_identifiers(identifier)
+search_identifiers(query)
 }
 \arguments{
-\item{identifier}{\code{string}: A vector containing one or more taxonomic
+\item{query}{\code{string}: A vector containing one or more taxonomic
 identifiers, given as strings.}
 }
 \value{
@@ -25,7 +25,7 @@ filter queries to the specified taxon or taxa.
 }
 \examples{
 # Look up a unique taxon identifier
-search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
+search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
 
 }
 \seealso{

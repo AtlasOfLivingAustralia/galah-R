@@ -46,7 +46,7 @@ test_that("`slice_head` works for atlas_counts", {
     result <- galah_call() |> 
       filter(year >= 2010) |> 
       group_by(year) |> 
-      slice_head(5) |>
+      slice_head(n = 5) |>
       count()
   })
   expect_equal(nrow(result), 5)

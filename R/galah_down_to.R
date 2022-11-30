@@ -11,17 +11,12 @@
 #' 
 #' @examples
 #' # Return a taxonomic tree of *Chordata* down to the class level
+#' \dontrun{
 #' galah_call() |>
-#'     galah_identify("Chordata") |>
+#'     galah_identify("Vertebrata") |>
 #'     galah_down_to(class) |>
 #'     atlas_taxonomy()
-#' 
-#' # Return a taxonomic tree of *Cacatuidae* down to the genus level
-#' galah_call() |>
-#'   galah_identify("Cacatuidae") |>
-#'   galah_down_to(genus) |>
-#'   atlas_taxonomy()
-#' 
+#' }
 #' @export
 
 galah_down_to <- function(...){

@@ -4,13 +4,17 @@
 \alias{slice_head.data_request}
 \title{Slice for object of class \code{data_request}}
 \usage{
-\method{slice_head}{data_request}(.data, n)
+\method{slice_head}{data_request}(.data, ..., n, prop)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
 
+\item{...}{currently ignored}
+
 \item{n}{The number of rows to be returned. If data are grouped
 (using \link{group_by}), this operation will be performed on each group.}
+
+\item{prop}{currently ignored}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

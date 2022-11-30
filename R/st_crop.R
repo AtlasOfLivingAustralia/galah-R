@@ -11,10 +11,10 @@
 #' 
 #' `r lifecycle::badge("experimental")` 
 #' @seealso  [galah_polygon()], with which this function is synonymous.
-#' @importFrom sf st_crop
 #' @param x An object of class `data_request`, created using [galah_call()]
-#' @param y A single `sf` object, WKT string or shapefile.
+#' @param y A single `sf` object, WKT string or shapefile
+#' @param ... currently ignored
 #' @export
-st_crop.data_request <- function(x, y){
+st_crop.data_request <- function(x, y, ...){
   update_galah_call(x, geolocate = parse_polygon(y))
 }

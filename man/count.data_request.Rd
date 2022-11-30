@@ -4,10 +4,18 @@
 \alias{count.data_request}
 \title{Count for object of class \code{data_request}}
 \usage{
-\method{count}{data_request}(.data, type = c("record", "species"))
+\method{count}{data_request}(x, ..., wt, sort, name, type = c("record", "species"))
 }
 \arguments{
-\item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
+\item{x}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
+
+\item{...}{currently ignored}
+
+\item{wt}{currently ignored}
+
+\item{sort}{currently ignored}
+
+\item{name}{currently ignored}
 
 \item{type}{\code{string}: one of \code{c("record", "species")}. Defaults to
 "record". If "species", the number of species matching the criteria will be

@@ -64,6 +64,7 @@ search_media <- function(df){
   }
 
   # i.e. service is online, but no data available
+  verbose <- getOption("galah_config")$verbose
   if (nrow(metadata) == 0) {
     if(verbose){
       system_down_message("search_media")
