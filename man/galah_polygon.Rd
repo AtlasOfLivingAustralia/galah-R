@@ -25,47 +25,36 @@ WKT strings longer than 10000 characters and
 \code{sf} objects with more than 500 vertices will not be
 accepted by the ALA. Some polygons  may need to be simplified.
 }
-\section{Examples}{
-
-
-Search for records within a polygon using an \code{sf} object
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{location <- 
+\examples{
+# Search for records within a polygon using an `sf` object
+location <- 
 "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
  sf::st_as_sfc()
- 
 galah_call() |>
   galah_identify("reptilia") |>
   galah_polygon(location) |>
   atlas_counts()
-}\if{html}{\out{</div>}}
-
-Search for records using a shapefile
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
-
+\dontrun{
+# Search for records using a shapefile
+galah_config(email = "your_email_here")
 location <- galah_geolocate(sf::st_read(path/to/shapefile.shp))
 galah_call() |>
   galah_identify("vulpes") |>
   galah_polygon(location) |>
   atlas_occurrences()
-}\if{html}{\out{</div>}}
-
-Search for records using a Well-known Text string (WKT)
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
-
+}
+# Search for records using a Well-known Text string (WKT)
+wkt <- "POLYGON((142.36228 -29.00703,
+                 142.74131 -29.00703,
+                 142.74131 -29.39064,
+                 142.36228 -29.39064,
+                 142.36228 -29.00703))"
 galah_call() |>
   galah_identify("vulpes") |>
   galah_polygon(wkt) |>
   atlas_counts()
-#> # A tibble: 1 x 1
-#>   count
-#>   <int>
-#> 1     1
-}\if{html}{\out{</div>}}
-}
 
+}
 \seealso{
 \code{\link[=galah_bbox]{galah_bbox()}} & \code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to narrow
 queries by location. \code{\link[=search_taxa]{search_taxa()}}, \code{\link[=galah_filter]{galah_filter()}} and

@@ -55,68 +55,24 @@ then \code{\link[=search_taxa]{search_taxa()}} is more efficient. Similarly, if 
 required that include filter but without returning taxonomic detail, then
 \code{\link[=atlas_counts]{atlas_counts()}} is more efficient (see examples).
 }
-\section{Examples}{
+\examples{
+# First register a valid email address
+galah_config(email = "ala4r@ala.org.au")
 
-
-First, look up a genus of interest in the ALA with \code{\link[=search_taxa]{search_taxa()}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("Heleioporus")
-#> # A tibble: 1 x 13
-#>   search_term scienti~1 scien~2 taxon~3 rank  match~4 kingdom phylum class order
-#>   <chr>       <chr>     <chr>   <chr>   <chr> <chr>   <chr>   <chr>  <chr> <chr>
-#> 1 Heleioporus Heleiopo~ Gray, ~ https:~ genus exactM~ Animal~ Chord~ Amph~ Anura
-#> # ... with 3 more variables: family <chr>, genus <chr>, issues <chr>, and
-#> #   abbreviated variable names 1: scientific_name,
-#> #   2: scientific_name_authorship, 3: taxon_concept_id, 4: match_type
-}\if{html}{\out{</div>}}
-
-It's a good idea to find how many species there are for the taxon you are
-interested in - in our case, genus \emph{Heleioporus} - with \code{\link[=atlas_counts]{atlas_counts()}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
-  galah_identify("Heleioporus") |>
-  atlas_counts(type = "species")
-#> # A tibble: 1 x 1
-#>   count
-#>   <int>
-#> 1     6
-}\if{html}{\out{</div>}}
-
-Now get taxonomic information on all species within this genus with
-\code{atlas_species()}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{# (every row is a species with associated taxonomic data)
+# Get a list of species within genus "Heleioporus"
+# (every row is a species with associated taxonomic data)
 galah_call() |>
   galah_identify("Heleioporus") |>
   atlas_species()
-#> # A tibble: 6 x 10
-#>   kingdom  phylum   class    order family   genus species author speci~1 verna~2
-#>   <chr>    <chr>    <chr>    <chr> <chr>    <chr> <chr>   <chr>  <chr>   <chr>  
-#> 1 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Gray~ https:~ Moanin~
-#> 2 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Shaw~ https:~ Giant ~
-#> 3 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ Gray,~ https:~ Wester~
-#> 4 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Lee ~ https:~ Sand F~
-#> 5 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Lee ~ https:~ Plains~
-#> 6 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ Lee, ~ https:~ Wester~
-#> # ... with abbreviated variable names 1: species_guid, 2: vernacular_name
-}\if{html}{\out{</div>}}
 
-You can also get taxonomic information on species by piping with \verb{\%>\%} or
-\verb{|>}. Just begin your query with \code{\link[=galah_call]{galah_call()}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
-  galah_identify("Heleioporus") |>
+# Get a list of species within family "Peramelidae"
+galah_call() |>
+  galah_identify("peramelidae") |>
   atlas_species()
-#> # A tibble: 6 x 10
-#>   kingdom  phylum   class    order family   genus species author speci~1 verna~2
-#>   <chr>    <chr>    <chr>    <chr> <chr>    <chr> <chr>   <chr>  <chr>   <chr>  
-#> 1 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Gray~ https:~ Moanin~
-#> 2 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Shaw~ https:~ Giant ~
-#> 3 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ Gray,~ https:~ Wester~
-#> 4 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Lee ~ https:~ Sand F~
-#> 5 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ (Lee ~ https:~ Plains~
-#> 6 Animalia Chordata Amphibia Anura Limnody~ Hele~ Heleio~ Lee, ~ https:~ Wester~
-#> # ... with abbreviated variable names 1: species_guid, 2: vernacular_name
-}\if{html}{\out{</div>}}
-}
 
+# It's good idea to find how many species there are before downloading
+galah_call() |>
+  galah_identify("Heleioporus") |>
+  atlas_counts(type = "species")
+
+}

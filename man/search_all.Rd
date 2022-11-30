@@ -87,49 +87,29 @@ The available types of information for \code{search_all()} are:\tabular{llll}{
     \tab \code{datasets} \tab Search for the data groupings within those collections \tab \code{search_datasets()} \cr
 }
 }
-\section{Examples}{
+\examples{
+# Search for fields that include the word "date"
+search_all(fields, "date")
 
+# Search for fields that include the word "marine"
+search_all(fields, "marine")
 
-Search for all fields that use include the word "date"
+# Search using a single taxonomic term
+# (see `?search_taxa()` for more information)
+search_all(taxa, "Reptilia") # equivalent
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(fields, "date")
-}\if{html}{\out{</div>}}
+# Look up a unique taxon identifier
+# (see `?search_identifiers()` for more information)
+search_all(identifiers, 
+           "https://id.biodiversity.org.au/node/apni/2914510")
 
-Search for all fields that have information for "marine"
+# Search for species lists that match "endangered"
+search_all(lists, "endangered") # equivalent
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(fields, "marine")
-}\if{html}{\out{</div>}}
+# Search for a valid taxonomic rank, "subphylum"
+search_all(ranks, "subphylum")
 
-Search using a single term (See \code{\link[=search_taxa]{search_taxa()}} for more info)
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("Reptilia")
-#> # A tibble: 1 x 9
-#>   search_term scientific_name taxon_~1 rank  match~2 kingdom phylum class issues
-#>   <chr>       <chr>           <chr>    <chr> <chr>   <chr>   <chr>  <chr> <chr> 
-#> 1 Reptilia    REPTILIA        https:/~ class exactM~ Animal~ Chord~ Rept~ noIss~
-#> # ... with abbreviated variable names 1: taxon_concept_id, 2: match_type
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(taxa, "Reptilia") # equivalent
-}\if{html}{\out{</div>}}
-
-Look up a unique taxon identifier (See \code{\link[=search_identifiers]{search_identifiers()}} for more info)
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(identifiers, 
-           "https://id.biodiversity.org.au/node/apni/2914510") # equivalent
-}\if{html}{\out{</div>}}
-
-Search for species lists that match "endangered"
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(lists, "endangered") # equivalent
-}\if{html}{\out{</div>}}
-
-Search for a valid taxonomic rank, "subphylum"
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_all(ranks, "subphylum")
-}\if{html}{\out{</div>}}
 }
-
 \references{
 \itemize{
 \item Darwin Core terms \url{https://dwc.tdwg.org/terms/}

@@ -7,6 +7,12 @@
 #' `atlas_` functions. `search_taxa()` allows users to disambiguate homonyms 
 #' (i.e. where the same name refers to taxa in different clades) prior to  
 #' downloading data. 
+#' 
+#' Users can also specify taxonomic levels in a search using a data frame 
+#' (tibble). Taxa may be specified using either the `specificEpithet` argument 
+#' to designate the second element of a Latin binomial, 
+#' or the `scientificName` argument to specify the 
+#' scientific name (which may include the subspecific epithet if required). 
 #'
 #' @param ... : A string of one or more scientific names, separated by commas, 
 #' or a data frame specifying taxonomic levels. Note that searches are not 
@@ -21,46 +27,32 @@
 #' [atlas_occurrences()] and related functions. [atlas_taxonomy()] to look 
 #' up taxonomic trees.
 #' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Search using a single string. Note that `search_taxa()` is not case sensitive
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' @examples 
+#' # Search using a single string. 
+#' # Note that `search_taxa()` isn't case sensitive
 #' search_taxa("Reptilia")
-#' ```
 #'
-#' Search using multiple strings. `search_taxa()` will return one row per taxon
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # Search using multiple strings. 
+#' # `search_taxa()` will return one row per taxon
 #' search_taxa("reptilia", "mammalia")
-#' ```
 #' 
-#' Specify taxonomic levels in a search using a data frame (tibble). Taxa may 
-#' be specified using either the specificEpithet argument to designate the second 
-#' element of a Latin binomial, or the scientificName argument to specify the 
-#' scientific name, which may include the subspecific epithet if required. 
-#' 
-#'  ```{r, comment = "#>", collapse = TRUE}
-#' search_taxa(tibble(
+#' # Specify taxonomic levels in a tibble using "specificEpiphet"
+#' search_taxa(tibble::tibble(
 #'   class = "aves", 
 #'   family = "pardalotidae", 
 #'   genus = "pardalotus", 
 #'   specificEpithet = "punctatus"))
-#'                       
-#' search_taxa(tibble(
+#'
+#' # Specify taxonomic levels in a tibble using "scientificName"                    
+#' search_taxa(tibble::tibble(
 #'   family = c("pardalotidae", "maluridae"), 
 #'   scientificName = c("Pardalotus striatus striatus", "malurus cyaneus")))
-#'  ```
 #' 
-#' `galah_identify()` uses `search_taxa()` to narrow data queries
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' # `galah_identify()` uses `search_taxa()` to narrow data queries
+#' taxa <- search_taxa("reptilia", "mammalia")
 #' galah_call() |>
-#'   galah_identify("reptilia") |>
+#'   galah_identify(taxa) |>
 #'   atlas_counts()
-#' ```
 #'
 #' @importFrom utils adist 
 #' @export
@@ -116,7 +108,7 @@ name_query <- function(query) {
   if(all(unlist(lapply(matches, is.null)))){
     NULL
   }else{
-    as_tibble(rbindlist(matches, fill = TRUE))
+    bind_rows(matches) |> tibble()
   }
 }
 

@@ -81,7 +81,7 @@ find_atlases()
 
 ala_config(..., profile_path = NULL)
 
-search_field_values(field, query)
+search_field_values(field)
 
 search_profile_attributes(profile)
 }

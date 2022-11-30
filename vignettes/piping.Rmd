@@ -1,0 +1,198 @@
+---
+title: "Piping in galah"
+author: "Martin Westgate & Dax Kellie"
+date: '2022-11-30'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Piping in galah}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+`galah` has been designed to support a piped workflow that mimics 
+workflows made popular by tidyverse packages such as `dplyr`. Although piping in
+`galah` is optional, it can make things much easier to understand, and so we use
+it in (nearly) all our examples.
+
+To see what we mean, let's look at an example of how `dplyr::filter()` works. 
+Notice how `dplyr::filter` and `galah_filter` both require logical arguments to 
+be added by using the `==` sign:
+
+
+```r
+library(dplyr)
+
+mtcars |> 
+  filter(mpg == 21)
+```
+
+```
+##               mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4      21   6  160 110  3.9 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4
+```
+
+```r
+galah_call() |>
+  galah_filter(year == 2021) |>
+  atlas_counts()
+```
+
+```
+## # A tibble: 1 × 1
+##     count
+##     <int>
+## 1 7127224
+```
+
+As another example, notice how `galah_group_by()` + `atlas_counts()` works very 
+similarly to `dplyr::group_by()` + `dplyr::count()`:
+
+
+```r
+mtcars |>
+  group_by(vs) |> 
+  count()
+```
+
+```
+## # A tibble: 2 × 2
+## # Groups:   vs [2]
+##      vs     n
+##   <dbl> <int>
+## 1     0    18
+## 2     1    14
+```
+
+```r
+galah_call() |>
+  galah_group_by(biome) |>
+  atlas_counts()
+```
+
+```
+## # A tibble: 2 × 2
+##   biome           count
+##   <chr>           <int>
+## 1 TERRESTRIAL 104138651
+## 2 MARINE        3442081
+```
+
+We made this move towards tidy evaluation to make it possible to use 
+piping for building queries to the Atlas of Living Australia. In practice, this 
+means that data queries can be filtered just like how you might 
+filter a `data.frame` with the `tidyverse` suite of functions. 
+
+# Piping with `galah_call()`
+You may have noticed in the above examples that `dplyr` pipes begin with some 
+data, while `galah` pipes all begin with `galah_call()` (be sure to add the 
+parentheses!). This function tells `galah` that you will be using 
+pipes to construct your query. Follow this with your preferred pipe (`|>` from 
+`base` or `%>%` from `magrittr`). You can then narrow your query line-by-line 
+using `galah_` functions. Finally, end with an `atlas_` function to identify 
+what type of data you want from your query.  
+  
+Here is an example using counts of bandicoot records:
+
+
+```r
+galah_call() |>
+  galah_identify("perameles") |>
+  galah_filter(year >= 2020) |>
+  galah_group_by(species, year) |>
+  atlas_counts()
+```
+
+```
+## # A tibble: 11 × 3
+##    year  species                count
+##    <chr> <chr>                  <int>
+##  1 2021  Perameles nasuta        2465
+##  2 2021  Perameles bougainville    70
+##  3 2021  Perameles gunnii          59
+##  4 2021  Perameles pallescens      23
+##  5 2020  Perameles nasuta        1386
+##  6 2020  Perameles gunnii          39
+##  7 2020  Perameles pallescens      11
+##  8 2020  Perameles bougainville     1
+##  9 2022  Perameles nasuta         292
+## 10 2022  Perameles gunnii          53
+## 11 2022  Perameles pallescens      26
+```
+
+And a second example, to download occurrence records of bandicoots 
+in 2021, and also to include information on which records had zero coordinates:
+
+
+```r
+galah_call() |>
+  galah_identify("perameles") |>
+  galah_filter(year == 2021) |>
+  galah_select(group = "basic", ZERO_COORDINATE) |>
+  atlas_occurrences() |>
+  head()
+```
+
+```
+## # A tibble: 6 × 9
+##   decimalLatitude decimalLongitude eventDate           scientificName   taxonConceptID              recor…¹ dataR…² occur…³ ZERO_…⁴
+##             <dbl>            <dbl> <dttm>              <chr>            <chr>                       <chr>   <chr>   <chr>   <lgl>  
+## 1           -43.1             148. 2021-05-09 08:06:02 Perameles gunnii https://biodiversity.org.a… 6f258c… iNatur… PRESENT FALSE  
+## 2           -43.0             147. 2021-03-31 21:00:16 Perameles gunnii https://biodiversity.org.a… 40d963… iNatur… PRESENT FALSE  
+## 3           -43.0             148. 2021-06-24 12:55:00 Perameles gunnii https://biodiversity.org.a… 62724c… iNatur… PRESENT FALSE  
+## 4           -43.0             147. 2021-02-06 14:09:00 Perameles gunnii https://biodiversity.org.a… ef4fe0… iNatur… PRESENT FALSE  
+## 5           -43.0             147. 2021-09-14 04:39:45 Perameles gunnii https://biodiversity.org.a… 7900b1… iNatur… PRESENT FALSE  
+## 6           -42.9             147. 2021-07-21 19:42:41 Perameles gunnii https://biodiversity.org.a… c3cc63… iNatur… PRESENT FALSE  
+## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​ZERO_COORDINATE
+```
+
+Note that the order in which `galah_` functions are added doesn't matter, as long
+as `galah_call()` goes first, and an `atlas_` function comes last.
+
+# Using `dplyr` functions in `galah`
+As of version 1.5.1, it is possible to call `dplyr` functions natively within 
+`galah` to amend how queries are processed, i.e.:
+
+
+```r
+# galah syntax
+galah_call() |>
+  galah_filter(year >= 2020) |>
+  galah_group_by(year) |>
+  atlas_counts()
+```
+
+```
+## # A tibble: 3 × 2
+##   year    count
+##   <chr>   <int>
+## 1 2021  7127224
+## 2 2020  6403158
+## 3 2022  1353727
+```
+
+```r
+# dplyr syntax
+galah_call() |>
+  filter(year >= 2020) |>
+  group_by(year) |>
+  count()
+```
+
+```
+## # A tibble: 3 × 2
+##   year    count
+##   <chr>   <int>
+## 1 2021  7127224
+## 2 2020  6403158
+## 3 2022  1353727
+```
+The full list of masked functions is: 
+
+* `identify()` (`{graphics}`) as a synonym for `galah_identify()`
+* `select()` (`{dplyr}`) as a synonym for `galah_select()`
+* `group_by()` (`{dplyr}`) as a synonym for `galah_group_by()`
+* `slice_head()` (`{dplyr}`) as a synonym for the `limit` argument in `atlas_counts()`
+* `st_crop()` (`{sf}`) as a synonym for `galah_polygon()`
+* `count()` (`{dplyr}`) as a synonym for `atlas_counts()`

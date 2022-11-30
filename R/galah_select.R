@@ -54,34 +54,24 @@
 #' for how to get counts by levels of variables returned by `galah_select`;
 #' `show_all(fields)` to list available fields.
 #' 
-#' @section Examples: 
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Download occurrence records of *Perameles* taken in 2001, only returning 
-#' scientific name and event date
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' @examples \dontrun{
+#' # Download occurrence records of *Perameles*, 
+#' # Only return scientificName and eventDate columns
 #' galah_config(email = "your-email@email.com")
 #' galah_call() |>
 #'   galah_identify("perameles")|>
-#'   galah_filter(year == 2001) |>
 #'   galah_select(scientificName, eventDate) |>
 #'   atlas_occurrences()
-#' ```
 #' 
-#' Download occurrence record of *Perameles* taken in 2001, returning the 
-#' "basic" group of columns plus the Basis of Record
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' # Only return the "basic" group of columns and the basisOfRecord column
 #' galah_call() |>
 #'   galah_identify("perameles") |>
-#'   galah_filter(year == 2001) |>
-#'   galah_select(group = c("basic", "event"), basisOfRecord) |>
+#'   galah_select(basisOfRecord, group = "basic") |>
 #'   atlas_occurrences()
-#' ```
+#' }
 #' 
 #' @importFrom tidyselect eval_select
+#' @importFrom tidyselect all_of
 #' @importFrom rlang as_label
 #' @importFrom tibble as_tibble
 #' @export
@@ -106,42 +96,72 @@ galah_select <- function(...,
   }
   
   # If no args are supplied, set default columns returned as group = "basic"  
-  if(missing(group) & length(dots) < 1){group <- "basic"}
-  
-  # Match 'groups' of columns
-  if (!missing(group) && !is.null(group)) {
-    group <- match.arg(group, several.ok = TRUE)
-    group_cols <- unlist(lapply(group, preset_cols))
-  } else {
-    group_cols <- NULL
+  if(missing(group)){
+    if(length(dots) < 1){
+      group_chosen <- "basic"
+    }else{
+      group_chosen <- NULL
+    }
+  }else{
+    group_chosen <- match.arg(group, several.ok = TRUE)
   }
-      
-  # Build a data.frame with a standardised set of names,
-  # stored by galah_config()
-  field_names <- unique(c(show_all_fields()$id, show_all_assertions()$id))
-  df <- as.data.frame(
-   matrix(data = NA, nrow = 0, ncol = length(field_names),
-     dimnames = list(NULL, field_names)))
   
-  ## Make a data.frame listing valid fields and their type
-  selection <- unlist(lapply(dots, function(a){
-    names(tidyselect::eval_select(a, data = df))
-    }))
-  all_cols <- data.frame(
-    name = unique(c(group_cols, selection)))
-  all_cols$type <- ifelse(str_detect(all_cols$name, "[[:lower:]]"), "field", "assertions")
-    
-  # Add S3 class
-  all_cols <- as_tibble(all_cols)
-  attr(all_cols, "call") <- "galah_select" 
+  result <- parse_select(dots, group_chosen)
   
   # if a data request was supplied, return one
   if(is_data_request){
-    update_galah_call(data_request, select = all_cols)
+    update_galah_call(data_request, select = result)
   }else{
-    all_cols
+    result
   }
 }
+
+
+# Build a data.frame with a standardised set of names
+parse_select <- function(dots, group){
+  current_assertions <- show_all_assertions()
+  field_names <- unique(c(show_all_fields()$id, current_assertions$id))
+  df <- matrix(data = NA, nrow = 0, ncol = length(field_names),
+               dimnames = list(NULL, field_names)) |>
+    as.data.frame()
+  
+  if(length(group) > 0){
+    group_cols <- lapply(group, preset_cols) |>
+                  unlist()
+    select_groups <- eval_select(all_of(group_cols), data = df) |> 
+                     names()
+  }else{
+    select_groups <- NULL
+    group <- ""
+  }
+  
+  if(length(dots) > 0){
+    select_individuals <- unlist(lapply(dots, function(a){
+      eval_select(a, data = df) |> 
+      names()
+    }))
+  }else{ # i.e. no fields selected
+    # code an exception here:
+    ## because assertions aren't fields, leaving `fields` empty means default fields are returned
+    ## but only when `group = assertions` and no other requests are made
+    ## this adds a single field (recordID) to the query to avoid this problem
+    if(length(group) == 1 && all(group == "assertions")){
+      select_individuals <- "recordID"
+    }else{
+      select_individuals <- NULL 
+    }
+  }
+  
+  # create output object
+  result <- tibble(name = unique(c(select_groups, select_individuals)))
+  result$type <- "field"
+  result$type[result$name %in% current_assertions$id] <- "assertion"
+  attr(result, "call") <- "galah_select" 
+  attr(result, "group") <- group
+  
+  return(result)
+}
+
 
 # NOTE: gbif doesn't appear to support column specification in downloads
 

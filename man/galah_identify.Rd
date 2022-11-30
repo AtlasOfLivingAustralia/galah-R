@@ -12,8 +12,7 @@ identifiers (if \code{search = FALSE}); or an object of class \code{ala_id} (fro
 \code{search_taxa}).}
 
 \item{search}{(logical); should the results in question be passed to
-\code{search_taxa}? Ignored if an object of class \code{ala_id}, \code{gbifid}, or \code{nbnid}
-is given to \code{...}.}
+\code{search_taxa}?}
 }
 \value{
 A tibble containing identified taxa.
@@ -21,62 +20,35 @@ A tibble containing identified taxa.
 \description{
 When conducting a search or creating a data query, it is common to identify
 a known taxon or group of taxa to narrow down the records or results returned.
-This function allows users to pass scientific names or taxonomic identifiers
-with pipes to provide data only for the biological group of interest.
 }
-\section{Examples}{
-
-
+\details{
 \code{galah_identify()} is used to identify taxa you want returned in a search or
-a data query. It is good to use \code{\link[=search_taxa]{search_taxa()}} and \code{\link[=search_identifiers]{search_identifiers()}}
+a data query. Users to pass scientific names or taxonomic identifiers
+with pipes to provide data only for the biological group of interest.
+
+It is good to use \code{\link[=search_taxa]{search_taxa()}} and \code{\link[=search_identifiers]{search_identifiers()}}
 first to check that the taxa you provide to \code{galah_identify()} return the
 correct results.
+}
+\examples{
+# Specify a taxon. A valid taxon will return an identifier.
+galah_identify("reptilia")
 
-Specify a taxon. A valid taxon will return an identifier.
+# Specify more than one taxon at a time.
+galah_identify("reptilia", "mammalia", "aves", "pisces")
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_identify("reptilia")
-#> # A tibble: 1 x 1
-#>   identifier                                                               
-#>   <chr>                                                                    
-#> 1 https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399
-}\if{html}{\out{</div>}}
-
-Specify more than one taxon at a time.
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_identify("reptilia", "mammalia", "aves", "pisces")
-#> # A tibble: 4 x 1
-#>   identifier                                                               
-#>   <chr>                                                                    
-#> 1 https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399
-#> 2 https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6
-#> 3 https://biodiversity.org.au/afd/taxa/65625205-db74-4a87-b566-ca387b119974
-#> 4 https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051
-}\if{html}{\out{</div>}}
-
-Use \code{galah_identify()} to narrow your queries
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |> 
+# Use `galah_identify()` to narrow your queries
+galah_call() |> 
   galah_identify("Eolophus") |>
   atlas_counts()
-#> # A tibble: 1 x 1
-#>    count
-#>    <int>
-#> 1 994158
-}\if{html}{\out{</div>}}
 
-If you already know a valid taxon identifier, add it and set \code{search = FALSE}.
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |> 
+# If you know a valid taxon identifier, add it and set `search = FALSE`.
+galah_call() |> 
   galah_identify("https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c", 
                  search = FALSE) |>
   atlas_counts()
-#> # A tibble: 1 x 1
-#>    count
-#>    <int>
-#> 1 994158
-}\if{html}{\out{</div>}}
-}
 
+}
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} to find identifiers from scientific names;
 \code{\link[=search_identifiers]{search_identifiers()}} for how to get names if taxonomic identifiers

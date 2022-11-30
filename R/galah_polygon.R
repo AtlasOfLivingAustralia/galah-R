@@ -17,49 +17,39 @@
 #' [galah_select()] for other ways to restrict the information
 #' returned by [atlas_occurrences()] and related functions.
 #' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Search for records within a polygon using an `sf` object
-#'
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' @examples
+#' # Search for records within a polygon using an `sf` object
 #' location <- 
 #' "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
 #'  sf::st_as_sfc()
-#'  
 #' galah_call() |>
 #'   galah_identify("reptilia") |>
 #'   galah_polygon(location) |>
 #'   atlas_counts()
-#' ```
-#' 
-#' Search for records using a shapefile
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
-#' galah_config(email = "your-email@email.com")
-#' 
+#' \dontrun{
+#' # Search for records using a shapefile
+#' galah_config(email = "your_email_here")
 #' location <- galah_geolocate(sf::st_read(path/to/shapefile.shp))
 #' galah_call() |>
 #'   galah_identify("vulpes") |>
 #'   galah_polygon(location) |>
 #'   atlas_occurrences()
-#' ```
-#' 
-#' Search for records using a Well-known Text string (WKT)
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
-#' 
+#' }
+#' # Search for records using a Well-known Text string (WKT)
+#' wkt <- "POLYGON((142.36228 -29.00703,
+#'                  142.74131 -29.00703,
+#'                  142.74131 -29.39064,
+#'                  142.36228 -29.39064,
+#'                  142.36228 -29.00703))"
 #' galah_call() |>
 #'   galah_identify("vulpes") |>
 #'   galah_polygon(wkt) |>
 #'   atlas_counts()
-#' ```
 #' 
 #' @importFrom sf st_cast st_as_text st_as_sfc st_is_empty st_is_simple
-#' @importFrom sf st_is_valid st_geometry st_geometry_type
+#' @importFrom sf st_crs st_geometry st_geometry_type st_is_valid st_simplify st_read
 #' @importFrom rlang try_fetch
+#' @importFrom assertthat assert_that is.string
 #' 
 #' @keywords internal
 #' 
@@ -79,10 +69,24 @@ galah_polygon <- function(...) {
   
   # check that only 1 WKT is supplied at a time
   check_n_inputs(dots)
-
+  
   # convert dots to query
   query <- parse_basic_quosures(dots[1])
   
+  # parse
+  out_query <- parse_polygon(query)
+  
+  # if a data request was supplied, return one
+  if(is_data_request){
+    update_galah_call(data_request, geolocate = out_query)
+  }else{
+    out_query
+  }   
+}
+
+
+parse_polygon <- function(query){
+
   # make sure shapefiles are processed correctly
   if (!inherits(query, "sf")) {query <- query[[1]]} else {query <- query}
   
@@ -110,23 +114,23 @@ galah_polygon <- function(...) {
       query |> st_as_sfc(), 
       error = function(cnd) {
         bullets <- c(
-        "Invalid WKT detected.",
-        i = "Check that the spatial feature or WKT in `galah_polygon` is correct."
-      )
-      abort(bullets, call = caller_env())
+          "Invalid WKT detected.",
+          i = "Check that the spatial feature or WKT in `galah_polygon` is correct."
+        )
+        abort(bullets, call = caller_env())
       })
     
     # validate that wkt/spatial object is real
     valid <- query |> st_is_valid() }
-    else {
+  else {
     valid <- query |> st_is_valid()
-    }
+  }
   if(is.na(valid)) {
-      bullets <- c(
-        "Invalid spatial object or WKT detected.",
-        i = "Check that the spatial feature or WKT in `galah_polygon` is correct."
-      )
-      abort(bullets, call = caller_env())
+    bullets <- c(
+      "Invalid spatial object or WKT detected.",
+      i = "Check that the spatial feature or WKT in `galah_polygon` is correct."
+    )
+    abort(bullets, call = caller_env())
   }
   
   # check number of vertices of WKT
@@ -159,17 +163,9 @@ galah_polygon <- function(...) {
     out_query <- query
   }
   attr(out_query, "call") <- "galah_geolocate"
-  
-  # if a data request was supplied, return one
-  if(is_data_request){
-    update_galah_call(data_request, geolocate = out_query)
-  }else{
-    out_query
-  }   
-  
-  
-  
+  out_query
 }
+
 
 n_points <- function(x) {
   count_vertices(sf::st_geometry(x))

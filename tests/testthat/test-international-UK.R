@@ -34,14 +34,14 @@ vcr::use_cassette("IA_United_Kingdom_show_all", {
   })
 }) 
 
-vcr::use_cassette("IA_search_taxa_multiple_UK", {
+vcr::use_cassette("IA_United_Kingdom_search_taxa_multiple", {
   test_that("search_taxa works for multiple queries", {
     taxa <- search_taxa(c("Vulpes vulpes", "Meles meles"))
     expect_equal(nrow(taxa), 2)
   })
 })
 
-vcr::use_cassette("IA_search_taxa_types_UK", {
+vcr::use_cassette("IA_United_Kingdom_search_taxa_types", {
   test_that("search_taxa doesn't break with typos", {
     expect_silent(search_taxa("Vlpes"))
   })
@@ -56,16 +56,25 @@ vcr::use_cassette("IA_United_Kingdom_search_all", {
 })
 
 vcr::use_cassette("IA_United_Kingdom_show_field_values", {
-  test_that("show_field_values works for United Kingdom", {
-    result <- show_field_values("basis_of_record")
-    expect_gt(nrow(result), 1)
+  test_that("show_values_field works for United Kingdom", {
+    search_fields("basis_of_record") |> 
+      show_values() |>
+      nrow() |>
+      expect_gt(1)
   })
 })
 
 vcr::use_cassette("IA_United_Kingdom_show_values", {
   test_that("show_values works for United Kingdom", {
-    expect_gt(nrow(show_list_values("dr556")), 1)
-    expect_error(show_profile_values("a_profile"))
+
+    search_lists("dr556") |> 
+      show_values() |>
+      nrow() |>
+      expect_gt(1)
+    
+    search_profiles("profile") |> 
+      show_values() |>
+      expect_error()
   })
 })
 

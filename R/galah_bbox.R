@@ -21,38 +21,28 @@
 #' [galah_select()] for other ways to restrict the information
 #' returned by [atlas_occurrences()] and related functions.
 #'
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#'
-#' Search for records using a bounding box of coordinates
-#'
-#' ```{r, comment = "#>", collapse = TRUE}
+#' @examples
+#' # Search for records using a bounding box of coordinates
 #' b_box <- sf::st_bbox(c(xmin = 143, xmax = 148, ymin = -29, ymax = -28), 
-#'                      crs = st_crs("WGS84"))
+#'                      crs = sf::st_crs("WGS84"))
 #'
 #' galah_call() |>
 #'   galah_identify("reptilia") |>
 #'   galah_bbox(b_box) |>
 #'   atlas_counts()
-#' ```
 #'
-#' Search for records using a bounding box in a `tibble` or `data.frame`
-#'
-#' ```{r, comment = "#>", collapse = TRUE}
-#' b_box <- tibble(xmin = 148, ymin = -29, xmax = 143, ymax = -21)
+#' # Search for records using a bounding box in a `tibble` or `data.frame`
+#' b_box <- tibble::tibble(xmin = 148, ymin = -29, xmax = 143, ymax = -21)
 #'
 #' galah_call() |>
-#'   galah_identify("vulpes") |>
+#'   galah_identify("reptilia") |>
 #'   galah_bbox(b_box) |>
 #'   atlas_counts()
-#' ```
-#'
-#' Search for records within the bounding box of an `sf` object
-#'
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
-#' galah_config(email = "your-email@email.com")
-#'
+#'   
+#' \dontrun{
+#' # Search for records within the bounding box of an `sf` object
+#' galah_config(email = "your_email_here")
+#' 
 #' location <- 
 #' "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
 #'  sf::st_as_sfc()
@@ -61,23 +51,20 @@
 #'   galah_identify("vulpes") |>
 #'   galah_bbox(location) |>
 #'   atlas_occurrences()
-#' ```
-#' 
 #'  
-#' Search for records within the bounding box of a shapefile
+#' # Search for records within the bounding box of a shapefile
+#' galah_config(email = "your_email_here")
 #'
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
-#' galah_config(email = "your-email@email.com")
-#'
-#' location <- sf::st_read(path/to/shapefile.shp)
+#' location <- sf::st_read("path/to/shapefile.shp")
+#' 
 #' galah_call() |>
 #'   galah_identify("vulpes") |>
 #'   galah_bbox(location) |>
 #'   atlas_occurrences()
-#' ```
+#' }
 #'
 #' @importFrom sf st_cast st_as_text st_as_sfc st_is_empty st_is_simple
-#' @importFrom sf st_is_valid st_bbox st_geometry_type
+#' @importFrom sf st_is_valid st_bbox st_geometry_type st_crs
 #' @importFrom rlang try_fetch
 #' 
 #' @keywords internal
@@ -142,7 +129,7 @@ galah_bbox <- function(...) {
                          xmax = query$xmax,
                          ymin = query$ymin,
                          ymax = query$ymax),
-                       crs = st_crs("WGS84"))
+                       crs = sf::st_crs("WGS84"))
     }
     log <- NULL # see `log` to read any warnings that may have been silenced
     valid <- rlang::try_fetch( # prevent warnings
@@ -166,12 +153,12 @@ galah_bbox <- function(...) {
   } else {
     if (inherits(query, c("tbl", "data.frame", "bbox")) && !inherits(query, c("sf", "sfc"))) {
       bbox_coords <- round(query, 5)
-      query <- query |> st_as_sfc(crs = st_crs("WGS84"))
+      query <- query |> st_as_sfc(crs = sf::st_crs("WGS84"))
     } else {
       if (inherits(query, c("sf", "sfc"))) {
-        query <- query |> st_bbox(crs = st_crs("WGS84"))
+        query <- query |> st_bbox(crs = sf::st_crs("WGS84"))
         bbox_coords <- round(query, 5)
-        query <- query |> st_as_sfc(crs = st_crs("WGS84")) # FIXME: should we define the projection?
+        query <- query |> st_as_sfc(crs = sf::st_crs("WGS84")) # FIXME: should we define the projection?
       }
     }
   }

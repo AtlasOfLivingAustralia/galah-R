@@ -29,45 +29,27 @@ a \code{tibble}/\code{data.frame}. Bounding boxes supplied as a \code{tibble}/\c
 must have "xmin", "xmax", "ymin" and "ymax" columns with valid \code{numeric}
 values.
 }
-\section{Examples}{
-
-
-Search for records using a bounding box of coordinates
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{b_box <- sf::st_bbox(c(xmin = 143, xmax = 148, ymin = -29, ymax = -28), 
-                     crs = st_crs("WGS84"))
+\examples{
+# Search for records using a bounding box of coordinates
+b_box <- sf::st_bbox(c(xmin = 143, xmax = 148, ymin = -29, ymax = -28), 
+                     crs = sf::st_crs("WGS84"))
 
 galah_call() |>
   galah_identify("reptilia") |>
   galah_bbox(b_box) |>
   atlas_counts()
-#> Data returned for bounding box:
-#> xmin = 143 xmax = 148 ymin = -29 ymax = -28
-#> # A tibble: 1 x 1
-#>   count
-#>   <int>
-#> 1  1782
-}\if{html}{\out{</div>}}
 
-Search for records using a bounding box in a \code{tibble} or \code{data.frame}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{b_box <- tibble(xmin = 148, ymin = -29, xmax = 143, ymax = -21)
+# Search for records using a bounding box in a `tibble` or `data.frame`
+b_box <- tibble::tibble(xmin = 148, ymin = -29, xmax = 143, ymax = -21)
 
 galah_call() |>
-  galah_identify("vulpes") |>
+  galah_identify("reptilia") |>
   galah_bbox(b_box) |>
   atlas_counts()
-#> Data returned for bounding box:
-#> xmin = 148 xmax = 143 ymin = -29 ymax = -21
-#> # A tibble: 1 x 1
-#>   count
-#>   <int>
-#> 1   225
-}\if{html}{\out{</div>}}
-
-Search for records within the bounding box of an \code{sf} object
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+  
+\dontrun{
+# Search for records within the bounding box of an `sf` object
+galah_config(email = "your_email_here")
 
 location <- 
 "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
@@ -77,20 +59,19 @@ galah_call() |>
   galah_identify("vulpes") |>
   galah_bbox(location) |>
   atlas_occurrences()
-}\if{html}{\out{</div>}}
+ 
+# Search for records within the bounding box of a shapefile
+galah_config(email = "your_email_here")
 
-Search for records within the bounding box of a shapefile
+location <- sf::st_read("path/to/shapefile.shp")
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
-
-location <- sf::st_read(path/to/shapefile.shp)
 galah_call() |>
   galah_identify("vulpes") |>
   galah_bbox(location) |>
   atlas_occurrences()
-}\if{html}{\out{</div>}}
 }
 
+}
 \seealso{
 \code{\link[=galah_polygon]{galah_polygon()}} & \code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to narrow
 queries by location. See \code{\link[=search_taxa]{search_taxa()}}, \code{\link[=galah_filter]{galah_filter()}} and

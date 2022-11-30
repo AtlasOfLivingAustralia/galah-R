@@ -13,51 +13,13 @@
 #' are provided, returns `NULL`.
 #' @seealso [galah_select()], [galah_filter()] and
 #' [galah_geolocate()] for related methods.
-#' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Return record counts since 2010 by year
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
-#' records <- galah_call() |> 
-#'     galah_filter(year > 2010) |>
-#'     galah_group_by(year) |>
-#'     atlas_counts()
-#' ```
-#' ```{r, comment = "#>", collapse = TRUE}
-#' records
-#' ```
-#'  
-#' Return record counts since 2010 by year and data provider
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
-#' records <- galah_call() |>
-#'     galah_filter(year > 2010) |>
-#'     galah_group_by(year, dataResourceName) |>
-#'     atlas_counts()
-#' ```
-#' ```{r, comment = "#>", collapse = TRUE}
-#' records
-#' ```
-#'     
-#' Return record counts of *Litoria* species each year since 2015, limiting
-#' results to the top 5 each year
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide"}
-#' records <- galah_call() |>
-#'     galah_identify("Litoria") |>
-#'     galah_filter(year > 2015) |>
-#'     galah_group_by(year, species) |>
-#'     atlas_counts(limit = 5)
-#' ```
-#' ```{r, comment = "#>", collapse = TRUE}
-#' records
-#' ```
-#' 
+#' @examples
+#' # Return record counts since 2015 by year
+#' galah_call() |> 
+#'   galah_filter(year >= 2015) |>
+#'   galah_group_by(year) |>
+#'   atlas_counts()
 #' @export
-
 galah_group_by <- function(..., expand = TRUE){
   
   # check to see if any of the inputs are a data request
@@ -75,7 +37,18 @@ galah_group_by <- function(..., expand = TRUE){
     is_data_request <- FALSE
   }
   
-  # if there are any arguments provided, parse them
+  df <- parse_group_by(dots)
+  attr(df, "expand") <- expand
+  
+  # if a data request was supplied, return one
+  if(is_data_request){
+    update_galah_call(data_request, group_by = df)
+  }else{
+    df
+  }
+}
+
+parse_group_by <- function(dots){
   if(length(dots) > 0){
     provided_variables <- dequote(unlist(lapply(dots, as_label)))
     if (getOption("galah_config")$run_checks){
@@ -86,29 +59,17 @@ galah_group_by <- function(..., expand = TRUE){
     if(length(available_variables) > 0){
       df <- tibble(name = available_variables)
       df$type <- ifelse(str_detect(df$name, "[[:lower:]]"), "field", "assertions")
-      attr(df, "call") <- "galah_group_by"
-      attr(df, "expand") <- expand
     }else{
       df <- tibble(name = "name", type = "type", .rows = 0)
-      attr(df, "call") <- "galah_group_by"
-      attr(df, "expand") <- expand
-      df
     }
   }else{
     df <- tibble(name = "name", type = "type", .rows = 0)
-    attr(df, "call") <- "galah_group_by"
-    attr(df, "expand") <- expand
-    df
   }
- 
-  # if a data request was supplied, return one
-  if(is_data_request){
-    update_galah_call(data_request, group_by = df)
-  }else{
-    df
-  }
+  
+  # append attributes
+  attr(df, "call") <- "galah_group_by"
+  return(df)
 }
-
 # for passing to atlas_counts, see rgbif::count_facet
 # in practice, the only fields allowable by `path <- /occurrence/counts` 
 # are `year` (with optional year range);

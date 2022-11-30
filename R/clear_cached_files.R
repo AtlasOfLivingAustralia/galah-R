@@ -4,21 +4,17 @@
 #' metadata
 #' 
 #' @return No return value; called for side effect of removing files
-#' @section Examples:
-#' 
-#' First, set caching to true with [galah_config()]. Then create a data query. 
-#' The data you download will be cached in a temporary directory.
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' @examples \dontrun{
+#' # First set caching to true with [galah_config()]
 #' galah_config(caching = TRUE)
-#' dat <- atlas_counts(group_by = galah_group_by(year))
-#' ```
-#'
-#' To clear your cached files directory, use `clear_cached_files()`
 #' 
-#' ```{r, comment = "#>", collapse = TRUE, results = "hide", eval = FALSE}
+#' # Then create a data query.
+#' # The data you download will be cached in a temporary directory.
+#' dat <- atlas_counts(group_by = galah_group_by(year))
+#'
+#' # To clear your cached files directory, use `clear_cached_files()`
 #' clear_cached_files()
-#' ```
+#' }
 #' 
 #' @export
 

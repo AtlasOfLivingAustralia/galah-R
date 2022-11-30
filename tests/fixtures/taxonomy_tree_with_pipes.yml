@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -16,10 +16,10 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Sun, 09 Oct 2022 23:44:50 GMT
+      date: Tue, 29 Nov 2022 22:35:10 GMT
       content-type: application/json
       content-length: '231'
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       vary: Accept-Encoding
       content-encoding: gzip
       access-control-allow-methods: GET,OPTIONS,POST
@@ -31,7 +31,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"success":true,"scientificName":"Fungi","taxonConceptID":"https://id.biodiversity.org.au/taxon/fungi/60082056","rank":"kingdom","rankID":1000,"lft":709243,"rgt":783467,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Fungi","kingdomID":"https://id.biodiversity.org.au/taxon/fungi/60082056","speciesGroup":["Fungi"],"issues":["noIssue"]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -42,7 +42,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -50,10 +50,10 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Sun, 09 Oct 2022 23:44:50 GMT
+      date: Tue, 29 Nov 2022 22:35:10 GMT
       content-type: application/json
       content-length: '217'
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       vary: Accept-Encoding
       content-encoding: gzip
       access-control-allow-methods: GET,OPTIONS,POST
@@ -65,7 +65,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"success":true,"scientificName":"Fungi","taxonConceptID":"https://id.biodiversity.org.au/taxon/fungi/60082056","rank":"kingdom","rankID":1000,"lft":709243,"rgt":783467,"matchType":"taxonIdMatch","kingdom":"Fungi","kingdomID":"https://id.biodiversity.org.au/taxon/fungi/60082056","speciesGroup":["Fungi"],"issues":["noIssue"]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -76,7 +76,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -86,7 +86,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:50 GMT
+      date: Tue, 29 Nov 2022 22:35:10 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -129,7 +129,7 @@ http_interactions:
         class=\"scientific-name rank-class\"><span class=\"name\">Coelomycetes<\/span><\/span>","author":null,"rank":"class","rankID":3000},{"guid":"https://id.biodiversity.org.au/taxon/lichen/30237875","parentGuid":"https://id.biodiversity.org.au/taxon/fungi/60082056","name":"Deuteromycetes","nameComplete":"Deuteromycetes","nameFormatted":"<span
         class=\"scientific-name rank-class\"><span class=\"name\">Deuteromycetes<\/span><\/span>","author":null,"rank":"class","rankID":3000},{"guid":"https://id.biodiversity.org.au/node/lichen/30170991","parentGuid":"https://id.biodiversity.org.au/taxon/fungi/60082056","name":"Hyphomycetes","nameComplete":"Hyphomycetes","nameFormatted":"<span
         class=\"scientific-name rank-class\"><span class=\"name\">Hyphomycetes<\/span><\/span>","author":null,"rank":"class","rankID":3000}]'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -140,7 +140,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -150,7 +150,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:50 GMT
+      date: Tue, 29 Nov 2022 22:35:11 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -193,7 +193,7 @@ http_interactions:
         class=\"scientific-name rank-class\"><span class=\"name\">Coelomycetes<\/span><\/span>","author":null,"rank":"class","rankID":3000},{"guid":"https://id.biodiversity.org.au/taxon/lichen/30237875","parentGuid":"https://id.biodiversity.org.au/taxon/fungi/60082056","name":"Deuteromycetes","nameComplete":"Deuteromycetes","nameFormatted":"<span
         class=\"scientific-name rank-class\"><span class=\"name\">Deuteromycetes<\/span><\/span>","author":null,"rank":"class","rankID":3000},{"guid":"https://id.biodiversity.org.au/node/lichen/30170991","parentGuid":"https://id.biodiversity.org.au/taxon/fungi/60082056","name":"Hyphomycetes","nameComplete":"Hyphomycetes","nameFormatted":"<span
         class=\"scientific-name rank-class\"><span class=\"name\">Hyphomycetes<\/span><\/span>","author":null,"rank":"class","rankID":3000}]'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -204,7 +204,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -214,7 +214,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:51 GMT
+      date: Tue, 29 Nov 2022 22:35:11 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -234,7 +234,7 @@ http_interactions:
         <span class=\"author\">R. Bauer, Garnica, Oberwinkler, Riess, Wei&szlig; &amp;
         Begerow<\/span><\/span>","author":"R. Bauer, Garnica, Oberwinkler, Riess,
         Weiß & Begerow","rank":"phylum","rankID":2000}]'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -245,7 +245,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -255,7 +255,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:51 GMT
+      date: Tue, 29 Nov 2022 22:35:11 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -293,7 +293,7 @@ http_interactions:
         class=\"name\">Fungi<\/span> <span class=\"author\">Whittaker<\/span><\/span>","identifier":"NZOR-6-121877","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"1959","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":["Taxon
         concept reallocated to Fungi by taxonomy builder to resolve authorship clash"],"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/65e8a38e-0267-43fc-8244-c73a0c8cf3d4","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"Fungi","nameComplete":"Fungi","nameFormatted":"<span
         class=\"scientific-name rank-kingdom\"><span class=\"name\">Fungi<\/span><\/span>","identifier":"8e43417ba4bde2d9eb861cac5e4bf8b8","nomenclaturalCode":"ICBN","taxonomicStatus":"inferredAccepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CoL","taxonRemarks":null,"provenance":null,"infoSourceName":"CoL","infoSourceURL":"https://collections.ala.org.au/public/show/dr2705","datasetURL":"https://collections.ala.org.au/public/show/dr2705","priority":900}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -304,7 +304,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -314,7 +314,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:51 GMT
+      date: Tue, 29 Nov 2022 22:35:12 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -332,7 +332,7 @@ http_interactions:
         class=\"scientific-name rank-kingdom\">Dikarya<\/span>","author":null,"nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"rankString":"subkingdom","nameAuthority":"NZOR","rankID":1200,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"taxonRemarks":null,"provenance":null,"favourite":null,"infoSourceURL":"http://data.nzor.org.nz/names/211d4fd8-2df2-45bc-87e9-6f381c5c5751","datasetURL":"https://collections.ala.org.au/public/show/dr2707","scientificNameID":"http://data.nzor.org.nz/names/211d4fd8-2df2-45bc-87e9-6f381c5c5751"},"taxonName":[],"classification":{"kingdom":"Fungi","kingdomGuid":"https://id.biodiversity.org.au/taxon/fungi/60082056","scientificName":"Dikarya","guid":"NZOR-6-79752","subkingdom":"Dikarya","subkingdomGuid":"NZOR-6-79752"},"synonyms":[],"commonNames":[],"imageIdentifier":null,"conservationStatuses":{},"extantStatuses":[],"habitats":[],"categories":[],"simpleProperties":[],"images":[],"identifiers":[{"identifier":"http://data.nzor.org.nz/names/211d4fd8-2df2-45bc-87e9-6f381c5c5751","nameString":"Scientific
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/211d4fd8-2df2-45bc-87e9-6f381c5c5751","datasetURL":"https://collections.ala.org.au/public/show/dr2707"},{"identifier":"NZOR-6-79752","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/211d4fd8-2df2-45bc-87e9-6f381c5c5751","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Dikarya","nameComplete":"Dikarya","nameFormatted":"<span
         class=\"scientific-name rank-kingdom\">Dikarya<\/span>","identifier":"NZOR-6-79752","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/211d4fd8-2df2-45bc-87e9-6f381c5c5751","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -343,7 +343,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -353,7 +353,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:52 GMT
+      date: Tue, 29 Nov 2022 22:35:12 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -378,7 +378,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\"><span class=\"name\">Entorrhizomycota<\/span>
         <span class=\"author\">R. Bauer, Garnica, Oberwinkler, Riess, Wei&szlig; &amp;
         Begerow<\/span><\/span>","identifier":"NZOR-6-19335","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2015","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/fa3e2097-fffe-4d83-a2b1-87ee2a008c80","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -389,7 +389,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -399,7 +399,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:52 GMT
+      date: Tue, 29 Nov 2022 22:35:12 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -432,7 +432,7 @@ http_interactions:
         (2019), AusFungi 21 Jan. 2019","nameAccordingToID":"https://id.biodiversity.org.au/reference/fungi/60054517","namePublishedIn":"No
         protologue information available","namePublishedInYear":"0","namePublishedInID":null,"nameAuthority":"AusFungi","taxonRemarks":null,"provenance":null,"infoSourceName":"AusFungi","infoSourceURL":"https://id.biodiversity.org.au/taxon/fungi/60082051","datasetURL":null,"priority":6000},{"nameString":"Ascomycota","nameComplete":"Ascomycota","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">Ascomycota<\/span><\/span>","identifier":"945e4d7722839f44e7cd92b6f6aed938","nomenclaturalCode":"ICBN","taxonomicStatus":"inferredAccepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CoL","taxonRemarks":null,"provenance":null,"infoSourceName":"CoL","infoSourceURL":"https://collections.ala.org.au/public/show/dr2705","datasetURL":"https://collections.ala.org.au/public/show/dr2705","priority":900}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -443,7 +443,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -453,7 +453,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:52 GMT
+      date: Tue, 29 Nov 2022 22:35:13 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -486,7 +486,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\"><span class=\"name\">Basidiomycota<\/span><\/span>","identifier":"f88f6ffa7498d8bebe3e1c58cc327562","nomenclaturalCode":"ICBN","taxonomicStatus":"inferredAccepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CoL","taxonRemarks":null,"provenance":null,"infoSourceName":"CoL","infoSourceURL":"https://collections.ala.org.au/public/show/dr2705","datasetURL":"https://collections.ala.org.au/public/show/dr2705","priority":900},{"nameString":"Basidiomycota","nameComplete":"Basidiomycota","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">Basidiomycota<\/span><\/span>","identifier":"https://id.biodiversity.org.au/node/lichen/30174070","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":"P.McCarthy
         (Comp.) (2016), Checklist of the Lichens of Australia and its Island Territories","nameAccordingToID":"https://id.biodiversity.org.au/reference/lichen/30005164","namePublishedIn":"unknown","namePublishedInYear":"0","namePublishedInID":null,"nameAuthority":"ABRSL","taxonRemarks":null,"provenance":null,"infoSourceName":"ABRSL","infoSourceURL":"https://id.biodiversity.org.au/node/lichen/30174070","datasetURL":"https://collections.ala.org.au/public/show/dr17664","priority":2500}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -497,7 +497,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -507,7 +507,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:53 GMT
+      date: Tue, 29 Nov 2022 22:35:13 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -528,7 +528,7 @@ http_interactions:
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/93e7862c-4367-4679-b4c4-f31241bfbbc1","datasetURL":"https://collections.ala.org.au/public/show/dr2707"},{"identifier":"NZOR-6-45238","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/93e7862c-4367-4679-b4c4-f31241bfbbc1","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Blastocladiomycota","nameComplete":"Blastocladiomycota
         T.W. James","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">Blastocladiomycota<\/span> <span class=\"author\">T.W. James<\/span><\/span>","identifier":"NZOR-6-45238","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2007","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/93e7862c-4367-4679-b4c4-f31241bfbbc1","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -539,7 +539,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -549,7 +549,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:53 GMT
+      date: Tue, 29 Nov 2022 22:35:13 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -578,7 +578,7 @@ http_interactions:
         concept reallocated to Chytridiomycota by taxonomy builder to resolve authorship
         clash"],"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/11cbc8b0-7d39-4d19-95aa-44510b1d8353","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000},{"nameString":"Chytridiomycota","nameComplete":"Chytridiomycota","nameFormatted":"<span
         class=\"scientific-name rank-phylum\"><span class=\"name\">Chytridiomycota<\/span><\/span>","identifier":"94f99c93eeb1c362571fa5f249dc753e","nomenclaturalCode":"ICBN","taxonomicStatus":"inferredAccepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"CoL","taxonRemarks":null,"provenance":null,"infoSourceName":"CoL","infoSourceURL":"https://collections.ala.org.au/public/show/dr2705","datasetURL":"https://collections.ala.org.au/public/show/dr2705","priority":900}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -589,7 +589,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -599,7 +599,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:53 GMT
+      date: Tue, 29 Nov 2022 22:35:13 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -621,7 +621,7 @@ http_interactions:
         M.D.M. Jones & T.A. Richards","nameFormatted":"<span class=\"scientific-name
         rank-phylum\"><span class=\"name\">Cryptomycota<\/span> <span class=\"author\">M.D.M.
         Jones &amp; T.A. Richards<\/span><\/span>","identifier":"NZOR-6-131723","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2011","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/889aee45-7ccf-45e7-a066-ee0930f80e67","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -632,7 +632,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -642,7 +642,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:53 GMT
+      date: Tue, 29 Nov 2022 22:35:14 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -671,7 +671,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\"><span class=\"name\">Glomeromycota<\/span><\/span>","identifier":"https://id.biodiversity.org.au/node/fungi/60102999","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":"AusFungi
         (2019), AusFungi 21 Jan. 2019","nameAccordingToID":"https://id.biodiversity.org.au/reference/fungi/60054517","namePublishedIn":"No
         protologue information available","namePublishedInYear":"0","namePublishedInID":null,"nameAuthority":"AusFungi","taxonRemarks":null,"provenance":null,"infoSourceName":"AusFungi","infoSourceURL":"https://id.biodiversity.org.au/node/fungi/60102999","datasetURL":null,"priority":6000}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -682,7 +682,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -692,7 +692,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:54 GMT
+      date: Tue, 29 Nov 2022 22:35:14 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -710,7 +710,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\">Microspora<\/span>","author":null,"nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"rankString":"phylum","nameAuthority":"NZOR","rankID":2000,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"taxonRemarks":null,"provenance":null,"favourite":null,"infoSourceURL":"http://data.nzor.org.nz/names/e0f8b938-0e19-4d15-a20a-2a46417d9604","datasetURL":"https://collections.ala.org.au/public/show/dr2707","scientificNameID":"http://data.nzor.org.nz/names/e0f8b938-0e19-4d15-a20a-2a46417d9604"},"taxonName":[],"classification":{"kingdom":"Fungi","kingdomGuid":"https://id.biodiversity.org.au/taxon/fungi/60082056","scientificName":"Microspora","guid":"NZOR-6-68860","phylum":"Microspora","phylumGuid":"NZOR-6-68860"},"synonyms":[],"commonNames":[],"imageIdentifier":null,"conservationStatuses":{},"extantStatuses":[],"habitats":[],"categories":[],"simpleProperties":[],"images":[],"identifiers":[{"identifier":"NZOR-6-68860","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/e0f8b938-0e19-4d15-a20a-2a46417d9604","datasetURL":"https://collections.ala.org.au/public/show/dr2707"},{"identifier":"http://data.nzor.org.nz/names/e0f8b938-0e19-4d15-a20a-2a46417d9604","nameString":"Scientific
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/e0f8b938-0e19-4d15-a20a-2a46417d9604","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Microspora","nameComplete":"Microspora","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Microspora<\/span>","identifier":"NZOR-6-68860","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/e0f8b938-0e19-4d15-a20a-2a46417d9604","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -721,7 +721,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -731,7 +731,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:54 GMT
+      date: Tue, 29 Nov 2022 22:35:14 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -749,7 +749,7 @@ http_interactions:
         class=\"scientific-name rank-phylum\">Microsporidia<\/span>","author":null,"nomenclaturalCode":"ICBN","taxonomicStatus":"synonym","nomenclaturalStatus":null,"rankString":"phylum","nameAuthority":"NZOR","rankID":2000,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"taxonRemarks":null,"provenance":null,"favourite":null,"infoSourceURL":"http://data.nzor.org.nz/names/e3d35437-ee47-4ef3-a531-1d5ec5fe47df","datasetURL":"https://collections.ala.org.au/public/show/dr2707","scientificNameID":"http://data.nzor.org.nz/names/e3d35437-ee47-4ef3-a531-1d5ec5fe47df"},"taxonName":[],"classification":{"scientificName":"Microsporidia","guid":"NZOR-6-44068","phylum":"Microsporidia","phylumGuid":"NZOR-6-44068"},"synonyms":[],"commonNames":[],"imageIdentifier":null,"conservationStatuses":{},"extantStatuses":[],"habitats":[],"categories":[],"simpleProperties":[],"images":[],"identifiers":[{"identifier":"http://data.nzor.org.nz/names/e3d35437-ee47-4ef3-a531-1d5ec5fe47df","nameString":"Scientific
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/e3d35437-ee47-4ef3-a531-1d5ec5fe47df","datasetURL":"https://collections.ala.org.au/public/show/dr2707"},{"identifier":"NZOR-6-44068","nameString":"Taxon","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/e3d35437-ee47-4ef3-a531-1d5ec5fe47df","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Microsporidia","nameComplete":"Microsporidia","nameFormatted":"<span
         class=\"scientific-name rank-phylum\">Microsporidia<\/span>","identifier":"NZOR-6-44068","nomenclaturalCode":"ICBN","taxonomicStatus":"synonym","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":null,"namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/e3d35437-ee47-4ef3-a531-1d5ec5fe47df","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -760,7 +760,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -770,7 +770,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:54 GMT
+      date: Tue, 29 Nov 2022 22:35:15 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -790,7 +790,7 @@ http_interactions:
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/f1b3ac4b-c115-4d03-95c6-97d2fc4d2dd9","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Mucoromycota","nameComplete":"Mucoromycota
         Doweld","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">Mucoromycota<\/span> <span class=\"author\">Doweld<\/span><\/span>","identifier":"NZOR-6-95922","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2001","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/f1b3ac4b-c115-4d03-95c6-97d2fc4d2dd9","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -801,7 +801,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -811,7 +811,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:55 GMT
+      date: Tue, 29 Nov 2022 22:35:15 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -832,7 +832,7 @@ http_interactions:
         Name","status":"current","subject":null,"format":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/9df838a9-8e0c-4774-9716-44508f3fba8c","datasetURL":"https://collections.ala.org.au/public/show/dr2707"}],"variants":[{"nameString":"Neocallimastigomycota","nameComplete":"Neocallimastigomycota
         M.J. Powell","nameFormatted":"<span class=\"scientific-name rank-phylum\"><span
         class=\"name\">Neocallimastigomycota<\/span> <span class=\"author\">M.J. Powell<\/span><\/span>","identifier":"NZOR-6-117717","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2007","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/9df838a9-8e0c-4774-9716-44508f3fba8c","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -843,7 +843,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -853,7 +853,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:55 GMT
+      date: Tue, 29 Nov 2022 22:35:15 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -876,7 +876,7 @@ http_interactions:
         Gryganskyi, M.E. Smith, Stajich & Spatafora","nameFormatted":"<span class=\"scientific-name
         rank-phylum\"><span class=\"name\">Zoopagomycota<\/span> <span class=\"author\">Gryganskyi,
         M.E. Smith, Stajich &amp; Spatafora<\/span><\/span>","identifier":"NZOR-6-119157","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":null,"nameAccordingToID":null,"namePublishedIn":null,"namePublishedInYear":"2016","namePublishedInID":null,"nameAuthority":"NZOR","taxonRemarks":null,"provenance":null,"infoSourceName":"NZOR","infoSourceURL":"http://data.nzor.org.nz/names/44dc40cc-9283-427b-aeee-61e186d8c8fd","datasetURL":"https://collections.ala.org.au/public/show/dr2707","priority":3000}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -887,7 +887,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -897,7 +897,7 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:44:55 GMT
+      date: Tue, 29 Nov 2022 22:35:16 GMT
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.18.0 (Ubuntu)
       status: 'HTTP/2 200 '
@@ -925,5 +925,5 @@ http_interactions:
         class=\"scientific-name rank-phylum\"><span class=\"name\">Zygomycota<\/span><\/span>","identifier":"https://id.biodiversity.org.au/node/fungi/60103133","nomenclaturalCode":"ICBN","taxonomicStatus":"accepted","nomenclaturalStatus":null,"nameAccordingTo":"AusFungi
         (2019), AusFungi 21 Jan. 2019","nameAccordingToID":"https://id.biodiversity.org.au/reference/fungi/60054517","namePublishedIn":"No
         protologue information available","namePublishedInYear":"0","namePublishedInID":null,"nameAuthority":"AusFungi","taxonRemarks":null,"provenance":null,"infoSourceName":"AusFungi","infoSourceURL":"https://id.biodiversity.org.au/node/fungi/60103133","datasetURL":null,"priority":6000}]}'
-  recorded_at: 2022-10-09 23:44:55 GMT
+  recorded_at: 2022-11-29 22:35:16 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

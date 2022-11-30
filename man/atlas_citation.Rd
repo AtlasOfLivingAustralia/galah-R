@@ -21,3 +21,8 @@ attribute. This function simply formats that DOI as a citation that can be
 included in a scientific publication. Please also consider citing this
 package, using the information in \code{citation("galah")}.
 }
+\examples{
+\dontrun{
+atlas_citation(doi)
+}
+}

@@ -35,9 +35,20 @@ vcr::use_cassette("IA_Brazil_search_all", {
 
 vcr::use_cassette("IA_Brazil_show_values", {
   test_that("show_values works for Brazil", {
-    expect_gt(nrow(show_field_values("basis_of_record")), 1)
-    expect_gt(nrow(show_list_values("drt1565630923841")), 1)
-    expect_error(show_profile_values("profile"))
+    
+    search_fields("basis_of_record") |> 
+      show_values() |>
+      nrow() |>
+      expect_gt(1)
+    
+    search_lists("drt1565630923841") |> 
+      show_values() |>
+      nrow() |>
+      expect_gt(1)
+    
+    search_profiles("profile") |> 
+      show_values() |>
+      expect_error()
   })
 })
 

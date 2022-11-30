@@ -13,70 +13,19 @@ galah_down_to(...)
 A string with the named rank
 }
 \description{
-\code{atlas_taxonomy} generates a downwards search of the taxonomic tree. This
-function can be used to specify the name of a valid taxonomic rank using
-non-standard evaluation (NSE), for consistency with other \code{galah_} functions.
+\code{atlas_taxonomy} generates a downwards search of the taxonomic tree. Use
+\code{galah_down_to()} to specify the taxonomic level to search to.
+\code{galah_down_to()} uses non-standard evaluation (NSE).
 }
-\section{Examples}{
-
-
-An example of using \code{galah_down_to()} with \code{\link[=atlas_taxonomy]{atlas_taxonomy()}}. Return a
-taxonomic tree of \emph{Chordata} down to the class level
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
-    galah_identify("Chordata") |>
+\examples{
+# Return a taxonomic tree of *Chordata* down to the class level
+\dontrun{
+galah_call() |>
+    galah_identify("Vertebrata") |>
     galah_down_to(class) |>
     atlas_taxonomy()
-#>                             levelName
-#> 1  Chordata                          
-#> 2   ¦--Cephalochordata               
-#> 3   ¦   °--Amphioxi                  
-#> 4   ¦--Craniata                      
-#> 5   ¦   °--Agnatha                   
-#> 6   ¦       ¦--Cephalasipidomorphi   
-#> 7   ¦       °--Myxini                
-#> 8   ¦--Tunicata                      
-#> 9   ¦   ¦--Appendicularia            
-#> 10  ¦   ¦--Ascidiacea                
-#> 11  ¦   °--Thaliacea                 
-#> 12  °--Vertebrata                    
-#> 13      °--Gnathostomata             
-#> 14          ¦--Amphibia              
-#> 15          ¦--Aves                  
-#> 16          ¦--Mammalia              
-#> 17          ¦--Pisces                
-#> 18          ¦   ¦--Actinopterygii    
-#> 19          ¦   ¦--Chondrichthyes    
-#> 20          ¦   ¦--Cephalaspidomorphi
-#> 21          ¦   °--Sarcopterygii     
-#> 22          °--Reptilia
-}\if{html}{\out{</div>}}
-
-Another example: return a taxonomic tree of \emph{Cacatuidae} down to the genus
-level
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
-  galah_identify("Cacatuidae") |>
-  galah_down_to(genus) |>
-  atlas_taxonomy()
-#>                    levelName
-#> 1  Cacatuidae               
-#> 2   ¦--Cacatuinae           
-#> 3   ¦   ¦--Cacatuini        
-#> 4   ¦   ¦   ¦--Cacatua      
-#> 5   ¦   ¦   ¦--Callocephalon
-#> 6   ¦   ¦   ¦--Eolophus     
-#> 7   ¦   ¦   °--Lophochroa   
-#> 8   ¦   °--Microglossini    
-#> 9   ¦       °--Probosciger  
-#> 10  ¦--Calyptorhynchinae    
-#> 11  ¦   ¦--Calyptorhynchus  
-#> 12  ¦   °--Zanda            
-#> 13  °--Nymphicinae          
-#> 14      °--Nymphicus
-}\if{html}{\out{</div>}}
 }
-
+}
 \seealso{
 \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and
 \code{\link[=galah_geolocate]{galah_geolocate()}} for related methods.

@@ -6,21 +6,15 @@
 #' @param df 
 #'   A `tibble` of species occurrence records or media IDs.
 #' @returns a `tibble` of matching media files of occurrence records or media ids
-#' @section Examples: 
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Search for media files associated with a specified set of 
-#' species occurrence records
-#' 
-#' ```{r, comment = "#>", collapse = TRUE, eval = FALSE}
+#' @examples \dontrun{
+#' # Search for media files for a set of species occurrence records
 #' occs <- galah_call() |>
 #'   galah_identify("perameles") |>
 #'   galah_filter(year == 2001) |>
 #'   atlas_occurrences()
 #'   
 #' search_media(occs)
-#' ```
+#' }
 #' 
 #' @rdname search_media
 #' @export search_media
@@ -70,6 +64,7 @@ search_media <- function(df){
   }
 
   # i.e. service is online, but no data available
+  verbose <- getOption("galah_config")$verbose
   if (nrow(metadata) == 0) {
     if(verbose){
       system_down_message("search_media")
@@ -96,8 +91,7 @@ media_metadata <- function(ids){
     x <- atlas_GET(url)
     as.data.frame(x[lengths(x) == 1])
   })
-  df <- rbindlist(result, fill = TRUE)
-  as.data.frame(df)
+  bind_rows(result) |> tibble()
 }
 
 # # Use media filter to filter returned results

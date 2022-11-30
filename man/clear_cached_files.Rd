@@ -13,19 +13,17 @@ No return value; called for side effect of removing files
 Deletes cached files within the cached file directory and their query
 metadata
 }
-\section{Examples}{
+\examples{
+\dontrun{
+# First set caching to true with [galah_config()]
+galah_config(caching = TRUE)
 
-
-First, set caching to true with \code{\link[=galah_config]{galah_config()}}. Then create a data query.
-The data you download will be cached in a temporary directory.
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(caching = TRUE)
+# Then create a data query.
+# The data you download will be cached in a temporary directory.
 dat <- atlas_counts(group_by = galah_group_by(year))
-}\if{html}{\out{</div>}}
 
-To clear your cached files directory, use \code{clear_cached_files()}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{clear_cached_files()
-}\if{html}{\out{</div>}}
+# To clear your cached files directory, use `clear_cached_files()`
+clear_cached_files()
 }
 
+}

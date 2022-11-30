@@ -15,6 +15,21 @@
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
 #' occurrences 
 #' 
+#' @examples \dontrun{
+#' # Download previously retrieved records using an existing DOI or URL
+#' collect_occurrences(doi = "your-doi")
+#' 
+#' # DOIs can be minted by adding `mint_doi = TRUE` to `atlas_occurrences()`
+#' records <- 
+#'   galah_call() |>
+#'   galah_identify("perameles") |>
+#'   galah_filter(year == 2001) |>
+#'   atlas_occurrences(mint_doi = TRUE)
+#' 
+#' attributes(records)$doi # return minted doi
+#' }
+#' 
+#' @importFrom readr read_csv
 #' @export collect_occurrences
 
 collect_occurrences <- function(url, doi){
@@ -71,19 +86,22 @@ doi_download <- function(doi, error_call = caller_env()) {
     cat("Downloading\n")
   }
 
-  path <- atlas_url("doi_download", doi_string = doi_str) |>
-          atlas_download(ext = ".zip", cache_file = tempfile(pattern = "data"))
-
+  url_complete <- atlas_url("doi_download", doi_string = doi_str)
+  path <- atlas_download(url_complete, 
+                         ext = ".zip", 
+                         cache_file = tempfile(pattern = "data"))
   if(is.null(path)){
     inform("Download failed")
     return(tibble())
   }else{
+    
+    
     record_file <- grep("^records", unzip(path, list=TRUE)$Name, 
                         ignore.case=TRUE, value=TRUE)
-    result <- read.csv(unz(path, record_file), stringsAsFactors = FALSE)
-    
-    # return tibble with correct info
-    result <- as_tibble(result)
+    result <- read_csv(unz(path, record_file), 
+                       col_types = cols(),
+                       na = character()) |>
+              suppressWarnings()
     attr(result, "doi") <- doi
     attr(result, "call") <- "atlas_occurrences"
     
@@ -117,9 +135,8 @@ url_download <- function(url){
     inform("There was a problem reading the occurrence data and it looks like no data were returned.")
   }else{
     result <- do.call(rbind, 
-                      lapply(data_files, 
-                             function(a){read.csv(unz(local_file, a))})) |> 
-              as_tibble()
+                      lapply(data_files, function(a){
+                        read_csv(unz(local_file, a), col_types = cols())}))
   }
   
   # rename cols so they match requested cols

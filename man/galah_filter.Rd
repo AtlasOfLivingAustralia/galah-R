@@ -19,18 +19,21 @@ default no profile is applied.}
 A tibble containing filter values.
 }
 \description{
-'filters' are arguments of the form \verb{field logical value} that are used
+"Filters" are arguments of the form \code{field} \code{logical} \code{value} that are used
 to narrow down the number of records returned by a specific query.
 For example, it is common for users to request records from a particular year
 (\code{year == 2020}), or to return all records except for fossils
 (\code{basisOfRecord != "FossilSpecimen"}).
-The result of \code{galah_filter} can be passed to the \code{filters}
-argument in \code{\link[=atlas_occurrences]{atlas_occurrences()}}, \code{\link[=atlas_species]{atlas_species()}} or
-\code{\link[=atlas_counts]{atlas_counts()}}. \code{galah_filter} uses non-standard evaluation (NSE),
-and is designed to be as compatible as possible with \code{dplyr::filter}
-syntax.
+
+The result of \code{galah_filter()} can be passed to the \code{filter}
+argument in \code{\link[=atlas_occurrences]{atlas_occurrences()}}, \code{\link[=atlas_species]{atlas_species()}},
+\code{\link[=atlas_counts]{atlas_counts()}} or \code{\link[=atlas_media]{atlas_media()}}.
 }
 \details{
+\code{galah_filter} uses non-standard evaluation (NSE),
+and is designed to be as compatible as possible with \code{dplyr::filter()}
+syntax.
+
 All statements passed to \code{galah_filter()} (except the \code{profile}
 argument) take the form of field - logical - value. Permissible examples include:
 \itemize{
@@ -46,127 +49,67 @@ In some cases \code{R} will fail to parse inputs with a single equals sign
 (\code{=}), particularly where statements are separated by \code{&} or
 \code{|}. This problem can be avoided by using a double-equals (\code{==}) instead.
 }
-\section{Examples}{
-
-
-Filter query results to return records of interest
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+\examples{
+# Filter query results to return records of interest
+galah_call() |>
   galah_filter(year >= 2019) |>
   atlas_counts()
-#> # A tibble: 1 x 1
-#>      count
-#>      <int>
-#> 1 20366557
-}\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+galah_call() |>
   galah_filter(year >= 2019,
                basisOfRecord == "HumanObservation") |>
   atlas_counts()
-#> # A tibble: 1 x 1
-#>      count
-#>      <int>
-#> 1 19913665
-}\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+galah_call() |>
   galah_filter(year >= 2019,
                basisOfRecord == "HumanObservation",
                stateProvince == "New South Wales") |>
   atlas_counts()
-#> # A tibble: 1 x 1
-#>     count
-#>     <int>
-#> 1 5718532
-}\if{html}{\out{</div>}}
-
-Use filters to exclude particular values
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |> 
+ 
+# Use filters to exclude particular values
+galah_call() |> 
   galah_filter(year >= 2010 & year != 2021) |>
   atlas_counts()
-#> # A tibble: 1 x 1
-#>      count
-#>      <int>
-#> 1 47747836
-}\if{html}{\out{</div>}}
-
-Separating statements with a comma is equivalent to an \code{AND} statement
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_filter(year >= 2010 & year < 2020) # is the same as:
+\dontrun{
+# Separating statements with a comma is equivalent to an `AND` statement
+galah_filter(year >= 2010 & year < 2020) # is the same as:
 galah_filter(year >= 2010, year < 2020)
-}\if{html}{\out{</div>}}
 
-All statements must include the field name
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_filter(year == 2010 | year == 2021) # this works (note double equals)
+# All statements must include the field name
+galah_filter(year == 2010 | year == 2021) # this works (note double equals)
 galah_filter(year == c(2010, 2021)) # same as above 
 galah_filter(year == 2010 | 2021) # this fails
-}\if{html}{\out{</div>}}
-
-It is possible to use an object to specify required values
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Numeric example
-
+}
+# It is possible to use an object to specify required values
+# Numeric example
 year_value <- 2010
-
 galah_call() |>
   galah_filter(year > year_value) |>
   atlas_counts()
-#> # A tibble: 1 x 1
-#>      count
-#>      <int>
-#> 1 52394484
-}\if{html}{\out{</div>}}
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Categorical example
-
+# Categorical example
 basis_of_record <- c("HumanObservation", "MaterialSample")
-
 galah_call() |>
   galah_filter(basisOfRecord == basis_of_record) |>
   atlas_counts()
-#> # A tibble: 1 x 1
-#>      count
-#>      <int>
-#> 1 89210548
-}\if{html}{\out{</div>}}
 
-\code{solr} supports range queries on text as well as numbers. The following
-queries all Australian States and Territories alphabetically after "Tasmania"
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+# `solr` supports range queries on text as well as numbers. 
+# e.g. query Australian States & Territories alphabetically after "Tasmania"
+galah_call() |>
   galah_filter(cl22 >= "Tasmania") |>
   atlas_counts()
-#> # A tibble: 1 x 1
-#>      count
-#>      <int>
-#> 1 33660354
-}\if{html}{\out{</div>}}
 
-Filter out specific records that could be unreliable using "assertions"
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_assertions("coordinate invalid")
-#> # A tibble: 1 x 4
-#>   id                 description        category type      
-#>   <chr>              <chr>              <chr>    <chr>     
-#> 1 COORDINATE_INVALID Coordinate invalid Warning  assertions
-
+# Filter out specific records that could be unreliable using "assertions"
+search_assertions("coordinate invalid")
 galah_call() |>
   galah_filter(COORDINATE_INVALID == FALSE) |>
   atlas_counts()
-#> # A tibble: 1 x 1
-#>       count
-#>       <int>
-#> 1 110687674
-}\if{html}{\out{</div>}}
-}
 
+}
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} and \code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to restrict
 the information returned by \code{\link[=atlas_occurrences]{atlas_occurrences()}} and related functions. Use
 \code{search_all(fields)} to find fields that
-you can filter by, and \code{\link[=search_field_values]{search_field_values()}} to find what values
+you can filter by, and \code{\link[=show_values]{show_values()}} to find what values
 of those filters are available.
 }

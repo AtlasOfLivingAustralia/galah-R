@@ -34,24 +34,20 @@ Available image & media files downloaded to a user local directory.
 This function downloads full-sized or thumbnail images and media files using
 information from \code{atlas_media} to a local directory.
 }
-\section{Examples}{
-
-
-Use \code{atlas_media()} to return a \code{tibble} of records that contain media
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |> 
+\examples{
+\dontrun{
+# Use `atlas_media()` to return a `tibble` of records that contain media
+galah_call() |> 
   galah_identify("perameles") |>
   galah_filter(year == 2015) |>
   atlas_media()
-}\if{html}{\out{</div>}}
 
-Then add \code{collect_media()} to the end of a query to download media files
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |> 
+# To download media files, add `collect_media()` to the end of a query 
+galah_call() |> 
   galah_identify("perameles") |>
   galah_filter(year == 2015) |>
   atlas_media() |>
   collect_media(path = here::here("folder", "subfolder"))
-}\if{html}{\out{</div>}}
 }
 
+}

@@ -4,10 +4,10 @@
 \alias{search_identifiers}
 \title{Search for taxa with taxonomic identifiers}
 \usage{
-search_identifiers(identifier)
+search_identifiers(query)
 }
 \arguments{
-\item{identifier}{\code{string}: A vector containing one or more taxonomic
+\item{query}{\code{string}: A vector containing one or more taxonomic
 identifiers, given as strings.}
 }
 \value{
@@ -20,25 +20,14 @@ identifies the taxon to which that record belongs. Once those identifiers
 are known, this function allows you to use them to look up further information
 on the taxon in question. Effectively this is the inverse function to
 \code{\link[=search_taxa]{search_taxa()}}, which takes names and provides identifiers. The resulting
-\code{data.frame} of taxonomic information can also be passed directly to
-\code{atlas_} functions to filter records to the specified taxon or taxa.
+\code{tibble} of taxonomic information can also be passed to \code{\link[=galah_identify]{galah_identify()}} to
+filter queries to the specified taxon or taxa.
 }
-\section{Examples}{
+\examples{
+# Look up a unique taxon identifier
+search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
 
-
-Look up a unique taxon identifier
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
-#> # A tibble: 1 x 14
-#>   scient~1 scien~2 taxon~3 rank  match~4 kingdom phylum class order family genus
-#>   <chr>    <chr>   <chr>   <chr> <chr>   <chr>   <chr>  <chr> <chr> <chr>  <chr>
-#> 1 Eucalyp~ Maiden  https:~ spec~ taxonI~ Plantae Charo~ Equi~ Myrt~ Myrta~ Euca~
-#> # ... with 3 more variables: species <chr>, vernacular_name <chr>,
-#> #   issues <chr>, and abbreviated variable names 1: scientific_name,
-#> #   2: scientific_name_authorship, 3: taxon_concept_id, 4: match_type
-}\if{html}{\out{</div>}}
 }
-
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} for how to find species by (scientific) names.
 \code{\link[=galah_identify]{galah_identify()}}, \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and

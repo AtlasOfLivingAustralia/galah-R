@@ -1,4 +1,4 @@
-url: https://atlasoflivingaustralia.github.io/galah
+url: https://galah.ala.org.au
 template:
   bootstrap: 5
   bslib:
@@ -22,14 +22,14 @@ navbar:
     articles:
       text: Articles
       menu:
-      - text: Narrow your results
-        href: articles/narrow_your_results.html
+      - text: Piping in galah
+        href: articles/piping.html
       - text: Look up information
         href: articles/look_up_information.html
+      - text: Narrow your results
+        href: articles/narrow_your_results.html
       - text: Download data
         href: articles/download_data.html
-      - text: Syntax changes
-        href: articles/syntax_changes.html
       - text: International atlases
         href: articles/international_atlases.html
     news:
@@ -38,6 +38,21 @@ navbar:
 reference:
 - title: Start a data query
   contents: galah_call
+- title: Look up information
+  contents:
+  - show_all
+  - search_all
+  - search_taxa
+  - search_identifiers
+  - search_fields
+  - search_media
+  - search_values
+  - show_all_profiles
+  - show_all_fields
+  - show_all_atlases
+  - show_all_reasons
+  - show_all_ranks
+  - show_values
 - title: Narrow results
   contents:
   - galah_identify
@@ -56,21 +71,16 @@ reference:
   - atlas_media
   - collect_media
   - collect_occurrences
-- title: Look up information
+- title: Masked functions
   contents:
-  - show_all
-  - search_all
-  - search_taxa
-  - search_identifiers
-  - search_fields
-  - search_media
-  - search_values
-  - show_all_profiles
-  - show_all_fields
-  - show_all_atlases
-  - show_all_reasons
-  - show_all_ranks
-  - show_values
+  - identify.data_request
+  - filter.data_request
+  - select.data_request
+  - group_by.data_request
+  - st_crop.data_request
+  - slice_head.data_request
+  - count.data_request
+  - reexports
 - title: Manage cache
   contents:
   - clear_cached_files

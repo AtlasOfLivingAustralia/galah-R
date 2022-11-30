@@ -24,76 +24,13 @@ used to return record counts grouped by multiple, valid fields (found by
 \code{group_by} argument of \code{atlas_counts} to return record counts summed
 by one or more valid fields.
 }
-\section{Examples}{
-
-
-Return record counts since 2010 by year
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |> 
-    galah_filter(year > 2010) |>
-    galah_group_by(year) |>
-    atlas_counts()
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 12 x 2
-#>    year    count
-#>    <chr>   <int>
-#>  1 2021  7117117
-#>  2 2020  6399409
-#>  3 2019  5760766
-#>  4 2018  5625144
-#>  5 2017  4856883
-#>  6 2014  4037074
-#>  7 2016  4010111
-#>  8 2015  3834174
-#>  9 2013  3723858
-#> 10 2012  3153658
-#> 11 2011  2787025
-#> 12 2022  1089265
-}\if{html}{\out{</div>}}
-
-Return record counts since 2010 by year and data provider
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
-    galah_filter(year > 2010) |>
-    galah_group_by(year, dataResourceName) |>
-    atlas_counts()
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 127 x 3
-#>   dataResourceName year    count
-#>   <chr>            <chr>   <int>
-#> 1 eBird Australia  2021  5473631
-#> 2 eBird Australia  2020  4613576
-#> 3 eBird Australia  2019  4181309
-#> 4 eBird Australia  2018  3630154
-#> # ... with 123 more rows
-}\if{html}{\out{</div>}}
-
-Return record counts of \emph{Litoria} species each year since 2015, limiting
-results to the top 5 each year
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{records <- galah_call() |>
-    galah_identify("Litoria") |>
-    galah_filter(year > 2015) |>
-    galah_group_by(year, species) |>
-    atlas_counts(limit = 5)
-}\if{html}{\out{</div>}}
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{records
-#> # A tibble: 35 x 3
-#>   species         year  count
-#>   <chr>           <chr> <int>
-#> 1 Litoria peronii 2020  18370
-#> 2 Litoria peronii 2019  11122
-#> 3 Litoria peronii 2018  11093
-#> 4 Litoria peronii 2017   6385
-#> # ... with 31 more rows
-}\if{html}{\out{</div>}}
+\examples{
+# Return record counts since 2010 by year
+galah_call() |> 
+  galah_filter(year > 2010) |>
+  galah_group_by(year) |>
+  atlas_counts()
 }
-
 \seealso{
 \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and
 \code{\link[=galah_geolocate]{galah_geolocate()}} for related methods.

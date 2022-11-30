@@ -41,117 +41,16 @@ becomes slow for large queries such as
 Although the inputs to \code{search_taxa} and \code{down_to} are
 case-insensitive, node names are always returned in title case.
 }
-\section{Examples}{
-
-
-Get a taxonomic tree of \emph{Chordata} down to the class level
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |> 
+\examples{
+\donttest{
+# Get a taxonomic tree of *Chordata* down to the class level
+galah_call() |> 
   galah_identify("chordata") |>
   galah_down_to(class) |>
   atlas_taxonomy()
-#>                             levelName
-#> 1  Chordata                          
-#> 2   ¦--Cephalochordata               
-#> 3   ¦   °--Amphioxi                  
-#> 4   ¦--Craniata                      
-#> 5   ¦   °--Agnatha                   
-#> 6   ¦       ¦--Cephalasipidomorphi   
-#> 7   ¦       °--Myxini                
-#> 8   ¦--Tunicata                      
-#> 9   ¦   ¦--Appendicularia            
-#> 10  ¦   ¦--Ascidiacea                
-#> 11  ¦   °--Thaliacea                 
-#> 12  °--Vertebrata                    
-#> 13      °--Gnathostomata             
-#> 14          ¦--Amphibia              
-#> 15          ¦--Aves                  
-#> 16          ¦--Mammalia              
-#> 17          ¦--Pisces                
-#> 18          ¦   ¦--Actinopterygii    
-#> 19          ¦   ¦--Chondrichthyes    
-#> 20          ¦   ¦--Cephalaspidomorphi
-#> 21          ¦   °--Sarcopterygii     
-#> 22          °--Reptilia
-}\if{html}{\out{</div>}}
-
-Get a taxonomic tree of \emph{Fungi} down to the phylum level
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
-  galah_identify("fungi") |>
-  galah_down_to(class) |>
-  atlas_taxonomy()
-#>                              levelName
-#> 1  Fungi                              
-#> 2   ¦--Ascomycota                     
-#> 3   ¦   ¦--Discomycetes               
-#> 4   ¦   ¦--Pezizomycotina             
-#> 5   ¦   ¦   ¦--Arthoniomycetes        
-#> 6   ¦   ¦   ¦--Dothideomycetes        
-#> 7   ¦   ¦   ¦--Eurotiomycetes         
-#> 8   ¦   ¦   ¦--Geoglossomycetes       
-#> 9   ¦   ¦   ¦--Laboulbeniomycetes     
-#> 10  ¦   ¦   ¦--Lecanoromycetes        
-#> 11  ¦   ¦   ¦--Leotiomycetes          
-#> 12  ¦   ¦   ¦--Lichinomycetes         
-#> 13  ¦   ¦   ¦--Orbiliomycetes         
-#> 14  ¦   ¦   ¦--Pezizomycetes          
-#> 15  ¦   ¦   ¦--Sordariomycetes        
-#> 16  ¦   ¦   °--Xylonomycetes          
-#> 17  ¦   ¦--Saccharomycotina           
-#> 18  ¦   ¦   °--Saccharomycetes        
-#> 19  ¦   ¦--Taphrinomycotina           
-#> 20  ¦   ¦   ¦--Neolectomycetes        
-#> 21  ¦   ¦   ¦--Pneumocystidomycetes   
-#> 22  ¦   ¦   ¦--Schizosaccharomycetes  
-#> 23  ¦   ¦   °--Taphrinomycetes        
-#> 24  ¦   °--Pyrenomycete               
-#> 25  ¦--Basidiomycota                  
-#> 26  ¦   ¦--Agaricomycotina            
-#> 27  ¦   ¦   ¦--Agaricomycetes         
-#> 28  ¦   ¦   ¦--Dacrymycetes           
-#> 29  ¦   ¦   °--Tremellomycetes        
-#> 30  ¦   ¦--Entorrhizomycetes          
-#> 31  ¦   ¦--Pucciniomycotina           
-#> 32  ¦   ¦   ¦--Agaricostilbomycetes   
-#> 33  ¦   ¦   ¦--Atractiellomycetes     
-#> 34  ¦   ¦   ¦--Classiculomycetes      
-#> 35  ¦   ¦   ¦--Cryptomycocolacomycetes
-#> 36  ¦   ¦   ¦--Cystobasidiomycetes    
-#> 37  ¦   ¦   ¦--Microbotryomycetes     
-#> 38  ¦   ¦   ¦--Pucciniomycetes        
-#> 39  ¦   ¦   ¦--Spiculogloeomycetes    
-#> 40  ¦   ¦   ¦--Tritirachiomycetes     
-#> 41  ¦   ¦   °--Urediniomycetes        
-#> 42  ¦   ¦--Wallemiomycetes            
-#> 43  ¦   °--Ustilaginomycotina         
-#> 44  ¦       ¦--Exobasidiomycetes      
-#> 45  ¦       ¦--Malasseziomycetes      
-#> 46  ¦       ¦--Monilielliomycetes     
-#> 47  ¦       ¦--Ustilaginomycetes      
-#> 48  ¦       °--Ustomycetes            
-#> 49  ¦--Chytridiomycota                
-#> 50  ¦   ¦--Blastocladiomycetes        
-#> 51  ¦   ¦--Chytridiomycetes           
-#> 52  ¦   ¦--Monoblepharidomycetes      
-#> 53  ¦   °--Neocallimastigomycetes     
-#> 54  ¦--Glomeromycota                  
-#> 55  ¦   °--Glomeromycetes             
-#> 56  ¦--Microspora                     
-#> 57  ¦   °--Microsporea                
-#> 58  ¦--Zygomycota                     
-#> 59  ¦   ¦--Entomophthoromycotina      
-#> 60  ¦   ¦   ¦--Basidiobolomycetes     
-#> 61  ¦   ¦   ¦--Entomophthoromycetes   
-#> 62  ¦   ¦   °--Neozygitomycetes       
-#> 63  ¦   ¦--Trichomycetes              
-#> 64  ¦   °--Zygomycetes                
-#> 65  ¦--Coelomycetes                   
-#> 66  ¦--Deuteromycetes                 
-#> 67  °--Hyphomycetes
-}\if{html}{\out{</div>}}
 }
 
+}
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} to search for an individual taxon;
 \code{show_all(ranks)} for valid ranks used to specify the \code{down_to}

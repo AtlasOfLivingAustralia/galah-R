@@ -17,18 +17,15 @@ Search for media files for a set of occurrence records
 downloaded using \code{\link[=atlas_occurrences]{atlas_occurrences()}}. \code{search_media()} also accepts
 a set of media IDs (parsed or unparsed).
 }
-\section{Examples}{
-
-
-Search for media files associated with a specified set of
-species occurrence records
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{occs <- galah_call() |>
+\examples{
+\dontrun{
+# Search for media files for a set of species occurrence records
+occs <- galah_call() |>
   galah_identify("perameles") |>
   galah_filter(year == 2001) |>
   atlas_occurrences()
   
 search_media(occs)
-}\if{html}{\out{</div>}}
 }
 
+}

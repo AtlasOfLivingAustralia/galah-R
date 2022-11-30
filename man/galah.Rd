@@ -4,19 +4,16 @@
 \name{galah}
 \alias{galah}
 \alias{galah-package}
-\title{Download biodiversity data from the Atlas of Living Australia}
+\title{Biodiversity Data from the Living Atlas Community}
 \description{
-\code{galah} is an R interface to the Atlas of
-Living Australia (ALA; \url{https://www.ala.org.au/}),
-a biodiversity data repository focussed
-primarily on observations of individual life forms.
-It also supports access to some other 'living atlases' that use the same
-computational infrastructure. The
-basic unit of data at ALA is an \strong{occurrence} record, based on the
-'Darwin Core' data standard (\url{https://dwc.tdwg.org}). \code{galah} enables users to
-locate and download species observations, taxonomic information, or
-associated media such images or sounds, and to restrict their queries to
-particular taxa or locations. Users can specify which columns are returned
+The living atlas community provides tools to enable users to find, access,
+combine and visualise data on biodiversity. 'galah' enables the R community
+to directly access data and resources hosted by the living atlases. The
+basic unit of observation is an \strong{occurrence} record, based on the
+'Darwin Core' data standard (\url{https://dwc.tdwg.org}); however \code{galah} also
+enables users to locate and download taxonomic information,
+associated media such images or sounds, all while restricting their queries
+to particular taxa or locations. Users can specify which columns are returned
 by a query, or restrict their results to observations that meet particular
 quality-control criteria.
 }
@@ -29,23 +26,25 @@ quality-control criteria.
 
 \strong{Narrow your results}
 \itemize{
-\item \code{\link[=galah_identify]{galah_identify()}} Search for taxonomic identifiers
-\item \code{\link[=galah_filter]{galah_filter()}} Filter records
-\item \code{\link[=galah_select]{galah_select()}} Fields to report information for
-\item \code{\link[=galah_group_by]{galah_group_by()}} Fields to group counts by
-\item \code{\link[=galah_geolocate]{galah_geolocate()}} Specify a location
+\item \code{\link[=galah_identify]{galah_identify()}} or \code{\link[=identify.data_request]{identify()}} Search for taxonomic identifiers
+\item \code{\link[=galah_filter]{galah_filter()}} or \code{\link[=filter.data_request]{filter()}} Filter records
+\item \code{\link[=galah_select]{galah_select()}} or \code{\link[=select.data_request]{select()}} Fields to report information for
+\item \code{\link[=galah_group_by]{galah_group_by()}} or \code{\link[=group_by.data_request]{group_by()}} Fields to group counts by
+\item \code{\link[=galah_geolocate]{galah_geolocate()}} or \code{\link[=st_crop.data_request]{st_crop()}} Specify a location
+\item \code{\link[=galah_apply_profile]{galah_apply_profile()}} Restrict to data that pass predefined checks (ALA only)
 \item \code{\link[=galah_down_to]{galah_down_to()}} Specify a taxonomic rank
+\item \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
 }
 
 \strong{Download data}
 \itemize{
 \item \code{\link[=atlas_occurrences]{atlas_occurrences()}} Download occurrence records
-\item \code{\link[=atlas_counts]{atlas_counts()}} Count the number of records or species returned by a query
+\item \code{\link[=atlas_counts]{atlas_counts()}} or \code{\link[=count.data_request]{count()}} Count the number of records or species returned by a query
 \item \code{\link[=atlas_species]{atlas_species()}} Download species lists
 \item \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} Return a section of the ALA taxonomic tree
 \item \code{\link[=atlas_media]{atlas_media()}} View images and sounds available to download
 \item \code{\link[=collect_media]{collect_media()}} Download images and sounds
-\item \code{\link[=collect_occurrences]{collect_occurrences()}} Download previously downloaded occurrence records
+\item \code{\link[=collect_occurrences]{collect_occurrences()}} Download previously-defined sets of occurrence records
 }
 
 \strong{Look up information}
@@ -78,12 +77,12 @@ quality-control criteria.
 
 
 To get the most value from \code{galah}, it is helpful to understand some
-terminology used by the ALA. Each occurrence record contains taxonomic
+terminology. Each occurrence record contains taxonomic
 information, and usually some information about the observation itself, such
-as its location. In addition to this record-specific information, ALA
-appends contextual information to each record, particularly data from spatial
-\strong{layers} reflecting climate gradients or political boundaries. ALA
-also runs a number of quality checks against each record, resulting in
+as its location. In addition to this record-specific information, the living
+atlases append contextual information to each record, particularly data from
+spatial \strong{layers} reflecting climate gradients or political boundaries. They
+also run a number of quality checks against each record, resulting in
 \strong{assertions} attached to the record. Each piece of information
 associated with a given occurrence record is stored in a \strong{field},
 which corresponds to a \strong{column} when imported to an
@@ -96,25 +95,26 @@ no more. Consequently, much of the architecture of \code{galah} has been
 designed to make filtering as simple as possible.
 Functions with the \code{galah_} prefix offer ways to shape your query
 call. Each \code{galah_} function allows the user to filter in a different way.
-Again, the function suffix reveals what each one does. \code{galah_filter},
-\code{galah_select} and \code{galah_group_by} intentionally match \code{dplyr}'s \code{select()},
+Again, the function suffix reveals what each one does. \code{\link[=galah_filter]{galah_filter()}},
+\code{\link[=galah_select]{galah_select()}} and \code{\link[=galah_group_by]{galah_group_by()}} intentionally match \code{dplyr}'s \code{select()},
 \code{filter()} and \code{group_by()} functions, both in their name and how they they are
 used. For example, you can use \code{\link[=galah_select]{galah_select()}} to choose what information
 is returned as columns. Alternatively, you can use \code{\link[=galah_filter]{galah_filter()}} to filter
 the rows. You can also choose specific taxa with \code{\link[=galah_identify]{galah_identify()}} or choose
 a specific location using \code{\link[=galah_geolocate]{galah_geolocate()}}.
-By combining different filter functions, it is possible to build complex
+By combining different filters, it is possible to build complex
 queries to return only the most valuable information for a given problem.
 
 A notable extension of the filtering approach is to remove records with low
-'quality'. ALA performs quality control checks on all records that it stores.
-These checks are used to generate new fields, that can then be used to filter
-out records that are unsuitable for particular applications. However, there
-are many possible data quality checks, and it is not always clear which are
-most appropriate in a given instance. Therefore, \code{galah} supports ALA
-data quality \strong{profiles}, which can be passed to
-\code{\link[=galah_filter]{galah_filter()}} to quickly remove undesirable records. A full
-list of data quality profiles is returned by \code{show_all(profiles)}.
+'quality'. All living atlases perform quality control checks on all records
+that they store. These checks are used to generate new fields, that can then
+be used to filter out records that are unsuitable for particular applications.
+However, there are many possible data quality checks, and it is not always
+clear which are most appropriate in a given instance. Therefore, \code{galah}
+supports data quality \strong{profiles}, which can be passed to
+\code{\link[=galah_apply_profile]{galah_apply_profile()}} to quickly remove undesirable records. A full list of
+data quality profiles is returned by \code{show_all(profiles)}. Note this service
+is currently only available for the Australian atlas (ALA).
 
 For those outside Australia, 'galah' is the common name of
 \emph{Eolophus roseicapilla}, a widely-distributed
@@ -155,7 +155,7 @@ If you have any questions, comments or suggestions, please email
 Useful links:
 \itemize{
   \item \url{https://galah.ala.org.au}
-  \item Report bugs at \url{https://github.com/AtlasOfLivingAustralia/galah/issues}
+  \item Report bugs at \url{https://github.com/AtlasOfLivingAustralia/galah-R/issues}
 }
 
 }

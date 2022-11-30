@@ -1,37 +1,22 @@
 #' Specify the lowest taxonomic rank required in a downwards search
 #'
-#' `atlas_taxonomy` generates a downwards search of the taxonomic tree. This
-#' function can be used to specify the name of a valid taxonomic rank using
-#' non-standard evaluation (NSE), for consistency with other `galah_` functions.
+#' `atlas_taxonomy` generates a downwards search of the taxonomic tree. Use 
+#' `galah_down_to()` to specify the taxonomic level to search to. 
+#' `galah_down_to()` uses non-standard evaluation (NSE).
+#' 
 #' @param ... the name of a single taxonomic rank
 #' @return A string with the named rank
 #' @seealso [galah_select()], [galah_filter()] and
 #' [galah_geolocate()] for related methods.
 #' 
-#' @section Examples: 
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' An example of using `galah_down_to()` with [atlas_taxonomy()]. Return a 
-#' taxonomic tree of *Chordata* down to the class level
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
+#' @examples
+#' # Return a taxonomic tree of *Chordata* down to the class level
+#' \dontrun{
 #' galah_call() |>
-#'     galah_identify("Chordata") |>
+#'     galah_identify("Vertebrata") |>
 #'     galah_down_to(class) |>
 #'     atlas_taxonomy()
-#' ```
-#' 
-#' Another example: return a taxonomic tree of *Cacatuidae* down to the genus 
-#' level
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' galah_call() |>
-#'   galah_identify("Cacatuidae") |>
-#'   galah_down_to(genus) |>
-#'   atlas_taxonomy()
-#' ```
-#' 
+#' }
 #' @export
 
 galah_down_to <- function(...){

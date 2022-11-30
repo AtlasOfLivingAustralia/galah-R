@@ -5,10 +5,10 @@
 #' are known, this function allows you to use them to look up further information
 #' on the taxon in question. Effectively this is the inverse function to 
 #' [search_taxa()], which takes names and provides identifiers. The resulting
-#' `data.frame` of taxonomic information can also be passed directly to
-#' `atlas_` functions to filter records to the specified taxon or taxa.
+#' `tibble` of taxonomic information can also be passed to [galah_identify()] to
+#' filter queries to the specified taxon or taxa.
 #'
-#' @param identifier `string`: A vector containing one or more taxonomic
+#' @param query `string`: A vector containing one or more taxonomic
 #' identifiers, given as strings. 
 #' @return An object of class `tbl_df`, `data.frame` (aka a tibble) and `ala_id`
 #' containing taxonomic information.
@@ -17,18 +17,12 @@
 #' [galah_geolocate()] for other ways to restrict the information returned
 #' by [atlas_occurrences()] and related functions.
 #' 
-#' @section Examples:
-#' ```{r, child = "man/rmd/setup.Rmd"}
-#' ```
-#' 
-#' Look up a unique taxon identifier
-#' 
-#' ```{r, comment = "#>", collapse = TRUE}
-#' search_identifiers(identifier = "https://id.biodiversity.org.au/node/apni/2914510")
-#' ```
+#' @examples 
+#' # Look up a unique taxon identifier
+#' search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
 #' 
 #' @export
-search_identifiers <- function(identifier) {
+search_identifiers <- function(query) {
 
   verbose <- getOption("galah_config")$verbose
 
@@ -41,15 +35,15 @@ search_identifiers <- function(identifier) {
     abort(bullets, call = caller_env())
   }
 
-  if (missing(identifier)) {
+  if (missing(query)) {
     bullets <- c(
-      "Argument `identifier` is missing, with no default.",
+      "Argument `query` is missing, with no default.",
       i = "Did you forget to specify one or more identifiers?"
     )
     abort(bullets, call = caller_env())
   }
   
-  matches <- lapply(identifier, identifier_lookup)
+  matches <- lapply(query, identifier_lookup)
   if(all(unlist(lapply(matches, is.null)))){
     if(galah_config()$verbose){
       system_down_message("search_identifiers")
@@ -58,7 +52,7 @@ search_identifiers <- function(identifier) {
     attr(df, "call") <- "ala_id"
     return(df)
   }else{
-    df <- as_tibble(rbindlist(matches, fill = TRUE)) 
+    df <- bind_rows(matches) |> tibble()
     attr(df, "call") <- "ala_id"
     return(df) 
   }

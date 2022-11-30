@@ -8,19 +8,18 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
-      date: Thu, 13 Oct 2022 04:42:27 GMT
+      status: 'HTTP/2 200 '
+      date: Wed, 30 Nov 2022 00:30:56 GMT
       content-type: application/json
       content-length: '62'
-      connection: keep-alive
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       vary: Accept-Encoding
       access-control-allow-methods: GET,OPTIONS,POST
       access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
@@ -31,5 +30,5 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"success":false,"nameType":"SCIENTIFIC","issues":["noIssue"]}'
-  recorded_at: 2022-10-13 04:42:27 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.2
+  recorded_at: 2022-11-30 00:30:56 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

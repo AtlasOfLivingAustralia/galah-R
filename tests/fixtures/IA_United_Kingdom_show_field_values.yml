@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Wed, 19 Oct 2022 04:04:05 GMT
+      date: Tue, 29 Nov 2022 23:52:26 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -27,9 +27,9 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Human observation","i18nCode":"basis_of_record.HumanObservation","count":203598466,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Preserved
-        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":1378821,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Machine
-        observation","i18nCode":"basis_of_record.MachineObservation","count":301054,"fq":"basis_of_record:\"MachineObservation\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":290102,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Fossil
+      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Human observation","i18nCode":"basis_of_record.HumanObservation","count":206682451,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Preserved
+        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":1380067,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Machine
+        observation","i18nCode":"basis_of_record.MachineObservation","count":301052,"fq":"basis_of_record:\"MachineObservation\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":290103,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Fossil
         specimen","i18nCode":"basis_of_record.FossilSpecimen","count":2453,"fq":"basis_of_record:\"FossilSpecimen\""},{"label":"Image","i18nCode":"basis_of_record.Image","count":40,"fq":"basis_of_record:\"Image\""}],"count":6}]'
-  recorded_at: 2022-10-19 04:05:26 GMT
+  recorded_at: 2022-11-29 23:54:46 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

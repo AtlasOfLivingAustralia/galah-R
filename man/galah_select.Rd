@@ -63,31 +63,24 @@ Using \code{group = "media"} returns the following columns:
 Using \code{group = "assertions"} returns all quality assertion-related
 columns. The list of assertions is shown by \code{show_all_assertions()}.
 }
-\section{Examples}{
-
-
-Download occurrence records of \emph{Perameles} taken in 2001, only returning
-scientific name and event date
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_config(email = "your-email@email.com")
+\examples{
+\dontrun{
+# Download occurrence records of *Perameles*, 
+# Only return scientificName and eventDate columns
+galah_config(email = "your-email@email.com")
 galah_call() |>
   galah_identify("perameles")|>
-  galah_filter(year == 2001) |>
   galah_select(scientificName, eventDate) |>
   atlas_occurrences()
-}\if{html}{\out{</div>}}
 
-Download occurrence record of \emph{Perameles} taken in 2001, returning the
-"basic" group of columns plus the Basis of Record
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
+# Only return the "basic" group of columns and the basisOfRecord column
+galah_call() |>
   galah_identify("perameles") |>
-  galah_filter(year == 2001) |>
-  galah_select(group = c("basic", "event"), basisOfRecord) |>
+  galah_select(basisOfRecord, group = "basic") |>
   atlas_occurrences()
-}\if{html}{\out{</div>}}
 }
 
+}
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}}, \code{\link[=galah_filter]{galah_filter()}} and
 \code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to restrict the information returned

@@ -1,5 +1,4 @@
-# Download a file
-# so far needs to handle zip files and csv
+#' @importFrom readr read_csv cols
 atlas_download <- function(url, params = list(), ext = ".csv",
                          cache_file = NULL) {
   tryCatch({
@@ -48,7 +47,7 @@ internal_download <- function(url, params, ext, cache_file,
     # error message is specific to atlas_species because it is the only function that
     # gets to this point
     tryCatch(
-      df <- read.csv(res$content, stringsAsFactors = FALSE),
+      df <- read_csv(res$content, col_types = cols()),
       error = function(e) {
         e$message <- inform("No species matching the supplied filters were found.")
         close(file(cache_file))

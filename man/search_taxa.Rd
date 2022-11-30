@@ -24,76 +24,41 @@ passed to \code{\link[=galah_identify]{galah_identify()}} to provide the \code{i
 (i.e. where the same name refers to taxa in different clades) prior to
 downloading data.
 }
-\section{Examples}{
-
-
-Search using a single string. Note that \code{search_taxa()} is not case sensitive
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("Reptilia")
-#> # A tibble: 1 x 9
-#>   search_term scientific_name taxon_~1 rank  match~2 kingdom phylum class issues
-#>   <chr>       <chr>           <chr>    <chr> <chr>   <chr>   <chr>  <chr> <chr> 
-#> 1 Reptilia    REPTILIA        https:/~ class exactM~ Animal~ Chord~ Rept~ noIss~
-#> # ... with abbreviated variable names 1: taxon_concept_id, 2: match_type
-}\if{html}{\out{</div>}}
-
-Search using multiple strings. \code{search_taxa()} will return one row per taxon
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa("reptilia", "mammalia")
-#> # A tibble: 2 x 10
-#>   search_term scient~1 taxon~2 rank  match~3 kingdom phylum class issues verna~4
-#>   <chr>       <chr>    <chr>   <chr> <chr>   <chr>   <chr>  <chr> <chr>  <chr>  
-#> 1 reptilia    REPTILIA https:~ class exactM~ Animal~ Chord~ Rept~ noIss~ <NA>   
-#> 2 mammalia    MAMMALIA https:~ class exactM~ Animal~ Chord~ Mamm~ noIss~ Mammals
-#> # ... with abbreviated variable names 1: scientific_name, 2: taxon_concept_id,
-#> #   3: match_type, 4: vernacular_name
-}\if{html}{\out{</div>}}
-
-Specify taxonomic levels in a search using a data frame (tibble). Taxa may
-be specified using either the specificEpithet argument to designate the second
-element of a Latin binomial, or the scientificName argument to specify the
-scientific name, which may include the subspecific epithet if required.
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{search_taxa(tibble(
- class = "aves", 
- family = "pardalotidae", 
- genus = "pardalotus", 
- specificEpithet = "punctatus"))
-#> # A tibble: 1 x 15
-#>   search_term   scien~1 scien~2 taxon~3 rank  match~4 kingdom phylum class order
-#>   <chr>         <chr>   <chr>   <chr>   <chr> <chr>   <chr>   <chr>  <chr> <chr>
-#> 1 aves_pardalo~ Pardal~ (Shaw,~ https:~ spec~ exactM~ Animal~ Chord~ Aves  Pass~
-#> # ... with 5 more variables: family <chr>, genus <chr>, species <chr>,
-#> #   vernacular_name <chr>, issues <chr>, and abbreviated variable names
-#> #   1: scientific_name, 2: scientific_name_authorship, 3: taxon_concept_id,
-#> #   4: match_type
-                     
-search_taxa(tibble(
- family = c("pardalotidae", "maluridae"), 
- scientificName = c("Pardalotus striatus striatus", "malurus cyaneus")))
-#> # A tibble: 2 x 15
-#>   search_term   scien~1 scien~2 taxon~3 rank  match~4 kingdom phylum class order
-#>   <chr>         <chr>   <chr>   <chr>   <chr> <chr>   <chr>   <chr>  <chr> <chr>
-#> 1 pardalotidae~ Pardal~ (Gmeli~ https:~ subs~ exactM~ Animal~ Chord~ Aves  Pass~
-#> 2 maluridae_ma~ Maluru~ (Ellis~ https:~ spec~ exactM~ Animal~ Chord~ Aves  Pass~
-#> # ... with 5 more variables: family <chr>, genus <chr>, species <chr>,
-#> #   issues <chr>, vernacular_name <chr>, and abbreviated variable names
-#> #   1: scientific_name, 2: scientific_name_authorship, 3: taxon_concept_id,
-#> #   4: match_type
-}\if{html}{\out{</div>}}
-
-\code{galah_identify()} uses \code{search_taxa()} to narrow data queries
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{galah_call() |>
-  galah_identify("reptilia") |>
-  atlas_counts()
-#> # A tibble: 1 x 1
-#>     count
-#>     <int>
-#> 1 1474341
-}\if{html}{\out{</div>}}
+\details{
+Users can also specify taxonomic levels in a search using a data frame
+(tibble). Taxa may be specified using either the \code{specificEpithet} argument
+to designate the second element of a Latin binomial,
+or the \code{scientificName} argument to specify the
+scientific name (which may include the subspecific epithet if required).
 }
+\examples{
+# Search using a single string. 
+# Note that `search_taxa()` isn't case sensitive
+search_taxa("Reptilia")
 
+# Search using multiple strings. 
+# `search_taxa()` will return one row per taxon
+search_taxa("reptilia", "mammalia")
+
+# Specify taxonomic levels in a tibble using "specificEpiphet"
+search_taxa(tibble::tibble(
+  class = "aves", 
+  family = "pardalotidae", 
+  genus = "pardalotus", 
+  specificEpithet = "punctatus"))
+
+# Specify taxonomic levels in a tibble using "scientificName"                    
+search_taxa(tibble::tibble(
+  family = c("pardalotidae", "maluridae"), 
+  scientificName = c("Pardalotus striatus striatus", "malurus cyaneus")))
+
+# `galah_identify()` uses `search_taxa()` to narrow data queries
+taxa <- search_taxa("reptilia", "mammalia")
+galah_call() |>
+  galah_identify(taxa) |>
+  atlas_counts()
+
+}
 \seealso{
 \code{\link[=search_identifiers]{search_identifiers()}} for how to get names if taxonomic identifiers
 are already known. \code{\link[=galah_identify]{galah_identify()}}, \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}}, and

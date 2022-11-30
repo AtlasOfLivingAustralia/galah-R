@@ -28,21 +28,16 @@
 #' @param df A search result from [search_fields()], [search_profiles()] or 
 #' [search_lists()].
 #' @return A `tibble` of values for a specified field, profile or list.
-#' @examples
+#' @examples \donttest{
 #' # Show values in field 'cl22'
-#' \donttest{
 #' search_fields("cl22") |> 
 #'   show_values()
-#' }
 #' 
 #' # Search for any values in field 'cl22' that match 'tas'
-#' \donttest{
 #' search_fields("cl22") |> 
 #'   search_values("tas")
-#' }
 #' 
 #' # See items within species list "dr19257"
-#' \donttest{
 #' search_lists("dr19257") |> 
 #'   show_values()
 #' }
@@ -97,7 +92,7 @@ show_values <- function(df){
   # use do.call to implement sub-function
   args <- list(match_name)
   names(args)[[1]] <- type
-  do.call(paste0("show_", type, "_values"), args)
+  do.call(paste0("show_values_", type), args)
 
 }
 
@@ -159,7 +154,7 @@ search_values <- function(df, query) {
   # run query
   args <- list(match_name, query)
   names(args) <- list(type, "query")
-  do.call(paste0("search_", type, "_values"), args)
+  do.call(paste0("search_values_", type), args)
 }
 
 
@@ -168,7 +163,7 @@ search_values <- function(df, query) {
 
 # internal functions for values look-up ----------------------------------------
 
-show_field_values <- function(field) {
+show_values_field <- function(field) {
   if (missing(field)) {
     bullets <- c(
       "No field detected.",
@@ -179,9 +174,8 @@ show_field_values <- function(field) {
   
   if (!(field %in% show_all_fields()$id)) {
     bullets <- c(
-      "Invalid field detected.",
-      i = "Search for the valid name of a desired field with `search_fields()`.",
-      x = glue("\"{field}\" is not a valid field.")
+      "Unknown field detected.",
+      i = "Search for the valid name of a desired field with `search_fields()`."
     )
     abort(bullets, call = caller_env())
   }
@@ -200,7 +194,7 @@ show_field_values <- function(field) {
 }
 
 
-search_field_values <- function(field, query){
+search_values_field <- function(field, query){
   
   if (missing(query) || is.null(query)) {
     bullets <- c(
@@ -210,22 +204,22 @@ search_field_values <- function(field, query){
     rlang::warn(message = bullets, error = rlang::caller_env())
   }
   
-  field_text <- show_field_values(field)
+  field_text <- show_values_field(field)
   field_text[grepl(query, tolower(field_text$category)), ]
 }
 
 
-show_profile_values <- function(profile) {
+show_values_profile <- function(profile, error_call = caller_env()) {
   
   # check if is numeric or can be converted to numeric
-  short_name <- profile_short_name(profile)
+  short_name <- profile_short_name(profile)[1]
+  search_term <- profile
   if (is.na(short_name)) {
     bullets <- c(
-      "Invalid data quality ID.",
-      i = "Use `show_all_profiles` to see a listing of valid profiles.",
-      x = glue("{profile} is not a valid ID, short name or name.")
+      "Unknown profile detected.",
+      i = "See a listing of valid data quality profiles with `show_all_profiles()`."
     )
-    abort(bullets, call = caller_env())
+    abort(bullets, call = error_call)
   }
   
   url <- atlas_url("profiles_lookup", profile = profile)
@@ -234,8 +228,8 @@ show_profile_values <- function(profile) {
     system_down_message("show_values")
     tibble()
   }else{
-    filters <- rbindlist(resp$categories$qualityFilters)
-    subset(filters, select = wanted_columns("quality_filter")) |> as_tibble()
+    filters <- bind_rows(resp$categories$qualityFilters)
+    subset(filters, select = wanted_columns("quality_filter")) |> tibble()
   }  
 }
 
@@ -260,7 +254,7 @@ profile_short_name <- function(profile) {
   short_name
 }
 
-search_profile_values <- function(profile, query){
+search_values_profile <- function(profile, query){
   
   if (missing(query) || is.null(query)) {
     bullets <- c(
@@ -270,27 +264,27 @@ search_profile_values <- function(profile, query){
     rlang::warn(message = bullets, error = rlang::caller_env())
   }
   
-  profile_text <- show_profile_values(profile)
+  profile_text <- show_values_profile(profile)
   profile_text[grepl(query, tolower(profile_text$description)), ]
 }
 
 
-show_list_values <- function(list){
+show_values_list <- function(list){
   
   if (missing(list)) {
     bullets <- c(
-      "No field detected.",
+      "No list detected.",
       i = "Did you forget to add a list to show values for?"
     )
     abort(bullets, call = caller_env())
   }
   
   url <- atlas_url("lists_lookup", list_id = list)
-  atlas_GET(url) |> tibble()
+  atlas_paginate(url, group_size = 500)
 }
 
 
-search_list_values <- function(list, query){
+search_values_list <- function(list, query){
   
   if (missing(query) || is.null(query)) {
     bullets <- c(
@@ -300,14 +294,14 @@ search_list_values <- function(list, query){
     rlang::warn(message = bullets, error = rlang::caller_env())
   }
   
-  list_text <- show_list_values(list)
+  list_text <- show_values_list(list)
   list_text[with(list_text, grepl(tolower(query), 
                                   paste(tolower(list_text$commonName), 
                                         tolower(list_text$scientificName)))), ]
 }
 
 
-show_collection_values <- function(collection){
+show_values_collection <- function(collection){
   if (missing(collection)) {
     bullets <- c(
       "No field detected.",
@@ -321,16 +315,16 @@ show_collection_values <- function(collection){
   x[lengths(x) == 1] |> as_tibble()
 }
 
-search_collection_values <- function(collection, query){
+search_values_collection <- function(collection, query){
   bullets <- c(
     "`query` is not defined for collections",
     i = "Use `show_values` instead"
   )
   rlang::warn(message = bullets, error = rlang::caller_env())
-  show_collection_values(collection)
+  show_values_collection(collection)
 }
 
-show_provider_values <- function(provider){
+show_values_provider <- function(provider){
   if (missing(provider)) {
     bullets <- c(
       "No field detected.",
@@ -344,16 +338,16 @@ show_provider_values <- function(provider){
   x[lengths(x) == 1] |> as_tibble()
 }
 
-search_provider_values <- function(provider, query){
+search_values_provider <- function(provider, query){
   bullets <- c(
     "`query` is not defined for providers",
     i = "Use `show_values` instead"
   )
   rlang::warn(message = bullets, error = rlang::caller_env())
-  show_provider_values(provider)
+  show_values_provider(provider)
 }
 
-show_dataset_values <- function(dataset){
+show_values_dataset <- function(dataset){
   if (missing(dataset)) {
     bullets <- c(
       "No field detected.",
@@ -367,13 +361,13 @@ show_dataset_values <- function(dataset){
   x[lengths(x) == 1] |> as_tibble()
 }
 
-search_dataset_values <- function(dataset, query){
+search_values_dataset <- function(dataset, query){
   bullets <- c(
     "`query` is not defined for datasets",
     i = "Use `show_values` instead"
   )
   rlang::warn(message = bullets, error = rlang::caller_env())
-  show_dataset_values(dataset)
+  show_values_dataset(dataset)
 }
 
 # checks inputs to `show_values()` & `search_values()`

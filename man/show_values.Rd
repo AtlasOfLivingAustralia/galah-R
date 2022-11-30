@@ -50,20 +50,16 @@ For example, the Endangered Plant species list contains values:
 }
 }
 \examples{
-# Show values in field 'cl22'
 \donttest{
+# Show values in field 'cl22'
 search_fields("cl22") |> 
   show_values()
-}
 
 # Search for any values in field 'cl22' that match 'tas'
-\donttest{
 search_fields("cl22") |> 
   search_values("tas")
-}
 
 # See items within species list "dr19257"
-\donttest{
 search_lists("dr19257") |> 
   show_values()
 }

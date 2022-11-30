@@ -1,17 +1,14 @@
-#' Download biodiversity data from the Atlas of Living Australia
+#' Biodiversity Data from the Living Atlas Community
 #'
 #' @description
-#' `galah` is an R interface to the Atlas of
-#' Living Australia (ALA; <https://www.ala.org.au/>), 
-#' a biodiversity data repository focussed
-#' primarily on observations of individual life forms. 
-#' It also supports access to some other 'living atlases' that use the same 
-#' computational infrastructure. The
-#' basic unit of data at ALA is an **occurrence** record, based on the
-#' 'Darwin Core' data standard (<https://dwc.tdwg.org>). `galah` enables users to
-#' locate and download species observations, taxonomic information, or
-#' associated media such images or sounds, and to restrict their queries to
-#' particular taxa or locations. Users can specify which columns are returned
+#' The living atlas community provides tools to enable users to find, access, 
+#' combine and visualise data on biodiversity. 'galah' enables the R community 
+#' to directly access data and resources hosted by the living atlases. The
+#' basic unit of observation is an **occurrence** record, based on the
+#' 'Darwin Core' data standard (<https://dwc.tdwg.org>); however `galah` also 
+#' enables users to locate and download taxonomic information, 
+#' associated media such images or sounds, all while restricting their queries 
+#' to particular taxa or locations. Users can specify which columns are returned
 #' by a query, or restrict their results to observations that meet particular
 #' quality-control criteria. 
 #'
@@ -28,22 +25,24 @@
 #' 
 #' **Narrow your results**
 #' 
-#'   * [galah_identify()] Search for taxonomic identifiers
-#'   * [galah_filter()] Filter records
-#'   * [galah_select()] Fields to report information for
-#'   * [galah_group_by()] Fields to group counts by
-#'   * [galah_geolocate()] Specify a location
+#'   * [galah_identify()] or \code{\link[=identify.data_request]{identify()}} Search for taxonomic identifiers
+#'   * [galah_filter()] or \code{\link[=filter.data_request]{filter()}} Filter records
+#'   * [galah_select()] or \code{\link[=select.data_request]{select()}} Fields to report information for
+#'   * [galah_group_by()] or \code{\link[=group_by.data_request]{group_by()}} Fields to group counts by
+#'   * [galah_geolocate()] or \code{\link[=st_crop.data_request]{st_crop()}} Specify a location
+#'   * [galah_apply_profile()] Restrict to data that pass predefined checks (ALA only)
 #'   * [galah_down_to()] Specify a taxonomic rank
+#'   * \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
 #' 
 #' **Download data**
 #' 
 #'   * [atlas_occurrences()] Download occurrence records
-#'   * [atlas_counts()] Count the number of records or species returned by a query
+#'   * [atlas_counts()] or \code{\link[=count.data_request]{count()}} Count the number of records or species returned by a query
 #'   * [atlas_species()] Download species lists
 #'   * [atlas_taxonomy()] Return a section of the ALA taxonomic tree
 #'   * [atlas_media()] View images and sounds available to download
 #'   * [collect_media()] Download images and sounds
-#'   * [collect_occurrences()] Download previously downloaded occurrence records
+#'   * [collect_occurrences()] Download previously-defined sets of occurrence records
 #'   
 #' **Look up information**
 #'
@@ -69,12 +68,12 @@
 #' @section Terminology:
 #'
 #' To get the most value from `galah`, it is helpful to understand some
-#' terminology used by the ALA. Each occurrence record contains taxonomic
+#' terminology. Each occurrence record contains taxonomic
 #' information, and usually some information about the observation itself, such
-#' as its location. In addition to this record-specific information, ALA
-#' appends contextual information to each record, particularly data from spatial
-#' **layers** reflecting climate gradients or political boundaries. ALA
-#' also runs a number of quality checks against each record, resulting in
+#' as its location. In addition to this record-specific information, the living 
+#' atlases append contextual information to each record, particularly data from 
+#' spatial **layers** reflecting climate gradients or political boundaries. They
+#' also run a number of quality checks against each record, resulting in
 #' **assertions** attached to the record. Each piece of information
 #' associated with a given occurrence record is stored in a **field**,
 #' which corresponds to a **column** when imported to an
@@ -87,25 +86,26 @@
 #' designed to make filtering as simple as possible. 
 #' Functions with the `galah_` prefix offer ways to shape your query 
 #' call. Each `galah_` function allows the user to filter in a different way. 
-#' Again, the function suffix reveals what each one does. `galah_filter`, 
-#' `galah_select` and `galah_group_by` intentionally match `dplyr`'s `select()`, 
+#' Again, the function suffix reveals what each one does. [galah_filter()], 
+#' [galah_select()] and [galah_group_by()] intentionally match `dplyr`'s `select()`, 
 #' `filter()` and `group_by()` functions, both in their name and how they they are
 #' used. For example, you can use [galah_select()] to choose what information
 #' is returned as columns. Alternatively, you can use [galah_filter()] to filter
 #' the rows. You can also choose specific taxa with [galah_identify()] or choose 
 #' a specific location using [galah_geolocate()]. 
-#' By combining different filter functions, it is possible to build complex 
+#' By combining different filters, it is possible to build complex 
 #' queries to return only the most valuable information for a given problem.
 #'
 #' A notable extension of the filtering approach is to remove records with low
-#' 'quality'. ALA performs quality control checks on all records that it stores.
-#' These checks are used to generate new fields, that can then be used to filter
-#' out records that are unsuitable for particular applications. However, there
-#' are many possible data quality checks, and it is not always clear which are
-#' most appropriate in a given instance. Therefore, `galah` supports ALA
-#' data quality **profiles**, which can be passed to
-#' [galah_filter()] to quickly remove undesirable records. A full
-#' list of data quality profiles is returned by `show_all(profiles)`.
+#' 'quality'. All living atlases perform quality control checks on all records 
+#' that they store. These checks are used to generate new fields, that can then 
+#' be used to filter out records that are unsuitable for particular applications. 
+#' However, there are many possible data quality checks, and it is not always 
+#' clear which are most appropriate in a given instance. Therefore, `galah` 
+#' supports data quality **profiles**, which can be passed to 
+#' [galah_apply_profile()] to quickly remove undesirable records. A full list of 
+#' data quality profiles is returned by `show_all(profiles)`. Note this service 
+#' is currently only available for the Australian atlas (ALA).
 #'
 #' For those outside Australia, 'galah' is the common name of
 #' *Eolophus roseicapilla*, a widely-distributed
@@ -139,16 +139,15 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @import assertthat sf httr
+#' @importFrom httr parse_url build_url
 #' @importFrom crul HttpClient Paginator Async url_build url_parse
-#' @importFrom data.table rbindlist
 #' @importFrom data.tree Do Set Prune Aggregate FromListExplicit ToDataFrameTypeCol ToDataFrameTree as.Node
 #' @importFrom digest digest
 #' @importFrom jsonlite fromJSON
 #' @importFrom stringr regex str_c str_detect str_extract str_locate
 #' str_match str_match_all str_to_title
 #' @importFrom stringr str_replace str_replace_all str_split str_trim str_match
-#' @importFrom utils data packageVersion read.csv write.csv read.table str
+#' @importFrom utils data packageVersion read.table str
 #' unzip URLencode download.file setTxtProgressBar txtProgressBar tail
 #' @importFrom lifecycle deprecated
 #' @importFrom rlang abort warn inform caller_env
