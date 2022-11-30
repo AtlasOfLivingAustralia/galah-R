@@ -30,14 +30,6 @@ galah_call() |>
   galah_filter(year > 2010) |>
   galah_group_by(year) |>
   atlas_counts()
-    
-# Return record counts of species *Litoria* each year since 2015
-galah_call() |>
-  galah_identify("Litoria") |>
-  galah_filter(year > 2015) |>
-  galah_group_by(year, species) |>
-  atlas_counts(limit = 5)
-
 }
 \seealso{
 \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and

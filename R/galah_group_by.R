@@ -13,23 +13,13 @@
 #' are provided, returns `NULL`.
 #' @seealso [galah_select()], [galah_filter()] and
 #' [galah_geolocate()] for related methods.
-#' 
 #' @examples
-#' # Return record counts since 2010 by year
+#' # Return record counts since 2015 by year
 #' galah_call() |> 
-#'   galah_filter(year > 2010) |>
+#'   galah_filter(year >= 2015) |>
 #'   galah_group_by(year) |>
 #'   atlas_counts()
-#'     
-#' # Return record counts of species *Litoria* each year since 2015
-#' galah_call() |>
-#'   galah_identify("Litoria") |>
-#'   galah_filter(year > 2015) |>
-#'   galah_group_by(year, species) |>
-#'   atlas_counts(limit = 5)
-#' 
 #' @export
-
 galah_group_by <- function(..., expand = TRUE){
   
   # check to see if any of the inputs are a data request
