@@ -107,6 +107,7 @@
 #' @importFrom rlang new_quosure
 #' @importFrom rlang parse_expr
 #' @importFrom rlang quo_get_expr
+# @importFrom lifecycle deprecate_soft
 #' @export galah_filter
 
 galah_filter <- function(..., profile = NULL){
@@ -123,16 +124,20 @@ galah_filter <- function(..., profile = NULL){
     is_data_request <- FALSE
   }
   
+  # parse
+  named_filters <- parse_filter(dots)
+  
+  # Check and apply profiles to query
+  if(!is.null(profile)){
+    # deprecate_soft("1.5.2", what = "galah_filter(profile)", with = "galah_apply_profile()")
+    named_filters <- apply_profiles(profile, named_filters)
+  }
+  
   # if a data request was supplied, return one
   if(is_data_request){
-    named_filters <- parse_filter(dots)
-    # Check and apply profiles to query
-    if(!is.null(profile)){
-      named_filters <- apply_profiles(profile, named_filters)
-    }
     update_galah_call(data_request, filter = named_filters)
   }else{
-    filter.data_request(galah_call(), ...)$filter
+    named_filters
   }
   
 }

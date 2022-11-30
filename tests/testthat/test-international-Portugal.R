@@ -34,9 +34,19 @@ vcr::use_cassette("IA_Portugal_search_all", {
 
 vcr::use_cassette("IA_Portugal_show_values", {
   test_that("show_values works for Portugal", {
-    expect_gt(nrow(show_field_values("basis_of_record")), 1)
-    expect_error(show_list_values("a_list"))
-    expect_error(show_profile_values("profile"))
+    
+    search_fields("basis_of_record") |> 
+      show_values() |>
+      nrow() |>
+      expect_gt(1)
+    
+    search_lists("a_list") |> 
+      show_values() |>
+      expect_error()
+    
+    search_profiles("profile") |> 
+      show_values() |>
+      expect_error()
   })
 })
 

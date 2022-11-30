@@ -36,10 +36,19 @@ vcr::use_cassette("IA_Sweden_search_all", {
 
 vcr::use_cassette("IA_Sweden_show_values", {
   test_that("show_values works for Sweden", {
-    skip_on_cran()
-    # expect_gt(nrow(show_field_values("basisOfRecord")), 1)
-    expect_error(show_list_values("a_list"))
-    expect_error(show_profile_values("a_profile"))
+    
+    search_fields("basisOfRecord") |> 
+      show_values() |>
+      nrow() |>
+      expect_gt(1)
+    
+    search_lists("a_list") |> 
+      show_values() |>
+      expect_error()
+    
+    search_profiles("profile") |> 
+      show_values() |>
+      expect_error()
   })
 })
 

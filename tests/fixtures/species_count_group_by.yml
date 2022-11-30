@@ -8,7 +8,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -16,10 +16,10 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Sun, 09 Oct 2022 23:43:49 GMT
+      date: Tue, 29 Nov 2022 22:33:49 GMT
       content-type: application/json
       content-length: '356'
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       vary: Accept-Encoding
       content-encoding: gzip
       access-control-allow-methods: GET,OPTIONS,POST
@@ -31,7 +31,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '{"success":true,"scientificName":"MAMMALIA","taxonConceptID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","rank":"class","rankID":3000,"lft":67388,"rgt":69420,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","vernacularName":"Mammals","speciesGroup":["Animals","Mammals"],"issues":["noIssue"]}'
-  recorded_at: 2022-10-09 23:43:51 GMT
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -42,7 +42,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -53,84 +53,93 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:49 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:49 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=1YSRIuNHgacmqrHn8xLtqYWq5AJ3UlXMOVR31oYVb3rzalOFwZv0zMpgaps/k5BOfPMCQGhsC3QNik2Z6/To/sbt9UQBz07xJ2f9CErIIGoxtf9Sa3GSWdW2D1fTi5mqA233iaYO9nHO7t/Fk4BQ7q0Hb1MEo2kGQaHSJ/eMiFGr;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/
-      - AWSALBTGCORS=1YSRIuNHgacmqrHn8xLtqYWq5AJ3UlXMOVR31oYVb3rzalOFwZv0zMpgaps/k5BOfPMCQGhsC3QNik2Z6/To/sbt9UQBz07xJ2f9CErIIGoxtf9Sa3GSWdW2D1fTi5mqA233iaYO9nHO7t/Fk4BQ7q0Hb1MEo2kGQaHSJ/eMiFGr;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=JuRbvRn2jS7WidySzhU9+kl1bxT9Gf4IeyljnlZpAACvTE2889gXvFQbT5PsJT07FM+ULgwbKg+SWiFNCJjJV1iWnYSRrohL4eexKY/MuryN0XsqcpqhQPGKUo8E;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/
-      - AWSALBCORS=JuRbvRn2jS7WidySzhU9+kl1bxT9Gf4IeyljnlZpAACvTE2889gXvFQbT5PsJT07FM+ULgwbKg+SWiFNCJjJV1iWnYSRrohL4eexKY/MuryN0XsqcpqhQPGKUo8E;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=DDwHbiznih/xpfYRcprFJk6m3mAh3FQF9k8TvscRI7ZXbXcH7SfMojRdLtGbXvLHzIXCECrxHN84bMiwKoa1/UdQapBi5aKayQFPpqu5Wvc15g5c+WXrkmJtpTCNjRcHCD1UWawEUB6+bFEBQZUwN8ZtC/Q8/+TQak2FP9nFw3w7;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/
+      - AWSALBTGCORS=DDwHbiznih/xpfYRcprFJk6m3mAh3FQF9k8TvscRI7ZXbXcH7SfMojRdLtGbXvLHzIXCECrxHN84bMiwKoa1/UdQapBi5aKayQFPpqu5Wvc15g5c+WXrkmJtpTCNjRcHCD1UWawEUB6+bFEBQZUwN8ZtC/Q8/+TQak2FP9nFw3w7;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=soNwWaeDGBzIg0yLNtFFIoaDLg6UVuZicuYkyuK7nK0eJDIwmWJ9eDBzd1ySyqBkNSmsig9/OuGr7Ue6o6U95KG6nXOklYGlvu/e4O9ZFcJLoRN7vMm6ITToLo+t;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/
+      - AWSALBCORS=soNwWaeDGBzIg0yLNtFFIoaDLg6UVuZicuYkyuK7nK0eJDIwmWJ9eDBzd1ySyqBkNSmsig9/OuGr7Ue6o6U95KG6nXOklYGlvu/e4O9ZFcJLoRN7vMm6ITToLo+t;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
-      string: '[{"name":"AMBIGUOUS_COLLECTION","code":2058,"description":"Ambiguous
-        collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"AMBIGUOUS_INSTITUTION","code":2057,"description":"Ambiguous
-        institution","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","ownerInstitutionCode","institutionID"]},{"name":"BASIS_OF_RECORD_INVALID","code":2044,"description":"Basis
+      string: '[{"name":"AMBIGUOUS_COLLECTION","code":2059,"description":"Ambiguous
+        collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
+        institution","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
         of record badly formed","category":"Warning","fatal":false,"termsRequiredToTest":["basisOfRecord"]},{"name":"biosecurityIssue","code":20021,"description":"Biosecurity
-        issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"COLLECTION_MATCH_FUZZY","code":2062,"description":"Collection
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"COLLECTION_MATCH_NONE","code":2060,"description":"Collection
-        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"CONTINENT_COUNTRY_MISMATCH","code":2019,"description":"Continent
-        country mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_DERIVED_FROM_COORDINATES","code":2021,"description":"Continent
-        derived from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_INVALID","code":2020,"description":"Continent
+        issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"COLLECTION_MATCH_FUZZY","code":2063,"description":"Collection
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"COLLECTION_MATCH_NONE","code":2061,"description":"Collection
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"CONTINENT_COUNTRY_MISMATCH","code":2020,"description":"Continent
+        country mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_DERIVED_FROM_COORDINATES","code":2022,"description":"Continent
+        derived from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_INVALID","code":2021,"description":"Continent
         invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_ACCURACY_INVALID","code":2009,"description":"Coordinate
         accuracy invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_INVALID","code":2002,"description":"Coordinate
-        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","decimalLongitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
-        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","decimalLongitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
+        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
         precision invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinatePrecision"]},{"name":"COORDINATE_PRECISION_UNCERTAINTY_MISMATCH","code":2012,"description":"Coordinate
         precision uncertainty mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_REPROJECTED","code":2006,"description":"Coordinates
-        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["geodeticDatum","verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
-        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["geodeticDatum","verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
-        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["geodeticDatum","verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","decimalLongitude"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
-        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","decimalLongitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
+        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
+        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
+        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
+        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
         uncertainty meters invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinateUncertaintyInMeters"]},{"name":"COORDINATES_CENTRE_OF_COUNTRY","code":1006,"description":"Coordinates
         centre of country","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"COORDINATES_CENTRE_OF_STATEPROVINCE","code":1001,"description":"Supplied
-        coordinates centre of state","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"COUNTRY_COORDINATE_MISMATCH","code":2015,"description":"Coordinates
-        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["geodeticDatum","countryCode","verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","country","decimalLongitude"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2018,"description":"Country
-        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["geodeticDatum","countryCode","verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","country","decimalLongitude"]},{"name":"COUNTRY_INVALID","code":2017,"description":"Country
-        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"COUNTRY_MISMATCH","code":2016,"description":"Country
-        mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2034,"description":"Min
-        and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2035,"description":"Depth
-        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_NOT_METRIC","code":2032,"description":"Depth
-        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2033,"description":"Depth
-        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
-        outlier","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"DIFFERENT_OWNER_INSTITUTION","code":2065,"description":"Different
-        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["institutionCode","ownerInstitutionCode","institutionID"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2037,"description":"Min
-        and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2039,"description":"Altitude
-        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2038,"description":"Altitude
-        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2036,"description":"Elevation
-        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"FIRST_OF_CENTURY","code":1018,"description":"First
+        coordinates centre of state","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"COUNTRY_COORDINATE_MISMATCH","code":2016,"description":"Coordinates
+        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","countryCode","verbatimLatitude","verbatimLongitude","decimalLatitude","country","geodeticDatum","decimalLongitude"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
+        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","countryCode","verbatimLatitude","verbatimLongitude","decimalLatitude","country","geodeticDatum","decimalLongitude"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"COUNTRY_MISMATCH","code":2017,"description":"Country
+        mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2035,"description":"Min
+        and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2036,"description":"Depth
+        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NOT_METRIC","code":2033,"description":"Depth
+        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2034,"description":"Depth
+        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
+        outlier","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"DIFFERENT_OWNER_INSTITUTION","code":2066,"description":"Different
+        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
+        and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2040,"description":"Altitude
+        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2039,"description":"Altitude
+        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2037,"description":"Elevation
+        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"FIRST_OF_CENTURY","code":1018,"description":"First
         of the century","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_MONTH","code":1016,"description":"First
         of the month","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_YEAR","code":1017,"description":"First
         of the year","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FOOTPRINT_SRS_INVALID","code":2013,"description":"Footprint
-        SRS invalid","category":"Warning","fatal":false,"termsRequiredToTest":["footprintSRS"]},{"name":"FOOTPRINT_WKT_INVALID","code":2014,"description":"Footprint
-        WKT invalid","category":"Warning","fatal":false,"termsRequiredToTest":["footprintWKT"]},{"name":"GEODETIC_DATUM_ASSUMED_WGS84","code":2005,"description":"Geodetic
+        SRS invalid","category":"Warning","fatal":false,"termsRequiredToTest":["footprintSRS"]},{"name":"FOOTPRINT_WKT_INVALID","code":2015,"description":"Footprint
+        WKT invalid","category":"Warning","fatal":false,"termsRequiredToTest":["footprintWKT"]},{"name":"FOOTPRINT_WKT_MISMATCH","code":2014,"description":"footprint
+        wkt mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["footprintWKT"]},{"name":"GEODETIC_DATUM_ASSUMED_WGS84","code":2005,"description":"Geodetic
         datum assumed WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["geodeticDatum"]},{"name":"GEODETIC_DATUM_INVALID","code":2004,"description":"Unrecognized
         geodetic datum","category":"Warning","fatal":false,"termsRequiredToTest":["geodeticDatum"]},{"name":"GEOREFERENCE_POST_OCCURRENCE","code":1014,"description":"Georeferenced
-        after occurrence date","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"GEOREFERENCED_DATE_INVALID","code":2056,"description":"Georeferenced
-        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedDate"]},{"name":"GEOREFERENCED_DATE_UNLIKELY","code":2055,"description":"Georeferenced
+        after occurrence date","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"GEOREFERENCED_DATE_INVALID","code":2057,"description":"Georeferenced
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedDate"]},{"name":"GEOREFERENCED_DATE_UNLIKELY","code":2056,"description":"Georeferenced
         date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedDate"]},{"name":"geospatialIssue","code":0,"description":"Geospatial
         issue","category":"Warning","fatal":true,"termsRequiredToTest":[]},{"name":"habitatMismatch","code":19,"description":"Habitat
         incorrect for species","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"ID_PRE_OCCURRENCE","code":1015,"description":"Identification
         date before occurrence date","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"identificationIncorrect","code":10007,"description":"Taxon
-        misidentified","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"IDENTIFIED_DATE_INVALID","code":2043,"description":"Identified
-        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"IDENTIFIED_DATE_UNLIKELY","code":2042,"description":"Identified
-        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS","code":2051,"description":"Individual
-        count conflicts with occurrence status","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INDIVIDUAL_COUNT_INVALID","code":2050,"description":"Individual
-        count invalid","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INSTITUTION_COLLECTION_MISMATCH","code":2063,"description":"Institution
-        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","ownerInstitutionCode","institutionID"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2061,"description":"Institution
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","ownerInstitutionCode","institutionID"]},{"name":"INSTITUTION_MATCH_NONE","code":2059,"description":"Institution
-        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","ownerInstitutionCode","institutionID"]},{"name":"INTERPRETATION_ERROR","code":2049,"description":"Interpretation
+        misidentified","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"IDENTIFIED_DATE_INVALID","code":2044,"description":"Identified
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"IDENTIFIED_DATE_UNLIKELY","code":2043,"description":"Identified
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS","code":2052,"description":"Individual
+        count conflicts with occurrence status","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INDIVIDUAL_COUNT_INVALID","code":2051,"description":"Individual
+        count invalid","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INSTITUTION_COLLECTION_MISMATCH","code":2064,"description":"Institution
+        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
         error","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"INVALID_SCIENTIFIC_NAME","code":1036,"description":"Invalid
         scientific name","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"LOCATION_NOT_SUPPLIED","code":1000,"description":"Location
         not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"MISSING_COLLECTION_DATE","code":1013,"description":"Missing
@@ -141,22 +150,22 @@ http_interactions:
         georeference protocol","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_GEOREFERENCESOURCES","code":1011,"description":"Missing
         georeference sources","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_GEOREFERENCEVERIFICATIONSTATUS","code":1012,"description":"Missing
         georeference verification status","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_TAXONRANK","code":1031,"description":"Missing
-        taxon rank","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"MODIFIED_DATE_INVALID","code":2040,"description":"Modified
-        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["modified"]},{"name":"MODIFIED_DATE_UNLIKELY","code":2041,"description":"Modified
-        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["modified"]},{"name":"MULTIMEDIA_DATE_INVALID","code":2046,"description":"Multimedia
-        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"MULTIMEDIA_URI_INVALID","code":2047,"description":"Multimedia
+        taxon rank","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"MODIFIED_DATE_INVALID","code":2041,"description":"Modified
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["modified"]},{"name":"MODIFIED_DATE_UNLIKELY","code":2042,"description":"Modified
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["modified"]},{"name":"MULTIMEDIA_DATE_INVALID","code":2047,"description":"Multimedia
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"MULTIMEDIA_URI_INVALID","code":2048,"description":"Multimedia
         uri invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"NAME_NOT_SUPPLIED","code":1032,"description":"Name
-        not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD","code":2054,"description":"Occurrence
-        status inferred from basis of record","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT","code":2053,"description":"Occurrence
-        status inferred from individual count","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_UNPARSABLE","code":2052,"description":"Occurrence
-        status unparsable","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"POSSIBLY_ON_LOAN","code":2064,"description":"Possibly
-        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["institutionCode","ownerInstitutionCode","institutionID"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2024,"description":"Latitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","decimalLongitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2023,"description":"Longitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","decimalLongitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2022,"description":"Presumed
-        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","decimalLongitude"]},{"name":"RECORDED_DATE_INVALID","code":2026,"description":"Recorded
-        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","day","year","month"]},{"name":"RECORDED_DATE_MISMATCH","code":2025,"description":"Recorded
-        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","day","year","month"]},{"name":"RECORDED_DATE_UNLIKELY","code":2027,"description":"Recorded
-        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","day","year","month"]},{"name":"REFERENCES_URI_INVALID","code":2048,"description":"References
+        not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD","code":2055,"description":"Occurrence
+        status inferred from basis of record","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT","code":2054,"description":"Occurrence
+        status inferred from individual count","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_UNPARSABLE","code":2053,"description":"Occurrence
+        status unparsable","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"POSSIBLY_ON_LOAN","code":2065,"description":"Possibly
+        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
+        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
+        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
         uri invalid","category":"Warning","fatal":false,"termsRequiredToTest":["references"]},{"name":"SENSITIVITY_REPORT_INVALID","code":1037,"description":"Sensitivity
         report invalid","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"SENSITIVITY_REPORT_NOT_LOADABLE","code":1038,"description":"Sensitivity
         report not loadable","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"STATE_COORDINATE_MISMATCH","code":1004,"description":"Coordinates
@@ -168,11 +177,11 @@ http_interactions:
         excluded","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_EXCLUDED_ASSOCIATED","code":1020,"description":"Taxon
         excluded associated","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_HOMONYM","code":1024,"description":"Taxon
         homonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_INDETERMINATE_SPECIES","code":1025,"description":"Taxon
-        indeterminate species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MATCH_AGGREGATE","code":2030,"description":"Taxon
-        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["genus","scientificName","scientificNameAuthorship","genericName","order","class","specificEpithet","phylum","infraspecificEpithet","family","kingdom"]},{"name":"TAXON_MATCH_FUZZY","code":2028,"description":"Taxon
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["genus","scientificName","scientificNameAuthorship","genericName","order","class","specificEpithet","phylum","infraspecificEpithet","family","kingdom"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2029,"description":"Taxon
-        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["genus","scientificName","scientificNameAuthorship","genericName","order","class","specificEpithet","phylum","infraspecificEpithet","family","kingdom"]},{"name":"TAXON_MATCH_NONE","code":2031,"description":"Taxon
-        match none","category":"Warning","fatal":false,"termsRequiredToTest":["genus","scientificName","scientificNameAuthorship","genericName","order","class","specificEpithet","phylum","infraspecificEpithet","family","kingdom"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
+        indeterminate species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MATCH_AGGREGATE","code":2031,"description":"Taxon
+        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
+        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
+        match none","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
         misapplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MISAPPLIED_MATCHED","code":1026,"description":"Taxon
         misapplied matched","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_PARENT_CHILD_SYNONYM","code":1028,"description":"Taxon
         parent child synonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_QUESTION_SPECIES","code":1029,"description":"Taxon
@@ -180,7 +189,7 @@ http_interactions:
         taxonomic scope mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_SPECIES_PLURAL","code":1030,"description":"Taxon
         species plural","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"taxonomicIssue","code":10000,"description":"Taxonomic
         issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"temporalIssue","code":30000,"description":"Temporal
-        issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"TYPE_STATUS_INVALID","code":2045,"description":"Type
+        issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"TYPE_STATUS_INVALID","code":2046,"description":"Type
         status invalid","category":"Warning","fatal":false,"termsRequiredToTest":["typeStatus"]},{"name":"UNCERTAINTY_IN_PRECISION","code":1002,"description":"Coordinate
         precision and uncertainty transposed","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum"]},{"name":"UNCERTAINTY_NOT_SPECIFIED","code":1003,"description":"Uncertainty
         not specified","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum"]},{"name":"UNKNOWN_COUNTRY_NAME","code":1005,"description":"Supplied
@@ -190,8 +199,8 @@ http_interactions:
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"userAssertionOther","code":20019,"description":"Other
         error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
         occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
-        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","verbatimCoordinates","decimalLongitude"]}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]}]'
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -202,7 +211,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -213,40 +222,48 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:49 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:49 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=xHRWTMaQXmfutT+ar9fBe9Y4NvBOy9RgVoi5iHpRS/7xnkx8QWbmfN7bvaep3NtoxUflr6D/CSxuctGHywTLRiqDVd7pqJj8sV25Bazxtct2o/6zkuhwBmOcZvXKtPJdYTwZ9BqHM74CE0SB4SqS6RdiQl63dUHxV2u8TBzgcfn9;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/
-      - AWSALBTGCORS=xHRWTMaQXmfutT+ar9fBe9Y4NvBOy9RgVoi5iHpRS/7xnkx8QWbmfN7bvaep3NtoxUflr6D/CSxuctGHywTLRiqDVd7pqJj8sV25Bazxtct2o/6zkuhwBmOcZvXKtPJdYTwZ9BqHM74CE0SB4SqS6RdiQl63dUHxV2u8TBzgcfn9;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=GN32p9ZxKU9F/vCJUCbAGdKIPTZ/MdreXB6Nz7caznwCWljNGXqtp+Jr1PJLiOJjbuPiesIWiTrq5IyF1/UkNt91m+dRWRFYqH52FXdF3JrSn/9cryPEQxt1GNkh;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/
-      - AWSALBCORS=GN32p9ZxKU9F/vCJUCbAGdKIPTZ/MdreXB6Nz7caznwCWljNGXqtp+Jr1PJLiOJjbuPiesIWiTrq5IyF1/UkNt91m+dRWRFYqH52FXdF3JrSn/9cryPEQxt1GNkh;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=as6agNXELbXWMEt73Gfske0c1p08cvRO18bO0Dc0VbKNHSHhCZfEaLwI+JyE32TL2O9dBQs3b+20r1vbaQJnDCoSYqn6h7Ny2xGFRbQLJ/4cwGvR9bKpcFhpc+7QfTWUenIeC2MitZsGe07Ry3nFpD89QAxT9VOpbryn2jh/Ihip;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/
+      - AWSALBTGCORS=as6agNXELbXWMEt73Gfske0c1p08cvRO18bO0Dc0VbKNHSHhCZfEaLwI+JyE32TL2O9dBQs3b+20r1vbaQJnDCoSYqn6h7Ny2xGFRbQLJ/4cwGvR9bKpcFhpc+7QfTWUenIeC2MitZsGe07Ry3nFpD89QAxT9VOpbryn2jh/Ihip;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=nGw5mW5/zyC1iTEseSRSOKBmF9e/JZldEg8069cbw9OM6KTd21cGII4kv9x1zH+iprkT1CXezLdRKc8xY3NSQbvLREJmyTaUZHLhW+Kdt2qqZrDa4pWbs2fz2U8j;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/
+      - AWSALBCORS=nGw5mW5/zyC1iTEseSRSOKBmF9e/JZldEg8069cbw9OM6KTd21cGII4kv9x1zH+iprkT1CXezLdRKc8xY3NSQbvLREJmyTaUZHLhW+Kdt2qqZrDa4pWbs2fz2U8j;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"month","fieldResult":[{"label":"March","i18nCode":"month.3","count":23638,"fq":"month:\"3\""}],"count":12}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+      string: '[{"fieldName":"month","fieldResult":[{"label":"March","i18nCode":"month.3","count":23768,"fq":"month:\"3\""}],"count":12}]'
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Fe9e7db31-04df-41fb-bd8d-e0b0f3c332d6%29AND%28year%3A%222020%22%29&disableAllQualityFilters=true&facets=month&flimit=100
+    uri: https://biocache-ws.ala.org.au/ws/occurrence/facets?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Fe9e7db31-04df-41fb-bd8d-e0b0f3c332d6%29AND%28year%3A%222020%22%29&disableAllQualityFilters=true&facets=month&flimit=12
     body:
       encoding: ''
       string: ''
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -257,29 +274,37 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:49 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:49 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=9WgEfBdUP11q7e61VmzWYpSkTbdYUOlFSTe7hpUJXn3B02EZ/3Rnoyd7xij2avIz/SIRddKSmu5aa1j6nrOH8diGPgnLdaKsh5StzjkWsIc7pTLcLSTfi6hpv50pHSojiZNca1FDwAhLCXe6gcczJ3A6TVu0JJ10mJ0Y0gZ5SRsj;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/
-      - AWSALBTGCORS=9WgEfBdUP11q7e61VmzWYpSkTbdYUOlFSTe7hpUJXn3B02EZ/3Rnoyd7xij2avIz/SIRddKSmu5aa1j6nrOH8diGPgnLdaKsh5StzjkWsIc7pTLcLSTfi6hpv50pHSojiZNca1FDwAhLCXe6gcczJ3A6TVu0JJ10mJ0Y0gZ5SRsj;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=576xHkAwH+c53TmbK1E+Oh6tnxWIlu5Q07I8r4RUe1VqR1Cjwv70Q2+NbFPX2S5uZ3Beer96npBZ1Q58P3E9PkLqSjSNCSU0vlhf761BeldqbRh6jyUwgcbt5YrR;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/
-      - AWSALBCORS=576xHkAwH+c53TmbK1E+Oh6tnxWIlu5Q07I8r4RUe1VqR1Cjwv70Q2+NbFPX2S5uZ3Beer96npBZ1Q58P3E9PkLqSjSNCSU0vlhf761BeldqbRh6jyUwgcbt5YrR;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=KVpDVDr5mOMSHgHmSJ7YNNTuCS2wYlMbM+/PboVG30xaQ0rCleDnVsT9C2hMzsC9HgKXTHGG7IH4FZ5tfkj+e+pESZvd309rU26coQIRCK4DWxbNwpHaSQYJyzXVJ4jJ/eLLpidBrSbsG4mkJgX7UXPBdzZ0xvD9BKBdhceosT7b;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/
+      - AWSALBTGCORS=KVpDVDr5mOMSHgHmSJ7YNNTuCS2wYlMbM+/PboVG30xaQ0rCleDnVsT9C2hMzsC9HgKXTHGG7IH4FZ5tfkj+e+pESZvd309rU26coQIRCK4DWxbNwpHaSQYJyzXVJ4jJ/eLLpidBrSbsG4mkJgX7UXPBdzZ0xvD9BKBdhceosT7b;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=BGKmKKPJq7Fr+kUIcQUFSeFDZJKVh3IlyHD9WgHlD3TmwrgXpPXl/EkBgkvbNQMKYDhJyhWHdoiWWFbWVzCaUXeBc42wjNFRd01Uq2UD7F+ZSax1rkecTdFf3g2B;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/
+      - AWSALBCORS=BGKmKKPJq7Fr+kUIcQUFSeFDZJKVh3IlyHD9WgHlD3TmwrgXpPXl/EkBgkvbNQMKYDhJyhWHdoiWWFbWVzCaUXeBc42wjNFRd01Uq2UD7F+ZSax1rkecTdFf3g2B;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"month","fieldResult":[{"label":"March","i18nCode":"month.3","count":23638,"fq":"month:\"3\""},{"label":"May","i18nCode":"month.5","count":18717,"fq":"month:\"5\""},{"label":"November","i18nCode":"month.11","count":17312,"fq":"month:\"11\""},{"label":"April","i18nCode":"month.4","count":16254,"fq":"month:\"4\""},{"label":"January","i18nCode":"month.1","count":15961,"fq":"month:\"1\""},{"label":"February","i18nCode":"month.2","count":14763,"fq":"month:\"2\""},{"label":"June","i18nCode":"month.6","count":13879,"fq":"month:\"6\""},{"label":"September","i18nCode":"month.9","count":12859,"fq":"month:\"9\""},{"label":"October","i18nCode":"month.10","count":11668,"fq":"month:\"10\""},{"label":"December","i18nCode":"month.12","count":9720,"fq":"month:\"12\""},{"label":"July","i18nCode":"month.7","count":8500,"fq":"month:\"7\""},{"label":"August","i18nCode":"month.8","count":7885,"fq":"month:\"8\""}],"count":12}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+      string: '[{"fieldName":"month","fieldResult":[{"label":"March","i18nCode":"month.3","count":23768,"fq":"month:\"3\""},{"label":"May","i18nCode":"month.5","count":18802,"fq":"month:\"5\""},{"label":"November","i18nCode":"month.11","count":17572,"fq":"month:\"11\""},{"label":"April","i18nCode":"month.4","count":16361,"fq":"month:\"4\""},{"label":"January","i18nCode":"month.1","count":16278,"fq":"month:\"1\""},{"label":"February","i18nCode":"month.2","count":14977,"fq":"month:\"2\""},{"label":"June","i18nCode":"month.6","count":13937,"fq":"month:\"6\""},{"label":"September","i18nCode":"month.9","count":13050,"fq":"month:\"9\""},{"label":"October","i18nCode":"month.10","count":11956,"fq":"month:\"10\""},{"label":"December","i18nCode":"month.12","count":9958,"fq":"month:\"12\""},{"label":"July","i18nCode":"month.7","count":8605,"fq":"month:\"7\""},{"label":"August","i18nCode":"month.8","count":8074,"fq":"month:\"8\""}],"count":12}]'
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -290,7 +315,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -301,29 +326,37 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:50 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:50 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=WMpXuDO7g7y2TJtYfQRiTiq/3xiih2nI35BHP4XfJbljopNI0nD6i5laGIUiefZJ956lUxHX9z/L0D8XAkC7oPOfYsJ3ZinMN88+IV9he2TtUuC9zKAhpMRKvKjcaRvDqgaXBF5SccBOKAMxe9wvKLc2s+NWo6A+BLNYyxW34C/6;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/
-      - AWSALBTGCORS=WMpXuDO7g7y2TJtYfQRiTiq/3xiih2nI35BHP4XfJbljopNI0nD6i5laGIUiefZJ956lUxHX9z/L0D8XAkC7oPOfYsJ3ZinMN88+IV9he2TtUuC9zKAhpMRKvKjcaRvDqgaXBF5SccBOKAMxe9wvKLc2s+NWo6A+BLNYyxW34C/6;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=OtNAxRVX1XAkMN2vkJtrnVJ6wElCkUgN8gZeeeMFgFGsVqVoDEWFOIB5OphwQ1iIwGYt7ayAiQYTBqXiThnHsjSgmG/WKXPbDqnzooZDMGi4oyGhBlFWIsw2wJnw;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/
-      - AWSALBCORS=OtNAxRVX1XAkMN2vkJtrnVJ6wElCkUgN8gZeeeMFgFGsVqVoDEWFOIB5OphwQ1iIwGYt7ayAiQYTBqXiThnHsjSgmG/WKXPbDqnzooZDMGi4oyGhBlFWIsw2wJnw;
-        Expires=Sun, 16 Oct 2022 23:43:49 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=Ne+StkcSlVq1fEem+p4E6VG1tgvqo8ZXII+hQjXKmB7yaGsPOQFKkd5jKvXAqTX6jc6Iucn7Vpg+DyWRI2VCzb3imxYje8w3oNMz8ndbJZxrZD0yBhArgPe0yWBPcyKTxx89nEb1mGi/XdSfqOZbg1Z95OETsWaUuLunT7hr1Vuw;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/
+      - AWSALBTGCORS=Ne+StkcSlVq1fEem+p4E6VG1tgvqo8ZXII+hQjXKmB7yaGsPOQFKkd5jKvXAqTX6jc6Iucn7Vpg+DyWRI2VCzb3imxYje8w3oNMz8ndbJZxrZD0yBhArgPe0yWBPcyKTxx89nEb1mGi/XdSfqOZbg1Z95OETsWaUuLunT7hr1Vuw;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=FK43YFeKRTJ+aNqEfkpP0CzqQqajHSwLR1XDvv5LXWEuhFWe+3tJN9kpVDWDMDpEV9usldl2qnkbk3amoxSLaSW6NlIyiipts94PvAkWLH9wCqR9ShIR4gKJFWyZ;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/
+      - AWSALBCORS=FK43YFeKRTJ+aNqEfkpP0CzqQqajHSwLR1XDvv5LXWEuhFWe+3tJN9kpVDWDMDpEV9usldl2qnkbk3amoxSLaSW6NlIyiipts94PvAkWLH9wCqR9ShIR4gKJFWyZ;
+        Expires=Tue, 06 Dec 2022 22:33:49 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1","count":3752,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1\""}],"count":151}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1","count":3751,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1\""}],"count":151}]'
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -334,7 +367,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -345,29 +378,37 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:50 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:50 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=qjTZqQk/6wNgcwLiHjc1UO6ow89sum6nDoyYwLThwSYvhq9ZUs3R1I8hO4KPq50N/fz/k0QI13b4Vuofl9WxXkuBbQF7VCrJsjz5nj9gJCUXmekQSJ7QVNg61HyFXdQOwpT/9orf+Xoe4+JumVuvImkgk9s6yR2snhleYpFaZReH;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBTGCORS=qjTZqQk/6wNgcwLiHjc1UO6ow89sum6nDoyYwLThwSYvhq9ZUs3R1I8hO4KPq50N/fz/k0QI13b4Vuofl9WxXkuBbQF7VCrJsjz5nj9gJCUXmekQSJ7QVNg61HyFXdQOwpT/9orf+Xoe4+JumVuvImkgk9s6yR2snhleYpFaZReH;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=RKveZphM3BGOisnYNhPazVUoFp+503Qop64tPgj6U/uS6TsN6zMaxM0WsKn4pwT59Fpl07nTz2P2FTKdl1CMr82BqM2XYBD1omdycV0NSGdEiVzaNdhAkLHitnfq;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBCORS=RKveZphM3BGOisnYNhPazVUoFp+503Qop64tPgj6U/uS6TsN6zMaxM0WsKn4pwT59Fpl07nTz2P2FTKdl1CMr82BqM2XYBD1omdycV0NSGdEiVzaNdhAkLHitnfq;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=lLaclL71Z0YoXJCM+20l1KD6QVUyVu0yMGtdNy+MOOuPpyLtj69R2NuBvqclk+cpxfG5cLDk9GVQZKA70tIRhQUkhFvo8yTjOOvHOii9ClAntXRd1obKeydbMeKowk7XbmqhnFjhBZXbSVm3XZO8H6wVKHmLeCZ2OvoQGXYdDyt7;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBTGCORS=lLaclL71Z0YoXJCM+20l1KD6QVUyVu0yMGtdNy+MOOuPpyLtj69R2NuBvqclk+cpxfG5cLDk9GVQZKA70tIRhQUkhFvo8yTjOOvHOii9ClAntXRd1obKeydbMeKowk7XbmqhnFjhBZXbSVm3XZO8H6wVKHmLeCZ2OvoQGXYdDyt7;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=MsY1oUsyvAyNHx3rJSHZpVMl5ImriWayyvLHsU4JcwODb0Wu593knWn7ybjtHONqixmg5HS2PrBl1vR632tEbxhJ4gnux2HzWeuonH/xrKzPHXf2lEcz2uoqhenD;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBCORS=MsY1oUsyvAyNHx3rJSHZpVMl5ImriWayyvLHsU4JcwODb0Wu593knWn7ybjtHONqixmg5HS2PrBl1vR632tEbxhJ4gnux2HzWeuonH/xrKzPHXf2lEcz2uoqhenD;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","count":3256,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":139}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -378,7 +419,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -389,29 +430,37 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:50 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:50 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=csNaM3F+iRVddFCrMAyNLfIzDcnQc1qMlFQtH0AXhOnzbPjnQamrYi84+KQlpXak1lcpqU26OH96V6IJhwkbRoGID9p5s7htYDDz671/zT9yV39/EYzTI5/xZuNnD52pkKFeKbb/ON66vFP7ziwROYbdJ6g5916iYoXmGWctg4da;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBTGCORS=csNaM3F+iRVddFCrMAyNLfIzDcnQc1qMlFQtH0AXhOnzbPjnQamrYi84+KQlpXak1lcpqU26OH96V6IJhwkbRoGID9p5s7htYDDz671/zT9yV39/EYzTI5/xZuNnD52pkKFeKbb/ON66vFP7ziwROYbdJ6g5916iYoXmGWctg4da;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=JRTAUPKogWcXDFu/v8qFgLhGeO38nNoQgLEZ5v06M+sU2T8HseGLLAH6Le6mBV00ktyjtP8ShFvHWXvMVsNwXL8AqpreGiXUCmjvZvsQzBmL1vTLMmBDtgP5r7Oo;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBCORS=JRTAUPKogWcXDFu/v8qFgLhGeO38nNoQgLEZ5v06M+sU2T8HseGLLAH6Le6mBV00ktyjtP8ShFvHWXvMVsNwXL8AqpreGiXUCmjvZvsQzBmL1vTLMmBDtgP5r7Oo;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=OkRqXkpv02BT8cPWR7IfJA8KaYWIRoPmWH/BSqP8IXvq1izy6tifMB3eCZnTjrgVLLGM+Hanq18P5ORG/IFO+saAz3tZ4I+5khDP/8K5i8n3LjiS/zA9A1Ab7XxXaogaxr1/cPBzHnoks4I6UJGAvPCVLCpKjRZkwnvH8vcuCgZS;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBTGCORS=OkRqXkpv02BT8cPWR7IfJA8KaYWIRoPmWH/BSqP8IXvq1izy6tifMB3eCZnTjrgVLLGM+Hanq18P5ORG/IFO+saAz3tZ4I+5khDP/8K5i8n3LjiS/zA9A1Ab7XxXaogaxr1/cPBzHnoks4I6UJGAvPCVLCpKjRZkwnvH8vcuCgZS;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=9dvwDRqBFu+JSP9DIAsArTIQ3jXWRQLcXsSvbXY1cAyCcPBLjqrCKPSlv5cwQC0dhDZ/tEQ4plfxc/DgjQ5gNPYiKNeifkmNvDstkQElmlTio5r8ZViG+qefWcbu;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBCORS=9dvwDRqBFu+JSP9DIAsArTIQ3jXWRQLcXsSvbXY1cAyCcPBLjqrCKPSlv5cwQC0dhDZ/tEQ4plfxc/DgjQ5gNPYiKNeifkmNvDstkQElmlTio5r8ZViG+qefWcbu;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/e60b796d-665b-4856-8fe4-3c140b65cd08","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/e60b796d-665b-4856-8fe4-3c140b65cd08","count":2264,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/e60b796d-665b-4856-8fe4-3c140b65cd08\""}],"count":162}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/e60b796d-665b-4856-8fe4-3c140b65cd08","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/e60b796d-665b-4856-8fe4-3c140b65cd08","count":2264,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/e60b796d-665b-4856-8fe4-3c140b65cd08\""}],"count":163}]'
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -422,7 +471,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -433,29 +482,37 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:50 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:50 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=aWZh7cln3olTYvvzC8cXIV4EY567QcKUNEEoqQMscYQ3uFevJRQMNYfB57OnLa39XSZkUlAnVee9t3AI1S4Ojzy/w5XUdm1BCaqE+0eapjRhXFj9ssAqnkSil1lz0wDfedZuad6NMwEidiLLj4taoGyOWMtg7pT4Xr+tsVW6+zrI;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBTGCORS=aWZh7cln3olTYvvzC8cXIV4EY567QcKUNEEoqQMscYQ3uFevJRQMNYfB57OnLa39XSZkUlAnVee9t3AI1S4Ojzy/w5XUdm1BCaqE+0eapjRhXFj9ssAqnkSil1lz0wDfedZuad6NMwEidiLLj4taoGyOWMtg7pT4Xr+tsVW6+zrI;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=0z/kGKip8FMgcy9SKlsHs1u8dMlXMYx+T4woTcDg4JV6NU4Nwlc1yj+9YHr3QGTOtcIpUgegwVtltGISXk0wxxIkiFGU4FZY1ga4fw2K224O8M9Q45s9y3ZUNLL7;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBCORS=0z/kGKip8FMgcy9SKlsHs1u8dMlXMYx+T4woTcDg4JV6NU4Nwlc1yj+9YHr3QGTOtcIpUgegwVtltGISXk0wxxIkiFGU4FZY1ga4fw2K224O8M9Q45s9y3ZUNLL7;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=FbopC2eaGVLcuO6GdLGY2HGe4J9xJrBhVNOxF7LAr1oaa4TDhwZqc+ZdWmKgSSzCHOOIZjA8hyRpRwyAlWMLUD0O/lQ7XUEU3PyT1Dxf3c1GhjjEYdoKPtr3JvoeBcN4OYzCPYvBFrKCO7DRxfATi1AJapC8bv6s0rIjcuYy6d46;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBTGCORS=FbopC2eaGVLcuO6GdLGY2HGe4J9xJrBhVNOxF7LAr1oaa4TDhwZqc+ZdWmKgSSzCHOOIZjA8hyRpRwyAlWMLUD0O/lQ7XUEU3PyT1Dxf3c1GhjjEYdoKPtr3JvoeBcN4OYzCPYvBFrKCO7DRxfATi1AJapC8bv6s0rIjcuYy6d46;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=3aLcGAQ3GcS5rjxqid+f8nPgIGjFnNDOCE8ea1jKorPhoN6XwRLSRdEuuC2vfsvCdR6d4C0NSoVB69wcdofEEjkTTrMndmLaAKWljijQCSp1vf2K2vx+hcOzWQdO;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBCORS=3aLcGAQ3GcS5rjxqid+f8nPgIGjFnNDOCE8ea1jKorPhoN6XwRLSRdEuuC2vfsvCdR6d4C0NSoVB69wcdofEEjkTTrMndmLaAKWljijQCSp1vf2K2vx+hcOzWQdO;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","count":2701,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":145}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -466,7 +523,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -477,29 +534,37 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:50 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:50 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=xLcr9LKhe8YkqHpRFGgR5KSROkOJpRmTEvgbIr1HgKRBcwJVjdAVHD0r9AkmUgAJH8irmvcOIY4Yya1Dq4MDcyB7o6EqRMEQFX1Fjb3d1xHq+gp5d7uGs4JSAURm7mfWyFIqK1xoaXrMwf3G8PPRFKscsFivK/Xxp6EeM9LKiNrT;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBTGCORS=xLcr9LKhe8YkqHpRFGgR5KSROkOJpRmTEvgbIr1HgKRBcwJVjdAVHD0r9AkmUgAJH8irmvcOIY4Yya1Dq4MDcyB7o6EqRMEQFX1Fjb3d1xHq+gp5d7uGs4JSAURm7mfWyFIqK1xoaXrMwf3G8PPRFKscsFivK/Xxp6EeM9LKiNrT;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=GZmOEZB5+gklU993W7dyn5G6ctGIyTzhUdPzu5ml76aW4dnHexB9J+YcYQ+Pw1FmA1qZInY3ualQVFZocZauc9sCohFLV2V27hlLMqeEINKWy96J2lAIDHpzCzQ3;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBCORS=GZmOEZB5+gklU993W7dyn5G6ctGIyTzhUdPzu5ml76aW4dnHexB9J+YcYQ+Pw1FmA1qZInY3ualQVFZocZauc9sCohFLV2V27hlLMqeEINKWy96J2lAIDHpzCzQ3;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=uZFb4peoVbAP5xZrDG+hItbTGOpy8jmJ+QXDCRDFdZ2nkAwuJkltPkOY02yy14YvRxGEfcNp/rrgPlEnhuSgDs0uJUv3pWgXWCFs2qom15lTSE7i9GVUgNKjb5jdrUD8aUtlvlB2q7VqX5CUmgvEyq886idV9slMvoxKFoKE/i7s;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBTGCORS=uZFb4peoVbAP5xZrDG+hItbTGOpy8jmJ+QXDCRDFdZ2nkAwuJkltPkOY02yy14YvRxGEfcNp/rrgPlEnhuSgDs0uJUv3pWgXWCFs2qom15lTSE7i9GVUgNKjb5jdrUD8aUtlvlB2q7VqX5CUmgvEyq886idV9slMvoxKFoKE/i7s;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=3XKa0vZmsiHb5eYu5l76th7TCVYp6yt6XWiLOFORqRO+YWNDdk9CNulxf3F+NUS6nn6NBtBFBQaN3QHy6O8hoRdS53S1c3jFpHQXCMrNeO6s/cbEpqnRWzWbS4vQ;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBCORS=3XKa0vZmsiHb5eYu5l76th7TCVYp6yt6XWiLOFORqRO+YWNDdk9CNulxf3F+NUS6nn6NBtBFBQaN3QHy6O8hoRdS53S1c3jFpHQXCMrNeO6s/cbEpqnRWzWbS4vQ;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1","count":6674,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1\""}],"count":149}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -510,7 +575,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -521,29 +586,37 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:50 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:50 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=LfjJHQac6GKB+E37wL7Cu+0TWsKRekIiyroLq5sEKKP4anPbB0h6SBeMKMcWtEZRz/kz88gbINC02nxUoBP1g4MMM9vbECENEAtoH3m/IkG1RDgA9swrkxRi3cchOiWs86VQHpaIDOGqpw4pXHOsOzPZvg042QHnupQ3rUQzAAVw;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBTGCORS=LfjJHQac6GKB+E37wL7Cu+0TWsKRekIiyroLq5sEKKP4anPbB0h6SBeMKMcWtEZRz/kz88gbINC02nxUoBP1g4MMM9vbECENEAtoH3m/IkG1RDgA9swrkxRi3cchOiWs86VQHpaIDOGqpw4pXHOsOzPZvg042QHnupQ3rUQzAAVw;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=Xo/zRMicR4ySolOw6uus7DUnzNXfGLt1wjnquBSPQa2umxFdgCpnYlWziYa+s0gsC/bnrFLXMpu7gF7nLO88Hg6iBYAsh3pSeB4i5hTBzkwuakF0QlhH037f+Ryk;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBCORS=Xo/zRMicR4ySolOw6uus7DUnzNXfGLt1wjnquBSPQa2umxFdgCpnYlWziYa+s0gsC/bnrFLXMpu7gF7nLO88Hg6iBYAsh3pSeB4i5hTBzkwuakF0QlhH037f+Ryk;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=UTeJlWOTMQGwxx/5mK5z5wcRcYRsmAzBjX2WnA3zRxe1QdT2ofTHZ18Ca7WSsJEfOuGEuMQkkqeLAauE0gKE0NZEnVwgHAx8Ymo0Jr/9q/CXcIRwQehli3b0Zc7yUCLQa7d9u1NPFfD6sj5doLA1LRuzPAmhk8RbAsZD1qxRMdZb;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBTGCORS=UTeJlWOTMQGwxx/5mK5z5wcRcYRsmAzBjX2WnA3zRxe1QdT2ofTHZ18Ca7WSsJEfOuGEuMQkkqeLAauE0gKE0NZEnVwgHAx8Ymo0Jr/9q/CXcIRwQehli3b0Zc7yUCLQa7d9u1NPFfD6sj5doLA1LRuzPAmhk8RbAsZD1qxRMdZb;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=65G9StXc0lZGNsmPZ7R5O0Kr4BeL1vWp7q9eV4/o4kY8PDzeTJMZTBN7nkojZDT4FXtfBxn2jnFghotrW6FrUCS3i8IIIomJu7axpZHMAjTndx5lzR5z0rj5hXiP;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBCORS=65G9StXc0lZGNsmPZ7R5O0Kr4BeL1vWp7q9eV4/o4kY8PDzeTJMZTBN7nkojZDT4FXtfBxn2jnFghotrW6FrUCS3i8IIIomJu7axpZHMAjTndx5lzR5z0rj5hXiP;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1","count":4886,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1\""}],"count":141}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+      string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1","count":4886,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/7065d246-3017-4768-9c8f-8c58c0e538c1\""}],"count":142}]'
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -554,7 +627,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -565,29 +638,37 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:50 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:50 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=YYkdWu3NdQMcTVVPDrVnbONJJ8ZeU3LrLBuqVhEKS4yC8UN0FxSjcYrpm2quwtttK9ApAONKdLyOvKlrk7nMszQKrOLRiSkM2zXSfhtE84ioyiDA7+zKbi/R2eGLLy7v2xAo4YnCCh0Q5wY0TM59+mHbRl/XdTPu40AvIiMnK5hC;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBTGCORS=YYkdWu3NdQMcTVVPDrVnbONJJ8ZeU3LrLBuqVhEKS4yC8UN0FxSjcYrpm2quwtttK9ApAONKdLyOvKlrk7nMszQKrOLRiSkM2zXSfhtE84ioyiDA7+zKbi/R2eGLLy7v2xAo4YnCCh0Q5wY0TM59+mHbRl/XdTPu40AvIiMnK5hC;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=xp2qY5L+u5iSydAWx1uEkqjgMVTLrrfuzqhfsr8JrJhNoZbTmD0RFsofagj1GUp97U2MI4JQk30sHerlNZuAl4p/fKTBa+NdIQdwWfiDDRnW5zqW242qYme1tPcX;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBCORS=xp2qY5L+u5iSydAWx1uEkqjgMVTLrrfuzqhfsr8JrJhNoZbTmD0RFsofagj1GUp97U2MI4JQk30sHerlNZuAl4p/fKTBa+NdIQdwWfiDDRnW5zqW242qYme1tPcX;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=NfK+QHMS3vDyRRy02EExN/ITwccJc4J7Fh6eHVM/UNSKIEvjhi3JCt+EcHpPg7C3MxZe6crtwIvqUd97JjzrMQYHPUjras4A/uKtnOIquBzYdCFVMbLTJsQQPrQL/gHEmxFMXR+IiGCIjB9vpCXCaiIwWb/fS88Dmrgwep0vzO7v;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBTGCORS=NfK+QHMS3vDyRRy02EExN/ITwccJc4J7Fh6eHVM/UNSKIEvjhi3JCt+EcHpPg7C3MxZe6crtwIvqUd97JjzrMQYHPUjras4A/uKtnOIquBzYdCFVMbLTJsQQPrQL/gHEmxFMXR+IiGCIjB9vpCXCaiIwWb/fS88Dmrgwep0vzO7v;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=IJMuYZROTfRG28a7KTLprevlnJIP+swTc49kc8/LlJkibxpgcP3BN9jE5g3gPbBZV3jfpB/oBfLKLM7hrMzbAj/UdkEWE8YCkTCkb+OhQwEYTKWW/dBbwbzsTr8l;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBCORS=IJMuYZROTfRG28a7KTLprevlnJIP+swTc49kc8/LlJkibxpgcP3BN9jE5g3gPbBZV3jfpB/oBfLKLM7hrMzbAj/UdkEWE8YCkTCkb+OhQwEYTKWW/dBbwbzsTr8l;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/00b1b9a2-70c9-45be-8019-9c7fd755afc8","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/00b1b9a2-70c9-45be-8019-9c7fd755afc8","count":1514,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/00b1b9a2-70c9-45be-8019-9c7fd755afc8\""}],"count":126}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -598,7 +679,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -609,29 +690,37 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:50 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:50 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=nGJAMGw51GATrzbYCdA7FRhyNV1ysnT7j+tkL4z1EUPIzwF2oZe0986Dv3rq+NogKCPOZRGDa1tL5LzbEPiQMk5mnK4urPRtSzJXKxB0Vm0MVp+VEFzKsbipFrMwvbiumScQw49kWER38I78YeoytgnMiTFGdpMwJPWUXPqFep5B;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBTGCORS=nGJAMGw51GATrzbYCdA7FRhyNV1ysnT7j+tkL4z1EUPIzwF2oZe0986Dv3rq+NogKCPOZRGDa1tL5LzbEPiQMk5mnK4urPRtSzJXKxB0Vm0MVp+VEFzKsbipFrMwvbiumScQw49kWER38I78YeoytgnMiTFGdpMwJPWUXPqFep5B;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=wMrwQ/TElRhfOxQFJ/f+zVf/tQyRLCuv7GO/IVmRTDaBs74J3Q5jhq01T1qczMJmNY0nq5jFAXFKqWBbpGZrJu2fLMpZ5sO7HGjUH5fr7/pfRp8C1Ibc+bduj8f5;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBCORS=wMrwQ/TElRhfOxQFJ/f+zVf/tQyRLCuv7GO/IVmRTDaBs74J3Q5jhq01T1qczMJmNY0nq5jFAXFKqWBbpGZrJu2fLMpZ5sO7HGjUH5fr7/pfRp8C1Ibc+bduj8f5;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=BbjHRYSy6tiudBEGI8jBQKFZd7KdC5jwHIzP52QpnuqNGgW+YVqieHQ9g6+I9YGyDE+joNfYNVEahBximnaazpJ+HMWmt7ugvZC5smU7QN7QQRR3UJrCq7/kHfDzDdQ3PocHPOdE72Og4HbR9cPcf0d6eIKRA4EFXBSzicjyRrAC;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBTGCORS=BbjHRYSy6tiudBEGI8jBQKFZd7KdC5jwHIzP52QpnuqNGgW+YVqieHQ9g6+I9YGyDE+joNfYNVEahBximnaazpJ+HMWmt7ugvZC5smU7QN7QQRR3UJrCq7/kHfDzDdQ3PocHPOdE72Og4HbR9cPcf0d6eIKRA4EFXBSzicjyRrAC;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=/lb+UJOAm1c0HSwCOQkBQD0rdtVpFuj77wzJBJ5CrgtOkPKCtyR5NoVe3EIqnibNHr3vxXzvxNgMnX/IWZW9Ed9cZZYikoasQtg73/fKzhwmGW2ZaZn+Ob84IasV;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBCORS=/lb+UJOAm1c0HSwCOQkBQD0rdtVpFuj77wzJBJ5CrgtOkPKCtyR5NoVe3EIqnibNHr3vxXzvxNgMnX/IWZW9Ed9cZZYikoasQtg73/fKzhwmGW2ZaZn+Ob84IasV;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","count":1366,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":152}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -642,7 +731,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -653,29 +742,37 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:51 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:51 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=REioufPa99VtzS5Ch+yBi/LrumG1UlSAEPko5iPJSIEpguwQkTvtFyXbsbbEg6T0Jso1r8qQGRsBDuCnbY4Omy25iCrbV9FDGmfQ5d4NayfxfZJOweI2gmqqK/76fqKWcMRkOxnfmtoUi+CpTsTzHtjArqO98RLdax0Bp8iaDO4j;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBTGCORS=REioufPa99VtzS5Ch+yBi/LrumG1UlSAEPko5iPJSIEpguwQkTvtFyXbsbbEg6T0Jso1r8qQGRsBDuCnbY4Omy25iCrbV9FDGmfQ5d4NayfxfZJOweI2gmqqK/76fqKWcMRkOxnfmtoUi+CpTsTzHtjArqO98RLdax0Bp8iaDO4j;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=1/Hlsj0fY/kgyIVeoVH4Wpm4BhEDO2ubzBtewwiImkY6WeRKwcT6Ji05gULf2R6Ndq0xX64eJEfXA/s9tjeUwSMGpjb0bmEKnUlPYp2cgKIajOSkBxsintuTUbRc;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/
-      - AWSALBCORS=1/Hlsj0fY/kgyIVeoVH4Wpm4BhEDO2ubzBtewwiImkY6WeRKwcT6Ji05gULf2R6Ndq0xX64eJEfXA/s9tjeUwSMGpjb0bmEKnUlPYp2cgKIajOSkBxsintuTUbRc;
-        Expires=Sun, 16 Oct 2022 23:43:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=KQgRP9Q/t8oV25mFqBtemRCkmUyajuswKOFViaZSy/zXG9ATYbGCZUhU/86ySmBOccq2YpAJrbZ4XDLUlvKlKsr7nihcZbOcg2tJ1JlQMZfCQw0lM80/S3zZa9u5CBQugsQJcmGZX2eoOGpBjlLbvextgmT1vaGq9aEfds0SS/gy;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBTGCORS=KQgRP9Q/t8oV25mFqBtemRCkmUyajuswKOFViaZSy/zXG9ATYbGCZUhU/86ySmBOccq2YpAJrbZ4XDLUlvKlKsr7nihcZbOcg2tJ1JlQMZfCQw0lM80/S3zZa9u5CBQugsQJcmGZX2eoOGpBjlLbvextgmT1vaGq9aEfds0SS/gy;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=0AiYc1CYKInkla1kcHDAeoXauUSlkOdeh9rs6ZApWMLehSKZx3msh2U5XvqSGOpXHI4O2zB4xT2RyfCGr9WsB2xBdWRoTxuxnoDN2J+5k7H82aurDDnri90R5voP;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/
+      - AWSALBCORS=0AiYc1CYKInkla1kcHDAeoXauUSlkOdeh9rs6ZApWMLehSKZx3msh2U5XvqSGOpXHI4O2zB4xT2RyfCGr9WsB2xBdWRoTxuxnoDN2J+5k7H82aurDDnri90R5voP;
+        Expires=Tue, 06 Dec 2022 22:33:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","count":1344,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":159}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -686,7 +783,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -697,29 +794,37 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:51 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:51 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=sdFUlBo0zIwJhEToRFg3/yHktq+kf6Xsw/7n6SuHdXBTu38aLGEnCLfL8SCB+J6eqyIFoBts2p7fD/gvFbUIOEn13JHyc0lNZkeHl3jtmpjPcCJtWRb0zVLSZn5jyJhRpzeSXZssuW7WEhEiTi1g4Grh/56Bv2n3pqj0JIjA9wqT;
-        Expires=Sun, 16 Oct 2022 23:43:51 GMT; Path=/
-      - AWSALBTGCORS=sdFUlBo0zIwJhEToRFg3/yHktq+kf6Xsw/7n6SuHdXBTu38aLGEnCLfL8SCB+J6eqyIFoBts2p7fD/gvFbUIOEn13JHyc0lNZkeHl3jtmpjPcCJtWRb0zVLSZn5jyJhRpzeSXZssuW7WEhEiTi1g4Grh/56Bv2n3pqj0JIjA9wqT;
-        Expires=Sun, 16 Oct 2022 23:43:51 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=VD5sRq2UI2RvP+4M85OCbHNbmFjzFRcbGwubqmrYEx7zwg4fqk0EbexX+a/d7U7uZ85nK2XhdYksXhM6o+eKjh3Yu00JBW3N/oTfKY2f4c0Ism862eAp+rmKypxO;
-        Expires=Sun, 16 Oct 2022 23:43:51 GMT; Path=/
-      - AWSALBCORS=VD5sRq2UI2RvP+4M85OCbHNbmFjzFRcbGwubqmrYEx7zwg4fqk0EbexX+a/d7U7uZ85nK2XhdYksXhM6o+eKjh3Yu00JBW3N/oTfKY2f4c0Ism862eAp+rmKypxO;
-        Expires=Sun, 16 Oct 2022 23:43:51 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=G29Y8+DgFdACWBqRpKc4LG8ol/HCBNecd5S/1j1ydOS8tIImwhvxYqRL6MCDcjaPAChZ1EvmpBpKbECg45C0XplQQgxsW5cnGSV5FpYyiM/YItAiuNed8w3dYZnVaH3tbAweLoikolW7SSCRB6TfamsodZh/JT/NXmUC8AYaigBt;
+        Expires=Tue, 06 Dec 2022 22:33:51 GMT; Path=/
+      - AWSALBTGCORS=G29Y8+DgFdACWBqRpKc4LG8ol/HCBNecd5S/1j1ydOS8tIImwhvxYqRL6MCDcjaPAChZ1EvmpBpKbECg45C0XplQQgxsW5cnGSV5FpYyiM/YItAiuNed8w3dYZnVaH3tbAweLoikolW7SSCRB6TfamsodZh/JT/NXmUC8AYaigBt;
+        Expires=Tue, 06 Dec 2022 22:33:51 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=CTmXjeFBxJNE58i5IL+ZOEHNMa4hlK71+AW9p8jyEuZOnSqU+dcuF332m+WqlmVyI9qGblVYMqEhiWJldQRUSg8OhmiDXUaP3jbAj88yCqQ/Pm3eu5id7ktv8GLu;
+        Expires=Tue, 06 Dec 2022 22:33:51 GMT; Path=/
+      - AWSALBCORS=CTmXjeFBxJNE58i5IL+ZOEHNMa4hlK71+AW9p8jyEuZOnSqU+dcuF332m+WqlmVyI9qGblVYMqEhiWJldQRUSg8OhmiDXUaP3jbAj88yCqQ/Pm3eu5id7ktv8GLu;
+        Expires=Tue, 06 Dec 2022 22:33:51 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","count":1173,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":148}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -730,7 +835,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -741,29 +846,37 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:51 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:51 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=2VgMC6Mo0A6dlqliyQGQXLEZj6lHbsUbxO6sPLU8lbxmTBARYvT467lBsRxYeIqcueChHE5V6zxGJBGN/SlJ9naGw+1G/UXHLr/9yDkk8gWZjiQ3h/aVCAQBWe0U0VUKr5Tvo3BPqODIn8uqOdQPrDjiCBYSPh+cidO4URtdciZ+;
-        Expires=Sun, 16 Oct 2022 23:43:51 GMT; Path=/
-      - AWSALBTGCORS=2VgMC6Mo0A6dlqliyQGQXLEZj6lHbsUbxO6sPLU8lbxmTBARYvT467lBsRxYeIqcueChHE5V6zxGJBGN/SlJ9naGw+1G/UXHLr/9yDkk8gWZjiQ3h/aVCAQBWe0U0VUKr5Tvo3BPqODIn8uqOdQPrDjiCBYSPh+cidO4URtdciZ+;
-        Expires=Sun, 16 Oct 2022 23:43:51 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=Pa38tfSG4e69eaG96voQ6f9Vq7ghwsxy/eLSGOIyqmsDvPLE4vJf3/QCH3kLnIqwunUH4FnTDKSdH7za6wfgTh4YvwZLYaUXfqSq010GBmPWAyBKqOQFhkwH/aug;
-        Expires=Sun, 16 Oct 2022 23:43:51 GMT; Path=/
-      - AWSALBCORS=Pa38tfSG4e69eaG96voQ6f9Vq7ghwsxy/eLSGOIyqmsDvPLE4vJf3/QCH3kLnIqwunUH4FnTDKSdH7za6wfgTh4YvwZLYaUXfqSq010GBmPWAyBKqOQFhkwH/aug;
-        Expires=Sun, 16 Oct 2022 23:43:51 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=A8rLPZRDOlslIiU0bWA/NGPb+oiHZvXYR/1BKwywNJe8+iqqov0ZWHqU3If38Oa4MPG38rsapfywaaKxETPGDRSKkMyU1N3+QNk9vxbv3qLUsPuV6AotbCLbHl8d7RsbzGx/EkmcL5dYGQK4aENh38FiRnTKQ0eZeD17cDBJTaO1;
+        Expires=Tue, 06 Dec 2022 22:33:51 GMT; Path=/
+      - AWSALBTGCORS=A8rLPZRDOlslIiU0bWA/NGPb+oiHZvXYR/1BKwywNJe8+iqqov0ZWHqU3If38Oa4MPG38rsapfywaaKxETPGDRSKkMyU1N3+QNk9vxbv3qLUsPuV6AotbCLbHl8d7RsbzGx/EkmcL5dYGQK4aENh38FiRnTKQ0eZeD17cDBJTaO1;
+        Expires=Tue, 06 Dec 2022 22:33:51 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=kwyeL+BS7eqZKIQF3sz97PlUy3FMc50VOd+sAR0S5fKAWPKzdw5qkDKu57H7C5XxgK8C5+1yDE2EsJTJTDbu/61Cc4jDzilhCqiVvLTTWoQRuXVinnLpTeZx5eVO;
+        Expires=Tue, 06 Dec 2022 22:33:51 GMT; Path=/
+      - AWSALBCORS=kwyeL+BS7eqZKIQF3sz97PlUy3FMc50VOd+sAR0S5fKAWPKzdw5qkDKu57H7C5XxgK8C5+1yDE2EsJTJTDbu/61Cc4jDzilhCqiVvLTTWoQRuXVinnLpTeZx5eVO;
+        Expires=Tue, 06 Dec 2022 22:33:51 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","count":1106,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":142}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -774,7 +887,7 @@ http_interactions:
     headers:
       Accept-Encoding: gzip, deflate
       Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.0
+      User-Agent: galah 1.5.1
   response:
     status:
       status_code: '200'
@@ -785,27 +898,35 @@ http_interactions:
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
       access-control-allow-origin: '*'
       access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
-      content-type: application/json;charset=UTF-8
-      date: Sun, 09 Oct 2022 23:43:51 GMT
+      content-type: application/json
+      date: Tue, 29 Nov 2022 22:33:51 GMT
+      expires: '0'
+      pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
-      server: nginx/1.23.1
+      server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=RFmhRVhS8ANmNirTb+elQEnpn/qC+Y7yNcn86dPHOnZrqAApPyXUk1bcPzb6DJTj0Ow2/S0vShh9sSxA2qGl9PvV3bKuuSKbiOrcf0YEvkCDEaDL3RdtvmF1unFQOvBgmUL3YlIdEyvQJYx/08OQv6AJZ6YgXTpGlMnaIs2f1w4C;
-        Expires=Sun, 16 Oct 2022 23:43:51 GMT; Path=/
-      - AWSALBTGCORS=RFmhRVhS8ANmNirTb+elQEnpn/qC+Y7yNcn86dPHOnZrqAApPyXUk1bcPzb6DJTj0Ow2/S0vShh9sSxA2qGl9PvV3bKuuSKbiOrcf0YEvkCDEaDL3RdtvmF1unFQOvBgmUL3YlIdEyvQJYx/08OQv6AJZ6YgXTpGlMnaIs2f1w4C;
-        Expires=Sun, 16 Oct 2022 23:43:51 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=Y8bzkRR2lhCmPItB5kDZzwJ85jOv5FUKFNerctF5GIAV0edoUaOvvP0cxpVnPuMyU5mssD54Ah9aEyzMhz1GAnzbWlDqNafXxSFZ438RtgDye4gs3+N8F3Zcw11E;
-        Expires=Sun, 16 Oct 2022 23:43:51 GMT; Path=/
-      - AWSALBCORS=Y8bzkRR2lhCmPItB5kDZzwJ85jOv5FUKFNerctF5GIAV0edoUaOvvP0cxpVnPuMyU5mssD54Ah9aEyzMhz1GAnzbWlDqNafXxSFZ438RtgDye4gs3+N8F3Zcw11E;
-        Expires=Sun, 16 Oct 2022 23:43:51 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=125X3Ow/YUxYW6A8avjwzeuyIt6S0NL/hmb+3j55pbja0htEFypNVPlJFUHKK84h2218FCIlNLq8sZAKhwFkRs1+ytYrRz6kh9R3imkG3QfC5EJorszXTnz1YpJaYYedOM6C32Qlg3UtcrLQ3mTykjbMLPCudcxXhZM1lGAK5rM4;
+        Expires=Tue, 06 Dec 2022 22:33:51 GMT; Path=/
+      - AWSALBTGCORS=125X3Ow/YUxYW6A8avjwzeuyIt6S0NL/hmb+3j55pbja0htEFypNVPlJFUHKK84h2218FCIlNLq8sZAKhwFkRs1+ytYrRz6kh9R3imkG3QfC5EJorszXTnz1YpJaYYedOM6C32Qlg3UtcrLQ3mTykjbMLPCudcxXhZM1lGAK5rM4;
+        Expires=Tue, 06 Dec 2022 22:33:51 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=77DwlDrR/AGq2dQx+iCE+XETstt6Eq9GoRG3r5AYkVR4mq7i/2myUYeADuj/SX9AXKfVLYOf+w+7vW0gu1Oub7E01qP33Dvks1GQlewlX3hDdaUHbiC6J7VJhEGn;
+        Expires=Tue, 06 Dec 2022 22:33:51 GMT; Path=/
+      - AWSALBCORS=77DwlDrR/AGq2dQx+iCE+XETstt6Eq9GoRG3r5AYkVR4mq7i/2myUYeADuj/SX9AXKfVLYOf+w+7vW0gu1Oub7E01qP33Dvks1GQlewlX3hDdaUHbiC6J7VJhEGn;
+        Expires=Tue, 06 Dec 2022 22:33:51 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
-      x-frame-options: DENY
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
     body:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"speciesID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","i18nCode":"speciesID.https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f","count":969,"fq":"speciesID:\"https://biodiversity.org.au/afd/taxa/3814d122-c95f-467f-a3a2-2b269931b74f\""}],"count":142}]'
-  recorded_at: 2022-10-09 23:43:51 GMT
+  recorded_at: 2022-11-29 22:33:51 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

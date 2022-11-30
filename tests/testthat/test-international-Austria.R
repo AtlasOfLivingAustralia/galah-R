@@ -41,9 +41,20 @@ vcr::use_cassette("IA_Austria_search_all", {
 
 vcr::use_cassette("IA_Austria_show_values", {
   test_that("show_values works for Austria", {
-    expect_gt(nrow(show_field_values("basis_of_record")), 1)
-    expect_gt(nrow(show_list_values("dr113")), 1)
-    expect_error(show_profile_values("profile"))
+    
+    search_fields("basisOfRecord") |> 
+      show_values() |>
+      nrow() |>
+      expect_gt(1)
+      
+    search_lists("dr113") |> 
+      show_values() |>
+      nrow() |>
+      expect_gt(1)
+
+    search_profiles("profile") |> 
+      show_values() |>
+      expect_error()
   })
 })
 

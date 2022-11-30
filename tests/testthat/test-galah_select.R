@@ -68,7 +68,7 @@ test_that("galah_select builds expected columns when group = event", {
 # test multiple groups work
 test_that("galah_select accepts multiple groups", {
   select <- galah_select(group = c("basic", "assertions"))
-  expect_equal(unique(select$type), c("field", "assertions"))
+  expect_equal(unique(select$type), c("field", "assertion"))
   expect_gt(nrow(select), 10)
   expect_true(any(select$name == "decimalLatitude"))
   expect_true(any(select$name == "AMBIGUOUS_COLLECTION"))
@@ -92,6 +92,12 @@ test_that("galah_select defaults to group = basic when there are no args", {
   galah_config(run_checks = TRUE)
 })
 
+test_that("galah_select returns assertions + recordID when group = assertions", {
+  skip_on_cran()
+  select <- galah_select(group = "assertions")
+  expect_gt(length(which(select$type == "assertion")), 40)
+  expect_equal(length(which(select$type == "field")), 1)
+})
 
 test_that("galah_select combines requested columns and group columns", {
   skip_on_cran()
