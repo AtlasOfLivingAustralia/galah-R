@@ -33,10 +33,10 @@ test_that("`st_crop` works identically to piped `galah_polygon`", {
   expect_equal(result1, result2)
 })
 
-test_that("`summarize` works identically to piped `atlas_counts`", {
-  vcr::use_cassette("summarize_test", {
+test_that("`count` works identically to piped `atlas_counts`", {
+  vcr::use_cassette("count_test", {
     result1 <- galah_call() |> galah_identify("Litoria") |> atlas_counts()
-    result2 <- galah_call() |> identify("Litoria") |> summarize()
+    result2 <- galah_call() |> identify("Litoria") |> count()
   })
   expect_equal(result1, result2)
 })
@@ -47,7 +47,7 @@ test_that("`slice_head` works for atlas_counts", {
       filter(year >= 2010) |> 
       group_by(year) |> 
       slice_head(5) |>
-      summarize()
+      count()
   })
   expect_equal(nrow(result), 5)
 })

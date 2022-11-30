@@ -37,7 +37,7 @@
 #' **Download data**
 #' 
 #'   * [atlas_occurrences()] Download occurrence records
-#'   * [atlas_counts()] or \code{\link[=summarize.data_request]{summarize()}} Count the number of records or species returned by a query
+#'   * [atlas_counts()] or \code{\link[=count.data_request]{count()}} Count the number of records or species returned by a query
 #'   * [atlas_species()] Download species lists
 #'   * [atlas_taxonomy()] Return a section of the ALA taxonomic tree
 #'   * [atlas_media()] View images and sounds available to download

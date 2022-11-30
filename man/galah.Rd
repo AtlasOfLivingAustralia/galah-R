@@ -39,7 +39,7 @@ quality-control criteria.
 \strong{Download data}
 \itemize{
 \item \code{\link[=atlas_occurrences]{atlas_occurrences()}} Download occurrence records
-\item \code{\link[=atlas_counts]{atlas_counts()}} or \code{\link[=summarize.data_request]{summarize()}} Count the number of records or species returned by a query
+\item \code{\link[=atlas_counts]{atlas_counts()}} or \code{\link[=count.data_request]{count()}} Count the number of records or species returned by a query
 \item \code{\link[=atlas_species]{atlas_species()}} Download species lists
 \item \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} Return a section of the ALA taxonomic tree
 \item \code{\link[=atlas_media]{atlas_media()}} View images and sounds available to download
