@@ -9,7 +9,7 @@ suffix.
 
 search_all() is a helper function that can do searches within multiple
 types of information from search_ sub-functions.
-See Details (below) for accepted values."><title>Search for record information — search_all • galah</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet"><meta property="og:title" content="Search for record information — search_all"><meta property="og:description" content="The living atlases store a huge amount of information, above and beyond the
+See Details (below) for accepted values."><title>Search for record information — search_all • galah</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.4/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet"><meta property="og:title" content="Search for record information — search_all"><meta property="og:description" content="The living atlases store a huge amount of information, above and beyond the
 occurrence records that are their main output. In galah, one way that
 users can investigate this information is by searching for a specific option
 or category for the type of information they are interested in.
@@ -19,7 +19,7 @@ suffix.
 
 search_all() is a helper function that can do searches within multiple
 types of information from search_ sub-functions.
-See Details (below) for accepted values."><meta property="og:image" content="https://atlasoflivingaustralia.github.io/galah/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+See Details (below) for accepted values."><meta property="og:image" content="https://galah.ala.org.au/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body>
@@ -30,7 +30,7 @@ See Details (below) for accepted values."><meta property="og:image" content="htt
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,10 +44,10 @@ See Details (below) for accepted values."><meta property="og:image" content="htt
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a>
+    <a class="dropdown-item" href="../articles/piping.html">Piping in galah</a>
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
+    <a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
-    <a class="dropdown-item" href="../articles/syntax_changes.html">Syntax changes</a>
     <a class="dropdown-item" href="../articles/international_atlases.html">International atlases</a>
   </div>
 </li>
@@ -61,7 +61,7 @@ See Details (below) for accepted values."><meta property="og:image" content="htt
   <a class="nav-link" href="../news/index.html">News</a>
 </li>
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/AtlasOfLivingAustralia/galah/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/AtlasOfLivingAustralia/galah-R/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -74,7 +74,7 @@ See Details (below) for accepted values."><meta property="og:image" content="htt
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Search for record information</h1>
-      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah/blob/HEAD/R/search_all.R" class="external-link"><code>R/search_all.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/R/search_all.R" class="external-link"><code>R/search_all.R</code></a></small>
       <div class="d-none name"><code>search_all.Rd</code></div>
     </div>
 
@@ -145,31 +145,6 @@ containing all data that match the search query.</p>
 specific sub-functions to look-up each type of information.
 The available types of information for <code>search_all()</code> are:</p><table class="table table"><tr><td><strong>Category</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td><td><strong>Sub-functions</strong></td></tr><tr><td>configuration</td><td><code>atlases</code></td><td>Search for what atlases are available</td><td><code>search_atlases()</code></td></tr><tr><td></td><td><code>apis</code></td><td>Search for what APIs &amp; functions are available for each atlas</td><td><code>search_apis()</code></td></tr><tr><td></td><td><code>reasons</code></td><td>Search for what values are acceptable as 'download reasons' for a specified atlas</td><td><code>search_reasons()</code></td></tr><tr><td>taxonomy</td><td><code>taxa</code></td><td>Search for one or more taxonomic names</td><td><code><a href="search_taxa.html">search_taxa()</a></code></td></tr><tr><td></td><td><code>identifiers</code></td><td>Take a universal identifier and return taxonomic information</td><td><code><a href="search_identifiers.html">search_identifiers()</a></code></td></tr><tr><td></td><td><code>ranks</code></td><td>Search for valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.)</td><td><code>search_ranks()</code></td></tr><tr><td>filters</td><td><code>fields</code></td><td>Search for fields that are stored in an atlas</td><td><code>search_fields()</code></td></tr><tr><td></td><td><code>assertions</code></td><td>Search for results of data quality checks run by each atlas</td><td><code>search_assertions()</code></td></tr><tr><td></td><td><code>licenses</code></td><td>Search for copyright licences applied to media</td><td><code>search_licenses()</code></td></tr><tr><td>group filters</td><td><code>profiles</code></td><td>Search for what data profiles are available</td><td><code>search_profiles()</code></td></tr><tr><td></td><td><code>lists</code></td><td>Search for what species lists are available</td><td><code>search_lists()</code></td></tr><tr><td>data providers</td><td><code>providers</code></td><td>Search for which institutions have provided data</td><td><code>search_providers()</code></td></tr><tr><td></td><td><code>collections</code></td><td>Search for the specific collections within those institutions</td><td><code>search_collections()</code></td></tr><tr><td></td><td><code>datasets</code></td><td>Search for the data groupings within those collections</td><td><code>search_datasets()</code></td></tr></table></div>
     <div class="section level2">
-    <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h2>
-    
-
-
-<p>Search for all fields that use include the word "date"</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"date"</span><span class="op">)</span></span></code></pre><p></p></div>
-<p>Search for all fields that have information for "marine"</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"marine"</span><span class="op">)</span></span></code></pre><p></p></div>
-<p>Search using a single term (See <code><a href="search_taxa.html">search_taxa()</a></code> for more info)</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"Reptilia"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 x 9</span></span>
-<span><span class="co">#&gt;   search_term scientific_name taxon_~1 rank  match~2 kingdom phylum class issues</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
-<span><span class="co">#&gt; 1 Reptilia    REPTILIA        https:/~ class exactM~ Animal~ Chord~ Rept~ noIss~</span></span>
-<span><span class="co">#&gt; # ... with abbreviated variable names 1: taxon_concept_id, 2: match_type</span></span></code></pre><p></p></div>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">taxa</span>, <span class="st">"Reptilia"</span><span class="op">)</span> <span class="co"># equivalent</span></span></code></pre><p></p></div>
-<p>Look up a unique taxon identifier (See <code><a href="search_identifiers.html">search_identifiers()</a></code> for more info)</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">identifiers</span>, </span>
-<span>           <span class="st">"https://id.biodiversity.org.au/node/apni/2914510"</span><span class="op">)</span> <span class="co"># equivalent</span></span></code></pre><p></p></div>
-<p>Search for species lists that match "endangered"</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">lists</span>, <span class="st">"endangered"</span><span class="op">)</span> <span class="co"># equivalent</span></span></code></pre><p></p></div>
-<p>Search for a valid taxonomic rank, "subphylum"</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">ranks</span>, <span class="st">"subphylum"</span><span class="op">)</span></span></code></pre><p></p></div>
-    </div>
-    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     
 <ul><li><p>Darwin Core terms <a href="https://dwc.tdwg.org/terms/" class="external-link">https://dwc.tdwg.org/terms/</a></p></li>
@@ -185,6 +160,88 @@ show available options of information. These functions are used to pass valid
 arguments to <code><a href="galah_select.html">galah_select()</a></code>, <code><a href="galah_filter.html">galah_filter()</a></code>, and related functions.</p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Search for fields that include the word "date"</span></span></span>
+<span class="r-in"><span><span class="fu">search_all</span><span class="op">(</span><span class="va">fields</span>, <span class="st">"date"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 21 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id              description                                       type  link </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> month           <span style="color: #949494;">"</span>Month of observation, specimen collection date.… fiel… <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> eventDate       <span style="color: #949494;">"</span>The ISO formatted date of observation, specimen… fiel… <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> cl10903         <span style="color: #949494;">"</span>Tenure of Australia's forests (2013) v2.0 Tenur… laye… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> cl10955         <span style="color: #949494;">"</span>National Indicative Aggregated Fire Extent Data… laye… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> lastLoadDate     <span style="color: #BB0000;">NA</span>                                               fiel… <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> datePrecision   <span style="color: #949494;">"</span>The precision of the date information for the r… fiel… <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> eventDateEnd     <span style="color: #BB0000;">NA</span>                                               fiel… <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> dateIdentified  <span style="color: #949494;">"</span>http://rs.tdwg.org/dwc/terms/dateIdentified<span style="color: #949494;">"</span>     fiel… <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> raw_eventDate    <span style="color: #BB0000;">NA</span>                                               fiel… <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> firstLoadedDate  <span style="color: #BB0000;">NA</span>                                               fiel… <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 11 more rows</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Search for fields that include the word "marine"</span></span></span>
+<span class="r-in"><span><span class="fu">search_all</span><span class="op">(</span><span class="va">fields</span>, <span class="st">"marine"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id      description                                                type  link </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> biome   <span style="color: #949494;">"</span>A field indicating if the record has been located in Ter… fiel… <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> cl990   <span style="color: #949494;">"</span>Atlas of Life in the Coastal Wilderness The ALCW Bioregi… laye… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> cl21    <span style="color: #949494;">"</span>IMCRA 4 Regions Integrated Marine and Coastal Regionalis… laye… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> cl900   <span style="color: #949494;">"</span>Areas for Further Assessment within the East Marine Regi… laye… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> cl11033 <span style="color: #949494;">"</span>CAPAD 2020 Terrestrial The Collaborative Australian Prot… laye… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> cl11032 <span style="color: #949494;">"</span>CAPAD 2020 Marine The Collaborative Australian Protected… laye… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> cl10912 <span style="color: #949494;">"</span>Australia's network of Marine Parks Consistent with the … laye… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> cl10945 <span style="color: #949494;">"</span>CAPAD 2016 Marine The Collaborative Australian Protected… laye… http…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span> cl10944 <span style="color: #949494;">"</span>CAPAD 2016 Terrestrial The Collaborative Australian Prot… laye… http…</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Search using a single taxonomic term</span></span></span>
+<span class="r-in"><span><span class="co"># (see `?search_taxa()` for more information)</span></span></span>
+<span class="r-in"><span><span class="fu">search_all</span><span class="op">(</span><span class="va">taxa</span>, <span class="st">"Reptilia"</span><span class="op">)</span> <span class="co"># equivalent</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   search_term scientific_name taxon_…¹ rank  match…² kingdom phylum class issues</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Reptilia    REPTILIA        https:/… class exactM… Animal… Chord… Rept… noIss…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable names ¹​taxon_concept_id, ²​match_type</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Look up a unique taxon identifier</span></span></span>
+<span class="r-in"><span><span class="co"># (see `?search_identifiers()` for more information)</span></span></span>
+<span class="r-in"><span><span class="fu">search_all</span><span class="op">(</span><span class="va">identifiers</span>, </span></span>
+<span class="r-in"><span>           <span class="st">"https://id.biodiversity.org.au/node/apni/2914510"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 14</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   scient…¹ scien…² taxon…³ rank  match…⁴ kingdom phylum class order family genus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Eucalyp… Maiden  https:… spec… taxonI… Plantae Charo… Equi… Myrt… Myrta… Euca…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 3 more variables: species &lt;chr&gt;, vernacular_name &lt;chr&gt;, issues &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   and abbreviated variable names ¹​scientific_name,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​scientific_name_authorship, ³​taxon_concept_id, ⁴​match_type</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Search for species lists that match "endangered"</span></span></span>
+<span class="r-in"><span><span class="fu">search_all</span><span class="op">(</span><span class="va">lists</span>, <span class="st">"endangered"</span><span class="op">)</span> <span class="co"># equivalent</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 16</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dataR…¹ listN…² listT…³ dateC…⁴ lastU…⁵ usern…⁶ fullN…⁷ itemC…⁸ region categ…⁹</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> dr19257 Endang… OTHER   2022-0… 2022-0… alanah… <span style="color: #BB0000;">NA</span>           17 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> dr20088 Top 30… CONSER… 2022-1… 2022-1… aprill… <span style="color: #BB0000;">NA</span>           30 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> dr4890  Endang… CONSER… 2016-0… 2016-0… kiashe… <span style="color: #BB0000;">NA</span>          340 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> dr17208 My spe… OTHER   2021-0… 2021-0… caterp… <span style="color: #BB0000;">NA</span>            1 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> dr17134 Endang… CONSER… 2021-0… 2022-1… 100588… <span style="color: #BB0000;">NA</span>           20 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> dr16896 Rare a… CONSER… 2021-0… 2022-1… matthe… <span style="color: #BB0000;">NA</span>            1 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> dr16203 EPBC A… SPATIA… 2020-0… 2020-0… robina… <span style="color: #BB0000;">NA</span>           10 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> dr19750 Endang… OTHER   2022-0… 2022-1… anneke… <span style="color: #BB0000;">NA</span>           73 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 6 more variables: generalisation &lt;chr&gt;, authority &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   sdsType &lt;chr&gt;, isAuthoritative &lt;lgl&gt;, isInvasive &lt;lgl&gt;, isThreatened &lt;lgl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   and abbreviated variable names ¹​dataResourceUid, ²​listName, ³​listType,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁴​dateCreated, ⁵​lastUpdated, ⁶​username, ⁷​fullName, ⁸​itemCount, ⁹​category</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Search for a valid taxonomic rank, "subphylum"</span></span></span>
+<span class="r-in"><span><span class="fu">search_all</span><span class="op">(</span><span class="va">ranks</span>, <span class="st">"subphylum"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id name     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     7 subphylum</span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
