@@ -98,16 +98,21 @@ show_all <- function(type){
 #' @rdname show_all
 #' @export show_all_assertions
 show_all_assertions <- function(){
-  url <- atlas_url("records_assertions") 
-  assertions <- atlas_GET(url)
-  if(is.null(assertions)){
-    result <- tibble()
+  atlas <- getOption("galah_config")$atlas
+  if(atlas == "Global"){
+    result <- gbif_internal_archived$assertions
   }else{
-    assertions$data_type <- "logical"
-    names(assertions) <- rename_columns(names(assertions), type = "assertions")
-    assertions <- assertions[wanted_columns("assertions")]
-    assertions$type <- "assertions"
-    result <- as_tibble(assertions)
+    url <- atlas_url("records_assertions") 
+    assertions <- atlas_GET(url)
+    if(is.null(assertions)){
+      result <- tibble()
+    }else{
+      assertions$data_type <- "logical"
+      names(assertions) <- rename_columns(names(assertions), type = "assertions")
+      assertions <- assertions[wanted_columns("assertions")]
+      assertions$type <- "assertions"
+      result <- as_tibble(assertions)
+    }
   }
   attr(result, "call") <- "show_all_assertions"
   return(result)
@@ -150,8 +155,24 @@ show_all_apis <- function(){
 #' @rdname show_all
 #' @export show_all_collections
 show_all_collections <- function(){
+  # set behaviour for gbif versus elsewhere
+  if(getOption("galah_config")$atlas == "Global"){
+    slot_name <- "results"
+    limit_name <- "limit"
+  }else{
+    slot_name <- NULL
+    limit_name <- "max"
+  }
+  
+  # get url, run
   url <- atlas_url("collections_collections")
-  df <- atlas_GET(url) |> tibble()
+  df <- atlas_paginate(url, 
+                       group_size = 500, 
+                       limit_name = limit_name, 
+                       slot_name = slot_name)
+  # df <- atlas_GET(url) |> tibble() # old code
+  
+  # set attributes
   attr(df, "call") <- "show_all_collections"
   return(df)
 }
@@ -165,13 +186,32 @@ show_all_datasets <- function(){
   attr(df, "call") <- "show_all_datasets"
   return(df)
 }
-
+# NOTE: this doesn't support GBIF yet, because paginating on this url 
+# (https://api.gbif.org/v1/dataset) would need to return 79865 values!
+# It might therefore make sense to support search_all(datasets) for GBIF,
+# by calling the search API, but not support show_all(datasets).
 
 #' @rdname show_all
 #' @export show_all_providers
 show_all_providers <- function(){
+  # set behaviour for gbif versus elsewhere
+  if(getOption("galah_config")$atlas == "Global"){
+    slot_name <- "results"
+    limit_name <- "limit"
+  }else{
+    slot_name <- NULL
+    limit_name <- "max"
+  }
+  
+  # get url, run
   url <- atlas_url("collections_providers")
-  df <- atlas_GET(url) |> tibble()
+  df <- atlas_paginate(url, 
+                       group_size = 500, 
+                       limit_name = limit_name, 
+                       slot_name = slot_name)
+  # df <- atlas_GET(url) |> tibble() # old code
+  
+  # set attributes
   attr(df, "call") <- "show_all_providers"
   return(df)
 }
@@ -186,50 +226,53 @@ show_all_fields <- function(){
   update_needed <- internal_cache_update_needed("show_all_fields")
   
   if(update_needed){ # i.e. we'd like to run a query
-    # if(atlas == "Global"){
-    #   df <- gbif_fields() # slightly untidy solution to GBIF hard-coded fields
-    # }else{
-    fields <- get_fields()
-    layers <- get_layers()
-    media <- get_media()
-    other <- get_other_fields()
-    if(all(
-      is.null(fields),
-      is.null(layers),
-      # is.null(media) # internally generated
-      is.null(other)
-    )){
-      df <- NULL
-    }else{
-      df <- list(fields[!(fields$id %in% layers$id), ], layers, media, other) |>
-        bind_rows() |>
-        tibble()
-    }
-    
-    # if calling the API fails
-    if(is.null(df)){ 
-      df <- galah_internal_cache()$show_all_fields
-      # if cached values reflect the correct atlas, return requested info
-      if(attr(df, "atlas_name") == atlas){ 
-        attr(df, "ARCHIVED") <- NULL # remove identifying attributes
-        return(df)
-        # otherwise return a message
-      }else{ 
-        bullets <- c(
-          "Calling the API failed for `show_all_fields`.",
-          i = "This might mean that the system is down."
-        )
-        inform(bullets)
-        return(tibble())
-      }
-      
-      # if the API call worked
-    }else{ 
-      attr(df, "atlas_name") <- atlas
-      galah_internal_cache(show_all_fields = df)
+    if(atlas == "Global"){
+      df <- gbif_internal_archived$fields # slightly untidy solution to GBIF hard-coded fields
       attr(df, "call") <- "show_all_fields"
       return(df)
-    }
+    }else{
+      fields <- get_fields()
+      layers <- get_layers()
+      media <- get_media()
+      other <- get_other_fields()
+      if(all(
+        is.null(fields),
+        is.null(layers),
+        # is.null(media) # internally generated
+        is.null(other)
+      )){
+        df <- NULL
+      }else{
+        df <- list(fields[!(fields$id %in% layers$id), ], layers, media, other) |>
+          bind_rows() |>
+          tibble()
+      }
+    
+      # if calling the API fails
+      if(is.null(df)){ 
+        df <- galah_internal_cache()$show_all_fields
+        # if cached values reflect the correct atlas, return requested info
+        if(attr(df, "atlas_name") == atlas){ 
+          attr(df, "ARCHIVED") <- NULL # remove identifying attributes
+          return(df)
+          # otherwise return a message
+        }else{ 
+          bullets <- c(
+            "Calling the API failed for `show_all_fields`.",
+            i = "This might mean that the system is down."
+          )
+          inform(bullets)
+          return(tibble())
+        }
+      
+       # if the API call worked
+      }else{ 
+        attr(df, "atlas_name") <- atlas
+        galah_internal_cache(show_all_fields = df)
+        attr(df, "call") <- "show_all_fields"
+        return(df)
+      }
+    } # end if not gbif
     
     # if no update needed
   }else{    

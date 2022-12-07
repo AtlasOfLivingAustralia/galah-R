@@ -379,14 +379,13 @@ atlas_counts_lookup <- function(identify = NULL,
 # get just the record count for a query
 # handle too long queries in here?
 record_count <- function(query) {
-  # if(getOption("galah_config")$atlas == "Global"){
-  #   query$limit <- 0
-  #   col_name <- "count"
-  #   path <- "occurrence/search"
-  # }else{
+  if(getOption("galah_config")$atlas == "Global"){
+    query$limit <- 0
+    col_name <- "count"
+  }else{
     query$pageSize <- 0
     col_name <- "totalRecords"
-  # }
+  }
   url <- atlas_url("records_counts")
   resp <- atlas_GET(url, query)
   resp[[col_name]]

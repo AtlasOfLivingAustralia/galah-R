@@ -4,10 +4,13 @@
 # https://r-pkgs.org/data.html
 
 devtools::load_all()
-library(readr)
-library(usethis)
-library(dplyr)
+library(readr) # import csvs straight to tibble
+library(tibble) # generate tibbles
+library(dplyr) # data manipulation
+library(usethis) # adding content to sysdata.rda
 
+
+# SET APIS
 # table of information on supported atlases
 # placed here as hard-coded for galah 
 node_metadata <- read_csv("./data-raw/node_metadata.csv") |>
@@ -23,6 +26,8 @@ node_metadata <- read_csv("./data-raw/node_metadata.csv") |>
 node_config <- read_csv("./data-raw/node_config.csv") |> 
   filter(atlas %in% node_metadata$atlas)
 
+
+# ALA defaults
 # cached versions of some show_all functions
 # NOTE: may be necessaary to expand this given changes to show_all
 stored_functions <- c(
@@ -39,20 +44,20 @@ galah_internal_archived <- lapply(
 # lapply(galah_internal_archived, attributes) # check
 names(galah_internal_archived) <- stored_functions
 
+
+# IMPORT CSV FILES FOR GBIF DATA
+
+# join gbif data together
+gbif_internal_archived <- list(
+  fields = read_csv("./data-raw/gbif_fields.csv"),
+  assertions = read_csv("./data-raw/gbif_assertions.csv"))
+
+
 # add to r/sysdata.rda
 use_data(
   node_metadata,
   node_config,
   galah_internal_archived,
+  gbif_internal_archived,
   internal = TRUE, 
   overwrite = TRUE)
-
-
-## GBIF support
-# there is no API for GBIF fields, so best practice is to store as local 
-# csvs and import as per above
-
-# tibble of available fields: 
-  # sort(rgbif::occ_fields)
-# tibble of assertions:
-  # https://gbif.github.io/gbif-api/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html
