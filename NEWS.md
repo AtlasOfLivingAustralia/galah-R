@@ -18,7 +18,7 @@ These are implemented as S3 methods for objects of class `data_request`, which a
 * Help files are now built without markdown for improved speed (mainly while building)
 
 ## Bug fixes:
-* New function `atlas_paginate()` to handle cases where pagination is needed, but total data length is unknown (e.g. `show_all_lists()`, #170).
+* New function `url_paginate()` to handle cases where pagination is needed, but total data length is unknown (e.g. `show_all_lists()`, #170).
 * `galah_select(group = "assertions")` is always enacted properly by `atlas_occurrences`, and won't lead to overly long urls (#137). When called without any other field names, `recordID` is added to avoid triggering the 'default' set of columns.
 * `atlas_species` works again after some minor changes to the API; but requires a registered email to function
 

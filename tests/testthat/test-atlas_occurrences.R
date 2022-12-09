@@ -1,6 +1,7 @@
 context("Test atlas_occurrences")
 
 test_that("atlas_occurrences doesn't allow large downloads", {
+  galah_config(atlas = "Australia")
   expect_error(atlas_occurrences())
 })
 

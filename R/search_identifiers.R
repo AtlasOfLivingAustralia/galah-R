@@ -24,10 +24,10 @@
 #' @export
 search_identifiers <- function(query) {
 
-  verbose <- getOption("galah_config")$verbose
+  verbose <- getOption("galah_config")$package$verbose
 
-  if (getOption("galah_config")$atlas != "Australia") {
-    international_atlas <- getOption("galah_config")$atlas
+  if (getOption("galah_config")$atlas$region != "Australia") {
+    international_atlas <- getOption("galah_config")$atlas$region
     bullets <- c(
       "`search_identifiers` only provides information on Australian taxonomy.",
       i = glue("To search for a species name, use `search_taxa()` instead.")
@@ -45,7 +45,7 @@ search_identifiers <- function(query) {
   
   matches <- lapply(query, identifier_lookup)
   if(all(unlist(lapply(matches, is.null)))){
-    if(galah_config()$verbose){
+    if(galah_config()$package$verbose){
       system_down_message("search_identifiers")
     }
     df <- tibble()
@@ -60,12 +60,12 @@ search_identifiers <- function(query) {
 
 
 identifier_lookup <- function(identifier) {
-  url <- atlas_url("names_lookup")
-  result <- atlas_GET(url, list(taxonID = identifier))
+  url <- url_lookup("names_lookup")
+  result <- url_GET(url, list(taxonID = identifier))
   if (is.null(result)){
     return(NULL)
   }
-  if (isFALSE(result$success) && result$issues == "noMatch" && galah_config()$verbose) {
+  if (isFALSE(result$success) && result$issues == "noMatch" && galah_config()$package$verbose) {
     list_invalid_taxa <- glue::glue_collapse(identifier, 
                                              sep = ", ")
     inform(glue("No taxon matches were found for \"{list_invalid_taxa}\"."))

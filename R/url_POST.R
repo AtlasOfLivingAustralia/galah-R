@@ -1,8 +1,11 @@
 # Wrapper for getting data
 # 
-# Try using crul
+# NOTE: this is only used for caching long queries with ALA:
+# atlas_ functions > build_query > cached_query > url_POST
+# this functionality is currently disabled
+# Ergo this needs checking as to whether we should retain this function
 
-atlas_POST <- function(url, path, body = list(), encode = "form") {
+url_POST <- function(url, path, body = list(), encode = "form") {
   tryCatch({
     internal_POST(
       url = url,

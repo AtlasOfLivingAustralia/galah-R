@@ -24,7 +24,7 @@ node_metadata <- read_csv("./data-raw/node_metadata.csv") |>
   # Order of priority is local-namematching > local-species > GBIF-namematching
   # France and Canada use GBIF due to lack of species service
 node_config <- read_csv("./data-raw/node_config.csv") |> 
-  filter(atlas %in% node_metadata$atlas)
+  filter(atlas %in% node_metadata$region)
 
 
 # ALA defaults
@@ -45,9 +45,7 @@ galah_internal_archived <- lapply(
 names(galah_internal_archived) <- stored_functions
 
 
-# IMPORT CSV FILES FOR GBIF DATA
-
-# join gbif data together
+# Import web-scraped gbif data as csv
 gbif_internal_archived <- list(
   fields = read_csv("./data-raw/gbif_fields.csv"),
   assertions = read_csv("./data-raw/gbif_assertions.csv"))

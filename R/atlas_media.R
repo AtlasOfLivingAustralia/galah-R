@@ -94,7 +94,7 @@ atlas_media <- function(request = NULL,
   class(custom_call) <- "data_request"
      
   # check for caching
-  caching <- getOption("galah_config")$caching
+  caching <- getOption("galah_config")$package$caching
   cache_file <- cache_filename("media", unlist(custom_call))
   if (caching && file.exists(cache_file) && !refresh_cache) {
     return(read_cache_file(cache_file))
@@ -125,7 +125,7 @@ atlas_media_internal <- function(request,
                                  refresh_cache
                                  ) {
   # set basic information
-  verbose <- getOption("galah_config")$verbose
+  verbose <- getOption("galah_config")$package$verbose
   if(!is.null(download_dir)){
     inform("Argument `download_dir` is deprecated; use `collect_media()` instead")
   }
@@ -134,8 +134,8 @@ atlas_media_internal <- function(request,
   }
   if(is_tibble(identify)){if(nrow(identify) < 1){identify <- NULL}}
   
-  if (getOption("galah_config")$atlas != "Australia") {
-    international_atlas <- getOption("galah_config")$atlas
+  if (getOption("galah_config")$atlas$region != "Australia") {
+    international_atlas <- getOption("galah_config")$atlas$region
     bullets <- c(
       "`atlas_media` is only available for Australia and Austria."
     )

@@ -249,11 +249,8 @@ build_query <- function(identify, filter, location, select = NULL,
   } 
   
   # geographic stuff
-  if (is.null(location)) {
-    area_query <- NULL
-  } else {
-    area_query <- location
-    query$wkt <- area_query
+  if (!is.null(location)) {
+    query$wkt <- location
   }
   
   #if (check_for_caching(taxa_query, filter_query, area_query, select)) {
@@ -261,7 +258,7 @@ build_query <- function(identify, filter, location, select = NULL,
   #}
 
   # add profiles information (ALA only)  
-  if (getOption("galah_config")$atlas == "Australia") {
+  if (getOption("galah_config")$atlas$region == "Australia") {
     if (!is.null(profile)) {
       query$qualityProfile <- profile
     } else {
@@ -331,7 +328,7 @@ old_query_term <- function(name, value, include) {
 }
 
 build_filter_query <- function(filters) {
-  if(getOption("galah_config")$atlas == "Global"){
+  if(getOption("galah_config")$atlas$region == "Global"){
     queries <- as.list(filters$value)
     names(queries) <- filters$variable
     queries
@@ -424,8 +421,8 @@ check_for_caching <- function(taxa_query, filter_query, area_query,
 # long query
 cached_query <- function(taxa_query, filter_query, area_query,
                          columns = NULL) {
-  resp <- atlas_url("records_query") |> 
-          atlas_POST(body = list(
+  resp <- url_lookup("records_query") |> 
+          url_POST(body = list(
             wkt = area_query, 
             fq = taxa_query,
             fields = columns))
@@ -479,7 +476,7 @@ check_data_request <- function(request, error_call = caller_env()){
 
 # Read cached file
 read_cache_file <- function(filename) {
-  if (getOption("galah_config")$verbose) {
+  if (getOption("galah_config")$package$verbose) {
     inform(glue("Using cached file \"{filename}\"."))
   }
   readRDS(filename)
@@ -487,7 +484,7 @@ read_cache_file <- function(filename) {
 
 # Write file to cache and metadata to metadata cache
 write_cache_file <- function(object, data_type, cache_file) {
-  if (getOption("galah_config")$verbose) {
+  if (getOption("galah_config")$package$verbose) {
     inform(glue("
                 
                 Writing to cache file \"{cache_file}\".
@@ -513,13 +510,13 @@ write_cache_file <- function(object, data_type, cache_file) {
 cache_filename <- function(...) {
   args <- c(...)
   filename <- paste0(digest(sort(args)), ".rds")
-  file.path(getOption("galah_config")$cache_directory, filename)
+  file.path(getOption("galah_config")$package$cache_directory, filename)
 }
 
 # Write function call metadata to RDS file to enable metadata viewing with
 # `find_cached_files()`
 write_metadata <- function(request, data_type, cache_file) {
-  metadata_file <- file.path(getOption("galah_config")$cache_directory,
+  metadata_file <- file.path(getOption("galah_config")$package$cache_directory,
                              "metadata.rds")
   if (file.exists(metadata_file)) {
     metadata <- readRDS(metadata_file)
@@ -605,7 +602,7 @@ check_type_valid <- function(type, valid, error_call = caller_env()) {
 ## show_all_atlases / search_atlases --------------------------#
 
 image_fields <- function() {
-  atlas <- getOption("galah_config")$atlas
+  atlas <- getOption("galah_config")$atlas$region
   switch (atlas,
           "Austria" = "all_image_url",
           "Guatemala" = "all_image_url",
@@ -615,7 +612,7 @@ image_fields <- function() {
 }
 
 default_columns <- function() {
-  atlas <- getOption("galah_config")$atlas
+  atlas <- getOption("galah_config")$atlas$region
   switch (atlas,
           "Guatemala" = c("latitude", "longtitude", "species_guid",
                           "data_resource_uid", "occurrence_date", "id"),
@@ -628,7 +625,7 @@ default_columns <- function() {
 }
 
 species_facets <- function(){
-  atlas <- getOption("galah_config")$atlas
+  atlas <- getOption("galah_config")$atlas$region
   
   switch(atlas,
          "Australia" = "speciesID",
@@ -640,7 +637,7 @@ species_facets <- function(){
 }
 
 # taxon_key_type <- function(){
-#   atlas <- getOption("galah_config")$atlas
+#   atlas <- getOption("galah_config")$atlas$region
 #   if(any(atlas == c("Estonia"))){
 #     "GBIF"
 #   }else{
@@ -679,8 +676,8 @@ get_fields <- function() {
 }
 
 get_layers <- function() {
-  url <- atlas_url("spatial_layers", quiet = TRUE)
-  result <- atlas_GET(url)
+  url <- url_lookup("spatial_layers", quiet = TRUE)
+  result <- url_GET(url)
   
   if(is.null(result)){
     NULL
@@ -730,8 +727,8 @@ get_media <- function(x) {
 }
 
 all_fields <- function() {
-  url <- atlas_url("records_fields")
-  atlas_GET(url)
+  url <- url_lookup("records_fields")
+  url_GET(url)
 }
 
 build_layer_id <- function(type, id) {
@@ -750,7 +747,7 @@ build_layer_id <- function(type, id) {
 system_down_message <- function(function_name){
   bullets <- c(
     glue("Calling the API failed for `{function_name}`."),
-    i = "This might mean that the API is down",
+    i = "This might mean that the API is down, or that you are not connected to the internet",
     i = "Double check that your query is correct, or try again later"
   )
   inform(bullets)

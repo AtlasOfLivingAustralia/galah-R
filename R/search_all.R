@@ -230,7 +230,6 @@ search_fields <- function(query){
     
     # calculate similarity of results to query, reorder results
     similarity <- adist(df$id, query)[, 1]
-    # browser()
     # similarity <- mapply(stringdist::afind, df$description, query)
     df <- df[order(similarity), ]
     

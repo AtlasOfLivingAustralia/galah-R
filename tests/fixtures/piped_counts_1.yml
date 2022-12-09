@@ -23,20 +23,20 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:11 GMT
+      date: Fri, 09 Dec 2022 03:44:50 GMT
       expires: '0'
       pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=2Sow8VFU/+FTlYCeH7xLH4oxtO7wIDpplfmgJlTTzvkg8sV/XVuyRWw4V5Swxa016dMoe1gKbNQqZ95vpF7gZi8tnbQbbD4/WI17hyT0YLiFsNw6cA2V+xiRnbYGeekaixgMLliUMkBpiUAwNb1zUwNVZKgNLGEGNN8KwVP1EY9E;
-        Expires=Tue, 06 Dec 2022 22:34:11 GMT; Path=/
-      - AWSALBTGCORS=2Sow8VFU/+FTlYCeH7xLH4oxtO7wIDpplfmgJlTTzvkg8sV/XVuyRWw4V5Swxa016dMoe1gKbNQqZ95vpF7gZi8tnbQbbD4/WI17hyT0YLiFsNw6cA2V+xiRnbYGeekaixgMLliUMkBpiUAwNb1zUwNVZKgNLGEGNN8KwVP1EY9E;
-        Expires=Tue, 06 Dec 2022 22:34:11 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=lCdgHeMXOIvSsBfu44hKfrHjGMS6BxVUgNpFWloUIgiGi6JDqVlgz+yPByFzTdRrWxIgmyHfaxMn8+SP7lE8sIOnsqV1PY5HDjunBtXBWgwRnhU/IujLvNx4PnWY;
-        Expires=Tue, 06 Dec 2022 22:34:11 GMT; Path=/
-      - AWSALBCORS=lCdgHeMXOIvSsBfu44hKfrHjGMS6BxVUgNpFWloUIgiGi6JDqVlgz+yPByFzTdRrWxIgmyHfaxMn8+SP7lE8sIOnsqV1PY5HDjunBtXBWgwRnhU/IujLvNx4PnWY;
-        Expires=Tue, 06 Dec 2022 22:34:11 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=akpvRPZ56UO4YCcVOUaMtAfpFgZWvWLDHbMX4g65Z3XZhwD5XIuFo54FbUukc1ZgMnhLdGSecSewFweLgcHN/apwsutgSalYFO7UXAydwLqXJLuxkauiBR2bLFyn+f6mwr9Gm9Ds3clrsxlEVhxrrF3T0bZFTrrux2eQ6dAGIj6O;
+        Expires=Fri, 16 Dec 2022 03:44:50 GMT; Path=/
+      - AWSALBTGCORS=akpvRPZ56UO4YCcVOUaMtAfpFgZWvWLDHbMX4g65Z3XZhwD5XIuFo54FbUukc1ZgMnhLdGSecSewFweLgcHN/apwsutgSalYFO7UXAydwLqXJLuxkauiBR2bLFyn+f6mwr9Gm9Ds3clrsxlEVhxrrF3T0bZFTrrux2eQ6dAGIj6O;
+        Expires=Fri, 16 Dec 2022 03:44:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=N382Y2qwF6Yz4w2FJ021+fZtsyOZfsPDGWKqb6m8Rha/CZii5TdXB07MUSa287YLGrVyThYQRRJMvfD2177RIifV+Qa2P8Rg6CEnNZHndu4s0eeYB6lLd2NadhNX;
+        Expires=Fri, 16 Dec 2022 03:44:50 GMT; Path=/
+      - AWSALBCORS=N382Y2qwF6Yz4w2FJ021+fZtsyOZfsPDGWKqb6m8Rha/CZii5TdXB07MUSa287YLGrVyThYQRRJMvfD2177RIifV+Qa2P8Rg6CEnNZHndu4s0eeYB6lLd2NadhNX;
+        Expires=Fri, 16 Dec 2022 03:44:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -49,29 +49,29 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"name":"AMBIGUOUS_COLLECTION","code":2059,"description":"Ambiguous
-        collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
-        institution","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
+        collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
+        institution","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
         of record badly formed","category":"Warning","fatal":false,"termsRequiredToTest":["basisOfRecord"]},{"name":"biosecurityIssue","code":20021,"description":"Biosecurity
         issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"COLLECTION_MATCH_FUZZY","code":2063,"description":"Collection
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"COLLECTION_MATCH_NONE","code":2061,"description":"Collection
-        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"CONTINENT_COUNTRY_MISMATCH","code":2020,"description":"Continent
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"COLLECTION_MATCH_NONE","code":2061,"description":"Collection
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"CONTINENT_COUNTRY_MISMATCH","code":2020,"description":"Continent
         country mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_DERIVED_FROM_COORDINATES","code":2022,"description":"Continent
         derived from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_INVALID","code":2021,"description":"Continent
         invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_ACCURACY_INVALID","code":2009,"description":"Coordinate
         accuracy invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_INVALID","code":2002,"description":"Coordinate
-        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
-        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
+        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
         precision invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinatePrecision"]},{"name":"COORDINATE_PRECISION_UNCERTAINTY_MISMATCH","code":2012,"description":"Coordinate
         precision uncertainty mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_REPROJECTED","code":2006,"description":"Coordinates
-        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
-        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
-        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
-        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
+        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
+        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
+        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","geodeticDatum"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
+        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
         uncertainty meters invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinateUncertaintyInMeters"]},{"name":"COORDINATES_CENTRE_OF_COUNTRY","code":1006,"description":"Coordinates
         centre of country","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"COORDINATES_CENTRE_OF_STATEPROVINCE","code":1001,"description":"Supplied
         coordinates centre of state","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"COUNTRY_COORDINATE_MISMATCH","code":2016,"description":"Coordinates
-        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","countryCode","verbatimLatitude","verbatimLongitude","decimalLatitude","country","geodeticDatum","decimalLongitude"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
-        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","countryCode","verbatimLatitude","verbatimLongitude","decimalLatitude","country","geodeticDatum","decimalLongitude"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
+        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","countryCode","geodeticDatum","country"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
+        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","countryCode","geodeticDatum","country"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
         invalid","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"COUNTRY_MISMATCH","code":2017,"description":"Country
         mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2035,"description":"Min
         and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2036,"description":"Depth
@@ -79,11 +79,11 @@ http_interactions:
         value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2034,"description":"Depth
         unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
         outlier","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"DIFFERENT_OWNER_INSTITUTION","code":2066,"description":"Different
-        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
-        and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2040,"description":"Altitude
-        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2039,"description":"Altitude
-        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2037,"description":"Elevation
-        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"FIRST_OF_CENTURY","code":1018,"description":"First
+        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
+        and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2040,"description":"Altitude
+        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2039,"description":"Altitude
+        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2037,"description":"Elevation
+        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"FIRST_OF_CENTURY","code":1018,"description":"First
         of the century","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_MONTH","code":1016,"description":"First
         of the month","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_YEAR","code":1017,"description":"First
         of the year","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FOOTPRINT_SRS_INVALID","code":2013,"description":"Footprint
@@ -103,9 +103,9 @@ http_interactions:
         date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS","code":2052,"description":"Individual
         count conflicts with occurrence status","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INDIVIDUAL_COUNT_INVALID","code":2051,"description":"Individual
         count invalid","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INSTITUTION_COLLECTION_MISMATCH","code":2064,"description":"Institution
-        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
-        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
+        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
         error","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"INVALID_SCIENTIFIC_NAME","code":1036,"description":"Invalid
         scientific name","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"LOCATION_NOT_SUPPLIED","code":1000,"description":"Location
         not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"MISSING_COLLECTION_DATE","code":1013,"description":"Missing
@@ -125,13 +125,13 @@ http_interactions:
         status inferred from basis of record","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT","code":2054,"description":"Occurrence
         status inferred from individual count","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_UNPARSABLE","code":2053,"description":"Occurrence
         status unparsable","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"POSSIBLY_ON_LOAN","code":2065,"description":"Possibly
-        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
-        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
-        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
-        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
-        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
+        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
+        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["day","month","year","eventDate"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
+        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["day","month","year","eventDate"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["day","month","year","eventDate"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
         uri invalid","category":"Warning","fatal":false,"termsRequiredToTest":["references"]},{"name":"SENSITIVITY_REPORT_INVALID","code":1037,"description":"Sensitivity
         report invalid","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"SENSITIVITY_REPORT_NOT_LOADABLE","code":1038,"description":"Sensitivity
         report not loadable","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"STATE_COORDINATE_MISMATCH","code":1004,"description":"Coordinates
@@ -144,10 +144,10 @@ http_interactions:
         excluded associated","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_HOMONYM","code":1024,"description":"Taxon
         homonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_INDETERMINATE_SPECIES","code":1025,"description":"Taxon
         indeterminate species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MATCH_AGGREGATE","code":2031,"description":"Taxon
-        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
-        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
-        match none","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
+        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
+        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
+        match none","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
         misapplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MISAPPLIED_MATCHED","code":1026,"description":"Taxon
         misapplied matched","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_PARENT_CHILD_SYNONYM","code":1028,"description":"Taxon
         parent child synonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_QUESTION_SPECIES","code":1029,"description":"Taxon
@@ -165,8 +165,8 @@ http_interactions:
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"userAssertionOther","code":20019,"description":"Other
         error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
         occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
-        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]}]'
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -192,20 +192,19 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:11 GMT
+      date: Fri, 09 Dec 2022 03:44:50 GMT
       expires: '0'
       pragma: no-cache
-      referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=gm9abvIY8Xvr4WX1BlDGU5JlPlYWPKOymavD0x1RDkNkzBQXni4T3t0YjZ3om/VaAV74NLLklrAlEs//AQocTh2Cg32AUA9DLM7qh7ABccOMaTOdnzDsg3MM6nCyt0l2l7SOT00r20HAAMjf4p5sgYMqqi0roeQbk3+KNv1sIdjv;
-        Expires=Tue, 06 Dec 2022 22:34:11 GMT; Path=/
-      - AWSALBTGCORS=gm9abvIY8Xvr4WX1BlDGU5JlPlYWPKOymavD0x1RDkNkzBQXni4T3t0YjZ3om/VaAV74NLLklrAlEs//AQocTh2Cg32AUA9DLM7qh7ABccOMaTOdnzDsg3MM6nCyt0l2l7SOT00r20HAAMjf4p5sgYMqqi0roeQbk3+KNv1sIdjv;
-        Expires=Tue, 06 Dec 2022 22:34:11 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=CLQRVfOrVKmTJqbrV8gv4xnilgy0PDbik0q2rGZKAgQ9Qg+qtAsiwvDiJvZ4MVoFgdyMeSel5x3iQYx2edYvcXLvBhXIsloVuX2RPj8DENSnV8+Th/q01jtAGuDC;
-        Expires=Tue, 06 Dec 2022 22:34:11 GMT; Path=/
-      - AWSALBCORS=CLQRVfOrVKmTJqbrV8gv4xnilgy0PDbik0q2rGZKAgQ9Qg+qtAsiwvDiJvZ4MVoFgdyMeSel5x3iQYx2edYvcXLvBhXIsloVuX2RPj8DENSnV8+Th/q01jtAGuDC;
-        Expires=Tue, 06 Dec 2022 22:34:11 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=LDH5Dpz1+mken05kn5TEyujyzzrH+Q5ez9oVcrA6N8C0ATuQIrQ+wT6/IV50/hNlP5O/SBr1KQPdTVCRP9BLVZfac9eTOgX4zyynsaryjeiEURd60uOFEKtbYu9xKCOIEURf6Sd9PEwlBrqcEicUSqmjAT6oEUCdUUqyBxvYV3CH;
+        Expires=Fri, 16 Dec 2022 03:44:50 GMT; Path=/
+      - AWSALBTGCORS=LDH5Dpz1+mken05kn5TEyujyzzrH+Q5ez9oVcrA6N8C0ATuQIrQ+wT6/IV50/hNlP5O/SBr1KQPdTVCRP9BLVZfac9eTOgX4zyynsaryjeiEURd60uOFEKtbYu9xKCOIEURf6Sd9PEwlBrqcEicUSqmjAT6oEUCdUUqyBxvYV3CH;
+        Expires=Fri, 16 Dec 2022 03:44:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=qgn2U1LUShVcKOhwd/vwqpyudD5MA++GvYXyHQObg3I6wMxAPjIIx9tiV+/Atqlnwaw8sKvhxTygwF18kDd/NgTuN4zgG+LRwm9HB7pvUzwQINsy8JgH7vDqK30a;
+        Expires=Fri, 16 Dec 2022 03:44:50 GMT; Path=/
+      - AWSALBCORS=qgn2U1LUShVcKOhwd/vwqpyudD5MA++GvYXyHQObg3I6wMxAPjIIx9tiV+/Atqlnwaw8sKvhxTygwF18kDd/NgTuN4zgG+LRwm9HB7pvUzwQINsy8JgH7vDqK30a;
+        Expires=Fri, 16 Dec 2022 03:44:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -217,9 +216,9 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":7127224,"fq":"year:\"2021\""}],"count":5},{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human
-        observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":25401354,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":5}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":7128232,"fq":"year:\"2021\""}],"count":5},{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human
+        observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":25441127,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""}],"count":5}]'
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -245,20 +244,19 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:12 GMT
+      date: Fri, 09 Dec 2022 03:44:51 GMT
       expires: '0'
       pragma: no-cache
-      referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=orkYkmSxWhWBVn0csYtfUKJ9gh90ajAQ1YPG3i9RN7NED+MaRlqsG83OTMK7z/rmYqiacfJ5afd7Vsrl0NFCWOPTTy3u+yQKYkMxJ6WXVBrCnMn70nxHHJAi8K1JEBZBl5kgk0ON7bMtCJwdXGuMhcfvCuJVRUhO5A7dIiZ4bhmq;
-        Expires=Tue, 06 Dec 2022 22:34:11 GMT; Path=/
-      - AWSALBTGCORS=orkYkmSxWhWBVn0csYtfUKJ9gh90ajAQ1YPG3i9RN7NED+MaRlqsG83OTMK7z/rmYqiacfJ5afd7Vsrl0NFCWOPTTy3u+yQKYkMxJ6WXVBrCnMn70nxHHJAi8K1JEBZBl5kgk0ON7bMtCJwdXGuMhcfvCuJVRUhO5A7dIiZ4bhmq;
-        Expires=Tue, 06 Dec 2022 22:34:11 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=6btXZokUj47lnBfamdBnHmxrba85qgrgmAYWASvVT0dMu/2QkOfFoftoKajSvWVnQMzcjCU2a3y3truhlBy2Dlt+a9FGi6M0Ni/MGUdQ0h97p+/gcfC9oXAsNZHP;
-        Expires=Tue, 06 Dec 2022 22:34:11 GMT; Path=/
-      - AWSALBCORS=6btXZokUj47lnBfamdBnHmxrba85qgrgmAYWASvVT0dMu/2QkOfFoftoKajSvWVnQMzcjCU2a3y3truhlBy2Dlt+a9FGi6M0Ni/MGUdQ0h97p+/gcfC9oXAsNZHP;
-        Expires=Tue, 06 Dec 2022 22:34:11 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=2JBpW3Dq9sETr1i7TaScGjPR9IUO97uzUN02NWFI8o+gfORHmk2D36Skkb8eKAxSy2tal8hsD/Fy3/8o8NV36rnfEbOE0Qejp9KtZcQW4DM6wzrCrbFfFXIiSdGGcn64D01zGgCSnaA0r5zSK6gO1QUHESvqAFsOuCkFIDFsHYBU;
+        Expires=Fri, 16 Dec 2022 03:44:50 GMT; Path=/
+      - AWSALBTGCORS=2JBpW3Dq9sETr1i7TaScGjPR9IUO97uzUN02NWFI8o+gfORHmk2D36Skkb8eKAxSy2tal8hsD/Fy3/8o8NV36rnfEbOE0Qejp9KtZcQW4DM6wzrCrbFfFXIiSdGGcn64D01zGgCSnaA0r5zSK6gO1QUHESvqAFsOuCkFIDFsHYBU;
+        Expires=Fri, 16 Dec 2022 03:44:50 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=B9iqSMj+F2r0jQR0XEbAF7CWeMl6WeV8joRb94eXLO3BfTD0xGkPUXJObZ692KMIFR/rzyEERJgc9Nvfr3c3OqFYYpy4N9vrLJXq5boobGgeqNGUwLKffPxspFQc;
+        Expires=Fri, 16 Dec 2022 03:44:50 GMT; Path=/
+      - AWSALBCORS=B9iqSMj+F2r0jQR0XEbAF7CWeMl6WeV8joRb94eXLO3BfTD0xGkPUXJObZ692KMIFR/rzyEERJgc9Nvfr3c3OqFYYpy4N9vrLJXq5boobGgeqNGUwLKffPxspFQc;
+        Expires=Fri, 16 Dec 2022 03:44:50 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -270,11 +268,11 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":7127224,"fq":"year:\"2021\""},{"label":"2020","i18nCode":"year.2020","count":6403158,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":5769833,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":5614520,"fq":"year:\"2018\""},{"label":"2022","i18nCode":"year.2022","count":1353727,"fq":"year:\"2022\""}],"count":5},{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human
-        observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":25401354,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"OCCURRENCE","i18nCode":"basisOfRecord.OCCURRENCE","count":291968,"fq":"basisOfRecord:\"OCCURRENCE\""},{"label":"Observation","i18nCode":"basisOfRecord.OBSERVATION","count":272706,"fq":"basisOfRecord:\"OBSERVATION\""},{"label":"Preserved
-        specimen","i18nCode":"basisOfRecord.PRESERVED_SPECIMEN","count":169756,"fq":"basisOfRecord:\"PRESERVED_SPECIMEN\""},{"label":"Machine
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":7128232,"fq":"year:\"2021\""},{"label":"2020","i18nCode":"year.2020","count":6403961,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":5769777,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":5613984,"fq":"year:\"2018\""},{"label":"2022","i18nCode":"year.2022","count":1392873,"fq":"year:\"2022\""}],"count":5},{"fieldName":"basisOfRecord","fieldResult":[{"label":"Human
+        observation","i18nCode":"basisOfRecord.HUMAN_OBSERVATION","count":25441127,"fq":"basisOfRecord:\"HUMAN_OBSERVATION\""},{"label":"OCCURRENCE","i18nCode":"basisOfRecord.OCCURRENCE","count":291968,"fq":"basisOfRecord:\"OCCURRENCE\""},{"label":"Observation","i18nCode":"basisOfRecord.OBSERVATION","count":272706,"fq":"basisOfRecord:\"OBSERVATION\""},{"label":"Preserved
+        specimen","i18nCode":"basisOfRecord.PRESERVED_SPECIMEN","count":170348,"fq":"basisOfRecord:\"PRESERVED_SPECIMEN\""},{"label":"Machine
         observation","i18nCode":"basisOfRecord.MACHINE_OBSERVATION","count":119406,"fq":"basisOfRecord:\"MACHINE_OBSERVATION\""}],"count":5}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -300,20 +298,20 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:12 GMT
+      date: Fri, 09 Dec 2022 03:44:52 GMT
       expires: '0'
       pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=ADto5P/hDPyPi/rpAuyByLqMdfO2ilv8gAx9GTBURvFlOoaXmTa7iERHDhb9cCinin3EA+M/pQPzU4a/RNeGPQqKmp7suP9Lfs31IIoiJXiiKuhfvoqXjmCmXTokcqPS/Iv2ZtkY+cZUSg40bZEoI7cksZGpPIWG+bATaHORyEI8;
-        Expires=Tue, 06 Dec 2022 22:34:12 GMT; Path=/
-      - AWSALBTGCORS=ADto5P/hDPyPi/rpAuyByLqMdfO2ilv8gAx9GTBURvFlOoaXmTa7iERHDhb9cCinin3EA+M/pQPzU4a/RNeGPQqKmp7suP9Lfs31IIoiJXiiKuhfvoqXjmCmXTokcqPS/Iv2ZtkY+cZUSg40bZEoI7cksZGpPIWG+bATaHORyEI8;
-        Expires=Tue, 06 Dec 2022 22:34:12 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=AQ8n0ezoC+lCVT38QBrg312UKW9u+hddhxqAWc4AUremayqLqy2Zi0o3q1I+REWvEVOiqXLYO/nTd3jFmQnDFRKYdZVxm3b5OCogr6kmA0qnoSZuov9vrFZi+S4I;
-        Expires=Tue, 06 Dec 2022 22:34:12 GMT; Path=/
-      - AWSALBCORS=AQ8n0ezoC+lCVT38QBrg312UKW9u+hddhxqAWc4AUremayqLqy2Zi0o3q1I+REWvEVOiqXLYO/nTd3jFmQnDFRKYdZVxm3b5OCogr6kmA0qnoSZuov9vrFZi+S4I;
-        Expires=Tue, 06 Dec 2022 22:34:12 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=WGfV/cO72dwHSiz6CzfiSVdtMTo4yG/ZMvZ5IsR05SwEGmDRvyQwUKN5p1rr5yyiCFVUHH17H7Yt0ChDGrT0tPjFt+3sJQoAYG7Bp02I0DwOHJoTNXmCu2AjTctrkFFWeWTsf4NBw8W96d0mck+IwbsHkC3vvF4lUabQee8qZO15;
+        Expires=Fri, 16 Dec 2022 03:44:51 GMT; Path=/
+      - AWSALBTGCORS=WGfV/cO72dwHSiz6CzfiSVdtMTo4yG/ZMvZ5IsR05SwEGmDRvyQwUKN5p1rr5yyiCFVUHH17H7Yt0ChDGrT0tPjFt+3sJQoAYG7Bp02I0DwOHJoTNXmCu2AjTctrkFFWeWTsf4NBw8W96d0mck+IwbsHkC3vvF4lUabQee8qZO15;
+        Expires=Fri, 16 Dec 2022 03:44:51 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=iA6qPoPAY19Da9FeS7nIc/yLR/lSh213Cu6u4Yz9PHDEAaYqhO84eKV5ZFzHSngKeOY5CySoOQ2seH37FRBo4dakpXKt/ALHSDySCGqUyEdYuNOu+9eMp+MpNgbc;
+        Expires=Fri, 16 Dec 2022 03:44:51 GMT; Path=/
+      - AWSALBCORS=iA6qPoPAY19Da9FeS7nIc/yLR/lSh213Cu6u4Yz9PHDEAaYqhO84eKV5ZFzHSngKeOY5CySoOQ2seH37FRBo4dakpXKt/ALHSDySCGqUyEdYuNOu+9eMp+MpNgbc;
+        Expires=Fri, 16 Dec 2022 03:44:51 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -326,37 +324,37 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"name":"AMBIGUOUS_COLLECTION","code":2059,"description":"Ambiguous
-        collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
-        institution","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
+        collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
+        institution","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
         of record badly formed","category":"Warning","fatal":false,"termsRequiredToTest":["basisOfRecord"]},{"name":"biosecurityIssue","code":20021,"description":"Biosecurity
         issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"COLLECTION_MATCH_FUZZY","code":2063,"description":"Collection
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"COLLECTION_MATCH_NONE","code":2061,"description":"Collection
-        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"CONTINENT_COUNTRY_MISMATCH","code":2020,"description":"Continent
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"COLLECTION_MATCH_NONE","code":2061,"description":"Collection
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"CONTINENT_COUNTRY_MISMATCH","code":2020,"description":"Continent
         country mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_DERIVED_FROM_COORDINATES","code":2022,"description":"Continent
         derived from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_INVALID","code":2021,"description":"Continent
         invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_ACCURACY_INVALID","code":2009,"description":"Coordinate
         accuracy invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_INVALID","code":2002,"description":"Coordinate
-        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
-        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
+        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
         precision invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinatePrecision"]},{"name":"COORDINATE_PRECISION_UNCERTAINTY_MISMATCH","code":2012,"description":"Coordinate
         precision uncertainty mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_REPROJECTED","code":2006,"description":"Coordinates
-        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
-        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
-        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
-        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
+        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
+        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
+        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude","geodeticDatum"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
+        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
         uncertainty meters invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinateUncertaintyInMeters"]},{"name":"COORDINATES_CENTRE_OF_COUNTRY","code":1006,"description":"Coordinates
         centre of country","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"COORDINATES_CENTRE_OF_STATEPROVINCE","code":1001,"description":"Supplied
         coordinates centre of state","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"COUNTRY_COORDINATE_MISMATCH","code":2016,"description":"Coordinates
-        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","countryCode","decimalLatitude","verbatimLongitude","verbatimCoordinates","country","verbatimLatitude"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
-        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","countryCode","decimalLatitude","verbatimLongitude","verbatimCoordinates","country","verbatimLatitude"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
-        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"COUNTRY_MISMATCH","code":2017,"description":"Country
-        mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2035,"description":"Min
-        and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2036,"description":"Depth
-        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NOT_METRIC","code":2033,"description":"Depth
-        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2034,"description":"Depth
-        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
+        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","country","verbatimLatitude","countryCode","decimalLatitude","geodeticDatum"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
+        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","country","verbatimLatitude","countryCode","decimalLatitude","geodeticDatum"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["country","countryCode"]},{"name":"COUNTRY_MISMATCH","code":2017,"description":"Country
+        mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["country","countryCode"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2035,"description":"Min
+        and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2036,"description":"Depth
+        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_NOT_METRIC","code":2033,"description":"Depth
+        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2034,"description":"Depth
+        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
         outlier","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"DIFFERENT_OWNER_INSTITUTION","code":2066,"description":"Different
-        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
+        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
         and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2040,"description":"Altitude
         value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2039,"description":"Altitude
         value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2037,"description":"Elevation
@@ -380,9 +378,9 @@ http_interactions:
         date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS","code":2052,"description":"Individual
         count conflicts with occurrence status","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INDIVIDUAL_COUNT_INVALID","code":2051,"description":"Individual
         count invalid","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INSTITUTION_COLLECTION_MISMATCH","code":2064,"description":"Institution
-        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
-        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
+        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
         error","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"INVALID_SCIENTIFIC_NAME","code":1036,"description":"Invalid
         scientific name","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"LOCATION_NOT_SUPPLIED","code":1000,"description":"Location
         not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"MISSING_COLLECTION_DATE","code":1013,"description":"Missing
@@ -402,13 +400,13 @@ http_interactions:
         status inferred from basis of record","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT","code":2054,"description":"Occurrence
         status inferred from individual count","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_UNPARSABLE","code":2053,"description":"Occurrence
         status unparsable","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"POSSIBLY_ON_LOAN","code":2065,"description":"Possibly
-        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
-        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
-        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["year","day","month","eventDate"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
-        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["year","day","month","eventDate"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
-        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["year","day","month","eventDate"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
+        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
+        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["year","month","day","eventDate"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
+        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["year","month","day","eventDate"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["year","month","day","eventDate"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
         uri invalid","category":"Warning","fatal":false,"termsRequiredToTest":["references"]},{"name":"SENSITIVITY_REPORT_INVALID","code":1037,"description":"Sensitivity
         report invalid","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"SENSITIVITY_REPORT_NOT_LOADABLE","code":1038,"description":"Sensitivity
         report not loadable","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"STATE_COORDINATE_MISMATCH","code":1004,"description":"Coordinates
@@ -421,10 +419,10 @@ http_interactions:
         excluded associated","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_HOMONYM","code":1024,"description":"Taxon
         homonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_INDETERMINATE_SPECIES","code":1025,"description":"Taxon
         indeterminate species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MATCH_AGGREGATE","code":2031,"description":"Taxon
-        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["scientificName","class","genus","phylum","order","specificEpithet","genericName","scientificNameAuthorship","family","kingdom","infraspecificEpithet"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["scientificName","class","genus","phylum","order","specificEpithet","genericName","scientificNameAuthorship","family","kingdom","infraspecificEpithet"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
-        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["scientificName","class","genus","phylum","order","specificEpithet","genericName","scientificNameAuthorship","family","kingdom","infraspecificEpithet"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
-        match none","category":"Warning","fatal":false,"termsRequiredToTest":["scientificName","class","genus","phylum","order","specificEpithet","genericName","scientificNameAuthorship","family","kingdom","infraspecificEpithet"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
+        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","genus","family","genericName","phylum","class","scientificNameAuthorship","infraspecificEpithet","specificEpithet","scientificName","order"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","genus","family","genericName","phylum","class","scientificNameAuthorship","infraspecificEpithet","specificEpithet","scientificName","order"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
+        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","genus","family","genericName","phylum","class","scientificNameAuthorship","infraspecificEpithet","specificEpithet","scientificName","order"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
+        match none","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","genus","family","genericName","phylum","class","scientificNameAuthorship","infraspecificEpithet","specificEpithet","scientificName","order"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
         misapplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MISAPPLIED_MATCHED","code":1026,"description":"Taxon
         misapplied matched","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_PARENT_CHILD_SYNONYM","code":1028,"description":"Taxon
         parent child synonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_QUESTION_SPECIES","code":1029,"description":"Taxon
@@ -442,8 +440,8 @@ http_interactions:
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"userAssertionOther","code":20019,"description":"Other
         error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
         occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
-        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]}]'
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -469,20 +467,19 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:13 GMT
+      date: Fri, 09 Dec 2022 03:44:52 GMT
       expires: '0'
       pragma: no-cache
-      referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=N+V5PRKKkNWTnV2zP08IKfPMK6LFq2QX5aStkgtPrxsxF/ADur15MAdKZU0DdTvuyTXxeDVwFc6zUNCQTsUqObwuLPHEBcB7kCyO04y8HAtGlatuqtUB0bx/ZFFzbtaHwIwtGjL38nOhin3v8jqIt5zMs/YT9uXa2R+Dkkv0HyoB;
-        Expires=Tue, 06 Dec 2022 22:34:12 GMT; Path=/
-      - AWSALBTGCORS=N+V5PRKKkNWTnV2zP08IKfPMK6LFq2QX5aStkgtPrxsxF/ADur15MAdKZU0DdTvuyTXxeDVwFc6zUNCQTsUqObwuLPHEBcB7kCyO04y8HAtGlatuqtUB0bx/ZFFzbtaHwIwtGjL38nOhin3v8jqIt5zMs/YT9uXa2R+Dkkv0HyoB;
-        Expires=Tue, 06 Dec 2022 22:34:12 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=WN2Uv6DdgfmW0jKVACDHA98Qn/AUK91sCSFnVegPYbQRrovi1a3yxnTGzzZEcX8itVtLcJVwk0Roc7c8tntN+//H2IXurdVrz4MPc08aNDX0QZ3HQahUq5BITZ30;
-        Expires=Tue, 06 Dec 2022 22:34:12 GMT; Path=/
-      - AWSALBCORS=WN2Uv6DdgfmW0jKVACDHA98Qn/AUK91sCSFnVegPYbQRrovi1a3yxnTGzzZEcX8itVtLcJVwk0Roc7c8tntN+//H2IXurdVrz4MPc08aNDX0QZ3HQahUq5BITZ30;
-        Expires=Tue, 06 Dec 2022 22:34:12 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=lUDijZyEE96mXfG52u9iOMtVDZrZz6HA214KkPpA5fIzoJ48V+dYu16P9Q5iQSa+V5lCUdt4YqUhBstmAewA/bIq4/iRQN5dSPGTW6gOogV6YR6PUW8yFKj2BTLSi7mwTr8gpFprhX9its8NTcYQlPvFw39cfBbhct1G1cDNG31c;
+        Expires=Fri, 16 Dec 2022 03:44:52 GMT; Path=/
+      - AWSALBTGCORS=lUDijZyEE96mXfG52u9iOMtVDZrZz6HA214KkPpA5fIzoJ48V+dYu16P9Q5iQSa+V5lCUdt4YqUhBstmAewA/bIq4/iRQN5dSPGTW6gOogV6YR6PUW8yFKj2BTLSi7mwTr8gpFprhX9its8NTcYQlPvFw39cfBbhct1G1cDNG31c;
+        Expires=Fri, 16 Dec 2022 03:44:52 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=YbWJPewYwbvBB3AufrCz6SQmUkfi9FiKA2vQaZuMxUNO+TpS2IyYwjpVXv55tBaETAnyU49S7KK4ZuDQ/i++dnEWwRB9GmZrn88817lAyUqhHKlTBAAOWag+DVbz;
+        Expires=Fri, 16 Dec 2022 03:44:52 GMT; Path=/
+      - AWSALBCORS=YbWJPewYwbvBB3AufrCz6SQmUkfi9FiKA2vQaZuMxUNO+TpS2IyYwjpVXv55tBaETAnyU49S7KK4ZuDQ/i++dnEWwRB9GmZrn88817lAyUqhHKlTBAAOWag+DVbz;
+        Expires=Fri, 16 Dec 2022 03:44:52 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -494,8 +491,8 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":7037188,"fq":"year:\"2021\""}],"count":5}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":7038153,"fq":"year:\"2021\""}],"count":5}]'
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -521,20 +518,19 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:14 GMT
+      date: Fri, 09 Dec 2022 03:44:53 GMT
       expires: '0'
       pragma: no-cache
-      referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=mYD7A658SrrHa3NgTznUW3KbVHJ6WEobyfkEQ//+DrcmXI1W3G3AfScy0qjfppMMeXf1S9142VrEUEDzo6L+tpKvqRndQUo6mc2qmG4iLc5MwHl0KEwMXnH2NVl0AYTmwjBWOjW5SZ2zooCzR9h02OK2ufdzhm6fkSiqBz527tmj;
-        Expires=Tue, 06 Dec 2022 22:34:13 GMT; Path=/
-      - AWSALBTGCORS=mYD7A658SrrHa3NgTznUW3KbVHJ6WEobyfkEQ//+DrcmXI1W3G3AfScy0qjfppMMeXf1S9142VrEUEDzo6L+tpKvqRndQUo6mc2qmG4iLc5MwHl0KEwMXnH2NVl0AYTmwjBWOjW5SZ2zooCzR9h02OK2ufdzhm6fkSiqBz527tmj;
-        Expires=Tue, 06 Dec 2022 22:34:13 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=f9C+NpgkVgHrn3tXnwfkFutbIAq3guI1gXQX090eftoXetI5USqTxlL5nPcb3Kdd8WT3sPZIEUG2XKQBKj2aQweoAp/Px0EfbAKBMfb5k4w1vA70pO384F2DoMl/;
-        Expires=Tue, 06 Dec 2022 22:34:13 GMT; Path=/
-      - AWSALBCORS=f9C+NpgkVgHrn3tXnwfkFutbIAq3guI1gXQX090eftoXetI5USqTxlL5nPcb3Kdd8WT3sPZIEUG2XKQBKj2aQweoAp/Px0EfbAKBMfb5k4w1vA70pO384F2DoMl/;
-        Expires=Tue, 06 Dec 2022 22:34:13 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=T8PZdBTCpB6mEWivi80Be3YZJ58W0Baa1PliN/e1oalgnHaaQx/Op6lLll/3QKHy/2w6hmktGJAwASOSLViCrTex3mWqv8VPliYiwh906K8I/oG0mov98SbMvCwCwhvln0Mr+I0sSF+0BBlYTVBoN19IO5JWUjRL78aDtDnGL790;
+        Expires=Fri, 16 Dec 2022 03:44:52 GMT; Path=/
+      - AWSALBTGCORS=T8PZdBTCpB6mEWivi80Be3YZJ58W0Baa1PliN/e1oalgnHaaQx/Op6lLll/3QKHy/2w6hmktGJAwASOSLViCrTex3mWqv8VPliYiwh906K8I/oG0mov98SbMvCwCwhvln0Mr+I0sSF+0BBlYTVBoN19IO5JWUjRL78aDtDnGL790;
+        Expires=Fri, 16 Dec 2022 03:44:52 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=7uL5TqMJ8SUiG7I0S472LMtHQVRaYkSBRen3HX6EbJb+Bp+h8UrXxOxXT1RT7pagbU6x+wu2lW2Am2t3/5oDkR87RlskjF4WBzl6oVEJyfeOVAtl3AqoccjHHW5F;
+        Expires=Fri, 16 Dec 2022 03:44:52 GMT; Path=/
+      - AWSALBCORS=7uL5TqMJ8SUiG7I0S472LMtHQVRaYkSBRen3HX6EbJb+Bp+h8UrXxOxXT1RT7pagbU6x+wu2lW2Am2t3/5oDkR87RlskjF4WBzl6oVEJyfeOVAtl3AqoccjHHW5F;
+        Expires=Fri, 16 Dec 2022 03:44:52 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -546,8 +542,8 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":7037188,"fq":"year:\"2021\""},{"label":"2020","i18nCode":"year.2020","count":6293455,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":5513499,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":5217911,"fq":"year:\"2018\""},{"label":"2022","i18nCode":"year.2022","count":1339301,"fq":"year:\"2022\""}],"count":5}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":7038153,"fq":"year:\"2021\""},{"label":"2020","i18nCode":"year.2020","count":6294216,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":5513432,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":5217303,"fq":"year:\"2018\""},{"label":"2022","i18nCode":"year.2022","count":1378023,"fq":"year:\"2022\""}],"count":5}]'
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -573,20 +569,20 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:14 GMT
+      date: Fri, 09 Dec 2022 03:44:53 GMT
       expires: '0'
       pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=R/2IOSkPsMjCM9+gQ+10f1DkRPAaB9p5SbBSACimC0AY+OgwqgMogK58P6XuF8n88N+BvwVcksbM9krupHlikt6okIGoTSpvxTLDWT23wUAPBJ4bVjFgUtTKKzMCVgOY8UW5MSI2qMbDNAU7earAzTF9mCb3dfMnwQv9ZPaL+9jx;
-        Expires=Tue, 06 Dec 2022 22:34:14 GMT; Path=/
-      - AWSALBTGCORS=R/2IOSkPsMjCM9+gQ+10f1DkRPAaB9p5SbBSACimC0AY+OgwqgMogK58P6XuF8n88N+BvwVcksbM9krupHlikt6okIGoTSpvxTLDWT23wUAPBJ4bVjFgUtTKKzMCVgOY8UW5MSI2qMbDNAU7earAzTF9mCb3dfMnwQv9ZPaL+9jx;
-        Expires=Tue, 06 Dec 2022 22:34:14 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=c/5BfOyNJ/o5uTL9EIGUMGZN1RbnNNJDHDFwvCn8FZomS8jHpvnmZY5qhRWCEQh/v5EQeX3Ecy4L2W+f2i0CP5xAbn14hg1t2IDHEA1YfL9csluh/AVM8cELlP/e;
-        Expires=Tue, 06 Dec 2022 22:34:14 GMT; Path=/
-      - AWSALBCORS=c/5BfOyNJ/o5uTL9EIGUMGZN1RbnNNJDHDFwvCn8FZomS8jHpvnmZY5qhRWCEQh/v5EQeX3Ecy4L2W+f2i0CP5xAbn14hg1t2IDHEA1YfL9csluh/AVM8cELlP/e;
-        Expires=Tue, 06 Dec 2022 22:34:14 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=63d5LwZ9KxsJ4n2MIp9d75DmOPiKodlouT4G0xRDzOELrojbRm5Iqn1B5mqA/53tQ0dwShIMlrIGMBIIUvHV5a3+MRSpDY6MGOYBBFeReYKU1HD5jd9LudVgXi+lQs3gdvrs2GrEI1ggB4DM+gDYm482WA57+pNcH3OcGWCfNeNo;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBTGCORS=63d5LwZ9KxsJ4n2MIp9d75DmOPiKodlouT4G0xRDzOELrojbRm5Iqn1B5mqA/53tQ0dwShIMlrIGMBIIUvHV5a3+MRSpDY6MGOYBBFeReYKU1HD5jd9LudVgXi+lQs3gdvrs2GrEI1ggB4DM+gDYm482WA57+pNcH3OcGWCfNeNo;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=5xhYICW8OSBTEHROaElat1tmfS05TULhRfFPsRQG+zHIrAVquZes4E/8EYjSAshSRMlbEK9zW85ld36H0tDPgzBG81OAL8DdQP0aSj67R1VshT8YCFU4nHgjVIdd;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBCORS=5xhYICW8OSBTEHROaElat1tmfS05TULhRfFPsRQG+zHIrAVquZes4E/8EYjSAshSRMlbEK9zW85ld36H0tDPgzBG81OAL8DdQP0aSj67R1VshT8YCFU4nHgjVIdd;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -599,29 +595,29 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"name":"AMBIGUOUS_COLLECTION","code":2059,"description":"Ambiguous
-        collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
-        institution","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
+        collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
+        institution","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
         of record badly formed","category":"Warning","fatal":false,"termsRequiredToTest":["basisOfRecord"]},{"name":"biosecurityIssue","code":20021,"description":"Biosecurity
         issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"COLLECTION_MATCH_FUZZY","code":2063,"description":"Collection
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"COLLECTION_MATCH_NONE","code":2061,"description":"Collection
-        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"CONTINENT_COUNTRY_MISMATCH","code":2020,"description":"Continent
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"COLLECTION_MATCH_NONE","code":2061,"description":"Collection
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"CONTINENT_COUNTRY_MISMATCH","code":2020,"description":"Continent
         country mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_DERIVED_FROM_COORDINATES","code":2022,"description":"Continent
         derived from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_INVALID","code":2021,"description":"Continent
         invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_ACCURACY_INVALID","code":2009,"description":"Coordinate
         accuracy invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_INVALID","code":2002,"description":"Coordinate
-        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
-        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
+        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
         precision invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinatePrecision"]},{"name":"COORDINATE_PRECISION_UNCERTAINTY_MISMATCH","code":2012,"description":"Coordinate
         precision uncertainty mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_REPROJECTED","code":2006,"description":"Coordinates
-        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
-        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
-        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
-        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
+        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
+        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
+        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","geodeticDatum"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
+        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
         uncertainty meters invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinateUncertaintyInMeters"]},{"name":"COORDINATES_CENTRE_OF_COUNTRY","code":1006,"description":"Coordinates
         centre of country","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"COORDINATES_CENTRE_OF_STATEPROVINCE","code":1001,"description":"Supplied
         coordinates centre of state","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"COUNTRY_COORDINATE_MISMATCH","code":2016,"description":"Coordinates
-        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","countryCode","verbatimLatitude","verbatimLongitude","decimalLatitude","country","geodeticDatum","decimalLongitude"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
-        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","countryCode","verbatimLatitude","verbatimLongitude","decimalLatitude","country","geodeticDatum","decimalLongitude"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
+        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","countryCode","geodeticDatum","country"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
+        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","countryCode","geodeticDatum","country"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
         invalid","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"COUNTRY_MISMATCH","code":2017,"description":"Country
         mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2035,"description":"Min
         and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2036,"description":"Depth
@@ -629,11 +625,11 @@ http_interactions:
         value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2034,"description":"Depth
         unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
         outlier","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"DIFFERENT_OWNER_INSTITUTION","code":2066,"description":"Different
-        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
-        and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2040,"description":"Altitude
-        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2039,"description":"Altitude
-        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2037,"description":"Elevation
-        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"FIRST_OF_CENTURY","code":1018,"description":"First
+        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
+        and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2040,"description":"Altitude
+        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2039,"description":"Altitude
+        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2037,"description":"Elevation
+        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"FIRST_OF_CENTURY","code":1018,"description":"First
         of the century","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_MONTH","code":1016,"description":"First
         of the month","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_YEAR","code":1017,"description":"First
         of the year","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FOOTPRINT_SRS_INVALID","code":2013,"description":"Footprint
@@ -653,9 +649,9 @@ http_interactions:
         date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS","code":2052,"description":"Individual
         count conflicts with occurrence status","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INDIVIDUAL_COUNT_INVALID","code":2051,"description":"Individual
         count invalid","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INSTITUTION_COLLECTION_MISMATCH","code":2064,"description":"Institution
-        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
-        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
+        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
         error","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"INVALID_SCIENTIFIC_NAME","code":1036,"description":"Invalid
         scientific name","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"LOCATION_NOT_SUPPLIED","code":1000,"description":"Location
         not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"MISSING_COLLECTION_DATE","code":1013,"description":"Missing
@@ -675,13 +671,13 @@ http_interactions:
         status inferred from basis of record","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT","code":2054,"description":"Occurrence
         status inferred from individual count","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_UNPARSABLE","code":2053,"description":"Occurrence
         status unparsable","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"POSSIBLY_ON_LOAN","code":2065,"description":"Possibly
-        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
-        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
-        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
-        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
-        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
+        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
+        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["day","month","year","eventDate"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
+        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["day","month","year","eventDate"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["day","month","year","eventDate"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
         uri invalid","category":"Warning","fatal":false,"termsRequiredToTest":["references"]},{"name":"SENSITIVITY_REPORT_INVALID","code":1037,"description":"Sensitivity
         report invalid","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"SENSITIVITY_REPORT_NOT_LOADABLE","code":1038,"description":"Sensitivity
         report not loadable","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"STATE_COORDINATE_MISMATCH","code":1004,"description":"Coordinates
@@ -694,10 +690,10 @@ http_interactions:
         excluded associated","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_HOMONYM","code":1024,"description":"Taxon
         homonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_INDETERMINATE_SPECIES","code":1025,"description":"Taxon
         indeterminate species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MATCH_AGGREGATE","code":2031,"description":"Taxon
-        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
-        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
-        match none","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
+        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
+        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
+        match none","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
         misapplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MISAPPLIED_MATCHED","code":1026,"description":"Taxon
         misapplied matched","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_PARENT_CHILD_SYNONYM","code":1028,"description":"Taxon
         parent child synonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_QUESTION_SPECIES","code":1029,"description":"Taxon
@@ -715,8 +711,8 @@ http_interactions:
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"userAssertionOther","code":20019,"description":"Other
         error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
         occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
-        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]}]'
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -742,20 +738,19 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:15 GMT
+      date: Fri, 09 Dec 2022 03:44:53 GMT
       expires: '0'
       pragma: no-cache
-      referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=vkrVOofWFu3whEbjMmK7QOIeq54ZO75VXS9psQFWqZLYm08oxINnSJzIREicp433V7E10o4bCz1V+GEKXPmkDc1InVl8Jq8aHSTl2aqXJyNfG0QmDZWKoSGaG7fli0vzLGH529QoRDrilfyWlKzT9/6ghc9c48JxLMh5bZKNzQzn;
-        Expires=Tue, 06 Dec 2022 22:34:14 GMT; Path=/
-      - AWSALBTGCORS=vkrVOofWFu3whEbjMmK7QOIeq54ZO75VXS9psQFWqZLYm08oxINnSJzIREicp433V7E10o4bCz1V+GEKXPmkDc1InVl8Jq8aHSTl2aqXJyNfG0QmDZWKoSGaG7fli0vzLGH529QoRDrilfyWlKzT9/6ghc9c48JxLMh5bZKNzQzn;
-        Expires=Tue, 06 Dec 2022 22:34:14 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=60XPCtXXb/iQmvZOzPXJKDBxJy0y/Lct3bW8vvjVLWd/soFkZ40+JU/VB7U0J3Mqj8DVTI12M9Vv0gCiNqQ7ziJWDStJzb//RXWU7qXF1BUsXyIBdzRgmds31YQw;
-        Expires=Tue, 06 Dec 2022 22:34:14 GMT; Path=/
-      - AWSALBCORS=60XPCtXXb/iQmvZOzPXJKDBxJy0y/Lct3bW8vvjVLWd/soFkZ40+JU/VB7U0J3Mqj8DVTI12M9Vv0gCiNqQ7ziJWDStJzb//RXWU7qXF1BUsXyIBdzRgmds31YQw;
-        Expires=Tue, 06 Dec 2022 22:34:14 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=lmsQF4yqCHPOW26M1ZoiinTZoAhIn0/F+YXDVxdUKbH/tIf1cbPfDZPMsLPeAR9MS1GqUANkRfTvq75EdoRd/g1qPS9Yiv1xO70pOwVQMGnmL3/3TEshrn8fd0d3uGC01rijhIiN9dWA3IOab+Ko1Gp+qIuQ/MzGGlWuWAXNxcti;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBTGCORS=lmsQF4yqCHPOW26M1ZoiinTZoAhIn0/F+YXDVxdUKbH/tIf1cbPfDZPMsLPeAR9MS1GqUANkRfTvq75EdoRd/g1qPS9Yiv1xO70pOwVQMGnmL3/3TEshrn8fd0d3uGC01rijhIiN9dWA3IOab+Ko1Gp+qIuQ/MzGGlWuWAXNxcti;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=MRmJIE2VKP31J4oSkLXk+KlWAzthAI9AGI0d5woMpFohISif26wjr7AobHvLGxWt3jBCPvNnWqevMAiaSTA6MMYm6QVDSK33kni3EA0iqxgFSkXXHtHE3uZIqdwZ;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBCORS=MRmJIE2VKP31J4oSkLXk+KlWAzthAI9AGI0d5woMpFohISif26wjr7AobHvLGxWt3jBCPvNnWqevMAiaSTA6MMYm6QVDSK33kni3EA0iqxgFSkXXHtHE3uZIqdwZ;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -768,7 +763,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2018","i18nCode":"year.2018","count":116242,"fq":"year:\"2018\""}],"count":5}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -794,20 +789,19 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:15 GMT
+      date: Fri, 09 Dec 2022 03:44:53 GMT
       expires: '0'
       pragma: no-cache
-      referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=kONK1GsGkN9bbsVCO4tVk636mytKQVZH30yJ0LKqK8i4WMU/qMMqJsNcV59cv0jkDhydI2bspJK1v7kFekIOAtXkSTcJxmsiTVcKR6vy5QxbYz6ssoufBLw7uxJ8yifinwXPl3QAgbtTWC+hjh67DeYAa5HnlcycueV6JC0nmxy7;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBTGCORS=kONK1GsGkN9bbsVCO4tVk636mytKQVZH30yJ0LKqK8i4WMU/qMMqJsNcV59cv0jkDhydI2bspJK1v7kFekIOAtXkSTcJxmsiTVcKR6vy5QxbYz6ssoufBLw7uxJ8yifinwXPl3QAgbtTWC+hjh67DeYAa5HnlcycueV6JC0nmxy7;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=wqWgeh9PFjf0E6k/Wfip/QtXjhNqmPJEFf4Fkl1F9KjTe3fXFg+RxsyaUno6db2uuf/RXnvzaXbioqHAW3nIVRRxGlPivtpqwEfnlq59z1leElZZKqQyz/6KjnwC;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBCORS=wqWgeh9PFjf0E6k/Wfip/QtXjhNqmPJEFf4Fkl1F9KjTe3fXFg+RxsyaUno6db2uuf/RXnvzaXbioqHAW3nIVRRxGlPivtpqwEfnlq59z1leElZZKqQyz/6KjnwC;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=8hczYmAHUW6Whs/9Jc0ax8vnCGUKSaZ1bGZ9dDWxXeJtyGqERtnmRHxWAMIexYDZ9LH1dT41vBCAxMocU3kjoB3onjPNVnkr+gYskLEfjsHxDgr3QbKaGEz6+0w4sMN5UEyfcgVsR9VJ1sUUp///coJKceQgzCpRWh9sv60Ja1Ia;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBTGCORS=8hczYmAHUW6Whs/9Jc0ax8vnCGUKSaZ1bGZ9dDWxXeJtyGqERtnmRHxWAMIexYDZ9LH1dT41vBCAxMocU3kjoB3onjPNVnkr+gYskLEfjsHxDgr3QbKaGEz6+0w4sMN5UEyfcgVsR9VJ1sUUp///coJKceQgzCpRWh9sv60Ja1Ia;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=0t7ssGKdoe2KJdO9lGjWHZZgVHJrdKOJ2y+ry/ZttEtNC0yDwTSxbecdXnyGEvqs5NK7moF2EUVE1D3ZgqjI0F6tiQjT5TXC7GPlqbX5MgHBCfLCQshcJWshySmx;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBCORS=0t7ssGKdoe2KJdO9lGjWHZZgVHJrdKOJ2y+ry/ZttEtNC0yDwTSxbecdXnyGEvqs5NK7moF2EUVE1D3ZgqjI0F6tiQjT5TXC7GPlqbX5MgHBCfLCQshcJWshySmx;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -820,7 +814,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2018","i18nCode":"year.2018","count":116242,"fq":"year:\"2018\""},{"label":"2019","i18nCode":"year.2019","count":91640,"fq":"year:\"2019\""},{"label":"2020","i18nCode":"year.2020","count":39429,"fq":"year:\"2020\""},{"label":"2021","i18nCode":"year.2021","count":34725,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":9932,"fq":"year:\"2022\""}],"count":5}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -846,20 +840,20 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:15 GMT
+      date: Fri, 09 Dec 2022 03:44:53 GMT
       expires: '0'
       pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=rUNgv61qhtAjQr2ZWJz2r4+qQtMzZm5W5uwlBajtYUwPAaPGBRNUuqAn5I2mPE4avqZgkqMQhriPdWnjVr+EeX7qUlQx4zK+eUw0bLUzOt2xgBEwTv08gNNmP0JNHmPJpAAQFK9hTYakS6cQEabN9IWhIm764GCKUqReOliBauaC;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBTGCORS=rUNgv61qhtAjQr2ZWJz2r4+qQtMzZm5W5uwlBajtYUwPAaPGBRNUuqAn5I2mPE4avqZgkqMQhriPdWnjVr+EeX7qUlQx4zK+eUw0bLUzOt2xgBEwTv08gNNmP0JNHmPJpAAQFK9hTYakS6cQEabN9IWhIm764GCKUqReOliBauaC;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=jXSJqvhFfPC1f2kJXYdnd7m69XoFFz/YtoklTV0DYW7f1ZZLUg9Gg0pKCwrEGXdHjTUIyYBi0qDg1/X2CYgLvc7dawr3+9XOSjwhk/X4yavooqEazU9OC/4ZMisd;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBCORS=jXSJqvhFfPC1f2kJXYdnd7m69XoFFz/YtoklTV0DYW7f1ZZLUg9Gg0pKCwrEGXdHjTUIyYBi0qDg1/X2CYgLvc7dawr3+9XOSjwhk/X4yavooqEazU9OC/4ZMisd;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=FmssO5SSR+YTDIcwO0xWUrmhn/Zf38CJj53KepNlE9yFcwTZjJYd7WTWXDPg/NFY/+lQFoB435+FTcsOyI+W0rttn+c+I/fifLS6oW7TmJ13JtNN2GBWEPKn5KooC5VhzpgpXTKj8cW2dExPxMuZuJZY9yuNjRIl8jq9nW05fnGL;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBTGCORS=FmssO5SSR+YTDIcwO0xWUrmhn/Zf38CJj53KepNlE9yFcwTZjJYd7WTWXDPg/NFY/+lQFoB435+FTcsOyI+W0rttn+c+I/fifLS6oW7TmJ13JtNN2GBWEPKn5KooC5VhzpgpXTKj8cW2dExPxMuZuJZY9yuNjRIl8jq9nW05fnGL;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=EaKcyLtETKNOWVP7ZgwNXwbOAHU5j8IWsSfhy8ifxQsaj4i3XNt7ksr3F6OyPnlsVzpAl8namZ4EVywb0g/9s7PNdbMdEoSqPkFmtk3l1eh2DiMmzH9L4PTb2c8q;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBCORS=EaKcyLtETKNOWVP7ZgwNXwbOAHU5j8IWsSfhy8ifxQsaj4i3XNt7ksr3F6OyPnlsVzpAl8namZ4EVywb0g/9s7PNdbMdEoSqPkFmtk3l1eh2DiMmzH9L4PTb2c8q;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -873,7 +867,7 @@ http_interactions:
       file: no
       string: '[{"name":"AMBIGUOUS_COLLECTION","code":2059,"description":"Ambiguous
         collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
-        institution","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
+        institution","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
         of record badly formed","category":"Warning","fatal":false,"termsRequiredToTest":["basisOfRecord"]},{"name":"biosecurityIssue","code":20021,"description":"Biosecurity
         issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"COLLECTION_MATCH_FUZZY","code":2063,"description":"Collection
         match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"COLLECTION_MATCH_NONE","code":2061,"description":"Collection
@@ -882,27 +876,27 @@ http_interactions:
         derived from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_INVALID","code":2021,"description":"Continent
         invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_ACCURACY_INVALID","code":2009,"description":"Coordinate
         accuracy invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_INVALID","code":2002,"description":"Coordinate
-        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
-        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
+        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
         precision invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinatePrecision"]},{"name":"COORDINATE_PRECISION_UNCERTAINTY_MISMATCH","code":2012,"description":"Coordinate
         precision uncertainty mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_REPROJECTED","code":2006,"description":"Coordinates
-        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
-        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
-        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
-        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
+        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
+        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
+        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude","geodeticDatum"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
+        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
         uncertainty meters invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinateUncertaintyInMeters"]},{"name":"COORDINATES_CENTRE_OF_COUNTRY","code":1006,"description":"Coordinates
         centre of country","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"COORDINATES_CENTRE_OF_STATEPROVINCE","code":1001,"description":"Supplied
         coordinates centre of state","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"COUNTRY_COORDINATE_MISMATCH","code":2016,"description":"Coordinates
-        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","countryCode","verbatimLatitude","verbatimLongitude","decimalLatitude","country","geodeticDatum","decimalLongitude"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
-        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","countryCode","verbatimLatitude","verbatimLongitude","decimalLatitude","country","geodeticDatum","decimalLongitude"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
-        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"COUNTRY_MISMATCH","code":2017,"description":"Country
-        mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2035,"description":"Min
-        and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2036,"description":"Depth
-        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NOT_METRIC","code":2033,"description":"Depth
-        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2034,"description":"Depth
-        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
+        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","country","verbatimLatitude","countryCode","decimalLatitude","geodeticDatum"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
+        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","country","verbatimLatitude","countryCode","decimalLatitude","geodeticDatum"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["country","countryCode"]},{"name":"COUNTRY_MISMATCH","code":2017,"description":"Country
+        mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["country","countryCode"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2035,"description":"Min
+        and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2036,"description":"Depth
+        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_NOT_METRIC","code":2033,"description":"Depth
+        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2034,"description":"Depth
+        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
         outlier","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"DIFFERENT_OWNER_INSTITUTION","code":2066,"description":"Different
-        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
+        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
         and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2040,"description":"Altitude
         value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2039,"description":"Altitude
         value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2037,"description":"Elevation
@@ -926,9 +920,9 @@ http_interactions:
         date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS","code":2052,"description":"Individual
         count conflicts with occurrence status","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INDIVIDUAL_COUNT_INVALID","code":2051,"description":"Individual
         count invalid","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INSTITUTION_COLLECTION_MISMATCH","code":2064,"description":"Institution
-        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
-        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
+        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
         error","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"INVALID_SCIENTIFIC_NAME","code":1036,"description":"Invalid
         scientific name","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"LOCATION_NOT_SUPPLIED","code":1000,"description":"Location
         not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"MISSING_COLLECTION_DATE","code":1013,"description":"Missing
@@ -948,13 +942,13 @@ http_interactions:
         status inferred from basis of record","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT","code":2054,"description":"Occurrence
         status inferred from individual count","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_UNPARSABLE","code":2053,"description":"Occurrence
         status unparsable","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"POSSIBLY_ON_LOAN","code":2065,"description":"Possibly
-        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
-        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
-        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
-        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
-        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
+        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
+        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["year","month","day","eventDate"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
+        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["year","month","day","eventDate"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["year","month","day","eventDate"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
         uri invalid","category":"Warning","fatal":false,"termsRequiredToTest":["references"]},{"name":"SENSITIVITY_REPORT_INVALID","code":1037,"description":"Sensitivity
         report invalid","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"SENSITIVITY_REPORT_NOT_LOADABLE","code":1038,"description":"Sensitivity
         report not loadable","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"STATE_COORDINATE_MISMATCH","code":1004,"description":"Coordinates
@@ -967,10 +961,10 @@ http_interactions:
         excluded associated","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_HOMONYM","code":1024,"description":"Taxon
         homonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_INDETERMINATE_SPECIES","code":1025,"description":"Taxon
         indeterminate species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MATCH_AGGREGATE","code":2031,"description":"Taxon
-        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
-        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
-        match none","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
+        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","genus","family","genericName","phylum","class","scientificNameAuthorship","infraspecificEpithet","specificEpithet","scientificName","order"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","genus","family","genericName","phylum","class","scientificNameAuthorship","infraspecificEpithet","specificEpithet","scientificName","order"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
+        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","genus","family","genericName","phylum","class","scientificNameAuthorship","infraspecificEpithet","specificEpithet","scientificName","order"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
+        match none","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","genus","family","genericName","phylum","class","scientificNameAuthorship","infraspecificEpithet","specificEpithet","scientificName","order"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
         misapplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MISAPPLIED_MATCHED","code":1026,"description":"Taxon
         misapplied matched","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_PARENT_CHILD_SYNONYM","code":1028,"description":"Taxon
         parent child synonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_QUESTION_SPECIES","code":1029,"description":"Taxon
@@ -988,8 +982,8 @@ http_interactions:
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"userAssertionOther","code":20019,"description":"Other
         error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
         occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
-        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]}]'
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1015,20 +1009,19 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:15 GMT
+      date: Fri, 09 Dec 2022 03:44:53 GMT
       expires: '0'
       pragma: no-cache
-      referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=RALSAZqoBdocdaQ4OfHEyqpESt6c9jJl7PaQm0dGlW5+AWYA6g1qV1ZygMbQrQGkB7VliWpe0BnOqmfaDkJjAOXnj9iXbgCxMBWm/Rb6Rq/y5mJV5IRF/C7XR+f/Dfk5mDq1siALfU6Du8+pzbg8RAJVsfQ2qFzs7A283/7Oxm66;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBTGCORS=RALSAZqoBdocdaQ4OfHEyqpESt6c9jJl7PaQm0dGlW5+AWYA6g1qV1ZygMbQrQGkB7VliWpe0BnOqmfaDkJjAOXnj9iXbgCxMBWm/Rb6Rq/y5mJV5IRF/C7XR+f/Dfk5mDq1siALfU6Du8+pzbg8RAJVsfQ2qFzs7A283/7Oxm66;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=fIeJ52xiB9miynxZSeUvMG0W6bmuiDdsqUh+wqQqhiUOkkTnC1/+u8+w36ukWoaGjLYqDKDV9jt46NHJfWAMf0hxKfbyGT5LDjYcpeaYT/fw/qq0ytrAW+KyrZkr;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBCORS=fIeJ52xiB9miynxZSeUvMG0W6bmuiDdsqUh+wqQqhiUOkkTnC1/+u8+w36ukWoaGjLYqDKDV9jt46NHJfWAMf0hxKfbyGT5LDjYcpeaYT/fw/qq0ytrAW+KyrZkr;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=2vDaUZQGIICOZJ0to/B6Jy5qdQiOwPTYj0dW1szeyw4IQ3Un2EQJC9q4nWInLS8IHk07W3k3jomP/C1k/TGUuZmFSw8xEkmedIaNr0laMNtIZG+1OV1VzjYYFs54cMeV1rLa+KoO9aKFtQGGbGbp4xG4G9CnhvfocG6DXX9AkfO5;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBTGCORS=2vDaUZQGIICOZJ0to/B6Jy5qdQiOwPTYj0dW1szeyw4IQ3Un2EQJC9q4nWInLS8IHk07W3k3jomP/C1k/TGUuZmFSw8xEkmedIaNr0laMNtIZG+1OV1VzjYYFs54cMeV1rLa+KoO9aKFtQGGbGbp4xG4G9CnhvfocG6DXX9AkfO5;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=ebIbWF4lhL9dN2f50pInAHXpG7AtfZ7SAUdiPtWPxhD73aj0lKKWQ4zduzlAaZiVMeXkrVjoueDpo7Nu9zZ5lQg3DA2zGoirIQHx6psVSMyvVADNpqapQii0q6TC;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBCORS=ebIbWF4lhL9dN2f50pInAHXpG7AtfZ7SAUdiPtWPxhD73aj0lKKWQ4zduzlAaZiVMeXkrVjoueDpo7Nu9zZ5lQg3DA2zGoirIQHx6psVSMyvVADNpqapQii0q6TC;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -1041,7 +1034,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2018","i18nCode":"year.2018","count":180370,"fq":"year:\"2018\""}],"count":5}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1067,20 +1060,19 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:15 GMT
+      date: Fri, 09 Dec 2022 03:44:53 GMT
       expires: '0'
       pragma: no-cache
-      referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=2MnBFaT45IlN+aE3L5fKaP5EZC2NN/KVuVuqmBynA1dkgTAydX/47ouF1FWG7W/eW50r6pPxgF8Z55jadsAY5tf1oGojgPrKc366PS2AwvuZRATHZlseGuvNUSwmLd3SevWO05gL43DKePdf2JAQd6w0MCaVL9DethHzTpEcFiZK;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBTGCORS=2MnBFaT45IlN+aE3L5fKaP5EZC2NN/KVuVuqmBynA1dkgTAydX/47ouF1FWG7W/eW50r6pPxgF8Z55jadsAY5tf1oGojgPrKc366PS2AwvuZRATHZlseGuvNUSwmLd3SevWO05gL43DKePdf2JAQd6w0MCaVL9DethHzTpEcFiZK;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=0Omq7J3wi4vQ0nd+akIZrLzOVN+TQzBavWzsLlqwjGWgddO9eEyVbFeO6lH4/xAL+ihS4WHwH9uf4W8fXqGyjlzu/I9SaOH9lUWGW02cGsUiV4vGHv37IgY4tgTT;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBCORS=0Omq7J3wi4vQ0nd+akIZrLzOVN+TQzBavWzsLlqwjGWgddO9eEyVbFeO6lH4/xAL+ihS4WHwH9uf4W8fXqGyjlzu/I9SaOH9lUWGW02cGsUiV4vGHv37IgY4tgTT;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=WCHnTGgZGytICKp6bJ6+aUgcMiaJ/q1MyMwNPiRHAkdf9J8tX+ftertG4XUOn0g5AjNqnQA+WxXPiqi06IYHXK3q9VEf/y/E4UBjcMxLGcxBsXur0L0PMJmjF79Jwc9zDEOCB26IgWlSjIMtcQCYkViFhOu4suvf4DtoHgs9UkDI;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBTGCORS=WCHnTGgZGytICKp6bJ6+aUgcMiaJ/q1MyMwNPiRHAkdf9J8tX+ftertG4XUOn0g5AjNqnQA+WxXPiqi06IYHXK3q9VEf/y/E4UBjcMxLGcxBsXur0L0PMJmjF79Jwc9zDEOCB26IgWlSjIMtcQCYkViFhOu4suvf4DtoHgs9UkDI;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=6/Ztzs3KHofJ8tasWgEOFO2l7pYSwas/fGrad6HsoMe5lcSzE3j+GTdvnKjoPuldvGhUIxJZRYmu8rkHyhoSCKDZKaooX9EttKv7PuHSpb8cU9tytXYSshXHw40a;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBCORS=6/Ztzs3KHofJ8tasWgEOFO2l7pYSwas/fGrad6HsoMe5lcSzE3j+GTdvnKjoPuldvGhUIxJZRYmu8rkHyhoSCKDZKaooX9EttKv7PuHSpb8cU9tytXYSshXHw40a;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -1093,7 +1085,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2018","i18nCode":"year.2018","count":180370,"fq":"year:\"2018\""},{"label":"2019","i18nCode":"year.2019","count":69988,"fq":"year:\"2019\""},{"label":"2020","i18nCode":"year.2020","count":17293,"fq":"year:\"2020\""},{"label":"2021","i18nCode":"year.2021","count":4497,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":558,"fq":"year:\"2022\""}],"count":5}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1119,20 +1111,20 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:15 GMT
+      date: Fri, 09 Dec 2022 03:44:53 GMT
       expires: '0'
       pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=5sfozWWH0ydd0iWfo00BQm8PY3IiYES3rf8fHQGQgqePHrLjE9QHeVhNhmHniFAehtIBqz5Dj69ZwHwdYPonbixuvmkOKQAps5RVDXxFASMBV5H02hsyFb8HCjcHi96KGOEO5seVhA1hvHVvj9xlOaAwHffZZ0TS1MOu/jaTYMk3;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBTGCORS=5sfozWWH0ydd0iWfo00BQm8PY3IiYES3rf8fHQGQgqePHrLjE9QHeVhNhmHniFAehtIBqz5Dj69ZwHwdYPonbixuvmkOKQAps5RVDXxFASMBV5H02hsyFb8HCjcHi96KGOEO5seVhA1hvHVvj9xlOaAwHffZZ0TS1MOu/jaTYMk3;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=RIv+gfc3vflgspBLkzLcjUILsfJYVACypFEmK7SVLOBBo5WwjzqZcF1KDENJ1+kYOusw2mW4ZEONk1nuQh1PWQJueFl9UhQa7k1EWjLcqI7zXCgzqC9Jpjo8Zs45;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBCORS=RIv+gfc3vflgspBLkzLcjUILsfJYVACypFEmK7SVLOBBo5WwjzqZcF1KDENJ1+kYOusw2mW4ZEONk1nuQh1PWQJueFl9UhQa7k1EWjLcqI7zXCgzqC9Jpjo8Zs45;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=rQlMFV5uvl2qVELpwXrLzK9JntUV4y+iDw42xZE5XLm0AXyIGLqTOr2gsYZLCCaTeG1TU3qXzvpje9ysIdclSqxvnVOdI8ByY9MWByavkd+Hcnm1vkBfA8sq8c+CIWPuA9CKctGQ35qA9hXI+QNoiSFDj0gxFxuTOy0v9OKxJIwg;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBTGCORS=rQlMFV5uvl2qVELpwXrLzK9JntUV4y+iDw42xZE5XLm0AXyIGLqTOr2gsYZLCCaTeG1TU3qXzvpje9ysIdclSqxvnVOdI8ByY9MWByavkd+Hcnm1vkBfA8sq8c+CIWPuA9CKctGQ35qA9hXI+QNoiSFDj0gxFxuTOy0v9OKxJIwg;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=O11G3CL6QmHqVdTXmrG6mpHMzMkug6kPHnkjUXolB72hB/nXfMrG5+Ap0bkzcGgPcluXs1prso8xFIhnulB3ALBFiSrV499+Tvtr12KRSHPH5zY9ffi8sZgQMmzR;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBCORS=O11G3CL6QmHqVdTXmrG6mpHMzMkug6kPHnkjUXolB72hB/nXfMrG5+Ap0bkzcGgPcluXs1prso8xFIhnulB3ALBFiSrV499+Tvtr12KRSHPH5zY9ffi8sZgQMmzR;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -1146,7 +1138,7 @@ http_interactions:
       file: no
       string: '[{"name":"AMBIGUOUS_COLLECTION","code":2059,"description":"Ambiguous
         collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
-        institution","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
+        institution","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
         of record badly formed","category":"Warning","fatal":false,"termsRequiredToTest":["basisOfRecord"]},{"name":"biosecurityIssue","code":20021,"description":"Biosecurity
         issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"COLLECTION_MATCH_FUZZY","code":2063,"description":"Collection
         match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"COLLECTION_MATCH_NONE","code":2061,"description":"Collection
@@ -1155,19 +1147,19 @@ http_interactions:
         derived from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_INVALID","code":2021,"description":"Continent
         invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_ACCURACY_INVALID","code":2009,"description":"Coordinate
         accuracy invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_INVALID","code":2002,"description":"Coordinate
-        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
-        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
+        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
         precision invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinatePrecision"]},{"name":"COORDINATE_PRECISION_UNCERTAINTY_MISMATCH","code":2012,"description":"Coordinate
         precision uncertainty mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_REPROJECTED","code":2006,"description":"Coordinates
-        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
-        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
-        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
-        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
+        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
+        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
+        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","geodeticDatum"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
+        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
         uncertainty meters invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinateUncertaintyInMeters"]},{"name":"COORDINATES_CENTRE_OF_COUNTRY","code":1006,"description":"Coordinates
         centre of country","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"COORDINATES_CENTRE_OF_STATEPROVINCE","code":1001,"description":"Supplied
         coordinates centre of state","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"COUNTRY_COORDINATE_MISMATCH","code":2016,"description":"Coordinates
-        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","countryCode","decimalLatitude","verbatimLongitude","verbatimCoordinates","country","verbatimLatitude"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
-        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","countryCode","decimalLatitude","verbatimLongitude","verbatimCoordinates","country","verbatimLatitude"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
+        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","countryCode","geodeticDatum","country"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
+        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","countryCode","geodeticDatum","country"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
         invalid","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"COUNTRY_MISMATCH","code":2017,"description":"Country
         mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2035,"description":"Min
         and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2036,"description":"Depth
@@ -1175,11 +1167,11 @@ http_interactions:
         value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2034,"description":"Depth
         unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
         outlier","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"DIFFERENT_OWNER_INSTITUTION","code":2066,"description":"Different
-        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
-        and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2040,"description":"Altitude
-        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2039,"description":"Altitude
-        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2037,"description":"Elevation
-        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"FIRST_OF_CENTURY","code":1018,"description":"First
+        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
+        and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2040,"description":"Altitude
+        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2039,"description":"Altitude
+        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2037,"description":"Elevation
+        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"FIRST_OF_CENTURY","code":1018,"description":"First
         of the century","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_MONTH","code":1016,"description":"First
         of the month","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_YEAR","code":1017,"description":"First
         of the year","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FOOTPRINT_SRS_INVALID","code":2013,"description":"Footprint
@@ -1199,9 +1191,9 @@ http_interactions:
         date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS","code":2052,"description":"Individual
         count conflicts with occurrence status","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INDIVIDUAL_COUNT_INVALID","code":2051,"description":"Individual
         count invalid","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INSTITUTION_COLLECTION_MISMATCH","code":2064,"description":"Institution
-        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
-        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
+        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
         error","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"INVALID_SCIENTIFIC_NAME","code":1036,"description":"Invalid
         scientific name","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"LOCATION_NOT_SUPPLIED","code":1000,"description":"Location
         not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"MISSING_COLLECTION_DATE","code":1013,"description":"Missing
@@ -1221,13 +1213,13 @@ http_interactions:
         status inferred from basis of record","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT","code":2054,"description":"Occurrence
         status inferred from individual count","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_UNPARSABLE","code":2053,"description":"Occurrence
         status unparsable","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"POSSIBLY_ON_LOAN","code":2065,"description":"Possibly
-        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
-        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
-        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["year","day","month","eventDate"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
-        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["year","day","month","eventDate"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
-        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["year","day","month","eventDate"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
+        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
+        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["day","month","year","eventDate"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
+        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["day","month","year","eventDate"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["day","month","year","eventDate"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
         uri invalid","category":"Warning","fatal":false,"termsRequiredToTest":["references"]},{"name":"SENSITIVITY_REPORT_INVALID","code":1037,"description":"Sensitivity
         report invalid","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"SENSITIVITY_REPORT_NOT_LOADABLE","code":1038,"description":"Sensitivity
         report not loadable","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"STATE_COORDINATE_MISMATCH","code":1004,"description":"Coordinates
@@ -1240,10 +1232,10 @@ http_interactions:
         excluded associated","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_HOMONYM","code":1024,"description":"Taxon
         homonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_INDETERMINATE_SPECIES","code":1025,"description":"Taxon
         indeterminate species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MATCH_AGGREGATE","code":2031,"description":"Taxon
-        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["scientificName","class","genus","phylum","order","specificEpithet","genericName","scientificNameAuthorship","family","kingdom","infraspecificEpithet"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["scientificName","class","genus","phylum","order","specificEpithet","genericName","scientificNameAuthorship","family","kingdom","infraspecificEpithet"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
-        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["scientificName","class","genus","phylum","order","specificEpithet","genericName","scientificNameAuthorship","family","kingdom","infraspecificEpithet"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
-        match none","category":"Warning","fatal":false,"termsRequiredToTest":["scientificName","class","genus","phylum","order","specificEpithet","genericName","scientificNameAuthorship","family","kingdom","infraspecificEpithet"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
+        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
+        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
+        match none","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
         misapplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MISAPPLIED_MATCHED","code":1026,"description":"Taxon
         misapplied matched","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_PARENT_CHILD_SYNONYM","code":1028,"description":"Taxon
         parent child synonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_QUESTION_SPECIES","code":1029,"description":"Taxon
@@ -1261,8 +1253,8 @@ http_interactions:
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"userAssertionOther","code":20019,"description":"Other
         error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
         occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
-        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]}]'
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1288,20 +1280,19 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:15 GMT
+      date: Fri, 09 Dec 2022 03:44:53 GMT
       expires: '0'
       pragma: no-cache
-      referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=E7i32LFfz83cLUo4C6OKJSEKRuARfOxm7b2JRsC2hutbiqJeL3Ynr1PAGKewKscjnm3xnFPpTjVOi9XUSRzbOHUFbgg1UbAhTw0B2evN1Uysv6mtG10rn4ZBtjm2T9/dhkCvDmia5eIHaxBpVnj138ku6rGGagzlAHMAZgdNhDnr;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBTGCORS=E7i32LFfz83cLUo4C6OKJSEKRuARfOxm7b2JRsC2hutbiqJeL3Ynr1PAGKewKscjnm3xnFPpTjVOi9XUSRzbOHUFbgg1UbAhTw0B2evN1Uysv6mtG10rn4ZBtjm2T9/dhkCvDmia5eIHaxBpVnj138ku6rGGagzlAHMAZgdNhDnr;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=Ey3laMmzxxtklGIJxX2O2C+EImm2R3PV5MJPHHSax5v2jqxY5ttllrk/Ih3YjO+svuFr2V+0edcHGcmUZGZuU8QAd7LRv9rtw8nADr28ndDYMmBRzMYI8QZd/S20;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBCORS=Ey3laMmzxxtklGIJxX2O2C+EImm2R3PV5MJPHHSax5v2jqxY5ttllrk/Ih3YjO+svuFr2V+0edcHGcmUZGZuU8QAd7LRv9rtw8nADr28ndDYMmBRzMYI8QZd/S20;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=uAFZqQsfr9fP43UqpIOM/L44t/Mprh0/4DmpPVsRLpIqMwVaq1d2DBF+j3et9viIcKD9GCd17WnrZRmZICX6O7LxhxwQeTk4I3dd6/jxMnTg2KNMVrWpJt3WrsHsR4/aawablixG+vmuneSWeOSCJ/odPmyJsqwLdar8+ozdiusM;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBTGCORS=uAFZqQsfr9fP43UqpIOM/L44t/Mprh0/4DmpPVsRLpIqMwVaq1d2DBF+j3et9viIcKD9GCd17WnrZRmZICX6O7LxhxwQeTk4I3dd6/jxMnTg2KNMVrWpJt3WrsHsR4/aawablixG+vmuneSWeOSCJ/odPmyJsqwLdar8+ozdiusM;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=KUUrgFiVMhoziTxQTEUW1x7IES3wyrq4PyJ6FtsPmWuCSOS7UkVIBq46onmOfAPnkOcgCREkmVdQntGInbZZbNIU1KZSvHNWSh1XHML1wJksbIILi0GTUzmOOt7K;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBCORS=KUUrgFiVMhoziTxQTEUW1x7IES3wyrq4PyJ6FtsPmWuCSOS7UkVIBq46onmOfAPnkOcgCREkmVdQntGInbZZbNIU1KZSvHNWSh1XHML1wJksbIILi0GTUzmOOt7K;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -1313,8 +1304,8 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2019","i18nCode":"year.2019","count":59814,"fq":"year:\"2019\""}],"count":5}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2019","i18nCode":"year.2019","count":59825,"fq":"year:\"2019\""}],"count":5}]'
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1340,20 +1331,19 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:15 GMT
+      date: Fri, 09 Dec 2022 03:44:53 GMT
       expires: '0'
       pragma: no-cache
-      referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=tUn8BrdqGCrbnEgoOY9zZdetxJKhx54vWhuYPiZJ3U9BvQZINQoQCzbjiE/nplVpbMGxsMP3n/a+VadFREqy7Q/4FKEdctWvgBt/MqVjGHDlJ2g6Ifaoob9hi15Dihj3ALLovYzjaaGv9J+sh/gnAgol+qfmquzPM8iss9EDvXen;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBTGCORS=tUn8BrdqGCrbnEgoOY9zZdetxJKhx54vWhuYPiZJ3U9BvQZINQoQCzbjiE/nplVpbMGxsMP3n/a+VadFREqy7Q/4FKEdctWvgBt/MqVjGHDlJ2g6Ifaoob9hi15Dihj3ALLovYzjaaGv9J+sh/gnAgol+qfmquzPM8iss9EDvXen;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=43twHyCwiptnS5kf3/zczV+b4LUqWc54DE5B0c4lqbbu7jBuTcibz9f8ehiZt1YDQCV10HKfovf9LScGpT3h7B6HmM3n6XcFEuUukSfjSEyCONlPfGP7++24KqF7;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBCORS=43twHyCwiptnS5kf3/zczV+b4LUqWc54DE5B0c4lqbbu7jBuTcibz9f8ehiZt1YDQCV10HKfovf9LScGpT3h7B6HmM3n6XcFEuUukSfjSEyCONlPfGP7++24KqF7;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=Jnob4QLqg4zrn3i9Jg7+mA0UKp6gTiweCxkMiyUdpTS14t8WU4CQZQEWdZ3Gkv5H7yOiY9D3561njFBbPNSv3zyPIL9bVqNoVy32eoBVqJXDaVnvoneoTh8JS50sFTOn85inw0S/lyGx0jeZS72lSLe00geAeu6cW7D9SL3Gyl10;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBTGCORS=Jnob4QLqg4zrn3i9Jg7+mA0UKp6gTiweCxkMiyUdpTS14t8WU4CQZQEWdZ3Gkv5H7yOiY9D3561njFBbPNSv3zyPIL9bVqNoVy32eoBVqJXDaVnvoneoTh8JS50sFTOn85inw0S/lyGx0jeZS72lSLe00geAeu6cW7D9SL3Gyl10;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=2VkHgc66wbi+P8bgpx3xSzSJYebR4B24p5tn5eYHWJZB8DX/eZckBAb0CM/wGuSu7zROC/2LEoaP9MXoGV1gdUVKBkfTdGrqWcFyUogLnzWvUQk2F+5DQDPiwmTR;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/
+      - AWSALBCORS=2VkHgc66wbi+P8bgpx3xSzSJYebR4B24p5tn5eYHWJZB8DX/eZckBAb0CM/wGuSu7zROC/2LEoaP9MXoGV1gdUVKBkfTdGrqWcFyUogLnzWvUQk2F+5DQDPiwmTR;
+        Expires=Fri, 16 Dec 2022 03:44:53 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -1365,8 +1355,8 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2019","i18nCode":"year.2019","count":59814,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":58172,"fq":"year:\"2018\""},{"label":"2020","i18nCode":"year.2020","count":29604,"fq":"year:\"2020\""},{"label":"2021","i18nCode":"year.2021","count":19038,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":3128,"fq":"year:\"2022\""}],"count":5}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2019","i18nCode":"year.2019","count":59825,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":58244,"fq":"year:\"2018\""},{"label":"2020","i18nCode":"year.2020","count":29646,"fq":"year:\"2020\""},{"label":"2021","i18nCode":"year.2021","count":19081,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":3552,"fq":"year:\"2022\""}],"count":5}]'
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1392,20 +1382,20 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:15 GMT
+      date: Fri, 09 Dec 2022 03:44:54 GMT
       expires: '0'
       pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=VkCKWVdqr+pH3pRW8GH0I9dDX5AzIinOZUSS0ulEAvNXeaToovHh5bbXRkdRyww1w+6GHhxMNWaK6nFfltC/oqMJ4rUwx7IhwnQyQr8phdqYld9febR1awkhIKOh7rCJYZkZ9N7uwxAWW5kwnZCkraAP5MYaKJo9UGc/82QG1iOu;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBTGCORS=VkCKWVdqr+pH3pRW8GH0I9dDX5AzIinOZUSS0ulEAvNXeaToovHh5bbXRkdRyww1w+6GHhxMNWaK6nFfltC/oqMJ4rUwx7IhwnQyQr8phdqYld9febR1awkhIKOh7rCJYZkZ9N7uwxAWW5kwnZCkraAP5MYaKJo9UGc/82QG1iOu;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=gojMVIoeg9s097DpcL1Os4WeII22CDvYZVUiiobi86XbWwYTp3EsHm20r8O9ymyd7cFR0g3ZXu/S/o6i1/2fRbpt6o6pxTnx9UOVKd1GsN6iQ0pkrVJQtaj11Uj/;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBCORS=gojMVIoeg9s097DpcL1Os4WeII22CDvYZVUiiobi86XbWwYTp3EsHm20r8O9ymyd7cFR0g3ZXu/S/o6i1/2fRbpt6o6pxTnx9UOVKd1GsN6iQ0pkrVJQtaj11Uj/;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=K0Xrxe4KdhfrnMV9YLiI+I8bEcVLJKQ31Ji6bPCk/enDVKy8BeZLptaE+/EV1EbWemwe61Di7MAgRd3JW7oldlWjzI4fFewhhKrHTjzV1h9pFcm8BSwzNsUuRdMZ8oHcHV28knjKpmYzJN1dgoyWIo/Zs10JTfL3C4R1y8BPZeXI;
+        Expires=Fri, 16 Dec 2022 03:44:54 GMT; Path=/
+      - AWSALBTGCORS=K0Xrxe4KdhfrnMV9YLiI+I8bEcVLJKQ31Ji6bPCk/enDVKy8BeZLptaE+/EV1EbWemwe61Di7MAgRd3JW7oldlWjzI4fFewhhKrHTjzV1h9pFcm8BSwzNsUuRdMZ8oHcHV28knjKpmYzJN1dgoyWIo/Zs10JTfL3C4R1y8BPZeXI;
+        Expires=Fri, 16 Dec 2022 03:44:54 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=cY+0PhkNHTsPcsBhc+xF2MIJ6c9GAxYTEjthnJd8Nlm6kqgkkEixPp5ul0MVmmC4fzxqUf1ZcUV0GxQ38Un7Vx735iSe8XkXADvEOrKDurxiHXBl9uBjPFTnNh/9;
+        Expires=Fri, 16 Dec 2022 03:44:54 GMT; Path=/
+      - AWSALBCORS=cY+0PhkNHTsPcsBhc+xF2MIJ6c9GAxYTEjthnJd8Nlm6kqgkkEixPp5ul0MVmmC4fzxqUf1ZcUV0GxQ38Un7Vx735iSe8XkXADvEOrKDurxiHXBl9uBjPFTnNh/9;
+        Expires=Fri, 16 Dec 2022 03:44:54 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -1419,7 +1409,7 @@ http_interactions:
       file: no
       string: '[{"name":"AMBIGUOUS_COLLECTION","code":2059,"description":"Ambiguous
         collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
-        institution","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
+        institution","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
         of record badly formed","category":"Warning","fatal":false,"termsRequiredToTest":["basisOfRecord"]},{"name":"biosecurityIssue","code":20021,"description":"Biosecurity
         issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"COLLECTION_MATCH_FUZZY","code":2063,"description":"Collection
         match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"COLLECTION_MATCH_NONE","code":2061,"description":"Collection
@@ -1428,27 +1418,27 @@ http_interactions:
         derived from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_INVALID","code":2021,"description":"Continent
         invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_ACCURACY_INVALID","code":2009,"description":"Coordinate
         accuracy invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_INVALID","code":2002,"description":"Coordinate
-        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
-        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
+        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
         precision invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinatePrecision"]},{"name":"COORDINATE_PRECISION_UNCERTAINTY_MISMATCH","code":2012,"description":"Coordinate
         precision uncertainty mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_REPROJECTED","code":2006,"description":"Coordinates
-        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
-        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
-        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
-        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
+        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
+        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
+        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude","geodeticDatum"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
+        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
         uncertainty meters invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinateUncertaintyInMeters"]},{"name":"COORDINATES_CENTRE_OF_COUNTRY","code":1006,"description":"Coordinates
         centre of country","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"COORDINATES_CENTRE_OF_STATEPROVINCE","code":1001,"description":"Supplied
         coordinates centre of state","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"COUNTRY_COORDINATE_MISMATCH","code":2016,"description":"Coordinates
-        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","countryCode","verbatimLatitude","verbatimLongitude","decimalLatitude","country","geodeticDatum","decimalLongitude"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
-        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","countryCode","verbatimLatitude","verbatimLongitude","decimalLatitude","country","geodeticDatum","decimalLongitude"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
-        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"COUNTRY_MISMATCH","code":2017,"description":"Country
-        mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2035,"description":"Min
-        and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2036,"description":"Depth
-        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NOT_METRIC","code":2033,"description":"Depth
-        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2034,"description":"Depth
-        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
+        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","country","verbatimLatitude","countryCode","decimalLatitude","geodeticDatum"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
+        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","country","verbatimLatitude","countryCode","decimalLatitude","geodeticDatum"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["country","countryCode"]},{"name":"COUNTRY_MISMATCH","code":2017,"description":"Country
+        mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["country","countryCode"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2035,"description":"Min
+        and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2036,"description":"Depth
+        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_NOT_METRIC","code":2033,"description":"Depth
+        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2034,"description":"Depth
+        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
         outlier","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"DIFFERENT_OWNER_INSTITUTION","code":2066,"description":"Different
-        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
+        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
         and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2040,"description":"Altitude
         value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2039,"description":"Altitude
         value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2037,"description":"Elevation
@@ -1472,9 +1462,9 @@ http_interactions:
         date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS","code":2052,"description":"Individual
         count conflicts with occurrence status","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INDIVIDUAL_COUNT_INVALID","code":2051,"description":"Individual
         count invalid","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INSTITUTION_COLLECTION_MISMATCH","code":2064,"description":"Institution
-        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
-        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
+        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
         error","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"INVALID_SCIENTIFIC_NAME","code":1036,"description":"Invalid
         scientific name","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"LOCATION_NOT_SUPPLIED","code":1000,"description":"Location
         not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"MISSING_COLLECTION_DATE","code":1013,"description":"Missing
@@ -1494,13 +1484,13 @@ http_interactions:
         status inferred from basis of record","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT","code":2054,"description":"Occurrence
         status inferred from individual count","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_UNPARSABLE","code":2053,"description":"Occurrence
         status unparsable","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"POSSIBLY_ON_LOAN","code":2065,"description":"Possibly
-        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["institutionID","institutionCode","ownerInstitutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
-        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
-        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
-        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
-        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["day","eventDate","month","year"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
+        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionCode","institutionID"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
+        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["year","month","day","eventDate"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
+        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["year","month","day","eventDate"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["year","month","day","eventDate"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
         uri invalid","category":"Warning","fatal":false,"termsRequiredToTest":["references"]},{"name":"SENSITIVITY_REPORT_INVALID","code":1037,"description":"Sensitivity
         report invalid","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"SENSITIVITY_REPORT_NOT_LOADABLE","code":1038,"description":"Sensitivity
         report not loadable","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"STATE_COORDINATE_MISMATCH","code":1004,"description":"Coordinates
@@ -1513,10 +1503,10 @@ http_interactions:
         excluded associated","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_HOMONYM","code":1024,"description":"Taxon
         homonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_INDETERMINATE_SPECIES","code":1025,"description":"Taxon
         indeterminate species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MATCH_AGGREGATE","code":2031,"description":"Taxon
-        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
-        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
-        match none","category":"Warning","fatal":false,"termsRequiredToTest":["phylum","class","order","scientificNameAuthorship","specificEpithet","kingdom","family","scientificName","genericName","genus","infraspecificEpithet"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
+        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","genus","family","genericName","phylum","class","scientificNameAuthorship","infraspecificEpithet","specificEpithet","scientificName","order"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","genus","family","genericName","phylum","class","scientificNameAuthorship","infraspecificEpithet","specificEpithet","scientificName","order"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
+        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","genus","family","genericName","phylum","class","scientificNameAuthorship","infraspecificEpithet","specificEpithet","scientificName","order"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
+        match none","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","genus","family","genericName","phylum","class","scientificNameAuthorship","infraspecificEpithet","specificEpithet","scientificName","order"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
         misapplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MISAPPLIED_MATCHED","code":1026,"description":"Taxon
         misapplied matched","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_PARENT_CHILD_SYNONYM","code":1028,"description":"Taxon
         parent child synonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_QUESTION_SPECIES","code":1029,"description":"Taxon
@@ -1534,8 +1524,8 @@ http_interactions:
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"userAssertionOther","code":20019,"description":"Other
         error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
         occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
-        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","verbatimLatitude","verbatimLongitude","decimalLatitude","decimalLongitude"]}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","verbatimCoordinates","decimalLongitude","verbatimLatitude","decimalLatitude"]}]'
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1561,20 +1551,19 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:15 GMT
+      date: Fri, 09 Dec 2022 03:44:54 GMT
       expires: '0'
       pragma: no-cache
-      referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=viaMPpyDzx9Y2b3aU1hEkKqDPJjgrJgU8FhjZeFY90BWoRJjN1SCtzBZLpO5OzjK8w64j3dHXABANasaiwc4n7naR0t9+rl9SU3/mwv1TMCeSM+9UhNQUjz/oe0YF2+1D6gSNcf+VPm7xLCgA8nb/zy8AEnAhKkSRoryb/w5d4Cl;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBTGCORS=viaMPpyDzx9Y2b3aU1hEkKqDPJjgrJgU8FhjZeFY90BWoRJjN1SCtzBZLpO5OzjK8w64j3dHXABANasaiwc4n7naR0t9+rl9SU3/mwv1TMCeSM+9UhNQUjz/oe0YF2+1D6gSNcf+VPm7xLCgA8nb/zy8AEnAhKkSRoryb/w5d4Cl;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=NnxP1Jl/o9lGuUuKXI7z05BTweMM2+585G+FOYDyfze2SYiE0TFq92ClPUhaixHSURioqyEFwrLSpLQqWswFtdHUQH/54nzO+7ZM56O36qZOGGfVEnnzEhrg46Zl;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/
-      - AWSALBCORS=NnxP1Jl/o9lGuUuKXI7z05BTweMM2+585G+FOYDyfze2SYiE0TFq92ClPUhaixHSURioqyEFwrLSpLQqWswFtdHUQH/54nzO+7ZM56O36qZOGGfVEnnzEhrg46Zl;
-        Expires=Tue, 06 Dec 2022 22:34:15 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=OfNRtE4cmyfJu9U5yrmNgYeVYMw8EeoGYTUgzk5NTPCHrLEUxiJOys8aRN1Arq+5jVhd5vMDF1JHVWiLxWFFmjLJukROeXHIjeNGhR6+FTuzNam8EfZK8YsbUqSKNWzI3ojLK6RDaA4vMD+LFVQ9wMixVsVXT9BpTaXHDZwcxexm;
+        Expires=Fri, 16 Dec 2022 03:44:54 GMT; Path=/
+      - AWSALBTGCORS=OfNRtE4cmyfJu9U5yrmNgYeVYMw8EeoGYTUgzk5NTPCHrLEUxiJOys8aRN1Arq+5jVhd5vMDF1JHVWiLxWFFmjLJukROeXHIjeNGhR6+FTuzNam8EfZK8YsbUqSKNWzI3ojLK6RDaA4vMD+LFVQ9wMixVsVXT9BpTaXHDZwcxexm;
+        Expires=Fri, 16 Dec 2022 03:44:54 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=FOVAG1pbC653nrSFYPG8dEdWVQjIGSTAxquAmYE41CIh0n+r+YMtDSFQ77n7+upTkX0t+bkbyxYV6KCjlSUkd5S76URpA39/GVKuH1zRND8pWsIny0RdOpL/FhXW;
+        Expires=Fri, 16 Dec 2022 03:44:54 GMT; Path=/
+      - AWSALBCORS=FOVAG1pbC653nrSFYPG8dEdWVQjIGSTAxquAmYE41CIh0n+r+YMtDSFQ77n7+upTkX0t+bkbyxYV6KCjlSUkd5S76URpA39/GVKuH1zRND8pWsIny0RdOpL/FhXW;
+        Expires=Fri, 16 Dec 2022 03:44:54 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -1587,7 +1576,7 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2018","i18nCode":"year.2018","count":37463,"fq":"year:\"2018\""}],"count":5}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -1613,20 +1602,19 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:34:16 GMT
+      date: Fri, 09 Dec 2022 03:44:54 GMT
       expires: '0'
       pragma: no-cache
-      referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=9O796+OyXVHrRgFTYob+nmSYVQM6Y5IUgM3gxk7GsOHSr+FagAo7YBFm1jhpvGnE2zD+2SY+d6IiSF0/TQ+BXe77D+ouYuK5DwfdcRAieR05G3Lh7lMOmdqa4OieEuECV8dz00joVs4VQI99PayY/9rqkF5U1eb7xwW0EaMqZS40;
-        Expires=Tue, 06 Dec 2022 22:34:16 GMT; Path=/
-      - AWSALBTGCORS=9O796+OyXVHrRgFTYob+nmSYVQM6Y5IUgM3gxk7GsOHSr+FagAo7YBFm1jhpvGnE2zD+2SY+d6IiSF0/TQ+BXe77D+ouYuK5DwfdcRAieR05G3Lh7lMOmdqa4OieEuECV8dz00joVs4VQI99PayY/9rqkF5U1eb7xwW0EaMqZS40;
-        Expires=Tue, 06 Dec 2022 22:34:16 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=s+lS4oF7tHaJog9JCQUynebsoC5QboX8zABCKmAeJyn75+7zCT//pIcWq8HHbnMrI9UvYjOvUuxGQ4hhvo2FAqRH5Wx4AXMhTS7UeunFwtcg2MT81icbvfzv19aX;
-        Expires=Tue, 06 Dec 2022 22:34:16 GMT; Path=/
-      - AWSALBCORS=s+lS4oF7tHaJog9JCQUynebsoC5QboX8zABCKmAeJyn75+7zCT//pIcWq8HHbnMrI9UvYjOvUuxGQ4hhvo2FAqRH5Wx4AXMhTS7UeunFwtcg2MT81icbvfzv19aX;
-        Expires=Tue, 06 Dec 2022 22:34:16 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=+Gso80BxOyCj/jrr4B9G+254RjcQmYfQyg6uMzQodrJMEHDVlD99Z+SJ5nqMjBzDEqkyW4gz7ncH4lZOQdu/chV6BP0/Prj+4sLuY5//ZxUpcbiI90P8LS6GzScY2JsFCYqeZ21PzdJJg99ezdJUfK0uM5nUkw23BV+l7wmCPe9A;
+        Expires=Fri, 16 Dec 2022 03:44:54 GMT; Path=/
+      - AWSALBTGCORS=+Gso80BxOyCj/jrr4B9G+254RjcQmYfQyg6uMzQodrJMEHDVlD99Z+SJ5nqMjBzDEqkyW4gz7ncH4lZOQdu/chV6BP0/Prj+4sLuY5//ZxUpcbiI90P8LS6GzScY2JsFCYqeZ21PzdJJg99ezdJUfK0uM5nUkw23BV+l7wmCPe9A;
+        Expires=Fri, 16 Dec 2022 03:44:54 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=A6+2A1wD9ColA5nvfyeMfyA/tAvzIm8d2WhQn5KQf7If8QIC8ErJHXFtWSw/OtsHcrHVWtuyUcokuvPLS18+PogfuhhCzB40n1zLddlkBAKYuFcMQA03PY9q3Piy;
+        Expires=Fri, 16 Dec 2022 03:44:54 GMT; Path=/
+      - AWSALBCORS=A6+2A1wD9ColA5nvfyeMfyA/tAvzIm8d2WhQn5KQf7If8QIC8ErJHXFtWSw/OtsHcrHVWtuyUcokuvPLS18+PogfuhhCzB40n1zLddlkBAKYuFcMQA03PY9q3Piy;
+        Expires=Fri, 16 Dec 2022 03:44:54 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -1639,5 +1627,5 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"year","fieldResult":[{"label":"2018","i18nCode":"year.2018","count":37463,"fq":"year:\"2018\""},{"label":"2021","i18nCode":"year.2021","count":30283,"fq":"year:\"2021\""},{"label":"2019","i18nCode":"year.2019","count":28974,"fq":"year:\"2019\""},{"label":"2020","i18nCode":"year.2020","count":22679,"fq":"year:\"2020\""},{"label":"2022","i18nCode":"year.2022","count":7,"fq":"year:\"2022\""}],"count":5}]'
-  recorded_at: 2022-11-29 22:34:16 GMT
+  recorded_at: 2022-12-09 03:44:54 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

@@ -10,13 +10,13 @@
 
 build_predicates <- function(df){ # where df is returned by galah_filter()
   
-  send_notification <- getOption("galah_config")$send_email |> 
+  send_notification <- getOption("galah_config")$package$send_email |> 
     as.character() |> 
     tolower()
 
   data_list <- list(
-    creator = "test", # getOption("galah_config")$username, # not enabled yet - requires changes to galah_config()
-    notificationAddresses = getOption("galah_config")$email,
+    creator = getOption("galah_config")$user$username,
+    notificationAddresses = getOption("galah_config")$user$email,
     sendNotification = send_notification,
     format = "SIMPLE_CSV",
     predicate = list(

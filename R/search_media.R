@@ -64,7 +64,7 @@ search_media <- function(df){
   }
 
   # i.e. service is online, but no data available
-  verbose <- getOption("galah_config")$verbose
+  verbose <- getOption("galah_config")$package$verbose
   if (nrow(metadata) == 0) {
     if(verbose){
       system_down_message("search_media")
@@ -87,8 +87,8 @@ search_media <- function(df){
 media_metadata <- function(ids){
   
   result <- lapply(ids, function(a){
-    url <- atlas_url("image_metadata", id = a) 
-    x <- atlas_GET(url)
+    url <- url_lookup("image_metadata", id = a) 
+    x <- url_GET(url)
     as.data.frame(x[lengths(x) == 1])
   })
   bind_rows(result) |> tibble()

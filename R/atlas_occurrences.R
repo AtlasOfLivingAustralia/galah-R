@@ -74,6 +74,7 @@
 #' }
 #' 
 #' @importFrom assertthat assert_that
+#' @importFrom rlang caller_env
 #' 
 #' @export
 atlas_occurrences <- function(request = NULL, 
@@ -121,7 +122,7 @@ atlas_occurrences <- function(request = NULL,
   class(custom_call) <- "data_request"
        
   # check for caching
-  caching <- getOption("galah_config")$caching
+  caching <- getOption("galah_config")$package$caching
   cache_file <- cache_filename("occurrences", unlist(custom_call))
   if (caching && file.exists(cache_file) && !refresh_cache) {
     return(read_cache_file(cache_file))
@@ -153,9 +154,9 @@ atlas_occurrences_internal <- function(identify = NULL,
                                        refresh_cache = FALSE) {
                                          
   # check whether API exists
-  occurrences_url <- atlas_url("records_occurrences")
+  occurrences_url <- url_lookup("records_occurrences")
 
-  verbose <- getOption("galah_config")$verbose
+  verbose <- getOption("galah_config")$package$verbose
   assert_that(is.logical(mint_doi))
   if(!is.null(doi)){
     abort("Argument `doi` is deprecated; use `collect_occurrences()` instead")
@@ -192,15 +193,10 @@ atlas_occurrences_internal <- function(identify = NULL,
   query <- build_query(identify, filter, geolocate, select, profile)
   
   # Check record count
-  if (getOption("galah_config")$run_checks) {
+  if (getOption("galah_config")$package$run_checks) {
     count <- record_count(query)
     if (is.null(count)){
-      bullets <- c(
-        "Calling the API failed for `atlas_occurrences`.",
-        i = "This might mean that the selected system is down. Double check that your query is correct.",
-        i = "If you continue to see this message, please email support@ala.org.au."
-      )
-      inform(bullets)
+      system_down_message("atlas_occurrences")
       return(tibble())
     }else{
       check_count(count) # aborts under selected circumstances
@@ -212,11 +208,11 @@ atlas_occurrences_internal <- function(identify = NULL,
     qa = build_assertion_columns(select),
     emailNotify = email_notify(),
     sourceTypeId = 2004,
-    reasonTypeId = getOption("galah_config")$download_reason_id,
+    reasonTypeId = getOption("galah_config")$user$download_reason_id,
     email = user_email(), 
     dwcHeaders = "true")
   
-  if (mint_doi & getOption("galah_config")$atlas == "Australia") {
+  if (mint_doi & getOption("galah_config")$atlas$region == "Australia") {
     query$mintDoi <- "true"
   }
     
@@ -229,9 +225,13 @@ atlas_occurrences_internal <- function(identify = NULL,
   }
   
   # download from url
-  result_df <- url_download(download_resp)
-
-  result_df
+  result <- url_download(download_resp, ext = "zip")
+  if(is.null(result)){
+    system_down_message("atlas_occurrences")
+  }else{
+    result
+  }
+  
 }
 
 
@@ -252,8 +252,8 @@ get_doi <- function(mint_doi, data_path) {
 
 wait_for_download <- function(query) {
 
-  url <- atlas_url("records_occurrences")
-  status_initial <- atlas_GET(url, params = query, on_error = occ_error_handler)
+  url <- url_lookup("records_occurrences")
+  status_initial <- url_GET(url, params = query)
     
   if(is.null(status_initial)){
     return(NULL)
@@ -292,9 +292,9 @@ check_queue <- function(status_initial){
   iter <- 1
   queue_size <- status$queueSize
   
-  verbose <- getOption("galah_config")$verbose
+  verbose <- getOption("galah_config")$package$verbose
   if(verbose){
-    cat(paste0("Checking queue\nCurrent queue size: ", queue_size))
+    cat(paste0("\nChecking queue\nCurrent queue size: ", queue_size))
   }
   
   while(status$status == "inQueue"){
@@ -307,7 +307,7 @@ check_queue <- function(status_initial){
         cat(".")
       }
     }
-    status <- atlas_GET(status$statusUrl)
+    status <- url_GET(status$statusUrl)
     if(is.null(status$statusUrl)){
       break()
     }else{
@@ -328,9 +328,10 @@ check_running <- function(status){
   n_intervals <- length(interval_times)
   iter <- 1
   
-  verbose <- getOption("galah_config")$verbose
+  verbose <- getOption("galah_config")$package$verbose
   if(verbose){
-    cat("\nRunning query on selected atlas\n")
+    atlas_org <- getOption("galah_config")$atlas$organisation
+    cat(paste0("\nSending query to ", atlas_org, "\n"))
     pb <- txtProgressBar(max = 1, style = 3)
   }
   
@@ -340,7 +341,7 @@ check_running <- function(status){
       if(is.null(status$totalRecords)){status$totalRecords <- 1}
       setTxtProgressBar(pb, status$records/status$totalRecords)
     }
-    status <- atlas_GET(status$statusUrl)
+    status <- url_GET(status$statusUrl)
     if(is.null(status$statusUrl)){
       break()
     }else{
@@ -372,14 +373,14 @@ check_count <- function(count, error_call = caller_env()) {
     )
     abort(bullets, call = error_call)
   } else {
-    if (getOption("galah_config")$verbose) {
+    if (getOption("galah_config")$package$verbose) {
       inform(glue("This query will return {count} records"))
       }
   }
 }
 
 email_notify <- function() {
-  notify <- as.logical(getOption("galah_config")$send_email)
+  notify <- as.logical(getOption("galah_config")$package$send_email)
   if (is.na(notify)) {
     notify <- FALSE
   }
@@ -387,8 +388,8 @@ email_notify <- function() {
   ifelse(notify, "true", "false")
 }
 
-user_email <- function(error_call = rlang::caller_env()) {
-  email <- getOption("galah_config")$email
+user_email <- function(error_call = caller_env()) {
+  email <- getOption("galah_config")$user$email
   if (email == "") {
     email <- Sys.getenv("email")
   }

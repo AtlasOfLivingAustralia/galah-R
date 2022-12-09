@@ -39,8 +39,8 @@ download_dir, refresh_cache
 
   # check inputs
   type <- match.arg(type)
-  caching <- getOption("galah_config")$caching
-  verbose <- getOption("galah_config")$verbose
+  caching <- getOption("galah_config")$package$caching
+  verbose <- getOption("galah_config")$package$verbose
   assert_that(!missing(path) | !missing(download_dir),
     msg = "A path to an existing directory to download images to is required")
   if(missing(path)){
@@ -133,7 +133,7 @@ download_media <- function(df, verbose) {
 # Construct url paths to where media will be downloaded from
 # Returns a vector of urls; one per id
 media_urls <- function(ids, is_image, thumbnail = TRUE) {
-  url <- atlas_url("image_metadata") |>
+  url <- url_lookup("image_metadata") |>
          parse_url()
   # if(thumbnail){
   #   end_text <- "thumbnail"

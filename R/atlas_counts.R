@@ -103,7 +103,7 @@ atlas_counts <- function(request = NULL,
   class(custom_call) <- "data_request"
 
   # check for caching
-  caching <- getOption("galah_config")$caching
+  caching <- getOption("galah_config")$package$caching
   cache_file <- cache_filename("counts", unlist(custom_call))
   if (caching && file.exists(cache_file) && !refresh_cache) {
     return(read_cache_file(cache_file))
@@ -135,7 +135,7 @@ atlas_counts_internal <- function(identify = NULL,
                                   refresh_cache = FALSE
                                   ) {
 
-  verbose <- getOption("galah_config")$verbose
+  verbose <- getOption("galah_config")$package$verbose
 
   # ensure profile works from galah_filter as well as galah_profile
   if(is.null(data_profile)){
@@ -291,27 +291,24 @@ atlas_counts_lookup <- function(identify = NULL,
     limit <- sum(total_cats)
   }
 
+  url <- url_lookup("records_facets")
   if (limit > page_size) {
-    url <- atlas_url("records_facets")
-    resp <- atlas_GET(url, params = query, paginate = TRUE, limit = limit,
-                      page_size = page_size, offset_param = "foffset")
-    if(is.null(resp)){
-      return(NULL)
-    }
-    counts <- lapply(resp, function(a) {
-      count_results <- jsonlite::fromJSON(a)$fieldResult
-      bind_rows(count_results)
-      }) |> 
-      bind_rows()
+    resp <- url_paginate(url, 
+                         params = query, 
+                         group_size = page_size,
+                         limit = limit,
+                         limit_name = "flimit",
+                         offset_name = "foffset",
+                         slot_name = "fieldResult")
   } else {
       query$flimit <- max(limit)
-      url <- atlas_url("records_facets")
-      resp <- atlas_GET(url, params = query)
-      if(is.null(resp)){return(NULL)}
-      counts <- bind_rows(resp$fieldResult)
+      resp <- url_GET(url, params = query)$fieldResult
   }
+  
+  if(is.null(resp)){return(NULL)}
+  counts <- bind_rows(resp)
 
-  if (sum(total_cats) > limit & galah_config()$verbose) {
+  if (sum(total_cats) > limit & galah_config()$package$verbose) {
     bullets <- c(
       glue("This field has {total_cats} values. {limit} will be returned."),
       i = "Increase `limit` to return more values, or decrease `limit` to return fewer."
@@ -379,15 +376,15 @@ atlas_counts_lookup <- function(identify = NULL,
 # get just the record count for a query
 # handle too long queries in here?
 record_count <- function(query) {
-  if(getOption("galah_config")$atlas == "Global"){
+  if(getOption("galah_config")$atlas$region == "Global"){
     query$limit <- 0
     col_name <- "count"
   }else{
     query$pageSize <- 0
     col_name <- "totalRecords"
   }
-  url <- atlas_url("records_counts")
-  resp <- atlas_GET(url, query)
+  url <- url_lookup("records_counts")
+  resp <- url_GET(url, query)
   resp[[col_name]]
 }
 # above doesn't work because ALA requires queries get put in an &fq= statement
@@ -402,8 +399,8 @@ species_count <- function(query) {
 # Get number of categories of a filter
 total_categories <- function(query) {
   query$flimit <- 1
-  url <- atlas_url("records_facets") 
-  resp <- atlas_GET(url, params = query)
+  url <- url_lookup("records_facets") 
+  resp <- url_GET(url, params = query)
   if(is.null(resp)){
     NULL
   }else if(length(resp) < 1){

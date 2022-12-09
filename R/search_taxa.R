@@ -78,7 +78,7 @@ search_taxa <- function(...) {
   
   matches <- remove_parentheses(query) |> name_query()
     
-  if(is.null(matches) & galah_config()$verbose){
+  if(is.null(matches) & galah_config()$package$verbose){
     system_down_message("search_taxa")
     df <- tibble()
     attr(df, "call") <- "ala_id"
@@ -116,12 +116,12 @@ name_query <- function(query) {
 name_lookup <- function(name) {
   if (is.null(names(name)) || isTRUE(names(name) == "")) {
     # search by scientific name
-    url <- atlas_url("names_search_single", name = name[[1]])
-    result <- atlas_GET(url)
+    url <- url_lookup("names_search_single", name = name[[1]])
+    result <- url_GET(url)
   } else {
     # search by classification - NOTE - NOT implemented for other atlases yet
-    url <- atlas_url("names_search_multiple") 
-    result <- atlas_GET(url, as.list(name))      
+    url <- url_lookup("names_search_multiple") 
+    result <- url_GET(url, as.list(name))      
   }
 
   if(is.null(result)){
@@ -180,7 +180,7 @@ name_lookup <- function(name) {
     }
   }
   
-  if (isFALSE(result$success) && galah_config()$verbose) {
+  if (isFALSE(result$success) && galah_config()$package$verbose) {
     list_invalid_taxa <- glue::glue_collapse(name, 
                                              sep = ", ")
     inform(glue("No taxon matches were found for \"{list_invalid_taxa}\" in the selected atlas ({getOption('galah_config')$atlas})."))

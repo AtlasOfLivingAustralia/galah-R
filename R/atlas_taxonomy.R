@@ -72,8 +72,8 @@ atlas_taxonomy_internal <- function(request,
                                     error_call = caller_env()
                                     ){
 
-  if (getOption("galah_config")$atlas != "Australia") {
-    international_atlas <- getOption("galah_config")$atlas
+  if (getOption("galah_config")$atlas$region != "Australia") {
+    international_atlas <- getOption("galah_config")$atlas$region
     bullets <- c(
       "`atlas_taxonomy` only provides information on Australian taxonomy.",
       i = "Consider using `search_taxa()` instead.")
@@ -183,8 +183,8 @@ atlas_taxonomy_internal <- function(request,
 
 # Return the classification for a taxonomic id
 lookup_taxon <- function(id) {
-  url <- atlas_url("species_lookup", id = id) 
-  resp <- atlas_GET(url)
+  url <- url_lookup("species_lookup", id = id) 
+  resp <- url_GET(url)
   if(is.null(resp)){
     return(NULL)
   }else{
@@ -197,9 +197,9 @@ lookup_taxon <- function(id) {
 
 # Get the child concepts for a taxonomic ID 
 get_children <- function(identifier) {
-  url <- atlas_url("species_children", 
+  url <- url_lookup("species_children", 
     id = URLencode(as.character(identifier), reserved = TRUE))
-  atlas_GET(url)
+  url_GET(url)
 }
 
 # Take a taxon row and recurse down the taxonomic tree 

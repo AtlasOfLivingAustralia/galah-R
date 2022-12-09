@@ -81,13 +81,13 @@ doi_download <- function(doi, error_call = caller_env()) {
     abort(bullets, call = error_call)
   }
   
-  verbose <- getOption("galah_config")$verbose
+  verbose <- getOption("galah_config")$package$verbose
   if(verbose) {
     cat("Downloading\n")
   }
 
-  url_complete <- atlas_url("doi_download", doi_string = doi_str)
-  path <- atlas_download(url_complete, 
+  url_complete <- url_lookup("doi_download", doi_string = doi_str)
+  path <- url_download(url_complete, 
                          ext = ".zip", 
                          cache_file = tempfile(pattern = "data"))
   if(is.null(path)){
@@ -112,12 +112,12 @@ doi_download <- function(doi, error_call = caller_env()) {
 # TODO: fix multiple file import
 url_download <- function(url){
   
-  verbose <- getOption("galah_config")$verbose
+  verbose <- getOption("galah_config")$package$verbose
   if(verbose) {
     cat("Downloading\n")
   }
   
-  local_file <- atlas_download(url, 
+  local_file <- url_download(url, 
     cache_file = tempfile(pattern = "data"), 
     ext = ".zip")
   

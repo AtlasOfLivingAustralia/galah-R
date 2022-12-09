@@ -98,12 +98,12 @@ show_all <- function(type){
 #' @rdname show_all
 #' @export show_all_assertions
 show_all_assertions <- function(){
-  atlas <- getOption("galah_config")$atlas
+  atlas <- getOption("galah_config")$atlas$region
   if(atlas == "Global"){
     result <- gbif_internal_archived$assertions
   }else{
-    url <- atlas_url("records_assertions") 
-    assertions <- atlas_GET(url)
+    url <- url_lookup("records_assertions") 
+    assertions <- url_GET(url)
     if(is.null(assertions)){
       result <- tibble()
     }else{
@@ -132,10 +132,10 @@ show_all_atlases <- function() {
 #' @export show_all_cached_files
 show_all_cached_files <- function() {
   # return a data.frame of all cached files
-  metadata_path <- file.path(getOption("galah_config")$cache_directory,
+  metadata_path <- file.path(getOption("galah_config")$package$cache_directory,
                              "metadata.rds")
   if (!file.exists(metadata_path)) {
-    directory <- getOption("galah_config")$cache_directory
+    directory <- getOption("galah_config")$package$cache_directory
     inform(glue("No cached file information was found in {directory}."))
     return()
   }
@@ -156,7 +156,7 @@ show_all_apis <- function(){
 #' @export show_all_collections
 show_all_collections <- function(){
   # set behaviour for gbif versus elsewhere
-  if(getOption("galah_config")$atlas == "Global"){
+  if(getOption("galah_config")$atlas$region == "Global"){
     slot_name <- "results"
     limit_name <- "limit"
   }else{
@@ -165,12 +165,11 @@ show_all_collections <- function(){
   }
   
   # get url, run
-  url <- atlas_url("collections_collections")
-  df <- atlas_paginate(url, 
+  url <- url_lookup("collections_collections")
+  df <- url_paginate(url, 
                        group_size = 500, 
                        limit_name = limit_name, 
                        slot_name = slot_name)
-  # df <- atlas_GET(url) |> tibble() # old code
   
   # set attributes
   attr(df, "call") <- "show_all_collections"
@@ -181,8 +180,8 @@ show_all_collections <- function(){
 #' @rdname show_all
 #' @export show_all_datasets
 show_all_datasets <- function(){
-  url <- atlas_url("collections_datasets")
-  df <- atlas_GET(url) |> tibble()
+  url <- url_lookup("collections_datasets")
+  df <- url_GET(url) |> tibble()
   attr(df, "call") <- "show_all_datasets"
   return(df)
 }
@@ -195,7 +194,7 @@ show_all_datasets <- function(){
 #' @export show_all_providers
 show_all_providers <- function(){
   # set behaviour for gbif versus elsewhere
-  if(getOption("galah_config")$atlas == "Global"){
+  if(getOption("galah_config")$atlas$region == "Global"){
     slot_name <- "results"
     limit_name <- "limit"
   }else{
@@ -204,16 +203,20 @@ show_all_providers <- function(){
   }
   
   # get url, run
-  url <- atlas_url("collections_providers")
-  df <- atlas_paginate(url, 
-                       group_size = 500, 
-                       limit_name = limit_name, 
-                       slot_name = slot_name)
-  # df <- atlas_GET(url) |> tibble() # old code
+  url <- url_lookup("collections_providers")
+  df <- url_paginate(url, 
+                     group_size = 500, 
+                     limit_name = limit_name, 
+                     slot_name = slot_name)
   
-  # set attributes
-  attr(df, "call") <- "show_all_providers"
-  return(df)
+  if(is.null(df)){
+    system_down_message("show_all_providers")
+    return(tibble())
+  }else{
+    # set attributes
+    attr(df, "call") <- "show_all_providers"
+    return(df)
+  }
 }
 
 
@@ -222,7 +225,7 @@ show_all_providers <- function(){
 show_all_fields <- function(){
   
   # check whether the cache has been updated this session
-  atlas <- getOption("galah_config")$atlas
+  atlas <- getOption("galah_config")$atlas$region
   update_needed <- internal_cache_update_needed("show_all_fields")
   
   if(update_needed){ # i.e. we'd like to run a query
@@ -285,8 +288,8 @@ show_all_fields <- function(){
 #' @rdname show_all
 #' @export show_all_licences
 show_all_licences <- function(){
-  url <- atlas_url("image_licences")
-  result <- atlas_GET(url) |> tibble()
+  url <- url_lookup("image_licences")
+  result <- url_GET(url) |> tibble()
   df <- result[, c("id", "name", "acronym", "url")] 
   attr(df, "call") <- "show_all_licences"
   return(df)
@@ -298,12 +301,12 @@ show_all_reasons <- function() {
   
   # check whether the cache has been updated this session
   update_needed <- internal_cache_update_needed("show_all_reasons")
-  atlas <- getOption("galah_config")$atlas
+  atlas <- getOption("galah_config")$atlas$region
   
   if(update_needed){ # i.e. we'd like to run a query
     ## return list of valid "reasons for use" codes
-    url <- atlas_url("logger_reasons")
-    out <- atlas_GET(url)
+    url <- url_lookup("logger_reasons")
+    out <- url_GET(url)
     if(is.null(out)){
       df <- galah_internal_cache()$show_all_reasons
       # if cached values reflect the correct atlas, return requested info
@@ -342,7 +345,7 @@ show_all_reasons <- function() {
 #' @rdname show_all
 #' @export show_all_ranks
 show_all_ranks <- function() {
-  if(getOption("galah_config")$atlas == "Global"){
+  if(getOption("galah_config")$atlas$region == "Global"){
     df <- tibble(
       id = seq_len(9),
       name = c("kingdom", "phylum", "class", 
@@ -387,8 +390,8 @@ show_all_profiles <- function() {
   
   if(update_needed){ # i.e. we'd like to run a query
     # return only enabled profiles?
-    url <- atlas_url("profiles_all")
-    resp <- atlas_GET(url)
+    url <- url_lookup("profiles_all")
+    resp <- url_GET(url)
     if(is.null(resp)){ # if calling the API fails, return cached data
       df <- galah_internal_cache()$show_all_profiles
       attr(df, "ARCHIVED") <- NULL # remove identifying attributes
@@ -408,8 +411,8 @@ show_all_profiles <- function() {
 #' @export show_all_lists
 show_all_lists <- function(){
   
-  df <- atlas_paginate(
-    url = atlas_url("lists_all"),
+  df <- url_paginate(
+    url = url_lookup("lists_all"),
     group_size = 1000,
     slot_name = "lists")
   attr(df, "call") <- "show_all_lists"

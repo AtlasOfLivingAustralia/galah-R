@@ -23,20 +23,20 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:33:44 GMT
+      date: Fri, 09 Dec 2022 03:44:24 GMT
       expires: '0'
       pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=aCkwdgODFJVHmCq7sGLkSSyxf0smZY/qkwPpkyD26aiE/HHQLJVWckpQjDPAHSavRcBSG7IDDGLfRmznv6Cne+/kuo3BQyMsD3CTHh2h8riQf3x8muVY0NsCqOaJ0rVYXixVtEscVa1esgDQX3S7bKDjWWCQTHMWRAc+tc2VWHxZ;
-        Expires=Tue, 06 Dec 2022 22:33:44 GMT; Path=/
-      - AWSALBTGCORS=aCkwdgODFJVHmCq7sGLkSSyxf0smZY/qkwPpkyD26aiE/HHQLJVWckpQjDPAHSavRcBSG7IDDGLfRmznv6Cne+/kuo3BQyMsD3CTHh2h8riQf3x8muVY0NsCqOaJ0rVYXixVtEscVa1esgDQX3S7bKDjWWCQTHMWRAc+tc2VWHxZ;
-        Expires=Tue, 06 Dec 2022 22:33:44 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=W0CKQly1amtUA6JAcPb3vMlyXU4EolD+a8WjsUe+U95BFAusUP67socxBe6R3m6jmcAo/XASd6gfMD60tJRMszEd8vXmlhl0vFPJRMFmSqY4c9TFl4dAV2als7SQ;
-        Expires=Tue, 06 Dec 2022 22:33:44 GMT; Path=/
-      - AWSALBCORS=W0CKQly1amtUA6JAcPb3vMlyXU4EolD+a8WjsUe+U95BFAusUP67socxBe6R3m6jmcAo/XASd6gfMD60tJRMszEd8vXmlhl0vFPJRMFmSqY4c9TFl4dAV2als7SQ;
-        Expires=Tue, 06 Dec 2022 22:33:44 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=w7KSqpktW4FjQRx6QUaCPzcwmnUwpmPJbfd/sntZT2YrAcbrjZfEbHUzLqCNB2jHpNx1/2xXbj9UJVFYgBmR0wHCmo8n2KMP0WahVmI5JMAmDAyUQj/LGufG3M8UtSRqk9opTXVpnu7OVa1WdTUzMbP2jpeGq2ORZ6Iru48Xdqgw;
+        Expires=Fri, 16 Dec 2022 03:44:24 GMT; Path=/
+      - AWSALBTGCORS=w7KSqpktW4FjQRx6QUaCPzcwmnUwpmPJbfd/sntZT2YrAcbrjZfEbHUzLqCNB2jHpNx1/2xXbj9UJVFYgBmR0wHCmo8n2KMP0WahVmI5JMAmDAyUQj/LGufG3M8UtSRqk9opTXVpnu7OVa1WdTUzMbP2jpeGq2ORZ6Iru48Xdqgw;
+        Expires=Fri, 16 Dec 2022 03:44:24 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=hdCTHr+UGInPghFbP+bUsOIafFYFAP0xA9vnD1rdLsH4hFnDL0axyb9fQQXKg4E/yky1RnYd0CBquPwQHg/v/2jQrwPl2FcMshLi8cX32I7D1hVeiq1V/oOmtlXx;
+        Expires=Fri, 16 Dec 2022 03:44:24 GMT; Path=/
+      - AWSALBCORS=hdCTHr+UGInPghFbP+bUsOIafFYFAP0xA9vnD1rdLsH4hFnDL0axyb9fQQXKg4E/yky1RnYd0CBquPwQHg/v/2jQrwPl2FcMshLi8cX32I7D1hVeiq1V/oOmtlXx;
+        Expires=Fri, 16 Dec 2022 03:44:24 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -927,7 +927,7 @@ http_interactions:
         Body","info":"http://rs.tdwg.org/dwc/terms/waterBody"},{"name":"year","jsonName":"year","dwcTerm":"year","downloadName":"year","dataType":"int","classs":"Event","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"description":"Year","downloadDescription":"Year","info":"The
         year in which an occurrence was observed. http://rs.tdwg.org/dwc/terms/year","infoUrl":"https://github.com/AtlasOfLivingAustralia/ala-dataquality/wiki/year"},{"name":"zone","downloadName":"zone","dataType":"string","indexed":true,"docvalue":true,"stored":true,"multivalue":false,"info":"Zone
         ID. Generally a set of values specific to the dataset"}]'
-  recorded_at: 2022-11-29 22:33:44 GMT
+  recorded_at: 2022-12-09 03:44:24 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -947,7 +947,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.23.2
-      date: Tue, 29 Nov 2022 22:33:44 GMT
+      date: Fri, 09 Dec 2022 03:44:24 GMT
       content-type: application/json;charset=UTF-8
       x-frame-options: SAMEORIGIN
       content-encoding: gzip
@@ -1926,7 +1926,82 @@ http_interactions:
         BY\",\"environmentalvaluemax\":\"\",\"classification1\":\"Area management\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial,Marine\",\"description\":\"The
         NLP Management Units dataset is maintained for the purpose of authoritative
         reporting on the Australian Government's NRM investments.\",\"licence_level\":\"1\",\"source\":\"Department
-        of Environment and Energy\",\"citation_date\":\"2018-06-21\"},{\"source_link\":\"http://www.csiro.au/Organisation-Structure/Divisions/Ecosystem-Sciences.aspx\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"13.3000001907349\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Temperature\",\"displayname\":\"Temperature
+        of Environment and Energy\",\"citation_date\":\"2018-06-21\"},{\"source_link\":\"https://www.environment.gov.au/fed/catalog/search/resource/details.page?uuid=%7B9ACDCB09-0364-4FE8-9459-2A56C792C743%7D\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"\",\"shape\":true,\"respparty_role\":\"Custodian\",\"classification2\":\"\",\"displayname\":\"National
+        Indicative Aggregated Fire Extent Dataset 2019-2020 - v20200324\",\"id\":10955,\"grid\":false,\"path_orig\":\"layer/niafed_20190701_20200323_v20200324_2\",\"minlongitude\":114.1975,\"maxlatitude\":-10.58,\"licence_link\":\"https://creativecommons.org/licenses/by/4.0/\",\"mddatest\":\"2020-03-24\",\"maxlongitude\":153.5631,\"dt_added\":1586140333828,\"minlatitude\":-43.45405,\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:niafed_20190701_20200323_v20200324_2&format=image/png&styles=\",\"name\":\"niafed_20190701_20200323_v20200324_2\",\"metadatapath\":\"https://www.environment.gov.au/fed/rest/document?id=%7B9ACDCB09-0364-4FE8-9459-2A56C792C743%7D\",\"type\":\"Contextual\",\"notes\":\"\",\"keywords\":\"fire,
+        bushfire\",\"licence_notes\":\"This dataset is available under the CC-BY data
+        licencing model and users are required to acknowledge the each of the data
+        providers.\\r\\nNSW Rural Fire Service, Northern Australian Fire Information
+        (NAFI), QLD Fire and Emergency Service, SA Country Fire Service, SA Department
+        for Environment and Water, Tasmanian Fire Service, TAS Department of Primary
+        Industry, Parks, Water and Environment, VIC Department of Environment, Land,
+        Water & Planning, WA Department of Biodiversity, Conservation and Attractions.\",\"environmentalvaluemax\":\"\",\"classification1\":\"Fire\",\"environmentalvalueunits\":\"\",\"enabled\":true,\"domain\":\"Terrestrial\",\"description\":\"The
+        National Indicative Aggregated Fire Extent Dataset has been developed rapidly
+        to support the immediate needs of the Department of Agriculture, Water and
+        the Environment (DAWE) in:\\r\\na) quantifying the potential impacts of the
+        2019/20 bushfires on wildlife, plants and ecological communities;and,\\r\\nb)
+        identifying appropriate response and recovery actions.\\r\\n\\r\\nThe intent
+        was to derive a reliable, agreed, fit for purpose and repeatable national
+        dataset of burnt areas across Australia for the 2019/20 bushfire season.\\r\\nThe
+        dataset takes the national Emergency Management Spatial Information Network
+        Australia (EMSINA) data service, which is the official fire extent currently
+        used by the Commonwealth, and adds supplementary data from other sources to
+        form a cumulative national view of fire extent. This EMSINA data service shows
+        the current active fire incidents, and the Department map shows the total
+        fire extent from 1 July 2019 to the 23 March 2020.\\r\\nEMSINA have been instrumental
+        in providing advice on access to data and where to make contact in the early
+        stages of developing the National Indicative Aggregated Fire Extent Dataset.\\r\\nThis
+        dataset is released on behalf of the Commonwealth Government and endorsed
+        by the National Burnt Area Dataset Working Group, convened by the National
+        Bushfire Recovery Agency.\\r\\n\\r\\nKnown Issues:\\r\\nThe dataset has a
+        number of known issues, both in its conceptual design and in the quality of
+        its inputs. These are outlined below and should be taken into account in interpreting
+        the data and developing any derived analyses.\\r\\nThe list of known issues
+        below is not comprehensive: it is anticipated that further issues will be
+        identified in the future, and the Department welcomes feedback on this. We
+        will seek as far as possible to continuously improve the dataset in future
+        versions.\\r\\nIn addition, the 2019/20 bushfire season is ongoing and it
+        can be expected that the fire extent will increase. Future versions of the
+        dataset will therefore document and distinguish between changes arising from
+        methodological improvement, as distinct from changes to the actual fire extent.\\r\\n1.
+        The dataset draws data together from multiple different sources, including
+        from state and territory agencies responsible for emergency and natural resource
+        management, and from the Northern Australian Fire Information website. The
+        variety of mapping methods means that conceptually the dataset lacks national
+        coherency.\\r\\n2. The limitations associated with the input datasets are
+        carried through to this dataset. Users are advised to refer to the input datasets’
+        documentation to better understand limitations.\\r\\n3. The dataset is intentionally
+        precautionary and the rulesets for its creation elect to accept the risk of
+        overstating the size of particular burnt areas. If and when there are overlapping
+        polygons for an area, the internal boundaries have been dissolved.\\r\\n4.
+        The dataset shows only the outline of burnt areas and lacks information on
+        fire severity in these areas, which may often include areas within them that
+        are completely unburnt. For the intended purpose this may limit the usability
+        of the data, particularly informing on local environmental impacts and response.
+        This issue will be given priority, either for future versions of the dataset
+        or for development of a separate, but related, fire severity product.\\r\\n5.
+        This continental dataset includes large burnt areas, particularly in northern
+        Australia, which can be considered part of the natural landscape dynamics.
+        For the intended purpose of informing on fire of potential environmental impact,
+        some interpretation and filtering may be required. There are a variety of
+        ways to do this, including by limiting the analysis to southern Australia,
+        as was done for recent Wildlife and Threatened Species Bushfire Recovery Expert
+        Panel’s preliminary analysis of 13 January 2020. For that preliminary analysis
+        area, boundaries from the Interim Biogeographic Regionalisation of Australia
+        version 7 were used by the Department to delineate an area of southern Australia
+        encompassing the emergency bushfire areas of the southern summer. The Department
+        will work in consultation with the expert panel and other relevant bodies
+        in the future on alternative approaches to defining, spatially or otherwise,
+        fire of potential environmental impact.\\r\\n6. The dataset cannot be used
+        to reliably recreate what the national burnt area extent was at a given date
+        prior to the date of release. Reasons for this include that information on
+        the date/time on individual fires may or may not have been provided in the
+        input datasets, and then lost as part of the dissolve process discussed in
+        issue 2 above.\\r\\n7. With fires still burning extents are not yet refined.\\r\\n8.
+        Fire extents are downloaded daily and datasets are aggregated. This results
+        in an overlap of polygon extents and raises the issue that refined extents
+        are disregarded at this early stage.\\r\\n9. The NAFI dataset is only current
+        to 18 March 2020.\",\"licence_level\":\"1\",\"source\":\"Australian Government
+        Department of Agriculture, Water and the Environment\",\"citation_date\":\"2020-03-23\"},{\"source_link\":\"http://www.csiro.au/Organisation-Structure/Divisions/Ecosystem-Sciences.aspx\",\"datalang\":\"eng\",\"environmentalvaluemin\":\"13.3000001907349\",\"shape\":false,\"respparty_role\":\"\",\"classification2\":\"Temperature\",\"displayname\":\"Temperature
         - warmest period max (Bio05)\",\"id\":879,\"grid\":true,\"path_orig\":\"layer/bioclim_bio5\",\"minlongitude\":112.9,\"maxlatitude\":-9.0,\"licence_link\":\"\",\"mddatest\":\"2010-08\",\"maxlongitude\":153.64,\"dt_added\":1308837600000,\"minlatitude\":-43.8,\"scale\":\"0.01
         degree (~1km)\",\"displaypath\":\"https://spatial.ala.org.au/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:bioclim_bio5&format=image/png&styles=\",\"path\":\"/data/ala/data/source/bioclim1990-asc/bio5.tif\",\"name\":\"bioclim_bio5\",\"metadatapath\":\"http://fennerschool.anu.edu.au/publications/software/\",\"type\":\"Environmental\",\"notes\":\"Data
         derived using ANUCLIM v6 (beta) with the new set of climate surfaces (centred
@@ -2045,7 +2120,7 @@ http_interactions:
         by ABARES,\\r\\nthe Catchment scale Land Use and Management (CLUM) dataset
         (2016),\\r\\nwas used to identify and mask out land uses that are inappropriate
         to map\\r\\nas forest. \",\"licence_level\":\"1\",\"source\":\"ABARES\",\"citation_date\":\"30-06-18\"}]"
-  recorded_at: 2022-11-29 22:33:44 GMT
+  recorded_at: 2022-12-09 03:44:24 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2071,20 +2146,20 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:33:44 GMT
+      date: Fri, 09 Dec 2022 03:44:24 GMT
       expires: '0'
       pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=RN3AjqY7nzOHiS3eXMbUgzTfPzdUUZ3rIuiVtjbm8OcMIYMaJTUS4x13b3sKFlGqxyxq4xiMiowr4kkywaLkKQaEy3WO5g1WAjJgawFCcelWevIQaiObpVHFvk4Nw/4yZUg0hvrHQmc/8mxYhWN+I/92ZSLflAZbnFpYoYzdc+fi;
-        Expires=Tue, 06 Dec 2022 22:33:44 GMT; Path=/
-      - AWSALBTGCORS=RN3AjqY7nzOHiS3eXMbUgzTfPzdUUZ3rIuiVtjbm8OcMIYMaJTUS4x13b3sKFlGqxyxq4xiMiowr4kkywaLkKQaEy3WO5g1WAjJgawFCcelWevIQaiObpVHFvk4Nw/4yZUg0hvrHQmc/8mxYhWN+I/92ZSLflAZbnFpYoYzdc+fi;
-        Expires=Tue, 06 Dec 2022 22:33:44 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=7/G88PprB5abAuzdAyn8f6aFc64N65+N5ZVzo86rRc1HbR5GTj6B1Bv8qCJaElqRrJUJQe1JRkuWi5Pyla8i5TCmGQvjoSKocVRuWq4PU/O9KbrNxgtXAPdNGXFe;
-        Expires=Tue, 06 Dec 2022 22:33:44 GMT; Path=/
-      - AWSALBCORS=7/G88PprB5abAuzdAyn8f6aFc64N65+N5ZVzo86rRc1HbR5GTj6B1Bv8qCJaElqRrJUJQe1JRkuWi5Pyla8i5TCmGQvjoSKocVRuWq4PU/O9KbrNxgtXAPdNGXFe;
-        Expires=Tue, 06 Dec 2022 22:33:44 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=+aZY/HDv6dpCW3IAL4TcwIyr4EJWfaqnKI0gpIBwoCh33cxeJnNcauwwV0anhv7uJDjE113cvC4OrEkHhb3ybdoQeEjYUtsD3D0WNYZgjIXoXQHXxS69A7gihfdQerkbgrDubWkFVh6gjPMVusbH7UmfQIoY93FIKZKvTNRi1JgN;
+        Expires=Fri, 16 Dec 2022 03:44:24 GMT; Path=/
+      - AWSALBTGCORS=+aZY/HDv6dpCW3IAL4TcwIyr4EJWfaqnKI0gpIBwoCh33cxeJnNcauwwV0anhv7uJDjE113cvC4OrEkHhb3ybdoQeEjYUtsD3D0WNYZgjIXoXQHXxS69A7gihfdQerkbgrDubWkFVh6gjPMVusbH7UmfQIoY93FIKZKvTNRi1JgN;
+        Expires=Fri, 16 Dec 2022 03:44:24 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=9UrpgWa/Sq87YSvFSHQlmfnmYkq6QzlNp/sp+LGidnyHRYLumen47bbF50cFa+Ao2SClJjpsviX/Nap/UcpaT3MAlkHPpHZmxCMLH2MvKFqp5riWZa1k8YEtHWtD;
+        Expires=Fri, 16 Dec 2022 03:44:24 GMT; Path=/
+      - AWSALBCORS=9UrpgWa/Sq87YSvFSHQlmfnmYkq6QzlNp/sp+LGidnyHRYLumen47bbF50cFa+Ao2SClJjpsviX/Nap/UcpaT3MAlkHPpHZmxCMLH2MvKFqp5riWZa1k8YEtHWtD;
+        Expires=Fri, 16 Dec 2022 03:44:24 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -2098,7 +2173,7 @@ http_interactions:
       file: no
       string: '[{"name":"AMBIGUOUS_COLLECTION","code":2059,"description":"Ambiguous
         collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
-        institution","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
+        institution","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
         of record badly formed","category":"Warning","fatal":false,"termsRequiredToTest":["basisOfRecord"]},{"name":"biosecurityIssue","code":20021,"description":"Biosecurity
         issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"COLLECTION_MATCH_FUZZY","code":2063,"description":"Collection
         match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionID","collectionCode"]},{"name":"COLLECTION_MATCH_NONE","code":2061,"description":"Collection
@@ -2107,19 +2182,19 @@ http_interactions:
         derived from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_INVALID","code":2021,"description":"Continent
         invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_ACCURACY_INVALID","code":2009,"description":"Coordinate
         accuracy invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_INVALID","code":2002,"description":"Coordinate
-        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
-        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
+        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
         precision invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinatePrecision"]},{"name":"COORDINATE_PRECISION_UNCERTAINTY_MISMATCH","code":2012,"description":"Coordinate
         precision uncertainty mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_REPROJECTED","code":2006,"description":"Coordinates
-        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
-        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
-        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
-        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
+        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
+        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","geodeticDatum"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
+        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","geodeticDatum"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
+        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
         uncertainty meters invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinateUncertaintyInMeters"]},{"name":"COORDINATES_CENTRE_OF_COUNTRY","code":1006,"description":"Coordinates
         centre of country","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"COORDINATES_CENTRE_OF_STATEPROVINCE","code":1001,"description":"Supplied
         coordinates centre of state","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"COUNTRY_COORDINATE_MISMATCH","code":2016,"description":"Coordinates
-        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","countryCode","decimalLatitude","verbatimLongitude","verbatimCoordinates","country","verbatimLatitude"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
-        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","geodeticDatum","countryCode","decimalLatitude","verbatimLongitude","verbatimCoordinates","country","verbatimLatitude"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
+        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","countryCode","geodeticDatum","country"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
+        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude","countryCode","geodeticDatum","country"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
         invalid","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"COUNTRY_MISMATCH","code":2017,"description":"Country
         mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2035,"description":"Min
         and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2036,"description":"Depth
@@ -2127,11 +2202,11 @@ http_interactions:
         value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2034,"description":"Depth
         unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
         outlier","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"DIFFERENT_OWNER_INSTITUTION","code":2066,"description":"Different
-        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
-        and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2040,"description":"Altitude
-        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2039,"description":"Altitude
-        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2037,"description":"Elevation
-        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"FIRST_OF_CENTURY","code":1018,"description":"First
+        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
+        and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2040,"description":"Altitude
+        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2039,"description":"Altitude
+        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2037,"description":"Elevation
+        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["minimumElevationInMeters","maximumElevationInMeters"]},{"name":"FIRST_OF_CENTURY","code":1018,"description":"First
         of the century","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_MONTH","code":1016,"description":"First
         of the month","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_YEAR","code":1017,"description":"First
         of the year","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FOOTPRINT_SRS_INVALID","code":2013,"description":"Footprint
@@ -2151,9 +2226,9 @@ http_interactions:
         date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS","code":2052,"description":"Individual
         count conflicts with occurrence status","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INDIVIDUAL_COUNT_INVALID","code":2051,"description":"Individual
         count invalid","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INSTITUTION_COLLECTION_MISMATCH","code":2064,"description":"Institution
-        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
-        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
+        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
         error","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"INVALID_SCIENTIFIC_NAME","code":1036,"description":"Invalid
         scientific name","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"LOCATION_NOT_SUPPLIED","code":1000,"description":"Location
         not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"MISSING_COLLECTION_DATE","code":1013,"description":"Missing
@@ -2173,13 +2248,13 @@ http_interactions:
         status inferred from basis of record","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT","code":2054,"description":"Occurrence
         status inferred from individual count","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_UNPARSABLE","code":2053,"description":"Occurrence
         status unparsable","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"POSSIBLY_ON_LOAN","code":2065,"description":"Possibly
-        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["ownerInstitutionCode","institutionID","institutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
-        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
-        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
-        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["year","day","month","eventDate"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
-        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["year","day","month","eventDate"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
-        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["year","day","month","eventDate"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
+        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
+        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["day","month","year","eventDate"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
+        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["day","month","year","eventDate"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["day","month","year","eventDate"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
         uri invalid","category":"Warning","fatal":false,"termsRequiredToTest":["references"]},{"name":"SENSITIVITY_REPORT_INVALID","code":1037,"description":"Sensitivity
         report invalid","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"SENSITIVITY_REPORT_NOT_LOADABLE","code":1038,"description":"Sensitivity
         report not loadable","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"STATE_COORDINATE_MISMATCH","code":1004,"description":"Coordinates
@@ -2192,10 +2267,10 @@ http_interactions:
         excluded associated","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_HOMONYM","code":1024,"description":"Taxon
         homonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_INDETERMINATE_SPECIES","code":1025,"description":"Taxon
         indeterminate species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MATCH_AGGREGATE","code":2031,"description":"Taxon
-        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["scientificName","class","genus","phylum","order","specificEpithet","genericName","scientificNameAuthorship","family","kingdom","infraspecificEpithet"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
-        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["scientificName","class","genus","phylum","order","specificEpithet","genericName","scientificNameAuthorship","family","kingdom","infraspecificEpithet"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
-        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["scientificName","class","genus","phylum","order","specificEpithet","genericName","scientificNameAuthorship","family","kingdom","infraspecificEpithet"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
-        match none","category":"Warning","fatal":false,"termsRequiredToTest":["scientificName","class","genus","phylum","order","specificEpithet","genericName","scientificNameAuthorship","family","kingdom","infraspecificEpithet"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
+        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
+        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
+        match none","category":"Warning","fatal":false,"termsRequiredToTest":["family","genus","kingdom","order","scientificName","infraspecificEpithet","genericName","specificEpithet","scientificNameAuthorship","phylum","class"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
         misapplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MISAPPLIED_MATCHED","code":1026,"description":"Taxon
         misapplied matched","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_PARENT_CHILD_SYNONYM","code":1028,"description":"Taxon
         parent child synonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_QUESTION_SPECIES","code":1029,"description":"Taxon
@@ -2213,8 +2288,8 @@ http_interactions:
         institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"userAssertionOther","code":20019,"description":"Other
         error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
         occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
-        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLongitude","decimalLatitude","verbatimLongitude","verbatimCoordinates","verbatimLatitude"]}]'
-  recorded_at: 2022-11-29 22:33:44 GMT
+        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLatitude","verbatimLongitude","verbatimCoordinates","decimalLatitude","decimalLongitude"]}]'
+  recorded_at: 2022-12-09 03:44:24 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -2240,20 +2315,19 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Tue, 29 Nov 2022 22:33:44 GMT
+      date: Fri, 09 Dec 2022 03:44:24 GMT
       expires: '0'
       pragma: no-cache
-      referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.2
       set-cookie:
-      - AWSALBTG=AoXVfdWcU7VN6R3u/ugizDiwPtlGCjfwYCoNkEa8UbeZyqtLpchKUmmrXw0dzaZbhuF3HSFlhvoIjnn4qtzgOhIf5LVAtn1RU6Q0ajq93DeyB89VudPFYxA07KKnjfXoEBBpjnRLqlwwX4UKlqzZjPenxjJFkkNxd5vEhOyzd9Fk;
-        Expires=Tue, 06 Dec 2022 22:33:44 GMT; Path=/
-      - AWSALBTGCORS=AoXVfdWcU7VN6R3u/ugizDiwPtlGCjfwYCoNkEa8UbeZyqtLpchKUmmrXw0dzaZbhuF3HSFlhvoIjnn4qtzgOhIf5LVAtn1RU6Q0ajq93DeyB89VudPFYxA07KKnjfXoEBBpjnRLqlwwX4UKlqzZjPenxjJFkkNxd5vEhOyzd9Fk;
-        Expires=Tue, 06 Dec 2022 22:33:44 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=ocJRhqermLwsbCDw9v/ySKuMVNrVXLKB+xs91dwGQeB1alvHXjQiSdeRmvPBcBIhxofqQfNmMn1EgP4jLCjYvltIXIpSunPaGuf4EMdCsaefGMDp2XSi+cwgLkcD;
-        Expires=Tue, 06 Dec 2022 22:33:44 GMT; Path=/
-      - AWSALBCORS=ocJRhqermLwsbCDw9v/ySKuMVNrVXLKB+xs91dwGQeB1alvHXjQiSdeRmvPBcBIhxofqQfNmMn1EgP4jLCjYvltIXIpSunPaGuf4EMdCsaefGMDp2XSi+cwgLkcD;
-        Expires=Tue, 06 Dec 2022 22:33:44 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=jijnTCeNUCc0fqNuBSfPnDpje7+zBtHBMoL1ZWSBEYgKagH21vSqQgPa8/ltsFPCLGoVhpSVad6rMjIBS/w+G5tQfGDY4mELMnmpNMMI/6ZCCBhVAN/fbNmKqXY8AS58I8B+xKAdT0JWVy6FdeMqBIh8FPA9BHAm7/0+cWfxfdqi;
+        Expires=Fri, 16 Dec 2022 03:44:24 GMT; Path=/
+      - AWSALBTGCORS=jijnTCeNUCc0fqNuBSfPnDpje7+zBtHBMoL1ZWSBEYgKagH21vSqQgPa8/ltsFPCLGoVhpSVad6rMjIBS/w+G5tQfGDY4mELMnmpNMMI/6ZCCBhVAN/fbNmKqXY8AS58I8B+xKAdT0JWVy6FdeMqBIh8FPA9BHAm7/0+cWfxfdqi;
+        Expires=Fri, 16 Dec 2022 03:44:24 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=4FS8mvhygfQ/GmDfx+LFtZKiQjS3wPNInvq/0YjPeAzuwl31ABVtlRU5PYPHx0smFPUn4aQBKnpjLPb9rRWJj7l2FQ313rfImJKKDnIiaUGecrXyHBaJMzqv4pPL;
+        Expires=Fri, 16 Dec 2022 03:44:24 GMT; Path=/
+      - AWSALBCORS=4FS8mvhygfQ/GmDfx+LFtZKiQjS3wPNInvq/0YjPeAzuwl31ABVtlRU5PYPHx0smFPUn4aQBKnpjLPb9rRWJj7l2FQ313rfImJKKDnIiaUGecrXyHBaJMzqv4pPL;
+        Expires=Fri, 16 Dec 2022 03:44:24 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -2266,5 +2340,5 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[]'
-  recorded_at: 2022-11-29 22:33:44 GMT
+  recorded_at: 2022-12-09 03:44:24 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
