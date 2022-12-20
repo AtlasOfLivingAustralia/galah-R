@@ -59,6 +59,7 @@
 search_taxa <- function(...) {
   
   query <- list(...)
+
   if(length(query) < 1){
     warn("No query passed to `search_taxa`")
     return(tibble())
@@ -67,13 +68,19 @@ search_taxa <- function(...) {
     if (is.list(query) & !is.data.frame(query)) {
       query <- as.data.frame(query)
     }
-  } else {
-    if(
+  # check function isn't piped directly in a galah_call() query
+  } else if( 
+    !all("data_request" %in% names(attributes(query)))) { 
+    bullets <- c(
+      "Can't pipe `search_taxa()` in a `galah_call()`.",
+      i = "Did you mean to use `galah_identify()`?"
+      )
+    abort(bullets, call = caller_env())
+  } else if(
       all(lengths(query) == 1L) | 
       all(unlist(lapply(query, is.character)))
     ){
-      query <- unlist(query)
-    }
+    query <- unlist(query)
   }
   
   matches <- remove_parentheses(query) |> name_query()
