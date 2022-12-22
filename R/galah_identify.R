@@ -80,7 +80,6 @@ parse_identify <- function(dots, search){
     #   query <- as.character(input_query)
     } else { # if the input isn't of known type, try to find IDs
       if (search) {
-        check_atlas(atlas)
         lookup <- search_taxa(input_query)
         if (!any(names(lookup) == "taxon_concept_id")){
           bullets <- c(
@@ -150,20 +149,6 @@ check_number_returned <- function(n_in, n_out, error_call = caller_env()) {
         
         "Unmatched taxa. Results returned for {n_out} of {n_in} taxon IDs")
     )
-  }
-}
-
-check_atlas <- function(atlas, error_call = caller_env()) {
-  if(atlas == "UK"){
-    # atlas_origin <- switch(atlas,
-    #   "UK" = "UK",
-    #   "Sweden" = "Swedish",
-    #   "Austria" = "Austrian",
-    #   "Guatemala" = "Guatemalan",
-    #   "Spain" = "Spanish"
-    # )
-    bullets <- c("Searching is not supported for the NBN.")
-    abort(bullets, call = error_call)
   }
 }
 

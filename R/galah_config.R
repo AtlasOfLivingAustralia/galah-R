@@ -76,9 +76,8 @@
 galah_config <- function(..., profile_path = NULL) {
   ala_option_name <- "galah_config"
   current_options <- getOption(ala_option_name)
-  
   user_options <- list(...)
-  
+
   if (length(user_options) == 0 && !is.null(current_options)) {
     return(current_options)
   }
@@ -91,21 +90,24 @@ galah_config <- function(..., profile_path = NULL) {
     ## set the global option
     temp <- list(current_options)
     names(temp) <- ala_option_name
+    class(temp) <- "galah_config"
     options(temp)
     return(current_options)
   } else {
     # check all the options are valid, if so, set as options
-    
+
     if (!is.null(user_options$atlas)) {
-      current_options$atlas <- configure_atlas(user_options$atlas)
+      new_atlas <- configure_atlas(user_options$atlas)
+      check_atlas(current_options$atlas, new_atlas) # see whether atlases have changed, and if so, give a message
+      current_options$atlas <- new_atlas
       user_options <- user_options[names(user_options) != "atlas"]
-    }   
-    
+    }
+
     if (!is.null(user_options$download_reason_id)) {
       user_options$download_reason_id <-
         convert_reason(user_options$download_reason_id)
     }
-    
+
     for (x in names(user_options)) {
       validate_option(x, user_options[[x]])
       switch(x,
@@ -119,14 +121,13 @@ galah_config <- function(..., profile_path = NULL) {
              "username" = {current_options$user$username <- user_options[[x]]}, # gbif only
              "email" = {current_options$user$email <- user_options[[x]]},
              "password" = {current_options$user$password <- user_options[[x]]}, # gbif only
-             "download_reason_id" = {current_options$user$download_reason_id <- user_options[[x]]}
-             # atlas not a problem as added above
-             )
+             "download_reason_id" = {current_options$user$download_reason_id <- user_options[[x]]})
     }
-    
+
     ## set the global option
     temp <- list(current_options)
     names(temp) <- ala_option_name
+    class(temp) <- "galah_config"
   }
   options(temp)
 
@@ -150,13 +151,12 @@ galah_config <- function(..., profile_path = NULL) {
       inform(glue("The config will be stored in {profile_path}."))
     }
     save_config(profile_path, current_options)
-    
+
   }
 }
 
-
 default_config <- function(){
-  list(
+  x <- list(
     package = list( 
       verbose = TRUE,
       run_checks = TRUE,
@@ -172,6 +172,8 @@ default_config <- function(){
       organisation = "Atlas of Living Australia",
       acronym  = "ALA",
       region = "Australia"))
+    class(x) <- "galah_config"
+    x
 }
 
 
@@ -187,7 +189,7 @@ configure_atlas <- function(query){
       i = glue("Use `show_all(atlases)` to see supported atlases."),
       x = glue("\"{query}\" is not a valid atlas.")
     )
-    abort(bullets, call = caller_env())   
+    abort(bullets, call = caller_env())
   }else{
     selected_entry <- comparison[which(lookup == min(lookup))][[1]]
     
@@ -201,6 +203,13 @@ configure_atlas <- function(query){
       region = node_metadata$region[selected_row])
     
     return(result)
+  }
+}
+
+check_atlas <- function(current, new){
+  if(new$region != current$region){
+    message(glue(
+      "Atlas selected: {new$organisation} ({new$acronym}) [{new$region}]"))
   }
 }
  

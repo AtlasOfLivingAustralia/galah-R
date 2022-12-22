@@ -25,6 +25,7 @@ Depends:
     R (>= 4.1.0)
 Imports:
     assertthat,
+    crayon,
     crul,
     data.tree,
     digest,

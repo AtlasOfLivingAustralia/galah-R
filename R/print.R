@@ -11,3 +11,38 @@ print.data_request <- function(x, ...){
   }
 }
 # NOTE: use of `x` arg here is for consistency with `print()`; do not change
+
+#' @rdname galah_config
+#' @param x an object of class `galah_config`
+#' @importFrom rlang format_error_bullets
+#' @importFrom crayon bold
+#' @export
+print.galah_config <- function(x, ...){
+  if(x$user$password == ""){
+    password <- "[Not Provided]"
+  }else{
+    password <- "[Provided]"
+  }
+  package_settings <- lapply(c(
+    "verbose         username {x$user$username}", 
+    "run_checks      password {password}", 
+    "send_email      email {x$user$email}", 
+    "caching         reason {x$user$download_reason_id}"),
+    glue) |>
+    unlist()
+
+  package_lookup <- unlist(x$package[1:4]) |> as.integer() + 1
+  names(package_settings) <- c("x", "v")[package_lookup]
+  atlas_settings <- glue(" {x$atlas$organisation} ({x$atlas$acronym}) [{x$atlas$region}]")
+  names(atlas_settings) <- ">"
+  
+  print_text <- c(
+    crayon::bold("Package:          User:"),
+    package_settings,
+    "",
+    crayon::bold("Atlas:"),
+    atlas_settings
+    )
+
+  cat(format_error_bullets(print_text))
+}

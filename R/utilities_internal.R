@@ -208,7 +208,7 @@ build_query <- function(identify, filter, location, select = NULL,
                         profile = NULL) {
                           
   if (is.null(identify)) {
-    if(taxon_key_type() == "GBIF"){
+    if(galah_config()$atlas$region == "Global"){
       taxa_query <- list(taxonKey = 1)
     }else{
       taxa_query <- NULL
@@ -242,7 +242,7 @@ build_query <- function(identify, filter, location, select = NULL,
     }
   }
   
-  if(taxon_key_type() == "GBIF"){
+  if(galah_config()$atlas$region == "Global"){
     query <- c(taxa_query, filter_query)
   }else{
     query <- list(fq = c(taxa_query, filter_query)) 
@@ -272,7 +272,7 @@ build_query <- function(identify, filter, location, select = NULL,
 # Build query from vector of taxonomic ids
 build_taxa_query <- function(ids) {
   ids <- ids[order(ids)]
-  if(taxon_key_type() == "GBIF"){
+  if(getOption("galah_config")$atlas$region == "Global"){
     list(taxonKey = ids)
   }else{
     glue(
@@ -645,7 +645,7 @@ species_facets <- function(){
 #   }  
 # }
 
-taxon_key_type <- function(){"ALA"}
+# taxon_key_type <- function(){"ALA"}
 
 
 ## show_all_fields --------------------------#

@@ -5,7 +5,7 @@ test_that("galah_config sets default options", {
   # set to null
   options(galah_config = NULL)
   # check that defaults are used
-  expect_equal(galah_config()$verbose, TRUE)
+  expect_equal(galah_config()$package$verbose, TRUE)
 })
 
 vcr::use_cassette("logger_config", {
