@@ -81,3 +81,7 @@ vcr::use_cassette("search_identifiers_invalid", {
 test_that("search_taxa handles name issues", {
   expect_warning(search_taxa("Microseris"))
 })
+
+test_that("search_taxa errors nicely when piped in galah_call", {
+  expect_error(galah_call() |> search_taxa("perameles"), "Can't pipe `search_taxa()")
+})

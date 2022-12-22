@@ -84,7 +84,7 @@ parse_identify <- function(dots, search){
         if (!any(names(lookup) == "taxon_concept_id")){
           bullets <- c(
             "`galah_identify` didn't return anything.",
-            i = "Did you use `search_taxa` to check whether your search species the correct taxa?"
+            i = "Did you use `search_taxa` to check whether your search specifies the correct taxa?"
           )
           abort(bullets, call = caller_env())
         } else {
