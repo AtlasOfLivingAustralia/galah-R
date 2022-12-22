@@ -77,19 +77,19 @@
 #' @importFrom rlang caller_env
 #' 
 #' @export
-atlas_occurrences <- function(request = NULL, 
-                              identify = NULL, 
-                              filter = NULL, 
+atlas_occurrences <- function(request = NULL,
+                              identify = NULL,
+                              filter = NULL,
                               geolocate = NULL,
                               data_profile = NULL,
                               select = NULL,
-                              mint_doi = FALSE, 
+                              mint_doi = FALSE,
                               doi = NULL, # check missingness code
                               refresh_cache = FALSE
                               ) {
   if(!is.null(request)){
     check_data_request(request)
-    current_call <- update_galah_call(request, 
+    current_call <- update_galah_call(request,
       identify = identify,
       filter = filter,
       geolocate = geolocate,
@@ -97,9 +97,7 @@ atlas_occurrences <- function(request = NULL,
       select = select,
       mint_doi = mint_doi, # NOTE: check behaviour of update_galah_call here
       doi = doi,
-      refresh_cache = refresh_cache
-    ) 
-          
+      refresh_cache = refresh_cache)
   }else{
     current_call <- galah_call(
       identify = identify,
@@ -109,27 +107,36 @@ atlas_occurrences <- function(request = NULL,
       select = select,
       mint_doi = mint_doi,
       doi = doi,
-      refresh_cache = refresh_cache         
-    )
+      refresh_cache = refresh_cache)
+  }
+
+  # choose beahviour depending on whether we are calling LAs or GBIF
+  is_gbif <- getOption("galah_config")$atlas$region == "Global"
+  if(is_gbif){
+    function_name <- "atlas_occurrences_GBIF"
+    arg_names <- names(formals(atlas_occurrences_GBIF))
+  }else{
+    function_name <- "atlas_occurrences_LA"
+    arg_names <- names(formals(atlas_occurrences_LA))
   }
 
   # subset to available arguments
   custom_call <- current_call[
-    names(current_call) %in% names(formals(atlas_occurrences_internal))]
+    names(current_call) %in% arg_names]
   if(!is.null(doi)){
     custom_call <- custom_call["doi"]
   }
   class(custom_call) <- "data_request"
-       
+
   # check for caching
   caching <- getOption("galah_config")$package$caching
   cache_file <- cache_filename("occurrences", unlist(custom_call))
   if (caching && file.exists(cache_file) && !refresh_cache) {
     return(read_cache_file(cache_file))
   }
-       
+
   # run function using do.call
-  result <- do.call(atlas_occurrences_internal, custom_call)
+  result <- do.call(function_name, custom_call)
   attr(result, "data_request") <- custom_call
 
   # if caching requested, save
@@ -139,285 +146,5 @@ atlas_occurrences <- function(request = NULL,
                      cache_file = cache_file)
   }
 
-  result                                
-}
-
-
-# internal workhorse function
-atlas_occurrences_internal <- function(identify = NULL,
-                                       filter = NULL, 
-                                       geolocate = NULL,
-                                       data_profile = NULL,
-                                       select = NULL,
-                                       mint_doi = FALSE, 
-                                       doi = NULL, 
-                                       refresh_cache = FALSE) {
-                                         
-  # check whether API exists
-  occurrences_url <- url_lookup("records_occurrences")
-
-  verbose <- getOption("galah_config")$package$verbose
-  assert_that(is.logical(mint_doi))
-  if(!is.null(doi)){
-    abort("Argument `doi` is deprecated; use `collect_occurrences()` instead")
-  }
-  
-  # If no filters are specified, reject
-  if(
-    all(unlist(lapply(list(identify, filter, geolocate, doi), is.null)))
-  ){
-    bullets <- c(
-      "Your data request was too large.",
-      i = "A maximum of 50 million records can be retrieved at once.",
-      i = "Please narrow the query and try again."
-    )
-    abort(bullets, call = caller_env())
-  }
-  
-  # set default columns
-  if(is.null(select)){
-    select <- galah_select(group = "basic")
-  }
-  
-  # ensure profile works from galah_filter as well as galah_profile  
-  if(is.null(data_profile)){
-    if(is.null(filter)){
-      profile <- NULL
-    }else{
-      profile <- extract_profile(filter)
-    }
-  }else{
-    profile <- data_profile$data_profile
-  }
-  
-  query <- build_query(identify, filter, geolocate, select, profile)
-  
-  # Check record count
-  if (getOption("galah_config")$package$run_checks) {
-    count <- record_count(query)
-    if (is.null(count)){
-      system_down_message("atlas_occurrences")
-      return(tibble())
-    }else{
-      check_count(count) # aborts under selected circumstances
-    }
-  }
-
-  query <- c(query, 
-    fields = build_columns(select[select$type != "assertion", ]),
-    qa = build_assertion_columns(select),
-    emailNotify = email_notify(),
-    sourceTypeId = 2004,
-    reasonTypeId = getOption("galah_config")$user$download_reason_id,
-    email = user_email(), 
-    dwcHeaders = "true")
-  
-  if (mint_doi & getOption("galah_config")$atlas$region == "Australia") {
-    query$mintDoi <- "true"
-  }
-    
-  # Get data
-  tmp <- tempfile()
-  download_resp <- wait_for_download(query)
-  if(is.null(download_resp)){
-    inform("Calling the API failed for `atlas_occurrences`")
-    return(tibble())
-  }
-  
-  # download from url
-  result <- url_download(download_resp, ext = "zip")
-  if(is.null(result)){
-    system_down_message("atlas_occurrences")
-  }else{
-    result
-  }
-  
-}
-
-
-get_doi <- function(mint_doi, data_path) {
-  doi <- NA
-  if (as.logical(mint_doi)) {
-    tryCatch(
-      doi <- as.character(
-        read.table(unz(data_path, "doi.txt"))$V1),
-      warning = function(e) {
-        e$message <- "No DOI was generated for this download. The DOI server may
-        be down or, if this is a cached result, may not have been generated for
-        the original download."
-      })
-  }
-  return(doi)
-}
-
-wait_for_download <- function(query) {
-
-  url <- url_lookup("records_occurrences")
-  status_initial <- url_GET(url, params = query)
-    
-  if(is.null(status_initial)){
-    return(NULL)
-  }
-
-  # check running status, with rate limiting
-  status_post_queue <- check_queue(status_initial)
-  if(!is.null(status_post_queue$status)){
-    if(status_post_queue$status != "finished"){
-      status <- check_running(status_post_queue)
-    }else{
-      status <- status_post_queue
-    }
-  }else{
-    status <- NULL
-  }
-
-  return(status$downloadUrl)
-}
-
-api_intervals <- function(){
-  c(
-    rep(0.5, 4),
-    rep(1, 3),
-    rep(2, 5),
-    rep(5, 8),
-    rep(10, 10),
-    rep(30, 10))
-}
-
-# check queue status, with rate limiting
-check_queue <- function(status_initial){
-  interval_times <- api_intervals()
-  n_intervals <- length(interval_times)
-  status <- status_initial
-  iter <- 1
-  queue_size <- status$queueSize
-  
-  verbose <- getOption("galah_config")$package$verbose
-  if(verbose){
-    cat(paste0("\nChecking queue\nCurrent queue size: ", queue_size))
-  }
-  
-  while(status$status == "inQueue"){
-    if(verbose){
-      if(is.null(status$queueSize)){status$queueSize <- 0}
-      if(status$queueSize < queue_size){
-        queue_size <- status$queueSize
-        cat(paste0(" ", queue_size, " "))
-      }else{
-        cat(".")
-      }
-    }
-    status <- url_GET(status$statusUrl)
-    if(is.null(status$statusUrl)){
-      break()
-    }else{
-      if(iter <= n_intervals){
-        lag <- interval_times[iter]
-      }else{
-        lag <- 60
-      }
-      Sys.sleep(lag)
-    }
-    iter <- iter + 1
-  }
-  return(status)
-}
-
-check_running <- function(status){
-  interval_times <- api_intervals()
-  n_intervals <- length(interval_times)
-  iter <- 1
-  
-  verbose <- getOption("galah_config")$package$verbose
-  if(verbose){
-    atlas_org <- getOption("galah_config")$atlas$organisation
-    cat(paste0("\nSending query to ", atlas_org, "\n"))
-    pb <- txtProgressBar(max = 1, style = 3)
-  }
-  
-  while(status$status == "running"){
-    if(verbose){
-      if(is.null(status$records)){status$records <- 0}
-      if(is.null(status$totalRecords)){status$totalRecords <- 1}
-      setTxtProgressBar(pb, status$records/status$totalRecords)
-    }
-    status <- url_GET(status$statusUrl)
-    if(is.null(status$statusUrl)){
-      break()
-    }else{
-      if(iter <= n_intervals){
-        lag <- interval_times[iter]
-      }else{
-        lag <- 60
-      }
-      Sys.sleep(lag)
-    }
-    iter <- iter + 1
-  }
-  
-  if(verbose){
-    setTxtProgressBar(pb, value = 1)
-    close(pb)
-  }
-  return(status)
-}
-
-check_count <- function(count, error_call = caller_env()) {
-  if (count == 0) {
-    abort("This query does not match any records.", call = error_call)
-  } else if (count > 50000000) {
-    bullets <- c(
-      "Your data request was too large.",
-      i = "A maximum of 50 million records can be retrieved at once.",
-      i = "Please narrow the query and try again."
-    )
-    abort(bullets, call = error_call)
-  } else {
-    if (getOption("galah_config")$package$verbose) {
-      inform(glue("This query will return {count} records"))
-      }
-  }
-}
-
-email_notify <- function() {
-  notify <- as.logical(getOption("galah_config")$package$send_email)
-  if (is.na(notify)) {
-    notify <- FALSE
-  }
-  # ala api requires lowercase
-  ifelse(notify, "true", "false")
-}
-
-user_email <- function(error_call = caller_env()) {
-  email <- getOption("galah_config")$user$email
-  if (email == "") {
-    email <- Sys.getenv("email")
-  }
-  if (email == "") {
-    bullets <- c(
-      "No user email was found.",
-      i = glue("To download occurrence records you must provide a valid email ",
-                     "address registered with the selected atlas using `galah_config(email = )`")
-    )
-    abort(bullets, call = error_call)
-  }
-  email
-}
-
-occ_error_handler <- function(code, error_call = rlang::caller_env()) {
-  if (code == 403) {
-    bullets <- c(
-      "Status code 403 was returned.",
-      i = glue("Is the email you provided to `galah_config()` registered with the selected atlas?")
-    )
-    inform(bullets)
-  }
-  if (code == 504) {
-    bullets <- c(
-      "Status code 504 was returned.",
-      i = "This usually means that the selected API is down.",
-      i = "If you continue to receive this error, please email support@ala.org.au"
-    )
-    inform(bullets)
-  }
+  result
 }

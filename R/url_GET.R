@@ -8,7 +8,7 @@ url_GET <- function(url,
                     params = list(), 
                     slot_name = NULL,
                     error_call = caller_env()) {
-  
+
   cli <- HttpClient$new(
     url = url,
     headers = list("User-Agent" = galah_version_string()))
@@ -21,7 +21,7 @@ url_GET <- function(url,
     res <- try(cli$get(query = params, encode = "json"), silent = TRUE)
   }
   # print(res$request$url) # uncomment and load package to see url calls
-  
+
   # handle errors
   # nothing returned
   if(inherits(res, "try-error")){
@@ -29,7 +29,6 @@ url_GET <- function(url,
   }else{
     parse_get(res)
   }
-  
 }
 
 

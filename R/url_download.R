@@ -1,10 +1,12 @@
-#' @importFrom readr read_csv cols
+#' @importFrom readr read_csv read_tsv cols
 url_download <- function(url, 
-                         params = list(), 
-                         ext = "zip", 
-                         cache_file, 
+                         params = list(),
+                         ext = "zip",
+                         cache_file,
                          error_call = caller_env()) {
   
+  is_gbif <- getOption("galah_config")$atlas$region == "Global"
+
   assert_that(is.character(url))
   cli <- HttpClient$new(
     url = url,
@@ -42,9 +44,15 @@ url_download <- function(url,
     
     df <- switch(ext, 
            # defaults to zip
-           "zip" = {read_csv(
-                       unzip(cache_file, files = "data.csv"), 
-                       col_types = cols())},
+           "zip" = {
+              if(is_gbif){
+                read_tsv(cache_file, col_types = cols())
+              }else{
+                read_csv(
+                  unzip(cache_file, files = "data.csv"),  # note: for large files, there may be data1.csv, data2.csv etc
+                  col_types = cols())
+              }
+           },
            # error message is specific to atlas_species because it is the only function that
            # gets to this point
            "csv" =  {tryCatch(

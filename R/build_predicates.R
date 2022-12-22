@@ -1,38 +1,43 @@
 #' (currently internal) function to create 'predicates'
 #' @importFrom jsonlite toJSON unbox
 
-# JSON for passing to GBIF offline downloads API.
+# predicates are JSON scripts for passing to GBIF offline downloads API.
 # https://www.gbif.org/developer/occurrence
 
-# note: GBIF requires a password as well as a username;
-# might be worth considering what system ALA will require soon,
-# and integrating both approaches.
-
 build_predicates <- function(df){ # where df is returned by galah_filter()
-  
-  send_notification <- getOption("galah_config")$package$send_email |> 
-    as.character() |> 
+
+  if(nrow(df) < 1){
+    return(NULL)
+  }
+
+  send_notification <- getOption("galah_config")$package$send_email |>
+    as.character() |>
     tolower()
 
-  data_list <- list(
-    creator = getOption("galah_config")$user$username,
-    notificationAddresses = getOption("galah_config")$user$email,
-    sendNotification = send_notification,
-    format = "SIMPLE_CSV",
-    predicate = list(
-      type = "and",
+  predicates_list <- parse_predicates(df)
+  if(nrow(df) > 1){
+     predicates_list <- list(
+      type = unbox("and"),
       predicates = parse_predicates(df)
     )
+  }else{
+     predicates_list <- parse_predicates(df)[[1]]
+  }
+
+  data_list <- list(
+    creator = unbox(getOption("galah_config")$user$username),
+    notificationAddresses = getOption("galah_config")$user$email,
+    sendNotification = unbox(send_notification),
+    format = unbox("SIMPLE_CSV"),
+    predicate = predicates_list
   )
-  
+
   toJSON(data_list)
 }
 
 # parse galah_filter result into predicate format
-# test object:
-# df <- galah_filter(year == 2010, basisOfRecord == "PRESERVED_SPECIMEN")
 parse_predicates <- function(df){
-  lapply(
+  json_text <- lapply(
     split(df, seq_len(nrow(df))),
     function(a){
       list(
@@ -44,11 +49,20 @@ parse_predicates <- function(df){
                       ">=" = "greaterThanOrEquals",
                       "!=" = "not"
                       )),
-        key = unbox(a$variable),
+        key = unbox(gbif_upper_case(a$variable)),
         value = unbox(a$value)
-      )
+      ) 
     })
+    names(json_text) <- NULL
+    return(json_text)
 }
 # NOTE: currently missing: `within` (geolocate), `or`, `in`, `isNull`, `isNotNull`
+# Q: how to add taxonomic names to gbif schema?
 
+# test object:
+# df <- galah_filter(year == 1850)
+# df <- galah_filter(catalogNumber == 217880)
 
+gbif_upper_case <- function(string){
+  gsub("(?=[[:upper:]])", "_", string, perl = TRUE) |> toupper()
+}

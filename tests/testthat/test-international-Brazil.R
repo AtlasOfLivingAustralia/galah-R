@@ -12,7 +12,7 @@ vcr::use_cassette("IA_Brazil_show_all", {
     ## collectory
     expect_gt(nrow(show_all(collections)), 1)
     expect_gt(nrow(show_all(datasets)), 1)
-    expect_gt(nrow(show_all(providers)), 1)  
+    expect_gt(nrow(show_all(providers)), 1)
     ## records
     expect_gt(nrow(show_all(assertions)), 1)
     expect_gt(nrow(show_all(fields)), 1)
@@ -27,26 +27,26 @@ vcr::use_cassette("IA_Brazil_show_all", {
 
 vcr::use_cassette("IA_Brazil_search_all", {
   test_that("search_all works for Brazil", {
-    expect_equal(class(search_all(fields, "year")), 
+    expect_equal(class(search_all(fields, "year")),
                  c("tbl_df", "tbl", "data.frame"))
-    expect_equal(nrow(search_all(taxa, "Mammalia")), 1) 
+    expect_equal(nrow(search_all(taxa, "Mammalia")), 1)
   })
 })
 
 vcr::use_cassette("IA_Brazil_show_values", {
   test_that("show_values works for Brazil", {
     
-    search_fields("basis_of_record") |> 
+    search_fields("basis_of_record") |>
       show_values() |>
       nrow() |>
       expect_gt(1)
     
-    search_lists("drt1565630923841") |> 
+    search_lists("drt1565630923841") |>
       show_values() |>
       nrow() |>
       expect_gt(1)
     
-    search_profiles("profile") |> 
+    search_profiles("profile") |>
       show_values() |>
       expect_error()
   })
@@ -71,7 +71,7 @@ vcr::use_cassette("IA_Brazil_atlas_counts2", {
       atlas_counts()
     
     expect_lt(
-      sqrt((result2$count - result$count)^2) / result$count, 
+      sqrt((result2$count - result$count)^2) / result$count,
       0.1) # i.e. <1% margin of error
   })
 })
@@ -102,5 +102,9 @@ test_that("atlas_occurrences works for Brazil", {
   expect_equal(ncol(occ), 2)
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
 })
+
+# example species from Brazil:
+  # "Ramphastos toco" # toucan
+  # "Myrmecophaga tridactyla" # anteater
 
 galah_config(atlas = "Australia")
