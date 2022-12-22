@@ -78,8 +78,8 @@ check_profile <- function(query, error_call = caller_env()){
   valid_check <- query %in% show_all_profiles()$shortName
   if(!any(valid_check)){    
     bullets <- c(
-      "The value passed to `galah_profile` isn't a valid profile name",
-      i = "Use `show_all_profiles` to lookup profile information."
+      "Invalid profile name.",
+      i = "Use `show_all(profiles)` to lookup valid profiles."
     )
     abort(bullets, call = error_call)
   }else{
