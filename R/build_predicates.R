@@ -4,7 +4,10 @@
 # predicates are JSON scripts for passing to GBIF offline downloads API.
 # https://www.gbif.org/developer/occurrence
 
-build_predicates <- function(df){ # where df is returned by galah_filter()
+build_predicates <- function(
+  df, # where df is returned by galah_filter()
+  format = "SIMPLE_CSV"
+){ 
 
   if(nrow(df) < 1){
     return(NULL)
@@ -28,7 +31,7 @@ build_predicates <- function(df){ # where df is returned by galah_filter()
     creator = unbox(getOption("galah_config")$user$username),
     notificationAddresses = getOption("galah_config")$user$email,
     sendNotification = unbox(send_notification),
-    format = unbox("SIMPLE_CSV"),
+    format = unbox(format),
     predicate = predicates_list
   )
 

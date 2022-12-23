@@ -1,7 +1,8 @@
 # internal workhorse function
-atlas_occurrences_GBIF <- function(identify = NULL,
+occurrences_GBIF <- function(identify = NULL,
                                        filter = NULL,
                                        geolocate = NULL,
+                                       format = "SIMPLE_CSV",
                                        refresh_cache = FALSE) {
 
   # check whether API exists
@@ -10,13 +11,11 @@ atlas_occurrences_GBIF <- function(identify = NULL,
 
   # set GBIF-specific problems
   if(!(nchar(getOption("galah_config")$user$username) > 0)){
-    abort("GBIF requires a username to download occurrences")
+    abort("GBIF requires a username to download occurrences or species")
   }
   if(!(nchar(getOption("galah_config")$user$password) > 0)){
-    abort("GBIF requires a password to download occurrences")
+    abort("GBIF requires a password to download occurrences or species")
   }
-
-  browser()
 
   # If no filters are specified, reject
   if(
@@ -63,7 +62,7 @@ atlas_occurrences_GBIF <- function(identify = NULL,
   status_initial <- url_POST(occurrences_url,
                 headers,
                 opts,
-                body = build_predicates(filter))
+                body = build_predicates(filter, format))
 
   # Get data  
   if(is.null(status_initial)){

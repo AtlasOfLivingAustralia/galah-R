@@ -113,11 +113,12 @@ atlas_occurrences <- function(request = NULL,
   # choose beahviour depending on whether we are calling LAs or GBIF
   is_gbif <- getOption("galah_config")$atlas$region == "Global"
   if(is_gbif){
-    function_name <- "atlas_occurrences_GBIF"
-    arg_names <- names(formals(atlas_occurrences_GBIF))
+    function_name <- "occurrences_GBIF"
+    current_call$format <- "SIMPLE_CSV"
+    arg_names <- names(formals(occurrences_GBIF))
   }else{
-    function_name <- "atlas_occurrences_LA"
-    arg_names <- names(formals(atlas_occurrences_LA))
+    function_name <- "occurrences_LA"
+    arg_names <- names(formals(occurrences_LA))
   }
 
   # subset to available arguments

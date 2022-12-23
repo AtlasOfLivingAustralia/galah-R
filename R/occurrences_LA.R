@@ -1,5 +1,5 @@
 # internal workhorse function
-atlas_occurrences_LA <- function(identify = NULL,
+occurrences_LA <- function(identify = NULL,
                                        filter = NULL,
                                        geolocate = NULL,
                                        data_profile = NULL,

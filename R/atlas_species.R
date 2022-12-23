@@ -53,8 +53,8 @@
 #' 
 #' @export
 atlas_species <- function(request = NULL,
-                          identify = NULL, 
-                          filter = NULL, 
+                          identify = NULL,
+                          filter = NULL,
                           geolocate = NULL,
                           data_profile = NULL,
                           refresh_cache = FALSE
@@ -80,39 +80,49 @@ atlas_species <- function(request = NULL,
       refresh_cache = refresh_cache
     )
   }
-     
+
+    # choose beahviour depending on whether we are calling LAs or GBIF
+  is_gbif <- getOption("galah_config")$atlas$region == "Global"
+  if(is_gbif){
+    function_name <- "occurrences_GBIF"
+    current_call$format <- "SPECIES_LIST"
+    arg_names <- names(formals(occurrences_GBIF))
+  }else{
+    function_name <- "atlas_species_internal"
+    arg_names <- names(formals(atlas_species_internal))
+  }
+
   # subset to available arguments
   custom_call <- current_call[
      names(current_call) %in% names(formals(atlas_species_internal))]
   class(custom_call) <- "data_request"
-  
+
   # check for caching
   caching <- getOption("galah_config")$package$caching
   cache_file <- cache_filename("species", unlist(custom_call))
   if (caching && file.exists(cache_file) && !refresh_cache) {
     return(read_cache_file(cache_file))
   }
-  
+
   # run function using do.call
-  result <- do.call(atlas_species_internal, custom_call)
+  result <- do.call(function_name, custom_call)
   attr(result, "data_type") <- "species"
   attr(result, "data_request") <- custom_call
-  
+
   # if caching requested, save
   if (caching) {
     write_cache_file(object = result, 
                      data_type = "species",
                      cache_file = cache_file)
   }
-   
-  result   
+
+  result
 }
-       
 
 
-atlas_species_internal <- function(request, 
-                                   identify, 
-                                   filter, 
+atlas_species_internal <- function(request,
+                                   identify,
+                                   filter,
                                    geolocate,
                                    data_profile,
                                    refresh_cache
@@ -143,11 +153,11 @@ atlas_species_internal <- function(request,
     facets = species_facets(),
     lookup = "true"
   )
-  
+
   tmp <- tempfile()
   url <- url_lookup("records_species")
   result <- url_download(url, params = query, cache_file = tmp, ext = "csv")
-  
+
   if(is.null(result)){
     system_down_message("atlas_species")
     return(tibble())
