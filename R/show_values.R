@@ -180,17 +180,28 @@ show_values_field <- function(field) {
     abort(bullets, call = caller_env())
   }
   
-  url <- url_lookup("records_facets")
-  resp <- url_GET(url, params = list(facets = field, flimit = 10^4))
+  if(is_gbif()){
+    url <- url_lookup("records_counts")
+    resp <- url_GET(url, params = list(facet = field, limit = 0, facetLimit = 10^4))
+  }else{
+    url <- url_lookup("records_facets")
+    resp <- url_GET(url, params = list(facets = field, flimit = 10^4))
+  }
+  
   if(is.null(resp)){
     system_down_message("show_values")
     return(tibble())
   }else{
-    category <- vapply(resp$fieldResult[[1]]$fq, function(n) {
-      extract_category_value(n)
-    }, USE.NAMES = FALSE, FUN.VALUE = character(1))
-    cbind(field = field, as.data.frame(category)) |> as_tibble()
+    if(is_gbif){
+      tibble(resp$facets$counts[[1]])
+    }else{
+      category <- vapply(resp$fieldResult[[1]]$fq, function(n) {
+        extract_category_value(n)
+      }, USE.NAMES = FALSE, FUN.VALUE = character(1))
+      cbind(field = field, as.data.frame(category)) |> as_tibble()
+    }
   }
+
 }
 
 

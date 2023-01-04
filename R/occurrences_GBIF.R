@@ -1,9 +1,9 @@
 # internal workhorse function
 occurrences_GBIF <- function(identify = NULL,
-                                       filter = NULL,
-                                       geolocate = NULL,
-                                       format = "SIMPLE_CSV",
-                                       refresh_cache = FALSE) {
+                             filter = NULL,
+                             geolocate = NULL,
+                             format = "SIMPLE_CSV",
+                             refresh_cache = FALSE) {
 
   # check whether API exists
   occurrences_url <- url_lookup("records_occurrences")

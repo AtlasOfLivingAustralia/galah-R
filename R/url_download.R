@@ -4,8 +4,6 @@ url_download <- function(url,
                          ext = "zip",
                          cache_file,
                          error_call = caller_env()) {
-  
-  is_gbif <- getOption("galah_config")$atlas$region == "Global"
 
   assert_that(is.character(url))
   cli <- HttpClient$new(
@@ -45,7 +43,7 @@ url_download <- function(url,
     df <- switch(ext, 
            # defaults to zip
            "zip" = {
-              if(is_gbif){
+              if(is_gbif()){
                 read_tsv(cache_file, col_types = cols())
               }else{
                 read_csv(

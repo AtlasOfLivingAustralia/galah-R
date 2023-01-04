@@ -97,6 +97,9 @@ France,species,names_search_single,https://api.gbif.org/v1/species/match?verbose
 Global,species,names_search_single,https://api.gbif.org/v1/species/match?verbose=FALSE&name={name},search_taxa
 Global,collections,collections_providers,https://api.gbif.org/v1/organization,show_all_providers
 Global,collections,collections_collections,https://api.gbif.org/v1/grscicoll/collection,show_all_collections
+Global,collections,collections_collections_search,https://api.gbif.org/v1/grscicoll/search,show_all_collections
+Global,collections,collections_datasets,https://api.gbif.org/v1/dataset,show_all_collections
+Global,collections,collections_datasets_search,https://api.gbif.org/v1/dataset/search,show_all_collections
 Global,records,records_counts,https://api.gbif.org/v1/occurrence/search,atlas_counts
 Global,records,records_occurrences,https://api.gbif.org/v1/occurrence/download/request,atlas_occurrences
 Guatemala,collections,collections_collections,https://snib.conap.gob.gt/colecciones/ws/collection,show_all_collections

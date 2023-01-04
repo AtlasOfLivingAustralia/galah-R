@@ -7,7 +7,7 @@ url_paginate <- function(url,
                     limit_name = "max",
                     offset_name = "offset",
                     slot_name = NULL,
-                    limit = NULL,
+                    limit = 1000,
                     error_call = caller_env()) {
   
   cli <- HttpClient$new(
@@ -19,7 +19,7 @@ url_paginate <- function(url,
     cli$url <- build_fq_url(url, params)
     p <- Paginator$new(cli,
                        chunk = group_size,
-                       limit = limit,
+                       limit,
                        limit_param = limit_name,
                        offset_param = offset_name)
     res <- try(p$get(encode = "json"), silent = TRUE)
@@ -36,7 +36,9 @@ url_paginate <- function(url,
     return(NULL)
   }else{
     lapply(res, function(a){
-      parse_get(a, slot_name = slot_name)})
+      parse_get(a, slot_name = slot_name)}) |>
+    bind_rows() |>
+    tibble()
   }
 
 }

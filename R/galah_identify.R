@@ -76,8 +76,6 @@ parse_identify <- function(dots, search){
     # check for types first
     if (!is.null(attr(input_query, "call"))) {
       query <- input_query$taxon_concept_id
-    # } else if (inherits(input_query, c("gbifid+", "nbnid+"))) { # from taxize
-    #   query <- as.character(input_query)
     } else { # if the input isn't of known type, try to find IDs
       if (search) {
         lookup <- search_taxa(input_query)

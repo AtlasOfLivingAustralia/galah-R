@@ -109,31 +109,19 @@ parse_basic_quosures <- function(dots){
   if(any(is_either)){
     result[is_either] <- lapply(dots[is_either], eval_tidy)
   }
+  
   if(any(!is_either)){
     result[!is_either] <- lapply(dots[!is_either], 
       function(a){dequote(as_label(a))})
   }
   
-  # return correct type
-  if(check_taxize(result)){
-    keep_class <- class(result[[1]])
-    result <- unlist(do.call(as.character, result))
-    class(result) <- paste0(keep_class, "+")
-    return(result)
-  }else if(check_character(result)){
+  if(check_character(result)){
     return(do.call(c, result))
   } else if(check_df(result)){
     return(do.call(rbind, result))
   } else {
     return(result)
   }
-}
-
-check_taxize <- function(x){ # where x is a list
-  all(unlist(lapply(
-    x,
-    function(y){inherits(y, c("gbifid", "nbnid"))
-  })))
 }
 
 check_character <- function(x){
@@ -272,7 +260,7 @@ build_query <- function(identify, filter, location, select = NULL,
 # Build query from vector of taxonomic ids
 build_taxa_query <- function(ids) {
   ids <- ids[order(ids)]
-  if(getOption("galah_config")$atlas$region == "Global"){
+  if(is_gbif()){
     list(taxonKey = ids)
   }else{
     glue(
@@ -328,8 +316,13 @@ old_query_term <- function(name, value, include) {
 }
 
 build_filter_query <- function(filters) {
-  if(getOption("galah_config")$atlas$region == "Global"){
-    queries <- as.list(filters$value)
+  if(is_gbif()){
+    query_text <- filters$query |>
+      sub("^[[:graph:]]+\\[", "", x = _) |>
+      sub("\\]$", "", x = _) |>
+      sub(" TO ", ",", x = _)
+    
+    queries <- as.list(query_text)
     names(queries) <- filters$variable
     queries
   }else{
@@ -442,6 +435,10 @@ galah_version_string <- function() {
     try(version_string <- utils::packageDescription("galah")[["Version"]],
         silent = TRUE)) ## get the galah version, if we can
   paste0("galah ", version_string)
+}
+
+is_gbif <- function(){
+  getOption("galah_config")$atlas$region == "Global"
 }
 
 # Check taxonomic argument provided to `atlas_` functions is of correct form

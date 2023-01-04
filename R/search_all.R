@@ -114,8 +114,15 @@ search_all <- function(type, query){
   # check for query
   check_if_missing(query)
   
+  # set function name
+  function_name <- paste0("search_", type)
+  if(is_gbif() &&
+     type %in% c("providers", "collections", "datasets")){
+    function_name <- paste0(function_name, "_GBIF")
+  }
+  
   # run query
-  df <- do.call(paste0("search_", type), args = list(query = query))
+  df <- do.call(function_name, args = list(query = query))
   
   # attach correct 'search_' class attribute
   attr(df, "call") <- paste0("search_", type)
@@ -174,6 +181,20 @@ search_collections <- function(query){
                     paste(tolower(df$name), tolower(df$uid)))), ]
 }
 
+search_collections_GBIF <- function(query){
+  check_if_missing(query)
+  url <- url_lookup("collections_collections_search")
+  if(getOption("galah_config")$package$verbose){
+    inform("Note: GBIF collection searches are limited to 20 results")
+  }
+  df <- url_GET(url, params = list(q = query, hl = "false"))
+  if(is.null(df)){
+    tibble()
+  }else{
+    tibble(df)
+  }
+}
+
 
 #' @rdname search_all
 #' @export search_datasets
@@ -185,6 +206,20 @@ search_datasets <- function(query){
                     paste(tolower(df$name), tolower(df$uid)))), ]
 }
 
+search_datasets_GBIF <- function(query){
+  check_if_missing(query)
+  url <- url_lookup("collections_datasets_search")
+  if(getOption("galah_config")$package$verbose){
+    inform("Note: GBIF dataset searches are limited to 20 results")
+  }
+  df <- url_GET(url, params = list(q = query, hl = "false"))$results
+  if(is.null(df)){
+    tibble()
+  }else{
+    tibble(df)
+  }
+}
+
 
 #' @rdname search_all
 #' @export search_providers
@@ -194,6 +229,20 @@ search_providers <- function(query){
   attr(df, "call") <- "search_providers"
   df[with(df, grepl(tolower(query), 
                     paste(tolower(df$name), tolower(df$uid)))), ]
+}
+
+search_providers_GBIF <- function(query){
+  check_if_missing(query)
+  url <- url_lookup("collections_providers")
+  if(getOption("galah_config")$package$verbose){
+    inform("Note: GBIF provider searches are limited to 20 results")
+  }
+  df <- url_GET(url, params = list(q = query))$result
+  if(is.null(df)){
+    tibble()
+  }else{
+    tibble(df)
+  }
 }
 
 

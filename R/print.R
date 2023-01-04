@@ -18,24 +18,24 @@ print.data_request <- function(x, ...){
 #' @importFrom crayon bold
 #' @export
 print.galah_config <- function(x, ...){
+
   if(x$user$password == ""){
     password <- "[Not Provided]"
   }else{
     password <- "[Provided]"
   }
-  package_settings <- lapply(c(
-    "verbose         username {x$user$username}", 
-    "run_checks      password {password}", 
-    "send_email      email {x$user$email}", 
-    "caching         reason {x$user$download_reason_id}"),
-    glue) |>
-    unlist()
+  
+  package_settings <- c(
+    paste0("verbose         username ", x$user$username),
+    paste0("run_checks      password ", password),
+    paste0("send_email      email ", x$user$email),
+    paste0("caching         reason ", x$user$download_reason_id))
 
   package_lookup <- unlist(x$package[1:4]) |> as.integer() + 1
   names(package_settings) <- c("x", "v")[package_lookup]
   atlas_settings <- glue(" {x$atlas$organisation} ({x$atlas$acronym}) [{x$atlas$region}]")
   names(atlas_settings) <- ">"
-  
+
   print_text <- c(
     crayon::bold("Package:          User:"),
     package_settings,

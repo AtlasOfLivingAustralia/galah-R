@@ -156,20 +156,28 @@ show_all_apis <- function(){
 #' @export show_all_collections
 show_all_collections <- function(){
   # set behaviour for gbif versus elsewhere
-  if(getOption("galah_config")$atlas$region == "Global"){
+  if(is_gbif()){
     slot_name <- "results"
     limit_name <- "limit"
+    limit <- 20
+    bullets <- c(
+      "Not all collections can be shown for atlas = 'GBIF'",
+      i = "Showing first 20 collections only",
+      i = "Consider using `search_all(collections, 'your_query_here')` instead")
+    inform(bullets)
   }else{
     slot_name <- NULL
     limit_name <- "max"
+    limit <- 5000
   }
   
   # get url, run
   url <- url_lookup("collections_collections")
   df <- url_paginate(url, 
-                       group_size = 500, 
-                       limit_name = limit_name, 
-                       slot_name = slot_name)
+                     group_size = 500, 
+                     limit_name = limit_name, 
+                     limit = limit,
+                     slot_name = slot_name)
   
   # set attributes
   attr(df, "call") <- "show_all_collections"
@@ -180,8 +188,31 @@ show_all_collections <- function(){
 #' @rdname show_all
 #' @export show_all_datasets
 show_all_datasets <- function(){
+  # set behaviour for gbif versus elsewhere
+  if(is_gbif()){
+    slot_name <- "results"
+    limit_name <- "limit"
+    limit <- 20
+    bullets <- c(
+      "Not all datasets can be shown for atlas = 'GBIF'",
+      i = "Showing first 20 datasets only",
+      i = "Consider using `search_all(datasets, 'your_query_here')` instead")
+    inform(bullets)
+  }else{
+    slot_name <- NULL
+    limit_name <- "max"
+    limit <- 5000
+  }
+  
+  # get url, run
   url <- url_lookup("collections_datasets")
-  df <- url_GET(url) |> tibble()
+  df <- url_paginate(url, 
+                     group_size = 500, 
+                     limit_name = limit_name, 
+                     limit = limit,
+                     slot_name = slot_name)
+  
+  # set attributes
   attr(df, "call") <- "show_all_datasets"
   return(df)
 }
@@ -194,19 +225,27 @@ show_all_datasets <- function(){
 #' @export show_all_providers
 show_all_providers <- function(){
   # set behaviour for gbif versus elsewhere
-  if(getOption("galah_config")$atlas$region == "Global"){
+  if(is_gbif()){
     slot_name <- "results"
     limit_name <- "limit"
+    limit <- 20
+    bullets <- c(
+      "Not all providers can be shown for atlas = 'GBIF'",
+      i = "Showing first 20 providers only",
+      i = "Consider using `search_all(providers, 'your_query_here')` instead")
+    inform(bullets)
   }else{
     slot_name <- NULL
     limit_name <- "max"
+    limit <- 5000
   }
   
   # get url, run
   url <- url_lookup("collections_providers")
   df <- url_paginate(url, 
-                     group_size = 500, 
+                     group_size = 500,
                      limit_name = limit_name, 
+                     limit = limit,
                      slot_name = slot_name)
   
   if(is.null(df)){
@@ -345,7 +384,7 @@ show_all_reasons <- function() {
 #' @rdname show_all
 #' @export show_all_ranks
 show_all_ranks <- function() {
-  if(getOption("galah_config")$atlas$region == "Global"){
+  if(is_gbif()){
     df <- tibble(
       id = seq_len(9),
       name = c("kingdom", "phylum", "class", 
