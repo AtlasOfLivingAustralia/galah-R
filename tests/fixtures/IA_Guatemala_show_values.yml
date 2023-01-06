@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.21.4
-      date: Tue, 29 Nov 2022 23:44:40 GMT
+      date: Fri, 06 Jan 2023 01:58:25 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -37,5 +37,5 @@ http_interactions:
         specimen","i18nCode":"basis_of_record.FossilSpecimen","count":26441,"fq":"basis_of_record:\"FossilSpecimen\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":8283,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Living
         specimen","i18nCode":"basis_of_record.LivingSpecimen","count":1550,"fq":"basis_of_record:\"LivingSpecimen\""},{"label":"Machine
         observation","i18nCode":"basis_of_record.MachineObservation","count":585,"fq":"basis_of_record:\"MachineObservation\""},{"label":"Literature","i18nCode":"basis_of_record.Literature","count":59,"fq":"basis_of_record:\"Literature\""}],"count":7}]'
-  recorded_at: 2022-11-29 23:44:41 GMT
+  recorded_at: 2023-01-06 01:58:25 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

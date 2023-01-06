@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Tue, 29 Nov 2022 23:35:47 GMT
+      date: Fri, 06 Jan 2023 01:26:54 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -125,7 +125,7 @@ http_interactions:
         dem angegebenen Namen gibt es Probleme mit dem Homonym","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Möglicher
         doppelter Eintrag","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"Erster
         des Monats","category":"warning","fatal":false}]'
-  recorded_at: 2022-11-29 23:35:48 GMT
+  recorded_at: 2023-01-06 01:26:55 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -145,7 +145,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Tue, 29 Nov 2022 23:35:48 GMT
+      date: Fri, 06 Jan 2023 01:26:54 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -159,8 +159,8 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":282055,"fq":"year:\"2020\""}],"count":3}]'
-  recorded_at: 2022-11-29 23:35:48 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2022","i18nCode":"year.2022","count":288385,"fq":"year:\"2022\""}],"count":3}]'
+  recorded_at: 2023-01-06 01:26:55 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
@@ -180,7 +180,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Tue, 29 Nov 2022 23:35:48 GMT
+      date: Fri, 06 Jan 2023 01:26:55 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -194,6 +194,6 @@ http_interactions:
     body:
       encoding: UTF-8
       file: no
-      string: '[{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":282055,"fq":"year:\"2020\""},{"label":"2021","i18nCode":"year.2021","count":281957,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":250346,"fq":"year:\"2022\""}],"count":3}]'
-  recorded_at: 2022-11-29 23:35:48 GMT
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2022","i18nCode":"year.2022","count":288385,"fq":"year:\"2022\""},{"label":"2021","i18nCode":"year.2021","count":284279,"fq":"year:\"2021\""},{"label":"2020","i18nCode":"year.2020","count":282949,"fq":"year:\"2020\""}],"count":3}]'
+  recorded_at: 2023-01-06 01:26:55 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

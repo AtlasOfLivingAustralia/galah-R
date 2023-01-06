@@ -42,7 +42,7 @@ occurrences_LA <- function(identify = NULL,
   }
 
   query <- build_query(identify, filter, geolocate, select, profile)
-
+  
   # Check record count
   if (getOption("galah_config")$package$run_checks) {
     count <- record_count(query)

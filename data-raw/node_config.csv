@@ -84,15 +84,15 @@ Estonia,records,records_species,https://elurikkus.ee/biocache-service/occurrence
 Estonia,species,names_search_single,https://elurikkus.ee/bie-index/search?q={name}&pageSize=5,search_taxa
 Estonia,species,species_children,https://elurikkus.ee/bie-index/childConcepts/,atlas_taxonomy
 Estonia,species,species_lookup,https://elurikkus.ee/bie-index/species,"atlas_taxonomy, search_identifiers(?)"
-France,collections,collections_collections,http://metadonnees.gbif.fr/ws/collection,show_all_collections
-France,collections,collections_datasets,http://metadonnees.gbif.fr/ws/dataResource,show_all_datasets
-France,collections,collections_providers,http://metadonnees.gbif.fr/ws/dataProvider,show_all_providers
-France,records,records_assertions,http://portail.gbif.fr/biocache-service/assertions/codes,show_all_assertions
-France,records,records_counts,http://portail.gbif.fr/biocache-service/occurrences/search,atlas_counts
-France,records,records_facets,http://portail.gbif.fr/biocache-service/occurrence/facets,"atlas_counts, show_all_values"
-France,records,records_fields,http://portail.gbif.fr/biocache-service/index/fields,show_all_fields
-France,records,records_query,http://portail.gbif.fr/biocache-service/webportal/params,atlas_occurrences
-France,records,records_species,http://portail.gbif.fr/biocache-service/occurrences/facets/download,atlas_species
+France,collections,collections_collections,https://openobs.mnhn.fr/collectory/ws/collection,show_all_collections
+France,collections,collections_datasets,https://openobs.mnhn.fr/collectory/ws/dataResource,show_all_datasets
+France,collections,collections_providers,https://openobs.mnhn.fr/collectory/ws/dataProvider,show_all_providers
+France,records,records_assertions,https://openobs.mnhn.fr/biocache-service/assertions/codes,show_all_assertions
+France,records,records_counts,https://openobs.mnhn.fr/biocache-service/occurrences/search,atlas_counts
+France,records,records_facets,https://openobs.mnhn.fr/biocache-service/occurrence/facets,"atlas_counts, show_all_values"
+France,records,records_fields,https://openobs.mnhn.fr/biocache-service/index/fields,show_all_fields
+France,records,records_query,https://openobs.mnhn.fr/biocache-service/webportal/params,atlas_occurrences
+France,records,records_species,https://openobs.mnhn.fr/biocache-service/occurrences/facets/download,atlas_species
 France,species,names_search_single,https://api.gbif.org/v1/species/match?verbose=FALSE&name={name},search_taxa
 Global,species,names_search_single,https://api.gbif.org/v1/species/match?verbose=FALSE&name={name},search_taxa
 Global,collections,collections_providers,https://api.gbif.org/v1/organization,show_all_providers
@@ -137,9 +137,16 @@ Spain,collections,collections_collections,https://colecciones.gbif.es/ws/collect
 Spain,collections,collections_datasets,https://colecciones.gbif.es/ws/dataResource,show_all_datasets
 Spain,collections,collections_providers,https://colecciones.gbif.es/ws/dataProvider,show_all_providers
 Spain,doi,doi_download,https://doi.gbif.es/doi/{doi_string}/download,doi_download
-Spain,images,image_licences,https://imagenes.gbif.es/licence,show_all_licences
-Spain,images,image_metadata,https://imagenes.gbif.es/image/,media_metadata
+Spain,images,image_licences,https://imagenes.gbif.es/ws/licence,show_all_licences
+Spain,images,image_metadata,https://imagenes.gbif.es/ws/image/,media_metadata
+Spain,lists,lists_all,https://listas.gbif.es/ws/speciesList,show_all_lists
+Spain,lists,lists_lookup,https://listas.gbif.es/ws/speciesListItems/{list_id},show_list_values
+Spain,data-quality,profiles_all,https://data-quality.gbif.es/api/v1/data-profiles,show_all_profiles
+Spain,data-quality,profiles_lookup,https://data-quality.gbif.es/api/v1/quality/activeProfile?profileName={profile},show_profile_values
 Spain,logger,logger_reasons,https://logger.gbif.es/service/logger/reasons,show_all_reasons
+Spain,name-matching,names_lookup,https://name-matching.gbif.es/api/getByTaxonID,search_identifiers
+Spain,name-matching,names_search_multiple,https://name-matching.gbif.es/api/searchByClassification,search_taxa
+Spain,name-matching,names_search_single,https://name-matching.gbif.es/api/search?q={name},search_taxa
 Spain,records,records_assertions,https://registros-ws.gbif.es/assertions/codes,show_all_assertions
 Spain,records,records_counts,https://registros-ws.gbif.es/occurrences/search,atlas_counts
 Spain,records,records_facets,https://registros-ws.gbif.es/occurrence/facets,"atlas_counts, show_all_values"
@@ -147,8 +154,7 @@ Spain,records,records_fields,https://registros-ws.gbif.es/index/fields,show_all_
 Spain,records,records_occurrences,https://registros-ws.gbif.es/occurrences/offline/download,atlas_occurrences
 Spain,records,records_query,https://registros-ws.gbif.es/webportal/params,atlas_occurrences
 Spain,records,records_species,https://registros-ws.gbif.es/occurrences/facets/download,atlas_species
-Spain,spatial,spatial_layers,https://espacial.gbif.es/layers,show_all_fields
-Spain,species,names_search_single,https://especies-ws.gbif.es/search?q={name}&pageSize=5,search_taxa
+Spain,spatial,spatial_layers,https://espacial.gbif.es/ws/layers,show_all_fields
 Spain,species,species_children,https://especies-ws.gbif.es/childConcepts/,atlas_taxonomy
 Spain,species,species_lookup,https://especies-ws.gbif.es/species,atlas_taxonomy
 Sweden,collections,collections_collections,https://collections.biodiversitydata.se/ws/collection,show_all_collections

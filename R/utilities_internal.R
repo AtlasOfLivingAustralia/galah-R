@@ -246,13 +246,19 @@ build_query <- function(identify, filter, location, select = NULL,
   #}
 
   # add profiles information (ALA only)  
-  if (getOption("galah_config")$atlas$region == "Australia") {
+  atlas <- getOption("galah_config")$atlas$region == "Australia"
+  
+  if (atlas == "Australia") {
     if (!is.null(profile)) {
       query$qualityProfile <- profile
     } else {
       query$disableAllQualityFilters <- "true"
     }
-  }
+  }else{
+    if(atlas == "Spain" & !is.null(profile)){
+      query$profileName <- profile
+    }
+  } 
   
   query
 }
@@ -616,8 +622,10 @@ image_fields <- function() {
 default_columns <- function() {
   atlas <- getOption("galah_config")$atlas$region
   switch (atlas,
-          "Guatemala" = c("latitude", "longtitude", "species_guid",
+          "Guatemala" = c("latitude", "longitude", "species_guid",
                           "data_resource_uid", "occurrence_date", "id"),
+          "Spain" = c("latitude", "longitude", "species_guid",
+                          "data_resource_uid", "occurrence_date", "recordID"),
           c("decimalLatitude", "decimalLongitude", "eventDate",
             "scientificName", "taxonConceptID",
             "recordID", # note this requires that the ALA name (`id`) be corrected
@@ -679,6 +687,9 @@ get_fields <- function() {
 
 get_layers <- function() {
   url <- url_lookup("spatial_layers", quiet = TRUE)
+  if(is.null(url)){
+    return(NULL)
+  }
   result <- url_GET(url)
   
   if(is.null(result)){

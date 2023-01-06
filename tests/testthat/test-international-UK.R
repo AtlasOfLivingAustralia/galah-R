@@ -4,7 +4,7 @@ context("Test international atlases: Portugal")
 galah_config(verbose = FALSE, run_checks = FALSE)
 
 test_that("swapping to atlas = United Kingdom works", {
-  expect_silent(galah_config(atlas = "United Kingdom"))
+  expect_message(galah_config(atlas = "United Kingdom"))
 })
 
 # putting this first to ensure show_all_fields gets cached properly

@@ -192,7 +192,7 @@ show_values_field <- function(field) {
     system_down_message("show_values")
     return(tibble())
   }else{
-    if(is_gbif){
+    if(is_gbif()){
       tibble(resp$facets$counts[[1]])
     }else{
       category <- vapply(resp$fieldResult[[1]]$fq, function(n) {

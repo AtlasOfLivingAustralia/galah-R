@@ -134,14 +134,6 @@ atlas_media_internal <- function(request,
   }
   if(is_tibble(identify)){if(nrow(identify) < 1){identify <- NULL}}
   
-  if (getOption("galah_config")$atlas$region != "Australia") {
-    international_atlas <- getOption("galah_config")$atlas$region
-    bullets <- c(
-      "`atlas_media` is only available for Australia and Austria."
-    )
-    abort(bullets, call = caller_env())
-  }
-  
   if (is.null(identify) & is.null(filter) & is.null(geolocate)) {
     abort("No filters have been provided")
   }
@@ -168,7 +160,7 @@ atlas_media_internal <- function(request,
 
   if (verbose) { inform("Downloading records that contain media...") }
   
-  occ <- atlas_occurrences_internal(
+  occ <- occurrences_LA(
     identify = identify, 
     filter = occ_filter, 
     geolocate = geolocate, 

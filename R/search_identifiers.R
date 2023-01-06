@@ -26,15 +26,6 @@ search_identifiers <- function(query) {
 
   verbose <- getOption("galah_config")$package$verbose
 
-  if (getOption("galah_config")$atlas$region != "Australia") {
-    international_atlas <- getOption("galah_config")$atlas$region
-    bullets <- c(
-      "`search_identifiers` only provides information on Australian taxonomy.",
-      i = glue("To search for a species name, use `search_taxa()` instead.")
-    )
-    abort(bullets, call = caller_env())
-  }
-
   if (missing(query)) {
     bullets <- c(
       "Argument `query` is missing, with no default.",

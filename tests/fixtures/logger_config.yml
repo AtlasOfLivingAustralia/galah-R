@@ -1,0 +1,247 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://apis.ala.org.au/logger/service/logger/reasons
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Fri, 06 Jan 2023 01:26:13 GMT
+      content-type: application/json
+      content-length: '1471'
+      x-amzn-requestid: 8aa1c0ce-855b-46d8-8a17-905f43367cea
+      access-control-allow-origin: '*'
+      access-control-allow-headers: Content-Type
+      x-amz-apigw-id: eS_MUFEjywMFWKw=
+      access-control-allow-methods: GET, POST
+      x-amzn-trace-id: Root=1-63b778b5-0e9d7ca164be30177ac6ba10
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
+        science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
+        management","id":5,"deprecated":false},{"rkey":"logger.download.reason.conservation","name":"conservation
+        management/planning","id":0,"deprecated":false},{"rkey":"logger.download.reason.ecological.research","name":"ecological
+        research","id":7,"deprecated":false},{"rkey":"logger.download.reason.education","name":"education","id":3,"deprecated":false},{"rkey":"logger.download.reason.environmental","name":"environmental
+        assessment","id":2,"deprecated":false},{"rkey":"logger.download.reason.restoration.remediation","name":"restoration/remediation","id":12,"deprecated":false},{"rkey":"logger.download.reason.research","name":"scientific
+        research","id":4,"deprecated":false},{"rkey":"logger.download.reason.systematic.research","name":"systematic
+        research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
+        modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
+        scientific research","id":9,"deprecated":true}]'
+  recorded_at: 2023-01-06 01:26:13 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://apis.ala.org.au/logger/service/logger/reasons
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Fri, 06 Jan 2023 01:26:13 GMT
+      content-type: application/json
+      content-length: '1471'
+      x-amzn-requestid: 68150e81-309d-470c-b36e-cea9e004d0d5
+      access-control-allow-origin: '*'
+      access-control-allow-headers: Content-Type
+      x-amz-apigw-id: eS_MVECZywMFZPA=
+      access-control-allow-methods: GET, POST
+      x-amzn-trace-id: Root=1-63b778b5-3d53d3ff0bb848333833db0e
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
+        science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
+        management","id":5,"deprecated":false},{"rkey":"logger.download.reason.conservation","name":"conservation
+        management/planning","id":0,"deprecated":false},{"rkey":"logger.download.reason.ecological.research","name":"ecological
+        research","id":7,"deprecated":false},{"rkey":"logger.download.reason.education","name":"education","id":3,"deprecated":false},{"rkey":"logger.download.reason.environmental","name":"environmental
+        assessment","id":2,"deprecated":false},{"rkey":"logger.download.reason.restoration.remediation","name":"restoration/remediation","id":12,"deprecated":false},{"rkey":"logger.download.reason.research","name":"scientific
+        research","id":4,"deprecated":false},{"rkey":"logger.download.reason.systematic.research","name":"systematic
+        research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
+        modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
+        scientific research","id":9,"deprecated":true}]'
+  recorded_at: 2023-01-06 01:26:13 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://apis.ala.org.au/logger/service/logger/reasons
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Fri, 06 Jan 2023 01:26:13 GMT
+      content-type: application/json
+      content-length: '1471'
+      x-amzn-requestid: 6bf2df9c-6cdb-4ad4-8890-54e3ebc0a59b
+      access-control-allow-origin: '*'
+      access-control-allow-headers: Content-Type
+      x-amz-apigw-id: eS_MWGvWywMFf3w=
+      access-control-allow-methods: GET, POST
+      x-amzn-trace-id: Root=1-63b778b5-5585591d333063401446e88f
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
+        science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
+        management","id":5,"deprecated":false},{"rkey":"logger.download.reason.conservation","name":"conservation
+        management/planning","id":0,"deprecated":false},{"rkey":"logger.download.reason.ecological.research","name":"ecological
+        research","id":7,"deprecated":false},{"rkey":"logger.download.reason.education","name":"education","id":3,"deprecated":false},{"rkey":"logger.download.reason.environmental","name":"environmental
+        assessment","id":2,"deprecated":false},{"rkey":"logger.download.reason.restoration.remediation","name":"restoration/remediation","id":12,"deprecated":false},{"rkey":"logger.download.reason.research","name":"scientific
+        research","id":4,"deprecated":false},{"rkey":"logger.download.reason.systematic.research","name":"systematic
+        research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
+        modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
+        scientific research","id":9,"deprecated":true}]'
+  recorded_at: 2023-01-06 01:26:13 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://apis.ala.org.au/logger/service/logger/reasons
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Fri, 06 Jan 2023 01:26:13 GMT
+      content-type: application/json
+      content-length: '1471'
+      x-amzn-requestid: 2f572172-808b-4350-b17b-a20d415210f4
+      access-control-allow-origin: '*'
+      access-control-allow-headers: Content-Type
+      x-amz-apigw-id: eS_MXEYoSwMFb6w=
+      access-control-allow-methods: GET, POST
+      x-amzn-trace-id: Root=1-63b778b5-797d6613524f25261ffdaf52
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
+        science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
+        management","id":5,"deprecated":false},{"rkey":"logger.download.reason.conservation","name":"conservation
+        management/planning","id":0,"deprecated":false},{"rkey":"logger.download.reason.ecological.research","name":"ecological
+        research","id":7,"deprecated":false},{"rkey":"logger.download.reason.education","name":"education","id":3,"deprecated":false},{"rkey":"logger.download.reason.environmental","name":"environmental
+        assessment","id":2,"deprecated":false},{"rkey":"logger.download.reason.restoration.remediation","name":"restoration/remediation","id":12,"deprecated":false},{"rkey":"logger.download.reason.research","name":"scientific
+        research","id":4,"deprecated":false},{"rkey":"logger.download.reason.systematic.research","name":"systematic
+        research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
+        modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
+        scientific research","id":9,"deprecated":true}]'
+  recorded_at: 2023-01-06 01:26:13 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://apis.ala.org.au/logger/service/logger/reasons
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Fri, 06 Jan 2023 01:26:13 GMT
+      content-type: application/json
+      content-length: '1471'
+      x-amzn-requestid: 86edea55-cfd9-454f-8ebc-5daf304df29e
+      access-control-allow-origin: '*'
+      access-control-allow-headers: Content-Type
+      x-amz-apigw-id: eS_MYF7QSwMFUCA=
+      access-control-allow-methods: GET, POST
+      x-amzn-trace-id: Root=1-63b778b5-41cca89a3eeb197c7b925cc1
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
+        science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
+        management","id":5,"deprecated":false},{"rkey":"logger.download.reason.conservation","name":"conservation
+        management/planning","id":0,"deprecated":false},{"rkey":"logger.download.reason.ecological.research","name":"ecological
+        research","id":7,"deprecated":false},{"rkey":"logger.download.reason.education","name":"education","id":3,"deprecated":false},{"rkey":"logger.download.reason.environmental","name":"environmental
+        assessment","id":2,"deprecated":false},{"rkey":"logger.download.reason.restoration.remediation","name":"restoration/remediation","id":12,"deprecated":false},{"rkey":"logger.download.reason.research","name":"scientific
+        research","id":4,"deprecated":false},{"rkey":"logger.download.reason.systematic.research","name":"systematic
+        research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
+        modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
+        scientific research","id":9,"deprecated":true}]'
+  recorded_at: 2023-01-06 01:26:13 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://apis.ala.org.au/logger/service/logger/reasons
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Fri, 06 Jan 2023 01:26:13 GMT
+      content-type: application/json
+      content-length: '1471'
+      x-amzn-requestid: 817aedaa-33ac-4f71-a7f1-b53af47cc719
+      access-control-allow-origin: '*'
+      access-control-allow-headers: Content-Type
+      x-amz-apigw-id: eS_MYFXJSwMFRig=
+      access-control-allow-methods: GET, POST
+      x-amzn-trace-id: Root=1-63b778b5-69674a134bb8c1a226e36d49
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
+        science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
+        management","id":5,"deprecated":false},{"rkey":"logger.download.reason.conservation","name":"conservation
+        management/planning","id":0,"deprecated":false},{"rkey":"logger.download.reason.ecological.research","name":"ecological
+        research","id":7,"deprecated":false},{"rkey":"logger.download.reason.education","name":"education","id":3,"deprecated":false},{"rkey":"logger.download.reason.environmental","name":"environmental
+        assessment","id":2,"deprecated":false},{"rkey":"logger.download.reason.restoration.remediation","name":"restoration/remediation","id":12,"deprecated":false},{"rkey":"logger.download.reason.research","name":"scientific
+        research","id":4,"deprecated":false},{"rkey":"logger.download.reason.systematic.research","name":"systematic
+        research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
+        modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
+        scientific research","id":9,"deprecated":true}]'
+  recorded_at: 2023-01-06 01:26:13 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

@@ -173,6 +173,7 @@ show_all_collections <- function(){
   
   # get url, run
   url <- url_lookup("collections_collections")
+  url_GET(url)
   df <- url_paginate(url, 
                      group_size = 500, 
                      limit_name = limit_name, 
@@ -180,8 +181,12 @@ show_all_collections <- function(){
                      slot_name = slot_name)
   
   # set attributes
-  attr(df, "call") <- "show_all_collections"
-  return(df)
+  if(is.null(df)){
+    system_down_message("show_all(collections)")
+  }else{
+    attr(df, "call") <- "show_all_collections"
+    return(df)    
+  }
 }
 
 
@@ -213,13 +218,14 @@ show_all_datasets <- function(){
                      slot_name = slot_name)
   
   # set attributes
-  attr(df, "call") <- "show_all_datasets"
-  return(df)
+  if(is.null(df)){
+    system_down_message("show_all(datasets)")
+  }else{
+    attr(df, "call") <- "show_all_datasets"
+    return(df)    
+  }
 }
-# NOTE: this doesn't support GBIF yet, because paginating on this url 
-# (https://api.gbif.org/v1/dataset) would need to return 79865 values!
-# It might therefore make sense to support search_all(datasets) for GBIF,
-# by calling the search API, but not support show_all(datasets).
+
 
 #' @rdname show_all
 #' @export show_all_providers
@@ -268,7 +274,7 @@ show_all_fields <- function(){
   update_needed <- internal_cache_update_needed("show_all_fields")
   
   if(update_needed){ # i.e. we'd like to run a query
-    if(atlas == "Global"){
+    if(is_gbif()){
       df <- gbif_internal_archived$fields # slightly untidy solution to GBIF hard-coded fields
       attr(df, "call") <- "show_all_fields"
       return(df)
@@ -336,7 +342,7 @@ show_all_licences <- function(){
 
 #' @rdname show_all
 #' @export show_all_reasons
-show_all_reasons <- function() {
+show_all_reasons <- function(){
   
   # check whether the cache has been updated this session
   update_needed <- internal_cache_update_needed("show_all_reasons")

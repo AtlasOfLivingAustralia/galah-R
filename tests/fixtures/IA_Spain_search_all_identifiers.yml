@@ -1,0 +1,35 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://name-matching.gbif.es/api/getByTaxonID?taxonID=359
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 OK
+      date: Fri, 06 Jan 2023 06:21:34 GMT
+      server: nginx/1.23.2
+      content-type: application/json
+      content-length: '246'
+      vary: Accept-Encoding,Origin
+      content-encoding: gzip
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      content-security-policy: upgrade-insecure-requests
+      via: 1.1 name-matching.gbif.es (Apache/2.4.41)
+    body:
+      encoding: ''
+      file: no
+      string: '{"success":true,"scientificName":"Mammalia","taxonConceptID":"359","rank":"class","rankID":3000,"lft":13093748,"rgt":13244882,"matchType":"taxonIdMatch","kingdom":"Animalia","kingdomID":"1","phylum":"Chordata","phylumID":"44","classs":"Mammalia","classID":"359","vernacularName":"däggdjur","speciesGroup":["Animals","Mammals"],"issues":["noIssue"]}'
+  recorded_at: 2023-01-06 06:21:44 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

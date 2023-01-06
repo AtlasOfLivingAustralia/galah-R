@@ -4,7 +4,7 @@ context("Test international atlases: Sweden")
 galah_config(verbose = FALSE, run_checks = FALSE)
 
 test_that("swapping to atlas = Sweden works", {
-  expect_silent(galah_config(atlas = "Sweden"))
+  expect_message(galah_config(atlas = "Sweden"))
 })
 
 vcr::use_cassette("IA_Sweden_show_all", {

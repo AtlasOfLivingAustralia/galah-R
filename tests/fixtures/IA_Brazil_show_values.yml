@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 29 Nov 2022 23:39:37 GMT
+      date: Fri, 06 Jan 2023 01:27:17 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -28,16 +28,16 @@ http_interactions:
       encoding: UTF-8
       file: no
       string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Preserved
-        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":12261032,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Human
-        observation","i18nCode":"basis_of_record.HumanObservation","count":10725166,"fq":"basis_of_record:\"HumanObservation\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":194159,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Machine
+        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":12194948,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Human
+        observation","i18nCode":"basis_of_record.HumanObservation","count":10725098,"fq":"basis_of_record:\"HumanObservation\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":175084,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Machine
         observation","i18nCode":"basis_of_record.MachineObservation","count":11834,"fq":"basis_of_record:\"MachineObservation\""},{"label":"Living
         specimen","i18nCode":"basis_of_record.LivingSpecimen","count":10126,"fq":"basis_of_record:\"LivingSpecimen\""},{"label":"Fossil
         specimen","i18nCode":"basis_of_record.FossilSpecimen","count":189,"fq":"basis_of_record:\"FossilSpecimen\""}],"count":6}]'
-  recorded_at: 2022-11-29 23:39:38 GMT
+  recorded_at: 2023-01-06 01:27:18 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://specieslist.sibbr.gov.br/ws/speciesList/?max=1000&offset=0
+    uri: https://specieslist.sibbr.gov.br/ws/speciesList/?offset=0&max=1000
     body:
       encoding: ''
       string: ''
@@ -52,7 +52,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 29 Nov 2022 23:39:38 GMT
+      date: Fri, 06 Jan 2023 01:27:17 GMT
       content-type: application/json;charset=UTF-8
       x-application-context: application:production
       strict-transport-security: max-age=15724800; includeSubDomains
@@ -164,11 +164,11 @@ http_interactions:
         ICMBio","listType":"CONSERVATION_LIST","dateCreated":"2019-10-31T21:28:48Z","lastUpdated":"2019-10-31T21:28:48Z","username":"sibbr.brasil@gmail.com","fullName":null,"itemCount":12254,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1565629445693","listName":"Livro
         Vermelho da Fauna Brasileira Ameaçada de Extinção 2014 - ICMBio","listType":"CONSERVATION_LIST","dateCreated":"2019-08-12T17:04:10Z","lastUpdated":"2019-09-05T18:33:14Z","username":"angelica.santos@consultores.rnp.br","fullName":null,"itemCount":1090,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1565628927666","listName":"Vernaculares
         espécies icônicas","listType":"CONSERVATION_LIST","dateCreated":"2019-08-12T03:00:00Z","lastUpdated":"2021-08-26T22:07:27Z","username":"angelica.santos@consultores.rnp.br","fullName":null,"itemCount":153,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false}]}'
-  recorded_at: 2022-11-29 23:39:38 GMT
+  recorded_at: 2023-01-06 01:27:18 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
 - request:
     method: get
-    uri: https://specieslist.sibbr.gov.br/ws/speciesListItems/drt1565630923841?max=500&offset=0
+    uri: https://specieslist.sibbr.gov.br/ws/speciesListItems/drt1565630923841?offset=0&max=500
     body:
       encoding: ''
       string: ''
@@ -183,7 +183,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 29 Nov 2022 23:39:38 GMT
+      date: Fri, 06 Jan 2023 01:27:17 GMT
       content-type: application/json;charset=UTF-8
       x-application-context: application:production
       strict-transport-security: max-age=15724800; includeSubDomains
@@ -326,5 +326,32 @@ http_interactions:
         latirostris","lsid":"244729","dataResourceUid":"drt1565630923841"},{"id":498598,"name":"Antrodia
         neotropica","commonName":null,"scientificName":null,"lsid":null,"dataResourceUid":"drt1565630923841"},{"id":498580,"name":"Amanita
         viscidolutea","commonName":null,"scientificName":"Amanita viscidolutea","lsid":"341519","dataResourceUid":"drt1565630923841"}]'
-  recorded_at: 2022-11-29 23:39:38 GMT
+  recorded_at: 2023-01-06 01:27:18 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://specieslist.sibbr.gov.br/ws/speciesListItems/drt1565630923841?offset=500&max=500
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Fri, 06 Jan 2023 01:27:18 GMT
+      content-type: application/json;charset=UTF-8
+      x-application-context: application:production
+      strict-transport-security: max-age=15724800; includeSubDomains
+    body:
+      encoding: UTF-8
+      file: no
+      string: '[]'
+  recorded_at: 2023-01-06 01:27:18 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

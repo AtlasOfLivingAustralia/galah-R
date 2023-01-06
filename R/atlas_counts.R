@@ -176,7 +176,7 @@ atlas_counts_internal <- function(identify = NULL,
     }else{
       lookup_fun <- "grouped_counts_LA"
     }
-  }              
+  }
   
   # if all combinations of levels of `group_by` are needed (expand = TRUE)
   if(attr(group_by, "expand") & nrow(group_by) > 1){ 

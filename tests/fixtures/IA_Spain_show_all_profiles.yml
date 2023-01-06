@@ -1,0 +1,269 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://data-quality.gbif.es/api/v1/data-profiles
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/1.1 200 '
+      date: Fri, 06 Jan 2023 06:21:30 GMT
+      server: nginx/1.23.2
+      content-type: application/json;charset=UTF-8
+      x-application-context: application:production:8080
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      content-security-policy: upgrade-insecure-requests
+      via: 1.1 data-quality.gbif.es (Apache/2.4.41)
+      vary: Origin
+      transfer-encoding: chunked
+    body:
+      encoding: ''
+      file: no
+      string: '[{"id":641,"name":"Perfil General del Portal de Datos","shortName":"LA","displayOrder":8,"description":"El
+        perfil predeterminado del Portal de Datos filtra los registros en función
+        de los grupos de filtros que se describen a continuación. Este es un conjunto
+        de datos moderadamente restringido.","contactName":"Soporte GBIF.ES","contactEmail":"support@gbif.es","categories":[{"id":642,"enabled":true,"name":"Excluir
+        registros espacialmente sospechosos","label":"spatially-suspect","description":"Excluir
+        registros identificados como sospechosos espacialmente","displayOrder":1,"qualityFilters":[{"id":643,"enabled":true,"description":"Excluir
+        todos los registros en los que la validez espacial es \"falsa\"","filter":"-spatiallyValid:\"false\"","displayOrder":1}]},{"id":644,"enabled":true,"name":"Excluir
+        registros en función de la calidad del nombre científico","label":"scientific-name","description":"Excluir
+        registros con aserciones de calidad relacionadas con el nombre científico","displayOrder":2,"qualityFilters":[{"id":645,"enabled":true,"description":"Excluir
+        todos los registros con aserciones que indican que el nombre científico proporcionado
+        no coincide con ninguna de las listas de nombres utilizadas por el Portal
+        de Datos. Más información: https://github.com/AtlasOfLivingAustralia/ala-name-matching","filter":"-assertions:TAXON_MATCH_NONE","displayOrder":1},{"id":646,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el nombre científico proporcionado
+        no está estructurado como un nombre científico válido. También captura valores
+        de rango o valores como \"DESCONOCIDO\"","filter":"-assertions:INVALID_SCIENTIFIC_NAME","displayOrder":2},{"id":647,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el nombre y clasificación
+        proporcionados no pueden utilizarse para elegir entre 2 homónimos","filter":"-assertions:TAXON_HOMONYM","displayOrder":3},{"id":648,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el reino proporcionado
+        no coincide con un reino conocido p. ej. Animalia, Plantae","filter":"-assertions:UNKNOWN_KINGDOM","displayOrder":4},{"id":649,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el nombre científico proporcionado
+        no coincide con el ámbito taxonómico esperado del recurso, p. ej. Registros
+        de mamíferos atribuidos al grupo de observación de aves","filter":"-assertions:TAXON_SCOPE_MISMATCH","displayOrder":5}]},{"id":650,"enabled":true,"name":"Excluir
+        registros con incidencias de calidad espacial adicionales","label":"location","description":"Excluir
+        registros con aserciones de calidad relacionadas con la ubicación","displayOrder":3,"qualityFilters":[{"id":651,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el espécimen es cultivado
+        o escapó de la cautividad","filter":"-establishmentMeans:\"MANAGED\"","displayOrder":1},{"id":652,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el valor de latitud proporcionado
+        es cero","filter":"-decimalLatitude:0","displayOrder":2},{"id":653,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el valor de longitud proporcionado
+        es cero","filter":"-decimalLongitude:0","displayOrder":3},{"id":654,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que latitud y longitud se
+        han traspuesto","filter":"-assertions:\"PRESUMED_SWAPPED_COORDINATE\"","displayOrder":4},{"id":655,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que las coordenadas están
+        el centro exacto del estado o territorio","filter":"-assertions:\"COORDINATES_CENTRE_OF_STATEPROVINCE\"","displayOrder":5},{"id":656,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que las coordenadas están
+        el centro exacto del país","filter":"-assertions:\"COORDINATES_CENTRE_OF_COUNTRY\"","displayOrder":6},{"id":657,"enabled":true,"description":"Excluir
+        registros con la advertencia  \"Latitud no válida\"","filter":"-assertions:\"PRESUMED_NEGATED_LATITUDE\"","displayOrder":7},{"id":658,"enabled":true,"description":"Excluir
+        registros con la advertencia  \"Longitud no válida\"","filter":"-assertions:\"PRESUMED_NEGATED_LONGITUDE\"","displayOrder":8}]},{"id":659,"enabled":true,"name":"Excluir
+        registros duplicados","label":"duplicates","description":"Excluir registros
+        duplicados","displayOrder":4,"qualityFilters":[{"id":660,"enabled":false,"description":"Excluir
+        registros en los que los duplicados se encuentran en distintos juegos de datos","filter":"-duplicateType:\"DIFFERENT_DATASET\"","displayOrder":2}]},{"id":661,"enabled":true,"name":"Excluir
+        registros en función de la incertidumbre de la ubicación","label":"location-uncertainty","description":"Excluir
+        registros con incertidumbre alta","displayOrder":5,"qualityFilters":[{"id":662,"enabled":true,"description":"Excluir
+        todos los registros en los que la incertidumbre de las coordenadas (en metros)
+        es mayor de 10km","filter":"-coordinateUncertaintyInMeters:[10001 TO *]","displayOrder":1}]},{"id":663,"enabled":true,"name":"Excluir
+        registros con anotaciones del usuario sin resolver","label":"user-assertions","description":"Excluir
+        registros con aserciones de usuario abiertas","displayOrder":6,"qualityFilters":[{"id":664,"enabled":true,"description":"Excluir
+        todos los registros con aserciones de usuario sin resolver","filter":"-userAssertions:50001","displayOrder":1},{"id":665,"enabled":true,"description":"Excluir
+        todos los registros con aserciones de usuario sin confirmar","filter":"-userAssertions:50005","displayOrder":2}]},{"id":666,"enabled":true,"name":"Excluir
+        registros con valores ambientales atípicos","label":"outliers","description":"Excluir
+        registros con valores atípicos (no incluidos dentro del rango esperado) frente
+        a 3 o más capas ambientales de acuerdo con una prueba de estimación inversa","displayOrder":7,"qualityFilters":[{"id":667,"enabled":true,"description":"Excluir
+        todos los registros en los que el recuento de capas atípicas sea 3 o más","filter":"-outlierLayerCount:[3
+        TO *]","displayOrder":1}]},{"id":668,"enabled":true,"name":"Excluir registros
+        en función del tipo de registro","label":"record-type","description":"Excluir
+        registros de especímenes fósiles y de ADN ambiental","displayOrder":8,"qualityFilters":[{"id":669,"enabled":true,"description":"Excluir
+        todos los registros en los que el Tipo de registro es \"Espécimen fósil\"","filter":"-basisOfRecord:\"FOSSIL_SPECIMEN\"","displayOrder":1},{"id":670,"enabled":true,"description":"Excluir
+        todos los registros en los que el Tipo de registro es \"ADN ambiental\"","filter":"-(basisOfRecord:\"MATERIAL_SAMPLE\"
+        AND contentTypes:\"EnvironmentalDNA\")","displayOrder":2}]},{"id":671,"enabled":true,"name":"Excluir
+        registros de ausencia","label":"occurrence-status","description":"Excluir
+        registros de ausencia","displayOrder":9,"qualityFilters":[{"id":672,"enabled":true,"description":"Excluir
+        todos los registros en los que la Presencia/Ausencia es \"ausente\"","filter":"-occurrenceStatus:ABSENT","displayOrder":1}]},{"id":673,"enabled":true,"name":"Excluir
+        registros anteriores a 1700","label":"dates-post-1700","description":"Excluir
+        registros con fecha de evento anterior a 1700","displayOrder":10,"qualityFilters":[{"id":674,"enabled":true,"description":"Excluir
+        todos los registros en los que el año es anterior a 1700","filter":"-year:[*
+        TO 1700]","displayOrder":1}]}]},{"id":622,"name":"Datos con licencia para
+        todo tipo de uso","shortName":"re-usable","displayOrder":18,"description":"Datos
+        con licencia para ser reutilizados, incluyendo usos comerciales. Este perfil
+        solo filtra por licencia, no se aplican filtros de \"calidad\".","contactName":"Soporte
+        GBIF.ES","contactEmail":"support@gbif.es","categories":[{"id":623,"enabled":true,"name":"Excluir
+        registros sin licencia completamente abierta","label":"open-license","description":"Excluye
+        registros o fuentes de datos con licencia confusa, desconocida, con requerimientos
+        adicionales más allá de la atribución o con restricciones de uso no comercial","displayOrder":1,"qualityFilters":[{"id":624,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC\"","filter":"-license:\"CC-BY-NC\"","displayOrder":1},{"id":625,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC 4.0 (Int)\"","filter":"-license:\"CC-BY-NC
+        4.0 (Int)\"","displayOrder":2},{"id":626,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC 3.0 (Aus)\"","filter":"-license:\"CC-BY-NC
+        3.0 (Aus)\"","displayOrder":3},{"id":627,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"Creative Commons - licencia a nivel de
+        registro\"","filter":"-license:\"Creative Commons - license at record level\"","displayOrder":4},{"id":628,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC-SA 4.0 (Int)\"","filter":"-license:\"CC-BY-NC-SA
+        4.0 (Int)\"","displayOrder":5},{"id":629,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC-ND 4.0 (Int)\"","filter":"-license:\"CC-BY-NC-ND
+        4.0 (Int)\"","displayOrder":6},{"id":630,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"otra\"","filter":"-license:\"other\"","displayOrder":7},{"id":631,"enabled":true,"description":"Incluir
+        solo los registros con Licencia \"CC-BY-SA 4.0 (Int)\"","filter":"-license:\"CC-BY-SA
+        4.0 (Int)\"","displayOrder":8},{"id":632,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC 3.0 (Au)\"","filter":"-license:\"CC-BY-NC
+        3.0 (Au)\"","displayOrder":9},{"id":633,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC BY-NC-Int\"","filter":"-license:\"CC
+        BY-NC-Int\"","displayOrder":10},{"id":634,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC-Int\"","filter":"-license:\"CC-BY-NC-Int\"","displayOrder":11},{"id":635,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"Custom\"","filter":"-license:\"Custom\"","displayOrder":12},{"id":636,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC 2.5 (Int)\"","filter":"-license:\"CC-BY-NC
+        2.5 (Int)\"","displayOrder":13},{"id":637,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC-Aus\"","filter":"-license:\"CC-BY-NC-Aus\"","displayOrder":14},{"id":638,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-ND 4.0 (Int)\"","filter":"-license:\"CC-BY-ND
+        4.0 (Int)\"","displayOrder":15}]},{"id":639,"enabled":true,"name":"Excluir
+        registros sin información de licencia","label":"license","description":"Incluir
+        solo registros con información de licencia","displayOrder":2,"qualityFilters":[{"id":640,"enabled":true,"description":"Incluir
+        solo registros con valor de licencia","filter":"license:[* TO *]","displayOrder":1}]}]},{"id":594,"name":"Modelo
+        de distribución de especies","shortName":"CSDM","displayOrder":19,"description":"Filtros
+        base para el programa de Modelado Colaborativo de Distribución de Especies","contactName":"Soporte
+        GBIF.ES","contactEmail":"support@gbif.es","categories":[{"id":595,"enabled":true,"name":"Excluir
+        registros sospechosos espacialmente","label":"spatially-valid","description":"Excluir
+        registros identificados como sospechosos espacialmente","displayOrder":1,"qualityFilters":[{"id":596,"enabled":true,"description":"Incluir
+        solo los registros en los que la validez espacial es \"verdadera\"","filter":"spatiallyValid:\"true\"","displayOrder":1}]},{"id":597,"enabled":true,"name":"Excluir
+        registros duplicados","label":"duplicates","description":"Excluir duplicados","displayOrder":2,"qualityFilters":[{"id":598,"enabled":true,"description":"Excluir
+        registros duplicados potenciales","filter":"-isDuplicateOf:*","displayOrder":1}]},{"id":599,"enabled":true,"name":"Excluir
+        registros que son valores ambientales atípicos","label":"environmental-outliers","description":"Excluir
+        valores ambientales atípicos","displayOrder":3,"qualityFilters":[{"id":600,"enabled":true,"description":"Excluir
+        todos los registros que son atípicos frente a cualquier capa ambiental","filter":"-outlierLayerCount:[1
+        TO *]","displayOrder":1}]},{"id":601,"enabled":true,"name":"Excluir registros
+        anteriores a 1970","label":"recent-records","description":"Incluir solo los
+        registros desde 1970 hasta 2099","displayOrder":4,"qualityFilters":[{"id":602,"enabled":true,"description":"Incluir
+        solo los registros en los que el año va desde 1970 hasta 2099","filter":"year:[1970
+        TO *]","displayOrder":1}]}]},{"id":125,"name":"Coordenadas","shortName":"Coordenadas","displayOrder":20,"description":null,"contactName":null,"contactEmail":null,"categories":[{"id":129,"enabled":true,"name":"Outliers","label":"Outliers","description":"Outliers","displayOrder":11,"qualityFilters":[{"id":130,"enabled":true,"description":"Busca
+        decimalLatitude con valor 0","filter":"-decimalLatitude:0","displayOrder":1},{"id":131,"enabled":true,"description":"Busca
+        decimalLongitude con valor 0","filter":"decimalLongitude:0","displayOrder":2}]}]},{"id":552,"name":"Perfil
+        General del Portal de Datos (pre-pipe)","shortName":"LA-legacy","displayOrder":21,"description":"El
+        perfil predeterminado del Portal de Datos filtra los registros en funci?n
+        de los grupos de filtros que se describen a continuaci?n. Este es un conjunto
+        de datos moderadamente restringido.","contactName":"Soporte GBIF.ES","contactEmail":"support@gbif.es","categories":[{"id":553,"enabled":true,"name":"Excluir
+        registros espacialmente sospechosos","label":"spatially-suspect","description":"Excluir
+        registros identificados como sospechosos espacialmente","displayOrder":1,"qualityFilters":[{"id":554,"enabled":true,"description":"Excluir
+        todos los registros en los que la validez espacial es \"falsa\"","filter":"-geospatial_kosher:\"false\"","displayOrder":1}]},{"id":555,"enabled":true,"name":"Excluir
+        registros en función de la calidad del nombre científico","label":"scientific-name","description":"Excluir
+        registros con aserciones de calidad relacionadas con el nombre científico","displayOrder":2,"qualityFilters":[{"id":556,"enabled":true,"description":"Excluir
+        todos los registros con aserciones que indican que el nombre científico proporcionado
+        no coincide con ninguna de las listas de nombres utilizadas por el Portal
+        de Datos. Más información: https://github.com/AtlasOfLivingAustralia/ala-name-matching","filter":"-assertions:nameNotRecognised","displayOrder":1},{"id":557,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el nombre científico proporcionado
+        no está estructurado como un nombre científico válido. También captura valores
+        de rango o valores como \"DESCONOCIDO\"","filter":"-assertions:invalidScientificName","displayOrder":2},{"id":558,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el nombre y clasificación
+        proporcionados no pueden utilizarse para elegir entre 2 homónimos","filter":"-assertions:homonymIssue","displayOrder":3},{"id":559,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el reino proporcionado
+        no coincide con un reino conocido p. ej. Animalia, Plantae","filter":"-assertions:unknownKingdom","displayOrder":4},{"id":560,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el nombre científico proporcionado
+        no coincide con el ámbito taxonómico esperado del recurso, p. ej. Registros
+        de mamíferos atribuidos al grupo de observación de aves","filter":"-assertions:resourceTaxonomicScopeMismatch","displayOrder":5}]},{"id":561,"enabled":true,"name":"Excluir
+        registros con incidencias de calidad espacial adicionales","label":"location","description":"Excluir
+        registros con aserciones de calidad relacionadas con la ubicación","displayOrder":3,"qualityFilters":[{"id":562,"enabled":false,"description":"Excluir
+        todos los registros con una aserción de una especie marina detectada en un
+        medio terrestre o una especie terrestre detectada en un medio marino.","filter":"-assertions:\"habitatMismatch\"","displayOrder":1},{"id":563,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el espécimen es cultivado
+        o escapó de la cautividad","filter":"-assertions:\"occCultivatedEscapee\"","displayOrder":2},{"id":564,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el valor de latitud proporcionado
+        es cero","filter":"-assertions:\"zeroLatitude\"","displayOrder":3},{"id":565,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que el valor de longitud proporcionado
+        es cero","filter":"-assertions:\"zeroLongitude\"","displayOrder":4},{"id":566,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que latitud y longitud se
+        han traspuesto","filter":"-assertions:\"invertedCoordinates\"","displayOrder":5},{"id":567,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que las coordenadas están
+        el centro exacto del estado o territorio","filter":"-assertions:\"coordinatesCentreOfStateProvince\"","displayOrder":6},{"id":568,"enabled":true,"description":"Excluir
+        todos los registros con una aserción que indica que las coordenadas están
+        el centro exacto del país","filter":"-assertions:\"coordinatesCentreOfCountry\"","displayOrder":7}]},{"id":569,"enabled":true,"name":"Excluir
+        registros duplicados","label":"duplicates","description":"Excluir registros
+        duplicados","displayOrder":4,"qualityFilters":[{"id":570,"enabled":true,"description":"Excluir
+        todos los registros en los que el estado del duplicado es \"duplicado\"","filter":"-duplicate_status:\"D\"","displayOrder":1}]},{"id":571,"enabled":true,"name":"Excluir
+        registros en función de la incertidumbre de la ubicación","label":"location-uncertainty","description":"Excluir
+        registros con incertidumbre alta","displayOrder":5,"qualityFilters":[{"id":572,"enabled":true,"description":"Excluir
+        todos los registros en los que la incertidumbre de las coordenadas (en metros)
+        es mayor de 10 km","filter":"-coordinate_uncertainty:[10001 TO *]","displayOrder":1}]},{"id":573,"enabled":true,"name":"Excluir
+        registros con anotaciones del usuario sin resolver","label":"user-assertions","description":"Excluir
+        registros con aserciones de usuario abiertas","displayOrder":6,"qualityFilters":[{"id":574,"enabled":true,"description":"Excluir
+        todos los registros con aserciones de usuario sin resolver","filter":"-user_assertions:50001","displayOrder":1},{"id":575,"enabled":true,"description":"Excluir
+        todos los registros con aserciones de usuario sin confirmar","filter":"-user_assertions:50005","displayOrder":2}]},{"id":576,"enabled":true,"name":"Excluir
+        registros con valores ambientales atípicos","label":"outliers","description":"Excluir
+        registros con valores atípicos (no incluidos dentro del rango esperado) frente
+        a 3 o más capas ambientales de acuerdo con una prueba de estimación inversa","displayOrder":7,"qualityFilters":[{"id":577,"enabled":true,"description":"Excluir
+        todos los registros en los que el recuento de capas atípicas sea 3 o más","filter":"-outlier_layer_count:[3
+        TO *]","displayOrder":1}]},{"id":578,"enabled":true,"name":"Excluir registros
+        en función del tipo de registro","label":"record-type","description":"Excluir
+        registros de especímenes fósiles y de ADN ambiental","displayOrder":8,"qualityFilters":[{"id":579,"enabled":true,"description":"Excluir
+        todos los registros en los que el Tipo de registro es \"Espécimen fósil\"","filter":"-basis_of_record:\"FossilSpecimen\"","displayOrder":1},{"id":580,"enabled":true,"description":"Excluir
+        todos los registros en los que el Tipo de registro es \"ADN ambiental\"","filter":"-basis_of_record:\"EnvironmentalDNA\"","displayOrder":2}]},{"id":581,"enabled":true,"name":"Excluir
+        registros de ausencia","label":"occurrence-status","description":"Excluir
+        registros de ausencia","displayOrder":9,"qualityFilters":[{"id":582,"enabled":true,"description":"Excluir
+        todos los registros en los que la Presencia/Ausencia es \"ausente\"","filter":"-occurrence_status:absent","displayOrder":1}]},{"id":583,"enabled":true,"name":"Excluir
+        registros anteriores a 1700","label":"dates-post-1700","description":"Excluir
+        registros con fecha de evento anterior a 1700","displayOrder":10,"qualityFilters":[{"id":584,"enabled":true,"description":"Excluir
+        todos los registros en los que el año es anterior a 1700","filter":"-year:[*
+        TO 1700]","displayOrder":1}]}]},{"id":585,"name":"Modelo de distribución de
+        especies (pre-pipe)","shortName":"CSDM-legacy","displayOrder":22,"description":"Filtros
+        base para el programa de Modelado Colaborativo de Distribución de Especies","contactName":"Soporte
+        GBIF.ES","contactEmail":"support@gbif.es","categories":[{"id":586,"enabled":true,"name":"Excluir
+        registros sospechosos espacialmente","label":"spatially-valid","description":"Excluir
+        registros identificados como sospechosos espacialmente","displayOrder":1,"qualityFilters":[{"id":587,"enabled":true,"description":"Incluir
+        solo los registros en los que la validez espacial es \"verdadera\"","filter":"geospatial_kosher:\"true\"","displayOrder":1}]},{"id":588,"enabled":true,"name":"Excluir
+        registros duplicados","label":"duplicates","description":"Excluir duplicados","displayOrder":2,"qualityFilters":[{"id":589,"enabled":true,"description":"Excluir
+        registros duplicados potenciales","filter":"-duplicate_record:[* TO *]","displayOrder":1}]},{"id":590,"enabled":true,"name":"Excluir
+        registros con valores ambientales atípicos","label":"environmental-outliers","description":"Excluir
+        valores ambientales atípicos","displayOrder":3,"qualityFilters":[{"id":591,"enabled":true,"description":"Excluir
+        todos los registros que son atípicos frente a cualquier capa ambiental","filter":"-outlier_layer_count:[*
+        TO *]","displayOrder":1}]},{"id":592,"enabled":true,"name":"Excluir registros
+        anteriores a 1970","label":"recent-records","description":"Incluir solo los
+        registros desde 1970 hasta 2099","displayOrder":4,"qualityFilters":[{"id":593,"enabled":true,"description":"Incluir
+        solo los registros en los que el año va desde 1970 hasta 2099","filter":"year:[1970
+        TO *]","displayOrder":1}]}]},{"id":603,"name":"Datos con licencia para todo
+        tipo de uso (pre-pipe)","shortName":"re-usable-legacy","displayOrder":23,"description":"Datos
+        con licencia para ser reutilizados, incluyendo usos comerciales. Este perfil
+        solo filtra por licencia, no se aplican filtros de \"calidad\".","contactName":"Soporte
+        GBIF.ES","contactEmail":"support@gbif.es","categories":[{"id":604,"enabled":true,"name":"Excluir
+        registros sin licencia completamente abierta","label":"open-license","description":"Excluye
+        registros o fuentes de datos con licencia confusa, desconocida, con requerimientos
+        adicionales más allá de la atribución o con restricciones de uso no comercial","displayOrder":1,"qualityFilters":[{"id":605,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC\"","filter":"-license:\"CC-BY-NC\"","displayOrder":1},{"id":606,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC 4.0 (Int)\"","filter":"-license:\"CC-BY-NC
+        4.0 (Int)\"","displayOrder":2},{"id":607,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC 3.0 (Aus)\"","filter":"-license:\"CC-BY-NC
+        3.0 (Aus)\"","displayOrder":3},{"id":608,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"Creative Commons - licencia a nivel de
+        registro\"","filter":"-license:\"Creative Commons - license at record level\"","displayOrder":4},{"id":609,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC-SA 4.0 (Int)\"","filter":"-license:\"CC-BY-NC-SA
+        4.0 (Int)\"","displayOrder":5},{"id":610,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC-ND 4.0 (Int)\"","filter":"-license:\"CC-BY-NC-ND
+        4.0 (Int)\"","displayOrder":6},{"id":611,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"otra\"","filter":"-license:\"other\"","displayOrder":7},{"id":612,"enabled":true,"description":"Incluir
+        solo los registros con Licencia \"CC-BY-SA 4.0 (Int)\"","filter":"-license:\"CC-BY-SA
+        4.0 (Int)\"","displayOrder":8},{"id":613,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC 3.0 (Au)\"","filter":"-license:\"CC-BY-NC
+        3.0 (Au)\"","displayOrder":9},{"id":614,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC BY-NC-Int\"","filter":"-license:\"CC
+        BY-NC-Int\"","displayOrder":10},{"id":615,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC-Int\"","filter":"-license:\"CC-BY-NC-Int\"","displayOrder":11},{"id":616,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"Custom\"","filter":"-license:\"Custom\"","displayOrder":12},{"id":617,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC 2.5 (Int)\"","filter":"-license:\"CC-BY-NC
+        2.5 (Int)\"","displayOrder":13},{"id":618,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-NC-Aus\"","filter":"-license:\"CC-BY-NC-Aus\"","displayOrder":14},{"id":619,"enabled":true,"description":"Excluir
+        todos los registros con Licencia \"CC-BY-ND 4.0 (Int)\"","filter":"-license:\"CC-BY-ND
+        4.0 (Int)\"","displayOrder":15}]},{"id":620,"enabled":true,"name":"Excluir
+        registros sin información de licencia","label":"license","description":"Incluir
+        solo registros con información de licencia","displayOrder":2,"qualityFilters":[{"id":621,"enabled":true,"description":"Incluir
+        solo registros con valor de licencia","filter":"license:[* TO *]","displayOrder":1}]}]}]'
+  recorded_at: 2023-01-06 06:21:41 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
