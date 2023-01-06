@@ -3,8 +3,9 @@ occurrences_GBIF <- function(identify = NULL,
                              filter = NULL,
                              geolocate = NULL,
                              format = "SIMPLE_CSV",
+                             data_profile = NULL,
                              refresh_cache = FALSE) {
-
+  
   # check whether API exists
   occurrences_url <- url_lookup("records_occurrences")
   verbose <- getOption("galah_config")$package$verbose
@@ -24,10 +25,9 @@ occurrences_GBIF <- function(identify = NULL,
     too_many_records(max_count = 101000)
   }
 
-  query <- build_query(identify, filter, geolocate)
-
   # Check record count
-  if (getOption("galah_config")$package$run_checks) {
+  if (getOption("galah_config")$package$run_checks && format == "SIMPLE_CSV") {
+    query <- build_query(identify, filter, geolocate)
     count <- record_count(query)
     if (is.null(count)){
       system_down_message("atlas_occurrences")
@@ -59,35 +59,28 @@ occurrences_GBIF <- function(identify = NULL,
         ":", 
         getOption("galah_config")$user$password))
 
-  status_initial <- url_POST(occurrences_url,
-                headers,
-                opts,
-                body = build_predicates(filter, format))
+  status_code <- url_POST(occurrences_url,
+                          headers = headers,
+                          opts = opts,
+                          body = build_predicates(filter, format))
 
   # Get data  
-  if(is.null(status_initial)){
+  if(is.null(status_code)){
     return(NULL)
   }
-  download_resp <- url_queue(status_initial) # up to here
-  if(is.null(download_resp)){
-    inform("Calling the API failed for `atlas_occurrences`")
-    return(tibble())
-  }
-
-  # download from url
-    # check queue - this section assumes it has finished, but check_queue uses a loop to iterate
-  result <- paste0("https://api.gbif.org/v1/occurrence/download/", download_resp) |>
-    url_GET()
-
-  # at this point url_queue() returns the link; i.e.
-  # return(status$downloadLink)
+  
+  # Check queue until complete, with increasing time lags
+  download_link <- paste0("https://api.gbif.org/v1/occurrence/download/", 
+                          status_code) |>
+    check_queue_GBIF()
 
   # download
-  result <- url_download(status$downloadLink, ext = "zip")
+  result <- url_download(download_link, ext = "zip")
 
   if(is.null(result)){
     system_down_message("atlas_occurrences")
   }else{
+    attr(result, "doi") <- attr(download_link, "doi")
     result
   }
 }

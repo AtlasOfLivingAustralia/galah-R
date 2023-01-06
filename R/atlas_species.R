@@ -92,8 +92,7 @@ atlas_species <- function(request = NULL,
   }
 
   # subset to available arguments
-  custom_call <- current_call[
-     names(current_call) %in% names(formals(atlas_species_internal))]
+  custom_call <- current_call[names(current_call) %in% arg_names]
   class(custom_call) <- "data_request"
 
   # check for caching

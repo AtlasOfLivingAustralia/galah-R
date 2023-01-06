@@ -317,12 +317,17 @@ old_query_term <- function(name, value, include) {
 
 build_filter_query <- function(filters) {
   if(is_gbif()){
-    query_text <- filters$query |>
-      sub("^[[:graph:]]+\\[", "", x = _) |>
-      sub("\\]$", "", x = _) |>
-      sub(" TO ", ",", x = _)
-    
-    queries <- as.list(query_text)
+    is_equals <- filters$logical == "=="
+    if(any(is_equals)){
+      filters$query[is_equals] <- filters$value[is_equals]
+    }
+    if(any(!is_equals)){
+      filters$query[!is_equals] <- filters$query[!is_equals] |>
+        sub("^[[:graph:]]+\\[", "", x = _) |>
+        sub("\\]$", "", x = _) |>
+        sub(" TO ", ",", x = _)
+    }
+    queries <- as.list(filters$query)
     names(queries) <- filters$variable
     queries
   }else{

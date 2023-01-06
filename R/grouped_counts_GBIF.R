@@ -18,8 +18,7 @@ grouped_counts_GBIF <- function(identify = NULL,
     geolocate <- NULL
   }
   
-  # basics
-  page_size <- 100
+  # build query
   query <- list()
   query <- build_query(identify, filter, geolocate)
   

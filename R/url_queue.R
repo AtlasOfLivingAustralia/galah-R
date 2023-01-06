@@ -66,6 +66,83 @@ check_queue <- function(status_initial){
   return(status)
 }
 
+check_queue_GBIF <- function(url){
+  
+  verbose <- getOption("galah_config")$package$verbose
+  if(verbose){cat("Checking queue\n")}
+  result <- url_GET(url)
+  if(verbose){
+    current_status <- print_status(result, "")
+  }
+  
+  if(is.null(result)){
+    return(NULL)
+  }else{
+    interval_times <- api_intervals()
+    n_intervals <- length(interval_times)
+    iter <- 1
+    continue <- continue_while_loop(result)
+    while(continue == TRUE){
+      # query
+      if(verbose){
+        current_status <- print_status(result, current_status)
+      }
+      result <- url_GET(url)
+      continue <- continue_while_loop(result)
+      if(continue){
+        # pause
+        if(iter <= n_intervals){
+          lag <- interval_times[iter]
+        }else{
+          lag <- 60
+        }
+        Sys.sleep(lag)
+        # iterate
+        iter <- iter + 1
+      }else{
+        if(verbose){cat("succeeded\n")}
+        break
+      }
+    }
+  }
+
+  if(any(names(result) == "downloadLink")){  
+    x <- result$downloadLink
+    attr(x, "doi") <- result$doi
+    return(x)
+  }else{
+    NULL
+  }
+}
+
+# several checks to determine whether to keep looping
+continue_while_loop <- function(x){
+  z <- TRUE
+  if(!is.null(x)){
+    if(any(names(x) == "status")){
+      if(x$status == "SUCCEEDED"){
+        z <- FALSE
+      }
+    }
+  }
+  return(z)
+}
+
+# status of a gbif call
+print_status <- function(result, current_status){
+  if(any(names(result) == "status")){
+    if(result$status != current_status){
+      current_status <- result$status
+      cat(paste0(" ", tolower(current_status), " "))
+    }else{
+      cat(".")
+    }
+  }else{
+    cat(".")
+  }
+  return(current_status)
+}
+
 check_running <- function(status){
   interval_times <- api_intervals()
   n_intervals <- length(interval_times)

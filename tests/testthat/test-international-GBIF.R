@@ -104,21 +104,24 @@ vcr::use_cassette("IA_GBIF_atlas_counts3", {
   })
 })
 
-# up to here
-
 test_that("atlas_species works for GBIF", {
   skip_on_cran()
+  species <- galah_call() |>
+    galah_identify("perameles") |>
+    atlas_species()
+  expect_gt(nrow(species), 0)
+  expect_gt(ncol(species), 0)
+  expect_s3_class(species, c("tbl_df", "tbl", "data.frame")) 
 })
 
 test_that("atlas_occurrences works for GBIF", {
   skip_on_cran()
   occ <- galah_call() |>
-    galah_identify("Mammalia") |>
-    galah_filter(year == 1970) |>
-    galah_select(taxon_name, year) |>
+    galah_identify("Vulpes vulpes") |>
+    galah_filter(year <= 1800, basisOfRecord == "PRESERVED_SPECIMEN") |>
     atlas_occurrences()  
   expect_gt(nrow(occ), 0)
-  expect_equal(ncol(occ), 2)
+  expect_gt(ncol(occ), 0)
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
 })
 

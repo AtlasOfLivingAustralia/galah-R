@@ -110,7 +110,7 @@ atlas_occurrences <- function(request = NULL,
       refresh_cache = refresh_cache)
   }
 
-  # choose beahviour depending on whether we are calling LAs or GBIF
+  # choose beahvior depending on whether we are calling LAs or GBIF
   if(is_gbif()){
     function_name <- "occurrences_GBIF"
     current_call$format <- "SIMPLE_CSV"
@@ -121,8 +121,7 @@ atlas_occurrences <- function(request = NULL,
   }
 
   # subset to available arguments
-  custom_call <- current_call[
-    names(current_call) %in% arg_names]
+  custom_call <- current_call[names(current_call) %in% arg_names]
   if(!is.null(doi)){
     custom_call <- custom_call["doi"]
   }
