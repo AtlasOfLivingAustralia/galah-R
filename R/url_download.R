@@ -43,12 +43,22 @@ url_download <- function(url,
     df <- switch(ext, 
            # defaults to zip
            "zip" = {
+              unzip(cache_file, exdir = cache_dir)
+              all_files <- list.files(cache_dir)
+              # all_files <- paste(cache_dir, list.files(cache_dir), sep = "/")
               if(is_gbif()){
-                read_tsv(cache_file, col_types = cols())
+                import_files <- paste(cache_dir, 
+                                      all_files[grepl(".csv$", all_files)],
+                                      sep = "/")
+                read_tsv(import_files, col_types = cols())
               }else{
-                read_csv(
-                  unzip(cache_file, files = "data.csv"),  # note: for large files, there may be data1.csv, data2.csv etc
-                  col_types = cols())
+                import_files <- paste(cache_dir, 
+                                      all_files[grepl("^data", all_files) & 
+                                                grepl(".csv$", all_files)],
+                                      sep = "/")              
+                lapply(import_files, 
+                       function(a){read_csv(a, col_types = cols())}) |> 
+                bind_rows()
               }
            },
            # error message is specific to atlas_species because it is the only function that
