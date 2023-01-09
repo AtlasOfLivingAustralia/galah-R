@@ -52,7 +52,11 @@ search_identifiers <- function(query) {
 
 identifier_lookup <- function(identifier) {
   url <- url_lookup("names_lookup")
-  result <- url_GET(url, list(taxonID = identifier))
+  if(getOption("galah_config")$atlas$region == "France"){
+    result <- paste0(url, identifier) |> url_GET()
+  }else{
+    result <- url_GET(url, list(taxonID = identifier)) 
+  }
   if (is.null(result)){
     return(NULL)
   }

@@ -3,7 +3,7 @@ Australia,collections,collections_collections,https://collections.ala.org.au/ws/
 Australia,collections,collections_datasets,https://collections.ala.org.au/ws/dataResource,show_all_datasets
 Australia,collections,collections_providers,https://collections.ala.org.au/ws/dataProvider,show_all_providers
 Australia,data-quality,profiles_all,https://data-quality-service.ala.org.au/api/v1/data-profiles,show_all_profiles
-Australia,data-quality,profiles_lookup,https://data-quality-service.ala.org.au/api/v1/quality/activeProfile?profileName={profile},show_profile_values
+Australia,data-quality,profiles_lookup,https://data-quality-service.ala.org.au/api/v1/quality/activeProfile?profileName={profile},show_values
 Australia,doi,doi_download,https://apis.ala.org.au/doi/api/doi/{doi_string}/download,doi_download
 Australia,images,image_licences,https://images.ala.org.au/ws/licence,show_all_licences
 Australia,images,image_metadata,https://images.ala.org.au/ws/image/{id},media_metadata
@@ -15,7 +15,7 @@ Australia,name-matching,names_search_multiple,https://namematching-ws.ala.org.au
 Australia,name-matching,names_search_single,https://namematching-ws.ala.org.au/api/search?q={name},search_taxa
 Australia,records,records_assertions,https://biocache-ws.ala.org.au/ws/assertions/codes,show_all_assertions
 Australia,records,records_counts,https://biocache-ws.ala.org.au/ws/occurrences/search,atlas_counts
-Australia,records,records_facets,https://biocache-ws.ala.org.au/ws/occurrence/facets,"atlas_counts, show_field_values"
+Australia,records,records_facets,https://biocache-ws.ala.org.au/ws/occurrence/facets,"atlas_counts, show_values"
 Australia,records,records_fields,https://biocache-ws.ala.org.au/ws/index/fields,show_all_fields
 Australia,records,records_occurrences,https://biocache-ws.ala.org.au/ws/occurrences/offline/download,atlas_occurrences
 Australia,records,records_query,https://biocache-ws.ala.org.au/ws/webportal/params,atlas_occurrences
@@ -33,7 +33,7 @@ Austria,lists,lists_lookup,https://lists.biodiversityatlas.at/ws/speciesListItem
 Austria,logger,logger_reasons,https://logger.biodiversityatlas.at/service/logger/reasons,show_all_reasons
 Austria,records,records_assertions,https://biocache-ws.biodiversityatlas.at/assertions/codes,show_all_assertions
 Austria,records,records_counts,https://biocache-ws.biodiversityatlas.at/occurrences/search,atlas_counts
-Austria,records,records_facets,https://biocache-ws.biodiversityatlas.at/occurrence/facets,"atlas_counts, show_field_values"
+Austria,records,records_facets,https://biocache-ws.biodiversityatlas.at/occurrence/facets,"atlas_counts, show_values"
 Austria,records,records_fields,https://biocache-ws.biodiversityatlas.at/index/fields,show_all_fields
 Austria,records,records_occurrences,https://biocache-ws.biodiversityatlas.at/occurrences/offline/download,atlas_occurrences
 Austria,records,records_query,https://biocache-ws.biodiversityatlas.at/webportal/params,atlas_occurrences
@@ -41,7 +41,7 @@ Austria,records,records_species,https://biocache-ws.biodiversityatlas.at/occurre
 Austria,spatial,spatial_layers,https://spatial.biodiversityatlas.at/ws/layers,show_all_fields
 Austria,species,names_search_single,https://bie-ws.biodiversityatlas.at/search?q={name}&pageSize=5,search_taxa
 Austria,species,species_children,https://bie-ws.biodiversityatlas.at/childConcepts/,atlas_taxonomy
-Austria,species,species_lookup,https://bie-ws.biodiversityatlas.at/species,"atlas_taxonomy, search_identifiers(?)"
+Austria,species,species_lookup,https://bie-ws.biodiversityatlas.at/species,atlas_taxonomy
 Brazil,collections,collections_collections,https://collectory.sibbr.gov.br/collectory/ws/collection,show_all_collections
 Brazil,collections,collections_datasets,https://collectory.sibbr.gov.br/collectory/ws/dataResource,show_all_datasets
 Brazil,collections,collections_providers,https://collectory.sibbr.gov.br/collectory/ws/dataProvider,show_all_providers
@@ -51,7 +51,7 @@ Brazil,lists,lists_all,https://specieslist.sibbr.gov.br/ws/speciesList/,show_all
 Brazil,lists,lists_lookup,https://specieslist.sibbr.gov.br/ws/speciesListItems/{list_id},show_list_values
 Brazil,records,records_assertions,https://biocache-service.sibbr.gov.br/biocache-service/assertions/codes,show_all_assertions
 Brazil,records,records_counts,https://biocache-service.sibbr.gov.br/biocache-service/occurrences/search,atlas_counts
-Brazil,records,records_facets,https://biocache-service.sibbr.gov.br/biocache-service/occurrence/facets,"atlas_counts, show_all_values"
+Brazil,records,records_facets,https://biocache-service.sibbr.gov.br/biocache-service/occurrence/facets,"atlas_counts, show_values"
 Brazil,records,records_fields,https://biocache-service.sibbr.gov.br/biocache-service/index/fields,show_all_fields
 Brazil,records,records_occurrences,https://biocache-service.sibbr.gov.br/biocache-service/occurrences/offline/download,atlas_occurrences
 Brazil,records,records_query,https://biocache-service.sibbr.gov.br/biocache-service/webportal/params,atlas_occurrences
@@ -66,7 +66,7 @@ Canada,collections,collections_providers,http://collections.canadensys.net/ws/da
 Canada,logger,logger_reasons,http://logger.canadensys.net/service/logger/reasons,show_all_reasons
 Canada,records,records_assertions,http://explorer-ws.canadensys.net/assertions/codes,show_all_assertions
 Canada,records,records_counts,http://explorer-ws.canadensys.net/occurrences/search,atlas_counts
-Canada,records,records_facets,http://explorer-ws.canadensys.net/occurrence/facets,"atlas_counts, show_all_values"
+Canada,records,records_facets,http://explorer-ws.canadensys.net/occurrence/facets,"atlas_counts, show_values"
 Canada,records,records_fields,http://explorer-ws.canadensys.net/index/fields,show_all_fields
 Canada,records,records_occurrences,http://explorer-ws.canadensys.net/occurrences/offline/download,atlas_occurrences
 Canada,records,records_query,http://explorer-ws.canadensys.net/webportal/params,atlas_occurrences
@@ -77,23 +77,25 @@ Estonia,collections,collections_datasets,https://elurikkus.ee/collectory/ws/data
 Estonia,collections,collections_providers,https://elurikkus.ee/collectory/ws/dataProvider,show_all_providers
 Estonia,records,records_assertions,https://elurikkus.ee/biocache-service/assertions/codes,show_all_assertions
 Estonia,records,records_counts,https://elurikkus.ee/biocache-service/occurrences/search,atlas_counts
-Estonia,records,records_facets,https://elurikkus.ee/biocache-service/occurrence/facets,"atlas_counts, show_all_values"
+Estonia,records,records_facets,https://elurikkus.ee/biocache-service/occurrence/facets,"atlas_counts, show_values"
 Estonia,records,records_fields,https://elurikkus.ee/biocache-service/index/fields,show_all_fields
 Estonia,records,records_query,https://elurikkus.ee/biocache-service/webportal/params,atlas_occurrences
 Estonia,records,records_species,https://elurikkus.ee/biocache-service/occurrences/facets/download,atlas_species
 Estonia,species,names_search_single,https://elurikkus.ee/bie-index/search?q={name}&pageSize=5,search_taxa
 Estonia,species,species_children,https://elurikkus.ee/bie-index/childConcepts/,atlas_taxonomy
-Estonia,species,species_lookup,https://elurikkus.ee/bie-index/species,"atlas_taxonomy, search_identifiers(?)"
+Estonia,species,species_lookup,https://elurikkus.ee/bie-index/species,atlas_taxonomy
 France,collections,collections_collections,https://openobs.mnhn.fr/collectory/ws/collection,show_all_collections
 France,collections,collections_datasets,https://openobs.mnhn.fr/collectory/ws/dataResource,show_all_datasets
 France,collections,collections_providers,https://openobs.mnhn.fr/collectory/ws/dataProvider,show_all_providers
 France,records,records_assertions,https://openobs.mnhn.fr/biocache-service/assertions/codes,show_all_assertions
 France,records,records_counts,https://openobs.mnhn.fr/biocache-service/occurrences/search,atlas_counts
-France,records,records_facets,https://openobs.mnhn.fr/biocache-service/occurrence/facets,"atlas_counts, show_all_values"
+France,records,records_facets,https://openobs.mnhn.fr/biocache-service/occurrence/facets,"atlas_counts, show_values"
 France,records,records_fields,https://openobs.mnhn.fr/biocache-service/index/fields,show_all_fields
+France,records,records_occurrences,https://openobs.mnhn.fr/biocache-service/occurrences/offline/download,atlas_occurrences
 France,records,records_query,https://openobs.mnhn.fr/biocache-service/webportal/params,atlas_occurrences
 France,records,records_species,https://openobs.mnhn.fr/biocache-service/occurrences/facets/download,atlas_species
-France,species,names_search_single,https://api.gbif.org/v1/species/match?verbose=FALSE&name={name},search_taxa
+France,name-matching,names_lookup,https://taxref.mnhn.fr/api/taxa/,search_identifiers
+France,name-matching,names_search_single,https://taxref.mnhn.fr/api/taxa/search?scientificNames={name}&page=1&size=5,search_taxa
 Global,species,names_search_single,https://api.gbif.org/v1/species/match?verbose=FALSE&name={name},search_taxa
 Global,collections,collections_providers,https://api.gbif.org/v1/organization,show_all_providers
 Global,collections,collections_collections,https://api.gbif.org/v1/grscicoll/collection,show_all_collections
@@ -110,7 +112,7 @@ Guatemala,images,image_metadata,https://imagenes.snib.conap.gob.gt/image/,media_
 Guatemala,logger,logger_reasons,https://snib.conap.gob.gt/logger/service/logger/reasons,show_all_reasons
 Guatemala,records,records_assertions,https://snib.conap.gob.gt/registros-ws/assertions/codes,show_all_assertions
 Guatemala,records,records_counts,https://snib.conap.gob.gt/registros-ws/occurrences/search,atlas_counts
-Guatemala,records,records_facets,https://snib.conap.gob.gt/registros-ws/occurrence/facets,"atlas_counts, show_all_values"
+Guatemala,records,records_facets,https://snib.conap.gob.gt/registros-ws/occurrence/facets,"atlas_counts, show_values"
 Guatemala,records,records_fields,https://snib.conap.gob.gt/registros-ws/index/fields,show_all_fields
 Guatemala,records,records_occurrences,https://snib.conap.gob.gt/registros-ws/occurrences/offline/download,atlas_occurrences
 Guatemala,records,records_query,https://snib.conap.gob.gt/registros-ws/webportal/params,atlas_occurrences
@@ -127,7 +129,7 @@ Portugal,images,image_metadata,https://imagens.gbif.pt/ws/image/,media_metadata
 Portugal,logger,logger_reasons,https://logger.gbif.pt/service/logger/reasons,show_all_reasons
 Portugal,records,records_assertions,https://registos-ws.gbif.pt/assertions/codes,show_all_assertions
 Portugal,records,records_counts,https://registos-ws.gbif.pt/occurrences/search,atlas_counts
-Portugal,records,records_facets,https://registos-ws.gbif.pt/occurrence/facets,"atlas_counts, show_field_values"
+Portugal,records,records_facets,https://registos-ws.gbif.pt/occurrence/facets,"atlas_counts, show_values"
 Portugal,records,records_fields,https://registos-ws.gbif.pt/index/fields,show_all_fields
 Portugal,records,records_query,https://registos-ws.gbif.pt/webportal/params,atlas_occurrences
 Portugal,records,records_species,https://registos-ws.gbif.pt/occurrences/facets/download,atlas_species
@@ -149,7 +151,7 @@ Spain,name-matching,names_search_multiple,https://name-matching.gbif.es/api/sear
 Spain,name-matching,names_search_single,https://name-matching.gbif.es/api/search?q={name},search_taxa
 Spain,records,records_assertions,https://registros-ws.gbif.es/assertions/codes,show_all_assertions
 Spain,records,records_counts,https://registros-ws.gbif.es/occurrences/search,atlas_counts
-Spain,records,records_facets,https://registros-ws.gbif.es/occurrence/facets,"atlas_counts, show_all_values"
+Spain,records,records_facets,https://registros-ws.gbif.es/occurrence/facets,"atlas_counts, show_values"
 Spain,records,records_fields,https://registros-ws.gbif.es/index/fields,show_all_fields
 Spain,records,records_occurrences,https://registros-ws.gbif.es/occurrences/offline/download,atlas_occurrences
 Spain,records,records_query,https://registros-ws.gbif.es/webportal/params,atlas_occurrences
@@ -165,7 +167,7 @@ Sweden,images,image_metadata,https://images.biodiversitydata.se/image/,media_met
 Sweden,logger,logger_reasons,https://logger.biodiversitydata.se/service/logger/reasons,show_all_reasons
 Sweden,records,records_assertions,https://records.biodiversitydata.se/ws/assertions/codes,show_all_assertions
 Sweden,records,records_counts,https://records.biodiversitydata.se/ws/occurrences/search,atlas_counts
-Sweden,records,records_facets,https://records.biodiversitydata.se/ws/occurrence/facets,"atlas_counts, show_all_values"
+Sweden,records,records_facets,https://records.biodiversitydata.se/ws/occurrence/facets,"atlas_counts, show_values"
 Sweden,records,records_fields,https://records.biodiversitydata.se/ws/index/fields,show_all_fields
 Sweden,records,records_occurrences,https://records.biodiversitydata.se/ws/occurrences/offline/download,atlas_occurrences
 Sweden,records,records_query,https://records.biodiversitydata.se/ws/webportal/params,atlas_occurrences
@@ -173,7 +175,7 @@ Sweden,records,records_species,https://records.biodiversitydata.se/ws/occurrence
 Sweden,spatial,spatial_layers,https://sds.biodiversitydata.se/ws/layers,show_all_fields
 Sweden,species,names_search_single,https://species.biodiversitydata.se/ws/search?q={name}&pageSize=5,search_taxa
 Sweden,species,species_children,https://species.biodiversitydata.se/ws/childConcepts/,atlas_taxonomy
-Sweden,species,species_lookup,https://species.biodiversitydata.se/ws/species,"atlas_taxonomy, search_identifiers(?)"
+Sweden,species,species_lookup,https://species.biodiversitydata.se/ws/species,atlas_taxonomy
 United Kingdom,collections,collections_collections,https://registry.nbnatlas.org/ws/collection,show_all_collections
 United Kingdom,collections,collections_datasets,https://registry.nbnatlas.org/ws/dataResource,show_all_datasets
 United Kingdom,collections,collections_providers,https://registry.nbnatlas.org/ws/dataProvider,show_all_providers
@@ -184,7 +186,7 @@ United Kingdom,lists,lists_lookup,https://lists.nbnatlas.org/ws/speciesListItems
 United Kingdom,logger,logger_reasons,https://logger.nbnatlas.org/service/logger/reasons,show_all_reasons
 United Kingdom,records,records_assertions,https://records-ws.nbnatlas.org/assertions/codes,show_all_assertions
 United Kingdom,records,records_counts,https://records-ws.nbnatlas.org/occurrences/search,atlas_counts
-United Kingdom,records,records_facets,https://records-ws.nbnatlas.org/occurrence/facets,"atlas_counts, show_all_values"
+United Kingdom,records,records_facets,https://records-ws.nbnatlas.org/occurrence/facets,"atlas_counts, show_values"
 United Kingdom,records,records_fields,https://records-ws.nbnatlas.org/index/fields,show_all_fields
 United Kingdom,records,records_occurrences,https://records-ws.nbnatlas.org/occurrences/offline/download,atlas_occurrences
 United Kingdom,records,records_query,https://records-ws.nbnatlas.org/webportal/params,atlas_occurrences

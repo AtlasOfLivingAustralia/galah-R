@@ -19,9 +19,9 @@ The Global Biodiversity Information Facility (GBIF) is the umbrella organisation
 * `show_all(fields)` and `show_all(assertions)`
 * `show_all()` calls that give 'collections' information are limited to 20 records by default, as GBIF datasets are often huge. `search_all()` is generally more reliable
 * `show_values()` for any GBIF field
-* `galah_group_by` (and therefore `group_by()`, see above)
+* `galah_filter` and `galah_group_by` (and therefore `filter` and `group_by()`, see above), but NOT `galah_select`.
 * `atlas_counts()` (and therefore `count()`, see above)
-* `atlas_occurrences()` & `atlas_species()` are implemented via the 'downloads' system, meaning that queries can be larger, but may be slow
+* `atlas_occurrences()` & `atlas_species()`; both are implemented via the 'downloads' system, meaning that queries can be larger, but may be slow
 
 The current implementation is experimental and back-end changes are expected in future. Users who require a more stable implementation should use the {rgbif} package.
 

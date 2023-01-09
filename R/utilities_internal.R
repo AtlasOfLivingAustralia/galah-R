@@ -9,6 +9,7 @@ wanted_columns <- function(type) {
            "taxa" = c("search_term", "scientific_name",
                       "scientific_name_authorship", 
                       "taxon_concept_id", # ALA
+                      "authority", # OpenObs
                       "usage_key", # GBIF
                       "guid", # species search
                       "canonical_name", "status", 
@@ -49,9 +50,15 @@ rename_columns <- function(varnames, type) {
     }
     else if (type == "taxa") {
         varnames[varnames == "classs"] <- "class"
-        varnames[varnames == "usage_key"] <- "taxon_concept_id"
-        varnames[varnames == "usageKey"] <- "taxon_concept_id"
-        varnames[varnames == "guid"] <- "taxon_concept_id"
+        varnames[varnames %in% c("usage_key", "usageKey", "guid", "reference_id", "referenceId")] <- "taxon_concept_id"
+        varnames[varnames %in% c("genus_name", "genusName")] <- "genus"
+        varnames[varnames %in% c("family_name", "familyName")] <- "family"
+        varnames[varnames %in% c("order_name", "orderName")] <- "order"
+        varnames[varnames %in% c("class_name", "className")] <- "class"
+        varnames[varnames %in% c("phylum_name", "phylumName")] <- "phylum"
+        varnames[varnames %in% c("kingdom_name", "kingdomName")] <- "kingdom"
+        varnames[varnames %in% c("rank_name", "rankName")] <- "rank"
+        varnames[varnames %in% c("french_vernacular_name", "frenchVernacularName")] <- "vernacular_name"
     } else if (type == "layer") {
         varnames[varnames == "displayname"] <- "name"
         varnames[varnames == "source_link"] <- "link"
@@ -221,8 +228,6 @@ build_query <- function(identify, filter, location, select = NULL,
     filter_query <- NULL
   } else {
     assert_that(is.data.frame(filter))
-    # remove profile from filter rows
-    # filters <- filters[filters$variable != "profile",]
     if (nrow(filter) == 0) {
       filter_query <- NULL
     } else {
@@ -240,26 +245,17 @@ build_query <- function(identify, filter, location, select = NULL,
   if (!is.null(location)) {
     query$wkt <- location
   }
-  
-  #if (check_for_caching(taxa_query, filter_query, area_query, select)) {
-  #  query <- cached_query(taxa_query, filter_query, area_query)
-  #}
 
   # add profiles information (ALA only)  
   atlas <- getOption("galah_config")$atlas$region == "Australia"
-  
-  if (atlas == "Australia") {
+  if(atlas == "Australia"){
     if (!is.null(profile)) {
       query$qualityProfile <- profile
     } else {
       query$disableAllQualityFilters <- "true"
     }
-  }else{
-    if(atlas == "Spain" & !is.null(profile)){
-      query$profileName <- profile
-    }
-  } 
-  
+  }
+
   query
 }
 
@@ -645,17 +641,6 @@ species_facets <- function(){
          "species_guid"
   )
 }
-
-# taxon_key_type <- function(){
-#   atlas <- getOption("galah_config")$atlas$region
-#   if(any(atlas == c("Estonia"))){
-#     "GBIF"
-#   }else{
-#     "ALA"
-#   }  
-# }
-
-# taxon_key_type <- function(){"ALA"}
 
 
 ## show_all_fields --------------------------#

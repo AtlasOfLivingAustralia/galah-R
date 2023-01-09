@@ -173,10 +173,10 @@ show_all_collections <- function(){
   
   # get url, run
   url <- url_lookup("collections_collections")
-  url_GET(url)
-  df <- url_paginate(url, 
-                     group_size = 500, 
-                     limit_name = limit_name, 
+  # df <- url_GET(url)
+  df <- url_paginate(url,
+                     group_size = 500,
+                     limit_name = limit_name,
                      limit = limit,
                      slot_name = slot_name)
   
@@ -184,6 +184,7 @@ show_all_collections <- function(){
   if(is.null(df)){
     system_down_message("show_all(collections)")
   }else{
+    df <- tibble(df)
     attr(df, "call") <- "show_all_collections"
     return(df)    
   }
@@ -221,6 +222,7 @@ show_all_datasets <- function(){
   if(is.null(df)){
     system_down_message("show_all(datasets)")
   }else{
+    df <- tibble(df)
     attr(df, "call") <- "show_all_datasets"
     return(df)    
   }
@@ -259,6 +261,7 @@ show_all_providers <- function(){
     return(tibble())
   }else{
     # set attributes
+    df <- tibble(df)
     attr(df, "call") <- "show_all_providers"
     return(df)
   }

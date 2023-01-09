@@ -139,6 +139,8 @@ name_lookup <- function(name) {
   if(is.list(result)){
     if(!is.null(result$searchResults$results)){
       result <- result$searchResults$results
+    }else if(getOption("galah_config")$atlas$region == "France"){
+      result <- result$`_embedded`$taxa
     }else{
       result <- lapply(result, function(a){a[1]}) 
     }
@@ -183,14 +185,13 @@ name_lookup <- function(name) {
         x = glue("Homonym issue with \"{name}\".")
       )
       warn(bullets)
-      # return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
     }
   }
   
   if (isFALSE(result$success) && galah_config()$package$verbose) {
     list_invalid_taxa <- glue::glue_collapse(name, 
                                              sep = ", ")
-    inform(glue("No taxon matches were found for \"{list_invalid_taxa}\" in the selected atlas ({getOption('galah_config')$atlas})."))
+    inform(glue("No taxon matches were found for \"{list_invalid_taxa}\" in the selected atlas ({getOption('galah_config')$atlas$region})."))
     return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
   }
 
@@ -205,22 +206,10 @@ name_lookup <- function(name) {
   cbind(
     search_term = name,
     as.data.frame(
-      result[names(result) %in% wanted_columns("taxa")[1:10]],
+      result[names(result) %in% wanted_columns("taxa")[1:11]],
       stringsAsFactors = FALSE),
     as.data.frame(
-      result[names(result) %in% wanted_columns("taxa")[11:33]],
+      result[names(result) %in% wanted_columns("taxa")[11:34]],
       stringsAsFactors = FALSE)
   )
 }
-
-
-# make sure rank provided is in accepted list
-# validate_rank <- function(df) {
-#   ranks <- names(df)
-#   ranks_check <- ranks %in% show_all_ranks()$name
-#   if(any(ranks_check)){
-#     return(df[ranks_check])
-#   }else{
-#     return(NULL)
-#   }
-# }

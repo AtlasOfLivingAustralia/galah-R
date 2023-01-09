@@ -17,6 +17,10 @@ node_metadata <- read_csv("./data-raw/node_metadata.csv") |>
   filter(supported == TRUE) |>
   select(-supported)
   
+node_metadata$institution[
+  which(node_metadata$acronym == "OpenObs")
+  ] <- "Portail français d'accès aux données d'observation sur les espèces"
+
 # configuration for web services of all atlases
 # NOTE:
   # Australia, Brazil & UK use their own taxonomy
