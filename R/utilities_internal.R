@@ -199,7 +199,9 @@ check_n_inputs <- function(dots, error_call = caller_env()) {
 ##----------------------------------------------------------------
 
 # Build query list from constituent arguments
-build_query <- function(identify, filter, location, select = NULL,
+build_query <- function(identify, 
+                        filter, 
+                        location, 
                         profile = NULL) {
                           
   if (is.null(identify)) {
@@ -247,7 +249,7 @@ build_query <- function(identify, filter, location, select = NULL,
   }
 
   # add profiles information (ALA only)  
-  atlas <- getOption("galah_config")$atlas$region == "Australia"
+  atlas <- getOption("galah_config")$atlas$region
   if(atlas == "Australia"){
     if (!is.null(profile)) {
       query$qualityProfile <- profile

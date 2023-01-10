@@ -34,26 +34,27 @@ check_queue <- function(status_initial){
   status <- status_initial
   iter <- 1
   queue_size <- status$queueSize
+  continue <- continue_while_loop(status, success_tag = "finished")
   
   verbose <- getOption("galah_config")$package$verbose
   if(verbose){
     cat(paste0("\nChecking queue\nCurrent queue size: ", queue_size))
+    current_status <- ""
   }
   
-  while(status$status == "inQueue"){
+  while(continue == TRUE){
     if(verbose){
       if(is.null(status$queueSize)){status$queueSize <- 0}
-      if(status$queueSize < queue_size){
+      if(status$queueSize < queue_size & status$queueSize > 0){
         queue_size <- status$queueSize
         cat(paste0(" ", queue_size, " "))
       }else{
-        cat(".")
+        current_status <- print_status(status, current_status)
       }
     }
     status <- url_GET(status$statusUrl)
-    if(is.null(status$statusUrl)){
-      break()
-    }else{
+    continue <- continue_while_loop(status, success_tag = "finished")
+    if(continue){
       if(iter <= n_intervals){
         lag <- interval_times[iter]
       }else{
@@ -81,14 +82,14 @@ check_queue_GBIF <- function(url){
     interval_times <- api_intervals()
     n_intervals <- length(interval_times)
     iter <- 1
-    continue <- continue_while_loop(result)
+    continue <- continue_while_loop(result, success_tag = "SUCCEEDED")
     while(continue == TRUE){
       # query
       if(verbose){
         current_status <- print_status(result, current_status)
       }
       result <- url_GET(url)
-      continue <- continue_while_loop(result)
+      continue <- continue_while_loop(result, success_tag = "SUCCEEDED")
       if(continue){
         # pause
         if(iter <= n_intervals){
@@ -116,11 +117,11 @@ check_queue_GBIF <- function(url){
 }
 
 # several checks to determine whether to keep looping
-continue_while_loop <- function(x){
+continue_while_loop <- function(x, success_tag){
   z <- TRUE
   if(!is.null(x)){
     if(any(names(x) == "status")){
-      if(x$status == "SUCCEEDED"){
+      if(x$status == success_tag){
         z <- FALSE
       }
     }

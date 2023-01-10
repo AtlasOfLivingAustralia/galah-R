@@ -41,7 +41,10 @@ occurrences_LA <- function(identify = NULL,
     profile <- data_profile$data_profile
   }
 
-  query <- build_query(identify, filter, geolocate, select, profile)
+  query <- build_query(identify, 
+                       filter = filter, 
+                       location = geolocate, 
+                       profile = profile)
   
   # Check record count
   if (getOption("galah_config")$package$run_checks) {
@@ -69,13 +72,13 @@ occurrences_LA <- function(identify = NULL,
     query$mintDoi <- "true"
   }
 
-  status_initial <- url_GET(occurrences_url, params = query) # up to here
+  status_initial <- url_GET(occurrences_url, params = query)
 
   # Get data  
   if(is.null(status_initial)){
     return(NULL)
   }
-  download_resp <- url_queue(status_initial) # up to here with GBIF
+  download_resp <- url_queue(status_initial)
   if(is.null(download_resp)){
     inform("Calling the API failed for `atlas_occurrences`")
     return(tibble())
