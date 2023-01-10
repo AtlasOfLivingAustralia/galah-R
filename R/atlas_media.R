@@ -66,6 +66,11 @@ atlas_media <- function(request = NULL,
                         download_dir = NULL,
                         refresh_cache = FALSE
                         ) {
+  
+  if(getOption("galah_config")$atlas$region != "Australia"){
+    abort("`atlas_media` is currently only supported for the Atlas of Living Australia")
+  }
+  
   if(!is.null(request)){
     check_data_request(request)
     current_call <- update_galah_call(request, 
@@ -102,6 +107,9 @@ atlas_media <- function(request = NULL,
   
   # run function using do.call
   result <- do.call(atlas_media_internal, custom_call)
+  if(is.null(result)){
+    result <- tibble()
+  }
   attr(result, "data_type") <- "media"
   attr(result, "data_request") <- custom_call
   

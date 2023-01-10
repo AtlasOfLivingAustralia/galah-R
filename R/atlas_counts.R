@@ -111,6 +111,9 @@ atlas_counts <- function(request = NULL,
         
   # call using do.call
   result <- do.call(atlas_counts_internal, custom_call)
+  if(is.null(result)){
+    result <- tibble()
+  }
   attr(result, "data_type") <- "counts"
   attr(result, "data_request") <- custom_call
 

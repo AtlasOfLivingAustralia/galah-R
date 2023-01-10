@@ -23,29 +23,26 @@ test_that("show_all(licences) works for Spain", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(collections) works for Spain", {
-  vcr::use_cassette("IA_Spain_show_all_collections", {
-    x <- show_all(collections)
-  })
-  expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
-
-test_that("show_all(datasets) works for Spain", {
-  vcr::use_cassette("IA_Spain_show_all_datasets", {
-    x <- show_all(datasets)
-  })
-  expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
-
-test_that("show_all(providers) works for Spain", {
-  vcr::use_cassette("IA_Spain_show_all_providers", {
-    x <- show_all(providers)
-  })
-  expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
+# test_that("show_all(collections) works for Spain", {
+#   skip_on_cran()
+#   x <- show_all(collections)
+#   expect_gt(nrow(x), 1)
+#   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+# })
+# 
+# test_that("show_all(datasets) works for Spain", {
+#   skip_on_cran()
+#   x <- show_all(datasets)
+#   expect_gt(nrow(x), 1)
+#   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+# })
+# 
+# test_that("show_all(providers) works for Spain", {
+#   skip_on_cran()
+#   x <- show_all(providers)
+#   expect_gt(nrow(x), 1)
+#   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+# })
 
 test_that("show_all(reasons) works for Spain", {
   vcr::use_cassette("IA_Spain_show_all_reasons", {
@@ -186,20 +183,20 @@ test_that("galah_select works for Spain", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame"))) 
 })
 
-test_that("atlas_occurrences works for Spain", {
-  skip_on_cran()
-  galah_config(
-    atlas = "Spain",
-    email = "test@ala.org.au", 
-    send_email = FALSE)
-  occ <- galah_call() |>
-    galah_identify("Mammalia") |>
-    galah_filter(year <= 1800) |>
-    galah_select(species, year) |>
-    atlas_occurrences()
-  expect_gt(nrow(occ), 0)
-  expect_equal(ncol(occ), 2)
-  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
-})
+# test_that("atlas_occurrences works for Spain", {
+#   skip_on_cran()
+#   galah_config(
+#     atlas = "Spain",
+#     email = "test@ala.org.au", 
+#     send_email = FALSE)
+#   occ <- galah_call() |>
+#     galah_identify("Mammalia") |>
+#     galah_filter(year <= 1800) |>
+#     galah_select(species, year) |>
+#     atlas_occurrences()
+#   expect_gt(nrow(occ), 0)
+#   expect_equal(ncol(occ), 2)
+#   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+# })
 
 galah_config(atlas = "Australia")

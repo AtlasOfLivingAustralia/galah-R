@@ -1,0 +1,70 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://snib.conap.gob.gt/especies-ws/search?q=Mammalia&pageSize=5
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.21.4
+      date: Tue, 10 Jan 2023 01:58:35 GMT
+      content-type: application/json;charset=UTF-8
+      x-application-context: application:production
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      content-encoding: gzip
+    body:
+      encoding: ''
+      file: no
+      string: '{"searchResults":{"totalRecords":5,"facetResults":[],"results":[{"id":"47b937c8-06fa-4715-a22d-8a13fb4576f6","guid":"359","linkIdentifier":"Mammalia","idxtype":"TAXON","name":"Mammalia","kingdom":"Animalia","nomenclaturalCode":null,"scientificName":"Mammalia","scientificNameAuthorship":null,"author":null,"nameComplete":"Mammalia","nameFormatted":"<span
+        class=\"scientific-name rank-class\"><span class=\"name\">Mammalia<\u002fspan><\u002fspan>","taxonomicStatus":"accepted","nomenclaturalStatus":null,"parentGuid":"44","rank":"class","rankID":3000,"commonName":"Mammals,
+        Mammifères, Mamífero, Zoogdieren, Mammal, Däggdjur, Pattedyr, Sogdyr, Spendyr,
+        Ссавці, 哺乳","commonNameSingle":"Mammals","occurrenceCount":31206,"conservationStatus":null,"favourite":null,"infoSourceName":"GBIF
+        Backbone Taxonomy","infoSourceURL":"https://snib.conap.gob.gt/colecciones/public/show/7ddf754f-d193-4cc9-b351-99906754a03b","image":"d3b55585-1cea-441d-98a0-88c23b2567d0","imageUrl":"https://imagenes.snib.conap.gob.gt/image/proxyImageThumbnailLarge?imageId=d3b55585-1cea-441d-98a0-88c23b2567d0","thumbnailUrl":"https://imagenes.snib.conap.gob.gt/image/proxyImageThumbnail?imageId=d3b55585-1cea-441d-98a0-88c23b2567d0","smallImageUrl":"https://imagenes.snib.conap.gob.gt/image/proxyImageThumbnailLarge?imageId=d3b55585-1cea-441d-98a0-88c23b2567d0","largeImageUrl":"https://imagenes.snib.conap.gob.gt/image/proxyImage?imageId=d3b55585-1cea-441d-98a0-88c23b2567d0","kingdomGuid":"1","phylum":"Chordata","phylumGuid":"44","class":"Mammalia","classGuid":"359"},{"id":"https://snib.conap.gob.gt/colecciones/ws/dataResource/dr480","guid":"https://snib.conap.gob.gt/colecciones/public/show/dr480","linkIdentifier":null,"idxtype":"DATARESOURCE","name":"Naturalis
+        Biodiversity Center (NL) - Mammalia","description":"Database contains specimen
+        records from the Mammalia collection of the Naturalis Biodiversity Center
+        (Leiden, Netherlands). The zoological specimens come from the National Museum
+        of Natural History (RMNH; Rijksmuseum voor Natuurlijke Historie), later National
+        Museum of Natural History, Naturalis in Leiden and the Zoological Museum Amsterdam
+        (ZMA) and new acquisitions. This database replaces the dataset &#34;Zoological
+        Museum Amsterdam, University of Amsterdam (NL) – Mammalia&#34; which was hosted
+        earlier on the GBIF dataportal and contains many new and updated records,
+        especially from the RMNH collection. The old registration numbers of the former
+        institutions (RMNH, ZMA) are also mentioned in the dataset."},{"id":"https://snib.conap.gob.gt/colecciones/ws/dataResource/dr315","guid":"https://snib.conap.gob.gt/colecciones/public/show/dr315","linkIdentifier":null,"idxtype":"DATARESOURCE","name":"Modelado
+        de la distribución potencial de las musarañas (Mammalia, Soricidae)","description":"<p>Las
+        musarañas (Familia Soricidae) constituyen uno de los grupos de mamíferos más
+        diversos y de mayor distribución en el mundo. Sin embargo, estos pequeños
+        mamíferos se encuentran entre los menos conocidos y estudiados en México.
+        A la fecha, algunas especies sólo se conocen de pocos ejemplares depositados
+        en colecciones del extranjero; a su vez, existen registros no identificados
+        a nivel de especie y hay especies que sólo se conocen de la localidad tipo.
+        Recientemente, las musarañas han despertado el interés debido al gran número
+        de especies en México, a su extraordinaria diversificación filogenética,  a
+        sus requerimientos ambientales estrictos y a la amplia variedad de hábitats
+        que ocupan dentro del país. Sin embargo, la falta de la actualización de bases
+        de datos y su escasa depuración compromete el conocimiento adecuado acerca
+        de  sus registros y la distribución potencial de la tercera familia de mamíferos
+        más diversa en México, pero a la vez, la menos conocida.<\u002fp>\n<p>Reino:
+        1\nFilo: 1\nClase: 1\nOrden: 1\nFamilia: 1\nGénero: 3\nEspecie: 21\nEpitetoinfraespecifico:
+        25<\u002fp>"},{"id":"https://snib.conap.gob.gt/colecciones/ws/dataResource/dr408","guid":"https://snib.conap.gob.gt/colecciones/public/show/dr408","linkIdentifier":null,"idxtype":"DATARESOURCE","name":"The
+        taxonomic status of Long-tailed shrews (Mammalia: genus Sorex) from Nuclear
+        Central America","description":"This dataset contains the digitized treatments
+        in Plazi based on the original journal article Matson, John O., Ordóñez-Garza,
+        Nicté (2017): The taxonomic status of Long-tailed shrews (Mammalia: genus
+        Sorex) from Nuclear Central America. Zootaxa 4236 (3): 461-483, DOI: https://doi.org/10.11646/zootaxa.4236.3.3"},{"id":"kb6000196777","guid":"https://support.ala.org.au/support/solutions/articles/6000196777-ala-api-how-to-access-ala-web-services","linkIdentifier":null,"idxtype":"KNOWLEDGEBASE","name":"ALA
+        API - how to access ALA web services","description":null}],"queryTitle":"Mammalia"}}'
+  recorded_at: 2023-01-10 01:58:35 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

@@ -37,8 +37,6 @@ occurrences_GBIF <- function(identify = NULL,
     }
   }
 
-  tmp <- tempfile()
-
   if(!is.null(identify)){
     filter <- rbind(
       filter,

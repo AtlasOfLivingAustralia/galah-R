@@ -57,8 +57,6 @@ occurrences_LA <- function(identify = NULL,
     }
   }
 
-  tmp <- tempfile()
-
   query <- c(query,
     fields = build_columns(select[select$type != "assertion", ]),
     qa = build_assertion_columns(select),

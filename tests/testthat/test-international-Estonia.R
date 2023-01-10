@@ -88,7 +88,7 @@ vcr::use_cassette("IA_Estonia_atlas_counts", {
   })
 })
 
-vcr::use_cassette("IA_Estonia_atlas_counts3", {
+vcr::use_cassette("IA_Estonia_atlas_counts_group_by", {
   test_that("atlas_counts works with group_by for Estonia", {
     result <- galah_call() |>
       galah_filter(year >= 2018) |>

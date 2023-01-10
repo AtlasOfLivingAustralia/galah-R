@@ -118,7 +118,7 @@ test_that("atlas_counts fails for GBIF when type = 'species'", {
   expect_error(atlas_counts(type = "species"))
 })
 
-vcr::use_cassette("IA_GBIF_atlas_counts2", {
+vcr::use_cassette("IA_GBIF_atlas_counts_identify", {
   test_that("atlas_counts works with galah_identify for GBIF", {
     result <- galah_call() |>
       galah_identify("Mammalia") |>
@@ -127,7 +127,7 @@ vcr::use_cassette("IA_GBIF_atlas_counts2", {
   })
 })
 
-vcr::use_cassette("IA_GBIF_atlas_counts3", {
+vcr::use_cassette("IA_GBIF_atlas_counts_group_by", {
   test_that("atlas_counts works with group_by for GBIF", {
     result <- galah_call() |>
       galah_filter(year >= 2020) |>

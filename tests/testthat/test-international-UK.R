@@ -1,4 +1,4 @@
-context("Test international atlases: Portugal")
+context("Test international atlases: United Kingdom")
 
 # set verbose to off
 galah_config(verbose = FALSE, run_checks = FALSE)
@@ -7,32 +7,77 @@ test_that("swapping to atlas = United Kingdom works", {
   expect_message(galah_config(atlas = "United Kingdom"))
 })
 
-# putting this first to ensure show_all_fields gets cached properly
-# if this doesn't happen, later field name checks call the wrong atlas (Aus)
-# leading later tests to fail
-vcr::use_cassette("IA_United_Kingdom_show_all_fields", {
-  test_that("show_all works for United Kingdom", {
-    result <- show_all_fields()
-    expect_gt(nrow(result), 1)
+test_that("show_all(fields) works for UK", {
+  vcr::use_cassette("IA_UK_show_all_fields", {
+    x <- show_all_fields()
   })
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
-  
-vcr::use_cassette("IA_United_Kingdom_show_all", {
-  test_that("show_all works for United Kingdom", {
-    ## collectory
-    expect_gt(nrow(show_all(collections)), 1)
-    expect_gt(nrow(show_all(datasets)), 1)
-    expect_gt(nrow(show_all(providers)), 1)  
-    ## records
-    expect_gt(nrow(show_all(assertions)), 1)
-    # logger
-    expect_gt(nrow(show_all(reasons)), 1)
-    # profiles
-    expect_error(show_all(profiles))
-    # lists
-    expect_gt(nrow(show_all(lists)), 1)
+
+test_that("show_all(collections) works for UK", {
+  skip_on_cran()
+  x <- show_all(collections)
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(datasets) works for UK", {
+  skip_on_cran()
+  x <- show_all(datasets)
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(providers) works for UK", {
+  vcr::use_cassette("IA_UK_show_all_providers", {
+    x <- show_all(providers)
   })
-}) 
+  expect_gte(nrow(x), 0) # no data at present
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(reasons) fails for UK", {
+  vcr::use_cassette("IA_UK_show_all_reasons", {
+    x <- show_all(reasons)
+  })
+  expect_gte(nrow(x), 0) # no data at present
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(assertions) works for UK", {
+  vcr::use_cassette("IA_UK_show_all_assertions", {
+    x <- show_all(assertions)
+  })
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(profiles) fails for UK", {
+  expect_error(show_all(profiles))
+})
+
+test_that("show_all(lists) fails for UK", {
+  vcr::use_cassette("IA_UK_show_all_lists", {
+    x <- show_all(lists)
+  })
+  expect_gte(nrow(x), 0) # no data at present
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("search_all(fields) works for UK", {
+  x <- search_all(fields, "year")
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("search_all(taxa) works for UK", {
+  vcr::use_cassette("IA_UK_search_all_taxa", {
+    x <- search_all(taxa, "Mammalia")
+  })
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
 
 vcr::use_cassette("IA_United_Kingdom_search_taxa_multiple", {
   test_that("search_taxa works for multiple queries", {
@@ -47,50 +92,35 @@ vcr::use_cassette("IA_United_Kingdom_search_taxa_types", {
   })
 })
 
-vcr::use_cassette("IA_United_Kingdom_search_all", {
-  test_that("search_all works for United Kingdom", {
-    expect_equal(class(search_all(fields, "year")), 
-                 c("tbl_df", "tbl", "data.frame"))
-    expect_equal(nrow(search_all(taxa, "Mammalia")), 1) 
+test_that("show_values works for UK", {
+  x <- search_fields("basis_of_record") 
+  vcr::use_cassette("IA_UK_show_values_field", {
+   y <- show_values(x)
   })
+  expect_gt(nrow(y), 1)
 })
 
-vcr::use_cassette("IA_United_Kingdom_show_field_values", {
-  test_that("show_values_field works for United Kingdom", {
-    search_fields("basis_of_record") |> 
-      show_values() |>
-      nrow() |>
-      expect_gt(1)
+test_that("show_list_values works for United Kingdom", {
+  vcr::use_cassette("IA_UK_show_list_values", {
+    x <- search_lists("dr556") |> 
+      show_values()
   })
+  expect_gt(nrow(x), 1)
 })
 
-vcr::use_cassette("IA_United_Kingdom_show_values", {
-  test_that("show_values works for United Kingdom", {
-
-    search_lists("dr556") |> 
-      show_values() |>
-      nrow() |>
-      expect_gt(1)
-    
-    search_profiles("profile") |> 
-      show_values() |>
-      expect_error()
-  })
-})
-
-vcr::use_cassette("IA_United_Kingdom_atlas_counts_records", {
+vcr::use_cassette("IA_UK_atlas_counts_records", {
   test_that("atlas_counts w records  works for United Kingdom", {
     expect_gt(atlas_counts()$count, 0)
   })
 })
 
-vcr::use_cassette("IA_United_Kingdom_atlas_counts_species", {
+vcr::use_cassette("IA_UK_atlas_counts_species", {
   test_that("atlas_counts w species works for United Kingdom", {
     expect_gt(atlas_counts(type = "species")$count, 0)
   })
 })
 
-vcr::use_cassette("IA_United_Kingdom_atlas_counts2", {
+vcr::use_cassette("IA_UK_atlas_counts_identify", {
   test_that("atlas_counts works with galah_identify for United Kingdom", {
     result <- galah_call() |>
       galah_identify("Mammalia") |>
@@ -107,7 +137,7 @@ vcr::use_cassette("IA_United_Kingdom_atlas_counts2", {
   })
 })
 
-vcr::use_cassette("IA_United_Kingdom_atlas_counts3", {
+vcr::use_cassette("IA_UK_atlas_counts_group_by", {
   test_that("atlas_counts works with group_by for United Kingdom", {
     result <- galah_call() |>
       galah_filter(year >= 2020) |>

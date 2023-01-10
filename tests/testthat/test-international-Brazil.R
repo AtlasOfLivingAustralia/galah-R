@@ -103,7 +103,7 @@ vcr::use_cassette("IA_Brazil_atlas_counts", {
   })
 })
 
-vcr::use_cassette("IA_Brazil_atlas_counts2", {
+vcr::use_cassette("IA_Brazil_atlas_counts_identify", {
   test_that("atlas_counts works with galah_identify for Brazil", {
     result <- galah_call() |>
       galah_identify("Mammalia") |>
@@ -120,7 +120,7 @@ vcr::use_cassette("IA_Brazil_atlas_counts2", {
   })
 })
 
-vcr::use_cassette("IA_Brazil_atlas_counts3", {
+vcr::use_cassette("IA_Brazil_atlas_counts_group_by", {
   test_that("atlas_counts works with group_by for Brazil", {
     result <- galah_call() |>
       galah_filter(year >= 2020) |>

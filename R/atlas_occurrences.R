@@ -136,6 +136,9 @@ atlas_occurrences <- function(request = NULL,
 
   # run function using do.call
   result <- do.call(function_name, custom_call)
+  if(is.null(result)){
+    result <- tibble()
+  }
   attr(result, "data_request") <- custom_call
 
   # if caching requested, save

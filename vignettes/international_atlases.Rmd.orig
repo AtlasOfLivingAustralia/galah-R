@@ -1,5 +1,5 @@
 ---
-title: "International Atlases"
+title: "Choosing an atlas"
 author: "Martin Westgate, Dax Kellie"
 date: '`r Sys.Date()`'
 output:
@@ -15,21 +15,22 @@ library(galah)
 galah_config(atlas = "Australia", verbose = FALSE)
 ```
 
-The architecture developed by the ALA to store biodiversity data is used by over
-20 International Living Atlases. Although there are slight differences in the 
-core components of each Atlas's architecture, `galah` is flexible enough to 
-handle most of these differences. As a result, it is possible to change which 
-Living Atlas you get data from in `galah` 
+The GBIF network consists of a series of a series of 'node' organisations who
+collate biodiversity data from their own countries, with GBIF acting as an 
+umbrella organisation to store data from all nodes. Several nodes have their 
+own APIs, often built from the 'living atlas' codebase developed by the ALA.
+Although there are slight differences in the core components of each atlas's 
+architecture, `galah` is flexible enough to handle most of these differences. 
+As a result, it is possible to change which node you get data from in `galah`.
 
-
-## Supported Atlases
+## Supported Organisations
 
 To see which international Living Atlases `galah` currently supports, use  
 `show_all_atlases()`.
 
 ```{r}
 library(galah)
-show_all(atlases)
+show_all(atlases) # make this a GT table or similar
 ```
 
 Some atlases support more types of data queries than others (e.g. counts, 
@@ -41,17 +42,19 @@ Programming Interfaces (APIs).
 show_all(apis)
 ```
 
-## Set Atlas
+## Set Organisation
 
 Set which atlas you want to use by changing the `atlas` argument in 
-`galah_config()`. This will automatically update `galah`'s server configuration 
-to your selected Atlas. The default `atlas` is Australia.
+`galah_config()`. The `atlas` argument can accept a full name, an acronym, or a 
+region to select a given atlas. Once a value is provided, it will automatically 
+update `galah`'s server configuration to your selected atlas. The default 
+`atlas` is Australia.
 
 If you intend to download records, you may need to register a user profile with 
-the relevant Atlas first. 
+the relevant atlas first. 
 
 ```{r eval=FALSE}
-galah_config(atlas = "Spain", email = "your_email_here")
+galah_config(atlas = "GBIF.es", email = "your_email_here")
 ```
 
 ## Look up Information

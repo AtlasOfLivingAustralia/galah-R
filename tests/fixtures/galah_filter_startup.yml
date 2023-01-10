@@ -23,20 +23,20 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Fri, 06 Jan 2023 01:26:13 GMT
+      date: Tue, 10 Jan 2023 05:37:36 GMT
       expires: '0'
       pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.3
       set-cookie:
-      - AWSALBTG=4HLEn5Cl7kMFCcQvS6JkcmpDojxckhlN16erJzzEkDRuU+UxhvsZP3gTIG8OiOV/qR6vq7nU3JQ+4KOa4xlboiVe5Yxgy/DM2OLfZoduQE7Qqqut7rUG2khH48NdpQHXMZdbf2ESEIKSQrNruhc362c+sLLgcAVt1g91VBr64wA2;
-        Expires=Fri, 13 Jan 2023 01:26:13 GMT; Path=/
-      - AWSALBTGCORS=4HLEn5Cl7kMFCcQvS6JkcmpDojxckhlN16erJzzEkDRuU+UxhvsZP3gTIG8OiOV/qR6vq7nU3JQ+4KOa4xlboiVe5Yxgy/DM2OLfZoduQE7Qqqut7rUG2khH48NdpQHXMZdbf2ESEIKSQrNruhc362c+sLLgcAVt1g91VBr64wA2;
-        Expires=Fri, 13 Jan 2023 01:26:13 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=3wZElCPjxTMT+IaESpb91fQepTbyDbc7hrv7mvETx1E3BAlf+txs1inA1FGEH4N0VvzKoc+DMgQ1FLKERFqA0TqZ/PqSP23Q4KwpJ8a2WUnO6JsKa+V2voPn2ORl;
-        Expires=Fri, 13 Jan 2023 01:26:13 GMT; Path=/
-      - AWSALBCORS=3wZElCPjxTMT+IaESpb91fQepTbyDbc7hrv7mvETx1E3BAlf+txs1inA1FGEH4N0VvzKoc+DMgQ1FLKERFqA0TqZ/PqSP23Q4KwpJ8a2WUnO6JsKa+V2voPn2ORl;
-        Expires=Fri, 13 Jan 2023 01:26:13 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=0PeK9nwVEiA/HYY+zrXqil+qXNtcptic7j+sGv8Jcg3i20GbXNiDca4elgidWNNtXQM0YwT2wSCr7nbMDVt3HmZLktlHesW60pNCiM2UntuVTgLFGGlEJzHIWuxpkL10oNryj9UunrFaxzXqOc5uhi2KCG9v99Q9Ul/QlLRmebrx;
+        Expires=Tue, 17 Jan 2023 05:37:36 GMT; Path=/
+      - AWSALBTGCORS=0PeK9nwVEiA/HYY+zrXqil+qXNtcptic7j+sGv8Jcg3i20GbXNiDca4elgidWNNtXQM0YwT2wSCr7nbMDVt3HmZLktlHesW60pNCiM2UntuVTgLFGGlEJzHIWuxpkL10oNryj9UunrFaxzXqOc5uhi2KCG9v99Q9Ul/QlLRmebrx;
+        Expires=Tue, 17 Jan 2023 05:37:36 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=8TjumaucPEpnevv+8+TSWPRY3BBX3DMmgkVSJPLIg0JYDTWD3i1/0kmrplUKFWylqFCWqAuJVmAxEzaG/tMLm1fyOFBw1QXpqsPRJVQICFPH48Lpu6zcbcmkiseT;
+        Expires=Tue, 17 Jan 2023 05:37:36 GMT; Path=/
+      - AWSALBCORS=8TjumaucPEpnevv+8+TSWPRY3BBX3DMmgkVSJPLIg0JYDTWD3i1/0kmrplUKFWylqFCWqAuJVmAxEzaG/tMLm1fyOFBw1QXpqsPRJVQICFPH48Lpu6zcbcmkiseT;
+        Expires=Tue, 17 Jan 2023 05:37:36 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -46,7 +46,7 @@ http_interactions:
       - DENY
       x-xss-protection: 1; mode=block
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"name":"AMBIGUOUS_COLLECTION","code":2059,"description":"Ambiguous
         collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
@@ -166,8 +166,8 @@ http_interactions:
         error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
         occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
         coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","verbatimLongitude","decimalLongitude","verbatimCoordinates","verbatimLatitude"]}]'
-  recorded_at: 2023-01-06 01:26:13 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 05:37:36 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
     uri: https://biocache-ws.ala.org.au/ws/assertions/codes
@@ -192,20 +192,20 @@ http_interactions:
       content-encoding: gzip
       content-security-policy: upgrade-insecure-requests
       content-type: application/json
-      date: Fri, 06 Jan 2023 01:26:13 GMT
+      date: Tue, 10 Jan 2023 05:37:36 GMT
       expires: '0'
       pragma: no-cache
       referrer-policy: strict-origin-when-cross-origin
       server: nginx/1.23.3
       set-cookie:
-      - AWSALBTG=h9gV4jxfE3vWGyRQ+3jUnBCB/2AiJ79nAoglFwaZPE30nUG5iyxjWKfIZCTHV8m81VTOttmlV8lRmuVZvuZdc80xMyhUmMdu1U65flI8wYj/ovKsX+G/ilgr2noTfGojtX8oKDENUw28Ch0vz+xxe5nG6uQKmdmDZhE5HaTl62QY;
-        Expires=Fri, 13 Jan 2023 01:26:13 GMT; Path=/
-      - AWSALBTGCORS=h9gV4jxfE3vWGyRQ+3jUnBCB/2AiJ79nAoglFwaZPE30nUG5iyxjWKfIZCTHV8m81VTOttmlV8lRmuVZvuZdc80xMyhUmMdu1U65flI8wYj/ovKsX+G/ilgr2noTfGojtX8oKDENUw28Ch0vz+xxe5nG6uQKmdmDZhE5HaTl62QY;
-        Expires=Fri, 13 Jan 2023 01:26:13 GMT; Path=/; SameSite=None; Secure
-      - AWSALB=bdXGyXkbbVT5PG1Hu28cIbciwTZMbqnk/ckOrUN84KAEFR6F+CvHFK8XBxXLD0jwhotFqYPGjTAX/HYlZLr4W0sKqum2FDm/xO8U0qM+Wo+gC94eQAGFyOTZ3Kmn;
-        Expires=Fri, 13 Jan 2023 01:26:13 GMT; Path=/
-      - AWSALBCORS=bdXGyXkbbVT5PG1Hu28cIbciwTZMbqnk/ckOrUN84KAEFR6F+CvHFK8XBxXLD0jwhotFqYPGjTAX/HYlZLr4W0sKqum2FDm/xO8U0qM+Wo+gC94eQAGFyOTZ3Kmn;
-        Expires=Fri, 13 Jan 2023 01:26:13 GMT; Path=/; SameSite=None; Secure
+      - AWSALBTG=FQi6Q1QPEZr5wy8+n3dQM12ZtmiMQ1W2U5V+G4IkgrUaX6vwj71qd8+KTj6+VFGyVPw/VV7Cg9jogISTcZQUMadJLBDiQYac7g8mRtiijt/+Bn7YnT4LfG10P6en81pmz3GnbhqW43GgGnEhRaiKe15/Ze7UtyaEyMmNQJNwtpsD;
+        Expires=Tue, 17 Jan 2023 05:37:36 GMT; Path=/
+      - AWSALBTGCORS=FQi6Q1QPEZr5wy8+n3dQM12ZtmiMQ1W2U5V+G4IkgrUaX6vwj71qd8+KTj6+VFGyVPw/VV7Cg9jogISTcZQUMadJLBDiQYac7g8mRtiijt/+Bn7YnT4LfG10P6en81pmz3GnbhqW43GgGnEhRaiKe15/Ze7UtyaEyMmNQJNwtpsD;
+        Expires=Tue, 17 Jan 2023 05:37:36 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=QEw6m0f1SWP6OWC+jmE314rvXdQ1F1yE20z44mNSBzEIudr6gAXaNo09H4ab0tkIC88wmtOpw3HB42QXbc7NyOZSr3sK3VVrLDImmdMDbtjHdWVRF7YsEiVsxAXn;
+        Expires=Tue, 17 Jan 2023 05:37:36 GMT; Path=/
+      - AWSALBCORS=QEw6m0f1SWP6OWC+jmE314rvXdQ1F1yE20z44mNSBzEIudr6gAXaNo09H4ab0tkIC88wmtOpw3HB42QXbc7NyOZSr3sK3VVrLDImmdMDbtjHdWVRF7YsEiVsxAXn;
+        Expires=Tue, 17 Jan 2023 05:37:36 GMT; Path=/; SameSite=None; Secure
       status: 'HTTP/2 200 '
       strict-transport-security: max-age=31536000
       www-authenticate: Bearer realm="authentication required"
@@ -215,7 +215,7 @@ http_interactions:
       - DENY
       x-xss-protection: 1; mode=block
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"name":"AMBIGUOUS_COLLECTION","code":2059,"description":"Ambiguous
         collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
@@ -335,5 +335,5 @@ http_interactions:
         error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
         occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
         coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","decimalLongitude","verbatimCoordinates"]}]'
-  recorded_at: 2023-01-06 01:26:13 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 05:37:36 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

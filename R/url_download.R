@@ -12,10 +12,8 @@ url_download <- function(url,
   
   # check cache file exists
   if(missing(cache_file)){
-    cache_dir <- getOption("galah_config")$package$cache_directory
-    if(!dir.exists(dirname(cache_dir))){
-      dir.create(cache_file)
-    }
+    cache_dir <- tempfile()
+    dir.create(cache_dir)
     cache_file <- paste0(cache_dir, "/temp_file.", ext)
   }else{
     if(!dir.exists(dirname(cache_file))){
@@ -45,7 +43,6 @@ url_download <- function(url,
            "zip" = {
               unzip(cache_file, exdir = cache_dir)
               all_files <- list.files(cache_dir)
-              # all_files <- paste(cache_dir, list.files(cache_dir), sep = "/")
               if(is_gbif()){
                 import_files <- paste(cache_dir, 
                                       all_files[grepl(".csv$", all_files)],
