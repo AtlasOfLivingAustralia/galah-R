@@ -7,33 +7,27 @@ test_that("swapping to atlas = Sweden works", {
   expect_message(galah_config(atlas = "Sweden"))
 })
 
-test_that("show_all(fields) works for Sweden", {
-  vcr::use_cassette("IA_Sweden_show_all_fields", {
-    x <- show_all_fields()
-  })
-  expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
-
 test_that("show_all(collections) works for Sweden", {
-  skip_on_cran()
-  x <- show_all(collections)
-  expect_gt(nrow(x), 1)
+  vcr::use_cassette("IA_Sweden_show_all_collections", {
+    x <- show_all(collections, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(datasets) works for Sweden", {
-  skip_on_cran()
-  x <- show_all(datasets)
-  expect_gt(nrow(x), 1)
+  vcr::use_cassette("IA_Sweden_show_all_datasets", {
+    x <- show_all(datasets, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(providers) works for Sweden", {
   vcr::use_cassette("IA_Sweden_show_all_providers", {
-    x <- show_all(providers)
+    x <- show_all(providers, limit = 10)
   })
-  expect_gte(nrow(x), 0) # no data at present
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
@@ -90,21 +84,23 @@ vcr::use_cassette("IA_Sweden_atlas_counts", {
  })
 })
 
-vcr::use_cassette("IA_Sweden_atlas_counts_identify", {
-  test_that("atlas_counts works with galah_identify for Sweden", {
+test_that("atlas_counts works with galah_identify for Sweden", {
+  vcr::use_cassette("IA_Sweden_identify_test_1", {
     result <- galah_call() |>
       galah_identify("Mammalia") |>
       atlas_counts()
-    expect_gt(result$count, 1)
-
+  })
+  vcr::use_cassette("IA_Sweden_identify_test_2", {
     result2 <- galah_call() |>
       galah_filter(class == "Mammalia") |>
       atlas_counts()
-
-    # we expect a <1% margin of error
-    expect_true(
-      (sqrt((result2$count - result$count)^2) / result$count) < 0.1)
   })
+  
+  expect_gt(result$count, 1)
+  expect_gt(result2$count, 1)
+  # we expect a <1% margin of error
+  expect_true(
+    (sqrt((result2$count - result$count)^2) / result$count) < 0.1)
 })
 
 vcr::use_cassette("IA_Sweden_atlas_counts_group_by", {

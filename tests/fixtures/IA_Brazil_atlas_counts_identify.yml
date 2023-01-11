@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 10 Jan 2023 01:41:34 GMT
+      date: Tue, 10 Jan 2023 08:51:12 GMT
       content-type: application/json;charset=UTF-8
       x-application-context: application:production
       strict-transport-security: max-age=15724800; includeSubDomains
@@ -28,7 +28,7 @@ http_interactions:
         class=\"scientific-name rank-class\"><span class=\"name\">Mammalia<\u002fspan>
         <span class=\"author\">Linnaeus, 1758<\u002fspan><\u002fspan>","taxonomicStatus":"accepted","nomenclaturalStatus":null,"parentGuid":"239567","rank":"class","rankID":3000,"commonName":"","commonNameSingle":"","occurrenceCount":193747,"conservationStatus":null,"favourite":null,"infoSourceName":"Catálogo
         Taxonômico da Fauna do Brasil e Lista da Flora do Brasil 2020","infoSourceURL":"https://collectory.sibbr.gov.br/collectory                                                                 /public/show/null","image":"6ee8e686-a9b7-4aa7-9ce9-c2a4c26dc8f7","imageUrl":"https://images.sibbr.gov.br/images/image/proxyImageThumbnailLarge?imageId=6ee8e686-a9b7-4aa7-9ce9-c2a4c26dc8f7                           ","thumbnailUrl":"https://images.sibbr.gov.br/images/image/proxyImageThumbnail?imageId=6ee8e686-a9b7-4aa7-9ce9-c2a4c26dc8f7                             ","smallImageUrl":"https://images.sibbr.gov.br/images/image/proxyImageThumbnailLarge?imageId=6ee8e686-a9b7-4aa7-9ce9-c2a4c26dc8f7                           ","largeImageUrl":"https://images.sibbr.gov.br/images/image/proxyImage?imageId=6ee8e686-a9b7-4aa7-9ce9-c2a4c26dc8f7                                          ","kingdomGuid":"395634","phylum":"Chordata","phylumGuid":"239567","class":"Mammalia","classGuid":"239610"}],"queryTitle":"Mammalia"}}'
-  recorded_at: 2023-01-10 01:41:36 GMT
+  recorded_at: 2023-01-10 08:51:13 GMT
   recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
@@ -47,7 +47,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 10 Jan 2023 01:41:35 GMT
+      date: Tue, 10 Jan 2023 08:51:12 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -62,7 +62,7 @@ http_interactions:
         records]","activeFacetMap":{"(lsid":{"name":"(lsid","displayName":"(<span
         class=''lsid'' id=''239610''>CLASS: Mammalia</span>)","value":"239610)"}},"activeFacetObj":{"lsid":[{"name":"lsid","displayName":"(<span
         class=''lsid'' id=''239610''>CLASS: Mammalia</span>)","value":"(lsid:239610)"}]}}'
-  recorded_at: 2023-01-10 01:41:36 GMT
+  recorded_at: 2023-01-10 08:51:13 GMT
   recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
@@ -81,7 +81,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 10 Jan 2023 01:41:35 GMT
+      date: Tue, 10 Jan 2023 08:51:13 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -188,7 +188,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2023-01-10 01:41:36 GMT
+  recorded_at: 2023-01-10 08:51:13 GMT
   recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
@@ -207,7 +207,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 10 Jan 2023 01:41:36 GMT
+      date: Tue, 10 Jan 2023 08:51:13 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -220,5 +220,5 @@ http_interactions:
       file: no
       string: '{"pageSize":0,"startIndex":0,"totalRecords":193747,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&fq=(class%3A%22Mammalia%22)","urlParameters":"?q=*%3A*&fq=(class%3A%22Mammalia%22)","queryTitle":"[all
         records]","activeFacetMap":{"(class":{"name":"(class","displayName":"(Class:\"Mammalia\")","value":"\"Mammalia\")"}},"activeFacetObj":{"class":[{"name":"class","displayName":"(Class:\"Mammalia\")","value":"(class:\"Mammalia\")"}]}}'
-  recorded_at: 2023-01-10 01:41:36 GMT
+  recorded_at: 2023-01-10 08:51:13 GMT
   recorded_with: vcr/1.2.0, webmockr/0.8.0

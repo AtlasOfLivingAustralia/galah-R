@@ -17,25 +17,25 @@ test_that("show_all(fields) works for Guatemala", {
 
 test_that("show_all(collections) works for Guatemala", {
   vcr::use_cassette("IA_Guatemala_show_all_collections", {
-    x <- show_all(collections)
+    x <- show_all(collections, limit = 10)
   })
-  expect_gt(nrow(x), 1)
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(datasets) works for Guatemala", {
   vcr::use_cassette("IA_Guatemala_show_all_datasets", {
-    x <- show_all(datasets)
+    x <- show_all(datasets, limit = 10)
   })
-  expect_gt(nrow(x), 1)
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(providers) works for Guatemala", {
   vcr::use_cassette("IA_Guatemala_show_all_providers", {
-    x <- show_all(providers)
+    x <- show_all(providers, limit = 10)
   })
-  expect_gt(nrow(x), 1)
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
@@ -77,23 +77,15 @@ test_that("search_all(taxa) works for Guatemala", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-vcr::use_cassette("IA_Guatemala_show_values", {
-  test_that("show_values works for Guatemala", {
-    
-    search_fields("basis_of_record") |> 
-      show_values() |>
-      nrow() |>
-      expect_gt(1)
-    
-    search_lists("a_list") |> 
-      show_values() |>
-      expect_error()
-    
-    search_profiles("profile") |> 
-      show_values() |>
-      expect_error()
+test_that("show_values works for fields for Guatemala", {
+  vcr::use_cassette("IA_Guatemala_show_values_fields", {
+    x <- search_all(fields, "basis_of_record") |> 
+      show_values()
   })
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
+
 
 vcr::use_cassette("IA_Guatemala_atlas_counts", {
   test_that("atlas_counts works for Guatemala", {

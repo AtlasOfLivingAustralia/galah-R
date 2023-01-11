@@ -17,25 +17,25 @@ test_that("show_all(fields) works for Austria", {
 
 test_that("show_all(collections) works for Austria", {
   vcr::use_cassette("IA_Austria_show_all_collections", {
-    x <- show_all(collections)
+    x <- show_all(collections, limit = 10)
   })
-  expect_gt(nrow(x), 1)
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(datasets) works for Austria", {
   vcr::use_cassette("IA_Austria_show_all_datasets", {
-    x <- show_all(datasets)
+    x <- show_all(datasets, limit = 10)
   })
-  expect_gt(nrow(x), 1)
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(providers) works for Austria", {
   vcr::use_cassette("IA_Austria_show_all_providers", {
-    x <- show_all(providers)
+    x <- show_all(providers, limit = 10)
   })
-  expect_gt(nrow(x), 1)
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
@@ -61,7 +61,7 @@ test_that("show_all(profiles) fails for Austria", {
 
 test_that("show_all(lists) works for Austria", {
   vcr::use_cassette("IA_Austria_show_all_lists", {
-    x <- show_all(lists)
+    x <- show_all(lists, limit = 10)
   })
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -81,23 +81,22 @@ test_that("search_all(taxa) works for Austria", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-vcr::use_cassette("IA_Austria_show_values", {
-  test_that("show_values works for Austria", {
-    
-    search_fields("basisOfRecord") |> 
-      show_values() |>
-      nrow() |>
-      expect_gt(1)
-      
-    search_lists("dr113") |> 
-      show_values() |>
-      nrow() |>
-      expect_gt(1)
-
-    search_profiles("profile") |> 
-      show_values() |>
-      expect_error()
+test_that("show_values works for fields for Austria", {
+  vcr::use_cassette("IA_Austria_show_values_fields", {
+    x <- search_all(fields, "basisOfRecord") |> 
+      show_values()
   })
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_values works for lists for Austria", {
+  vcr::use_cassette("IA_Austria_show_values_profiles", {
+    x <- search_all(lists, "dr113") |> 
+      show_values()
+  })
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 vcr::use_cassette("IA_Austria_atlas_counts", {

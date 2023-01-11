@@ -18,25 +18,25 @@ test_that("show_all(fields) works for GBIF", {
 
 test_that("show_all(collections) works for GBIF", {
   vcr::use_cassette("IA_GBIF_show_all_collections", {
-    x <- show_all(collections)
+    x <- show_all(collections, limit = 10)
   })
-  expect_equal(nrow(x), 20)
+  expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(datasets) works for GBIF", {
   vcr::use_cassette("IA_GBIF_show_all_datasets", {
-    x <- show_all(datasets)
+    x <- show_all(datasets, limit = 10)
   })
-  expect_equal(nrow(x), 20)
+  expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(providers) works for GBIF", {
   vcr::use_cassette("IA_GBIF_show_all_providers", {
-    x <- show_all(providers)
+    x <- show_all(providers, limit = 10)
   })
-  expect_equal(nrow(x), 20)
+  expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 

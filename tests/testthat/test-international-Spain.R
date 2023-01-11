@@ -23,26 +23,29 @@ test_that("show_all(licences) works for Spain", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# test_that("show_all(collections) works for Spain", {
-#   skip_on_cran()
-#   x <- show_all(collections)
-#   expect_gt(nrow(x), 1)
-#   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-# })
-# 
-# test_that("show_all(datasets) works for Spain", {
-#   skip_on_cran()
-#   x <- show_all(datasets)
-#   expect_gt(nrow(x), 1)
-#   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-# })
-# 
-# test_that("show_all(providers) works for Spain", {
-#   skip_on_cran()
-#   x <- show_all(providers)
-#   expect_gt(nrow(x), 1)
-#   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-# })
+test_that("show_all(collections) works for Spain", {
+  vcr::use_cassette("IA_Spain_show_all_collections", {
+    x <- show_all(collections, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(datasets) works for Spain", {
+  vcr::use_cassette("IA_Spain_show_all_datasets", {
+    x <- show_all(datasets, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(providers) works for Spain", {
+  vcr::use_cassette("IA_Spain_show_all_providers", {
+    x <- show_all(providers, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
 
 test_that("show_all(reasons) works for Spain", {
   vcr::use_cassette("IA_Spain_show_all_reasons", {
@@ -70,9 +73,9 @@ test_that("show_all(profiles) works for Spain", {
 
 test_that("show_all(lists) works for Spain", {
   vcr::use_cassette("IA_Spain_show_all_lists", {
-    x <- show_all(lists)
+    x <- show_all(lists, limit = 10)
   })
-  expect_gt(nrow(x), 1)
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
@@ -108,7 +111,7 @@ test_that("search_all(identifiers) works for Spain", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_values works for fields for Spain", {.
+test_that("show_values works for fields for Spain", {
   vcr::use_cassette("IA_Spain_show_values_fields", {
     x <- search_all(fields, "basis_of_record") |> 
       show_values()
@@ -161,7 +164,7 @@ vcr::use_cassette("IA_Spain_atlas_counts_group_by", {
   })
 })
 
-## important, but no documentation available on *how* to filter records
+## profiles system is available for Spain, but not implemented in biocache
 # test_that("galah_apply_profile filters counts for Spain", {
 #   vcr::use_cassette("IA_Spain_apply_profile_counts", {
 #     without_profile <- galah_call() |>
@@ -183,20 +186,20 @@ test_that("galah_select works for Spain", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame"))) 
 })
 
-# test_that("atlas_occurrences works for Spain", {
-#   skip_on_cran()
-#   galah_config(
-#     atlas = "Spain",
-#     email = "test@ala.org.au", 
-#     send_email = FALSE)
-#   occ <- galah_call() |>
-#     galah_identify("Mammalia") |>
-#     galah_filter(year <= 1800) |>
-#     galah_select(species, year) |>
-#     atlas_occurrences()
-#   expect_gt(nrow(occ), 0)
-#   expect_equal(ncol(occ), 2)
-#   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
-# })
+test_that("atlas_occurrences works for Spain", {
+  skip_on_cran()
+  galah_config(
+    atlas = "Spain",
+    email = "test@ala.org.au",
+    send_email = FALSE)
+  occ <- galah_call() |>
+    galah_identify("Mammalia") |>
+    galah_filter(year <= 1800) |>
+    galah_select(species, year) |>
+    atlas_occurrences()
+  expect_gt(nrow(occ), 0)
+  expect_equal(ncol(occ), 2)
+  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+})
 
 galah_config(atlas = "Australia")

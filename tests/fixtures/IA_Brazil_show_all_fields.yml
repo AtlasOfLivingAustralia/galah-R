@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Fri, 06 Jan 2023 03:26:53 GMT
+      date: Tue, 10 Jan 2023 08:52:00 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -25,10 +25,12 @@ http_interactions:
       strict-transport-security: max-age=15724800; includeSubDomains
       access-control-allow-credentials: 'true'
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"name":"all_image_url","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"info":"Image
-        URLs for this record","jsonName":"images","downloadName":"all_image_url"},{"name":"assertions","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Record
+        URLs for this record","jsonName":"images","downloadName":"all_image_url"},{"name":"assertion_user_id","dataType":"string","indexed":true,"stored":false,"multivalue":true,"docvalue":false,"description":"Assertions
+        by user","info":"Atlas user ID of the person who has made an assertion about
+        this record","downloadName":"assertion_user_id"},{"name":"assertions","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Record
         issues","info":"A list of all assertions (user and system supplied) for a
         record resulting from data quality tests","jsonName":"assertions","downloadName":"assertions","i18nValues":true},{"name":"assertions_missing","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"info":"Assertion
         indicating missing field values for a record. E.g. missing basis of record","downloadName":"assertions_missing"},{"name":"assertions_passed","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"info":"Assertion
@@ -67,7 +69,9 @@ http_interactions:
         prioritárias para conservação da Caatinga (MMA, 2018)","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10228","downloadName":"cl10228","downloadDescription":"Áreas
         prioritárias para conservação da Caatinga (MMA, 2018)","classs":"Contextual"},{"name":"cl10229","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Áreas
         prioritárias para conservação da Mata Atlântica (MMA, 2018)","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10229","downloadName":"cl10229","downloadDescription":"Áreas
-        prioritárias para conservação da Mata Atlântica (MMA, 2018)","classs":"Contextual"},{"name":"cl10231","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Áreas
+        prioritárias para conservação da Mata Atlântica (MMA, 2018)","classs":"Contextual"},{"name":"cl10230","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Áreas
+        prioritárias para conservação da Pampa (MMA, 2018)","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10230","downloadName":"cl10230","downloadDescription":"Áreas
+        prioritárias para conservação da Pampa (MMA, 2018)","classs":"Contextual"},{"name":"cl10231","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Áreas
         prioritárias para conservação da Zona Costeira e Marinha (MMA, 2018)","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10231","downloadName":"cl10231","downloadDescription":"Áreas
         prioritárias para conservação da Zona Costeira e Marinha (MMA, 2018)","classs":"Contextual"},{"name":"cl10232","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"
         Sub-bacias Hidrográficas (DNAEE)","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10232","downloadName":"cl10232","downloadDescription":"
@@ -103,7 +107,9 @@ http_interactions:
         do Brasil","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10269","downloadName":"cl10269","downloadDescription":"Limite
         do Brasil","classs":"Contextual"},{"name":"cl10294","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"limite-brasil_4326_iso88591","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10294","downloadName":"cl10294","downloadDescription":"limite-brasil_4326_iso88591","classs":"Contextual"},{"name":"cl10298","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10298","downloadName":"cl10298","classs":"Contextual"},{"name":"cl10300","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10300","downloadName":"cl10300","classs":"Contextual"},{"name":"cl10301","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10301","downloadName":"cl10301","classs":"Contextual"},{"name":"cl10302","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10302","downloadName":"cl10302","classs":"Contextual"},{"name":"cl10308","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10308","downloadName":"cl10308","classs":"Contextual"},{"name":"cl10312","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"propriedades_psa_sp","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10312","downloadName":"cl10312","downloadDescription":"propriedades_psa_sp","classs":"Contextual"},{"name":"cl10313","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10313","downloadName":"cl10313","classs":"Contextual"},{"name":"cl10314","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"area_de
         abrangencia_4326_iso88591","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10314","downloadName":"cl10314","downloadDescription":"area_de
-        abrangencia_4326_iso88591","classs":"Contextual"},{"name":"class","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Class","info":"The
+        abrangencia_4326_iso88591","classs":"Contextual"},{"name":"cl10315","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"zlimite_bioma_amazonia_4326_iso88591","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10315","downloadName":"cl10315","downloadDescription":"zlimite_bioma_amazonia_4326_iso88591","classs":"Contextual"},{"name":"cl10316","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"zlimite_bioma_amazonia_4326_iso88591_2","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10316","downloadName":"cl10316","downloadDescription":"zlimite_bioma_amazonia_4326_iso88591_2","classs":"Contextual"},{"name":"cl10317","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"zlimite_bioma_amazonia_4326_iso88591_3","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10317","downloadName":"cl10317","downloadDescription":"zlimite_bioma_amazonia_4326_iso88591_3","classs":"Contextual"},{"name":"cl10319","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"zzlimite_bioma_mata_atlantica_4326_iso88591","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10319","downloadName":"cl10319","downloadDescription":"zzlimite_bioma_mata_atlantica_4326_iso88591","classs":"Contextual"},{"name":"cl10320","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Limite
+        do Bioma Mata Atlântica.","info":"https://portal-espacial.sibbr.gov.br/ws/layers/view/more/cl10320","downloadName":"cl10320","downloadDescription":"Limite
+        do Bioma Mata Atlântica.","classs":"Contextual"},{"name":"class","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Class","info":"The
         class the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/class","jsonName":"classs","dwcTerm":"class","downloadName":"class","downloadDescription":"Class","classs":"Taxon"},{"name":"collection_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"collectionCode","info":"The
         collection code for this record. This will be populated if the data has come
         from a museum or herbaria http://rs.tdwg.org/dwc/terms/collectionCode","jsonName":"raw_collectionCode","dwcTerm":"collectionCode","downloadName":"collection_code","downloadDescription":"collectionCode","classs":"Record"},{"name":"collection_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Collection","info":"The
@@ -148,7 +154,8 @@ http_interactions:
         referred to in the record.","jsonName":"institutionName","downloadName":"institution_name","downloadDescription":"Institution"},{"name":"institution_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Institution","info":"Atlas
         ID for this institution","jsonName":"institutionUid","downloadName":"institution_uid","downloadDescription":"institutionID"},{"name":"kingdom","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Kingdom","info":"The
         kingdom the Atlas has matched this record to in the system classification
-        http://rs.tdwg.org/dwc/terms/kingdom","jsonName":"kingdom","dwcTerm":"kingdom","downloadName":"kingdom","downloadDescription":"kingdom","classs":"Taxon"},{"name":"last_load_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"docvalue":false,"description":"Date
+        http://rs.tdwg.org/dwc/terms/kingdom","jsonName":"kingdom","dwcTerm":"kingdom","downloadName":"kingdom","downloadDescription":"kingdom","classs":"Taxon"},{"name":"last_assertion_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"docvalue":false,"description":"Date
+        last annotated","downloadName":"last_assertion_date"},{"name":"last_load_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"docvalue":false,"description":"Date
         added","downloadName":"last_load_date"},{"name":"last_processed_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"docvalue":false,"downloadName":"last_processed_date"},{"name":"lat_long","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Decimal
         coordinates as single comma separated string value e.g. -35.3,149.1","jsonName":"latLong","downloadName":"lat_long"},{"name":"latitude","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"decimalLatitude","info":"The
         decimal latitude associated with this record. If the original latitude was
@@ -211,7 +218,8 @@ http_interactions:
         within taxonomic groups.","jsonName":"right","downloadName":"rgt"},{"name":"rights","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"jsonName":"rights","dwcTerm":"dcterms:rights","downloadName":"rights","classs":"Record"},{"name":"species","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Species","info":"The
         species the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/species","jsonName":"species","dwcTerm":"species","downloadName":"species","downloadDescription":"Species","i18nValues":true,"classs":"Taxon"},{"name":"species_group","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Lifeform","info":"Higher
         level group for this record e.g. Birds","jsonName":"speciesGroups","downloadName":"species_group"},{"name":"species_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Species","info":"The
-        species ID for this record","jsonName":"speciesGuid","downloadName":"species_guid"},{"name":"species_subgroup","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Species
+        species ID for this record","jsonName":"speciesGuid","downloadName":"species_guid"},{"name":"species_list_uid","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Species
+        lists","info":"Used to search for the records of taxon on a specific list.","downloadName":"species_list_uid"},{"name":"species_subgroup","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Species
         subgroups","info":"Higher level subgroup for this record e.g. Parrots","downloadName":"species_subgroup"},{"name":"state","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"State/Territory","info":"http://rs.tdwg.org/dwc/terms/stateProvince","jsonName":"stateProvince","dwcTerm":"stateProvince","downloadName":"state","downloadDescription":"stateProvince","classs":"Location"},{"name":"subspecies_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Subspecies","info":"The
         subspecies ID for this record","jsonName":"subspeciesGuid","downloadName":"subspecies_guid"},{"name":"subspecies_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Subspecies","info":"The
         subspecies name for this record","downloadName":"subspecies_name"},{"name":"suitable_modelling","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Whether
@@ -225,9 +233,10 @@ http_interactions:
         Quality","info":"A flag indicating if there are serious taxonomic problems
         with a record. false indicates problems.","jsonName":"taxonomicKosher","downloadName":"taxonomic_kosher","downloadDescription":"Taxonomic
         Quality"},{"name":"type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Specimen
-        type","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"year","classs":"Event"}]'
-  recorded_at: 2023-01-06 03:26:54 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+        type","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"user_assertions","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Has
+        user assertions","jsonName":"hasUserAssertions","downloadName":"user_assertions","i18nValues":true},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"year","classs":"Event"}]'
+  recorded_at: 2023-01-10 08:52:02 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
     uri: https://portal-espacial.sibbr.gov.br/spatial-hub/layers
@@ -245,16 +254,16 @@ http_interactions:
       explanation: Nothing matches the given URI
     headers:
       status: 'HTTP/2 404 '
-      date: Fri, 06 Jan 2023 03:26:54 GMT
+      date: Tue, 10 Jan 2023 08:52:02 GMT
       content-type: text/html;charset=UTF-8
-      set-cookie: INGRESSCOOKIE=1672975615.282.122.344095; Path=/spatial-hub; Secure;
+      set-cookie: INGRESSCOOKIE=1673340723.206.122.554195; Path=/spatial-hub; Secure;
         HttpOnly
       content-language: en-US
       strict-transport-security: max-age=15724800; includeSubDomains
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: "<!DOCTYPE html>\n<html>\n<head>\n    \n</head>\n\n<body>\n\n    <ul
         class=\"errors\">\n        <li>An error has occurred</li>\n    </ul>\n\n</body>\n</html>\n"
-  recorded_at: 2023-01-06 03:26:54 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 08:52:02 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

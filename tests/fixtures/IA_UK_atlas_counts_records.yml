@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Mon, 09 Jan 2023 22:44:26 GMT
+      date: Wed, 11 Jan 2023 06:10:58 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -27,7 +27,7 @@ http_interactions:
     body:
       encoding: ''
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":207673146,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":207672900,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{}}'
-  recorded_at: 2023-01-09 22:47:43 GMT
+  recorded_at: 2023-01-11 06:14:17 GMT
   recorded_with: vcr/1.2.0, webmockr/0.8.0

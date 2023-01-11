@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Fri, 06 Jan 2023 03:17:50 GMT
+      date: Tue, 10 Jan 2023 08:41:43 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -29,7 +29,7 @@ http_interactions:
       x-content-type-options: nosniff
       content-security-policy: upgrade-insecure-requests
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"name":"invalidCollectionDate","code":30007,"isFatal":false,"description":"Ungültiges
         Sammeldatum","category":"error","fatal":false},{"name":"zeroCoordinates","code":4,"isFatal":true,"description":"Gelieferte
@@ -125,5 +125,5 @@ http_interactions:
         dem angegebenen Namen gibt es Probleme mit dem Homonym","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Möglicher
         doppelter Eintrag","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"Erster
         des Monats","category":"warning","fatal":false}]'
-  recorded_at: 2023-01-06 03:17:50 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 08:41:44 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

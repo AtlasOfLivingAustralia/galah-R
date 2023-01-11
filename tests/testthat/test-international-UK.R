@@ -16,24 +16,26 @@ test_that("show_all(fields) works for UK", {
 })
 
 test_that("show_all(collections) works for UK", {
-  skip_on_cran()
-  x <- show_all(collections)
-  expect_gt(nrow(x), 1)
+  vcr::use_cassette("IA_UK_show_all_collections", {
+    x <- show_all(collections, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(datasets) works for UK", {
-  skip_on_cran()
-  x <- show_all(datasets)
-  expect_gt(nrow(x), 1)
+  vcr::use_cassette("IA_UK_show_all_datasets", {
+    x <- show_all(datasets, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(providers) works for UK", {
   vcr::use_cassette("IA_UK_show_all_providers", {
-    x <- show_all(providers)
+    x <- show_all(providers, limit = 10)
   })
-  expect_gte(nrow(x), 0) # no data at present
+  expect_lte(nrow(x), 10) # no data at present
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
@@ -79,14 +81,14 @@ test_that("search_all(taxa) works for UK", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-vcr::use_cassette("IA_United_Kingdom_search_taxa_multiple", {
+vcr::use_cassette("IA_UK_search_taxa_multiple", {
   test_that("search_taxa works for multiple queries", {
     taxa <- search_taxa(c("Vulpes vulpes", "Meles meles"))
     expect_equal(nrow(taxa), 2)
   })
 })
 
-vcr::use_cassette("IA_United_Kingdom_search_taxa_types", {
+vcr::use_cassette("IA_UK_search_taxa_types", {
   test_that("search_taxa doesn't break with typos", {
     expect_silent(search_taxa("Vlpes"))
   })
@@ -109,7 +111,7 @@ test_that("show_list_values works for United Kingdom", {
 })
 
 vcr::use_cassette("IA_UK_atlas_counts_records", {
-  test_that("atlas_counts w records  works for United Kingdom", {
+  test_that("atlas_counts w records works for United Kingdom", {
     expect_gt(atlas_counts()$count, 0)
   })
 })

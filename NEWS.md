@@ -30,6 +30,7 @@ The current implementation is experimental and back-end changes are expected in 
 * Improved support for data from Spain via [gbif.es](https://www.gbif.es) (name-matching, lists, spatial)
 * Swapped provider for data from France; formerly [gbif.fr](http://www.gbif.fr), now [OpenObs](https://openobs.mnhn.fr), as per advice from maintainers
 * Reading data from disk now uses `readr::read_csv` in place of `utils::read.csv` for improved speed
+* `show_all` (and associated sub-functions) gain a `limit` argument, set to NULL (i.e. no limit) by default
 * `galah` no longer imports `{data.table}`, since the only function previously used from that package (`rbindlist`) is duplicated by `dplyr::bind_rows`
 * Help files are now built without markdown for improved speed (mainly while building)
 

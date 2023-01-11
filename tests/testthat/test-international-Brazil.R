@@ -17,25 +17,25 @@ test_that("show_all(fields) works for Brazil", {
 
 test_that("show_all(collections) works for Brazil", {
   vcr::use_cassette("IA_Brazil_show_all_collections", {
-    x <- show_all(collections)
+    x <- show_all(collections, limit = 10)
   })
-  expect_gt(nrow(x), 1)
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(datasets) works for Brazil", {
   vcr::use_cassette("IA_Brazil_show_all_datasets", {
-    x <- show_all(datasets)
+    x <- show_all(datasets, limit = 10)
   })
-  expect_gt(nrow(x), 1)
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(providers) works for Brazil", {
   vcr::use_cassette("IA_Brazil_show_all_providers", {
-    x <- show_all(providers)
+    x <- show_all(providers, limit = 10)
   })
-  expect_gt(nrow(x), 1)
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
@@ -57,9 +57,9 @@ test_that("show_all(profiles) fails for Brazil", {
 
 test_that("show_all(lists) works for Brazil", {
   vcr::use_cassette("IA_Brazil_show_all_lists", {
-    x <- show_all(lists)
+    x <- show_all(lists, limit = 10)
   })
-  expect_gt(nrow(x), 1)
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 

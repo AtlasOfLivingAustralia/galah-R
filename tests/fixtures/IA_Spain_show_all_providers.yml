@@ -1,0 +1,40 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://colecciones.gbif.es/ws/dataProvider?offset=0&max=10
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/1.1 200 '
+      date: Tue, 10 Jan 2023 11:06:31 GMT
+      server: nginx/1.23.3
+      content-type: application/json;charset=UTF-8
+      vary: Origin,Access-Control-Request-Method,Access-Control-Request-Headers
+      content-location: https://colecciones.gbif.es/ws/dataProvider
+      last-modified: Thu, 21 Jul 2022 10:25:08 GMT
+      etag: '"439ef83ae1bde5ed593b12e52acf5dbc"'
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      content-security-policy: upgrade-insecure-requests
+      via: 1.1 colecciones.gbif.es (Apache/2.4.41)
+      transfer-encoding: chunked
+    body:
+      encoding: ''
+      file: no
+      string: '[{"name":"AIMJB IPT","uri":"https://colecciones.gbif.es/ws/dataProvider/dp5","uid":"dp5"},{"name":"Basque
+        Government","uri":"https://colecciones.gbif.es/ws/dataProvider/dp9","uid":"dp9"},{"name":"GBIF
+        ES IPT","uri":"https://colecciones.gbif.es/ws/dataProvider/dp2","uid":"dp2"},{"name":"SANT
+        IPT","uri":"https://colecciones.gbif.es/ws/dataProvider/dp4","uid":"dp4"}]'
+  recorded_at: 2023-01-10 11:06:32 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

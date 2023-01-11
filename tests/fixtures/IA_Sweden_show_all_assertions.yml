@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.21.6
-      date: Mon, 09 Jan 2023 22:49:54 GMT
+      date: Tue, 10 Jan 2023 11:12:28 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -126,5 +126,5 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2023-01-09 22:49:54 GMT
+  recorded_at: 2023-01-10 11:12:28 GMT
   recorded_with: vcr/1.2.0, webmockr/0.8.0

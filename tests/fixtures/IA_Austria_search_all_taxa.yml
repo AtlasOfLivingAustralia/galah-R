@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Fri, 06 Jan 2023 03:43:28 GMT
+      date: Tue, 10 Jan 2023 08:41:46 GMT
       content-type: application/json;charset=UTF-8
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -26,7 +26,7 @@ http_interactions:
       x-content-type-options: nosniff
       content-security-policy: upgrade-insecure-requests
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '{"searchResults":{"totalRecords":222,"facetResults":[],"results":[{"id":"b46d2db6-9779-4ceb-996b-856e2ec98793","guid":"7193880","linkIdentifier":"Vulpes
         vulpes vulpes","idxtype":"TAXON","name":"Vulpes vulpes vulpes","kingdom":"Animalia","nomenclaturalCode":null,"scientificName":"Vulpes
@@ -76,5 +76,5 @@ http_interactions:
         vulpes alascensis","subspeciesGuid":"6164298","highlight":"<b>vulpes<\u002fb><br><b>Vulpes<\u002fb>
         <b>vulpes<\u002fb> alascensis Merriam, 1900<br><b>Vulpes vulpes alascensis<\u002fb>"}],"queryTitle":"Vulpes
         vulpes"}}'
-  recorded_at: 2023-01-06 03:43:28 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 08:41:46 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

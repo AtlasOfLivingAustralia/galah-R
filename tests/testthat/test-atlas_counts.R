@@ -31,7 +31,6 @@ test_that("grouped atlas_counts returns expected output", {
     counts <- atlas_counts(
       identify = galah_identify("Mammalia"),
       group_by = galah_group_by(basisOfRecord))
-
   })
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(counts), c("basisOfRecord", "count"))

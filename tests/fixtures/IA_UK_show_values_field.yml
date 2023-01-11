@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Mon, 09 Jan 2023 22:44:23 GMT
+      date: Wed, 11 Jan 2023 06:10:50 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -27,9 +27,9 @@ http_interactions:
     body:
       encoding: ''
       file: no
-      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Human observation","i18nCode":"basis_of_record.HumanObservation","count":205699695,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Preserved
+      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Human observation","i18nCode":"basis_of_record.HumanObservation","count":205699449,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Preserved
         specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":1379598,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Machine
         observation","i18nCode":"basis_of_record.MachineObservation","count":301055,"fq":"basis_of_record:\"MachineObservation\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":290105,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Fossil
         specimen","i18nCode":"basis_of_record.FossilSpecimen","count":2453,"fq":"basis_of_record:\"FossilSpecimen\""},{"label":"Image","i18nCode":"basis_of_record.Image","count":40,"fq":"basis_of_record:\"Image\""}],"count":6}]'
-  recorded_at: 2023-01-09 22:47:40 GMT
+  recorded_at: 2023-01-11 06:14:09 GMT
   recorded_with: vcr/1.2.0, webmockr/0.8.0

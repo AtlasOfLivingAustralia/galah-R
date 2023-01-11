@@ -1,5 +1,5 @@
-#' (currently internal) function to create 'predicates'
 #' @importFrom jsonlite toJSON unbox
+NULL
 
 # predicates are JSON scripts for passing to GBIF offline downloads API.
 # https://www.gbif.org/developer/occurrence

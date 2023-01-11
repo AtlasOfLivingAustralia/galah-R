@@ -1,7 +1,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.gbif.org/v1/grscicoll/collection
+    uri: https://api.gbif.org/v1/grscicoll/collection?offset=0&limit=10
     body:
       encoding: ''
       string: ''
@@ -23,16 +23,73 @@ http_interactions:
       expires: '0'
       x-frame-options: DENY
       content-type: application/json
-      date: Fri, 06 Jan 2023 03:32:34 GMT
+      date: Tue, 10 Jan 2023 10:54:12 GMT
       cache-control: public, max-age=3601
-      x-varnish: '465372162'
+      x-varnish: '460292217'
       age: '0'
       via: 1.1 varnish (Varnish/6.0)
       accept-ranges: bytes
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
-      string: '{"offset":0,"limit":20,"endOfRecords":false,"count":6875,"results":[{"key":"399d6318-3d9f-4e00-88c8-2b310b5af781","code":"LEUA","name":"LABORATORIO
+      string: '{"offset":0,"limit":10,"endOfRecords":false,"count":6879,"results":[{"key":"a3425f2e-9b05-4651-8ffc-dd27d58db3d6","code":"DMCC","name":"Department
+        Microbial Culture Collection","contentTypes":[],"active":true,"personalCollection":false,"email":[],"phone":[],"homepage":"https://medicine.nus.edu.sg/mbio/about-us/department-committees/dmcc.html","preservationTypes":[],"institutionKey":"108d4f5f-9469-4a8c-92d2-e8be2e5de27f","mailingAddress":{"key":44670,"address":"National
+        University of Singapore 5 Science Drive 2 Blk MD4, Level 3 Singapore 117545","country":"SG"},"address":{"key":44669,"address":"National
+        University of Singapore 5 Science Drive 2 Blk MD4, Level 3 Singapore 117545","country":"SG"},"createdBy":"lily_shrestha","modifiedBy":"lily_shrestha","created":"2023-01-10T09:07:17.676+00:00","modified":"2023-01-10T09:07:17.676+00:00","tags":[],"identifiers":[],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":false,"machineTags":[],"incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"GRSCICOLL","displayOnNHCPortal":true,"institutionName":"Department
+        of Microbiology and Immunology, National University of Singapore","institutionCode":"NUSDM"},{"key":"d7cad579-06b4-4aff-9869-00239ed8d4b3","code":"UAM:Inv","name":"UAM
+        Invertebrate Collection (Arctos)","description":"Marine and freshwater invertebrates
+        (excluding aquatic insects) of Alaska and nearby regions. Holdings primarily
+        consist of collections from oceanographic surveys in the Bering, Chukchi and
+        Beaufort seas.","contentTypes":[],"active":true,"personalCollection":false,"email":[],"phone":[],"preservationTypes":[],"institutionKey":"6f700e1f-03b9-4062-acf8-9d4006a4c48a","mailingAddress":{"key":44667},"address":{"key":44666,"address":"PO
+        Box 756960, 907 Yukon Drive","city":"Fairbanks","postalCode":"AK/99775","country":"US"},"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:21:46.825+00:00","modified":"2023-01-06T14:22:36.448+00:00","tags":[],"identifiers":[{"key":334941,"type":"DOI","identifier":"10.15468/wrvy1y","createdBy":"mgrosjean","created":"2023-01-06T14:21:46.825+00:00"}],"contacts":[],"contactPersons":[{"key":34196,"firstName":"Andres","lastName":"Lopez","position":["Curator
+        of Fishes"],"phone":[],"fax":[],"email":["jalopez2@alaska.edu"],"address":["907
+        Yukon Drive"],"city":"Fairbanks","province":"AK","country":"US","postalCode":"99775-6960","primary":true,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:21:46.825+00:00","modified":"2023-01-06T14:21:46.825+00:00"},{"key":34197,"firstName":"Andres","lastName":"Lopez","position":["Curator
+        of Fishes"],"phone":[],"fax":[],"email":["jalopez2@alaska.edu"],"address":["907
+        Yukon Drive"],"city":"Fairbanks","province":"AK","country":"US","postalCode":"99775-6960","primary":true,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:21:46.825+00:00","modified":"2023-01-06T14:21:46.825+00:00"},{"key":34198,"firstName":"Laura","lastName":"Russell","position":["VertNet
+        Programmer"],"phone":[],"fax":[],"email":["larussell@vertnet.org"],"address":[],"primary":false,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:21:46.825+00:00","modified":"2023-01-06T14:21:46.825+00:00"},{"key":34199,"firstName":"David","lastName":"Bloom","position":["VertNet
+        Coordinator"],"phone":[],"fax":[],"email":["dbloom@vertnet.org"],"address":[],"primary":false,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:21:46.825+00:00","modified":"2023-01-06T14:21:46.825+00:00"},{"key":34200,"firstName":"John","lastName":"Wieczorek","position":["Information
+        Architect"],"phone":[],"fax":[],"email":["tuco@berkeley.edu"],"address":[],"primary":false,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:21:46.825+00:00","modified":"2023-01-06T14:21:46.825+00:00"},{"key":34201,"firstName":"Dusty","lastName":"McDonald","position":["Arctos
+        Database Programmer"],"phone":[],"fax":[],"email":["dlmcdonald@alaska.edu"],"address":[],"primary":false,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:21:46.825+00:00","modified":"2023-01-06T14:21:46.825+00:00"},{"key":34202,"firstName":"Andres","lastName":"Lopez","position":["Curator
+        of Fishes"],"phone":[],"fax":[],"email":["jalopez2@alaska.edu"],"address":["907
+        Yukon Drive"],"city":"Fairbanks","province":"AK","country":"US","postalCode":"99775-6960","primary":true,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:21:46.825+00:00","modified":"2023-01-06T14:21:46.825+00:00"}],"indexHerbariorumRecord":false,"machineTags":[],"taxonomicCoverage":"","geography":"","incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{},"alternativeCodes":[{"code":"Inv","description":"Code
+        used in https://doi.org/10.15468/wrvy1y"}],"comments":[],"occurrenceMappings":[],"masterSource":"GBIF_REGISTRY","masterSourceMetadata":{"key":8952,"source":"DATASET","sourceId":"80ebe7f9-00ee-4fe3-80f6-303729cf5bac","createdBy":"mgrosjean","created":"2023-01-06T14:21:46.825+00:00"},"displayOnNHCPortal":true,"institutionName":"University
+        of Alaska Museum","institutionCode":"UAM"},{"key":"b6a6fc06-936d-4ecf-8288-651daa5ff65f","code":"UAM:Alg","name":"UAM
+        Herbarium (ALA), Algae Collection (Arctos)","description":"The Herbarium at
+        the University of Alaska Museum (ALA) is the major regional herbarium in Alaska
+        and part of a network of similar collections with an interest in the origin
+        and evolution of the circumpolar flora. ALA contains more than 260,000 specimens
+        of vascular and non-vascular plants. We have a small collection of macroalgae.
+        Macroalgae are the foundation of marine, estuarine and freshwater benthic
+        ecosystems. A number of macroalgal species, including kelp, nori, and others
+        are grown extensively via aquaculture or harvested from the wild for human
+        food and for extraction of colloids used in cosmetics, food products, and
+        pharmaceuticals. Digitization of macroalgae has been supported by NSF grant
+        1304924 entitled: Collaborative Research: Digitization TCN: The Macroalgal
+        Herbarium Consortium: Accessing 150 Years of Specimen Data to Understand Changes
+        in the Marine/Aquatic Environment lead by PI Christopher Neefus (University
+        of New Hampshire).","contentTypes":[],"active":true,"personalCollection":false,"email":[],"phone":[],"homepage":"http://www.uaf.edu/museum/collections/herb/","preservationTypes":[],"institutionKey":"6f700e1f-03b9-4062-acf8-9d4006a4c48a","mailingAddress":{"key":44665},"address":{"key":44664,"address":"PO
+        Box 756960, 907 Yukon Drive","city":"Fairbanks","postalCode":"AK/99775","country":"US"},"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:11:36.746+00:00","modified":"2023-01-06T14:12:19.062+00:00","tags":[],"identifiers":[{"key":334940,"type":"DOI","identifier":"10.15468/gwjvwf","createdBy":"mgrosjean","created":"2023-01-06T14:11:36.746+00:00"}],"contacts":[],"contactPersons":[{"key":34180,"firstName":"Steffi","lastName":"Ickert-Bond","position":["Curator
+        of the Herbarium (ALA)"],"phone":["(907) 474-6277"],"fax":[],"email":["smickertbond@alaska.edu"],"address":["907
+        Yukon Drive"],"city":"Fairbanks","province":"AK","country":"US","postalCode":"99775-6960","primary":true,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:11:36.746+00:00","modified":"2023-01-06T14:11:36.746+00:00"},{"key":34181,"firstName":"Steffi","lastName":"Ickert-Bond","position":["Curator
+        of the Herbarium (ALA)"],"phone":["(907) 474-6277"],"fax":[],"email":["smickertbond@alaska.edu"],"address":["907
+        Yukon Drive"],"city":"Fairbanks","province":"AK","country":"US","postalCode":"99775-6960","primary":true,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:11:36.746+00:00","modified":"2023-01-06T14:11:36.746+00:00"},{"key":34182,"firstName":"Laura","lastName":"Russell","position":["VertNet
+        Programmer"],"phone":[],"fax":[],"email":["larussell@vertnet.org"],"address":[],"primary":false,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:11:36.746+00:00","modified":"2023-01-06T14:11:36.746+00:00"},{"key":34183,"firstName":"David","lastName":"Bloom","position":["VertNet
+        Coordinator"],"phone":[],"fax":[],"email":["dbloom@vertnet.org"],"address":[],"primary":false,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:11:36.746+00:00","modified":"2023-01-06T14:11:36.746+00:00"},{"key":34184,"firstName":"John","lastName":"Wieczorek","position":["Information
+        Architect"],"phone":[],"fax":[],"email":["tuco@berkeley.edu"],"address":[],"primary":false,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:11:36.746+00:00","modified":"2023-01-06T14:11:36.746+00:00"},{"key":34185,"firstName":"Dusty","lastName":"McDonald","position":["Arctos
+        Database Programmer"],"phone":[],"fax":[],"email":["dlmcdonald@alaska.edu"],"address":[],"primary":false,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:11:36.746+00:00","modified":"2023-01-06T14:11:36.746+00:00"},{"key":34186,"firstName":"Jordan","lastName":"Metzgar","position":["Collection
+        Manager, Herbarium"],"phone":["(907) 474-7109"],"fax":[],"email":["jsmetzgar@alaska.edu"],"address":["907
+        Yukon Drive"],"city":"Fairbanks","province":"AK","country":"US","postalCode":"99775-6960","primary":false,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:11:36.746+00:00","modified":"2023-01-06T14:11:36.746+00:00"},{"key":34187,"firstName":"Alan","lastName":"Batten","position":["Research
+        Associate, Herbarium"],"phone":["(907) 474-7109"],"fax":[],"email":["fnarb@uaf.edu"],"address":["907
+        Yukon Drive"],"city":"Fairbanks","province":"AK","country":"US","postalCode":"99775-6960","primary":false,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:11:36.746+00:00","modified":"2023-01-06T14:11:36.746+00:00"},{"key":34188,"firstName":"Steffi","lastName":"Ickert-Bond","position":["Curator
+        of the Herbarium (ALA)"],"phone":["(907) 474-6277"],"fax":[],"email":["smickertbond@alaska.edu"],"address":["907
+        Yukon Drive"],"city":"Fairbanks","province":"AK","country":"US","postalCode":"99775-6960","primary":true,"taxonomicExpertise":[],"userIds":[],"createdBy":"mgrosjean","modifiedBy":"mgrosjean","created":"2023-01-06T14:11:36.746+00:00","modified":"2023-01-06T14:11:36.746+00:00"}],"indexHerbariorumRecord":false,"machineTags":[],"taxonomicCoverage":"","geography":"","incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{},"alternativeCodes":[{"code":"Herb","description":"Used
+        here: https://doi.org/10.15468/gwjvwf"}],"comments":[],"occurrenceMappings":[],"masterSource":"GBIF_REGISTRY","masterSourceMetadata":{"key":8951,"source":"DATASET","sourceId":"873f843b-7c49-4f00-a842-9107f79213ca","createdBy":"mgrosjean","created":"2023-01-06T14:11:36.746+00:00"},"displayOnNHCPortal":true,"institutionName":"University
+        of Alaska Museum","institutionCode":"UAM"},{"key":"2b9d1e52-a616-4c5e-ade0-8828aebf61e1","code":"NP","name":"Plant
+        specimens of Otaru City Museum","description":"Plant specimens deposited in
+        Otaru City Museum","contentTypes":["BIOLOGICAL_PRESERVED_ORGANISMS"],"active":false,"personalCollection":false,"email":["yamamoto.otaru.museum@gmail.com"],"phone":[],"preservationTypes":["STORAGE_INDOORS"],"institutionKey":"012fbec2-1c94-40ce-b52a-450496d77b28","mailingAddress":{"key":44663,"address":"1
+        Chome-3-6 Temiya","city":"Otaru","province":"Hokkaido","postalCode":"047-0041","country":"JP"},"address":{"key":44662,"address":"1
+        Chome-3-6 Temiya","city":"Otaru","province":"Hokkaido","postalCode":"047-0041","country":"JP"},"createdBy":"cjk","modifiedBy":"cjk","created":"2023-01-06T12:42:46.156+00:00","modified":"2023-01-06T12:42:46.156+00:00","tags":[],"identifiers":[],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":false,"numberSpecimens":9500,"machineTags":[],"incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"GRSCICOLL","displayOnNHCPortal":true,"institutionName":"Otaru
+        Museum","institutionCode":"OMO"},{"key":"399d6318-3d9f-4e00-88c8-2b310b5af781","code":"LEUA","name":"LABORATORIO
         DE ENTOMOLOGIA UNIVERSIDAD DE LA AMAZONIA","description":"La Colección Laboratorio
         de Entomología Universidad de la Amazonia - LEUA es una unidad al servicio
         de instituciones, investigadores y sociedad en general, con interés en la
@@ -96,452 +153,6 @@ http_interactions:
         by the Binghamton University Science Library","90 specimens collected in 2021"],"importantCollectors":["M.
         ABDALLAH","D. ACOFF","J. AMANITA","R. GRABARCHUK","T. KADISH","T. G. VINCA","K.
         WHITE","K. WHITE"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":90,"numFungi":90,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":90},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8942,"source":"IH_IRN","sourceId":"263050","createdBy":"ih-sync","created":"2022-12-21T10:49:23.211+00:00"},"department":"Biology","displayOnNHCPortal":true,"institutionName":"Binghamton
-        University","institutionCode":"EBCF00"},{"key":"de36f091-4628-44da-b9e6-97b3cc506d39","code":"SMMSH","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":[],"phone":["805
-        370 2360"],"preservationTypes":[],"institutionKey":"b2f840c6-359f-4660-8442-4833fd35fc19","mailingAddress":{"key":44634,"address":"401
-        West Hillcrest Drive","city":"Thousand Oaks","province":"CA","postalCode":"91360","country":"US"},"address":{"key":44633,"address":"401
-        West Hillcrest Drive","city":"Thousand Oaks","province":"CA","postalCode":"91360","country":"US"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:20.695+00:00","modified":"2022-12-21T10:49:20.695+00:00","tags":[],"identifiers":[{"key":334669,"type":"IH_IRN","identifier":"gbif:ih:irn:263014","createdBy":"ih-sync","created":"2022-12-21T10:49:20.824+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":1200,"machineTags":[],"taxonomicCoverage":"vascular
-        plants, bryophytes, lichens","geography":"Santa Monica Mountains and Simi
-        Hills, in Los Angeles and Ventura Counties, California","notes":"Entered Nov
-        2022.","incorporatedCollections":[],"importantCollectors":["L. M. Aguilar","B.
-        R. Baker","T. K. Chipman","R. G. Flores","A. C. Gibson","M. H. Hernandez","R.
-        Larson","B. C. Prigge","D. A. Rodriguez","I. Romero","T. L. Sagar","J. C.
-        Tiszler","A. J. Valois"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":50,"numSeedPlImaged":0,"numSeedPl":1100,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":1100,"numFungiDatabased":50,"numFungi":50,"numBryosImaged":0,"numBryos":50,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8940,"source":"IH_IRN","sourceId":"263014","createdBy":"ih-sync","created":"2022-12-21T10:49:20.888+00:00"},"department":"Planning,
-        Science & Resource Management","division":"Santa Monica Mountains National
-        Recreation Area","displayOnNHCPortal":true,"institutionName":"U.S. National
-        Park Service","institutionCode":"SMMSH"},{"key":"df92e757-7968-4ab5-9d6f-61283c8afc22","code":"CPMR","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":[],"phone":[],"preservationTypes":[],"institutionKey":"aed19e87-e463-463a-9991-bda78020655e","mailingAddress":{"key":44630,"city":"Mampong-Akuapem","province":"Eastern
-        Region"},"address":{"key":44629,"province":"Mampong-Akuapem","postalCode":"Eastern
-        Region","country":"GH"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:20.175+00:00","modified":"2022-12-21T10:49:20.175+00:00","tags":[],"identifiers":[{"key":334667,"type":"IH_IRN","identifier":"gbif:ih:irn:263013","createdBy":"ih-sync","created":"2022-12-21T10:49:20.302+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":1049,"machineTags":[],"geography":"Ghana","notes":"Entered
-        Nov 2022.  The herbarium contain specimens of medicinal plants collected to
-        support the work of the Centre.","incorporatedCollections":[],"importantCollectors":["E.S.
-        A. Ayew","E. O. Lartey","D. Owiredu","M. T. Kumah","E. C. O. Ansah","H. R.
-        Blagogee"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8938,"source":"IH_IRN","sourceId":"263013","createdBy":"ih-sync","created":"2022-12-21T10:49:20.364+00:00"},"department":"Department
-        of Plant Development","division":"Herbarium","displayOnNHCPortal":true,"institutionName":"Centre
-        for Plant Medicine Research","institutionCode":"CPMR"},{"key":"acd267d6-767e-4ef8-9fd5-d263c9e888cf","code":"BJB","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["savitarahangdale7@gmail.com"],"phone":["9420864515"],"homepage":"http://www.bjcollege.com","preservationTypes":[],"institutionKey":"1953b276-3434-4fcb-9ccc-ca2cec6d7585","mailingAddress":{"key":44626,"address":"Balasaheb
-        Jadhav College, ALE","city":"ALE, dist. Pune","province":"Maharashtra","postalCode":"412411","country":"IN"},"address":{"key":44625,"address":"Junnar","city":"Pune","province":"Maharashtra","postalCode":"412411","country":"IN"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:15.407+00:00","modified":"2022-12-21T10:49:15.407+00:00","tags":[],"identifiers":[{"key":334665,"type":"IH_IRN","identifier":"gbif:ih:irn:262964","createdBy":"ih-sync","created":"2022-12-21T10:49:15.539+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":8000,"machineTags":[],"taxonomicCoverage":"Angiosperms,
-        pteridophytes","geography":"Western ghat","notes":"Entered Nov 2022.  Herbarium
-        with type specimen and new distributional records.","incorporatedCollections":["Angiosperms
-        (8000), Pteridophytes (2000)."],"importantCollectors":["S.S.R. Bhise"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":900,"numSeedPl":8000,"numPteridos":2000,"numAlgaeImaged":0,"numPteridosDatabased":2,"numSeedPlDatabased":1400,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8936,"source":"IH_IRN","sourceId":"262964","createdBy":"ih-sync","created":"2022-12-21T10:49:15.607+00:00"},"department":"Botany","division":"science","displayOnNHCPortal":true,"institutionName":"Hon.
-        Balasaheb Jadhav college Ale","institutionCode":"BJB"},{"key":"a900fe29-0bf6-4875-b427-ad9cd0394d28","code":"BIN","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["yyapar@bingol.edu.tr","lbehcet@bingol.edu.tr"],"phone":["0(426)
-        216 0050 ext. 2250"],"preservationTypes":[],"institutionKey":"0c1bdfc9-1943-4125-bc82-041b11d4e5c6","mailingAddress":{"key":44622,"address":"Selahaddin-i
-        Eyyubi neighbourhood, Üniversite Street, no:1","city":"Bingöl","province":"Bingöl","postalCode":"12000","country":"TR"},"address":{"key":44621,"address":"Selahaddin-i
-        Eyyubi neighbourhood, Üniversite Street, no:1","city":"Bingöl","province":"Bingöl","postalCode":"12000","country":"TR"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:14.771+00:00","modified":"2022-12-21T10:49:14.771+00:00","tags":[],"identifiers":[{"key":334663,"type":"IH_IRN","identifier":"gbif:ih:irn:262985","createdBy":"ih-sync","created":"2022-12-21T10:49:14.891+00:00"}],"contacts":[],"contactPersons":[{"key":34167,"firstName":"Yakup","lastName":"YAPAR","position":[],"phone":[],"fax":[],"email":["yyapar@bingol.edu.tr"],"address":["Bingöl
-        üniv.fen edebiyat fakültesi biyoloji bölümü d1-37"],"city":"Bingöl Merkez","province":"Bingöl","country":"TR","postalCode":"12000","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262994"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:15.097+00:00","modified":"2022-12-21T10:49:15.097+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":11597,"machineTags":[],"notes":"Entered
-        Nov 2022.","incorporatedCollections":[],"importantCollectors":["L. BEHÇET","A.
-        ÇETİN","Y. YAPAR","H. CENGİZ","A. SİNAN"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":11597,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8934,"source":"IH_IRN","sourceId":"262985","createdBy":"ih-sync","created":"2022-12-21T10:49:14.971+00:00"},"department":"Faculty
-        of Arts and Sciences","division":"Molecular Biology and Genetics","displayOnNHCPortal":true,"institutionName":"Bingöl
-        University Herbarium","institutionCode":"BIN"},{"key":"3d9d0cd4-8b89-4e1e-a8da-7d41558a84d8","code":"TRZYNT","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["islerderya@hotmail.com"],"phone":[],"preservationTypes":[],"institutionKey":"b4b18a5a-91c4-4c8f-9292-61bc29fe7952","mailingAddress":{"key":44618,"address":"University
-        Street","city":"İZMİR","province":"İZMİR","postalCode":"35735","country":"TR"},"address":{"key":44617},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:09.471+00:00","modified":"2022-12-21T10:49:09.471+00:00","tags":[],"identifiers":[{"key":334661,"type":"IH_IRN","identifier":"gbif:ih:irn:262937","createdBy":"ih-sync","created":"2022-12-21T10:49:09.590+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":1,"machineTags":[],"taxonomicCoverage":"Colletotrichum
-        fioriniae","notes":"Entered Nov 2022.","incorporatedCollections":[],"importantCollectors":["C.
-        Vardar Kor, L. Erten Caran, Isler Ceyhan"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":1,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":1,"numBryos":1,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8932,"source":"IH_IRN","sourceId":"262937","createdBy":"ih-sync","created":"2022-12-21T10:49:09.656+00:00"},"department":"Olive
-        Research Institute","division":"Department of Phytosanitary","displayOnNHCPortal":true,"institutionName":"OLIVE
-        CULTIVATION RESEARCH INSTITUTE DIRECTORATE","institutionCode":"TRZYNT"},{"key":"0f49f98f-348a-40d9-b133-b2ccddaebd5c","code":"FCQB","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["19078@uagro.mx"],"phone":[],"preservationTypes":[],"institutionKey":"37441429-d0a9-4550-90e8-e25224d38df2","mailingAddress":{"key":44614,"address":"Lazaro
-        Cárdenas S/n, Ciudad Universitaria","city":"Chilpancingo","province":"Guerrero","postalCode":"39070","country":"MX"},"address":{"key":44613,"country":"MX"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:08.679+00:00","modified":"2023-01-04T10:47:37.823+00:00","tags":[],"identifiers":[{"key":334659,"type":"IH_IRN","identifier":"gbif:ih:irn:262938","createdBy":"ih-sync","created":"2022-12-21T10:49:08.792+00:00"}],"contacts":[],"contactPersons":[{"key":34164,"firstName":"Felipe","lastName":"Gómez-Noguez","position":[],"phone":[],"fax":[],"email":["19078@uagro.mx"],"address":[],"country":"MX","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262945"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:09.072+00:00","modified":"2022-12-21T10:49:09.072+00:00"},{"key":34165,"firstName":"Francisco","lastName":"Maradiaga","position":[],"phone":[],"fax":[],"email":["03449@uagro.mx"],"address":[],"country":"MX","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262942"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:09.143+00:00","modified":"2022-12-21T10:49:09.143+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":5000,"machineTags":[],"taxonomicCoverage":"Cryptogams
-        and vascular plants","geography":"Guerrero","notes":"Entered Nov 2022.","incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8930,"source":"IH_IRN","sourceId":"262938","createdBy":"ih-sync","created":"2022-12-21T10:49:08.863+00:00"},"division":"Faculta
-        de Ciencias Químico Biológicas","displayOnNHCPortal":true,"institutionName":"Universidad
-        Autónoma de Guerrero","institutionCode":"FCQB"},{"key":"93b33a4e-97de-4f93-a5ae-0e775b86c809","code":"KNFHC","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":[],"phone":["530-6431203"],"preservationTypes":[],"institutionKey":"ff1de43f-af23-4d4a-bc83-23e921ab7487","mailingAddress":{"key":44610,"address":"63822
-        Hwy 96","city":"Happy Camp","province":"CA","postalCode":"96039","country":"US"},"address":{"key":44609,"address":"63822
-        Hwy 96","city":"Happy Camp","province":"CA","postalCode":"96039","country":"US"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:07.914+00:00","modified":"2023-01-04T10:47:37.759+00:00","tags":[],"identifiers":[{"key":334657,"type":"IH_IRN","identifier":"gbif:ih:irn:262921","createdBy":"ih-sync","created":"2022-12-21T10:49:08.037+00:00"}],"contacts":[],"contactPersons":[{"key":34161,"firstName":"Greg","lastName":"de
-        Nevers","position":["Botanist"],"phone":["503-643-1203"],"fax":[],"email":["gregory.denevers@usda.gov"],"address":["63822
-        Hwy 96"],"city":"Happy Camp","province":"CA","country":"US","postalCode":"96039","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262924"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:08.234+00:00","modified":"2022-12-21T10:49:08.234+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":1350,"machineTags":[],"taxonomicCoverage":"Angiosperms,
-        mosses, lichens","geography":"Mostly Siskiyou County, CA","notes":"This is
-        a small District herbarium (1,350 specimens) used to identify plants for Forest
-        Service projects and research.","incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":1320,"numPteridos":30,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8928,"source":"IH_IRN","sourceId":"262921","createdBy":"ih-sync","created":"2022-12-21T10:49:08.103+00:00"},"division":"Happy
-        Camp/Oak Knoll Ranger District","displayOnNHCPortal":true,"institutionName":"Klamath
-        National Forest","institutionCode":"KNFHC"},{"key":"93765a64-1497-48a7-b9da-57d293071138","code":"WUM","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["vc@wumardan.edu.pk"],"phone":["0092-3008583737"],"preservationTypes":[],"institutionKey":"ec9b0793-f989-4ebd-b762-562fe858b713","mailingAddress":{"key":44606,"address":"East
-        Canal Raod","city":"Mardan","province":"Khyber Pakhtunkhwa","postalCode":"23200","country":"PK"},"address":{"key":44605,"address":"East
-        Canal Raod","city":"Mardan","province":"Khyber Pakhtunkhwa","postalCode":"23200","country":"PK"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:07.150+00:00","modified":"2022-12-21T10:49:07.150+00:00","tags":[],"identifiers":[{"key":334655,"type":"IH_IRN","identifier":"gbif:ih:irn:262918","createdBy":"ih-sync","created":"2022-12-21T10:49:07.282+00:00"}],"contacts":[],"contactPersons":[{"key":34159,"firstName":"Prof.
-        Dr. Ghazala","lastName":"Yasmeen","position":["Vice Chancellor"],"phone":["0092-3008583737"],"fax":[],"email":["vc@wumardan.edu.pk"],"address":["East
-        Canal Town"],"city":"Mardan","province":"Khyber Pakhtunkhwa","country":"PK","postalCode":"23200","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262917"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:07.579+00:00","modified":"2022-12-21T10:49:07.579+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":500,"machineTags":[],"taxonomicCoverage":"Plants","geography":"Mardan
-        and Neighboring districts","notes":"The current herbarium was initiated by
-        the efforts and special interest of Prof. Dr. Ghazala Yasmeen, Vice Chancellor
-        Women University Mardan. She invited Prof. Mary Barkworth for this inauguration
-        and conducted a grand  gathering with students and faculty that was attended
-        by media personnel as well. The herbarium would collect plants from all over
-        district Mardan and would certainly add to the current bank of biodiversity
-        reports in Pakistan.","incorporatedCollections":[],"importantCollectors":["Dr.
-        Ghazala Yasmeen"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":500,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8926,"source":"IH_IRN","sourceId":"262918","createdBy":"ih-sync","created":"2022-12-21T10:49:07.342+00:00"},"department":"Department
-        of Botany Women University Mardan","division":"Faculty of Science","displayOnNHCPortal":true,"institutionName":"Women
-        University Mardan","institutionCode":"WUM"},{"key":"12bb8ab2-6a17-42b7-88f0-a7a8fbe8a98e","code":"SVALP","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["museumsap@yandex.ru"],"phone":["+79201410159"],"homepage":"http://no","preservationTypes":[],"institutionKey":"28184ce5-1bfb-4017-b3d1-f8cbdb6255bd","mailingAddress":{"key":44602,"address":"Aleksievskaya
-        Pustyn street","city":"Novoalekseevka village, Pereslavsky district","province":"Yaroslavl
-        region","postalCode":"152049","country":"RU"},"address":{"key":44601,"address":"Aleksievskaya
-        Pustyn street","city":"Novoalekseevka village, Pereslavsky district","province":"Yaroslavl
-        region","postalCode":"152049","country":"RU"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:02.461+00:00","modified":"2022-12-21T10:49:02.461+00:00","tags":[],"identifiers":[{"key":334653,"type":"IH_IRN","identifier":"gbif:ih:irn:262884","createdBy":"ih-sync","created":"2022-12-21T10:49:02.575+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":5278,"machineTags":[],"taxonomicCoverage":"Vascular
-        plants, bryophytes, fungi (mainly lichens)","geography":"Russia","notes":"Entered
-        Oct 2022.","incorporatedCollections":["no"],"importantCollectors":["E. V.
-        Garin","N. Legoshina","L. N. Moskalenko","V. A. Smirnova"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8924,"source":"IH_IRN","sourceId":"262884","createdBy":"ih-sync","created":"2022-12-21T10:49:02.638+00:00"},"department":"Museum
-        of Natural History","division":"Herbarium","displayOnNHCPortal":true,"institutionName":"NGO
-        «St. Alexis Hermitage Orthodox Charity Monastery-Brotherhood»","institutionCode":"SVALP"},{"key":"253f626c-a015-4f68-be8d-c58a1f73331a","code":"TERN","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["donna.lewis@adelaide.edu.au"],"phone":["+61
-        (0) 8 8313 3465"],"homepage":"https://www.tern.org.au/field-sample-library/","preservationTypes":[],"institutionKey":"74642b5e-0505-43e6-a894-df19793ac831","mailingAddress":{"key":44598,"address":"Davies
-        Building, The University of Adelaide Waite Campus","city":"Urrbrae","province":"South
-        Australia","postalCode":"5064","country":"AU"},"address":{"key":44597,"address":"Davies
-        Building, The University of Adelaide Waite Campus","city":"Urrbrae","province":"South
-        Australia","postalCode":"5064","country":"AU"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:01.667+00:00","modified":"2022-12-21T10:49:01.667+00:00","tags":[],"identifiers":[{"key":334651,"type":"IH_IRN","identifier":"gbif:ih:irn:262840","createdBy":"ih-sync","created":"2022-12-21T10:49:01.810+00:00"}],"contacts":[],"contactPersons":[{"key":34157,"firstName":"Donna","lastName":"Lewis","position":["Curation
-        Lead"],"phone":["0422156522"],"fax":[],"email":["donna.lewis@adelaide.edu.au"],"address":["Ellengowan
-        Drive"],"city":"Casuarina","province":"Northern Territory","country":"AU","postalCode":"0810","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262841"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:02.024+00:00","modified":"2022-12-21T10:49:02.024+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":50837,"machineTags":[],"taxonomicCoverage":"Vascular
-        plants","geography":"Australia","notes":"Entered Oct 2022.  The Terrestrial
-        Ecosystem Research Network (TERN) is Australia’s land ecosystem observatory
-        and is enabled by the Australian Government’s National Collaborative Research
-        Infrastructure Strategy (NCRIS). \n\nTERN measures key terrestrial ecosystem
-        attributes over time from continental scale to fields sites at hundreds of
-        representative locations across Australia’s major biomes and openly provide
-        model ready data that enable researchers to detect and interpret changes in
-        land ecosystems. \n\nTERN’s Ecosystem Surveillance platform conducts field
-        surveys and sampling across a national network of plots and transects to provide
-        the data, samples and advice required for improved monitoring and assessment
-        of Australia’s major ecosystem. The platform helps scientists and land managers
-        better detect and quantify change in vegetation structure and composition,
-        land cover and soil characteristics. \nThe platform collects representative
-        plant specimens within the 1ha plots and associated leaf tissue samples stored
-        in Silica Gel. The specimens are thus part of a long-term continental scale
-        ecological monitoring program with rich temporal data. Plant specimens are
-        collected on each revisit; therefore, the collection differs to that of a
-        traditional herbarium. The plant specimen collection represents 5,804 vascular
-        plant species, equating to 24.18% of the Australian flora. As well as plant
-        specimens and leaf tissue samples, soil samples are collected, including bulk
-        density samples and soil metagenomic samples.\n\nThe plant specimens are stored
-        in Adelaide, South Australia and are available to loan for downstream research.
-        The TERN Australia Soil and Herbarium Collection does not accept exchanges;
-        however, we are in partnership with the State Herbarium of South Australia
-        (AD) that do accept exchanges.","incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":50354,"numPteridos":483,"numAlgaeImaged":0,"numPteridosDatabased":483,"numSeedPlDatabased":50354,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8922,"source":"IH_IRN","sourceId":"262840","createdBy":"ih-sync","created":"2022-12-21T10:49:01.872+00:00"},"department":"The
-        University of Adelaide","division":"TERN Ecosystem Surveillance","displayOnNHCPortal":true,"institutionName":"Terrestrial
-        Ecosystem Research Network (TERN)","institutionCode":"TERN"},{"key":"3129b8b3-06f7-44af-bdeb-27a3f401b1e0","code":"HNYUOB","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["nyakabwa.herbarium@univofbukavu.org"],"phone":[],"homepage":"https://www.univofbukavu.org/creget/","preservationTypes":[],"institutionKey":"45fe5ea2-bed6-45c9-928b-7a210e320b3e","mailingAddress":{"key":44594},"address":{"key":44593,"address":"Campus
-        Karhale","city":"Bukavu","province":"South Kivu","postalCode":"570 Bukavu","country":"CD"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:00.588+00:00","modified":"2022-12-21T10:49:00.588+00:00","tags":[],"identifiers":[{"key":334649,"type":"IH_IRN","identifier":"gbif:ih:irn:262879","createdBy":"ih-sync","created":"2022-12-21T10:49:00.720+00:00"}],"contacts":[],"contactPersons":[{"key":34153,"firstName":"Benjamin
-        BAHINDWA","lastName":"NCANGU","position":[],"phone":["+243993703195"],"fax":[],"email":["benjaminncangu@gmail.com"],"address":["Av
-        Buholo 2, N° 20"],"city":"Bukavu","province":"South Kivu","country":"CD","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262886"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:01.059+00:00","modified":"2022-12-21T10:49:01.059+00:00"},{"key":34154,"firstName":"Isaac
-        MAKELELE","lastName":"AHANAMUNGU","position":["Director in charge of research"],"phone":["+243853985855"],"fax":[],"email":["isaacmakelele1@gmail.com"],"address":["Av
-        de la Presse, N° 11H"],"city":"Bukavu","province":"South Kivu","country":"CD","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262992"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:01.129+00:00","modified":"2022-12-21T10:49:01.129+00:00"},{"key":34155,"firstName":"Alphonse
-        ZIHALIRWA","lastName":"BALEZI","position":["Director of the Herbarium"],"phone":["+243977830308"],"fax":[],"email":["bzih2004@yahoo.fr"],"address":["Av
-        Saio; N°118"],"city":"Bukavu","province":"South Kivu","country":"CD","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262993"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:01.196+00:00","modified":"2022-12-21T10:49:01.196+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":2177,"machineTags":[],"taxonomicCoverage":"Lichens,
-        Bryophytes, Pteridophytes, gymnosperms and angiosperms","geography":"High
-        and low lands of DR Congo with greatest strength in Eastern part","notes":"Entered
-        Oct 2022.  The activities of specimen collections began in 2004. However,
-        the formalization of the creation of Nyakabwa Herbarium began in 2020 and
-        become a reality in 2021 after a small break due to Covid-19.","incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":2075,"numPteridos":90,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":4,"numBryosImaged":0,"numBryos":8,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8920,"source":"IH_IRN","sourceId":"262879","createdBy":"ih-sync","created":"2022-12-21T10:49:00.780+00:00"},"department":"Biology","division":"Ecology
-        and plant management","displayOnNHCPortal":true,"institutionName":"Université
-        Officielle de Bukavu","institutionCode":"HNYUOB"},{"key":"e976d46b-1682-4a41-90ed-70dab4ebbb71","code":"HSCH","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["herbario.huamangensis@unsch.edu.pe"],"phone":["925
-        782 444","999 354 559","966 002 308"],"homepage":"https://www.facebook.com/herbario.sancristobaldehuamanga","preservationTypes":[],"institutionKey":"ac0cb53e-bced-4a82-a06e-2db3a2d388e6","mailingAddress":{"key":44590,"address":"Av.
-        Independencia s/n. Ciudad Universitaria - Ayacucho","city":"Ayacucho","province":"Ayacucho
-        / Huamanga","postalCode":"05001","country":"PE"},"address":{"key":44589,"address":"Universidad
-        Nacional de San Cristóbal de Huamanga_Ciudad universitaria - Laboratorios
-        de la Facultad de Ciencias Biológicas","city":"Ayacucho / Ciudad Universitaria","province":"Ayacucho_Huamanga","postalCode":"05001","country":"PE"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:48:59.778+00:00","modified":"2022-12-21T10:48:59.778+00:00","tags":[],"identifiers":[{"key":334647,"type":"IH_IRN","identifier":"gbif:ih:irn:262876","createdBy":"ih-sync","created":"2022-12-21T10:48:59.898+00:00"}],"contacts":[],"contactPersons":[{"key":34149,"firstName":"JENNY
-        ARREA","lastName":"PAUCAR","position":["BIÓLOGA"],"phone":["925 782 444","930
-        977 278"],"fax":[],"email":["jennypaucar@gmail.com"],"address":["Universidad
-        Nacional de San Cristóbal de Huamanga_Ciudad universitaria - Laboratorios
-        de la Facultad de Ciencias Biológicas"],"city":"Ayacucho / Ciudad Universitaria","province":"Ayacucho_Huamanga","country":"PE","postalCode":"05001","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"263009"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:00.088+00:00","modified":"2022-12-21T10:49:00.088+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":7896,"machineTags":[],"taxonomicCoverage":"Plant
-        vascular (angiosperm, gimnosperm), pteridófitos., lichens, bryophytas.","geography":"Paramo,
-        Grassland of dry puna, Grassland of wet puna, Wetland (bofedal), zone periglacier
-        and glacier, matorral of dry puna, high Andean relict forest, Andean scrubland.","notes":"Entered
-        Oct 2022.  The Herbarium San Cristobal de Huamanga (HSCH) is the only Herbarium
-        in the region of Ayacucho - Peru, therefore is an institution of importance
-        for the area, it houses information on native, wild and endemic vegetation,
-        which contributes to the knowledge of the local flora to promote the preservation
-        of natural ecosystems that harbor great biodiversity.","incorporatedCollections":[],"importantCollectors":["L.
-        Aucasime","J. De la Cruz","V. Cornejo","C. Magallanes","D. Barron"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":7661,"numPteridos":35,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":2,"numBryosImaged":0,"numBryos":198,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8918,"source":"IH_IRN","sourceId":"262876","createdBy":"ih-sync","created":"2022-12-21T10:48:59.956+00:00"},"department":"Facultad
-        de Ciencias Biológicas.","division":"Facultad","displayOnNHCPortal":true,"institutionName":"Herbario
-        San Cristóbal de Huamanga","institutionCode":"HSCH"},{"key":"58725988-5dfe-4f9f-b397-ac8c94c72483","code":"CITRO","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":[],"phone":["[52]
-        (228) 842-17-00 ext. 12666","[52] 228 842 1700 ext. 12645"],"homepage":"https://www.uv.mx/citro/herbario-citro/","preservationTypes":[],"institutionKey":"70bb4395-f673-4baf-bb17-7496cded00f1","mailingAddress":{"key":44586,"address":"Calle
-        José María Morelos No. 44 y 46, Zona Centro","city":"Xalapa","province":"Veracruz","postalCode":"91000","country":"MX"},"address":{"key":44585,"address":"Calle
-        José María Morelos No. 44 y 46, Zona Centro","city":"Xalapa","province":"Veracruz","postalCode":"91000","country":"MX"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:48:58.439+00:00","modified":"2023-01-04T10:47:33.280+00:00","tags":[],"identifiers":[{"key":334645,"type":"IH_IRN","identifier":"gbif:ih:irn:262778","createdBy":"ih-sync","created":"2022-12-21T10:48:58.553+00:00"}],"contacts":[],"contactPersons":[{"key":34146,"firstName":"Thorsten","lastName":"Krömer","position":["Senior
-        Researcher and Professor at Universidad Veracruzana"],"phone":["[52] 228-8421700
-        ext. 12645"],"fax":[],"email":["tkromer@uv.mx"],"address":["Calle José María
-        Morelos No. 44 y 46"],"city":"Xalapa","province":"Veracruz","country":"MX","postalCode":"91000","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262785"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:48:58.846+00:00","modified":"2022-12-21T10:48:58.846+00:00"},{"key":34147,"firstName":"Roberto","lastName":"Castro-Cortés","position":["Academic
-        Technician"],"phone":["[52] (228) 842-17-00 ext. 12666"],"fax":[],"email":["rocastro@uv.mx"],"address":["Calle
-        José María Morelos No. 44 y 46"],"city":"Xalapa","province":"Veracruz","country":"MX","postalCode":"91000","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262786"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:48:58.909+00:00","modified":"2022-12-21T10:48:58.909+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":1396,"machineTags":[],"taxonomicCoverage":"Endemic
-        flowering plants; Ferns and vascular epiphytes","geography":"Tropical Mexico,
-        especially Veracruz State","notes":"Entered Oct 2022.  The best represented
-        groups in the herbarium are mexican ferns, vascular epiphytes and endemic
-        plants of Veracruz State.","incorporatedCollections":[],"importantCollectors":["C.I.
-        Carvajal-Hernández, H.D. Krömer"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8916,"source":"IH_IRN","sourceId":"262778","createdBy":"ih-sync","created":"2022-12-21T10:48:58.611+00:00"},"displayOnNHCPortal":true,"institutionName":"Centro
-        de Investigaciones Tropicales, Universidad Veracruzana","institutionCode":"CITRO"},{"key":"a827c51e-f5a8-4ee2-b160-dacd955ce2b9","code":"SGH","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["karuppusamy@maduracollege.edu.in"],"phone":["8838841004"],"preservationTypes":[],"institutionKey":"1cb349fc-574c-47c7-8514-f17adbd67b0e","mailingAddress":{"key":44582,"address":"Vidya
-        Nagar, T.P.K road","city":"Madurai","province":"Tamil Nadu","postalCode":"625011","country":"IN"},"address":{"key":44581,"address":"Vidya
-        Nagar, T.P.K Road","city":"Madurai","province":"Tamil Nadu","postalCode":"625011","country":"IN"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:48:57.076+00:00","modified":"2022-12-21T10:48:57.076+00:00","tags":[],"identifiers":[{"key":334643,"type":"IH_IRN","identifier":"gbif:ih:irn:262787","createdBy":"ih-sync","created":"2022-12-21T10:48:57.191+00:00"}],"contacts":[],"contactPersons":[{"key":34143,"firstName":"Pochamoni
-        Bharathsimha","lastName":"Yadav","position":["Research scholar"],"phone":["09676563278"],"fax":[],"email":["bharathpochamoni@gmail.com"],"address":["Department
-        of Botany,, The Madura College (Autonomous), Madurai - 625 011., Tamil Nadu
-        state."],"city":"Madurai","province":"Tamil Nadu","country":"IN","postalCode":"625011","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262795"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:48:57.378+00:00","modified":"2022-12-21T10:48:57.378+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":5674,"machineTags":[],"taxonomicCoverage":"Angiosperms,
-        Gymnosperms and Pteridophytes","geography":"Southern Eastern Ghats, Southern
-        Western Ghats, Tamil Nadu state","notes":"Entered Oct. 2022.  In our herbarium
-        currently accounted about 5620 Angiosperms specimens, 17 Gymnosperms and 47
-        Pteridophytes collected from both eastern ghats and Western Ghats since 2008.
-        We provide public consultation and identification facilities for stackholders
-        with authentic information and connected with locally recognised herbaria
-        like MH.","incorporatedCollections":["Hedyotis rajasekaranii - Type specimen
-        (SGH, 2014)","Botanical Survey of India, southern circle, Madras herbarium
-        (MH)."],"importantCollectors":["M. Annadurai","P. Bharath","S. Karuppusamy","V.
-        Ravichandran","M. Uday Kumar","S. Yadav"],"collectionSummary":{"numPteridosImaged":12,"numBryosDatabased":0,"numSeedPlImaged":504,"numSeedPl":5637,"numPteridos":47,"numAlgaeImaged":0,"numPteridosDatabased":47,"numSeedPlDatabased":5637,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8914,"source":"IH_IRN","sourceId":"262787","createdBy":"ih-sync","created":"2022-12-21T10:48:57.247+00:00"},"department":"The
-        Department of Botany, The Madura College","division":"Botany","displayOnNHCPortal":true,"institutionName":"The
-        Madura College (Autonomous), Madurai, Tamil Nadu, India.","institutionCode":"SGH"}]}'
-  recorded_at: 2023-01-06 03:32:36 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
-- request:
-    method: get
-    uri: https://api.gbif.org/v1/grscicoll/collection?offset=0&limit=20
-    body:
-      encoding: ''
-      string: ''
-    headers:
-      Accept-Encoding: gzip, deflate
-      Accept: application/json, text/xml, application/xml, */*
-      User-Agent: galah 1.5.1
-  response:
-    status:
-      status_code: '200'
-      message: OK
-      explanation: Request fulfilled, document follows
-    headers:
-      status: 'HTTP/2 200 '
-      vary: Origin, Access-Control-Request-Method, Access-Control-Request-Headers
-      x-content-type-options: nosniff
-      x-xss-protection: 1; mode=block
-      pragma: no-cache
-      expires: '0'
-      x-frame-options: DENY
-      content-type: application/json
-      date: Fri, 06 Jan 2023 03:32:35 GMT
-      cache-control: public, max-age=3601
-      x-varnish: '465372163'
-      age: '0'
-      via: 1.1 varnish (Varnish/6.0)
-      accept-ranges: bytes
-    body:
-      encoding: UTF-8
-      file: no
-      string: '{"offset":0,"limit":20,"endOfRecords":false,"count":6875,"results":[{"key":"399d6318-3d9f-4e00-88c8-2b310b5af781","code":"LEUA","name":"LABORATORIO
-        DE ENTOMOLOGIA UNIVERSIDAD DE LA AMAZONIA","description":"La Colección Laboratorio
-        de Entomología Universidad de la Amazonia - LEUA es una unidad al servicio
-        de instituciones, investigadores y sociedad en general, con interés en la
-        generación de nuevos conocimientos relacionados con la Entomología en el Neotrópico.
-        La colección brinda un espacio adecuado para la preservación de especímenes
-        de insectos en seco y líquido, en el que los científicos con interés en el
-        reconocimiento de la diversidad de insectos en la región Neotropical pueden
-        desarrollar investigaciones en morfología, taxonomía, sistemática, filogenia,
-        biología, ecología y biogeografía. Visión: En el año 2030, la Colección Laboratorio
-        de Entomología Universidad de la Amazonia –LEUA será reconocida como una colección
-        de referencia que es consultada por entomólogos especialistas de todos los
-        grupos de insectos. La Colección estará articulada con instituciones regionales,
-        nacionales e internacionales, que dediquen esfuerzos al reconocimiento de
-        la diversidad de insectos en el Neotrópico. Los investigadores vinculados
-        a la Colección enfocarán sus esfuerzos en la generación y socialización de
-        nuevos conocimientos a través de publicaciones científicas, desarrollo de
-        eventos especializados y la consolidación de redes de conocimiento con la
-        comunidad científica internacional.","contentTypes":[],"active":true,"personalCollection":false,"email":["rectoria@uniamazonia.edu.co"],"phone":["(608)
-        4358231"],"preservationTypes":[],"institutionKey":"f02c524c-99c8-4879-970e-0a50c7cb05a0","mailingAddress":{"key":44656,"address":"Diagonal
-        17 con Carrera 3F, Barrio Porvenir","city":"Florencia","province":"Caquetá","country":"CO"},"address":{"key":44655,"address":"Diagonal
-        17 con Carrera 3F, Barrio Porvenir","city":"Florencia","province":"Caquetá","country":"CO"},"createdBy":"daiesco","modifiedBy":"daiesco","created":"2022-12-26T21:05:51.698+00:00","modified":"2022-12-26T21:05:51.698+00:00","tags":[],"identifiers":[],"contacts":[],"contactPersons":[{"key":34168,"firstName":"JEAN
-        ALEXÁNDER","lastName":"GAMBOA TABARES","position":["Curador"],"phone":["(57)
-        3108772849"],"fax":[],"email":["j.gamboa@udla.edu.co"],"address":[],"city":"Florencia","province":"Caquetá","country":"CO","primary":true,"taxonomicExpertise":["Insectos"],"userIds":[],"createdBy":"daiesco","modifiedBy":"daiesco","created":"2022-12-26T21:07:22.817+00:00","modified":"2022-12-26T21:07:22.817+00:00"}],"indexHerbariorumRecord":false,"machineTags":[],"incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"GRSCICOLL","displayOnNHCPortal":true,"institutionName":"Universidad
-        de la Amazonia","institutionCode":"HUAZ"},{"key":"3bbf341b-304c-4edc-8b16-c5972332cf63","code":"IFSH","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["herbario.inconfidentes@ifsuldeminas.edu.br"],"phone":["55
-        35 3464 9544"],"homepage":"https://portal.ifs.ifsuldeminas.edu.br/index.php/herbario","preservationTypes":[],"institutionKey":"ac3fca3d-6c3f-416e-bb02-862d64d9fef1","mailingAddress":{"key":44654,"address":"Praça
-        Tiradentes, 416","city":"Inconfidentes","province":"Minas Gerais","postalCode":"37576000","country":"BR"},"address":{"key":44653,"address":"Avenida
-        Alvarenga Peixoto, n° 278","city":"Inconfidentes","province":"Minas Gerais","postalCode":"Minas
-        Gerais","country":"BR"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:25.462+00:00","modified":"2023-01-04T10:47:45.459+00:00","tags":[],"identifiers":[{"key":334679,"type":"IH_IRN","identifier":"gbif:ih:irn:263131","createdBy":"ih-sync","created":"2022-12-21T10:49:25.599+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":20,"machineTags":[],"notes":"Entered
-        Dec 2022.","incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8950,"source":"IH_IRN","sourceId":"263131","createdBy":"ih-sync","created":"2022-12-21T10:49:25.658+00:00"},"department":"Coordenadoria
-        de Extensão","displayOnNHCPortal":true,"institutionName":"Instituto Federal
-        de Educação, Ciência e Tecnologia do Sul de Minas Gerais - IFSULDEMINAS -
-        Campus Inconfidentes","institutionCode":"IFSH"},{"key":"4c521834-8a38-4633-ac60-c4a6fdba77d0","code":"FHJ","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["jjazila39@gmail.com"],"phone":[],"preservationTypes":[],"institutionKey":"e3ca85ad-711e-4c30-b715-179e2a6054ba","mailingAddress":{"key":44650,"address":"Federal
-        College of forestry Jos PMB 2019","city":"Jos","province":"Plateau State","country":"NG"},"address":{"key":44649},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:24.828+00:00","modified":"2022-12-21T10:49:24.828+00:00","tags":[],"identifiers":[{"key":334677,"type":"IH_IRN","identifier":"gbif:ih:irn:263125","createdBy":"ih-sync","created":"2022-12-21T10:49:24.950+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":295,"machineTags":[],"notes":"Entered
-        Dec 2022","incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":500,"numPteridos":10,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8948,"source":"IH_IRN","sourceId":"263125","createdBy":"ih-sync","created":"2022-12-21T10:49:25.010+00:00"},"department":"Forestry
-        Technology","division":"Herbarium","displayOnNHCPortal":true,"institutionName":"Federal
-        College of forestry Jos","institutionCode":"FHJ"},{"key":"088fb093-c415-4940-9079-a803cabe845b","code":"HUCO","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["maquijano@gmail.com"],"phone":["+(604)
-        569 90 90 ext. 332"],"homepage":"https://www.uco.edu.co/herbariouco/Paginas/home_herbario.aspx","preservationTypes":[],"institutionKey":"7e8dae18-e60e-4edc-bdfe-eb6c07d92af5","mailingAddress":{"key":44646,"address":"Sector
-        3, cra. 46 No. 40B 50 – Edificio de la ciencia, Herbario","city":"Medellín
-        / Rionegro","country":"CO"},"address":{"key":44645,"address":"Sector 3, cra.
-        46 No. 40B 50 - Edificio de la ciencia, Herbario","city":"Medellín / Rionegro","country":"CO"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:24.335+00:00","modified":"2022-12-21T10:49:24.335+00:00","tags":[],"identifiers":[{"key":334675,"type":"IH_IRN","identifier":"gbif:ih:irn:263124","createdBy":"ih-sync","created":"2022-12-21T10:49:24.478+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":13543,"machineTags":[],"notes":"Entered
-        Dec 2022.","incorporatedCollections":["Herbario de la Universidad de Antioquia
-        en 2019","Herbario JAUM Jardín Botánico de Medellín 2019."],"importantCollectors":["M.
-        A Quijano","F. Alzate","R. Callejas","A. Cogollo","F. Giraldo","A. Idarraga","F.
-        J Roldan","D. Tuberquia","A. Vasco"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":12962,"numPteridos":395,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":124,"numBryosImaged":0,"numBryos":62,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8946,"source":"IH_IRN","sourceId":"263124","createdBy":"ih-sync","created":"2022-12-21T10:49:24.540+00:00"},"department":"Facultad
-        de Ingenierías","division":"Laboratorio","displayOnNHCPortal":true,"institutionName":"Universidad
-        Católica de Oriente","institutionCode":"HUCO"},{"key":"245ae008-a86e-4b12-8afa-edfcff990ff9","code":"Centre
-        for Plant Biotechnology (CPBH)","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["cpbsxc@gmail.com"],"phone":["91978924334"],"preservationTypes":[],"institutionKey":"a0b76cf1-eb8f-4bc0-8865-433d29ec0c3b","mailingAddress":{"key":44642,"address":"North
-        High Ground Road","city":"Palayamkottai","province":"Tamil Nadu","postalCode":"627002","country":"IN"},"address":{"key":44641,"address":"North
-        High Ground Road","city":"Palayamkottai","province":"Tamil Nadu","postalCode":"627002","country":"IN"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:23.653+00:00","modified":"2022-12-21T10:49:23.653+00:00","tags":[],"identifiers":[{"key":334673,"type":"IH_IRN","identifier":"gbif:ih:irn:262457","createdBy":"ih-sync","created":"2022-12-21T10:49:23.770+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":2300,"machineTags":[],"taxonomicCoverage":"Pteridophytes","geography":"Western
-        Ghats and Mizoram","notes":"Entered Nov 2022.  The Pteridophytes specimen
-        of Kalakadu Mundanthurai Tiger Reserve, Anamalai Tiger Reserve, Tirunelveli
-        Hills, Kolli Hills, Shervarayan Hills, Mizoram, Nagercoil to Marthandam, Shencottai
-        to Thenmalai, Mekkarai, Koni Reserve Forest, Mizoram are available","incorporatedCollections":[],"importantCollectors":["J
-        ohnson Marimuthu alias Antonysamy"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":2300,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8944,"source":"IH_IRN","sourceId":"262457","createdBy":"ih-sync","created":"2022-12-21T10:49:23.862+00:00"},"department":"Botany","division":"Centre
-        for Plant Biotechnology","displayOnNHCPortal":true,"institutionName":"St.
-        Xavier''s College","institutionCode":"Centre for Plant Biotechnology (CPBH)"},{"key":"d78bdd47-e6fc-4e75-b824-152c49450b8a","code":"EBCF00","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["theresakadish@gmail.com"],"phone":["339
-        545 1233"],"preservationTypes":[],"institutionKey":"84ccdb1c-24a5-495e-a676-338bed1117d4","mailingAddress":{"key":44638,"address":"2253
-        County Highway 22","city":"Walton","province":"New York","postalCode":"13856-2227","country":"US"},"address":{"key":44637,"address":"4400
-        Vestal Parkway East","city":"Binghamton","province":"NY","postalCode":"13902","country":"US"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:22.993+00:00","modified":"2023-01-04T10:47:44.997+00:00","tags":[],"identifiers":[{"key":334671,"type":"IH_IRN","identifier":"gbif:ih:irn:263050","createdBy":"ih-sync","created":"2022-12-21T10:49:23.146+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":90,"machineTags":[],"taxonomicCoverage":"Macrofungi","geography":"East
-        Brook Valley, Walton NY","notes":"Entered 1 Dec 2022.","incorporatedCollections":["Held
-        by the Binghamton University Science Library","90 specimens collected in 2021"],"importantCollectors":["M.
-        ABDALLAH","D. ACOFF","J. AMANITA","R. GRABARCHUK","T. KADISH","T. G. VINCA","K.
-        WHITE","K. WHITE"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":90,"numFungi":90,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":90},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8942,"source":"IH_IRN","sourceId":"263050","createdBy":"ih-sync","created":"2022-12-21T10:49:23.211+00:00"},"department":"Biology","displayOnNHCPortal":true,"institutionName":"Binghamton
-        University","institutionCode":"EBCF00"},{"key":"de36f091-4628-44da-b9e6-97b3cc506d39","code":"SMMSH","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":[],"phone":["805
-        370 2360"],"preservationTypes":[],"institutionKey":"b2f840c6-359f-4660-8442-4833fd35fc19","mailingAddress":{"key":44634,"address":"401
-        West Hillcrest Drive","city":"Thousand Oaks","province":"CA","postalCode":"91360","country":"US"},"address":{"key":44633,"address":"401
-        West Hillcrest Drive","city":"Thousand Oaks","province":"CA","postalCode":"91360","country":"US"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:20.695+00:00","modified":"2022-12-21T10:49:20.695+00:00","tags":[],"identifiers":[{"key":334669,"type":"IH_IRN","identifier":"gbif:ih:irn:263014","createdBy":"ih-sync","created":"2022-12-21T10:49:20.824+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":1200,"machineTags":[],"taxonomicCoverage":"vascular
-        plants, bryophytes, lichens","geography":"Santa Monica Mountains and Simi
-        Hills, in Los Angeles and Ventura Counties, California","notes":"Entered Nov
-        2022.","incorporatedCollections":[],"importantCollectors":["L. M. Aguilar","B.
-        R. Baker","T. K. Chipman","R. G. Flores","A. C. Gibson","M. H. Hernandez","R.
-        Larson","B. C. Prigge","D. A. Rodriguez","I. Romero","T. L. Sagar","J. C.
-        Tiszler","A. J. Valois"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":50,"numSeedPlImaged":0,"numSeedPl":1100,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":1100,"numFungiDatabased":50,"numFungi":50,"numBryosImaged":0,"numBryos":50,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8940,"source":"IH_IRN","sourceId":"263014","createdBy":"ih-sync","created":"2022-12-21T10:49:20.888+00:00"},"department":"Planning,
-        Science & Resource Management","division":"Santa Monica Mountains National
-        Recreation Area","displayOnNHCPortal":true,"institutionName":"U.S. National
-        Park Service","institutionCode":"SMMSH"},{"key":"df92e757-7968-4ab5-9d6f-61283c8afc22","code":"CPMR","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":[],"phone":[],"preservationTypes":[],"institutionKey":"aed19e87-e463-463a-9991-bda78020655e","mailingAddress":{"key":44630,"city":"Mampong-Akuapem","province":"Eastern
-        Region"},"address":{"key":44629,"province":"Mampong-Akuapem","postalCode":"Eastern
-        Region","country":"GH"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:20.175+00:00","modified":"2022-12-21T10:49:20.175+00:00","tags":[],"identifiers":[{"key":334667,"type":"IH_IRN","identifier":"gbif:ih:irn:263013","createdBy":"ih-sync","created":"2022-12-21T10:49:20.302+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":1049,"machineTags":[],"geography":"Ghana","notes":"Entered
-        Nov 2022.  The herbarium contain specimens of medicinal plants collected to
-        support the work of the Centre.","incorporatedCollections":[],"importantCollectors":["E.S.
-        A. Ayew","E. O. Lartey","D. Owiredu","M. T. Kumah","E. C. O. Ansah","H. R.
-        Blagogee"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8938,"source":"IH_IRN","sourceId":"263013","createdBy":"ih-sync","created":"2022-12-21T10:49:20.364+00:00"},"department":"Department
-        of Plant Development","division":"Herbarium","displayOnNHCPortal":true,"institutionName":"Centre
-        for Plant Medicine Research","institutionCode":"CPMR"},{"key":"acd267d6-767e-4ef8-9fd5-d263c9e888cf","code":"BJB","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["savitarahangdale7@gmail.com"],"phone":["9420864515"],"homepage":"http://www.bjcollege.com","preservationTypes":[],"institutionKey":"1953b276-3434-4fcb-9ccc-ca2cec6d7585","mailingAddress":{"key":44626,"address":"Balasaheb
-        Jadhav College, ALE","city":"ALE, dist. Pune","province":"Maharashtra","postalCode":"412411","country":"IN"},"address":{"key":44625,"address":"Junnar","city":"Pune","province":"Maharashtra","postalCode":"412411","country":"IN"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:15.407+00:00","modified":"2022-12-21T10:49:15.407+00:00","tags":[],"identifiers":[{"key":334665,"type":"IH_IRN","identifier":"gbif:ih:irn:262964","createdBy":"ih-sync","created":"2022-12-21T10:49:15.539+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":8000,"machineTags":[],"taxonomicCoverage":"Angiosperms,
-        pteridophytes","geography":"Western ghat","notes":"Entered Nov 2022.  Herbarium
-        with type specimen and new distributional records.","incorporatedCollections":["Angiosperms
-        (8000), Pteridophytes (2000)."],"importantCollectors":["S.S.R. Bhise"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":900,"numSeedPl":8000,"numPteridos":2000,"numAlgaeImaged":0,"numPteridosDatabased":2,"numSeedPlDatabased":1400,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8936,"source":"IH_IRN","sourceId":"262964","createdBy":"ih-sync","created":"2022-12-21T10:49:15.607+00:00"},"department":"Botany","division":"science","displayOnNHCPortal":true,"institutionName":"Hon.
-        Balasaheb Jadhav college Ale","institutionCode":"BJB"},{"key":"a900fe29-0bf6-4875-b427-ad9cd0394d28","code":"BIN","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["yyapar@bingol.edu.tr","lbehcet@bingol.edu.tr"],"phone":["0(426)
-        216 0050 ext. 2250"],"preservationTypes":[],"institutionKey":"0c1bdfc9-1943-4125-bc82-041b11d4e5c6","mailingAddress":{"key":44622,"address":"Selahaddin-i
-        Eyyubi neighbourhood, Üniversite Street, no:1","city":"Bingöl","province":"Bingöl","postalCode":"12000","country":"TR"},"address":{"key":44621,"address":"Selahaddin-i
-        Eyyubi neighbourhood, Üniversite Street, no:1","city":"Bingöl","province":"Bingöl","postalCode":"12000","country":"TR"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:14.771+00:00","modified":"2022-12-21T10:49:14.771+00:00","tags":[],"identifiers":[{"key":334663,"type":"IH_IRN","identifier":"gbif:ih:irn:262985","createdBy":"ih-sync","created":"2022-12-21T10:49:14.891+00:00"}],"contacts":[],"contactPersons":[{"key":34167,"firstName":"Yakup","lastName":"YAPAR","position":[],"phone":[],"fax":[],"email":["yyapar@bingol.edu.tr"],"address":["Bingöl
-        üniv.fen edebiyat fakültesi biyoloji bölümü d1-37"],"city":"Bingöl Merkez","province":"Bingöl","country":"TR","postalCode":"12000","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262994"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:15.097+00:00","modified":"2022-12-21T10:49:15.097+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":11597,"machineTags":[],"notes":"Entered
-        Nov 2022.","incorporatedCollections":[],"importantCollectors":["L. BEHÇET","A.
-        ÇETİN","Y. YAPAR","H. CENGİZ","A. SİNAN"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":11597,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8934,"source":"IH_IRN","sourceId":"262985","createdBy":"ih-sync","created":"2022-12-21T10:49:14.971+00:00"},"department":"Faculty
-        of Arts and Sciences","division":"Molecular Biology and Genetics","displayOnNHCPortal":true,"institutionName":"Bingöl
-        University Herbarium","institutionCode":"BIN"},{"key":"3d9d0cd4-8b89-4e1e-a8da-7d41558a84d8","code":"TRZYNT","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["islerderya@hotmail.com"],"phone":[],"preservationTypes":[],"institutionKey":"b4b18a5a-91c4-4c8f-9292-61bc29fe7952","mailingAddress":{"key":44618,"address":"University
-        Street","city":"İZMİR","province":"İZMİR","postalCode":"35735","country":"TR"},"address":{"key":44617},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:09.471+00:00","modified":"2022-12-21T10:49:09.471+00:00","tags":[],"identifiers":[{"key":334661,"type":"IH_IRN","identifier":"gbif:ih:irn:262937","createdBy":"ih-sync","created":"2022-12-21T10:49:09.590+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":1,"machineTags":[],"taxonomicCoverage":"Colletotrichum
-        fioriniae","notes":"Entered Nov 2022.","incorporatedCollections":[],"importantCollectors":["C.
-        Vardar Kor, L. Erten Caran, Isler Ceyhan"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":1,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":1,"numBryos":1,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8932,"source":"IH_IRN","sourceId":"262937","createdBy":"ih-sync","created":"2022-12-21T10:49:09.656+00:00"},"department":"Olive
-        Research Institute","division":"Department of Phytosanitary","displayOnNHCPortal":true,"institutionName":"OLIVE
-        CULTIVATION RESEARCH INSTITUTE DIRECTORATE","institutionCode":"TRZYNT"},{"key":"0f49f98f-348a-40d9-b133-b2ccddaebd5c","code":"FCQB","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["19078@uagro.mx"],"phone":[],"preservationTypes":[],"institutionKey":"37441429-d0a9-4550-90e8-e25224d38df2","mailingAddress":{"key":44614,"address":"Lazaro
-        Cárdenas S/n, Ciudad Universitaria","city":"Chilpancingo","province":"Guerrero","postalCode":"39070","country":"MX"},"address":{"key":44613,"country":"MX"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:08.679+00:00","modified":"2023-01-04T10:47:37.823+00:00","tags":[],"identifiers":[{"key":334659,"type":"IH_IRN","identifier":"gbif:ih:irn:262938","createdBy":"ih-sync","created":"2022-12-21T10:49:08.792+00:00"}],"contacts":[],"contactPersons":[{"key":34164,"firstName":"Felipe","lastName":"Gómez-Noguez","position":[],"phone":[],"fax":[],"email":["19078@uagro.mx"],"address":[],"country":"MX","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262945"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:09.072+00:00","modified":"2022-12-21T10:49:09.072+00:00"},{"key":34165,"firstName":"Francisco","lastName":"Maradiaga","position":[],"phone":[],"fax":[],"email":["03449@uagro.mx"],"address":[],"country":"MX","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262942"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:09.143+00:00","modified":"2022-12-21T10:49:09.143+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":5000,"machineTags":[],"taxonomicCoverage":"Cryptogams
-        and vascular plants","geography":"Guerrero","notes":"Entered Nov 2022.","incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8930,"source":"IH_IRN","sourceId":"262938","createdBy":"ih-sync","created":"2022-12-21T10:49:08.863+00:00"},"division":"Faculta
-        de Ciencias Químico Biológicas","displayOnNHCPortal":true,"institutionName":"Universidad
-        Autónoma de Guerrero","institutionCode":"FCQB"},{"key":"93b33a4e-97de-4f93-a5ae-0e775b86c809","code":"KNFHC","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":[],"phone":["530-6431203"],"preservationTypes":[],"institutionKey":"ff1de43f-af23-4d4a-bc83-23e921ab7487","mailingAddress":{"key":44610,"address":"63822
-        Hwy 96","city":"Happy Camp","province":"CA","postalCode":"96039","country":"US"},"address":{"key":44609,"address":"63822
-        Hwy 96","city":"Happy Camp","province":"CA","postalCode":"96039","country":"US"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:07.914+00:00","modified":"2023-01-04T10:47:37.759+00:00","tags":[],"identifiers":[{"key":334657,"type":"IH_IRN","identifier":"gbif:ih:irn:262921","createdBy":"ih-sync","created":"2022-12-21T10:49:08.037+00:00"}],"contacts":[],"contactPersons":[{"key":34161,"firstName":"Greg","lastName":"de
-        Nevers","position":["Botanist"],"phone":["503-643-1203"],"fax":[],"email":["gregory.denevers@usda.gov"],"address":["63822
-        Hwy 96"],"city":"Happy Camp","province":"CA","country":"US","postalCode":"96039","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262924"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:08.234+00:00","modified":"2022-12-21T10:49:08.234+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":1350,"machineTags":[],"taxonomicCoverage":"Angiosperms,
-        mosses, lichens","geography":"Mostly Siskiyou County, CA","notes":"This is
-        a small District herbarium (1,350 specimens) used to identify plants for Forest
-        Service projects and research.","incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":1320,"numPteridos":30,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8928,"source":"IH_IRN","sourceId":"262921","createdBy":"ih-sync","created":"2022-12-21T10:49:08.103+00:00"},"division":"Happy
-        Camp/Oak Knoll Ranger District","displayOnNHCPortal":true,"institutionName":"Klamath
-        National Forest","institutionCode":"KNFHC"},{"key":"93765a64-1497-48a7-b9da-57d293071138","code":"WUM","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["vc@wumardan.edu.pk"],"phone":["0092-3008583737"],"preservationTypes":[],"institutionKey":"ec9b0793-f989-4ebd-b762-562fe858b713","mailingAddress":{"key":44606,"address":"East
-        Canal Raod","city":"Mardan","province":"Khyber Pakhtunkhwa","postalCode":"23200","country":"PK"},"address":{"key":44605,"address":"East
-        Canal Raod","city":"Mardan","province":"Khyber Pakhtunkhwa","postalCode":"23200","country":"PK"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:07.150+00:00","modified":"2022-12-21T10:49:07.150+00:00","tags":[],"identifiers":[{"key":334655,"type":"IH_IRN","identifier":"gbif:ih:irn:262918","createdBy":"ih-sync","created":"2022-12-21T10:49:07.282+00:00"}],"contacts":[],"contactPersons":[{"key":34159,"firstName":"Prof.
-        Dr. Ghazala","lastName":"Yasmeen","position":["Vice Chancellor"],"phone":["0092-3008583737"],"fax":[],"email":["vc@wumardan.edu.pk"],"address":["East
-        Canal Town"],"city":"Mardan","province":"Khyber Pakhtunkhwa","country":"PK","postalCode":"23200","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262917"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:07.579+00:00","modified":"2022-12-21T10:49:07.579+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":500,"machineTags":[],"taxonomicCoverage":"Plants","geography":"Mardan
-        and Neighboring districts","notes":"The current herbarium was initiated by
-        the efforts and special interest of Prof. Dr. Ghazala Yasmeen, Vice Chancellor
-        Women University Mardan. She invited Prof. Mary Barkworth for this inauguration
-        and conducted a grand  gathering with students and faculty that was attended
-        by media personnel as well. The herbarium would collect plants from all over
-        district Mardan and would certainly add to the current bank of biodiversity
-        reports in Pakistan.","incorporatedCollections":[],"importantCollectors":["Dr.
-        Ghazala Yasmeen"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":500,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8926,"source":"IH_IRN","sourceId":"262918","createdBy":"ih-sync","created":"2022-12-21T10:49:07.342+00:00"},"department":"Department
-        of Botany Women University Mardan","division":"Faculty of Science","displayOnNHCPortal":true,"institutionName":"Women
-        University Mardan","institutionCode":"WUM"},{"key":"12bb8ab2-6a17-42b7-88f0-a7a8fbe8a98e","code":"SVALP","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["museumsap@yandex.ru"],"phone":["+79201410159"],"homepage":"http://no","preservationTypes":[],"institutionKey":"28184ce5-1bfb-4017-b3d1-f8cbdb6255bd","mailingAddress":{"key":44602,"address":"Aleksievskaya
-        Pustyn street","city":"Novoalekseevka village, Pereslavsky district","province":"Yaroslavl
-        region","postalCode":"152049","country":"RU"},"address":{"key":44601,"address":"Aleksievskaya
-        Pustyn street","city":"Novoalekseevka village, Pereslavsky district","province":"Yaroslavl
-        region","postalCode":"152049","country":"RU"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:02.461+00:00","modified":"2022-12-21T10:49:02.461+00:00","tags":[],"identifiers":[{"key":334653,"type":"IH_IRN","identifier":"gbif:ih:irn:262884","createdBy":"ih-sync","created":"2022-12-21T10:49:02.575+00:00"}],"contacts":[],"contactPersons":[],"indexHerbariorumRecord":true,"numberSpecimens":5278,"machineTags":[],"taxonomicCoverage":"Vascular
-        plants, bryophytes, fungi (mainly lichens)","geography":"Russia","notes":"Entered
-        Oct 2022.","incorporatedCollections":["no"],"importantCollectors":["E. V.
-        Garin","N. Legoshina","L. N. Moskalenko","V. A. Smirnova"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8924,"source":"IH_IRN","sourceId":"262884","createdBy":"ih-sync","created":"2022-12-21T10:49:02.638+00:00"},"department":"Museum
-        of Natural History","division":"Herbarium","displayOnNHCPortal":true,"institutionName":"NGO
-        «St. Alexis Hermitage Orthodox Charity Monastery-Brotherhood»","institutionCode":"SVALP"},{"key":"253f626c-a015-4f68-be8d-c58a1f73331a","code":"TERN","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["donna.lewis@adelaide.edu.au"],"phone":["+61
-        (0) 8 8313 3465"],"homepage":"https://www.tern.org.au/field-sample-library/","preservationTypes":[],"institutionKey":"74642b5e-0505-43e6-a894-df19793ac831","mailingAddress":{"key":44598,"address":"Davies
-        Building, The University of Adelaide Waite Campus","city":"Urrbrae","province":"South
-        Australia","postalCode":"5064","country":"AU"},"address":{"key":44597,"address":"Davies
-        Building, The University of Adelaide Waite Campus","city":"Urrbrae","province":"South
-        Australia","postalCode":"5064","country":"AU"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:01.667+00:00","modified":"2022-12-21T10:49:01.667+00:00","tags":[],"identifiers":[{"key":334651,"type":"IH_IRN","identifier":"gbif:ih:irn:262840","createdBy":"ih-sync","created":"2022-12-21T10:49:01.810+00:00"}],"contacts":[],"contactPersons":[{"key":34157,"firstName":"Donna","lastName":"Lewis","position":["Curation
-        Lead"],"phone":["0422156522"],"fax":[],"email":["donna.lewis@adelaide.edu.au"],"address":["Ellengowan
-        Drive"],"city":"Casuarina","province":"Northern Territory","country":"AU","postalCode":"0810","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262841"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:02.024+00:00","modified":"2022-12-21T10:49:02.024+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":50837,"machineTags":[],"taxonomicCoverage":"Vascular
-        plants","geography":"Australia","notes":"Entered Oct 2022.  The Terrestrial
-        Ecosystem Research Network (TERN) is Australia’s land ecosystem observatory
-        and is enabled by the Australian Government’s National Collaborative Research
-        Infrastructure Strategy (NCRIS). \n\nTERN measures key terrestrial ecosystem
-        attributes over time from continental scale to fields sites at hundreds of
-        representative locations across Australia’s major biomes and openly provide
-        model ready data that enable researchers to detect and interpret changes in
-        land ecosystems. \n\nTERN’s Ecosystem Surveillance platform conducts field
-        surveys and sampling across a national network of plots and transects to provide
-        the data, samples and advice required for improved monitoring and assessment
-        of Australia’s major ecosystem. The platform helps scientists and land managers
-        better detect and quantify change in vegetation structure and composition,
-        land cover and soil characteristics. \nThe platform collects representative
-        plant specimens within the 1ha plots and associated leaf tissue samples stored
-        in Silica Gel. The specimens are thus part of a long-term continental scale
-        ecological monitoring program with rich temporal data. Plant specimens are
-        collected on each revisit; therefore, the collection differs to that of a
-        traditional herbarium. The plant specimen collection represents 5,804 vascular
-        plant species, equating to 24.18% of the Australian flora. As well as plant
-        specimens and leaf tissue samples, soil samples are collected, including bulk
-        density samples and soil metagenomic samples.\n\nThe plant specimens are stored
-        in Adelaide, South Australia and are available to loan for downstream research.
-        The TERN Australia Soil and Herbarium Collection does not accept exchanges;
-        however, we are in partnership with the State Herbarium of South Australia
-        (AD) that do accept exchanges.","incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":50354,"numPteridos":483,"numAlgaeImaged":0,"numPteridosDatabased":483,"numSeedPlDatabased":50354,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8922,"source":"IH_IRN","sourceId":"262840","createdBy":"ih-sync","created":"2022-12-21T10:49:01.872+00:00"},"department":"The
-        University of Adelaide","division":"TERN Ecosystem Surveillance","displayOnNHCPortal":true,"institutionName":"Terrestrial
-        Ecosystem Research Network (TERN)","institutionCode":"TERN"},{"key":"3129b8b3-06f7-44af-bdeb-27a3f401b1e0","code":"HNYUOB","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["nyakabwa.herbarium@univofbukavu.org"],"phone":[],"homepage":"https://www.univofbukavu.org/creget/","preservationTypes":[],"institutionKey":"45fe5ea2-bed6-45c9-928b-7a210e320b3e","mailingAddress":{"key":44594},"address":{"key":44593,"address":"Campus
-        Karhale","city":"Bukavu","province":"South Kivu","postalCode":"570 Bukavu","country":"CD"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:00.588+00:00","modified":"2022-12-21T10:49:00.588+00:00","tags":[],"identifiers":[{"key":334649,"type":"IH_IRN","identifier":"gbif:ih:irn:262879","createdBy":"ih-sync","created":"2022-12-21T10:49:00.720+00:00"}],"contacts":[],"contactPersons":[{"key":34153,"firstName":"Benjamin
-        BAHINDWA","lastName":"NCANGU","position":[],"phone":["+243993703195"],"fax":[],"email":["benjaminncangu@gmail.com"],"address":["Av
-        Buholo 2, N° 20"],"city":"Bukavu","province":"South Kivu","country":"CD","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262886"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:01.059+00:00","modified":"2022-12-21T10:49:01.059+00:00"},{"key":34154,"firstName":"Isaac
-        MAKELELE","lastName":"AHANAMUNGU","position":["Director in charge of research"],"phone":["+243853985855"],"fax":[],"email":["isaacmakelele1@gmail.com"],"address":["Av
-        de la Presse, N° 11H"],"city":"Bukavu","province":"South Kivu","country":"CD","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262992"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:01.129+00:00","modified":"2022-12-21T10:49:01.129+00:00"},{"key":34155,"firstName":"Alphonse
-        ZIHALIRWA","lastName":"BALEZI","position":["Director of the Herbarium"],"phone":["+243977830308"],"fax":[],"email":["bzih2004@yahoo.fr"],"address":["Av
-        Saio; N°118"],"city":"Bukavu","province":"South Kivu","country":"CD","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262993"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:01.196+00:00","modified":"2022-12-21T10:49:01.196+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":2177,"machineTags":[],"taxonomicCoverage":"Lichens,
-        Bryophytes, Pteridophytes, gymnosperms and angiosperms","geography":"High
-        and low lands of DR Congo with greatest strength in Eastern part","notes":"Entered
-        Oct 2022.  The activities of specimen collections began in 2004. However,
-        the formalization of the creation of Nyakabwa Herbarium began in 2020 and
-        become a reality in 2021 after a small break due to Covid-19.","incorporatedCollections":[],"importantCollectors":[],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":2075,"numPteridos":90,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":4,"numBryosImaged":0,"numBryos":8,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8920,"source":"IH_IRN","sourceId":"262879","createdBy":"ih-sync","created":"2022-12-21T10:49:00.780+00:00"},"department":"Biology","division":"Ecology
-        and plant management","displayOnNHCPortal":true,"institutionName":"Université
-        Officielle de Bukavu","institutionCode":"HNYUOB"},{"key":"e976d46b-1682-4a41-90ed-70dab4ebbb71","code":"HSCH","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["herbario.huamangensis@unsch.edu.pe"],"phone":["925
-        782 444","999 354 559","966 002 308"],"homepage":"https://www.facebook.com/herbario.sancristobaldehuamanga","preservationTypes":[],"institutionKey":"ac0cb53e-bced-4a82-a06e-2db3a2d388e6","mailingAddress":{"key":44590,"address":"Av.
-        Independencia s/n. Ciudad Universitaria - Ayacucho","city":"Ayacucho","province":"Ayacucho
-        / Huamanga","postalCode":"05001","country":"PE"},"address":{"key":44589,"address":"Universidad
-        Nacional de San Cristóbal de Huamanga_Ciudad universitaria - Laboratorios
-        de la Facultad de Ciencias Biológicas","city":"Ayacucho / Ciudad Universitaria","province":"Ayacucho_Huamanga","postalCode":"05001","country":"PE"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:48:59.778+00:00","modified":"2022-12-21T10:48:59.778+00:00","tags":[],"identifiers":[{"key":334647,"type":"IH_IRN","identifier":"gbif:ih:irn:262876","createdBy":"ih-sync","created":"2022-12-21T10:48:59.898+00:00"}],"contacts":[],"contactPersons":[{"key":34149,"firstName":"JENNY
-        ARREA","lastName":"PAUCAR","position":["BIÓLOGA"],"phone":["925 782 444","930
-        977 278"],"fax":[],"email":["jennypaucar@gmail.com"],"address":["Universidad
-        Nacional de San Cristóbal de Huamanga_Ciudad universitaria - Laboratorios
-        de la Facultad de Ciencias Biológicas"],"city":"Ayacucho / Ciudad Universitaria","province":"Ayacucho_Huamanga","country":"PE","postalCode":"05001","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"263009"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:49:00.088+00:00","modified":"2022-12-21T10:49:00.088+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":7896,"machineTags":[],"taxonomicCoverage":"Plant
-        vascular (angiosperm, gimnosperm), pteridófitos., lichens, bryophytas.","geography":"Paramo,
-        Grassland of dry puna, Grassland of wet puna, Wetland (bofedal), zone periglacier
-        and glacier, matorral of dry puna, high Andean relict forest, Andean scrubland.","notes":"Entered
-        Oct 2022.  The Herbarium San Cristobal de Huamanga (HSCH) is the only Herbarium
-        in the region of Ayacucho - Peru, therefore is an institution of importance
-        for the area, it houses information on native, wild and endemic vegetation,
-        which contributes to the knowledge of the local flora to promote the preservation
-        of natural ecosystems that harbor great biodiversity.","incorporatedCollections":[],"importantCollectors":["L.
-        Aucasime","J. De la Cruz","V. Cornejo","C. Magallanes","D. Barron"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":7661,"numPteridos":35,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":2,"numBryosImaged":0,"numBryos":198,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8918,"source":"IH_IRN","sourceId":"262876","createdBy":"ih-sync","created":"2022-12-21T10:48:59.956+00:00"},"department":"Facultad
-        de Ciencias Biológicas.","division":"Facultad","displayOnNHCPortal":true,"institutionName":"Herbario
-        San Cristóbal de Huamanga","institutionCode":"HSCH"},{"key":"58725988-5dfe-4f9f-b397-ac8c94c72483","code":"CITRO","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":[],"phone":["[52]
-        (228) 842-17-00 ext. 12666","[52] 228 842 1700 ext. 12645"],"homepage":"https://www.uv.mx/citro/herbario-citro/","preservationTypes":[],"institutionKey":"70bb4395-f673-4baf-bb17-7496cded00f1","mailingAddress":{"key":44586,"address":"Calle
-        José María Morelos No. 44 y 46, Zona Centro","city":"Xalapa","province":"Veracruz","postalCode":"91000","country":"MX"},"address":{"key":44585,"address":"Calle
-        José María Morelos No. 44 y 46, Zona Centro","city":"Xalapa","province":"Veracruz","postalCode":"91000","country":"MX"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:48:58.439+00:00","modified":"2023-01-04T10:47:33.280+00:00","tags":[],"identifiers":[{"key":334645,"type":"IH_IRN","identifier":"gbif:ih:irn:262778","createdBy":"ih-sync","created":"2022-12-21T10:48:58.553+00:00"}],"contacts":[],"contactPersons":[{"key":34146,"firstName":"Thorsten","lastName":"Krömer","position":["Senior
-        Researcher and Professor at Universidad Veracruzana"],"phone":["[52] 228-8421700
-        ext. 12645"],"fax":[],"email":["tkromer@uv.mx"],"address":["Calle José María
-        Morelos No. 44 y 46"],"city":"Xalapa","province":"Veracruz","country":"MX","postalCode":"91000","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262785"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:48:58.846+00:00","modified":"2022-12-21T10:48:58.846+00:00"},{"key":34147,"firstName":"Roberto","lastName":"Castro-Cortés","position":["Academic
-        Technician"],"phone":["[52] (228) 842-17-00 ext. 12666"],"fax":[],"email":["rocastro@uv.mx"],"address":["Calle
-        José María Morelos No. 44 y 46"],"city":"Xalapa","province":"Veracruz","country":"MX","postalCode":"91000","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262786"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:48:58.909+00:00","modified":"2022-12-21T10:48:58.909+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":1396,"machineTags":[],"taxonomicCoverage":"Endemic
-        flowering plants; Ferns and vascular epiphytes","geography":"Tropical Mexico,
-        especially Veracruz State","notes":"Entered Oct 2022.  The best represented
-        groups in the herbarium are mexican ferns, vascular epiphytes and endemic
-        plants of Veracruz State.","incorporatedCollections":[],"importantCollectors":["C.I.
-        Carvajal-Hernández, H.D. Krömer"],"collectionSummary":{"numPteridosImaged":0,"numBryosDatabased":0,"numSeedPlImaged":0,"numSeedPl":0,"numPteridos":0,"numAlgaeImaged":0,"numPteridosDatabased":0,"numSeedPlDatabased":0,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8916,"source":"IH_IRN","sourceId":"262778","createdBy":"ih-sync","created":"2022-12-21T10:48:58.611+00:00"},"displayOnNHCPortal":true,"institutionName":"Centro
-        de Investigaciones Tropicales, Universidad Veracruzana","institutionCode":"CITRO"},{"key":"a827c51e-f5a8-4ee2-b160-dacd955ce2b9","code":"SGH","name":"Herbarium","contentTypes":[],"active":true,"personalCollection":false,"email":["karuppusamy@maduracollege.edu.in"],"phone":["8838841004"],"preservationTypes":[],"institutionKey":"1cb349fc-574c-47c7-8514-f17adbd67b0e","mailingAddress":{"key":44582,"address":"Vidya
-        Nagar, T.P.K road","city":"Madurai","province":"Tamil Nadu","postalCode":"625011","country":"IN"},"address":{"key":44581,"address":"Vidya
-        Nagar, T.P.K Road","city":"Madurai","province":"Tamil Nadu","postalCode":"625011","country":"IN"},"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:48:57.076+00:00","modified":"2022-12-21T10:48:57.076+00:00","tags":[],"identifiers":[{"key":334643,"type":"IH_IRN","identifier":"gbif:ih:irn:262787","createdBy":"ih-sync","created":"2022-12-21T10:48:57.191+00:00"}],"contacts":[],"contactPersons":[{"key":34143,"firstName":"Pochamoni
-        Bharathsimha","lastName":"Yadav","position":["Research scholar"],"phone":["09676563278"],"fax":[],"email":["bharathpochamoni@gmail.com"],"address":["Department
-        of Botany,, The Madura College (Autonomous), Madurai - 625 011., Tamil Nadu
-        state."],"city":"Madurai","province":"Tamil Nadu","country":"IN","postalCode":"625011","primary":false,"taxonomicExpertise":[],"userIds":[{"type":"IH_IRN","id":"262795"}],"createdBy":"ih-sync","modifiedBy":"ih-sync","created":"2022-12-21T10:48:57.378+00:00","modified":"2022-12-21T10:48:57.378+00:00"}],"indexHerbariorumRecord":true,"numberSpecimens":5674,"machineTags":[],"taxonomicCoverage":"Angiosperms,
-        Gymnosperms and Pteridophytes","geography":"Southern Eastern Ghats, Southern
-        Western Ghats, Tamil Nadu state","notes":"Entered Oct. 2022.  In our herbarium
-        currently accounted about 5620 Angiosperms specimens, 17 Gymnosperms and 47
-        Pteridophytes collected from both eastern ghats and Western Ghats since 2008.
-        We provide public consultation and identification facilities for stackholders
-        with authentic information and connected with locally recognised herbaria
-        like MH.","incorporatedCollections":["Hedyotis rajasekaranii - Type specimen
-        (SGH, 2014)","Botanical Survey of India, southern circle, Madras herbarium
-        (MH)."],"importantCollectors":["M. Annadurai","P. Bharath","S. Karuppusamy","V.
-        Ravichandran","M. Uday Kumar","S. Yadav"],"collectionSummary":{"numPteridosImaged":12,"numBryosDatabased":0,"numSeedPlImaged":504,"numSeedPl":5637,"numPteridos":47,"numAlgaeImaged":0,"numPteridosDatabased":47,"numSeedPlDatabased":5637,"numFungiDatabased":0,"numFungi":0,"numBryosImaged":0,"numBryos":0,"numAlgae":0,"numAlgaeDatabased":0,"numFungiImaged":0},"alternativeCodes":[],"comments":[],"occurrenceMappings":[],"masterSource":"IH","masterSourceMetadata":{"key":8914,"source":"IH_IRN","sourceId":"262787","createdBy":"ih-sync","created":"2022-12-21T10:48:57.247+00:00"},"department":"The
-        Department of Botany, The Madura College","division":"Botany","displayOnNHCPortal":true,"institutionName":"The
-        Madura College (Autonomous), Madurai, Tamil Nadu, India.","institutionCode":"SGH"}]}'
-  recorded_at: 2023-01-06 03:32:36 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+        University","institutionCode":"EBCF00"}]}'
+  recorded_at: 2023-01-10 10:54:13 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

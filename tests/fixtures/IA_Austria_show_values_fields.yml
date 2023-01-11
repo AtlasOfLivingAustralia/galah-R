@@ -1,0 +1,38 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://biocache-ws.biodiversityatlas.at/occurrence/facets?facets=basis_of_record&flimit=10000
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.18.0 (Ubuntu)
+      date: Tue, 10 Jan 2023 08:46:32 GMT
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-max-age: '3600'
+      access-control-allow-headers: x-requested-with
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+    body:
+      encoding: ''
+      file: no
+      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Menschliche
+        Beobachtung","i18nCode":"basis_of_record.HumanObservation","count":2645927,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Konserviertes
+        Sammlungsobjekt","i18nCode":"basis_of_record.PreservedSpecimen","count":969758,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Literature","i18nCode":"basis_of_record.Literature","count":256284,"fq":"basis_of_record:\"Literature\""}],"count":3}]'
+  recorded_at: 2023-01-10 08:46:32 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

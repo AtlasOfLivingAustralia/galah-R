@@ -1,0 +1,243 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://api.gbif.org/v1/species/match?verbose=FALSE&name=Mammalia
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      vary: Origin, Access-Control-Request-Method, Access-Control-Request-Headers
+      x-content-type-options: nosniff
+      x-xss-protection: 1; mode=block
+      pragma: no-cache
+      expires: '0'
+      x-frame-options: DENY
+      content-type: application/json
+      date: Wed, 11 Jan 2023 06:09:26 GMT
+      cache-control: public, max-age=3601
+      x-varnish: 637242914 647242236
+      age: '2'
+      via: 1.1 varnish (Varnish/6.0)
+      accept-ranges: bytes
+      content-length: '263'
+    body:
+      encoding: ''
+      file: no
+      string: '{"usageKey":359,"scientificName":"Mammalia","canonicalName":"Mammalia","rank":"CLASS","status":"ACCEPTED","confidence":94,"matchType":"EXACT","kingdom":"Animalia","phylum":"Chordata","kingdomKey":1,"phylumKey":44,"classKey":359,"synonym":false,"class":"Mammalia"}'
+  recorded_at: 2023-01-11 06:09:30 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://registos-ws.gbif.pt/occurrences/search?fq=%28lsid%3A359%29&pageSize=0
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.16.1
+      date: Wed, 11 Jan 2023 06:09:37 GMT
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-max-age: '3600'
+      access-control-allow-headers: x-requested-with
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      content-encoding: gzip
+    body:
+      encoding: ''
+      file: no
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":363311,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&fq=(lsid%3A359)","urlParameters":"?q=*%3A*&fq=(lsid%3A359)","queryTitle":"[all
+        records]","activeFacetMap":{"(lsid":{"name":"(lsid","displayName":"(<span
+        class=''lsid'' id=''359''>CLASS: Mammalia</span>)","value":"359)"}}}'
+  recorded_at: 2023-01-11 06:09:30 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://registos-ws.gbif.pt/assertions/codes
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.16.1
+      date: Wed, 11 Jan 2023 06:09:37 GMT
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-max-age: '3600'
+      access-control-allow-headers: x-requested-with
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      content-encoding: gzip
+    body:
+      encoding: ''
+      file: no
+      string: '[{"name":"invalidCollectionDate","code":30007,"isFatal":false,"description":"Invalid
+        collection date","category":"error","fatal":false},{"name":"zeroCoordinates","code":4,"isFatal":true,"description":"Supplied
+        coordinates are zero","category":"warning","fatal":true},{"name":"nameNotSupplied","code":10015,"isFatal":false,"description":"Name
+        not supplied","category":"missing","fatal":false},{"name":"incompleteCollectionDate","code":30010,"isFatal":false,"description":"Incomplete
+        collection date","category":"warning","fatal":false},{"name":"badlyFormedBasisOfRecord","code":20002,"isFatal":true,"description":"Basis
+        of record badly formed","category":"error","fatal":true},{"name":"firstOfCentury","code":30005,"isFatal":false,"description":"First
+        of the century","category":"warning","fatal":false},{"name":"detectedOutlier","code":20,"isFatal":true,"description":"Suspected
+        outlier","category":"error","fatal":true},{"name":"unrecognisedInstitutionCode","code":20006,"isFatal":false,"description":"Institution
+        code not recognised","category":"error","fatal":false},{"name":"missingIdentificationReferences","code":10011,"isFatal":false,"description":"Missing
+        identification references","category":"missing","fatal":false},{"name":"precisionRangeMismatch","code":17,"isFatal":false,"description":"Precision
+        / range mismatch","category":"error","fatal":false},{"name":"depthOutOfRange","code":11,"isFatal":false,"description":"Depth
+        out of range","category":"error","fatal":false},{"name":"uncertaintyRangeMismatch","code":24,"isFatal":false,"description":"Coordinate
+        uncertainty not valid","category":"error","fatal":false},{"name":"unknownKingdom","code":10002,"isFatal":false,"description":"Kingdom
+        not recognised","category":"error","fatal":false},{"name":"firstOfYear","code":30004,"isFatal":false,"description":"First
+        of the year","category":"warning","fatal":false},{"name":"decimalLatLongCalculationFromEastingNorthingFailed","code":50,"isFatal":true,"description":"Unable
+        to convert UTM coordinates","category":"error","fatal":true},{"name":"altitudeOutOfRange","code":7,"isFatal":false,"description":"Altitude
+        out of range","category":"error","fatal":false},{"name":"nameNotRecognised","code":10004,"isFatal":false,"description":"Name
+        not recognised","category":"error","fatal":false},{"name":"zeroLatitude","code":53,"isFatal":true,"description":"Zero
+        latitude","category":"warning","fatal":true},{"name":"altitudeNonNumeric","code":14,"isFatal":false,"description":"Altitude
+        value non-numeric","category":"error","fatal":false},{"name":"userAssertionOther","code":20019,"isFatal":false,"description":"Other
+        error","category":"error","fatal":false},{"name":"mediaUnrepresentative","code":70001,"isFatal":false,"description":"Media
+        not representative of taxon","category":"comment","fatal":false},{"name":"missingCatalogueNumber","code":20015,"isFatal":false,"description":"Missing
+        catalogue number","category":"missing","fatal":false},{"name":"minMaxAltitudeReversed","code":9,"isFatal":false,"description":"Min
+        and max altitude reversed","category":"warning","fatal":false},{"name":"unknownCountry","code":6,"isFatal":false,"description":"Supplied
+        country not recognised","category":"error","fatal":false},{"name":"identificationIncorrect","code":10007,"isFatal":false,"description":"Taxon
+        misidentified","category":"error","fatal":false},{"name":"missingBasisOfRecord","code":20001,"isFatal":true,"description":"Basis
+        of record not supplied","category":"missing","fatal":true},{"name":"decimalLatLongCalculationFromVerbatimFailed","code":48,"isFatal":true,"description":"Unparseable
+        verbatim coordinates","category":"error","fatal":true},{"name":"altitudeInFeet","code":13,"isFatal":false,"description":"Altitude
+        value supplied in feet","category":"warning","fatal":false},{"name":"missingGeoreferenceVerificationStatus","code":34,"isFatal":false,"description":"Missing
+        georeferenced verification status","category":"missing","fatal":false},{"name":"coordinatesCentreOfCountry","code":28,"isFatal":true,"description":"Coordinates
+        centre of country","category":"warning","fatal":true},{"name":"missingGeoreferenceDate","code":42,"isFatal":false,"description":"Missing
+        georeference date","category":"missing","fatal":false},{"name":"missingTaxonRank","code":10008,"isFatal":false,"description":"Missing
+        taxonomic rank","category":"missing","fatal":false},{"name":"dataAreGeneralised","code":20009,"isFatal":false,"description":"Data
+        are generalised","category":"warning","fatal":false},{"name":"negatedLatitude","code":1,"isFatal":false,"description":"Latitude
+        is negated","category":"warning","fatal":false},{"name":"geospatialIssue","code":0,"isFatal":true,"description":"Geospatial
+        issue","category":"error","fatal":true},{"name":"minMaxDepthReversed","code":12,"isFatal":false,"description":"Min
+        and max depth reversed","category":"warning","fatal":false},{"name":"geodeticDatumAssumedWgs84","code":51,"isFatal":false,"description":"Geodetic
+        datum assumed WGS84","category":"warning","fatal":false},{"name":"coordinatesOutOfRange","code":5,"isFatal":true,"description":"Coordinates
+        are out of range for species","category":"error","fatal":true},{"name":"missingGeodeticDatum","code":30,"isFatal":false,"description":"Missing
+        geodetic datum","category":"missing","fatal":false},{"name":"missingDateIdentified","code":10012,"isFatal":false,"description":"Missing
+        identification date","category":"missing","fatal":false},{"name":"unrecognisedTypeStatus","code":20004,"isFatal":false,"description":"Type
+        status not recognised","category":"error","fatal":false},{"name":"missingIdentifiedBy","code":10010,"isFatal":false,"description":"Missing
+        name of person who identified the specimen/observation","category":"missing","fatal":false},{"name":"nameNotInNationalChecklists","code":10005,"isFatal":false,"description":"Name
+        not in national checklists","category":"warning","fatal":false},{"name":"missingIdentificationQualifier","code":10009,"isFatal":false,"description":"Missing
+        an identification qualifier","category":"missing","fatal":false},{"name":"erroneousAltitude","code":8,"isFatal":false,"description":"Badly
+        formed altitude","category":"error","fatal":false},{"name":"speciesOutsideExpertRange","code":26,"isFatal":true,"description":"Outside
+        expert range for species","category":"error","fatal":true},{"name":"userVerified","code":50000,"isFatal":true,"description":"Record
+        Verified","category":"verified","fatal":true},{"name":"dayMonthTransposed","code":30009,"isFatal":false,"description":"Day
+        and month transposed","category":"warning","fatal":false},{"name":"missingCollectionDate","code":30008,"isFatal":false,"description":"No
+        collection date supplied","category":"missing","fatal":false},{"name":"processingError","code":60000,"isFatal":true,"description":"The
+        system has incorrectly processed a record","category":"error","fatal":true},{"name":"decimalLatLongConverted","code":45,"isFatal":false,"description":"Coordinates
+        converted to WGS84","category":"warning","fatal":false},{"name":"unrecognisedOccurrenceStatus","code":20017,"isFatal":false,"description":"Occurrence
+        status not recognised","category":"error","fatal":false},{"name":"coordinatePrecisionMismatch","code":23,"isFatal":false,"description":"Coordinate
+        precision not valid","category":"error","fatal":false},{"name":"occCultivatedEscapee","code":20010,"isFatal":false,"description":"Cultivated
+        / escapee","category":"warning","fatal":false},{"name":"decimalLatLongCalculatedFromEastingNorthing","code":49,"isFatal":false,"description":"Coordinates
+        converted from UTM","category":"warning","fatal":false},{"name":"countryInferredByCoordinates","code":21,"isFatal":false,"description":"Country
+        inferred from coordinates","category":"warning","fatal":false},{"name":"depthNonNumeric","code":15,"isFatal":false,"description":"Depth
+        value non-numeric","category":"error","fatal":false},{"name":"invalidScientificName","code":10001,"isFatal":false,"description":"Invalid
+        scientific name","category":"error","fatal":false},{"name":"missingGeoreferenceProtocol","code":32,"isFatal":false,"description":"Missing
+        georeferenced protocol","category":"missing","fatal":false},{"name":"unrecognisedCollectionCode","code":20005,"isFatal":false,"description":"Collection
+        code not recognised","category":"error","fatal":false},{"name":"uncertaintyInPrecision","code":25,"isFatal":false,"description":"Coordinate
+        precision and uncertainty transposed","category":"error","fatal":false},{"name":"depthInFeet","code":10,"isFatal":false,"description":"Depth
+        value supplied in feet","category":"warning","fatal":false},{"name":"missingGeorefencedBy","code":31,"isFatal":false,"description":"Missing
+        name of person who georeferenced the occurrence","category":"missing","fatal":false},{"name":"decimalLatLongCalculatedFromGridReference","code":55,"isFatal":false,"description":"Latitude
+        Longitude calculated from grid reference","category":"warning","fatal":false},{"name":"uncertaintyNotSpecified","code":27,"isFatal":false,"description":"Coordinate
+        uncertainty not specified","category":"missing","fatal":false},{"name":"invalidImageUrl","code":20007,"isFatal":false,"description":"Image
+        URL invalid","category":"error","fatal":false},{"name":"resourceTaxonomicScopeMismatch","code":20008,"isFatal":false,"description":"Resource
+        taxonomic scope mismatch","category":"error","fatal":false},{"name":"countryCoordinateMismatch","code":16,"isFatal":false,"description":"Coordinates
+        dont match supplied country","category":"error","fatal":false},{"name":"assumedPresentOccurrenceStatus","code":20018,"isFatal":false,"description":"Occurrence
+        status assumed to be present","category":"warning","fatal":false},{"name":"datePrecisionMismatch","code":30006,"isFatal":false,"description":"Date
+        precision invalid","category":"error","fatal":false},{"name":"unrecognizedGeodeticDatum","code":52,"isFatal":false,"description":"Unrecognized
+        geodetic datum","category":"error","fatal":false},{"name":"coordinatesCentreOfStateProvince","code":22,"isFatal":true,"description":"Supplied
+        coordinates centre of state","category":"warning","fatal":true},{"name":"decimalLatLongCalculatedFromVerbatim","code":47,"isFatal":false,"description":"Coordinates
+        derived from verbatim coordinates","category":"warning","fatal":false},{"name":"decimalLatLongConversionFailed","code":46,"isFatal":true,"description":"Decimal
+        latitude/longitude conversion failed","category":"error","fatal":true},{"name":"temporalIssue","code":30000,"isFatal":false,"description":"Temporal
+        issue","category":"error","fatal":false},{"name":"negatedLongitude","code":2,"isFatal":false,"description":"Longitude
+        is negated","category":"warning","fatal":false},{"name":"ambiguousName","code":10003,"isFatal":false,"description":"Higher
+        taxonomy missing","category":"error","fatal":false},{"name":"invalidGeodeticDatum","code":35,"isFatal":false,"description":"Invalid
+        geodetic datum","category":"error","fatal":false},{"name":"invertedCoordinates","code":3,"isFatal":false,"description":"Coordinates
+        are transposed","category":"warning","fatal":false},{"name":"zeroLongitude","code":54,"isFatal":true,"description":"Zero
+        longitude","category":"warning","fatal":true},{"name":"missingCoordinatePrecision","code":29,"isFatal":false,"description":"Missing
+        coordinate precision","category":"missing","fatal":false},{"name":"idPreOccurrence","code":30001,"isFatal":false,"description":"Identification
+        date before occurrence date","category":"error","fatal":false},{"name":"recordedByUnparsable","code":20016,"isFatal":false,"description":"Collector
+        name unparseable","category":"warning","fatal":false},{"name":"stateCoordinateMismatch","code":18,"isFatal":false,"description":"Coordinates
+        dont match supplied state","category":"error","fatal":false},{"name":"habitatMismatch","code":19,"isFatal":true,"description":"Habitat
+        incorrect for species","category":"error","fatal":true},{"name":"georefPostDate","code":30002,"isFatal":false,"description":"Georeferenced
+        after occurrence date","category":"error","fatal":false},{"name":"mediaRepresentative","code":70000,"isFatal":false,"description":"Media
+        unrepresentative","category":"comment","fatal":false},{"name":"decimalCoordinatesNotSupplied","code":44,"isFatal":false,"description":"Decimal
+        coordinates not supplied","category":"missing","fatal":false},{"name":"missingGeoreferenceSources","code":33,"isFatal":false,"description":"Missing
+        georeferenced sources","category":"missing","fatal":false},{"name":"locationNotSupplied","code":43,"isFatal":false,"description":"Location
+        not supplied","category":"missing","fatal":false},{"name":"taxonomicIssue","code":10000,"isFatal":false,"description":"Taxonomic
+        issue","category":"error","fatal":false},{"name":"homonymIssue","code":10006,"isFatal":false,"description":"Homonym
+        issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
+        duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
+        of the month","category":"warning","fatal":false}]'
+  recorded_at: 2023-01-11 06:09:30 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://registos-ws.gbif.pt/occurrences/search?fq=%28class%3A%22Mammalia%22%29&pageSize=0
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.16.1
+      date: Wed, 11 Jan 2023 06:09:37 GMT
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-max-age: '3600'
+      access-control-allow-headers: x-requested-with
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      content-encoding: gzip
+    body:
+      encoding: ''
+      file: no
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":363311,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&fq=(class%3A%22Mammalia%22)","urlParameters":"?q=*%3A*&fq=(class%3A%22Mammalia%22)","queryTitle":"[all
+        records]","activeFacetMap":{"(class":{"name":"(class","displayName":"(Class:\"Mammalia\")","value":"\"Mammalia\")"}}}'
+  recorded_at: 2023-01-11 06:09:30 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

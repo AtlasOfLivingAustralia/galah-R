@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Mon, 09 Jan 2023 22:45:37 GMT
+      date: Wed, 11 Jan 2023 06:12:09 GMT
       server: Apache/2.4.7 (Ubuntu)
       x-application-context: application:production
       content-type: application/json;charset=UTF-8
@@ -28,12 +28,12 @@ http_interactions:
         1758","author":"Linnaeus, 1758","nameComplete":"Mammalia Linnaeus, 1758","nameFormatted":"<span
         class=\"scientific-name rank-class\"><span class=\"name\">Mammalia<\u002fspan>
         <span class=\"author\">Linnaeus, 1758<\u002fspan><\u002fspan>","taxonomicStatus":"accepted","nomenclaturalStatus":null,"parentGuid":"NHMSYS0021053521","rank":"class","rankID":3000,"commonName":"Herbivore,
-        Mammal, Mammals","commonNameSingle":"Mammals","occurrenceCount":3301952,"conservationStatus":null,"infoSourceName":"UKSI","infoSourceURL":"https://registry.nbnatlas.org/public/show/null","occurrenceEnglandCount":1641,"occurrenceScotlandCount":5,"occurrenceWalesCount":1514,"occurrenceWalesBufferCount":1515,"taxonGroup_s":"terrestrial
+        Mammal, Mammals","commonNameSingle":"Mammals","occurrenceCount":3301706,"conservationStatus":null,"infoSourceName":"UKSI","infoSourceURL":"https://registry.nbnatlas.org/public/show/null","occurrenceEnglandCount":1641,"occurrenceScotlandCount":5,"occurrenceWalesCount":1514,"occurrenceWalesBufferCount":1515,"taxonGroup_s":"terrestrial
         mammal","establishmentMeans":"Native","establishmentStatus_s":null,"datasetID":null,"listMembership_m_s":null,"riskAssessment_m_s":null,"managementPlans_m_s":null,"habitat_s":"marine/terrestrial","habitat_m_s":["marine","terrestrial"],"speciesGroup":null,"synonymComplete":["Mammalia"],"superclass":"Tetrapoda","kingdomGuid":"NBNSYS0100001342","phylum":"Chordata","superclassGuid":"NHMSYS0021053521","phylumGuid":"NBNSYS0100002380","class":"Mammalia","classGuid":"NHMSYS0000376154","highlight":"<b>Mammalia<\u002fb>
         Linnaeus, 1758<br><b>Mammalia<\u002fb>"},{"id":"5a7c72be-b358-4457-abaf-33a38a7c44f1","guid":"NBNSYS0000005076","linkIdentifier":null,"idxtype":"TAXON","name":"Mammalia","kingdom":null,"nomenclaturalCode":null,"scientificName":"Mammalia","scientificNameAuthorship":null,"author":null,"nameComplete":"Mammalia","nameFormatted":"<span
         class=\"scientific-name rank-class\"><span class=\"name\">Mammalia<\u002fspan><\u002fspan>","taxonomicStatus":"synonym","nomenclaturalStatus":null,"parentGuid":null,"rank":"class","rankID":3000,"commonName":"","commonNameSingle":"","occurrenceCount":0,"conservationStatus":null,"infoSourceName":"UKSI","infoSourceURL":"https://registry.nbnatlas.org/public/show/null","acceptedConceptID":"NHMSYS0000376154","acceptedConceptName":"Mammalia
         Linnaeus, 1758","taxonGroup_s":null,"establishmentMeans":"Native","establishmentStatus_s":null,"datasetID":null,"listMembership_m_s":null,"riskAssessment_m_s":null,"managementPlans_m_s":null,"habitat_s":null,"habitat_m_s":null,"speciesGroup":null,"synonymComplete":null,"class":"Mammalia","classGuid":"NBNSYS0000005076","highlight":"<b>Mammalia<\u002fb>"}],"queryTitle":"Mammalia"}}'
-  recorded_at: 2023-01-09 22:47:49 GMT
+  recorded_at: 2023-01-11 06:14:23 GMT
   recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
@@ -52,7 +52,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Mon, 09 Jan 2023 22:44:33 GMT
+      date: Wed, 11 Jan 2023 06:11:05 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -63,10 +63,10 @@ http_interactions:
     body:
       encoding: ''
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":3301952,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&fq=(lsid%3ANHMSYS0000376154)","urlParameters":"?q=*%3A*&fq=(lsid%3ANHMSYS0000376154)","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":3301706,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&fq=(lsid%3ANHMSYS0000376154)","urlParameters":"?q=*%3A*&fq=(lsid%3ANHMSYS0000376154)","queryTitle":"[all
         records]","activeFacetMap":{"(lsid":{"name":"(lsid","displayName":"(<span
         class=''lsid'' id=''NHMSYS0000376154''>CLASS: Mammalia</span>)","value":"NHMSYS0000376154)"}}}'
-  recorded_at: 2023-01-09 22:47:49 GMT
+  recorded_at: 2023-01-11 06:14:23 GMT
   recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
@@ -85,7 +85,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Mon, 09 Jan 2023 22:44:34 GMT
+      date: Wed, 11 Jan 2023 06:11:06 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -195,7 +195,7 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2023-01-09 22:47:49 GMT
+  recorded_at: 2023-01-11 06:14:23 GMT
   recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
@@ -214,7 +214,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 OK
-      date: Mon, 09 Jan 2023 22:44:34 GMT
+      date: Wed, 11 Jan 2023 06:11:06 GMT
       server: Apache/2.4.7 (Ubuntu)
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -225,7 +225,7 @@ http_interactions:
     body:
       encoding: ''
       file: no
-      string: '{"pageSize":0,"startIndex":0,"totalRecords":3301952,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&fq=(class%3A%22Mammalia%22)","urlParameters":"?q=*%3A*&fq=(class%3A%22Mammalia%22)","queryTitle":"[all
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":3301706,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&fq=(class%3A%22Mammalia%22)","urlParameters":"?q=*%3A*&fq=(class%3A%22Mammalia%22)","queryTitle":"[all
         records]","activeFacetMap":{"(class":{"name":"(class","displayName":"(Class:\"Mammalia\")","value":"\"Mammalia\")"}}}'
-  recorded_at: 2023-01-09 22:47:49 GMT
+  recorded_at: 2023-01-11 06:14:23 GMT
   recorded_with: vcr/1.2.0, webmockr/0.8.0

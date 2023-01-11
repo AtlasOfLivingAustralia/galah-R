@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Fri, 06 Jan 2023 03:27:06 GMT
+      date: Tue, 10 Jan 2023 08:51:05 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -25,7 +25,7 @@ http_interactions:
       strict-transport-security: max-age=15724800; includeSubDomains
       access-control-allow-credentials: 'true'
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"name":"invalidCollectionDate","code":30007,"isFatal":false,"description":"Invalid
         collection date","category":"error","fatal":false},{"name":"zeroCoordinates","code":4,"isFatal":true,"description":"Supplied
@@ -123,5 +123,5 @@ http_interactions:
         issues with supplied name","category":"error","fatal":false},{"name":"inferredDuplicateRecord","code":20014,"isFatal":false,"description":"Possible
         duplicate record","category":"warning","fatal":false},{"name":"firstOfMonth","code":30003,"isFatal":false,"description":"First
         of the month","category":"warning","fatal":false}]'
-  recorded_at: 2023-01-06 03:27:07 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 08:51:05 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

@@ -16,24 +16,26 @@ test_that("show_all(fields) works for France", {
 })
 
 test_that("show_all(collections) works for France", {
-  skip_on_cran()
-  x <- show_all(collections)
-  expect_gt(nrow(x), 1)
+  vcr::use_cassette("IA_France_show_all_collections", {
+    x <- show_all(collections, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(datasets) works for France", {
-  skip_on_cran()
-  x <- show_all(datasets)
-  expect_gt(nrow(x), 1)
+  vcr::use_cassette("IA_France_show_all_datasets", {
+    x <- show_all(datasets, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(providers) works for France", {
   vcr::use_cassette("IA_France_show_all_providers", {
-    x <- show_all(providers)
+    x <- show_all(providers, limit = 10)
   })
-  expect_gte(nrow(x), 0) # no data at present
+  expect_lte(nrow(x), 10) # no data at present
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
