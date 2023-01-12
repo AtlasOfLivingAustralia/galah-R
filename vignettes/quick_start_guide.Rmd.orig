@@ -62,6 +62,7 @@ Functions that return data from the chosen atlas have the prefix `atlas_`; e.g.
 to find the total number of records in the atlas, use:
   
 ```{r}
+galah_config(atlas = "ALA")
 atlas_counts()
 ```
 
@@ -75,10 +76,20 @@ galah_call() |>
   atlas_counts()
 ```
 
-To narrow the search to a particular taxonomic group, use `galah_identify()`. Note
-that this function only accepts scientific names and is not case sensitive. It's 
-good practice to first use `search_taxa()` to check that the taxa you provide 
-returns the correct taxonomic results.
+Alternatively, you can use a subset of `dplyr` verbs to pipe your queries, 
+assuming you start with `galah_call()`.
+
+```{r}
+galah_call() |>
+  filter(year >= 2020) |> 
+  group_by(year) |>
+  count()
+```
+
+To narrow the search to a particular taxonomic group, use `galah_identify()` or 
+`identify`. Note that this function only accepts scientific names and is not case 
+sensitive. It's good practice to first use `search_taxa()` to check that the taxa 
+you provide returns the correct taxonomic results.
 
 ```{r}
 search_taxa("reptilia") # Check whether taxonomic info is correct
@@ -93,6 +104,8 @@ galah_call() |>
 The most common use case for `galah` is to download 'occurrence' records; 
 observations of plants or animals made by contributors to the atlas. To download,
 first register with the relevant atlas, then provide your registration email. 
+For GBIF queries, you will need to provide the email, username, and password that
+you have registered with GBIF.
 
 ```{r, eval=FALSE}
 galah_config(email = "email@email.com")

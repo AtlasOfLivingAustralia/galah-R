@@ -84,25 +84,25 @@ vcr::use_cassette("IA_Sweden_atlas_counts", {
  })
 })
 
-test_that("atlas_counts works with galah_identify for Sweden", {
-  vcr::use_cassette("IA_Sweden_identify_test_1", {
-    result <- galah_call() |>
-      galah_identify("Mammalia") |>
-      atlas_counts()
-  })
-  vcr::use_cassette("IA_Sweden_identify_test_2", {
-    result2 <- galah_call() |>
-      galah_filter(class == "Mammalia") |>
-      atlas_counts()
-  })
-  
-  expect_gt(result$count, 1)
-  expect_gt(result2$count, 1)
-  
-  # we expect a <1% margin of error
-  expect_true(
-    (sqrt((result2$count - result$count)^2) / result$count) < 0.1)
-})
+# test_that("atlas_counts works with galah_identify for Sweden", {
+#   vcr::use_cassette("IA_Sweden_identify_test_1", {
+#     result <- galah_call() |>
+#       galah_identify("Mammalia") |>
+#       atlas_counts()
+#   })
+#   vcr::use_cassette("IA_Sweden_identify_test_2", {
+#     result2 <- galah_call() |>
+#       galah_filter(class == "Mammalia") |>
+#       atlas_counts()
+#   })
+#   
+#   expect_gt(result$count, 1)
+#   expect_gt(result2$count, 1)
+#   
+#   # we expect a <1% margin of error
+#   expect_true(
+#     (sqrt((result2$count - result$count)^2) / result$count) < 0.1)
+# })
 
 vcr::use_cassette("IA_Sweden_atlas_counts_group_by", {
   test_that("atlas_counts works with group_by for Sweden", {

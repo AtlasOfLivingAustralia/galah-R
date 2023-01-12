@@ -1,7 +1,7 @@
 ---
 title: "Narrow your results"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-11-30'
+date: '2023-01-13'
 output: html_document
 editor_options: 
   chunk_output_type: inline
@@ -24,11 +24,11 @@ to return only the information that you need, and no more. Consequently, much of
 the architecture of `galah` has been designed to make narrowing as simple as possible. 
 These functions include:
 
--   `galah_identify`
--   `galah_filter`
--   `galah_select`
--   `galah_group_by`
--   `galah_geolocate`
+-   `galah_identify` or `identify`
+-   `galah_filter` or `filter`
+-   `galah_select` or `select`
+-   `galah_group_by` or `group_by`
+-   `galah_geolocate` or `st_crop`
 -   `galah_down_to`
 
 These names have been chosen to echo comparable functions from `dplyr`; namely
@@ -55,10 +55,9 @@ search_taxa("Reptilia")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                            rank  match…¹ kingdom phylum class issues
-##   <chr>       <chr>           <chr>                                                       <chr> <chr>   <chr>   <chr>  <chr> <chr> 
-## 1 Reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-83… class exactM… Animal… Chord… Rept… noIss…
-## # … with abbreviated variable name ¹​match_type
+##   search_term scientific_name taxon_concept_id                                                          rank  match_type kingdom  phylum   class    issues 
+##   <chr>       <chr>           <chr>                                                                     <chr> <chr>      <chr>    <chr>    <chr>    <chr>  
+## 1 Reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chordata Reptilia noIssue
 ```
 
 If we want to be more specific by providing additional taxonomic information
@@ -71,10 +70,10 @@ search_taxa(data.frame(genus = "Eolophus", kingdom = "Aves"))
 
 ```
 ## # A tibble: 1 × 13
-##   search_term   scientific_name scientific_name_authorship taxon_con…¹ rank  match…² kingdom phylum class order family genus issues
-##   <chr>         <chr>           <chr>                      <chr>       <chr> <chr>   <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr> 
-## 1 Eolophus_Aves Eolophus        Bonaparte, 1854            https://bi… genus exactM… Animal… Chord… Aves  Psit… Cacat… Eolo… noIss…
-## # … with abbreviated variable names ¹​taxon_concept_id, ²​match_type
+##   search_term   scientific_name scientific_name_authorship taxon_concept_id                                  rank  match…¹ kingdom phylum class order family genus issues
+##   <chr>         <chr>           <chr>                      <chr>                                             <chr> <chr>   <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr> 
+## 1 Eolophus_Aves Eolophus        Bonaparte, 1854            https://biodiversity.org.au/afd/taxa/009169a9-a9… genus exactM… Animal… Chord… Aves  Psit… Cacat… Eolo… noIss…
+## # … with abbreviated variable name ¹​match_type
 ```
 
 Once we know that our search matches the correct taxon or taxa, we 
@@ -90,7 +89,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 1475846
+## 1 1482850
 ```
 
 
@@ -106,7 +105,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##    count
 ##    <int>
-## 1 948376
+## 1 948944
 ```
 
 If you're using an international atlas, `search_taxa` will automatically 
@@ -116,7 +115,13 @@ GBIF taxonomic backbone, but integrates seamlessly with our standard workflow.
 
 ```r
 galah_config(atlas = "Portugal")
+```
 
+```
+## Atlas selected: GBIF Portugal (GBIF.pt) [Portugal]
+```
+
+```r
 galah_call() |> 
   galah_identify("Lepus") |> 
   galah_group_by(species) |> 
@@ -140,7 +145,13 @@ has its' own taxonomic backbone, but is supported using the same function call.
 
 ```r
 galah_config(atlas = "United Kingdom")
+```
 
+```
+## Atlas selected: National Biodiversity Network (NBN) [United Kingdom]
+```
+
+```r
 galah_call() |> 
   galah_identify("Bufo") |> 
   galah_group_by(species) |> 
@@ -151,11 +162,14 @@ galah_call() |>
 ## # A tibble: 2 × 2
 ##   species       count
 ##   <chr>         <int>
-## 1 Bufo bufo     75219
+## 1 Bufo bufo     75241
 ## 2 Bufo spinosus     1
 ```
 
 
+```
+## Atlas selected: Atlas of Living Australia (ALA) [Australia]
+```
 
 # galah_filter
 Perhaps the most important function in `galah` is `galah_filter`, which is used
@@ -173,7 +187,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 72595687
+## 1 72911598
 ```
 
 ```r
@@ -189,7 +203,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 3879855
+## 1 4055078
 ```
 
 To find available fields and corresponding valid values, use the field lookup 
@@ -215,16 +229,16 @@ galah_call() |>
 ## # A tibble: 83 × 2
 ##    class          count
 ##    <chr>          <int>
-##  1 Insecta      4037705
-##  2 Gastropoda    878850
-##  3 Arachnida     565220
-##  4 Malacostraca  561340
-##  5 Maxillopoda   423923
-##  6 Polychaeta    257640
-##  7 Bivalvia      215991
-##  8 Anthozoa      169951
-##  9 Demospongiae  113529
-## 10 Ostracoda      59269
+##  1 Insecta      4114912
+##  2 Gastropoda    883073
+##  3 Arachnida     573491
+##  4 Malacostraca  562455
+##  5 Maxillopoda   424009
+##  6 Polychaeta    257786
+##  7 Bivalvia      216454
+##  8 Anthozoa      170662
+##  9 Demospongiae  113677
+## 10 Ostracoda      59271
 ## # … with 73 more rows
 ```
 
@@ -244,7 +258,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 72595687
+## 1 65921857
 ```
 
 To see a full list of data quality profiles, use `show_all(profiles)`.
@@ -265,11 +279,11 @@ galah_call() |>
 ## # A tibble: 25 × 3
 ##    basisOfRecord     year    count
 ##    <chr>             <chr>   <int>
-##  1 HUMAN_OBSERVATION 2020  6293455
-##  2 HUMAN_OBSERVATION 2019  5513499
-##  3 HUMAN_OBSERVATION 2018  5217911
-##  4 HUMAN_OBSERVATION 2017  4312867
-##  5 HUMAN_OBSERVATION 2016  3482616
+##  1 HUMAN_OBSERVATION 2020  6309037
+##  2 HUMAN_OBSERVATION 2019  5516864
+##  3 HUMAN_OBSERVATION 2018  5219597
+##  4 HUMAN_OBSERVATION 2017  4313276
+##  5 HUMAN_OBSERVATION 2016  3483039
 ##  6 OCCURRENCE        2016   165997
 ##  7 OCCURRENCE        2018   116242
 ##  8 OCCURRENCE        2017   102206
@@ -323,21 +337,21 @@ occurrences |> head()
 
 ```
 ## # A tibble: 6 × 55
-##   recordID  catal…¹ taxon…² verba…³ raw_v…⁴ scien…⁵ taxon…⁶ verna…⁷ kingdom phylum class order family genus species subsp…⁸ dataR…⁹
-##   <chr>     <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>   <chr>   <chr>  
-## 1 050d4cec… J3729   https:… Oxyura… coasta… Oxyura… species Taipan  Animal… Chord… Rept… Squa… Elapi… Oxyu… Oxyura… <NA>    dr1132 
-## 2 0aee0e05… 391391  https:… Tympan… Lined … Tympan… species Grassl… Animal… Chord… Rept… Squa… Agami… Tymp… Tympan… <NA>    dr361  
-## 3 0cbfa7cb… R36835  https:… Natrix… <NA>    COLUBR… family  <NA>    Animal… Chord… Rept… Squa… Colub… <NA>  <NA>    <NA>    dr346  
-## 4 0fb28f26… <NA>    https:… Notech… easter… Notech… species Tiger … Animal… Chord… Rept… Squa… Elapi… Note… Notech… <NA>    dr1132 
-## 5 15e65c09… 34102   https:… Emydur… Murray… Emydur… subspe… Macqua… Animal… Chord… Rept… Test… Cheli… Emyd… Emydur… Emydur… dr1132 
-## 6 170fbb84… 77798   https:… Deniso… orname… Deniso… species Orname… Animal… Chord… Rept… Squa… Elapi… Deni… Deniso… <NA>    dr1132 
-## # … with 38 more variables: institutionUid <chr>, institutionName <chr>, collectionUid <chr>, collectionName <chr>,
-## #   `dcterms:license` <chr>, institutionCode <chr>, collectionCode <chr>, locality <chr>, verbatimLatitude <dbl>,
-## #   verbatimLongitude <dbl>, verbatimCoordinateSystem <chr>, decimalLatitude <dbl>, decimalLongitude <dbl>,
-## #   coordinatePrecision <dbl>, coordinateUncertaintyInMeters <dbl>, country <chr>, stateProvince <chr>, cl959 <chr>, cl21 <chr>,
-## #   cl1048 <chr>, minimumElevationInMeters <lgl>, maximumElevationInMeters <lgl>, minimumDepthInMeters <lgl>,
-## #   maximumDepthInMeters <lgl>, individualCount <dbl>, recordedBy <chr>, year <dbl>, month <dbl>, day <dbl>, eventDate <dttm>,
-## #   verbatimBasisOfRecord <chr>, basisOfRecord <chr>, occurrenceStatus <chr>, raw_sex <chr>, preparations <chr>, …
+##   recor…¹ catal…² taxon…³ verba…⁴ raw_v…⁵ scien…⁶ taxon…⁷ verna…⁸ kingdom phylum class order family genus species subsp…⁹ dataR…˟ insti…˟ insti…˟ colle…˟ colle…˟ dcter…˟
+##   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+## 1 050d4c… J3729   https:… Oxyura… coasta… Oxyura… species Taipan  Animal… Chord… Rept… Squa… Elapi… Oxyu… Oxyura… <NA>    dr1132  <NA>    <NA>    <NA>    <NA>    CC-BY …
+## 2 0aee0e… 391391  https:… Tympan… Lined … Tympan… species Grassl… Animal… Chord… Rept… Squa… Agami… Tymp… Tympan… <NA>    dr361   <NA>    <NA>    <NA>    <NA>    CC-BY …
+## 3 0cbfa7… R36835  https:… Natrix… <NA>    COLUBR… family  <NA>    Animal… Chord… Rept… Squa… Colub… <NA>  <NA>    <NA>    dr346   in22    South … co125   South … CC-BY  
+## 4 0fb28f… <NA>    https:… Notech… easter… Notech… species Tiger … Animal… Chord… Rept… Squa… Elapi… Note… Notech… <NA>    dr1132  <NA>    <NA>    <NA>    <NA>    CC-BY …
+## 5 15e65c… 34102   https:… Emydur… Murray… Emydur… subspe… Macqua… Animal… Chord… Rept… Test… Cheli… Emyd… Emydur… Emydur… dr1132  <NA>    <NA>    <NA>    <NA>    CC-BY …
+## 6 170fbb… 77798   https:… Deniso… orname… Deniso… species Orname… Animal… Chord… Rept… Squa… Elapi… Deni… Deniso… <NA>    dr1132  <NA>    <NA>    <NA>    <NA>    CC-BY …
+## # … with 33 more variables: institutionCode <chr>, collectionCode <chr>, locality <chr>, verbatimLatitude <dbl>, verbatimLongitude <dbl>,
+## #   verbatimCoordinateSystem <chr>, decimalLatitude <dbl>, decimalLongitude <dbl>, coordinatePrecision <dbl>, coordinateUncertaintyInMeters <dbl>, country <chr>,
+## #   stateProvince <chr>, cl959 <chr>, cl21 <chr>, cl1048 <chr>, minimumElevationInMeters <lgl>, maximumElevationInMeters <lgl>, minimumDepthInMeters <lgl>,
+## #   maximumDepthInMeters <lgl>, individualCount <dbl>, recordedBy <chr>, year <dbl>, month <dbl>, day <dbl>, eventDate <dttm>, verbatimBasisOfRecord <chr>,
+## #   basisOfRecord <chr>, occurrenceStatus <chr>, raw_sex <chr>, preparations <chr>, informationWithheld <lgl>, dataGeneralizations <lgl>, spatiallyValid <lgl>, and
+## #   abbreviated variable names ¹​recordID, ²​catalogNumber, ³​taxonConceptID, ⁴​verbatimScientificName, ⁵​raw_vernacularName, ⁶​scientificName, ⁷​taxonRank, ⁸​vernacularName,
+## #   ⁹​subspecies, ˟​dataResourceUid, ˟​institutionUid, ˟​institutionName, ˟​collectionUid, ˟​collectionName, ˟​`dcterms:license`
 ```
 
 # galah_geolocate
@@ -357,10 +371,10 @@ galah_call() |>
 
 ```
 ## # A tibble: 2 × 10
-##   kingdom  phylum   class    order           family      genus     species                author               species_guid verna…¹
-##   <chr>    <chr>    <chr>    <chr>           <chr>       <chr>     <chr>                  <chr>                <chr>        <chr>  
-## 1 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles eremiana     Spencer, 1897        https://bio… Desert…
-## 2 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles bougainville Quoy & Gaimard, 1824 https://bio… Shark …
+##   kingdom  phylum   class    order           family      genus     species                author               species_guid                                       verna…¹
+##   <chr>    <chr>    <chr>    <chr>           <chr>       <chr>     <chr>                  <chr>                <chr>                                              <chr>  
+## 1 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles eremiana     Spencer, 1897        https://biodiversity.org.au/afd/taxa/59459401-eaa… Desert…
+## 2 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles bougainville Quoy & Gaimard, 1824 https://biodiversity.org.au/afd/taxa/dbd00fc7-ecd… Shark …
 ## # … with abbreviated variable name ¹​vernacular_name
 ```
 

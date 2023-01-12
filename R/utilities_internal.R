@@ -251,7 +251,7 @@ build_query <- function(identify,
   # add profiles information (ALA only)  
   atlas <- getOption("galah_config")$atlas$region
   if(atlas == "Australia"){
-    if (!is.null(profile)) {
+    if(!is.null(profile)) {
       query$qualityProfile <- profile
     } else {
       query$disableAllQualityFilters <- "true"

@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-11-30'
+date: '2023-01-13'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -55,19 +55,20 @@ show_all(atlases)
 ```
 
 ```
-## # A tibble: 10 × 4
-##    atlas          institution                                                             acronym url                         
+## # A tibble: 11 × 4
+##    region         institution                                                             acronym url                         
 ##    <chr>          <chr>                                                                   <chr>   <chr>                       
 ##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
 ##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
 ##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
 ##  4 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
-##  5 France         Inventaire National du Patrimoine Naturel                               INPN    https://inpn.mnhn.fr        
-##  6 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
-##  7 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
-##  8 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
-##  9 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
-## 10 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
+##  5 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr/    
+##  6 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org            
+##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
+##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
+##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
+## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
+## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
 ```
 
 Use `galah_config()` to set the Atlas to use. This will automatically populate the 
@@ -84,6 +85,7 @@ to find the total number of records in the atlas, use:
   
 
 ```r
+galah_config(atlas = "ALA")
 atlas_counts()
 ```
 
@@ -91,7 +93,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 112555050
+## 1 112998157
 ```
 
 To pass more complex queries, start with the `galah_call()` function and pipe
@@ -109,13 +111,34 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 14884109
+## 1 15111799
 ```
 
-To narrow the search to a particular taxonomic group, use `galah_identify()`. Note
-that this function only accepts scientific names and is not case sensitive. It's 
-good practice to first use `search_taxa()` to check that the taxa you provide 
-returns the correct taxonomic results.
+Alternatively, you can use a subset of `dplyr` verbs to pipe your queries, 
+assuming you start with `galah_call()`.
+
+
+```r
+galah_call() |>
+  filter(year >= 2020) |> 
+  group_by(year) |>
+  count()
+```
+
+```
+## # A tibble: 4 × 2
+##   year    count
+##   <chr>   <int>
+## 1 2021  7155246
+## 2 2020  6418993
+## 3 2022  1536146
+## 4 2023     1414
+```
+
+To narrow the search to a particular taxonomic group, use `galah_identify()` or 
+`identify`. Note that this function only accepts scientific names and is not case 
+sensitive. It's good practice to first use `search_taxa()` to check that the taxa 
+you provide returns the correct taxonomic results.
 
 
 ```r
@@ -124,10 +147,9 @@ search_taxa("reptilia") # Check whether taxonomic info is correct
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                            rank  match…¹ kingdom phylum class issues
-##   <chr>       <chr>           <chr>                                                       <chr> <chr>   <chr>   <chr>  <chr> <chr> 
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-83… class exactM… Animal… Chord… Rept… noIss…
-## # … with abbreviated variable name ¹​match_type
+##   search_term scientific_name taxon_concept_id                                                          rank  match_type kingdom  phylum   class    issues 
+##   <chr>       <chr>           <chr>                                                                     <chr> <chr>      <chr>    <chr>    <chr>    <chr>  
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chordata Reptilia noIssue
 ```
 
 ```r
@@ -139,15 +161,17 @@ galah_call() |>
 
 ```
 ## # A tibble: 1 × 1
-##   count
-##   <int>
-## 1 95317
+##    count
+##    <int>
+## 1 100936
 ```
 
 # Downloading records
 The most common use case for `galah` is to download 'occurrence' records; 
 observations of plants or animals made by contributors to the atlas. To download,
 first register with the relevant atlas, then provide your registration email. 
+For GBIF queries, you will need to provide the email, username, and password that
+you have registered with GBIF.
 
 
 ```r
@@ -169,14 +193,14 @@ result |> head()
 
 ```
 ## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate           scientificName    taxonConceptID             recor…¹ dataR…² occur…³ basis…⁴
-##             <dbl>            <dbl> <dttm>              <chr>             <chr>                      <chr>   <chr>   <chr>   <chr>  
-## 1           -43.4             147. 2020-09-04 14:00:00 Litoria ewingii   https://biodiversity.org.… e8045b… FrogID  PRESENT HUMAN_…
-## 2           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.… 44187a… FrogID  PRESENT HUMAN_…
-## 3           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.… bc34a7… FrogID  PRESENT HUMAN_…
-## 4           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.… ca4707… FrogID  PRESENT HUMAN_…
-## 5           -43.4             146. 2020-01-01 13:00:00 Litoria burrowsae https://biodiversity.org.… 9c71f5… FrogID  PRESENT HUMAN_…
-## 6           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.… 4bbaad… FrogID  PRESENT HUMAN_…
+##   decimalLatitude decimalLongitude eventDate           scientificName    taxonConceptID                                                   recor…¹ dataR…² occur…³ basis…⁴
+##             <dbl>            <dbl> <dttm>              <chr>             <chr>                                                            <chr>   <chr>   <chr>   <chr>  
+## 1           -43.4             147. 2020-09-04 14:00:00 Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511-1c… e8045b… FrogID  PRESENT HUMAN_…
+## 2           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511-1c… 44187a… FrogID  PRESENT HUMAN_…
+## 3           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511-1c… bc34a7… FrogID  PRESENT HUMAN_…
+## 4           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511-1c… ca4707… FrogID  PRESENT HUMAN_…
+## 5           -43.4             146. 2020-01-01 13:00:00 Litoria burrowsae https://biodiversity.org.au/afd/taxa/e9f41129-f946-4e81-889b-2e… 9c71f5… FrogID  PRESENT HUMAN_…
+## 6           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511-1c… 4bbaad… FrogID  PRESENT HUMAN_…
 ## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​basisOfRecord
 ```
 
