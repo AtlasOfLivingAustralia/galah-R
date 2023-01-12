@@ -5,7 +5,7 @@ date: '`r Sys.Date()`'
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{International Atlases}
+  %\VignetteIndexEntry{Choosing an atlas}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,36 +19,17 @@ The GBIF network consists of a series of a series of 'node' organisations who
 collate biodiversity data from their own countries, with GBIF acting as an 
 umbrella organisation to store data from all nodes. Several nodes have their 
 own APIs, often built from the 'living atlas' codebase developed by the ALA.
-Although there are slight differences in the core components of each atlas's 
-architecture, `galah` is flexible enough to handle most of these differences. 
-As a result, it is possible to change which node you get data from in `galah`.
+At present, `galah` supports the following functions and atlases:
 
-## Supported Organisations
-
-To see which international Living Atlases `galah` currently supports, use  
-`show_all_atlases()`.
-
-```{r}
-library(galah)
-show_all(atlases) # make this a GT table or similar
-```
-
-Some atlases support more types of data queries than others (e.g. counts, 
-occurrences, species lists). To see what kinds of information and data can be 
-returned from each atlase, you can see the list of supported Application 
-Programming Interfaces (APIs).
-
-```{r}
-show_all(apis)
-```
+<img src="atlases_plot.png">
 
 ## Set Organisation
 
 Set which atlas you want to use by changing the `atlas` argument in 
 `galah_config()`. The `atlas` argument can accept a full name, an acronym, or a 
-region to select a given atlas. Once a value is provided, it will automatically 
-update `galah`'s server configuration to your selected atlas. The default 
-`atlas` is Australia.
+region to select a given atlas, all of which are available via `show_all(atlases)`. 
+Once a value is provided, it will automatically update `galah`'s server 
+configuration to your selected atlas. The default `atlas` is Australia.
 
 If you intend to download records, you may need to register a user profile with 
 the relevant atlas first. 
@@ -118,17 +99,18 @@ library(gt)
 
 atlases <- show_all(atlases)
 
-counts <- map(atlases$atlas, 
+counts <- map(atlases$region, 
   function(x){
     galah_config(atlas = x)
     atlas_counts()
 })
 
 tibble(
-  atlas = atlases$atlas, 
+  atlas = atlases$region, 
   n = unlist(counts)) |> 
   filter(n > 0) |>
   arrange(desc(n)) |>
-  gt()
+  gt() |>
+  fmt_number(column = n)
 ```
 

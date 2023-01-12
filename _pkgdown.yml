@@ -22,6 +22,8 @@ navbar:
     articles:
       text: Articles
       menu:
+      - text: Choosing an atlas
+        href: articles/choosing_an_atlas.html
       - text: Piping in galah
         href: articles/piping.html
       - text: Look up information
@@ -30,8 +32,6 @@ navbar:
         href: articles/narrow_your_results.html
       - text: Download data
         href: articles/download_data.html
-      - text: International atlases
-        href: articles/international_atlases.html
     news:
       text: News
       href: news/index.html

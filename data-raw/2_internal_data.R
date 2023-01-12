@@ -28,7 +28,8 @@ node_metadata$institution[
   # Order of priority is local-namematching > local-species > GBIF-namematching
   # France and Canada use GBIF due to lack of species service
 node_config <- read_csv("./data-raw/node_config.csv") |> 
-  filter(atlas %in% node_metadata$region)
+  filter(atlas %in% node_metadata$region) |>
+  select(-functional)
 
 
 # ALA defaults
