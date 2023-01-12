@@ -3,8 +3,9 @@ url_download <- function(url,
                          params = list(),
                          ext = "zip",
                          cache_file,
-                         error_call = caller_env()) {
-
+                         error_call = caller_env(),
+                         data_prefix = "data") {
+  
   assert_that(is.character(url))
   cli <- HttpClient$new(
     url = url,
@@ -23,9 +24,14 @@ url_download <- function(url,
         x = glue("{directory} does not exist.")
       )
       abort(bullets, call = error_call)
+    }else{
+      cache_dir <- dirname(cache_file)
+      if(!grepl(paste0(".", ext, "^"), cache_file)){
+        cache_file <- paste(cache_file, ext, sep = ".")
+      }
     }
   }
-  
+
   # workaround for fq troubles
   if (length(params$fq) > 1) {
     cli$url <- build_fq_url(url, params)
@@ -47,14 +53,15 @@ url_download <- function(url,
                 import_files <- paste(cache_dir, 
                                       all_files[grepl(".csv$", all_files)],
                                       sep = "/")
-                read_tsv(import_files, col_types = cols())
+                read_tsv(import_files, col_types = cols()) |>
+                  suppressWarnings()
               }else{
-                import_files <- paste(cache_dir, 
-                                      all_files[grepl("^data", all_files) & 
-                                                grepl(".csv$", all_files)],
-                                      sep = "/")              
+                available_files <- all_files[grepl(".csv$", all_files) &
+                                             grepl(paste0("^", data_prefix), all_files)]
+                import_files <- paste(cache_dir, available_files, sep = "/")  
                 lapply(import_files, 
-                       function(a){read_csv(a, col_types = cols())}) |> 
+                       function(a){read_csv(a, col_types = cols()) |>
+                                   suppressWarnings()}) |> 
                 bind_rows()
               }
            },

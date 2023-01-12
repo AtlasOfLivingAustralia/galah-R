@@ -4,7 +4,7 @@ Australia,collections,collections_datasets,https://collections.ala.org.au/ws/dat
 Australia,collections,collections_providers,https://collections.ala.org.au/ws/dataProvider,show_all-providers,TRUE
 Australia,data-quality,profiles_all,https://data-quality-service.ala.org.au/api/v1/data-profiles,show_all-profiles,TRUE
 Australia,data-quality,profiles_lookup,https://data-quality-service.ala.org.au/api/v1/quality/activeProfile?profileName={profile},show_values-profiles,TRUE
-Australia,doi,doi_download,https://apis.ala.org.au/doi/api/doi/{doi_string}/download,doi_download,TRUE
+Australia,doi,doi_download,https://doi.ala.org.au/doi/{doi_string}/download,doi_download,TRUE
 Australia,images,image_licences,https://images.ala.org.au/ws/licence,show_all-licences,TRUE
 Australia,images,image_metadata,https://images.ala.org.au/ws/image/{id},media_metadata,TRUE
 Australia,lists,lists_all,https://lists.ala.org.au/ws/speciesList,show_all-lists,TRUE

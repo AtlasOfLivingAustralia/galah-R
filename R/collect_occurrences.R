@@ -87,24 +87,16 @@ doi_download <- function(doi, error_call = caller_env()) {
   }
 
   url_complete <- url_lookup("doi_download", doi_string = doi_str)
-  path <- url_download(url_complete, 
-                         ext = ".zip", 
-                         cache_file = tempfile(pattern = "data"))
-  if(is.null(path)){
+  result <- url_download(url_complete, 
+                         ext = "zip", 
+                         cache_file = tempfile(pattern = "data"),
+                         data_prefix = "records")
+  if(is.null(result)){
     inform("Download failed")
     return(tibble())
   }else{
-    
-    
-    record_file <- grep("^records", unzip(path, list=TRUE)$Name, 
-                        ignore.case=TRUE, value=TRUE)
-    result <- read_csv(unz(path, record_file), 
-                       col_types = cols(),
-                       na = character()) |>
-              suppressWarnings()
     attr(result, "doi") <- doi
     attr(result, "call") <- "atlas_occurrences"
-    
     return(result)
   }
 }
