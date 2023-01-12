@@ -209,7 +209,7 @@ name_lookup <- function(name) {
       result[names(result) %in% wanted_columns("taxa")[1:11]],
       stringsAsFactors = FALSE),
     as.data.frame(
-      result[names(result) %in% wanted_columns("taxa")[11:34]],
+      result[names(result) %in% wanted_columns("taxa")[12:34]],
       stringsAsFactors = FALSE)
   )
 }
