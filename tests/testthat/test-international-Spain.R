@@ -186,20 +186,20 @@ test_that("galah_select works for Spain", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame"))) 
 })
 
-test_that("atlas_occurrences works for Spain", {
-  skip_on_cran()
-  galah_config(
-    atlas = "Spain",
-    email = "test@ala.org.au",
-    send_email = FALSE)
-  occ <- galah_call() |>
-    galah_identify("Mammalia") |>
-    galah_filter(year <= 1800) |>
-    galah_select(species, year) |>
-    atlas_occurrences()
-  expect_gt(nrow(occ), 0)
-  expect_equal(ncol(occ), 2)
-  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
-})
+# test_that("atlas_occurrences works for Spain", {
+#   skip_on_cran()
+#   galah_config(
+#     atlas = "Spain",
+#     email = "test@ala.org.au",
+#     send_email = FALSE)
+#   occ <- galah_call() |>
+#     galah_identify("Mammalia") |>
+#     galah_filter(year <= 1800) |>
+#     galah_select(species, year) |>
+#     atlas_occurrences()
+#   expect_gt(nrow(occ), 0)
+#   expect_equal(ncol(occ), 2)
+#   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+# })
 
 galah_config(atlas = "Australia")

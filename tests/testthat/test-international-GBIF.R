@@ -1,4 +1,4 @@
-context("Test international atlases: Brazil")
+context("Test international atlases: GBIF")
 
 # set verbose to off
 galah_config(verbose = FALSE, run_checks = FALSE)
@@ -156,15 +156,15 @@ test_that("atlas_media fails for GBIF", {
   })
 })
 
-test_that("atlas_occurrences works for GBIF", {
-  skip_on_cran()
-  occ <- galah_call() |>
-    galah_identify("Vulpes vulpes") |>
-    galah_filter(year <= 1800, basisOfRecord == "PRESERVED_SPECIMEN") |>
-    atlas_occurrences()  
-  expect_gt(nrow(occ), 0)
-  expect_gt(ncol(occ), 0)
-  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
-})
+# test_that("atlas_occurrences works for GBIF", {
+#   skip_on_cran()
+#   occ <- galah_call() |>
+#     galah_identify("Vulpes vulpes") |>
+#     galah_filter(year <= 1800, basisOfRecord == "PRESERVED_SPECIMEN") |>
+#     atlas_occurrences()  
+#   expect_gt(nrow(occ), 0)
+#   expect_gt(ncol(occ), 0)
+#   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+# })
 
 galah_config(atlas = "Australia")

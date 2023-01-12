@@ -1,0 +1,73 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://namematching-ws.ala.org.au/api/search?q=Litoria
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Wed, 11 Jan 2023 07:11:34 GMT
+      content-type: application/json
+      content-length: '499'
+      server: nginx/1.23.3
+      vary: Accept-Encoding
+      content-encoding: gzip
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
+    body:
+      encoding: ''
+      file: no
+      string: '{"success":true,"scientificName":"Litoria","scientificNameAuthorship":"Tschudi,
+        1838","taxonConceptID":"https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b","rank":"genus","rankID":6000,"lft":39196,"rgt":39352,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Amphibia","classID":"https://biodiversity.org.au/afd/taxa/0490a9ba-0d08-473d-a709-6c42e354f118","order":"Anura","orderID":"https://biodiversity.org.au/afd/taxa/de0edaae-fd4a-4d37-8c7d-fb4899c81ef7","family":"Hylidae","familyID":"https://biodiversity.org.au/afd/taxa/e57fcee2-be79-4d84-b632-d61843e7c3d9","genus":"Litoria","genusID":"https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b","speciesGroup":["Animals","Amphibians"],"speciesSubgroup":["Tree
+        Frogs"],"issues":["noIssue"]}'
+  recorded_at: 2023-01-11 07:11:34 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://namematching-ws.ala.org.au/api/search?q=Litoria
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Wed, 11 Jan 2023 07:11:34 GMT
+      content-type: application/json
+      content-length: '499'
+      server: nginx/1.23.3
+      vary: Accept-Encoding
+      content-encoding: gzip
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
+    body:
+      encoding: ''
+      file: no
+      string: '{"success":true,"scientificName":"Litoria","scientificNameAuthorship":"Tschudi,
+        1838","taxonConceptID":"https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b","rank":"genus","rankID":6000,"lft":39196,"rgt":39352,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Amphibia","classID":"https://biodiversity.org.au/afd/taxa/0490a9ba-0d08-473d-a709-6c42e354f118","order":"Anura","orderID":"https://biodiversity.org.au/afd/taxa/de0edaae-fd4a-4d37-8c7d-fb4899c81ef7","family":"Hylidae","familyID":"https://biodiversity.org.au/afd/taxa/e57fcee2-be79-4d84-b632-d61843e7c3d9","genus":"Litoria","genusID":"https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b","speciesGroup":["Animals","Amphibians"],"speciesSubgroup":["Tree
+        Frogs"],"issues":["noIssue"]}'
+  recorded_at: 2023-01-11 07:11:34 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

@@ -98,6 +98,7 @@ test_that("atlas_counts works with galah_identify for Sweden", {
   
   expect_gt(result$count, 1)
   expect_gt(result2$count, 1)
+  
   # we expect a <1% margin of error
   expect_true(
     (sqrt((result2$count - result$count)^2) / result$count) < 0.1)
