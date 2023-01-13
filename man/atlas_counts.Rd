@@ -69,19 +69,8 @@ provides either a total count of records matching the criteria, or a
 argument.
 }
 \examples{
-# With no arguments, return the total number of records in the ALA
-atlas_counts()
-
-# Add a filter to narrow your search
 galah_call() |>
-  galah_filter(basisOfRecord == "FossilSpecimen") |>
-  atlas_counts() 
-
-# Group counts by state and territory with `galah_group_by`
-galah_config(verbose = FALSE) # turn off loading messages
-galah_call() |>
-  galah_identify("Litoria") |> 
-  galah_group_by(stateProvince) |>
+  galah_filter(year == 2015) |>
   atlas_counts()
   
 }
