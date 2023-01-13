@@ -148,13 +148,13 @@ vcr::use_cassette("IA_GBIF_atlas_counts_group_by", {
 #   expect_true(inherits(species, c("tbl_df", "tbl", "data.frame")))
 # })
 
-# test_that("atlas_media fails for GBIF", {
-#   skip_on_cran()
-#   expect_error({galah_call() |>
-#     galah_identify("perameles") |>
-#     atlas_media()
-#   })
-# })
+test_that("atlas_media fails for GBIF", {
+  skip_on_cran()
+  expect_error({galah_call() |>
+    galah_identify("perameles") |>
+    atlas_media()
+  })
+})
 
 # test_that("atlas_occurrences works for GBIF", {
 #   skip_on_cran()

@@ -46,8 +46,8 @@ occurrences_GBIF <- function(identify = NULL,
                   query = ""))
   }
   headers <- list(
-    `User-Agent` =  galah_version_string(), # or "r-curl/4.3.3 crul/1.3 galah/1.5.1"
-    `X-USER-AGENT` =  galah_version_string(),
+    `User-Agent` = galah_version_string(), # or "r-curl/4.3.3 crul/1.3 galah/1.5.1"
+    `X-USER-AGENT` = galah_version_string(),
     `Content-Type` = "application/json",
     Accept = "application/json")
   opts <- list(

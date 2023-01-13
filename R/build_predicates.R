@@ -13,10 +13,6 @@ build_predicates <- function(
     return(NULL)
   }
 
-  send_notification <- getOption("galah_config")$package$send_email |>
-    as.character() |>
-    tolower()
-
   predicates_list <- parse_predicates(df)
   if(nrow(df) > 1){
      predicates_list <- list(
@@ -30,7 +26,7 @@ build_predicates <- function(
   data_list <- list(
     creator = unbox(getOption("galah_config")$user$username),
     notificationAddresses = getOption("galah_config")$user$email,
-    sendNotification = unbox(send_notification),
+    sendNotification = unbox(getOption("galah_config")$package$send_email),
     format = unbox(format),
     predicate = predicates_list
   )
