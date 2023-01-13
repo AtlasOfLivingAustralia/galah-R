@@ -155,6 +155,7 @@ search_assertions <- function(query){
                     paste(tolower(df$description), tolower(df$id)))), ]
 }
 
+
 #' @rdname search_all
 #' @export search_atlases
 search_atlases <- function(query){
@@ -163,8 +164,8 @@ search_atlases <- function(query){
   attr(df, "call") <- "search_atlases"
   df[grepl(
     tolower(query), 
-    tolower(apply(
-      df[, c("acronym", "atlas")], 1, 
+    tolower(apply(df,
+      1, 
       function(a){paste(a, collapse = "-")})
     )
   ), ]

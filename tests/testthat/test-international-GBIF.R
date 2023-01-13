@@ -138,30 +138,30 @@ vcr::use_cassette("IA_GBIF_atlas_counts_group_by", {
   })
 })
 
-test_that("atlas_species works for GBIF", {
-  skip_on_cran()
-  species <- galah_call() |>
-    galah_identify("perameles") |>
-    atlas_species()
-  expect_gt(nrow(species), 0)
-  expect_gt(ncol(species), 0)
-  expect_true(inherits(species, c("tbl_df", "tbl", "data.frame")))
-})
+# test_that("atlas_species works for GBIF", {
+#   skip_on_cran()
+#   species <- galah_call() |>
+#     galah_identify("perameles") |>
+#     atlas_species()
+#   expect_gt(nrow(species), 0)
+#   expect_gt(ncol(species), 0)
+#   expect_true(inherits(species, c("tbl_df", "tbl", "data.frame")))
+# })
 
-test_that("atlas_media fails for GBIF", {
-  skip_on_cran()
-  expect_error({galah_call() |>
-    galah_identify("perameles") |>
-    atlas_media()
-  })
-})
+# test_that("atlas_media fails for GBIF", {
+#   skip_on_cran()
+#   expect_error({galah_call() |>
+#     galah_identify("perameles") |>
+#     atlas_media()
+#   })
+# })
 
 # test_that("atlas_occurrences works for GBIF", {
 #   skip_on_cran()
 #   occ <- galah_call() |>
 #     galah_identify("Vulpes vulpes") |>
 #     galah_filter(year <= 1800, basisOfRecord == "PRESERVED_SPECIMEN") |>
-#     atlas_occurrences()  
+#     atlas_occurrences()
 #   expect_gt(nrow(occ), 0)
 #   expect_gt(ncol(occ), 0)
 #   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))

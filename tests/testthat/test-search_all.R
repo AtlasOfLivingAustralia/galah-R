@@ -62,7 +62,7 @@ test_that("search_atlases returns a filtered result", {
   skip_on_cran()
   all <- show_all_atlases()
   search <- search_atlases("guat")
-  search_result_check <- all(grepl(pattern = "guat", search$atlas,
+  search_result_check <- all(grepl(pattern = "guat", search$region,
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))

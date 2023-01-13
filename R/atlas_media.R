@@ -108,19 +108,20 @@ atlas_media <- function(request = NULL,
   # run function using do.call
   result <- do.call(atlas_media_internal, custom_call)
   if(is.null(result)){
-    result <- tibble()
+    tibble()
+  }else{
+    attr(result, "data_type") <- "media"
+    attr(result, "data_request") <- custom_call
+    
+    # if caching requested, save
+    if (caching) {
+      write_cache_file(object = result, 
+                       data_type = "media",
+                       cache_file = cache_file)
+    }
+    
+    result  
   }
-  attr(result, "data_type") <- "media"
-  attr(result, "data_request") <- custom_call
-  
-  # if caching requested, save
-  if (caching) {
-    write_cache_file(object = result, 
-                     data_type = "media",
-                     cache_file = cache_file)
-  }
-   
-  result                                                      
 }
 
 

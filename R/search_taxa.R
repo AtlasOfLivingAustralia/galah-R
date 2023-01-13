@@ -85,8 +85,10 @@ search_taxa <- function(...) {
   
   matches <- remove_parentheses(query) |> name_query()
     
-  if(is.null(matches) & galah_config()$package$verbose){
-    system_down_message("search_taxa")
+  if(is.null(matches)){
+    if(galah_config()$package$verbose){
+      system_down_message("search_taxa")
+    }
     df <- tibble()
     attr(df, "call") <- "ala_id"
     return(df)

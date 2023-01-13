@@ -11,7 +11,6 @@ url_POST <- function(url,
                      body,
                      opts,
                      headers,
-                     # encode = "form", # needed for ALA
                      error_call = caller_env()
                      ) {
 
@@ -28,8 +27,9 @@ url_POST <- function(url,
     if (res$status_code != 201) {
         code_number <- res$status_code
         request_url <- res$request$url
-        abort(glue("Status code {code_number} returned for url {request_url}."),
-                    call = error_call)
+        inform(glue("Status code {code_number} returned for url {request_url}."),
+                call = error_call)
+        return(NULL)
       }else{
         res$parse("UTF-8")
       }

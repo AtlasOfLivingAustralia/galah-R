@@ -251,9 +251,7 @@ show_all_fields <- function(limit = NULL){
       other <- get_other_fields()
       if(all(
         is.null(fields),
-        is.null(layers),
-        # is.null(media) # internally generated
-        is.null(other)
+        is.null(layers)
       )){
         df <- NULL
       }else{
