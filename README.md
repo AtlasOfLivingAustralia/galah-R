@@ -1,7 +1,3 @@
----
-output: github_document
----
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 
@@ -20,7 +16,7 @@ Global Biodiversity Information Facility ([GBIF](https://www.gbif.org)). These
 organisations collate and store observations of individual life forms, using the 
 ['Darwin Core'](https://dwc.tdwg.org) data standard. `galah` was built and is 
 maintained by the [Science & Decision Support Team](https://labs.ala.org.au) at 
-the [Atlas of Living Australia](https://ala.org.au) (ALA).
+the [Atlas of Living Australia](https://www.ala.org.au) (ALA).
 
 `galah` enables users to locate and download species occurrence records (observations, 
 specimens, eDNA records, etc.), taxonomic information, or associated media such 

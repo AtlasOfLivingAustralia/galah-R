@@ -326,10 +326,11 @@ build_filter_query <- function(filters) {
       filters$query[is_equals] <- filters$value[is_equals]
     }
     if(any(!is_equals)){
-      filters$query[!is_equals] <- filters$query[!is_equals] |>
-        sub("^[[:graph:]]+\\[", "", x = _) |>
-        sub("\\]$", "", x = _) |>
-        sub(" TO ", ",", x = _)
+      cleaned_filters <- sub("^[[:graph:]]+\\[", "", 
+                             x = filters$query[!is_equals])
+      cleaned_filters <- sub("\\]$", "", x = cleaned_filters)
+      cleaned_filters <- sub(" TO ", ",", x = cleaned_filters)
+      filters$query[!is_equals] <- cleaned_filters
     }
     queries <- as.list(filters$query)
     names(queries) <- filters$variable
