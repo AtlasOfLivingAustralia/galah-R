@@ -26,11 +26,11 @@ to return only the information that you need, and no more. Consequently, much of
 the architecture of `galah` has been designed to make narrowing as simple as possible. 
 These functions include:
 
--   `galah_identify`
--   `galah_filter`
--   `galah_select`
--   `galah_group_by`
--   `galah_geolocate`
+-   `galah_identify` or `identify`
+-   `galah_filter` or `filter`
+-   `galah_select` or `select`
+-   `galah_group_by` or `group_by`
+-   `galah_geolocate` or `st_crop`
 -   `galah_down_to`
 
 These names have been chosen to echo comparable functions from `dplyr`; namely

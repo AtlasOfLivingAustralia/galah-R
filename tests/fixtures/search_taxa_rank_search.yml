@@ -16,10 +16,10 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Wed, 30 Nov 2022 00:30:56 GMT
+      date: Wed, 11 Jan 2023 07:11:52 GMT
       content-type: application/json
       content-length: '390'
-      server: nginx/1.23.2
+      server: nginx/1.23.3
       vary: Accept-Encoding
       content-encoding: gzip
       access-control-allow-methods: GET,OPTIONS,POST
@@ -28,9 +28,9 @@ http_interactions:
       access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '{"success":true,"scientificName":"Acacia","scientificNameAuthorship":"Mill.","taxonConceptID":"https://id.biodiversity.org.au/taxon/apni/51382879","rank":"genus","rankID":6000,"lft":592845,"rgt":596441,"matchType":"exactMatch","nameType":"SCIENTIFIC","kingdom":"Plantae","kingdomID":"https://id.biodiversity.org.au/taxon/apni/51414459","phylum":"Charophyta","phylumID":"https://id.biodiversity.org.au/taxon/apni/51414458","classs":"Equisetopsida","classID":"https://id.biodiversity.org.au/taxon/apni/51414457","order":"Fabales","orderID":"https://id.biodiversity.org.au/taxon/apni/51408979","family":"Fabaceae","familyID":"https://id.biodiversity.org.au/taxon/apni/51392276","genus":"Acacia","genusID":"https://id.biodiversity.org.au/taxon/apni/51382879","vernacularName":"Mulga","speciesGroup":["Plants","Angiosperms","Dicots"],"speciesSubgroup":["Dicots","Flowering
         plants"],"issues":["noIssue"]}'
-  recorded_at: 2022-11-30 00:30:56 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-11 07:11:52 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

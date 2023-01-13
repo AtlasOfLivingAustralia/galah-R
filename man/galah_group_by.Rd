@@ -25,9 +25,9 @@ used to return record counts grouped by multiple, valid fields (found by
 by one or more valid fields.
 }
 \examples{
-# Return record counts since 2010 by year
+# Return record counts since 2015 by year
 galah_call() |> 
-  galah_filter(year > 2010) |>
+  galah_filter(year >= 2015) |>
   galah_group_by(year) |>
   atlas_counts()
 }

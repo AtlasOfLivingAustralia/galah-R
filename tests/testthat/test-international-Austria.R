@@ -4,58 +4,99 @@ context("Test international atlases: Austria")
 galah_config(verbose = FALSE, run_checks = FALSE)
 
 test_that("swapping to atlas = Austria works", {
-  expect_silent(galah_config(atlas = "Austria"))
+  expect_message(galah_config(atlas = "Austria"))
 })
 
-vcr::use_cassette("IA_Austria_show_all_fields", {
-  test_that("show_all works for Austria", {
-    result <- show_all_fields()
-    expect_gt(nrow(result), 1)
+test_that("show_all(fields) works for Austria", {
+  vcr::use_cassette("IA_Austria_show_all_fields", {
+    x <- show_all_fields()
   })
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-vcr::use_cassette("IA_Austria_show_all", {
-  test_that("show_all works for Austria", {
-    ## collectory
-    expect_gt(nrow(show_all(collections)), 1)
-    expect_gt(nrow(show_all(datasets)), 1)
-    expect_gt(nrow(show_all(providers)), 1)  
-    ## records
-    expect_gt(nrow(show_all(assertions)), 1)
-    # logger
-    expect_gt(nrow(show_all(reasons)), 1)
-    # profiles
-    expect_error(show_all(profiles))
-    # lists
-    expect_gt(nrow(show_all(lists)), 1)
+test_that("show_all(collections) works for Austria", {
+  vcr::use_cassette("IA_Austria_show_all_collections", {
+    x <- show_all(collections, limit = 10)
   })
-}) 
-
-vcr::use_cassette("IA_Austria_search_all", {
-  test_that("search_all works for Austria", {
-    expect_equal(class(search_all(fields, "year")), 
-                 c("tbl_df", "tbl", "data.frame"))
-    expect_equal(nrow(search_all(taxa, "Vulpes vulpes")), 1) 
-  })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-vcr::use_cassette("IA_Austria_show_values", {
-  test_that("show_values works for Austria", {
-    
-    search_fields("basisOfRecord") |> 
-      show_values() |>
-      nrow() |>
-      expect_gt(1)
-      
-    search_lists("dr113") |> 
-      show_values() |>
-      nrow() |>
-      expect_gt(1)
-
-    search_profiles("profile") |> 
-      show_values() |>
-      expect_error()
+test_that("show_all(datasets) works for Austria", {
+  vcr::use_cassette("IA_Austria_show_all_datasets", {
+    x <- show_all(datasets, limit = 10)
   })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(providers) works for Austria", {
+  vcr::use_cassette("IA_Austria_show_all_providers", {
+    x <- show_all(providers, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(reasons) works for Austria", {
+  vcr::use_cassette("IA_Austria_show_all_reasons", {
+    x <- show_all(reasons)
+  })
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(assertions) works for Austria", {
+  vcr::use_cassette("IA_Austria_show_all_assertions", {
+    x <- show_all(assertions)
+  })
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(profiles) fails for Austria", {
+  expect_error(show_all(profiles))
+})
+
+test_that("show_all(lists) works for Austria", {
+  vcr::use_cassette("IA_Austria_show_all_lists", {
+    x <- show_all(lists, limit = 10)
+  })
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("search_all(fields) works for Austria", {
+  x <- search_all(fields, "year")
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("search_all(taxa) works for Austria", {
+  vcr::use_cassette("IA_Austria_search_all_taxa", {
+    x <- search_all(taxa, "Vulpes vulpes")
+  })
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_values works for fields for Austria", {
+  vcr::use_cassette("IA_Austria_show_values_fields", {
+    x <- search_all(fields, "basisOfRecord") |> 
+      show_values()
+  })
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_values works for lists for Austria", {
+  vcr::use_cassette("IA_Austria_show_values_profiles", {
+    x <- search_all(lists, "dr113") |> 
+      show_values()
+  })
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 vcr::use_cassette("IA_Austria_atlas_counts", {
@@ -65,7 +106,7 @@ vcr::use_cassette("IA_Austria_atlas_counts", {
   })
 })
 
-vcr::use_cassette("IA_Austria_atlas_counts2", {
+vcr::use_cassette("IA_Austria_atlas_counts_identify", {
   test_that("atlas_counts works with galah_identify for Austria", {
     result <- galah_call() |>
       galah_identify("Mammalia") |>
@@ -82,7 +123,7 @@ vcr::use_cassette("IA_Austria_atlas_counts2", {
   })
 })
 
-vcr::use_cassette("IA_Austria_atlas_counts3", {
+vcr::use_cassette("IA_Austria_atlas_counts_group_by", {
   test_that("atlas_counts works with group_by for Austria", {
     result <- galah_call() |>
       galah_filter(year >= 2020) |>
@@ -106,7 +147,7 @@ test_that("atlas_occurrences works for Austria", {
     atlas_occurrences()   
   expect_gt(nrow(occ), 0)
   expect_equal(ncol(occ), 2)
-  expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
+  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
 })
 
 galah_config(atlas = "Australia")

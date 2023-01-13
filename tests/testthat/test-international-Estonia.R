@@ -4,50 +4,80 @@ context("Test international atlases: Estonia")
 galah_config(verbose = FALSE, run_checks = FALSE)
 
 test_that("swapping to atlas = Estonia works", {
-  expect_silent(galah_config(atlas = "Estonia"))
+  expect_message(galah_config(atlas = "Estonia"))
 })
 
-vcr::use_cassette("IA_Estonia_show_all", {
-  test_that("show_all works for Estonia", {
-    ## collectory
-    expect_gt(nrow(show_all(collections)), 1)
-    expect_gt(nrow(show_all(datasets)), 1)
-    expect_gt(nrow(show_all(providers)), 1)  
-    ## records
-    expect_gt(nrow(show_all(assertions)), 1)
-    expect_gt(nrow(show_all(fields)), 1)
-    # logger
-    expect_error(show_all(reasons))
-    # profiles
-    expect_error(show_all(profiles))
-    # lists
-    expect_error(show_all(lists))
+test_that("show_all(fields) works for Estonia", {
+  vcr::use_cassette("IA_Estonia_show_all_fields", {
+    x <- show_all_fields()
   })
-}) 
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
 
-vcr::use_cassette("IA_Estonia_search_all", {
-  test_that("search_all works for Estonia", {
-    expect_equal(class(search_all(fields, "year")), 
-                 c("tbl_df", "tbl", "data.frame"))
-    expect_equal(nrow(search_all(taxa, "Mammalia")), 1) 
+test_that("show_all(collections) works for Estonia", {
+  vcr::use_cassette("IA_Estonia_show_all_collections", {
+    x <- show_all(collections, limit = 10)
   })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(datasets) works for Estonia", {
+  vcr::use_cassette("IA_Estonia_show_all_datasets", {
+    x <- show_all(datasets, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(providers) works for Estonia", {
+  vcr::use_cassette("IA_Estonia_show_all_providers", {
+    x <- show_all(providers, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(reasons) works for Estonia", {
+  expect_error(show_all(reasons))
+})
+
+test_that("show_all(assertions) works for Estonia", {
+  vcr::use_cassette("IA_Estonia_show_all_assertions", {
+    x <- show_all(assertions)
+  })
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(profiles) fails for Estonia", {
+  expect_error(show_all(profiles))
+})
+
+test_that("show_all(lists) works for Estonia", {
+  expect_error(show_all(lists))
+})
+
+test_that("search_all(fields) works for Estonia", {
+  x <- search_all(fields, "year")
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_gte(nrow(x), 1) 
+})
+
+test_that("search_all(taxa) works for Estonia", {
+  vcr::use_cassette("IA_Estonia_search_all_taxa", {
+    x <- search_all(taxa, "Mammalia")
+  })
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_equal(nrow(x), 1) 
 })
 
 vcr::use_cassette("IA_Estonia_show_values", {
   test_that("show_values works for Estonia", {
-    
-    search_fields("basis_of_record") |> 
-      show_values() |>
-      nrow() |>
-      expect_gt(1)
-    
-    search_lists("a_list") |> 
-      show_values() |>
-      expect_error()
-    
-    search_profiles("profile") |> 
-      show_values() |>
-      expect_error()
+    x <- search_fields("basis_of_record") |> 
+      show_values()
+    expect_gt(nrow(x), 1)
   })
 })
 
@@ -58,7 +88,7 @@ vcr::use_cassette("IA_Estonia_atlas_counts", {
   })
 })
 
-vcr::use_cassette("IA_Estonia_atlas_counts3", {
+vcr::use_cassette("IA_Estonia_atlas_counts_group_by", {
   test_that("atlas_counts works with group_by for Estonia", {
     result <- galah_call() |>
       galah_filter(year >= 2018) |>

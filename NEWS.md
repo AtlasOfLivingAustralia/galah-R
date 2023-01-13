@@ -12,13 +12,30 @@ An experimental feature of version 1.5.1 is the ability to call functions from o
 
 These are implemented as S3 methods for objects of class `data_request`, which are created by `galah_call()`. Hence new function names only work when piped after `galah_call()`.
 
+### Experimental support for GBIF queries
+The Global Biodiversity Information Facility (GBIF) is the umbrella organisation to which all other atlases supply data. Hence it is logical to be able to query GBIF and it's "nodes" (i.e. the living atlases) via a common API. Supported functions are:
+
+* `search_taxa` and `galah_identify` for name matching
+* `show_all(fields)` and `show_all(assertions)`
+* `show_all()` calls that give 'collections' information are limited to 20 records by default, as GBIF datasets are often huge. `search_all()` is generally more reliable
+* `show_values()` for any GBIF field
+* `galah_filter` and `galah_group_by` (and therefore `filter` and `group_by()`, see above), but NOT `galah_select`.
+* `atlas_counts()` (and therefore `count()`, see above)
+* `atlas_occurrences()` & `atlas_species()`; both are implemented via the 'downloads' system, meaning that queries can be larger, but may be slow
+
+The current implementation is experimental and back-end changes are expected in future. Users who require a more stable implementation should use the {rgbif} package.
+
 ### Minor improvements
+* `galah_config()` gains a `print` function, and now uses fuzzy matching for the `atlas` field to match to region, organisation or acronym (as defined by `show_all(atlases)`). An example use case is to match to organisations via acronyms, e.g. `galah_config(atlas = "ALA")`.
+* Improved support for data from Spain via [gbif.es](https://www.gbif.es) (name-matching, lists, spatial)
+* Swapped provider for data from France; formerly [gbif.fr](http://www.gbif.fr), now [OpenObs](https://openobs.mnhn.fr), as per advice from maintainers
 * Reading data from disk now uses `readr::read_csv` in place of `utils::read.csv` for improved speed
+* `show_all` (and associated sub-functions) gain a `limit` argument, set to NULL (i.e. no limit) by default
 * `galah` no longer imports `{data.table}`, since the only function previously used from that package (`rbindlist`) is duplicated by `dplyr::bind_rows`
 * Help files are now built without markdown for improved speed (mainly while building)
 
 ## Bug fixes:
-* New function `atlas_paginate()` to handle cases where pagination is needed, but total data length is unknown (e.g. `show_all_lists()`, #170).
+* New function `url_paginate()` to handle cases where pagination is needed, but total data length is unknown (e.g. `show_all_lists()`, #170).
 * `galah_select(group = "assertions")` is always enacted properly by `atlas_occurrences`, and won't lead to overly long urls (#137). When called without any other field names, `recordID` is added to avoid triggering the 'default' set of columns.
 * `atlas_species` works again after some minor changes to the API; but requires a registered email to function
 

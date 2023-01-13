@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Tue, 29 Nov 2022 23:35:30 GMT
+      date: Tue, 10 Jan 2023 08:46:28 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -29,7 +29,7 @@ http_interactions:
       x-content-type-options: nosniff
       content-security-policy: upgrade-insecure-requests
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"name":"all_image_url","dataType":"string","indexed":true,"stored":true,"multivalue":true,"info":"Bild
         URLs für diesen Eintrag","downloadName":"all_image_url"},{"name":"assertions","dataType":"string","indexed":true,"stored":true,"multivalue":true,"description":"Warnung","info":"Liste
@@ -255,8 +255,8 @@ http_interactions:
         Probleme bei einem Datensatz vorliegen. Negativ bedeutet ein Problem.","jsonName":"taxonomicKosher","downloadName":"taxonomic_kosher","downloadDescription":"Taxonomische
         Qualität"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"description":"The
         four-digit year in which the Event occurred, according to the Common Era Calendar.","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Jahr","classs":"Event"}]'
-  recorded_at: 2022-11-29 23:35:34 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 08:46:32 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
     uri: https://spatial.biodiversityatlas.at/ws/layers
@@ -275,7 +275,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.18.0 (Ubuntu)
-      date: Tue, 29 Nov 2022 23:35:33 GMT
+      date: Tue, 10 Jan 2023 08:46:31 GMT
       content-type: application/json;charset=UTF-8
       x-application-context: application:production
       strict-transport-security: max-age=31536000
@@ -283,7 +283,7 @@ http_interactions:
       x-content-type-options: nosniff
       content-security-policy: upgrade-insecure-requests
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"source_link":"https://www.eea.europa.eu/data-and-maps/data/eea-reference-grids-2#tab-gis-data","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"","displayname":"EEA
         reference grid - 1km","id":10057,"grid":false,"path_orig":"layer/eeareferencegridat_1km","minlongitude":9.32623,"maxlatitude":49.15712,"licence_link":"https://www.eea.europa.eu/legal/copyright","mddatest":"2013","maxlongitude":17.37259,"dt_added":1583943043931,"minlatitude":46.23479,"displaypath":"https://spatial.biodiversityatlas.at/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:eeareferencegridat_1km&format=image/png&styles=","name":"eeareferencegridat_1km","metadatapath":"https://www.eea.europa.eu/data-and-maps/data/eea-reference-grids-2#tab-metadata","type":"Contextual","notes":"Der
@@ -876,5 +876,5 @@ http_interactions:
         Celsius (C°)","enabled":true,"domain":"Terrestrial","description":"BIO4 =
         Temperature Seasonality (standard deviation ×100). Bioclimatic variable (BioClim)
         von den WorldClim version 2.1 Klimadaten von 1970-2000. https://www.worldclim.org/data/bioclim.html\r\n","licence_level":"1","source":"WorldClim","citation_date":"2017"}]'
-  recorded_at: 2022-11-29 23:35:34 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 08:46:32 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

@@ -59,27 +59,36 @@
 search_taxa <- function(...) {
   
   query <- list(...)
+
   if(length(query) < 1){
     warn("No query passed to `search_taxa`")
     return(tibble())
+  # check function isn't piped directly in a galah_call() query
+  } else if(
+    any("data_request" %in% unlist(lapply(query, attributes)))) {
+    bullets <- c(
+      "Can't pipe `search_taxa()` in a `galah_call()`.",
+      i = "Did you mean to use `galah_identify()`?"
+    )
+    abort(bullets, call = caller_env())
   } else if(length(query) == 1L){
     query <- query[[1]]
     if (is.list(query) & !is.data.frame(query)) {
       query <- as.data.frame(query)
     }
-  } else {
-    if(
+  } else if(
       all(lengths(query) == 1L) | 
       all(unlist(lapply(query, is.character)))
     ){
-      query <- unlist(query)
-    }
+    query <- unlist(query)
   }
   
   matches <- remove_parentheses(query) |> name_query()
     
-  if(is.null(matches) & galah_config()$verbose){
-    system_down_message("search_taxa")
+  if(is.null(matches)){
+    if(galah_config()$package$verbose){
+      system_down_message("search_taxa")
+    }
     df <- tibble()
     attr(df, "call") <- "ala_id"
     return(df)
@@ -116,12 +125,12 @@ name_query <- function(query) {
 name_lookup <- function(name) {
   if (is.null(names(name)) || isTRUE(names(name) == "")) {
     # search by scientific name
-    url <- atlas_url("names_search_single", name = name[[1]])
-    result <- atlas_GET(url)
+    url <- url_lookup("names_search_single", name = name[[1]])
+    result <- url_GET(url)
   } else {
     # search by classification - NOTE - NOT implemented for other atlases yet
-    url <- atlas_url("names_search_multiple") 
-    result <- atlas_GET(url, as.list(name))      
+    url <- url_lookup("names_search_multiple") 
+    result <- url_GET(url, as.list(name))      
   }
 
   if(is.null(result)){
@@ -132,6 +141,8 @@ name_lookup <- function(name) {
   if(is.list(result)){
     if(!is.null(result$searchResults$results)){
       result <- result$searchResults$results
+    }else if(getOption("galah_config")$atlas$region == "France"){
+      result <- result$`_embedded`$taxa
     }else{
       result <- lapply(result, function(a){a[1]}) 
     }
@@ -176,14 +187,13 @@ name_lookup <- function(name) {
         x = glue("Homonym issue with \"{name}\".")
       )
       warn(bullets)
-      # return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
     }
   }
   
-  if (isFALSE(result$success) && galah_config()$verbose) {
+  if (isFALSE(result$success) && galah_config()$package$verbose) {
     list_invalid_taxa <- glue::glue_collapse(name, 
                                              sep = ", ")
-    inform(glue("No taxon matches were found for \"{list_invalid_taxa}\" in the selected atlas ({getOption('galah_config')$atlas})."))
+    inform(glue("No taxon matches were found for \"{list_invalid_taxa}\" in the selected atlas ({getOption('galah_config')$atlas$region})."))
     return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
   }
 
@@ -198,22 +208,10 @@ name_lookup <- function(name) {
   cbind(
     search_term = name,
     as.data.frame(
-      result[names(result) %in% wanted_columns("taxa")[1:10]],
+      result[names(result) %in% wanted_columns("taxa")[1:11]],
       stringsAsFactors = FALSE),
     as.data.frame(
-      result[names(result) %in% wanted_columns("taxa")[11:33]],
+      result[names(result) %in% wanted_columns("taxa")[12:34]],
       stringsAsFactors = FALSE)
   )
 }
-
-
-# make sure rank provided is in accepted list
-# validate_rank <- function(df) {
-#   ranks <- names(df)
-#   ranks_check <- ranks %in% show_all_ranks()$name
-#   if(any(ranks_check)){
-#     return(df[ranks_check])
-#   }else{
-#     return(NULL)
-#   }
-# }

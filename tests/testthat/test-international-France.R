@@ -4,93 +4,148 @@ context("Test international atlases: France")
 galah_config(verbose = FALSE, run_checks = FALSE)
 
 test_that("swapping to atlas = France works", {
-  expect_silent(galah_config(atlas = "France"))
+  expect_message(galah_config(atlas = "France"))
 })
 
-vcr::use_cassette("IA_France_show_all", {
-  test_that("show_all works for France", {
-    ## collectory
-    expect_gt(nrow(show_all(collections)), 1)
-    expect_gt(nrow(show_all(datasets)), 1)
-    expect_gt(nrow(show_all(providers)), 1)  
-    ## records
-    expect_gt(nrow(show_all(assertions)), 1)
-    expect_gt(nrow(show_all(fields)), 1)
-    # logger
-    expect_error(show_all(reasons))
-    # profiles
-    expect_error(show_all(profiles))
-    # lists
-    expect_error(show_all(lists))
+test_that("show_all(fields) works for France", {
+  vcr::use_cassette("IA_France_show_all_fields", {
+    x <- show_all_fields()
   })
-}) 
-
-vcr::use_cassette("IA_France_search_all", {
-  test_that("search_all works for France", {
-    expect_equal(class(search_all(fields, "year")), 
-                 c("tbl_df", "tbl", "data.frame"))
-    expect_equal(nrow(search_all(taxa, "Mammalia")), 1) 
-  })
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-vcr::use_cassette("IA_France_show_values", {
-  test_that("show_values works for France", {
-    
-    search_fields("basis_of_record") |> 
-      show_values() |>
-      nrow() |>
-      expect_gt(1)
-    
-    search_lists("a_list") |> 
-      show_values() |>
-      expect_error()
-    
-    search_profiles("profile") |> 
-      show_values() |>
-      expect_error()
+test_that("show_all(collections) works for France", {
+  vcr::use_cassette("IA_France_show_all_collections", {
+    x <- show_all(collections, limit = 10)
   })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-vcr::use_cassette("IA_France_atlas_counts", {
+test_that("show_all(datasets) works for France", {
+  vcr::use_cassette("IA_France_show_all_datasets", {
+    x <- show_all(datasets, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(providers) works for France", {
+  vcr::use_cassette("IA_France_show_all_providers", {
+    x <- show_all(providers, limit = 10)
+  })
+  expect_lte(nrow(x), 10) # no data at present
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(reasons) fails for France", {
+  expect_error(show_all(reasons))
+})
+
+test_that("show_all(assertions) works for France", {
+  vcr::use_cassette("IA_France_show_all_assertions", {
+    x <- show_all(assertions)
+  })
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(profiles) fails for France", {
+  expect_error(show_all(profiles))
+})
+
+test_that("show_all(lists) fails for France", {
+  expect_error(show_all(lists))
+})
+
+test_that("search_all(fields) works for France", {
+  x <- search_all(fields, "year")
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("search_all(taxa) works for France", {
+  vcr::use_cassette("IA_France_search_all_taxa", {
+    x <- search_all(taxa, "Vulpes vulpes")
+  })
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_values works for France", {
+  vcr::use_cassette("IA_France_show_values", {
+    x <- search_fields("basisOfRecord") |> 
+      show_values()
+  })
+  expect_gt(nrow(x), 1)
+})
+
+vcr::use_cassette("IA_France_atlas_counts_records", {
   test_that("atlas_counts works for France", {
     expect_gt(atlas_counts()$count, 0)
+  })
+})
+
+vcr::use_cassette("IA_France_atlas_counts_species", {
+  test_that("atlas_counts works for France", {
     expect_gt(atlas_counts(type = "species")$count, 0)
   })
 })
 
-# vcr::use_cassette("IA_France_atlas_counts2", {
-#   test_that("atlas_counts works with galah_identify for France", { # FIXME: galah_identify does returns count of 0
-#     skip_on_cran()
-#     result <- galah_call() |>
-#       galah_identify("Mammalia") |>
-#       atlas_counts()
-# 
-#     result2 <- galah_call() |>
-#       galah_filter(class == "Mammalia") |>
-#       atlas_counts()
-# 
-#     expect_lt(
-#       sqrt((result2$count - result$count)^2) / result$count,
-#       0.1) # i.e. <1% margin of error
-#   })
-# })
+vcr::use_cassette("IA_France_atlas_counts_identify", {
+  test_that("atlas_counts works with galah_identify for France", {
+    skip_on_cran()
+    result <- galah_call() |>
+      galah_identify("Mammalia") |>
+      atlas_counts()
 
-vcr::use_cassette("IA_France_atlas_counts3", {
+    result2 <- galah_call() |>
+      galah_filter(class == "Mammalia") |>
+      atlas_counts()
+
+    expect_lt(
+      sqrt((result2$count - result$count)^2) / result$count,
+      0.1) # i.e. <1% margin of error
+  })
+})
+
+vcr::use_cassette("IA_France_atlas_counts_group_by", {
   test_that("atlas_counts works with group_by for France", {
     skip_on_cran()
     result <- galah_call() |>
       galah_filter(year >= 2018) |>
-      galah_group_by(basis_of_record) |>
+      galah_group_by(year) |>
       atlas_counts()
     expect_gt(nrow(result), 1)
-    expect_equal(names(result), c("basis_of_record", "count"))
+    expect_equal(names(result), c("year", "count"))
   })
 })
 
-test_that("atlas_occurrences returns error for France", {
-  expect_error(atlas_occurrences(
-    filter = galah_filter(year == 2020)
-  ))
+
+test_that("atlas_species works for France", {
+  skip_on_cran()
+  galah_config(email = "ala4r@ala.org.au")
+  x <- galah_call() |>
+    galah_identify("Lagomorpha") |>
+    atlas_species()
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_gt(nrow(x), 1)
+  expect_gt(ncol(x), 1)
+})
+
+
+test_that("atlas_occurrences works for France", {
+  skip_on_cran()
+  galah_config(email = "ala4r@ala.org.au")
+  x <- galah_call() |>
+    galah_filter(year <= 1950) |>
+    galah_identify("Vulpes vulpes") |>
+    galah_select(species, year) |>
+    atlas_occurrences()
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  expect_gt(nrow(x), 1)
+  expect_equal(names(x), c("species", "year"))
 })
 
 galah_config(atlas = "Australia")

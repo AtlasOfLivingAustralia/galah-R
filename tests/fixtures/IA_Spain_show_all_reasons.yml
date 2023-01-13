@@ -1,0 +1,46 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://logger.gbif.es/service/logger/reasons
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/1.1 200 '
+      date: Fri, 06 Jan 2023 06:21:39 GMT
+      server: nginx/1.23.1
+      content-type: application/json;charset=UTF-8
+      vary: Origin,Access-Control-Request-Method,Access-Control-Request-Headers
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
+      access-control-allow-methods: POST, GET, OPTIONS
+      access-control-max-age: '3600'
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      content-security-policy: upgrade-insecure-requests
+      via: 1.1 logger.gbif.es (Apache/2.4.41)
+      transfer-encoding: chunked
+    body:
+      encoding: ''
+      file: no
+      string: '[{"rkey":"logger.download.reason.biosecurity","name":"Gestión de bioseguridad","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"Ciencia
+        ciudadana","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"Gestión
+        de colecciones","id":5,"deprecated":false},{"rkey":"logger.download.reason.conservation","name":"conservation
+        management/planning","id":0,"deprecated":false},{"rkey":"logger.download.reason.ecological.research","name":"Investigación
+        en ecología","id":7,"deprecated":false},{"rkey":"logger.download.reason.education","name":"Educación","id":3,"deprecated":false},{"rkey":"logger.download.reason.environmental","name":"Evaluación
+        ambiental","id":2,"deprecated":false},{"rkey":"logger.download.reason.restoration.remediation","name":"Restauración/remediación","id":12,"deprecated":false},{"rkey":"logger.download.reason.research","name":"Investigación
+        científica","id":4,"deprecated":false},{"rkey":"logger.download.reason.systematic.research","name":"Investigación
+        sistemática/taxonomía","id":8,"deprecated":false},{"rkey":"logger.download.reason.other","name":"Otros","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"Otro
+        tipo de investigación científica","id":9,"deprecated":true}]'
+  recorded_at: 2023-01-06 06:21:39 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

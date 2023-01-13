@@ -1,7 +1,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://portail.gbif.fr/biocache-service/occurrence/facets?facets=basis_of_record&flimit=10000
+    uri: https://openobs.mnhn.fr/biocache-service/occurrence/facets?facets=basisOfRecord&flimit=10000
     body:
       encoding: ''
       string: ''
@@ -15,23 +15,22 @@ http_interactions:
       message: OK
       explanation: Request fulfilled, document follows
     headers:
-      status: HTTP/1.1 200 OK
-      server: nginx/1.21.3
-      date: Tue, 29 Nov 2022 23:44:17 GMT
-      content-type: application/json;charset=UTF-8
-      transfer-encoding: chunked
-      connection: keep-alive
-      access-control-allow-origin: '*'
-      access-control-allow-methods: POST, GET, OPTIONS, DELETE
-      access-control-max-age: '3600'
       access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control:
+      - max-age=3600
+      - public
+      content-type: application/json;charset=UTF-8
+      date: Mon, 09 Jan 2023 08:12:21 GMT
+      expires: Mon, 09 Jan 2023 09:12:21 GMT
+      server: nginx/1.18.0
+      status: 'HTTP/2 200 '
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
-      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Human observation","i18nCode":"basis_of_record.HumanObservation","count":77205139,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Preserved
-        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":9300879,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"Fossil
-        specimen","i18nCode":"basis_of_record.FossilSpecimen","count":431751,"fq":"basis_of_record:\"FossilSpecimen\""},{"label":"Living
-        specimen","i18nCode":"basis_of_record.LivingSpecimen","count":30431,"fq":"basis_of_record:\"LivingSpecimen\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":24738,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Machine
-        observation","i18nCode":"basis_of_record.MachineObservation","count":4,"fq":"basis_of_record:\"MachineObservation\""}],"count":6}]'
-  recorded_at: 2022-11-29 23:44:18 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+      string: '[{"fieldName":"basisOfRecord","fieldResult":[{"label":"OCCURRENCE","i18nCode":"basisOfRecord.OCCURRENCE","count":127005013,"fq":"basisOfRecord:\"OCCURRENCE\""},{"label":"Preserved
+        specimen","i18nCode":"basisOfRecord.PRESERVED_SPECIMEN","count":1485027,"fq":"basisOfRecord:\"PRESERVED_SPECIMEN\""}],"count":2}]'
+  recorded_at: 2023-01-09 08:12:21 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

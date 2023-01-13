@@ -1,0 +1,270 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://registos-ws.gbif.pt/index/fields
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.16.1
+      date: Wed, 11 Jan 2023 06:09:25 GMT
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-max-age: '3600'
+      access-control-allow-headers: x-requested-with
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      content-encoding: gzip
+    body:
+      encoding: ''
+      file: no
+      string: '[{"name":"all_image_url","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"info":"Image
+        URLs for this record","jsonName":"images","downloadName":"all_image_url"},{"name":"assertions","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Record
+        issues","info":"A list of all assertions (user and system supplied) for a
+        record resulting from data quality tests","jsonName":"assertions","downloadName":"assertions","i18nValues":true},{"name":"assertions_missing","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"info":"Assertion
+        indicating missing field values for a record. E.g. missing basis of record","downloadName":"assertions_missing"},{"name":"assertions_passed","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"info":"Assertion
+        indicating a data quality test has been passed by this record","downloadName":"assertions_passed"},{"name":"assertions_unchecked","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"info":"Assertion
+        indicating a data quality test was not performed for this record typically
+        due to the absence of fields required by the test.","downloadName":"assertions_unchecked"},{"name":"basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Record
+        type","info":"The basis of record e.g. Specimen, Observation http://rs.tdwg.org/dwc/terms/basisOfRecord","jsonName":"basisOfRecord","dwcTerm":"basisOfRecord","downloadName":"basis_of_record","downloadDescription":"Basis
+        Of Record","classs":"Record"},{"name":"catalogue_number","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Catalogue
+        Number","info":"http://rs.tdwg.org/dwc/terms/catalogNumber","jsonName":"raw_catalogNumber","dwcTerm":"catalogNumber","downloadName":"catalogue_number","downloadDescription":"Catalogue
+        Number","classs":"Occurrence"},{"name":"cl10012","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Províncias
+        de 1936","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10012","downloadName":"cl10012","downloadDescription":"Províncias
+        de 1936","classs":"Contextual"},{"name":"cl10014","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Zona
+        Económica Exclusiva","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10014","downloadName":"cl10014","downloadDescription":"Zona
+        Económica Exclusiva","classs":"Contextual"},{"name":"cl10016","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Ilhas","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10016","downloadName":"cl10016","downloadDescription":"Ilhas","classs":"Contextual"},{"name":"cl10017","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Distritos","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10017","downloadName":"cl10017","downloadDescription":"Distritos","classs":"Contextual"},{"name":"cl10019","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Natura
+        2000 - Sítios de Importância Comunitária","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10019","downloadName":"cl10019","downloadDescription":"Natura
+        2000 - Sítios de Importância Comunitária","classs":"Contextual"},{"name":"cl10020","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Natura
+        2000 - Zona de Protecção Especial","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10020","downloadName":"cl10020","downloadDescription":"Natura
+        2000 - Zona de Protecção Especial","classs":"Contextual"},{"name":"cl10021","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Sítios
+        Ramsar","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10021","downloadName":"cl10021","downloadDescription":"Sítios
+        Ramsar","classs":"Contextual"},{"name":"cl10022","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Áreas
+        Protegidas","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10022","downloadName":"cl10022","downloadDescription":"Áreas
+        Protegidas","classs":"Contextual"},{"name":"cl10023","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Countries,
+        2016 - Administrative Units - Dataset","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10023","downloadName":"cl10023","downloadDescription":"Countries,
+        2016 - Administrative Units - Dataset","classs":"Contextual"},{"name":"cl10024","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Concelhos","info":"https://espacial.gbif.pt/ws/layers/view/more/cl10024","downloadName":"cl10024","downloadDescription":"Concelhos","classs":"Contextual"},{"name":"class","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Class","info":"The
+        class the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/class","jsonName":"classs","dwcTerm":"class","downloadName":"class","downloadDescription":"Class","classs":"Taxon"},{"name":"collection_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Collection
+        Code","info":"The collection code for this record. This will be populated
+        if the data has come from a museum or herbaria http://rs.tdwg.org/dwc/terms/collectionCode","jsonName":"raw_collectionCode","dwcTerm":"collectionCode","downloadName":"collection_code","downloadDescription":"Collection
+        Code","classs":"Record"},{"name":"collection_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Collection","info":"The
+        name of the collection for this record e.g. Entomology Collection","jsonName":"collectionName","downloadName":"collection_name","downloadDescription":"Collection"},{"name":"collection_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Collection","info":"Atlas
+        ID for this collection","jsonName":"collectionUid","downloadName":"collection_uid","downloadDescription":"Collection
+        ID"},{"name":"collector","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Collector","info":"http://rs.tdwg.org/dwc/terms/recordedBy","jsonName":"collector","dwcTerm":"recordedBy","downloadName":"collector","downloadDescription":"Collector","classs":"Occurrence"},{"name":"common_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Common
+        name (processed)","info":"http://rs.tdwg.org/dwc/terms/vernacularName","jsonName":"vernacularName","dwcTerm":"vernacularName","downloadName":"common_name","downloadDescription":"Vernacular
+        name","classs":"Taxon"},{"name":"common_name_and_lsid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Concatenation
+        of common name and LSID, useful for species breakdowns and sorting by common
+        name","downloadName":"common_name_and_lsid"},{"name":"coordinate_uncertainty","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Coordinate
+        uncertainty (in metres)","info":"http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters","jsonName":"coordinateUncertaintyInMeters","dwcTerm":"coordinateUncertaintyInMeters","downloadName":"coordinate_uncertainty","downloadDescription":"Coordinate
+        Uncertainty in Metres","classs":"Location"},{"name":"country","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Country","info":"The
+        country where the specimen was collected or observation was made http://rs.tdwg.org/dwc/terms/country","jsonName":"country","dwcTerm":"country","downloadName":"country","downloadDescription":"Country
+        - parsed","i18nValues":true,"classs":"Location"},{"name":"country_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Country
+        Code","info":"http://rs.tdwg.org/dwc/terms/countryCode","jsonName":"raw_countryCode","dwcTerm":"countryCode","downloadName":"country_code","classs":"Location"},{"name":"data_resource","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Dataset","info":"The
+        data resource that supplies the record. This is typically a CSV or DwCA file,
+        or a webservice.","jsonName":"dataResourceName","downloadName":"data_resource","downloadDescription":"Data
+        Resource Name"},{"name":"data_resource_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Dataset","info":"The
+        Atlas ID for the data resource","jsonName":"dataResourceUid","downloadName":"data_resource_uid","downloadDescription":"Data
+        Resource ID"},{"name":"dataset_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Dataset
+        / Survey name","info":"The name of the dataset for this record. Typically
+        used to share the name of the survey when data has been supplied with multiple
+        surveys in a single data resource. http://rs.tdwg.org/dwc/terms/datasetName","dwcTerm":"datasetName","downloadName":"dataset_name","classs":"Record"},{"name":"date_precision","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Date
+        precision","info":"The precision of the date information for the record. Values
+        include ''Day'', ''Month'', ''Year'', ''Year range'', ''Month range''","downloadName":"date_precision","downloadDescription":"Date
+        precision"},{"name":"depth_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"downloadName":"depth_d"},{"name":"elevation_d","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"downloadName":"elevation_d"},{"name":"elevation_d_rng","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Elevation","downloadName":"elevation_d_rng"},{"name":"establishment_means","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Establishment
+        means","info":"http://rs.tdwg.org/dwc/terms/establishmentMeans","dwcTerm":"establishmentMeans","downloadName":"establishment_means","classs":"Occurrence"},{"name":"event_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Event
+        ID","info":"http://rs.tdwg.org/dwc/terms/eventID","dwcTerm":"eventID","downloadName":"event_id","classs":"Event"},{"name":"family","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Family","info":"The
+        family the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/family","jsonName":"family","dwcTerm":"family","downloadName":"family","downloadDescription":"Family","classs":"Taxon"},{"name":"first_loaded_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"docvalue":false,"description":"Date
+        first indexed","downloadName":"first_loaded_date"},{"name":"genus","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Genus","info":"The
+        genus the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/genus","jsonName":"genus","dwcTerm":"genus","downloadName":"genus","downloadDescription":"Genus","classs":"Taxon"},{"name":"genus_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Genus","info":"Genus
+        ID for this record","jsonName":"genusGuid","downloadName":"genus_guid"},{"name":"georeference_verification_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Georeference
+        Verification Status","info":"http://rs.tdwg.org/dwc/terms/georeferenceVerificationStatus","dwcTerm":"georeferenceVerificationStatus","downloadName":"georeference_verification_status","classs":"Location"},{"name":"geospatial_kosher","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Spatial
+        validity","info":"A single value statement on the spatial validity. Records
+        that have failed 1 or more critical geospatial data quality tests have a value
+        of false","jsonName":"geospatialKosher","downloadName":"geospatial_kosher","downloadDescription":"Location
+        Quality","i18nValues":true},{"name":"id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Record
+        ID","info":"Atlas unique ID for this record http://rs.tdwg.org/dwc/terms/recordID","jsonName":"uuid","dwcTerm":"recordID","downloadName":"id","downloadDescription":"Record
+        ID","classs":"Occurrence"},{"name":"identification_qualifier","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Identification
+        Qualifier","info":"http://rs.tdwg.org/dwc/terms/identificationQualifier","dwcTerm":"identificationQualifier","downloadName":"identification_qualifier","classs":"Identification"},{"name":"identification_verification_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Identification
+        Verification Status","info":"http://rs.tdwg.org/dwc/terms/identificationVerificationStatus","jsonName":"identificationVerificationStatus","dwcTerm":"identificationVerificationStatus","downloadName":"identification_verification_status","classs":"Identification"},{"name":"identified_by","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Identified
+        by","info":"http://rs.tdwg.org/dwc/terms/identifiedBy","dwcTerm":"identifiedBy","downloadName":"identified_by","classs":"Identification"},{"name":"identified_date","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Date
+        Identified","info":"http://rs.tdwg.org/dwc/terms/dateIdentified","dwcTerm":"dateIdentified","downloadName":"identified_date","classs":"Identification"},{"name":"image_url","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Single
+        image URL for this record.","jsonName":"image","downloadName":"image_url"},{"name":"individual_count","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Individual
+        count","info":"http://rs.tdwg.org/dwc/terms/individualCount","dwcTerm":"individualCount","downloadName":"individual_count","downloadDescription":"Individual
+        count","classs":"Occurrence"},{"name":"institution_code","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Institution
+        Code","info":"The institution code for this record. This will be populated
+        if the data has come from a museum or herbaria http://rs.tdwg.org/dwc/terms/institutionCode","jsonName":"raw_institutionCode","dwcTerm":"institutionCode","downloadName":"institution_code","downloadDescription":"Institution
+        Code","classs":"Record"},{"name":"institution_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Institution","info":"The
+        name in use by the institution having custody of the object(s) or information
+        referred to in the record.","jsonName":"institutionName","downloadName":"institution_name","downloadDescription":"Institution"},{"name":"institution_uid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Institution","info":"Atlas
+        ID for this institution","jsonName":"institutionUid","downloadName":"institution_uid","downloadDescription":"Institution
+        ID"},{"name":"interaction","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Species
+        interaction","info":"Species interactions for this record","downloadName":"interaction"},{"name":"kingdom","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Kingdom","info":"The
+        kingdom the Atlas has matched this record to in the system classification
+        http://rs.tdwg.org/dwc/terms/kingdom","jsonName":"kingdom","dwcTerm":"kingdom","downloadName":"kingdom","downloadDescription":"Kingdom","classs":"Taxon"},{"name":"last_load_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"docvalue":false,"description":"Date
+        added","downloadName":"last_load_date"},{"name":"last_processed_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"docvalue":false,"downloadName":"last_processed_date"},{"name":"lat_long","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Decimal
+        coordinates as single comma separated string value e.g. -35.3,149.1","jsonName":"latLong","downloadName":"lat_long"},{"name":"latitude","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Latitude","info":"The
+        decimal latitude associated with this record. If the original latitude was
+        supplied in degrees, minutes, seconds, this value represents the converted
+        value. http://rs.tdwg.org/dwc/terms/decimalLatitude","jsonName":"decimalLatitude","dwcTerm":"decimalLatitude","downloadName":"latitude","downloadDescription":"Latitude","classs":"Location"},{"name":"lft","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
+        left value in the nested set for this record. Used for retrieving records
+        within taxonomic groups.","jsonName":"left","downloadName":"lft"},{"name":"license","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"License","info":"The
+        data licence for this record.","jsonName":"license","dwcTerm":"dcterms:license","downloadName":"license","downloadDescription":"Licence","classs":"Record"},{"name":"location_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Location
+        ID","info":"http://rs.tdwg.org/dwc/terms/locationID","dwcTerm":"locationID","downloadName":"location_id","classs":"Location"},{"name":"location_remarks","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"description":"Location
+        Remarks","info":"http://rs.tdwg.org/dwc/terms/locationRemarks","jsonName":"raw_locationRemarks","dwcTerm":"locationRemarks","downloadName":"location_remarks","classs":"Location"},{"name":"longitude","dataType":"tdouble","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Longitude","info":"The
+        decimal longitude associated with this record. If the original longitude was
+        supplied in degrees, minutes, seconds, this value represents the converted
+        value. http://rs.tdwg.org/dwc/terms/decimalLongitude","jsonName":"decimalLongitude","dwcTerm":"decimalLongitude","downloadName":"longitude","downloadDescription":"Longitude","classs":"Location"},{"name":"mappable","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"downloadName":"mappable"},{"name":"modified_date","dataType":"tdate","indexed":true,"stored":false,"multivalue":false,"docvalue":false,"info":"http://rs.tdwg.org/dwc/terms/dcterms:modified","dwcTerm":"dcterms:modified","downloadName":"modified_date"},{"name":"month","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Month","info":"Month
+        of observation, specimen collection date. http://rs.tdwg.org/dwc/terms/month","jsonName":"month","dwcTerm":"month","downloadName":"month","downloadDescription":"Month","i18nValues":true,"classs":"Event"},{"name":"multimedia","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Multimedia","jsonName":"multimedia","downloadName":"multimedia"},{"name":"name_match_metric","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Name
+        match metric","info":"An indication of how a match to a concept was achieved.
+        e.g. fuzzyMatch, exactMatch","downloadName":"name_match_metric"},{"name":"name_parse_type","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
+        scientific name parse type used when matching this record to a taxonomic concept.","downloadName":"name_parse_type"},{"name":"names_and_lsid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Concatenation
+        of common name and LSID, useful for species breakdowns and sorting by taxon
+        name","jsonName":"namesLsid","downloadName":"names_and_lsid"},{"name":"occurrence_date","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Date
+        (by decade)","info":"http://rs.tdwg.org/dwc/terms/eventDate","jsonName":"eventDate","dwcTerm":"eventDate","downloadName":"occurrence_date","downloadDescription":"Event
+        Date - parsed","classs":"Event"},{"name":"occurrence_date_end_dt","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"jsonName":"eventDateEnd","downloadName":"occurrence_date_end_dt"},{"name":"occurrence_decade_i","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Decade","info":"The
+        decade for this record e.g. 1910","downloadName":"occurrence_decade_i"},{"name":"occurrence_id","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Occurrence
+        ID","info":"http://rs.tdwg.org/dwc/terms/occurrenceID","jsonName":"occurrenceID","dwcTerm":"occurrenceID","downloadName":"occurrence_id","classs":"Occurrence"},{"name":"occurrence_remarks","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"description":"Occurrence
+        Remarks","info":"http://rs.tdwg.org/dwc/terms/occurrenceRemarks","jsonName":"raw_occurrenceRemarks","dwcTerm":"occurrenceRemarks","downloadName":"occurrence_remarks","classs":"Occurrence"},{"name":"occurrence_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Presence/Absence","info":"http://rs.tdwg.org/dwc/terms/occurrenceStatus","dwcTerm":"occurrenceStatus","downloadName":"occurrence_status","downloadDescription":"Occurrence
+        status","classs":"Occurrence"},{"name":"occurrence_year","dataType":"tdate","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Date
+        (by decade)","info":"Year ranges for a search. Calculated based on the unique
+        values for a query.","jsonName":"occurrenceYear","downloadName":"occurrence_year"},{"name":"order","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Order","info":"The
+        order the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/order","jsonName":"order","dwcTerm":"order","downloadName":"order","downloadDescription":"Order","classs":"Taxon"},{"name":"original_name_usage","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Original
+        name usage","info":"http://rs.tdwg.org/dwc/terms/originalNameUsage","dwcTerm":"originalNameUsage","downloadName":"original_name_usage","classs":"Taxon"},{"name":"outlier_layer_count","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Outlier
+        layer count","downloadName":"outlier_layer_count"},{"name":"phylum","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Phylum","info":"The
+        phylum the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/phylum","jsonName":"phylum","dwcTerm":"phylum","downloadName":"phylum","downloadDescription":"Phylum","classs":"Taxon"},{"name":"point-0.0001","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Decimal
+        coordinates at 0.0001 degree resolution","jsonName":"point00001","downloadName":"point-0.0001"},{"name":"point-0.001","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Decimal
+        coordinates at 0.001 degree resolution","jsonName":"point0001","downloadName":"point-0.001"},{"name":"point-0.01","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Decimal
+        coordinates at 0.01 degree resolution","jsonName":"point001","downloadName":"point-0.01"},{"name":"point-0.02","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"downloadName":"point-0.02"},{"name":"point-0.1","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Decimal
+        coordinates at 0.1 degree resolution e.g. -35.3,149.1","jsonName":"point01","downloadName":"point-0.1"},{"name":"point-1","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Decimal
+        coordinates at 1 degree resolution e.g -35,149","jsonName":"point1","downloadName":"point-1"},{"name":"rank","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Identified
+        to rank","info":"http://rs.tdwg.org/dwc/terms/taxonRank","jsonName":"taxonRank","dwcTerm":"taxonRank","downloadName":"rank","downloadDescription":"Taxon
+        Rank","i18nValues":true,"classs":"Taxon"},{"name":"rank_id","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Numeric
+        rank ID value. E.g. 7000 = species, 6000 = genus","jsonName":"taxonRankID","downloadName":"rank_id"},{"name":"raw_basis_of_record","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Basis
+        Of Record - original","info":"The basis of record as supplied by the data
+        publisher http://rs.tdwg.org/dwc/terms/verbatimBasisOfRecord","jsonName":"raw_basisOfRecord","dwcTerm":"verbatimBasisOfRecord","downloadName":"raw_basis_of_record","downloadDescription":"Basis
+        Of Record - original"},{"name":"raw_common_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Common
+        name (unprocessed)","info":"The original common name value supplied by the
+        data provider","jsonName":"raw_vernacularName","downloadName":"raw_common_name","downloadDescription":"Vernacular
+        name - original"},{"name":"raw_geo_validation_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
+        original ''geoValidationStatus'' value supplied by the data provider","downloadName":"raw_geo_validation_status"},{"name":"raw_identification_qualifier","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"http://rs.tdwg.org/dwc/terms/verbatimIdentificationQualifier","dwcTerm":"verbatimIdentificationQualifier","downloadName":"raw_identification_qualifier"},{"name":"raw_latitude","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"description":"Latitude
+        - original","info":"http://rs.tdwg.org/dwc/terms/verbatimLatitude","dwcTerm":"verbatimLatitude","downloadName":"raw_latitude","downloadDescription":"Latitude
+        - original","classs":"Location"},{"name":"raw_locality","dataType":"string","indexed":false,"stored":true,"multivalue":true,"docvalue":false,"description":"Locality","info":"http://rs.tdwg.org/dwc/terms/locality","dwcTerm":"locality","downloadName":"raw_locality","downloadDescription":"Locality","classs":"Location"},{"name":"raw_longitude","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"description":"Longitude
+        - original","info":"http://rs.tdwg.org/dwc/terms/verbatimLongitude","dwcTerm":"verbatimLongitude","downloadName":"raw_longitude","downloadDescription":"Longitude
+        - original","classs":"Location"},{"name":"raw_name","dataType":"textgen","indexed":true,"stored":false,"multivalue":true,"docvalue":false,"downloadName":"raw_name"},{"name":"raw_occurrence_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
+        original ''occurrence status'' value supplied by the data provider","downloadName":"raw_occurrence_status"},{"name":"raw_sampling_protocol","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"downloadName":"raw_sampling_protocol"},{"name":"raw_sex","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Sex","info":"http://rs.tdwg.org/dwc/terms/sex","dwcTerm":"sex","downloadName":"raw_sex","downloadDescription":"Sex","classs":"Occurrence"},{"name":"raw_taxon_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Scientific
+        name (unprocessed)","info":"http://rs.tdwg.org/dwc/terms/scientificName","jsonName":"raw_scientificName","dwcTerm":"scientificName","downloadName":"raw_taxon_name","downloadDescription":"Scientific
+        Name - original","classs":"Taxon"},{"name":"raw_type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
+        original ''type status'' value supplied by the data provider","jsonName":"raw_typeStatus","downloadName":"raw_type_status"},{"name":"record_number","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Record
+        number","info":"http://rs.tdwg.org/dwc/terms/recordNumber","jsonName":"recordNumber","dwcTerm":"recordNumber","downloadName":"record_number","downloadDescription":"Record
+        number","classs":"Occurrence"},{"name":"reproductive_condition","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Reproductive
+        Condition","info":"http://rs.tdwg.org/dwc/terms/reproductiveCondition","dwcTerm":"reproductiveCondition","downloadName":"reproductive_condition","classs":"Occurrence"},{"name":"rgt","dataType":"tint","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"The
+        right value in the nested set for this record. Used for retrieving records
+        within taxonomic groups.","jsonName":"right","downloadName":"rgt"},{"name":"rights","dataType":"string","indexed":false,"stored":true,"multivalue":false,"docvalue":false,"jsonName":"rights","dwcTerm":"dcterms:rights","downloadName":"rights","classs":"Record"},{"name":"species","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Species","info":"The
+        species the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/species","jsonName":"species","dwcTerm":"species","downloadName":"species","downloadDescription":"Species","i18nValues":true,"classs":"Taxon"},{"name":"species_group","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Lifeform","info":"Higher
+        level group for this record e.g. Birds","jsonName":"speciesGroups","downloadName":"species_group"},{"name":"species_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Species","info":"The
+        species ID for this record","jsonName":"speciesGuid","downloadName":"species_guid"},{"name":"species_subgroup","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Species
+        subgroups","info":"Higher level subgroup for this record e.g. Parrots","downloadName":"species_subgroup"},{"name":"state","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"State/Territory","info":"http://rs.tdwg.org/dwc/terms/stateProvince","jsonName":"stateProvince","dwcTerm":"stateProvince","downloadName":"state","downloadDescription":"State
+        - parsed","classs":"Location"},{"name":"subspecies_guid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Subspecies","info":"The
+        subspecies ID for this record","jsonName":"subspeciesGuid","downloadName":"subspecies_guid"},{"name":"subspecies_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Subspecies","info":"The
+        subspecies name for this record","downloadName":"subspecies_name"},{"name":"suitable_modelling","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"Whether
+        this record is suitable for use in species distribution modelling.","downloadName":"suitable_modelling"},{"name":"system_assertions","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"info":"All
+        the assertions created for this record as part of the system data quality
+        processing","downloadName":"system_assertions"},{"name":"taxon_concept_lsid","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Taxon
+        Concept GUID","info":"http://rs.tdwg.org/dwc/terms/taxonConceptID","jsonName":"taxonConceptID","dwcTerm":"taxonConceptID","downloadName":"taxon_concept_lsid","downloadDescription":"Taxon
+        Concept GUID","classs":"Taxon"},{"name":"taxon_name","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Scientific
+        name","info":"http://rs.tdwg.org/dwc/terms/scientificName","jsonName":"scientificName","dwcTerm":"scientificName","downloadName":"taxon_name","downloadDescription":"Scientific
+        Name","classs":"Taxon"},{"name":"taxonomic_issue","dataType":"string","indexed":true,"stored":true,"multivalue":true,"docvalue":false,"description":"Taxon
+        identification issue","info":"The taxonomic data quality issues detected.
+        See https://biocache-ws.ala.org.au/ws/assertions/codes","downloadName":"taxonomic_issue","downloadDescription":"Taxon
+        identification issue"},{"name":"taxonomic_kosher","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Taxonomic
+        Quality","info":"A flag indicating if there are serious taxonomic problems
+        with a record. false indicates problems.","jsonName":"taxonomicKosher","downloadName":"taxonomic_kosher","downloadDescription":"Taxonomic
+        Quality"},{"name":"type_status","dataType":"string","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Specimen
+        type","info":"http://rs.tdwg.org/dwc/terms/typeStatus","jsonName":"typeStatus","dwcTerm":"typeStatus","downloadName":"type_status","classs":"Identification"},{"name":"year","dataType":"int","indexed":true,"stored":true,"multivalue":false,"docvalue":false,"description":"Year","info":"http://rs.tdwg.org/dwc/terms/year","jsonName":"year","dwcTerm":"year","downloadName":"year","downloadDescription":"Year","classs":"Event"}]'
+  recorded_at: 2023-01-11 06:09:20 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://espacial.gbif.pt/ws/layers
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.16.1
+      date: Wed, 11 Jan 2023 06:09:27 GMT
+      content-type: application/json;charset=UTF-8
+      x-application-context: application:production
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      content-encoding: gzip
+    body:
+      encoding: ''
+      file: no
+      string: '[{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Províncias
+        1936","displayname":"Províncias de 1936","id":10012,"grid":false,"path_orig":"layer/provincias_flora_iso8859_1","minlongitude":-9.49817,"maxlatitude":42.15273,"licence_link":"","mddatest":"","maxlongitude":-6.19071,"dt_added":1579279283431,"minlatitude":36.96101,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:provincias_flora_iso8859_1&format=image/png&styles=","name":"provincias_flora_iso8859_1","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Limites","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"http://www.marineregions.org/downloads.php#eez","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"Flanders
+        Marine Institute","classification2":"Zona Económica Exclusiva","displayname":"Zona
+        Económica Exclusiva","id":10014,"grid":false,"path_orig":"layer/zee_portugal","minlongitude":-35.58558,"maxlatitude":43.06483,"licence_link":"","mddatest":"","maxlongitude":-7.25694,"dt_added":1579284352569,"minlatitude":29.24785,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:zee_portugal&format=image/png&styles=","name":"zee_portugal","metadatapath":"http://www.marineregions.org/sources.php#marbound","type":"Contextual","notes":"Preferred
+        citation:\r\nFlanders Marine Institute (2019). Maritime Boundaries Geodatabase,
+        version 11. Available online at http://www.marineregions.org/. https://doi.org/10.14284/382.","keywords":"","licence_notes":"CC
+        BY","environmentalvaluemax":"","classification1":"Limites","environmentalvalueunits":"","enabled":true,"domain":"Marine","description":"Maritime
+        Boundaries Geodatabase, version 11","licence_level":"1","source":"Flanders
+        Marine Institute","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Ilhas","displayname":"Ilhas","id":10016,"grid":false,"path_orig":"layer/ilhas_portugal","minlongitude":-31.26882,"maxlatitude":39.72618,"licence_link":"","mddatest":"","maxlongitude":-15.85367,"dt_added":1579539534554,"minlatitude":30.02878,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:ilhas_portugal&format=image/png&styles=","name":"ilhas_portugal","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Limites","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Administrativos","displayname":"Distritos","id":10017,"grid":false,"path_orig":"layer/distritos_portugal","minlongitude":-31.26882,"maxlatitude":42.15431,"licence_link":"","mddatest":"","maxlongitude":-6.18916,"dt_added":1579539691652,"minlatitude":30.02878,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:distritos_portugal&format=image/png&styles=","name":"distritos_portugal","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Limites","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Natura
+        2000 - SIC","displayname":"Natura 2000 - Sítios de Importância Comunitária","id":10019,"grid":false,"path_orig":"layer/natura2000_pt_zec_2","minlongitude":-32.36806,"maxlatitude":42.15525,"licence_link":"","mddatest":"","maxlongitude":-6.1892,"dt_added":1579540058486,"minlatitude":30.0007,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:natura2000_pt_zec_2&format=image/png&styles=","name":"natura2000_pt_zec_2","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Áreas
+        protegidas","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial,Marine","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Natura
+        2000 - ZPE","displayname":"Natura 2000 - Zona de Protecção Especial","id":10020,"grid":false,"path_orig":"layer/natura2000_pt_zpe","minlongitude":-31.26376,"maxlatitude":42.08316,"licence_link":"","mddatest":"","maxlongitude":-6.1892,"dt_added":1579540165534,"minlatitude":29.98738,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:natura2000_pt_zpe&format=image/png&styles=","name":"natura2000_pt_zpe","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Áreas
+        protegidas","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial,Marine","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Ramsar","displayname":"Sítios
+        Ramsar","id":10021,"grid":false,"path_orig":"layer/ramsar_portugal","minlongitude":-31.24507,"maxlatitude":41.78312,"licence_link":"","mddatest":"","maxlongitude":-7.41352,"dt_added":1580404929471,"minlatitude":36.96172,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:ramsar_portugal&format=image/png&styles=","name":"ramsar_portugal","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Áreas
+        protegidas","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Áreas
+        protegidas","displayname":"Áreas Protegidas","id":10022,"grid":false,"path_orig":"layer/areas_protegidas_pt","minlongitude":-34.46,"maxlatitude":44.86,"licence_link":"","mddatest":"","maxlongitude":-6.18998,"dt_added":1580404981703,"minlatitude":29.2,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:areas_protegidas_pt&format=image/png&styles=","name":"areas_protegidas_pt","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Áreas
+        protegidas","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"","datalang":"","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Administrativos","displayname":"Concelhos","id":10024,"grid":false,"path_orig":"layer/concelhos_portugal","minlongitude":-31.26882,"maxlatitude":42.15431,"licence_link":"","mddatest":"","maxlongitude":-6.18916,"dt_added":1580739520232,"minlatitude":30.02878,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:concelhos_portugal&format=image/png&styles=","name":"concelhos_portugal","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"","environmentalvaluemax":"","classification1":"Limites","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"","licence_level":"1","source":"","citation_date":""},{"source_link":"https://ec.europa.eu/eurostat/cache/GISCO/distribution/v2/countries/download/ref-countries-2016-01m.shp.zip","datalang":"eng","environmentalvaluemin":"","shape":true,"respparty_role":"","classification2":"Países","displayname":"Countries,
+        2016 - Administrative Units - Dataset","id":10023,"grid":false,"path_orig":"layer/world_countries","minlongitude":-180.0,"maxlatitude":83.66498,"licence_link":"","mddatest":"2018-05-23T19:03:18","maxlongitude":179.99999,"dt_added":1580730952348,"minlatitude":-89.9,"displaypath":"https://espacial.gbif.pt/geoserver/gwc/service/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:world_countries&format=image/png&styles=","name":"world_countries","metadatapath":"","type":"Contextual","notes":"","keywords":"","licence_notes":"Generalised
+        dataset derived from EuroGeographics and UN-FAO GI data. The dataset may be
+        used and distributed if: The source (EuroGeographics and UN-FAO) is acknowledged,
+        AND The data is not used for commercial purpose, AND The original geometry
+        is generalised to the equivalent of a scale of 1:1.000.000 or smaller. The
+        source, copyright and branding will be acknowledged if the geographic data
+        are used in Commission products. The acknowledgement will be displayed as
+        “@EuroGeographics” on the map or in an acknowledgement text. The size of the
+        text on the map will be proportional to the size of the map. The maximum length
+        of copyright texts on electronic maps (web maps or electronic applications)
+        is 20 characters. No copyright text will be applied for online icon maps with
+        less than 150 x 150 pixels","environmentalvaluemax":"","classification1":"Limites","environmentalvalueunits":"","enabled":true,"domain":"Terrestrial","description":"This
+        data set contains the administrative boundaries at country level of the world
+        and is based on the geometry from EBM v12.x. of EuroGeographics for the members
+        of Eurogeographics, the Global Administrative Units Layer (2015) from FAO
+        (UN) and geometry from the Turkish National Statistical Office. This dataset
+        consists of 2 feature classes (regions, boundaries) per scale level and there
+        are 6 different scale levels (100K, 1M, 3M, 10M, 20M and 60M). The public
+        data set (1M - 60M) is available under the Download link indicated below.
+        The full data set (100K - 60M) GISCO.CNTR_2016 is available via the EC restricted
+        download link.","licence_level":"1","source":"European Commission, Eurostat
+        (ESTAT), GISCO","citation_date":""}]'
+  recorded_at: 2023-01-11 06:09:20 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

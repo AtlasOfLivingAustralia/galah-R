@@ -1,0 +1,29 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://species-ws.nbnatlas.org/search?q=Vlpes&pageSize=5
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 OK
+      date: Wed, 11 Jan 2023 06:11:53 GMT
+      server: Apache/2.4.7 (Ubuntu)
+      x-application-context: application:production
+      content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+    body:
+      encoding: ''
+      file: no
+      string: '{"searchResults":{"totalRecords":0,"facetResults":[],"results":[],"queryTitle":"Vlpes"}}'
+  recorded_at: 2023-01-11 06:14:06 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

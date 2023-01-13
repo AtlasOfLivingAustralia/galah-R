@@ -81,30 +81,22 @@ doi_download <- function(doi, error_call = caller_env()) {
     abort(bullets, call = error_call)
   }
   
-  verbose <- getOption("galah_config")$verbose
+  verbose <- getOption("galah_config")$package$verbose
   if(verbose) {
     cat("Downloading\n")
   }
 
-  url_complete <- atlas_url("doi_download", doi_string = doi_str)
-  path <- atlas_download(url_complete, 
-                         ext = ".zip", 
-                         cache_file = tempfile(pattern = "data"))
-  if(is.null(path)){
+  url_complete <- url_lookup("doi_download", doi_string = doi_str)
+  result <- url_download(url_complete, 
+                         ext = "zip", 
+                         cache_file = tempfile(pattern = "data"),
+                         data_prefix = "records")
+  if(is.null(result)){
     inform("Download failed")
     return(tibble())
   }else{
-    
-    
-    record_file <- grep("^records", unzip(path, list=TRUE)$Name, 
-                        ignore.case=TRUE, value=TRUE)
-    result <- read_csv(unz(path, record_file), 
-                       col_types = cols(),
-                       na = character()) |>
-              suppressWarnings()
     attr(result, "doi") <- doi
     attr(result, "call") <- "atlas_occurrences"
-    
     return(result)
   }
 }
@@ -112,12 +104,12 @@ doi_download <- function(doi, error_call = caller_env()) {
 # TODO: fix multiple file import
 url_download <- function(url){
   
-  verbose <- getOption("galah_config")$verbose
+  verbose <- getOption("galah_config")$package$verbose
   if(verbose) {
     cat("Downloading\n")
   }
   
-  local_file <- atlas_download(url, 
+  local_file <- url_download(url, 
     cache_file = tempfile(pattern = "data"), 
     ext = ".zip")
   

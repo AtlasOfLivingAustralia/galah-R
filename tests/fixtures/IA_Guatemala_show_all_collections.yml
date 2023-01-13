@@ -1,0 +1,42 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://snib.conap.gob.gt/colecciones/ws/collection?offset=0&max=10
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.21.4
+      date: Tue, 10 Jan 2023 11:02:49 GMT
+      content-type: application/json;charset=UTF-8
+      content-location: https://snib.conap.gob.gt/colecciones/ws/collection
+      last-modified: Fri, 17 Sep 2021 19:01:46 GMT
+      etag: W/"6bd1e9d43c3d7fe859716b93a8c9cf77"
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+      content-encoding: gzip
+    body:
+      encoding: ''
+      file: no
+      string: '[{"name":"Colección de Abejas Nativas de Guatemala","uri":"https://snib.conap.gob.gt/colecciones/ws/collection/co5","uid":"co5"},{"name":"Colección
+        de insectos del Centro Universitario de Zacapa","uri":"https://snib.conap.gob.gt/colecciones/ws/collection/co2","uid":"co2"},{"name":"Colección
+        de Mamíferos (USAC-USACM)","uri":"https://snib.conap.gob.gt/colecciones/ws/collection/co8","uid":"co8"},{"name":"Herbario
+        USCG","uri":"https://snib.conap.gob.gt/colecciones/ws/collection/co4","uid":"co4"},{"name":"SISTEMA
+        DE COLECCIONES BIOLÓGICAS DE LA ESCUELA DE BIOLOGÍA","uri":"https://snib.conap.gob.gt/colecciones/ws/collection/co13","uid":"co13"},{"name":"UNIDAD
+        DE INVESTIGACIÓN BIGU, COLECCIÓN BOTÁNICA","uri":"https://snib.conap.gob.gt/colecciones/ws/collection/co6","uid":"co6"},{"name":"Universidad
+        del Valle de Guatemala","uri":"https://snib.conap.gob.gt/colecciones/ws/collection/co10","uid":"co10"}]'
+  recorded_at: 2023-01-10 11:02:49 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

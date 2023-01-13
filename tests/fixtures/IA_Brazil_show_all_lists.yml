@@ -1,0 +1,43 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://specieslist.sibbr.gov.br/ws/speciesList/?offset=0&max=10
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Tue, 10 Jan 2023 08:51:05 GMT
+      content-type: application/json;charset=UTF-8
+      x-application-context: application:production
+      strict-transport-security: max-age=15724800; includeSubDomains
+    body:
+      encoding: ''
+      file: no
+      string: '{"listCount":58,"sort":"listName","order":"asc","max":10,"offset":"0","lists":[{"dataResourceUid":"drt1565630923841","listName":"
+        Imagens principais das espécies ","listType":"SPECIES_CHARACTERS","dateCreated":"2019-08-12T17:28:44Z","lastUpdated":"2021-03-22T18:37:17Z","username":"sibbr.brasil@gmail.com","fullName":null,"itemCount":117,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1573739671090","listName":"
+        Lista de espécies da sociobiodiversidade brasileira","listType":"SPECIES_CHARACTERS","dateCreated":"2019-11-14T13:54:31Z","lastUpdated":"2019-11-14T15:00:29Z","username":"sibbr.brasil@gmail.com","fullName":null,"itemCount":82,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1573761007410","listName":"Descrição
+        taxonômica e importância ecológica","listType":"SPECIES_CHARACTERS","dateCreated":"2019-11-14T19:50:08Z","lastUpdated":"2020-01-21T19:08:27Z","username":"sibbr.brasil@gmail.com","fullName":null,"itemCount":336,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1634332464851","listName":"Ervas
+        e subarbustos nativos do Cerrado utilizados em projetos paisagísticos","listType":"COMMON_HABITAT","dateCreated":"2021-10-15T03:00:00Z","lastUpdated":"2021-10-15T21:17:21Z","username":"sibbr.brasil@gmail.com","fullName":null,"itemCount":59,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1565630839943","listName":"Espécies
+        Icônicas Brasileira","listType":"SPECIES_CHARACTERS","dateCreated":"2019-08-12T17:27:20Z","lastUpdated":"2020-07-23T06:37:24Z","username":"sibbr.brasil@gmail.com","fullName":null,"itemCount":131,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1661896856710","listName":"Espécies
+        Nativas da Flora Brasileira de Valor Econômico Atual ou Potencial - Plantas
+        para o Futuro - Região Norte","listType":"SPECIES_CHARACTERS","dateCreated":"2022-08-30T22:00:58Z","lastUpdated":"2022-08-30T22:00:58Z","username":"sibbr.brasil@gmail.com","fullName":null,"itemCount":159,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1634323883259","listName":"Espécies
+        nativas da sociobiodiversidade brasileira de valor alimentício","listType":"PROFILE","dateCreated":"2021-10-15T18:51:24Z","lastUpdated":"2021-10-15T19:22:53Z","username":"sibbr.brasil@gmail.com","fullName":null,"itemCount":94,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1565724977255","listName":"Histórico
+        de Ameaça Internacional - IUCN","listType":"CONSERVATION_LIST","dateCreated":"2019-08-13T19:36:17Z","lastUpdated":"2020-08-04T22:56:55Z","username":"sibbr.brasil@gmail.com","fullName":null,"itemCount":1809,"region":null,"category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1627918745098","listName":"Lista
+        CITES de Plantas (família das Orquídeas [A-E]) - Appéndix II para a Região
+        de Latino América e Caribe (LAC) en vigor desde 22 de junho de 2021","listType":"COMMON_TRAIT","dateCreated":"2021-08-02T03:00:00Z","lastUpdated":"2021-08-03T08:40:44Z","username":"sibbr.brasil@gmail.com","fullName":null,"itemCount":3734,"region":"Região
+        LAC","category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false},{"dataResourceUid":"drt1627933285407","listName":"Lista
+        CITES de Plantas (família das Orquídeas [F-M]) - Appéndix II para a Região
+        de Latino América e Caribe (LAC) en vigor desde 22 de junho de 2021","listType":"COMMON_TRAIT","dateCreated":"2021-08-02T03:00:00Z","lastUpdated":"2021-08-03T08:40:00Z","username":"sibbr.brasil@gmail.com","fullName":null,"itemCount":3194,"region":"Região
+        LAC","category":null,"generalisation":null,"authority":null,"sdsType":null,"isAuthoritative":false,"isInvasive":false,"isThreatened":false}]}'
+  recorded_at: 2023-01-10 08:51:05 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

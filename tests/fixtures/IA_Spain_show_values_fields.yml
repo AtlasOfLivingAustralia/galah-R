@@ -1,0 +1,41 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://registros-ws.gbif.es/occurrence/facets?facets=basis_of_record&flimit=10000
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/1.1 200 '
+      date: Tue, 10 Jan 2023 08:45:20 GMT
+      server: nginx/1.19.4
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-max-age: '3600'
+      access-control-allow-headers: x-requested-with
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      content-security-policy: upgrade-insecure-requests
+      via: 1.1 registros-ws.gbif.es (Apache/2.4.41)
+      transfer-encoding: chunked
+    body:
+      encoding: ''
+      file: no
+      string: '[{"fieldName":"basis_of_record","fieldResult":[{"label":"Human observation","i18nCode":"basis_of_record.HumanObservation","count":30285799,"fq":"basis_of_record:\"HumanObservation\""},{"label":"Preserved
+        specimen","i18nCode":"basis_of_record.PreservedSpecimen","count":5385885,"fq":"basis_of_record:\"PreservedSpecimen\""},{"label":"MaterialSample","i18nCode":"basis_of_record.MaterialSample","count":602729,"fq":"basis_of_record:\"MaterialSample\""},{"label":"Machine
+        observation","i18nCode":"basis_of_record.MachineObservation","count":473365,"fq":"basis_of_record:\"MachineObservation\""},{"label":"Fossil
+        specimen","i18nCode":"basis_of_record.FossilSpecimen","count":254671,"fq":"basis_of_record:\"FossilSpecimen\""},{"label":"Living
+        specimen","i18nCode":"basis_of_record.LivingSpecimen","count":53133,"fq":"basis_of_record:\"LivingSpecimen\""}],"count":6}]'
+  recorded_at: 2023-01-10 08:45:20 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

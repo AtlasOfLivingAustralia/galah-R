@@ -1,0 +1,45 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://logger.nbnatlas.org/service/logger/reasons
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 OK
+      date: Wed, 11 Jan 2023 06:13:57 GMT
+      server: Apache/2.4.7 (Ubuntu)
+      content-type: application/json;charset=UTF-8
+      transfer-encoding: chunked
+    body:
+      encoding: ''
+      file: no
+      string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":true},{"rkey":"logger.download.reason.public","name":"public|Download
+        is for personal use only","id":15,"deprecated":false},{"rkey":"logger.download.reason.volunteer.research","name":"volunteer
+        researcher/publisher|Download may lead to amateur (non-funded) publication,
+        which could include National or Local scheme collators and verifiers","id":16,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
+        science","id":11,"deprecated":true},{"rkey":"logger.download.reason.professional.research","name":"professional
+        researcher/publisher|Download may lead to professional publication (including
+        universities, NGOs etc. where people are being paid to research and publish)","id":17,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
+        management","id":5,"deprecated":true},{"rkey":"logger.download.reason.conservation","name":"conservation
+        management/planning","id":0,"deprecated":true},{"rkey":"logger.download.reason.commercial","name":"commercial|Download
+        is for the purposes of fulfilling a commercial contract","id":18,"deprecated":false},{"rkey":"logger.download.reason.ecological.research","name":"ecological
+        research","id":7,"deprecated":true},{"rkey":"logger.download.reason.statutorywork","name":"statutory|Download
+        is by a government-linked body or local authority for their statutory work","id":13,"deprecated":false},{"rkey":"logger.download.reason.education","name":"education|Download
+        is for primary, secondary or tertiary educational purposes","id":3,"deprecated":false},{"rkey":"logger.download.reason.lerc.work","name":"LERC
+        work|Download is for use by a local environmental records centre to support
+        the provision of its services","id":14,"deprecated":false},{"rkey":"logger.download.reason.environmental","name":"environmental
+        assessment","id":2,"deprecated":true},{"rkey":"logger.download.reason.testing","name":"testing|Testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.restoration.remediation","name":"restoration/remediation","id":12,"deprecated":true},{"rkey":"logger.download.reason.research","name":"scientific
+        research","id":4,"deprecated":true},{"rkey":"logger.download.reason.systematic.research","name":"systematic
+        research/taxonomy","id":8,"deprecated":true}]'
+  recorded_at: 2023-01-11 06:13:57 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

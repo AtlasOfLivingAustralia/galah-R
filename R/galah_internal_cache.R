@@ -7,7 +7,7 @@ galah_internal_cache <- function(...){
   # set all options
   ala_option_name <- "galah_internal_cache"
   current_options <- getOption(ala_option_name)
-  atlas <- getOption("galah_config")$atlas
+  atlas <- getOption("galah_config")$atlas$region
   user_options <- list(...)
   
   # load an archived version as the default
@@ -42,8 +42,9 @@ galah_internal_cache <- function(...){
 internal_cache_update_needed <- function(function_name){
   df <- galah_internal_cache()[[function_name]]
   is_local <- !is.null(attr(df, "ARCHIVED"))
-  is_wrong_atlas <- attr(df, "atlas_name") != getOption("galah_config")$atlas
-  result <- is_local | is_wrong_atlas # if either, update is needed 
+  is_wrong_atlas <- attr(df, "atlas_name") != getOption("galah_config")$atlas$region
+  is_too_short <- nrow(df) < 10
+  result <- is_local | is_wrong_atlas | is_too_short # if any, update is needed 
   if(length(result) < 1){result <- TRUE} # bug catcher
   result
 }

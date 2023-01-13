@@ -16,10 +16,10 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Wed, 30 Nov 2022 00:30:56 GMT
+      date: Wed, 11 Jan 2023 07:11:52 GMT
       content-type: application/json
       content-length: '38'
-      server: nginx/1.23.2
+      server: nginx/1.23.3
       vary: Accept-Encoding
       access-control-allow-methods: GET,OPTIONS,POST
       access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
@@ -27,8 +27,8 @@ http_interactions:
       access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '{"success":false,"issues":["noMatch"]}'
-  recorded_at: 2022-11-30 00:30:56 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-11 07:11:52 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

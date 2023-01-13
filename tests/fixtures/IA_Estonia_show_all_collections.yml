@@ -1,0 +1,58 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://elurikkus.ee/collectory/ws/collection?offset=0&max=10
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-methods:
+      - GET, PUT, POST, OPTIONS, HEAD
+      - GET, PUT, POST, OPTIONS, HEAD
+      access-control-allow-origin:
+      - '*'
+      - '*'
+      content-encoding: gzip
+      content-location: https://elurikkus.ee/collectory/ws/collection
+      content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
+      content-type: application/json;charset=UTF-8
+      date: Tue, 10 Jan 2023 08:58:59 GMT
+      etag: W/"b07ef7da2964fefcfdfe9546c4d5b483"
+      last-modified: Tue, 02 Nov 2021 14:07:45 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie: JSESSIONID=B31C29D6285D1C30084A9D99AAE6A439; Path=/collectory/;
+        HttpOnly; Secure; HttpOnly;
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000; preload
+      vary:
+      - Accept-Encoding
+      - Accept-Encoding
+      x-content-type-options: nosniff
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '[{"name":"Eesti Loodusmuuseumi botaaniline kogu","uri":"https://elurikkus.ee/collectory/ws/collection/co0","uid":"co0"},{"name":"Eesti
+        Loodusmuuseumi mükoloogiline kogu","uri":"https://elurikkus.ee/collectory/ws/collection/co2","uid":"co2"},{"name":"Eesti
+        Loodusmuuseumi zooloogiline kogu","uri":"https://elurikkus.ee/collectory/ws/collection/co1","uid":"co1"},{"name":"Eesti
+        Maaülikooli põllumajandus- ja keskkonnainstituudi entomoloogiline kogu","uri":"https://elurikkus.ee/collectory/ws/collection/co4","uid":"co4"},{"name":"Eesti
+        Maaülikooli põllumajandus- ja keskkonnainstituudi fütopatoloogiliste seente
+        kogu","uri":"https://elurikkus.ee/collectory/ws/collection/co3","uid":"co3"},{"name":"Eesti
+        Maaülikooli põllumajandus- ja keskkonnainstituudi mükoloogia osakonna herbaarium","uri":"https://elurikkus.ee/collectory/ws/collection/co6","uid":"co6"},{"name":"Eesti
+        maaülikooli põllumajandus- ja keskkonnainstituudi soon- ja sammaltaimede herbaarium","uri":"https://elurikkus.ee/collectory/ws/collection/co5","uid":"co5"},{"name":"Tallinna
+        Botaanikaaia herbaarium","uri":"https://elurikkus.ee/collectory/ws/collection/co7","uid":"co7"},{"name":"Tartu
+        Ülikooli geoloogiamuuseum","uri":"https://elurikkus.ee/collectory/ws/collection/co20","uid":"co20"},{"name":"Tartu
+        Ülikooli loodusmuuseumi botaaniline kogu","uri":"https://elurikkus.ee/collectory/ws/collection/co15","uid":"co15"},{"name":"Tartu
+        Ülikooli loodusmuuseumi seene- ja samblikukogu","uri":"https://elurikkus.ee/collectory/ws/collection/co17","uid":"co17"},{"name":"Tartu
+        Ülikooli loodusmuuseumi zooloogiline kogu","uri":"https://elurikkus.ee/collectory/ws/collection/co9","uid":"co9"}]'
+  recorded_at: 2023-01-10 08:58:59 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

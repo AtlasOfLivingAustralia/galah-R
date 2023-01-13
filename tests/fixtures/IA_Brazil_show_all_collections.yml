@@ -1,0 +1,498 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://collectory.sibbr.gov.br/collectory/ws/collection?offset=0&max=10
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Tue, 10 Jan 2023 08:51:03 GMT
+      content-type: application/json;charset=UTF-8
+      content-location: https://collectory.sibbr.gov.br/collectory/ws/collection
+      last-modified: Tue, 03 Jan 2023 20:14:17 GMT
+      etag: '"541c003ec179c149ad35d923449f45d1"'
+      strict-transport-security: max-age=15724800; includeSubDomains
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
+    body:
+      encoding: ''
+      file: no
+      string: '[{"name":"Acervo de Estruturas Calcificadas de Peixes - Collection
+        of Fish Calcified Structures","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co454","uid":"co454"},{"name":"Banco
+        de Amostras Biológicas do Centro Nacional de Pesquisa e Conservação de Mamíferos
+        Carnívoros do ICMBio","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co482","uid":"co482"},{"name":"Banco
+        de DNA de Espécies da Flora Brasileira","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co510","uid":"co510"},{"name":"Banco
+        de Fungos Vivos do JBRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co513","uid":"co513"},{"name":"Banco
+        de Sementes do JBRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co512","uid":"co512"},{"name":"Carpoteca
+        - Dry Fruits do JBRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co511","uid":"co511"},{"name":"Coleção
+        Acarológica do IBSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co115","uid":"co115"},{"name":"Coleção
+        Aracnológica do Museu de Biodiversidade do Cerrado da Universidade Federal
+        de Uberlândia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co496","uid":"co496"},{"name":"Coleção
+        Biológica do Instituto Vital Brazil","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co396","uid":"co396"},{"name":"Coleção
+        Biológica Prof. Edmundo Nonato do Instituto Oceanográfico da USP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co265","uid":"co265"},{"name":"Coleção
+        Biológica Realeza","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co148","uid":"co148"},{"name":"Coleção
+        Botânica de Plantas Medicinais","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co58","uid":"co58"},{"name":"Coleção
+        Carcinológica do Museu Goeldi","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co110","uid":"co110"},{"name":"Coleção
+        Carcinológica do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co123","uid":"co123"},{"name":"Coleção
+        Científica de Mastozoologia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co405","uid":"co405"},{"name":"Coleção
+        Científica de Serpentes da FUNED","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co219","uid":"co219"},{"name":"Coleção
+        Científica do Instituto de Pesquisas Cananéia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co425","uid":"co425"},{"name":"Coleção
+        Científica Entomofauna do Amapá","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co528","uid":"co528"},{"name":"Coleção
+        de Abelhas de Mato Grosso","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co520","uid":"co520"},{"name":"Coleção
+        de Abelhas do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co210","uid":"co210"},{"name":"Coleção
+        de Abelhas do Museu de Zoologia da UEL","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co19","uid":"co19"},{"name":"Coleção
+        de Acari do INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co64","uid":"co64"},{"name":"Coleção
+        de Anfíbios Anuros do Parque Natural Municipal da Ronda - São Francisco de
+        Paula/RS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co439","uid":"co439"},{"name":"Coleção
+        de Anfíbios Célio F. B. Haddad","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co477","uid":"co477"},{"name":"Coleção
+        de Anfíbios da UNESP de São Jose do Rio Preto (IBILCE)","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co470","uid":"co470"},{"name":"Coleção
+        de Anfíbios da Universidade Federal de Juiz de Fora","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co503","uid":"co503"},{"name":"Coleção
+        de Anfíbios da Universidade Tecnológica Federal do Paraná, Francisco Beltrão","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co416","uid":"co416"},{"name":"Coleção
+        de Anfíbios do Centro de Coleções Taxonômicas da UFMG","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co288","uid":"co288"},{"name":"Coleção
+        de Anfíbios do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co94","uid":"co94"},{"name":"Coleção
+        de Anfíbios do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co407","uid":"co407"},{"name":"Coleção
+        de Anfíbios do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co327","uid":"co327"},{"name":"Coleção
+        de Anfíbios e Répteis do Departamento de Zoologia da UFRGS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co371","uid":"co371"},{"name":"Coleção
+        de Anfíbios e Répteis do INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co7","uid":"co7"},{"name":"Coleção
+        de animais de interesse médico","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co530","uid":"co530"},{"name":"Coleção
+        de Animais taxidermizados","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co411","uid":"co411"},{"name":"Coleção
+        de Apicomplexa do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co328","uid":"co328"},{"name":"Coleção
+        de Aplacophora do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co325","uid":"co325"},{"name":"Coleção
+        de Apoidea do Museu de Biodiversidade do Cerrado da Universidade Federal de
+        Uberlândia (MBC)","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co499","uid":"co499"},{"name":"Coleção
+        de Aracnídeos (ordens menores) do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co505","uid":"co505"},{"name":"Coleção
+        de Aracnídeos do INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co81","uid":"co81"},{"name":"Coleção
+        de Aracnídeos do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co330","uid":"co330"},{"name":"Coleção
+        de Aracnídeos do Museu Goeldi","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co108","uid":"co108"},{"name":"Coleção
+        de Aranhas do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co508","uid":"co508"},{"name":"Coleção
+        de Artrópodes Vetores Ápteros de Importância em Saúde das Comunidades","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co10","uid":"co10"},{"name":"Coleção
+        de Ascidiacea do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co329","uid":"co329"},{"name":"Coleção
+        de Asteroidea do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co320","uid":"co320"},{"name":"Coleção
+        de Aves da UFPE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co235","uid":"co235"},{"name":"Coleção
+        de Aves da Universidade Federal do Rio Grande","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co455","uid":"co455"},{"name":"Coleção
+        de Aves do Centro de Coleções Taxonômicas da UFMG","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co293","uid":"co293"},{"name":"Coleção
+        de Aves do Departamento de Zoologia da UFRGS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co372","uid":"co372"},{"name":"Coleção
+        de Aves do INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co3","uid":"co3"},{"name":"Coleção
+        de Aves do MHNCI","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co87","uid":"co87"},{"name":"Coleção
+        de Aves do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co95","uid":"co95"},{"name":"Coleção
+        de Aves do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co409","uid":"co409"},{"name":"Coleção
+        de Aves do Museu de Zoologia da UEL","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co403","uid":"co403"},{"name":"Coleção
+        de Aves do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co331","uid":"co331"},{"name":"Coleção
+        de Aves do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co195","uid":"co195"},{"name":"Coleção
+        de Aves Heretiano Zenaide","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co272","uid":"co272"},{"name":"Coleção
+        de Avifauna da UNIR","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co29","uid":"co29"},{"name":"Coleção
+        de Bactérias da Amazônia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co11","uid":"co11"},{"name":"Coleção
+        de Bactérias do Ambiente e Saúde","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co31","uid":"co31"},{"name":"Coleção
+        de Bactérias Endofíticas de Orquídeas Brasileiras","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co504","uid":"co504"},{"name":"Coleção
+        de Biota Aquática Ethica Ambiental","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co295","uid":"co295"},{"name":"Coleção
+        de Bivalvia do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co326","uid":"co326"},{"name":"Coleção
+        de Brachiopoda do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co332","uid":"co332"},{"name":"Coleção
+        de Bryozoa do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co333","uid":"co333"},{"name":"Coleção
+        de Campylobacter","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co32","uid":"co32"},{"name":"Coleção
+        de Cephalochordata do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co336","uid":"co336"},{"name":"Coleção
+        de Cephalopoda do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co334","uid":"co334"},{"name":"Coleção
+        de Ceratopogonidae","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co33","uid":"co33"},{"name":"Coleção
+        de Cianobactérias da FCF-USP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co471","uid":"co471"},{"name":"Coleção
+        de Cirripedia da UFF","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co249","uid":"co249"},{"name":"Coleção
+        de Cnidaria do Laboratório de Ambientes Recifais","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co392","uid":"co392"},{"name":"Coleção
+        de Cnidaria do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co324","uid":"co324"},{"name":"Coleção
+        de Coleoptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co337","uid":"co337"},{"name":"Coleção
+        de Collembola do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co335","uid":"co335"},{"name":"Coleção
+        de Crustacea do INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co80","uid":"co80"},{"name":"Coleção
+        de Crustacea do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co96","uid":"co96"},{"name":"Coleção
+        de Crustacea do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co338","uid":"co338"},{"name":"Coleção
+        de Crustáceos do Departamento de Zoologia da UFRGS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co378","uid":"co378"},{"name":"Coleção
+        de Crustaceos do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co526","uid":"co526"},{"name":"Coleção
+        de Culicidae","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co34","uid":"co34"},{"name":"Coleção
+        de Cultura de Bactérias do Lacomen - CCBL","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co239","uid":"co239"},{"name":"Coleção
+        de Cultura de Cianobactérias e Algas de Pernambuco","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co393","uid":"co393"},{"name":"Coleção
+        de Cultura de Micro-organismos de Importância Biotecnológica e Ambiental","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co432","uid":"co432"},{"name":"Coleção
+        de Cultura de Microorganismos de Sergipe","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co243","uid":"co243"},{"name":"Coleção
+        de Cultura de Microrganismos Multifuncionais e de Interesse Ambiental e Biotecnológico
+        da Unioeste","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co478","uid":"co478"},{"name":"Coleção
+        de Culturas Bacterianas do IPTSP-UFG","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co276","uid":"co276"},{"name":"Coleção
+        de Culturas de Bactérias de Origem Hospitalar","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co35","uid":"co35"},{"name":"Coleção
+        de Culturas de Fungos Filamentosos","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co36","uid":"co36"},{"name":"Coleção
+        de Culturas de Fungos Xilófagos","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co522","uid":"co522"},{"name":"Coleção
+        de Culturas do Gênero Bacillus e Gêneros Correlatos","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co38","uid":"co38"},{"name":"Coleção
+        de Diptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co339","uid":"co339"},{"name":"Coleção
+        de DNA do Instituto Tecnológico Vale","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co301","uid":"co301"},{"name":"Coleção
+        de Echinodermata do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co275","uid":"co275"},{"name":"Coleção
+        de Echinoidea do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co322","uid":"co322"},{"name":"Coleção
+        de Ectoparasitos de vertebrados amazônicos da UNIR","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co458","uid":"co458"},{"name":"Coleção
+        de Ectoparasitos do MHNCI","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co86","uid":"co86"},{"name":"Coleção
+        de Entomofauna UNIR","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co25","uid":"co25"},{"name":"Coleção
+        de Entomologia da UFES","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co259","uid":"co259"},{"name":"Coleção
+        de Entomologia da UFT","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co266","uid":"co266"},{"name":"Coleção
+        de Entomologia do Museu Anchieta de Ciências Naturais","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co490","uid":"co490"},{"name":"Coleção
+        de Entomologia do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co116","uid":"co116"},{"name":"Coleção
+        de Ephemeroptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co340","uid":"co340"},{"name":"Coleção
+        de Fauna Sinantrópica do Município de São Paulo","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co397","uid":"co397"},{"name":"Coleção
+        de Flebotomíneos","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co39","uid":"co39"},{"name":"Coleção
+        de Flebotomíneos do Instituto Evandro Chagas","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co238","uid":"co238"},{"name":"Coleção
+        de Foramíniferos do Museu de Ciências Naturais da UFPR","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co384","uid":"co384"},{"name":"Coleção
+        de Fósseis do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co523","uid":"co523"},{"name":"Coleção
+        de Fósseis, Minerais e Rochas do Museu Goeldi","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co114","uid":"co114"},{"name":"Coleção
+        de Fungos da Amazônia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co40","uid":"co40"},{"name":"Coleção
+        de fungos entomopatogênicos do Grupo de Patologia de Insetos: Laboratório
+        de Entomologia e Fitopatologia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co447","uid":"co447"},{"name":"Coleção
+        de Fungos Patogênicos","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co199","uid":"co199"},{"name":"Coleção
+        de Gastropoda do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co341","uid":"co341"},{"name":"Coleção
+        de Gastrotricha do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co342","uid":"co342"},{"name":"Coleção
+        de Girinos do Centro de Coleções Taxonômicas da UFMG","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co290","uid":"co290"},{"name":"Coleção
+        de Hemiptera do Departamento de Zoologia da UFRGS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co373","uid":"co373"},{"name":"Coleção
+        de Hemiptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co343","uid":"co343"},{"name":"Coleção
+        de Herpetofauna do Museu de Zoologia da UEL","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co404","uid":"co404"},{"name":"Coleção
+        de Herpetologia (Anfíbios) do Museu Anchieta de Ciências Naturais","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co489","uid":"co489"},{"name":"Coleção
+        de Herpetologia (Répteis) do Museu Anchieta de Ciências Naturais","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co488","uid":"co488"},{"name":"Coleção
+        de Herpetologia da UFSM","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co217","uid":"co217"},{"name":"Coleção
+        de Hirudíneos da UFRPE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co395","uid":"co395"},{"name":"Coleção
+        de História Natural da Universidade Federal do Piauí","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co271","uid":"co271"},{"name":"Coleção
+        de Holothuroidea do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co321","uid":"co321"},{"name":"Coleção
+        de Hymenoptera do Instituto de Biociências, Letras e Ciências Exatas, UNESP ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co450","uid":"co450"},{"name":"Coleção
+        de Hymenoptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co344","uid":"co344"},{"name":"Coleção
+        de Ictiofauna","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co225","uid":"co225"},{"name":"Coleção
+        de Ictiologia da UFRPE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co394","uid":"co394"},{"name":"Coleção
+        de Ictiologia da UNILA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co430","uid":"co430"},{"name":"Coleção
+        de Ictiologia do Museu Anchieta de Ciências Naturais","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co479","uid":"co479"},{"name":"Coleção
+        de Ictiologia do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co119","uid":"co119"},{"name":"Coleção
+        de Insetos do INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co66","uid":"co66"},{"name":"Coleção
+        de Insetos do MHNCI","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co85","uid":"co85"},{"name":"Coleção
+        de Insetos do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co493","uid":"co493"},{"name":"Coleção
+        de Invertebrados (não Insetos) no MHNCI","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co89","uid":"co89"},{"name":"Coleção
+        de Invertebrados Aquáticos e Coleoptera da Universidade Estadual do Centro-Oeste","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co464","uid":"co464"},{"name":"Coleção
+        de Invertebrados do Instituto de Biodiversidade e Sustentabilidade NUPEM/UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co385","uid":"co385"},{"name":"Coleção
+        de invertebrados marinhos do Museu de História Natural da UFAL","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co435","uid":"co435"},{"name":"Coleção
+        de Invertebrados não-Artrópodos do INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co82","uid":"co82"},{"name":"Coleção
+        de Leishmania","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co42","uid":"co42"},{"name":"Coleção
+        de Lepidoptera do Departamento de Zoologia da UFRGS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co375","uid":"co375"},{"name":"Coleção
+        de Lepidoptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co345","uid":"co345"},{"name":"Coleção
+        de Leptospira","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co43","uid":"co43"},{"name":"Coleção
+        de Listeria","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co198","uid":"co198"},{"name":"Coleção
+        de Malacologia do Museu de Ciências Naturais do Rio Grande do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co267","uid":"co267"},{"name":"Coleção
+        de Malacologia do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co121","uid":"co121"},{"name":"Coleção
+        de Malacologia Médica","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co63","uid":"co63"},{"name":"Coleção
+        de Mamíferos da UFPE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co229","uid":"co229"},{"name":"Coleção
+        de Mamíferos da Universidade Estadual do Norte Fluminense","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co286","uid":"co286"},{"name":"Coleção
+        de Mamíferos da Universidade Federal do Espírito Santo","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co387","uid":"co387"},{"name":"Coleção
+        de Mamíferos do Centro de Coleções Taxonômicas da UFMG","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co292","uid":"co292"},{"name":"Coleção
+        de Mamíferos do Departamento de Zoologia da UFRGS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co374","uid":"co374"},{"name":"Coleção
+        de Mamíferos do Mato Grosso","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co518","uid":"co518"},{"name":"Coleção
+        de Mamíferos do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co97","uid":"co97"},{"name":"Coleção
+        de Mamíferos do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co410","uid":"co410"},{"name":"Coleção
+        de Mamíferos do Museu de História Natural da Universidade Federal de Alagoas","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co491","uid":"co491"},{"name":"Coleção
+        de Mamíferos do Museu de Zoologia da UEL","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co402","uid":"co402"},{"name":"Coleção
+        de Mamíferos do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co346","uid":"co346"},{"name":"Coleção
+        de Mamíferos INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co5","uid":"co5"},{"name":"Coleção
+        de Mamíferos UFMT","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co20","uid":"co20"},{"name":"Coleção
+        de Mastofauna UNIR","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co28","uid":"co28"},{"name":"Coleção
+        de Mastozoologia do MHNCI","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co8","uid":"co8"},{"name":"Coleção
+        de Mastozoologia do Museu Anchieta de Ciências Naturais","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co480","uid":"co480"},{"name":"Coleção
+        de Micro-Lepidoptera do Departamento de Zoologia da UFRGS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co377","uid":"co377"},{"name":"Coleção
+        de Microrganismos Agentes de Controle Biológico de Pragas na Agricultura","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co389","uid":"co389"},{"name":"Coleção
+        de Miriapoda e Arachnida do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co92","uid":"co92"},{"name":"Coleção
+        de Miriápodes do INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co84","uid":"co84"},{"name":"Coleção
+        de Miríapodes do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co506","uid":"co506"},{"name":"Coleção
+        de Miriápodes do Museu Goeldi","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co109","uid":"co109"},{"name":"Coleção
+        de Mirmecologia do Museu de Biodiversidade do Cerrado da Universidade Federal
+        de Uberlândia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co367","uid":"co367"},{"name":"Coleção
+        de Mollusca do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co100","uid":"co100"},{"name":"Coleção
+        de Moluscos do Instituto Oswaldo Cruz","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co62","uid":"co62"},{"name":"Coleção
+        de Moluscos do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co524","uid":"co524"},{"name":"Coleção
+        de Mosquitos Neotropicais","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co45","uid":"co45"},{"name":"Coleção
+        de Myxozoa do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co347","uid":"co347"},{"name":"Coleção
+        de Nematoda do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co350","uid":"co350"},{"name":"Coleção
+        de Nemertea do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co348","uid":"co348"},{"name":"Coleção
+        de Neuroptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co349","uid":"co349"},{"name":"Coleção
+        de Oligoquetas Fritz Müller","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co252","uid":"co252"},{"name":"Coleção
+        de Ophiuroidea do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co323","uid":"co323"},{"name":"Coleção
+        de Opiliones do INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co102","uid":"co102"},{"name":"Coleção
+        de Opiliones do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co507","uid":"co507"},{"name":"Coleção
+        de Ornitologia do Museu Anchieta de Ciências Naturais","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co481","uid":"co481"},{"name":"Coleção
+        de Orthoptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co352","uid":"co352"},{"name":"Coleção
+        de Paleontologia do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co196","uid":"co196"},{"name":"Coleção
+        de Parasitologia do Departamento de Patologia Básica","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co446","uid":"co446"},{"name":"Coleção
+        de Peixes","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co190","uid":"co190"},{"name":"Coleção
+        de Peixes da UNESP de São José do Rio Preto","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co263","uid":"co263"},{"name":"Coleção
+        de Peixes do Departamento de Zoologia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co370","uid":"co370"},{"name":"Coleção
+        de Peixes do INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co6","uid":"co6"},{"name":"Coleção
+        de Peixes do Instituto de Biodiversidade e Sustentabilidade - NUPEM/UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co257","uid":"co257"},{"name":"Coleção
+        de Peixes do Laboratório de Ictiologia Sistemática da Universidade Federal
+        do Tocantins","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co517","uid":"co517"},{"name":"Coleção
+        de Peixes do MHNCI","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co9","uid":"co9"},{"name":"Coleção
+        de Peixes do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co492","uid":"co492"},{"name":"Coleção
+        de Peixes do Museu de Ciências Naturais do Rio Grande do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co445","uid":"co445"},{"name":"Coleção
+        de Peixes do Museu de Zoologia da UEL","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co18","uid":"co18"},{"name":"Coleção
+        de Peixes do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co354","uid":"co354"},{"name":"Coleção
+        de planárias do Laboratório de Ecologia e Evolução da EACH","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co262","uid":"co262"},{"name":"Coleção
+        de Platyhelmintes do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co355","uid":"co355"},{"name":"Coleção
+        de Polychaeta do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co466","uid":"co466"},{"name":"Coleção
+        de Polychaeta do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co356","uid":"co356"},{"name":"Coleção
+        de Polyplacophora do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co357","uid":"co357"},{"name":"Coleção
+        de Porífera do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co105","uid":"co105"},{"name":"Coleção
+        de Porifera do Museu de Ciências Naturais do Rio Grande do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co268","uid":"co268"},{"name":"Coleção
+        de Porifera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co358","uid":"co358"},{"name":"Coleção
+        de Protozoários","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co46","uid":"co46"},{"name":"Coleção
+        de Répteis da Universidade Federal de Juiz de Fora","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co463","uid":"co463"},{"name":"Coleção
+        de Répteis do Centro de Coleções Taxonômicas da UFMG","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co289","uid":"co289"},{"name":"Coleção
+        de Répteis do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co98","uid":"co98"},{"name":"Coleção
+        de Répteis do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co408","uid":"co408"},{"name":"Coleção
+        de Répteis do Museu de Ciências Naturais do Rio Grande do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co448","uid":"co448"},{"name":"Coleção
+        de Répteis do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co359","uid":"co359"},{"name":"Coleção
+        de répteis e anfíbios do MHNCI","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co88","uid":"co88"},{"name":"Coleção
+        de Scorpionida do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co515","uid":"co515"},{"name":"Coleção
+        de Simulídeos do Instituto Oswaldo Cruz","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co47","uid":"co47"},{"name":"Coleção
+        de Tecidos Animais da Universidade Federal do Espírito Santo","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co388","uid":"co388"},{"name":"Coleção
+        de Triatomíneos do Instituto Oswaldo Cruz","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co48","uid":"co48"},{"name":"Coleção
+        de Trypanosoma de Mamíferos Silvestres, Domésticos e Vetores","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co51","uid":"co51"},{"name":"Coleção
+        de Vertebrados da UFRA - Campus Capitão Poço","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co216","uid":"co216"},{"name":"Coleção
+        de Vetores de Tripanosomatídeos","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co52","uid":"co52"},{"name":"Coleção
+        de Yersinia pestis","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co53","uid":"co53"},{"name":"Coleção
+        de Zoologia da UP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co227","uid":"co227"},{"name":"Coleção
+        de Zoologia Unisinos","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co390","uid":"co390"},{"name":"Coleção
+        de Zooplâncton da UFRPE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co294","uid":"co294"},{"name":"Coleção
+        Didatica de Zoologia do IFPA - Campus Bragança","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co251","uid":"co251"},{"name":"Coleção
+        didática de Zoologia IFMA CAXI","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co484","uid":"co484"},{"name":"Coleção
+        Didática do Laboratório de Botânica e Ecologia Vegetal","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co283","uid":"co283"},{"name":"Coleção
+        Didática para Extensão","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co461","uid":"co461"},{"name":"Coleção
+        do Departamento de Ecologia e Biologia Evolutivas","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co495","uid":"co495"},{"name":"Coleção
+        do Museu Dinâmico Interdisciplinar","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co193","uid":"co193"},{"name":"Coleção
+        Ecológica de Entomologia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co364","uid":"co364"},{"name":"Coleção
+        Entomológica","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co412","uid":"co412"},{"name":"Coleção
+        Entomológica da UFMT","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co212","uid":"co212"},{"name":"Coleção
+        Entomológica da UFPE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co236","uid":"co236"},{"name":"Coleção
+        Entomológica da UFRPE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co287","uid":"co287"},{"name":"Coleção
+        Entomológica da Universidade Federal de Lavras","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co426","uid":"co426"},{"name":"Coleção
+        Entomológica Danúncia Urban","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co436","uid":"co436"},{"name":"Coleção
+        Entomológica do  Departamento de Ciências Biológicas da UFVJM","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co269","uid":"co269"},{"name":"Coleção
+        Entomológica do Departamento de Sistemática e Ecologia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co502","uid":"co502"},{"name":"Coleção
+        Entomológica do Instituto Butantan","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co424","uid":"co424"},{"name":"Coleção
+        Entomológica do Instituto Oswaldo Cruz","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co54","uid":"co54"},{"name":"Coleção
+        Entomológica do Laboratório de Ecologia de Insetos","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co285","uid":"co285"},{"name":"Coleção
+        Entomológica do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co99","uid":"co99"},{"name":"Coleção
+        Entomológica do Museu Goeldi","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co107","uid":"co107"},{"name":"Coleção
+        Entomológica do Setor Palotina","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co437","uid":"co437"},{"name":"Coleção
+        Entomológica Dr. Mário Bezerra de Carvalho","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co501","uid":"co501"},{"name":"Coleção
+        Entomológica Padre Jesus Santiago Moure","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co0","uid":"co0"},{"name":"Coleção
+        Entomológica Paulo Nogueira-Neto","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co305","uid":"co305"},{"name":"Coleção
+        Entomológica Prof. J.M.F. Camargo","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co208","uid":"co208"},{"name":"Coleção
+        Fonotropica da UFBA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co431","uid":"co431"},{"name":"Coleção
+        Helmintológica do Departamento de Zoologia da UFRGS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co376","uid":"co376"},{"name":"Coleção
+        Helmintológica do Instituto Oswaldo Cruz","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co61","uid":"co61"},{"name":"Coleção
+        Herpetofauna UNIR","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co27","uid":"co27"},{"name":"Coleção
+        Herpetológica da UFPE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co218","uid":"co218"},{"name":"Coleção
+        Herpetológica da UNILA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co457","uid":"co457"},{"name":"Coleção
+        Herpetológica da Universidade de Brasília","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co472","uid":"co472"},{"name":"Coleção
+        Herpetológica do Museu de Biodiversidade do Cerrado da Universidade Federal
+        de Uberlândia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co500","uid":"co500"},{"name":"Coleção
+        Herpetológica do Museu Goeldi","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co90","uid":"co90"},{"name":"Coleção
+        Herpetológica do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co120","uid":"co120"},{"name":"Coleção
+        Herpetológica do Norte Fluminense","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co423","uid":"co423"},{"name":"Coleção
+        Herpetológica do Núcleo Regional de Ofiologia da UFC","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co360","uid":"co360"},{"name":"Coleção
+        Herpetológica e Paleoherpetológica","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co368","uid":"co368"},{"name":"Coleção
+        Ictiofauna UNIR","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co26","uid":"co26"},{"name":"Coleção
+        Ictiológica da UFLA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co247","uid":"co247"},{"name":"Coleção
+        Ictiológica da Universidade Federal do Rio Grande do Norte","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co476","uid":"co476"},{"name":"Coleção
+        Ictiológica da Universidade Tecnológica Federal do Paraná, UTFPR, campus Santa
+        Helena","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co475","uid":"co475"},{"name":"Coleção
+        Ictiológica de Três Lagoas","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co442","uid":"co442"},{"name":"Coleção
+        Ictiológica Dias da Rocha - CIDRO - A","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co261","uid":"co261"},{"name":"Coleção
+        Ictiológica Dias da Rocha - CIDRO B","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co260","uid":"co260"},{"name":"Coleção
+        Ictiológica do Acervo Biológico da Amazônia Meridonal - Campus Sinop","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co381","uid":"co381"},{"name":"Coleção
+        Ictiológica do IFMA Campus Caxias","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co469","uid":"co469"},{"name":"Coleção
+        Ictiológica do Laboratório de Ecologia de Peixes da UFRRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co274","uid":"co274"},{"name":"Coleção
+        Ictiológica do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co101","uid":"co101"},{"name":"Coleção
+        Ictiológica do Museu de Biodiversidade do Cerrado da Universidade Federal
+        de Uberlândia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co498","uid":"co498"},{"name":"Coleção
+        Ictiológica do Museu Goeldi","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co111","uid":"co111"},{"name":"Coleção
+        Ictiólogica do Nupélia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co525","uid":"co525"},{"name":"Coleção
+        Ictiológica GERPEL da UNIOESTE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co516","uid":"co516"},{"name":"Coleção
+        Internacional de Cultura de Glomeromycota da FURB","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co233","uid":"co233"},{"name":"Coleção
+        Invertebrados Não - artrópodos do Museu Goeldi","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co91","uid":"co91"},{"name":"Coleção
+        Malacológica do LEBIO/CEM/UFPR","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co418","uid":"co418"},{"name":"Coleção
+        Malacológica Prof. Henry Ramos Matthews","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co433","uid":"co433"},{"name":"Coleção
+        Mastozoológica do Museu de Biodiversidade do Cerrado da Universidade Federal
+        de Uberlândia (MBC)","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co497","uid":"co497"},{"name":"Coleção
+        Mastozoológica do Museu Goeldi","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co113","uid":"co113"},{"name":"Coleção
+        Mastozoológica do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co122","uid":"co122"},{"name":"Coleção
+        Micológica do Herbário UB (Universidade de Brasília). Fungarium Dedicado à
+        Micobiota Associada às Plantas Nativas do Cerrado","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co443","uid":"co443"},{"name":"Coleção
+        Ornitológica - Laboratório de Ornitologia da UFAC","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co282","uid":"co282"},{"name":"Coleção
+        Ornitológica do Museu Goeldi","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co112","uid":"co112"},{"name":"Coleção
+        Paleoparasitológica e de Fezes Recentes de Animais","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co65","uid":"co65"},{"name":"Coleção
+        Parasitológica do Laboratório de Parasitologia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co391","uid":"co391"},{"name":"Coleção
+        Sonora da Universidade Tecnológica Federal do Paraná, Francisco Beltrão","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co415","uid":"co415"},{"name":"Coleção
+        Taxonômica de Zoologia da Universidade Federal de Ouro Preto","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co255","uid":"co255"},{"name":"Coleção
+        Zoológica (via úmida) da UFMT: miriápodes, aracnídeos e onicóforos","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co419","uid":"co419"},{"name":"Coleção
+        Zoológica - Setor Herpetologia - Amphibia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co21","uid":"co21"},{"name":"Coleção
+        Zoológica da FURB","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co232","uid":"co232"},{"name":"Coleção
+        Zoológica da Reserva Ecológica do IBGE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co245","uid":"co245"},{"name":"Coleção
+        Zoológica da Universidade Estadual Vale do Acaraú","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co473","uid":"co473"},{"name":"Coleção
+        Zoológica da Universidade Federal de Mato Grosso do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co124","uid":"co124"},{"name":"Coleção
+        Zoológica da Universidade Federal de Sergipe","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co254","uid":"co254"},{"name":"Coleção
+        Zoológica Delta do Parnaíba","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co297","uid":"co297"},{"name":"Coleção
+        Zoologica Didática do IFBA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co521","uid":"co521"},{"name":"Coleção
+        Zoológica do Laboratório de Conservação da Natureza da UNICENTRO","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co281","uid":"co281"},{"name":"Coleçao
+        Zoológica do Laboratório de Estudos Subterrâneos","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co369","uid":"co369"},{"name":"Coleção
+        Zoológica do Maranhão","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co253","uid":"co253"},{"name":"Coleção
+        Zoológica do Museu de Biologia Professor Mello Leitão","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co220","uid":"co220"},{"name":"Coleção
+        Zoológica Dr. Joachim Adis","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co213","uid":"co213"},{"name":"Coleção
+        Zoológica Juan Alfredo Ximenez Trianon","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co465","uid":"co465"},{"name":"Coleção
+        Zoológica- Setor Herpetologia- Répteis","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co22","uid":"co22"},{"name":"Coleções
+        do Departamento de Ecologia e Zoologia da Universidade Federal de Santa Catarina","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co303","uid":"co303"},{"name":"Coleções
+        Microbiológicas da Rede Paraense Taxonline","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co451","uid":"co451"},{"name":"Digite
+        o nome","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co417","uid":"co417"},{"name":"Fonoteca
+        da Universidade Federal de Goiás","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co434","uid":"co434"},{"name":"Formigas
+        de Galhos do Laboratório de Abelhas e Mirmecologia do Alto Tietê","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co529","uid":"co529"},{"name":"Herbário
+        \"Professor José Badini\"","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co177","uid":"co177"},{"name":"Herbário
+        Alarich Rudolf Holger Schultz","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co165","uid":"co165"},{"name":"Herbário
+        Alexandre Leal Costa da UFBA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co68","uid":"co68"},{"name":"Herbário
+        Amapaense","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co181","uid":"co181"},{"name":"Herbário
+        Campus Três Rios - Laboratório de Diversidade Vegetal","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co413","uid":"co413"},{"name":"Herbário
+        Caririense Dárdano de Andrade-Lima","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co183","uid":"co183"},{"name":"Herbário
+        Central da Universidade Federal do Espírito Santo","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co306","uid":"co306"},{"name":"Herbário
+        Centro Norte Mato Grossense - Campus Sinop","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co155","uid":"co155"},{"name":"Herbário
+        CNPO da Embrapa Pecuária Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co242","uid":"co242"},{"name":"Herbário
+        da Amazônia Meridional","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co144","uid":"co144"},{"name":"Herbário
+        da Embrapa Clima Temperado","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co75","uid":"co75"},{"name":"Herbário
+        da Embrapa Pantanal","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co152","uid":"co152"},{"name":"Herbário
+        da ESALQ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co142","uid":"co142"},{"name":"Herbário
+        da Fundação Universidade Federal de Mato Grosso do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co187","uid":"co187"},{"name":"Herbário
+        da Pontifícia Universidade Católica do Paraná","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co76","uid":"co76"},{"name":"Herbário
+        da Reserva Natural Vale","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co172","uid":"co172"},{"name":"Herbário
+        da UEFS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co130","uid":"co130"},{"name":"Herbário
+        da UEL","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co153","uid":"co153"},{"name":"Herbário
+        da UENF","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co277","uid":"co277"},{"name":"Herbário
+        da Universidade Católica de Pernambuco","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co314","uid":"co314"},{"name":"Herbário
+        da Universidade de Brasília","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co12","uid":"co12"},{"name":"Herbário
+        da Universidade de Caxias do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co166","uid":"co166"},{"name":"Herbário
+        da Universidade de São Paulo","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co138","uid":"co138"},{"name":"Herbário
+        da Universidade de Tocantins","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co379","uid":"co379"},{"name":"Herbário
+        da Universidade do Estado de Minas Gerais","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co71","uid":"co71"},{"name":"Herbário
+        da Universidade Estadual de Maringá","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co192","uid":"co192"},{"name":"Herbário
+        da Universidade Estadual de Ponta Grossa","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co453","uid":"co453"},{"name":"Herbário
+        da Universidade Estadual do Centro-Oeste","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co77","uid":"co77"},{"name":"Herbário
+        da Universidade Federal de Mato Grosso do Sul - Campus do Pantanal","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co73","uid":"co73"},{"name":"Herbário
+        da Universidade Federal de Minas Gerais","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co132","uid":"co132"},{"name":"Herbário
+        da Universidade Federal de Roraima","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co483","uid":"co483"},{"name":"Herbário
+        da Universidade Federal de Sergipe","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co70","uid":"co70"},{"name":"Herbário
+        da Universidade Federal do Acre","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co361","uid":"co361"},{"name":"Herbário
+        da Universidade Federal do Amazonas","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co398","uid":"co398"},{"name":"Herbário
+        da Universidade Federal do Rio de Janeiro","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co307","uid":"co307"},{"name":"Herbário
+        da Universidade Federal do Rio Grande do Norte","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co149","uid":"co149"},{"name":"Herbário
+        da Universidade Paulista","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co137","uid":"co137"},{"name":"Herbário
+        da Universidade Técnológica Federal do Paraná Campus Campo Mourão","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co79","uid":"co79"},{"name":"Herbário
+        da Universidade Tecnológica Federal do Paraná, Dois Vizinhos","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co428","uid":"co428"},{"name":"Herbário
+        da UTFPR, câmpus de Santa Helena","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co280","uid":"co280"},{"name":"Herbário
+        Dárdani de Andrade Lima","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co157","uid":"co157"},{"name":"Herbário
+        de Ilha Solteira","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co486","uid":"co486"},{"name":"Herbário
+        de Lages da Udesc","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co214","uid":"co214"},{"name":"Herbário
+        de São José do Rio Preto","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co170","uid":"co170"},{"name":"Herbário
+        Dendrológico Jeanine Felfili","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co300","uid":"co300"},{"name":"Herbário
+        do CENARGEN","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co139","uid":"co139"},{"name":"Herbário
+        do Centro de Ciências e Tecnologias para a Sustentabilidade","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co173","uid":"co173"},{"name":"Herbário
+        do Centro de Pesquisas do Cacau","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co140","uid":"co140"},{"name":"Herbário
+        do Departamento de Botânica","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co127","uid":"co127"},{"name":"Herbário
+        do Departamento de Botânica da UFRRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co449","uid":"co449"},{"name":"Herbário
+        do Departamento de Botânica da UFSC","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co147","uid":"co147"},{"name":"Herbário
+        do INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co83","uid":"co83"},{"name":"Herbário
+        do Instituto Agronômico de Campinas","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co163","uid":"co163"},{"name":"Herbário
+        do Instituto Agronômico Norte","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co74","uid":"co74"},{"name":"Herbário
+        do Instituto de Ciências Naturais da UFRGS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co133","uid":"co133"},{"name":"Herbário
+        do Instituto de Estudos Costeiros da Universidade Federal do Pará","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co182","uid":"co182"},{"name":"Herbário
+        do Instituto Federal de Educação, Ciência e Tecnologia do Amazonas","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co167","uid":"co167"},{"name":"Herbário
+        do Jardim Botânico da Fundação Zoo-Botânica de Belo Horizonte","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co151","uid":"co151"},{"name":"Herbário
+        do Jardim Botânico Plantarum","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co161","uid":"co161"},{"name":"Herbário
+        do Maranhão","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co162","uid":"co162"},{"name":"Herbário
+        do MBM","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co131","uid":"co131"},{"name":"Herbário
+        do Museu de Ciências e Tecnologia PUCRS","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co179","uid":"co179"},{"name":"Herbário
+        do Museu Goeldi","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co106","uid":"co106"},{"name":"Herbário
+        do Nupélia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co456","uid":"co456"},{"name":"Herbário
+        do Pantanal \"Vali Joana Pott\"","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co159","uid":"co159"},{"name":"Herbário
+        do Recôncavo da Bahia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co200","uid":"co200"},{"name":"Herbário
+        do Tocantins","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co129","uid":"co129"},{"name":"Herbário
+        do Trópico Semiárido","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co316","uid":"co316"},{"name":"Herbário
+        Dr. Ary Tupinambá Penna Pinheiro","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co158","uid":"co158"},{"name":"Herbário
+        Dr. Roberto Miguel Klein","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co146","uid":"co146"},{"name":"Herbário
+        Dr. Ronaldo Wasum da Universidade Estadual do Rio Grande do Sul - Litoral
+        Norte","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co427","uid":"co427"},{"name":"Herbário
+        Escola de Florestas Curitiba","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co168","uid":"co168"},{"name":"Herbário
+        Evaldo Buttura da UNILA","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co143","uid":"co143"},{"name":"Herbário
+        Ezechias Paulo Heringer","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co188","uid":"co188"},{"name":"Herbário
+        Fernando Cardoso da Silva","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co452","uid":"co452"},{"name":"Herbário
+        Friburguense","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co184","uid":"co184"},{"name":"Herbário
+        Geraldo Mariz","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co209","uid":"co209"},{"name":"Herbário
+        HSTM","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co69","uid":"co69"},{"name":"Herbário
+        IBGE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co244","uid":"co244"},{"name":"Herbário
+        Irina Delanova Gemtchújnicov","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co145","uid":"co145"},{"name":"Herbário
+        Jaime Coelho de Moraes","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co169","uid":"co169"},{"name":"Herbario
+        Jataiense","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co278","uid":"co278"},{"name":"Herbário
+        Joinvillea da Universidade da Região de Joinville","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co308","uid":"co308"},{"name":"Herbário
+        Lauro Pires Xavier","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co126","uid":"co126"},{"name":"Herbário
+        Leopoldo Krieger","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co154","uid":"co154"},{"name":"Herbário
+        MAC","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co134","uid":"co134"},{"name":"Herbário
+        Manuel de Arruda Câmara","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co304","uid":"co304"},{"name":"Herbário
+        Maranhão Continental","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co519","uid":"co519"},{"name":"Herbário
+        Maria Eneyda P. Kaufmann Fidalgo","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co156","uid":"co156"},{"name":"Herbário
+        Municipal de São Paulo","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co136","uid":"co136"},{"name":"Herbário
+        Museu de Biologia Mello Leitão","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co135","uid":"co135"},{"name":"Herbário
+        Norte Mineiro","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co406","uid":"co406"},{"name":"Herbário
+        Nova Xavantina","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co178","uid":"co178"},{"name":"Herbário
+        Padre Balduino Rambo","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co160","uid":"co160"},{"name":"Herbário
+        Padre José Maria de Albuquerque","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co401","uid":"co401"},{"name":"Herbário
+        PE. Camille Torrend","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co206","uid":"co206"},{"name":"Herbário
+        Pe. Dr. Raulino Reitz","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co171","uid":"co171"},{"name":"Herbário
+        PEL","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co128","uid":"co128"},{"name":"Herbário
+        Prisco Bezerra","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co186","uid":"co186"},{"name":"Herbário
+        Prof. Jorge Pedro Pereira Carauta","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co298","uid":"co298"},{"name":"Herbário
+        Professor Honório Monteiro do Museu de História Natural","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co231","uid":"co231"},{"name":"Herbário
+        Professor Vasconcelos Sobrinho","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co176","uid":"co176"},{"name":"Herbário
+        Profª. Drª. Marlene Freitas da Silva","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co201","uid":"co201"},{"name":"Herbário
+        R do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co175","uid":"co175"},{"name":"Herbário
+        RADAMBRASIL do IBGE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co440","uid":"co440"},{"name":"Herbário
+        RB","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co125","uid":"co125"},{"name":"Herbário
+        Rioclarense","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co197","uid":"co197"},{"name":"Herbário
+        Rondoniense João Geraldo Kuhlmann","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co30","uid":"co30"},{"name":"Herbário
+        Rosa Mochel","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co174","uid":"co174"},{"name":"Herbário
+        Sérgio Tavares","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co315","uid":"co315"},{"name":"Herbário
+        Sinningia da UFABC","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co487","uid":"co487"},{"name":"Herbário
+        Uberlandense","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co141","uid":"co141"},{"name":"Herbário
+        UEC","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co72","uid":"co72"},{"name":"Herbário
+        UFG","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co23","uid":"co23"},{"name":"Herbário
+        UNOP da Unioeste","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co78","uid":"co78"},{"name":"Herbário
+        UNOPA da UNIOESTE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co468","uid":"co468"},{"name":"Herbário
+        Vale do São Francisco","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co150","uid":"co150"},{"name":"Herbarium
+        Anchieta","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co211","uid":"co211"},{"name":"Invertebrados
+        Marinhos e outros acervos","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co467","uid":"co467"},{"name":"Invertebrados
+        Subterrâneos de Lavras","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co444","uid":"co444"},{"name":"Jardim
+        Botânico de São Paulo","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co459","uid":"co459"},{"name":"Laboratório
+        de Biologia e Genética de Peixes","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co485","uid":"co485"},{"name":"Laboratório
+        de Ictiologia de Sorocaba","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co291","uid":"co291"},{"name":"Micoteca
+        da UFPE","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co527","uid":"co527"},{"name":"Museu
+        de Biodiversidade Tauari","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co317","uid":"co317"},{"name":"Museu
+        de Ciências Naturais La Salle","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co256","uid":"co256"},{"name":"Museu
+        de Ciências-Univates","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co226","uid":"co226"},{"name":"Museu
+        de Entomologia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co258","uid":"co258"},{"name":"Museu
+        de Entomologia do Laboratório de Entomologia e Fitopatologia da UENF","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co279","uid":"co279"},{"name":"Museu
+        de Fauna da Caatinga","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co422","uid":"co422"},{"name":"Museu
+        de Zoologia João Moojen","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co296","uid":"co296"},{"name":"Núcleo
+        de Ictiologia do Vale do Alto Juruá do Campus Floresta","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co302","uid":"co302"},{"name":"Santa
+        Verônica Giuliani","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co383","uid":"co383"},{"name":"Setor
+        de Zoologia do Museu de Ciências Naturais da UCS - Aves","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co310","uid":"co310"},{"name":"Setor
+        de Zoologia do Museu de Ciências Naturais da UCS - Coleção Didática","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co312","uid":"co312"},{"name":"Setor
+        de Zoologia do Museu de Ciências Naturais da UCS - Herpetologia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co309","uid":"co309"},{"name":"Setor
+        de Zoologia do Museu de Ciências Naturais da UCS - Mastozoologia","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co313","uid":"co313"},{"name":"Setor
+        de Zoologia do Museu de Ciências Naturais da UCS - Peixes","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co311","uid":"co311"},{"name":"Xiloteca
+        (madeiras) do JBRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/collection/co509","uid":"co509"}]'
+  recorded_at: 2023-01-10 08:51:04 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

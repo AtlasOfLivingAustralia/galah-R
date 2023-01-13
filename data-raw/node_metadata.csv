@@ -1,17 +1,16 @@
-atlas,institution,acronym,url,supported
+region,institution,acronym,url,supported
 Australia,Atlas of Living Australia,ALA,https://www.ala.org.au,TRUE
 Austria,Biodiversit√§ts-Atlas √ñsterreich,BAO,https://biodiversityatlas.at,TRUE
 Brazil,Sistemas de Informa√ß√µes sobre a Biodiversidade Brasileira,SiBBr,https://sibbr.gov.br,TRUE
-Canada,Candensys,NA,http://www.canadensys.net,FALSE
 Estonia,eElurikkus,NA,https://elurikkus.ee,TRUE
-France,Inventaire National du Patrimoine Naturel,INPN,https://inpn.mnhn.fr,TRUE
+France,Portail français d'accès aux données d'observation sur les espèces,OpenObs,https://openobs.mnhn.fr/,TRUE
+Global,Global Biodiversity Information Facility,GBIF,https://gbif.org,TRUE
 Guatemala,Sistema Nacional de Informaci√≥n sobre Diversidad Biol√≥gica de Guatemala,SNIBgt,https://snib.conap.gob.gt,TRUE
 Portugal,GBIF Portugal,GBIF.pt,https://www.gbif.pt,TRUE
 Spain,GBIF Spain,GBIF.es,https://www.gbif.es,TRUE
 Sweden,Swedish Biodiversity Data Infrastructure,SBDI,https://biodiversitydata.se,TRUE
 United Kingdom,National Biodiversity Network,NBN,https://nbn.org.uk,TRUE
-Vermont,Vermont Atlas of Life,VAL,https://val.vtecostudies.org,FALSE
-Global,Global Biodiversity Information Facility,GBIF,https://gbif.org,FALSE
+Canada,Candensys,NA,http://www.canadensys.net,FALSE
 Colombia,Sistema de Informaci√≥n sobre Biodiversidad de Colombia,SiB Colombia,https://biodiversidad.co/,FALSE
 United States and Territories,GBIF US,GBIF.us,https://gbif.us/,FALSE
 North America,GBIF North America Region,NA,https://www.gbif-north-america.org,FALSE
@@ -21,3 +20,4 @@ Global,Legume Data Portal,LDP,https://www.legumedata.org/,FALSE
 Norway,Living Norway,LN,https://data.livingnorway.no/,FALSE
 South Africa,South African National Biodiversity Institute,SANBI-GBIF,https://www.sanbi-gbif.org/,FALSE
 Pacific,Pacific Biodiversity Information Facility,PBIF,https://pbif.sprep.org/,FALSE
+Vermont,Vermont Atlas of Life,VAL,https://val.vtecostudies.org,FALSE

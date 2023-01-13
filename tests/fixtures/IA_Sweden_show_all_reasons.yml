@@ -1,0 +1,40 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://logger.biodiversitydata.se/service/logger/reasons
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.21.6
+      date: Tue, 10 Jan 2023 11:12:26 GMT
+      content-type: application/json;charset=UTF-8
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: SAMEORIGIN
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+    body:
+      encoding: ''
+      file: no
+      string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
+        science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
+        management","id":5,"deprecated":false},{"rkey":"logger.download.reason.conservation","name":"conservation
+        management/planning","id":0,"deprecated":false},{"rkey":"logger.download.reason.ecological.research","name":"ecological
+        research","id":7,"deprecated":false},{"rkey":"logger.download.reason.education","name":"education","id":3,"deprecated":false},{"rkey":"logger.download.reason.environmental","name":"environmental
+        assessment","id":2,"deprecated":false},{"rkey":"logger.download.reason.restoration.remediation","name":"restoration/remediation","id":12,"deprecated":false},{"rkey":"logger.download.reason.research","name":"scientific
+        research","id":4,"deprecated":false},{"rkey":"logger.download.reason.systematic.research","name":"systematic
+        research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
+        scientific research","id":9,"deprecated":true}]'
+  recorded_at: 2023-01-10 11:12:27 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

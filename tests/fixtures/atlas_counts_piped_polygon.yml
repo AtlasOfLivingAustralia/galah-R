@@ -1,0 +1,324 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://namematching-ws.ala.org.au/api/search?q=dasyurus
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Tue, 10 Jan 2023 06:07:18 GMT
+      content-type: application/json
+      content-length: '503'
+      server: nginx/1.23.3
+      vary: Accept-Encoding
+      content-encoding: gzip
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
+    body:
+      encoding: ''
+      file: no
+      string: '{"success":true,"scientificName":"Dasyurus","scientificNameAuthorship":"Geoffroy,
+        1796","taxonConceptID":"https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85","rank":"genus","rankID":6000,"lft":67520,"rgt":67542,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","order":"Dasyuromorphia","orderID":"https://biodiversity.org.au/afd/taxa/54c4f0b1-45cd-49f0-91fc-0d48bd7f0a5e","family":"Dasyuridae","familyID":"https://biodiversity.org.au/afd/taxa/13cd5615-5d0c-426e-96c9-b8a7cb8651a2","genus":"Dasyurus","genusID":"https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85","speciesGroup":["Animals","Mammals"],"speciesSubgroup":["Carnivorous
+        Marsupials"],"issues":["noIssue"]}'
+  recorded_at: 2023-01-10 06:07:19 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/assertions/codes
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Tue, 10 Jan 2023 06:07:19 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.23.3
+      set-cookie:
+      - AWSALBTG=3IZ2Q43bqmddrUkmDHP3IHTaab2WdHm+ce3McT0f+Q5Wp7TDc0McixSsYOHFkyPWHCvbAEkvcLQQ250x8bPmKODg9jjp0nBL2IZtRh3BdyjtGRVhIQ+PTZDiYjMIWXHBtXBzBVnJpMyGfxKWgbIhmLlAWbt307W3hWGiPBm7q0GV;
+        Expires=Tue, 17 Jan 2023 06:07:19 GMT; Path=/
+      - AWSALBTGCORS=3IZ2Q43bqmddrUkmDHP3IHTaab2WdHm+ce3McT0f+Q5Wp7TDc0McixSsYOHFkyPWHCvbAEkvcLQQ250x8bPmKODg9jjp0nBL2IZtRh3BdyjtGRVhIQ+PTZDiYjMIWXHBtXBzBVnJpMyGfxKWgbIhmLlAWbt307W3hWGiPBm7q0GV;
+        Expires=Tue, 17 Jan 2023 06:07:19 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=+5QN3nsKS35eibsfF/+6o9+5mB6y0n/WMibqa0ov/5lxZvxo2gpML6y5Zd65MSk/SDxSdOsb03fK/gj0E/VllFFz4nGrDOcB+VYeIrl7AkDxTHzIllQ5AO4ttwFT;
+        Expires=Tue, 17 Jan 2023 06:07:19 GMT; Path=/
+      - AWSALBCORS=+5QN3nsKS35eibsfF/+6o9+5mB6y0n/WMibqa0ov/5lxZvxo2gpML6y5Zd65MSk/SDxSdOsb03fK/gj0E/VllFFz4nGrDOcB+VYeIrl7AkDxTHzIllQ5AO4ttwFT;
+        Expires=Tue, 17 Jan 2023 06:07:19 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '[{"name":"AMBIGUOUS_COLLECTION","code":2059,"description":"Ambiguous
+        collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"AMBIGUOUS_INSTITUTION","code":2058,"description":"Ambiguous
+        institution","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","ownerInstitutionCode","institutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2045,"description":"Basis
+        of record badly formed","category":"Warning","fatal":false,"termsRequiredToTest":["basisOfRecord"]},{"name":"biosecurityIssue","code":20021,"description":"Biosecurity
+        issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"COLLECTION_MATCH_FUZZY","code":2063,"description":"Collection
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"COLLECTION_MATCH_NONE","code":2061,"description":"Collection
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"CONTINENT_COUNTRY_MISMATCH","code":2020,"description":"Continent
+        country mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_DERIVED_FROM_COORDINATES","code":2022,"description":"Continent
+        derived from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_INVALID","code":2021,"description":"Continent
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_ACCURACY_INVALID","code":2009,"description":"Coordinate
+        accuracy invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_INVALID","code":2002,"description":"Coordinate
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","decimalLongitude","verbatimCoordinates"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
+        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","decimalLongitude","verbatimCoordinates"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
+        precision invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinatePrecision"]},{"name":"COORDINATE_PRECISION_UNCERTAINTY_MISMATCH","code":2012,"description":"Coordinate
+        precision uncertainty mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_REPROJECTED","code":2006,"description":"Coordinates
+        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","geodeticDatum","decimalLongitude","verbatimCoordinates"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
+        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","geodeticDatum","decimalLongitude","verbatimCoordinates"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
+        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","geodeticDatum","decimalLongitude","verbatimCoordinates"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
+        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","decimalLongitude","verbatimCoordinates"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
+        uncertainty meters invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinateUncertaintyInMeters"]},{"name":"COORDINATES_CENTRE_OF_COUNTRY","code":1006,"description":"Coordinates
+        centre of country","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"COORDINATES_CENTRE_OF_STATEPROVINCE","code":1001,"description":"Supplied
+        coordinates centre of state","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"COUNTRY_COORDINATE_MISMATCH","code":2016,"description":"Coordinates
+        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","countryCode","decimalLatitude","verbatimLatitude","geodeticDatum","country","decimalLongitude","verbatimCoordinates"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2019,"description":"Country
+        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","countryCode","decimalLatitude","verbatimLatitude","geodeticDatum","country","decimalLongitude","verbatimCoordinates"]},{"name":"COUNTRY_INVALID","code":2018,"description":"Country
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"COUNTRY_MISMATCH","code":2017,"description":"Country
+        mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["countryCode","country"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2035,"description":"Min
+        and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2036,"description":"Depth
+        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_NOT_METRIC","code":2033,"description":"Depth
+        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2034,"description":"Depth
+        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumDepthInMeters","minimumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
+        outlier","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"DIFFERENT_OWNER_INSTITUTION","code":2066,"description":"Different
+        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["institutionID","ownerInstitutionCode","institutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2038,"description":"Min
+        and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2040,"description":"Altitude
+        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2039,"description":"Altitude
+        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2037,"description":"Elevation
+        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"FIRST_OF_CENTURY","code":1018,"description":"First
+        of the century","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_MONTH","code":1016,"description":"First
+        of the month","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_YEAR","code":1017,"description":"First
+        of the year","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FOOTPRINT_SRS_INVALID","code":2013,"description":"Footprint
+        SRS invalid","category":"Warning","fatal":false,"termsRequiredToTest":["footprintSRS"]},{"name":"FOOTPRINT_WKT_INVALID","code":2015,"description":"Footprint
+        WKT invalid","category":"Warning","fatal":false,"termsRequiredToTest":["footprintWKT"]},{"name":"FOOTPRINT_WKT_MISMATCH","code":2014,"description":"footprint
+        wkt mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["footprintWKT"]},{"name":"GEODETIC_DATUM_ASSUMED_WGS84","code":2005,"description":"Geodetic
+        datum assumed WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["geodeticDatum"]},{"name":"GEODETIC_DATUM_INVALID","code":2004,"description":"Unrecognized
+        geodetic datum","category":"Warning","fatal":false,"termsRequiredToTest":["geodeticDatum"]},{"name":"GEOREFERENCE_POST_OCCURRENCE","code":1014,"description":"Georeferenced
+        after occurrence date","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"GEOREFERENCED_DATE_INVALID","code":2057,"description":"Georeferenced
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedDate"]},{"name":"GEOREFERENCED_DATE_UNLIKELY","code":2056,"description":"Georeferenced
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedDate"]},{"name":"geospatialIssue","code":0,"description":"Geospatial
+        issue","category":"Warning","fatal":true,"termsRequiredToTest":[]},{"name":"habitatMismatch","code":19,"description":"Habitat
+        incorrect for species","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"ID_PRE_OCCURRENCE","code":1015,"description":"Identification
+        date before occurrence date","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"identificationIncorrect","code":10007,"description":"Taxon
+        misidentified","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"IDENTIFIED_DATE_INVALID","code":2044,"description":"Identified
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"IDENTIFIED_DATE_UNLIKELY","code":2043,"description":"Identified
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS","code":2052,"description":"Individual
+        count conflicts with occurrence status","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INDIVIDUAL_COUNT_INVALID","code":2051,"description":"Individual
+        count invalid","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INSTITUTION_COLLECTION_MISMATCH","code":2064,"description":"Institution
+        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","ownerInstitutionCode","institutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2062,"description":"Institution
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","ownerInstitutionCode","institutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2060,"description":"Institution
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["institutionID","ownerInstitutionCode","institutionCode"]},{"name":"INTERPRETATION_ERROR","code":2050,"description":"Interpretation
+        error","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"INVALID_SCIENTIFIC_NAME","code":1036,"description":"Invalid
+        scientific name","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"LOCATION_NOT_SUPPLIED","code":1000,"description":"Location
+        not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"MISSING_COLLECTION_DATE","code":1013,"description":"Missing
+        collection date","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"MISSING_GEODETICDATUM","code":1007,"description":"Missing
+        geodetic datum","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_GEOREFERENCE_DATE","code":1008,"description":"Missing
+        georeference date","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_GEOREFERENCEDBY","code":1009,"description":"Missing
+        georeferenced by","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_GEOREFERENCEPROTOCOL","code":1010,"description":"Missing
+        georeference protocol","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_GEOREFERENCESOURCES","code":1011,"description":"Missing
+        georeference sources","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_GEOREFERENCEVERIFICATIONSTATUS","code":1012,"description":"Missing
+        georeference verification status","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_TAXONRANK","code":1031,"description":"Missing
+        taxon rank","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"MODIFIED_DATE_INVALID","code":2041,"description":"Modified
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["modified"]},{"name":"MODIFIED_DATE_UNLIKELY","code":2042,"description":"Modified
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["modified"]},{"name":"MULTIMEDIA_DATE_INVALID","code":2047,"description":"Multimedia
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"MULTIMEDIA_URI_INVALID","code":2048,"description":"Multimedia
+        uri invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"NAME_NOT_SUPPLIED","code":1032,"description":"Name
+        not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD","code":2055,"description":"Occurrence
+        status inferred from basis of record","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT","code":2054,"description":"Occurrence
+        status inferred from individual count","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_UNPARSABLE","code":2053,"description":"Occurrence
+        status unparsable","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"POSSIBLY_ON_LOAN","code":2065,"description":"Possibly
+        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["institutionID","ownerInstitutionCode","institutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2025,"description":"Latitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","decimalLongitude","verbatimCoordinates"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2024,"description":"Longitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","decimalLongitude","verbatimCoordinates"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2023,"description":"Presumed
+        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","decimalLongitude","verbatimCoordinates"]},{"name":"RECORDED_DATE_INVALID","code":2027,"description":"Recorded
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","day","year","month"]},{"name":"RECORDED_DATE_MISMATCH","code":2026,"description":"Recorded
+        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","day","year","month"]},{"name":"RECORDED_DATE_UNLIKELY","code":2028,"description":"Recorded
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","day","year","month"]},{"name":"REFERENCES_URI_INVALID","code":2049,"description":"References
+        uri invalid","category":"Warning","fatal":false,"termsRequiredToTest":["references"]},{"name":"SENSITIVITY_REPORT_INVALID","code":1037,"description":"Sensitivity
+        report invalid","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"SENSITIVITY_REPORT_NOT_LOADABLE","code":1038,"description":"Sensitivity
+        report not loadable","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"STATE_COORDINATE_MISMATCH","code":1004,"description":"Coordinates
+        dont match supplied state","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"TAXON_AFFINITY_SPECIES","code":1019,"description":"Taxon
+        affinity species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_CONFER_SPECIES","code":1021,"description":"Taxon
+        confer species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_DEFAULT_MATCH","code":1035,"description":"Taxon
+        default match","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_ERROR","code":1023,"description":"Taxon
+        error","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_EXCLUDED","code":1022,"description":"Taxon
+        excluded","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_EXCLUDED_ASSOCIATED","code":1020,"description":"Taxon
+        excluded associated","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_HOMONYM","code":1024,"description":"Taxon
+        homonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_INDETERMINATE_SPECIES","code":1025,"description":"Taxon
+        indeterminate species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MATCH_AGGREGATE","code":2031,"description":"Taxon
+        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["genericName","phylum","family","scientificNameAuthorship","order","genus","kingdom","infraspecificEpithet","specificEpithet","scientificName","class"]},{"name":"TAXON_MATCH_FUZZY","code":2029,"description":"Taxon
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["genericName","phylum","family","scientificNameAuthorship","order","genus","kingdom","infraspecificEpithet","specificEpithet","scientificName","class"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2030,"description":"Taxon
+        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["genericName","phylum","family","scientificNameAuthorship","order","genus","kingdom","infraspecificEpithet","specificEpithet","scientificName","class"]},{"name":"TAXON_MATCH_NONE","code":2032,"description":"Taxon
+        match none","category":"Warning","fatal":false,"termsRequiredToTest":["genericName","phylum","family","scientificNameAuthorship","order","genus","kingdom","infraspecificEpithet","specificEpithet","scientificName","class"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
+        misapplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MISAPPLIED_MATCHED","code":1026,"description":"Taxon
+        misapplied matched","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_PARENT_CHILD_SYNONYM","code":1028,"description":"Taxon
+        parent child synonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_QUESTION_SPECIES","code":1029,"description":"Taxon
+        question species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_SCOPE_MISMATCH","code":1034,"description":"Resource
+        taxonomic scope mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_SPECIES_PLURAL","code":1030,"description":"Taxon
+        species plural","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"taxonomicIssue","code":10000,"description":"Taxonomic
+        issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"temporalIssue","code":30000,"description":"Temporal
+        issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"TYPE_STATUS_INVALID","code":2046,"description":"Type
+        status invalid","category":"Warning","fatal":false,"termsRequiredToTest":["typeStatus"]},{"name":"UNCERTAINTY_IN_PRECISION","code":1002,"description":"Coordinate
+        precision and uncertainty transposed","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum"]},{"name":"UNCERTAINTY_NOT_SPECIFIED","code":1003,"description":"Uncertainty
+        not specified","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum"]},{"name":"UNKNOWN_COUNTRY_NAME","code":1005,"description":"Supplied
+        country not recognised","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"UNKNOWN_KINGDOM","code":1033,"description":"Kingdom
+        not recognised","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"UNRECOGNISED_COLLECTION_CODE","code":1039,"description":"Unrecognized
+        collection code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"UNRECOGNISED_INSTITUTION_CODE","code":1040,"description":"Unrecognized
+        institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"userAssertionOther","code":20019,"description":"Other
+        error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
+        occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
+        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimLongitude","decimalLatitude","verbatimLatitude","decimalLongitude","verbatimCoordinates"]}]'
+  recorded_at: 2023-01-10 06:07:19 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrences/search?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Ffbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85%29AND%28year%3A%5B2020%20TO%20%2A%5D%29&disableAllQualityFilters=true&pageSize=0
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Tue, 10 Jan 2023 06:07:19 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.23.3
+      set-cookie:
+      - AWSALBTG=1w0VPsIPKHdpfV3Fw8EgbyIVFBDMXCV52OVecCeeK5/pIJGG+wamAObQ/YjYAPijFLLPkFo9GlZDi0w3b7tR7Vj4ZBwvEESwhxHKWdVhOIu7NLab6WkaXWW8Nh7Uonf3W6BjX8TTaJYgi6P5/2YjHDMRU+B6CIMh16fiehlAHAQ7;
+        Expires=Tue, 17 Jan 2023 06:07:19 GMT; Path=/
+      - AWSALBTGCORS=1w0VPsIPKHdpfV3Fw8EgbyIVFBDMXCV52OVecCeeK5/pIJGG+wamAObQ/YjYAPijFLLPkFo9GlZDi0w3b7tR7Vj4ZBwvEESwhxHKWdVhOIu7NLab6WkaXWW8Nh7Uonf3W6BjX8TTaJYgi6P5/2YjHDMRU+B6CIMh16fiehlAHAQ7;
+        Expires=Tue, 17 Jan 2023 06:07:19 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=JOZj/sAFlsot9E3yr/xO8uqtIZerr04BlpKygmY+HvQIBenE30D1ZLo9as+zyPI7q1MytPGkPAw5xCoWb8mJN+xWZPOGugY8zuVN/yChJWrzkGKgfCBI6KoFNWeF;
+        Expires=Tue, 17 Jan 2023 06:07:19 GMT; Path=/
+      - AWSALBCORS=JOZj/sAFlsot9E3yr/xO8uqtIZerr04BlpKygmY+HvQIBenE30D1ZLo9as+zyPI7q1MytPGkPAw5xCoWb8mJN+xWZPOGugY8zuVN/yChJWrzkGKgfCBI6KoFNWeF;
+        Expires=Tue, 17 Jan 2023 06:07:19 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":700,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Ffbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year%3A%5B2020%20TO%20*%5D)","urlParameters":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Ffbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year%3A%5B2020%20TO%20*%5D)","queryTitle":"[all
+        records]","activeFacetMap":{"(lsid":{"name":"(lsid","displayName":"(<span
+        class=''lsid'' id=''https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85''>genus:
+        Dasyurus</span>)AND(year:[2020 TO *])","value":"https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year:[2020
+        TO *])"}},"activeFacetObj":{"lsid":[{"name":"lsid","displayName":"(<span class=''lsid''
+        id=''https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85''>genus:
+        Dasyurus</span>)AND(year:[2020 TO *])","value":"(lsid:https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year:[2020
+        TO *])"}]}}'
+  recorded_at: 2023-01-10 06:07:19 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrences/search?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Ffbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85%29AND%28year%3A%5B2020%20TO%20%2A%5D%29&wkt=MULTIPOLYGON%20%28%28%28146.5425%20-42.63203%2C%20146.8312%20-43.13203%2C%20147.4085%20-43.13203%2C%20147.6972%20-42.63203%2C%20147.4085%20-42.13203%2C%20146.8312%20-42.13203%2C%20146.5425%20-42.63203%29%29%29&disableAllQualityFilters=true&pageSize=0
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Tue, 10 Jan 2023 06:07:19 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.23.3
+      set-cookie:
+      - AWSALBTG=qd3ErnNp7dpuHYB0HSYzVjpZucgDkRrTg2i75w0b4nAlKXFlzoJe9o0wNE02xp+uiD1ixD5C2EM8aYz+BZc9Po3xLgb264TiRDwZD1szfB5ZvcXw2UqF26why/uchectTzVRtQUQO1XddiI58S5Vtt9sCdCqmz68ti5r/hfttD7X;
+        Expires=Tue, 17 Jan 2023 06:07:19 GMT; Path=/
+      - AWSALBTGCORS=qd3ErnNp7dpuHYB0HSYzVjpZucgDkRrTg2i75w0b4nAlKXFlzoJe9o0wNE02xp+uiD1ixD5C2EM8aYz+BZc9Po3xLgb264TiRDwZD1szfB5ZvcXw2UqF26why/uchectTzVRtQUQO1XddiI58S5Vtt9sCdCqmz68ti5r/hfttD7X;
+        Expires=Tue, 17 Jan 2023 06:07:19 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=XX+VUQ8bIqPxmahxCFm0wrDV6aCDHltWkdjyShukHEzN4dfAECZa/TpqpWGelI7kc9e3NCvD4mGKLFBBJIzMqHVe99EDdHGAmZkZ0TufkGyKlE1UEc69ImjGIv7Z;
+        Expires=Tue, 17 Jan 2023 06:07:19 GMT; Path=/
+      - AWSALBCORS=XX+VUQ8bIqPxmahxCFm0wrDV6aCDHltWkdjyShukHEzN4dfAECZa/TpqpWGelI7kc9e3NCvD4mGKLFBBJIzMqHVe99EDdHGAmZkZ0TufkGyKlE1UEc69ImjGIv7Z;
+        Expires=Tue, 17 Jan 2023 06:07:19 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":20,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Ffbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year%3A%5B2020%20TO%20*%5D)&wkt=MULTIPOLYGON%20(((146.5425%20-42.63203%2C%20146.8312%20-43.13203%2C%20147.4085%20-43.13203%2C%20147.6972%20-42.63203%2C%20147.4085%20-42.13203%2C%20146.8312%20-42.13203%2C%20146.5425%20-42.63203)))","urlParameters":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Ffbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year%3A%5B2020%20TO%20*%5D)&wkt=MULTIPOLYGON%20(((146.5425%20-42.63203%2C%20146.8312%20-43.13203%2C%20147.4085%20-43.13203%2C%20147.6972%20-42.63203%2C%20147.4085%20-42.13203%2C%20146.8312%20-42.13203%2C%20146.5425%20-42.63203)))","queryTitle":"[all
+        records] - within user defined polygon","activeFacetMap":{"(lsid":{"name":"(lsid","displayName":"(<span
+        class=''lsid'' id=''https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85''>genus:
+        Dasyurus</span>)AND(year:[2020 TO *]) - within user defined polygon","value":"https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year:[2020
+        TO *])"}},"activeFacetObj":{"lsid":[{"name":"lsid","displayName":"(<span class=''lsid''
+        id=''https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85''>genus:
+        Dasyurus</span>)AND(year:[2020 TO *]) - within user defined polygon","value":"(lsid:https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year:[2020
+        TO *])"}]}}'
+  recorded_at: 2023-01-10 06:07:19 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

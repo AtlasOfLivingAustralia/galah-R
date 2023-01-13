@@ -1,0 +1,47 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://collectory.biodiversityatlas.at/ws/collection?offset=0&max=10
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.18.0 (Ubuntu)
+      date: Tue, 10 Jan 2023 08:41:40 GMT
+      content-type: application/json;charset=UTF-8
+      content-location: https://collectory.biodiversityatlas.at/ws/collection
+      last-modified: Thu, 13 Jan 2022 16:01:13 GMT
+      etag: '"0fa61f6b8c2759262071aa5a86fe1a87"'
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+    body:
+      encoding: ''
+      file: no
+      string: '[{"name":"Biodiversitätsdatenbank Hohe Tauern","uri":"https://collectory.biodiversityatlas.at/ws/collection/co33","uid":"co33"},{"name":"Biodiversitätsdatenbank
+        Salzburg","uri":"https://collectory.biodiversityatlas.at/ws/collection/co35","uid":"co35"},{"name":"Floristische
+        Kartierung Österreichs","uri":"https://collectory.biodiversityatlas.at/ws/collection/co36","uid":"co36"},{"name":"Herbarium
+        der Universität Salzburg","uri":"https://collectory.biodiversityatlas.at/ws/collection/co2","uid":"co2"},{"name":"Herbarium
+        GJO","uri":"https://collectory.biodiversityatlas.at/ws/collection/co23","uid":"co23"},{"name":"Herbarium
+        GZU","uri":"https://collectory.biodiversityatlas.at/ws/collection/co22","uid":"co22"},{"name":"Herbarium
+        W","uri":"https://collectory.biodiversityatlas.at/ws/collection/co16","uid":"co16"},{"name":"Herbarium
+        WU","uri":"https://collectory.biodiversityatlas.at/ws/collection/co21","uid":"co21"},{"name":"Herbarium
+        WU-Mycologicum","uri":"https://collectory.biodiversityatlas.at/ws/collection/co38","uid":"co38"},{"name":"Kärntner
+        Landesherbar KL","uri":"https://collectory.biodiversityatlas.at/ws/collection/co34","uid":"co34"},{"name":"Landesmuseum
+        Kärnten Zoologie","uri":"https://collectory.biodiversityatlas.at/ws/collection/co37","uid":"co37"},{"name":"Naturwissenschaftliche
+        Sammlungen der Tiroler Landesmuseen","uri":"https://collectory.biodiversityatlas.at/ws/collection/co31","uid":"co31"},{"name":"NHM
+        Wien Zoologie Aves","uri":"https://collectory.biodiversityatlas.at/ws/collection/co32","uid":"co32"}]'
+  recorded_at: 2023-01-10 08:41:41 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

@@ -1,0 +1,32 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://bie-webservice.sibbr.gov.br/bie-index/search?q=Mammalia&pageSize=5
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Tue, 10 Jan 2023 08:51:07 GMT
+      content-type: application/json;charset=UTF-8
+      x-application-context: application:production
+      strict-transport-security: max-age=15724800; includeSubDomains
+    body:
+      encoding: ''
+      file: no
+      string: '{"searchResults":{"totalRecords":1,"facetResults":[],"results":[{"id":"41d62767-94db-4a8d-9e0c-7019d3b9e115","guid":"239610","linkIdentifier":"Mammalia","idxtype":"TAXON","name":"Mammalia","kingdom":"Animalia","nomenclaturalCode":"ICZN","scientificName":"Mammalia","scientificNameAuthorship":"Linnaeus,
+        1758","author":"Linnaeus, 1758","nameComplete":"Mammalia Linnaeus, 1758","nameFormatted":"<span
+        class=\"scientific-name rank-class\"><span class=\"name\">Mammalia<\u002fspan>
+        <span class=\"author\">Linnaeus, 1758<\u002fspan><\u002fspan>","taxonomicStatus":"accepted","nomenclaturalStatus":null,"parentGuid":"239567","rank":"class","rankID":3000,"commonName":"","commonNameSingle":"","occurrenceCount":193747,"conservationStatus":null,"favourite":null,"infoSourceName":"Catálogo
+        Taxonômico da Fauna do Brasil e Lista da Flora do Brasil 2020","infoSourceURL":"https://collectory.sibbr.gov.br/collectory                                                                 /public/show/null","image":"6ee8e686-a9b7-4aa7-9ce9-c2a4c26dc8f7","imageUrl":"https://images.sibbr.gov.br/images/image/proxyImageThumbnailLarge?imageId=6ee8e686-a9b7-4aa7-9ce9-c2a4c26dc8f7                           ","thumbnailUrl":"https://images.sibbr.gov.br/images/image/proxyImageThumbnail?imageId=6ee8e686-a9b7-4aa7-9ce9-c2a4c26dc8f7                             ","smallImageUrl":"https://images.sibbr.gov.br/images/image/proxyImageThumbnailLarge?imageId=6ee8e686-a9b7-4aa7-9ce9-c2a4c26dc8f7                           ","largeImageUrl":"https://images.sibbr.gov.br/images/image/proxyImage?imageId=6ee8e686-a9b7-4aa7-9ce9-c2a4c26dc8f7                                          ","kingdomGuid":"395634","phylum":"Chordata","phylumGuid":"239567","class":"Mammalia","classGuid":"239610"}],"queryTitle":"Mammalia"}}'
+  recorded_at: 2023-01-10 08:51:07 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

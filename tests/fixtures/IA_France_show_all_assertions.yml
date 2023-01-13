@@ -1,0 +1,151 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://openobs.mnhn.fr/biocache-service/assertions/codes
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control:
+      - max-age=3600
+      - public
+      content-type: application/json;charset=UTF-8
+      date: Mon, 09 Jan 2023 08:12:18 GMT
+      expires: Mon, 09 Jan 2023 09:12:18 GMT
+      server: nginx/1.18.0
+      status: 'HTTP/2 200 '
+    body:
+      encoding: ''
+      file: no
+      string: '[{"name":"AMBIGUOUS_COLLECTION","code":2058,"description":"Ambiguous
+        collection","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"AMBIGUOUS_INSTITUTION","code":2057,"description":"Ambiguous
+        institution","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"BASIS_OF_RECORD_INVALID","code":2044,"description":"Basis
+        of record badly formed","category":"Warning","fatal":false,"termsRequiredToTest":["basisOfRecord"]},{"name":"biosecurityIssue","code":20021,"description":"Biosecurity
+        issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"COLLECTION_MATCH_FUZZY","code":2062,"description":"Collection
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"COLLECTION_MATCH_NONE","code":2060,"description":"Collection
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["collectionCode","collectionID"]},{"name":"CONTINENT_COUNTRY_MISMATCH","code":2019,"description":"Continent
+        country mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_DERIVED_FROM_COORDINATES","code":2021,"description":"Continent
+        derived from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"CONTINENT_INVALID","code":2020,"description":"Continent
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_ACCURACY_INVALID","code":2009,"description":"Coordinate
+        accuracy invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_INVALID","code":2002,"description":"Coordinate
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","decimalLatitude","verbatimLatitude","verbatimLongitude","decimalLongitude"]},{"name":"COORDINATE_OUT_OF_RANGE","code":2001,"description":"Coordinates
+        are out of range for species","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","decimalLatitude","verbatimLatitude","verbatimLongitude","decimalLongitude"]},{"name":"COORDINATE_PRECISION_INVALID","code":2010,"description":"Coordinate
+        precision invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinatePrecision"]},{"name":"COORDINATE_PRECISION_UNCERTAINTY_MISMATCH","code":2012,"description":"Coordinate
+        precision uncertainty mismatch","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"COORDINATE_REPROJECTED","code":2006,"description":"Coordinates
+        converted to WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimCoordinates","decimalLatitude","verbatimLatitude","verbatimLongitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_FAILED","code":2007,"description":"Decimal
+        latitude/longitude conversion failed","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","decimalLatitude","verbatimLatitude","verbatimLongitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_REPROJECTION_SUSPICIOUS","code":2008,"description":"Coordinate
+        reprojection suspicious","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","decimalLatitude","verbatimLatitude","verbatimLongitude","geodeticDatum","decimalLongitude"]},{"name":"COORDINATE_ROUNDED","code":2003,"description":"Coordinate
+        rounded","category":"Comment","fatal":false,"termsRequiredToTest":["verbatimCoordinates","decimalLatitude","verbatimLatitude","verbatimLongitude","decimalLongitude"]},{"name":"COORDINATE_UNCERTAINTY_METERS_INVALID","code":2011,"description":"Coordinate
+        uncertainty meters invalid","category":"Warning","fatal":false,"termsRequiredToTest":["coordinateUncertaintyInMeters"]},{"name":"COORDINATES_CENTRE_OF_COUNTRY","code":1006,"description":"Coordinates
+        centre of country","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"COORDINATES_CENTRE_OF_STATEPROVINCE","code":1001,"description":"Supplied
+        coordinates centre of state","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"COUNTRY_COORDINATE_MISMATCH","code":2015,"description":"Coordinates
+        dont match supplied country","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","country","decimalLatitude","verbatimLatitude","countryCode","verbatimLongitude","geodeticDatum","decimalLongitude"]},{"name":"COUNTRY_DERIVED_FROM_COORDINATES","code":2018,"description":"Country
+        inferred from coordinates","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","country","decimalLatitude","verbatimLatitude","countryCode","verbatimLongitude","geodeticDatum","decimalLongitude"]},{"name":"COUNTRY_INVALID","code":2017,"description":"Country
+        invalid","category":"Warning","fatal":false,"termsRequiredToTest":["country","countryCode"]},{"name":"COUNTRY_MISMATCH","code":2016,"description":"Country
+        mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["country","countryCode"]},{"name":"DEPTH_MIN_MAX_SWAPPED","code":2034,"description":"Min
+        and max depth reversed","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_NON_NUMERIC","code":2035,"description":"Depth
+        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_NOT_METRIC","code":2032,"description":"Depth
+        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"DEPTH_UNLIKELY","code":2033,"description":"Depth
+        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["minimumDepthInMeters","maximumDepthInMeters"]},{"name":"detectedOutlier","code":20,"description":"Suspected
+        outlier","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"DIFFERENT_OWNER_INSTITUTION","code":2065,"description":"Different
+        owner institution","category":"Comment","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"ELEVATION_MIN_MAX_SWAPPED","code":2037,"description":"Min
+        and max altitude reversed","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NON_NUMERIC","code":2039,"description":"Altitude
+        value non-numeric","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_NOT_METRIC","code":2038,"description":"Altitude
+        value supplied in feet","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"ELEVATION_UNLIKELY","code":2036,"description":"Elevation
+        unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["maximumElevationInMeters","minimumElevationInMeters"]},{"name":"FIRST_OF_CENTURY","code":1018,"description":"First
+        of the century","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_MONTH","code":1016,"description":"First
+        of the month","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FIRST_OF_YEAR","code":1017,"description":"First
+        of the year","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"FOOTPRINT_SRS_INVALID","code":2013,"description":"Footprint
+        SRS invalid","category":"Warning","fatal":false,"termsRequiredToTest":["footprintSRS"]},{"name":"FOOTPRINT_WKT_INVALID","code":2014,"description":"Footprint
+        WKT invalid","category":"Warning","fatal":false,"termsRequiredToTest":["footprintWKT"]},{"name":"GEODETIC_DATUM_ASSUMED_WGS84","code":2005,"description":"Geodetic
+        datum assumed WGS84","category":"Comment","fatal":false,"termsRequiredToTest":["geodeticDatum"]},{"name":"GEODETIC_DATUM_INVALID","code":2004,"description":"Unrecognized
+        geodetic datum","category":"Warning","fatal":false,"termsRequiredToTest":["geodeticDatum"]},{"name":"GEOREFERENCE_POST_OCCURRENCE","code":1014,"description":"Georeferenced
+        after occurrence date","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"GEOREFERENCED_DATE_INVALID","code":2056,"description":"Georeferenced
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedDate"]},{"name":"GEOREFERENCED_DATE_UNLIKELY","code":2055,"description":"Georeferenced
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedDate"]},{"name":"geospatialIssue","code":0,"description":"Geospatial
+        issue","category":"Warning","fatal":true,"termsRequiredToTest":[]},{"name":"habitatMismatch","code":19,"description":"Habitat
+        incorrect for species","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"ID_PRE_OCCURRENCE","code":1015,"description":"Identification
+        date before occurrence date","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"identificationIncorrect","code":10007,"description":"Taxon
+        misidentified","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"IDENTIFIED_DATE_INVALID","code":2043,"description":"Identified
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"IDENTIFIED_DATE_UNLIKELY","code":2042,"description":"Identified
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["dateIdentified"]},{"name":"INDIVIDUAL_COUNT_CONFLICTS_WITH_OCCURRENCE_STATUS","code":2051,"description":"Individual
+        count conflicts with occurrence status","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INDIVIDUAL_COUNT_INVALID","code":2050,"description":"Individual
+        count invalid","category":"Warning","fatal":false,"termsRequiredToTest":["individualCount"]},{"name":"INSTITUTION_COLLECTION_MISMATCH","code":2063,"description":"Institution
+        and Collection mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_FUZZY","code":2061,"description":"Institution
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INSTITUTION_MATCH_NONE","code":2059,"description":"Institution
+        not matched","category":"Warning","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"INTERPRETATION_ERROR","code":2049,"description":"Interpretation
+        error","category":"Error","fatal":true,"termsRequiredToTest":[]},{"name":"INVALID_SCIENTIFIC_NAME","code":1036,"description":"Invalid
+        scientific name","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"LOCATION_NOT_SUPPLIED","code":1000,"description":"Location
+        not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates"]},{"name":"MISSING_COLLECTION_DATE","code":1013,"description":"Missing
+        collection date","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"MISSING_GEODETICDATUM","code":1007,"description":"Missing
+        geodetic datum","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_GEOREFERENCE_DATE","code":1008,"description":"Missing
+        georeference date","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_GEOREFERENCEDBY","code":1009,"description":"Missing
+        georeferenced by","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_GEOREFERENCEPROTOCOL","code":1010,"description":"Missing
+        georeference protocol","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_GEOREFERENCESOURCES","code":1011,"description":"Missing
+        georeference sources","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_GEOREFERENCEVERIFICATIONSTATUS","code":1012,"description":"Missing
+        georeference verification status","category":"Warning","fatal":false,"termsRequiredToTest":["georeferencedBy","georeferencedDate","georeferenceRemarks","georeferenceProtocol","georeferenceSources","georeferenceVerificationStatus","geodeticDatum"]},{"name":"MISSING_TAXONRANK","code":1031,"description":"Missing
+        taxon rank","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"MODIFIED_DATE_INVALID","code":2040,"description":"Modified
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["modified"]},{"name":"MODIFIED_DATE_UNLIKELY","code":2041,"description":"Modified
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["modified"]},{"name":"MULTIMEDIA_DATE_INVALID","code":2046,"description":"Multimedia
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"MULTIMEDIA_URI_INVALID","code":2047,"description":"Multimedia
+        uri invalid","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"NAME_NOT_SUPPLIED","code":1032,"description":"Name
+        not supplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD","code":2054,"description":"Occurrence
+        status inferred from basis of record","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_INFERRED_FROM_INDIVIDUAL_COUNT","code":2053,"description":"Occurrence
+        status inferred from individual count","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"OCCURRENCE_STATUS_UNPARSABLE","code":2052,"description":"Occurrence
+        status unparsable","category":"Warning","fatal":false,"termsRequiredToTest":["occurrenceStatus"]},{"name":"POSSIBLY_ON_LOAN","code":2064,"description":"Possibly
+        on loan","category":"Comment","fatal":false,"termsRequiredToTest":["institutionCode","institutionID","ownerInstitutionCode"]},{"name":"PRESUMED_NEGATED_LATITUDE","code":2024,"description":"Latitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","decimalLatitude","verbatimLatitude","verbatimLongitude","decimalLongitude"]},{"name":"PRESUMED_NEGATED_LONGITUDE","code":2023,"description":"Longitude
+        is negated","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","decimalLatitude","verbatimLatitude","verbatimLongitude","decimalLongitude"]},{"name":"PRESUMED_SWAPPED_COORDINATE","code":2022,"description":"Presumed
+        swapped coordinate","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","decimalLatitude","verbatimLatitude","verbatimLongitude","decimalLongitude"]},{"name":"RECORDED_DATE_INVALID","code":2026,"description":"Recorded
+        date invalid","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"RECORDED_DATE_MISMATCH","code":2025,"description":"Recorded
+        date mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"RECORDED_DATE_UNLIKELY","code":2027,"description":"Recorded
+        date unlikely","category":"Warning","fatal":false,"termsRequiredToTest":["eventDate","year","month","day"]},{"name":"REFERENCES_URI_INVALID","code":2048,"description":"References
+        uri invalid","category":"Warning","fatal":false,"termsRequiredToTest":["references"]},{"name":"SENSITIVITY_REPORT_INVALID","code":1037,"description":"Sensitivity
+        report invalid","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"SENSITIVITY_REPORT_NOT_LOADABLE","code":1038,"description":"Sensitivity
+        report not loadable","category":"Error","fatal":true,"termsRequiredToTest":["scientificName","taxonConceptID","decimalLatitude","decimalLongitude","eventDate"]},{"name":"STATE_COORDINATE_MISMATCH","code":1004,"description":"Coordinates
+        dont match supplied state","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"TAXON_AFFINITY_SPECIES","code":1019,"description":"Taxon
+        affinity species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_CONFER_SPECIES","code":1021,"description":"Taxon
+        confer species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_DEFAULT_MATCH","code":1035,"description":"Taxon
+        default match","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_ERROR","code":1023,"description":"Taxon
+        error","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_EXCLUDED","code":1022,"description":"Taxon
+        excluded","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_EXCLUDED_ASSOCIATED","code":1020,"description":"Taxon
+        excluded associated","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_HOMONYM","code":1024,"description":"Taxon
+        homonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_INDETERMINATE_SPECIES","code":1025,"description":"Taxon
+        indeterminate species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MATCH_AGGREGATE","code":2030,"description":"Taxon
+        match aggregate","category":"Warning","fatal":false,"termsRequiredToTest":["order","kingdom","scientificName","family","genus","scientificNameAuthorship","phylum","infraspecificEpithet","specificEpithet","genericName","class"]},{"name":"TAXON_MATCH_FUZZY","code":2028,"description":"Taxon
+        match fuzzy","category":"Warning","fatal":false,"termsRequiredToTest":["order","kingdom","scientificName","family","genus","scientificNameAuthorship","phylum","infraspecificEpithet","specificEpithet","genericName","class"]},{"name":"TAXON_MATCH_HIGHERRANK","code":2029,"description":"Taxon
+        match higher rank","category":"Warning","fatal":false,"termsRequiredToTest":["order","kingdom","scientificName","family","genus","scientificNameAuthorship","phylum","infraspecificEpithet","specificEpithet","genericName","class"]},{"name":"TAXON_MATCH_NONE","code":2031,"description":"Taxon
+        match none","category":"Warning","fatal":false,"termsRequiredToTest":["order","kingdom","scientificName","family","genus","scientificNameAuthorship","phylum","infraspecificEpithet","specificEpithet","genericName","class"]},{"name":"TAXON_MISAPPLIED","code":1027,"description":"Taxon
+        misapplied","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_MISAPPLIED_MATCHED","code":1026,"description":"Taxon
+        misapplied matched","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_PARENT_CHILD_SYNONYM","code":1028,"description":"Taxon
+        parent child synonym","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_QUESTION_SPECIES","code":1029,"description":"Taxon
+        question species","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_SCOPE_MISMATCH","code":1034,"description":"Resource
+        taxonomic scope mismatch","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"TAXON_SPECIES_PLURAL","code":1030,"description":"Taxon
+        species plural","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"taxonomicIssue","code":10000,"description":"Taxonomic
+        issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"temporalIssue","code":30000,"description":"Temporal
+        issue","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"TYPE_STATUS_INVALID","code":2045,"description":"Type
+        status invalid","category":"Warning","fatal":false,"termsRequiredToTest":["typeStatus"]},{"name":"UNCERTAINTY_IN_PRECISION","code":1002,"description":"Coordinate
+        precision and uncertainty transposed","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum"]},{"name":"UNCERTAINTY_NOT_SPECIFIED","code":1003,"description":"Uncertainty
+        not specified","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum"]},{"name":"UNKNOWN_COUNTRY_NAME","code":1005,"description":"Supplied
+        country not recognised","category":"Warning","fatal":false,"termsRequiredToTest":["decimalLatitude","decimalLongitude","verbatimLatitude","verbatimLongitude","verbatimCoordinates","geodeticDatum","country","countryCode"]},{"name":"UNKNOWN_KINGDOM","code":1033,"description":"Kingdom
+        not recognised","category":"Warning","fatal":false,"termsRequiredToTest":["kingdom","phylum","class","order","family","genus","scientificName","scientificNameAuthorship","genericName","specificEpithet","infraspecificEpithet","taxonRank","vernacularName"]},{"name":"UNRECOGNISED_COLLECTION_CODE","code":1039,"description":"Unrecognized
+        collection code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"UNRECOGNISED_INSTITUTION_CODE","code":1040,"description":"Unrecognized
+        institution code","category":"Error","fatal":true,"termsRequiredToTest":["collectionCode","collectionID","institutionCode","institutionID"]},{"name":"userAssertionOther","code":20019,"description":"Other
+        error","category":"Error","fatal":false,"termsRequiredToTest":[]},{"name":"userDuplicateRecord","code":20020,"description":"The
+        occurrence appears to be a duplicate","category":"Warning","fatal":false,"termsRequiredToTest":[]},{"name":"ZERO_COORDINATE","code":2000,"description":"Supplied
+        coordinates are zero","category":"Warning","fatal":false,"termsRequiredToTest":["verbatimCoordinates","decimalLatitude","verbatimLatitude","verbatimLongitude","decimalLongitude"]}]'
+  recorded_at: 2023-01-09 08:12:18 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

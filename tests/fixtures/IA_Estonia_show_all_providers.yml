@@ -1,0 +1,47 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://elurikkus.ee/collectory/ws/dataProvider?offset=0&max=10
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-methods:
+      - GET, PUT, POST, OPTIONS, HEAD
+      - GET, PUT, POST, OPTIONS, HEAD
+      access-control-allow-origin:
+      - '*'
+      - '*'
+      content-encoding: gzip
+      content-location: https://elurikkus.ee/collectory/ws/dataProvider
+      content-security-policy: report-uri csp.hpc.ut.ee; form-action 'self';
+      content-type: application/json;charset=UTF-8
+      date: Tue, 10 Jan 2023 08:59:00 GMT
+      etag: W/"9ff9a3fd55474c847dba581698357889"
+      last-modified: Wed, 25 Oct 2017 14:12:35 GMT
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie: JSESSIONID=35E1204F7E4A119692444953BF82E27F; Path=/collectory/;
+        HttpOnly; Secure; HttpOnly;
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000; preload
+      vary:
+      - Accept-Encoding
+      - Accept-Encoding
+      x-content-type-options: nosniff
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '[{"name":"Estonian Environment Agency","uri":"https://elurikkus.ee/collectory/ws/dataProvider/dp1","uid":"dp1"},{"name":"PlutoF
+        Platform","uri":"https://elurikkus.ee/collectory/ws/dataProvider/dp0","uid":"dp0"}]'
+  recorded_at: 2023-01-10 08:59:00 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

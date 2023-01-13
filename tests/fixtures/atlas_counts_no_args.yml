@@ -1,0 +1,54 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://biocache-ws.ala.org.au/ws/occurrences/search?fq=&disableAllQualityFilters=true&pageSize=0
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Tue, 10 Jan 2023 06:06:51 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      server: nginx/1.23.3
+      set-cookie:
+      - AWSALBTG=cJdJl/xY7kA0RzSmXeBejFUpVgIFMgYu+QvVCnH1OF8EafcE+1yUNEQeFgKYLgxvmC9ldVhk44LhWZNnz/btJqUhT8dAGDN9lqSlbh0bU+oPEp0ZCXPDEeKSfNPvMHrPLjVeBzyps208GgerG8sRApbTxzSEUgmvUeoLXfDXtX4Y;
+        Expires=Tue, 17 Jan 2023 06:06:51 GMT; Path=/
+      - AWSALBTGCORS=cJdJl/xY7kA0RzSmXeBejFUpVgIFMgYu+QvVCnH1OF8EafcE+1yUNEQeFgKYLgxvmC9ldVhk44LhWZNnz/btJqUhT8dAGDN9lqSlbh0bU+oPEp0ZCXPDEeKSfNPvMHrPLjVeBzyps208GgerG8sRApbTxzSEUgmvUeoLXfDXtX4Y;
+        Expires=Tue, 17 Jan 2023 06:06:51 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=eBvBG6zmUyZTC1iuXP4ZtoHk26i8OX4fh5YX3gH8QlPdLdUPwE2IoeecU+8CLOAykHd8/7CIF3YybCMOMOJIe3Dk5ERs8DNv3afCiG308gWpHeFoOML0r8AkviNA;
+        Expires=Tue, 17 Jan 2023 06:06:51 GMT; Path=/
+      - AWSALBCORS=eBvBG6zmUyZTC1iuXP4ZtoHk26i8OX4fh5YX3gH8QlPdLdUPwE2IoeecU+8CLOAykHd8/7CIF3YybCMOMOJIe3Dk5ERs8DNv3afCiG308gWpHeFoOML0r8AkviNA;
+        Expires=Tue, 17 Jan 2023 06:06:51 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      www-authenticate: Bearer realm="authentication required"
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":112998157,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true","urlParameters":"?q=*%3A*&disableAllQualityFilters=true","queryTitle":"[all
+        records]","activeFacetMap":{},"activeFacetObj":{}}'
+  recorded_at: 2023-01-10 06:06:51 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

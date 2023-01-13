@@ -1,0 +1,33 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://openobs.mnhn.fr/collectory/ws/dataProvider?offset=0&max=10
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      cache-control:
+      - max-age=3600
+      - public
+      content-location: https://openobs.mnhn.fr/collectory/ws/dataProvider
+      content-type: application/json;charset=UTF-8
+      date: Tue, 10 Jan 2023 09:02:16 GMT
+      etag: '"d751713988987e9331980363e24189ce"'
+      expires: Tue, 10 Jan 2023 10:02:16 GMT
+      server: nginx/1.18.0
+      status: 'HTTP/2 200 '
+    body:
+      encoding: ''
+      file: no
+      string: '[]'
+  recorded_at: 2023-01-10 09:02:16 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

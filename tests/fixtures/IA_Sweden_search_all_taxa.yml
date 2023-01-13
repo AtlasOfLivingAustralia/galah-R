@@ -1,0 +1,35 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://species.biodiversitydata.se/ws/search?q=Mammalia&pageSize=5
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.21.6
+      date: Tue, 10 Jan 2023 11:12:32 GMT
+      content-type: application/json;charset=UTF-8
+      x-application-context: application:production
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: SAMEORIGIN
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+    body:
+      encoding: ''
+      file: no
+      string: '{"searchResults":{"totalRecords":1,"facetResults":[],"results":[{"id":"f2de9d97-118b-4182-a7ea-1b5168b2a249","guid":"359","linkIdentifier":null,"idxtype":"TAXON","name":"Mammalia","kingdom":null,"nomenclaturalCode":null,"scientificName":"Mammalia","scientificNameAuthorship":null,"author":null,"nameComplete":"Mammalia","nameFormatted":"<span
+        class=\"scientific-name rank-class\"><span class=\"name\">Mammalia<\u002fspan><\u002fspan>","taxonomicStatus":"accepted","nomenclaturalStatus":null,"parentGuid":"44","rank":"class","rankID":3000,"commonName":"","commonNameSingle":"","occurrenceCount":177042,"conservationStatus":null,"favourite":null,"infoSourceName":"GBIF
+        Backbone Taxonomy","infoSourceURL":"https://collections.biodiversitydata.se/public/show/7ddf754f-d193-4cc9-b351-99906754a03b","class":"Mammalia","classGuid":"359"}],"queryTitle":"Mammalia"}}'
+  recorded_at: 2023-01-10 11:12:32 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

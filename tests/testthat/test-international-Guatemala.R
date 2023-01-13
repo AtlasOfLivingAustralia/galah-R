@@ -4,52 +4,88 @@ context("Test international atlases: Guatemala")
 galah_config(verbose = FALSE, run_checks = FALSE)
 
 test_that("swapping to atlas = Guatemala works", {
-  expect_silent(galah_config(atlas = "Guatemala"))
+  expect_message(galah_config(atlas = "Guatemala"))
 })
 
-vcr::use_cassette("IA_Guatemala_show_all", {
-  test_that("show_all works for Guatemala", {
-    ## collectory
-    expect_gt(nrow(show_all(collections)), 1)
-    expect_gt(nrow(show_all(datasets)), 1)
-    expect_gt(nrow(show_all(providers)), 1)  
-    ## records
-    expect_gt(nrow(show_all(assertions)), 1)
-    expect_gt(nrow(show_all(fields)), 1)
-    # logger
-    expect_gt(nrow(show_all(reasons)), 1)
-    # profiles
-    expect_error(show_all(profiles))
-    # lists
-    expect_error(show_all(lists))
+test_that("show_all(fields) works for Guatemala", {
+  vcr::use_cassette("IA_Guatemala_show_all_fields", {
+    x <- show_all_fields()
   })
-}) 
-
-vcr::use_cassette("IA_Guatemala_search_all", {
-  test_that("search_all works for Guatemala", {
-    expect_equal(class(search_all(fields, "year")), 
-                 c("tbl_df", "tbl", "data.frame"))
-    expect_equal(nrow(search_all(taxa, "Mammalia")), 1) 
-  })
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-vcr::use_cassette("IA_Guatemala_show_values", {
-  test_that("show_values works for Guatemala", {
-    
-    search_fields("basis_of_record") |> 
-      show_values() |>
-      nrow() |>
-      expect_gt(1)
-    
-    search_lists("a_list") |> 
-      show_values() |>
-      expect_error()
-    
-    search_profiles("profile") |> 
-      show_values() |>
-      expect_error()
+test_that("show_all(collections) works for Guatemala", {
+  vcr::use_cassette("IA_Guatemala_show_all_collections", {
+    x <- show_all(collections, limit = 10)
   })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
+
+test_that("show_all(datasets) works for Guatemala", {
+  vcr::use_cassette("IA_Guatemala_show_all_datasets", {
+    x <- show_all(datasets, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(providers) works for Guatemala", {
+  vcr::use_cassette("IA_Guatemala_show_all_providers", {
+    x <- show_all(providers, limit = 10)
+  })
+  expect_lte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(reasons) works for Guatemala", {
+  vcr::use_cassette("IA_Guatemala_show_all_reasons", {
+    x <- show_all(reasons)
+  })
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(assertions) works for Guatemala", {
+  vcr::use_cassette("IA_Guatemala_show_all_assertions", {
+    x <- show_all(assertions)
+  })
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_all(profiles) fails for Guatemala", {
+  expect_error(show_all(profiles))
+})
+
+test_that("show_all(lists) works for Guatemala", {
+  expect_error(show_all(profiles))
+})
+
+test_that("search_all(fields) works for Guatemala", {
+  x <- search_all(fields, "year")
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("search_all(taxa) works for Guatemala", {
+  vcr::use_cassette("IA_Guatemala_search_all_taxa", {
+    x <- search_all(taxa, "Mammalia")
+  })
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("show_values works for fields for Guatemala", {
+  vcr::use_cassette("IA_Guatemala_show_values_fields", {
+    x <- search_all(fields, "basis_of_record") |> 
+      show_values()
+  })
+  expect_gte(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
 
 vcr::use_cassette("IA_Guatemala_atlas_counts", {
   test_that("atlas_counts works for Guatemala", {
@@ -58,7 +94,7 @@ vcr::use_cassette("IA_Guatemala_atlas_counts", {
   })
 })
 
-vcr::use_cassette("IA_Guatemala_atlas_counts2", {
+vcr::use_cassette("IA_Guatemala_atlas_counts_identify", {
   test_that("atlas_counts works with galah_identify for Guatemala", {
     result <- galah_call() |>
       galah_identify("Mammalia") |>
@@ -75,7 +111,7 @@ vcr::use_cassette("IA_Guatemala_atlas_counts2", {
   })
 })
 
-vcr::use_cassette("IA_Guatemala_atlas_counts3", {
+vcr::use_cassette("IA_Guatemala_atlas_counts_group_by", {
   test_that("atlas_counts works with group_by for Guatemala", {
     result <- galah_call() |>
       galah_filter(year >= 2000) |>

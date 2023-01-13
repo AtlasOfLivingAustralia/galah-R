@@ -17,7 +17,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.16.1
-      date: Tue, 29 Nov 2022 23:42:58 GMT
+      date: Wed, 11 Jan 2023 06:09:35 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -30,12 +30,12 @@ http_interactions:
       content-security-policy: upgrade-insecure-requests
       content-encoding: gzip
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '{"pageSize":0,"startIndex":0,"totalRecords":16043865,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*","urlParameters":"?q=*%3A*","queryTitle":"[all
         records]","activeFacetMap":{}}'
-  recorded_at: 2022-11-29 23:45:25 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-11 06:09:28 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
     uri: https://registos-ws.gbif.pt/occurrence/facets?fq=&flimit=1&facets=species_guid
@@ -54,7 +54,7 @@ http_interactions:
     headers:
       status: 'HTTP/2 200 '
       server: nginx/1.16.1
-      date: Tue, 29 Nov 2022 23:42:59 GMT
+      date: Wed, 11 Jan 2023 06:09:36 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-origin: '*'
       access-control-allow-methods: POST, GET, OPTIONS, DELETE
@@ -67,8 +67,8 @@ http_interactions:
       content-security-policy: upgrade-insecure-requests
       content-encoding: gzip
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"fieldName":"species_guid","fieldResult":[{"label":"5285565","i18nCode":"species_guid.5285565","count":266995,"fq":"species_guid:\"5285565\""}],"count":54795}]'
-  recorded_at: 2022-11-29 23:45:25 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-11 06:09:28 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

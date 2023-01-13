@@ -66,6 +66,11 @@ atlas_media <- function(request = NULL,
                         download_dir = NULL,
                         refresh_cache = FALSE
                         ) {
+  
+  if(getOption("galah_config")$atlas$region != "Australia"){
+    abort("`atlas_media` is currently only supported for the Atlas of Living Australia")
+  }
+  
   if(!is.null(request)){
     check_data_request(request)
     current_call <- update_galah_call(request, 
@@ -94,7 +99,7 @@ atlas_media <- function(request = NULL,
   class(custom_call) <- "data_request"
      
   # check for caching
-  caching <- getOption("galah_config")$caching
+  caching <- getOption("galah_config")$package$caching
   cache_file <- cache_filename("media", unlist(custom_call))
   if (caching && file.exists(cache_file) && !refresh_cache) {
     return(read_cache_file(cache_file))
@@ -102,17 +107,21 @@ atlas_media <- function(request = NULL,
   
   # run function using do.call
   result <- do.call(atlas_media_internal, custom_call)
-  attr(result, "data_type") <- "media"
-  attr(result, "data_request") <- custom_call
-  
-  # if caching requested, save
-  if (caching) {
-    write_cache_file(object = result, 
-                     data_type = "media",
-                     cache_file = cache_file)
+  if(is.null(result)){
+    tibble()
+  }else{
+    attr(result, "data_type") <- "media"
+    attr(result, "data_request") <- custom_call
+    
+    # if caching requested, save
+    if (caching) {
+      write_cache_file(object = result, 
+                       data_type = "media",
+                       cache_file = cache_file)
+    }
+    
+    result  
   }
-   
-  result                                                      
 }
 
 
@@ -125,7 +134,7 @@ atlas_media_internal <- function(request,
                                  refresh_cache
                                  ) {
   # set basic information
-  verbose <- getOption("galah_config")$verbose
+  verbose <- getOption("galah_config")$package$verbose
   if(!is.null(download_dir)){
     inform("Argument `download_dir` is deprecated; use `collect_media()` instead")
   }
@@ -133,14 +142,6 @@ atlas_media_internal <- function(request,
     inform("Argument `refresh_cache` is deprecated; use `collect_media()` instead")
   }
   if(is_tibble(identify)){if(nrow(identify) < 1){identify <- NULL}}
-  
-  if (getOption("galah_config")$atlas != "Australia") {
-    international_atlas <- getOption("galah_config")$atlas
-    bullets <- c(
-      "`atlas_media` is only available for Australia and Austria."
-    )
-    abort(bullets, call = caller_env())
-  }
   
   if (is.null(identify) & is.null(filter) & is.null(geolocate)) {
     abort("No filters have been provided")
@@ -168,7 +169,7 @@ atlas_media_internal <- function(request,
 
   if (verbose) { inform("Downloading records that contain media...") }
   
-  occ <- atlas_occurrences_internal(
+  occ <- occurrences_LA(
     identify = identify, 
     filter = occ_filter, 
     geolocate = geolocate, 

@@ -1,0 +1,97 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://collectory.biodiversityatlas.at/ws/dataResource?offset=0&max=10
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      server: nginx/1.18.0 (Ubuntu)
+      date: Tue, 10 Jan 2023 08:41:41 GMT
+      content-type: application/json;charset=UTF-8
+      content-location: https://collectory.biodiversityatlas.at/ws/dataResource
+      last-modified: Tue, 03 Jan 2023 21:40:10 GMT
+      etag: '"a7944ad058fcbf7e3869d579328db5a1"'
+      strict-transport-security: max-age=31536000
+      referrer-policy: strict-origin-when-cross-origin
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-security-policy: upgrade-insecure-requests
+    body:
+      encoding: ''
+      file: no
+      string: '[{"name":"Auenwildnis Wachau","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr12","uid":"dr12"},{"name":"Basisdatenerhebung
+        FFH-Käfer Niederösterreich","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr9","uid":"dr9"},{"name":"Basisdatenerhebung
+        FFH-relevanter Fische in Niederösterreich","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr119","uid":"dr119"},{"name":"Basisdatenerhebung
+        FFH-relevanter Libellen in NÖ (2004 bis 2012)","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr51","uid":"dr51"},{"name":"Basisdatenerhebung
+        FFH-relevanter Libellen in NÖ (bis 2003)","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr10","uid":"dr10"},{"name":"Deutsche
+        Namen aus den Roten Listen Niederösterreichs","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr148","uid":"dr148"},{"name":"Deutsche
+        Namen der Roten Listen gefährdeter Tiere Österreichs","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr171","uid":"dr171"},{"name":"Deutsche
+        Pilznamen","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr172","uid":"dr172"},{"name":"Deutsche
+        Trivialnamen aus der Biodiversitätsdatenbank Salzburg","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr174","uid":"dr174"},{"name":"Endemiten
+        in Österreich","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr109","uid":"dr109"},{"name":"FFH
+        - Anhang II","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr114","uid":"dr114"},{"name":"FFH
+        - Anhang IV","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr115","uid":"dr115"},{"name":"FFH
+        - Anhang V","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr116","uid":"dr116"},{"name":"FFH-relevante
+        Amphibien (bis 2013)","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr0","uid":"dr0"},{"name":"FFH-relevante
+        Reptilien (bis 2013)","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr1","uid":"dr1"},{"name":"Fischartenkartierungen
+        seit 1999 (laufend)","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr49","uid":"dr49"},{"name":"GBIF-Austria
+        - Daten AIT","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr128","uid":"dr128"},{"name":"GBIF-Austria
+        - Daten Biodiversitätsdatenbank Salzburg","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr131","uid":"dr131"},{"name":"GBIF-Austria
+        - Daten Biologiezentrum Linz","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr127","uid":"dr127"},{"name":"GBIF-Austria
+        - Daten Herbarium GJO","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr138","uid":"dr138"},{"name":"GBIF-Austria
+        - Daten Herbarium GZU","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr133","uid":"dr133"},{"name":"GBIF-Austria
+        - Daten inatura","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr132","uid":"dr132"},{"name":"GBIF-Austria
+        - Daten Nationalpark Hohe Tauern","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr135","uid":"dr135"},{"name":"GBIF-Austria
+        - Daten Naturhistorisches Museum Wien","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr130","uid":"dr130"},{"name":"GBIF-Austria
+        - Daten Österreichische Mykologische Gesellschaft","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr136","uid":"dr136"},{"name":"GBIF-Austria
+        - Daten Tiroler Landesmuseum Ferdinandeum","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr137","uid":"dr137"},{"name":"GBIF-Austria
+        - Daten Universität Salzburg SZU","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr134","uid":"dr134"},{"name":"GBIF-Austria
+        - Daten Universität Wien","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr129","uid":"dr129"},{"name":"iNaturalist
+        Research-grade Observations (Austria)","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr126","uid":"dr126"},{"name":"Invasive
+        Alien Species of Union Concern","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr125","uid":"dr125"},{"name":"observation.org
+        (Austria)","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr147","uid":"dr147"},{"name":"Pflückgefährdete
+        Arten Niederösterreichs","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr113","uid":"dr113"},{"name":"Projekt
+        Roadkill","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr143","uid":"dr143"},{"name":"Rote
+        Liste der gefährdeten Brutvögel Österreichs (2016)","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr173","uid":"dr173"},{"name":"Rote
+        Liste gefährdeter Farn- und Blütenpflanzen Österreichs","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr108","uid":"dr108"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Amphibien & Reptilien","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr72","uid":"dr72"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Fische","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr100","uid":"dr100"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Flusskrebse","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr75","uid":"dr75"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Heuschrecken","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr80","uid":"dr80"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Köcherfliegen","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr98","uid":"dr98"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Libellen","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr77","uid":"dr77"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Nachtfalter","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr101","uid":"dr101"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Netzflügler","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr102","uid":"dr102"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Säugetiere","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr81","uid":"dr81"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Schnabelfliegen","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr82","uid":"dr82"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Skorpione","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr83","uid":"dr83"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Tagfalter","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr112","uid":"dr112"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Urzeitkrebse","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr85","uid":"dr85"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Vögel","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr105","uid":"dr105"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Wasserkäfer","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr87","uid":"dr87"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Weberknechte","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr88","uid":"dr88"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Weichtiere","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr104","uid":"dr104"},{"name":"Rote
+        Liste gefährdeter Tiere Österreichs: Zikaden","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr90","uid":"dr90"},{"name":"Rote
+        Liste Vorarlberg Schmetterlinge 2022","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr144","uid":"dr144"},{"name":"Rote
+        Listen Niederösterreich - Urzeitkrebse","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr64","uid":"dr64"},{"name":"Rote
+        Listen Niederösterreichs - Fische und Neunaugen","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr52","uid":"dr52"},{"name":"Rote
+        Listen Niederösterreichs - Heuschrecken","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr50","uid":"dr50"},{"name":"Rote
+        Listen Niederösterreichs - Libellen","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr54","uid":"dr54"},{"name":"Rote
+        Listen Niederösterreichs - Lurche und Kriechtiere","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr58","uid":"dr58"},{"name":"Rote
+        Listen Niederösterreichs - Tagfalter","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr55","uid":"dr55"},{"name":"Rote
+        Listen Niederösterreichs - Vögel","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr63","uid":"dr63"},{"name":"Rote
+        Listen Niederösterreichs - Wanzen","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr67","uid":"dr67"},{"name":"Wirbellose
+        - Muscheln (Bivalvia)","uri":"https://collectory.biodiversityatlas.at/ws/dataResource/dr117","uid":"dr117"}]'
+  recorded_at: 2023-01-10 08:41:41 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

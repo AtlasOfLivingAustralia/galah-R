@@ -11,7 +11,7 @@ vcr::use_cassette("atlas_counts_startup", {
 })
 
 test_that("atlas_counts works with no arguments", {
-  vcr::use_cassette("atlas_count", {
+  vcr::use_cassette("atlas_counts_no_args", {
     count <- atlas_counts()
   })
   # atlas_counts with no arguments gives the total number of records in the ALA
@@ -19,7 +19,7 @@ test_that("atlas_counts works with no arguments", {
 })
 
 test_that("atlas_counts returns expected output", {
-  vcr::use_cassette("taxa_count", {
+  vcr::use_cassette("atlas_counts_identify", {
     counts <- atlas_counts(identify = galah_identify("Mammalia"))
   })
   expect_type(counts$count, "integer")
@@ -27,18 +27,17 @@ test_that("atlas_counts returns expected output", {
 
 
 test_that("grouped atlas_counts returns expected output", {
-  vcr::use_cassette("record_count_group_by", {
+  vcr::use_cassette("atlas_counts_group_by", {
     counts <- atlas_counts(
       identify = galah_identify("Mammalia"),
-      group_by = galah_group_by(basisOfRecord)
-    )
+      group_by = galah_group_by(basisOfRecord))
   })
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_equal(names(counts), c("basisOfRecord", "count"))
 })
 
 test_that("grouped atlas_counts returns expected output when limit != NULL", {
-  vcr::use_cassette("record_count_group_by_with_limit", {
+  vcr::use_cassette("atlas_counts_group_by_with_limit", {
     counts <- atlas_counts(
       identify = galah_identify("Mammalia"),
       group_by = galah_group_by(basisOfRecord),
@@ -52,7 +51,7 @@ test_that("grouped atlas_counts returns expected output when limit != NULL", {
 
 
 test_that("atlas_counts returns all counts if no limit is provided", {
-  vcr::use_cassette("record_count_no_limit", {
+  vcr::use_cassette("atlas_counts_no_limit", {
     counts <- atlas_counts(group_by = galah_group_by(month), 
                            limit = NULL)
   })
@@ -60,9 +59,16 @@ test_that("atlas_counts returns all counts if no limit is provided", {
   expect_equal(nrow(counts), 12)
 })
 
+test_that("atlas_counts returns species counts", {
+  vcr::use_cassette("atlas_counts_type_species", {
+    counts <- atlas_counts(type = "species")
+  })
+  expect_type(counts$count, "integer")
+  expect_gt(counts, 0)
+})
 
 test_that("grouped atlas_counts for species returns expected output", {
-  vcr::use_cassette("species_count_group_by", {
+  vcr::use_cassette("atlas_counts_type_species_group_by", {
     counts <- atlas_counts(
       identify = galah_identify("Mammalia"),
       filter = galah_filter(year == 2020),
@@ -74,18 +80,8 @@ test_that("grouped atlas_counts for species returns expected output", {
   expect_equal(names(counts), c("month", "count"))
 })
 
-
-test_that("atlas_counts returns species counts", {
-  vcr::use_cassette("species_count", {
-    counts <- atlas_counts(type = "species")
-  })
-  expect_type(counts$count, "integer")
-  expect_gt(counts, 0)
-})
-
-
 test_that("atlas_counts handles pagination", {
-  vcr::use_cassette("paginated_counts", {
+  vcr::use_cassette("atlas_counts_pagination", {
     counts <- atlas_counts(group_by = galah_group_by(year), 
                            limit = 101)
   })
@@ -124,7 +120,7 @@ test_that("atlas_counts handles pagination", {
 # })
 
 test_that("atlas_counts handles multiple 'group by' variables", {
-  vcr::use_cassette("multiple_group_by_counts", {
+  vcr::use_cassette("atlas_counts_multiple_group_by", {
     counts <- atlas_counts(
       filter = galah_filter(year >= 2018),
       group_by = galah_group_by(year, basisOfRecord))
@@ -134,7 +130,7 @@ test_that("atlas_counts handles multiple 'group by' variables", {
 })
 
 test_that("atlas_counts handles 'species' as a 'group by' variable", {
-  vcr::use_cassette("species_group_by_counts", {
+  vcr::use_cassette("atlas_counts_type_species_group_by_2", {
     counts <- galah_call() |>
        galah_identify("perameles") |>
        galah_filter(year > 2010) |> 
@@ -146,7 +142,7 @@ test_that("atlas_counts handles 'species' as a 'group by' variable", {
 })
 
 test_that("atlas_counts handles 'taxonConceptID' as a 'group by' variable", {
-  vcr::use_cassette("taxonConceptID_group_by_counts", {
+  vcr::use_cassette("atlas_counts_group_by_taxonConceptID", {
     counts <- galah_call() |>
        galah_identify("perameles") |>
        galah_filter(year > 2010) |> 
@@ -159,7 +155,7 @@ test_that("atlas_counts handles 'taxonConceptID' as a 'group by' variable", {
 
 
 test_that("atlas_counts handles piping", {
-  vcr::use_cassette("piped_counts_1", {
+  vcr::use_cassette("atlas_counts_piped_1", {
     counts <- galah_call() |>
       galah_filter(year >= 2018) |>
       galah_group_by(year, basisOfRecord) |>
@@ -170,7 +166,7 @@ test_that("atlas_counts handles piping", {
 })
 
 test_that("atlas_counts ignores superflueous piped arguments", {
-  vcr::use_cassette("piped_counts_2", {
+  vcr::use_cassette("atlas_counts_piped_2", {
     counts <- galah_call() |>
       galah_filter(year >= 2018) |>
       galah_group_by(year) |>
@@ -184,7 +180,7 @@ test_that("atlas_counts ignores superflueous piped arguments", {
 })
 
 test_that("atlas_counts works for three groups", {
-  vcr::use_cassette("piped_counts_3_groups", {
+  vcr::use_cassette("atlas_counts_piped_3_groups", {
     counts <- galah_call() |>
       galah_identify("cacatuidae") |>
       galah_filter(year >= 2020) |>
@@ -198,7 +194,7 @@ test_that("atlas_counts works for three groups", {
 })
 
 test_that("atlas_counts filters correctly with galah_geolocate/galah_polygon", {
-  vcr::use_cassette("piped_counts_polygon", {
+  vcr::use_cassette("atlas_counts_piped_polygon", {
     wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
        sf::st_as_sfc()
     base_query <- galah_call() |>
@@ -215,7 +211,7 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_polygon", {
 })
 
 test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
-  vcr::use_cassette("piped_counts_bbox", {
+  vcr::use_cassette("atlas_counts_piped_bbox", {
     wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
       sf::st_as_sfc()
     base_query <- galah_call() |>

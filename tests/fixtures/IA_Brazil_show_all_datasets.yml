@@ -1,0 +1,620 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://collectory.sibbr.gov.br/collectory/ws/dataResource?offset=0&max=10
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Tue, 10 Jan 2023 08:51:04 GMT
+      content-type: application/json;charset=UTF-8
+      content-location: https://collectory.sibbr.gov.br/collectory/ws/dataResource
+      last-modified: Fri, 06 Jan 2023 20:16:27 GMT
+      etag: '"084bef41a1678b59b88eeec7644cdca4"'
+      strict-transport-security: max-age=15724800; includeSubDomains
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
+    body:
+      encoding: ''
+      file: no
+      string: '[{"name":"Acari Collection - Instituto Nacional de Pesquisas da Amazônia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr812","uid":"dr812"},{"name":"Amblypygi
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr808","uid":"dr808"},{"name":"Amostragem
+        de florestas secundárias no Cerrado Jalapão","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr652","uid":"dr652"},{"name":"Amostras
+        Brasileiras Repatriadas - S herbarium - Naturhistoriska Riksmuseet - Reflora","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr460","uid":"dr460"},{"name":"Amostras
+        brasileiras repatriadas do Jardim Botânico de Missouri","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr235","uid":"dr235"},{"name":"Amostras
+        brasileiras repatriadas do Jardim Botânico de Nova York.","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr232","uid":"dr232"},{"name":"Amostras
+        brasileiras repatriadas do Kew Garden de Londres","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr233","uid":"dr233"},{"name":"Amostras
+        brasileiras repatriadas do Museu de História Natural da Suécia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr231","uid":"dr231"},{"name":"Amostras
+        brasileiras repatriadas do Museu de História Natural de Paris","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr234","uid":"dr234"},{"name":"Amostras
+        brasileiras repatriadas do Museu de História Natural de Viena","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr230","uid":"dr230"},{"name":"Amostras
+        de plantas coletadas no Brasil do Naturalis Biodiversity Center, Leiden, Holanda","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr384","uid":"dr384"},{"name":"Amostras
+        de plantas repatriadas do Meise Botanic Garden da Bélgica","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr392","uid":"dr392"},{"name":"Amostras
+        repatriadas da Coleção de Fanerógamas do Museu de História Natural da Suécia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr394","uid":"dr394"},{"name":"Amostras
+        repatriadas de Insetos coletados no Brasil da Universidade de Ohio","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr386","uid":"dr386"},{"name":"Amostras
+        repatriadas de plantas brasileiras do Instituto de Botánica Darwinion","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr410","uid":"dr410"},{"name":"Amostras
+        repatriadas de plantas vasculares do Brasil do Filed Museum de Chicago","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr388","uid":"dr388"},{"name":"Arachnida
+        e Myriapoda Museu Nacional (MNRJ ARAC)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr767","uid":"dr767"},{"name":"Arachnida,_ordens_menores_do_Museu_Nacional_(MNRJ_ARAC_MINOR)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr784","uid":"dr784"},{"name":"ASE
+        - Herbário da Universidade Federal de Sergipe","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr243","uid":"dr243"},{"name":"Backbone
+        taxonômico do GBIF","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr657","uid":"dr657"},{"name":"Base
+        de dados bruto de amostragem de Bentos para licenciamento ambiental do IBAMA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr471","uid":"dr471"},{"name":"Base
+        de dados brutos de amostragem de Cetaceos do IBAMA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr472","uid":"dr472"},{"name":"Base
+        de dados brutos de Ictiofauna de Licenciamento ambiental IBAMA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr470","uid":"dr470"},{"name":"Base
+        de dados da CICG da FURB","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr467","uid":"dr467"},{"name":"Base
+        de dados da coleção de Cultura de Bactérias Resistentes de Origem Alimentar
+        da UNIRIO","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr468","uid":"dr468"},{"name":"Base
+        de dados da Coleção de Peixes do Instituto de Biodiversidade e Sustentabilidade
+        - NUPEM/UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr476","uid":"dr476"},{"name":"Base
+        de dados de  Scarabaeoidea da UFMT","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr435","uid":"dr435"},{"name":"Base
+        de dados de Algae do Herbário R do Museu Nacional","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr770","uid":"dr770"},{"name":"Base
+        de dados de Amphibia da ZUFMS ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr395","uid":"dr395"},{"name":"Base
+        de dados de Anfíbios da Coleção Zoológica MBML do INMA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr451","uid":"dr451"},{"name":"Base
+        de dados de Anfíbios do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr187","uid":"dr187"},{"name":"Base
+        de dados de Aphoidea da DZUP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr82","uid":"dr82"},{"name":"Base
+        de dados de Archaeognatha do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr202","uid":"dr202"},{"name":"Base
+        de dados de Aves da Coleção Zoológica MBML do INMA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr453","uid":"dr453"},{"name":"Base
+        de dados de Aves do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr413","uid":"dr413"},{"name":"Base
+        de dados de Aves do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr478","uid":"dr478"},{"name":"Base
+        de dados de Avifauna da UNIR","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr422","uid":"dr422"},{"name":"Base
+        de dados de Blattodea do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr203","uid":"dr203"},{"name":"Base
+        de dados de Carcinologia do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr194","uid":"dr194"},{"name":"Base
+        de dados de Chelicerata da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr396","uid":"dr396"},{"name":"Base
+        de dados de Chiroptera da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr397","uid":"dr397"},{"name":"Base
+        de dados de Coleoptera (imatures) do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr195","uid":"dr195"},{"name":"Base
+        de dados de Coleoptera da DZUP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr77","uid":"dr77"},{"name":"Base
+        de dados de Coleoptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr196","uid":"dr196"},{"name":"Base
+        de dados de Collembola do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr204","uid":"dr204"},{"name":"Base
+        de dados de Crocodilos do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr188","uid":"dr188"},{"name":"Base
+        de dados de Crustacea da Coleção Zoológica MBML do INMA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr452","uid":"dr452"},{"name":"Base
+        de dados de Crustacea da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr398","uid":"dr398"},{"name":"Base
+        de dados de Dermaptera da DZUP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr81","uid":"dr81"},{"name":"Base
+        de dados de Diptera da DZUP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr83","uid":"dr83"},{"name":"Base
+        de dados de Diptera da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr399","uid":"dr399"},{"name":"Base
+        de dados de Diptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr197","uid":"dr197"},{"name":"Base
+        de dados de Embioptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr205","uid":"dr205"},{"name":"Base
+        de dados de Ephemeroptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr206","uid":"dr206"},{"name":"Base
+        de dados de Formicidae da DZUP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr80","uid":"dr80"},{"name":"Base
+        de dados de Fósseis da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr400","uid":"dr400"},{"name":"Base
+        de dados de Fungi do Herbário R do Museu Nacional","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr769","uid":"dr769"},{"name":"Base
+        de dados de fungos do herbário da UFRN","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr442","uid":"dr442"},{"name":"Base
+        de dados de Hemiptera da DZUP ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr79","uid":"dr79"},{"name":"Base
+        de dados de Hemiptera da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr401","uid":"dr401"},{"name":"Base
+        de dados de Hemiptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr198","uid":"dr198"},{"name":"Base
+        de dados de Hymenoptera da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr402","uid":"dr402"},{"name":"Base
+        de dados de Hymenoptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr199","uid":"dr199"},{"name":"Base
+        de dados de Ictiofauna da UNIR","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr424","uid":"dr424"},{"name":"Base
+        de dados de Ictiologia do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr185","uid":"dr185"},{"name":"Base
+        de dados de Ictiologia do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr186","uid":"dr186"},{"name":"Base
+        de dados de Lagartos do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr189","uid":"dr189"},{"name":"Base
+        de dados de Lepidoptera da DZUP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr76","uid":"dr76"},{"name":"Base
+        de dados de Lepidoptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr201","uid":"dr201"},{"name":"Base
+        de dados de Lissamphibia da UFMT","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr427","uid":"dr427"},{"name":"Base
+        de dados de Malacologia do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr192","uid":"dr192"},{"name":"Base
+        de dados de Mamíferos (via úmida) da UFMT","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr429","uid":"dr429"},{"name":"Base
+        de dados de Mamíferos da Coleção Zoológica MBML do INMA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr454","uid":"dr454"},{"name":"Base
+        de dados de Mantodea da DZUP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr75","uid":"dr75"},{"name":"Base
+        de dados de Mantodea do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr212","uid":"dr212"},{"name":"Base
+        de dados de Mastozoologia do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr193","uid":"dr193"},{"name":"Base
+        de dados de Mollusca da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr403","uid":"dr403"},{"name":"Base
+        de dados de Nematoda da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr404","uid":"dr404"},{"name":"Base
+        de dados de ocorrencias da cwrdiversity","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr385","uid":"dr385"},{"name":"Base
+        de dados de Orthoptera da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr405","uid":"dr405"},{"name":"Base
+        de dados de Orthoptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr207","uid":"dr207"},{"name":"Base
+        de dados de Paleontologia do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr414","uid":"dr414"},{"name":"Base
+        de dados de Peixes da Coleção Zoológica MBML do INMA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr455","uid":"dr455"},{"name":"Base
+        de dados de Phthiraptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr208","uid":"dr208"},{"name":"Base
+        de dados de Plecoptera da DZUP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr74","uid":"dr74"},{"name":"Base
+        de dados de Plecoptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr209","uid":"dr209"},{"name":"Base
+        de dados de Psocoptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr210","uid":"dr210"},{"name":"Base
+        de dados de Répteis da Coleção Zoológica MBML do INMA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr456","uid":"dr456"},{"name":"Base
+        de dados de Reptilia da UFMT","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr426","uid":"dr426"},{"name":"Base
+        de dados de Reptilia da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr407","uid":"dr407"},{"name":"Base
+        de dados de Serpentes do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr190","uid":"dr190"},{"name":"Base
+        de dados de Siphonaptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr211","uid":"dr211"},{"name":"Base
+        de dados de Tartarugas do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr191","uid":"dr191"},{"name":"Base
+        de dados de Tecidos da ZUFMS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr408","uid":"dr408"},{"name":"Base
+        de dados de Trichoptera da DZUP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr72","uid":"dr72"},{"name":"Base
+        de dados de Trichoptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr213","uid":"dr213"},{"name":"Base
+        de dados de Zygentoma","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr214","uid":"dr214"},{"name":"Base
+        de dados do Herbário Alexandre Leal Costa da UFBA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr259","uid":"dr259"},{"name":"Base
+        de dados do Herbário da UCS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr308","uid":"dr308"},{"name":"Base
+        de dados do Herbário da UNIP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr257","uid":"dr257"},{"name":"Base
+        de dados do Herbário da Universidade Estadual de Campinas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr245","uid":"dr245"},{"name":"Base
+        de dados do Herbário da UNOP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr252","uid":"dr252"},{"name":"Base
+        de dados do Herbário do Jardim Botânico Plantarum","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr417","uid":"dr417"},{"name":"Base
+        de dados do Herbário Evaldo Buttura","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr457","uid":"dr457"},{"name":"Base
+        de dados do Herbário HSTM da Universidade UFOPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr237","uid":"dr237"},{"name":"Base
+        de dados do PortalBio do ICMBio: Atlas de Registro de Aves Brasileiras","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr326","uid":"dr326"},{"name":"Base
+        de dados do PortalBio do ICMBio: Quelônios","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr328","uid":"dr328"},{"name":"Base
+        de dados do site Xenocanto para o Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr387","uid":"dr387"},{"name":"Base
+        de dados Herbário do IMA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr254","uid":"dr254"},{"name":"Base
+        de dados repatriados do tropicos.org","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr324","uid":"dr324"},{"name":"Base
+        de Orthoptera da Coleção Zoológica Dr. Joachim Adis da UEPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr437","uid":"dr437"},{"name":"BHCB-SL
+        - Herbário UFMG - Samambaias e Licófitas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr273","uid":"dr273"},{"name":"Blattaria
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr813","uid":"dr813"},{"name":"Brazilian
+        Flora 2020 project - Projeto Flora do Brasil 2020","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr834","uid":"dr834"},{"name":"Caatinga
+        Biome - RB - Rio de Janeiro Botanical Garden Herbarium Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr838","uid":"dr838"},{"name":"Catálogo
+        de Plantas das Unidades de Conservação do Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr840","uid":"dr840"},{"name":"Catálogo
+        Taxonômico da Fauna Brasileira","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr65","uid":"dr65"},{"name":"Catalogue
+        of Life","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr69","uid":"dr69"},{"name":"Centro
+        Nacional de Conservação da Flora","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr67","uid":"dr67"},{"name":"Chilopoda
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr814","uid":"dr814"},{"name":"CNCFlora
+        - Lista Oficial de Espécies Ameaçadas -  Portaria 443","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr844","uid":"dr844"},{"name":"CNCFlora
+        - Lista Oficial de Espécies Ameaçadas -  Portaria 443","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr847","uid":"dr847"},{"name":"CNCFlora
+        - Livro Vermelho 2013 - Espécies","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr845","uid":"dr845"},{"name":"CNCFlora
+        - Livro Vermelho 2013 - Espécies","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr848","uid":"dr848"},{"name":"CNCFlora
+        - Livro Vermelho 2013 - Ocorrências","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr843","uid":"dr843"},{"name":"CNCFlora
+        - Livro Vermelho 2013 - Ocorrências","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr224","uid":"dr224"},{"name":"Coleção
+        Biológica Realeza da UFFS","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr270","uid":"dr270"},{"name":"Coleção
+        científica de Serpentes da FUNED","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr463","uid":"dr463"},{"name":"Coleção
+        de Abelhas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr433","uid":"dr433"},{"name":"Coleção
+        de Ácaros do Instituto Butantan","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr423","uid":"dr423"},{"name":"Coleção
+        de Algas do Herbário de algas de São José do Rio Preto","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr566","uid":"dr566"},{"name":"Coleção
+        de Anfíbios do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr534","uid":"dr534"},{"name":"Coleção
+        de Anfíbios do Museu Nacional (MNRJ)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr790","uid":"dr790"},{"name":"Coleção
+        de Apicomplexa do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr535","uid":"dr535"},{"name":"Coleção
+        de Aplacophora do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr536","uid":"dr536"},{"name":"Coleção
+        de Aracnídeos do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr537","uid":"dr537"},{"name":"Coleção
+        de Ascidiacea do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr538","uid":"dr538"},{"name":"Coleção
+        de Ascidiacea do Museu Nacional - UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr798","uid":"dr798"},{"name":"Coleção
+        de Asteroidea do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr526","uid":"dr526"},{"name":"Coleção
+        de Aves da Unisinos","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr598","uid":"dr598"},{"name":"Coleção
+        de Aves do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr539","uid":"dr539"},{"name":"Coleção
+        de Aves do Museu Nacional / UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr779","uid":"dr779"},{"name":"Coleção
+        de Aves Heretiano Zenaide","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr490","uid":"dr490"},{"name":"Coleção
+        de Bivalvia do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr533","uid":"dr533"},{"name":"Coleção
+        de Brachiopoda do Museu Nacional - UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr789","uid":"dr789"},{"name":"Coleção
+        de Briófita do Herbário de Bryophyta de São José do Rio Preto","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr567","uid":"dr567"},{"name":"Coleção
+        de Briófitas do Herbário da Universidade Federal de Minas Gerais","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr524","uid":"dr524"},{"name":"Coleção
+        de Bryozoa do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr540","uid":"dr540"},{"name":"Coleção
+        de Bryozoa do Museu Nacional - UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr782","uid":"dr782"},{"name":"Coleção
+        de Cnidaria do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr530","uid":"dr530"},{"name":"Coleção
+        de Cnidaria do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr531","uid":"dr531"},{"name":"Coleção
+        de Cnidaria do Museu Nacional (MNRJ)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr793","uid":"dr793"},{"name":"Coleção
+        de Coleoptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr542","uid":"dr542"},{"name":"Coleção
+        de Collembola do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr541","uid":"dr541"},{"name":"Coleção
+        de Crustacea do INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr110","uid":"dr110"},{"name":"Coleção
+        de Crustacea do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr543","uid":"dr543"},{"name":"Coleção
+        de Crustacea do Museu Nacional (MNRJ - CARCINO)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr775","uid":"dr775"},{"name":"Coleção
+        de Culturas de Fungos Xilófagos","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr855","uid":"dr855"},{"name":"Coleção
+        de Diptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr544","uid":"dr544"},{"name":"Coleção
+        de Echinodermata do Museu Nacional - MNRJ-ECHINO","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr795","uid":"dr795"},{"name":"Coleção
+        de Ephemeroptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr545","uid":"dr545"},{"name":"Coleção
+        de espécimes tipo de Anfíbios Célio F. B. Haddad","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr686","uid":"dr686"},{"name":"Coleção
+        de Flores do Herbário Profª. Drª. Marlene Freitas da Silva","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr492","uid":"dr492"},{"name":"Coleção
+        de Frutos - Herbário Profª. Drª. Marlene Freitas da Silva","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr491","uid":"dr491"},{"name":"Coleção
+        de Gastropoda do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr546","uid":"dr546"},{"name":"Coleção
+        de Gastrotricha do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr547","uid":"dr547"},{"name":"Coleção
+        de Herpetologia do INPA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr109","uid":"dr109"},{"name":"Coleção
+        de Holothuroidea do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr527","uid":"dr527"},{"name":"Coleção
+        de Hymenoptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr548","uid":"dr548"},{"name":"Coleção
+        de Ictiologia ABAM do Campus Sinop da UFMT","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr576","uid":"dr576"},{"name":"Coleção
+        de Lepidoptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr549","uid":"dr549"},{"name":"Coleção
+        de Mamíferos da Universidade Estadual do Norte Fluminense","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr500","uid":"dr500"},{"name":"Coleção
+        de Mamíferos da Universidade Federal de Mato Grosso (UFMT) - Mammalia (via
+        seca)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr430","uid":"dr430"},{"name":"Coleção
+        de Mamíferos da Universidade Federal do Espírito Santo (UFES-MAM)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr619","uid":"dr619"},{"name":"Coleção
+        de Mamíferos do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr550","uid":"dr550"},{"name":"Coleção
+        de Mamíferos do Museu Nacional / UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr797","uid":"dr797"},{"name":"Coleção
+        de Mastozoologia do Museu de História Natural Capão da Imbuia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr73","uid":"dr73"},{"name":"Coleção
+        de Nematoda do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr552","uid":"dr552"},{"name":"Coleção
+        de Nematoda do Museu Nacional - UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr780","uid":"dr780"},{"name":"Coleção
+        de Nematomorpha do Museu Nacional - UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr786","uid":"dr786"},{"name":"Coleção
+        de Nemertea do Museu Nacional - UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr794","uid":"dr794"},{"name":"Coleção
+        de Ophiuroidea do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr532","uid":"dr532"},{"name":"Coleção
+        de Orthoptera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr551","uid":"dr551"},{"name":"Coleção
+        de Peixes do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr553","uid":"dr553"},{"name":"Coleção
+        de Peixes do Museu de Zoologia da Universidade Estadual de Londrina","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr668","uid":"dr668"},{"name":"Coleção
+        de Plântulas do Herbário Profª. Drª. Marlene Freitas da Silva","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr493","uid":"dr493"},{"name":"Coleção
+        de Platyhelminthes do Museu Nacional - UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr792","uid":"dr792"},{"name":"Coleção
+        de Polychaeta do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr554","uid":"dr554"},{"name":"Coleção
+        de Polychaeta do Museu Nacional","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr777","uid":"dr777"},{"name":"Coleção
+        de Porifera do Instituto de Biologia da UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr781","uid":"dr781"},{"name":"Coleção
+        de Porifera do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr556","uid":"dr556"},{"name":"Coleção
+        de Porifera do Museu Nacional - UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr791","uid":"dr791"},{"name":"Coleção
+        de Répteis do MCP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr604","uid":"dr604"},{"name":"Coleção
+        de Répteis do Museu de Zoologia da UNICAMP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr555","uid":"dr555"},{"name":"Coleção
+        de Répteis do Museu Nacional (MNRJ)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr796","uid":"dr796"},{"name":"Coleção
+        de Sipuncula do Museu Nacional - UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr785","uid":"dr785"},{"name":"Coleção
+        de Tardigrada do Museu Nacional - UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr787","uid":"dr787"},{"name":"Coleção
+        de Tecidos Animais da Universidade Federal do Espírito Santo","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr618","uid":"dr618"},{"name":"Coleção
+        Entomológica da UFPE","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr514","uid":"dr514"},{"name":"Coleção
+        Entomológica do Instituto Oswaldo Cruz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr717","uid":"dr717"},{"name":"Coleção
+        Entomológica do Museu Nacional / UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr776","uid":"dr776"},{"name":"Coleção
+        Entomológica do Setor Palotina, Universidade Federal do Paraná","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr634","uid":"dr634"},{"name":"Coleção
+        Entomológica Paulo Nogueira-Neto - IB/USP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr513","uid":"dr513"},{"name":"Coleção
+        Entomológica Prof. J.M.F. Camargo, FFCLRP/USP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr431","uid":"dr431"},{"name":"Coleção
+        Ictiológica (MNRJ), Museu Nacional (MN), Universidade Federal do Rio de Janeiro(UFRJ)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr768","uid":"dr768"},{"name":"Coleção
+        Ictiológica do LEP-UFRRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr483","uid":"dr483"},{"name":"Coleção
+        Malacológica Prof. Henry Ramos Matthews - Série B da Universidade Federal
+        do Ceará","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr692","uid":"dr692"},{"name":"Coleção
+        Micológica do Herbário UB da Universidade de Brasília","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr635","uid":"dr635"},{"name":"Coleção
+        teste imagens dr SiBBr","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr477","uid":"dr477"},{"name":"Coleção
+        Zoológica da Universidade Federal de Mato Grosso do Sul - Peixes","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr406","uid":"dr406"},{"name":"Crustacea
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr809","uid":"dr809"},{"name":"Dados
+        repatriados do AntWeb para o Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr383","uid":"dr383"},{"name":"DCBU
+        - Coleção Taxonômica do Departamento de Ecologia e Biologia Evolutiva da UFSCar","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr691","uid":"dr691"},{"name":"Digite
+        o nome","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr465","uid":"dr465"},{"name":"Diplopoda
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr811","uid":"dr811"},{"name":"Diptera
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr807","uid":"dr807"},{"name":"DVPR
+        - Herbário da Universidade Tecnológica Federal do Paraná - Dois Vizinhos","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr630","uid":"dr630"},{"name":"DZUP-Hymenoptera
+        - Coleção Entomológica Pe. Jesus Santiago Moure (Hymenoptera)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr78","uid":"dr78"},{"name":"E
+        herbarium - Royal Botanic Garden Edinburgh - Amostras Brasileiras Repatriadas
+        - Herbário Virtual REFLORA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr227","uid":"dr227"},{"name":"Embrapa
+        Amazônia Oriental - Instituto Agronômico do Norte (Herbário IAN)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr246","uid":"dr246"},{"name":"Encyclopedia
+        of life","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr70","uid":"dr70"},{"name":"enter
+        name","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr557","uid":"dr557"},{"name":"enter
+        name","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr558","uid":"dr558"},{"name":"enter
+        name","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr856","uid":"dr856"},{"name":"enter
+        name","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr622","uid":"dr622"},{"name":"enter
+        name","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr623","uid":"dr623"},{"name":"enter
+        name","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr626","uid":"dr626"},{"name":"enter
+        name","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr632","uid":"dr632"},{"name":"enter
+        name","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr488","uid":"dr488"},{"name":"enter
+        name","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr495","uid":"dr495"},{"name":"enter
+        name","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr496","uid":"dr496"},{"name":"EOD
+        – eBird Observation Dataset","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr656","uid":"dr656"},{"name":"Ephemeroptera  Collection
+        - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr815","uid":"dr815"},{"name":"Espécimes
+        repatriados da base de dados do National Center for Biotechnology Information","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr382","uid":"dr382"},{"name":"Espécimes
+        repatriados de aves do Museu de História Natural de Nova York","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr389","uid":"dr389"},{"name":"Espécimes
+        repatriados do Museu de História Natural de Londres","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr391","uid":"dr391"},{"name":"Espécimes
+        repatriados do Museu de Zoologia Comparada (MCZ) da Universidade de Harvard
+        (EEUU).","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr390","uid":"dr390"},{"name":"Espécimes
+        repatriados do Snow Entomological Museum Collection da Universidade de Kansas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr393","uid":"dr393"},{"name":"Fiocruz/CBAM
+        - Coleção de Bactérias da Amazônia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr696","uid":"dr696"},{"name":"Fiocruz/CBAS
+        - Coleção de Bactérias do Ambiente e Saúde","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr707","uid":"dr707"},{"name":"Fiocruz/CCAMP
+        - Coleção de Campylobacter","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr694","uid":"dr694"},{"name":"Fiocruz/CCBH
+        - Coleção de Culturas de Bactérias de Origem Hospitalar","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr699","uid":"dr699"},{"name":"Fiocruz/CCER
+        - Coleção de Ceratopogonidae","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr708","uid":"dr708"},{"name":"Fiocruz/CCFF
+        - Coleção de Culturas de Fungos Filamentosos","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr698","uid":"dr698"},{"name":"Fiocruz/CCGB
+        - Coleção de Culturas do Gênero Bacillus e Gêneros Correlatos","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr705","uid":"dr705"},{"name":"Fiocruz/CCULI
+        - Coleção de Culicidae","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr716","uid":"dr716"},{"name":"Fiocruz/CFAM
+        - Coleção de Fungos da Amazônia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr695","uid":"dr695"},{"name":"Fiocruz/CFP
+        - Coleção de Fungos Patogênicos","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr701","uid":"dr701"},{"name":"Fiocruz/CLEP
+        - Coleção de Leptospira","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr697","uid":"dr697"},{"name":"Fiocruz/CLIOC
+        - Coleção de Leishmania","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr706","uid":"dr706"},{"name":"Fiocruz/CLIST
+        - Coleção de Listeria","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr703","uid":"dr703"},{"name":"Fiocruz/CMIOC
+        - Coleção de Moluscos do Instituto Oswaldo Cruz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr715","uid":"dr715"},{"name":"Fiocruz/CMN
+        - Coleção de Mosquitos Neotropicais","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr709","uid":"dr709"},{"name":"Fiocruz/COLFLEB
+        - Coleção de Flebotomíneos","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr712","uid":"dr712"},{"name":"Fiocruz/COLPROT
+        - Coleção de Protozoários","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr702","uid":"dr702"},{"name":"Fiocruz/COLTRYP
+        - Coleção de Trypanosoma de Mamíferos Silvestres, Domésticos e Vetores","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr700","uid":"dr700"},{"name":"Fiocruz/COLVET
+        - Coleção de Vetores de Tripanosomatídeos","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr711","uid":"dr711"},{"name":"Fiocruz/CSIOC
+        -  Coleção de Simulídeos do Instituto Oswaldo Cruz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr710","uid":"dr710"},{"name":"Fiocruz/CTIOC
+        - Coleção de Triatomíneos do Instituto Oswaldo Cruz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr713","uid":"dr713"},{"name":"Fiocruz/CYP
+        - Coleção de Yersinia pestis","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr704","uid":"dr704"},{"name":"Flora
+        e Funga do Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr66","uid":"dr66"},{"name":"Fungos
+        do Herbário da  UFRN","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr440","uid":"dr440"},{"name":"Galeria
+        de imagens do GBIF para ferramenta de espécies icônicas brasileiras do Atlas
+        do SiBBr","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr436","uid":"dr436"},{"name":"Galeria
+        de imagens do GBIF para lista de valor econômico atual ou potencial de espécies
+        nativas brasileiras do Atlas SiBBr","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr441","uid":"dr441"},{"name":"HAMAB
+        - Herbário Amapaense","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr333","uid":"dr333"},{"name":"HBRA
+        - Herbário do Instituto de Estudos Costeiros da Universidade Federal do Pará","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr334","uid":"dr334"},{"name":"Hemiptera  Collection
+        - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr810","uid":"dr810"},{"name":"Herbário
+        Alarich Rudolf Holger Schultz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr306","uid":"dr306"},{"name":"Herbário
+        Caririense Dárdano de Andrade-Lima","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr335","uid":"dr335"},{"name":"Herbário
+        Central da Universidade Federal do Espírito Santo","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr515","uid":"dr515"},{"name":"Herbário
+        Central da Universidade Federal do Espírito Santo - Coleção de Fungos","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr517","uid":"dr517"},{"name":"Herbário
+        Centro Norte Mato Grossense","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr278","uid":"dr278"},{"name":"Herbário
+        CNPO","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr473","uid":"dr473"},{"name":"Herbário
+        CPAP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr275","uid":"dr275"},{"name":"Herbário
+        da Amazônia Meridional","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr415","uid":"dr415"},{"name":"Herbário
+        da Embrapa Clima Temperado","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr238","uid":"dr238"},{"name":"Herbário
+        da Embrapa Recursos Genéticos e Biotecnologia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr260","uid":"dr260"},{"name":"Herbário
+        da Escola Superior de Agricultura Luiz de Queiroz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr263","uid":"dr263"},{"name":"Herbário
+        da Fundação Universidade Federal de Mato Grosso do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr338","uid":"dr338"},{"name":"Herbário
+        da Pontifícia Universidade Católica do Paraná","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr250","uid":"dr250"},{"name":"Herbário
+        da Reserva Natural Vale","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr315","uid":"dr315"},{"name":"Herbário
+        da UEL","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr276","uid":"dr276"},{"name":"Herbário
+        da UEMG","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr244","uid":"dr244"},{"name":"Herbário
+        da UENF","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr494","uid":"dr494"},{"name":"Herbário
+        da UFG","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr489","uid":"dr489"},{"name":"Herbário
+        da Universidade Católica de Pernambuco","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr520","uid":"dr520"},{"name":"Herbário
+        da Universidade de Brasília","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr247","uid":"dr247"},{"name":"Herbário
+        da Universidade de São Paulo (SPF)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr258","uid":"dr258"},{"name":"Herbário
+        da Universidade de Tocantins","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr572","uid":"dr572"},{"name":"Herbário
+        da Universidade Estadual da Paraíba","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr512","uid":"dr512"},{"name":"Herbário
+        da Universidade Estadual de Feira de Santana","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr241","uid":"dr241"},{"name":"Herbário
+        da Universidade Estadual de Maringá","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr612","uid":"dr612"},{"name":"Herbário
+        da Universidade Estadual do Centro-Oeste","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr251","uid":"dr251"},{"name":"Herbário
+        da Universidade Estadual do Oeste do Paraná","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr851","uid":"dr851"},{"name":"Herbário
+        da Universidade Federal de Mato Grosso do Sul / Campus Pantanal","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr248","uid":"dr248"},{"name":"Herbário
+        da Universidade Federal de Minas Gerais","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr266","uid":"dr266"},{"name":"Herbário
+        da Universidade Federal de Minas Gerais","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr602","uid":"dr602"},{"name":"Herbário
+        da Universidade Federal do Estado do Rio de Janeiro","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr507","uid":"dr507"},{"name":"Herbário
+        da Universidade Federal do Rio de Janeiro","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr516","uid":"dr516"},{"name":"Herbário
+        da Universidade Federal do Rio Grande do Norte","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr271","uid":"dr271"},{"name":"Herbário
+        da Universidade Federal Rural do Rio de Janeiro","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr469","uid":"dr469"},{"name":"Herbário
+        da Universidade Tecnológica Federal do Paraná Campus Campo Mourão","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr474","uid":"dr474"},{"name":"Herbário
+        de fungos de São José do Rio Preto","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr568","uid":"dr568"},{"name":"Herbário
+        de Lages da Universidade do Estado de Santa Catarina","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr466","uid":"dr466"},{"name":"Herbário
+        de Pteridophyta de São José do Rio Preto","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr569","uid":"dr569"},{"name":"Herbário
+        de São José do Rio Preto","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr313","uid":"dr313"},{"name":"Herbário
+        Dendrológico Jeanine Felfili","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr510","uid":"dr510"},{"name":"Herbário
+        do Centro de Pesquisas do Cacau","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr261","uid":"dr261"},{"name":"Herbário
+        do Departamento de Botânica da Universidade Federal de Santa Catarina","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr269","uid":"dr269"},{"name":"Herbário
+        do Instituto Agronômico de Campinas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr289","uid":"dr289"},{"name":"Herbário
+        do Instituto de Biociências da Universidade Federal do Rio Grande do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr253","uid":"dr253"},{"name":"Herbário
+        do Instituto Federal de Educação, Ciência e Tecnologia do Amazonas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr310","uid":"dr310"},{"name":"Herbário
+        do Jardim Botânico da Fundação Zoo-Botânica de Belo Horizonte","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr274","uid":"dr274"},{"name":"Herbário
+        do Maranhão","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr288","uid":"dr288"},{"name":"Herbário
+        do Museu Botânico Municipal de Curitiba - MBM","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr242","uid":"dr242"},{"name":"Herbário
+        do Museu da Pontifícia Universidade Católica do Rio Grande do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr331","uid":"dr331"},{"name":"Herbário
+        do Museu Nacional","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr783","uid":"dr783"},{"name":"Herbário
+        do Pantanal \"Vali Joana Pott\"","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr523","uid":"dr523"},{"name":"Herbário
+        do Recôncavo da Bahia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr420","uid":"dr420"},{"name":"Herbário
+        do Tocantins","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr240","uid":"dr240"},{"name":"Herbário
+        do Trópico Semiárido","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr522","uid":"dr522"},{"name":"Herbário
+        Dr. Roberto Miguel Klein","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr268","uid":"dr268"},{"name":"Herbário
+        Escola de Florestas Curitiba","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr311","uid":"dr311"},{"name":"Herbário
+        Ezechias Paulo Heringer - HEPH","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr342","uid":"dr342"},{"name":"Herbário
+        Friburguense","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr336","uid":"dr336"},{"name":"Herbário
+        Geraldo Mariz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr411","uid":"dr411"},{"name":"Herbário
+        IBGE","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr475","uid":"dr475"},{"name":"Herbário
+        IPA Dárdano de Andrade Lima","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr287","uid":"dr287"},{"name":"Herbário
+        Irina Delanova Gemtchújnicov","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr267","uid":"dr267"},{"name":"Herbário
+        Jaime Coelho de Moraes","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr312","uid":"dr312"},{"name":"Herbário
+        Jataiense","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr495","uid":"dr495"},{"name":"Herbário
+        Joinvillea","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr518","uid":"dr518"},{"name":"Herbário
+        Lauro Pires Xavier","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr229","uid":"dr229"},{"name":"Herbário
+        Leopoldo Krieger","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr277","uid":"dr277"},{"name":"Herbário
+        Maria Eneyda Pacheco Kauffmann Fidalgo - Coleção de Fungi","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr565","uid":"dr565"},{"name":"Herbário
+        Mello Leitão","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr255","uid":"dr255"},{"name":"Herbário
+        Municipal de São Paulo","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr256","uid":"dr256"},{"name":"Herbário
+        Nova Xavantina","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr849","uid":"dr849"},{"name":"Herbário
+        Nova Xavantina (Criptogamos)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr330","uid":"dr330"},{"name":"Herbário
+        Padre Balduino Rambo","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr416","uid":"dr416"},{"name":"Herbário
+        Pe. Camille Torrand","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr428","uid":"dr428"},{"name":"Herbário
+        Pe. Dr. Raulino Reitz","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr314","uid":"dr314"},{"name":"Herbário
+        PEL - Universidade Federal de Pelotas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr239","uid":"dr239"},{"name":"Herbário
+        Prisco Bezerra","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr337","uid":"dr337"},{"name":"Herbário
+        Professor Vasconcelos Sobrinho","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr325","uid":"dr325"},{"name":"Herbário
+        Profª. Drª. Marlene Freitas da Silva","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr421","uid":"dr421"},{"name":"Herbário
+        RADAMBRASIL","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr633","uid":"dr633"},{"name":"Herbário
+        Rioclarense da UNESP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr425","uid":"dr425"},{"name":"Herbário
+        Rondoniense João Geraldo Kuhlmann","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr249","uid":"dr249"},{"name":"Herbário
+        Rosa Mochel","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr317","uid":"dr317"},{"name":"Herbário
+        Sérgio Tavares","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr521","uid":"dr521"},{"name":"Herbário
+        Uberlandense","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr262","uid":"dr262"},{"name":"Herbário
+        Vale do São Francisco","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr272","uid":"dr272"},{"name":"Herbarium
+        - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr799","uid":"dr799"},{"name":"Herbarium
+        Anchieta","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr434","uid":"dr434"},{"name":"Herpetology
+        Collection - Instituto Nacional de Pesquisas da Amazônia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr833","uid":"dr833"},{"name":"HISA
+        - Herbário de Ilha Solteira","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr688","uid":"dr688"},{"name":"Hymenoptera
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr827","uid":"dr827"},{"name":"Ictiologia
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr819","uid":"dr819"},{"name":"Imagens
+        de espécies da Flora Brasileira do GBIF","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr432","uid":"dr432"},{"name":"Imagens
+        de espécies de flora e fauna brasileira do Encyclopedia of life (vol.1)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr281","uid":"dr281"},{"name":"Imagens
+        de espécies de flora e fauna brasileira do Encyclopedia of life (Vol.2)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr282","uid":"dr282"},{"name":"Imagens
+        de espécies de flora e fauna brasileira do Encyclopedia of life (vol.3)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr283","uid":"dr283"},{"name":"Imagens
+        de espécies de flora e fauna brasileira do Encyclopedia of life (vol.4)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr284","uid":"dr284"},{"name":"Imagens
+        de espécies de flora e fauna brasileira do Encyclopedia of life (vol.5)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr285","uid":"dr285"},{"name":"Imagens
+        Test Fungo","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr570","uid":"dr570"},{"name":"Instituto
+        Chico Mendes de Conservação da Biodiversidade","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr68","uid":"dr68"},{"name":"Levantamento
+        da vegetação arbustiva do Parque Nacional do Jaú","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr805","uid":"dr805"},{"name":"Levantamento
+        de Arbóreas do Parque Nacional do Jaú","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr806","uid":"dr806"},{"name":"Levantamento
+        de Arbóreas presentes na campina do RDSU","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr804","uid":"dr804"},{"name":"Levantamento
+        de aves no Parque Nacional Chapada dos Guimarães","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr649","uid":"dr649"},{"name":"Levantamento
+        de flebotomíneos da Terra Indígena Suruwaha, Sul do Amazonas, Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr719","uid":"dr719"},{"name":"Levantamento
+        de flebotomíneos da Terra Indígena Wajãpi, Amazônia Oriental, Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr714","uid":"dr714"},{"name":"Levantamento
+        de Herbáceas da RDS Uatumã","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr803","uid":"dr803"},{"name":"Levantamento
+        de Herbáceas do PARNA Jaú","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr802","uid":"dr802"},{"name":"Levantamento
+        de Ictiofauna do Parque Nacional Nascentes do Rio Parnaíba - LISE UFRN","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr687","uid":"dr687"},{"name":"Levantamento
+        do estrato arbustivo da vegetação de campina do RDS Uatumã","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr801","uid":"dr801"},{"name":"Liquenoteca
+        do Herbário da Universidade de Caxias do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr509","uid":"dr509"},{"name":"Livro
+        Vermelho 2013 - Espécies","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr225","uid":"dr225"},{"name":"MCP-Anfibios
+        - Coleção de Anfíbios","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr603","uid":"dr603"},{"name":"MCP-Aves
+        - Coleção de Aves","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr605","uid":"dr605"},{"name":"MCP-Mamiferos
+        - Coleção de Mamíferos","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr606","uid":"dr606"},{"name":"Micoteca
+        do Herbário da Universidade de Caxias do Sul","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr508","uid":"dr508"},{"name":"Mollusca
+        Collection - Museu Nacional/UFRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr778","uid":"dr778"},{"name":"Monitoramento
+        da macrofauna bentônica dos estuários da Baía de Todos os Santos (BA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr599","uid":"dr599"},{"name":"Monitoramento
+        de espécies atropeladas na BR101 (SP), próximo à Ubatuba","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr684","uid":"dr684"},{"name":"Monitoramento
+        de fauna da Rede Nacional de Vigilância de vírus em animais silvestres (PREVIR-MCTI).
+        Observatório de Aves e Morcegos em Pernambuco (PE-1)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr644","uid":"dr644"},{"name":"Monitoramento
+        de fauna da Rede Nacional de Vigilância de vírus em animais silvestres (PREVIR-MCTI).
+        Observatório de Aves e Morcegos em Rondônia (RO-1)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr643","uid":"dr643"},{"name":"Monitoramento
+        de fauna da Rede Nacional de Vigilância de vírus em animais silvestres (PREVIR-MCTI).
+        Observatório de Aves e Morcegos em Rondônia (RO-2)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr641","uid":"dr641"},{"name":"Monitoramento
+        de fauna da Rede Nacional de Vigilância de vírus em animais silvestres (PREVIR-MCTI).
+        Observatório de Aves e Morcegos em Santa Catarina (SC-1)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr645","uid":"dr645"},{"name":"Monitoramento
+        de fauna da Rede Nacional de Vigilância de vírus em animais silvestres (PREVIR-MCTI).
+        Observatório de Aves e Morcegos em São Paulo (SP-1)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr647","uid":"dr647"},{"name":"Monitoramento
+        de fauna da Rede Nacional de Vigilância de vírus em animais silvestres (PREVIR-MCTI).
+        Observatório de Aves e Morcegos no Amazonas (AM-1)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr646","uid":"dr646"},{"name":"Monitoramento
+        de fauna da Rede Nacional de Vigilância de vírus em animais silvestres (PREVIR-MCTI).
+        Observatório de Morcegos no Pantanal (MT-1)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr640","uid":"dr640"},{"name":"Monitoramento
+        de Fauna do Projeto Rede de Vigilância de Vírus (Previr). Observatório Pantanal
+        AVES MT-2","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr642","uid":"dr642"},{"name":"Morcegos
+        do Parque Nacional da Chapada dos Guimarães, Mato Grosso - Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr651","uid":"dr651"},{"name":"Museu
+        Paraense Emílio Goeldi -  Ichthyology Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr750","uid":"dr750"},{"name":"Museu
+        Paraense Emílio Goeldi - Acanthocephala Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr614","uid":"dr614"},{"name":"Museu
+        Paraense Emílio Goeldi - Acanthocephala Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr749","uid":"dr749"},{"name":"Museu
+        Paraense Emilio Goeldi - Acari Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr765","uid":"dr765"},{"name":"Museu
+        Paraense Emilio Goeldi - Amblypygi Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr762","uid":"dr762"},{"name":"Museu
+        Paraense Emílio Goeldi - Amphibia Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr596","uid":"dr596"},{"name":"Museu
+        Paraense Emílio Goeldi - Amphibia Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr753","uid":"dr753"},{"name":"Museu
+        Paraense Emilio Goeldi - Annelida Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr592","uid":"dr592"},{"name":"Museu
+        Paraense Emilio Goeldi - Annelida Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr763","uid":"dr763"},{"name":"Museu
+        Paraense Emilio Goeldi - Araneae Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr761","uid":"dr761"},{"name":"Museu
+        Paraense Emílio Goeldi - Carcinológica Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr764","uid":"dr764"},{"name":"Museu
+        Paraense Emílio Goeldi - Chelonia Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr728","uid":"dr728"},{"name":"Museu
+        Paraense Emilio Goeldi - Coleoptera Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr597","uid":"dr597"},{"name":"Museu
+        Paraense Emilio Goeldi - Coleoptera Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr729","uid":"dr729"},{"name":"Museu
+        Paraense Emílio Goeldi - Crocodylia Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr727","uid":"dr727"},{"name":"Museu
+        Paraense Emílio Goeldi - Diptera Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr759","uid":"dr759"},{"name":"Museu
+        Paraense Emílio Goeldi - Hexapoda Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr758","uid":"dr758"},{"name":"Museu
+        Paraense Emilio Goeldi - Hymenoptera Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr757","uid":"dr757"},{"name":"Museu
+        Paraense Emílio Goeldi - Lacertilia Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr595","uid":"dr595"},{"name":"Museu
+        Paraense Emílio Goeldi - Lacertilia Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr752","uid":"dr752"},{"name":"Museu
+        Paraense Emilio Goeldi - Lepidoptera Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr756","uid":"dr756"},{"name":"Museu
+        Paraense Emílio Goeldi - Mastozoology Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr726","uid":"dr726"},{"name":"Museu
+        Paraense Emílio Goeldi - Mollusca Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr748","uid":"dr748"},{"name":"Museu
+        Paraense Emílio Goeldi - Myriapoda Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr735","uid":"dr735"},{"name":"Museu
+        Paraense Emílio Goeldi - Nematoda Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr581","uid":"dr581"},{"name":"Museu
+        Paraense Emílio Goeldi - Nematoda Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr747","uid":"dr747"},{"name":"Museu
+        Paraense Emílio Goeldi - Ophidia Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr594","uid":"dr594"},{"name":"Museu
+        Paraense Emílio Goeldi - Ophidia Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr751","uid":"dr751"},{"name":"Museu
+        Paraense Emílio Goeldi - Opiliones Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr733","uid":"dr733"},{"name":"Museu
+        Paraense Emílio Goeldi - Ornithology Collection -  Feathers_and_Skin","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr741","uid":"dr741"},{"name":"Museu
+        Paraense Emilio Goeldi - Ornithology Collection - Anatomic","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr745","uid":"dr745"},{"name":"Museu
+        Paraense Emilio Goeldi - Ornithology Collection - Eggs","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr742","uid":"dr742"},{"name":"Museu
+        Paraense Emílio Goeldi - Ornithology Collection - Osteological","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr743","uid":"dr743"},{"name":"Museu
+        Paraense Emílio Goeldi - Paleoinvertebrate Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr738","uid":"dr738"},{"name":"Museu
+        Paraense Emílio Goeldi - Paleovertebrate Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr737","uid":"dr737"},{"name":"Museu
+        Paraense Emílio Goeldi - Platyhelminthes Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr746","uid":"dr746"},{"name":"Museu
+        Paraense Emilio Goeldi - Ricinulei Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr615","uid":"dr615"},{"name":"Museu
+        Paraense Emilio Goeldi - Ricinulei Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr736","uid":"dr736"},{"name":"Museu
+        Paraense Emílio Goeldi - Schizomida Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr593","uid":"dr593"},{"name":"Museu
+        Paraense Emílio Goeldi - Schizomida Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr732","uid":"dr732"},{"name":"Museu
+        Paraense Emilio Goeldi - Scorpiones Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr760","uid":"dr760"},{"name":"Museu
+        Paraense Emílio Goeldi - Solifugae Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr613","uid":"dr613"},{"name":"Museu
+        Paraense Emílio Goeldi - Solifugae Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr731","uid":"dr731"},{"name":"Museu
+        Paraense Emilio Goeldi - Uropygi Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr730","uid":"dr730"},{"name":"Museu
+        Paraense Emilio Goeldi - Xiloteca Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr754","uid":"dr754"},{"name":"Museu
+        Paraense Emilio Goeldi Herbarium","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr755","uid":"dr755"},{"name":"Museu_Paraense_Emilio_Goeldi-Ornithology_Collection_Nests","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr744","uid":"dr744"},{"name":"Museu_Paraense_Emilio_Goeldi_Microfosseis_Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr739","uid":"dr739"},{"name":"Museu_Paraense_Emilio_Goeldi_Ornithology_Collection-Skin","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr740","uid":"dr740"},{"name":"Myriapoda_do_Museu_Nacional_(MNRJ_MYRI)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr788","uid":"dr788"},{"name":"Myxozoa
+        Collection - Instituto Nacional de Pesquisas da Amazônia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr832","uid":"dr832"},{"name":"Nematoda
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr831","uid":"dr831"},{"name":"Observações
+        de espécies publicadas no iNaturalist para o Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr265","uid":"dr265"},{"name":"Onychophora
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr823","uid":"dr823"},{"name":"Opiliones
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr826","uid":"dr826"},{"name":"Ortopthera
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr821","uid":"dr821"},{"name":"Palpigradi
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr830","uid":"dr830"},{"name":"Pauropoda
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr820","uid":"dr820"},{"name":"PELD  -
+        ELPA | Ecology of Lahille''s bottlenose dolphin Tursiops truncatus gephyreus
+        in the Patos Lagoon estuary and adjacent marine coast","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr506","uid":"dr506"},{"name":"PELD
+        - ABRS | Avaliação e monitoramento dos recifes de Abrolhos","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr658","uid":"dr658"},{"name":"PELD
+        - AGCV | Monitoramento de borboletas no Jardim Botânico de Brasília","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr504","uid":"dr504"},{"name":"PELD
+        - AGCV | Pequenos mamíferos terrestres em fragmentos de cerradão no Distrito
+        Federal","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr502","uid":"dr502"},{"name":"PELD
+        - ELPA | Continuous monitoring of the micro and mesozooplankton of the Patos
+        Lagoon estuary and adjacent coastal area","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr680","uid":"dr680"},{"name":"PELD
+        - ELPA | Dynamics of Submerged Aquatic Vegetation in the Patos Lagoon estuary","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr682","uid":"dr682"},{"name":"PELD
+        - ELPA | Ecology of the pink-shrimp Penaeus paulensis in Patos Lagoon estuary","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr505","uid":"dr505"},{"name":"PELD
+        - ELPA | Effect of short-term meteorological disturbance on submergem aquatic
+        vegetation and associated fauna","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr678","uid":"dr678"},{"name":"PELD
+        - ELPA | Interannual variability of ichthyoplankton diversity in the Patos
+        Lagoon estuary Southern Brazil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr679","uid":"dr679"},{"name":"PELD
+        - ELPA | Species composition and abundance patterns of fish assemblages at
+        shallow waters of Patos Lagoon estuary","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr689","uid":"dr689"},{"name":"PELD
+        - ELPA | Temporal data series of Benthic macrofauna abundance and composition
+        from the Patos Lagoon estuary","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr690","uid":"dr690"},{"name":"PELD
+        - HCES | Amostragem da Macrofauna bentônica dos habitats costeiros/estuários
+        do Espirito Santo","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr487","uid":"dr487"},{"name":"PELD
+        - PNCA | Dados da ocorrência de aves em um gradiente de perturbação e precipitação
+        em uma área de Caatinga no Parque Nacional do Catimbau, Buíque, PE, Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr669","uid":"dr669"},{"name":"PELD
+        - PNCA | Dados da ocorrência de Coleópteros em um gradiente de perturbação/precipitação
+        em área de Caatinga, Parque Nacional do Catimbau, Buíque, PE, Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr670","uid":"dr670"},{"name":"PELD
+        - PNCA | Dados da ocorrência de Formigas de solo em um gradiente de perturbação/precipitação
+        em área de Caatinga, Parque Nacional do Catimbau, Buíque, PE, Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr671","uid":"dr671"},{"name":"PELD
+        - PNCA | Dados da ocorrência de Mariposas em um gradiente de perturbação/precipitação
+        em área de Caatinga, Parque Nacional do Catimbau, Buíque, PE, Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr672","uid":"dr672"},{"name":"PELD
+        - PNCA | Dados da ocorrência de plantas lenhosas em um gradiente de perturbação/precipitação
+        em área de Caatinga, Parque Nacional do Catimbau, Buíque, PE, Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr673","uid":"dr673"},{"name":"PELD
+        - PNCA | Dados da ocorrência de plantas lenhosas em um gradiente de perturbação/precipitação
+        em área de Caatinga, Parque Nacional do Catimbau, Buíque, PE, Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr479","uid":"dr479"},{"name":"PELD
+        - PNCA | Dados da ocorrência de plantas lenhosas em uma cronossequência em
+        área de Caatinga, Parque Nacional do Catimbau, Buíque, PE, Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr676","uid":"dr676"},{"name":"PELD
+        - PNCA | Dados da ocorrência de répteis em um gradiente de perturbação/precipitação
+        em área de Caatinga, Parque Nacional do Catimbau, Buíque, PE, Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr675","uid":"dr675"},{"name":"PELD
+        - PNCA | Dados de ocorrência de Briófitas em um gradiente de perturbação/precipitação
+        em área de Caatinga, Parque Nacional do Catimbau, Buíque, PE, Brasil","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr674","uid":"dr674"},{"name":"PELD
+        - RLaC | Ambientes de restinga sob a ótica da ecologia funcional: definição
+        de atributos funcionais e seu papel na estruturação de formações vegetais
+        especializadas das restingas do Estado do Rio de Janeiro","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr608","uid":"dr608"},{"name":"PELD
+        - RLaC | Biologia reprodutiva e dieta de Amerotyphlops brongersmianus (Vanzolini,
+        1976) da Restinga de Jurubatiba, Rio de Janeiro, Brasil (Serpentes: Typhlopidae)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr610","uid":"dr610"},{"name":"PELD
+        - RLaC | Dinâmica populacional e crescimento de Tropidurus torquatus (Wied-Neuwied,
+        1820) no Parque Nacional da Restinga de Jurubatiba, Rio de Janeiro, Brasil
+        (Squamata: Tropiduridae)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr607","uid":"dr607"},{"name":"PELD
+        - RLaC | Estrutura e composição das comunidades de peixes em lagoas do Parque
+        Nacional da Restinga de Jurubatiba","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr609","uid":"dr609"},{"name":"PELD
+        - RLaC | Monitoramento da taxocenose de anfíbios no Parque Nacional da Restinga
+        de Jurubatiba","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr611","uid":"dr611"},{"name":"Phasmatodea
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr829","uid":"dr829"},{"name":"Porifera
+        Collection - Instituto Nacional de Pesquisas da Amazônia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr800","uid":"dr800"},{"name":"Porifera
+        Collection - Instituto Nacional de Pesquisas da Amazônia","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr128","uid":"dr128"},{"name":"PortalBio
+        do ICMBio: Sisbio-Dibio","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr327","uid":"dr327"},{"name":"PPBio
+        - ComCerrado | Efeito da perturbação sobre a diversidade de espécies de Asteraceae
+        e insetos endófagos associados em fragmentos de Cerrado na Chapada dos Guimarães
+        – MT","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr498","uid":"dr498"},{"name":"PPBio:
+        Amazônia Oriental - Projeto Palmeiras (UFT)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr650","uid":"dr650"},{"name":"Programa
+        SinBiota da FAPESP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr290","uid":"dr290"},{"name":"Projeto
+        Conexão Mata Atlântica - Monitoramento Ecossistêmico - Fauna e Flora - Minas
+        Gerais - Campanha 01","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr667","uid":"dr667"},{"name":"Projeto
+        Conexão Mata Atlântica - Monitoramento Ecossistêmico - Fauna e Flora - Minas
+        Gerais - Campanha 02","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr666","uid":"dr666"},{"name":"Projeto
+        Conexão Mata Atlântica - Monitoramento Ecossistêmico - Fauna e Flora - Minas
+        Gerais - Campanha 03","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr665","uid":"dr665"},{"name":"Projeto
+        Conexão Mata Atlântica - Monitoramento Ecossistêmico - Fauna e Flora - Minas
+        Gerais - Campanha 04","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr723","uid":"dr723"},{"name":"Projeto
+        Conexão Mata Atlântica - Monitoramento Ecossistêmico - Fauna e Flora - Rio
+        de Janeiro - Campanha 01","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr663","uid":"dr663"},{"name":"Projeto
+        Conexão Mata Atlântica - Monitoramento Ecossistêmico - Fauna e Flora - Rio
+        de Janeiro - Campanha 02","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr664","uid":"dr664"},{"name":"Projeto
+        Conexão Mata Atlântica - Monitoramento Ecossistêmico - Fauna e Flora - Rio
+        de Janeiro - Campanha 03","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr662","uid":"dr662"},{"name":"Projeto
+        Conexão Mata Atlântica - Monitoramento Ecossistêmico - Fauna e Flora - Rio
+        de Janeiro - Campanha 04","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr722","uid":"dr722"},{"name":"Projeto
+        Conexão Mata Atlântica - Monitoramento Ecossistêmico - Fauna e Flora - São
+        Paulo - Campanha 01","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr661","uid":"dr661"},{"name":"Projeto
+        Conexão Mata Atlântica - Monitoramento Ecossistêmico - Fauna e Flora - São
+        Paulo - Campanha 02","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr660","uid":"dr660"},{"name":"Projeto
+        Conexão Mata Atlântica - Monitoramento Ecossistêmico - Fauna e Flora - São
+        Paulo - Campanha 03","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr659","uid":"dr659"},{"name":"Projeto
+        Conexão Mata Atlântica - Monitoramento Ecossistêmico - Fauna e Flora - São
+        Paulo - Campanha 04","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr721","uid":"dr721"},{"name":"Projeto
+        Participe da Rede SiBBr do iNaturalist","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr575","uid":"dr575"},{"name":"Pseudoscorpiones
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr828","uid":"dr828"},{"name":"R
+        - Herbário do Museu Nacional","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr774","uid":"dr774"},{"name":"R-Bryophyta
+        - Herbário do Museu Nacional - Bryophyta","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr771","uid":"dr771"},{"name":"R-Criptogamos
+        - Herbário do Museu Nacional - Criptogamos","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr773","uid":"dr773"},{"name":"R-Tipos
+        - Herbário do Museu Nacional - Tipos","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr772","uid":"dr772"},{"name":"Recurso
+        de imagens da flora brasileira do iNaturalist para completar lista de uso
+        de plantas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr503","uid":"dr503"},{"name":"Ricinulei
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr824","uid":"dr824"},{"name":"Rio
+        de Janeiro Botanical Garden DNA Collection - GGBN extensions","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr837","uid":"dr837"},{"name":"Rio
+        de Janeiro Botanical Garden Dry Fruits Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr842","uid":"dr842"},{"name":"Rio
+        de Janeiro Botanical Garden fluid-preserved specimens.","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr841","uid":"dr841"},{"name":"Rio
+        de Janeiro Botanical Garden Herbarium Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr839","uid":"dr839"},{"name":"Rio
+        de Janeiro Botanical Garden Seed Bank","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr835","uid":"dr835"},{"name":"Rio
+        de Janeiro Botanical Garden Wood Collection","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr836","uid":"dr836"},{"name":"Sand
+        fly (Diptera: Psychodidae: Phlebotominae) records in Acre, Brazil: A literature
+        Review","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr636","uid":"dr636"},{"name":"Schizomida
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr817","uid":"dr817"},{"name":"Scorpiones
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr825","uid":"dr825"},{"name":"SHPR
+        - Herbário da Universidade Tecnológica Federal do Paraná. Jabot - Banco de
+        Dados da Flora Brasileira","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr559","uid":"dr559"},{"name":"Solifugae
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr822","uid":"dr822"},{"name":"SORO
+        - Herbário do Centro de Ciências e Tecnologias para a Sustentabilidade","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr316","uid":"dr316"},{"name":"SP
+        - Herbário do Estado \"Maria Eneyda P. Kaufmann Fidalgo\" - Coleção de Fanerógamas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr286","uid":"dr286"},{"name":"SP-Algae
+        do Herbário do Estado \"Maria Eneyda P. Kaufmann Fidalgo - Coleção de Algas","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr563","uid":"dr563"},{"name":"SP-Bryophyta
+        - Maria Eneyda P. Kauffman Fidalgo","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr564","uid":"dr564"},{"name":"Sub-coleção
+        de Herpetologia do Museu de Ciências - Univates","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr448","uid":"dr448"},{"name":"Sub-coleção
+        de Ictiologia do Museu de Ciências - Univates","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr449","uid":"dr449"},{"name":"Sub-coleção
+        de Isoptera do MZUSP","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr200","uid":"dr200"},{"name":"Sub-coleção
+        de Ornitologia do Museu de Ciências - Univates","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr561","uid":"dr561"},{"name":"Subcoleção
+        de Coleoptera da Coleção Entomológica do Museu Nacional","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr857","uid":"dr857"},{"name":"Subcoleção
+        de Diptera da Coleção Entomológica do MNRJ","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr854","uid":"dr854"},{"name":"Symphyla
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr818","uid":"dr818"},{"name":"Thelyphonida
+        Collection - Instituto Nacional de Pesquisas da Amazônia (INPA)","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr816","uid":"dr816"},{"name":"Tree
+        species composition in ecotone forests of the eastern Maracá Island, Roraima,
+        northern Brazilian Amazonia: preliminary data","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr458","uid":"dr458"},{"name":"UFACPZ
+        - Herbário da Universidade Federal do Acre","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr560","uid":"dr560"},{"name":"UPCB
+        - Herbário do Departamento de Botânica da UFPR","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr236","uid":"dr236"},{"name":"US
+        herbarium - Smithsonian Institute - Amostras Brasileiras Repatriadas - Herbário
+        Virtual REFLORA","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr228","uid":"dr228"},{"name":"Xiloteca
+        do Herbário Dendrológico Jeanine Felfili","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr511","uid":"dr511"},{"name":"Xiloteca
+        do Herbário Joinvillea","uri":"https://collectory.sibbr.gov.br/collectory/ws/dataResource/dr519","uid":"dr519"}]'
+  recorded_at: 2023-01-10 08:51:04 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

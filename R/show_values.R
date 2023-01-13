@@ -180,17 +180,28 @@ show_values_field <- function(field) {
     abort(bullets, call = caller_env())
   }
   
-  url <- atlas_url("records_facets")
-  resp <- atlas_GET(url, params = list(facets = field, flimit = 10^4))
+  if(is_gbif()){
+    url <- url_lookup("records_counts")
+    resp <- url_GET(url, params = list(facet = field, limit = 0, facetLimit = 10^4))
+  }else{
+    url <- url_lookup("records_facets")
+    resp <- url_GET(url, params = list(facets = field, flimit = 10^4))
+  }
+  
   if(is.null(resp)){
     system_down_message("show_values")
     return(tibble())
   }else{
-    category <- vapply(resp$fieldResult[[1]]$fq, function(n) {
-      extract_category_value(n)
-    }, USE.NAMES = FALSE, FUN.VALUE = character(1))
-    cbind(field = field, as.data.frame(category)) |> as_tibble()
+    if(is_gbif()){
+      tibble(resp$facets$counts[[1]])
+    }else{
+      category <- vapply(resp$fieldResult[[1]]$fq, function(n) {
+        extract_category_value(n)
+      }, USE.NAMES = FALSE, FUN.VALUE = character(1))
+      cbind(field = field, as.data.frame(category)) |> as_tibble()
+    }
   }
+
 }
 
 
@@ -222,8 +233,8 @@ show_values_profile <- function(profile, error_call = caller_env()) {
     abort(bullets, call = error_call)
   }
   
-  url <- atlas_url("profiles_lookup", profile = profile)
-  resp <- atlas_GET(url)
+  url <- url_lookup("profiles_lookup", profile = profile)
+  resp <- url_GET(url)
   if(is.null(resp)){
     system_down_message("show_values")
     tibble()
@@ -279,8 +290,8 @@ show_values_list <- function(list){
     abort(bullets, call = caller_env())
   }
   
-  url <- atlas_url("lists_lookup", list_id = list)
-  atlas_paginate(url, group_size = 500)
+  url <- url_lookup("lists_lookup", list_id = list)
+  url_paginate(url, group_size = 500)
 }
 
 
@@ -310,8 +321,8 @@ show_values_collection <- function(collection){
     abort(bullets, call = caller_env())
   }
   
-  url <- atlas_url("collections_collections") |> paste0("/", collection)
-  x <- atlas_GET(url)
+  url <- url_lookup("collections_collections") |> paste0("/", collection)
+  x <- url_GET(url)
   x[lengths(x) == 1] |> as_tibble()
 }
 
@@ -333,8 +344,8 @@ show_values_provider <- function(provider){
     abort(bullets, call = caller_env())
   }
   
-  url <- atlas_url("collections_providers") |> paste0("/", provider)
-  x <- atlas_GET(url)
+  url <- url_lookup("collections_providers") |> paste0("/", provider)
+  x <- url_GET(url)
   x[lengths(x) == 1] |> as_tibble()
 }
 
@@ -356,8 +367,8 @@ show_values_dataset <- function(dataset){
     abort(bullets, call = caller_env())
   }
   
-  url <- atlas_url("collections_datasets") |> paste0("/", dataset)
-  x <- atlas_GET(url)
+  url <- url_lookup("collections_datasets") |> paste0("/", dataset)
+  x <- url_GET(url)
   x[lengths(x) == 1] |> as_tibble()
 }
 

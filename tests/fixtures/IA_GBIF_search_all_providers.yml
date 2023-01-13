@@ -1,0 +1,117 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://api.gbif.org/v1/organization?q=Frog
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah 1.5.1
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      vary: Origin, Access-Control-Request-Method, Access-Control-Request-Headers
+      x-content-type-options: nosniff
+      x-xss-protection: 1; mode=block
+      pragma: no-cache
+      expires: '0'
+      x-frame-options: DENY
+      content-type: application/json
+      date: Fri, 06 Jan 2023 01:57:04 GMT
+      cache-control: public, max-age=3601
+      x-varnish: '417824897'
+      age: '0'
+      via: 1.1 varnish (Varnish/6.0)
+      accept-ranges: bytes
+    body:
+      encoding: UTF-8
+      file: no
+      string: '{"offset":0,"limit":20,"endOfRecords":true,"count":3,"results":[{"key":"2884418b-373a-408d-8deb-d4fb7eb8aed6","endorsingNodeKey":"d897a5b9-35ee-4232-94bd-b0bcaac003c2","endorsementApproved":true,"endorsementStatus":"ENDORSED","title":"Froglife","description":"Froglife
+        is a national wildlife charity committed to the conservation of amphibians
+        and reptiles – frogs, toads, newts, snakes and lizards – and saving the habitats
+        they depend on.","language":"eng","email":["info@froglife.org"],"phone":["01733
+        602102"],"homepage":["http://www.froglife.org/"],"logoUrl":"https://registry.nbnatlas.org/data/dataProvider/froglifelogosmaller56kb.jpg","address":["1
+        Loxley"],"city":"Werrington","province":"Peterborough","country":"GB","postalCode":"PE4
+        5BW","latitude":52.61905,"longitude":-0.28572,"numPublishedDatasets":1,"createdBy":"uknbn","modifiedBy":"uknbn","created":"2017-05-09T13:55:09.727+00:00","modified":"2017-06-19T09:08:52.046+00:00","contacts":[],"endpoints":[],"machineTags":[],"tags":[],"identifiers":[],"comments":[]},{"key":"63761962-613c-4f66-9f75-80ab27585a9b","endorsingNodeKey":"da44cd31-5901-4687-a106-6d1c7734ee3a","endorsementApproved":false,"endorsementStatus":"ON_HOLD","title":"SOS
+        ECUREUIL PROVENCE","description":"SOS Ecureuil Provence is an association
+        that wants to act quickly and well to save wild animals, and in particular
+        the red squirrel, a species protected and threatened in particular by automobile
+        traffic.Recreating environments favorable to animals such as squirrels, hedgehogs,
+        butterflies, green lizards, frogs… this is its main objective. Collaborating
+        with all the cities of Provence in 2022, that is its course!The association
+        launched its actions in the city of Dembesc, with a squirrel park inaugurated
+        in November 2021 thanks to the support of the town hall. The first results
+        are there, squirrels and small birds now enjoy three areas of tranquility,
+        nesting boxes, feeders, waterers and replanting.By joining SOS Ecureuil Provence,
+        you are making a choice: that of working towards a better future for local
+        wildlife. Do you have time and energy available? You can also get involved
+        in the life of the association and participate in our actions.","language":"eng","email":["sos.ecureuil.provence@gmail.com"],"phone":["0658132576"],"homepage":["https://admin.helloasso.com/sos-ecureuil-provence/accueil"],"logoUrl":"https://www.facebook.com/photo?fbid=109122354841801&set=a.109122374841799","address":["20
+        place des Poilus"],"city":"LAMBESC","country":"FR","postalCode":"13410","latitude":43.65472,"longitude":5.26726,"numPublishedDatasets":0,"createdBy":"gbif.express","modifiedBy":"gbif.express","created":"2021-12-04T05:20:28.630+00:00","modified":"2021-12-04T05:20:28.630+00:00","contacts":[{"key":2819533,"type":"POINT_OF_CONTACT","primary":false,"userId":[],"firstName":"Laurent","lastName":"CATTANEO","position":[],"email":["sos.ecureuil.provence@gmail.com"],"phone":["+33658132576"],"homepage":[],"address":[],"createdBy":"gbif.express","modifiedBy":"gbif.express","created":"2021-12-04T05:20:28.630+00:00","modified":"2021-12-04T05:20:28.630+00:00"}],"endpoints":[],"machineTags":[],"tags":[],"identifiers":[],"comments":[{"key":32662,"content":"Put
+        on hold by node manager to clarify with INPN (this kind of association usually
+        goes via INPN  and not directly). Relevant communication on helpdesk, 23.2.22","createdBy":"andrea","modifiedBy":"andrea","created":"2022-02-23T12:59:57.390+00:00","modified":"2022-02-23T12:59:57.390+00:00"},{"key":32555,"content":"\nIs
+        associated with a GBIF-funded project: no\n\n\nExpects to publish:\n\n\n -
+        OccurrenceData\n - SamplingEventData\n\nExpected data content:\n\n> dead squirrels
+        on the roads\n\n\nWill run a server which exposes data: no\n\n\nPlans to run
+        publishing software (e.g. an IPT): no\n\n\nNeeds help for data publishing:
+        no\n","createdBy":"gbif.express","modifiedBy":"gbif.express","created":"2021-12-04T05:20:28.630+00:00","modified":"2021-12-04T05:20:28.630+00:00"}]},{"key":"23d1ffc1-f36f-4ea8-8abf-c35ffe3af899","endorsingNodeKey":"dd514216-5c7c-45f3-910d-797424cb5be6","endorsementApproved":true,"endorsementStatus":"ENDORSED","title":"Pinezhsky
+        State Nature Reserve","description":"The Pinega state nature reserve  was
+        founded in  August 1974. The reserve is situated in the south-eastern part
+        of the Belomor-Kuloi Plateau, 110 km far from   Arkhangelsk,  on the right
+        bank of the Pinega. Its area is 515 km2. The office of the reserve is in the
+        village of Pinega. Its main tasks are: conservating of the nature complex
+        in its natural condition, its studing and ecological enlightenment of the
+        population.\r\nThe territory of the reserve is located in the zone of intensive  karst   processes.
+        Underground and surface karst landscapes differ in  beauty and variety. The
+        surface forms of  karst and the caves have been developed in sulphate rocks
+        of the low perm. Karst was formed in the conditions of periodic effect of
+        glaciers. The landscapes are developing an the influence of water and climate
+        now days. The surface karst is submitted by narrows, hollows and depressions,
+        sinkhole and fields of sinkholes,  circuses and outliers. The amplitude of
+        the surface karst relief makes 30-60 m. The value of surface karsting makes
+        500-700 forms per 1 km2, maximum one exceeds 1500 forms per 1 km2. 87 caves
+        are found in the reserve and its protecting zone, 10 of them are over 1 km
+        long. Their common length  exceeds 45 km. The largest caves are: Kumitchevskaya
+        – 6160 m, Constituzionnaya – 6130 m. Length of the cave, mostly  suitable
+        by excursion, Golubinski Fall  is 1622 m. It is situated in Golubinsky zakaznik.\r\nThe
+        main water route of the reserve is river Sotka. It flows in a deep canyon
+        with abrupt declines. This small «mountan» river with  rapids flows on the
+        reserves territory from west on north-east during 30 km. The reserve has
+        more than 400 lakes. The majority of lakes are karst on a parentage, it is
+        by filled water of the sinkholes.\r\nThe reserve lies in the boreal forest
+        zone, where spruce and pine forest are predominant but in some places amazing
+        larch forests occupy. Forest take 89 % of the reserve''s area. About 25 %
+        of the forests are primeval in the nature state. Less than 10% of the area
+        is located by bogs, some small areas are covered by meadows, bushes and societies
+        of light forests. \r\nThe wide development of karst processes has stipulated
+        richness and originality of flora of the reserve. The total number of vascular
+        plants consists of 505 species. Boreal species make  the main body  of the
+        reserves  flora, the important role in its formatting belongs to the boreal
+        Ural-Siberian species. 27 % of rare and relict species are represented in
+        the flora of the reserve. A group of  arctalpine (Dryas octopetala, Pinguicula
+        alpina) and hypoarctic (Сystopteris dickieana, Arctous alpina) relicts grow
+        on gypsum tali and uncovered  declines of the karst rivers and narrows. South-taiga
+        and broad-leaved forest relict species, such as, Paeonia anomala, Corydalis
+        soliida, Stellaria nemorum are met  in the  flood-land of the river Sotka
+        and also on the bottoms of karst narrows. 7 species are included into the
+        Red Data Book of Russia. They are vascular plants - Cypripedium calceolus,
+        Calypso bulbosa, Epipogium aphyllum, Dactylorhiza traunsteineri and Gypsophila
+        uralensis and lichens - Lobaria pulmonaria and Brioria Fremontii\r\nThe reserve
+        fauna is submitted both typical for the European northern taiga species, and
+        representatives of the European broad-leaved forests: (Chaffinch, Woodpigeon,
+        Bank Vole, Birch Mouse, Brown Frog), also some Siberian species (Oriental
+        Cuckoo, Chipmunk, Northern Redbacked Vole, Forest Lemming, Siberian Asiatic
+        Salamander) and Arctic ones (Willow Grouse).","language":"eng","email":["pinzapno@mail.ru"],"phone":[],"homepage":["http://www.zapovednik-pinega.ru/"],"logoUrl":"https://earthcape.com/wp-content/uploads/2019/08/GBIF-invitation-Pinezhsky.jpg","address":["164610,
+        Arhangel region, Pinezkiy district, Pinega, Pervomayskaya street, 123 А"],"city":"Pinega","country":"RU","postalCode":"164610","latitude":64.67667,"longitude":43.19917,"numPublishedDatasets":7,"createdBy":"earthcape","modifiedBy":"earthcape","created":"2019-08-21T09:36:50.598+00:00","modified":"2019-08-21T09:36:50.598+00:00","contacts":[{"key":1638857,"type":"POINT_OF_CONTACT","primary":false,"userId":[],"firstName":"Alexander","lastName":"Rykov","position":[],"email":["a.rykov53@mail.ru"],"phone":["+79214835112"],"homepage":[],"address":["164610,
+        Arhangel region, Pinezkiy district, Pinega, Pervomayskaya street, 123 А"],"createdBy":"earthcape","modifiedBy":"earthcape","created":"2019-08-21T09:36:50.922+00:00","modified":"2019-08-21T09:36:50.922+00:00"},{"key":1638858,"type":"POINT_OF_CONTACT","primary":false,"userId":[],"firstName":"Irina","lastName":"Fedchenko","position":[],"email":["alashevska16@mail.ru"],"phone":["+79115356759"],"homepage":[],"address":["164610,
+        Arhangel region, Pinezkiy district, Pinega, Pervomayskaya street, 123 А"],"createdBy":"earthcape","modifiedBy":"earthcape","created":"2019-08-21T09:36:51.334+00:00","modified":"2019-08-21T09:36:51.334+00:00"},{"key":1638859,"type":"TECHNICAL_POINT_OF_CONTACT","primary":false,"userId":[],"firstName":"Evgeniy","lastName":"Meyke","position":[],"email":["evgeniy@earthcape.com"],"phone":["+358503541114"],"homepage":[],"address":["Latokartanonkaari
+        3 00790 Helsinki"],"createdBy":"earthcape","modifiedBy":"earthcape","created":"2019-08-21T09:36:51.716+00:00","modified":"2019-08-21T09:36:51.716+00:00"},{"key":1638860,"type":"POINT_OF_CONTACT","primary":false,"userId":[],"firstName":"Gennadiy","lastName":"Staropopov","position":[],"email":["stagenn@yandex.ru"],"phone":["+79815552760"],"homepage":[],"address":["164610,
+        Arhangel region, Pinezkiy district, Pinega, Pervomayskaya street, 123 А"],"createdBy":"earthcape","modifiedBy":"earthcape","created":"2019-08-21T09:36:52.173+00:00","modified":"2019-08-21T09:36:52.173+00:00"},{"key":1638861,"type":"ADMINISTRATIVE_POINT_OF_CONTACT","primary":true,"userId":[],"firstName":"Lyudmila","lastName":"Puchnina","position":[],"email":["pinzapno@mail.ru"],"phone":["+79214797474"],"homepage":[],"address":["164610,
+        Arhangel region, Pinezkiy district, Pinega, Pervomayskaya street, 123 А"],"createdBy":"earthcape","modifiedBy":"earthcape","created":"2019-08-21T09:36:52.623+00:00","modified":"2019-08-21T09:36:52.623+00:00"}],"endpoints":[],"machineTags":[],"tags":[],"identifiers":[],"comments":[]}]}'
+  recorded_at: 2023-01-06 01:57:04 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

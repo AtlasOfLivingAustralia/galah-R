@@ -9,6 +9,7 @@ wanted_columns <- function(type) {
            "taxa" = c("search_term", "scientific_name",
                       "scientific_name_authorship", 
                       "taxon_concept_id", # ALA
+                      "authority", # OpenObs
                       "usage_key", # GBIF
                       "guid", # species search
                       "canonical_name", "status", 
@@ -49,9 +50,15 @@ rename_columns <- function(varnames, type) {
     }
     else if (type == "taxa") {
         varnames[varnames == "classs"] <- "class"
-        varnames[varnames == "usage_key"] <- "taxon_concept_id"
-        varnames[varnames == "usageKey"] <- "taxon_concept_id"
-        varnames[varnames == "guid"] <- "taxon_concept_id"
+        varnames[varnames %in% c("usage_key", "usageKey", "guid", "reference_id", "referenceId")] <- "taxon_concept_id"
+        varnames[varnames %in% c("genus_name", "genusName")] <- "genus"
+        varnames[varnames %in% c("family_name", "familyName")] <- "family"
+        varnames[varnames %in% c("order_name", "orderName")] <- "order"
+        varnames[varnames %in% c("class_name", "className")] <- "class"
+        varnames[varnames %in% c("phylum_name", "phylumName")] <- "phylum"
+        varnames[varnames %in% c("kingdom_name", "kingdomName")] <- "kingdom"
+        varnames[varnames %in% c("rank_name", "rankName")] <- "rank"
+        varnames[varnames %in% c("french_vernacular_name", "frenchVernacularName")] <- "vernacular_name"
     } else if (type == "layer") {
         varnames[varnames == "displayname"] <- "name"
         varnames[varnames == "source_link"] <- "link"
@@ -109,31 +116,19 @@ parse_basic_quosures <- function(dots){
   if(any(is_either)){
     result[is_either] <- lapply(dots[is_either], eval_tidy)
   }
+  
   if(any(!is_either)){
     result[!is_either] <- lapply(dots[!is_either], 
       function(a){dequote(as_label(a))})
   }
   
-  # return correct type
-  if(check_taxize(result)){
-    keep_class <- class(result[[1]])
-    result <- unlist(do.call(as.character, result))
-    class(result) <- paste0(keep_class, "+")
-    return(result)
-  }else if(check_character(result)){
+  if(check_character(result)){
     return(do.call(c, result))
   } else if(check_df(result)){
     return(do.call(rbind, result))
   } else {
     return(result)
   }
-}
-
-check_taxize <- function(x){ # where x is a list
-  all(unlist(lapply(
-    x,
-    function(y){inherits(y, c("gbifid", "nbnid"))
-  })))
 }
 
 check_character <- function(x){
@@ -204,11 +199,13 @@ check_n_inputs <- function(dots, error_call = caller_env()) {
 ##----------------------------------------------------------------
 
 # Build query list from constituent arguments
-build_query <- function(identify, filter, location, select = NULL,
+build_query <- function(identify, 
+                        filter, 
+                        location, 
                         profile = NULL) {
                           
   if (is.null(identify)) {
-    if(taxon_key_type() == "GBIF"){
+    if(galah_config()$atlas$region == "Global"){
       taxa_query <- list(taxonKey = 1)
     }else{
       taxa_query <- NULL
@@ -233,8 +230,6 @@ build_query <- function(identify, filter, location, select = NULL,
     filter_query <- NULL
   } else {
     assert_that(is.data.frame(filter))
-    # remove profile from filter rows
-    # filters <- filters[filters$variable != "profile",]
     if (nrow(filter) == 0) {
       filter_query <- NULL
     } else {
@@ -242,40 +237,34 @@ build_query <- function(identify, filter, location, select = NULL,
     }
   }
   
-  if(taxon_key_type() == "GBIF"){
+  if(galah_config()$atlas$region == "Global"){
     query <- c(taxa_query, filter_query)
   }else{
     query <- list(fq = c(taxa_query, filter_query)) 
   } 
   
   # geographic stuff
-  if (is.null(location)) {
-    area_query <- NULL
-  } else {
-    area_query <- location
-    query$wkt <- area_query
+  if (!is.null(location)) {
+    query$wkt <- location
   }
-  
-  #if (check_for_caching(taxa_query, filter_query, area_query, select)) {
-  #  query <- cached_query(taxa_query, filter_query, area_query)
-  #}
 
   # add profiles information (ALA only)  
-  if (getOption("galah_config")$atlas == "Australia") {
-    if (!is.null(profile)) {
+  atlas <- getOption("galah_config")$atlas$region
+  if(atlas == "Australia"){
+    if(!is.null(profile)) {
       query$qualityProfile <- profile
     } else {
       query$disableAllQualityFilters <- "true"
     }
   }
-  
+
   query
 }
 
 # Build query from vector of taxonomic ids
 build_taxa_query <- function(ids) {
   ids <- ids[order(ids)]
-  if(taxon_key_type() == "GBIF"){
+  if(is_gbif()){
     list(taxonKey = ids)
   }else{
     glue(
@@ -331,8 +320,19 @@ old_query_term <- function(name, value, include) {
 }
 
 build_filter_query <- function(filters) {
-  if(getOption("galah_config")$atlas == "Global"){
-    queries <- as.list(filters$value)
+  if(is_gbif()){
+    is_equals <- filters$logical == "=="
+    if(any(is_equals)){
+      filters$query[is_equals] <- filters$value[is_equals]
+    }
+    if(any(!is_equals)){
+      cleaned_filters <- sub("^[[:graph:]]+\\[", "", 
+                             x = filters$query[!is_equals])
+      cleaned_filters <- sub("\\]$", "", x = cleaned_filters)
+      cleaned_filters <- sub(" TO ", ",", x = cleaned_filters)
+      filters$query[!is_equals] <- cleaned_filters
+    }
+    queries <- as.list(filters$query)
     names(queries) <- filters$variable
     queries
   }else{
@@ -424,8 +424,8 @@ check_for_caching <- function(taxa_query, filter_query, area_query,
 # long query
 cached_query <- function(taxa_query, filter_query, area_query,
                          columns = NULL) {
-  resp <- atlas_url("records_query") |> 
-          atlas_POST(body = list(
+  resp <- url_lookup("records_query") |> 
+          url_POST(body = list(
             wkt = area_query, 
             fq = taxa_query,
             fields = columns))
@@ -445,6 +445,10 @@ galah_version_string <- function() {
     try(version_string <- utils::packageDescription("galah")[["Version"]],
         silent = TRUE)) ## get the galah version, if we can
   paste0("galah ", version_string)
+}
+
+is_gbif <- function(){
+  getOption("galah_config")$atlas$region == "Global"
 }
 
 # Check taxonomic argument provided to `atlas_` functions is of correct form
@@ -479,7 +483,7 @@ check_data_request <- function(request, error_call = caller_env()){
 
 # Read cached file
 read_cache_file <- function(filename) {
-  if (getOption("galah_config")$verbose) {
+  if (getOption("galah_config")$package$verbose) {
     inform(glue("Using cached file \"{filename}\"."))
   }
   readRDS(filename)
@@ -487,7 +491,7 @@ read_cache_file <- function(filename) {
 
 # Write file to cache and metadata to metadata cache
 write_cache_file <- function(object, data_type, cache_file) {
-  if (getOption("galah_config")$verbose) {
+  if (getOption("galah_config")$package$verbose) {
     inform(glue("
                 
                 Writing to cache file \"{cache_file}\".
@@ -513,13 +517,13 @@ write_cache_file <- function(object, data_type, cache_file) {
 cache_filename <- function(...) {
   args <- c(...)
   filename <- paste0(digest(sort(args)), ".rds")
-  file.path(getOption("galah_config")$cache_directory, filename)
+  file.path(getOption("galah_config")$package$cache_directory, filename)
 }
 
 # Write function call metadata to RDS file to enable metadata viewing with
 # `find_cached_files()`
 write_metadata <- function(request, data_type, cache_file) {
-  metadata_file <- file.path(getOption("galah_config")$cache_directory,
+  metadata_file <- file.path(getOption("galah_config")$package$cache_directory,
                              "metadata.rds")
   if (file.exists(metadata_file)) {
     metadata <- readRDS(metadata_file)
@@ -605,7 +609,7 @@ check_type_valid <- function(type, valid, error_call = caller_env()) {
 ## show_all_atlases / search_atlases --------------------------#
 
 image_fields <- function() {
-  atlas <- getOption("galah_config")$atlas
+  atlas <- getOption("galah_config")$atlas$region
   switch (atlas,
           "Austria" = "all_image_url",
           "Guatemala" = "all_image_url",
@@ -615,10 +619,12 @@ image_fields <- function() {
 }
 
 default_columns <- function() {
-  atlas <- getOption("galah_config")$atlas
+  atlas <- getOption("galah_config")$atlas$region
   switch (atlas,
-          "Guatemala" = c("latitude", "longtitude", "species_guid",
+          "Guatemala" = c("latitude", "longitude", "species_guid",
                           "data_resource_uid", "occurrence_date", "id"),
+          "Spain" = c("latitude", "longitude", "species_guid",
+                          "data_resource_uid", "occurrence_date", "recordID"),
           c("decimalLatitude", "decimalLongitude", "eventDate",
             "scientificName", "taxonConceptID",
             "recordID", # note this requires that the ALA name (`id`) be corrected
@@ -628,7 +634,7 @@ default_columns <- function() {
 }
 
 species_facets <- function(){
-  atlas <- getOption("galah_config")$atlas
+  atlas <- getOption("galah_config")$atlas$region
   
   switch(atlas,
          "Australia" = "speciesID",
@@ -638,17 +644,6 @@ species_facets <- function(){
          "species_guid"
   )
 }
-
-# taxon_key_type <- function(){
-#   atlas <- getOption("galah_config")$atlas
-#   if(any(atlas == c("Estonia"))){
-#     "GBIF"
-#   }else{
-#     "ALA"
-#   }  
-# }
-
-taxon_key_type <- function(){"ALA"}
 
 
 ## show_all_fields --------------------------#
@@ -679,8 +674,11 @@ get_fields <- function() {
 }
 
 get_layers <- function() {
-  url <- atlas_url("spatial_layers", quiet = TRUE)
-  result <- atlas_GET(url)
+  url <- url_lookup("spatial_layers", quiet = TRUE)
+  if(is.null(url)){
+    return(NULL)
+  }
+  result <- url_GET(url)
   
   if(is.null(result)){
     NULL
@@ -730,8 +728,8 @@ get_media <- function(x) {
 }
 
 all_fields <- function() {
-  url <- atlas_url("records_fields")
-  atlas_GET(url)
+  url <- url_lookup("records_fields")
+  url_GET(url)
 }
 
 build_layer_id <- function(type, id) {
@@ -750,7 +748,7 @@ build_layer_id <- function(type, id) {
 system_down_message <- function(function_name){
   bullets <- c(
     glue("Calling the API failed for `{function_name}`."),
-    i = "This might mean that the API is down",
+    i = "This might mean that the API is down, or that you are not connected to the internet",
     i = "Double check that your query is correct, or try again later"
   )
   inform(bullets)

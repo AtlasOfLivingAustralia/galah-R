@@ -16,17 +16,17 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 29 Nov 2022 22:36:29 GMT
+      date: Tue, 10 Jan 2023 05:37:35 GMT
       content-type: application/json
       content-length: '1471'
-      x-amzn-requestid: 3643aaaf-934b-4b14-b221-2d9dbe6d087c
+      x-amzn-requestid: ce901123-1dd1-4bd9-90de-5b56612d097e
       access-control-allow-origin: '*'
       access-control-allow-headers: Content-Type
-      x-amz-apigw-id: cYppIEi4ywMFh2g=
+      x-amz-apigw-id: egvw8HhOywMFs5g=
       access-control-allow-methods: GET, POST
-      x-amzn-trace-id: Root=1-6386896d-38fb530203c0d4ca4cdf77dc
+      x-amzn-trace-id: Root=1-63bcf99f-45b249176ee0ecff23457c0d
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
         science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
@@ -38,8 +38,8 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-11-29 22:36:29 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 05:37:35 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
     uri: https://apis.ala.org.au/logger/service/logger/reasons
@@ -57,17 +57,17 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 29 Nov 2022 22:36:29 GMT
+      date: Tue, 10 Jan 2023 05:37:35 GMT
       content-type: application/json
       content-length: '1471'
-      x-amzn-requestid: ed0805b2-00d1-4756-a1fb-e3ffbc8fb983
+      x-amzn-requestid: 76b0e862-20a9-4447-8fe5-25716bd53024
       access-control-allow-origin: '*'
       access-control-allow-headers: Content-Type
-      x-amz-apigw-id: cYppJH0hSwMFXUQ=
+      x-amz-apigw-id: egvw9E4DywMFoVA=
       access-control-allow-methods: GET, POST
-      x-amzn-trace-id: Root=1-6386896d-2844ce345de3d92b086779df
+      x-amzn-trace-id: Root=1-63bcf99f-19431e8a64cb005b7aba16b5
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
         science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
@@ -79,8 +79,8 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-11-29 22:36:29 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 05:37:35 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
     uri: https://apis.ala.org.au/logger/service/logger/reasons
@@ -98,17 +98,17 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 29 Nov 2022 22:36:29 GMT
+      date: Tue, 10 Jan 2023 05:37:35 GMT
       content-type: application/json
       content-length: '1471'
-      x-amzn-requestid: b5d92c7c-ab1d-4810-9c14-e51a612ed616
+      x-amzn-requestid: 78e9f167-220d-42aa-a7cb-40dfcf7ceba3
       access-control-allow-origin: '*'
       access-control-allow-headers: Content-Type
-      x-amz-apigw-id: cYppKE1gSwMFuEA=
+      x-amz-apigw-id: egvw-FsDywMFtsw=
       access-control-allow-methods: GET, POST
-      x-amzn-trace-id: Root=1-6386896d-3d5c65921b20fccc48603df4
+      x-amzn-trace-id: Root=1-63bcf99f-6477cda230ba55307e9a18fa
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
         science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
@@ -120,8 +120,8 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-11-29 22:36:29 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 05:37:35 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
     uri: https://apis.ala.org.au/logger/service/logger/reasons
@@ -139,17 +139,17 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 29 Nov 2022 22:36:29 GMT
+      date: Tue, 10 Jan 2023 05:37:35 GMT
       content-type: application/json
       content-length: '1471'
-      x-amzn-requestid: b5d2e6c0-eaa0-4ece-ac56-b93a50cd6556
+      x-amzn-requestid: 24b8cfbf-2077-4645-827a-a124ab26b014
       access-control-allow-origin: '*'
       access-control-allow-headers: Content-Type
-      x-amz-apigw-id: cYppLE7fywMFdOw=
+      x-amz-apigw-id: egvw_GIUywMFo3g=
       access-control-allow-methods: GET, POST
-      x-amzn-trace-id: Root=1-6386896d-1e1ba86d1aec3d8c68650502
+      x-amzn-trace-id: Root=1-63bcf99f-7b0ecbe95e2ce0eb7504763f
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
         science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
@@ -161,8 +161,8 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-11-29 22:36:29 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 05:37:35 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
     uri: https://apis.ala.org.au/logger/service/logger/reasons
@@ -180,17 +180,17 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 29 Nov 2022 22:36:29 GMT
+      date: Tue, 10 Jan 2023 05:37:35 GMT
       content-type: application/json
       content-length: '1471'
-      x-amzn-requestid: dc3ab1b4-d97b-4720-961d-a5600985bb27
+      x-amzn-requestid: 5a2065c9-b208-4007-8099-6d51a37dc3d3
       access-control-allow-origin: '*'
       access-control-allow-headers: Content-Type
-      x-amz-apigw-id: cYppMFlXSwMFUMQ=
+      x-amz-apigw-id: egvxAHF_SwMFsMA=
       access-control-allow-methods: GET, POST
-      x-amzn-trace-id: Root=1-6386896d-15d43f9370afb37b17e5041e
+      x-amzn-trace-id: Root=1-63bcf99f-75d3e7954f3ff72f566d08a5
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
         science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
@@ -202,8 +202,8 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-11-29 22:36:29 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 05:37:35 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
 - request:
     method: get
     uri: https://apis.ala.org.au/logger/service/logger/reasons
@@ -221,17 +221,17 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: 'HTTP/2 200 '
-      date: Tue, 29 Nov 2022 22:36:29 GMT
+      date: Tue, 10 Jan 2023 05:37:35 GMT
       content-type: application/json
       content-length: '1471'
-      x-amzn-requestid: 546ca14b-2270-4c9d-8903-37b824e9821c
+      x-amzn-requestid: d06d55ed-1b4a-4f77-8c65-4defb2e7cd89
       access-control-allow-origin: '*'
       access-control-allow-headers: Content-Type
-      x-amz-apigw-id: cYppNG-GywMFbfA=
+      x-amz-apigw-id: egvxAHJoSwMFktA=
       access-control-allow-methods: GET, POST
-      x-amzn-trace-id: Root=1-6386896d-136843646e3145bb63f75edd
+      x-amzn-trace-id: Root=1-63bcf99f-321c3a625b2760e948e595c7
     body:
-      encoding: UTF-8
+      encoding: ''
       file: no
       string: '[{"rkey":"logger.download.reason.biosecurity","name":"biosecurity management/planning","id":1,"deprecated":false},{"rkey":"logger.download.reason.citizen.science","name":"citizen
         science","id":11,"deprecated":false},{"rkey":"logger.download.reason.collection.mgmt","name":"collection
@@ -243,5 +243,5 @@ http_interactions:
         research/taxonomy","id":8,"deprecated":false},{"rkey":"logger.download.reason.species.modelling","name":"species
         modelling","id":13,"deprecated":false},{"rkey":"logger.download.reason.other","name":"other","id":6,"deprecated":false},{"rkey":"logger.download.reason.testing","name":"testing","id":10,"deprecated":false},{"rkey":"logger.download.reason.other.scientific.research","name":"other
         scientific research","id":9,"deprecated":true}]'
-  recorded_at: 2022-11-29 22:36:29 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2023-01-10 05:37:35 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

@@ -3,7 +3,7 @@ teardown(unlink("test_media", recursive = TRUE))
 
 test_that("atlas_media gives a warning when old arguments are used", {
   skip_on_cran()
-  galah_config(email = "ala4r@ala.org.au")
+  galah_config(email = "ala4r@ala.org.au", atlas = "Australia")
   expect_message({
     media_data <- atlas_media(
       identify = galah_identify("Microseris lanceolata"),

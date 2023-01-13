@@ -69,23 +69,20 @@ parse_identify <- function(dots, search){
     input_query <- parse_basic_quosures(dots) # convert dots to query
 
     # get cached behaviour
-    atlas <- getOption("galah_config")$atlas
-    run_checks <- getOption("galah_config")$run_checks
-    verbose <- getOption("galah_config")$verbose
+    atlas <- getOption("galah_config")$atlas$region
+    run_checks <- getOption("galah_config")$package$run_checks
+    verbose <- getOption("galah_config")$package$verbose
 
     # check for types first
     if (!is.null(attr(input_query, "call"))) {
       query <- input_query$taxon_concept_id
-    # } else if (inherits(input_query, c("gbifid+", "nbnid+"))) { # from taxize
-    #   query <- as.character(input_query)
     } else { # if the input isn't of known type, try to find IDs
       if (search) {
-        check_atlas(atlas)
         lookup <- search_taxa(input_query)
         if (!any(names(lookup) == "taxon_concept_id")){
           bullets <- c(
             "`galah_identify` didn't return anything.",
-            i = "Did you use `search_taxa` to check whether your search species the correct taxa?"
+            i = "Did you use `search_taxa` to check whether your search specifies the correct taxa?"
           )
           abort(bullets, call = caller_env())
         } else {
@@ -150,20 +147,6 @@ check_number_returned <- function(n_in, n_out, error_call = caller_env()) {
         
         "Unmatched taxa. Results returned for {n_out} of {n_in} taxon IDs")
     )
-  }
-}
-
-check_atlas <- function(atlas, error_call = caller_env()) {
-  if(atlas == "UK"){
-    # atlas_origin <- switch(atlas,
-    #   "UK" = "UK",
-    #   "Sweden" = "Swedish",
-    #   "Austria" = "Austrian",
-    #   "Guatemala" = "Guatemalan",
-    #   "Spain" = "Spanish"
-    # )
-    bullets <- c("Searching is not supported for the NBN.")
-    abort(bullets, call = error_call)
   }
 }
 
