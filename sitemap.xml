@@ -4,13 +4,13 @@
     <loc>https://galah.ala.org.au/404.html</loc>
   </url>
   <url>
+    <loc>https://galah.ala.org.au/articles/choosing_an_atlas.html</loc>
+  </url>
+  <url>
     <loc>https://galah.ala.org.au/articles/download_data.html</loc>
   </url>
   <url>
     <loc>https://galah.ala.org.au/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://galah.ala.org.au/articles/international_atlases.html</loc>
   </url>
   <url>
     <loc>https://galah.ala.org.au/articles/look_up_information.html</loc>
@@ -50,9 +50,6 @@
   </url>
   <url>
     <loc>https://galah.ala.org.au/reference/atlas_taxonomy.html</loc>
-  </url>
-  <url>
-    <loc>https://galah.ala.org.au/reference/atlas_url.html</loc>
   </url>
   <url>
     <loc>https://galah.ala.org.au/reference/clear_cached_files.html</loc>
