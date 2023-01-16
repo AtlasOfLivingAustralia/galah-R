@@ -21,7 +21,8 @@ umbrella organisation to store data from all nodes. Several nodes have their
 own APIs, often built from the 'living atlas' codebase developed by the ALA.
 At present, `galah` supports the following functions and atlases:
 
-<img src="atlases_plot.png">
+![](../vignettes/atlases_plot.png)
+
 
 ## Set Organisation
 

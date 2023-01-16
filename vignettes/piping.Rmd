@@ -1,7 +1,7 @@
 ---
 title: "Piping in galah"
 author: "Martin Westgate & Dax Kellie"
-date: '2022-11-30'
+date: '2023-01-16'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -43,7 +43,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 7127224
+## 1 7155750
 ```
 
 As another example, notice how `galah_group_by()` + `atlas_counts()` works very 
@@ -75,8 +75,8 @@ galah_call() |>
 ## # A tibble: 2 × 2
 ##   biome           count
 ##   <chr>           <int>
-## 1 TERRESTRIAL 104138651
-## 2 MARINE        3442081
+## 1 TERRESTRIAL 104619011
+## 2 MARINE        3443680
 ```
 
 We made this move towards tidy evaluation to make it possible to use 
@@ -105,20 +105,22 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 11 × 3
+## # A tibble: 13 × 3
 ##    year  species                count
 ##    <chr> <chr>                  <int>
-##  1 2021  Perameles nasuta        2465
+##  1 2021  Perameles nasuta        2466
 ##  2 2021  Perameles bougainville    70
 ##  3 2021  Perameles gunnii          59
 ##  4 2021  Perameles pallescens      23
-##  5 2020  Perameles nasuta        1386
+##  5 2020  Perameles nasuta        1388
 ##  6 2020  Perameles gunnii          39
 ##  7 2020  Perameles pallescens      11
 ##  8 2020  Perameles bougainville     1
-##  9 2022  Perameles nasuta         292
-## 10 2022  Perameles gunnii          53
-## 11 2022  Perameles pallescens      26
+##  9 2022  Perameles nasuta         377
+## 10 2022  Perameles gunnii          57
+## 11 2022  Perameles pallescens      28
+## 12 2023  Perameles gunnii           4
+## 13 2023  Perameles nasuta           3
 ```
 
 And a second example, to download occurrence records of bandicoots 
@@ -136,14 +138,14 @@ galah_call() |>
 
 ```
 ## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate           scientificName   taxonConceptID              recor…¹ dataR…² occur…³ ZERO_…⁴
-##             <dbl>            <dbl> <dttm>              <chr>            <chr>                       <chr>   <chr>   <chr>   <lgl>  
-## 1           -43.1             148. 2021-05-09 08:06:02 Perameles gunnii https://biodiversity.org.a… 6f258c… iNatur… PRESENT FALSE  
-## 2           -43.0             147. 2021-03-31 21:00:16 Perameles gunnii https://biodiversity.org.a… 40d963… iNatur… PRESENT FALSE  
-## 3           -43.0             148. 2021-06-24 12:55:00 Perameles gunnii https://biodiversity.org.a… 62724c… iNatur… PRESENT FALSE  
-## 4           -43.0             147. 2021-02-06 14:09:00 Perameles gunnii https://biodiversity.org.a… ef4fe0… iNatur… PRESENT FALSE  
-## 5           -43.0             147. 2021-09-14 04:39:45 Perameles gunnii https://biodiversity.org.a… 7900b1… iNatur… PRESENT FALSE  
-## 6           -42.9             147. 2021-07-21 19:42:41 Perameles gunnii https://biodiversity.org.a… c3cc63… iNatur… PRESENT FALSE  
+##   decimalLatitude decimalLongitude eventDate           scientificName   taxonConceptID                      recor…¹ dataR…² occur…³ ZERO_…⁴
+##             <dbl>            <dbl> <dttm>              <chr>            <chr>                               <chr>   <chr>   <chr>   <lgl>  
+## 1           -43.1             148. 2021-05-09 08:06:02 Perameles gunnii https://biodiversity.org.au/afd/ta… 6f258c… iNatur… PRESENT FALSE  
+## 2           -43.0             147. 2021-03-31 21:00:16 Perameles gunnii https://biodiversity.org.au/afd/ta… 40d963… iNatur… PRESENT FALSE  
+## 3           -43.0             148. 2021-06-24 12:55:00 Perameles gunnii https://biodiversity.org.au/afd/ta… 62724c… iNatur… PRESENT FALSE  
+## 4           -43.0             147. 2021-02-06 14:09:00 Perameles gunnii https://biodiversity.org.au/afd/ta… ef4fe0… iNatur… PRESENT FALSE  
+## 5           -43.0             147. 2021-09-14 04:39:45 Perameles gunnii https://biodiversity.org.au/afd/ta… 7900b1… iNatur… PRESENT FALSE  
+## 6           -42.9             147. 2021-07-21 19:42:41 Perameles gunnii https://biodiversity.org.au/afd/ta… c3cc63… iNatur… PRESENT FALSE  
 ## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​ZERO_COORDINATE
 ```
 
@@ -164,12 +166,13 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 3 × 2
+## # A tibble: 4 × 2
 ##   year    count
 ##   <chr>   <int>
-## 1 2021  7127224
-## 2 2020  6403158
-## 3 2022  1353727
+## 1 2021  7155750
+## 2 2020  6419193
+## 3 2022  1547173
+## 4 2023    27895
 ```
 
 ```r
@@ -181,12 +184,13 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 3 × 2
+## # A tibble: 4 × 2
 ##   year    count
 ##   <chr>   <int>
-## 1 2021  7127224
-## 2 2020  6403158
-## 3 2022  1353727
+## 1 2021  7155750
+## 2 2020  6419193
+## 3 2022  1547173
+## 4 2023    27895
 ```
 The full list of masked functions is: 
 

@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-01-13'
+date: '2023-01-16'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -93,7 +93,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 112998157
+## 1 113038010
 ```
 
 To pass more complex queries, start with the `galah_call()` function and pipe
@@ -111,7 +111,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 15111799
+## 1 15150011
 ```
 
 Alternatively, you can use a subset of `dplyr` verbs to pipe your queries, 
@@ -129,10 +129,10 @@ galah_call() |>
 ## # A tibble: 4 × 2
 ##   year    count
 ##   <chr>   <int>
-## 1 2021  7155246
-## 2 2020  6418993
-## 3 2022  1536146
-## 4 2023     1414
+## 1 2021  7155750
+## 2 2020  6419193
+## 3 2022  1547173
+## 4 2023    27895
 ```
 
 To narrow the search to a particular taxonomic group, use `galah_identify()` or 
@@ -147,9 +147,10 @@ search_taxa("reptilia") # Check whether taxonomic info is correct
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                                          rank  match_type kingdom  phylum   class    issues 
-##   <chr>       <chr>           <chr>                                                                     <chr> <chr>      <chr>    <chr>    <chr>    <chr>  
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550efd40c399 class exactMatch Animalia Chordata Reptilia noIssue
+##   search_term scientific_name taxon_concept_id                                                    rank  match…¹ kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                                               <chr> <chr>   <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550ef… class exactM… Animal… Chord… Rept… noIss…
+## # … with abbreviated variable name ¹​match_type
 ```
 
 ```r
@@ -163,7 +164,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##    count
 ##    <int>
-## 1 100936
+## 1 101979
 ```
 
 # Downloading records
@@ -193,14 +194,14 @@ result |> head()
 
 ```
 ## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate           scientificName    taxonConceptID                                                   recor…¹ dataR…² occur…³ basis…⁴
-##             <dbl>            <dbl> <dttm>              <chr>             <chr>                                                            <chr>   <chr>   <chr>   <chr>  
-## 1           -43.4             147. 2020-09-04 14:00:00 Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511-1c… e8045b… FrogID  PRESENT HUMAN_…
-## 2           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511-1c… 44187a… FrogID  PRESENT HUMAN_…
-## 3           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511-1c… bc34a7… FrogID  PRESENT HUMAN_…
-## 4           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511-1c… ca4707… FrogID  PRESENT HUMAN_…
-## 5           -43.4             146. 2020-01-01 13:00:00 Litoria burrowsae https://biodiversity.org.au/afd/taxa/e9f41129-f946-4e81-889b-2e… 9c71f5… FrogID  PRESENT HUMAN_…
-## 6           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511-1c… 4bbaad… FrogID  PRESENT HUMAN_…
+##   decimalLatitude decimalLongitude eventDate           scientificName    taxonConceptID                     recor…¹ dataR…² occur…³ basis…⁴
+##             <dbl>            <dbl> <dttm>              <chr>             <chr>                              <chr>   <chr>   <chr>   <chr>  
+## 1           -43.4             147. 2020-09-04 14:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… e8045b… FrogID  PRESENT HUMAN_…
+## 2           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… 44187a… FrogID  PRESENT HUMAN_…
+## 3           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… bc34a7… FrogID  PRESENT HUMAN_…
+## 4           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… ca4707… FrogID  PRESENT HUMAN_…
+## 5           -43.4             146. 2020-01-01 13:00:00 Litoria burrowsae https://biodiversity.org.au/afd/t… 9c71f5… FrogID  PRESENT HUMAN_…
+## 6           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… 4bbaad… FrogID  PRESENT HUMAN_…
 ## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​basisOfRecord
 ```
 
