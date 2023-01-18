@@ -8,6 +8,8 @@ vignette: >
   %\VignetteIndexEntry{Choosing an atlas}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+resource_files:
+  - '../man/figures/atlases_plot.png'
 ---
 
 ```{r, include = FALSE}
@@ -21,7 +23,10 @@ umbrella organisation to store data from all nodes. Several nodes have their
 own APIs, often built from the 'living atlas' codebase developed by the ALA.
 At present, `galah` supports the following functions and atlases:
 
-![](../vignettes/atlases_plot.png)
+
+```{r atlas-support, echo = FALSE}
+include_graphics('../man/figures/atlases_plot.png')
+```
 
 
 ## Set Organisation

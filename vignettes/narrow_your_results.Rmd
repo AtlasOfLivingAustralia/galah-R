@@ -1,7 +1,7 @@
 ---
 title: "Narrow your results"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-01-17'
+date: '2023-01-18'
 output: html_document
 editor_options: 
   chunk_output_type: inline
@@ -259,7 +259,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 65961802
+## 1 65961801
 ```
 
 To see a full list of data quality profiles, use `show_all(profiles)`.

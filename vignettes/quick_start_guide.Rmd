@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-01-17'
+date: '2023-01-18'
 output:
   rmarkdown::html_vignette
 vignette: >
