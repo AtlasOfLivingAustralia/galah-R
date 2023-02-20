@@ -59,10 +59,15 @@ url_download <- function(url,
                 available_files <- all_files[grepl(".csv$", all_files) &
                                              grepl(paste0("^", data_prefix), all_files)]
                 import_files <- paste(cache_dir, available_files, sep = "/")  
-                lapply(import_files, 
+                result <- lapply(import_files, 
                        function(a){read_csv(a, col_types = cols()) |>
                                    suppressWarnings()}) |> 
                 bind_rows()
+                if(any(all_files == "doi.txt")){
+                  x <- scan("doi.txt")
+                  attr(result, "doi") <- x$V1
+                }
+                return(result)
               }
            },
            # error message is specific to atlas_species because it is the only function that
