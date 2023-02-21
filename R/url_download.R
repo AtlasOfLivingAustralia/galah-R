@@ -63,9 +63,12 @@ url_download <- function(url,
                        function(a){read_csv(a, col_types = cols()) |>
                                    suppressWarnings()}) |> 
                 bind_rows()
+
+                # add doi when mint_doi = TRUE
                 if(any(all_files == "doi.txt")){
-                  x <- scan("doi.txt")
-                  attr(result, "doi") <- x$V1
+                  doi_file <- paste(cache_dir, "doi.txt", sep = "/")
+                  attr(result, "doi") <- 
+                    read.table(doi_file) |> as.character()
                 }
                 return(result)
               }
