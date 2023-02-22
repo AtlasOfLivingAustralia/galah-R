@@ -444,7 +444,7 @@ galah_version_string <- function() {
   suppressWarnings(
     try(version_string <- utils::packageDescription("galah")[["Version"]],
         silent = TRUE)) ## get the galah version, if we can
-  paste0("galah ", version_string)
+  paste0("galah-R ", version_string)
 }
 
 is_gbif <- function(){
