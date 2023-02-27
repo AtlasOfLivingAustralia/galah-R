@@ -34,6 +34,7 @@ url_GET <- function(url,
 
 # parse a returned object from url_GET or similar
 parse_get <- function(x, slot_name = NULL, error_call = caller_env()){
+  
   # status returned
   if(x$status_code == 200){
     result <- x$parse("UTF-8") |>
@@ -46,8 +47,13 @@ parse_get <- function(x, slot_name = NULL, error_call = caller_env()){
   }else{
     code_number <- x$status_code
     request_url <- x$request$url
-    inform(glue("Status code {code_number} returned for url {request_url}."),
-           call = error_call)
+    
+    inform(glue("Status code {code_number} returned for url {request_url}."))
+
+    if(code_number == 500) {
+      inform(c(i = glue("Status code {code_number} usually indicates an incorrect email."),
+               i = glue("Is your email address entered correctly?")))
+    }
     return(NULL)
   }
 }
