@@ -55,6 +55,7 @@
 #'   atlas_counts()
 #'
 #' @importFrom utils adist 
+#' @importFrom dplyr rename
 #' @export
 search_taxa <- function(...) {
   
@@ -82,7 +83,6 @@ search_taxa <- function(...) {
     ){
     query <- unlist(query)
   }
-  
   matches <- remove_parentheses(query) |> name_query()
     
   if(is.null(matches)){
@@ -117,6 +117,7 @@ name_query <- function(query) {
   if(all(unlist(lapply(matches, is.null)))){
     NULL
   }else{
+    matches <- lapply(matches, dplyr::rename, "search_term" = 1)
     bind_rows(matches) |> tibble()
   }
 }
@@ -182,11 +183,13 @@ name_lookup <- function(name) {
   if(any(colnames(result) == "issues")){
     if ("homonym" %in% result$issues) {
       bullets <- c(
-        "Your search returned multiple taxa due to a homonym issue.",
+        "Search returned multiple taxa due to a homonym issue.",
         i = "Please provide another rank in your search to clarify taxa.",
+        i = "Use a `tibble` to clarify taxa, see `?search_taxa`.", 
         x = glue("Homonym issue with \"{name}\".")
       )
       warn(bullets)
+      
     }
   }
   
