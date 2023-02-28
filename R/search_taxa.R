@@ -211,10 +211,10 @@ name_lookup <- function(name) {
   cbind(
     search_term = name,
     as.data.frame(
-      result[names(result) %in% wanted_columns("taxa")[1:11]],
+      result[names(result) %in% wanted_columns("taxa")[1:13]],
       stringsAsFactors = FALSE),
     as.data.frame(
-      result[names(result) %in% wanted_columns("taxa")[12:34]],
+      result[names(result) %in% wanted_columns("taxa")[14:36]],
       stringsAsFactors = FALSE)
   )
 }

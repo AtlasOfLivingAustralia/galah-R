@@ -12,6 +12,7 @@ wanted_columns <- function(type) {
                       "authority", # OpenObs
                       "usage_key", # GBIF
                       "guid", # species search
+                      "lft","rgt",
                       "canonical_name", "status", 
                       "rank",
                       "match_type", "kingdom", "phylum", "class", "order",
