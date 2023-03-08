@@ -72,7 +72,6 @@
 #' 
 #' @importFrom tidyselect eval_select
 #' @importFrom tidyselect all_of
-#' @importFrom rlang as_label
 #' @importFrom tibble as_tibble
 #' @export
 galah_select <- function(...,

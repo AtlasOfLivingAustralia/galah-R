@@ -119,9 +119,9 @@ parse_basic_quosures <- function(dots){
   
   if(any(!is_either)){
     result[!is_either] <- lapply(dots[!is_either], 
-      function(a){dequote(as_label(a))})
+      function(a){dequote(deparse(quo_squash(a)))})
   }
-  
+
   if(check_character(result)){
     return(do.call(c, result))
   } else if(check_df(result)){
@@ -140,7 +140,7 @@ check_df <- function(x){
 }
 
 is_function_check <- function(dots){ # where x is a list of strings
-  x <- unlist(lapply(dots, as_label))
+  x <- unlist(lapply(dots, function(a){deparse(quo_squash(a))}))
   
   # detect whether function-like text is present
   functionish_text <- grepl("^(([[:alnum:]]|\\.|_)+\\()", x) & grepl("\\)", x)
@@ -168,7 +168,7 @@ is_object_check <- function(dots){
     modes_df <- data.frame(
       name = available_types,
       exists = unlist(lapply(available_types, function(b){
-        exists(x = dequote(as_label(a)), envir = get_env(a), mode = b)
+        exists(x = dequote(deparse(quo_squash(a))), envir = get_env(a), mode = b)
       }))
     )
     if(any(modes_df$exists)){
