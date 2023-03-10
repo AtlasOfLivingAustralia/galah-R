@@ -55,7 +55,6 @@ galah_call() |>
   galah_identify("vulpes") |>
   galah_geolocate(location, type = "bbox") |>
   atlas_counts()
-}
 
 # Search for records within a polygon using an `sf` object
 location <- 
@@ -100,6 +99,7 @@ galah_call() |>
   galah_identify("vulpes") |>
   galah_geolocate(b_box, type = "bbox") |>
   atlas_counts()
+}
 
 }
 \seealso{

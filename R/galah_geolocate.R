@@ -46,7 +46,6 @@
 #'   galah_identify("vulpes") |>
 #'   galah_geolocate(location, type = "bbox") |>
 #'   atlas_counts()
-#' }
 #' 
 #' # Search for records within a polygon using an `sf` object
 #' location <- 
@@ -91,6 +90,7 @@
 #'   galah_identify("vulpes") |>
 #'   galah_geolocate(b_box, type = "bbox") |>
 #'   atlas_counts()
+#' }
 #' 
 #' @export
 galah_geolocate <- function(..., type = c("polygon", "bbox")) {
