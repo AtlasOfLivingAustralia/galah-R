@@ -30,25 +30,26 @@
 #' }
 #' 
 #' @importFrom readr read_csv
+#' @importFrom stringr str_remove
 #' @export collect_occurrences
 
 collect_occurrences <- function(url, doi){
 
   if(missing(doi) & missing(url)){
-    abort("one of either `doi` or `url` must be specified")
+    abort("A DOI or URL must be specified.")
   }
 
   if(!missing(doi)){
     if(is.null(doi)){
-      abort("Please specify a valid `doi`")
-    }else if(grepl("^http", doi)){
+      abort("Please specify a valid DOI.")
+    }else if(grepl("^http", doi) & !grepl("doi", doi)){
       bullets <- c(
-        "It looks like you have supplied a URL to the `doi` argument",
-        i = "The `doi` argument does not accept DOIs formatted as URLs",
-        i = "If you are supplying an ALA download url, pass it to `url` instead")
+        "URL supplied as DOI.",
+        i = "The `doi` argument does not accept DOIs formatted as URLs.",
+        i = "If you are supplying an ALA download URL, pass it to `url` instead.")
       abort(bullets)
     }else{
-      result <- doi_download(doi)
+      result <- collect_occurrences_doi(doi)
     }
   }
   
@@ -56,7 +57,7 @@ collect_occurrences <- function(url, doi){
     if(is.null(url)){
       abort("Please specify a valid `url`")
     }else{
-      result <- url_download(url)
+      result <- collect_occurrences_url(url)
     }
   } 
     
@@ -70,7 +71,13 @@ collect_occurrences <- function(url, doi){
 }
 
 
-doi_download <- function(doi, error_call = caller_env()) {
+collect_occurrences_doi <- function(doi, error_call = caller_env()) {
+  
+  # remove "https://" if present
+  if (grepl("^http", doi)) {
+    doi <- stringr::str_remove(doi, "https://doi.org/") # TODO: remove once better solution is found
+  }
+  
   # strip useful part of DOI
   doi_str <- str_split(doi, "ala.")[[1]][2]
   if (is.na(doi_str)) {
@@ -88,9 +95,7 @@ doi_download <- function(doi, error_call = caller_env()) {
 
   url_complete <- url_lookup("doi_download", doi_string = doi_str)
   result <- url_download(url_complete, 
-                         ext = "zip", 
-                         cache_file = tempfile(pattern = "data"),
-                         data_prefix = "records")
+                         ext = "zip")
   if(is.null(result)){
     inform("Download failed")
     return(tibble())
@@ -102,17 +107,17 @@ doi_download <- function(doi, error_call = caller_env()) {
 }
 
 # TODO: fix multiple file import
-url_download <- function(url){
+collect_occurrences_url <- function(url){
   
   verbose <- getOption("galah_config")$package$verbose
   if(verbose) {
     cat("Downloading\n")
   }
   
-  local_file <- url_download(url, 
-    cache_file = tempfile(pattern = "data"), 
-    ext = ".zip")
-  
+  local_file <- url_download(url) 
+    # cache_file = tempfile(pattern = "data"),
+    # ext = ".zip")
+
   if(is.null(local_file)){
     inform("Download failed")
     return(tibble())

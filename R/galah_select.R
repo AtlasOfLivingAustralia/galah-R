@@ -72,7 +72,6 @@
 #' 
 #' @importFrom tidyselect eval_select
 #' @importFrom tidyselect all_of
-#' @importFrom rlang as_label
 #' @importFrom tibble as_tibble
 #' @export
 galah_select <- function(...,
@@ -93,6 +92,15 @@ galah_select <- function(...,
     }
   }else{
     is_data_request <- FALSE
+  }
+  
+  if(getOption("galah_config")$atlas$region == "Global"){
+    message("GBIF does not support `select` queries")
+    if(is_data_request){
+      return(data_request)
+    }else{
+      return(NULL)
+    }
   }
   
   # If no args are supplied, set default columns returned as group = "basic"  

@@ -1,7 +1,7 @@
 Package: galah
 Type: Package
 Title: Biodiversity Data from the Living Atlas Community
-Version: 1.5.1
+Version: 1.5.2
 Authors@R:
     c(person(given = "Martin",
              family = "Westgate",

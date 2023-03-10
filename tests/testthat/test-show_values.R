@@ -1,5 +1,19 @@
 context("Test show_values & search_values")
 
+test_that("show_values subfunctions fail when args are missing or null", {
+  expect_error(show_values_field())
+  expect_error(show_values_field(field = NULL))
+  expect_error(show_values_profile())
+  expect_error(show_values_profile(profile = NULL))
+  expect_error(show_values_list())
+  expect_error(show_values_list(list = NULL))
+  expect_error(show_values_provider())
+  expect_error(show_values_provider(provider = NULL))
+  expect_error(show_values_dataset())
+  expect_error(show_values_dataset(dataset = NULL))
+  
+})
+
 test_that("show_values checks values", {
   skip_on_cran()
   df <- tibble::tibble(x = c(1:2), y = c("a", "b"))

@@ -138,6 +138,13 @@ vcr::use_cassette("IA_GBIF_atlas_counts_group_by", {
   })
 })
 
+test_that("`galah_select()` returns message for GBIF", {
+  expect_message({x <- galah_select(galah_call())})
+  expect_true(is.null(x$select))
+  expect_message({x <- select(galah_call())})
+  expect_true(is.null(x$select))
+})
+
 # test_that("atlas_species works for GBIF", {
 #   skip_on_cran()
 #   species <- galah_call() |>
