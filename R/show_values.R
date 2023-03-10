@@ -164,7 +164,7 @@ search_values <- function(df, query) {
 # internal functions for values look-up ----------------------------------------
 
 show_values_field <- function(field) {
-  if (missing(field)) {
+  if (missing(field) || is.null(field)) {
     bullets <- c(
       "No field detected.",
       i = "Did you forget to add a field to show values for?"
@@ -221,6 +221,14 @@ search_values_field <- function(field, query){
 
 
 show_values_profile <- function(profile, error_call = caller_env()) {
+  
+  if (missing(profile) || is.null(profile)) {
+    bullets <- c(
+      "No profile detected.",
+      i = "Did you forget to add a profile to show values for?"
+    )
+    abort(bullets, call = caller_env())
+  }
   
   # check if is numeric or can be converted to numeric
   short_name <- profile_short_name(profile)[1]
@@ -282,7 +290,7 @@ search_values_profile <- function(profile, query){
 
 show_values_list <- function(list){
   
-  if (missing(list)) {
+  if (missing(list) || is.null(list)) {
     bullets <- c(
       "No list detected.",
       i = "Did you forget to add a list to show values for?"
@@ -313,7 +321,7 @@ search_values_list <- function(list, query){
 
 
 show_values_collection <- function(collection){
-  if (missing(collection)) {
+  if (missing(collection) || is.null(collection)) {
     bullets <- c(
       "No field detected.",
       i = "Did you forget to add a collection to show values for?"
@@ -336,7 +344,7 @@ search_values_collection <- function(collection, query){
 }
 
 show_values_provider <- function(provider){
-  if (missing(provider)) {
+  if (missing(provider) || is.null(provider)) {
     bullets <- c(
       "No field detected.",
       i = "Did you forget to add a provider to show values for?"
@@ -359,7 +367,7 @@ search_values_provider <- function(provider, query){
 }
 
 show_values_dataset <- function(dataset){
-  if (missing(dataset)) {
+  if (missing(dataset) || is.null(dataset)) {
     bullets <- c(
       "No field detected.",
       i = "Did you forget to add a dataset to show values for?"
@@ -384,7 +392,7 @@ search_values_dataset <- function(dataset, query){
 # checks inputs to `show_values()` & `search_values()`
 check_inputs_to_values <- function(df, error_call = caller_env()) {
   # Check if missing input
-  if(missing(df)) {
+  if(missing(df) || is.null(df)) {
     bullets <- c(
       "No input detected.",
       i = "Must supply a tibble created by `search_all` or `show_all_` functions."
