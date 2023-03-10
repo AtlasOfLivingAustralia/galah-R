@@ -49,8 +49,6 @@
 #' containing all data that match the search query.
 #' @references 
 #' *  Darwin Core terms <https://dwc.tdwg.org/terms/>
-#' *  ALA fields <https://api.ala.org.au/#ws72>
-#' *  ALA assertions fields <https://api.ala.org.au/#ws81>
 #' 
 #' @seealso See [search_taxa()] and [search_identifiers()] for more information 
 #' on taxonomic searches. 

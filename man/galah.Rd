@@ -147,7 +147,7 @@ passed within \code{\link[=galah_identify]{galah_identify()}} to the \code{taxa}
 }
 
 \references{
-For more information on the ALA API, visit \url{https://api.ala.org.au/}.
+For more information on the ALA API, visit \url{https://docs.ala.org.au/}.
 If you have any questions, comments or suggestions, please email
 \href{mailto:support@ala.org.au}{support@ala.org.au}.
 }

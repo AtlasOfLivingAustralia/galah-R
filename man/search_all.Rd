@@ -113,8 +113,6 @@ search_all(ranks, "subphylum")
 \references{
 \itemize{
 \item Darwin Core terms \url{https://dwc.tdwg.org/terms/}
-\item ALA fields \url{https://api.ala.org.au/#ws72}
-\item ALA assertions fields \url{https://api.ala.org.au/#ws81}
 }
 }
 \seealso{

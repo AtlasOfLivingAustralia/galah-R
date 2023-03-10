@@ -14,7 +14,7 @@
 #'
 #' @name galah
 #' @docType package
-#' @references For more information on the ALA API, visit <https://api.ala.org.au/>.
+#' @references For more information on the ALA API, visit <https://docs.ala.org.au/>.
 #' If you have any questions, comments or suggestions, please email
 #' [support@ala.org.au](mailto:support@ala.org.au).
 #'

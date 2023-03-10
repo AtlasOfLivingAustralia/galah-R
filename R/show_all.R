@@ -43,8 +43,6 @@
 #' containing all data of interest.
 #' @references 
 #' *  Darwin Core terms <https://dwc.tdwg.org/terms/>
-#' *  ALA fields <https://api.ala.org.au/#ws72>
-#' *  ALA assertions fields <https://api.ala.org.au/#ws81>
 #' 
 #' @seealso Use the [search_all()] function and `search_()` sub-functions to 
 #' search for information. These functions are used to pass valid arguments to
