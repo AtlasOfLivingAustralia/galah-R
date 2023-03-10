@@ -91,7 +91,7 @@
                         <h4 data-toc-skip class="author">Martin
 Westgate, Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2023-01-18</h4>
+            <h4 data-toc-skip class="date">2023-03-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/vignettes/choosing_an_atlas.Rmd" class="external-link"><code>vignettes/choosing_an_atlas.Rmd</code></a></small>
       <div class="d-none name"><code>choosing_an_atlas.Rmd</code></div>
@@ -105,7 +105,7 @@ with GBIF acting as an umbrella organisation to store data from all
 nodes. Several nodes have their own APIs, often built from the ‘living
 atlas’ codebase developed by the ALA. At present, <code>galah</code>
 supports the following functions and atlases:</p>
-<p><img src="../reference/figures/atlases_plot.png"></p>
+<p><img src="../reference/figures/atlases_plot.png" title="plot of chunk atlas-support" alt="plot of chunk atlas-support" width="100%"></p>
 <div class="section level3">
 <h3 id="set-organisation">Set Organisation<a class="anchor" aria-label="anchor" href="#set-organisation"></a>
 </h3>
@@ -133,43 +133,43 @@ Living Atlas.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 100 × 3</span></span>
-<span><span class="co">##    name                                                                                                                         uri   uid  </span></span>
-<span><span class="co">##    &lt;chr&gt;                                                                                                                        &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">##  1 A Distribution and Taxonomic Reference Dataset of Geranium (Geraniaceae) in the New World                                    http… dr321</span></span>
-<span><span class="co">##  2 A global database for the distributions of crop wild relatives                                                               http… dr12 </span></span>
-<span><span class="co">##  3 A matrix-based revision of the genus Hypogena Dejean, 1834 (Coleoptera Tenebrionidae)                                        http… dr467</span></span>
-<span><span class="co">##  4 A new Mexican species of Chrysina Kirby (Coleoptera: Scarabaeidae: Rutelinae), with nomenclatural changes, new records, and… http… dr554</span></span>
-<span><span class="co">##  5 A new species of Setostylus Matile and new records of Setostylus bellulus (Williston) (Diptera: Keroplatidae)                http… dr538</span></span>
-<span><span class="co">##  6 A revision of the genus Bromeloecia Spuler (Diptera: Sphaeroceridae: Limosininae)                                            http… dr481</span></span>
-<span><span class="co">##  7 A synopsis of American Caraphia Gahan, 1906 (Coleoptera: Cerambycidae: Lepturinae) with description of two new species       http… dr539</span></span>
-<span><span class="co">##  8 A synopsis of the Neotropical genus Protoneura (Odonata: Coenagrionidae)                                                     http… dr448</span></span>
-<span><span class="co">##  9 A systematic revision of the genus Archocentrus (Perciformes: Cichlidae), with the description of two new genera and six ne… http… dr362</span></span>
-<span><span class="co">## 10 A taxonomic monograph of the genus Tylodinus Champion (Coleoptera: Curculionidae: Cryptorhynchinae: Tylodina) of Chiapas, M… http… dr564</span></span>
+<span><span class="co">##    name                                                                                                                                     uri   uid  </span></span>
+<span><span class="co">##    &lt;chr&gt;                                                                                                                                    &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">##  1 A Distribution and Taxonomic Reference Dataset of Geranium (Geraniaceae) in the New World                                                http… dr321</span></span>
+<span><span class="co">##  2 A global database for the distributions of crop wild relatives                                                                           http… dr12 </span></span>
+<span><span class="co">##  3 A matrix-based revision of the genus Hypogena Dejean, 1834 (Coleoptera Tenebrionidae)                                                    http… dr467</span></span>
+<span><span class="co">##  4 A new Mexican species of Chrysina Kirby (Coleoptera: Scarabaeidae: Rutelinae), with nomenclatural changes, new records, and a key to th… http… dr554</span></span>
+<span><span class="co">##  5 A new species of Setostylus Matile and new records of Setostylus bellulus (Williston) (Diptera: Keroplatidae)                            http… dr538</span></span>
+<span><span class="co">##  6 A revision of the genus Bromeloecia Spuler (Diptera: Sphaeroceridae: Limosininae)                                                        http… dr481</span></span>
+<span><span class="co">##  7 A synopsis of American Caraphia Gahan, 1906 (Coleoptera: Cerambycidae: Lepturinae) with description of two new species                   http… dr539</span></span>
+<span><span class="co">##  8 A synopsis of the Neotropical genus Protoneura (Odonata: Coenagrionidae)                                                                 http… dr448</span></span>
+<span><span class="co">##  9 A systematic revision of the genus Archocentrus (Perciformes: Cichlidae), with the description of two new genera and six new species.    http… dr362</span></span>
+<span><span class="co">## 10 A taxonomic monograph of the genus Tylodinus Champion (Coleoptera: Curculionidae: Cryptorhynchinae: Tylodina) of Chiapas, Mexico         http… dr564</span></span>
 <span><span class="co">## # … with 90 more rows</span></span></code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all</a></span><span class="op">(</span><span class="va">fields</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 129 × 4</span></span>
-<span><span class="co">##    id                   description                                                                                             type  link </span></span>
-<span><span class="co">##    &lt;chr&gt;                &lt;chr&gt;                                                                                                   &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">##  1 all_image_url        Image URLs for this record                                                                              fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  2 assertion_user_id    User ID of the person who has made an assertion about this record                                       fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  3 assertions           A list of all assertions (user and system supplied) for a record resulting from data quality tests      fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  4 assertions_missing   Assertion indicating missing field values for a record. E.g. missing basis of record                    fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  5 assertions_passed    Assertion indicating a data quality test has been passed by this record                                 fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  6 assertions_unchecked Assertion indicating a data quality test was not performed for this record typically due to the absenc… fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  7 basis_of_record      The basis of record e.g. Specimen, Observation http://rs.tdwg.org/dwc/terms/basisOfRecord               fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  8 catalogue_number     http://rs.tdwg.org/dwc/terms/catalogNumber                                                              fiel… &lt;NA&gt; </span></span>
-<span><span class="co">##  9 class                The class the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/class            fiel… &lt;NA&gt; </span></span>
-<span><span class="co">## 10 collection_code      The collection code for this record. This will be populated if the data has come from a museum or herb… fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##    id                   description                                                                                                         type  link </span></span>
+<span><span class="co">##    &lt;chr&gt;                &lt;chr&gt;                                                                                                               &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">##  1 all_image_url        Image URLs for this record                                                                                          fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  2 assertion_user_id    User ID of the person who has made an assertion about this record                                                   fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  3 assertions           A list of all assertions (user and system supplied) for a record resulting from data quality tests                  fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  4 assertions_missing   Assertion indicating missing field values for a record. E.g. missing basis of record                                fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  5 assertions_passed    Assertion indicating a data quality test has been passed by this record                                             fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  6 assertions_unchecked Assertion indicating a data quality test was not performed for this record typically due to the absence of fields … fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  7 basis_of_record      The basis of record e.g. Specimen, Observation http://rs.tdwg.org/dwc/terms/basisOfRecord                           fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  8 catalogue_number     http://rs.tdwg.org/dwc/terms/catalogNumber                                                                          fiel… &lt;NA&gt; </span></span>
+<span><span class="co">##  9 class                The class the Atlas has matched this record to in the NSL http://rs.tdwg.org/dwc/terms/class                        fiel… &lt;NA&gt; </span></span>
+<span><span class="co">## 10 collection_code      The collection code for this record. This will be populated if the data has come from a museum or herbaria http://… fiel… &lt;NA&gt; </span></span>
 <span><span class="co">## # … with 119 more rows</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"year"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 3 × 4</span></span>
-<span><span class="co">##   id              description                                                                                                   type  link </span></span>
-<span><span class="co">##   &lt;chr&gt;           &lt;chr&gt;                                                                                                         &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">## 1 year            http://rs.tdwg.org/dwc/terms/year                                                                             fiel… &lt;NA&gt; </span></span>
-<span><span class="co">## 2 occurrence_year Year ranges for a search. Calculated based on the unique values for a query.                                  fiel… &lt;NA&gt; </span></span>
-<span><span class="co">## 3 date_precision  The precision of the date information for the record. Values include 'Day', 'Month', 'Year', 'Year range', '… fiel… &lt;NA&gt;</span></span></code></pre>
+<span><span class="co">##   id              description                                                                                                              type   link </span></span>
+<span><span class="co">##   &lt;chr&gt;           &lt;chr&gt;                                                                                                                    &lt;chr&gt;  &lt;chr&gt;</span></span>
+<span><span class="co">## 1 year            http://rs.tdwg.org/dwc/terms/year                                                                                        fields &lt;NA&gt; </span></span>
+<span><span class="co">## 2 occurrence_year Year ranges for a search. Calculated based on the unique values for a query.                                             fields &lt;NA&gt; </span></span>
+<span><span class="co">## 3 date_precision  The precision of the date information for the record. Values include 'Day', 'Month', 'Year', 'Year range', 'Month range' fields &lt;NA&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"lagomorpha"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 12</span></span>
@@ -195,9 +195,9 @@ searches are returning the correct taxonomic data.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"vulpes"</span><span class="op">)</span> <span class="co"># Returns data</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 13</span></span>
-<span><span class="co">##   search_term taxon_concept_id scientific_name scientific_name_authorship rank  kingdom  superclass order class genus phylum family species</span></span>
-<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;            &lt;chr&gt;           &lt;chr&gt;                      &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  </span></span>
-<span><span class="co">## 1 vulpes      NBNSYS0000138878 Vulpes          Frisch, 1775               genus Animalia Tetrapoda  Carn… Mamm… Vulp… Chord… Canid… &lt;NA&gt;</span></span></code></pre>
+<span><span class="co">##   search_term taxon_concept_id scientific_name scientific_name_authorship rank  kingdom  superclass order     class    genus  phylum   family  species</span></span>
+<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;            &lt;chr&gt;           &lt;chr&gt;                      &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">## 1 vulpes      NBNSYS0000138878 Vulpes          Frisch, 1775               genus Animalia Tetrapoda  Carnivora Mammalia Vulpes Chordata Canidae &lt;NA&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"vulpes"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -206,7 +206,7 @@ searches are returning the correct taxonomic data.</p>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##   count</span></span>
 <span><span class="co">##   &lt;int&gt;</span></span>
-<span><span class="co">## 1 98310</span></span></code></pre>
+<span><span class="co">## 1 98760</span></span></code></pre>
 <p>Download species occurrence records from other atlases with
 <code><a href="../reference/atlas_occurrences.html">atlas_occurrences()</a></code></p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
@@ -221,16 +221,16 @@ searches are returning the correct taxonomic data.</p>
 <pre><code><span><span class="co">## # A tibble: 39 × 2</span></span>
 <span><span class="co">##    scientificName                                         year</span></span>
 <span><span class="co">##    &lt;chr&gt;                                                 &lt;dbl&gt;</span></span>
-<span><span class="co">##  1 Sylvilagus floridanus (J. A. Allen, 1890)              1906</span></span>
-<span><span class="co">##  2 Sylvilagus floridanus (J. A. Allen, 1890)              1971</span></span>
-<span><span class="co">##  3 Sylvilagus floridanus subsp. aztecus (J. Allen, 1890)  1924</span></span>
-<span><span class="co">##  4 Sylvilagus floridanus (J. A. Allen, 1890)              1906</span></span>
-<span><span class="co">##  5 Sylvilagus floridanus subsp. aztecus (J. Allen, 1890)  1924</span></span>
-<span><span class="co">##  6 Sylvilagus brasiliensis subsp. gabbi (J. Allen, 1877)  1948</span></span>
-<span><span class="co">##  7 Sylvilagus floridanus (J. A. Allen, 1890)              1971</span></span>
-<span><span class="co">##  8 Sylvilagus Gray, 1867                                  1977</span></span>
-<span><span class="co">##  9 Sylvilagus Gray, 1867                                  1980</span></span>
-<span><span class="co">## 10 Sylvilagus floridanus subsp. aztecus (J. Allen, 1890)  1951</span></span>
+<span><span class="co">##  1 Sylvilagus floridanus (J. A. Allen, 1890)              1960</span></span>
+<span><span class="co">##  2 Sylvilagus brasiliensis subsp. truei (J. Allen, 1890)  1960</span></span>
+<span><span class="co">##  3 Sylvilagus floridanus (J. A. Allen, 1890)              1952</span></span>
+<span><span class="co">##  4 Sylvilagus floridanus (J. A. Allen, 1890)              1955</span></span>
+<span><span class="co">##  5 Sylvilagus floridanus (J. A. Allen, 1890)              1955</span></span>
+<span><span class="co">##  6 Sylvilagus floridanus (J. A. Allen, 1890)              1968</span></span>
+<span><span class="co">##  7 Sylvilagus brasiliensis subsp. truei (J. Allen, 1890)  1947</span></span>
+<span><span class="co">##  8 Sylvilagus floridanus (J. A. Allen, 1890)              1968</span></span>
+<span><span class="co">##  9 Sylvilagus floridanus (J. A. Allen, 1890)              1968</span></span>
+<span><span class="co">## 10 Sylvilagus floridanus subsp. aztecus (J. Allen, 1890)  1895</span></span>
 <span><span class="co">## # … with 29 more rows</span></span></code></pre>
 </div>
 <div class="section level2">
@@ -262,12 +262,12 @@ Atlas in one table.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>column <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span></code></pre></div>
-<div id="jaanssvjku" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ngacdzitmc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#jaanssvjku .gt_table {
+#ngacdzitmc .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -292,7 +292,7 @@ Atlas in one table.</p>
   border-left-color: #D3D3D3;
 }
 
-#jaanssvjku .gt_heading {
+#ngacdzitmc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -304,7 +304,12 @@ Atlas in one table.</p>
   border-right-color: #D3D3D3;
 }
 
-#jaanssvjku .gt_title {
+#ngacdzitmc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ngacdzitmc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -316,7 +321,7 @@ Atlas in one table.</p>
   border-bottom-width: 0;
 }
 
-#jaanssvjku .gt_subtitle {
+#ngacdzitmc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -328,13 +333,13 @@ Atlas in one table.</p>
   border-top-width: 0;
 }
 
-#jaanssvjku .gt_bottom_border {
+#ngacdzitmc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jaanssvjku .gt_col_headings {
+#ngacdzitmc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -349,7 +354,7 @@ Atlas in one table.</p>
   border-right-color: #D3D3D3;
 }
 
-#jaanssvjku .gt_col_heading {
+#ngacdzitmc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -369,7 +374,7 @@ Atlas in one table.</p>
   overflow-x: hidden;
 }
 
-#jaanssvjku .gt_column_spanner_outer {
+#ngacdzitmc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -381,15 +386,15 @@ Atlas in one table.</p>
   padding-right: 4px;
 }
 
-#jaanssvjku .gt_column_spanner_outer:first-child {
+#ngacdzitmc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jaanssvjku .gt_column_spanner_outer:last-child {
+#ngacdzitmc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jaanssvjku .gt_column_spanner {
+#ngacdzitmc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -401,7 +406,7 @@ Atlas in one table.</p>
   width: 100%;
 }
 
-#jaanssvjku .gt_group_heading {
+#ngacdzitmc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -424,9 +429,10 @@ Atlas in one table.</p>
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
-#jaanssvjku .gt_empty_group_heading {
+#ngacdzitmc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -441,15 +447,15 @@ Atlas in one table.</p>
   vertical-align: middle;
 }
 
-#jaanssvjku .gt_from_md > :first-child {
+#ngacdzitmc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jaanssvjku .gt_from_md > :last-child {
+#ngacdzitmc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jaanssvjku .gt_row {
+#ngacdzitmc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -468,7 +474,7 @@ Atlas in one table.</p>
   overflow-x: hidden;
 }
 
-#jaanssvjku .gt_stub {
+#ngacdzitmc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -481,7 +487,7 @@ Atlas in one table.</p>
   padding-right: 5px;
 }
 
-#jaanssvjku .gt_stub_row_group {
+#ngacdzitmc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -495,11 +501,11 @@ Atlas in one table.</p>
   vertical-align: top;
 }
 
-#jaanssvjku .gt_row_group_first td {
+#ngacdzitmc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jaanssvjku .gt_summary_row {
+#ngacdzitmc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -509,16 +515,16 @@ Atlas in one table.</p>
   padding-right: 5px;
 }
 
-#jaanssvjku .gt_first_summary_row {
+#ngacdzitmc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jaanssvjku .gt_first_summary_row.thick {
+#ngacdzitmc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jaanssvjku .gt_last_summary_row {
+#ngacdzitmc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -528,7 +534,7 @@ Atlas in one table.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#jaanssvjku .gt_grand_summary_row {
+#ngacdzitmc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -538,7 +544,7 @@ Atlas in one table.</p>
   padding-right: 5px;
 }
 
-#jaanssvjku .gt_first_grand_summary_row {
+#ngacdzitmc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -548,11 +554,11 @@ Atlas in one table.</p>
   border-top-color: #D3D3D3;
 }
 
-#jaanssvjku .gt_striped {
+#ngacdzitmc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jaanssvjku .gt_table_body {
+#ngacdzitmc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -561,7 +567,7 @@ Atlas in one table.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#jaanssvjku .gt_footnotes {
+#ngacdzitmc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -575,7 +581,7 @@ Atlas in one table.</p>
   border-right-color: #D3D3D3;
 }
 
-#jaanssvjku .gt_footnote {
+#ngacdzitmc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -584,7 +590,7 @@ Atlas in one table.</p>
   padding-right: 5px;
 }
 
-#jaanssvjku .gt_sourcenotes {
+#ngacdzitmc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -598,7 +604,7 @@ Atlas in one table.</p>
   border-right-color: #D3D3D3;
 }
 
-#jaanssvjku .gt_sourcenote {
+#ngacdzitmc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -606,116 +612,116 @@ Atlas in one table.</p>
   padding-right: 5px;
 }
 
-#jaanssvjku .gt_left {
+#ngacdzitmc .gt_left {
   text-align: left;
 }
 
-#jaanssvjku .gt_center {
+#ngacdzitmc .gt_center {
   text-align: center;
 }
 
-#jaanssvjku .gt_right {
+#ngacdzitmc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jaanssvjku .gt_font_normal {
+#ngacdzitmc .gt_font_normal {
   font-weight: normal;
 }
 
-#jaanssvjku .gt_font_bold {
+#ngacdzitmc .gt_font_bold {
   font-weight: bold;
 }
 
-#jaanssvjku .gt_font_italic {
+#ngacdzitmc .gt_font_italic {
   font-style: italic;
 }
 
-#jaanssvjku .gt_super {
+#ngacdzitmc .gt_super {
   font-size: 65%;
 }
 
-#jaanssvjku .gt_footnote_marks {
+#ngacdzitmc .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#jaanssvjku .gt_asterisk {
+#ngacdzitmc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jaanssvjku .gt_indent_1 {
+#ngacdzitmc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jaanssvjku .gt_indent_2 {
+#ngacdzitmc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jaanssvjku .gt_indent_3 {
+#ngacdzitmc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jaanssvjku .gt_indent_4 {
+#ngacdzitmc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jaanssvjku .gt_indent_5 {
+#ngacdzitmc .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
 <table class="table gt_table">
 <thead class="gt_col_headings"><tr>
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col">atlas</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">n</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="atlas">atlas</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="n">n</th>
     </tr></thead>
 <tbody class="gt_table_body">
 <tr>
-<td class="gt_row gt_left">Global</td>
-<td class="gt_row gt_right">1,804,086,788.00</td>
+<td headers="atlas" class="gt_row gt_left">Global</td>
+<td headers="n" class="gt_row gt_right">1,814,565,214.00</td>
 </tr>
 <tr>
-<td class="gt_row gt_left">United Kingdom</td>
-<td class="gt_row gt_right">207,796,356.00</td>
+<td headers="atlas" class="gt_row gt_left">United Kingdom</td>
+<td headers="n" class="gt_row gt_right">208,111,761.00</td>
 </tr>
 <tr>
-<td class="gt_row gt_left">France</td>
-<td class="gt_row gt_right">128,490,040.00</td>
+<td headers="atlas" class="gt_row gt_left">France</td>
+<td headers="n" class="gt_row gt_right">128,490,040.00</td>
 </tr>
 <tr>
-<td class="gt_row gt_left">Australia</td>
-<td class="gt_row gt_right">113,038,010.00</td>
+<td headers="atlas" class="gt_row gt_left">Australia</td>
+<td headers="n" class="gt_row gt_right">114,091,351.00</td>
 </tr>
 <tr>
-<td class="gt_row gt_left">Sweden</td>
-<td class="gt_row gt_right">103,417,222.00</td>
+<td headers="atlas" class="gt_row gt_left">Sweden</td>
+<td headers="n" class="gt_row gt_right">103,417,222.00</td>
 </tr>
 <tr>
-<td class="gt_row gt_left">Spain</td>
-<td class="gt_row gt_right">38,279,454.00</td>
+<td headers="atlas" class="gt_row gt_left">Spain</td>
+<td headers="n" class="gt_row gt_right">38,330,113.00</td>
 </tr>
 <tr>
-<td class="gt_row gt_left">Brazil</td>
-<td class="gt_row gt_right">23,739,468.00</td>
+<td headers="atlas" class="gt_row gt_left">Brazil</td>
+<td headers="n" class="gt_row gt_right">24,139,042.00</td>
 </tr>
 <tr>
-<td class="gt_row gt_left">Portugal</td>
-<td class="gt_row gt_right">16,043,865.00</td>
+<td headers="atlas" class="gt_row gt_left">Portugal</td>
+<td headers="n" class="gt_row gt_right">16,043,865.00</td>
 </tr>
 <tr>
-<td class="gt_row gt_left">Austria</td>
-<td class="gt_row gt_right">8,075,385.00</td>
+<td headers="atlas" class="gt_row gt_left">Austria</td>
+<td headers="n" class="gt_row gt_right">8,075,385.00</td>
 </tr>
 <tr>
-<td class="gt_row gt_left">Estonia</td>
-<td class="gt_row gt_right">7,131,872.00</td>
+<td headers="atlas" class="gt_row gt_left">Estonia</td>
+<td headers="n" class="gt_row gt_right">7,163,505.00</td>
 </tr>
 <tr>
-<td class="gt_row gt_left">Guatemala</td>
-<td class="gt_row gt_right">3,586,634.00</td>
+<td headers="atlas" class="gt_row gt_left">Guatemala</td>
+<td headers="n" class="gt_row gt_right">3,586,634.00</td>
 </tr>
 </tbody>
 </table>
