@@ -94,6 +94,15 @@ galah_select <- function(...,
     is_data_request <- FALSE
   }
   
+  if(getOption("galah_config")$atlas$region == "Global"){
+    message("GBIF does not support `select` queries")
+    if(is_data_request){
+      return(data_request)
+    }else{
+      return(NULL)
+    }
+  }
+  
   # If no args are supplied, set default columns returned as group = "basic"  
   if(missing(group)){
     if(length(dots) < 1){
