@@ -65,7 +65,6 @@
 #'                basisOfRecord == "HumanObservation") |>
 #'   atlas_counts()
 #' 
-#' @importFrom rlang as_label  
 #' @importFrom rlang caller_env         
 #' @importFrom rlang enquos
 #' @importFrom rlang eval_tidy
@@ -74,6 +73,7 @@
 #' @importFrom rlang new_quosure
 #' @importFrom rlang parse_expr
 #' @importFrom rlang quo_get_expr
+#' @importFrom rlang quo_squash
 # @importFrom lifecycle deprecate_soft
 #' @export galah_filter
 
@@ -155,7 +155,7 @@ check_filter <- function(dots, error_call = caller_env()) {
       bullets <- c(
         "We detected a named input.",
         i = glue("This usually means that you've used `=` instead of `==`."),
-        i = glue("Did you mean `{name} == {as_label(expr)}`?")
+        i = glue("Did you mean `{name} == {deparse(quo_squash(expr))}`?")
       )
       abort(bullets, call = error_call)
     }   
@@ -198,7 +198,9 @@ serialise_quosure <- function(x){
 # Catch-all function to do formula splitting etc
 parse_inputs <- function(dots){
   
-  x <- unlist(lapply(dots, as_label))
+  x <- unlist(lapply(dots, 
+                     function(a){deparse(quo_squash(a))}))
+                     # rlang::as_label))
   env <- lapply(dots, get_env)
   
   x <- dequote(x)
@@ -243,7 +245,9 @@ parse_inputs <- function(dots){
       env = env[[formula_df$index[a]]])})
 
   formula_df$variable <- dequote(unlist(
-    lapply(parse_objects_or_functions(var_quo), as_label)))
+    lapply(parse_objects_or_functions(var_quo), 
+           function(a){deparse(quo_squash(a))})))
+           # as_label)))
   
   value_quo <- lapply(
     seq_len(nrow(formula_df)),
@@ -252,7 +256,9 @@ parse_inputs <- function(dots){
       env = env[[formula_df$index[a]]])})
     
   formula_df$value <- dequote(unlist(
-    lapply(parse_objects_or_functions(value_quo), as_label)))
+    lapply(parse_objects_or_functions(value_quo), 
+           function(a){deparse(quo_squash(a))})))
+           # as_label)))
 
   # return minus the index field
   formula_df[, -1]

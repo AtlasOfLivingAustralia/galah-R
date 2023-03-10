@@ -52,6 +52,10 @@
 #' @export
 select.data_request <- function(.data, ..., group = c("basic", "event", "media", "assertions")
 ){
+  if(getOption("galah_config")$atlas$region == "Global"){
+    message("`select` queries are not supported by the GBIF API")
+    return(.data)
+  }
   dots <- enquos(..., .ignore_empty = "all")
   
   # If no args are supplied, set default columns returned as group = "basic"  

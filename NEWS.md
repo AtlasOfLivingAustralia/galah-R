@@ -1,3 +1,16 @@
+# galah 1.5.2
+
+Minor release to resolve issues on CRAN, and a few recent bugs.
+
+### Bug fixes
+- Prevent error when providing a `tibble` as input to `search_taxa()` (e.g., to resolve homonyms, #168)
+- Better error message when email address is required, but not given (#179)
+- Add an informative message when users call `galah_select()` while atlas = GBIF (which is not supported; #181)
+- Ensure DOIs are added to downloads when requested (#182)
+- Improve tests to avoid flagging issues on CRAN when one or more atlases are down (#184)
+- Resolve problem where some queries were replaced by `...` in `galah_filter()` (#186)
+
+
 # galah 1.5.1
 
 ### Mask function names from other packages

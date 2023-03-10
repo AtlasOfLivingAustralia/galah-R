@@ -119,9 +119,9 @@ parse_basic_quosures <- function(dots){
   
   if(any(!is_either)){
     result[!is_either] <- lapply(dots[!is_either], 
-      function(a){dequote(as_label(a))})
+      function(a){dequote(deparse(quo_squash(a)))})
   }
-  
+
   if(check_character(result)){
     return(do.call(c, result))
   } else if(check_df(result)){
@@ -140,7 +140,7 @@ check_df <- function(x){
 }
 
 is_function_check <- function(dots){ # where x is a list of strings
-  x <- unlist(lapply(dots, as_label))
+  x <- unlist(lapply(dots, function(a){deparse(quo_squash(a))}))
   
   # detect whether function-like text is present
   functionish_text <- grepl("^(([[:alnum:]]|\\.|_)+\\()", x) & grepl("\\)", x)
@@ -158,6 +158,11 @@ is_function_check <- function(dots){ # where x is a list of strings
   functions_present & (equations_ok | is_galah)
 }
 
+
+#' Check whether a quosure contains an object
+#' @keywords Internal
+#' @noRd
+#' @importFrom rlang as_label
 is_object_check <- function(dots){
   # get list of options from ?typeof & ?mode
   available_types <- c("logical", "numeric", 
@@ -168,7 +173,7 @@ is_object_check <- function(dots){
     modes_df <- data.frame(
       name = available_types,
       exists = unlist(lapply(available_types, function(b){
-        exists(x = dequote(as_label(a)), envir = get_env(a), mode = b)
+        exists(x = as_label(a), envir = get_env(a), mode = b)
       }))
     )
     if(any(modes_df$exists)){
@@ -180,7 +185,8 @@ is_object_check <- function(dots){
     }else{
       FALSE # i.e. no objects
     }
-  }))
+  })) |>
+  any()
 }
 
 check_n_inputs <- function(dots, error_call = caller_env()) {
@@ -444,7 +450,7 @@ galah_version_string <- function() {
   suppressWarnings(
     try(version_string <- utils::packageDescription("galah")[["Version"]],
         silent = TRUE)) ## get the galah version, if we can
-  paste0("galah ", version_string)
+  paste0("galah-R ", version_string)
 }
 
 is_gbif <- function(){

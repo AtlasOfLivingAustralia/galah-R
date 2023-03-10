@@ -105,8 +105,8 @@ search_all <- function(type, query){
   if(missing(type)){
     type <- "fields"
   }else{
-    type <- enquos(type) |> parse_objects_or_functions()   
-    type <-  gsub("\"", "", as_label(type[[1]]))
+    type <- enquos(type) |> parse_objects_or_functions() 
+    type <-  gsub("\"", "", deparse(quo_squash(type[[1]])))
     assert_that(is.character(type))
     check_type_valid(type, valid_types)   
   }

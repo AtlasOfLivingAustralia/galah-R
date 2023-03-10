@@ -9,7 +9,7 @@ Australia,images,image_licences,https://images.ala.org.au/ws/licence,show_all-li
 Australia,images,image_metadata,https://images.ala.org.au/ws/image/{id},media_metadata,TRUE
 Australia,lists,lists_all,https://lists.ala.org.au/ws/speciesList,show_all-lists,TRUE
 Australia,lists,lists_lookup,https://lists.ala.org.au/ws/speciesListItems/{list_id},show_values-lists,TRUE
-Australia,logger,logger_reasons,https://apis.ala.org.au/logger/service/logger/reasons,show_all-reasons,TRUE
+Australia,logger,logger_reasons,https://api.ala.org.au/logger/service/logger/reasons,show_all-reasons,TRUE
 Australia,name-matching,names_lookup,https://namematching-ws.ala.org.au/api/getByTaxonID,search_identifiers,TRUE
 Australia,name-matching,names_search_multiple,https://namematching-ws.ala.org.au/api/searchByClassification,search_taxa,TRUE
 Australia,name-matching,names_search_single,https://namematching-ws.ala.org.au/api/search?q={name},search_taxa,TRUE

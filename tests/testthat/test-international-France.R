@@ -9,7 +9,7 @@ test_that("swapping to atlas = France works", {
 
 test_that("show_all(fields) works for France", {
   vcr::use_cassette("IA_France_show_all_fields", {
-    x <- show_all_fields()
+    x <- show_all(fields)
   })
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))

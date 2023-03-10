@@ -7,6 +7,14 @@ test_that("swapping to atlas = Sweden works", {
   expect_message(galah_config(atlas = "Sweden"))
 })
 
+test_that("show_all(fields) works for Sweden", {
+  vcr::use_cassette("IA_Sweden_show_all_fields", {
+    x <- show_all(fields)
+  })
+  expect_gt(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+})
+
 test_that("show_all(collections) works for Sweden", {
   vcr::use_cassette("IA_Sweden_show_all_collections", {
     x <- show_all(collections, limit = 10)
@@ -70,9 +78,9 @@ test_that("search_all(taxa) works for Sweden", {
 })
 
 test_that("show_values works for Sweden", {
+  x <- search_fields("basisOfRecord")
   vcr::use_cassette("IA_Sweden_show_values", {
-    x <- search_fields("basisOfRecord") |> 
-      show_values()
+    show_values(x)
   })
   expect_gt(nrow(x), 1)
 })
