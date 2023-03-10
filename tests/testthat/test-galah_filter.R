@@ -169,6 +169,14 @@ test_that("galah_filter handles taxonomic queries", {
   expect_false(grepl("search_taxa", filters$query))
 })
 
+test_that("galah_filter handles taxonomic queries when passed as a string", {
+  # ensure a taxonomic query to galah_filter works
+  filters <- galah_filter(taxonConceptID == "https://biodiversity.org.au/afd/taxa/012a1234")
+  expect_equal(attr(filters, "call"), "galah_filter")
+  expect_equal(nrow(filters), 1)
+  expect_false(grepl("search_taxa", filters$query))
+})
+
 test_that("galah_filter handles taxonomic exclusions", {
   filters <- galah_filter(
     taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
@@ -177,6 +185,10 @@ test_that("galah_filter handles taxonomic exclusions", {
   expect_equal(nrow(filters), 2)
   expect_false(any(grepl("search_taxa", filters$query)))
 })
+
+# test_that("galah_filter handles different fields separated by OR", {
+#   filters <- galah_filter(phylum == "Chordata" | kingdom == "Plantae")
+# })
 
 test_that("galah_filter fails when given invalid AND syntax", {
   filters <- galah_filter(year >= 2020 & 2021)

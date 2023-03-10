@@ -158,6 +158,11 @@ is_function_check <- function(dots){ # where x is a list of strings
   functions_present & (equations_ok | is_galah)
 }
 
+
+#' Check whether a quosure contains an object
+#' @keywords Internal
+#' @noRd
+#' @importFrom rlang as_label
 is_object_check <- function(dots){
   # get list of options from ?typeof & ?mode
   available_types <- c("logical", "numeric", 
@@ -168,7 +173,7 @@ is_object_check <- function(dots){
     modes_df <- data.frame(
       name = available_types,
       exists = unlist(lapply(available_types, function(b){
-        exists(x = dequote(deparse(quo_squash(a))), envir = get_env(a), mode = b)
+        exists(x = as_label(a), envir = get_env(a), mode = b)
       }))
     )
     if(any(modes_df$exists)){
@@ -180,7 +185,8 @@ is_object_check <- function(dots){
     }else{
       FALSE # i.e. no objects
     }
-  }))
+  })) |>
+  any()
 }
 
 check_n_inputs <- function(dots, error_call = caller_env()) {
