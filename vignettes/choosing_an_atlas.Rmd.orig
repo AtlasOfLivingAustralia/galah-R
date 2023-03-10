@@ -24,7 +24,7 @@ own APIs, often built from the 'living atlas' codebase developed by the ALA.
 At present, `galah` supports the following functions and atlases:
 
 
-```{r atlas-support, echo = FALSE}
+```{r atlas-support, echo = FALSE, out.width = "100%"}
 include_graphics('../man/figures/atlases_plot.png')
 ```
 
