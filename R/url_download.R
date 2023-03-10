@@ -4,7 +4,7 @@ url_download <- function(url,
                          ext = "zip",
                          cache_file,
                          error_call = caller_env(),
-                         data_prefix = "data") {
+                         data_prefix = "data|records") {
   
   assert_that(is.character(url))
   cli <- HttpClient$new(

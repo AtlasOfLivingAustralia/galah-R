@@ -49,7 +49,7 @@ collect_occurrences <- function(url, doi){
         i = "If you are supplying an ALA download URL, pass it to `url` instead.")
       abort(bullets)
     }else{
-      result <- doi_download(doi)
+      result <- collect_occurrences_doi(doi)
     }
   }
   
@@ -57,7 +57,7 @@ collect_occurrences <- function(url, doi){
     if(is.null(url)){
       abort("Please specify a valid `url`")
     }else{
-      result <- url_download(url)
+      result <- collect_occurrences_url(url)
     }
   } 
     
@@ -71,7 +71,7 @@ collect_occurrences <- function(url, doi){
 }
 
 
-doi_download <- function(doi, error_call = caller_env()) {
+collect_occurrences_doi <- function(doi, error_call = caller_env()) {
   
   # remove "https://" if present
   if (grepl("^http", doi)) {
@@ -107,7 +107,7 @@ doi_download <- function(doi, error_call = caller_env()) {
 }
 
 # TODO: fix multiple file import
-url_download <- function(url){
+collect_occurrences_url <- function(url){
   
   verbose <- getOption("galah_config")$package$verbose
   if(verbose) {
