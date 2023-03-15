@@ -34,18 +34,14 @@
 #'   galah_identify("vulpes") |>
 #'   galah_polygon(location) |>
 #'   atlas_occurrences()
-#' }
+#' 
 #' # Search for records using a Well-known Text string (WKT)
-#' wkt <- "POLYGON((142.36228 -29.00703,
-#'                  142.74131 -29.00703,
-#'                  142.74131 -29.39064,
-#'                  142.36228 -29.39064,
-#'                  142.36228 -29.00703))"
+#' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
 #' galah_call() |>
 #'   galah_identify("vulpes") |>
 #'   galah_polygon(wkt) |>
 #'   atlas_counts()
-#' 
+#' }
 #' @importFrom sf st_cast st_as_text st_as_sfc st_is_empty st_is_simple
 #' @importFrom sf st_crs st_geometry st_geometry_type st_is_valid st_simplify st_read
 #' @importFrom rlang try_fetch

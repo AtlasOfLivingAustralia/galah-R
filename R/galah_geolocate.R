@@ -48,8 +48,7 @@
 #'   atlas_counts()
 #' 
 #' # Search for records within a polygon using an `sf` object
-#' location <- 
-#' "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
+#' location <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
 #'  sf::st_as_sfc()
 #' galah_call() |>
 #'   galah_identify("reptilia") |>
@@ -57,19 +56,14 @@
 #'   atlas_counts()
 #'    
 #' # Search for records using a Well-known Text string (WKT)
-#' wkt <- "POLYGON((142.36228 -29.00703,
-#'                  142.74131 -29.00703,
-#'                  142.74131 -29.39064,
-#'                  142.36228 -29.39064,
-#'                  142.36228 -29.00703))"
+#' wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
 #' galah_call() |>
 #'   galah_identify("vulpes") |>
 #'   galah_geolocate(wkt) |>
 #'   atlas_counts()
 #' 
 #' # Search for records within the bounding box extracted from an `sf` object
-#' location <- 
-#' "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
+#' location <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
 #'  sf::st_as_sfc()
 #' galah_call() |>
 #'   galah_identify("vulpes") |>
