@@ -109,9 +109,8 @@ returned by <code><a href="atlas_occurrences.html">atlas_occurrences()</a></code
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Search for records within a polygon using an `sf` object</span></span></span>
-<span class="r-in"><span><span class="va">location</span> <span class="op">&lt;-</span> </span></span>
-<span class="r-in"><span><span class="st">"POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))"</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html" class="external-link">st_as_sfc</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">location</span> <span class="op">&lt;-</span> <span class="st">"POLYGON((142.3 -29.0,142.7 -29.1,142.7 -29.4,142.3 -29.0))"</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html" class="external-link">st_as_sfc</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">galah_polygon</span><span class="op">(</span><span class="va">location</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
@@ -119,7 +118,7 @@ returned by <code><a href="atlas_occurrences.html">atlas_occurrences()</a></code
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   count</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>872</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    16</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Search for records using a shapefile</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your_email_here"</span><span class="op">)</span></span></span>
@@ -130,7 +129,7 @@ returned by <code><a href="atlas_occurrences.html">atlas_occurrences()</a></code
 <span class="r-in"><span>  <span class="fu"><a href="atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Search for records using a Well-known Text string (WKT)</span></span></span>
-<span class="r-in"><span><span class="va">wkt</span> <span class="op">&lt;-</span> <span class="st">"POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"</span></span></span>
+<span class="r-in"><span><span class="va">wkt</span> <span class="op">&lt;-</span> <span class="st">"POLYGON((142.3 -29.0,142.7 -29.1,142.7 -29.4,142.3 -29.0))"</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"vulpes"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">galah_polygon</span><span class="op">(</span><span class="va">wkt</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
