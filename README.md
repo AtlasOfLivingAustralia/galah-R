@@ -5,12 +5,6 @@
 galah
 </h2>
 
-[![codecov](https://codecov.io/gh/AtlasOfLivingAustralia/galah/branch/main/graph/badge.svg)](https://codecov.io/github/AtlasOfLivingAustralia/galah?branch=main)
-[![CRAN
-Status](https://www.r-pkg.org/badges/version/galah)](https://CRAN.R-project.org/package=galah)
-[![CRAN
-Downloads](https://cranlogs.r-pkg.org/badges/grand-total/galah)](https://cran.r-project.org/package=galah)
-
 ------------------------------------------------------------------------
 
 `galah` is an R interface to biodiversity data hosted by the ‘living
