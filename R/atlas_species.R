@@ -164,7 +164,7 @@ atlas_species_internal <- function(request,
     return(tibble())
   }else{
   
-    if(getOption("galah_config")$atlas$region == "Australia"){
+    if(nrow(result) > 0 && getOption("galah_config")$atlas$region == "Australia"){
       # overwrite file with fixed names
       names(result) <- rename_columns(names(result), type = "checklist")
       result <- result[, wanted_columns("checklist")]
