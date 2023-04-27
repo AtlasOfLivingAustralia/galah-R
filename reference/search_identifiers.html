@@ -114,12 +114,13 @@ by <code><a href="atlas_occurrences.html">atlas_occurrences()</a></code> and rel
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Look up a unique taxon identifier</span></span></span>
 <span class="r-in"><span><span class="fu">search_identifiers</span><span class="op">(</span>query <span class="op">=</span> <span class="st">"https://id.biodiversity.org.au/node/apni/2914510"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 14</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   scient…¹ scien…² taxon…³ rank  match…⁴ kingdom phylum class order family genus</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Eucalyp… Maiden  https:… spec… taxonI… Plantae Charo… Equi… Myrt… Myrta… Euca…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 3 more variables: species &lt;chr&gt;, vernacular_name &lt;chr&gt;, issues &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   and abbreviated variable names ¹​scientific_name,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​scientific_name_authorship, ³​taxon_concept_id, ⁴​match_type</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   scientific_name     scientific_name_author…¹ taxon_concept_id rank  match_type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Eucalyptus blakelyi Maiden                   https://id.biod… spec… taxonIdMa…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ abbreviated name: ¹​scientific_name_authorship</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 9 more variables: kingdom &lt;chr&gt;, phylum &lt;chr&gt;, class &lt;chr&gt;, order &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;, vernacular_name &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   issues &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

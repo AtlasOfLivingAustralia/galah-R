@@ -176,16 +176,15 @@ search for information. These functions are used to pass valid arguments to
 <span class="r-in"><span><span class="co"># Show a list of all available data quality profiles</span></span></span>
 <span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">profiles</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      id name                                                  shortName  descr…¹</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     2 ALA General (pre-pipelines 3)                         ALA-legacy <span style="color: #949494;">"</span>The d…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>    35 Species Distribution Modelling (CSDM) (pre-pipelines) CSDM-lega… <span style="color: #949494;">"</span>Base …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>    44 Data licensed for all uses (pre-pipelines)            re-usable… <span style="color: #949494;">"</span>Data …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>    92 ALA General                                           ALA        <span style="color: #949494;">"</span>The d…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>   124 Species Distribution Modelling (CSDM)                 CSDM       <span style="color: #949494;">"</span>Base …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>   133 Data licensed for all uses                            re-usable  <span style="color: #949494;">"</span>Data …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>   224 AVH                                                   AVH        <span style="color: #949494;">"</span>AVH d…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable name ¹​description</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id name                                               shortName description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     2 ALA General (pre-pipelines 3)                      ALA-lega… <span style="color: #949494;">"</span>The defau…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>    35 Species Distribution Modelling (CSDM) (pre-pipeli… CSDM-leg… <span style="color: #949494;">"</span>Base filt…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>    44 Data licensed for all uses (pre-pipelines)         re-usabl… <span style="color: #949494;">"</span>Data lice…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>    92 ALA General                                        ALA       <span style="color: #949494;">"</span>The defau…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>   124 Species Distribution Modelling (CSDM)              CSDM      <span style="color: #949494;">"</span>Base filt…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>   133 Data licensed for all uses                         re-usable <span style="color: #949494;">"</span>Data lice…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>   224 AVH                                                AVH       <span style="color: #949494;">"</span>AVH data …</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Show a listing of all accepted reasons for downloading occurrence data</span></span></span>
 <span class="r-in"><span><span class="fu">show_all</span><span class="op">(</span><span class="va">reasons</span><span class="op">)</span></span></span>
@@ -221,7 +220,7 @@ search for information. These functions are used to pass valid arguments to
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>     8 superclass  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     9 class       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>    10 subclass    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 59 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 59 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
