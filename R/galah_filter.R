@@ -355,7 +355,7 @@ parse_query <- function(df){
     split(df, seq_len(nrow(df))), 
     function(a){
       switch(a$type,
-        "logical" = parse_logical(a),
+        "logical" = parse_logical1(a),
         "vector" = parse_vector(a),
         "assertion" = parse_assertion(a)
       )
@@ -379,7 +379,7 @@ parse_query <- function(df){
 }
 
 
-parse_logical <- function(df){
+parse_logical1 <- function(df){
   switch(df$logical,
     "=" = {query_term(df$variable, df$value, TRUE)},
     "==" = {query_term(df$variable, df$value, TRUE)},
@@ -413,5 +413,5 @@ parse_assertion <- function(df){
   rows <- data.frame(variable = "assertions",
                      logical = logical_str,
                      value = df$variable)
-  parse_logical(rows)
+  parse_logical1(rows)
 }

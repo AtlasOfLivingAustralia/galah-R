@@ -11,8 +11,12 @@
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @param ... filters, in the form `field logical value`
 #' @export
-filter.data_request <- function(.data, ...){
+filter.data_request <- function(.data, ..., new_code = TRUE){
   dots <- enquos(..., .ignore_empty = "all")
-  check_filter(dots)
-  update_galah_call(.data, filter = parse_filter(dots))
+  if(new_code){
+    update_galah_call(.data, filter = parse_quosures(dots))
+  }else{
+    check_filter(dots)
+    update_galah_call(.data, filter = parse_filter(dots))  
+  }
 }

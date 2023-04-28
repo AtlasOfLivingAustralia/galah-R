@@ -163,6 +163,7 @@ bind_unique_rows <- function(x, y, column){
 # function used in `galah_` and `search_` functions to determine 
 # whether a quosure list contains an object of class `data_request`
 # as its' first argument
+# THIS SHOULD PROBABLY BE REMOVED OR REFACTORED
 detect_data_request <- function(dots){
   is_either <- (is_function_check(dots) | is_object_check(dots))
   if(length(is_either) < 1){

@@ -4,7 +4,7 @@
 \alias{filter.data_request}
 \title{Narrow a query by specifying filters}
 \usage{
-\method{filter}{data_request}(.data, ...)
+\method{filter}{data_request}(.data, ..., new_code = TRUE)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}

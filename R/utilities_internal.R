@@ -286,8 +286,9 @@ build_taxa_query <- function(ids) {
 query_term <- function(name, value, include) {
   # add quotes around value
   value <- lapply(value, function(x) {
-    # don't add quotes if there are square brackets in the term
-    if (grepl("\\[", x)) {
+    # don't add quotes if there are square brackets in the term, 
+    # or if there are no spaces
+    if (grepl("\\[|\\s", x)) {
       x
     } else {
       paste0("\"", x, "\"")
