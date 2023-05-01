@@ -110,43 +110,21 @@ atlas_occurrences <- function(request = NULL,
       refresh_cache = refresh_cache)
   }
 
-  # choose beahvior depending on whether we are calling LAs or GBIF
-  if(is_gbif()){
-    function_name <- "occurrences_GBIF"
-    current_call$format <- "SIMPLE_CSV"
-    arg_names <- names(formals(occurrences_GBIF))
-  }else{
-    function_name <- "occurrences_LA"
-    arg_names <- names(formals(occurrences_LA))
-  }
-
-  # subset to available arguments
-  custom_call <- current_call[names(current_call) %in% arg_names]
-  if(!is.null(doi)){
-    custom_call <- custom_call["doi"]
-  }
-  class(custom_call) <- "data_request"
-
-  # check for caching
-  caching <- getOption("galah_config")$package$caching
-  cache_file <- cache_filename("occurrences", unlist(custom_call))
-  if (caching && file.exists(cache_file) && !refresh_cache) {
-    return(read_cache_file(cache_file))
-  }
-
   # run function using do.call
-  result <- do.call(function_name, custom_call)
+  result <- compute(current_call) |>
+            collect(result_url, wait = TRUE)
+  
   if(is.null(result)){
-    result <- tibble()
+    return(tibble())
+  }else{
+    attr(result, "data_request") <- custom_call
+    
+    # if caching requested, save
+    if (caching) {
+      write_cache_file(object = result, 
+                       data_type = "occurrences",
+                       cache_file = cache_file)
+    }
+    return(result)
   }
-  attr(result, "data_request") <- custom_call
-
-  # if caching requested, save
-  if (caching) {
-    write_cache_file(object = result, 
-                     data_type = "occurrences",
-                     cache_file = cache_file)
-  }
-
-  result
 }

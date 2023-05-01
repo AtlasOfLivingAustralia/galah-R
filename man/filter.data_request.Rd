@@ -16,10 +16,11 @@
 to narrow down the number of records returned by a specific query.
 For example, it is common for users to request records from a particular year
 (\code{year == 2020}), or to return all records except for fossils
-(\code{basisOfRecord != "FossilSpecimen"}).
+(\code{basisOfRecord != "FossilSpecimen"}). Note that there is a performance
+benefit to using \code{filter} rather than \code{galah_filter}, albeit a minor one.
 
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \seealso{
-\code{\link[=galah_filter]{galah_filter()}}, with which this function is synonymous.
+\code{\link[=galah_filter]{galah_filter()}}, with which this function is (nearly) synonymous.
 }

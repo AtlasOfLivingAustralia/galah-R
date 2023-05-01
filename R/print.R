@@ -46,3 +46,10 @@ print.galah_config <- function(x, ...){
 
   cat(format_error_bullets(print_text))
 }
+
+#' @rdname compute.data_request
+#' @param x an object of class `data_response`
+#' @export
+print.data_response <- function(x, ...){
+  str(x)
+}

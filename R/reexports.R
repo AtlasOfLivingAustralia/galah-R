@@ -1,3 +1,11 @@
+#' @importFrom dplyr collect
+#' @export
+dplyr::collect
+
+#' @importFrom dplyr compute
+#' @export
+dplyr::compute
+
 #' @importFrom graphics identify
 #' @export
 graphics::identify

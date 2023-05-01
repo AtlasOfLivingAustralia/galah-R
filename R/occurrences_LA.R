@@ -70,23 +70,20 @@ occurrences_LA <- function(identify = NULL,
     query$mintDoi <- "true"
   }
 
-  status_initial <- url_GET(occurrences_url, params = query)
-
-  # Get data  
-  if(is.null(status_initial)){
-    return(NULL)
-  }
-  download_resp <- url_queue(status_initial)
-  if(is.null(download_resp)){
-    inform("Calling the API failed for `atlas_occurrences`")
-    return(tibble())
-  }
-
-  # download from url
-  result <- url_download(download_resp, ext = "zip")
+  # make request
+  result <- url_GET(occurrences_url, params = query)
+  
   if(is.null(result)){
-    system_down_message("atlas_occurrences")
+    abort("`compute` failed")
   }else{
-    result
+    if(verbose){
+      bullets <- c(
+        glue("Request for {record_count(query)} records placed with {getOption('galah_config')$atlas$acronym}"),
+        i = glue("current status is '{result$status}' with queue size = {result$queueSize}"))
+      inform(bullets)
+    }
+    class(result) <- "data_response" # new class
+    attr(result, "organisation") <- getOption('galah_config')$atlas$organisation
+    return(result)
   }
 }
