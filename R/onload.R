@@ -1,6 +1,11 @@
+#' Set-up for galah during loading
+#' @noRd
+#' @keywords Internal
+#' @importFrom potions brew
 .onLoad <- function(libname, pkgname) {
     if (pkgname == "galah") {
-      galah_config()
+      brew(.pkg = "galah")
+      galah_config() # to cache defaults
       options(list(
         "galah_internal_cache" = galah_internal_archived))
     }

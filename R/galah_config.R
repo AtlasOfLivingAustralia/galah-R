@@ -6,11 +6,6 @@
 #' `galah_config` function provides a way to manage these issues as simply
 #' as possible.
 #'
-#' @param profile_path 
-#'    `r lifecycle::badge("deprecated")` 
-#'    
-#'    Keeping for compatibility with older package versions. It is preferable to 
-#'    not save `galah_config` options to a .Rprofile file.
 #' @param \dots Options can be defined using the form `name = "value"`.
 #' Valid arguments are:
 #' 
@@ -34,7 +29,7 @@
 #'   *  `email` string: An email address that has been registered with the chosen
 #'   atlas. For the ALA, you can register at
 #'   [this address](https://auth.ala.org.au/userdetails/registration/createAccount).
-#'   *  `password` string: A registerd password (GBIF only)
+#'   *  `password` string: A registered password (GBIF only)
 #'   *  `run_checks` logical: should `galah` run checks for filters
 #'   and columns. If making lots of requests sequentially, checks can slow down
 #'   the process and lead to HTTP 500 errors, so should be turned off. Defaults
@@ -43,7 +38,7 @@
 #'     [atlas_occurrences()]? Defaults to `FALSE`; but can be
 #'     useful in some instances, for example for tracking DOIs assigned to
 #'     specific downloads for later citation.
-#'   *  `username` string: A registerd username (GBIF only)
+#'   *  `username` string: A registered username (GBIF only)
 #'   *  `verbose` logical: should `galah` give verbose such as progress bars?
 #'  Defaults to FALSE.
 #' 
@@ -71,90 +66,45 @@
 #' # Make debugging in your session easier by setting `verbose = TRUE`
 #' galah_config(verbose = TRUE)
 #' }
+#' @importFrom rlang abort
+#' @importFrom potions brew
+#' @importFrom potions pour
 #' @export galah_config
 
-galah_config <- function(..., profile_path = NULL) {
-  ala_option_name <- "galah_config"
-  current_options <- getOption(ala_option_name)
-  user_options <- list(...)
-
-  if (length(user_options) == 0 && !is.null(current_options)) {
-    return(current_options)
+galah_config <- function(...) {
+  
+  # make sure dots are captured properly
+  dots <- list(...)
+  
+  # set defaults, if this has not happened already
+  if(length(pour()) == 0) {
+    brew(default_config())
   }
-  if (is.null(current_options)) {
-    ## galah options have not been set yet, so set them to the defaults
-    current_options <- default_config()
-    if (!dir.exists(current_options$package$cache_directory)) {
-      dir.create(current_options$package$cache_directory)
+  
+  # add user-provided information
+  if(length(dots) > 0){
+    # check all values in dots to ensure they are named
+    if(length(dots) != length(names(dots))){
+      bullets <- c("All arguments to `galah_config() must be named",
+                   i = "Did you use `==` instead of `=`?")
+      abort(bullets)
     }
-    ## set the global option
-    temp <- list(current_options)
-    names(temp) <- ala_option_name
-    class(temp) <- "galah_config"
-    options(temp)
-    return(current_options)
-  } else {
-    # check all the options are valid, if so, set as options
-
-    if (!is.null(user_options$atlas)) {
-      new_atlas <- configure_atlas(user_options$atlas)
-      check_atlas(current_options$atlas, new_atlas) # see whether atlases have changed, and if so, give a message
-      current_options$atlas <- new_atlas
-      user_options <- user_options[names(user_options) != "atlas"]
-    }
-
-    if (!is.null(user_options$download_reason_id)) {
-      user_options$download_reason_id <-
-        convert_reason(user_options$download_reason_id)
-    }
-
-    for (x in names(user_options)) {
-      validate_option(x, user_options[[x]])
-      switch(x,
-             # package
-             "verbose" = {current_options$package$verbose <- user_options[[x]]},
-             "run_checks" = {current_options$package$run_checks <- user_options[[x]]},
-             "send_email" = {current_options$package$send_email <- user_options[[x]]},
-             "caching" = {current_options$package$caching <- user_options[[x]]},
-             "cache_directory" = {current_options$package$cache_directory <- user_options[[x]]},
-             # user
-             "username" = {current_options$user$username <- user_options[[x]]}, # gbif only
-             "email" = {current_options$user$email <- user_options[[x]]},
-             "password" = {current_options$user$password <- user_options[[x]]}, # gbif only
-             "download_reason_id" = {current_options$user$download_reason_id <- user_options[[x]]})
-    }
-
-    ## set the global option
-    temp <- list(current_options)
-    names(temp) <- ala_option_name
-    class(temp) <- "galah_config"
-  }
-  options(temp)
-
-  # set profile  
-  if (!is.null(profile_path)) {
-    lifecycle::deprecate_soft(
-      when = "1.4.1",
-      what = "galah_config(profile_path = 'is soft-deprecated')",
-      details = c(
-        "*" = "We no longer recommend saving `galah_config()` options.",
-        i = "Reloading config options improves code reproducibility.")
-      )
-    if (!file.exists(profile_path) || basename(profile_path) != ".Rprofile") {
-      bullets <- c(
-        glue("No .Rprofile file exists at \"{profile_path}\"."),
-        i = "Please create fhe file and try again."
-      )
-      abort(bullets, call = caller_env())
-    }
-    if (current_options$verbose) {
-      inform(glue("The config will be stored in {profile_path}."))
-    }
-    save_config(profile_path, current_options)
-
+    
+    # check all values in dots to ensure they are valid
+    result <- restructure_config(dots)
+    
+    # add to `potions` object
+    brew(result, method = "leaves")
+  }else{
+    x <- pour()
+    class(x) <- c("galah_config", "list")
+    return(x)
   }
 }
 
+#' Set a 'default' object for storing config in `galah`
+#' @noRd
+#' @keywords Internal
 default_config <- function(){
   x <- list(
     package = list( 
@@ -172,11 +122,105 @@ default_config <- function(){
       organisation = "Atlas of Living Australia",
       acronym  = "ALA",
       region = "Australia"))
-    class(x) <- "galah_config"
-    x
+  class(x) <- c("galah_config", "list")
+  x
 }
 
+#' Place new options into correctly nested structure
+restructure_config <- function(dots){
+  result <- lapply(names(dots),
+         function(a){validate_config(a, dots[[a]])})
+  names(result) <- names(dots)
+  return(result)
+}
 
+#' Catch errors in user-provided config
+#' @importFrom rlang abort
+#' @importFrom glue glue
+#' @importFrom potions pour
+#' @noRd
+#' @keywords Internal
+validate_config <- function(name, value, error_call = caller_env()) {
+  switch(name, 
+         "atlas" = {
+           value <- configure_atlas(value)
+           # see whether atlases have changed, and if so, give a message
+           check_atlas(pour("atlas"), value)},
+         "caching"         = enforce_logical(value),
+         "send_email"      = enforce_logical(value),
+         "verbose"         = enforce_logical(value),
+         "run_checks"      = enforce_logical(value),
+         "cache_directory" = enforce_exists(value),
+         "email"           = enforce_character(value),
+         "password"        = enforce_character(value),
+         "username"        = enforce_character(value),
+         "download_reason_id" = enforce_download_reason(value),
+         enforce_invalid_name())
+  
+  return(value)
+}
+
+#' Ensure some arguments are logical
+#' @importFrom rlang abort
+enforce_logical <- function(value, error_call = caller_env()){
+  if (!is.logical(value)) {
+    abort("Supplied value must be TRUE or FALSE.", call = error_call)
+  }
+}
+
+#' Ensure a file exists
+#' @importFrom rlang abort
+enforce_exists <- function(value, error_call = caller_env()){
+  if (!dir.exists(value)) {
+    bullets <- c("Cache directory does not exist.",
+                 i = "Does the directory entered exist?")
+    abort(bullets, call = error_call)
+  }else{
+    return(value)
+  }
+}
+
+#' Ensure provided value is a string
+#' @importFrom rlang abort
+enforce_character <- function(value, error_call = caller_env()){
+  if (!is.character(value)) {
+    bullets <- c(
+      glue("Invalid type"),
+      i = "Value must be entered as a string."
+    )
+    abort(bullets, call = error_call)
+  }
+}
+
+#' Ensure download reason is valid
+#' @importFrom rlang abort
+enforce_download_reason <- function(value, error_call = caller_env()){
+  if (!(value %in% show_all_reasons()$id)) {
+    bullets <- c(
+      "Invalid download reason ID or name.",
+      i = "Use `show_all(atlases)` to see all valid reasons.",
+      x = glue("{value} does not match an existing reason ID.")
+    )
+    abort(bullets, call = error_call)
+  }
+}
+
+#' catch all failure for unknown names
+#' @importFrom rlang abort
+enforce_invalid_name <- function(value, error_call = caller_env()){
+  bullets <- c(
+    "Invalid option name.",
+    i = "See `?galah_config()` for valid options.",
+    x = glue("\"{name}\" is not a valid option name.")
+  )
+  abort(bullets, call = error_call)
+}
+
+#' Set behaviour for deriving correct atlas information
+#' @importFrom rlang abort
+#' @importFrom glue glue
+#' @noRd
+#' @keywords Internal
 configure_atlas <- function(query){
   
   comparison <- do.call(c, node_metadata)
@@ -206,133 +250,25 @@ configure_atlas <- function(query){
   }
 }
 
-check_atlas <- function(current, new){
-  if(new$region != current$region){
+
+#' Provide a message if atlas is changed
+#' @importFrom glue glue
+#' @importFrom rlang message
+#' @noRd
+#' @keywords Internal
+check_atlas <- function(current_data, new_data){
+  if(new_data$region != current_data$region){
     message(glue(
-      "Atlas selected: {new$organisation} ({new$acronym}) [{new$region}]"))
-  }
-}
- 
-
-save_config <- function(profile_path, new_options) {
-  if (!file.exists(profile_path)) {
-    inform(glue(".Rprofile file doesn't exist yet. \\
-                It will be created at \"{profile_path}\"."))
-    file.create(profile_path)
-    existing_options <- list()
-    old_profile <- ""
-  } else {
-    # find existing options in file
-    old_profile <- readLines(file.path(profile_path))
-    # try one bracket and two brackets
-    existing_options <- read_options(old_profile)
-  }
-  existing_options[["galah_config"]] <- new_options
-  
-  options_to_write <- paste0(
-    "options(",paste(
-      sapply(
-        seq_len(length(existing_options)), function(x) {
-          opt <- existing_options[[x]]
-          opt_name <- names(existing_options)[[x]]
-          if (is.list(opt)) {
-            opts <- paste(sapply(seq_len(length(opt)), function(y) {
-              paste(names(opt)[[y]], quoted_options(opt[[y]]), sep = " = ",
-                    collapse = ", ")
-            }), collapse = ", ")
-            paste0(opt_name," = list(", opts, ")")
-          } else {
-            paste(opt_name, quoted_options(opt), sep = " = ", collapse = ",")
-          }
-        }),
-      collapse = ","),
-    ")")
-  
-  new_profile <- build_options(old_profile, options_to_write)
-  
-  con <- file(profile_path)
-  writeLines(new_profile, con)
-  close(con)
-}
-
-build_options <- function(old_profile, opts) {
-  # if two brackets
-  if (!is.na(str_match(old_profile, "options\\(\\s*(.*?)\\s*\\)\\)")[1])) {
-    return(str_replace(old_profile, "options\\(\\s*(.*?)\\s*\\)\\)", opts))
-  }
-  # one bracket
-  if (!is.na(str_match(old_profile, "options\\(\\s*(.*?)\\s*\\)")[1])) {
-    return(str_replace(old_profile, "options\\(\\s*(.*?)\\s*\\)", opts))
-  }
-  # assume no match
-  return(opts)
-}
-
-
-# function to read existing options file
-# handles case when listed options already contains a nested list
-# and when it doesn't
-read_options <- function(profile) {
-  # try two brackets
-  opts <- str_match(profile, "options\\(\\s*(.*?)\\s*\\)\\)")[1]
-  if (is.na(opts)) {
-    # try one bracket
-    opts <- str_match(profile, "options\\(\\s*(.*?)\\s*\\)")[1]
-  }
-  # no options exist
-  if (is.na(opts)) {
-    return(list())
-  }
-  eval(parse(text = opts))
-}
-
-
-quoted_options <- function(opts) {
-  sapply(opts, function(x) {
-    ifelse(is.logical(x), x, paste0("\"", x, "\""))
-  })
-}
-
-validate_option <- function(name, value, error_call = caller_env()) {
-  if (name %in% c("caching", "send_email", "verbose", "run_checks")) {
-    if (!is.logical(value)) {
-      abort(glue("\"{name}\" must be TRUE or FALSE."), call = error_call)
-    }
-  } else if (name == "cache_directory") {
-    if (!dir.exists(value)) {
-      bullets <- c(
-        "Cache directory does not exist.",
-        i = "Does the directory entered exist?"
-      )
-      abort(bullets, call = error_call)
-    }
-  } else if (name %in% c("email", "password", "username")) {
-    if (!is.character(value)) {
-      bullets <- c(
-        glue("Invalid {name}"),
-        i = "This argument must be entered as a string."
-      )
-      abort(bullets, call = error_call)
-    }
-  } else if (name == "download_reason_id") {
-    if (!(value %in% show_all_reasons()$id)) {
-      bullets <- c(
-        "Invalid download reason ID or name.",
-        i = "Use `show_all(atlases)` to see all valid reasons.",
-        x = glue("{value} does not match an existing reason ID.")
-      )
-      abort(bullets, call = error_call)
-    }
-  } else {
-    bullets <- c(
-      "Invalid option name.",
-      i = "See `?galah_config()` for valid options.",
-      x = glue("\"{name}\" is not a valid option name.")
-    )
-    abort(bullets, call = error_call)
+      "Atlas selected: {new_data$organisation} ({new_data$acronym}) [{new_data$region}]"))
   }
 }
 
+
+#' Ensure download reasons are valid
+#' @importFrom rlang abort
+#' @importFrom glue glue
+#' @noRd
+#' @keywords Internal
 convert_reason <- function(reason, error_call = caller_env()) {
   valid_reasons <- show_all_reasons()
   bullets <- c(

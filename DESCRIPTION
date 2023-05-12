@@ -34,6 +34,7 @@ Imports:
     httr,
     jsonlite (>= 0.9.8),
     lifecycle (>= 1.0.0),
+    potions (> 0.1.0),
     readr,
     rlang,
     sf,

@@ -5,7 +5,7 @@
 \alias{print.galah_config}
 \title{Get or set configuration options that control galah behaviour}
 \usage{
-galah_config(..., profile_path = NULL)
+galah_config(...)
 
 \method{print}{galah_config}(x, ...)
 }
@@ -46,11 +46,6 @@ specific downloads for later citation.
 \item \code{verbose} logical: should \code{galah} give verbose such as progress bars?
 Defaults to FALSE.
 }}
-
-\item{profile_path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-
-Keeping for compatibility with older package versions. It is preferable to
-not save \code{galah_config} options to a .Rprofile file.}
 
 \item{x}{an object of class \code{galah_config}}
 }

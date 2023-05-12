@@ -2,8 +2,6 @@ context("Test galah_config")
 
 test_that("galah_config sets default options", {
   skip_on_cran()
-  # set to null
-  options(galah_config = NULL)
   # check that defaults are used
   expect_equal(galah_config()$package$verbose, TRUE)
 })
