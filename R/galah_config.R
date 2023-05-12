@@ -127,6 +127,8 @@ default_config <- function(){
 }
 
 #' Place new options into correctly nested structure
+#' @noRd
+#' @keywords Internal
 restructure_config <- function(dots){
   result <- lapply(names(dots),
          function(a){validate_config(a, dots[[a]])})
@@ -162,6 +164,8 @@ validate_config <- function(name, value, error_call = caller_env()) {
 
 #' Ensure some arguments are logical
 #' @importFrom rlang abort
+#' @noRd
+#' @keywords Internal
 enforce_logical <- function(value, error_call = caller_env()){
   if (!is.logical(value)) {
     abort("Supplied value must be TRUE or FALSE.", call = error_call)
@@ -170,6 +174,8 @@ enforce_logical <- function(value, error_call = caller_env()){
 
 #' Ensure a file exists
 #' @importFrom rlang abort
+#' @noRd
+#' @keywords Internal
 enforce_exists <- function(value, error_call = caller_env()){
   if (!dir.exists(value)) {
     bullets <- c("Cache directory does not exist.",
@@ -182,6 +188,8 @@ enforce_exists <- function(value, error_call = caller_env()){
 
 #' Ensure provided value is a string
 #' @importFrom rlang abort
+#' @noRd
+#' @keywords Internal
 enforce_character <- function(value, error_call = caller_env()){
   if (!is.character(value)) {
     bullets <- c(
@@ -194,6 +202,8 @@ enforce_character <- function(value, error_call = caller_env()){
 
 #' Ensure download reason is valid
 #' @importFrom rlang abort
+#' @noRd
+#' @keywords Internal
 enforce_download_reason <- function(value, error_call = caller_env()){
   if (!(value %in% show_all_reasons()$id)) {
     bullets <- c(
@@ -207,6 +217,8 @@ enforce_download_reason <- function(value, error_call = caller_env()){
 
 #' catch all failure for unknown names
 #' @importFrom rlang abort
+#' @noRd
+#' @keywords Internal
 enforce_invalid_name <- function(value, error_call = caller_env()){
   bullets <- c(
     "Invalid option name.",
@@ -253,12 +265,12 @@ configure_atlas <- function(query){
 
 #' Provide a message if atlas is changed
 #' @importFrom glue glue
-#' @importFrom rlang message
+#' @importFrom rlang inform
 #' @noRd
 #' @keywords Internal
 check_atlas <- function(current_data, new_data){
   if(new_data$region != current_data$region){
-    message(glue(
+    inform(glue(
       "Atlas selected: {new_data$organisation} ({new_data$acronym}) [{new_data$region}]"))
   }
 }

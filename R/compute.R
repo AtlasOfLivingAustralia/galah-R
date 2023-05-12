@@ -5,6 +5,8 @@
 #' @seealso [atlas_occurrences()]
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @return An object of class `request_info`
+#' @importFrom potions pour
+#' @importFrom rlang abort
 #' @export
 compute.data_request <- function(x){
 
@@ -32,9 +34,9 @@ compute.data_request <- function(x){
   class(custom_call) <- "data_request"
   
   # check for caching
-  caching <- getOption("galah_config")$package$caching
   cache_file <- cache_filename("occurrences", unlist(custom_call))
-  if (caching && file.exists(cache_file) && !refresh_cache) {
+  if (pour("package", "caching") && 
+      file.exists(cache_file) && !refresh_cache) {
     return(read_cache_file(cache_file))
   }else{
     return(do.call(function_name, custom_call))

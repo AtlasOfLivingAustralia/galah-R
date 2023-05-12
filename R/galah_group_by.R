@@ -50,7 +50,7 @@ parse_group_by <- function(dots){
   if(length(dots) > 0){
     provided_variables <- dequote(unlist(lapply(dots, 
                                                 function(a){deparse(quo_squash(a))})))
-    if (getOption("galah_config")$package$run_checks){
+    if(pour("package", "run_checks")){
       validate_fields(provided_variables)
     }
     available_variables <- provided_variables[

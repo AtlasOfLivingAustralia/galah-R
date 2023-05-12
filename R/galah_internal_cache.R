@@ -1,13 +1,16 @@
-# Internal function to store objects generated from `show_all_` functions
-# This increases speed by ensuring that the atlas is only queried when needed.
-# When run with no arguments, it returns a list with currently stored objects.
-# When a named field is given, it stores that field in options("galah_internal")
+#' Internal function to store objects generated from `show_all_` functions
+#' 
+#' This increases speed by ensuring that the atlas is only queried when needed.
+#' When run with no arguments, it returns a list with currently stored objects.
+#' When a named field is given, it stores that field in options("galah_internal")
+#' @noRd
+#' @keywords Internal
+#' @importFrom potions pour
 galah_internal_cache <- function(...){
 
   # set all options
-  ala_option_name <- "galah_internal_cache"
-  current_options <- getOption(ala_option_name)
-  atlas <- getOption("galah_config")$atlas$region
+  current_options <- pour()
+  atlas <- pour("atlas", "region")
   user_options <- list(...)
   
   # load an archived version as the default
@@ -42,7 +45,7 @@ galah_internal_cache <- function(...){
 internal_cache_update_needed <- function(function_name){
   df <- galah_internal_cache()[[function_name]]
   is_local <- !is.null(attr(df, "ARCHIVED"))
-  is_wrong_atlas <- attr(df, "atlas_name") != getOption("galah_config")$atlas$region
+  is_wrong_atlas <- attr(df, "atlas_name") != pour("atlas", "region")
   is_too_short <- nrow(df) < 10
   result <- is_local | is_wrong_atlas | is_too_short # if any, update is needed 
   if(length(result) < 1){result <- TRUE} # bug catcher

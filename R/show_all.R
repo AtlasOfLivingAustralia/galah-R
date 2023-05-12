@@ -101,10 +101,10 @@ show_all <- function(type, limit = NULL){
 
 
 #' @rdname show_all
-#' @export show_all_assertions
+#' @importFrom tibble tibble
+#' @export
 show_all_assertions <- function(limit = NULL){
-  atlas <- getOption("galah_config")$atlas$region
-  if(atlas == "Global"){
+  if(is_gbif()){
     result <- gbif_internal_archived$assertions
   }else{
     url <- url_lookup("records_assertions") 
@@ -142,13 +142,14 @@ show_all_atlases <- function(limit = NULL) {
 
 
 #' @rdname show_all
-#' @export show_all_cached_files
+#' @importFrom glue glue
+#' @importFrom potions pour
+#' @importFrom rlang inform
+#' @export
 show_all_cached_files <- function(limit = NULL) {
-  # return a data.frame of all cached files
-  metadata_path <- file.path(getOption("galah_config")$package$cache_directory,
-                             "metadata.rds")
+  directory <- pour("package", "cache_directory")
+  metadata_path <- file.path(directory, "metadata.rds")
   if (!file.exists(metadata_path)) {
-    directory <- getOption("galah_config")$package$cache_directory
     inform(glue("No cached file information was found in {directory}."))
     return()
   }
@@ -157,7 +158,7 @@ show_all_cached_files <- function(limit = NULL) {
 
 
 #' @rdname show_all
-#' @export show_all_apis
+#' @export
 show_all_apis <- function(limit = NULL){
   df <- node_config
   if(!is.null(limit)){
@@ -169,7 +170,7 @@ show_all_apis <- function(limit = NULL){
 }
 
 #' @rdname show_all
-#' @export show_all_collections
+#' @export
 show_all_collections <- function(limit = NULL){
   collectory_funs(limit, 
                   url_tag = "collections_collections", 
@@ -177,7 +178,7 @@ show_all_collections <- function(limit = NULL){
 }
 
 #' @rdname show_all
-#' @export show_all_collections
+#' @export
 show_all_datasets <- function(limit = NULL){
   collectory_funs(limit, 
                   url_tag = "collections_datasets", 
@@ -185,13 +186,18 @@ show_all_datasets <- function(limit = NULL){
 }
 
 #' @rdname show_all
-#' @export show_all_providers
+#' @export
 show_all_providers <- function(limit = NULL){
   collectory_funs(limit, 
                   url_tag = "collections_providers", 
                   fun_name = "providers")
 }
 
+
+#' Internal function to handle collectories
+#' @noRd
+#' @keywords Internal
+#' @importFrom tibble tibble
 collectory_funs <- function(limit = NULL, url_tag, fun_name){
   # set behaviour for gbif versus elsewhere
   if(is.null(limit)){
@@ -230,11 +236,12 @@ collectory_funs <- function(limit = NULL, url_tag, fun_name){
 
 
 #' @rdname show_all
-#' @export show_all_fields
+#' @importFrom potions pour
+#' @export
 show_all_fields <- function(limit = NULL){
   
   # check whether the cache has been updated this session
-  atlas <- getOption("galah_config")$atlas$region
+  atlas <- pour("atlas", "region")
   update_needed <- internal_cache_update_needed("show_all_fields")
   
   if(update_needed){ # i.e. we'd like to run a query
@@ -296,7 +303,7 @@ show_all_fields <- function(limit = NULL){
 }
 
 #' @rdname show_all
-#' @export show_all_licences
+#' @export
 show_all_licences <- function(limit = NULL){
   url <- url_lookup("image_licences")
   result <- url_GET(url) |> tibble()
@@ -310,12 +317,13 @@ show_all_licences <- function(limit = NULL){
 }
 
 #' @rdname show_all
-#' @export show_all_reasons
+#' @importFrom potions pour
+#' @export
 show_all_reasons <- function(limit = NULL){
   
   # check whether the cache has been updated this session
   update_needed <- internal_cache_update_needed("show_all_reasons")
-  atlas <- getOption("galah_config")$atlas$region
+  atlas <- pour("atlas", "region")
   
   if(update_needed){ # i.e. we'd like to run a query
     ## return list of valid "reasons for use" codes
@@ -361,7 +369,8 @@ show_all_reasons <- function(limit = NULL){
 
 
 #' @rdname show_all
-#' @export show_all_ranks
+#' @importFrom tibble tibble
+#' @export
 show_all_ranks <- function(limit = NULL) {
   if(is_gbif()){
     df <- tibble(
@@ -404,7 +413,8 @@ show_all_ranks <- function(limit = NULL) {
 
 
 #' @rdname show_all
-#' @export show_all_profiles
+#' @importFrom tibble tibble
+#' @export
 show_all_profiles <- function(limit = NULL) {
   
   # check whether the cache has been updated this session
@@ -418,7 +428,7 @@ show_all_profiles <- function(limit = NULL) {
       df <- galah_internal_cache()$show_all_profiles
       attr(df, "ARCHIVED") <- NULL # remove identifying attributes
     }else{
-      df <- as_tibble(resp[wanted_columns(type = "profile")])
+      df <- tibble(resp[wanted_columns(type = "profile")])
       galah_internal_cache(show_all_profiles = df)
     }    
   }else{
@@ -434,7 +444,8 @@ show_all_profiles <- function(limit = NULL) {
 
 
 #' @rdname show_all
-#' @export show_all_lists
+#' @importFrom tibble tibble
+#' @export
 show_all_lists <- function(limit = NULL){
   if(is.null(limit)){limit <- 5000}
   df <- url_paginate(

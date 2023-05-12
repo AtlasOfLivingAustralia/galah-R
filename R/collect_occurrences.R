@@ -28,9 +28,10 @@
 #' 
 #' attributes(records)$doi # return minted doi
 #' }
-#' 
+#' @importFrom rlang abort
 #' @importFrom readr read_csv
 #' @importFrom stringr str_remove
+#' @importFrom tibble tibble
 #' @export collect_occurrences
 
 collect_occurrences <- function(url, doi){
@@ -70,12 +71,19 @@ collect_occurrences <- function(url, doi){
   
 }
 
-
+#' subset of collect_occurrences for a doi
+#' @noRd
+#' @keywords Internal
+#' @importFrom potions pour
+#' @importFrom rlang abort
+#' @importFrom rlang inform
+#' @importFrom stringr str_remove
+#' @importFrom tibble tibble
 collect_occurrences_doi <- function(doi, error_call = caller_env()) {
   
   # remove "https://" if present
   if (grepl("^http", doi)) {
-    doi <- stringr::str_remove(doi, "https://doi.org/") # TODO: remove once better solution is found
+    doi <- str_remove(doi, "https://doi.org/") # TODO: remove once better solution is found
   }
   
   # strip useful part of DOI
@@ -88,8 +96,7 @@ collect_occurrences_doi <- function(doi, error_call = caller_env()) {
     abort(bullets, call = error_call)
   }
   
-  verbose <- getOption("galah_config")$package$verbose
-  if(verbose) {
+  if(pour("package", "verbose")) {
     cat("Downloading\n")
   }
 
@@ -106,11 +113,17 @@ collect_occurrences_doi <- function(doi, error_call = caller_env()) {
   }
 }
 
-# TODO: fix multiple file import
+#' subset of collect_occurrences for a url
+#' @noRd
+#' @keywords Internal
+#' @importFrom potions pour
+#' @importFrom rlang abort
+#' @importFrom rlang inform
+#' @importFrom readr read_csv
+#' @importFrom tibble tibble
 collect_occurrences_url <- function(url){
   
-  verbose <- getOption("galah_config")$package$verbose
-  if(verbose) {
+  if(pour("package", "verbose")) {
     cat("Downloading\n")
   }
   

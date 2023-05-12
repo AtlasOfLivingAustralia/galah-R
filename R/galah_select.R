@@ -94,7 +94,7 @@ galah_select <- function(...,
     is_data_request <- FALSE
   }
   
-  if(getOption("galah_config")$atlas$region == "Global"){
+  if(is_gbif()){
     message("GBIF does not support `select` queries")
     if(is_data_request){
       return(data_request)

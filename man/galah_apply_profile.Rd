@@ -34,7 +34,6 @@ galah_call() |>
   galah_filter(year == 2021) |>
   galah_apply_profile(ALA) |>
   atlas_counts()
-
 }
 \seealso{
 \code{\link[=show_all]{show_all()}} and \code{\link[=search_all]{search_all()}} to look up available data profiles.

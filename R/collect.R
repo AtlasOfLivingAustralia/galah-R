@@ -6,6 +6,10 @@
 #' @param x An object of class `data_response`, created using 
 #' [compute.data_request()]
 #' @return A `tibble` containing requested data
+#' @importFrom glue glue
+#' @importFrom potions pour
+#' @importFrom rlang abort
+#' @importFrom rlang inform
 #' @export
 collect.data_response <- function(x, wait = FALSE){
   
@@ -30,8 +34,7 @@ collect.data_response <- function(x, wait = FALSE){
     abort(bullets)
   }
   
-  verbose <- getOption("galah_config")$package$verbose
-  if(verbose){
+  if(pour("package", "verbose")){
     glue("Compute status: {download_resp$status}") |> 
     inform()
   }

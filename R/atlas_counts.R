@@ -36,6 +36,7 @@
 #' be replaced by the current query
 #' @importFrom glue glue_collapse
 #' @importFrom dplyr bind_rows
+#' @importFrom potions pour
 #' @return
 #' 
 #' An object of class `tbl_df` and `data.frame` (aka a tibble) returning: 
@@ -92,7 +93,7 @@ atlas_counts <- function(request = NULL,
   class(custom_call) <- "data_request"
 
   # check for caching
-  caching <- getOption("galah_config")$package$caching
+  caching <- pour("package", "caching")
   cache_file <- cache_filename("counts", unlist(custom_call))
   if (caching && file.exists(cache_file) && !refresh_cache) {
     return(read_cache_file(cache_file))
@@ -127,7 +128,7 @@ atlas_counts_internal <- function(identify = NULL,
                                   refresh_cache = FALSE
                                   ) {
 
-  verbose <- getOption("galah_config")$package$verbose
+  verbose <- pour("package", "verbose")
   
   # check type
   if(is_gbif() && type == "species"){

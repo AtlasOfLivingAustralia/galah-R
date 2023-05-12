@@ -54,8 +54,9 @@
 #'   galah_identify(taxa) |>
 #'   atlas_counts()
 #'
-#' @importFrom utils adist 
 #' @importFrom dplyr rename
+#' @importFrom potions pour
+#' @importFrom utils adist 
 #' @export
 search_taxa <- function(...) {
   
@@ -86,7 +87,7 @@ search_taxa <- function(...) {
   matches <- remove_parentheses(query) |> name_query()
     
   if(is.null(matches)){
-    if(galah_config()$package$verbose){
+    if(pour("package", "verbose")){
       system_down_message("search_taxa")
     }
     df <- tibble()
@@ -98,16 +99,24 @@ search_taxa <- function(...) {
   } 
 }
 
-
+#' Remove parentheses from queries
+#' @noRd
+#' @keywords Internal
+#' @importFrom stringr str_remove_all
 remove_parentheses <- function(x){
   if(inherits(x, "data.frame")){
-    as.data.frame(lapply(x, function(a){stringr::str_remove_all(a, "[()]")}))
+    as.data.frame(lapply(x, function(a){str_remove_all(a, "[()]")}))
   }else{
-    stringr::str_remove_all(x, "[()]")
+    str_remove_all(x, "[()]")
   }
 }
 
-
+#' Run a name query
+#' @noRd
+#' @keywords Internal
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr rename
+#' @importFrom tibble tibble
 name_query <- function(query) {
   if (is.data.frame(query)) {
     matches <- lapply(split(query, seq_len(nrow(query))), name_lookup)
@@ -122,7 +131,12 @@ name_query <- function(query) {
   }
 }
 
-
+#' Look up a single name
+#' @noRd
+#' @keywords Internal
+#' @importFrom glue glue_collapse
+#' @importFrom potions pour
+#' @importFrom tibble tibble
 name_lookup <- function(name) {
   if (is.null(names(name)) || isTRUE(names(name) == "")) {
     # search by scientific name
@@ -142,7 +156,7 @@ name_lookup <- function(name) {
   if(is.list(result)){
     if(!is.null(result$searchResults$results)){
       result <- result$searchResults$results
-    }else if(getOption("galah_config")$atlas$region == "France"){
+    }else if(pour("atlas", "region") == "France"){
       result <- result$`_embedded`$taxa
     }else{
       result <- lapply(result, function(a){a[1]}) 
@@ -194,9 +208,9 @@ name_lookup <- function(name) {
   }
   
   if (isFALSE(result$success) && galah_config()$package$verbose) {
-    list_invalid_taxa <- glue::glue_collapse(name, 
+    list_invalid_taxa <- glue_collapse(name, 
                                              sep = ", ")
-    inform(glue("No taxon matches were found for \"{list_invalid_taxa}\" in the selected atlas ({getOption('galah_config')$atlas$region})."))
+    inform(glue("No taxon matches were found for \"{list_invalid_taxa}\" in the selected atlas ({pour('atlas', 'region')})."))
     return(as.data.frame(list(search_term = name), stringsAsFactors = FALSE))
   }
 

@@ -15,26 +15,29 @@
 #' # To clear your cached files directory, use `clear_cached_files()`
 #' clear_cached_files()
 #' }
-#' 
+#' @importFrom glue glue_collapse
+#' @importFrom glue glue
+#' @importFrom potions pour
+#' @importFrom rlang inform
 #' @export
 
 clear_cached_files <- function() {
   # delete cached files and return list of files deleted in the console
-  metadata_path <- file.path(getOption("galah_config")$package$cache_directory,
-                             "metadata.rds")
+  cache_directory <- pour("package", "cache_directory")
+  metadata_path <- file.path(cache_directory, "metadata.rds")
   
   if (!file.exists(metadata_path)) {
-    directory <- getOption("galah_config")$package$cache_directory
-    inform("No cached file information was found in {directory}.")
+    inform("No cached file information was found in {cache_directory}.")
     return()
   }
-  metadata_file_names <- paste0(getOption("galah_config")$package$cache_directory, "\\",
-                                names(readRDS(metadata_path)), ".rds")
+  metadata_file_names <- paste0(cache_directory,
+                                "\\",
+                                names(readRDS(metadata_path)), 
+                                ".rds")
   invisible(sapply(metadata_file_names, unlink))
   invisible(unlink(metadata_path))
-  list_files <- glue::glue_collapse(metadata_file_names, 
-                                             sep = "\n")
-  inform(glue("Cache filtes deleted: 
+  list_files <- glue_collapse(metadata_file_names, sep = "\n")
+  inform(glue("Cache files deleted: 
               
               {list_files}"))
 }

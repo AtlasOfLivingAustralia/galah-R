@@ -15,10 +15,10 @@
 #'   
 #' search_media(occs)
 #' }
-#' 
+#' @importFrom assertthat assert_that
+#' @importFrom potions pour
 #' @rdname search_media
-#' @export search_media
-
+#' @export
 search_media <- function(df){
   
   # run checks that 1. a df is supplied, 2. it contains requisite columns
@@ -64,9 +64,8 @@ search_media <- function(df){
   }
 
   # i.e. service is online, but no data available
-  verbose <- getOption("galah_config")$package$verbose
   if (nrow(metadata) == 0) {
-    if(verbose){
+    if(pour("package", "verbose")){
       system_down_message("search_media")
     }
     return(df_long)
@@ -83,7 +82,11 @@ search_media <- function(df){
  
 }
 
-# Get metadata for a list of media ids
+#' Internal function to get metadata for a list of media ids
+#' @noRd
+#' @keywords Internal
+#' @importFrom dplyr bind_rows
+#' @importFrom tibble tibble
 media_metadata <- function(ids){
   
   result <- lapply(ids, function(a){
@@ -93,19 +96,3 @@ media_metadata <- function(ids){
   })
   bind_rows(result) |> tibble()
 }
-
-# # Use media filter to filter returned results
-# # These are filter on metadata values, as opposed to filter on occurrence
-# # records
-# filter_metadata <- function(metadata, filter) {
-#   if (is.null(filter)) {
-#     return(metadata)
-#   }
-#   for (i in seq_len(nrow(filter))) {
-#     val <- filter[i,]$value[[1]]
-#     filter_name <- filter[i,]$name
-#     metadata <- metadata[metadata[[filter_name]] == val]
-#   }
-#   return(metadata)
-# }
-## no longer in use

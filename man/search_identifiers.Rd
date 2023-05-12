@@ -26,7 +26,6 @@ filter queries to the specified taxon or taxa.
 \examples{
 # Look up a unique taxon identifier
 search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
-
 }
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} for how to find species by (scientific) names.

@@ -80,7 +80,6 @@ galah_call() |>
   galah_group_by(multimedia) |>
   atlas_counts()
 }
-
 }
 \seealso{
 \code{\link[=atlas_counts]{atlas_counts()}} to find the number of records with media; but note this

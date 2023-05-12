@@ -38,7 +38,9 @@
 #'   atlas_taxonomy()
 #' }
 #' 
-#' @importFrom assertthat assert_that is.string
+#' @importFrom assertthat assert_that
+#' @importFrom assertthat is.string
+#' @importFrom potions pour
 #' @export
 atlas_taxonomy <- function(request = NULL,
                            identify = NULL, 
@@ -72,8 +74,7 @@ atlas_taxonomy_internal <- function(request,
                                     error_call = caller_env()
                                     ){
 
-  if (getOption("galah_config")$atlas$region != "Australia") {
-    international_atlas <- getOption("galah_config")$atlas$region
+  if(pour("atlas", "region") != "Australia"){
     bullets <- c(
       "`atlas_taxonomy` only provides information on Australian taxonomy.",
       i = "Consider using `search_taxa()` instead.")

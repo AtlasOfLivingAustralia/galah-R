@@ -69,9 +69,9 @@ parse_identify <- function(dots, search){
     input_query <- parse_basic_quosures(dots) # convert dots to query
 
     # get cached behaviour
-    atlas <- getOption("galah_config")$atlas$region
-    run_checks <- getOption("galah_config")$package$run_checks
-    verbose <- getOption("galah_config")$package$verbose
+    atlas <- pour("atlas", "region")
+    run_checks <- pour("package", "run_checks")
+    verbose <- pour("package", "verbose")
 
     # check for types first
     if (!is.null(attr(input_query, "call"))) {

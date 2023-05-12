@@ -30,17 +30,22 @@
 #'   atlas_media() |>
 #'   collect_media(path = here::here("folder", "subfolder"))
 #' }
-#'
-#' @export collect_media
-
-collect_media <- function(df, type = c("full", "thumbnail"), path,
-download_dir, refresh_cache
-){
+#' @importFrom rlang abort
+#' @importFrom rlang inform
+#' @importFrom glue glue
+#' @importFrom potions pour
+#' @importFrom assertthat assert_that
+#' @export
+collect_media <- function(df, 
+                          type = c("full", "thumbnail"), 
+                          path,
+                          download_dir, 
+                          refresh_cache){
 
   # check inputs
   type <- match.arg(type)
-  caching <- getOption("galah_config")$package$caching
-  verbose <- getOption("galah_config")$package$verbose
+  caching <- pour("package", "caching")
+  verbose <- pour("package", "verbose") 
   assert_that(!missing(path) | !missing(download_dir),
     msg = "A path to an existing directory to download images to is required")
   if(missing(path)){

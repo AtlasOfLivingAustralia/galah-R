@@ -49,11 +49,12 @@
 #' columns. The list of assertions is shown by `show_all_assertions()`.
 #' @seealso  [galah_select()], with which this function is synonymous.
 #' @param .data An object of class `data_request`, created using [galah_call()]
+#' @importFrom rlang inform
 #' @export
 select.data_request <- function(.data, ..., group = c("basic", "event", "media", "assertions")
 ){
-  if(getOption("galah_config")$atlas$region == "Global"){
-    message("`select` queries are not supported by the GBIF API")
+  if(is_gbif()){
+    inform("`select` queries are not supported by the GBIF API")
     return(.data)
   }
   dots <- enquos(..., .ignore_empty = "all")

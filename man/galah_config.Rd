@@ -33,7 +33,7 @@ associated R function.
 \item \code{email} string: An email address that has been registered with the chosen
 atlas. For the ALA, you can register at
 \href{https://auth.ala.org.au/userdetails/registration/createAccount}{this address}.
-\item \code{password} string: A registerd password (GBIF only)
+\item \code{password} string: A registered password (GBIF only)
 \item \code{run_checks} logical: should \code{galah} run checks for filters
 and columns. If making lots of requests sequentially, checks can slow down
 the process and lead to HTTP 500 errors, so should be turned off. Defaults
@@ -42,7 +42,7 @@ to TRUE.
 \code{\link[=atlas_occurrences]{atlas_occurrences()}}? Defaults to \code{FALSE}; but can be
 useful in some instances, for example for tracking DOIs assigned to
 specific downloads for later citation.
-\item \code{username} string: A registerd username (GBIF only)
+\item \code{username} string: A registered username (GBIF only)
 \item \code{verbose} logical: should \code{galah} give verbose such as progress bars?
 Defaults to FALSE.
 }}

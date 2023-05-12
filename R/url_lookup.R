@@ -6,6 +6,9 @@
 # `glue`-like syntax for infilling new data, passed using `...`
 #
 #' @importFrom glue glue_data
+#' @importFrom glue glue
+#' @importFrom potions pour
+#' @importFrom rlang abort
 #' @keywords internal
 
 url_lookup <- function(api_name, ..., quiet = FALSE, error_call = caller_env()){
@@ -13,7 +16,7 @@ url_lookup <- function(api_name, ..., quiet = FALSE, error_call = caller_env()){
   dots <- list(...)
   
   # run a check that a row in `node_config` matches your specification
-  current_atlas <- getOption("galah_config")$atlas$region
+  current_atlas <- pour("atlas", "region")
   url_lookup <- node_config$api_name == api_name &
                 node_config$atlas == current_atlas
   

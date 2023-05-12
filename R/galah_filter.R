@@ -121,7 +121,7 @@ parse_filter <- function(dots){
     named_filters$query <- parse_query(named_filters)
     
     # Validate that variables exist in ALA
-    if (getOption("galah_config")$package$run_checks){     
+    if(pour("package", "run_checks")){
       validate_fields(named_filters$variable)
     }
     

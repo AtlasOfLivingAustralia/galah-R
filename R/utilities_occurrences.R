@@ -20,7 +20,7 @@ check_count <- function(count, max_count, error_call = caller_env()) {
   } else if (count > max_count) {
     too_many_records(max_count)
   } else {
-    if (getOption("galah_config")$package$verbose) {
+    if (pour("package", "verbose")) {
       count_text <- formatC(count, big.mark = ",", format = "f", digits = 0)
       inform(glue("This query will return {count_text} records"))
       }
@@ -39,7 +39,7 @@ too_many_records <- function(max_count){
 
 
 email_notify <- function() {
-  notify <- as.logical(getOption("galah_config")$package$send_email)
+  notify <- as.logical(pour("package", "send_email"))
   if (is.na(notify)) {
     notify <- FALSE
   }
@@ -48,7 +48,7 @@ email_notify <- function() {
 }
 
 user_email <- function(error_call = caller_env()) {
-  email <- getOption("galah_config")$user$email
+  email <- pour("user", "email")
   if (email == "") {
     email <- Sys.getenv("email")
   }

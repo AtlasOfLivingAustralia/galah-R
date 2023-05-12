@@ -1,4 +1,12 @@
-# internal workhorse function
+#' Internal workhorse function for Living Atlas occurrences
+#' @noRd
+#' @keywords Internal
+#' @importFrom assertthat assert_that
+#' @importFrom glue glue
+#' @importFrom potions pour
+#' @importFrom rlang abort
+#' @importFrom rlang inform
+#' @importFrom tibble tibble
 occurrences_LA <- function(identify = NULL,
                                        filter = NULL,
                                        geolocate = NULL,
@@ -12,7 +20,6 @@ occurrences_LA <- function(identify = NULL,
   occurrences_url <- url_lookup("records_occurrences")
 
   # more checks
-  verbose <- getOption("galah_config")$package$verbose
   assert_that(is.logical(mint_doi))
   if(!is.null(doi)){
     abort("Argument `doi` is deprecated; use `collect_occurrences()` instead")
@@ -47,7 +54,7 @@ occurrences_LA <- function(identify = NULL,
                        profile = profile)
   
   # Check record count
-  if (getOption("galah_config")$package$run_checks) {
+  if (pour("package", "run_checks")) {
     count <- record_count(query)
     if (is.null(count)){
       system_down_message("atlas_occurrences")
@@ -62,11 +69,11 @@ occurrences_LA <- function(identify = NULL,
     qa = build_assertion_columns(select),
     emailNotify = email_notify(),
     sourceTypeId = 2004,
-    reasonTypeId = getOption("galah_config")$user$download_reason_id,
+    reasonTypeId = pour("user", "download_reason_id"),
     email = user_email(),
     dwcHeaders = "true")
 
-  if (mint_doi & getOption("galah_config")$atlas$region == "Australia") {
+  if (mint_doi & pour("atlas", "region") == "Australia") {
     query$mintDoi <- "true"
   }
 
@@ -76,14 +83,14 @@ occurrences_LA <- function(identify = NULL,
   if(is.null(result)){
     abort("`compute` failed")
   }else{
-    if(verbose){
+    if(pour("package", "verbose")){
       bullets <- c(
         glue("Request for {record_count(query)} records placed with {getOption('galah_config')$atlas$acronym}"),
         i = glue("current status is '{result$status}' with queue size = {result$queueSize}"))
       inform(bullets)
     }
     class(result) <- "data_response" # new class
-    attr(result, "organisation") <- getOption('galah_config')$atlas$organisation
+    attr(result, "organisation") <- pour("atlas", "organisation")
     return(result)
   }
 }

@@ -74,5 +74,4 @@ galah_call() |>
 galah_call() |>
   galah_identify("Heleioporus") |>
   atlas_counts(type = "species")
-
 }

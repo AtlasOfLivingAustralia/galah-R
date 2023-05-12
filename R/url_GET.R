@@ -1,7 +1,10 @@
-# Wrapper for getting data using crul
-# tryCatch() used to ensure it is impossible for {galah} to return an error
-# because the target atlas is offline.
-
+#' Wrapper for getting data using crul
+#'
+#' tryCatch() used to ensure it is impossible for {galah} to return an error
+#' because the target atlas is offline.
+#' @noRd
+#' @keywords Internal
+#' @importFrom crul HttpClient
 #' @importFrom glue glue
 #' @importFrom rlang inform
 url_GET <- function(url, 
@@ -32,7 +35,10 @@ url_GET <- function(url,
 }
 
 
-# parse a returned object from url_GET or similar
+#' parse a returned object from url_GET or similar
+#' @noRd
+#' @keywords Internal
+#' @importFrom jsonlite fromJSON
 parse_get <- function(x, slot_name = NULL, error_call = caller_env()){
   
   # status returned
@@ -58,7 +64,11 @@ parse_get <- function(x, slot_name = NULL, error_call = caller_env()){
   }
 }
 
+#' Get a cached filename
+#' @noRd
+#' @keywords Internal
+#' @importFrom potions pour
 cache_filename <- function(args, ext) {
   filename <- paste0(digest(sort(args)), ext)
-  file.path(getOption("galah_config")$package$cache_directory, filename)
+  file.path(pour("package", "cache_directory"), filename)
 }

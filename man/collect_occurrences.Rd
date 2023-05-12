@@ -39,5 +39,4 @@ records <-
 
 attributes(records)$doi # return minted doi
 }
-
 }

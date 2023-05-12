@@ -1,6 +1,10 @@
-#  pagination based on original code from atlas_GET (<1.5.1)
+#' Pagination based on original code from atlas_GET (<1.5.1)
+#' @noRd
+#' @keywords Internal
+#' @importFrom dplyr bind_rows
 #' @importFrom glue glue
 #' @importFrom rlang inform
+#' @importFrom tibble tibble
 url_paginate <- function(url, 
                     params = list(), 
                     group_size, 
@@ -44,10 +48,13 @@ url_paginate <- function(url,
 }
 
 
-# Function for paginating over simple APIs
-# Note that the error handling here is not as advanced as above,
-# may not be production ready
+#' Function for paginating over simple APIs
+#' 
+#' Note that the error handling here is not as advanced as above
+#' @noRd
+#' @keywords Internal
 #' @importFrom dplyr bind_rows
+#' @importFrom potions pour
 #' @importFrom tibble tibble
 
 url_paginate_alternative <- function(url, 
@@ -56,15 +63,13 @@ url_paginate_alternative <- function(url,
                                      slot_name = NULL
 ){
   
-  verbose <- getOption("galah_config")$package$verbose
-  
   # set up loop architecture
   offset_value <- 0 # initial offset, updated per loop
   data_runs <- 0 # how many iterations so far?
   data_size <- group_size # how much data returned in this run?
   data_out <- vector(mode = "list", length = 20) # storage
   
-  if(verbose){cat("downloading: ")}
+  if(pour("package", "verbose")){cat("downloading: ")}
   while(data_runs <= 20 && data_size == group_size){
     # build url
     url_tr <- paste0(url, 

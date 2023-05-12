@@ -27,5 +27,4 @@ occs <- galah_call() |>
   
 search_media(occs)
 }
-
 }

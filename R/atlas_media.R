@@ -56,7 +56,7 @@
 #'   galah_group_by(multimedia) |>
 #'   atlas_counts()
 #'}
-#' 
+#' @importFrom potions pour
 #' @export
 atlas_media <- function(request = NULL, 
                         identify = NULL, 
@@ -67,7 +67,7 @@ atlas_media <- function(request = NULL,
                         refresh_cache = FALSE
                         ) {
   
-  if(getOption("galah_config")$atlas$region != "Australia"){
+  if(pour("atlas", "region") != "Australia"){
     abort("`atlas_media` is currently only supported for the Atlas of Living Australia")
   }
   
@@ -99,7 +99,7 @@ atlas_media <- function(request = NULL,
   class(custom_call) <- "data_request"
      
   # check for caching
-  caching <- getOption("galah_config")$package$caching
+  caching <- pour("package", "caching")
   cache_file <- cache_filename("media", unlist(custom_call))
   if (caching && file.exists(cache_file) && !refresh_cache) {
     return(read_cache_file(cache_file))
@@ -134,7 +134,7 @@ atlas_media_internal <- function(request,
                                  refresh_cache
                                  ) {
   # set basic information
-  verbose <- getOption("galah_config")$package$verbose
+  verbose <- pour("package", "verbose")
   if(!is.null(download_dir)){
     inform("Argument `download_dir` is deprecated; use `collect_media()` instead")
   }

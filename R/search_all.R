@@ -180,10 +180,16 @@ search_collections <- function(query){
                     paste(tolower(df$name), tolower(df$uid)))), ]
 }
 
+#' Internal search_collections for GBIF
+#' @noRd
+#' @keywords Internal
+#' @importFrom potions pour
+#' @importFrom rlang inform
+#' @importFrom tibble tibble
 search_collections_GBIF <- function(query){
   check_if_missing(query)
   url <- url_lookup("collections_collections_search")
-  if(getOption("galah_config")$package$verbose){
+  if(pour("package", "verbose")){
     inform("Note: GBIF collection searches are limited to 20 results")
   }
   df <- url_GET(url, params = list(q = query, hl = "false"))
@@ -205,10 +211,16 @@ search_datasets <- function(query){
                     paste(tolower(df$name), tolower(df$uid)))), ]
 }
 
+#' Internal search_datasets for GBIF
+#' @noRd
+#' @keywords Internal
+#' @importFrom potions pour
+#' @importFrom rlang inform
+#' @importFrom tibble tibble
 search_datasets_GBIF <- function(query){
   check_if_missing(query)
   url <- url_lookup("collections_datasets_search")
-  if(getOption("galah_config")$package$verbose){
+  if(pour("package", "verbose")){
     inform("Note: GBIF dataset searches are limited to 20 results")
   }
   df <- url_GET(url, params = list(q = query, hl = "false"))$results
@@ -218,7 +230,6 @@ search_datasets_GBIF <- function(query){
     tibble(df)
   }
 }
-
 
 #' @rdname search_all
 #' @export search_providers
@@ -230,10 +241,16 @@ search_providers <- function(query){
                     paste(tolower(df$name), tolower(df$uid)))), ]
 }
 
+#' Internal search_providers for GBIF
+#' @noRd
+#' @keywords Internal
+#' @importFrom potions pour
+#' @importFrom rlang inform
+#' @importFrom tibble tibble
 search_providers_GBIF <- function(query){
   check_if_missing(query)
   url <- url_lookup("collections_providers")
-  if(getOption("galah_config")$package$verbose){
+  if(pour("package", "verbose")){
     inform("Note: GBIF provider searches are limited to 20 results")
   }
   df <- url_GET(url, params = list(q = query))$result
@@ -244,9 +261,10 @@ search_providers_GBIF <- function(query){
   }
 }
 
-
 #' @rdname search_all
 #' @export search_fields
+#' @importFrom rlang warn
+#' @importFrom tibble tibble
 search_fields <- function(query){
   
   if (missing(query) || is.null(query)) {
@@ -259,7 +277,7 @@ search_fields <- function(query){
       i = "Try entering text to search for matching fields.",
       i = "To see all valid fields, use `show_all_fields()`."
     )
-    rlang::warn(message = bullets, error = rlang::caller_env())
+    warn(message = bullets, error = rlang::caller_env())
   } else {
     df <- show_all_fields()
     attr(df, "call") <- "search_fields"
@@ -274,7 +292,7 @@ search_fields <- function(query){
     
     # return result of a grepl query
     df <- df[grepl(tolower(query), df_string), ] |> 
-      as_tibble()
+      tibble()
     
     # calculate similarity of results to query, reorder results
     similarity <- adist(df$id, query)[, 1]
@@ -285,7 +303,6 @@ search_fields <- function(query){
     return(df)
   }
 }
-
 
 #' @rdname search_all
 #' @export search_licences
@@ -303,7 +320,6 @@ search_licences <- function(query){
   ), ]
 }
 
-
 #' @rdname search_all
 #' @export search_reasons
 search_reasons <- function(query){
@@ -313,7 +329,6 @@ search_reasons <- function(query){
   df[grepl(tolower(query), tolower(df$name)), ]
 }
 
-
 #' @rdname search_all
 #' @export search_ranks
 search_ranks <- function(query){
@@ -322,7 +337,6 @@ search_ranks <- function(query){
   attr(df, "call") <- "search_ranks"
   df[grepl(tolower(query), tolower(df$name)), ]
 }
-
 
 #' @rdname search_all
 #' @export search_profiles
@@ -343,7 +357,6 @@ search_profiles <- function(query){
   # return results
   return(df)
 }
-
 
 #' @rdname search_all
 #' @export search_lists
@@ -367,9 +380,10 @@ search_lists <- function(query){
   return(df)
 }
 
-
-# internal functions ----------------------------------------
-
+#' Internal function to check for missingness
+#' @noRd
+#' @keywords Internal
+#' @importFrom rlang abort
 check_if_missing <- function(query, error_call = caller_env()) {
   if (missing(query)) {
     bullets <- c(

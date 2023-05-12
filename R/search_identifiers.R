@@ -20,11 +20,12 @@
 #' @examples 
 #' # Look up a unique taxon identifier
 #' search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
-#' 
+#' @importFrom dplyr bind_rows
+#' @importFrom potions pour
+#' @importFrom rlang abort
+#' @importFrom tibble tibble
 #' @export
 search_identifiers <- function(query) {
-
-  verbose <- getOption("galah_config")$package$verbose
 
   if (missing(query)) {
     bullets <- c(
@@ -36,7 +37,7 @@ search_identifiers <- function(query) {
   
   matches <- lapply(query, identifier_lookup)
   if(all(unlist(lapply(matches, is.null)))){
-    if(galah_config()$package$verbose){
+    if(pour("package", "verbose")){
       system_down_message("search_identifiers")
     }
     df <- tibble()
@@ -49,10 +50,15 @@ search_identifiers <- function(query) {
   }
 }
 
-
+#' Internal function for looking up a single identifier
+#' @noRd
+#' @keywords Internal
+#' @importFrom glue glue
+#' @importFrom glue glue_collapse
+#' @importFrom potions pour
 identifier_lookup <- function(identifier) {
   url <- url_lookup("names_lookup")
-  if(getOption("galah_config")$atlas$region == "France"){
+  if(pour("atlas", "region") == "France"){
     result <- paste0(url, identifier) |> url_GET()
   }else{
     result <- url_GET(url, list(taxonID = identifier)) 
@@ -60,8 +66,11 @@ identifier_lookup <- function(identifier) {
   if (is.null(result)){
     return(NULL)
   }
-  if (isFALSE(result$success) && result$issues == "noMatch" && galah_config()$package$verbose) {
-    list_invalid_taxa <- glue::glue_collapse(identifier, 
+  if (isFALSE(result$success) && 
+      result$issues == "noMatch" && 
+      pour("package", "verbose"
+  )) {
+    list_invalid_taxa <- glue_collapse(identifier, 
                                              sep = ", ")
     inform(glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
   }

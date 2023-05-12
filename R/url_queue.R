@@ -1,5 +1,7 @@
-# join queue to wait for download
-# internal function
+#' Join queue to wait for download
+#' @noRd
+#' @keywords internal 
+#' @importFrom potions pour
 url_queue <- function(status_initial) {
 
   # check running status, with rate limiting
@@ -17,6 +19,7 @@ url_queue <- function(status_initial) {
   return(status$downloadUrl)
 }
 
+# set API intervals
 api_intervals <- function(){
   c(
     rep(0.5, 4),
@@ -36,7 +39,7 @@ check_queue <- function(status_initial){
   queue_size <- status$queueSize
   continue <- continue_while_loop(status, success_tag = "finished")
   
-  verbose <- getOption("galah_config")$package$verbose
+  verbose <- pour("package", "verbose")
   if(verbose){
     cat(paste0("\nChecking queue\nCurrent queue size: ", queue_size))
     current_status <- ""
@@ -69,7 +72,7 @@ check_queue <- function(status_initial){
 
 check_queue_GBIF <- function(url){
   
-  verbose <- getOption("galah_config")$package$verbose
+  verbose <- pour("package", "verbose")
   if(verbose){cat("Checking queue\n")}
   result <- url_GET(url)
   if(verbose){
@@ -149,9 +152,9 @@ check_running <- function(status){
   n_intervals <- length(interval_times)
   iter <- 1
   
-  verbose <- getOption("galah_config")$package$verbose
+  verbose <- pour("package", "verbose")
   if(verbose){
-    atlas_org <- getOption("galah_config")$atlas$organisation
+    atlas_org <- pour("atlas", "organisation")
     cat(paste0("\nSending query to ", atlas_org, "\n"))
     pb <- txtProgressBar(max = 1, style = 3)
   }

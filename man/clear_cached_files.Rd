@@ -25,5 +25,4 @@ dat <- atlas_counts(group_by = galah_group_by(year))
 # To clear your cached files directory, use `clear_cached_files()`
 clear_cached_files()
 }
-
 }

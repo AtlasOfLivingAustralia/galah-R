@@ -50,7 +50,7 @@
 #' galah_call() |>
 #'   galah_identify("Heleioporus") |>
 #'   atlas_counts(type = "species")
-#' 
+#' @importFrom potions pour
 #' @export
 atlas_species <- function(request = NULL,
                           identify = NULL,
@@ -96,7 +96,7 @@ atlas_species <- function(request = NULL,
   class(custom_call) <- "data_request"
 
   # check for caching
-  caching <- getOption("galah_config")$package$caching
+  caching <- pour("package", "caching")
   cache_file <- cache_filename("species", unlist(custom_call))
   if (caching && file.exists(cache_file) && !refresh_cache) {
     return(read_cache_file(cache_file))
@@ -149,7 +149,7 @@ atlas_species_internal <- function(request,
     build_query(identify, filter, geolocate, profile = profile),
     emailNotify = email_notify(),
     sourceTypeId = 2004,
-    reasonTypeId = getOption("galah_config")$user$download_reason_id,
+    reasonTypeId = pour("user", "download_reason_id"),
     email = user_email(), 
     facets = species_facets(),
     lookup = "true"
@@ -164,7 +164,7 @@ atlas_species_internal <- function(request,
     return(tibble())
   }else{
   
-    if(nrow(result) > 0 && getOption("galah_config")$atlas$region == "Australia"){
+    if(nrow(result) > 0 && pour("atlas", "region") == "Australia"){
       # overwrite file with fixed names
       names(result) <- rename_columns(names(result), type = "checklist")
       result <- result[, wanted_columns("checklist")]

@@ -49,5 +49,4 @@ galah_call() |>
   atlas_media() |>
   collect_media(path = here::here("folder", "subfolder"))
 }
-
 }

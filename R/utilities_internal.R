@@ -204,7 +204,10 @@ check_n_inputs <- function(dots, error_call = caller_env()) {
 ##                   Query-building functions                   --
 ##----------------------------------------------------------------
 
-# Build query list from constituent arguments
+#' Build query list from constituent arguments
+#' @noRd
+#' @keywords Internal
+#' @importFrom potions pour
 build_query <- function(identify, 
                         filter, 
                         location, 
@@ -255,7 +258,7 @@ build_query <- function(identify,
   }
 
   # add profiles information (ALA only)  
-  atlas <- getOption("galah_config")$atlas$region
+  atlas <- pour("atlas", "region")
   if(atlas == "Australia"){
     if(!is.null(profile)) {
       query$qualityProfile <- profile
@@ -454,8 +457,12 @@ galah_version_string <- function() {
   paste0("galah-R ", version_string)
 }
 
+#' Internal function for determining if we should call GBIF or not
+#' @importFrom potions pour
+#' @noRd
+#' @keywords Internal
 is_gbif <- function(){
-  getOption("galah_config")$atlas$region == "Global"
+  pour("atlas", "region") == "Global"
 }
 
 # Check taxonomic argument provided to `atlas_` functions is of correct form
@@ -488,17 +495,26 @@ check_data_request <- function(request, error_call = caller_env()){
 ##                   Caching helper functions                   --
 ##----------------------------------------------------------------
 
-# Read cached file
+#' Read cached file
+#' @importFrom potions pour
+#' @noRd
+#' @keywords Internal
 read_cache_file <- function(filename) {
-  if (getOption("galah_config")$package$verbose) {
+  if(pour("package", "verbose")) {
     inform(glue("Using cached file \"{filename}\"."))
   }
   readRDS(filename)
 }
 
-# Write file to cache and metadata to metadata cache
+#' Write file to cache and metadata to metadata cache
+#' @noRd
+#' @keywords Internal
+#' @importFrom rlang inform
+#' @importFrom rlang warn
+#' @importFrom glue glue
+#' @importFrom potions pour
 write_cache_file <- function(object, data_type, cache_file) {
-  if (getOption("galah_config")$package$verbose) {
+  if (pour("package", "verbose")) {
     inform(glue("
                 
                 Writing to cache file \"{cache_file}\".
@@ -520,17 +536,26 @@ write_cache_file <- function(object, data_type, cache_file) {
   )
 }
 
-# Hash cache filename from argument list
+#' Hash cache filename from argument list
+#' @noRd
+#' @keywords Internal
+#' @importFrom potions pour
 cache_filename <- function(...) {
   args <- c(...)
   filename <- paste0(digest(sort(args)), ".rds")
-  file.path(getOption("galah_config")$package$cache_directory, filename)
+  file.path(pour("package", "cache_directory"), filename)
 }
 
-# Write function call metadata to RDS file to enable metadata viewing with
-# `find_cached_files()`
+#' Write function call metadata to RDS file 
+#' 
+#' Enables metadata viewing with `find_cached_files()`
+#' @noRd
+#' @keywords Internal
+#' @importFrom potions pour
+#' @importFrom glue glue
+#' @importFrom rlang warn
 write_metadata <- function(request, data_type, cache_file) {
-  metadata_file <- file.path(getOption("galah_config")$package$cache_directory,
+  metadata_file <- file.path(pour("package", "cache_directory"),
                              "metadata.rds")
   if (file.exists(metadata_file)) {
     metadata <- readRDS(metadata_file)
@@ -616,7 +641,7 @@ check_type_valid <- function(type, valid, error_call = caller_env()) {
 ## show_all_atlases / search_atlases --------------------------#
 
 image_fields <- function() {
-  atlas <- getOption("galah_config")$atlas$region
+  atlas <- pour("atlas", "region")
   switch (atlas,
           "Austria" = "all_image_url",
           "Guatemala" = "all_image_url",
@@ -626,7 +651,7 @@ image_fields <- function() {
 }
 
 default_columns <- function() {
-  atlas <- getOption("galah_config")$atlas$region
+  atlas <- pour("atlas", "region")
   switch (atlas,
           "Guatemala" = c("latitude", "longitude", "species_guid",
                           "data_resource_uid", "occurrence_date", "id"),
@@ -641,8 +666,7 @@ default_columns <- function() {
 }
 
 species_facets <- function(){
-  atlas <- getOption("galah_config")$atlas$region
-  
+  atlas <- pour("atlas", "region")
   switch(atlas,
          "Australia" = "speciesID",
          # "Austria" = "species_guid",
