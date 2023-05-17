@@ -92,9 +92,17 @@ galah_config <- function(...) {
     
     # check all values in dots to ensure they are valid
     result <- restructure_config(dots)
-    
+
     # add to `potions` object
-    brew(result, method = "leaves")
+    if(any(names(result) == "atlas")){
+      brew(atlas = list(atlas = result$atlas))
+      result <- result[names(result) != "atlas"]
+    }
+    
+    if(length(result) > 0){
+      brew(result, method = "leaves")
+    }
+  
   }else{
     x <- pour()
     class(x) <- c("galah_config", "list")
