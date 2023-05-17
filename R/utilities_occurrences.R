@@ -47,22 +47,6 @@ email_notify <- function() {
   ifelse(notify, "true", "false")
 }
 
-user_email <- function(error_call = caller_env()) {
-  email <- pour("user", "email")
-  if (email == "") {
-    email <- Sys.getenv("email")
-  }
-  if (email == "") {
-    bullets <- c(
-      "No user email was found.",
-      i = glue("To download occurrence records you must provide a valid email ",
-                     "address registered with the selected atlas using `galah_config(email = )`")
-    )
-    abort(bullets, call = error_call)
-  }
-  email
-}
-
 occ_error_handler <- function(code, error_call = rlang::caller_env()) {
   if (code == 403) {
     bullets <- c(

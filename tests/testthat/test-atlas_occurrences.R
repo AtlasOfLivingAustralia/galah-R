@@ -26,16 +26,14 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
                      "scientificName", "taxonConceptID", "recordID",
                      "dataResourceName", "occurrenceStatus", "stateProvince", 
                      "ZERO_COORDINATE")
-  filters <- galah_filter(year >= 2018)
-  cols <- galah_select(group = "basic", stateProvince, ZERO_COORDINATE)
-  identify <- galah_identify("Polytelis swainsonii")
   poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
-  locations <- galah_geolocate(poly)
-  occ <- atlas_occurrences(
-    identify = identify,
-    filter = filters,
-    select = cols,
-    geolocate = locations)
+  occ <- galah_call() |>
+    identify("Polytelis swainsonii") |>
+    filter(year >= 2018) |>
+    select(group = "basic", stateProvince, ZERO_COORDINATE) |>
+    galah_geolocate(poly) |>
+    atlas_occurrences()    
+
   expect_setequal(names(occ), expected_cols)
   expect_equal(unique(occ$stateProvince), "New South Wales")
 })

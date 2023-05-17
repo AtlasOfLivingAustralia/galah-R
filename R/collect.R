@@ -3,7 +3,7 @@
 #' In test
 #' `r lifecycle::badge("experimental")` 
 #' @seealso [atlas_occurrences()]
-#' @param x An object of class `data_response`, created using 
+#' @param .data An object of class `data_response`, created using 
 #' [compute.data_request()]
 #' @return A `tibble` containing requested data
 #' @importFrom glue glue
@@ -11,36 +11,26 @@
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 #' @export
-collect.data_response <- function(x, wait = FALSE){
+collect.data_response <- function(.data, wait = FALSE){
   
-  if(missing(x)){
-    bullets <- c("`collect` requires an object of type `data_response`",
-                 i = "Did your pipe start with `galah_call()` and end with `compute()`?")
-    abort(bullets)
-  }
-  if(is.null(x) | !inherits(x, "data_response")){
-    abort("Provided object does not contain any data")
+  if(missing(.data)){
+    abort(".data is missing, with no default")
+  }else if(!inherits(.data, "data_response")){
+    abort("`.data` must be of type `'data_response'`")
   }
   
-  ## This code from occurrences_LA
+  # needs to be some content in here to actually ping a web service!!
+  # i.e. code broken here
+  browser()
+  # example pseduocode
   if(wait){
-    download_resp <- url_queue(x)
+    url_queue()
   }else{
-    download_resp <- url_GET(x$statusUrl)
-  }
-  if(is.null(download_resp)){
-    bullets <- c("`collect` did not return any information, despite receiving a valid input",
-                 i = "Are you connected to the internet?")
-    abort(bullets)
+    url_GET()
   }
   
-  if(pour("package", "verbose")){
-    glue("Compute status: {download_resp$status}") |> 
-    inform()
-  }
-  
-  # download from url
-  if(download_resp$status == "finished"){
+  # once complete, download from url
+  if(download_resp$status == "finished"){ # not provided when wait = FALSE
     result <- url_download(download_resp$downloadUrl, ext = "zip")
     if(is.null(result)){
       system_down_message("collect")

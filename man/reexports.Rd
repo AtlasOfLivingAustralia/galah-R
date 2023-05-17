@@ -5,6 +5,7 @@
 \alias{reexports}
 \alias{collect}
 \alias{compute}
+\alias{collapse}
 \alias{identify}
 \alias{filter}
 \alias{select}
@@ -19,7 +20,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr:compute]{collect}}, \code{\link[dplyr]{compute}}, \code{\link[dplyr]{count}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{select}}, \code{\link[dplyr:slice]{slice_head}}}
+  \item{dplyr}{\code{\link[dplyr:compute]{collapse}}, \code{\link[dplyr:compute]{collect}}, \code{\link[dplyr]{compute}}, \code{\link[dplyr]{count}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{select}}, \code{\link[dplyr:slice]{slice_head}}}
 
   \item{graphics}{\code{\link[graphics]{identify}}}
 

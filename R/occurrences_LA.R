@@ -8,13 +8,13 @@
 #' @importFrom rlang inform
 #' @importFrom tibble tibble
 occurrences_LA <- function(identify = NULL,
-                                       filter = NULL,
-                                       geolocate = NULL,
-                                       data_profile = NULL,
-                                       select = NULL,
-                                       mint_doi = FALSE,
-                                       doi = NULL,
-                                       refresh_cache = FALSE) {
+                           filter = NULL,
+                           geolocate = NULL,
+                           data_profile = NULL,
+                           select = NULL,
+                           mint_doi = FALSE,
+                           doi = NULL,
+                           refresh_cache = FALSE) {
 
   # check whether API exists
   occurrences_url <- url_lookup("records_occurrences")
@@ -85,7 +85,7 @@ occurrences_LA <- function(identify = NULL,
   }else{
     if(pour("package", "verbose")){
       bullets <- c(
-        glue("Request for {record_count(query)} records placed with {getOption('galah_config')$atlas$acronym}"),
+        glue("Request for {record_count(query)} records placed with {pour('atlas', 'acronym')}"),
         i = glue("current status is '{result$status}' with queue size = {result$queueSize}"))
       inform(bullets)
     }

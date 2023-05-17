@@ -4,10 +4,10 @@
 \alias{collect.data_response}
 \title{Collect data from the selected atlas}
 \usage{
-\method{collect}{data_response}(x, wait = FALSE)
+\method{collect}{data_response}(.data, wait = FALSE)
 }
 \arguments{
-\item{x}{An object of class \code{data_response}, created using
+\item{.data}{An object of class \code{data_response}, created using
 \code{\link[=compute.data_request]{compute.data_request()}}}
 }
 \value{

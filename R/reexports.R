@@ -6,6 +6,10 @@ dplyr::collect
 #' @export
 dplyr::compute
 
+#' @importFrom dplyr collapse
+#' @export
+dplyr::collapse
+
 #' @importFrom graphics identify
 #' @export
 graphics::identify

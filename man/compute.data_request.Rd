@@ -2,23 +2,31 @@
 % Please edit documentation in R/compute.R, R/print.R
 \name{compute.data_request}
 \alias{compute.data_request}
+\alias{compute.data_query}
 \alias{print.data_response}
 \title{Join the queue to download records from the chosen atlas}
 \usage{
-\method{compute}{data_request}(x)
+\method{compute}{data_request}(.data, type = c("counts", "species", "occurrences", "media"))
+
+\method{compute}{data_query}(.data, type = c("counts", "species", "occurrences", "media"))
 
 \method{print}{data_response}(x, ...)
 }
 \arguments{
-\item{x}{an object of class \code{data_response}}
+\item{.data}{An object of class \code{data_request} created using
+\code{\link[=galah_call]{galah_call()}}, or of class \code{data_query}, created using \code{collapse.data_request()}}
 
-\item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
+\item{x}{an object of class \code{data_response}}
 }
 \value{
-An object of class \code{request_info}
+An object of class \code{data_response}
 }
 \description{
-In test
+There are two versions of this function. If \code{compute} is called at the end of
+a pipe started with \code{galah_call()}, then \code{compute.data_request()} is used.
+If the user instead ends that chain with \code{collapse()}, then calling \code{compute}
+generates a call to \code{compute.data_query()}. Either way the result will be
+identical.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \seealso{

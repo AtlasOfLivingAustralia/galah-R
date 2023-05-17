@@ -112,7 +112,7 @@ atlas_occurrences <- function(request = NULL,
 
   # run function using do.call
   result <- compute(current_call) |>
-            collect(result_url, wait = TRUE)
+            collect(wait = TRUE)
   
   if(is.null(result)){
     return(tibble())
