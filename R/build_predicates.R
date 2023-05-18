@@ -26,9 +26,9 @@ build_predicates <- function(
   }
 
   data_list <- list(
-    creator = unbox(pour("user", "username")),
-    notificationAddresses = pour("user", "email"),
-    sendNotification = unbox(pour("package", "send_email")),
+    creator = unbox(pour("user", "username", .pkg = "galah")),
+    notificationAddresses = pour("user", "email", .pkg = "galah"),
+    sendNotification = unbox(pour("package", "send_email", .pkg = "galah")),
     format = unbox(format),
     predicate = predicates_list
   )

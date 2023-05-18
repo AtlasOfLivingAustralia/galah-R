@@ -6,9 +6,8 @@
 #' is exported here for debugging purposes.
 #' @param .data An object of class `data_request`.
 #' @export
-collapse.data_request <- function(.data, 
-                                  type = c("counts", "species", "occurrences", "media")){
-  type <- match.arg(type)
+collapse.data_request <- function(.data, type){
+  check_type(type)
   switch(type, 
          "counts" = collapse_counts(.data),
          "species" = collapse_species(.data),

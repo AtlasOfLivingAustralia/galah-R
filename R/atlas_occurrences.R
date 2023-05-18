@@ -111,20 +111,6 @@ atlas_occurrences <- function(request = NULL,
   }
 
   # run function using do.call
-  result <- compute(current_call) |>
-            collect(wait = TRUE)
-  
-  if(is.null(result)){
-    return(tibble())
-  }else{
-    attr(result, "data_request") <- custom_call
-    
-    # if caching requested, save
-    if (caching) {
-      write_cache_file(object = result, 
-                       data_type = "occurrences",
-                       cache_file = cache_file)
-    }
-    return(result)
-  }
+  compute(current_call) |>
+  collect(wait = TRUE)
 }

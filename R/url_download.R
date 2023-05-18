@@ -67,8 +67,7 @@ url_download <- function(url,
                 # add doi when mint_doi = TRUE
                 if(any(all_files == "doi.txt")){
                   doi_file <- paste(cache_dir, "doi.txt", sep = "/")
-                  attr(result, "doi") <- 
-                    read.table(doi_file) |> as.character()
+                  attr(result, "doi") <- read.table(doi_file) |> as.character()
                 }
                 return(result)
               }

@@ -163,15 +163,26 @@ test_that("atlas_media fails for GBIF", {
   })
 })
 
-# test_that("atlas_occurrences works for GBIF", {
-#   skip_on_cran()
-#   occ <- galah_call() |>
-#     galah_identify("Vulpes vulpes") |>
-#     galah_filter(year <= 1800, basisOfRecord == "PRESERVED_SPECIMEN") |>
-#     atlas_occurrences()
-#   expect_gt(nrow(occ), 0)
-#   expect_gt(ncol(occ), 0)
-#   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
-# })
+test_that("`collapse()` et al. work for GBIF", {
+  skip_on_cran()
+  
+  # collapse
+  gbif_query <- galah_call() |>
+    identify("Vulpes vulpes") |>
+    filter(year <= 1800, 
+           basisOfRecord == "PRESERVED_SPECIMEN") |>
+    collapse(type = "occurrences")
+  
+  # compute
+  gbif_response <- compute(gbif_query)
+  expect_true(inherits(gbif_response, "data_response"))
+  expect_equal(length(gbif_response), 1)
+  
+  # collect
+  occ <- collect(gbif_response)
+  expect_gt(nrow(occ), 0)
+  expect_gt(ncol(occ), 0)
+  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+})
 
 galah_config(atlas = "Australia")

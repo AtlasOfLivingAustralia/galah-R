@@ -77,3 +77,26 @@ test_that("atlas_occurrences does not download data from a DOI", {
     doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
     expect_error(atlas_occurrences(doi = doi))
 })
+
+test_that("`collapse()` et al. work for ALA", {
+  skip_on_cran()
+  
+  # collapse
+  query <- galah_call() |>
+    identify("Vulpes vulpes") |>
+    filter(year <= 1800, 
+           basisOfRecord == "PRESERVED_SPECIMEN") |>
+    collapse(type = "occurrences")
+  expect_equal(names(query), c("url", "headers", "query", "type"))
+  
+  # compute
+  response <- compute(query)
+  expect_true(inherits(response, "data_response"))
+  expect_gt(length(response), 1)
+  
+  # collect
+  occ <- collect(response)
+  expect_gt(nrow(occ), 0)
+  expect_gt(ncol(occ), 0)
+  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+})

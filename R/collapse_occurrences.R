@@ -123,9 +123,9 @@ collapse_occurrences_gbif <- function(identify = NULL,
     opts = list(
       httpauth = 1,
       userpwd = paste0(
-        pour("user", "username"),
+        pour("user", "username", .pkg = "galah"),
         ":", 
-        pour("user", "password"))),
+        pour("user", "password", .pkg = "galah"))),
     body = build_predicates(filter, format))
   result$type <- "occurrences"
   class(result) <- "data_query"

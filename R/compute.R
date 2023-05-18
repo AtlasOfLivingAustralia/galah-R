@@ -13,10 +13,9 @@
 #' @importFrom potions pour
 #' @importFrom rlang abort
 #' @export
-compute.data_request <- function(.data,
-                                 type = c("counts", "species", "occurrences", "media")){
-  .data <- collapse(.data)
-  type <- match.arg(type)
+compute.data_request <- function(.data, type){
+  check_type(type)
+  .data <- collapse(.data, type)
   switch_compute(.data, type)
 }
 
@@ -32,24 +31,34 @@ compute.data_query <- function(.data){
 switch_compute <- function(.data, type){
   check_login(.data)
   switch(type, 
-         "counts" = compute_counts(.data),
+         "counts" = {
+           bullets <- c("`compute()` does not work for type = 'counts'",
+                        i = "use `collect()` or `count()` instead")
+           abort(bullets)
+         },
          "species" = compute_species(.data),
          "occurrences" = compute_occurrences(.data),
          "media" = compute_media(.data))   
 }
 
 #' Workhorse function to compute occurrences
+#' @noRd
+#' @keywords Internal
 compute_occurrences <- function(.data){
   if(is_gbif()){
-    status_code <- url_POST(.data$url,
+    post_result <- url_POST(.data$url,
                             headers = .data$headers,
                             opts = .data$opts,
                             body = .data$body)
+    status_code <- paste0("https://api.gbif.org/v1/occurrence/download/", 
+                           post_result) |>
+                   url_GET()
   }else{
     status_code <- url_GET(.data$url, 
                            params = .data$query)
   }
   class(status_code) <- "data_response"
+  attr(status_code, "type") <- "occurrences"
   return(status_code)
 }
 
