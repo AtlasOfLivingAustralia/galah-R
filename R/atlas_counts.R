@@ -86,35 +86,8 @@ atlas_counts <- function(request = NULL,
       refresh_cache = refresh_cache
     )
   }
-
-  # subset to available arguments
-  custom_call <- current_call[
-     names(current_call) %in% names(formals(atlas_counts_internal))]
-  class(custom_call) <- "data_request"
-
-  # check for caching
-  caching <- pour("package", "caching")
-  cache_file <- cache_filename("counts", unlist(custom_call))
-  if (caching && file.exists(cache_file) && !refresh_cache) {
-    return(read_cache_file(cache_file))
-  }
-        
-  # call using do.call
-  result <- do.call(atlas_counts_internal, custom_call)
-  if(is.null(result)){
-    result <- tibble()
-  }
-  attr(result, "data_type") <- "counts"
-  attr(result, "data_request") <- custom_call
-
-  # if caching requested, save
-  if (caching) {
-   write_cache_file(object = result, 
-                    data_type = "counts",
-                    cache_file = cache_file)
-  }
-
-  result                             
+  
+  compute(current_call, what = "counts")
 }
 
 

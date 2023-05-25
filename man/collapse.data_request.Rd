@@ -4,10 +4,12 @@
 \alias{collapse.data_request}
 \title{collapse for galah}
 \usage{
-\method{collapse}{data_request}(.data, type = c("counts", "species", "occurrences", "media"))
+\method{collapse}{data_request}(.data, what)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}.}
+
+\item{what}{string giving the kind of data query to construct.}
 }
 \description{
 The \code{collapse()} function is ported from \code{dplyr}, and is used to convert

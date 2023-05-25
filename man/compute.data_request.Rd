@@ -6,9 +6,9 @@
 \alias{print.data_response}
 \title{Join the queue to download records from the chosen atlas}
 \usage{
-\method{compute}{data_request}(.data, type = c("counts", "species", "occurrences", "media"))
+\method{compute}{data_request}(.data, type)
 
-\method{compute}{data_query}(.data, type = c("counts", "species", "occurrences", "media"))
+\method{compute}{data_query}(.data)
 
 \method{print}{data_response}(x, ...)
 }

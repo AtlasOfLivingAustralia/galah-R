@@ -16,6 +16,9 @@
 group_by.data_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
   df <- parse_group_by(dots)
+  if(nrow(df) > 3){
+    abort("`group_by.data_request` can accept a maximum of three fields")
+  }
   attr(df, "expand") <- TRUE # differs from `galah_group_by`
   update_galah_call(.data, group_by = df)
 }

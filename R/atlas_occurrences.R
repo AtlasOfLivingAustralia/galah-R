@@ -111,6 +111,6 @@ atlas_occurrences <- function(request = NULL,
   }
 
   # run function using do.call
-  compute(current_call) |>
+  compute(current_call, what = "occurrences") |>
   collect(wait = TRUE)
 }

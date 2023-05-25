@@ -3,24 +3,13 @@
 ## NOTE: need to turn off caching for multiple runs
 grouped_counts_GBIF <- function(identify = NULL, 
                         filter = NULL, 
-                        geolocate = NULL,
-                        profile = NULL,
                         facets, # NOTE: not `groups` as no multiply section here
                         limit = NULL, 
-                        type = "record",
-                        refresh_cache = FALSE,
                         verbose = FALSE # NOTE: internally `verbose` is manual, not from galah_config
-) {
-
-  # excluded args
-  if(!is.null(geolocate)){
-    inform("`geolocate` is not supported for the selected atlas")
-    geolocate <- NULL
-  }
+){
   
   # build query
-  query <- list()
-  query <- build_query(identify, filter, geolocate)
+  query <- build_query(identify, filter, geolocate = NULL)
   
   # add facets in a way that supports single or multiple queries 
   facets_temp <- as.list(facets)

@@ -10,7 +10,7 @@ galah_internal_cache <- function(...){
 
   # set all options
   ala_option_name <- "galah_internal_cache"
-  current_options <- pour()
+  current_options <- getOption(ala_option_name)
   atlas <- pour("atlas", "region")
   user_options <- list(...)
   

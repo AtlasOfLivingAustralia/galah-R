@@ -210,7 +210,7 @@ check_n_inputs <- function(dots, error_call = caller_env()) {
 #' @importFrom potions pour
 build_query <- function(identify, 
                         filter, 
-                        location, 
+                        location = NULL, 
                         profile = NULL) {
                           
   if (is.null(identify)) {

@@ -38,6 +38,10 @@ galah_group_by <- function(..., expand = TRUE){
   df <- parse_group_by(dots)
   attr(df, "expand") <- expand
   
+  if(nrow(df) > 3){
+    abort("`group_by.data_request` can accept a maximum of three fields")
+  }
+  
   # if a data request was supplied, return one
   if(is_data_request){
     update_galah_call(data_request, group_by = df)
