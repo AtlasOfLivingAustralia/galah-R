@@ -12,8 +12,7 @@ atlas_occurrences(
   data_profile = NULL,
   select = NULL,
   mint_doi = FALSE,
-  doi = NULL,
-  refresh_cache = FALSE
+  doi = NULL
 )
 }
 \arguments{
@@ -102,5 +101,4 @@ galah_call() |>
   galah_geolocate(polygon) |>
   atlas_occurrences()
 }
-
 }

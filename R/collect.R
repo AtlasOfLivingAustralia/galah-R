@@ -22,7 +22,7 @@
 #' @export
 collect.data_request <- function(.data, what){
   switch(what, 
-         "counts" = collect_counts(collapse(.data, what = "counts")),
+         "counts" = collect_counts(compute(.data, what = "counts")),
          "species" = {collect_species(compute(.data, what = "species"),
                               wait = TRUE)},
          "occurrences" = {collect_occurrences(
@@ -48,10 +48,10 @@ collect.data_query <- function(.data){
 #' @export
 collect.data_response <- function(.data,
                                   wait = FALSE){
-  # Q: should `type` be stored as `attr(.data, "type")`, or `.data$type?`
-  switch(attr(.data, "what"),
+  switch(.data$what,
+         "counts" = collect_counts(.data),
          "species" = collect_species(.data),
-         "occurrences" = collect_occurrences(.data, wait)
+         "occurrences" = collect_occurrences(.data, wait) # note: stored as `attr(.data, "type")`
          # "media" = collect_media(.data)) # unclear whether this makes sense
          # may need types "media-metadata" and "media-files"
   )

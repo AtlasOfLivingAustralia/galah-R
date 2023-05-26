@@ -84,22 +84,25 @@ collapse_counts_atlas <- function(identify = NULL,
       query$pageSize <- 0
       column <- "totalRecords"
     }
-    groups <- NULL
+    expand <- FALSE
   }else{
     # Q: what if type == "species" here?
     url <- url_lookup("records_facets")
     facets <- as.list(group_by$name)
     names(facets) <- rep("facets", length(facets))
-    query <- c(query, facets)
-    groups <- list(limit = limit,
-                   expand =  attr(group_by, "expand"))
+    query <- c(query, facets, flimit = limit)
+    if(length(facets) > 1){
+      expand <- attr(group_by, "expand")
+    }else{
+      expand <- FALSE
+    }
     column <- "fieldResult"
   }
   
   # aggregate and return
   result <- list(url = url, 
                  query = query, 
-                 groups = groups,
+                 expand = expand,
                  column = column,
                  what = "counts")
   class(result) <- "data_query"

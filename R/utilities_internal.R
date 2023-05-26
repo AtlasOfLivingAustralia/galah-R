@@ -189,16 +189,6 @@ is_object_check <- function(dots){
   any()
 }
 
-check_n_inputs <- function(dots, error_call = caller_env()) {
-  if(length(dots) > 1){
-    n_geolocations <- length(dots)
-    bullets <- c(
-      "More than 1 spatial area provided.",
-      "*" = glue("Using first location, ignoring additional {n_geolocations - 1} location(s).")
-    )
-    warn(bullets, call = caller_env())
-  }
-}
 
 ##----------------------------------------------------------------
 ##                   Query-building functions                   --
@@ -214,7 +204,7 @@ build_query <- function(identify,
                         profile = NULL) {
                           
   if (is.null(identify)) {
-    if(galah_config()$atlas$region == "Global"){
+    if(is_gbif()){
       taxa_query <- list(taxonKey = 1)
     }else{
       taxa_query <- NULL
@@ -409,38 +399,6 @@ build_assertion_columns <- function(col_df) {
   }
 }
 
-##---------------------------------------------------------------
-##                   Query-caching functions                   --
-##---------------------------------------------------------------
-
-# Check whether caching of some url parameters is required.
-# Note: it is only possible to cache one fq so filters can't be cached
-check_for_caching <- function(taxa_query, filter_query, area_query,
-                              columns = NULL, error_call = caller_env()) {
-  if (nchar(paste(filter_query, collapse = "&fq=")) > 1948) {
-    abort("Too many filters provided.", call = error_call)
-  }
-  if (sum(nchar(taxa_query), nchar(filter_query), nchar(area_query),
-          nchar(paste(columns$name, collapse = ",")), na.rm = TRUE) > 1948) {
-    # caching of taxa query and area query required
-    return(TRUE)
-  }
-  return(FALSE)
-}
-
-# Cache a long query 
-# Returns a query id (qid) from the ALA, which can then be used to reference a
-# long query
-cached_query <- function(taxa_query, filter_query, area_query,
-                         columns = NULL) {
-  resp <- url_lookup("records_query") |> 
-          url_POST(body = list(
-            wkt = area_query, 
-            fq = taxa_query,
-            fields = columns))
-  list(fq = filter_query, q = paste0("qid:", resp))
-}
-
 
 ##---------------------------------------------------------------
 ##                   Other helpful functions                   --
@@ -488,92 +446,6 @@ check_data_request <- function(request, error_call = caller_env()){
     )
     abort(bullets, call = caller_env())      
   }     
-}
-
-##----------------------------------------------------------------
-##                   Caching helper functions                   --
-##----------------------------------------------------------------
-
-#' Read cached file
-#' @importFrom potions pour
-#' @noRd
-#' @keywords Internal
-read_cache_file <- function(filename) {
-  if(pour("package", "verbose")) {
-    inform(glue("Using cached file \"{filename}\"."))
-  }
-  readRDS(filename)
-}
-
-#' Write file to cache and metadata to metadata cache
-#' @noRd
-#' @keywords Internal
-#' @importFrom rlang inform
-#' @importFrom rlang warn
-#' @importFrom glue glue
-#' @importFrom potions pour
-write_cache_file <- function(object, data_type, cache_file) {
-  if (pour("package", "verbose")) {
-    inform(glue("
-                
-                Writing to cache file \"{cache_file}\".
-                
-                "))
-    }
-  tryCatch({
-    saveRDS(object, cache_file)
-    write_metadata(attributes(object)$data_request, data_type, cache_file)
-    },
-    error = function(e) {
-      directory <- dirname(cache_file)
-      bullets <- c(
-        "There was an error writing to the cache file.",
-        x = glue("Cache directory \"{directory}\" does not exist.")
-      )
-      warn(bullets)
-    }
-  )
-}
-
-#' Hash cache filename from argument list
-#' @noRd
-#' @keywords Internal
-#' @importFrom potions pour
-cache_filename <- function(...) {
-  args <- c(...)
-  filename <- paste0(digest(sort(args)), ".rds")
-  file.path(pour("package", "cache_directory"), filename)
-}
-
-#' Write function call metadata to RDS file 
-#' 
-#' Enables metadata viewing with `find_cached_files()`
-#' @noRd
-#' @keywords Internal
-#' @importFrom potions pour
-#' @importFrom glue glue
-#' @importFrom rlang warn
-write_metadata <- function(request, data_type, cache_file) {
-  metadata_file <- file.path(pour("package", "cache_directory"),
-                             "metadata.rds")
-  if (file.exists(metadata_file)) {
-    metadata <- readRDS(metadata_file)
-  } else {
-    metadata <- list()
-  }
-  file_id <- str_split(basename(cache_file), "\\.")[[1]][1]
-  metadata[[file_id]] <- list(data_type = data_type, data_request = request)
-  tryCatch(
-    saveRDS(metadata, metadata_file),
-    error = function(e) {
-      directory <- dirname(cache_file)
-      bullets <- c(
-        "There was an error writing to the cache file.",
-        x = glue("Cache directory \"{directory}\" does not exist.")
-      )
-      warn(bullets)
-    }
-  )
 }
 
 

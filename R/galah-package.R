@@ -142,7 +142,6 @@
 #' @importFrom httr parse_url build_url
 #' @importFrom crul HttpClient Paginator Async url_build url_parse
 #' @importFrom data.tree Do Set Prune Aggregate FromListExplicit ToDataFrameTypeCol ToDataFrameTree as.Node
-#' @importFrom digest digest
 #' @importFrom jsonlite fromJSON
 #' @importFrom stringr regex str_c str_detect str_extract str_locate
 #' str_match str_match_all str_to_title

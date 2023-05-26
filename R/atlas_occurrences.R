@@ -72,10 +72,6 @@
 #'   galah_geolocate(polygon) |>
 #'   atlas_occurrences()
 #' }
-#' 
-#' @importFrom assertthat assert_that
-#' @importFrom rlang caller_env
-#' 
 #' @export
 atlas_occurrences <- function(request = NULL,
                               identify = NULL,
@@ -84,33 +80,22 @@ atlas_occurrences <- function(request = NULL,
                               data_profile = NULL,
                               select = NULL,
                               mint_doi = FALSE,
-                              doi = NULL, # check missingness code
-                              refresh_cache = FALSE
+                              doi = NULL # check missingness code
                               ) {
+  
+  # capture supplied arguments
+  args <- as.list(environment())
+  args$type <- match.arg(type)
+  
+  # convert to `data_request` object
   if(!is.null(request)){
     check_data_request(request)
-    current_call <- update_galah_call(request,
-      identify = identify,
-      filter = filter,
-      geolocate = geolocate,
-      data_profile = data_profile,
-      select = select,
-      mint_doi = mint_doi, # NOTE: check behaviour of update_galah_call here
-      doi = doi,
-      refresh_cache = refresh_cache)
+    current_call <- update_galah_call(request, args[-1])
   }else{
-    current_call <- galah_call(
-      identify = identify,
-      filter = filter,
-      geolocate = geolocate,
-      data_profile = data_profile,
-      select = select,
-      mint_doi = mint_doi,
-      doi = doi,
-      refresh_cache = refresh_cache)
+    current_call <- do.call(galah_call, args)
   }
 
-  # run function using do.call
+  # evaluate
   compute(current_call, what = "occurrences") |>
   collect(wait = TRUE)
 }

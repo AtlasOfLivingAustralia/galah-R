@@ -34,9 +34,6 @@
 #' @param refresh_cache `logical`: if set to `TRUE` and 
 #' `galah_config(caching = TRUE)` then files cached from a previous query will 
 #' be replaced by the current query
-#' @importFrom glue glue_collapse
-#' @importFrom dplyr bind_rows
-#' @importFrom potions pour
 #' @return
 #' 
 #' An object of class `tbl_df` and `data.frame` (aka a tibble) returning: 
@@ -56,233 +53,21 @@ atlas_counts <- function(request = NULL,
                          data_profile = NULL,
                          group_by = NULL, 
                          limit = NULL,
-                         type = c("record", "species"),
-                         refresh_cache = FALSE
+                         type = c("record", "species")
                          ) {
-  type <- match.arg(type)
-
+  
+  # capture supplied arguments
+  args <- as.list(environment())
+  args$type <- match.arg(type)
+  
+  # convert to `data_request` object
   if(!is.null(request)){
     check_data_request(request)
-    current_call <- update_galah_call(request, 
-      identify = identify,
-      filter = filter,
-      geolocate = geolocate,
-      data_profile = data_profile,
-      group_by = group_by,
-      limit = limit,
-      type = type,
-      refresh_cache = refresh_cache
-    ) 
-
+    current_call <- update_galah_call(request, args[-1])
   }else{
-    current_call <- galah_call(
-      identify = identify,
-      filter = filter,
-      geolocate = geolocate,
-      data_profile = data_profile,
-      group_by = group_by,
-      limit = limit,
-      type = type,
-      refresh_cache = refresh_cache
-    )
+    current_call <- do.call(galah_call, args)
   }
   
-  compute(current_call, what = "counts")
-}
-
-
-atlas_counts_internal <- function(identify = NULL, 
-                                  filter = NULL, 
-                                  geolocate = NULL,
-                                  data_profile = NULL,
-                                  group_by = NULL, 
-                                  limit = 100,
-                                  type = "record",
-                                  refresh_cache = FALSE
-                                  ) {
-
-  verbose <- pour("package", "verbose")
-  
-  # check type
-  if(is_gbif() && type == "species"){
-    abort("Use of `type = 'species'` is not supported for atlas = GBIF")
-  }
-
-  # ensure profile works from galah_filter as well as galah_profile
-  if(is_gbif()){
-    profile <- NULL
-  }else{
-    if(is.null(data_profile)){
-      if(is.null(filter)){
-        profile <- NULL
-      }else{
-        profile <- extract_profile(filter)
-      }
-    }else{
-      profile <- data_profile$data_profile
-    }
-  }
-  
-  # set options if group_by = NULL
-  if(is.null(group_by)) {
-    # query <- list()
-    query <- build_query(identify, filter, geolocate, profile = profile)
-    if (type == "species") {
-      result <- species_count(query)
-    }else{
-      result <- record_count(query)
-    }
-    if(is.null(result)){
-      system_down_message("atlas_counts")
-    }
-    return(tibble(count = result))
-  }else{
-    if(is_gbif()){
-      lookup_fun <- "grouped_counts_GBIF"
-    }else{
-      lookup_fun <- "grouped_counts_LA"
-    }
-  }
-  
-  # if all combinations of levels of `group_by` are needed (expand = TRUE)
-  if(attr(group_by, "expand") & nrow(group_by) > 1){ 
-    
-    # get counts given the filter provided by the user
-    lookup_args <- list(
-      identify = identify,
-      filter = filter, 
-      geolocate = geolocate,
-      profile = profile,
-      type = type,
-      facets = group_by$name, 
-      limit = NULL)
-    field_values_df <- do.call(lookup_fun, lookup_args)
-    n_fields_df <- data.frame(
-      facets = group_by$name,
-      n_fields = unlist(lapply(
-        group_by$name, 
-        function(a){length(which(!is.na(field_values_df[[a]])))})))
-
-    if(sum(field_values_df$count) < 1){
-      return(tibble(count = 0))
-    }
-
-    # work out which to pass as facets vs those we iterate over with lapply
-    facets_large <- n_fields_df$facets[which.max(n_fields_df$n_fields)]
-    facets_small <- n_fields_df$facets[n_fields_df$facets != facets_large]
-
-    # work out what combinations of `group`s should be sent to atlas_counts_lookup
-    levels_df <- expand.grid(
-      lapply(
-        field_values_df[, 
-          which(names(field_values_df) %in% facets_small), 
-          drop = FALSE], 
-        function(a){a[!is.na(a)]}),
-      stringsAsFactors = FALSE)
-    levels_list <- split(levels_df, seq_len(nrow(levels_df)))
-    filter_list <- lapply(levels_list, function(a){
-      field <- colnames(a)
-      value <- paste0("\'", a, "\'")
-      paste(
-        paste(field, value, sep = " == "),
-        collapse = " & ")
-    })
-    
-    # run `atlas_counts_lookup` the requisite number of times
-    if (verbose) { pb <- txtProgressBar(max = 1, style = 3) } # start progressbar
-    
-    result_list <- lapply(seq_along(levels_list),
-      function(a){
-        if (verbose) {
-          val <- (a / length(levels_list))
-          setTxtProgressBar(pb, val)
-        }
-        filter_this_loop <- galah_filter(filter_list[[a]])    
-        filter_final <- rbind(filter, filter_this_loop)
-        lookup_args <- list(
-          identify = identify,
-          filter = filter_final,
-          geolocate = geolocate,
-          profile = profile,
-          facets = n_fields_df$facets[which.max(n_fields_df$n_fields)],
-          limit = limit,
-          type = type)
-        counts_query <- do.call(lookup_fun, lookup_args)
-        if(nrow(counts_query) > 0){   
-          as.data.frame(list(levels_list[[a]], counts_query), row.names = NULL)
-        }
-      }) 
-    if(verbose){
-      close(pb)
-    } # close progress bar
-    if (all(unlist(lapply(result_list, is.null)))) {
-      system_down_message("atlas_counts")
-      return(tibble())
-    } else {
-      result_list |>
-        bind_rows() |>
-        tibble()
-    } 
-     
-  # if `groups` is of nrow == 1 (expand = FALSE)
-  }else{
-    lookup_args <- list(
-      identify, filter, geolocate, profile,
-      facets = group_by$name, 
-      limit, type, refresh_cache,
-      verbose = verbose)
-    result <- do.call(lookup_fun, lookup_args)
-    if(is.null(result)){
-      system_down_message("atlas_counts")
-      return(tibble())
-    }else{
-      result
-    }
-  } 
-}
-
-# get just the record count for a query
-# handle too long queries in here?
-record_count <- function(query) {
-  if(is_gbif()){
-    query$limit <- 0
-    col_name <- "count"
-  }else{
-    query$pageSize <- 0
-    col_name <- "totalRecords"
-  }
-  url <- url_lookup("records_counts")
-  resp <- url_GET(url, query)
-  resp[[col_name]]
-}
-# above doesn't work because ALA requires queries get put in an &fq= statement
-# whereas gbif just needs list(limit = 0, ...) where ... is named params
-
-species_count <- function(query) {
-  query$flimit <- 1
-  query$facets <- species_facets()
-  total_categories(query)
-}
-
-# Get number of categories of a filter
-total_categories <- function(query) {
-  query$flimit <- 1
-  url <- url_lookup("records_facets") 
-  resp <- url_GET(url, params = query)
-  if(is.null(resp)){
-    NULL
-  }else if(length(resp) < 1){
-    0
-  }else{
-    resp$count
-  }
-}
-
-# # Extract filter names and values returned from API
-parse_field <- function(fq){
-  str_extract(fq, "^[:alnum:]+")
-}
-
-parse_fq <- function(fq){
-  gsub("\"", "", sub("^[[:alnum:]]+:",  "", fq))
+  # evaluate
+  collect(current_call, what = "counts")
 }

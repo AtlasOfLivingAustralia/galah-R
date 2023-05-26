@@ -107,6 +107,11 @@ check_call_args <- function(arg_supplied, arg_name, error_call = caller_env()){
 
 update_galah_call <- function(data_request, ...){
   dots <- list(...)
+  if(length(dots)[[1]] == 1){
+    if(inherits(dots[[1]], "list")){
+      dots <- dots[[1]]
+    }
+  }
   result <- lapply(
     names(data_request), # i.e. for all slots in object of class `data_request`
     function(a){

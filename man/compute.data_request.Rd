@@ -6,7 +6,7 @@
 \alias{print.data_response}
 \title{Join the queue to download records from the chosen atlas}
 \usage{
-\method{compute}{data_request}(.data, type)
+\method{compute}{data_request}(.data, what)
 
 \method{compute}{data_query}(.data)
 
@@ -14,7 +14,10 @@
 }
 \arguments{
 \item{.data}{An object of class \code{data_request} created using
-\code{\link[=galah_call]{galah_call()}}, or of class \code{data_query}, created using \code{collapse.data_request()}}
+\code{\link[=galah_call]{galah_call()}}, or of class \code{data_query}, created using
+\code{collapse.data_request()}}
+
+\item{what}{string: what kind of data are requested?}
 
 \item{x}{an object of class \code{data_response}}
 }

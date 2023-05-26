@@ -12,8 +12,7 @@ atlas_counts(
   data_profile = NULL,
   group_by = NULL,
   limit = NULL,
-  type = c("record", "species"),
-  refresh_cache = FALSE
+  type = c("record", "species")
 )
 }
 \arguments{

@@ -63,12 +63,3 @@ parse_get <- function(x, slot_name = NULL, error_call = caller_env()){
     return(NULL)
   }
 }
-
-#' Get a cached filename
-#' @noRd
-#' @keywords Internal
-#' @importFrom potions pour
-cache_filename <- function(args, ext) {
-  filename <- paste0(digest(sort(args)), ext)
-  file.path(pour("package", "cache_directory"), filename)
-}
