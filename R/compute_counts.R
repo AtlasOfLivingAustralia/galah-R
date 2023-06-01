@@ -26,6 +26,8 @@ compute_counts <- function(.data){
       what = .data$what)
   }
   class(result) <- "data_response"
+  attr(result, "fields") <- .data$query$facets
+  
   return(result)
 }
 
@@ -83,6 +85,9 @@ build_query_list_LA <- function(.data){
   result_df <- tibble(
     labels_df,
     url = as.character(url_list))
+  
+  # preserve name of url field
+  attr(result_df, "url_field") <- facets_large
   
   return(result_df)
   

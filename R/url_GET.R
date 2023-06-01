@@ -18,7 +18,7 @@ url_GET <- function(url,
 
   # workaround for fq troubles
   if (length(params$fq) > 1) {
-    cli$url <- build_fq_url(url, params)
+    cli$url <- url_build_internal(list(url = url, query = params))
     res <- try(cli$get(), silent = TRUE)
   } else {
     res <- try(cli$get(query = params, encode = "json"), silent = TRUE)

@@ -23,11 +23,24 @@ collect_counts <- function(.data){
     # subset to required columns
     keep_names <- c(colnames(.data$url), "label", "count")
     keep_names <- keep_names[-which(keep_names == "url")]
-    return(result_df[, keep_names])
+    subset_df <- result_df[, keep_names]
+    
+    # rename "label" to correct field name
+    url_field_name <- attributes(.data$url)$url_field
+    names(subset_df)[names(subset_df) == "label"] <- url_field_name
+    
+    return(subset_df)
   }else{
     result <- url_GET(.data$url)[[.data$column]][[1]]
     if(inherits(result, "data.frame")){
-      tibble(result[, c("label", "count")])
+      # subset to required columns
+      subset_df <- tibble(result[, c("label", "count")])
+      
+      # rename "label" to correct field name
+      url_field_name <- attributes(.data)$fields
+      names(subset_df)[names(subset_df) == "label"] <- url_field_name
+      
+      return(subset_df)
     }else{
       result
     }
