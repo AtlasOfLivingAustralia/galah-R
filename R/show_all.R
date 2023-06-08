@@ -261,8 +261,7 @@ show_all_fields <- function(limit = NULL){
         df <- NULL
       }else{
         df <- list(fields[!(fields$id %in% layers$id), ], layers, media, other) |>
-          bind_rows() |>
-          tibble()
+          bind_rows()
       }
     
       # if calling the API fails
