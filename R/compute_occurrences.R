@@ -11,10 +11,14 @@ compute_occurrences <- function(.data){
                           post_result) |>
       url_GET()
   }else{
+    # return n records of query, remove count query info
+    # .data$query_n <- .data$count_query |> compute_counts() |> collect_counts()
+    # .data <- .data[-which(names(.data) == "count_query")]
+    
     status_code <- url_GET(.data$url, 
                            params = .data$query)
   }
   class(status_code) <- "data_response"
-  attr(status_code, "type") <- "occurrences"
+  status_code$"what" <- "occurrences"
   return(status_code)
 }

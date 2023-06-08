@@ -85,7 +85,6 @@ atlas_occurrences <- function(request = NULL,
   
   # capture supplied arguments
   args <- as.list(environment())
-  args$type <- match.arg(type)
   
   # convert to `data_request` object
   if(!is.null(request)){
@@ -94,7 +93,7 @@ atlas_occurrences <- function(request = NULL,
   }else{
     current_call <- do.call(galah_call, args)
   }
-
+  
   # evaluate
   compute(current_call, what = "occurrences") |>
   collect(wait = TRUE)

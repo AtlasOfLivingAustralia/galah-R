@@ -13,6 +13,8 @@ collect_occurrences <- function(.data, wait){
   
   # create a lookup table to ensure correct elements are used to LA/GBIF
   lookup <- occurrence_flags(.data)
+  # browser()
+  # inform(glue("This query will return {.data$query_n} records."))
   
   # process supplied object
   if(.data$status != lookup$completed_flag){
@@ -35,11 +37,16 @@ collect_occurrences <- function(.data, wait){
   }
   
   if(pour("package", "verbose")) {
-    inform("Downloading\n")
+    inform(glue("
+                
+                Downloading
+                
+                "))
   }
   
   # get data
-  result <- url_download(download_response[[lookup$download_tag]]) 
+  # result <- url_download(download_response[[lookup$download_tag]])
+  result <- url_download(download_response)
   
   if(is.null(result)){
     inform("Download failed")

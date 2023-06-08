@@ -15,9 +15,13 @@ collapse_occurrences <- function(.data){
   if(!is.null(custom_call$doi)){
     custom_call <- custom_call["doi"]
   }
+  
   class(custom_call) <- "data_request"
   
-  return(do.call(function_name, custom_call))
+  request <- do.call(function_name, custom_call)
+  # request$count_query <- c(custom_call |> collapse_counts()) # add info to collect count
+  
+  return(request)
 }
 
 

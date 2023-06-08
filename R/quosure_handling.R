@@ -33,10 +33,10 @@ parse_quosures <- function(dots){
 #' @importFrom rlang quo_get_env
 #' @noRd
 #' @keywords internal
-switch_expr_type <- function(x){
+switch_expr_type <- function(x, ...){
   switch(expr_type(x),
          "symbol" = {parse_symbol(x)},
-         "call" = {parse_call(x)},
+         "call" = {parse_call(x, ...)},
          "literal" = {quo_get_expr(x)},
          abort("Quosure type not recognised")
   )
@@ -102,13 +102,19 @@ parse_symbol <- function(x){
 #' @importFrom rlang quo_get_env
 #' @noRd
 #' @keywords internal
-parse_call <- function(x){
+parse_call <- function(x, ...){
   y <- quo_get_expr(x)
   env_tr <- quo_get_env(x)
+  
+
   switch(function_type(as_string(y[[1]])), # i.e. switch depending on what function is called
          "relational_operator" = parse_relational(y, env_tr),
          "logical_operator" = parse_logical(y, env_tr),
          "bracket" = parse_brackets(y, env_tr),
+         "exclamation" = parse_exclamation(y, env_tr),
+         "is.na" = parse_is_na(y, env_tr, ...),
+         "between" = parse_between(y, env_tr, ...),
+         "%in%" = parse_in(y, env_tr, ...),
          {filter_error()}) # if unknown, error
 }
 
@@ -122,6 +128,14 @@ function_type <- function(x){ # assumes x is a string
     "logical_operator" 
   }else if(x == "("){
     "bracket"
+  }else if (x == "!"){
+    "exclamation"
+  }else if(x == "is.na"){
+    "is.na"
+  }else if(x == "between" | x == "dplyr::between"){
+    "between"
+  }else if(x == "%in%"){
+    "%in%"
   }else{
     x
   }
@@ -161,11 +175,13 @@ parse_logical <- function(expr, env){
                        function(a){as_quosure(a, env = env) |>
                                    switch_expr_type()}) 
   result <- linked_statements[[1]]
+  # TODO: Something in this bit of code is broken
   result$variable <- join_logical_strings(linked_statements, "variable", provided_string)
   result$logical <- join_logical_strings(linked_statements, "logical", provided_string)
   result$value <- join_logical_strings(linked_statements, "value", provided_string)
   result$query <- join_logical_strings(linked_statements, "query", logical_string)
   result$query <- paste0("(", result$query, ")")
+  # browser()
   return(result)
 }
 
@@ -189,6 +205,100 @@ parse_brackets <- function(expr, env){
   switch_expr_type(as_quosure(expr[[2]], env = env)) # pass this down the chain
 }
 
+#' Parse `call`s that contain exclamations 
+#' 
+#' Where this happens, they are always length-2, with "(" as the first entry.
+#' @importFrom rlang as_quosure
+#' @noRd
+#' @keywords internal
+parse_exclamation <- function(expr, env){
+  # browser()
+  # extract call after `!`, preserves that `!` = TRUE
+  switch_expr_type(as_quosure(expr[[2]], env = env), excl = TRUE) # pass this down the chain
+}
+
+
+#' Parse `call`s that contain `is.na()`
+#' 
+#' Where this happens, they are always length-2, with "(" as the first entry.
+#' @importFrom rlang as_quosure
+#' @noRd
+#' @keywords internal
+parse_is_na <- function(expr, env, ...){
+  
+  # if(length(expr) != 2L){filter_error()}
+  dots <- list(...)
+  if(is.null(dots["excl"])) {
+    logical <- as.character("==")
+  }else{
+    logical <- as.character("!=")
+  }
+  
+  # for LA cases
+  result <- tibble(
+    variable = as_label(expr[[2]]),
+    logical = logical,
+    value = as.character("\"\""))
+  result$query <- parse_functions_to_solr(result)
+  return(result)
+}
+
+#' Parse `call`s that contain `dplyr::between()`
+#' 
+#' Where this happens, they are always length-4, with "between" as the first entry.
+#' @importFrom rlang as_quosure
+#' @noRd
+#' @keywords internal
+parse_between <- function(expr, env, excl){ 
+  if(length(expr) < 4L){filter_error()}
+  # for LA cases
+  if(isTRUE(excl)) {
+    logical <- c(as.character(">"), c(as.character("<")))
+  } else{
+    logical <- c(as.character("<"), c(as.character(">")))
+  }
+  result <- tibble(
+    variable = c(rep(as_label(expr[[2]]))),
+    logical = logical,
+    value = as.character(
+      c(switch_expr_type(as_quosure(expr[[3]], env = env)),
+        switch_expr_type(as_quosure(expr[[4]], env = env)))))
+  result$query <- c(parse_solr(result[1,]), parse_solr(result[2,]))
+  browser()
+  return(result)
+}
+
+#' Parse `call`s that contain `%in%`
+#' 
+#' Where this happens, they are always length-3, with "%in%" as the first entry.
+#' @importFrom rlang as_quosure
+#' @importFrom glue glue_collapse glue
+#' @importFrom rlang parse_expr enquo
+#' @noRd
+#' @keywords internal
+parse_in <- function(expr, env, excl){ 
+  if(length(expr) < 3L){filter_error()}
+  
+  # convert to logical format using OR statements
+  variable = as_label(expr[[2]])
+  
+  if(isTRUE(excl)) {
+    logical <- "!="
+  } else{
+    logical <- "=="
+  }
+  
+  in_as_or_statements <- rlang::parse_expr(
+    glue::glue_collapse(
+      glue("{variable} {logical} {years_list}"), 
+      sep = " | "
+    ))
+  # in_as_or_statements_quos <- new_quosure(in_as_or_statements, env)
+  parse_logical(rlang::enquo(in_as_or_statements), env) # pass this to parse_logical
+  # class(quo_get_expr(in_as_or_statements_quos))
+  # quo_is_call(rlang::enquo(in_as_or_statements))
+}
+
 #' Convert information in a `tibble` to a `solr` query
 #'
 #' Previously `galah_filter.R/parse_logical`
@@ -204,6 +314,11 @@ parse_solr <- function(df){
          "<=" = {paste0(df$variable, ":[* TO ", df$value, "]")},
          "<" = {paste0(df$variable, ":[* TO ", df$value, "] AND -", query_term(df$variable, df$value, TRUE))}
   )
+}
+
+parse_functions_to_solr <- function(df){
+  switch(df$value,
+         "\"\"" = paste0("(*:* AND -", df$variable, ":*)"), paste0("(", df$variable, ":*)"))
 }
 
 #' Generic error for unknown cases
