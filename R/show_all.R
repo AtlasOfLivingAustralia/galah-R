@@ -35,10 +35,12 @@
 #' 
 #' 
 #' @aliases show_all
-#' @aliases show_all_assertions show_all_atlases show_all_cached_files 
+#' @aliases show_all_assertions show_all_atlases 
 #' @aliases show_all_collections show_all_datasets show_all_providers 
 #' @aliases show_all_fields show_all_reasons show_all_ranks show_all_profiles 
 #' @aliases show_all_licences show_all_apis
+#' @param type A string to specify what type of parameters should be shown.
+#' @param limit Optional number of values to return. Defaults to NULL, i.e. all records
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) 
 #' containing all data of interest.
 #' @references 
@@ -59,15 +61,7 @@
 #' 
 #' # Show a listing of all taxonomic ranks
 #' show_all(ranks)
-#' 
-#' 
-#' @md
-NULL
-
-#' @rdname show_all
-#' @param type A string to specify what type of parameters should be shown.
-#' @param limit Optional number of values to return. Defaults to NULL, i.e. all records
-#' @export show_all
+#' @export
 show_all <- function(type, limit = NULL){
   
   if(!is.null(limit)){
@@ -84,14 +78,12 @@ show_all <- function(type, limit = NULL){
     "profiles", "lists",
     "atlases", "apis", "reasons", 
     "providers", "collections", "datasets")
-  # show_all_cached_files?
   
   # check 'type' is ok
   if(missing(type)){
     type <- "fields"
   }else{
-    type <- enquos(type) |> parse_objects_or_functions()   
-    type <-  gsub("\"", "", deparse(quo_squash(type[[1]])))
+    type <- parse_quosures_basic(enquos(type))$data
     assert_that(is.character(type))
     check_type_valid(type, valid_types)   
   }
@@ -139,23 +131,6 @@ show_all_atlases <- function(limit = NULL) {
   attr(df, "call") <- "show_all_atlases"
   return(df)
   }
-
-
-#' @rdname show_all
-#' @importFrom glue glue
-#' @importFrom potions pour
-#' @importFrom rlang inform
-#' @export
-show_all_cached_files <- function(limit = NULL) {
-  directory <- pour("package", "cache_directory")
-  metadata_path <- file.path(directory, "metadata.rds")
-  if (!file.exists(metadata_path)) {
-    inform(glue("No cached file information was found in {directory}."))
-    return()
-  }
-  readRDS(metadata_path)
-}
-
 
 #' @rdname show_all
 #' @export
@@ -266,7 +241,7 @@ show_all_fields <- function(limit = NULL){
     
       # if calling the API fails
       if(is.null(df)){ 
-        df <- galah_internal_cache()$show_all_fields
+        df <- check_internal_cache()$show_all_fields
         # if cached values reflect the correct atlas, return requested info
         if(attr(df, "atlas_name") == atlas){ 
           attr(df, "ARCHIVED") <- NULL # remove identifying attributes
@@ -283,14 +258,14 @@ show_all_fields <- function(limit = NULL){
        # if the API call worked
       }else{ 
         attr(df, "atlas_name") <- atlas
-        galah_internal_cache(show_all_fields = df)
+        check_internal_cache(show_all_fields = df)
         attr(df, "call") <- "show_all_fields"
       }
     } # end if not gbif
     
     # if no update needed
   }else{    
-    df <- galah_internal_cache()$show_all_fields
+    df <- check_internal_cache()$show_all_fields
     attr(df, "call") <- "show_all_fields"
   }   
   
@@ -329,10 +304,10 @@ show_all_reasons <- function(limit = NULL){
     url <- url_lookup("logger_reasons")
     out <- url_GET(url)
     if(is.null(out)){
-      df <- galah_internal_cache()$show_all_reasons
+      df <- check_internal_cache()$show_all_reasons
       # if cached values reflect the correct atlas, return requested info
       if(attr(df, "atlas_name") == atlas){ 
-        df <- galah_internal_cache()$show_all_reasons
+        df <- check_internal_cache()$show_all_reasons
         attr(df, "ARCHIVED") <- NULL # remove identifying attributes
         # otherwise return a message
       }else{ 
@@ -356,7 +331,7 @@ show_all_reasons <- function(limit = NULL){
     # if no update is needed
   }else{
     attr(df, "call") <- "show_all_reasons"
-    df <- galah_internal_cache()$show_all_reasons
+    df <- check_internal_cache()$show_all_reasons
   }
   
   if(!is.null(limit)){
@@ -424,14 +399,14 @@ show_all_profiles <- function(limit = NULL) {
     url <- url_lookup("profiles_all")
     resp <- url_GET(url)
     if(is.null(resp)){ # if calling the API fails, return cached data
-      df <- galah_internal_cache()$show_all_profiles
+      df <- check_internal_cache()$show_all_profiles
       attr(df, "ARCHIVED") <- NULL # remove identifying attributes
     }else{
       df <- tibble(resp[wanted_columns(type = "profile")])
-      galah_internal_cache(show_all_profiles = df)
+      check_internal_cache(show_all_profiles = df)
     }    
   }else{
-    df <- galah_internal_cache()$show_all_profiles
+    df <- check_internal_cache()$show_all_profiles
   }
   attr(df, "call") <- "show_all_profiles"
   if(!is.null(limit)){

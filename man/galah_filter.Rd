@@ -2,9 +2,12 @@
 % Please edit documentation in R/galah_filter.R
 \name{galah_filter}
 \alias{galah_filter}
+\alias{filter.data_request}
 \title{Narrow a query by specifying filters}
 \usage{
 galah_filter(..., profile = NULL)
+
+\method{filter}{data_request}(.data, ...)
 }
 \arguments{
 \item{...}{filters, in the form \verb{field logical value}}
@@ -14,6 +17,8 @@ galah_filter(..., profile = NULL)
 If supplied, should be a \code{string} recording a data quality profile to
 apply to the query. See \code{\link[=show_all_profiles]{show_all_profiles()}} for valid profiles. By
 default no profile is applied.}
+
+\item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
 }
 \value{
 A tibble containing filter values.

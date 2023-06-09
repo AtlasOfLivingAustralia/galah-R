@@ -43,8 +43,7 @@ quality-control criteria.
 \item \code{\link[=atlas_species]{atlas_species()}} Download species lists
 \item \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} Return a section of the ALA taxonomic tree
 \item \code{\link[=atlas_media]{atlas_media()}} View images and sounds available to download
-\item \code{\link[=collect_media]{collect_media()}} Download images and sounds
-\item \code{\link[=collect_occurrences]{collect_occurrences()}} Download previously-defined sets of occurrence records
+\item \code{\link[=collect.data_request]{collapse(), compute() & collect()}} Finer control over query construction and execution
 }
 
 \strong{Look up information}
@@ -54,12 +53,6 @@ quality-control criteria.
 \item \code{\link[=show_all]{show_all()}} & \code{\link[=search_all]{search_all()}} Data for generating filter queries
 \item \code{\link[=show_values]{show_values()}} & \code{\link[=search_values]{search_values()}} Show or search for values \emph{within}
 \code{fields}, \code{profiles}, \code{lists}, \code{collections}, \code{datasets} or \code{providers}
-}
-
-\strong{Manage cache}
-\itemize{
-\item \code{\link[=show_all_cached_files]{show_all_cached_files()}} List previously cached files and their metadata
-\item \code{\link[=clear_cached_files]{clear_cached_files()}} Clear previously cached files and their metadata
 }
 
 \strong{Configure session}

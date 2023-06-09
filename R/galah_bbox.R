@@ -74,20 +74,11 @@ galah_bbox <- function(...) {
 
   # check to see if any of the inputs are a data request
   dots <- enquos(..., .ignore_empty = "all")
-  checked_dots <- detect_data_request(dots)
-  if (!inherits(checked_dots, "quosures")) {
-    is_data_request <- TRUE
-    data_request <- checked_dots[[1]]
-    dots <- checked_dots[[2]]
-  } else {
-    is_data_request <- FALSE
-  }
-
+  parsed_dots <- parse_quosures_basic(dots)
+  query <- parsed_dots$data
+  
   # accept one input only
-  check_n_inputs(dots)
-
-  # convert dots to query
-  query <- parse_basic_quosures(dots[1])
+  check_n_inputs(query)
 
   # process shapefiles correctly
   if (!inherits(query, "sf")) {
@@ -163,7 +154,6 @@ galah_bbox <- function(...) {
     }
   }
 
-
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons are converted to multipolygons
   if (inherits(query, "sf") || inherits(query, "sfc")) {
@@ -178,10 +168,10 @@ galah_bbox <- function(...) {
   attr(out_query, "call") <- "galah_geolocate"
 
   # if a data request was supplied, return one
-  if (is_data_request) {
-    update_galah_call(data_request, geolocate = out_query)
-  } else {
+  if(is.null(parsed_dots$data_request)){
     out_query
+  }else{
+    update_galah_call(parsed_dots$data_request, geolocate = out_query)
   }
 }
 
@@ -236,17 +226,3 @@ check_col_names <- function(tibble, error_call = caller_env()) {
     abort(bullets, call = error_call)
   }
 }
-
-# nesting_depth <- function(object, object_depth = 0) {
-#   if (!is.list(object)) {
-#     return(object_depth)
-#   } else {
-#     return(
-#       max(
-#         unlist(
-#           lapply(object, nesting_depth, object_depth = object_depth + 1)
-#         )
-#       )
-#     )
-#   }
-# }

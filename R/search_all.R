@@ -15,6 +15,7 @@
 #' types of information from `search_` sub-functions. 
 #' See `Details` (below) for accepted values.
 #' 
+#' @param type A string to specify what type of parameters should be searched.
 #' @param query A string specifying a search term. Searches are not 
 #' case-sensitive.
 #' @details There are five categories of information, each with their own 
@@ -77,15 +78,8 @@
 #' 
 #' # Search for a valid taxonomic rank, "subphylum"
 #' search_all(ranks, "subphylum")
-#' 
-NULL
-
-
-#' search atlas metadata
-#' @param type A string to specify what type of parameters should be searched.
 #' @importFrom utils adist
-#' @rdname search_all
-#' @export search_all
+#' @export
 search_all <- function(type, query){
   
   # vector of valid types for this function
@@ -97,14 +91,12 @@ search_all <- function(type, query){
     "atlases", "apis", "reasons", 
     "taxa", "identifiers",
     "providers", "collections", "datasets")
-  # show_all_cached_files?
   
   # check 'type' is ok
   if(missing(type)){
     type <- "fields"
   }else{
-    type <- enquos(type) |> parse_objects_or_functions() 
-    type <-  gsub("\"", "", deparse(quo_squash(type[[1]])))
+    type <- parse_quosures_basic(enquos(type))$data
     assert_that(is.character(type))
     check_type_valid(type, valid_types)   
   }

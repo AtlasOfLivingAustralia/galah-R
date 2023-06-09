@@ -49,7 +49,7 @@
 #' @keywords internal
 #' 
 #' @export
-galah_polygon <- function(...) {
+galah_polygon <- function(...){
   
   # check to see if any of the inputs are a data request
   dots <- enquos(..., .ignore_empty = "all")
@@ -79,9 +79,18 @@ galah_polygon <- function(...) {
   }   
 }
 
+#' @rdname galah_polygon
+#' @param .data An object of class `data_request`, created using [galah_call()]
+#' @export
+st_crop.data_request <- function(.data, y, ...){
+  update_galah_call(.data, geolocate = parse_polygon(y))
+}
 
+
+#' parser for polygons
+#' @noRd
+#' @keywords Internal
 parse_polygon <- function(query){
-
   # make sure shapefiles are processed correctly
   if (!inherits(query, "sf")) {query <- query[[1]]} else {query <- query}
   

@@ -108,7 +108,6 @@ search_all(lists, "endangered") # equivalent
 
 # Search for a valid taxonomic rank, "subphylum"
 search_all(ranks, "subphylum")
-
 }
 \references{
 \itemize{

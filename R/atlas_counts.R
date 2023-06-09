@@ -71,3 +71,25 @@ atlas_counts <- function(request = NULL,
   # evaluate
   collect(current_call, what = "counts")
 }
+
+#' @rdname atlas_counts
+#' @param .data An object of class `data_request`, created using [galah_call()]
+#' @param wt currently ignored
+#' @param ... currently ignored
+#' @param sort currently ignored
+#' @param name currently ignored
+#' @param type `string`: one of `c("record", "species")`. Defaults to
+#' "record". If "species", the number of species matching the criteria will be
+#' returned, if "record", the number of records matching the criteria will be
+#' returned.
+#' @importFrom dplyr count
+#' @export
+count.data_request <- function(.data, 
+                               ..., 
+                               wt, 
+                               sort, 
+                               name, 
+                               type = c("record", "species")){
+  current_call <- update_galah_call(.data, type = match.arg(type))
+  collect(current_call, what = "counts")
+}

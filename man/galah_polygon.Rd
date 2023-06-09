@@ -2,12 +2,17 @@
 % Please edit documentation in R/galah_polygon.R
 \name{galah_polygon}
 \alias{galah_polygon}
+\alias{st_crop.data_request}
 \title{Narrow a query to within a specified polygon}
 \usage{
 galah_polygon(...)
+
+\method{st_crop}{data_request}(.data, y, ...)
 }
 \arguments{
 \item{...}{a single \code{sf} object, WKT string or shapefile.}
+
+\item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
 }
 \value{
 length-1 object of class \code{character} and \code{galah_geolocate},

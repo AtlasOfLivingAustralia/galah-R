@@ -2,27 +2,46 @@
 % Please edit documentation in R/collect.R
 \name{collect.data_request}
 \alias{collect.data_request}
+\alias{collect.data_query}
 \alias{collect.data_response}
-\title{Collect data from the selected atlas}
+\alias{compute.data_request}
+\alias{compute.data_query}
+\alias{collapse.data_request}
+\title{Force computation of a database query}
 \usage{
 \method{collect}{data_request}(.data, what)
 
+\method{collect}{data_query}(.data)
+
 \method{collect}{data_response}(.data, wait = FALSE)
+
+\method{compute}{data_request}(.data, what)
+
+\method{compute}{data_query}(.data)
+
+\method{collapse}{data_request}(.data, what)
 }
 \arguments{
-\item{.data}{An object of class \code{data_response}, created using
-\code{\link[=compute.data_request]{compute.data_request()}}}
+\item{.data}{An object of class \code{data_request}, \code{data_query} or
+\code{data_response}}
 
 \item{what}{string: what kind of data should be returned. Must be one of
 \code{"counts"}, \code{"species"}, \code{"occurrences"} or \code{"media"}.}
+
+\item{wait}{logical; should \code{galah} ping the selected url until computation
+is complete? Defaults to \code{FALSE}.}
 }
 \value{
-A \code{tibble} containing requested data
+\code{collect()} returns a \code{tibble} containing requested data. \code{compute()}
+returns an \code{data_response}. \code{collapse()} returns an object of class
+\code{data_query}.
 }
 \description{
-For \code{type = "media"} or \code{"occurrences"}, object must first have been passed
-to the specified atlas using \code{compute()}. For \code{type = "counts"} this is not
-required; in fact \code{collect()} is synonymous with \code{count()} in this instance.
+These functions are borrowed from \code{dplyr}, and underpin every \code{atlas_}
+function in \code{galah}. \code{collapse()} calculates a valid query so it can be
+inspected before being sent. \code{compute()} sends the query so that it can
+be calculated server-side in the specified atlas. \code{collect()} returns the
+resulting \code{tibble} once it is complete.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}.
 }
 \details{
@@ -30,7 +49,4 @@ This function has three extensions in \code{galah}. \code{collect.data_request()
 designed to be called at the end of a pipe, \code{collect.data_response()} works
 after calls to \code{compute}, and \code{collect.data_query()} works after calls to
 \code{collapse()}.
-}
-\seealso{
-\code{\link[=atlas_occurrences]{atlas_occurrences()}}
 }

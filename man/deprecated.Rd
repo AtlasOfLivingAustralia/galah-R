@@ -13,7 +13,6 @@
 \alias{ala_media}
 \alias{ala_citation}
 \alias{find_reasons}
-\alias{find_cached_files}
 \alias{find_ranks}
 \alias{find_profiles}
 \alias{find_atlases}
@@ -71,8 +70,6 @@ ala_citation(data)
 
 find_reasons()
 
-find_cached_files()
-
 find_ranks()
 
 find_profiles()
@@ -112,8 +109,6 @@ Use \code{\link[=atlas_media]{atlas_media()}} instead of \code{ala_media()}.
 Use \code{\link[=atlas_citation]{atlas_citation()}} instead of \code{ala_citation()}.
 
 Use \code{\link[=show_all_reasons]{show_all_reasons()}} instead of \code{find_reasons()}.
-
-Use \code{\link[=show_all_cached_files]{show_all_cached_files()}} instead of \code{find_cached_files()}.
 
 Use \code{\link[=show_all_ranks]{show_all_ranks()}} instead of \code{find_ranks()}.
 

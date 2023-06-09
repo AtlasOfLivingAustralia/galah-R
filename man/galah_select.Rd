@@ -2,9 +2,12 @@
 % Please edit documentation in R/galah_select.R
 \name{galah_select}
 \alias{galah_select}
+\alias{select.data_request}
 \title{Specify fields for occurrence download}
 \usage{
-galah_select(..., group = c("basic", "event", "media", "assertions"))
+galah_select(..., group)
+
+\method{select}{data_request}(.data, ..., group)
 }
 \arguments{
 \item{...}{zero or more individual column names to include}
@@ -12,6 +15,8 @@ galah_select(..., group = c("basic", "event", "media", "assertions"))
 \item{group}{\code{string}: (optional) name of one or more column groups to
 include. Valid options are \code{"basic"}, \code{"event"} and
 \code{"assertions"}}
+
+\item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
 }
 \value{
 A tibble
@@ -79,7 +84,6 @@ galah_call() |>
   galah_select(basisOfRecord, group = "basic") |>
   atlas_occurrences()
 }
-
 }
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}}, \code{\link[=galah_filter]{galah_filter()}} and

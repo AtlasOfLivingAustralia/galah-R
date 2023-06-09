@@ -2,9 +2,12 @@
 % Please edit documentation in R/galah_identify.R
 \name{galah_identify}
 \alias{galah_identify}
+\alias{identify.data_request}
 \title{Narrow a query by passing taxonomic identifiers}
 \usage{
 galah_identify(..., search = TRUE)
+
+\method{identify}{data_request}(.data, ..., search = TRUE)
 }
 \arguments{
 \item{...}{one or more scientific names (if \code{search = TRUE}) or taxonomic
@@ -13,6 +16,8 @@ identifiers (if \code{search = FALSE}); or an object of class \code{ala_id} (fro
 
 \item{search}{(logical); should the results in question be passed to
 \code{search_taxa}?}
+
+\item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
 }
 \value{
 A tibble containing identified taxa.

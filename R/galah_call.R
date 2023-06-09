@@ -163,32 +163,3 @@ bind_unique_rows <- function(x, y, column){
     tibble() |>
     filter(!duplicated(column))
 }
-
-
-# function used in `galah_` and `search_` functions to determine 
-# whether a quosure list contains an object of class `data_request`
-# as its' first argument
-# THIS SHOULD PROBABLY BE REMOVED OR REFACTORED
-detect_data_request <- function(dots){
-  is_either <- (is_function_check(dots) | is_object_check(dots))
-  if(length(is_either) < 1){
-    is_either <- FALSE
-  }else{
-    is_either <- is_either[[1]]
-  }
-  if(is_either){
-    eval_result <- try({eval_tidy(dots[[1]])}, silent = TRUE)
-    if(inherits(eval_result, "try-error")){
-      return(dots)
-    }else if(inherits(eval_result, "data_request")){
-      return(list(
-        data_request = eval_result,
-        dots = dots[-1]
-      ))
-    }else{
-      return(dots)
-    }
-  }else{
-    return(dots)
-  }  
-}

@@ -1,20 +1,24 @@
-#' Collect data from the selected atlas
+#' Force computation of a database query
 #'
-#' For `type = "media"` or `"occurrences"`, object must first have been passed 
-#' to the specified atlas using `compute()`. For `type = "counts"` this is not 
-#' required; in fact `collect()` is synonymous with `count()` in this instance.
+#' These functions are borrowed from `dplyr`, and underpin every `atlas_` 
+#' function in `galah`. `collapse()` calculates a valid query so it can be 
+#' inspected before being sent. `compute()` sends the query so that it can 
+#' be calculated server-side in the specified atlas. `collect()` returns the
+#' resulting `tibble` once it is complete.
 #' `r lifecycle::badge("experimental")`.
 #' 
 #' This function has three extensions in `galah`. `collect.data_request()` is
 #' designed to be called at the end of a pipe, `collect.data_response()` works
 #' after calls to `compute`, and `collect.data_query()` works after calls to 
 #' `collapse()`.
-#' @seealso [atlas_occurrences()]
-#' @param .data An object of class `data_response`, created using 
-#' [compute.data_request()]
+#' @name collect.data_request
+#' @param .data An object of class `data_request`, `data_query` or 
+#' `data_response` 
 #' @param what string: what kind of data should be returned. Must be one of
 #' `"counts"`, `"species"`, `"occurrences"` or `"media"`.
-#' @return A `tibble` containing requested data
+#' @return `collect()` returns a `tibble` containing requested data. `compute()`
+#' returns an `data_response`. `collapse()` returns an object of class 
+#' `data_query`.
 #' @importFrom glue glue
 #' @importFrom potions pour
 #' @importFrom rlang abort
@@ -31,8 +35,7 @@ collect.data_request <- function(.data, what){
   )
 }
 
-#' Collect data from class `data_query`, returned by `collapse.data_request()`
-#' @rdname collect.data_query
+#' @rdname collect.data_request
 #' @export
 collect.data_query <- function(.data){
   switch(.data$what, 
@@ -43,8 +46,9 @@ collect.data_query <- function(.data){
   )
 }
 
-#' Collect data from class `data_response`, returned by `compute.data_request()`
 #' @rdname collect.data_request
+#' @param wait logical; should `galah` ping the selected url until computation
+#' is complete? Defaults to `FALSE`.
 #' @export
 collect.data_response <- function(.data,
                                   wait = FALSE){
@@ -55,4 +59,45 @@ collect.data_response <- function(.data,
          # "media" = collect_media(.data)) # unclear whether this makes sense
          # may need types "media-metadata" and "media-files"
   )
+}
+
+#' @rdname collect.data_request
+#' @importFrom potions pour
+#' @importFrom rlang abort
+#' @export
+compute.data_request <- function(.data, what){
+  check_type(what)
+  .data <- collapse(.data, what)
+  switch_compute(.data, what)
+}
+
+#' @rdname collect.data_request
+#' @export
+compute.data_query <- function(.data){
+  switch_compute(.data, what = .data$what)
+}
+
+#' Internal function to determine which type of call to compute
+#' @noRd
+#' @keywords Internal
+switch_compute <- function(.data, what){
+  if(what != "counts"){
+    check_login(.data)
+  }
+  switch(what, 
+         "counts" = compute_counts(.data),
+         "species" = compute_species(.data),
+         "occurrences" = compute_occurrences(.data),
+         "media" = compute_media(.data))   
+}
+
+#' @rdname collect.data_request
+#' @export
+collapse.data_request <- function(.data, what){
+  check_type(what)
+  switch(what, 
+         "counts" = collapse_counts(.data),
+         "species" = collapse_species(.data),
+         "occurrences" = collapse_occurrences(.data),
+         "media" = collapse_media(.data))
 }

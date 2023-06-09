@@ -6,10 +6,10 @@
 #' @noRd
 #' @keywords Internal
 #' @importFrom potions pour
-galah_internal_cache <- function(...){
+check_internal_cache <- function(...){
 
   # set all options
-  ala_option_name <- "galah_internal_cache"
+  ala_option_name <- "check_internal_cache"
   current_options <- getOption(ala_option_name)
   atlas <- pour("atlas", "region")
   user_options <- list(...)
@@ -44,7 +44,7 @@ galah_internal_cache <- function(...){
 }
 
 internal_cache_update_needed <- function(function_name){
-  df <- galah_internal_cache()[[function_name]]
+  df <- check_internal_cache()[[function_name]]
   is_local <- !is.null(attr(df, "ARCHIVED"))
   is_wrong_atlas <- attr(df, "atlas_name") != pour("atlas", "region")
   is_too_short <- nrow(df) < 10

@@ -11,20 +11,46 @@
 #' @importFrom rlang quo_is_symbol
 #' @keywords internal
 parse_quosures <- function(dots){
-  name_length <- any(length(names(dots) > 0)) & any(names(dots) != "")
-  if(name_length){
-    bullets <- c(
-      "We detected a named input.",
-      i = "This usually means that you've used `=` instead of `==`.")
-    abort(bullets)
-  }
   if(length(dots) > 0){
-    lapply(dots, switch_expr_type) |>
-      bind_rows()
+    check_named_input(dots)
+    parsed_dots <- lapply(dots, switch_expr_type) 
+    if(inherits(parsed_dots[[1]], "data_request")){
+      list(data_request = parsed_dots[[1]],
+           data = bind_rows(parsed_dots[-1]))
+    }else{
+      list(data = bind_rows(parsed_dots))
+    }
   }else{
     NULL
   }
 }
+
+#' parse quosures, but for `select` and related functions
+#' 
+#' Major difference here is there is no need for parsing; simply return
+#' stuff that is a named object
+#' @noRd
+#' @keywords internal
+parse_quosures_basic <- function(dots){
+  if(length(dots) > 0){
+    parsed_dots <- lapply(dots, function(a){
+      switch(expr_type(a),
+            "symbol" = {parse_symbol(a)},
+            "call" = {eval_tidy(a)},
+            "literal" = {quo_get_expr(a)},
+            abort("Quosure type not recognised"))
+      })
+    if(inherits(parsed_dots[[1]], "data_request")){
+      list(data_request = parsed_dots[[1]], 
+           data = unlist(parsed_dots[-1]))
+    }else{
+      list(data = unlist(parsed_dots))
+    }
+  }else{
+    NULL
+  } 
+}
+
 
 #' Switch functions for quosures
 #' @param x A (single) quosure
@@ -105,7 +131,6 @@ parse_symbol <- function(x){
 parse_call <- function(x, ...){
   y <- quo_get_expr(x)
   env_tr <- quo_get_env(x)
-  
 
   switch(function_type(as_string(y[[1]])), # i.e. switch depending on what function is called
          "relational_operator" = parse_relational(y, env_tr),
@@ -115,6 +140,7 @@ parse_call <- function(x, ...){
          "is.na" = parse_is_na(y, env_tr, ...),
          "between" = parse_between(y, env_tr, ...),
          "%in%" = parse_in(y, env_tr, ...),
+         "galah_call" = eval_tidy(x),
          {filter_error()}) # if unknown, error
 }
 
@@ -294,7 +320,7 @@ parse_in <- function(expr, env, excl){
       sep = " | "
     ))
   # in_as_or_statements_quos <- new_quosure(in_as_or_statements, env)
-  parse_logical(rlang::enquo(in_as_or_statements), env) # pass this to parse_logical
+  parse_logical(enquo(in_as_or_statements), env) # pass this to parse_logical
   # class(quo_get_expr(in_as_or_statements_quos))
   # quo_is_call(rlang::enquo(in_as_or_statements))
 }

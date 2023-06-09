@@ -4,7 +4,6 @@
 \alias{show_all}
 \alias{show_all_assertions}
 \alias{show_all_atlases}
-\alias{show_all_cached_files}
 \alias{show_all_collections}
 \alias{show_all_datasets}
 \alias{show_all_providers}
@@ -22,8 +21,6 @@ show_all(type, limit = NULL)
 show_all_assertions(limit = NULL)
 
 show_all_atlases(limit = NULL)
-
-show_all_cached_files(limit = NULL)
 
 show_all_apis(limit = NULL)
 
@@ -98,8 +95,6 @@ show_all(reasons)
 
 # Show a listing of all taxonomic ranks
 show_all(ranks)
-
-
 }
 \references{
 \itemize{

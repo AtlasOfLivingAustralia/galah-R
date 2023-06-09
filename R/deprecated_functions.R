@@ -195,19 +195,6 @@ find_reasons <- function() {
 }
 
 #' @description 
-#' Use [show_all_cached_files()] instead of `find_cached_files()`.
-#' 
-#' @keywords internal
-#' @export
-#' @name deprecated
-find_cached_files <- function() {
-  lifecycle::deprecate_warn("1.4.0", "find_cached_files()", 
-                            "show_all_cached_files()")
-  
-  show_all_cached_files()
-}
-
-#' @description 
 #' Use [show_all_ranks()] instead of `find_ranks()`.
 #' 
 #' @keywords internal

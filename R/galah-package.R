@@ -41,8 +41,7 @@
 #'   * [atlas_species()] Download species lists
 #'   * [atlas_taxonomy()] Return a section of the ALA taxonomic tree
 #'   * [atlas_media()] View images and sounds available to download
-#'   * [collect_media()] Download images and sounds
-#'   * [collect_occurrences()] Download previously-defined sets of occurrence records
+#'   * \code{\link[=collect.data_request]{collapse(), compute() & collect()}} Finer control over query construction and execution
 #'   
 #' **Look up information**
 #'
@@ -51,11 +50,6 @@
 #'   * [show_all()] & [search_all()] Data for generating filter queries
 #'   * [show_values()] & [search_values()] Show or search for values _within_ 
 #'   `fields`, `profiles`, `lists`, `collections`, `datasets` or `providers`
-#' 
-#' **Manage cache**
-#' 
-#'   * [show_all_cached_files()] List previously cached files and their metadata
-#'   * [clear_cached_files()] Clear previously cached files and their metadata
 #' 
 #' **Configure session**
 #' 

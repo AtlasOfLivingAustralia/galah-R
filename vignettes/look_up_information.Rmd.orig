@@ -98,7 +98,6 @@ possible values of the category specified. These functions include:
 -   `show_all_ranks`
 -   `show_all_profiles`
 -   `show_all_reasons`
--   `show_all_cached_files`
 
 `show_all_` functions require no arguments. Simply call the function and it will 
 return all accepted values as a tibble:

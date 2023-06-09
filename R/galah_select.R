@@ -69,101 +69,62 @@
 #'   galah_select(basisOfRecord, group = "basic") |>
 #'   atlas_occurrences()
 #' }
-#' 
-#' @importFrom tidyselect eval_select
-#' @importFrom tidyselect all_of
 #' @importFrom tibble as_tibble
 #' @export
 galah_select <- function(...,
-                         group = c("basic", "event", "media", "assertions")
-                         ) {  
-
+                         group){  
   dots <- enquos(..., .ignore_empty = "all")
-  
-  # Check to see if any of the inputs are a data request
-  if(length(dots) > 0){
-    checked_dots <- detect_data_request(dots)
-    if(!inherits(checked_dots, "quosures")){
-      is_data_request <- TRUE
-      data_request <- checked_dots[[1]]
-      dots <- checked_dots[[2]]
-    }else{
-      is_data_request <- FALSE
-    }
+  parsed_dots <- parse_quosures_basic(dots)
+  group <- check_groups(group, n = length(parsed_dots$data))
+  if(is.null(parsed_dots$data_request)){
+    parse_select(parsed_dots$data, group)
   }else{
-    is_data_request <- FALSE
-  }
-  
-  if(is_gbif()){
-    message("GBIF does not support `select` queries")
-    if(is_data_request){
-      return(data_request)
-    }else{
-      return(NULL)
-    }
-  }
-  
-  # If no args are supplied, set default columns returned as group = "basic"  
-  if(missing(group)){
-    if(length(dots) < 1){
-      group_chosen <- "basic"
-    }else{
-      group_chosen <- NULL
-    }
-  }else{
-    group_chosen <- match.arg(group, several.ok = TRUE)
-  }
-  
-  result <- parse_select(dots, group_chosen)
-  
-  # if a data request was supplied, return one
-  if(is_data_request){
-    update_galah_call(data_request, select = result)
-  }else{
-    result
+    update_galah_call(parsed_dots$data_request, 
+                      select = parse_select(parsed_dots$data, group))
   }
 }
 
+#' @rdname galah_select
+#' @param .data An object of class `data_request`, created using [galah_call()]
+#' @export
+select.data_request <- function(.data, ..., group){
+  
+  dots <- enquos(..., .ignore_empty = "all")
+  parsed_dots <- parse_quosures_basic(dots)
+  group <- check_groups(group, n = length(parsed_dots$data))
+  update_galah_call(.data, 
+                    select = parse_select(parsed_dots$data, group))
+}
 
-# Build a data.frame with a standardised set of names
-parse_select <- function(dots, group){
-  current_assertions <- show_all_assertions()
-  field_names <- unique(c(show_all_fields()$id, current_assertions$id))
-  df <- matrix(data = NA, nrow = 0, ncol = length(field_names),
-               dimnames = list(NULL, field_names)) |>
-    as.data.frame()
+#' Build a data.frame with a standardised set of names
+#' @noRd
+#' @keywords Internal
+parse_select <- function(dot_names, group){
   
   if(length(group) > 0){
-    group_cols <- lapply(group, preset_cols) |>
-                  unlist()
-    select_groups <- eval_select(all_of(group_cols), data = df) |> 
-                     names()
+    group_cols <- lapply(group, preset_cols) |> unlist()
   }else{
-    select_groups <- NULL
-    group <- ""
+    group_cols <- NULL
   }
   
-  if(length(dots) > 0){
-    select_individuals <- unlist(lapply(dots, function(a){
-      eval_select(a, data = df) |> 
-      names()
-    }))
+  if(length(dot_names) > 0){
+    individual_cols <- dot_names 
   }else{ # i.e. no fields selected
     # code an exception here:
     ## because assertions aren't fields, leaving `fields` empty means default fields are returned
     ## but only when `group = assertions` and no other requests are made
     ## this adds a single field (recordID) to the query to avoid this problem
     if(length(group) == 1 && all(group == "assertions")){
-      select_individuals <- "recordID"
+      individual_cols <- "recordID"
     }else{
-      select_individuals <- NULL 
+      individual_cols <- NULL 
     }
   }
   
   # create output object
-  result <- tibble(name = unique(c(select_groups, select_individuals)))
+  result <- tibble(name = unique(c(group_cols, individual_cols)))
   result$type <- "field"
-  result$type[result$name %in% current_assertions$id] <- "assertion"
+  # result$type[result$name %in% show_all("assertions")$id] <- "assertion" # requires upgrade to show_all
   attr(result, "call") <- "galah_select" 
   attr(result, "group") <- group
   
@@ -182,6 +143,22 @@ preset_cols <- function(type) {
                  "media" = c("multimedia", "multimediaLicence", 
                              "images", "videos", "sounds"),
                  "assertions" = show_all_assertions()$id
-               )
+  )
   return(cols)
+}
+
+
+default_columns <- function() {
+  atlas <- pour("atlas", "region")
+  switch (atlas,
+          "Guatemala" = c("latitude", "longitude", "species_guid",
+                          "data_resource_uid", "occurrence_date", "id"),
+          "Spain" = c("latitude", "longitude", "species_guid",
+                      "data_resource_uid", "occurrence_date", "recordID"),
+          c("decimalLatitude", "decimalLongitude", "eventDate",
+            "scientificName", "taxonConceptID",
+            "recordID", # note this requires that the ALA name (`id`) be corrected
+            "dataResourceName",
+            "occurrenceStatus")
+  )
 }

@@ -7,6 +7,6 @@
       brew(.pkg = "galah")
       galah_config() # to cache defaults
       options(list(
-        "galah_internal_cache" = galah_internal_archived))
+        "check_internal_cache" = galah_internal_archived))
     }
 }

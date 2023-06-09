@@ -41,32 +41,30 @@
 #' 
 #' @export
 galah_identify <- function(..., search = TRUE) {
-
   # check to see if any of the inputs are a data request
   dots <- enquos(..., .ignore_empty = "all")
-  checked_dots <- detect_data_request(dots)
-  if (!inherits(checked_dots, "quosures")) {
-    is_data_request <- TRUE
-    data_request <- checked_dots[[1]]
-    dots <- checked_dots[[2]]
-  } else {
-    is_data_request <- FALSE
-  }
-  
-  if (is_data_request) {
-    update_galah_call(data_request, identify = parse_identify(dots, search))
-  } else {
-    parse_identify(dots, search)
+  parsed_dots <- parse_quosures_basic(dots)
+  result <- parse_identify(parsed_dots$data, search)
+  if(is.null(parsed_dots$data_request)){
+    result
+  }else{
+    update_galah_call(parsed_dots$data_request, identify = result)
   }
 }
 
+#' @rdname galah_identify
+#' @param .data An object of class `data_request`, created using [galah_call()]
+#' @export
+identify.data_request <- function(.data, ..., search = TRUE){
+  dots <- enquos(..., .ignore_empty = "all")
+  update_galah_call(.data, identify = parse_identify(dots, search))
+}
 
-parse_identify <- function(dots, search){
-  if (length(dots) > 0) {
-
-    # basic checking
-    check_queries(dots) # capture named inputs
-    input_query <- parse_basic_quosures(dots) # convert dots to query
+#' parser for `galah_identify()`
+#' @noRd
+#' @keywords Internal
+parse_identify <- function(input_query, search){
+  if (length(input_query) > 0) {
 
     # get cached behaviour
     atlas <- pour("atlas", "region")
