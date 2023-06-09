@@ -262,7 +262,7 @@ parse_is_na <- function(expr, env, ...){
   
   # for LA cases
   result <- tibble(
-    variable = as_label(expr[[2]]),
+    variable = switch_expr_type(as_quosure(expr[[2]], env = env)),
     logical = logical,
     value = as.character("\"\""))
   result$query <- parse_functions_to_solr(result)
