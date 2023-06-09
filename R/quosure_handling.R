@@ -259,13 +259,16 @@ parse_is_na <- function(expr, env, ...){
   }else{
     logical <- as.character("!=")
   }
-  
+
   # for LA cases
   result <- tibble(
     variable = switch_expr_type(as_quosure(expr[[2]], env = env)),
     logical = logical,
     value = as.character("\"\""))
-  result$query <- parse_functions_to_solr(result)
+  result$query <- switch(result$logical,
+                         "==" = paste0("(*:* AND -", result$variable, ":*)"), 
+                         "!=" = paste0("(", result$variable, ":*)"),
+                         abort("unknown value given to `parse_is_na()`"))
   return(result)
 }
 
@@ -340,11 +343,6 @@ parse_solr <- function(df){
          "<=" = {paste0(df$variable, ":[* TO ", df$value, "]")},
          "<" = {paste0(df$variable, ":[* TO ", df$value, "] AND -", query_term(df$variable, df$value, TRUE))}
   )
-}
-
-parse_functions_to_solr <- function(df){
-  switch(df$value,
-         "\"\"" = paste0("(*:* AND -", df$variable, ":*)"), paste0("(", df$variable, ":*)"))
 }
 
 #' Generic error for unknown cases
