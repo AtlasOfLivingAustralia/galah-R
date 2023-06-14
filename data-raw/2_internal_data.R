@@ -34,7 +34,7 @@ node_config <- read_csv("./data-raw/node_config.csv") |>
 
 # ALA defaults
 # cached versions of some show_all functions
-# NOTE: may be necessaary to expand this given changes to show_all
+# NOTE: may be necessary to expand this given changes to `show_all()`
 stored_functions <- c(
   "show_all_fields", "show_all_profiles", "show_all_reasons")
 

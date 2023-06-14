@@ -98,13 +98,6 @@ atlas_media <- function(request = NULL,
      names(current_call) %in% names(formals(atlas_media_internal))]
   class(custom_call) <- "data_request"
      
-  # check for caching
-  caching <- pour("package", "caching")
-  cache_file <- cache_filename("media", unlist(custom_call))
-  if (caching && file.exists(cache_file) && !refresh_cache) {
-    return(read_cache_file(cache_file))
-  }
-  
   # run function using do.call
   result <- do.call(atlas_media_internal, custom_call)
   if(is.null(result)){
@@ -112,14 +105,6 @@ atlas_media <- function(request = NULL,
   }else{
     attr(result, "data_type") <- "media"
     attr(result, "data_request") <- custom_call
-    
-    # if caching requested, save
-    if (caching) {
-      write_cache_file(object = result, 
-                       data_type = "media",
-                       cache_file = cache_file)
-    }
-    
     result  
   }
 }

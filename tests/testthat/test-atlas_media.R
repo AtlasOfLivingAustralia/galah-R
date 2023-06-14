@@ -47,3 +47,26 @@ test_that("atlas_occurrences |> search_media duplicates atlas_media", {
 
   expect_equal(nrow(media_1), nrow(media_2))
 })
+
+
+
+test_that("test new workflow for media makes sense", {
+  skip_on_cran()
+  galah_config(email = "ala4r@ala.org.au")
+  
+  # type <- "images"
+  query <- galah_call() |>
+    galah_filter(
+      year == 2023,
+      month == 6,
+      species == "Litoria peronii") |>
+    #  !is.na(type)) |> # "videos" or "sounds" are valid options
+    select(group = "basic") |>
+    collect("occurrences")
+  
+  
+    count()
+    collapse("media")
+
+  compute(query)
+})

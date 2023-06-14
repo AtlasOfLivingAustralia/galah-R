@@ -68,7 +68,7 @@ collapse_occurrences_atlas <- function(identify = NULL,
     url = occurrences_url,
     headers = list("User-Agent" = galah_version_string()),
     query = query)
-  result$type <- "occurrences"
+  result$what <- "occurrences"
   class(result) <- "data_query"
   
   return(result)
@@ -131,7 +131,7 @@ collapse_occurrences_gbif <- function(identify = NULL,
         ":", 
         pour("user", "password", .pkg = "galah"))),
     body = build_predicates(filter, format))
-  result$type <- "occurrences"
+  result$what <- "occurrences"
   class(result) <- "data_query"
   
   return(result)

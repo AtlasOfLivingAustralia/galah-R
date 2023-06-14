@@ -13,7 +13,6 @@ collect_occurrences <- function(.data, wait){
   
   # create a lookup table to ensure correct elements are used to LA/GBIF
   lookup <- occurrence_flags(.data)
-  # browser()
   # inform(glue("This query will return {.data$query_n} records."))
   
   # process supplied object

@@ -17,9 +17,9 @@
 #' }
 #' @importFrom assertthat assert_that
 #' @importFrom potions pour
-#' @rdname search_media
-#' @export
-search_media <- function(df){
+#' @noRd
+#' @keywords Internal
+collect_occurrences_media <- function(df){
   
   # run checks that 1. a df is supplied, 2. it contains requisite columns
   assert_that(inherits(df, "data.frame"))

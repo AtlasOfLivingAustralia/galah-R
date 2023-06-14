@@ -156,10 +156,15 @@ update_galah_call <- function(data_request, ...){
 }
 
 
-# internal function
+#' Internal function to join tibbles by row
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr filter
+#' @importFrom tibble tibble
+#' @noRd
+#' @keywords Internal
 bind_unique_rows <- function(x, y, column){
-  list(x, y) |> 
+  result <- list(x, y) |> 
     bind_rows() |>
-    tibble() |>
-    filter(!duplicated(column))
+    tibble() 
+  filter(result, !duplicated(result[[column]]))
 }

@@ -1,11 +1,36 @@
-#' function to check whether `type` arg is supplied to `collapse()` or `compute()`
+#' function to check whether `type` arg is supplied correctly to `collapse()` or
+#' `compute()`
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-check_type <- function(type){
+check_type <- function(.data, type, what){
+  if(missing(what)){
+    if(!any(names(.data) == "what")){
+      abort("error in `check_type`; `what` is unknown")
+    }
+  }else{
+    .data$what <- what
+  }
   if(missing(type)){
-    bullets <- c("Argument `type` is missing, with no default",
-                 i = "`type` must be one of 'counts', 'species', 'occurrences' or 'media'")
+    if(!any(names(.data) == "type")){
+      .data$type <- switch(.data$what, 
+             "media" = "Image",
+             "records")      
+    }
+  }else{
+    .data$type <- type
+  }
+  .data
+}
+
+#' function to check whether `what` arg is supplied to `collapse()` or `compute()`
+#' @importFrom rlang abort
+#' @noRd
+#' @keywords Internal
+check_what <- function(what){
+  if(missing(what)){
+    bullets <- c("Argument `what` is missing, with no default",
+                 i = "`what` must be one of 'counts', 'species', 'occurrences' or 'media'")
     abort(bullets)
   }
 }

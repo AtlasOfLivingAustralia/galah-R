@@ -8,12 +8,6 @@
 #' `"thumbnail"` to download thumbnails
 #' @param path `string`: path to directory where downloaded media will
 #' be stored
-#' @param download_dir 
-#'    `r lifecycle::badge("deprecated")` Use `path` instead.
-#' @param refresh_cache `logical`: if set to `TRUE` and 
-#' `galah_config(caching = TRUE)` then files cached from a previous query will 
-#' be replaced by the current query. NOTE: Unclear that this works right now.
-#'
 #' @return Available image & media files downloaded to a user local directory.
 #'
 #' @examples \dontrun{
@@ -35,23 +29,16 @@
 #' @importFrom glue glue
 #' @importFrom potions pour
 #' @importFrom assertthat assert_that
-#' @export
+#' @noRd
+#' @keywords Internal
 collect_media <- function(df, 
                           type = c("full", "thumbnail"), 
                           path,
-                          download_dir, 
-                          refresh_cache){
+                          download_dir){
 
   # check inputs
   type <- match.arg(type)
-  caching <- pour("package", "caching")
   verbose <- pour("package", "verbose") 
-  assert_that(!missing(path) | !missing(download_dir),
-    msg = "A path to an existing directory to download images to is required")
-  if(missing(path)){
-    inform("The argument `download_dir` is deprecated, use `path` instead")
-    path <- download_dir
-  }
   if(is.null(path)){
     abort("argument `path` is missing, with no default")
   }else{

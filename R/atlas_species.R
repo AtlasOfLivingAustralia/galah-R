@@ -56,8 +56,7 @@ atlas_species <- function(request = NULL,
                           identify = NULL,
                           filter = NULL,
                           geolocate = NULL,
-                          data_profile = NULL,
-                          refresh_cache = FALSE
+                          data_profile = NULL
                           ) {
                             
   if(!is.null(request)){
@@ -68,16 +67,14 @@ atlas_species <- function(request = NULL,
       identify = identify,
       filter = filter,
       geolocate = geolocate,
-      data_profile = data_profile,
-      refresh_cache = refresh_cache
+      data_profile = data_profile
     ) 
   } else {
     current_call <- galah_call(
       identify = identify,
       filter = filter,
       geolocate = geolocate,
-      data_profile = data_profile,
-      refresh_cache = refresh_cache
+      data_profile = data_profile
     )
   }
 
@@ -95,27 +92,13 @@ atlas_species <- function(request = NULL,
   custom_call <- current_call[names(current_call) %in% arg_names]
   class(custom_call) <- "data_request"
 
-  # check for caching
-  caching <- pour("package", "caching")
-  cache_file <- cache_filename("species", unlist(custom_call))
-  if (caching && file.exists(cache_file) && !refresh_cache) {
-    return(read_cache_file(cache_file))
-  }
-
-  # run function using do.call
+   # run function using do.call
   result <- do.call(function_name, custom_call)
   if(is.null(result)){
     result <- tibble()
   }
   attr(result, "data_type") <- "species"
   attr(result, "data_request") <- custom_call
-
-  # if caching requested, save
-  if (caching) {
-    write_cache_file(object = result, 
-                     data_type = "species",
-                     cache_file = cache_file)
-  }
 
   result
 }
@@ -125,8 +108,7 @@ atlas_species_internal <- function(request,
                                    identify,
                                    filter,
                                    geolocate,
-                                   data_profile,
-                                   refresh_cache
+                                   data_profile
                                    ) {
   query <- list()
 
@@ -150,7 +132,7 @@ atlas_species_internal <- function(request,
     emailNotify = email_notify(),
     sourceTypeId = 2004,
     reasonTypeId = pour("user", "download_reason_id"),
-    email = user_email(), 
+    email = pour("user", "email"), 
     facets = species_facets(),
     lookup = "true"
   )

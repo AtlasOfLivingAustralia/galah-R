@@ -9,7 +9,7 @@
 \alias{collapse.data_request}
 \title{Force computation of a database query}
 \usage{
-\method{collect}{data_request}(.data, what)
+\method{collect}{data_request}(.data, what = "counts", type, filesize, path)
 
 \method{collect}{data_query}(.data)
 
@@ -19,7 +19,7 @@
 
 \method{compute}{data_query}(.data)
 
-\method{collapse}{data_request}(.data, what)
+\method{collapse}{data_request}(.data, what, type)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, \code{data_query} or
@@ -28,13 +28,26 @@
 \item{what}{string: what kind of data should be returned. Must be one of
 \code{"counts"}, \code{"species"}, \code{"occurrences"} or \code{"media"}.}
 
+\item{type}{string: what type of data should be returned. For
+\code{what = "counts"}, this can be \code{"records"} (default) or \code{"species"}. For
+\code{what = "occurrences"}, this can be \code{"records"} (default) or \code{"media"}.
+For \code{what = "media"} this should be one or more of \code{"images"} (default),
+\code{"videos"} and \code{"sounds"}.}
+
+\item{filesize}{if \code{type} is \code{"media"}, what size of file should be returned?
+Should be on of \code{"full"} (default) or \code{"thumbnail"}}
+
+\item{path}{Optional path to where file should be stored. If not given
+defaults to \code{galah_config()$package$path}, which defaults to a temporary
+directory.}
+
 \item{wait}{logical; should \code{galah} ping the selected url until computation
 is complete? Defaults to \code{FALSE}.}
 }
 \value{
 \code{collect()} returns a \code{tibble} containing requested data. \code{compute()}
-returns an \code{data_response}. \code{collapse()} returns an object of class
-\code{data_query}.
+returns an object of class \code{data_response}. \code{collapse()} returns an object of
+class \code{data_query}.
 }
 \description{
 These functions are borrowed from \code{dplyr}, and underpin every \code{atlas_}

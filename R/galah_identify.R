@@ -44,6 +44,7 @@ galah_identify <- function(..., search = TRUE) {
   # check to see if any of the inputs are a data request
   dots <- enquos(..., .ignore_empty = "all")
   parsed_dots <- parse_quosures_basic(dots)
+  browser()
   result <- parse_identify(parsed_dots$data, search)
   if(is.null(parsed_dots$data_request)){
     result
@@ -56,7 +57,7 @@ galah_identify <- function(..., search = TRUE) {
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @export
 identify.data_request <- function(.data, ..., search = TRUE){
-  dots <- enquos(..., .ignore_empty = "all")
+  dots <- list(...)
   update_galah_call(.data, identify = parse_identify(dots, search))
 }
 

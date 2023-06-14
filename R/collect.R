@@ -16,32 +16,61 @@
 #' `data_response` 
 #' @param what string: what kind of data should be returned. Must be one of
 #' `"counts"`, `"species"`, `"occurrences"` or `"media"`.
+#' @param type string: what type of data should be returned. For 
+#' `what = "counts"`, this can be `"records"` (default) or `"species"`. For 
+#' `what = "occurrences"`, this can be `"records"` (default) or `"media"`.
+#' For `what = "media"` this should be one or more of `"images"` (default), 
+#' `"videos"` and `"sounds"`.
+#' @param filesize if `type` is `"media"`, what size of file should be returned?
+#' Should be on of `"full"` (default) or `"thumbnail"`
+#' @param path Optional path to where file should be stored. If not given 
+#' defaults to `galah_config()$package$path`, which defaults to a temporary 
+#' directory.
 #' @return `collect()` returns a `tibble` containing requested data. `compute()`
-#' returns an `data_response`. `collapse()` returns an object of class 
-#' `data_query`.
+#' returns an object of class `data_response`. `collapse()` returns an object of 
+#' class `data_query`.
 #' @importFrom glue glue
 #' @importFrom potions pour
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 #' @export
-collect.data_request <- function(.data, what){
-  switch(what, 
-         "counts" = collect_counts(compute(.data, what = "counts")),
-         "species" = {collect_species(compute(.data, what = "species"),
-                              wait = TRUE)},
-         "occurrences" = {collect_occurrences(
-                            compute(.data, what = "occurrences"), 
-                            wait = TRUE)}
-  )
+collect.data_request <- function(.data, what = "counts", type, filesize, path){
+  .data <- check_type(.data, type = type, what = what)
+  switch(.data$what, 
+         "counts" = {compute(.data) |> 
+                     collect_counts()},
+         "species" = {compute(.data) |>
+                      collect_species(wait = TRUE)},
+         "occurrences" = {
+           if(.data$type == "media"){
+             .data <- .data |> select(group = "media")
+             compute(.data) |>
+             collect_occurrences(wait = TRUE)
+             collect_occurrences_media()
+           }else{
+             compute(.data) |> 
+             collect_occurrences(wait = TRUE)
+           }
+         },
+         "media" = {
+           if(missing(filesize)){filesize <- "full"}
+           result <- collect(.data, 
+                             what = "occurrences", 
+                             type = "media", 
+                             wait = TRUE)
+           collect_media(result, path = path, type = filesize)
+         }
+      )
 }
 
 #' @rdname collect.data_request
 #' @export
-collect.data_query <- function(.data){
+collect.data_query <- function(.data, what, type){
+  .data <- check_type(.data, type, what)
   switch(.data$what, 
          "counts" = collect_counts(.data),
          "occurrences" = {collect_occurrences(
-           compute(.data, what = "occurrences"), 
+           compute(.data), 
            wait = TRUE)}
   )
 }
@@ -65,26 +94,24 @@ collect.data_response <- function(.data,
 #' @importFrom potions pour
 #' @importFrom rlang abort
 #' @export
-compute.data_request <- function(.data, what){
-  check_type(what)
-  .data <- collapse(.data, what)
-  switch_compute(.data, what)
+compute.data_request <- function(.data, what, type){
+  .data <- check_type(.data, type, what) |>
+           collapse()
+  switch_compute(.data)
 }
 
 #' @rdname collect.data_request
 #' @export
 compute.data_query <- function(.data){
-  switch_compute(.data, what = .data$what)
+  switch_compute(.data)
 }
 
 #' Internal function to determine which type of call to compute
 #' @noRd
 #' @keywords Internal
-switch_compute <- function(.data, what){
-  if(what != "counts"){
-    check_login(.data)
-  }
-  switch(what, 
+switch_compute <- function(.data){
+  if(.data$what != "counts"){check_login(.data)}
+  switch(.data$what, 
          "counts" = compute_counts(.data),
          "species" = compute_species(.data),
          "occurrences" = compute_occurrences(.data),
@@ -93,9 +120,9 @@ switch_compute <- function(.data, what){
 
 #' @rdname collect.data_request
 #' @export
-collapse.data_request <- function(.data, what){
-  check_type(what)
-  switch(what, 
+collapse.data_request <- function(.data, what, type){
+  .data <- check_type(.data, type, what)
+  switch(.data$what, 
          "counts" = collapse_counts(.data),
          "species" = collapse_species(.data),
          "occurrences" = collapse_occurrences(.data),

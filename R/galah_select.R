@@ -107,17 +107,30 @@ parse_select <- function(dot_names, group){
     group_cols <- NULL
   }
   
-  if(length(dot_names) > 0){
+  # set behaviour depending on what names are given
+  # NOTE:
+  ## because assertions aren't fields, leaving `fields` empty means default fields are returned
+  ## but only when `group = assertions` and no other requests are made
+  ## this adds a single field (recordID) to the query to avoid this problem.
+  ## This problem also occurs when a single field is requested
+  ## under some circumstances (e.g. "images"), even when that field is 
+  ## fully populated.
+  if(length(dot_names) > 1){
     individual_cols <- dot_names 
   }else{ # i.e. no fields selected
-    # code an exception here:
-    ## because assertions aren't fields, leaving `fields` empty means default fields are returned
-    ## but only when `group = assertions` and no other requests are made
-    ## this adds a single field (recordID) to the query to avoid this problem
-    if(length(group) == 1 && all(group == "assertions")){
-      individual_cols <- "recordID"
-    }else{
-      individual_cols <- NULL 
+
+    if(length(dot_names) == 1){
+      if(length(group) == 0){
+        individual_cols <- unique(c("recordID", dot_names))
+      }else{
+        individual_cols <- dot_names
+      }
+    }else{ # i.e. length(dot_names) == 0
+      if(length(group) == 1 && all(group == "assertions")){
+        individual_cols <- "recordID"
+      }else{
+        individual_cols <- NULL
+      }
     }
   }
   

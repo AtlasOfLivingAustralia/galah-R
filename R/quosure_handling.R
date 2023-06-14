@@ -207,7 +207,6 @@ parse_logical <- function(expr, env){
   result$value <- join_logical_strings(linked_statements, "value", provided_string)
   result$query <- join_logical_strings(linked_statements, "query", logical_string)
   result$query <- paste0("(", result$query, ")")
-  # browser()
   return(result)
 }
 
@@ -238,7 +237,6 @@ parse_brackets <- function(expr, env){
 #' @noRd
 #' @keywords internal
 parse_exclamation <- function(expr, env){
-  # browser()
   # extract call after `!`, preserves that `!` = TRUE
   switch_expr_type(as_quosure(expr[[2]], env = env), excl = TRUE) # pass this down the chain
 }
@@ -293,7 +291,6 @@ parse_between <- function(expr, env, excl){
       c(switch_expr_type(as_quosure(expr[[3]], env = env)),
         switch_expr_type(as_quosure(expr[[4]], env = env)))))
   result$query <- c(parse_solr(result[1,]), parse_solr(result[2,]))
-  browser()
   return(result)
 }
 
@@ -309,17 +306,19 @@ parse_in <- function(expr, env, excl){
   if(length(expr) < 3L){filter_error()}
   
   # convert to logical format using OR statements
-  variable = as_label(expr[[2]])
+  variable <- as_label(expr[[2]])
   
-  if(isTRUE(excl)) {
-    logical <- "!="
-  } else{
+  if(missing(excl)) {
     logical <- "=="
+  } else{
+    logical <- "!="
   }
+  
+  value <- switch_expr_type(as_quosure(expr[[3]], env = env))
   
   in_as_or_statements <- rlang::parse_expr(
     glue::glue_collapse(
-      glue("{variable} {logical} {years_list}"), 
+      glue("{variable} {logical} {value}"), 
       sep = " | "
     ))
   # in_as_or_statements_quos <- new_quosure(in_as_or_statements, env)
