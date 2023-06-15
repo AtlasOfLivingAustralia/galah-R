@@ -187,7 +187,7 @@ parse_relational <- function(expr, env){
 }
 
 #' Handle & and | statements
-#' @importFrom rlang as_quosure
+#' @importFrom rlang as_quosure expr_text
 #' @noRd
 #' @keywords internal
 parse_logical <- function(expr, env){
@@ -245,28 +245,24 @@ parse_exclamation <- function(expr, env){
 #' Parse `call`s that contain `is.na()`
 #' 
 #' Where this happens, they are always length-2, with "(" as the first entry.
-#' @importFrom rlang as_quosure
+#' @importFrom rlang as_quosure is_empty
 #' @noRd
 #' @keywords internal
 parse_is_na <- function(expr, env, ...){
   
   # if(length(expr) != 2L){filter_error()}
   dots <- list(...)
-  if(is.null(dots["excl"])) {
+  if(rlang::is_empty(dots)) {
     logical <- as.character("==")
   }else{
     logical <- as.character("!=")
   }
-
   # for LA cases
   result <- tibble(
     variable = switch_expr_type(as_quosure(expr[[2]], env = env)),
     logical = logical,
-    value = as.character("\"\""))
-  result$query <- switch(result$logical,
-                         "==" = paste0("(*:* AND -", result$variable, ":*)"), 
-                         "!=" = paste0("(", result$variable, ":*)"),
-                         abort("unknown value given to `parse_is_na()`"))
+    value = as.character(""))
+  result$query <- parse_solr(result)
   return(result)
 }
 

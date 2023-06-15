@@ -214,3 +214,7 @@ test_that("galah_filter handles concatenated numerics", {
   expect_equal(nrow(filters), 1)
   expect_true(grepl("year:\"2010\"", filters$query))
 })
+
+# test that galah_filter handles is.na() even with multiple filters
+# test that galah_filter handles between() even with multiple filters
+# test that galah_fitler handles %in% even with multiple filters

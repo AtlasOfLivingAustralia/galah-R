@@ -187,25 +187,47 @@ build_taxa_query <- function(ids) {
 # Construct individual query term
 # Add required brackets, quotes to make valid SOLR query syntax
 query_term <- function(name, value, include) {
+  # check for blank value
+  blank_value <- if(value == "") {TRUE} else {FALSE}
+
   # add quotes around value
   value <- lapply(value, function(x) {
     # don't add quotes if there are square brackets in the term, 
     # or if there are no spaces
-    if (grepl("\\[|\\s", x)) {
-      x
-    } else {
-      paste0("\"", x, "\"")
-    }
+    # if (grepl("\\[|\\s", x)) {
+    #   x
+    # } else {
+    #   paste0("\"", x, "\"")
+    # }
+    rlang::expr_text(value) # format query value as solr-readable text
   })
+  
   # add quotes around value
-  if (include) {
-    value_str <- paste0("(", paste(name, value, collapse = " OR ", sep = ":"),
-                        ")")
+  if(isTRUE(blank_value)) {
+    value_str <- parse_blank_query(name, include)
   } else {
-    value_str <- paste0("-(", paste(name, value,
-                                   collapse = " OR ", sep = ":"), ")")
+    if (include) {
+      value_str <- paste0("(", 
+                          paste(name, value, collapse = " OR ", sep = ":"),
+                          ")")
+    } else {
+      value_str <- paste0("-(", 
+                          paste(name, value, collapse = " OR ", sep = ":"), 
+                          ")")
+    }
   }
   value_str
+}
+
+# Specific query building for queries with "blank" statements
+# e.g. eventDate == ""
+# solr equivalent to searching for NAs
+parse_blank_query <- function(name, include) {
+  if (include) { 
+    value_str <- paste0("(*:* AND -", name, ":*)") # queries with "=="
+  } else { 
+    value_str <- paste0("(", name, ":*)") # queries with "!="
+  }
 }
 
 old_query_term <- function(name, value, include) {

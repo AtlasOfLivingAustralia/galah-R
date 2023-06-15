@@ -44,7 +44,6 @@ galah_identify <- function(..., search = TRUE) {
   # check to see if any of the inputs are a data request
   dots <- enquos(..., .ignore_empty = "all")
   parsed_dots <- parse_quosures_basic(dots)
-  browser()
   result <- parse_identify(parsed_dots$data, search)
   if(is.null(parsed_dots$data_request)){
     result
