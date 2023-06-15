@@ -131,11 +131,11 @@ parse_symbol <- function(x){
 parse_call <- function(x, ...){
   y <- quo_get_expr(x)
   env_tr <- quo_get_env(x)
-
+  
   switch(function_type(as_string(y[[1]])), # i.e. switch depending on what function is called
-         "relational_operator" = parse_relational(y, env_tr),
-         "logical_operator" = parse_logical(y, env_tr),
-         "bracket" = parse_brackets(y, env_tr),
+         "relational_operator" = parse_relational(y, env_tr, ...),
+         "logical_operator" = parse_logical(y, env_tr, ...),
+         "bracket" = parse_brackets(y, env_tr, ...),
          "exclamation" = parse_exclamation(y, env_tr),
          "is.na" = parse_is_na(y, env_tr, ...),
          "between" = parse_between(y, env_tr, ...),
@@ -175,13 +175,24 @@ function_type <- function(x){ # assumes x is a string
 #' @importFrom rlang as_quosure
 #' @noRd
 #' @keywords internal
-parse_relational <- function(expr, env){
+parse_relational <- function(expr, env, ...){
   if(length(expr) != 3L){filter_error()}
   # for LA cases
   result <- tibble(
     variable = as_label(expr[[2]]),
     logical = as.character(expr[[1]]), # should probably be `relational`
     value = as.character(switch_expr_type(as_quosure(expr[[3]], env = env))))
+  
+  # handle `!`
+  dots <- list(...)
+  if(!rlang::is_empty(dots) && result$logical == "==") {
+    result$logical <- as.character("!=")
+  }else if (!rlang::is_empty(dots) && result$logical == "!="){
+    result$logical <- as.character("==")
+    } else {
+    result$logical <- result$logical
+  }
+  
   result$query <- parse_solr(result) # from `galah_filter.R`
   return(result)
 }
@@ -190,18 +201,18 @@ parse_relational <- function(expr, env){
 #' @importFrom rlang as_quosure expr_text
 #' @noRd
 #' @keywords internal
-parse_logical <- function(expr, env){
+parse_logical <- function(expr, env, ...){
   provided_string <- as_string(expr[[1]])
   if(grepl("\\|{1,2}", provided_string)){
     logical_string <- "OR"
   }else{
     logical_string <- "AND"
   }
+  
   linked_statements <- lapply(expr[-1], 
-                       function(a){as_quosure(a, env = env) |>
-                                   switch_expr_type()}) 
+                       function(a){switch_expr_type(as_quosure(a, env = env), ...)}) 
   result <- linked_statements[[1]]
-  # TODO: Something in this bit of code is broken
+  # TODO: Something in this bit of code is broken...update 2023-15-06: might have been fixed
   result$variable <- join_logical_strings(linked_statements, "variable", provided_string)
   result$logical <- join_logical_strings(linked_statements, "logical", provided_string)
   result$value <- join_logical_strings(linked_statements, "value", provided_string)
@@ -225,9 +236,9 @@ join_logical_strings <- function(x, variable, collapse){
 #' @importFrom rlang as_quosure
 #' @noRd
 #' @keywords internal
-parse_brackets <- function(expr, env){
+parse_brackets <- function(expr, env, ...){
   if(length(expr) != 2L){filter_error()}
-  switch_expr_type(as_quosure(expr[[2]], env = env)) # pass this down the chain
+  switch_expr_type(as_quosure(expr[[2]], env = env), ...) # pass this down the chain
 }
 
 #' Parse `call`s that contain exclamations 
