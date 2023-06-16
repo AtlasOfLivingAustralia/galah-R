@@ -60,13 +60,25 @@ test_that("test new workflow for media makes sense", {
       year == 2023,
       month == 6,
       species == "Litoria peronii") |>
-    #  !is.na(type)) |> # "videos" or "sounds" are valid options
-    select(group = "basic") |>
-    collect("occurrences")
+      # !is.na(type)) |> # "videos" or "sounds" are valid options
+    select(group = "basic") 
   
+  # get occurrences with added media metadata
+  occ_media <- query |>
+    collect("occurrences", type = "media")
+  # Q: should this return data for occurrences with no media?
+  # NEXT: work out how to pass this to collect() to get actual media (i.e. image files)
   
-    count()
-    collapse("media")
-
-  compute(query)
+  # check number of occurrences is correct
+  length(unique(occ_media$recordID)) == count(query) # both give seven records
+  
+  # get images without intermediate step
+  # NOTE: This requires more work to support type = sounds or videos
+  # as the `type` arg not passed properly yet
+  collapse_check <- query |> collapse("media")
+  str(collapse_check)
+  
+  compute_check <- query |> compute("media")
+  
+  compute_check |> collect("media", path = "images") # up to here
 })

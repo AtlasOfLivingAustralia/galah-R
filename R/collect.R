@@ -34,62 +34,77 @@
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 #' @export
-collect.data_request <- function(.data, what = "counts", type, filesize, path){
+collect.data_request <- function(.data, 
+                                 what = "counts", 
+                                 type, 
+                                 filesize,
+                                 path = "."
+){
   .data <- check_type(.data, type = type, what = what)
   switch(.data$what, 
          "counts" = {compute(.data) |> 
-                     collect_counts()},
+                       collect_counts()},
          "species" = {compute(.data) |>
-                      collect_species(wait = TRUE)},
+                        collect_species(wait = TRUE)},
          "occurrences" = {
            if(.data$type == "media"){
-             .data <- .data |> select(group = "media")
+             .data <- .data |> 
+               select(group = "media")
              compute(.data) |>
-             collect_occurrences(wait = TRUE)
-             collect_occurrences_media()
+               collect_occurrences(wait = TRUE) |>
+               collect_occurrences_media()
            }else{
              compute(.data) |> 
-             collect_occurrences(wait = TRUE)
+               collect_occurrences(wait = TRUE)
            }
          },
          "media" = {
-           if(missing(filesize)){filesize <- "full"}
-           result <- collect(.data, 
-                             what = "occurrences", 
-                             type = "media", 
-                             wait = TRUE)
-           collect_media(result, path = path, type = filesize)
+           compute(.data, type = type) |>
+             check_media_args(filesize = filesize, path = path) |>
+             collect_media()
          }
       )
 }
 
+# if calling `collect()` after `collapse()`
 #' @rdname collect.data_request
 #' @export
-collect.data_query <- function(.data, what, type){
+collect.data_query <- function(.data, what, type, path){
   .data <- check_type(.data, type, what)
-  switch(.data$what, 
+  switch(.data$what,
          "counts" = collect_counts(.data),
-         "occurrences" = {collect_occurrences(
-           compute(.data), 
-           wait = TRUE)}
+         "occurrences" = {
+           compute(.data) |>
+             collect_occurrences(wait = TRUE)},
+         "media" = {
+           compute(.data) |>
+             check_media_args(filesize = type, path = path) |>
+             collect_media()
+         }
   )
 }
 
+# if calling `collect()` after `compute()`
 #' @rdname collect.data_request
 #' @param wait logical; should `galah` ping the selected url until computation
 #' is complete? Defaults to `FALSE`.
 #' @export
 collect.data_response <- function(.data,
-                                  wait = FALSE){
+                                  wait = FALSE,
+                                  filesize = "full",
+                                  path = "."){
   switch(.data$what,
          "counts" = collect_counts(.data),
          "species" = collect_species(.data),
-         "occurrences" = collect_occurrences(.data, wait) # note: stored as `attr(.data, "type")`
-         # "media" = collect_media(.data)) # unclear whether this makes sense
-         # may need types "media-metadata" and "media-files"
+         "occurrences" = collect_occurrences(.data, wait),
+         "media" = {
+           x <- .data |>
+             check_media_args(filesize = filesize, path = path) |>
+             collect_media()}
   )
 }
 
+# if calling `compute()` after `galah_call()` 
 #' @rdname collect.data_request
 #' @importFrom potions pour
 #' @importFrom rlang abort
@@ -100,6 +115,7 @@ compute.data_request <- function(.data, what, type){
   switch_compute(.data)
 }
 
+# if calling `compute()` after `collapse()`
 #' @rdname collect.data_request
 #' @export
 compute.data_query <- function(.data){
@@ -118,6 +134,7 @@ switch_compute <- function(.data){
          "media" = compute_media(.data))   
 }
 
+# if calling `collapse()` after `galah_call()`
 #' @rdname collect.data_request
 #' @export
 collapse.data_request <- function(.data, what, type){

@@ -23,6 +23,37 @@ check_type <- function(.data, type, what){
   .data
 }
 
+#' function to check whether args supplied to collect("media") are correct
+#' @params .data An object of class `data_response` or `data_query`
+#' @importFrom rlang abort
+#' @noRd
+#' @keywords Internal
+check_media_args <- function(.data, filesize, path){
+  # check filesize
+  if(!is.character(filesize)){
+    abort("argument `filesize` must be of class `character`")
+  }
+  if(!(filesize %in% c("full", "thumbnail"))){
+    abort("`type` must be one of either 'full' or 'thumbnail'")
+  }
+  .data$filesize <- filesize
+  
+  # check path
+  verbose <- pour("package", "verbose") 
+  if(is.null(path)){
+    # cached_path <- pour("package", "cache_directory") # add later
+    abort("argument `path` is missing, with no default")
+  }else{
+    if(!file.exists(path)){
+      abort("The specified `path` does not exist")
+    }
+  }
+  .data$path <- normalizePath(path)
+  
+  # return
+  .data
+}
+
 #' function to check whether `what` arg is supplied to `collapse()` or `compute()`
 #' @importFrom rlang abort
 #' @noRd

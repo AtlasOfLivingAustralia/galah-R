@@ -3,11 +3,7 @@
 #' This function downloads full-sized or thumbnail images and media files using 
 #' information from `atlas_media` to a local directory.
 #'
-#' @param df tibble returned by `atlas_media()` or `show_all(media)`
-#' @param type `string`: either `"full"` to download original images, or 
-#' `"thumbnail"` to download thumbnails
-#' @param path `string`: path to directory where downloaded media will
-#' be stored
+#' @param .data object of class `data_response`, calculated with `compute()`
 #' @return Available image & media files downloaded to a user local directory.
 #'
 #' @examples \dontrun{
@@ -31,23 +27,31 @@
 #' @importFrom assertthat assert_that
 #' @noRd
 #' @keywords Internal
-collect_media <- function(df, 
-                          type = c("full", "thumbnail"), 
-                          path,
-                          download_dir){
-
-  # check inputs
-  type <- match.arg(type)
-  verbose <- pour("package", "verbose") 
-  if(is.null(path)){
-    abort("argument `path` is missing, with no default")
-  }else{
-    if(!file.exists(path)){
-      abort("The specified `path` does not exist")
-    }
-  }
-  download_dir <- normalizePath(path)
+collect_media <- function(.data){
   
+  if(.data$filesize == "full"){
+    file_suffix <- "/original"
+  }else{
+    file_suffix <- "/thumbnail"
+  }
+  url_list <- url_lookup("image_metadata", id = .data$data) |>
+              paste0(file_suffix)
+  
+  # download images
+  if (verbose) {
+    n_files <- length(url_list)
+    # NOTE: the blank space tells glue to add a leading newline before message
+    inform(glue("
+                
+                Downloading {n_files} media files..."))
+  }  
+  
+  # up to here
+  # note that, at this stage, file type has not been preserved.
+  # If this is needed, we may need to add/preserve more information during `compute()`
+  
+  
+
   # remove rows with no information
   assert_that(all(c("mime_type", "media_id") %in% colnames(df)))  
   df <- df[apply(
