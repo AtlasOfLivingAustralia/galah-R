@@ -12,12 +12,19 @@
 #' @keywords internal
 parse_quosures <- function(dots){
   if(length(dots) > 0){
+    
     check_named_input(dots)
-    parsed_dots <- lapply(dots, switch_expr_type) 
-    if(inherits(parsed_dots[[1]], "data_request")){
-      list(data_request = parsed_dots[[1]],
+    
+    if(str_detect(deparse(dots[[1]]), "galah_call()")) {
+      eval_request <- eval_tidy(dots[[1]])
+      parsed_dots <- lapply(dots[-1], switch_expr_type)
+      
+      list(data_request = eval_request,
            data = bind_rows(parsed_dots[-1]))
-    }else{
+      
+    } else {
+      parsed_dots <- lapply(dots, switch_expr_type)
+      
       list(data = bind_rows(parsed_dots))
     }
   }else{
@@ -38,7 +45,7 @@ parse_quosures_basic <- function(dots){
             "symbol" = {parse_symbol(a)},
             "call" = {eval_tidy(a)},
             "literal" = {quo_get_expr(a)},
-            abort("Quosure type not recognised"))
+            abort("Quosure type not recognised."))
       })
     if(inherits(parsed_dots[[1]], "data_request")){
       list(data_request = parsed_dots[[1]], 
@@ -140,7 +147,6 @@ parse_call <- function(x, ...){
          "is.na" = parse_is_na(y, env_tr, ...),
          "between" = parse_between(y, env_tr, ...),
          "%in%" = parse_in(y, env_tr, ...),
-         "galah_call" = eval_tidy(x),
          {filter_error()}) # if unknown, error
 }
 
@@ -204,9 +210,9 @@ parse_relational <- function(expr, env, ...){
 parse_logical <- function(expr, env, ...){
   provided_string <- as_string(expr[[1]])
   if(grepl("\\|{1,2}", provided_string)){
-    logical_string <- "OR"
+    logical_string <- " OR "
   }else{
-    logical_string <- "AND"
+    logical_string <- " AND "
   }
   
   linked_statements <- lapply(expr[-1], 
