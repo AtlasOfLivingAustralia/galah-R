@@ -61,9 +61,9 @@
 search_taxa <- function(...) {
   
   query <- list(...)
-
+# browser()
   if(length(query) < 1){
-    warn("No query passed to `search_taxa`")
+    warn("No query passed to `search_taxa.`")
     return(tibble())
   # check function isn't piped directly in a galah_call() query
   } else if(
@@ -76,7 +76,8 @@ search_taxa <- function(...) {
   } else if(length(query) == 1L){
     query <- query[[1]]
     if (is.list(query) & !is.data.frame(query)) {
-      query <- as.data.frame(query)
+      # query <- as.data.frame(query)
+      query <- query
     }
   } else if(
       all(lengths(query) == 1L) | 
@@ -85,7 +86,6 @@ search_taxa <- function(...) {
     query <- unlist(query)
   }
   matches <- remove_parentheses(query) |> name_query()
-    
   if(is.null(matches)){
     if(pour("package", "verbose")){
       system_down_message("search_taxa")

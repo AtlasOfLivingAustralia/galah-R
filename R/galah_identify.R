@@ -70,7 +70,7 @@ parse_identify <- function(input_query, search){
     atlas <- pour("atlas", "region")
     run_checks <- pour("package", "run_checks")
     verbose <- pour("package", "verbose")
-
+    
     # check for types first
     if (!is.null(attr(input_query, "call"))) {
       query <- input_query$taxon_concept_id
