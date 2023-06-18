@@ -20,7 +20,7 @@ parse_quosures <- function(dots){
       parsed_dots <- lapply(dots[-1], switch_expr_type)
       
       list(data_request = eval_request,
-           data = bind_rows(parsed_dots[-1]))
+           data = bind_rows(parsed_dots))
       
     } else {
       parsed_dots <- lapply(dots, switch_expr_type)
