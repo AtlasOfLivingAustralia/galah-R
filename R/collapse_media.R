@@ -1,5 +1,5 @@
 #' Internal function to get media data
-#' @params .data An object of class `data_request` (from `galah_call()`)
+#' @param .data An object of class `data_request` (from `galah_call()`)
 #' @importFrom dplyr filter
 #' @noRd
 #' @keywords Internal

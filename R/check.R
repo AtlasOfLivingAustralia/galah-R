@@ -24,7 +24,7 @@ check_type <- function(.data, type, what){
 }
 
 #' function to check whether args supplied to collect("media") are correct
-#' @params .data An object of class `data_response` or `data_query`
+#' @param description .data An object of class `data_response` or `data_query`
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal

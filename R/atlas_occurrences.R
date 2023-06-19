@@ -87,9 +87,9 @@ atlas_occurrences <- function(request = NULL,
   args <- as.list(environment())
   
   # convert to `data_request` object
-  if(!is.null(request)){
-    check_data_request(request)
-    current_call <- update_galah_call(request, args[-1])
+  if(!is.null(args$request)){
+    check_data_request(args$request)
+    current_call <- update_galah_call(args$request, args[-1])
   }else{
     current_call <- do.call(galah_call, args)
   }

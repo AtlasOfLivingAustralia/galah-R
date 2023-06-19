@@ -76,9 +76,13 @@ test_that("test new workflow for media makes sense", {
   # NOTE: This requires more work to support type = sounds or videos
   # as the `type` arg not passed properly yet
   collapse_check <- query |> collapse("media")
-  str(collapse_check)
+  # str(collapse_check)
   
   compute_check <- query |> compute("media")
+  compute_check
   
-  compute_check |> collect("media", path = "images") # up to here
+  compute_check |> 
+    collect("media", path = "images", filesize = "thumbnail") # up to here
+  
+  unlink("images", recursive = TRUE)
 })

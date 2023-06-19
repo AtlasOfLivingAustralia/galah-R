@@ -29,12 +29,12 @@ wanted_columns <- function(type) {
                            "genus", "species", "author", "species_guid",
                            "vernacular_name"),
            "profile" = c("id", "name", "shortName", "description"),
-           "media" = c("media_id", "occurrence_id",
+           "media" = c("media_id",
                        "creator", "license",
                        "data_resource_uid",
                        "date_taken", "date_uploaded",
-                       "mime_type", "width", "height", "size_in_bytes"
-                       # "image_url"
+                       "mime_type", "width", "height", "size_in_bytes",
+                       "image_url"
                      ),
            "layer" = c("layer_id", "description", "link"),
            "fields" = c("id", "description"),

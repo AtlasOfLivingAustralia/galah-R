@@ -9,13 +9,13 @@
 \alias{collapse.data_request}
 \title{Force computation of a database query}
 \usage{
-\method{collect}{data_request}(.data, what = "counts", type, filesize, path)
+\method{collect}{data_request}(.data, what = "counts", type, filesize, path = ".")
 
-\method{collect}{data_query}(.data)
+\method{collect}{data_query}(.data, what, type, path)
 
-\method{collect}{data_response}(.data, wait = FALSE)
+\method{collect}{data_response}(.data, wait = FALSE, filesize = "full", path = ".")
 
-\method{compute}{data_request}(.data, what)
+\method{compute}{data_request}(.data, what, type)
 
 \method{compute}{data_query}(.data)
 

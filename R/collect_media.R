@@ -29,93 +29,65 @@
 #' @keywords Internal
 collect_media <- function(.data){
   
-  if(.data$filesize == "full"){
-    file_suffix <- "/original"
-  }else{
-    file_suffix <- "/thumbnail"
+  if(pour("package", "verbose")){
+    inform(glue("Downloading {.data$summary$n} media files with total size {.data$summary$size}"))
   }
-  url_list <- url_lookup("image_metadata", id = .data$data) |>
-              paste0(file_suffix)
+  # NOTE: filesize is incorrect is filesize = "thumbnail"
   
-  # download images
-  if (verbose) {
-    n_files <- length(url_list)
-    # NOTE: the blank space tells glue to add a leading newline before message
-    inform(glue("
-                
-                Downloading {n_files} media files..."))
-  }  
-  
-  # up to here
-  # note that, at this stage, file type has not been preserved.
-  # If this is needed, we may need to add/preserve more information during `compute()`
-  
-  
-
-  # remove rows with no information
-  assert_that(all(c("mime_type", "media_id") %in% colnames(df)))  
-  df <- df[apply(
-    df[, c("mime_type", "media_id")], 1, 
-    function(a){all(!is.na(a))}), ]
-
-  # set up download
-  df$url <- media_urls(df$media_id, 
-                     is_image = (df$mime_type == "image/jpeg"),
-                     thumbnail = (type == "thumbnail"))
-  df$download_path <- media_outfiles(df$media_id, 
-                                     df$mime_type, 
-                                     path)
-   
-  # download images
-  if (verbose) {
-    n_files <- nrow(df)
-    # NOTE: the blank space tells glue to add a leading newline before message
-    inform(glue("
-                
-                Downloading {n_files} media files..."))
+  # set fullsize/not
+  if(.data$filesize != "full"){
+    .data$data$image_url <- str_replace(.data$data$image_url, 
+                                        "/original$", 
+                                        "/thumbnail")
   }
-  download_ok <- download_media(
-    df = df[, c("url", "download_path")], 
-    verbose)
+  
+  # set final location for each file
+  .data$data$image_file <- paste0(
+    .data$path,
+    "/",
+    .data$data$media_id,
+    .data$data$file_extension)
+  
+  # get images
+  download_ok <- download_media(.data$data[, c("image_url", "image_file")])
+
+  # respond to errors  
   if(is.null(download_ok)){
     system_down_message("collect_media")
-    # return(df)
   }
   # NOTE: This only gets triggered if the image service is down,
   # but the biocache and metadata services are still working
 
-  if (verbose) {
-    n_files <- nrow(df)
-    # NOTE: Do not delete blank space
-    inform(glue("
-                
-                
-                {n_files} files were downloaded to {download_dir}"))
+  if (pour("package", "verbose")) {
+    inform("complete")
   }
-  return(df)
 }
 
-
-download_media <- function(df, verbose) {
+#' Internal function to iteratively download all files
+#' @noRd
+#' @keywords Internal
+download_media <- function(df) {
+  
+  verbose <- pour("package", "verbose")
   if (verbose) { pb <- txtProgressBar(max = 1, style = 3) }
+  
   n <- seq_len(nrow(df))
-  x <- split(df, n)
   results <- lapply(n,
     function(a){      
       cli <- HttpClient$new(
-        url = x[[a]]$url,
+        url = df$image_url[a],
         headers = list(
           "User-Agent" = galah_version_string()
         )
       )
-      res <- cli$get(disk = x[[a]]$download_path)
+      res <- cli$get(disk = df$image_file[a])
       if (verbose) {
         val <- (a / max(n))
         setTxtProgressBar(pb, val)
       }
       res
-    }
-  )
+    })
+  
   # if all calls failed, return NULL
   status_failed <- unlist(lapply(results, function(a){a$status_code})) == 0
   if(all(status_failed)){
@@ -123,46 +95,4 @@ download_media <- function(df, verbose) {
   }else{
     return("OK")
   }
-}
-
-
-# Construct url paths to where media will be downloaded from
-# Returns a vector of urls; one per id
-media_urls <- function(ids, is_image, thumbnail = TRUE) {
-  url <- url_lookup("image_metadata") |>
-         parse_url()
-  # if(thumbnail){
-  #   end_text <- "thumbnail"
-  # }else{
-  #   end_text <- "original"
-  # }
-  unlist(lapply(seq_len(length(ids)), function(x) {
-    url$path <- c(
-      "image", 
-      as.character(ids[x]), 
-      (if(thumbnail & is_image[x]){"thumbnail"}else{"original"})
-      )
-    # may be quicker to use `paste` here?
-    build_url(url)
-  }))
-}
-
-# Construct paths to where media will be downloaded
-# Returns a vector of paths; one per id
-media_outfiles <- function(ids, types, download_dir) {
-  unlist(lapply(seq_len(length(ids)), function(x) {
-    ext <- switch(types[x],
-                  "image/jpeg" = ".jpg",
-                  "image/png" = ".png",
-                  "audio/mpeg" = ".mpg",
-                  "audio/x-wav" = ".wav",
-                  "audio/mp4" = ".mp4",
-                  "image/gif" = ".gif",
-                  "video/3gpp" = ".3gp",
-                  "video/quicktime" = ".mov",
-                  "audio/vnd.wave" = ".wav",
-                  ""
-    )
-    file.path(download_dir, paste0(ids[x], ext))
-  }))
 }

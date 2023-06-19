@@ -17,6 +17,7 @@
 #' }
 #' @importFrom assertthat assert_that
 #' @importFrom potions pour
+#' @importFrom stringr str_extract
 #' @noRd
 #' @keywords Internal
 collect_occurrences_media <- function(df){
@@ -73,7 +74,9 @@ collect_occurrences_media <- function(df){
 
   # Select only the columns we want
   colnames(metadata) <- rename_columns(names(metadata), type = "media")
+  file_ext <- str_extract(metadata$original_file_name, ".[:alpha:]+$")
   metadata <- metadata[colnames(metadata) %in% wanted_columns("media")]
+  metadata$file_extension <- file_ext
   metadata$row <- as.integer(names(ids_vector))
 
   # join image metadata with occurrence data
