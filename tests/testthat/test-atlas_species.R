@@ -56,3 +56,19 @@ test_that("atlas_species returns correct results filtered by galah_geolocate", {
   expect_gt(nrow(species), 0)
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })
+
+
+test_that("new workflow is functional", {
+  galah_config(email = "ala4r@ala.org.au")
+  query <- galah_call() |>
+    galah_identify("perameles") |>
+    galah_filter(year > 2000)
+  
+  species_collapse <- query |> collapse("species")
+  
+  expect_error(compute(species_collapse))
+  
+  species_collect <- species_collapse |> collect()
+  
+  query |> atlas_species()
+})

@@ -33,11 +33,10 @@ collapse_occurrences_atlas <- function(identify = NULL,
                                        geolocate = NULL,
                                        data_profile = NULL,
                                        select = NULL,
-                                       mint_doi = FALSE,
-                                       doi = NULL){
+                                       mint_doi = FALSE){
   
   # check whether API exists
-  occurrences_url <- url_lookup("records_occurrences")
+  base_url <- url_lookup("records_occurrences")
   
   # set default columns
   if(is.null(select)){
@@ -65,7 +64,7 @@ collapse_occurrences_atlas <- function(identify = NULL,
   }
   
   result <- list(
-    url = occurrences_url,
+    url = base_url,
     headers = list("User-Agent" = galah_version_string()),
     query = query)
   result$what <- "occurrences"

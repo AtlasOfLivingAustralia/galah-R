@@ -68,13 +68,6 @@ atlas_media <- function(request = NULL,
   args <- as.list(environment())
   
   # convert to `data_request` object
-  if(!is.null(args$request)){
-    check_data_request(args$request)
-    current_call <- update_galah_call(args$request, args[-1])
-  }else{
-    current_call <- do.call(galah_call, args)
-  }
-  
-  # evaluate
-  current_call |> collect("occurrences", type = "media")
+  check_atlas_inputs(args) |>
+    collect("occurrences", type = "media")
 }

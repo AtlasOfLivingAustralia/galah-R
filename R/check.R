@@ -1,3 +1,17 @@
+#' Internal function to check whether first object is of class `data_request`
+#' Called exclusively by `atlas_` functions
+#' @noRd
+#' @keywords Internal
+check_atlas_inputs <- function(args){
+  if(!is.null(args$request)){
+    check_data_request(args$request)
+    result <- update_galah_call(args$request, args[-1])
+  }else{
+    result <- do.call(galah_call, args)
+  }
+  return(result)
+}
+
 #' function to check whether `type` arg is supplied correctly to `collapse()` or
 #' `compute()`
 #' @importFrom rlang abort
@@ -14,6 +28,7 @@ check_type <- function(.data, type, what){
   if(missing(type)){
     if(!any(names(.data) == "type")){
       .data$type <- switch(.data$what, 
+             "species" = NULL,
              "media" = "Image",
              "records")      
     }

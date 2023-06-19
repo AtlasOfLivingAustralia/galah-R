@@ -44,8 +44,10 @@ collect.data_request <- function(.data,
   switch(.data$what, 
          "counts" = {compute(.data) |> 
                        collect_counts()},
-         "species" = {compute(.data) |>
-                        collect_species(wait = TRUE)},
+         "species" = {
+           check_login(.data)
+           collapse(.data) |>
+              collect_species()},
          "occurrences" = {
            if(.data$type == "media"){
              .data <- .data |> 
@@ -73,6 +75,9 @@ collect.data_query <- function(.data, what, type, path){
   .data <- check_type(.data, type, what)
   switch(.data$what,
          "counts" = collect_counts(.data),
+         "species" = {
+           check_login(.data)
+           collect_species(.data)},
          "occurrences" = {
            compute(.data) |>
              collect_occurrences(wait = TRUE)},
@@ -95,7 +100,7 @@ collect.data_response <- function(.data,
                                   path = "."){
   switch(.data$what,
          "counts" = collect_counts(.data),
-         "species" = collect_species(.data),
+         # "species" # doesn't exist, as `compute('species')` is not implemented
          "occurrences" = collect_occurrences(.data, wait),
          "media" = {
            x <- .data |>
@@ -126,12 +131,15 @@ compute.data_query <- function(.data){
 #' @noRd
 #' @keywords Internal
 switch_compute <- function(.data){
-  if(.data$what != "counts"){check_login(.data)}
   switch(.data$what, 
          "counts" = compute_counts(.data),
-         "species" = compute_species(.data),
-         "occurrences" = compute_occurrences(.data),
-         "media" = compute_media(.data))   
+         "species" = abort("`compute('species')` does not exist; try `collect('species')`"),
+         "occurrences" = {
+           check_login(.data)
+           compute_occurrences(.data)},
+         "media" = {
+           check_login(.data)
+           compute_media(.data)})   
 }
 
 # if calling `collapse()` after `galah_call()`

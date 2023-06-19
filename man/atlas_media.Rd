@@ -9,9 +9,7 @@ atlas_media(
   identify = NULL,
   filter = NULL,
   geolocate = NULL,
-  data_profile = NULL,
-  download_dir = NULL,
-  refresh_cache = FALSE
+  data_profile = NULL
 )
 }
 \arguments{

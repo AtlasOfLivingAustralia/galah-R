@@ -61,15 +61,8 @@ atlas_counts <- function(request = NULL,
   args$type <- match.arg(type)
   
   # convert to `data_request` object
-  if(!is.null(args$request)){
-    check_data_request(args$request)
-    current_call <- update_galah_call(args$request, args[-1])
-  }else{
-    current_call <- do.call(galah_call, args)
-  }
-  
-  # evaluate
-  collect(current_call, what = "counts")
+  check_atlas_inputs(args) |>
+    collect(what = "counts")
 }
 
 #' @rdname atlas_counts
@@ -90,6 +83,6 @@ count.data_request <- function(.data,
                                sort, 
                                name, 
                                type = c("record", "species")){
-  current_call <- update_galah_call(.data, type = match.arg(type))
-  collect(current_call, what = "counts")
+  update_galah_call(.data, type = match.arg(type)) |>
+    collect(what = "counts")
 }
