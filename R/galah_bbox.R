@@ -73,9 +73,13 @@
 galah_bbox <- function(...) {
 
   # check to see if any of the inputs are a data request
-  dots <- enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures_basic(dots)
-  query <- parsed_dots$data
+  query <- list(...)
+  if(length(query) > 1 & inherits(query[[1]], "data_request")){
+    dr <- query[[1]]
+    query <- query[-1]
+  }else{
+    dr <- NULL
+  }
   
   # accept one input only
   check_n_inputs(query)
@@ -168,10 +172,10 @@ galah_bbox <- function(...) {
   attr(out_query, "call") <- "galah_geolocate"
 
   # if a data request was supplied, return one
-  if(is.null(parsed_dots$data_request)){
+  if(is.null(dr)){
     out_query
   }else{
-    update_galah_call(parsed_dots$data_request, geolocate = out_query)
+    update_galah_call(dr, geolocate = out_query)
   }
 }
 

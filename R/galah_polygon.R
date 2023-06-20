@@ -52,28 +52,23 @@
 galah_polygon <- function(...){
   
   # check to see if any of the inputs are a data request
-  dots <- enquos(..., .ignore_empty = "all")
-  checked_dots <- detect_data_request(dots)
-  if(!inherits(checked_dots, "quosures")){
-    is_data_request <- TRUE
-    data_request <- checked_dots[[1]]
-    dots <- checked_dots[[2]]
+  query <- list(...)
+  if(length(query) > 1 & inherits(query[[1]], "data_request")){
+    dr <- query[[1]]
+    query <- query[-1]
   }else{
-    is_data_request <- FALSE
+    dr <- NULL
   }
   
   # check that only 1 WKT is supplied at a time
-  check_n_inputs(dots)
-  
-  # convert dots to query
-  query <- parse_basic_quosures(dots[1])
+  check_n_inputs(query)
   
   # parse
   out_query <- parse_polygon(query)
   
   # if a data request was supplied, return one
-  if(is_data_request){
-    update_galah_call(data_request, geolocate = out_query)
+  if(!is.null(dr)){
+    update_galah_call(dr, geolocate = out_query)
   }else{
     out_query
   }   
