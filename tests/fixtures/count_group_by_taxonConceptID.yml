@@ -1,0 +1,493 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://namematching-ws.ala.org.au/api/search?q=perameles
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Wed, 21 Jun 2023 00:07:30 GMT
+      content-type: application/json
+      content-length: '505'
+      server: nginx/1.25.1
+      vary: Accept-Encoding
+      content-encoding: gzip
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
+    body:
+      encoding: ''
+      file: no
+      string: '{"success":true,"scientificName":"Perameles","scientificNameAuthorship":"Geoffroy,
+        1803","taxonConceptID":"https://biodiversity.org.au/afd/taxa/91e23087-ef6f-4d94-9cb4-bf438b2831b2","rank":"genus","rankID":6000,"lft":68239,"rgt":68263,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","order":"Peramelemorphia","orderID":"https://biodiversity.org.au/afd/taxa/94032c42-8ed7-4bf1-bff6-952262dab315","family":"Peramelidae","familyID":"https://biodiversity.org.au/afd/taxa/359987d0-2904-445a-9d56-ea3a87d415e0","genus":"Perameles","genusID":"https://biodiversity.org.au/afd/taxa/91e23087-ef6f-4d94-9cb4-bf438b2831b2","speciesGroup":["Animals","Mammals"],"speciesSubgroup":["Bandicoots,
+        Bilbies"],"issues":["noIssue"]}'
+  recorded_at: 2023-06-21 00:07:30 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F91e23087-ef6f-4d94-9cb4-bf438b2831b2%29AND%28year%3A%5B2010%20TO%20%2A%5D%20AND%20-%28year%3A%222010%22%29%29&disableAllQualityFilters=true&facets=taxonConceptID&facets=year&flimit=100
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-length: '600'
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Wed, 21 Jun 2023 00:07:30 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie:
+      - AWSALBTG=keeMmk5I30/lSxh7DAoq8qcGNYE2RgFFWJ2X68zCkMB4bfPQm0xb+SPva4iASGLRvz+TdkWL2bBw8c0UMJluSaTWa6qIzIxbPkaKjiWt3WbnAu9yDlra4eyVaJx58sz74CeTF5YA9Gjl9m4eu+Mg0FoTN26jZtTPTx0oxor9HZzY;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBTGCORS=keeMmk5I30/lSxh7DAoq8qcGNYE2RgFFWJ2X68zCkMB4bfPQm0xb+SPva4iASGLRvz+TdkWL2bBw8c0UMJluSaTWa6qIzIxbPkaKjiWt3WbnAu9yDlra4eyVaJx58sz74CeTF5YA9Gjl9m4eu+Mg0FoTN26jZtTPTx0oxor9HZzY;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=15bzAX00Ne4CfHCOUbCBk27a8NGGUSUMBOTpK/x/MSg2WHL9XZOR6mROHyDrjsFI7nEpGFCE/s4Uc2IloGpQBS282s5ch55QuA5iJwN0Vfb6u1I4y2aHCMLVfNGB;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBCORS=15bzAX00Ne4CfHCOUbCBk27a8NGGUSUMBOTpK/x/MSg2WHL9XZOR6mROHyDrjsFI7nEpGFCE/s4Uc2IloGpQBS282s5ch55QuA5iJwN0Vfb6u1I4y2aHCMLVfNGB;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-amz-apigw-id: G17SXExTSwMFevQ=
+      x-amzn-remapped-connection: keep-alive
+      x-amzn-remapped-date: Wed, 21 Jun 2023 00:07:30 GMT
+      x-amzn-remapped-server: nginx/1.25.1
+      x-amzn-remapped-www-authenticate: Bearer realm="authentication required"
+      x-amzn-requestid: 624ca1af-b84e-48e2-8e60-833f2271d722
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '[{"fieldName":"taxonConceptID","fieldResult":[{"label":"https://biodiversity.org.au/afd/taxa/94ea8cf6-a7e6-4503-b46a-deaba0de577f","i18nCode":"taxonConceptID.https://biodiversity.org.au/afd/taxa/94ea8cf6-a7e6-4503-b46a-deaba0de577f","count":28596,"fq":"taxonConceptID:\"https://biodiversity.org.au/afd/taxa/94ea8cf6-a7e6-4503-b46a-deaba0de577f\""},{"label":"https://biodiversity.org.au/afd/taxa/03b41280-eed3-4244-bf2e-bc8f7c30b3df","i18nCode":"taxonConceptID.https://biodiversity.org.au/afd/taxa/03b41280-eed3-4244-bf2e-bc8f7c30b3df","count":360,"fq":"taxonConceptID:\"https://biodiversity.org.au/afd/taxa/03b41280-eed3-4244-bf2e-bc8f7c30b3df\""},{"label":"https://biodiversity.org.au/afd/taxa/fde6d5ed-a42a-4507-b792-ec18cdb015bf","i18nCode":"taxonConceptID.https://biodiversity.org.au/afd/taxa/fde6d5ed-a42a-4507-b792-ec18cdb015bf","count":258,"fq":"taxonConceptID:\"https://biodiversity.org.au/afd/taxa/fde6d5ed-a42a-4507-b792-ec18cdb015bf\""},{"label":"https://biodiversity.org.au/afd/taxa/dbd00fc7-ecd9-4ed1-9502-b8b3a2d0bc5b","i18nCode":"taxonConceptID.https://biodiversity.org.au/afd/taxa/dbd00fc7-ecd9-4ed1-9502-b8b3a2d0bc5b","count":136,"fq":"taxonConceptID:\"https://biodiversity.org.au/afd/taxa/dbd00fc7-ecd9-4ed1-9502-b8b3a2d0bc5b\""},{"label":"https://biodiversity.org.au/afd/taxa/91e23087-ef6f-4d94-9cb4-bf438b2831b2","i18nCode":"taxonConceptID.https://biodiversity.org.au/afd/taxa/91e23087-ef6f-4d94-9cb4-bf438b2831b2","count":18,"fq":"taxonConceptID:\"https://biodiversity.org.au/afd/taxa/91e23087-ef6f-4d94-9cb4-bf438b2831b2\""},{"label":"ALA_DR650_907","i18nCode":"taxonConceptID.ALA_DR650_907","count":9,"fq":"taxonConceptID:\"ALA_DR650_907\""},{"label":"ALA_DR656_1354","i18nCode":"taxonConceptID.ALA_DR656_1354","count":8,"fq":"taxonConceptID:\"ALA_DR656_1354\""}],"count":7},{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":6660,"fq":"year:\"2015\""},{"label":"2018","i18nCode":"year.2018","count":3947,"fq":"year:\"2018\""},{"label":"2013","i18nCode":"year.2013","count":3169,"fq":"year:\"2013\""},{"label":"2021","i18nCode":"year.2021","count":3125,"fq":"year:\"2021\""},{"label":"2014","i18nCode":"year.2014","count":2603,"fq":"year:\"2014\""},{"label":"2012","i18nCode":"year.2012","count":2483,"fq":"year:\"2012\""},{"label":"2020","i18nCode":"year.2020","count":1456,"fq":"year:\"2020\""},{"label":"2022","i18nCode":"year.2022","count":1448,"fq":"year:\"2022\""},{"label":"2016","i18nCode":"year.2016","count":1426,"fq":"year:\"2016\""},{"label":"2017","i18nCode":"year.2017","count":1036,"fq":"year:\"2017\""},{"label":"2019","i18nCode":"year.2019","count":928,"fq":"year:\"2019\""},{"label":"2011","i18nCode":"year.2011","count":767,"fq":"year:\"2011\""},{"label":"2023","i18nCode":"year.2023","count":337,"fq":"year:\"2023\""}],"count":7}]'
+  recorded_at: 2023-06-21 00:07:30 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F91e23087-ef6f-4d94-9cb4-bf438b2831b2%29%20AND%20year%3A%5B2010%20TO%20%2A%5D%20AND%20-%28year%3A%222010%22%29%20AND%20taxonConceptID%3A%22https%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F94ea8cf6-a7e6-4503-b46a-deaba0de577f%22&facets=year&disableAllQualityFilters=true&flimit=100
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-length: '266'
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Wed, 21 Jun 2023 00:07:30 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie:
+      - AWSALBTG=W+yFZqEnSPecp3ccYbmlDeUWuQsQQ18DmpoFlnxVclYi+dnAEw/wn4uT0CiWyuEWdnIAKU6ZJDJrn8r0tQ6CHCS3PvDpSu5918rpFgZCiwyYrDEyX6hdjhkIpkeEv0+yHY/95kL4z37DUApHlZgHB4RLWui3tgORRITPI613jhbm;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBTGCORS=W+yFZqEnSPecp3ccYbmlDeUWuQsQQ18DmpoFlnxVclYi+dnAEw/wn4uT0CiWyuEWdnIAKU6ZJDJrn8r0tQ6CHCS3PvDpSu5918rpFgZCiwyYrDEyX6hdjhkIpkeEv0+yHY/95kL4z37DUApHlZgHB4RLWui3tgORRITPI613jhbm;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=nfaupAz99xlKw7hLZ4Gy8VuIVVpe0F3EDkpwuq7I246vgwWqtwoqQUUnFis9LNZPgAdNvrSOTlBgWoTv1vh4TPa+H7GJ86hEfyFvvjThXLtPxnlijr+7oXNfpcZO;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBCORS=nfaupAz99xlKw7hLZ4Gy8VuIVVpe0F3EDkpwuq7I246vgwWqtwoqQUUnFis9LNZPgAdNvrSOTlBgWoTv1vh4TPa+H7GJ86hEfyFvvjThXLtPxnlijr+7oXNfpcZO;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-amz-apigw-id: G17SYG9xSwMFR3w=
+      x-amzn-remapped-connection: keep-alive
+      x-amzn-remapped-date: Wed, 21 Jun 2023 00:07:30 GMT
+      x-amzn-remapped-server: nginx/1.25.1
+      x-amzn-remapped-www-authenticate: Bearer realm="authentication required"
+      x-amzn-requestid: d5c8babd-4bb1-4ffe-a678-57974620433e
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":6641,"fq":"year:\"2015\""},{"label":"2018","i18nCode":"year.2018","count":3890,"fq":"year:\"2018\""},{"label":"2013","i18nCode":"year.2013","count":3123,"fq":"year:\"2013\""},{"label":"2021","i18nCode":"year.2021","count":2949,"fq":"year:\"2021\""},{"label":"2014","i18nCode":"year.2014","count":2568,"fq":"year:\"2014\""},{"label":"2012","i18nCode":"year.2012","count":2426,"fq":"year:\"2012\""},{"label":"2020","i18nCode":"year.2020","count":1394,"fq":"year:\"2020\""},{"label":"2016","i18nCode":"year.2016","count":1392,"fq":"year:\"2016\""},{"label":"2022","i18nCode":"year.2022","count":1350,"fq":"year:\"2022\""},{"label":"2017","i18nCode":"year.2017","count":972,"fq":"year:\"2017\""},{"label":"2019","i18nCode":"year.2019","count":871,"fq":"year:\"2019\""},{"label":"2011","i18nCode":"year.2011","count":754,"fq":"year:\"2011\""},{"label":"2023","i18nCode":"year.2023","count":266,"fq":"year:\"2023\""}],"count":13}]'
+  recorded_at: 2023-06-21 00:07:30 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F91e23087-ef6f-4d94-9cb4-bf438b2831b2%29%20AND%20year%3A%5B2010%20TO%20%2A%5D%20AND%20-%28year%3A%222010%22%29%20AND%20taxonConceptID%3A%22https%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F03b41280-eed3-4244-bf2e-bc8f7c30b3df%22&facets=year&disableAllQualityFilters=true&flimit=100
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-length: '246'
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Wed, 21 Jun 2023 00:07:30 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie:
+      - AWSALBTG=hZmLQHS9YV9wZhfQ0OzxSdEUcCi2Gs9JZLqVZHfgr/rnYtW0PHGFZWP0PZUOZApuyQzw6OiNj2uZYUEMOFhnYMggxPEaxkuXQ1dyOCxxSy94hXIqfZvLBIphX+jlFqfbYBmTeezgapETJg7qAJgyyb9XZXe60076YO9cN8G/kisM;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBTGCORS=hZmLQHS9YV9wZhfQ0OzxSdEUcCi2Gs9JZLqVZHfgr/rnYtW0PHGFZWP0PZUOZApuyQzw6OiNj2uZYUEMOFhnYMggxPEaxkuXQ1dyOCxxSy94hXIqfZvLBIphX+jlFqfbYBmTeezgapETJg7qAJgyyb9XZXe60076YO9cN8G/kisM;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=GeKU3xhsUoV9TrQFIXy/zQ9VhE8Rkfo+Ri9NsnuvRkUCJcfhgndfBqjyvkASpHj87hUl5U0DgbvnK3trrNQ/Ftwru4zXrBbXyI5wK0fZa1VI1A6SbY2jrebg2UUc;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBCORS=GeKU3xhsUoV9TrQFIXy/zQ9VhE8Rkfo+Ri9NsnuvRkUCJcfhgndfBqjyvkASpHj87hUl5U0DgbvnK3trrNQ/Ftwru4zXrBbXyI5wK0fZa1VI1A6SbY2jrebg2UUc;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-amz-apigw-id: G17SZHECSwMF9Ag=
+      x-amzn-remapped-connection: keep-alive
+      x-amzn-remapped-date: Wed, 21 Jun 2023 00:07:30 GMT
+      x-amzn-remapped-server: nginx/1.25.1
+      x-amzn-remapped-www-authenticate: Bearer realm="authentication required"
+      x-amzn-requestid: 39fffbc4-8088-4909-a7c8-64aa6ce77cd3
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":72,"fq":"year:\"2021\""},{"label":"2022","i18nCode":"year.2022","count":64,"fq":"year:\"2022\""},{"label":"2023","i18nCode":"year.2023","count":64,"fq":"year:\"2023\""},{"label":"2020","i18nCode":"year.2020","count":49,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":24,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":21,"fq":"year:\"2018\""},{"label":"2016","i18nCode":"year.2016","count":18,"fq":"year:\"2016\""},{"label":"2017","i18nCode":"year.2017","count":15,"fq":"year:\"2017\""},{"label":"2013","i18nCode":"year.2013","count":11,"fq":"year:\"2013\""},{"label":"2015","i18nCode":"year.2015","count":10,"fq":"year:\"2015\""},{"label":"2012","i18nCode":"year.2012","count":9,"fq":"year:\"2012\""},{"label":"2014","i18nCode":"year.2014","count":8,"fq":"year:\"2014\""},{"label":"2011","i18nCode":"year.2011","count":3,"fq":"year:\"2011\""}],"count":13}]'
+  recorded_at: 2023-06-21 00:07:30 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F91e23087-ef6f-4d94-9cb4-bf438b2831b2%29%20AND%20year%3A%5B2010%20TO%20%2A%5D%20AND%20-%28year%3A%222010%22%29%20AND%20taxonConceptID%3A%22https%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Ffde6d5ed-a42a-4507-b792-ec18cdb015bf%22&facets=year&disableAllQualityFilters=true&flimit=100
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-length: '247'
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Wed, 21 Jun 2023 00:07:30 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie:
+      - AWSALBTG=YpIdnwto9fbBe7A9S7K0vrKn4RL020njb2axDkm+qIbp+vYJrHxT3iuvSvcVYXitkYreSn2QCyhvmoQu4nRxN5PQxgZM4WbQrQf9EEkSZ5m0zRQHwL8d4mroqweqflXcbQxqV3DXJuap7AiXeZrzpCvVobxYmR5VXvpjpsL6Or0y;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBTGCORS=YpIdnwto9fbBe7A9S7K0vrKn4RL020njb2axDkm+qIbp+vYJrHxT3iuvSvcVYXitkYreSn2QCyhvmoQu4nRxN5PQxgZM4WbQrQf9EEkSZ5m0zRQHwL8d4mroqweqflXcbQxqV3DXJuap7AiXeZrzpCvVobxYmR5VXvpjpsL6Or0y;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=qcermM26Vn985qusYtLqa41ETWwxVOOUQskfN3JYDVRcvStucr8xATgFO9E3B2NsaA2IGfp2/5cwveqn9M99CKKiml49+V27F4Y8bgQ/7/2j81nYxuEM/X8n5VaD;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBCORS=qcermM26Vn985qusYtLqa41ETWwxVOOUQskfN3JYDVRcvStucr8xATgFO9E3B2NsaA2IGfp2/5cwveqn9M99CKKiml49+V27F4Y8bgQ/7/2j81nYxuEM/X8n5VaD;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-amz-apigw-id: G17SZFoiywMFp1w=
+      x-amzn-remapped-connection: keep-alive
+      x-amzn-remapped-date: Wed, 21 Jun 2023 00:07:30 GMT
+      x-amzn-remapped-server: nginx/1.25.1
+      x-amzn-remapped-www-authenticate: Bearer realm="authentication required"
+      x-amzn-requestid: 574945a5-b319-4529-b1f9-ef42bad95aef
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2012","i18nCode":"year.2012","count":38,"fq":"year:\"2012\""},{"label":"2013","i18nCode":"year.2013","count":33,"fq":"year:\"2013\""},{"label":"2022","i18nCode":"year.2022","count":30,"fq":"year:\"2022\""},{"label":"2017","i18nCode":"year.2017","count":28,"fq":"year:\"2017\""},{"label":"2014","i18nCode":"year.2014","count":27,"fq":"year:\"2014\""},{"label":"2021","i18nCode":"year.2021","count":25,"fq":"year:\"2021\""},{"label":"2019","i18nCode":"year.2019","count":19,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":13,"fq":"year:\"2018\""},{"label":"2020","i18nCode":"year.2020","count":11,"fq":"year:\"2020\""},{"label":"2011","i18nCode":"year.2011","count":10,"fq":"year:\"2011\""},{"label":"2016","i18nCode":"year.2016","count":10,"fq":"year:\"2016\""},{"label":"2015","i18nCode":"year.2015","count":9,"fq":"year:\"2015\""},{"label":"2023","i18nCode":"year.2023","count":5,"fq":"year:\"2023\""}],"count":13}]'
+  recorded_at: 2023-06-21 00:07:30 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F91e23087-ef6f-4d94-9cb4-bf438b2831b2%29%20AND%20year%3A%5B2010%20TO%20%2A%5D%20AND%20-%28year%3A%222010%22%29%20AND%20taxonConceptID%3A%22https%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Fdbd00fc7-ecd9-4ed1-9502-b8b3a2d0bc5b%22&facets=year&disableAllQualityFilters=true&flimit=100
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-length: '193'
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Wed, 21 Jun 2023 00:07:30 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie:
+      - AWSALBTG=kmGCzLIJnIYnH8FS0sGw1GRHFO1/J72+IiklMOwrvF624xJqUsdpiFckEQkPCianEx57m6jH919Y5C21MxsTpF5iPCRwiaSYHztazXJ0cQwYgeQksBzbxyszEF8l3u9ItmJ2sUtQi548x6la968enSTS9q+Th0GpAI97BS5+pR5f;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBTGCORS=kmGCzLIJnIYnH8FS0sGw1GRHFO1/J72+IiklMOwrvF624xJqUsdpiFckEQkPCianEx57m6jH919Y5C21MxsTpF5iPCRwiaSYHztazXJ0cQwYgeQksBzbxyszEF8l3u9ItmJ2sUtQi548x6la968enSTS9q+Th0GpAI97BS5+pR5f;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=B+lRPPEuIybaaYxJZ5jFdPwe4pwLmkMNxZSRY3Pnle+w53Ul1fE8Ovpy6ZtD7wiOOA46iFcD7N6RPQ1dWXgAehbbugiZWTyYZ/+E4TaKPcLECJA0HRU3Q6m5E300;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBCORS=B+lRPPEuIybaaYxJZ5jFdPwe4pwLmkMNxZSRY3Pnle+w53Ul1fE8Ovpy6ZtD7wiOOA46iFcD7N6RPQ1dWXgAehbbugiZWTyYZ/+E4TaKPcLECJA0HRU3Q6m5E300;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-amz-apigw-id: G17SaGF0ywMF6IA=
+      x-amzn-remapped-connection: keep-alive
+      x-amzn-remapped-date: Wed, 21 Jun 2023 00:07:30 GMT
+      x-amzn-remapped-server: nginx/1.25.1
+      x-amzn-remapped-www-authenticate: Bearer realm="authentication required"
+      x-amzn-requestid: e09585a8-8e3e-49b7-9003-e039ca58039a
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":70,"fq":"year:\"2021\""},{"label":"2018","i18nCode":"year.2018","count":23,"fq":"year:\"2018\""},{"label":"2017","i18nCode":"year.2017","count":21,"fq":"year:\"2017\""},{"label":"2019","i18nCode":"year.2019","count":12,"fq":"year:\"2019\""},{"label":"2012","i18nCode":"year.2012","count":10,"fq":"year:\"2012\""},{"label":"2016","i18nCode":"year.2016","count":6,"fq":"year:\"2016\""},{"label":"2013","i18nCode":"year.2013","count":2,"fq":"year:\"2013\""},{"label":"2020","i18nCode":"year.2020","count":1,"fq":"year:\"2020\""}],"count":8}]'
+  recorded_at: 2023-06-21 00:07:30 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F91e23087-ef6f-4d94-9cb4-bf438b2831b2%29%20AND%20year%3A%5B2010%20TO%20%2A%5D%20AND%20-%28year%3A%222010%22%29%20AND%20taxonConceptID%3A%22https%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F91e23087-ef6f-4d94-9cb4-bf438b2831b2%22&facets=year&disableAllQualityFilters=true&flimit=100
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-length: '263'
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Wed, 21 Jun 2023 00:07:30 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie:
+      - AWSALBTG=88PptmjjcsIU8WjF06ZYGr0H1RDJxQdT75LiFu1wACINH8KRS0Dqg3FYdEpm1YhfQdTm13j1khDnGU1T52XnkF0gR1NytIKj7pcmUkbUQJd1fuvv3ftDzrJ/yJJHmWLjN17Ko/gwZyLfhNueDcTYuVFuZd1AX3uPM6C9so4aiQAE;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBTGCORS=88PptmjjcsIU8WjF06ZYGr0H1RDJxQdT75LiFu1wACINH8KRS0Dqg3FYdEpm1YhfQdTm13j1khDnGU1T52XnkF0gR1NytIKj7pcmUkbUQJd1fuvv3ftDzrJ/yJJHmWLjN17Ko/gwZyLfhNueDcTYuVFuZd1AX3uPM6C9so4aiQAE;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=2O2iiL0QkqaHKo+2ErztX5ksmlUwc+2ffTId537UWFUBDnEwCFzqsmaxqk5FdiYlQqxGZcG15oZZ+z6ZfjoR2LlpVxh+C4mGKsKPex+XHfpaJpBOMeAYthJh/Xhz;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBCORS=2O2iiL0QkqaHKo+2ErztX5ksmlUwc+2ffTId537UWFUBDnEwCFzqsmaxqk5FdiYlQqxGZcG15oZZ+z6ZfjoR2LlpVxh+C4mGKsKPex+XHfpaJpBOMeAYthJh/Xhz;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-amz-apigw-id: G17SaGAYSwMFiYg=
+      x-amzn-remapped-connection: keep-alive
+      x-amzn-remapped-date: Wed, 21 Jun 2023 00:07:30 GMT
+      x-amzn-remapped-server: nginx/1.25.1
+      x-amzn-remapped-www-authenticate: Bearer realm="authentication required"
+      x-amzn-requestid: c29a8d93-063a-4b44-b404-9479a9237e84
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2015","i18nCode":"year.2015","count":6660,"fq":"year:\"2015\""},{"label":"2018","i18nCode":"year.2018","count":3947,"fq":"year:\"2018\""},{"label":"2013","i18nCode":"year.2013","count":3169,"fq":"year:\"2013\""},{"label":"2021","i18nCode":"year.2021","count":3125,"fq":"year:\"2021\""},{"label":"2014","i18nCode":"year.2014","count":2603,"fq":"year:\"2014\""},{"label":"2012","i18nCode":"year.2012","count":2483,"fq":"year:\"2012\""},{"label":"2020","i18nCode":"year.2020","count":1456,"fq":"year:\"2020\""},{"label":"2022","i18nCode":"year.2022","count":1448,"fq":"year:\"2022\""},{"label":"2016","i18nCode":"year.2016","count":1426,"fq":"year:\"2016\""},{"label":"2017","i18nCode":"year.2017","count":1036,"fq":"year:\"2017\""},{"label":"2019","i18nCode":"year.2019","count":928,"fq":"year:\"2019\""},{"label":"2011","i18nCode":"year.2011","count":767,"fq":"year:\"2011\""},{"label":"2023","i18nCode":"year.2023","count":337,"fq":"year:\"2023\""}],"count":13}]'
+  recorded_at: 2023-06-21 00:07:30 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F91e23087-ef6f-4d94-9cb4-bf438b2831b2%29%20AND%20year%3A%5B2010%20TO%20%2A%5D%20AND%20-%28year%3A%222010%22%29%20AND%20taxonConceptID%3A%22ALA_DR650_907%22&facets=year&disableAllQualityFilters=true&flimit=100
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-length: '106'
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Wed, 21 Jun 2023 00:07:30 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie:
+      - AWSALBTG=TXx4ebJPrciWVAcMvJUZZ2FO+3AhaRwMN/01xNyAZIhk2pgmRnfM4BA0vDCFTKxD6Kz1hmrVgOn+qzIDZVObIlZzaWz22+PpLW8+AgycIkUAupiWdnKZn4rMtPnDxbcFxSKGFLg14+tM9a16UXuKB4XUzlRFZ/wra950xqJsoFs4;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBTGCORS=TXx4ebJPrciWVAcMvJUZZ2FO+3AhaRwMN/01xNyAZIhk2pgmRnfM4BA0vDCFTKxD6Kz1hmrVgOn+qzIDZVObIlZzaWz22+PpLW8+AgycIkUAupiWdnKZn4rMtPnDxbcFxSKGFLg14+tM9a16UXuKB4XUzlRFZ/wra950xqJsoFs4;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=QfVJ3JAtFrhyxJza4Jj/FM+Pzdc9lvPhvV+xainfcwMxR5BIx5gKXlMoiaWJx9Sie0lKIQRv9VIT3ZJNA57gxcjlJcRxFt0m5URT124UQ8UX31OVI7+xlVCdLXL7;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBCORS=QfVJ3JAtFrhyxJza4Jj/FM+Pzdc9lvPhvV+xainfcwMxR5BIx5gKXlMoiaWJx9Sie0lKIQRv9VIT3ZJNA57gxcjlJcRxFt0m5URT124UQ8UX31OVI7+xlVCdLXL7;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-amz-apigw-id: G17SbFpyywMFfzQ=
+      x-amzn-remapped-connection: keep-alive
+      x-amzn-remapped-date: Wed, 21 Jun 2023 00:07:30 GMT
+      x-amzn-remapped-server: nginx/1.25.1
+      x-amzn-remapped-www-authenticate: Bearer realm="authentication required"
+      x-amzn-requestid: 6d2126af-217a-473f-978d-569933d5152e
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2012","i18nCode":"year.2012","count":9,"fq":"year:\"2012\""}],"count":1}]'
+  recorded_at: 2023-06-21 00:07:30 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2F91e23087-ef6f-4d94-9cb4-bf438b2831b2%29%20AND%20year%3A%5B2010%20TO%20%2A%5D%20AND%20-%28year%3A%222010%22%29%20AND%20taxonConceptID%3A%22ALA_DR656_1354%22&facets=year&disableAllQualityFilters=true&flimit=100
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-length: '164'
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Wed, 21 Jun 2023 00:07:30 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie:
+      - AWSALBTG=3tbdyEPDZ7F+L2BWuGJyqo5jialLBlMZiYC2uxk3SESaLCobBlV3RWlGLvNeJZ1Z5UrdjRXhLGAOnljPZkL2ft3LxAceVmmRxDSZ+Hi6kv7+IysTe2KdUUeh7npLN6XKxnOxZM9odziyIf6eQ9VRjpS4fMt+EamNaeVyRKPcT9iE;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBTGCORS=3tbdyEPDZ7F+L2BWuGJyqo5jialLBlMZiYC2uxk3SESaLCobBlV3RWlGLvNeJZ1Z5UrdjRXhLGAOnljPZkL2ft3LxAceVmmRxDSZ+Hi6kv7+IysTe2KdUUeh7npLN6XKxnOxZM9odziyIf6eQ9VRjpS4fMt+EamNaeVyRKPcT9iE;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=Zh3mkWO8A954SJi4D8V2ZmoaGNt0lvW2ehyMqORhKrIlaSH1nSo74hvKFdRnVRGywQHT5jg3Se2BQWYeYHtRn0Y4+MSFXlJMn6bLWpj2JAK0WUcwhPESIBVjrKIq;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBCORS=Zh3mkWO8A954SJi4D8V2ZmoaGNt0lvW2ehyMqORhKrIlaSH1nSo74hvKFdRnVRGywQHT5jg3Se2BQWYeYHtRn0Y4+MSFXlJMn6bLWpj2JAK0WUcwhPESIBVjrKIq;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-amz-apigw-id: G17ScFu4ywMFRHw=
+      x-amzn-remapped-connection: keep-alive
+      x-amzn-remapped-date: Wed, 21 Jun 2023 00:07:30 GMT
+      x-amzn-remapped-server: nginx/1.25.1
+      x-amzn-remapped-www-authenticate: Bearer realm="authentication required"
+      x-amzn-requestid: d00ff89f-01ac-4713-bcc4-5e4aefdb0719
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2020","i18nCode":"year.2020","count":2,"fq":"year:\"2020\""},{"label":"2022","i18nCode":"year.2022","count":2,"fq":"year:\"2022\""},{"label":"2012","i18nCode":"year.2012","count":1,"fq":"year:\"2012\""},{"label":"2016","i18nCode":"year.2016","count":1,"fq":"year:\"2016\""},{"label":"2017","i18nCode":"year.2017","count":1,"fq":"year:\"2017\""},{"label":"2021","i18nCode":"year.2021","count":1,"fq":"year:\"2021\""}],"count":6}]'
+  recorded_at: 2023-06-21 00:07:30 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

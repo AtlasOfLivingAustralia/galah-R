@@ -32,21 +32,11 @@ galah_down_to <- function(...){
   
   # check to see if any of the inputs are a data request
   dots <- enquos(..., .ignore_empty = "all")
-  if(length(dots) > 0){
-    checked_dots <- detect_data_request(dots)
-    if(!inherits(checked_dots, "quosures")){
-      is_data_request <- TRUE
-      data_request <- checked_dots[[1]]
-      dots <- checked_dots[[2]]
-    }else{
-      is_data_request <- FALSE
-    }
-  }else{
-    is_data_request <- FALSE
-  }
+  parsed_dots <- parse_quosures_basic(dots)
+  rank <- parsed_dots$data
   
   # repeat error for empty dots
-  if(length(dots) < 1){
+  if(length(rank) < 1){
     bullets <- c(
       "Argument `rank` is missing, with no default.",
       i = "Did you forget to specify a taxonomic level?",
@@ -56,8 +46,8 @@ galah_down_to <- function(...){
   }
   
   # error check for multiple ranks
-  if(length(dots) > 1){
-    n_down_to <- length(dots)
+  n_down_to <- length(rank)
+  if(n_down_to > 1){
     bullets <- c(
       "Can't provide tree more than one taxonomic rank to end with.",
       i = "galah_down_to` only accepts a single rank at a time.",
@@ -67,7 +57,6 @@ galah_down_to <- function(...){
   }
 
   # create tibble containing specified rank
-  rank <- dequote(unlist(lapply(dots, function(a){deparse(quo_squash(a))})))
   if(rank %in% show_all_ranks()$name){
     result <- tibble(rank = rank)
     attr(result, "call") <- "galah_down_to"
@@ -81,9 +70,9 @@ galah_down_to <- function(...){
   }
 
   # if a data request was supplied, return one
-  if(is_data_request){
-    update_galah_call(data_request, down_to = result)
-  }else{
+  if(is.null(parsed_dots$data_request)){
     result
+  }else{
+    update_galah_call(parsed_dots$data_request, down_to = result)
   }
 }

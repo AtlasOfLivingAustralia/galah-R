@@ -1,0 +1,58 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://api.ala.org.au/occurrences/occurrences/facets?fq=%28year%3A%5B2018%20TO%20%2A%5D%29&disableAllQualityFilters=true&facets=year
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-length: '192'
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Wed, 21 Jun 2023 00:07:31 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie:
+      - AWSALBTG=xRt8fdMGgcRqfjzQQ8udTN+tVjXeab2hrlIobuA5mouPRQ2a8LJX5Zj9PfU7XqrmoGIAZWrxXOFNO3r+CSUiVUxfpb3Nl7Wwx/0+cZn9I8+uoaGZSPhXkK/kSOboZd4qjGTGdf5ZFoTzgZguruB8b/z1lnsGvB3KSnOBPSalmQ7k;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBTGCORS=xRt8fdMGgcRqfjzQQ8udTN+tVjXeab2hrlIobuA5mouPRQ2a8LJX5Zj9PfU7XqrmoGIAZWrxXOFNO3r+CSUiVUxfpb3Nl7Wwx/0+cZn9I8+uoaGZSPhXkK/kSOboZd4qjGTGdf5ZFoTzgZguruB8b/z1lnsGvB3KSnOBPSalmQ7k;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=+GI6Ksm9SnsQL7eJt3DDRHWcpgDa4LHFgM5iDIAKzbB2kYBj1PirxosqQHvOJFO2B4v3wzEfjjxRXIbqUrQCp59Hcq8ci+SVc41OSTI/+MNxtmy9FrJHBRsOi1eq;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/
+      - AWSALBCORS=+GI6Ksm9SnsQL7eJt3DDRHWcpgDa4LHFgM5iDIAKzbB2kYBj1PirxosqQHvOJFO2B4v3wzEfjjxRXIbqUrQCp59Hcq8ci+SVc41OSTI/+MNxtmy9FrJHBRsOi1eq;
+        Expires=Wed, 28 Jun 2023 00:07:30 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-amz-apigw-id: G17SdGJFSwMFVVg=
+      x-amzn-remapped-connection: keep-alive
+      x-amzn-remapped-date: Wed, 21 Jun 2023 00:07:31 GMT
+      x-amzn-remapped-server: nginx/1.25.1
+      x-amzn-remapped-www-authenticate: Bearer realm="authentication required"
+      x-amzn-requestid: 0f31b6b0-e200-4bda-b82a-15b33ae9bdaa
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '[{"fieldName":"year","fieldResult":[{"label":"2021","i18nCode":"year.2021","count":7534834,"fq":"year:\"2021\""},{"label":"2020","i18nCode":"year.2020","count":6716484,"fq":"year:\"2020\""},{"label":"2019","i18nCode":"year.2019","count":5960121,"fq":"year:\"2019\""},{"label":"2018","i18nCode":"year.2018","count":5871441,"fq":"year:\"2018\""},{"label":"2022","i18nCode":"year.2022","count":1783575,"fq":"year:\"2022\""},{"label":"2023","i18nCode":"year.2023","count":778713,"fq":"year:\"2023\""}],"count":6}]'
+  recorded_at: 2023-06-21 00:07:31 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

@@ -42,7 +42,7 @@ collect_counts <- function(.data){
       
       return(subset_df)
     }else{
-      result
+      tibble(count = result)
     }
   }
 }

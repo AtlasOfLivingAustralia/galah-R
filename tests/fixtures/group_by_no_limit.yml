@@ -1,0 +1,58 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://api.ala.org.au/occurrences/occurrences/facets?fq=&disableAllQualityFilters=true&facets=month&flimit=100
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-length: '313'
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Wed, 21 Jun 2023 00:07:51 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie:
+      - AWSALBTG=IcgPhKcEtlM8thSX2ts87QVBqeAxlPO5/FfVvpRjgJlHhNJZ/OyFUf5OoiKsjYP2C0XY4XcGZXenmChmGKN2RS/uMaMnqB7UrO+9mFynlC5rKwT/OhkKqchqHgsRaADExPCa5XxqHNbaZoDKMiCJlLTka4uRI+2k83Z26zejrh1Y;
+        Expires=Wed, 28 Jun 2023 00:07:48 GMT; Path=/
+      - AWSALBTGCORS=IcgPhKcEtlM8thSX2ts87QVBqeAxlPO5/FfVvpRjgJlHhNJZ/OyFUf5OoiKsjYP2C0XY4XcGZXenmChmGKN2RS/uMaMnqB7UrO+9mFynlC5rKwT/OhkKqchqHgsRaADExPCa5XxqHNbaZoDKMiCJlLTka4uRI+2k83Z26zejrh1Y;
+        Expires=Wed, 28 Jun 2023 00:07:48 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=MUR1OsRE19Rk/1U5unKI8OngbvCjVVsM+Bez5XFnAciGRk/3Jw5mO/nlR7zL6oaJnI8bQnhU4EPbGOSt7GZsI+uIR5w3sEhyZxrQ105HfyXxcnhV7u0mUAAwhJvh;
+        Expires=Wed, 28 Jun 2023 00:07:48 GMT; Path=/
+      - AWSALBCORS=MUR1OsRE19Rk/1U5unKI8OngbvCjVVsM+Bez5XFnAciGRk/3Jw5mO/nlR7zL6oaJnI8bQnhU4EPbGOSt7GZsI+uIR5w3sEhyZxrQ105HfyXxcnhV7u0mUAAwhJvh;
+        Expires=Wed, 28 Jun 2023 00:07:48 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-amz-apigw-id: G17VTFXSSwMF9bA=
+      x-amzn-remapped-connection: keep-alive
+      x-amzn-remapped-date: Wed, 21 Jun 2023 00:07:51 GMT
+      x-amzn-remapped-server: nginx/1.25.1
+      x-amzn-remapped-www-authenticate: Bearer realm="authentication required"
+      x-amzn-requestid: d9875655-78a4-404b-acab-abcbf3b9459b
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '[{"fieldName":"month","fieldResult":[{"label":"October","i18nCode":"month.10","count":12305470,"fq":"month:\"10\""},{"label":"November","i18nCode":"month.11","count":10980739,"fq":"month:\"11\""},{"label":"January","i18nCode":"month.1","count":10102038,"fq":"month:\"1\""},{"label":"September","i18nCode":"month.9","count":9977124,"fq":"month:\"9\""},{"label":"December","i18nCode":"month.12","count":9030354,"fq":"month:\"12\""},{"label":"March","i18nCode":"month.3","count":8587135,"fq":"month:\"3\""},{"label":"April","i18nCode":"month.4","count":8352754,"fq":"month:\"4\""},{"label":"May","i18nCode":"month.5","count":7890058,"fq":"month:\"5\""},{"label":"August","i18nCode":"month.8","count":7794332,"fq":"month:\"8\""},{"label":"February","i18nCode":"month.2","count":7386213,"fq":"month:\"2\""},{"label":"July","i18nCode":"month.7","count":7149400,"fq":"month:\"7\""},{"label":"June","i18nCode":"month.6","count":6909906,"fq":"month:\"6\""}],"count":12}]'
+  recorded_at: 2023-06-21 00:07:51 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0

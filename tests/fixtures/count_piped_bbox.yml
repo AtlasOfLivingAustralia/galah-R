@@ -1,0 +1,165 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://namematching-ws.ala.org.au/api/search?q=dasyurus
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: 'HTTP/2 200 '
+      date: Wed, 21 Jun 2023 00:07:31 GMT
+      content-type: application/json
+      content-length: '503'
+      server: nginx/1.25.1
+      vary: Accept-Encoding
+      content-encoding: gzip
+      access-control-allow-methods: GET,OPTIONS,POST
+      access-control-allow-headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      access-control-expose-headers: Content-Length,Content-Range
+      access-control-allow-origin: '*'
+      access-control-allow-credentials: 'true'
+    body:
+      encoding: ''
+      file: no
+      string: '{"success":true,"scientificName":"Dasyurus","scientificNameAuthorship":"Geoffroy,
+        1796","taxonConceptID":"https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85","rank":"genus","rankID":6000,"lft":67520,"rgt":67542,"matchType":"exactMatch","nameType":"DOUBTFUL","kingdom":"Animalia","kingdomID":"https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c","phylum":"Chordata","phylumID":"https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd","classs":"Mammalia","classID":"https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6","order":"Dasyuromorphia","orderID":"https://biodiversity.org.au/afd/taxa/54c4f0b1-45cd-49f0-91fc-0d48bd7f0a5e","family":"Dasyuridae","familyID":"https://biodiversity.org.au/afd/taxa/13cd5615-5d0c-426e-96c9-b8a7cb8651a2","genus":"Dasyurus","genusID":"https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85","speciesGroup":["Animals","Mammals"],"speciesSubgroup":["Carnivorous
+        Marsupials"],"issues":["noIssue"]}'
+  recorded_at: 2023-06-21 00:07:31 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://api.ala.org.au/occurrences/occurrences/search?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Ffbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85%29AND%28year%3A%5B2020%20TO%20%2A%5D%29&disableAllQualityFilters=true&pageSize=0
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-length: '424'
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Wed, 21 Jun 2023 00:07:31 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie:
+      - AWSALBTG=piPSvWSZlHKs3kBxfUeoCJMhvPc97Dt/tyCKDwO6D656LsomIrX7GbL1d1RZ0GL7/bdUmsgMjaXcpC/4NFMCP2w4WzwUUQYDm7u5MbGJnyPpTWJ3pdo4Z7OMaUmJRc3+3ohDus5lEMOG4Mpqqrx1aSxqlR7TNH496eaj3Y/kJKkH;
+        Expires=Wed, 28 Jun 2023 00:07:31 GMT; Path=/
+      - AWSALBTGCORS=piPSvWSZlHKs3kBxfUeoCJMhvPc97Dt/tyCKDwO6D656LsomIrX7GbL1d1RZ0GL7/bdUmsgMjaXcpC/4NFMCP2w4WzwUUQYDm7u5MbGJnyPpTWJ3pdo4Z7OMaUmJRc3+3ohDus5lEMOG4Mpqqrx1aSxqlR7TNH496eaj3Y/kJKkH;
+        Expires=Wed, 28 Jun 2023 00:07:31 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=tTtJ+YZD8fwdJNmJefFpW9UIcSQwcWX7PVrd27/e4cOdievVK0hiB0HCM3qCvPYaDtm1vGPfdPwqNtdW63hWxSo/QHOX23fWOp6FW2R4FNuP7Jmzgl/HsKPYyxUy;
+        Expires=Wed, 28 Jun 2023 00:07:31 GMT; Path=/
+      - AWSALBCORS=tTtJ+YZD8fwdJNmJefFpW9UIcSQwcWX7PVrd27/e4cOdievVK0hiB0HCM3qCvPYaDtm1vGPfdPwqNtdW63hWxSo/QHOX23fWOp6FW2R4FNuP7Jmzgl/HsKPYyxUy;
+        Expires=Wed, 28 Jun 2023 00:07:31 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-amz-apigw-id: G17SmFC_SwMFx5w=
+      x-amzn-remapped-connection: keep-alive
+      x-amzn-remapped-date: Wed, 21 Jun 2023 00:07:31 GMT
+      x-amzn-remapped-server: nginx/1.25.1
+      x-amzn-remapped-www-authenticate: Bearer realm="authentication required"
+      x-amzn-requestid: 5634e67f-9bb4-44da-a538-c5c0bbc0cced
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":851,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Ffbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year%3A%5B2020%20TO%20*%5D)","urlParameters":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Ffbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year%3A%5B2020%20TO%20*%5D)","queryTitle":"[all
+        records]","activeFacetMap":{"(lsid":{"name":"(lsid","displayName":"(<span
+        class=''lsid'' id=''https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85''>genus:
+        Dasyurus</span>)AND(year:[2020 TO *])","value":"https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year:[2020
+        TO *])"}},"activeFacetObj":{"lsid":[{"name":"lsid","displayName":"(<span class=''lsid''
+        id=''https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85''>genus:
+        Dasyurus</span>)AND(year:[2020 TO *])","value":"(lsid:https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year:[2020
+        TO *])"}]}}'
+  recorded_at: 2023-06-21 00:07:31 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
+- request:
+    method: get
+    uri: https://api.ala.org.au/occurrences/occurrences/search?fq=%28lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Ffbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85%29AND%28year%3A%5B2020%20TO%20%2A%5D%29&wkt=MULTIPOLYGON%20%28%28%28146.5425%20-43.13203%2C%20147.6972%20-43.13203%2C%20147.6972%20-42.13203%2C%20146.5425%20-42.13203%2C%20146.5425%20-43.13203%29%29%29&disableAllQualityFilters=true&pageSize=0
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+      User-Agent: galah-R 1.5.2
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      access-control-allow-headers: x-requested-with
+      access-control-allow-methods: POST, GET, OPTIONS, DELETE
+      access-control-allow-origin: '*'
+      access-control-max-age: '3600'
+      cache-control: no-cache, no-store, max-age=0, must-revalidate
+      content-encoding: gzip
+      content-length: '527'
+      content-security-policy: upgrade-insecure-requests
+      content-type: application/json
+      date: Wed, 21 Jun 2023 00:07:31 GMT
+      expires: '0'
+      pragma: no-cache
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie:
+      - AWSALBTG=d0sli5CfuUd4lHinFQJDnzQzOUTlwWNb7pIzqulNvvi0B0YX+Gs4pQlgE9oaz/RQawYfPOSLph8QFFsmRV/+nnzHqAV0vSO61V8zFLCfA7YIOnwXW+0uKMVCxhm5y24jf2aNuCnM4mK50VyaLjtQhvKFDerzJGBzjflpu8gl6uEm;
+        Expires=Wed, 28 Jun 2023 00:07:31 GMT; Path=/
+      - AWSALBTGCORS=d0sli5CfuUd4lHinFQJDnzQzOUTlwWNb7pIzqulNvvi0B0YX+Gs4pQlgE9oaz/RQawYfPOSLph8QFFsmRV/+nnzHqAV0vSO61V8zFLCfA7YIOnwXW+0uKMVCxhm5y24jf2aNuCnM4mK50VyaLjtQhvKFDerzJGBzjflpu8gl6uEm;
+        Expires=Wed, 28 Jun 2023 00:07:31 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=ObmPjOnulXNho43jnLSFzv8LSbcUkVCJMzh5t3/SqW6ETCBkGDwrog7D9ZeiMskEdborDF3oWChXABg4btbuuq+noavaZbUQ+SMF8ng3EN0uCiebmROGtgxWi/VN;
+        Expires=Wed, 28 Jun 2023 00:07:31 GMT; Path=/
+      - AWSALBCORS=ObmPjOnulXNho43jnLSFzv8LSbcUkVCJMzh5t3/SqW6ETCBkGDwrog7D9ZeiMskEdborDF3oWChXABg4btbuuq+noavaZbUQ+SMF8ng3EN0uCiebmROGtgxWi/VN;
+        Expires=Wed, 28 Jun 2023 00:07:31 GMT; Path=/; SameSite=None; Secure
+      status: 'HTTP/2 200 '
+      strict-transport-security: max-age=31536000
+      x-amz-apigw-id: G17SnE-gSwMFjUA=
+      x-amzn-remapped-connection: keep-alive
+      x-amzn-remapped-date: Wed, 21 Jun 2023 00:07:31 GMT
+      x-amzn-remapped-server: nginx/1.25.1
+      x-amzn-remapped-www-authenticate: Bearer realm="authentication required"
+      x-amzn-requestid: c5788f85-156c-4c32-8f2a-342074d5276e
+      x-content-type-options: nosniff
+      x-frame-options:
+      - DENY
+      - DENY
+      x-xss-protection: 1; mode=block
+    body:
+      encoding: ''
+      file: no
+      string: '{"pageSize":0,"startIndex":0,"totalRecords":24,"sort":"score","dir":"asc","status":"OK","occurrences":[],"facetResults":[],"query":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Ffbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year%3A%5B2020%20TO%20*%5D)&wkt=MULTIPOLYGON%20(((146.5425%20-43.13203%2C%20147.6972%20-43.13203%2C%20147.6972%20-42.13203%2C%20146.5425%20-42.13203%2C%20146.5425%20-43.13203)))","urlParameters":"?q=*%3A*&disableAllQualityFilters=true&fq=(lsid%3Ahttps%3A%2F%2Fbiodiversity.org.au%2Fafd%2Ftaxa%2Ffbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year%3A%5B2020%20TO%20*%5D)&wkt=MULTIPOLYGON%20(((146.5425%20-43.13203%2C%20147.6972%20-43.13203%2C%20147.6972%20-42.13203%2C%20146.5425%20-42.13203%2C%20146.5425%20-43.13203)))","queryTitle":"[all
+        records] - within user defined polygon","activeFacetMap":{"(lsid":{"name":"(lsid","displayName":"(<span
+        class=''lsid'' id=''https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85''>genus:
+        Dasyurus</span>)AND(year:[2020 TO *]) - within user defined polygon","value":"https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year:[2020
+        TO *])"}},"activeFacetObj":{"lsid":[{"name":"lsid","displayName":"(<span class=''lsid''
+        id=''https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85''>genus:
+        Dasyurus</span>)AND(year:[2020 TO *]) - within user defined polygon","value":"(lsid:https://biodiversity.org.au/afd/taxa/fbdd6f9d-42d0-42ec-84f1-fb8a7ad4aa85)AND(year:[2020
+        TO *])"}]}}'
+  recorded_at: 2023-06-21 00:07:31 GMT
+  recorded_with: vcr/1.2.0, webmockr/0.8.0
