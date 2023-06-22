@@ -27,15 +27,12 @@
 #' @param limit `numeric`: maximum number of categories to return, defaulting to 100.
 #' If limit is NULL, all results are returned. For some categories this will
 #' take a while.
-#' @param type `string`: one of `c("record", "species")`. Defaults to
-#' "record". If "species", the number of species matching the criteria will be
-#' returned, if "record", the number of records matching the criteria will be
-#' returned.
-#' @param refresh_cache `logical`: if set to `TRUE` and 
-#' `galah_config(caching = TRUE)` then files cached from a previous query will 
-#' be replaced by the current query
+#' @param type `string`: one of `c("occurrences-count", "species-count")`. 
+#' Defaults to `"occurrences-count"`, which returns the number of records
+#' that match the selected criteria; alternatively returns the number of 
+#' species. Formerly accepted arguments (`"records"` or `"species"`) are
+#' deprecated but remain functional.
 #' @return
-#' 
 #' An object of class `tbl_df` and `data.frame` (aka a tibble) returning: 
 #'  * A single number, if `group_by` is not specified or,
 #'  * A summary of counts grouped by field(s), if `group_by` is specified
@@ -53,16 +50,22 @@ atlas_counts <- function(request = NULL,
                          data_profile = NULL,
                          group_by = NULL, 
                          limit = NULL,
-                         type = c("record", "species")
+                         type = c("occurrences-count", "species-count")
                          ) {
   
   # capture supplied arguments
   args <- as.list(environment())
   args$type <- match.arg(type)
+  dr <- check_atlas_inputs(args) # convert to `data_request` object
   
-  # convert to `data_request` object
-  check_atlas_inputs(args) |>
-    collect(what = "counts")
+  # specific checking for outdated naming conventions
+  if(dr$type == "record"){
+    dr$type <- "occurrences-count"
+  }else if(dr$type == "species"){
+    dr$type <- "species-count"
+  }
+  
+  count(dr)
 }
 
 #' @rdname atlas_counts
@@ -71,18 +74,18 @@ atlas_counts <- function(request = NULL,
 #' @param ... currently ignored
 #' @param sort currently ignored
 #' @param name currently ignored
-#' @param type `string`: one of `c("record", "species")`. Defaults to
-#' "record". If "species", the number of species matching the criteria will be
-#' returned, if "record", the number of records matching the criteria will be
-#' returned.
 #' @importFrom dplyr count
 #' @export
 count.data_request <- function(.data, 
                                ..., 
                                wt, 
                                sort, 
-                               name, 
-                               type = c("record", "species")){
-  update_galah_call(.data, type = match.arg(type)) |>
-    collect(what = "counts")
+                               name){
+  .data$type <- switch(.data$type, 
+         "occurrences" = "occurrences-count",
+         "species" = "species-count",
+         "media" = abort("type = 'media' is not supported by `count()`"),
+         "doi" = abort("type = 'doi' is not supported by `count()`"),
+         .data$type)
+  collect(.data)
 }

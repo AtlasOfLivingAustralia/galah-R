@@ -3,7 +3,6 @@
 #' @param .data an object of class `data_request`
 #' @noRd
 collapse_counts <- function(.data){
-
   # choose behavior depending on whether we are calling LAs or GBIF
   if(is_gbif()){
     function_name <- "collapse_counts_gbif"
@@ -50,7 +49,7 @@ collapse_counts_gbif <- function(identify = NULL,
     
   # aggregate and return
   result <- list(url = url, query = query, column = "count")
-  result$what <- "counts"
+  result$type <- "occurrences-counts"
   class(result) <- "data_query"
   return(result)
 }
@@ -64,7 +63,7 @@ collapse_counts_atlas <- function(identify = NULL,
                                   data_profile = NULL,
                                   group_by = NULL, 
                                   limit = 100,
-                                  type = "record"){
+                                  type = "occurrences-count"){
   
   if(!is.null(data_profile)){
     profile <- data_profile$data_profile
@@ -74,7 +73,7 @@ collapse_counts_atlas <- function(identify = NULL,
   query <- build_query(identify, filter, geolocate, profile = profile)
   
   if(is.null(group_by)){
-    if(type == "species"){
+    if(type == "species-count"){
       url <- url_lookup("records_facets") 
       query$flimit <- 1
       query$facets <- species_facets() 
@@ -104,7 +103,7 @@ collapse_counts_atlas <- function(identify = NULL,
                  query = query, 
                  expand = expand,
                  column = column,
-                 what = "counts")
+                 type = type)
   class(result) <- "data_query"
   return(result)
 }

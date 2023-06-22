@@ -27,7 +27,9 @@
 #' @importFrom assertthat assert_that
 #' @noRd
 #' @keywords Internal
-collect_media <- function(.data){
+collect_media <- function(.data, filesize = "full", path = "."){
+  
+  .data <- check_media_args(.data, filesize = filesize, path = path)
   
   if(pour("package", "verbose")){
     inform(glue("Downloading {.data$summary$n} media files with total size {.data$summary$size}"))

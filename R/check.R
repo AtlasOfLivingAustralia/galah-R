@@ -17,69 +17,47 @@ check_atlas_inputs <- function(args){
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-check_type <- function(.data, type, what){
-  if(missing(what)){
-    if(!any(names(.data) == "what")){
-      abort("error in `check_type`; `what` is unknown")
-    }
-  }else{
-    .data$what <- what
+check_type <- function(type){
+  if(type == "records"){
+    type <- "occurrences-count"
   }
-  if(missing(type)){
-    if(!any(names(.data) == "type")){
-      .data$type <- switch(.data$what, 
-             "species" = NULL,
-             "media" = "Image",
-             "records")      
-    }
-  }else{
-    .data$type <- type
+  valid_types <- c(
+    "occurrences", "species", "media-metadata", "media-files", 
+    "doi", "occurrences-count", "species-count")
+  if(!(type %in% valid_types)){
+    abort("`type` not recognised")
   }
+  type
+}
+
+# check_media_types <- function(.data, media){
+#   if(is.null(.data$media))
+# }
+
+#' Internal function to convert multi-value media fields to list-columns
+#' @param .data A tibble() returned by atlas_occurrences
+#' @noRd
+#' @keywords Internal
+check_media_cols <- function(.data){
+  
+  media_colnames <- c("images", "sounds", "videos")
+  # if media columns are not present, return original data unchanged
+  if(!any(colnames(.data) %in% media_colnames)){
+    .data
+  }
+  
+  # otherwise get media columns
+  present_cols <- media_colnames[media_colnames %in% colnames(.data)]
+  
+  for(i in present_cols){
+    if(!all(is.na(.data[[i]]))){
+      .data[[i]] <- strsplit(.data[[i]], "\\s\\|\\s")
+    }
+  }
+  
   .data
 }
 
-#' function to check whether args supplied to collect("media") are correct
-#' @param description .data An object of class `data_response` or `data_query`
-#' @importFrom rlang abort
-#' @noRd
-#' @keywords Internal
-check_media_args <- function(.data, filesize, path){
-  # check filesize
-  if(!is.character(filesize)){
-    abort("argument `filesize` must be of class `character`")
-  }
-  if(!(filesize %in% c("full", "thumbnail"))){
-    abort("`type` must be one of either 'full' or 'thumbnail'")
-  }
-  .data$filesize <- filesize
-  
-  # check path
-  verbose <- pour("package", "verbose") 
-  if(is.null(path)){
-    # cached_path <- pour("package", "cache_directory") # add later
-    abort("argument `path` is missing, with no default")
-  }else{
-    if(!file.exists(path)){
-      abort("The specified `path` does not exist")
-    }
-  }
-  .data$path <- normalizePath(path)
-  
-  # return
-  .data
-}
-
-#' function to check whether `what` arg is supplied to `collapse()` or `compute()`
-#' @importFrom rlang abort
-#' @noRd
-#' @keywords Internal
-check_what <- function(what){
-  if(missing(what)){
-    bullets <- c("Argument `what` is missing, with no default",
-                 i = "`what` must be one of 'counts', 'species', 'occurrences' or 'media'")
-    abort(bullets)
-  }
-}
 
 #' Internal function to confirm requisite login information has been provided
 #' Called by `compute()`
@@ -176,5 +154,33 @@ check_groups <- function(group, n){
     match.arg(group, 
               choices = c("basic", "event", "media", "assertions"),
               several.ok = TRUE)
+  }
+}
+
+# check whether fields are valid
+check_fields <- function(x){
+  if(pour("package", "run_checks")){
+    variables <- strsplit(x$variable, "&|\\|") |> 
+                 unlist() |>
+                 unique()
+    if(!all(variables %in% show_all_fields()$id)){
+      abort("fields supplied in `filter` are not present in the selected atlas")
+    }
+  }
+}
+
+# check that objects passed within `galah_filter` have correct structure
+check_filter_tibbles <- function(x){ # where x is a list of tibbles
+  syntax_valid <- lapply(x, function(a){
+    if(length(colnames(a)) == 4){
+      all(colnames(a) %in% c("variable", "logical", "value", "query"))
+    }else{
+      FALSE
+    }
+  }) |>
+    unlist() |>
+    all()
+  if(!syntax_valid){
+    abort("There was a problem with `filter`, did you use correct syntax?")
   }
 }

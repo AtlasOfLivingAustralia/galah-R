@@ -2,7 +2,7 @@
 % Please edit documentation in R/atlas_occurrences.R
 \name{atlas_occurrences}
 \alias{atlas_occurrences}
-\title{Return occurrence records}
+\title{Collect the set of occurrences observed within the specified filters}
 \usage{
 atlas_occurrences(
   request = NULL,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/atlas_species.R
 \name{atlas_species}
 \alias{atlas_species}
-\title{Return species lists}
+\title{Collect the set of species observed within the specified filters}
 \usage{
 atlas_species(
   request = NULL,

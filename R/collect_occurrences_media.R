@@ -20,6 +20,14 @@
 #' @importFrom stringr str_extract
 #' @noRd
 #' @keywords Internal
+
+
+# NOTE: THIS SCRIPT IS OUT OF DATE
+# `collapse_media_metadata.R`, `compute_media_metadata.R` and `collect_media_metadata.R` replace it.
+# BUT it is kept here for tips, in case we revise syntax:
+  # from `galah_call(type = "media-metadata")`  (current, messy)
+  # to `galah_call(type = "occurrences") |> galah_media() |> collect()` (preferred)
+
 collect_occurrences_media <- function(df){
   
   # run checks that 1. a df is supplied, 2. it contains requisite columns

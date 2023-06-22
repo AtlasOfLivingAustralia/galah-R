@@ -54,14 +54,44 @@ test_that("test new workflow for media makes sense", {
   skip_on_cran()
   galah_config(email = "ala4r@ala.org.au")
   
-  # type <- "images"
-  query <- galah_call() |>
+  # user makes us do all the work
+  collapse_1 <- galah_call(type = "media-metadata") |>
+    filter(
+      year == 2023,
+      month == 6,
+      species == "Litoria peronii") |>
+    collapse()
+  
+  str(collapse_1)
+  
+  # user gets own occurrences and passes IDs to "media-metadata"
+  media_test <- galah_call(type = "occurrences") |>
     galah_filter(
       year == 2023,
       month == 6,
       species == "Litoria peronii") |>
       # !is.na(type)) |> # "videos" or "sounds" are valid options
-    select(group = "basic") 
+    select(group = c("basic", "media")) |>
+    # right_join("media") |>
+    collect()
+  
+  collapse_2 <- galah_call(type = "media-metadata", 
+                              ids = media_test$images) |>
+    collapse()
+  
+  metadata_final <- metadata_test |> collect()
+  
+  ## add to vignette on joining data in case that's useful:  
+  # join_test <- dplyr::right_join(tidyr::unnest_longer(media_test, images), 
+  #                                metadata_test,
+  #                                by = c("images" = "media_id"))
+  
+  galah_call(type = "media-files", 
+             ids = media_test$images) |>
+    collect(path = "images")
+
+  
+  # BELOW IS OUT OF DATE
   
   # get occurrences with added media metadata
   occ_media <- query |>

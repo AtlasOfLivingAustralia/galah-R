@@ -59,7 +59,6 @@ galah_down_to <- function(...){
   # create tibble containing specified rank
   if(rank %in% show_all_ranks()$name){
     result <- tibble(rank = rank)
-    attr(result, "call") <- "galah_down_to"
   }else{
     bullets <- c(
       "Invalid taxonomic rank.",

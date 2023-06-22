@@ -12,24 +12,31 @@
 #' @keywords internal
 parse_quosures <- function(dots){
   if(length(dots) > 0){
-    
     check_named_input(dots)
-    
-    if(str_detect(deparse(dots[[1]]), "galah_call()")) {
+    call_string <- deparse(dots[[1]]) |> paste(collapse = " ") # captures multi-lines
+    if(str_detect(call_string, "galah_call()")) {
       eval_request <- eval_tidy(dots[[1]])
       parsed_dots <- lapply(dots[-1], switch_expr_type)
-      
-      list(data_request = eval_request,
-           data = bind_rows(parsed_dots))
-      
-    } else {
+      check_filter_tibbles(parsed_dots)
+      result <- list(data_request = eval_request,
+                     data = bind_rows(parsed_dots))
+    }else{
       parsed_dots <- lapply(dots, switch_expr_type)
-      
-      list(data = bind_rows(parsed_dots))
+      check_filter_tibbles(parsed_dots)
+      result <- list(data = bind_rows(parsed_dots))
     }
   }else{
-    NULL
+    result <- list(data = NULL)
   }
+  if(is.null(result$data)){
+    result$data <- tibble(
+          variable = character(),
+          logical = character(),
+          value = character(),
+          query = character())
+  }
+  check_fields(result$data)
+  return(result)
 }
 
 #' parse quosures, but for `select` and related functions
@@ -138,7 +145,6 @@ parse_symbol <- function(x){
 parse_call <- function(x, ...){
   y <- quo_get_expr(x)
   env_tr <- quo_get_env(x)
-  
   switch(function_type(as_string(y[[1]])), # i.e. switch depending on what function is called
          "relational_operator" = parse_relational(y, env_tr, ...),
          "logical_operator" = parse_logical(y, env_tr, ...),
@@ -147,7 +153,9 @@ parse_call <- function(x, ...){
          "is.na" = parse_is_na(y, env_tr, ...),
          "between" = parse_between(y, env_tr, ...),
          "%in%" = parse_in(y, env_tr, ...),
-         {filter_error()}) # if unknown, error
+         eval_tidy(x) # if unknown, parse
+         # {filter_error()} # if unknown, error
+  )
 }
 
 #' Determine the 'type' of call in `parse_call`, using the first entry of the AST
@@ -214,9 +222,13 @@ parse_logical <- function(expr, env, ...){
   }else{
     logical_string <- " AND "
   }
-  
   linked_statements <- lapply(expr[-1], 
                        function(a){switch_expr_type(as_quosure(a, env = env), ...)}) 
+  
+  # check that all entries are correctly structured
+  check_filter_tibbles(linked_statements)
+  
+  # parse
   result <- linked_statements[[1]]
   # TODO: Something in this bit of code is broken...update 2023-15-06: might have been fixed
   result$variable <- join_logical_strings(linked_statements, "variable", provided_string)
@@ -331,7 +343,7 @@ parse_in <- function(expr, env, excl){
   
   in_as_or_statements <- rlang::parse_expr(
     glue::glue_collapse(
-      glue("{variable} {logical} {value}"), 
+      glue("{variable} {logical} '{value}'"), 
       sep = " | "
     ))
   # in_as_or_statements_quos <- new_quosure(in_as_or_statements, env)

@@ -169,7 +169,6 @@ galah_bbox <- function(...) {
   }
 
   attr(out_query, "bbox") <- bbox_coords
-  attr(out_query, "call") <- "galah_geolocate"
 
   # if a data request was supplied, return one
   if(is.null(dr)){

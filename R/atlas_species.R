@@ -1,4 +1,4 @@
-#' Return species lists
+#' Collect the set of species observed within the specified filters
 #'
 #' While there are reasons why users may need to check every record meeting their
 #' search criteria (i.e. using [atlas_occurrences()]), a common use case
@@ -61,6 +61,6 @@ atlas_species <- function(request = NULL,
   
   # convert to `data_request` object
   check_atlas_inputs(args) |>
-    collapse(what = "species") |>
+    collapse() |>
     collect()
 }

@@ -161,7 +161,6 @@ parse_polygon <- function(query){
     }
     out_query <- query
   }
-  attr(out_query, "call") <- "galah_geolocate"
   out_query
 }
 

@@ -58,9 +58,6 @@ parse_group_by <- function(dot_names, expand){
     df <- tibble(name = "name", type = "type", .rows = 0)
   }
   
-  # append attributes
-  attr(df, "call") <- "galah_group_by"
-  attr(df, "expand") <- expand
   return(df)
 }
 

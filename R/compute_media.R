@@ -8,10 +8,9 @@
 #' @keywords Internal
 compute_media <- function(.data, type){
   # get occurrences with associated metadata
-  .data$what <- "occurrences"
-  .data$type <- "media"
+  .data$type <- "occurrences"
   resp <- collect(.data) |>
-          collect_occurrences_media()
+          collect_occurrences_media() # NOTE: update this to join()
   
   # error catching
   if(nrow(resp) < 1){
@@ -24,7 +23,7 @@ compute_media <- function(.data, type){
       n = nrow(resp),
       size = format_bytes(sum(resp$size_in_bytes))),
     data = resp[, c("media_id", "file_extension", "image_url", "size_in_bytes")],
-    what = "media")
+    type = "media")
   class(result) <- "data_response"
   result
 }

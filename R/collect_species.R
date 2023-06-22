@@ -10,7 +10,6 @@ collect_species <- function(.data){
                            params = .data$query, 
                            cache_file = tmp, 
                            ext = "csv")
-    
     if(is.null(result)){
       system_down_message("atlas_species")
       return(tibble())

@@ -43,7 +43,7 @@ collapse_species_atlas <- function(identify = NULL,
     url = base_url,
     headers = list("User-Agent" = galah_version_string()),
     query = query)
-  result$what <- "species"
+  result$type <- "species"
   class(result) <- "data_query"
   
   return(result)

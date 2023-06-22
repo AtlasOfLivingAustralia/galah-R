@@ -28,6 +28,6 @@ collapse_media <- function(.data){
                      as.character()
   
   # convert to correct type and return
-  result$what <- "media"
+  result$type <- "media"
   return(result)
 }

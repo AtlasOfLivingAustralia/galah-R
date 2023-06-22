@@ -134,13 +134,13 @@ parse_select <- function(dot_names, group){
     }
   }
   
+  # consider whether to go back to tidy_select code here
+  
   # create output object
   result <- tibble(name = unique(c(group_cols, individual_cols)))
   result$type <- "field"
-  # result$type[result$name %in% show_all("assertions")$id] <- "assertion" # requires upgrade to show_all
-  attr(result, "call") <- "galah_select" 
+  result$type[result$name %in% show_all("assertions")$id] <- "assertion"
   attr(result, "group") <- group
-  
   return(result)
 }
 

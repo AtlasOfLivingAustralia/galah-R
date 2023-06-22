@@ -78,6 +78,12 @@ vcr::use_cassette("search_identifiers_invalid", {
   })
 })
 
+vcr::use_cassette("search_taxa_homonym", {
+  test_that("search_taxa gives an error when homonyms are returned", {
+    expect_warning(search_taxa("ACANTHOCEPHALA"))
+  })
+})
+
 test_that("search_taxa handles name issues", {
   expect_warning(search_taxa("Microseris"))
 })

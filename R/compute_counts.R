@@ -1,7 +1,7 @@
 #' Compute counts
 #' 
 #' This is a little different from other `compute` functions; it converts a 
-#' `data_query` object (from `collapse(what = "counts")`) into one or more urls
+#' `data_query` object (from `collapse(type = "occurrences-count")`) into one or more urls
 #' that can be passed verbatim to `url_GET()`. This is important when `group_by`
 #' has `expand = TRUE`, because it requires an initial call to the atlas to 
 #' calculate the requisite URLs. It makes very little difference under other
@@ -17,13 +17,13 @@ compute_counts <- function(.data){
       result <- list(
         url = build_query_list_LA(.data),
         column = .data$column,
-        what = .data$what)
+        type = .data$type)
     }    
   }else{
     result <- list(
       url = url_build_internal(.data),
       column = .data$column,
-      what = .data$what)
+      type = .data$type)
   }
   class(result) <- "data_response"
   attr(result, "fields") <- .data$query$facets

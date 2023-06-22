@@ -1,4 +1,4 @@
-#' Return occurrence records
+#' Collect the set of occurrences observed within the specified filters
 #'
 #' The most common form of data stored by living atlases are observations of
 #' individual life forms, known as 'occurrences'. This function allows the
@@ -80,6 +80,6 @@ atlas_occurrences <- function(request = NULL,
   
   # convert to `data_request` object
   check_atlas_inputs(args) |>
-    compute(what = "occurrences") |>
+    compute() |>
     collect(wait = TRUE)
 }

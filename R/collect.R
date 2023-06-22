@@ -14,15 +14,8 @@
 #' @name collect.data_request
 #' @param .data An object of class `data_request`, `data_query` or 
 #' `data_response` 
-#' @param what string: what kind of data should be returned. Must be one of
-#' `"counts"`, `"species"`, `"occurrences"` or `"media"`.
-#' @param type string: what type of data should be returned. For 
-#' `what = "counts"`, this can be `"records"` (default) or `"species"`. For 
-#' `what = "occurrences"`, this can be `"records"` (default) or `"media"`.
-#' For `what = "media"` this should be one or more of `"images"` (default), 
-#' `"videos"` and `"sounds"`.
-#' @param filesize if `type` is `"media"`, what size of file should be returned?
-#' Should be on of `"full"` (default) or `"thumbnail"`
+#' @param filesize if `type` is `"media-files"`, what size of file should be 
+#' returned? Should be one of `"full"` (default) or `"thumbnail"`
 #' @param path Optional path to where file should be stored. If not given 
 #' defaults to `galah_config()$package$path`, which defaults to a temporary 
 #' directory.
@@ -34,46 +27,43 @@
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 #' @export
-collect.data_request <- function(.data, 
-                                 what = "counts", 
-                                 type, 
-                                 filesize,
-                                 path = "."
-){
-  .data <- check_type(.data, type = type, what = what)
-  switch(.data$what, 
-         "counts" = {compute(.data) |> 
-                       collect_counts()},
+collect.data_request <- function(.data){
+  .data$type <- check_type(.data$type)
+  switch(.data$type, 
+         "occurrences-count" = {compute(.data) |> 
+                                collect_counts()},
+         "species-count" = {compute(.data) |> 
+                            collect_counts()},
+         "doi" = collect_doi(.data),
          "species" = {
            check_login(.data)
            collapse(.data) |>
               collect_species()},
          "occurrences" = {
-           if(.data$type == "media"){
-             .data <- .data |> 
-               select(group = "media")
-             compute(.data) |>
-               collect_occurrences(wait = TRUE) |>
-               collect_occurrences_media()
-           }else{
              compute(.data) |> 
                collect_occurrences(wait = TRUE)
-           }
          },
-         "media" = {
-           compute(.data, type = type) |>
-             check_media_args(filesize = filesize, path = path) |>
-             collect_media()
-         }
+         # NOTE:
+         # there is the option here to have:
+          # `galah_call(type = "media") |> galah_media() |> collect()` # files
+          # `galah_call(type = "occurrences") |> galah_media() |> collect()` # metadata 
+         "media-metadata" = {
+           collapse(.data) |>
+           collect_media_metadata()},
+         "media-files" = {
+           compute(.data) |>
+             collect_media()           
+         },
+         abort("unrecognised 'type' supplied to `galah_call()`")
       )
 }
 
 # if calling `collect()` after `collapse()`
 #' @rdname collect.data_request
 #' @export
-collect.data_query <- function(.data, what, type, path){
-  .data <- check_type(.data, type, what)
-  switch(.data$what,
+collect.data_query <- function(.data){
+  .data$type <- check_type(.data$type)
+  switch(.data$type,
          "counts" = collect_counts(.data),
          "species" = {
            check_login(.data)
@@ -81,11 +71,12 @@ collect.data_query <- function(.data, what, type, path){
          "occurrences" = {
            compute(.data) |>
              collect_occurrences(wait = TRUE)},
-         "media" = {
+         "media-metadata" = collect_media_metadata(.data),
+         "media-files" = {
            compute(.data) |>
-             check_media_args(filesize = type, path = path) |>
              collect_media()
-         }
+         },
+         abort("unrecognised 'type'")
   )
 }
 
@@ -94,18 +85,14 @@ collect.data_query <- function(.data, what, type, path){
 #' @param wait logical; should `galah` ping the selected url until computation
 #' is complete? Defaults to `FALSE`.
 #' @export
-collect.data_response <- function(.data,
-                                  wait = FALSE,
-                                  filesize = "full",
-                                  path = "."){
-  switch(.data$what,
-         "counts" = collect_counts(.data),
-         # "species" # doesn't exist, as `compute('species')` is not implemented
+collect.data_response <- function(.data){
+  switch(.data$type,
+         "occurrences-count" = collect_counts(.data),
+         "species-count" = collect_counts(.data),
          "occurrences" = collect_occurrences(.data, wait),
-         "media" = {
-           x <- .data |>
-             check_media_args(filesize = filesize, path = path) |>
-             collect_media()}
+         "media-files" = collect_media(.data),
+         abort("unrecognised 'type'")
+         # NOTE: "species" & "doi" have no `compute()` stage
   )
 }
 
@@ -114,10 +101,10 @@ collect.data_response <- function(.data,
 #' @importFrom potions pour
 #' @importFrom rlang abort
 #' @export
-compute.data_request <- function(.data, what, type){
-  .data <- check_type(.data, type, what) |>
-           collapse()
-  switch_compute(.data)
+compute.data_request <- function(.data){
+  .data$type <- check_type(.data$type)
+  collapse(.data) |>
+    switch_compute()
 }
 
 # if calling `compute()` after `collapse()`
@@ -131,13 +118,22 @@ compute.data_query <- function(.data){
 #' @noRd
 #' @keywords Internal
 switch_compute <- function(.data){
-  switch(.data$what, 
-         "counts" = compute_counts(.data),
-         "species" = abort("`compute('species')` does not exist; try `collect('species')`"),
+  switch(.data$type, 
+         "occurrences-count" = compute_counts(.data),
+         "species-count" = compute_counts(.data),
+         "doi" = abort(c(
+           "`compute()` does not exist for `type = 'doi'`",
+           i = "try `collect() instead")),
+         "species" = abort(c(
+           "`compute()` does not exist for `type = 'species'`",
+           i = "try `collect() instead")),
          "occurrences" = {
            check_login(.data)
            compute_occurrences(.data)},
-         "media" = {
+         "media-metadata" = {
+           check_login(.data)
+           compute_media_metadata(.data)},
+         "media-files" = {
            check_login(.data)
            compute_media(.data)})   
 }
@@ -145,11 +141,17 @@ switch_compute <- function(.data){
 # if calling `collapse()` after `galah_call()`
 #' @rdname collect.data_request
 #' @export
-collapse.data_request <- function(.data, what, type){
-  .data <- check_type(.data, type, what)
-  switch(.data$what, 
-         "counts" = collapse_counts(.data),
+collapse.data_request <- function(.data){
+  .data$type <- check_type(.data$type)
+  switch(.data$type, 
+         "occurrences-count" = collapse_counts(.data),
+         "species-count" = collapse_counts(.data),
+         "doi" = abort(c(
+           "`collapse()` does not exist for `type = 'doi'`",
+           i = "try `collect() instead")),
          "species" = collapse_species(.data),
          "occurrences" = collapse_occurrences(.data),
-         "media" = collapse_media(.data))
+         "media-metadata" = collapse_media_metadata(.data),
+         "media-files" = collapse_media(.data),
+         abort("unrecognised 'type'"))
 }

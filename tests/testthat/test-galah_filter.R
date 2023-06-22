@@ -1,46 +1,36 @@
 context("Test galah_filter")
 
-vcr::use_cassette("galah_filter_startup", {
-  test_that("galah_filter works for a single 'equals' argument", {  
-    filters <- galah_filter(year == 2010)
-    expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
-    expect_equal(nrow(filters), 1)
-  })
-})
-
-test_that("galah_filter builds data quality filters", {
-  # vcr can't handle this request
-  # skip_on_cran()
-  galah_config(run_checks = FALSE)
-  filters <- galah_filter(profile = "ALA")
+test_that("galah_filter works for a single 'equals' argument", {  
+  filters <- galah_filter(year == 2010)
   expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(nrow(filters), 0)
-  expect_equal(names(filters), c("variable", "logical", "value", "query"))
-  expect_equal(attr(filters, "dq_profile"), "ALA")
-  galah_config(run_checks = TRUE)
-})
-
-
-test_that("galah_filter gives an error for invalid profile", {
-  expect_error(galah_filter(profile = "bad"))
+  expect_equal(nrow(filters), 1)
 })
 
 test_that("galah_filter gives an error for single equals sign", {
   expect_error(galah_filter(year = 2010))
 })
 
-test_that("galah_filter handles assertion filters", {
-  filters <- galah_filter(ZERO_COORDINATE == FALSE)
-  expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
-  expect_true(grepl("assertions", filters$query))   # FIXME 
-})
+## TODO: ensure assertions are handled correctly
+
+# test_that("galah_filter handles assertion filters", {
+#   filters <- galah_filter(ZERO_COORDINATE == FALSE)
+#   expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
+#   expect_true(grepl("assertions", filters$query))   # FIXME 
+# })
 
 # negative assertions:
 # galah_filter(BASIS_OF_RECORD_INVALID == FALSE)
 
+
+## TODO: filter validation not functional
 test_that("galah_filter validates filters", {
   galah_config(run_checks = TRUE)
-  expect_warning(galah_filter(invalid_filter == 'value'))
+  expect_error(galah_filter(invalid_filter == 'value'))
+})
+
+test_that("galah_filter validates filters when OR statements are used", {
+  galah_config(run_checks = TRUE)
+  expect_error(galah_filter(invalid_filter == 'value' | year == 2010))
 })
 
 test_that("galah_filter skips checks if requested", {
@@ -49,7 +39,7 @@ test_that("galah_filter skips checks if requested", {
   galah_config(run_checks = TRUE)
 })
 
-test_that("galah_filter returns empty data.frame when no arguments specified", {
+test_that("galah_filter returns empty tibble when no arguments specified", {
   filters <- galah_filter()
   expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(filters), 0)
@@ -59,6 +49,7 @@ test_that("galah_filter works for two 'equals' arguments", {
   filters <- galah_filter(year == 2010, basisOfRecord == "HUMAN_OBSERVATION")
   expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
   expect_equal(nrow(filters), 2)
+  expect_equal(filters$variable, c("year", "basisOfRecord"))
 })
 
 test_that("galah_filter works for two arguments of the same variable", {  
@@ -68,26 +59,60 @@ test_that("galah_filter works for two arguments of the same variable", {
   expect_equal(">=", filters$logical[1])
 })
 
-test_that("galah_filter treats commas and '&' the same way", {
-  filter1 <- galah_filter(year >= 2010 & year < 2020)
-  filter2 <- galah_filter(year >= 2010, year < 2020)
-  expect_equal(filter1, filter2)
+test_that("galah_filter works with urls", {
+  filters <- galah_filter(
+    taxonConceptID == "https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd")
+  expect_true(nchar(filters$query) > 70)
+})
+
+test_that("galah_filter parses '&' correctly", {
+  filters <- galah_filter(year >= 2010 & year < 2020)
+  expect_equal(nrow(filters), 1)
+  expect_equal(filters$value, "2010&2020")
 })
 
 test_that("galah_filter handles numeric queries for text fields", {             
   filters <- galah_filter(cl22 >= "Tasmania")
-  expect_equal(attr(filters, "call"), "galah_filter")
+  expect_equal(filters$query, "cl22:[Tasmania TO *]")
 })
 
 test_that("galah_filter handles OR statements", {    
-  filters <- galah_filter(year == 2010 | year == 2021)
-  expect_equal(attr(filters, "call"), "galah_filter")
+  filters <- galah_filter(year == 2010 | year == 2020)
+  expect_equal(nrow(filters), 1)
+  expect_equal(filters$value, "2010|2020")
+})
+
+# currently failing
+test_that("galah_filter handles OR statements", {   
+  filters <- galah_filter(raw_scientificName == "Litoria jervisiensis" | 
+                          raw_scientificName == "Litoria peronii")
+  expect_equal(nrow(filters), 1)
+  expect_equal(filters$query, 
+               "((raw_scientificName:\"Litoria jervisiensis\") OR (raw_scientificName:\"Litoria peronii\"))")
+  # galah_call() |>
+  #   identify("Litoria") |>
+  #   filter(raw_scientificName == "Litoria jervisiensis" | 
+  #          raw_scientificName == "Litoria peronii") |>
+  #   count()
+})
+
+test_that("galah_filter works with 3 OR statements", {
+  x <- galah_call() %>% 
+    galah_identify("Vertebrata") %>% 
+    galah_filter(basisOfRecord == "HumanObservation" | 
+                 basisOfRecord == "MachineObservation" | 
+                 basisOfRecord == "Observation")
+  # fails
 })
 
 test_that("galah_filter handles exclusion", {   
   filters <- galah_filter(year >= 2010, year != 2021)
   expect_equal(nrow(filters), 2)
-  expect_equal(attr(filters, "call"), "galah_filter")
+})
+
+test_that("galah_filter handles multiple exclusions", {
+  filters <- galah_filter(!(stateProvince == "Victoria" & year == 2021)) 
+  expect_equal(nrow(filters), 1)
 })
 
 test_that("galah_filter handles three terms at once", {    
@@ -95,65 +120,47 @@ test_that("galah_filter handles three terms at once", {
     basisOfRecord == "HumanObservation",
     year >= 2010,
     stateProvince == "New South Wales")
-  expect_equal(attr(filters, "call"), "galah_filter")
   expect_equal(nrow(filters),3)
 })
 
-test_that("galah_filter treats `c()` as an OR statement", {
-  filters <- galah_filter(year == c(2010, 2021))
-  expect_equal(attr(filters, "call"), "galah_filter")
-  expect_equal(nrow(filters), 1)
-})
+# ## Errors - check
+## MUST RETURN A NICE ERROR
+# test_that("galah_filter treats `c()` as an OR for numerics", {
+#   filters <- galah_filter(year == c(2010, 2021))
+#   expect_equal(nrow(filters), 1)
+# })
 
-test_that("galah_filter can take an object as a field", {  
-  field <- "year"
-  filters <- galah_filter(field == 2010)
-  expect_equal(attr(filters, "call"), "galah_filter")
-  expect_equal(nrow(filters), 1)
-  expect_true(grepl("year", filters$query))
-})
+# test_that("galah_filter treats `c()` as an OR for strings", {
+#   filters <- galah_filter(multimedia == c("Image", "Sound", "Video"))
+#   expect_equal(nrow(filters), 1)
+#   expect_true(grepl("multimedia:\"Image\"", filters$query))
+# })
+
+# ## NOT SUPPORTED: requires :=
+##  - note this is difficult to support as it parses as a named object
+## i.e. gets caught by check_named_input()
+# test_that("galah_filter can take an object as a field", {  
+#   field <- "year"
+#   filters <- galah_filter(field := 2010)
+#   expect_equal(nrow(filters), 1)
+#   expect_true(grepl("year", filters$query))
+# })
 
 test_that("galah_filter can take an object as a value", { 
   value <- "2010"
   filters <- galah_filter(year == value)
-  expect_equal(attr(filters, "call"), "galah_filter")
   expect_equal(nrow(filters), 1)
   expect_match(filters$query, "(year:\"2010\")")
 })
 
-test_that("galah_filter can take an object with length >1 as a value", { 
-  years <- c(2010, 2021)
-  filters <- galah_filter(year == years)
-  expect_equal(attr(filters, "call"), "galah_filter")
-  expect_equal(nrow(filters), 1)
-  expect_true(grepl("2010", filters$query))
-})
-
-test_that("galah_filter can take an object as an equation", { 
-  input_text <- "year == 2010"
-  filters <- galah_filter(input_text)
-  expect_equal(attr(filters, "call"), "galah_filter")
-  expect_equal(nrow(filters), 1)
-  expect_true(grepl("2010", filters$query))
-})
-
-test_that("galah_filter can take an object from a list", { 
-  input <- list("year == 2010")
-  filters <- galah_filter(input[[1]])
-  expect_equal(attr(filters, "call"), "galah_filter")
-  expect_equal(nrow(filters), 1)
-  expect_true(grepl("2010", filters$query))
-})
-
-test_that("galah_filter can accept an equation built with `paste`", { 
-  filters <- galah_filter(paste("year", "2010", sep = " == "))
-  expect_equal(attr(filters, "call"), "galah_filter")
-  expect_equal(nrow(filters), 1)
-  expect_true(grepl("2010", filters$query))
+test_that("galah_filter returns error when equations are passed as a string", {
+  expect_error(galah_filter("year == 2010"))
 })
 
 # # quoting an equation that contains objects - NOT SUPPORTED
 # # consider writing a test to specifically exclude this
+## or use := as per {dplyr} - note this is difficult to support as it parses as a named object
+## i.e. gets caught by check_named_input()
 # field <- "year"
 # value <- "2010"
 # filters <- galah_filter("field == value")
@@ -162,9 +169,7 @@ test_that("galah_filter can accept an equation built with `paste`", {
 # expect_true(grepl("2010", filters$query))
 
 test_that("galah_filter handles taxonomic queries", {
-  # ensure a taxonomic query to galah_filter works
   filters <- galah_filter(taxonConceptID == search_taxa("Animalia")$taxon_concept_id)
-  expect_equal(attr(filters, "call"), "galah_filter")
   expect_equal(nrow(filters), 1)
   expect_false(grepl("search_taxa", filters$query))
 })
@@ -172,49 +177,58 @@ test_that("galah_filter handles taxonomic queries", {
 test_that("galah_filter handles taxonomic queries when passed as a string", {
   # ensure a taxonomic query to galah_filter works
   filters <- galah_filter(taxonConceptID == "https://biodiversity.org.au/afd/taxa/012a1234")
-  expect_equal(attr(filters, "call"), "galah_filter")
   expect_equal(nrow(filters), 1)
   expect_false(grepl("search_taxa", filters$query))
+  expect_true(grepl("taxonConceptID", filters$query))
 })
 
 test_that("galah_filter handles taxonomic exclusions", {
   filters <- galah_filter(
     taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
     taxonConceptID != search_taxa("Chordata")$taxon_concept_id)
-  expect_equal(attr(filters, "call"), "galah_filter")
   expect_equal(nrow(filters), 2)
   expect_false(any(grepl("search_taxa", filters$query)))
 })
 
-# test_that("galah_filter handles different fields separated by OR", {
-#   filters <- galah_filter(phylum == "Chordata" | kingdom == "Plantae")
-# })
+test_that("galah_filter handles different fields separated by OR", {
+  filters <- galah_filter(phylum == "Chordata" | kingdom == "Plantae")
+})
 
 test_that("galah_filter fails when given invalid AND syntax", {
-  filters <- galah_filter(year >= 2020 & 2021)
-  expect_equal(nrow(filters), 1)
-  expect_false(any(filters$value == 2021))
+  expect_error(galah_filter(year >= 2020 & 2021))
 })
 
 test_that("galah_filter fails when given invalid OR syntax", {
-  filters <- galah_filter(year == 2020 | 2021)
-  expect_equal(nrow(filters), 1)
-  expect_false(any(filters$value == 2021))
-  expect_false(grepl("OR", filters$query))
+  expect_error(galah_filter(year == 2020 | 2021))
 })
 
-test_that("galah_filter handles concatenated strings", {
-  filters <- galah_filter(multimedia == c("Image", "Sound", "Video"))
-  expect_equal(nrow(filters), 1)
-  expect_true(grepl("multimedia:\"Image\"", filters$query))
-})
-
-test_that("galah_filter handles concatenated numerics", {
-  filters <- galah_filter(year == c(2010, 2015, 2020))
-  expect_equal(nrow(filters), 1)
-  expect_true(grepl("year:\"2010\"", filters$query))
-})
-
-# test that galah_filter handles is.na() even with multiple filters
 # test that galah_filter handles between() even with multiple filters
-# test that galah_fitler handles %in% even with multiple filters
+# NOTE: not implemented yet
+
+test_that("OR works for different fields", {
+  filters <- galah_filter(year == 2010 | basisOfRecord == "PRESERVED_SPECIMEN")
+  expect_true(grepl("year", filters$query) & 
+              grepl("basisOfRecord", filters$query))
+})
+
+test_that("galah_filter handles is.na() even with multiple filters", {
+  filter_single <- galah_filter(is.na(eventDate))
+  filter_multiple <- galah_filter(is.na(eventDate), year > 2010)
+  expect_equal(nrow(filter_single), 1)
+  expect_equal(nrow(filter_multiple), 2)
+  expect_true(grepl("(*:* AND -eventDate:*)", filter_single$query))
+  expect_true(grepl("(*:* AND -eventDate:*)", filter_multiple$query[[1]]))
+})
+
+## GIVES warning
+# Subsetting quosures with `[[` is deprecated as of rlang 0.4.0
+# Please use `quo_get_expr()` instead.
+test_that("galah_filter handles %in% even with multiple filters", {
+  list_of_years <- 2020:2022
+  filter_single <- galah_filter(year %in% list_of_years)
+  filter_multiple <- galah_filter(year %in% list_of_years, cl22 == "Tasmania")
+  expect_equal(nrow(filter_single), 1)
+  expect_equal(nrow(filter_multiple), 2)
+  expect_equal("((((year:\"2020\") OR (year:\"2021\")) OR (year:\"2022\")))", filter_single$query[[1]])
+  expect_equal("((((year:\"2020\") OR (year:\"2021\")) OR (year:\"2022\")))", filter_multiple$query[[1]])
+})

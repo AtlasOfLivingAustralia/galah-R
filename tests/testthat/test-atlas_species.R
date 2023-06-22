@@ -7,7 +7,7 @@ test_that("atlas_species fails nicely if no email is provided", {
 })
 
 
-test_that("atlas_species returns a dataframe", {
+test_that("atlas_species returns a tibble", {
   skip_on_cran()
   # galah_config(caching = TRUE)
   species <- atlas_species(identify = galah_identify("Osphranter"))
@@ -57,6 +57,14 @@ test_that("atlas_species returns correct results filtered by galah_geolocate", {
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })
 
+test_that("atlas_species works when no species are present", {
+  galah_config(email = "ala4r@ala.org.au")
+  result <- galah_call() |>
+    galah_identify("eolophus") |>
+    galah_filter(cl1048 == "Kimberley") |>
+    atlas_species()
+  # expect inherits tibble
+})
 
 test_that("new workflow is functional", {
   galah_config(email = "ala4r@ala.org.au")

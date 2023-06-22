@@ -18,6 +18,6 @@ compute_occurrences <- function(.data){
                            params = .data$query)
   }
   class(status_code) <- "data_response"
-  status_code$what <- "occurrences"
+  status_code$type <- "occurrences"
   return(status_code)
 }

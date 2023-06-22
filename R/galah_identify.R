@@ -119,8 +119,6 @@ parse_identify <- function(input_query, search){
     result <- as_tibble(data.frame(identifier = character()))
   }
 
-  # if a data request was supplied, return one
-  attr(result, "call") <- "galah_identify"
   return(result)
 }
 
