@@ -22,7 +22,7 @@ check_type <- function(type){
     type <- "occurrences-count"
   }
   valid_types <- c(
-    "occurrences", "species", "media-metadata", "media-files", 
+    "occurrences", "species", "media",
     "doi", "occurrences-count", "species-count")
   if(!(type %in% valid_types)){
     abort("`type` not recognised")

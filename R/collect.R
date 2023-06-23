@@ -14,11 +14,6 @@
 #' @name collect.data_request
 #' @param .data An object of class `data_request`, `data_query` or 
 #' `data_response` 
-#' @param filesize if `type` is `"media-files"`, what size of file should be 
-#' returned? Should be one of `"full"` (default) or `"thumbnail"`
-#' @param path Optional path to where file should be stored. If not given 
-#' defaults to `galah_config()$package$path`, which defaults to a temporary 
-#' directory.
 #' @return `collect()` returns a `tibble` containing requested data. `compute()`
 #' returns an object of class `data_response`. `collapse()` returns an object of 
 #' class `data_query`.
@@ -43,17 +38,9 @@ collect.data_request <- function(.data){
              compute(.data) |> 
                collect_occurrences(wait = TRUE)
          },
-         # NOTE:
-         # there is the option here to have:
-          # `galah_call(type = "media") |> galah_media() |> collect()` # files
-          # `galah_call(type = "occurrences") |> galah_media() |> collect()` # metadata 
-         "media-metadata" = {
-           collapse(.data) |>
-           collect_media_metadata()},
-         "media-files" = {
-           compute(.data) |>
-             collect_media()           
-         },
+         "media" = {
+            collapse(.data) |>
+              collect_media()},
          abort("unrecognised 'type' supplied to `galah_call()`")
       )
 }
@@ -62,7 +49,6 @@ collect.data_request <- function(.data){
 #' @rdname collect.data_request
 #' @export
 collect.data_query <- function(.data){
-  .data$type <- check_type(.data$type)
   switch(.data$type,
          "counts" = collect_counts(.data),
          "species" = {
@@ -71,11 +57,7 @@ collect.data_query <- function(.data){
          "occurrences" = {
            compute(.data) |>
              collect_occurrences(wait = TRUE)},
-         "media-metadata" = collect_media_metadata(.data),
-         "media-files" = {
-           compute(.data) |>
-             collect_media()
-         },
+         "media" = collect_media(.data),
          abort("unrecognised 'type'")
   )
 }
@@ -90,7 +72,7 @@ collect.data_response <- function(.data){
          "occurrences-count" = collect_counts(.data),
          "species-count" = collect_counts(.data),
          "occurrences" = collect_occurrences(.data, wait),
-         "media-files" = collect_media(.data),
+         "media" = collect_media(.data),
          abort("unrecognised 'type'")
          # NOTE: "species" & "doi" have no `compute()` stage
   )
@@ -130,10 +112,7 @@ switch_compute <- function(.data){
          "occurrences" = {
            check_login(.data)
            compute_occurrences(.data)},
-         "media-metadata" = {
-           check_login(.data)
-           compute_media_metadata(.data)},
-         "media-files" = {
+         "media" = {
            check_login(.data)
            compute_media(.data)})   
 }
@@ -151,7 +130,6 @@ collapse.data_request <- function(.data){
            i = "try `collect() instead")),
          "species" = collapse_species(.data),
          "occurrences" = collapse_occurrences(.data),
-         "media-metadata" = collapse_media_metadata(.data),
-         "media-files" = collapse_media(.data),
+         "media" = collapse_media(.data),
          abort("unrecognised 'type'"))
 }

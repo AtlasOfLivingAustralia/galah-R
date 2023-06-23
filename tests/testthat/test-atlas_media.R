@@ -55,7 +55,7 @@ test_that("test new workflow for media makes sense", {
   galah_config(email = "ala4r@ala.org.au")
   
   # user makes us do all the work
-  collapse_1 <- galah_call(type = "media-metadata") |>
+  collapse_1 <- galah_call(type = "media") |>
     filter(
       year == 2023,
       month == 6,
@@ -64,16 +64,26 @@ test_that("test new workflow for media makes sense", {
   
   str(collapse_1)
   
+  compute_1 <- collapse_1 |> compute()
+  
+  collect(compute_1)
+  
+  # UP TO HERE
+  # BELOW USES OLD SYNTAX
+  
   # user gets own occurrences and passes IDs to "media-metadata"
-  media_test <- galah_call(type = "occurrences") |>
-    galah_filter(
+  media_test <- galah_call(type = "media") |>
+    filter(
       year == 2023,
       month == 6,
       species == "Litoria peronii") |>
       # !is.na(type)) |> # "videos" or "sounds" are valid options
     select(group = c("basic", "media")) |>
     # right_join("media") |>
-    collect()
+    collapse()
+  
+  media_test |> compute()
+  
   
   collapse_2 <- galah_call(type = "media-metadata", 
                               ids = media_test$images) |>

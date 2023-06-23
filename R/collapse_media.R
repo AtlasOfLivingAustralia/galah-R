@@ -1,33 +1,42 @@
-#' Internal function to get media data
+#' Internal version of `collapse()` for `type = "media"`
 #' @param .data An object of class `data_request` (from `galah_call()`)
-#' @importFrom dplyr filter
+#' @importFrom glue glue
+#' @importFrom glue glue_collapse
 #' @noRd
 #' @keywords Internal
 collapse_media <- function(.data){
-
-  # overwrite earlier `select` args to only allow minimal fields
-  lower_types <- paste0(tolower(.data$type), "s")
   
-  # overwrite `select` functions to only return required information
-  # NOTE: order matters here; if recordID is not first, no data are returned
-  .data$select <- galah_select(
-    "recordID", 
-    # group = "media") |>
-    group = c("basic", "media")) |>
-    filter(name %in% c("recordID", "multimedia", lower_types))
+  valid_formats <- c("images", "videos", "sounds")
   
-  # pass to collapse_occurrences for query construction
+  # ensure media columns are present
+  if(is.null(.data$select)){
+    .data <- update_galah_call(.data, 
+                               select = galah_select(group = c("basic", "media")))
+  }else{
+    if(!any(.data$select$name %in% valid_formats)){
+      .data <- update_galah_call(.data, 
+                                 select = galah_select(group = "media"))
+    }
+  }
+  
+  # use collapse_occurrences to generate query
   result <- collapse_occurrences(.data)
+  result$type <- "media"
   
   # filter to records that contain media of requested types 
   # NOTE: Might be more efficient to use `filter` for this, as it 
-  # includes to remove duplicated rows
-  media_fq <- glue("({lower_types}:*)") |>
-              glue_collapse(" OR ")
-  result$query$fq <- glue_collapse(c(result$query$fq, media_fq), " AND ") |>
-                     as.character()
-  
-  # convert to correct type and return
-  result$type <- "media"
+  # includes code to remove duplicated rows
+  present_formats <- valid_formats[valid_formats %in% .data$select$name]
+  media_fq <- glue("({present_formats}:*)") |>
+    glue_collapse(" OR ")
+  media_fq <- glue("({media_fq})")
+  if(nchar(result$query$fq) < 1){
+    result$query$fq <- as.character(media_fq)
+  }else{
+    result$query$fq <- glue_collapse(
+      c(result$query$fq, media_fq), 
+      " AND ") |>
+     as.character()
+  }
   return(result)
 }

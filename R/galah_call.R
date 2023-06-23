@@ -34,7 +34,6 @@
 #'  - `media` (accepts `galah_media()`)
 #'  - `down_to` (accepts `galah_down_to()`, specific to `atlas_taxonomy()`)
 #'  - `doi` (accepts a sting listing a valid DOI, specific to `collect()` when `type = "doi"`)
-#'  - `ids` (accepts a vector of media IDs)
 #'  
 #'  Unrecognised names are ignored by `collect()` and related functions.
 #' 
@@ -65,15 +64,26 @@
 #' @export galah_call
 galah_call <- function(type = "occurrences",
                        ...){
-  request <- list(type = check_type(type), ...)
-  class(request) <- "data_request"
-  return(request)
+  
+  # create an empty list
+  default_call <- vector(mode = "list", length = 9)
+  names(default_call) <- c("type", "identify", "filter", "select", "group_by",
+                           "geolocate", "limit", "media", "doi")
+  default_call$type <- check_type(type)
+  class(default_call) <- "data_request"
+  
+  # update
+  if(length(list(...)) > 0){
+    update_galah_call(default_call, ...)
+  }else{
+    default_call
+  }
 }
 
 update_galah_call <- function(data_request, ...){
   dots <- list(...)
   if(length(dots)[[1]] == 1){
-    if(inherits(dots[[1]], "list")){
+    if(inherits(dots[[1]], "list") & is.null(names(dots[[1]]))){
       dots <- dots[[1]]
     }
   }
@@ -101,7 +111,6 @@ update_galah_call <- function(data_request, ...){
               # simply pass the most recent result (i.e. overwrite)
               dots[[a]] # default
             )
-            attr(result, "call") <- paste0("galah_", a) # add the `call` attr
             result
           }      
         }
