@@ -146,42 +146,19 @@ with <code>dplyr</code> and the <code>tidyverse</code>.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Begin your query with `galah_call()`, then pipe using `%&gt;%` or `|&gt;`</span></span></span>
-<span class="r-in"><span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Get number of records of *Aves* from 2001 to 2004 by year</span></span></span>
 <span class="r-in"><span><span class="fu">galah_call</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Aves"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">2000</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&lt;</span> <span class="fl">2005</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="galah_group_by.html">galah_group_by</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="galah_group_by.html">galah_group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   count</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0</span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span><span class="co"># Get information for all species in *Cacatuidae* family</span></span></span>
 <span class="r-in"><span><span class="fu">galah_call</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Cacatuidae"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="atlas_species.html">atlas_species</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 14 × 10</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    kingdom  phylum   class order        family genus species author species_guid</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Animalia Chordata Aves  Psittacifor… Cacat… Eolo… Eoloph… (Viei… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Animalia Chordata Aves  Psittacifor… Cacat… Caca… Cacatu… (Lath… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Animalia Chordata Aves  Psittacifor… Cacat… Caca… Cacatu… Gould… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Animalia Chordata Aves  Psittacifor… Cacat… Zanda Zanda … (Shaw… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Animalia Chordata Aves  Psittacifor… Cacat… Caca… Cacatu… (Kuhl… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Animalia Chordata Aves  Psittacifor… Cacat… Call… Calloc… (Gran… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Animalia Chordata Aves  Psittacifor… Cacat… Caly… Calypt… (Lath… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Animalia Chordata Aves  Psittacifor… Cacat… Nymp… Nymphi… (Kerr… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Animalia Chordata Aves  Psittacifor… Cacat… Caly… Calypt… (Temm… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Animalia Chordata Aves  Psittacifor… Cacat… Loph… Lophoc… (Vigo… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Animalia Chordata Aves  Psittacifor… Cacat… Zanda Zanda … Carna… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Animalia Chordata Aves  Psittacifor… Cacat… Zanda Zanda … Lear,… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Animalia Chordata Aves  Psittacifor… Cacat… Caca… Cacatu… (Goul… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Animalia Chordata Aves  Psittacifor… Cacat… Prob… Probos… (Gmel… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: vernacular_name &lt;chr&gt;</span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> </span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Download records of genus *Eolophus* from 2001 to 2004</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your-email@email.com"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -190,6 +167,7 @@ with <code>dplyr</code> and the <code>tidyverse</code>.</p>
 <span class="r-in"><span>  <span class="fu"><a href="galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">2000</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&lt;</span> <span class="fl">2005</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

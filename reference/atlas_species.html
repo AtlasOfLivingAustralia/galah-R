@@ -143,7 +143,8 @@ required that include filter but without returning taxonomic detail, then
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># First register a valid email address</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># First register a valid email address</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"ala4r@ala.org.au"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Get a list of species within genus "Heleioporus"</span></span></span>
@@ -151,49 +152,17 @@ required that include filter but without returning taxonomic detail, then
 <span class="r-in"><span><span class="fu"><a href="galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Heleioporus"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">atlas_species</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 10</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   kingdom  phylum   class    order family      genus species author species_guid</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Animalia Chordata Amphibia Anura Limnodynas… Hele… Heleio… (Gray… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Animalia Chordata Amphibia Anura Limnodynas… Hele… Heleio… (Shaw… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Animalia Chordata Amphibia Anura Limnodynas… Hele… Heleio… Gray,… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Animalia Chordata Amphibia Anura Limnodynas… Hele… Heleio… (Lee … https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Animalia Chordata Amphibia Anura Limnodynas… Hele… Heleio… Lee, … https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Animalia Chordata Amphibia Anura Limnodynas… Hele… Heleio… (Lee … https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: vernacular_name &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Get a list of species within family "Peramelidae"</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"peramelidae"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">atlas_species</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 15 × 10</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    kingdom  phylum   class    order     family genus species author species_guid</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Animalia Chordata Mammalia Peramele… Peram… Isoo… Isoodo… (Goul… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Animalia Chordata Mammalia Peramele… Peram… Pera… Perame… Geoff… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Animalia Chordata Mammalia Peramele… Peram… Isoo… Isoodo… (Shaw… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Animalia Chordata Mammalia Peramele… Peram… Pera… Perame… Gray,… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Animalia Chordata Mammalia Peramele… Peram… Isoo… Isoodo… (Rams… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Animalia Chordata Mammalia Peramele… Peram… Isoo… Isoodo… (J.E.… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Animalia Chordata Mammalia Peramele… Peram… Pera… Perame… Thoma… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Animalia Chordata Mammalia Peramele… Peram… Pera… Perame… Quoy … https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Animalia Chordata Mammalia Peramele… Peram… Echy… Echymi… (Pete… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Animalia Chordata Mammalia Peramele… Peram… Isoo… Isoodo… Thoma… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Animalia Chordata Mammalia Peramele… Peram… Pera… Perame… Spenc… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Animalia Chordata Mammalia Peramele… Peram… Pera… Perame… Travo… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Animalia Chordata Mammalia Peramele… Peram… Pera… Perame… Thoma… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Animalia Chordata Mammalia Peramele… Peram… Pera… Perame… Wagne… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Animalia Chordata Mammalia Peramele… Peram… Pera… Perame… Gray,… https://bio…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: vernacular_name &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># It's good idea to find how many species there are before downloading</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Heleioporus"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="atlas_counts.html">atlas_counts</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   count</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     6</span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
