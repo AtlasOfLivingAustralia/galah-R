@@ -31,7 +31,8 @@
 #' then [search_taxa()] is more efficient. Similarly, if counts are
 #' required that include filter but without returning taxonomic detail, then
 #' [atlas_counts()] is more efficient (see examples).
-#' @examples
+#' @examples 
+#' \dontrun{
 #' # First register a valid email address
 #' galah_config(email = "ala4r@ala.org.au")
 #' 
@@ -50,6 +51,7 @@
 #' galah_call() |>
 #'   galah_identify("Heleioporus") |>
 #'   atlas_counts(type = "species")
+#' }
 #' 
 #' @export
 atlas_species <- function(request = NULL,

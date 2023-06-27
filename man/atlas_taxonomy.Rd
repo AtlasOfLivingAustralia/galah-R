@@ -42,7 +42,7 @@ Although the inputs to \code{search_taxa} and \code{down_to} are
 case-insensitive, node names are always returned in title case.
 }
 \examples{
-\donttest{
+\dontrun{
 # Get a taxonomic tree of *Chordata* down to the class level
 galah_call() |> 
   galah_identify("chordata") |>

@@ -69,8 +69,14 @@ provides either a total count of records matching the criteria, or a
 argument.
 }
 \examples{
+\dontrun{
+# Count all records in the specified atlas
+atlas_counts()
+
+# Filtered counts
 galah_call() |>
   galah_filter(year == 2015) |>
   atlas_counts()
-  
+}
+
 }

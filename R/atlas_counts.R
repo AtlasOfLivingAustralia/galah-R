@@ -42,11 +42,16 @@
 #'  * A single number, if `group_by` is not specified or,
 #'  * A summary of counts grouped by field(s), if `group_by` is specified
 #'
-#' @examples
+#' @examples \dontrun{
+#' # Count all records in the specified atlas
+#' atlas_counts()
+#' 
+#' # Filtered counts
 #' galah_call() |>
 #'   galah_filter(year == 2015) |>
 #'   atlas_counts()
-#'   
+#' }
+#' 
 #' @export
 atlas_counts <- function(request = NULL, 
                          identify = NULL, 

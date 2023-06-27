@@ -61,20 +61,19 @@ a query to download data in the same way that you would wrangle data
 with \code{dplyr} and the \code{tidyverse}.
 }
 \examples{
-# Begin your query with `galah_call()`, then pipe using `\%>\%` or `|>`
-
+\dontrun{
 # Get number of records of *Aves* from 2001 to 2004 by year
 galah_call() |>
   galah_identify("Aves") |>
   galah_filter(year > 2000 & year < 2005) |>
-  galah_group_by() |>
+  galah_group_by(year) |>
   atlas_counts()
   
 # Get information for all species in *Cacatuidae* family
 galah_call() |>
   galah_identify("Cacatuidae") |>
   atlas_species()
-\dontrun{ 
+
 # Download records of genus *Eolophus* from 2001 to 2004
 galah_config(email = "your-email@email.com")
 
@@ -83,4 +82,5 @@ galah_call() |>
   galah_filter(year > 2000 & year < 2005) |>
   atlas_occurrences()
 }
+
 }

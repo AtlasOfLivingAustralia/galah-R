@@ -30,7 +30,8 @@
 #' `show_all(ranks)` for valid ranks used to specify the `down_to`
 #' argument.
 #' 
-#' @examples \donttest{
+#' @examples 
+#' \dontrun{
 #' # Get a taxonomic tree of *Chordata* down to the class level
 #' galah_call() |> 
 #'   galah_identify("chordata") |>

@@ -30,7 +30,8 @@
 #' is not necessarily the same as the number of media files, as each record can have
 #' more than one media file associated with it (see examples section for how to do this).
 #' 
-#' @examples \dontrun{
+#' @examples 
+#' \dontrun{
 #' # Download Regent Honeyeater records with multimedia attached
 #' galah_call() |>
 #'   galah_identify("Regent Honeyeater") |>

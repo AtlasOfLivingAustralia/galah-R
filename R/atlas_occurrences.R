@@ -47,7 +47,8 @@
 #' * a `doi` of the data download
 #' * the `search_url` of the query to ALA API
 #' 
-#' @examples \dontrun{
+#' @examples 
+#' \dontrun{
 #' # Download occurrence records for a specific taxon
 #' galah_config(email = "your_email_here")
 #' galah_call() |>

@@ -164,8 +164,8 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Matilda Stevenson
   \item Dax Kellie \email{dax.kellie@csiro.au}
+  \item Matilda Stevenson
   \item Peggy Newman \email{peggy.newman@csiro.au}
 }
 
