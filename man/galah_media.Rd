@@ -6,24 +6,40 @@
 \title{Function to specify how media should be handled by \code{galah}}
 \usage{
 galah_media(
-  .data,
+  ...,
+  id = NULL,
+  format = c("image", "sound", "video"),
   path = ".",
   filesize = c("full", "thumbnail"),
-  media = c("image", "sound", "video")
+  .join = c("full_join", "inner_join", "left_join", "right_join")
 )
 
-media(.data, path, filesize, media)
+media(
+  ...,
+  id = NULL,
+  format = c("image", "sound", "video"),
+  path = ".",
+  filesize = c("full", "thumbnail"),
+  .join = c("full_join", "inner_join", "left_join", "right_join")
+)
 }
 \arguments{
-\item{.data}{An object of class \code{data_request}}
+\item{...}{Optional additional arguments, typically including an object of
+class \code{data_request}.}
+
+\item{id}{Optional vector giving media identifiers to be collected.}
 
 \item{path}{String: where should data be saved?}
 
 \item{filesize}{String: either "full" (default) or "thumbnail". Note only
 applies if \code{media = "image"}.}
 
+\item{.join}{String: if \code{type = "occurrences"}, how should occurrences and
+media metadata be joined? Should be one of the \code{dplyr} mutating joins,
+defaulting to \code{"full_join"}.}
+
 \item{media}{Vector: One or more of "image", "sound" or "video", defaulting
-to all three.}
+to all three. Ignored if \code{id} is specified.}
 }
 \description{
 In prep

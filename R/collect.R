@@ -31,7 +31,6 @@ collect.data_request <- function(.data){
                             collect_counts()},
          "doi" = collect_doi(.data),
          "species" = {
-           check_login(.data)
            collapse(.data) |>
               collect_species()},
          "occurrences" = {

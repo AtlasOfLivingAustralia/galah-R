@@ -44,8 +44,9 @@ collect_occurrences <- function(.data, wait){
   }
   
   # get data
-  # result <- url_download(download_response[[lookup$download_tag]])
-  result <- url_download(download_response)
+  # sometimes lookup info critical, but not others
+  result <- url_download(download_response[[lookup$download_tag]]) 
+  # result <- url_download(download_response)
   
   if(is.null(result)){
     inform("Download failed")
@@ -64,11 +65,6 @@ collect_occurrences <- function(.data, wait){
   
   # check for, and then clean, media info
   result <- check_media_cols(result)
-  
-  # return tibble with correct info
-  attr(result, "data_type") <- "occurrences"
-  attr(result, "call") <- "atlas_occurrences"
-  
   return(result)
 }
 

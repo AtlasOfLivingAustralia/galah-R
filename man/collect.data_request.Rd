@@ -25,13 +25,6 @@
 \item{.data}{An object of class \code{data_request}, \code{data_query} or
 \code{data_response}}
 
-\item{filesize}{if \code{type} is \code{"media-files"}, what size of file should be
-returned? Should be one of \code{"full"} (default) or \code{"thumbnail"}}
-
-\item{path}{Optional path to where file should be stored. If not given
-defaults to \code{galah_config()$package$path}, which defaults to a temporary
-directory.}
-
 \item{wait}{logical; should \code{galah} ping the selected url until computation
 is complete? Defaults to \code{FALSE}.}
 }

@@ -52,7 +52,6 @@ arguments are:
 \item \code{media} (accepts \code{galah_media()})
 \item \code{down_to} (accepts \code{galah_down_to()}, specific to \code{atlas_taxonomy()})
 \item \code{doi} (accepts a sting listing a valid DOI, specific to \code{collect()} when \code{type = "doi"})
-\item \code{ids} (accepts a vector of media IDs)
 }
 
 Unrecognised names are ignored by \code{collect()} and related functions.

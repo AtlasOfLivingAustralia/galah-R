@@ -8,7 +8,7 @@ collect_media <- function(.data){
   # use occurrences system to download data
   occurrences <- collect_occurrences(.data, wait = FALSE)
   
-  if(is.null(occurrences) | !inherits(occurrences, "tibble")){
+  if(is.null(occurrences) | !inherits(occurrences, "data.frame")){
     abort("Unable to download occurrences with associated media")
   }
   valid_formats <- c("images", "videos", "sounds")
@@ -17,11 +17,8 @@ collect_media <- function(.data){
   }
   
   # get media IDs and associated rows
-  present_formats <- valid_formats[valid_formats %in% colnames(occurrences)]
-  ids <- do.call(c, occurrences[, present_formats]) |> 
-         unlist()
-  ids <- ids[!is.na(ids) & ids != ""]
-  
+  ids <- get_media_ids(occurrences)
+
   # run metadata
   urls <- paste0(sub("%7Bid%7D", "", url_lookup("image_metadata")), ids)
   metadata <- media_metadata(urls)
@@ -30,6 +27,19 @@ collect_media <- function(.data){
   # use tidyr::unnest_longer on `occurrences`, using `present_formats`
   # use dplyr::right_join to connect to format info
   # return
+}
+
+
+#' Internal function to pull out identifiers
+#' @noRd
+#' @keywords Internal
+get_media_ids <- function(df){
+  present_formats <- valid_formats[valid_formats %in% colnames(df)]
+  ids <- do.call(c, df[, present_formats]) |> 
+    unlist()
+  ids <- ids[!is.na(ids) & ids != ""]
+  names(ids) <- NULL
+  ids
 }
 
 #' Internal function to get metadata for a list of media ids
@@ -51,6 +61,7 @@ media_metadata <- function(urls){
   })
   bind_rows(result) |> tibble()
 }
+
 
 ## BELOW CODE IS PROBABLY OBSOLETE
 old_code_for_collect_media <- function(.data){
