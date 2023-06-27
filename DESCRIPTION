@@ -1,18 +1,18 @@
 Package: galah
 Type: Package
 Title: Biodiversity Data from the Living Atlas Community
-Version: 1.5.2
+Version: 1.5.3
 Authors@R:
     c(person(given = "Martin",
              family = "Westgate",
              email = "martin.westgate@csiro.au",
              role = c("aut", "cre")),
-      person(given = "Matilda",
-             family = "Stevenson",
-             role = "aut"),
       person(given = "Dax",
              family = "Kellie",
              email = "dax.kellie@csiro.au",
+             role = "aut"),
+      person(given = "Matilda",
+             family = "Stevenson",
              role = "aut"),
       person(given = "Peggy",
              family = "Newman",
@@ -57,6 +57,6 @@ BugReports: https://github.com/AtlasOfLivingAustralia/galah-R/issues
 Maintainer: Martin Westgate <martin.westgate@csiro.au>
 LazyLoad: yes
 VignetteBuilder: knitr
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

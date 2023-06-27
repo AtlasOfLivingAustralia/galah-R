@@ -4,11 +4,11 @@ note <- sprintf("R package version %s", meta$Version)
 citHeader("To cite galah in publications use:")
 
 bibentry(bibtype = "Manual",
-    "title" = "galah: Atlas of Living Australia (ALA) Data and Resources in R",
+    "title" = "galah: Biodiversity Data from the Living Atlas Community",
     author = c(person("Martin", "Westgate"),
-             person("Matilda", "Stevenson"),
-             person("Dax", "Kellie"),
-             person("Peggy", "Newman")),
+               person("Dax", "Kellie"),
+               person("Matilda", "Stevenson"),
+               person("Peggy", "Newman")),
      year = year,
      note = note,
      url = "https://CRAN.R-project.org/package=galah")
