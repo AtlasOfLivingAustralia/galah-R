@@ -160,85 +160,28 @@ arguments to <code><a href="galah_select.html">galah_select()</a></code>, <code>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Search for fields that include the word "date"</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Search for fields that include the word "date"</span></span></span>
 <span class="r-in"><span><span class="fu">search_all</span><span class="op">(</span><span class="va">fields</span>, <span class="st">"date"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 22 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id             description                                        type  link </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> month          <span style="color: #949494;">"</span>Month of observation, specimen collection date. … fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> cl23           <span style="color: #949494;">"</span>Local Government Areas 2012 deprecated LGA Bound… laye… http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> eventDate      <span style="color: #949494;">"</span>The ISO formatted date of observation, specimen … fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> cl10903        <span style="color: #949494;">"</span>Tenure of Australia's forests (2013) v2.0 Tenure… laye… http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> cl10955        <span style="color: #949494;">"</span>National Indicative Aggregated Fire Extent Datas… laye… http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> lastLoadDate    <span style="color: #BB0000;">NA</span>                                                fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> datePrecision  <span style="color: #949494;">"</span>The precision of the date information for the re… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> eventDateEnd    <span style="color: #BB0000;">NA</span>                                                fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> dateIdentified <span style="color: #949494;">"</span>http://rs.tdwg.org/dwc/terms/dateIdentified<span style="color: #949494;">"</span>      fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> raw_eventDate   <span style="color: #BB0000;">NA</span>                                                fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 12 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Search for fields that include the word "marine"</span></span></span>
 <span class="r-in"><span><span class="fu">search_all</span><span class="op">(</span><span class="va">fields</span>, <span class="st">"marine"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id      description                                                type  link </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> biome   <span style="color: #949494;">"</span>A field indicating if the record has been located in Ter… fiel… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> cl990   <span style="color: #949494;">"</span>Atlas of Life in the Coastal Wilderness The ALCW Bioregi… laye… http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> cl21    <span style="color: #949494;">"</span>IMCRA 4 Regions Integrated Marine and Coastal Regionalis… laye… http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> cl900   <span style="color: #949494;">"</span>Areas for Further Assessment within the East Marine Regi… laye… http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> cl11033 <span style="color: #949494;">"</span>CAPAD 2020 Terrestrial The Collaborative Australian Prot… laye… http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> cl11032 <span style="color: #949494;">"</span>CAPAD 2020 Marine The Collaborative Australian Protected… laye… http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> cl10912 <span style="color: #949494;">"</span>Australia's network of Marine Parks Consistent with the … laye… http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> cl10945 <span style="color: #949494;">"</span>CAPAD 2016 Marine The Collaborative Australian Protected… laye… http…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span> cl10944 <span style="color: #949494;">"</span>CAPAD 2016 Terrestrial The Collaborative Australian Prot… laye… http…</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Search using a single taxonomic term</span></span></span>
 <span class="r-in"><span><span class="co"># (see `?search_taxa()` for more information)</span></span></span>
 <span class="r-in"><span><span class="fu">search_all</span><span class="op">(</span><span class="va">taxa</span>, <span class="st">"Reptilia"</span><span class="op">)</span> <span class="co"># equivalent</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   search_term scientific_name taxon_concept_id   rank  match_type kingdom phylum</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Reptilia    REPTILIA        https://biodivers… class exactMatch Animal… Chord…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 more variables: class &lt;chr&gt;, issues &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Look up a unique taxon identifier</span></span></span>
 <span class="r-in"><span><span class="co"># (see `?search_identifiers()` for more information)</span></span></span>
 <span class="r-in"><span><span class="fu">search_all</span><span class="op">(</span><span class="va">identifiers</span>, </span></span>
 <span class="r-in"><span>           <span class="st">"https://id.biodiversity.org.au/node/apni/2914510"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 14</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   scientific_name     scientific_name_author…¹ taxon_concept_id rank  match_type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Eucalyptus blakelyi Maiden                   https://id.biod… spec… taxonIdMa…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ abbreviated name: ¹​scientific_name_authorship</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 9 more variables: kingdom &lt;chr&gt;, phylum &lt;chr&gt;, class &lt;chr&gt;, order &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;, vernacular_name &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   issues &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Search for species lists that match "endangered"</span></span></span>
 <span class="r-in"><span><span class="fu">search_all</span><span class="op">(</span><span class="va">lists</span>, <span class="st">"endangered"</span><span class="op">)</span> <span class="co"># equivalent</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 16</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    dataResourceUid listName   listType dateCreated lastUpdated username fullName</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> dr21460         Endangered OTHER    2023-04-19… 2023-04-19… daria.v… <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> dr21545         Endangere… OTHER    2023-04-28… 2023-04-28… simon@c… <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> dr21546         Endangere… OTHER    2023-04-28… 2023-04-28… simon@c… <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> dr19257         Endangere… OTHER    2022-06-02… 2022-06-02… alanahb… <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> dr20088         Top 30 En… CONSERV… 2022-10-20… 2022-11-21… aprille… <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> dr4890          Endangere… CONSERV… 2016-05-07… 2016-06-14… kiashen… <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> dr17134         Endangere… CONSERV… 2021-03-30… 2022-11-21… 1005880… <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> dr21057         threatene… CONSERV… 2023-03-07… 2023-03-07… amie.tu… <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> dr16203         EPBC Act … SPATIAL… 2020-09-08… 2020-09-08… robina.… <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> dr19750         Endangere… OTHER    2022-09-06… 2022-11-21… anneke.… <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 9 more variables: itemCount &lt;int&gt;, region &lt;chr&gt;, category &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   generalisation &lt;chr&gt;, authority &lt;chr&gt;, sdsType &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   isAuthoritative &lt;lgl&gt;, isInvasive &lt;lgl&gt;, isThreatened &lt;lgl&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Search for a valid taxonomic rank, "subphylum"</span></span></span>
 <span class="r-in"><span><span class="fu">search_all</span><span class="op">(</span><span class="va">ranks</span>, <span class="st">"subphylum"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      id name     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     7 subphylum</span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

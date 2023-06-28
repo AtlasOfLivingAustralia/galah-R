@@ -112,7 +112,8 @@ returned by <code><a href="atlas_occurrences.html">atlas_occurrences()</a></code
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Search for records using a bounding box of coordinates</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Search for records using a bounding box of coordinates</span></span></span>
 <span class="r-in"><span><span class="va">b_box</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html" class="external-link">st_bbox</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fl">143</span>, xmax <span class="op">=</span> <span class="fl">148</span>, ymin <span class="op">=</span> <span class="op">-</span><span class="fl">29</span>, ymax <span class="op">=</span> <span class="op">-</span><span class="fl">28</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>                     crs <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="st">"WGS84"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -120,12 +121,6 @@ returned by <code><a href="atlas_occurrences.html">atlas_occurrences()</a></code
 <span class="r-in"><span>  <span class="fu"><a href="galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">galah_bbox</span><span class="op">(</span><span class="va">b_box</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Data returned for bounding box:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> xmin = 143 xmax = 148 ymin = -29 ymax = -28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   count</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">1</span>848</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Search for records using a bounding box in a `tibble` or `data.frame`</span></span></span>
 <span class="r-in"><span><span class="va">b_box</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fl">148</span>, ymin <span class="op">=</span> <span class="op">-</span><span class="fl">29</span>, xmax <span class="op">=</span> <span class="fl">143</span>, ymax <span class="op">=</span> <span class="op">-</span><span class="fl">21</span><span class="op">)</span></span></span>
@@ -134,14 +129,7 @@ returned by <code><a href="atlas_occurrences.html">atlas_occurrences()</a></code
 <span class="r-in"><span>  <span class="fu"><a href="galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">galah_bbox</span><span class="op">(</span><span class="va">b_box</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Data returned for bounding box:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> xmin = 148 xmax = 143 ymin = -29 ymax = -21</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   count</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> <span style="text-decoration: underline;">14</span>479</span>
 <span class="r-in"><span>  </span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Search for records within the bounding box of an `sf` object</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="galah_config.html">galah_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your_email_here"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
