@@ -6,7 +6,8 @@
 #' @param df 
 #'   A `tibble` of species occurrence records or media IDs.
 #' @returns a `tibble` of matching media files of occurrence records or media ids
-#' @examples \dontrun{
+#' @examples 
+#' \dontrun{
 #' # Search for media files for a set of species occurrence records
 #' occs <- galah_call() |>
 #'   galah_identify("perameles") |>

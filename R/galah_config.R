@@ -51,7 +51,8 @@
 #' When `galah_config(...)` is called with arguments, nothing is returned
 #' but the configuration is set.
 #' 
-#' @examples \dontrun{
+#' @examples 
+#' \dontrun{
 #' # To download occurrence records, enter your email in `galah_config()`. 
 #' # This email should be registered with the ALA. 
 #' # You can register at:

@@ -18,6 +18,7 @@
 #' returned by [atlas_occurrences()] and related functions.
 #' 
 #' @examples
+#' \dontrun{
 #' # Search for records within a polygon using an `sf` object
 #' location <- "POLYGON((142.3 -29.0,142.7 -29.1,142.7 -29.4,142.3 -29.0))" |>
 #'   sf::st_as_sfc()
@@ -25,7 +26,7 @@
 #'   galah_identify("reptilia") |>
 #'   galah_polygon(location) |>
 #'   atlas_counts()
-#' \dontrun{
+#'
 #' # Search for records using a shapefile
 #' galah_config(email = "your_email_here")
 #' location <- galah_geolocate(sf::st_read(path/to/shapefile.shp))

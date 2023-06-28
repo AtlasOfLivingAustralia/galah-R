@@ -18,8 +18,10 @@
 #' by [atlas_occurrences()] and related functions.
 #' 
 #' @examples 
+#' \dontrun{
 #' # Look up a unique taxon identifier
 #' search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
+#' }
 #' 
 #' @export
 search_identifiers <- function(query) {

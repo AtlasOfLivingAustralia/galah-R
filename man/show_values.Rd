@@ -50,7 +50,7 @@ For example, the Endangered Plant species list contains values:
 }
 }
 \examples{
-\donttest{
+\dontrun{
 # Show values in field 'cl22'
 search_fields("cl22") |> 
   show_values()

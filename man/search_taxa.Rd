@@ -32,6 +32,7 @@ or the \code{scientificName} argument to specify the
 scientific name (which may include the subspecific epithet if required).
 }
 \examples{
+\dontrun{
 # Search using a single string. 
 # Note that `search_taxa()` isn't case sensitive
 search_taxa("Reptilia")
@@ -57,6 +58,7 @@ taxa <- search_taxa("reptilia", "mammalia")
 galah_call() |>
   galah_identify(taxa) |>
   atlas_counts()
+}
 
 }
 \seealso{

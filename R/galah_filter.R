@@ -59,11 +59,13 @@
 #' `galah_filter(cl22 >= "Tasmania")`
 #' 
 #' @examples
+#' \dontrun{
 #' # Filter query results to return records of interest
 #' galah_call() |>
 #'   galah_filter(year >= 2019,
 #'                basisOfRecord == "HumanObservation") |>
 #'   atlas_counts()
+#' }
 #' 
 #' @importFrom rlang caller_env         
 #' @importFrom rlang enquos

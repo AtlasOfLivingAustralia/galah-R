@@ -28,6 +28,7 @@
 #' up taxonomic trees.
 #' 
 #' @examples 
+#' \dontrun{
 #' # Search using a single string. 
 #' # Note that `search_taxa()` isn't case sensitive
 #' search_taxa("Reptilia")
@@ -53,7 +54,8 @@
 #' galah_call() |>
 #'   galah_identify(taxa) |>
 #'   atlas_counts()
-#'
+#' }
+#' 
 #' @importFrom utils adist 
 #' @importFrom dplyr rename
 #' @export

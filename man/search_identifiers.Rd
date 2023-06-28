@@ -24,8 +24,10 @@ on the taxon in question. Effectively this is the inverse function to
 filter queries to the specified taxon or taxa.
 }
 \examples{
+\dontrun{
 # Look up a unique taxon identifier
 search_identifiers(query = "https://id.biodiversity.org.au/node/apni/2914510")
+}
 
 }
 \seealso{

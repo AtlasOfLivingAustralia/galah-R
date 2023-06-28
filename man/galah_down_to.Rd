@@ -18,8 +18,8 @@ A string with the named rank
 \code{galah_down_to()} uses non-standard evaluation (NSE).
 }
 \examples{
-# Return a taxonomic tree of *Chordata* down to the class level
 \dontrun{
+# Return a taxonomic tree of *Chordata* down to the class level
 galah_call() |>
     galah_identify("Vertebrata") |>
     galah_down_to(class) |>

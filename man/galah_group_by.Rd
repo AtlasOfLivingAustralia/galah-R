@@ -25,9 +25,12 @@ used to return record counts grouped by multiple, valid fields (found by
 by one or more valid fields.
 }
 \examples{
+\dontrun{
 galah_call() |> 
   galah_group_by(basisOfRecord) |>
   atlas_counts()
+}
+
 }
 \seealso{
 \code{\link[=galah_select]{galah_select()}}, \code{\link[=galah_filter]{galah_filter()}} and

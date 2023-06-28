@@ -15,7 +15,8 @@
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
 #' occurrences 
 #' 
-#' @examples \dontrun{
+#' @examples 
+#' \dontrun{
 #' # Download previously retrieved records using an existing DOI or URL
 #' collect_occurrences(doi = "your-doi")
 #' 

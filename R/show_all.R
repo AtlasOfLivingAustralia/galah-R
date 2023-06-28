@@ -48,6 +48,7 @@
 #' search for information. These functions are used to pass valid arguments to
 #' [galah_select()], [galah_filter()], and related functions.
 #' @examples
+#' \dontrun{
 #' # See all supported atlases
 #' show_all(atlases)
 #'
@@ -59,7 +60,7 @@
 #' 
 #' # Show a listing of all taxonomic ranks
 #' show_all(ranks)
-#' 
+#' }
 #' 
 #' @md
 NULL

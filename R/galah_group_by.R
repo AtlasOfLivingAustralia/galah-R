@@ -14,9 +14,12 @@
 #' @seealso [galah_select()], [galah_filter()] and
 #' [galah_geolocate()] for related methods.
 #' @examples
+#' \dontrun{
 #' galah_call() |> 
 #'   galah_group_by(basisOfRecord) |>
 #'   atlas_counts()
+#' }
+#' 
 #' @export
 galah_group_by <- function(..., expand = TRUE){
   

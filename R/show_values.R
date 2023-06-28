@@ -28,7 +28,8 @@
 #' @param df A search result from [search_fields()], [search_profiles()] or 
 #' [search_lists()].
 #' @return A `tibble` of values for a specified field, profile or list.
-#' @examples \donttest{
+#' @examples 
+#' \dontrun{
 #' # Show values in field 'cl22'
 #' search_fields("cl22") |> 
 #'   show_values()

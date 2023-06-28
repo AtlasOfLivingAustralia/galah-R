@@ -30,6 +30,7 @@ must have "xmin", "xmax", "ymin" and "ymax" columns with valid \code{numeric}
 values.
 }
 \examples{
+\dontrun{
 # Search for records using a bounding box of coordinates
 b_box <- sf::st_bbox(c(xmin = 143, xmax = 148, ymin = -29, ymax = -28), 
                      crs = sf::st_crs("WGS84"))
@@ -47,7 +48,6 @@ galah_call() |>
   galah_bbox(b_box) |>
   atlas_counts()
   
-\dontrun{
 # Search for records within the bounding box of an `sf` object
 galah_config(email = "your_email_here")
 

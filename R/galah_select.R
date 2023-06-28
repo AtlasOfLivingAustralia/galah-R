@@ -54,7 +54,8 @@
 #' for how to get counts by levels of variables returned by `galah_select`;
 #' `show_all(fields)` to list available fields.
 #' 
-#' @examples \dontrun{
+#' @examples 
+#' \dontrun{
 #' # Download occurrence records of *Perameles*, 
 #' # Only return scientificName and eventDate columns
 #' galah_config(email = "your-email@email.com")

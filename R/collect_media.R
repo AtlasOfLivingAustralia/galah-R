@@ -16,7 +16,8 @@
 #'
 #' @return Available image & media files downloaded to a user local directory.
 #'
-#' @examples \dontrun{
+#' @examples 
+#' \dontrun{
 #' # Use `atlas_media()` to return a `tibble` of records that contain media
 #' galah_call() |> 
 #'   galah_identify("perameles") |>

@@ -57,6 +57,7 @@
 #' arguments to [galah_select()], [galah_filter()], and related functions.
 #' 
 #' @examples
+#' \dontrun{
 #' # Search for fields that include the word "date"
 #' search_all(fields, "date")
 #' 
@@ -77,6 +78,7 @@
 #' 
 #' # Search for a valid taxonomic rank, "subphylum"
 #' search_all(ranks, "subphylum")
+#' }
 #' 
 NULL
 

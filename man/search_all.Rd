@@ -88,6 +88,7 @@ The available types of information for \code{search_all()} are:\tabular{llll}{
 }
 }
 \examples{
+\dontrun{
 # Search for fields that include the word "date"
 search_all(fields, "date")
 
@@ -108,6 +109,7 @@ search_all(lists, "endangered") # equivalent
 
 # Search for a valid taxonomic rank, "subphylum"
 search_all(ranks, "subphylum")
+}
 
 }
 \references{
