@@ -16,8 +16,11 @@
 
 \item{prop}{currently ignored}
 }
+\value{
+An updated object of class \code{data_request}, whose \code{limit} argument
+is set with an integer value provided by \code{n}.
+}
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 This is a simple function to set the 'limit' argument in \code{\link[=atlas_counts]{atlas_counts()}}
 using \code{dplyr} syntax.
 }

@@ -6,7 +6,10 @@
 #' (i.e. have too many characters or too many vertices) or they will not be
 #' accepted in a query to the ALA.
 #'
-#' @param ... a single `sf` object, WKT string or shapefile. 
+#' @rdname galah_polygon
+#' @param ... When supplied to `galah_polygon()`, a single `sf` object, WKT 
+#' string or shapefile. Currently ignored when supplied to 
+#' `st_crop.data_request()`
 #' @details WKT strings longer than 10000 characters and 
 #' `sf` objects with more than 500 vertices will not be
 #' accepted by the ALA. Some polygons  may need to be simplified.

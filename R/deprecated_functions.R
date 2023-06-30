@@ -7,6 +7,10 @@
 #' 
 #' @keywords internal
 #' @export
+#' @param query A vector of taxonomic names (for `select_taxa()`) or a valid
+#' well-known text string (for `select_locations()`).
+#' @param is_id Logical: Does the information provided in `query` consist of 
+#' taxonomic identifiers (TRUE), or taxonomic names (FALSE, the default).
 #' @name deprecated
 #' @return All deprecated functions return a `tibble`.
 select_taxa <- function(query, is_id = FALSE) {
@@ -22,7 +26,10 @@ select_taxa <- function(query, is_id = FALSE) {
 
 #' @description
 #' Use [galah_select()] instead of `select_columns()`.
-#' 
+#' @param ... Queries consisting of field names (for `select_columns()`) or 
+#' equations (for `select_filters()`).
+#' @param group optional; the name of a group of columns to include. See 
+#' `galah_select()` for details.
 #' @keywords internal
 #' @export
 #' @name deprecated
@@ -34,7 +41,7 @@ select_columns <- function(..., group){
 
 #' @description
 #' Use [galah_filter()] instead of `select_filters()`.
-#'
+#' @param profile String: The name of a valid ALA profile.
 #' @keywords internal
 #' @export
 #' @name deprecated
@@ -60,7 +67,15 @@ select_locations <- function(query) {
 
 #' @description 
 #' Use [atlas_occurrences()] instead of `ala_occurrences()`.
-#'
+#' @param taxa A tibble created with `galah_identify()`
+#' @param filters A tibble created with `galah_filter()`
+#' @param locations A tibble created with `galah_geolocate()`
+#' @param columns A tibble created with `galah_select()`
+#' @param mint_doi Logical: Should a DOI be created for this download? Defaults
+#' to FALSE.
+#' @param doi String: Optional ALA DOI to download
+#' @param refresh_cache Logical: Should the data be re-downloaded to the cache?
+#' Defaults to FALSE.
 #' @keywords internal
 #' @export
 #' @name deprecated
@@ -86,7 +101,9 @@ ala_occurrences <- function(taxa = NULL, filters = NULL, locations = NULL,
 
 #' @description
 #' Use [atlas_counts()] instead of `ala_counts()`.
-#'
+#' @param limit Integer: How many records should be downloaded? Defaults to 100.
+#' @param type String: Should counts be made of the number of `"records"` 
+#' (default) or `"species"`?
 #' @keywords internal
 #' @export
 #' @name deprecated
@@ -131,7 +148,7 @@ ala_species <- function(taxa = NULL, filters = NULL, locations = NULL,
 
 #' @description
 #' Use [atlas_taxonomy()] instead of `ala_taxonomy()`.
-#' 
+#' @param down_to A tibble created with `galah_down_to()`
 #' @keywords internal
 #' @export
 #' @name deprecated
@@ -146,7 +163,7 @@ ala_taxonomy <- function(taxa, down_to){
 
 #' @description
 #' Use [atlas_media()] instead of `ala_media()`.
-#' 
+#' @param download_dir Path to a directory in which to place media files
 #' @keywords internal
 #' @export
 #' @name deprecated
@@ -170,7 +187,7 @@ ala_media <- function(taxa = NULL,
 
 #' @description 
 #' Use [atlas_citation()] instead of `ala_citation()`.
-#' 
+#' @param data A tibble returned by `ala_occurrences()`
 #' @keywords internal
 #' @export
 #' @name deprecated
@@ -245,7 +262,7 @@ find_atlases <- function() {
 
 #' @description 
 #' Use [galah_config()] instead of `ala_config()`.
-#'
+#' @param profile_path Optional path to profile information
 #' @keywords internal 
 #' @export
 #' @name deprecated
@@ -258,7 +275,7 @@ ala_config <- function(..., profile_path = NULL) {
 
 #' @description 
 #' Use [show_values()] instead of `search_field_values()`
-#'
+#' @param field String: A valid field for which to display entries.
 #' @keywords internal 
 #' @export
 #' @name deprecated
@@ -272,7 +289,7 @@ search_field_values <- function(field){
 
 #' @description 
 #' Use [show_values()] instead of `search_profile_attributes()`
-#'
+#' 
 #' @keywords internal 
 #' @export
 #' @name deprecated

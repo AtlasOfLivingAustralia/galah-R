@@ -36,6 +36,7 @@
 #' be replaced by the current query
 #' @importFrom glue glue_collapse
 #' @importFrom dplyr bind_rows
+#' @rdname atlas_counts
 #' @return
 #' 
 #' An object of class `tbl_df` and `data.frame` (aka a tibble) returning: 

@@ -85,6 +85,52 @@ search_field_values(field)
 
 search_profile_attributes(profile)
 }
+\arguments{
+\item{query}{A vector of taxonomic names (for \code{select_taxa()}) or a valid
+well-known text string (for \code{select_locations()}).}
+
+\item{is_id}{Logical: Does the information provided in \code{query} consist of
+taxonomic identifiers (TRUE), or taxonomic names (FALSE, the default).}
+
+\item{...}{Queries consisting of field names (for \code{select_columns()}) or
+equations (for \code{select_filters()}).}
+
+\item{group}{optional; the name of a group of columns to include. See
+\code{galah_select()} for details.}
+
+\item{profile}{String: The name of a valid ALA profile.}
+
+\item{taxa}{A tibble created with \code{galah_identify()}}
+
+\item{filters}{A tibble created with \code{galah_filter()}}
+
+\item{locations}{A tibble created with \code{galah_geolocate()}}
+
+\item{columns}{A tibble created with \code{galah_select()}}
+
+\item{mint_doi}{Logical: Should a DOI be created for this download? Defaults
+to FALSE.}
+
+\item{doi}{String: Optional ALA DOI to download}
+
+\item{refresh_cache}{Logical: Should the data be re-downloaded to the cache?
+Defaults to FALSE.}
+
+\item{limit}{Integer: How many records should be downloaded? Defaults to 100.}
+
+\item{type}{String: Should counts be made of the number of \code{"records"}
+(default) or \code{"species"}?}
+
+\item{down_to}{A tibble created with \code{galah_down_to()}}
+
+\item{download_dir}{Path to a directory in which to place media files}
+
+\item{data}{A tibble returned by \code{ala_occurrences()}}
+
+\item{profile_path}{Optional path to profile information}
+
+\item{field}{String: A valid field for which to display entries.}
+}
 \value{
 All deprecated functions return a \code{tibble}.
 }

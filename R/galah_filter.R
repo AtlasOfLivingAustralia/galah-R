@@ -13,7 +13,7 @@
 #' `galah_filter` uses non-standard evaluation (NSE),
 #' and is designed to be as compatible as possible with `dplyr::filter()`
 #' syntax.
-#'
+#' @rdname galah_filter
 #' @param ... filters, in the form `field logical value`
 #' @param profile 
 #'    `r lifecycle::badge("soft-deprecated")` Use `galah_apply_profile` instead. 
