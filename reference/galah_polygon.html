@@ -62,7 +62,7 @@ accepted in a query to the ALA."><meta property="og:image" content="https://gala
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Narrow a query to within a specified polygon</h1>
-      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/R/galah_polygon.R" class="external-link"><code>R/galah_polygon.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/R/galah_polygon.R" class="external-link"><code>R/galah_polygon.R</code></a>, <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/R/st_crop.R" class="external-link"><code>R/st_crop.R</code></a></small>
       <div class="d-none name"><code>galah_polygon.Rd</code></div>
     </div>
 
@@ -76,13 +76,26 @@ accepted in a query to the ALA.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">galah_polygon</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">galah_polygon</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for data_request</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crop.html" class="external-link">st_crop</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
-<dd><p>a single <code>sf</code> object, WKT string or shapefile.</p></dd>
+<dd><p>When supplied to <code>galah_polygon()</code>, a single <code>sf</code> object, WKT
+string or shapefile. Currently ignored when supplied to
+<code>st_crop.data_request()</code></p></dd>
+
+
+<dt>x</dt>
+<dd><p>An object of class <code>data_request</code>, created using <code><a href="galah_call.html">galah_call()</a></code></p></dd>
+
+
+<dt>y</dt>
+<dd><p>A single <code>sf</code> object, WKT string or shapefile</p></dd>
 
 </dl></div>
     <div class="section level2">

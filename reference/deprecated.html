@@ -183,6 +183,91 @@ Use show_values() instead of search_profile_attributes()"><meta property="og:ima
     </div>
 
     <div class="section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+    <dl><dt>query</dt>
+<dd><p>A vector of taxonomic names (for <code>select_taxa()</code>) or a valid
+well-known text string (for <code>select_locations()</code>).</p></dd>
+
+
+<dt>is_id</dt>
+<dd><p>Logical: Does the information provided in <code>query</code> consist of
+taxonomic identifiers (TRUE), or taxonomic names (FALSE, the default).</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Queries consisting of field names (for <code>select_columns()</code>) or
+equations (for <code>select_filters()</code>).</p></dd>
+
+
+<dt>group</dt>
+<dd><p>optional; the name of a group of columns to include. See
+<code><a href="galah_select.html">galah_select()</a></code> for details.</p></dd>
+
+
+<dt>profile</dt>
+<dd><p>String: The name of a valid ALA profile.</p></dd>
+
+
+<dt>taxa</dt>
+<dd><p>A tibble created with <code><a href="galah_identify.html">galah_identify()</a></code></p></dd>
+
+
+<dt>filters</dt>
+<dd><p>A tibble created with <code><a href="galah_filter.html">galah_filter()</a></code></p></dd>
+
+
+<dt>locations</dt>
+<dd><p>A tibble created with <code><a href="galah_geolocate.html">galah_geolocate()</a></code></p></dd>
+
+
+<dt>columns</dt>
+<dd><p>A tibble created with <code><a href="galah_select.html">galah_select()</a></code></p></dd>
+
+
+<dt>mint_doi</dt>
+<dd><p>Logical: Should a DOI be created for this download? Defaults
+to FALSE.</p></dd>
+
+
+<dt>doi</dt>
+<dd><p>String: Optional ALA DOI to download</p></dd>
+
+
+<dt>refresh_cache</dt>
+<dd><p>Logical: Should the data be re-downloaded to the cache?
+Defaults to FALSE.</p></dd>
+
+
+<dt>limit</dt>
+<dd><p>Integer: How many records should be downloaded? Defaults to 100.</p></dd>
+
+
+<dt>type</dt>
+<dd><p>String: Should counts be made of the number of <code>"records"</code>
+(default) or <code>"species"</code>?</p></dd>
+
+
+<dt>down_to</dt>
+<dd><p>A tibble created with <code><a href="galah_down_to.html">galah_down_to()</a></code></p></dd>
+
+
+<dt>download_dir</dt>
+<dd><p>Path to a directory in which to place media files</p></dd>
+
+
+<dt>data</dt>
+<dd><p>A tibble returned by <code>ala_occurrences()</code></p></dd>
+
+
+<dt>profile_path</dt>
+<dd><p>Optional path to profile information</p></dd>
+
+
+<dt>field</dt>
+<dd><p>String: A valid field for which to display entries.</p></dd>
+
+</dl></div>
+    <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 

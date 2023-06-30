@@ -61,13 +61,7 @@
     <loc>https://galah.ala.org.au/reference/collect_occurrences.html</loc>
   </url>
   <url>
-    <loc>https://galah.ala.org.au/reference/count.data_request.html</loc>
-  </url>
-  <url>
     <loc>https://galah.ala.org.au/reference/deprecated.html</loc>
-  </url>
-  <url>
-    <loc>https://galah.ala.org.au/reference/filter.data_request.html</loc>
   </url>
   <url>
     <loc>https://galah.ala.org.au/reference/galah.html</loc>
@@ -140,8 +134,5 @@
   </url>
   <url>
     <loc>https://galah.ala.org.au/reference/slice_head.data_request.html</loc>
-  </url>
-  <url>
-    <loc>https://galah.ala.org.au/reference/st_crop.data_request.html</loc>
   </url>
 </urlset>
