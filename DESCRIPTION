@@ -1,6 +1,6 @@
 Package: galah
 Type: Package
-Title: Biodiversity Data from the Living Atlas Community
+Title: Download Biodiversity Data from the GBIF Node Network
 Version: 1.5.2
 Authors@R:
     c(person(given = "Martin",
@@ -18,9 +18,13 @@ Authors@R:
              family = "Newman",
              email = "peggy.newman@csiro.au",
              role = "aut"))
-Description: The living atlas community provides tools to enable users to find, 
-    access, combine and visualise data on biodiversity. 'galah' enables the R 
-    community to directly access data and resources hosted by the living atlases.
+Description: The Global Biodiversity Information Facility 
+    (GBIF, <https://www.gbif.org>) sources data from an international network of 
+    data providers, known as 'nodes'. Several of these nodes - the 'living 
+    atlases' (<https://living-atlases.gbif.org>) - maintain their own
+    web services using a codebase originally developed by the Atlas of Living 
+    Australia (ALA, <https://www.ala.org.au>). 'galah' enables the R community 
+    to directly access data and resources hosted by GBIF and its partner nodes.
 Depends:
     R (>= 4.1.0)
 Imports:
