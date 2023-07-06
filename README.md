@@ -4,6 +4,12 @@
 <h2>
 galah
 </h2>
+<!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/galah)](https://cran.r-project.org/package=galah)
+
+<!-- badges: end -->
 
 ------------------------------------------------------------------------
 
@@ -74,6 +80,14 @@ sudo apt-get install libcurl4-openssl-dev libv8-3.14-dev
 `galah` depends on `sf` for location-based searches. To install `galah`
 you will need to make sure your system meets the `sf` system
 requirements, as specified [here](https://cran.r-project.org/package=sf)
+
+------------------------------------------------------------------------
+
+## Cheat sheet
+
+<a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/cheatsheet/galah-r.pdf"><img src="man/figures/galah_cheatsheet_thumbnail.png" width="600" height="236"/></a>
+
+------------------------------------------------------------------------
 
 ## Citations
 
