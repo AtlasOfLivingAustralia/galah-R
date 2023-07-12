@@ -91,7 +91,7 @@ collapse_counts_atlas <- function(identify = NULL,
     names(facets) <- rep("facets", length(facets))
     query <- c(query, facets, flimit = limit)
     if(length(facets) > 1){
-      expand <- attr(group_by, "expand")
+      expand <- TRUE
     }else{
       expand <- FALSE
     }
