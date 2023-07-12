@@ -10,7 +10,7 @@
 #' @keywords Internal
 #' @noRd
 compute_counts <- function(.data){
-  if(.data$expand){
+  if(exists("expand", where = .data)){
     if(is_gbif()){
       # compute_grouped_counts_GBIF(.data)
     }else{
