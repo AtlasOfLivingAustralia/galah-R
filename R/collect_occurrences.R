@@ -44,9 +44,12 @@ collect_occurrences <- function(.data, wait){
   }
   
   # get data
-  # sometimes lookup info critical, but not others
-  result <- url_download(download_response[[lookup$download_tag]]) 
-  # result <- url_download(download_response)
+  # sometimes lookup info critical, but not others - unclear when/why!
+  if(any(names(download_response) == lookup$download_tag)){
+    result <- url_download(download_response[[lookup$download_tag]]) 
+  }else{
+    result <- url_download(download_response)
+  }
   
   if(is.null(result)){
     inform("Download failed")
