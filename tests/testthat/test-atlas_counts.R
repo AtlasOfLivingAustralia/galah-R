@@ -27,8 +27,7 @@ test_that("atlas_counts returns expected output", {
 
 test_that("atlas_counts returns species counts", {
   vcr::use_cassette("count_type_species", {
-    counts <- galah_call() |>
-      count(type = "species")
+    counts <- galah_call(type = "species") |> count()
   })
   expect_type(counts$count, "integer")
   expect_gt(counts, 0)

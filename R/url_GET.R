@@ -1,36 +1,28 @@
-#' Wrapper for getting data using crul
-#'
-#' tryCatch() used to ensure it is impossible for {galah} to return an error
-#' because the target atlas is offline.
+#' Internal function to run a GET call using httr2
 #' @noRd
 #' @keywords Internal
-#' @importFrom crul HttpClient
+#' @importFrom httr2 request
+#' @importFrom httr2 req_error
+#' @importFrom httr2 req_headers
+#' @importFrom httr2 req_perform
+#' @importFrom httr2 resp_body_json 
 #' @importFrom glue glue
 #' @importFrom rlang inform
 url_GET <- function(url, 
                     params = list(), 
                     slot_name = NULL,
                     error_call = caller_env()) {
-
-  cli <- HttpClient$new(
-    url = url,
-    headers = list("User-Agent" = galah_version_string()))
-
-  # workaround for fq troubles
-  if (length(params$fq) > 1) {
-    cli$url <- url_build_internal(list(url = url, query = params))
-    res <- try(cli$get(), silent = TRUE)
-  } else {
-    res <- try(cli$get(query = params, encode = "json"), silent = TRUE)
-  }
-  # print(res$request$url) # uncomment and load package to see url calls
-
-  # handle errors
-  # nothing returned
-  if(inherits(res, "try-error")){
-    return(NULL)
+  
+  url <- url_build_internal(list(url = url, query = params))
+  response <- request(url) |>
+    req_headers("User-Agent" = galah_version_string()) |>
+    req_error(is_error = NULL) |> # untested; intended to catch errors
+    req_perform()
+  
+  if(is.null(response)){
+    NULL
   }else{
-    parse_get(res)
+    resp_body_json(response)
   }
 }
 
@@ -40,7 +32,7 @@ url_GET <- function(url,
 #' @keywords Internal
 #' @importFrom jsonlite fromJSON
 parse_get <- function(x, slot_name = NULL, error_call = caller_env()){
-  
+
   # status returned
   if(x$status_code == 200){
     result <- x$parse("UTF-8") |>
@@ -53,7 +45,7 @@ parse_get <- function(x, slot_name = NULL, error_call = caller_env()){
   }else{
     code_number <- x$status_code
     request_url <- x$request$url
-    
+
     inform(glue("Status code {code_number} returned for url {request_url}."))
 
     if(code_number == 500) {

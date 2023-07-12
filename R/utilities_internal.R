@@ -395,9 +395,14 @@ species_facets <- function(){
 ## show_all_fields --------------------------#
 
 
-# Helper functions to get different field classes
+#' Internal helper function to get field attributes
+#' @importFrom dplyr bind_rows
+#' @noRd
+#' @keywords Internal
 get_fields <- function() {
-  fields <- all_fields()
+  fields <- url_lookup("records_fields") |>
+    url_GET() |>
+    bind_rows()
   if(is.null(fields)){
     NULL
   }else{
@@ -431,7 +436,7 @@ get_layers <- function() {
   if(is.null(url)){
     return(NULL)
   }
-  result <- url_GET(url)
+  result <- url_GET(url) |> bind_rows()
   
   if(is.null(result)){
     NULL
@@ -481,11 +486,6 @@ get_media <- function(x) {
     description = "Media filter field",
     type = "media"
   )
-}
-
-all_fields <- function() {
-  url <- url_lookup("records_fields")
-  url_GET(url)
 }
 
 build_layer_id <- function(type, id) {

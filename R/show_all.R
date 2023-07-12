@@ -100,7 +100,7 @@ show_all_assertions <- function(limit = NULL){
     result <- gbif_internal_archived$assertions
   }else{
     url <- url_lookup("records_assertions") 
-    assertions <- url_GET(url)
+    assertions <- url_GET(url) |> bind_rows()
     if(is.null(assertions)){
       result <- tibble()
     }else{
@@ -112,7 +112,7 @@ show_all_assertions <- function(limit = NULL){
       names(assertions) <- rename_columns(names(assertions), type = "assertions")
       assertions <- assertions[wanted_columns("assertions")]
       assertions$type <- "assertions"
-      result <- as_tibble(assertions)
+      result <- assertions
     }
   }
   attr(result, "call") <- "show_all_assertions"
@@ -277,11 +277,15 @@ show_all_fields <- function(limit = NULL){
 }
 
 #' @rdname show_all
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr all_of
+#' @importFrom dplyr select
 #' @export
 show_all_licences <- function(limit = NULL){
   url <- url_lookup("image_licences")
-  result <- url_GET(url) |> tibble()
-  df <- result[, c("id", "name", "acronym", "url")] 
+  df <- url_GET(url) |> 
+        bind_rows() |>
+        select(all_of(c("id", "name", "acronym", "url")))
   if(!is.null(limit)){
     limit_rows <- seq_len(min(nrow(df), limit))
     df <- df[limit_rows, ]
@@ -291,6 +295,10 @@ show_all_licences <- function(limit = NULL){
 }
 
 #' @rdname show_all
+#' @importFrom dplyr arrange
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr filter
+#' @importFrom dplyr select
 #' @importFrom potions pour
 #' @export
 show_all_reasons <- function(limit = NULL){
@@ -302,7 +310,8 @@ show_all_reasons <- function(limit = NULL){
   if(update_needed){ # i.e. we'd like to run a query
     ## return list of valid "reasons for use" codes
     url <- url_lookup("logger_reasons")
-    out <- url_GET(url)
+    out <- url_GET(url) |>
+           bind_rows()
     if(is.null(out)){
       df <- check_internal_cache()$show_all_reasons
       # if cached values reflect the correct atlas, return requested info
@@ -320,11 +329,10 @@ show_all_reasons <- function(limit = NULL){
       }
       # if the API call works
     }else{
-      if (any(names(out) == "deprecated")) out <- out[!out$deprecated, ]
-      out <- out[wanted_columns("reasons")]
-      # sort by id to make it less confusing
-      row.names(out) <- out$id
-      df <- as_tibble(out[order(out$id), ])
+      df <- out |> 
+        filter(!deprecated) |>
+        select(all_of(wanted_columns("reasons"))) |>
+        arrange(id)
       attr(df, "atlas_name") <- atlas
       attr(df, "call") <- "show_all_reasons"
     }

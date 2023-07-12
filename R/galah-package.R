@@ -133,8 +133,7 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @importFrom httr parse_url build_url
-#' @importFrom crul HttpClient Paginator Async url_build url_parse
+#' @importFrom crul HttpClient Paginator Async
 #' @importFrom data.tree Do Set Prune Aggregate FromListExplicit ToDataFrameTypeCol ToDataFrameTree as.Node
 #' @importFrom jsonlite fromJSON
 #' @importFrom stringr regex str_c str_detect str_extract str_locate

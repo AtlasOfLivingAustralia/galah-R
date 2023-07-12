@@ -4,7 +4,6 @@
 #' @noRd
 #' @keywords Internal
 collect_counts <- function(.data){
-  
   # deal with expand = TRUE separately
   if(inherits(.data$url, "data.frame")){
     # get data from supplied urls
@@ -31,7 +30,7 @@ collect_counts <- function(.data){
     
     return(subset_df)
   }else{
-    result <- url_GET(.data$url)[[.data$column]][[1]]
+    result <- url_GET(.data$url)[[1]][[.data$column]]
     if(inherits(result, "data.frame")){
       # subset to required columns
       subset_df <- tibble(result[, c("label", "count")])
