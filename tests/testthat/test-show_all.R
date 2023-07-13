@@ -12,7 +12,7 @@ test_that("show_all returns correct information by type", {
   expect_equivalent(reasons, show_all_reasons())
   expect_equal(attributes(fields)$call, "show_all_fields")
   expect_equal(attributes(reasons)$call, "show_all_reasons")
-  expect_equal(ncol(fields), 4)
+  expect_equal(ncol(fields), 3)
   expect_equal(ncol(reasons), 2)
 })
 
@@ -80,7 +80,7 @@ test_that("show_all_fields returns fields", {
   fields <- show_all_fields()
   expect_s3_class(fields, c("tbl_df", "tbl", "data.frame"))
   expect_equal(attributes(fields)$call, "show_all_fields")
-  expect_equal(ncol(fields), 4)
+  expect_equal(ncol(fields), 3)
 })
 
 test_that("show_all_licences returns licences", {

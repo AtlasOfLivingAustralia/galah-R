@@ -41,7 +41,7 @@ check_queue <- function(status_initial){
   
   verbose <- pour("package", "verbose")
   if(verbose){
-    cat(paste0("\nChecking queue\nCurrent queue size: ", queue_size))
+    inform(c("Checking queue", glue("Current queue length: {queue_size}")))
     current_status <- ""
   }
   
@@ -50,7 +50,7 @@ check_queue <- function(status_initial){
       if(is.null(status$queueSize)){status$queueSize <- 0}
       if(status$queueSize < queue_size & status$queueSize > 0){
         queue_size <- status$queueSize
-        cat(paste0(" ", queue_size, " "))
+        inform(glue("Queue length: {queue_size}"))
       }else{
         current_status <- print_status(status, current_status)
       }
@@ -73,7 +73,7 @@ check_queue <- function(status_initial){
 check_queue_GBIF <- function(url){
   
   verbose <- pour("package", "verbose")
-  if(verbose){cat("Checking queue\n")}
+  if(verbose){inform("Checking queue")}
   result <- url_GET(url)
   if(verbose){
     current_status <- print_status(result, "")
@@ -104,7 +104,7 @@ check_queue_GBIF <- function(url){
         # iterate
         iter <- iter + 1
       }else{
-        if(verbose){cat("succeeded\n")}
+        if(verbose){inform("succeeded")}
         break
       }
     }
@@ -155,7 +155,7 @@ check_running <- function(status){
   verbose <- pour("package", "verbose")
   if(verbose){
     atlas_org <- pour("atlas", "organisation")
-    cat(paste0("\nSending query to ", atlas_org, "\n"))
+    inform(glue("Sending query to {atlas_org}"))
     pb <- txtProgressBar(max = 1, style = 3)
   }
   

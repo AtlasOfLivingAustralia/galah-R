@@ -28,7 +28,7 @@ wanted_columns <- function(type) {
            "checklist" = c("kingdom", "phylum", "class", "order", "family",
                            "genus", "species", "author", "species_guid",
                            "vernacular_name"),
-           "profile" = c("id", "name", "shortName", "description"),
+           "profile" = c("id", "shortName", "name", "description"),
            "media" = c("media_id",
                        "creator", "license",
                        "data_resource_uid",
@@ -401,7 +401,7 @@ species_facets <- function(){
 #' @keywords Internal
 get_fields <- function() {
   fields <- url_lookup("records_fields") |>
-    url_GET() |>
+    query_API() |>
     bind_rows()
   if(is.null(fields)){
     NULL
@@ -436,7 +436,7 @@ get_layers <- function() {
   if(is.null(url)){
     return(NULL)
   }
-  result <- url_GET(url) |> bind_rows()
+  result <- query_API(url) |> bind_rows()
   
   if(is.null(result)){
     NULL
