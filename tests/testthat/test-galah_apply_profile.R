@@ -1,6 +1,7 @@
 context("Test galah_apply_profile")
 
 test_that("galah_apply_profile filters counts", {
+  skip_on_cran()
   vcr::use_cassette("apply_profile_counts", {
     without_profile <- galah_call() |>
       atlas_counts()
@@ -40,3 +41,7 @@ test_that("galah_apply_profile matches profile", {
   expect_error(galah_apply_profile(whatever), "Invalid profile")
 })
 
+test_that("galah_apply_profile allows only one profile at a time", {
+  skip_on_cran()
+  expect_error(galah_apply_profile(ALA, CSDM), "Too many data profiles supplied.")
+})

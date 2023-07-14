@@ -18,9 +18,11 @@ collect_occurrences <- function(.data, wait){
   # process supplied object
   if(.data$status != lookup$completed_flag){
     if(wait){
+      # browser()
       download_response <- do.call(lookup$queue_function, 
                                    lookup$queue_input)
     }else{
+      # browser()
       download_response <- url_GET(lookup$status_url)
       if(download_response$status != lookup$completed_flag){
         class(download_response) <- "data_response"
@@ -45,8 +47,8 @@ collect_occurrences <- function(.data, wait){
   
   # get data
   # sometimes lookup info critical, but not others
-  result <- url_download(download_response[[lookup$download_tag]]) 
-  # result <- url_download(download_response)
+  # result <- url_download(download_response[[lookup$download_tag]]) # TODO: Think of a better way to do this as it breaks constantly
+  result <- url_download(download_response)
   
   if(is.null(result)){
     inform("Download failed")
