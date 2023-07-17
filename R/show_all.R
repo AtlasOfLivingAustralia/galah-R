@@ -100,7 +100,7 @@ show_all_assertions <- function(limit = NULL){
     result <- gbif_internal_archived$assertions
   }else{
     url <- url_lookup("records_assertions") 
-    assertions <- url_GET(url)
+    assertions <- query_API(url) |> bind_rows()
     if(is.null(assertions)){
       result <- tibble()
     }else{
@@ -112,7 +112,7 @@ show_all_assertions <- function(limit = NULL){
       names(assertions) <- rename_columns(names(assertions), type = "assertions")
       assertions <- assertions[wanted_columns("assertions")]
       assertions$type <- "assertions"
-      result <- as_tibble(assertions)
+      result <- assertions
     }
   }
   attr(result, "call") <- "show_all_assertions"
@@ -277,11 +277,15 @@ show_all_fields <- function(limit = NULL){
 }
 
 #' @rdname show_all
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr all_of
+#' @importFrom dplyr select
 #' @export
 show_all_licences <- function(limit = NULL){
   url <- url_lookup("image_licences")
-  result <- url_GET(url) |> tibble()
-  df <- result[, c("id", "name", "acronym", "url")] 
+  df <- query_API(url) |> 
+        bind_rows() |>
+        select(all_of(c("id", "name", "acronym", "url")))
   if(!is.null(limit)){
     limit_rows <- seq_len(min(nrow(df), limit))
     df <- df[limit_rows, ]
@@ -291,6 +295,10 @@ show_all_licences <- function(limit = NULL){
 }
 
 #' @rdname show_all
+#' @importFrom dplyr arrange
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr filter
+#' @importFrom dplyr select
 #' @importFrom potions pour
 #' @export
 show_all_reasons <- function(limit = NULL){
@@ -302,7 +310,8 @@ show_all_reasons <- function(limit = NULL){
   if(update_needed){ # i.e. we'd like to run a query
     ## return list of valid "reasons for use" codes
     url <- url_lookup("logger_reasons")
-    out <- url_GET(url)
+    out <- query_API(url) |>
+           bind_rows()
     if(is.null(out)){
       df <- check_internal_cache()$show_all_reasons
       # if cached values reflect the correct atlas, return requested info
@@ -320,11 +329,10 @@ show_all_reasons <- function(limit = NULL){
       }
       # if the API call works
     }else{
-      if (any(names(out) == "deprecated")) out <- out[!out$deprecated, ]
-      out <- out[wanted_columns("reasons")]
-      # sort by id to make it less confusing
-      row.names(out) <- out$id
-      df <- as_tibble(out[order(out$id), ])
+      df <- out |> 
+        filter(!deprecated) |>
+        select(all_of(wanted_columns("reasons"))) |>
+        arrange(id)
       attr(df, "atlas_name") <- atlas
       attr(df, "call") <- "show_all_reasons"
     }
@@ -387,7 +395,9 @@ show_all_ranks <- function(limit = NULL) {
 
 
 #' @rdname show_all
-#' @importFrom tibble tibble
+#' @importFrom dplyr all_of
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr select
 #' @export
 show_all_profiles <- function(limit = NULL) {
   
@@ -397,12 +407,14 @@ show_all_profiles <- function(limit = NULL) {
   if(update_needed){ # i.e. we'd like to run a query
     # return only enabled profiles?
     url <- url_lookup("profiles_all")
-    resp <- url_GET(url)
+    resp <- query_API(url)
     if(is.null(resp)){ # if calling the API fails, return cached data
       df <- check_internal_cache()$show_all_profiles
       attr(df, "ARCHIVED") <- NULL # remove identifying attributes
     }else{
-      df <- tibble(resp[wanted_columns(type = "profile")])
+      df <- lapply(resp, function(a){a[names(a) != "categories"]}) |>
+        bind_rows() |>
+        select(all_of(wanted_columns(type = "profile")))
       check_internal_cache(show_all_profiles = df)
     }    
   }else{
@@ -422,14 +434,24 @@ show_all_profiles <- function(limit = NULL) {
 #' @export
 show_all_lists <- function(limit = NULL){
   if(is.null(limit)){limit <- 5000}
-  df <- url_paginate(
-    url = url_lookup("lists_all"),
-    group_size = 1000,
-    limit = limit,
-    slot_name = "lists")
+  
+  url <- url_lookup("lists_all")
+  resp <- query_API(url)
+  
+  # note: resp$listCount == 1107, but only 25 returned
+  # pinging https://api.ala.org.au/specieslist/ws/speciesList&max=5000
+  # returns $message
+  # [1] "Missing Authentication Token"
+  
+  # df <- url_paginate(
+  #   url = url_lookup("lists_all"),
+  #   group_size = 1000,
+  #   limit = limit,
+  #   slot_name = "lists")
   if(is.null(df)){
     return(tibble())
   }else{
+    df <- resp[["lists"]] |> bind_rows()
     attr(df, "call") <- "show_all_lists"
     return(df)
   }

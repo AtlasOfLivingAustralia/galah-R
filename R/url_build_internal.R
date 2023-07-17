@@ -2,11 +2,11 @@
 #' @param .data an object of class `data_query`, created by 
 #' `collapse.data_request()`. Formerly `build_fq_url()`
 #' @keywords Internal
-#' @importFrom httr build_url
-#' @importFrom httr parse_url
+#' @importFrom httr2 url_build
+#' @importFrom httr2 url_parse
 #' @noRd
 url_build_internal <- function(.data){
-  url <- parse_url(.data$url)
+  url <- url_parse(.data$url)
   params <- .data$query
   if(any(names(params) == "fq")){
     # join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
@@ -20,5 +20,5 @@ url_build_internal <- function(.data){
     fq_single <- paste(fq, collapse = "AND")
     url$query <- c(fq = fq_single, params[names(params) != "fq"])
   }
-  return(build_url(url))
+  return(url_build(url))
 }
