@@ -30,44 +30,14 @@
 #' @export
 
 galah_apply_profile <- function(...){
-  
+  # browser()
   dots <- enquos(..., .ignore_empty = "all")
-  check_filter(dots)
-  
-  # check to see if any of the inputs are a data request
-  checked_dots <- detect_data_request(dots)
-  if(!inherits(checked_dots, "quosures")){
-    is_data_request <- TRUE
-    data_request <- checked_dots[[1]]
-    dots <- checked_dots[[2]]
+  parsed_dots <- parse_quosures_basic(dots)
+  df <- parse_profile(parsed_dots$data)
+  if(is.null(parsed_dots$data_request)){
+    df
   }else{
-    is_data_request <- FALSE
-  }
-
-  # this code is basically taken from galah_identify()
-  if (length(dots) > 0) {
-
-    # basic checking
-    check_queries(dots) # capture named inputs
-    input_profile <- parse_basic_quosures(dots) # convert dots to query
-    
-    # check which inputs are valid
-    # note that in galah_filter, this is dependent on pour("package", "run_checks")
-    # not required here as show_all_profiles is pretty fast
-    valid_profile <- check_profile(input_profile)
-    
-    result <- tibble(data_profile = valid_profile)
-    
-  
-  }else{
-    result <- tibble()
-  }
-  
-  # if a data request was supplied, return one
-  if (is_data_request) {
-    update_galah_call(data_request, data_profile = result)
-  } else {
-    result
+    update_galah_call(parsed_dots$data_request, data_profile = df)
   }
 }
 
@@ -84,4 +54,35 @@ check_profile <- function(query, error_call = caller_env()){
   }else{
     return(query[which(valid_check)[1]])
   }
+}
+
+#' Internal parsing of `profile` args
+#' @noRd
+#' @keywords Internal
+parse_profile <- function(dot_names, error_call = caller_env()) {
+  if (length(dot_names) > 0) {
+    
+    if (length(dot_names) > 1) {
+      bullets <- c(
+        "Too many data profiles supplied.",
+        i = "`galah_apply_profile()` accepts only one profile at a time."
+      )
+      abort(bullets, call = error_call)
+    } else{
+      
+        valid_check <- dot_names %in% show_all_profiles()$shortName
+        if (!any(valid_check)) {
+          bullets <- c(
+            "Invalid profile name.",
+            i = "Use `show_all(profiles)` to see all valid profiles."
+          )
+          abort(bullets, call = error_call)
+        } else {
+          profile <- dot_names[which(valid_check)[1]]
+        }
+    }
+
+    df <- tibble(data_profile = as.character(profile))
+  }
+  return(df)
 }

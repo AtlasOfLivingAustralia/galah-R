@@ -66,7 +66,7 @@ collect.data_query <- function(.data){
 #' @param wait logical; should `galah` ping the selected url until computation
 #' is complete? Defaults to `FALSE`.
 #' @export
-collect.data_response <- function(.data){
+collect.data_response <- function(.data, wait){
   switch(.data$type,
          "occurrences-count" = collect_counts(.data),
          "species-count" = collect_counts(.data),
