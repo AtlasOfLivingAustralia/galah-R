@@ -120,17 +120,21 @@ show_all_providers <- function(limit = NULL){
 
 #' @rdname show_all
 #' @importFrom potions pour
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr filter
+#' @importFrom dplyr select
 #' @export
 show_all_fields <- function(limit = NULL){
   update_needed <- TRUE # internal_cache_update_needed("show_all_fields")
   if(update_needed){ # i.e. we'd like to run a query
-    # NOTE: this is insufficient as yet; this code is a starting point only
-    result <- list(
+    list(
       fields = collect(request_metadata(type = "fields")),
       layers = collect(request_metadata(type = "layers")),
-      media = gbif_internal_archived$media_fields,
-      other = gbif_internal_archived$other_fields)
-    bind_rows(result)
+      media = galah_internal_archived$media_fields,
+      other = galah_internal_archived$other_fields) |>
+    bind_rows() |>
+    select(-source_link) |>
+    filter(!duplicated(id))
   }else{
     check_internal_cache()$show_all_fields
   }

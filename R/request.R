@@ -22,9 +22,10 @@ request_data <- function(type = c("occurrences",
   type <- match.arg(type)
 
   # create an empty list
-  default_call <- vector(mode = "list", length = 9)
-  names(default_call) <- c("type", "identify", "filter", "select", "group_by",
-                           "geolocate", "limit", "doi")
+  valid_names <- c("type", "identify", "filter", "select", "group_by",
+                   "geolocate", "limit", "doi")
+  default_call <- vector(mode = "list", length = length(valid_names))
+  names(default_call) <- valid_names
   default_call$type <- check_type(type)
   class(default_call) <- "data_request"
   

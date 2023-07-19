@@ -50,7 +50,6 @@ update_data_request <- function(data_request, ...){
   result
 }
 
-
 #' Internal function to join tibbles by row
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr filter

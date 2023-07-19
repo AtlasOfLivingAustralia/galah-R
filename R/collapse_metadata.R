@@ -49,7 +49,7 @@ collapse_collections <- function(.data){
 #' Internal function to `collapse()` datasets
 #' @noRd
 #' @keywords Internal
-collapse_collections <- function(.data){
+collapse_datasets <- function(.data){
   result <- list(type = .data$type,
                  url = url_lookup("collections_datasets"),
                  headers = build_headers())
@@ -58,11 +58,8 @@ collapse_collections <- function(.data){
 }
 
 #' Internal function to `collapse()` fields
-#' Note that this is currently written to be consistent with past versions of
-#' `show_all_fields()`. It is somewhat inconsistent with the rest of the package
-#' to have a single function call so many different data sources.
-#' An alternative would be to have a function that called 
-#' `url_lookup("records_fields")` and have show_all_fields call that + collect("layers")
+#' Note that this is inconsistent with `show_all_fields()` which returns data
+#' from multiple APIs
 #' @noRd
 #' @keywords Internal
 collapse_fields <- function(.data){
@@ -103,7 +100,8 @@ collapse_licences <- function(.data){
 collapse_lists <- function(.data){
   result <- list(type = .data$type,
                  url = url_lookup("lists_all"),
-                 headers = build_headers())
+                 headers = build_headers(),
+                 slot_name = "lists")
   class(result) <- "metadata_query"
   return(result) 
 }

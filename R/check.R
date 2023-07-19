@@ -184,3 +184,12 @@ check_filter_tibbles <- function(x){ # where x is a list of tibbles
     abort("There was a problem with `filter`, did you use correct syntax?")
   }
 }
+
+# check API key is supplied
+check_api_key <- function(.data){
+  if(pour("atlas", "acronym") == "ALA" &
+     (is.null(.data$headers$`x-api-key`) | .data$headers$`x-api-key` == "")){
+    abort("API key has not been specified")
+    # NOTE: need to add content here to tell people *how* to add API key
+  }
+}

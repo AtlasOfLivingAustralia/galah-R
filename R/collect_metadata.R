@@ -37,13 +37,20 @@ collect_datasets <- function(.data){
 }
 
 #' Internal function to `collect()` fields
+#' @importFrom dplyr all_of
+#' @importFrom dplyr mutate
+#' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
 collect_fields <- function(.data){
-  query_API(.data)
+  query_API(.data) |>
+    mutate(id = name) |>
+    select(all_of(wanted_columns("fields"))) |>
+    mutate(type = "fields")
 }
 
 #' Internal function to `collect()` layers
+#' @importFrom dplyr arrange
 #' @importFrom dplyr filter
 #' @importFrom dplyr mutate
 #' @importFrom dplyr select
@@ -52,13 +59,18 @@ collect_fields <- function(.data){
 collect_layers <- function(.data){
   query_API(.data) |>
     filter(enabled == TRUE) |>
-    select(id, desc) |>
-    # select(all_of(wanted_columns("layer"))) # for non-ALA?
-    mutate(type = "layer")
+    mutate(id = paste0(
+      case_when(type == "Contextual" ~ "cl", type == "Environmental" ~ "el"),
+      id)
+    ) |>
+    select(all_of(wanted_columns("layer"))) |>
+    mutate(type = "layer") |>
+    arrange(id)
 }
 
 #' Internal function to `collect()` licences
 #' @importFrom dplyr all_of
+#' @importFrom dplyr arrange
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr select
 #' @noRd
@@ -66,7 +78,8 @@ collect_layers <- function(.data){
 collect_licences <- function(.data){
   query_API(.data) |> 
     bind_rows() |>
-    select(all_of(c("id", "name", "acronym", "url")))
+    select(all_of(c("id", "name", "acronym", "url"))) |> 
+    arrange(id)
 }
 
 #' Internal function to `collect()` lists

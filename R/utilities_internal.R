@@ -36,7 +36,7 @@ wanted_columns <- function(type) {
                        "mime_type", "width", "height", "size_in_bytes",
                        "image_url"
                      ),
-           "layer" = c("layer_id", "description", "link"),
+           "layer" = c("id", "description", "source_link"),
            "fields" = c("id", "description"),
            "assertions" = c("id", "description", "category"),
            "quality_filter" = c("description", "filter"),

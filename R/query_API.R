@@ -16,11 +16,7 @@ query_API <- function(.data,
   # NOTE: how to handle multiple urls? Is this automatic?
   
   # convert to check_api_key()
-  if(pour("atlas", "acronym") == "ALA" &
-    (is.null(.data$headers$`x-api-key`) | .data$headers$`x-api-key` == "")){
-    abort("API key has not been specified")
-    # NOTE: need to add content here to tell people *how* to add API key
-  }
+  check_api_key(.data)
   
   # build and run API call
   # url <- url_build_internal(list(url = url, query = params)) # enforce parsing beforehand: obsolete
@@ -33,8 +29,14 @@ query_API <- function(.data,
     req_perform(path = .data$path) |> # if path != NULL, caches as per url_download
     resp_body_json() # may not work for invalid URLs
   
+  # subset to particular slot if needed  
+  if(!is.null(.data$slot_name)){
+    result <- result[[.data$slot_name]]
+  }
+  
   if(inherits(result, "list")){
-    bind_rows(result)
+    lapply(result, function(a){a[lengths(a) == 1]}) |>
+    bind_rows()
   }else{
     result
   }
