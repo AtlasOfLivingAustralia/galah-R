@@ -391,110 +391,13 @@ species_facets <- function(){
   )
 }
 
-
-## show_all_fields --------------------------#
-
-
-#' Internal helper function to get field attributes
-#' @importFrom dplyr bind_rows
-#' @noRd
-#' @keywords Internal
-get_fields <- function() {
-  fields <- url_lookup("records_fields") |>
-    query_API() |>
-    bind_rows()
-  if(is.null(fields)){
-    NULL
-  }else{
-    # remove fields where class is contextual or environmental
-    fields <- fields[!(fields$classs %in% c("Contextual", "Environmental")),]
-    
-    names(fields) <- rename_columns(names(fields), type = "fields")
-    fields <- fields[wanted_columns("fields")]
-    fields$type <- "fields"
-    
-    # correct id for recordID
-    record_id_lookup <- grepl("http://rs.tdwg.org/dwc/terms/recordID", 
-                              fields$description)
-    if(any(record_id_lookup)){
-      fields$id[which(record_id_lookup)[1]] <- "recordID"
-    }
-    
-    return(tibble(fields))
-  }
-}
-
-#' Get spatial layers
-#' @importFrom dplyr filter
-#' @importFrom dplyr select
-#' @importFrom dplyr mutate
-#' @importFrom tibble tibble
-#' @keywords Internal
-#' @noRd
-get_layers <- function() {
-  url <- url_lookup("spatial_layers", quiet = TRUE)
-  if(is.null(url)){
-    return(NULL)
-  }
-  result <- query_API(url) |> bind_rows()
-  
-  if(is.null(result)){
-    NULL
-  }else{
-    result <- tibble(result)
-    
-    if(pour("atlas", "acronym") == "ALA"){
-      result <- result |>
-        filter(enabled == TRUE) |>
-        select(id, desc) |>
-        mutate(type = "layer")
-      names(result)[2] <- c("description")
-      return(result)
-    }else{
-      if(all(c("type", "id") %in% names(result))){
-        layer_id <- mapply(build_layer_id, result$type, result$id,
-                           USE.NAMES = FALSE)
-        result <- cbind(layer_id, result)
-        result$description <- apply(
-          result[, c("displayname", "description")],
-          1,
-          function(a){paste(a, collapse = " ")}
-        )
-        names(result) <- rename_columns(names(result), type = "layer")
-        result <- result[wanted_columns("layer")]
-        names(result)[1] <- "id"
-        result$type <- "layers"
-        result
-      }else{
-        NULL
-      }
-    }
-  }
-}
-
-# Return fields not returned by the API
-get_other_fields <- function() {
-  tibble(id = "qid", description = "Reference to pre-generated query",
-             type = "other")
-}
-
-# There is no API call to get these fields, so for now they are manually
-# specified
-get_media <- function(x) {
-  tibble(
-    id = c("multimedia", "multimediaLicence", "images", "videos", "sounds"),
-    description = "Media filter field",
-    type = "media"
-  )
-}
-
-build_layer_id <- function(type, id) {
-  if (type == "Environmental") {
-    paste0("el", id)
-  } else {
-    paste0("cl", id)
-  }
-}
+# build_layer_id <- function(type, id) {
+#   if (type == "Environmental") {
+#     paste0("el", id)
+#   } else {
+#     paste0("cl", id)
+#   }
+# }
 
 
 ##---------------------------------------------------------------

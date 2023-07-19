@@ -69,7 +69,7 @@ galah_media <- function(...,
   if(is.null(data_request)){
     return(result)
   }else{
-    update_galah_call(data_request, media = result)
+    update_data_request(data_request, media = result)
   } 
 }
 

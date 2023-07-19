@@ -10,5 +10,5 @@
 #' @param prop currently ignored
 #' @export
 slice_head.data_request <- function(.data, ..., n, prop){
-  update_galah_call(.data, limit = n)
+  update_data_request(.data, limit = n)
 }

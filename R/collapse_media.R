@@ -10,11 +10,11 @@ collapse_media <- function(.data){
   
   # ensure media columns are present
   if(is.null(.data$select)){
-    .data <- update_galah_call(.data, 
+    .data <- update_data_request(.data, 
                                select = galah_select(group = c("basic", "media")))
   }else{
     if(!any(.data$select$name %in% valid_formats)){
-      .data <- update_galah_call(.data, 
+      .data <- update_data_request(.data, 
                                  select = galah_select(group = "media"))
     }
   }

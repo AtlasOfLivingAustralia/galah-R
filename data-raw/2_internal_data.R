@@ -38,29 +38,65 @@ node_config <- read_csv("./data-raw/node_config.csv") |>
 stored_functions <- c(
   "show_all_fields", "show_all_profiles", "show_all_reasons")
 
-galah_internal_archived <- lapply(
-  stored_functions,
-  function(a){
-    result <- eval(parse(text = paste0(a, "()")))
-    attr(result, "ARCHIVED") <- TRUE
-    attr(result, "atlas_name") <- "Australia"
-    result
-  })
-# lapply(galah_internal_archived, attributes) # check
-names(galah_internal_archived) <- stored_functions
+# galah_internal_cached <- lapply(
+#   stored_functions,
+#   function(a){
+#     result <- eval(parse(text = paste0(a, "()")))
+#     attr(result, "ARCHIVED") <- TRUE
+#     attr(result, "atlas_name") <- "Australia"
+#     result
+#   })
+# # lapply(galah_internal_cached, attributes) # check
+# names(galah_internal_cached) <- stored_functions
 
+# add ranks
+galah_internal_archived <- list(
+  ranks = tibble(
+    id = seq_len(69),
+    name = c("root", "superkingdom", "kingdom", "subkingdom",
+             "superphylum", "phylum", "subphylum", "superclass", "class", 
+             "subclass", "infraclass", "subinfraclass", 
+             "superdivison zoology", "division zoology", 
+             "subdivision zoology", "supercohort", "cohort", "subcohort", 
+             "superorder", "order", "suborder", "infraorder", "parvorder", 
+             "superseries zoology", "series zoology", "subseries zoology", 
+             "supersection zoology", "section zoology", 
+             "subsection zoology", "superfamily", "family", "subfamily", 
+             "infrafamily", "supertribe", "tribe", "subtribe", 
+             "supergenus", "genus group", "genus", "nothogenus", 
+             "subgenus", "supersection botany", "section botany", 
+             "subsection botany", "superseries botany", "series botany", 
+             "subseries botany", "species group", "superspecies", 
+             "species subgroup", "species", "nothospecies", "holomorph", 
+             "anamorph", "teleomorph", "subspecies", "nothosubspecies", 
+             "infraspecies", "variety", "nothovariety", "subvariety", 
+             "form", "nothoform", "subform", "biovar", "serovar", 
+             "cultivar", "pathovar", "infraspecific")),
+  media_fields = tibble(
+    id = c("multimedia", "multimediaLicence", "images", "videos", "sounds"),
+    description = "Media filter field",
+    type = "media"),
+  other_fields = tibble(
+    id = "qid", 
+    description = "Reference to pre-generated query",
+    type = "other"))
 
 # Import web-scraped gbif data as csv
 gbif_internal_archived <- list(
+  assertions = read_csv("./data-raw/gbif_assertions.csv"),
   fields = read_csv("./data-raw/gbif_fields.csv"),
-  assertions = read_csv("./data-raw/gbif_assertions.csv"))
-
+  ranks =  tibble(
+    id = seq_len(9),
+    name = c("kingdom", "phylum", "class", 
+             "order", "family", "genus", 
+             "species", "subspecies", "infraspecific")))
 
 # add to r/sysdata.rda
 use_data(
   node_metadata,
   node_config,
   galah_internal_archived,
+  # galah_internal_cached,
   gbif_internal_archived,
   internal = TRUE, 
   overwrite = TRUE)

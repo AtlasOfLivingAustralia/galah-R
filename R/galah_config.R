@@ -29,6 +29,7 @@
 #'   *  `email` string: An email address that has been registered with the chosen
 #'   atlas. For the ALA, you can register at
 #'   [this address](https://auth.ala.org.au/userdetails/registration/createAccount).
+#'   *  `api-key` string: A registered API key (ALA only).
 #'   *  `password` string: A registered password (GBIF only)
 #'   *  `run_checks` logical: should `galah` run checks for filters
 #'   and columns. If making lots of requests sequentially, checks can slow down
@@ -124,6 +125,7 @@ default_config <- function(){
     user = list(
       username = "",
       email = "",
+      api_key = "",
       password = "",
       download_reason_id = 4),
     atlas = list(
@@ -164,6 +166,7 @@ validate_config <- function(name, value, error_call = caller_env()) {
          "email"           = enforce_character(value),
          "password"        = enforce_character(value),
          "username"        = enforce_character(value),
+         "api_key"         = enforce_character(value),
          "download_reason_id" = enforce_download_reason(value),
          enforce_invalid_name())
   

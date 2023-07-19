@@ -20,7 +20,7 @@ galah_group_by <- function(..., expand = TRUE){
   if(is.null(parsed_dots$data_request)){
     df
   }else{
-    update_galah_call(parsed_dots$data_request, group_by = df)
+    update_data_request(parsed_dots$data_request, group_by = df)
   }
 }
  
@@ -31,7 +31,7 @@ group_by.data_request <- function(.data, ..., expand = TRUE){
   dots <- enquos(..., .ignore_empty = "all")
   parsed_dots <- parse_quosures_basic(dots)
   df <- parse_group_by(parsed_dots$data, expand)
-  update_galah_call(.data, group_by = df)
+  update_data_request(.data, group_by = df)
 }
 
 

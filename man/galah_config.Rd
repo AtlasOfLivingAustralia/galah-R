@@ -33,6 +33,7 @@ associated R function.
 \item \code{email} string: An email address that has been registered with the chosen
 atlas. For the ALA, you can register at
 \href{https://auth.ala.org.au/userdetails/registration/createAccount}{this address}.
+\item \code{api-key} string: A registered API key (ALA only).
 \item \code{password} string: A registered password (GBIF only)
 \item \code{run_checks} logical: should \code{galah} run checks for filters
 and columns. If making lots of requests sequentially, checks can slow down

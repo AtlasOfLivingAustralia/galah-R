@@ -18,18 +18,13 @@ print.data_request <- function(x, ...){
 #' @importFrom crayon bold
 #' @export
 print.galah_config <- function(x, ...){
-
-  if(x$user$password == ""){
-    password <- "[Not Provided]"
-  }else{
-    password <- "[Provided]"
-  }
   
   package_settings <- c(
     paste0("verbose         username ", x$user$username),
-    paste0("run_checks      password ", password),
+    paste0("run_checks      password ", hide_secrets(x$user$password)),
     paste0("send_email      email ", x$user$email),
-    paste0("caching         reason ", x$user$download_reason_id))
+    paste0("caching         api_key", hide_secrets(x$user$api_key)),
+    paste0("                reason ", x$user$download_reason_id))
 
   package_lookup <- unlist(x$package[1:4]) |> as.integer() + 1
   names(package_settings) <- c("x", "v")[package_lookup]
@@ -52,4 +47,15 @@ print.galah_config <- function(x, ...){
 #' @export
 print.data_response <- function(x, ...){
   str(x)
+}
+
+#' Internal function to prevent showing secret information in the console
+#' @noRd
+#' @keywords Internal
+hide_secrets <- function(string){
+  if(string == ""){
+    "[Not Provided]"
+  }else{
+    "[Provided]"
+  }
 }

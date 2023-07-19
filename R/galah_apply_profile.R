@@ -37,7 +37,7 @@ galah_apply_profile <- function(...){
   if(is.null(parsed_dots$data_request)){
     df
   }else{
-    update_galah_call(parsed_dots$data_request, data_profile = df)
+    update_data_request(parsed_dots$data_request, data_profile = df)
   }
 }
 

@@ -79,7 +79,7 @@ galah_select <- function(...,
   if(is.null(parsed_dots$data_request)){
     parse_select(parsed_dots$data, group)
   }else{
-    update_galah_call(parsed_dots$data_request, 
+    update_data_request(parsed_dots$data_request, 
                       select = parse_select(parsed_dots$data, group))
   }
 }
@@ -92,7 +92,7 @@ select.data_request <- function(.data, ..., group){
   dots <- enquos(..., .ignore_empty = "all")
   parsed_dots <- parse_quosures_basic(dots)
   group <- check_groups(group, n = length(parsed_dots$data))
-  update_galah_call(.data, 
+  update_data_request(.data, 
                     select = parse_select(parsed_dots$data, group))
 }
 

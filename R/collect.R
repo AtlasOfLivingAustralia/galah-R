@@ -49,7 +49,8 @@ collect.data_request <- function(.data){
 #' @export
 collect.data_query <- function(.data){
   switch(.data$type,
-         "counts" = collect_counts(.data),
+         "occurrences-count" = collect_counts(.data),
+         # "species-count" = {?},
          "species" = {
            check_login(.data)
            collect_species(.data)},
@@ -57,7 +58,7 @@ collect.data_query <- function(.data){
            compute(.data) |>
              collect_occurrences(wait = TRUE)},
          "media" = collect_media(.data),
-         abort("unrecognised 'type'")
+         query_API
   )
 }
 
@@ -77,58 +78,36 @@ collect.data_response <- function(.data, wait){
   )
 }
 
-# if calling `compute()` after `galah_call()` 
-#' @rdname collect.data_request
-#' @importFrom potions pour
-#' @importFrom rlang abort
-#' @export
-compute.data_request <- function(.data){
-  .data$type <- check_type(.data$type)
-  collapse(.data) |>
-    switch_compute()
-}
-
-# if calling `compute()` after `collapse()`
+# if calling `collect()` after `request_metadata()`
 #' @rdname collect.data_request
 #' @export
-compute.data_query <- function(.data){
-  switch_compute(.data)
+collect.metadata_request <- function(.data){
+  collapse(.data) |> 
+  collect()
 }
 
-#' Internal function to determine which type of call to compute
-#' @noRd
-#' @keywords Internal
-switch_compute <- function(.data){
-  switch(.data$type, 
-         "occurrences-count" = compute_counts(.data),
-         "species-count" = compute_counts(.data),
-         "doi" = abort(c(
-           "`compute()` does not exist for `type = 'doi'`",
-           i = "try `collect() instead")),
-         "species" = abort(c(
-           "`compute()` does not exist for `type = 'species'`",
-           i = "try `collect() instead")),
-         "occurrences" = {
-           check_login(.data)
-           compute_occurrences(.data)},
-         "media" = {
-           check_login(.data)
-           compute_media(.data)})   
-}
-
-# if calling `collapse()` after `galah_call()`
+# if calling `collect()` after `collapse()` after `request_metadata()`
 #' @rdname collect.data_request
 #' @export
-collapse.data_request <- function(.data){
-  .data$type <- check_type(.data$type)
-  switch(.data$type, 
-         "occurrences-count" = collapse_counts(.data),
-         "species-count" = collapse_counts(.data),
-         "doi" = abort(c(
-           "`collapse()` does not exist for `type = 'doi'`",
-           i = "try `collect() instead")),
-         "species" = collapse_species(.data),
-         "occurrences" = collapse_occurrences(.data),
-         "media" = collapse_media(.data),
-         abort("unrecognised 'type'"))
+collect.metadata_query <- function(.data){
+  # deal with stored data first
+  # This handles types = "atlases", "ranks"
+  # It also handles "fields", "assertions" and "profiles" when updates are not required
+  if(is.null(.data$url) & !is.null(.data$data)){
+    sub("^galah:::", "", .data$data) |>
+    str2lang() |>
+    eval()
+  }else{ # this only happens when .data$url exists, which is our tag for pinging an API
+    switch(.data$type, 
+           "assertions" = collect_assertions(.data),
+           "collections" = collect_collections(.data),
+           "datasets" = collect_datasets(.data),
+           "fields" = collect_fields(.data),
+           "layers" = collect_layers(.data),
+           "licences" = collect_licences(.data),
+           "lists" = collect_lists(.data),
+           "profiles" = collect_profiles(.data),
+           "providers" = collect_providers(.data),
+           "reasons" = collect_reasons(.data))
+  }
 }

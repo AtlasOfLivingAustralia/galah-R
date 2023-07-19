@@ -68,7 +68,7 @@ galah_polygon <- function(...){
   
   # if a data request was supplied, return one
   if(!is.null(dr)){
-    update_galah_call(dr, geolocate = out_query)
+    update_data_request(dr, geolocate = out_query)
   }else{
     out_query
   }   
@@ -78,7 +78,7 @@ galah_polygon <- function(...){
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @export
 st_crop.data_request <- function(.data, y, ...){
-  update_galah_call(.data, geolocate = parse_polygon(y))
+  update_data_request(.data, geolocate = parse_polygon(y))
 }
 
 

@@ -48,7 +48,7 @@ atlas_taxonomy <- function(request = NULL,
                            ) {
   if(!is.null(request)){
     check_data_request(request)
-    current_call <- update_galah_call(request, 
+    current_call <- update_data_request(request, 
       identify = identify,
       down_to = down_to
     ) 

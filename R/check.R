@@ -5,7 +5,7 @@
 check_atlas_inputs <- function(args){
   if(!is.null(args$request)){
     check_data_request(args$request)
-    result <- update_galah_call(args$request, args[-1])
+    result <- update_data_request(args$request, args[-1])
   }else{
     result <- do.call(galah_call, args)
   }

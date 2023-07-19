@@ -72,6 +72,6 @@ galah_down_to <- function(...){
   if(is.null(parsed_dots$data_request)){
     result
   }else{
-    update_galah_call(parsed_dots$data_request, down_to = result)
+    update_data_request(parsed_dots$data_request, down_to = result)
   }
 }

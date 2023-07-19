@@ -82,16 +82,26 @@ galah_filter <- function(..., profile = NULL){
   if(is.null(parsed_dots$data_request)){
     parsed_dots$data
   }else{
-    update_galah_call(parsed_dots$data_request, 
+    update_data_request(parsed_dots$data_request, 
                       filter = parsed_dots$data)
   }
 }
 
 #' @rdname galah_filter
-#' @param .data An object of class `data_request`, created using [galah_call()]
+#' @param .data An object of class `data_request`, created using [request_data()]
 #' @export
 filter.data_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
-  update_galah_call(.data, 
+  update_data_request(.data, 
                     filter = parse_quosures(dots)$data) # see `quosure_handling.R`
+}
+
+#' @rdname galah_filter
+#' @param .data An object of class `metadata_request`, created using [request_metadata()]
+#' @export
+filter.metadata_request <- function(.data, ...){
+  dots <- enquos(..., .ignore_empty = "all")
+  parsed_dots <- parse_quosures_basic(dots)
+  .data$filter <- tibble(query = parsed_dots[[1]])
+  return(.data)
 }

@@ -48,7 +48,7 @@ galah_identify <- function(..., search = TRUE) {
   if(is.null(parsed_dots$data_request)){
     result
   }else{
-    update_galah_call(parsed_dots$data_request, identify = result)
+    update_data_request(parsed_dots$data_request, identify = result)
   }
 }
 
@@ -57,7 +57,7 @@ galah_identify <- function(..., search = TRUE) {
 #' @export
 identify.data_request <- function(.data, ..., search = TRUE){
   dots <- list(...)
-  update_galah_call(.data, identify = parse_identify(dots, search))
+  update_data_request(.data, identify = parse_identify(dots, search))
 }
 
 #' parser for `galah_identify()`

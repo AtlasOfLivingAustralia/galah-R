@@ -5,28 +5,41 @@
 #' @importFrom httr2 req_error
 #' @importFrom httr2 req_headers
 #' @importFrom httr2 req_perform
-#' @importFrom glue glue
+#' @importFrom rlang abort
 #' @importFrom rlang inform
-query_API <- function(url, 
-                      # params = list(), # q: should this be constructed here? Or by `collapse()`?
-                      headers = NULL,
-                      options = NULL, # used by GBIF
-                      body = NULL,
-                      path = NULL,
+query_API <- function(.data,
+                      # url, 
+                      # params = list(), # Obsolete: should be built during `collapse()`?
                       # slot_name = NULL, # relates to parsing out content
                       error_call = caller_env()) {
   
+  # NOTE: how to handle multiple urls? Is this automatic?
+  
+  # convert to check_api_key()
+  if(pour("atlas", "acronym") == "ALA" &
+    (is.null(.data$headers$`x-api-key`) | .data$headers$`x-api-key` == "")){
+    abort("API key has not been specified")
+    # NOTE: need to add content here to tell people *how* to add API key
+  }
+  
   # build and run API call
-  # url <- url_build_internal(list(url = url, query = params)) # enforce parsing beforehand
-  request(url) |>
-    add_headers(headers) |> 
-    add_options(options) |>
-    add_body(body) |> # NOTE: adding `body` converts from GET to POST
-    req_error(is_error = ~ FALSE) |> # untested; intended to catch errors
-    req_perform(path = path) |> # if path != NULL, caches as per url_download
+  # url <- url_build_internal(list(url = url, query = params)) # enforce parsing beforehand: obsolete
+  result <- request(.data$url) |>
+    add_headers(.data$headers) |> 
+    add_options(.data$options) |> # used by GBIF
+    add_body(.data$body) |> # NOTE: adding `body` converts from GET to POST
+    req_error(is_error = ~ FALSE) |> # untested; intended to catch errors. 
+    # from brief testing it appears to fail; e.g. we still get errors when internet is off
+    req_perform(path = .data$path) |> # if path != NULL, caches as per url_download
     resp_body_json() # may not work for invalid URLs
   
-  # # return correct info. NOTE: is this needed? Test with stuff that returns errors
+  if(inherits(result, "list")){
+    bind_rows(result)
+  }else{
+    result
+  }
+  # # return correct info.
+  # # NOTE: is this needed? Test with stuff that returns errors
   # # If not needed, convert whole function to a single pipe
   # if(is.null(response)){
   #   NULL
@@ -39,12 +52,19 @@ query_API <- function(url,
 #' @noRd
 #' @keywords Internal
 #' @importFrom httr2 req_headers
+#' @importFrom potions pour
 add_headers <- function(req, headers){
   if(!is.null(headers)){
-    args_list <- c(list(".req" = req), headers)
-    do.call(args_list, req_headers)
+    req$headers <- headers
+    req
   }else{
-    req |> req_headers("User-Agent" = galah_version_string())
+    if(pour("atlas", "acronym") == "ALA"){
+      req |> req_headers(
+        "User-Agent" = galah_version_string(),
+        "x-api-key" = pour("user", "api_key"))
+    }else{
+      req |> req_headers("User-Agent" = galah_version_string())
+    }
   }
 }
 
@@ -54,10 +74,9 @@ add_headers <- function(req, headers){
 #' @importFrom httr2 req_body_json
 add_body <- function(req, body){
   if(!is.null(body)){
-    req |> req_body_json(body)
-  }else{
-    req
+    req$body <- body
   }
+  req
 }
 
 #' If supplied, add `options` arg to a `request()`
@@ -66,8 +85,7 @@ add_body <- function(req, body){
 #' @importFrom httr2 req_options
 add_options <- function(req, options){
   if(!is.null(options)){
-    req |> req_options(options)
-  }else{
-    req
+    req$options <- options
   }
+  req
 }
