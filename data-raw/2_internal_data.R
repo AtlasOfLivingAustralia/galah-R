@@ -38,16 +38,16 @@ node_config <- read_csv("./data-raw/node_config.csv") |>
 stored_functions <- c(
   "show_all_fields", "show_all_profiles", "show_all_reasons")
 
-# galah_internal_cached <- lapply(
-#   stored_functions,
-#   function(a){
-#     result <- eval(parse(text = paste0(a, "()")))
-#     attr(result, "ARCHIVED") <- TRUE
-#     attr(result, "atlas_name") <- "Australia"
-#     result
-#   })
-# # lapply(galah_internal_cached, attributes) # check
-# names(galah_internal_cached) <- stored_functions
+galah_internal_cached <- lapply(
+  stored_functions,
+  function(a){
+    result <- eval(parse(text = paste0(a, "()")))
+    attr(result, "ARCHIVED") <- TRUE
+    attr(result, "atlas_name") <- "Australia"
+    result
+  })
+# lapply(galah_internal_cached, attributes) # check
+names(galah_internal_cached) <- stored_functions
 
 # add ranks
 galah_internal_archived <- list(
@@ -96,7 +96,7 @@ use_data(
   node_metadata,
   node_config,
   galah_internal_archived,
-  # galah_internal_cached,
+  galah_internal_cached,
   gbif_internal_archived,
   internal = TRUE, 
   overwrite = TRUE)

@@ -15,8 +15,8 @@ check_internal_cache <- function(...){
   user_options <- list(...)
   
   # load an archived version as the default
-  default_options <- galah_internal_archived # stored in R/sysdata.rda
-  # get0("galah_internal_archived", envir = asNamespace("galah")) # alternate code
+  default_options <- galah_internal_cached # stored in R/sysdata.rda
+  # get0("galah_internal_cached", envir = asNamespace("galah")) # alternate code
     
   # deal with different kinds of query
   if (length(user_options) == 0 && !is.null(current_options)) {

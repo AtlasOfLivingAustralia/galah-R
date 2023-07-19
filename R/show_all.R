@@ -125,8 +125,8 @@ show_all_providers <- function(limit = NULL){
 #' @importFrom dplyr select
 #' @export
 show_all_fields <- function(limit = NULL){
-  update_needed <- TRUE # internal_cache_update_needed("show_all_fields")
-  if(update_needed){ # i.e. we'd like to run a query
+  update_needed <- internal_cache_update_needed("show_all_fields")
+  if(update_needed){
     list(
       fields = collect(request_metadata(type = "fields")),
       layers = collect(request_metadata(type = "layers")),

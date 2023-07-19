@@ -110,7 +110,7 @@ collapse_lists <- function(.data){
 #' @noRd
 #' @keywords Internal
 collapse_profiles <- function(.data){
-  update_needed <- TRUE # internal_cache_update_needed("show_all_profiles")
+  update_needed <- internal_cache_update_needed("show_all_profiles")
   if(update_needed){
     result <- list(type = .data$type,
                    url = url_lookup("profiles_all"),
@@ -138,7 +138,7 @@ collapse_providers <- function(.data){
 #' @noRd
 #' @keywords Internal
 collapse_reasons <- function(.data){
-  update_needed <- TRUE # internal_cache_update_needed("show_all_reasons")
+  update_needed <- internal_cache_update_needed("show_all_reasons")
   if(update_needed){
     result <- list(type = .data$type,
                    url = url_lookup("logger_reasons"),
