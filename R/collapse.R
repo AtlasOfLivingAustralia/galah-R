@@ -8,7 +8,7 @@ collapse.data_request <- function(.data){
          "species-count" = collapse_species_count(.data),
          "species" = collapse_species(.data),
          "occurrences" = collapse_occurrences(.data),
-         "media" = collapse_media(.data),
+         "media" = collapse_media_metadata(.data),
          abort("unrecognised 'type'"))
 }
 
@@ -33,6 +33,17 @@ collapse.metadata_request <- function(.data){
          "reasons" = collapse_reasons(.data))
 }
 
+# if calling `collapse()` after `request_files()`
+#' @rdname collect.data_request
+#' @export
+collapse.files_request <- function(.data){
+  switch(.data$type,
+         "doi" = collapse_doi(.data),
+         "distributions" = collapse_distribtions(.data),
+         "media" = collapse_media_files(.data)
+  )
+}
+         
 #' Internal function to build headers at the `collapse()` stage
 #' @noRd
 #' @keywords Internal

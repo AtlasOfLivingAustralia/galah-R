@@ -2,23 +2,43 @@
 % Please edit documentation in R/galah_call.R, R/print.R
 \name{galah_call}
 \alias{galah_call}
+\alias{request_data}
+\alias{request_metadata}
+\alias{request_files}
 \alias{print.data_request}
-\title{Start building a data query}
+\title{Start building a query}
 \usage{
-galah_call(type = "occurrences", ...)
+galah_call(method = c("data", "metadata", "files"), type, ...)
+
+request_data(
+  type = c("occurrences", "species", "occurrences-count", "species-count"),
+  ...
+)
+
+request_metadata(
+  type = c("fields", "apis", "assertions", "atlases", "collections", "datasets",
+    "layers", "licences", "lists", "profiles", "providers", "ranks", "reasons")
+)
+
+request_files(type = c("media", "doi", "distributions"))
 
 \method{print}{data_request}(x, ...)
 }
 \arguments{
-\item{type}{String: what form of data should be returned? Should be one of
-\code{"occurrences"}, \code{"species"} or \code{"media"}.}
+\item{method}{String: what \code{request} function should be called. Should be one
+of \code{"data"} (default), \code{"metadata"} or \code{"files"}}
+
+\item{type}{String: what form of data should be returned? Acceptable values
+are specified by the corresponding \code{request} function}
 
 \item{...}{Zero or more arguments to alter a query. See 'details'.}
 
 \item{x}{an object of class \code{data_request}}
 }
 \value{
-An object of class \code{data_request}.
+Each sub-function returns a different object class: \code{request_data()}
+returns \code{data_request}. \code{request_metadata} returns \code{metadata_request},
+\code{request_files()} returns \code{files_request}.
 }
 \description{
 To download data from the ALA (or another atlas), one must construct a data
@@ -26,6 +46,13 @@ query. This query tells the atlas API what data to download and return, as
 well as how it should be filtered. Using \code{galah_call()} allows you to build
 a piped query to download data, in the same way that you would wrangle data
 with \code{dplyr} and the \code{tidyverse}.
+
+Since version 2.0, \code{galah_call()} is a wrapper to underlying functions with
+the \code{request_} prefix. Each of these functions can begin a pipe, and end that
+pipe with \code{collapse()}, \code{compute()} or \code{collect()}. Having a different piping
+functions is useful because it allows later functions to have class-specific
+requests; e.g. \code{filter.data_request} generates filters for \code{solr}, whereas
+\code{filter.metadata_request} is a search function that accepts a single string.
 }
 \details{
 Each atlas has several types of data that can be chosen. Currently supported
@@ -49,7 +76,6 @@ arguments are:
 \item \code{geolocate} (accepts \code{galah_geolocate()}, \code{galah_polygon()} \code{galah_bbox()} or
 \code{\link[=st_crop.data_request]{st_crop()}})
 \item \code{limit} (accepts \code{\link[=slice_head.data_request]{slice_head()}})
-\item \code{media} (accepts \code{galah_media()})
 \item \code{down_to} (accepts \code{galah_down_to()}, specific to \code{atlas_taxonomy()})
 \item \code{doi} (accepts a sting listing a valid DOI, specific to \code{collect()} when \code{type = "doi"})
 }
@@ -57,6 +83,7 @@ arguments are:
 Unrecognised names are ignored by \code{collect()} and related functions.
 }
 \examples{
+\dontrun{ 
 # Begin your query with `galah_call()`, then pipe using `\%>\%` or `|>`
 
 # Get number of records of *Aves* from 2001 to 2004 by year
@@ -70,7 +97,7 @@ galah_call() |>
 galah_call() |>
   galah_identify("Cacatuidae") |>
   atlas_species()
-\dontrun{ 
+  
 # Download records of genus *Eolophus* from 2001 to 2004
 galah_config(email = "your-email@email.com")
 

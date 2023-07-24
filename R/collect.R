@@ -5,7 +5,6 @@
 #' inspected before being sent. `compute()` sends the query so that it can 
 #' be calculated server-side in the specified atlas. `collect()` returns the
 #' resulting `tibble` once it is complete.
-#' `r lifecycle::badge("experimental")`.
 #' 
 #' This function has three extensions in `galah`. `collect.data_request()` is
 #' designed to be called at the end of a pipe, `collect.data_response()` works
@@ -44,7 +43,7 @@ collect.data_request <- function(.data){
       )
 }
 
-# if calling `collect()` after `collapse()`
+# if calling `collect()` after `request_data() |> collapse()`
 #' @rdname collect.data_request
 #' @export
 collect.data_query <- function(.data){
@@ -57,7 +56,7 @@ collect.data_query <- function(.data){
          "occurrences" = {
            compute(.data) |>
              collect_occurrences(wait = TRUE)},
-         "media" = collect_media(.data),
+         "media" = collect_media_metadata(.data),
          query_API
   )
 }

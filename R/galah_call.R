@@ -1,14 +1,25 @@
-#' Start building a data query
+#' Start building a query
 #' 
+#' @description
 #' To download data from the ALA (or another atlas), one must construct a data 
 #' query. This query tells the atlas API what data to download and return, as 
 #' well as how it should be filtered. Using `galah_call()` allows you to build 
 #' a piped query to download data, in the same way that you would wrangle data 
 #' with `dplyr` and the `tidyverse`.
+#'
+#' Since version 2.0, `galah_call()` is a wrapper to underlying functions with 
+#' the `request_` prefix. Each of these functions can begin a pipe, and end that
+#' pipe with `collapse()`, `compute()` or `collect()`. Having a different piping 
+#' functions is useful because it allows later functions to have class-specific 
+#' requests; e.g. `filter.data_request` generates filters for `solr`, whereas 
+#' `filter.metadata_request` is a search function that accepts a single string.
 #' 
-#' @param type String: what form of data should be returned? Should be one of 
-#' `"occurrences"`, `"species"` or `"media"`.
+#' @param method String: what `request` function should be called. Should be one
+#' of `"data"` (default), `"metadata"` or `"files"`
+#' @param type String: what form of data should be returned? Acceptable values
+#' are specified by the corresponding `request` function
 #' @param ... Zero or more arguments to alter a query. See 'details'.
+#' 
 #' @details
 #' Each atlas has several types of data that can be chosen. Currently supported
 #' are `"occurrences"` (the default), `"species"` and `"media"` (the latter
@@ -31,14 +42,17 @@
 #'  - `geolocate` (accepts `galah_geolocate()`, `galah_polygon()` `galah_bbox()` or 
 #'    \code{\link[=st_crop.data_request]{st_crop()}})
 #'  - `limit` (accepts \code{\link[=slice_head.data_request]{slice_head()}})
-#'  - `media` (accepts `galah_media()`)
 #'  - `down_to` (accepts `galah_down_to()`, specific to `atlas_taxonomy()`)
 #'  - `doi` (accepts a sting listing a valid DOI, specific to `collect()` when `type = "doi"`)
 #'  
 #'  Unrecognised names are ignored by `collect()` and related functions.
 #' 
-#' @return An object of class `data_request`.
+#' @return Each sub-function returns a different object class: `request_data()` 
+#' returns `data_request`. `request_metadata` returns `metadata_request`,
+#' `request_files()` returns `files_request`.
+#' @rdname galah_call
 #' @examples
+#' \dontrun{ 
 #' # Begin your query with `galah_call()`, then pipe using `%>%` or `|>`
 #' 
 #' # Get number of records of *Aves* from 2001 to 2004 by year
@@ -52,7 +66,7 @@
 #' galah_call() |>
 #'   galah_identify("Cacatuidae") |>
 #'   atlas_species()
-#' \dontrun{ 
+#'   
 #' # Download records of genus *Eolophus* from 2001 to 2004
 #' galah_config(email = "your-email@email.com")
 #' 
@@ -62,7 +76,74 @@
 #'   atlas_occurrences()
 #' }
 #' @export galah_call
-galah_call <- function(type = "occurrences",
+galah_call <- function(method = c("data", "metadata", "files"),
+                       type,
                        ...){
-  request_data(type = type, ...)
+  method <- match.arg(method)
+  switch(method, 
+         "data" = request_data(type = type, ...),
+         "metadata" = request_metadata(type = type),
+         "files" = request_files(type = type))
+}
+
+#' @rdname galah_call
+#' @export
+request_data <- function(type = c("occurrences", 
+                                  "species",
+                                  "occurrences-count",
+                                  "species-count",
+                                  "media"), 
+                         ...){
+  type <- match.arg(type)
+  # create an empty list
+  valid_names <- c("type", "identify", "filter", "select", "group_by",
+                   "geolocate", "limit")
+  default_call <- vector(mode = "list", length = length(valid_names))
+  names(default_call) <- valid_names
+  default_call$type <- check_type(type)
+  class(default_call) <- "data_request"
+  # update
+  if(length(list(...)) > 0){
+    update_data_request(default_call, ...)
+  }else{
+    default_call
+  }
+}
+
+#' @rdname galah_call
+#' @export
+request_metadata <- function(
+    type = c("fields",
+             "apis",      # offline
+             "assertions",
+             "atlases",   # offline
+             "collections",
+             "datasets",
+             "layers",    # new
+             "licences",
+             "lists",
+             "profiles",
+             "providers",
+             "ranks",      # offline
+             "reasons"
+    ) 
+    # note: option to add `...` here for consistency with `request_data()`
+){
+  x <- list(type = match.arg(type))
+  class(x) <- "metadata_request"
+  return(x)
+}
+
+#' @rdname galah_call
+#' @export
+request_files <- function(
+    type = c("doi",
+             "distributions",
+             "media"
+    ) 
+    # note: option to add `...` here for consistency with `request_data()`
+){
+  x <- list(type = match.arg(type))
+  class(x) <- "files_request"
+  return(x)
 }
