@@ -51,6 +51,7 @@ collect_fields <- function(.data){
 
 #' Internal function to `collect()` layers
 #' @importFrom dplyr arrange
+#' @importFrom dplyr case_when
 #' @importFrom dplyr filter
 #' @importFrom dplyr mutate
 #' @importFrom dplyr select

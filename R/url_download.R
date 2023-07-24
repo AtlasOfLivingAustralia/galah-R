@@ -34,7 +34,7 @@ url_download <- function(url,
 
   # workaround for fq troubles
   if (length(params$fq) > 1) {
-    cli$url <- url_build_internal(list(url = url, query = params))
+    cli$url <- build_url_internal(list(url = url, query = params))
     res <- try(cli$get(disk = cache_file), silent = TRUE)
   } else {
     res <- try(cli$get(query = params, disk = cache_file), silent = TRUE)

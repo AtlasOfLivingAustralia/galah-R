@@ -1,25 +1,19 @@
 #' Internal function to run a GET call using httr2
+#' NOTE: how to handle multiple urls? Is this automatic?
 #' @noRd
 #' @keywords Internal
 #' @importFrom httr2 request
 #' @importFrom httr2 req_error
 #' @importFrom httr2 req_headers
 #' @importFrom httr2 req_perform
+#' @importFrom purrr pluck
 #' @importFrom rlang abort
 #' @importFrom rlang inform
-query_API <- function(.data,
-                      # url, 
-                      # params = list(), # Obsolete: should be built during `collapse()`?
-                      # slot_name = NULL, # relates to parsing out content
-                      error_call = caller_env()) {
+query_API <- function(.data, error_call = caller_env()) {
   
-  # NOTE: how to handle multiple urls? Is this automatic?
-  
-  # convert to check_api_key()
   check_api_key(.data)
   
-  # build and run API call
-  # url <- url_build_internal(list(url = url, query = params)) # enforce parsing beforehand: obsolete
+  # construct and run query
   result <- request(.data$url) |>
     add_headers(.data$headers) |> 
     add_options(.data$options) |> # used by GBIF
@@ -31,23 +25,16 @@ query_API <- function(.data,
   
   # subset to particular slot if needed  
   if(!is.null(.data$slot_name)){
-    result <- result[[.data$slot_name]]
+    result <- pluck(result, !!!.data$slot_name)
   }
   
+  # return correct info
   if(inherits(result, "list")){
     lapply(result, function(a){a[lengths(a) == 1]}) |>
     bind_rows()
   }else{
     result
   }
-  # # return correct info.
-  # # NOTE: is this needed? Test with stuff that returns errors
-  # # If not needed, convert whole function to a single pipe
-  # if(is.null(response)){
-  #   NULL
-  # }else{
-  #   resp_body_json(response)
-  # }
 }
 
 #' If supplied, add `headers` arg to a `request()`

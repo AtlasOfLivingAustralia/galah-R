@@ -4,11 +4,8 @@
 collapse.data_request <- function(.data){
   .data$type <- check_type(.data$type)
   switch(.data$type, 
-         "occurrences-count" = collapse_counts(.data),
-         "species-count" = collapse_counts(.data),
-         "doi" = abort(c(
-           "`collapse()` does not exist for `type = 'doi'`",
-           i = "try `collect() instead")),
+         "occurrences-count" = collapse_occurrences_count(.data),
+         "species-count" = collapse_species_count(.data),
          "species" = collapse_species(.data),
          "occurrences" = collapse_occurrences(.data),
          "media" = collapse_media(.data),

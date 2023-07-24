@@ -374,3 +374,42 @@ parse_solr <- function(df){
 #' @noRd
 #' @keywords internal
 filter_error <- function(){abort("Invalid argument passed to `filter()`")}
+
+
+#' Subfunction called by `parse_solr()`
+#' @noRd
+#' @keywords internal
+query_term <- function(name, value, include) {
+  # check for blank value
+  blank_value <- if(value == "") {TRUE} else {FALSE}
+  
+  # add quotes around value
+  value <- lapply(value, rlang::expr_text) # format query value as solr-readable text
+  
+  # add quotes around value
+  if(isTRUE(blank_value)) {
+    value_str <- parse_blank_query(name, include)
+  } else {
+    if (include) {
+      value_str <- paste0("(", 
+                          paste(name, value, collapse = " OR ", sep = ":"),
+                          ")")
+    } else {
+      value_str <- paste0("-(", 
+                          paste(name, value, collapse = " OR ", sep = ":"), 
+                          ")")
+    }
+  }
+  value_str
+}
+
+#' Subfunction called by `query_term()`
+#' @noRd
+#' @keywords internal
+parse_blank_query <- function(name, include) {
+  if (include) { 
+    value_str <- paste0("(*:* AND -", name, ":*)") # queries with "=="
+  } else { 
+    value_str <- paste0("(", name, ":*)") # queries with "!="
+  }
+}

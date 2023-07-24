@@ -20,7 +20,6 @@ request_data <- function(type = c("occurrences",
                                   "species-count"), 
                          ...){
   type <- match.arg(type)
-
   # create an empty list
   valid_names <- c("type", "identify", "filter", "select", "group_by",
                    "geolocate", "limit", "doi")
@@ -28,7 +27,6 @@ request_data <- function(type = c("occurrences",
   names(default_call) <- valid_names
   default_call$type <- check_type(type)
   class(default_call) <- "data_request"
-  
   # update
   if(length(list(...)) > 0){
     update_data_request(default_call, ...)

@@ -2,7 +2,7 @@
 #' 
 #' This is a little different from other `compute` functions; it converts a 
 #' `data_query` object (from `collapse(type = "occurrences-count")`) into one or more urls
-#' that can be passed verbatim to `url_GET()`. This is important when `group_by`
+#' that can be passed verbatim to `query_API()`. This is important when `group_by`
 #' has `expand = TRUE`, because it requires an initial call to the atlas to 
 #' calculate the requisite URLs. It makes very little difference under other
 #' circumstances
@@ -12,22 +12,19 @@
 compute_counts <- function(.data){
   if(.data$expand){
     if(is_gbif()){
+      abort("Grouped counts haven't been (re)implemented for GBIF yet")
       # compute_grouped_counts_GBIF(.data)
     }else{
       result <- list(
+        type = .data$type,
         url = build_query_list_LA(.data),
-        column = .data$column,
-        type = .data$type)
+        slot_name = .data$slot_name)
     }    
   }else{
-    result <- list(
-      url = url_build_internal(.data),
-      column = .data$column,
-      type = .data$type)
+    result <- .data
   }
   class(result) <- "data_response"
   attr(result, "fields") <- .data$query$facets
-  
   return(result)
 }
 
@@ -78,7 +75,7 @@ build_query_list_LA <- function(.data){
   
   # convert queries to urls
   url_list <- lapply(query_list, function(a, url){
-    url_build_internal(list(url = url, query = a))
+    build_url_internal(list(url = url, query = a))
   }, url = .data$url)
   
   # combine into a tibble

@@ -13,7 +13,7 @@ url_GET <- function(url,
                     slot_name = NULL,
                     error_call = caller_env()) {
   
-  url <- url_build_internal(list(url = url, query = params))
+  url <- build_url_internal(list(url = url, query = params))
   response <- request(url) |>
     req_headers("User-Agent" = galah_version_string()) |>
     req_error(is_error = NULL) |> # untested; intended to catch errors

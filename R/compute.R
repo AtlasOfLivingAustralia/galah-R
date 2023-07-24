@@ -1,13 +1,26 @@
-# if calling `compute()` after `galah_call()` 
+# if calling `compute()` after `request_data()` 
 #' @rdname collect.data_request
-#' @importFrom potions pour
-#' @importFrom rlang abort
 #' @export
 compute.data_request <- function(.data){
   .data$type <- check_type(.data$type)
   collapse(.data) |>
     switch_compute()
 }
+
+# if calling `compute()` after `request_metadata()` 
+# @rdname collect.data_request
+# @export
+# compute.metadata_request <- function(.data){
+#   meta_collapse <- collapse(.data)
+#   if(any(c("lists", "collections", "datasets", "providers") == .data$type)){
+#     browser()
+#     x <- collect(meta_collapse)
+#     # NOT sure what to add here
+#   }else{
+#     class(.data) <- "metadata_response"
+#     return(.data)
+#   }
+# }
 
 # if calling `compute()` after `collapse()`
 #' @rdname collect.data_request
@@ -36,5 +49,3 @@ switch_compute <- function(.data){
            check_login(.data)
            compute_media(.data)})   
 }
-
-# NOTE: calls opened with `request_metadata()` have no `compute()` stage
