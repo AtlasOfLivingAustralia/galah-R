@@ -1,26 +1,3 @@
-#' build URLs
-#' @keywords Internal
-#' @importFrom httr2 url_build
-#' @importFrom httr2 url_parse
-#' @noRd
-build_url_internal <- function(url,
-                               query){
-  url <- url_parse(url)
-  if(any(names(query) == "fq")){
-    # join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
-    
-    # ensure all arguments from galah_filter are enclosed in brackets
-    fq <- query$fq
-    missing_brackets <- !grepl("^\\(", fq)
-    if(any(missing_brackets)){
-      fq[missing_brackets] <- paste0("(", fq[missing_brackets], ")")
-    }
-    fq_single <- paste(fq, collapse = "AND")
-    url$query <- c(fq = fq_single, query[names(query) != "fq"])
-  }
-  url_build(url)
-}
-
 #' Build query list from constituent arguments
 #' @noRd
 #' @keywords Internal
@@ -83,7 +60,25 @@ build_query <- function(identify,
     }
   }
   
-  query
+  build_single_fq(query)
+}
+
+#' collapse multiple fq args into one
+#' @keywords Internal
+#' @noRd
+build_single_fq <- function(query){
+  if(any(names(query) == "fq")){
+    # ensure all arguments from galah_filter are enclosed in brackets
+    fq <- query$fq
+    missing_brackets <- !grepl("^\\(", fq)
+    if(any(missing_brackets)){
+      fq[missing_brackets] <- paste0("(", fq[missing_brackets], ")")
+    }
+    fq_single <- paste(fq, collapse = "AND")
+    c(fq = fq_single, query[names(query) != "fq"])
+  }else{
+    query
+  }
 }
 
 #' Sub-function to `build_query()` for filters

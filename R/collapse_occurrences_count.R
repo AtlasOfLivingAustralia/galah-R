@@ -16,6 +16,8 @@ collapse_occurrences_count <- function(.data){
 }
 
 #' collapse for counts on GBIF
+#' @importFrom httr2 url_build
+#' @importFrom httr2 url_parse
 #' @keywords Internal
 #' @noRd
 collapse_occurrences_count_gbif <- function(identify = NULL, 
@@ -24,7 +26,7 @@ collapse_occurrences_count_gbif <- function(identify = NULL,
                                             limit = 100
                                             ){
   # get relevant information
-  url <- url_lookup("records_counts")
+  url <- url_lookup("records_counts") |> url_parse()
   query <- build_query(identify, filter)
   # add facets
   query$limit <- 0
@@ -38,9 +40,10 @@ collapse_occurrences_count_gbif <- function(identify = NULL,
                            expand = attr(group_by, "expand"))
     }
   }
+  url$query <- query
   # aggregate and return
   result <- list(type = "occurrences-count",
-                 url = build_url_internal(url, query), 
+                 url = url_build(url), 
                  headers = build_headers(),
                  slot_name = "count")
   class(result) <- "data_query"
@@ -48,6 +51,8 @@ collapse_occurrences_count_gbif <- function(identify = NULL,
 }
 
 #' collapse for counts on LAs
+#' @importFrom httr2 url_build
+#' @importFrom httr2 url_parse
 #' @keywords Internal
 #' @noRd
 collapse_occurrences_count_atlas <- function(identify = NULL, 
@@ -61,31 +66,30 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
                        filter, 
                        geolocate, 
                        profile = data_profile$profile) 
+  result <- list(type = "occurrences-count")
   
   if(is.null(group_by)){
-    url <- url_lookup("records_counts")
-    query$pageSize <- 0
-    slot_name <- "totalRecords"
-    expand <- FALSE
+    url <- url_lookup("records_counts") |> url_parse()
+    url$query <- c(query, pageSize = 0)
+    result$url <- url_build(url)
+    result$slot_name <- "totalRecords"
+    result$expand <- FALSE
   }else{
-    url <- url_lookup("records_facets")
+    url <- url_lookup("records_facets") |> url_parse()
     facets <- as.list(group_by$name)
     names(facets) <- rep("facets", length(facets))
-    query <- c(query, facets, flimit = limit)
+    url$query <- c(query, facets, flimit = limit)
+    result$url <- url_build(url)
     if(length(facets) > 1){
-      expand <- TRUE
+      result$expand <- TRUE
     }else{
-      expand <- FALSE
+      result$expand <- FALSE
     }
-    slot_name <- list(1, "fieldResult")
+    result$return_basic <- TRUE
   }
   
   # aggregate and return
-  result <- list(type = "occurrences-count",
-                 url = build_url_internal(url, query), 
-                 headers = build_headers(),
-                 slot_name = slot_name,
-                 expand = expand)
+  result$headers <- build_headers()
   class(result) <- "data_query"
   return(result)
 }

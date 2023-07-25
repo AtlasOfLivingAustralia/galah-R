@@ -15,16 +15,16 @@ compute_counts <- function(.data){
       abort("Grouped counts haven't been (re)implemented for GBIF yet")
       # compute_grouped_counts_GBIF(.data)
     }else{
-      result <- list(
+      result <- c(list(
         type = .data$type,
-        url = build_query_list_LA(.data),
-        slot_name = .data$slot_name)
+        url = build_query_list_LA(.data)),
+        .data[!(names(.data) %in% c("url", "type"))])
     }    
   }else{
     result <- .data
   }
   class(result) <- "data_response"
-  attr(result, "fields") <- .data$query$facets
+  attr(result, "fields") <- url_parse(.data$url)$query$facets
   return(result)
 }
 
@@ -34,14 +34,18 @@ compute_counts <- function(.data){
 #' @keywords Internal
 build_query_list_LA <- function(.data){
   
-  result <- url_GET(.data$url, .data$query)[[.data$column]]
+  result <- query_API(.data)
   
   if(is.null(result)){
     system_down_message("count")
   }
   
+  result <- lapply(result, 
+                   function(a){a$fieldResult |> bind_rows()})
+  
+  query <- url_parse(.data$url)$query
   values_df <- data.frame(
-    facet = unlist(.data$query[names(.data$query) == "facets"]),
+    facet = unlist(query[names(query) == "facets"]),
     n = unlist(lapply(result, nrow)))
   
   names(result) <- values_df$facet
@@ -71,21 +75,16 @@ build_query_list_LA <- function(.data){
       fq = glue_collapse(all_queries, " AND "),
       facets = facets_large) |>
     c(query[!(names(query) %in% c("facets", "fq"))])
-  }, query = .data$query)
+  }, query = query)
+  names(query_list) <- NULL
+  
+  # NOTE there is a missing step here to remove the facet in question from fq
   
   # convert queries to urls
-  url_list <- lapply(query_list, function(a, url){
-    build_url_internal(list(url = url, query = a))
+  lapply(query_list, function(a, url){
+    url_tr <- url_parse(.data$url)
+    url_tr$query <- a
+    url_build(url_tr)
   }, url = .data$url)
-  
-  # combine into a tibble
-  result_df <- tibble(
-    labels_df,
-    url = as.character(url_list))
-  
-  # preserve name of url field
-  attr(result_df, "url_field") <- facets_large
-  
-  return(result_df)
-  
+
 }

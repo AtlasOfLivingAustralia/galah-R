@@ -28,8 +28,8 @@ query_API <- function(.data, error_call = caller_env()) {
     result <- pluck(result, !!!.data$slot_name)
   }
   
-  # return correct info
-  if(inherits(result, "list")){
+  # rbind if not requested otherwise
+  if(is.null(.data$return_basic) && inherits(result, "list")){
     lapply(result, function(a){a[lengths(a) == 1]}) |>
     bind_rows()
   }else{

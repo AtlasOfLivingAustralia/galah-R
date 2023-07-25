@@ -94,7 +94,11 @@ request_data <- function(type = c("occurrences",
                                   "species-count",
                                   "media"), 
                          ...){
-  type <- match.arg(type)
+  if(!missing(type)){
+    type <- match.arg(type)
+  }else{
+    type <- "occurrences"
+  }
   # create an empty list
   valid_names <- c("type", "identify", "filter", "select", "group_by",
                    "geolocate", "limit")
@@ -119,6 +123,7 @@ request_metadata <- function(
              "atlases",   # offline
              "collections",
              "datasets",
+             # distributions" # new
              "layers",    # new
              "licences",
              "lists",
