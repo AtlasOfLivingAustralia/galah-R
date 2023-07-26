@@ -13,7 +13,6 @@ compute.data_request <- function(.data){
 # compute.metadata_request <- function(.data){
 #   meta_collapse <- collapse(.data)
 #   if(any(c("lists", "collections", "datasets", "providers") == .data$type)){
-#     browser()
 #     x <- collect(meta_collapse)
 #     # NOT sure what to add here
 #   }else{

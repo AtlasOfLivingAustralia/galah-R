@@ -18,11 +18,9 @@ collect_occurrences <- function(.data, wait){
   # process supplied object
   if(.data$status != lookup$completed_flag){
     if(wait){
-      # browser()
       download_response <- do.call(lookup$queue_function, 
                                    lookup$queue_input)
     }else{
-      # browser()
       download_response <- url_GET(lookup$status_url)
       if(download_response$status != lookup$completed_flag){
         class(download_response) <- "data_response"

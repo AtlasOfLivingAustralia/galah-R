@@ -30,7 +30,6 @@
 #' @export
 
 galah_apply_profile <- function(...){
-  # browser()
   dots <- enquos(..., .ignore_empty = "all")
   parsed_dots <- parse_quosures_basic(dots)
   df <- parse_profile(parsed_dots$data)

@@ -61,7 +61,6 @@
 search_taxa <- function(...) {
   
   query <- list(...)
-# browser()
   if(length(query) < 1){
     warn("No query passed to `search_taxa.`")
     return(tibble())
