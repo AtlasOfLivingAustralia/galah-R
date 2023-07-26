@@ -11,7 +11,7 @@
 galah_call(method = c("data", "metadata", "files"), type, ...)
 
 request_data(
-  type = c("occurrences", "species", "occurrences-count", "species-count"),
+  type = c("occurrences", "species", "occurrences-count", "species-count", "media"),
   ...
 )
 
@@ -20,7 +20,7 @@ request_metadata(
     "layers", "licences", "lists", "profiles", "providers", "ranks", "reasons")
 )
 
-request_files(type = c("media", "doi", "distributions"))
+request_files(type = c("doi", "distributions", "media"))
 
 \method{print}{data_request}(x, ...)
 }

@@ -35,14 +35,11 @@ compute_counts <- function(.data){
 build_query_list_LA <- function(.data){
   
   result <- query_API(.data)
-  
-  if(is.null(result)){
-    system_down_message("count")
-  }
-  
+  if(is.null(result)){system_down_message("count")}
   result <- lapply(result, 
                    function(a){a$fieldResult |> bind_rows()})
   
+  # convert to query
   query <- url_parse(.data$url)$query
   values_df <- data.frame(
     facet = unlist(query[names(query) == "facets"]),
@@ -81,10 +78,16 @@ build_query_list_LA <- function(.data){
   # NOTE there is a missing step here to remove the facet in question from fq
   
   # convert queries to urls
-  lapply(query_list, function(a, url){
+  result_list <- lapply(query_list, function(a, url){
     url_tr <- url_parse(.data$url)
     url_tr$query <- a
     url_build(url_tr)
   }, url = .data$url)
-
+  
+  # parse labels to add as names to url
+  # this is necessary to support later labelling
+  names(result_list) <- lapply(levels_list, 
+                               function(a){paste(a, collapse = "||")}) |>
+                        unlist()
+  return(result_list)
 }

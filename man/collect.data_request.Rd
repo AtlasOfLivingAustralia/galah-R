@@ -3,6 +3,7 @@
 \name{collapse.data_request}
 \alias{collapse.data_request}
 \alias{collapse.metadata_request}
+\alias{collapse.files_request}
 \alias{collect.data_request}
 \alias{collect.data_query}
 \alias{collect.data_response}
@@ -15,6 +16,8 @@
 \method{collapse}{data_request}(.data)
 
 \method{collapse}{metadata_request}(.data)
+
+\method{collapse}{files_request}(.data)
 
 \method{collect}{data_request}(.data)
 
@@ -48,7 +51,6 @@ function in \code{galah}. \code{collapse()} calculates a valid query so it can b
 inspected before being sent. \code{compute()} sends the query so that it can
 be calculated server-side in the specified atlas. \code{collect()} returns the
 resulting \code{tibble} once it is complete.
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}.
 }
 \details{
 This function has three extensions in \code{galah}. \code{collect.data_request()} is
