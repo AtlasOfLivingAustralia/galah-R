@@ -20,7 +20,8 @@ collect_counts <- function(.data){
     if(inherits(result, "list")){
       result <- pluck(result, 1, "fieldResult") |>
                 bind_rows()
-    }else if(inherits(result, "data.frame")){
+    }
+    if(inherits(result, "data.frame")){
       field_name <- attributes(.data)$fields
       result |>
         mutate({{field_name}} := label) |> 

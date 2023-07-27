@@ -81,14 +81,22 @@ collect.data_response <- function(.data, wait){
 #' @rdname collect.data_request
 #' @export
 collect.metadata_request <- function(.data){
-  collapse(.data) |> 
+  compute(.data) |> 
   collect()
 }
 
-# if calling `collect()` after `collapse()` after `request_metadata()`
+# if calling `collect()` after `collapse()` after request_metadata()`
 #' @rdname collect.data_request
 #' @export
 collect.metadata_query <- function(.data){
+  compute(.data) |> 
+  collect()
+}
+
+# if calling `collect()` after `compute()` after `request_metadata()`
+#' @rdname collect.data_request
+#' @export
+collect.metadata_response <- function(.data){
   # deal with stored data first
   # This handles types = "atlases", "ranks"
   # It also handles "fields", "assertions" and "profiles" when updates are not required

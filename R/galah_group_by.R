@@ -40,16 +40,11 @@ group_by.data_request <- function(.data, ..., expand = TRUE){
 #' @keywords Internal
 parse_group_by <- function(dot_names, expand){
   if(length(dot_names) > 0){
-     if(pour("package", "run_checks")){
-      validate_fields(dot_names)
-     }
     if(length(dot_names) > 3){
       abort("`group_by.data_request` can accept a maximum of three fields")
     }
-    
-    available_variables <- dot_names[dot_names %in% show_all_fields()$id]
-    if(length(available_variables) > 0){
-      df <- tibble(name = available_variables)
+    if(length(dot_names) > 0){
+      df <- tibble(name = dot_names)
       df$type <- ifelse(str_detect(df$name, "[[:lower:]]"), "field", "assertions")
     }else{
       df <- tibble(name = "name", type = "type", .rows = 0)

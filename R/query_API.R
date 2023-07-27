@@ -13,12 +13,7 @@ query_API <- function(.data, error_call = caller_env()) {
            }) |>
       bind_rows()
   }else{
-    result <- query_API_internal(.data) 
-    if(inherits(result, "list")){
-      bind_rows(result)
-    }else{
-      result
-    }
+    query_API_internal(.data)
   }
 }
 
@@ -34,9 +29,7 @@ query_API <- function(.data, error_call = caller_env()) {
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 query_API_internal <- function(.data, error_call = caller_env()) {
-  
-  check_api_key(.data)
-  
+
   # construct and run query
   result <- request(.data$url) |>
     add_headers(.data$headers) |> 
@@ -70,6 +63,9 @@ query_API_internal <- function(.data, error_call = caller_env()) {
   }
 }
 
+#' simple function to show most frequent value; used for assessing list size
+#' @noRd
+#' @keywords Internal
 most_common_integer <- function(x){
   result <-sort(xtabs(~x), decreasing = TRUE)[1]
   as.integer(names(result)[1])

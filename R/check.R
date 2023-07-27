@@ -23,7 +23,7 @@ check_type <- function(type){
   }
   valid_types <- c(
     "occurrences", "species", "media",
-    "doi", "occurrences-count", "species-count")
+    "occurrences-count", "species-count")
   if(!(type %in% valid_types)){
     abort("`type` not recognised")
   }
@@ -39,25 +39,20 @@ check_type <- function(type){
 #' @noRd
 #' @keywords Internal
 check_media_cols <- function(.data){
-  
   media_colnames <- c("images", "sounds", "videos")
   # if media columns are not present, return original data unchanged
   if(!any(colnames(.data) %in% media_colnames)){
     .data
   }
-  
   # otherwise get media columns
   present_cols <- media_colnames[media_colnames %in% colnames(.data)]
-  
   for(i in present_cols){
     if(!all(is.na(.data[[i]]))){
       .data[[i]] <- strsplit(.data[[i]], "\\s\\|\\s")
     }
   }
-  
   .data
 }
-
 
 #' Internal function to confirm requisite login information has been provided
 #' Called by `compute()`
@@ -66,17 +61,29 @@ check_media_cols <- function(.data){
 #' @importFrom rlang caller_env
 check_login <- function(.data, error_call = caller_env()){
   if(is_gbif()){
+    # NOTE: This will probably fail as .data$opts won't exist shortly
     if(.data$opts$userpwd == ":"){
-      abort("GBIF requires a username and password to download occurrences or species")
+      abort("GBIF requires a username and password to download occurrences or species",
+            call = error_call)
     }
   }else{
-    if(.data$query$email == ""){
-      bullets <- c(
-        "No user email was found.",
-        i = glue("To download occurrence records you must provide a valid email ",
-                 "address registered with the selected atlas using `galah_config(email = )`")
-      )
-      abort(bullets, call = error_call)
+    if(pour("atlas", "acronym") == "ALA"){
+      if(is.null(.data$headers$`x-api-key`) | .data$headers$`x-api-key` == ""){
+        bullets <- c("API key has not been specified for the ALA",
+                     i = "log on to your profile at `https://ala.org.au` to retrieve one",
+                     i = "use `galah_config(api_key = 'my_key_here') to fix this problem")
+        abort(bullets, 
+              call = error_call)
+      }
+    }else{
+      if(.data$query$email == "" & .data$type %in% c("occurrences", "species")){
+        bullets <- c(
+          "No user email was found.",
+          i = glue("To download occurrence records you must provide a valid email ",
+                   "address registered with the selected atlas using `galah_config(email = )`")
+        )
+        abort(bullets, call = error_call)
+      }
     }
   }
 }
@@ -158,13 +165,19 @@ check_groups <- function(group, n){
 }
 
 # check whether fields are valid
-check_fields <- function(x){
+check_fields <- function(.data){
   if(pour("package", "run_checks")){
-    variables <- strsplit(x$variable, "&|\\|") |> 
-                 unlist() |>
-                 unique()
-    if(!all(variables %in% show_all_fields()$id)){
-      abort("fields supplied in `filter` are not present in the selected atlas")
+    queries <- url_parse(.data$url[1])$query 
+    filters <- string_to_tibble(queries$fq) |>
+      pull(variable) |>
+      gsub("\\(|\\)", "", x = _)
+    facets <- queries[names(queries) == "facets"] |>
+      unlist()
+    variables <- c(filters, facets) 
+    if(length(variables) > 0){
+      if(!all(variables %in% show_all_fields()$id)){
+        abort("fields supplied in `filter` are not present in the selected atlas")
+      }
     }
   }
 }
@@ -182,14 +195,5 @@ check_filter_tibbles <- function(x){ # where x is a list of tibbles
     all()
   if(!syntax_valid){
     abort("There was a problem with `filter`, did you use correct syntax?")
-  }
-}
-
-# check API key is supplied
-check_api_key <- function(.data){
-  if(pour("atlas", "acronym") == "ALA" &
-     (is.null(.data$headers$`x-api-key`) | .data$headers$`x-api-key` == "")){
-    abort("API key has not been specified")
-    # NOTE: need to add content here to tell people *how* to add API key
   }
 }

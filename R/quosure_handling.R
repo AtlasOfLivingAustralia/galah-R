@@ -35,7 +35,6 @@ parse_quosures <- function(dots){
           value = character(),
           query = character())
   }
-  check_fields(result$data)
   return(result)
 }
 
