@@ -128,3 +128,16 @@ collect_reasons <- function(.data){
     arrange(id)
   # check_internal_cache(show_all_reasons = df)
 }
+
+#' Internal function to `collect()` taxa
+#' @importFrom dplyr any_of
+#' @importFrom dplyr select
+#' @noRd
+#' @keywords Internal
+collect_taxa <- function(.data){
+  search_terms <- names(.data$url)
+  result <- query_API(.data) |>
+    mutate(search_term = search_terms, .before = success)
+  names(result) <- rename_columns(names(result), type = "taxa") # old code
+  result |> select(any_of(wanted_columns("taxa")))
+}

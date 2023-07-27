@@ -20,7 +20,8 @@
 #' @seealso [search_taxa()] to find identifiers from scientific names;
 #' [search_identifiers()] for how to get names if taxonomic identifiers 
 #' are already known.
-#' 
+#' @importFrom dplyr rename
+#' @importFrom dplyr select
 #' @examples
 #' # Specify a taxon. A valid taxon will return an identifier.
 #' galah_identify("reptilia")
@@ -41,23 +42,51 @@
 #' 
 #' @export
 galah_identify <- function(..., search = TRUE) {
-  # check to see if any of the inputs are a data request
-  dots <- enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures_basic(dots)
-  result <- parse_identify(parsed_dots$data, search)
-  if(is.null(parsed_dots$data_request)){
-    result
+  dots <- list(...)
+  if(inherits(dots[[1]], "data_request")){
+    if(search){
+      result <- search_taxa(dots[-1]) |>
+        rename(identifier = taxon_concept_id) |>
+        select(identifier)
+    }else{
+      result <- tibble(identifier = unlist(dots[-1]))
+    }
+    update_data_request(dots[[1]], identify = result)
   }else{
-    update_data_request(parsed_dots$data_request, identify = result)
+    search_taxa(dots[-1]) |>
+      rename(identifier = taxon_concept_id) |>
+      select(identifier)
   }
 }
-
+  
 #' @rdname galah_identify
-#' @param .data An object of class `data_request`, created using [galah_call()]
+#' @param .data An object of class `data_request`, created using [request_data()]
 #' @export
 identify.data_request <- function(.data, ..., search = TRUE){
   dots <- list(...)
-  update_data_request(.data, identify = parse_identify(dots, search))
+  if(search){
+    result <- search_taxa(dots) |>
+      rename(identifier = taxon_concept_id) |>
+      select(identifier)
+  }else{
+    result <- tibble(identifier = unlist(dots))
+  }
+  update_data_request(.data, identify = result)
+}
+
+#' @rdname galah_identify
+#' @param .data An object of class `metadata_request`, created using [request_metadata()]
+#' @export
+identify.metadata_request <- function(.data, ...){
+  dots <- list(identify = list(...))
+  if(inherits(dots$identify[[1]], "data.frame")){
+    dots$identify <- dots$identify[[1]]
+  }else{
+    dots$identify <- unlist(dots$identify)
+  }
+  result <-  c(.data, dots)
+  class(result) <- "metadata_request"
+  return(result)
 }
 
 #' parser for `galah_identify()`
@@ -122,7 +151,6 @@ parse_identify <- function(input_query, search){
   return(result)
 }
 
-
 # checker function based on `galah_filter.R/check_filters`
 check_queries <- function(dots, error_call = caller_env()) {
   if(any(have_name(dots))){
@@ -135,7 +163,6 @@ check_queries <- function(dots, error_call = caller_env()) {
   }
 }
 
-
 check_number_returned <- function(n_in, n_out, error_call = caller_env()) {
   if(n_out < n_in){
     warn(
@@ -146,20 +173,11 @@ check_number_returned <- function(n_in, n_out, error_call = caller_env()) {
   }
 }
 
-
 # it is possible that the above will lead to non-character 
 # arguments being passed (if search = FALSE and run_checks = FALSE)
 # check this
 check_is_character <- function(query, error_call = caller_env()){
   if(!inherits(query, "character")){
-    lookup <- search_taxa(query)
-    query <- lookup$taxon_concept_id[!is.na(lookup$taxon_concept_id)]
-    
-    bullets <- c(
-      "The object passed to `galah_identify` isn't from a recognised class.",
-      i = "Recognised classes are `ala_id`, `gbifid`, `nbnid` or `character`",
-      i = "Use `search_taxa` to lookup taxon information."
-    )
-    abort(bullets, call = error_call)
+    abort("galah_identify() requires characters to work", call = error_call)
   }
 }

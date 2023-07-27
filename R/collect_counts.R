@@ -13,15 +13,14 @@ collect_counts <- function(.data){
     grouping_df <- names(.data$url) |>
       build_facet_labels() |>
       mutate(url = {{current_urls}})
-    query_API_multiple(.data, grouping_df)
+    query_API_multiple_counts(.data, grouping_df)
   # single calls
   }else{
     result <- query_API(.data)
     if(inherits(result, "list")){
       result <- pluck(result, 1, "fieldResult") |>
                 bind_rows()
-    }
-    if(inherits(result, "data.frame")){
+    }else if(inherits(result, "data.frame")){
       field_name <- attributes(.data)$fields
       result |>
         mutate({{field_name}} := label) |> 
@@ -40,7 +39,7 @@ collect_counts <- function(.data){
 #' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
-query_API_multiple <- function(.data, df){
+query_API_multiple_counts <- function(.data, df){
   lapply(split(df, seq_len(nrow(df))),
          function(a){
            data_tr <- .data

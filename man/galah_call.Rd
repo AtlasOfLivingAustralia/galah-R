@@ -17,7 +17,7 @@ request_data(
 
 request_metadata(
   type = c("fields", "apis", "assertions", "atlases", "collections", "datasets",
-    "layers", "licences", "lists", "profiles", "providers", "ranks", "reasons")
+    "layers", "licences", "lists", "profiles", "providers", "ranks", "reasons", "taxa")
 )
 
 request_files(type = c("doi", "distributions", "media"))

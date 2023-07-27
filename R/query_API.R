@@ -1,7 +1,31 @@
-#' Internal function to run a GET call using httr2
-#' NOTE: how to handle multiple urls? Is this automatic?
+#' Internal function to call APIs
+#' Note that this is a wrapper to `query_API_internal()` to handle single or multiple urls
+#' @importFrom dplyr bind_rows
 #' @noRd
 #' @keywords Internal
+query_API <- function(.data, error_call = caller_env()) {
+  if(length(.data$url) > 1 | inherits(.data$url, "list")){
+    lapply(.data$url,
+           function(a){
+             data_tr <- .data
+             data_tr$url <- a
+             query_API_internal(data_tr)
+           }) |>
+      bind_rows()
+  }else{
+    result <- query_API_internal(.data) 
+    if(inherits(result, "list")){
+      bind_rows(result)
+    }else{
+      result
+    }
+  }
+}
+
+#' Internal function to run a GET call using httr2
+#' @noRd
+#' @keywords Internal
+#' @importFrom dplyr bind_rows
 #' @importFrom httr2 request
 #' @importFrom httr2 req_error
 #' @importFrom httr2 req_headers
@@ -9,7 +33,7 @@
 #' @importFrom purrr pluck
 #' @importFrom rlang abort
 #' @importFrom rlang inform
-query_API <- function(.data, error_call = caller_env()) {
+query_API_internal <- function(.data, error_call = caller_env()) {
   
   check_api_key(.data)
   
@@ -30,11 +54,25 @@ query_API <- function(.data, error_call = caller_env()) {
   
   # rbind if not requested otherwise
   if(is.null(.data$return_basic) && inherits(result, "list")){
-    lapply(result, function(a){a[lengths(a) == 1]}) |>
-    bind_rows()
+    if(most_common_integer(lengths(result)) > 1){
+      # e.g. collect_lists(), where there are many lists, each containing a tibble 
+      lapply(result, function(a){a[lengths(a) == 1]}) |>
+        bind_rows()      
+    }else{
+      # e.g. collect_taxa, where the whole list is a single tibble
+      keep <- lapply(result,
+                     function(a){lengths(a) == 1 & !inherits(a, "list")}) |>
+              unlist()
+      bind_rows(result[keep])
+    }
   }else{
     result
   }
+}
+
+most_common_integer <- function(x){
+  result <-sort(xtabs(~x), decreasing = TRUE)[1]
+  as.integer(names(result)[1])
 }
 
 #' If supplied, add `headers` arg to a `request()`

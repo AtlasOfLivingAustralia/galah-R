@@ -130,7 +130,8 @@ request_metadata <- function(
              "profiles",
              "providers",
              "ranks",      # offline
-             "reasons"
+             "reasons",
+             "taxa"
     ) 
     # note: option to add `...` here for consistency with `request_data()`
 ){

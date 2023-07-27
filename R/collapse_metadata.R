@@ -165,3 +165,39 @@ collapse_ranks <- function(.data){
   class(result) <- "metadata_query"
   return(result)
 }
+
+#' Internal function to `collapse()` taxa
+#' @noRd
+#' @keywords Internal
+collapse_taxa <- function(.data){
+  if(is.null(.data$identify)){
+    url_list <- url_lookup("names_search_single")
+    names(url_list) <- "no-name-supplied"
+  }else{
+    # case for searching by classification
+    if(inherits(.data$identify, "data.frame")){
+      split_list <- split(.data$identify, seq_len(nrow(.data$identify)))
+      base_url <- url_parse(url_lookup("names_search_multiple"))
+      url_list <- lapply(split_list,
+                         function(a, base_url){
+                           base_url$query <- as.list(a)
+                           url_build(base_url)
+                         },
+                         base_url = base_url)
+      names(url_list) <- lapply(split_list,
+                                function(a){
+                                  paste(a, collapse = "_")}) |>
+                         unlist()
+    }else{ # case for searching with one or more single strings
+      url_list <- lapply(.data$identify,
+                         function(a){url_lookup("names_search_single", name = a)})
+      names(url_list) <- .data$identify      
+    }
+  }
+  # build object and return
+  result <- list(type = .data$type,
+                 url = url_list,
+                 headers = build_headers())
+  class(result) <- "metadata_query"
+  return(result)
+}

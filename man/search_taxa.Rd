@@ -33,7 +33,7 @@ scientific name (which may include the subspecific epithet if required).
 }
 \examples{
 # Search using a single string. 
-# Note that `search_taxa()` isn't case sensitive
+# Note that `search_taxa()` is not case sensitive
 search_taxa("Reptilia")
 
 # Search using multiple strings. 

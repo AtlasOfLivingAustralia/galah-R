@@ -85,7 +85,6 @@ count.data_request <- function(.data,
          "occurrences" = "occurrences-count",
          "species" = "species-count",
          "media" = abort("type = 'media' is not supported by `count()`"),
-         "doi" = abort("type = 'doi' is not supported by `count()`"),
          .data$type)
   collect(.data)
 }

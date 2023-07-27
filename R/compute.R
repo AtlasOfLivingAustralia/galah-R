@@ -8,6 +8,7 @@ compute.data_request <- function(.data){
 }
 
 # if calling `compute()` after `request_metadata()` 
+# Not clear that this is needed
 # @rdname collect.data_request
 # @export
 # compute.metadata_request <- function(.data){

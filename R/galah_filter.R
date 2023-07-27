@@ -93,7 +93,7 @@ galah_filter <- function(..., profile = NULL){
 filter.data_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
   update_data_request(.data, 
-                    filter = parse_quosures(dots)$data) # see `quosure_handling.R`
+                      filter = parse_quosures(dots)$data) # see `quosure_handling.R`
 }
 
 #' @rdname galah_filter

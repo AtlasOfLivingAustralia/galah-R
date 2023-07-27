@@ -30,7 +30,8 @@ collapse.metadata_request <- function(.data){
          "profiles" = collapse_profiles(.data),
          "providers" = collapse_providers(.data),
          "ranks" = collapse_ranks(.data),
-         "reasons" = collapse_reasons(.data))
+         "reasons" = collapse_reasons(.data),
+         "taxa" = collapse_taxa(.data))
 }
 
 # if calling `collapse()` after `request_files()`
