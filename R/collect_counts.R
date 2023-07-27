@@ -97,7 +97,7 @@ build_facet_labels <- function(string){
 #' @keywords Internal
 solr_to_tibble <- function(x){
   lapply(x, function(a){
-    df <- string_to_tibble(a, split_by = ":")
+    df <- string_to_tibble(a, split_by = ":\"")
     df$value <- gsub("\"", "", df$value)
     colnames(df)[2] <- df$variable[1]
     df[, 2]

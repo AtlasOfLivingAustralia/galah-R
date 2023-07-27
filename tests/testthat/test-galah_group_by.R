@@ -1,3 +1,27 @@
+capture_requests("group_by_checks", {
+  test_that("`group_by` fields are checked during `compute()`, and not before", {
+    galah_config(run_checks = TRUE)
+    # `collapse()` should never ping a check
+    expect_silent({
+      request_data(type = "occurrences-count") |> 
+        group_by(invalid) |> 
+        collapse()
+    })
+    # `compute()` should ping a check when `run_checks = TRUE`
+    expect_error({
+      request_data(type = "occurrences-count") |> 
+        group_by(invalid) |> 
+        compute()
+    })
+    # using `count()` is synonymous with `request_data(type = "occurrences-count") |> collect()`
+    expect_error({
+      request_data() |> 
+        group_by(invalid) |> 
+        count()})
+    galah_config(run_checks = FALSE)
+  })
+})
+
 test_that("grouped atlas_counts returns expected output", {
   vcr::use_cassette("group_by_counts", {
     counts <- galah_call() |>

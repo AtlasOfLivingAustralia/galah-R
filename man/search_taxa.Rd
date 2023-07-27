@@ -52,12 +52,6 @@ search_taxa(tibble::tibble(
   family = c("pardalotidae", "maluridae"), 
   scientificName = c("Pardalotus striatus striatus", "malurus cyaneus")))
 
-# `galah_identify()` uses `search_taxa()` to narrow data queries
-taxa <- search_taxa("reptilia", "mammalia")
-galah_call() |>
-  galah_identify(taxa) |>
-  atlas_counts()
-
 }
 \seealso{
 \code{\link[=search_identifiers]{search_identifiers()}} for how to get names if taxonomic identifiers

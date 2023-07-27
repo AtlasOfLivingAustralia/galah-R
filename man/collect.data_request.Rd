@@ -9,8 +9,11 @@
 \alias{collect.data_response}
 \alias{collect.metadata_request}
 \alias{collect.metadata_query}
+\alias{collect.metadata_response}
 \alias{compute.data_request}
 \alias{compute.data_query}
+\alias{compute.metadata_request}
+\alias{compute.metadata_query}
 \title{Force computation of a database query}
 \usage{
 \method{collapse}{data_request}(.data)
@@ -29,9 +32,15 @@
 
 \method{collect}{metadata_query}(.data)
 
+\method{collect}{metadata_response}(.data)
+
 \method{compute}{data_request}(.data)
 
 \method{compute}{data_query}(.data)
+
+\method{compute}{metadata_request}(.data)
+
+\method{compute}{metadata_query}(.data)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, \code{data_query} or

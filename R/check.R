@@ -164,13 +164,20 @@ check_groups <- function(group, n){
   }
 }
 
-# check whether fields are valid
+#' Internal function to check whether fields are valid
+#' @importFrom dplyr pull
+#' @noRd
+#' @keywords Internal
 check_fields <- function(.data){
   if(pour("package", "run_checks")){
     queries <- url_parse(.data$url[1])$query 
-    filters <- string_to_tibble(queries$fq) |>
-      pull(variable) |>
-      gsub("\\(|\\)", "", x = _)
+    if(nchar(queries$fq) > 0){
+      filters <- string_to_tibble(queries$fq) |>
+        pull(variable) |>
+        gsub("\\(|\\)", "", x = _) 
+    }else{
+      filters <- NULL
+    }
     facets <- queries[names(queries) == "facets"] |>
       unlist()
     variables <- c(filters, facets) 

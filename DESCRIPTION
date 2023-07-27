@@ -2,7 +2,7 @@ Package: galah
 Type: Package
 Title: Download Biodiversity Data from the GBIF Node Network
 Version: 1.5.2
-Authors@R:
+Authors@R: 
     c(person(given = "Martin",
              family = "Westgate",
              email = "martin.westgate@csiro.au",
@@ -25,9 +25,9 @@ Description: The Global Biodiversity Information Facility
     web services using a codebase originally developed by the Atlas of Living 
     Australia (ALA, <https://www.ala.org.au>). 'galah' enables the R community 
     to directly access data and resources hosted by GBIF and its partner nodes.
-Depends:
+Depends: 
     R (>= 4.1.0)
-Imports:
+Imports: 
     assertthat,
     crayon,
     crul,
@@ -45,10 +45,10 @@ Imports:
     stringr (>= 1.0.0),
     tibble,
     utils
-Suggests:
-    vcr (>= 0.6.0),
+Suggests: 
     covr,
     gt,
+    httptest2,
     kableExtra,
     knitr,
     magrittr,

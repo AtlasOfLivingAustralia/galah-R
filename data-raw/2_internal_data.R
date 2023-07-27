@@ -77,8 +77,8 @@ galah_internal_archived <- list(
     description = "Media filter field",
     type = "media"),
   other_fields = tibble(
-    id = "qid", 
-    description = "Reference to pre-generated query",
+    id = c("qid", "lsid"), 
+    description = c("Reference to pre-generated query", "Left-side identifier"),
     type = "other"))
 
 # Import web-scraped gbif data as csv
