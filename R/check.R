@@ -75,18 +75,52 @@ check_login <- function(.data, error_call = caller_env()){
         abort(bullets, 
               call = error_call)
       }
-    }else{
-      if(.data$query$email == "" & .data$type %in% c("occurrences", "species")){
-        bullets <- c(
-          "No user email was found.",
-          i = glue("To download occurrence records you must provide a valid email ",
-                   "address registered with the selected atlas using `galah_config(email = )`")
-        )
-        abort(bullets, call = error_call)
+    email_text <- url_parse(.data$url)$query$email
+    if(length(email_text) < 1 & .data$type %in% c("occurrences", "species")){
+      bullets <- c(
+        "No user email was found.",
+        i = glue("To download occurrence records you must provide a valid email ",
+                 "address registered with the selected atlas using `galah_config(email = )`")
+      )
+      abort(bullets, call = error_call)
       }
     }
   }
 }
+
+#' Internal function to check number of facets to be returned by a `group_by` query
+#' It is called exclusively by `compute_counts()`
+#' @noRd 
+#' @keywords Internal
+check_facet_count <- function(.data){
+  url <- url_parse(.data$url)
+  if(is.null(url$query$flimit)){
+    n_requested <- 30
+  }else{
+    n_requested <- url$query$flimit
+  }
+  url$query$flimit <- 0
+  temp_data <- .data
+  temp_data$url <- url_build(url)
+  result <- query_API(temp_data)
+  n_available <- result[[1]]$count
+  if(pour("package", "verbose") & n_requested < n_available){
+    bullets <- c(
+      glue("This query will return {n_requested} rows; but there are {n_available} in total"),
+      i = "Use `slice_head()` if you wish to set a higher value")
+    inform(bullets)
+  }
+}
+
+#' Internal function to expand a url
+#' 
+#' Proposed function to spin out multiple urls to paginate when n is high
+#'  
+#' Note: this needs to be in the compute stage of multiple APIs: ie. from `request_data()` and `request_metadata()`
+#' Also requires something like `check_facet_count()` to know what the max value is.
+#' @noRd
+#' @keywords Internal
+# check_pagination <- function(){}
 
 #' Check whether geolocate functions have >1 argument
 #' @noRd
@@ -180,10 +214,10 @@ check_fields <- function(.data){
     }
     facets <- queries[names(queries) == "facets"] |>
       unlist()
-    variables <- c(filters, facets) 
+    variables <- c(filters, facets)  # NOTE: arrange() is missing
     if(length(variables) > 0){
       if(!all(variables %in% show_all_fields()$id)){
-        abort("fields supplied in `filter` are not present in the selected atlas")
+        abort("fields supplied are not present in the selected atlas")
       }
     }
   }

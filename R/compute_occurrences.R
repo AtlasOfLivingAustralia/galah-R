@@ -3,21 +3,23 @@
 #' @keywords Internal
 compute_occurrences <- function(.data){
   if(is_gbif()){
-    post_result <- url_POST(.data$url,
-                            headers = .data$headers,
-                            opts = .data$opts,
-                            body = .data$body)
-    status_code <- paste0("https://api.gbif.org/v1/occurrence/download/", 
-                          post_result) |>
-      url_GET()
+    post_result <- query_API(.data)
+    status_code <- list(url = paste0(
+                                "https://api.gbif.org/v1/occurrence/download/", 
+                                post_result)) |>
+                   query_API()
   }else{
-    # return n records of query, remove count query info
-    # .data$query_n <- .data$count_query |> compute_counts() |> collect_counts()
-    # .data <- .data[-which(names(.data) == "count_query")]
-    status_code <- url_GET(.data$url, 
-                           params = .data$query)
+    status_code <- query_API(.data) |> # change to check_occurrence_complete()?
+                   as.list() |>
+                   check_occurrence_response()
+    if(pour("package", "verbose")){
+      n_records <- status_code$total_records
+      inform(glue("Request for {n_records} placed in queue"))
+    }
   }
-  class(status_code) <- "data_response"
-  status_code$type <- "occurrences"
-  return(status_code)
+  result <- c(
+    list(type = "occurrences"),
+    status_code)
+  class(result) <- "data_response"
+  return(result)
 }

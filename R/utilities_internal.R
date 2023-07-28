@@ -74,9 +74,7 @@ rename_columns <- function(varnames, type) {
     }
     # change all to snake case?
     if (type %in% c("taxa", "media")) {
-        varnames <- tolower(gsub("([a-z])([A-Z])", "\\1_\\L\\2", varnames,
-                         perl = TRUE))
-        varnames <- tolower(gsub("\\.", "_", varnames))
+        varnames <- camel_to_snake_case(varnames)
     } else if (type == "checklist") {
       varnames <- tolower(gsub("\\.|\\s", "_", varnames))
     } else if (type == "occurrence") {
@@ -89,6 +87,16 @@ rename_columns <- function(varnames, type) {
         tolower(substr(varnames[not_all_uppercase], 1, 1))
     }
     varnames
+}
+
+#' Internal function to make text to snake case
+#' @noRd
+#' @keywords Internal
+camel_to_snake_case <- function(x){
+  x |>
+    gsub("([a-z])([A-Z])", "\\1_\\L\\2", x = _, perl = TRUE) |>
+    gsub("\\.", "_", x = _) |>
+    tolower()
 }
 
 ##---------------------------------------------------------------

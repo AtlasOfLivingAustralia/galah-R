@@ -9,20 +9,26 @@
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 #' @importFrom tibble tibble
-collect_occurrences <- function(.data, wait){
+collect_occurrences <- function(.data, wait = FALSE){
   
-  # create a lookup table to ensure correct elements are used to LA/GBIF
-  lookup <- occurrence_flags(.data)
-  # inform(glue("This query will return {.data$query_n} records."))
+  # .data <- check_occurrence_response(.data)
+  # inform(glue("This query will return {.data$total_records} records."))
   
   # process supplied object
-  if(.data$status != lookup$completed_flag){
+  if(.data$status == "incomplete"){
     if(wait){
+      # THIS WON'T WORK YET!
       download_response <- do.call(lookup$queue_function, 
                                    lookup$queue_input)
     }else{
-      download_response <- url_GET(lookup$status_url)
-      if(download_response$status != lookup$completed_flag){
+      # NOTE: this query does not appear to require an api key
+      # if it does, then `compute_occurrences()` will require amendment to supply one
+      # download_response <- check_occurrence_complete(.data)
+      
+      if(download_response$status == "incomplete"){
+        if(pour("package", "verbose")){
+          inform("Your download isn't ready yet, please try again later!")
+        }
         class(download_response) <- "data_response"
         return(download_response)
       }
@@ -45,8 +51,11 @@ collect_occurrences <- function(.data, wait){
   
   # get data
   # sometimes lookup info critical, but not others - unclear when/why!
-  if(any(names(download_response) == lookup$download_tag)){
-    result <- url_download(download_response[[lookup$download_tag]]) 
+  if(any(names(download_response) == "download_url")){
+    result <- list(url = download_response$download_url,
+                   extention = "zip" ) |>
+                   # path = "") |> # testing only
+      query_API()
   }else{
     result <- url_download(download_response)
   }
@@ -74,21 +83,29 @@ collect_occurrences <- function(.data, wait){
 #' Internal function to ensure correct data extracted from API for LA/GBIF
 #' @noRd
 #' @keywords Internal
-occurrence_flags <- function(.data){
+check_occurrence_response <- function(.data){
   if(is_gbif()){
-    list(
-      completed_flag = "SUCCEEDED",
-      queue_function = "check_queue_GBIF",
-      queue_input = list(url = attr(.data, "url")),
-      download_tag = "downloadLink",
-      status_url = attr(.data, "url")
-    )
+    # list(
+    #   completed_flag = "SUCCEEDED",
+    #   queue_function = "check_queue_GBIF",
+    #   queue_input = list(url = attr(.data, "url")),
+    #   download_tag = "downloadLink",
+    #   status_url = attr(.data, "url")
+    # )
   }else{
-    list(
-      completed_flag = "finished",
-      queue_function = "url_queue",
-      queue_input = list(status_initial = .data),
-      download_tag = "downloadUrl",
-      status_url = .data$statusUrl)
+    names(.data) <- camel_to_snake_case(names(.data))
+    if(.data$status == "finished"){
+      .data$status <- "complete"
+    }else{
+      .data$status <- "incomplete"
+    }
+    .data
   }
+}
+
+check_occurrence_status <- function(.data){
+  list(url = .data$status_url) |>
+    query_API() |>
+    as.list() |>
+    check_occurrence_response()
 }

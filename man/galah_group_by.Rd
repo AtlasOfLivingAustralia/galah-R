@@ -5,14 +5,12 @@
 \alias{group_by.data_request}
 \title{Specify fields to group when downloading record counts}
 \usage{
-galah_group_by(..., expand = TRUE)
+galah_group_by(...)
 
-\method{group_by}{data_request}(.data, ..., expand = TRUE)
+\method{group_by}{data_request}(.data, ...)
 }
 \arguments{
 \item{...}{zero or more individual column names to include}
-
-\item{expand}{\code{logical}: should factor levels be expanded? Defaults to \code{TRUE}}
 
 \item{.data}{An object of class \code{data_request}}
 }

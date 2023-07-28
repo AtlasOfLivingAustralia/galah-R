@@ -5,7 +5,6 @@
 #' fields (found by `search_all(fields)`).
 #' @param .data An object of class `data_request`
 #' @param ... zero or more individual column names to include
-#' @param expand `logical`: should factor levels be expanded? Defaults to `TRUE`
 #' @return If any arguments are provided, returns a `data.frame` with
 #' columns `name` and `type`, as per [select.data_request()].
 #' @examples
@@ -13,10 +12,10 @@
 #'   galah_group_by(basisOfRecord) |>
 #'   atlas_counts()
 #' @export
-galah_group_by <- function(..., expand = TRUE){
+galah_group_by <- function(...){
   dots <- enquos(..., .ignore_empty = "all")
   parsed_dots <- parse_quosures_basic(dots)
-  df <- parse_group_by(parsed_dots$data, expand)
+  df <- parse_group_by(parsed_dots$data)
   if(is.null(parsed_dots$data_request)){
     df
   }else{
@@ -27,10 +26,10 @@ galah_group_by <- function(..., expand = TRUE){
 
 #' @rdname galah_group_by
 #' @export
-group_by.data_request <- function(.data, ..., expand = TRUE){
+group_by.data_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
   parsed_dots <- parse_quosures_basic(dots)
-  df <- parse_group_by(parsed_dots$data, expand)
+  df <- parse_group_by(parsed_dots$data)
   update_data_request(.data, group_by = df)
 }
 
@@ -38,7 +37,7 @@ group_by.data_request <- function(.data, ..., expand = TRUE){
 #' Internal parsing of `group_by` args
 #' @noRd
 #' @keywords Internal
-parse_group_by <- function(dot_names, expand){
+parse_group_by <- function(dot_names){
   if(length(dot_names) > 0){
     if(length(dot_names) > 3){
       abort("`group_by.data_request` can accept a maximum of three fields")

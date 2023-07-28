@@ -1,3 +1,6 @@
+# NOTE: {purrr} has rate_delay() and rate_backoff() to help here
+# NOTE: still a bug here where this can error after max attempts is reached.
+
 #' Join queue to wait for download
 #' @noRd
 #' @keywords internal 
@@ -30,12 +33,17 @@ api_intervals <- function(){
     rep(30, 10))
 }
 
-# check queue status, with rate limiting
+#' Internal function to check queue status, with rate limiting
+#' @noRd
+#' @keywords Internal
 check_queue <- function(status_initial){
-  interval_times <- api_intervals()
-  n_intervals <- length(interval_times)
+  rate_object <- rate_backoff(pause_base = 0.5, 
+                              pause_cap = 60, 
+                              max_times = 100)
+  # interval_times <- api_intervals()
+  # n_intervals <- length(interval_times)
   status <- status_initial
-  iter <- 1
+  # iter <- 1
   queue_size <- status$queueSize
   continue <- continue_while_loop(status, success_tag = "finished")
   
@@ -58,14 +66,15 @@ check_queue <- function(status_initial){
     status <- url_GET(status$statusUrl)
     continue <- continue_while_loop(status, success_tag = "finished")
     if(continue){
-      if(iter <= n_intervals){
-        lag <- interval_times[iter]
-      }else{
-        lag <- 60
-      }
-      Sys.sleep(lag)
+      rate_sleep(rate_object)
+      # if(iter <= n_intervals){
+      #   lag <- interval_times[iter]
+      # }else{
+      #   lag <- 60
+      # }
+      # Sys.sleep(lag)
     }
-    iter <- iter + 1
+    # iter <- iter + 1
   }
   return(status)
 }

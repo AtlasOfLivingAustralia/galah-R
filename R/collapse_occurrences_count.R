@@ -60,7 +60,8 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
                                              geolocate = NULL,
                                              data_profile = NULL,
                                              group_by = NULL, 
-                                             limit = 100
+                                             slice = NULL,
+                                             arrange = NULL
                                              ){
   query <- build_query(identify, 
                        filter, 
@@ -78,7 +79,19 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
     url <- url_lookup("records_facets") |> url_parse()
     facets <- as.list(group_by$name)
     names(facets) <- rep("facets", length(facets))
-    url$query <- c(query, facets, flimit = limit)
+    if(!is.null(arrange)){
+      if(arrange$variable == "count"){
+        arrange <- list(fsort = "count")
+      }else{
+        arrange <- list(fsort = "index") 
+        # arrange <- list(sort = arrange$variable) # this fails for some reason
+        # ditto list(fsort = "index", dir = "asc")
+      }
+    }
+    url$query <- c(query, 
+                   facets, 
+                   flimit = slice$n,
+                   arrange)
     result$url <- url_build(url)
     if(length(facets) > 1){
       result$expand <- TRUE

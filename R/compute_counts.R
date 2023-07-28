@@ -21,6 +21,7 @@ compute_counts <- function(.data){
         .data[!(names(.data) %in% c("url", "type"))])
     }    
   }else{
+    check_facet_count(.data)
     result <- .data
   }
   class(result) <- "data_response"

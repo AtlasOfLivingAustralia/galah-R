@@ -92,7 +92,7 @@ request_data <- function(type = c("occurrences",
                                   "species",
                                   "occurrences-count",
                                   "species-count",
-                                  "media"), 
+                                  "media"),
                          ...){
   if(!missing(type)){
     type <- match.arg(type)
@@ -101,10 +101,12 @@ request_data <- function(type = c("occurrences",
   }
   # create an empty list
   valid_names <- c("type", "identify", "filter", "select", "group_by",
-                   "geolocate", "limit")
+                   "geolocate", "order")
   default_call <- vector(mode = "list", length = length(valid_names))
   names(default_call) <- valid_names
   default_call$type <- check_type(type)
+  # set default for limit?
+  # default_call$limit <- 100 ?
   class(default_call) <- "data_request"
   # update
   if(length(list(...)) > 0){

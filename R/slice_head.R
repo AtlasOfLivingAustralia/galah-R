@@ -7,8 +7,17 @@
 #' @param ... currently ignored
 #' @param n The number of rows to be returned. If data are grouped 
 #' (using [group_by]), this operation will be performed on each group.
-#' @param prop currently ignored
+#' @param prop currently ignored, but could be added later
+#' @param by currently ignored
+#' @importFrom tibble tibble
+#' @rdname slice_head
 #' @export
 slice_head.data_request <- function(.data, ..., n, prop){
-  update_data_request(.data, limit = n)
+  if(!missing(n)){.data$slice <- tibble(n = n)}
+  else if(!missing(prop)){.data$slice <- tibble(prop = prop)}
+  return(.data)
 }
+
+#' @rdname slice_head
+#' @export
+slice_head.metadata_request <- slice_head.data_request

@@ -134,12 +134,12 @@ parse_select <- function(dot_names, group){
     }
   }
   
-  # consider whether to go back to tidy_select code here
-  
   # create output object
   result <- tibble(name = unique(c(group_cols, individual_cols)))
   result$type <- "field"
-  result$type[result$name %in% show_all("assertions")$id] <- "assertion"
+  # result$type[result$name %in% show_all("assertions")$id] <- "assertion" 
+  ## above line commented out as it breaks our rule about pinging an API before
+  ## `compute()` is called. May require more work
   attr(result, "group") <- group
   return(result)
 }

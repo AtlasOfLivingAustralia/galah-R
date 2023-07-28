@@ -1,5 +1,5 @@
+#' Internal function to `collapse()` for type = "occurrences"
 collapse_occurrences <- function(.data){
-  
   # choose behavior depending on whether we are calling LAs or GBIF
   if(is_gbif()){
     function_name <- "collapse_occurrences_gbif"
@@ -9,18 +9,10 @@ collapse_occurrences <- function(.data){
     function_name <- "collapse_occurrences_atlas"
     arg_names <- names(formals(collapse_occurrences_atlas))
   }
-  
   # subset to available arguments
   custom_call <- .data[names(.data) %in% arg_names]
-  if(!is.null(custom_call$doi)){
-    custom_call <- custom_call["doi"]
-  }
-  
   class(custom_call) <- "data_request"
-  
   request <- do.call(function_name, custom_call)
-  # request$count_query <- c(custom_call |> collapse_counts()) # add info to collect count
-  
   return(request)
 }
 
@@ -34,10 +26,6 @@ collapse_occurrences_atlas <- function(identify = NULL,
                                        data_profile = NULL,
                                        select = NULL,
                                        mint_doi = FALSE){
-  
-  # check whether API exists
-  base_url <- url_lookup("records_occurrences")
-  
   # set default columns
   if(is.null(select)){
     select <- galah_select(group = "basic")
@@ -56,42 +44,23 @@ collapse_occurrences_atlas <- function(identify = NULL,
              email = pour("user", "email"),
              dwcHeaders = "true")
   
-  query <- build_fq(query) # messy but functional
-  
   # DOI conditional on this service being offered
   if (mint_doi & pour("atlas", "region") == "Australia") {
     query$mintDoi <- "true"
   }
   
+  # build url
+  url <- url_lookup("records_occurrences") |> url_parse()
+  url$query <- query
+  
+  # build output
   result <- list(
-    url = base_url,
-    headers = list("User-Agent" = galah_version_string()),
-    query = query)
-  result$type <- "occurrences"
+    type = "occurrences",
+    url = url_build(url),
+    headers = build_headers())
   class(result) <- "data_query"
   
   return(result)
-}
-
-# previously in utilities internal
-build_fq <- function(params = list()) {
-  # url <- parse_url(url)
-  if(any(names(params) == "fq")){
-    # join_char <- ifelse(length(url$query) > 0, "&fq=", "?fq=")
-    
-    # ensure all arguments from galah_filter are enclosed in brackets
-    fq <- params$fq
-    missing_brackets <- !grepl("^\\(", fq)
-    if(any(missing_brackets)){
-      fq[missing_brackets] <- paste0("(", fq[missing_brackets], ")")
-    }
-    fq_single <- paste(fq, collapse = "AND")
-    return(c(fq = fq_single, params[names(params) != "fq"]))
-    # build_url(url)
-  }else{
-    # build_url(url)
-    return(params)
-  }
 }
 
 #' calculate the query to be returned for gbif
@@ -102,10 +71,6 @@ collapse_occurrences_gbif <- function(identify = NULL,
                                       geolocate = NULL,
                                       format = "SIMPLE_CSV",
                                       data_profile = NULL){
-  
-  # check whether API exists
-  occurrences_url <- url_lookup("records_occurrences")
-  
   # deal with user-specified taxonomic names
   if(!is.null(identify)){
     filter <- rbind(
@@ -115,9 +80,9 @@ collapse_occurrences_gbif <- function(identify = NULL,
                  value = identify$identifier,
                  query = ""))
   }
-  
   result <- list(
-    url = occurrences_url,
+    type = "occurrences",
+    url = url_lookup("records_occurrences"),
     headers =  list(
       `User-Agent` = galah_version_string(), # or "r-curl/4.3.3 crul/1.3 galah/1.5.1"
       `X-USER-AGENT` = galah_version_string(),
@@ -130,8 +95,6 @@ collapse_occurrences_gbif <- function(identify = NULL,
         ":", 
         pour("user", "password", .pkg = "galah"))),
     body = build_predicates(filter, format))
-  result$type <- "occurrences"
   class(result) <- "data_query"
-  
   return(result)
 }
