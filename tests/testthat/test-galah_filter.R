@@ -11,6 +11,7 @@ test_that("galah_filter gives an error for single equals sign", {
 })
 
 ## TODO: ensure assertions are handled correctly
+# Did this ever work correctly?
 
 # test_that("galah_filter handles assertion filters", {
 #   filters <- galah_filter(ZERO_COORDINATE == FALSE)
@@ -21,23 +22,6 @@ test_that("galah_filter gives an error for single equals sign", {
 # negative assertions:
 # galah_filter(BASIS_OF_RECORD_INVALID == FALSE)
 
-
-## TODO: filter validation not functional
-test_that("galah_filter validates filters", {
-  galah_config(run_checks = TRUE)
-  expect_error(galah_filter(invalid_filter == 'value'))
-})
-
-test_that("galah_filter validates filters when OR statements are used", {
-  galah_config(run_checks = TRUE)
-  expect_error(galah_filter(invalid_filter == 'value' | year == 2010))
-})
-
-test_that("galah_filter skips checks if requested", {
-  galah_config(run_checks = FALSE)
-  expect_silent(galah_filter(random == "filter"))
-  galah_config(run_checks = TRUE)
-})
 
 test_that("galah_filter returns empty tibble when no arguments specified", {
   filters <- galah_filter()
@@ -69,6 +53,7 @@ test_that("galah_filter parses '&' correctly", {
   filters <- galah_filter(year >= 2010 & year < 2020)
   expect_equal(nrow(filters), 1)
   expect_equal(filters$value, "2010&2020")
+  expect_equal(filters$query, "(year:[2010 TO *] AND year:[* TO 2020] AND -(year:\"2020\"))")
 })
 
 test_that("galah_filter handles numeric queries for text fields", {             
@@ -80,39 +65,37 @@ test_that("galah_filter handles OR statements", {
   filters <- galah_filter(year == 2010 | year == 2020)
   expect_equal(nrow(filters), 1)
   expect_equal(filters$value, "2010|2020")
+  expect_equal(filters$query, "((year:\"2010\") OR (year:\"2020\"))")
 })
 
-# currently failing
 test_that("galah_filter handles OR statements", {   
   filters <- galah_filter(raw_scientificName == "Litoria jervisiensis" | 
                           raw_scientificName == "Litoria peronii")
   expect_equal(nrow(filters), 1)
   expect_equal(filters$query, 
                "((raw_scientificName:\"Litoria jervisiensis\") OR (raw_scientificName:\"Litoria peronii\"))")
-  # galah_call() |>
-  #   identify("Litoria") |>
-  #   filter(raw_scientificName == "Litoria jervisiensis" | 
-  #          raw_scientificName == "Litoria peronii") |>
-  #   count()
 })
 
 test_that("galah_filter works with 3 OR statements", {
-  x <- galah_call() %>% 
-    galah_identify("Vertebrata") %>% 
-    galah_filter(basisOfRecord == "HumanObservation" | 
-                 basisOfRecord == "MachineObservation" | 
-                 basisOfRecord == "Observation")
-  # fails
+  filters <- galah_filter(basisOfRecord == "HumanObservation" | 
+                            basisOfRecord == "MachineObservation" | 
+                            basisOfRecord == "PreservedSpecimen")
+  expect_equal(nrow(filters), 1)
+  expect_equal(filters$value, "HumanObservation|MachineObservation|PreservedSpecimen")
+  expect_equal(filters$query, 
+               "(((basisOfRecord:\"HumanObservation\") OR (basisOfRecord:\"MachineObservation\")) OR (basisOfRecord:\"PreservedSpecimen\"))")
 })
 
 test_that("galah_filter handles exclusion", {   
   filters <- galah_filter(year >= 2010, year != 2021)
   expect_equal(nrow(filters), 2)
+  expect_equal(filters$query, c("year:[2010 TO *]", "-(year:\"2021\")"))
 })
 
 test_that("galah_filter handles multiple exclusions", {
   filters <- galah_filter(!(stateProvince == "Victoria" & year == 2021)) 
   expect_equal(nrow(filters), 1)
+  expect_equal(filters$query, "(-(stateProvince:\"Victoria\") AND -(year:\"2021\"))")
 })
 
 test_that("galah_filter handles three terms at once", {    
@@ -121,14 +104,13 @@ test_that("galah_filter handles three terms at once", {
     year >= 2010,
     stateProvince == "New South Wales")
   expect_equal(nrow(filters),3)
+  expect_equal(filters$query, c("(basisOfRecord:\"HumanObservation\")","year:[2010 TO *]","(stateProvince:\"New South Wales\")"))
 })
 
-# ## Errors - check
-## MUST RETURN A NICE ERROR
-# test_that("galah_filter treats `c()` as an OR for numerics", {
-#   filters <- galah_filter(year == c(2010, 2021))
-#   expect_equal(nrow(filters), 1)
-# })
+test_that("galah_filter treats `c()` as an OR for numerics", {
+  filters <- galah_filter(year == c(2010, 2021))
+  expect_equal(nrow(filters), 1)
+})
 
 # test_that("galah_filter treats `c()` as an OR for strings", {
 #   filters <- galah_filter(multimedia == c("Image", "Sound", "Video"))

@@ -65,6 +65,18 @@ capture_requests("count_group_by_taxonConceptID", {
   })
 })
 
+capture_requests("count_filter_comma_vs_and", {
+test_that("atlas_counts returns same result with filter using `,` and `&`", {
+  count_comma <- galah_call() |>
+    galah_filter(year >= 2010, year < 2020) |>
+    count()
+  count_and <- galah_call() |>
+    galah_filter(year >= 2010 & year < 2020) |>
+    count()
+  expect_equal(count_comma, count_and)
+})
+})
+
 ## BELOW HERE TESTS WILL FAIL
 
 ## `galah_down_to()` not checked

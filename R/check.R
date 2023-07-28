@@ -217,7 +217,16 @@ check_fields <- function(.data){
     variables <- c(filters, facets)  # NOTE: arrange() is missing
     if(length(variables) > 0){
       if(!all(variables %in% show_all_fields()$id)){
-        abort("fields supplied are not present in the selected atlas")
+        invalid_fields <- variables[!(variables %in% c(show_all_fields()$id, show_all_assertions()$id))]
+        
+        list_invalid_fields <- glue::glue_collapse(invalid_fields, 
+                                                   sep = ", ")
+        bullets <- c(
+          glue("Invalid field(s) detected."),
+          i = "See `show_all(fields)` for a listing of all valid fields.",
+          i = "Use `search_all(fields)` to search for the valid name of a desired field.",
+          x = glue("Invalid field(s): {list_invalid_fields}."))
+        warn(bullets)
       }
     }
   }

@@ -144,6 +144,7 @@ parse_symbol <- function(x){
 parse_call <- function(x, ...){
   y <- quo_get_expr(x)
   env_tr <- quo_get_env(x)
+  # browser()
   switch(function_type(as_string(y[[1]])), # i.e. switch depending on what function is called
          "relational_operator" = parse_relational(y, env_tr, ...),
          "logical_operator" = parse_logical(y, env_tr, ...),
@@ -152,6 +153,7 @@ parse_call <- function(x, ...){
          "is.na" = parse_is_na(y, env_tr, ...),
          "between" = parse_between(y, env_tr, ...),
          "%in%" = parse_in(y, env_tr, ...),
+         # "c" = parse_c(y, env_tr, ...),
          eval_tidy(x) # if unknown, parse
          # {filter_error()} # if unknown, error
   )
@@ -175,6 +177,8 @@ function_type <- function(x){ # assumes x is a string
     "between"
   }else if(x == "%in%"){
     "%in%"
+  # }else if(x == "c"){
+  #   "c"
   }else{
     x
   }
@@ -190,6 +194,21 @@ function_type <- function(x){ # assumes x is a string
 #' @keywords internal
 parse_relational <- function(expr, env, ...){
   if(length(expr) != 3L){filter_error()}
+  
+  # Check for elements wrapped by c()
+  if(grepl("c", expr[[3]][1], fixed = TRUE) && length(expr[[3]]) > 1) {
+    value <- as.list(expr[[3]][-1]) # extract concatenated values
+
+    # create OR statement from expr
+    c_expr <- rlang::parse_expr(
+      glue::glue_collapse(
+        glue("{expr[[2]]} {expr[[1]]} '{value}'"),
+        sep = " | "
+      ))
+
+    switch_expr_type(as_quosure(c_expr, env = env), ...) # pass this down the chain
+  } else{
+  
   # for LA cases
   result <- tibble(
     variable = as_label(expr[[2]]),
@@ -205,9 +224,10 @@ parse_relational <- function(expr, env, ...){
     } else {
     result$logical <- result$logical
   }
-  
+  # browser()
   result$query <- parse_solr(result) # from `galah_filter.R`
   return(result)
+  }
 }
 
 #' Handle & and | statements
@@ -222,7 +242,7 @@ parse_logical <- function(expr, env, ...){
     logical_string <- " AND "
   }
   linked_statements <- lapply(expr[-1], 
-                       function(a){switch_expr_type(as_quosure(a, env = env), ...)}) 
+                              function(a){switch_expr_type(as_quosure(a, env = env), ...)}) 
   
   # check that all entries are correctly structured
   check_filter_tibbles(linked_statements)
@@ -331,6 +351,40 @@ parse_in <- function(expr, env, excl){
   
   # convert to logical format using OR statements
   variable <- as_label(expr[[2]])
+  
+  if(missing(excl)) {
+    logical <- "=="
+  } else{
+    logical <- "!="
+  }
+  
+  value <- switch_expr_type(as_quosure(expr[[3]], env = env))
+  
+  in_as_or_statements <- rlang::parse_expr(
+    glue::glue_collapse(
+      glue("{variable} {logical} '{value}'"), 
+      sep = " | "
+    ))
+  # in_as_or_statements_quos <- new_quosure(in_as_or_statements, env)
+  parse_logical(enquo(in_as_or_statements), env) # pass this to parse_logical
+  # class(quo_get_expr(in_as_or_statements_quos))
+  # quo_is_call(rlang::enquo(in_as_or_statements))
+}
+
+#' Parse `call`s that contain `c()`
+#' 
+#' Where this happens, they are always length-2, with "c()" as the first entry.
+#' @importFrom rlang as_quosure
+#' @importFrom glue glue_collapse glue
+#' @importFrom rlang parse_expr enquo
+#' @noRd
+#' @keywords internal
+parse_c <- function(expr, env, excl){ 
+  # browser()
+  if(length(expr) < 2L){filter_error()}
+  
+  # convert to logical format using OR statements
+  variable <- as_label(expr[[1]])
   
   if(missing(excl)) {
     logical <- "=="
