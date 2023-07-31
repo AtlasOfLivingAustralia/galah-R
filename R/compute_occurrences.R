@@ -14,7 +14,7 @@ compute_occurrences <- function(.data){
                    check_occurrence_response()
     if(pour("package", "verbose")){
       n_records <- status_code$total_records
-      inform(glue("Request for {n_records} placed in queue"))
+      inform(glue("Request for {n_records} occurrences placed in queue"))
     }
   }
   result <- c(

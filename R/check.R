@@ -86,6 +86,49 @@ check_login <- function(.data, error_call = caller_env()) {
 }
 
 
+#' Internal function to check that the specified path exists, and if not,
+#' to create it. Called by `galah_config()`
+#' @param x a path to a directory, or NULL
+#' @noRd
+#' @keywords Internal
+check_directory <- function(x){
+  if(is.null(x)){
+    cache_dir <- tempfile()
+    dir.create(cache_dir)
+    return(cache_dir)
+  }else{
+    if(!dir.exists(dirname(x))){
+      bullets <- c(
+        "Cannot find directory.",
+        i = "Please enter a valid directory and try again.",
+        x = glue("{x} does not exist.")
+      )
+      abort(bullets, call = error_call)
+    }else{
+      x
+    }
+  }
+}
+
+# Internal function to create a valid filename for download
+# Note this is most commonly used when galah defaults are in place; i.e. 
+# downloads are sent to a temporary directory.
+# Called by `query_API()`
+# check_path <- function(.data){
+#   if(is.null(.data$path)){
+#     if(.data$type == "species"){
+#       ext <- "csv"
+#     }else{
+#       ext <- "zip"
+#     }
+#     cache_file <- pour("package", "directory")
+#     .data$path <- paste0(cache_dir, "/temp_file.", ext)    
+#   } else {
+#     dirname(x) |> check_directory() # errors if path doesn't exist
+#     # NOTE: it might make sense here to check that a supplied filename is valid
+#   }
+#   .data
+# }
 
 #' Internal function to check number of facets to be returned by a `group_by` query
 #' It is called exclusively by `compute_counts()`

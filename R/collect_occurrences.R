@@ -9,7 +9,7 @@
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 #' @importFrom tibble tibble
-collect_occurrences <- function(.data, wait = FALSE){
+collect_occurrences <- function(.data, wait, file){
   
   # .data <- check_occurrence_response(.data)
   # inform(glue("This query will return {.data$total_records} records."))
@@ -23,7 +23,7 @@ collect_occurrences <- function(.data, wait = FALSE){
     }else{
       # NOTE: this query does not appear to require an api key
       # if it does, then `compute_occurrences()` will require amendment to supply one
-      # download_response <- check_occurrence_complete(.data)
+      download_response <- check_occurrence_status(.data)
       
       if(download_response$status == "incomplete"){
         if(pour("package", "verbose")){
@@ -52,12 +52,18 @@ collect_occurrences <- function(.data, wait = FALSE){
   # get data
   # sometimes lookup info critical, but not others - unclear when/why!
   if(any(names(download_response) == "download_url")){
-    result <- list(url = download_response$download_url,
-                   extention = "zip" ) |>
-                   # path = "") |> # testing only
-      query_API()
+    new_object <- list(url = download_response$download_url,
+                       download = TRUE)
+    if(!missing(file)){
+      new_object$file <- file
+    }else{
+      new_object$file <- paste0(pour("package", "directory"), "/data.zip")
+      # check_path()? # currently commented out in check.R
+    }
+    query_API(new_object)
+    result <- load_zip(new_object$file) # NOTE: this is *very* unlikely to work yet
   }else{
-    result <- url_download(download_response)
+    return(download_response) 
   }
   
   if(is.null(result)){
@@ -108,4 +114,52 @@ check_occurrence_status <- function(.data){
     query_API() |>
     as.list() |>
     check_occurrence_response()
+}
+
+#' Internal function to load zip files
+#' @noRd
+#' @keywords Internal
+load_zip <- function(cache_dir){
+  unzip(.cache_dir, exdir = cache_dir)
+  all_files <- list.files(cache_dir)
+  if(is_gbif()){
+    import_files <- paste(cache_dir, 
+                          all_files[grepl(".csv$", all_files)],
+                          sep = "/")
+    result <- read_tsv(import_files, col_types = cols()) |>
+      suppressWarnings()
+  }else{
+    available_files <- all_files[grepl(".csv$", all_files) &
+                                   grepl(paste0("^", data_prefix), all_files)]
+    import_files <- paste(cache_dir, available_files, sep = "/")  
+    result <- lapply(import_files, 
+                     function(a){read_csv(a, col_types = cols()) |>
+                         suppressWarnings()}) |> 
+      bind_rows()
+    
+    # add doi when mint_doi = TRUE
+    if(any(all_files == "doi.txt")){
+      doi_file <- paste(cache_dir, "doi.txt", sep = "/")
+      attr(result, "doi") <- read.table(doi_file) |> as.character()
+    }
+  }
+  close(file(cache_dir))
+  unlink(cache_dir)
+  return(result)
+}
+
+#' Internal function to load a csv file downloaded by `query_API()`
+#' MOVE THIS TO COLLECT_SPECIES()
+#' @noRd
+#' @keywords Internal
+load_csv <- function(.data){
+  tryCatch(
+    read_csv(res$content, col_types = cols()),
+    error = function(e) {
+      e$message <- inform("No species matching the supplied filters were found.")
+      close(file(cache_file))
+      unlink(cache_file)
+      stop(e)
+    }
+  )
 }

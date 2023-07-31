@@ -18,22 +18,31 @@ print.data_request <- function(x, ...){
 #' @importFrom crayon bold
 #' @export
 print.galah_config <- function(x, ...){
-  
-  package_settings <- c(
-    paste0("verbose         username ", x$user$username),
-    paste0("run_checks      password ", hide_secrets(x$user$password)),
-    paste0("send_email      email ", x$user$email),
-    paste0("caching         api_key", hide_secrets(x$user$api_key)),
-    paste0("                reason ", x$user$download_reason_id))
-
-  package_lookup <- unlist(x$package[1:4]) |> as.integer() + 1
+  package_settings <- c("verbose", "run_checks", "send_email")
+  package_lookup <- unlist(x$package[1:3]) |> as.integer() + 1
   names(package_settings) <- c("x", "v")[package_lookup]
+  package_settings <- c(package_settings,
+                        "i" = glue("directory: {x$package$directory}"))
+                        
+  values <- c(
+    "username: {x$user$username}",
+    "email:    {x$user$email}",
+    "password: {x$user$password}",
+    "api_key:  {x$user$api_key}",
+    "reason:   {x$user$download_reason_id}")
+  password_settings <- lapply(values, 
+                              function(a, x){glue_data(x, a)}, x = x) |>
+    unlist()
+
   atlas_settings <- glue(" {x$atlas$organisation} ({x$atlas$acronym}) [{x$atlas$region}]")
   names(atlas_settings) <- ">"
 
   print_text <- c(
-    crayon::bold("Package:          User:"),
+    crayon::bold("Package:"),
     package_settings,
+    "",
+    crayon::bold("User:"),
+    password_settings,
     "",
     crayon::bold("Atlas:"),
     atlas_settings

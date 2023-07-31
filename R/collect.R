@@ -13,6 +13,10 @@
 #' @name collect.data_request
 #' @param .data An object of class `data_request`, `data_query` or 
 #' `data_response` 
+#' @param wait logical; should `galah` wait for a response? Defaults to FALSE.
+#' Only applies for `type = "occurrences"` or `"species"`.
+#' @param file (optional) file name, including path if applicable. If not
+#' given will default to a path given by `galah_config()$directory`.
 #' @return `collect()` returns a `tibble` containing requested data. `compute()`
 #' returns an object of class `data_response`. `collapse()` returns an object of 
 #' class `data_query`.
@@ -21,7 +25,7 @@
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 #' @export
-collect.data_request <- function(.data){
+collect.data_request <- function(.data, wait = FALSE, file){
   .data$type <- check_type(.data$type)
   switch(.data$type, 
          "occurrences-count" = {compute(.data) |> 
@@ -31,10 +35,10 @@ collect.data_request <- function(.data){
          "doi" = collect_doi(.data),
          "species" = {
            collapse(.data) |>
-              collect_species()},
+              collect_species(wait = wait, file = file)},
          "occurrences" = {
              compute(.data) |> 
-               collect_occurrences(wait = TRUE)
+               collect_occurrences(wait = wait, file = file)
          },
          "media" = {
             collapse(.data) |>
@@ -46,16 +50,16 @@ collect.data_request <- function(.data){
 # if calling `collect()` after `request_data() |> collapse()`
 #' @rdname collect.data_request
 #' @export
-collect.data_query <- function(.data){
+collect.data_query <- function(.data, wait = FALSE, file){
   switch(.data$type,
          "occurrences-count" = collect_counts(.data),
          # "species-count" = {?},
          "species" = {
            check_login(.data)
-           collect_species(.data)},
+           collect_species(wait = wait, file = file)},
          "occurrences" = {
            compute(.data) |>
-             collect_occurrences(wait = TRUE)},
+             collect_occurrences(wait = wait, file = file)},
          "media" = collect_media_metadata(.data),
          query_API
   )
@@ -66,11 +70,12 @@ collect.data_query <- function(.data){
 #' @param wait logical; should `galah` ping the selected url until computation
 #' is complete? Defaults to `FALSE`.
 #' @export
-collect.data_response <- function(.data, wait){
+collect.data_response <- function(.data, wait = FALSE, file){
   switch(.data$type,
          "occurrences-count" = collect_counts(.data),
          "species-count" = collect_counts(.data),
-         "occurrences" = collect_occurrences(.data, wait),
+         "species" = collect_species(wait = wait, file = file),
+         "occurrences" = collect_occurrences(wait = wait, file = file),
          "media" = collect_media(.data),
          abort("unrecognised 'type'")
          # NOTE: "species" & "doi" have no `compute()` stage

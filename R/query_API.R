@@ -37,12 +37,9 @@ query_API_internal <- function(.data, error_call = caller_env()) {
     req_error(is_error = ~ FALSE) # untested; intended to catch errors. 
     # from brief testing it appears to fail; e.g. we still get errors when internet is off
   
-  if(!is.null(.data$path)){
-    .data <- check_path(.data)
-    rquery |> req_perform(path = .data$path) # try(x, silent = TRUE) ?
-    switch(.data$extention, 
-           "zip" = load_zip(.data),
-           "csv" = load_csv(.data)) # unclear how this works
+  if(!is.null(.data$download)){
+    # .data <- check_path(.data)
+    query |> req_perform(path = .data$file) # try(x, silent = TRUE) ?
   }else{
     result <- query |>
       req_perform() |>  # try(x, silent = TRUE) ?
@@ -56,83 +53,6 @@ query_API_internal <- function(.data, error_call = caller_env()) {
   }
 }
 
-#' Internal function to load zip files
-#' @noRd
-#' @keywords Internal
-load_zip <- function(.data){
-  cache_dir <- dirname(.data$path)
-  unzip(.data$path, exdir = cache_dir)
-  all_files <- list.files(cache_dir)
-  if(is_gbif()){
-    import_files <- paste(cache_dir, 
-                          all_files[grepl(".csv$", all_files)],
-                          sep = "/")
-    result <- read_tsv(import_files, col_types = cols()) |>
-      suppressWarnings()
-  }else{
-    available_files <- all_files[grepl(".csv$", all_files) &
-                                   grepl(paste0("^", data_prefix), all_files)]
-    import_files <- paste(cache_dir, available_files, sep = "/")  
-    result <- lapply(import_files, 
-                     function(a){read_csv(a, col_types = cols()) |>
-                         suppressWarnings()}) |> 
-      bind_rows()
-    
-    # add doi when mint_doi = TRUE
-    if(any(all_files == "doi.txt")){
-      doi_file <- paste(cache_dir, "doi.txt", sep = "/")
-      attr(result, "doi") <- read.table(doi_file) |> as.character()
-    }
-  }
-  close(file(.data$path))
-  unlink(.data$path)
-  return(result)
-}
-
-load_csv <- function(.data){
-  tryCatch(
-    read_csv(res$content, col_types = cols()),
-    error = function(e) {
-      e$message <- inform("No species matching the supplied filters were found.")
-      close(file(cache_file))
-      unlink(cache_file)
-      stop(e)
-    }
-  )
-}
-
-#' Internal function to check that the specified path exists, and if not,
-#' to create it. Note that this doesn't currently support user overwrite yet
-#' @noRd
-#' @keywords Internal
-check_path <- function(.data){
-    #cache_file, ext = c("zip", "csv")){
-  # ext <- match.arg(ext)
-  ext <- .data$extention
-  cache_file <- .data$path
-  
-  # check cache file exists
-  if(is.null(cache_file)){
-    cache_dir <- tempfile()
-    dir.create(cache_dir)
-    .data$path <- paste0(cache_dir, "/temp_file.", ext)
-  }else{
-    if(!dir.exists(dirname(cache_file))){
-      bullets <- c(
-        "Cannot find directory.",
-        i = "Please enter a valid directory and try again.",
-        x = glue("{directory} does not exist.")
-      )
-      abort(bullets, call = error_call)
-    }else{
-      cache_dir <- dirname(cache_file)
-      if(!grepl(paste0(".", ext, "^"), cache_file)){
-        .data$path <- paste(cache_file, ext, sep = ".")
-      }
-    }
-  }
-  .data
-}
 
 #' Internal function to clean up objects returned by the API
 #' @noRd

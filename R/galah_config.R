@@ -12,8 +12,6 @@
 #'   *  `atlas` string: Living Atlas to point to, Australia by default. Can be 
 #'   an organisation name, acronym, or region (see [show_all_atlases()] for 
 #'   admissible values)
-#'   *  `caching` logical: if TRUE, results will be cached, and any cached
-#'     results will be re-used). If FALSE, data will be downloaded.
 #'   *  `cache_directory` string: the directory to use for the cache.
 #'     By default this is a temporary directory, which means that results will
 #'     only be cached
@@ -120,8 +118,7 @@ default_config <- function(){
       verbose = TRUE,
       run_checks = TRUE,
       send_email = FALSE,
-      caching = FALSE,
-      cache_directory = tempdir()),
+      directory = tempdir()),
     user = list(
       username = "",
       email = "",
@@ -162,7 +159,7 @@ validate_config <- function(name, value, error_call = caller_env()) {
          "send_email"      = enforce_logical(value),
          "verbose"         = enforce_logical(value),
          "run_checks"      = enforce_logical(value),
-         "cache_directory" = enforce_exists(value),
+         "directory"       = check_directory(value),
          "email"           = enforce_character(value),
          "password"        = enforce_character(value),
          "username"        = enforce_character(value),
