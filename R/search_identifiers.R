@@ -25,29 +25,31 @@
 #' @importFrom rlang abort
 #' @importFrom tibble tibble
 #' @export
-search_identifiers <- function(query) {
-
-  if (missing(query)) {
-    bullets <- c(
-      "Argument `query` is missing, with no default.",
-      i = "Did you forget to specify one or more identifiers?"
-    )
-    abort(bullets, call = caller_env())
-  }
-  
-  matches <- lapply(query, identifier_lookup)
-  if(all(unlist(lapply(matches, is.null)))){
-    if(pour("package", "verbose")){
-      system_down_message("search_identifiers")
-    }
-    df <- tibble()
-    attr(df, "call") <- "ala_id"
-    return(df)
-  }else{
-    df <- bind_rows(matches) |> tibble()
-    attr(df, "call") <- "ala_id"
-    return(df) 
-  }
+search_identifiers <- function(...) {
+  request_metadata(type = "identifiers") |>
+    identify(...) |>
+    collect()
+  # if (missing(query)) {
+  #   bullets <- c(
+  #     "Argument `query` is missing, with no default.",
+  #     i = "Did you forget to specify one or more identifiers?"
+  #   )
+  #   abort(bullets, call = caller_env())
+  # }
+  # 
+  # matches <- lapply(query, identifier_lookup)
+  # if(all(unlist(lapply(matches, is.null)))){
+  #   if(pour("package", "verbose")){
+  #     system_down_message("search_identifiers")
+  #   }
+  #   df <- tibble()
+  #   attr(df, "call") <- "ala_id"
+  #   return(df)
+  # }else{
+  #   df <- bind_rows(matches) |> tibble()
+  #   attr(df, "call") <- "ala_id"
+  #   return(df) 
+  # }
 }
 
 #' Internal function for looking up a single identifier

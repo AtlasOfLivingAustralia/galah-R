@@ -7,7 +7,7 @@ test_that("galah_identify returns an empty tibble when no args provided", {
 
 test_that("galah_identify runs a search when given a string", {
   vcr::use_cassette("galah_identify_search_1", {
-    result <- galah_identify("Litoria_peronii")
+    result <- galah_identify("Litoria peronii")
   })
   expect_equal(nrow(result), 1)
 })

@@ -141,3 +141,17 @@ collect_taxa <- function(.data){
   names(result) <- rename_columns(names(result), type = "taxa") # old code
   result |> select(any_of(wanted_columns("taxa")))
 }
+
+#' Internal function to `collect()` identifiers
+#' @importFrom dplyr any_of
+#' @importFrom dplyr select
+#' @noRd
+#' @keywords Internal
+collect_identifiers <- function(.data){
+  browser()
+  search_terms <- names(.data$url)
+  result <- query_API(.data) |>
+    mutate(search_term = search_terms, .before = success)
+  names(result) <- rename_columns(names(result), type = "identifiers") # old code
+  result |> select(any_of(wanted_columns("identifiers")))
+}

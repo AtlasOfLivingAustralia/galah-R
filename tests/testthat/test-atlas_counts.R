@@ -77,22 +77,42 @@ test_that("atlas_counts returns same result with filter using `,` and `&`", {
 })
 })
 
-## BELOW HERE TESTS WILL FAIL
+# Spatial not checked
+test_that("atlas_counts filters correctly with galah_geolocate/galah_polygon", {
+  capture_requests("count_piped_polygon", {
+    wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
+      sf::st_as_sfc()
+    base_query <- galah_call() |>
+      identify("dasyurus") |>
+      filter(year >= 2020)
+    counts <- base_query |> atlas_counts()
+    counts_filtered <- base_query |>
+      galah_geolocate(wkt) |>
+      count()
+  })
+  count_1 <- counts_filtered$count[1]
+  count_2 <- counts$count[1]
+  expect_lt(count_1, count_2)
+})
 
-## `galah_down_to()` not checked
-# capture_requests("count_piped_2", {
-#   test_that("atlas_counts ignores superflueous piped arguments", {
-#     counts <- galah_call() |>
-#       filter(year >= 2018) |>
-#       group_by(year) |>
-#       galah_down_to(species) |>
-#       select(taxonConceptID) |>
-#       count()  
-#     expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-#     expect_equal(names(counts), c("year", "count"))
-#     expect_gt(nrow(counts), 0)
-#   })
-# })
+test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
+  capture_requests("count_piped_bbox", {
+    wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
+      sf::st_as_sfc()
+    base_query <- galah_call() |>
+      identify("dasyurus") |>
+      filter(year >= 2020)
+    counts <- base_query |> count()
+    counts_filtered <- base_query |>
+      galah_geolocate(wkt, type = "bbox") |>
+      count()
+  })
+  count_1 <- counts_filtered$count[1]
+  count_2 <- counts$count[1]
+  expect_lt(count_1, count_2)
+})
+
+## BELOW HERE TESTS WILL FAIL
 
 ## counts for `type = "species"` not checked
 # test_that("atlas_counts returns species counts", {
@@ -102,6 +122,22 @@ test_that("atlas_counts returns same result with filter using `,` and `&`", {
 #   expect_type(counts$count, "integer")
 #   expect_gt(counts, 0)
 # })
+
+## `galah_down_to()` not checked
+# capture_requests("count_piped_2", {
+#   test_that("atlas_counts ignores superfluous piped arguments", {
+    # counts <- galah_call() |>
+    #   filter(year >= 2018) |>
+    #   group_by(year) |>
+    #   galah_down_to(species) |>
+    #   select(taxonConceptID) |>
+    #   count()
+#     expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
+#     expect_equal(names(counts), c("year", "count"))
+#     expect_gt(nrow(counts), 0)
+#   })
+# })
+
 
 ## slice_head() not checked
 # test_that("atlas_counts handles pagination", {
@@ -116,37 +152,4 @@ test_that("atlas_counts returns same result with filter using `,` and `&`", {
 #   expect_equal(names(counts), c("year", "count"))
 # })
 
-## Spatial not checked
-# test_that("atlas_counts filters correctly with galah_geolocate/galah_polygon", {
-#   vcr::use_cassette("count_piped_polygon", {
-#     wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
-#        sf::st_as_sfc()
-#     base_query <- galah_call() |>
-#       identify("dasyurus") |>
-#       filter(year >= 2020)
-#     counts <- base_query |> atlas_counts()
-#     counts_filtered <- base_query |>
-#       galah_geolocate(wkt) |>
-#       count()
-#   })
-#   count_1 <- counts_filtered$count[1]
-#   count_2 <- counts$count[1]
-#   expect_lt(count_1, count_2)
-# })
-# 
-# test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
-#   vcr::use_cassette("count_piped_bbox", {
-#     wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
-#       sf::st_as_sfc()
-#     base_query <- galah_call() |>
-#       identify("dasyurus") |>
-#       filter(year >= 2020)
-#     counts <- base_query |> count()
-#     counts_filtered <- base_query |>
-#       galah_geolocate(wkt, type = "bbox") |>
-#       count()
-#   })
-#   count_1 <- counts_filtered$count[1]
-#   count_2 <- counts$count[1]
-#   expect_lt(count_1, count_2)
-# })
+

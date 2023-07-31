@@ -121,6 +121,7 @@ collect.metadata_response <- function(.data){
            "profiles" = collect_profiles(.data),
            "providers" = collect_providers(.data),
            "reasons" = collect_reasons(.data),
-           "taxa" = collect_taxa(.data))
+           "taxa" = collect_taxa(.data),
+           "identifiers" = collect_identifiers(.data))
   }
 }

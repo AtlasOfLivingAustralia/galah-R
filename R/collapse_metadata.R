@@ -201,3 +201,44 @@ collapse_taxa <- function(.data){
   class(result) <- "metadata_query"
   return(result)
 }
+
+#' Internal function to `collapse()` identifiers
+#' @noRd
+#' @keywords Internal
+collapse_identifiers <- function(.data){
+  if(is.null(.data$identify)){
+    url_list <- url_lookup("names_lookup")
+    names(url_list) <- "no-name-supplied"
+  }else{
+    browser()
+    url_list <- lapply(.data$identify,
+                       function(a){url_lookup("names_lookup", name = a)})
+    names(url_list) <- .data$identify
+    
+    # url <- url_lookup("names_lookup")
+    # if(pour("atlas", "region") == "France"){
+    #   result <- paste0(url, identifier) |> url_GET()
+    # }else{
+    #   result <- url_GET(url, list(taxonID = identifier)) 
+    # }
+    # if (is.null(result)){
+    #   return(NULL)
+    # }
+    # if (isFALSE(result$success) && 
+    #     result$issues == "noMatch" && 
+    #     pour("package", "verbose"
+    #     )) {
+    #   list_invalid_taxa <- glue_collapse(identifier, 
+    #                                      sep = ", ")
+    #   inform(glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
+    # }
+    # names(result) <- rename_columns(names(result), type = "taxa")
+    # result[names(result) %in% wanted_columns("taxa")]
+  }
+  # build object and return
+  result <- list(type = .data$type,
+                 url = url_list,
+                 headers = build_headers())
+  class(result) <- "metadata_query"
+  return(result)
+}
