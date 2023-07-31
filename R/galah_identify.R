@@ -43,10 +43,8 @@
 #' @export
 galah_identify <- function(..., search = TRUE) {
   dots <- list(...)
-  # browser()
   if (inherits(dots[[1]], "data_request")) {
-    # browser()
-    result <- parse_identify(dots, search)
+    result <- parse_identify(dots[[-1]], search)
     update_data_request(dots[[1]], identify = result)
   } else {
     result <- parse_identify(dots, search)
@@ -121,10 +119,6 @@ parse_identify <- function(input_query, search, call = caller_env()){
     run_checks <- pour("package", "run_checks")
     verbose <- pour("package", "verbose")
     
-    # check for types first
-    # if (!is.null(attr(input_query, "call"))) {
-      # query <- input_query$taxon_concept_id
-    # } else { # if the input isn't of known type, try to find IDs
       if (search) {
         lookup <- search_taxa(input_query)
         query <- verify_taxa_ids(lookup, input_query, verbose)
