@@ -60,6 +60,16 @@ check_media_cols <- function(.data){
 #' @keywords Internal
 #' @importFrom rlang caller_env
 check_login <- function(.data, error_call = caller_env()) {
+  # Check for valid email for occurrences or species queries for all providers
+  if (.data$type == "occurrences" | .data$type == "species") {
+    email_text <- url_parse(.data$url)$query$email
+    if(is.null(email_text)) {
+      abort_email_missing()
+    }else if(email_text == ""){
+      abort_email_missing()
+    }
+  }
+  # GBIF requires email and password
   if (is_gbif()) {
     # NOTE: This will probably fail as .data$opts won't exist shortly
     if (.data$opts$userpwd == ":") {
@@ -67,35 +77,15 @@ check_login <- function(.data, error_call = caller_env()) {
         call = error_call
       )
     }
-  } else {
-    if (pour("atlas", "acronym") == "ALA") {
-      if (is.null(.data$headers$`x-api-key`) | .data$headers$`x-api-key` == "") {
-        bullets <- c("API key has not been specified for the ALA",
-          i = "log on to your profile at `https://ala.org.au` to retrieve one",
-          i = "use `galah_config(api_key = 'my_key_here') to fix this problem"
-        )
-        abort(bullets,
-          call = error_call
-        )
-      }
-      
-      # Check for valid email for occurrences or species queries
-      if (.data$type == "occurrences" | .data$type == "species") {
-        email_text <- url_parse(.data$url)$query$email
-        if (length(email_text) < 1 & .data$type %in% c("occurrences", "species")) {
-          bullets <- c(
-            "No user email was found.",
-            i = glue(
-              "To download occurrence records you must provide a valid email ",
-              "address registered with the selected atlas using `galah_config(email = )`"
-            )
-          )
-          abort(bullets, call = error_call)
-        }
-      }
+  # ALA requires an API key
+  } else if (pour("atlas", "acronym") == "ALA") {
+    if (is.null(.data$headers$`x-api-key`) | .data$headers$`x-api-key` == "") {
+      abort_api_key_missing()
     }
-  }
+  }  
 }
+
+
 
 #' Internal function to check number of facets to be returned by a `group_by` query
 #' It is called exclusively by `compute_counts()`

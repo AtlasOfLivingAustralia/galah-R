@@ -148,17 +148,3 @@ species_facets <- function(){
          "species_guid"
   )
 }
-
-##---------------------------------------------------------------
-##                      System down message                    --
-##---------------------------------------------------------------
-
-system_down_message <- function(function_name){
-  bullets <- c(
-    glue("Calling the API failed for `{function_name}`."),
-    i = "This might mean that the API is down, or that you are not connected to the internet",
-    i = "Double check that your query is correct, or try again later"
-  )
-  inform(bullets)
-}
-
