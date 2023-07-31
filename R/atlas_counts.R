@@ -60,12 +60,14 @@ atlas_counts <- function(request = NULL,
   
   # specific checking for outdated naming conventions
   if(dr$type == "record"){
-    dr$type <- "occurrences-count"
-  }else if(dr$type == "species"){
-    dr$type <- "species-count"
+    dr$type <- "occurrences"
   }
   
-  count(dr)
+  # pass to collect etc
+  dr |> 
+    count() |>
+    slice_head(n = limit) |>
+    collect()
 }
 
 #' @rdname atlas_counts
@@ -85,6 +87,6 @@ count.data_request <- function(.data,
          "occurrences" = "occurrences-count",
          "species" = "species-count",
          "media" = abort("type = 'media' is not supported by `count()`"),
-         .data$type)
-  collect(.data)
+         abort("`count()` only supports `type = 'occurrences' or` `'species'`"))
+  .data
 }

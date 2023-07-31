@@ -13,9 +13,22 @@
 #' @rdname slice_head
 #' @export
 slice_head.data_request <- function(.data, ..., n, prop){
-  if(!missing(n)){.data$slice <- tibble(n = n)}
-  else if(!missing(prop)){.data$slice <- tibble(prop = prop)}
-  return(.data)
+  # handle inputs
+  if(!missing(n)){
+     result <- tibble(n = n)
+  }else if(!missing(prop)){
+    result <- tibble(prop = prop)
+  } else {
+    result <- tibble()
+  }
+  
+  # if no data - or NULL - is provided, make no updates
+  if(length(result) < 1){
+    .data
+  }else{
+    .data$slice <- result
+    return(.data)    
+  }
 }
 
 #' @rdname slice_head

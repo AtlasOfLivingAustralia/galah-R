@@ -67,7 +67,6 @@ check_login <- function(.data, error_call = caller_env()){
             call = error_call)
     }
   }else{
-    browser()
     if(pour("atlas", "acronym") == "ALA"){
       if(is.null(.data$headers$`x-api-key`) | .data$headers$`x-api-key` == ""){
         bullets <- c("API key has not been specified for the ALA",
