@@ -144,7 +144,6 @@ parse_symbol <- function(x){
 parse_call <- function(x, ...){
   y <- quo_get_expr(x)
   env_tr <- quo_get_env(x)
-  # browser()
   switch(function_type(as_string(y[[1]])), # i.e. switch depending on what function is called
          "relational_operator" = parse_relational(y, env_tr, ...),
          "logical_operator" = parse_logical(y, env_tr, ...),
@@ -153,7 +152,6 @@ parse_call <- function(x, ...){
          "is.na" = parse_is_na(y, env_tr, ...),
          "between" = parse_between(y, env_tr, ...),
          "%in%" = parse_in(y, env_tr, ...),
-         # "c" = parse_c(y, env_tr, ...),
          eval_tidy(x) # if unknown, parse
          # {filter_error()} # if unknown, error
   )
@@ -177,8 +175,6 @@ function_type <- function(x){ # assumes x is a string
     "between"
   }else if(x == "%in%"){
     "%in%"
-  # }else if(x == "c"){
-  #   "c"
   }else{
     x
   }
@@ -195,9 +191,9 @@ function_type <- function(x){ # assumes x is a string
 parse_relational <- function(expr, env, ...){
   if(length(expr) != 3L){filter_error()}
   
-  # Check for elements wrapped by c()
+  # Check for elements wrapped in c()
   if(grepl("c", expr[[3]][1], fixed = TRUE) && length(expr[[3]]) > 1) {
-    value <- as.list(expr[[3]][-1]) # extract concatenated values
+    value <- as.list(expr[[3]][-1]) # extract values in c()
 
     # create OR statement from expr
     c_expr <- rlang::parse_expr(
@@ -207,7 +203,8 @@ parse_relational <- function(expr, env, ...){
       ))
 
     switch_expr_type(as_quosure(c_expr, env = env), ...) # pass this down the chain
-  } else{
+    
+    } else {
   
   # for LA cases
   result <- tibble(

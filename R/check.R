@@ -67,6 +67,7 @@ check_login <- function(.data, error_call = caller_env()){
             call = error_call)
     }
   }else{
+    browser()
     if(pour("atlas", "acronym") == "ALA"){
       if(is.null(.data$headers$`x-api-key`) | .data$headers$`x-api-key` == ""){
         bullets <- c("API key has not been specified for the ALA",
@@ -75,6 +76,7 @@ check_login <- function(.data, error_call = caller_env()){
         abort(bullets, 
               call = error_call)
       }
+    if(.data$type != "taxa") {
     email_text <- url_parse(.data$url)$query$email
     if(length(email_text) < 1 & .data$type %in% c("occurrences", "species")){
       bullets <- c(
@@ -84,6 +86,7 @@ check_login <- function(.data, error_call = caller_env()){
       )
       abort(bullets, call = error_call)
       }
+    }
     }
   }
 }
@@ -104,15 +107,14 @@ check_facet_count <- function(.data){
   temp_data <- .data
   temp_data$url <- url_build(url)
   result <- query_API(temp_data)
-  n_available <- if(class(result) =="list"){
-    result[[1]]$count
-  } else {
-      result}
-  if(pour("package", "verbose") & n_requested < n_available){
-    bullets <- c(
-      glue("This query will return {n_requested} rows; but there are {n_available} in total"),
-      i = "Use `slice_head()` if you wish to set a higher value")
-    inform(bullets)
+  if(class(result) == "list"){ # group_by arg present
+    n_available <- result[[1]]$count 
+    if(pour("package", "verbose") & n_requested < n_available){
+      bullets <- c(
+        glue("This query will return {n_requested} rows, but there are {n_available} rows in total."),
+        i = "Use `slice_head()` to set a higher number of rows to return.")
+      inform(bullets)
+  }
   }
 }
 
