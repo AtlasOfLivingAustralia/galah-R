@@ -34,13 +34,12 @@ test_that("galah_identify can pass a string unchanged when run_checks = FALSE", 
   expect_equal(result$identifier[1], "a_string")
 })
 
-## Adds additional warning for missing taxa that doesn't exist
-# test_that("galah_identify pipes correctly", {
-#   capture_requests("galah_identify_search_3", {
-    # result <- galah_call() |>
-    #   galah_identify("Litoria") |>
-    #   galah_filter(year == 2020)
-#   })
-#   expect_false(is.null(result$identify))
-#   expect_false(is.null(result$filter)) 
-# })
+test_that("galah_identify pipes correctly", {
+  capture_requests("galah_identify_search_3", {
+  result <- galah_call() |>
+    galah_identify("Litoria") |>
+    galah_filter(year == 2020)
+  })
+  expect_false(is.null(result$identify))
+  expect_false(is.null(result$filter))
+})

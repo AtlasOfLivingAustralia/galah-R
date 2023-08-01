@@ -210,30 +210,14 @@ collapse_identifiers <- function(.data){
     url_list <- url_lookup("names_lookup")
     names(url_list) <- "no-name-supplied"
   }else{
-    browser()
-    url_list <- lapply(.data$identify,
-                       function(a){url_lookup("names_lookup", name = a)})
+    base_url <- url_parse(url_lookup("names_lookup"))
+    url_list <- lapply(list(.data$identify),
+                       function(a, base_url){
+                         base_url$query <- as.list(a)
+                         url_build(base_url)
+                       },
+                       base_url = base_url)
     names(url_list) <- .data$identify
-    
-    # url <- url_lookup("names_lookup")
-    # if(pour("atlas", "region") == "France"){
-    #   result <- paste0(url, identifier) |> url_GET()
-    # }else{
-    #   result <- url_GET(url, list(taxonID = identifier)) 
-    # }
-    # if (is.null(result)){
-    #   return(NULL)
-    # }
-    # if (isFALSE(result$success) && 
-    #     result$issues == "noMatch" && 
-    #     pour("package", "verbose"
-    #     )) {
-    #   list_invalid_taxa <- glue_collapse(identifier, 
-    #                                      sep = ", ")
-    #   inform(glue("No taxon matches were found for \"{list_invalid_taxa}\"."))
-    # }
-    # names(result) <- rename_columns(names(result), type = "taxa")
-    # result[names(result) %in% wanted_columns("taxa")]
   }
   # build object and return
   result <- list(type = .data$type,
