@@ -50,22 +50,26 @@ collect_counts_arrange <- function(.data){
     result <- pluck(result, 1, "fieldResult") |>
       bind_rows()
   }
-  if(inherits(result, "data.frame") & nrow(result) > 0){
-    field_name <- url_parse(.data$url)$query$facets
-    result_tibble <- result |>
-      mutate({{field_name}} := label) |> 
-      select({{field_name}}, count)
-    if(.data$arrange$direction == "ascending" & .data$arrange$variable == "count"){
-      arrange_var <- .data$arrange$variable
-      result_tibble <- result_tibble |>
-        arrange(!!as.symbol(arrange_var))
+  if(inherits(result, "data.frame")){
+    if(nrow(result) > 0){
+      field_name <- url_parse(.data$url)$query$facets
+      result_tibble <- result |>
+        mutate({{field_name}} := label) |> 
+        select({{field_name}}, count)
+      if(.data$arrange$direction == "ascending" & .data$arrange$variable == "count"){
+        arrange_var <- .data$arrange$variable
+        result_tibble <- result_tibble |>
+          arrange(!!as.symbol(arrange_var))
+      }
+      if(.data$arrange$direction == "descending" & .data$arrange$variable != "count"){
+        arrange_var <- .data$arrange$variable
+        result_tibble <- result_tibble |>
+          arrange(dplyr::desc(!!as.symbol(arrange_var)))
+      }
+      result_tibble
+    }else{
+      result # unclear what circumstances would lead to a zero-row df, if any
     }
-    if(.data$arrange$direction == "descending" & .data$arrange$variable != "count"){
-      arrange_var <- .data$arrange$variable
-      result_tibble <- result_tibble |>
-        arrange(dplyr::desc(!!as.symbol(arrange_var)))
-    }
-    result_tibble
   }else{
     tibble(count = result)
   } 

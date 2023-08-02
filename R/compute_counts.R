@@ -21,19 +21,32 @@ compute_counts <- function(.data){
         .data[!(names(.data) %in% c("url", "type"))])
     }    
   }else{
-    url <- url_parse(.data$url)
+    result <- adjust_flimit(.data)
+  }
+  class(result) <- "data_response"
+  return(result)
+}
+
+#' Internal function to handle facet counting, adjustment etc.
+#' @noRd
+#' @keywords Internal
+adjust_flimit <- function(.data){
+  url <- url_parse(.data$url)
+  if(!is.null(url$query$flimit)){
     if(as.integer(url$query$flimit) < 1){
       n_facets <- check_facet_count(.data)
       url$query$flimit <- .data$arrange$slice_n # Q: is this correct? 
       if(.data$arrange$slice_n < n_facets){
         url$query$foffset <- n_facets - .data$arrange$slice_n
       }
-      .data$url <- url_build(url)    
+      .data$url <- url_build(url) 
+      .data
+    }else{
+      .data
     }
-    result <- .data
+  }else{
+    .data
   }
-  class(result) <- "data_response"
-  return(result)
 }
 
 #' Determine set of queries when expand = TRUE
