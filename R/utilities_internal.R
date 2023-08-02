@@ -99,6 +99,18 @@ camel_to_snake_case <- function(x){
     tolower()
 }
 
+#' Simple internal function to split strings
+#' @noRd
+#' @keywords Internal
+string_to_tibble <- function(string, split_by = ":"){
+  x <- strsplit(string, split_by) 
+  x_df <- do.call(rbind, x) |> 
+    as.data.frame() |>
+    tibble()
+  colnames(x_df) <- c("variable", "value")
+  return(x_df)
+}
+
 ##---------------------------------------------------------------
 ##                   Other helpful functions                   --
 ##---------------------------------------------------------------

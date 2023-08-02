@@ -9,14 +9,16 @@
 arrange.data_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
   parsed_dots <- parse_quosures_basic(dots)$data
-  if(length(parsed_dots) > 1){
-    abort("only one variable can be passed to `arrange()`")
+  
+  if(length(parsed_dots) == 2 & 
+     all(names(parsed_dots) %in% c("variable", "direction"))){
+    .data$arrange <- as.list(parsed_dots) |> 
+      as.data.frame() |>
+      tibble()
+  }else{
+    .data$arrange <- tibble(variable = parsed_dots, 
+                            direction = "ascending")    
   }
-  # if(!(parsed_dots %in% c("count", "index"))){
-  #   abort("`arrange()` requires one of `index` or `count`") 
-  #   # NOTE: this could change to support field name(s) supplied in `facets`
-  # }
-  .data$arrange <- tibble(variable = parsed_dots)
   return(.data)
 }
 

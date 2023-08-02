@@ -79,30 +79,39 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
     url <- url_lookup("records_facets") |> url_parse()
     facets <- as.list(group_by$name)
     names(facets) <- rep("facets", length(facets))
-    if(!is.null(arrange)){
-      if(arrange$variable == "count"){
-        arrange <- list(fsort = "count")
-      }else{
-        arrange <- list(fsort = "index") 
-        # arrange <- list(sort = arrange$variable) # this fails for some reason
-        # ditto list(fsort = "index", dir = "asc")
-      }
+    if(is.null(slice)){
+      slice <- tibble(slice_n = 30, slice_called = FALSE)
     }
-    url$query <- c(query, 
-                   facets, 
-                   flimit = slice$n,
-                   arrange)
+    if(is.null(arrange)){
+      arrange <- tibble(variable = "count", direction = "descending")
+    }
+    slice_arrange <- bind_cols(slice, arrange)
+    arrange_list <- slice_arrange |> check_slice_arrange()
+    url$query <- c(query, facets, arrange_list)
     result$url <- url_build(url)
-    if(length(facets) > 1){
-      result$expand <- TRUE
-    }else{
-      result$expand <- FALSE
-    }
+    result$expand <- ifelse(length(facets) > 1, TRUE, FALSE)
     result$return_basic <- TRUE
+    result$arrange <- slice_arrange
   }
   
   # aggregate and return
   result$headers <- build_headers()
   class(result) <- "data_query"
   return(result)
+}
+
+check_slice_arrange <- function(df){
+  if(df$variable == "count"){ # arranged in descending order by default
+    if(df$direction == "ascending"){
+      list(fsort = "count", flimit = 0)
+    }else{
+      list(fsort = "count", flimit = df$slice_n)
+    }
+  }else{ # non-count fields are arranged in ascending order by default
+    if(df$direction == "ascending"){
+      list(fsort = "index", flimit = df$slice_n)
+    }else{
+      list(fsort = "index", flimit = 0)
+    }
+  }
 }

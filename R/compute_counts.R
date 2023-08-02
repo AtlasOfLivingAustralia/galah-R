@@ -21,74 +21,129 @@ compute_counts <- function(.data){
         .data[!(names(.data) %in% c("url", "type"))])
     }    
   }else{
-    check_facet_count(.data)
+    url <- url_parse(.data$url)
+    if(as.integer(url$query$flimit) < 1){
+      n_facets <- check_facet_count(.data)
+      url$query$flimit <- .data$arrange$slice_n # Q: is this correct? 
+      if(.data$arrange$slice_n < n_facets){
+        url$query$foffset <- n_facets - .data$arrange$slice_n
+      }
+      .data$url <- url_build(url)    
+    }
     result <- .data
   }
   class(result) <- "data_response"
-  attr(result, "fields") <- url_parse(.data$url)$query$facets
   return(result)
 }
 
 #' Determine set of queries when expand = TRUE
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr c_across
+#' @importFrom dplyr full_join 
+#' @importFrom dplyr rowwise
+#' @importFrom dplyr starts_with
+#' @importFrom dplyr ungroup
+#' @importFrom glue glue_collapse
+#' @importFrom httr2 url_build
+#' @importFrom httr2 url_parse
 #' @noRd
 #' @param x list returned from `run_grouped_count_LA()`
 #' @keywords Internal
 build_query_list_LA <- function(.data){
+  # get url
+  url <- url_parse(.data$url)
   
+  # remove last-provided facet
+  facet_list <- url$query[names(url$query) == "facets"]
+  facet_names <- unlist(facet_list)
+  names(facet_names) <- NULL
+
+  # save out facet limits to add back later
+  saved_facet_queries <- list( 
+    flimit = url$query$flimit,
+    foffset = url$query$foffset)
+  saved_facet_queries <- saved_facet_queries[
+    unlist(lapply(saved_facet_queries, function(a){!is.null(a)}))]
+  
+  # rebuild url
+  url$query <- c(
+    url$query[names(url$query) != "facets"],
+    facet_list[-length(facet_list)])
+  .data$url <- url_build(url)
+  
+  # check number of facets
+  n_facets <- check_facet_count(.data, warn = FALSE)
+  
+  # incorporate this into the query
+  url <- url_parse(.data$url)
+  url$query$flimit <- max(n_facets)
+  .data$url <- url_build(url)
+    
+  # run query to get list of count tibbles
   result <- query_API(.data)
   if(is.null(result)){system_down_message("count")}
   result <- lapply(result, 
                    function(a){a$fieldResult |> bind_rows()})
+  names(result) <- facet_names[-length(facet_names)]
   
-  # convert to query
+  # expand to a tibble that gives all combinations
+  kept_facets <- facet_names[-length(facet_names)]
+  result_list <- lapply(names(result), 
+         function(a){
+           x <- result[[a]][c(1, 4)]
+           names(x)[1] <- a
+           x}) 
+  
+  # convert to all combinations of levels
+  if(length(result_list) > 1){
+    levels_list <- lapply(result_list, function(a){a[[1]]})
+    names(levels_list) <- names(result)
+    levels_list <- c(levels_list, list(stringsAsFactors = FALSE))
+    result_df <- do.call(expand.grid, levels_list) |>
+      tibble()
+    for(i in seq_along(result_list)){
+      result_df <- full_join(result_df, result_list[[i]], by = kept_facets[i])
+    }
+  }else{
+    result_df <- result_list[[1]]
+  }
+ 
+  # extract existing fq statements
   query <- url_parse(.data$url)$query
-  values_df <- data.frame(
-    facet = unlist(query[names(query) == "facets"]),
-    n = unlist(lapply(result, nrow)))
+  if(is.null(query$fq)){
+    fqs <- ""
+  }else{
+    fqs <- strsplit(query$fq, "AND")[[1]]
+    fqs <- fqs[!grepl(paste(kept_facets, collapse = "|"), fqs)] # remove fqs that relate to parsed facets
+    if(length(fqs) < 1){
+      fqs <- ""
+    }
+  }
   
-  names(result) <- values_df$facet
+  # glue `fq` statements together 
+  result_df <- result_df |>
+    rowwise() |>
+    mutate(query = glue_collapse(c_across(starts_with("fq")), sep = " AND ")) |>
+    select(-starts_with("fq")) |>
+    ungroup()
+  if(fqs != ""){
+    result_df$query <- glue("{fqs} AND {result_df$query}")
+  }
   
-  # work out which to pass as facets vs those we iterate over with lapply
-  facets_large <- values_df$facet[which.max(values_df$n)]
-  facets_small <- values_df$facet[values_df$facet != facets_large]
+  # recombine into urls
+  url_final <- url_parse(.data$url)
+  query_without_fq <- c(
+    url_final$query[!(names(url_final$query) %in% 
+                      c("fq", "facets", "flimit", "foffset"))],
+    list(facets = facet_names[length(facet_names)]),
+    saved_facet_queries)
   
-  # convert to list of valid queries
-  levels_df <- expand.grid(
-    lapply(result[facets_small], function(a){a$fq}),
-    stringsAsFactors = FALSE)
-  attr(levels_df, "out.attrs") <- NULL
-  levels_list <- split(levels_df, seq_len(nrow(levels_df)))
+  url_list <- lapply(result_df$query, function(a, url){
+    url$query <- c(list(fq = a), query_without_fq)
+    url_build(url)
+  }, url = url_final)
   
-  # create corresponding df of labels, for matching to counts returned later
-  labels_df <- expand.grid(
-    lapply(result[facets_small], function(a){a$label}),
-    stringsAsFactors = FALSE)
-  attr(levels_df, "out.attrs") <- NULL
-
-  # build a set of valid queries
-  query_list <- lapply(levels_list, function(a, query){
-    all_queries <- c(query$fq,
-                     glue_collapse(do.call(c, a), " AND "))
-    list(
-      fq = glue_collapse(all_queries, " AND "),
-      facets = facets_large) |>
-    c(query[!(names(query) %in% c("facets", "fq"))])
-  }, query = query)
-  names(query_list) <- NULL
-  
-  # NOTE there is a missing step here to remove the facet in question from fq
-  
-  # convert queries to urls
-  result_list <- lapply(query_list, function(a, url){
-    url_tr <- url_parse(.data$url)
-    url_tr$query <- a
-    url_build(url_tr)
-  }, url = .data$url)
-  
-  # parse labels to add as names to url
-  # this is necessary to support later labelling
-  names(result_list) <- lapply(levels_list, 
-                               function(a){paste(a, collapse = "||")}) |>
-                        unlist()
-  return(result_list)
+  result_df$url <- unlist(url_list)
+  result_df <- select(result_df, -query)
+  return(result_df)
 }
