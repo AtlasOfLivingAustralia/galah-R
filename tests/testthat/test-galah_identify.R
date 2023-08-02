@@ -19,13 +19,20 @@ test_that("galah_identify runs a search on multiple strings", {
   expect_equal(nrow(result), 4)
 })
 
-## Doesn't work until search_identifiers() is supported
-# test_that("galah_identify works with search = FALSE", {
-#   galah_config(run_checks = FALSE)
-#   id <- "urn:lsid:biodiversity.org.au:afd.taxon:0490a9ba-0d08-473d-a709-6c42e354f118"
-#   result <- galah_identify(id, search = FALSE)
-#   expect_equal(result$identifier[1], id)
-# })
+test_that("galah_identify runs a search on multiple strings wrapped by c()", {
+  capture_requests("galah_identify_search_2", {
+    search_terms <- c("amphibia", "reptilia", "aves", "mammalia")
+    result <- galah_identify(search_terms)
+  })
+  expect_equal(nrow(result), 4)
+})
+
+test_that("galah_identify works with search = FALSE", {
+  galah_config(run_checks = FALSE)
+  id <- "urn:lsid:biodiversity.org.au:afd.taxon:0490a9ba-0d08-473d-a709-6c42e354f118"
+  result <- galah_identify(id, search = FALSE)
+  expect_equal(result$identifier[1], id)
+})
 
 test_that("galah_identify can pass a string unchanged when run_checks = FALSE", {
   galah_config(run_checks = FALSE)
@@ -42,4 +49,51 @@ test_that("galah_identify pipes correctly", {
   })
   expect_false(is.null(result$identify))
   expect_false(is.null(result$filter))
+})
+
+test_that("galah_identify pipes correctly when taxa are partially returned", {
+  capture_requests("galah_identify_search_4", {
+    galah_config(verbose = FALSE)
+    result <- galah_call() |>
+      galah_identify("Litoria", "blarghy") |>
+      galah_filter(year == 2020)
+  })
+  expect_false(is.null(result$identify))
+  expect_false(is.null(result$filter))
+  galah_config(verbose = TRUE)
+})
+
+
+test_that("galah_identify warns when taxa are partially returned", {
+  capture_requests("galah_identify_search_5", {
+    expect_warning(
+      galah_call() |>
+        galah_identify("Litoria", "blarghy") |>
+        galah_filter(year == 2020),
+      "Unmatched taxa"
+    )
+    expect_warning(
+      galah_identify("Litoria", "blarghy"),
+      "Unmatched taxa"
+    )
+  })
+})
+
+test_that("galah_identify warns when identifiers are partially returned", {
+  capture_requests("galah_identify_search_6", {
+    galah_config(run_checks = TRUE)
+    ids <- c("https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b",
+             "https://id.biodiversity.org.au/node/apni/2910467",
+             "https://id.biodiversity.org.au/node/apni/291047") # wrong id
+    expect_warning(
+      galah_call() |>
+        galah_identify(ids, search = FALSE) |>
+        galah_filter(year == 2020),
+      "Unmatched taxa"
+    )
+    expect_warning(
+      galah_identify(ids, search = FALSE),
+      "Unmatched taxa"
+    )
+  })
 })

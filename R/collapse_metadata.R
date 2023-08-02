@@ -211,14 +211,27 @@ collapse_identifiers <- function(.data){
     names(url_list) <- "no-name-supplied"
   }else{
     base_url <- url_parse(url_lookup("names_lookup"))
-    url_list <- lapply(list(.data$identify),
+    
+    # split if there are multiple identifiers
+    if(length(.data$identify) > 1) {
+      # multiple
+      query <- split(.data$identify, seq_along(.data$identify))
+    } else {
+      # single
+      query <- list(.data$identify)
+    }
+    
+    # create query urls
+    url_list <- lapply(query,
                        function(a, base_url){
+                         names(a) <- "taxonID"
                          base_url$query <- as.list(a)
                          url_build(base_url)
                        },
                        base_url = base_url)
     names(url_list) <- .data$identify
   }
+  
   # build object and return
   result <- list(type = .data$type,
                  url = url_list,

@@ -42,40 +42,21 @@
 #' 
 #' @export
 galah_identify <- function(..., search = TRUE) {
+
   dots <- list(...)
-  if (inherits(dots[[1]], "data_request")) {
-    result <- parse_identify(dots[[-1]], search)
-    update_data_request(dots[[1]], identify = result)
+
+  if (length(dots) < 1) {
+    # if empty, return correct class, but no values
+    tibble(identifier = character())
   } else {
-    result <- parse_identify(dots, search)
-    return(result)
+    if (inherits(dots[[1]], "data_request")) {
+      result <- parse_identify(dots[-1], search)
+      update_data_request(dots[[1]], identify = result)
+    } else {
+      result <- parse_identify(dots, search)
+      return(result)
+    }
   }
-    # if (length(dots) > 0) {
-    #   if (inherits(dots[[1]], "data_request")) {
-    #     if (search) {
-    #       result <- search_taxa(dots[-1]) |>
-    #         rename(identifier = taxon_concept_id) |>
-    #         select(identifier)
-    #     } else {
-    #       result <- tibble(identifier = unlist(dots[-1]))
-    #     }
-    #     update_data_request(dots[[1]], identify = result)
-    #   } else {
-    #     # browser()
-    #     search_results <- lapply(dots, function(terms) {
-    #       search_taxa(terms) 
-    #     })
-    #     result <- search_results |>
-    #       rename(identifier = taxon_concept_id) |>
-    #       select(identifier) |>
-    #       bind_rows()
-    #     
-    #     # return(result)
-    #   }
-    # } else {
-    #   result <- tibble()
-    #   return(result)
-    # }
 }
   
 #' @rdname galah_identify
@@ -103,7 +84,7 @@ identify.metadata_request <- function(.data, ...){
   }else{
     dots$identify <- unlist(dots$identify)
   }
-  result <-  c(.data, dots)
+  result <- c(.data, dots)
   class(result) <- "metadata_request"
   return(result)
 }
@@ -111,58 +92,44 @@ identify.metadata_request <- function(.data, ...){
 #' parser for `galah_identify()`
 #' @noRd
 #' @keywords Internal
-parse_identify <- function(input_query, search, call = caller_env()){
-  if (length(input_query) > 0) {
+parse_identify <- function(input_query, search, call = caller_env()) {
+  # get cached behaviour
+  atlas <- pour("atlas", "region")
+  run_checks <- pour("package", "run_checks")
+  verbose <- pour("package", "verbose")
 
-    # get cached behaviour
-    atlas <- pour("atlas", "region")
-    run_checks <- pour("package", "run_checks")
-    verbose <- pour("package", "verbose")
-    
-      if (search) {
-        lookup <- search_taxa(input_query)
-        query <- verify_taxa_ids(lookup, input_query, verbose)
-      } else { # i.e. user has passed search = FALSE
-        if (atlas == "Australia" && run_checks) {
-          browser()
-          lookup <- search_identifiers(input_query)
-          if (is.null(lookup$taxon_concept_id)) {
-            bullets <- c(
-              "`galah_identify` didn't return anything.",
-              i = "Did you use `search_identifiers` to check whether your search returns the correct taxa?"
-            )
-            abort(bullets, call = caller_env())
-          } else {
-            query <- lookup$taxon_concept_id[!is.na(lookup$taxon_concept_id)]
-            n_provided <- length(input_query)
-            n_returned <- length(query)
-            check_number_returned(n_provided, n_returned)
-          }
-        } else {
-          query <- input_query # pass unchanged
-        }
-      } # end for search == FALSE
-    # check_is_character(query) # Q: do we need this function? Is it called elsewhere?
-    result <- tibble(identifier = as.character(query))
-    } # end for unknown types
-    
-  else { # if empty, return correct class, but no values
-    result <- as_tibble(data.frame(identifier = character()))
+  if (search) {
+    lookup <- search_taxa(input_query)
+    query <- verify_taxa_ids(lookup, input_query, verbose)
+  } else { # i.e. user has passed search = FALSE
+    if (atlas == "Australia" && run_checks) {
+      lookup <- search_identifiers(input_query)
+      query <- verify_taxa_ids(lookup, input_query, verbose, run_checks)
+    } else {
+      query <- input_query # pass unchanged
+    }
   }
-
+  # check_is_character(query) # Q: do we need this function? Is it called elsewhere?
+  result <- tibble(identifier = as.character(query))
   return(result)
 }
 
-verify_taxa_ids <- function(lookup, input_query, verbose, call = caller_env()) {
+verify_taxa_ids <- function(lookup, input_query, verbose, run_checks, call = caller_env()) {
   if (!any(names(lookup) == "taxon_concept_id")){
     bullets <- c(
       "`galah_identify` didn't return anything.",
-      i = "Did you use `search_taxa` to check whether your search returns the correct taxa?"
+      i = "Have you checked whether your search returns the correct taxa?",
+      i = "Use `search_taxa` or `search_identifiers` to verify search terms."
     )
-    abort(bullets, call = caller_env())
+    abort(bullets, call = call)
   } else {
     verified_ids <- lookup$taxon_concept_id[!is.na(lookup$taxon_concept_id)]
     if (verbose) {
+      # If query is within c(), place each element in separate list
+      if(length(input_query[[1]]) > 1) {
+        input_query <- as.list(input_query[[1]])
+      }
+      # calculate number of verified IDs
       n_provided <- length(input_query)
       n_returned <- length(verified_ids)
       check_number_returned(n_provided, n_returned)
@@ -185,11 +152,11 @@ check_queries <- function(dots, error_call = caller_env()) {
 
 check_number_returned <- function(n_in, n_out, error_call = caller_env()) {
   if(n_out < n_in){
-    warn(
-      glue(
-        
-        "Unmatched taxa. Results returned for {n_out} of {n_in} taxon IDs.")
+    bullets <- c(
+      "Unmatched taxa.",
+      "*" = glue("Results returned for {n_out} of {n_in} taxon IDs.")
     )
+    warn(bullets)
   }
 }
 
