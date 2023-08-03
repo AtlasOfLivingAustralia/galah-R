@@ -7,16 +7,19 @@
 #' a piped query to download data, in the same way that you would wrangle data 
 #' with `dplyr` and the `tidyverse`.
 #'
-#' Since version 2.0, `galah_call()` is a wrapper to underlying functions with 
-#' the `request_` prefix. Each of these functions can begin a pipe, and end that
-#' pipe with `collapse()`, `compute()` or `collect()`. Having a different piping 
-#' functions is useful because it allows later functions to have class-specific 
-#' requests; e.g. `filter.data_request` generates filters for `solr`, whereas 
-#' `filter.metadata_request` is a search function that accepts a single string.
+#' Since version 2.0, `galah_call()` is a wrapper to a group underlying 
+#' `request_` functions. Each of these functions can begin a piped query and end 
+#' with `collapse()`, `compute()` or `collect()`. 
 #' 
-#' @param method String: what `request` function should be called. Should be one
+#' The underlying `request_` 
+#' functions are useful because they allow `galah` to separate different types 
+#' of requests to perform better. For example, 
+#' `filter.data_request` translates filters in R to `solr`, whereas 
+#' `filter.metadata_request` searches using a search term.
+#' 
+#' @param method string: what `request` function should be called. Should be one
 #' of `"data"` (default), `"metadata"` or `"files"`
-#' @param type String: what form of data should be returned? Acceptable values
+#' @param type string: what form of data should be returned? Acceptable values
 #' are specified by the corresponding `request` function
 #' @param ... Zero or more arguments to alter a query. See 'details'.
 #' 
@@ -24,10 +27,10 @@
 #' Each atlas has several types of data that can be chosen. Currently supported
 #' are `"occurrences"` (the default), `"species"` and `"media"` (the latter
 #' currently only for ALA). It is also possible to use  
-#' `type = "occurrences-count"`; but in practice this is 
-#' synonymous with `galah_call(type = "occurrences") |> count()`, and is 
+#' `type = "occurrences-count"` and `type = "species-count"`; but in practice 
+#' this is synonymous with `galah_call() |> count()`, and is 
 #' therefore only practically useful for debugging (via `collapse()` and 
-#' `compute()`). Ditto for `type = "species-count"`.
+#' `compute()`).
 #' 
 #' Other named arguments are supported via `...`. In practice, functions 
 #' with a `galah_` prefix and S3 methods ported from `dplyr` assign 
@@ -45,7 +48,7 @@
 #'  - `down_to` (accepts `galah_down_to()`, specific to `atlas_taxonomy()`)
 #'  - `doi` (accepts a sting listing a valid DOI, specific to `collect()` when `type = "doi"`)
 #'  
-#'  Unrecognised names are ignored by `collect()` and related functions.
+#' Unrecognised names are ignored by `collect()` and related functions.
 #' 
 #' @return Each sub-function returns a different object class: `request_data()` 
 #' returns `data_request`. `request_metadata` returns `metadata_request`,

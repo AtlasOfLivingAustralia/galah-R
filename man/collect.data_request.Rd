@@ -58,15 +58,19 @@ returns an object of class \code{data_response}. \code{collapse()} returns an ob
 class \code{data_query}.
 }
 \description{
-These functions are borrowed from \code{dplyr}, and underpin every \code{atlas_}
-function in \code{galah}. \code{collapse()} calculates a valid query so it can be
+The \code{collapse()}, \code{compute()} and \code{collect()} functions are borrowed from
+\code{dplyr}, and underpin every \code{atlas_} function in \code{galah}.
+
+\code{collapse()} constructs a valid query so it can be
 inspected before being sent. \code{compute()} sends the query so that it can
 be calculated server-side in the specified atlas. \code{collect()} returns the
 resulting \code{tibble} once it is complete.
 }
 \details{
-This function has three extensions in \code{galah}. \code{collect.data_request()} is
-designed to be called at the end of a pipe, \code{collect.data_response()} works
-after calls to \code{compute}, and \code{collect.data_query()} works after calls to
-\code{collapse()}.
+The \code{collect()} function has three extensions in \code{galah}:
+\itemize{
+\item \code{collect.data_request()} is designed to be called at the end of a pipe
+\item \code{collect.data_response()} is called after \code{compute()}
+\item \code{collect.data_query()} is called after \code{collapse()}.
+}
 }

@@ -1,15 +1,19 @@
 #' Force computation of a database query
 #'
-#' These functions are borrowed from `dplyr`, and underpin every `atlas_` 
-#' function in `galah`. `collapse()` calculates a valid query so it can be 
+#' 
+#' The `collapse()`, `compute()` and `collect()` functions are borrowed from 
+#' `dplyr`, and underpin every `atlas_` function in `galah`.
+#'  
+#' `collapse()` constructs a valid query so it can be 
 #' inspected before being sent. `compute()` sends the query so that it can 
 #' be calculated server-side in the specified atlas. `collect()` returns the
 #' resulting `tibble` once it is complete.
 #' 
-#' This function has three extensions in `galah`. `collect.data_request()` is
-#' designed to be called at the end of a pipe, `collect.data_response()` works
-#' after calls to `compute`, and `collect.data_query()` works after calls to 
-#' `collapse()`.
+#' The `collect()` function has three extensions in `galah`:  
+#'   *  `collect.data_request()` is designed to be called at the end of a pipe 
+#'   *  `collect.data_response()` is called after `compute()`
+#'   *  `collect.data_query()` is called after `collapse()`.
+#' 
 #' @name collect.data_request
 #' @param .data An object of class `data_request`, `data_query` or 
 #' `data_response` 

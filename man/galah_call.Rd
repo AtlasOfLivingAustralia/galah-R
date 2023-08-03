@@ -26,10 +26,10 @@ request_files(type = c("doi", "distributions", "media"))
 \method{print}{data_request}(x, ...)
 }
 \arguments{
-\item{method}{String: what \code{request} function should be called. Should be one
+\item{method}{string: what \code{request} function should be called. Should be one
 of \code{"data"} (default), \code{"metadata"} or \code{"files"}}
 
-\item{type}{String: what form of data should be returned? Acceptable values
+\item{type}{string: what form of data should be returned? Acceptable values
 are specified by the corresponding \code{request} function}
 
 \item{...}{Zero or more arguments to alter a query. See 'details'.}
@@ -48,21 +48,24 @@ well as how it should be filtered. Using \code{galah_call()} allows you to build
 a piped query to download data, in the same way that you would wrangle data
 with \code{dplyr} and the \code{tidyverse}.
 
-Since version 2.0, \code{galah_call()} is a wrapper to underlying functions with
-the \code{request_} prefix. Each of these functions can begin a pipe, and end that
-pipe with \code{collapse()}, \code{compute()} or \code{collect()}. Having a different piping
-functions is useful because it allows later functions to have class-specific
-requests; e.g. \code{filter.data_request} generates filters for \code{solr}, whereas
-\code{filter.metadata_request} is a search function that accepts a single string.
+Since version 2.0, \code{galah_call()} is a wrapper to a group underlying
+\code{request_} functions. Each of these functions can begin a piped query and end
+with \code{collapse()}, \code{compute()} or \code{collect()}.
+
+The underlying \code{request_}
+functions are useful because they allow \code{galah} to separate different types
+of requests to perform better. For example,
+\code{filter.data_request} translates filters in R to \code{solr}, whereas
+\code{filter.metadata_request} searches using a search term.
 }
 \details{
 Each atlas has several types of data that can be chosen. Currently supported
 are \code{"occurrences"} (the default), \code{"species"} and \code{"media"} (the latter
 currently only for ALA). It is also possible to use
-\code{type = "occurrences-count"}; but in practice this is
-synonymous with \code{galah_call(type = "occurrences") |> count()}, and is
+\code{type = "occurrences-count"} and \code{type = "species-count"}; but in practice
+this is synonymous with \code{galah_call() |> count()}, and is
 therefore only practically useful for debugging (via \code{collapse()} and
-\code{compute()}). Ditto for \code{type = "species-count"}.
+\code{compute()}).
 
 Other named arguments are supported via \code{...}. In practice, functions
 with a \code{galah_} prefix and S3 methods ported from \code{dplyr} assign

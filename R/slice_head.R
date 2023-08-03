@@ -1,4 +1,4 @@
-#' Slice for object of class `data_request`
+#' Subset first rows of `data_request`
 #' 
 #' @description `r lifecycle::badge("experimental")` 
 #' This is a simple function to set the 'limit' argument in [atlas_counts()]

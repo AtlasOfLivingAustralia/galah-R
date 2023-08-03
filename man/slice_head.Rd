@@ -3,7 +3,7 @@
 \name{slice_head.data_request}
 \alias{slice_head.data_request}
 \alias{slice_head.metadata_request}
-\title{Slice for object of class \code{data_request}}
+\title{Subset first rows of \code{data_request}}
 \usage{
 \method{slice_head}{data_request}(.data, ..., n, prop)
 
