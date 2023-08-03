@@ -22,11 +22,11 @@
 
 \method{collapse}{files_request}(.data)
 
-\method{collect}{data_request}(.data)
+\method{collect}{data_request}(.data, wait = FALSE, file)
 
-\method{collect}{data_query}(.data)
+\method{collect}{data_query}(.data, wait = FALSE, file)
 
-\method{collect}{data_response}(.data, wait)
+\method{collect}{data_response}(.data, wait = FALSE, file)
 
 \method{collect}{metadata_request}(.data)
 
@@ -48,6 +48,9 @@
 
 \item{wait}{logical; should \code{galah} ping the selected url until computation
 is complete? Defaults to \code{FALSE}.}
+
+\item{file}{(optional) file name. If not given will be \code{data} with date and
+time added. File path is always given by \code{galah_config()$package$directory}.}
 }
 \value{
 \code{collect()} returns a \code{tibble} containing requested data. \code{compute()}

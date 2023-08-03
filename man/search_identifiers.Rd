@@ -4,7 +4,7 @@
 \alias{search_identifiers}
 \title{Search for taxa with taxonomic identifiers}
 \usage{
-search_identifiers(query)
+search_identifiers(...)
 }
 \arguments{
 \item{query}{\code{string}: A vector containing one or more taxonomic

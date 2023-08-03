@@ -16,8 +16,6 @@ Valid arguments are:
 \item \code{atlas} string: Living Atlas to point to, Australia by default. Can be
 an organisation name, acronym, or region (see \code{\link[=show_all_atlases]{show_all_atlases()}} for
 admissible values)
-\item \code{caching} logical: if TRUE, results will be cached, and any cached
-results will be re-used). If FALSE, data will be downloaded.
 \item \code{cache_directory} string: the directory to use for the cache.
 By default this is a temporary directory, which means that results will
 only be cached

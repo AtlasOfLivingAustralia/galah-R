@@ -40,7 +40,11 @@ group_by.data_request <- function(.data, ...){
 parse_group_by <- function(dot_names){
   if(length(dot_names) > 0){
     if(length(dot_names) > 3){
-      abort("`group_by.data_request` can accept a maximum of three fields")
+      bullets <- c(
+        "Too many fields supplied.",
+        i = "`group_by.data_request` accepts a maximum of 3 fields."
+        )
+      abort(bullets, call = caller_env())
     }
     if(length(dot_names) > 0){
       df <- tibble(name = dot_names)

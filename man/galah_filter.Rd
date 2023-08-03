@@ -6,7 +6,7 @@
 \alias{filter.metadata_request}
 \title{Narrow a query by specifying filters}
 \usage{
-galah_filter(...)
+galah_filter(..., profile = NULL)
 
 \method{filter}{data_request}(.data, ...)
 
@@ -14,6 +14,12 @@ galah_filter(...)
 }
 \arguments{
 \item{...}{filters, in the form \verb{field logical value}}
+
+\item{profile}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#soft-deprecated}{\figure{lifecycle-soft-deprecated.svg}{options: alt='[Soft-deprecated]'}}}{\strong{[Soft-deprecated]}} Use \code{galah_apply_profile} instead.
+
+If supplied, should be a \code{string} recording a data quality profile to
+apply to the query. See \code{\link[=show_all_profiles]{show_all_profiles()}} for valid profiles. By
+default no profile is applied.}
 
 \item{.data}{An object of class \code{metadata_request}, created using \code{\link[=request_metadata]{request_metadata()}}}
 }
