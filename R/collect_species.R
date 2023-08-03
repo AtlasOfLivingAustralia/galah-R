@@ -23,3 +23,19 @@ collect_species <- function(.data){
     }
   }
 }
+
+#' Internal function to load a csv file downloaded by `query_API()`
+#' NOTE: THIS IS PORTED FROM `url_download()` and HAS NOT BEEN UPDATED OR TESTED
+#' @noRd
+#' @keywords Internal
+load_csv <- function(.data){
+  tryCatch(
+    read_csv(res$content, col_types = cols()),
+    error = function(e) {
+      e$message <- inform("No species matching the supplied filters were found.")
+      close(file(cache_file))
+      unlink(cache_file)
+      stop(e)
+    }
+  )
+}

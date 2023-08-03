@@ -38,11 +38,11 @@ query_API_internal <- function(.data, error_call = caller_env()) {
     # from brief testing it appears to fail; e.g. we still get errors when internet is off
   
   if(!is.null(.data$download)){
-    # .data <- check_path(.data)
-    query |> req_perform(path = .data$file) # try(x, silent = TRUE) ?
+    query |> req_perform(path = .data$file,
+                         verbosity = 0) # try(x, silent = TRUE) ?
   }else{
     result <- query |>
-      req_perform() |>  # try(x, silent = TRUE) ?
+      req_perform(verbosity = 0) |>  # try(x, silent = TRUE) ?
       resp_body_json() # may not work for invalid URLs
     # subset to particular slot if needed  
     if(!is.null(.data$slot_name)){
@@ -94,10 +94,10 @@ add_headers <- function(req, headers){
     req$headers <- headers
     req
   }else{
-    if(pour("atlas", "acronym") == "ALA"){
+    if(pour("atlas", "acronym", .pkg = "galah") == "ALA"){
       req |> req_headers(
         "User-Agent" = galah_version_string(),
-        "x-api-key" = pour("user", "api_key"))
+        "x-api-key" = pour("user", "api_key", .pkg = "galah"))
     }else{
       req |> req_headers("User-Agent" = galah_version_string())
     }

@@ -11,9 +11,6 @@
 #' @importFrom tibble tibble
 collect_occurrences <- function(.data, wait, file){
   
-  # .data <- check_occurrence_response(.data)
-  # inform(glue("This query will return {.data$total_records} records."))
-  
   # process supplied object
   if(.data$status == "incomplete"){
     if(wait){
@@ -26,7 +23,7 @@ collect_occurrences <- function(.data, wait, file){
       download_response <- check_occurrence_status(.data)
       
       if(download_response$status == "incomplete"){
-        if(pour("package", "verbose")){
+        if(pour("package", "verbose", .pkg = "galah")){
           inform("Your download isn't ready yet, please try again later!")
         }
         class(download_response) <- "data_response"
@@ -41,7 +38,7 @@ collect_occurrences <- function(.data, wait, file){
     abort("No response from selected atlas")
   }
   
-  if(pour("package", "verbose")) {
+  if(pour("package", "verbose", .pkg = "galah")) {
     inform(glue("
                 
                 Downloading
@@ -57,11 +54,14 @@ collect_occurrences <- function(.data, wait, file){
     if(!missing(file)){
       new_object$file <- file
     }else{
-      new_object$file <- paste0(pour("package", "directory"), "/data.zip")
+      cache_directory <- pour("package", "directory", .pkg = "galah")
+      current_time <- Sys.time() |> format("%Y-%m-%d_%H-%M-%S")
+      new_object$file <- glue("{cache_directory}/data_{current_time}.zip") |>
+        as.character()
       # check_path()? # currently commented out in check.R
     }
     query_API(new_object)
-    result <- load_zip(new_object$file) # NOTE: this is *very* unlikely to work yet
+    result <- load_zip(new_object$file)
   }else{
     return(download_response) 
   }
@@ -109,6 +109,9 @@ check_occurrence_response <- function(.data){
   }
 }
 
+#' Internal function to change API response to contain standard headers
+#' @noRd
+#' @keywords Internal
 check_occurrence_status <- function(.data){
   list(url = .data$status_url) |>
     query_API() |>
@@ -116,50 +119,43 @@ check_occurrence_status <- function(.data){
     check_occurrence_response()
 }
 
-#' Internal function to load zip files
+#' Internal function to load zip files, without unzipping them first
 #' @noRd
 #' @keywords Internal
-load_zip <- function(cache_dir){
-  unzip(.cache_dir, exdir = cache_dir)
-  all_files <- list.files(cache_dir)
+load_zip <- function(cache_file){
+  # get names of files stored in .zip
+  all_files <- unzip(cache_file, list = TRUE)$Name
+  # zip files contain a lot of metadata that `galah` does not import
+  # import only those files that meet our criteria for 'data'
   if(is_gbif()){
-    import_files <- paste(cache_dir, 
-                          all_files[grepl(".csv$", all_files)],
-                          sep = "/")
-    result <- read_tsv(import_files, col_types = cols()) |>
+    available_files <- all_files[grepl(".csv$", all_files)]
+    result <- unz(description = cache_file,  # require lapply?
+                  filename = available_files) |> 
+      read_tsv(col_types = cols()) |>
       suppressWarnings()
   }else{
     available_files <- all_files[grepl(".csv$", all_files) &
-                                   grepl(paste0("^", data_prefix), all_files)]
-    import_files <- paste(cache_dir, available_files, sep = "/")  
-    result <- lapply(import_files, 
-                     function(a){read_csv(a, col_types = cols()) |>
-                         suppressWarnings()}) |> 
+                                   grepl("^data|records", all_files)]
+    result <- lapply(available_files, 
+                     function(a, x){
+                       # create connection to a specific file within zip
+                       conn <- unz(description = x, 
+                                   filename = a, 
+                                   open = "rb")
+                       # read
+                       out <- read_csv(conn, 
+                                       col_types = cols()) |>
+                         suppressWarnings()
+                       close(conn) # close connection
+                       return(out)
+                     }, x = cache_file) |>
       bind_rows()
-    
-    # add doi when mint_doi = TRUE
-    if(any(all_files == "doi.txt")){
-      doi_file <- paste(cache_dir, "doi.txt", sep = "/")
-      attr(result, "doi") <- read.table(doi_file) |> as.character()
-    }
+    # # add doi when mint_doi = TRUE
+    ## This needs to be re-enabled with new architecture
+    # if(any(all_files == "doi.txt")){
+    #   doi_file <- paste(cache_dir, "doi.txt", sep = "/")
+    #   attr(result, "doi") <- read.table(doi_file) |> as.character()
+    # }
   }
-  close(file(cache_dir))
-  unlink(cache_dir)
   return(result)
-}
-
-#' Internal function to load a csv file downloaded by `query_API()`
-#' MOVE THIS TO COLLECT_SPECIES()
-#' @noRd
-#' @keywords Internal
-load_csv <- function(.data){
-  tryCatch(
-    read_csv(res$content, col_types = cols()),
-    error = function(e) {
-      e$message <- inform("No species matching the supplied filters were found.")
-      close(file(cache_file))
-      unlink(cache_file)
-      stop(e)
-    }
-  )
 }

@@ -15,8 +15,8 @@
 #' `data_response` 
 #' @param wait logical; should `galah` wait for a response? Defaults to FALSE.
 #' Only applies for `type = "occurrences"` or `"species"`.
-#' @param file (optional) file name, including path if applicable. If not
-#' given will default to a path given by `galah_config()$directory`.
+#' @param file (optional) file name. If not given will be `data` with date and 
+#' time added. File path is always given by `galah_config()$package$directory`.
 #' @return `collect()` returns a `tibble` containing requested data. `compute()`
 #' returns an object of class `data_response`. `collapse()` returns an object of 
 #' class `data_query`.
@@ -74,8 +74,8 @@ collect.data_response <- function(.data, wait = FALSE, file){
   switch(.data$type,
          "occurrences-count" = collect_counts(.data),
          "species-count" = collect_counts(.data),
-         "species" = collect_species(wait = wait, file = file),
-         "occurrences" = collect_occurrences(wait = wait, file = file),
+         "species" = collect_species(.data, wait = wait, file = file),
+         "occurrences" = collect_occurrences(.data, wait = wait, file = file),
          "media" = collect_media(.data),
          abort("unrecognised 'type'")
          # NOTE: "species" & "doi" have no `compute()` stage

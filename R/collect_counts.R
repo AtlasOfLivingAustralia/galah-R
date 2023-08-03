@@ -72,5 +72,5 @@ collect_counts_arrange <- function(.data){
     }
   }else{
     tibble(count = result)
-  } 
+  }
 }

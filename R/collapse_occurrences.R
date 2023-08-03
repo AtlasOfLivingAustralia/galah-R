@@ -25,6 +25,8 @@ collapse_occurrences_atlas <- function(identify = NULL,
                                        geolocate = NULL,
                                        data_profile = NULL,
                                        select = NULL,
+                                       slice = NULL,
+                                       arrange = NULL,
                                        mint_doi = FALSE){
   # set default columns
   if(is.null(select)){
@@ -32,12 +34,13 @@ collapse_occurrences_atlas <- function(identify = NULL,
   }
   
   # build a query
-  query <- c(build_query(identify, 
+  query <- c(build_query(identify,
                          filter = filter, 
                          location = geolocate, 
                          profile = data_profile$data_profile),
              fields = build_columns(select[select$type != "assertion", ]),
              qa = build_assertion_columns(select),
+             facet = "false", # not tested
              emailNotify = email_notify(),
              sourceTypeId = 2004,
              reasonTypeId = pour("user", "download_reason_id"),
@@ -49,6 +52,15 @@ collapse_occurrences_atlas <- function(identify = NULL,
     query$mintDoi <- "true"
   }
   
+  # handle slice & arrange
+  if(!is.null(slice)){
+    query$pageSize <- slice$slice_n
+  }
+  if(!is.null(arrange)){
+    query$sort <- arrange$variable
+    query$dir <- ifelse(arrange$direction == "ascending", "asc", "desc")
+  }
+
   # build url
   url <- url_lookup("records_occurrences") |> url_parse()
   url$query <- query
