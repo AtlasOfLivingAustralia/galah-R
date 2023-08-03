@@ -283,7 +283,7 @@ check_fields <- function(.data){
           i = "See `show_all(fields)` for a listing of all valid fields.",
           i = "Use `search_all(fields)` to search for the valid name of a desired field.",
           x = glue("Invalid field(s): {list_invalid_fields}."))
-        warn(bullets)
+        abort(bullets)
       }
     }
   }
