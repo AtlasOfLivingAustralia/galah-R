@@ -1,84 +1,85 @@
-# NOTE: {purrr} has rate_delay() and rate_backoff() to help here
-# NOTE: still a bug here where this can error after max attempts is reached.
-
-#' Join queue to wait for download
-#' @noRd
-#' @keywords internal 
-#' @importFrom potions pour
-url_queue <- function(status_initial) {
-
-  # check running status, with rate limiting
-  status_post_queue <- check_queue(status_initial)
-  if(!is.null(status_post_queue$status)){
-    if(status_post_queue$status != "finished"){
-      status <- check_running(status_post_queue)
-    }else{
-      status <- status_post_queue
-    }
-  }else{
-    status <- NULL
-  }
-
-  return(status$downloadUrl)
-}
-
-# set API intervals
-api_intervals <- function(){
-  c(
-    rep(0.5, 4),
-    rep(1, 3),
-    rep(2, 5),
-    rep(5, 8),
-    rep(10, 10),
-    rep(30, 10))
-}
-
 #' Internal function to check queue status, with rate limiting
+#' @importFrom purrr rate_delay
 #' @noRd
 #' @keywords Internal
-check_queue <- function(status_initial){
-  rate_object <- rate_backoff(pause_base = 0.5, 
-                              pause_cap = 60, 
-                              max_times = 100)
-  # interval_times <- api_intervals()
-  # n_intervals <- length(interval_times)
-  status <- status_initial
-  # iter <- 1
-  queue_size <- status$queueSize
-  continue <- continue_while_loop(status, success_tag = "finished")
-  
-  verbose <- pour("package", "verbose")
+check_queue_LA <- function(.data){
+  rate_object <- set_rate()
+  current_queue <- .data$queue_size
+  continue <- TRUE
+  iter <- 1
+  verbose <- pour("package", "verbose", .pkg = "galah")
   if(verbose){
-    inform(c("Checking queue", glue("Current queue length: {queue_size}")))
-    current_status <- ""
+    inform(glue("Current queue length: {current_queue}"))
   }
-  
   while(continue == TRUE){
-    if(verbose){
-      if(is.null(status$queueSize)){status$queueSize <- 0}
-      if(status$queueSize < queue_size & status$queueSize > 0){
-        queue_size <- status$queueSize
-        inform(glue("Queue length: {queue_size}"))
+    .data <- check_occurrence_status(.data)
+    continue <- continue_while_loop(.data)
+    if(continue){    
+      iter <- iter + 1
+      if(iter > 99){
+        inform(c("No data were returned after 100 tries.", 
+                 i = "If you have saved this output using e.g. `x <- collect(.data)`,", 
+                 i = "you can try again later using `collect(x)`"))
+        return(.data)     
       }else{
-        current_status <- print_status(status, current_status)
+        current_queue <- check_queue_size(.data, current_queue)
+        rate_sleep(rate_object, quiet = verbose)
       }
+    }else{
+      return(.data)
     }
-    status <- url_GET(status$statusUrl)
-    continue <- continue_while_loop(status, success_tag = "finished")
-    if(continue){
-      rate_sleep(rate_object)
-      # if(iter <= n_intervals){
-      #   lag <- interval_times[iter]
-      # }else{
-      #   lag <- 60
-      # }
-      # Sys.sleep(lag)
-    }
-    # iter <- iter + 1
   }
-  return(status)
 }
 
+#' Internal function for rate limiting
+#' @importFrom purrr rate_backoff
+#' @noRd
+#' @keywords Internal
+set_rate <- function(){
+  rate_backoff(pause_base = 0.5, 
+               pause_cap = 60, 
+               max_times = 100,
+               jitter = FALSE)
+}
+
+#' Internal function to check queue size
+#' @noRd
+#' @keywords Internal
+check_queue_size <- function(.data, current_queue){
+  if(is.null(.data$queue_size)){
+    .data$queue_size <- 0
+  }
+  verbose <- pour("package", "verbose", .pkg = "galah")
+  if(.data$queue_size < current_queue & .data$queue_size > 0){
+    current_queue <- .data$queue_size
+    if(verbose){
+      inform(glue("Queue length: {queue_size}"))
+    }
+  }else{
+    if(verbose){cat("-")}
+  }
+  current_queue
+}
+
+#' Internal function to determine whether to keep looping
+#' @noRd
+#' @keywords Internal
+continue_while_loop <- function(x, iter){
+  z <- TRUE
+  if(!is.null(x)){
+    if(any(names(x) == "status")){
+      if(x$status == "complete"){
+        z <- FALSE
+      }
+    }
+  }
+  return(z)
+}
+
+#' Internal function to check download queue for GBIF
+#' NOT UPDATED YET
+#' @noRd
+#' @keywords Internal
 check_queue_GBIF <- function(url){
   
   verbose <- pour("package", "verbose")
@@ -128,18 +129,7 @@ check_queue_GBIF <- function(url){
   }
 }
 
-# several checks to determine whether to keep looping
-continue_while_loop <- function(x, success_tag){
-  z <- TRUE
-  if(!is.null(x)){
-    if(any(names(x) == "status")){
-      if(x$status == success_tag){
-        z <- FALSE
-      }
-    }
-  }
-  return(z)
-}
+
 
 # status of a gbif call
 print_status <- function(result, current_status){
@@ -154,43 +144,4 @@ print_status <- function(result, current_status){
     cat(".")
   }
   return(current_status)
-}
-
-check_running <- function(status){
-  interval_times <- api_intervals()
-  n_intervals <- length(interval_times)
-  iter <- 1
-  
-  verbose <- pour("package", "verbose")
-  if(verbose){
-    atlas_org <- pour("atlas", "organisation")
-    inform(glue("Sending query to {atlas_org}"))
-    pb <- txtProgressBar(max = 1, style = 3)
-  }
-  
-  while(status$status == "running"){
-    if(verbose){
-      if(is.null(status$records)){status$records <- 0}
-      if(is.null(status$totalRecords)){status$totalRecords <- 1}
-      setTxtProgressBar(pb, status$records/status$totalRecords)
-    }
-    status <- url_GET(status$statusUrl)
-    if(is.null(status$statusUrl)){
-      break()
-    }else{
-      if(iter <= n_intervals){
-        lag <- interval_times[iter]
-      }else{
-        lag <- 60
-      }
-      Sys.sleep(lag)
-    }
-    iter <- iter + 1
-  }
-  
-  if(verbose){
-    setTxtProgressBar(pb, value = 1)
-    close(pb)
-  }
-  return(status)
 }

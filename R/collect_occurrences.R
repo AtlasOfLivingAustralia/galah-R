@@ -11,17 +11,23 @@
 #' @importFrom tibble tibble
 collect_occurrences <- function(.data, wait, file){
   
+  # Q: should we distinguish between setting a directory, and retaining all copies of data?
+  # or are they the same problem?
+  
+  # TODO: (re-)add progress bars to download?
+  
   # process supplied object
   if(.data$status == "incomplete"){
+    download_response <- check_occurrence_status(.data)
     if(wait){
-      # THIS WON'T WORK YET!
-      download_response <- do.call(lookup$queue_function, 
-                                   lookup$queue_input)
+      if(is_gbif()){
+        abort("Not coded yet lol")
+      }else{
+        download_response <- check_queue_LA(.data)
+      }
     }else{
       # NOTE: this query does not appear to require an api key
       # if it does, then `compute_occurrences()` will require amendment to supply one
-      download_response <- check_occurrence_status(.data)
-      
       if(download_response$status == "incomplete"){
         if(pour("package", "verbose", .pkg = "galah")){
           inform("Your download isn't ready yet, please try again later!")
@@ -39,11 +45,7 @@ collect_occurrences <- function(.data, wait, file){
   }
   
   if(pour("package", "verbose", .pkg = "galah")) {
-    inform(glue("
-                
-                Downloading
-                
-                "))
+    inform("Downloading")
   }
   
   # get data
@@ -142,11 +144,10 @@ load_zip <- function(cache_file){
                        conn <- unz(description = x, 
                                    filename = a, 
                                    open = "rb")
-                       # read
                        out <- read_csv(conn, 
                                        col_types = cols()) |>
                          suppressWarnings()
-                       close(conn) # close connection
+                       close(conn)
                        return(out)
                      }, x = cache_file) |>
       bind_rows()
