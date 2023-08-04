@@ -9,7 +9,7 @@
 #' @param .data An object of class `data_query`
 #' @keywords Internal
 #' @noRd
-compute_counts <- function(.data){
+compute_occurrences_count <- function(.data){
   if(.data$expand){
     if(is_gbif()){
       abort("Grouped counts haven't been (re)implemented for GBIF yet")

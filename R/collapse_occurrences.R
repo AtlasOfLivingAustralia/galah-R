@@ -1,6 +1,7 @@
-#' Internal function to `collapse()` for type = "occurrences"
+#' Internal function to `collapse()` for `type = "occurrences"`
+#' @noRd
+#' @keywords Internal
 collapse_occurrences <- function(.data){
-  # choose behavior depending on whether we are calling LAs or GBIF
   if(is_gbif()){
     function_name <- "collapse_occurrences_gbif"
     .data$format <- "SIMPLE_CSV"
@@ -9,7 +10,6 @@ collapse_occurrences <- function(.data){
     function_name <- "collapse_occurrences_atlas"
     arg_names <- names(formals(collapse_occurrences_atlas))
   }
-  # subset to available arguments
   custom_call <- .data[names(.data) %in% arg_names]
   class(custom_call) <- "data_request"
   request <- do.call(function_name, custom_call)
@@ -26,7 +26,6 @@ collapse_occurrences_atlas <- function(identify = NULL,
                                        data_profile = NULL,
                                        select = NULL,
                                        slice = NULL,
-                                       arrange = NULL,
                                        mint_doi = FALSE){
   # set default columns
   if(is.null(select)){
@@ -52,13 +51,9 @@ collapse_occurrences_atlas <- function(identify = NULL,
     query$mintDoi <- "true"
   }
   
-  # handle slice & arrange
+  # handle slice
   if(!is.null(slice)){
     query$pageSize <- slice$slice_n
-  }
-  if(!is.null(arrange)){
-    query$sort <- arrange$variable
-    query$dir <- ifelse(arrange$direction == "ascending", "asc", "desc")
   }
 
   # build url

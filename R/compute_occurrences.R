@@ -1,8 +1,9 @@
-#' Workhorse function to compute occurrences
+#' Internal function to `compute()` for `type = "occurrences"`
 #' @noRd
 #' @keywords Internal
 compute_occurrences <- function(.data){
   if(is_gbif()){
+    # NOTE: this section won't work
     post_result <- query_API(.data)
     status_code <- list(url = paste0(
                                 "https://api.gbif.org/v1/occurrence/download/", 

@@ -29,17 +29,19 @@
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 #' @export
-collect.data_request <- function(.data, wait = FALSE, file){
+collect.data_request <- function(.data, 
+                                 wait = FALSE, 
+                                 file = NULL){
   .data$type <- check_type(.data$type)
   switch(.data$type, 
          "occurrences-count" = {compute(.data) |> 
                                 collect_counts()},
-         "species-count" = {compute(.data) |> 
-                            collect_counts()},
+         # "species-count" = {compute(.data) |> 
+         #                    collect_counts()},
          "doi" = collect_doi(.data),
          "species" = {
            collapse(.data) |>
-              collect_species(wait = wait, file = file)},
+              collect_species(file = file)},
          "occurrences" = {
              compute(.data) |> 
                collect_occurrences(wait = wait, file = file)
@@ -54,13 +56,15 @@ collect.data_request <- function(.data, wait = FALSE, file){
 # if calling `collect()` after `request_data() |> collapse()`
 #' @rdname collect.data_request
 #' @export
-collect.data_query <- function(.data, wait = FALSE, file){
+collect.data_query <- function(.data, 
+                               wait = TRUE, 
+                               file = NULL){
   switch(.data$type,
          "occurrences-count" = collect_counts(.data),
          # "species-count" = {?},
          "species" = {
            check_login(.data)
-           collect_species(wait = wait, file = file)},
+           collect_species(.data, file = file)},
          "occurrences" = {
            compute(.data) |>
              collect_occurrences(wait = wait, file = file)},
@@ -74,11 +78,13 @@ collect.data_query <- function(.data, wait = FALSE, file){
 #' @param wait logical; should `galah` ping the selected url until computation
 #' is complete? Defaults to `FALSE`.
 #' @export
-collect.data_response <- function(.data, wait = FALSE, file){
+collect.data_response <- function(.data, 
+                                  wait = TRUE, 
+                                  file = NULL){
   switch(.data$type,
          "occurrences-count" = collect_counts(.data),
          "species-count" = collect_counts(.data),
-         "species" = collect_species(.data, wait = wait, file = file),
+         "species" = collect_species(.data, file = file),
          "occurrences" = collect_occurrences(.data, wait = wait, file = file),
          "media" = collect_media(.data),
          abort("unrecognised 'type'")

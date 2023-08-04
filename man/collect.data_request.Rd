@@ -22,11 +22,11 @@
 
 \method{collapse}{files_request}(.data)
 
-\method{collect}{data_request}(.data, wait = FALSE, file)
+\method{collect}{data_request}(.data, wait = FALSE, file = NULL)
 
-\method{collect}{data_query}(.data, wait = FALSE, file)
+\method{collect}{data_query}(.data, wait = TRUE, file = NULL)
 
-\method{collect}{data_response}(.data, wait = FALSE, file)
+\method{collect}{data_response}(.data, wait = TRUE, file = NULL)
 
 \method{collect}{metadata_request}(.data)
 

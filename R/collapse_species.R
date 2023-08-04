@@ -1,6 +1,6 @@
-#' Internal `collapse` function for species lists
-#' @keywords Internal
+#' Internal function to `collapse()` for `type = "species"`
 #' @noRd
+#' @keywords Internal
 collapse_species <- function(.data){
   if(is_gbif()){
     function_name <- "collapse_occurrences_gbif"
@@ -24,10 +24,6 @@ collapse_species_atlas <- function(identify = NULL,
                                    filter = NULL,
                                    geolocate = NULL,
                                    data_profile = NULL){
-  
-  # check whether API exists
-  base_url <- url_lookup("records_species")
-  
   # build a query
   query <- c(
     build_query(identify, filter, geolocate, profile = data_profile),
@@ -38,12 +34,16 @@ collapse_species_atlas <- function(identify = NULL,
     facets = species_facets(),
     lookup = "true")
   
+  # build url
+  url <- url_lookup("records_species") |> url_parse()
+  url$query <- query
+  
   # build output
   result <- list(
-    url = base_url,
-    headers = list("User-Agent" = galah_version_string()),
-    query = query)
-  result$type <- "species"
+    type = "species",
+    url = url_build(url),
+    headers = build_headers(),
+    download = TRUE)
   class(result) <- "data_query"
   
   return(result)

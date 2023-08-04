@@ -24,8 +24,8 @@ switch_compute <- function(.data){
   check_login(.data)
   check_fields(.data)
   switch(.data$type, 
-         "occurrences-count" = compute_counts(.data),
-         "species-count" = compute_counts(.data),
+         "occurrences-count" = compute_occurrences_count(.data),
+         # "species-count" = compute_counts(.data),
          "species" = {class(.data) <- "data_response"; return(.data)},
          "occurrences" = {compute_occurrences(.data)},
          "media" = {compute_media(.data)})   

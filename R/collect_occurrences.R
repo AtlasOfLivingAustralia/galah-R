@@ -9,7 +9,7 @@
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 #' @importFrom tibble tibble
-collect_occurrences <- function(.data, wait, file){
+collect_occurrences <- function(.data, wait, file = NULL){
   
   # Q: should we distinguish between setting a directory, and retaining all copies of data?
   # or are they the same problem?
@@ -53,15 +53,7 @@ collect_occurrences <- function(.data, wait, file){
   if(any(names(download_response) == "download_url")){
     new_object <- list(url = download_response$download_url,
                        download = TRUE)
-    if(!missing(file)){
-      new_object$file <- file
-    }else{
-      cache_directory <- pour("package", "directory", .pkg = "galah")
-      current_time <- Sys.time() |> format("%Y-%m-%d_%H-%M-%S")
-      new_object$file <- glue("{cache_directory}/data_{current_time}.zip") |>
-        as.character()
-      # check_path()? # currently commented out in check.R
-    }
+    new_object$file <- check_download_filename(file)
     query_API(new_object)
     result <- load_zip(new_object$file)
   }else{
@@ -86,6 +78,22 @@ collect_occurrences <- function(.data, wait, file){
   # check for, and then clean, media info
   result <- check_media_cols(result)
   return(result)
+}
+
+#' Internal function to ensure a download file is given
+#' @noRd
+#' @keywords Internal
+check_download_filename <- function(file, ext = "zip"){
+  if(!is.null(file)){
+    file
+  }else{
+    cache_directory <- pour("package", "directory", .pkg = "galah")
+    current_time <- Sys.time() |> format("%Y-%m-%d_%H-%M-%S")
+    file <- glue("{cache_directory}/data_{current_time}.{ext}") |>
+      as.character()
+    # check_path()? # currently commented out in check.R
+  }
+  return(file)
 }
 
 #' Internal function to ensure correct data extracted from API for LA/GBIF

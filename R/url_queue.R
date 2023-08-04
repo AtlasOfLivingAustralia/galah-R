@@ -53,7 +53,7 @@ check_queue_size <- function(.data, current_queue){
   if(.data$queue_size < current_queue & .data$queue_size > 0){
     current_queue <- .data$queue_size
     if(verbose){
-      inform(glue("Queue length: {queue_size}"))
+      inform(glue("Queue length: {current_queue}"))
     }
   }else{
     if(verbose){cat("-")}
