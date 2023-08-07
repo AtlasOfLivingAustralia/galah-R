@@ -1,5 +1,6 @@
 #' Internal function to check queue status, with rate limiting
 #' @importFrom purrr rate_delay
+#' @importFrom purrr rate_sleep
 #' @noRd
 #' @keywords Internal
 check_queue_LA <- function(.data){
