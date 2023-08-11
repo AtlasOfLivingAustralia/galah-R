@@ -112,11 +112,11 @@ test_that("galah_filter treats `c()` as an OR for numerics", {
   expect_equal(nrow(filters), 1)
 })
 
-# test_that("galah_filter treats `c()` as an OR for strings", {
-#   filters <- galah_filter(multimedia == c("Image", "Sound", "Video"))
-#   expect_equal(nrow(filters), 1)
-#   expect_true(grepl("multimedia:\"Image\"", filters$query))
-# })
+test_that("galah_filter treats `c()` as an OR for strings", {
+  filters <- galah_filter(multimedia == c("Image", "Sound", "Video"))
+  expect_equal(nrow(filters), 1)
+  expect_true(grepl("multimedia:\"Image\"", filters$query))
+})
 
 # ## NOT SUPPORTED: requires :=
 ##  - note this is difficult to support as it parses as a named object
@@ -174,6 +174,7 @@ test_that("galah_filter handles taxonomic exclusions", {
 
 test_that("galah_filter handles different fields separated by OR", {
   filters <- galah_filter(phylum == "Chordata" | kingdom == "Plantae")
+  expect_equal(filters$query, "((phylum:\"Chordata\") OR (kingdom:\"Plantae\"))")
 })
 
 test_that("galah_filter fails when given invalid AND syntax", {
@@ -213,4 +214,12 @@ test_that("galah_filter handles %in% even with multiple filters", {
   expect_equal(nrow(filter_multiple), 2)
   expect_equal("((((year:\"2020\") OR (year:\"2021\")) OR (year:\"2022\")))", filter_single$query[[1]])
   expect_equal("((((year:\"2020\") OR (year:\"2021\")) OR (year:\"2022\")))", filter_multiple$query[[1]])
+})
+
+test_that("galah_filter handles `media_id == ` differently", {
+  ids <- c("1234", "5678")
+  filter <- galah_filter(media_id == ids)
+  expect_equal(nrow(filter), 2)
+  expect_equal(ncol(filter), 1)
+  expect_equal(filter$media_id, ids)
 })

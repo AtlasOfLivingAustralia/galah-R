@@ -17,12 +17,12 @@ parse_quosures <- function(dots){
     if(str_detect(call_string, "galah_call()")) {
       eval_request <- eval_tidy(dots[[1]])
       parsed_dots <- lapply(dots[-1], switch_expr_type)
-      check_filter_tibbles(parsed_dots)
+      # check_filter_tibbles(parsed_dots)
       result <- list(data_request = eval_request,
                      data = bind_rows(parsed_dots))
     }else{
       parsed_dots <- lapply(dots, switch_expr_type)
-      check_filter_tibbles(parsed_dots)
+      # check_filter_tibbles(parsed_dots)
       result <- list(data = bind_rows(parsed_dots))
     }
   }else{
@@ -186,49 +186,74 @@ function_type <- function(x){ # assumes x is a string
 #' @importFrom tibble tibble
 #' @importFrom rlang as_label
 #' @importFrom rlang as_quosure
+#' @importFrom rlang as_string
+#' @importFrom rlang is_empty
+#' @importFrom rlang parse_expr
 #' @noRd
 #' @keywords internal
 parse_relational <- function(expr, env, ...){
   if(length(expr) != 3L){filter_error()}
-  
+
   # Check for elements wrapped in c()
-  if(grepl("c", expr[[3]][1], fixed = TRUE) && length(expr[[3]]) > 1) {
-    value <- as.list(expr[[3]][-1]) # extract values in c()
-
-    # create OR statement from expr
-    c_expr <- rlang::parse_expr(
-      glue::glue_collapse(
-        glue("{expr[[2]]} {expr[[1]]} '{value}'"),
-        sep = " | "
-      ))
-
-    switch_expr_type(as_quosure(c_expr, env = env), ...) # pass this down the chain
+  ## NOTE there is a problem here: expr[[3]][1] *does* extract `c()` properly;
+  ## but breaks if `c()` is *not* present. 
+  # if(grepl("c", as_string(expr[[3]][1]), fixed = TRUE) &&
+  #    length(expr[[3]]) > 1) {
+  #   values <- as.list(expr[[3]][-1]) # extract values in c()
+  # 
+  #   # create OR statement from expr
+  #   c_expr <- parse_expr(
+  #     glue::glue_collapse(
+  #       glue("{expr[[2]]} {expr[[1]]} '{values}'"),
+  #       sep = " | "
+  #     ))
+  # 
+  #   switch_expr_type(as_quosure(c_expr, env = env), ...) # pass this down the chain
+  
+  # look for 'exceptions'; lhs entries that need to be parsed differently
+  # these should be in `expr[[2]]`  
+  if(as_string(expr[[2]]) == "media_id") {
+    parsed_ids <- as_quosure(expr[[3]], env = env) |>
+      switch_expr_type() |>
+      as.character()
+    result <- tibble(media_id = parsed_ids)
+    return(result)
     
+  }else{
+    # for LA cases
+    parsed_values <- as_quosure(expr[[3]], env = env) |>
+      switch_expr_type() |>
+      as.character()
+    result <- tibble(
+      variable = as_label(expr[[2]]),
+      logical = as.character(expr[[1]]), # should probably be `relational`
+      value = parsed_values)
+    
+    # handle `!`
+    dots <- list(...)
+    if(!is_empty(dots) && result$logical == "==") {
+      result$logical <- as.character("!=")
+    }else if (!is_empty(dots) && result$logical == "!="){
+      result$logical <- as.character("==")
     } else {
-  
-  # for LA cases
-  result <- tibble(
-    variable = as_label(expr[[2]]),
-    logical = as.character(expr[[1]]), # should probably be `relational`
-    value = as.character(switch_expr_type(as_quosure(expr[[3]], env = env))))
-  
-  # handle `!`
-  dots <- list(...)
-  if(!rlang::is_empty(dots) && result$logical == "==") {
-    result$logical <- as.character("!=")
-  }else if (!rlang::is_empty(dots) && result$logical == "!="){
-    result$logical <- as.character("==")
-    } else {
-    result$logical <- result$logical
-  }
-  # browser()
-  result$query <- parse_solr(result) # from `galah_filter.R`
-  return(result)
+      result$logical <- result$logical
+    }
+    result$query <- parse_solr(result) # from `galah_filter.R`
+    
+    # add exception for nrow(result) > 1
+    # this occurs when rhs is `c()`, which we interpret as "OR"
+    if(nrow(result) > 1){
+      result <- concatenate_logical_tibbles(result)
+    }
+    
+    return(result)
   }
 }
 
 #' Handle & and | statements
-#' @importFrom rlang as_quosure expr_text
+#' @importFrom rlang as_quosure
+#' @importFrom rlang as_string
+#' @importFrom rlang expr_text
 #' @noRd
 #' @keywords internal
 parse_logical <- function(expr, env, ...){
@@ -239,29 +264,38 @@ parse_logical <- function(expr, env, ...){
     logical_string <- " AND "
   }
   linked_statements <- lapply(expr[-1], 
-                              function(a){switch_expr_type(as_quosure(a, env = env), ...)}) 
-  
-  # check that all entries are correctly structured
-  check_filter_tibbles(linked_statements)
-  
-  # parse
-  result <- linked_statements[[1]]
-  # TODO: Something in this bit of code is broken...update 2023-15-06: might have been fixed
-  result$variable <- join_logical_strings(linked_statements, "variable", provided_string)
-  result$logical <- join_logical_strings(linked_statements, "logical", provided_string)
-  result$value <- join_logical_strings(linked_statements, "value", provided_string)
-  result$query <- join_logical_strings(linked_statements, "query", logical_string)
-  result$query <- paste0("(", result$query, ")")
-  return(result)
+                              function(a){switch_expr_type(as_quosure(a, env = env), ...)}) |>
+    bind_rows()
+  concatenate_logical_tibbles(linked_statements,
+                              provided_string = provided_string,
+                              logical_string = logical_string)
+}
+
+#' Internal function to handle concatenation of logicals
+#' @importFrom glue glue
+#' @noRd
+#' @keywords Internal
+concatenate_logical_tibbles <- function(df,
+                                        provided_string = "|",
+                                        logical_string = " OR "){
+  query_text <- join_logical_strings(df$query, sep = logical_string)
+  tibble(
+    variable = join_logical_strings(df$variable, sep = provided_string),
+    logical  = join_logical_strings(df$logical, sep = provided_string),
+    value    = join_logical_strings(df$value, sep = provided_string),
+    query    = as.character(glue("({query_text})")))
 }
 
 #' Messy internal function called by `parse_logical`
+#' @importFrom glue glue_collapse
 #' @noRd
 #' @keywords internal
-join_logical_strings <- function(x, variable, collapse){
-  lapply(x, function(a){a[[variable]]}) |> 
-    unlist() |>
-    paste(collapse = collapse)
+join_logical_strings <- function(x, sep){ #}, variable, collapse){
+  if(length(unique(x)) > 1){
+    glue_collapse(x, sep = sep)
+  }else{
+    x[[1]]
+  }
 }
 
 #' Parse `call`s that contain brackets 
@@ -377,7 +411,6 @@ parse_in <- function(expr, env, excl){
 #' @noRd
 #' @keywords internal
 parse_c <- function(expr, env, excl){ 
-  # browser()
   if(length(expr) < 2L){filter_error()}
   
   # convert to logical format using OR statements
@@ -403,11 +436,24 @@ parse_c <- function(expr, env, excl){
 }
 
 #' Convert information in a `tibble` to a `solr` query
-#'
-#' Previously `galah_filter.R/parse_logical`
+#' Previously `galah_filter.R/parse_logical`, but altered to support multi-row tibbles
 #' @noRd
 #' @keywords internal
 parse_solr <- function(df){
+  if(nrow(df) > 1){
+    lapply(
+      split(df, seq_len(nrow(df))),
+      switch_solr) |>
+    unlist()
+  }else{
+    switch_solr(df)
+  }
+}
+
+#' Internal function to `parse_solr()`
+#' @noRd
+#' @keywords internal
+switch_solr <- function(df){
   switch(df$logical,
          "=" = {query_term(df$variable, df$value, TRUE)},
          "==" = {query_term(df$variable, df$value, TRUE)},
