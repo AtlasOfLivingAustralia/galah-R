@@ -49,3 +49,22 @@ compute.metadata_query <- function(.data){
   class(.data) <- "metadata_response"
   return(.data)
 }
+
+# if calling `compute()` after `request_files()` 
+#' @rdname collect.data_request
+#' @export
+compute.files_request <- function(.data){
+  result <- collapse(.data)
+  check_login(result)
+  class(result) <- "files_response"
+  return(result)
+}
+
+# if calling `compute()` after `collapse()` after `request_files()` 
+#' @rdname collect.data_request
+#' @export
+compute.files_query <- function(.data){
+  check_login(.data)
+  class(.data) <- "files_response"
+  return(.data)
+}

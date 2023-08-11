@@ -8,6 +8,7 @@ atlas_media(
   request = NULL,
   identify = NULL,
   filter = NULL,
+  select = NULL,
   geolocate = NULL,
   data_profile = NULL
 )

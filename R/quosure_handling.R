@@ -183,42 +183,31 @@ function_type <- function(x){ # assumes x is a string
 #' Take standard filter-style queries and parse to `galah_filter()`-style `tibble`
 #' 
 #' Called by `parse_call`
-#' @importFrom tibble tibble
+#' @importFrom dplyr rename
 #' @importFrom rlang as_label
 #' @importFrom rlang as_quosure
 #' @importFrom rlang as_string
 #' @importFrom rlang is_empty
 #' @importFrom rlang parse_expr
+#' @importFrom tibble tibble
 #' @noRd
 #' @keywords internal
 parse_relational <- function(expr, env, ...){
   if(length(expr) != 3L){filter_error()}
 
-  # Check for elements wrapped in c()
-  ## NOTE there is a problem here: expr[[3]][1] *does* extract `c()` properly;
-  ## but breaks if `c()` is *not* present. 
-  # if(grepl("c", as_string(expr[[3]][1]), fixed = TRUE) &&
-  #    length(expr[[3]]) > 1) {
-  #   values <- as.list(expr[[3]][-1]) # extract values in c()
-  # 
-  #   # create OR statement from expr
-  #   c_expr <- parse_expr(
-  #     glue::glue_collapse(
-  #       glue("{expr[[2]]} {expr[[1]]} '{values}'"),
-  #       sep = " | "
-  #     ))
-  # 
-  #   switch_expr_type(as_quosure(c_expr, env = env), ...) # pass this down the chain
-  
   # look for 'exceptions'; lhs entries that need to be parsed differently
-  # these should be in `expr[[2]]`  
-  if(as_string(expr[[2]]) == "media_id") {
+  # these should be in `expr[[2]]` 
+  exceptions <- c("media_id", "doi", "media_url") 
+    # Q: what about `type = "distributions"`?
+  current_arg <- as_string(expr[[2]])
+  if(any(exceptions == current_arg)){
+    exception <- exceptions[which(exceptions == current_arg)]
     parsed_ids <- as_quosure(expr[[3]], env = env) |>
       switch_expr_type() |>
       as.character()
-    result <- tibble(media_id = parsed_ids)
+    result <- tibble(value = parsed_ids) |>
+      rename({{current_arg}} := value)
     return(result)
-    
   }else{
     # for LA cases
     parsed_values <- as_quosure(expr[[3]], env = env) |>

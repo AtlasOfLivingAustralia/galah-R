@@ -105,3 +105,12 @@ filter.metadata_request <- function(.data, ...){
   .data$filter <- tibble(query = parsed_dots[[1]])
   return(.data)
 }
+
+#' @rdname galah_filter
+#' @param .data An object of class `files_request`, created using [request_files()]
+#' @export
+filter.files_request <- function(.data, ...){
+  dots <- enquos(..., .ignore_empty = "all")
+  .data$filter <- parse_quosures(dots)$data  # see `quosure_handling.R`
+  return(.data)
+}

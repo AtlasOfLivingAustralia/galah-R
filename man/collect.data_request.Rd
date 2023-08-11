@@ -10,10 +10,15 @@
 \alias{collect.metadata_request}
 \alias{collect.metadata_query}
 \alias{collect.metadata_response}
+\alias{collect.files_request}
+\alias{collect.files_query}
+\alias{collect.files_response}
 \alias{compute.data_request}
 \alias{compute.data_query}
 \alias{compute.metadata_request}
 \alias{compute.metadata_query}
+\alias{compute.files_request}
+\alias{compute.files_query}
 \title{Force computation of a database query}
 \usage{
 \method{collapse}{data_request}(.data)
@@ -34,6 +39,12 @@
 
 \method{collect}{metadata_response}(.data)
 
+\method{collect}{files_request}(.data)
+
+\method{collect}{files_query}(.data)
+
+\method{collect}{files_response}(.data, file = NULL)
+
 \method{compute}{data_request}(.data)
 
 \method{compute}{data_query}(.data)
@@ -41,6 +52,10 @@
 \method{compute}{metadata_request}(.data)
 
 \method{compute}{metadata_query}(.data)
+
+\method{compute}{files_request}(.data)
+
+\method{compute}{files_query}(.data)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, \code{data_query} or

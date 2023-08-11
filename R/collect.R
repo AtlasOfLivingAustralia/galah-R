@@ -135,3 +135,31 @@ collect.metadata_response <- function(.data){
            "identifiers" = collect_identifiers(.data))
   }
 }
+
+# if calling `collect()` after `request_files()`
+#' @rdname collect.data_request
+#' @export
+collect.files_request <- function(.data){
+  compute(.data) |> 
+    collect()
+}
+
+# if calling `collect()` after `collapse()` after request_files()`
+#' @rdname collect.data_request
+#' @export
+collect.files_query <- function(.data){
+  compute(.data) |> 
+    collect()
+}
+
+# if calling `collect()` after `compute()` after `request_metadata()`
+#' @rdname collect.data_request
+#' @export
+collect.files_response <- function(.data, file = NULL){
+  switch(.data$type,
+    "distributions" = abort("Not implemented yet"),
+    "doi" = {collect_doi(.data, file = file)},
+    "media" = collect_media_files(.data),
+    abort("unrecognised 'type' supplied to `galah_call()`")
+  )
+}
