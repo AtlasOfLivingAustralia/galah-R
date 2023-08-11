@@ -52,10 +52,12 @@
 #'   atlas_counts()
 #'}
 #' @importFrom potions pour
+#' @importFrom tidyr unnest_longer
 #' @export
 atlas_media <- function(request = NULL, 
                         identify = NULL, 
                         filter = NULL, 
+                        select = NULL,
                         geolocate = NULL,
                         data_profile = NULL
                         ) {
@@ -68,6 +70,54 @@ atlas_media <- function(request = NULL,
   args <- as.list(environment())
   
   # convert to `data_request` object
-  check_atlas_inputs(args) |>
-    collect("occurrences", type = "media")
+  .data <- check_atlas_inputs(args)
+  .data$type <- "occurrences" # default, but in case supplied otherwise
+  
+  
+  # ensure media columns are present in `select`
+  valid_formats <- c("images", "videos", "sounds")
+  if(is.null(.data$select)){
+    .data <- update_data_request(.data, 
+                                 select = galah_select(group = c("basic", "media")))
+  }else{
+    if(!any(.data$select$name %in% valid_formats)){
+      .data <- update_data_request(.data, 
+                                   select = galah_select(group = "media"))
+    }
+  }
+  
+  # filter to records that contain media of requested types 
+  # NOTE: Might be more efficient to use `filter` for this, as it 
+  # includes code to remove duplicated rows
+  if(is.null(.data$filter)){
+    abort("You must specify a valid `filter()` to use `atlas_media()`")
+  }
+  present_formats <- valid_formats[valid_formats %in% .data$select$name]
+  media_fq <- glue("({present_formats}:*)") |>
+    glue_collapse(" OR ")
+  media_fq <- glue("({media_fq})")
+  .data$filter <- bind_rows(.data$filter, 
+                            tibble(variable = "media",
+                                   logical = "==",
+                                   value = paste(valid_formats, collapse = "|"),
+                                   query = as.character(media_fq)))
+  
+  # get occurrences
+  occ <- .data |> 
+    collect(wait = TRUE)
+    unnest_longer(col = present_formats)
+  
+  # join IDs of all kinds into a single vector
+  ids <- do.call(c, select(occ, {{present_formats}})) |>
+    unlist() 
+  
+  # collect media in a loop
+  media <- request_data(type = "media") |>
+    filter(media_id == ids[!is.na(ids)]) |>
+    collect()
+  
+  # join
+  result <- right_join(occ, media, by = c("images" = "imageIdentifier"))
+  # Q: how does this perform on "sounds" or "videos"?
+  return(result)
 }

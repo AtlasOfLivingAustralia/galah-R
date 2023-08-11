@@ -48,7 +48,7 @@ collect.data_request <- function(.data,
          },
          "media" = {
             collapse(.data) |>
-              collect_media()},
+              collect_media_metadata()},
          abort("unrecognised 'type' supplied to `galah_call()`")
       )
 }
@@ -86,7 +86,7 @@ collect.data_response <- function(.data,
          "species-count" = collect_counts(.data),
          "species" = collect_species(.data, file = file),
          "occurrences" = collect_occurrences(.data, wait = wait, file = file),
-         "media" = collect_media(.data),
+         "media" = collect_media_metadata(.data),
          abort("unrecognised 'type'")
          # NOTE: "species" & "doi" have no `compute()` stage
   )

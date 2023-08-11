@@ -28,7 +28,7 @@ switch_compute <- function(.data){
          # "species-count" = compute_counts(.data),
          "species" = {class(.data) <- "data_response"; return(.data)},
          "occurrences" = {compute_occurrences(.data)},
-         "media" = {compute_media(.data)})   
+         "media" = {class(.data) <- "data_response"; return(.data)})   
 }
 
 # if calling `compute()` after `request_metadata()` 

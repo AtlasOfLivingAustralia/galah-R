@@ -43,6 +43,7 @@ Imports:
     sf,
     stringr (>= 1.0.0),
     tibble,
+    tidyr,
     utils
 Suggests: 
     covr,

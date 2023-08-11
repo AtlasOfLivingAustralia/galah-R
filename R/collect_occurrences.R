@@ -115,6 +115,7 @@ check_occurrence_response <- function(.data){
     }else{
       .data$status <- "incomplete"
     }
+    .data$type <- "occurrences"
     .data
   }
 }
