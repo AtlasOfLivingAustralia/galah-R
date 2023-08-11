@@ -4,20 +4,26 @@
 #' @noRd
 #' @keywords Internal
 query_API <- function(.data, error_call = caller_env()) {
+  # browser()
   if(length(.data$url) > 1 | inherits(.data$url, "list")){
-    verbose <- pour("package", "verbose")
-    if (verbose) { pb <- txtProgressBar(max = 1, style = 3) }
-    n <- seq_along(urls)
+    verbose <- pour("package", "verbose", .pkg = "galah")
+    if (verbose) { 
+      pb <- txtProgressBar(max = 1, style = 3) 
+    }else{ 
+      pb <- NULL
+    }
+    n <- seq_along(.data$url)
     lapply(n, function(a){
       data_tr <- .data
       data_tr$url <- .data$url[[a]]
-      query_API_internal(data_tr)
+      result <- query_API_internal(data_tr)
       if (verbose) {
         val <- (a / max(n))
         setTxtProgressBar(pb, val)
       }
+      return(result)
     }) |> 
-      bind_rows()
+    bind_rows()
   }else{
     query_API_internal(.data)
   }
