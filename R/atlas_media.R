@@ -105,7 +105,9 @@ atlas_media <- function(request = NULL,
   # get occurrences
   occ <- .data |> 
     collect(wait = TRUE)
-    unnest_longer(col = present_formats)
+  
+  # this step separate due to errors of unknown origin
+  occ <- occ |> unnest_longer(col = present_formats)
   
   # join IDs of all kinds into a single vector
   ids <- do.call(c, select(occ, {{present_formats}})) |>

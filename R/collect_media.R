@@ -1,4 +1,4 @@
-#' Internal version of `collect()` for `type = "media"`
+#' Internal version of `collect()` for `request_data(type = "media")`
 #' @param object of class `data_response`, from `compute()`
 #' @importFrom rlang abort
 #' @noRd
@@ -28,4 +28,13 @@ collect_media_metadata <- function(.data){
   # metadata$row <- as.integer(names(ids_vector))
 
   return(result)
+}
+
+
+#' Internal version of `collect()` for `request_files(type = "media")`
+#' @param object of class `files_response`, from `compute()`
+#' @noRd
+#' @keywords Internal
+collect_media_files <- function(.data){
+  # up to here
 }
