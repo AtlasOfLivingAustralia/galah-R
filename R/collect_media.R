@@ -1,5 +1,9 @@
 #' Internal version of `collect()` for `request_data(type = "media")`
 #' @param object of class `data_response`, from `compute()`
+#' @importFrom dplyr all_of
+#' @importFrom dplyr filter
+#' @importFrom dplyr mutate
+#' @importFrom dplyr select
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
@@ -20,21 +24,21 @@ collect_media_metadata <- function(.data){
   #   return(df_long)
   # } 
   
-  # # Select only the columns we want
-  # colnames(metadata) <- rename_columns(names(metadata), type = "media")
-  # file_ext <- str_extract(metadata$original_file_name, ".[:alpha:]+$")
-  # metadata <- metadata[colnames(metadata) %in% wanted_columns("media")]
-  # metadata$file_extension <- file_ext
-  # metadata$row <- as.integer(names(ids_vector))
-
-  return(result)
+  # # Select only the columns we want (tidyverse syntax?)
+  colnames(result) <- rename_columns(names(result), type = "media")
+  
+  # clean up and return
+  result |> 
+    # tidyr::drop_na(image_url) |> # may need to filter for missingness elsewhere too
+    filter(!is.na(media_id)) |>
+    select(all_of(wanted_columns("media")))
 }
-
 
 #' Internal version of `collect()` for `request_files(type = "media")`
 #' @param object of class `files_response`, from `compute()`
 #' @noRd
 #' @keywords Internal
 collect_media_files <- function(.data){
+  
   # up to here
 }

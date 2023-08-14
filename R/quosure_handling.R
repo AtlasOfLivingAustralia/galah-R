@@ -183,7 +183,9 @@ function_type <- function(x){ # assumes x is a string
 #' Take standard filter-style queries and parse to `galah_filter()`-style `tibble`
 #' 
 #' Called by `parse_call`
+#' @importFrom dplyr all_of
 #' @importFrom dplyr rename
+#' @importFrom dplyr select
 #' @importFrom rlang as_label
 #' @importFrom rlang as_quosure
 #' @importFrom rlang as_string
@@ -197,7 +199,7 @@ parse_relational <- function(expr, env, ...){
 
   # look for 'exceptions'; lhs entries that need to be parsed differently
   # these should be in `expr[[2]]` 
-  exceptions <- c("media_id", "doi", "media_url") 
+  exceptions <- c("media_id", "doi") 
     # Q: what about `type = "distributions"`?
   current_arg <- as_string(expr[[2]])
   if(any(exceptions == current_arg)){
@@ -208,6 +210,17 @@ parse_relational <- function(expr, env, ...){
     result <- tibble(value = parsed_ids) |>
       rename({{current_arg}} := value)
     return(result)
+  }else if(current_arg == "media"){ # special case for getting media_files
+    parsed_tibble <- as_quosure(expr[[3]], env = env) |>
+      switch_expr_type()
+    if(!inherits(parsed_tibble, "data.frame")){
+      abort("requests for `media` require a `data.frame`")
+    }
+    required_columns <- c("media_id", "mime_type", "image_url")
+    if(!all(required_columns %in% colnames(parsed_tibble))){
+      abort("media requests require the columns `media_id`, `mime_type` and `image_url` to be present")
+    }
+    select(parsed_tibble, all_of(required_columns))
   }else{
     # for LA cases
     parsed_values <- as_quosure(expr[[3]], env = env) |>

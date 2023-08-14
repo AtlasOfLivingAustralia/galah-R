@@ -51,7 +51,14 @@
 #'   galah_group_by(multimedia) |>
 #'   atlas_counts()
 #'}
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr filter
+#' @importFrom dplyr relocate
+#' @importFrom dplyr right_join
+#' @importFrom dplyr select
+#' @importFrom glue glue
 #' @importFrom potions pour
+#' @importFrom tibble tibble
 #' @importFrom tidyr unnest_longer
 #' @export
 atlas_media <- function(request = NULL, 
@@ -104,22 +111,37 @@ atlas_media <- function(request = NULL,
   
   # get occurrences
   occ <- .data |> 
-    collect(wait = TRUE)
-  
-  # this step separate due to errors of unknown origin
-  occ <- occ |> unnest_longer(col = present_formats)
-  
-  # join IDs of all kinds into a single vector
-  ids <- do.call(c, select(occ, {{present_formats}})) |>
-    unlist() 
+    collect(wait = TRUE) # Q: what if this errors?
+  # format
+  occ <- occ |> 
+    unnest_longer(col = present_formats)
+  occ$media_id <- build_media_id(occ) # this integrates all types of identifier
+  occ <- occ |>
+    filter(!is.na(media_id)) |>
+    select(-multimedia, -images, -videos, -sounds)
   
   # collect media in a loop
   media <- request_data(type = "media") |>
-    filter(media_id == ids[!is.na(ids)]) |>
+    filter(media_id == occ$media_id) |>
     collect()
   
-  # join
-  result <- right_join(occ, media, by = c("images" = "imageIdentifier"))
-  # Q: how does this perform on "sounds" or "videos"?
-  return(result)
+  # join and return
+  right_join(occ, media, by = "media_id") |>
+    relocate(media_id, 1)
+}
+
+#' Internal function to get media metadata, and create a valid file name
+#' @noRd
+#' @keywords Internal
+build_media_id <- function(df){
+  # create a column that includes media identifiers, regardless of which column they are in
+  ## NOTE: I haven't found good tidyverse syntax for this yet
+  x <- rep(NA, nrow(df))
+  videos <- !is.na(df$videos)
+  if(any(videos)){x[videos] <- df$videos[videos]}
+  sounds <- !is.na(df$sounds)
+  if(any(sounds)){x[sounds] <- df$sounds[sounds]}
+  images <- !is.na(df$images)
+  if(any(images)){x[images] <- df$images[images]}
+  x
 }
