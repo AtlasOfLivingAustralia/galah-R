@@ -38,11 +38,14 @@ collapse.metadata_request <- function(.data){
 # if calling `collapse()` after `request_files()`
 #' @rdname collect.data_request
 #' @export
-collapse.files_request <- function(.data){
+collapse.files_request <- function(.data, 
+                                   # prefix? could be useful for file names
+                                   thumbnail = FALSE
+                                   ){
   switch(.data$type,
          "doi" = collapse_doi(.data),
          "distributions" = collapse_distribtions(.data),
-         "media" = collapse_media_files(.data)
+         "media" = collapse_media_files(.data, thumbnail = thumbnail)
   )
 }
          

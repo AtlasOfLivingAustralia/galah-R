@@ -1,21 +1,29 @@
 #' Internal function to call APIs
-#' Note that this is a wrapper to `query_API_internal()` to handle single or multiple urls
+#' 
+#' Note that this is a wrapper to `query_API_internal()` to handle single or 
+#' multiple urls. Multiple urls *must* be given as a tibble, which *must* have a 
+#' column named `url`.
 #' @importFrom dplyr bind_rows
 #' @noRd
 #' @keywords Internal
 query_API <- function(.data, error_call = caller_env()) {
   # browser()
-  if(length(.data$url) > 1 | inherits(.data$url, "list")){
-    verbose <- pour("package", "verbose", .pkg = "galah")
+  if(inherits(.data$url, "data.frame")){
+  # if(length(.data$url) > 1 | inherits(.data$url, "list")){
+    verbose <- pour("package", "verbose", .pkg = "galah") & nrow(.data$url) > 1 
     if (verbose) { 
       pb <- txtProgressBar(max = 1, style = 3) 
     }else{ 
       pb <- NULL
     }
-    n <- seq_along(.data$url)
+    n <- seq_len(nrow(.data$url))
     lapply(n, function(a){
       data_tr <- .data
-      data_tr$url <- .data$url[[a]]
+      data_tr$url <- .data$url$url[[a]]
+      # for those that require downloads:
+      if(any(names(.data$url) == "path")){
+        data_tr$path <- .data$url$path[[a]]
+      }
       result <- query_API_internal(data_tr)
       if (verbose) {
         val <- (a / max(n))
@@ -64,7 +72,6 @@ query_API_internal <- function(.data, error_call = caller_env()) {
     clean_json(result, .data$return_basic)
   }
 }
-
 
 #' Internal function to clean up objects returned by the API
 #' @noRd

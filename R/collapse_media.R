@@ -24,27 +24,29 @@ collapse_media_metadata <- function(.data){
 #' Internal version of `collapse()` for `request_files(type = "media")`
 #' @param .data An object of class `files_request` (from `request_files()`)
 #' @importFrom rlang abort
+#' @importFrom tibble tibble
 #' @noRd
 #' @keywords Internal
-collapse_media_files <- function(.data){
-  
+collapse_media_files <- function(.data, 
+                                 thumbnail = FALSE
+                                 ){
+  # ensure filter is supplied
   if(is.null(.data$filter)){
     abort("`collapse()` requires a `filter()` argument to function")
   }
-
+  # add checking to ensure correct columns are present in `filter`
+  # handle thumbnails
+  if(thumbnail){
+    urls <- gsub("/original$", "/thumbnail", .data$filter$image_url)
+  }else{
+    urls <- .data$filter$image_url
+  }
   # construct data.frame
   # NOTE: this intermediate step is needed because `tibble()` doesn't recognise
-  # use of `$` to search through a list by name
-  result_df <- data.frame(
-    # make file name
-    # NOTE: doesn't include path from `pour()` yet
-    file_name = paste0(.data$filter$media_id, 
-                       build_file_extension(.data$filter$mime_type)),
-    # where is this file?
-    # NOTE: doesn't account for `thumbnail` option yet
-    url = .data$filter$image_url)
-  
-  # create result object
+  # use of `$` to search through a `list` by name
+  result_df <- data.frame(url = urls, 
+                          path = build_file_path(.data))
+  # create result
   result <- list(
     type = .data$type,
     url = tibble(result_df),
@@ -53,19 +55,30 @@ collapse_media_files <- function(.data){
   return(result)
 }
 
+#' build file paths that include 1. path, 2. file name, 3. correct extension
+#' @importFrom glue glue
+#' @noRd
+#' @keywords Internal
+build_file_path <- function(.data){
+  path <- pour("package", "directory", .pkg = "galah")
+  ids <- .data$filter$media_id
+  ext <- build_file_extension(.data$filter$mime_type)
+  glue("{path}/{ids}.{ext}") |> as.character()
+}
+
 #' get extensions for media files
 #' @importFrom dplyr case_match
 #' @noRd
 #' @keywords Internal
 build_file_extension <- function(x){
   case_match(x,
-             "image/jpeg" ~ ".jpg",
-             "image/png" ~ ".png",
-             "audio/mpeg" ~ ".mpg",
-             "audio/x-wav" ~ ".wav",
-             "audio/mp4" ~ ".mp4",
-             "image/gif" ~ ".gif",
-             "video/3gpp" ~ ".3gp",
-             "video/quicktime" ~ ".mov",
-             "audio/vnd.wave" ~ ".wav")  
+             "image/jpeg" ~ "jpg",
+             "image/png" ~ "png",
+             "audio/mpeg" ~ "mpg",
+             "audio/x-wav" ~ "wav",
+             "audio/mp4" ~ "mp4",
+             "image/gif" ~ "gif",
+             "video/3gpp" ~ "3gp",
+             "video/quicktime" ~ "mov",
+             "audio/vnd.wave" ~ "wav")  
 }

@@ -131,11 +131,13 @@ collect_reasons <- function(.data){
 
 #' Internal function to `collect()` taxa
 #' @importFrom dplyr any_of
+#' @importFrom dplyr bind_cols
 #' @importFrom dplyr select
+#' @importFrom tibble as_tibble
 #' @noRd
 #' @keywords Internal
 collect_taxa <- function(.data){
-  search_terms <- names(.data$url)
+  search_terms <- .data$url$search_term
   result <- query_API(.data) |>
     mutate(search_term = search_terms, .before = success)
   names(result) <- rename_columns(names(result), type = "taxa") # old code
@@ -144,11 +146,12 @@ collect_taxa <- function(.data){
 
 #' Internal function to `collect()` identifiers
 #' @importFrom dplyr any_of
+#' @importFrom dplyr mutate
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
 collect_identifiers <- function(.data){
-  search_terms <- names(.data$url)
+  search_terms <- data$url$search_term
   result <- query_API(.data) |>
     mutate(search_term = search_terms, .before = success)
   names(result) <- rename_columns(names(result), type = "taxa") # old code
