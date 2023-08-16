@@ -50,19 +50,14 @@ atlas_counts <- function(request = NULL,
                          data_profile = NULL,
                          group_by = NULL, 
                          limit = NULL,
-                         type = c("occurrences-count", "species-count")
+                         type = c("occurrences", "species")
                          ) {
-  
   # capture supplied arguments
   args <- as.list(environment())
   args$type <- match.arg(type)
   dr <- check_atlas_inputs(args) # convert to `data_request` object
-  
-  # specific checking for outdated naming conventions
-  if(dr$type == "record"){
-    dr$type <- "occurrences"
-  }
-  
+  # check for outdated naming conventions
+  if(dr$type == "record"){dr$type <- "occurrences"}
   # pass to collect etc
   dr |> 
     count() |>

@@ -13,13 +13,13 @@ Australia,logger,logger_reasons,https://api.ala.org.au/logger/service/logger/rea
 Australia,name-matching,names_lookup,http://namematching-ws.ala.org.au/api/getNameByTaxonID,search_identifiers,TRUE
 Australia,name-matching,names_search_multiple,http://namematching-ws.ala.org.au/api/searchByClassification,search_taxa,TRUE
 Australia,name-matching,names_search_single,http://namematching-ws.ala.org.au/api/search?q={name},search_taxa,TRUE
-Australia,records,records_assertions,https://api.ala.org.au/occurrences/assertions/codes,show_all-assertions,TRUE
-Australia,records,records_counts,https://api.ala.org.au/occurrences/assertions/codes,atlas_counts,TRUE
-Australia,records,records_facets,https://api.ala.org.au/occurrences/occurrences/facets,"atlas_counts, show_values-fields",TRUE
-Australia,records,records_fields,https://api.ala.org.au/occurrences/index/fields,show_all-fields,TRUE
-Australia,records,records_occurrences,https://api.ala.org.au/occurrences/occurrences/offline/download,atlas_occurrences,TRUE
+Australia,records,records_assertions,https://biocache-ws.ala.org.au/ws/assertions/codes,show_all-assertions,TRUE
+Australia,records,records_counts,https://biocache-ws.ala.org.au/ws/occurrences/search,atlas_counts,TRUE
+Australia,records,records_facets,https://biocache-ws.ala.org.au/ws/occurrences/facets,"atlas_counts, show_values-fields",TRUE
+Australia,records,records_fields,https://biocache-ws.ala.org.au/ws/index/fields,show_all-fields,TRUE
+Australia,records,records_occurrences,https://biocache-ws.ala.org.au/ws/occurrences/offline/download,atlas_occurrences,TRUE
 Australia,records,records_query,https://api.ala.org.au,atlas_occurrences,FALSE
-Australia,records,records_species,https://api.ala.org.au/occurrences/occurrences/facets/download,atlas_species,TRUE
+Australia,records,records_species,https://biocache-ws.ala.org.au/ws/occurrences/facets/download,atlas_species,TRUE
 Australia,spatial,spatial_layers,https://spatial.ala.org.au/ws/layers,show_all-fields,TRUE
 Australia,species,species_children,https://api.ala.org.au/species/childConcepts/{id},atlas_taxonomy,TRUE
 Australia,species,species_lookup,https://api.ala.org.au/species/species/{id},atlas_taxonomy,TRUE

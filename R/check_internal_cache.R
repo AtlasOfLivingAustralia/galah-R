@@ -48,7 +48,7 @@ internal_cache_update_needed <- function(function_name){
   is_local <- !is.null(attr(df, "ARCHIVED"))
   is_wrong_atlas <- attr(df, "atlas_name") != pour("atlas", "region")
   is_too_short <- nrow(df) < 10
-  result <- is_local | is_wrong_atlas | is_too_short # if any, update is needed 
+  result <- is_local | is_wrong_atlas | is_too_short # if any, update is needed
   if(length(result) < 1){result <- TRUE} # bug catcher
   result
 }

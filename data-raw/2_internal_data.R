@@ -35,13 +35,12 @@ node_config <- read_csv("./data-raw/node_config.csv") |>
 # ALA defaults
 # cached versions of some show_all functions
 # NOTE: may be necessary to expand this given changes to `show_all()`
-stored_functions <- c(
-  "show_all_fields", "show_all_profiles", "show_all_reasons")
-
+stored_types <- c("fields", "profiles", "reasons")
+stored_functions <- paste0("show_all_", stored_types)
 galah_internal_cached <- lapply(
-  stored_functions,
+  stored_types,
   function(a){
-    result <- eval(parse(text = paste0(a, "()")))
+    result <- request_metadata(type = a) |> collect()
     attr(result, "ARCHIVED") <- TRUE
     attr(result, "atlas_name") <- "Australia"
     result

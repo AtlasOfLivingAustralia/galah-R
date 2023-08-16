@@ -77,12 +77,13 @@ check_login <- function(.data, error_call = caller_env()) {
         call = error_call
       )
     }
+  }
   # ALA requires an API key
-  } else if (pour("atlas", "acronym") == "ALA") {
-    if (is.null(.data$headers$`x-api-key`) | .data$headers$`x-api-key` == "") {
-      abort_api_key_missing()
-    }
-  }  
+  # } else if (pour("atlas", "acronym") == "ALA") {
+  #   if (is.null(.data$headers$`x-api-key`) | .data$headers$`x-api-key` == "") {
+  #     abort_api_key_missing()
+  #   }
+  # }  
 }
 
 
