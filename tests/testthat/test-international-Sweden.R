@@ -7,50 +7,44 @@ test_that("swapping to atlas = Sweden works", {
   expect_message(galah_config(atlas = "Sweden"))
 })
 
+# vcr::use_cassette("IA_Sweden_show_all_fields", {
 test_that("show_all(fields) works for Sweden", {
-  vcr::use_cassette("IA_Sweden_show_all_fields", {
-    x <- show_all(fields)
-  })
+  x <- show_all(fields)
   expect_gt(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
+# vcr::use_cassette("IA_Sweden_show_all_collections", {
 test_that("show_all(collections) works for Sweden", {
-  vcr::use_cassette("IA_Sweden_show_all_collections", {
-    x <- show_all(collections, limit = 10)
-  })
+  x <- show_all(collections, limit = 10)
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
+# vcr::use_cassette("IA_Sweden_show_all_datasets", {
 test_that("show_all(datasets) works for Sweden", {
-  vcr::use_cassette("IA_Sweden_show_all_datasets", {
-    x <- show_all(datasets, limit = 10)
-  })
+  x <- show_all(datasets, limit = 10)
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
+# vcr::use_cassette("IA_Sweden_show_all_providers", {
 test_that("show_all(providers) works for Sweden", {
-  vcr::use_cassette("IA_Sweden_show_all_providers", {
-    x <- show_all(providers, limit = 10)
-  })
+  x <- show_all(providers, limit = 10)
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
+# vcr::use_cassette("IA_Sweden_show_all_reasons", {
 test_that("show_all(reasons) fails for Sweden", {
-  vcr::use_cassette("IA_Sweden_show_all_reasons", {
-    x <- show_all(reasons)
-  })
+  x <- show_all(reasons)
   expect_gte(nrow(x), 0) # no data at present
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
+# vcr::use_cassette("IA_Sweden_show_all_assertions", {
 test_that("show_all(assertions) works for Sweden", {
-  vcr::use_cassette("IA_Sweden_show_all_assertions", {
-    x <- show_all(assertions)
-  })
+  x <- show_all(assertions)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -69,27 +63,25 @@ test_that("search_all(fields) works for Sweden", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
+# vcr::use_cassette("IA_Sweden_search_all_taxa", {
 test_that("search_all(taxa) works for Sweden", {
-  vcr::use_cassette("IA_Sweden_search_all_taxa", {
-    x <- search_all(taxa, "Mammalia")
-  })
+  x <- search_all(taxa, "Mammalia")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
+# vcr::use_cassette("IA_Sweden_show_values", {
 test_that("show_values works for Sweden", {
   x <- search_fields("basisOfRecord")
-  vcr::use_cassette("IA_Sweden_show_values", {
-    show_values(x)
+  show_values(x) # correct?
   })
   expect_gt(nrow(x), 1)
 })
 
-vcr::use_cassette("IA_Sweden_atlas_counts", {
- test_that("atlas_counts works for Sweden", {
-   expect_gt(atlas_counts()$count, 0)
-   expect_gt(atlas_counts(type = "species")$count, 0)
- })
+# vcr::use_cassette("IA_Sweden_atlas_counts", {
+test_that("atlas_counts works for Sweden", {
+  expect_gt(atlas_counts()$count, 0)
+  expect_gt(atlas_counts(type = "species")$count, 0)
 })
 
 # test_that("atlas_counts works with galah_identify for Sweden", {
@@ -112,16 +104,15 @@ vcr::use_cassette("IA_Sweden_atlas_counts", {
 #     (sqrt((result2$count - result$count)^2) / result$count) < 0.1)
 # })
 
-vcr::use_cassette("IA_Sweden_atlas_counts_group_by", {
-  test_that("atlas_counts works with group_by for Sweden", {
-    skip_on_cran()
-    result <- galah_call() |>
-      galah_filter(year >= 2020) |>
-      galah_group_by(year) |>
-      atlas_counts()
-    expect_gt(nrow(result), 1)
-    expect_equal(names(result), c("year", "count"))
-  })
+# vcr::use_cassette("IA_Sweden_atlas_counts_group_by", {
+test_that("atlas_counts works with group_by for Sweden", {
+  skip_on_cran()
+  result <- galah_call() |>
+    galah_filter(year >= 2020) |>
+    galah_group_by(year) |>
+    atlas_counts()
+  expect_gt(nrow(result), 1)
+  expect_equal(names(result), c("year", "count"))
 })
 
 test_that("atlas_occurrences works for Sweden", {

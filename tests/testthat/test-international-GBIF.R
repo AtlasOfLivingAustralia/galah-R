@@ -16,26 +16,28 @@ test_that("show_all(fields) works for GBIF", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
+# vcr::use_cassette("IA_GBIF_show_all_collections", {
 test_that("show_all(collections) works for GBIF", {
-  vcr::use_cassette("IA_GBIF_show_all_collections", {
-    x <- show_all(collections, limit = 10)
-  })
+  x <- show_all(collections, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  y <- request_metadata(type = "collections") |>
+    slice_head(n = 10) |>
+    collect()
+  expect_equal(nrow(y), 10)
+  expect_true(inherits(y, c("tbl_df", "tbl", "data.frame")))
 })
 
+# vcr::use_cassette("IA_GBIF_show_all_datasets", {
 test_that("show_all(datasets) works for GBIF", {
-  vcr::use_cassette("IA_GBIF_show_all_datasets", {
-    x <- show_all(datasets, limit = 10)
-  })
+  x <- show_all(datasets, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
+# vcr::use_cassette("IA_GBIF_show_all_providers", {
 test_that("show_all(providers) works for GBIF", {
-  vcr::use_cassette("IA_GBIF_show_all_providers", {
-    x <- show_all(providers, limit = 10)
-  })
+  x <- show_all(providers, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -58,37 +60,32 @@ test_that("show_all(lists) works for GBIF", {
   expect_error(show_all(lists))
 })
 
-vcr::use_cassette("IA_GBIF_search_all_taxa", {
-  test_that("search_all(taxa) works for GBIF", {
-    expect_equal(nrow(search_all(taxa, "Mammalia")), 1)
-  })
+# vcr::use_cassette("IA_GBIF_search_all_taxa", {
+test_that("search_all(taxa) works for GBIF", {
+  expect_equal(nrow(search_all(taxa, "Mammalia")), 1)
 })
 
 galah_config(verbose = TRUE)
 
-vcr::use_cassette("IA_GBIF_search_all_datasets", {
-  test_that("search_all(datasets) works for GBIF", {
-    x <- expect_message(search_all(datasets, "Mammals"))
-    expect_lte(nrow(x), 20)
-    expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-  })
+# vcr::use_cassette("IA_GBIF_search_all_datasets", {
+test_that("search_all(datasets) works for GBIF", {
+  x <- expect_message(search_all(datasets, "Mammals"))
+  expect_lte(nrow(x), 20)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-vcr::use_cassette("IA_GBIF_search_all_collections", {
-  test_that("search_all(collections) works for GBIF", {
-    x <- expect_message(search_all(collections, "Museum"))
-    expect_lte(nrow(x), 20)
-    expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-  })
+# vcr::use_cassette("IA_GBIF_search_all_collections", {
+test_that("search_all(collections) works for GBIF", {
+  x <- expect_message(search_all(collections, "Museum"))
+  expect_lte(nrow(x), 20)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-
-vcr::use_cassette("IA_GBIF_search_all_providers", {
-  test_that("search_all(providers) works for GBIF", {
-    x <- expect_message(search_all(providers, "Frog"))
-    expect_lte(nrow(x), 20)
-    expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-  })
+# vcr::use_cassette("IA_GBIF_search_all_providers", {
+test_that("search_all(providers) works for GBIF", {
+  x <- expect_message(search_all(providers, "Frog"))
+  expect_lte(nrow(x), 20)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 galah_config(verbose = FALSE)
@@ -99,43 +96,40 @@ test_that("search_all(fields) works for GBIF", {
   expect_true(inherits(result, c("tbl_df", "tbl", "data.frame")))
 })
 
-vcr::use_cassette("IA_GBIF_show_values", {
-  test_that("show_values works for GBIF fields", {
-    search_fields("basisOfRecord") |>
-      show_values() |>
-      nrow() |>
-      expect_gt(1)
-  })
+# vcr::use_cassette("IA_GBIF_show_values", {
+test_that("show_values works for GBIF fields", {
+  search_fields("basisOfRecord") |>
+    show_values() |>
+    nrow() |>
+    expect_gt(1)
 })
 
-vcr::use_cassette("IA_GBIF_atlas_counts", {
-  test_that("atlas_counts works for GBIF", {
-    expect_gt(atlas_counts()$count, 0)
-  })
+# vcr::use_cassette("IA_GBIF_atlas_counts", {
+test_that("atlas_counts works for GBIF", {
+  expect_gt(atlas_counts()$count, 0)
 })
 
 test_that("atlas_counts fails for GBIF when type = 'species'", {
   expect_error(atlas_counts(type = "species"))
 })
 
-vcr::use_cassette("IA_GBIF_atlas_counts_identify", {
-  test_that("atlas_counts works with galah_identify for GBIF", {
-    result <- galah_call() |>
-      galah_identify("Mammalia") |>
-      atlas_counts()
-    expect_gt(result$count, 1)
-  })
+# vcr::use_cassette("IA_GBIF_atlas_counts_identify", {
+test_that("atlas_counts works with galah_identify for GBIF", {
+  result <- galah_call() |>
+    galah_identify("Mammalia") |>
+    atlas_counts()
+  expect_gt(result$count, 1)
 })
 
-vcr::use_cassette("IA_GBIF_atlas_counts_group_by", {
-  test_that("atlas_counts works with group_by for GBIF", {
-    result <- galah_call() |>
-      galah_filter(year >= 2020) |>
-      galah_group_by(year) |>
-      atlas_counts()
-    expect_gt(nrow(result), 1)
-    expect_equal(names(result), c("year", "count"))
-  })
+# vcr::use_cassette("IA_GBIF_atlas_counts_group_by", {
+test_that("atlas_counts works with group_by for GBIF", {
+  result <- galah_call() |>
+    filter(year >= 2020) |>
+    group_by(year) |>
+    count() |>
+    collect()
+  expect_gt(nrow(result), 1)
+  expect_equal(names(result), c("year", "count"))
 })
 
 test_that("`galah_select()` returns message for GBIF", {
