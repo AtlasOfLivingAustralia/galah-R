@@ -83,6 +83,12 @@ galah_call <- function(method = c("data", "metadata", "files"),
                        type,
                        ...){
   method <- match.arg(method)
+  if(missing(type)){
+    type <- switch(method,
+                   "data" = "occurrences", 
+                   "metadata" = "fields",
+                   "files" = "media")
+  }
   switch(method, 
          "data" = request_data(type = type, ...),
          "metadata" = request_metadata(type = type),

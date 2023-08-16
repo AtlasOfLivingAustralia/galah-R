@@ -1,8 +1,20 @@
 context("Test galah_call")
 
-test_that("galah_call builds objects of class 'data_request'", {
+test_that("galah_call builds objects of class 'data_request' by default", {
   expect_equal(length(galah_call()), 7)
   expect_s3_class(galah_call(), "data_request")
+})
+
+test_that("galah_call accepts method arg", {
+  x <- galah_call(method = "metadata")
+  expect_s3_class(x, "metadata_request")
+  expect_true(x$type == "fields") 
+  
+  y <- galah_call(method = "files")
+  expect_s3_class(x, "files_request")
+  expect_true(x$type == "media")
+  
+  expect_error(galah_call(method = "nothing"))
 })
 
 # prints properly?
