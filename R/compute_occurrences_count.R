@@ -124,12 +124,13 @@ build_query_list_LA <- function(.data){
   # extract existing fq statements
   query <- url_parse(.data$url)$query
   if(is.null(query$fq)){
-    fqs <- ""
+    fqs <- NULL
   }else{
     fqs <- strsplit(query$fq, "AND")[[1]]
     fqs <- fqs[!grepl(paste(kept_facets, collapse = "|"), fqs)] # remove fqs that relate to parsed facets
+    fqs <- paste(fqs, collapse = " AND ")
     if(length(fqs) < 1){
-      fqs <- ""
+      fqs <- NULL
     }
   }
   
@@ -139,7 +140,7 @@ build_query_list_LA <- function(.data){
     mutate(query = glue_collapse(c_across(starts_with("fq")), sep = " AND ")) |>
     select(-starts_with("fq")) |>
     ungroup()
-  if(fqs != ""){
+  if(!is.null(fqs)){
     result_df$query <- glue("{fqs} AND {result_df$query}")
   }
   

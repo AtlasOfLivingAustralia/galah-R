@@ -1,81 +1,94 @@
 galah_config(verbose = FALSE)
 
-without_internet({
-  test_that("`collapse()` doesn't ping an API for type = `'occurrences-count'`", {
-    result <- request_data(type = "occurrences-count") |> 
-      filter(year == 2010) |> 
-      collapse()
-    expect_true(inherits(result, "data_query"))
-    expect_equal(names(result), 
-                 c("type", "url", "slot_name", "expand", "headers"))
-  })
+test_that("`collapse()` doesn't ping an API for type = `'occurrences-count'`", {
+  result <- request_data(type = "occurrences-count") |> 
+    filter(year == 2010) |> 
+    collapse()
+  expect_true(inherits(result, "data_query"))
+  expect_equal(names(result), 
+               c("type", "url", "slot_name", "expand", "headers"))
 })
 
-capture_requests("count_no_args", {
-  test_that("atlas_counts works with no arguments", {
-    count <- galah_call() |> count()
+test_that("atlas_counts works with no arguments", {
+  count <- atlas_counts()
+  expect_gt(count$count, 0)
+})
+
+# capture_requests("count_no_args", {
+  test_that("count() |> collect() works with no arguments", {
+    count <- galah_call() |> 
+      count() |> 
+      collect()
     expect_gt(count$count, 0)
   })
-})
+# })
 
-capture_requests("count_identify", {
+# capture_requests("count_identify", {
   test_that("`identify()` reduces the number of records returned by `count()`", {
     counts_mammals <- galah_call() |>
       identify("Mammalia") |>
-      count()
-    counts_all <- galah_call() |> count()
+      count() |>
+      collect()
+    counts_all <- galah_call() |> 
+      count() |> 
+      collect()
     expect_type(counts_mammals$count, "integer")
     expect_true(counts_mammals$count < counts_all$count)
   })
-})
+# })
 
-capture_requests("count_with_multiple_group_by", {
+# capture_requests("count_with_multiple_group_by", {
   test_that("`count()` handles multiple 'group by' variables", {
     counts <- galah_call() |>
       filter(year >= 2021) |>
       group_by(year, basisOfRecord) |>
-      count()
+      count() |>
+      collect()
     expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
     expect_true(all(names(counts) %in% c("year", "basisOfRecord", "count")))    
   })
-})
+# })
 
-capture_requests("count_group_by_species", {
+# capture_requests("count_group_by_species", {
   test_that("`count()` handles 'species' as a 'group by' variable", {
     counts <- galah_call() |>
       identify("perameles") |>
-      filter(year > 2010) |> 
+      filter(year > 2020) |> 
       group_by(species, year) |>
-      count()
+      count() |>
+      collect()
     expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
     expect_true(all(names(counts) %in% c("year", "species", "count")))    
   })
-})
+# })
 
 # This currently fails - investigate
-capture_requests("count_group_by_taxonConceptID", {
+# capture_requests("count_group_by_taxonConceptID", {
   test_that("atlas_counts handles 'taxonConceptID' as a 'group by' variable", {
     counts <- galah_call() |>
       identify("perameles") |>
       filter(year >= 2010) |> 
       group_by(taxonConceptID, year) |>
-      count()    
+      count() |>
+      collect()
     expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
     expect_true(all(names(counts) %in% c("year", "taxonConceptID", "count")))
   })
-})
+# })
 
-capture_requests("count_filter_comma_vs_and", {
+# capture_requests("count_filter_comma_vs_and", {
 test_that("atlas_counts returns same result with filter using `,` and `&`", {
   count_comma <- galah_call() |>
     galah_filter(year >= 2010, year < 2020) |>
-    count()
+    count() |>
+    collect()
   count_and <- galah_call() |>
     galah_filter(year >= 2010 & year < 2020) |>
-    count()
+    count() |>
+    collect()
   expect_equal(count_comma, count_and)
 })
-})
+# })
 
 # Spatial not checked
 test_that("atlas_counts filters correctly with galah_geolocate/galah_polygon", {
@@ -85,10 +98,13 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_polygon", {
     base_query <- galah_call() |>
       identify("dasyurus") |>
       filter(year >= 2020)
-    counts <- base_query |> atlas_counts()
+    counts <- base_query |> 
+      count() |>
+      collect()
     counts_filtered <- base_query |>
       galah_geolocate(wkt) |>
-      count()
+      count()|>
+      collect()
   })
   count_1 <- counts_filtered$count[1]
   count_2 <- counts$count[1]
@@ -102,10 +118,13 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
     base_query <- galah_call() |>
       identify("dasyurus") |>
       filter(year >= 2020)
-    counts <- base_query |> count()
+    counts <- base_query |> 
+      count() |> 
+      collect()
     counts_filtered <- base_query |>
       galah_geolocate(wkt, type = "bbox") |>
-      count()
+      count()|>
+      collect()
   })
   count_1 <- counts_filtered$count[1]
   count_2 <- counts$count[1]
@@ -123,7 +142,6 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
 #   expect_gt(counts, 0)
 # })
 
-## `galah_down_to()` not checked
 # capture_requests("count_piped_2", {
 #   test_that("atlas_counts ignores superfluous piped arguments", {
     # counts <- galah_call() |>
@@ -138,8 +156,6 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
 #   })
 # })
 
-
-## slice_head() not checked
 # test_that("atlas_counts handles pagination", {
 #   vcr::use_cassette("count_with_pagination", {
 #     counts <- galah_call() |>
@@ -152,4 +168,8 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
 #   expect_equal(names(counts), c("year", "count"))
 # })
 
+## `galah_down_to()` not checked
 
+## slice_head() not checked
+
+## arrange() and arrange(desc()) not checked

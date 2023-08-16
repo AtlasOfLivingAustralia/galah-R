@@ -7,7 +7,6 @@
 #' @noRd
 #' @keywords Internal
 query_API <- function(.data, error_call = caller_env()) {
-  # browser()
   if(inherits(.data$url, "data.frame")){
   # if(length(.data$url) > 1 | inherits(.data$url, "list")){
     verbose <- pour("package", "verbose", .pkg = "galah") & nrow(.data$url) > 1 
@@ -64,6 +63,7 @@ query_API_internal <- function(.data, error_call = caller_env()) {
     result <- query |>
       req_perform(verbosity = 0) |>  # try(x, silent = TRUE) ?
       resp_body_json() # may not work for invalid URLs
+    
     # subset to particular slot if needed  
     if(!is.null(.data$slot_name)){
       result <- pluck(result, !!!.data$slot_name)
