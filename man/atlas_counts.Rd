@@ -13,7 +13,7 @@ atlas_counts(
   data_profile = NULL,
   group_by = NULL,
   limit = NULL,
-  type = c("occurrences-count", "species-count")
+  type = c("occurrences", "species")
 )
 
 \method{count}{data_request}(.data, ..., wt, sort, name)

@@ -3,7 +3,10 @@
 #' Note that this is a wrapper to `query_API_internal()` to handle single or 
 #' multiple urls. Multiple urls *must* be given as a tibble, which *must* have a 
 #' column named `url`.
+#' @importFrom dplyr bind_cols
 #' @importFrom dplyr bind_rows
+#' @importFrom dplyr select
+#' @importFrom dplyr slice
 #' @noRd
 #' @keywords Internal
 query_API <- function(.data, error_call = caller_env()) {
@@ -24,6 +27,11 @@ query_API <- function(.data, error_call = caller_env()) {
         data_tr$path <- .data$url$path[[a]]
       }
       result <- query_API_internal(data_tr)
+      if(ncol(.data$url) > 1){
+        added_cols <- select(.data$url, -url) |>
+          slice(a)
+        result <- bind_cols(added_cols, bind_rows(result))
+      }
       if (verbose) {
         val <- (a / max(n))
         setTxtProgressBar(pb, val)
@@ -44,6 +52,7 @@ query_API <- function(.data, error_call = caller_env()) {
 #' @importFrom httr2 req_error
 #' @importFrom httr2 req_headers
 #' @importFrom httr2 req_perform
+#' @importFrom httr2 resp_body_json
 #' @importFrom purrr pluck
 #' @importFrom rlang abort
 #' @importFrom rlang inform

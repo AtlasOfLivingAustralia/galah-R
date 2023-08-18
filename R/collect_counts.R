@@ -8,17 +8,25 @@
 #' @keywords Internal
 collect_counts <- function(.data){
   result <- query_API(.data)
+  # q: how to add previous columns to the result?
+  # this is challenging, might have to have to be handled by `query_API()`
   if(inherits(result, "data.frame")){
     if(nrow(result) > 0){
       # situation with multiple urls
       if(any(colnames(result) == "fieldResult")){
-        result <-  bind_rows(result$fieldResult)
+        result <- bind_cols(
+          select(result, -fieldName, -fieldResult, -count), # best practice?
+          bind_rows(result$fieldResult))
       }
       # resume normal programming
-      field_name <- url_parse(.data$url)$query$facets
+      if(inherits(.data$url, "data.frame")){
+        field_name <- url_parse(.data$url$url[[1]])$query$facets
+      }else{
+        field_name <- url_parse(.data$url)$query$facets
+      }
       result_tibble <- result |>
         mutate({{field_name}} := label) |> 
-        select({{field_name}}, count)
+        select(-label, - fq, -i18nCode) # best practice?
       if(.data$arrange$direction == "ascending" & .data$arrange$variable == "count"){
         arrange_var <- .data$arrange$variable
         result_tibble <- result_tibble |>

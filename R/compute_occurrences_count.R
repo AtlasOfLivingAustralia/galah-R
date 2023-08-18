@@ -128,9 +128,10 @@ build_query_list_LA <- function(.data){
   }else{
     fqs <- strsplit(query$fq, "AND")[[1]]
     fqs <- fqs[!grepl(paste(kept_facets, collapse = "|"), fqs)] # remove fqs that relate to parsed facets
-    fqs <- paste(fqs, collapse = " AND ")
     if(length(fqs) < 1){
       fqs <- NULL
+    }else{
+      fqs <- paste(fqs, collapse = " AND ")
     }
   }
   
