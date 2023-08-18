@@ -1,5 +1,3 @@
-context("Test international atlases: Austria")
-
 # set verbose to off
 galah_config(verbose = FALSE, run_checks = FALSE)
 
@@ -7,43 +5,43 @@ test_that("swapping to atlas = Austria works", {
   expect_message(galah_config(atlas = "Austria"))
 })
 
-# vcr::use_cassette("IA_Austria_show_all_fields"
 test_that("show_all(fields) works for Austria", {
+  skip_if_offline()
   x <- show_all(fields)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Austria_show_all_collections"
 test_that("show_all(collections) works for Austria", {
+  skip_if_offline()
   x <- show_all(collections, limit = 10)
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Austria_show_all_datasets", {
 test_that("show_all(datasets) works for Austria", {
+  skip_if_offline()
   x <- show_all(datasets, limit = 10)
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Austria_show_all_providers", {
 test_that("show_all(providers) works for Austria", {
+  skip_if_offline()
   x <- show_all(providers, limit = 10)
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Austria_show_all_reasons", {
 test_that("show_all(reasons) works for Austria", {
+  skip_if_offline()
   x <- show_all(reasons)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Austria_show_all_assertions", {
 test_that("show_all(assertions) works for Austria", {
+  skip_if_offline()
   x <- show_all(assertions)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -53,8 +51,8 @@ test_that("show_all(profiles) fails for Austria", {
   expect_error(show_all(profiles))
 })
 
-# vcr::use_cassette("IA_Austria_show_all_lists", {
 test_that("show_all(lists) works for Austria", {
+  skip_if_offline()
   x <- show_all(lists, limit = 10)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -66,53 +64,51 @@ test_that("search_all(fields) works for Austria", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Austria_search_all_taxa", {
 test_that("search_all(taxa) works for Austria", {
+  skip_if_offline()
   x <- search_all(taxa, "Vulpes vulpes")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Austria_show_values_fields", {
 test_that("show_values works for fields for Austria", {
+  skip_if_offline()
   x <- search_all(fields, "basisOfRecord") |> 
     show_values()
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Austria_show_values_profiles", {
 test_that("show_values works for lists for Austria", {
+  skip_if_offline()
   x <- search_all(lists, "dr113") |> 
     show_values()
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Austria_atlas_counts", {
 test_that("atlas_counts works for Austria", {
+  skip_if_offline()
   expect_gt(atlas_counts()$count, 0)
   expect_gt(atlas_counts(type = "species")$count, 0)
 })
 
-# vcr::use_cassette("IA_Austria_atlas_counts_identify", {
 test_that("atlas_counts works with galah_identify for Austria", {
+  skip_if_offline()
   result <- galah_call() |>
     galah_identify("Mammalia") |>
     atlas_counts()
   expect_gt(result$count, 1)
-  
   result2 <- galah_call() |>
     galah_filter(class == "Mammalia") |>
     atlas_counts()
-  
   expect_lt(
     sqrt((result2$count - result$count)^2) / result$count, 
     0.1) # i.e. <1% margin of error
 })
 
-# vcr::use_cassette("IA_Austria_atlas_counts_group_by", {
 test_that("atlas_counts works with group_by for Austria", {
+  skip_if_offline()
   result <- galah_call() |>
     galah_filter(year >= 2020) |>
     galah_group_by(year) |>
@@ -122,7 +118,7 @@ test_that("atlas_counts works with group_by for Austria", {
 })
 
 test_that("atlas_occurrences works for Austria", {
-  skip_on_cran()
+  skip_if_offline()
   galah_config(
     atlas = "Austria",
     email = "ala4r@ala.org.au", 

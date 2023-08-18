@@ -1,5 +1,3 @@
-context("Test galah_identify")
-
 test_that("galah_identify returns an empty tibble when no args provided", {
   result <- galah_identify()
   expect_equal(nrow(result), 0)

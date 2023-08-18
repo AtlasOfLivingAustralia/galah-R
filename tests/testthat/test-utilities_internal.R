@@ -1,5 +1,3 @@
-context("Test helper functions")
-
 test_that("Negated queries have a minus sign", {
   expect_match(query_term(name = "test", value = c("a", "b"), include = FALSE),
                "-")
@@ -12,6 +10,7 @@ test_that("Taxa arguments are checked", {
   
 })
 
-vcr::use_cassette("select_taxa", {
+test_that("Not sure what this test is for!!!", {
+  skip_if_offline()
   expect_silent(check_taxa_arg(search_taxa("Vulpes vulpes")))
 })

@@ -1,23 +1,21 @@
-context("Test galah_config")
-
 test_that("galah_config sets default options", {
   skip_on_cran()
   # check that defaults are used
   expect_equal(galah_config()$package$verbose, TRUE)
 })
 
-vcr::use_cassette("logger_config", {
-  test_that("galah_config checks download_id", {
-    galah_config(verbose = TRUE)
-    expect_error(galah_config(download_reason_id = 17))
-    expect_error(galah_config(download_reason_id = "NOTHING"))
-    expect_silent(galah_config(download_reason_id = 3))
-    expect_silent(galah_config(download_reason_id = "education"))
-    galah_config(verbose = FALSE)
-  })
+test_that("galah_config checks download_id", {
+  skip_if_offline()
+  galah_config(verbose = TRUE)
+  expect_error(galah_config(download_reason_id = 17))
+  expect_error(galah_config(download_reason_id = "NOTHING"))
+  expect_silent(galah_config(download_reason_id = 3))
+  expect_silent(galah_config(download_reason_id = "education"))
+  galah_config(verbose = FALSE)
 })
 
 test_that("galah_config checks inputs", {
+  skip_if_offline()
   expect_error(galah_config(caching = "value"))
   expect_error(galah_config(verbose = "value"))
   expect_error(galah_config(email = 4))

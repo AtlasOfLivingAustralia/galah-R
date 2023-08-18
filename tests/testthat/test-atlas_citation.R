@@ -1,5 +1,3 @@
-context("Test that citations are generated")
-
 test_that("atlas_citation generates DOI for dataset with DOI", {
   data <- data.frame()
   attr(data, "doi") <- "test-doi"

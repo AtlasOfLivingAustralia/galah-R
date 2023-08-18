@@ -1,6 +1,3 @@
-context("Test ALA data profiles")
-# NOTE: vcr not used here as it can't handle dq service
-
 test_that("show_all returns correct information by type", {
   skip_on_cran()
   fields <- show_all(fields)

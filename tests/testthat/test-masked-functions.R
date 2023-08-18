@@ -1,10 +1,7 @@
-context("Test masked functions")
-
 test_that("`identify` works identically to piped `galah_identify`", {
-  vcr::use_cassette("identify_test", {
-    result1 <- galah_call() |> galah_identify("Litoria")
-    result2 <- galah_call() |> identify("Litoria")
-  })
+  skip_if_offline()
+  result1 <- galah_call() |> galah_identify("Litoria")
+  result2 <- galah_call() |> identify("Litoria")
   expect_equal(result1, result2)
 })
 
@@ -34,20 +31,18 @@ test_that("`st_crop` works identically to piped `galah_polygon`", {
 })
 
 test_that("`count` works identically to piped `atlas_counts`", {
-  vcr::use_cassette("count_test", {
-    result1 <- galah_call() |> galah_identify("Litoria") |> atlas_counts()
-    result2 <- galah_call() |> identify("Litoria") |> count()
-  })
+  skip_if_offline()
+  result1 <- galah_call() |> galah_identify("Litoria") |> atlas_counts()
+  result2 <- galah_call() |> identify("Litoria") |> count()
   expect_equal(result1, result2)
 })
 
 test_that("`slice_head` works for atlas_counts", {
-  vcr::use_cassette("slice_head", {
-    result <- galah_call() |> 
-      filter(year >= 2010) |> 
-      group_by(year) |> 
-      slice_head(n = 5) |>
-      count()
-  })
+  skip_if_offline()
+  result <- galah_call() |> 
+    filter(year >= 2010) |> 
+    group_by(year) |> 
+    slice_head(n = 5) |>
+    count()
   expect_equal(nrow(result), 5)
 })

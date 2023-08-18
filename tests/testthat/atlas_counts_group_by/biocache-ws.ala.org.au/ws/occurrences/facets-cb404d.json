@@ -1,0 +1,20 @@
+[
+    {
+        "fieldName": "year",
+        "fieldResult": [
+            {
+                "label": "2021",
+                "i18nCode": "year.2021",
+                "count": 84,
+                "fq": "year:\"2021\""
+            },
+            {
+                "label": "2022",
+                "i18nCode": "year.2022",
+                "count": 7,
+                "fq": "year:\"2022\""
+            }
+        ],
+        "count": 2
+    }
+]

@@ -1,5 +1,3 @@
-context("Test galah_filter")
-
 test_that("galah_filter works for a single 'equals' argument", {  
   filters <- galah_filter(year == 2010)
   expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
@@ -21,7 +19,6 @@ test_that("galah_filter gives an error for single equals sign", {
 
 # negative assertions:
 # galah_filter(BASIS_OF_RECORD_INVALID == FALSE)
-
 
 test_that("galah_filter returns empty tibble when no arguments specified", {
   filters <- galah_filter()

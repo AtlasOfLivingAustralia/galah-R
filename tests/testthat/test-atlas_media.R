@@ -1,4 +1,3 @@
-context("Test atlas_media")
 teardown(unlink("test_media", recursive = TRUE))
 
 test_that("atlas_media gives a warning when old arguments are used", {

@@ -1,6 +1,3 @@
-context("Test galah_select")
-
-
 test_that("galah_select returns error when columns don't exist", {
   galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
   expect_error(galah_select(basisOfRecors))

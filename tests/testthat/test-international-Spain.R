@@ -1,5 +1,3 @@
-context("Test international atlases: Spain")
-
 # set verbose to off
 galah_config(verbose = FALSE, run_checks = FALSE)
 
@@ -7,84 +5,85 @@ test_that("swapping to atlas = Spain works", {
   expect_message(galah_config(atlas = "Spain"))
 })
 
-# vcr::use_cassette("IA_Spain_show_all_fields", {
 test_that("show_all(fields) works for Spain", {
+  skip_if_offline()
   x <- show_all(fields)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_show_all_licences", {
 test_that("show_all(licences) works for Spain", {
+  skip_if_offline()
   x <- show_all(licences)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_show_all_collections", {
 test_that("show_all(collections) works for Spain", {
+  skip_if_offline()
   x <- show_all(collections, limit = 10)
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_show_all_datasets", {
 test_that("show_all(datasets) works for Spain", {
+  skip_if_offline()
   x <- show_all(datasets, limit = 10)
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_show_all_providers", {
 test_that("show_all(providers) works for Spain", {
+  skip_if_offline()
   x <- show_all(providers, limit = 10)
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_show_all_reasons", {
 test_that("show_all(reasons) works for Spain", {
+  skip_if_offline()
   x <- show_all(reasons)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_show_all_assertions", {
 test_that("show_all(assertions) works for Spain", {
+  skip_if_offline()
   x <- show_all(assertions)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_show_all_profiles", {
 test_that("show_all(profiles) works for Spain", {
+  skip_if_offline()
   x <- show_all(profiles)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_show_all_lists", {
 test_that("show_all(lists) works for Spain", {
+  skip_if_offline()
   x <- show_all(lists, limit = 10)
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("search_all(fields) works for Spain", {
+  skip_if_offline()
   x <- search_all(fields, "year")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_search_all_taxa", {
 test_that("search_all(taxa) works for Spain", {
+  skip_if_offline()
   x <- search_all(taxa, "Mammalia")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_search_all_taxa_df", {
 test_that("search_all(taxa) works using data.frames for Spain", {
+  skip_if_offline()
   x <- search_all(taxa, 
                   data.frame(kingdom = "Animalia", 
                              phylum = "Chordata"))
@@ -92,53 +91,53 @@ test_that("search_all(taxa) works using data.frames for Spain", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_search_all_identifiers", {
 test_that("search_all(identifiers) works for Spain", {
+  skip_if_offline()
   x <- search_all(identifiers, "359")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_show_values_fields", {
 test_that("show_values works for fields for Spain", {
+  skip_if_offline()
   x <- search_all(fields, "basis_of_record") |> 
     show_values()
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_show_values_profiles", {
 test_that("show_values works for profiles for Spain", {
+  skip_if_offline()
   x <- search_all(profiles, "LA") |> 
     show_values()
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_Spain_atlas_counts", {
 test_that("atlas_counts works for Spain", {
+  skip_if_offline()
   expect_gt(atlas_counts()$count, 0)
   expect_gt(atlas_counts(type = "species")$count, 0)
 })
 
-# vcr::use_cassette("IA_Spain_atlas_counts_identify", {
-  test_that("atlas_counts works with galah_identify for Spain", {
-    result <- galah_call() |>
-      identify("Mammalia") |>
-      count() |>
-      collect()
-    expect_gt(result$count, 1)
-    result2 <- galah_call() |>
-      filter(class == "Mammalia") |>
-      count() |>
-      collect()
-    expect_lt(
-      sqrt((result2$count - result$count)^2) / result$count, 
-      0.1) # i.e. <1% margin of error
-  })
+test_that("atlas_counts works with galah_identify for Spain", {
+  skip_if_offline()
+  result <- galah_call() |>
+    identify("Mammalia") |>
+    count() |>
+    collect()
+  expect_gt(result$count, 1)
+  result2 <- galah_call() |>
+    filter(class == "Mammalia") |>
+    count() |>
+    collect()
+  expect_lt(
+    sqrt((result2$count - result$count)^2) / result$count, 
+    0.1) # i.e. <1% margin of error
+})
 
-# vcr::use_cassette("IA_Spain_atlas_counts_group_by", {
 test_that("atlas_counts works with group_by for Spain", {
+  skip_if_offline()
   result <- galah_call() |>
     filter(year >= 2000) |>
     group_by(basis_of_record) |>
@@ -164,6 +163,7 @@ test_that("atlas_counts works with group_by for Spain", {
 # })
 
 test_that("galah_select works for Spain", {
+  skip_if_offline()
   x <- galah_select()
   expect_gt(nrow(x), 0)
   expect_equal(ncol(x), 2)

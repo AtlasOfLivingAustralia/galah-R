@@ -1,5 +1,3 @@
-context("Test compute")
-
 test_that("compute validates fields", {
   galah_config(run_checks = TRUE)
   expect_warning(

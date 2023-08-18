@@ -1,5 +1,3 @@
-context("Test show_values & search_values")
-
 test_that("show_values subfunctions fail when args are missing or null", {
   expect_error(show_values_field())
   expect_error(show_values_field(field = NULL))

@@ -1,5 +1,3 @@
-context("Test retrieval of cached file metadata")
-
 test_that("show_all_cached_files gives an error if no metadata file exists", {
   skip_on_cran()
   galah_config(cache_directory = tempdir())

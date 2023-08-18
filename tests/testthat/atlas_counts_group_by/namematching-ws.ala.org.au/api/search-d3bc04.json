@@ -1,0 +1,34 @@
+{
+    "success": true,
+    "scientificName": "Perameles",
+    "scientificNameAuthorship": "Geoffroy, 1803",
+    "taxonConceptID": "https://biodiversity.org.au/afd/taxa/91e23087-ef6f-4d94-9cb4-bf438b2831b2",
+    "rank": "genus",
+    "rankID": 6000,
+    "lft": 68239,
+    "rgt": 68263,
+    "matchType": "exactMatch",
+    "nameType": "DOUBTFUL",
+    "kingdom": "Animalia",
+    "kingdomID": "https://biodiversity.org.au/afd/taxa/4647863b-760d-4b59-aaa1-502c8cdf8d3c",
+    "phylum": "Chordata",
+    "phylumID": "https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd",
+    "classs": "Mammalia",
+    "classID": "https://biodiversity.org.au/afd/taxa/e9e7db31-04df-41fb-bd8d-e0b0f3c332d6",
+    "order": "Peramelemorphia",
+    "orderID": "https://biodiversity.org.au/afd/taxa/94032c42-8ed7-4bf1-bff6-952262dab315",
+    "family": "Peramelidae",
+    "familyID": "https://biodiversity.org.au/afd/taxa/359987d0-2904-445a-9d56-ea3a87d415e0",
+    "genus": "Perameles",
+    "genusID": "https://biodiversity.org.au/afd/taxa/91e23087-ef6f-4d94-9cb4-bf438b2831b2",
+    "speciesGroup": [
+        "Animals",
+        "Mammals"
+    ],
+    "speciesSubgroup": [
+        "Bandicoots, Bilbies"
+    ],
+    "issues": [
+        "noIssue"
+    ]
+}

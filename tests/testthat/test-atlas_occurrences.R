@@ -1,5 +1,3 @@
-context("Test atlas_occurrences")
-
 test_that("atlas_occurrences doesn't allow large downloads", {
   galah_config(atlas = "Australia")
   expect_error(atlas_occurrences())
@@ -8,13 +6,21 @@ test_that("atlas_occurrences doesn't allow large downloads", {
 test_that("atlas_occurrences gives a nice error for invalid emails", {
   skip_on_cran()
   galah_config(email = "test@test.org.au")
-  expect_message(atlas_occurrences(identify = galah_identify("Thylacinus cynocephalus")))
+  expect_message({
+    galah_call() |>
+      identify("Thylacinus cynocephalus") |>
+      collect()
+  })
   galah_config(email = "test@test.org.au")
 })
 
 test_that("atlas_occurrences fails nicely if no email is provided", {
   galah_config(email = "", run_checks = FALSE)
-  expect_error(atlas_occurrences(filter = galah_filter(year == 1900)))
+  expect_error({
+    galah_call() |>
+      filter(year == 1900) |>
+      compute() # collect()?
+    })
   galah_config(email = "ala4r@ala.org.au")
 })
   
@@ -32,7 +38,7 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
     filter(year >= 2018) |>
     select(group = "basic", stateProvince, ZERO_COORDINATE) |>
     galah_geolocate(poly) |>
-    atlas_occurrences()    
+    collect()    
 
   expect_setequal(names(occ), expected_cols)
   expect_equal(unique(occ$stateProvince), "New South Wales")

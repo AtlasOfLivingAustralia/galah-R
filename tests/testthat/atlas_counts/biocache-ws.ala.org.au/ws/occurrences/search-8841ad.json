@@ -1,0 +1,23 @@
+{
+    "pageSize": 0,
+    "startIndex": 0,
+    "totalRecords": 125563160,
+    "sort": "score",
+    "dir": "asc",
+    "status": "OK",
+    "occurrences": [
+
+    ],
+    "facetResults": [
+
+    ],
+    "query": "?q=*%3A*&disableAllQualityFilters=true",
+    "urlParameters": "?q=*%3A*&disableAllQualityFilters=true",
+    "queryTitle": "[all records]",
+    "activeFacetMap": {
+
+    },
+    "activeFacetObj": {
+
+    }
+}

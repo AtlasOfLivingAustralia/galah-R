@@ -1,5 +1,3 @@
-context("Test search_fields")
-
 test_that("search_all checks inputs, returns helpful error", {
   skip_on_cran()
   expect_error(search_all(attributes, ""), "is not recognised")

@@ -1,5 +1,3 @@
-context("Test galah_call")
-
 test_that("galah_call builds objects of class 'data_request' by default", {
   expect_equal(length(galah_call()), 7)
   expect_s3_class(galah_call(), "data_request")
@@ -9,17 +7,16 @@ test_that("galah_call accepts method arg", {
   x <- galah_call(method = "metadata")
   expect_s3_class(x, "metadata_request")
   expect_true(x$type == "fields") 
-  
   y <- galah_call(method = "files")
   expect_s3_class(x, "files_request")
   expect_true(x$type == "media")
-  
   expect_error(galah_call(method = "nothing"))
 })
 
 # prints properly?
 
 test_that("galah_call works with all `galah_` functions", {
+  skip_if_offline()
   result <- galah_call() |> 
     galah_identify("Litoria") |>
     galah_filter(year == 2021, cl22 == "Tasmania") |>
@@ -32,6 +29,7 @@ test_that("galah_call works with all `galah_` functions", {
 })
 
 test_that("galah_call works irrespective of `galah_` function order", {
+  skip_if_offline()
   result <- galah_call() |> 
     galah_apply_profile(ALA) |>
     galah_down_to(rank = species) |>
@@ -44,6 +42,7 @@ test_that("galah_call works irrespective of `galah_` function order", {
 })
   
 test_that("repeated calls to `galah_identify` are added correctly", {
+  skip_if_offline()
   result <- galah_call() |> 
     galah_identify("Litoria") |>
     galah_identify("Aves")

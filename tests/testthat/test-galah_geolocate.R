@@ -1,5 +1,3 @@
-context("Test galah_geolocate")
-
 test_that("galah_geolocate defaults to galah_polygon", {
   wkt <- "POLYGON((142.36228 -29.00703,142.74131 -29.00703,142.74131 -29.39064,142.36228 -29.39064,142.36228 -29.00703))"
   expect_match(galah_geolocate(wkt), "MULTIPOLYGON")
