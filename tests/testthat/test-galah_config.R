@@ -1,9 +1,3 @@
-test_that("galah_config sets default options", {
-  skip_on_cran()
-  # check that defaults are used
-  expect_equal(galah_config()$package$verbose, TRUE)
-})
-
 test_that("galah_config checks download_id", {
   skip_if_offline()
   galah_config(verbose = TRUE)

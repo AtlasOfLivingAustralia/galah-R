@@ -1,5 +1,5 @@
 test_that("collect_media fails when `path` is not set", {
-  skip_on_cran()
+  skip_if_offline()
   galah_config(email = "ala4r@ala.org.au")
   expect_error({
     media_data <- atlas_media(
@@ -10,7 +10,7 @@ test_that("collect_media fails when `path` is not set", {
 })
 
 test_that("collect_media fails when `path` doesn't exist", {
-  skip_on_cran()
+  skip_if_offline()
   atlas_query <- atlas_media(
     identify = galah_identify("Microseris lanceolata"),
     filter = galah_filter(year == 2021))
@@ -18,11 +18,10 @@ test_that("collect_media fails when `path` doesn't exist", {
 })
 
 test_that("collect_media downloads images", {
-  skip_on_cran()
+  skip_if_offline()
   galah_config(email = "ala4r@ala.org.au")
   media_data <- atlas_media(identify = galah_identify("Microseris lanceolata"),
                             filter = galah_filter(year == 2019))
-                            
   # full-size
   media_dir <- "test_media"
   unlink(media_dir, recursive = TRUE)
@@ -51,7 +50,7 @@ test_that("collect_media downloads images", {
 })
 
 test_that("collect_media handles different file formats", {
-  skip_on_cran()
+  skip_if_offline()
   galah_config(email = "ala4r@ala.org.au")
   media_dir <- "test_media"
   dir.create(media_dir)

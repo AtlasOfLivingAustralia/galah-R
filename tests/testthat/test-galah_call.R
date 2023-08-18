@@ -8,8 +8,8 @@ test_that("galah_call accepts method arg", {
   expect_s3_class(x, "metadata_request")
   expect_true(x$type == "fields") 
   y <- galah_call(method = "files")
-  expect_s3_class(x, "files_request")
-  expect_true(x$type == "media")
+  expect_s3_class(y, "files_request")
+  expect_true(y$type == "media")
   expect_error(galah_call(method = "nothing"))
 })
 

@@ -148,6 +148,7 @@ test_that("galah_filter returns error when equations are passed as a string", {
 # expect_true(grepl("2010", filters$query))
 
 test_that("galah_filter handles taxonomic queries", {
+  skip_if_offline()
   filters <- galah_filter(taxonConceptID == search_taxa("Animalia")$taxon_concept_id)
   expect_equal(nrow(filters), 1)
   expect_false(grepl("search_taxa", filters$query))
@@ -162,6 +163,7 @@ test_that("galah_filter handles taxonomic queries when passed as a string", {
 })
 
 test_that("galah_filter handles taxonomic exclusions", {
+  skip_if_offline()
   filters <- galah_filter(
     taxonConceptID == search_taxa("Animalia")$taxon_concept_id,
     taxonConceptID != search_taxa("Chordata")$taxon_concept_id)

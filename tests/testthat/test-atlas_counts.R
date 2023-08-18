@@ -130,9 +130,7 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
 
 ## counts for `type = "species"` not checked
 # test_that("atlas_counts returns species counts", {
-#   vcr::use_cassette("count_type_species", {
-#     counts <- galah_call(type = "species") |> count()
-#   })
+#   counts <- galah_call(type = "species") |> count()
 #   expect_type(counts$count, "integer")
 #   expect_gt(counts, 0)
 # })

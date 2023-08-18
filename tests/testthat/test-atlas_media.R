@@ -1,7 +1,7 @@
 teardown(unlink("test_media", recursive = TRUE))
 
 test_that("atlas_media gives a warning when old arguments are used", {
-  skip_on_cran()
+  skip_if_offline()
   galah_config(email = "ala4r@ala.org.au", atlas = "Australia")
   expect_message({
     media_data <- atlas_media(
@@ -16,7 +16,7 @@ test_that("atlas_media fails when no filters are provided", {
 })
 
 test_that("atlas_media returns a tibble, and nothing else", {
-  skip_on_cran()
+  skip_if_offline()
   galah_config(email = "ala4r@ala.org.au")
   media_dir <- "test_media"
   unlink(media_dir, recursive = TRUE)
@@ -31,97 +31,17 @@ test_that("atlas_media returns a tibble, and nothing else", {
 })
 
 test_that("atlas_occurrences |> search_media duplicates atlas_media", {
-  skip_on_cran()
+  skip_if_offline()
   galah_config(email = "ala4r@ala.org.au")
-
   media_1 <- atlas_occurrences(
      identify = galah_identify("Microseris lanceolata"),
      filter = galah_filter(year == 2019, multimedia == "Image"),
      select = galah_select(group = c("basic", "media"))) |>
      search_media()
-
   media_2 <- atlas_media(
      identify = galah_identify("Microseris lanceolata"),
      filter = galah_filter(year == 2019))
-
   expect_equal(nrow(media_1), nrow(media_2))
 })
 
-
-
-test_that("test new workflow for media makes sense", {
-  skip_on_cran()
-  galah_config(email = "ala4r@ala.org.au")
-  
-  # user makes us do all the work
-  collapse_1 <- galah_call(type = "media") |>
-    filter(
-      year == 2023,
-      month == 6,
-      species == "Litoria peronii") |>
-    collapse()
-  
-  str(collapse_1)
-  
-  compute_1 <- collapse_1 |> compute()
-  
-  collect(compute_1)
-  
-  # UP TO HERE
-  # BELOW USES OLD SYNTAX
-  
-  # user gets own occurrences and passes IDs to "media-metadata"
-  media_test <- galah_call(type = "media") |>
-    filter(
-      year == 2023,
-      month == 6,
-      species == "Litoria peronii") |>
-      # !is.na(type)) |> # "videos" or "sounds" are valid options
-    select(group = c("basic", "media")) |>
-    # right_join("media") |>
-    collapse()
-  
-  media_test |> compute()
-  
-  
-  collapse_2 <- galah_call(type = "media-metadata", 
-                              ids = media_test$images) |>
-    collapse()
-  
-  metadata_final <- metadata_test |> collect()
-  
-  ## add to vignette on joining data in case that's useful:  
-  # join_test <- dplyr::right_join(tidyr::unnest_longer(media_test, images), 
-  #                                metadata_test,
-  #                                by = c("images" = "media_id"))
-  
-  galah_call(type = "media-files", 
-             ids = media_test$images) |>
-    collect(path = "images")
-
-  
-  # BELOW IS OUT OF DATE
-  
-  # get occurrences with added media metadata
-  occ_media <- query |>
-    collect("occurrences", type = "media")
-  # Q: should this return data for occurrences with no media?
-  # NEXT: work out how to pass this to collect() to get actual media (i.e. image files)
-  
-  # check number of occurrences is correct
-  length(unique(occ_media$recordID)) == count(query) # both give seven records
-  
-  # get images without intermediate step
-  # NOTE: This requires more work to support type = sounds or videos
-  # as the `type` arg not passed properly yet
-  collapse_check <- query |> collapse("media")
-  # str(collapse_check)
-  
-  compute_check <- query |> compute("media")
-  compute_check
-  
-  compute_check |> 
-    collect("media", path = "images", filesize = "thumbnail") # up to here
-  
-  unlink("images", recursive = TRUE)
-})
+# TODO: add tests for new syntax

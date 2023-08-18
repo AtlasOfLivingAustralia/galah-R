@@ -5,14 +5,12 @@ test_that("atlas_species fails nicely if no email is provided", {
   galah_config(email = "ala4r@ala.org.au")
 })
 
-
 test_that("atlas_species returns a tibble", {
   skip_if_offline()
   species <- atlas_species(identify = galah_identify("Osphranter"))
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(species), 1)
 })
-
 
 test_that("atlas_species returns correct results when piped", {
   skip_if_offline()

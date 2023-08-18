@@ -4,7 +4,7 @@ test_that("atlas_occurrences doesn't allow large downloads", {
 })
 
 test_that("atlas_occurrences gives a nice error for invalid emails", {
-  skip_on_cran()
+  skip_if_offline()
   galah_config(email = "test@test.org.au")
   expect_message({
     galah_call() |>
@@ -19,15 +19,14 @@ test_that("atlas_occurrences fails nicely if no email is provided", {
   expect_error({
     galah_call() |>
       filter(year == 1900) |>
-      compute() # collect()?
+      compute()
     })
   galah_config(email = "ala4r@ala.org.au")
 })
-  
 
 # test all filters and type of columns in one call
 test_that("atlas_occurrences accepts all narrowing functions inline", { 
-  skip_on_cran()
+  skip_if_offline()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
                      "dataResourceName", "occurrenceStatus", "stateProvince", 
@@ -46,7 +45,7 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
 
 # repeat above using galah_call
 test_that("atlas_occurrences accepts all narrowing functions in pipe", { 
-  skip_on_cran()
+  skip_if_offline()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
                      "dataResourceName", "occurrenceStatus", "stateProvince", 
@@ -79,13 +78,13 @@ test_that("atlas_occurrences accepts all narrowing functions in pipe", {
 # })
 
 test_that("atlas_occurrences does not download data from a DOI", {
-  skip_on_cran()
-    doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
-    expect_error(atlas_occurrences(doi = doi))
+  skip_if_offline()
+  doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
+  expect_error(atlas_occurrences(doi = doi))
 })
 
 test_that("`collapse()` et al. work for ALA", {
-  skip_on_cran()
+  skip_if_offline()
   
   # collapse
   query <- galah_call() |>
