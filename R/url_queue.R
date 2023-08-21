@@ -130,8 +130,6 @@ check_queue_GBIF <- function(url){
   }
 }
 
-
-
 # status of a gbif call
 print_status <- function(result, current_status){
   if(any(names(result) == "status")){

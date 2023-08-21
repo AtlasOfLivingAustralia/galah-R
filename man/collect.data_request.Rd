@@ -25,7 +25,7 @@
 
 \method{collapse}{metadata_request}(.data)
 
-\method{collapse}{files_request}(.data)
+\method{collapse}{files_request}(.data, thumbnail = FALSE)
 
 \method{collect}{data_request}(.data, wait = FALSE, file = NULL)
 
