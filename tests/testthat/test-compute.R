@@ -1,9 +1,10 @@
 test_that("compute validates fields", {
   galah_config(run_checks = TRUE)
-  expect_warning(
+  expect_error(
     galah_call() |>
       galah_filter(invalid_filter == 'value') |>
-      count(),
+      count() |>
+      compute(),
     "Invalid field"
     )
 })
@@ -13,7 +14,8 @@ test_that("compute validates fields when OR statements are used", {
   expect_error(
     galah_call() |>
       galah_filter(invalid_filter == 'value' | year == 2010) |>
-      count(),
+      count() |>
+      compute(),
     "Invalid field"
     )
 })
@@ -23,7 +25,8 @@ test_that("compute skips field checks if requested", {
   expect_silent(
     galah_call() |>
       galah_filter(random == "filter") |>
-      count()
+      count() |>
+      compute()
     )
   galah_config(run_checks = TRUE)
 })

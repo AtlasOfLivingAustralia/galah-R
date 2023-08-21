@@ -16,21 +16,27 @@ with_mock_dir("atlas_counts", {
   })
 })
 
-test_that("count() |> collect() works with no arguments", {
-  skip_if_offline()
-  count <- galah_call() |>
-    count() |>
-    collect()
-  expect_gt(count$count, 0)
+with_mock_dir("atlas_counts", {
+  test_that("count() |> collect() works with no arguments", {
+    skip_if_offline()
+    count <- galah_call() |>
+      count() |>
+      collect()
+    expect_gt(count$count, 0)
+  })
 })
 
 test_that("`identify()` reduces the number of records returned by `count()`", {
   skip_if_offline()
-  counts_mammals <- galah_call() |>
-    identify("Mammalia") |>
-    count() |>
-    collect()
-  counts_all <- galah_call() |>
+  with_mock_dir("atlas_counts", {
+    counts_all <- galah_call() |>
+      count() |>
+      collect()
+  })
+  with_mock_dir("galah_identify", {
+    identify <- galah_identify("Perameles")
+  })
+  counts_mammals <- galah_call(identify = identify) |>
     count() |>
     collect()
   expect_type(counts_mammals$count, "integer")
@@ -49,23 +55,26 @@ test_that("`count()` handles multiple 'group by' variables", {
 })
 # })
 
-with_mock_dir("atlas_counts_group_by", {
-  test_that("`count()` handles 'species' as a 'group by' variable", {
-    counts <- galah_call() |>
-      identify("perameles") |>
-      filter(year > 2020) |>
-      group_by(species, year) |>
-      count() |>
-      collect()
-    expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-    expect_true(all(names(counts) %in% c("year", "species", "count")))
+test_that("`count()` handles 'species' as a 'group by' variable", {
+  skip_if_offline()
+  with_mock_dir("galah_identify", {
+    identify <- galah_identify("Perameles")
   })
+  counts <- galah_call(identify = identify) |>
+    filter(year > 2020) |>
+    group_by(species, year) |>
+    count() |>
+    collect()
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
+  expect_true(all(names(counts) %in% c("year", "species", "count")))
 })
 
 test_that("atlas_counts handles 'taxonConceptID' as a 'group by' variable", {
   skip_if_offline()
-  counts <- galah_call() |>
-    identify("perameles") |>
+  with_mock_dir("galah_identify", {
+    identify <- galah_identify("Perameles")
+  })  
+  counts <- galah_call(identify = identify) |>
     filter(year >= 2010) |>
     group_by(taxonConceptID, year) |>
     count() |>
@@ -92,8 +101,10 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_polygon", {
   skip_if_offline()
   wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
     sf::st_as_sfc()
-  base_query <- galah_call() |>
-    identify("dasyurus") |>
+  with_mock_dir("galah_identify", {
+    identify <- galah_identify("Perameles")
+  })  
+  base_query <- galah_call(identify = identify) |>
     filter(year >= 2020)
   counts <- base_query |>
     count() |>
@@ -111,8 +122,10 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
   skip_if_offline()
   wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
     sf::st_as_sfc()
-  base_query <- galah_call() |>
-    identify("dasyurus") |>
+  with_mock_dir("galah_identify", {
+    identify <- galah_identify("Perameles")
+  })
+  base_query <- galah_call(identify = identify) |>
     filter(year >= 2020)
   counts <- base_query |>
     count() |>

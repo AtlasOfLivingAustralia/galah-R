@@ -63,7 +63,7 @@ galah_identify <- function(..., search = TRUE) {
 #' @export
 identify.data_request <- function(.data, ..., search = TRUE){
   dots <- list(...)
-  if (length(dots_initial) < 1) {
+  if (length(dots) < 1) {
     warn("No query passed to `identify()`")
     return(.data)
   }else{

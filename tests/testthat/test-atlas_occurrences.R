@@ -1,27 +1,42 @@
+without_internet({
+  test_that("collapse_occurrences() creates an object, but doesn't ping an API", {
+    with_mock_dir("galah_identify", {
+      identify <- galah_identify("Perameles")
+    })
+    result <- galah_call(identify = identify) |> collapse()
+    expect_equal(names(result), 
+                 c("type", "url", "headers"))
+    expect_true(inherits(result, "data_query"))
+  })
+})
+
 test_that("atlas_occurrences doesn't allow large downloads", {
   galah_config(atlas = "Australia")
   expect_error(atlas_occurrences())
 })
 
 test_that("atlas_occurrences gives a nice error for invalid emails", {
-  skip_if_offline()
   galah_config(email = "test@test.org.au")
-  expect_message({
-    galah_call() |>
-      identify("Thylacinus cynocephalus") |>
+  with_mock_dir("galah_identify", {
+    identify <- galah_identify("Perameles")
+  })
+  expect_error({
+    galah_call(identify = identify) |>
       collect()
   })
-  galah_config(email = "test@test.org.au")
+  galah_config(email = "ala4r@ala.org.au")
 })
 
-test_that("atlas_occurrences fails nicely if no email is provided", {
-  galah_config(email = "", run_checks = FALSE)
-  expect_error({
-    galah_call() |>
-      filter(year == 1900) |>
-      compute()
+without_internet({
+  test_that("atlas_occurrences fails nicely if no email is provided", {
+    galah_config(email = "", run_checks = FALSE)
+    expect_error({
+      galah_call() |>
+        filter(year == 1900) |>
+        compute()
     })
-  galah_config(email = "ala4r@ala.org.au")
+    galah_config(email = "ala4r@ala.org.au")
+  })
 })
 
 # test all filters and type of columns in one call
