@@ -151,7 +151,7 @@ collect_taxa <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_identifiers <- function(.data){
-  search_terms <- data$url$search_term
+  search_terms <- .data$url$search_term
   result <- query_API(.data) |>
     mutate(search_term = search_terms, .before = success)
   names(result) <- rename_columns(names(result), type = "taxa") # old code

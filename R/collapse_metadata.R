@@ -223,19 +223,20 @@ collapse_identifiers <- function(.data){
     }
     
     # create query urls
-    url_list <- lapply(query,
+    urls <- lapply(query,
                        function(a, base_url){
                          names(a) <- "taxonID"
                          base_url$query <- as.list(a)
                          url_build(base_url)
                        },
-                       base_url = base_url)
-    names(url_list) <- .data$identify
+                       base_url = base_url) |>
+      unlist()
+    search_terms <- .data$identify
   }
   
   # build object and return
   result <- list(type = .data$type,
-                 url = url_list,
+                 url = tibble(url = urls, search_term = search_terms),
                  headers = build_headers())
   class(result) <- "metadata_query"
   return(result)

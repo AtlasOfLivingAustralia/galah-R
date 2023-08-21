@@ -11,7 +11,6 @@
 #' @keywords Internal
 query_API <- function(.data, error_call = caller_env()) {
   if(inherits(.data$url, "data.frame")){
-  # if(length(.data$url) > 1 | inherits(.data$url, "list")){
     verbose <- pour("package", "verbose", .pkg = "galah") & nrow(.data$url) > 1 
     if (verbose) { 
       pb <- txtProgressBar(max = 1, style = 3) 

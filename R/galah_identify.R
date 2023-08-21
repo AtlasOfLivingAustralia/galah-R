@@ -42,11 +42,10 @@
 #' 
 #' @export
 galah_identify <- function(..., search = TRUE) {
-
   dots <- list(...)
-
   if (length(dots) < 1) {
     # if empty, return correct class, but no values
+    warn("No query passed to `galah_identify()`")
     tibble(identifier = character())
   } else {
     if (inherits(dots[[1]], "data_request")) {
@@ -64,29 +63,40 @@ galah_identify <- function(..., search = TRUE) {
 #' @export
 identify.data_request <- function(.data, ..., search = TRUE){
   dots <- list(...)
-  if(search){
-    result <- search_taxa(dots) |>
-      rename(identifier = taxon_concept_id) |>
-      select(identifier)
+  if (length(dots_initial) < 1) {
+    warn("No query passed to `identify()`")
+    return(.data)
   }else{
-    result <- tibble(identifier = unlist(dots))
+    if(search){
+      result <- search_taxa(dots) |>
+        rename(identifier = taxon_concept_id) |>
+        select(identifier)
+    }else{
+      result <- tibble(identifier = unlist(dots))
+    }
+    update_data_request(.data, identify = result)
   }
-  update_data_request(.data, identify = result)
 }
 
 #' @rdname galah_identify
 #' @param .data An object of class `metadata_request`, created using [request_metadata()]
 #' @export
 identify.metadata_request <- function(.data, ...){
-  dots <- list(identify = list(...))
-  if(inherits(dots$identify[[1]], "data.frame")){
-    dots$identify <- dots$identify[[1]]
+  dots_initial <- list(...)
+  if (length(dots_initial) < 1) {
+    warn("No query passed to `identify()`")
+    return(.data)
   }else{
-    dots$identify <- unlist(dots$identify)
+    dots <- list(identify = dots_initial)
+    if(inherits(dots$identify[[1]], "data.frame")){
+      dots$identify <- dots$identify[[1]]
+    }else{
+      dots$identify <- unlist(dots$identify)
+    }
+    result <- c(.data, dots)
+    class(result) <- "metadata_request"
+    return(result) 
   }
-  result <- c(.data, dots)
-  class(result) <- "metadata_request"
-  return(result)
 }
 
 #' parser for `galah_identify()`
