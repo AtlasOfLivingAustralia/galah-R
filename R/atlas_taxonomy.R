@@ -38,6 +38,13 @@
 #'   atlas_taxonomy()
 #' }
 #' 
+#' @importFrom data.tree Aggregate 
+#' @importFrom data.tree as.Node
+#' @importFrom data.tree Do 
+#' @importFrom data.tree FromListExplicit 
+#' @importFrom data.tree Prune 
+#' @importFrom data.tree Set 
+#' @importFrom data.tree ToDataFrameTree 
 #' @importFrom potions pour
 #' @export
 atlas_taxonomy <- function(request = NULL,
@@ -196,10 +203,13 @@ lookup_taxon <- function(id) {
   }
 }
 
-# Get the child concepts for a taxonomic ID 
+#' Get the child concepts for a taxonomic ID 
+#' @importFrom utils URLencode
+#' @noRd
+#' @keywords Internal
 get_children <- function(identifier) {
   url <- url_lookup("species_children", 
-    id = URLencode(as.character(identifier), reserved = TRUE))
+    id = URLencode(as.character(identifier), reserved = TRUE)) # swap for httr2::url_build()?
   url_GET(url)
 }
 

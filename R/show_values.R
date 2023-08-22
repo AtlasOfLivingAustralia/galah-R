@@ -416,7 +416,6 @@ check_inputs_to_values <- function(df, error_call = caller_env()) {
   valid_calls <- apply(calls_df, 1, function(x){paste0(paste(x, collapse = ""), "s")})
     
   if(!any(valid_calls == attr(df, "call"))){
-    # type <- stringr::word(paste(attr(df, "call")), 2, sep="_")
     type <- attr(df, "call")
     bullets <- c(
       "Unsupported 'type' for values look-up.",

@@ -128,22 +128,8 @@
 #' functions; desired taxa can be also be identified using [search_taxa()] and 
 #' passed within [galah_identify()] to the `taxa` argument of `atlas_` functions.
 #'
-
 #' @keywords internal
 "_PACKAGE"
 
-## usethis namespace: start
-#' @importFrom crul HttpClient Paginator Async
-#' @importFrom data.tree Do Set Prune Aggregate FromListExplicit ToDataFrameTypeCol ToDataFrameTree as.Node
-#' @importFrom jsonlite fromJSON
-#' @importFrom stringr regex str_c str_detect str_extract str_locate
-#' str_match str_match_all str_to_title
-#' @importFrom stringr str_replace str_replace_all str_split str_trim str_match
-#' @importFrom utils data packageVersion read.table str
-#' unzip URLencode download.file setTxtProgressBar txtProgressBar tail
-#' @importFrom lifecycle deprecated
-#' @importFrom rlang abort warn inform caller_env
-#' @importFrom glue glue glue_collapse
-#' @importFrom tibble as_tibble tibble is_tibble
-## usethis namespace: end
+#' @importFrom lifecycle badge
 NULL

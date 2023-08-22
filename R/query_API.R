@@ -7,6 +7,8 @@
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr select
 #' @importFrom dplyr slice
+#' @importFrom utils setTxtProgressBar
+#' @importFrom utils txtProgressBar
 #' @noRd
 #' @keywords Internal
 query_API <- function(.data, error_call = caller_env()) {

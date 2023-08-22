@@ -9,6 +9,7 @@
 #' @importFrom glue glue
 #' @importFrom potions pour
 #' @importFrom rlang abort
+#' @importFrom utils URLencode
 #' @keywords internal
 
 url_lookup <- function(api_name, ..., quiet = FALSE, error_call = caller_env()){
@@ -23,7 +24,7 @@ url_lookup <- function(api_name, ..., quiet = FALSE, error_call = caller_env()){
   if(any(url_lookup)){
     string <- node_config$api_url[which(url_lookup)[1]]
     if(length(dots) > 0){
-      glue_data(dots, string) |> URLencode()
+      glue_data(dots, string) |> utils::URLencode() # swap for httr2::url_build()?
     }else{
       URLencode(string)
     }
