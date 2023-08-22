@@ -53,6 +53,7 @@ galah_polygon <- function(...){
   
   # check to see if any of the inputs are a data request
   query <- list(...)
+  # browser()
   if(length(query) > 1 & inherits(query[[1]], "data_request")){
     dr <- query[[1]]
     query <- query[-1]
@@ -95,7 +96,7 @@ parse_polygon <- function(query){
     unrecognised_class <- class(query)
     bullets <- c(
       "Invalid object detected.",
-      i = "Did you provide WKT in the right format?",
+      i = "Did you provide a polygon or WKT in the right format?",
       x = glue("`galah_polygon` cannot use object of class '{unrecognised_class}'.")
     )
     abort(bullets, call = caller_env())
@@ -124,7 +125,7 @@ parse_polygon <- function(query){
   else {
     valid <- query |> st_is_valid()
   }
-  if(is.na(valid)) {
+  if(any(is.na(valid))) {
     bullets <- c(
       "Invalid spatial object or WKT detected.",
       i = "Check that the spatial feature or WKT in `galah_polygon` is correct."
@@ -133,12 +134,13 @@ parse_polygon <- function(query){
   }
   
   # check number of vertices of WKT
-  if(n_points(query) > 500) {
+  if(any(n_points(query) > 500)) {
     n_verts <- n_points(query)
     bullets <- c(
-      glue("Polygon must have 500 or fewer vertices, not {n_verts}."),
-      i = "`galah_polygon` only returns a query for simple polygons.",
-      i = "See `?sf::st_simplify` for how to simplify geospatial objects."
+      glue("Polygon has too many vertices."),
+      i = "`galah_polygon` only accepts simple polygons.",
+      i = "See `?sf::st_simplify` for how to simplify geospatial objects.",
+      x = "Polygon must have 500 or fewer vertices, not {n_verts}."
     )
     abort(bullets, call = caller_env())
   }
@@ -146,7 +148,26 @@ parse_polygon <- function(query){
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons are converted to multipolygons
   if(inherits(query, "sf") || inherits(query, "sfc")) {
+    # browser()
+    if(length(query$geometry) < 2) {
     out_query <- build_wkt(query)
+    } else {
+    # multiple polygons
+      n_polygons <- length(query$geometry)
+      bullets <- c(
+        "Too many polygons.",
+        i = "`galah_polygon` cannot accept more than 1 polygon at a time.",
+        x = glue("{n_polygons} polygons detected in spatial object.")
+      )
+      abort(bullets, call = caller_env())
+    # out_query <- query |>
+    #   mutate(
+    #     wkt_string = map_chr(.x = query$geometry,
+    #                          .f = build_wkt),
+    #     row_id = dplyr::row_number()) |>
+    #   as_tibble() |>
+    #   select(row_id, wkt_string)
+    }
   } else {
     
     # remove space after "POLYGON" if present
@@ -169,7 +190,6 @@ n_points <- function(x) {
   count_vertices(sf::st_geometry(x))
 }
 
-# count number of vertices
 count_vertices <- function(wkt_string, error_call = caller_env()) {
   out <- if (is.list(wkt_string)) 
     sapply(sapply(wkt_string, count_vertices), sum) 
@@ -186,7 +206,7 @@ count_vertices <- function(wkt_string, error_call = caller_env()) {
 
 # build a valid wkt string from a spatial polygon
 build_wkt <- function(polygon, error_call = caller_env()) {
-  if (st_geometry_type(polygon) == "POLYGON") {
+  if (any(st_geometry_type(polygon) == "POLYGON")) {
     polygon <- st_cast(polygon, "MULTIPOLYGON")
   }
   if (!st_is_simple(polygon)) {
@@ -216,17 +236,4 @@ check_wkt_length <- function(wkt, error_call = caller_env()) {
       abort(bullets, call = error_call)
     }
   } 
-
-  # check that first and last point match if object is a polygon
-  # FIXME: Do we need this to work anymore? Or does st_is_valid() solve this?
-  # else {
-  #   sf_obj <- st_as_sfc(wkt)
-  #   if (st_geometry_type(sf_obj) == "POLYGON") {
-  #     first_coord <- trimws(str_split(str_split(wkt, "\\(\\(")[[1]][2], ",")[[1]][1])
-  #     last_coord <- gsub("\\)\\)", "",trimws(tail(str_split(wkt, ",")[[1]], n = 1)))
-  #     if (isFALSE(first_coord == last_coord)) {
-  #       warn("The first and last coordinates of the polygon provided may not be the same.")
-  #     }
-  #   }
-  # }
 }
