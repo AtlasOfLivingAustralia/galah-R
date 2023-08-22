@@ -159,13 +159,18 @@ parse_polygon <- function(query){
         x = glue("{n_polygons} polygons detected in spatial object.")
       )
       abort(bullets, call = caller_env())
-    # out_query <- query |>
-    #   mutate(
-    #     wkt_string = map_chr(.x = query$geometry,
-    #                          .f = build_wkt),
-    #     row_id = dplyr::row_number()) |>
-    #   as_tibble() |>
-    #   select(row_id, wkt_string)
+      
+      ## NOTE: Code below parses multiple polygons. 
+      ##       Please do not remove!
+      ##       Code works but unsure how to pass to ALA query just yet
+    
+      # out_query <- query |>
+      #   mutate(
+      #     wkt_string = map_chr(.x = query$geometry,
+      #                          .f = build_wkt),
+      #     row_id = dplyr::row_number()) |>
+      #   as_tibble() |>
+      #   select(row_id, wkt_string)
     }
   } else {
     
