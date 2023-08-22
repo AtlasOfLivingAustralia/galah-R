@@ -131,6 +131,10 @@ check_occurrence_status <- function(.data){
 }
 
 #' Internal function to load zip files, without unzipping them first
+#' @importFrom dplyr bind_rows
+#' @importFrom readr read_csv
+#' @importFrom readr read_tsv
+#' @importFrom utils unzip
 #' @noRd
 #' @keywords Internal
 load_zip <- function(cache_file){

@@ -74,7 +74,6 @@
 #' @importFrom rlang parse_expr
 #' @importFrom rlang quo_get_expr
 #' @importFrom rlang quo_squash
-# @importFrom lifecycle deprecate_soft
 #' @export
 galah_filter <- function(..., profile = NULL){
   dots <- enquos(..., .ignore_empty = "all")

@@ -21,8 +21,8 @@ collapse_doi <- function(.data, error_call = caller_env()){
   doi <- .data$filter$doi[[1]]
   
   # remove "https://" if present
-  if (grepl("^http", doi)) {
-    doi <- str_remove(doi, "https://doi.org/") # TODO: remove once better solution is found
+  if (grepl("^http://doi.org/", doi)) {
+    doi <- sub("^https://doi.org/", "", doi)
   }
   
   # extract useful part of DOI

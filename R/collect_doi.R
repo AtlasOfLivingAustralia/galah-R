@@ -5,7 +5,6 @@
 #' @importFrom potions pour
 #' @importFrom rlang abort
 #' @importFrom rlang inform
-#' @importFrom stringr str_remove
 #' @importFrom tibble tibble
 collect_doi <- function(.data, file = NULL, error_call = caller_env()) {
   

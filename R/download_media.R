@@ -24,7 +24,6 @@
 #' @importFrom rlang inform
 #' @importFrom glue glue
 #' @importFrom potions pour
-#' @importFrom assertthat assert_that
 #' @noRd
 #' @keywords Internal
 download_media <- function(.data,  # change .data to object of class `tibble`

@@ -97,7 +97,9 @@ search_all <- function(type, query){
     type <- "fields"
   }else{
     type <- parse_quosures_basic(enquos(type))$data
-    assert_that(is.character(type))
+    if(!inherits(type, "character")){
+      abort("`type` must inherit from class 'character'")
+    }
     check_type_valid(type, valid_types)   
   }
   

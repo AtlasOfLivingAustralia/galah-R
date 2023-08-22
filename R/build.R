@@ -23,7 +23,6 @@ build_query <- function(identify,
         identify <- identify$identifier
       }
       #TODO: Implement a useful check here- i.e. string or integer
-      # assert_that(is.character(taxa))
       taxa_query <- build_taxa_query(identify)
     }
   }
@@ -32,7 +31,9 @@ build_query <- function(identify,
   if (is.null(filter)) {
     filter_query <- NULL
   } else {
-    assert_that(is.data.frame(filter))
+    if(!inherits(filter, "data.frame")){
+      abort("`filter` must be a `data.frame` or `tibble`")
+    }
     if (nrow(filter) == 0) {
       filter_query <- NULL
     } else {

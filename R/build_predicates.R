@@ -5,7 +5,8 @@
 #' @noRd
 #' @keywords Internal
 #' @importFrom potions pour
-#' @importFrom jsonlite toJSON unbox
+#' @importFrom jsonlite toJSON 
+#' @importFrom jsonlite unbox
 build_predicates <- function(
   df, # where df is returned by galah_filter()
   format = "SIMPLE_CSV"
