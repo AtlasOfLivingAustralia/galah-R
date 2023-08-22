@@ -38,8 +38,6 @@
 #'   atlas_taxonomy()
 #' }
 #' 
-#' @importFrom assertthat assert_that
-#' @importFrom assertthat is.string
 #' @importFrom potions pour
 #' @export
 atlas_taxonomy <- function(request = NULL,
@@ -124,6 +122,9 @@ atlas_taxonomy_internal <- function(request,
       i = "See `?galah_down_to` for more information."
     )
     abort(bullets, call = error_call)
+  }else if(!inherits(down_to, "character")){
+    abort("`down_to` must be inherit from class 'character'",
+          call = error_call)
   }
   
   if(!is.null(attr(down_to, "call"))){
@@ -132,7 +133,6 @@ atlas_taxonomy_internal <- function(request,
     }
   }
   
-  assert_that(is.string(down_to)) # picks up NULL etc
   down_to <- tolower(down_to) 
   if(!any(show_all_ranks()$name == down_to)){
     bullets <- c(

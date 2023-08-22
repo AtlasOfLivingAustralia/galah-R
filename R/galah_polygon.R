@@ -44,7 +44,6 @@
 #' @importFrom sf st_cast st_as_text st_as_sfc st_is_empty st_is_simple
 #' @importFrom sf st_crs st_geometry st_geometry_type st_is_valid st_simplify st_read
 #' @importFrom rlang try_fetch
-#' @importFrom assertthat assert_that is.string
 #' 
 #' @keywords internal
 #' 
@@ -205,7 +204,10 @@ check_wkt_length <- function(wkt, error_call = caller_env()) {
     is.list(wkt) == TRUE | 
     is.data.frame(wkt) == TRUE) {
     # make sure strings aren't too long for API call
-    assert_that(is.string(wkt))
+    if(!inherits(wkt, "character")){
+      abort("Argument `wkt` must be of class 'character'",
+            call = error_call)
+    }
     n_char_wkt <- nchar(wkt)
     max_char <- 10000
     if (n_char_wkt > max_char) {

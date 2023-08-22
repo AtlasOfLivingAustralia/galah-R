@@ -27,8 +27,7 @@ Description: The Global Biodiversity Information Facility
     to directly access data and resources hosted by GBIF and its partner nodes.
 Depends: 
     R (>= 4.1.0)
-Imports: 
-    assertthat,
+Imports:
     crayon,
     data.tree,
     dplyr,
