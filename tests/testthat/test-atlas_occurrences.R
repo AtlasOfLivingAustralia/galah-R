@@ -39,6 +39,8 @@ without_internet({
   })
 })
 
+
+## FIXME: Missing ZERO_COORDINATE column
 # test all filters and type of columns in one call
 test_that("atlas_occurrences accepts all narrowing functions inline", { 
   skip_if_offline()
@@ -47,7 +49,7 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
                      "dataResourceName", "occurrenceStatus", "stateProvince", 
                      "ZERO_COORDINATE")
   poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
-  occ <- galah_call() |>
+  occ <- galah_call(type = "occurrences") |>
     identify("Polytelis swainsonii") |>
     filter(year >= 2018) |>
     select(group = "basic", stateProvince, ZERO_COORDINATE) |>
@@ -58,6 +60,7 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
   expect_equal(unique(occ$stateProvince), "New South Wales")
 })
 
+## FIXME: Missing ZERO_COORDINATE column
 # repeat above using galah_call
 test_that("atlas_occurrences accepts all narrowing functions in pipe", { 
   skip_if_offline()
@@ -76,6 +79,7 @@ test_that("atlas_occurrences accepts all narrowing functions in pipe", {
   expect_equal(unique(occ$stateProvince), "New South Wales")
 })
 
+## Caching no longer supported in galah - suggest delete
 # test_that("atlas_occurrences caches data as expected", {
 #   skip_on_cran()
 #   galah_config(caching = TRUE, verbose = TRUE)
@@ -98,16 +102,17 @@ test_that("atlas_occurrences does not download data from a DOI", {
   expect_error(atlas_occurrences(doi = doi))
 })
 
+
 test_that("`collapse()` et al. work for ALA", {
   skip_if_offline()
   
   # collapse
-  query <- galah_call() |>
+  query <- galah_call(type = "occurrences") |>
     identify("Vulpes vulpes") |>
-    filter(year <= 1800, 
+    filter(year <= 1900, 
            basisOfRecord == "PRESERVED_SPECIMEN") |>
-    collapse(type = "occurrences")
-  expect_equal(names(query), c("url", "headers", "query", "type"))
+    collapse()
+  expect_equal(names(query), c("type", "url", "headers"))
   
   # compute
   response <- compute(query)
