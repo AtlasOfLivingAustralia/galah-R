@@ -44,6 +44,8 @@
 #' @importFrom sf st_cast st_as_text st_as_sfc st_is_empty st_is_simple
 #' @importFrom sf st_crs st_geometry st_geometry_type st_is_valid st_simplify st_read
 #' @importFrom rlang try_fetch
+#' @importFrom rlang is_string is_list
+#' @importFrom stringr str_detect
 #' 
 #' @keywords internal
 #' 
@@ -224,9 +226,9 @@ build_wkt <- function(polygon, error_call = caller_env()) {
 }
 
 check_wkt_length <- function(wkt, error_call = caller_env()) {
-  if (is.string(wkt) == TRUE |
+  if (is_string(wkt) == TRUE |
     is.matrix(wkt) == TRUE  | 
-    is.list(wkt) == TRUE | 
+    is_list(wkt) == TRUE | 
     is.data.frame(wkt) == TRUE) {
     # make sure strings aren't too long for API call
     if(!inherits(wkt, "character")){

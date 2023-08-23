@@ -11,6 +11,7 @@
 #' galah_call() |> 
 #'   galah_group_by(basisOfRecord) |>
 #'   atlas_counts()
+#' @importFrom stringr str_detect
 #' @export
 galah_group_by <- function(...){
   dots <- enquos(..., .ignore_empty = "all")

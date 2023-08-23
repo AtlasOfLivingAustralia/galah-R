@@ -9,6 +9,7 @@
 #' @importFrom dplyr bind_rows
 #' @importFrom rlang abort
 #' @importFrom rlang quo_is_symbol
+#' @importFrom stringr str_detect
 #' @keywords internal
 parse_quosures <- function(dots){
   if(length(dots) > 0){
