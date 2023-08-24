@@ -266,7 +266,7 @@ check_fields <- function(.data){
     if(nchar(queries$fq) > 0){
       filters <- string_to_tibble(queries$fq) |>
         pull(variable) |>
-        gsub("\\(|\\)", "", x = _) 
+        gsub("\\(|\\)|\\-", "", x = _) 
     }else{
       filters <- NULL
     }
