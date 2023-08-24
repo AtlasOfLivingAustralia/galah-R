@@ -110,7 +110,7 @@ request_data <- function(type = c("occurrences",
   }
   # create an empty list
   valid_names <- c("type", "identify", "filter", "select", "group_by",
-                   "geolocate" 
+                   "geolocate", "profile"
                    # "order" # tentatively removed
                    )
   default_call <- vector(mode = "list", length = length(valid_names))

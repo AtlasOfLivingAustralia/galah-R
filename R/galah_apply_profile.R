@@ -47,7 +47,8 @@ check_profile <- function(query, error_call = caller_env()){
   if(!any(valid_check)){    
     bullets <- c(
       "Invalid profile name.",
-      i = "Use `show_all(profiles)` to lookup valid profiles."
+      i = "Use `show_all(profiles)` to lookup valid data profiles.",
+      x = glue("\"{query}\" is not recognised.")
     )
     abort(bullets, call = error_call)
   }else{
@@ -73,7 +74,8 @@ parse_profile <- function(dot_names, error_call = caller_env()) {
         if (!any(valid_check)) {
           bullets <- c(
             "Invalid profile name.",
-            i = "Use `show_all(profiles)` to see all valid profiles."
+            i = "Use `show_all(profiles)` to see all valid data profiles.",
+            x = glue("\"{dot_names}\" not recognised.")
           )
           abort(bullets, call = error_call)
         } else {
