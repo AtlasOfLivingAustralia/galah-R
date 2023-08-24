@@ -3,6 +3,7 @@
 #' @importFrom dplyr full_join
 #' @importFrom dplyr mutate
 #' @importFrom dplyr select
+#' @importFrom dplyr rename
 #' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
@@ -25,8 +26,8 @@ collect_counts <- function(.data){
         field_name <- url_parse(.data$url)$query$facets
       }
       result_tibble <- result |>
-        mutate({{field_name}} := label) |> 
-        select(-label, - fq, -i18nCode) # best practice?
+        dplyr::rename({{field_name}} := label) |> 
+        select(-fq, -i18nCode) # best practice?
       if(.data$arrange$direction == "ascending" & .data$arrange$variable == "count"){
         arrange_var <- .data$arrange$variable
         result_tibble <- result_tibble |>

@@ -63,7 +63,6 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
                                              slice = NULL,
                                              arrange = NULL
                                              ){
-  # browser()
   query <- build_query(identify, 
                        filter, 
                        geolocate, 
