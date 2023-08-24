@@ -12,7 +12,6 @@ test_that("atlas_species returns a tibble", {
   expect_gt(nrow(species), 1)
 })
 
-## FIXME: atlas_species no longer returns additional taxonomic information? eg kingdom, phylum, order etc
 test_that("atlas_species returns correct results when piped", {
   skip_if_offline()
   species <- galah_call() |>
@@ -30,7 +29,6 @@ test_that("atlas_species returns correct results when piped", {
   expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
 })
 
-## FIXME: atlas_species no longer returns additional taxonomic information? eg kingdom, phylum, order etc
 test_that("atlas_species returns correct results filtered by galah_geolocate", {
   skip_if_offline()
   wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 
