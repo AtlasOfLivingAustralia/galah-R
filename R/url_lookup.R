@@ -1,32 +1,42 @@
-# Internal function to build APIs
-#
-# This function does a couple of things. Trivially, it looks up 
-# base URLs from an internal tibble (`node_config`), itself imported from 
-# a csv (`./data-raw/node_config.csv`). Entries in that tibble can contain
-# `glue`-like syntax for infilling new data, passed using `...`
-#
+#' Internal function to build APIs
+#'
+#' This function does a couple of things. Trivially, it looks up 
+#' base URLs from an internal tibble (`node_config`), itself imported from 
+#' a csv (`./data-raw/node_config.csv`). Entries in that tibble can contain
+#' `glue`-like syntax for infilling new data, passed using `...`.
+#'
+#' Note that this function is unusual in having a `quiet` arg instead of 
+#' calling `verbose` via `pour`. This is so the developer can suppress messages
+#' independently of user preferences, since this function is often called 
+#' internally.
+#' @importFrom dplyr filter
+#' @importFrom dplyr pull
 #' @importFrom glue glue_data
 #' @importFrom glue glue
 #' @importFrom potions pour
 #' @importFrom rlang abort
-#' @importFrom utils URLencode
+#' @noRd
 #' @keywords internal
 
-url_lookup <- function(api_name, ..., quiet = FALSE, error_call = caller_env()){
+url_lookup <- function(api_name, ..., 
+                       quiet = FALSE, 
+                       error_call = caller_env()){
   
   dots <- list(...)
-  
-  # run a check that a row in `node_config` matches your specification
   current_atlas <- pour("atlas", "region")
-  url_lookup <- node_config$api_name == api_name &
-                node_config$atlas == current_atlas
   
-  if(any(url_lookup)){
-    string <- node_config$api_url[which(url_lookup)[1]]
+  # get requested url
+  url_string <- node_config |>
+    filter(api_name == {{api_name}}, 
+           atlas == {{current_atlas}}) |>
+    pull(api_url)
+  
+  # parse as needed
+  if(length(url_string) > 0){
     if(length(dots) > 0){
-      glue_data(dots, string) |> utils::URLencode() # swap for httr2::url_build()?
+      glue_data(dots, url_string) |> as.character()
     }else{
-      URLencode(string)
+      url_string
     }
   }else{
     if(quiet){
