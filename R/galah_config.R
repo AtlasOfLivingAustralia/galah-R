@@ -173,8 +173,8 @@ default_config <- function(){
       email = "",
       password = "",
       download_reason_id = 4,
-      apikey = null,
-      clientId = null),
+      apikey = "",
+      clientId = ""),
     atlas = list(
       organisation = "Atlas of Living Australia",
       acronym  = "ALA",
