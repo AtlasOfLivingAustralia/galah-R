@@ -15,6 +15,7 @@
 #' @importFrom glue glue
 #' @importFrom potions pour
 #' @importFrom rlang abort
+#' @importFrom utils URLencode
 #' @noRd
 #' @keywords internal
 
@@ -34,9 +35,11 @@ url_lookup <- function(api_name, ...,
   # parse as needed
   if(length(url_string) > 0){
     if(length(dots) > 0){
-      glue_data(dots, url_string) |> as.character()
+      glue_data(dots, url_string) |> 
+        as.character() |>
+        URLencode()
     }else{
-      url_string
+      url_string |> URLencode()
     }
   }else{
     if(quiet){
