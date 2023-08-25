@@ -261,6 +261,7 @@ check_groups <- function(group, n){
 #' @noRd
 #' @keywords Internal
 check_fields <- function(.data){
+  # browser()
   if(pour("package", "run_checks")){
     queries <- url_parse(.data$url[1])$query 
     if(nchar(queries$fq) > 0){
@@ -273,16 +274,42 @@ check_fields <- function(.data){
     facets <- queries[names(queries) == "facets"] |>
       unlist()
     variables <- c(filters, facets)  # NOTE: arrange() is missing
+    
+    # galah_select columns check
+    if(exists("fields", where = queries)) {
+      # browser()
+      fields <- queries$fields |> strsplit(",") |> unlist()
+      if(length(fields == 1 | fields == 2)) { # for some reason query adds "recordID" when only 1 column is in galah_select
+        if (fields[1] == "recordID") {
+        fields <- fields[-1] # removes recordID
+        }
+      }
+      if(length(fields) > 0){
+        if(!all(fields %in% show_all_fields()$id)){
+          # browser()
+          invalid_fields <- fields[!(fields %in% c(show_all_fields()$id, show_all_assertions()$id))]
+          
+          list_invalid_fields <- glue::glue_collapse(invalid_fields, 
+                                                     sep = ", ")
+          bullets <- c(
+            glue("Can't subset columns that don't exist."),
+            x = glue("`galah_select` didn't recognise: {list_invalid_fields}."))
+          abort(bullets)
+        }
+      }
+    }
+    
     if(length(variables) > 0){
       if(!all(variables %in% show_all_fields()$id)){
+        # browser()
         invalid_fields <- variables[!(variables %in% c(show_all_fields()$id, show_all_assertions()$id))]
         
         list_invalid_fields <- glue::glue_collapse(invalid_fields, 
                                                    sep = ", ")
         bullets <- c(
           glue("Invalid field(s) detected."),
-          i = "See `show_all(fields)` for a listing of all valid fields.",
-          i = "Use `search_all(fields)` to search for the valid name of a desired field.",
+          i = "Use `show_all(fields)` to see a listing of valid fields.",
+          i = "Use `search_all(fields)` to search for a valid field name.",
           x = glue("Invalid field(s): {list_invalid_fields}."))
         abort(bullets)
       }

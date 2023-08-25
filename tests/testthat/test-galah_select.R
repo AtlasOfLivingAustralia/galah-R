@@ -1,3 +1,5 @@
+
+## FIXME: galah_select no longer errors. This is performed in check_fields now (though unsure if this is correct behaviour)
 test_that("galah_select returns error when columns don't exist", {
   galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
   expect_error(galah_select(basisOfRecors))
