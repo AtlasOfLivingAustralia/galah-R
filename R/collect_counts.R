@@ -4,7 +4,6 @@
 #' @importFrom dplyr mutate
 #' @importFrom dplyr select
 #' @importFrom dplyr rename
-#' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
 collect_counts <- function(.data){

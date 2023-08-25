@@ -53,11 +53,13 @@ collapse.files_request <- function(.data,
 #' @noRd
 #' @keywords Internal
 build_headers <- function(){
-  if(pour("atlas", "acronym") == "ALA"){
-   list(
-      "User-Agent" = galah_version_string(),
-      "x-api-key" = pour("user", "api_key"))
-  }else{
-    list("User-Agent" = galah_version_string())
-  }
+  list("User-Agent" = galah_version_string())
+  ## Below code adds API keys (not yet implemented)
+  # if(pour("atlas", "acronym") == "ALA"){
+  #  list(
+  #     "User-Agent" = galah_version_string()
+  #     "x-api-key" = pour("user", "api_key"))
+  # }else{
+  #   list("User-Agent" = galah_version_string())
+  # }
 }

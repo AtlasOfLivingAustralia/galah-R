@@ -22,22 +22,23 @@ collapse_species_count_atlas <- function(identify = NULL,
                                          geolocate = NULL,
                                          data_profile = NULL,
                                          group_by = NULL, 
-                                         limit = 100){
-  
-  if(!is.null(data_profile)){
-    profile <- data_profile$data_profile
-  }else{
-    profile <- NULL
-  }
-  query <- build_query(identify, filter, geolocate, profile = profile)
-  
+                                         slice = NULL,
+                                         arrange = NULL){
+  result <- list(type = "species-count")
   if(is.null(group_by)){
-    url <- url_lookup("records_facets") 
-    query$flimit <- 1
-    query$facets <- species_facets() 
-    column <- "count"
-    expand <- FALSE
+    url <- url_lookup("records_facets") |> 
+      url_parse()
+    url$query <- c(
+      build_query(identify, 
+                  filter, 
+                  geolocate, 
+                  profile = data_profile$data_profile),
+      list(flimit = 1, 
+           facets = species_facets()))
+    result$url <- url_build(url)
+    result$expand <- FALSE
   }else{
+    ## THIS SECTION IS NOT CHECKED
     # NOTE: this section not updated to enforce type = "species"
     url <- url_lookup("records_facets")
     facets <- as.list(group_by$name)
@@ -50,14 +51,8 @@ collapse_species_count_atlas <- function(identify = NULL,
     }
     column <- "fieldResult"
   }
-  
   # aggregate and return
-  result <- list(url = url, 
-                 headers = build_headers(),
-                 query = query, 
-                 expand = expand,
-                 column = column,
-                 type = type)
+  result$headers <- build_headers()
   class(result) <- "data_query"
   return(result)
 }

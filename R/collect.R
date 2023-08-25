@@ -1,6 +1,5 @@
 #' Force computation of a database query
 #'
-#' 
 #' The `collapse()`, `compute()` and `collect()` functions are borrowed from 
 #' `dplyr`, and underpin every `atlas_` function in `galah`.
 #'  
@@ -36,8 +35,8 @@ collect.data_request <- function(.data,
   switch(.data$type, 
          "occurrences-count" = {compute(.data) |> 
                                 collect_counts()},
-         # "species-count" = {compute(.data) |> 
-         #                    collect_counts()},
+         "species-count" = {compute(.data) |>
+                            collect_species_counts()},
          "doi" = collect_doi(.data),
          "species" = {
            collapse(.data) |>
@@ -49,6 +48,7 @@ collect.data_request <- function(.data,
          "media" = {
             collapse(.data) |>
               collect_media_metadata()},
+         "doi" = {compute(.data) |> collect_doi()},
          abort("unrecognised 'type' supplied to `galah_call()`")
       )
 }
@@ -61,7 +61,7 @@ collect.data_query <- function(.data,
                                file = NULL){
   switch(.data$type,
          "occurrences-count" = collect_counts(.data),
-         # "species-count" = {?},
+         "species-count" = {collect_species_counts(.data)},
          "species" = {
            check_login(.data)
            collect_species(.data, file = file)},
@@ -69,6 +69,7 @@ collect.data_query <- function(.data,
            compute(.data) |>
              collect_occurrences(wait = wait, file = file)},
          "media" = collect_media_metadata(.data),
+         "doi" = collect_doi(.data, file = file),
          query_API
   )
 }
@@ -87,6 +88,7 @@ collect.data_response <- function(.data,
          "species" = collect_species(.data, file = file),
          "occurrences" = collect_occurrences(.data, wait = wait, file = file),
          "media" = collect_media_metadata(.data),
+         "doi" = collect_doi(.data, file = file),
          abort("unrecognised 'type'")
          # NOTE: "species" & "doi" have no `compute()` stage
   )
@@ -158,7 +160,6 @@ collect.files_query <- function(.data){
 collect.files_response <- function(.data, file = NULL){
   switch(.data$type,
     "distributions" = abort("Not implemented yet"),
-    "doi" = {collect_doi(.data, file = file)},
     "media" = collect_media_files(.data),
     abort("unrecognised 'type' supplied to `galah_call()`")
   )

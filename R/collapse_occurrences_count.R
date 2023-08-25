@@ -15,41 +15,6 @@ collapse_occurrences_count <- function(.data){
   do.call(function_name, custom_call)
 }
 
-#' collapse for counts on GBIF
-#' @importFrom httr2 url_build
-#' @importFrom httr2 url_parse
-#' @keywords Internal
-#' @noRd
-collapse_occurrences_count_gbif <- function(identify = NULL, 
-                                            filter = NULL, 
-                                            group_by = NULL,
-                                            limit = 100
-                                            ){
-  # get relevant information
-  url <- url_lookup("records_counts") |> url_parse()
-  query <- build_query(identify, filter)
-  # add facets
-  query$limit <- 0
-  if(!is.null(group_by)){
-    if(nrow(group_by) == 1){
-      query$facet <- group_by$name
-      query$facetLimit <- limit
-    }else{
-      query$groups <- list(fields = group_by$name,
-                           limit = limit,
-                           expand = attr(group_by, "expand"))
-    }
-  }
-  url$query <- query
-  # aggregate and return
-  result <- list(type = "occurrences-count",
-                 url = url_build(url), 
-                 headers = build_headers(),
-                 slot_name = "count")
-  class(result) <- "data_query"
-  return(result)
-}
-
 #' collapse for counts on LAs
 #' @importFrom httr2 url_build
 #' @importFrom httr2 url_parse
@@ -62,7 +27,7 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
                                              group_by = NULL, 
                                              slice = NULL,
                                              arrange = NULL
-                                             ){
+){
   query <- build_query(identify, 
                        filter, 
                        geolocate, 
@@ -96,6 +61,41 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
   
   # aggregate and return
   result$headers <- build_headers()
+  class(result) <- "data_query"
+  return(result)
+}
+
+#' collapse for counts on GBIF
+#' @importFrom httr2 url_build
+#' @importFrom httr2 url_parse
+#' @keywords Internal
+#' @noRd
+collapse_occurrences_count_gbif <- function(identify = NULL, 
+                                            filter = NULL, 
+                                            group_by = NULL,
+                                            limit = 100
+                                            ){
+  # get relevant information
+  url <- url_lookup("records_counts") |> url_parse()
+  query <- build_query(identify, filter)
+  # add facets
+  query$limit <- 0
+  if(!is.null(group_by)){
+    if(nrow(group_by) == 1){
+      query$facet <- group_by$name
+      query$facetLimit <- limit
+    }else{
+      query$groups <- list(fields = group_by$name,
+                           limit = limit,
+                           expand = attr(group_by, "expand"))
+    }
+  }
+  url$query <- query
+  # aggregate and return
+  result <- list(type = "occurrences-count",
+                 url = url_build(url), 
+                 headers = build_headers(),
+                 slot_name = "count")
   class(result) <- "data_query"
   return(result)
 }
