@@ -1,7 +1,7 @@
 ## Note: "order" arg was removed from galah_call, adding it back will require updating of these tests
 
 test_that("galah_call builds objects of class 'data_request' by default", {
-  expect_equal(length(galah_call()), 6)
+  expect_equal(length(galah_call()), 7)
   expect_s3_class(galah_call(), "data_request")
 })
 

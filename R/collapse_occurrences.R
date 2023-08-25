@@ -36,7 +36,7 @@ collapse_occurrences_atlas <- function(identify = NULL,
   query <- c(build_query(identify,
                          filter = filter, 
                          location = geolocate, 
-                         profile = data_profile$data_profile),
+                         data_profile = data_profile$data_profile),
              fields = build_columns(select[select$type != "assertion", ]),
              qa = build_assertion_columns(select),
              facet = "false", # not tested

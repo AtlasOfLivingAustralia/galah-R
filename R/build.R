@@ -5,7 +5,7 @@
 build_query <- function(identify, 
                         filter, 
                         location = NULL, 
-                        profile = NULL) {
+                        data_profile = NULL) {
   
   if (is.null(identify)) {
     if(is_gbif()){
@@ -54,8 +54,8 @@ build_query <- function(identify,
   
   # add profiles information (ALA only)  
   if(pour("atlas", "region") == "Australia"){
-    if(!is.null(profile)) {
-      query$qualityProfile <- profile
+    if(!is.null(data_profile)) {
+      query$qualityProfile <- data_profile
     } else {
       query$disableAllQualityFilters <- "true"
     }
