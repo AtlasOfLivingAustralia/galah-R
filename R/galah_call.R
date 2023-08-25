@@ -101,7 +101,8 @@ request_data <- function(type = c("occurrences",
                                   "species",
                                   "occurrences-count",
                                   "species-count",
-                                  "media"),
+                                  "media",
+                                  "doi"),
                          ...){
   if(!missing(type)){
     type <- match.arg(type)
@@ -157,8 +158,7 @@ request_metadata <- function(
 #' @rdname galah_call
 #' @export
 request_files <- function(
-    type = c("doi",
-             "distributions",
+    type = c("distributions",
              "media"
     ) 
     # note: option to add `...` here for consistency with `request_data()`

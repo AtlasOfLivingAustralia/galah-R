@@ -9,6 +9,7 @@ collapse.data_request <- function(.data){
          "species" = collapse_species(.data),
          "occurrences" = collapse_occurrences(.data),
          "media" = collapse_media_metadata(.data),
+         "doi" = collapse_doi(.data),
          abort("unrecognised 'type'"))
 }
 
@@ -43,7 +44,6 @@ collapse.files_request <- function(.data,
                                    thumbnail = FALSE
                                    ){
   switch(.data$type,
-         "doi" = collapse_doi(.data),
          "distributions" = collapse_distribtions(.data),
          "media" = collapse_media_files(.data, thumbnail = thumbnail)
   )
