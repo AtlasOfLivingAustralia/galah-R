@@ -45,6 +45,8 @@ specific downloads for later citation.
 \item \code{username} string: A registerd username (GBIF only)
 \item \code{verbose} logical: should \code{galah} give verbose such as progress bars?
 Defaults to FALSE.
+\item \code{apikey} string: My api key
+\item \code{clientId} string: My galah clientId
 }}
 
 \item{profile_path}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
