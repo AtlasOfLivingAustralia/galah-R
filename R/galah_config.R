@@ -313,7 +313,7 @@ validate_option <- function(name, value, error_call = caller_env()) {
       )
       abort(bullets, call = error_call)
     }
-  } else if (name %in% c("email", "password", "username")) {
+  } else if (name %in% c("email", "password", "username", "apikey", "clientId")) {
     if (!is.character(value)) {
       bullets <- c(
         glue("Invalid {name}"),
