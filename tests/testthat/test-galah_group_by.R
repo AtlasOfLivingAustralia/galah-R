@@ -23,6 +23,7 @@ test_that("`group_by` fields are checked during `compute()`, and not before", {
   galah_config(run_checks = FALSE)
 })
 
+## FIXME: results of single group_by are not a tibble
 test_that("grouped atlas_counts returns expected output", {
   skip_if_offline()
   counts <- galah_call() |>
@@ -33,6 +34,7 @@ test_that("grouped atlas_counts returns expected output", {
   expect_equal(names(counts), c("basisOfRecord", "count"))
 })
 
+## FIXME: results of single group_by are not a tibble
 test_that("grouped atlas_counts returns expected output when limit != NULL", {
   skip_if_offline()
   counts <- galah_call() |>
@@ -46,6 +48,7 @@ test_that("grouped atlas_counts returns expected output when limit != NULL", {
   expect_equal(nrow(counts), 3)
 })
 
+## FIXME: results of single group_by are not a tibble
 test_that("atlas_counts returns all counts if no limit is provided", {
   skip_if_offline()
   counts <- galah_call() |>
@@ -55,6 +58,7 @@ test_that("atlas_counts returns all counts if no limit is provided", {
   expect_equal(nrow(counts), 12)
 })
 
+## FIXME: results of single group_by are not a tibble
 test_that("grouped atlas_counts for species returns expected output", {
   skip_if_offline()
   counts <- galah_call() |>

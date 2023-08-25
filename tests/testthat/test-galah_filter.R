@@ -202,7 +202,7 @@ test_that("galah_filter handles is.na() even with multiple filters", {
   expect_true(grepl("(*:* AND -eventDate:*)", filter_multiple$query[[1]]))
 })
 
-## GIVES warning
+## GIVES 2 warnings from rlang
 # Subsetting quosures with `[[` is deprecated as of rlang 0.4.0
 # Please use `quo_get_expr()` instead.
 test_that("galah_filter handles %in% even with multiple filters", {
