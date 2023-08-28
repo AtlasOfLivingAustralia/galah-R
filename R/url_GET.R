@@ -2,11 +2,9 @@
 # tryCatch() used to ensure it is impossible for {galah} to return an error
 # because the target atlas is offline.
 
-library(httr)
-library(jsonlite)
-
 #' @importFrom glue glue
 #' @importFrom rlang inform
+#' @importFrom httr oauth_endpoint oauth_app oauth2.0_token
 url_GET <- function(url, 
                     params = list(), 
                     slot_name = NULL,
