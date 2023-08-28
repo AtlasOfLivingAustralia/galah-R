@@ -1,7 +1,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.test.ala.org.au/common/biocache/occurrences/search?fq=&disableAllQualityFilters=true&pageSize=0
+    uri: https://biocache-ws.ala.org.au/ws/occurrences/search?fq=&disableAllQualityFilters=true&pageSize=0
     body:
       encoding: ''
       string: ''

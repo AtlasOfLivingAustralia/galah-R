@@ -16,6 +16,10 @@ url_lookup <- function(api_name, ..., quiet = FALSE, error_call = caller_env()){
   current_atlas <- getOption("galah_config")$atlas$region
   url_lookup <- node_config$api_name == api_name &
                 node_config$atlas == current_atlas
+
+  cat(api_name)
+  cat(current_atlas)
+  cat(url_lookup)
   
   if(any(url_lookup)){
     string <- node_config$api_url[which(url_lookup)[1]]
