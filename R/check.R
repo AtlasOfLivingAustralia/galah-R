@@ -131,45 +131,6 @@ check_directory <- function(x){
 #   .data
 # }
 
-#' Internal function to check number of facets to be returned by a `group_by` query
-#' It is called exclusively by `compute_counts()`
-#' @noRd 
-#' @keywords Internal
-check_facet_count <- function(.data, warn = TRUE){
-  url <- url_parse(.data$url)
-  if(is.null(url$query$flimit)){
-    n_requested <- as.integer(30)
-  }else{
-    n_requested <- as.integer(url$query$flimit)
-  }
-  url$query$flimit <- 0
-  temp_data <- .data
-  temp_data$url <- url_build(url)
-  result <- query_API(temp_data)
-  if(class(result) == "list"){ # group_by arg present
-    n_available <- unlist(lapply(result, function(a){a$count}))
-    if(length(n_available) > 1){
-      n_available
-    }else{
-      n_available <- n_available[[1]]
-      if(warn &
-         pour("package", "verbose") & 
-         n_requested < n_available &
-         !.data$arrange$slice_called &
-         .data$arrange$direction == "descending" # for ascending, n_requested is always zero (TRUE?)
-      ){ 
-        bullets <- c(
-          glue("This query will return {n_requested} rows, but there are {n_available} rows in total."),
-          i = "Use `slice_head()` to set a higher number of rows to return.")
-        inform(bullets)
-      }
-      n_available
-    }
-  }else{
-    NA
-  }
-}
-
 #' Internal function to expand a url
 #' 
 #' Proposed function to spin out multiple urls to paginate when n is high

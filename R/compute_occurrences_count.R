@@ -121,19 +121,19 @@ build_query_list_LA <- function(.data){
     result_df <- result_list[[1]]
   }
  
-  # extract existing fq statements
-  query <- url_parse(.data$url)$query
-  if(is.null(query$fq)){
-    fqs <- NULL
-  }else{
-    fqs <- strsplit(query$fq, "AND")[[1]]
-    fqs <- fqs[!grepl(paste(kept_facets, collapse = "|"), fqs)] # remove fqs that relate to parsed facets
-    if(length(fqs) < 1){
-      fqs <- NULL
-    }else{
-      fqs <- paste(fqs, collapse = " AND ")
-    }
-  }
+  # # extract existing fq statements
+  # query <- url_parse(.data$url)$query
+  # if(is.null(query$fq)){
+  #   fqs <- NULL
+  # }else{
+  #   fqs <- strsplit(query$fq, "AND")[[1]]
+  #   fqs <- fqs[!grepl(paste(kept_facets, collapse = "|"), fqs)] # remove fqs that relate to parsed facets
+  #   if(length(fqs) < 1){
+  #     fqs <- NULL
+  #   }else{
+  #     fqs <- paste(fqs, collapse = " AND ")
+  #   }
+  # }
   
   # glue `fq` statements together 
   result_df <- result_df |>
@@ -141,9 +141,9 @@ build_query_list_LA <- function(.data){
     mutate(query = glue_collapse(c_across(starts_with("fq")), sep = " AND ")) |>
     select(-starts_with("fq")) |>
     ungroup()
-  if(!is.null(fqs)){
-    result_df$query <- glue("{fqs} AND {result_df$query}")
-  }
+  # if(!is.null(fqs)){
+  #   result_df$query <- glue("{fqs} AND {result_df$query}")
+  # }
   
   # recombine into urls
   url_final <- url_parse(.data$url)
@@ -161,4 +161,51 @@ build_query_list_LA <- function(.data){
   result_df$url <- unlist(url_list)
   result_df <- select(result_df, -query)
   return(result_df)
+}
+
+#' Internal function to check number of facets to be returned by a `group_by` query
+#' It is called exclusively by `compute_counts()`
+#' @noRd 
+#' @keywords Internal
+check_facet_count <- function(.data, warn = TRUE){
+  url <- url_parse(.data$url)
+  current_limit <- url$query$flimit
+  if(is.null(current_limit)){
+    n_requested <- as.integer(30)
+  }else{
+    current_limit <- as.integer(current_limit)
+    if(current_limit < 1){
+      n_requested <- as.integer(30)  
+    }else{
+      n_requested <- current_limit
+    }
+  }
+  url$query$flimit <- 0
+  temp_data <- .data
+  temp_data$url <- url_build(url)
+  temp_data$slot_name <- NULL
+  result <- query_API(temp_data)
+  lapply(result, function(a){a$count}) |> unlist()
+  # if(inherits(result, "data.frame")){ # group_by arg present
+  #   n_available <- result$count
+  #   if(length(n_available) > 1){ # is this correct? What about multiple fields?
+  #     n_available
+  #   }else{
+  #     n_available <- n_available[[1]]
+  #     if(warn &
+  #        pour("package", "verbose") & 
+  #        n_requested < n_available &
+  #        !.data$arrange$slice_called &
+  #        .data$arrange$direction == "descending" # for ascending, n_requested is always zero (TRUE?)
+  #     ){ 
+  #       bullets <- c(
+  #         glue("This query will return {n_requested} rows, but there are {n_available} rows in total."),
+  #         i = "Use `slice_head()` to set a higher number of rows to return.")
+  #       inform(bullets)
+  #     }
+  #     n_available
+  #   }
+  # }else{
+  #   NA
+  # }
 }

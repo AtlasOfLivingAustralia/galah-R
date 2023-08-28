@@ -28,10 +28,6 @@ query_API <- function(.data, error_call = caller_env()) {
         data_tr$path <- .data$url$path[[a]]
       }
       result <- query_API_internal(data_tr)
-      if(ncol(.data$url) > 1){
-        added_cols <- select(.data$url, -url) |> slice(a)
-        result <- c(added_cols, result)
-      }
       if (verbose) {
         val <- (a / max(n))
         setTxtProgressBar(pb, val)

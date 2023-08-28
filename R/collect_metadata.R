@@ -154,7 +154,8 @@ collect_taxa <- function(.data){
   search_terms <- .data$url$search_term
   result <- query_API(.data) |>
     bind_rows() |>
-    filter(!duplicated(taxonConceptID))
+    filter(!duplicated(taxonConceptID)) |>
+    mutate("search_term" = search_terms, .before = "success")
   names(result) <- rename_columns(names(result), type = "taxa") # old code
   result |> select(any_of(wanted_columns("taxa")))
 }
@@ -170,7 +171,8 @@ collect_identifiers <- function(.data){
   search_terms <- .data$url$search_term
   result <- query_API(.data) |>
     bind_rows() |>
-    filter(!duplicated(taxonConceptID))
+    filter(!duplicated(taxonConceptID)) |>
+    mutate("search_term" = search_terms, .before = "success")
   names(result) <- rename_columns(names(result), type = "taxa") # old code
   result |> select(any_of(wanted_columns("taxa")))
 }
