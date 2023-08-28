@@ -4,7 +4,8 @@
 #' @noRd
 collapse_species_count <- function(.data){
   if(is_gbif()){
-    abort("`count()` is not supported for GBIF with type = 'species'") ## TRUE?
+    abort("`count()` is not supported for GBIF with type = 'species'") 
+    ## TRUE?
   }else{
     function_name <- "collapse_species_count_atlas"
     arg_names <- names(formals(collapse_species_count_atlas))
@@ -15,6 +16,8 @@ collapse_species_count <- function(.data){
 }
 
 #' collapse for counts on LAs
+#' @importFrom httr2 url_build
+#' @importFrom httr2 url_parse
 #' @keywords Internal
 #' @noRd
 collapse_species_count_atlas <- function(identify = NULL, 
@@ -23,18 +26,20 @@ collapse_species_count_atlas <- function(identify = NULL,
                                          data_profile = NULL,
                                          group_by = NULL, 
                                          slice = NULL,
-                                         arrange = NULL){
+                                         arrange = NULL
+){
+  query <- build_query(identify, 
+                       filter, 
+                       geolocate, 
+                       data_profile = data_profile$data_profile)
   result <- list(type = "species-count")
+  
   if(is.null(group_by)){
     url <- url_lookup("records_facets") |> 
       url_parse()
-    url$query <- c(
-      build_query(identify, 
-                  filter, 
-                  geolocate, 
-                  profile = data_profile$data_profile),
-      list(flimit = 1, 
-           facets = species_facets()))
+    url$query <- c(query,
+                   list(flimit = 1, 
+                        facets = species_facets()))
     result$url <- url_build(url)
     result$expand <- FALSE
   }else{
