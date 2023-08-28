@@ -53,7 +53,6 @@ test_that("`count()` handles multiple 'group by' variables", {
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
   expect_true(all(names(counts) %in% c("year", "basisOfRecord", "count")))
 })
-# })
 
 test_that("`count()` handles 'species' as a 'group by' variable", {
   skip_if_offline()
@@ -139,15 +138,20 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
   expect_lt(count_1, count_2)
 })
 
+test_that("atlas_counts returns species counts", {
+  skip_if_offline()
+  count_species <- galah_call(type = "species") |> 
+    count() |>
+    collect()
+  count_records <- galah_call() |> 
+    count() |>
+    collect()
+  expect_type(count_species$count, "integer")
+  expect_gt(count_species$count, 0)
+  expect_lt(count_species$count, count_records$count)
+})
+
 ## BELOW HERE TESTS WILL FAIL
-
-## counts for `type = "species"` not checked
-# test_that("atlas_counts returns species counts", {
-#   counts <- galah_call(type = "species") |> count()
-#   expect_type(counts$count, "integer")
-#   expect_gt(counts, 0)
-# })
-
 # capture_requests("count_piped_2", {
 #   test_that("atlas_counts ignores superfluous piped arguments", {
 # counts <- galah_call() |>

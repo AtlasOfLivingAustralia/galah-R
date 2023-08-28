@@ -55,7 +55,6 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
     url$query <- c(query, facets, arrange_list)
     result$url <- url_build(url)
     result$expand <- ifelse(length(facets) > 1, TRUE, FALSE)
-    result$return_basic <- TRUE
     result$arrange <- slice_arrange
   }
   

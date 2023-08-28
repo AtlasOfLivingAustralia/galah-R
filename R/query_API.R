@@ -29,17 +29,15 @@ query_API <- function(.data, error_call = caller_env()) {
       }
       result <- query_API_internal(data_tr)
       if(ncol(.data$url) > 1){
-        added_cols <- select(.data$url, -url) |>
-          slice(a)
-        result <- bind_cols(added_cols, bind_rows(result))
+        added_cols <- select(.data$url, -url) |> slice(a)
+        result <- c(added_cols, result)
       }
       if (verbose) {
         val <- (a / max(n))
         setTxtProgressBar(pb, val)
       }
       return(result)
-    }) |> 
-    bind_rows()
+    })
   }else{
     query_API_internal(.data)
   }
@@ -65,53 +63,60 @@ query_API_internal <- function(.data, error_call = caller_env()) {
     add_body(.data$body) |> # NOTE: adding `body` converts from GET to POST
     req_error(is_error = ~ FALSE) # untested; intended to catch errors. 
     # from brief testing it appears to fail; e.g. we still get errors when internet is off
-  
   if(!is.null(.data$download)){
     query |> req_perform(path = .data$file,
                          verbosity = 0) # try(x, silent = TRUE) ?
   }else{
-    result <- query |>
+    query |>
       req_perform(verbosity = 0) |>  # try(x, silent = TRUE) ?
       resp_body_json() # may not work for invalid URLs
-    
-    # subset to particular slot if needed  
-    if(!is.null(.data$slot_name)){
-      result <- pluck(result, !!!.data$slot_name)
-    }
-    # clean up and return
-    clean_json(result, .data$return_basic)
   }
 }
+
+# # if first level is a list of length 1, which contains the actual data, subset
+# if(is.list(result) & length(result[[1]]) > 0){
+#   if(length(result) == 1){
+#     result <- result[[1]]  
+#     # subset to particular slot if needed  
+#     if(!is.null(.data$slot_name)){
+#       result <- pluck(result, !!!.data$slot_name)
+#     }
+#   }else{
+#     if(!is.null(.data$slot_name)){
+#       result <- lapply(result, function(a){pluck(a, !!!.data$slot_name)})
+#     }
+#   }
+# }
 
 #' Internal function to clean up objects returned by the API
 #' @noRd
 #' @keywords Internal
-clean_json <- function(result, return_basic = NULL){
-  # rbind if not requested otherwise
-  if(is.null(return_basic) && inherits(result, "list")){
-    if(most_common_integer(lengths(result)) > 1){
-      # e.g. collect_lists(), where there are many lists, each containing a tibble 
-      lapply(result, function(a){a[lengths(a) == 1]}) |>
-        bind_rows()
-    }else{
-      # e.g. collect_taxa(), where the whole list is a single tibble
-      keep <- lapply(result,
-                     function(a){lengths(a) == 1 & !inherits(a, "list")}) |>
-        unlist()
-      bind_rows(result[keep])
-    }
-  }else{
-    result
-  }
-}
+# clean_json <- function(result, return_basic = NULL){
+#   # rbind if not requested otherwise
+#   if(is.null(return_basic) && inherits(result, "list")){
+#     if(most_common_integer(lengths(result)) > 1){
+#       # e.g. collect_lists(), where there are many lists, each containing a tibble 
+#       lapply(result, function(a){a[lengths(a) == 1]}) |>
+#         bind_rows()
+#     }else{
+#       # e.g. collect_taxa(), where the whole list is a single tibble
+#       keep <- lapply(result,
+#                      function(a){lengths(a) == 1 & !inherits(a, "list")}) |>
+#         unlist()
+#       bind_rows(result[keep])
+#     }
+#   }else{
+#     result
+#   }
+# }
 
 #' simple function to show most frequent value; used for assessing list size
 #' @noRd
 #' @keywords Internal
-most_common_integer <- function(x){
-  result <-sort(xtabs(~x), decreasing = TRUE)[1]
-  as.integer(names(result)[1])
-}
+# most_common_integer <- function(x){
+#   result <-sort(xtabs(~x), decreasing = TRUE)[1]
+#   as.integer(names(result)[1])
+# }
 
 #' If supplied, add `headers` arg to a `request()`
 #' @noRd
