@@ -4,11 +4,13 @@
 
 #' @importFrom glue glue
 #' @importFrom rlang inform
-#' @importFrom httr
+#' @importFrom httr content oauth2.0_token oauth_app oauth_endpoint
 url_GET <- function(url, 
                     params = list(), 
                     slot_name = NULL,
                     error_call = caller_env()) {
+
+  cat(url)
 
   endpoint <- oauth_endpoint(
     authorize = "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/authorize",
@@ -38,7 +40,6 @@ url_GET <- function(url,
   string2 <- access_token
   header <- paste(string1, string2)
 
-  cat(url)
   cat(header)
 
   cli <- HttpClient$new(
