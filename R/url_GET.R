@@ -2,6 +2,9 @@
 # tryCatch() used to ensure it is impossible for {galah} to return an error
 # because the target atlas is offline.
 
+library(httr)
+library(jsonlite)
+
 #' @importFrom glue glue
 #' @importFrom rlang inform
 url_GET <- function(url, 
@@ -9,9 +12,40 @@ url_GET <- function(url,
                     slot_name = NULL,
                     error_call = caller_env()) {
 
+  endpoint <- oauth_endpoint(
+    authorize = "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/authorize",
+    access = "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
+  )
+  app <- oauth_app(
+    "galah",
+    key = getOption("galah_config")$user$clientId,
+    secret = NULL
+  )
+
+  key_response <- oauth2.0_token(
+    endpoint,
+    app,
+    scope = c("openid","profile","email", "ala/attrs", "ala/roles"),
+    type = "application/json",
+    use_basic_auth = FALSE,
+    config_init = list(),
+    client_credentials = FALSE,
+    credentials = NULL,
+    as_header = TRUE
+  )
+
+  # access_token <- fromJSON(names(key_response$credentials))$access_token
+  access_token <- key_response$credentials$access_token
+  string1 <- "Bearer"
+  string2 <- access_token
+  header <- paste(string1, string2)
+
+  cat(url)
+  cat(header)
+
   cli <- HttpClient$new(
     url = url,
-    headers = list("User-Agent" = galah_version_string(), "x-api-key" = getOption("galah_config")$user$apikey))
+    headers = list("User-Agent" = galah_version_string(), "x-api-key" = getOption("galah_config")$user$apikey, "Authorization" = header))
 
   # workaround for fq troubles
   if (length(params$fq) > 1) {
