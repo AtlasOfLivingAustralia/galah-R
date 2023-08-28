@@ -4,7 +4,7 @@
 
 #' @importFrom glue glue
 #' @importFrom rlang inform
-#' @importFrom httr oauth_endpoint oauth_app oauth2.0_token
+#' @importFrom httr
 url_GET <- function(url, 
                     params = list(), 
                     slot_name = NULL,
