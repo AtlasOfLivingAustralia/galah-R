@@ -28,33 +28,35 @@ collapse_species_count_atlas <- function(identify = NULL,
                                          slice = NULL,
                                          arrange = NULL
 ){
+  url <- url_lookup("records_facets") |> 
+    url_parse()
   query <- build_query(identify, 
                        filter, 
                        geolocate, 
                        data_profile = data_profile$data_profile)
   result <- list(type = "species-count")
-  
+  # set behaviour depending on `group_by()`
   if(is.null(group_by)){
-    url <- url_lookup("records_facets") |> 
-      url_parse()
     url$query <- c(query,
                    list(flimit = 1, 
                         facets = species_facets()))
     result$url <- url_build(url)
     result$expand <- FALSE
   }else{
-    ## THIS SECTION IS NOT CHECKED
-    # NOTE: this section not updated to enforce type = "species"
-    url <- url_lookup("records_facets")
-    facets <- as.list(group_by$name)
+    facets <- c(as.list(group_by$name), species_facets())
     names(facets) <- rep("facets", length(facets))
-    query <- c(query, facets, flimit = limit)
-    if(length(facets) > 1){
-      expand <- TRUE
-    }else{
-      expand <- FALSE
+    if(is.null(slice)){
+      slice <- tibble(slice_n = 30, slice_called = FALSE)
     }
-    column <- "fieldResult"
+    if(is.null(arrange)){
+      arrange <- tibble(variable = "count", direction = "descending")
+    }
+    slice_arrange <- bind_cols(slice, arrange) 
+    arrange_list <- check_slice_arrange(slice_arrange)
+    url$query <- c(query, facets, arrange_list)
+    result$url <- url_build(url)
+    result$expand <- TRUE
+    result$arrange <- slice_arrange
   }
   # aggregate and return
   result$headers <- build_headers()

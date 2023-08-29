@@ -33,7 +33,7 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
                        geolocate, 
                        data_profile = data_profile$data_profile) 
   result <- list(type = "occurrences-count")
-  
+  # set behaviour depending on `group_by()`
   if(is.null(group_by)){
     url <- url_lookup("records_counts") |> url_parse()
     url$query <- c(query, pageSize = 0)
@@ -50,14 +50,13 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
     if(is.null(arrange)){
       arrange <- tibble(variable = "count", direction = "descending")
     }
-    slice_arrange <- bind_cols(slice, arrange)
-    arrange_list <- slice_arrange |> check_slice_arrange()
+    slice_arrange <- bind_cols(slice, arrange) 
+    arrange_list <- check_slice_arrange(slice_arrange)
     url$query <- c(query, facets, arrange_list)
     result$url <- url_build(url)
     result$expand <- ifelse(length(facets) > 1, TRUE, FALSE)
     result$arrange <- slice_arrange
   }
-  
   # aggregate and return
   result$headers <- build_headers()
   class(result) <- "data_query"

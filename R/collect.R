@@ -34,9 +34,9 @@ collect.data_request <- function(.data,
   .data$type <- check_type(.data$type)
   switch(.data$type, 
          "occurrences-count" = {compute(.data) |> 
-                                collect_counts()},
+                                collect_occurrences_count()},
          "species-count" = {compute(.data) |>
-                            collect_species_counts()},
+                            collect_species_count()},
          "doi" = collect_doi(.data),
          "species" = {
            collapse(.data) |>
@@ -60,8 +60,8 @@ collect.data_query <- function(.data,
                                wait = TRUE, 
                                file = NULL){
   switch(.data$type,
-         "occurrences-count" = collect_counts(.data),
-         "species-count" = {collect_species_counts(.data)},
+         "occurrences-count" = collect_occurrences_count(.data),
+         "species-count" = collect_species_count(.data),
          "species" = {
            check_login(.data)
            collect_species(.data, file = file)},
@@ -83,8 +83,8 @@ collect.data_response <- function(.data,
                                   wait = TRUE, 
                                   file = NULL){
   switch(.data$type,
-         "occurrences-count" = collect_counts(.data),
-         "species-count" = collect_counts(.data),
+         "occurrences-count" = collect_occurences_count(.data),
+         "species-count" = collect_species_count(.data),
          "species" = collect_species(.data, file = file),
          "occurrences" = collect_occurrences(.data, wait = wait, file = file),
          "media" = collect_media_metadata(.data),

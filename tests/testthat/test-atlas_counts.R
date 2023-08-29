@@ -138,20 +138,34 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
   expect_lt(count_1, count_2)
 })
 
-## BELOW HERE TESTS WILL FAIL
+test_that("atlas_counts returns species counts", {
+  skip_if_offline()
+  count_species <- galah_call(type = "species") |>
+    count() |>
+    collect()
+  count_records <- galah_call() |>
+    count() |>
+    collect()
+  expect_type(count_species$count, "integer")
+  expect_gt(count_species$count, 0)
+  expect_lt(count_species$count, count_records$count)
+})
 
-# test_that("atlas_counts returns species counts", {
-#   skip_if_offline()
-#   count_species <- galah_call(type = "species") |> 
-#     count() |>
-#     collect()
-#   count_records <- galah_call() |> 
-#     count() |>
-#     collect()
-#   expect_type(count_species$count, "integer")
-#   expect_gt(count_species$count, 0)
-#   expect_lt(count_species$count, count_records$count)
-# })
+test_that("species counts work with group_by()", {
+  skip_if_offline()
+  count_species <- galah_call(type = "species") |>
+    identify("Crinia") |>
+    filter(year >= 2020) |>
+    group_by(year) |>
+    count() |>
+    collect() 
+  expect_type(count_species$count, "integer")
+  expect_gte(nrow(count_species), 4)
+  expect_true(all(count_species$count > 0))
+  expect_true(all(count_species$count < 100))
+})
+
+## BELOW HERE TESTS WILL FAIL
 
 # capture_requests("count_piped_2", {
 #   test_that("atlas_counts ignores superfluous piped arguments", {

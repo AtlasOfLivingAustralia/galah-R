@@ -1,9 +1,9 @@
-#' Collect counts
+#' Collect for type = "occurrences-count"
 #' @importFrom dplyr bind_rows
 #' @importFrom tibble tibble
 #' @noRd
 #' @keywords Internal
-collect_counts <- function(.data){
+collect_occurrences_count <- function(.data){
   result <- query_API(.data)
   if(length(result$facetResults) < 1 & !is.null(result$totalRecords)){ # first handle single values
     tibble(count = result$totalRecords)
