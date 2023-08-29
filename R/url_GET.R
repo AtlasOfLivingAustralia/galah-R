@@ -32,7 +32,6 @@ url_GET <- function(url,
     as_header = TRUE
   )
 
-  # access_token <- fromJSON(names(key_response$credentials))$access_token
   access_token <- key_response$credentials$access_token
   string1 <- "Bearer"
   string2 <- access_token
