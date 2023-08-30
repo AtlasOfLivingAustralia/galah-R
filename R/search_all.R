@@ -381,8 +381,9 @@ search_lists <- function(query){
 check_if_missing <- function(query, error_call = caller_env()) {
   if (missing(query)) {
     bullets <- c(
-      "We didn't detect a valid query.",
-      i = "Try entering text to search for matching values."
+      "We didn't detect a search query.",
+      i = "Try entering text to search for matching values.", 
+      i = "Example: `search_all(fields, \"date\")`"
     )
     abort(bullets, call = caller_env())
   }
