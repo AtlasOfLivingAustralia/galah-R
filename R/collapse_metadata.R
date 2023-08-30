@@ -63,9 +63,14 @@ collapse_datasets <- function(.data){
 #' @noRd
 #' @keywords Internal
 collapse_fields <- function(.data){
-  result <- list(type = .data$type,
-                 url = url_lookup("records_fields"),
-                 headers = build_headers())
+  if(is_gbif()){
+    result <- list(type = .data$type,
+                   data = "galah:::gbif_internal_archived$fields")
+  }else{
+    result <- list(type = .data$type,
+                   url = url_lookup("records_fields"),
+                   headers = build_headers())
+  }
   class(result) <- "metadata_query"
   return(result) 
 }

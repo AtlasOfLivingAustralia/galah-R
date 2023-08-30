@@ -61,23 +61,12 @@ check_media_cols <- function(.data){
 #' @importFrom rlang caller_env
 check_login <- function(.data, error_call = caller_env()) {
   # Check for valid email for occurrences or species queries for all providers
-  if ((.data$type == "occurrences" | .data$type == "species") &
-      pour("atlas", "acronym") != "NBN") {
-    email_text <- url_parse(.data$url)$query$email
-    if(is.null(email_text)) {
-      abort_email_missing()
-    }else if(email_text == ""){
-      abort_email_missing()
-    }
-  }
-  # GBIF requires email and password
-  if (is_gbif()) {
-    # NOTE: This will probably fail as .data$opts won't exist shortly
-    if (.data$opts$userpwd == ":") {
-      abort("GBIF requires a username and password to download occurrences or species",
-        call = error_call
-      )
-    }
+  if(.data$type == "occurrences" | .data$type == "species"){
+    switch(pour("atlas", "region"), 
+           "United Kingdom" = return(),
+           "Global" = {check_email(.data)
+                       check_password(.data)},
+           check_email(.data))
   }
   # ALA requires an API key
   # } else if (pour("atlas", "acronym") == "ALA") {
@@ -87,6 +76,28 @@ check_login <- function(.data, error_call = caller_env()) {
   # }  
 }
 
+#' Subfunction to `check_login()`
+#' @noRd
+#' @keywords Internal
+check_email <- function(.data){
+  email_text <- url_parse(.data$url)$query$email
+  if(is.null(email_text)) {
+    abort_email_missing()
+  }else if(email_text == ""){
+    abort_email_missing()
+  }
+}
+
+#' Subfunction to `check_login()`
+#' @noRd
+#' @keywords Internal
+check_password <- function(.data){
+  if (.data$opts$userpwd == ":") {
+    abort("GBIF requires a username and password to download occurrences or species",
+          call = error_call
+    )
+  }
+}
 
 #' Internal function to check that the specified path exists, and if not,
 #' to create it. Called by `galah_config()`

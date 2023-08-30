@@ -12,16 +12,16 @@ abort_email_missing <- function(error_call = caller_env()){
   abort(bullets, call = error_call)
 }
 
-#' Internal function called by `check_login()`
-#' @noRd
-#' @keywords Internal
-abort_api_key_missing <- function(error_call = caller_env()){
-  bullets <- c("API key has not been specified for the ALA",
-               i = "log on to your profile at `https://ala.org.au` to retrieve one",
-               i = "use `galah_config(api_key = 'my_key_here') to fix this problem"
-  )
-  abort(bullets, call = error_call)
-}
+# Internal function called by `check_login()`
+# @noRd
+# @keywords Internal
+# abort_api_key_missing <- function(error_call = caller_env()){
+#   bullets <- c("API key has not been specified for the ALA",
+#                i = "log on to your profile at `https://ala.org.au` to retrieve one",
+#                i = "use `galah_config(api_key = 'my_key_here') to fix this problem"
+#   )
+#   abort(bullets, call = error_call)
+# }
 
 #' System-wide, generic failure message
 #' @noRd
