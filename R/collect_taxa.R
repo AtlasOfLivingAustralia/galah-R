@@ -6,9 +6,9 @@
 #' @noRd
 #' @keywords Internal
 collect_taxa <- function(.data){
-  result <- switch(pour("atlas", "region"),
-                   "United Kingdom" = collect_taxa_uk(.data),
-                   collect_taxa_la(.data))
+  switch(pour("atlas", "region"),
+         "United Kingdom" = collect_taxa_uk(.data),
+         collect_taxa_la(.data))
 }
 
 #' Internal function to `collect()` taxa for living atlases
