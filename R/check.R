@@ -61,7 +61,8 @@ check_media_cols <- function(.data){
 #' @importFrom rlang caller_env
 check_login <- function(.data, error_call = caller_env()) {
   # Check for valid email for occurrences or species queries for all providers
-  if (.data$type == "occurrences" | .data$type == "species") {
+  if ((.data$type == "occurrences" | .data$type == "species") &
+      pour("atlas", "acronym") != "NBN") {
     email_text <- url_parse(.data$url)$query$email
     if(is.null(email_text)) {
       abort_email_missing()

@@ -138,7 +138,6 @@ request_metadata <- function(
              "collections",
              "datasets",
              # distributions" # new
-             "layers",    # new
              "licences",
              "lists",
              "profiles",

@@ -2,8 +2,8 @@
 #' @noRd
 #' @keywords Internal
 #' @importFrom potions pour
-build_query <- function(identify, 
-                        filter, 
+build_query <- function(identify = NULL, 
+                        filter = NULL, 
                         location = NULL, 
                         data_profile = NULL) {
   

@@ -127,7 +127,6 @@ collect.metadata_response <- function(.data){
            "collections" = collect_collections(.data),
            "datasets" = collect_datasets(.data),
            "fields" = collect_fields(.data),
-           "layers" = collect_layers(.data),
            "licences" = collect_licences(.data),
            "lists" = collect_lists(.data),
            "profiles" = collect_profiles(.data),

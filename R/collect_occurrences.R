@@ -10,45 +10,37 @@
 #' @importFrom rlang inform
 #' @importFrom tibble tibble
 collect_occurrences <- function(.data, wait, file = NULL){
-  
-  # Q: should we distinguish between setting a directory, and retaining all copies of data?
-  # or are they the same problem?
-  
-  # TODO: (re-)add progress bars to download?
-  
-  # process supplied object
-  if(.data$status == "incomplete"){
-    download_response <- check_occurrence_status(.data)
-    if(wait){
-      if(is_gbif()){
-        abort("Not coded yet lol")
-      }else{
-        download_response <- check_queue_LA(.data)
-      }
-    }else{
-      # NOTE: this query does not appear to require an api key
-      # if it does, then `compute_occurrences()` will require amendment to supply one
-      if(download_response$status == "incomplete"){
-        if(pour("package", "verbose", .pkg = "galah")){
-          inform("Your download isn't ready yet, please try again later!")
-        }
-        class(download_response) <- "data_response"
-        return(download_response)
-      }
-    }
-  }else{
-    download_response <- .data
-  }
-  
+  switch(pour("atlas", "region"), 
+         "United Kingdom" = collect_occurrences_uk(.data, file),
+         collect_occurrences_la(.data, wait = wait, file = file))
+}
+
+#' Internal function to `collect_occurrences()` for UK
+#' @noRd
+#' @keywords Internal
+collect_occurrences_uk <- function(.data, file){
+  .data$download <- TRUE
+  .data$file <- check_download_filename(file)
+  query_API(.data)
+  result <- load_zip(.data$file)  
+  names(result) <- rename_columns(names(result), type = "occurrence")
+  result
+}
+
+#' Internal function to `collect_occurrences()` for LAs
+#' @noRd
+#' @keywords Internal
+collect_occurrences_la <- function(.data){
+  # check queue
+  download_response <- check_queue(.data, wait = wait)
   if(is.null(download_response)){
     abort("No response from selected atlas")
   }
   
+  # get data
   if(pour("package", "verbose", .pkg = "galah")) {
     inform("Downloading")
   }
-  
-  # get data
   # sometimes lookup info critical, but not others - unclear when/why!
   if(any(names(download_response) == "download_url")){
     new_object <- list(url = download_response$download_url,

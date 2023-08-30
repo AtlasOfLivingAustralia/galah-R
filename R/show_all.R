@@ -127,14 +127,16 @@ show_all_providers <- function(limit = NULL){
 show_all_fields <- function(limit = NULL){
   update_needed <- internal_cache_update_needed("show_all_fields")
   if(update_needed){
-    list(
-      fields = collect(request_metadata(type = "fields")),
-      layers = collect(request_metadata(type = "layers")),
-      media = galah_internal_archived$media_fields,
-      other = galah_internal_archived$other_fields) |>
-    bind_rows() |>
-    select(-source_link) |>
-    filter(!duplicated(id))
+    result <- collect(request_metadata(type = "fields"))
+    if(pour("atlas", "region") == "Australia"){
+      result <- bind_rows(
+        result,
+        galah_internal_archived$media_fields,
+        galah_internal_archived$other_fields)
+    }
+    result |> 
+      select(id, description, type) |>
+      filter(!duplicated(id))
   }else{
     check_internal_cache()$show_all_fields
   }

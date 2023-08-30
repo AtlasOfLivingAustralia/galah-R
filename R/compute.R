@@ -24,11 +24,11 @@ switch_compute <- function(.data){
   check_login(.data)
   check_fields(.data)
   switch(.data$type, 
-         "occurrences-count" = compute_occurrences_count(.data),
-         "species-count" = compute_species_count(.data),
-         "species" = {class(.data) <- "data_response"; return(.data)},
          "occurrences" = {compute_occurrences(.data)},
-         "media" = {class(.data) <- "data_response"; return(.data)})   
+         "species" = {class(.data) <- "data_response"; return(.data)},
+         "media" = {class(.data) <- "data_response"; return(.data)},
+         "occurrences-count" = compute_occurrences_count(.data),
+         "species-count" = compute_species_count(.data))   
 }
 
 # if calling `compute()` after `request_metadata()` 

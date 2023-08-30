@@ -20,7 +20,6 @@ Australia,records,records_fields,https://biocache-ws.ala.org.au/ws/index/fields,
 Australia,records,records_occurrences,https://biocache-ws.ala.org.au/ws/occurrences/offline/download,atlas_occurrences,TRUE
 Australia,records,records_query,https://api.ala.org.au,atlas_occurrences,FALSE
 Australia,records,records_species,https://biocache-ws.ala.org.au/ws/occurrences/facets/download,atlas_species,TRUE
-Australia,spatial,spatial_layers,https://spatial.ala.org.au/ws/layers,show_all-fields,TRUE
 Australia,species,species_children,https://api.ala.org.au/species/childConcepts/{id},atlas_taxonomy,TRUE
 Australia,species,species_lookup,https://api.ala.org.au/species/species/{id},atlas_taxonomy,TRUE
 Austria,collections,collections_collections,https://collectory.biodiversityatlas.at/ws/collection,show_all-collections,TRUE
@@ -38,7 +37,6 @@ Austria,records,records_fields,https://biocache-ws.biodiversityatlas.at/index/fi
 Austria,records,records_occurrences,https://biocache-ws.biodiversityatlas.at/occurrences/offline/download,atlas_occurrences,TRUE
 Austria,records,records_query,https://biocache-ws.biodiversityatlas.at/webportal/params,atlas_occurrences,TRUE
 Austria,records,records_species,https://biocache-ws.biodiversityatlas.at/occurrences/facets/download,atlas_species,TRUE
-Austria,spatial,spatial_layers,https://spatial.biodiversityatlas.at/ws/layers,show_all-fields,TRUE
 Austria,species,names_search_single,https://bie-ws.biodiversityatlas.at/search?q={name}&pageSize=5,search_taxa,TRUE
 Austria,species,species_children,https://bie-ws.biodiversityatlas.at/childConcepts/,atlas_taxonomy,TRUE
 Austria,species,species_lookup,https://bie-ws.biodiversityatlas.at/species,atlas_taxonomy,TRUE
@@ -56,7 +54,6 @@ Brazil,records,records_fields,https://biocache-service.sibbr.gov.br/biocache-ser
 Brazil,records,records_occurrences,https://biocache-service.sibbr.gov.br/biocache-service/occurrences/offline/download,atlas_occurrences,TRUE
 Brazil,records,records_query,https://biocache-service.sibbr.gov.br/biocache-service/webportal/params,atlas_occurrences,TRUE
 Brazil,records,records_species,https://biocache-service.sibbr.gov.br/biocache-service/occurrences/facets/download,atlas_species,TRUE
-Brazil,spatial,spatial_layers,https://portal-espacial.sibbr.gov.br/spatial-hub/layers,show_all-fields,TRUE
 Brazil,species,names_search_single,https://bie-webservice.sibbr.gov.br/bie-index/search?q={name}&pageSize=5,search_taxa,TRUE
 Brazil,species,species_children,https://bie-webservice.sibbr.gov.br/bie-index/childConcepts/,atlas_taxonomy,TRUE
 Brazil,species,species_lookup,https://bie-webservice.sibbr.gov.br/bie-index/species,atlas_taxonomy,TRUE
@@ -117,7 +114,6 @@ Guatemala,records,records_fields,https://snib.conap.gob.gt/registros-ws/index/fi
 Guatemala,records,records_occurrences,https://snib.conap.gob.gt/registros-ws/occurrences/offline/download,atlas_occurrences,TRUE
 Guatemala,records,records_query,https://snib.conap.gob.gt/registros-ws/webportal/params,atlas_occurrences,TRUE
 Guatemala,records,records_species,https://snib.conap.gob.gt/registros-ws/occurrences/facets/download,atlas_species,TRUE
-Guatemala,spatial,spatial_layers,https://geoespacial.snib.conap.gob.gt/ws/layers,show_all-fields,TRUE
 Guatemala,species,names_search_single,https://snib.conap.gob.gt/especies-ws/search?q={name}&pageSize=5,search_taxa,TRUE
 Guatemala,species,species_children,https://snib.conap.gob.gt/especies-ws/childConcepts/,atlas_taxonomy,TRUE
 Guatemala,species,species_lookup,https://snib.conap.gob.gt/especies-ws/species,atlas_taxonomy,TRUE
@@ -133,7 +129,6 @@ Portugal,records,records_facets,https://registos-ws.gbif.pt/occurrence/facets,"a
 Portugal,records,records_fields,https://registos-ws.gbif.pt/index/fields,show_all-fields,TRUE
 Portugal,records,records_query,https://registos-ws.gbif.pt/webportal/params,atlas_occurrences,TRUE
 Portugal,records,records_species,https://registos-ws.gbif.pt/occurrences/facets/download,atlas_species,TRUE
-Portugal,spatial,spatial_layers,https://espacial.gbif.pt/ws/layers,show_all-fields,TRUE
 Portugal,species,names_search_single,https://api.gbif.org/v1/species/match?verbose=FALSE&name={name},search_taxa,TRUE
 Spain,collections,collections_collections,https://colecciones.gbif.es/ws/collection,show_all-collections,TRUE
 Spain,collections,collections_datasets,https://colecciones.gbif.es/ws/dataResource,show_all-datasets,TRUE
@@ -156,7 +151,6 @@ Spain,records,records_fields,https://registros-ws.gbif.es/index/fields,show_all-
 Spain,records,records_occurrences,https://registros-ws.gbif.es/occurrences/offline/download,atlas_occurrences,TRUE
 Spain,records,records_query,https://registros-ws.gbif.es/webportal/params,atlas_occurrences,TRUE
 Spain,records,records_species,https://registros-ws.gbif.es/occurrences/facets/download,atlas_species,TRUE
-Spain,spatial,spatial_layers,https://espacial.gbif.es/ws/layers,show_all-fields,TRUE
 Spain,species,species_children,https://especies-ws.gbif.es/childConcepts/,atlas_taxonomy,TRUE
 Spain,species,species_lookup,https://especies-ws.gbif.es/species,atlas_taxonomy,TRUE
 Sweden,collections,collections_collections,https://collections.biodiversitydata.se/ws/collection,show_all-collections,TRUE
@@ -172,7 +166,6 @@ Sweden,records,records_fields,https://records.biodiversitydata.se/ws/index/field
 Sweden,records,records_occurrences,https://records.biodiversitydata.se/ws/occurrences/offline/download,atlas_occurrences,TRUE
 Sweden,records,records_query,https://records.biodiversitydata.se/ws/webportal/params,atlas_occurrences,TRUE
 Sweden,records,records_species,https://records.biodiversitydata.se/ws/occurrences/facets/download,atlas_species,TRUE
-Sweden,spatial,spatial_layers,https://sds.biodiversitydata.se/ws/layers,show_all-fields,TRUE
 Sweden,species,names_search_single,https://species.biodiversitydata.se/ws/search?q={name}&pageSize=5,search_taxa,TRUE
 Sweden,species,species_children,https://species.biodiversitydata.se/ws/childConcepts/,atlas_taxonomy,TRUE
 Sweden,species,species_lookup,https://species.biodiversitydata.se/ws/species,atlas_taxonomy,TRUE
@@ -188,7 +181,7 @@ United Kingdom,records,records_assertions,https://records-ws.nbnatlas.org/assert
 United Kingdom,records,records_counts,https://records-ws.nbnatlas.org/occurrences/search,atlas_counts,TRUE
 United Kingdom,records,records_facets,https://records-ws.nbnatlas.org/occurrence/facets,"atlas_counts, show_values-fields",TRUE
 United Kingdom,records,records_fields,https://records-ws.nbnatlas.org/index/fields,show_all-fields,TRUE
-United Kingdom,records,records_occurrences,https://records-ws.nbnatlas.org/occurrences/offline/download,atlas_occurrences,FALSE
+United Kingdom,records,records_occurrences,https://records-ws.nbnatlas.org/occurrences/index/download,atlas_occurrences,TRUE
 United Kingdom,records,records_query,https://records-ws.nbnatlas.org/webportal/params,atlas_occurrences,TRUE
 United Kingdom,records,records_species,https://records-ws.nbnatlas.org/occurrences/facets/download,atlas_species,TRUE
 United Kingdom,species,names_search_single,https://species-ws.nbnatlas.org/search?q={name}&pageSize=5,search_taxa,TRUE

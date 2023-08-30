@@ -50,28 +50,6 @@ collect_fields <- function(.data){
     mutate(type = "fields")
 }
 
-#' Internal function to `collect()` layers
-#' @importFrom dplyr arrange
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr case_when
-#' @importFrom dplyr filter
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
-#' @noRd
-#' @keywords Internal
-collect_layers <- function(.data){
-  query_API(.data) |>
-    bind_rows() |>
-    filter(enabled == TRUE) |>
-    mutate(id = paste0(
-      case_when(type == "Contextual" ~ "cl", type == "Environmental" ~ "el"),
-      id)
-    ) |>
-    select(all_of(wanted_columns("layer"))) |>
-    mutate(type = "layer") |>
-    arrange(id)
-}
-
 #' Internal function to `collect()` licences
 #' @importFrom dplyr all_of
 #' @importFrom dplyr arrange
@@ -141,23 +119,6 @@ collect_reasons <- function(.data){
     select(all_of(wanted_columns("reasons"))) |>
     arrange(id)
   # check_internal_cache(show_all_reasons = df)
-}
-
-#' Internal function to `collect()` taxa
-#' @importFrom dplyr any_of
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr select
-#' @importFrom tibble as_tibble
-#' @noRd
-#' @keywords Internal
-collect_taxa <- function(.data){
-  search_terms <- .data$url$search_term
-  result <- query_API(.data) |>
-    bind_rows() |>
-    filter(!duplicated(taxonConceptID)) |>
-    mutate("search_term" = search_terms, .before = "success")
-  names(result) <- rename_columns(names(result), type = "taxa") # old code
-  result |> select(any_of(wanted_columns("taxa")))
 }
 
 #' Internal function to `collect()` identifiers

@@ -216,7 +216,7 @@ enforce_download_reason <- function(value, error_call = caller_env()){
   if (is.numeric(value) & !(value %in% show_all_reasons()$id)) {
     bullets <- c(
       "Invalid download reason ID.",
-      i = "Use `show_all(atlases)` to see all valid reasons.",
+      i = "Use `show_all(reasons)` to see all valid reasons.",
       x = glue("{value} does not match an existing reason ID.")
     )
     abort(bullets, call = error_call)
@@ -224,7 +224,7 @@ enforce_download_reason <- function(value, error_call = caller_env()){
     if(is.character(value) & !(value %in% show_all_reasons()$name)) {
       bullets <- c(
         "Invalid download reason name.",
-        i = "Use `show_all(atlases)` to see all valid reasons.",
+        i = "Use `show_all(reasons)` to see all valid reasons.",
         x = glue("\"{value}\" does not match an existing reason name.")
       )
       abort(bullets, call = error_call)

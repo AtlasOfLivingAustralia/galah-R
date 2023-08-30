@@ -1,13 +1,15 @@
 # if calling `collapse()` after `request_data()`
+#' @param mint_doi Logical: should a DOI be minted for this download? Only 
+#' applies to `type = "occurrences"` when atlas chosen is "ALA".
 #' @rdname collect.data_request
 #' @export
-collapse.data_request <- function(.data){
+collapse.data_request <- function(.data, mint_doi = FALSE){
   .data$type <- check_type(.data$type)
   switch(.data$type, 
          "occurrences-count" = collapse_occurrences_count(.data),
          "species-count" = collapse_species_count(.data),
          "species" = collapse_species(.data),
-         "occurrences" = collapse_occurrences(.data),
+         "occurrences" = collapse_occurrences(.data, mint_doi = mint_doi),
          "media" = collapse_media_metadata(.data),
          "doi" = collapse_doi(.data),
          abort("unrecognised 'type'"))
@@ -25,7 +27,6 @@ collapse.metadata_request <- function(.data){
          "collections" = collapse_collections(.data),
          "datasets" = collapse_datasets(.data),
          "fields" = collapse_fields(.data),
-         "layers" = collapse_layers(.data),
          "licences" = collapse_licences(.data),
          "lists" = collapse_lists(.data),
          "profiles" = collapse_profiles(.data),

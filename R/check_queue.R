@@ -1,4 +1,32 @@
 #' Internal function to check queue status, with rate limiting
+#' @noRd
+#' @keywords Internal
+check_queue <- function(.data, wait = FALSE){
+  # process supplied object
+  if(.data$status == "incomplete"){
+    download_response <- check_occurrence_status(.data)
+    if(wait){
+      if(is_gbif()){
+        abort("Not coded yet lol")
+      }else{
+        download_response <- check_queue_LA(.data)
+      }
+    }else{
+      # NOTE: this query does not appear to require an api key
+      # if it does, then `compute_occurrences()` will require amendment to supply one
+      if(download_response$status == "incomplete" &
+         pour("package", "verbose")){
+          inform("Your download isn't ready yet, please try again later!")
+      }
+      class(download_response) <- "data_response"
+      download_response
+    }
+  }else{
+    .data
+  }  
+}
+
+#' Internal function to check queue status, with rate limiting
 #' @importFrom purrr rate_delay
 #' @importFrom purrr rate_sleep
 #' @noRd
