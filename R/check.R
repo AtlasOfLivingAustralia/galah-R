@@ -231,73 +231,94 @@ check_groups <- function(group, n){
 
 #' Internal function to check whether fields are valid
 #' @importFrom dplyr pull
+#' @importFrom rlang format_error_bullets
+#' @importFrom glue glue_data
 #' @noRd
 #' @keywords Internal
-check_fields <- function(.data){
+check_fields <- function(.data) {
   # browser()
-  if(pour("package", "run_checks")){
-    queries <- url_parse(.data$url[1])$query 
+  if (pour("package", "run_checks")) {
+    queries <- url_parse(.data$url[1])$query
     
-    if(nchar(queries$fq) > 0){
+    # extract fields from filter & identify
+    if (nchar(queries$fq) > 0) {
       filters <- string_to_tibble(queries$fq) |>
-        pull(variable) |>
-        gsub("\\(|\\)|\\-", "", x = _) 
-    }else{
+        pull(value) |>
+        gsub("\\(|\\)|\\-|\\:", "", x = _)
+    } else {
       filters <- NULL
     }
     
     # galah_filter fields check
     # variables <- c(filters, facets)  # NOTE: arrange() is missing
-    if(exists("fq", where = queries)){
-      if(length(filters) > 0){
-      if(!all(filters %in% show_all_fields()$id)){
-        invalid_fields <- filters[!(filters %in% c(show_all_fields()$id, show_all_assertions()$id))]
-        
-        list_invalid_fields <- glue::glue_collapse(invalid_fields, 
-                                                   sep = ", ")
-        bullets <- c(
-          glue("Can't filter fields that don't exist."),
-          i = "Find valid field names with `show_all(fields)` and `search_all(fields)`.",
-          x = glue("`galah_filter` detected invalid field(s): {list_invalid_fields}."))
-        abort(bullets)
+    if (exists("fq", where = queries)) {
+      if (length(filters) > 0) {
+        if (!all(filters %in% show_all_fields()$id)) {
+          invalid_fields <- filters[!(filters %in% c(show_all_fields()$id, show_all_assertions()$id))]
+          filter_invalid <- glue::glue_collapse(invalid_fields,
+                                                     sep = ", ")
+        } else {
+          filter_invalid <- NA
+        }
       }
-      }
+    } else {
+      filter_invalid <- NA
     }
-    
-    
+
     # galah_select columns check
-    if(exists("fields", where = queries)) {
-      fields <- queries$fields |> strsplit(",") |> unlist()
-      if(length(fields) > 0){
-        if(!all(fields %in% show_all_fields()$id)){
+    if (exists("fields", where = queries)) {
+      fields <- queries$fields |>
+        strsplit(",") |>
+        unlist()
+      if (length(fields) > 0) {
+        if (!all(fields %in% show_all_fields()$id)) {
           invalid_fields <- fields[!(fields %in% c(show_all_fields()$id, show_all_assertions()$id))]
-          
-          list_invalid_fields <- glue::glue_collapse(invalid_fields, 
+          list_invalid_fields <- glue::glue_collapse(invalid_fields,
                                                      sep = ", ")
-          bullets <- c(
-            glue("Can't subset columns that don't exist."),
-            i = "Find valid field names with `show_all(fields)` and `search_all(fields)`.",
-            x = glue("`galah_select` didn't recognise: {list_invalid_fields}."))
-          abort(bullets)
+          select_invalid <- glue::glue_collapse(invalid_fields,
+                                                     sep = ", ")
+        } else {
+          select_invalid <- NA
         }
       }
+    } else {
+      select_invalid <- NA
     }
     
-    if(exists("facets", where = queries)) {
+    # galah_group_by fields check
+    if (exists("facets", where = queries)) {
       facets <- queries[names(queries) == "facets"] |> unlist() # NOTE: arrange() is missing
-      if(length(facets) > 0){
-        if(!all(facets %in% show_all_fields()$id)){
+      if (length(facets) > 0) {
+        if (!all(facets %in% show_all_fields()$id)) {
           invalid_fields <- facets[!(facets %in% c(show_all_fields()$id, show_all_assertions()$id))]
-          
-          list_invalid_fields <- glue::glue_collapse(invalid_fields, 
+          group_by_invalid <- glue::glue_collapse(invalid_fields,
                                                      sep = ", ")
-          bullets <- c(
-            glue("Can't group by fields that don't exist."),
-            i = "Find valid field names with `show_all(fields)` and `search_all(fields)`.",
-            x = glue("`galah_group_by` detected invalid field(s): {list_invalid_fields}."))
-          abort(bullets)
+        } else {
+          group_by_invalid <- NA
         }
       }
+    } else {
+      group_by_invalid <- NA
+    }
+    
+    # error message
+    if(any(!is.na(c(filter_invalid, select_invalid, group_by_invalid)))) {
+      returned_invalid <- tibble(
+        function_name = c("`galah_filter`", "`galah_select`", "`galah_group_by`"),
+        fields = c(filter_invalid, select_invalid, group_by_invalid)
+        ) |>
+        tidyr::drop_na()
+      
+      glue_template <- " {returned_invalid$function_name}: {returned_invalid$fields}"
+      invalid_fields_message <- glue::glue_data(returned_invalid, glue_template, .na = "")
+      
+      bullets <- c(
+        glue("Can't use fields that don't exist."),
+        i = "Find valid field names with `show_all(fields)` and `search_all(fields)`.",
+        x = glue("Invalid field(s)"),
+        rlang::format_error_bullets(invalid_fields_message)
+      )
+      abort(bullets)
     }
   }
 }

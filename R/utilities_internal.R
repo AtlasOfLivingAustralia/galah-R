@@ -100,15 +100,23 @@ camel_to_snake_case <- function(x){
 }
 
 #' Simple internal function to split strings
+#' @importFrom stringr str_extract_all
 #' @noRd
 #' @keywords Internal
-string_to_tibble <- function(string, split_by = ":"){
-  x <- strsplit(string, split_by) 
-  x_df <- do.call(rbind, x) |> 
-    as.data.frame() |>
-    tibble()
-  colnames(x_df) <- c("variable", "value")
-  return(x_df)
+string_to_tibble <- function(string, split_by = c(":")){
+  # everything between ( and :
+  extracted_strings <- stringr::str_extract_all(string, "\\((.*?)\\:") |> 
+    unlist() |> 
+    as_tibble()
+  return(extracted_strings)
+  
+  ## Old code
+  # x <- strsplit(string, split_by) 
+  # x_df <- do.call(rbind, x) |> 
+  #   as.data.frame() |>
+  #   tibble()
+  # colnames(x_df) <- c("variable", "value")
+  # return(x_df)
 }
 
 ##---------------------------------------------------------------
