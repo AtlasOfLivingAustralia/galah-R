@@ -233,6 +233,7 @@ check_groups <- function(group, n){
 #' @importFrom dplyr pull
 #' @importFrom rlang format_error_bullets
 #' @importFrom glue glue_data
+#' @importFrom tidyr drop_na
 #' @noRd
 #' @keywords Internal
 check_fields <- function(.data) {
