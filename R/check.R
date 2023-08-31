@@ -237,7 +237,6 @@ check_groups <- function(group, n){
 #' @noRd
 #' @keywords Internal
 check_fields <- function(.data) {
-  # browser()
   if (pour("package", "run_checks")) {
     queries <- url_parse(.data$url[1])$query
     
@@ -249,7 +248,7 @@ check_fields <- function(.data) {
     } else {
       filters <- NULL
     }
-    
+
     # galah_filter fields check
     # variables <- c(filters, facets)  # NOTE: arrange() is missing
     if (exists("fq", where = queries)) {
@@ -314,9 +313,10 @@ check_fields <- function(.data) {
       invalid_fields_message <- glue::glue_data(returned_invalid, glue_template, .na = "")
       
       bullets <- c(
-        glue("Can't use fields that don't exist."),
-        i = "Find valid field names with `show_all(fields)` and `search_all(fields)`.",
-        x = glue("Invalid field(s)"),
+        "Can't use fields that don't exist.",
+        # i = "Use `show_all(fields)` to see all valid fields.",
+        i = "Use `search_all(fields)` to find a valid field ID.",
+        x = glue("Unrecognised field(s):"),
         rlang::format_error_bullets(invalid_fields_message)
       )
       abort(bullets)

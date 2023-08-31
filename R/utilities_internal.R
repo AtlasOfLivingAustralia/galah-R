@@ -107,7 +107,8 @@ string_to_tibble <- function(string, split_by = c(":")){
   # everything between ( and :
   extracted_strings <- stringr::str_extract_all(string, "\\((.*?)\\:") |> 
     unlist() |> 
-    as_tibble()
+    as_tibble() |>
+    unique()
   return(extracted_strings)
   
   ## Old code
