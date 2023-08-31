@@ -39,8 +39,7 @@ url_GET <- function(url,
 
   cli <- HttpClient$new(
     url = url,
-    headers = list("User-Agent" = galah_version_string(), "x-api-key" = getOption("galah_config")$user$apikey))
-#     headers = list("User-Agent" = galah_version_string(), "x-api-key" = getOption("galah_config")$user$apikey, "Authorization" = header))
+    headers = list("User-Agent" = galah_version_string(), "x-api-key" = getOption("galah_config")$user$apikey, "Authorization" = header))
 
   # workaround for fq troubles
   if (length(params$fq) > 1) {
