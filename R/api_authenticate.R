@@ -4,6 +4,7 @@
 
 api_authenticate <- function() {
 
+    cat("111")
     tokens <- read_csv("./data-raw/tokens.csv")
     access_token <- tokens$value[which(t$token == "access_token")[1]]
     apikey <- tokens$value[which(tokens$token == "apikey")[1]]
@@ -22,7 +23,7 @@ api_authenticate <- function() {
 #               print(refresh_data)
 #     }
 #     else{
-    print("1")
+    cat("222")
         endpoint <- oauth_endpoint(
             authorize = "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/authorize",
             access = "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
