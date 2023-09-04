@@ -4,25 +4,24 @@
 
 api_authenticate <- function() {
 
-    cat("111")
     tokens <- read_csv("./data-raw/tokens.csv")
     access_token <- tokens$value[which(tokens$token == "access_token")[1]]
     apikey <- tokens$value[which(tokens$token == "apikey")[1]]
     refresh_token <- tokens$value[which(tokens$token == "refresh_token")[1]]
 
-    if(access_token) {
-        refresh_url <- "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
-              req_params <- list(
-                refresh_token = "",
-                client_id = "hs79ejhce04n1vms1kju7ejqf",
-                grant_type = "refresh_token",
-                client_secret = NULL
-              )
-              response <- POST(refresh_url, body = req_params, encode = "form")
-              refresh_data <- content(response)
-              print(refresh_data)
-    }
-    else{
+#     if(access_token) {
+#         refresh_url <- "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
+#               req_params <- list(
+#                 refresh_token = "",
+#                 client_id = "hs79ejhce04n1vms1kju7ejqf",
+#                 grant_type = "refresh_token",
+#                 client_secret = NULL
+#               )
+#               response <- POST(refresh_url, body = req_params, encode = "form")
+#               refresh_data <- content(response)
+#               print(refresh_data)
+#     }
+#     else{
     cat("222")
         endpoint <- oauth_endpoint(
             authorize = "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/authorize",
@@ -52,13 +51,15 @@ api_authenticate <- function() {
         string2 <- access_token
         header <- paste(string1, string2)
 
-    }
+#     }
 
     cli <- HttpClient$new(
         url = "https://api.test.ala.org.au/common/api/getApikey",
         headers = list("User-Agent" = galah_version_string(), "Authorization" = header))
 
     apikey <- try(cli$get(), silent = TRUE)
+
+    print("11111")
 
     fileConn<-file("./data-raw/tokens.csv")
     writeLines(c("token,value", paste("apikey,",apikey), paste("access_token,",access_token), paste("refresh_token,",refresh_token)), fileConn)

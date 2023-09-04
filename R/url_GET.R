@@ -18,6 +18,8 @@ url_GET <- function(url,
    string2 <- access_token
    header <- paste(string1, string2)
 
+    print("11111")
+
   cli <- HttpClient$new(
     url = url,
     headers = list("User-Agent" = galah_version_string(), "x-api-key" = apikey, "Authorization" = header))
