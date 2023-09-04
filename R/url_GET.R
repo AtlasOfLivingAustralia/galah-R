@@ -9,6 +9,7 @@ url_GET <- function(url,
                     slot_name = NULL,
                     error_call = caller_env()) {
 
+   api_authenticate()
    tokens <- read_csv("./data-raw/tokens.csv")
    access_token <- tokens$value[which(t$token == "access_token")[1]]
    apikey <- tokens$value[which(t$token == "apikey")[1]]
