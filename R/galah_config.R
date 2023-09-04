@@ -122,7 +122,7 @@ galah_config <- function(..., profile_path = NULL) {
              "username" = {current_options$user$username <- user_options[[x]]}, # gbif only
              "email" = {current_options$user$email <- user_options[[x]]},
              "password" = {current_options$user$password <- user_options[[x]]}, # gbif only
-             "download_reason_id" = {current_options$user$download_reason_id <- user_options[[x]]}
+             "download_reason_id" = {current_options$user$download_reason_id <- user_options[[x]]})
     }
 
     ## set the global option
