@@ -22,7 +22,6 @@ api_authenticate <- function() {
 #               print(refresh_data)
 #     }
 #     else{
-    cat("222")
         endpoint <- oauth_endpoint(
             authorize = "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/authorize",
             access = "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
@@ -59,7 +58,11 @@ api_authenticate <- function() {
 
     apikey <- try(cli$get(), silent = TRUE)
 
-    print("11111")
+    print(apikey)
+    print("********")
+    print(access_token)
+    print("*********")
+    print(refresh_token)
 
     fileConn<-file("./data-raw/tokens.csv")
     writeLines(c("token,value", paste("apikey,",apikey), paste("access_token,",access_token), paste("refresh_token,",refresh_token)), fileConn)
