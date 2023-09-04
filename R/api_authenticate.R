@@ -59,12 +59,6 @@ api_authenticate <- function() {
     response <- try(cli$get(), silent = TRUE)
     apikey <- response$parse("UTF-8")
 
-    print(apikey)
-    print("********")
-    print(access_token)
-    print("*********")
-    print(refresh_token)
-
     fileConn<-file("./data-raw/tokens.csv")
     writeLines(c("token,value", paste("apikey,",apikey), paste("access_token,",access_token), paste("refresh_token,",refresh_token)), fileConn)
     close(fileConn)

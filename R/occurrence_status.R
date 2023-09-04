@@ -3,5 +3,6 @@
 occurrence_status <- function() {
 
   result <- url_GET("https://api.test.ala.org.au/common/biocache/occurrences/offline/status")
+  print(result)
   result                             
 }
