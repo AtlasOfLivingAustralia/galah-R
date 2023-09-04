@@ -168,7 +168,7 @@ default_config <- function(){
       username = "",
       email = "",
       password = "",
-      download_reason_id = 4,
+      download_reason_id = 4),
     atlas = list(
       organisation = "Atlas of Living Australia",
       acronym  = "ALA",
