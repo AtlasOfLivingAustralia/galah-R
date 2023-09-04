@@ -1,6 +1,6 @@
 # This function is used to authenticate the user and generate JWT token which needs to be passed in API request headers
 
-#' @importFrom httr oauth2.0_token oauth_app oauth_endpoint POST
+#' @importFrom httr oauth2.0_token oauth_app oauth_endpoint POST content
 
 api_authenticate <- function() {
 
