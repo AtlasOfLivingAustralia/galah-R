@@ -11,8 +11,8 @@ url_GET <- function(url,
 
    api_authenticate()
    tokens <- read_csv("./data-raw/tokens.csv")
-   access_token <- tokens$value[which(t$token == "access_token")[1]]
-   apikey <- tokens$value[which(t$token == "apikey")[1]]
+   access_token <- tokens$value[which(tokens$token == "access_token")[1]]
+   apikey <- tokens$value[which(tokens$token == "apikey")[1]]
 
    string1 <- "Bearer"
    string2 <- access_token
