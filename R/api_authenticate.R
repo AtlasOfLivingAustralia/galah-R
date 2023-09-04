@@ -9,7 +9,7 @@ api_authenticate <- function() {
     apikey <- tokens$value[which(tokens$token == "apikey")[1]]
     refresh_token <- tokens$value[which(tokens$token == "refresh_token")[1]]
 
-    if(is.null(access_token) {
+    if(is.null(access_token)) {
         refresh_url <- "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
               req_params <- list(
                 refresh_token = "",
