@@ -46,8 +46,6 @@
 #'   *  `username` string: A registerd username (GBIF only)
 #'   *  `verbose` logical: should `galah` give verbose such as progress bars?
 #'  Defaults to FALSE.
-#'   *  `apikey` string: My api key
-#'   *  `clientId` string: My galah clientId
 #' 
 #' @return For `galah_config()`, a `list` of all options.
 #' When `galah_config(...)` is called with arguments, nothing is returned
@@ -124,9 +122,7 @@ galah_config <- function(..., profile_path = NULL) {
              "username" = {current_options$user$username <- user_options[[x]]}, # gbif only
              "email" = {current_options$user$email <- user_options[[x]]},
              "password" = {current_options$user$password <- user_options[[x]]}, # gbif only
-             "download_reason_id" = {current_options$user$download_reason_id <- user_options[[x]]},
-             "apikey" = {current_options$user$apikey <- user_options[[x]]},
-             "clientId" = {current_options$user$clientId <- user_options[[x]]})
+             "download_reason_id" = {current_options$user$download_reason_id <- user_options[[x]]}
     }
 
     ## set the global option
@@ -173,8 +169,6 @@ default_config <- function(){
       email = "",
       password = "",
       download_reason_id = 4,
-      apikey = "",
-      clientId = ""),
     atlas = list(
       organisation = "Atlas of Living Australia",
       acronym  = "ALA",
@@ -313,7 +307,7 @@ validate_option <- function(name, value, error_call = caller_env()) {
       )
       abort(bullets, call = error_call)
     }
-  } else if (name %in% c("email", "password", "username", "apikey", "clientId")) {
+  } else if (name %in% c("email", "password", "username")) {
     if (!is.character(value)) {
       bullets <- c(
         glue("Invalid {name}"),
