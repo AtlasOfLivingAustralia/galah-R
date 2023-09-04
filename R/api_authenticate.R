@@ -56,7 +56,8 @@ api_authenticate <- function() {
         url = "https://api.test.ala.org.au/common/api/getApikey",
         headers = list("User-Agent" = galah_version_string(), "Authorization" = header))
 
-    apikey <- try(cli$get(), silent = TRUE)
+    response <- try(cli$get(), silent = TRUE)
+    apikey <- response$parse("UTF-8")
 
     print(apikey)
     print("********")
