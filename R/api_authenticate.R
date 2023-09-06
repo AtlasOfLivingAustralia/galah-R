@@ -8,27 +8,28 @@ api_authenticate <- function() {
     access_token <- tokens$value[which(tokens$token == "access_token")[1]]
     apikey <- tokens$value[which(tokens$token == "apikey")[1]]
     refresh_token <- tokens$value[which(tokens$token == "refresh_token")[1]]
+    full_token <- tokens$value[which(tokens$token == "full_token")[1]]
 
-#     if(!is.null(access_token)) {
-#         refresh_url <- "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
-#               req_params <- list(
-#                 refresh_token = "",
-#                 client_id = "hs79ejhce04n1vms1kju7ejqf",
-#                 grant_type = "refresh_token",
-#                 client_secret = NULL
-#               )
-#               response <- POST(refresh_url, body = req_params, encode = "form")
-#               refresh_data <- content(response)
-#               print(refresh_data)
-#     }
-#     else{
+    if(!is.null(access_token)) {
+        refresh_url <- "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
+              req_params <- list(
+                refresh_token = refresh_token,
+                client_id = "5kahrda00sbg0g64su20d8ebkt",
+                grant_type = "refresh_token",
+                client_secret = NULL
+              )
+              response <- POST(refresh_url, body = req_params, encode = "form")
+              refresh_data <- content(response)
+              print(refresh_data)
+        }
+    else{
         endpoint <- oauth_endpoint(
             authorize = "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/authorize",
             access = "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
         )
         app <- oauth_app(
             "galah",
-            key = "hs79ejhce04n1vms1kju7ejqf",
+            key = "5kahrda00sbg0g64su20d8ebkt",
             secret = NULL
         )
 
@@ -49,8 +50,9 @@ api_authenticate <- function() {
         string1 <- "Bearer"
         string2 <- access_token
         header <- paste(string1, string2)
+        full_token <- key_response
 
-#     }
+    }
 
     cli <- HttpClient$new(
         url = "https://api.test.ala.org.au/common/api/getApikey",
@@ -60,6 +62,7 @@ api_authenticate <- function() {
     apikey <- response$parse("UTF-8")
 
     fileConn<-file("./data-raw/tokens.csv")
-    writeLines(c("token,value", paste("apikey,",apikey), paste("access_token,",access_token), paste("refresh_token,",refresh_token)), fileConn)
+    writeLines(c("token,value", paste("apikey,",apikey), paste("access_token,",access_token), paste("refresh_token,",refresh_token),
+    , paste("full_token,",refresh_token)), fileConn)
     close(fileConn)
 }
