@@ -63,6 +63,6 @@ api_authenticate <- function() {
 
     fileConn<-file("./data-raw/tokens.csv")
     writeLines(c("token,value", paste("apikey,",apikey), paste("access_token,",access_token), paste("refresh_token,",refresh_token),
-    , paste("full_token,",refresh_token)), fileConn)
+    , paste("full_token,",full_token)), fileConn)
     close(fileConn)
 }
