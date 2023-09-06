@@ -8,7 +8,6 @@ api_authenticate <- function() {
     access_token <- tokens$value[which(tokens$token == "access_token")[1]]
     apikey <- tokens$value[which(tokens$token == "apikey")[1]]
     refresh_token <- tokens$value[which(tokens$token == "refresh_token")[1]]
-    full_token <- tokens$value[which(tokens$token == "full_token")[1]]
 
     if(!is.null(access_token)) {
         refresh_url <- "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
@@ -50,8 +49,6 @@ api_authenticate <- function() {
         string1 <- "Bearer"
         string2 <- access_token
         header <- paste(string1, string2)
-        full_token <- key_response
-
     }
 
     cli <- HttpClient$new(
@@ -62,7 +59,6 @@ api_authenticate <- function() {
     apikey <- response$parse("UTF-8")
 
     fileConn<-file("./data-raw/tokens.csv")
-    writeLines(c("token,value", paste("apikey,",apikey), paste("access_token,",access_token), paste("refresh_token,",refresh_token),
-    , paste("full_token,",full_token)), fileConn)
+    writeLines(c("token,value", paste("apikey,",apikey), paste("access_token,",access_token), paste("refresh_token,",refresh_token)), fileConn)
     close(fileConn)
 }
