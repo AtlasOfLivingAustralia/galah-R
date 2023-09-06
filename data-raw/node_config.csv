@@ -22,6 +22,7 @@ Australia,records,records_query,https://api.ala.org.au,atlas_occurrences,FALSE
 Australia,records,records_species,https://biocache-ws.ala.org.au/ws/occurrences/facets/download,atlas_species,TRUE
 Australia,species,species_children,https://api.ala.org.au/species/childConcepts/{id},atlas_taxonomy,TRUE
 Australia,species,species_lookup,https://api.ala.org.au/species/species/{id},atlas_taxonomy,TRUE
+Australia,api,api_key,https://api.test.ala.org.au/common/api/getApikey,in-development,TRUE
 Austria,collections,collections_collections,https://collectory.biodiversityatlas.at/ws/collection,show_all-collections,TRUE
 Austria,collections,collections_datasets,https://collectory.biodiversityatlas.at/ws/dataResource,show_all-datasets,TRUE
 Austria,collections,collections_providers,https://collectory.biodiversityatlas.at/ws/dataProvider,show_all-providers,TRUE

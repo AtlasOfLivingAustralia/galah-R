@@ -58,8 +58,13 @@ build_headers <- function(){
   ## Below code adds API keys (not yet implemented)
   # if(pour("atlas", "acronym") == "ALA"){
   #  list(
-  #     "User-Agent" = galah_version_string()
-  #     "x-api-key" = pour("user", "api_key"))
+  #     "User-Agent" = galah_version_string(),
+  #     "x-api-key" = pour("user", "api_key")
+  ## if(){ # something about if we're using JWT tokens
+  ##  list(
+  ##    "User-Agent" = galah_version_string(),
+  ##.   "Authorization" = paste("Bearer", access_token))
+  ## }
   # }else{
   #   list("User-Agent" = galah_version_string())
   # }

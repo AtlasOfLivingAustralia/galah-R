@@ -52,6 +52,15 @@ query_API <- function(.data, error_call = caller_env()) {
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 query_API_internal <- function(.data, error_call = caller_env()) {
+  
+  ## note: when using jwt may need to do something like:
+    # tokens <- api_authenticate()
+    # .data$header <- list("x-api-key" = tokens$apikey, 
+    #                      "Authorization" = paste("Bearer", token$access_token)
+  ## The obvious problem is that this slows everything down, and is extremely 
+  ## circular (i.e. query_API() would presumably have to call itself?!), so 
+  ## would need to look carefully at caching behaviour
+  
   # construct and run query
   query <- request(.data$url) |>
     add_headers(.data$headers) |> 
@@ -122,16 +131,10 @@ query_API_internal <- function(.data, error_call = caller_env()) {
 add_headers <- function(req, headers){
   if(!is.null(headers)){
     req$headers <- headers
-    req
   }else{
-    if(pour("atlas", "acronym", .pkg = "galah") == "ALA"){
-      req |> req_headers(
-        "User-Agent" = galah_version_string(),
-        "x-api-key" = pour("user", "api_key", .pkg = "galah"))
-    }else{
-      req |> req_headers("User-Agent" = galah_version_string())
-    }
+    req$headers <- build_headers()
   }
+  req
 }
 
 #' If supplied, add `body` arg to a `request()`
