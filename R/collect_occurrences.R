@@ -30,7 +30,7 @@ collect_occurrences_uk <- function(.data, file){
 #' Internal function to `collect_occurrences()` for LAs
 #' @noRd
 #' @keywords Internal
-collect_occurrences_la <- function(.data){
+collect_occurrences_la <- function(.data, wait, file){
   # check queue
   download_response <- check_queue(.data, wait = wait)
   if(is.null(download_response)){
@@ -38,7 +38,8 @@ collect_occurrences_la <- function(.data){
   }
   
   # get data
-  if(pour("package", "verbose", .pkg = "galah")) {
+  if(pour("package", "verbose", .pkg = "galah") &
+     download_response$status == "complete") {
     inform("Downloading")
   }
   # sometimes lookup info critical, but not others - unclear when/why!

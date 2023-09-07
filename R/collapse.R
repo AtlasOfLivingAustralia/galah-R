@@ -34,7 +34,8 @@ collapse.metadata_request <- function(.data){
          "ranks" = collapse_ranks(.data),
          "reasons" = collapse_reasons(.data),
          "taxa" = collapse_taxa(.data),
-         "identifiers" = collapse_identifiers(.data))
+         "identifiers" = collapse_identifiers(.data),
+         abort("unrecognised 'type'"))
 }
 
 # if calling `collapse()` after `request_files()`
@@ -49,7 +50,7 @@ collapse.files_request <- function(.data,
          "media" = collapse_media_files(.data, thumbnail = thumbnail)
   )
 }
-         
+
 #' Internal function to build headers at the `collapse()` stage
 #' @noRd
 #' @keywords Internal

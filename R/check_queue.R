@@ -12,12 +12,6 @@ check_queue <- function(.data, wait = FALSE){
         download_response <- check_queue_LA(.data)
       }
     }else{
-      # NOTE: this query does not appear to require an api key
-      # if it does, then `compute_occurrences()` will require amendment to supply one
-      if(download_response$status == "incomplete" &
-         pour("package", "verbose")){
-          inform("Your download isn't ready yet, please try again later!")
-      }
       class(download_response) <- "data_response"
       download_response
     }
