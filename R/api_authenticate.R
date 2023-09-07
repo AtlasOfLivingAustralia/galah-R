@@ -12,6 +12,8 @@ api_authenticate <- function() {
 
     if(!is.null(access_token)) {
         tokenData <- jwt_split(access_token)
+        print(tokenData$payload$exp)
+        print(as.numeric(as.POSIXct(Sys.Date())))
         if(as.numeric(as.POSIXct(Sys.Date())) > tokenData$payload$exp){
               refresh_url <- "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
               req_params <- list(
