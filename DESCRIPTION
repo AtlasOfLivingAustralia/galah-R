@@ -44,7 +44,8 @@ Imports:
     stringr (>= 1.0.0),
     tibble,
     tidyselect,
-    utils
+    utils,
+    jose
 Suggests:
     vcr (>= 0.6.0),
     covr,

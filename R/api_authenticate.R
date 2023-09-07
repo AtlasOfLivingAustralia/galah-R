@@ -1,6 +1,7 @@
 # This function is used to authenticate the user and generate JWT token which needs to be passed in API request headers
 
 #' @importFrom httr oauth2.0_token oauth_app oauth_endpoint POST content
+#' @importFrom jose jwt_split
 
 api_authenticate <- function() {
 
@@ -10,7 +11,9 @@ api_authenticate <- function() {
     refresh_token <- tokens$value[which(tokens$token == "refresh_token")[1]]
 
     if(!is.null(access_token)) {
-        refresh_url <- "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
+        tokenData <- jwt_split(access_token)
+        if(as.numeric(as.POSIXct(Sys.Date())) > tokenData$payload$exp){
+              refresh_url <- "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
               req_params <- list(
                 refresh_token = refresh_token,
                 client_id = "5kahrda00sbg0g64su20d8ebkt",
@@ -21,6 +24,7 @@ api_authenticate <- function() {
               refresh_data <- content(response)
               access_token <- refresh_data$access_token
         }
+    }
     else{
         endpoint <- oauth_endpoint(
             authorize = "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/authorize",
