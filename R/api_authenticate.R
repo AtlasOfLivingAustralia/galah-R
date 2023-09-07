@@ -25,7 +25,8 @@ api_authenticate <- function() {
               access_token <- refresh_data$access_token
         }
     }
-    else{
+
+    if(is.null(access_token)){
         endpoint <- oauth_endpoint(
             authorize = "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/authorize",
             access = "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
