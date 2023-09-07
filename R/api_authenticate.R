@@ -19,7 +19,7 @@ api_authenticate <- function() {
               )
               response <- POST(refresh_url, body = req_params, encode = "form")
               refresh_data <- content(response)
-              print(refresh_data)
+              access_token <- refresh_data$access_token
         }
     else{
         endpoint <- oauth_endpoint(
@@ -46,10 +46,11 @@ api_authenticate <- function() {
 
         access_token <- key_response$credentials$access_token
         refresh_token <-  key_response$credentials$refresh_token
-        string1 <- "Bearer"
-        string2 <- access_token
-        header <- paste(string1, string2)
     }
+
+    string1 <- "Bearer"
+    string2 <- access_token
+    header <- paste(string1, string2)
 
     cli <- HttpClient$new(
         url = "https://api.test.ala.org.au/common/api/getApikey",
