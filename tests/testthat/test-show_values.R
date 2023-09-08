@@ -1,3 +1,17 @@
+test_that("object-oriented workflow performs as expected", {
+  # default is `type = "fields"`
+  result <- request_values() |>
+    collapse()
+  
+  result2 <- collect(result)
+})
+
+test_that("`filter()` works for `request_values()`", {
+  result <- request_values() |>
+    filter(field == basisOfRecord) |>
+    collect()
+})
+
 test_that("show_values subfunctions fail when args are missing or null", {
   expect_error(show_values_field())
   expect_error(show_values_field(field = NULL))
@@ -9,7 +23,6 @@ test_that("show_values subfunctions fail when args are missing or null", {
   expect_error(show_values_provider(provider = NULL))
   expect_error(show_values_dataset())
   expect_error(show_values_dataset(dataset = NULL))
-  
 })
 
 test_that("show_values checks values", {

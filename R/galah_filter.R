@@ -113,3 +113,17 @@ filter.files_request <- function(.data, ...){
   .data$filter <- parse_quosures(dots)$data  # see `quosure_handling.R`
   return(.data)
 }
+
+#' @rdname galah_filter
+#' @param .data An object of class `values_request`, created using [request_values()]
+#' @importFrom dplyr rename
+#' @importFrom dplyr select
+#' @export
+filter.values_request <- function(.data, ...){
+  dots <- enquos(..., .ignore_empty = "all")
+  result <- parse_quosures(dots)$data  # see `quosure_handling.R`
+  .data$filter <- select(result, variable, value) |>
+    rename(api = variable, selection = value)
+  # enforce nrow(result) == 1?
+  return(.data)
+}

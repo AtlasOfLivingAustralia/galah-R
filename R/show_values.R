@@ -412,7 +412,7 @@ check_inputs_to_values <- function(df, error_call = caller_env()) {
   # Input must be from valid `show_all` or `search_all` tibble
   calls_df <- expand.grid(
     c("search_", "show_all_"),
-    c("field", "profile", "list", "collection", "dataset", "provider"))
+    c("collection", "dataset", "field", "list", "profile", "provider"))
   valid_calls <- apply(calls_df, 1, function(x){paste0(paste(x, collapse = ""), "s")})
     
   if(!any(valid_calls == attr(df, "call"))){

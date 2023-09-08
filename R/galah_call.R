@@ -166,3 +166,13 @@ request_files <- function(
   class(x) <- "files_request"
   return(x)
 }
+
+#' @rdname galah_call
+#' @export
+request_values <- function(
+    type = "fields" # note different behaviour here from related functions
+){
+  x <- list(type = type)
+  class(x) <- "values_request"
+  return(x)
+}

@@ -105,10 +105,7 @@ collect.metadata_request <- function(.data){
 # if calling `collect()` after `collapse()` after request_metadata()`
 #' @rdname collect.data_request
 #' @export
-collect.metadata_query <- function(.data){
-  compute(.data) |> 
-  collect()
-}
+collect.metadata_query <- collect.metadata_request
 
 # if calling `collect()` after `compute()` after `request_metadata()`
 #' @rdname collect.data_request
@@ -148,12 +145,9 @@ collect.files_request <- function(.data){
 # if calling `collect()` after `collapse()` after request_files()`
 #' @rdname collect.data_request
 #' @export
-collect.files_query <- function(.data){
-  compute(.data) |> 
-    collect()
-}
+collect.files_query <- collect.files_request
 
-# if calling `collect()` after `compute()` after `request_metadata()`
+# if calling `collect()` after `compute()` after `request_files()`
 #' @rdname collect.data_request
 #' @export
 collect.files_response <- function(.data, file = NULL){
@@ -162,4 +156,31 @@ collect.files_response <- function(.data, file = NULL){
     "media" = collect_media_files(.data),
     abort("unrecognised 'type' supplied to `galah_call()`")
   )
+}
+
+# if calling `collect()` after `request_values()`
+#' @rdname collect.data_request
+#' @export
+collect.values_request <- function(.data){
+  compute(.data) |> 
+    collect()
+}
+
+# if calling `collect()` after `collapse()` after request_values()`
+#' @rdname collect.data_request
+#' @export
+collect.values_query <- collect.values_request
+
+# if calling `collect()` after `compute()` after `request_values()`
+#' @rdname collect.data_request
+#' @export
+collect.values_response <- function(.data){
+  switch(.data$type,
+         "collections" = collect_collection_values(.data),
+         "datasets" = collect_dataset_values(.data),
+         "fields" = collect_field_values(.data),
+         "lists" = collect_list_values(.data),
+         "profiles" = collect_profile_values(.data),
+         "providers" = collect_provider_values(.data),
+         abort("unrecognised 'type'"))
 }

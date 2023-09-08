@@ -63,7 +63,7 @@ collect_api_keys <- function(client, token){
 #' This function is used to authenticate the user and generate JWT token which 
 #' needs to be passed in API request headers
 # @importFrom httr oauth2.0_token oauth_app oauth_endpoint POST content
-# @importFrom jose jwt_split
+#' @importFrom jose jwt_split
 #' @noRd
 #' @keywords Internal
 api_authenticate_original <- function() {

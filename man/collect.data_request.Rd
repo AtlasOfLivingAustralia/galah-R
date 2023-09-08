@@ -3,6 +3,7 @@
 \name{collapse.data_request}
 \alias{collapse.data_request}
 \alias{collapse.metadata_request}
+\alias{collapse.values_request}
 \alias{collapse.files_request}
 \alias{collect.data_request}
 \alias{collect.data_query}
@@ -13,17 +14,24 @@
 \alias{collect.files_request}
 \alias{collect.files_query}
 \alias{collect.files_response}
+\alias{collect.values_request}
+\alias{collect.values_query}
+\alias{collect.values_response}
 \alias{compute.data_request}
 \alias{compute.data_query}
 \alias{compute.metadata_request}
 \alias{compute.metadata_query}
 \alias{compute.files_request}
 \alias{compute.files_query}
+\alias{compute.values_request}
+\alias{compute.values_query}
 \title{Force computation of a database query}
 \usage{
-\method{collapse}{data_request}(.data)
+\method{collapse}{data_request}(.data, mint_doi = FALSE)
 
 \method{collapse}{metadata_request}(.data)
+
+\method{collapse}{values_request}(.data)
 
 \method{collapse}{files_request}(.data, thumbnail = FALSE)
 
@@ -45,6 +53,12 @@
 
 \method{collect}{files_response}(.data, file = NULL)
 
+\method{collect}{values_request}(.data)
+
+\method{collect}{values_query}(.data)
+
+\method{collect}{values_response}(.data)
+
 \method{compute}{data_request}(.data)
 
 \method{compute}{data_query}(.data)
@@ -56,10 +70,17 @@
 \method{compute}{files_request}(.data)
 
 \method{compute}{files_query}(.data)
+
+\method{compute}{values_request}(.data)
+
+\method{compute}{values_query}(.data)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, \code{data_query} or
 \code{data_response}}
+
+\item{mint_doi}{Logical: should a DOI be minted for this download? Only
+applies to \code{type = "occurrences"} when atlas chosen is "ALA".}
 
 \item{wait}{logical; should \code{galah} ping the selected url until computation
 is complete? Defaults to \code{FALSE}.}

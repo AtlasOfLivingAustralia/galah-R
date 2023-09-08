@@ -20,7 +20,6 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
 #' @export
 collapse.metadata_request <- function(.data){
   switch(.data$type,
-         "fields" = collapse_fields(.data), 
          "apis" = collapse_apis(.data),
          "assertions" = collapse_assertions(.data),
          "atlases" = collapse_atlases(.data),
@@ -35,6 +34,26 @@ collapse.metadata_request <- function(.data){
          "reasons" = collapse_reasons(.data),
          "taxa" = collapse_taxa(.data),
          "identifiers" = collapse_identifiers(.data),
+         abort("unrecognised 'type'"))
+}
+
+# if calling `collapse()` after `request_values()`
+#' @rdname collect.data_request
+#' @export
+collapse.values_request <- function(.data){
+  if(!is.null(.data$filter)){
+    .data$type <- .data$filter$api[[1]] # note: should only accept one arg
+  }
+  if(!grepl("s$", .data$type)){
+    .data$type <- paste0(.data$type, "s")
+  }
+  switch(.data$type,
+         "collections" = collapse_collection_values(.data),
+         "datasets" = collapse_dataset_values(.data),
+         "fields" = collapse_field_values(.data),
+         "lists" = collapse_list_values(.data),
+         "profiles" = collapse_profile_values(.data),
+         "providers" = collapse_provider_values(.data),
          abort("unrecognised 'type'"))
 }
 

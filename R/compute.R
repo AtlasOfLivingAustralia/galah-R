@@ -68,3 +68,20 @@ compute.files_query <- function(.data){
   class(.data) <- "files_response"
   return(.data)
 }
+
+# if calling `compute()` after `request_values()` 
+#' @rdname collect.data_request
+#' @export
+compute.values_request <- function(.data){
+  result <- collapse(.data)
+  class(result) <- "values_response"
+  return(result)
+}
+
+# if calling `compute()` after `collapse()` after `request_files()` 
+#' @rdname collect.data_request
+#' @export
+compute.values_query <- function(.data){
+  class(.data) <- "values_response"
+  return(.data)
+}

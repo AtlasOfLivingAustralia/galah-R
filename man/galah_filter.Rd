@@ -5,6 +5,7 @@
 \alias{filter.data_request}
 \alias{filter.metadata_request}
 \alias{filter.files_request}
+\alias{filter.values_request}
 \title{Narrow a query by specifying filters}
 \usage{
 galah_filter(..., profile = NULL)
@@ -14,6 +15,8 @@ galah_filter(..., profile = NULL)
 \method{filter}{metadata_request}(.data, ...)
 
 \method{filter}{files_request}(.data, ...)
+
+\method{filter}{values_request}(.data, ...)
 }
 \arguments{
 \item{...}{filters, in the form \verb{field logical value}}
@@ -24,7 +27,7 @@ If supplied, should be a \code{string} recording a data quality profile to
 apply to the query. See \code{\link[=show_all_profiles]{show_all_profiles()}} for valid profiles. By
 default no profile is applied.}
 
-\item{.data}{An object of class \code{files_request}, created using \code{\link[=request_files]{request_files()}}}
+\item{.data}{An object of class \code{values_request}, created using \code{\link[=request_values]{request_values()}}}
 }
 \value{
 A tibble containing filter values.

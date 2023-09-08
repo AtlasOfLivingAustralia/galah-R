@@ -5,6 +5,7 @@
 \alias{request_data}
 \alias{request_metadata}
 \alias{request_files}
+\alias{request_values}
 \alias{print.data_request}
 \title{Start building a query}
 \usage{
@@ -18,11 +19,13 @@ request_data(
 
 request_metadata(
   type = c("fields", "apis", "assertions", "atlases", "collections", "datasets",
-    "layers", "licences", "lists", "profiles", "providers", "ranks", "reasons", "taxa",
+    "licences", "lists", "profiles", "providers", "ranks", "reasons", "taxa",
     "identifiers")
 )
 
 request_files(type = c("distributions", "media"))
+
+request_values(type = "fields")
 
 \method{print}{data_request}(x, ...)
 }
