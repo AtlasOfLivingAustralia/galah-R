@@ -75,14 +75,15 @@ compute.files_query <- function(.data){
 #' @export
 compute.values_query <- function(.data){
   switch(.data$type,
-         "collections" = compute_collection_values(.data),
-         "datasets" = compute_dataset_values(.data),
+         "collections" = compute_basic_values(.data),
+         "datasets" = compute_basic_values(.data),
          "fields" = compute_field_values(.data),
-         "lists" = compute_list_values(.data),
+         "lists" = compute_basic_values(.data),
          "profiles" = compute_profile_values(.data),
-         "providers" = compute_provider_values(.data),
+         "providers" = compute_basic_values(.data),
          abort("unrecognised 'type'"))
 }
+
 # if calling `compute()` after `request_values()` 
 #' @rdname collect.data_request
 #' @export

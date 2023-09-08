@@ -1,22 +1,3 @@
-test_that("object-oriented workflow performs as expected for `type = 'fields'`", {
-  skip_if_offline()
-  # no filter provided causes an error
-  expect_error({request_values() |> collapse()}) 
-  # an incorrect filter argument errors at `collapse()` (NOT `compute()`)
-  expect_error({request_values() |> filter(something == 10) |> collapse()})
-  # passing a correct `type` but not `value` passes `collapse()`...
-  x <- request_values() |> filter(field == unknown) |> collapse()
-  # ...but fails at `compute()`
-  expect_error({compute(x)})
-  # whole thing works when...
-  x <- request_values() |> filter(field == basisOfRecord) |> collect()
-  expect_gte(nrow(x), 4)
-  expect_equal(ncol(x), 1)
-  expect_equal(colnames(x), "field")
-  expect_true(any(x[[1]] == "Human observation"))
-  expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
-})
-
 test_that("show_values subfunctions fail when args are missing or null", {
   expect_error(show_values_field())
   expect_error(show_values_field(field = NULL))

@@ -28,6 +28,7 @@
 #' @param df A search result from [search_fields()], [search_profiles()] or 
 #' [search_lists()].
 #' @return A `tibble` of values for a specified field, profile or list.
+#' @importFrom tibble tibble
 #' @examples \donttest{
 #' # Show values in field 'cl22'
 #' search_fields("cl22") |> 
@@ -44,94 +45,6 @@
 #' 
 #' @export
 show_values <- function(df){
-  
-  # Check inputs
-  check_inputs_to_values(df)
-  
-  # Get correct information 'type'
-  call_suffixes <- c("field", "profile", "list", 
-                     "collection", "dataset", "provider")
-  call_value <- attr(df, "call")
-  call_lookup <- unlist(lapply(call_suffixes, function(a){
-    grepl(paste0("_", a, "s$"), call_value)
-  }))
-  
-  if(any(call_lookup)){
-    type <- call_suffixes[which(call_lookup)[1]]
-  }else{
-    type <- "field"
-  }
-  
-  # get first row of matched fields
-  match_name <- switch(type,
-    "field" = df$id[1],
-    "list" = df$dataResourceUid[1],
-    "profile" = df$shortName[1],
-    df$uid[1] # last option selected if above are exhausted
-  )
-  
-  # specify the number matched fields
-  # specify for which field the values are displayed
-  if(nrow(df) > 1) {
-    n_matches <- nrow(df)
-    df <- df[1,]
-    inform(
-      bullets <- c(
-        "!" = glue("Search returned {n_matches} matched {type}s."),
-        "*" = glue("Showing values for '{match_name}'.")
-        ))
-    } else {
-    inform(
-      bullets <- c(
-        # glue("Search returned 1 matched {type}."),
-        "*" = glue("Showing values for '{match_name}'.")
-      )
-    )
-  }
-  
-  # use do.call to implement sub-function
-  args <- list(match_name)
-  names(args)[[1]] <- type
-  do.call(paste0("show_values_", type), args)
-
-}
-
-
-
-#' @param query A string specifying a search term. Not case sensitive.
-#' @rdname show_values
-#' @export search_values
-
-search_values <- function(df, query) {
-  
-  # Check for input
-  check_inputs_to_values(df)
-  
-  # Get correct information 'type'
-  call_suffixes <- c("field", "profile", "list", 
-                     "collection", "dataset", "provider")
-  call_value <- attr(df, "call")
-  call_lookup <- unlist(lapply(call_suffixes, function(a){
-    grepl(paste0("_", a, "s$"), call_value)
-  }))
-  
-  if(any(call_lookup)){
-    type <- call_suffixes[which(call_lookup)[1]]
-  }else{
-    type <- "field"
-  }
-  
-  # get first row of matched fields
-  match_name <- switch(type,
-                       "field" = df$id[1],
-                       "list" = df$dataResourceUid[1],
-                       "profile" = df$shortName[1],
-                       df$uid[1] # last option selected if above are exhausted
-  )
-  
-  # check for query
-  check_if_missing(query)
-  
   # specify the number matched fields
   # specify for which field the values are displayed
   if(nrow(df) > 1) {
@@ -150,75 +63,59 @@ search_values <- function(df, query) {
       )
     )
   }
-  
-  # run query
-  args <- list(match_name, query)
-  names(args) <- list(type, "query")
-  do.call(paste0("search_values_", type), args)
+  # NOTE: the below assumes that each `show_all()` function
+  # returns the columsn `type` and `id`; 
+  # this may need to be reverse engineered
+  x <- request_values() 
+  x$filter <- tibble(api = df$type[[1]],
+                     selection = df$id[[1]])
+  # note: it would be better to have 
+  # filter({{type}} == {{id}})
+  # ...but this fails for some reason
+  collect(x)
 }
 
+#' @param query A string specifying a search term. Not case sensitive.
+#' @rdname show_values
+#' @export search_values
+search_values <- function(df, query) {
+  result <- show_values(df)
+  # add a query section here using `grepl`
+  # probably good to suggest people use filter.data.frame for this
+}
 
-
-
+# below here likely to be unnecessary once above code is working
 
 # internal functions for values look-up ----------------------------------------
-
 show_values_field <- function(field) {
   if (missing(field) || is.null(field)) {
     bullets <- c(
       "No field detected.",
-      i = "Did you forget to add a field to show values for?"
-    )
+      i = "Did you forget to add a field to show values for?")
     abort(bullets, call = caller_env())
   }
-  
-  if (!(field %in% show_all_fields()$id)) {
-    bullets <- c(
-      "Unknown field detected.",
-      i = "Search for the valid name of a desired field with `search_fields()`."
-    )
-    abort(bullets, call = caller_env())
-  }
-  
-  if(is_gbif()){
-    url <- url_lookup("records_counts")
-    resp <- url_GET(url, params = list(facet = field, limit = 0, facetLimit = 10^4))
-  }else{
-    url <- url_lookup("records_facets")
-    resp <- url_GET(url, params = list(facets = field, flimit = 10^4))
-  }
-  
-  if(is.null(resp)){
-    system_down_message("show_values")
-    return(tibble())
-  }else{
-    if(is_gbif()){
-      tibble(resp$facets$counts[[1]])
-    }else{
-      category <- vapply(resp$fieldResult[[1]]$fq, function(n) {
-        extract_category_value(n)
-      }, USE.NAMES = FALSE, FUN.VALUE = character(1))
-      cbind(field = field, as.data.frame(category)) |> as_tibble()
-    }
-  }
-
+  request_values() |>
+    filter(field == field) |>
+    collect()
 }
 
-
+#' @importFrom rlang caller_env
+#' @importFrom rlang warn
+#' @noRd
+#' @keywords Internal
 search_values_field <- function(field, query){
-  
   if (missing(query) || is.null(query)) {
     bullets <- c(
       "We didn't detect a valid query.",
       i = "Try entering text to search for matching values."
     )
-    rlang::warn(message = bullets, error = rlang::caller_env())
+    rlang::warn(message = bullets, error = caller_env())
   }
-  
   field_text <- show_values_field(field)
-  field_text[grepl(query, tolower(field_text$category)), ]
+  field_text[grepl(query, tolower(field_text[[1]])), ]
 }
 
+# up to here
 
 show_values_profile <- function(profile, error_call = caller_env()) {
   
@@ -250,27 +147,6 @@ show_values_profile <- function(profile, error_call = caller_env()) {
     filters <- bind_rows(resp$categories$qualityFilters)
     subset(filters, select = wanted_columns("quality_filter")) |> tibble()
   }  
-}
-
-profile_short_name <- function(profile) {
-  valid_profiles <- show_all_profiles()
-  short_name <- NA
-  if (suppressWarnings(!is.na(as.numeric(profile)))) {
-    # assume a profile id has been provided
-    short_name <- valid_profiles[match(as.numeric(profile),
-                                       valid_profiles$id),]$shortName
-  } else {
-    # try to match a short name or a long name
-    if (profile %in% valid_profiles$name) {
-      short_name <- valid_profiles[match(profile,
-                                         valid_profiles$name), ]$shortName
-    } else {
-      if (profile %in% valid_profiles$shortName) {
-        short_name <- profile
-      }
-    }
-  }
-  short_name
 }
 
 search_values_profile <- function(profile, query){

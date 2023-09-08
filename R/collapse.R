@@ -41,12 +41,7 @@ collapse.metadata_request <- function(.data){
 #' @rdname collect.data_request
 #' @export
 collapse.values_request <- function(.data){
-  if(!is.null(.data$filter)){
-    .data$type <- .data$filter$api[[1]] # note: should only accept one arg
-  }
-  if(!grepl("s$", .data$type)){
-    .data$type <- paste0(.data$type, "s")
-  }
+  .data <- check_values_filter(.data)
   switch(.data$type,
          "collections" = collapse_collection_values(.data),
          "datasets" = collapse_dataset_values(.data),
@@ -68,6 +63,26 @@ collapse.files_request <- function(.data,
          "distributions" = collapse_distribtions(.data),
          "media" = collapse_media_files(.data, thumbnail = thumbnail)
   )
+}
+
+#' Internal function to `collapse.values_request()` functions
+#' @noRd
+#' @keywords Internal
+check_values_filter <- function(.data){
+  if(is.null(.data$filter)){
+    bullets <- c("`collapse.values_request()` requires a `filter()` argument",
+                 i = "e.g. `request_values() |> filter(field == basisOfRecord) |> collapse()`")
+    abort(bullets, call = caller_env())
+  }else{
+    if(!grepl("s$", .data$filter$api)){
+      api <- paste0(.data$filter$api, "s")
+      .data$filter$api <- api
+      .data$type <- api
+    }else{
+      .data$type <- .data$filter$api
+    }
+    return(.data)
+  }
 }
 
 #' Internal function to build headers at the `collapse()` stage

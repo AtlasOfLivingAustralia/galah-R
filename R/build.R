@@ -162,3 +162,44 @@ fix_assertion_cols <- function(df, assertion_cols) {
   }
   df
 }
+
+#' Internal function to handle APIs that return complex outputs
+#' Currently only used by `collect_collection_values()`
+#' It is pretty messy, as:
+#'  1. ALA returns empty lists and NULL values in some fields, and 
+#'  2. tibble() and friends don't handle list-columns well
+#' @importFrom tibble as_tibble
+#' @noRd
+#' @keywords Internal
+build_tibble_from_nested_list <- function(result){
+  # handle normal columns
+  source_tibble <- lapply(result, function(a){
+    if(is.null(a)){
+      as.character(NA)
+    }else if(length(a) > 1){
+      as.character(NA)
+    }else if(length(a) < 1){
+      as.character(NA)
+    }else{
+      a
+    }
+  }) |>
+    as_tibble()
+  # handle nested columns
+  list_cols <- lapply(result, 
+                      function(a){is.list(a) & length(a) > 0}) |>
+    unlist()
+  if(any(list_cols)){
+    list_data <- result[list_cols]
+  }else{
+    list_data <- NULL
+  }
+  # stick together
+  if(length(list_data) > 0){
+    for(i in seq_along(list_data)){
+      col <- names(list_data)[i]
+      source_tibble[col][[1]] <- list(list_data[col][[1]])
+    }
+  }
+  return(source_tibble)
+}
