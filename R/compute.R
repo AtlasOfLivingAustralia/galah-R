@@ -28,7 +28,8 @@ switch_compute <- function(.data){
          "species" = {class(.data) <- "data_response"; return(.data)},
          "media" = {class(.data) <- "data_response"; return(.data)},
          "occurrences-count" = compute_occurrences_count(.data),
-         "species-count" = compute_species_count(.data))   
+         "species-count" = compute_species_count(.data),
+         abort("unknown `type`"))   
 }
 
 # if calling `compute()` after `request_metadata()` 
@@ -69,19 +70,23 @@ compute.files_query <- function(.data){
   return(.data)
 }
 
+# if calling `compute()` after `collapse()` after `request_values()` 
+#' @rdname collect.data_request
+#' @export
+compute.values_query <- function(.data){
+  switch(.data$type,
+         "collections" = compute_collection_values(.data),
+         "datasets" = compute_dataset_values(.data),
+         "fields" = compute_field_values(.data),
+         "lists" = compute_list_values(.data),
+         "profiles" = compute_profile_values(.data),
+         "providers" = compute_provider_values(.data),
+         abort("unrecognised 'type'"))
+}
 # if calling `compute()` after `request_values()` 
 #' @rdname collect.data_request
 #' @export
 compute.values_request <- function(.data){
-  result <- collapse(.data)
-  class(result) <- "values_response"
-  return(result)
-}
-
-# if calling `compute()` after `collapse()` after `request_files()` 
-#' @rdname collect.data_request
-#' @export
-compute.values_query <- function(.data){
-  class(.data) <- "values_response"
-  return(.data)
+  result <- collapse(.data) |>
+    compute()
 }

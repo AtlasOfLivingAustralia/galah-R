@@ -4,6 +4,11 @@
 #' @noRd
 #' @keywords Internal
 collapse_field_values <- function(.data){
+  if(is.null(.data$filter$selection)){
+    bullets <- c("`collapse.values_request()` requires a `filter()` argument",
+                 i = "e.g. `request_values() |> filter(field == basisOfRecord) |> collapse()`")
+    abort(bullets)
+  }
   if(is_gbif()){
     url <- url_lookup("records_counts") |> 
       url_parse()

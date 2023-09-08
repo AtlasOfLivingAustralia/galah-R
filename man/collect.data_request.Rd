@@ -23,8 +23,8 @@
 \alias{compute.metadata_query}
 \alias{compute.files_request}
 \alias{compute.files_query}
-\alias{compute.values_request}
 \alias{compute.values_query}
+\alias{compute.values_request}
 \title{Force computation of a database query}
 \usage{
 \method{collapse}{data_request}(.data, mint_doi = FALSE)
@@ -71,9 +71,9 @@
 
 \method{compute}{files_query}(.data)
 
-\method{compute}{values_request}(.data)
-
 \method{compute}{values_query}(.data)
+
+\method{compute}{values_request}(.data)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, \code{data_query} or

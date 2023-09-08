@@ -239,14 +239,18 @@ check_groups <- function(group, n){
 check_fields <- function(.data) {
   if (pour("package", "run_checks")) {
     queries <- url_parse(.data$url[1])$query
-    
+
     # extract fields from filter & identify
-    if (nchar(queries$fq) > 0) {
-      filters <- string_to_tibble(queries$fq) |>
-        pull(value) |>
-        gsub("\\(|\\)|\\-|\\:", "", x = _)
-    } else {
+    if(is.null(queries$fq)){
       filters <- NULL
+    }else{
+      if (nchar(queries$fq) > 0) {
+        filters <- string_to_tibble(queries$fq) |>
+          pull(value) |>
+          gsub("\\(|\\)|\\-|\\:", "", x = _)
+      } else {
+        filters <- NULL
+      }      
     }
 
     # galah_filter fields check
