@@ -31,7 +31,6 @@ node_config <- read_csv("./data-raw/node_config.csv") |>
   filter(atlas %in% node_metadata$region) |>
   select(-functional)
 
-
 # ALA defaults
 # cached versions of some show_all functions
 # NOTE: may be necessary to expand this given changes to `show_all()`

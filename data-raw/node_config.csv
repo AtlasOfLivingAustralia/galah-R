@@ -8,7 +8,7 @@ Australia,doi,doi_download,https://api.ala.org.au/doi/api/doi/{doi_string}/downl
 Australia,images,image_licences,https://api.ala.org.au/images/ws/licence,show_all-licences,TRUE
 Australia,images,image_metadata,https://api.ala.org.au/images/ws/image/{id},media_metadata,TRUE
 Australia,lists,lists_all,https://api.ala.org.au/specieslist/ws/speciesList,show_all-lists,TRUE
-Australia,lists,lists_lookup,https://api.ala.org.au/specieslist/ws/speciesList/{list_id},show_values-lists,TRUE
+Australia,lists,lists_lookup,https://api.ala.org.au/specieslist/ws/speciesListItems/{list_id},show_values-lists,TRUE
 Australia,logger,logger_reasons,https://api.ala.org.au/logger/service/logger/reasons,show_all-reasons,TRUE
 Australia,name-matching,names_lookup,https://api.ala.org.au/namematching/api/getByTaxonID,search_identifiers,TRUE
 Australia,name-matching,names_search_multiple,https://api.ala.org.au/namematching/api/searchByClassification,search_taxa,TRUE

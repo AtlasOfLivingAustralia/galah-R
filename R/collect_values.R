@@ -18,8 +18,8 @@ collect_dataset_values <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_list_values <- function(.data){
-  query_API(.data) |>
-    build_tibble_from_nested_list()
+  query_API(.data) |> 
+    bind_rows()
 }
 
 #' Internal function to run `compute()` for `request_values(type = "fields")`
