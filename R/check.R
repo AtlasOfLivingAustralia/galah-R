@@ -255,21 +255,19 @@ check_fields <- function(.data) {
 
     # galah_filter fields check
     # variables <- c(filters, facets)  # NOTE: arrange() is missing
+    filter_invalid <- NA
     if (exists("fq", where = queries)) {
       if (length(filters) > 0) {
         if (!all(filters %in% show_all_fields()$id)) {
           invalid_fields <- filters[!(filters %in% c(show_all_fields()$id, show_all_assertions()$id))]
           filter_invalid <- glue::glue_collapse(invalid_fields,
                                                      sep = ", ")
-        } else {
-          filter_invalid <- NA
         }
       }
-    } else {
-      filter_invalid <- NA
     }
 
     # galah_select columns check
+    select_invalid <- NA
     if (exists("fields", where = queries)) {
       fields <- queries$fields |>
         strsplit(",") |>
@@ -281,15 +279,12 @@ check_fields <- function(.data) {
                                                      sep = ", ")
           select_invalid <- glue::glue_collapse(invalid_fields,
                                                      sep = ", ")
-        } else {
-          select_invalid <- NA
         }
       }
-    } else {
-      select_invalid <- NA
     }
     
     # galah_group_by fields check
+    group_by_invalid <- NA
     if (exists("facets", where = queries)) {
       facets <- queries[names(queries) == "facets"] |> unlist() # NOTE: arrange() is missing
       if (length(facets) > 0) {
@@ -297,12 +292,8 @@ check_fields <- function(.data) {
           invalid_fields <- facets[!(facets %in% c(show_all_fields()$id, show_all_assertions()$id))]
           group_by_invalid <- glue::glue_collapse(invalid_fields,
                                                      sep = ", ")
-        } else {
-          group_by_invalid <- NA
         }
       }
-    } else {
-      group_by_invalid <- NA
     }
     
     # error message
