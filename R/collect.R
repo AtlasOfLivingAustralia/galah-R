@@ -83,7 +83,7 @@ collect.data_response <- function(.data,
                                   wait = TRUE, 
                                   file = NULL){
   switch(.data$type,
-         "occurrences-count" = collect_occurences_count(.data),
+         "occurrences-count" = collect_occurrences_count(.data),
          "species-count" = collect_species_count(.data),
          "species" = collect_species(.data, file = file),
          "occurrences" = collect_occurrences(.data, wait = wait, file = file),
