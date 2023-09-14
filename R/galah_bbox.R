@@ -1,74 +1,7 @@
-#' Narrow a query to within a bounding box
-#'
-#' Restrict results to within a bounding box (a box constructed from min/max 
-#' latitude & longitude coordinates). 
-#' Bounding boxes can be extracted from a supplied `sf`/`sfc` object or 
-#' a shapefile. A bounding box can also be supplied as a `bbox` object 
-#' (via `sf::st_bbox`) or a `tibble`/`data.frame`.
-#'
-#' @param ... an `sf` object or a shapefile (.shp), or bounding box coordinates 
-#' supplied as a `bbox`, a `tibble`/`data.frame`
-#' @details an `sf` object or a shapefile polygon will be simplified to its 
-#' bbox coordinates. A bounding box can be supplied as a `bbox` object or as 
-#' a `tibble`/`data.frame`. Bounding boxes supplied as a `tibble`/`data.frame` 
-#' must have "xmin", "xmax", "ymin" and "ymax" columns with valid `numeric` 
-#' values.
-#' @return length-1 object of class `character` and `galah_geolocate`,
-#' containing a multipolygon WKT string representing the bounding box of the 
-#' area provided.
-#' @seealso [galah_polygon()] & [galah_geolocate()] for other ways to narrow
-#' queries by location. See [search_taxa()], [galah_filter()] and
-#' [galah_select()] for other ways to restrict the information
-#' returned by [atlas_occurrences()] and related functions.
-#'
-#' @examples
-#' # Search for records using a bounding box of coordinates
-#' b_box <- sf::st_bbox(c(xmin = 143, xmax = 148, ymin = -29, ymax = -28), 
-#'                      crs = sf::st_crs("WGS84"))
-#'
-#' galah_call() |>
-#'   galah_identify("reptilia") |>
-#'   galah_bbox(b_box) |>
-#'   atlas_counts()
-#'
-#' # Search for records using a bounding box in a `tibble` or `data.frame`
-#' b_box <- tibble::tibble(xmin = 148, ymin = -29, xmax = 143, ymax = -21)
-#'
-#' galah_call() |>
-#'   galah_identify("reptilia") |>
-#'   galah_bbox(b_box) |>
-#'   atlas_counts()
-#'   
-#' \dontrun{
-#' # Search for records within the bounding box of an `sf` object
-#' galah_config(email = "your_email_here")
-#' 
-#' location <- 
-#' "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |>
-#'  sf::st_as_sfc()
-#'  
-#' galah_call() |>
-#'   galah_identify("vulpes") |>
-#'   galah_bbox(location) |>
-#'   atlas_occurrences()
-#'  
-#' # Search for records within the bounding box of a shapefile
-#' galah_config(email = "your_email_here")
-#'
-#' location <- sf::st_read("path/to/shapefile.shp")
-#' 
-#' galah_call() |>
-#'   galah_identify("vulpes") |>
-#'   galah_bbox(location) |>
-#'   atlas_occurrences()
-#' }
-#'
 #' @importFrom sf st_cast st_as_text st_as_sfc st_is_empty st_is_simple
 #' @importFrom sf st_is_valid st_bbox st_geometry_type st_crs
 #' @importFrom rlang try_fetch
-#' 
-#' @keywords internal
-#' 
+#' @rdname galah_geolocate
 #' @export
 galah_bbox <- function(...) {
 

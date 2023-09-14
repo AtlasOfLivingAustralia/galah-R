@@ -1,0 +1,153 @@
+---
+title: "Object-Oriented Programming in galah"
+author: "Martin Westgate"
+date: '2023-09-14'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Object-Oriented Programming in galah}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+From version 2.0 onwards, `galah` is built around object-oriented programming 
+principles. In practice, this won't change the experience for most users. 
+However, it does enable new ways of programming that were not previously 
+available. 
+
+When requesting data from `galah`, you can now choose a different pipe opening
+function depending on the type of data you want to collect. For example, if you
+want to get occurrences, use `request_data()`:
+
+
+```r
+x <- request_data() |>
+  filter(genus == "Crinia", year == 2020) |>
+  group_by(species) |>
+  count()
+```
+This call creates an object of class `data_request` (identical to `galah_call()`):
+
+
+```r
+class(x)
+```
+
+```
+## [1] "data_request"
+```
+
+Note the use of `filter` and `group_by` are possible in this framework, and 
+remain synonymous with `galah_filter()` and `galah_group_by()`. The full list of 
+masked functions is: 
+
+- `arrange()` (`{dplyr}`)
+- `count()` (`{dplyr}`)
+- `identify()` (`{graphics}`) as a synonym for `galah_identify()`
+- `select()` (`{dplyr}`) as a synonym for `galah_select()`
+- `group_by()` (`{dplyr}`) as a synonym for `galah_group_by()`
+- `slice_head()` (`{dplyr}`) as a synonym for the `limit` argument in `atlas_counts()`
+- `st_crop()` (`{sf}`) as a synonym for `galah_polygon()`
+
+Note that these functions are all evaluated lazily; they amend the underlying 
+object, but do not amend the nature of the data until the call is evaluated.
+To actually build and run the query, we use one or more of a different set of
+ `{dplyr}` verbs:
+
+- `collapse()` converts the object to query so you can inspect your API calls
+- `compute()` does any further computation that requires pinging an API, such
+  as sending a query or determining how much pagination is needed
+- `collect()` returns a `tibble()` with the requested data
+
+We can use these in sequence, or just leap ahead to the stage we want:
+
+
+```r
+collapse(x) |> str()
+```
+
+```
+## List of 5
+##  $ type   : chr "occurrences-count"
+##  $ url    : chr "https://biocache-ws.ala.org.au/ws/occurrences/facets?fq=%28genus%3A%22Crinia%22%29%20AND%20%28year%3A%222020%22"| __truncated__
+##  $ expand : logi FALSE
+##  $ arrange: tibble [1 × 4] (S3: tbl_df/tbl/data.frame)
+##   ..$ slice_n     : num 30
+##   ..$ slice_called: logi FALSE
+##   ..$ variable    : chr "count"
+##   ..$ direction   : chr "descending"
+##  $ headers:List of 1
+##   ..$ User-Agent: chr "galah-R 1.5.3.9999"
+##  - attr(*, "class")= chr "data_query"
+```
+
+```r
+collect(x)
+```
+
+```
+## # A tibble: 16 × 2
+##    species                 count
+##    <chr>                   <int>
+##  1 Crinia signifera        57876
+##  2 Crinia parinsignifera   12478
+##  3 Crinia glauerti          3090
+##  4 Crinia georgiana         1490
+##  5 Crinia remota             784
+##  6 Crinia sloanei            644
+##  7 Crinia insignifera        536
+##  8 Crinia tinnula            417
+##  9 Crinia deserticola        278
+## 10 Crinia pseudinsignifera   235
+## 11 Crinia tasmaniensis       189
+## 12 Crinia bilingua            75
+## 13 Crinia subinsignifera      45
+## 14 Crinia riparia             10
+## 15 Crinia flindersensis        3
+## 16 Crinia nimba                1
+```
+
+Under the hood, these verbs amend our object to a new class:
+
+- `request_data()` returns class `data_request`
+- `collapse()` returns class `data_query`
+- `compute()` returns class `data_response`
+- `collapse()` doesn't add a new data class (returns class `tibble`)
+
+In practice, there are actually 12 new classes:
+
+- `request_data()` generates `data_request`, followed by `data_query` and `data_response`
+- `request_files()` generates `files_request`, followed by `files_query` and `files_response`
+- `request_metadata()` generates `metadata_request`, followed by `metadata_query` and `metadata_response`
+- `request_values()` generates `values_request`, followed by `values_query` and `values_response`
+
+These can be called directly, or via the `method` argument of `galah_call()`, 
+which is used to specify the suffix to the `request_` call, defaulting to 
+`"data"`. That is, the following calls are synonymous:
+
+
+```r
+request_data() |>
+  filter(year == 2020) |>
+  count() |>
+  collect()
+
+galah_call() |>
+  galah_filter(year == 2020) |>
+  atlas_counts()
+```
+
+What are the benefits of this new method? We see several:
+
+- Splitting `atlas_` functions up into `collapse`, `compute` and `collect` stages
+  makes them more modular; you can now submit a query and download it later,
+  without having to wait for it to finish.
+- Previously some functions did several different things, making it difficult
+  to know which APIs were being called, when, and for what purpose. This is 
+  much more transparent in the new framework.
+- Functions that are more modular are generally easier to interrogate and debug
+  
+Despite these benefits, we have no plans to _require_ this new syntax; functions
+prefixed with `galah_` or `atlas_` are not going away. Under the hood, however,
+they are now entirely built using the above syntax.

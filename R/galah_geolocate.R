@@ -26,11 +26,6 @@
 #' box to query the ALA.
 #' @return length-1 object of class `character` and `galah_geolocate`,
 #' containing a multipolygon WKT string representing the area provided.
-#' @seealso [galah_polygon()] and [galah_bbox()] for specific functions to 
-#' narrow queries by a specified area. [search_taxa()], [galah_filter()] and
-#' [galah_select()] for other ways to restrict the information
-#' returned by [atlas_occurrences()] and related functions.
-#' 
 #' @examples
 #' \dontrun{
 #' # Search for records within a polygon using a shapefile

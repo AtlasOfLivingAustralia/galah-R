@@ -1,54 +1,9 @@
-#' Narrow a query to within a specified polygon
-#'
-#' Restrict results to those from a specified area. Areas must be polygons. 
-#' Polygons must be supplied as an `sf` object, a 'well-known text' (WKT) 
-#' string, or a shapefile. Polygons and shapefiles must not be overly complex
-#' (i.e. have too many characters or too many vertices) or they will not be
-#' accepted in a query to the ALA.
-#'
-#' @param ... a single `sf` object, WKT string or shapefile. 
-#' @details WKT strings longer than 10000 characters and 
-#' `sf` objects with more than 500 vertices will not be
-#' accepted by the ALA. Some polygons  may need to be simplified.
-#' @return length-1 object of class `character` and `galah_geolocate`,
-#' containing a multipolygon WKT string representing the area provided.
-#' @seealso [galah_bbox()] & [galah_geolocate()] for other ways to narrow
-#' queries by location. [search_taxa()], [galah_filter()] and
-#' [galah_select()] for other ways to restrict the information
-#' returned by [atlas_occurrences()] and related functions.
-#' 
-#' @examples
-#' # Search for records within a polygon using an `sf` object
-#' location <- "POLYGON((142.3 -29.0,142.7 -29.1,142.7 -29.4,142.3 -29.0))" |>
-#'   sf::st_as_sfc()
-#' galah_call() |>
-#'   galah_identify("reptilia") |>
-#'   galah_polygon(location) |>
-#'   atlas_counts()
-#' \dontrun{
-#' # Search for records using a shapefile
-#' galah_config(email = "your_email_here")
-#' location <- galah_geolocate(sf::st_read(path/to/shapefile.shp))
-#' galah_call() |>
-#'   galah_identify("vulpes") |>
-#'   galah_polygon(location) |>
-#'   atlas_occurrences()
-#' 
-#' # Search for records using a Well-known Text string (WKT)
-#' wkt <- "POLYGON((142.3 -29.0,142.7 -29.1,142.7 -29.4,142.3 -29.0))"
-#' galah_call() |>
-#'   galah_identify("vulpes") |>
-#'   galah_polygon(wkt) |>
-#'   atlas_counts()
-#' }
 #' @importFrom sf st_cast st_as_text st_as_sfc st_is_empty st_is_simple
 #' @importFrom sf st_crs st_geometry st_geometry_type st_is_valid st_simplify st_read
 #' @importFrom rlang try_fetch
 #' @importFrom rlang is_string is_list
 #' @importFrom stringr str_detect
-#' 
-#' @keywords internal
-#' 
+#' @rdname galah_geolocate
 #' @export
 galah_polygon <- function(...){
   
@@ -76,7 +31,7 @@ galah_polygon <- function(...){
   }   
 }
 
-#' @rdname galah_polygon
+#' @rdname galah_geolocate
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @export
 st_crop.data_request <- function(.data, y, ...){

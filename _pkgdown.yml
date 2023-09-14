@@ -26,8 +26,8 @@ navbar:
       menu:
       - text: Choosing an atlas
         href: articles/choosing_an_atlas.html
-      - text: Piping in galah
-        href: articles/piping.html
+      - text: Object-oriented programming
+        href: articles/object_oriented_programming.html
       - text: Look up information
         href: articles/look_up_information.html
       - text: Narrow your results
@@ -47,7 +47,6 @@ reference:
   - search_taxa
   - search_identifiers
   - search_fields
-  - search_media
   - search_values
   - show_all_profiles
   - show_all_fields
@@ -64,6 +63,10 @@ reference:
   - galah_geolocate
   - galah_apply_profile
   - galah_down_to
+  - arrange.data_request
+  - desc
+  - slice_head.data_request
+  - reexports
 - title: Download data
   contents:
   - atlas_occurrences
@@ -71,21 +74,7 @@ reference:
   - atlas_species
   - atlas_taxonomy
   - atlas_media
-  - collect_media
-  - collect_occurrences
-- title: Masked functions
-  contents:
-  - identify.data_request
-  - filter.data_request
-  - select.data_request
-  - group_by.data_request
-  - st_crop.data_request
-  - slice_head.data_request
-  - count.data_request
-  - reexports
-- title: Manage cache
-  contents:
-  - clear_cached_files
+  - collapse.data_request
 - title: Configure session
   contents: galah_config
 - title: Cite
