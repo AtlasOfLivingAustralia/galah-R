@@ -46,110 +46,56 @@
 #' @importFrom data.tree Set 
 #' @importFrom data.tree ToDataFrameTree 
 #' @importFrom potions pour
+#' @importFrom stringr str_to_title
 #' @export
 atlas_taxonomy <- function(request = NULL,
                            identify = NULL, 
-                           down_to = NULL
+                           down_to = NULL,
+                           constrain_ids = c("biodiversity.org.au")
+                           # error_call = caller_env() #?
                            ) {
-  if(!is.null(request)){
-    check_data_request(request)
-    current_call <- update_data_request(request, 
-      identify = identify,
-      down_to = down_to
-    ) 
-  }else{
-    current_call <- galah_call(
-      identify = identify,
-      down_to = down_to
-    )
-  }
-  # subset to available arguments
-  custom_call <- current_call[
-    names(current_call) %in% names(formals(atlas_taxonomy_internal))]
-  class(custom_call) <- "data_request"
-      
-  # call using do.call
-  do.call(atlas_taxonomy_internal, custom_call)
-}
-
-
-atlas_taxonomy_internal <- function(request,
-                                    identify, 
-                                    down_to,
-                                    error_call = caller_env()
-                                    ){
-
+  # run checks
   if(pour("atlas", "region") != "Australia"){
     bullets <- c(
       "`atlas_taxonomy` only provides information on Australian taxonomy.",
       i = "Consider using `search_taxa()` instead.")
     abort(bullets, call = error_call)
   }
- 
-  # error checking for `identify`
-  if (missing(identify)) {
-    bullets <- c(
-      "Argument `identify` is missing, with no default.",
-      i = "Did you forget to specify a taxon?"
-    )
-    abort(bullets, call = error_call)
-    }
-    
-  if (is.null(identify)) {
-    bullets <- c(
-      "Argument `identify` is missing, with no default.",
-      i = "Did you forget to specify a taxon?"
-    )
-    abort(bullets, call = error_call)
-    }
   
-  if(nrow(identify) > 1){
-    number_of_taxa <- nrow(identify)
-    bullets <- c(
-      "Can't provide tree more than one taxon to start with.",
-      i = "atlas_taxonomy` only accepts a single taxon at a time.",
-      x = glue("`identify` has length of {number_of_taxa}.")
-    )
-    abort(bullets, call = error_call)
-  }
+  # capture supplied arguments
+  args <- as.list(environment())
   
-  # error checking for `down_to`
-  if (missing(down_to)) {
-    bullets <- c(
-      "Argument `down_to` is missing, with no default.",
-      i = "Did you forget to specify a taxonomic level?",
-      i = "See `?galah_down_to` for more information."
-    )
-    abort(bullets, call = error_call)
-  }
-  if (is.null(down_to)) {
-    bullets <- c(
-      "Argument `down_to` is missing, with no default.",
-      i = "Did you forget to specify a taxonomic level?",
-      i = "See `?galah_down_to` for more information."
-    )
-    abort(bullets, call = error_call)
-  }else if(!inherits(down_to, "character")){
-    abort("`down_to` must be inherit from class 'character'",
-          call = error_call)
-  }
+  # convert to a valid `data_request` object
+  .data <- check_atlas_inputs(args)
+  .data$type <- "taxonomy" # default, but in case supplied otherwise
+  check_identify(.data)
+  check_down_to(.data)
   
-  if(!is.null(attr(down_to, "call"))){
-    if(attr(down_to, "call") == "galah_down_to"){
-      down_to <- down_to$rank
-    }
-  }
+  # extract required information from `identify` 
+  start_row <- request_metadata(type = "identifiers") |>
+    identify(.data$identify$identifier) |>
+    collect() |>
+    mutate(name = str_to_title(scientific_name)) |>
+    select(name, rank, taxon_concept_id) 
   
-  down_to <- tolower(down_to) 
-  if(!any(show_all_ranks()$name == down_to)){
-    bullets <- c(
-      "Invalid taxonomic rank provided.",
-      i = "The rank provided to `down_to` must be a valid taxonomic rank.",
-      x = glue("{down_to} is not a valid rank.")
-    )
-    abort(bullets, call = error_call)
-  }
+  # get child taxa and apply constraints
+  first_children <- request_values(type = "taxa") |>
+    identify(start_row$taxon_concept_id) |>
+    collect() |>
+    mutate(name = str_to_title(name),
+           taxon_concept_id = guid) |>
+    select(name, rank, taxon_concept_id) |>
+    constrain_id(constrain_to = constrain_ids)
   
+  browser()
+
+  # NOTE: we should re-write this to still be recursive;
+  # but return a tibble with parent and child IDs
+  # This can then be converted into a tree if needed
+  
+  
+  
+  ## BELOW OLD
   # extract required information from `identify`
   start_row <- search_identifiers(identify)[, c("scientific_name", "rank", "taxon_concept_id")]
   names(start_row) <- c("name", "rank", "guid")
@@ -188,6 +134,66 @@ atlas_taxonomy_internal <- function(request,
 
 }
 
+#' Internal function to check `identify` term is specified correctly
+#' @importFrom rlang abort
+#' @noRd
+#' @keywords Internal
+check_identify <- function(.data){
+  if(is.null(.data$identify)){
+    bullets <- c(
+      "Argument `identify` is missing, with no default.",
+      i = "Did you forget to specify a taxon?")
+    abort(bullets, call = error_call)
+  }
+  
+  if(nrow(.data$identify) > 1){
+    number_of_taxa <- nrow(.data$identify)
+    bullets <- c(
+      "Can't provide tree more than one taxon to start with.",
+      i = "atlas_taxonomy` only accepts a single taxon at a time.",
+      x = glue("`identify` has length of {number_of_taxa}.")
+    )
+    abort(bullets, call = error_call)
+  }
+}
+
+#' Internal function to check `identify` term is specified correctly
+#' @importFrom rlang abort
+#' @noRd
+#' @keywords Internal
+check_down_to <- function(.data){
+  if (is.null(.data$down_to)) {
+    bullets <- c(
+      "Argument `down_to` is missing, with no default.",
+      i = "Did you forget to specify a taxonomic level?",
+      i = "See `?galah_down_to` for more information."
+    )
+    abort(bullets, call = error_call)
+  }
+  
+  down_to <- tolower(.data$down_to$rank) 
+  if(!any(show_all_ranks()$name == down_to)){
+    bullets <- c(
+      "Invalid taxonomic rank provided.",
+      i = "The rank provided to `down_to` must be a valid taxonomic rank.",
+      x = glue("{down_to} is not a valid rank.")
+    )
+    abort(bullets, call = error_call)
+  }  
+}
+
+#' Internal function to only return GUIDs that match particular criteria
+#' @importFrom purrr list_transpose
+#' @importFrom dplyr filter
+#' @noRd
+#' @keywords Internal
+constrain_id <- function(df, constrain_to){
+  
+  check_list <- lapply(constrain_to, function(a){grepl(a, df$taxon_concept_id)})
+  check_result <- lapply(list_transpose(check_list), any) |>
+    unlist()
+  df |> filter(check_result)
+}
 
 # Return the classification for a taxonomic id
 lookup_taxon <- function(id) {

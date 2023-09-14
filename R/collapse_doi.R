@@ -40,6 +40,6 @@ collapse_doi <- function(.data, error_call = caller_env()){
     url = url_lookup("doi_download", doi_string = doi_str),
     headers = build_headers(),
     download = TRUE)
-  class(result) <- "files_query"
+  class(result) <- "data_query"
   return(result)
 }

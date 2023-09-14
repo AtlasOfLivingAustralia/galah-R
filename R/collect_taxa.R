@@ -16,9 +16,14 @@ collect_taxa <- function(.data){
 #' @keywords Internal
 collect_taxa_la <- function(.data){
   search_terms <- .data$url$search_term
-  result <- query_API(.data) |>
-    bind_rows() |>
-    filter(!duplicated(taxonConceptID)) |>
+  result <- lapply(query_API(.data), 
+                   build_tibble_from_nested_list) |> 
+    bind_rows()
+  # break chain for use case where all search terms are dubious (i.e. no taxonConceptID)
+  if(any(colnames(result) == "taxonConceptID")){
+    result <- filter(result, !duplicated(taxonConceptID))
+  }
+  result <- result |>   
     mutate("search_term" = search_terms, .before = "success")
   names(result) <- rename_columns(names(result), type = "taxa") # old code
   result |> select(any_of(wanted_columns("taxa")))

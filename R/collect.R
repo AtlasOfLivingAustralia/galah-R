@@ -32,23 +32,24 @@ collect.data_request <- function(.data,
                                  wait = FALSE, 
                                  file = NULL){
   .data$type <- check_type(.data$type)
-  switch(.data$type, 
-         "occurrences-count" = {compute(.data) |> 
-                                collect_occurrences_count()},
-         "species-count" = {compute(.data) |>
-                            collect_species_count()},
-         "doi" = collect_doi(.data),
-         "species" = {
+  switch(.data$type,
+         "doi" = {compute(.data) |> collect_doi()},
+         "media" = {
            collapse(.data) |>
-              collect_species(file = file)},
+             collect_media_metadata()},
          "occurrences" = {
              compute(.data) |> 
                collect_occurrences(wait = wait, file = file)
          },
-         "media" = {
-            collapse(.data) |>
-              collect_media_metadata()},
-         "doi" = {compute(.data) |> collect_doi()},
+         "occurrences-count" = {compute(.data) |> 
+             collect_occurrences_count()},
+         "species" = {
+           collapse(.data) |>
+             collect_species(file = file)},
+         "species-count" = {compute(.data) |>
+             collect_species_count()},
+         "taxonomy" = {collapse(.data) |> 
+             collect_taxonomy()},
          abort("unrecognised 'type' supplied to `galah_call()`")
       )
 }
@@ -60,17 +61,18 @@ collect.data_query <- function(.data,
                                wait = TRUE, 
                                file = NULL){
   switch(.data$type,
+         "doi" = collect_doi(.data, file = file),
+         "media" = collect_media_metadata(.data),
+         "occurrences" = {
+           compute(.data) |>
+             collect_occurrences(wait = wait, file = file)},
          "occurrences-count" = collect_occurrences_count(.data),
          "species-count" = collect_species_count(.data),
          "species" = {
            check_login(.data)
            collect_species(.data, file = file)},
-         "occurrences" = {
-           compute(.data) |>
-             collect_occurrences(wait = wait, file = file)},
-         "media" = collect_media_metadata(.data),
-         "doi" = collect_doi(.data, file = file),
-         query_API
+         "taxonomy" = {compute(.data) |> collect_taxonomy()},
+         query_API(.data) # q: is this sensible?
   )
 }
 
@@ -83,14 +85,14 @@ collect.data_response <- function(.data,
                                   wait = TRUE, 
                                   file = NULL){
   switch(.data$type,
-         "occurrences-count" = collect_occurrences_count(.data),
-         "species-count" = collect_species_count(.data),
-         "species" = collect_species(.data, file = file),
-         "occurrences" = collect_occurrences(.data, wait = wait, file = file),
-         "media" = collect_media_metadata(.data),
          "doi" = collect_doi(.data, file = file),
+         "media" = collect_media_metadata(.data),
+         "occurrences" = collect_occurrences(.data, wait = wait, file = file),
+         "occurrences-count" = collect_occurrences_count(.data),
+         "species" = collect_species(.data, file = file),
+         "species-count" = collect_species_count(.data),
+         "taxonomy" = collect_taxonomy(.data),
          abort("unrecognised 'type'")
-         # NOTE: "species" & "doi" have no `compute()` stage
   )
 }
 
@@ -182,5 +184,6 @@ collect.values_response <- function(.data){
          "lists" = collect_list_values(.data),
          "profiles" = collect_profile_values(.data),
          "providers" = collect_provider_values(.data),
+         "taxa" = collect_taxa_values(.data),
          abort("unrecognised 'type'"))
 }

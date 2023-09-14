@@ -67,3 +67,11 @@ collect_provider_values <- function(.data){
   query_API(.data) |>
     build_tibble_from_nested_list()
 }
+
+#' Internal function to run `compute()` for `request_values(type = "taxa")`
+#' @noRd
+#' @keywords Internal
+collect_taxa_values <- function(.data){
+  query_API(.data) |>
+    bind_rows()
+}

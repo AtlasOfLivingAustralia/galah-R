@@ -98,11 +98,12 @@ galah_call <- function(method = c("data", "metadata", "files"),
 #' @rdname galah_call
 #' @export
 request_data <- function(type = c("occurrences", 
-                                  "species",
                                   "occurrences-count",
-                                  "species-count",
+                                  "doi",
                                   "media",
-                                  "doi"),
+                                  "species",
+                                  "species-count"
+                                  ),
                          ...){
   if(!missing(type)){
     type <- match.arg(type)
@@ -170,7 +171,13 @@ request_files <- function(
 #' @rdname galah_call
 #' @export
 request_values <- function(
-    type = "fields" # note different behaviour here from related functions
+    type = c("collections",
+             "datasets",
+             "fields",
+             "lists",
+             "profiles",
+             "providers",
+             "taxa")
 ){
   x <- list(type = type)
   class(x) <- "values_request"

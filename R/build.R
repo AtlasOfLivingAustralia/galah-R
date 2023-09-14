@@ -6,7 +6,6 @@ build_query <- function(identify = NULL,
                         filter = NULL, 
                         location = NULL, 
                         data_profile = NULL) {
-  
   if (is.null(identify)) {
     if(is_gbif()){
       taxa_query <- list(taxonKey = 1)
@@ -19,8 +18,8 @@ build_query <- function(identify = NULL,
     } else {
       check_taxa_arg(identify)
       if (inherits(identify, "data.frame") &&
-          "identifier" %in% colnames(identify)) {
-        identify <- identify$identifier
+          "search_term" %in% colnames(identify)) {
+        identify <- identify$search_term
       }
       #TODO: Implement a useful check here- i.e. string or integer
       taxa_query <- build_taxa_query(identify)
@@ -108,6 +107,8 @@ build_filter_query <- function(filters) {
 }
 
 #' Sub-function to `build_query()` for taxa
+#' @importFrom glue glue
+#' @importFrom glue glue_collapse
 #' @noRd
 #' @keywords Internal
 build_taxa_query <- function(ids) {
@@ -115,9 +116,11 @@ build_taxa_query <- function(ids) {
   if(is_gbif()){
     list(taxonKey = ids)
   }else{
+    wrapped_ids <- paste0("`", ids, "`")
     glue(
       "(lsid:",
-      glue_collapse(ids, sep = glue(" OR lsid:")),
+      glue_collapse(wrapped_ids,
+                    sep = glue(" OR lsid:")),
       ")")
   }
 }

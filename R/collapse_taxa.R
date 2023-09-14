@@ -7,7 +7,7 @@ collapse_taxa <- function(.data){
     search_terms <- "no-name-supplied"
   }else{
     # case for searching by classification
-    if(inherits(.data$identify, "data.frame")){
+    if(ncol(.data$identify) > 1 | !all(colnames(.data$identify) == "search_term")){
       split_list <- split(.data$identify, seq_len(nrow(.data$identify)))
       base_url <- url_parse(url_lookup("names_search_multiple"))
       urls <- lapply(split_list,
@@ -21,10 +21,11 @@ collapse_taxa <- function(.data){
                              function(a){paste(a, collapse = "_")}) |>
         unlist()
     }else{ # case for searching with one or more single strings
-      urls <- lapply(.data$identify,
-                     function(a){url_lookup("names_search_single", name = a)}) |>
+      urls <- lapply(.data$identify$search_term,
+                     function(a){url_lookup("names_search_single", 
+                                            name = a)}) |>
         unlist()
-      search_terms <- .data$identify      
+      search_terms <- .data$identify$search_term   
     }
   }
   # build object and return

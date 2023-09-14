@@ -4,8 +4,8 @@
 collapse_collection_values <- function(.data){
   result <- list(
     type = .data$type,
-    url = paste(url_lookup("collections_collections"), 
-                .data$filter$selection[1], 
+    url = paste(url_lookup("collections_collections"),
+                .data$filter$selection[1],
                 sep = "/"))
   class(result) <- "values_query"
   return(result)
@@ -17,8 +17,8 @@ collapse_collection_values <- function(.data){
 collapse_dataset_values <- function(.data){
   result <- list(
     type = .data$type,
-    url = paste(url_lookup("collections_datasets"), 
-                .data$filter$selection[1], 
+    url = paste(url_lookup("collections_datasets"),
+                .data$filter$selection[1],
                 sep = "/"))
   class(result) <- "values_query"
   return(result)
@@ -81,9 +81,24 @@ collapse_profile_values <- function(.data){
 collapse_provider_values <- function(.data){
   result <- list(
     type = .data$type,
-    url = paste(url_lookup("collections_providers"), 
-                .data$filter$selection[1], 
+    url = paste(url_lookup("collections_providers"),
+                .data$filter$selection[1],
                 sep = "/"))
+  class(result) <- "values_query"
+  return(result)
+}
+
+#' Internal function to `collapse()` for `type = "taxonomy"`
+#' @importFrom rlang abort
+#' @importFrom utils URLencode
+#' @noRd
+#' @keywords Internal
+collapse_taxa_values <- function(.data){
+  id <- as.character(.data$filter$selection) |>
+    URLencode(reserved = TRUE)
+  result <- list(type = .data$type,
+                 url = url_lookup("species_children", id = id),
+                 headers = build_headers())
   class(result) <- "values_query"
   return(result)
 }

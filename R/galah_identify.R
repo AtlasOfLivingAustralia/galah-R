@@ -57,47 +57,51 @@ galah_identify <- function(..., search = TRUE) {
     }
   }
 }
+# NOTE: the above hasn't been updated yet
   
+#' #' @rdname galah_identify
+#' #' @param .data An object of class `data_request`, created using [request_data()]
+#' #' @export
+#' identify.data_request <- function(.data, ..., search = TRUE){
+#'   dots <- list(...)
+#'   if (length(dots) < 1) {
+#'     warn("No query passed to `identify()`")
+#'     return(.data)
+#'   }else{
+#'     if(search){
+#'       result <- search_taxa(dots) |>
+#'         rename(identifier = taxon_concept_id) |>
+#'         select(identifier)
+#'     }else{
+#'       result <- tibble(identifier = unlist(dots))
+#'     }
+#'     update_data_request(.data, identify = result)
+#'   }
+#' }
+
 #' @rdname galah_identify
 #' @param .data An object of class `data_request`, created using [request_data()]
+#' @importFrom tibble tibble
 #' @export
-identify.data_request <- function(.data, ..., search = TRUE){
-  dots <- list(...)
-  if (length(dots) < 1) {
+identify.data_request <- function(.data, ...){
+  dots_initial <- list(...)
+  if (length(dots_initial) < 1) {
     warn("No query passed to `identify()`")
     return(.data)
   }else{
-    if(search){
-      result <- search_taxa(dots) |>
-        rename(identifier = taxon_concept_id) |>
-        select(identifier)
+    if(inherits(dots_initial[[1]], "data.frame")){
+      .data$identify <- tibble(search_term = dots_initial[[1]])
     }else{
-      result <- tibble(identifier = unlist(dots))
+      .data$identify <- tibble(search_term = unlist(dots_initial))
     }
-    update_data_request(.data, identify = result)
+    return(.data) 
   }
 }
 
 #' @rdname galah_identify
 #' @param .data An object of class `metadata_request`, created using [request_metadata()]
 #' @export
-identify.metadata_request <- function(.data, ...){
-  dots_initial <- list(...)
-  if (length(dots_initial) < 1) {
-    warn("No query passed to `identify()`")
-    return(.data)
-  }else{
-    dots <- list(identify = dots_initial)
-    if(inherits(dots$identify[[1]], "data.frame")){
-      dots$identify <- dots$identify[[1]]
-    }else{
-      dots$identify <- unlist(dots$identify)
-    }
-    result <- c(.data, dots)
-    class(result) <- "metadata_request"
-    return(result) 
-  }
-}
+identify.metadata_request <- identify.data_request
 
 #' parser for `galah_identify()`
 #' @noRd

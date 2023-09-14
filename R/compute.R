@@ -22,12 +22,14 @@ compute.data_query <- function(.data){
 #' @keywords Internal
 switch_compute <- function(.data){
   check_login(.data)
+  .data <- check_lazy_identifiers(.data)
   check_fields(.data)
   switch(.data$type, 
-         "occurrences" = {compute_occurrences(.data)},
-         "species" = {class(.data) <- "data_response"; return(.data)},
+         "doi" = compute_doi(.data),
          "media" = {class(.data) <- "data_response"; return(.data)},
+         "occurrences" = {compute_occurrences(.data)},
          "occurrences-count" = compute_occurrences_count(.data),
+         "species" = {class(.data) <- "data_response"; return(.data)},
          "species-count" = compute_species_count(.data),
          abort("unknown `type`"))   
 }
@@ -81,6 +83,7 @@ compute.values_query <- function(.data){
          "lists" = compute_basic_values(.data),
          "profiles" = compute_profile_values(.data),
          "providers" = compute_basic_values(.data),
+         "taxa" = compute_basic_values(.data),
          abort("unrecognised 'type'"))
 }
 

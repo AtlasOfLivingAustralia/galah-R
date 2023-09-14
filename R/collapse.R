@@ -5,13 +5,13 @@
 #' @export
 collapse.data_request <- function(.data, mint_doi = FALSE){
   .data$type <- check_type(.data$type)
-  switch(.data$type, 
-         "occurrences-count" = collapse_occurrences_count(.data),
-         "species-count" = collapse_species_count(.data),
-         "species" = collapse_species(.data),
-         "occurrences" = collapse_occurrences(.data, mint_doi = mint_doi),
-         "media" = collapse_media_metadata(.data),
+  switch(.data$type,
          "doi" = collapse_doi(.data),
+         "media" = collapse_media_metadata(.data),
+         "occurrences" = collapse_occurrences(.data, mint_doi = mint_doi),
+         "occurrences-count" = collapse_occurrences_count(.data),
+         "species" = collapse_species(.data),
+         "species-count" = collapse_species_count(.data),
          abort("unrecognised 'type'"))
 }
 
@@ -49,6 +49,7 @@ collapse.values_request <- function(.data){
          "lists" = collapse_list_values(.data),
          "profiles" = collapse_profile_values(.data),
          "providers" = collapse_provider_values(.data),
+         "taxa" = collapse_taxa_values(.data),
          abort("unrecognised 'type'"))
 }
 
@@ -74,7 +75,7 @@ check_values_filter <- function(.data){
                  i = "e.g. `request_values() |> filter(field == basisOfRecord) |> collapse()`")
     abort(bullets, call = caller_env())
   }else{
-    if(!grepl("s$", .data$filter$api)){
+    if(!grepl("s$|taxa", .data$filter$api)){
       api <- paste0(.data$filter$api, "s")
       .data$filter$api <- api
       .data$type <- api

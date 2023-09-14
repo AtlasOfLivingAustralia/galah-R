@@ -80,7 +80,6 @@ atlas_media <- function(request = NULL,
   .data <- check_atlas_inputs(args)
   .data$type <- "occurrences" # default, but in case supplied otherwise
   
-  
   # ensure media columns are present in `select`
   valid_formats <- c("images", "videos", "sounds")
   if(is.null(.data$select)){
