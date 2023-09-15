@@ -4,7 +4,8 @@
 #' @keywords Internal
 collect_assertions <- function(.data){
   # get data
-  result <- query_API(.data) |>
+  result <- lapply(query_API(.data), 
+                   function(a){a[names(a) != "termsRequiredToTest"]}) |>
     bind_rows()
   names(result) <- rename_columns(names(result), type = "assertions")
   result <- result[wanted_columns("assertions")]

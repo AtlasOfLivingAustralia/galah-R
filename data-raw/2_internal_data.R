@@ -26,7 +26,6 @@ node_metadata$institution[
   # Australia, Brazil & UK use their own taxonomy
   # All other atlases use GBIF taxonomy
   # Order of priority is local-namematching > local-species > GBIF-namematching
-  # France and Canada use GBIF due to lack of species service
 node_config <- read_csv("./data-raw/node_config.csv") |> 
   filter(atlas %in% node_metadata$region) |>
   select(-functional)
@@ -75,8 +74,14 @@ galah_internal_archived <- list(
     description = "Media filter field",
     type = "media"),
   other_fields = tibble(
-    id = c("qid", "lsid", "recordID"), 
-    description = c("Reference to pre-generated query", "Left-side identifier", "Record identifier (galah internal)"),
+    id = c("qid", 
+           "lsid", 
+           "recordID",
+           "species_list_uid"), 
+    description = c("Reference to pre-generated query", 
+                    "Left-side identifier", 
+                    "Record identifier (galah internal)",
+                    "Unique identifier for species lists"),
     type = "other"))
 
 # Import web-scraped gbif data as csv

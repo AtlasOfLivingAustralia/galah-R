@@ -45,7 +45,6 @@
 #'  - `geolocate` (accepts `galah_geolocate()`, `galah_polygon()` `galah_bbox()` or 
 #'    \code{\link[=st_crop.data_request]{st_crop()}})
 #'  - `limit` (accepts \code{\link[=slice_head.data_request]{slice_head()}})
-#'  - `down_to` (accepts `galah_down_to()`, specific to `atlas_taxonomy()`)
 #'  - `doi` (accepts a sting listing a valid DOI, specific to `collect()` when `type = "doi"`)
 #'  
 #' Unrecognised names are ignored by `collect()` and related functions.

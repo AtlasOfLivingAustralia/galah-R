@@ -18,9 +18,9 @@
 \usage{
 search_all(type, query)
 
-search_apis(query)
-
 search_assertions(query)
+
+search_apis(query)
 
 search_atlases(query)
 
@@ -28,19 +28,19 @@ search_collections(query)
 
 search_datasets(query)
 
-search_providers(query)
-
 search_fields(query)
 
 search_licences(query)
 
-search_reasons(query)
-
-search_ranks(query)
+search_lists(query)
 
 search_profiles(query)
 
-search_lists(query)
+search_providers(query)
+
+search_ranks(query)
+
+search_reasons(query)
 }
 \arguments{
 \item{type}{A string to specify what type of parameters should be searched.}

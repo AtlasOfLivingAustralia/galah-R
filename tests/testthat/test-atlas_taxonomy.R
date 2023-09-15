@@ -1,38 +1,40 @@
-test_that("ala_taxonomy checks atlas", {
+test_that("atlas_taxonomy 'identify' must be specified", {
+  expect_error({
+    galah_call() |>
+      filter(rank == "kingdom") |>
+      atlas_taxonomy()
+  })
+})
+
+test_that("atlas_taxonomy 'filter' must be specified", {
   skip_if_offline()
-  galah_config(atlas = "Austria")
-  expect_error(atlas_taxonomy(search_taxa("Animalia"), down_to = "phylum"))
-  galah_config(atlas = "Australia")
-})
-
-test_that("atlas_taxonomy 'taxa' must be specified", {
-  expect_error(atlas_taxonomy(down_to = "kingdom"))
-})
-
-test_that("atlas_taxonomy 'down_to' must be specified", {
-  skip_if_offline()
-  expect_error(atlas_taxonomy(identify = galah_identify("Animalia")))
-})
-
-test_that("atlas_taxonomy 'identify' must be passed via `galah_identify`", {
-  expect_error(atlas_taxonomy(identify = "Animalia", 
-                              down_to = galah_down_to(phylum)))
+  expect_error({
+    galah_call() |>
+      identify("Animalia") |>
+      atlas_taxonomy()
+  })
 })
 
 test_that("atlas_taxonomy requires a single taxon", {
   skip_if_offline()
-  expect_error(atlas_taxonomy(
-    identify = galah_identify("Animalia", "Plantae"),
-    down_to = galah_down_to(phylum)))
+  expect_error({
+    galah_call() |>
+      identify("Animalia", "Plantae") |>
+      filter(rank == "Phylum") |>
+      atlas_taxonomy() 
+  })
 })
 
 test_that("atlas_taxonomy makes a tree when piped", {
   skip_if_offline()
   tree <- galah_call() |>
-    galah_identify("fungi") |>
-    galah_down_to(phylum) |>
+    identify("fungi") |>
+    filter(rank >= phylum) |>
     atlas_taxonomy() 
-  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
+  expect_s3_class(tree, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(tree), 4)
   expect_gte(nrow(tree), 1)
 })
+
+# FIXME: add test for non-piped usage of `atlas_taxonomy()`
+# FIXME: add test for constrain_ids

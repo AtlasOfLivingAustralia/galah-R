@@ -15,8 +15,9 @@
 #' [galah_down_to()]. Also accepts a string.
 #' @param constrain_ids Optional string to limit which `taxon_concept_id`'s
 #' are returned. This is useful for restricting taxonomy to particular 
-#' authoritative sources. Default is `"biodiversity.org.au"`. Powered by 
-#' `grepl()` meaning it supports regular expressions.
+#' authoritative sources. Default is `"biodiversity.org.au"` for Australia 
+#' (this can be overridded by setting `constrain_ids = NULL`) and NULL otherwise. 
+#' Powered by `grepl()` meaning it supports regular expressions.
 #' @details The approach used by this function is recursive, meaning that it  
 #' becomes slow for large queries such as  
 #' `atlas_taxonomy(search_taxa("Plantae"), down_to = galah_down_to(species))`.
@@ -46,30 +47,24 @@
 #' @export
 atlas_taxonomy <- function(request = NULL,
                            identify = NULL, 
-                           down_to = NULL,
-                           constrain_ids = c("biodiversity.org.au")
+                           filter = NULL,
+                           constrain_ids = NULL
                            # error_call = caller_env() #?
                            ) {
-  # run checks
-  if(pour("atlas", "region") != "Australia"){
-    bullets <- c(
-      "`atlas_taxonomy` only provides information on Australian taxonomy.",
-      i = "Consider using `search_taxa()` instead.")
-    abort(bullets, call = error_call)
-  }
-  
   # capture supplied arguments
   args <- as.list(environment())
-  
+
   # convert to a valid `data_request` object
   .data <- check_atlas_inputs(args)
   .data$type <- "taxonomy" # default, but in case supplied otherwise
   check_identify(.data)
   check_down_to(.data)
-  
+  constrain_ids <- check_constraints(args = args, 
+                                     call = as.list(sys.call()))
+
   # extract required information from `identify` 
-  start_row <- request_metadata(type = "identifiers") |>
-    identify(.data$identify$identifier) |>
+  start_row <- request_metadata(type = "taxa") |>
+    identify(.data$identify$search_term) |>
     collect() |>
     mutate(name = str_to_title(scientific_name),
            parent_taxon_concept_id = NA) |>
@@ -77,7 +72,7 @@ atlas_taxonomy <- function(request = NULL,
 
   # build then flatten a tree
   taxonomy_tree <- drill_down_taxonomy(start_row, 
-                             down_to = .data$down_to$rank,
+                             down_to = .data$filter$value,
                              constrain_ids = constrain_ids)
   for(i in seq_len(pluck_depth(taxonomy_tree))){
     taxonomy_tree <- list_flatten(taxonomy_tree)
@@ -86,11 +81,25 @@ atlas_taxonomy <- function(request = NULL,
   
   # remove rows with ranks that are to low
   index <- rank_index(result$rank)
-  down_to_index <- rank_index(.data$down_to)
+  down_to_index <- rank_index(.data$filter$value)
   result |>
     filter({{index}} <= {{down_to_index}} | is.na({{index}})) |>
     select(name, rank, parent_taxon_concept_id, taxon_concept_id)
 }
+
+#' Internal function to check whether constraints have been passed
+#' @importFrom potions pour
+#' @noRd
+#' @keywords Internal
+check_constraints <- function(args, call){
+  if(any(names(call) == "constrain_ids")){ # i.e. if user specifies an argument
+    call$constrain_ids
+  }else{ # if NULL only occurs because no argument is set
+    if(pour("atlas", "region") == "Australia"){
+      "biodiversity.org.au"
+    }
+  }
+} 
 
 #' Internal recursive function to get child taxa
 #' @importFrom dplyr mutate
@@ -138,7 +147,7 @@ drill_down_taxonomy <- function(df,
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-check_identify <- function(.data){
+check_identify <- function(.data, error_call = caller_env()){
   if(is.null(.data$identify)){
     bullets <- c(
       "Argument `identify` is missing, with no default.",
@@ -161,21 +170,21 @@ check_identify <- function(.data){
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-check_down_to <- function(.data){
-  if (is.null(.data$down_to)) {
+check_down_to <- function(.data, error_call = caller_env()){
+  if (is.null(.data$filter$value)) {
     bullets <- c(
-      "Argument `down_to` is missing, with no default.",
-      i = "Did you forget to specify a taxonomic level?",
-      i = "See `?galah_down_to` for more information."
+      "Argument `rank` is missing, with no default.",
+      i = "Use `show_all(ranks)` to display valid ranks",
+      i = "Use `filter(rank == chosen_rank)` to specify a rank"
     )
     abort(bullets, call = error_call)
   }
   
-  down_to <- tolower(.data$down_to$rank) 
+  down_to <- tolower(.data$filter$value) 
   if(!any(show_all_ranks()$name == down_to)){
     bullets <- c(
       "Invalid taxonomic rank provided.",
-      i = "The rank provided to `down_to` must be a valid taxonomic rank.",
+      i = "The rank provided to `rank` must be a valid taxonomic rank.",
       x = glue("{down_to} is not a valid rank.")
     )
     abort(bullets, call = error_call)

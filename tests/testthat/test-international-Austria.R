@@ -5,32 +5,49 @@ test_that("swapping to atlas = Austria works", {
   expect_message(galah_config(atlas = "Austria"))
 })
 
+test_that("show_all(assertions) works for Austria", {
+  skip_if_offline()
+  x <- show_all(assertions)
+  expect_gt(nrow(x), 1)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  y <- request_metadata(type = "assertions") |> collect()
+  expect_equal(x, y)
+})
+
+test_that("show_all(collections) works for Austria", {
+  skip_if_offline()
+  x <- show_all(collections)
+  expect_gte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  y <- request_metadata(type = "collections") |> collect()
+  expect_equal(x, y)
+})
+
+test_that("show_all(datasets) works for Austria", {
+  skip_if_offline()
+  x <- show_all(datasets)
+  expect_gte(nrow(x), 10)
+  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  y <- request_metadata(type = "datasets") |> collect()
+  expect_equal(x, y)
+})
+
 test_that("show_all(fields) works for Austria", {
   skip_if_offline()
   x <- show_all(fields)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
-
-test_that("show_all(collections) works for Austria", {
-  skip_if_offline()
-  x <- show_all(collections, limit = 10)
-  expect_lte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
-
-test_that("show_all(datasets) works for Austria", {
-  skip_if_offline()
-  x <- show_all(datasets, limit = 10)
-  expect_lte(nrow(x), 10)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  y <- request_metadata(type = "fields") |> collect()
+  expect_equal(x, y)
 })
 
 test_that("show_all(providers) works for Austria", {
   skip_if_offline()
-  x <- show_all(providers, limit = 10)
-  expect_lte(nrow(x), 10)
+  x <- show_all(providers)
+  expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  y <- request_metadata(type = "providers") |> collect()
+  expect_equal(x, y)
 })
 
 test_that("show_all(reasons) works for Austria", {
@@ -38,13 +55,8 @@ test_that("show_all(reasons) works for Austria", {
   x <- show_all(reasons)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-})
-
-test_that("show_all(assertions) works for Austria", {
-  skip_if_offline()
-  x <- show_all(assertions)
-  expect_gt(nrow(x), 1)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  y <- request_metadata(type = "reasons") |> collect()
+  expect_equal(x, y)
 })
 
 test_that("show_all(profiles) fails for Austria", {
@@ -53,9 +65,11 @@ test_that("show_all(profiles) fails for Austria", {
 
 test_that("show_all(lists) works for Austria", {
   skip_if_offline()
-  x <- show_all(lists, limit = 10)
+  x <- show_all(lists)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  y <- request_metadata(type = "lists") |> collect()
+  expect_equal(x, y)
 })
 
 test_that("search_all(fields) works for Austria", {
@@ -131,6 +145,32 @@ test_that("atlas_occurrences works for Austria", {
   expect_gt(nrow(occ), 0)
   expect_equal(ncol(occ), 2)
   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+})
+
+test_that("atlas_taxonomy works for Austria", {
+  skip_if_offline()
+  # first test child values lookup
+  taxon <- search_taxa("Reptilia")
+  x <- request_values() |>
+    filter(taxa == taxon$taxon_concept_id) |> # should be able to replace this with `identify()`
+    collect()
+  # Note that this maxes out at 1000 rows. Clearly, there are two problems here:
+  # many taxa missing levels of their taxonomic hierarchy
+  # lack of pagination in `galah`
+  # add tests
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(nrow(x), 10)
+  expect_equal(ncol(x), 8)
+  # now test if recursive children works via `atlas_taxonomy()`
+  y <- galah_call() |>
+    identify("Aves") |>
+    filter(rank >= order) |>
+    atlas_taxonomy()
+  # add tests
+  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(colnames(y), 
+               c("name", "rank", "parent_taxon_concept_id", "taxon_concept_id"))
+  expect_gte(nrow(y), 5)
 })
 
 galah_config(atlas = "Australia")

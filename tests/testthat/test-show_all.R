@@ -30,6 +30,7 @@ test_that("show_all_assertions returns assertions", {
   expect_s3_class(assertions, c("tbl_df", "tbl", "data.frame"))
   expect_equal(attributes(assertions)$call, "show_all_assertions")
   expect_equal(ncol(assertions), 4)
+  expect_equal(anyDuplicated(assertions$id), 0)
 })
 
 test_that("show_all_atlases returns atlases", {

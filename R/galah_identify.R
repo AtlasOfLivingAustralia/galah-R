@@ -50,7 +50,7 @@ galah_identify <- function(..., search = TRUE) {
   } else {
     if (inherits(dots[[1]], "data_request")) {
       result <- parse_identify(dots[-1], search)
-      update_data_request(dots[[1]], identify = result)
+      update_data_request(dots[[1]], search_term = result)
     } else {
       result <- parse_identify(dots, search)
       return(result)

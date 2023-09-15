@@ -86,7 +86,6 @@ arguments are:
 \item \code{geolocate} (accepts \code{galah_geolocate()}, \code{galah_polygon()} \code{galah_bbox()} or
 \code{\link[=st_crop.data_request]{st_crop()}})
 \item \code{limit} (accepts \code{\link[=slice_head.data_request]{slice_head()}})
-\item \code{down_to} (accepts \code{galah_down_to()}, specific to \code{atlas_taxonomy()})
 \item \code{doi} (accepts a sting listing a valid DOI, specific to \code{collect()} when \code{type = "doi"})
 }
 

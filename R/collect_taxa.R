@@ -7,14 +7,14 @@
 #' @keywords Internal
 collect_taxa <- function(.data){
   switch(pour("atlas", "region"),
-         "United Kingdom" = collect_taxa_uk(.data),
-         collect_taxa_la(.data))
+         "Australia" = collect_taxa_australia(.data),
+         collect_taxa_la(.data)) # tested for Austria, UK
 }
 
-#' Internal function to `collect()` taxa for living atlases
+#' Internal function to `collect()` taxa for Atlas of Living Australia
 #' @noRd
 #' @keywords Internal
-collect_taxa_la <- function(.data){
+collect_taxa_australia <- function(.data){
   search_terms <- .data$url$search_term
   result <- lapply(query_API(.data), 
                    build_tibble_from_nested_list) |> 
@@ -29,14 +29,34 @@ collect_taxa_la <- function(.data){
   result |> select(any_of(wanted_columns("taxa")))
 }
 
-#' Internal function to `collect()` taxa for UK
+#' Internal function to `collect()` taxa for other living atlases
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr filter
+#' @importFrom dplyr mutate
+#' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-collect_taxa_uk <- function(.data){
+collect_taxa_la <- function(.data){
   search_terms <- .data$url$search_term
-  result <- query_API(.data)
-  result <- lapply(result, function(a){
-    x <- pluck(a, !!!list("searchResults", "results"))
+  result <- query_API(.data) |>
+    clean_la_taxa(search_terms = search_terms) |>
+    bind_rows() |>
+    filter(!duplicated(guid)) |>
+    mutate("search_term" = search_terms, .before = "id")
+  names(result) <- rename_columns(names(result), type = "taxa") # old code
+  result |> select(any_of(wanted_columns("taxa")))
+}
+
+#' Internal function to do cleaning
+#' @param result a list from a taxonomic web service
+#' @importFrom purrr pluck
+#' @importFrom utils adist
+#' @noRd
+#' @keywords Internal
+clean_la_taxa <- function(result, search_terms){
+  lapply(result, function(a){
+    x <- a |>
+      pluck("searchResults", "results")
     if(length(x) > 1){ # i.e. more than one match
       taxon_names <- unlist(lapply(x, function(b){b$name}))
       string_distances <- adist(
@@ -55,10 +75,5 @@ collect_taxa_uk <- function(.data){
     }else{
       x
     }
-  }) |>
-    bind_rows() |>
-    filter(!duplicated(guid)) |>
-    mutate("search_term" = search_terms, .before = "id")
-  names(result) <- rename_columns(names(result), type = "taxa") # old code
-  result |> select(any_of(wanted_columns("taxa")))
+  })
 }

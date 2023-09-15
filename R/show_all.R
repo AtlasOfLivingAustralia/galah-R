@@ -62,14 +62,7 @@
 #' # Show a listing of all taxonomic ranks
 #' show_all(ranks)
 #' @export
-show_all <- function(type, limit = NULL){
-  
-  if(!is.null(limit)){
-    if(!(is.integer(limit) | is.numeric(limit))){
-      abort("limit must be either numeric or an integer")
-    }
-  }
-  
+show_all <- function(type){
   type_parsed <- parse_quosures_basic(enquos(type))$data
   request_metadata(type = type_parsed) |> 
     collect()
@@ -78,42 +71,42 @@ show_all <- function(type, limit = NULL){
 #' @rdname show_all
 #' @importFrom tibble tibble
 #' @export
-show_all_assertions <- function(limit = NULL){
+show_all_assertions <- function(){
   request_metadata(type = "assertions") |> 
   collect()
 }
 
 #' @export show_all_atlases
 #' @rdname show_all
-show_all_atlases <- function(limit = NULL) {
+show_all_atlases <- function() {
   request_metadata(type = "atlases") |> 
   collect()
 }
 
 #' @rdname show_all
 #' @export
-show_all_apis <- function(limit = NULL){
+show_all_apis <- function(){
   request_metadata(type = "apis") |> 
   collect()
 }
 
 #' @rdname show_all
 #' @export
-show_all_collections <- function(limit = NULL){
+show_all_collections <- function(){
   request_metadata(type = "collections") |> 
   collect()
 }
 
 #' @rdname show_all
 #' @export
-show_all_datasets <- function(limit = NULL){
+show_all_datasets <- function(){
   request_metadata(type = "datasets") |> 
   collect()
 }
 
 #' @rdname show_all
 #' @export
-show_all_providers <- function(limit = NULL){
+show_all_providers <- function(){
   request_metadata(type = "providers") |> 
   collect()
 }
@@ -124,7 +117,7 @@ show_all_providers <- function(limit = NULL){
 #' @importFrom dplyr filter
 #' @importFrom dplyr select
 #' @export
-show_all_fields <- function(limit = NULL){
+show_all_fields <- function(){
   update_needed <- internal_cache_update_needed("show_all_fields")
   if(update_needed){
     result <- collect(request_metadata(type = "fields"))
@@ -147,7 +140,7 @@ show_all_fields <- function(limit = NULL){
 #' @importFrom dplyr all_of
 #' @importFrom dplyr select
 #' @export
-show_all_licences <- function(limit = NULL){
+show_all_licences <- function(){
   request_metadata(type = "licences") |> 
   collect()
 }
@@ -159,7 +152,7 @@ show_all_licences <- function(limit = NULL){
 #' @importFrom dplyr select
 #' @importFrom potions pour
 #' @export
-show_all_reasons <- function(limit = NULL){
+show_all_reasons <- function(){
   request_metadata(type = "reasons") |> 
   collect()
 }
@@ -167,7 +160,7 @@ show_all_reasons <- function(limit = NULL){
 #' @rdname show_all
 #' @importFrom tibble tibble
 #' @export
-show_all_ranks <- function(limit = NULL) {
+show_all_ranks <- function() {
   request_metadata(type = "ranks") |> 
   collect() 
 }
@@ -177,7 +170,7 @@ show_all_ranks <- function(limit = NULL) {
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr select
 #' @export
-show_all_profiles <- function(limit = NULL) {
+show_all_profiles <- function() {
   request_metadata(type = "profiles") |> 
   collect()
 }
@@ -185,7 +178,7 @@ show_all_profiles <- function(limit = NULL) {
 #' @rdname show_all
 #' @importFrom tibble tibble
 #' @export
-show_all_lists <- function(limit = NULL){
+show_all_lists <- function(){
   request_metadata(type = "lists") |> 
   collect()
 }
