@@ -87,3 +87,21 @@ test_that("request_values() works for type = 'providers'", {
   expect_equal(nrow(y), 1)
   expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
 })
+
+test_that("request_values() works for type = 'datasets'", {
+  # offline stage
+  skip_if_offline()
+  taxon <- search_taxa("Crinia")
+  x <- request_values() |> 
+    # Q: should we support `identify()` here too?
+    filter(taxa == taxon$taxon_concept_id) |> 
+    collapse()
+  expect_equal(names(x), c("type", "url", "headers"))
+  expect_equal(x$type, "taxa")
+  expect_s3_class(x, "values_query")
+  # and run
+  y <- collect(x)
+  expect_gte(ncol(y), 4)
+  expect_gte(nrow(y), 8)
+  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+})

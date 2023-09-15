@@ -22,22 +22,20 @@ atlas_taxonomy(
 should stop. Should be specified using an object of class
 \code{character} and \code{galah_down_to}, as returned from
 \code{\link[=galah_down_to]{galah_down_to()}}. Also accepts a string.}
+
+\item{constrain_ids}{Optional string to limit which \code{taxon_concept_id}'s
+are returned. This is useful for restricting taxonomy to particular
+authoritative sources. Default is \code{"biodiversity.org.au"}. Powered by
+\code{grepl()} meaning it supports regular expressions.}
 }
 \value{
-A tree consisting of objects of class \code{Node}, containing the
-requested taxonomy. Each node contains the following attributes:
-\itemize{
-\item \code{name}: The scientific name of the taxon in question
-\item \code{rank}: The taxonomic rank to which that taxon belongs
-\item \code{guid}: A unique identifier used by the ALA
-\item \code{authority}: The source of the taxonomic name & identifier
-}
+A \code{tibble} containing taxon names, ranks and parent/child IDs
 }
 \description{
 The ALA has its' own internal taxonomy that is derived from authoritative
 sources. \code{atlas_taxonomy} provides a means to query
-that taxonomy, returning a tree (class \code{Node}) showing which lower
-clades are contained within the specified taxon.
+that taxonomy, returning a \code{tibble} showing all child nodes and which parent
+they are derived from.
 }
 \details{
 The approach used by this function is recursive, meaning that it

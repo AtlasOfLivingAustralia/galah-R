@@ -101,7 +101,7 @@ identify.data_request <- function(.data, ...){
 #' @rdname galah_identify
 #' @param .data An object of class `metadata_request`, created using [request_metadata()]
 #' @export
-identify.metadata_request <- identify.data_request
+identify.metadata_request <- identify.values_request <- identify.data_request
 
 #' parser for `galah_identify()`
 #' @noRd

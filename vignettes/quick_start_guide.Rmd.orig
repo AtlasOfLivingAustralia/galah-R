@@ -20,8 +20,8 @@ organisations collate and store observations of individual life forms, using the
 information, record counts, or associated media such as images or sounds. Users 
 can restrict their queries to particular taxa or locations by specifying which 
 columns and rows are returned by a query, or by restricting their results to 
-observations that meet particular quality-control criteria. With a few minor
-exceptions, all functions return a `tibble` as their standard format.
+observations that meet particular quality-control criteria. All functions return 
+a `tibble` as their standard format.
 
 
 # Installation

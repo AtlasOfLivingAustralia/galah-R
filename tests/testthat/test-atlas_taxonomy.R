@@ -31,8 +31,8 @@ test_that("atlas_taxonomy makes a tree when piped", {
   tree <- galah_call() |>
     galah_identify("fungi") |>
     galah_down_to(phylum) |>
-    atlas_taxonomy() |>
-    ToDataFrameTypeCol()
-  expect_equal(tree[c(1:3), 2], 
-               c("Dikarya", "Ascomycota", "Basidiomycota"))
+    atlas_taxonomy() 
+  expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(ncol(tree), 4)
+  expect_gte(nrow(tree), 1)
 })
