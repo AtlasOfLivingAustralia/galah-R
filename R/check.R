@@ -157,6 +157,7 @@ check_directory <- function(x){
 # check_pagination <- function(){}
 
 #' Check whether geolocate functions have >1 argument
+#' @importFrom rlang warn
 #' @noRd
 #' @keywords Internal
 check_n_inputs <- function(dots, error_call = caller_env()) {

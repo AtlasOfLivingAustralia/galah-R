@@ -78,22 +78,30 @@
 #' 
 #' # Search for a valid taxonomic rank, "subphylum"
 #' search_all(ranks, "subphylum")
-#' @importFrom dplyr filter
-#' @importFrom dplyr select
-#' @importFrom purrr list_transpose
+
 #' @importFrom utils adist
 #' @export
 search_all <- function(type, query){
   check_if_missing(query)
   type_parsed <- parse_quosures_basic(enquos(type))$data
-  result <- request_metadata(type = type_parsed) |> collect()
+  request_metadata(type = type_parsed) |> 
+    collect() |>
+    search_text_cols(query = query)
+}
+
+#' Internal function to run a query over a tibble
+#' @importFrom dplyr filter
+#' @importFrom purrr list_transpose
+#' @noRd
+#' @keywords Internal
+search_text_cols <- function(df, query){
   query <- tolower(query)
-  keep_cols <- unlist(lapply(result, is.character)) & 
-               colnames(result) != "type"
-  check_list <- lapply(result[, keep_cols], 
+  keep_cols <- unlist(lapply(df, is.character)) & 
+    colnames(df) != "type"
+  check_list <- lapply(df[, keep_cols], 
                        function(a){grepl(query, tolower(a))})
   check_vector <- lapply(list_transpose(check_list), any) |> unlist()
-  result |> filter({{check_vector}})
+  df |> filter({{check_vector}})
 }
 
 #' Internal function to check for missingness

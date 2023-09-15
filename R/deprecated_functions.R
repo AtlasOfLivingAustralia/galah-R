@@ -16,6 +16,7 @@
 #'     atlas_taxonomy()
 #' }
 #' @rdname deprecated-functions
+#' @importFrom rlang warn
 #' @export
 galah_down_to <- function(...){
   

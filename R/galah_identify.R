@@ -39,7 +39,7 @@
 #'   galah_identify("https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c", 
 #'                  search = FALSE) |>
 #'   atlas_counts()
-#' 
+#' @importFrom rlang warn
 #' @export
 galah_identify <- function(..., search = TRUE) {
   dots <- list(...)

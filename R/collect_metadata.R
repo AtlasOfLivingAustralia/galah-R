@@ -10,13 +10,7 @@ collect_assertions <- function(.data){
   names(result) <- rename_columns(names(result), type = "assertions")
   result <- result[wanted_columns("assertions")]
   result$type <- "assertions"
-  # slice if requested
-  # NOTE: this is old code. 
-  # could easily use slice(), or even better, pass `max` to API
-  if(!is.null(.data$limit)){
-    limit_rows <- seq_len(min(nrow(result), .data$limit))
-    assertions <- result[limit_rows, ]
-  }
+  attr(result, "call") <- "assertions"
   result
 }
 
@@ -25,7 +19,9 @@ collect_assertions <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_collections <- function(.data){
-  query_API(.data) |> bind_rows()
+  result <- query_API(.data) |> bind_rows()
+  attr(result, "call") <- "collections"
+  result
 }
 
 #' Internal function to `collect()` datasets
@@ -33,7 +29,9 @@ collect_collections <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_datasets <- function(.data){
-  query_API(.data) |> bind_rows()
+  result <- query_API(.data) |> bind_rows()
+  attr(result, "call") <- "datasets"
+  result
 }
 
 #' Internal function to `collect()` fields
@@ -44,11 +42,13 @@ collect_datasets <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_fields <- function(.data){
-  query_API(.data) |>
+  result <- query_API(.data) |>
     bind_rows() |>
     mutate(id = name) |>
     select(all_of(wanted_columns("fields"))) |>
     mutate(type = "fields")
+  attr(result, "call") <- "fields"
+  result
 }
 
 #' Internal function to `collect()` licences
@@ -59,10 +59,12 @@ collect_fields <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_licences <- function(.data){
-  query_API(.data) |> 
+  result <- query_API(.data) |> 
     bind_rows() |>
     select(all_of(c("id", "name", "acronym", "url"))) |> 
     arrange(id)
+  attr(result, "call") <- "licences"
+  result
 }
 
 #' Internal function to `collect()` lists
@@ -71,9 +73,11 @@ collect_licences <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_lists <- function(.data){
-  query_API(.data) |>
+  result <- query_API(.data) |>
     pluck("lists") |>
     bind_rows()
+  attr(result, "call") <- "lists"
+  result
 }
 
 #' Internal function to `collect()` profiles
@@ -85,12 +89,13 @@ collect_lists <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_profiles <- function(.data){
-  x <- query_API(.data) |>
-    bind_rows()
-  x |>
+  result <- query_API(.data) |>
+    bind_rows() |>
     filter(!duplicated(id)) |>
     arrange(id) |>
     select(all_of(wanted_columns(type = "profile")))
+  attr(result, "call") <- "profiles"
+  result
   # check_internal_cache(show_all_profiles = df)
 }
 
@@ -99,8 +104,10 @@ collect_profiles <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_providers <- function(.data){
-  query_API(.data) |> 
+  result <- query_API(.data) |> 
     bind_rows()
+  attr(result, "call") <- "providers"
+  result
 }
 
 #' Internal function to `collect()` reasons
@@ -114,11 +121,13 @@ collect_providers <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_reasons <- function(.data){
-  query_API(.data) |> 
+  result <- query_API(.data) |> 
     bind_rows() |>
     filter(!deprecated) |>
     select(all_of(wanted_columns("reasons"))) |>
     arrange(id)
+  attr(result, "call") <- "reasons"
+  result
   # check_internal_cache(show_all_reasons = df)
 }
 
@@ -137,4 +146,6 @@ collect_identifiers <- function(.data){
     mutate("search_term" = search_terms, .before = "success")
   names(result) <- rename_columns(names(result), type = "taxa") # old code
   result |> select(any_of(wanted_columns("taxa")))
+  attr(result, "call") <- "identifiers"
+  result
 }
