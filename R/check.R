@@ -237,6 +237,7 @@ check_groups <- function(group, n){
 
 #' Internal function to check whether fields are valid
 #' @importFrom dplyr pull
+#' @importFrom glue glue_collapse
 #' @importFrom glue glue_data
 #' @importFrom httr2 url_parse
 #' @importFrom rlang format_error_bullets
@@ -247,7 +248,12 @@ check_fields <- function(.data) {
     
   # other behaviour depends on galah_config() settings
   if (pour("package", "run_checks")) {
-    queries <- url_parse(.data$url[1])$query
+    url <- url_parse(.data$url[1])
+    queries <- url$query
+    # set fields to check against
+    valid_fields <- show_all_fields()$id
+    valid_assertions <- show_all_assertions()$id
+    valid_any <- c(valid_fields, valid_assertions)
 
     # extract fields from filter & identify
     filter_invalid <- NA
@@ -265,27 +271,34 @@ check_fields <- function(.data) {
       }
       
       if (length(filters) > 0) {
-        if (!all(filters %in% show_all_fields()$id)) {
-          invalid_fields <- filters[!(filters %in% c(show_all_fields()$id, show_all_assertions()$id))]
-          filter_invalid <- glue::glue_collapse(invalid_fields,
-                                                sep = ", ")
+        if (!all(filters %in% valid_any)) {
+          invalid_fields <- filters[!(filters %in% valid_any)]
+          filter_invalid <- glue_collapse(invalid_fields, sep = ", ")
         }
       }
     }
     
-    # galah_select columns check
+    # galah_select columns check - note distinction between fields and assertions
     select_invalid <- NA
     if (!is.null(queries$fields)) {
       fields <- queries$fields |>
         strsplit(",") |>
         unlist()
       if (length(fields) > 0) {
-        if (!all(fields %in% show_all_fields()$id)) {
-          invalid_fields <- fields[!(fields %in% c(show_all_fields()$id, show_all_assertions()$id))]
-          list_invalid_fields <- glue::glue_collapse(invalid_fields,
-                                                     sep = ", ")
-          select_invalid <- glue::glue_collapse(invalid_fields,
-                                                     sep = ", ")
+        assertions_check <- fields %in% valid_assertions
+        if(any(assertions_check)){
+          if(queries$qa == "none"){
+            queries$qa <- glue_collapse(fields[assertions_check], sep = ",")
+            queries$fields <- glue_collapse(fields[!assertions_check], sep = ",")
+            url$query <- queries
+            .data$url[1] <- url_build(url)
+          } # no else{}, as only other possible option is "all"
+          fields <- fields[!assertions_check]
+        }
+        if (!all(fields %in% valid_fields)) {
+          invalid_fields <- fields[!(fields %in% valid_fields)]
+          list_invalid_fields <- glue_collapse(invalid_fields, sep = ", ")
+          select_invalid <- glue_collapse(invalid_fields, sep = ", ")
         }
       }
     }
@@ -295,10 +308,9 @@ check_fields <- function(.data) {
     if (!is.null(queries$facets)) {
       facets <- queries[names(queries) == "facets"] |> unlist() # NOTE: arrange() is missing
       if (length(facets) > 0) {
-        if (!all(facets %in% show_all_fields()$id)) {
-          invalid_fields <- facets[!(facets %in% c(show_all_fields()$id, show_all_assertions()$id))]
-          group_by_invalid <- glue::glue_collapse(invalid_fields,
-                                                     sep = ", ")
+        if (!all(facets %in% valid_any)) {
+          invalid_fields <- facets[!(facets %in% valid_any)]
+          group_by_invalid <- glue_collapse(invalid_fields, sep = ", ")
         }
       }
     }
@@ -312,7 +324,7 @@ check_fields <- function(.data) {
         tidyr::drop_na()
       
       glue_template <- " {returned_invalid$function_name}: {returned_invalid$fields}"
-      invalid_fields_message <- glue::glue_data(returned_invalid, glue_template, .na = "")
+      invalid_fields_message <- glue_data(returned_invalid, glue_template, .na = "")
       
       bullets <- c(
         "Can't use fields that don't exist.",
@@ -323,7 +335,8 @@ check_fields <- function(.data) {
       )
       abort(bullets)
     }
-  } # end if(run_checks)
+  }
+  .data
 }
 
 #' function to replace search terms with identifiers via `search_taxa()`  

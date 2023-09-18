@@ -22,8 +22,9 @@ compute.data_query <- function(.data){
 #' @keywords Internal
 switch_compute <- function(.data){
   check_login(.data)
-  .data <- check_lazy_identifiers(.data)
-  check_fields(.data)
+  .data <- .data |>
+    check_lazy_identifiers() |>
+    check_fields()
   switch(.data$type, 
          "doi" = compute_doi(.data),
          "media" = {class(.data) <- "data_response"; return(.data)},

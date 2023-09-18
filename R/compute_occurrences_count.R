@@ -65,7 +65,7 @@ adjust_flimit <- function(.data){
 build_query_list_LA <- function(.data){
   # get url
   url <- url_parse(.data$url)
-  
+
   # remove last-provided facet
   facet_list <- url$query[names(url$query) == "facets"]
   facet_names <- unlist(facet_list)
@@ -122,18 +122,18 @@ build_query_list_LA <- function(.data){
   }
  
   # # extract existing fq statements
-  # query <- url_parse(.data$url)$query
-  # if(is.null(query$fq)){
-  #   fqs <- NULL
-  # }else{
-  #   fqs <- strsplit(query$fq, "AND")[[1]]
-  #   fqs <- fqs[!grepl(paste(kept_facets, collapse = "|"), fqs)] # remove fqs that relate to parsed facets
-  #   if(length(fqs) < 1){
-  #     fqs <- NULL
-  #   }else{
-  #     fqs <- paste(fqs, collapse = " AND ")
-  #   }
-  # }
+  query <- url_parse(.data$url)$query
+  if(is.null(query$fq)){
+    fqs <- NULL
+  }else{
+    fqs <- strsplit(query$fq, "AND")[[1]]
+    fqs <- fqs[!grepl(paste(kept_facets, collapse = "|"), fqs)] # remove fqs that relate to parsed facets
+    if(length(fqs) < 1){
+      fqs <- NULL
+    }else{
+      fqs <- paste(fqs, collapse = " AND ")
+    }
+  }
   
   # glue `fq` statements together 
   result_df <- result_df |>
@@ -141,9 +141,9 @@ build_query_list_LA <- function(.data){
     mutate(query = glue_collapse(c_across(starts_with("fq")), sep = " AND ")) |>
     select(-starts_with("fq")) |>
     ungroup()
-  # if(!is.null(fqs)){
-  #   result_df$query <- glue("{fqs} AND {result_df$query}")
-  # }
+  if(!is.null(fqs)){
+    result_df$query <- glue("{fqs} AND {result_df$query}")
+  }
   
   # recombine into urls
   url_final <- url_parse(.data$url)

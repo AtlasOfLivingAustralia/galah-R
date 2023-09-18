@@ -12,6 +12,7 @@ test_that("`collapse()` doesn't ping an API for type = `'occurrences-count'`", {
 with_mock_dir("atlas_counts", {
   test_that("atlas_counts works with no arguments", {
     count <- atlas_counts()
+    expect_s3_class(count, c("tbl_df", "tbl", "data.frame"))
     expect_gt(count$count, 0)
   })
 })
@@ -22,21 +23,18 @@ with_mock_dir("atlas_counts", {
     count <- galah_call() |>
       count() |>
       collect()
+    expect_s3_class(count, c("tbl_df", "tbl", "data.frame"))
     expect_gt(count$count, 0)
   })
 })
 
 test_that("`identify()` reduces the number of records returned by `count()`", {
   skip_if_offline()
-  with_mock_dir("atlas_counts", {
-    counts_all <- galah_call() |>
-      count() |>
-      collect()
-  })
-  with_mock_dir("galah_identify", {
-    identify <- galah_identify("Perameles")
-  })
-  counts_mammals <- galah_call(identify = identify) |>
+  counts_all <- galah_call() |>
+    count() |>
+    collect()
+  counts_mammals <- galah_call() |>
+    identify("Perameles") |>
     count() |>
     collect()
   expect_type(counts_mammals$count, "integer")
@@ -51,45 +49,47 @@ test_that("`count()` handles multiple 'group by' variables", {
     count() |>
     collect()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_true(all(names(counts) %in% c("year", "month", "basisOfRecord", "count")))
+  expect_equal(names(counts),
+               c("year", "month", "basisOfRecord", "count"))
+  expect_true(all(counts$year >= 2021))
 })
 
 test_that("`count()` handles 'species' as a 'group by' variable", {
   skip_if_offline()
-  with_mock_dir("galah_identify", {
-    identify <- galah_identify("Perameles")
-  })
-  counts <- galah_call(identify = identify) |>
+  counts <- galah_call() |>
     filter(year > 2020) |>
+    identify("Perameles") |>
     group_by(species, year) |>
     count() |>
     collect()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_true(all(names(counts) %in% c("year", "species", "count")))
+  expect_true(all(names(counts) %in% c("species", "year", "count")))
+  expect_true(all(counts$year > 2020))
+  expect_true(all(grepl("^Perameles", counts$species)))
 })
 
 test_that("atlas_counts handles 'taxonConceptID' as a 'group by' variable", {
   skip_if_offline()
-  with_mock_dir("galah_identify", {
-    identify <- galah_identify("Perameles")
-  })  
-  counts <- galah_call(identify = identify) |>
-    filter(year >= 2010) |>
+  counts <- galah_call() |>
+    identify("Perameles") |>
+    filter(year >= 2015) |>
     group_by(taxonConceptID, year) |>
     count() |>
     collect()
   expect_s3_class(counts, c("tbl_df", "tbl", "data.frame"))
-  expect_true(all(names(counts) %in% c("year", "taxonConceptID", "count")))
+  expect_equal(names(counts),
+               c("taxonConceptID", "year", "count"))
+  expect_true(all(counts$year >= 2015))
 })
 
 test_that("atlas_counts returns same result with filter using `,` and `&`", {
   skip_if_offline()
   count_comma <- galah_call() |>
-    galah_filter(year >= 2010, year < 2020) |>
+    filter(year >= 2010, year < 2020) |>
     count() |>
     collect()
   count_and <- galah_call() |>
-    galah_filter(year >= 2010 & year < 2020) |>
+    filter(year >= 2010 & year < 2020) |>
     count() |>
     collect()
   expect_equal(count_comma, count_and)
@@ -103,15 +103,15 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_polygon", {
   with_mock_dir("galah_identify", {
     identify <- galah_identify("Perameles")
   })  
-  base_query <- galah_call(identify = identify) |>
-    filter(year >= 2020)
-  counts <- base_query |>
-    count() |>
-    collect()
+  base_query <- galah_call() |>
+    identify("Perameles") |>
+    filter(year >= 2020) |>
+    count()
+  counts <- base_query |> collect()
   counts_filtered <- base_query |>
     galah_geolocate(wkt) |>
-    count()|>
     collect()
+  expect_s3_class(counts_filtered, c("tbl_df", "tbl", "data.frame"))
   count_1 <- counts_filtered$count[1]
   count_2 <- counts$count[1]
   expect_lt(count_1, count_2)
@@ -124,15 +124,15 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
   with_mock_dir("galah_identify", {
     identify <- galah_identify("Perameles")
   })
-  base_query <- galah_call(identify = identify) |>
-    filter(year >= 2020)
-  counts <- base_query |>
-    count() |>
-    collect()
+  base_query <- galah_call() |>
+    identify("Perameles") |>
+    filter(year >= 2020) |>
+    count()
+  counts <- base_query |>  collect()
   counts_filtered <- base_query |>
     galah_geolocate(wkt, type = "bbox") |>
-    count()|>
     collect()
+  expect_s3_class(counts_filtered, c("tbl_df", "tbl", "data.frame"))
   count_1 <- counts_filtered$count[1]
   count_2 <- counts$count[1]
   expect_lt(count_1, count_2)
@@ -146,6 +146,7 @@ test_that("atlas_counts returns species counts", {
   count_records <- galah_call() |>
     count() |>
     collect()
+  expect_s3_class(count_species, c("tbl_df", "tbl", "data.frame"))
   expect_type(count_species$count, "integer")
   expect_gt(count_species$count, 0)
   expect_lt(count_species$count, count_records$count)
@@ -157,13 +158,24 @@ test_that("species counts work with group_by()", {
     identify("Crinia") |>
     filter(year >= 2020) |>
     group_by(year) |>
+    arrange(year) |>
     count() |>
-    collect() 
+    collect()
+  count_records <- galah_call() |>
+    identify("Crinia") |>
+    filter(year >= 2020) |>
+    group_by(year) |>
+    arrange(year) |>
+    count() |>
+    collect()
+  expect_s3_class(count_species, c("tbl_df", "tbl", "data.frame"))
   expect_type(count_species$count, "integer")
   expect_gte(nrow(count_species), 4)
   expect_true(all(count_species$count > 0))
   expect_true(all(count_species$count < 100))
-})
+  expect_true(all(count_records$year == count_species$year))
+  expect_true(all(count_records$count >= count_species$count))
+  })
 
 ## BELOW HERE TESTS WILL FAIL
 
@@ -193,4 +205,6 @@ test_that("species counts work with group_by()", {
 #   expect_equal(names(counts), c("year", "count"))
 # })
 
-## `galah_down_to()` not checked
+# FIXME: check non-piped args work
+# FIXME: check `galah_` functions work
+# FIXME: check `atlas_counts`

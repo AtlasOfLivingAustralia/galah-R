@@ -103,13 +103,22 @@ check_occurrence_response <- function(.data){
     # )
   }else{
     names(.data) <- camel_to_snake_case(names(.data))
-    if(.data$status == "finished"){
-      .data$status <- "complete"
+    if(!is.null(.data$status_code)){
+      switch(as.character(.data$status_code),
+             "500" = {abort(c("There was a problem with your query",
+                            i = glue("message: {.data$message}")),
+                          error_call = caller_env())},
+             abort("aborting for unknown reasons", # FIXME
+                   error_call = caller_env()))
     }else{
-      .data$status <- "incomplete"
+      if(.data$status == "finished"){
+        .data$status <- "complete"
+      }else{
+        .data$status <- "incomplete"
+      }
+      .data$type <- "occurrences"
+      .data      
     }
-    .data$type <- "occurrences"
-    .data
   }
 }
 

@@ -11,7 +11,7 @@ compute_basic_values <- function(.data){
 #' @noRd
 #' @keywords Internal
 compute_field_values <- function(.data){
-  check_fields(.data)
+  .data <- check_fields(.data)
   class(.data) <- "values_response"
   .data
 }
