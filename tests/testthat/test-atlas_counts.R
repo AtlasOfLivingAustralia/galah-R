@@ -41,6 +41,18 @@ test_that("`identify()` reduces the number of records returned by `count()`", {
   expect_true(counts_mammals$count < counts_all$count)
 })
 
+test_that("`galah_identify()` works with `atlas_counts()`", {
+  skip_if_offline()
+  counts_all <- galah_call() |>
+    count() |>
+    collect()
+  counts_mammals <- galah_call() |>
+    galah_identify("Perameles") |>
+    atlas_counts()
+  expect_type(counts_mammals$count, "integer")
+  expect_true(counts_mammals$count < counts_all$count)
+})
+
 test_that("`count()` handles multiple 'group by' variables", {
   skip_if_offline()
   counts <- galah_call() |>

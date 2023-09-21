@@ -32,16 +32,21 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
                        filter, 
                        geolocate, 
                        data_profile = data_profile$data_profile) 
-  result <- list(type = "occurrences-count")
   # set behaviour depending on `group_by()`
   if(is.null(group_by)){
-    url <- url_lookup("records_counts") |> url_parse()
+    result <- list(type = "data/occurrences-count")
+    url <- url_lookup(method = "data",
+                      type = "occurrences-count") |> 
+      url_parse()
     url$query <- c(query, pageSize = 0)
     result$url <- url_build(url)
     result$slot_name <- "totalRecords"
     result$expand <- FALSE
   }else{
-    url <- url_lookup("records_facets") |> url_parse()
+    result <- list(type = "data/occurrences-count-groupby")
+    url <- url_lookup(method = "data",
+                      type = "occurrences-count-groupby") |> 
+      url_parse()
     facets <- as.list(group_by$name)
     names(facets) <- rep("facets", length(facets))
     if(is.null(slice)){
@@ -59,7 +64,7 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
   }
   # aggregate and return
   result$headers <- build_headers()
-  class(result) <- "data_query"
+  class(result) <- "query"
   return(result)
 }
 
@@ -94,7 +99,7 @@ collapse_occurrences_count_gbif <- function(identify = NULL,
                  url = url_build(url), 
                  headers = build_headers(),
                  slot_name = "count")
-  class(result) <- "data_query"
+  class(result) <- "query"
   return(result)
 }
 

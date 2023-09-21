@@ -23,7 +23,7 @@ compute.data_query <- function(.data){
 switch_compute <- function(.data){
   check_login(.data)
   .data <- .data |>
-    check_lazy_identifiers() |>
+    check_identifiers() |>
     check_fields()
   switch(.data$type, 
          "doi" = compute_doi(.data),

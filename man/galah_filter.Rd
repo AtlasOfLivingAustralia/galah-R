@@ -3,7 +3,6 @@
 \name{galah_filter}
 \alias{galah_filter}
 \alias{filter.data_request}
-\alias{filter.metadata_request}
 \alias{filter.files_request}
 \alias{filter.values_request}
 \title{Narrow a query by specifying filters}
@@ -11,8 +10,6 @@
 galah_filter(..., profile = NULL)
 
 \method{filter}{data_request}(.data, ...)
-
-\method{filter}{metadata_request}(.data, ...)
 
 \method{filter}{files_request}(.data, ...)
 

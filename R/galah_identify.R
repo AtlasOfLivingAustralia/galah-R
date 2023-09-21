@@ -42,60 +42,48 @@
 #' @importFrom rlang warn
 #' @export
 galah_identify <- function(..., search = TRUE) {
-  dots <- list(...)
-  if (length(dots) < 1) {
-    # if empty, return correct class, but no values
-    warn("No query passed to `galah_identify()`")
-    tibble(identifier = character())
-  } else {
-    if (inherits(dots[[1]], "data_request")) {
-      result <- parse_identify(dots[-1], search)
-      update_data_request(dots[[1]], search_term = result)
-    } else {
-      result <- parse_identify(dots, search)
-      return(result)
-    }
+  dots_initial <- list(...)
+  if (length(dots_initial) < 1) {
+    warn("No query passed to `identify()`")
+    result <- tibble(value = character())
+    colnames(result)[1] <- ifelse(search == TRUE, "search_term", "identifier")
+    result
+  }else{
+    if(inherits(dots_initial[[1]], "data_request")){
+      do.call(identify.data_request, 
+              append(dots_initial, 
+                     list(search = search)))
+    }else{
+        identify(galah_call(), ..., search = search)$identify
+    }    
   }
 }
-# NOTE: the above hasn't been updated yet
-  
-#' #' @rdname galah_identify
-#' #' @param .data An object of class `data_request`, created using [request_data()]
-#' #' @export
-#' identify.data_request <- function(.data, ..., search = TRUE){
-#'   dots <- list(...)
-#'   if (length(dots) < 1) {
-#'     warn("No query passed to `identify()`")
-#'     return(.data)
-#'   }else{
-#'     if(search){
-#'       result <- search_taxa(dots) |>
-#'         rename(identifier = taxon_concept_id) |>
-#'         select(identifier)
-#'     }else{
-#'       result <- tibble(identifier = unlist(dots))
-#'     }
-#'     update_data_request(.data, identify = result)
-#'   }
-#' }
 
 #' @rdname galah_identify
 #' @param .data An object of class `data_request`, created using [request_data()]
 #' @importFrom tibble tibble
 #' @export
-identify.data_request <- function(.data, ...){
+identify.data_request <- function(.data, ..., search = TRUE){
   dots_initial <- list(...)
   if (length(dots_initial) < 1) {
     warn("No query passed to `identify()`")
-    return(.data)
+    result <- NULL
   }else{
-    if(inherits(dots_initial[[1]], "data.frame")){
-      .data$identify <- tibble(search_term = dots_initial[[1]])
+    # browser()
+    # check if a taxonomic data frame has been supplied
+    if(inherits(dots_initial[[1]], "data.frame") &
+       length(dots_initial) == 1){
+      result <- dots_initial[[1]]
+      if(ncol(dots_initial[[1]]) == 1){
+        colnames(result)[1] <- ifelse(search == TRUE, "search_term", "identifier")
+      }
     }else{
-      .data$identify <- tibble(search_term = unlist(dots_initial))
+      result <- tibble(value = unlist(dots_initial))
+      colnames(result)[1] <- ifelse(search == TRUE, "search_term", "identifier")
     }
-    return(.data) 
   }
+  .data$identify <- result
+  return(.data) 
 }
 
 #' @rdname galah_identify
@@ -103,7 +91,7 @@ identify.data_request <- function(.data, ...){
 #' @export
 identify.metadata_request <- identify.values_request <- identify.data_request
 
-#' parser for `galah_identify()`
+#' parser for `galah_identify()`. Called by `check.R/check_identifiers()`
 #' @noRd
 #' @keywords Internal
 parse_identify <- function(input_query, search, call = caller_env()) {
@@ -152,7 +140,11 @@ verify_taxa_ids <- function(lookup, input_query, verbose, run_checks, call = cal
   }
 }
 
-# checker function based on `galah_filter.R/check_filters`
+#' checker function based on `galah_filter.R/check_filters`
+#' @importFrom rlang abort
+#' @importFrom rlang have_name
+#' @noRd
+#' @keywords Internal
 check_queries <- function(dots, error_call = caller_env()) {
   if(any(have_name(dots))){
     bullets <- c(
@@ -164,6 +156,11 @@ check_queries <- function(dots, error_call = caller_env()) {
   }
 }
 
+#' Internal function to check number of matched taxa
+#' @importFrom rlang warn
+#' @importFrom glue glue
+#' @noRd
+#' @keywords Internal
 check_number_returned <- function(n_in, n_out, error_call = caller_env()) {
   if(n_out < n_in){
     bullets <- c(
@@ -174,9 +171,12 @@ check_number_returned <- function(n_in, n_out, error_call = caller_env()) {
   }
 }
 
-# it is possible that the above will lead to non-character 
-# arguments being passed (if search = FALSE and run_checks = FALSE)
-# check this
+#' it is possible that the above will lead to non-character 
+#' arguments being passed (if search = FALSE and run_checks = FALSE).
+#' Internal function to check this
+#' @importFrom rlang abort
+#' @noRd
+#' @keywords Internal
 check_is_character <- function(query, error_call = caller_env()){
   if(!inherits(query, "character")){
     abort("galah_identify() requires characters to work", call = error_call)

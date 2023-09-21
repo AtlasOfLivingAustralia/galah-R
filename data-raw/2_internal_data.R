@@ -98,7 +98,7 @@ gbif_internal_archived <- list(
 use_data(
   node_metadata,
   node_config,
-  galah_internal_archived,
+  # galah_internal_archived,
   galah_internal_cached,
   gbif_internal_archived,
   internal = TRUE, 

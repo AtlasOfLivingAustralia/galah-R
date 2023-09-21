@@ -68,7 +68,6 @@
 #' @importFrom rlang caller_env         
 #' @importFrom rlang enquos
 #' @importFrom rlang eval_tidy
-#' @importFrom rlang have_name
 #' @importFrom rlang get_env
 #' @importFrom rlang new_quosure
 #' @importFrom rlang parse_expr
@@ -94,16 +93,24 @@ filter.data_request <- function(.data, ...){
   update_data_request(.data, 
                       filter = parse_quosures(dots)$data) # see `quosure_handling.R`
 }
+# usually filters as previously for ALA, but some exceptions:
+  # doi == "x" in `atlas_occurrences()` proposed but not coded
+  # rank == "class" in `atlas_taxonomy()` replacement for `galah_down_to()`
 
-#' @rdname galah_filter
-#' @param .data An object of class `metadata_request`, created using [request_metadata()]
-#' @export
+# @rdname galah_filter
+# @param .data An object of class `metadata_request`, created using [request_metadata()]
+# @export
 filter.metadata_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
   parsed_dots <- parse_quosures_basic(dots)
   .data$filter <- tibble(query = parsed_dots[[1]])
   return(.data)
 }
+# Note: the intended purpose of this function is to pass `filter()`
+# within the API call in the same was as `filter.data_request()`. 
+# In theory this would power `search_all()`; but in practice many 
+# APIs do not support a `q` argument that allows server-side filtering.
+# The exception is GBIF.
 
 #' @rdname galah_filter
 #' @param .data An object of class `files_request`, created using [request_files()]
@@ -113,6 +120,11 @@ filter.files_request <- function(.data, ...){
   .data$filter <- parse_quosures(dots)$data  # see `quosure_handling.R`
   return(.data)
 }
+# This function is intended to provide a way to specify which data 
+# are downloaded, which is somewhat more involved than with `filter.data_request`
+# `quosure_handling.R` has an exception coded to support
+# media filenames being passed to `filter()`; this would be better 
+# handled here.
 
 #' @rdname galah_filter
 #' @param .data An object of class `values_request`, created using [request_values()]
@@ -127,3 +139,6 @@ filter.values_request <- function(.data, ...){
   # enforce nrow(result) == 1?
   return(.data)
 }
+# Note that this version works differently, in that `filter()` is
+# used to set the `type` argument;
+# request_values() |> filter(taxa == "Chordata")

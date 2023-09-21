@@ -4,37 +4,66 @@
 #' @rdname collect.data_request
 #' @export
 collapse.data_request <- function(.data, mint_doi = FALSE){
-  .data$type <- check_type(.data$type)
-  switch(.data$type,
-         "doi" = collapse_doi(.data),
-         "media" = collapse_media_metadata(.data),
-         "occurrences" = collapse_occurrences(.data, mint_doi = mint_doi),
-         "occurrences-count" = collapse_occurrences_count(.data),
-         "species" = collapse_species(.data),
-         "species-count" = collapse_species_count(.data),
-         abort("unrecognised 'type'"))
+  # .data$type <- check_type(.data$type) # needed?
+  
+  # handle `run_checks`
+  if(pour("package", "run_checks")){
+    result <- list(
+      collapse_fields(),
+      collapse_assertions())
+  }else{
+    result <- list()
+  }
+  
+  # handle `identify()`
+  if(!is.null(.data$identity)){
+    first_col <- colnames(.data$identify)[1]
+    result <- c(
+      result,
+      switch(first_col, 
+             "search_term" = collapse_taxa_single(.data),
+             "identifier"  = collapse_identifiers(.data),
+             collapse_taxa_multiple(.data)))
+  }
+
+  # handle query
+  result[[(length(result) + 1)]] <- switch(
+    .data$type,
+    "doi" = collapse_doi(.data),
+    "media" = collapse_media_metadata(.data),
+    "occurrences" = collapse_occurrences(.data, mint_doi = mint_doi),
+    "occurrences-count" = collapse_occurrences_count(.data),
+    "species" = collapse_species(.data),
+    "species-count" = collapse_species_count(.data),
+    abort("unrecognised 'type'"))
+  
+  class(result) <- "query_set"
+  result
 }
 
 # if calling `collapse()` after `request_metadata()`
 #' @rdname collect.data_request
 #' @export
 collapse.metadata_request <- function(.data){
-  switch(.data$type,
-         "apis" = collapse_apis(.data),
-         "assertions" = collapse_assertions(.data),
-         "atlases" = collapse_atlases(.data),
-         "collections" = collapse_collections(.data),
-         "datasets" = collapse_datasets(.data),
-         "fields" = collapse_fields(.data),
-         "licences" = collapse_licences(.data),
-         "lists" = collapse_lists(.data),
-         "profiles" = collapse_profiles(.data),
-         "providers" = collapse_providers(.data),
-         "ranks" = collapse_ranks(.data),
-         "reasons" = collapse_reasons(.data),
+  result <- list(switch(.data$type,
+         "apis" = collapse_apis(),
+         "assertions" = collapse_assertions(),
+         "atlases" = collapse_atlases(),
+         "collections" = collapse_collections(),
+         "datasets" = collapse_datasets(),
+         "fields" = collapse_fields(),
+         "licences" = collapse_licences(),
+         "lists" = collapse_lists(),
+         "profiles" = collapse_profiles(),
+         "providers" = collapse_providers(),
+         "ranks" = collapse_ranks(),
+         "reasons" = collapse_reasons(),
          "taxa" = collapse_taxa(.data),
          "identifiers" = collapse_identifiers(.data),
          abort("unrecognised 'type'"))
+  )
+  class(result) <- "query_set"
+  result
 }
 
 # if calling `collapse()` after `request_values()`
@@ -84,24 +113,4 @@ check_values_filter <- function(.data){
     }
     return(.data)
   }
-}
-
-#' Internal function to build headers at the `collapse()` stage
-#' @noRd
-#' @keywords Internal
-build_headers <- function(){
-  list("User-Agent" = galah_version_string())
-  ## Below code adds API keys (not yet implemented)
-  # if(pour("atlas", "acronym") == "ALA"){
-  #  list(
-  #     "User-Agent" = galah_version_string(),
-  #     "x-api-key" = pour("user", "api_key")
-  ## if(){ # something about if we're using JWT tokens
-  ##  list(
-  ##    "User-Agent" = galah_version_string(),
-  ##.   "Authorization" = paste("Bearer", access_token))
-  ## }
-  # }else{
-  #   list("User-Agent" = galah_version_string())
-  # }
 }

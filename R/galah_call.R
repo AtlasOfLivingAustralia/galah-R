@@ -110,13 +110,19 @@ request_data <- function(type = c("occurrences",
     type <- "occurrences"
   }
   # create an empty list
-  valid_names <- c("type", "identify", "filter", "select", "group_by",
-                   "geolocate", "data_profile"
+  valid_names <- c("type",
+                   "identify",
+                   "filter",
+                   "select",
+                   "group_by",
+                   "arrange",
+                   "geolocate", 
+                   "data_profile"
                    # "order" # tentatively removed
                    )
   default_call <- vector(mode = "list", length = length(valid_names))
   names(default_call) <- valid_names
-  default_call$type <- check_type(type)
+  default_call$type <- type # check_type(type)
   # set default for limit?
   # default_call$limit <- 100 ?
   class(default_call) <- "data_request"
@@ -132,9 +138,9 @@ request_data <- function(type = c("occurrences",
 #' @export
 request_metadata <- function(
     type = c("fields",
-             "apis",      # offline
+             "apis",
              "assertions",
-             "atlases",   # offline
+             "atlases",
              "collections",
              "datasets",
              # distributions" # new
@@ -142,7 +148,7 @@ request_metadata <- function(
              "lists",
              "profiles",
              "providers",
-             "ranks",      # offline
+             "ranks",
              "reasons",
              "taxa",
              "identifiers"

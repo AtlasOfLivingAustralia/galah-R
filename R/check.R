@@ -12,31 +12,6 @@ check_atlas_inputs <- function(args){
   return(result)
 }
 
-#' function to check whether `type` arg is supplied correctly to `collapse()` or
-#' `compute()`
-#' @importFrom rlang abort
-#' @noRd
-#' @keywords Internal
-check_type <- function(type){
-  if(type == "records"){
-    type <- "occurrences-count"
-  }
-  valid_types <- c(
-    "occurrences", "occurrences-count",
-    "doi", 
-    "media",
-    "taxonomy",
-    "species",  "species-count")
-  if(!(type %in% valid_types)){
-    abort("`type` not recognised")
-  }
-  type
-}
-
-# check_media_types <- function(.data, media){
-#   if(is.null(.data$media))
-# }
-
 #' Internal function to convert multi-value media fields to list-columns
 #' @param .data A tibble() returned by atlas_occurrences
 #' @noRd
@@ -318,10 +293,10 @@ check_fields <- function(.data) {
     # error message
     if(any(!is.na(c(filter_invalid, select_invalid, group_by_invalid)))) {
       returned_invalid <- tibble(
-        function_name = c("`galah_filter`", "`galah_select`", "`galah_group_by`"),
+        function_name = c("`filter`", "`select`", "`group_by`"),
         fields = c(filter_invalid, select_invalid, group_by_invalid)
         ) |>
-        tidyr::drop_na()
+        drop_na()
       
       glue_template <- " {returned_invalid$function_name}: {returned_invalid$fields}"
       invalid_fields_message <- glue_data(returned_invalid, glue_template, .na = "")
@@ -331,7 +306,7 @@ check_fields <- function(.data) {
         # i = "Use `show_all(fields)` to see all valid fields.",
         i = "Use `search_all(fields)` to find a valid field ID.",
         x = glue("Unrecognised field(s):"),
-        rlang::format_error_bullets(invalid_fields_message)
+        format_error_bullets(invalid_fields_message)
       )
       abort(bullets)
     }
@@ -349,7 +324,7 @@ check_fields <- function(.data) {
 #' @importFrom stringr str_replace_all
 #' @noRd
 #' @keywords Internal
-check_lazy_identifiers <- function(.data){
+check_identifiers <- function(.data){
   url <- url_parse(.data$url[1]) # FIXME: test if every >1 urls here
   queries <- url$query
   if(!is.null(queries$fq)){

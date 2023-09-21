@@ -8,9 +8,9 @@
 \usage{
 galah_identify(..., search = TRUE)
 
-\method{identify}{data_request}(.data, ...)
+\method{identify}{data_request}(.data, ..., search = TRUE)
 
-\method{identify}{metadata_request}(.data, ...)
+\method{identify}{metadata_request}(.data, ..., search = TRUE)
 }
 \arguments{
 \item{...}{one or more scientific names (if \code{search = TRUE}) or taxonomic

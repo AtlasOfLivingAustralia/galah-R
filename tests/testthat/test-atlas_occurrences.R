@@ -1,14 +1,30 @@
 without_internet({
-  test_that("collapse_occurrences() creates an object, but doesn't ping an API", {
-    with_mock_dir("galah_identify", {
-      identify <- galah_identify("Perameles")
-    })
-    result <- galah_call(identify = identify) |> collapse()
+  test_that("collapse(type = 'occurrences') creates an object, but doesn't ping an API", {
+    result <- galah_call() |> 
+      identify("Perameles") |>
+      collapse()
     expect_equal(names(result), 
                  c("type", "url", "headers"))
     expect_true(inherits(result, "data_query"))
   })
 })
+
+
+test_that("`compute(type = 'occurrences')` works", {
+  skip_if_offline()
+  base_query <- galah_call() |>
+    identify("Vulpes vulpes") |>
+    filter(year <= 1900, 
+           basisOfRecord == "PRESERVED_SPECIMEN") |>
+  # collapse
+  query_collapse <- collapse(base_query)
+  expect_equal(names(query), c("type", "url", "headers"))
+  # compute
+  response <- compute(base_query)
+  expect_true(inherits(response, "data_response"))
+  expect_gt(length(response), 1)
+})
+
 
 test_that("atlas_occurrences doesn't allow large downloads", {
   galah_config(atlas = "Australia")
@@ -17,12 +33,10 @@ test_that("atlas_occurrences doesn't allow large downloads", {
 
 test_that("atlas_occurrences gives a nice error for invalid emails", {
   galah_config(email = "test@test.org.au")
-  with_mock_dir("galah_identify", {
-    identify <- galah_identify("Perameles")
-  })
   expect_error({
-    galah_call(identify = identify) |>
-      collect()
+    galah_call() |>
+      identify("Perameles") |>
+      compute()
   })
   galah_config(email = "ala4r@ala.org.au")
 })
@@ -39,8 +53,6 @@ without_internet({
   })
 })
 
-
-## FIXME: Missing ZERO_COORDINATE column
 # test all filters and type of columns in one call
 test_that("atlas_occurrences accepts all narrowing functions inline", { 
   skip_if_offline()
@@ -54,14 +66,13 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
     filter(year >= 2018) |>
     select(group = "basic", stateProvince, ZERO_COORDINATE) |>
     galah_geolocate(poly) |>
-    collect()    
-
+    collect(wait = TRUE)    
+  expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_setequal(names(occ), expected_cols)
   expect_equal(unique(occ$stateProvince), "New South Wales")
 })
 
-## FIXME: Missing ZERO_COORDINATE column
-# repeat above using galah_call
+# repeat above using `galah_` functions
 test_that("atlas_occurrences accepts all narrowing functions in pipe", { 
   skip_if_offline()
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
@@ -100,28 +111,4 @@ test_that("atlas_occurrences does not download data from a DOI", {
   skip_if_offline()
   doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
   expect_error(atlas_occurrences(doi = doi))
-})
-
-
-test_that("`collapse()` et al. work for ALA", {
-  skip_if_offline()
-  
-  # collapse
-  query <- galah_call(type = "occurrences") |>
-    identify("Vulpes vulpes") |>
-    filter(year <= 1900, 
-           basisOfRecord == "PRESERVED_SPECIMEN") |>
-    collapse()
-  expect_equal(names(query), c("type", "url", "headers"))
-  
-  # compute
-  response <- compute(query)
-  expect_true(inherits(response, "data_response"))
-  expect_gt(length(response), 1)
-  
-  # collect
-  occ <- collect(response)
-  expect_gt(nrow(occ), 0)
-  expect_gt(ncol(occ), 0)
-  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
 })

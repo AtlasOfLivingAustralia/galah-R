@@ -1,6 +1,10 @@
 #' Internal function to `collapse()` taxa
 #' @noRd
 #' @keywords Internal
+
+# NOTE: make collapse_taxa() a wrapper function
+  # collapse_taxa_single() calls the name-matching single api
+  # collapse_taxa_multiple() calls the name-matching multiple api
 collapse_taxa <- function(.data){
   if(is.null(.data$identify)){
     urls <- url_lookup("names_search_single")

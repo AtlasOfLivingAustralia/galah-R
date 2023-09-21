@@ -116,6 +116,7 @@ drill_down_taxonomy <- function(df,
   }
   children <- request_values() |>
     filter(taxa == df$taxon_concept_id) |>
+    # use `identify()` instead of `filter()`?
     collect()
   if(nrow(children) < 1){
     return(df)

@@ -7,6 +7,8 @@
 \alias{request_files}
 \alias{request_values}
 \alias{print.data_request}
+\alias{print.query}
+\alias{print.query_set}
 \title{Start building a query}
 \usage{
 galah_call(method = c("data", "metadata", "files"), type, ...)
@@ -30,6 +32,10 @@ request_values(
 )
 
 \method{print}{data_request}(x, ...)
+
+\method{print}{query}(x, ...)
+
+\method{print}{query_set}(x, ...)
 }
 \arguments{
 \item{method}{string: what \code{request} function should be called. Should be one
@@ -40,7 +46,7 @@ are specified by the corresponding \code{request} function}
 
 \item{...}{Zero or more arguments to alter a query. See 'details'.}
 
-\item{x}{an object of class \code{data_request}}
+\item{x}{an object of class \code{query_set}}
 }
 \value{
 Each sub-function returns a different object class: \code{request_data()}

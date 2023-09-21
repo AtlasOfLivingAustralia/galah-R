@@ -1,3 +1,24 @@
+#' Internal function to build headers at the `collapse()` stage
+#' @noRd
+#' @keywords Internal
+build_headers <- function(){
+  list("User-Agent" = galah_version_string())
+  ## Below code adds API keys (not yet implemented)
+  ## Add these as optional
+  # if(pour("atlas", "acronym") == "ALA"){
+  #  list(
+  #     "User-Agent" = galah_version_string(),
+  #     "x-api-key" = pour("user", "api_key")
+  ## if(){ # something about if we're using JWT tokens
+  ##  list(
+  ##    "User-Agent" = galah_version_string(),
+  ##.   "Authorization" = paste("Bearer", access_token))
+  ## }
+  # }else{
+  #   list("User-Agent" = galah_version_string())
+  # }
+}
+
 #' Build query list from constituent arguments
 #' @noRd
 #' @keywords Internal
@@ -16,13 +37,14 @@ build_query <- function(identify = NULL,
     if(nrow(identify) < 1){
       taxa_query <- NULL
     } else {
-      check_taxa_arg(identify)
-      if (inherits(identify, "data.frame") &&
-          "search_term" %in% colnames(identify)) {
-        identify <- identify$search_term
-      }
+      # check_taxa_arg(identify)
+      # if (inherits(identify, "data.frame") &&
+      #     "search_term" %in% colnames(identify)) {
+      #   identify <- identify$search_term
+      # }
       #TODO: Implement a useful check here- i.e. string or integer
-      taxa_query <- build_taxa_query(identify)
+      # taxa_query <- build_taxa_query(identify)
+      taxa_query <- "`TAXON_PLACEHOLDER`"
     }
   }
   
