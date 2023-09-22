@@ -1,42 +1,90 @@
 #' @rdname galah_call
 #' @param x an object of class `data_request`
 #' @export
-print.data_request <- function(x, ...){
+print.data_request <- function(x, # NOTE: use of `x` arg here is for consistency with `print()`,
+                               ...
+                               ){
+  format_request_text(x, 
+                      object_type = "data_request")
+}
+
+#' @rdname galah_call
+#' @param x an object of class `files_request`, created using `request_files()`
+#' @export
+print.files_request <- function(x, ...){
+  format_request_text(x, 
+                      object_type = "files_request")
+}
+
+#' @rdname galah_call
+#' @param x an object of class `metadata_request`, created using `request_metadata()`
+#' @export
+print.metadata_request <- function(x, ...){
+  format_request_text(x, 
+                      object_type = "metadata_request")
+}
+
+#' @rdname galah_call
+#' @param x an object of class `values_request`, created using `request_values()`
+#' @export
+print.values_request <- function(x, ...){
+  format_request_text(x, 
+                      object_type = "values_request")
+}
+
+#' Internal function to format text in `print()`
+#' @noRd
+#' @keywords Internal
+format_request_text <- function(x, object_type){
   filled_slots <- !unlist(lapply(x, is.null))
+  formatted_object <- galah_pink(glue("`{object_type}`"))
   if(any(filled_slots)){
-    inform(glue("Object of type {galah_pink('`data_request`')} containing:"))
+    inform(glue("Object of type {formatted_object} containing:"))
     x_names <- names(x)[filled_slots]
     lapply(x_names, function(a){
       slot_name <- galah_green(a)
-      slot_content <- switch(a,
-                             "type" = x[[a]],
-                             "identify" = {
-                               first_col <- colnames(x[[a]])[1]
-                               first_entry <- x[[a]][[1]][1]
-                               n_entries <- nrow(x[[a]])
-                               if(n_entries > 1){
-                                 glue("{first_col}s: {first_entry} + {n_entries - 1} more")  
-                               }else{
-                                 glue("{first_col}: {first_entry}")
-                               }
-                             },
-                             "filter" = glue_collapse(x[[a]]$query, 
-                                                      sep = " | "),
-                             "select" = glue_collapse(x[[a]]$name, 
-                                                      sep = " | "),
-                             "group_by" =  glue_collapse(x[[a]]$name, 
-                                                         sep = " | "),
-                             "")
+      slot_content <- switch_slot_text(x, a)
       glue("{slot_name} {galah_grey(slot_content)}")
     }) |>
       unlist() |>
       format_error_bullets() |>
       cat()
   }else{
-    cat("An empty object of type `data_request`")
+    inform(glue("An empty object of type {formatted_object}"))
   }
 }
-# NOTE: use of `x` arg here is for consistency with `print()`; do not change
+
+#' Internal function to write pretty text for `data_request`s and related methods
+#' @noRd
+#' @keywords Internal
+switch_slot_text <- function(x, a){
+  switch(
+    a,
+    "type" = x[[a]],
+    "identify" = {
+      first_col <- colnames(x[[a]])[1]
+      first_entry <- x[[a]][[1]][1]
+      n_entries <- nrow(x[[a]])
+      if(n_entries > 1){
+        glue("{first_col}s: {first_entry} + {n_entries - 1} more")  
+      }else{
+        glue("{first_col}: {first_entry}")
+      }
+    },
+    "filter" = {
+      if(ncol(x[[a]]) > 2){
+        df <- x[[a]][, 1:3]
+      }else{
+        df <- x[[a]]
+      } 
+      glue_collapse(
+        apply(df, 1, function(b){paste(b, collapse = " ")}),
+        sep = " | ")
+    },
+    "select" = glue_collapse(x[[a]]$name, sep = " | "),
+    "group_by" =  glue_collapse(x[[a]]$name, sep = " | "),
+    "")
+}
 
 #' @rdname galah_call
 #' @param x an object of class `query`

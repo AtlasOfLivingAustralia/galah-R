@@ -31,22 +31,7 @@ node_config <- read_csv("./data-raw/node_config.csv") |>
   select(-functional)
 
 # ALA defaults
-# cached versions of some show_all functions
-# NOTE: may be necessary to expand this given changes to `show_all()`
-stored_types <- c("fields", "profiles", "reasons")
-stored_functions <- paste0("show_all_", stored_types)
-galah_internal_cached <- lapply(
-  stored_types,
-  function(a){
-    result <- request_metadata(type = a) |> collect()
-    attr(result, "ARCHIVED") <- TRUE
-    attr(result, "atlas_name") <- "Australia"
-    result
-  })
-# lapply(galah_internal_cached, attributes) # check
-names(galah_internal_cached) <- stored_functions
-
-# add ranks
+# add other data
 galah_internal_archived <- list(
   ranks = tibble(
     id = seq_len(69),
@@ -84,6 +69,21 @@ galah_internal_archived <- list(
                     "Unique identifier for species lists"),
     type = "other"))
 
+# cached versions of some show_all functions
+# NOTE: may be necessary to expand this given changes to `show_all()`
+stored_types <- c("assertions", "fields", "profiles", "reasons")
+stored_functions <- paste0("show_all_", stored_types)
+galah_internal_cached <- lapply(
+  stored_types,
+  function(a){
+    result <- request_metadata(type = a) |> collect()
+    attr(result, "ARCHIVED") <- TRUE
+    attr(result, "atlas_name") <- "Australia"
+    result
+  })
+# lapply(galah_internal_cached, attributes) # check
+names(galah_internal_cached) <- stored_functions
+
 # Import web-scraped gbif data as csv
 gbif_internal_archived <- list(
   assertions = read_csv("./data-raw/gbif_assertions.csv"),
@@ -98,8 +98,8 @@ gbif_internal_archived <- list(
 use_data(
   node_metadata,
   node_config,
-  # galah_internal_archived,
-  galah_internal_cached,
+  galah_internal_archived,
+  # galah_internal_cached,
   gbif_internal_archived,
   internal = TRUE, 
   overwrite = TRUE)

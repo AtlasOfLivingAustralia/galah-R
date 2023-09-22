@@ -211,6 +211,7 @@ check_groups <- function(group, n){
 }
 
 #' Internal function to check whether fields are valid
+#' @importFrom dplyr bind_rows
 #' @importFrom dplyr pull
 #' @importFrom glue glue_collapse
 #' @importFrom glue glue_data
@@ -226,8 +227,11 @@ check_fields <- function(.data) {
     url <- url_parse(.data$url[1])
     queries <- url$query
     # set fields to check against
-    valid_fields <- show_all_fields()$id
-    valid_assertions <- show_all_assertions()$id
+    valid_fields <- bind_rows(
+      .data[["metadata/fields"]],
+      galah_internal_archived$media,
+      galah_internal_archived$other)$id
+    valid_assertions <- .data[["metadata/assertions"]]$id
     valid_any <- c(valid_fields, valid_assertions)
 
     # extract fields from filter & identify
@@ -328,16 +332,20 @@ check_identifiers <- function(.data){
   url <- url_parse(.data$url[1]) # FIXME: test if every >1 urls here
   queries <- url$query
   if(!is.null(queries$fq)){
-    taxa_search_terms <- str_extract_all(queries$fq, "`[:alpha:]+`") |> # FIXME: need a way to not add `` if search = FALSE
-      pluck(!!!list(1)) 
-    if(length(taxa_search_terms) > 0){
-      taxa_ids <- taxa_search_terms |>
-        str_remove_all("`") |>
-        parse_identify(search = TRUE) |> # note: this is still in `galah_identify.R`
-        pull(identifier)
-      queries$fq <- str_replace_all(queries$fq, taxa_search_terms, taxa_ids)
-      url$query <- queries
-      .data$url[1] <- url_build(url)
+    if(grepl("(`TAXON_PLACEHOLDER`)", queries$fq)){
+      metadata_lookup <- grepl("^metadata/taxa", names(.data))
+      if(any(metadata_lookup)){
+        identifiers <- .data[[which(metadata_lookup)[1]]]
+        taxa_ids <- build_taxa_query(identifiers$taxon_concept_id)
+        queries$fq <- str_replace_all(queries$fq, 
+                                      "\\(`TAXON_PLACEHOLDER`\\)", 
+                                      taxa_ids)
+        url$query <- queries
+        .data$url[1] <- url_build(url)
+      }else{
+        # this only happens if there is a bug earlier in the code
+        abort("The query has a taxonomic placeholder, but taxon search has been run")
+      }
     }
   }
   .data

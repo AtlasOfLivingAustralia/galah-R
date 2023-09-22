@@ -10,7 +10,8 @@ collect_assertions <- function(.data){
   names(result) <- rename_columns(names(result), type = "assertions")
   result <- result[wanted_columns("assertions")]
   result$type <- "assertions"
-  attr(result, "call") <- "assertions"
+  attr(result, "call") <- "assertions" 
+  # note: `attributes` are required for `show_values()` to work
   result
 }
 

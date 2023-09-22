@@ -138,7 +138,7 @@ build_taxa_query <- function(ids) {
   if(is_gbif()){
     list(taxonKey = ids)
   }else{
-    wrapped_ids <- paste0("`", ids, "`")
+    wrapped_ids <- paste0("\"", ids, "\"")
     glue(
       "(lsid:",
       glue_collapse(wrapped_ids,

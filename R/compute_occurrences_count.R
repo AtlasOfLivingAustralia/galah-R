@@ -23,9 +23,11 @@ compute_occurrences_count <- function(.data){
   }else{
     result <- adjust_flimit(.data)
   }
-  class(result) <- "data_response"
+  class(result) <- "query"
   return(result)
 }
+# Note: the aobe handles types `data/occurrences-count-groupby` 
+# and `data/occurrences-count`. This is probably inefficient.
 
 #' Internal function to handle facet counting, adjustment etc.
 #' @noRd

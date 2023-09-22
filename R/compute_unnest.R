@@ -1,21 +1,3 @@
-#' Internal function to call `compute` for `request_values()`
-#' This is a simple function to convert type only
-#' @noRd
-#' @keywords Internal
-compute_basic_values <- function(.data){
-  class(.data) <- "values_response"
-  .data  
-}
-
-#' Internal function to call `compute` for `request_values(type = "fields")`
-#' @noRd
-#' @keywords Internal
-compute_field_values <- function(.data){
-  .data <- check_fields(.data)
-  class(.data) <- "values_response"
-  .data
-}
-
 #' Internal function to call `compute` for `request_values(type = "fields")`
 #' @noRd
 #' @keywords Internal
@@ -31,7 +13,7 @@ compute_profile_values <- function(.data){
                      short_name)
   result <- list(type = .data$type,
                  url = url_build(url))
-  class(result) <- "values_response"
+  class(result) <- "query"
   return(result)
 }
 # this doesn't print for some reason
@@ -67,5 +49,4 @@ profile_short_name <- function(profile) {
   }else{
     short_name
   }
-  
 }

@@ -1,23 +1,7 @@
-#' Internal function to run `compute()` for `request_values(type = "collections")`
-#' @noRd
-#' @keywords Internal
-collect_collection_values <- function(.data){
-  query_API(.data) |>
-    build_tibble_from_nested_list()
-}
-
 #' Internal function to run `compute()` for `request_values(type = "datasets")`
 #' @noRd
 #' @keywords Internal
-collect_dataset_values <- function(.data){
-  query_API(.data) |>
-    build_tibble_from_nested_list()
-}
-
-#' Internal function to run `compute()` for `request_values(type = "datasets")`
-#' @noRd
-#' @keywords Internal
-collect_list_values <- function(.data){
+collect_lists_unnest <- function(.data){
   query_API(.data) |> 
     bind_rows()
 }
@@ -30,7 +14,7 @@ collect_list_values <- function(.data){
 #' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
-collect_field_values <- function(.data){
+collect_fields_unnest <- function(.data){
   if(is_gbif()){
     .data |>
       query_API()
@@ -52,7 +36,7 @@ collect_field_values <- function(.data){
 #' Internal function to run `compute()` for `request_values(type = "profiles")`
 #' @noRd
 #' @keywords Internal
-collect_profile_values <- function(.data){
+collect_profiles_unnest <- function(.data){
   query_API(.data) |> 
     pluck("categories") |>
     bind_rows() |>
@@ -60,18 +44,10 @@ collect_profile_values <- function(.data){
     bind_rows()
 }
 
-#' Internal function to run `compute()` for `request_values(type = "providers")`
-#' @noRd
-#' @keywords Internal
-collect_provider_values <- function(.data){
-  query_API(.data) |>
-    build_tibble_from_nested_list()
-}
-
 #' Internal function to run `compute()` for `request_values(type = "taxa")`
 #' @noRd
 #' @keywords Internal
-collect_taxa_values <- function(.data){
+collect_taxa_unnest <- function(.data){
   query_API(.data) |>
     bind_rows()
 }

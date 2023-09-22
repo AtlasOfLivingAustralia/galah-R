@@ -7,6 +7,9 @@
 \alias{request_files}
 \alias{request_values}
 \alias{print.data_request}
+\alias{print.files_request}
+\alias{print.metadata_request}
+\alias{print.values_request}
 \alias{print.query}
 \alias{print.query_set}
 \title{Start building a query}
@@ -32,6 +35,12 @@ request_values(
 )
 
 \method{print}{data_request}(x, ...)
+
+\method{print}{files_request}(x, ...)
+
+\method{print}{metadata_request}(x, ...)
+
+\method{print}{values_request}(x, ...)
 
 \method{print}{query}(x, ...)
 

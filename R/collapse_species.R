@@ -35,7 +35,9 @@ collapse_species_atlas <- function(identify = NULL,
     lookup = "true")
   
   # build url
-  url <- url_lookup("records_species") |> url_parse()
+  url <- url_lookup(method = "data",
+                    type = "species") |> 
+    url_parse()
   url$query <- query
   
   # build output
@@ -44,7 +46,7 @@ collapse_species_atlas <- function(identify = NULL,
     url = url_build(url),
     headers = build_headers(),
     download = TRUE)
-  class(result) <- "data_query"
+  class(result) <- "query"
   
   return(result)
 }

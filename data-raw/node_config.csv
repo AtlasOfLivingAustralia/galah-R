@@ -5,6 +5,7 @@ Australia,records,records_counts,data,occurrences-count,https://biocache-ws.ala.
 Australia,records,records_facets,data,occurrences-count-groupby,https://biocache-ws.ala.org.au/ws/occurrences/facets,atlas_counts,TRUE
 Australia,doi,doi_download,data,occurrences-doi,https://api.ala.org.au/doi/api/doi/{doi_string}/download,doi_download,TRUE
 Australia,records,records_species,data,species,https://biocache-ws.ala.org.au/ws/occurrences/facets/download,atlas_species,TRUE
+Australia,records,records_species,data,species-count,https://biocache-ws.ala.org.au/ws/occurrences/facets,atlas_counts,TRUE
 Australia,records,records_assertions,metadata,assertions,https://biocache-ws.ala.org.au/ws/assertions/codes,show_all-assertions,TRUE
 Australia,collections,collections_collections,metadata,collections,https://api.ala.org.au/metadata/ws/collection,show_all-collections,TRUE
 Australia,collections,collections_datasets,metadata,datasets,https://api.ala.org.au/metadata/ws/dataResource,show_all-datasets,TRUE
@@ -15,12 +16,12 @@ Australia,lists,lists_all,metadata,lists,https://api.ala.org.au/specieslist/ws/s
 Australia,data-quality,profiles_all,metadata,profiles,https://api.ala.org.au/dqf-service/api/v1/data-profiles?enabled=true,show_all-profiles,TRUE
 Australia,collections,collections_providers,metadata,providers,https://api.ala.org.au/metadata/ws/dataProvider,show_all-providers,TRUE
 Australia,logger,logger_reasons,metadata,reasons,https://api.ala.org.au/logger/service/logger/reasons,show_all-reasons,TRUE
-Australia,name-matching,names_search_single,metadata,taxa,https://api.ala.org.au/namematching/api/search?q={name},search_taxa,TRUE
+Australia,name-matching,names_search_single,metadata,taxa-single,https://api.ala.org.au/namematching/api/search?q={name},search_taxa,TRUE
 Australia,name-matching,names_search_multiple,metadata,taxa-multiple,https://api.ala.org.au/namematching/api/searchByClassification,search_taxa,TRUE
-Australia,records,records_facets,values,fields,https://biocache-ws.ala.org.au/ws/occurrences/facets,show_values-fields,TRUE
-Australia,lists,lists_lookup,values,lists,https://api.ala.org.au/specieslist/ws/speciesListItems/{list_id},show_values-lists,TRUE
-Australia,data-quality,profiles_lookup,values,profiles,https://api.ala.org.au/dqf-service/api/v1/data-profiles/{profile},show_values-profiles,TRUE
-Australia,species,species_children,values,taxa,https://api.ala.org.au/species/childConcepts/{id},atlas_taxonomy,TRUE
+Australia,records,records_facets,metadata,fields-unnest,https://biocache-ws.ala.org.au/ws/occurrences/facets,show_values-fields,TRUE
+Australia,lists,lists_lookup,metadata,lists-unnest,https://api.ala.org.au/specieslist/ws/speciesListItems/{list_id},show_values-lists,TRUE
+Australia,data-quality,profiles_lookup,metadata,profiles-unnest,https://api.ala.org.au/dqf-service/api/v1/data-profiles/{profile},show_values-profiles,TRUE
+Australia,species,species_children,metadata,taxa-unnest,https://api.ala.org.au/species/childConcepts/{id},atlas_taxonomy,TRUE
 Austria,collections,collections_collections,,,https://collectory.biodiversityatlas.at/ws/collection,show_all-collections,TRUE
 Austria,collections,collections_datasets,,,https://collectory.biodiversityatlas.at/ws/dataResource,show_all-datasets,TRUE
 Austria,collections,collections_providers,,,https://collectory.biodiversityatlas.at/ws/dataProvider,show_all-providers,TRUE

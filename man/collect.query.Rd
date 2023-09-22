@@ -3,77 +3,35 @@
 \name{collapse.data_request}
 \alias{collapse.data_request}
 \alias{collapse.metadata_request}
-\alias{collapse.values_request}
 \alias{collapse.files_request}
+\alias{collect.query}
+\alias{collect.query_set}
 \alias{collect.data_request}
-\alias{collect.data_query}
-\alias{collect.data_response}
 \alias{collect.metadata_request}
-\alias{collect.metadata_query}
-\alias{collect.metadata_response}
-\alias{collect.files_request}
-\alias{collect.files_query}
-\alias{collect.files_response}
-\alias{collect.values_request}
-\alias{collect.values_query}
-\alias{collect.values_response}
 \alias{compute.data_request}
-\alias{compute.data_query}
-\alias{compute.metadata_request}
-\alias{compute.metadata_query}
-\alias{compute.files_request}
-\alias{compute.files_query}
-\alias{compute.values_query}
-\alias{compute.values_request}
+\alias{compute.query_set}
+\alias{compute.query}
 \title{Force computation of a database query}
 \usage{
 \method{collapse}{data_request}(.data, mint_doi = FALSE)
 
 \method{collapse}{metadata_request}(.data)
 
-\method{collapse}{values_request}(.data)
-
 \method{collapse}{files_request}(.data, thumbnail = FALSE)
+
+\method{collect}{query}(.data, wait = FALSE, file = NULL)
+
+\method{collect}{query_set}(.data, wait = FALSE, file = NULL)
 
 \method{collect}{data_request}(.data, wait = FALSE, file = NULL)
 
-\method{collect}{data_query}(.data, wait = TRUE, file = NULL)
-
-\method{collect}{data_response}(.data, wait = TRUE, file = NULL)
-
 \method{collect}{metadata_request}(.data)
-
-\method{collect}{metadata_query}(.data)
-
-\method{collect}{metadata_response}(.data)
-
-\method{collect}{files_request}(.data)
-
-\method{collect}{files_query}(.data)
-
-\method{collect}{files_response}(.data, file = NULL)
-
-\method{collect}{values_request}(.data)
-
-\method{collect}{values_query}(.data)
-
-\method{collect}{values_response}(.data)
 
 \method{compute}{data_request}(.data)
 
-\method{compute}{data_query}(.data)
+\method{compute}{query_set}(.data)
 
-\method{compute}{metadata_request}(.data)
-
-\method{compute}{metadata_query}(.data)
-
-\method{compute}{files_request}(.data)
-
-\method{compute}{files_query}(.data)
-
-\method{compute}{values_query}(.data)
-
-\method{compute}{values_request}(.data)
+\method{compute}{query}(.data, inputs = NULL)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, \code{data_query} or
@@ -82,8 +40,8 @@
 \item{mint_doi}{Logical: should a DOI be minted for this download? Only
 applies to \code{type = "occurrences"} when atlas chosen is "ALA".}
 
-\item{wait}{logical; should \code{galah} ping the selected url until computation
-is complete? Defaults to \code{FALSE}.}
+\item{wait}{logical; should \code{galah} wait for a response? Defaults to FALSE.
+Only applies for \code{type = "occurrences"} or \code{"species"}.}
 
 \item{file}{(optional) file name. If not given will be \code{data} with date and
 time added. File path is always given by \code{galah_config()$package$directory}.}

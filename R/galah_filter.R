@@ -97,13 +97,23 @@ filter.data_request <- function(.data, ...){
   # doi == "x" in `atlas_occurrences()` proposed but not coded
   # rank == "class" in `atlas_taxonomy()` replacement for `galah_down_to()`
 
-# @rdname galah_filter
-# @param .data An object of class `metadata_request`, created using [request_metadata()]
-# @export
+#' @rdname galah_filter
+#' @param .data An object of class `metadata_request`, created using [request_metadata()]
+#' @export
 filter.metadata_request <- function(.data, ...){
-  dots <- enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures_basic(dots)
-  .data$filter <- tibble(query = parsed_dots[[1]])
+  .data <- filter.data_request(.data, ...)
+  class(.data) <- "metadata_request"
+  # correct type
+  initial_type <- .data$type
+  if(!grepl("s$|taxa", .data$filter$variable)){
+    type <- paste0(.data$filter$variable[1], "s")
+  }else{
+    type <- .data$filter$variable[1]
+  }
+  if(grepl("-unnest$", initial_type)){
+    type <- paste0(type, "-unnest")
+  }
+  .data$type <- type
   return(.data)
 }
 # Note: the intended purpose of this function is to pass `filter()`
@@ -111,6 +121,10 @@ filter.metadata_request <- function(.data, ...){
 # In theory this would power `search_all()`; but in practice many 
 # APIs do not support a `q` argument that allows server-side filtering.
 # The exception is GBIF.
+# 
+# An unusual distinction is that when `unnest()` is also called, `filter()` is 
+# used to set the thing that is unnested; this is a different kind of search
+# e.g. `request_values() |> filter(taxa == "Chordata")`
 
 #' @rdname galah_filter
 #' @param .data An object of class `files_request`, created using [request_files()]
@@ -125,20 +139,3 @@ filter.files_request <- function(.data, ...){
 # `quosure_handling.R` has an exception coded to support
 # media filenames being passed to `filter()`; this would be better 
 # handled here.
-
-#' @rdname galah_filter
-#' @param .data An object of class `values_request`, created using [request_values()]
-#' @importFrom dplyr rename
-#' @importFrom dplyr select
-#' @export
-filter.values_request <- function(.data, ...){
-  dots <- enquos(..., .ignore_empty = "all")
-  result <- parse_quosures(dots)$data  # see `quosure_handling.R`
-  .data$filter <- select(result, variable, value) |>
-    rename(api = variable, selection = value)
-  # enforce nrow(result) == 1?
-  return(.data)
-}
-# Note that this version works differently, in that `filter()` is
-# used to set the `type` argument;
-# request_values() |> filter(taxa == "Chordata")

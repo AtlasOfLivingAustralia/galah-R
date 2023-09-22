@@ -34,27 +34,23 @@
 #'   galah_identify("Eolophus") |>
 #'   atlas_counts()
 #' 
-#' # If you know a valid taxon identifier, add it and set `search = FALSE`.
+#' # If you know a valid taxon identifier, use `galah_filter()` instead.
+#' # This was formerly supported by `galah_identify()` with `search = FALSE`
 #' galah_call() |> 
-#'   galah_identify("https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c", 
-#'                  search = FALSE) |>
+#'   galah_filter(lsid == "https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c") |>
 #'   atlas_counts()
 #' @importFrom rlang warn
 #' @export
-galah_identify <- function(..., search = TRUE) {
+galah_identify <- function(...) {
   dots_initial <- list(...)
   if (length(dots_initial) < 1) {
     warn("No query passed to `identify()`")
-    result <- tibble(value = character())
-    colnames(result)[1] <- ifelse(search == TRUE, "search_term", "identifier")
-    result
+    tibble("search_term" = character())
   }else{
     if(inherits(dots_initial[[1]], "data_request")){
-      do.call(identify.data_request, 
-              append(dots_initial, 
-                     list(search = search)))
+      do.call(identify.data_request, dots_initial)
     }else{
-        identify(galah_call(), ..., search = search)$identify
+      identify(galah_call(), ...)$identify
     }    
   }
 }
@@ -63,23 +59,16 @@ galah_identify <- function(..., search = TRUE) {
 #' @param .data An object of class `data_request`, created using [request_data()]
 #' @importFrom tibble tibble
 #' @export
-identify.data_request <- function(.data, ..., search = TRUE){
+identify.data_request <- function(.data, ...){
   dots_initial <- list(...)
   if (length(dots_initial) < 1) {
     warn("No query passed to `identify()`")
     result <- NULL
   }else{
-    # browser()
-    # check if a taxonomic data frame has been supplied
-    if(inherits(dots_initial[[1]], "data.frame") &
-       length(dots_initial) == 1){
+    if(inherits(dots_initial[[1]], "data.frame") & length(dots_initial) == 1){
       result <- dots_initial[[1]]
-      if(ncol(dots_initial[[1]]) == 1){
-        colnames(result)[1] <- ifelse(search == TRUE, "search_term", "identifier")
-      }
     }else{
-      result <- tibble(value = unlist(dots_initial))
-      colnames(result)[1] <- ifelse(search == TRUE, "search_term", "identifier")
+      result <- tibble("search_term" = unlist(dots_initial))
     }
   }
   .data$identify <- result
@@ -89,9 +78,17 @@ identify.data_request <- function(.data, ..., search = TRUE){
 #' @rdname galah_identify
 #' @param .data An object of class `metadata_request`, created using [request_metadata()]
 #' @export
-identify.metadata_request <- identify.values_request <- identify.data_request
+identify.metadata_request <- function(.data, ...){
+  .data <- identify.data_request(.data, ...)
+  .data$type <- "taxa"
+  .data
+}
 
-#' parser for `galah_identify()`. Called by `check.R/check_identifiers()`
+## BELOW HERE IS OLD CODE
+# some useful-looking stuff here, but I don't think it's used anywhere rn
+
+#' parser formerly called by `check.R/check_identifiers()`
+#' FIXME: check if this is still called
 #' @noRd
 #' @keywords Internal
 parse_identify <- function(input_query, search, call = caller_env()) {
@@ -99,7 +96,6 @@ parse_identify <- function(input_query, search, call = caller_env()) {
   atlas <- pour("atlas", "region")
   run_checks <- pour("package", "run_checks")
   verbose <- pour("package", "verbose")
-
   if (search) {
     lookup <- search_taxa(input_query)
     query <- verify_taxa_ids(lookup, input_query, verbose)

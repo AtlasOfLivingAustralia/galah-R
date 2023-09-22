@@ -28,7 +28,8 @@ collapse_species_count_atlas <- function(identify = NULL,
                                          slice = NULL,
                                          arrange = NULL
 ){
-  url <- url_lookup("records_facets") |> 
+  url <- url_lookup(method = "data",
+                    type = "species-count") |> 
     url_parse()
   query <- build_query(identify, 
                        filter, 
@@ -60,6 +61,6 @@ collapse_species_count_atlas <- function(identify = NULL,
   }
   # aggregate and return
   result$headers <- build_headers()
-  class(result) <- "data_query"
+  class(result) <- "query"
   return(result)
 }
