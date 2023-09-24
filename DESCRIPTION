@@ -41,8 +41,7 @@ Imports:
     sf,
     tibble,
     tidyr,
-    utils,
-    jose
+    utils
 Suggests: 
     covr,
     gt,
