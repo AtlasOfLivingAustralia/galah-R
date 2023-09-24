@@ -16,7 +16,7 @@ api_authenticate <- function() {
               refresh_url <- "https://auth-secure.auth.ap-southeast-2.amazoncognito.com/oauth2/token"
               req_params <- list(
                 refresh_token = refresh_token,
-                client_id = "5kahrda00sbg0g64su20d8ebkt",
+                client_id = "3fs881sn87m35th0m61q6kqra2",
                 grant_type = "refresh_token",
                 client_secret = NULL
               )
@@ -33,7 +33,7 @@ api_authenticate <- function() {
         )
         app <- oauth_app(
             "galah",
-            key = "5kahrda00sbg0g64su20d8ebkt",
+            key = "3fs881sn87m35th0m61q6kqra2",
             secret = NULL
         )
 
