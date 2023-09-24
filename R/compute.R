@@ -95,10 +95,12 @@ add_metadata <- function(query, meta){
 remove_metadata <- function(.data){
   names_lookup <- grepl("^metadata/", names(.data))
   if(any(names_lookup)){
-    .data[!names_lookup]
+    x <- .data[!names_lookup]
   }else{
-    .data
+    x <- .data
   }
+  class(x) <- "query"
+  x
 }
 
 ## BELOW HERE PROBABLY WON'T WORK

@@ -42,7 +42,7 @@ collapse_species_atlas <- function(identify = NULL,
   
   # build output
   result <- list(
-    type = "species",
+    type = "data/species",
     url = url_build(url),
     headers = build_headers(),
     download = TRUE)

@@ -8,8 +8,7 @@ compute_species_count <- function(.data){
   }else{
     .data$url <- as_tibble(data.frame(url = .data$url))
   }
-  class(.data) <- "data_response"
-  return(.data) 
+  .data
 }
 
 #' Internal function to generate correct set of species-count queries when 
@@ -34,7 +33,7 @@ build_species_query_list <- function(.data){
   
   # rebuild a .data object for this query
   data_temp <- .data
-  data_temp$type <- "occurrences-count"
+  data_temp$type <- "data/occurrences-count"
   data_temp$url <- url_build(url)
   data_temp$expand <- ifelse(n_facet_terms > 1, TRUE, FALSE)
   

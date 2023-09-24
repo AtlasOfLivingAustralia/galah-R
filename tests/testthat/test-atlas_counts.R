@@ -4,9 +4,10 @@ test_that("`collapse()` doesn't ping an API for type = `'occurrences-count'`", {
   result <- request_data(type = "occurrences-count") |>
     filter(year == 2010) |>
     collapse()
-  expect_true(inherits(result, "data_query"))
-  expect_equal(names(result),
-               c("type", "url", "slot_name", "expand", "headers"))
+  expect_true(inherits(result, "query_set"))
+  types <- unlist(lapply(result, function(a){a$type}))
+  expect_equal(types,
+               c("metadata/fields", "metadata/assertions", "data/occurrences-count"))
 })
 
 with_mock_dir("atlas_counts", {
@@ -17,15 +18,13 @@ with_mock_dir("atlas_counts", {
   })
 })
 
-with_mock_dir("atlas_counts", {
-  test_that("count() |> collect() works with no arguments", {
-    skip_if_offline()
-    count <- galah_call() |>
-      count() |>
-      collect()
-    expect_s3_class(count, c("tbl_df", "tbl", "data.frame"))
-    expect_gt(count$count, 0)
-  })
+test_that("count() |> collect() works with no arguments", {
+  skip_if_offline()
+  count <- galah_call() |>
+    count() |>
+    collect()
+  expect_s3_class(count, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(count$count, 0)
 })
 
 test_that("`identify()` reduces the number of records returned by `count()`", {
