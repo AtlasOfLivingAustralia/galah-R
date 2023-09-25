@@ -3,26 +3,45 @@ without_internet({
     result <- galah_call() |> 
       identify("Perameles") |>
       collapse()
-    expect_equal(names(result), 
-                 c("type", "url", "headers"))
-    expect_true(inherits(result, "data_query"))
+    expect_equal(length(result), 3)
+    expect_true(inherits(result, "query_set"))
+    types <- unlist(lapply(result, function(a){a$type}))
+    expect_equal(types,
+                 c("metadata/reasons",
+                   "metadata/taxa-single",
+                   "data/occurrences"))
   })
 })
-
 
 test_that("`compute(type = 'occurrences')` works", {
   skip_if_offline()
   base_query <- galah_call() |>
     identify("Vulpes vulpes") |>
     filter(year <= 1900, 
-           basisOfRecord == "PRESERVED_SPECIMEN") |>
+           basisOfRecord == "PRESERVED_SPECIMEN")
   # collapse
   query_collapse <- collapse(base_query)
-  expect_equal(names(query), c("type", "url", "headers"))
+  expect_true(inherits(result, "query_set"))
+  expect_equal(length(result), 3)
+  types <- unlist(lapply(query_collapse, function(a){a$type}))
+  expect_equal(types,
+               c("metadata/fields",
+                 "metadata/assertions",
+                 "metadata/reasons",
+                 "metadata/taxa-single",
+                 "data/occurrences"))
   # compute
   response <- compute(base_query)
-  expect_true(inherits(response, "data_response"))
-  expect_gt(length(response), 1)
+  expect_true(inherits(response, "query"))
+  expect_true(response$type == "data/occurrences")
+  expect_equal(names(response),
+               c("type",
+                 "status",
+                 "total_records",
+                 "queue_size",
+                 "status_url",
+                 "cancel_url",
+                 "search_url"))  
 })
 
 

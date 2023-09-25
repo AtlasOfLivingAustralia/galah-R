@@ -7,9 +7,22 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
   # .data$type <- check_type(.data$type) # needed?
   # handle `run_checks`
   if(pour("package", "run_checks")){
-    result <- list(
-      collapse_fields(),
-      collapse_assertions())
+    # add check here to see whether any filters are specified
+    # it is possible to only call `identify()`, for example
+    fields_absent <- lapply(
+      .data[c("arrange", "filter", "select", "group_by")],
+      is.null) |>
+      unlist()
+    if(any(!fields_absent)){
+      result <- list(
+        collapse_fields(),
+        collapse_assertions())      
+    }else{
+      result <- list()
+    }
+    if(.data$type == "occurrences"){
+      result[[(length(result) + 1)]] <- collapse_reasons()
+    }
   }else{
     result <- list()
   }

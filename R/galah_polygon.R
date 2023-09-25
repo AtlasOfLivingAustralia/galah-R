@@ -6,23 +6,18 @@
 #' @rdname galah_geolocate
 #' @export
 galah_polygon <- function(...){
-  
   # check to see if any of the inputs are a data request
   query <- list(...)
-  # browser()
   if(length(query) > 1 & inherits(query[[1]], "data_request")){
     dr <- query[[1]]
     query <- query[-1]
   }else{
     dr <- NULL
   }
-  
   # check that only 1 WKT is supplied at a time
   check_n_inputs(query)
-  
   # parse
   out_query <- parse_polygon(query)
-  
   # if a data request was supplied, return one
   if(!is.null(dr)){
     update_data_request(dr, geolocate = out_query)
@@ -37,7 +32,6 @@ galah_polygon <- function(...){
 st_crop.data_request <- function(.data, y, ...){
   update_data_request(.data, geolocate = parse_polygon(y))
 }
-
 
 #' parser for polygons
 #' @noRd
@@ -104,7 +98,7 @@ parse_polygon <- function(query){
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons are converted to multipolygons
   if(inherits(query, "sf") || inherits(query, "sfc")) {
-    # browser()
+
     if(length(query$geometry) < 2) {
     out_query <- build_wkt(query)
     } else {

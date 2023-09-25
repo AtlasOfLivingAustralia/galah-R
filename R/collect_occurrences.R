@@ -73,65 +73,6 @@ collect_occurrences_la <- function(.data, wait, file){
   return(result)
 }
 
-#' Internal function to ensure a download file is given
-#' @noRd
-#' @keywords Internal
-check_download_filename <- function(file, ext = "zip"){
-  if(!is.null(file)){
-    file
-  }else{
-    cache_directory <- pour("package", "directory", .pkg = "galah")
-    current_time <- Sys.time() |> format("%Y-%m-%d_%H-%M-%S")
-    file <- glue("{cache_directory}/data_{current_time}.{ext}") |>
-      as.character()
-    # check_path()? # currently commented out in check.R
-  }
-  return(file)
-}
-
-#' Internal function to ensure correct data extracted from API for LA/GBIF
-#' @noRd
-#' @keywords Internal
-check_occurrence_response <- function(.data){
-  if(is_gbif()){
-    # list(
-    #   completed_flag = "SUCCEEDED",
-    #   queue_function = "check_queue_GBIF",
-    #   queue_input = list(url = attr(.data, "url")),
-    #   download_tag = "downloadLink",
-    #   status_url = attr(.data, "url")
-    # )
-  }else{
-    names(.data) <- camel_to_snake_case(names(.data))
-    if(!is.null(.data$status_code)){
-      switch(as.character(.data$status_code),
-             "500" = {abort(c("There was a problem with your query",
-                            i = glue("message: {.data$message}")),
-                          error_call = caller_env())},
-             abort("aborting for unknown reasons", # FIXME
-                   error_call = caller_env()))
-    }else{
-      if(.data$status == "finished"){
-        .data$status <- "complete"
-      }else{
-        .data$status <- "incomplete"
-      }
-      .data$type <- "occurrences"
-      .data      
-    }
-  }
-}
-
-#' Internal function to change API response to contain standard headers
-#' @noRd
-#' @keywords Internal
-check_occurrence_status <- function(.data){
-  list(url = .data$status_url) |>
-    query_API() |>
-    as.list() |>
-    check_occurrence_response()
-}
-
 #' Internal function to load zip files, without unzipping them first
 #' @importFrom dplyr bind_rows
 #' @importFrom readr read_csv

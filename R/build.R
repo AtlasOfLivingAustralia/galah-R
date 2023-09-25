@@ -37,13 +37,6 @@ build_query <- function(identify = NULL,
     if(nrow(identify) < 1){
       taxa_query <- NULL
     } else {
-      # check_taxa_arg(identify)
-      # if (inherits(identify, "data.frame") &&
-      #     "search_term" %in% colnames(identify)) {
-      #   identify <- identify$search_term
-      # }
-      #TODO: Implement a useful check here- i.e. string or integer
-      # taxa_query <- build_taxa_query(identify)
       taxa_query <- "`TAXON_PLACEHOLDER`"
     }
   }

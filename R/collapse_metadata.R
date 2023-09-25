@@ -140,12 +140,12 @@ collapse_providers <- function(){
 #' @noRd
 #' @keywords Internal
 collapse_reasons <- function(){
-  update_needed <- internal_cache_update_needed("show_all_reasons")
+  update_needed <- TRUE # internal_cache_update_needed("show_all_reasons")
   if(update_needed){
     result <- list(type = "metadata/reasons",
                    url = url_lookup(method = "metadata",
                                     type = "reasons"),
-                   headers = build_headers())    
+                   headers = build_headers())
   }else{
     result <- list(type = "metadata/reasons",
                    data = "galah:::check_internal_cache()$show_all_reasons")

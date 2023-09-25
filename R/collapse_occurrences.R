@@ -35,7 +35,7 @@ collapse_occurrences_uk <- function(.data){
                  dwcHeaders = "true")
   # build output
   result <- list(
-    type = "occurrences",
+    type = "data/occurrences",
     url = url_build(url),
     headers = build_headers())
   class(result) <- "query"
@@ -61,7 +61,7 @@ collapse_occurrences_gbif <- function(identify = NULL,
                  query = ""))
   }
   result <- list(
-    type = "occurrences",
+    type = "data/occurrences",
     url = url_lookup(method = "data",
                      type = "occurrences"),
     headers =  list(
@@ -113,7 +113,7 @@ collapse_occurrences_la <- function(.data){
   url$query <- query
   # build output
   result <- list(
-    type = "occurrences",
+    type = "data/occurrences",
     url = url_build(url),
     headers = build_headers())
   class(result) <- "query"

@@ -6,8 +6,14 @@
 #' @export
 compute.data_request <- function(.data){
   # .data$type <- check_type(.data$type) # possibly still needed; unclear
-  collapse(.data) |> # swaps to class `query_set`
-    compute()
+  collapse(.data) |> compute()
+}
+
+# if calling `compute()` after `request_metadata()` 
+#' @rdname collect.query
+#' @export
+compute.metadata_request <- function(.data){
+  collapse(.data) |> compute()
 }
 
 # if calling `compute()` after `collapse()`
@@ -56,8 +62,9 @@ compute.query_set <- function(.data){
 #' @export
 compute.query <- function(.data, inputs = NULL){
   if(grepl("^data/", .data$type)){
-    check_login(.data)
     .data <- .data |>
+      check_login() |>
+      check_reason() |>
       check_identifiers() |>
       check_fields() |>
       remove_metadata()

@@ -108,10 +108,13 @@ print.query <- function(x, ...){
     subtext <- galah_grey(glue("\n
                                url: {x$url[1]}"))
   }else if(!is.null(x$data)){
-    subtext <- galah_grey(glue("\n&nbsp;&nbsp;
+    subtext <- galah_grey(glue("\n
                                data: {x$data[1]}"))
+  }else if(!is.null(x$status)){
+    subtext <- galah_grey(glue("\n
+                               status: {x$status[1]}"))
   }else{
-    ""
+    subtext <- ""
   }
   cat(c(
     silver("Object of class "),

@@ -12,9 +12,7 @@ compute_occurrences <- function(.data){
 #' @noRd
 #' @keywords Internal
 compute_occurrences_uk <- function(.data){
-  check_reason(.data)
-  class(.data) <- "data_response"
-  return(.data)
+  .data
 }
 
 #' Internal function to `compute()` for `type = "occurrences"` for GBIF
@@ -28,9 +26,9 @@ compute_occurrences_gbif <- function(.data){
     post_result)) |>
     query_API()
   result <- c(
-    list(type = "occurrences"),
+    list(type = "data/occurrences"),
     status_code)
-  class(result) <- "data_response"
+  class(result) <- "query"
   return(result)
 }
 
@@ -38,7 +36,6 @@ compute_occurrences_gbif <- function(.data){
 #' @noRd
 #' @keywords Internal
 compute_occurrences_la <- function(.data){
-  check_reason(.data)
   status_code <- query_API(.data) |>
     as.list() |>
     check_occurrence_response()
@@ -47,30 +44,8 @@ compute_occurrences_la <- function(.data){
     inform(glue("Request for {n_records} occurrences placed in queue"))
   }
   result <- c(
-    list(type = "occurrences"),
+    list(type = "data/occurrences"),
     status_code)
-  class(result) <- "data_response"
-  return(result)
-}
-
-#' Internal function to check that a reason code is valid
-#' @noRd
-#' @keywords Internal
-check_reason <- function(.data, error_call = caller_env()){
-  query <- url_parse(.data$url)$query
-  if(is.null(query$reasonTypeId)){
-    bullets <- c("Please supply a valid download reason",
-                 i = "Use `show_all(reasons)` to see all valid reasons.",
-                 i = "Use `galah_config(download_reason_id = ...) to set a reason.")
-    abort(bullets, call = error_call) 
-  }else{
-    value <- as.integer(query$reasonTypeId)
-    if(!(value %in% show_all_reasons()$id)){
-      bullets <- c(
-        "Invalid download reason ID.",
-        i = "Use `show_all(reasons)` to see all valid reasons.",
-        x = glue("{value} does not match an existing reason ID."))
-      abort(bullets, call = error_call)    
-    }
-  }
+  class(result) <- "query"
+  result
 }

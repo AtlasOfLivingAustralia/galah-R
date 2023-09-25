@@ -39,7 +39,7 @@ query_API <- function(.data, error_call = caller_env()) {
   }
 }
 
-#' Internal function to run a GET call using httr2
+#' Internal function to run an API call using httr2
 #' @noRd
 #' @keywords Internal
 #' @importFrom dplyr bind_rows
@@ -52,16 +52,6 @@ query_API <- function(.data, error_call = caller_env()) {
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 query_API_internal <- function(.data, error_call = caller_env()) {
-  
-  ## note: when using jwt may need to do something like:
-    # tokens <- api_authenticate()
-    # .data$header <- list("x-api-key" = tokens$apikey, 
-    #                      "Authorization" = paste("Bearer", token$access_token)
-  ## The obvious problem is that this slows everything down, and is extremely 
-  ## circular (i.e. query_API() would presumably have to call itself?!), so 
-  ## would need to look carefully at caching behaviour
-  
-  # construct and run query
   query <- request(.data$url) |>
     add_headers(.data$headers) |> 
     add_options(.data$options) |> # used by GBIF
@@ -77,51 +67,6 @@ query_API_internal <- function(.data, error_call = caller_env()) {
       resp_body_json() # may not work for invalid URLs
   }
 }
-
-# # if first level is a list of length 1, which contains the actual data, subset
-# if(is.list(result) & length(result[[1]]) > 0){
-#   if(length(result) == 1){
-#     result <- result[[1]]  
-#     # subset to particular slot if needed  
-#     if(!is.null(.data$slot_name)){
-#       result <- pluck(result, !!!.data$slot_name)
-#     }
-#   }else{
-#     if(!is.null(.data$slot_name)){
-#       result <- lapply(result, function(a){pluck(a, !!!.data$slot_name)})
-#     }
-#   }
-# }
-
-#' Internal function to clean up objects returned by the API
-#' @noRd
-#' @keywords Internal
-# clean_json <- function(result, return_basic = NULL){
-#   # rbind if not requested otherwise
-#   if(is.null(return_basic) && inherits(result, "list")){
-#     if(most_common_integer(lengths(result)) > 1){
-#       # e.g. collect_lists(), where there are many lists, each containing a tibble 
-#       lapply(result, function(a){a[lengths(a) == 1]}) |>
-#         bind_rows()
-#     }else{
-#       # e.g. collect_taxa(), where the whole list is a single tibble
-#       keep <- lapply(result,
-#                      function(a){lengths(a) == 1 & !inherits(a, "list")}) |>
-#         unlist()
-#       bind_rows(result[keep])
-#     }
-#   }else{
-#     result
-#   }
-# }
-
-#' simple function to show most frequent value; used for assessing list size
-#' @noRd
-#' @keywords Internal
-# most_common_integer <- function(x){
-#   result <-sort(xtabs(~x), decreasing = TRUE)[1]
-#   as.integer(names(result)[1])
-# }
 
 #' If supplied, add `headers` arg to a `request()`
 #' @noRd

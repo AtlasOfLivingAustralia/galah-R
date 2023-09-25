@@ -9,6 +9,7 @@
 \alias{collect.data_request}
 \alias{collect.metadata_request}
 \alias{compute.data_request}
+\alias{compute.metadata_request}
 \alias{compute.query_set}
 \alias{compute.query}
 \title{Force computation of a database query}
@@ -28,6 +29,8 @@
 \method{collect}{metadata_request}(.data)
 
 \method{compute}{data_request}(.data)
+
+\method{compute}{metadata_request}(.data)
 
 \method{compute}{query_set}(.data)
 
