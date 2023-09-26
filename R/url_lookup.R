@@ -19,28 +19,20 @@
 #' @noRd
 #' @keywords internal
 
-url_lookup <- function(.data, 
+url_lookup <- function(type,
                        ..., 
                        quiet = FALSE, 
                        error_call = caller_env()){
-  
   dots <- list(...)
   current_atlas <- pour("atlas", "region")
-  
   # get requested url
-  if(!missing(.data)){
-    method <- .data$method
-    type <- .data$type
-  }else{
-    method <- dots$method
+  if(missing(type)){
     type <- dots$type
   }
   url_string <- node_config |>
-    filter(method == {{method}},
-           type == {{type}},
+    filter(type == {{type}},
            atlas == {{current_atlas}}) |>
     pull(api_url)
-  
   # parse as needed
   if(length(url_string) > 0){
     if(length(dots) > 0){
@@ -55,7 +47,7 @@ url_lookup <- function(.data,
       return(NULL)
     }else{
       bullets <- c(
-        glue("No API is available for method `{method}` with type `{type}`"),
+        glue("No API is available for type `{type}`"),
         i = glue("Selected atlas: {current_atlas}"),
         i = "Use `show_all_apis()` to list valid API calls")
       abort(bullets, call = error_call)

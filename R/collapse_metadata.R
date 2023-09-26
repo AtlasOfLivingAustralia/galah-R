@@ -17,10 +17,15 @@ collapse_assertions <- function(){
     result <- list(type = "metadata/assertions",
                    data = "galah:::gbif_internal_archived$assertions")
   }else{
-    result <- list(type = "metadata/assertions",
-                   url = url_lookup(method = "metadata", 
-                                    type = "assertions"),
-                   headers = build_headers())
+    update_needed <- internal_cache_update_needed("assertions")
+    if(update_needed){
+      result <- list(type = "metadata/assertions",
+                     url = url_lookup("metadata/assertions"),
+                     headers = build_headers())
+    }else{
+      result <- list(type = "metadata/assertions",
+                     data = "galah:::check_internal_cache()$assertions")      
+    }
   }
   class(result) <- "query"
   return(result)
@@ -41,8 +46,7 @@ collapse_atlases <- function(){
 #' @keywords Internal
 collapse_collections <- function(){
   result <- list(type = "metadata/collections",
-                 url = url_lookup(method = "metadata",
-                                  type = "collections"),
+                 url = url_lookup("metadata/collections"),
                  headers = build_headers())
   class(result) <- "query"
   return(result)
@@ -53,8 +57,7 @@ collapse_collections <- function(){
 #' @keywords Internal
 collapse_datasets <- function(){
   result <- list(type = "metadata/datasets",
-                 url = url_lookup(method = "metadata",
-                                  type = "datasets"),
+                 url = url_lookup("metadata/datasets"),
                  headers = build_headers())
   class(result) <- "query"
   return(result)
@@ -70,10 +73,15 @@ collapse_fields <- function(){
     result <- list(type = "metadata/fields",
                    data = "galah:::gbif_internal_archived$fields")
   }else{
-    result <- list(type = "metadata/fields",
-                   url = url_lookup(method = "metadata", 
-                                    type = "fields"),
-                   headers = build_headers())
+    update_needed <- internal_cache_update_needed("fields")
+    if(update_needed){
+      result <- list(type = "metadata/fields",
+                     url = url_lookup("metadata/fields"),
+                     headers = build_headers())
+    }else{
+      result <- list(type = "metadata/fields",
+                     data = "galah:::check_internal_cache()$fields")      
+    }
   }
   class(result) <- "query"
   return(result) 
@@ -84,8 +92,7 @@ collapse_fields <- function(){
 #' @keywords Internal
 collapse_licences <- function(){
   result <- list(type = "metadata/licences",
-                 url = url_lookup(method = "metadata",
-                                  type = "licences"),
+                 url = url_lookup("metadata/licences"),
                  headers = build_headers())
   class(result) <- "query"
   return(result) 
@@ -98,8 +105,7 @@ collapse_licences <- function(){
 #' @keywords Internal
 collapse_lists <- function(){
   result <- list(type = "metadata/lists",
-                 url = url_lookup(method = "metadata",
-                                  type = "lists"),
+                 url = url_lookup("metadata/lists"),
                  headers = build_headers(),
                  slot_name = "lists")
   class(result) <- "query"
@@ -110,15 +116,14 @@ collapse_lists <- function(){
 #' @noRd
 #' @keywords Internal
 collapse_profiles <- function(){
-  update_needed <- internal_cache_update_needed("show_all_profiles")
+  update_needed <- internal_cache_update_needed("profiles")
   if(update_needed){
     result <- list(type = "metadata/profiles",
-                   url = url_lookup(method = "metadata", 
-                                    type = "profiles"),
+                   url = url_lookup("metadata/profiles"),
                    headers = build_headers())    
   }else{
     result <- list(type = "metadata/profiles",
-                   data = "galah:::check_internal_cache()$show_all_profiles")
+                   data = "galah:::check_internal_cache()$profiles")
   }
   class(result) <- "query"
   return(result)
@@ -129,8 +134,7 @@ collapse_profiles <- function(){
 #' @keywords Internal
 collapse_providers <- function(){
   result <- list(type = "metadata/providers",
-                 url = url_lookup(method = "metadata",
-                                  type = "providers"),
+                 url = url_lookup("metadata/providers"),
                  headers = build_headers())
   class(result) <- "query"
   return(result)
@@ -140,15 +144,14 @@ collapse_providers <- function(){
 #' @noRd
 #' @keywords Internal
 collapse_reasons <- function(){
-  update_needed <- TRUE # internal_cache_update_needed("show_all_reasons")
+  update_needed <- internal_cache_update_needed("reasons")
   if(update_needed){
     result <- list(type = "metadata/reasons",
-                   url = url_lookup(method = "metadata",
-                                    type = "reasons"),
+                   url = url_lookup("metadata/reasons"),
                    headers = build_headers())
   }else{
     result <- list(type = "metadata/reasons",
-                   data = "galah:::check_internal_cache()$show_all_reasons")
+                   data = "galah:::check_internal_cache()$reasons")
   }
   class(result) <- "query"
   return(result)
@@ -177,8 +180,7 @@ collapse_identifiers <- function(.data){
     url_list <- url_lookup("names_lookup")
     names(url_list) <- "no-name-supplied"
   }else{
-    base_url <- url_lookup(method = "metadata",
-                           type = "identifiers") |>
+    base_url <- url_lookup("metadata/identifiers") |>
                 url_parse()
     
     # split if there are multiple identifiers

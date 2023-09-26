@@ -10,8 +10,8 @@ collect_assertions <- function(.data){
   names(result) <- rename_columns(names(result), type = "assertions")
   result <- result[wanted_columns("assertions")]
   result$type <- "assertions"
-  attr(result, "call") <- "assertions" 
-  # note: `attributes` are required for `show_values()` to work
+  attr(result, "call") <- "assertions" # needed for `show_values()` to work
+  attr(result, "region") <- pour("atlas", "region") # needed for caching to work
   result
 }
 
@@ -22,6 +22,7 @@ collect_assertions <- function(.data){
 collect_collections <- function(.data){
   result <- query_API(.data) |> bind_rows()
   attr(result, "call") <- "collections"
+  attr(result, "region") <- pour("atlas", "region") 
   result
 }
 
@@ -32,6 +33,7 @@ collect_collections <- function(.data){
 collect_datasets <- function(.data){
   result <- query_API(.data) |> bind_rows()
   attr(result, "call") <- "datasets"
+  attr(result, "region") <- pour("atlas", "region") 
   result
 }
 
@@ -43,13 +45,21 @@ collect_datasets <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_fields <- function(.data){
-  result <- query_API(.data) |>
-    bind_rows() |>
-    mutate(id = name) |>
-    select(all_of(wanted_columns("fields"))) |>
-    mutate(type = "fields")
-  attr(result, "call") <- "fields"
-  result
+  if(!is.null(.data$url)){ # i.e. there is no cached `tibble`
+    result <- query_API(.data) |>
+      bind_rows() |>
+      mutate(id = name) |>
+      select(all_of(wanted_columns("fields"))) |>
+      mutate(type = "fields") |>
+      bind_rows(galah_internal_archived$media,
+                galah_internal_archived$other)
+    attr(result, "call") <- "fields"
+    attr(result, "region") <- pour("atlas", "region")
+    check_internal_cache(fields = result)
+    result
+  }else{ # this should only happen when `data` slot is present in place of `url`
+    check_internal_cache()[["fields"]]
+  }
 }
 
 #' Internal function to `collect()` licences
@@ -65,6 +75,7 @@ collect_licences <- function(.data){
     select(all_of(c("id", "name", "acronym", "url"))) |> 
     arrange(id)
   attr(result, "call") <- "licences"
+  attr(result, "region") <- pour("atlas", "region") 
   result
 }
 
@@ -78,6 +89,7 @@ collect_lists <- function(.data){
     pluck("lists") |>
     bind_rows()
   attr(result, "call") <- "lists"
+  attr(result, "region") <- pour("atlas", "region") 
   result
 }
 
@@ -90,14 +102,19 @@ collect_lists <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_profiles <- function(.data){
-  result <- query_API(.data) |>
-    bind_rows() |>
-    filter(!duplicated(id)) |>
-    arrange(id) |>
-    select(all_of(wanted_columns(type = "profile")))
-  attr(result, "call") <- "profiles"
-  result
-  # check_internal_cache(show_all_profiles = df)
+  if(!is.null(.data$url)){
+    result <- query_API(.data) |>
+      bind_rows() |>
+      filter(!duplicated(id)) |>
+      arrange(id) |>
+      select(all_of(wanted_columns(type = "profile")))
+    attr(result, "call") <- "profiles"
+    attr(result, "region") <- pour("atlas", "region") 
+    check_internal_cache(show_all_profiles = df)
+    result
+  }else{
+    check_internal_cache()[["profiles"]]
+  }
 }
 
 #' Internal function to `collect()` providers
@@ -122,14 +139,19 @@ collect_providers <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_reasons <- function(.data){
-  result <- query_API(.data) |> 
-    bind_rows() |>
-    filter(!deprecated) |>
-    select(all_of(wanted_columns("reasons"))) |>
-    arrange(id)
-  attr(result, "call") <- "reasons"
-  result
-  # check_internal_cache(show_all_reasons = df)
+  if(!is.null(.data$url)){
+    result <- query_API(.data) |> 
+      bind_rows() |>
+      filter(!deprecated) |>
+      select(all_of(wanted_columns("reasons"))) |>
+      arrange(id)
+    attr(result, "call") <- "reasons"
+    attr(result, "region") <- pour("atlas", "region") 
+    check_internal_cache(reasons = df)
+    result
+  }else{
+    check_internal_cache()[["reasons"]]
+  }
 }
 
 #' Internal function to `collect()` identifiers
@@ -148,5 +170,6 @@ collect_identifiers <- function(.data){
   names(result) <- rename_columns(names(result), type = "taxa") # old code
   result |> select(any_of(wanted_columns("taxa")))
   attr(result, "call") <- "identifiers"
+  attr(result, "region") <- pour("atlas", "region") 
   result
 }

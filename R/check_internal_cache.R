@@ -1,4 +1,4 @@
-#' Internal function to store objects generated from `show_all_` functions
+#' Internal function to store objects generated from some `request_metadata` calls
 #' 
 #' This increases speed by ensuring that the atlas is only queried when needed.
 #' When run with no arguments, it returns a list with currently stored objects.
@@ -40,13 +40,15 @@ check_internal_cache <- function(...){
     names(temp) <- ala_option_name
   }
   options(temp)
- 
 }
 
+#' Internal function to decide whether to update the internal cache
+#' @noRd
+#' @keywords Internal
 internal_cache_update_needed <- function(function_name){
   df <- check_internal_cache()[[function_name]]
   is_local <- !is.null(attr(df, "ARCHIVED"))
-  is_wrong_atlas <- attr(df, "atlas_name") != pour("atlas", "region")
+  is_wrong_atlas <- attr(df, "region") != pour("atlas", "region")
   is_too_short <- nrow(df) < 10
   result <- is_local | is_wrong_atlas | is_too_short # if any, update is needed
   if(length(result) < 1){result <- TRUE} # bug catcher

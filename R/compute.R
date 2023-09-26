@@ -23,12 +23,10 @@ compute.query_set <- function(.data){
   # get basic description of `query_set` object
   n <- length(.data)
   names_vec <- unlist(lapply(.data, function(a){a$type}))
-  
   # look for any `data`
   data_lookup <- grepl("^data", names_vec)
   if(any(data_lookup)){
     data_names <- names_vec[data_lookup]
-    
     # parse any `metadata`
     metadata_lookup <- grepl("^metadata", names_vec) &
                        !grepl("-unnest$", names_vec) # unnest functions only parse in collect()
@@ -37,21 +35,17 @@ compute.query_set <- function(.data){
       metadata_results <- lapply(.data[metadata_lookup], collect)
       names(metadata_results) <- metadata_names    
     }else{
-      metadata_result <- NULL
+      metadata_results <- NULL
     }
-    
     # parse `data`, including supplied metadata
     # this assumes only one `data` field is available per `query_set`
     .data[[which(data_lookup)]] |>
       add_metadata(metadata_results) |>
       compute()
-    
   # need to add `else if` here to account for `unnest` functions that require lookups
     # metadata/fields-unnest calls check_fields(), requiring fields and assertions
     # metadata/profiles-unnest calls profile_short_name(), which requires profiles
-    
   # if no metadata are needed, return .data unaltered
-  # Q: Is this correct? It might be useful to change `class()` here
   }else{ 
     .data[[1]]
   }

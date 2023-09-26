@@ -20,8 +20,7 @@ collapse_occurrences_uk <- function(.data){
   }
   # build a url
   # NOTE: providing an email blocks this from executing (2023-08-30)
-  url <-  url_lookup(method = "data",
-                     type = "occurrences") |> 
+  url <-  url_lookup("data/occurrences") |> 
     url_parse()
   url$query <- c(build_query(identify = .data$identify,
                              filter = .data$filter, 
@@ -62,8 +61,7 @@ collapse_occurrences_gbif <- function(identify = NULL,
   }
   result <- list(
     type = "data/occurrences",
-    url = url_lookup(method = "data",
-                     type = "occurrences"),
+    url = url_lookup("data/occurrences"),
     headers =  list(
       `User-Agent` = galah_version_string(), # or "r-curl/4.3.3 crul/1.3 galah/1.5.1"
       `X-USER-AGENT` = galah_version_string(),
@@ -107,8 +105,7 @@ collapse_occurrences_la <- function(.data){
     query$mintDoi <- "true"
   }
   # build url
-  url <- url_lookup(method = "data",
-                    type = "occurrences") |> 
+  url <- url_lookup("data/occurrences") |> 
     url_parse()
   url$query <- query
   # build output

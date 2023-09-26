@@ -125,6 +125,7 @@ check_login <- function(.data, error_call = caller_env()) {
 #' @importFrom glue glue_collapse
 #' @importFrom glue glue_data
 #' @importFrom httr2 url_parse
+#' @importFrom purrr pull
 #' @importFrom rlang format_error_bullets
 #' @importFrom tidyr drop_na
 #' @noRd
@@ -136,10 +137,9 @@ check_fields <- function(.data) {
     url <- url_parse(.data$url[1])
     queries <- url$query
     # set fields to check against
-    valid_fields <- bind_rows(
-      .data[["metadata/fields"]],
-      galah_internal_archived$media,
-      galah_internal_archived$other)$id
+    valid_fields <- request_metadata(type = "fields") |>
+      collect() |>
+      pull(id)
     valid_assertions <- .data[["metadata/assertions"]]$id
     valid_any <- c(valid_fields, valid_assertions)
     

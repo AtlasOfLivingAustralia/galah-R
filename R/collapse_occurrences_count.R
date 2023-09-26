@@ -35,8 +35,7 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
   # set behaviour depending on `group_by()`
   if(is.null(group_by)){
     result <- list(type = "data/occurrences-count")
-    url <- url_lookup(method = "data",
-                      type = "occurrences-count") |> 
+    url <- url_lookup("data/occurrences-count") |> 
       url_parse()
     url$query <- c(query, pageSize = 0)
     result$url <- url_build(url)
@@ -44,8 +43,7 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
     result$expand <- FALSE
   }else{
     result <- list(type = "data/occurrences-count-groupby")
-    url <- url_lookup(method = "data",
-                      type = "occurrences-count-groupby") |> 
+    url <- url_lookup("data/occurrences-count-groupby") |> 
       url_parse()
     facets <- as.list(group_by$name)
     names(facets) <- rep("facets", length(facets))

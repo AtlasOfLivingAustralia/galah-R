@@ -28,8 +28,7 @@ collapse_species_count_atlas <- function(identify = NULL,
                                          slice = NULL,
                                          arrange = NULL
 ){
-  url <- url_lookup(method = "data",
-                    type = "species-count") |> 
+  url <- url_lookup("data/species-count") |> 
     url_parse()
   query <- build_query(identify, 
                        filter, 

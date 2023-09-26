@@ -72,7 +72,6 @@ galah_internal_archived <- list(
 # cached versions of some show_all functions
 # NOTE: may be necessary to expand this given changes to `show_all()`
 stored_types <- c("assertions", "fields", "profiles", "reasons")
-stored_functions <- paste0("show_all_", stored_types)
 galah_internal_cached <- lapply(
   stored_types,
   function(a){
@@ -82,7 +81,7 @@ galah_internal_cached <- lapply(
     result
   })
 # lapply(galah_internal_cached, attributes) # check
-names(galah_internal_cached) <- stored_functions
+names(galah_internal_cached) <- stored_types
 
 # Import web-scraped gbif data as csv
 gbif_internal_archived <- list(
@@ -99,7 +98,7 @@ use_data(
   node_metadata,
   node_config,
   galah_internal_archived,
-  # galah_internal_cached,
+  galah_internal_cached,
   gbif_internal_archived,
   internal = TRUE, 
   overwrite = TRUE)

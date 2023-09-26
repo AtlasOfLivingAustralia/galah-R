@@ -118,21 +118,8 @@ show_all_providers <- function(){
 #' @importFrom dplyr select
 #' @export
 show_all_fields <- function(){
-  update_needed <- internal_cache_update_needed("show_all_fields")
-  if(update_needed){
-    result <- collect(request_metadata(type = "fields"))
-    if(pour("atlas", "region") == "Australia"){
-      result <- bind_rows(
-        result,
-        galah_internal_archived$media_fields,
-        galah_internal_archived$other_fields)
-    }
-    result |> 
-      select(id, description, type) |>
-      filter(!duplicated(id))
-  }else{
-    check_internal_cache()$show_all_fields
-  }
+  request_metadata(type = "fields") |> 
+    collect()
 }
 
 #' @rdname show_all

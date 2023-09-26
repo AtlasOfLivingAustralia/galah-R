@@ -18,8 +18,7 @@ collapse_taxa <- function(.data){
 #' @keywords Internal
 collapse_taxa_single <- function(.data){
   urls <- lapply(.data$identify$search_term,
-                 function(a){url_lookup(method = "metadata",
-                                        type = "taxa-single",
+                 function(a){url_lookup("metadata/taxa-single",
                                         name = a)}) |>
     unlist()
   search_terms <- .data$identify$search_term
@@ -37,8 +36,7 @@ collapse_taxa_single <- function(.data){
 #' @keywords Internal
 collapse_taxa_multiple <- function(.data){
   split_list <- split(.data$identify, seq_len(nrow(.data$identify)))
-  base_url <- url_lookup(method = "metadata",
-                         type = "taxa-multiple") |>
+  base_url <- url_lookup("metadata/taxa-multiple") |>
     url_parse()
   urls <- lapply(split_list,
                  function(a, base_url){

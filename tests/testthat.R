@@ -1,6 +1,6 @@
 library(testthat)
 library(galah)
-# library(httptest2)
+library(httptest2)
 
 galah_config(cache_directory = tempdir(), email = "ala4r@ala.org.au",
            caching = FALSE, atlas = "Australia", verbose = FALSE,
