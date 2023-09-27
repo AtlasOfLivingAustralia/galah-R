@@ -7,33 +7,31 @@
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr select
 #' @importFrom dplyr slice
+#' @importFrom purrr map
 #' @importFrom utils setTxtProgressBar
 #' @importFrom utils txtProgressBar
 #' @noRd
 #' @keywords Internal
 query_API <- function(.data, error_call = caller_env()) {
   if(inherits(.data$url, "data.frame")){
-    verbose <- pour("package", "verbose", .pkg = "galah") & nrow(.data$url) > 1 
-    if (verbose) { 
-      pb <- txtProgressBar(max = 1, style = 3) 
-    }else{ 
-      pb <- NULL
+    verbose <- pour("package", "verbose", .pkg = "galah") & nrow(.data$url) > 1
+    if(verbose){
+      progress_bar <- list(name = "Querying API",
+                           clear = FALSE,
+                           show_after = 0) # this is for testing purposes
+    }else{
+      progress_bar <- FALSE
     }
-    n <- seq_len(nrow(.data$url))
-    lapply(n, function(a){
-      data_tr <- .data
-      data_tr$url <- .data$url$url[[a]]
-      # for those that require downloads:
-      if(any(names(.data$url) == "path")){
-        data_tr$path <- .data$url$path[[a]]
-      }
-      result <- query_API_internal(data_tr)
-      if (verbose) {
-        val <- (a / max(n))
-        setTxtProgressBar(pb, val)
-      }
-      return(result)
-    })
+    map(.x = seq_len(nrow(.data$url)), 
+        .f = function(a){
+          data_tr <- .data
+          data_tr$url <- .data$url$url[[a]]
+          if(any(names(.data$url) == "path")){ # for those that require downloads
+            data_tr$path <- .data$url$path[[a]]
+          }
+          query_API_internal(data_tr)
+        },
+        .progress = progress_bar)
   }else{
     query_API_internal(.data)
   }

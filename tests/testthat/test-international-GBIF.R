@@ -9,9 +9,14 @@ test_that("swapping to atlas = GBIF works", {
 })
 
 test_that("show_all(fields) works for GBIF", {
-  x <- show_all_fields()
+  x <- request_metadata() |> collapse()
+  expect_true(inherits(x, "query_set"))
+  expect_true(x$type == "metadata/fields")
+  x <- collect(x)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  y <- show_all(fields)
+  expect_equal(x, y)
 })
 
 test_that("show_all(collections) works for GBIF", {

@@ -20,7 +20,14 @@ collect_assertions <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_collections <- function(.data){
-  result <- query_API(.data) |> bind_rows()
+  if(is_gbif()){
+    browser()
+  }else{
+    # NOTE: this can accept e.g. `?max=100`; but only up to 1000 entries
+    # pagination required to go above this via `offset=9`
+    result <- query_API(.data) |> 
+      bind_rows()  
+  }
   attr(result, "call") <- "collections"
   attr(result, "region") <- pour("atlas", "region") 
   result
@@ -81,12 +88,12 @@ collect_licences <- function(.data){
 
 #' Internal function to `collect()` lists
 #' @importFrom dplyr bind_rows
-#' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
 collect_lists <- function(.data){
-  result <- query_API(.data) |>
-    pluck("lists") |>
+  result <- query_API(.data)
+  result <- lapply(result, 
+                   function(a){a$lists}) |>
     bind_rows()
   attr(result, "call") <- "lists"
   attr(result, "region") <- pour("atlas", "region") 

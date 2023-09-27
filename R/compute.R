@@ -42,12 +42,12 @@ compute.query_set <- function(.data){
     .data[[which(data_lookup)]] |>
       add_metadata(metadata_results) |>
       compute()
-  # need to add `else if` here to account for `unnest` functions that require lookups
+  # FIXME: need to add `else if` here to account for `unnest` functions that require lookups
     # metadata/fields-unnest calls check_fields(), requiring fields and assertions
     # metadata/profiles-unnest calls profile_short_name(), which requires profiles
   # if no metadata are needed, return .data unaltered
   }else{ 
-    .data[[1]]
+    compute(.data[[1]])
   }
 }
 
@@ -55,6 +55,7 @@ compute.query_set <- function(.data){
 #' @rdname collect.query
 #' @export
 compute.query <- function(.data, inputs = NULL){
+  # "data/" functions require pre-processing of 
   if(grepl("^data/", .data$type)){
     .data <- .data |>
       check_login() |>
@@ -68,15 +69,19 @@ compute.query <- function(.data, inputs = NULL){
            "data/occurrences-count" = compute_occurrences_count(.data),
            "data/species-count" = compute_species_count(.data),
            .data)  
-  }else if(grepl("-unnest$", .data$type)){
-    # NOTE: these won't work until metadata are added to `compute.query_set()` (above)
-    switch(.data$type,
-           "metadata/fields-unnest" = check_fields(.data),
-           "profiles" = compute_profile_values(.data),  
-            .data)
   }else{
-    .data
-  }
+    switch(.data$type,
+           # "-unnest" functions require some checks
+           "metadata/fields-unnest" = check_fields(.data),
+           "metadata/profiles-unnest" = compute_profile_values(.data),  # check this
+           # some "metadata/" functions require pagination
+           "metadata/collections" = compute_collections(.data),
+           "metadata/datasets" = compute_datasets(.data),
+           "metadata/lists" = compute_lists(.data), # always paginates
+           "metadata/providers" = compute_providers(.data),
+           .data # remaining "metadata/" functions are passed as-is
+           )
+  } 
 }
 
 #' Internal function to pass metadata to `compute()` functions

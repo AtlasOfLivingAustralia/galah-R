@@ -57,7 +57,7 @@ collapse.metadata_request <- function(.data){
          "fields" = collapse_fields(),
          "fields-unnest" = collapse_fields_unnest(.data),
          "licences" = collapse_licences(),
-         "lists" = collapse_lists(),
+         "lists" = collapse_lists(.data),
          "lists-unnest" = collapse_lists_unnest(.data),
          "profiles" = collapse_profiles(),
          "profiles-unnest" = collapse_profiles_unnest(.data),

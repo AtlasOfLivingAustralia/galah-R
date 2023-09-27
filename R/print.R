@@ -105,8 +105,19 @@ print.query <- function(x, ...){
     slice <- ""
   }
   if(!is.null(x$url)){
-    subtext <- galah_grey(glue("\n
-                               url: {x$url[1]}"))
+    if(inherits(x$url, "data.frame")){
+      if(nrow(x$url) > 1){
+        url_text <-glue("\n
+           url: {x$url$url[1]} + {nrow(x$url) - 1} more") 
+      }else{
+        url_text <-glue("\n
+           url: {x$url$url[1]}")
+      }
+    }else{
+      url_text <-glue("\n
+           url: {x$url[1]}")
+    }
+    subtext <- galah_grey(url_text)
   }else if(!is.null(x$data)){
     subtext <- galah_grey(glue("\n
                                data: {x$data[1]}"))

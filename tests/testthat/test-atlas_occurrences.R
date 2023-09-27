@@ -1,4 +1,32 @@
 without_internet({
+  test_that("atlas_occurrences fails nicely if no email is provided", {
+    galah_config(email = "", run_checks = FALSE)
+    expect_error({
+      galah_call() |>
+        filter(year == 1900) |>
+        compute()
+    })
+    galah_config(email = "ala4r@ala.org.au", run_checks = TRUE)
+  })
+})
+
+
+test_that("atlas_occurrences doesn't allow large downloads", {
+  galah_config(atlas = "Australia")
+  expect_error(atlas_occurrences())
+})
+
+test_that("atlas_occurrences gives a nice error for invalid emails", {
+  galah_config(email = "test@test.org.au")
+  expect_error({
+    galah_call() |>
+      identify("Perameles") |>
+      compute()
+  })
+  galah_config(email = "ala4r@ala.org.au")
+})
+
+without_internet({
   test_that("collapse(type = 'occurrences') creates an object, but doesn't ping an API", {
     result <- galah_call() |> 
       identify("Perameles") |>
@@ -21,8 +49,8 @@ test_that("`compute(type = 'occurrences')` works", {
            basisOfRecord == "PRESERVED_SPECIMEN")
   # collapse
   query_collapse <- collapse(base_query)
-  expect_true(inherits(result, "query_set"))
-  expect_equal(length(result), 3)
+  expect_true(inherits(query_collapse, "query_set"))
+  expect_equal(length(query_collapse), 5)
   types <- unlist(lapply(query_collapse, function(a){a$type}))
   expect_equal(types,
                c("metadata/fields",
@@ -44,33 +72,6 @@ test_that("`compute(type = 'occurrences')` works", {
                  "search_url"))  
 })
 
-
-test_that("atlas_occurrences doesn't allow large downloads", {
-  galah_config(atlas = "Australia")
-  expect_error(atlas_occurrences())
-})
-
-test_that("atlas_occurrences gives a nice error for invalid emails", {
-  galah_config(email = "test@test.org.au")
-  expect_error({
-    galah_call() |>
-      identify("Perameles") |>
-      compute()
-  })
-  galah_config(email = "ala4r@ala.org.au")
-})
-
-without_internet({
-  test_that("atlas_occurrences fails nicely if no email is provided", {
-    galah_config(email = "", run_checks = FALSE)
-    expect_error({
-      galah_call() |>
-        filter(year == 1900) |>
-        compute()
-    })
-    galah_config(email = "ala4r@ala.org.au")
-  })
-})
 
 # test all filters and type of columns in one call
 test_that("atlas_occurrences accepts all narrowing functions inline", { 

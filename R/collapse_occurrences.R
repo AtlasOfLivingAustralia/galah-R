@@ -1,7 +1,11 @@
 #' Internal function to `collapse()` for `type = "occurrences"`
+#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
 collapse_occurrences <- function(.data, mint_doi = FALSE){
+  if(is.null(.data$filter) & is.null(.data$identify)){
+    abort("No filters supplied to atlas_occurrences()")
+  }
   switch(pour("atlas", "region"),
          "United Kingdom" = collapse_occurrences_uk(.data),
          "Global" = collapse_occurrences_gbif(.data),

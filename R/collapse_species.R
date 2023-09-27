@@ -26,19 +26,17 @@ collapse_species_atlas <- function(identify = NULL,
                                    data_profile = NULL){
   # build a query
   query <- c(
-    build_query(identify, filter, geolocate, profile = data_profile),
+    build_query(identify, filter, geolocate, data_profile),
     emailNotify = email_notify(),
     sourceTypeId = 2004,
     reasonTypeId = pour("user", "download_reason_id"),
     email = pour("user", "email"), 
     facets = species_facets(),
     lookup = "true")
-  
   # build url
   url <- url_lookup("data/species") |> 
     url_parse()
   url$query <- query
-  
   # build output
   result <- list(
     type = "data/species",
@@ -46,6 +44,5 @@ collapse_species_atlas <- function(identify = NULL,
     headers = build_headers(),
     download = TRUE)
   class(result) <- "query"
-  
-  return(result)
+  result
 }

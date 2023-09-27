@@ -12,7 +12,7 @@ collapse_fields_unnest <- function(.data){
       limit = 0, 
       facetLimit = 10^4) # FIXME: integrate with `slice_head()`
   }else{
-    url <- url_lookup("metadata.fields-unnest") |> 
+    url <- url_lookup("metadata/fields-unnest") |> 
       url_parse()
     url$query <- list(
       facets = .data$filter$value[1], 

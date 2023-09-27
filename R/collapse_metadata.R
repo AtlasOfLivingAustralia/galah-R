@@ -51,6 +51,8 @@ collapse_collections <- function(){
   class(result) <- "query"
   return(result)
 }
+# NOTE: LA collectory functions do not accept `max` or `offset`
+# Therefore they cannot be paginated. GBIF collectory funs can.
 
 #' Internal function to `collapse()` datasets
 #' @noRd
@@ -87,6 +89,47 @@ collapse_fields <- function(){
   return(result) 
 }
 
+#' Internal function to `collapse()` identifiers
+#' @noRd
+#' @keywords Internal
+collapse_identifiers <- function(.data){
+  if(is.null(.data$identify)){
+    url_list <- url_lookup("names_lookup")
+    names(url_list) <- "no-name-supplied"
+  }else{
+    base_url <- url_lookup("metadata/identifiers") |>
+      url_parse()
+    
+    # split if there are multiple identifiers
+    if(length(.data$identify) > 1) {
+      # multiple
+      query <- split(.data$identify, seq_along(.data$identify))
+    } else {
+      # single
+      query <- list(.data$identify)
+    }
+    
+    # create query urls
+    urls <- lapply(query,
+                   function(a, base_url){
+                     names(a) <- "taxonID"
+                     base_url$query <- as.list(a)
+                     url_build(base_url)
+                   },
+                   base_url = base_url) |>
+      unlist()
+    search_terms <- .data$identify
+  }
+  
+  # build object and return
+  result <- list(type = .data$type,
+                 url = tibble(url = urls, 
+                              search_term = search_terms),
+                 headers = build_headers())
+  class(result) <- "query"
+  return(result)
+}
+
 #' Internal function to `collapse()` licences
 #' @noRd
 #' @keywords Internal
@@ -95,17 +138,22 @@ collapse_licences <- function(){
                  url = url_lookup("metadata/licences"),
                  headers = build_headers())
   class(result) <- "query"
-  return(result) 
+  return(result)
 }
 
 #' Internal function to `collapse()` lists
-#' Note: likely to require pagination, and therefore a `compute()` stage
-#' to calculate how many urls are needed
 #' @noRd
 #' @keywords Internal
-collapse_lists <- function(){
+collapse_lists <- function(.data){
+  url <- url_lookup("metadata/lists") |>
+    url_parse()
+  if(!is.null(.data$slice)){
+    url$query <- list(max = .data$slice$slice_n)
+  }else{
+    url$query <- list(max = 5000)
+  }
   result <- list(type = "metadata/lists",
-                 url = url_lookup("metadata/lists"),
+                 url = url_build(url),
                  headers = build_headers(),
                  slot_name = "lists")
   class(result) <- "query"
@@ -168,47 +216,6 @@ collapse_ranks <- function(){
     result <- list(type = "metadata/ranks",
                    data = "galah:::galah_internal_archived$ranks")
   }
-  class(result) <- "query"
-  return(result)
-}
-
-#' Internal function to `collapse()` identifiers
-#' @noRd
-#' @keywords Internal
-collapse_identifiers <- function(.data){
-  if(is.null(.data$identify)){
-    url_list <- url_lookup("names_lookup")
-    names(url_list) <- "no-name-supplied"
-  }else{
-    base_url <- url_lookup("metadata/identifiers") |>
-                url_parse()
-    
-    # split if there are multiple identifiers
-    if(length(.data$identify) > 1) {
-      # multiple
-      query <- split(.data$identify, seq_along(.data$identify))
-    } else {
-      # single
-      query <- list(.data$identify)
-    }
-    
-    # create query urls
-    urls <- lapply(query,
-                       function(a, base_url){
-                         names(a) <- "taxonID"
-                         base_url$query <- as.list(a)
-                         url_build(base_url)
-                       },
-                       base_url = base_url) |>
-      unlist()
-    search_terms <- .data$identify
-  }
-  
-  # build object and return
-  result <- list(type = .data$type,
-                 url = tibble(url = urls, 
-                              search_term = search_terms),
-                 headers = build_headers())
   class(result) <- "query"
   return(result)
 }
