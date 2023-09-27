@@ -3,7 +3,6 @@
 #' Should run a query with `max = 0` to get total n
 #' Then use `max` and `offset` to paginate up to `n`
 #' @importFrom dplyr select
-#' @importFrom purrr pull
 #' @noRd
 #' @keywords Internal
 compute_lists <- function(.data){

@@ -125,7 +125,6 @@ check_login <- function(.data, error_call = caller_env()) {
 #' @importFrom glue glue_collapse
 #' @importFrom glue glue_data
 #' @importFrom httr2 url_parse
-#' @importFrom purrr pull
 #' @importFrom rlang format_error_bullets
 #' @importFrom tidyr drop_na
 #' @noRd

@@ -75,6 +75,8 @@ download_media_internal <- function(df) {
   
   verbose <- pour("package", "verbose")
   if (verbose) { pb <- txtProgressBar(max = 1, style = 3) }
+  # FIXME: convert to `purrr::map()` with .progress = TRUE
+  # see `query_API()` for a worked example
   
   n <- seq_len(nrow(df))
   results <- lapply(n,
