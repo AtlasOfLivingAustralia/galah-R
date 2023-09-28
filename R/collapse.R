@@ -52,7 +52,7 @@ collapse.metadata_request <- function(.data){
          "apis" = collapse_apis(),
          "assertions" = collapse_assertions(),
          "atlases" = collapse_atlases(),
-         "collections" = collapse_collections(),
+         "collections" = collapse_collections(.data),
          "datasets" = collapse_datasets(),
          "fields" = collapse_fields(),
          "fields-unnest" = collapse_fields_unnest(.data),

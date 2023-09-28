@@ -74,11 +74,11 @@ compute.query <- function(.data, inputs = NULL){
            # "-unnest" functions require some checks
            "metadata/fields-unnest" = check_fields(.data),
            "metadata/profiles-unnest" = compute_profile_values(.data),  # check this
-           # some "metadata/" functions require pagination
+           # some "metadata/" functions require pagination under some circumstances
            "metadata/collections" = compute_collections(.data),
-           "metadata/datasets" = compute_datasets(.data),
+           # "metadata/datasets" = compute_datasets(.data),
            "metadata/lists" = compute_lists(.data), # always paginates
-           "metadata/providers" = compute_providers(.data),
+           # "metadata/providers" = compute_providers(.data),
            .data # remaining "metadata/" functions are passed as-is
            )
   } 

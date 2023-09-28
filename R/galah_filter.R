@@ -103,17 +103,14 @@ filter.data_request <- function(.data, ...){
 filter.metadata_request <- function(.data, ...){
   .data <- filter.data_request(.data, ...)
   class(.data) <- "metadata_request"
-  # correct type
+  # In some circumstances, the `filter` argument can be used as a shorthand to `type`
+  # adjust for these
   initial_type <- .data$type
-  if(!grepl("s$|taxa", .data$filter$variable)){
-    type <- paste0(.data$filter$variable[1], "s")
-  }else{
-    type <- .data$filter$variable[1]
+  if(.data$filter$variable == "taxa"){
+    .data$type <- "taxa"
+  }else if(grepl("-unnest$", initial_type)){
+    .data$type <- paste0(type, "-unnest")
   }
-  if(grepl("-unnest$", initial_type)){
-    type <- paste0(type, "-unnest")
-  }
-  .data$type <- type
   return(.data)
 }
 # Note: the intended purpose of this function is to pass `filter()`

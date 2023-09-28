@@ -136,26 +136,27 @@ request_data <- function(type = c("occurrences",
 
 #' @rdname galah_call
 #' @export
-request_metadata <- function(
-    type = c("fields",
-             "apis",
-             "assertions",
-             "atlases",
-             "collections",
-             "datasets",
-             # distributions" # new
-             "licences",
-             "lists",
-             "profiles",
-             "providers",
-             "ranks",
-             "reasons",
-             "taxa",
-             "identifiers"
-    ) 
-    # note: option to add `...` here for consistency with `request_data()`
-){
-  x <- list(type = match.arg(type))
+request_metadata <- function(type){
+  if(missing(type)){
+    type <- "fields"
+  }
+  valid_types <- c("fields",
+                   "apis",
+                   "assertions",
+                   "atlases",
+                   "collections",
+                   "datasets",
+                   # distributions" # new
+                   "licences",
+                   "lists",
+                   "profiles",
+                   "providers",
+                   "ranks",
+                   "reasons",
+                   "taxa",
+                   "identifiers")
+  check_type_valid(type, valid_types)
+  x <- list(type = type)
   class(x) <- "metadata_request"
   return(x)
 }

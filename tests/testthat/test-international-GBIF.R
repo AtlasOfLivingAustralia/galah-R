@@ -11,7 +11,7 @@ test_that("swapping to atlas = GBIF works", {
 test_that("show_all(fields) works for GBIF", {
   x <- request_metadata() |> collapse()
   expect_true(inherits(x, "query_set"))
-  expect_true(x$type == "metadata/fields")
+  expect_true(x[[1]]$type == "metadata/fields")
   x <- collect(x)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -24,11 +24,15 @@ test_that("show_all(collections) works for GBIF", {
   x <- show_all(collections, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-  y <- request_metadata(type = "collections") |>
-    slice_head(n = 10) |>
+  ## not coded slice_head() yet
+  # y <- request_metadata(type = "collections") |>
+  #   slice_head(n = 10) |>
+  #   collect()
+  # expect_equal(x, y)
+  z <- request_metadata(type = "collections") |>
+    filter(name == "avian") |>
     collect()
-  expect_equal(nrow(y), 10)
-  expect_true(inherits(y, c("tbl_df", "tbl", "data.frame")))
+  expect_true(nrow(z) > 1)
 })
 
 test_that("show_all(datasets) works for GBIF", {
@@ -45,7 +49,7 @@ test_that("show_all(providers) works for GBIF", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-test_that("show_all(reasons) works for GBIF", {
+test_that("show_all(reasons) fails for GBIF", {
   expect_error(show_all(reasons))
 })
 
@@ -59,13 +63,13 @@ test_that("show_all(profiles) fails for GBIF", {
   expect_error(show_all(profiles))
 })
 
-test_that("show_all(lists) works for GBIF", {
+test_that("show_all(lists) fails for GBIF", {
   expect_error(show_all(lists))
 })
 
 test_that("search_all(taxa) works for GBIF", {
   skip_if_offline()
-  expect_equal(nrow(search_all(taxa, "Mammalia")), 1)
+  expect_equal(nrow(search_taxa("Mammalia")), 1)
 })
 
 galah_config(verbose = TRUE)

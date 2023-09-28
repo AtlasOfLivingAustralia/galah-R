@@ -42,12 +42,25 @@ collapse_atlases <- function(){
 }
 
 #' Internal function to `collapse()` collections
+#' @importFrom httr2 url_parse
 #' @noRd
 #' @keywords Internal
-collapse_collections <- function(){
+collapse_collections <- function(.data){
+  if(is_gbif()){
+    url <- url_lookup("metadata/collections") |>
+      url_parse()
+    if(!is.null(.data$filter)){
+      url$path <- "/v1/grscicoll/collection/suggest"
+      url$query <- list(q = .data$filter$value[1])
+    }
+    # slice?
+    url <- url_build(url)
+  }else{
+    url <- url_lookup("metadata/collections")
+  }
   result <- list(type = "metadata/collections",
-                 url = url_lookup("metadata/collections"),
-                 headers = build_headers())
+                 url = url,
+                 headers = build_headers()) 
   class(result) <- "query"
   return(result)
 }

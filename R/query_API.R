@@ -15,8 +15,7 @@ query_API <- function(.data, error_call = caller_env()) {
     verbose <- pour("package", "verbose", .pkg = "galah") & nrow(.data$url) > 1
     if(verbose){
       progress_bar <- list(name = "Querying API",
-                           clear = FALSE,
-                           show_after = 0) # this is for testing purposes
+                           clear = TRUE)
     }else{
       progress_bar <- FALSE
     }

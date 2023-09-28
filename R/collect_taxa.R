@@ -38,11 +38,17 @@ collect_taxa_australia <- function(.data){
 #' @keywords Internal
 collect_taxa_la <- function(.data){
   search_terms <- .data$url$search_term
-  result <- query_API(.data) |>
-    clean_la_taxa(search_terms = search_terms) |>
-    bind_rows() |>
-    filter(!duplicated(guid)) |>
-    mutate("search_term" = search_terms, .before = "id")
+  if(is_gbif()){
+    result <- query_API(.data) |>
+      bind_rows() |>
+      mutate("search_term" = search_terms, .before = "scientificName")
+  }else{
+    result <- query_API(.data) |>
+      clean_la_taxa(search_terms = search_terms) |>
+      bind_rows() |>
+      filter(!duplicated(guid)) |>
+      mutate("search_term" = search_terms, .before = "id")
+  }
   names(result) <- rename_columns(names(result), type = "taxa") # old code
   result |> select(any_of(wanted_columns("taxa")))
 }
@@ -76,4 +82,24 @@ clean_la_taxa <- function(result, search_terms){
       x
     }
   })
+}
+
+#' Internal function to `collect()` identifiers
+#' @importFrom dplyr any_of
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr mutate
+#' @importFrom dplyr select
+#' @noRd
+#' @keywords Internal
+collect_identifiers <- function(.data){
+  search_terms <- .data$url$search_term
+  result <- query_API(.data) |>
+    bind_rows() |>
+    filter(!duplicated(taxonConceptID)) |>
+    mutate("search_term" = search_terms, .before = "success")
+  names(result) <- rename_columns(names(result), type = "taxa") # old code
+  result |> select(any_of(wanted_columns("taxa")))
+  attr(result, "call") <- "identifiers"
+  attr(result, "region") <- pour("atlas", "region") 
+  result
 }

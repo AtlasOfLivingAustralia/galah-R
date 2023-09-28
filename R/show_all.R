@@ -61,111 +61,104 @@
 #' 
 #' # Show a listing of all taxonomic ranks
 #' show_all(ranks)
+#' @importFrom rlang as_label
 #' @export
-show_all <- function(type){
-  type_parsed <- parse_quosures_basic(enquos(type))$data
-  request_metadata(type = type_parsed) |> 
-    collect()
+show_all <- function(..., limit = NULL){
+  dots <- enquos(..., .ignore_empty = "all")
+  type_text <- gsub("\"", "", as_label(dots[[1]])) # handle case where type is quoted
+  show_all_generic(type = type_text, limit = limit)
 }
 
-#' @rdname show_all
-#' @importFrom tibble tibble
-#' @export
-show_all_assertions <- function(){
-  request_metadata(type = "assertions") |> 
-  collect()
-}
-
-#' @export show_all_atlases
-#' @rdname show_all
-show_all_atlases <- function() {
-  request_metadata(type = "atlases") |> 
-  collect()
-}
-
-#' @rdname show_all
-#' @export
-show_all_apis <- function(){
-  request_metadata(type = "apis") |> 
-  collect()
-}
-
-#' @rdname show_all
-#' @export
-show_all_collections <- function(){
-  request_metadata(type = "collections") |> 
-  collect()
+#' Internal function to handle `show_all` calls
+#' This is needed to handle slight differences between syntax of 
+#' `show_all()` and `collect()`
+#' @importFrom dplyr slice_head
+#' @noRd
+#' @keywords Internal
+show_all_generic <- function(type, limit){
+  x <- request_metadata(type = type)
+  if(!is.null(limit)){
+    x <- x |> slice_head(n = limit)
+  }
+  result <- collect(x)
+  # `show_all()` always returns requested number of records
+  # this differs from `collect()` which always returns what the API gives you
+  if(!is.null(limit)){
+    if(nrow(result) > limit){
+      result <- slice_head(result, n = limit)
+    }
+  }
+  result
 }
 
 #' @rdname show_all
 #' @export
-show_all_datasets <- function(){
-  request_metadata(type = "datasets") |> 
-  collect()
+show_all_apis <- function(limit = NULL){
+  show_all_generic(type = "apis", limit = limit)
 }
 
 #' @rdname show_all
 #' @export
-show_all_providers <- function(){
-  request_metadata(type = "providers") |> 
-  collect()
+show_all_assertions <- function(limit = NULL){
+  show_all_generic(type = "assertions", limit = limit)
 }
 
 #' @rdname show_all
-#' @importFrom potions pour
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr filter
-#' @importFrom dplyr select
 #' @export
-show_all_fields <- function(){
-  request_metadata(type = "fields") |> 
-    collect()
+show_all_atlases <- function(limit = NULL) {
+  show_all_generic(type = "atlases", limit = limit)
 }
 
 #' @rdname show_all
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr all_of
-#' @importFrom dplyr select
 #' @export
-show_all_licences <- function(){
-  request_metadata(type = "licences") |> 
-  collect()
+show_all_collections <- function(limit = NULL){
+  show_all_generic(type = "collections", limit = limit)
 }
 
 #' @rdname show_all
-#' @importFrom dplyr arrange
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr filter
-#' @importFrom dplyr select
-#' @importFrom potions pour
 #' @export
-show_all_reasons <- function(){
-  request_metadata(type = "reasons") |> 
-  collect()
+show_all_datasets <- function(limit = NULL){
+  show_all_generic(type = "datasets", limit = limit)
 }
 
 #' @rdname show_all
-#' @importFrom tibble tibble
 #' @export
-show_all_ranks <- function() {
-  request_metadata(type = "ranks") |> 
-  collect() 
+show_all_fields <- function(limit = NULL){
+  show_all_generic(type = "fields", limit = limit)
 }
 
 #' @rdname show_all
-#' @importFrom dplyr all_of
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr select
 #' @export
-show_all_profiles <- function() {
-  request_metadata(type = "profiles") |> 
-  collect()
+show_all_licences <- function(limit = NULL){
+  show_all_generic(type = "licences", limit = limit)
 }
 
 #' @rdname show_all
-#' @importFrom tibble tibble
 #' @export
-show_all_lists <- function(){
-  request_metadata(type = "lists") |> 
-  collect()
+show_all_lists <- function(limit = NULL){
+  show_all_generic(type = "lists", limit = limit)
+}
+
+#' @rdname show_all
+#' @export
+show_all_profiles <- function(limit = NULL) {
+  show_all_generic(type = "profiles", limit = limit)
+}
+
+#' @rdname show_all
+#' @export
+show_all_providers <- function(limit = NULL){
+  show_all_generic(type = "providers", limit = limit)
+}
+
+#' @rdname show_all
+#' @export
+show_all_ranks <- function(limit = NULL) {
+  show_all_generic(type = "ranks", limit = limit)
+}
+
+#' @rdname show_all
+#' @export
+show_all_reasons <- function(limit = NULL){
+  show_all_generic(type = "reasons", limit = limit)
 }

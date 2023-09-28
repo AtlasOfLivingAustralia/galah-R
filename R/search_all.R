@@ -81,12 +81,19 @@
 
 #' @importFrom utils adist
 #' @export
-search_all <- function(type, query){
+search_all <- function(..., query){
+  dots <- enquos(..., .ignore_empty = "all")
+  type <- gsub("\"", "", as_label(dots[[1]])) # handle case where type is quoted
   check_if_missing(query)
-  type_parsed <- parse_quosures_basic(enquos(type))$data
-  request_metadata(type = type_parsed) |> 
-    collect() |>
-    search_text_cols(query = query)
+  if(type == "taxa"){
+    request_metadata(type = "taxa") |>
+      identify(query) |>
+      collect()
+  }else{
+    request_metadata(type = type) |> 
+      collect() |>
+      search_text_cols(query = query)    
+  }
 }
 
 #' Internal function to run a query over a tibble

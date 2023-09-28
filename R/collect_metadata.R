@@ -1,47 +1,98 @@
+#' Internal function to `collect()` APIs
+#' @noRd
+#' @keywords Internal
+collect_apis <- function(.data){
+  result <- .data$data |>
+    parse(text = _) |> 
+    eval()
+  attr(result, "call") <- "apis"
+  attr(result, "region") <- pour("atlas", "region")
+  result
+}
+
 #' Internal function to `collect()` assertions
 #' @importFrom dplyr bind_rows
 #' @noRd
 #' @keywords Internal
 collect_assertions <- function(.data){
-  # get data
-  result <- lapply(query_API(.data), 
-                   function(a){a[names(a) != "termsRequiredToTest"]}) |>
-    bind_rows()
-  names(result) <- rename_columns(names(result), type = "assertions")
-  result <- result[wanted_columns("assertions")]
-  result$type <- "assertions"
+  if(!is.null(.data$data)){
+    result <- .data$data |>
+      parse(text = _) |> 
+      eval()
+  }else{
+    result <- lapply(query_API(.data), 
+                     function(a){a[names(a) != "termsRequiredToTest"]}) |>
+      bind_rows()
+    names(result) <- rename_columns(names(result), type = "assertions")
+    result <- result[wanted_columns("assertions")]
+    result$type <- "assertions"
+  }
   attr(result, "call") <- "assertions" # needed for `show_values()` to work
   attr(result, "region") <- pour("atlas", "region") # needed for caching to work
   result
 }
 
+#' Internal function to `collect()` atlases
+#' @noRd
+#' @keywords Internal
+collect_atlases <- function(.data){
+  result <- .data$data |>
+    parse(text = _) |> 
+    eval()
+  attr(result, "call") <- "atlases"
+  attr(result, "region") <- pour("atlas", "region")
+  result
+}
+
 #' Internal function to `collect()` collections
 #' @importFrom dplyr bind_rows
+#' @importFrom dplyr relocate
+#' @importFrom dplyr rename
+#' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
 collect_collections <- function(.data){
   if(is_gbif()){
-    browser()
+    result <- query_API(.data)
+    if(any(names(result) == "results")){ # happens when `filter()` not specified
+      # Note: This assumes only one API call; will need more potentially
+      result <- pluck(result, "results")
+    }
+    result <- lapply(result, 
+                     function(a){
+                       lapply(a, function(b){
+                         if(is.list(b)){
+                           NULL
+                         }else{
+                           b
+                         }
+                       })
+                     }) |>
+      bind_rows()
   }else{
-    # NOTE: this can accept e.g. `?max=100`; but only up to 1000 entries
-    # pagination required to go above this via `offset=9`
     result <- query_API(.data) |> 
-      bind_rows()  
+      bind_rows() |> 
+      relocate(uid) |>
+      rename(id = "uid") 
   }
   attr(result, "call") <- "collections"
-  attr(result, "region") <- pour("atlas", "region") 
+  attr(result, "region") <- pour("atlas", "region")
   result
 }
 
 #' Internal function to `collect()` datasets
 #' @importFrom dplyr bind_rows
+#' @importFrom dplyr relocate
+#' @importFrom dplyr rename
 #' @noRd
 #' @keywords Internal
 collect_datasets <- function(.data){
   result <- query_API(.data) |> bind_rows()
   attr(result, "call") <- "datasets"
   attr(result, "region") <- pour("atlas", "region") 
-  result
+  result |> 
+    relocate(uid) |>
+    rename(id = "uid")
 }
 
 #' Internal function to `collect()` fields
@@ -52,20 +103,29 @@ collect_datasets <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_fields <- function(.data){
-  if(!is.null(.data$url)){ # i.e. there is no cached `tibble`
-    result <- query_API(.data) |>
-      bind_rows() |>
-      mutate(id = name) |>
-      select(all_of(wanted_columns("fields"))) |>
-      mutate(type = "fields") |>
-      bind_rows(galah_internal_archived$media,
-                galah_internal_archived$other)
+  if(is_gbif()){
+    result <- .data$data |>
+      parse(text = _) |> 
+      eval()
     attr(result, "call") <- "fields"
     attr(result, "region") <- pour("atlas", "region")
-    check_internal_cache(fields = result)
     result
-  }else{ # this should only happen when `data` slot is present in place of `url`
-    check_internal_cache()[["fields"]]
+  }else{
+    if(!is.null(.data$url)){ # i.e. there is no cached `tibble`
+      result <- query_API(.data) |>
+        bind_rows() |>
+        mutate(id = name) |>
+        select(all_of(wanted_columns("fields"))) |>
+        mutate(type = "fields") |>
+        bind_rows(galah_internal_archived$media,
+                  galah_internal_archived$other)
+      attr(result, "call") <- "fields"
+      attr(result, "region") <- pour("atlas", "region")
+      check_internal_cache(fields = result)
+      result
+    }else{ # this should only happen when `data` slot is present in place of `url`
+      check_internal_cache()[["fields"]]
+    }
   }
 }
 
@@ -88,13 +148,19 @@ collect_licences <- function(.data){
 
 #' Internal function to `collect()` lists
 #' @importFrom dplyr bind_rows
+#' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
 collect_lists <- function(.data){
-  result <- query_API(.data)
-  result <- lapply(result, 
-                   function(a){a$lists}) |>
-    bind_rows()
+  if(inherits(.data$url, "data.frame")){
+    result <- lapply(query_API(.data), 
+                     function(a){a$lists}) |>
+      bind_rows()    
+  }else{
+    result <- query_API(.data) |>
+      pluck("lists") |>
+      bind_rows()
+  }
   attr(result, "call") <- "lists"
   attr(result, "region") <- pour("atlas", "region") 
   result
@@ -126,18 +192,32 @@ collect_profiles <- function(.data){
 
 #' Internal function to `collect()` providers
 #' @importFrom dplyr bind_rows
+#' @importFrom dplyr rename
 #' @noRd
 #' @keywords Internal
 collect_providers <- function(.data){
   result <- query_API(.data) |> 
     bind_rows()
   attr(result, "call") <- "providers"
+  attr(result, "region") <- pour("atlas", "region")
+  result |> 
+    relocate(uid) |>
+    rename(id = "uid")
+}
+
+#' Internal function to `collect()` APIs
+#' @noRd
+#' @keywords Internal
+collect_ranks <- function(.data){
+  result <- .data$data |>
+    parse(text = _) |> 
+    eval()
+  attr(result, "call") <- "ranks"
+  attr(result, "region") <- pour("atlas", "region")
   result
 }
 
 #' Internal function to `collect()` reasons
-#' NOTE: decision whether to draw data from cache is made by `collapse()`, 
-#' so doesn't need to be handled again here.
 #' @importFrom dplyr all_of
 #' @importFrom dplyr arrange
 #' @importFrom dplyr bind_rows
@@ -159,24 +239,4 @@ collect_reasons <- function(.data){
   }else{
     check_internal_cache()[["reasons"]]
   }
-}
-
-#' Internal function to `collect()` identifiers
-#' @importFrom dplyr any_of
-#' @importFrom dplyr bind_rows
-#' @importFrom dplyr mutate
-#' @importFrom dplyr select
-#' @noRd
-#' @keywords Internal
-collect_identifiers <- function(.data){
-  search_terms <- .data$url$search_term
-  result <- query_API(.data) |>
-    bind_rows() |>
-    filter(!duplicated(taxonConceptID)) |>
-    mutate("search_term" = search_terms, .before = "success")
-  names(result) <- rename_columns(names(result), type = "taxa") # old code
-  result |> select(any_of(wanted_columns("taxa")))
-  attr(result, "call") <- "identifiers"
-  attr(result, "region") <- pour("atlas", "region") 
-  result
 }
