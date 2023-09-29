@@ -29,7 +29,7 @@ wanted_columns <- function(type) {
                            "genus", "species", "author", "species_guid",
                            "vernacular_name"),
            "profile" = c("id", "shortName", "name", "description"),
-           "media" = c("media_id",
+           "media" = c("image_id",
                        "creator", "license",
                        "data_resource_uid",
                        "date_taken", "date_uploaded",

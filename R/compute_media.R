@@ -4,6 +4,6 @@ compute_media <- function(.data){
   media_ids <- do.call(c, occ[, media_cols]) |>
     unlist()
   names(media_ids) <- NULL
-  .data$body <- list(mediaIds = media_ids) |> toJSON()
+  .data$body <- list(imageIds = media_ids)
   .data
 }

@@ -68,10 +68,14 @@ atlas_media <- function(request = NULL,
                         geolocate = NULL,
                         data_profile = NULL
                         ) {
-  
-  if(pour("atlas", "region") != "Australia"){
-    abort("`atlas_media` is currently only supported for the Atlas of Living Australia")
-  }
+  # note: this has not yet been updated to use recent syntax, i.e.
+  # 
+  # request_data(type = "media") |>
+  #   filter(!is.na(images)) |>
+  #   select(group = "basic", "images") |>
+  #   collect()
+  #
+  # upgrading this is a priority for improved consistency and performance
   
   # capture supplied arguments
   args <- as.list(environment())
