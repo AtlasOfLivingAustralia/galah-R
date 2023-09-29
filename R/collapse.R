@@ -20,7 +20,8 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
     }else{
       result <- list()
     }
-    if(.data$type == "occurrences"){
+    if(.data$type %in% c("occurrences", "media") &
+       !is_gbif()){
       result[[(length(result) + 1)]] <- collapse_reasons()
     }
   }else{
@@ -30,11 +31,15 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
   if(!is.null(.data$identify)){
     result[[(length(result) + 1)]] <- collapse_taxa(list(identify = .data$identify))
   }
+  if(.data$type == "media"){
+    # occurrences are a pre-condition to media
+    result[[(length(result) + 1)]] <- collapse_occurrences(.data, mint_doi = mint_doi)
+  }
   # handle query
   result[[(length(result) + 1)]] <- switch(
     .data$type,
     "doi" = collapse_doi(.data),
-    "media" = collapse_media_metadata(.data),
+    "media" = collapse_media(.data),
     "occurrences" = collapse_occurrences(.data, mint_doi = mint_doi),
     "occurrences-count" = collapse_occurrences_count(.data),
     "species" = collapse_species(.data),

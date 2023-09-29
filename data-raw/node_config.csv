@@ -1,5 +1,5 @@
 ﻿atlas,system,api_name,type,api_url,called_by,functional
-Australia,images,image_metadata,data/media,https://api.ala.org.au/images/ws/image/{id},media_metadata,TRUE
+Australia,images,image_metadata,data/media,https://api.ala.org.au/images/ws/getImageInfoForIdList,atlas_media,TRUE
 Australia,records,records_occurrences,data/occurrences,https://biocache-ws.ala.org.au/ws/occurrences/offline/download,atlas_occurrences,TRUE
 Australia,records,records_counts,data/occurrences-count,https://biocache-ws.ala.org.au/ws/occurrences/search,atlas_counts,TRUE
 Australia,records,records_facets,data/occurrences-count-groupby,https://biocache-ws.ala.org.au/ws/occurrences/facets,atlas_counts,TRUE

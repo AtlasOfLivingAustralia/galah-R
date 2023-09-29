@@ -37,11 +37,31 @@ compute.query_set <- function(.data){
     }else{
       metadata_results <- NULL
     }
-    # parse `data`, including supplied metadata
-    # this assumes only one `data` field is available per `query_set`
-    .data[[which(data_lookup)]] |>
-      add_metadata(metadata_results) |>
-      compute()
+    # now compute `data`
+    if(any(names_vec == "data/media")){
+      # exception here if media is requested
+      # this is important because media is the _only_ case where "data" (i.e.
+      # occurrences) has to be cached _prior_ to compute() of another "data" call
+      occ_query <- .data[[which(names_vec == "data/occurrences")]]
+      media_cols <- check_media_cols_present(occ_query)
+      occ <- occ_query |>
+        add_metadata(metadata_results) |>
+        compute() |>
+        collect(wait = TRUE)
+      if(nrow(occ) < 1){
+        abort("No occurrences returned")
+      }else{
+        data_tr <- .data[[which(names_vec == "data/media")]]
+        data_tr$"data/occurrences" <- occ
+        compute(data_tr)
+      }
+    }else{
+      # parse `data`, including supplied metadata
+      # this assumes only one `data` field is available per `query_set`
+      .data[[which(data_lookup)]] |>
+        add_metadata(metadata_results) |>
+        compute()      
+    }
   # FIXME: need to add `else if` here to account for `unnest` functions that require lookups
     # metadata/fields-unnest calls check_fields(), requiring fields and assertions
     # metadata/profiles-unnest calls profile_short_name(), which requires profiles
@@ -55,20 +75,23 @@ compute.query_set <- function(.data){
 #' @rdname collect.query
 #' @export
 compute.query <- function(.data, inputs = NULL){
-  # "data/" functions require pre-processing of 
+  # (most) "data/" functions require pre-processing of metadata
   if(grepl("^data/", .data$type)){
-    .data <- .data |>
-      check_login() |>
-      check_reason() |>
-      check_identifiers() |>
-      check_fields() |>
-      remove_metadata()
+    if(.data$type != "data/media"){ # these steps have already been completed for `media`
+      .data <- .data |>
+        check_login() |>
+        check_reason() |>
+        check_identifiers() |>
+        check_fields() |>
+        remove_metadata()
+    }
     switch(.data$type, 
-           "data/occurrences" = {compute_occurrences(.data)},
+           "data/media" = compute_media(.data),
+           "data/occurrences" = compute_occurrences(.data),
            "data/occurrences-count-groupby" = compute_occurrences_count(.data),
            "data/occurrences-count" = compute_occurrences_count(.data),
            "data/species-count" = compute_species_count(.data),
-           .data)  
+           .data)
   }else{
     switch(.data$type,
            # "-unnest" functions require some checks

@@ -9,7 +9,6 @@ library(tibble) # generate tibbles
 library(dplyr) # data manipulation
 library(usethis) # adding content to sysdata.rda
 
-
 # SET APIS
 # table of information on supported atlases
 # placed here as hard-coded for galah 

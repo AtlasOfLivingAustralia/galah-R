@@ -31,11 +31,14 @@
 #' @export
 collect.query <- function(.data, wait = FALSE, file = NULL){
   # sometimes no url is given, e.g. when a search returns no data
-  if(is.null(.data$url) & is.null(.data$data)){
+  if(is.null(.data$url) & # most queries have a `url`
+     is.null(.data$data) & # some cached metadata queries have `data` instead
+     is.null(.data$status) # finally, after `compute()`, occurrences have `status`
+     ){
     tibble()
   }else{
     switch(.data$type,
-           "data/media" = collect_media_metadata(.data),
+           "data/media" = collect_media(.data),
            "data/occurrences" = collect_occurrences(.data, wait = wait, file = file),
            "data/occurrences-count" = collect_occurrences_count(.data),
            "data/occurrences-count-groupby" = collect_occurrences_count(.data),

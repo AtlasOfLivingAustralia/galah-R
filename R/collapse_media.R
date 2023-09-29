@@ -3,21 +3,13 @@
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-collapse_media_metadata <- function(.data){
-  
-  if(is.null(.data$filter)){
-    abort("`collapse()` requires a `filter()` argument to function")
-  }
-  
-  if(is.null(.data$filter$media_id)){
-   abort("specified filters do not contain the required `media_id` column") 
-  }
-  
+collapse_media <- function(.data){
   result <- list(
-    type = .data$type,
-    url = url_lookup("image_metadata", id = .data$filter$media_id),
+    type = "data/media",
+    url = url_lookup("data/media"),
+    body = list(), # this gets populated during `compute()`
     headers = build_headers())
-  class(result) <- "data_query"
+  class(result) <- "query"
   return(result)
 }
 

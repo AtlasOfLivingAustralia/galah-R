@@ -136,9 +136,7 @@ check_fields <- function(.data) {
     url <- url_parse(.data$url[1])
     queries <- url$query
     # set fields to check against
-    valid_fields <- request_metadata(type = "fields") |>
-      collect() |>
-      pull(id)
+    valid_fields <- .data[["metadata/fields"]]$id
     valid_assertions <- .data[["metadata/assertions"]]$id
     valid_any <- c(valid_fields, valid_assertions)
     
@@ -294,6 +292,28 @@ check_media_cols <- function(.data){
   .data
 }
 
+#' Internal function to check whether valid media fields have been supplied
+#' @param .data a `query` object
+#' @noRd
+#' @keywords Internal
+check_media_cols_present <- function(.data){
+  fields <- .data |>
+    pluck("url") |>
+    url_parse() |> 
+    pluck("query", "fields") |>
+    strsplit(",") |>
+    pluck(1)
+  media_fields <- c("images", "videos", "sounds")
+  fields_check <- media_fields %in% fields
+  if(!any(fields_check)){
+    abort(c("No media fields requested",
+            i = "use `select()` to specify which media fields are required",
+            i = "valid fields are `images`, `videos` and `sounds`"),
+          error_call = caller_env())
+  }else{
+    media_fields[fields_check]
+  }
+}
 #' Internal function called by `filter()` et al
 #' @noRd
 #' @keywords Internal

@@ -7,7 +7,7 @@
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-collect_media_metadata <- function(.data){
+collect_media <- function(.data){
   result <- query_API(.data)
 
   ## Error catching  

@@ -66,7 +66,6 @@ query_API_internal <- function(.data, error_call = caller_env()) {
 #' If supplied, add `headers` arg to a `request()`
 #' @noRd
 #' @keywords Internal
-#' @importFrom httr2 req_headers
 #' @importFrom potions pour
 add_headers <- function(req, headers){
   if(!is.null(headers)){
@@ -83,7 +82,8 @@ add_headers <- function(req, headers){
 #' @importFrom httr2 req_body_json
 add_body <- function(req, body){
   if(!is.null(body)){
-    req$body <- body
+    req <- req |>
+      req_body_json(body)
   }
   req
 }
@@ -91,7 +91,6 @@ add_body <- function(req, body){
 #' If supplied, add `options` arg to a `request()`
 #' @noRd
 #' @keywords Internal
-#' @importFrom httr2 req_options
 add_options <- function(req, options){
   if(!is.null(options)){
     req$options <- options
