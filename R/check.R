@@ -135,9 +135,16 @@ check_fields <- function(.data) {
   if (pour("package", "run_checks")) {
     url <- url_parse(.data$url[1])
     queries <- url$query
+
     # set fields to check against
-    valid_fields <- .data[["metadata/fields"]]$id
-    valid_assertions <- .data[["metadata/assertions"]]$id
+    valid_fields <- request_metadata(type = "fields") |> 
+      collect() |> 
+      pull(id)
+    valid_assertions <- request_metadata(type = "assertions") |> 
+      collect() |> 
+      pull(id)
+    # valid_fields <- .data[["metadata/fields"]]$id
+    # valid_assertions <- .data[["metadata/assertions"]]$id
     valid_any <- c(valid_fields, valid_assertions)
     
     # extract fields from filter & identify
