@@ -16,25 +16,48 @@ galah_config(email = "ala4r@ala.org.au",
              verbose = FALSE)
 ```
 
-From version 2.0 onwards, `galah` is built around object-oriented programming 
+From version 2.0 onwards, galah is built around object-oriented programming 
 principles. In practice, this won't change the experience for most users. 
 However, it does enable new ways of programming that were not previously 
 available. 
 
-When requesting data from `galah`, you can begin your pipe with a dedicated
-function depending on the type of data you want to collect. For example, if you
-want to get occurrences, use `request_data()`:
+## Masked functions
+
+From version 2.0, `galah_call()` creates an object with a unique class specific 
+to galah. For example, the first building blocks of a query create an object of 
+class `data_request`, a default object class used in galah for query building. 
 
 ```{r}
-x <- request_data() |>
+class(
+  galah_call() |>
+  galah_filter(genus == "Crinia")
+  )
+```
+
+When an object is of class `data_request`, galah can trigger functions to use 
+specific methods for this object class, even if a function name is used by 
+another package. For example, users can use `filter()` and `group_by()` functions 
+from [dplyr](https://dplyr.tidyverse.org/index.html) instead 
+of `galah_filter()` and `galah_group_by()` to construct a query. The following 
+queries are synonymous:
+
+```{r, eval = FALSE}
+galah_call() |>
+  galah_filter(genus == "Crinia", year == 2020) |>
+  galah_group_by(species) |>
+  atlas_counts()
+```
+```{r}
+galah_call() |> 
   filter(genus == "Crinia", year == 2020) |>
   group_by(species) |>
-  count()
+  atlas_counts()
 ```
-This call creates an object of class `data_request` for which several methods 
-are available, typically masked from `dplyr`, which is why `filter` and
-`group_by` are possible in the code block above. The full list of masked 
-functions is: 
+
+Thanks to object-oriented programming, galah "masks" `filter()` and `group_by()` 
+functions to use methods defined for `data_request` objects instead.
+
+The full list of masked functions is: 
 
 - `arrange()` (`{dplyr}`)
 - `count()` (`{dplyr}`)
@@ -46,45 +69,124 @@ functions is:
 
 Note that these functions are all evaluated lazily; they amend the underlying 
 object, but do not amend the nature of the data until the call is evaluated.
-To actually build and run the query, we use one or more of a different set of
- `{dplyr}` verbs:
 
-- `collapse()` converts the object to query so you can inspect your API calls
-- `compute()` does any further computation that requires pinging an API, such
-  as sending a query or determining how much pagination is needed
+Using masked functions allows users to use many familiar dplyr functions to edit 
+galah queries.
+
+To actually build and run the query, however, we'll need to use one or more of a 
+different set of dplyr verbs: `collapse()`, `compute()` and `collect()`. These are 
+discussed in the following section.
+
+## Advanced query building
+
+The usual way to begin a query to request data in galah is using `galah_call()`. 
+From version 2.0, to make galah more flexible and modular, the underlying 
+structure of `galah_call()` has been divided into several different `request_` 
+functions. You can begin your pipe with one of these dedicated `request_`
+functions (rather than `galah_call()`) depending on the type of data you 
+want to collect. 
+
+For example, if you want to download occurrences, use `request_data()`:
+
+```{r}
+x <- request_data("occurrences") |>
+  filter(genus == "Crinia", year == 2020) |>
+  group_by(species) |>
+  collect()
+```
+
+You'll notice that this query differs slightly from the typical query structure 
+users of galah are familiar with. The desired data type, `"occurrences"`, 
+is specified at the beginning of the query within `request_data()` rather than 
+at the end using `atlas_occurrences()`. 
+Specifying the data type at the start allows users to make use of advanced 
+query building using three newly implemented stages of query building: `collapse()`, 
+`compute()` and `collect()` more easily.
+
+In version 2.0, galah has been revamped to build, send and retrieve queries using 
+three distinct stages, mirroring existing [functions in dplyr for querying 
+databases](https://dplyr.tidyverse.org/reference/compute.html). Underlying all 
+queries, there are three functions to process a user's query:
+
+- `collapse()` converts the object to a query. This allows you to inspect your 
+   API calls before they are sent
+- `compute()` sends queries to any required APIs. This includes sending a query 
+   for data, determining whether field names are valid or how much pagination 
+   is needed
 - `collect()` returns a `tibble()` with the requested data
 
 We can use these in sequence, or just leap ahead to the stage we want:
 
 ```{r}
-collapse(x) |> str()
+x <- request_data("occurrences-count") |>
+  filter(genus == "Crinia", year == 2020) |>
+  group_by(species)
 
+collapse(x)
+compute(x)
 collect(x)
 ```
 
-Under the hood, these verbs amend our object to a new class:
+The benefit of using `collapse()`, `compute()` and `collect()` is that queries 
+are more modular. This modularity allows users to submit a query and download it later,
+without having to wait for it to finish. 
+
+This ability is particularly useful for large data requests in galah. Users can 
+send their query using `compute()`, and download data once the query has finished 
+downloading with `collect()` later, rather than waiting for the request to finish within R.
+
+```{r, eval = FALSE}
+# Create and send query to be calculated server-side
+request <- request_data("occurrences") |>
+  identify("perameles") |>
+  filter(year > 1900) |>
+  compute()
+  
+# Download data
+request |>
+  collect()
+```
+
+Additionally, functions that are more modular are generally easier to 
+interrogate and debug. Previously some functions did several different things, 
+making it difficult to know which APIs were being called, when, and for what 
+purpose. Partitioning queries into three distinct stages is much more transparent, 
+and allows users to check their query construction prior to sending a request. 
+For example, the query above is constructed with the following information, 
+returned by `collapse()`.
+
+```{r}
+request_data("occurrences") |>
+  identify("perameles") |>
+  filter(year > 1900) |>
+  collapse()
+```
+
+## New object classes
+
+Under the hood, the different query-building verbs amend our object to a new class:
 
 - `request_data()` returns class `data_request`
 - `collapse()` returns class `data_query`
 - `compute()` returns class `data_response`
-- `collapse()` doesn't add a new data class (returns class `tibble`)
+- `collect()` doesn't add a new data class (returns class `tibble`)
 
 
-## All `galah` object classes
 In practice, there are actually 12 new classes:
 
 - `request_data()` generates `data_request`, followed by `data_query` and `data_response`
-- `request_files()` generates `files_request`, followed by `files_query` and `files_response`
 - `request_metadata()` generates `metadata_request`, followed by `metadata_query` and `metadata_response`
 - `request_values()` generates `values_request`, followed by `values_query` and `values_response`
+- `request_files()` generates `files_request`, followed by `files_query` and `files_response`
 
 _this needs a table or diagram or something_
 
 _give examples of files, metadata and values_
 
-These can be called directly, or via the `method` argument of `galah_call()`, 
-which is used to specify the suffix to the `request_` call, defaulting to 
-`"data"`. That is, the following calls are synonymous:
+These can be called directly, or via the `method` and `type` arguments of 
+`galah_call()`, which specify which dedicated `request_` function and data type to return. 
+
+This means that the following calls are synonymous:
 
 ```{r, eval = FALSE}
 request_data() |>
@@ -92,32 +194,63 @@ request_data() |>
   count() |>
   collect()
 
+galah_call(method = "data",
+           type = "occurrences-count") |>
+  filter(year == 2020) |>
+  collect()
+
 galah_call() |>
   galah_filter(year == 2020) |>
   atlas_counts()
 ```
 
-_give example of using `galah_call()` with a different `method` arg
+And another example:
 
-## Benefits 
-What are the benefits of this new method? We see several:
+```{r, eval = FALSE}
+request_metadata(type = "fields") |>
+  collect()
 
-- Splitting `atlas_` functions up into `collapse`, `compute` and `collect` stages
-  makes them more modular; you can now submit a query and download it later,
-  without having to wait for it to finish.
-- Previously some functions did several different things, making it difficult
-  to know which APIs were being called, when, and for what purpose. This is 
-  much more transparent in the new framework.
-- Functions that are more modular are generally easier to interrogate and debug
+galah_call(method = "metadata", 
+           type = "fields") |>
+  collect()
 
-_expand the above points with examples_
+show_all(fields)
+```
+
+And another example:
+_This example doesn't work_
+
+```{r, eval = FALSE}
+request_values(type = "fields") |>
+  filter(id == "cl22") |>
+  collect()
+
+galah_call(method = "metadata", 
+           type = "fields") |>
+  collect()
+
+search_all(fields, "cl22") |>
+  show_values()
+```
+
+Although there is little reason to use `request_metadata()` rather than 
+`show_all()` when using the Atlas of Living Australia, larger databases like 
+GBIF return huge `data.frame`s of metadata. galah allows users to use 
+`collapse()`, `compute()` and `collect()` on all types of requests, meaning 
+users are able to download large metadata queries using the process detailed 
+above in "Advanced query building".
+
+
+## Which query building is best?
 
 Despite these benefits, we have no plans to _require_ this new syntax; functions
 prefixed with `galah_` or `atlas_` are not going away. Indeed while there is 
 perfect redundancy between old and new syntax in some cases, in others they
 serve different purposes. In `atlas_media()` for example, several calls 
 are made and joined in a way that reduces the number of steps required by the 
-user (_expand this exampple_)
+user 
+
+(_expand this exampple_)
 
 Under the hood, however, all `atlas_` functions are now entirely built using the 
 above syntax.
