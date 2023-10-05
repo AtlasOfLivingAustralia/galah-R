@@ -70,9 +70,6 @@ The full list of masked functions is:
 Note that these functions are all evaluated lazily; they amend the underlying 
 object, but do not amend the nature of the data until the call is evaluated.
 
-Using masked functions allows users to use many familiar dplyr functions to edit 
-galah queries.
-
 To actually build and run the query, however, we'll need to use one or more of a 
 different set of dplyr verbs: `collapse()`, `compute()` and `collect()`. These are 
 discussed in the following section.
@@ -81,7 +78,7 @@ discussed in the following section.
 
 The usual way to begin a query to request data in galah is using `galah_call()`. 
 From version 2.0, to make galah more flexible and modular, the underlying 
-structure of `galah_call()` has been divided into several different `request_` 
+architecture of `galah_call()` has been divided into several types of `request_` 
 functions. You can begin your pipe with one of these dedicated `request_`
 functions (rather than `galah_call()`) depending on the type of data you 
 want to collect. 
@@ -101,10 +98,10 @@ is specified at the beginning of the query within `request_data()` rather than
 at the end using `atlas_occurrences()`. 
 Specifying the data type at the start allows users to make use of advanced 
 query building using three newly implemented stages of query building: `collapse()`, 
-`compute()` and `collect()` more easily.
+`compute()` and `collect()`.
 
 In version 2.0, galah has been revamped to build, send and retrieve queries using 
-three distinct stages, mirroring existing [functions in dplyr for querying 
+three distinct stages. These stages mirror existing [functions in dplyr for querying 
 databases](https://dplyr.tidyverse.org/reference/compute.html). Underlying all 
 queries, there are three functions to process a user's query:
 
@@ -132,8 +129,9 @@ are more modular. This modularity allows users to submit a query and download it
 without having to wait for it to finish. 
 
 This ability is particularly useful for large data requests in galah. Users can 
-send their query using `compute()`, and download data once the query has finished 
-downloading with `collect()` later, rather than waiting for the request to finish within R.
+send their query using `compute()`, and download data once the query has finished—
+downloading with `collect()` later—rather than waiting for the request to finish 
+within R.
 
 ```{r, eval = FALSE}
 # Create and send query to be calculated server-side
@@ -161,6 +159,9 @@ request_data("occurrences") |>
   filter(year > 1900) |>
   collapse()
 ```
+
+The `collapse()` stage displays useful information about which APIs will be pinged 
+by a query in galah when it is sent using `compute()`.
 
 ## New object classes
 
@@ -234,21 +235,21 @@ search_all(fields, "cl22") |>
 ```
 
 Although there is little reason to use `request_metadata()` rather than 
-`show_all()` when using the Atlas of Living Australia, larger databases like 
+`show_all()` most of the time, in some cases larger databases like 
 GBIF return huge `data.frame`s of metadata. galah allows users to use 
 `collapse()`, `compute()` and `collect()` on all types of requests, meaning 
 users are able to download large metadata queries using the process detailed 
-above in "Advanced query building".
+above in "Advanced query building" to get around this issue.
 
 
-## Which query building is best?
+## Do I need to use advanced query building?
 
 Despite these benefits, we have no plans to _require_ this new syntax; functions
-prefixed with `galah_` or `atlas_` are not going away. Indeed while there is 
+prefixed with `galah_` or `atlas_` are not going away. Indeed, while there is 
 perfect redundancy between old and new syntax in some cases, in others they
 serve different purposes. In `atlas_media()` for example, several calls 
 are made and joined in a way that reduces the number of steps required by the 
-user 
+user. 
 
 (_expand this exampple_)
 
