@@ -14,6 +14,7 @@ test_that("atlas_species returns a tibble", {
 
 test_that("atlas_species returns correct results when piped", {
   skip_if_offline()
+  galah_config(run_checks = TRUE)
   species <- galah_call() |>
     galah_identify("perameles") |>
     galah_filter(year > 2000) |>
@@ -31,6 +32,7 @@ test_that("atlas_species returns correct results when piped", {
 
 test_that("atlas_species returns correct results filtered by galah_geolocate", {
   skip_if_offline()
+  galah_config(run_checks = TRUE)
   wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 
 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))"
   species <- galah_call() |>
@@ -51,11 +53,12 @@ test_that("atlas_species returns correct results filtered by galah_geolocate", {
 test_that("atlas_species works when no species are present", {
   skip_if_offline()
   galah_config(email = "ala4r@ala.org.au")
+  galah_config(run_checks = TRUE)
   result <- galah_call() |>
     galah_identify("eolophus") |>
     galah_filter(cl1048 == "Kimberley") |>
     atlas_species()
-  expect_s3_class(species, c("tbl_df", "tbl", "data.frame"))
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
 })
 
 # test_that("new workflow is functional", {

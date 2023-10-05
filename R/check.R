@@ -137,14 +137,9 @@ check_fields <- function(.data) {
     queries <- url$query
 
     # set fields to check against
-    valid_fields <- request_metadata(type = "fields") |> 
-      collect() |> 
-      pull(id)
-    valid_assertions <- request_metadata(type = "assertions") |> 
-      collect() |> 
-      pull(id)
-    # valid_fields <- .data[["metadata/fields"]]$id
-    # valid_assertions <- .data[["metadata/assertions"]]$id
+    # NOTE: These are retrieved in collapse()
+    valid_fields <- .data[["metadata/fields"]]$id
+    valid_assertions <- .data[["metadata/assertions"]]$id
     valid_any <- c(valid_fields, valid_assertions)
     
     # extract fields from filter & identify
@@ -272,7 +267,7 @@ check_identifiers <- function(.data){
         .data$url[1] <- url_build(url)
       }else{
         # this only happens if there is a bug earlier in the code
-        abort("The query has a taxonomic placeholder, but taxon search has been run")
+        abort("The query has a taxonomic placeholder, but taxon search has been run.")
       }
     }
   }
@@ -314,8 +309,8 @@ check_media_cols_present <- function(.data){
   fields_check <- media_fields %in% fields
   if(!any(fields_check)){
     abort(c("No media fields requested",
-            i = "use `select()` to specify which media fields are required",
-            i = "valid fields are `images`, `videos` and `sounds`"),
+            i = "Use `select()` to specify which media fields are required",
+            i = "Valid fields are 'images', 'videos' and 'sounds'."),
           error_call = caller_env())
   }else{
     media_fields[fields_check]
@@ -365,10 +360,10 @@ check_occurrence_response <- function(.data){
     names(.data) <- camel_to_snake_case(names(.data))
     if(!is.null(.data$status_code)){
       switch(as.character(.data$status_code),
-             "500" = {abort(c("There was a problem with your query",
+             "500" = {abort(c("There was a problem with your query.",
                               i = glue("message: {.data$message}")),
                             error_call = caller_env())},
-             abort("aborting for unknown reasons", # FIXME
+             abort("Aborting for unknown reasons.", # FIXME
                    error_call = caller_env()))
     }else{
       if(.data$status == "finished"){
@@ -405,7 +400,7 @@ check_occurrence_status <- function(.data){
 #' @keywords Internal
 check_password <- function(.data){
   if (.data$opts$userpwd == ":") {
-    abort("GBIF requires a username and password to download occurrences or species",
+    abort("GBIF requires a username and password to download occurrences or species.",
           call = error_call
     )
   }
@@ -438,7 +433,7 @@ check_reason <- function(.data, error_call = caller_env()){
   if(.data$type %in% c("data/occurrences", "data/species")){
     query <- url_parse(.data$url)$query
     if(is.null(query$reasonTypeId)){
-      bullets <- c("Please supply a valid download reason",
+      bullets <- c("Missing a valid download reason.",
                    i = "Use `show_all(reasons)` to see all valid reasons.",
                    i = "Use `galah_config(download_reason_id = ...) to set a reason.")
       abort(bullets, call = error_call) 
@@ -460,8 +455,8 @@ check_reason <- function(.data, error_call = caller_env()){
 check_type_valid <- function(type, valid, error_call = caller_env()) {
   if(!any(valid == type)){
     bullets <- c(
-      glue("type `{type}` is not recognised"),
-      i = "see ?show_all for a list of valid information types."
+      glue("Type `{type}` is not recognised."),
+      i = "See ?show_all for a list of valid information types."
     )
     abort(bullets, call = error_call)   
   }

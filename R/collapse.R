@@ -20,7 +20,8 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
     }else{
       result <- list()
     }
-    if(.data$type %in% c("occurrences", "media") &
+    # browser()
+    if(.data$type %in% c("occurrences", "media", "species") &
        !is_gbif()){
       result[[(length(result) + 1)]] <- collapse_reasons()
     }
@@ -30,6 +31,7 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
   # handle `identify()`
   if(!is.null(.data$identify)){
     result[[(length(result) + 1)]] <- collapse_taxa(list(identify = .data$identify))
+    result[[(length(result) + 1)]] <- collapse_fields() # checks `lsid` field
   }
   if(.data$type == "media"){
     # occurrences are a pre-condition to media
