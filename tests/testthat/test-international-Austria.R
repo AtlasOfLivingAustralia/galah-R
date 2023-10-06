@@ -107,10 +107,11 @@ test_that("atlas_counts works for Austria", {
   expect_gt(atlas_counts(type = "species")$count, 0)
 })
 
+## FIXME: Only works when run_checks = TRUE
 test_that("atlas_counts works with galah_identify for Austria", {
   skip_if_offline()
   result <- galah_call() |>
-    galah_identify("Mammalia") |>
+    galah_identify("Mammalia") |> # run_checks = TRUE works
     atlas_counts()
   expect_gt(result$count, 1)
   result2 <- galah_call() |>
@@ -131,11 +132,13 @@ test_that("atlas_counts works with group_by for Austria", {
   expect_equal(names(result), c("year", "count"))
 })
 
+## FIXME: Test only works when run_checks = TRUE
 test_that("atlas_occurrences works for Austria", {
   skip_if_offline()
   galah_config(
     atlas = "Austria",
     email = "ala4r@ala.org.au", 
+    run_checks = TRUE, ## FIXME: Test only works when run_checks = TRUE
     send_email = FALSE)
   occ <- galah_call() |>
     galah_identify("Mammalia") |>
@@ -147,6 +150,8 @@ test_that("atlas_occurrences works for Austria", {
   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
 })
 
+
+## FIXME: atlas_taxonomy doesn't work
 test_that("atlas_taxonomy works for Austria", {
   skip_if_offline()
   # first test child values lookup

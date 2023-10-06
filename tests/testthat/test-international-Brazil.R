@@ -90,10 +90,11 @@ test_that("atlas_counts works for Brazil", {
   expect_gt(atlas_counts(type = "species")$count, 0)
 })
 
+## FIXME: Only works when run_checks = TRUE
 test_that("atlas_counts works with galah_identify for Brazil", {
   skip_if_offline()
   result <- galah_call() |>
-    galah_identify("Mammalia") |>
+    galah_identify("Mammalia") |> # Works when run_checks = TRUE
     atlas_counts()
   expect_gt(result$count, 1)
   result2 <- galah_call() |>
@@ -114,12 +115,14 @@ test_that("atlas_counts works with group_by for Brazil", {
   expect_equal(names(result), c("year", "count"))
 })
 
+## FIXME: Works only when run_checks = TRUE
 test_that("atlas_occurrences works for Brazil", {
   skip_if_offline()
   skip_on_cran()
   galah_config(
     atlas = "Brazil",
     email = "ala4r@ala.org.au", 
+    run_checks = FALSE,
     send_email = FALSE)
   occ <- galah_call() |>
     galah_identify("Mammalia") |>
