@@ -142,6 +142,24 @@ is_gbif <- function(){
   pour("atlas", "region") == "Global"
 }
 
+#' Internal function for determining whether a Living Atlas supports reasons API.
+#' This affects whether a reason is appended to a query in `collapse()` (and 
+#' checked in `compute()`)
+#' @importFrom potions pour
+#' @noRd
+#' @keywords Internal
+atlas_supports_reasons_api <- function(){
+  atlas <- pour("atlas", "region")
+  supports_reasons <- c("Australia", "Austria", "Guatemala", "Portugal", 
+                        "Spain", "Sweden", "United Kingdom")
+  atlas %in% supports_reasons
+  
+  ## List of atlases that support reasons can be checked by running:
+  # show_all(apis) |>
+  #   dplyr::filter(type == "metadata/reasons") |>
+  #   dplyr::pull(atlas)
+}
+
 ##---------------------------------------------------------------
 ##                Data request helper functions                --
 ##---------------------------------------------------------------

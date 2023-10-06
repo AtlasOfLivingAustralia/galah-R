@@ -78,12 +78,16 @@ compute.query <- function(.data, inputs = NULL){
   # (most) "data/" functions require pre-processing of metadata
   if(grepl("^data/", .data$type)){
     if(.data$type != "data/media"){ # these steps have already been completed for `media`
+      if(pour("package", "run_checks")) {
       .data <- .data |>
         check_login() |>
         check_reason() |>
         check_identifiers() |>
         check_fields() |>
         remove_metadata()
+      } else {
+        .data  
+      }
     }
     switch(.data$type, 
            "data/media" = compute_media(.data),

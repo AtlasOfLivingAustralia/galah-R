@@ -22,7 +22,9 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
     }
     # browser()
     if(.data$type %in% c("occurrences", "media", "species") &
-       !is_gbif()){
+       !is_gbif() & 
+       atlas_supports_reasons_api()
+       ){
       result[[(length(result) + 1)]] <- collapse_reasons()
     }
   }else{
@@ -31,7 +33,9 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
   # handle `identify()`
   if(!is.null(.data$identify)){
     result[[(length(result) + 1)]] <- collapse_taxa(list(identify = .data$identify))
-    result[[(length(result) + 1)]] <- collapse_fields() # checks `lsid` field
+    if(pour("package", "run_checks")){
+      result[[(length(result) + 1)]] <- collapse_fields() # checks `lsid` field
+    }
   }
   if(.data$type == "media"){
     # occurrences are a pre-condition to media

@@ -430,6 +430,7 @@ check_password <- function(.data){
 #' @noRd
 #' @keywords Internal
 check_reason <- function(.data, error_call = caller_env()){
+  if(atlas_supports_reasons_api()) {
   if(.data$type %in% c("data/occurrences", "data/species")){
     query <- url_parse(.data$url)$query
     if(is.null(query$reasonTypeId)){
@@ -447,6 +448,7 @@ check_reason <- function(.data, error_call = caller_env()){
         abort(bullets, call = error_call)    
       }
     }
+  }
   }
   .data
 }
