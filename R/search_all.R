@@ -80,11 +80,14 @@
 #' search_all(ranks, "subphylum")
 
 #' @importFrom utils adist
+#' @importFrom rlang as_name
 #' @export
 search_all <- function(..., query){
   dots <- enquos(..., .ignore_empty = "all")
   type <- gsub("\"", "", as_label(dots[[1]])) # handle case where type is quoted
-  check_if_missing(query)
+  # check_if_missing(query)
+  check_if_missing(as_name(dots[[2]]))
+  query <- rlang::as_name(dots[[2]])
   if(type == "taxa"){
     request_metadata(type = "taxa") |>
       identify(query) |>
