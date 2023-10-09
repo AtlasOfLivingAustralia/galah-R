@@ -6,41 +6,36 @@
 collapse.data_request <- function(.data, mint_doi = FALSE){
   # .data$type <- check_type(.data$type) # needed?
   # handle `run_checks`
-  if(pour("package", "run_checks")){
+  if (pour("package", "run_checks")) {
     # add check here to see whether any filters are specified
     # it is possible to only call `identify()`, for example
     fields_absent <- lapply(
       .data[c("arrange", "filter", "select", "group_by")],
-      is.null) |>
+      is.null
+    ) |>
       unlist()
-    if(any(!fields_absent)){
-      result <- list(
-        collapse_fields(),
-        collapse_assertions())      
-    }else{
+    if (any(!fields_absent)) {
+      result <- list(collapse_fields(), collapse_assertions())
+    } else {
       result <- list()
     }
-    # browser()
-    if(.data$type %in% c("occurrences", "media", "species") &
-       !is_gbif() & 
-       atlas_supports_reasons_api()
-       ){
-      result[[(length(result) + 1)]] <- collapse_reasons()
-    }else{
-      if(.data$type %in% c("species-count")) {
-        result <- list(
-          collapse_fields() # checks `speciesID` field
-        )
+
+    if (.data$type %in% c("occurrences", "media", "species")) {
+      if (!is_gbif() & atlas_supports_reasons_api()) {
+        result[[(length(result) + 1)]] <- collapse_reasons()
       }
     }
-  }else{
+    if (.data$type %in% c("species-count")) {
+      result <- list(collapse_fields()) # `compute()` checks field `speciesID`
+    }
+  } else {
     result <- list()
   }
   # handle `identify()`
   if(!is.null(.data$identify)){
     result[[(length(result) + 1)]] <- collapse_taxa(list(identify = .data$identify))
     if(pour("package", "run_checks")){
-      result[[(length(result) + 1)]] <- collapse_fields() # checks `lsid` field
+      result[[(length(result) + 1)]] <- collapse_fields() # `compute()` checks field `lsid`
     }
   }
   if(.data$type == "media"){
