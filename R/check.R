@@ -205,20 +205,20 @@ check_fields <- function(.data) {
     # error message
     if(any(!is.na(c(filter_invalid, select_invalid, group_by_invalid)))) {
       returned_invalid <- tibble(
-        function_name = c("`filter`", "`select`", "`group_by`"),
+        function_name = c("`galah_filter()`", "`galah_select()`", "`galah_group_by()`"),
         fields = c(filter_invalid, select_invalid, group_by_invalid)
       ) |>
         drop_na()
       
-      glue_template <- " {returned_invalid$function_name}: {returned_invalid$fields}"
+      glue_template <- "{returned_invalid$function_name}: {returned_invalid$fields}"
       invalid_fields_message <- glue_data(returned_invalid, glue_template, .na = "")
       
       bullets <- c(
         "Can't use fields that don't exist.",
         # i = "Use `show_all(fields)` to see all valid fields.",
         i = "Use `search_all(fields)` to find a valid field ID.",
-        x = glue("Unrecognised field(s):"),
-        format_error_bullets(invalid_fields_message)
+        x = glue("Can't find field(s) in"),
+        glue("  ", format_error_bullets(invalid_fields_message))
       )
       abort(bullets)
     }
