@@ -5,7 +5,7 @@ test_that("compute validates fields", {
       galah_filter(invalid_filter == 'value') |>
       count() |>
       compute(),
-    "Invalid field"
+    "Can't use fields that don't exist"
     )
 })
 
@@ -16,7 +16,7 @@ test_that("compute validates fields when OR statements are used", {
       galah_filter(invalid_filter == 'value' | year == 2010) |>
       count() |>
       compute(),
-    "Invalid field"
+    "Can't use fields that don't exist"
     )
 })
 
