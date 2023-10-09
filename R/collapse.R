@@ -26,6 +26,12 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
        atlas_supports_reasons_api()
        ){
       result[[(length(result) + 1)]] <- collapse_reasons()
+    }else{
+      if(.data$type %in% c("species-count")) {
+        result <- list(
+          collapse_fields() # checks `speciesID` field
+        )
+      }
     }
   }else{
     result <- list()
