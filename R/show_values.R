@@ -53,7 +53,7 @@ show_values <- function(df){
                        "profiles" = df$shortName[1],
                        df$uid[1] # last option selected if above are exhausted
   )
-  
+  # browser()
   # specify the number matched fields
   # specify for which field the values are displayed
   if(nrow(df) > 1) {
@@ -65,12 +65,17 @@ show_values <- function(df){
         "*" = glue("Showing values for '{match_name}'.")
       ))
   } else {
+    if (is.na(match_name)) {
+      inform(glue("`search_all()` returned no matched `{type}`."))
+      tibble()
+    } else {
     inform(
       bullets <- c(
         # glue("Search returned 1 matched {type}."),
         "*" = glue("Showing values for '{match_name}'.")
       )
     )
+    }
   }
   
   # NOTE: the below assumes that each `show_all()` function
