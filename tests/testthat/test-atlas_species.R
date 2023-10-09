@@ -1,6 +1,6 @@
 test_that("atlas_species fails nicely if no email is provided", {
   skip_if_offline()
-  galah_config(email = "", run_checks = FALSE)
+  galah_config(email = "", run_checks = TRUE) # run_checks = FALSE doesn't provide error message
   expect_error(atlas_species(identify = galah_identify("Osphranter")))
   galah_config(email = "ala4r@ala.org.au")
 })
@@ -61,14 +61,22 @@ test_that("atlas_species works when no species are present", {
   expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
 })
 
-# test_that("new workflow is functional", {
-#   skip_if_offline()
-#   galah_config(email = "ala4r@ala.org.au")
-#   query <- galah_call() |>
-#     galah_identify("perameles") |>
-#     galah_filter(year > 2000)
-#   species_collapse <- query |> collapse("species")
-#   expect_error(compute(species_collapse))
-#   species_collect <- species_collapse |> collect()
-#   query |> atlas_species()
-# })
+test_that("collapse -> compute -> collect workflow is functional", {
+  skip_if_offline()
+  galah_config(email = "ala4r@ala.org.au")
+  query <- galah_call(method = "data",
+                      type = "species") |>
+    galah_identify("perameles") |>
+    galah_filter(year > 2000)
+  species_collapse <- query |> collapse()
+  species_compute <- species_collapse |> compute()
+  species_collect <- species_compute |> collect()
+  atlas_species <- query |> atlas_species()
+  
+  expect_s3_class(query, "data_request")
+  expect_s3_class(species_collapse, "query_set")
+  expect_s3_class(species_compute, "query")
+  expect_s3_class(species_collect, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(species_collect, atlas_species)
+  
+})

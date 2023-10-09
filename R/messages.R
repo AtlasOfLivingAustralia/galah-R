@@ -5,9 +5,10 @@ abort_email_missing <- function(error_call = caller_env()){
   bullets <- c(
     "No user email was found.",
     i = glue(
-      "To download occurrence records you must provide a valid email ",
-      "address registered with the selected atlas using `galah_config(email = )`"
-    )
+      "To download occurrence records or species lists you must provide a valid email \\
+      address registered with the selected atlas."
+    ),
+    i = glue("Provide your email address using `galah_config(email = )`.")
   )
   abort(bullets, call = error_call)
 }
@@ -29,8 +30,8 @@ abort_email_missing <- function(error_call = caller_env()){
 system_down_message <- function(function_name){
   bullets <- c(
     glue("Calling the API failed for `{function_name}`."),
-    i = "This might mean that the API is down, or that you are not connected to the internet",
-    i = "Double check that your query is correct, or try again later"
+    i = "This might mean that the API is down, or that you are not connected to the internet.",
+    i = "Double check that your query is correct, or try again later."
   )
   inform(bullets)
 }
