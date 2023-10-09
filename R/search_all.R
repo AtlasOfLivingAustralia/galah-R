@@ -117,9 +117,15 @@ search_all <- function(type, query){
       identify(query) |>
       collect()
   }else{
-    request_metadata(type = type) |> 
-      collect() |>
-      search_text_cols(query = query)    
+    if(is_gbif()){
+      request_metadata(type = type) |>
+        filter(query == query) |>
+        collect()
+    }else{
+      request_metadata(type = type) |> 
+        collect() |>
+        search_text_cols(query = query) 
+    }
   }
 }
 

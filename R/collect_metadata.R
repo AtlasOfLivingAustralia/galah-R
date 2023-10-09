@@ -58,16 +58,7 @@ collect_collections <- function(.data){
       # Note: This assumes only one API call; will need more potentially
       result <- pluck(result, "results")
     }
-    result <- lapply(result, 
-                     function(a){
-                       lapply(a, function(b){
-                         if(is.list(b)){
-                           NULL
-                         }else{
-                           b
-                         }
-                       })
-                     }) |>
+    result <- flat_lists_only(result) |>
       bind_rows()
   }else{
     result <- query_API(.data) |> 
@@ -80,6 +71,23 @@ collect_collections <- function(.data){
   result
 }
 
+#' Internal function to remove `list()` entries inside lists
+#' This supports passing to `bind_rows()`, but loses data
+#' @noRd
+#' @keywords Internal
+flat_lists_only <- function(x){
+  lapply(x, 
+         function(a){
+           lapply(a, function(b){
+             if(is.list(b)){
+               NULL
+             }else{
+               b
+             }
+           })
+         })
+}
+
 #' Internal function to `collect()` datasets
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr relocate
@@ -87,12 +95,24 @@ collect_collections <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_datasets <- function(.data){
-  result <- query_API(.data) |> bind_rows()
+  if(is_gbif()){
+    result <- query_API(.data)
+    if(any(names(result) == "results")){ # happens when `filter()` not specified
+      # Note: This assumes only one API call; will need more potentially
+      result <- pluck(result, "results")
+    }
+    result <- result |>
+      flat_lists_only() |>
+      bind_rows()
+  }else{
+    result <- result |> 
+      bind_rows()|> 
+      relocate(uid) |>
+      rename(id = "uid")
+  }
   attr(result, "call") <- "datasets"
   attr(result, "region") <- pour("atlas", "region") 
-  result |> 
-    relocate(uid) |>
-    rename(id = "uid")
+  result 
 }
 
 #' Internal function to `collect()` fields
@@ -196,14 +216,47 @@ collect_profiles <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_providers <- function(.data){
-  result <- query_API(.data) |> 
-    bind_rows()
+  if(is_gbif()){
+    result <- query_API(.data)
+    if(any(names(result) == "results")){ # happens when `filter()` not specified
+      # Note: This assumes only one API call; will need more potentially
+      result <- pluck(result, "results")
+    }
+    result <- result |>
+      flat_lists_only() |>
+      bind_rows()
+  }else{
+    result <- query_API(.data) |> 
+      bind_rows() |> 
+      relocate(uid) |>
+      rename(id = "uid")
+  }
   attr(result, "call") <- "providers"
   attr(result, "region") <- pour("atlas", "region")
-  result |> 
-    relocate(uid) |>
-    rename(id = "uid")
+  result
 }
+
+collect_datasets <- function(.data){
+  if(is_gbif()){
+    result <- query_API(.data)
+    if(any(names(result) == "results")){ # happens when `filter()` not specified
+      # Note: This assumes only one API call; will need more potentially
+      result <- pluck(result, "results")
+    }
+    result <- result |>
+      flat_lists_only() |>
+      bind_rows()
+  }else{
+    result <- result |> 
+      bind_rows()|> 
+      relocate(uid) |>
+      rename(id = "uid")
+  }
+  attr(result, "call") <- "datasets"
+  attr(result, "region") <- pour("atlas", "region") 
+  result 
+}
+
 
 #' Internal function to `collect()` APIs
 #' @noRd

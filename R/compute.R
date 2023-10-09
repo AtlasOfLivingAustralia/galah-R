@@ -109,13 +109,9 @@ compute.query <- function(.data, inputs = NULL){
          "data/occurrences-count" = compute_occurrences_count(.data),
          "data/species-count" = compute_species_count(.data),
          # "-unnest" functions require some checks
-         # "metadata/fields-unnest" = check_fields(.data),
          "metadata/profiles-unnest" = compute_profile_values(.data),  # check this
          # some "metadata/" functions require pagination under some circumstances
-         "metadata/collections" = compute_collections(.data),
-         # "metadata/datasets" = compute_datasets(.data),
-         "metadata/lists" = compute_lists(.data), # always paginates
-         # "metadata/providers" = compute_providers(.data),
+          "metadata/lists" = compute_lists(.data), # always paginates
          .data # remaining "metadata/" functions are passed as-is
   )
 }

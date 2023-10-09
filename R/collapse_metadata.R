@@ -46,17 +46,13 @@ collapse_atlases <- function(){
 #' @noRd
 #' @keywords Internal
 collapse_collections <- function(.data){
-  if(is_gbif()){
-    url <- url_lookup("metadata/collections") |>
-      url_parse()
+  url <- url_lookup("metadata/collections") 
+  if(is_gbif() & !missing(.data)){
     if(!is.null(.data$filter)){
-      url$path <- "/v1/grscicoll/collection/suggest"
+      url <- url_parse(url)
       url$query <- list(q = .data$filter$value[1])
+      url <- url_build(url)
     }
-    # slice?
-    url <- url_build(url)
-  }else{
-    url <- url_lookup("metadata/collections")
   }
   result <- list(type = "metadata/collections",
                  url = url,
@@ -70,10 +66,18 @@ collapse_collections <- function(.data){
 #' Internal function to `collapse()` datasets
 #' @noRd
 #' @keywords Internal
-collapse_datasets <- function(){
+collapse_datasets <- function(.data){
+  url <- url_lookup("metadata/datasets") 
+  if(is_gbif() & !missing(.data)){
+    if(!is.null(.data$filter)){
+      url <- url_parse(url)
+      url$query <- list(q = .data$filter$value[1])
+      url <- url_build(url)
+    }
+  }
   result <- list(type = "metadata/datasets",
-                 url = url_lookup("metadata/datasets"),
-                 headers = build_headers())
+                 url = url,
+                 headers = build_headers()) 
   class(result) <- "query"
   return(result)
 }
@@ -193,9 +197,17 @@ collapse_profiles <- function(){
 #' Internal function to `collapse()` providers
 #' @noRd
 #' @keywords Internal
-collapse_providers <- function(){
+collapse_providers <- function(.data){
+  url <- url_lookup("metadata/providers") 
+  if(is_gbif() & !missing(.data)){
+    if(!is.null(.data$filter)){
+      url <- url_parse(url)
+      url$query <- list(q = .data$filter$value[1])
+      url <- url_build(url)
+    }
+  }
   result <- list(type = "metadata/providers",
-                 url = url_lookup("metadata/providers"),
+                 url = url,
                  headers = build_headers())
   class(result) <- "query"
   return(result)

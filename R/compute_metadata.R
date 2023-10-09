@@ -1,33 +1,3 @@
-#' Internal function to `compute()` collections
-#' @noRd
-#' @keywords Internal
-compute_collections <- function(.data){
-  if(is_gbif()){
-    # when someone searches for a specific collection using `filter()`
-    # this is capped at n = 20 records
-    if(grepl("suggest", .data$url)){
-      result <- query_API(.data) |>
-        bind_rows()
-      if(nrow(result) > 1){
-        .data$url <- tibble(
-          url = paste(url_lookup("metadata/collections"), result$key, sep = "/"))
-        .data
-      }else{
-        .data$url <- NULL
-        .data$headers <- NULL
-        .data
-      }
-    # i.e. no filter given
-    }else{
-      # this should, ideally, paginate as for `compute_lists()`
-      # for now, leave as is
-      .data
-    }
-  }else{
-    .data
-  }
-}
-
 #' Internal function to `compute()` lists
 #' Required for pagination
 #' Should run a query with `max = 0` to get total n

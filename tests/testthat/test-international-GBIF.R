@@ -30,9 +30,9 @@ test_that("show_all(collections) works for GBIF", {
   #   collect()
   # expect_equal(x, y)
   z <- request_metadata(type = "collections") |>
-    filter(name == "avian") |>
+    filter(name == "australia") |>
     collect()
-  expect_true(nrow(z) > 1)
+  expect_equal(nrow(z), 20)
 })
 
 test_that("show_all(datasets) works for GBIF", {
@@ -40,6 +40,10 @@ test_that("show_all(datasets) works for GBIF", {
   x <- show_all(datasets, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  z <- request_metadata(type = "datasets") |>
+    filter(name == "avian") |>
+    collect()
+  expect_equal(nrow(z), 20)
 })
 
 test_that("show_all(providers) works for GBIF", {
@@ -47,6 +51,10 @@ test_that("show_all(providers) works for GBIF", {
   x <- show_all(providers, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  z <- request_metadata(type = "providers") |>
+    filter(provider == "herbarium") |>
+    collect()
+  expect_equal(nrow(z), 20)
 })
 
 test_that("show_all(reasons) fails for GBIF", {
@@ -69,7 +77,11 @@ test_that("show_all(lists) fails for GBIF", {
 
 test_that("search_all(taxa) works for GBIF", {
   skip_if_offline()
-  expect_equal(nrow(search_taxa("Mammalia")), 1)
+  x <- search_taxa("Mammalia")
+  expect_equal(nrow(x), 1)
+  expect_gte(ncol(x), 1)
+  expect_true(colnames(x)[1] == "search_term")
+  expect_true(x$class == "Mammalia")
 })
 
 galah_config(verbose = TRUE)
