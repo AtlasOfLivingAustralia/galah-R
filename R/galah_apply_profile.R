@@ -60,12 +60,13 @@ check_profile <- function(query, error_call = caller_env()){
 #' @noRd
 #' @keywords Internal
 parse_profile <- function(dot_names, error_call = caller_env()) {
-  if (length(dot_names) > 0) {
+  n_args <- length(dot_names)
+  if (n_args > 0) {
     
-    if (length(dot_names) > 1) {
+    if (n_args > 1) {
       bullets <- c(
         "Too many data profiles supplied.",
-        i = "`galah_apply_profile()` accepts only one profile at a time."
+        x = glue("`galah_apply_profile()` accepts one profile argument, not {n_args}.")
       )
       abort(bullets, call = error_call)
     } else{
@@ -74,8 +75,8 @@ parse_profile <- function(dot_names, error_call = caller_env()) {
         if (!any(valid_check)) {
           bullets <- c(
             "Invalid profile name.",
-            i = "Use `show_all(profiles)` to see all valid data profiles.",
-            x = glue("\"{dot_names}\" not recognised.")
+            i = "See `show_all(profiles)` for valid data profiles.",
+            x = glue("Can't find profile \"{query}\".")
           )
           abort(bullets, call = error_call)
         } else {

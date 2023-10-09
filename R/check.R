@@ -19,7 +19,7 @@ check_data_request <- function(request, error_call = caller_env()){
   if(!inherits(request, "data_request")){
     bullets <- c(
       "Argument `.data` requires an object of type `data_request`.",
-      i = "You can create this object using `galah_call()`",
+      i = "You can create this object using `galah_call()`.",
       i = "Did you specify the incorrect argument?"
     )
     abort(bullets, call = caller_env())      
@@ -308,8 +308,8 @@ check_media_cols_present <- function(.data){
   media_fields <- c("images", "videos", "sounds")
   fields_check <- media_fields %in% fields
   if(!any(fields_check)){
-    abort(c("No media fields requested",
-            i = "Use `select()` to specify which media fields are required",
+    abort(c("No media fields requested.",
+            i = "Use `select()` to specify which media fields are required.",
             i = "Valid fields are 'images', 'videos' and 'sounds'."),
           error_call = caller_env())
   }else{
@@ -429,14 +429,19 @@ check_password <- function(.data){
 #' Internal function to check a supplied profile is valid
 #' @noRd
 #' @keywords Internal
-check_profiles <- function(.data){
+check_profiles <- function(.data, error_call = caller_env()){
   if(!inherits(.data$url, "data.frame")){
     url <- .data$url[1]
     if(grepl("data-profiles", url)){
       url_split <- strsplit(.data$url[1], "/")[[1]]
       profile <- url_split[length(url_split)]
       if(!profile %in% .data[["metadata/profiles"]]$shortName){
-        abort(glue("profile `{profile}` not available for specified atlas"))
+        bullets <- c(
+          "Unrecognised profile requested.",
+          i = "See `?show_all(profiles)` for valid profiles.",
+          x = "Can't find profile `{profile}` for specified atlas."
+        )
+        abort(bullets, call = error_call)
       }else{
         .data
       }
@@ -458,7 +463,7 @@ check_reason <- function(.data, error_call = caller_env()){
     if(is.null(query$reasonTypeId)){
       bullets <- c("Missing a valid download reason.",
                    i = "Use `show_all(reasons)` to see all valid reasons.",
-                   i = "Use `galah_config(download_reason_id = ...) to set a reason.")
+                   i = "Use `galah_config(download_reason_id = ...)` to set a reason.")
       abort(bullets, call = error_call) 
     }else{
       value <- as.integer(query$reasonTypeId)
@@ -479,8 +484,9 @@ check_reason <- function(.data, error_call = caller_env()){
 check_type_valid <- function(type, valid, error_call = caller_env()) {
   if(!any(valid == type)){
     bullets <- c(
-      glue("Type `{type}` is not recognised."),
-      i = "See ?show_all for a list of valid information types."
+      glue("Unrecognised metadata requested."),
+      i = "See `?show_all()` for a list of valid metadata types.",
+      x = glue("Can't find metadata type `{type}`.")
     )
     abort(bullets, call = error_call)   
   }
