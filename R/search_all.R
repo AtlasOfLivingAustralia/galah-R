@@ -82,12 +82,36 @@
 #' @importFrom utils adist
 #' @importFrom rlang as_name
 #' @export
-search_all <- function(..., query){
-  dots <- enquos(..., .ignore_empty = "all")
-  type <- gsub("\"", "", as_label(dots[[1]])) # handle case where type is quoted
-  # check_if_missing(query)
-  check_if_missing(as_name(dots[[2]]))
-  query <- rlang::as_name(dots[[2]])
+search_all <- function(type, query){
+  # dots <- enquos(..., .ignore_empty = "all")
+  # type <- gsub("\"", "", as_label(dots[[1]])) # handle case where type is quoted
+  
+  # check_if_missing(as_name(dots[[2]]))
+  # query <- rlang::as_name(dots[[2]])
+  
+  # vector of valid types for this function
+  valid_types <- c(
+    "ranks", 
+    "fields", "assertions",
+    "licences", 
+    "profiles", "lists",
+    "atlases", "apis", "reasons", 
+    "taxa", "identifiers",
+    "providers", "collections", "datasets")
+  
+  # check 'type' is ok
+  if(missing(type)){
+    type <- "fields"
+  }else{
+    type <- parse_quosures_basic(enquos(type))$data
+    if(!inherits(type, "character")){
+      abort("`type` must inherit from class 'character'")
+    }
+    check_type_valid(type, valid_types)   
+  }
+  
+  check_if_missing(query)
+  
   if(type == "taxa"){
     request_metadata(type = "taxa") |>
       identify(query) |>
