@@ -431,10 +431,15 @@ check_password <- function(.data){
 #' @keywords Internal
 check_profiles <- function(.data){
   if(!inherits(.data$url, "data.frame")){
-    url <- strsplit(.data$url[1], "/")[[1]]
-    profile <- url[length(url)]
-    if(!profile %in% .data[["metadata/profiles"]]$shortName){
-      abort(glue("profile `{profile}` not available for specified atlas"))
+    url <- .data$url[1]
+    if(grepl("data-profiles", url)){
+      url_split <- strsplit(.data$url[1], "/")[[1]]
+      profile <- url_split[length(url_split)]
+      if(!profile %in% .data[["metadata/profiles"]]$shortName){
+        abort(glue("profile `{profile}` not available for specified atlas"))
+      }else{
+        .data
+      }
     }else{
       .data
     }

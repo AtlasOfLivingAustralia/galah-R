@@ -76,14 +76,14 @@ show_values <- function(df){
   # NOTE: the below assumes that each `show_all()` function
   # returns the columns `type` and `id`; 
   # this may need to be reverse engineered
-  x <- request_values() 
-  x$filter <- tibble(api = type,
-                     selection = match_name)
+  x <- request_metadata(type = type) |>
+    unnest()
+  x$filter <- tibble(field = type,
+                     value = match_name)
   # note: it would be better to have 
-  # filter({{type}} == {{id}})
-  # ...but this fails for some reason
-  collapse(x) |> 
-    collect()
+  # filter({{type}} := {{id}})
+  # ...but this fails for some reason as `:=` is not implemented yet
+  collect(x)
 }
 
 #' @param query A string specifying a search term. Not case sensitive.
