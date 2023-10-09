@@ -426,6 +426,23 @@ check_password <- function(.data){
 #   .data
 # }
 
+#' Internal function to check a supplied profile is valid
+#' @noRd
+#' @keywords Internal
+check_profiles <- function(.data){
+  if(!inherits(.data$url, "data.frame")){
+    url <- strsplit(.data$url[1], "/")[[1]]
+    profile <- url[length(url)]
+    if(!profile %in% .data[["metadata/profiles"]]$shortName){
+      abort(glue("profile `{profile}` not available for specified atlas"))
+    }else{
+      .data
+    }
+  }else{
+    .data 
+  }
+}
+
 #' Internal function to check that a reason code is valid
 #' @noRd
 #' @keywords Internal

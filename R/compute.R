@@ -28,15 +28,7 @@ compute.query_set <- function(.data){
   if(any(data_lookup)){
     data_names <- names_vec[data_lookup]
     # parse any `metadata`
-    metadata_lookup <- grepl("^metadata", names_vec) &
-                       !grepl("-unnest$", names_vec) # unnest functions only parse in collect()
-    if(any(metadata_lookup)){
-      metadata_names <- names_vec[metadata_lookup]
-      metadata_results <- lapply(.data[metadata_lookup], collect)
-      names(metadata_results) <- metadata_names    
-    }else{
-      metadata_results <- NULL
-    }
+    metadata_results <- parse_metadata(names_vec, .data)
     # now compute `data`
     if(any(names_vec == "data/media")){
       # exception here if media is requested
@@ -62,13 +54,34 @@ compute.query_set <- function(.data){
         add_metadata(metadata_results) |>
         compute()      
     }
-  # FIXME: need to add `else if` here to account for `unnest` functions that require lookups
-    # metadata/fields-unnest calls check_fields(), requiring fields and assertions
-    # metadata/profiles-unnest calls profile_short_name(), which requires profiles
-  # if no metadata are needed, return .data unaltered
+  }else if(any(names_vec %in% c("metadata/fields-unnest", "metadata/profiles-unnest"))){
+    # this code accounts for `unnest` functions that require lookups
+      # metadata/fields-unnest calls check_fields(), requiring fields and assertions
+      # metadata/profiles-unnest calls profile_short_name(), which requires profiles
+    metadata_results <- parse_metadata(names_vec, .data)
+    .data[[2]] |>
+      add_metadata(metadata_results) |>
+      compute()
   }else{ 
+    # if no metadata are needed, return .data unaltered
     compute(.data[[1]])
   }
+}
+
+#' Internal function to parse metadata
+#' @noRd
+#' @keywords Internal
+parse_metadata <- function(names_vec, .data){
+  metadata_lookup <- grepl("^metadata", names_vec) &
+    !grepl("-unnest$", names_vec) # unnest functions only parse in collect()
+  if(any(metadata_lookup)){
+    metadata_names <- names_vec[metadata_lookup]
+    metadata_results <- lapply(.data[metadata_lookup], collect)
+    names(metadata_results) <- metadata_names    
+  }else{
+    metadata_results <- NULL
+  }
+  metadata_results
 }
 
 # if calling `compute()` on an object extracted from `collapse()` 
@@ -76,39 +89,35 @@ compute.query_set <- function(.data){
 #' @export
 compute.query <- function(.data, inputs = NULL){
   # (most) "data/" functions require pre-processing of metadata
-  if(grepl("^data/", .data$type)){
-    if(.data$type != "data/media"){ # these steps have already been completed for `media`
-      if(pour("package", "run_checks")) {
+  if((grepl("^data/", .data$type) & .data$type != "data/media") |
+     .data$type %in% c("metadata/fields-unnest", "metadata/profiles-unnest") 
+  ){
+    if(pour("package", "run_checks")) {
       .data <- .data |>
         check_login() |>
         check_reason() |>
         check_identifiers() |>
         check_fields() |>
+        check_profiles() |>
         remove_metadata()
-      } else {
-        .data  
-      }
     }
-    switch(.data$type, 
-           "data/media" = compute_media(.data),
-           "data/occurrences" = compute_occurrences(.data),
-           "data/occurrences-count-groupby" = compute_occurrences_count(.data),
-           "data/occurrences-count" = compute_occurrences_count(.data),
-           "data/species-count" = compute_species_count(.data),
-           .data)
-  }else{
-    switch(.data$type,
-           # "-unnest" functions require some checks
-           "metadata/fields-unnest" = check_fields(.data),
-           "metadata/profiles-unnest" = compute_profile_values(.data),  # check this
-           # some "metadata/" functions require pagination under some circumstances
-           "metadata/collections" = compute_collections(.data),
-           # "metadata/datasets" = compute_datasets(.data),
-           "metadata/lists" = compute_lists(.data), # always paginates
-           # "metadata/providers" = compute_providers(.data),
-           .data # remaining "metadata/" functions are passed as-is
-           )
-  } 
+  }
+  switch(.data$type, 
+         "data/media" = compute_media(.data),
+         "data/occurrences" = compute_occurrences(.data),
+         "data/occurrences-count-groupby" = compute_occurrences_count(.data),
+         "data/occurrences-count" = compute_occurrences_count(.data),
+         "data/species-count" = compute_species_count(.data),
+         # "-unnest" functions require some checks
+         # "metadata/fields-unnest" = check_fields(.data),
+         "metadata/profiles-unnest" = compute_profile_values(.data),  # check this
+         # some "metadata/" functions require pagination under some circumstances
+         "metadata/collections" = compute_collections(.data),
+         # "metadata/datasets" = compute_datasets(.data),
+         "metadata/lists" = compute_lists(.data), # always paginates
+         # "metadata/providers" = compute_providers(.data),
+         .data # remaining "metadata/" functions are passed as-is
+  )
 }
 
 #' Internal function to pass metadata to `compute()` functions

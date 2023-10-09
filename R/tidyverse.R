@@ -39,13 +39,21 @@ unnest <- function(.data, error_call = caller_env()){
   if(!inherits(.data, "metadata_request")){
     abort("`galah::unnest` can only be used with objects of class `metadata_request`")
   }
+  if(!is.null(.data$filter)){
+    supplied_type <- .data$filter$variable[1]
+    if(supplied_type != "taxa"){
+      supplied_type <- paste0(supplied_type, "s")
+    }
+  }else{
+    supplied_type <- .data$type
+  }
   valid_types <- c("fields", "lists", "profiles", "taxa")
-  if(!(.data$type %in% valid_types)){
+  if(!(supplied_type %in% valid_types)){
     bullets <- c(
       "Invalid `type` supplied to `unnest`",
       i = "valid types are `fields`, `lists`, `profiles` or `taxa`")
     abort(bullets, call = error_call)
   }
-  .data$type <- paste(.data$type, "unnest", sep = "-")
+  .data$type <- paste0(supplied_type, "-unnest")
   .data
 }

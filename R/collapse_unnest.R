@@ -32,7 +32,7 @@ collapse_lists_unnest <- function(.data){
   result <- list(
     type = "metadata/lists-unnest",
     url = url_lookup("metadata/lists-unnest",
-                     list_id = .data$filter$selection[1]))
+                     list_id = .data$filter$value[1]))
   class(result) <- "query"
   return(result)
 }
@@ -44,7 +44,7 @@ collapse_profiles_unnest <- function(.data){
   result <- list(
     type = "metadata/profiles-unnest",
     url = url_lookup("metadata/profiles-unnest", 
-                     profile = .data$filter$selection[1]))
+                     profile = .data$filter$value[1]))
   class(result) <- "query"
   return(result)
 }
@@ -55,7 +55,7 @@ collapse_profiles_unnest <- function(.data){
 #' @noRd
 #' @keywords Internal
 collapse_taxa_unnest <- function(.data){
-  id <- as.character(.data$filter$selection) |>
+  id <- as.character(.data$filter$value) |>
     URLencode(reserved = TRUE)
   result <- list(type = .data$type,
                  url = url_lookup("metadata/taxa-unnest",

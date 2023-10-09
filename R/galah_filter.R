@@ -106,10 +106,11 @@ filter.metadata_request <- function(.data, ...){
   # In some circumstances, the `filter` argument can be used as a shorthand to `type`
   # adjust for these
   initial_type <- .data$type
-  if(.data$filter$variable == "taxa"){
+  filter_type <- .data$filter$variable
+  if(filter_type == "taxa"){
     .data$type <- "taxa"
   }else if(grepl("-unnest$", initial_type)){
-    .data$type <- paste0(type, "-unnest")
+    .data$type <- paste0(filter_type, "-unnest")
   }
   return(.data)
 }

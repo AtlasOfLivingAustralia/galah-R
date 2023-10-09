@@ -59,7 +59,15 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
 #' @rdname collect.query
 #' @export
 collapse.metadata_request <- function(.data){
-  result <- list(switch(.data$type,
+  if(pour("package", "run_checks")){
+    result <- switch(.data$type, 
+                     "fields-unnest" = list(collapse_fields()),
+                     "profiles-unnest" = list(collapse_profiles()),
+                     list())
+  }else{
+    result <- list()
+  }
+  result[[(length(result) + 1)]] <- switch(.data$type,
          "apis" = collapse_apis(),
          "assertions" = collapse_assertions(),
          "atlases" = collapse_atlases(),
@@ -78,7 +86,7 @@ collapse.metadata_request <- function(.data){
          "taxa" = collapse_taxa(.data),
          "taxa-unnest" = collapse_taxa_unnest(.data),
          "identifiers" = collapse_identifiers(.data),
-         abort("unrecognised 'type'"))
+         abort("unrecognised 'type'")
   )
   class(result) <- "query_set"
   result
