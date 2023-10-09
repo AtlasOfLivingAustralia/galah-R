@@ -77,7 +77,8 @@ collapse_occurrences_count_gbif <- function(identify = NULL,
                                             limit = 100
                                             ){
   # get relevant information
-  url <- url_lookup("records_counts") |> url_parse()
+  url <- url_lookup("data/occurrences-count") |> 
+    url_parse()
   query <- build_query(identify, filter)
   # add facets
   query$limit <- 0
@@ -88,12 +89,12 @@ collapse_occurrences_count_gbif <- function(identify = NULL,
     }else{
       query$groups <- list(fields = group_by$name,
                            limit = limit,
-                           expand = attr(group_by, "expand"))
+                           expand = TRUE)
     }
   }
   url$query <- query
   # aggregate and return
-  result <- list(type = "occurrences-count",
+  result <- list(type = "data/occurrences-count",
                  url = url_build(url), 
                  headers = build_headers(),
                  slot_name = "count")
