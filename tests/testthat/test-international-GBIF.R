@@ -116,7 +116,6 @@ test_that("search_all(fields) works for GBIF", {
   expect_true(inherits(result, c("tbl_df", "tbl", "data.frame")))
 })
 
-# vcr::use_cassette("IA_GBIF_show_values", {
 test_that("show_values works for GBIF fields", {
   skip_if_offline()
   search_fields("basisOfRecord") |>

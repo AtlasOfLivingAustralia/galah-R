@@ -117,7 +117,8 @@ search_all <- function(type, query){
       identify(query) |>
       collect()
   }else{
-    if(is_gbif()){
+    if(is_gbif() & 
+       type %in% c("collections", "datasets", "providers")){ # these support `q` arg in API
       request_metadata(type = type) |>
         filter(query == query) |>
         collect()
