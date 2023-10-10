@@ -76,7 +76,7 @@ parse_profile <- function(dot_names, error_call = caller_env()) {
           bullets <- c(
             "Invalid profile name.",
             i = "See `show_all(profiles)` for valid data profiles.",
-            x = glue("Can't find profile \"{query}\".")
+            x = glue("Can't find profile \"{dot_names}\".")
           )
           abort(bullets, call = error_call)
         } else {
