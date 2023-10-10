@@ -105,6 +105,7 @@ collect_datasets <- function(.data){
       flat_lists_only() |>
       bind_rows()
   }else{
+    result <- query_API(.data)
     result <- result |> 
       bind_rows()|> 
       relocate(uid) |>
@@ -226,7 +227,8 @@ collect_providers <- function(.data){
       flat_lists_only() |>
       bind_rows()
   }else{
-    result <- query_API(.data) |> 
+    result <- query_API(.data)
+    result <- result |> 
       bind_rows() |> 
       relocate(uid) |>
       rename(id = "uid")
@@ -234,27 +236,6 @@ collect_providers <- function(.data){
   attr(result, "call") <- "providers"
   attr(result, "region") <- pour("atlas", "region")
   result
-}
-
-collect_datasets <- function(.data){
-  if(is_gbif()){
-    result <- query_API(.data)
-    if(any(names(result) == "results")){ # happens when `filter()` not specified
-      # Note: This assumes only one API call; will need more potentially
-      result <- pluck(result, "results")
-    }
-    result <- result |>
-      flat_lists_only() |>
-      bind_rows()
-  }else{
-    result <- result |> 
-      bind_rows()|> 
-      relocate(uid) |>
-      rename(id = "uid")
-  }
-  attr(result, "call") <- "datasets"
-  attr(result, "region") <- pour("atlas", "region") 
-  result 
 }
 
 
