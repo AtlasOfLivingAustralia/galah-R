@@ -35,9 +35,9 @@ without_internet({
     expect_true(inherits(result, "query_set"))
     types <- unlist(lapply(result, function(a){a$type}))
     expect_equal(types,
-                 c("metadata/reasons",
+                 c("metadata/fields",
+                   "metadata/reasons",
                    "metadata/taxa-single",
-                   "metadata/fields",
                    "data/occurrences"))
   })
 })
@@ -51,14 +51,13 @@ test_that("`compute(type = 'occurrences')` works", {
   # collapse
   query_collapse <- collapse(base_query)
   expect_true(inherits(query_collapse, "query_set"))
-  expect_equal(length(query_collapse), 6)
+  expect_equal(length(query_collapse), 5)
   types <- unlist(lapply(query_collapse, function(a){a$type}))
   expect_equal(types,
                c("metadata/fields",
                  "metadata/assertions",
                  "metadata/reasons",
                  "metadata/taxa-single",
-                 "metadata/fields",
                  "data/occurrences"))
   # compute
   response <- compute(base_query)
@@ -128,7 +127,7 @@ test_that("atlas_occurrences accepts all narrowing functions in pipe", {
 #   galah_config(caching = FALSE)
 # })
 
-# FIXME: make this work
+
 test_that("atlas_occurrences does not download data from a DOI", {
   skip_if_offline()
   doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
@@ -139,9 +138,14 @@ test_that("`collapse()` and `collect()` work for `type = 'doi'`", {
   result <- request_data(type = "doi") |>
     filter(doi == "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060") |>
     collapse()
-  expect_equal(length(result), 4)
-  expect_equal(names(result), 
-               c("type", "url", "headers", "download"))
+  expect_equal(length(result), 3)
+  types <- unlist(lapply(result, function(a){a$type}))
+  expect_equal(types,
+               c("metadata/fields",
+                 "metadata/assertions",
+                 "doi"))
+  # expect_equal(names(result), 
+  #              c("type", "url", "headers", "download"))
   
   # result2 <- collect(x) # errors
   # presumably because this DOI is not available on `https://api.test.ala.org.au`
