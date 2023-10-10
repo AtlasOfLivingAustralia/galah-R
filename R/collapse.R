@@ -10,14 +10,18 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
     # add check here to see whether any filters are specified
     # it is possible to only call `identify()`, for example
     fields_absent <- lapply(
-      .data[c("arrange", "identify", "filter", "select", "group_by")],
+      .data[c("arrange", "filter", "select", "group_by")],
       is.null
     ) |>
       unlist()
     if (any(!fields_absent) | .data$type == "species-count") {
       result <- list(collapse_fields(), collapse_assertions())
     } else {
-      result <- list()
+      if(!is.null(.data$identify)){
+        result <- list(collapse_fields())
+      }else{
+        result <- list()
+      }
     }
     if (.data$type %in% c("occurrences", "media", "species") &
         atlas_supports_reasons_api()) {
