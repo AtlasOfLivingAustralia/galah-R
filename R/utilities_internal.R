@@ -33,7 +33,8 @@ wanted_columns <- function(type) {
                        "creator", "license",
                        "data_resource_uid",
                        "date_taken", "date_uploaded",
-                       "mime_type", "width", "height", "size_in_bytes",
+                       "mime_type", "mimetype",
+                       "width", "height", "size_in_bytes",
                        "image_url"
                      ),
            "layer" = c("id", "description", "source_link"),

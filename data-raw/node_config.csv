@@ -6,6 +6,7 @@ Australia,records,records_facets,data/occurrences-count-groupby,https://biocache
 Australia,doi,doi_download,data/occurrences-doi,https://api.ala.org.au/doi/api/doi/{doi_string}/download,doi_download,TRUE
 Australia,records,records_species,data/species,https://biocache-ws.ala.org.au/ws/occurrences/facets/download,atlas_species,TRUE
 Australia,records,records_species,data/species-count,https://biocache-ws.ala.org.au/ws/occurrences/facets,atlas_counts,TRUE
+Australia,images,image_download,files/media-original,https://api.ala.org.au/images/ws/image/{id}/original,atlas_media,TRUE
 Australia,records,records_assertions,metadata/assertions,https://biocache-ws.ala.org.au/ws/assertions/codes,show_all-assertions,TRUE
 Australia,collections,collections_collections,metadata/collections,https://api.ala.org.au/metadata/ws/collection,show_all-collections,TRUE
 Australia,collections,collections_datasets,metadata/datasets,https://api.ala.org.au/metadata/ws/dataResource,show_all-datasets,TRUE

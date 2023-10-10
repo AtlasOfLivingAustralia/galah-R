@@ -75,12 +75,11 @@ switch_slot_text <- function(x, a){
       if(ncol(x[[a]]) > 2){
         df <- x[[a]][, 1:3]
       }else{
-        if(nrow(x[[a]]) > 1){
-          df <- x[[a]][1, ]  
-        }else{
-          df <- x[[a]] 
-        }
-      } 
+        df <- x[[a]]
+      }
+      if(nrow(df) > 1){
+        df <- df[1, ]  
+      }
       glue_collapse(
         apply(df, 1, function(b){paste(b, collapse = " ")}),
         sep = " | ")
@@ -132,9 +131,10 @@ print.query <- function(x, ...){
     subtext <- ""
   }
   cat(c(
-    silver("Object of class "),
-    galah_pink("`query`"),
-    silver(glue(" with type `{galah_green(x$type)}`")),
+    silver("Object of class"),
+    galah_pink("query"),
+    silver("with type"),
+    galah_green(x$type),
     subtext, # note: need code for url tibbles
     arrange,
     slice))

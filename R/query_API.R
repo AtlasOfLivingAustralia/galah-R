@@ -24,7 +24,8 @@ query_API <- function(.data, error_call = caller_env()) {
           data_tr <- .data
           data_tr$url <- .data$url$url[[a]]
           if(any(names(.data$url) == "path")){ # for those that require downloads
-            data_tr$path <- .data$url$path[[a]]
+            data_tr$download <- TRUE
+            data_tr$file <- .data$url$path[[a]]
           }
           query_API_internal(data_tr)
         },

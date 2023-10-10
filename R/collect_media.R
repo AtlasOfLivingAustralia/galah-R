@@ -27,9 +27,15 @@ collect_media <- function(.data){
 
 #' Internal version of `collect()` for `request_files(type = "media")`
 #' @param object of class `files_response`, from `compute()`
+#' @importFrom dplyr group_by
+#' @importFrom dplyr count
 #' @noRd
 #' @keywords Internal
 collect_media_files <- function(.data){
-  
-  # not coded yet
+  result <- query_API(.data)
+  result_summary <- tibble(
+    status_code = unlist(lapply(result, function(a){a$status_code}))) |>
+    group_by(status_code) |>
+    count()
+  result_summary
 }

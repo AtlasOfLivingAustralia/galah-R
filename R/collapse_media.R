@@ -22,39 +22,55 @@ collapse_media <- function(.data){
 collapse_media_files <- function(.data, 
                                  thumbnail = FALSE
                                  ){
-  # ensure filter is supplied
+  # handle filters
   if(is.null(.data$filter)){
     abort("`collapse()` requires a `filter()` argument to function")
   }
-  # add checking to ensure correct columns are present in `filter`
+  df <- .data$filter
+  id <- build_media_id(df)
+  path <- build_file_path(ids = id, types = df$mimetype)
+  if(any(colnames(df) == "image_url")){
+    url <- df$image_url
+  }else{
+    url <- url_lookup("files/images", id = id)
+  }
+  result <- tibble(url = url, path = path)
   # handle thumbnails
   if(thumbnail){
-    urls <- gsub("/original$", "/thumbnail", .data$filter$image_url)
-  }else{
-    urls <- .data$filter$image_url
+    urls <- gsub("/original", "/thumbnail", urls)
   }
-  # construct data.frame
-  # NOTE: this intermediate step is needed because `tibble()` doesn't recognise
-  # use of `$` to search through a `list` by name
-  result_df <- data.frame(url = urls, 
-                          path = build_file_path(.data))
   # create result
   result <- list(
-    type = .data$type,
-    url = tibble(result_df),
+    type = "files/media",
+    url = result,
     headers = build_headers())
-  class(result) <- "data_query"
+  class(result) <- "query"
   return(result)
+}
+
+#' Internal function to get media metadata, and create a valid file name
+#' @noRd
+#' @keywords Internal
+build_media_id <- function(df){
+  # create a column that includes media identifiers, regardless of which column they are in
+  ## NOTE: I haven't found good tidyverse syntax for this yet
+  x <- rep(NA, nrow(df))
+  videos <- !is.na(df$videos)
+  if(any(videos)){x[videos] <- df$videos[videos]}
+  sounds <- !is.na(df$sounds)
+  if(any(sounds)){x[sounds] <- df$sounds[sounds]}
+  images <- !is.na(df$images)
+  if(any(images)){x[images] <- df$images[images]}
+  x
 }
 
 #' build file paths that include 1. path, 2. file name, 3. correct extension
 #' @importFrom glue glue
 #' @noRd
 #' @keywords Internal
-build_file_path <- function(.data){
+build_file_path <- function(ids, types){
   path <- pour("package", "directory", .pkg = "galah")
-  ids <- .data$filter$media_id
-  ext <- build_file_extension(.data$filter$mime_type)
+  ext <- build_file_extension(types)
   glue("{path}/{ids}.{ext}") |> as.character()
 }
 

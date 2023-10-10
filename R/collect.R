@@ -45,6 +45,7 @@ collect.query <- function(.data, wait = FALSE, file = NULL){
            "data/species"= collect_species(.data, file = file),
            "data/species-count" = collect_species_count(.data),
            "data/taxonomy" = collect_taxonomy(.data),
+           "files/media" = collect_media_files(.data),
            "metadata/apis" = collect_apis(.data),
            "metadata/assertions" = collect_assertions(.data),
            "metadata/atlases" = collect_atlases(.data),

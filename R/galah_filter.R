@@ -129,6 +129,8 @@ filter.metadata_request <- function(.data, ...){
 #' @export
 filter.files_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
-  .data$filter <- parse_quosures_files(dots)
+  dots_parsed <- parse_quosures_files(dots)
+  .data$type <- dots_parsed$variable
+  .data$filter <- dots_parsed$data
   .data
 }

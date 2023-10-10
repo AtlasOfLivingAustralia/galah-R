@@ -96,8 +96,10 @@ collapse.files_request <- function(.data,
                                    # prefix? could be useful for file names
                                    thumbnail = FALSE
                                    ){
-  switch(.data$type,
+  result <- list(switch(.data$type,
          # "distributions" = collapse_distribtions(.data),
          "media" = collapse_media_files(.data, thumbnail = thumbnail)
-  )
+  ))
+  class(result) <- "query_set"
+  result
 }

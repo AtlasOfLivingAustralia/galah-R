@@ -75,14 +75,19 @@ parse_quosures_files <- function(dots){
       abort("`filter.files_request` only accepts queries using `==`.")
     }
     variable_name <- as_string(dot_expr[[2]])
-    if(!(variable_name %in% c("url", "id"))){
-      abort("variable name must be one of `url` or `id`")
+    if(!(variable_name %in% c("media"))){
+      abort("Variable name must be a valid `type` accepted by `request_files()`.")
     }
-    result <- tibble(values = eval_tidy(dot_expr[[3]]))
-    names(result) <- as_string(dot_expr[[2]])
+    supplied <- eval_tidy(dot_expr[[3]])
+    if(!inherits(supplied, "data.frame")){
+      abort("rhs must be a `tibble` containing media information")
+    }
+    result <- list(
+      variable = variable_name,
+      data = supplied)
     result
   }else{
-    result <- list(data = NULL)
+    NULL
   }
 }
 
