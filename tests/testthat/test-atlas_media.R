@@ -1,15 +1,15 @@
-test_that("`collapse()` and `collect()` work for `type = 'media'`", {
+test_that("`collapse()` and `collect()` work for `type = 'media'`: tibble stage", {
   ## PART 1: request data
   galah_config(email = "ala4r@ala.org.au")
-  x <- request_data(type = "media") |>
+  media_collapse <- request_data(type = "media") |>
     filter(year == 2010, !is.na(images)) |>
     select(group = "media") |>  # c("basic", "media")) |>
     identify("Litoria peronii") |>
     collapse()
-  expect_true(inherits(x, "query_set"))
-  expect_equal(length(x), 6)
+  expect_true(inherits(media_collapse, "query_set"))
+  expect_equal(length(media_collapse), 6)
   expect_true(all(
-    unlist(lapply(x, function(a){a$type})) %in%
+    unlist(lapply(media_collapse, function(a){a$type})) %in%
       c("metadata/fields", 
         "metadata/assertions", 
         "metadata/reasons", 
@@ -18,40 +18,50 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
         "data/media")))
   skip_if_offline()
   # compute stage
-  y <- compute(x)
-  expect_true(inherits(y, "query"))
-  expect_equal(length(y), 5)
-  expect_equal(names(y), 
+  media_compute <- compute(x)
+  expect_true(inherits(media_compute, "query"))
+  expect_equal(length(media_compute), 5)
+  expect_equal(names(media_compute), 
                c("type", "url", "body", "headers", "data/occurrences"))
   # collect stage
-  z <- collect(y)
-  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
-  expect_gte(nrow(z), 1)
-  expect_gte(ncol(z), 6) # number of fields requested by `select()`
-  
+  media_collect <- collect(media_compute)
+  expect_s3_class(media_collect, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(nrow(media_collect), 1)
+  expect_gte(ncol(media_collect), 6) # number of fields requested by `select()`
+})
+
+test_that("collapse() and compute() work for `type = 'media'`: files stage", {
   ## PART 2: request values
+  media_records <- request_data(type = "media") |>
+    filter(year == 2010, !is.na(images)) |>
+    select(group = "media") |>  # c("basic", "media")) |>
+    identify("Litoria peronii") |>
+    collect() |>
+    slice_head(n = 3)
+  
   media_dir <- "test_media"
   unlink(media_dir, recursive = TRUE)
   dir.create(media_dir)
   galah_config(directory = media_dir)
-  a <- request_files(type = "media") |>
-    filter(media == slice_head(z, n = 3)) |>
+  files_collapse <- request_files(type = "media") |>
+    filter(media == slice_head(media_records, n = 3)) |>
     collapse()
-  expect_true(inherits(a, "query_set"))
-  expect_equal(length(a), 1)
+  expect_true(inherits(files_collapse, "query_set"))
+  expect_equal(length(files_collapse), 1)
   expect_true(all(
-    unlist(lapply(x, function(a){a$type})) %in%
-      c("files/data")))
+    unlist(lapply(files_collapse, function(a){a$type})) %in%
+      c("files/media")))
+  
   # compute extracts the query 
-  b <- compute(a)
-  expect_true(inherits(b, "query"))
-  expect_equal(length(b), 3)
-  expect_equal(names(b), c("type", "url", "headers"))
+  files_compute <- compute(files_collapse)
+  expect_true(inherits(files_compute, "query"))
+  expect_equal(length(files_compute), 3)
+  expect_equal(names(files_compute), c("type", "url", "headers"))
   # collect
-  d <- collect(b)
-  expect_s3_class(d, c("tbl_df", "tbl", "data.frame"))
-  expect_gte(nrow(d), 1)
-  expect_gte(ncol(d), 2)
+  files_collect <- collect(files_compute)
+  expect_s3_class(files_collect, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(nrow(files_collect), 1)
+  expect_gte(ncol(files_collect), 2)
   expect_equal(length(list.files(media_dir)), 3)
   unlink(media_dir, recursive = TRUE)
 })
