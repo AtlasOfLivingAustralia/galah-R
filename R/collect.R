@@ -38,7 +38,7 @@ collect.query <- function(.data, wait = FALSE, file = NULL){
     tibble()
   }else{
     switch(.data$type,
-           "data/media" = collect_media(.data),
+           "data/media" = collect_media_data(.data),
            "data/occurrences" = collect_occurrences(.data, wait = wait, file = file),
            "data/occurrences-count" = collect_occurrences_count(.data),
            "data/occurrences-count-groupby" = collect_occurrences_count(.data),

@@ -8,7 +8,7 @@
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-collect_media <- function(.data){
+collect_media_data <- function(.data){
   # query API
   result <- query_API(.data) |>
     pluck("results") |>
@@ -38,4 +38,33 @@ collect_media_files <- function(.data){
     group_by(status_code) |>
     count()
   result_summary
+}
+
+#' Collect media files
+#'
+#' This function downloads full-sized or thumbnail images and media files using 
+#' information from `atlas_media` to a local directory. 
+#'
+#' @param df tibble returned by `atlas_media()` or a pipe starting with 
+#' `request_data(type = "media")`
+#' @param thumbnail logical: should the download return thumbnails (TRUE) or 
+#' full size images (FALSE, the default)
+#' @return Available image & media files downloaded to a user local directory.
+#' @examples 
+#' \dontrun{
+#' # Use `atlas_media()` to return a `tibble` of records that contain media
+#' x <- galah_call() |> 
+#'   galah_identify("perameles") |>
+#'   galah_filter(year == 2015) |>
+#'   atlas_media()
+#' 
+#' # To download media files, add `collect_media()` to the end of a query 
+#' galah_config(directory = "media_files")
+#' collect_media(x)
+#' }
+#' @export
+collect_media <- function(df, thumbnail = FALSE){
+  request_files() |>
+    filter(media == df) |>
+    collect()
 }
