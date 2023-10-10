@@ -167,7 +167,7 @@ Spain,name-matching,names_search_multiple,metadata/taxa-multiple,https://name-ma
 Spain,name-matching,names_search_single,metadata/taxa-single,https://name-matching.gbif.es/api/search?q={name},search_taxa,TRUE
 Spain,species,species_children,metadata/taxa-unnest,https://especies-ws.gbif.es/childConcepts/{id},atlas_taxonomy,TRUE
 Spain,records,records_query,,https://registros-ws.gbif.es/webportal/params,atlas_occurrences,TRUE
-Sweden,images,image_metadata,data/media,https://images.biodiversitydata.se/image/,media_metadata,FALSE
+Sweden,images,image_metadata,data/media,https://images.biodiversitydata.se/ws/getImageInfoForIdList,atlas_media,FALSE
 Sweden,records,records_occurrences,data/occurrences,https://records.biodiversitydata.se/ws/occurrences/offline/download,atlas_occurrences,TRUE
 Sweden,records,records_counts,data/occurrences-count,https://records.biodiversitydata.se/ws/occurrences/search,atlas_counts,TRUE
 Sweden,records,records_facets,data/occurrences-count-groupby,https://records.biodiversitydata.se/ws/occurrence/facets,atlas_counts,TRUE
@@ -184,7 +184,7 @@ Sweden,logger,logger_reasons,metadata/reasons,https://logger.biodiversitydata.se
 Sweden,species,names_search_single,metadata/taxa-single,https://species.biodiversitydata.se/ws/search?q={name}&pageSize=5,search_taxa,TRUE
 Sweden,species,species_children,metadata/taxa-unnest,https://species.biodiversitydata.se/ws/childConcepts/{id},atlas_taxonomy,TRUE
 Sweden,records,records_query,,https://records.biodiversitydata.se/ws/webportal/params,atlas_occurrences,TRUE
-United Kingdom,images,image_metadata,data/media,https://images.nbnatlas.org/image/,media_metadata,FALSE
+United Kingdom,images,image_metadata,data/media,https://images.nbnatlas.org/ws/getImageInfoForIdList,atlas_media,FALSE
 United Kingdom,records,records_occurrences,data/occurrences,https://records-ws.nbnatlas.org/occurrences/index/download,atlas_occurrences,TRUE
 United Kingdom,records,records_counts,data/occurrences-count,https://records-ws.nbnatlas.org/occurrences/search,atlas_counts,TRUE
 United Kingdom,records,records_facets,data/occurrences-count-groupby,https://records-ws.nbnatlas.org/occurrence/facets,atlas_counts,TRUE
