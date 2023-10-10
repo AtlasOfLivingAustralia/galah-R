@@ -75,7 +75,11 @@ switch_slot_text <- function(x, a){
       if(ncol(x[[a]]) > 2){
         df <- x[[a]][, 1:3]
       }else{
-        df <- x[[a]]
+        if(nrow(x[[a]]) > 1){
+          df <- x[[a]][1, ]  
+        }else{
+          df <- x[[a]] 
+        }
       } 
       glue_collapse(
         apply(df, 1, function(b){paste(b, collapse = " ")}),

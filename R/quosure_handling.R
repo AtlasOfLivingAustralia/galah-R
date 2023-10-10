@@ -1,8 +1,6 @@
 # Internal code to parse `...` info passed to `filter.data_request()`
 # Note that the approach used below is taken from advanced R:
 # https://adv-r.hadley.nz/expressions.html
-# It is adapted from code written in `potions`:
-# https://www.github.com/atlasOfLivingAustralia/potions
 
 #' parse_quosures
 #' @noRd
@@ -65,6 +63,28 @@ parse_quosures_basic <- function(dots){
   } 
 }
 
+#' parse quosures, but for `filter.files_request()` where we expect large amounts
+#' of data to be supplied
+#' @noRd
+#' @keywords internal
+parse_quosures_files <- function(dots){
+  if(length(dots) > 0){
+    check_named_input(dots)
+    dot_expr <- quo_get_expr(dots[[1]])
+    if(as_string(dot_expr[[1]]) != "=="){
+      abort("`filter.files_request` only accepts queries using `==`.")
+    }
+    variable_name <- as_string(dot_expr[[2]])
+    if(!(variable_name %in% c("url", "id"))){
+      abort("variable name must be one of `url` or `id`")
+    }
+    result <- tibble(values = eval_tidy(dot_expr[[3]]))
+    names(result) <- as_string(dot_expr[[2]])
+    result
+  }else{
+    result <- list(data = NULL)
+  }
+}
 
 #' Switch functions for quosures
 #' @param x A (single) quosure

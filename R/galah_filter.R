@@ -112,7 +112,7 @@ filter.metadata_request <- function(.data, ...){
   }else if(grepl("-unnest$", initial_type)){
     .data$type <- paste0(filter_type, "-unnest")
   }
-  return(.data)
+  .data
 }
 # Note: the intended purpose of this function is to pass `filter()`
 # within the API call in the same was as `filter.data_request()`. 
@@ -129,11 +129,6 @@ filter.metadata_request <- function(.data, ...){
 #' @export
 filter.files_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
-  .data$filter <- parse_quosures(dots)$data  # see `quosure_handling.R`
-  return(.data)
+  .data$filter <- parse_quosures_files(dots)
+  .data
 }
-# This function is intended to provide a way to specify which data 
-# are downloaded, which is somewhat more involved than with `filter.data_request`
-# `quosure_handling.R` has an exception coded to support
-# media filenames being passed to `filter()`; this would be better 
-# handled here.
