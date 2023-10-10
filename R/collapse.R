@@ -5,8 +5,16 @@
 #' @export
 collapse.data_request <- function(.data, mint_doi = FALSE){
   # .data$type <- check_type(.data$type) # needed?
+  # handle sending dois via `filter()`
+  # important this happens first, as it affects `type` which affects later code
+  variables <- .data$filter$variable
+  if(!is.null(variables)){
+    if(length(variables) == 1 & variables[1] == "doi"){
+      .data$type <- "occurrences-doi"
+    }
+  }
   # handle `run_checks`
-  if (pour("package", "run_checks")) {
+  if (pour("package", "run_checks") & .data$type != "occurrences-doi") {
     # add check here to see whether any filters are specified
     # it is possible to only call `identify()`, for example
     fields_absent <- lapply(
@@ -31,9 +39,10 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
     result <- list()
   }
   # handle `identify()`
-  if(!is.null(.data$identify)){
+  if(!is.null(.data$identify) & .data$type != "occurrences-doi"){
     result[[(length(result) + 1)]] <- collapse_taxa(list(identify = .data$identify))
   }
+  # handle media
   if(.data$type == "media"){
     # occurrences are a pre-condition to media
     result[[(length(result) + 1)]] <- collapse_occurrences(.data, mint_doi = mint_doi)
@@ -41,10 +50,10 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
   # handle query
   result[[(length(result) + 1)]] <- switch(
     .data$type,
-    "occurrences-doi" = collapse_occurrences_doi(.data),
     "media" = collapse_media(.data),
     "occurrences" = collapse_occurrences(.data, mint_doi = mint_doi),
     "occurrences-count" = collapse_occurrences_count(.data),
+    "occurrences-doi" = collapse_occurrences_doi(.data),
     "species" = collapse_species(.data),
     "species-count" = collapse_species_count(.data),
     abort("unrecognised 'type'"))

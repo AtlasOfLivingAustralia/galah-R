@@ -135,15 +135,14 @@ test_that("atlas_occurrences does not download data from a DOI", {
 })
 
 test_that("`collapse()` and `collect()` work for `type = 'doi'`", {
-  result <- request_data(type = "doi") |>
+  result <- request_data() |>
     filter(doi == "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060") |>
     collapse()
-  expect_equal(length(result), 3)
+  expect_equal(length(result), 1)
   types <- unlist(lapply(result, function(a){a$type}))
-  expect_equal(types,
-               c("metadata/fields",
-                 "metadata/assertions",
-                 "doi"))
+  expect_equal(types, "data/occurrences-doi")
+  
+  result2 <- collect(result)
   # expect_equal(names(result), 
   #              c("type", "url", "headers", "download"))
   
