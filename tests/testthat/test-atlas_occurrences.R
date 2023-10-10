@@ -74,7 +74,6 @@ test_that("`compute(type = 'occurrences')` works", {
                  "search_url"))  
 })
 
-
 # test all filters and type of columns in one call
 test_that("atlas_occurrences accepts all narrowing functions inline", { 
   skip_if_offline()
@@ -129,8 +128,23 @@ test_that("atlas_occurrences accepts all narrowing functions in pipe", {
 #   galah_config(caching = FALSE)
 # })
 
+# FIXME: make this work
 test_that("atlas_occurrences does not download data from a DOI", {
   skip_if_offline()
   doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
   expect_error(atlas_occurrences(doi = doi))
+})
+
+test_that("`collapse()` and `collect()` work for `type = 'doi'`", {
+  result <- request_data(type = "doi") |>
+    filter(doi == "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060") |>
+    collapse()
+  expect_equal(length(result), 4)
+  expect_equal(names(result), 
+               c("type", "url", "headers", "download"))
+  
+  # result2 <- collect(x) # errors
+  # presumably because this DOI is not available on `https://api.test.ala.org.au`
+  # currently unclear, therefore, whether `collect_doi()` works at all
+  # what _is_ clear is that it doesn't error nicely!
 })

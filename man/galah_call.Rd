@@ -5,7 +5,6 @@
 \alias{request_data}
 \alias{request_metadata}
 \alias{request_files}
-\alias{request_values}
 \alias{print.data_request}
 \alias{print.files_request}
 \alias{print.metadata_request}
@@ -22,17 +21,9 @@ request_data(
   ...
 )
 
-request_metadata(
-  type = c("fields", "apis", "assertions", "atlases", "collections", "datasets",
-    "licences", "lists", "profiles", "providers", "ranks", "reasons", "taxa",
-    "identifiers")
-)
+request_metadata(type)
 
-request_files(type = c("distributions", "media"))
-
-request_values(
-  type = c("collections", "datasets", "fields", "lists", "profiles", "providers", "taxa")
-)
+request_files(type = c("media"))
 
 \method{print}{data_request}(x, ...)
 

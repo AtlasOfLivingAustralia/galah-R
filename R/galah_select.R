@@ -126,7 +126,7 @@ parse_select <- function(dot_names, group){
         individual_cols <- dot_names
       }
     }else{ # i.e. length(dot_names) == 0
-      if(length(group) == 1 && all(group == "assertions")){
+      if(length(group) == 1 & !any(group == "basic")){
         individual_cols <- "recordID"
       }else{
         individual_cols <- NULL
@@ -135,7 +135,11 @@ parse_select <- function(dot_names, group){
   }
   
   # create output object
-  result <- tibble(name = unique(c(group_cols, individual_cols)))
+  # NOTE: placing `recordID` first is critical;
+  # having e.g. media columns _before_ `recordID` causes the download to fail 
+  values <- unique(c(group_cols, individual_cols))
+  values <- c("recordID", values[values != "recordID"])
+  result <- tibble(name = values)
   result$type <- "field"
   # result$type[result$name %in% show_all("assertions")$id] <- "assertion" 
   ## above line commented out as it breaks our rule about pinging an API before

@@ -164,28 +164,12 @@ request_metadata <- function(type){
 #' @rdname galah_call
 #' @export
 request_files <- function(
-    type = c("distributions",
+    type = c(#"distributions",
              "media"
     ) 
     # note: option to add `...` here for consistency with `request_data()`
 ){
   x <- list(type = match.arg(type))
   class(x) <- "files_request"
-  return(x)
-}
-
-#' @rdname galah_call
-#' @export
-request_values <- function(
-    type = c("collections",
-             "datasets",
-             "fields",
-             "lists",
-             "profiles",
-             "providers",
-             "taxa")
-){
-  x <- list(type = type)
-  class(x) <- "values_request"
   return(x)
 }

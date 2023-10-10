@@ -10,23 +10,18 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
     # add check here to see whether any filters are specified
     # it is possible to only call `identify()`, for example
     fields_absent <- lapply(
-      .data[c("arrange", "filter", "select", "group_by")],
+      .data[c("arrange", "identify", "filter", "select", "group_by")],
       is.null
     ) |>
       unlist()
-    if (any(!fields_absent)) {
+    if (any(!fields_absent) | .data$type == "species-count") {
       result <- list(collapse_fields(), collapse_assertions())
     } else {
       result <- list()
     }
-
-    if (.data$type %in% c("occurrences", "media", "species")) {
-      if (!is_gbif() & atlas_supports_reasons_api()) {
-        result[[(length(result) + 1)]] <- collapse_reasons()
-      }
-    }
-    if (.data$type %in% c("species-count")) {
-      result <- list(collapse_fields()) # `compute()` checks field `speciesID`
+    if (.data$type %in% c("occurrences", "media", "species") &
+        atlas_supports_reasons_api()) {
+      result[[(length(result) + 1)]] <- collapse_reasons()
     }
   } else {
     result <- list()
@@ -34,9 +29,6 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
   # handle `identify()`
   if(!is.null(.data$identify)){
     result[[(length(result) + 1)]] <- collapse_taxa(list(identify = .data$identify))
-    if(pour("package", "run_checks")){
-      result[[(length(result) + 1)]] <- collapse_fields() # `compute()` checks field `lsid`
-    }
   }
   if(.data$type == "media"){
     # occurrences are a pre-condition to media
@@ -101,7 +93,7 @@ collapse.files_request <- function(.data,
                                    thumbnail = FALSE
                                    ){
   switch(.data$type,
-         "distributions" = collapse_distribtions(.data),
+         # "distributions" = collapse_distribtions(.data),
          "media" = collapse_media_files(.data, thumbnail = thumbnail)
   )
 }

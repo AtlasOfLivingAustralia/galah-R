@@ -18,11 +18,11 @@
 \usage{
 show_all(..., limit = NULL)
 
+show_all_apis(limit = NULL)
+
 show_all_assertions(limit = NULL)
 
 show_all_atlases(limit = NULL)
-
-show_all_apis(limit = NULL)
 
 show_all_collections(limit = NULL)
 
