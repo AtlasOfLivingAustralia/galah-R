@@ -42,6 +42,7 @@ collect.query <- function(.data, wait = FALSE, file = NULL){
            "data/occurrences" = collect_occurrences(.data, wait = wait, file = file),
            "data/occurrences-count" = collect_occurrences_count(.data),
            "data/occurrences-count-groupby" = collect_occurrences_count(.data),
+           "data/occurrences-doi" = collect_occurrences_doi(.data),
            "data/species"= collect_species(.data, file = file),
            "data/species-count" = collect_species_count(.data),
            "data/taxonomy" = collect_taxonomy(.data),

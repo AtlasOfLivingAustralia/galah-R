@@ -16,7 +16,7 @@
 galah_call(method = c("data", "metadata", "files"), type, ...)
 
 request_data(
-  type = c("occurrences", "occurrences-count", "doi", "media", "species",
+  type = c("occurrences", "occurrences-count", "occurrences-doi", "media", "species",
     "species-count"),
   ...
 )

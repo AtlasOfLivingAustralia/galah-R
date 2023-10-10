@@ -41,7 +41,7 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
   # handle query
   result[[(length(result) + 1)]] <- switch(
     .data$type,
-    "doi" = collapse_doi(.data),
+    "occurrences-doi" = collapse_occurrences_doi(.data),
     "media" = collapse_media(.data),
     "occurrences" = collapse_occurrences(.data, mint_doi = mint_doi),
     "occurrences-count" = collapse_occurrences_count(.data),

@@ -98,7 +98,7 @@ galah_call <- function(method = c("data", "metadata", "files"),
 #' @export
 request_data <- function(type = c("occurrences", 
                                   "occurrences-count",
-                                  "doi",
+                                  "occurrences-doi",
                                   "media",
                                   "species",
                                   "species-count"
