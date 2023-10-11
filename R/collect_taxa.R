@@ -6,19 +6,11 @@
 #' @noRd
 #' @keywords Internal
 collect_taxa <- function(.data){
-  browser()
-  if (any(.data$url$search_term %in% c("occurrences", "occurrences-count", 
-                                       "species-count"))) {
-    bullets <- c(
-      "Can't pipe `search_taxa()` in a `galah_call()`.",
-      i = "Did you mean to use `galah_identify()`?"
-    )
-    abort(bullets, call = caller_env())
-  }
   
   switch(pour("atlas", "region"),
          "Australia" = collect_taxa_australia(.data),
          collect_taxa_la(.data)) # tested for Austria, UK
+  
 }
 
 #' Internal function to `collect()` taxa for Atlas of Living Australia

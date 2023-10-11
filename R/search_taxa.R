@@ -53,7 +53,27 @@
 #' @importFrom utils adist 
 #' @export
 search_taxa <- function(...){
+  check_if_in_pipe(...)
+  
   request_metadata() |>
     identify(...) |>
     collect()
 }
+
+
+#' Internal function to check if `search_taxa()` has been piped in a 
+#' `galah_call()` instead of `galah_identify()`
+#' @noRd
+#' @keywords Internal
+check_if_in_pipe <- function(..., error_call = caller_env()) {
+  dots <- list(...)
+  col_type_present <- grepl("type", names(unlist(dots)))
+  if (any(col_type_present)) {
+    bullets <- c(
+      "Can't pipe `search_taxa()` in a `galah_call()`.",
+      i = "Did you mean to use `galah_identify()`?"
+    )
+    abort(bullets, call = error_call)
+  }
+}
+
