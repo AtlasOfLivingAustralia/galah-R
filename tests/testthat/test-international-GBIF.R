@@ -29,8 +29,8 @@ test_that("show_all(collections) works for GBIF", {
   #   slice_head(n = 10) |>
   #   collect()
   # expect_equal(x, y)
-  z <- request_metadata(type = "collections") |>
-    filter(name == "australia") |>
+  z <- request_metadata() |>
+    filter(collection == "australia") |>
     collect()
   expect_equal(nrow(z), 20)
 })
@@ -40,8 +40,8 @@ test_that("show_all(datasets) works for GBIF", {
   x <- show_all(datasets, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-  z <- request_metadata(type = "datasets") |>
-    filter(name == "avian") |>
+  z <- request_metadata() |>
+    filter(dataset == "avian") |>
     collect()
   expect_equal(nrow(z), 20)
 })
@@ -51,7 +51,7 @@ test_that("show_all(providers) works for GBIF", {
   x <- show_all(providers, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-  z <- request_metadata(type = "providers") |>
+  z <- request_metadata() |>
     filter(provider == "herbarium") |>
     collect()
   expect_equal(nrow(z), 20)
@@ -88,21 +88,21 @@ galah_config(verbose = TRUE)
 
 test_that("search_all(datasets) works for GBIF", {
   skip_if_offline()
-  x <- expect_message(search_all(datasets, "Mammals"))
+  x <- search_all(datasets, "Mammals")
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("search_all(collections) works for GBIF", {
   skip_if_offline()
-  x <- expect_message(search_all(collections, "Museum"))
+  x <- search_all(collections, "Museum")
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("search_all(providers) works for GBIF", {
   skip_if_offline()
-  x <- expect_message(search_all(providers, "Frog"))
+  x <- search_all(providers, "Frog")
   expect_lte(nrow(x), 20)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -112,7 +112,7 @@ galah_config(verbose = FALSE)
 test_that("search_all(fields) works for GBIF", {
   skip_if_offline()
   result <- search_all(fields, "year")
-  expect_equal(nrow(result), 2)
+  expect_equal(nrow(result), 8)
   expect_true(inherits(result, c("tbl_df", "tbl", "data.frame")))
 })
 

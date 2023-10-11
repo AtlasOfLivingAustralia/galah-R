@@ -71,7 +71,9 @@ parse_quosures_files <- function(dots){
   if(length(dots) > 0){
     check_named_input(dots)
     dot_expr <- quo_get_expr(dots[[1]])
-    variable <- as_string(dot_expr[[2]])
+    lhs <- switch(expr_type(dot_expr[[2]]), 
+                  "literal" = as_string(quo_get_expr(dot_expr[[2]])), # when {{}} is used
+                  as_string(dot_expr[[2]]))
     x <- new_quosure(dot_expr[[3]], env = quo_get_env(dots[[1]]))
     rhs <- switch(expr_type(x),
            "call" = {eval_tidy(x)},
@@ -85,12 +87,12 @@ parse_quosures_files <- function(dots){
            abort("Quosure type not recognised."))
     if(!inherits(rhs, "data.frame")){
       rhs <- tibble(
-        variable = variable,
+        variable = lhs,
         logical = "==",
         value = rhs)
     }
     list(
-      variable = variable,
+      variable = lhs,
       data = rhs)
   }else{
     NULL

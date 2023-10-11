@@ -111,6 +111,8 @@ filter.metadata_request <- function(.data, ...){
     .data$type <- filter_type
   }else if(grepl("-unnest$", initial_type)){
     .data$type <- paste0(filter_type, "-unnest")
+  }else if(grepl("s$", filter_type)){
+    .data$type <- filter_type
   }else{
     .data$type <- paste0(filter_type, "s")
   }
