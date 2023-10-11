@@ -6,6 +6,16 @@
 #' @noRd
 #' @keywords Internal
 collect_taxa <- function(.data){
+  browser()
+  if (any(.data$url$search_term %in% c("occurrences", "occurrences-count", 
+                                       "species-count"))) {
+    bullets <- c(
+      "Can't pipe `search_taxa()` in a `galah_call()`.",
+      i = "Did you mean to use `galah_identify()`?"
+    )
+    abort(bullets, call = caller_env())
+  }
+  
   switch(pour("atlas", "region"),
          "Australia" = collect_taxa_australia(.data),
          collect_taxa_la(.data)) # tested for Austria, UK
@@ -24,7 +34,19 @@ collect_taxa_australia <- function(.data){
     result <- filter(result, !duplicated(taxonConceptID))
   }
   result <- result |>   
-    mutate("search_term" = search_terms, .before = "success")
+    mutate("search_term" = search_terms, .before = "success",
+           issues = unlist(issues))
+  
+  # Check for homonyms
+  if(any(colnames(result) == "issues")){
+    check_homonyms(result)
+  }
+  
+  # Check for invalid search terms
+  if (galah_config()$package$verbose) {
+    check_search_terms(result)
+  }
+  
   names(result) <- rename_columns(names(result), type = "taxa") # old code
   result |> select(any_of(wanted_columns("taxa")))
 }
@@ -102,4 +124,39 @@ collect_identifiers <- function(.data){
   attr(result, "call") <- "identifiers"
   attr(result, "region") <- pour("atlas", "region") 
   result
+}
+
+#' Internal function to check search terms provided to `search_taxa()`
+#' @importFrom glue glue_collapse
+#' @noRd
+#' @keywords Internal
+check_search_terms <- function(result, atlas) {
+  if (!all(result$success)) {
+    atlas <- pour("atlas", "region")
+    invalid_taxa <- result[!result$success,]$search_term
+    list_invalid_taxa <- glue::glue_collapse(invalid_taxa, 
+                                             sep = ", ")
+    inform(glue("No taxon matches were found for \"{list_invalid_taxa}\" in \\
+                the selected atlas ({atlas})."))
+  }
+}
+
+#' Internal function to check for homonyms in search term provided to 
+#' `search_taxa()`
+#' @importFrom glue glue_collapse
+#' @noRd
+#' @keywords Internal
+check_homonyms <- function(result) {
+  if ("homonym" %in% result$issues) {
+  homonym_taxa <- result[result$issues %in% "homonym",]$search_term
+  list_homonym_taxa <- glue::glue_collapse(homonym_taxa, 
+                                           sep = ", ")
+  bullets <- c(
+    "Search returned multiple taxa due to a homonym issue.",
+    i = "Please provide another rank in your search to clarify taxa.",
+    i = "Use a `tibble` to clarify taxa, see `?search_taxa`.", 
+    x = glue("Homonym issue with \"{list_homonym_taxa}\".")
+  )
+  warn(bullets)
+  }
 }
