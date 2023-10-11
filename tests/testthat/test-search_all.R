@@ -1,6 +1,6 @@
 test_that("search_all checks inputs, returns helpful error", {
   skip_on_cran()
-  expect_error(search_all(attributes, ""), "is not recognised")
+  expect_error(search_all(attributes, ""), "Unrecognised metadata requested")
 })
 
 test_that("search_all returns correct output for type", {
@@ -15,17 +15,17 @@ test_that("search_all returns correct output for type", {
   expect_equivalent(fields, search_fields("year"))
   expect_equivalent(reasons, search_reasons("genus"))
   expect_equivalent(profiles, search_profiles("ala"))
-  expect_equal(attributes(fields)$call, "search_fields")
-  expect_equal(attributes(reasons)$call, "search_reasons")
-  expect_equal(attributes(profiles)$call, "search_profiles")
-  expect_equal(ncol(fields), 4)
+  expect_equal(attributes(fields)$call, "fields")
+  expect_equal(attributes(reasons)$call, "reasons")
+  expect_equal(attributes(profiles)$call, "profiles")
+  expect_equal(ncol(fields), 3)
   expect_equal(ncol(reasons), 2)
   expect_equal(ncol(profiles), 4)
 })
 
 test_that("search_all returns error when missing query", {
   skip_on_cran()
-  expect_error(search_all(profiles), "didn't detect a valid query")
+  expect_error(search_all(profiles), "We didn't detect a search query")
   expect_error(search_all(fields, blah))
 })
 
@@ -38,7 +38,7 @@ test_that("search_assertions returns a filtered result", {
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "search_assertions")
+  expect_equal(attributes(search)$call, "assertions")
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
 })
@@ -51,7 +51,7 @@ test_that("search_apis returns a filtered result", {
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "search_apis")
+  expect_equal(attributes(search)$call, "apis")
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
 })
@@ -64,7 +64,7 @@ test_that("search_atlases returns a filtered result", {
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "search_atlases")
+  expect_equal(attributes(search)$call, "atlases")
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
 })
@@ -77,7 +77,7 @@ test_that("search_collections returns a filtered result", {
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "search_collections")
+  expect_equal(attributes(search)$call, "collections")
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
 })
@@ -90,7 +90,7 @@ test_that("search_datasets returns a filtered result", {
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "search_datasets")
+  expect_equal(attributes(search)$call, "datasets")
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
 })
@@ -103,7 +103,7 @@ test_that("search_providers returns a filtered result", {
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "search_providers")
+  expect_equal(attributes(search)$call, "providers")
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
 })
@@ -117,14 +117,14 @@ test_that("search_fields returns a filtered result", {
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "search_fields")
+  expect_equal(attributes(search)$call, "fields")
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
 })
 
 test_that("search_fields helpful warning with blank argument", {
   skip_on_cran()
-  expect_warning(search_fields(), "didn't detect a field")
+  expect_error(search_fields(), "We didn't detect a search query.")
 })
 
 
@@ -136,7 +136,7 @@ test_that("search_licenses returns a filtered result", {
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "search_licences")
+  expect_equal(attributes(search)$call, "licences")
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
 })
@@ -149,7 +149,7 @@ test_that("search_reasons returns a filtered result", {
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "search_reasons")
+  expect_equal(attributes(search)$call, "reasons")
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
 })
@@ -162,7 +162,7 @@ test_that("search_ranks returns a filtered result", {
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "search_ranks")
+  expect_equal(attributes(search)$call, "ranks")
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
 })
@@ -176,7 +176,7 @@ test_that("search_profiles returns a filtered result", {
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "search_profiles")
+  expect_equal(attributes(search)$call, "profiles")
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
 })
@@ -189,7 +189,7 @@ test_that("search_lists returns a filtered result", {
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))
-  expect_equal(attributes(search)$call, "search_lists")
+  expect_equal(attributes(search)$call, "lists")
   expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
   expect_true(search_result_check)
 })
