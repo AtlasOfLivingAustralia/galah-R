@@ -4,15 +4,19 @@
 check_queue <- function(.data, wait = FALSE){
   # process supplied object
   if(.data$status == "incomplete"){
-    download_response <- check_occurrence_status(.data)
+    download_response <- c(list(type = .data$type),
+                           check_occurrence_status(.data))
+    class(download_response) <- "query"
     if(wait){
       if(is_gbif()){
-        abort("Not coded yet lol")
+        abort("Not coded yet lol") # FIXME
       }else{
-        download_response <- check_queue_LA(.data)
+        download_response <- c(list(type = .data$type),
+                               check_queue_LA(.data))
+        class(download_response) <- "query"
+        download_response
       }
     }else{
-      class(download_response) <- "data_response"
       download_response
     }
   }else{

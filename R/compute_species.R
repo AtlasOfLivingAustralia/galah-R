@@ -5,7 +5,7 @@ compute_species <- function(.data){
   if(is_gbif()){
     compute_occurrences(.data)
   }else{
-    class(.data) <- "data_response"
+    class(.data) <- "query"
     return(.data)
   }
 }

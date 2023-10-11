@@ -10,7 +10,6 @@ without_internet({
   })
 })
 
-
 test_that("atlas_occurrences doesn't allow large downloads", {
   galah_config(atlas = "Australia")
   expect_error(atlas_occurrences())
@@ -70,7 +69,7 @@ test_that("`compute(type = 'occurrences')` works", {
                  "queue_size",
                  "status_url",
                  "cancel_url",
-                 "search_url"))  
+                 "search_url"))
 })
 
 # test all filters and type of columns in one call
@@ -81,15 +80,28 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
                      "dataResourceName", "occurrenceStatus", "stateProvince", 
                      "ZERO_COORDINATE")
   poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
-  occ <- galah_call(type = "occurrences") |>
+  base_query <- galah_call(type = "occurrences") |>
     identify("Polytelis swainsonii") |>
-    filter(year >= 2018) |>
+    filter(year == 2018) |>
     select(group = "basic", stateProvince, ZERO_COORDINATE) |>
-    galah_geolocate(poly) |>
-    collect(wait = TRUE)    
-  expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
-  expect_setequal(names(occ), expected_cols)
-  expect_equal(unique(occ$stateProvince), "New South Wales")
+    st_crop(poly) 
+  # collect with wait = FALSE - ensure `type` is specified
+  x <- compute(base_query) |> 
+    collect(wait = FALSE)
+  expect_equal(names(x),
+               c("type",
+                 "status",
+                 "total_records",
+                 "queue_size",
+                 "status_url",
+                 "cancel_url",
+                 "search_url"))
+  expect_s3_class(x, "query")
+  # collect with wait = TRUE
+  y <- collect(x, wait = TRUE)    
+  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_setequal(names(y), expected_cols)
+  expect_equal(unique(y$stateProvince), "New South Wales")
 })
 
 # repeat above using `galah_` functions
