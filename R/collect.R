@@ -38,7 +38,6 @@ collect.query <- function(.data, wait = FALSE, file = NULL){
     tibble()
   }else{
     switch(.data$type,
-           "data/media" = collect_media_data(.data),
            "data/occurrences" = collect_occurrences(.data, wait = wait, file = file),
            "data/occurrences-count" = collect_occurrences_count(.data),
            "data/occurrences-count-groupby" = collect_occurrences_count(.data),
@@ -57,6 +56,7 @@ collect.query <- function(.data, wait = FALSE, file = NULL){
            "metadata/licences" = collect_licences(.data),
            "metadata/lists" = collect_lists(.data),
            "metadata/lists-unnest" = collect_lists_unnest(.data),
+           "metadata/media" = collect_media_metadata(.data),
            "metadata/profiles" = collect_profiles(.data),
            "metadata/profiles-unnest" = collect_profiles_unnest(.data),
            "metadata/providers" = collect_providers(.data),

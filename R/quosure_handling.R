@@ -71,21 +71,27 @@ parse_quosures_files <- function(dots){
   if(length(dots) > 0){
     check_named_input(dots)
     dot_expr <- quo_get_expr(dots[[1]])
-    if(as_string(dot_expr[[1]]) != "=="){
-      abort("`filter.files_request` only accepts queries using `==`.")
+    variable <- as_string(dot_expr[[2]])
+    x <- new_quosure(dot_expr[[3]], env = quo_get_env(dots[[1]]))
+    rhs <- switch(expr_type(x),
+           "call" = {eval_tidy(x)},
+           "symbol" = {if(exists(quo_get_expr(x), 
+                                 where = quo_get_env(x))){
+             eval_tidy(x)
+           }else{
+             as_label(x)
+           }},
+           "literal" = {quo_get_expr(x)},
+           abort("Quosure type not recognised."))
+    if(!inherits(rhs, "data.frame")){
+      rhs <- tibble(
+        variable = variable,
+        logical = "==",
+        value = rhs)
     }
-    variable_name <- as_string(dot_expr[[2]])
-    if(!(variable_name %in% c("media"))){
-      abort("Variable name must be a valid `type` accepted by `request_files()`.")
-    }
-    supplied <- eval_tidy(dot_expr[[3]])
-    if(!inherits(supplied, "data.frame")){
-      abort("rhs must be a `tibble` containing media information")
-    }
-    result <- list(
-      variable = variable_name,
-      data = supplied)
-    result
+    list(
+      variable = variable,
+      data = rhs)
   }else{
     NULL
   }

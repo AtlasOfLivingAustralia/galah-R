@@ -53,7 +53,7 @@
 #' @importFrom utils adist 
 #' @export
 search_taxa <- function(...){
-  request_metadata(type = "taxa") |>
+  request_metadata() |>
     identify(...) |>
     collect()
 }

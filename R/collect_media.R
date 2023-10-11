@@ -8,21 +8,16 @@
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-collect_media_data <- function(.data){
+collect_media_metadata <- function(.data){
   # query API
   result <- query_API(.data) |>
     pluck("results") |>
     bind_rows()
   # Select only the rows and columns we want 
   colnames(result) <- rename_columns(names(result), type = "media")
-  result <- result |> 
-    # tidyr::drop_na(image_url) |> # may need to filter for missingness elsewhere too
+  result |> 
     filter(!is.na(image_id)) |>
     select(any_of(wanted_columns("media")))
-  # return merged occurrences and media data
-  .data[["data/occurrences"]] |>
-    unnest_longer(col = images) |>
-    right_join(result, by = c("images" = "image_id"))
 }
 
 #' Internal version of `collect()` for `request_files(type = "media")`

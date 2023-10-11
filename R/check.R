@@ -316,6 +316,7 @@ check_media_cols_present <- function(.data){
     media_fields[fields_check]
   }
 }
+
 #' Internal function called by `filter()` et al
 #' @noRd
 #' @keywords Internal

@@ -29,31 +29,11 @@ compute.query_set <- function(.data){
     data_names <- names_vec[data_lookup]
     # parse any `metadata`
     metadata_results <- parse_metadata(names_vec, .data)
-    # now compute `data`
-    if(any(names_vec == "data/media")){
-      # exception here if media is requested
-      # this is important because media is the _only_ case where "data" (i.e.
-      # occurrences) has to be cached _prior_ to compute() of another "data" call
-      occ_query <- .data[[which(names_vec == "data/occurrences")]]
-      media_cols <- check_media_cols_present(occ_query)
-      occ <- occ_query |>
-        add_metadata(metadata_results) |>
-        compute() |>
-        collect(wait = TRUE)
-      if(nrow(occ) < 1){
-        abort("No occurrences returned")
-      }else{
-        data_tr <- .data[[which(names_vec == "data/media")]]
-        data_tr$"data/occurrences" <- occ
-        compute(data_tr)
-      }
-    }else{
-      # parse `data`, including supplied metadata
-      # this assumes only one `data` field is available per `query_set`
-      .data[[which(data_lookup)]] |>
-        add_metadata(metadata_results) |>
-        compute()      
-    }
+    # parse `data`, including supplied metadata
+    # this assumes only one `data` field is available per `query_set`
+    .data[[which(data_lookup)]] |>
+      add_metadata(metadata_results) |>
+      compute()      
   }else if(any(names_vec %in% c("metadata/fields-unnest", "metadata/profiles-unnest"))){
     # this code accounts for `unnest` functions that require lookups
       # metadata/fields-unnest calls check_fields(), requiring fields and assertions
@@ -104,7 +84,6 @@ compute.query <- function(.data, inputs = NULL){
     }
   }
   switch(.data$type, 
-         "data/media" = compute_media(.data),
          "data/occurrences" = compute_occurrences(.data),
          "data/occurrences-count-groupby" = compute_occurrences_count(.data),
          "data/occurrences-count" = compute_occurrences_count(.data),

@@ -77,6 +77,10 @@ atlas_media <- function(request = NULL,
   #
   # upgrading this is a priority for improved consistency and performance
   
+  # USE 
+  # check_media_cols_present(request)
+  # this is in check.R and is critical to ensuring valid queries
+  
   # capture supplied arguments
   args <- as.list(environment())
   
@@ -131,4 +135,9 @@ atlas_media <- function(request = NULL,
   # join and return
   right_join(occ, media, by = "media_id") |>
     relocate(media_id, 1)
+  
+  # # return merged occurrences and media data
+  # .data[["data/occurrences"]] |>
+  #   unnest_longer(col = images) |>
+  #   right_join(result, by = c("images" = "image_id")) # move this to atlas_media()
 }

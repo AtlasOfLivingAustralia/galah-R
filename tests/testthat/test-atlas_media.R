@@ -1,58 +1,46 @@
-test_that("`collapse()` and `collect()` work for `type = 'media'`: tibble stage", {
-  ## PART 1: request data
+test_that("`collapse()` and `collect()` work for `type = 'media'`", {
+  skip_if_offline()
+  ## PART 1: request occurrence data
   galah_config(email = "ala4r@ala.org.au")
-  media_collapse <- request_data(type = "media") |>
+  occ_collect <- request_data() |>
     filter(year == 2010, !is.na(images)) |>
-    select(group = "media") |>  # c("basic", "media")) |>
+    select(group = "media") |>
     identify("Litoria peronii") |>
+    collect()
+  
+  ## PART 2: request media metadata
+  # collapse
+  media_collapse <- request_metadata() |>
+    filter(media == occ_collect) |>
     collapse()
   expect_true(inherits(media_collapse, "query_set"))
-  expect_equal(length(media_collapse), 6)
-  expect_true(all(
-    unlist(lapply(media_collapse, function(a){a$type})) %in%
-      c("metadata/fields", 
-        "metadata/assertions", 
-        "metadata/reasons", 
-        "metadata/taxa-single",
-        "data/occurrences", 
-        "data/media")))
-  skip_if_offline()
-  # compute stage
-  media_compute <- compute(x)
+  expect_equal(length(media_collapse), 1)
+  expect_true(media_collapse[[1]]$type == "metadata/media")
+  # compute
+  media_compute <- compute(media_collapse)
   expect_true(inherits(media_compute, "query"))
-  expect_equal(length(media_compute), 5)
-  expect_equal(names(media_compute), 
-               c("type", "url", "body", "headers", "data/occurrences"))
-  # collect stage
+  expect_equal(length(media_compute), 4)
+  expect_equal(names(media_compute), c("type", "url", "body", "headers"))
+  # collect
   media_collect <- collect(media_compute)
   expect_s3_class(media_collect, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(media_collect), 1)
-  expect_gte(ncol(media_collect), 6) # number of fields requested by `select()`
-})
-
-test_that("collapse() and compute() work for `type = 'media'`: files stage", {
-  ## PART 2: request values
-  media_records <- request_data(type = "media") |>
-    filter(year == 2010, !is.na(images)) |>
-    select(group = "media") |>  # c("basic", "media")) |>
-    identify("Litoria peronii") |>
-    collect() |>
-    slice_head(n = 3)
+  expect_gte(ncol(media_collect), 6)
   
+  # PART 3: get images
+  # set up directory for testing purposes
   media_dir <- "test_media"
   unlink(media_dir, recursive = TRUE)
   dir.create(media_dir)
   galah_config(directory = media_dir)
-  files_collapse <- request_files(type = "media") |>
-    filter(media == slice_head(media_records, n = 3)) |>
-    collapse()
+  # collapse
+  files_collapse <- request_files() |>
+    filter(media == slice_head(media_collect, n = 3)) |>
+    collapse(thumbnail = TRUE)
   expect_true(inherits(files_collapse, "query_set"))
   expect_equal(length(files_collapse), 1)
-  expect_true(all(
-    unlist(lapply(files_collapse, function(a){a$type})) %in%
-      c("files/media")))
-  
-  # compute extracts the query 
+  expect_equal(files_collapse[[1]]$type, "files/media")
+  # compute
   files_compute <- compute(files_collapse)
   expect_true(inherits(files_compute, "query"))
   expect_equal(length(files_compute), 3)
@@ -65,7 +53,6 @@ test_that("collapse() and compute() work for `type = 'media'`: files stage", {
   expect_equal(length(list.files(media_dir)), 3)
   unlink(media_dir, recursive = TRUE)
 })
-
 
 test_that("atlas_media gives a warning when old arguments are used", {
   skip_if_offline()

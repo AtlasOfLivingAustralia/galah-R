@@ -99,7 +99,6 @@ galah_call <- function(method = c("data", "metadata", "files"),
 request_data <- function(type = c("occurrences", 
                                   "occurrences-count",
                                   "occurrences-doi",
-                                  "media",
                                   "species",
                                   "species-count"
                                   ),
@@ -149,6 +148,7 @@ request_metadata <- function(type){
                    # distributions" # new
                    "licences",
                    "lists",
+                   "media",
                    "profiles",
                    "providers",
                    "ranks",

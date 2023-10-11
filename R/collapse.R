@@ -42,15 +42,9 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
   if(!is.null(.data$identify) & .data$type != "occurrences-doi"){
     result[[(length(result) + 1)]] <- collapse_taxa(list(identify = .data$identify))
   }
-  # handle media
-  if(.data$type == "media"){
-    # occurrences are a pre-condition to media
-    result[[(length(result) + 1)]] <- collapse_occurrences(.data, mint_doi = mint_doi)
-  }
   # handle query
   result[[(length(result) + 1)]] <- switch(
     .data$type,
-    "media" = collapse_media(.data),
     "occurrences" = collapse_occurrences(.data, mint_doi = mint_doi),
     "occurrences-count" = collapse_occurrences_count(.data),
     "occurrences-doi" = collapse_occurrences_doi(.data),
@@ -84,6 +78,7 @@ collapse.metadata_request <- function(.data){
          "licences" = collapse_licences(),
          "lists" = collapse_lists(.data),
          "lists-unnest" = collapse_lists_unnest(.data),
+         "media" = collapse_media(.data),
          "profiles" = collapse_profiles(),
          "profiles-unnest" = collapse_profiles_unnest(.data),
          "providers" = collapse_providers(.data),

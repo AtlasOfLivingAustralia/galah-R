@@ -1,5 +1,4 @@
 ﻿atlas,system,api_name,type,api_url,called_by,functional
-Australia,images,image_metadata,data/media,https://api.ala.org.au/images/ws/getImageInfoForIdList,atlas_media,TRUE
 Australia,records,records_occurrences,data/occurrences,https://biocache-ws.ala.org.au/ws/occurrences/offline/download,atlas_occurrences,TRUE
 Australia,records,records_counts,data/occurrences-count,https://biocache-ws.ala.org.au/ws/occurrences/search,atlas_counts,TRUE
 Australia,records,records_facets,data/occurrences-count-groupby,https://biocache-ws.ala.org.au/ws/occurrences/facets,atlas_counts,TRUE
@@ -16,6 +15,7 @@ Australia,name-matching,names_lookup,metadata/identifiers,https://api.ala.org.au
 Australia,images,image_licences,metadata/licences,https://api.ala.org.au/images/ws/licence,show_all-licences,TRUE
 Australia,lists,lists_all,metadata/lists,https://api.ala.org.au/specieslist/ws/speciesList,show_all-lists,TRUE
 Australia,lists,lists_lookup,metadata/lists-unnest,https://api.ala.org.au/specieslist/ws/speciesListItems/{list_id},show_values-lists,TRUE
+Australia,images,image_metadata,metadata/media,https://api.ala.org.au/images/ws/getImageInfoForIdList,atlas_media,TRUE
 Australia,data-quality,profiles_all,metadata/profiles,https://api.ala.org.au/dqf-service/api/v1/data-profiles?enabled=true,show_all-profiles,TRUE
 Australia,data-quality,profiles_lookup,metadata/profiles-unnest,https://api.ala.org.au/dqf-service/api/v1/data-profiles/{profile},show_values-profiles,TRUE
 Australia,collections,collections_providers,metadata/providers,https://api.ala.org.au/metadata/ws/dataProvider,show_all-providers,TRUE
@@ -42,7 +42,6 @@ Austria,logger,logger_reasons,metadata/reasons,https://logger.biodiversityatlas.
 Austria,species,names_search_single,metadata/taxa-single,https://bie-ws.biodiversityatlas.at/search?q={name}&pageSize=5,search_taxa,TRUE
 Austria,species,species_children,metadata/taxa-unnest,https://bie-ws.biodiversityatlas.at/childConcepts/{id},atlas_taxonomy,TRUE
 Austria,records,records_query,,https://biocache-ws.biodiversityatlas.at/webportal/params,atlas_occurrences,TRUE
-Brazil,images,image_metadata,data/media,https://images.sibbr.gov.br/images/ws/image/,media_metadata,FALSE
 Brazil,records,records_occurrences,data/occurrences,https://biocache-service.sibbr.gov.br/biocache-service/occurrences/offline/download,atlas_occurrences,TRUE
 Brazil,records,records_counts,data/occurrences-count,https://biocache-service.sibbr.gov.br/biocache-service/occurrences/search,atlas_counts,TRUE
 Brazil,records,records_facets,data/occurrences-count-groupby,https://biocache-service.sibbr.gov.br/biocache-service/occurrence/facets,atlas_counts,TRUE
@@ -56,6 +55,7 @@ Brazil,records,records_facets,metadata/fields-unnest,https://biocache-service.si
 Brazil,images,image_licences,metadata/licences,https://images.sibbr.gov.br/images/ws/licence,show_all-licences,TRUE
 Brazil,lists,lists_all,metadata/lists,https://specieslist.sibbr.gov.br/ws/speciesList/,show_all-lists,TRUE
 Brazil,lists,lists_lookup,metadata/lists-unnest,https://specieslist.sibbr.gov.br/ws/speciesListItems/{list_id},show_values-lists,TRUE
+Brazil,images,image_metadata,metadata/media,https://images.sibbr.gov.br/images/ws/image/,media_metadata,FALSE
 Brazil,collections,collections_providers,metadata/providers,https://collectory.sibbr.gov.br/collectory/ws/dataProvider,show_all-providers,TRUE
 Brazil,species,names_search_single,metadata/taxa-single,https://bie-webservice.sibbr.gov.br/bie-index/search?q={name}&pageSize=5,search_taxa,TRUE
 Brazil,species,species_children,metadata/taxa-unnest,https://bie-webservice.sibbr.gov.br/bie-index/childConcepts/{id},atlas_taxonomy,TRUE
@@ -111,7 +111,6 @@ Global,species,names_search_single,metadata/taxa-single,https://api.gbif.org/v1/
 Global,species,species_children,metadata/taxa-unnest,https://api.gbif.org/v1/species/{id}/children,atlas_taxonomy,TRUE
 Global,collections,collections_collections_search,,https://api.gbif.org/v1/grscicoll/search,search_all-collections,TRUE
 Global,collections,collections_datasets_search,,https://api.gbif.org/v1/dataset/search,search_all-datasets,TRUE
-Guatemala,images,image_metadata,data/media,https://imagenes.snib.conap.gob.gt/image/,media_metadata,FALSE
 Guatemala,records,records_occurrences,data/occurrences,https://snib.conap.gob.gt/registros-ws/occurrences/offline/download,atlas_occurrences,TRUE
 Guatemala,records,records_counts,data/occurrences-count,https://snib.conap.gob.gt/registros-ws/occurrences/search,atlas_counts,TRUE
 Guatemala,records,records_facets,data/occurrences-count-groupby,https://snib.conap.gob.gt/registros-ws/occurrence/facets,atlas_counts,TRUE
@@ -123,6 +122,7 @@ Guatemala,collections,collections_datasets,metadata/datasets,https://snib.conap.
 Guatemala,records,records_fields,metadata/fields,https://snib.conap.gob.gt/registros-ws/index/fields,show_all-fields,TRUE
 Guatemala,records,records_facets,metadata/fields-unnest,https://snib.conap.gob.gt/registros-ws/occurrence/facets,show_values-fields,TRUE
 Guatemala,images,image_licences,metadata/licences,https://imagenes.snib.conap.gob.gt/licence,show_all-licences,TRUE
+Guatemala,images,image_metadata,metadata/media,https://imagenes.snib.conap.gob.gt/image/,media_metadata,TRUE
 Guatemala,collections,collections_providers,metadata/providers,https://snib.conap.gob.gt/colecciones/ws/dataProvider,show_all-providers,TRUE
 Guatemala,logger,logger_reasons,metadata/reasons,https://snib.conap.gob.gt/logger/service/logger/reasons,show_all-reasons,TRUE
 Guatemala,species,names_search_single,metadata/taxa-single,https://snib.conap.gob.gt/especies-ws/search?q={name}&pageSize=5,search_taxa,TRUE
@@ -185,7 +185,6 @@ Sweden,logger,logger_reasons,metadata/reasons,https://logger.biodiversitydata.se
 Sweden,species,names_search_single,metadata/taxa-single,https://species.biodiversitydata.se/ws/search?q={name}&pageSize=5,search_taxa,TRUE
 Sweden,species,species_children,metadata/taxa-unnest,https://species.biodiversitydata.se/ws/childConcepts/{id},atlas_taxonomy,TRUE
 Sweden,records,records_query,,https://records.biodiversitydata.se/ws/webportal/params,atlas_occurrences,TRUE
-United Kingdom,images,image_metadata,data/media,https://images.nbnatlas.org/ws/getImageInfoForIdList,atlas_media,FALSE
 United Kingdom,records,records_occurrences,data/occurrences,https://records-ws.nbnatlas.org/occurrences/index/download,atlas_occurrences,TRUE
 United Kingdom,records,records_counts,data/occurrences-count,https://records-ws.nbnatlas.org/occurrences/search,atlas_counts,TRUE
 United Kingdom,records,records_facets,data/occurrences-count-groupby,https://records-ws.nbnatlas.org/occurrence/facets,atlas_counts,TRUE
@@ -199,6 +198,7 @@ United Kingdom,records,records_facets,metadata/fields-unnest,https://records-ws.
 United Kingdom,images,image_licences,metadata/licences,https://images.nbnatlas.org/licence,show_all-licences,TRUE
 United Kingdom,lists,lists_all,metadata/lists,https://lists.nbnatlas.org/ws/speciesList,show_all-lists,TRUE
 United Kingdom,lists,lists_lookup,metadata/lists-unnest,https://lists.nbnatlas.org/ws/speciesListItems/{list_id},show_values-lists,TRUE
+United Kingdom,images,image_metadata,metadata/media,https://images.nbnatlas.org/ws/getImageInfoForIdList,atlas_media,TRUE
 United Kingdom,collections,collections_providers,metadata/providers,https://registry.nbnatlas.org/ws/dataProvider,show_all-providers,TRUE
 United Kingdom,logger,logger_reasons,metadata/reasons,https://logger.nbnatlas.org/service/logger/reasons,show_all-reasons,TRUE
 United Kingdom,species,names_search_single,metadata/taxa-single,https://species-ws.nbnatlas.org/search?q={name}&pageSize=5,search_taxa,TRUE

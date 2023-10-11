@@ -101,16 +101,18 @@ filter.data_request <- function(.data, ...){
 #' @param .data An object of class `metadata_request`, created using [request_metadata()]
 #' @export
 filter.metadata_request <- function(.data, ...){
-  .data <- filter.data_request(.data, ...)
-  class(.data) <- "metadata_request"
-  # In some circumstances, the `filter` argument can be used as a shorthand to `type`
-  # adjust for these
+  dots <- enquos(..., .ignore_empty = "all")
+  dots_parsed <- parse_quosures_files(dots)
+  .data$filter <- dots_parsed$data
+  # The `filter` argument sets `type` when specified
   initial_type <- .data$type
-  filter_type <- .data$filter$variable
-  if(filter_type == "taxa"){
-    .data$type <- "taxa"
+  filter_type <- dots_parsed$variable
+  if(filter_type %in% c("taxa", "media")){
+    .data$type <- filter_type
   }else if(grepl("-unnest$", initial_type)){
     .data$type <- paste0(filter_type, "-unnest")
+  }else{
+    .data$type <- paste0(filter_type, "s")
   }
   .data
 }
@@ -130,6 +132,12 @@ filter.metadata_request <- function(.data, ...){
 filter.files_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
   dots_parsed <- parse_quosures_files(dots)
+  if(!(dots_parsed$variable %in% c("media"))){
+    abort("Variable name must be a valid `type` accepted by `request_files()`.")
+  }
+  if(!inherits(dots_parsed$data, "data.frame")){
+    abort("rhs must be a `tibble` containing media information")
+  }
   .data$type <- dots_parsed$variable
   .data$filter <- dots_parsed$data
   .data

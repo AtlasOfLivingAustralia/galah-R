@@ -4,10 +4,24 @@
 #' @noRd
 #' @keywords Internal
 collapse_media <- function(.data){
+  # NOTE:
+  # this function currently assumes that the user has passed an occurrence 
+  # tibble verbatim to filter, i.e.
+  # `request_metadata() |> filter(media = occurrences) |> collapse()`
+  # It may be useful to support passing of media_ids directly, e.g.
+  # `request_metadata() |> filter(media = occurrences$images`) |> collapse()
+  if(is.null(.data$filter)){
+    abort("requests for `metadata` with type `media` require information passed via `filter()`")
+  }
+  occ <- .data$filter
+  media_cols <- which(colnames(occ) %in% c("images", "video", "sounds"))
+  media_ids <- do.call(c, occ[, media_cols]) |>
+    unlist()
+  names(media_ids) <- NULL
   result <- list(
-    type = "data/media",
-    url = url_lookup("data/media"),
-    body = list(), # this gets populated during `compute()`
+    type = "metadata/media",
+    url = url_lookup("metadata/media"),
+    body = list(imageIds = media_ids), # formerly `build_media_id()`
     headers = build_headers())
   class(result) <- "query"
   return(result)
@@ -27,22 +41,20 @@ collapse_media_files <- function(.data,
     abort("`collapse()` requires a `filter()` argument to function")
   }
   df <- .data$filter
-  id <- build_media_id(df)
-  path <- build_file_path(ids = id, types = df$mimetype)
+  path <- build_file_path(ids = df$image_id, types = df$mimetype)
   if(any(colnames(df) == "image_url")){
     url <- df$image_url
   }else{
-    url <- url_lookup("files/images", id = id)
+    url <- url_lookup("files/images", id = df$image_id)
   }
-  result <- tibble(url = url, path = path)
   # handle thumbnails
   if(thumbnail){
-    urls <- gsub("/original", "/thumbnail", urls)
+    url <- gsub("/original", "/thumbnail", url)
   }
   # create result
   result <- list(
     type = "files/media",
-    url = result,
+    url = tibble(url = url, path = path),
     headers = build_headers())
   class(result) <- "query"
   return(result)
