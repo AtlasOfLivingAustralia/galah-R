@@ -65,15 +65,24 @@ parse_quosures_basic <- function(dots){
 
 #' parse quosures, but for `filter.files_request()` where we expect large amounts
 #' of data to be supplied
+#' @importFrom rlang as_label
+#' @importFrom rlang as_string
+#' @importFrom rlang is_quosure
+#' @importFrom rlang quo_get_env
+#' @importFrom rlang quo_get_expr
+#' @importFrom tibble tibble
 #' @noRd
 #' @keywords internal
 parse_quosures_files <- function(dots){
   if(length(dots) > 0){
     check_named_input(dots)
     dot_expr <- quo_get_expr(dots[[1]])
-    lhs <- switch(expr_type(dot_expr[[2]]), 
-                  "literal" = as_string(quo_get_expr(dot_expr[[2]])), # when {{}} is used
-                  as_string(dot_expr[[2]]))
+    if(is_quosure(dot_expr[[2]])){
+      lhs <- quo_get_expr(dot_expr[[2]]) |>
+        as_string()
+    }else{
+      lhs <- as_string(dot_expr[[2]])
+    }
     x <- new_quosure(dot_expr[[3]], env = quo_get_env(dots[[1]]))
     rhs <- switch(expr_type(x),
            "call" = {eval_tidy(x)},
