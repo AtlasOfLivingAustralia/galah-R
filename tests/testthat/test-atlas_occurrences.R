@@ -92,7 +92,7 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
                c("type",
                  "status",
                  "total_records",
-                 "queue_size",
+                 "records",
                  "status_url",
                  "cancel_url",
                  "search_url"))
@@ -122,44 +122,26 @@ test_that("atlas_occurrences accepts all narrowing functions in pipe", {
   expect_equal(unique(occ$stateProvince), "New South Wales")
 })
 
-## Caching no longer supported in galah - suggest delete
-# test_that("atlas_occurrences caches data as expected", {
-#   skip_on_cran()
-#   galah_config(caching = TRUE, verbose = TRUE)
-#   taxa <- search_taxa("Wurmbea dioica")
-#   filter <- galah_filter(year == 2000)
-#   columns <- galah_select(group = "basic", basisOfRecord)
-# 
-#   # Download data
-#   occ <- atlas_occurrences(taxa = taxa, filter = filter, select = columns)
-#   # Re-download data
-#   expect_message(
-#     atlas_occurrences(taxa = taxa, filter = filter, select = columns), 
-#     "Using cached file")
-#   galah_config(caching = FALSE)
-# })
+test_that("atlas_occurrences() errors with an invalid DOI", {
+  expect_error(atlas_occurrences(doi = "random_doi"))
+})
 
-
-test_that("atlas_occurrences does not download data from a DOI", {
+test_that("atlas_occurrences downloads data from a DOI", {
   skip_if_offline()
   doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
-  expect_error(atlas_occurrences(doi = doi))
+  result1 <- atlas_occurrences(doi = doi)
+  expect_s3_class(result1, c("tbl_df", "tbl", "data.frame" ))
+  expect_equal(nrow(result1), 9)
+  expect_equal(ncol(result1), 68)
+  # and with other syntax
+  result2 <- request_data() |>
+    filter(doi == doi) |>
+    collapse()
+  expect_equal(length(result2), 1)
+  expect_s3_class(result2, "query_set")
+  expect_equal(result2[[1]]$type, "data/occurrences-doi")
+  result3 <- collect(result2)
+  expect_equal(result1, result3)
 })
 
-test_that("`collapse()` and `collect()` work for `type = 'doi'`", {
-  result <- request_data() |>
-    filter(doi == "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060") |>
-    collapse()
-  expect_equal(length(result), 1)
-  types <- unlist(lapply(result, function(a){a$type}))
-  expect_equal(types, "data/occurrences-doi")
-  
-  result2 <- collect(result)
-  # expect_equal(names(result), 
-  #              c("type", "url", "headers", "download"))
-  
-  # result2 <- collect(x) # errors
-  # presumably because this DOI is not available on `https://api.test.ala.org.au`
-  # currently unclear, therefore, whether `collect_doi()` works at all
-  # what _is_ clear is that it doesn't error nicely!
-})
+# TODO: add invalid DOI tests
