@@ -3,9 +3,11 @@
 #' @keywords Internal
 collapse_taxa <- function(.data){
   if(is.null(.data$identify)){
-    abort("No name supplied to `identify()`")
+    result <- list(type = "metadata/taxa")
+    class(result) <- "query"
+    result
   }else{
-    if(ncol(.data$identify) > 1 | colnames(.data$identify) != "search_term"){
+    if(ncol(.data$identify) > 1 | colnames(.data$identify)[1] != "search_term"){
       collapse_taxa_multiple(.data)
     }else{
       collapse_taxa_single(.data)
