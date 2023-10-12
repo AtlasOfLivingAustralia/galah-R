@@ -308,7 +308,7 @@ check_groups <- function(group, n){
 #' @keywords Internal
 check_identifiers <- function(.data){
   if(is_gbif()){
-    if(.data$type == "data/occurrences"){
+    if(.data$type %in% c("data/occurrences", "data/species")){
       check_identifiers_gbif_predicates(.data)
     }else{
       check_identifiers_gbif(.data) # mainly for `data/occurrences-count` 

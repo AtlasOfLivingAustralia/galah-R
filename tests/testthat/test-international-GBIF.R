@@ -234,15 +234,35 @@ test_that("`galah_select()` returns message for GBIF", {
   expect_true(is.null(x$select))
 })
 
-# test_that("atlas_species works for GBIF", {
-#   skip_on_cran()
-#   species <- galah_call() |>
-#     galah_identify("perameles") |>
-#     atlas_species()
-#   expect_gt(nrow(species), 0)
-#   expect_gt(ncol(species), 0)
-#   expect_true(inherits(species, c("tbl_df", "tbl", "data.frame")))
-# })
+test_that("atlas_species works for GBIF", {
+  x <- request_data(type = "species") |>
+    filter(year == 2010) |>
+    identify("Litoria") |>
+    collapse()
+  expect_s3_class(x, "query_set")
+  expect_equal(length(x), 4)
+  expect_equal(
+    unlist(lapply(x, function(a){a$type})),
+    c("metadata/fields", 
+      "metadata/assertions",
+      "metadata/taxa-single",
+      "data/species"))  
+  skip_if_offline()
+  y <- compute(x)
+  expect_true(inherits(y, "query"))
+  expect_true(y$type == "data/species")  
+  expect_true(any(names(y) == "status"))
+  ## below is running slow for some reason - not checked
+  # z <- collect(y)
+  # expect_gt(nrow(z), 0)
+  # expect_gt(ncol(z), 0)
+  # expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
+  # species <- galah_call() |>
+  #   galah_filter(year == 2010) |>
+  #   galah_identify("Litoria") |>
+  #   atlas_species()
+  # expect_equal(z, species)
+})
 
 test_that("atlas_media fails for GBIF", {
   skip_if_offline()
@@ -258,7 +278,9 @@ test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   base_query <- request_data() |>
     identify("Vulpes vulpes") |>
     filter(year == 1900)
-  count <- base_query |> count() |> collect()
+  count <- base_query |> 
+    count() |> 
+    collect()
   x <- base_query |>
     collapse()
   # NOTE: the above query should return 147 records (tested 2023-10-12)
@@ -280,6 +302,7 @@ test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   expect_gt(nrow(occ), 0)
   expect_gt(ncol(occ), 0)
   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+  expect_equal(nrow(z), count$count)
 })
 
 galah_config(atlas = "Australia")

@@ -3,7 +3,7 @@
 #' @noRd
 collect_species <- function(.data, file = NULL){
   if(is_gbif()){
-    collect_occurrences(.data)
+    collect_occurrences(.data, wait = TRUE)
   }else{
     .data$file <- check_download_filename(file, ext = "csv")
     query_API(.data)
@@ -14,6 +14,6 @@ collect_species <- function(.data, file = NULL){
                                       type = "checklist")
       result <- result[, wanted_columns("checklist")]
     }
-    return(result)
+    result
   }
 }

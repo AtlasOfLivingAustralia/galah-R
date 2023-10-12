@@ -87,6 +87,7 @@ compute.query <- function(.data, inputs = NULL){
          "data/occurrences" = compute_occurrences(.data),
          "data/occurrences-count-groupby" = compute_occurrences_count(.data),
          "data/occurrences-count" = compute_occurrences_count(.data),
+         "data/species" = compute_species(.data),
          "data/species-count" = compute_species_count(.data),
          # "-unnest" functions require some checks
          "metadata/profiles-unnest" = compute_profile_values(.data),  # check this

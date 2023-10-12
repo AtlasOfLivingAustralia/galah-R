@@ -3,30 +3,25 @@
 #' @keywords Internal
 collapse_species <- function(.data){
   if(is_gbif()){
-    function_name <- "collapse_occurrences_gbif"
-    .data$format <- "SPECIES_LIST"
-    arg_names <- names(formals(collapse_occurrences_gbif))
+    result <- collapse_occurrences_gbif(.data, 
+                                        format = "SPECIES_LIST")
+    result$type <- "data/species"
+    result
   }else{
-    function_name <- "collapse_species_atlas"
-    arg_names <- names(formals(collapse_species_atlas))
+    collapse_species_atlas(.data)
   }
-  custom_call <- .data[names(.data) %in% arg_names]
-  class(custom_call) <- "data_request"
-  request <- do.call(function_name, custom_call)
-  return(request)
 }
-
 
 #' calculate the query to be returned for a given living atlas
 #' @noRd
 #' @keywords Internal
-collapse_species_atlas <- function(identify = NULL,
-                                   filter = NULL,
-                                   geolocate = NULL,
-                                   data_profile = NULL){
+collapse_species_atlas <- function(.data){
   # build a query
   query <- c(
-    build_query(identify, filter, geolocate, data_profile),
+    build_query(.data$identify, 
+                .data$filter, 
+                .data$geolocate, 
+                .data$data_profile),
     emailNotify = email_notify(),
     sourceTypeId = 2004,
     reasonTypeId = pour("user", "download_reason_id"),

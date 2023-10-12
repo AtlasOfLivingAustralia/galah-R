@@ -48,7 +48,7 @@ collapse_occurrences_uk <- function(.data){
 #' calculate the query to be returned for GBIF
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_gbif <- function(.data){
+collapse_occurrences_gbif <- function(.data, format = "SIMPLE_CSV"){
   # deal with user-specified taxonomic names
   if(!is.null(identify)){
     .data$filter <- rbind(
@@ -72,7 +72,7 @@ collapse_occurrences_gbif <- function(.data){
         pour("user", "username", .pkg = "galah"),
         ":", 
         pour("user", "password", .pkg = "galah"))),
-    body = build_predicates(.data$filter, format = "SIMPLE_CSV"))
+    body = build_predicates(.data$filter, format = format))
   class(result) <- "query"
   return(result)
 }

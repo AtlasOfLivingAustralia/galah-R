@@ -3,7 +3,9 @@
 #' @keywords Internal
 compute_species <- function(.data){
   if(is_gbif()){
-    compute_occurrences(.data)
+    result <- compute_occurrences(.data)
+    result$type <- "data/species"
+    result
   }else{
     class(.data) <- "query"
     return(.data)
