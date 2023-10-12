@@ -10,9 +10,9 @@
 #' @importFrom rlang inform
 #' @importFrom tibble tibble
 collect_occurrences <- function(.data, wait, file = NULL){
-  switch(pour("atlas", "region"), 
-         "United Kingdom" = collect_occurrences_uk(.data, file),
-         collect_occurrences_la(.data, wait = wait, file = file))
+  switch(pour("atlas", "region"),
+         "United Kingdom" = collect_occurrences_uk(.data, file = file),
+         collect_occurrences_default(.data, wait = wait, file = file))
 }
 
 #' Internal function to `collect_occurrences()` for UK
@@ -27,10 +27,10 @@ collect_occurrences_uk <- function(.data, file){
   result
 }
 
-#' Internal function to `collect_occurrences()` for LAs
+#' Internal function to `collect_occurrences()` for living atlases
 #' @noRd
 #' @keywords Internal
-collect_occurrences_la <- function(.data, wait, file){
+collect_occurrences_default <- function(.data, wait, file){
   # check queue
   download_response <- check_queue(.data, wait = wait)
   if(is.null(download_response)){
@@ -62,7 +62,7 @@ collect_occurrences_la <- function(.data, wait, file){
   names(result) <- rename_columns(names(result), type = "occurrence")
   
   # replace 'true' and 'false' with boolean
-  valid_assertions <- show_all_assertions()$id
+  valid_assertions <- show_all_assertions()$id # FIXME: this shouldn't be called here
   assertions_check <- names(result) %in% valid_assertions
   if(any(assertions_check)){
     result <- fix_assertion_cols(result, names(result)[assertions_check])

@@ -67,7 +67,6 @@ collapse.metadata_request <- function(.data){
                      "profiles-unnest" = list(collapse_profiles()),
                      # "lists-unnest" = list(collapse_lists()),
                      list())
-    browser()
   }else{
     result <- list()
   }

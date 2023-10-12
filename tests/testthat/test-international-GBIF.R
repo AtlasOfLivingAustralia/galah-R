@@ -255,9 +255,11 @@ test_that("atlas_media fails for GBIF", {
 test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   skip_if_offline()
   # collapse
-  x <- request_data() |>
+  base_query <- request_data() |>
     identify("Vulpes vulpes") |>
-    filter(year == 1900) |>
+    filter(year == 1900)
+  count <- base_query |> count() |> collect()
+  x <- base_query |>
     collapse()
   # NOTE: the above query should return 147 records (tested 2023-10-12)
   expect_s3_class(x, "query_set")
@@ -270,11 +272,11 @@ test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
       "data/occurrences"))
   # compute
   y <- compute(x)
-  expect_true(inherits(gbif_response, "data_response"))
-  expect_equal(length(gbif_response), 1)
-  
+  expect_true(inherits(y, "query"))
+  expect_true(y$type == "data/occurrences")  
+  expect_true(any(names(y) == "status"))
   # collect
-  occ <- collect(gbif_response)
+  z <- collect(y)
   expect_gt(nrow(occ), 0)
   expect_gt(ncol(occ), 0)
   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))

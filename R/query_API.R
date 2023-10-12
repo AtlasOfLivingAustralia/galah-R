@@ -85,12 +85,13 @@ add_headers <- function(req, headers){
 #' If supplied, add `body` arg to a `request()`
 #' @noRd
 #' @keywords Internal
-#' @importFrom httr2 req_body_json
+#' @importFrom httr2 req_body_raw
 add_body <- function(req, body){
   if(!is.null(body)){
-    req <- req |>
-      req_body_json(body)
-    req$body$params <- NULL
+    req <- req |> req_body_raw(body)
+    # note: this is not `req_body_json()` because 
+    # we have already converted our list to json text
+    # by this point
   }
   req
 }

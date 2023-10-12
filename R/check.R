@@ -477,18 +477,10 @@ check_n_inputs <- function(dots, error_call = caller_env()) {
 }
 
 #' Internal function to ensure correct data extracted from API for LA/GBIF
+#' It makes all calls consistent so we only need one queue checking function
 #' @noRd
 #' @keywords Internal
 check_occurrence_response <- function(.data){
-  # if(is_gbif()){
-    # list(
-    #   completed_flag = "SUCCEEDED",
-    #   queue_function = "check_queue_GBIF",
-    #   queue_input = list(url = attr(.data, "url")),
-    #   download_tag = "downloadLink",
-    #   status_url = attr(.data, "url")
-    # )
-  # }else{
   names(.data) <- camel_to_snake_case(names(.data))
   if(!is.null(.data$status_code)){
     switch(as.character(.data$status_code),
@@ -505,6 +497,21 @@ check_occurrence_response <- function(.data){
     }else{
       .data$status <- "incomplete"
     }
+  }
+  # harmonisation of GBIF objects
+  # change name of `download_link` to `download_url`
+  check_download_link <- names(.data) == "download_link"
+  if(any(check_download_link)){
+    names(.data)[which(check_download_link)[1]] <- "download_url"
+  }
+  # convert `key` to `status_url`
+  if(is.null(.data$status_url) & !is.null(.data$key)){
+    .data$status_url <- paste0("https://api.gbif.org/v1/occurrence/download/",
+                               .data$key)
+  }
+  # add `queue_size`
+  if(is.null(.data$queue_size)){
+    .data$queue_size <- 0
   }
   .data
 }
