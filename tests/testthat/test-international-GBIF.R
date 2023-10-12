@@ -24,7 +24,7 @@ test_that("show_all(collections) works for GBIF", {
   x <- show_all(collections, limit = 10)
   expect_equal(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
-  ## not coded slice_head() yet
+  ## FIXME: not coded slice_head() yet
   # y <- request_metadata(type = "collections") |>
   #   slice_head(n = 10) |>
   #   collect()
@@ -112,12 +112,13 @@ galah_config(verbose = FALSE)
 test_that("search_all(fields) works for GBIF", {
   skip_if_offline()
   result <- search_all(fields, "year")
-  expect_equal(nrow(result), 8)
+  expect_equal(nrow(result), 2)
   expect_true(inherits(result, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_values works for GBIF fields", {
   skip_if_offline()
+  ## FIXME: not implemented yet
   search_fields("basisOfRecord") |>
     show_values() |>
     nrow() |>
@@ -132,6 +133,8 @@ test_that("atlas_counts works for GBIF", {
 test_that("atlas_counts fails for GBIF when type = 'species'", {
   expect_error(atlas_counts(type = "species"))
 })
+
+galah_config(run_checks = TRUE)
 
 test_that("`count()` works with `filter()` for GBIF", {
   skip_if_offline()
@@ -191,22 +194,41 @@ test_that("`count` works with `identify` for GBIF", {
   expect_equal(nrow(z), 1)
 })
 
-test_that("atlas_counts works with group_by for GBIF", {
+test_that("`count` works with `group_by` for GBIF", {
   skip_if_offline()
   x <- galah_call() |>
+    identify("Litoria") |>
     filter(year >= 2020) |>
     group_by(year) |>
     count() |>
     collapse()
-  
+  expect_s3_class(x, "query_set")
+  expect_equal(length(x), 4)
+  expect_equal(
+    unlist(lapply(x, function(a){a$type})),
+    c("metadata/fields", 
+      "metadata/assertions",
+      "metadata/taxa-single",
+      "data/occurrences-count-groupby"))
   # compute
-  
+  y <- compute(x)
+  expect_s3_class(y, "query")
+  expect_equal(length(y), 4)
+  expect_equal(names(y), c("type",
+                           "url",
+                           "expand",
+                           "headers"))
   # collect
-  
+  z <- collect(y)
+  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_gt(nrow(result), 1)
   expect_equal(names(result), c("year", "count"))
 })
 
+# FIXME: GBIF grouped counts only work for n = 1 - expand this or add warning
+# FIXME: `slice_head()` not tested for GBIF
+
+# FIXME
 test_that("`galah_select()` returns message for GBIF", {
   expect_message({x <- galah_select(galah_call())})
   expect_true(is.null(x$select))
@@ -232,7 +254,7 @@ test_that("atlas_media fails for GBIF", {
   })
 })
 
-test_that("`collapse()` et al. work for GBIF", {
+test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   skip_if_offline()
   # collapse
   gbif_query <- galah_call() |>

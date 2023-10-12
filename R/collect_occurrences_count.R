@@ -9,13 +9,28 @@ collect_occurrences_count <- function(.data){
   }
 }
 
-#'  `collect()` for `type = "data/occurrences-count"` for gbif
+#' `collect()` for `type = "data/occurrences-count"` for gbif
+#' @importFrom dplyr bind_rows
+#' @importFrom httr2 url_parse
+#' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
 collect_occurrences_count_gbif <- function(.data){
   result <- query_API(.data)
   if(length(result$facets) < 1 & !is.null(result$count)){ # first handle single values
     tibble(count = result$count)
+  }else{
+    # note: this only works for length(facets) == 1
+    result_df <- result |>
+      pluck(!!!list("facets", 1, "counts")) |>
+      bind_rows()
+    names(result_df)[1] <- .data$url |> 
+      url_parse() |> 
+      pluck("query", "facet")
+    # names(result_df)[1] <- result |>
+    #   pluck(!!!list("facets", 1, "field")) |>
+    #   tolower()
+    result_df
   }
 }
   

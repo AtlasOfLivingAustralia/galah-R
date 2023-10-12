@@ -74,7 +74,7 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
 collapse_occurrences_count_gbif <- function(identify = NULL, 
                                             filter = NULL, 
                                             group_by = NULL,
-                                            limit = 100
+                                            slice = NULL
                                             ){
   # get relevant information
   if(is.null(group_by)){
@@ -89,20 +89,19 @@ collapse_occurrences_count_gbif <- function(identify = NULL,
   # add facets
   }else{
     result <- list(type = "data/occurrences-count-groupby")
-    url <- url_lookup("data/occurrences-count-groupby") |> 
+    url <- url_lookup("data/occurrences-count") |> 
       url_parse()
     facets <- as.list(group_by$name)
-    names(facets) <- rep("facets", length(facets))
-    # won't work here
-    if(nrow(group_by) == 1){
-      query$facet <- group_by$name
-      query$facetLimit <- limit
-    }else{
-      query$groups <- list(fields = group_by$name,
-                           limit = limit,
-                           expand = TRUE)
+    names(facets) <- rep("facet", length(facets))
+    if(is.null(slice)){
+      slice <- tibble(slice_n = 30, slice_called = FALSE)
     }
-    url$query <- query
+    url$query <- c(build_query_gbif(identify, filter),
+                   limit = 0,
+                   facets,
+                   facetLimit = slice$slice_n)
+    result$url <- url_build(url)
+    result$expand <- ifelse(length(facets) > 1, TRUE, FALSE)
   }
   # aggregate and return
   result$headers <- build_headers()
