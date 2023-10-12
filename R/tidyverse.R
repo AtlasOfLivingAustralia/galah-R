@@ -9,8 +9,7 @@
 #' syntax with tidyverse, at the cost of potentially introducing conflicts.
 #' This can be avoided by using the `::` operator where required (see examples).
 #' 
-#' The following functions are included
-#'  - `between()` (`dplyr`): use within `filter()` to specify a range
+#' The following functions are included:
 #'  - `desc()` (`dplyr`): use within `arrange()` to specify arrangement should be descending
 #'  - `unnest()` (`tidyr`): use to 'drill down' into nested information on `fields`, `lists`, `profiles`, or `taxa`  
 #'
@@ -19,9 +18,9 @@
 #' @name tidyverse_functions
 NULL
 
-#' @rdname tidyverse_functions
-#' @export
-between <- function(){}
+# @rdname tidyverse_functions
+# @export
+# between <- function(){}
 
 #' @rdname tidyverse_functions
 #' @param ... column to order by
