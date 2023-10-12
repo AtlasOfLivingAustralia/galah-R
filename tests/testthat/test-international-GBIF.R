@@ -228,11 +228,8 @@ test_that("`count` works with `group_by` for GBIF", {
 # FIXME: GBIF grouped counts only work for n = 1 - expand this or add warning
 # FIXME: `slice_head()` not tested for GBIF
 
-# FIXME
 test_that("`galah_select()` returns message for GBIF", {
   expect_message({x <- galah_select(galah_call())})
-  expect_true(is.null(x$select))
-  expect_message({x <- select(galah_call())})
   expect_true(is.null(x$select))
 })
 

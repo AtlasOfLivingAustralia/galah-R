@@ -97,62 +97,66 @@ select.data_request <- function(.data, ..., group){
 }
 
 #' Build a data.frame with a standardised set of names
+#' @importFrom rlang inform
 #' @noRd
 #' @keywords Internal
 parse_select <- function(dot_names, group){
   
-  if(length(group) > 0){
-    group_cols <- lapply(group, preset_cols) |> unlist()
+  if(is_gbif()){
+    inform(c("skipping `select()`:",
+             i = "This function is not supported by the GBIF API v1"))
+    return(NULL)
   }else{
-    group_cols <- NULL
-  }
-  
-  # set behaviour depending on what names are given
-  # NOTE:
-  ## because assertions aren't fields, leaving `fields` empty means default fields are returned
-  ## but only when `group = assertions` and no other requests are made
-  ## this adds a single field (recordID) to the query to avoid this problem.
-  ## This problem also occurs when a single field is requested
-  ## under some circumstances (e.g. "images"), even when that field is 
-  ## fully populated.
-  if(length(dot_names) > 1){
-    individual_cols <- dot_names 
-  }else{ # i.e. no fields selected
-
-    if(length(dot_names) == 1){
-      if(length(group) == 0){
-        individual_cols <- unique(c("recordID", dot_names))
-      }else{
-        individual_cols <- dot_names
-      }
-    }else{ # i.e. length(dot_names) == 0
-      if(length(group) == 1 & !any(group == "basic")){
-        individual_cols <- "recordID"
-      }else{
-        individual_cols <- NULL
+    if(length(group) > 0){
+      group_cols <- lapply(group, preset_groups) |> unlist()
+    }else{
+      group_cols <- NULL
+    }
+    # set behaviour depending on what names are given
+    # NOTE:
+    ## because assertions aren't fields, leaving `fields` empty means default fields are returned
+    ## but only when `group = assertions` and no other requests are made
+    ## this adds a single field (recordID) to the query to avoid this problem.
+    ## This problem also occurs when a single field is requested
+    ## under some circumstances (e.g. "images"), even when that field is 
+    ## fully populated.
+    if(length(dot_names) > 1){
+      individual_cols <- dot_names 
+    }else{ # i.e. no fields selected
+      if(length(dot_names) == 1){
+        if(length(group) == 0){
+          individual_cols <- unique(c("recordID", dot_names))
+        }else{
+          individual_cols <- dot_names
+        }
+      }else{ # i.e. length(dot_names) == 0
+        if(length(group) == 1 & !any(group == "basic")){
+          individual_cols <- "recordID"
+        }else{
+          individual_cols <- NULL
+        }
       }
     }
+    # create output object
+    # NOTE: placing `recordID` first is critical;
+    # having e.g. media columns _before_ `recordID` causes the download to fail 
+    values <- unique(c(group_cols, individual_cols))
+    values <- c("recordID", values[values != "recordID"])
+    result <- tibble(name = values)
+    result$type <- "field"
+    # result$type[result$name %in% show_all("assertions")$id] <- "assertion" 
+    ## above line commented out as it breaks our rule about pinging an API before
+    ## `compute()` is called. May require more work
+    attr(result, "group") <- group
+    return(result) 
   }
-  
-  # create output object
-  # NOTE: placing `recordID` first is critical;
-  # having e.g. media columns _before_ `recordID` causes the download to fail 
-  values <- unique(c(group_cols, individual_cols))
-  values <- c("recordID", values[values != "recordID"])
-  result <- tibble(name = values)
-  result$type <- "field"
-  # result$type[result$name %in% show_all("assertions")$id] <- "assertion" 
-  ## above line commented out as it breaks our rule about pinging an API before
-  ## `compute()` is called. May require more work
-  attr(result, "group") <- group
-  return(result)
 }
 
-
-# NOTE: gbif doesn't appear to support column specification in downloads
-
-preset_cols <- function(type) {
-  cols <- switch(type,
+#' Internal function to populate `groups` arg in `select()`
+#' @noRd
+#' @keywords Internal
+preset_groups <- function(group_name) {
+  cols <- switch(group_name,
                  "basic" = default_columns(),
                  "event" = c("eventRemarks", "eventTime", "eventID",
                              "eventDate", "samplingEffort",
@@ -164,7 +168,9 @@ preset_cols <- function(type) {
   return(cols)
 }
 
-
+#' Internal function to specify 'basic' columns in `select()`
+#' @noRd
+#' @keywords Internal
 default_columns <- function() {
   atlas <- pour("atlas", "region")
   switch (atlas,
