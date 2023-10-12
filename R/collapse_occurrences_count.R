@@ -77,12 +77,23 @@ collapse_occurrences_count_gbif <- function(identify = NULL,
                                             limit = 100
                                             ){
   # get relevant information
-  url <- url_lookup("data/occurrences-count") |> 
-    url_parse()
-  query <- build_query(identify, filter)
+  if(is.null(group_by)){
+    result <- list(type = "data/occurrences-count")
+    url <- url_lookup("data/occurrences-count") |> 
+      url_parse()
+    url$query <- c(build_query_gbif(identify, filter),
+                   limit = 0)
+    result$url <- url_build(url)
+    result$slot_name <- "count"
+    result$expand <- FALSE
   # add facets
-  query$limit <- 0
-  if(!is.null(group_by)){
+  }else{
+    result <- list(type = "data/occurrences-count-groupby")
+    url <- url_lookup("data/occurrences-count-groupby") |> 
+      url_parse()
+    facets <- as.list(group_by$name)
+    names(facets) <- rep("facets", length(facets))
+    # won't work here
     if(nrow(group_by) == 1){
       query$facet <- group_by$name
       query$facetLimit <- limit
@@ -91,15 +102,12 @@ collapse_occurrences_count_gbif <- function(identify = NULL,
                            limit = limit,
                            expand = TRUE)
     }
+    url$query <- query
   }
-  url$query <- query
   # aggregate and return
-  result <- list(type = "data/occurrences-count",
-                 url = url_build(url), 
-                 headers = build_headers(),
-                 slot_name = "count")
+  result$headers <- build_headers()
   class(result) <- "query"
-  return(result)
+  result
 }
 
 check_slice_arrange <- function(df){

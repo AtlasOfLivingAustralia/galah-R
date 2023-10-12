@@ -27,12 +27,8 @@ build_query <- function(identify = NULL,
                         filter = NULL, 
                         location = NULL, 
                         data_profile = NULL) {
-  if (is.null(identify)) {
-    if(is_gbif()){
-      taxa_query <- list(taxonKey = 1)
-    }else{
-      taxa_query <- NULL
-    }
+  if(is.null(identify)) {
+    taxa_query <- NULL
   } else { # assumes a tibble or data.frame has been given
     if(nrow(identify) < 1){
       taxa_query <- NULL
@@ -40,7 +36,6 @@ build_query <- function(identify = NULL,
       taxa_query <- "`TAXON_PLACEHOLDER`"
     }
   }
-  
   # validate filters
   if (is.null(filter)) {
     filter_query <- NULL
@@ -51,21 +46,16 @@ build_query <- function(identify = NULL,
     if (nrow(filter) == 0) {
       filter_query <- NULL
     } else {
-      filter_query <- build_filter_query(filter)
+      queries <- unique(filter$query)
+      filter_query <- paste0(queries, collapse = " AND ")
     }
   }
-  
-  if(is_gbif()){
-    query <- c(taxa_query, filter_query)
-  }else{
-    query <- list(fq = c(taxa_query, filter_query)) 
-  } 
-  
+  # merge
+  query <- list(fq = c(taxa_query, filter_query)) 
   # geographic stuff
   if (!is.null(location)) {
     query$wkt <- location
   }
-  
   # add profiles information (ALA only)  
   if(pour("atlas", "region") == "Australia"){
     if(!is.null(data_profile)) {
@@ -74,8 +64,35 @@ build_query <- function(identify = NULL,
       query$disableAllQualityFilters <- "true"
     }
   }
-  
   build_single_fq(query)
+}
+
+#' Build query list from constituent arguments for GBIF only
+#' @noRd
+#' @keywords Internal
+#' @importFrom potions pour
+build_query_gbif <- function(identify = NULL, 
+                             filter = NULL){
+  if(is.null(identify)) {
+    taxa_query <- list(taxonKey = 1)
+  }else{
+    taxa_query <- list(taxonKey = "`TAXON_PLACEHOLDER`")
+  }
+  # filter
+  if(is.null(filter)) {
+    filter_query <- NULL
+  }else{
+    if(!inherits(filter, "data.frame")){
+      abort("`filter` must be a `data.frame` or `tibble`")
+    }
+    if(nrow(filter) == 0) {
+      filter_query <- NULL
+    }else{
+      filter_query <- build_filter_query(filter)
+    }
+  }
+  # return merged output
+  c(taxa_query, filter_query)
 }
 
 #' collapse multiple fq args into one
@@ -97,28 +114,24 @@ build_single_fq <- function(query){
 }
 
 #' Sub-function to `build_query()` for filters
+#' only called by GBIF
 #' @noRd
 #' @keywords Internal
 build_filter_query <- function(filters) {
-  if(is_gbif()){
-    is_equals <- filters$logical == "=="
-    if(any(is_equals)){
-      filters$query[is_equals] <- filters$value[is_equals]
-    }
-    if(any(!is_equals)){
-      filters$query[!is_equals] <- sub("^[[:graph:]]+\\[", 
-                                       "", 
-                                       x = filters$query[!is_equals]) |>
-        sub("\\]$", "", x = _) |>
-        sub(" TO ", ",", x = _)
-    }
-    queries <- as.list(filters$query)
-    names(queries) <- filters$variable
-    queries
-  }else{
-    queries <- unique(filters$query)
-    paste0(queries, collapse = " AND ")
+  is_equals <- filters$logical == "=="
+  if(any(is_equals)){
+    filters$query[is_equals] <- filters$value[is_equals]
   }
+  if(any(!is_equals)){
+    filters$query[!is_equals] <- sub("^[[:graph:]]+\\[", 
+                                     "", 
+                                     x = filters$query[!is_equals]) |>
+      sub("\\]$", "", x = _) |>
+      sub(" TO ", ",", x = _)
+  }
+  queries <- as.list(filters$query)
+  names(queries) <- filters$variable
+  queries
 }
 
 #' Sub-function to `build_query()` for taxa

@@ -1,9 +1,30 @@
-#' Collect for type = "occurrences-count"
+#' `collect()` for `type = "data/occurrences-count"`
+#' @noRd
+#' @keywords Internal
+collect_occurrences_count <- function(.data){
+  if(is_gbif()){
+    collect_occurrences_count_gbif(.data)
+  }else{
+    collect_occurrences_count_la(.data)
+  }
+}
+
+#'  `collect()` for `type = "data/occurrences-count"` for gbif
+#' @noRd
+#' @keywords Internal
+collect_occurrences_count_gbif <- function(.data){
+  result <- query_API(.data)
+  if(length(result$facets) < 1 & !is.null(result$count)){ # first handle single values
+    tibble(count = result$count)
+  }
+}
+  
+#'  `collect()` for `type = "data/occurrences-count"` for living atlases
 #' @importFrom dplyr bind_rows
 #' @importFrom tibble tibble
 #' @noRd
 #' @keywords Internal
-collect_occurrences_count <- function(.data){
+collect_occurrences_count_la <- function(.data){
   result <- query_API(.data)
   if(length(result$facetResults) < 1 & !is.null(result$totalRecords)){ # first handle single values
     tibble(count = result$totalRecords)

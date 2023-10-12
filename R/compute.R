@@ -69,19 +69,20 @@ parse_metadata <- function(names_vec, .data){
 #' @rdname collect.query
 #' @export
 compute.query <- function(.data, inputs = NULL){
-  # (most) "data/" functions require pre-processing of metadata
-  if((grepl("^data/", .data$type) & .data$type != "data/media") |
-     .data$type %in% c("metadata/fields-unnest", "metadata/profiles-unnest") 
+  # "data/" functions require pre-processing of metadata,
+  # as do `unnest()`/`show_values()` functions
+  if(grepl("^data/", .data$type) |
+     grepl("-unnest$", .data$type)
   ){
+    .data <- check_identifiers(.data) # this should happen regardless of `run_checks`
     if(pour("package", "run_checks")) {
       .data <- .data |>
         check_login() |>
         check_reason() |>
-        check_identifiers() |>
         check_fields() |>
-        check_profiles() |>
-        remove_metadata()
+        check_profiles()
     }
+    .data <- remove_metadata(.data)
   }
   switch(.data$type, 
          "data/occurrences" = compute_occurrences(.data),

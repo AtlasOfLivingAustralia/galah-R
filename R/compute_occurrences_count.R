@@ -10,29 +10,28 @@
 #' @keywords Internal
 #' @noRd
 compute_occurrences_count <- function(.data){
-  if(.data$expand){
-    if(is_gbif()){
+  if(is_gbif()){
+    if(.data$expand){    
       abort("Grouped counts haven't been (re)implemented for GBIF yet")
       # compute_grouped_counts_GBIF(.data)
     }else{
-      result <- c(list(
-        type = .data$type,
-        url = build_query_list_LA(.data)),
-        .data[!(names(.data) %in% c("url", "type"))])
-    }    
+      .data
+    }
   }else{
-    result <- adjust_flimit(.data)
+    if(.data$expand){
+      compute_occurrences_count_groupby_expand(.data)
+    }else{
+      compute_occurrences_count_groupby(.data)
+    }
   }
-  class(result) <- "query"
-  return(result)
 }
-# Note: the aobe handles types `data/occurrences-count-groupby` 
+# Note: the above handles types `data/occurrences-count-groupby` 
 # and `data/occurrences-count`. This is probably inefficient.
 
 #' Internal function to handle facet counting, adjustment etc.
 #' @noRd
 #' @keywords Internal
-adjust_flimit <- function(.data){
+compute_occurrences_count_groupby <- function(.data){
   url <- url_parse(.data$url)
   if(!is.null(url$query$flimit)){
     if(as.integer(url$query$flimit) < 1){
@@ -62,9 +61,9 @@ adjust_flimit <- function(.data){
 #' @importFrom httr2 url_build
 #' @importFrom httr2 url_parse
 #' @noRd
-#' @param x list returned from `run_grouped_count_LA()`
 #' @keywords Internal
-build_query_list_LA <- function(.data){
+compute_occurrences_count_groupby_expand <- function(.data){
+  data_cached <- .data
   # get url
   url <- url_parse(.data$url)
 
@@ -162,7 +161,14 @@ build_query_list_LA <- function(.data){
   
   result_df$url <- unlist(url_list)
   result_df <- select(result_df, -query)
-  return(result_df)
+
+  # join and export
+  result <- c(list(
+    type = data_cached$type,
+    url = result_df),
+    data_cached[!(names(data_cached) %in% c("url", "type"))])
+  class(result) <- "query"
+  result
 }
 
 #' Internal function to check number of facets to be returned by a `group_by` query

@@ -242,16 +242,43 @@ check_groups <- function(group, n){
 }
 
 #' function to replace search terms with identifiers via `search_taxa()`  
-#' @importFrom dplyr pull
-#' @importFrom httr2 url_build
-#' @importFrom httr2 url_parse
-#' @importFrom purrr pluck
-#' @importFrom stringr str_extract_all
-#' @importFrom stringr str_remove_all
-#' @importFrom stringr str_replace_all
 #' @noRd
 #' @keywords Internal
 check_identifiers <- function(.data){
+  if(is_gbif()){
+    check_identifiers_gbif(.data)
+  }else{
+    check_identifiers_la(.data)
+  }
+}
+
+#' `check_identifiers()` for gbif
+#' @noRd
+#' @keywords Internal
+check_identifiers_gbif <- function(.data){
+  url <- url_parse(.data$url[1]) # FIXME: test if every >1 urls here
+  if(!is.null(url$query)){
+    metadata_lookup <-grepl("metadata/taxa", names(.data))
+    if(any(metadata_lookup)){
+      identifiers <- .data[[which(metadata_lookup)[1]]]
+      taxon_query <- as.list(identifiers$taxon_concept_id)
+      names(taxon_query) <- rep("taxonKey", length(taxon_query))
+      url$query <- c(taxon_query,  
+                     url$query[names(url$query) != "taxonKey"])
+      .data$url[1] <- url_build(url)
+    }
+  }
+  .data
+}
+  
+#' `check_identifiers()` for living atlases 
+#' @importFrom httr2 url_build
+#' @importFrom httr2 url_parse
+#' @importFrom rlang abort
+#' @importFrom stringr str_replace_all
+#' @noRd
+#' @keywords Internal
+check_identifiers_la <- function(.data){
   url <- url_parse(.data$url[1]) # FIXME: test if every >1 urls here
   queries <- url$query
   if(!is.null(queries$fq)){

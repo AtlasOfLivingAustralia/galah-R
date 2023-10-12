@@ -25,7 +25,9 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
     if (any(!fields_absent) | .data$type == "species-count") {
       result <- list(collapse_fields(), collapse_assertions())
     } else {
-      if(!is.null(.data$identify)){
+      # for living atlases, we need `collapse_fields()` to check the `lsid` field
+      # this isn't required for GBIF which doesn't use `fq` for taxon queries
+      if(!is.null(.data$identify) &!is_gbif()){
         result <- list(collapse_fields())
       }else{
         result <- list()

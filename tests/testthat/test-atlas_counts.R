@@ -1,8 +1,9 @@
 galah_config(verbose = FALSE)
 
 test_that("`collapse()` doesn't ping an API for type = `'occurrences-count'`", {
-  result <- request_data(type = "occurrences-count") |>
+  result <- request_data() |>
     filter(year == 2010) |>
+    count() |>
     collapse()
   expect_true(inherits(result, "query_set"))
   types <- unlist(lapply(result, function(a){a$type}))
@@ -10,12 +11,11 @@ test_that("`collapse()` doesn't ping an API for type = `'occurrences-count'`", {
                c("metadata/fields", "metadata/assertions", "data/occurrences-count"))
 })
 
-with_mock_dir("atlas_counts", {
-  test_that("atlas_counts works with no arguments", {
-    count <- atlas_counts()
-    expect_s3_class(count, c("tbl_df", "tbl", "data.frame"))
-    expect_gt(count$count, 0)
-  })
+test_that("atlas_counts works with no arguments", {
+  skip_if_offline()
+  count <- atlas_counts()
+  expect_s3_class(count, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(count$count, 0)
 })
 
 test_that("count() |> collect() works with no arguments", {

@@ -133,21 +133,76 @@ test_that("atlas_counts fails for GBIF when type = 'species'", {
   expect_error(atlas_counts(type = "species"))
 })
 
-test_that("atlas_counts works with galah_identify for GBIF", {
+test_that("`count()` works with `filter()` for GBIF", {
   skip_if_offline()
-  result <- galah_call() |>
-    galah_identify("Mammalia") |>
-    atlas_counts()
-  expect_gt(result$count, 1)
+  # collapse
+  x <- request_data() |>
+    filter(year == 2010) |>
+    count() |>
+    collapse()
+  expect_s3_class(x, "query_set")
+  expect_equal(length(x), 3)
+  expect_equal(
+    c(x[[1]]$type, x[[2]]$type, x[[3]]$type),
+    c("metadata/fields", 
+      "metadata/assertions", 
+      "data/occurrences-count"))
+  # compute
+  y <- compute(x)
+  expect_s3_class(y, "query")
+  expect_equal(length(y), 5)
+  expect_equal(names(y), c("type",
+                           "url",
+                           "slot_name",
+                           "expand",
+                           "headers"))
+  # collect
+  z <- collect(y)
+  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(z$count, 1)
+  expect_equal(nrow(z), 1)
+})
+
+test_that("`count` works with `identify` for GBIF", {
+  skip_if_offline()
+  # collapse
+  x <- request_data() |>
+    identify("Mammalia") |>
+    count() |>
+    collapse()
+  expect_s3_class(x, "query_set")
+  expect_equal(length(x), 2)
+  expect_equal(
+    c(x[[1]]$type, x[[2]]$type),
+    c("metadata/taxa-single", "data/occurrences-count"))
+  # compute
+  y <- compute(x)
+  expect_s3_class(y, "query")
+  expect_equal(length(y), 5)
+  expect_equal(names(y), c("type",
+                           "url",
+                           "slot_name",
+                           "expand",
+                           "headers"))
+  # collect
+  z <- collect(y)
+  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  expect_gt(z$count, 1)
+  expect_equal(nrow(z), 1)
 })
 
 test_that("atlas_counts works with group_by for GBIF", {
   skip_if_offline()
-  result <- galah_call() |>
+  x <- galah_call() |>
     filter(year >= 2020) |>
     group_by(year) |>
     count() |>
-    collect()
+    collapse()
+  
+  # compute
+  
+  # collect
+  
   expect_gt(nrow(result), 1)
   expect_equal(names(result), c("year", "count"))
 })
