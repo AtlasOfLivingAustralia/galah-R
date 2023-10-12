@@ -67,10 +67,15 @@ check_download_filename <- function(file, ext = "zip"){
 }
 
 #' Subfunction to `check_login()`
+#' @importFrom jsonlite fromJSON
 #' @noRd
 #' @keywords Internal
 check_email <- function(.data){
-  email_text <- url_parse(.data$url)$query$email
+  if(is_gbif()){
+    email_text <- fromJSON(.data$body)$notificationAddresses
+  }else{
+    email_text <- url_parse(.data$url)$query$email
+  }
   if(is.null(email_text)) {
     abort_email_missing()
   }else if(email_text == ""){
@@ -95,30 +100,6 @@ check_filter_tibbles <- function(x){ # where x is a list of tibbles
   }
 }
 
-#' Internal function to confirm requisite login information has been provided
-#' Called by `compute()`
-#' @noRd
-#' @keywords Internal
-#' @importFrom rlang caller_env
-check_login <- function(.data, error_call = caller_env()) {
-  # Check for valid email for occurrences or species queries for all providers
-  if(.data$type == "data/occurrences" | .data$type == "data/species"){
-    switch(pour("atlas", "region"), 
-           "United Kingdom" = return(),
-           "Global" = {
-             check_email(.data)
-             check_password(.data)},
-           check_email(.data))
-  }
-  .data
-  # ALA requires an API key
-  # } else if (pour("atlas", "acronym") == "ALA") {
-  #   if (is.null(.data$headers$`x-api-key`) | .data$headers$`x-api-key` == "") {
-  #     abort_api_key_missing()
-  #   }
-  # }  
-}
-
 #' Internal function to check whether fields are valid
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr pull
@@ -131,82 +112,22 @@ check_login <- function(.data, error_call = caller_env()) {
 #' @keywords Internal
 check_fields <- function(.data) {
   
-  # other behaviour depends on galah_config() settings
-  if (pour("package", "run_checks")) {
-    url <- url_parse(.data$url[1])
-    queries <- url$query
-
-    # set fields to check against
-    # NOTE: These are retrieved in collapse()
-    valid_fields <- .data[["metadata/fields"]]$id
-    valid_assertions <- .data[["metadata/assertions"]]$id
-    valid_any <- c(valid_fields, valid_assertions)
-    
-    # extract fields from filter & identify
-    filter_invalid <- NA
-    if(is.null(queries$fq)){
-      # note: above was previously: `exists("fq", where = queries)`
-      # Error in as.environment(where) : using 'as.environment(NULL)' is defunct
-      filters <- NULL
+  if(pour("package", "run_checks")){
+    if(is_gbif()){
+      if(.data$type == "data/occurrences"){
+        check_result <- check_fields_gbif_predicates(.data)  
+      }else{
+        check_result <- check_fields_gbif_counts(.data)
+      }
     }else{
-      if (nchar(queries$fq) > 0) {
-        filters <- string_to_tibble(queries$fq) |>
-          pull(value) |>
-          gsub("\\(|\\)|\\-|\\:", "", x = _)
-      } else {
-        filters <- NULL
-      }
-      
-      if (length(filters) > 0) {
-        if (!all(filters %in% valid_any)) {
-          invalid_fields <- filters[!(filters %in% valid_any)]
-          filter_invalid <- glue_collapse(invalid_fields, sep = ", ")
-        }
-      }
+      check_result <- check_fields_la(.data)
     }
-    
-    # galah_select columns check - note distinction between fields and assertions
-    select_invalid <- NA
-    if (!is.null(queries$fields)) {
-      fields <- queries$fields |>
-        strsplit(",") |>
-        unlist()
-      if (length(fields) > 0) {
-        assertions_check <- fields %in% valid_assertions
-        if(any(assertions_check)){
-          if(queries$qa == "none"){
-            queries$qa <- glue_collapse(fields[assertions_check], sep = ",")
-            queries$fields <- glue_collapse(fields[!assertions_check], sep = ",")
-            url$query <- queries
-            .data$url[1] <- url_build(url)
-          } # no else{}, as only other possible option is "all"
-          fields <- fields[!assertions_check]
-        }
-        if (!all(fields %in% valid_fields)) {
-          invalid_fields <- fields[!(fields %in% valid_fields)]
-          list_invalid_fields <- glue_collapse(invalid_fields, sep = ", ")
-          select_invalid <- glue_collapse(invalid_fields, sep = ", ")
-        }
-      }
-    }
-    
-    # galah_group_by fields check
-    group_by_invalid <- NA
-    if (!is.null(queries$facets)) {
-      facets <- queries[names(queries) == "facets"] |> unlist() # NOTE: arrange() is missing
-      if (length(facets) > 0) {
-        if (!all(facets %in% valid_any)) {
-          invalid_fields <- facets[!(facets %in% valid_any)]
-          group_by_invalid <- glue_collapse(invalid_fields, sep = ", ")
-        }
-      }
-    }
-    
+
     # error message
-    if(any(!is.na(c(filter_invalid, select_invalid, group_by_invalid)))) {
+    if(any(!is.na(check_result))) {
       returned_invalid <- tibble(
         function_name = c("`galah_filter()`", "`galah_select()`", "`galah_group_by()`"),
-        fields = c(filter_invalid, select_invalid, group_by_invalid)
+        fields = check_result
       ) |>
         drop_na()
       
@@ -225,6 +146,147 @@ check_fields <- function(.data) {
   }
   .data
 }
+
+#' sub-function to `check_fields()` for living atlases
+#' @importFrom jsonlite fromJSON
+#' @importFrom purrr pluck
+#' @noRd
+#' @keywords Internal
+check_fields_gbif_counts <- function(.data){
+  # set fields to check against
+  valid_fields <- .data[["metadata/fields"]]$id
+  valid_assertions <- .data[["metadata/assertions"]]$id
+  valid_any <- c(valid_fields, valid_assertions)
+  url <- url_parse(.data$url[1])
+
+  # get fields from url
+  query_names <- names(url$query)
+  fields <- query_names[!(query_names %in% c("limit", "facet", "facetLimit"))] 
+  # check invalid fields
+  filter_invalid <- NA
+  if (length(fields) > 0) {
+    if (!all(fields %in% valid_any)) {
+      invalid_fields <- fields[!(fields %in% valid_any)]
+      filter_invalid <- glue_collapse(invalid_fields, sep = ", ")
+    }
+  }
+  
+  # check for invalid facets
+  group_by_invalid <- NA
+  if(any(query_names == "facet")){
+    fields <- unlist(url$query[which(query_names == "facet")])
+    if (!all(fields %in% valid_any)) {
+      invalid_fields <- fields[!(fields %in% valid_any)]
+      group_by_invalid <- glue_collapse(invalid_fields, sep = ", ")
+    }
+  }
+  
+  c(filter_invalid, NA, group_by_invalid)
+}
+
+#' sub-function to `check_fields()` for living atlases
+#' @importFrom jsonlite fromJSON
+#' @importFrom purrr pluck
+#' @noRd
+#' @keywords Internal
+check_fields_gbif_predicates <- function(.data){
+  # set fields to check against
+  valid_fields <- .data[["metadata/fields"]]$id
+  valid_assertions <- .data[["metadata/assertions"]]$id
+  valid_any <- c(valid_fields, valid_assertions) |>
+    camel_to_snake_case() |>
+    toupper()
+  # extract fields
+  fields <- .data$body |> 
+    fromJSON() |>
+    pluck("predicate", "predicates", "key")
+  # check invalid
+  filter_invalid <- NA
+  if (length(fields) > 0) {
+    if (!all(fields %in% valid_any)) {
+      invalid_fields <- fields[!(fields %in% valid_any)]
+      filter_invalid <- glue_collapse(invalid_fields, sep = ", ")
+    }
+  }
+  c(filter_invalid, NA, NA)
+}
+
+#' sub-function to `check_fields()` for living atlases
+#' @noRd
+#' @keywords Internal
+check_fields_la <- function(.data){
+  url <- url_parse(.data$url[1])
+  queries <- url$query
+  
+  # set fields to check against
+  # NOTE: These are retrieved in collapse()
+  valid_fields <- .data[["metadata/fields"]]$id
+  valid_assertions <- .data[["metadata/assertions"]]$id
+  valid_any <- c(valid_fields, valid_assertions)
+  
+  # extract fields from filter & identify
+  filter_invalid <- NA
+  if(is.null(queries$fq)){
+    # note: above was previously: `exists("fq", where = queries)`
+    # Error in as.environment(where) : using 'as.environment(NULL)' is defunct
+    filters <- NULL
+  }else{
+    if (nchar(queries$fq) > 0) {
+      filters <- string_to_tibble(queries$fq) |>
+        pull(value) |>
+        gsub("\\(|\\)|\\-|\\:", "", x = _)
+    } else {
+      filters <- NULL
+    }
+    
+    if (length(filters) > 0) {
+      if (!all(filters %in% valid_any)) {
+        invalid_fields <- filters[!(filters %in% valid_any)]
+        filter_invalid <- glue_collapse(invalid_fields, sep = ", ")
+      }
+    }
+  }
+  
+  # galah_select columns check - note distinction between fields and assertions
+  select_invalid <- NA
+  if (!is.null(queries$fields)) {
+    fields <- queries$fields |>
+      strsplit(",") |>
+      unlist()
+    if (length(fields) > 0) {
+      assertions_check <- fields %in% valid_assertions
+      if(any(assertions_check)){
+        if(queries$qa == "none"){
+          queries$qa <- glue_collapse(fields[assertions_check], sep = ",")
+          queries$fields <- glue_collapse(fields[!assertions_check], sep = ",")
+          url$query <- queries
+          .data$url[1] <- url_build(url)
+        } # no else{}, as only other possible option is "all"
+        fields <- fields[!assertions_check]
+      }
+      if (!all(fields %in% valid_fields)) {
+        invalid_fields <- fields[!(fields %in% valid_fields)]
+        list_invalid_fields <- glue_collapse(invalid_fields, sep = ", ")
+        select_invalid <- glue_collapse(invalid_fields, sep = ", ")
+      }
+    }
+  }
+  
+  # galah_group_by fields check
+  group_by_invalid <- NA
+  if (!is.null(queries$facets)) {
+    facets <- queries[names(queries) == "facets"] |> unlist() # NOTE: arrange() is missing
+    if (length(facets) > 0) {
+      if (!all(facets %in% valid_any)) {
+        invalid_fields <- facets[!(facets %in% valid_any)]
+        group_by_invalid <- glue_collapse(invalid_fields, sep = ", ")
+      }
+    }
+  }
+  
+  c(filter_invalid, select_invalid, group_by_invalid)
+}
+
 
 # If no args are supplied, set default columns returned as group = "basic"
 check_groups <- function(group, n){
@@ -246,7 +308,11 @@ check_groups <- function(group, n){
 #' @keywords Internal
 check_identifiers <- function(.data){
   if(is_gbif()){
-    check_identifiers_gbif(.data)
+    if(.data$type == "data/occurrences"){
+      check_identifiers_gbif_predicates(.data)
+    }else{
+      check_identifiers_gbif(.data) # mainly for `data/occurrences-count` 
+    }
   }else{
     check_identifiers_la(.data)
   }
@@ -266,6 +332,22 @@ check_identifiers_gbif <- function(.data){
       url$query <- c(taxon_query,  
                      url$query[names(url$query) != "taxonKey"])
       .data$url[1] <- url_build(url)
+    }
+  }
+  .data
+}
+
+#' `check_identifiers()` for gbif occurrences
+#' @noRd
+#' @keywords Internal
+check_identifiers_gbif_predicates <- function(.data){
+  if(!is.null(.data$body)){
+    metadata_lookup <-grepl("metadata/taxa", names(.data))
+    if(any(metadata_lookup)){
+      identifiers <- .data[[which(metadata_lookup)[1]]]
+      .data$body <- sub("`TAXON_PLACEHOLDER`", 
+                        identifiers$taxon_concept_id[1], 
+                        .data$body)
     }
   }
   .data
@@ -299,6 +381,28 @@ check_identifiers_la <- function(.data){
     }
   }
   .data
+}
+
+#' Internal function to confirm requisite login information has been provided
+#' Called by `compute()`
+#' @noRd
+#' @keywords Internal
+#' @importFrom rlang caller_env
+check_login <- function(.data, error_call = caller_env()) {
+  # Check for valid email for occurrences or species queries for all providers
+  if(.data$type == "data/occurrences" | .data$type == "data/species"){
+    switch(pour("atlas", "region"), 
+           "United Kingdom" = return(),
+           "Global" = {check_email(.data); check_password(.data)},
+           check_email(.data))
+  }
+  .data
+  # ALA requires an API key
+  # } else if (pour("atlas", "acronym") == "ALA") {
+  #   if (is.null(.data$headers$`x-api-key`) | .data$headers$`x-api-key` == "") {
+  #     abort_api_key_missing()
+  #   }
+  # }  
 }
 
 #' Internal function to convert multi-value media fields to list-columns
@@ -376,7 +480,7 @@ check_n_inputs <- function(dots, error_call = caller_env()) {
 #' @noRd
 #' @keywords Internal
 check_occurrence_response <- function(.data){
-  if(is_gbif()){
+  # if(is_gbif()){
     # list(
     #   completed_flag = "SUCCEEDED",
     #   queue_function = "check_queue_GBIF",
@@ -384,21 +488,22 @@ check_occurrence_response <- function(.data){
     #   download_tag = "downloadLink",
     #   status_url = attr(.data, "url")
     # )
+  # }else{
+  names(.data) <- camel_to_snake_case(names(.data))
+  if(!is.null(.data$status_code)){
+    switch(as.character(.data$status_code),
+           "500" = {abort(c("There was a problem with your query.",
+                            i = glue("message: {.data$message}")),
+                          error_call = caller_env())},
+           abort("Aborting for unknown reasons.", # FIXME
+                 error_call = caller_env()))
   }else{
-    names(.data) <- camel_to_snake_case(names(.data))
-    if(!is.null(.data$status_code)){
-      switch(as.character(.data$status_code),
-             "500" = {abort(c("There was a problem with your query.",
-                              i = glue("message: {.data$message}")),
-                            error_call = caller_env())},
-             abort("Aborting for unknown reasons.", # FIXME
-                   error_call = caller_env()))
+    if(.data$status %in% c("finished", # ALA
+                           "SUCCEEDED") # GBIF
+    ){
+      .data$status <- "complete"
     }else{
-      if(.data$status == "finished"){
-        .data$status <- "complete"
-      }else{
-        .data$status <- "incomplete"
-      }
+      .data$status <- "incomplete"
     }
   }
   .data
@@ -426,11 +531,11 @@ check_occurrence_status <- function(.data){
 #' Subfunction to `check_login()`
 #' @noRd
 #' @keywords Internal
-check_password <- function(.data){
-  if (.data$opts$userpwd == ":") {
+check_password <- function(.data, 
+                           error_call = caller_env()){
+  if (.data$options$userpwd == ":") {
     abort("GBIF requires a username and password to download occurrences or species.",
-          call = error_call
-    )
+          call = error_call)
   }
 }
 

@@ -6,7 +6,6 @@
 #' @noRd
 #' @keywords Internal
 collect_taxa <- function(.data){
-  
   switch(pour("atlas", "region"),
          "Australia" = collect_taxa_australia(.data),
          collect_taxa_la(.data)) # tested for Austria, UK

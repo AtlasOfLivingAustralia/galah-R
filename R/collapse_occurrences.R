@@ -46,21 +46,16 @@ collapse_occurrences_uk <- function(.data){
 }
 
 #' calculate the query to be returned for GBIF
-#' NOT UPDATED
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_gbif <- function(identify = NULL,
-                                      filter = NULL,
-                                      geolocate = NULL,
-                                      format = "SIMPLE_CSV",
-                                      data_profile = NULL){
+collapse_occurrences_gbif <- function(.data){
   # deal with user-specified taxonomic names
   if(!is.null(identify)){
-    filter <- rbind(
-      filter,
+    .data$filter <- rbind(
+      .data$filter,
       data.frame(variable = "taxonKey",
                  logical = "==",
-                 value = identify$identifier,
+                 value = "`TAXON_PLACEHOLDER`",
                  query = ""))
   }
   result <- list(
@@ -71,13 +66,13 @@ collapse_occurrences_gbif <- function(identify = NULL,
       `X-USER-AGENT` = galah_version_string(),
       `Content-Type` = "application/json",
       Accept = "application/json"),
-    opts = list(
+    options = list(
       httpauth = 1,
       userpwd = paste0(
         pour("user", "username", .pkg = "galah"),
         ":", 
         pour("user", "password", .pkg = "galah"))),
-    body = build_predicates(filter, format))
+    body = build_predicates(.data$filter, format = "SIMPLE_CSV"))
   class(result) <- "query"
   return(result)
 }

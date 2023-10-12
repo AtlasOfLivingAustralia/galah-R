@@ -44,6 +44,7 @@ query_API <- function(.data, error_call = caller_env()) {
 #' @importFrom httr2 req_headers
 #' @importFrom httr2 req_perform
 #' @importFrom httr2 resp_body_json
+#' @importFrom httr2 resp_body_string
 #' @importFrom purrr pluck
 #' @importFrom rlang abort
 #' @importFrom rlang inform
@@ -58,9 +59,13 @@ query_API_internal <- function(.data, error_call = caller_env()) {
     query |> req_perform(path = .data$file,
                          verbosity = 0) # try(x, silent = TRUE) ?
   }else{
-    query |>
-      req_perform(verbosity = 0) |>  # try(x, silent = TRUE) ?
-      resp_body_json() # may not work for invalid URLs
+    res <- query |>
+      req_perform(verbosity = 0)  # try(x, silent = TRUE) ?
+    if(grepl("^https://api.gbif.org/v1/occurrence/download/request", .data$url)){
+      resp_body_string(res)
+    }else{
+      resp_body_json(res) # may not work for invalid URLs 
+    }
   }
 }
 
@@ -85,6 +90,7 @@ add_body <- function(req, body){
   if(!is.null(body)){
     req <- req |>
       req_body_json(body)
+    req$body$params <- NULL
   }
   req
 }

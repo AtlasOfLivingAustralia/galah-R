@@ -227,6 +227,7 @@ test_that("`count` works with `group_by` for GBIF", {
 
 # FIXME: GBIF grouped counts only work for n = 1 - expand this or add warning
 # FIXME: `slice_head()` not tested for GBIF
+# FIXME: `check_fields()` not tested for GBIF - try sending invalid fields to `filter()`
 
 test_that("`galah_select()` returns message for GBIF", {
   expect_message({x <- galah_select(galah_call())})
@@ -254,14 +255,21 @@ test_that("atlas_media fails for GBIF", {
 test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   skip_if_offline()
   # collapse
-  gbif_query <- galah_call() |>
+  x <- request_data() |>
     identify("Vulpes vulpes") |>
-    filter(year <= 1800, 
-           basisOfRecord == "PRESERVED_SPECIMEN") |>
-    collapse(type = "occurrences")
-  
+    filter(year == 1900) |>
+    collapse()
+  # NOTE: the above query should return 147 records (tested 2023-10-12)
+  expect_s3_class(x, "query_set")
+  expect_equal(length(x), 4)
+  expect_equal(
+    unlist(lapply(x, function(a){a$type})),
+    c("metadata/fields", 
+      "metadata/assertions",
+      "metadata/taxa-single",
+      "data/occurrences"))
   # compute
-  gbif_response <- compute(gbif_query)
+  y <- compute(x)
   expect_true(inherits(gbif_response, "data_response"))
   expect_equal(length(gbif_response), 1)
   

@@ -20,11 +20,13 @@ compute_occurrences_uk <- function(.data){
 #' @noRd
 #' @keywords Internal
 compute_occurrences_gbif <- function(.data){
-  post_result <- query_API(.data)
-  status_code <- list(url = paste0(
-    "https://api.gbif.org/v1/occurrence/download/", 
-    post_result)) |>
-    query_API()
+  post_result <- query_API(.data) # returns an id
+  status_code <- list(
+    type = "data/occurrences",
+    url = paste0("https://api.gbif.org/v1/occurrence/download/", 
+                 post_result)) |>
+    query_API() |>
+    check_occurrence_response()
   result <- c(
     list(type = "data/occurrences"),
     status_code)

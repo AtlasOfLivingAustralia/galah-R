@@ -19,9 +19,9 @@ compute_occurrences_count <- function(.data){
     }
   }else{
     if(.data$expand){
-      compute_occurrences_count_groupby_expand(.data)
-    }else{
       compute_occurrences_count_groupby(.data)
+    }else{
+      compute_occurrences_count_nogroupby(.data)
     }
   }
 }
@@ -31,7 +31,7 @@ compute_occurrences_count <- function(.data){
 #' Internal function to handle facet counting, adjustment etc.
 #' @noRd
 #' @keywords Internal
-compute_occurrences_count_groupby <- function(.data){
+compute_occurrences_count_nogroupby <- function(.data){
   url <- url_parse(.data$url)
   if(!is.null(url$query$flimit)){
     if(as.integer(url$query$flimit) < 1){
@@ -62,7 +62,7 @@ compute_occurrences_count_groupby <- function(.data){
 #' @importFrom httr2 url_parse
 #' @noRd
 #' @keywords Internal
-compute_occurrences_count_groupby_expand <- function(.data){
+compute_occurrences_count_groupby <- function(.data){
   data_cached <- .data
   # get url
   url <- url_parse(.data$url)
