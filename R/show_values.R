@@ -45,7 +45,9 @@
 #' 
 #' @export
 show_values <- function(df){
-
+  
+  check_values_input(df)
+  
   type <- attr(df, "call")
   match_name <- switch(type,
                        "fields" = df$id[1],
@@ -53,7 +55,6 @@ show_values <- function(df){
                        "profiles" = df$shortName[1],
                        df$uid[1] # last option selected if above are exhausted
   )
-  # browser()
   # specify the number matched fields
   # specify for which field the values are displayed
   if(nrow(df) > 1) {
@@ -88,13 +89,53 @@ show_values <- function(df){
   # note: it would be better to have 
   # filter({{type}} := {{id}})
   # ...but this fails for some reason as `:=` is not implemented yet
-  collect(x)
+  collapse(x) |> compute()
 }
 
 #' @param query A string specifying a search term. Not case sensitive.
 #' @rdname show_values
 #' @export search_values
 search_values <- function(df, query) {
-  show_values(df) |>
+  
+  values_lookup <- show_values(df)
+  check_if_missing(query)
+  
+  values_lookup |>
     search_text_cols(query = query)
+}
+
+#' Internal function to check inputs to `show_values()` & `search_values()` 
+#' @noRd
+#' @keywords Internal
+check_values_input <- function(df, error_call = caller_env()) {
+  # Check if missing input
+  if(missing(df) || is.null(df)) {
+    bullets <- c(
+      "Missing information for values lookup.",
+      i = "Field, profile or list must be provided as a tibble created by `search_all()`.",
+      i = "e.g. `search_all(fields, \"year\") |> show_values()`."
+    )
+    abort(bullets, call = error_call)
+  }
+  
+  # Check that original data.frame is from a `show_all` or `search_all`
+  if(is.null(attr(df, "call"))) {
+    bullets <- c(
+      "Wrong input provided.",
+      i = "Must supply a tibble created by `search_all()` or `show_all()`.",
+      i = "e.g. `search_all(fields, \"year\") |> show_values()`."
+    )
+    abort(bullets, call = error_call)
+  }
+  
+  # Input must be from valid `show_all` or `search_all` tibble
+  valid_calls <- c("fields", "profiles", "lists", "collections", "datasets", "providers")
+  if(!any(valid_calls == attr(df, "call"))){
+    type <- attr(df, "call")
+    bullets <- c(
+      glue("Can't lookup values for metadata type `{type}`."),
+      x = "Values lookup accepts `fields`, `profiles`, `lists`, `collections`, `datasets` or `providers`."
+    )
+    abort(bullets, call = error_call)
+  }
 }

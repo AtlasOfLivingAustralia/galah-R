@@ -16,14 +16,14 @@ test_that("show_values checks values", {
   df <- tibble::tibble(x = c(1:2), y = c("a", "b"))
   wrong_type_search <- search_all(reasons, "sci")
   
-  expect_error(show_values(), 'No input detected')
+  expect_error(show_values(), 'Must supply a tibble')
   expect_error(df |> show_values(), 'Wrong input provided')
   expect_error(wrong_type_search |> show_values(), "Unsupported 'type'")
 })
 
 test_that("show_values accepts search & show_all inputs from fields", {
   skip_on_cran()
-  search <- search_all(lists, "EPBCact1")
+  search <- search_all(lists, "EPBC act")
   filtered_show <- show_all(lists) |>
     dplyr::filter(dataResourceUid == "dr656")
   values_search <- search |> show_values()
@@ -65,8 +65,8 @@ test_that("show_values accepts search & show_all inputs from lists", {
 
 test_that("search_values returns helpful error when missing query", {
   skip_on_cran()
-  expect_error(search_values(), "No input detected")
-  expect_error(search_all(fields, "cl22") |> search_values(), "didn't detect a valid query")
+  expect_error(search_values(), "Missing information for values lookup")
+  expect_error(search_all(fields, "cl22") |> search_values(), "didn't detect a search query")
 })
 
 test_that("search_values returns filtered results for fields", {
@@ -75,7 +75,7 @@ test_that("search_values returns filtered results for fields", {
   values_search <- search |> search_values("new")
   values_show <- search |> show_values()
   search_result_check <- all(grepl(pattern = "new", 
-                                   paste(values_search$category),
+                                   paste(values_search[,1]),
                                    ignore.case = TRUE))
 
   expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
@@ -99,7 +99,7 @@ test_that("search_values returns filtered results for profiles", {
   expect_true(search_result_check)
 })
 
-test_that("search_values returns filtered results for profiles", {
+test_that("search_values returns filtered results for lists", {
   skip_on_cran()
   search <- search_all(lists, "ALA")
   values_search <- search |> search_values("frog")

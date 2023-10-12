@@ -39,7 +39,7 @@ compute.query_set <- function(.data){
       # metadata/fields-unnest calls check_fields(), requiring fields and assertions
       # metadata/profiles-unnest calls profile_short_name(), which requires profiles
     metadata_results <- parse_metadata(names_vec, .data)
-    .data[[1]] |>
+    .data[[2]] |>
       add_metadata(metadata_results) |>
       collect()
   }else{ 
@@ -52,7 +52,6 @@ compute.query_set <- function(.data){
 #' @noRd
 #' @keywords Internal
 parse_metadata <- function(names_vec, .data){
-  # browser()
   metadata_lookup <- grepl("^metadata", names_vec) &
     !grepl("-unnest$", names_vec) # unnest functions only parse in collect()
   if(any(metadata_lookup)){
@@ -92,7 +91,7 @@ compute.query <- function(.data, inputs = NULL){
          # "-unnest" functions require some checks
          "metadata/profiles-unnest" = compute_profile_values(.data),  # check this
          # some "metadata/" functions require pagination under some circumstances
-          "metadata/lists" = compute_lists(.data), # always paginates
+         "metadata/lists" = compute_lists(.data), # always paginates
          .data # remaining "metadata/" functions are passed as-is
   )
 }

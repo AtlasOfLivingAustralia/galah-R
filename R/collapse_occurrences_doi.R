@@ -4,7 +4,6 @@
 #' @noRd
 #' @keywords Internal
 collapse_occurrences_doi <- function(.data, error_call = caller_env()){
-  # browser()
   if(is.null(.data$filter)){
     abort("A DOI must be specified using `filter(doi == \"my-doi-here\")`.", 
           call = error_call)

@@ -83,11 +83,6 @@
 #' @importFrom rlang as_name
 #' @export
 search_all <- function(type, query){
-  # dots <- enquos(..., .ignore_empty = "all")
-  # type <- gsub("\"", "", as_label(dots[[1]])) # handle case where type is quoted
-  
-  # check_if_missing(as_name(dots[[2]]))
-  # query <- rlang::as_name(dots[[2]])
   
   # vector of valid types for this function
   valid_types <- c(
@@ -136,27 +131,39 @@ search_all <- function(type, query){
 #' @noRd
 #' @keywords Internal
 search_text_cols <- function(df, query){
+
   query <- tolower(query)
   keep_cols <- unlist(lapply(df, is.character)) & 
     colnames(df) != "type"
+  # browser()
   check_list <- lapply(df[, keep_cols], 
                        function(a){grepl(query, tolower(a))})
   check_vector <- lapply(list_transpose(check_list), any) |> unlist()
-  df |> filter({{check_vector}})
+  result <- df |> filter({{check_vector}})
+  
+  # order search_all() results
+  if ("id" %in% colnames(result)) {
+    similarity <- adist(result$id, query)[, 1] # similarity of results to query
+    result <- result[order(similarity), ] # reorder results
+  }
+  
+  # return results in order of similarity to search term
+  return(result)
 }
 
 #' Internal function to check for missingness
 #' @noRd
 #' @keywords Internal
 #' @importFrom rlang abort
-check_if_missing <- function(query, error_call = caller_env()) {
+check_if_missing <- function(query,
+                             parent_function,
+                             error_call = caller_env()) {
   if (missing(query)) {
     bullets <- c(
       "We didn't detect a search query.",
-      i = "Try entering text to search for matching values.", 
-      i = "Example: `search_all(fields, \"date\")`"
+      i = "Try entering a string to search for matching values."
     )
-    abort(bullets, call = caller_env())
+    abort(bullets, call = error_call)
   }
 }
 
