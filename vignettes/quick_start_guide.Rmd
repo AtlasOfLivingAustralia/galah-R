@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-01-18'
+date: '2023-10-13'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -20,8 +20,8 @@ organisations collate and store observations of individual life forms, using the
 information, record counts, or associated media such as images or sounds. Users 
 can restrict their queries to particular taxa or locations by specifying which 
 columns and rows are returned by a query, or by restricting their results to 
-observations that meet particular quality-control criteria. With a few minor
-exceptions, all functions return a `tibble` as their standard format.
+observations that meet particular quality-control criteria. All functions return 
+a `tibble` as their standard format.
 
 
 # Installation
@@ -93,7 +93,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 113038010
+## 1 130679056
 ```
 
 To pass more complex queries, start with the `galah_call()` function and pipe
@@ -111,7 +111,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 15150011
+## 1 26671180
 ```
 
 Alternatively, you can use a subset of `dplyr` verbs to pipe your queries, 
@@ -122,17 +122,18 @@ assuming you start with `galah_call()`.
 galah_call() |>
   filter(year >= 2020) |> 
   group_by(year) |>
-  count()
+  count() |>
+  collect()
 ```
 
 ```
 ## # A tibble: 4 × 2
 ##   year    count
 ##   <chr>   <int>
-## 1 2021  7155750
-## 2 2020  6419193
-## 3 2022  1547173
-## 4 2023    27895
+## 1 2022  8353115
+## 2 2021  8204330
+## 3 2020  7116059
+## 4 2023  2997676
 ```
 
 To narrow the search to a particular taxonomic group, use `galah_identify()` or 
@@ -147,10 +148,9 @@ search_taxa("reptilia") # Check whether taxonomic info is correct
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                                    rank  match…¹ kingdom phylum class issues
-##   <chr>       <chr>           <chr>                                                               <chr> <chr>   <chr>   <chr>  <chr> <chr> 
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550ef… class exactM… Animal… Chord… Rept… noIss…
-## # … with abbreviated variable name ¹​match_type
+##   search_term scientific_name taxon_concept_id                                                  rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                                             <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
 ```r
@@ -164,7 +164,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##    count
 ##    <int>
-## 1 101979
+## 1 214842
 ```
 
 # Downloading records
@@ -194,15 +194,15 @@ result |> head()
 
 ```
 ## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate           scientificName    taxonConceptID                     recor…¹ dataR…² occur…³ basis…⁴
-##             <dbl>            <dbl> <dttm>              <chr>             <chr>                              <chr>   <chr>   <chr>   <chr>  
-## 1           -43.4             147. 2020-09-04 14:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… e8045b… FrogID  PRESENT HUMAN_…
-## 2           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… 44187a… FrogID  PRESENT HUMAN_…
-## 3           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… bc34a7… FrogID  PRESENT HUMAN_…
-## 4           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… ca4707… FrogID  PRESENT HUMAN_…
-## 5           -43.4             146. 2020-01-01 13:00:00 Litoria burrowsae https://biodiversity.org.au/afd/t… 9c71f5… FrogID  PRESENT HUMAN_…
-## 6           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… 4bbaad… FrogID  PRESENT HUMAN_…
-## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​basisOfRecord
+##   recordID              decimalLatitude decimalLongitude eventDate           scientificName taxonConceptID dataResourceName occurrenceStatus
+##   <chr>                           <dbl>            <dbl> <dttm>              <chr>          <chr>          <chr>            <chr>           
+## 1 00250163-ec50-4eda-a…           -41.2             147. 2023-08-23 01:49:28 Litoria        https://biodi… iNaturalist Aus… PRESENT         
+## 2 003e0f63-9f95-4af9-b…           -42.9             148. 2022-12-23 19:27:00 Litoria ewing… https://biodi… iNaturalist Aus… PRESENT         
+## 3 00410554-5289-416f-9…           -41.7             147. 2021-05-06 00:00:00 Litoria ewing… https://biodi… FrogID           PRESENT         
+## 4 0081e7ef-459b-42a9-8…           -43.2             147. 2020-08-02 00:00:00 Litoria ewing… https://biodi… FrogID           PRESENT         
+## 5 0086def1-8415-4bb3-8…           -41.2             147. 2020-12-31 00:00:00 Litoria ewing… https://biodi… FrogID           PRESENT         
+## 6 00b40ee7-074b-4dae-9…           -41.5             147. 2020-11-01 00:00:00 Litoria ewing… https://biodi… FrogID           PRESENT         
+## # ℹ 1 more variable: basisOfRecord <chr>
 ```
 
 Check out our other vignettes for more detail on how to use these functions.

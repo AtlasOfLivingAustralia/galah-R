@@ -1,7 +1,7 @@
 Package: galah
 Type: Package
 Title: Download Biodiversity Data from the GBIF Node Network
-Version: 1.5.3.9999
+Version: 2.0.0
 Authors@R: 
     c(person(given = "Martin",
              family = "Westgate",
@@ -53,7 +53,7 @@ Suggests:
     rmarkdown,
     testthat
 License: MPL-2.0
-URL: https://galah.ala.org.au
+URL: https://galah.ala.org.au/R/
 BugReports: https://github.com/AtlasOfLivingAustralia/galah-R/issues
 Maintainer: Martin Westgate <martin.westgate@csiro.au>
 LazyLoad: yes

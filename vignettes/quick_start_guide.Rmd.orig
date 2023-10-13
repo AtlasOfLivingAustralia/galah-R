@@ -83,7 +83,8 @@ assuming you start with `galah_call()`.
 galah_call() |>
   filter(year >= 2020) |> 
   group_by(year) |>
-  count()
+  count() |>
+  collect()
 ```
 
 To narrow the search to a particular taxonomic group, use `galah_identify()` or 

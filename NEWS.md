@@ -1,3 +1,11 @@
+# galah 2.0.0
+
+
+
+# galah 1.5.3
+
+Minor release to address CRAN issues. Last release before 2.0.0.
+
 # galah 1.5.2
 
 Minor release to resolve issues on CRAN, and a few recent bugs.

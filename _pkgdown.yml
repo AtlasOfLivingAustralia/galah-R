@@ -24,16 +24,26 @@ navbar:
     articles:
       text: Articles
       menu:
+      - text: Get started
       - text: Choosing an atlas
         href: articles/choosing_an_atlas.html
-      - text: Object-oriented programming
-        href: articles/object_oriented_programming.html
       - text: Look up information
         href: articles/look_up_information.html
       - text: Narrow your results
         href: articles/narrow_your_results.html
       - text: Download data
         href: articles/download_data.html
+      - text: ---
+      - text: Advanced
+      - text: Object-oriented programming
+        href: articles/object_oriented_programming.html
+      - text: Taxonomic filtering
+        href: articles/taxonomic_filtering.html
+      - text: Spatial filtering
+        href: articles/spatial_filtering.html
+      - text: Temporal filtering
+        href: articles/temporal_filtering.html
+          
     news:
       text: News
       href: news/index.html
@@ -74,6 +84,7 @@ reference:
   - atlas_species
   - atlas_taxonomy
   - atlas_media
+  - collect_media
   - collapse.data_request
 - title: Configure session
   contents: galah_config

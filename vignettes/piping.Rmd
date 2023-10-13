@@ -1,7 +1,7 @@
 ---
 title: "Piping in galah"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-01-18'
+date: '2023-10-13'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -43,7 +43,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 7155750
+## 1 8204330
 ```
 
 As another example, notice how `galah_group_by()` + `atlas_counts()` works very 
@@ -75,8 +75,8 @@ galah_call() |>
 ## # A tibble: 2 × 2
 ##   biome           count
 ##   <chr>           <int>
-## 1 TERRESTRIAL 104619011
-## 2 MARINE        3443680
+## 1 TERRESTRIAL 120083089
+## 2 MARINE        5189286
 ```
 
 We made this move towards tidy evaluation to make it possible to use 
@@ -105,22 +105,24 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 13 × 3
-##    year  species                count
-##    <chr> <chr>                  <int>
-##  1 2021  Perameles nasuta        2466
-##  2 2021  Perameles bougainville    70
-##  3 2021  Perameles gunnii          59
-##  4 2021  Perameles pallescens      23
-##  5 2020  Perameles nasuta        1388
-##  6 2020  Perameles gunnii          39
-##  7 2020  Perameles pallescens      11
-##  8 2020  Perameles bougainville     1
-##  9 2022  Perameles nasuta         377
-## 10 2022  Perameles gunnii          57
-## 11 2022  Perameles pallescens      28
-## 12 2023  Perameles gunnii           4
-## 13 2023  Perameles nasuta           3
+## # A tibble: 15 × 3
+##    species                year  count
+##    <chr>                  <chr> <int>
+##  1 Perameles nasuta       2021   3337
+##  2 Perameles nasuta       2020   1573
+##  3 Perameles nasuta       2022   1515
+##  4 Perameles nasuta       2023    625
+##  5 Perameles gunnii       2023     95
+##  6 Perameles gunnii       2021     72
+##  7 Perameles gunnii       2022     64
+##  8 Perameles gunnii       2020     49
+##  9 Perameles bougainville 2021     84
+## 10 Perameles bougainville 2022     72
+## 11 Perameles bougainville 2020      1
+## 12 Perameles pallescens   2022     30
+## 13 Perameles pallescens   2021     25
+## 14 Perameles pallescens   2023     20
+## 15 Perameles pallescens   2020     11
 ```
 
 And a second example, to download occurrence records of bandicoots 
@@ -137,16 +139,19 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 6 × 9
-##   decimalLatitude decimalLongitude eventDate           scientificName   taxonConceptID                      recor…¹ dataR…² occur…³ ZERO_…⁴
-##             <dbl>            <dbl> <dttm>              <chr>            <chr>                               <chr>   <chr>   <chr>   <lgl>  
-## 1           -43.1             148. 2021-05-09 08:06:02 Perameles gunnii https://biodiversity.org.au/afd/ta… 6f258c… iNatur… PRESENT FALSE  
-## 2           -43.0             147. 2021-03-31 21:00:16 Perameles gunnii https://biodiversity.org.au/afd/ta… 40d963… iNatur… PRESENT FALSE  
-## 3           -43.0             148. 2021-06-24 12:55:00 Perameles gunnii https://biodiversity.org.au/afd/ta… 62724c… iNatur… PRESENT FALSE  
-## 4           -43.0             147. 2021-02-06 14:09:00 Perameles gunnii https://biodiversity.org.au/afd/ta… ef4fe0… iNatur… PRESENT FALSE  
-## 5           -43.0             147. 2021-09-14 04:39:45 Perameles gunnii https://biodiversity.org.au/afd/ta… 7900b1… iNatur… PRESENT FALSE  
-## 6           -42.9             147. 2021-07-21 19:42:41 Perameles gunnii https://biodiversity.org.au/afd/ta… c3cc63… iNatur… PRESENT FALSE  
-## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​ZERO_COORDINATE
+## Retrying in 1 seconds.
+```
+
+```
+## # A tibble: 6 × 8
+##   recordID              decimalLatitude decimalLongitude eventDate           scientificName taxonConceptID dataResourceName occurrenceStatus
+##   <chr>                           <dbl>            <dbl> <dttm>              <chr>          <chr>          <chr>            <chr>           
+## 1 00108221-afc6-4246-a…           -28.8             153. 2021-09-29 00:00:00 Perameles nas… https://biodi… NSW BioNet Atlas PRESENT         
+## 2 001e914d-0281-41cb-b…           -33.8             151. 2021-04-19 00:00:00 Perameles nas… https://biodi… NSW BioNet Atlas PRESENT         
+## 3 00233c1e-66df-4d9c-8…           -33.8             151. 2021-02-27 00:00:00 Perameles nas… https://biodi… NSW BioNet Atlas PRESENT         
+## 4 003064b3-490a-49b5-a…           -27.5             152. 2021-11-05 12:06:00 Perameles nas… https://biodi… iNaturalist Aus… PRESENT         
+## 5 004fd28b-a899-4a97-8…           -33.8             151. 2021-07-24 00:00:00 Perameles nas… https://biodi… NSW BioNet Atlas PRESENT         
+## 6 0068547b-b091-4a86-8…           -33.8             151. 2021-01-28 00:00:00 Perameles nas… https://biodi… NSW BioNet Atlas PRESENT
 ```
 
 Note that the order in which `galah_` functions are added doesn't matter, as long
@@ -169,10 +174,10 @@ galah_call() |>
 ## # A tibble: 4 × 2
 ##   year    count
 ##   <chr>   <int>
-## 1 2021  7155750
-## 2 2020  6419193
-## 3 2022  1547173
-## 4 2023    27895
+## 1 2022  8353115
+## 2 2021  8204330
+## 3 2020  7116059
+## 4 2023  2997676
 ```
 
 ```r
@@ -184,13 +189,13 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 4 × 2
-##   year    count
-##   <chr>   <int>
-## 1 2021  7155750
-## 2 2020  6419193
-## 3 2022  1547173
-## 4 2023    27895
+## Object of type `data_request` containing:
+```
+
+```
+## • type occurrences-count
+## • filter year >= 2020
+## • group_by year
 ```
 The full list of masked functions is: 
 

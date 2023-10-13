@@ -1,0 +1,5579 @@
+---
+title: "Taxonomic filtering"
+author: "Callum Waite, Shandiya Balasubramanium"
+date: '2023-10-13'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Taxonomic filtering}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Taxonomic complexity can confound the process of searching, filtering, and downloading records using `galah`, but there are a few ways to ensure records are not missed.
+
+
+```r
+library(galah)
+library(dplyr)
+```
+
+
+
+
+```r
+galah_config(email = "your_email_here", verbose = FALSE)
+```
+
+### search_taxa()
+
+`search_taxa()` enables users to look up taxonomic names before downloading data, which allows for disambiguating homonyms and checking that the search term matches the taxon name in the ALA . `search_taxa()` returns the scientific name, authorship, rank, and full classification for the taxon matched to the provided search term.
+
+
+```r
+search_taxa("Petroica boodang") |> gt::gt()
+```
+
+<!--html_preserve--><div id="gtzkcabsct" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gtzkcabsct table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#gtzkcabsct thead, #gtzkcabsct tbody, #gtzkcabsct tfoot, #gtzkcabsct tr, #gtzkcabsct td, #gtzkcabsct th {
+  border-style: none;
+}
+
+#gtzkcabsct p {
+  margin: 0;
+  padding: 0;
+}
+
+#gtzkcabsct .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gtzkcabsct .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#gtzkcabsct .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gtzkcabsct .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gtzkcabsct .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gtzkcabsct .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gtzkcabsct .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gtzkcabsct .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gtzkcabsct .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gtzkcabsct .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gtzkcabsct .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gtzkcabsct .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gtzkcabsct .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#gtzkcabsct .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#gtzkcabsct .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gtzkcabsct .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gtzkcabsct .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gtzkcabsct .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gtzkcabsct .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gtzkcabsct .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#gtzkcabsct .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#gtzkcabsct .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#gtzkcabsct .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gtzkcabsct .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#gtzkcabsct .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#gtzkcabsct .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gtzkcabsct .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gtzkcabsct .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gtzkcabsct .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gtzkcabsct .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gtzkcabsct .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gtzkcabsct .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gtzkcabsct .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gtzkcabsct .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gtzkcabsct .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gtzkcabsct .gt_left {
+  text-align: left;
+}
+
+#gtzkcabsct .gt_center {
+  text-align: center;
+}
+
+#gtzkcabsct .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gtzkcabsct .gt_font_normal {
+  font-weight: normal;
+}
+
+#gtzkcabsct .gt_font_bold {
+  font-weight: bold;
+}
+
+#gtzkcabsct .gt_font_italic {
+  font-style: italic;
+}
+
+#gtzkcabsct .gt_super {
+  font-size: 65%;
+}
+
+#gtzkcabsct .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#gtzkcabsct .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#gtzkcabsct .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#gtzkcabsct .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#gtzkcabsct .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#gtzkcabsct .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#gtzkcabsct .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="search_term">search_term</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="scientific_name">scientific_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="scientific_name_authorship">scientific_name_authorship</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="taxon_concept_id">taxon_concept_id</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="rank">rank</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="match_type">match_type</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="kingdom">kingdom</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="phylum">phylum</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="class">class</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="order">order</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="family">family</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="genus">genus</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="species">species</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="vernacular_name">vernacular_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="issues">issues</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="search_term" class="gt_row gt_left">Petroica boodang</td>
+<td headers="scientific_name" class="gt_row gt_left">Petroica (Petroica) boodang</td>
+<td headers="scientific_name_authorship" class="gt_row gt_left">(Lesson, 1838)</td>
+<td headers="taxon_concept_id" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/a3e5376b-f9e6-4bdf-adae-1e7add9f5c29</td>
+<td headers="rank" class="gt_row gt_left">species</td>
+<td headers="match_type" class="gt_row gt_left">exactMatch</td>
+<td headers="kingdom" class="gt_row gt_left">Animalia</td>
+<td headers="phylum" class="gt_row gt_left">Chordata</td>
+<td headers="class" class="gt_row gt_left">Aves</td>
+<td headers="order" class="gt_row gt_left">Passeriformes</td>
+<td headers="family" class="gt_row gt_left">Petroicidae</td>
+<td headers="genus" class="gt_row gt_left">Petroica</td>
+<td headers="species" class="gt_row gt_left">Petroica boodang</td>
+<td headers="vernacular_name" class="gt_row gt_left">Scarlet Robin</td>
+<td headers="issues" class="gt_row gt_left">noIssue</td></tr>
+  </tbody>
+  
+  
+</table>
+</div><!--/html_preserve-->
+
+
+```r
+# Muscicapa chrysoptera is a synonym for the Flame Robin, Petroica phoenicea
+# Guniibuu is the Yuwaalaraay Indigenous name for the Red-Capped Robin, Petroica goodenovii
+search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
+```
+
+<!--html_preserve--><div id="dvpkkgwmmt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dvpkkgwmmt table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#dvpkkgwmmt thead, #dvpkkgwmmt tbody, #dvpkkgwmmt tfoot, #dvpkkgwmmt tr, #dvpkkgwmmt td, #dvpkkgwmmt th {
+  border-style: none;
+}
+
+#dvpkkgwmmt p {
+  margin: 0;
+  padding: 0;
+}
+
+#dvpkkgwmmt .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#dvpkkgwmmt .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#dvpkkgwmmt .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#dvpkkgwmmt .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#dvpkkgwmmt .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dvpkkgwmmt .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dvpkkgwmmt .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dvpkkgwmmt .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#dvpkkgwmmt .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#dvpkkgwmmt .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#dvpkkgwmmt .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#dvpkkgwmmt .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#dvpkkgwmmt .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#dvpkkgwmmt .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#dvpkkgwmmt .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#dvpkkgwmmt .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#dvpkkgwmmt .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#dvpkkgwmmt .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#dvpkkgwmmt .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dvpkkgwmmt .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#dvpkkgwmmt .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#dvpkkgwmmt .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#dvpkkgwmmt .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dvpkkgwmmt .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#dvpkkgwmmt .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#dvpkkgwmmt .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dvpkkgwmmt .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dvpkkgwmmt .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#dvpkkgwmmt .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dvpkkgwmmt .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#dvpkkgwmmt .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dvpkkgwmmt .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dvpkkgwmmt .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dvpkkgwmmt .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dvpkkgwmmt .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dvpkkgwmmt .gt_left {
+  text-align: left;
+}
+
+#dvpkkgwmmt .gt_center {
+  text-align: center;
+}
+
+#dvpkkgwmmt .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#dvpkkgwmmt .gt_font_normal {
+  font-weight: normal;
+}
+
+#dvpkkgwmmt .gt_font_bold {
+  font-weight: bold;
+}
+
+#dvpkkgwmmt .gt_font_italic {
+  font-style: italic;
+}
+
+#dvpkkgwmmt .gt_super {
+  font-size: 65%;
+}
+
+#dvpkkgwmmt .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#dvpkkgwmmt .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#dvpkkgwmmt .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#dvpkkgwmmt .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#dvpkkgwmmt .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#dvpkkgwmmt .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#dvpkkgwmmt .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="search_term">search_term</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="scientific_name">scientific_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="scientific_name_authorship">scientific_name_authorship</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="taxon_concept_id">taxon_concept_id</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="rank">rank</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="match_type">match_type</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="kingdom">kingdom</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="phylum">phylum</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="class">class</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="order">order</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="family">family</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="genus">genus</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="species">species</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="vernacular_name">vernacular_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="issues">issues</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="search_term" class="gt_row gt_left">Muscicapa chrysoptera</td>
+<td headers="scientific_name" class="gt_row gt_left">Petroica (Littlera) phoenicea</td>
+<td headers="scientific_name_authorship" class="gt_row gt_left">Gould, 1837</td>
+<td headers="taxon_concept_id" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/fe74e658-4848-437a-a23d-f1001a198552</td>
+<td headers="rank" class="gt_row gt_left">species</td>
+<td headers="match_type" class="gt_row gt_left">exactMatch</td>
+<td headers="kingdom" class="gt_row gt_left">Animalia</td>
+<td headers="phylum" class="gt_row gt_left">Chordata</td>
+<td headers="class" class="gt_row gt_left">Aves</td>
+<td headers="order" class="gt_row gt_left">Passeriformes</td>
+<td headers="family" class="gt_row gt_left">Petroicidae</td>
+<td headers="genus" class="gt_row gt_left">Petroica</td>
+<td headers="species" class="gt_row gt_left">Petroica phoenicea</td>
+<td headers="vernacular_name" class="gt_row gt_left">Flame Robin</td>
+<td headers="issues" class="gt_row gt_left">noIssue</td></tr>
+    <tr><td headers="search_term" class="gt_row gt_left">Guniibuu</td>
+<td headers="scientific_name" class="gt_row gt_left">Petroica (Petroica) goodenovii</td>
+<td headers="scientific_name_authorship" class="gt_row gt_left">(Vigors &amp; Horsfield, 1827)</td>
+<td headers="taxon_concept_id" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/10dbd908-00f3-4ec2-9a9c-a2fd4782eaf1</td>
+<td headers="rank" class="gt_row gt_left">species</td>
+<td headers="match_type" class="gt_row gt_left">vernacularMatch</td>
+<td headers="kingdom" class="gt_row gt_left">Animalia</td>
+<td headers="phylum" class="gt_row gt_left">Chordata</td>
+<td headers="class" class="gt_row gt_left">Aves</td>
+<td headers="order" class="gt_row gt_left">Passeriformes</td>
+<td headers="family" class="gt_row gt_left">Petroicidae</td>
+<td headers="genus" class="gt_row gt_left">Petroica</td>
+<td headers="species" class="gt_row gt_left">Petroica goodenovii</td>
+<td headers="vernacular_name" class="gt_row gt_left">Red-capped Robin</td>
+<td headers="issues" class="gt_row gt_left">noIssue</td></tr>
+  </tbody>
+  
+  
+</table>
+</div><!--/html_preserve-->
+<br>
+Where homonyms exist, `search_taxa()` will prompt users to clarify the search term by providing one or more taxonomic ranks in a `tibble`. This example differentiates among the genus Morganella in three kingdoms:
+
+
+```r
+search_taxa("Morganella") |> gt::gt()
+```
+
+```
+## Warning: Search returned multiple taxa due to a homonym issue.
+## ℹ Please provide another rank in your search to clarify taxa.
+## ℹ Use a `tibble` to clarify taxa, see `?search_taxa`.
+## ✖ Homonym issue with "Morganella".
+```
+
+<!--html_preserve--><div id="jgvnfarbwh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jgvnfarbwh table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#jgvnfarbwh thead, #jgvnfarbwh tbody, #jgvnfarbwh tfoot, #jgvnfarbwh tr, #jgvnfarbwh td, #jgvnfarbwh th {
+  border-style: none;
+}
+
+#jgvnfarbwh p {
+  margin: 0;
+  padding: 0;
+}
+
+#jgvnfarbwh .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jgvnfarbwh .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jgvnfarbwh .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#jgvnfarbwh .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#jgvnfarbwh .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jgvnfarbwh .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jgvnfarbwh .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jgvnfarbwh .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jgvnfarbwh .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jgvnfarbwh .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jgvnfarbwh .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jgvnfarbwh .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jgvnfarbwh .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#jgvnfarbwh .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#jgvnfarbwh .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jgvnfarbwh .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jgvnfarbwh .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jgvnfarbwh .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jgvnfarbwh .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jgvnfarbwh .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#jgvnfarbwh .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#jgvnfarbwh .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#jgvnfarbwh .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jgvnfarbwh .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#jgvnfarbwh .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#jgvnfarbwh .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jgvnfarbwh .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jgvnfarbwh .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jgvnfarbwh .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jgvnfarbwh .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jgvnfarbwh .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jgvnfarbwh .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jgvnfarbwh .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jgvnfarbwh .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jgvnfarbwh .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jgvnfarbwh .gt_left {
+  text-align: left;
+}
+
+#jgvnfarbwh .gt_center {
+  text-align: center;
+}
+
+#jgvnfarbwh .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jgvnfarbwh .gt_font_normal {
+  font-weight: normal;
+}
+
+#jgvnfarbwh .gt_font_bold {
+  font-weight: bold;
+}
+
+#jgvnfarbwh .gt_font_italic {
+  font-style: italic;
+}
+
+#jgvnfarbwh .gt_super {
+  font-size: 65%;
+}
+
+#jgvnfarbwh .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#jgvnfarbwh .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#jgvnfarbwh .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#jgvnfarbwh .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#jgvnfarbwh .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#jgvnfarbwh .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#jgvnfarbwh .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="search_term">search_term</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="issues">issues</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="search_term" class="gt_row gt_left">Morganella</td>
+<td headers="issues" class="gt_row gt_left">homonym</td></tr>
+  </tbody>
+  
+  
+</table>
+</div><!--/html_preserve-->
+
+
+```r
+search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
+```
+
+<!--html_preserve--><div id="drkjyayzbi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#drkjyayzbi table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#drkjyayzbi thead, #drkjyayzbi tbody, #drkjyayzbi tfoot, #drkjyayzbi tr, #drkjyayzbi td, #drkjyayzbi th {
+  border-style: none;
+}
+
+#drkjyayzbi p {
+  margin: 0;
+  padding: 0;
+}
+
+#drkjyayzbi .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#drkjyayzbi .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#drkjyayzbi .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#drkjyayzbi .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#drkjyayzbi .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#drkjyayzbi .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#drkjyayzbi .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#drkjyayzbi .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#drkjyayzbi .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#drkjyayzbi .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#drkjyayzbi .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#drkjyayzbi .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#drkjyayzbi .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#drkjyayzbi .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#drkjyayzbi .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#drkjyayzbi .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#drkjyayzbi .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#drkjyayzbi .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#drkjyayzbi .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#drkjyayzbi .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#drkjyayzbi .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#drkjyayzbi .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#drkjyayzbi .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#drkjyayzbi .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#drkjyayzbi .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#drkjyayzbi .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#drkjyayzbi .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#drkjyayzbi .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#drkjyayzbi .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#drkjyayzbi .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#drkjyayzbi .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#drkjyayzbi .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#drkjyayzbi .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#drkjyayzbi .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#drkjyayzbi .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#drkjyayzbi .gt_left {
+  text-align: left;
+}
+
+#drkjyayzbi .gt_center {
+  text-align: center;
+}
+
+#drkjyayzbi .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#drkjyayzbi .gt_font_normal {
+  font-weight: normal;
+}
+
+#drkjyayzbi .gt_font_bold {
+  font-weight: bold;
+}
+
+#drkjyayzbi .gt_font_italic {
+  font-style: italic;
+}
+
+#drkjyayzbi .gt_super {
+  font-size: 65%;
+}
+
+#drkjyayzbi .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#drkjyayzbi .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#drkjyayzbi .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#drkjyayzbi .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#drkjyayzbi .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#drkjyayzbi .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#drkjyayzbi .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="search_term">search_term</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="scientific_name">scientific_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="scientific_name_authorship">scientific_name_authorship</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="taxon_concept_id">taxon_concept_id</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="rank">rank</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="match_type">match_type</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="kingdom">kingdom</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="phylum">phylum</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="class">class</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="order">order</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="family">family</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="genus">genus</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="issues">issues</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="search_term" class="gt_row gt_left">Fungi_Morganella</td>
+<td headers="scientific_name" class="gt_row gt_left">Morganella</td>
+<td headers="scientific_name_authorship" class="gt_row gt_left">Zeller</td>
+<td headers="taxon_concept_id" class="gt_row gt_left">https://id.biodiversity.org.au/node/fungi/60091999</td>
+<td headers="rank" class="gt_row gt_left">genus</td>
+<td headers="match_type" class="gt_row gt_left">exactMatch</td>
+<td headers="kingdom" class="gt_row gt_left">Fungi</td>
+<td headers="phylum" class="gt_row gt_left">Basidiomycota</td>
+<td headers="class" class="gt_row gt_left">Agaricomycetes</td>
+<td headers="order" class="gt_row gt_left">Agaricales</td>
+<td headers="family" class="gt_row gt_left">Agaricaceae</td>
+<td headers="genus" class="gt_row gt_left">Morganella</td>
+<td headers="issues" class="gt_row gt_left">noIssue</td></tr>
+  </tbody>
+  
+  
+</table>
+</div><!--/html_preserve-->
+<br>
+
+### galah_identify()
+
+`galah_identify()` is similar to `search_taxa()`, except that it can be used within a piped workflow to retrieve counts, species, or records e.g.
+
+
+```r
+galah_call() |>
+  galah_identify("Petroica boodang") |>
+  atlas_counts() 
+```
+
+```
+## # A tibble: 1 × 1
+##    count
+##    <int>
+## 1 118909
+```
+
+
+```r
+galah_call() |>
+  galah_identify("Muscicapa chrysoptera", "Guniibuu") |>
+  atlas_species() |> 
+  gt::gt()
+```
+
+<!--html_preserve--><div id="jnoharswpu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jnoharswpu table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#jnoharswpu thead, #jnoharswpu tbody, #jnoharswpu tfoot, #jnoharswpu tr, #jnoharswpu td, #jnoharswpu th {
+  border-style: none;
+}
+
+#jnoharswpu p {
+  margin: 0;
+  padding: 0;
+}
+
+#jnoharswpu .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jnoharswpu .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jnoharswpu .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#jnoharswpu .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#jnoharswpu .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jnoharswpu .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jnoharswpu .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jnoharswpu .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jnoharswpu .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jnoharswpu .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jnoharswpu .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jnoharswpu .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jnoharswpu .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#jnoharswpu .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#jnoharswpu .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jnoharswpu .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jnoharswpu .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jnoharswpu .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jnoharswpu .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jnoharswpu .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#jnoharswpu .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#jnoharswpu .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#jnoharswpu .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jnoharswpu .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#jnoharswpu .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#jnoharswpu .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jnoharswpu .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jnoharswpu .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jnoharswpu .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jnoharswpu .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jnoharswpu .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jnoharswpu .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jnoharswpu .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jnoharswpu .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jnoharswpu .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jnoharswpu .gt_left {
+  text-align: left;
+}
+
+#jnoharswpu .gt_center {
+  text-align: center;
+}
+
+#jnoharswpu .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jnoharswpu .gt_font_normal {
+  font-weight: normal;
+}
+
+#jnoharswpu .gt_font_bold {
+  font-weight: bold;
+}
+
+#jnoharswpu .gt_font_italic {
+  font-style: italic;
+}
+
+#jnoharswpu .gt_super {
+  font-size: 65%;
+}
+
+#jnoharswpu .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#jnoharswpu .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#jnoharswpu .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#jnoharswpu .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#jnoharswpu .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#jnoharswpu .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#jnoharswpu .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="kingdom">kingdom</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="phylum">phylum</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="class">class</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="order">order</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="family">family</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="genus">genus</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="species">species</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="author">author</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="species_guid">species_guid</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="vernacular_name">vernacular_name</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="kingdom" class="gt_row gt_left">Animalia</td>
+<td headers="phylum" class="gt_row gt_left">Chordata</td>
+<td headers="class" class="gt_row gt_left">Aves</td>
+<td headers="order" class="gt_row gt_left">Passeriformes</td>
+<td headers="family" class="gt_row gt_left">Petroicidae</td>
+<td headers="genus" class="gt_row gt_left">Petroica</td>
+<td headers="species" class="gt_row gt_left">Petroica (Petroica) goodenovii</td>
+<td headers="author" class="gt_row gt_left">(Vigors &amp; Horsfield, 1827)</td>
+<td headers="species_guid" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/10dbd908-00f3-4ec2-9a9c-a2fd4782eaf1</td>
+<td headers="vernacular_name" class="gt_row gt_left">Red-capped Robin</td></tr>
+    <tr><td headers="kingdom" class="gt_row gt_left">Animalia</td>
+<td headers="phylum" class="gt_row gt_left">Chordata</td>
+<td headers="class" class="gt_row gt_left">Aves</td>
+<td headers="order" class="gt_row gt_left">Passeriformes</td>
+<td headers="family" class="gt_row gt_left">Petroicidae</td>
+<td headers="genus" class="gt_row gt_left">Petroica</td>
+<td headers="species" class="gt_row gt_left">Petroica (Littlera) phoenicea</td>
+<td headers="author" class="gt_row gt_left">Gould, 1837</td>
+<td headers="species_guid" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/fe74e658-4848-437a-a23d-f1001a198552</td>
+<td headers="vernacular_name" class="gt_row gt_left">Flame Robin</td></tr>
+  </tbody>
+  
+  
+</table>
+</div><!--/html_preserve-->
+
+
+```r
+galah_call() |>
+  galah_identify(tibble(kingdom = "Fungi", genus = "Morganella")) |>
+  atlas_occurrences() |>
+  head() |> 
+  gt::gt()
+```
+
+<!--html_preserve--><div id="blruslaajm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#blruslaajm table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#blruslaajm thead, #blruslaajm tbody, #blruslaajm tfoot, #blruslaajm tr, #blruslaajm td, #blruslaajm th {
+  border-style: none;
+}
+
+#blruslaajm p {
+  margin: 0;
+  padding: 0;
+}
+
+#blruslaajm .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#blruslaajm .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#blruslaajm .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#blruslaajm .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#blruslaajm .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#blruslaajm .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#blruslaajm .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#blruslaajm .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#blruslaajm .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#blruslaajm .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#blruslaajm .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#blruslaajm .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#blruslaajm .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#blruslaajm .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#blruslaajm .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#blruslaajm .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#blruslaajm .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#blruslaajm .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#blruslaajm .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#blruslaajm .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#blruslaajm .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#blruslaajm .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#blruslaajm .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#blruslaajm .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#blruslaajm .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#blruslaajm .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#blruslaajm .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#blruslaajm .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#blruslaajm .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#blruslaajm .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#blruslaajm .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#blruslaajm .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#blruslaajm .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#blruslaajm .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#blruslaajm .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#blruslaajm .gt_left {
+  text-align: left;
+}
+
+#blruslaajm .gt_center {
+  text-align: center;
+}
+
+#blruslaajm .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#blruslaajm .gt_font_normal {
+  font-weight: normal;
+}
+
+#blruslaajm .gt_font_bold {
+  font-weight: bold;
+}
+
+#blruslaajm .gt_font_italic {
+  font-style: italic;
+}
+
+#blruslaajm .gt_super {
+  font-size: 65%;
+}
+
+#blruslaajm .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#blruslaajm .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#blruslaajm .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#blruslaajm .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#blruslaajm .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#blruslaajm .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#blruslaajm .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="recordID">recordID</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="decimalLatitude">decimalLatitude</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="decimalLongitude">decimalLongitude</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="eventDate">eventDate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="scientificName">scientificName</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="taxonConceptID">taxonConceptID</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="dataResourceName">dataResourceName</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="occurrenceStatus">occurrenceStatus</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="recordID" class="gt_row gt_left">001ec30d-3376-4f63-ba32-b48bc3dd137d</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-33.66218</td>
+<td headers="decimalLongitude" class="gt_row gt_right">150.2708</td>
+<td headers="eventDate" class="gt_row gt_right">2021-04-10</td>
+<td headers="scientificName" class="gt_row gt_left">Morganella purpurascens</td>
+<td headers="taxonConceptID" class="gt_row gt_left">https://id.biodiversity.org.au/node/fungi/60092001</td>
+<td headers="dataResourceName" class="gt_row gt_left">NSW BioNet Atlas</td>
+<td headers="occurrenceStatus" class="gt_row gt_left">PRESENT</td></tr>
+    <tr><td headers="recordID" class="gt_row gt_left">02ba39cd-8077-4868-a0ff-e50765089788</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-41.28082</td>
+<td headers="decimalLongitude" class="gt_row gt_right">174.7943</td>
+<td headers="eventDate" class="gt_row gt_right">NA</td>
+<td headers="scientificName" class="gt_row gt_left">Morganella compacta</td>
+<td headers="taxonConceptID" class="gt_row gt_left">NZOR-6-128055</td>
+<td headers="dataResourceName" class="gt_row gt_left">New Zealand Virtual Herbarium</td>
+<td headers="occurrenceStatus" class="gt_row gt_left">PRESENT</td></tr>
+    <tr><td headers="recordID" class="gt_row gt_left">0422009d-c1f0-4e2e-8d29-e88df6de2049</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-36.44838</td>
+<td headers="decimalLongitude" class="gt_row gt_right">174.6714</td>
+<td headers="eventDate" class="gt_row gt_right">NA</td>
+<td headers="scientificName" class="gt_row gt_left">Morganella compacta</td>
+<td headers="taxonConceptID" class="gt_row gt_left">NZOR-6-128055</td>
+<td headers="dataResourceName" class="gt_row gt_left">New Zealand Virtual Herbarium</td>
+<td headers="occurrenceStatus" class="gt_row gt_left">PRESENT</td></tr>
+    <tr><td headers="recordID" class="gt_row gt_left">04aeeb8d-0538-477c-aff1-29574eafa349</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-36.84225</td>
+<td headers="decimalLongitude" class="gt_row gt_right">174.4695</td>
+<td headers="eventDate" class="gt_row gt_right">1993-06-19</td>
+<td headers="scientificName" class="gt_row gt_left">Morganella compacta</td>
+<td headers="taxonConceptID" class="gt_row gt_left">NZOR-6-128055</td>
+<td headers="dataResourceName" class="gt_row gt_left">New Zealand Virtual Herbarium</td>
+<td headers="occurrenceStatus" class="gt_row gt_left">PRESENT</td></tr>
+    <tr><td headers="recordID" class="gt_row gt_left">092b6f3e-ef27-4cbf-bb28-b172c1b200c5</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-26.77940</td>
+<td headers="decimalLongitude" class="gt_row gt_right">152.8803</td>
+<td headers="eventDate" class="gt_row gt_right">2009-02-19</td>
+<td headers="scientificName" class="gt_row gt_left">Morganella purpurascens</td>
+<td headers="taxonConceptID" class="gt_row gt_left">https://id.biodiversity.org.au/node/fungi/60092001</td>
+<td headers="dataResourceName" class="gt_row gt_left">National Herbarium of Victoria (MEL) AVH data</td>
+<td headers="occurrenceStatus" class="gt_row gt_left">PRESENT</td></tr>
+    <tr><td headers="recordID" class="gt_row gt_left">0be95d59-29a4-4475-8586-a497cac607f7</td>
+<td headers="decimalLatitude" class="gt_row gt_right">-43.15002</td>
+<td headers="decimalLongitude" class="gt_row gt_right">171.7305</td>
+<td headers="eventDate" class="gt_row gt_right">NA</td>
+<td headers="scientificName" class="gt_row gt_left">Morganella compacta</td>
+<td headers="taxonConceptID" class="gt_row gt_left">NZOR-6-128055</td>
+<td headers="dataResourceName" class="gt_row gt_left">New Zealand Virtual Herbarium</td>
+<td headers="occurrenceStatus" class="gt_row gt_left">PRESENT</td></tr>
+  </tbody>
+  
+  
+</table>
+</div><!--/html_preserve-->
+
+<br>
+We recommend using `search_taxa()` prior to calling `galah_identify()` in a workflow to confirm the validity of the provided search term. Setting `search = TRUE` passes the results of `search_taxa()` to `galah_identify()`, which also speeds up the query.
+
+
+```r
+robins <- search_taxa("Muscicapa chrysoptera", "Guniibuu") 
+
+galah_call() |>
+  galah_identify(robins$taxon_concept_id, search = FALSE) |>
+  atlas_counts()
+```
+
+```
+## # A tibble: 1 × 1
+##    count
+##    <int>
+## 1 191277
+```
+<br>
+
+### galah_filter()
+
+`galah_filter()` subsets records by searching for exact matches to an expression, and may also be used for taxonomic filtering e.g.
+
+
+```r
+galah_call() |>
+  galah_filter(species == "Petroica boodang") |>
+  atlas_counts()
+```
+
+```
+## # A tibble: 1 × 1
+##    count
+##    <int>
+## 1 118909
+```
+
+
+```r
+aus_petroica <- c("Petroica boodang", "Petroica goodenovii", 
+                  "Petroica phoenicea", "Petroica rosea",
+                  "Petroica rodinogaster", "Petroica multicolor")
+
+galah_call() |>
+  galah_filter(species == aus_petroica) |>
+  galah_group_by(species, vernacularName) |>
+  atlas_counts() |> 
+  gt::gt()
+```
+
+<!--html_preserve--><div id="ptjmqfodke" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ptjmqfodke table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ptjmqfodke thead, #ptjmqfodke tbody, #ptjmqfodke tfoot, #ptjmqfodke tr, #ptjmqfodke td, #ptjmqfodke th {
+  border-style: none;
+}
+
+#ptjmqfodke p {
+  margin: 0;
+  padding: 0;
+}
+
+#ptjmqfodke .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ptjmqfodke .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ptjmqfodke .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ptjmqfodke .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ptjmqfodke .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ptjmqfodke .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ptjmqfodke .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ptjmqfodke .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ptjmqfodke .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ptjmqfodke .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ptjmqfodke .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ptjmqfodke .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ptjmqfodke .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ptjmqfodke .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ptjmqfodke .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ptjmqfodke .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ptjmqfodke .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ptjmqfodke .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ptjmqfodke .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ptjmqfodke .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ptjmqfodke .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ptjmqfodke .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ptjmqfodke .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ptjmqfodke .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ptjmqfodke .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ptjmqfodke .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ptjmqfodke .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ptjmqfodke .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ptjmqfodke .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ptjmqfodke .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ptjmqfodke .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ptjmqfodke .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ptjmqfodke .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ptjmqfodke .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ptjmqfodke .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ptjmqfodke .gt_left {
+  text-align: left;
+}
+
+#ptjmqfodke .gt_center {
+  text-align: center;
+}
+
+#ptjmqfodke .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ptjmqfodke .gt_font_normal {
+  font-weight: normal;
+}
+
+#ptjmqfodke .gt_font_bold {
+  font-weight: bold;
+}
+
+#ptjmqfodke .gt_font_italic {
+  font-style: italic;
+}
+
+#ptjmqfodke .gt_super {
+  font-size: 65%;
+}
+
+#ptjmqfodke .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ptjmqfodke .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ptjmqfodke .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ptjmqfodke .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ptjmqfodke .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ptjmqfodke .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ptjmqfodke .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="species">species</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="vernacularName">vernacularName</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="count">count</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="species" class="gt_row gt_left">Petroica boodang</td>
+<td headers="vernacularName" class="gt_row gt_left">Scarlet Robin</td>
+<td headers="count" class="gt_row gt_right">118733</td></tr>
+    <tr><td headers="species" class="gt_row gt_left">Petroica goodenovii</td>
+<td headers="vernacularName" class="gt_row gt_left">Red-capped Robin</td>
+<td headers="count" class="gt_row gt_right">110021</td></tr>
+    <tr><td headers="species" class="gt_row gt_left">Petroica phoenicea</td>
+<td headers="vernacularName" class="gt_row gt_left">Flame Robin</td>
+<td headers="count" class="gt_row gt_right">81256</td></tr>
+    <tr><td headers="species" class="gt_row gt_left">Petroica rosea</td>
+<td headers="vernacularName" class="gt_row gt_left">Rose Robin</td>
+<td headers="count" class="gt_row gt_right">52301</td></tr>
+    <tr><td headers="species" class="gt_row gt_left">Petroica rodinogaster</td>
+<td headers="vernacularName" class="gt_row gt_left">Pink Robin</td>
+<td headers="count" class="gt_row gt_right">13361</td></tr>
+    <tr><td headers="species" class="gt_row gt_left">Petroica multicolor</td>
+<td headers="vernacularName" class="gt_row gt_left">Norfolk Island Robin</td>
+<td headers="count" class="gt_row gt_right">6574</td></tr>
+  </tbody>
+  
+  
+</table>
+</div><!--/html_preserve-->
+
+This can be useful in searching for paraphyletic or polyphyletic groups, which cannot be done using `galah_identify()`. For example, to get counts of non-chordates:
+
+
+```r
+galah_call() |>
+  galah_filter(kingdom == "Animalia", phylum != "Chordata") |>
+  galah_group_by(phylum) |>
+  atlas_counts() |>
+  head() |> 
+  gt::gt()
+```
+
+<!--html_preserve--><div id="jvhhmzryez" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jvhhmzryez table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#jvhhmzryez thead, #jvhhmzryez tbody, #jvhhmzryez tfoot, #jvhhmzryez tr, #jvhhmzryez td, #jvhhmzryez th {
+  border-style: none;
+}
+
+#jvhhmzryez p {
+  margin: 0;
+  padding: 0;
+}
+
+#jvhhmzryez .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jvhhmzryez .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jvhhmzryez .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#jvhhmzryez .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#jvhhmzryez .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jvhhmzryez .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jvhhmzryez .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jvhhmzryez .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jvhhmzryez .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jvhhmzryez .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jvhhmzryez .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jvhhmzryez .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jvhhmzryez .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#jvhhmzryez .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#jvhhmzryez .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jvhhmzryez .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jvhhmzryez .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jvhhmzryez .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jvhhmzryez .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jvhhmzryez .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#jvhhmzryez .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#jvhhmzryez .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#jvhhmzryez .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jvhhmzryez .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#jvhhmzryez .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#jvhhmzryez .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jvhhmzryez .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jvhhmzryez .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jvhhmzryez .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jvhhmzryez .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jvhhmzryez .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jvhhmzryez .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jvhhmzryez .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jvhhmzryez .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jvhhmzryez .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jvhhmzryez .gt_left {
+  text-align: left;
+}
+
+#jvhhmzryez .gt_center {
+  text-align: center;
+}
+
+#jvhhmzryez .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jvhhmzryez .gt_font_normal {
+  font-weight: normal;
+}
+
+#jvhhmzryez .gt_font_bold {
+  font-weight: bold;
+}
+
+#jvhhmzryez .gt_font_italic {
+  font-style: italic;
+}
+
+#jvhhmzryez .gt_super {
+  font-size: 65%;
+}
+
+#jvhhmzryez .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#jvhhmzryez .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#jvhhmzryez .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#jvhhmzryez .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#jvhhmzryez .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#jvhhmzryez .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#jvhhmzryez .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="phylum">phylum</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="count">count</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="phylum" class="gt_row gt_left">Arthropoda</td>
+<td headers="count" class="gt_row gt_right">8070909</td></tr>
+    <tr><td headers="phylum" class="gt_row gt_left">Mollusca</td>
+<td headers="count" class="gt_row gt_right">1274134</td></tr>
+    <tr><td headers="phylum" class="gt_row gt_left">Annelida</td>
+<td headers="count" class="gt_row gt_right">313177</td></tr>
+    <tr><td headers="phylum" class="gt_row gt_left">Cnidaria</td>
+<td headers="count" class="gt_row gt_right">274188</td></tr>
+    <tr><td headers="phylum" class="gt_row gt_left">Echinodermata</td>
+<td headers="count" class="gt_row gt_right">190004</td></tr>
+    <tr><td headers="phylum" class="gt_row gt_left">Porifera</td>
+<td headers="count" class="gt_row gt_right">130139</td></tr>
+  </tbody>
+  
+  
+</table>
+</div><!--/html_preserve-->
+
+### galah_filter(), galah_identify(), and taxonomic ranks
+
+Deciding between using `galah_filter()` and `galah_identify()` in a query comes down to how a record has been classified, and whether or not you have the correct *unique* name and classification of the taxa of interest.
+
+The ALA has fields for the primary taxonomic ranks (`kingdom`, `phylum`, `class`, `order`, `family`, `genus`, `species`) and some secondary ranks (e.g. `subfamily`, `subgenus`), all of which may be used with `galah_filter()` and `galah_identify()`. Additionally, there is a field named `scientificName`, which refers to the lowest taxonomic rank to which a record has been identified e.g.
+
+
+```r
+galah_call() |>
+  galah_identify(tibble(genus = "Pitta")) |>
+  galah_group_by(scientificName, taxonRank) |>
+  atlas_counts() |>
+  filter(!is.na(scientificName)) |>
+  gt::gt()
+```
+
+<!--html_preserve--><div id="ipnfnwpvwv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ipnfnwpvwv table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ipnfnwpvwv thead, #ipnfnwpvwv tbody, #ipnfnwpvwv tfoot, #ipnfnwpvwv tr, #ipnfnwpvwv td, #ipnfnwpvwv th {
+  border-style: none;
+}
+
+#ipnfnwpvwv p {
+  margin: 0;
+  padding: 0;
+}
+
+#ipnfnwpvwv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ipnfnwpvwv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ipnfnwpvwv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ipnfnwpvwv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ipnfnwpvwv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ipnfnwpvwv .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ipnfnwpvwv .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ipnfnwpvwv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ipnfnwpvwv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ipnfnwpvwv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ipnfnwpvwv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ipnfnwpvwv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ipnfnwpvwv .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ipnfnwpvwv .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ipnfnwpvwv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ipnfnwpvwv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ipnfnwpvwv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ipnfnwpvwv .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ipnfnwpvwv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ipnfnwpvwv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ipnfnwpvwv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ipnfnwpvwv .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ipnfnwpvwv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ipnfnwpvwv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ipnfnwpvwv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ipnfnwpvwv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ipnfnwpvwv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ipnfnwpvwv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ipnfnwpvwv .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ipnfnwpvwv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ipnfnwpvwv .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ipnfnwpvwv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ipnfnwpvwv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ipnfnwpvwv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ipnfnwpvwv .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ipnfnwpvwv .gt_left {
+  text-align: left;
+}
+
+#ipnfnwpvwv .gt_center {
+  text-align: center;
+}
+
+#ipnfnwpvwv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ipnfnwpvwv .gt_font_normal {
+  font-weight: normal;
+}
+
+#ipnfnwpvwv .gt_font_bold {
+  font-weight: bold;
+}
+
+#ipnfnwpvwv .gt_font_italic {
+  font-style: italic;
+}
+
+#ipnfnwpvwv .gt_super {
+  font-size: 65%;
+}
+
+#ipnfnwpvwv .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ipnfnwpvwv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ipnfnwpvwv .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ipnfnwpvwv .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ipnfnwpvwv .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ipnfnwpvwv .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ipnfnwpvwv .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="scientificName">scientificName</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="taxonRank">taxonRank</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="count">count</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) versicolor</td>
+<td headers="taxonRank" class="gt_row gt_left">Species</td>
+<td headers="count" class="gt_row gt_right">25996</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) iris</td>
+<td headers="taxonRank" class="gt_row gt_left">Species</td>
+<td headers="count" class="gt_row gt_right">5716</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Erythropitta)</td>
+<td headers="taxonRank" class="gt_row gt_left">Subgenus</td>
+<td headers="count" class="gt_row gt_right">724</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) versicolor versicolor</td>
+<td headers="taxonRank" class="gt_row gt_left">Subspecies</td>
+<td headers="count" class="gt_row gt_right">302</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Erythropitta) erythrogaster</td>
+<td headers="taxonRank" class="gt_row gt_left">Species</td>
+<td headers="count" class="gt_row gt_right">190</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Pitta</td>
+<td headers="taxonRank" class="gt_row gt_left">Genus</td>
+<td headers="count" class="gt_row gt_right">72</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) iris iris</td>
+<td headers="taxonRank" class="gt_row gt_left">Subspecies</td>
+<td headers="count" class="gt_row gt_right">70</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) versicolor intermedia</td>
+<td headers="taxonRank" class="gt_row gt_left">Subspecies</td>
+<td headers="count" class="gt_row gt_right">42</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) versicolor simillima</td>
+<td headers="taxonRank" class="gt_row gt_left">Subspecies</td>
+<td headers="count" class="gt_row gt_right">36</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Pitta) iris johnstoneiana</td>
+<td headers="taxonRank" class="gt_row gt_left">Subspecies</td>
+<td headers="count" class="gt_row gt_right">27</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Pitta (Erythropitta) erythrogaster digglesi</td>
+<td headers="taxonRank" class="gt_row gt_left">Subspecies</td>
+<td headers="count" class="gt_row gt_right">21</td></tr>
+  </tbody>
+  
+  
+</table>
+</div><!--/html_preserve-->
+
+If, for instance, you have the correct species or subspecies name, then searching for matches against the `species` and `subspecies` fields, respectively, will provide more precise results. This is because the field `scientificName` may include subgenera. If you've used `search_taxa()` to get the ALA-matched name of a taxon and only want records identified to a particular level of classification, searching for matches against `scientificName` is recommended.
+
+Paraphyletic or polyphyletic groups may contain taxa identified to different taxonomic levels. In this case, it is simpler to use `search_taxa()` and `galah_identify()` rather than `galah_filter()`. In the example below, `search_taxa()` matches terms to one genus, three species, and two subspecies. This can then be used in a piped workflow with `galah_identify()`.
+
+
+```r
+tas_endemic <- c("Sarcophilus", # Tasmanian Devil
+                 "Bettongia gaimardi", # Tasmanian Bettong
+                 "Melanodryas vittata", # Dusky Robin
+                 "Platycercus caledonicus",# Green Rosella
+                 "Aquila audax fleayi", # Tasmanian Wedge-Tailed Eagle
+                 "Tyto novaehollandiae castanops") # Tasmanian Masked Owl
+
+search_taxa(tas_endemic) |> gt::gt()
+```
+
+<!--html_preserve--><div id="xosytwzeqx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xosytwzeqx table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#xosytwzeqx thead, #xosytwzeqx tbody, #xosytwzeqx tfoot, #xosytwzeqx tr, #xosytwzeqx td, #xosytwzeqx th {
+  border-style: none;
+}
+
+#xosytwzeqx p {
+  margin: 0;
+  padding: 0;
+}
+
+#xosytwzeqx .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#xosytwzeqx .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#xosytwzeqx .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#xosytwzeqx .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#xosytwzeqx .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xosytwzeqx .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xosytwzeqx .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xosytwzeqx .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#xosytwzeqx .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#xosytwzeqx .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#xosytwzeqx .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#xosytwzeqx .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#xosytwzeqx .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#xosytwzeqx .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#xosytwzeqx .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xosytwzeqx .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#xosytwzeqx .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#xosytwzeqx .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#xosytwzeqx .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xosytwzeqx .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#xosytwzeqx .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#xosytwzeqx .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#xosytwzeqx .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xosytwzeqx .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#xosytwzeqx .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#xosytwzeqx .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xosytwzeqx .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xosytwzeqx .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#xosytwzeqx .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xosytwzeqx .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#xosytwzeqx .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xosytwzeqx .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xosytwzeqx .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xosytwzeqx .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xosytwzeqx .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xosytwzeqx .gt_left {
+  text-align: left;
+}
+
+#xosytwzeqx .gt_center {
+  text-align: center;
+}
+
+#xosytwzeqx .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#xosytwzeqx .gt_font_normal {
+  font-weight: normal;
+}
+
+#xosytwzeqx .gt_font_bold {
+  font-weight: bold;
+}
+
+#xosytwzeqx .gt_font_italic {
+  font-style: italic;
+}
+
+#xosytwzeqx .gt_super {
+  font-size: 65%;
+}
+
+#xosytwzeqx .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#xosytwzeqx .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#xosytwzeqx .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#xosytwzeqx .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#xosytwzeqx .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#xosytwzeqx .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#xosytwzeqx .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="search_term">search_term</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="scientific_name">scientific_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="scientific_name_authorship">scientific_name_authorship</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="taxon_concept_id">taxon_concept_id</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="rank">rank</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="match_type">match_type</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="kingdom">kingdom</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="phylum">phylum</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="class">class</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="order">order</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="family">family</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="genus">genus</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="species">species</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="vernacular_name">vernacular_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="issues">issues</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="search_term" class="gt_row gt_left">Sarcophilus</td>
+<td headers="scientific_name" class="gt_row gt_left">Sarcophilus</td>
+<td headers="scientific_name_authorship" class="gt_row gt_left">Cuvier, 1837</td>
+<td headers="taxon_concept_id" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/06455b77-7d50-4ec7-9122-8ab48cfb0c1c</td>
+<td headers="rank" class="gt_row gt_left">genus</td>
+<td headers="match_type" class="gt_row gt_left">exactMatch</td>
+<td headers="kingdom" class="gt_row gt_left">Animalia</td>
+<td headers="phylum" class="gt_row gt_left">Chordata</td>
+<td headers="class" class="gt_row gt_left">Mammalia</td>
+<td headers="order" class="gt_row gt_left">Dasyuromorphia</td>
+<td headers="family" class="gt_row gt_left">Dasyuridae</td>
+<td headers="genus" class="gt_row gt_left">Sarcophilus</td>
+<td headers="species" class="gt_row gt_left">NA</td>
+<td headers="vernacular_name" class="gt_row gt_left">NA</td>
+<td headers="issues" class="gt_row gt_left">noIssue</td></tr>
+    <tr><td headers="search_term" class="gt_row gt_left">Bettongia gaimardi</td>
+<td headers="scientific_name" class="gt_row gt_left">Bettongia gaimardi</td>
+<td headers="scientific_name_authorship" class="gt_row gt_left">(Desmarest, 1822)</td>
+<td headers="taxon_concept_id" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/19c9bfdf-0fbd-4b1b-a7c4-64498290d059</td>
+<td headers="rank" class="gt_row gt_left">species</td>
+<td headers="match_type" class="gt_row gt_left">exactMatch</td>
+<td headers="kingdom" class="gt_row gt_left">Animalia</td>
+<td headers="phylum" class="gt_row gt_left">Chordata</td>
+<td headers="class" class="gt_row gt_left">Mammalia</td>
+<td headers="order" class="gt_row gt_left">Diprotodontia</td>
+<td headers="family" class="gt_row gt_left">Potoroidae</td>
+<td headers="genus" class="gt_row gt_left">Bettongia</td>
+<td headers="species" class="gt_row gt_left">Bettongia gaimardi</td>
+<td headers="vernacular_name" class="gt_row gt_left">Tasmanian Bettong</td>
+<td headers="issues" class="gt_row gt_left">noIssue</td></tr>
+    <tr><td headers="search_term" class="gt_row gt_left">Melanodryas vittata</td>
+<td headers="scientific_name" class="gt_row gt_left">Melanodryas (Amaurodryas) vittata</td>
+<td headers="scientific_name_authorship" class="gt_row gt_left">(Quoy &amp; Gaimard, 1830)</td>
+<td headers="taxon_concept_id" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/0f04889f-5489-4369-a545-8a041fba9f6d</td>
+<td headers="rank" class="gt_row gt_left">species</td>
+<td headers="match_type" class="gt_row gt_left">exactMatch</td>
+<td headers="kingdom" class="gt_row gt_left">Animalia</td>
+<td headers="phylum" class="gt_row gt_left">Chordata</td>
+<td headers="class" class="gt_row gt_left">Aves</td>
+<td headers="order" class="gt_row gt_left">Passeriformes</td>
+<td headers="family" class="gt_row gt_left">Petroicidae</td>
+<td headers="genus" class="gt_row gt_left">Melanodryas</td>
+<td headers="species" class="gt_row gt_left">Melanodryas vittata</td>
+<td headers="vernacular_name" class="gt_row gt_left">Dusky Robin</td>
+<td headers="issues" class="gt_row gt_left">noIssue</td></tr>
+    <tr><td headers="search_term" class="gt_row gt_left">Platycercus caledonicus</td>
+<td headers="scientific_name" class="gt_row gt_left">Platycercus (Platycercus) caledonicus</td>
+<td headers="scientific_name_authorship" class="gt_row gt_left">(Gmelin, 1788)</td>
+<td headers="taxon_concept_id" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/c6e478fe-f199-463f-8576-a77108fd73e2</td>
+<td headers="rank" class="gt_row gt_left">species</td>
+<td headers="match_type" class="gt_row gt_left">exactMatch</td>
+<td headers="kingdom" class="gt_row gt_left">Animalia</td>
+<td headers="phylum" class="gt_row gt_left">Chordata</td>
+<td headers="class" class="gt_row gt_left">Aves</td>
+<td headers="order" class="gt_row gt_left">Psittaciformes</td>
+<td headers="family" class="gt_row gt_left">Psittacidae</td>
+<td headers="genus" class="gt_row gt_left">Platycercus</td>
+<td headers="species" class="gt_row gt_left">Platycercus caledonicus</td>
+<td headers="vernacular_name" class="gt_row gt_left">Green Rosella</td>
+<td headers="issues" class="gt_row gt_left">noIssue</td></tr>
+    <tr><td headers="search_term" class="gt_row gt_left">Aquila audax fleayi</td>
+<td headers="scientific_name" class="gt_row gt_left">Aquila (Uroaetus) audax fleayi</td>
+<td headers="scientific_name_authorship" class="gt_row gt_left">Condon &amp; Amadon, 1954</td>
+<td headers="taxon_concept_id" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/ac93f7f0-0686-4589-801a-5832378cb7c1</td>
+<td headers="rank" class="gt_row gt_left">subspecies</td>
+<td headers="match_type" class="gt_row gt_left">exactMatch</td>
+<td headers="kingdom" class="gt_row gt_left">Animalia</td>
+<td headers="phylum" class="gt_row gt_left">Chordata</td>
+<td headers="class" class="gt_row gt_left">Aves</td>
+<td headers="order" class="gt_row gt_left">Accipitriformes</td>
+<td headers="family" class="gt_row gt_left">Accipitridae</td>
+<td headers="genus" class="gt_row gt_left">Aquila</td>
+<td headers="species" class="gt_row gt_left">Aquila audax</td>
+<td headers="vernacular_name" class="gt_row gt_left">NA</td>
+<td headers="issues" class="gt_row gt_left">noIssue</td></tr>
+    <tr><td headers="search_term" class="gt_row gt_left">Tyto novaehollandiae castanops</td>
+<td headers="scientific_name" class="gt_row gt_left">Tyto novaehollandiae castanops</td>
+<td headers="scientific_name_authorship" class="gt_row gt_left">(Gould, 1837)</td>
+<td headers="taxon_concept_id" class="gt_row gt_left">https://biodiversity.org.au/afd/taxa/2c30d58b-572b-4dab-8644-b222c28eb0ec</td>
+<td headers="rank" class="gt_row gt_left">subspecies</td>
+<td headers="match_type" class="gt_row gt_left">exactMatch</td>
+<td headers="kingdom" class="gt_row gt_left">Animalia</td>
+<td headers="phylum" class="gt_row gt_left">Chordata</td>
+<td headers="class" class="gt_row gt_left">Aves</td>
+<td headers="order" class="gt_row gt_left">Strigiformes</td>
+<td headers="family" class="gt_row gt_left">Tytonidae</td>
+<td headers="genus" class="gt_row gt_left">Tyto</td>
+<td headers="species" class="gt_row gt_left">Tyto novaehollandiae</td>
+<td headers="vernacular_name" class="gt_row gt_left">NA</td>
+<td headers="issues" class="gt_row gt_left">noIssue</td></tr>
+  </tbody>
+  
+  
+</table>
+</div><!--/html_preserve-->
+
+```r
+galah_call() |>
+  galah_identify(tas_endemic) |>
+  galah_group_by(scientificName) |>
+  atlas_counts() |>
+  arrange(scientificName) |>
+  gt::gt()
+```
+
+<!--html_preserve--><div id="brbuxxyqns" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#brbuxxyqns table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#brbuxxyqns thead, #brbuxxyqns tbody, #brbuxxyqns tfoot, #brbuxxyqns tr, #brbuxxyqns td, #brbuxxyqns th {
+  border-style: none;
+}
+
+#brbuxxyqns p {
+  margin: 0;
+  padding: 0;
+}
+
+#brbuxxyqns .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#brbuxxyqns .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#brbuxxyqns .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#brbuxxyqns .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#brbuxxyqns .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#brbuxxyqns .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#brbuxxyqns .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#brbuxxyqns .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#brbuxxyqns .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#brbuxxyqns .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#brbuxxyqns .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#brbuxxyqns .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#brbuxxyqns .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#brbuxxyqns .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#brbuxxyqns .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#brbuxxyqns .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#brbuxxyqns .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#brbuxxyqns .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#brbuxxyqns .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#brbuxxyqns .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#brbuxxyqns .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#brbuxxyqns .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#brbuxxyqns .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#brbuxxyqns .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#brbuxxyqns .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#brbuxxyqns .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#brbuxxyqns .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#brbuxxyqns .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#brbuxxyqns .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#brbuxxyqns .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#brbuxxyqns .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#brbuxxyqns .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#brbuxxyqns .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#brbuxxyqns .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#brbuxxyqns .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#brbuxxyqns .gt_left {
+  text-align: left;
+}
+
+#brbuxxyqns .gt_center {
+  text-align: center;
+}
+
+#brbuxxyqns .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#brbuxxyqns .gt_font_normal {
+  font-weight: normal;
+}
+
+#brbuxxyqns .gt_font_bold {
+  font-weight: bold;
+}
+
+#brbuxxyqns .gt_font_italic {
+  font-style: italic;
+}
+
+#brbuxxyqns .gt_super {
+  font-size: 65%;
+}
+
+#brbuxxyqns .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#brbuxxyqns .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#brbuxxyqns .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#brbuxxyqns .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#brbuxxyqns .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#brbuxxyqns .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#brbuxxyqns .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="scientificName">scientificName</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="count">count</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="scientificName" class="gt_row gt_left">Aquila (Uroaetus) audax fleayi</td>
+<td headers="count" class="gt_row gt_right">4896</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Bettongia gaimardi</td>
+<td headers="count" class="gt_row gt_right">1162</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Bettongia gaimardi cuniculus</td>
+<td headers="count" class="gt_row gt_right">41</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Bettongia gaimardi gaimardi</td>
+<td headers="count" class="gt_row gt_right">9</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Melanodryas (Amaurodryas) vittata</td>
+<td headers="count" class="gt_row gt_right">14104</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Melanodryas (Amaurodryas) vittata kingi</td>
+<td headers="count" class="gt_row gt_right">15</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Melanodryas (Amaurodryas) vittata vittata</td>
+<td headers="count" class="gt_row gt_right">34</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Platycercus (Platycercus) caledonicus</td>
+<td headers="count" class="gt_row gt_right">43285</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Platycercus (Platycercus) caledonicus brownii</td>
+<td headers="count" class="gt_row gt_right">24</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Platycercus (Platycercus) caledonicus caledonicus</td>
+<td headers="count" class="gt_row gt_right">33</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Sarcophilus</td>
+<td headers="count" class="gt_row gt_right">3</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Sarcophilus harrisii</td>
+<td headers="count" class="gt_row gt_right">36219</td></tr>
+    <tr><td headers="scientificName" class="gt_row gt_left">Tyto novaehollandiae castanops</td>
+<td headers="count" class="gt_row gt_right">62</td></tr>
+  </tbody>
+  
+  
+</table>
+</div><!--/html_preserve-->

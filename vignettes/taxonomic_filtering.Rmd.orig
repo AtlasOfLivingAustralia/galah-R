@@ -1,13 +1,18 @@
 ---
-title: "Taxonomy Vignette"
-format: html
-editor: visual 
+title: "Taxonomic filtering"
+author: "Callum Waite, Shandiya Balasubramanium"
+date: '2023-10-13'
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Taxonomic filtering}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 Taxonomic complexity can confound the process of searching, filtering, and downloading records using `galah`, but there are a few ways to ensure records are not missed.
 
 ```{r, output = FALSE}
-# Load important libraries
 library(galah)
 library(dplyr)
 ```
@@ -21,7 +26,7 @@ galah_config(email = "callumwaite2000@gmail.com", verbose = FALSE)
 galah_config(email = "your_email_here", verbose = FALSE)
 ```
 
-#### `search_taxa()`
+### search_taxa()
 
 `search_taxa()` enables users to look up taxonomic names before downloading data, which allows for disambiguating homonyms and checking that the search term matches the taxon name in the ALA . `search_taxa()` returns the scientific name, authorship, rank, and full classification for the taxon matched to the provided search term.
 
@@ -34,7 +39,7 @@ search_taxa("Petroica boodang") |> gt::gt()
 # Guniibuu is the Yuwaalaraay Indigenous name for the Red-Capped Robin, Petroica goodenovii
 search_taxa("Muscicapa chrysoptera", "Guniibuu") |> gt::gt()
 ```
-
+<br>
 Where homonyms exist, `search_taxa()` will prompt users to clarify the search term by providing one or more taxonomic ranks in a `tibble`. This example differentiates among the genus Morganella in three kingdoms:
 
 ```{r}
@@ -44,8 +49,9 @@ search_taxa("Morganella") |> gt::gt()
 ```{r}
 search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
 ```
+<br>
 
-#### `galah_identify()`
+### galah_identify()
 
 `galah_identify()` is similar to `search_taxa()`, except that it can be used within a piped workflow to retrieve counts, species, or records e.g.
 
@@ -71,6 +77,7 @@ galah_call() |>
   gt::gt()
 ```
 
+<br>
 We recommend using `search_taxa()` prior to calling `galah_identify()` in a workflow to confirm the validity of the provided search term. Setting `search = TRUE` passes the results of `search_taxa()` to `galah_identify()`, which also speeds up the query.
 
 ```{r}
@@ -82,8 +89,9 @@ galah_call() |>
   atlas_counts()
 
 ```
+<br>
 
-#### `galah_filter()`
+### galah_filter()
 
 `galah_filter()` subsets records by searching for exact matches to an expression, and may also be used for taxonomic filtering e.g.
 
@@ -116,7 +124,7 @@ galah_call() |>
   gt::gt()
 ```
 
-#### `galah_filter()`, `galah_identify()`, and taxonomic ranks
+### galah_filter(), galah_identify(), and taxonomic ranks
 
 Deciding between using `galah_filter()` and `galah_identify()` in a query comes down to how a record has been classified, and whether or not you have the correct *unique* name and classification of the taxa of interest.
 
@@ -131,7 +139,7 @@ galah_call() |>
   gt::gt()
 ```
 
-If, for instance, you have the correct species or subspecies name, then searching for matches against the `species` and `subspecies` fields, respectively, will provide more precise results because `scientificName` may include subgenera. If you've used `search_taxa()` to get the ALA-matched name of a taxon and only want records identified to a particular level of classification, searching for matches against `scientificName` is recommended.
+If, for instance, you have the correct species or subspecies name, then searching for matches against the `species` and `subspecies` fields, respectively, will provide more precise results. This is because the field `scientificName` may include subgenera. If you've used `search_taxa()` to get the ALA-matched name of a taxon and only want records identified to a particular level of classification, searching for matches against `scientificName` is recommended.
 
 Paraphyletic or polyphyletic groups may contain taxa identified to different taxonomic levels. In this case, it is simpler to use `search_taxa()` and `galah_identify()` rather than `galah_filter()`. In the example below, `search_taxa()` matches terms to one genus, three species, and two subspecies. This can then be used in a piped workflow with `galah_identify()`.
 
