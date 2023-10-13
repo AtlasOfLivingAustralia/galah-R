@@ -51,6 +51,7 @@
 #'   galah_group_by(multimedia) |>
 #'   atlas_counts()
 #'}
+#' @importFrom dplyr all_of
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr relocate
 #' @importFrom dplyr right_join
@@ -83,6 +84,7 @@ atlas_media <- function(request = NULL,
                                    select = galah_select(group = "media"))
     }
   }
+
   # filter to records that contain media of requested types 
   # NOTE: Might be more efficient to use `filter` for this, as it 
   # includes code to remove duplicated rows
@@ -101,7 +103,7 @@ atlas_media <- function(request = NULL,
   # get occurrences
   occ <- .data |> 
     collect(wait = TRUE) |> 
-    unnest_longer(col = present_formats)
+    unnest_longer(col = all_of(present_formats))
   occ$media_id <- build_media_id(occ) 
   # collect media metadata
   media <- request_metadata() |>

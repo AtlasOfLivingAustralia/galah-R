@@ -89,3 +89,10 @@ test_that("atlas_media returns a tibble, and nothing else", {
   expect_equal(length(jpg_files), 3)
   unlink(media_dir, recursive = TRUE)
 })
+
+# clean up
+unlink("test_media", recursive = TRUE)
+cache_dir <- tempfile()
+dir.create(cache_dir)
+galah_config(directory = cache_dir)
+rm(cache_dir)
