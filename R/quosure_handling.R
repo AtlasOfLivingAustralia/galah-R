@@ -189,13 +189,13 @@ parse_call <- function(x, ...){
   y <- quo_get_expr(x)
   env_tr <- quo_get_env(x)
   switch(function_type(as_string(y[[1]])), # i.e. switch depending on what function is called
-         "relational_operator" = parse_relational(y, env_tr, ...),
-         "logical_operator" = parse_logical(y, env_tr, ...),
-         "bracket" = parse_brackets(y, env_tr, ...),
-         "exclamation" = parse_exclamation(y, env_tr),
-         "is.na" = parse_is_na(y, env_tr, ...),
-         "between" = parse_between(y, env_tr, ...),
-         "%in%" = parse_in(y, env_tr, ...),
+         "relational_operator" = parse_relational(x, ...),
+         "logical_operator" = parse_logical(x, ...),
+         "bracket" = parse_brackets(x, ...),
+         "exclamation" = parse_exclamation(x),
+         "is.na" = parse_is_na(x, ...),
+         "between" = parse_between(x, ...),
+         "%in%" = parse_in(x, ...),
          eval_tidy(x) # if unknown, parse
          # {filter_error()} # if unknown, error
   )
@@ -237,14 +237,15 @@ function_type <- function(x){ # assumes x is a string
 #' @importFrom tibble tibble
 #' @noRd
 #' @keywords internal
-parse_relational <- function(expr, env, ...){
-  if(length(expr) != 3L){filter_error()}
-  parsed_values <- as_quosure(expr[[3]], env = env) |>
+parse_relational <- function(x, ...){
+  if(length(quo_get_expr(x)) != 3L){filter_error()}
+  parsed_values <- as_quosure(quo_get_expr(x)[[3]], 
+                              env = quo_get_env(x)) |>
     switch_expr_type() |>
     as.character()
   result <- tibble(
-    variable = as_label(expr[[2]]),
-    logical = as.character(expr[[1]]), # should probably be `relational`
+    variable = as_label(quo_get_expr(x)[[2]]),
+    logical = as.character(quo_get_expr(x)[[1]]), # should probably be `relational`
     value = parsed_values)
   
   # handle `!`
@@ -273,16 +274,22 @@ parse_relational <- function(expr, env, ...){
 #' @importFrom rlang expr_text
 #' @noRd
 #' @keywords internal
-parse_logical <- function(expr, env, ...){
-  provided_string <- as_string(expr[[1]])
+parse_logical <- function(x, ...){
+
+  provided_string <- quo_get_expr(x)[[1]] |> as_string()
   if(grepl("\\|{1,2}", provided_string)){
     logical_string <- " OR "
   }else{
     logical_string <- " AND "
   }
-  linked_statements <- lapply(expr[-1], 
-                              function(a){switch_expr_type(as_quosure(a, env = env), ...)}) |>
+  
+  linked_statements <- lapply(quo_get_expr(x)[-1], 
+                              function(a){
+                                switch_expr_type(
+                                  as_quosure(a, env = quo_get_env(x)), ...)
+                                }) |> 
     bind_rows()
+  
   concatenate_logical_tibbles(linked_statements,
                               provided_string = provided_string,
                               logical_string = logical_string)
@@ -321,9 +328,9 @@ join_logical_strings <- function(x, sep){ #}, variable, collapse){
 #' @importFrom rlang as_quosure
 #' @noRd
 #' @keywords internal
-parse_brackets <- function(expr, env, ...){
-  if(length(expr) != 2L){filter_error()}
-  switch_expr_type(as_quosure(expr[[2]], env = env), ...) # pass this down the chain
+parse_brackets <- function(x, ...){
+  if(length(quo_get_expr(x)) != 2L){filter_error()}
+  switch_expr_type(as_quosure(x), ...) # pass this down the chain
 }
 
 #' Parse `call`s that contain exclamations 
@@ -332,9 +339,9 @@ parse_brackets <- function(expr, env, ...){
 #' @importFrom rlang as_quosure
 #' @noRd
 #' @keywords internal
-parse_exclamation <- function(expr, env){
+parse_exclamation <- function(x){
   # extract call after `!`, preserves that `!` = TRUE
-  switch_expr_type(as_quosure(expr[[2]], env = env), excl = TRUE) # pass this down the chain
+  switch_expr_type(x, excl = TRUE) # pass this down the chain
 }
 
 
@@ -344,7 +351,7 @@ parse_exclamation <- function(expr, env){
 #' @importFrom rlang as_quosure is_empty
 #' @noRd
 #' @keywords internal
-parse_is_na <- function(expr, env, ...){
+parse_is_na <- function(x, ...){
   
   # if(length(expr) != 2L){filter_error()}
   dots <- list(...)
@@ -355,7 +362,8 @@ parse_is_na <- function(expr, env, ...){
   }
   # for LA cases
   result <- tibble(
-    variable = switch_expr_type(as_quosure(expr[[2]], env = env)),
+    variable = switch_expr_type(as_quosure(quo_get_expr(x)[[2]], 
+                                           env = quo_get_env(x))),
     logical = logical,
     value = as.character(""))
   result$query <- parse_solr(result)
@@ -368,8 +376,8 @@ parse_is_na <- function(expr, env, ...){
 #' @importFrom rlang as_quosure
 #' @noRd
 #' @keywords internal
-parse_between <- function(expr, env, excl){ 
-  if(length(expr) < 4L){filter_error()}
+parse_between <- function(x, excl){ 
+  if(length(quo_get_expr(x)) < 4L){filter_error()}
   # for LA cases
   if(isTRUE(excl)) {
     logical <- c(as.character(">"), c(as.character("<")))
@@ -377,11 +385,13 @@ parse_between <- function(expr, env, excl){
     logical <- c(as.character("<"), c(as.character(">")))
   }
   result <- tibble(
-    variable = c(rep(as_label(expr[[2]]))),
+    variable = c(rep(as_label(quo_get_expr(x)[[2]]))),
     logical = logical,
     value = as.character(
-      c(switch_expr_type(as_quosure(expr[[3]], env = env)),
-        switch_expr_type(as_quosure(expr[[4]], env = env)))))
+      c(switch_expr_type(as_quosure(quo_get_expr(x)[[3]], 
+                                    env = quo_get_env(x))),
+        switch_expr_type(as_quosure(quo_get_expr(x)[[4]], 
+                                    env = quo_get_env(x))))))
   result$query <- c(parse_solr(result[1,]), parse_solr(result[2,]))
   return(result)
 }
@@ -394,11 +404,11 @@ parse_between <- function(expr, env, excl){
 #' @importFrom rlang parse_expr enquo
 #' @noRd
 #' @keywords internal
-parse_in <- function(expr, env, excl){ 
-  if(length(expr) < 3L){filter_error()}
+parse_in <- function(x, excl){ 
+  if(length(quo_get_expr(x)) < 3L){filter_error()}
   
   # convert to logical format using OR statements
-  variable <- as_label(expr[[2]])
+  variable <- as_label(quo_get_expr(x)[[2]])
   
   if(missing(excl)) {
     logical <- "=="
@@ -406,7 +416,8 @@ parse_in <- function(expr, env, excl){
     logical <- "!="
   }
   
-  value <- switch_expr_type(as_quosure(expr[[3]], env = env))
+  value <- switch_expr_type(as_quosure(quo_get_expr(x)[[3]], 
+                                       env = quo_get_env(x)))
   
   in_as_or_statements <- rlang::parse_expr(
     glue::glue_collapse(
@@ -414,7 +425,7 @@ parse_in <- function(expr, env, excl){
       sep = " | "
     ))
   # in_as_or_statements_quos <- new_quosure(in_as_or_statements, env)
-  parse_logical(enquo(in_as_or_statements), env) # pass this to parse_logical
+  parse_logical(enquo(in_as_or_statements), quo_get_env(x)) # pass this to parse_logical
   # class(quo_get_expr(in_as_or_statements_quos))
   # quo_is_call(rlang::enquo(in_as_or_statements))
 }
@@ -427,11 +438,11 @@ parse_in <- function(expr, env, excl){
 #' @importFrom rlang parse_expr enquo
 #' @noRd
 #' @keywords internal
-parse_c <- function(expr, env, excl){ 
-  if(length(expr) < 2L){filter_error()}
+parse_c <- function(x, excl){ 
+  if(length(quo_get_expr(x)) < 2L){filter_error()}
   
   # convert to logical format using OR statements
-  variable <- as_label(expr[[1]])
+  variable <- as_label(quo_get_expr(x)[[1]])
   
   if(missing(excl)) {
     logical <- "=="
@@ -439,7 +450,8 @@ parse_c <- function(expr, env, excl){
     logical <- "!="
   }
   
-  value <- switch_expr_type(as_quosure(expr[[3]], env = env))
+  value <- switch_expr_type(as_quosure(quo_get_expr(x)[[3]], 
+                                       env = quo_get_env(x)))
   
   in_as_or_statements <- rlang::parse_expr(
     glue::glue_collapse(
@@ -447,7 +459,7 @@ parse_c <- function(expr, env, excl){
       sep = " | "
     ))
   # in_as_or_statements_quos <- new_quosure(in_as_or_statements, env)
-  parse_logical(enquo(in_as_or_statements), env) # pass this to parse_logical
+  parse_logical(enquo(in_as_or_statements), quo_get_env(x)) # pass this to parse_logical
   # class(quo_get_expr(in_as_or_statements_quos))
   # quo_is_call(rlang::enquo(in_as_or_statements))
 }
