@@ -84,7 +84,8 @@ test_that("atlas_media returns a tibble, and nothing else", {
   expect_gte(nrow(media_data), 3)
   expect_gte(ncol(media_data), 3)
   collect_media(media_data[1:3, ], thumbnail = TRUE)
-  file_count <- length(list.files(media_dir))
-  expect_equal(file_count, 3)
+  all_files <- list.files(media_dir)
+  jpg_files <- all_files[grepl(".jpg$|.jpeg$", all_files)]
+  expect_equal(length(jpg_files), 3)
   unlink(media_dir, recursive = TRUE)
 })

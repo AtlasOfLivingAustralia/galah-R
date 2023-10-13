@@ -43,9 +43,9 @@ collapse_media_files <- function(.data,
     abort("`collapse()` requires a `filter()` argument to function")
   }
   df <- .data$filter
-  if(!is.null(df$media_id)){
+  if(any(colnames(df) == "media_id")){
     identifiers <- df$media_id
-  }else if(!is.null(df$image_id)){
+  }else if(any(colnames(df) == "image_id")){
     identifiers <- df$image_id
   }else{
     abort("No valid identifiers found in supplied data.")
