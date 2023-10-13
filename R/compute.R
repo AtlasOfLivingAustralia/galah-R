@@ -122,23 +122,17 @@ remove_metadata <- function(.data){
   x
 }
 
-## BELOW HERE PROBABLY WON'T WORK
-
 # if calling `compute()` after `request_files()` 
 #' @rdname collect.data_request
 #' @export
 compute.files_request <- function(.data){
   result <- collapse(.data)
-  check_login(result)
-  class(result) <- "files_response"
-  return(result)
+  result[[1]]
 }
 
 # if calling `compute()` after `collapse()` after `request_files()` 
 #' @rdname collect.data_request
 #' @export
 compute.files_query <- function(.data){
-  check_login(.data)
-  class(.data) <- "files_response"
-  return(.data)
+  .data[[1]]
 }

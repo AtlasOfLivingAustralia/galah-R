@@ -37,13 +37,9 @@ check_directory <- function(x){
     dir.create(cache_dir)
     return(cache_dir)
   }else{
-    if(!dir.exists(dirname(x))){
-      bullets <- c(
-        "Cannot find directory.",
-        i = "Please enter a valid directory and try again.",
-        x = glue("{x} does not exist.")
-      )
-      abort(bullets, call = error_call)
+    directory <- dirname(x)
+    if(!dir.exists(directory)){
+      dir.create(directory)
     }else{
       x
     }

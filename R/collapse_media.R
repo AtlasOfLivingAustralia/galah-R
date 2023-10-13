@@ -1,5 +1,6 @@
-#' Internal version of `collapse()` for `request_data(type = "media")`
-#' @param .data An object of class `data_request` (from `request_data()`)
+#' Internal version of `collapse()` for `request_metadata(type = "media")`
+#' @param .data An object of class `metadata_request` (from `request_metadata()`)
+#' @importFrom jsonlite toJSON
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
@@ -14,14 +15,15 @@ collapse_media <- function(.data){
     abort("requests for `metadata` with type `media` require information passed via `filter()`")
   }
   occ <- .data$filter
-  media_cols <- which(colnames(occ) %in% c("images", "video", "sounds"))
+  media_cols <- which(colnames(occ) %in% c("images", "videos", "sounds"))
   media_ids <- do.call(c, occ[, media_cols]) |>
     unlist()
+  media_ids <- media_ids[!is.na(media_ids)]
   names(media_ids) <- NULL
   result <- list(
     type = "metadata/media",
     url = url_lookup("metadata/media"),
-    body = list(imageIds = media_ids), # formerly `build_media_id()`
+    body = toJSON(list(imageIds = media_ids)),
     headers = build_headers())
   class(result) <- "query"
   return(result)
@@ -41,11 +43,18 @@ collapse_media_files <- function(.data,
     abort("`collapse()` requires a `filter()` argument to function")
   }
   df <- .data$filter
-  path <- build_file_path(ids = df$image_id, types = df$mimetype)
+  if(!is.null(df$media_id)){
+    identifiers <- df$media_id
+  }else if(!is.null(df$image_id)){
+    identifiers <- df$image_id
+  }else{
+    abort("No valid identifiers found in supplied data.")
+  }
+  path <- build_file_path(ids = identifiers, types = df$mimetype)
   if(any(colnames(df) == "image_url")){
     url <- df$image_url
   }else{
-    url <- url_lookup("files/images", id = df$image_id)
+    url <- url_lookup("files/images", id = identifiers)
   }
   # handle thumbnails
   if(thumbnail){

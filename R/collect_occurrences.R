@@ -75,6 +75,7 @@ collect_occurrences_default <- function(.data, wait, file){
 
 #' Internal function to load zip files, without unzipping them first
 #' @importFrom dplyr bind_rows
+#' @importFrom readr cols
 #' @importFrom readr read_csv
 #' @importFrom readr read_tsv
 #' @importFrom utils unzip

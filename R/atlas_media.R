@@ -52,12 +52,11 @@
 #'   atlas_counts()
 #'}
 #' @importFrom dplyr bind_rows
-#' @importFrom dplyr filter
 #' @importFrom dplyr relocate
 #' @importFrom dplyr right_join
-#' @importFrom dplyr select
 #' @importFrom glue glue
 #' @importFrom potions pour
+#' @importFrom rlang abort
 #' @importFrom tibble tibble
 #' @importFrom tidyr unnest_longer
 #' @export
@@ -68,26 +67,11 @@ atlas_media <- function(request = NULL,
                         geolocate = NULL,
                         data_profile = NULL
                         ) {
-  # note: this has not yet been updated to use recent syntax, i.e.
-  # 
-  # request_data(type = "media") |>
-  #   filter(!is.na(images)) |>
-  #   select(group = "basic", "images") |>
-  #   collect()
-  #
-  # upgrading this is a priority for improved consistency and performance
-  
-  # USE 
-  # check_media_cols_present(request)
-  # this is in check.R and is critical to ensuring valid queries
-  
   # capture supplied arguments
   args <- as.list(environment())
-  
   # convert to `data_request` object
   .data <- check_atlas_inputs(args)
   .data$type <- "occurrences" # default, but in case supplied otherwise
-  
   # ensure media columns are present in `select`
   valid_formats <- c("images", "videos", "sounds")
   if(is.null(.data$select)){
@@ -99,7 +83,6 @@ atlas_media <- function(request = NULL,
                                    select = galah_select(group = "media"))
     }
   }
-  
   # filter to records that contain media of requested types 
   # NOTE: Might be more efficient to use `filter` for this, as it 
   # includes code to remove duplicated rows
@@ -115,29 +98,16 @@ atlas_media <- function(request = NULL,
                                    logical = "==",
                                    value = paste(valid_formats, collapse = "|"),
                                    query = as.character(media_fq)))
-  
   # get occurrences
   occ <- .data |> 
-    collect(wait = TRUE) # Q: what if this errors?
-  # format
-  occ <- occ |> 
+    collect(wait = TRUE) |> 
     unnest_longer(col = present_formats)
-  occ$media_id <- build_media_id(occ) # this integrates all types of identifier
-  occ <- occ |>
-    filter(!is.na(media_id)) |>
-    select(-multimedia, -images, -videos, -sounds)
-  
-  # collect media in a loop
-  media <- request_data(type = "media") |>
-    filter(media_id == occ$media_id) |>
+  occ$media_id <- build_media_id(occ) 
+  # collect media metadata
+  media <- request_metadata() |>
+    filter(media == occ) |>
     collect()
-  
   # join and return
-  right_join(occ, media, by = "media_id") |>
+  right_join(occ, media, by = c("media_id" = "image_id")) |>
     relocate(media_id, 1)
-  
-  # # return merged occurrences and media data
-  # .data[["data/occurrences"]] |>
-  #   unnest_longer(col = images) |>
-  #   right_join(result, by = c("images" = "image_id")) # move this to atlas_media()
 }

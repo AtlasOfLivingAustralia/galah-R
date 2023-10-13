@@ -2,13 +2,10 @@
 % Please edit documentation in R/tidyverse.R
 \name{tidyverse_functions}
 \alias{tidyverse_functions}
-\alias{between}
 \alias{desc}
 \alias{unnest}
 \title{Non-generic tidyverse functions}
 \usage{
-between()
-
 desc(...)
 
 unnest(.data, error_call = caller_env())
@@ -30,9 +27,8 @@ syntax with tidyverse, at the cost of potentially introducing conflicts.
 This can be avoided by using the \code{::} operator where required (see examples).
 }
 \details{
-The following functions are included
+The following functions are included:
 \itemize{
-\item \code{between()} (\code{dplyr}): use within \code{filter()} to specify a range
 \item \code{desc()} (\code{dplyr}): use within \code{arrange()} to specify arrangement should be descending
 \item \code{unnest()} (\code{tidyr}): use to 'drill down' into nested information on \code{fields}, \code{lists}, \code{profiles}, or \code{taxa}
 }

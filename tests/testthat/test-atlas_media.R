@@ -6,7 +6,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
     filter(year == 2010, !is.na(images)) |>
     select(group = "media") |>
     identify("Litoria peronii") |>
-    collect()
+    collect(wait = TRUE)
   
   ## PART 2: request media metadata
   # collapse
@@ -57,7 +57,7 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
 test_that("atlas_media gives a warning when old arguments are used", {
   skip_if_offline()
   galah_config(email = "ala4r@ala.org.au", atlas = "Australia")
-  expect_message({
+  expect_error({
     media_data <- atlas_media(
       identify = galah_identify("Microseris lanceolata"),
       filter = galah_filter(year == 2019),
@@ -75,25 +75,16 @@ test_that("atlas_media returns a tibble, and nothing else", {
   media_dir <- "test_media"
   unlink(media_dir, recursive = TRUE)
   dir.create(media_dir)
-  media_data <- atlas_media(
-    identify = galah_identify("Microseris lanceolata"),
-    filter = galah_filter(year == 2019))
+  media_data <- galah_call() |>
+    identify("Microseris lanceolata") |>
+    filter(year == 2019) |>
+    atlas_media()
   expect_s3_class(media_data, c("tbl_df", "tbl", "data.frame"))
+  expect_gte(nrow(media_data), 3)
+  expect_gte(ncol(media_data), 3)
+  collect_media(media_data[1:3, ], thumbnail = TRUE)
+  
   file_count <- length(list.files(media_dir))
   expect_lt(file_count, 1)  # no files in specified directory
   unlink(media_dir, recursive = TRUE)
-})
-
-test_that("atlas_occurrences |> search_media duplicates atlas_media", {
-  skip_if_offline()
-  galah_config(email = "ala4r@ala.org.au")
-  media_1 <- atlas_occurrences(
-     identify = galah_identify("Microseris lanceolata"),
-     filter = galah_filter(year == 2019, multimedia == "Image"),
-     select = galah_select(group = c("basic", "media"))) |>
-     search_media()
-  media_2 <- atlas_media(
-     identify = galah_identify("Microseris lanceolata"),
-     filter = galah_filter(year == 2019))
-  expect_equal(nrow(media_1), nrow(media_2))
 })

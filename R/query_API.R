@@ -56,6 +56,7 @@ query_API_internal <- function(.data, error_call = caller_env()) {
     req_error(is_error = ~ FALSE) # untested; intended to catch errors. 
     # from brief testing it appears to fail; e.g. we still get errors when internet is off
   if(!is.null(.data$download)){
+    check_directory(.data$file)
     query |> req_perform(path = .data$file,
                          verbosity = 0) # try(x, silent = TRUE) ?
   }else{
