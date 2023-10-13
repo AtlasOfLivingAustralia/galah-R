@@ -1,5 +1,29 @@
 # galah 2.0.0
 
+### Object-oriented programming
+* galah 2.0.0 is now built around object-oriented programming principles. This architectural change makes query building in galah more modular and transparent. As a result, galah 2.0.0 allows for easier debugging and gives users options for more advanced query building (for more information, see "Object-oriented programming" vignette on [galah website](https://galah.ala.org.au/R/)) (#183).
+
+### `collapse()`, `compute()`, `collect()`
+* New underlying architecture behind every function that pings an API in galah separates query building into 3 stages: Convert an object to a `query_set` that lists all APIs that will be pinged (`collapse()`), send the queries to required APIs (`compute()`), and return data as a `tibble` (`collect()`) (#183).
+* New architecture solves timing-out issue when downloading large numbers of records (#180, #192)
+
+### Major improvements to `galah_filter()`
+* `galah_filter()` has been upgraded to use a hierarchical parsing architecture suggested by [Advanced R](https://adv-r.hadley.nz/expressions.html). As a result, `galah_filter()` is faster and evaluates expressions more consistently (#196, #169)
+* `galah_filter()` now supports `is.na`, `!`, `c()` & `%in%` (#196)
+
+### Minor improvements
+* The [potions package](https://potions.ala.org.au/) underlies `galah_config()` for better options management (#193)
+* Addition of `slice_head()` and `desc()` as masked functions to use in galah `atlas_counts()` query.
+* New vignettes added for advanced taxonomic, spatial and temporal filtering (#42)
+
+### Bug fixes
+* Fixed parsing of `|` in `galah_filter()` (#169)
+* `show_values()` errors nicely when API is down (#184)
+* Sporadic `atlas$region` error when loading galah fixed with potions package implementation (#178)
+* DOI is no longer missing as an attribute when `atlas_occurrences(mint_doi = TRUE)` (#182)
+* Fixed bug where the order of fields in `group_by()` sometimes caused an error (#201)
+* Fixed parsing of ampersands (`&`) in query results (#203)
+* galah builds correct `data_request` object when wrapped by a function (#207)
 
 
 # galah 1.5.3
