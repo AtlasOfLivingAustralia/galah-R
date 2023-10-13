@@ -53,6 +53,7 @@ show_values <- function(df){
                        "fields" = df$id[1],
                        "lists" = df$dataResourceUid[1],
                        "profiles" = df$shortName[1],
+                       "taxa" = df$taxon_concept_id[1],
                        df$uid[1] # last option selected if above are exhausted
   )
   # specify the number matched fields
@@ -89,7 +90,7 @@ show_values <- function(df){
   # note: it would be better to have 
   # filter({{type}} := {{id}})
   # ...but this fails for some reason as `:=` is not implemented yet
-  collapse(x) |> compute()
+  collapse(x) |> collect()
 }
 
 #' @param query A string specifying a search term. Not case sensitive.
