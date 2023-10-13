@@ -143,10 +143,10 @@ parse_select <- function(dot_names, group){
     values <- unique(c(group_cols, individual_cols))
     values <- c("recordID", values[values != "recordID"])
     result <- tibble(name = values)
-    result$type <- "field"
+    result$type <- ifelse(!grepl("[[:lower:]]", values), "assertion", "field")
     # result$type[result$name %in% show_all("assertions")$id] <- "assertion" 
     ## above line commented out as it breaks our rule about pinging an API before
-    ## `compute()` is called. May require more work
+    ## `compute()` is called. Instead currently uses all-upper-case check
     attr(result, "group") <- group
     return(result) 
   }

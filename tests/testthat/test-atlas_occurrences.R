@@ -84,7 +84,8 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
     identify("Polytelis swainsonii") |>
     filter(year == 2018) |>
     select(group = "basic", stateProvince, ZERO_COORDINATE) |>
-    st_crop(poly) 
+    st_crop(poly)
+  # w <- collapse(base_query)
   # collect with wait = FALSE - ensure `type` is specified
   x <- compute(base_query) |> 
     collect(wait = FALSE)
@@ -95,7 +96,8 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
                  "records",
                  "status_url",
                  "cancel_url",
-                 "search_url"))
+                 "search_url",
+                 "queue_size"))
   expect_s3_class(x, "query")
   # collect with wait = TRUE
   y <- collect(x, wait = TRUE)    
