@@ -71,10 +71,11 @@ test_that("atlas_media fails when no filters are provided", {
 
 test_that("atlas_media returns a tibble, and nothing else", {
   skip_if_offline()
-  galah_config(email = "ala4r@ala.org.au")
   media_dir <- "test_media"
   unlink(media_dir, recursive = TRUE)
   dir.create(media_dir)
+  galah_config(email = "ala4r@ala.org.au", 
+               directory = media_dir)
   media_data <- galah_call() |>
     identify("Microseris lanceolata") |>
     filter(year == 2019) |>
@@ -83,8 +84,7 @@ test_that("atlas_media returns a tibble, and nothing else", {
   expect_gte(nrow(media_data), 3)
   expect_gte(ncol(media_data), 3)
   collect_media(media_data[1:3, ], thumbnail = TRUE)
-  
   file_count <- length(list.files(media_dir))
-  expect_lt(file_count, 1)  # no files in specified directory
+  expect_equal(file_count, 3)
   unlink(media_dir, recursive = TRUE)
 })

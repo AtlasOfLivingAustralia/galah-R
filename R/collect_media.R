@@ -61,5 +61,6 @@ collect_media_files <- function(.data){
 collect_media <- function(df, thumbnail = FALSE){
   request_files() |>
     filter(media == df) |>
+    collapse(thumbnail = thumbnail) |>
     collect()
 }

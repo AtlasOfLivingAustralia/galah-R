@@ -8,6 +8,7 @@
 \alias{collect.query_set}
 \alias{collect.data_request}
 \alias{collect.metadata_request}
+\alias{collect.files_request}
 \alias{compute.data_request}
 \alias{compute.metadata_request}
 \alias{compute.query_set}
@@ -27,6 +28,8 @@
 \method{collect}{data_request}(.data, wait = FALSE, file = NULL)
 
 \method{collect}{metadata_request}(.data)
+
+\method{collect}{files_request}(.data)
 
 \method{compute}{data_request}(.data)
 

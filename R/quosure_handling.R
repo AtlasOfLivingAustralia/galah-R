@@ -224,7 +224,6 @@ function_type <- function(x){ # assumes x is a string
 }
 
 #' Take standard filter-style queries and parse to `galah_filter()`-style `tibble`
-#' 
 #' Called by `parse_call`
 #' @importFrom dplyr all_of
 #' @importFrom dplyr rename
@@ -239,60 +238,32 @@ function_type <- function(x){ # assumes x is a string
 #' @keywords internal
 parse_relational <- function(expr, env, ...){
   if(length(expr) != 3L){filter_error()}
-
-  # # look for 'exceptions'; lhs entries that need to be parsed differently
-  # # these should be in `expr[[2]]` 
-  # exceptions <- c("media_id", "doi") 
-  #   # Q: what about `type = "distributions"`?
-  # current_arg <- as_string(expr[[2]])
-  # if(any(exceptions == current_arg)){
-  #   exception <- exceptions[which(exceptions == current_arg)]
-  #   parsed_ids <- as_quosure(expr[[3]], env = env) |>
-  #     switch_expr_type() |>
-  #     as.character()
-  #   result <- tibble(value = parsed_ids) |>
-  #     rename({{current_arg}} := value)
-  #   return(result)
-  # }else if(current_arg == "media"){ # special case for getting media_files
-  #   parsed_tibble <- as_quosure(expr[[3]], env = env) |>
-  #     switch_expr_type()
-  #   if(!inherits(parsed_tibble, "data.frame")){
-  #     abort("requests for `media` require a `data.frame`")
-  #   }
-  #   required_columns <- c("media_id", "mime_type", "image_url")
-  #   if(!all(required_columns %in% colnames(parsed_tibble))){
-  #     abort("media requests require the columns `media_id`, `mime_type` and `image_url` to be present")
-  #   }
-  #   select(parsed_tibble, all_of(required_columns))
-  # }else{
-    # for LA cases
-    parsed_values <- as_quosure(expr[[3]], env = env) |>
-      switch_expr_type() |>
-      as.character()
-    result <- tibble(
-      variable = as_label(expr[[2]]),
-      logical = as.character(expr[[1]]), # should probably be `relational`
-      value = parsed_values)
-    
-    # handle `!`
-    dots <- list(...)
-    if(!is_empty(dots) && result$logical == "==") {
-      result$logical <- as.character("!=")
-    }else if (!is_empty(dots) && result$logical == "!="){
-      result$logical <- as.character("==")
-    } else {
-      result$logical <- result$logical
-    }
-    result$query <- parse_solr(result) # from `galah_filter.R`
-    
-    # add exception for nrow(result) > 1
-    # this occurs when rhs is `c()`, which we interpret as "OR"
-    if(nrow(result) > 1){
-      result <- concatenate_logical_tibbles(result)
-    }
-    
-    return(result)
-  # }
+  parsed_values <- as_quosure(expr[[3]], env = env) |>
+    switch_expr_type() |>
+    as.character()
+  result <- tibble(
+    variable = as_label(expr[[2]]),
+    logical = as.character(expr[[1]]), # should probably be `relational`
+    value = parsed_values)
+  
+  # handle `!`
+  dots <- list(...)
+  if(!is_empty(dots) && result$logical == "==") {
+    result$logical <- as.character("!=")
+  }else if (!is_empty(dots) && result$logical == "!="){
+    result$logical <- as.character("==")
+  } else {
+    result$logical <- result$logical
+  }
+  result$query <- parse_solr(result) # from `galah_filter.R`
+  
+  # add exception for nrow(result) > 1
+  # this occurs when rhs is `c()`, which we interpret as "OR"
+  if(nrow(result) > 1){
+    result <- concatenate_logical_tibbles(result)
+  }
+  
+  result
 }
 
 #' Handle & and | statements

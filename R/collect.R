@@ -98,28 +98,10 @@ collect.metadata_request <- function(.data){
     collect()
 }
 
-# below old
-
-# if calling `collect()` after `request_files()`
-#' @rdname collect.data_request
+#' @rdname collect.query
 #' @export
 collect.files_request <- function(.data){
-  compute(.data) |> 
+  collapse(.data) |> 
+    compute() |>
     collect()
-}
-
-# if calling `collect()` after `collapse()` after request_files()`
-#' @rdname collect.data_request
-#' @export
-collect.files_query <- collect.files_request
-
-# if calling `collect()` after `compute()` after `request_files()`
-#' @rdname collect.data_request
-#' @export
-collect.files_response <- function(.data, file = NULL){
-  switch(.data$type,
-    "distributions" = abort("Not implemented yet"),
-    "media" = collect_media_files(.data),
-    abort("unrecognised 'type' supplied to `galah_call()`")
-  )
 }
