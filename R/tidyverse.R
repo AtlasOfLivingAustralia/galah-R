@@ -43,6 +43,8 @@ unnest <- function(.data, error_call = caller_env()){
     if(supplied_type != "taxa"){
       supplied_type <- paste0(supplied_type, "s")
     }
+  }else if(!is.null(.data$identify)){
+    supplied_type <- "taxa"
   }else{
     supplied_type <- .data$type
   }

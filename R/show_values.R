@@ -129,12 +129,12 @@ check_values_input <- function(df, error_call = caller_env()) {
   }
   
   # Input must be from valid `show_all` or `search_all` tibble
-  valid_calls <- c("fields", "profiles", "lists", "collections", "datasets", "providers")
+  valid_calls <- c("fields", "lists", "profiles", "taxa")
   if(!any(valid_calls == attr(df, "call"))){
     type <- attr(df, "call")
     bullets <- c(
       glue("Can't lookup values for metadata type `{type}`."),
-      x = "Values lookup accepts `fields`, `profiles`, `lists`, `collections`, `datasets` or `providers`."
+      x = "Values lookup accepts `fields`, `lists`, `profiles` or `taxa`."
     )
     abort(bullets, call = error_call)
   }

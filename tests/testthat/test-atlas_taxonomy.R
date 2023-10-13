@@ -7,7 +7,6 @@ test_that("atlas_taxonomy 'identify' must be specified", {
 })
 
 test_that("atlas_taxonomy 'filter' must be specified", {
-  skip_if_offline()
   expect_error({
     galah_call() |>
       identify("Animalia") |>
@@ -16,7 +15,6 @@ test_that("atlas_taxonomy 'filter' must be specified", {
 })
 
 test_that("atlas_taxonomy requires a single taxon", {
-  skip_if_offline()
   expect_error({
     galah_call() |>
       identify("Animalia", "Plantae") |>

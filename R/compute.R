@@ -34,14 +34,20 @@ compute.query_set <- function(.data){
     .data[[which(data_lookup)]] |>
       add_metadata(metadata_results) |>
       compute()      
-  }else if(any(names_vec %in% c("metadata/fields-unnest", "metadata/profiles-unnest"))){
+  }else if(any(names_vec %in% c("metadata/fields-unnest", 
+                                "metadata/profiles-unnest",
+                                "metadata/taxa-unnest"))){
     # this code accounts for `unnest` functions that require lookups
       # metadata/fields-unnest calls check_fields(), requiring fields and assertions
       # metadata/profiles-unnest calls profile_short_name(), which requires profiles
-    metadata_results <- parse_metadata(names_vec, .data)
-    .data[[2]] |>
-      add_metadata(metadata_results) |>
-      collect()
+    if(length(.data) > 1){
+      metadata_results <- parse_metadata(names_vec, .data)
+      .data[[2]] |>
+        add_metadata(metadata_results) |>
+        compute() 
+    }else{
+      compute(.data[[1]])
+    }
   }else{ 
     # if no metadata are needed, return .data unaltered
     compute(.data[[1]])

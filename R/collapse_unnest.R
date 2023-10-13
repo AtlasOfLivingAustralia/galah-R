@@ -55,11 +55,13 @@ collapse_profiles_unnest <- function(.data){
 #' @noRd
 #' @keywords Internal
 collapse_taxa_unnest <- function(.data){
-  id <- as.character(.data$filter$value) |>
-    URLencode(reserved = TRUE)
-  result <- list(type = .data$type,
-                 url = url_lookup("metadata/taxa-unnest",
-                                  id = id),
+  if(!is.null(.data$filter)){
+    id <- .data$filter$value[1]
+  }else if(!is.null(.data$identify)){
+    id <- "`TAXON_PLACEHOLDER`"
+  }
+  result <- list(type = "metadata/taxa-unnest",
+                 url = url_lookup("metadata/taxa-unnest", id = id),
                  headers = build_headers())
   class(result) <- "query"
   return(result)

@@ -65,10 +65,27 @@ collapse.metadata_request <- function(.data){
     result <- switch(.data$type, 
                      "fields-unnest" = list(collapse_fields()),
                      "profiles-unnest" = list(collapse_profiles()),
-                     # "lists-unnest" = list(collapse_lists()),
+                     "taxa-unnest" = {
+                       if(!is.null(.data$identify)){
+                         list(collapse_taxa(.data))
+                       }else{
+                         list() 
+                       }
+                    },
                      list())
   }else{
     result <- list()
+  }
+  if(grepl("-unnest$", .data$type)){
+    if(.data$type == "taxa-unnest"){
+      if(is.null(.data$identify) & is.null(.data$filter)){
+        abort("Requests with type `taxa-unnest` must also supply one of `filter()` or `identify().")
+      }
+    }else if(is.null(.data$filter)){
+      current_type <- .data$type
+      bullets <- glue("Requests with type `{current_type}` containing `unnest` must supply `filter()`.")
+      abort(bullets)
+    }
   }
   result[[(length(result) + 1)]] <- switch(.data$type,
          "apis" = collapse_apis(),

@@ -80,7 +80,11 @@ identify.data_request <- function(.data, ...){
 #' @export
 identify.metadata_request <- function(.data, ...){
   .data <- identify.data_request(.data, ...)
-  .data$type <- "taxa"
+  if(grepl("-unnest$", .data$type)){
+    .data$type <- "taxa-unnest"
+  }else{
+    .data$type <- "taxa" 
+  }
   .data
 }
 

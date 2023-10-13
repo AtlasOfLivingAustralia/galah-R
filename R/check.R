@@ -372,7 +372,19 @@ check_identifiers_la <- function(.data){
         .data$url[1] <- url_build(url)
       }else{
         # this only happens if there is a bug earlier in the code
-        abort("The query has a taxonomic placeholder, but taxon search has been run.")
+        abort("The query has a taxonomic placeholder, but no taxon search has been run.")
+      }
+    }
+  }else{
+    # note: `metadata/taxa-unnest` parses here
+    if(grepl("%60TAXON_PLACEHOLDER%60", .data$url[1])){
+      metadata_lookup <- grepl("^metadata/taxa", names(.data))
+      if(any(metadata_lookup)){ 
+        identifiers <- .data[[which(metadata_lookup)[1]]]
+        taxa_id <- identifiers$taxon_concept_id[1]
+        .data$url[1] <- sub("%60TAXON_PLACEHOLDER%60", taxa_id, .data$url[1])
+      }else{
+        abort("The query has a taxonomic placeholder, but no taxon search has been run.")
       }
     }
   }

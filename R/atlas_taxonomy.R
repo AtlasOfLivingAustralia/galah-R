@@ -114,9 +114,9 @@ drill_down_taxonomy <- function(df,
       return(df)
     }
   }
-  children <- request_values() |>
+  children <- request_metadata() |>
     filter(taxa == df$taxon_concept_id) |>
-    # use `identify()` instead of `filter()`?
+    unnest() |>
     collect()
   if(nrow(children) < 1){
     return(df)

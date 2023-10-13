@@ -1,4 +1,4 @@
-#' Internal function to call `compute` for `request_values(type = "fields")`
+#' Internal function to call `compute` for `request_metadata(type = "profiles-unnest")`
 #' @noRd
 #' @keywords Internal
 compute_profile_values <- function(.data){

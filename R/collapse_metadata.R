@@ -164,10 +164,11 @@ collapse_licences <- function(){
 collapse_lists <- function(.data){
   url <- url_lookup("metadata/lists") |>
     url_parse()
-  if(!is.null(.data$slice)){
-    url$query <- list(max = .data$slice$slice_n)
-  }else{
-    url$query <- list(max = 5000)
+  url$query <- list(max = 5000)
+  if(!missing(.data)){
+    if(!is.null(.data$slice)){
+      url$query <- list(max = .data$slice$slice_n)
+    }    
   }
   result <- list(type = "metadata/lists",
                  url = url_build(url),

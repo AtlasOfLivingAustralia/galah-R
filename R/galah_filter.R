@@ -106,15 +106,16 @@ filter.metadata_request <- function(.data, ...){
   .data$filter <- dots_parsed$data
   # The `filter` argument sets `type` when specified
   initial_type <- .data$type
-  filter_type <- dots_parsed$variable
-  if(filter_type %in% c("taxa", "media")){
-    .data$type <- filter_type
-  }else if(grepl("-unnest$", initial_type)){
-    .data$type <- paste0(filter_type, "-unnest")
-  }else if(grepl("s$", filter_type)){
-    .data$type <- filter_type
+  if(!(dots_parsed$variable %in% c("taxa", "media")) &
+     !grepl("s$", dots_parsed$variable)){
+    filter_type <- paste0(dots_parsed$variable, "s")
   }else{
-    .data$type <- paste0(filter_type, "s")
+    filter_type <- dots_parsed$variable
+  }
+  if(grepl("-unnest$", initial_type)){
+    .data$type <- paste0(filter_type, "-unnest")
+  }else{
+    .data$type <- filter_type
   }
   .data
 }
