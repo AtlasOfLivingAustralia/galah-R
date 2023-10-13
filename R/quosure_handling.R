@@ -6,14 +6,15 @@
 #' @noRd
 #' @importFrom dplyr bind_rows
 #' @importFrom rlang abort
+#' @importFrom rlang as_label
 #' @importFrom rlang quo_is_symbol
 #' @importFrom stringr str_detect
 #' @keywords internal
 parse_quosures <- function(dots){
   if(length(dots) > 0){
     check_named_input(dots)
-    call_string <- deparse(dots[[1]]) |> paste(collapse = " ") # captures multi-lines
-    if(str_detect(call_string, "galah_call()|~.")) { # note: "~." indicates presence of the magrittr pipe (%>%)
+    call_string <- as_label(dots[[1]]) |> paste(collapse = " ") # captures multi-lines
+    if(str_detect(call_string, "galah_call()|^~.$")) { # note: "~." indicates presence of the magrittr pipe (%>%)
       eval_request <- eval_tidy(dots[[1]])
       parsed_dots <- lapply(dots[-1], switch_expr_type)
       # check_filter_tibbles(parsed_dots)
