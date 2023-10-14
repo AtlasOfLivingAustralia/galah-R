@@ -26,7 +26,7 @@ test_that("show_values checks values", {
 
 test_that("show_values accepts search & show_all inputs from fields", {
   skip_on_cran()
-  search <- search_all(lists, "EPBCact1")
+  search <- search_all(lists, "dr656")
   filtered_show <- show_all(lists) |>
     dplyr::filter(dataResourceUid == "dr656")
   values_search <- search |> show_values()
@@ -149,7 +149,7 @@ test_that("show_values and search_values work for collections", {
   })
   expect_equal(nrow(result), 1)
   result <- expect_message({
-    search_collections("co43") |> 
+    search_collections("co214") |> 
     show_values()
   })
   expect_equal(nrow(result), 1)
@@ -168,7 +168,7 @@ test_that("show_values and search_values work for datasets", {
   })
   expect_equal(nrow(result), 1)
   result <- expect_message({
-    search_datasets("dr14507") |> 
+    search_datasets("dr16247") |> 
     show_values()
   })
   expect_equal(nrow(result), 1)

@@ -1,5 +1,12 @@
-# galah 1.5.2
+# galah 1.5.4
+Fix minor bug affecting `devel` version of R on some systems.
 
+
+# galah 1.5.3
+Fix to bugs in help file examples.
+
+
+# galah 1.5.2
 Minor release to resolve issues on CRAN, and a few recent bugs.
 
 ### Bug fixes
