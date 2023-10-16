@@ -41,6 +41,7 @@
 #'   * [atlas_species()] Download species lists
 #'   * [atlas_taxonomy()] Return a section of the ALA taxonomic tree
 #'   * [atlas_media()] View images and sounds available to download
+#'   * [collect_media()] Download images and sounds
 #'   * \code{\link[=collect.data_request]{collapse(), compute() & collect()}} Finer control over query construction and execution
 #'   
 #' **Look up information**

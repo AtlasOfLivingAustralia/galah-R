@@ -50,7 +50,7 @@ test_that("galah_filter parses '&' correctly", {
   filters <- galah_filter(year >= 2010 & year < 2020)
   expect_equal(nrow(filters), 1)
   expect_equal(filters$value, "2010&2020")
-  expect_equal(filters$query, "(year:[2010 TO *] AND year:[* TO 2020] AND -(year:\"2020\"))")
+  expect_equal(filters$query, "year:[2010 TO *] AND year:[* TO 2020] AND -(year:\"2020\")")
 })
 
 test_that("galah_filter handles numeric queries for text fields", {             
@@ -62,7 +62,7 @@ test_that("galah_filter handles OR statements", {
   filters <- galah_filter(year == 2010 | year == 2020)
   expect_equal(nrow(filters), 1)
   expect_equal(filters$value, "2010|2020")
-  expect_equal(filters$query, "((year:\"2010\") OR (year:\"2020\"))")
+  expect_equal(filters$query, "(year:\"2010\") OR (year:\"2020\")")
 })
 
 test_that("galah_filter handles OR statements", {   
@@ -70,7 +70,7 @@ test_that("galah_filter handles OR statements", {
                           raw_scientificName == "Litoria peronii")
   expect_equal(nrow(filters), 1)
   expect_equal(filters$query, 
-               "((raw_scientificName:\"Litoria jervisiensis\") OR (raw_scientificName:\"Litoria peronii\"))")
+               "(raw_scientificName:\"Litoria jervisiensis\") OR (raw_scientificName:\"Litoria peronii\")")
 })
 
 test_that("galah_filter works with 3 OR statements", {
@@ -80,7 +80,7 @@ test_that("galah_filter works with 3 OR statements", {
   expect_equal(nrow(filters), 1)
   expect_equal(filters$value, "HumanObservation|MachineObservation|PreservedSpecimen")
   expect_equal(filters$query, 
-               "(((basisOfRecord:\"HumanObservation\") OR (basisOfRecord:\"MachineObservation\")) OR (basisOfRecord:\"PreservedSpecimen\"))")
+               "(basisOfRecord:\"HumanObservation\") OR (basisOfRecord:\"MachineObservation\") OR (basisOfRecord:\"PreservedSpecimen\")")
 })
 
 test_that("galah_filter handles exclusion", {   
@@ -92,7 +92,7 @@ test_that("galah_filter handles exclusion", {
 test_that("galah_filter handles multiple exclusions", {
   filters <- galah_filter(!(stateProvince == "Victoria" & year == 2021)) 
   expect_equal(nrow(filters), 1)
-  expect_equal(filters$query, "(-(stateProvince:\"Victoria\") AND -(year:\"2021\"))")
+  expect_equal(filters$query, "-(stateProvince:\"Victoria\") AND -(year:\"2021\")")
 })
 
 test_that("galah_filter handles three terms at once", {    
@@ -173,7 +173,7 @@ test_that("galah_filter handles taxonomic exclusions", {
 
 test_that("galah_filter handles different fields separated by OR", {
   filters <- galah_filter(phylum == "Chordata" | kingdom == "Plantae")
-  expect_equal(filters$query, "((phylum:\"Chordata\") OR (kingdom:\"Plantae\"))")
+  expect_equal(filters$query, "(phylum:\"Chordata\") OR (kingdom:\"Plantae\")")
 })
 
 test_that("galah_filter fails when given invalid AND syntax", {
@@ -211,8 +211,8 @@ test_that("galah_filter handles %in% even with multiple filters", {
   filter_multiple <- galah_filter(year %in% list_of_years, cl22 == "Tasmania")
   expect_equal(nrow(filter_single), 1)
   expect_equal(nrow(filter_multiple), 2)
-  expect_equal("((((year:\"2020\") OR (year:\"2021\")) OR (year:\"2022\")))", filter_single$query[[1]])
-  expect_equal("((((year:\"2020\") OR (year:\"2021\")) OR (year:\"2022\")))", filter_multiple$query[[1]])
+  expect_equal("(year:\"2020\") OR (year:\"2021\") OR (year:\"2022\")", filter_single$query[[1]])
+  expect_equal("(year:\"2020\") OR (year:\"2021\") OR (year:\"2022\")", filter_multiple$query[[1]])
 })
 
 test_that("galah_filter handles `media_id == ` differently", {

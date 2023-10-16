@@ -21,6 +21,7 @@ parse_quosures <- function(dots){
       result <- list(data_request = eval_request,
                      data = bind_rows(parsed_dots))
     }else{
+      browser()
       parsed_dots <- lapply(dots, switch_expr_type)
       # check_filter_tibbles(parsed_dots)
       result <- list(data = bind_rows(parsed_dots))
@@ -121,7 +122,7 @@ switch_expr_type <- function(x, ...){
          "symbol" = {parse_symbol(x)},
          "call" = {parse_call(x, ...)},
          "literal" = {quo_get_expr(x)},
-         abort("Quosure type not recognised")
+         abort("Quosure type not recognised.")
   )
 }
 
@@ -186,9 +187,11 @@ parse_symbol <- function(x){
 #' @noRd
 #' @keywords internal
 parse_call <- function(x, ...){
+  # browser()
   y <- quo_get_expr(x)
   env_tr <- quo_get_env(x)
-  switch(function_type(as_string(y[[1]])), # i.e. switch depending on what function is called
+  # browser()
+  switch(function_type(as_string(deparse(y[[1]]))), # i.e. switch depending on what function is called
          "relational_operator" = parse_relational(x, ...),
          "logical_operator" = parse_logical(x, ...),
          "bracket" = parse_brackets(x, ...),
@@ -233,11 +236,13 @@ function_type <- function(x){ # assumes x is a string
 #' @importFrom rlang as_quosure
 #' @importFrom rlang as_string
 #' @importFrom rlang is_empty
+#' @importFrom rlang is_bare_environment
 #' @importFrom rlang parse_expr
 #' @importFrom tibble tibble
 #' @noRd
 #' @keywords internal
 parse_relational <- function(x, ...){
+  
   if(length(quo_get_expr(x)) != 3L){filter_error()}
   parsed_values <- as_quosure(quo_get_expr(x)[[3]], 
                               env = quo_get_env(x)) |>
@@ -250,9 +255,9 @@ parse_relational <- function(x, ...){
   
   # handle `!`
   dots <- list(...)
-  if(!is_empty(dots) && result$logical == "==") {
-    result$logical <- as.character("!=")
-  }else if (!is_empty(dots) && result$logical == "!="){
+  if("excl" %in% names(dots) && result$logical == "==") {
+  result$logical <- as.character("!=")
+  }else if ("excl" %in% names(dots) && result$logical == "!="){
     result$logical <- as.character("==")
   } else {
     result$logical <- result$logical
@@ -271,25 +276,24 @@ parse_relational <- function(x, ...){
 #' Handle & and | statements
 #' @importFrom rlang as_quosure
 #' @importFrom rlang as_string
-#' @importFrom rlang expr_text
 #' @noRd
 #' @keywords internal
 parse_logical <- function(x, ...){
-
+  # browser()
   provided_string <- quo_get_expr(x)[[1]] |> as_string()
   if(grepl("\\|{1,2}", provided_string)){
     logical_string <- " OR "
   }else{
     logical_string <- " AND "
   }
-  
+  # browser()
   linked_statements <- lapply(quo_get_expr(x)[-1], 
                               function(a){
                                 switch_expr_type(
                                   as_quosure(a, env = quo_get_env(x)), ...)
                                 }) |> 
     bind_rows()
-  
+  # browser()
   concatenate_logical_tibbles(linked_statements,
                               provided_string = provided_string,
                               logical_string = logical_string)
@@ -307,7 +311,7 @@ concatenate_logical_tibbles <- function(df,
     variable = join_logical_strings(df$variable, sep = provided_string),
     logical  = join_logical_strings(df$logical, sep = provided_string),
     value    = join_logical_strings(df$value, sep = provided_string),
-    query    = as.character(glue("({query_text})")))
+    query    = as.character(glue("{query_text}")))
 }
 
 #' Messy internal function called by `parse_logical`
@@ -329,8 +333,12 @@ join_logical_strings <- function(x, sep){ #}, variable, collapse){
 #' @noRd
 #' @keywords internal
 parse_brackets <- function(x, ...){
+  # browser()
   if(length(quo_get_expr(x)) != 2L){filter_error()}
-  switch_expr_type(as_quosure(x), ...) # pass this down the chain
+  # switch_expr_type(as_quosure(x), ...) # pass this down the chain
+  switch_expr_type(as_quosure(quo_get_expr(x)[[-1]], 
+                              env = quo_get_env(x)), 
+                   ...) # pass this down the chain
 }
 
 #' Parse `call`s that contain exclamations 
@@ -341,7 +349,10 @@ parse_brackets <- function(x, ...){
 #' @keywords internal
 parse_exclamation <- function(x){
   # extract call after `!`, preserves that `!` = TRUE
-  switch_expr_type(x, excl = TRUE) # pass this down the chain
+  # browser()
+  switch_expr_type(as_quosure(quo_get_expr(x)[[-1]], 
+                              env = quo_get_env(x)), 
+                   excl = TRUE) # pass this down the chain
 }
 
 
@@ -352,14 +363,16 @@ parse_exclamation <- function(x){
 #' @noRd
 #' @keywords internal
 parse_is_na <- function(x, ...){
+  # browser()
+  if(length(quo_get_expr(x)) != 2L){filter_error()}
   
-  # if(length(expr) != 2L){filter_error()}
   dots <- list(...)
   if(rlang::is_empty(dots)) {
     logical <- as.character("==")
   }else{
     logical <- as.character("!=")
   }
+  
   # for LA cases
   result <- tibble(
     variable = switch_expr_type(as_quosure(quo_get_expr(x)[[2]], 
@@ -405,7 +418,7 @@ parse_between <- function(x, excl){
 #' @noRd
 #' @keywords internal
 parse_in <- function(x, excl){ 
-  if(length(quo_get_expr(x)) < 3L){filter_error()}
+  # if(length(quo_get_expr(x)) < 3L){filter_error()}
   
   # convert to logical format using OR statements
   variable <- as_label(quo_get_expr(x)[[2]])
@@ -418,14 +431,14 @@ parse_in <- function(x, excl){
   
   value <- switch_expr_type(as_quosure(quo_get_expr(x)[[3]], 
                                        env = quo_get_env(x)))
-  
+  # browser()
   in_as_or_statements <- rlang::parse_expr(
     glue::glue_collapse(
       glue("{variable} {logical} '{value}'"), 
       sep = " | "
     ))
   # in_as_or_statements_quos <- new_quosure(in_as_or_statements, env)
-  parse_logical(enquo(in_as_or_statements), quo_get_env(x)) # pass this to parse_logical
+  parse_logical(as_quosure(in_as_or_statements, quo_get_env(x))) # pass this to parse_logical
   # class(quo_get_expr(in_as_or_statements_quos))
   # quo_is_call(rlang::enquo(in_as_or_statements))
 }
@@ -498,7 +511,7 @@ switch_solr <- function(df){
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords internal
-filter_error <- function(){abort("Invalid argument passed to `filter()`")}
+filter_error <- function(){abort("Invalid argument passed to `filter()`.")}
 
 
 #' Subfunction called by `parse_solr()`

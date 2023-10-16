@@ -43,6 +43,7 @@ quality-control criteria.
 \item \code{\link[=atlas_species]{atlas_species()}} Download species lists
 \item \code{\link[=atlas_taxonomy]{atlas_taxonomy()}} Return a section of the ALA taxonomic tree
 \item \code{\link[=atlas_media]{atlas_media()}} View images and sounds available to download
+\item \code{\link[=collect_media]{collect_media()}} Download images and sounds
 \item \code{\link[=collect.data_request]{collapse(), compute() & collect()}} Finer control over query construction and execution
 }
 
