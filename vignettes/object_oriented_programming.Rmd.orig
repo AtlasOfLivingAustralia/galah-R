@@ -183,8 +183,6 @@ In practice, there are actually 12 new classes:
 
 _this needs a table or diagram or something_
 
-_give examples of files, metadata and values_
-
 These can be called directly, or via the `method` and `type` arguments of 
 `galah_call()`, which specify which dedicated `request_` function and data type to return. 
 
@@ -223,7 +221,7 @@ And another example:
 _This example doesn't work_
 
 ```{r, eval = FALSE}
-request_values(type = "fields") |>
+request_metadata(type = "fields-unnest") |>
   filter(id == "cl22") |>
   collect()
 
@@ -253,9 +251,19 @@ Indeed, while there is
 perfect redundancy between old and new syntax in some cases, in others they
 serve different purposes. In `atlas_media()` for example, several calls 
 are made and joined in a way that reduces the number of steps required by the 
-user. 
+user. The queries below to download media are equivalent:
 
-(_expand this exampple_)
+```{r, eval = FALSE}
+galah_call() |>
+  identify("Todiramphus macleayii") |>
+  filter(year == 2021) |>
+  atlas_media() |>
+  collect_media()
+```
+
+```{r, eval = FALSE}
+# equivalent example using `request_data()` syntax
+```
 
 Under the hood, however, all `atlas_` functions are now entirely built using the 
 above syntax.
