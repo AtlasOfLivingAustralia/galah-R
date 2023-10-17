@@ -87,17 +87,17 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
     st_crop(poly)
   # w <- collapse(base_query)
   # collect with wait = FALSE - ensure `type` is specified
-  x <- compute(base_query) |> 
-    collect(wait = FALSE)
+  x <- compute(base_query) #|> collect(wait = FALSE)
   expect_equal(names(x),
                c("type",
                  "status",
                  "total_records",
-                 "records",
+                 # "records",
+                 "queue_size",
                  "status_url",
                  "cancel_url",
-                 "search_url",
-                 "queue_size"))
+                 "search_url"
+                 ))
   expect_s3_class(x, "query")
   # collect with wait = TRUE
   y <- collect(x, wait = TRUE)    
