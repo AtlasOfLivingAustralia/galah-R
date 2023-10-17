@@ -614,12 +614,13 @@ check_reason <- function(.data, error_call = caller_env()){
                    i = "Use `galah_config(download_reason_id = ...)` to set a reason.")
       abort(bullets, call = error_call) 
     }else{
-      value <- as.integer(query$reasonTypeId)
-      if(!(value %in% .data[["metadata/reasons"]]$id)){
+      user_reason <- query$reasonTypeId
+      valid_reasons <- unlist(.data[["metadata/reasons"]])
+      if(!(user_reason %in% valid_reasons)){
         bullets <- c(
           "Invalid download reason ID.",
           i = "Use `show_all(reasons)` to see all valid reasons.",
-          x = glue("{value} does not match an existing reason ID."))
+          x = glue("\"{user_reason}\" does not match an existing reason ID."))
         abort(bullets, call = error_call)    
       }
     }
