@@ -26,6 +26,7 @@ test_that("galah_call works with all `galah_` functions", {
     galah_apply_profile(ALA) |>
     galah_geolocate("POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))") |>
     galah_group_by(year, basisOfRecord) |>
+    arrange(basisOfRecord) |>
     galah_down_to(rank = species)
   expect_false(any(unlist(lapply(result, is.null))))   
 })
@@ -36,6 +37,7 @@ test_that("galah_call works irrespective of `galah_` function order", {
     galah_apply_profile(ALA) |>
     galah_down_to(rank = species) |>
     galah_group_by(year, basisOfRecord) |>
+    arrange(basisOfRecord) |>
     galah_geolocate("POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))") |>
     galah_select(year) |>
     galah_filter(year == 2021, cl22 == "Tasmania") |>
