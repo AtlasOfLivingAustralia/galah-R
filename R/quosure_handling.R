@@ -1,55 +1,67 @@
-# Internal code to parse `...` info passed to `filter.data_request()`
-# Note that the approach used below is taken from advanced R:
+# Internal code to parse `...` info passed to `filter.data_request()` and 
+# related functions. Note that the approach used below is taken from advanced R:
 # https://adv-r.hadley.nz/expressions.html
 
-#' parse_quosures
-#' @noRd
-#' @importFrom dplyr bind_rows
-#' @importFrom rlang abort
-#' @importFrom rlang as_label
-#' @importFrom rlang quo_is_symbol
+#' This should parse out a request object and return quosures thereafter
+#' @importFrom rlang eval_tidy
 #' @importFrom rlang get_expr
 #' @importFrom rlang quo_get_expr
 #' @importFrom stringr str_detect
-#' @keywords internal
-parse_quosures <- function(dots){
-  
+#' @noRd
+#' @keywords Internal
+detect_request_object <- function(dots){
   if (length(dots) > 0) {
-    check_named_input(dots)
-
-    call_string <- rlang::get_expr(dots)[[1]] |> 
+    call_string <- get_expr(dots)[[1]] |> 
       quo_get_expr() |>
       deparse() |>
       paste(collapse = " ") # captures multi-lines
-
-    if (str_detect(call_string, "galah_call()|^~.$")) { # note: "~." indicates presence of the magrittr pipe (%>%)
+    types <- c(
+      "^galah_call\\(",
+      "^request_data\\(",
+      "^request_metadata\\(",
+      "^request_files\\(",
+      "^~.$") |>
+      paste(collapse = "|")
+    if (str_detect(call_string, types)) { # note: "~." indicates presence of the magrittr pipe (%>%)
       eval_request <- eval_tidy(dots[[1]])
-      parsed_dots <- lapply(dots[-1], switch_expr_type)
-      # check_filter_tibbles(parsed_dots)
-      result <- list(data_request = eval_request,
-                     data = bind_rows(parsed_dots))
-    } else {
-      parsed_dots <- lapply(dots, switch_expr_type)
-      # check_filter_tibbles(parsed_dots)
-      result <- list(data = bind_rows(parsed_dots))
+      c(list(eval_request), dots[-1])
+    }else{
+      dots
     }
-  } else {
-    result <- list(data = NULL)
+  }else{
+    NULL
   }
-  if (is.null(result$data)) {
-    result$data <- tibble(
-          variable = character(),
-          logical = character(),
-          value = character(),
-          query = character())
+}
+
+#' parse quosures for objects of class `data_request`
+#' @importFrom dplyr bind_rows
+#' @importFrom tibble tibble
+#' @noRd
+#' @keywords internal
+parse_quosures_data <- function(dots){
+  if(length(dots) > 0){
+    result <- lapply(dots, switch_expr_type) |>
+      bind_rows()
+  }else{
+    result <- NULL
   }
-  return(result)
+  if(is.null(result)){
+    result <- tibble(
+      variable = character(),
+      logical = character(),
+      value = character(),
+      query = character())
+  }
+  result
 }
 
 #' parse quosures, but for `select` and related functions
 #' 
 #' Major difference here is there is no need for parsing; simply return
 #' stuff that is a named object
+#' @importFrom rlang abort
+#' @importFrom rlang eval_tidy
+#' @importFrom rlang quo_get_expr
 #' @noRd
 #' @keywords internal
 parse_quosures_basic <- function(dots){
@@ -61,12 +73,7 @@ parse_quosures_basic <- function(dots){
             "literal" = {quo_get_expr(a)},
             abort("Quosure type not recognised."))
       })
-    if(inherits(parsed_dots[[1]], "data_request")){
-      list(data_request = parsed_dots[[1]], 
-           data = unlist(parsed_dots[-1]))
-    }else{
-      list(data = unlist(parsed_dots))
-    }
+    unlist(parsed_dots)
   }else{
     NULL
   } 
@@ -77,6 +84,8 @@ parse_quosures_basic <- function(dots){
 #' @importFrom rlang as_label
 #' @importFrom rlang as_string
 #' @importFrom rlang is_quosure
+#' @importFrom rlang f_lhs
+#' @importFrom rlang f_rhs
 #' @importFrom rlang quo_get_env
 #' @importFrom rlang quo_get_expr
 #' @importFrom tibble tibble
@@ -85,14 +94,16 @@ parse_quosures_basic <- function(dots){
 parse_quosures_files <- function(dots){
   if(length(dots) > 0){
     check_named_input(dots)
-    dot_expr <- quo_get_expr(dots[[1]])
-    if(is_quosure(dot_expr[[2]])){
-      lhs <- quo_get_expr(dot_expr[[2]]) |>
-        as_string()
+    dot_expr <- quo_get_expr(dots[[1]]) # i.e. only first entry is available
+    # get formula lhs
+    lhs <- f_lhs(dot_expr)
+    if(is_quosure(lhs)){
+      lhs <- quo_get_expr(lhs) |> as_string()
     }else{
-      lhs <- as_string(dot_expr[[2]])
+      lhs <- as_string(lhs)
     }
-    x <- new_quosure(dot_expr[[3]], env = quo_get_env(dots[[1]]))
+    # get rhs
+    x <- new_quosure(f_rhs(dot_expr), env = quo_get_env(dots[[1]]))
     rhs <- switch(expr_type(x),
            "call" = {eval_tidy(x)},
            "symbol" = {if(exists(quo_get_expr(x), 
@@ -103,15 +114,14 @@ parse_quosures_files <- function(dots){
            }},
            "literal" = {quo_get_expr(x)},
            abort("Quosure type not recognised."))
-    if(!inherits(rhs, "data.frame")){
-      rhs <- tibble(
+    if(inherits(rhs, "data.frame")){
+      list(variable = lhs, data = rhs)
+    }else{
+      tibble(
         variable = lhs,
         logical = "==",
         value = rhs)
     }
-    list(
-      variable = lhs,
-      data = rhs)
   }else{
     NULL
   }
@@ -121,7 +131,6 @@ parse_quosures_files <- function(dots){
 #' @param x A (single) quosure
 #' @importFrom rlang abort
 #' @importFrom rlang quo_get_expr
-#' @importFrom rlang quo_get_env
 #' @noRd
 #' @keywords internal
 switch_expr_type <- function(x, ...){

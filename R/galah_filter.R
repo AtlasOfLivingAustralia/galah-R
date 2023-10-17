@@ -75,14 +75,26 @@
 #' @importFrom rlang quo_squash
 #' @export
 galah_filter <- function(..., profile = NULL){
-  dots <- enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures(dots)
-  if(is.null(parsed_dots$data_request)){
-    parsed_dots$data
-  }else{
-    update_data_request(parsed_dots$data_request, 
-                      filter = parsed_dots$data)
-  }
+  dots <- enquos(..., .ignore_empty = "all") |>
+    detect_request_object()
+  check_named_input(dots)
+  switch(class(dots[[1]])[1],
+         "data_request" = {
+           update_data_request(dots[[1]], 
+                               filter = parse_quosures_data(dots[-1]))
+         },
+         "metadata_request" = {
+           parse_metadata(dots[[1]], dots[-1])
+         },
+         "files_request" = {
+           input <- dots[[1]]
+           parsed_dots <- parse_quosures_files(dots[-1])
+           input$filter <- parsed_dots$data
+           input$type <- parsed_dots$variable
+           input
+         },
+         parse_quosures_data(dots)
+  )
 }
 
 #' @rdname galah_filter
@@ -90,11 +102,12 @@ galah_filter <- function(..., profile = NULL){
 #' @export
 filter.data_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
+  check_named_input(dots)
   update_data_request(.data, 
-                      filter = parse_quosures(dots)$data) # see `quosure_handling.R`
+                      filter = parse_quosures_data(dots)) # see `quosure_handling.R`
 }
 # usually filters as previously for ALA, but some exceptions:
-  # doi == "x" in `atlas_occurrences()` proposed but not coded
+  # doi == "x" in `atlas_occurrences()`
   # rank == "class" in `atlas_taxonomy()` replacement for `galah_down_to()`
 
 #' @rdname galah_filter
@@ -102,22 +115,8 @@ filter.data_request <- function(.data, ...){
 #' @export
 filter.metadata_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
-  dots_parsed <- parse_quosures_files(dots)
-  .data$filter <- dots_parsed$data
-  # The `filter` argument sets `type` when specified
-  initial_type <- .data$type
-  if(!(dots_parsed$variable %in% c("taxa", "media")) &
-     !grepl("s$", dots_parsed$variable)){
-    filter_type <- paste0(dots_parsed$variable, "s")
-  }else{
-    filter_type <- dots_parsed$variable
-  }
-  if(grepl("-unnest$", initial_type)){
-    .data$type <- paste0(filter_type, "-unnest")
-  }else{
-    .data$type <- filter_type
-  }
-  .data
+  check_named_input(dots)
+  parse_metadata(.data, dots)
 }
 # Note: the intended purpose of this function is to pass `filter()`
 # within the API call in the same was as `filter.data_request()`. 
@@ -129,18 +128,36 @@ filter.metadata_request <- function(.data, ...){
 # used to set the thing that is unnested; this is a different kind of search
 # e.g. `request_values() |> filter(taxa == "Chordata")`
 
+#' simple parser for metadata
+#' @noRd
+#' @keywords Internal
+parse_metadata <- function(request, dots){
+  dots_parsed <- parse_quosures_files(dots)
+  request$filter <- dots_parsed
+  # The `filter` argument sets `type` when specified
+  initial_type <- request$type
+  if(!(dots_parsed$variable %in% c("taxa", "media")) &
+     !grepl("s$", dots_parsed$variable)){
+    filter_type <- paste0(dots_parsed$variable, "s")
+  }else{
+    filter_type <- dots_parsed$variable
+  }
+  if(grepl("-unnest$", initial_type)){
+    request$type <- paste0(filter_type, "-unnest")
+  }else{
+    request$type <- filter_type
+  }
+  request
+}
+
 #' @rdname galah_filter
 #' @param .data An object of class `files_request`, created using [request_files()]
 #' @export
 filter.files_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
+  check_named_input(dots)
   dots_parsed <- parse_quosures_files(dots)
-  if(!(dots_parsed$variable %in% c("media"))){
-    abort("Variable name must be a valid `type` accepted by `request_files()`.")
-  }
-  if(!inherits(dots_parsed$data, "data.frame")){
-    abort("rhs must be a `tibble` containing media information")
-  }
+  check_files_filter(dots_parsed)
   .data$type <- dots_parsed$variable
   .data$filter <- dots_parsed$data
   .data

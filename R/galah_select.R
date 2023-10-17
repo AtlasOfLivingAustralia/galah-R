@@ -90,7 +90,7 @@ galah_select <- function(...,
 select.data_request <- function(.data, ..., group){
   
   dots <- enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures_basic(dots)
+  parsed_dots <- parse_quosures_basic(dots) # FIXME: needs to use detect_request_object()
   group <- check_groups(group, n = length(parsed_dots$data))
   update_data_request(.data, 
                     select = parse_select(parsed_dots$data, group))

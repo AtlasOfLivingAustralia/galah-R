@@ -215,10 +215,43 @@ test_that("galah_filter handles %in% even with multiple filters", {
   expect_equal("(year:\"2020\") OR (year:\"2021\") OR (year:\"2022\")", filter_multiple$query[[1]])
 })
 
-test_that("galah_filter handles `media_id == ` differently", {
-  ids <- c("1234", "5678")
-  filter <- galah_filter(media_id == ids)
-  expect_equal(nrow(filter), 2)
-  expect_equal(ncol(filter), 1)
-  expect_equal(filter$media_id, ids)
+test_that("galah_filter handles `type = 'data'` correctly", {
+  x <- galah_call(method = "data") |>
+    galah_filter(year == 2010)
+  # NOTE: this errors because `galah_filter()` doesn't handle `type = "files"` like `filter()` does
+  # needs fixing
+  expect_s3_class(x, "data_request")
+  expect_false(is.null(x$filter))
+  expect_equal(colnames(x$filter), c("variable", "logical", "value", "query"))
+  y <- request_data() |> filter(year == 2010)
+  expect_equal(x, y)
+})
+
+test_that("galah_filter handles `type = 'metadata'` correctly", {
+  x <- galah_call(method = "metadata") |>
+    galah_filter(field == cl22)
+  # NOTE: this errors because `galah_filter()` doesn't handle `type = "files"` like `filter()` does
+  # needs fixing
+  expect_s3_class(x, "metadata_request")
+  expect_equal(length(x), 2)
+  expect_equal(names(x), c("type", "filter"))
+  expect_equal(colnames(x$filter), c("variable", "logical", "value"))
+  y <- request_metadata() |> filter(field == cl22)
+  expect_equal(x, y)
+})
+
+test_that("galah_filter handles `media == df` properly for files", {
+  x <- tibble(
+    id = c(1, 2),
+    images = c("1234", "5678"))
+  y <- galah_call(method = "files") |>
+    galah_filter(media == x)
+  # NOTE: this errors because `galah_filter()` doesn't handle `type = "files"` like `filter()` does
+  # needs fixing
+  expect_s3_class(y, "files_request")
+  expect_equal(length(y), 2)
+  expect_equal(names(y), c("type", "filter"))
+  expect_equal(y$filter, x)
+  z <- request_files() |> filter(media == x)
+  expect_equal(y, z)
 })

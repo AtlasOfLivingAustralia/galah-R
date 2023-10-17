@@ -80,7 +80,23 @@ check_email <- function(.data){
   .data
 }
 
-# check that objects passed within `galah_filter` have correct structure
+#' Check files are filtered properly
+#' @importFrom rlang abort
+#' @noRd
+#' @keywords Internal
+check_files_filter <- function(x){
+  if(!(x$variable %in% c("media"))){
+    abort("Variable name must be a valid `type` accepted by `request_files()`.")
+  }
+  if(!inherits(x$data, "data.frame")){
+    abort("rhs must be a `tibble` containing media information")
+  }
+}
+
+#' check that objects passed within `galah_filter` have correct structure
+#' @importFrom rlang abort
+#' @noRd
+#' @keywords Internal
 check_filter_tibbles <- function(x){ # where x is a list of tibbles
   syntax_valid <- lapply(x, function(a){
     if(length(colnames(a)) == 4){
