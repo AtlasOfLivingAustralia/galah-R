@@ -20,8 +20,10 @@
 #' @export
 galah_down_to <- function(...){
   
-  warn(c("`galah_down_to()` is depreatated",
-         i = "Use `filter(rank == chosen_rank)` instead"))
+  lifecycle::deprecate_warn(when = "2.0.0",
+                            what = "galah_down_to()",
+                            details = "Use `filter(rank == \"chosen_rank\")` instead."
+                            )
   
   # check to see if any of the inputs are a data request
   dots <- enquos(..., .ignore_empty = "all")
