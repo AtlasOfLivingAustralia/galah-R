@@ -50,7 +50,8 @@ galah_identify <- function(...) {
     if(inherits(dots_initial[[1]], "data_request")){
       do.call(identify.data_request, dots_initial)
     }else{
-      identify(galah_call(), ...)$identify
+      search_terms <- identify(galah_call(), ...)$identify
+      return(search_terms)
     }    
   }
 }
@@ -67,12 +68,16 @@ identify.data_request <- function(.data, ...){
   }else{
     if(inherits(dots_initial[[1]], "data.frame") & length(dots_initial) == 1){
       result <- dots_initial[[1]]
+      
     }else{
       result <- tibble("search_term" = unlist(dots_initial))
     }
+    # experimental placement of update_data_request()
+    update_data_request(.data, 
+                        identify = result)
   }
-  .data$identify <- result
-  return(.data) 
+  # .data$identify <- result
+  # return(.data)
 }
 
 #' @rdname galah_identify

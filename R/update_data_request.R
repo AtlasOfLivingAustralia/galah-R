@@ -16,11 +16,12 @@ update_data_request <- function(data_request, ...){
           dots[[a]]
         }else{ # slot is filled
           if(is.null(dots[[a]])){ # if nothing has been supplied, retain source
+            browser()
             data_request[[a]]
           }else{ # both supplied and source contain data
             result <- switch(a,
                              "identify" = {
-                               bind_unique_rows(data_request[[a]], dots[[a]], "identifier")
+                               bind_unique_rows(data_request[[a]], dots[[a]], "search_term")
                              },
                              "filter" = {
                                bind_unique_rows(data_request[[a]], dots[[a]], "query")
