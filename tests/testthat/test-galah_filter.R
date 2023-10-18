@@ -62,7 +62,7 @@ test_that("galah_filter handles OR statements", {
   filters <- galah_filter(year == 2010 | year == 2020)
   expect_equal(nrow(filters), 1)
   expect_equal(filters$value, "2010|2020")
-  expect_equal(filters$query, "(year:\"2010\") OR (year:\"2020\")")
+  expect_equal(filters$query, "((year:\"2010\") OR (year:\"2020\"))")
 })
 
 test_that("galah_filter handles OR statements", {   
@@ -70,17 +70,17 @@ test_that("galah_filter handles OR statements", {
                           raw_scientificName == "Litoria peronii")
   expect_equal(nrow(filters), 1)
   expect_equal(filters$query, 
-               "(raw_scientificName:\"Litoria jervisiensis\") OR (raw_scientificName:\"Litoria peronii\")")
+               "((raw_scientificName:\"Litoria jervisiensis\") OR (raw_scientificName:\"Litoria peronii\"))")
 })
 
 test_that("galah_filter works with 3 OR statements", {
   filters <- galah_filter(basisOfRecord == "HumanObservation" | 
-                            basisOfRecord == "MachineObservation" | 
-                            basisOfRecord == "PreservedSpecimen")
+                          basisOfRecord == "MachineObservation" | 
+                          basisOfRecord == "PreservedSpecimen")
   expect_equal(nrow(filters), 1)
   expect_equal(filters$value, "HumanObservation|MachineObservation|PreservedSpecimen")
   expect_equal(filters$query, 
-               "(basisOfRecord:\"HumanObservation\") OR (basisOfRecord:\"MachineObservation\") OR (basisOfRecord:\"PreservedSpecimen\")")
+               "((basisOfRecord:\"HumanObservation\") OR (basisOfRecord:\"MachineObservation\") OR (basisOfRecord:\"PreservedSpecimen\"))")
 })
 
 test_that("galah_filter handles exclusion", {   
@@ -173,7 +173,7 @@ test_that("galah_filter handles taxonomic exclusions", {
 
 test_that("galah_filter handles different fields separated by OR", {
   filters <- galah_filter(phylum == "Chordata" | kingdom == "Plantae")
-  expect_equal(filters$query, "(phylum:\"Chordata\") OR (kingdom:\"Plantae\")")
+  expect_equal(filters$query, "((phylum:\"Chordata\") OR (kingdom:\"Plantae\"))")
 })
 
 test_that("galah_filter fails when given invalid AND syntax", {
@@ -208,8 +208,8 @@ test_that("galah_filter handles %in% even with multiple filters", {
   filter_multiple <- galah_filter(year %in% list_of_years, cl22 == "Tasmania")
   expect_equal(nrow(filter_single), 1)
   expect_equal(nrow(filter_multiple), 2)
-  expect_equal("(year:\"2020\") OR (year:\"2021\") OR (year:\"2022\")", filter_single$query[[1]])
-  expect_equal("(year:\"2020\") OR (year:\"2021\") OR (year:\"2022\")", filter_multiple$query[[1]])
+  expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filter_single$query[[1]])
+  expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filter_multiple$query[[1]])
 })
 
 test_that("`galah_filter()` accepts {{}} on lhs of formula", {
@@ -225,6 +225,38 @@ test_that("`galah_filter()` accepts {{}} on lhs of formula", {
     count() |>
     collect()
   expect_equal(result, result2)
+})
+
+test_that("`group_by()` works when > 1 `filter()`", {
+  chosen_species <- c("Eolophus roseicapilla", "Platycercus elegans")
+  x <- request_data() |>
+    filter(species == chosen_species) |>
+    group_by(species) |>
+    count() |>
+    collect()
+  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(x$species, chosen_species)
+  expect_equal(colnames(x), c("species", "count"))
+  expect_equal(nrow(x), 2)
+  # previously, adding an additional field (`year` below) removed one species from resulting tibble
+  y <- request_data() |>
+    filter(species == chosen_species,
+           year == 2023) |>
+    group_by(species) |>
+    count() |>
+    collect()
+  expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(y$species, chosen_species)
+  expect_equal(colnames(y), c("species", "count"))
+  expect_equal(nrow(y), 2)
+  expect_true(all(x$count > y$count)) # extra filter
+  # compare to different syntax
+  z <- galah_call() |>
+    galah_filter(species == c("Eolophus roseicapilla", "Platycercus elegans"),
+                 year == 2023) |>
+    galah_group_by(species) |>
+    atlas_counts()
+  expect_equal(y, z)
 })
 
 test_that("galah_filter handles `type = 'data'` correctly", {

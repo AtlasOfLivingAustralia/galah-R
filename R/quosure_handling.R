@@ -43,7 +43,14 @@ detect_request_object <- function(dots){
 parse_quosures_data <- function(dots){
   if(length(dots) > 0){
     result <- lapply(dots, switch_expr_type) |>
-      bind_rows()
+     bind_rows()
+    # OR statement MUST be wrapped in () to work - parse here
+    or_lookup <- grepl("OR", result$query) # add AND here?
+    if(any(or_lookup)){
+      or_strings <- result$query[which(or_lookup)]
+      result$query[which(or_lookup)] <- glue("({or_strings})") |>
+        as.character()
+    }
   }else{
     result <- NULL
   }
@@ -214,7 +221,11 @@ parse_symbol <- function(x){
 parse_call <- function(x, ...){
   y <- quo_get_expr(x)
   env_tr <- quo_get_env(x)
-  switch(function_type(as_string(deparse(y[[1]]))), # i.e. switch depending on what function is called
+  switch_lookup <- y[[1]] |>
+    deparse() |>
+    as_string() |>
+    function_type()
+  switch(switch_lookup, # i.e. switch depending on what function is called
          "relational_operator" = parse_relational(x, ...),
          "logical_operator" = parse_logical(x, ...),
          "bracket" = parse_brackets(x, ...),
@@ -282,7 +293,6 @@ parse_relational <- function(x, ...){
     variable = lhs,
     logical = as.character(expr[[1]]), # should probably be `relational`
     value = rhs)
-  
   # handle `!`
   dots <- list(...)
   if("excl" %in% names(dots) && result$logical == "==") {
@@ -293,7 +303,6 @@ parse_relational <- function(x, ...){
     result$logical <- result$logical
   }
   result$query <- parse_solr(result) # from `galah_filter.R`
-  
   # add exception for nrow(result) > 1
   # this occurs when rhs is `c()`, which we interpret as "OR"
   if(nrow(result) > 1){
@@ -345,7 +354,7 @@ concatenate_logical_tibbles <- function(df,
 #' @importFrom glue glue_collapse
 #' @noRd
 #' @keywords internal
-join_logical_strings <- function(x, sep){ #}, variable, collapse){
+join_logical_strings <- function(x, sep){
   if(length(unique(x)) > 1){
     glue_collapse(x, sep = sep)
   }else{
