@@ -8,8 +8,7 @@
 #' @export
 arrange.data_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures_basic(dots)$data
-  
+  parsed_dots <- parse_quosures_basic(dots)
   if(length(parsed_dots) == 2 & 
      all(names(parsed_dots) %in% c("variable", "direction"))){
     .data$arrange <- as.list(parsed_dots) |> 

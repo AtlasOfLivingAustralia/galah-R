@@ -73,27 +73,30 @@
 #' @export
 galah_select <- function(...,
                          group){  
-  dots <- enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures_basic(dots)
-  group <- check_groups(group, n = length(parsed_dots$data))
-  if(is.null(parsed_dots$data_request)){
-    parse_select(parsed_dots$data, group)
-  }else{
-    update_data_request(parsed_dots$data_request, 
-                      select = parse_select(parsed_dots$data, group))
-  }
+  dots <- enquos(..., .ignore_empty = "all") |>
+    detect_request_object()
+  switch(class(dots[[1]])[1],
+         "data_request" = {
+           parsed_dots <- parse_quosures_basic(dots[-1])
+           group <- check_groups(group, n = length(parsed_dots))
+           result <- parse_select(parsed_dots, group)
+           update_data_request(dots[[1]], select = result)
+         },
+         {
+           parsed_dots <- parse_quosures_basic(dots)
+           group <- check_groups(group, n = length(parsed_dots))
+           parse_select(parsed_dots, group)
+         })
 }
 
 #' @rdname galah_select
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @export
 select.data_request <- function(.data, ..., group){
-  
-  dots <- enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures_basic(dots) # FIXME: needs to use detect_request_object()
-  group <- check_groups(group, n = length(parsed_dots$data))
-  update_data_request(.data, 
-                    select = parse_select(parsed_dots$data, group))
+  parsed_dots <- enquos(..., .ignore_empty = "all") |>
+    parse_quosures_basic()
+  group <- check_groups(group, n = length(parsed_dots))
+  update_data_request(.data, select = parse_select(parsed_dots, group))
 }
 
 #' Build a data.frame with a standardised set of names
@@ -101,7 +104,6 @@ select.data_request <- function(.data, ..., group){
 #' @noRd
 #' @keywords Internal
 parse_select <- function(dot_names, group){
-  
   if(is_gbif()){
     inform(c("skipping `select()`:",
              i = "This function is not supported by the GBIF API v1"))

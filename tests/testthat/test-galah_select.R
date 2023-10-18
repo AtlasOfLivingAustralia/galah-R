@@ -6,7 +6,6 @@ test_that("galah_select returns error when columns don't exist", {
   expect_error(galah_select(year, basisOfRecord, eventdate))
 })
 
-
 test_that("galah_select returns requested columns", {
   skip_on_cran()
   galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
@@ -18,7 +17,6 @@ test_that("galah_select returns requested columns", {
   expect_equal(names(query), selected_columns[[1]])
 })
 
-
 test_that("galah_select returns requested columns when piped", {
   skip_on_cran()
   galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
@@ -28,7 +26,6 @@ test_that("galah_select returns requested columns when piped", {
     atlas_occurrences()
   expect_equal(names(query), c("year", "basisOfRecord"))
 })
-
 
 test_that("galah_select builds expected columns when group = basic", {
   select <- galah_select(group = "basic")
@@ -46,7 +43,6 @@ test_that("galah_select builds expected columns when group = basic", {
   expect_true(all(select[2] == expected_output[2]))
 })
 
-
 test_that("galah_select builds expected columns when group = event", {
   select <- galah_select(group = "event")
   expected_output <- structure(
@@ -63,7 +59,6 @@ test_that("galah_select builds expected columns when group = event", {
   expect_true(all(select[2] == expected_output[2])) 
 })
 
-
 # test multiple groups work
 test_that("galah_select accepts multiple groups", {
   select <- galah_select(group = c("basic", "assertions"))
@@ -72,7 +67,6 @@ test_that("galah_select accepts multiple groups", {
   expect_true(any(select$name == "decimalLatitude"))
   expect_true(any(select$name == "AMBIGUOUS_COLLECTION"))
 })
-
 
 test_that("galah_select defaults to group = basic when there are no args", {
   # skip_on_cran()
@@ -113,7 +107,6 @@ test_that("galah_select combines requested columns and group columns", {
   expect_equal(names(query), expected_columns)
 })
   
-
 test_that("galah_select can use tidyselect::contains", {
   query <- galah_select(tidyselect::contains("el"))
   expect_gt(nrow(query), 0)

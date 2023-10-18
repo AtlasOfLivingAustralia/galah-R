@@ -84,7 +84,7 @@ galah_filter <- function(..., profile = NULL){
                                filter = parse_quosures_data(dots[-1]))
          },
          "metadata_request" = {
-           parse_metadata(dots[[1]], dots[-1])
+           parse_quosures_metadata(dots[[1]], dots[-1])
          },
          "files_request" = {
            input <- dots[[1]]
@@ -116,7 +116,7 @@ filter.data_request <- function(.data, ...){
 filter.metadata_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
   check_named_input(dots)
-  parse_metadata(.data, dots)
+  parse_quosures_metadata(.data, dots)
 }
 # Note: the intended purpose of this function is to pass `filter()`
 # within the API call in the same was as `filter.data_request()`. 
@@ -131,7 +131,7 @@ filter.metadata_request <- function(.data, ...){
 #' simple parser for metadata
 #' @noRd
 #' @keywords Internal
-parse_metadata <- function(request, dots){
+parse_quosures_metadata <- function(request, dots){
   dots_parsed <- parse_quosures_files(dots)
   request$filter <- dots_parsed
   # The `filter` argument sets `type` when specified

@@ -26,16 +26,17 @@ galah_down_to <- function(...){
                             )
   
   # check to see if any of the inputs are a data request
-  dots <- enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures_basic(dots)
-  rank <- parsed_dots$data
-  result <- galah_filter(rank == {{rank}})
-  
-  # if a data request was supplied, return one
-  if(is.null(parsed_dots$data_request)){
-    result
-  }else{
-    update_data_request(parsed_dots$data_request, 
-                        filter = result)
-  }
+  dots <- enquos(..., .ignore_empty = "all") |>
+    detect_request_object()
+  switch(class(dots[[1]])[1],
+         "data_request" = {
+           rank <- parse_quosures_basic(dots[-1])
+           dots[[1]] |> filter.data_request(rank == {{rank}})
+         },
+         {
+           rank <- parse_quosures_basic(dots)
+           result <- galah_call() |> 
+             filter(rank == {{rank}})
+           result$filter
+         })
 }

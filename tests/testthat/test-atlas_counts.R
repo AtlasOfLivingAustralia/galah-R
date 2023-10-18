@@ -186,7 +186,7 @@ test_that("species counts work with group_by()", {
   expect_true(all(count_species$count < 100))
   expect_true(all(count_records$year == count_species$year))
   expect_true(all(count_records$count >= count_species$count))
-  })
+})
 
 ## BELOW HERE TESTS WILL FAIL
 

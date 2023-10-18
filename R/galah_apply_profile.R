@@ -28,20 +28,24 @@
 #'   atlas_counts()
 #' @importFrom tibble tibble
 #' @export
-
 galah_apply_profile <- function(...){
-  dots <- enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures_basic(dots)
-  df <- parse_profile(parsed_dots$data)
-  if(is.null(parsed_dots$data_request)){
-    df
-  }else{
-    update_data_request(parsed_dots$data_request, data_profile = df)
-  }
+  dots <- enquos(..., .ignore_empty = "all") |>
+    detect_request_object()
+  switch(class(dots[[1]])[1],
+         "data_request" = {
+           df <- parse_quosures_basic(dots[-1]) |>
+             parse_profile()
+           update_data_request(dots[[1]], data_profile = df)
+         },
+         {
+           parse_quosures_basic(dots) |>
+             parse_profile()
+         })
 }
 
-
-
+#' Check profile is valid
+#' @noRd
+#' @keywords Internal
 check_profile <- function(query, error_call = caller_env()){
   valid_check <- query %in% show_all_profiles()$shortName
   if(!any(valid_check)){    

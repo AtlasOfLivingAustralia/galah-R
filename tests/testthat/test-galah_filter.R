@@ -8,7 +8,7 @@ test_that("galah_filter gives an error for single equals sign", {
   expect_error(galah_filter(year = 2010))
 })
 
-## TODO: ensure assertions are handled correctly
+## FIXME: ensure assertions are handled correctly
 # Did this ever work correctly?
 
 # test_that("galah_filter handles assertion filters", {
@@ -240,14 +240,12 @@ test_that("galah_filter handles `type = 'metadata'` correctly", {
   expect_equal(x, y)
 })
 
-test_that("galah_filter handles `media == df` properly for files", {
+test_that("galah_filter handles `type = 'files'` correctly", {
   x <- tibble(
     id = c(1, 2),
     images = c("1234", "5678"))
   y <- galah_call(method = "files") |>
     galah_filter(media == x)
-  # NOTE: this errors because `galah_filter()` doesn't handle `type = "files"` like `filter()` does
-  # needs fixing
   expect_s3_class(y, "files_request")
   expect_equal(length(y), 2)
   expect_equal(names(y), c("type", "filter"))

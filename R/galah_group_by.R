@@ -14,26 +14,28 @@
 #' @importFrom stringr str_detect
 #' @export
 galah_group_by <- function(...){
-  dots <- enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures_basic(dots)
-  df <- parse_group_by(parsed_dots$data)
-  if(is.null(parsed_dots$data_request)){
-    df
-  }else{
-    update_data_request(parsed_dots$data_request, group_by = df)
-  }
+  dots <- enquos(..., .ignore_empty = "all") |>
+    detect_request_object()
+  switch(class(dots[[1]])[1],
+         "data_request" = {
+           df <- parse_quosures_basic(dots[-1]) |>
+             parse_group_by()
+           update_data_request(dots[[1]], group_by = df)
+         },
+         {
+           parse_quosures_basic(dots) |>
+             parse_group_by()
+         })
 }
- 
 
 #' @rdname galah_group_by
 #' @export
 group_by.data_request <- function(.data, ...){
-  dots <- enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures_basic(dots)
-  df <- parse_group_by(parsed_dots$data)
+  parsed_dots <- enquos(..., .ignore_empty = "all") |>
+    parse_quosures_basic()
+  df <- parse_group_by(parsed_dots)
   update_data_request(.data, group_by = df)
 }
-
 
 #' Internal parsing of `group_by` args
 #' @noRd

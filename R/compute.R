@@ -63,11 +63,11 @@ parse_metadata <- function(names_vec, .data){
   if(any(metadata_lookup)){
     metadata_names <- names_vec[metadata_lookup]
     metadata_results <- lapply(.data[metadata_lookup], collect)
-    names(metadata_results) <- metadata_names    
+    names(metadata_results) <- metadata_names   
+    metadata_results
   }else{
-    metadata_results <- NULL
+    NULL
   }
-  metadata_results
 }
 
 # if calling `compute()` on an object extracted from `collapse()` 

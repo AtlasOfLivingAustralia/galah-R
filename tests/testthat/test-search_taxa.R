@@ -80,3 +80,16 @@ test_that("search_taxa handles name issues", {
 test_that("search_taxa errors nicely when piped in galah_call", {
   expect_error(galah_call() |> search_taxa("perameles"), "Can't pipe `search_taxa()")
 })
+
+test_that("`request_metadata()` works for `type = 'taxa'`", {
+  x <- request_metadata() |>
+    identify("crinia") 
+  expect_s3_class(x, "metadata_request")
+  expect_equal(names(x), c("type", "identify"))
+  expect_equal(x$identify$search_term, "crinia")
+  y <- collapse(x)
+  expect_s3_class(y, "query_set")
+  expect_equal(names(y[[1]]), c("type", "url", "headers"))
+  z <- collect(y)
+  
+})

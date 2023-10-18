@@ -54,7 +54,6 @@
 #' @export
 search_taxa <- function(...){
   check_if_in_pipe(...)
-  
   request_metadata() |>
     identify(...) |>
     collect()

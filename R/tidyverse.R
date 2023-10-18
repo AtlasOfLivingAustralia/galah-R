@@ -27,7 +27,7 @@ NULL
 #' @export
 desc <- function(...){
   dots <- enquos(..., .ignore_empty = "all")
-  parsed_dots <- parse_quosures_basic(dots)$data
+  parsed_dots <- parse_quosures_basic(dots)
   tibble(variable = parsed_dots,
          direction = "descending")
 } 

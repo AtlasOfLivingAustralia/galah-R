@@ -72,12 +72,8 @@ identify.data_request <- function(.data, ...){
     }else{
       result <- tibble("search_term" = unlist(dots_initial))
     }
-    # experimental placement of update_data_request()
-    update_data_request(.data, 
-                        identify = result)
   }
-  # .data$identify <- result
-  # return(.data)
+  update_data_request(.data, identify = result)
 }
 
 #' @rdname galah_identify
@@ -85,6 +81,7 @@ identify.data_request <- function(.data, ...){
 #' @export
 identify.metadata_request <- function(.data, ...){
   .data <- identify.data_request(.data, ...)
+  class(.data) <- "metadata_request"
   if(grepl("-unnest$", .data$type)){
     .data$type <- "taxa-unnest"
   }else{

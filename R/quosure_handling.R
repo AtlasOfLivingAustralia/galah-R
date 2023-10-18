@@ -15,11 +15,13 @@ detect_request_object <- function(dots){
       quo_get_expr() |>
       deparse() |>
       paste(collapse = " ") # captures multi-lines
+    # note: no leading "^" below, 
+    # because pipes can parse to e.g. `galah_identify(galah_call(...`
     types <- c(
-      "^galah_call\\(",
-      "^request_data\\(",
-      "^request_metadata\\(",
-      "^request_files\\(",
+      "galah_call\\(",
+      "request_data\\(",
+      "request_metadata\\(",
+      "request_files\\(",
       "^~.$") |>
       paste(collapse = "|")
     if (str_detect(call_string, types)) { # note: "~." indicates presence of the magrittr pipe (%>%)
