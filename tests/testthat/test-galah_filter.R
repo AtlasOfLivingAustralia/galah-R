@@ -202,9 +202,6 @@ test_that("galah_filter handles is.na() even with multiple filters", {
   expect_true(grepl("(*:* AND -eventDate:*)", filter_multiple$query[[1]]))
 })
 
-## GIVES 2 warnings from rlang
-# Subsetting quosures with `[[` is deprecated as of rlang 0.4.0
-# Please use `quo_get_expr()` instead.
 test_that("galah_filter handles %in% even with multiple filters", {
   list_of_years <- 2020:2022
   filter_single <- galah_filter(year %in% list_of_years)
@@ -213,6 +210,21 @@ test_that("galah_filter handles %in% even with multiple filters", {
   expect_equal(nrow(filter_multiple), 2)
   expect_equal("(year:\"2020\") OR (year:\"2021\") OR (year:\"2022\")", filter_single$query[[1]])
   expect_equal("(year:\"2020\") OR (year:\"2021\") OR (year:\"2022\")", filter_multiple$query[[1]])
+})
+
+test_that("`galah_filter()` accepts {{}} on lhs of formula", {
+  field <- "species"
+  result <- galah_call() |>
+    galah_filter({{field}} == "Eolophus roseicapilla") |>
+    atlas_counts()
+  expect_s3_class(result, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(result), 1)
+  expect_gte(result$count[1], 100)
+  result2 <- request_data() |>
+    filter({{field}} == "Eolophus roseicapilla") |>
+    count() |>
+    collect()
+  expect_equal(result, result2)
 })
 
 test_that("galah_filter handles `type = 'data'` correctly", {

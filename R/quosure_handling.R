@@ -100,10 +100,9 @@ parse_quosures_files <- function(dots){
     # get formula lhs
     lhs <- f_lhs(dot_expr)
     if(is_quosure(lhs)){
-      lhs <- quo_get_expr(lhs) |> as_string()
-    }else{
-      lhs <- as_string(lhs)
+      lhs <- quo_get_expr(lhs)
     }
+    lhs <- as_string(lhs) |> dequote()
     # get rhs
     x <- new_quosure(f_rhs(dot_expr), env = quo_get_env(dots[[1]]))
     rhs <- switch(expr_type(x),
@@ -117,16 +116,24 @@ parse_quosures_files <- function(dots){
            "literal" = {quo_get_expr(x)},
            abort("Quosure type not recognised."))
     if(inherits(rhs, "data.frame")){
-      list(variable = lhs, data = rhs)
+      list(variable = dequote(lhs), data = rhs)
     }else{
       tibble(
-        variable = lhs,
+        variable = dequote(lhs),
         logical = "==",
         value = rhs)
     }
   }else{
     NULL
   }
+}
+
+#' Internal function to remove quoting of variable names
+#' Used as quotes are added when lhs is set using {{}}
+#' @noRd
+#' @keywords Internal
+dequote <- function(x){
+  gsub("^\"|\"$", "", x)
 }
 
 #' Switch functions for quosures
@@ -205,10 +212,8 @@ parse_symbol <- function(x){
 #' @noRd
 #' @keywords internal
 parse_call <- function(x, ...){
-  # browser()
   y <- quo_get_expr(x)
   env_tr <- quo_get_env(x)
-  # browser()
   switch(function_type(as_string(deparse(y[[1]]))), # i.e. switch depending on what function is called
          "relational_operator" = parse_relational(x, ...),
          "logical_operator" = parse_logical(x, ...),
@@ -253,23 +258,30 @@ function_type <- function(x){ # assumes x is a string
 #' @importFrom rlang as_label
 #' @importFrom rlang as_quosure
 #' @importFrom rlang as_string
+#' @importFrom rlang f_lhs
 #' @importFrom rlang is_empty
 #' @importFrom rlang is_bare_environment
 #' @importFrom rlang parse_expr
+#' @importFrom rlang f_rhs
 #' @importFrom tibble tibble
 #' @noRd
 #' @keywords internal
 parse_relational <- function(x, ...){
   
-  if(length(quo_get_expr(x)) != 3L){filter_error()}
-  parsed_values <- as_quosure(quo_get_expr(x)[[3]], 
-                              env = quo_get_env(x)) |>
+  expr <- quo_get_expr(x)
+  if(length(expr) != 3L){filter_error()}
+  
+  lhs <- f_lhs(expr) |> 
+    as_label() |> 
+    dequote()
+  rhs <- as_quosure(f_rhs(expr), 
+                    env = quo_get_env(x)) |>
     switch_expr_type() |>
     as.character()
   result <- tibble(
-    variable = as_label(quo_get_expr(x)[[2]]),
-    logical = as.character(quo_get_expr(x)[[1]]), # should probably be `relational`
-    value = parsed_values)
+    variable = lhs,
+    logical = as.character(expr[[1]]), # should probably be `relational`
+    value = rhs)
   
   # handle `!`
   dots <- list(...)
@@ -297,21 +309,18 @@ parse_relational <- function(x, ...){
 #' @noRd
 #' @keywords internal
 parse_logical <- function(x, ...){
-  # browser()
   provided_string <- quo_get_expr(x)[[1]] |> as_string()
   if(grepl("\\|{1,2}", provided_string)){
     logical_string <- " OR "
   }else{
     logical_string <- " AND "
   }
-  # browser()
   linked_statements <- lapply(quo_get_expr(x)[-1], 
                               function(a){
                                 switch_expr_type(
                                   as_quosure(a, env = quo_get_env(x)), ...)
                                 }) |> 
     bind_rows()
-  # browser()
   concatenate_logical_tibbles(linked_statements,
                               provided_string = provided_string,
                               logical_string = logical_string)
@@ -351,7 +360,6 @@ join_logical_strings <- function(x, sep){ #}, variable, collapse){
 #' @noRd
 #' @keywords internal
 parse_brackets <- function(x, ...){
-  # browser()
   if(length(quo_get_expr(x)) != 2L){filter_error()}
   # switch_expr_type(as_quosure(x), ...) # pass this down the chain
   switch_expr_type(as_quosure(quo_get_expr(x)[[-1]], 
@@ -367,7 +375,6 @@ parse_brackets <- function(x, ...){
 #' @keywords internal
 parse_exclamation <- function(x){
   # extract call after `!`, preserves that `!` = TRUE
-  # browser()
   switch_expr_type(as_quosure(quo_get_expr(x)[[-1]], 
                               env = quo_get_env(x)), 
                    excl = TRUE) # pass this down the chain
@@ -381,7 +388,6 @@ parse_exclamation <- function(x){
 #' @noRd
 #' @keywords internal
 parse_is_na <- function(x, ...){
-  # browser()
   if(length(quo_get_expr(x)) != 2L){filter_error()}
   
   dots <- list(...)
@@ -449,7 +455,6 @@ parse_in <- function(x, excl){
   
   value <- switch_expr_type(as_quosure(quo_get_expr(x)[[3]], 
                                        env = quo_get_env(x)))
-  # browser()
   in_as_or_statements <- rlang::parse_expr(
     glue::glue_collapse(
       glue("{variable} {logical} '{value}'"), 
