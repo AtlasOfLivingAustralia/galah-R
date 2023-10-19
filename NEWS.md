@@ -25,6 +25,9 @@
 * Fixed parsing of ampersands (`&`) in query results (#203)
 * galah builds correct `data_request` object when wrapped by a function (#207)
 
+# galah 1.5.4
+
+Patch release to fix minor issues on some `devel` systems on CRAN.
 
 # galah 1.5.3
 
