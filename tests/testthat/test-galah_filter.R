@@ -274,8 +274,6 @@ test_that("galah_filter handles `type = 'data'` correctly", {
 test_that("galah_filter handles `type = 'metadata'` correctly", {
   x <- galah_call(method = "metadata") |>
     galah_filter(field == cl22)
-  # NOTE: this errors because `galah_filter()` doesn't handle `type = "files"` like `filter()` does
-  # needs fixing
   expect_s3_class(x, "metadata_request")
   expect_equal(length(x), 2)
   expect_equal(names(x), c("type", "filter"))

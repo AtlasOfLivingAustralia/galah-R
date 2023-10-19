@@ -58,9 +58,12 @@ collect_taxa_la <- function(.data){
   }else{
     result <- query_API(.data) |>
       clean_la_taxa(search_terms = search_terms) |>
-      bind_rows() |>
-      filter(!duplicated(guid)) |>
-      mutate("search_term" = search_terms, .before = "id")
+      bind_rows()
+    if(ncol(result) > 1){
+      result <- result |>
+        filter(!duplicated(guid)) |>
+        mutate("search_term" = search_terms, .before = "id")
+    }
   }
   names(result) <- rename_columns(names(result), type = "taxa") # old code
   result |> select(any_of(wanted_columns("taxa")))
@@ -92,7 +95,7 @@ clean_la_taxa <- function(result, search_terms){
         x[[min_distance]]
       }
     }else{
-      x
+      tibble(search_term = search_terms)
     }
   })
 }

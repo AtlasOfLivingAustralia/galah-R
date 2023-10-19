@@ -143,7 +143,9 @@ parse_select <- function(dot_names, group){
     # NOTE: placing `recordID` first is critical;
     # having e.g. media columns _before_ `recordID` causes the download to fail 
     values <- unique(c(group_cols, individual_cols))
-    values <- c("recordID", values[values != "recordID"])
+    if(any(values == "recordID")){
+      values <- c("recordID", values[values != "recordID"]) # recordID needs to be first
+    }
     result <- tibble(name = values)
     result$type <- ifelse(!grepl("[[:lower:]]", values), "assertion", "field")
     # result$type[result$name %in% show_all("assertions")$id] <- "assertion" 
@@ -193,11 +195,11 @@ default_columns <- function() {
                       "occurrenceStatus",
                       "dataResourceUid"),
           "United Kingdom" = c("id",
-                               "scientificNameWithoutAuthor",
-                               "taxonConceptID",
+                               "taxon_name",
+                               "taxon_concept_lsid",
                                "latitude",
                                "longitude",
-                               "eventDate",
+                               "occurrence_date",
                                "occurrence_status",
                                "data_resource_uid"),
           c("recordID", # note this requires that the ALA name (`id`) be corrected

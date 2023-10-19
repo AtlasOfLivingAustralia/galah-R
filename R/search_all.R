@@ -98,7 +98,7 @@ search_all <- function(type, query){
   if(missing(type)){
     type <- "fields"
   }else{
-    type <- parse_quosures_basic(enquos(type))$data
+    type <- parse_quosures_basic(enquos(type))
     if(!inherits(type, "character")){
       abort("`type` must inherit from class 'character'")
     }

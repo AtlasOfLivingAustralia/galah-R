@@ -416,7 +416,7 @@ check_login <- function(.data, error_call = caller_env()) {
   # Check for valid email for occurrences or species queries for all providers
   if(.data$type == "data/occurrences" | .data$type == "data/species"){
     switch(pour("atlas", "region"), 
-           "United Kingdom" = return(),
+           "United Kingdom" = {},
            "Global" = {check_email(.data); check_password(.data)},
            check_email(.data))
   }
