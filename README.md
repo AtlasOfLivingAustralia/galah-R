@@ -6,12 +6,9 @@ galah
 </h2>
 <!-- badges: start -->
 
-[![CRAN
-status](https://www.r-pkg.org/badges/version/galah)](https://cran.r-project.org/package=galah)
+[![CRAN status](https://www.r-pkg.org/badges/version/galah)](https://cran.r-project.org/package=galah)
 [![R-CMD-check](https://github.com/AtlasOfLivingAustralia/galah-R/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AtlasOfLivingAustralia/galah-R/actions/workflows/R-CMD-check.yaml)
-<!-- [![Codecov test -->
-<!-- coverage](https://codecov.io/gh/AtlasOfLivingAustralia/galah-R/branch/main/graph/badge.svg)](https://app.codecov.io/gh/AtlasOfLivingAustralia/galah-R?branch=main) -->
-
+[![Codecov test coverage](https://codecov.io/gh/AtlasOfLivingAustralia/galah-R/branch/main/graph/badge.svg)](https://app.codecov.io/gh/AtlasOfLivingAustralia/galah-R?branch=main)
 <!-- badges: end -->
 
 ------------------------------------------------------------------------
