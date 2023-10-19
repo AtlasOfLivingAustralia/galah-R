@@ -10,6 +10,9 @@ test_that("show_all(fields) works for Spain", {
   x <- show_all(fields)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
+  # also that fields match those returned by default_columns()
+  y <- default_columns() # internal function called by `galah_select()`
+  expect_true(all(y %in% x$id))
 })
 
 test_that("show_all(licences) works for Spain", {

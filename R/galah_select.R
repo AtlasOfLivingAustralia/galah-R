@@ -176,14 +176,37 @@ preset_groups <- function(group_name) {
 default_columns <- function() {
   atlas <- pour("atlas", "region")
   switch (atlas,
-          "Guatemala" = c("latitude", "longitude", "species_guid",
-                          "data_resource_uid", "occurrence_date", "id"),
-          "Spain" = c("latitude", "longitude", "species_guid",
-                      "data_resource_uid", "occurrence_date", "recordID"),
-          c("decimalLatitude", "decimalLongitude", "eventDate",
-            "scientificName", "taxonConceptID",
-            "recordID", # note this requires that the ALA name (`id`) be corrected
-            "dataResourceName",
-            "occurrenceStatus")
+          "Guatemala" = c("id",
+                          "taxon_name",
+                          "taxon_concept_lsid",
+                          "latitude",
+                          "longitude",
+                          "occurrence_date",
+                          "occurrence_status",
+                          "data_resource_uid"),
+          "Spain" = c("id",
+                      "scientificName",
+                      "taxonConceptID",
+                      "decimalLatitude",
+                      "decimalLongitude",
+                      "eventDate",
+                      "occurrenceStatus",
+                      "dataResourceUid"),
+          "United Kingdom" = c("id",
+                               "scientificNameWithoutAuthor",
+                               "taxonConceptID",
+                               "latitude",
+                               "longitude",
+                               "eventDate",
+                               "occurrence_status",
+                               "data_resource_uid"),
+          c("recordID", # note this requires that the ALA name (`id`) be corrected
+            "scientificName",
+            "taxonConceptID",
+            "decimalLatitude",
+            "decimalLongitude",
+            "eventDate",
+            "occurrenceStatus",
+            "dataResourceName")
   )
 }
