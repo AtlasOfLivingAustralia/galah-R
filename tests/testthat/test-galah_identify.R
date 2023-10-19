@@ -56,15 +56,13 @@ test_that("galah_identify pipes correctly when taxa are partially returned", {
 
 
 test_that("galah_identify warns when taxa are partially returned", {
-  expect_warning(
+  expect_message(
     galah_call() |>
       galah_identify("Litoria", "blarghy") |>
-      galah_filter(year == 2020),
-    "Unmatched taxa"
-  )
-  expect_warning(
-    galah_identify("Litoria", "blarghy"),
-    "Unmatched taxa"
+      galah_filter(year == 2020) |>
+      count() |>
+      compute(),
+    "Found matches for 1 of 2 taxa"
   )
 })
 
@@ -73,14 +71,48 @@ test_that("galah_identify warns when identifiers are partially returned", {
   ids <- c("https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b",
            "https://id.biodiversity.org.au/node/apni/2910467",
            "https://id.biodiversity.org.au/node/apni/291047") # wrong id
+  expect_message(
+    galah_call() |>
+      galah_identify(ids) |>
+      galah_filter(year == 2020) |>
+      count() |>
+      compute(),
+    "Found taxonomic matches for 2 of 3 search queries"
+  )
+  expect_no_warning(
+    galah_identify(ids)
+  )
+})
+
+test_that("galah_identify warns user of deprecated `search` argument", {
+  skip_on_cran()
+  galah_config(run_checks = TRUE)
+  ids <- c("https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b",
+           "https://id.biodiversity.org.au/node/apni/2910467",
+           "https://id.biodiversity.org.au/node/apni/291047", 
+           "fred",
+           "bort") # wrong id
   expect_warning(
     galah_call() |>
       galah_identify(ids, search = FALSE) |>
-      galah_filter(year == 2020),
-    "Unmatched taxa"
+      galah_filter(year == 2020) |>
+      count() |>
+      compute(),
+    "The `search` argument of `galah_identify()` is deprecated"
   )
-  expect_warning(
-    galah_identify(ids, search = FALSE),
-    "Unmatched taxa"
-  )
+})
+
+test_that("galah_identify removes deprecated `search` argument", {
+  galah_config(run_checks = TRUE)
+  ids <- c("https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b",
+           "https://id.biodiversity.org.au/node/apni/2910467",
+           "https://id.biodiversity.org.au/node/apni/291047") # wrong id
+  q_set <- galah_call() |>
+    galah_identify(ids, search = FALSE) |>
+    galah_filter(year == 2020) |>
+    count() |>
+    collapse()
+  
+  # number of taxa searches is 3, not 4
+  expect_equal(length(q_set[[3]]), 3)
 })

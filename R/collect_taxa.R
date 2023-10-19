@@ -22,8 +22,11 @@ collect_taxa_australia <- function(.data){
     bind_rows()
   # break chain for use case where all search terms are dubious (i.e. no taxonConceptID)
   if(any(colnames(result) == "taxonConceptID")){
-    result <- filter(result, !duplicated(taxonConceptID))
+    # NOTE: This code was meant to remove duplicates, but also removes all rows with NAs (which we don't want)
+    #       Might be worth returning to if this functionality is needed
+    # result <- filter(result, !duplicated(taxonConceptID))
   }
+  
   result <- result |>   
     mutate("search_term" = search_terms, .before = "success",
            issues = unlist(issues))
@@ -128,10 +131,17 @@ check_search_terms <- function(result, atlas) {
   if (!all(result$success)) {
     atlas <- pour("atlas", "region")
     invalid_taxa <- result[!result$success,]$search_term
-    list_invalid_taxa <- glue::glue_collapse(invalid_taxa, 
-                                             sep = ", ")
-    inform(glue("No taxon matches were found for \"{list_invalid_taxa}\" in \\
-                the selected atlas ({atlas})."))
+    # list_invalid_taxa <- glue::glue_collapse(invalid_taxa, sep = " \ ")
+    n_invalid <- length(invalid_taxa)
+    n_all <- nrow(result)
+    n_valid <- n_all - n_invalid
+    
+    bullets <- c(
+      glue("Found taxonomic matches for {n_valid} of {n_all} search terms in selected atlas ({atlas})."),
+      "!" = "Unmatched search term(s):",
+      "*" = glue("  ", format_error_bullets("\"{invalid_taxa}\""))
+    )
+    inform(bullets)
   }
 }
 

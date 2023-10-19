@@ -14,8 +14,9 @@
 #' @param ... one or more scientific names (if `search = TRUE`) or taxonomic 
 #'   identifiers (if `search = FALSE`); or an object of class `ala_id` (from
 #'   `search_taxa`).
-#' @param search (logical); should the results in question be passed to
-#'   `search_taxa`?
+#' @param search (logical); 
+#'   `r lifecycle::badge("deprecated")` 
+#'   `galah_identify()` now always does a search to verify search terms
 #' @return A tibble containing identified taxa.
 #' @seealso [search_taxa()] to find identifiers from scientific names;
 #' [search_identifiers()] for how to get names if taxonomic identifiers 
@@ -47,12 +48,17 @@ galah_identify <- function(...) {
     warn("No query passed to `identify()`")
     tibble("search_term" = character())
   }else{
+    # Check for deprecated `search` argument
+    if ("search" %in% names(dots_initial)) { 
+      dots_initial <- remove_search_arg(dots_initial)
+    }
+    # browser()
     if(inherits(dots_initial[[1]], "data_request")){
       do.call(identify.data_request, dots_initial)
     }else{
       search_terms <- identify(galah_call(), ...)$identify
       return(search_terms)
-    }    
+    }
   }
 }
 
@@ -89,6 +95,26 @@ identify.metadata_request <- function(.data, ...){
   }
   .data
 }
+
+
+#' Remove `search` argument from `galah_identify()`, give deprecated warning
+#' @importFrom lifecycle deprecate_warn
+#' @noRd
+#' @keywords Internal
+remove_search_arg <- function(dots_initial) {
+  lifecycle::deprecate_warn(
+    when = "2.0.0",
+    what = "galah_identify(search = )",
+    details = glue("`galah_identify()` now always does a search to verify search terms. \\ 
+                   Please remove `search` argument from `galah_identify()`.")
+  )
+  # remove `search` arg from query
+  dots_initial <- dots_initial[names(dots_initial) != "search"]
+  return(dots_initial)
+}
+
+
+
 
 ## BELOW HERE IS OLD CODE
 # some useful-looking stuff here, but I don't think it's used anywhere rn
