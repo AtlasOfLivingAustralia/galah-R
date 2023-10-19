@@ -26,8 +26,7 @@ test_that("galah_call works with all `galah_` functions", {
     galah_apply_profile(ALA) |>
     galah_geolocate("POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))") |>
     galah_group_by(year, basisOfRecord) |>
-    arrange(basisOfRecord) |>
-    galah_down_to(rank = species)
+    arrange(basisOfRecord)
   expect_false(any(unlist(lapply(result, is.null))))   
 })
 
@@ -35,7 +34,6 @@ test_that("galah_call works irrespective of `galah_` function order", {
   skip_if_offline()
   result <- galah_call() |> 
     galah_apply_profile(ALA) |>
-    galah_down_to(rank = species) |>
     galah_group_by(year, basisOfRecord) |>
     arrange(basisOfRecord) |>
     galah_geolocate("POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))") |>
