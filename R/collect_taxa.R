@@ -125,22 +125,42 @@ collect_identifiers <- function(.data){
 
 #' Internal function to check search terms provided to `search_taxa()`
 #' @importFrom glue glue_collapse
+#' @importFrom crayon bold
+#' @importFrom crayon yellow
 #' @noRd
 #' @keywords Internal
 check_search_terms <- function(result, atlas) {
+  # browser()
   if (!all(result$success)) {
     atlas <- pour("atlas", "region")
     invalid_taxa <- result[!result$success,]$search_term
-    # list_invalid_taxa <- glue::glue_collapse(invalid_taxa, sep = " \ ")
     n_invalid <- length(invalid_taxa)
     n_all <- nrow(result)
     n_valid <- n_all - n_invalid
+    n_matched <- crayon::bold(glue("{n_valid} of {n_all}"))
     
     bullets <- c(
-      glue("Found taxonomic matches for {n_valid} of {n_all} search terms in selected atlas ({atlas})."),
-      "!" = "Unmatched search term(s):",
-      "*" = glue("  ", format_error_bullets("\"{invalid_taxa}\""))
+      glue("Matched {n_matched} taxonomic search terms in selected atlas ({atlas})."),
+      "!" = crayon::yellow(glue("{n_invalid} unmatched search term(s):"))
     )
+    if (n_invalid > 3) {
+      invalid_taxa_truncated <- c(invalid_taxa[1:3], glue("+ {n_invalid - 3} more"))
+      list_invalid_taxa <- glue::glue_collapse(invalid_taxa_truncated, 
+                                               sep = "\", \"", 
+                                               last = "\" ")
+      bullets <- c(
+        bullets, 
+        glue("  ", format_error_bullets(crayon::yellow(glue("\"{list_invalid_taxa}"))))
+        )
+    } else {
+      list_invalid_taxa <- glue::glue_collapse(invalid_taxa, 
+                                               sep = "\", \"")
+      bullets <- c(
+        bullets, 
+        glue("  ", format_error_bullets(crayon::yellow(glue("\"{list_invalid_taxa}\""))))
+      )
+    }
+    
     inform(bullets)
   }
 }
