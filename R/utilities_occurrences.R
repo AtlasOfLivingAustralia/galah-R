@@ -1,41 +1,28 @@
 # Q: delete this?
-get_doi <- function(mint_doi, data_path) {
-  doi <- NA
-  if (as.logical(mint_doi)) {
-    tryCatch(
-      doi <- as.character(
-        read.table(unz(data_path, "doi.txt"))$V1),
-      warning = function(e) {
-        e$message <- "No DOI was generated for this download. The DOI server may
-        be down or, if this is a cached result, may not have been generated for
-        the original download."
-      })
-  }
-  return(doi)
-}
 
-check_count <- function(count, max_count, error_call = caller_env()) {
-  if (count < 1) {
-    abort("This query does not match any records.", call = error_call)
-  } else if (count > max_count) {
-    too_many_records(max_count)
-  } else {
-    if (pour("package", "verbose")) {
-      count_text <- formatC(count, big.mark = ",", format = "f", digits = 0)
-      inform(glue("This query will return {count_text} records"))
-      }
-  }
-}
 
-too_many_records <- function(max_count){
-  max_text <- formatC(max_count, big.mark = ",", format = "f", digits = 0)
-  bullets <- c(
-    "Your data request was too large.",
-    i = glue("A maximum of {max_text} records can be retrieved at once."),
-    i = "Please narrow the query and try again."
-  )
-  abort(bullets, call = caller_env())
-}
+# check_count <- function(count, max_count, error_call = caller_env()) {
+#   if (count < 1) {
+#     abort("This query does not match any records.", call = error_call)
+#   } else if (count > max_count) {
+#     too_many_records(max_count)
+#   } else {
+#     if (pour("package", "verbose")) {
+#       count_text <- formatC(count, big.mark = ",", format = "f", digits = 0)
+#       inform(glue("This query will return {count_text} records"))
+#       }
+#   }
+# }
+
+# too_many_records <- function(max_count){
+#   max_text <- formatC(max_count, big.mark = ",", format = "f", digits = 0)
+#   bullets <- c(
+#     "Your data request was too large.",
+#     i = glue("A maximum of {max_text} records can be retrieved at once."),
+#     i = "Please narrow the query and try again."
+#   )
+#   abort(bullets, call = caller_env())
+# }
 
 
 email_notify <- function() {
@@ -47,6 +34,7 @@ email_notify <- function() {
   ifelse(notify, "true", "false")
 }
 
+# NOTE: Do we need this anymore? Delete?
 occ_error_handler <- function(code, error_call = rlang::caller_env()) {
   if (code == 403) {
     bullets <- c(
