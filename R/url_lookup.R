@@ -32,7 +32,7 @@ url_lookup <- function(type,
   url_string <- node_config |>
     filter(type == {{type}},
            atlas == {{current_atlas}}) |>
-    pull(api_url)
+    pull(url)
   # parse as needed
   if(length(url_string) > 0){
     if(length(dots) > 0){
