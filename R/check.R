@@ -505,20 +505,38 @@ check_n_inputs <- function(dots, error_call = caller_env()) {
 #' @noRd
 #' @keywords Internal
 check_occurrence_response <- function(.data){
+  
   names(.data) <- camel_to_snake_case(names(.data))
-  if(!is.null(.data$status_code)){
-    switch(as.character(.data$status_code),
-           "500" = {abort(c("There was a problem with your query.",
-                            i = glue("message: {.data$message}")),
-                          error_call = caller_env())},
+  
+  if (!is.null(.data$status_code)) {
+    
+    error_type <- sub("\\:.*", "", .data$message) |> stringr::str_trim()
+    
+    bullets <- c(
+      "There was a problem with your query.",
+      "*" = glue("message: {.data$message}"))
+    
+    switch(as.character(error_type),
+           "500" = {abort(bullets,
+                          call = caller_env())},
+           "403" = {abort(c(bullets,
+                          i = "Is the email you provided to `galah_config()` registered with the selected atlas?"),
+                          call = caller_env())},
+           "404" = {abort(c(bullets,
+                          i = "Is the email you provided to `galah_config()` registered with the selected atlas?"),
+                          call = caller_env())},
+           "504" = {abort(c(bullets,
+                          i = "This usually means that the selected API is down.",
+                          i = "If you continue to receive this error, please email support@ala.org.au"),
+                          call = caller_env())},
            abort("Aborting for unknown reasons.", # FIXME
-                 error_call = caller_env()))
-  }else{
-    if(.data$status %in% c("finished", # ALA
-                           "SUCCEEDED") # GBIF
+                 call = caller_env()))
+  } else {
+    if (.data$status %in% c("finished", # ALA
+                            "SUCCEEDED") # GBIF
     ){
       .data$status <- "complete"
-    }else{
+    } else {
       .data$status <- "incomplete"
     }
   }
