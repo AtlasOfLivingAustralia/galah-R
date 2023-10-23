@@ -125,23 +125,27 @@ collect_identifiers <- function(.data){
 
 #' Internal function to check search terms provided to `search_taxa()`
 #' @importFrom glue glue_collapse
-#' @importFrom crayon bold
-#' @importFrom crayon yellow
+#' @importFrom cli cli_div
+#' @importFrom cli cli_text
+#' @importFrom cli cli_end
 #' @noRd
 #' @keywords Internal
 check_search_terms <- function(result, atlas) {
   # browser()
   if (!all(result$success)) {
     atlas <- pour("atlas", "region")
+    
+    d <- cli::cli_div(theme = list(span.bold = list("font-weight" = "bold"),
+                                   span.yellow = list(color = "yellow")))
+    
     invalid_taxa <- result[!result$success,]$search_term
     n_invalid <- length(invalid_taxa)
     n_all <- nrow(result)
     n_valid <- n_all - n_invalid
-    n_matched <- crayon::bold(glue("{n_valid} of {n_all}"))
     
     bullets <- c(
-      glue("Matched {n_matched} taxonomic search terms in selected atlas ({atlas})."),
-      "!" = crayon::yellow(glue("{n_invalid} unmatched search term(s):"))
+      cli::cli_text("Matched {.bold {n_valid} of {n_all}} taxonomic search terms in selected atlas ({atlas})."),
+      "!" = cli::cli_text("{.yellow {n_invalid} unmatched search term(s):}")
     )
     if (n_invalid > 3) {
       invalid_taxa_truncated <- c(invalid_taxa[1:3], glue("+ {n_invalid - 3} more"))
@@ -162,6 +166,7 @@ check_search_terms <- function(result, atlas) {
     }
     
     inform(bullets)
+    cli::cli_end(d)
   }
 }
 
