@@ -29,7 +29,7 @@
 #' @importFrom rlang inform
 #' @importFrom tibble tibble
 #' @export
-collect.query <- function(.data, wait = FALSE, file = NULL){
+collect.query <- function(.data, wait = TRUE, file = NULL){
   # sometimes no url is given, e.g. when a search returns no data
   if(is.null(.data$url) & # most queries have a `url`
      is.null(.data$data) & # some cached metadata queries have `data` instead
@@ -77,14 +77,14 @@ collect.query <- function(.data, wait = FALSE, file = NULL){
 
 #' @rdname collect.query
 #' @export
-collect.query_set <- function(.data, wait = FALSE, file = NULL){
+collect.query_set <- function(.data, wait = TRUE, file = NULL){
   compute(.data) |>
     collect(wait = wait, file = file)
 }
 
 #' @rdname collect.query
 #' @export
-collect.data_request <- function(.data, wait = FALSE, file = NULL){
+collect.data_request <- function(.data, wait = TRUE, file = NULL){
   collapse(.data) |>
     compute() |>
     collect(wait = wait, file = file)

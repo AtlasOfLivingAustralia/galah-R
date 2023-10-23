@@ -12,9 +12,9 @@ collapse_media <- function(.data){
   # It may be useful to support passing of media_ids directly, e.g.
   # `request_metadata() |> filter(media = occurrences$images`) |> collapse()
   if(is.null(.data$filter)){
-    abort("requests for `metadata` with type `media` require information passed via `filter()`")
+    abort("Requests for metadata of type = \"media\" must have information passed via `filter()`")
   }
-  occ <- .data$filter
+  occ <- .data$filter$data
   media_cols <- which(colnames(occ) %in% c("images", "videos", "sounds"))
   media_ids <- do.call(c, occ[, media_cols]) |>
     unlist()
@@ -25,6 +25,7 @@ collapse_media <- function(.data){
     url = url_lookup("metadata/media"),
     body = toJSON(list(imageIds = media_ids)),
     headers = build_headers())
+  
   class(result) <- "query"
   return(result)
 }
@@ -33,6 +34,7 @@ collapse_media <- function(.data){
 #' @param .data An object of class `files_request` (from `request_files()`)
 #' @importFrom rlang abort
 #' @importFrom tibble tibble
+#' @importFrom stringr str_detect
 #' @noRd
 #' @keywords Internal
 collapse_media_files <- function(.data, 
@@ -60,11 +62,19 @@ collapse_media_files <- function(.data,
   if(thumbnail){
     url <- gsub("/original", "/thumbnail", url)
   }
+  
+  # suggest option to set directory in galah_config()
+  user_directory <- pour("package", "directory")
+  if (stringr::str_detect(user_directory, "Temp")) {
+    inform(i = "To change which file directory media files are saved, use `galah_config(directory = )`.")
+  }
+  
   # create result
   result <- list(
     type = "files/media",
     url = tibble(url = url, path = path),
     headers = build_headers())
+  
   class(result) <- "query"
   return(result)
 }

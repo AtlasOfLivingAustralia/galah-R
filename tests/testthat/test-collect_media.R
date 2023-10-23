@@ -1,4 +1,4 @@
-test_that("collect_media fails when `path` is not set", {
+test_that("collect_media returns deprecated message when `path` argument is used", {
   skip_if_offline()
   galah_config(email = "ala4r@ala.org.au")
   expect_error({
@@ -9,12 +9,13 @@ test_that("collect_media fails when `path` is not set", {
   })
 })
 
-test_that("collect_media fails when `path` doesn't exist", {
+## FIXME: Not sure if this works or whether it's the best place for this message
+test_that("collect_media suggests `galah_config(directory =)` when a temp folder is set as the directory", {
   skip_if_offline()
   atlas_query <- atlas_media(
     identify = galah_identify("Microseris lanceolata"),
     filter = galah_filter(year == 2021))
-  expect_error(collect_media(atlas_query, path = "non_existent"))
+  expect_message(collect(atlas_query), "To change which file directory")
 })
 
 test_that("collect_media downloads images", {
@@ -26,7 +27,8 @@ test_that("collect_media downloads images", {
   media_dir <- "test_media"
   unlink(media_dir, recursive = TRUE)
   dir.create(media_dir)
-  collect_media(media_data, path = media_dir)
+  galah_config(directory = media_dir)
+  collect_media(media_data)
   file_count <- length(list.files(media_dir))
   expect_equal(file_count, nrow(media_data)) # correct number of images
   size_1 <- sum(file.info(
@@ -36,7 +38,7 @@ test_that("collect_media downloads images", {
 
   # thumbnail
   dir.create(media_dir)
-  collect_media(media_data, path = media_dir, type = "thumbnail")
+  collect_media(media_data, thumbnail = "TRUE")
   file_count <- length(list.files(media_dir))
   expect_equal(file_count, nrow(media_data)) # correct number of images
   size_2 <- sum(file.info(
@@ -49,6 +51,17 @@ test_that("collect_media downloads images", {
   
 })
 
+test_that("collect_media messages how many files downloaded", {
+  skip_if_offline()
+  atlas_query <- atlas_media(identify = galah_identify("Microseris lanceolata"),
+                             filter = galah_filter(year == 2019))
+  n_files <- nrow(atlas_query)
+  message <- paste0("Downloaded ", n_files, " files successfully")
+  
+  expect_message(collect_media(atlas_query), message)
+})
+
+## FIXME
 test_that("collect_media handles different file formats", {
   skip_if_offline()
   galah_config(email = "ala4r@ala.org.au")
@@ -56,7 +69,7 @@ test_that("collect_media handles different file formats", {
   dir.create(media_dir)
   media_data <- atlas_media(identify = galah_identify("Regent Honeyeater"),
                             filter = galah_filter(year == 2012)) |>
-                collect_media(path = media_dir)
+                collect_media()
   expect_true(any(grepl(".mpg$", media_data$download_path))) # videos
   expect_true(any(grepl(".jpg$", media_data$download_path))) # images
   file_count <- length(list.files(media_dir)) 

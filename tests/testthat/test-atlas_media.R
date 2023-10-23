@@ -3,9 +3,9 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   ## PART 1: request occurrence data
   galah_config(email = "ala4r@ala.org.au")
   occ_collect <- request_data() |>
+    identify("Litoria peronii") |>
     filter(year == 2010, !is.na(images)) |>
     select(group = "media") |>
-    identify("Litoria peronii") |>
     collect(wait = TRUE)
   
   ## PART 2: request media metadata

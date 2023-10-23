@@ -27,11 +27,20 @@ collect_media_metadata <- function(.data){
 #' @noRd
 #' @keywords Internal
 collect_media_files <- function(.data){
+  
   result <- query_API(.data)
   result_summary <- tibble(
     status_code = unlist(lapply(result, function(a){a$status_code}))) |>
     group_by(status_code) |>
     count()
+  
+  n_downloaded <- result_summary |> filter(status_code == 200) |> pull(n)
+  user_directory <- pour("package", "directory")
+  bullets <- c(
+    "v" = glue("Downloaded {n_downloaded} files successfully (status 200)."),
+    ">" = glue("Files saved in local directory: \"{user_directory}\".")
+  )
+  inform(bullets)
   result_summary
 }
 
@@ -40,10 +49,16 @@ collect_media_files <- function(.data){
 #' This function downloads full-sized or thumbnail images and media files using 
 #' information from `atlas_media` to a local directory. 
 #'
-#' @param df tibble returned by `atlas_media()` or a pipe starting with 
+#' @param df `tibble`: returned by `atlas_media()` or a pipe starting with 
 #' `request_data(type = "media")`
-#' @param thumbnail logical: should the download return thumbnails (TRUE) or 
+#' @param thumbnail `logical`: should the download return thumbnails (TRUE) or 
 #' full size images (FALSE, the default)
+#' @param path `string`:
+#'    `r lifecycle::badge("deprecated")` 
+#'    
+#'    Supply path to directory where downloaded media will be stored in 
+#'    `galah_config(directory = "path-to-directory"` instead.
+#'    
 #' @return Available image & media files downloaded to a user local directory.
 #' @examples 
 #' \dontrun{
@@ -58,7 +73,19 @@ collect_media_files <- function(.data){
 #' collect_media(x)
 #' }
 #' @export
-collect_media <- function(df, thumbnail = FALSE){
+collect_media <- function(df, 
+                          thumbnail = FALSE, 
+                          path
+                          ){
+  
+  if (!missing(path)) {
+    lifecycle::deprecate_stop(
+      when = "2.0.0",
+      what = "collect_media(path = )",
+      details = "Use `galah_config(directory = )` to supply a folder path instead."
+    )
+  }
+  
   request_files() |>
     filter(media == df) |>
     collapse(thumbnail = thumbnail) |>
