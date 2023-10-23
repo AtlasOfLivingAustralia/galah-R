@@ -370,7 +370,6 @@ join_logical_strings <- function(x, sep){
 #' @keywords internal
 parse_brackets <- function(x, ...){
   if(length(quo_get_expr(x)) != 2L){filter_error()}
-  # switch_expr_type(as_quosure(x), ...) # pass this down the chain
   switch_expr_type(as_quosure(quo_get_expr(x)[[-1]], 
                               env = quo_get_env(x)), 
                    ...) # pass this down the chain
@@ -469,10 +468,8 @@ parse_in <- function(x, excl){
       glue("{variable} {logical} '{value}'"), 
       sep = " | "
     ))
-  # in_as_or_statements_quos <- new_quosure(in_as_or_statements, env)
+
   parse_logical(as_quosure(in_as_or_statements, quo_get_env(x))) # pass this to parse_logical
-  # class(quo_get_expr(in_as_or_statements_quos))
-  # quo_is_call(rlang::enquo(in_as_or_statements))
 }
 
 #' Parse `call`s that contain `c()`
@@ -503,10 +500,8 @@ parse_c <- function(x, excl){
       glue("{variable} {logical} '{value}'"), 
       sep = " | "
     ))
-  # in_as_or_statements_quos <- new_quosure(in_as_or_statements, env)
+  
   parse_logical(enquo(in_as_or_statements), quo_get_env(x)) # pass this to parse_logical
-  # class(quo_get_expr(in_as_or_statements_quos))
-  # quo_is_call(rlang::enquo(in_as_or_statements))
 }
 
 #' Convert information in a `tibble` to a `solr` query
