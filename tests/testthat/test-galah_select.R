@@ -1,9 +1,29 @@
 
-## FIXME: galah_select no longer errors. This is performed in check_fields now (though unsure if this is correct behaviour)
-test_that("galah_select returns error when columns don't exist", {
-  galah_config(email = "ala4r@ala.org.au", run_checks = FALSE)
-  expect_error(galah_select(basisOfRecors))
-  expect_error(galah_select(year, basisOfRecord, eventdate))
+test_that("galah_select doesn't return error when columns don't exist", {
+  galah_config(email = "ala4r@ala.org.au", run_checks = TRUE)
+  expect_no_error(galah_select(basisOfRecors))
+  expect_no_error(galah_select(year, basisOfRecord, eventdate))
+})
+
+test_that("galah_select returns error when columns don't exist during compute()", {
+  skip_on_cran()
+  galah_config(email = "ala4r@ala.org.au", run_checks = TRUE)
+  expect_error(
+    galah_call() |>
+      identify("perameles") |>
+      filter(year == 2003) |>
+      galah_select(basisOfRecors) |>
+      compute(),
+    "Can't use fields that don't exist"
+  )
+  expect_error(
+    galah_call() |>
+      identify("perameles") |>
+      filter(year == 2003) |>
+      galah_select(year, basisOfRecord, eventdate) |>
+      compute(),
+    "Can't use fields that don't exist"
+  )
 })
 
 test_that("galah_select returns requested columns", {
@@ -30,10 +50,9 @@ test_that("galah_select returns requested columns when piped", {
 test_that("galah_select builds expected columns when group = basic", {
   select <- galah_select(group = "basic")
   expected_output <- structure(
-    tibble(name = c("decimalLatitude", "decimalLongitude",
-                        "eventDate", "scientificName",
-                        "taxonConceptID", "recordID",
-                        "dataResourceName", "occurrenceStatus"),
+    tibble(name = c("recordID", "scientificName",
+                    "taxonConceptID", "decimalLatitude", "decimalLongitude",
+                    "eventDate", "occurrenceStatus", "dataResourceName"),
                type = rep("field", times = 8)),
     class = c("tbl_df", "tbl", "data.frame", "galah_select"))
   expect_s3_class(select, "data.frame")
@@ -47,10 +66,11 @@ test_that("galah_select builds expected columns when group = event", {
   select <- galah_select(group = "event")
   expected_output <- structure(
     tibble(name = c(
+      "recordID",
       paste0("event", c("Remarks", "Time", "ID", "Date")),
       "samplingEffort", "samplingProtocol"  
       ),
-      type = rep("field", times = 6)),
+      type = rep("field", times = 7)),
     class = c("tbl_df", "tbl", "data.frame", "galah_select"))
   expect_s3_class(select, "data.frame")
   expect_equal(nrow(select), nrow(expected_output))
@@ -68,15 +88,14 @@ test_that("galah_select accepts multiple groups", {
   expect_true(any(select$name == "AMBIGUOUS_COLLECTION"))
 })
 
-test_that("galah_select defaults to group = basic when there are no args", {
+test_that("galah_select defaults to group = 'basic' when there are no args", {
   # skip_on_cran()
   galah_config(run_checks = FALSE)
   expected_output <- structure(
-    tibble(name = c("decimalLatitude", "decimalLongitude",
-                        "eventDate", "scientificName",
-                        "taxonConceptID", "recordID",
-                        "dataResourceName", "occurrenceStatus"),
-               type = rep("field", times = 8)),
+    tibble(name = c("recordID", "scientificName",
+                    "taxonConceptID", "decimalLatitude", "decimalLongitude",
+                    "eventDate", "occurrenceStatus", "dataResourceName"),
+           type = rep("field", times = 8)),
     class = c("tbl_df", "tbl", "data.frame", "galah_select"))
   expect_s3_class(galah_select(), "data.frame")
   expect_equal(nrow(galah_select()), nrow(expected_output))
@@ -88,8 +107,16 @@ test_that("galah_select defaults to group = basic when there are no args", {
 test_that("galah_select returns assertions + recordID when group = assertions", {
   skip_on_cran()
   select <- galah_select(group = "assertions")
+  fields_in_attributes <- select[which(select$type == "field"),][1][[1]]
+  expected_fields <- c("recordID", "biosecurityIssue",
+                    "detectedOutlier", "geospatialIssue", "habitatMismatch",
+                    "identificationIncorrect", "taxonomicIssue", "temporalIssue",
+                    "userAssertionOther", "userDuplicateRecord")
+  
+  expect_equal(select[[1,1]], "recordID")
   expect_gt(length(which(select$type == "assertion")), 40)
-  expect_equal(length(which(select$type == "field")), 1)
+  expect_equal(length(which(select$type == "field")), 10)
+  expect_equal(fields_in_attributes, expected_fields) # check type = field
 })
 
 test_that("galah_select combines requested columns and group columns", {
@@ -99,14 +126,14 @@ test_that("galah_select combines requested columns and group columns", {
   columns <- galah_select(year, basisOfRecord, group = "basic")
   query <- atlas_occurrences(identify = identify,
                              select = columns)
-  expected_columns <- c("decimalLatitude", "decimalLongitude",
-                          "eventDate", "scientificName",
-                          "taxonConceptID", "recordID",
-                          "dataResourceName", "occurrenceStatus",
-                          "year", "basisOfRecord")
+  expected_columns <- c("recordID", "scientificName",
+                        "taxonConceptID", "decimalLatitude", "decimalLongitude",
+                        "eventDate", "occurrenceStatus", "dataResourceName",
+                        "year", "basisOfRecord")
   expect_equal(names(query), expected_columns)
 })
-  
+
+## FIXME: None of these galah_select functions work
 test_that("galah_select can use tidyselect::contains", {
   query <- galah_select(tidyselect::contains("el"))
   expect_gt(nrow(query), 0)
