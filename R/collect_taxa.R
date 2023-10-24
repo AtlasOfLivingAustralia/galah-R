@@ -6,16 +6,17 @@
 #' @noRd
 #' @keywords Internal
 collect_taxa <- function(.data){
-  switch(pour("atlas", "region"),
-         "Australia" = collect_taxa_australia(.data),
-         collect_taxa_la(.data)) # tested for Austria, UK
-  
+  if(grepl("namematching", .data$url$url[1])){
+    collect_taxa_namematching(.data) # Australia, Sweden
+  }else{
+    collect_taxa_la(.data)  # tested for Austria, UK
+  }
 }
 
 #' Internal function to `collect()` taxa for Atlas of Living Australia
 #' @noRd
 #' @keywords Internal
-collect_taxa_australia <- function(.data){
+collect_taxa_namematching <- function(.data){
   search_terms <- .data$url$search_term
   result <- lapply(query_API(.data), 
                    build_tibble_from_nested_list) |> 

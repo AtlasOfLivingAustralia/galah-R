@@ -171,10 +171,12 @@ Sweden,metadata/collections,https://collections.biodiversitydata.se/ws/collectio
 Sweden,metadata/datasets,https://collections.biodiversitydata.se/ws/dataResource,TRUE
 Sweden,metadata/fields,https://records.biodiversitydata.se/ws/index/fields,TRUE
 Sweden,metadata/fields-unnest,https://records.biodiversitydata.se/ws/occurrence/facets,TRUE
+Sweden,metadata/identifiers,https://namematching.biodiversitydata.se/api/getByTaxonID,TRUE
 Sweden,metadata/licences,https://images.biodiversitydata.se/licence,TRUE
 Sweden,metadata/providers,https://collections.biodiversitydata.se/ws/dataProvider,TRUE
 Sweden,metadata/reasons,https://logger.biodiversitydata.se/service/logger/reasons,TRUE
-Sweden,metadata/taxa-single,https://species.biodiversitydata.se/ws/search?q={name}&pageSize=5,TRUE
+Sweden,metadata/taxa-multiple,https://namematching.biodiversitydata.se/api/searchByClassification,TRUE
+Sweden,metadata/taxa-single,https://namematching.biodiversitydata.se/api/search?q={name},TRUE
 Sweden,metadata/taxa-unnest,https://species.biodiversitydata.se/ws/childConcepts/{id},TRUE
 United Kingdom,data/occurrences,https://records-ws.nbnatlas.org/occurrences/index/download,TRUE
 United Kingdom,data/occurrences-count,https://records-ws.nbnatlas.org/occurrences/search,TRUE

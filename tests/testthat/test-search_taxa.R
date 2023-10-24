@@ -42,7 +42,7 @@ test_that("search_taxa gives a message for invalid names", {
   galah_config(verbose = FALSE)
 })
 
-test_that("search_taxa searches using multiple ranks", { # FIXME
+test_that("search_taxa searches using multiple ranks", {
   skip_if_offline()
   taxa <- search_taxa(data.frame(genus = "Acacia", kingdom = "Plantae"))
   expect_s3_class(taxa, c("tbl_df", "tbl", "data.frame"))
