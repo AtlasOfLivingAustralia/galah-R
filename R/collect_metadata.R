@@ -19,6 +19,8 @@ collect_assertions <- function(.data){
     result <- .data$data |>
       parse(text = _) |> 
       eval()
+    attr(result, "call") <- "assertions" # needed for `show_values()` to work
+    attr(result, "region") <- pour("atlas", "region") # needed for caching to work
   }else{
     result <- lapply(query_API(.data), 
                      function(a){a[names(a) != "termsRequiredToTest"]}) |>
@@ -26,9 +28,10 @@ collect_assertions <- function(.data){
     names(result) <- rename_columns(names(result), type = "assertions")
     result <- result[wanted_columns("assertions")]
     result$type <- "assertions"
+    attr(result, "call") <- "assertions" # needed for `show_values()` to work
+    attr(result, "region") <- pour("atlas", "region") # needed for caching to work    
+    check_internal_cache(assertions = result)
   }
-  attr(result, "call") <- "assertions" # needed for `show_values()` to work
-  attr(result, "region") <- pour("atlas", "region") # needed for caching to work
   result
 }
 

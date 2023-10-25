@@ -91,7 +91,8 @@ collapse_occurrences_la <- function(.data){
                          filter = .data$filter, 
                          location = .data$geolocate, 
                          data_profile = .data$data_profile$data_profile),
-             fields = build_columns(.data$select[.data$select$type != "assertion", ]),
+             # fields = build_columns(.data$select[.data$select$type != "assertion", ]),
+             fields = "`SELECT_PLACEHOLDER`",
              qa = build_assertion_columns(.data$select),
              facet = "false", # not tested
              emailNotify = email_notify(),
@@ -111,7 +112,8 @@ collapse_occurrences_la <- function(.data){
   result <- list(
     type = "data/occurrences",
     url = url_build(url),
-    headers = build_headers())
+    headers = build_headers(),
+    select = .data$select)
   class(result) <- "query"
   return(result)
 }

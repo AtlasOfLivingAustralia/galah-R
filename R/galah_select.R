@@ -72,88 +72,72 @@
 #' @importFrom tibble as_tibble
 #' @export
 galah_select <- function(...,
-                         group){  
+                         group){
   dots <- enquos(..., .ignore_empty = "all") |>
-    detect_request_object()
-  switch(class(dots[[1]])[1],
-         "data_request" = {
-           parsed_dots <- parse_quosures_basic(dots[-1])
-           group <- check_groups(group, n = length(parsed_dots))
-           result <- parse_select(parsed_dots, group)
-           update_data_request(dots[[1]], select = result)
-         },
-         {
-           parsed_dots <- parse_quosures_basic(dots)
-           group <- check_groups(group, n = length(parsed_dots))
-           parse_select(parsed_dots, group)
-         })
+    detect_request_object() |>
+    as.list() |>
+    add_summary() |>
+    add_group(group)
+  if(inherits(dots[[1]], "data_request")){
+    update_data_request(dots[[1]], select = dots[-1]) 
+  }else{
+    dots
+  } 
 }
 
 #' @rdname galah_select
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @export
 select.data_request <- function(.data, ..., group){
-  parsed_dots <- enquos(..., .ignore_empty = "all") |>
-    parse_quosures_basic()
-  group <- check_groups(group, n = length(parsed_dots))
-  update_data_request(.data, select = parse_select(parsed_dots, group))
+  dots <- enquos(..., .ignore_empty = "all") |>
+    as.list() |>
+    add_summary() |>
+    add_group(group)
+  update_data_request(.data, select = dots) 
 }
 
-#' Build a data.frame with a standardised set of names
-#' @importFrom rlang inform
+#' internal function to summarise select function (to support `print()`)
+#' @importFrom rlang as_label
 #' @noRd
 #' @keywords Internal
-parse_select <- function(dot_names, group){
-  if(is_gbif()){
-    inform(c("skipping `select()`:",
-             i = "This function is not supported by the GBIF API v1"))
-    return(NULL)
-  }else{
-    if(length(group) > 0){
-      group_cols <- lapply(group, preset_groups) |> unlist()
+add_summary <- function(dots){
+  labels <- lapply(dots, as_label) |>
+    unlist() |>
+    paste(collapse = " | ")
+  last_entry <- length(dots) + 1
+  dots[[last_entry]] <- labels
+  names(dots)[last_entry] <- "summary"
+  dots
+}
+
+#' internal function to add `group` arg to the end of a list
+#' @noRd
+#' @keywords Internal
+add_group <- function(dots, group){
+  group <- check_groups(group, n = length(dots))
+  summary_length <- nchar(dots$summary)
+  if(is.null(group)){
+    if(summary_length < 1){
+      group <- "basic"
+      dots$group <- group
     }else{
-      group_cols <- NULL
+      dots$group <- vector(mode = "character", length = 0L) 
     }
-    # set behaviour depending on what names are given
-    # NOTE:
-    ## because assertions aren't fields, leaving `fields` empty means default fields are returned
-    ## but only when `group = assertions` and no other requests are made
-    ## this adds a single field (recordID) to the query to avoid this problem.
-    ## This problem also occurs when a single field is requested
-    ## under some circumstances (e.g. "images"), even when that field is 
-    ## fully populated.
-    if(length(dot_names) > 1){
-      individual_cols <- dot_names 
-    }else{ # i.e. no fields selected
-      if(length(dot_names) == 1){
-        if(length(group) == 0){
-          individual_cols <- unique(c("recordID", dot_names))
-        }else{
-          individual_cols <- dot_names
-        }
-      }else{ # i.e. length(dot_names) == 0
-        if(length(group) == 1 & !any(group == "basic")){
-          individual_cols <- "recordID"
-        }else{
-          individual_cols <- NULL
-        }
-      }
-    }
-    # create output object
-    # NOTE: placing `recordID` first is critical;
-    # having e.g. media columns _before_ `recordID` causes the download to fail 
-    values <- unique(c(group_cols, individual_cols))
-    if(any(values == "recordID")){
-      values <- c("recordID", values[values != "recordID"]) # recordID needs to be first
-    }
-    result <- tibble(name = values)
-    result$type <- ifelse(!grepl("[[:lower:]]", values), "assertion", "field")
-    # result$type[result$name %in% show_all("assertions")$id] <- "assertion" 
-    ## above line commented out as it breaks our rule about pinging an API before
-    ## `compute()` is called. Instead currently uses all-upper-case check
-    attr(result, "group") <- group
-    return(result) 
+  }else{
+    dots$group <- group
   }
+  if(length(dots$group) > 0){
+    if(summary_length < 1){
+      separator <- ""
+    }else{
+      separator <- " | "
+    }
+    dots$summary <- paste0(dots$summary,
+                           separator,
+                           "group = ", 
+                           paste(group, collapse = ", ")) 
+  }
+  dots
 }
 
 #' Internal function to populate `groups` arg in `select()`

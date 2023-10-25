@@ -41,6 +41,7 @@ Imports:
     sf,
     tibble,
     tidyr,
+    tidyselect,
     utils
 Suggests: 
     covr,

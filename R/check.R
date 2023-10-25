@@ -138,7 +138,7 @@ check_fields <- function(.data) {
     # error message
     if(any(!is.na(check_result))) {
       returned_invalid <- tibble(
-        function_name = c("`galah_filter()`", "`galah_select()`", "`galah_group_by()`"),
+        function_name = c("`galah_filter()`", "`galah_group_by()`"),
         fields = check_result
       ) |>
         drop_na()
@@ -148,7 +148,6 @@ check_fields <- function(.data) {
       
       bullets <- c(
         "Can't use fields that don't exist.",
-        # i = "Use `show_all(fields)` to see all valid fields.",
         i = "Use `search_all(fields)` to find a valid field ID.",
         x = glue("Can't find field(s) in"),
         glue("  ", format_error_bullets(invalid_fields_message))
@@ -258,32 +257,7 @@ check_fields_la <- function(.data){
       }
     }
   }
-  
-  # galah_select columns check - note distinction between fields and assertions
-  select_invalid <- NA
-  if (!is.null(queries$fields)) {
-    fields <- queries$fields |>
-      strsplit(",") |>
-      unlist()
-    if (length(fields) > 0) {
-      assertions_check <- fields %in% valid_assertions
-      if(any(assertions_check)){
-        if(queries$qa == "none"){
-          queries$qa <- glue_collapse(fields[assertions_check], sep = ",")
-          queries$fields <- glue_collapse(fields[!assertions_check], sep = ",")
-          url$query <- queries
-          .data$url[1] <- url_build(url)
-        } # no else{}, as only other possible option is "all"
-        fields <- fields[!assertions_check]
-      }
-      if (!all(fields %in% valid_fields)) {
-        invalid_fields <- fields[!(fields %in% valid_fields)]
-        list_invalid_fields <- glue_collapse(invalid_fields, sep = ", ")
-        select_invalid <- glue_collapse(invalid_fields, sep = ", ")
-      }
-    }
-  }
-  
+
   # galah_group_by fields check
   group_by_invalid <- NA
   if (!is.null(queries$facets)) {
@@ -296,7 +270,7 @@ check_fields_la <- function(.data){
     }
   }
   
-  c(filter_invalid, select_invalid, group_by_invalid)
+  c(filter_invalid, group_by_invalid)
 }
 
 
@@ -640,30 +614,131 @@ check_profiles <- function(.data, error_call = caller_env()){
 #' @keywords Internal
 check_reason <- function(.data, error_call = caller_env()){
   if(atlas_supports_reasons_api()) {
-  if(.data$type %in% c("data/occurrences", "data/species")){
-    query <- url_parse(.data$url)$query
-    if(is.null(query$reasonTypeId)){
-      bullets <- c("Missing a valid download reason.",
-                   i = "Use `show_all(reasons)` to see all valid reasons.",
-                   i = "Use `galah_config(download_reason_id = ...)` to set a reason.")
-      abort(bullets, call = error_call) 
-    }else{
-      user_reason <- query$reasonTypeId
-      valid_reasons <- unlist(.data[["metadata/reasons"]])
-      if(!(user_reason %in% valid_reasons)){
-        bullets <- c(
-          "Invalid download reason ID.",
-          i = "Use `show_all(reasons)` to see all valid reasons.",
-          x = glue("\"{user_reason}\" does not match an existing reason ID."))
-        abort(bullets, call = error_call)    
+    if(.data$type %in% c("data/occurrences", "data/species")){
+      query <- url_parse(.data$url)$query
+      if(is.null(query$reasonTypeId)){
+        bullets <- c("Missing a valid download reason.",
+                     i = "Use `show_all(reasons)` to see all valid reasons.",
+                     i = "Use `galah_config(download_reason_id = ...)` to set a reason.")
+        abort(bullets, call = error_call) 
+      }else{
+        user_reason <- query$reasonTypeId
+        valid_reasons <- unlist(.data[["metadata/reasons"]])
+        if(!(user_reason %in% valid_reasons)){
+          bullets <- c(
+            "Invalid download reason ID.",
+            i = "Use `show_all(reasons)` to see all valid reasons.",
+            x = glue("\"{user_reason}\" does not match an existing reason ID."))
+          abort(bullets, call = error_call)    
+        }
       }
     }
-  }
   }
   .data
 }
 
-# Check for valid `type`
+#' Check that `select()` quosures can be parsed correctly
+#' NOTE: much of this content was previously in `parse_select()` (defunct)
+#' @importFrom dplyr all_of
+#' @importFrom dplyr filter
+#' @importFrom httr2 url_parse
+#' @importFrom httr2 url_build
+#' @importFrom rlang is_quosure
+#' @importFrom tidyselect eval_select
+#' @noRd
+#' @keywords Internal
+check_select <- function(.data){
+  if(any(names(.data) == "select")){
+    if(is_gbif()){
+      inform(c("skipping `select()`:",
+               i = "This function is not supported by the GBIF API v1"))
+    }else{
+      # 1. build df to `select` from
+      valid_fields <- .data[["metadata/fields"]]$id
+      valid_assertions <- .data[["metadata/assertions"]]$id
+      valid_any <- c(valid_fields, valid_assertions)
+      df <- matrix(data = NA, nrow = 0, ncol = length(valid_any),
+                   dimnames = list(NULL, valid_any)) |>
+        as.data.frame()
+
+      # 2. parse groups
+      group <- .data$select$group
+      if(length(group) > 0){
+        group_cols <- lapply(group, preset_groups) |> 
+          unlist()
+        group_names <- eval_select(all_of(group_cols), data = df) |> 
+          names()
+        # note: technically `group_names` and `group_cols` are identical
+        # BUT `eval_select()` will fail if invalid columns are given
+      }else{
+        group_names <- NULL
+      }
+      
+      # 3. parse quosures to get list of field names
+      check_quosures <- lapply(.data$select, is_quosure) |>
+        unlist()
+      dots <- .data$select[check_quosures]
+      dot_names <- lapply(dots, function(a){
+        eval_select(a, data = df) |>
+          names()
+      }) |>
+        unlist()
+
+      # 4: set behaviour depending on what names are given
+      # NOTE:
+      ## because assertions aren't fields, leaving `fields` empty means default fields are returned
+      ## but only when `group = assertions` and no other requests are made
+      ## this adds a single field (recordID) to the query to avoid this problem.
+      ## This problem also occurs when a single field is requested
+      ## under some circumstances (e.g. "images"), even when that field is 
+      ## fully populated.
+      if(length(dot_names) > 1){
+        individual_cols <- dot_names
+      }else{ # i.e. no fields selected
+        if(length(dot_names) == 1){
+          if(length(group_names) == 0){
+            individual_cols <- unique(c("recordID", dot_names))
+          }else{
+            individual_cols <- dot_names
+          }
+        }else{ # i.e. length(dot_names) == 0
+          if(length(group) == 1 & !any(group_names == "recordID")){
+            individual_cols <- "recordID"
+          }else{
+            individual_cols <- NULL
+          }
+        }
+      }
+      
+      # 5. merge to create output object
+      # NOTE: placing `recordID` first is critical;
+      # having e.g. media columns _before_ `recordID` causes the download to fail 
+      values <- unique(c(group_names, individual_cols))
+      if(any(values == "recordID")){
+        values <- c("recordID", values[values != "recordID"]) # recordID needs to be first
+      }
+      result <- tibble(name = values, type = "field")
+      result$type[result$name %in% valid_assertions] <- "assertion" 
+      attr(result, "group") <- .data$select$group
+      
+      # 6. replace `SELECT_PLACEHOLDER` with valid query via `build_columns()`
+      # located in .data$url in query/fields
+      url <- url_parse(.data$url) # note: this assumes a single url every time
+        # is this a valid assumption?
+      url$query$fields <- result |>
+        filter(type == "field") |>
+        build_columns()
+      url$query$qa <- build_assertion_columns(result)
+      .data$url <- url_build(url)
+      .data$select <- NULL
+    }
+  }
+  .data
+}
+
+#' Check for valid `type`
+#' @noRd
+#' @keywords Internal
 check_type_valid <- function(type, valid, error_call = caller_env()) {
   if(!any(valid == type)){
     bullets <- c(

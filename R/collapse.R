@@ -14,14 +14,14 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
     }
   }
   # handle `run_checks`
+  fields_absent <- lapply(
+    .data[c("arrange", "filter", "select", "group_by")],
+    is.null
+  ) |>
+    unlist()
   if (pour("package", "run_checks") & .data$type != "occurrences-doi") {
     # add check here to see whether any filters are specified
     # it is possible to only call `identify()`, for example
-    fields_absent <- lapply(
-      .data[c("arrange", "filter", "select", "group_by")],
-      is.null
-    ) |>
-      unlist()
     if (any(!fields_absent) | .data$type == "species-count") {
       result <- list(collapse_fields(), collapse_assertions())
     } else {
@@ -37,8 +37,12 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
         atlas_supports_reasons_api()) {
       result[[(length(result) + 1)]] <- collapse_reasons()
     }
-  } else {
-    result <- list()
+  } else { # if select is required, we need fields even if `run_checks == FALSE`
+    if(!fields_absent[["select"]] | .data$type == "occurrences"){
+      result <- list(collapse_fields(), collapse_assertions())
+    }else{
+      result <- list() 
+    }
   }
   # handle `identify()`
   if(!is.null(.data$identify) & .data$type != "occurrences-doi"){

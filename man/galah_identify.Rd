@@ -19,8 +19,9 @@ identifiers (if \code{search = FALSE}); or an object of class \code{ala_id} (fro
 
 \item{.data}{An object of class \code{metadata_request}, created using \code{\link[=request_metadata]{request_metadata()}}}
 
-\item{search}{(logical); should the results in question be passed to
-\code{search_taxa}?}
+\item{search}{(logical);
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{galah_identify()} now always does a search to verify search terms}
 }
 \value{
 A tibble containing identified taxa.

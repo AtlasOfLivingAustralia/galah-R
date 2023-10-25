@@ -21,11 +21,11 @@
 
 \method{collapse}{files_request}(.data, thumbnail = FALSE)
 
-\method{collect}{query}(.data, wait = FALSE, file = NULL)
+\method{collect}{query}(.data, wait = TRUE, file = NULL)
 
-\method{collect}{query_set}(.data, wait = FALSE, file = NULL)
+\method{collect}{query_set}(.data, wait = TRUE, file = NULL)
 
-\method{collect}{data_request}(.data, wait = FALSE, file = NULL)
+\method{collect}{data_request}(.data, wait = TRUE, file = NULL)
 
 \method{collect}{metadata_request}(.data)
 

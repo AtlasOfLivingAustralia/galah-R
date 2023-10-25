@@ -20,6 +20,14 @@ compute.metadata_request <- function(.data){
 #' @rdname collect.query
 #' @export
 compute.query_set <- function(.data){
+  build_checks(.data) |> compute()
+}
+
+#' Internal function to build necessary metadata into a single object
+#' This has been parsed out to support improved testing of `compute()` stages
+#' @noRd
+#' @keywords Internal
+build_checks <- function(.data){
   # get basic description of `query_set` object
   n <- length(.data)
   names_vec <- unlist(lapply(.data, function(a){a$type}))
@@ -32,25 +40,23 @@ compute.query_set <- function(.data){
     # parse `data`, including supplied metadata
     # this assumes only one `data` field is available per `query_set`
     .data[[which(data_lookup)]] |>
-      add_metadata(metadata_results) |>
-      compute()      
+      add_metadata(metadata_results)     
   }else if(any(names_vec %in% c("metadata/fields-unnest", 
                                 "metadata/profiles-unnest",
                                 "metadata/taxa-unnest"))){
     # this code accounts for `unnest` functions that require lookups
-      # metadata/fields-unnest calls check_fields(), requiring fields and assertions
-      # metadata/profiles-unnest calls profile_short_name(), which requires profiles
+    # metadata/fields-unnest calls check_fields(), requiring fields and assertions
+    # metadata/profiles-unnest calls profile_short_name(), which requires profiles
     if(length(.data) > 1){
       metadata_results <- parse_metadata(names_vec, .data)
       .data[[2]] |>
-        add_metadata(metadata_results) |>
-        compute() 
+        add_metadata(metadata_results)
     }else{
-      compute(.data[[1]])
+      .data[[1]]
     }
   }else{ 
     # if no metadata are needed, return .data unaltered
-    compute(.data[[1]])
+    .data[[1]]
   }
 }
 
@@ -73,22 +79,8 @@ parse_metadata <- function(names_vec, .data){
 # if calling `compute()` on an object extracted from `collapse()` 
 #' @rdname collect.query
 #' @export
-compute.query <- function(.data, inputs = NULL){
-  # "data/" functions require pre-processing of metadata,
-  # as do `unnest()`/`show_values()` functions
-  if(grepl("^data/", .data$type) |
-     grepl("-unnest$", .data$type)
-  ){
-    .data <- check_identifiers(.data) # this should happen regardless of `run_checks`
-    if(pour("package", "run_checks")) {
-      .data <- .data |>
-        check_login() |>
-        check_reason() |>
-        check_fields() |>
-        check_profiles()
-    }
-    .data <- remove_metadata(.data)
-  }
+compute.query <- function(.data){
+  .data <- compute_checks(.data)
   switch(.data$type, 
          "data/occurrences" = compute_occurrences(.data),
          "data/occurrences-count-groupby" = compute_occurrences_count(.data),
@@ -101,6 +93,33 @@ compute.query <- function(.data, inputs = NULL){
          "metadata/lists" = compute_lists(.data), # always paginates
          .data # remaining "metadata/" functions are passed as-is
   )
+}
+
+#' Internal function to run metadata checks
+#' This is useful for testing, particularly in testing `galah_select()`
+#' called by `compute.query_set()`
+#' @noRd
+#' @keywords Internal
+compute_checks <- function(.data){
+  # "data/" functions require pre-processing of metadata,
+  # as do `unnest()`/`show_values()` functions
+  if(grepl("^data/", .data$type) |
+     grepl("-unnest$", .data$type)
+  ){
+    # some checks should happen regardless of `run_checks`
+    .data <- .data |>
+      check_identifiers() |> 
+      check_select()
+    if(pour("package", "run_checks")) {
+      .data <- .data |>
+        check_login() |>
+        check_reason() |>
+        check_fields() |>
+        check_profiles()
+    }
+    .data <- remove_metadata(.data)
+  }
+  .data
 }
 
 #' Internal function to pass metadata to `compute()` functions

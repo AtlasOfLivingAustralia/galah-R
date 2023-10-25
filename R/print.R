@@ -84,7 +84,7 @@ switch_slot_text <- function(x, a){
         apply(df, 1, function(b){paste(b, collapse = " ")}),
         sep = " | ")
     },
-    "select" = glue_collapse(x[[a]]$name, sep = " | "),
+    "select" = x[[a]]$summary,
     "group_by" =  glue_collapse(x[[a]]$name, sep = " | "),
     "")
 }
