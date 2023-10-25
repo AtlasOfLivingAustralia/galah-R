@@ -1,7 +1,7 @@
 ---
 title: "Object-Oriented Programming in galah"
 author: "Martin Westgate, Dax Kellie"
-date: '2023-10-25'
+date: '2023-10-26'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -18,13 +18,13 @@ available.
 
 ## Masked functions
 
-The default method for building queries in {galah} is to first use `galah_call()`
+The default method for building queries in galah is to first use `galah_call()`
 to create a query object called a `data_request`. This object class is specific 
-to {galah}. 
+to galah. 
 
 
 ```r
-  galah_call() |>
+galah_call() |>
   galah_filter(genus == "Crinia") |>
   class()
 ```
@@ -33,12 +33,12 @@ to {galah}.
 ## [1] "data_request"
 ```
 
-When an object is of class `data_request`, {galah} can trigger functions to use 
+When an object is of class `data_request`, galah can trigger functions to use 
 specific methods for this object class, even if a function name is used by 
 another package. For example, users can use `filter()` and `group_by()` functions 
 from [dplyr](https://dplyr.tidyverse.org/index.html) instead 
-of `galah_filter()` and `galah_group_by()` to construct a query. The following 
-queries are synonymous:
+of `galah_filter()` and `galah_group_by()` to construct a query. Consequently,
+the following queries are synonymous:
 
 
 ```r
@@ -78,9 +78,8 @@ galah_call() |>
 ```
 
 Thanks to object-oriented programming, galah "masks" `filter()` and `group_by()` 
-functions to use methods defined for `data_request` objects instead.
-
-The full list of masked functions is: 
+functions to use methods defined for `data_request` objects instead. The full 
+list of masked functions is: 
 
 - `arrange()` (`{dplyr}`)
 - `count()` (`{dplyr}`)
@@ -91,11 +90,9 @@ The full list of masked functions is:
 - `st_crop()` (`{sf}`) as a synonym for `galah_polygon()`
 
 Note that these functions are all evaluated lazily; they amend the underlying 
-object, but do not amend the nature of the data until the call is evaluated.
-
-To actually build and run the query, however, we'll need to use one or more of a 
-different set of dplyr verbs: `collapse()`, `compute()` and `collect()`. These 
-are discussed in the following section.
+object, but do not amend the nature of the data until the call is evaluated. To 
+actually build and run the query, we'll need to use one or more of a different 
+set of dplyr verbs: `collapse()`, `compute()` and `collect()`.
 
 ## Advanced query building
 
@@ -110,38 +107,27 @@ For example, if you want to download occurrences, use `request_data()`:
 
 
 ```r
-x <- request_data("occurrences") |> # note that occurrences is the default, so we'll skip it next time!
-  filter(genus == "Crinia", year == 2020) |>
-  group_by(species) |>
+x <- request_data("occurrences") |> # note that "occurrences" is the default `type`
+  filter(species == "Crinia tinnula", 
+         year == 2010) |>
   collect()
-```
-
-```
-## Retrying in 1 seconds.
-## Retrying in 2 seconds.
-## Retrying in 4 seconds.
 ```
 
 You'll notice that this query differs slightly from the typical query structure 
 users of galah are familiar with. The desired data type, `"occurrences"`, 
 is specified at the beginning of the query within `request_data()` rather than 
-at the end using `atlas_occurrences()`. 
-
-Specifying the data type at the start allows users to make use of advanced 
-query building using three newly implemented stages of query building: `collapse()`, 
-`compute()` and `collect()`.
-
-In version 2.0, galah has been revamped to build, send and retrieve queries using 
-three distinct stages. These stages mirror existing [functions in dplyr for querying 
-databases](https://dplyr.tidyverse.org/reference/compute.html). Underlying all 
-queries, there are three functions to process a user's query:
+at the end using `atlas_occurrences()`. Specifying the data type at the start 
+allows users to make use of advanced query building using three newly 
+implemented stages of query building: `collapse()`, `compute()` and `collect()`.
+These stages mirror existing [functions in dplyr for querying 
+databases](https://dplyr.tidyverse.org/reference/compute.html), and act in the following way
 
 - `collapse()` converts the object to a query. This allows users to inspect their  
    API calls before they are sent
 - `compute()` sends queries to any required APIs. This includes sending a query 
-   for data, determining whether field names are valid or how much pagination 
-   is needed
-- `collect()` returns a `tibble()` with the requested data
+   for data, determining whether field names are valid, or finding how much
+   data has been requested (which is necessary for pagination)
+- `collect()` retrieves the requested data into your workspace
 
 We can use these in sequence, or just leap ahead to the stage we want:
 
@@ -150,6 +136,7 @@ We can use these in sequence, or just leap ahead to the stage we want:
 x <- request_data() |>
   filter(genus == "Crinia", year == 2020) |>
   group_by(species) |>
+  arrange(species) |>
   count()
 
 collapse(x)
@@ -162,7 +149,7 @@ collapse(x)
 ```
 ## • metadata/fields data: galah:::check_internal_cache()$fields
 ## • metadata/assertions data: galah:::check_internal_cache()$assertions
-## • data/occurrences-count-groupby url: https://biocache-ws.ala.org.au/ws/occurrences/facets?fq=%28genus%3A%22Crinia%22%29%20AND%20%28year%3A%222020%22%29&disableAllQualityFilters=true&facets=species&fsort=count&flimit=30
+## • data/occurrences-count-groupby url: https://biocache-ws.ala.org.au/ws/occurre...
 ```
 
 ```r
@@ -171,44 +158,31 @@ compute(x)
 
 ```
 ## Object of class query with type data/occurrences-count-groupby 
-## url: https://biocache-ws.ala.org.au/ws/occurrences/facets?fq=%28genus%3A%22Crinia%22%29%20AND%20%28year%3A%222020%22%29&disableAllQualityFilters=true&facets=species&fsort=count&flimit=30 
-## arrange: count (descending)
+## url: https://biocache-ws.ala.org.au/ws/occurrences/facets?fq=%28genus%3A%22... 
+## arrange: species (ascending)
 ```
 
 ```r
-collect(x)
+collect(x) |> head()
 ```
 
 ```
-## # A tibble: 16 × 2
-##    species                 count
-##    <chr>                   <int>
-##  1 Crinia signifera        57878
-##  2 Crinia parinsignifera   12478
-##  3 Crinia glauerti          3090
-##  4 Crinia georgiana         1490
-##  5 Crinia remota             784
-##  6 Crinia sloanei            644
-##  7 Crinia insignifera        536
-##  8 Crinia tinnula            417
-##  9 Crinia deserticola        278
-## 10 Crinia pseudinsignifera   235
-## 11 Crinia tasmaniensis       189
-## 12 Crinia bilingua            75
-## 13 Crinia subinsignifera      45
-## 14 Crinia riparia             10
-## 15 Crinia flindersensis        3
-## 16 Crinia nimba                1
+## # A tibble: 6 × 2
+##   species              count
+##   <chr>                <int>
+## 1 Crinia bilingua         75
+## 2 Crinia deserticola     278
+## 3 Crinia flindersensis     3
+## 4 Crinia georgiana      1490
+## 5 Crinia glauerti       3090
+## 6 Crinia insignifera     536
 ```
 
 The benefit of using `collapse()`, `compute()` and `collect()` is that queries 
-are more modular. This modularity allows users to submit a query and download it later,
-without having to wait for it to finish. 
-
-This ability is particularly useful for large data requests in galah. Users can 
-send their query using `compute()`, and download data once the query has finished—
-downloading with `collect()` later—rather than waiting for the request to finish 
-within R.
+are more modular. This is particularly useful for large data requests in galah. 
+Users can send their query using `compute()`, and download data once the query 
+has finished — downloading with `collect()` later — rather than waiting for the 
+request to finish within R.
 
 
 ```r
@@ -247,8 +221,8 @@ request_data() |>
 ## • metadata/fields data: galah:::check_internal_cache()$fields
 ## • metadata/assertions data: galah:::check_internal_cache()$assertions
 ## • metadata/reasons url: https://api.ala.org.au/logger/service/logger/reasons
-## • metadata/taxa-single url: https://api.ala.org.au/namematching/api/search?q=perameles
-## • data/occurrences url: https://biocache-ws.ala.org.au/ws/occurrences/offline/download?fq=%28%60TAXON_PLACEHOLDER%60%29AND%28year%3A%5B1900%20TO%20%2A%5D%20AND%20-%28year%3A%221900%22%29%29&disableAllQualityFilters=true&fields=%60SELECT_PLACEHOLDER%60&qa=none&facet=false&emailNotify=false&sourceTypeId=2004&reasonTypeId=4&email=ala4r%40ala.org.au&dwcHeaders=true
+## • metadata/taxa-single url: https://api.ala.org.au/namematching/api/search?q=pe...
+## • data/occurrences url: https://biocache-ws.ala.org.au/ws/occurrences/offline/d...
 ```
 
 The `collapse()` stage displays useful information about which APIs will be pinged 
@@ -263,28 +237,32 @@ Under the hood, the different query-building verbs amend our object to a new cla
 - `collect()` doesn't add a new data class (returns class `tibble`)
 
 These can be called directly, or via the `method` and `type` arguments of 
-`galah_call()`, which specify which dedicated `request_` function and data type to return. 
-
-This means that the following calls are synonymous:
+`galah_call()`, which specify which dedicated `request_` function and data type 
+to return. To demonstrate what we mean, take the following calls, which despite 
+using different syntax, all return the number of records available for the year 
+2020:
 
 
 ```r
+# new syntax
 request_data() |>
   filter(year == 2020) |>
   count() |>
   collect()
 
+# similar, but using `galah_call()`
 galah_call(method = "data",
            type = "occurrences-count") |>
   filter(year == 2020) |>
   collect()
 
+# original syntax
 galah_call() |>
   galah_filter(year == 2020) |>
   atlas_counts()
 ```
 
-And another example:
+Another example is to list available `fields` in the selected atlas:
 
 
 ```r
@@ -298,7 +276,7 @@ galah_call(method = "metadata",
 show_all(fields)
 ```
 
-And another example:
+Or to show values for states and territories:
 
 
 ```r
