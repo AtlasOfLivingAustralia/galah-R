@@ -146,7 +146,7 @@ check_search_terms <- function(result, atlas) {
     
     bullets <- c(
       cli::cli_text("Matched {.bold {n_valid} of {n_all}} taxonomic search terms in selected atlas ({atlas})."),
-      "!" = cli::cli_text("{.yellow {n_invalid} unmatched search term(s):}")
+      "!" = cli::cli_text("{.yellow {n_invalid} unmatched search term{?s}:}")
     )
     if (n_invalid > 3) {
       invalid_taxa_truncated <- c(invalid_taxa[1:3], glue("+ {n_invalid - 3} more"))
@@ -155,14 +155,14 @@ check_search_terms <- function(result, atlas) {
                                                last = "\" ")
       bullets <- c(
         bullets, 
-        glue("  ", format_error_bullets(crayon::yellow(glue("\"{list_invalid_taxa}"))))
+        cli::cli_text(format_error_bullets(c("{.yellow \"{list_invalid_taxa}}")))
         )
     } else {
       list_invalid_taxa <- glue::glue_collapse(invalid_taxa, 
                                                sep = "\", \"")
       bullets <- c(
         bullets, 
-        glue("  ", format_error_bullets(crayon::yellow(glue("\"{list_invalid_taxa}\""))))
+        cli::cli_text(format_error_bullets(c("{.yellow \"{list_invalid_taxa}\"}")))
       )
     }
     

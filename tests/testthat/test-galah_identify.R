@@ -62,7 +62,7 @@ test_that("galah_identify warns when taxa are partially returned", {
       galah_filter(year == 2020) |>
       count() |>
       compute(),
-    "Found matches for 1 of 2 taxa"
+    cli::cli_text("Matched {.bold 1 of 2}")
   )
 })
 
@@ -77,10 +77,25 @@ test_that("galah_identify warns when identifiers are partially returned", {
       galah_filter(year == 2020) |>
       count() |>
       compute(),
-    "Found taxonomic matches for 2 of 3 search queries"
+    cli::cli_text("Matched {.bold 2 of 3}")
   )
   expect_no_warning(
     galah_identify(ids)
+  )
+})
+
+test_that("galah_identify truncates unmatched list of taxa at 3 ", {
+  expect_message(
+    galah_call() |>
+      galah_identify("Litoria", "blarghy", "blorp", "florp", "skorp") |>
+      galah_filter(year == 2020) |>
+      count() |>
+      compute(),
+    c(
+      cli::cli_text("Matched {.bold 1 of 5} taxonomic search terms in selected atlas (Australia)."),
+      "!" = cli::cli_text("{.yellow 4 unmatched search term:}"),
+      cli::cli_text(format_error_bullets(c("{.yellow \"blarghy\", \"blorp\", \"florp\" + 1 more}")))
+    )
   )
 })
 
@@ -115,4 +130,18 @@ test_that("galah_identify removes deprecated `search` argument", {
   
   # number of taxa searches is 3, not 4
   expect_equal(length(q_set[[3]]), 3)
+})
+
+## NOTE: Not certain if this is a necessary test
+cli::test_that_cli("Partial taxonomic match message theming", {
+  testthat::local_edition(3)
+  testthat::expect_snapshot(local({
+    cli::cli_div(theme = list(span.bold = list("font-weight" = "bold"),
+                              span.yellow = list(color = "yellow")))
+    c(
+      cli::cli_text("Matched {.bold 2 of 3} taxonomic search terms in selected atlas (Australia)."),
+      "!" = cli::cli_text("{.yellow 1 unmatched search term:}"),
+      cli::cli_text(format_error_bullets(c("{.yellow \"https://id.biodiversity.org.au/node/apni/291047\"}")))
+    )
+  }))
 })

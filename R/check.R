@@ -453,7 +453,7 @@ check_media_cols <- function(.data){
 #' @param .data a `query` object
 #' @noRd
 #' @keywords Internal
-check_media_cols_present <- function(.data){
+check_media_cols_present <- function(.data, error_call = caller_env()){
   fields <- .data |>
     pluck("url") |>
     url_parse() |> 
@@ -466,7 +466,7 @@ check_media_cols_present <- function(.data){
     abort(c("No media fields requested.",
             i = "Use `select()` to specify which media fields are required.",
             i = "Valid fields are 'images', 'videos' and 'sounds'."),
-          error_call = caller_env())
+          call = error_call)
   }else{
     media_fields[fields_check]
   }

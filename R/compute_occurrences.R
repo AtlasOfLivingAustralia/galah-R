@@ -38,6 +38,7 @@ compute_occurrences_gbif <- function(.data){
 #' @noRd
 #' @keywords Internal
 compute_occurrences_la <- function(.data){
+  # browser()
   status_code <- query_API(.data) |>
     as.list() |>
     check_occurrence_response()

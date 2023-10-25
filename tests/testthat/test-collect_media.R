@@ -61,17 +61,21 @@ test_that("collect_media messages how many files downloaded", {
   expect_message(collect_media(atlas_query), message)
 })
 
-## FIXME
+
 test_that("collect_media handles different file formats", {
   skip_if_offline()
   galah_config(email = "ala4r@ala.org.au")
   media_dir <- "test_media"
+  unlink(media_dir, recursive = TRUE)
   dir.create(media_dir)
-  media_data <- atlas_media(identify = galah_identify("Regent Honeyeater"),
-                            filter = galah_filter(year == 2012)) |>
-                collect_media()
-  expect_true(any(grepl(".mpg$", media_data$download_path))) # videos
-  expect_true(any(grepl(".jpg$", media_data$download_path))) # images
+  media_data <- galah_call() |>
+    galah_identify("Regent Honeyeater") |>
+    galah_filter(year == 2012) |>
+    atlas_media() |>
+    collect_media()
+  downloads <- list.files(path = media_dir)
+  expect_true(any(grepl(".mpg$", downloads))) # videos
+  expect_true(any(grepl(".jpg$", downloads))) # images
   file_count <- length(list.files(media_dir)) 
   expect_equal(file_count, nrow(media_data)) # correct n
   unlink(media_dir, recursive = TRUE)
