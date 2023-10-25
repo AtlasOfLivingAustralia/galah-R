@@ -10,25 +10,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
+
 Queries to the ALA will almost always require some form of temporal filtering. It is important to know how these types of data are stored in the ALA and how we can query them to obtain desired filters.
-
-
-```r
-# Load important libraries
-library(galah)
-library(tidyverse)
-library(gt)
-library(lubridate)
-```
-
-
-
-
-```r
-galah_config(email = "your_email_here", verbose = FALSE)
-```
-
-# Temporal filtering
 
 The ALA database possesses numerous date and time fields that relate to each observation. Here we provide descriptions of each of these fields and how they are best used to obtain specific queries. Ultimately, there are two ways users can filter temporal queries:
 
@@ -44,6 +28,18 @@ The ALA contains in-built `year`, `month` and `day` fields for every record. The
 
 We can, for instance, use the `year` and `month` fields to group the 2022 amphibian records in the ALA by month (noting that months are labelled by a number).
 
+
+
+```r
+library(galah)
+library(tidyverse)
+library(gt)
+library(lubridate)
+```
+
+```r
+galah_config(email = "your_email_here", verbose = FALSE)
+```
 
 ```r
 galah_call() |>
@@ -62,11 +58,11 @@ galah_call() |>
 ##  4 August    26175
 ##  5 March     25396
 ##  6 February  23456
-##  7 November  22757
+##  7 November  22758
 ##  8 July      12302
 ##  9 April      9841
-## 10 June       9215
-## 11 May        8080
+## 10 June       9217
+## 11 May        8081
 ## 12 December   3813
 ```
 
@@ -99,7 +95,7 @@ galah_call() |>
 ##  7 2020     20
 ##  8 2021     36
 ##  9 2022     25
-## 10 2023     43
+## 10 2023     48
 ```
 
 ### Occurrence dates
@@ -124,7 +120,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##   count
 ##   <int>
-## 1   494
+## 1   515
 ```
 
 It can be unintuitive to provide dates in this format. Luckily, it is very simple to convert standard R dates or {lubridate} dates into this format because they are already in the required "YYYY-MM-DD" form. If we took the above date (26/02/2022), it could be converted to this form using base R or lubridate as follows:
@@ -170,7 +166,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##   count
 ##   <int>
-## 1   387
+## 1   388
 ```
 
 

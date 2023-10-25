@@ -10,25 +10,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Biodiversity queries to the ALA usually require some spatial filtering. Let's see how spatial data are stored in the ALA and a few different methods to spatially filter data with galah and other packages.
-
-```{r, output = FALSE, message = FALSE, warning = FALSE}
-library(galah)
-library(tidyverse)
-library(gt)
-library(sf)
-```
-
 ```{r, include = FALSE}
 # set up galah session
 galah_config(email = "callumwaite2000@gmail.com", verbose = FALSE)
 ```
 
-```{r, eval = FALSE}
-galah_config(email = "your_email_here", verbose = FALSE)
-```
-
-# Spatial filtering
+Biodiversity queries to the ALA usually require some spatial filtering. Let's see how spatial data are stored in the ALA and a few different methods to spatially filter data with galah and other packages.
 
 Most records in the ALA contain location data in the form of two key fields: `decimalLatitude` and `decimalLongitude`. As expected, these fields are the decimal coordinates of each occurrence, with south and west values denoted by negatives. While there may be some uncertainty in these values (see field `coordinateUncertaintyInMeters`), they are generally very accurate.
 
@@ -42,6 +29,15 @@ We strongly recommend using `search_fields()` to check whether a contextual laye
 
 Suppose we are interested in querying records of the Red-Necked Avocet ([*Recurvirostra novaehollandiae*](https://bie.ala.org.au/species/https://biodiversity.org.au/afd/taxa/c69e7308-527a-429d-a80d-143bd20b5100)) in a particular protected wetlands, the Coorong wetlands in South Australia. We can search the ALA fields for wetlands.
 
+```{r, output = FALSE, message = FALSE, warning = FALSE}
+library(galah)
+library(tidyverse)
+library(gt)
+library(sf)
+```
+```{r, eval = FALSE}
+galah_config(email = "your_email_here", verbose = FALSE)
+```
 ```{r}
 search_fields("wetlands")
 ```
@@ -65,7 +61,7 @@ galah_call() |>
 
 ### galah_geolocate()
 
-Mostly, the shapefile or region you wish to query will not be pre-loaded as a contextual layer in the ALA. In this case, shapefiles can be introduced to the filtering process using the {sf} package and the `galah_geolocate()` function. Shapefiles can be provided as an `sf` object, whether that is by importing them with `sf::st_read()` or taking a `POLYGON` or `MULTIPOLYGON` character string and transforming them with `sf::st_as_sfc()`.
+While server-side spatial information is useful, there are likely to be cases where the shapefile or region you wish to query will not be pre-loaded as a contextual layer in the ALA. In this case, shapefiles can be introduced to the filtering process using the {sf} package and the `galah_geolocate()` function. Shapefiles can be provided as an `sf` object, whether that is by importing them with `sf::st_read()` or taking a `POLYGON` or `MULTIPOLYGON` character string and transforming them with `sf::st_as_sfc()`.
 
 For instance, we might interested in species occurrences in King George Square, Brisbane. We can take the `MULTIPOLYGON` object for the square (as sourced from the [Brisbane City Council](https://www.data.brisbane.qld.gov.au/data/dataset/park-locations)) and transform it into `sfc` and then `sf` objects.
 
@@ -99,23 +95,24 @@ galah_call() |>
   gt::gt()
 ```
 
-### Large shapefiles
+#### Large shapefiles
 
 The `type` argument with option `"bbox"` is provided because `sf` objects with \>500 vertices will not be accepted by the ALA. In the event you have a large shapefile, using `type = "bbox"` will at least enable an initial reduction of the data that is downloaded, before finer filtering to the actual shapefile will obtain the desired set of occurrences. Alternatively, one can also perform the `"bbox"` reduction before passing the shape to `galah_geolocate()` by using `sf::st_bbox()`.
 
-A common situation for this to occur is when a shapefile with multiple shapes is provided, where we are interested in grouping our results by each shape. Here is a mock workflow using the shapefile of [all 2,184 Brisbane parks](https://www.data.brisbane.qld.gov.au/data/dataset/park-locations).
+A common situation for this to occur is when a shapefile with multiple shapes is provided, where we are interested in grouping our results by each shape. Here is a mock workflow using a subset of a shapefile of [all 2,184 Brisbane parks](https://www.data.brisbane.qld.gov.au/data/dataset/park-locations).
 
-Let's say we are interested in which parks have the most occurrences of the Scaly-Breasted Lorikeet, [*Trichoglossus chlorolepidotus*](https://bie.ala.org.au//species/https://biodiversity.org.au/afd/taxa/ecaca7ec-da2e-4c6b-b190-14e7a1738884), in 2022. We can download the entire shapefile from the above link, and perform our filtering and summarising as follows:
+Let's say we are interested in knowing which parks in the Brisbane postcode 4075 have the most occurrences of the Scaly-Breasted Lorikeet, [*Trichoglossus chlorolepidotus*](https://bie.ala.org.au//species/https://biodiversity.org.au/afd/taxa/ecaca7ec-da2e-4c6b-b190-14e7a1738884), since 2020. We can download the entire shapefile from the above link, and perform our filtering and summarising as follows:
 
 ```{r, include = FALSE}
-# import actual data
-brisbane_parks <- sf::st_read(here::here("vignettes", "Park___Locations.shp")) |>
-  sf::st_make_valid()
+# import actual data (WILL NEED TO SET YOUR OWN FILE PATH HERE)
+load("brisbane_parks.rds")
+# show fake import in below block
 ```
 
 ```{r, eval = FALSE}
 brisbane_parks <- sf::st_read("path/to/Park___Locations.shp") |>
-  sf::st_make_valid()
+  sf::st_make_valid() |>
+  filter(POST_CODE == 4075)
 ```
 
 ```{r}
@@ -125,7 +122,7 @@ brisbane_parks_bbox <- brisbane_parks |> sf::st_bbox()
 # Find all occurrences of Trichoglossus chlorolepidotus in the bounding box in 2022
 lorikeet_brisbane <- galah_call() |>
   galah_filter(scientificName == "Trichoglossus chlorolepidotus", 
-               year == 2022) |>
+               year >= 2020) |>
   galah_geolocate(brisbane_parks_bbox, type = "bbox") |>
   atlas_occurrences()
 ```
@@ -134,18 +131,11 @@ lorikeet_brisbane <- galah_call() |>
 # Filter records down to only those in the shapefile polygons
 lorikeet_brisbane |>
   # Create a point geometry based on the occurrence coordinates
-  sf::st_as_sf(
-    coords = c("decimalLongitude", "decimalLatitude"),
-    crs = sf::st_crs(brisbane_parks),
-    remove = FALSE
-  ) |>
-  # Identify which park each occurrence sits in
-  mutate(
-    intersection = sf::st_intersects(geometry, brisbane_parks) |>
-      as.integer(),
-    park = ifelse(is.na(intersection), NA, brisbane_parks$PARK_NAME[intersection])
-  ) |>
-  # Remove occurrences that did not occur in a park
+  sf::st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = sf::st_crs(brisbane_parks), remove = FALSE) |>
+  # identify which park each occurrence sits in with st_intersects()
+  mutate(intersection = sf::st_intersects(geometry, brisbane_parks) |> as.integer(),
+         park = ifelse(is.na(intersection), NA, brisbane_parks$PARK_NAME[intersection])) |>
+  # Filter out occurrences that did not occur in a park
   filter(!is.na(park)) |>
   # Drop the geometry column
   sf::st_drop_geometry() |>

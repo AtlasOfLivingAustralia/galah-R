@@ -10,25 +10,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Queries to the ALA will almost always require some form of temporal filtering. It is important to know how these types of data are stored in the ALA and how we can query them to obtain desired filters.
-
-```{r, output = FALSE, message = FALSE, warning = FALSE}
-library(galah)
-library(tidyverse)
-library(gt)
-library(lubridate)
-```
-
 ```{r, include = FALSE}
 # set up galah session
 galah_config(email = "callumwaite2000@gmail.com", verbose = FALSE)
 ```
 
-```{r, eval = FALSE}
-galah_config(email = "your_email_here", verbose = FALSE)
-```
-
-# Temporal filtering
+Queries to the ALA will almost always require some form of temporal filtering. It is important to know how these types of data are stored in the ALA and how we can query them to obtain desired filters.
 
 The ALA database possesses numerous date and time fields that relate to each observation. Here we provide descriptions of each of these fields and how they are best used to obtain specific queries. Ultimately, there are two ways users can filter temporal queries:
 
@@ -44,6 +31,16 @@ The ALA contains in-built `year`, `month` and `day` fields for every record. The
 
 We can, for instance, use the `year` and `month` fields to group the 2022 amphibian records in the ALA by month (noting that months are labelled by a number).
 
+
+```{r, output = FALSE, message = FALSE, warning = FALSE}
+library(galah)
+library(tidyverse)
+library(gt)
+library(lubridate)
+```
+```{r, eval = FALSE}
+galah_config(email = "your_email_here", verbose = FALSE)
+```
 ```{r}
 galah_call() |>
   galah_filter(class == "Amphibia", year == 2021) |>
