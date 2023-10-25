@@ -5,7 +5,7 @@ date: '2023-10-13'
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Spatial and temporal filtering}
+  %\VignetteIndexEntry{Spatial filtering}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

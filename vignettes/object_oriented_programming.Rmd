@@ -1,7 +1,7 @@
 ---
 title: "Object-Oriented Programming in galah"
 author: "Martin Westgate, Dax Kellie"
-date: '2023-10-13'
+date: '2023-10-25'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -18,24 +18,22 @@ available.
 
 ## Masked functions
 
-From version 2.0, `galah_call()` creates an object with a unique class specific 
-to galah. For example, the building blocks of a query (prior to specifying what 
-data should be returned) create an object of class `data_request`, a default 
-object class used in galah for query building. 
+The default method for building queries in {galah} is to first use `galah_call()`
+to create a query object called a `data_request`. This object class is specific 
+to {galah}. 
 
 
 ```r
-class(
   galah_call() |>
-  galah_filter(genus == "Crinia")
-  )
+  galah_filter(genus == "Crinia") |>
+  class()
 ```
 
 ```
 ## [1] "data_request"
 ```
 
-When an object is of class `data_request`, galah can trigger functions to use 
+When an object is of class `data_request`, {galah} can trigger functions to use 
 specific methods for this object class, even if a function name is used by 
 another package. For example, users can use `filter()` and `group_by()` functions 
 from [dplyr](https://dplyr.tidyverse.org/index.html) instead 
@@ -96,8 +94,8 @@ Note that these functions are all evaluated lazily; they amend the underlying
 object, but do not amend the nature of the data until the call is evaluated.
 
 To actually build and run the query, however, we'll need to use one or more of a 
-different set of dplyr verbs: `collapse()`, `compute()` and `collect()`. These are 
-discussed in the following section.
+different set of dplyr verbs: `collapse()`, `compute()` and `collect()`. These 
+are discussed in the following section.
 
 ## Advanced query building
 
@@ -112,16 +110,23 @@ For example, if you want to download occurrences, use `request_data()`:
 
 
 ```r
-x <- request_data("occurrences") |>
+x <- request_data("occurrences") |> # note that occurrences is the default, so we'll skip it next time!
   filter(genus == "Crinia", year == 2020) |>
   group_by(species) |>
   collect()
+```
+
+```
+## Retrying in 1 seconds.
+## Retrying in 2 seconds.
+## Retrying in 4 seconds.
 ```
 
 You'll notice that this query differs slightly from the typical query structure 
 users of galah are familiar with. The desired data type, `"occurrences"`, 
 is specified at the beginning of the query within `request_data()` rather than 
 at the end using `atlas_occurrences()`. 
+
 Specifying the data type at the start allows users to make use of advanced 
 query building using three newly implemented stages of query building: `collapse()`, 
 `compute()` and `collect()`.
@@ -142,9 +147,10 @@ We can use these in sequence, or just leap ahead to the stage we want:
 
 
 ```r
-x <- request_data("occurrences-count") |>
+x <- request_data() |>
   filter(genus == "Crinia", year == 2020) |>
-  group_by(species)
+  group_by(species) |>
+  count()
 
 collapse(x)
 ```
@@ -155,7 +161,7 @@ collapse(x)
 
 ```
 ## • metadata/fields data: galah:::check_internal_cache()$fields
-## • metadata/assertions url: https://biocache-ws.ala.org.au/ws/assertions/codes
+## • metadata/assertions data: galah:::check_internal_cache()$assertions
 ## • data/occurrences-count-groupby url: https://biocache-ws.ala.org.au/ws/occurrences/facets?fq=%28genus%3A%22Crinia%22%29%20AND%20%28year%3A%222020%22%29&disableAllQualityFilters=true&facets=species&fsort=count&flimit=30
 ```
 
@@ -207,7 +213,7 @@ within R.
 
 ```r
 # Create and send query to be calculated server-side
-request <- request_data("occurrences") |>
+request <- request_data() |>
   identify("perameles") |>
   filter(year > 1900) |>
   compute()
@@ -227,7 +233,7 @@ returned by `collapse()`.
 
 
 ```r
-request_data("occurrences") |>
+request_data() |>
   identify("perameles") |>
   filter(year > 1900) |>
   collapse()
@@ -239,10 +245,10 @@ request_data("occurrences") |>
 
 ```
 ## • metadata/fields data: galah:::check_internal_cache()$fields
-## • metadata/assertions url: https://biocache-ws.ala.org.au/ws/assertions/codes
+## • metadata/assertions data: galah:::check_internal_cache()$assertions
 ## • metadata/reasons url: https://api.ala.org.au/logger/service/logger/reasons
 ## • metadata/taxa-single url: https://api.ala.org.au/namematching/api/search?q=perameles
-## • data/occurrences url: https://biocache-ws.ala.org.au/ws/occurrences/offline/download?fq=%28%60TAXON_PLACEHOLDER%60%29AND%28year%3A%5B1900%20TO%20%2A%5D%20AND%20-%28year%3A%221900%22%29%29&disableAllQualityFilters=true&fields=recordID%2CdecimalLatitude%2CdecimalLongitude%2CeventDate%2CscientificName%2CtaxonConceptID%2CdataResourceName%2CoccurrenceStatus&qa=none&facet=false&emailNotify=false&sourceTypeId=2004&reasonTypeId=4&email=ala4r%40ala.org.au&dwcHeaders=true
+## • data/occurrences url: https://biocache-ws.ala.org.au/ws/occurrences/offline/download?fq=%28%60TAXON_PLACEHOLDER%60%29AND%28year%3A%5B1900%20TO%20%2A%5D%20AND%20-%28year%3A%221900%22%29%29&disableAllQualityFilters=true&fields=%60SELECT_PLACEHOLDER%60&qa=none&facet=false&emailNotify=false&sourceTypeId=2004&reasonTypeId=4&email=ala4r%40ala.org.au&dwcHeaders=true
 ```
 
 The `collapse()` stage displays useful information about which APIs will be pinged 
@@ -252,22 +258,9 @@ by a query in galah when it is sent using `compute()`.
 
 Under the hood, the different query-building verbs amend our object to a new class:
 
-- `request_data()` returns class `data_request`
-- `collapse()` returns class `data_query`
-- `compute()` returns class `data_response`
+- `collapse()` returns class `query_set`, which is a list of one or more `query` objects
+- `compute()` returns a single object of class `query`
 - `collect()` doesn't add a new data class (returns class `tibble`)
-
-
-In practice, there are actually 12 new classes:
-
-- `request_data()` generates `data_request`, followed by `data_query` and `data_response`
-- `request_metadata()` generates `metadata_request`, followed by `metadata_query` and `metadata_response`
-- `request_values()` generates `values_request`, followed by `values_query` and `values_response`
-- `request_files()` generates `files_request`, followed by `files_query` and `files_response`
-
-_this needs a table or diagram or something_
-
-_give examples of files, metadata and values_
 
 These can be called directly, or via the `method` and `type` arguments of 
 `galah_call()`, which specify which dedicated `request_` function and data type to return. 
@@ -306,16 +299,16 @@ show_all(fields)
 ```
 
 And another example:
-_This example doesn't work_
 
 
 ```r
-request_values(type = "fields") |>
-  filter(id == "cl22") |>
+request_metadata() |>
+  filter(field == "cl22") |>
+  unnest() |>
   collect()
 
 galah_call(method = "metadata", 
-           type = "fields") |>
+           type = "fields-unnest") |>
   galah_filter(id == "cl22") |>
   collect()
 
@@ -336,13 +329,10 @@ above in "Advanced query building" to get around this issue.
 Despite these benefits, we have no plans to _require_ this new syntax; functions
 prefixed with `galah_` or `atlas_` are not going away. 
 
-Indeed, while there is 
-perfect redundancy between old and new syntax in some cases, in others they
-serve different purposes. In `atlas_media()` for example, several calls 
-are made and joined in a way that reduces the number of steps required by the 
-user. 
-
-(_expand this exampple_)
+Indeed, while there is perfect redundancy between old and new syntax in some 
+cases, in others they serve different purposes. In `atlas_media()` for example, 
+several calls are made and joined in a way that reduces the number of steps 
+required by the user. 
 
 Under the hood, however, all `atlas_` functions are now entirely built using the 
 above syntax.
