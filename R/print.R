@@ -109,16 +109,24 @@ print.query <- function(x, ...){
   }
   if(!is.null(x$url)){
     if(inherits(x$url, "data.frame")){
+      url_temp <- x$url$url[1]
+      if(nchar(url_temp) > 70){
+        url_temp <- paste0(substr(url_temp, 1, 70), "...")
+      }
       if(nrow(x$url) > 1){
-        url_text <-glue("\n
-           url: {x$url$url[1]} + {nrow(x$url) - 1} more") 
+        url_text <- glue("\n
+           url: {url_temp} + {nrow(x$url) - 1} more") 
       }else{
         url_text <-glue("\n
-           url: {x$url$url[1]}")
+           url: {url_temp}")
       }
     }else{
+      url_temp <- x$url[1]
+      if(nchar(url_temp) > 70){
+        url_temp <- paste0(substr(url_temp, 1, 70), "...")
+      }
       url_text <-glue("\n
-           url: {x$url[1]}")
+           url: {url_temp}")
     }
     subtext <- galah_grey(url_text)
   }else if(!is.null(x$data)){
@@ -154,7 +162,12 @@ print.query_set <- function(x, ...){
   lapply(x, function(a){
     type_text <- galah_green(a$type)
     if(!is.null(a$url)){
-      subtext <- galah_grey(glue("url: {a$url[1]}"))
+      url_temp <- a$url[1]
+      pretext_length <- nchar(a$type) + 6
+      if(sum(c(pretext_length, nchar(url_temp))) > 80){
+        url_temp <- paste0(substr(url_temp, 1, (80 - pretext_length - 3)), "...")
+      }
+      subtext <- galah_grey(glue("url: {url_temp}"))
     }else if(!is.null(a$data)){
       subtext <- galah_grey(glue("data: {a$data[1]}"))
     }else{
