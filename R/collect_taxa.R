@@ -81,25 +81,25 @@ collect_taxa_la <- function(.data){
 #' @keywords Internal
 clean_la_taxa <- function(result, search_terms){
   lapply(result, function(a){
-    x <- a |>
+    list_of_results <- a |>
       pluck("searchResults", "results")
-    if(length(x) > 1){ # i.e. more than one match
-      taxon_names <- unlist(lapply(x, function(b){b$name}))
+    if(length(list_of_results) > 1){ # i.e. more than one match
+      taxon_names <- unlist(lapply(list_of_results, function(b){b$name}))
       string_distances <- adist(
         tolower(search_terms), 
         tolower(taxon_names))[1, ]
       min_distance <- which(string_distances == min(string_distances))
       if(length(min_distance) > 1){ # i.e. 2+ identical entries
-        json_length <- lengths(x)
+        json_length <- lengths(list_of_results)
         min_length <- which(string_distances == min(string_distances))[1] 
         # NOTE: [1] added above to ensure uniqueness
         # i.e. if multiple answers have the same amount of data, we pick the first
-        x[[min_length]]
+        list_of_results[[min_length]]
       }else{
-        x[[min_distance]]
+        list_of_results[[min_distance]]
       }
     }else{
-      tibble(search_term = search_terms)
+      list_of_results
     }
   })
 }
