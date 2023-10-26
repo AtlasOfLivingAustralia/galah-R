@@ -9,6 +9,7 @@ wanted_columns <- function(type) {
            "taxa" = c("search_term", "scientific_name",
                       "scientific_name_authorship", 
                       "taxon_concept_id", # ALA
+                      "taxon_concept_lsid", # Austria, Guatemala
                       "authority", # OpenObs
                       "usage_key", # GBIF
                       "guid", # species search

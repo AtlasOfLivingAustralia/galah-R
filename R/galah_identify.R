@@ -45,7 +45,7 @@
 galah_identify <- function(...) {
   dots_initial <- list(...)
   if (length(dots_initial) < 1) {
-    warn("No query passed to `identify()`")
+    warn("No query passed to `identify()`.")
     tibble("search_term" = character())
   }else{
     # Check for deprecated `search` argument
@@ -69,7 +69,7 @@ galah_identify <- function(...) {
 identify.data_request <- function(.data, ...){
   dots_initial <- list(...)
   if (length(dots_initial) < 1) {
-    warn("No query passed to `identify()`")
+    warn("No query passed to `identify()`.")
     result <- NULL
   }else{
     if(inherits(dots_initial[[1]], "data.frame") & length(dots_initial) == 1){

@@ -87,7 +87,7 @@ test_that("search_all(taxa) works for Austria", {
 
 test_that("show_values works for fields for Austria", {
   skip_if_offline()
-  x <- search_all(fields, "basisOfRecord") |> 
+  x <- search_all(fields, "basis_of_record") |> 
     show_values()
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))

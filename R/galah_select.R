@@ -162,6 +162,14 @@ preset_groups <- function(group_name) {
 default_columns <- function() {
   atlas <- pour("atlas", "region")
   switch (atlas,
+          "Austria" = c("id",
+                        "taxon_name",
+                        "taxon_concept_lsid",
+                        "latitude",
+                        "longitude",
+                        "occurrence_date",
+                        "occurrence_status",
+                        "data_resource_uid"),
           "Guatemala" = c("id",
                           "taxon_name",
                           "taxon_concept_lsid",
