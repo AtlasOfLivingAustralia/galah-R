@@ -26,7 +26,7 @@ update_data_request <- function(data_request, ...){
                                bind_unique_rows(data_request[[a]], dots[[a]], "query")
                              },
                              "select" = {
-                               bind_unique_rows(data_request[[a]], dots[[a]], "name")
+                               update_select(data_request[[a]], dots[[a]])
                              }, 
                              # for below, we assume that in all other circumstances we 
                              # simply pass the most recent result (i.e. overwrite)
@@ -48,6 +48,29 @@ update_data_request <- function(data_request, ...){
   }
   class(result) <- "data_request"
   result
+}
+
+#' Internal function to join together two `select` objects
+#' @importFrom rlang is_quosure
+#' @noRd
+#' @keywords Internal
+update_select <- function(x, y){
+  quosure_check_x <- lapply(x, is_quosure) |> unlist()
+  quosure_check_y <- lapply(y, is_quosure) |> unlist()
+  if(any(quosure_check_y)){
+    result <- append(x[quosure_check_x], y[quosure_check_y])
+  }else if(any(quosure_check_x)){
+    result <- x[quosure_check_x]
+  }else{
+    result <- list()
+  }
+  group_vec <- unique(c(x$group, y$group))
+  if(length(group_vec) < 1){
+    group_vec <- NULL
+  }
+  result |>
+    add_summary() |>
+    add_group(group = group_vec)
 }
 
 #' Internal function to join tibbles by row

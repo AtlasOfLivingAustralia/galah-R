@@ -56,6 +56,8 @@
 #' @importFrom dplyr relocate
 #' @importFrom dplyr right_join
 #' @importFrom glue glue
+#' @importFrom httr2 url_build
+#' @importFrom httr2 url_parse
 #' @importFrom potions pour
 #' @importFrom rlang abort
 #' @importFrom tibble tibble
@@ -68,50 +70,77 @@ atlas_media <- function(request = NULL,
                         geolocate = NULL,
                         data_profile = NULL
                         ) {
+  
   # capture supplied arguments
   args <- as.list(environment())
   # convert to `data_request` object
   .data <- check_atlas_inputs(args)
   .data$type <- "occurrences" # default, but in case supplied otherwise
-  # ensure media columns are present in `select`
-  valid_formats <- c("images", "videos", "sounds")
-  if(is.null(.data$select)){
-    .data <- update_data_request(.data, 
-                                 select = galah_select(group = c("basic", "media")))
-  }else{
-    if(!any(.data$select$name %in% valid_formats)){
-      .data <- update_data_request(.data, 
-                                   select = galah_select(group = "media"))
-    }
-  }
-
-  # filter to records that contain media of requested types 
-  # NOTE: Might be more efficient to use `filter` for this, as it 
-  # includes code to remove duplicated rows
+  
+  # ensure a filter is present (somewhat redundant with `collapse`)
   if(is.null(.data$filter)){
     abort("You must specify a valid `filter()` to use `atlas_media()`")
   }
   
-  if (!is.null(.data$select$name)) {
-    present_formats <- valid_formats[valid_formats %in% .data$select$name]
-  } else {
-    if ("media" %in% .data$select$group) {
-      present_formats <- valid_formats # all media cols
+  # ensure media columns are present in `select`
+  media_fields <- c("images", "videos", "sounds")
+  if(is.null(.data$select)){
+    .data <- update_data_request(.data, 
+                                 select = galah_select(group = c("basic", "media")))
+    present_fields <- media_fields
+  # if `select` is present, ensure that at least one 'media' field is requested
+  }else{
+    # new check using compute_checks()
+    x <- collapse(.data) |>
+      build_checks() |>
+      compute_checks()
+    
+    # now check whether valid fields are present
+    selected_fields <- x$url |>
+      url_parse() |>
+      pluck("query", "fields") |>
+      strsplit(split = ",") |>
+      pluck(!!!list(1))
+    
+    # abort if none are given
+    if(!any(selected_fields %in% media_fields)){
+      selected_text <- paste(selected_fields, collapse = ", ")
+      bullets <- c("No media fields requested by `select()`", 
+                   i = glue("try `galah_select({selected_text}, group = 'media')` instead"))
+      abort(bullets)
+    }else{
+      present_fields <- selected_fields[selected_fields %in% media_fields]
+      .data <- x
     }
+  } # end `select` checks
+ 
+  # `filter` to records that contain media of valid types
+  media_fq <- glue("({present_fields}:*)")
+  if(length(present_fields) > 1){
+    media_fq <- glue("({glue_collapse(media_fq, ' OR ')})")  
   }
   
-  media_fq <- glue("({present_formats}:*)") |>
-    glue_collapse(" OR ")
-  media_fq <- glue("({media_fq})")
-  .data$filter <- bind_rows(.data$filter, 
-                            tibble(variable = "media",
-                                   logical = "==",
-                                   value = paste(valid_formats, collapse = "|"),
-                                   query = as.character(media_fq)))
+  # update .data with fields filter
+  # note that behaviour here depends on whether we have run compute_checks() above
+  if(inherits(.data, "data_request")){
+    .data$filter <- bind_rows(.data$filter, 
+                              tibble(variable = "media",
+                                     logical = "==",
+                                     value = paste(present_fields, collapse = "|"),
+                                     query = as.character(media_fq)))  
+  }else if(inherits(.data, "query")){ # i.e. if .data is already a `query`
+    url <- url_parse(.data$url)
+    url$query$fq <- paste0(url$query$fq, "AND", media_fq)
+    .data$url <- url_build(url)
+    .data <- compute_occurrences(.data)
+  }else{
+    abort("unknown object class in `atlas_media()`")
+  }
+  
   # get occurrences
   occ <- .data |> 
-    collect(wait = TRUE) |> 
-    unnest_longer(col = all_of(present_formats))
+    collect(wait = TRUE) |>  
+    unnest_longer(col = all_of(present_fields))
   occ$media_id <- build_media_id(occ) 
   # collect media metadata
   media <- request_metadata() |>

@@ -86,12 +86,18 @@ build_media_id <- function(df){
   # create a column that includes media identifiers, regardless of which column they are in
   ## NOTE: I haven't found good tidyverse syntax for this yet
   x <- rep(NA, nrow(df))
-  videos <- !is.na(df$videos)
-  if(any(videos)){x[videos] <- df$videos[videos]}
-  sounds <- !is.na(df$sounds)
-  if(any(sounds)){x[sounds] <- df$sounds[sounds]}
-  images <- !is.na(df$images)
-  if(any(images)){x[images] <- df$images[images]}
+  if(any(colnames(df) == "videos")){
+    videos <- !is.na(df$videos)
+    if(any(videos)){x[videos] <- df$videos[videos]}    
+  }
+  if(any(colnames(df) == "sounds")){
+    sounds <- !is.na(df$sounds)
+    if(any(sounds)){x[sounds] <- df$sounds[sounds]}
+  }
+  if(any(colnames(df) == "images")){
+    images <- !is.na(df$images)
+    if(any(images)){x[images] <- df$images[images]}
+  }
   x
 }
 
