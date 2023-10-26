@@ -1,35 +1,65 @@
-#' Force computation of a database query
+#' @title Retrieve a database query
 #'
-#' The `collapse()`, `compute()` and `collect()` functions are borrowed from 
-#' `dplyr`, and underpin every `atlas_` function in `galah`.
-#'  
-#' `collapse()` constructs a valid query so it can be 
-#' inspected before being sent. `compute()` sends the query so that it can 
-#' be calculated server-side in the specified atlas. `collect()` returns the
-#' resulting `tibble` once it is complete.
-#' 
-#' The `collect()` function has three extensions in `galah`:  
-#'   *  `collect.data_request()` is designed to be called at the end of a pipe 
-#'   *  `collect.data_response()` is called after `compute()`
-#'   *  `collect.data_query()` is called after `collapse()`.
-#' 
-#' @name collect.query
-#' @param .data An object of class `data_request`, `data_query` or 
-#' `data_response` 
+#' @description `collect()` attempts to retrieve the result of a query from the 
+#' selected API. 
+#' @name collect_galah
+#' @order 1
+#' @param .data An object of class `data_request`, `metadata_request` or 
+#' `files_request` (from `galah_call()`); or an oject of class `query_set` or 
+#' `query` (from `collapse()` or `compute()`)
 #' @param wait logical; should `galah` wait for a response? Defaults to FALSE.
 #' Only applies for `type = "occurrences"` or `"species"`.
 #' @param file (optional) file name. If not given will be `data` with date and 
 #' time added. File path is always given by `galah_config()$package$directory`.
-#' @return `collect()` returns a `tibble` containing requested data. `compute()`
-#' returns an object of class `data_response`. `collapse()` returns an object of 
-#' class `data_query`.
+#' @return In most cases, `collect()` returns a `tibble` containing requested 
+#' data. Where the requested data are not yet ready (i.e. for occurrences when
+#' `wait` is set to `FALSE`), this function returns an object of class `query`
+#' that can be used to recheck the download at a later time.
+#' @export
+collect.data_request <- function(.data, wait = TRUE, file = NULL){
+  collapse(.data) |>
+    compute() |>
+    collect(wait = wait, file = file)
+}
+
+#' @rdname collect_galah
+#' @order 2
+#' @export
+collect.metadata_request <- function(.data){
+  collapse(.data) |>
+    compute() |>
+    collect()
+}
+
+#' @rdname collect_galah
+#' @order 3
+#' @export
+collect.files_request <- function(.data){
+  collapse(.data) |> 
+    compute() |>
+    collect()
+}
+
+#' @rdname collect_galah
+#' @order 4
+#' @export
+collect.query_set <- function(.data, wait = TRUE, file = NULL){
+  compute(.data) |>
+    collect(wait = wait, file = file)
+}
+
+#' @rdname collect_galah
+#' @order 5
 #' @importFrom glue glue
 #' @importFrom potions pour
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 #' @importFrom tibble tibble
 #' @export
-collect.query <- function(.data, wait = TRUE, file = NULL){
+collect.query <- function(.data, 
+                          wait = TRUE, 
+                          file = NULL # FIXME: is `file` used?
+                          ){
   # sometimes no url is given, e.g. when a search returns no data
   if(is.null(.data$url) & # most queries have a `url`
      is.null(.data$data) & # some cached metadata queries have `data` instead
@@ -68,40 +98,4 @@ collect.query <- function(.data, wait = TRUE, file = NULL){
            "metadata/identifiers" = collect_identifiers(.data),
            abort("unrecognised `type`"))
   }
-}
-
-# note: might be sensible to change above to `collect.response()` or similar,
-# so as to enforce the collapse() > compute() > collect() sequence.
-# BUT we do this in reverse; collapse() always returns a `query_set`
-# which only becomes a single `query` via `compute()`
-
-#' @rdname collect.query
-#' @export
-collect.query_set <- function(.data, wait = TRUE, file = NULL){
-  compute(.data) |>
-    collect(wait = wait, file = file)
-}
-
-#' @rdname collect.query
-#' @export
-collect.data_request <- function(.data, wait = TRUE, file = NULL){
-  collapse(.data) |>
-    compute() |>
-    collect(wait = wait, file = file)
-}
-
-#' @rdname collect.query
-#' @export
-collect.metadata_request <- function(.data){
-  collapse(.data) |>
-    compute() |>
-    collect()
-}
-
-#' @rdname collect.query
-#' @export
-collect.files_request <- function(.data){
-  collapse(.data) |> 
-    compute() |>
-    collect()
 }

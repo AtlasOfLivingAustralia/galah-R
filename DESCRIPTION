@@ -28,6 +28,7 @@ Description: The Global Biodiversity Information Facility
 Depends: 
     R (>= 4.1.0)
 Imports:
+    cli,
     crayon,
     dplyr,
     glue (>= 1.3.2),
@@ -39,6 +40,7 @@ Imports:
     readr,
     rlang,
     sf,
+    stringr,
     tibble,
     tidyr,
     tidyselect,

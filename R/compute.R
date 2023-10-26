@@ -1,8 +1,20 @@
-# NOTE: compute is where queries can be cached with the specified atlas;
-# but also where checks are run to ensure later queries are valid
-
-# if calling `compute()` after `request_data()` 
-#' @rdname collect.query
+#' @title Compute a query
+#' @description `compute()` is useful for several purposes. It's original 
+#' purpose is to send a request for data, which can then be processed by the 
+#' server and retrieved at a later time (via `collect()`). However, because 
+#' query-altering functions (such as `filter()` and `select()`) are evaluated 
+#' lazily from galah version 2.0 onwards, `compute()` is also the function where
+#' all objects within the `query_set` are evaluated, and any checks run using
+#' that information. Therefore it is possible for invalid queries to be built 
+#' using `collapse()`, but fail at `compute()`.
+#' @name compute_galah
+#' @order 1
+#' @param .data An object of class `data_request`, `metadata_request` or 
+#' `files_request` (i.e. constructed using a pipe) or `query` or `query_set`
+#' (i.e. constructed by `collapse()`) 
+#' @return An object of class `query` containing a checked, valid query
+#' for the selected atlas. In the case of occurrence data, also contains
+#' information on the status of the request.
 #' @export
 compute.data_request <- function(.data){
   # .data$type <- check_type(.data$type) # possibly still needed; unclear
@@ -10,17 +22,48 @@ compute.data_request <- function(.data){
 }
 
 # if calling `compute()` after `request_metadata()` 
-#' @rdname collect.query
+#' @rdname compute_galah
+#' @order 2
 #' @export
 compute.metadata_request <- function(.data){
   collapse(.data) |> compute()
 }
 
+# if calling `compute()` after `request_files()` 
+#' @rdname compute_galah
+#' @order 3
+#' @export
+compute.files_request <- function(.data){
+  result <- collapse(.data)
+  result[[1]]
+}
+
 # if calling `compute()` after `collapse()`
-#' @rdname collect.query
+#' @rdname compute_galah
+#' @order 4
 #' @export
 compute.query_set <- function(.data){
   build_checks(.data) |> compute()
+}
+
+# if calling `compute()` on an object extracted from `collapse()` 
+#' @rdname compute_galah
+#' @order 5
+#' @export
+compute.query <- function(.data){
+  .data <- compute_checks(.data)
+  switch(.data$type, 
+         "data/occurrences" = compute_occurrences(.data),
+         "data/occurrences-count-groupby" = compute_occurrences_count(.data),
+         "data/occurrences-count" = compute_occurrences_count(.data),
+         "data/species" = compute_species(.data),
+         "data/species-count" = compute_species_count(.data),
+         # "-unnest" functions require some checks
+         "metadata/profiles-unnest" = compute_profile_values(.data),  # check this
+         # some "metadata/" functions require pagination under some circumstances
+         "metadata/lists" = compute_lists(.data), # always paginates
+         .data # remaining "metadata/" functions are passed as-is
+  )
 }
 
 #' Internal function to build necessary metadata into a single object
@@ -76,25 +119,6 @@ parse_metadata <- function(names_vec, .data){
   }
 }
 
-# if calling `compute()` on an object extracted from `collapse()` 
-#' @rdname collect.query
-#' @export
-compute.query <- function(.data){
-  .data <- compute_checks(.data)
-  switch(.data$type, 
-         "data/occurrences" = compute_occurrences(.data),
-         "data/occurrences-count-groupby" = compute_occurrences_count(.data),
-         "data/occurrences-count" = compute_occurrences_count(.data),
-         "data/species" = compute_species(.data),
-         "data/species-count" = compute_species_count(.data),
-         # "-unnest" functions require some checks
-         "metadata/profiles-unnest" = compute_profile_values(.data),  # check this
-         # some "metadata/" functions require pagination under some circumstances
-         "metadata/lists" = compute_lists(.data), # always paginates
-         .data # remaining "metadata/" functions are passed as-is
-  )
-}
-
 #' Internal function to run metadata checks
 #' This is useful for testing, particularly in testing `galah_select()`
 #' called by `compute.query_set()`
@@ -145,19 +169,4 @@ remove_metadata <- function(.data){
   }
   class(x) <- "query"
   x
-}
-
-# if calling `compute()` after `request_files()` 
-#' @rdname collect.data_request
-#' @export
-compute.files_request <- function(.data){
-  result <- collapse(.data)
-  result[[1]]
-}
-
-# if calling `compute()` after `collapse()` after `request_files()` 
-#' @rdname collect.data_request
-#' @export
-compute.files_query <- function(.data){
-  .data[[1]]
 }

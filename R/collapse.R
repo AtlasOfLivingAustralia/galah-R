@@ -1,7 +1,22 @@
-# if calling `collapse()` after `request_data()`
+#' @title Generate a query
+#' @description `collapse()` constructs a valid query so it can be 
+#' inspected before being sent. It typically occurs at the end of a pipe,
+#' traditionally begun with `galah_call()`, that is used to define a query.
+#' As of version 2.0, objects of class `data_request` (created using 
+#' `request_data()`), `metadata_request` (from `request_metadata()`) or 
+#' `files_request` (from `request_files()`) are all supported by `collapse()`. 
+#' Any of these objects can be created using `galah_call()` via the `method`
+#' argument.
+#' @name collapse_galah
+#' @order 1
+#' @param .data An object of class `data_request`, `metadata_request` or 
+#' `files_request`
 #' @param mint_doi Logical: should a DOI be minted for this download? Only 
 #' applies to `type = "occurrences"` when atlas chosen is "ALA".
-#' @rdname collect.query
+#' @return An object of class `query_set`, which is a list containing one or 
+#' more objects of class `query`. This is valuable because it shows the set of 
+#' queries required to correctly retrieve the requested data. Objects within a
+#' `query_set` are listed in the sequence in which they will be enacted.
 #' @export
 collapse.data_request <- function(.data, mint_doi = FALSE){
   # .data$type <- check_type(.data$type) # needed?
@@ -62,7 +77,8 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
 }
 
 # if calling `collapse()` after `request_metadata()`
-#' @rdname collect.query
+#' @rdname collapse_galah
+#' @order 2
 #' @export
 collapse.metadata_request <- function(.data){
   if(pour("package", "run_checks")){
@@ -118,7 +134,10 @@ collapse.metadata_request <- function(.data){
 }
 
 # if calling `collapse()` after `request_files()`
-#' @rdname collect.query
+#' @rdname collapse_galah
+#' @order 3
+#' @param thumbnail Logical: should thumbnail-size images be returned? Defaults 
+#' to `FALSE`, indicating full-size images are required.
 #' @export
 collapse.files_request <- function(.data, 
                                    # prefix? could be useful for file names

@@ -215,13 +215,6 @@ print.galah_config <- function(x, ...){
     cat()
 }
 
-#' @rdname compute.data_request
-#' @param x an object of class `data_response`
-#' @export
-print.data_response <- function(x, ...){
-  str(x)
-}
-
 #' Internal function to prevent showing secret information in the console
 #' @noRd
 #' @keywords Internal
