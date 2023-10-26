@@ -91,7 +91,15 @@ atlas_media <- function(request = NULL,
   if(is.null(.data$filter)){
     abort("You must specify a valid `filter()` to use `atlas_media()`")
   }
-  present_formats <- valid_formats[valid_formats %in% .data$select$name]
+  
+  if (!is.null(.data$select$name)) {
+    present_formats <- valid_formats[valid_formats %in% .data$select$name]
+  } else {
+    if ("media" %in% .data$select$group) {
+      present_formats <- valid_formats # all media cols
+    }
+  }
+  
   media_fq <- glue("({present_formats}:*)") |>
     glue_collapse(" OR ")
   media_fq <- glue("({media_fq})")

@@ -16,7 +16,6 @@ update_data_request <- function(data_request, ...){
           dots[[a]]
         }else{ # slot is filled
           if(is.null(dots[[a]])){ # if nothing has been supplied, retain source
-            browser()
             data_request[[a]]
           }else{ # both supplied and source contain data
             result <- switch(a,
