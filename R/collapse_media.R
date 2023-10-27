@@ -42,7 +42,7 @@ collapse_media_files <- function(q_obj,
                                  ){
   # handle filters
   if(is.null(q_obj$filter)){
-    abort("`collapse()` requires a `filter()` argument to function")
+    abort("`collapse()` requires a `filter()` argument to function.")
   }
   df <- q_obj$filter
   if(any(colnames(df) == "media_id")){
@@ -61,12 +61,6 @@ collapse_media_files <- function(q_obj,
   # handle thumbnails
   if(thumbnail){
     url <- gsub("/original", "/thumbnail", url)
-  }
-  
-  # suggest option to set directory in galah_config()
-  user_directory <- pour("package", "directory")
-  if (stringr::str_detect(user_directory, "Temp")) {
-    inform(i = "To change which file directory media files are saved, use `galah_config(directory = )`.")
   }
   
   # create result

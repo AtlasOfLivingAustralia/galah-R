@@ -73,6 +73,8 @@ collect_media_files <- function(q_obj){
 #' galah_config(directory = "media_files")
 #' collect_media(x)
 #' }
+#' @importFrom cli col_magenta
+#' @importFrom cli cli_text
 #' @export
 collect_media <- function(df, 
                           thumbnail = FALSE, 
@@ -85,6 +87,15 @@ collect_media <- function(df,
       details = "Use `galah_config(directory = )` to supply a folder path instead."
     )
   }
+  
+  # suggest option to set directory in galah_config()
+  user_directory <- pour("package", "directory")
+  if (stringr::str_detect(user_directory, "Temp")) {
+    inform(
+      cli::cli_text("{cli::col_magenta('To change which file directory media files are saved, use `galah_config(directory = )`.')}")
+      )
+  }
+  
   request_files() |>
     galah_filter(media == df) |>
     collapse(thumbnail = thumbnail) |>
