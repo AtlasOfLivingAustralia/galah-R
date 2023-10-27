@@ -159,7 +159,7 @@ filter.files_request <- function(.data, ...){
   check_named_input(dots)
   dots_parsed <- parse_quosures_files(dots)
   check_files_filter(dots_parsed)
-  .data$type <- dots_parsed$variable?
+  .data$type <- dots_parsed$variable
   .data$filter <- dots_parsed$data
   .data
 }
