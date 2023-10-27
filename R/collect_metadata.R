@@ -66,7 +66,7 @@ collect_collections <- function(q_obj){
   }else{
     result <- query_API(q_obj) |> 
       bind_rows() 
-    result_reordered <- relocate(result, uid) 
+    result_reordered <- relocate(result, "uid") 
     result <- result_reordered |> rename("id" = "uid") 
   }
   attr(result, "call") <- "collections"
@@ -112,7 +112,7 @@ collect_datasets <- function(q_obj){
     result <- result |> 
       bind_rows()
     result <- result |> 
-      relocate(uid) |>
+      relocate("uid") |>
       rename(id = result$uid)
   }
   attr(result, "call") <- "datasets"
@@ -207,7 +207,7 @@ collect_profiles <- function(q_obj){
       bind_rows() 
     result <- result |>
       filter(!duplicated(result$id)) |>
-      arrange(id) |>
+      arrange("id") |>
       select(all_of(wanted_columns(type = "profile")))
     attr(result, "call") <- "profiles"
     attr(result, "region") <- pour("atlas", "region") 
@@ -238,7 +238,7 @@ collect_providers <- function(q_obj){
     result <- result |> 
       bind_rows()
     result <- result |> 
-      relocate(uid) |> 
+      relocate("uid") |> 
       rename(id = result$uid)
   }
   attr(result, "call") <- "providers"
@@ -274,7 +274,7 @@ collect_reasons <- function(q_obj){
     result <- result |>
       filter(!result$deprecated) |>
       select(all_of(wanted_columns("reasons"))) |>
-      arrange(id)
+      arrange("id")
     attr(result, "call") <- "reasons"
     attr(result, "region") <- pour("atlas", "region") 
     check_internal_cache(reasons = result)

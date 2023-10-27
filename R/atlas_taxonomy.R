@@ -85,7 +85,7 @@ atlas_taxonomy <- function(request = NULL,
   down_to_index <- rank_index(q_obj$filter$value)
   result |>
     filter({{index}} <= {{down_to_index}} | is.na({{index}})) |>
-    select(name, rank, parent_taxon_concept_id, taxon_concept_id)
+    select("name", "rank", "parent_taxon_concept_id", "taxon_concept_id")
 }
 
 #' Internal function to check whether constraints have been passed
@@ -126,7 +126,7 @@ drill_down_taxonomy <- function(df,
       mutate(name = str_to_title(children$name),
              taxon_concept_id = children$guid,
              parent_taxon_concept_id = children$parentGuid) |>
-      select(name, rank, taxon_concept_id, parent_taxon_concept_id)
+      select("name", "rank", "taxon_concept_id", "parent_taxon_concept_id")
     if(!is.null(constrain_ids)){
       result <- result |>
         constrain_id(constrain_to = constrain_ids) 

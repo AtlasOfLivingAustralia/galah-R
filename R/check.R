@@ -245,7 +245,7 @@ check_fields_la <- function(q_obj){
     if (nchar(queries$fq) > 0) {
       provided_fields <- string_to_tibble(queries$fq)
       filters <- provided_fields |>
-        pull(value) |>
+        pull("value") |>
         gsub("\\(|\\)|\\-|\\:", "", x = _)
     } else {
       filters <- NULL

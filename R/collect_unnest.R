@@ -18,7 +18,6 @@ collect_fields_unnest <- function(q_obj){
   if(is_gbif()){
     q_obj |>
       query_API()
-    # tibble(result$facets$counts[[1]]) # not updated
   }else{
     facet <- q_obj |>
       pluck("url") |>
@@ -41,7 +40,7 @@ collect_profiles_unnest <- function(q_obj){
     pluck("categories") |>
     bind_rows()
   result <- result |>
-    pull(qualityFilters) |>
+    pull("qualityFilters") |>
     bind_rows()
 }
 

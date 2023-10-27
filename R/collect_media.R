@@ -31,7 +31,7 @@ collect_media_files <- function(q_obj){
   result <- query_API(q_obj)
   result_summary <- tibble(
     status_code = unlist(lapply(result, function(a){a$status_code}))) |>
-    group_by(status_code) |>
+    group_by("status_code") |>
     count()
   success <- result_summary |> 
     dplyr::filter(result_summary$status_code == 200) 
@@ -78,7 +78,6 @@ collect_media <- function(df,
                           thumbnail = FALSE, 
                           path
                           ){
-  
   if (!missing(path)) {
     lifecycle::deprecate_stop(
       when = "2.0.0",
@@ -86,7 +85,6 @@ collect_media <- function(df,
       details = "Use `galah_config(directory = )` to supply a folder path instead."
     )
   }
-  
   request_files() |>
     galah_filter(media == df) |>
     collapse(thumbnail = thumbnail) |>
