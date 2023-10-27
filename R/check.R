@@ -243,7 +243,8 @@ check_fields_la <- function(q_obj){
     filters <- NULL
   }else{
     if (nchar(queries$fq) > 0) {
-      filters <- string_to_tibble(queries$fq) |>
+      provided_fields <- string_to_tibble(queries$fq)
+      filters <- provided_fields |>
         pull(value) |>
         gsub("\\(|\\)|\\-|\\:", "", x = _)
     } else {
@@ -726,7 +727,7 @@ check_select <- function(q_obj){
       url <- url_parse(q_obj$url) # note: this assumes a single url every time
         # is this a valid assumption?
       url$query$fields <- result |>
-        filter(type == "field") |>
+        filter(result$type == "field") |>
         build_columns()
       url$query$qa <- build_assertion_columns(result)
       q_obj$url <- url_build(url)

@@ -56,6 +56,7 @@
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr relocate
 #' @importFrom dplyr right_join
+#' @importFrom dplyr join_by
 #' @importFrom glue glue
 #' @importFrom httr2 url_build
 #' @importFrom httr2 url_parse
@@ -148,6 +149,6 @@ atlas_media <- function(request = NULL,
     filter(media == occ) |>
     collect()
   # join and return
-  right_join(occ, media, by = c("media_id" = "image_id")) |>
-    relocate(media_id, 1)
+  occ_media <- right_join(occ, media, by = dplyr::join_by(media_id == image_id))
+  relocate(occ_media, media_id, 1)
 }

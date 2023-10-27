@@ -93,7 +93,7 @@ clean_labels <- function(df){
                          stop = dot_placement[1] - 1)
     df |>
       rename({{field_name}} := label) |>
-      select(-fq, -i18nCode)
+      select(-df$fq, -df$i18nCode)
   }else{
     df
   }

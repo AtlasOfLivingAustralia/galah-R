@@ -65,9 +65,9 @@ collect_collections <- function(q_obj){
       bind_rows()
   }else{
     result <- query_API(q_obj) |> 
-      bind_rows() |> 
-      relocate(uid) |>
-      rename(id = "uid") 
+      bind_rows() 
+    result_reordered <- relocate(result, uid) 
+    result <- result_reordered |> rename("id" = "uid") 
   }
   attr(result, "call") <- "collections"
   attr(result, "region") <- pour("atlas", "region")
@@ -110,9 +110,10 @@ collect_datasets <- function(q_obj){
   }else{
     result <- query_API(q_obj)
     result <- result |> 
-      bind_rows()|> 
+      bind_rows()
+    result <- result |> 
       relocate(uid) |>
-      rename(id = "uid")
+      rename(id = result$uid)
   }
   attr(result, "call") <- "datasets"
   attr(result, "region") <- pour("atlas", "region") 
@@ -137,8 +138,9 @@ collect_fields <- function(q_obj){
   }else{
     if(!is.null(q_obj$url)){ # i.e. there is no cached `tibble`
       result <- query_API(q_obj) |>
-        bind_rows() |>
-        mutate(id = name) |>
+        bind_rows() 
+      result <- result |>
+        mutate(id = result$name) |>
         select(all_of(wanted_columns("fields"))) |>
         mutate(type = "fields") |>
         bind_rows(galah_internal_archived$media,
@@ -162,9 +164,10 @@ collect_fields <- function(q_obj){
 #' @keywords Internal
 collect_licences <- function(q_obj){
   result <- query_API(q_obj) |> 
-    bind_rows() |>
+    bind_rows() 
+  result <- result |>
     select(all_of(c("id", "name", "acronym", "url"))) |> 
-    arrange(id)
+    arrange(result$id)
   attr(result, "call") <- "licences"
   attr(result, "region") <- pour("atlas", "region") 
   result
@@ -201,13 +204,15 @@ collect_lists <- function(q_obj){
 collect_profiles <- function(q_obj){
   if(!is.null(q_obj$url)){
     result <- query_API(q_obj) |>
-      bind_rows() |>
-      filter(!duplicated(id)) |>
+      bind_rows() 
+    result <- result |>
+      filter(!duplicated(result$id)) |>
       arrange(id) |>
       select(all_of(wanted_columns(type = "profile")))
+    browser()
     attr(result, "call") <- "profiles"
     attr(result, "region") <- pour("atlas", "region") 
-    check_internal_cache(show_all_profiles = df)
+    check_internal_cache(show_all_profiles = result)
     result
   }else{
     check_internal_cache()[["profiles"]]
@@ -232,9 +237,10 @@ collect_providers <- function(q_obj){
   }else{
     result <- query_API(q_obj)
     result <- result |> 
-      bind_rows() |> 
-      relocate(uid) |>
-      rename(id = "uid")
+      bind_rows()
+    result <- result |> 
+      relocate(uid) |> 
+      rename(id = result$uid)
   }
   attr(result, "call") <- "providers"
   attr(result, "region") <- pour("atlas", "region")
@@ -265,13 +271,14 @@ collect_ranks <- function(q_obj){
 collect_reasons <- function(q_obj){
   if(!is.null(q_obj$url)){
     result <- query_API(q_obj) |> 
-      bind_rows() |>
-      filter(!deprecated) |>
+      bind_rows() 
+    result <- result |>
+      filter(!result$deprecated) |>
       select(all_of(wanted_columns("reasons"))) |>
       arrange(id)
     attr(result, "call") <- "reasons"
     attr(result, "region") <- pour("atlas", "region") 
-    check_internal_cache(reasons = df)
+    check_internal_cache(reasons = result)
     result
   }else{
     check_internal_cache()[["reasons"]]

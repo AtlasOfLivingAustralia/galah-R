@@ -30,8 +30,8 @@ url_lookup <- function(type,
     type <- dots$type
   }
   url_string <- node_config |>
-    filter(type == {{type}},
-           atlas == {{current_atlas}}) |>
+    filter(node_config$type == {{type}},
+           node_config$atlas == {{current_atlas}}) |>
     pull(url)
   # parse as needed
   if(length(url_string) > 0){

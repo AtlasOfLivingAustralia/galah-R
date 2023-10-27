@@ -16,7 +16,7 @@ collect_media_metadata <- function(q_obj){
   # Select only the rows and columns we want 
   colnames(result) <- rename_columns(names(result), type = "media")
   result |> 
-    filter(!is.na(image_id)) |>
+    filter(!is.na(result$image_id)) |>
     select(any_of(wanted_columns("media")))
 }
 
@@ -33,8 +33,9 @@ collect_media_files <- function(q_obj){
     status_code = unlist(lapply(result, function(a){a$status_code}))) |>
     group_by(status_code) |>
     count()
-  
-  n_downloaded <- result_summary |> filter(status_code == 200) |> pull(n)
+  success <- result_summary |> 
+    dplyr::filter(result_summary$status_code == 200) 
+  n_downloaded <- success[["n"]]
   user_directory <- pour("package", "directory")
   bullets <- c(
     "v" = glue("Downloaded {n_downloaded} files successfully (status 200)."),
@@ -87,7 +88,7 @@ collect_media <- function(df,
   }
   
   request_files() |>
-    filter(media == df) |>
+    galah_filter(media == df) |>
     collapse(thumbnail = thumbnail) |>
     collect()
 }

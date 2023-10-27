@@ -37,9 +37,10 @@ collect_fields_unnest <- function(q_obj){
 #' @noRd
 #' @keywords Internal
 collect_profiles_unnest <- function(q_obj){
-  query_API(q_obj) |> 
+  result <- query_API(q_obj) |> 
     pluck("categories") |>
-    bind_rows() |>
+    bind_rows()
+  result <- result |>
     pull(qualityFilters) |>
     bind_rows()
 }

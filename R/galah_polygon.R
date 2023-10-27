@@ -31,7 +31,7 @@ galah_polygon <- function(...){
 #' @param y A valid Well-Known Text string (wkt), a `POLYGON` or a `MULTIPOLYGON`
 #' @export
 st_crop.data_request <- function(x, y, ...){
-  update_data_request(q_obj, geolocate = parse_polygon(y))
+  update_data_request(x, geolocate = parse_polygon(y))
 }
 
 #' parser for polygons
@@ -179,7 +179,7 @@ check_wkt_length <- function(wkt, error_call = caller_env()) {
   if (is_string(wkt) == TRUE |
     is.matrix(wkt) == TRUE  | 
     is_list(wkt) == TRUE | 
-    isq_obj.frame(wkt) == TRUE) {
+    is.data.frame(wkt) == TRUE) {
     # make sure strings aren't too long for API call
     if(!inherits(wkt, "character")){
       abort("Argument `wkt` must be of class 'character'",

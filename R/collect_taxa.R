@@ -30,7 +30,7 @@ collect_taxa_namematching <- function(q_obj){
   
   result <- result |>   
     mutate("search_term" = search_terms, .before = "success",
-           issues = unlist(issues))
+           issues = unlist(result$issues))
   
   # Check for homonyms
   if(any(colnames(result) == "issues")){
@@ -65,7 +65,7 @@ collect_taxa_la <- function(q_obj){
       bind_rows()
     if(ncol(result) > 1){
       result <- result |>
-        filter(!duplicated(guid)) |>
+        filter(!duplicated(result$guid)) |>
         mutate("search_term" = search_terms, .before = "id")
     }
   }
@@ -114,8 +114,9 @@ clean_la_taxa <- function(result, search_terms){
 collect_identifiers <- function(q_obj){
   search_terms <- q_obj$url$search_term
   result <- query_API(q_obj) |>
-    bind_rows() |>
-    filter(!duplicated(taxonConceptID)) |>
+    bind_rows() 
+  result <- result |>
+    filter(!duplicated(result$taxonConceptID)) |>
     mutate("search_term" = search_terms, .before = "success")
   names(result) <- rename_columns(names(result), type = "taxa") # old code
   result |> select(any_of(wanted_columns("taxa")))
