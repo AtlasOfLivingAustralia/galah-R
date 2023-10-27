@@ -7,15 +7,17 @@
 \alias{collapse.files_request}
 \title{Generate a query}
 \usage{
-\method{collapse}{data_request}(x, mint_doi = FALSE)
+\method{collapse}{data_request}(x, ..., mint_doi = FALSE)
 
-\method{collapse}{metadata_request}(x)
+\method{collapse}{metadata_request}(x, ...)
 
-\method{collapse}{files_request}(x, thumbnail = FALSE)
+\method{collapse}{files_request}(x, ..., thumbnail = FALSE)
 }
 \arguments{
 \item{x}{An object of class \code{data_request}, \code{metadata_request} or
 \code{files_request}}
+
+\item{...}{Arguments passed on to methods}
 
 \item{mint_doi}{Logical: should a DOI be minted for this download? Only
 applies to \code{type = "occurrences"} when atlas chosen is "ALA".}

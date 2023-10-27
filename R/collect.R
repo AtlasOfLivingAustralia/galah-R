@@ -7,6 +7,7 @@
 #' @param x An object of class `data_request`, `metadata_request` or 
 #' `files_request` (from `galah_call()`); or an oject of class `query_set` or 
 #' `query` (from `collapse()` or `compute()`)
+#' @param ... Arguments passed on to methods
 #' @param wait logical; should `galah` wait for a response? Defaults to FALSE.
 #' Only applies for `type = "occurrences"` or `"species"`.
 #' @param file (optional) file name. If not given will be `data` with date and 
@@ -16,7 +17,7 @@
 #' `wait` is set to `FALSE`), this function returns an object of class `query`
 #' that can be used to recheck the download at a later time.
 #' @export
-collect.data_request <- function(x, wait = TRUE, file = NULL){
+collect.data_request <- function(x, ..., wait = TRUE, file = NULL){
   collapse(x) |>
     compute() |>
     collect(wait = wait, file = file)
@@ -25,7 +26,7 @@ collect.data_request <- function(x, wait = TRUE, file = NULL){
 #' @rdname collect_galah
 #' @order 2
 #' @export
-collect.metadata_request <- function(x){
+collect.metadata_request <- function(x, ...){
   collapse(x) |>
     compute() |>
     collect()
@@ -34,7 +35,7 @@ collect.metadata_request <- function(x){
 #' @rdname collect_galah
 #' @order 3
 #' @export
-collect.files_request <- function(x){
+collect.files_request <- function(x, ...){
   collapse(x) |> 
     compute() |>
     collect()
@@ -43,7 +44,7 @@ collect.files_request <- function(x){
 #' @rdname collect_galah
 #' @order 4
 #' @export
-collect.query_set <- function(x, wait = TRUE, file = NULL){
+collect.query_set <- function(x, ..., wait = TRUE, file = NULL){
   compute(x) |>
     collect(wait = wait, file = file)
 }
@@ -57,6 +58,7 @@ collect.query_set <- function(x, wait = TRUE, file = NULL){
 #' @importFrom tibble tibble
 #' @export
 collect.query <- function(x, 
+                          ...,
                           wait = TRUE, 
                           file = NULL # FIXME: is `file` used?
                           ){

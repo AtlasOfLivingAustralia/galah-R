@@ -11,6 +11,7 @@
 #' @order 1
 #' @param x An object of class `data_request`, `metadata_request` or 
 #' `files_request`
+#' @param ... Arguments passed on to methods
 #' @param mint_doi Logical: should a DOI be minted for this download? Only 
 #' applies to `type = "occurrences"` when atlas chosen is "ALA".
 #' @return An object of class `query_set`, which is a list containing one or 
@@ -18,7 +19,7 @@
 #' queries required to correctly retrieve the requested data. Objects within a
 #' `query_set` are listed in the sequence in which they will be enacted.
 #' @export
-collapse.data_request <- function(x, mint_doi = FALSE){
+collapse.data_request <- function(x, ..., mint_doi = FALSE){
   # x$type <- check_type(x$type) # needed?
   # handle sending dois via `filter()`
   # important this happens first, as it affects `type` which affects later code
@@ -80,7 +81,7 @@ collapse.data_request <- function(x, mint_doi = FALSE){
 #' @rdname collapse_galah
 #' @order 2
 #' @export
-collapse.metadata_request <- function(x){
+collapse.metadata_request <- function(x, ...){
   if(pour("package", "run_checks")){
     result <- switch(x$type, 
                      "fields-unnest" = list(collapse_fields()),
@@ -139,7 +140,8 @@ collapse.metadata_request <- function(x){
 #' @param thumbnail Logical: should thumbnail-size images be returned? Defaults 
 #' to `FALSE`, indicating full-size images are required.
 #' @export
-collapse.files_request <- function(x, 
+collapse.files_request <- function(x,
+                                   ...,
                                    # prefix? could be useful for file names
                                    thumbnail = FALSE
                                    ){

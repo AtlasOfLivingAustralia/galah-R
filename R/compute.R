@@ -12,11 +12,12 @@
 #' @param x An object of class `data_request`, `metadata_request` or 
 #' `files_request` (i.e. constructed using a pipe) or `query` or `query_set`
 #' (i.e. constructed by `collapse()`) 
+#' @param ... Arguments passed on to methods
 #' @return An object of class `query` containing a checked, valid query
 #' for the selected atlas. In the case of occurrence data, also contains
 #' information on the status of the request.
 #' @export
-compute.data_request <- function(x){
+compute.data_request <- function(x, ...){
   # x$type <- check_type(x$type) # possibly still needed; unclear
   collapse(x) |> compute()
 }
@@ -25,7 +26,7 @@ compute.data_request <- function(x){
 #' @rdname compute_galah
 #' @order 2
 #' @export
-compute.metadata_request <- function(x){
+compute.metadata_request <- function(x, ...){
   collapse(x) |> compute()
 }
 
@@ -33,7 +34,7 @@ compute.metadata_request <- function(x){
 #' @rdname compute_galah
 #' @order 3
 #' @export
-compute.files_request <- function(x){
+compute.files_request <- function(x, ...){
   result <- collapse(x)
   result[[1]]
 }
@@ -42,7 +43,7 @@ compute.files_request <- function(x){
 #' @rdname compute_galah
 #' @order 4
 #' @export
-compute.query_set <- function(x){
+compute.query_set <- function(x, ...){
   build_checks(x) |> compute()
 }
 
@@ -50,7 +51,7 @@ compute.query_set <- function(x){
 #' @rdname compute_galah
 #' @order 5
 #' @export
-compute.query <- function(x){
+compute.query <- function(x, ...){
   x <- compute_checks(x)
   switch(x$type, 
          "data/occurrences" = compute_occurrences(x),

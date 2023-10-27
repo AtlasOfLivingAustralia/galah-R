@@ -71,8 +71,7 @@
 #' }
 #' @importFrom tibble as_tibble
 #' @export
-galah_select <- function(...,
-                         group){
+galah_select <- function(..., group){
   dots <- enquos(..., .ignore_empty = "all") |>
     detect_request_object() |>
     as.list() |>
@@ -86,14 +85,14 @@ galah_select <- function(...,
 }
 
 #' @rdname galah_select
-#' @param q_obj An object of class `data_request`, created using [galah_call()]
+#' @param .data An object of class `data_request`, created using [galah_call()]
 #' @export
-select.data_request <- function(q_obj, ..., group){
+select.data_request <- function(.data, ..., group){
   dots <- enquos(..., .ignore_empty = "all") |>
     as.list() |>
     add_summary() |>
     add_group(group)
-  update_data_request(q_obj, select = dots) 
+  update_data_request(.data, select = dots) 
 }
 
 #' internal function to summarise select function (to support `print()`)

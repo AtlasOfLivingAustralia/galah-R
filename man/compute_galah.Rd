@@ -9,20 +9,22 @@
 \alias{compute.query}
 \title{Compute a query}
 \usage{
-\method{compute}{data_request}(x)
+\method{compute}{data_request}(x, ...)
 
-\method{compute}{metadata_request}(x)
+\method{compute}{metadata_request}(x, ...)
 
-\method{compute}{files_request}(x)
+\method{compute}{files_request}(x, ...)
 
-\method{compute}{query_set}(x)
+\method{compute}{query_set}(x, ...)
 
-\method{compute}{query}(x)
+\method{compute}{query}(x, ...)
 }
 \arguments{
 \item{x}{An object of class \code{data_request}, \code{metadata_request} or
 \code{files_request} (i.e. constructed using a pipe) or \code{query} or \code{query_set}
 (i.e. constructed by \code{collapse()})}
+
+\item{...}{Arguments passed on to methods}
 }
 \value{
 An object of class \code{query} containing a checked, valid query
