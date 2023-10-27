@@ -69,8 +69,7 @@ atlas_taxonomy <- function(request = NULL,
   start_row <- taxa_info |>
     mutate(name = str_to_title(taxa_info$scientific_name),
            parent_taxon_concept_id = NA) |>
-    select(start_row$name, start_row$rank, 
-           start_row$taxon_concept_id, start_row$parent_taxon_concept_id) 
+    select(name, rank, taxon_concept_id, parent_taxon_concept_id) 
 
   # build then flatten a tree
   taxonomy_tree <- drill_down_taxonomy(start_row, 
@@ -127,8 +126,7 @@ drill_down_taxonomy <- function(df,
       mutate(name = str_to_title(children$name),
              taxon_concept_id = children$guid,
              parent_taxon_concept_id = children$parentGuid) |>
-      select(children$name, children$rank, 
-             children$taxon_concept_id, children$parent_taxon_concept_id)
+      select(name, rank, taxon_concept_id, parent_taxon_concept_id)
     if(!is.null(constrain_ids)){
       result <- result |>
         constrain_id(constrain_to = constrain_ids) 
