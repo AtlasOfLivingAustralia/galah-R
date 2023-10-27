@@ -1,8 +1,8 @@
 #' collapse for type = "species-count"
 #' @keywords Internal
-#' @param .data an object of class `data_request`
+#' @param q_obj an object of class `data_request`
 #' @noRd
-collapse_species_count <- function(.data){
+collapse_species_count <- function(q_obj){
   if(is_gbif()){
     abort("`count()` is not supported for GBIF with type = 'species'") 
     ## TRUE?
@@ -10,7 +10,7 @@ collapse_species_count <- function(.data){
     function_name <- "collapse_species_count_atlas"
     arg_names <- names(formals(collapse_species_count_atlas))
   }
-  custom_call <- .data[names(.data) %in% arg_names]
+  custom_call <- q_obj[names(q_obj) %in% arg_names]
   class(custom_call) <- "data_request"
   do.call(function_name, custom_call)
 }

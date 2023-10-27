@@ -86,14 +86,14 @@ galah_select <- function(...,
 }
 
 #' @rdname galah_select
-#' @param .data An object of class `data_request`, created using [galah_call()]
+#' @param q_obj An object of class `data_request`, created using [galah_call()]
 #' @export
-select.data_request <- function(.data, ..., group){
+select.data_request <- function(q_obj, ..., group){
   dots <- enquos(..., .ignore_empty = "all") |>
     as.list() |>
     add_summary() |>
     add_group(group)
-  update_data_request(.data, select = dots) 
+  update_data_request(q_obj, select = dots) 
 }
 
 #' internal function to summarise select function (to support `print()`)

@@ -7,7 +7,7 @@
 \usage{
 galah_select(..., group)
 
-\method{select}{data_request}(.data, ..., group)
+\method{select}{data_request}(q_obj, ..., group)
 }
 \arguments{
 \item{...}{zero or more individual column names to include}
@@ -16,7 +16,7 @@ galah_select(..., group)
 include. Valid options are \code{"basic"}, \code{"event"} and
 \code{"assertions"}}
 
-\item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
+\item{q_obj}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
 }
 \value{
 A tibble

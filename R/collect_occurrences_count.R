@@ -1,11 +1,11 @@
 #' `collect()` for `type = "data/occurrences-count"`
 #' @noRd
 #' @keywords Internal
-collect_occurrences_count <- function(.data){
+collect_occurrences_count <- function(q_obj){
   if(is_gbif()){
-    collect_occurrences_count_gbif(.data)
+    collect_occurrences_count_gbif(q_obj)
   }else{
-    collect_occurrences_count_la(.data)
+    collect_occurrences_count_la(q_obj)
   }
 }
 
@@ -15,8 +15,8 @@ collect_occurrences_count <- function(.data){
 #' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
-collect_occurrences_count_gbif <- function(.data){
-  result <- query_API(.data)
+collect_occurrences_count_gbif <- function(q_obj){
+  result <- query_API(q_obj)
   if(length(result$facets) < 1 & !is.null(result$count)){ # first handle single values
     tibble(count = result$count)
   }else{
@@ -24,7 +24,7 @@ collect_occurrences_count_gbif <- function(.data){
     result_df <- result |>
       pluck(!!!list("facets", 1, "counts")) |>
       bind_rows()
-    names(result_df)[1] <- .data$url |> 
+    names(result_df)[1] <- q_obj$url |> 
       url_parse() |> 
       pluck("query", "facet")
     # names(result_df)[1] <- result |>
@@ -39,16 +39,16 @@ collect_occurrences_count_gbif <- function(.data){
 #' @importFrom tibble tibble
 #' @noRd
 #' @keywords Internal
-collect_occurrences_count_la <- function(.data){
-  result <- query_API(.data)
+collect_occurrences_count_la <- function(q_obj){
+  result <- query_API(q_obj)
   if(length(result$facetResults) < 1 & !is.null(result$totalRecords)){ # first handle single values
     tibble(count = result$totalRecords)
   }else{  # then when group_by() is specified
-    clean_group_by(result, .data) |>
+    clean_group_by(result, q_obj) |>
       bind_rows() |>
       clean_labels() |>
-      arrange_counts(direction = .data$arrange$direction,
-                     variable = .data$arrange$variable)
+      arrange_counts(direction = q_obj$arrange$direction,
+                     variable = q_obj$arrange$variable)
   }
 }
 
@@ -61,10 +61,10 @@ collect_occurrences_count_la <- function(.data){
 #' @returns A list
 #' @noRd
 #' @keywords Internal
-clean_group_by <- function(result, .data){
+clean_group_by <- function(result, q_obj){
   access_list <- list(1, "fieldResult")
-  if(inherits(.data$url, "data.frame")){
-    added_cols <- select(.data$url, -url)  
+  if(inherits(q_obj$url, "data.frame")){
+    added_cols <- select(q_obj$url, -url)  
     lapply(seq_along(result), function(a){
       # get list-cols and convert to df
       result_df <- pluck(result[[a]], !!!access_list) |> 

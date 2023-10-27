@@ -8,7 +8,7 @@
 \usage{
 desc(...)
 
-unnest(.data, error_call = caller_env())
+unnest(q_obj, error_call = caller_env())
 }
 \arguments{
 \item{...}{column to order by}

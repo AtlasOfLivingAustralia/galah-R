@@ -5,12 +5,12 @@
 \alias{arrange.metadata_request}
 \title{arrange rows}
 \usage{
-\method{arrange}{data_request}(.data, ...)
+\method{arrange}{data_request}(q_obj, ...)
 
-\method{arrange}{metadata_request}(.data, ...)
+\method{arrange}{metadata_request}(q_obj, ...)
 }
 \arguments{
-\item{.data}{An object of class \code{data_request}}
+\item{q_obj}{An object of class \code{data_request}}
 
 \item{...}{Either \code{count} or \code{index}}
 }

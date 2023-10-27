@@ -9,18 +9,18 @@
 \alias{collect.query}
 \title{Retrieve a database query}
 \usage{
-\method{collect}{data_request}(.data, wait = TRUE, file = NULL)
+\method{collect}{data_request}(x, wait = TRUE, file = NULL)
 
-\method{collect}{metadata_request}(.data)
+\method{collect}{metadata_request}(x)
 
-\method{collect}{files_request}(.data)
+\method{collect}{files_request}(x)
 
-\method{collect}{query_set}(.data, wait = TRUE, file = NULL)
+\method{collect}{query_set}(x, wait = TRUE, file = NULL)
 
-\method{collect}{query}(.data, wait = TRUE, file = NULL)
+\method{collect}{query}(x, wait = TRUE, file = NULL)
 }
 \arguments{
-\item{.data}{An object of class \code{data_request}, \code{metadata_request} or
+\item{x}{An object of class \code{data_request}, \code{metadata_request} or
 \code{files_request} (from \code{galah_call()}); or an oject of class \code{query_set} or
 \code{query} (from \code{collapse()} or \code{compute()})}
 

@@ -1,8 +1,8 @@
 #' Internal function to run `compute()` for `request_values(type = "datasets")`
 #' @noRd
 #' @keywords Internal
-collect_lists_unnest <- function(.data){
-  query_API(.data) |> 
+collect_lists_unnest <- function(q_obj){
+  query_API(q_obj) |> 
     bind_rows()
 }
 
@@ -14,17 +14,17 @@ collect_lists_unnest <- function(.data){
 #' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
-collect_fields_unnest <- function(.data){
+collect_fields_unnest <- function(q_obj){
   if(is_gbif()){
-    .data |>
+    q_obj |>
       query_API()
     # tibble(result$facets$counts[[1]]) # not updated
   }else{
-    facet <- .data |>
+    facet <- q_obj |>
       pluck("url") |>
       url_parse() |>
       pluck("query", "facets")
-    .data |>
+    q_obj |>
       query_API() |>
       pluck(!!!list(1, "fieldResult")) |>
       bind_rows() |>
@@ -36,8 +36,8 @@ collect_fields_unnest <- function(.data){
 #' Internal function to run `compute()` for `request_values(type = "profiles")`
 #' @noRd
 #' @keywords Internal
-collect_profiles_unnest <- function(.data){
-  query_API(.data) |> 
+collect_profiles_unnest <- function(q_obj){
+  query_API(q_obj) |> 
     pluck("categories") |>
     bind_rows() |>
     pull(qualityFilters) |>
@@ -47,7 +47,7 @@ collect_profiles_unnest <- function(.data){
 #' Internal function to run `compute()` for `request_values(type = "taxa")`
 #' @noRd
 #' @keywords Internal
-collect_taxa_unnest <- function(.data){
-  query_API(.data) |>
+collect_taxa_unnest <- function(q_obj){
+  query_API(q_obj) |>
     bind_rows()
 }

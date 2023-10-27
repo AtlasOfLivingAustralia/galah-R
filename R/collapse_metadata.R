@@ -45,12 +45,12 @@ collapse_atlases <- function(){
 #' @importFrom httr2 url_parse
 #' @noRd
 #' @keywords Internal
-collapse_collections <- function(.data){
+collapse_collections <- function(q_obj){
   url <- url_lookup("metadata/collections") 
-  if(is_gbif() & !missing(.data)){
-    if(!is.null(.data$filter)){
+  if(is_gbif() & !missing(q_obj)){
+    if(!is.null(q_obj$filter)){
       url <- url_parse(url)
-      url$query <- list(q = .data$filter$value[1])
+      url$query <- list(q = q_obj$filter$value[1])
       url <- url_build(url)
     }
   }
@@ -66,12 +66,12 @@ collapse_collections <- function(.data){
 #' Internal function to `collapse()` datasets
 #' @noRd
 #' @keywords Internal
-collapse_datasets <- function(.data){
+collapse_datasets <- function(q_obj){
   url <- url_lookup("metadata/datasets") 
-  if(is_gbif() & !missing(.data)){
-    if(!is.null(.data$filter)){
+  if(is_gbif() & !missing(q_obj)){
+    if(!is.null(q_obj$filter)){
       url <- url_parse(url)
-      url$query <- list(q = .data$filter$value[1])
+      url$query <- list(q = q_obj$filter$value[1])
       url <- url_build(url)
     }
   }
@@ -109,8 +109,8 @@ collapse_fields <- function(){
 #' Internal function to `collapse()` identifiers
 #' @noRd
 #' @keywords Internal
-collapse_identifiers <- function(.data){
-  if(is.null(.data$identify)){
+collapse_identifiers <- function(q_obj){
+  if(is.null(q_obj$identify)){
     url_list <- url_lookup("names_lookup")
     names(url_list) <- "no-name-supplied"
   }else{
@@ -118,12 +118,12 @@ collapse_identifiers <- function(.data){
       url_parse()
     
     # split if there are multiple identifiers
-    if(length(.data$identify) > 1) {
+    if(length(q_obj$identify) > 1) {
       # multiple
-      query <- split(.data$identify, seq_along(.data$identify))
+      query <- split(q_obj$identify, seq_along(q_obj$identify))
     } else {
       # single
-      query <- list(.data$identify)
+      query <- list(q_obj$identify)
     }
     
     # create query urls
@@ -135,11 +135,11 @@ collapse_identifiers <- function(.data){
                    },
                    base_url = base_url) |>
       unlist()
-    search_terms <- .data$identify
+    search_terms <- q_obj$identify
   }
   
   # build object and return
-  result <- list(type = .data$type,
+  result <- list(type = q_obj$type,
                  url = tibble(url = urls, 
                               search_term = search_terms),
                  headers = build_headers())
@@ -161,13 +161,13 @@ collapse_licences <- function(){
 #' Internal function to `collapse()` lists
 #' @noRd
 #' @keywords Internal
-collapse_lists <- function(.data){
+collapse_lists <- function(q_obj){
   url <- url_lookup("metadata/lists") |>
     url_parse()
   url$query <- list(max = 5000)
-  if(!missing(.data)){
-    if(!is.null(.data$slice)){
-      url$query <- list(max = .data$slice$slice_n)
+  if(!missing(q_obj)){
+    if(!is.null(q_obj$slice)){
+      url$query <- list(max = q_obj$slice$slice_n)
     }    
   }
   result <- list(type = "metadata/lists",
@@ -198,12 +198,12 @@ collapse_profiles <- function(){
 #' Internal function to `collapse()` providers
 #' @noRd
 #' @keywords Internal
-collapse_providers <- function(.data){
+collapse_providers <- function(q_obj){
   url <- url_lookup("metadata/providers") 
-  if(is_gbif() & !missing(.data)){
-    if(!is.null(.data$filter)){
+  if(is_gbif() & !missing(q_obj)){
+    if(!is.null(q_obj$filter)){
       url <- url_parse(url)
-      url$query <- list(q = .data$filter$value[1])
+      url$query <- list(q = q_obj$filter$value[1])
       url <- url_build(url)
     }
   }

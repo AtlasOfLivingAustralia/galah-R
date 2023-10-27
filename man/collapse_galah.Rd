@@ -7,14 +7,14 @@
 \alias{collapse.files_request}
 \title{Generate a query}
 \usage{
-\method{collapse}{data_request}(.data, mint_doi = FALSE)
+\method{collapse}{data_request}(x, mint_doi = FALSE)
 
-\method{collapse}{metadata_request}(.data)
+\method{collapse}{metadata_request}(x)
 
-\method{collapse}{files_request}(.data, thumbnail = FALSE)
+\method{collapse}{files_request}(x, thumbnail = FALSE)
 }
 \arguments{
-\item{.data}{An object of class \code{data_request}, \code{metadata_request} or
+\item{x}{An object of class \code{data_request}, \code{metadata_request} or
 \code{files_request}}
 
 \item{mint_doi}{Logical: should a DOI be minted for this download? Only

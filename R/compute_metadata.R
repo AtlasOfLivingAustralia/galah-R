@@ -5,13 +5,13 @@
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-compute_lists <- function(.data){
-  url <- url_parse(.data$url)
-  n <- get_max_n(.data)
+compute_lists <- function(q_obj){
+  url <- url_parse(q_obj$url)
+  n <- get_max_n(q_obj)
   # make decisions about how much pagination is needed
   if(n$max_requested <= n$paginate){ # we haven't hit pagination limit
     url$query$max <- n$max_requested
-    .data$url <- url_build(url)
+    q_obj$url <- url_build(url)
   }else{ # more lists are requested
     n_pages <- ceiling(n$max_requested / n$paginate)
     offsets <- (seq_len(n_pages) - 1) * n$paginate
@@ -27,16 +27,16 @@ compute_lists <- function(.data){
         url_build(url)
       }) |>
       unlist()
-    .data$url <- select(result, "url")
+    q_obj$url <- select(result, "url")
   }
-  .data
+  q_obj
 }
 
 #' Internal function to retrieve max number of entries for an API
 #' @noRd
 #' @keywords Internal
-get_max_n <- function(.data){
-  url <- url_parse(.data$url)
+get_max_n <- function(q_obj){
+  url <- url_parse(q_obj$url)
   if(is_gbif()){
     count_field <- "count"
   }else{
@@ -47,7 +47,7 @@ get_max_n <- function(.data){
             max_available = {
               url$query <- list(max = 0)
               list(url = url_build(url),
-                   headers = .data$headers) |>
+                   headers = q_obj$headers) |>
                 query_API() |>
                 pluck(count_field) # NOTE: only tested for ALA                
             })

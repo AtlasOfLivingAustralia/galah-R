@@ -9,18 +9,18 @@
 \alias{compute.query}
 \title{Compute a query}
 \usage{
-\method{compute}{data_request}(.data)
+\method{compute}{data_request}(x)
 
-\method{compute}{metadata_request}(.data)
+\method{compute}{metadata_request}(x)
 
-\method{compute}{files_request}(.data)
+\method{compute}{files_request}(x)
 
-\method{compute}{query_set}(.data)
+\method{compute}{query_set}(x)
 
-\method{compute}{query}(.data)
+\method{compute}{query}(x)
 }
 \arguments{
-\item{.data}{An object of class \code{data_request}, \code{metadata_request} or
+\item{x}{An object of class \code{data_request}, \code{metadata_request} or
 \code{files_request} (i.e. constructed using a pipe) or \code{query} or \code{query_set}
 (i.e. constructed by \code{collapse()})}
 }

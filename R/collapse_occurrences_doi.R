@@ -3,13 +3,13 @@
 #' @importFrom stringr str_split
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_doi <- function(.data, error_call = caller_env()){
-  if(is.null(.data$filter)){
+collapse_occurrences_doi <- function(q_obj, error_call = caller_env()){
+  if(is.null(q_obj$filter)){
     abort("A DOI must be specified using `filter(doi == \"my-doi-here\")`.", 
           call = error_call)
   }
   
-  if(is.null(.data$filter$variable) && .data$filter$variable != "doi"){
+  if(is.null(q_obj$filter$variable) && q_obj$filter$variable != "doi"){
     abort("No DOI has been supplied.", 
           call = error_call)
   }
@@ -23,7 +23,7 @@ collapse_occurrences_doi <- function(.data, error_call = caller_env()){
           call = error_call)    
   }
   
-  doi <- .data$filter$value[[1]]
+  doi <- q_obj$filter$value[[1]]
   
   # remove "https://" if present
   if (grepl("^http://doi.org/", doi)) {

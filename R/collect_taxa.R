@@ -5,20 +5,20 @@
 #' @importFrom tibble as_tibble
 #' @noRd
 #' @keywords Internal
-collect_taxa <- function(.data){
-  if(grepl("namematching", .data$url$url[1])){
-    collect_taxa_namematching(.data) # Australia, Sweden
+collect_taxa <- function(q_obj){
+  if(grepl("namematching", q_obj$url$url[1])){
+    collect_taxa_namematching(q_obj) # Australia, Sweden
   }else{
-    collect_taxa_la(.data)  # tested for Austria, UK
+    collect_taxa_la(q_obj)  # tested for Austria, UK
   }
 }
 
 #' Internal function to `collect()` taxa for Atlas of Living Australia
 #' @noRd
 #' @keywords Internal
-collect_taxa_namematching <- function(.data){
-  search_terms <- .data$url$search_term
-  result <- lapply(query_API(.data), 
+collect_taxa_namematching <- function(q_obj){
+  search_terms <- q_obj$url$search_term
+  result <- lapply(query_API(q_obj), 
                    build_tibble_from_nested_list) |> 
     bind_rows()
   # break chain for use case where all search terms are dubious (i.e. no taxonConceptID)
@@ -53,14 +53,14 @@ collect_taxa_namematching <- function(.data){
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-collect_taxa_la <- function(.data){
-  search_terms <- .data$url$search_term
+collect_taxa_la <- function(q_obj){
+  search_terms <- q_obj$url$search_term
   if(is_gbif()){
-    result <- query_API(.data) |>
+    result <- query_API(q_obj) |>
       bind_rows() |>
       mutate("search_term" = search_terms, .before = "scientificName")
   }else{
-    result <- query_API(.data) |>
+    result <- query_API(q_obj) |>
       clean_la_taxa(search_terms = search_terms) |>
       bind_rows()
     if(ncol(result) > 1){
@@ -111,9 +111,9 @@ clean_la_taxa <- function(result, search_terms){
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-collect_identifiers <- function(.data){
-  search_terms <- .data$url$search_term
-  result <- query_API(.data) |>
+collect_identifiers <- function(q_obj){
+  search_terms <- q_obj$url$search_term
+  result <- query_API(q_obj) |>
     bind_rows() |>
     filter(!duplicated(taxonConceptID)) |>
     mutate("search_term" = search_terms, .before = "success")

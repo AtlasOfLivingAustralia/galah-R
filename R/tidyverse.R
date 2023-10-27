@@ -34,19 +34,19 @@ desc <- function(...){
 
 #' @rdname tidyverse_functions
 #' @export
-unnest <- function(.data, error_call = caller_env()){
-  if(!inherits(.data, "metadata_request")){
+unnest <- function(q_obj, error_call = caller_env()){
+  if(!inherits(q_obj, "metadata_request")){
     abort("`galah::unnest` can only be used with objects of class `metadata_request`")
   }
-  if(!is.null(.data$filter)){
-    supplied_type <- .data$filter$variable[1]
+  if(!is.null(q_obj$filter)){
+    supplied_type <- q_obj$filter$variable[1]
     if(supplied_type != "taxa"){
       supplied_type <- paste0(supplied_type, "s")
     }
-  }else if(!is.null(.data$identify)){
+  }else if(!is.null(q_obj$identify)){
     supplied_type <- "taxa"
   }else{
-    supplied_type <- .data$type
+    supplied_type <- q_obj$type
   }
   valid_types <- c("fields", "lists", "profiles", "taxa")
   if(!(supplied_type %in% valid_types)){
@@ -55,6 +55,6 @@ unnest <- function(.data, error_call = caller_env()){
       i = "valid types are `fields`, `lists`, `profiles` or `taxa`")
     abort(bullets, call = error_call)
   }
-  .data$type <- paste0(supplied_type, "-unnest")
-  .data
+  q_obj$type <- paste0(supplied_type, "-unnest")
+  q_obj
 }

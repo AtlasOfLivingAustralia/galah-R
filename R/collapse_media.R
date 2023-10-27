@@ -1,20 +1,20 @@
 #' Internal version of `collapse()` for `request_metadata(type = "media")`
-#' @param .data An object of class `metadata_request` (from `request_metadata()`)
+#' @param q_obj An object of class `metadata_request` (from `request_metadata()`)
 #' @importFrom jsonlite toJSON
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-collapse_media <- function(.data){
+collapse_media <- function(q_obj){
   # NOTE:
   # this function currently assumes that the user has passed an occurrence 
   # tibble verbatim to filter, i.e.
   # `request_metadata() |> filter(media = occurrences) |> collapse()`
   # It may be useful to support passing of media_ids directly, e.g.
   # `request_metadata() |> filter(media = occurrences$images`) |> collapse()
-  if(is.null(.data$filter)){
+  if(is.null(q_obj$filter)){
     abort("Requests for metadata of type = \"media\" must have information passed via `filter()`")
   }
-  occ <- .data$filter$data
+  occ <- q_obj$filter$data
   media_cols <- which(colnames(occ) %in% c("images", "videos", "sounds"))
   media_ids <- do.call(c, occ[, media_cols]) |>
     unlist()
@@ -31,20 +31,20 @@ collapse_media <- function(.data){
 }
 
 #' Internal version of `collapse()` for `request_files(type = "media")`
-#' @param .data An object of class `files_request` (from `request_files()`)
+#' @param q_obj An object of class `files_request` (from `request_files()`)
 #' @importFrom rlang abort
 #' @importFrom tibble tibble
 #' @importFrom stringr str_detect
 #' @noRd
 #' @keywords Internal
-collapse_media_files <- function(.data, 
+collapse_media_files <- function(q_obj, 
                                  thumbnail = FALSE
                                  ){
   # handle filters
-  if(is.null(.data$filter)){
+  if(is.null(q_obj$filter)){
     abort("`collapse()` requires a `filter()` argument to function")
   }
-  df <- .data$filter
+  df <- q_obj$filter
   if(any(colnames(df) == "media_id")){
     identifiers <- df$media_id
   }else if(any(colnames(df) == "image_id")){

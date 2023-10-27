@@ -14,7 +14,7 @@ galah_geolocate(..., type = c("polygon", "bbox"))
 
 galah_polygon(...)
 
-\method{st_crop}{data_request}(.data, y, ...)
+\method{st_crop}{data_request}(x, y, ...)
 }
 \arguments{
 \item{...}{a single \code{sf} object, WKT string or shapefile. Bounding boxes can
@@ -25,7 +25,9 @@ be supplied as a \code{tibble}/\code{data.frame} or a \code{bbox}}
 \code{\link[=galah_polygon]{galah_polygon()}}. If \code{type = "bbox"}, a multipolygon will be built via
 \code{\link[=galah_bbox]{galah_bbox()}}. The multipolygon is used to narrow a query to the ALA.}
 
-\item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
+\item{x}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}
+
+\item{y}{A valid Well-Known Text string (wkt), a \code{POLYGON} or a \code{MULTIPOLYGON}}
 }
 \value{
 length-1 object of class \code{character} and \code{galah_geolocate},

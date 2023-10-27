@@ -1,8 +1,8 @@
 #' Internal function to `collect()` APIs
 #' @noRd
 #' @keywords Internal
-collect_apis <- function(.data){
-  result <- .data$data |>
+collect_apis <- function(q_obj){
+  result <- q_obj$data |>
     parse(text = _) |> 
     eval()
   attr(result, "call") <- "apis"
@@ -14,15 +14,15 @@ collect_apis <- function(.data){
 #' @importFrom dplyr bind_rows
 #' @noRd
 #' @keywords Internal
-collect_assertions <- function(.data){
-  if(!is.null(.data$data)){
-    result <- .data$data |>
+collect_assertions <- function(q_obj){
+  if(!is.null(q_obj$data)){
+    result <- q_obj$data |>
       parse(text = _) |> 
       eval()
     attr(result, "call") <- "assertions" # needed for `show_values()` to work
     attr(result, "region") <- pour("atlas", "region") # needed for caching to work
   }else{
-    result <- lapply(query_API(.data), 
+    result <- lapply(query_API(q_obj), 
                      function(a){a[names(a) != "termsRequiredToTest"]}) |>
       bind_rows()
     names(result) <- rename_columns(names(result), type = "assertions")
@@ -38,8 +38,8 @@ collect_assertions <- function(.data){
 #' Internal function to `collect()` atlases
 #' @noRd
 #' @keywords Internal
-collect_atlases <- function(.data){
-  result <- .data$data |>
+collect_atlases <- function(q_obj){
+  result <- q_obj$data |>
     parse(text = _) |> 
     eval()
   attr(result, "call") <- "atlases"
@@ -54,9 +54,9 @@ collect_atlases <- function(.data){
 #' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
-collect_collections <- function(.data){
+collect_collections <- function(q_obj){
   if(is_gbif()){
-    result <- query_API(.data)
+    result <- query_API(q_obj)
     if(any(names(result) == "results")){ # happens when `filter()` not specified
       # Note: This assumes only one API call; will need more potentially
       result <- pluck(result, "results")
@@ -64,7 +64,7 @@ collect_collections <- function(.data){
     result <- flat_lists_only(result) |>
       bind_rows()
   }else{
-    result <- query_API(.data) |> 
+    result <- query_API(q_obj) |> 
       bind_rows() |> 
       relocate(uid) |>
       rename(id = "uid") 
@@ -97,9 +97,9 @@ flat_lists_only <- function(x){
 #' @importFrom dplyr rename
 #' @noRd
 #' @keywords Internal
-collect_datasets <- function(.data){
+collect_datasets <- function(q_obj){
   if(is_gbif()){
-    result <- query_API(.data)
+    result <- query_API(q_obj)
     if(any(names(result) == "results")){ # happens when `filter()` not specified
       # Note: This assumes only one API call; will need more potentially
       result <- pluck(result, "results")
@@ -108,7 +108,7 @@ collect_datasets <- function(.data){
       flat_lists_only() |>
       bind_rows()
   }else{
-    result <- query_API(.data)
+    result <- query_API(q_obj)
     result <- result |> 
       bind_rows()|> 
       relocate(uid) |>
@@ -126,17 +126,17 @@ collect_datasets <- function(.data){
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-collect_fields <- function(.data){
+collect_fields <- function(q_obj){
   if(is_gbif()){
-    result <- .data$data |>
+    result <- q_obj$data |>
       parse(text = _) |> 
       eval()
     attr(result, "call") <- "fields"
     attr(result, "region") <- pour("atlas", "region")
     result
   }else{
-    if(!is.null(.data$url)){ # i.e. there is no cached `tibble`
-      result <- query_API(.data) |>
+    if(!is.null(q_obj$url)){ # i.e. there is no cached `tibble`
+      result <- query_API(q_obj) |>
         bind_rows() |>
         mutate(id = name) |>
         select(all_of(wanted_columns("fields"))) |>
@@ -160,8 +160,8 @@ collect_fields <- function(.data){
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-collect_licences <- function(.data){
-  result <- query_API(.data) |> 
+collect_licences <- function(q_obj){
+  result <- query_API(q_obj) |> 
     bind_rows() |>
     select(all_of(c("id", "name", "acronym", "url"))) |> 
     arrange(id)
@@ -175,13 +175,13 @@ collect_licences <- function(.data){
 #' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
-collect_lists <- function(.data){
-  if(inherits(.data$url, "data.frame")){
-    result <- lapply(query_API(.data), 
+collect_lists <- function(q_obj){
+  if(inherits(q_obj$url, "data.frame")){
+    result <- lapply(query_API(q_obj), 
                      function(a){a$lists}) |>
       bind_rows()    
   }else{
-    result <- query_API(.data) |>
+    result <- query_API(q_obj) |>
       pluck("lists") |>
       bind_rows()
   }
@@ -198,9 +198,9 @@ collect_lists <- function(.data){
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-collect_profiles <- function(.data){
-  if(!is.null(.data$url)){
-    result <- query_API(.data) |>
+collect_profiles <- function(q_obj){
+  if(!is.null(q_obj$url)){
+    result <- query_API(q_obj) |>
       bind_rows() |>
       filter(!duplicated(id)) |>
       arrange(id) |>
@@ -219,9 +219,9 @@ collect_profiles <- function(.data){
 #' @importFrom dplyr rename
 #' @noRd
 #' @keywords Internal
-collect_providers <- function(.data){
+collect_providers <- function(q_obj){
   if(is_gbif()){
-    result <- query_API(.data)
+    result <- query_API(q_obj)
     if(any(names(result) == "results")){ # happens when `filter()` not specified
       # Note: This assumes only one API call; will need more potentially
       result <- pluck(result, "results")
@@ -230,7 +230,7 @@ collect_providers <- function(.data){
       flat_lists_only() |>
       bind_rows()
   }else{
-    result <- query_API(.data)
+    result <- query_API(q_obj)
     result <- result |> 
       bind_rows() |> 
       relocate(uid) |>
@@ -245,8 +245,8 @@ collect_providers <- function(.data){
 #' Internal function to `collect()` APIs
 #' @noRd
 #' @keywords Internal
-collect_ranks <- function(.data){
-  result <- .data$data |>
+collect_ranks <- function(q_obj){
+  result <- q_obj$data |>
     parse(text = _) |> 
     eval()
   attr(result, "call") <- "ranks"
@@ -262,9 +262,9 @@ collect_ranks <- function(.data){
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-collect_reasons <- function(.data){
-  if(!is.null(.data$url)){
-    result <- query_API(.data) |> 
+collect_reasons <- function(q_obj){
+  if(!is.null(q_obj$url)){
+    result <- query_API(q_obj) |> 
       bind_rows() |>
       filter(!deprecated) |>
       select(all_of(wanted_columns("reasons"))) |>

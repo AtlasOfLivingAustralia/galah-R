@@ -74,24 +74,24 @@ atlas_media <- function(request = NULL,
   # capture supplied arguments
   args <- as.list(environment())
   # convert to `data_request` object
-  .data <- check_atlas_inputs(args)
-  .data$type <- "occurrences" # default, but in case supplied otherwise
+  q_obj <- check_atlas_inputs(args)
+  q_obj$type <- "occurrences" # default, but in case supplied otherwise
   
   # ensure a filter is present (somewhat redundant with `collapse`)
-  if(is.null(.data$filter)){
+  if(is.null(q_obj$filter)){
     abort("You must specify a valid `filter()` to use `atlas_media()`")
   }
   
   # ensure media columns are present in `select`
   media_fields <- c("images", "videos", "sounds")
-  if(is.null(.data$select)){
-    .data <- update_data_request(.data, 
+  if(is.null(q_obj$select)){
+    q_obj <- update_data_request(q_obj, 
                                  select = galah_select(group = c("basic", "media")))
     present_fields <- media_fields
   # if `select` is present, ensure that at least one 'media' field is requested
   }else{
     # new check using compute_checks()
-    x <- collapse(.data) |>
+    x <- collapse(q_obj) |>
       build_checks() |>
       compute_checks()
     
@@ -110,7 +110,7 @@ atlas_media <- function(request = NULL,
       abort(bullets)
     }else{
       present_fields <- selected_fields[selected_fields %in% media_fields]
-      .data <- x
+      q_obj <- x
     }
   } # end `select` checks
  
@@ -120,25 +120,25 @@ atlas_media <- function(request = NULL,
     media_fq <- glue("({glue_collapse(media_fq, ' OR ')})")  
   }
   
-  # update .data with fields filter
+  # update q_obj with fields filter
   # note that behaviour here depends on whether we have run compute_checks() above
-  if(inherits(.data, "data_request")){
-    .data$filter <- bind_rows(.data$filter, 
+  if(inherits(q_obj, "data_request")){
+    q_obj$filter <- bind_rows(q_obj$filter, 
                               tibble(variable = "media",
                                      logical = "==",
                                      value = paste(present_fields, collapse = "|"),
                                      query = as.character(media_fq)))  
-  }else if(inherits(.data, "query")){ # i.e. if .data is already a `query`
-    url <- url_parse(.data$url)
+  }else if(inherits(q_obj, "query")){ # i.e. if q_obj is already a `query`
+    url <- url_parse(q_obj$url)
     url$query$fq <- paste0(url$query$fq, "AND", media_fq)
-    .data$url <- url_build(url)
-    .data <- compute_occurrences(.data)
+    q_obj$url <- url_build(url)
+    q_obj <- compute_occurrences(q_obj)
   }else{
     abort("unknown object class in `atlas_media()`")
   }
   
   # get occurrences
-  occ <- .data |> 
+  occ <- q_obj |> 
     collect(wait = TRUE) |>  
     unnest_longer(col = all_of(present_fields))
   occ$media_id <- build_media_id(occ) 

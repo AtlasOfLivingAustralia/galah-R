@@ -1,22 +1,22 @@
 #' Internal function to check queue status, with rate limiting
 #' @noRd
 #' @keywords Internal
-check_queue <- function(.data, wait = FALSE){
+check_queue <- function(q_obj, wait = FALSE){
   # process supplied object
-  if(.data$status == "incomplete"){
-    download_response <- c(list(type = .data$type),
-                           check_occurrence_status(.data))
+  if(q_obj$status == "incomplete"){
+    download_response <- c(list(type = q_obj$type),
+                           check_occurrence_status(q_obj))
     class(download_response) <- "query"
     if(wait){
-      download_response <- c(list(type = .data$type),
-                             check_queue_loop(.data))
+      download_response <- c(list(type = q_obj$type),
+                             check_queue_loop(q_obj))
       class(download_response) <- "query"
       download_response
     }else{
       download_response
     }
   }else{
-    .data
+    q_obj
   }  
 }
 
@@ -25,9 +25,9 @@ check_queue <- function(.data, wait = FALSE){
 #' @importFrom purrr rate_sleep
 #' @noRd
 #' @keywords Internal
-check_queue_loop <- function(.data){
+check_queue_loop <- function(q_obj){
   rate_object <- set_rate()
-  current_queue <- .data$queue_size
+  current_queue <- q_obj$queue_size
   continue <- TRUE
   iter <- 1
   verbose <- pour("package", "verbose", .pkg = "galah")
@@ -35,21 +35,21 @@ check_queue_loop <- function(.data){
     inform(glue("Current queue length: {current_queue}"))
   }
   while(continue == TRUE){
-    .data <- check_occurrence_status(.data)
-    continue <- continue_while_loop(.data)
+    q_obj <- check_occurrence_status(q_obj)
+    continue <- continue_while_loop(q_obj)
     if(continue){    
       iter <- iter + 1
       if(iter > 99){
         inform(c("No data were returned after 100 tries.", 
-                 i = "If you have saved this output using e.g. `x <- collect(.data)`,", 
+                 i = "If you have saved this output using e.g. `x <- collect(q_obj)`,", 
                  i = "you can try again later using `collect(x)`"))
-        return(.data)     
+        return(q_obj)     
       }else{
-        current_queue <- check_queue_size(.data, current_queue)
+        current_queue <- check_queue_size(q_obj, current_queue)
         rate_sleep(rate_object, quiet = verbose)
       }
     }else{
-      return(.data)
+      return(q_obj)
     }
   }
 }
@@ -68,10 +68,10 @@ set_rate <- function(){
 #' Internal function to check queue size
 #' @noRd
 #' @keywords Internal
-check_queue_size <- function(.data, current_queue){
+check_queue_size <- function(q_obj, current_queue){
   verbose <- pour("package", "verbose", .pkg = "galah")
-  if(.data$queue_size < current_queue & .data$queue_size > 0){
-    current_queue <- .data$queue_size
+  if(q_obj$queue_size < current_queue & q_obj$queue_size > 0){
+    current_queue <- q_obj$queue_size
     if(verbose){
       inform(glue("Queue length: {current_queue}"))
     }

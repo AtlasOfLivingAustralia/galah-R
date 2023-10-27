@@ -2,36 +2,36 @@
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-collapse_occurrences <- function(.data, mint_doi = FALSE){
-  if(is.null(.data$filter) & is.null(.data$identify)){
+collapse_occurrences <- function(q_obj, mint_doi = FALSE){
+  if(is.null(q_obj$filter) & is.null(q_obj$identify)){
     abort("No filters supplied to atlas_occurrences()")
   }
   switch(pour("atlas", "region"),
-         "United Kingdom" = collapse_occurrences_uk(.data),
-         "Global" = collapse_occurrences_gbif(.data),
-         {.data$mint_doi <- mint_doi
-          collapse_occurrences_la(.data)})
+         "United Kingdom" = collapse_occurrences_uk(q_obj),
+         "Global" = collapse_occurrences_gbif(q_obj),
+         {q_obj$mint_doi <- mint_doi
+          collapse_occurrences_la(q_obj)})
 }
 
 #' calculate the query to be returned for the UK atlas
-#' @param .data An object of class `data_request()`
+#' @param q_obj An object of class `data_request()`
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_uk <- function(.data){
+collapse_occurrences_uk <- function(q_obj){
   # set default columns
-  if(is.null(.data$select)){
-    .data$select <- galah_select(group = "basic")
+  if(is.null(q_obj$select)){
+    q_obj$select <- galah_select(group = "basic")
   }
   # build a url
   # NOTE: providing an email blocks this from executing (2023-08-30)
   url <-  url_lookup("data/occurrences") |> 
     url_parse()
-  url$query <- c(build_query(identify = .data$identify,
-                             filter = .data$filter, 
-                             location = .data$geolocate, 
-                             data_profile = .data$data_profile$data_profile),
-                 fields = build_columns(.data$select[.data$select$type != "assertion", ]),
-                 qa = build_assertion_columns(.data$select),
+  url$query <- c(build_query(identify = q_obj$identify,
+                             filter = q_obj$filter, 
+                             location = q_obj$geolocate, 
+                             data_profile = q_obj$data_profile$data_profile),
+                 fields = build_columns(q_obj$select[q_obj$select$type != "assertion", ]),
+                 qa = build_assertion_columns(q_obj$select),
                  sourceTypeId = 2001,
                  fileType = "csv",
                  reasonTypeId = pour("user", "download_reason_id"),
@@ -48,11 +48,11 @@ collapse_occurrences_uk <- function(.data){
 #' calculate the query to be returned for GBIF
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_gbif <- function(.data, format = "SIMPLE_CSV"){
+collapse_occurrences_gbif <- function(q_obj, format = "SIMPLE_CSV"){
   # deal with user-specified taxonomic names
   if(!is.null(identify)){
-    .data$filter <- rbind(
-      .data$filter,
+    q_obj$filter <- rbind(
+      q_obj$filter,
       data.frame(variable = "taxonKey",
                  logical = "==",
                  value = "`TAXON_PLACEHOLDER`",
@@ -72,28 +72,28 @@ collapse_occurrences_gbif <- function(.data, format = "SIMPLE_CSV"){
         pour("user", "username", .pkg = "galah"),
         ":", 
         pour("user", "password", .pkg = "galah"))),
-    body = build_predicates(.data$filter, format = format))
+    body = build_predicates(q_obj$filter, format = format))
   class(result) <- "query"
   return(result)
 }
 
 #' calculate the query to be returned for a given living atlas
-#' @param .data An object of class `data_request()`
+#' @param q_obj An object of class `data_request()`
 #' @noRd
 #' @keywords Internal
-collapse_occurrences_la <- function(.data){
+collapse_occurrences_la <- function(q_obj){
   # set default columns
-  if(is.null(.data$select)){
-    .data$select <- galah_select(group = "basic")
+  if(is.null(q_obj$select)){
+    q_obj$select <- galah_select(group = "basic")
   }
   # build a query
-  query <- c(build_query(identify = .data$identify,
-                         filter = .data$filter, 
-                         location = .data$geolocate, 
-                         data_profile = .data$data_profile$data_profile),
-             # fields = build_columns(.data$select[.data$select$type != "assertion", ]),
+  query <- c(build_query(identify = q_obj$identify,
+                         filter = q_obj$filter, 
+                         location = q_obj$geolocate, 
+                         data_profile = q_obj$data_profile$data_profile),
+             # fields = build_columns(q_obj$select[q_obj$select$type != "assertion", ]),
              fields = "`SELECT_PLACEHOLDER`",
-             qa = build_assertion_columns(.data$select),
+             qa = build_assertion_columns(q_obj$select),
              facet = "false", # not tested
              emailNotify = email_notify(),
              sourceTypeId = 2004,
@@ -101,7 +101,7 @@ collapse_occurrences_la <- function(.data){
              email = pour("user", "email"),
              dwcHeaders = "true")
   # DOI conditional on this service being offered
-  if (.data$mint_doi & pour("atlas", "region") == "Australia") {
+  if (q_obj$mint_doi & pour("atlas", "region") == "Australia") {
     query$mintDoi <- "true"
   }
   # build url
@@ -113,7 +113,7 @@ collapse_occurrences_la <- function(.data){
     type = "data/occurrences",
     url = url_build(url),
     headers = build_headers(),
-    select = .data$select)
+    select = q_obj$select)
   class(result) <- "query"
   return(result)
 }

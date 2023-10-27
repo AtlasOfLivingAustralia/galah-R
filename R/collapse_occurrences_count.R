@@ -1,8 +1,8 @@
 #' collapse for type = "occurrences-count"
 #' @keywords Internal
-#' @param .data an object of class `data_request`
+#' @param q_obj an object of class `data_request`
 #' @noRd
-collapse_occurrences_count <- function(.data){
+collapse_occurrences_count <- function(q_obj){
   if(is_gbif()){
     function_name <- "collapse_occurrences_count_gbif"
     arg_names <- names(formals(collapse_occurrences_count_gbif))
@@ -10,7 +10,7 @@ collapse_occurrences_count <- function(.data){
     function_name <- "collapse_occurrences_count_atlas"
     arg_names <- names(formals(collapse_occurrences_count_atlas))
   }
-  custom_call <- .data[names(.data) %in% arg_names]
+  custom_call <- q_obj[names(q_obj) %in% arg_names]
   class(custom_call) <- "data_request"
   do.call(function_name, custom_call)
 }

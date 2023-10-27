@@ -8,16 +8,16 @@
 \usage{
 galah_identify(...)
 
-\method{identify}{data_request}(.data, ...)
+\method{identify}{data_request}(x, ...)
 
-\method{identify}{metadata_request}(.data, ...)
+\method{identify}{metadata_request}(x, ...)
 }
 \arguments{
 \item{...}{one or more scientific names (if \code{search = TRUE}) or taxonomic
 identifiers (if \code{search = FALSE}); or an object of class \code{ala_id} (from
 \code{search_taxa}).}
 
-\item{.data}{An object of class \code{metadata_request}, created using \code{\link[=request_metadata]{request_metadata()}}}
+\item{x}{An object of class \code{metadata_request}, created using \code{\link[=request_metadata]{request_metadata()}}}
 
 \item{search}{(logical);
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}

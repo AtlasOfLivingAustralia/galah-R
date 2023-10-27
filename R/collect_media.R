@@ -8,9 +8,9 @@
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-collect_media_metadata <- function(.data){
+collect_media_metadata <- function(q_obj){
   # query API
-  result <- query_API(.data) |>
+  result <- query_API(q_obj) |>
     pluck("results") |>
     bind_rows()
   # Select only the rows and columns we want 
@@ -26,9 +26,9 @@ collect_media_metadata <- function(.data){
 #' @importFrom dplyr count
 #' @noRd
 #' @keywords Internal
-collect_media_files <- function(.data){
+collect_media_files <- function(q_obj){
   
-  result <- query_API(.data)
+  result <- query_API(q_obj)
   result_summary <- tibble(
     status_code = unlist(lapply(result, function(a){a$status_code}))) |>
     group_by(status_code) |>

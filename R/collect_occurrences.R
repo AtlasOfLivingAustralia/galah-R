@@ -1,6 +1,6 @@
 #' workhorse function to get occurrences from an atlas
 #' @noRd
-#' @param .data an object of class `data_response`, created using 
+#' @param q_obj an object of class `data_response`, created using 
 #' `compute.data_request()`
 #' @param wait logical; should we ping the API until successful? Defaults to 
 #' FALSE
@@ -9,20 +9,20 @@
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 #' @importFrom tibble tibble
-collect_occurrences <- function(.data, wait, file = NULL){
+collect_occurrences <- function(q_obj, wait, file = NULL){
   switch(pour("atlas", "region"),
-         "United Kingdom" = collect_occurrences_uk(.data, file = file),
-         collect_occurrences_default(.data, wait = wait, file = file))
+         "United Kingdom" = collect_occurrences_uk(q_obj, file = file),
+         collect_occurrences_default(q_obj, wait = wait, file = file))
 }
 
 #' Internal function to `collect_occurrences()` for UK
 #' @noRd
 #' @keywords Internal
-collect_occurrences_uk <- function(.data, file){
-  .data$download <- TRUE
-  .data$file <- check_download_filename(file)
-  query_API(.data)
-  result <- load_zip(.data$file)  
+collect_occurrences_uk <- function(q_obj, file){
+  q_obj$download <- TRUE
+  q_obj$file <- check_download_filename(file)
+  query_API(q_obj)
+  result <- load_zip(q_obj$file)  
   names(result) <- rename_columns(names(result), type = "occurrence")
   result
 }
@@ -30,9 +30,9 @@ collect_occurrences_uk <- function(.data, file){
 #' Internal function to `collect_occurrences()` for living atlases
 #' @noRd
 #' @keywords Internal
-collect_occurrences_default <- function(.data, wait, file){
+collect_occurrences_default <- function(q_obj, wait, file){
   # check queue
-  download_response <- check_queue(.data, wait = wait)
+  download_response <- check_queue(q_obj, wait = wait)
   if(is.null(download_response)){
     abort("No response from selected atlas")
   }

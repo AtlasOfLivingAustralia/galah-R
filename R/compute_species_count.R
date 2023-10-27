@@ -2,13 +2,13 @@
 #' @importFrom tibble as_tibble
 #' @noRd
 #' @keywords Internal
-compute_species_count <- function(.data){
-  if(.data$expand){
-    .data <- build_species_query_list(.data)
+compute_species_count <- function(q_obj){
+  if(q_obj$expand){
+    q_obj <- build_species_query_list(q_obj)
   }else{
-    .data$url <- as_tibble(data.frame(url = .data$url))
+    q_obj$url <- as_tibble(data.frame(url = q_obj$url))
   }
-  .data
+  q_obj
 }
 
 #' Internal function to generate correct set of species-count queries when 
@@ -20,10 +20,10 @@ compute_species_count <- function(.data){
 #' @importFrom tibble tibble
 #' @noRd
 #' @keywords Internal 
-build_species_query_list <- function(.data){
+build_species_query_list <- function(q_obj){
   
   # remove `species_facets()` from query
-  url <- url_parse(.data$url)
+  url <- url_parse(q_obj$url)
   query_temp <- url$query
   query_temp <- query_temp[-which(
     unlist(query_temp) == species_facets() & 
@@ -31,8 +31,8 @@ build_species_query_list <- function(.data){
   n_facet_terms <- length(which(names(query_temp) == "facets"))
   url$query <- c(query_temp, list(pageSize = 0))
   
-  # rebuild a .data object for this query
-  data_temp <- .data
+  # rebuild a q_obj object for this query
+  data_temp <- q_obj
   data_temp$type <- "data/occurrences-count"
   data_temp$url <- url_build(url)
   data_temp$expand <- ifelse(n_facet_terms > 1, TRUE, FALSE)
@@ -51,7 +51,7 @@ build_species_query_list <- function(.data){
     }) |> unlist()
   
   # modify url to only have `species_facets()` in facets slot
-  url <- url_parse(.data$url)
+  url <- url_parse(q_obj$url)
   query <- url$query
   query <- query[-which(
     unlist(query_temp) != species_facets() & 
@@ -66,9 +66,9 @@ build_species_query_list <- function(.data){
     url_build(x)
   }, x = url) |> unlist()
   
-  # convert to a tibble to pass back to .data
-  .data$url <- bind_cols(
+  # convert to a tibble to pass back to q_obj
+  q_obj$url <- bind_cols(
     select(df, -count),
     tibble(url = urls))
-  return(.data)
+  return(q_obj)
 }
