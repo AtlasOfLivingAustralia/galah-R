@@ -209,7 +209,6 @@ collect_profiles <- function(q_obj){
       filter(!duplicated(result$id)) |>
       arrange(id) |>
       select(all_of(wanted_columns(type = "profile")))
-    browser()
     attr(result, "call") <- "profiles"
     attr(result, "region") <- pour("atlas", "region") 
     check_internal_cache(show_all_profiles = result)
