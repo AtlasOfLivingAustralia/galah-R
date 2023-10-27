@@ -69,7 +69,7 @@ atlas_taxonomy <- function(request = NULL,
   start_row <- taxa_info |>
     mutate(name = str_to_title(taxa_info$scientific_name),
            parent_taxon_concept_id = NA) |>
-    select(name, rank, taxon_concept_id, parent_taxon_concept_id) 
+    select("name", "rank", "taxon_concept_id", "parent_taxon_concept_id") 
 
   # build then flatten a tree
   taxonomy_tree <- drill_down_taxonomy(start_row, 

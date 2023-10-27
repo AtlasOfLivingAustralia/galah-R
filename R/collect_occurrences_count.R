@@ -80,6 +80,7 @@ clean_group_by <- function(result, q_obj){
 }
 
 #' Internal function to clean up columns when group_by() is specified
+#' @importFrom dplyr all_of
 #' @importFrom dplyr rename
 #' @importFrom dplyr select
 #' @noRd
@@ -91,10 +92,12 @@ clean_labels <- function(df){
     field_name <- substr(df$i18nCode[1], 
                          start = 1, 
                          stop = dot_placement[1] - 1)
+    col_lookup <- c("label")
+    names(col_lookup) <- field_name
     df <- df |> 
-      rename({{field_name}} := label) 
+      rename(all_of(col_lookup)) 
     df |> 
-      select(-fq, -i18nCode)
+      select(-"fq", -"i18nCode")
   }else{
     df
   }
