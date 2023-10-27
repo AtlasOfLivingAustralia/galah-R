@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-<img src="man/figures/logo.png" align="left" style="margin: 0px 10px 0px 0px;" alt="" width="120"/><h2>galah</h2>
+# galah <img src="man/figures/logo.png" align="right" style="margin: 0px 10px 0px 10px;" alt="" height="138"/>
 
 <!-- badges: start -->
 
@@ -22,7 +22,8 @@ status](https://www.r-pkg.org/badges/version/galah)](https://cran.r-project.org/
 [![Codecov test coverage](https://codecov.io/gh/AtlasOfLivingAustralia/galah-R/branch/main/graph/badge.svg)](https://app.codecov.io/gh/AtlasOfLivingAustralia/galah-R?branch=main)
 <!-- badges: end -->
 
----
+
+## Overview
 
 `galah` is an R interface to biodiversity data hosted by the 'living atlases'; 
 a set of organisations that share a common codebase, and act as nodes of the
@@ -47,16 +48,14 @@ logo was designed by [Ian Brennan](https://www.iangbrennan.org/).
 
 If you have any comments, questions or suggestions, please [contact us](mailto:support@ala.org.au).
 
-<br>
 
----
 
 ## Getting started
 
 - The [quick start guide](https://galah.ala.org.au/R/articles/quick_start_guide.html) provides an introduction to the package functions.
 - For an outline of the package structure, and a list of all the available functions, run `?galah` or view the [reference page](https://galah.ala.org.au/R/index.html).
 
----
+
 
 ## Installation
 
@@ -81,16 +80,17 @@ sudo apt-get install libcurl4-openssl-dev libv8-3.14-dev
 need to make sure your system meets the `sf` system requirements, as specified
 [here](https://cran.r-project.org/package=sf)
 
----
+
 
 ## Cheat sheet
 
 <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/cheatsheet/galah-r.pdf"><img src="man/figures/galah_cheatsheet_thumbnail.png" width="600" height="236"/></a>
 
----
+
 
 ## Citations
 To generate a citation for the package version you are using, you can run
+
 ```r
 citation(package = "galah")
 ```
