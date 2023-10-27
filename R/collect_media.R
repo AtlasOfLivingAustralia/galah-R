@@ -27,11 +27,10 @@ collect_media_metadata <- function(q_obj){
 #' @noRd
 #' @keywords Internal
 collect_media_files <- function(q_obj){
-  
   result <- query_API(q_obj)
   result_summary <- tibble(
     status_code = unlist(lapply(result, function(a){a$status_code}))) |>
-    group_by("status_code") |>
+    group_by(.data$status_code) |>
     count()
   success <- result_summary |> 
     dplyr::filter(result_summary$status_code == 200) 
@@ -42,7 +41,7 @@ collect_media_files <- function(q_obj){
     ">" = glue("Files saved in local directory: \"{user_directory}\".")
   )
   inform(bullets)
-  result_summary
+  invisible(result_summary)
 }
 
 #' Collect media files
