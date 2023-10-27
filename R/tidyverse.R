@@ -33,8 +33,9 @@ desc <- function(...){
 } 
 
 #' @rdname tidyverse_functions
+#' @param q_obj An object of class `metadata_request`
 #' @export
-unnest <- function(q_obj, error_call = caller_env()){
+unnest <- function(q_obj){
   if(!inherits(q_obj, "metadata_request")){
     abort("`galah::unnest` can only be used with objects of class `metadata_request`")
   }
@@ -53,7 +54,7 @@ unnest <- function(q_obj, error_call = caller_env()){
     bullets <- c(
       "Invalid `type` supplied to `unnest`",
       i = "valid types are `fields`, `lists`, `profiles` or `taxa`")
-    abort(bullets, call = error_call)
+    abort(bullets, call = caller_env())
   }
   q_obj$type <- paste0(supplied_type, "-unnest")
   q_obj

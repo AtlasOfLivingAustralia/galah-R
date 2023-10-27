@@ -43,9 +43,10 @@ show_all_ranks(limit = NULL)
 show_all_reasons(limit = NULL)
 }
 \arguments{
-\item{limit}{Optional number of values to return. Defaults to NULL, i.e. all records}
+\item{...}{String showing what type of information is to be requested. See
+\code{Details} (below) for accepted values.}
 
-\item{type}{A string to specify what type of parameters should be shown.}
+\item{limit}{Optional number of values to return. Defaults to NULL, i.e. all records}
 }
 \value{
 An object of class \code{tbl_df} and \code{data.frame} (aka a tibble)
@@ -62,7 +63,6 @@ for the information specified by the suffix.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 \code{show_all()} is a helper function that can display multiple types of
 information from \code{show_all_} sub-functions.
-See \code{Details} (below) for accepted values.
 }
 \details{
 There are five categories of information, each with their own

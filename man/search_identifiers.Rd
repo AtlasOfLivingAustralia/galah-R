@@ -7,8 +7,8 @@
 search_identifiers(...)
 }
 \arguments{
-\item{query}{\code{string}: A vector containing one or more taxonomic
-identifiers, given as strings.}
+\item{...}{A vector containing one or more taxonomic identifiers, given as
+strings.}
 }
 \value{
 An object of class \code{tbl_df}, \code{data.frame} (aka a tibble) and \code{ala_id}

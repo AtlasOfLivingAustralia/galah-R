@@ -72,8 +72,8 @@ atlas_taxonomy <- function(request = NULL,
 
   # build then flatten a tree
   taxonomy_tree <- drill_down_taxonomy(start_row, 
-                             down_to = q_obj$filter$value,
-                             constrain_ids = constrain_ids)
+                                       down_to = q_obj$filter$value,
+                                       constrain_ids = constrain_ids)
   for(i in seq_len(pluck_depth(taxonomy_tree))){
     taxonomy_tree <- list_flatten(taxonomy_tree)
   }

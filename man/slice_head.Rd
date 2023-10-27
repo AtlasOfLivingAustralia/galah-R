@@ -5,9 +5,9 @@
 \alias{slice_head.metadata_request}
 \title{Subset first rows of \code{data_request}}
 \usage{
-\method{slice_head}{data_request}(.data, ..., n, prop)
+\method{slice_head}{data_request}(.data, ..., n, prop, by = NULL)
 
-\method{slice_head}{metadata_request}(.data, ..., n, prop)
+\method{slice_head}{metadata_request}(.data, ..., n, prop, by = NULL)
 }
 \arguments{
 \item{.data}{An object of class \code{data_request}, created using \code{\link[=galah_call]{galah_call()}}}

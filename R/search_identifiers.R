@@ -8,8 +8,8 @@
 #' `tibble` of taxonomic information can also be passed to [galah_identify()] to
 #' filter queries to the specified taxon or taxa.
 #'
-#' @param query `string`: A vector containing one or more taxonomic
-#' identifiers, given as strings. 
+#' @param ... A vector containing one or more taxonomic identifiers, given as 
+#' strings. 
 #' @return An object of class `tbl_df`, `data.frame` (aka a tibble) and `ala_id`
 #' containing taxonomic information.
 #' @seealso [search_taxa()] for how to find species by (scientific) names. 

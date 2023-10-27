@@ -60,7 +60,7 @@ collect_media_files <- function(q_obj){
 #'    `galah_config(directory = "path-to-directory"` instead.
 #'    
 #' @return Available image & media files downloaded to a user local directory.
-#' @examples 
+#' @examples
 #' \dontrun{
 #' # Use `atlas_media()` to return a `tibble` of records that contain media
 #' x <- galah_call() |> 

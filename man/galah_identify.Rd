@@ -6,7 +6,7 @@
 \alias{identify.metadata_request}
 \title{Narrow a query by passing taxonomic identifiers}
 \usage{
-galah_identify(...)
+galah_identify(..., search)
 
 \method{identify}{data_request}(x, ...)
 
@@ -17,11 +17,12 @@ galah_identify(...)
 identifiers (if \code{search = FALSE}); or an object of class \code{ala_id} (from
 \code{search_taxa}).}
 
-\item{x}{An object of class \code{metadata_request}, created using \code{\link[=request_metadata]{request_metadata()}}}
-
 \item{search}{(logical);
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{galah_identify()} now always does a search to verify search terms}
+\code{galah_identify()} now always does a search to verify search terms; ergo
+this argument is ignored.}
+
+\item{x}{An object of class \code{metadata_request}, created using \code{\link[=request_metadata]{request_metadata()}}}
 }
 \value{
 A tibble containing identified taxa.
@@ -53,8 +54,9 @@ galah_call() |>
 
 # If you know a valid taxon identifier, use `galah_filter()` instead.
 # This was formerly supported by `galah_identify()` with `search = FALSE`
+id <- "https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c"
 galah_call() |> 
-  galah_filter(lsid == "https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c") |>
+  galah_filter(lsid == id) |>
   atlas_counts()
 }
 \seealso{

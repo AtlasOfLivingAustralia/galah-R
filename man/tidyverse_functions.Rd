@@ -8,10 +8,12 @@
 \usage{
 desc(...)
 
-unnest(q_obj, error_call = caller_env())
+unnest(q_obj)
 }
 \arguments{
 \item{...}{column to order by}
+
+\item{q_obj}{An object of class \code{metadata_request}}
 }
 \value{
 description

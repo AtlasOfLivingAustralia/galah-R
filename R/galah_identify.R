@@ -16,7 +16,8 @@
 #'   `search_taxa`).
 #' @param search (logical); 
 #'   `r lifecycle::badge("deprecated")` 
-#'   `galah_identify()` now always does a search to verify search terms
+#'   `galah_identify()` now always does a search to verify search terms; ergo
+#'    this argument is ignored.
 #' @return A tibble containing identified taxa.
 #' @seealso [search_taxa()] to find identifiers from scientific names;
 #' [search_identifiers()] for how to get names if taxonomic identifiers 
@@ -37,12 +38,13 @@
 #' 
 #' # If you know a valid taxon identifier, use `galah_filter()` instead.
 #' # This was formerly supported by `galah_identify()` with `search = FALSE`
+#' id <- "https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c"
 #' galah_call() |> 
-#'   galah_filter(lsid == "https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c") |>
+#'   galah_filter(lsid == id) |>
 #'   atlas_counts()
 #' @importFrom rlang warn
 #' @export
-galah_identify <- function(...) {
+galah_identify <- function(..., search) {
   dots_initial <- list(...)
   if (length(dots_initial) < 1) {
     warn("No query passed to `identify()`.")

@@ -12,7 +12,7 @@
 #' @importFrom tibble tibble
 #' @rdname slice_head
 #' @export
-slice_head.data_request <- function(.data, ..., n, prop){
+slice_head.data_request <- function(.data, ..., n, prop, by = NULL){
   # handle inputs
   if(!missing(n)){
      result <- tibble(slice_n = n)

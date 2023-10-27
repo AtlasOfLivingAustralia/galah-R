@@ -12,7 +12,6 @@
 #' `r lifecycle::badge("experimental")`
 #' `show_all()` is a helper function that can display multiple types of 
 #' information from `show_all_` sub-functions. 
-#' See `Details` (below) for accepted values.
 #' 
 #' @details There are five categories of information, each with their own 
 #' specific sub-functions to look-up each type of information. 
@@ -39,7 +38,8 @@
 #' @aliases show_all_collections show_all_datasets show_all_providers 
 #' @aliases show_all_fields show_all_reasons show_all_ranks show_all_profiles 
 #' @aliases show_all_licences show_all_apis
-#' @param type A string to specify what type of parameters should be shown.
+#' @param ... String showing what type of information is to be requested. See 
+#' `Details` (below) for accepted values.
 #' @param limit Optional number of values to return. Defaults to NULL, i.e. all records
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) 
 #' containing all data of interest.
