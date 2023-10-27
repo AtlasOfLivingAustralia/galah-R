@@ -110,22 +110,14 @@ collapse_fields <- function(){
 #' @noRd
 #' @keywords Internal
 collapse_identifiers <- function(q_obj){
-  if(is.null(q_obj$identify)){
-    url_list <- url_lookup("names_lookup")
+  if(is.null(q_obj$filter)){
+    url_list <- url_lookup("metadata/identifiers")
     names(url_list) <- "no-name-supplied"
   }else{
     base_url <- url_lookup("metadata/identifiers") |>
       url_parse()
-    
-    # split if there are multiple identifiers
-    if(length(q_obj$identify) > 1) {
-      # multiple
-      query <- split(q_obj$identify, seq_along(q_obj$identify))
-    } else {
-      # single
-      query <- list(q_obj$identify)
-    }
-    
+    search_terms <- q_obj$filter$value
+    query <- as.list(search_terms)
     # create query urls
     urls <- lapply(query,
                    function(a, base_url){
@@ -135,11 +127,9 @@ collapse_identifiers <- function(q_obj){
                    },
                    base_url = base_url) |>
       unlist()
-    search_terms <- q_obj$identify
   }
-  
   # build object and return
-  result <- list(type = q_obj$type,
+  result <- list(type = "metadata/identifiers",
                  url = tibble(url = urls, 
                               search_term = search_terms),
                  headers = build_headers())

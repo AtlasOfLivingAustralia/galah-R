@@ -136,11 +136,12 @@ parse_quosures_metadata <- function(request, dots){
   request$filter <- dots_parsed
   # The `filter` argument sets `type` when specified
   initial_type <- request$type
-  if(!(dots_parsed$variable %in% c("taxa", "media")) &
-     !grepl("s$", dots_parsed$variable)){
-    filter_type <- paste0(dots_parsed$variable, "s")
+  supplied_type <- dots_parsed$variable[1]
+  if(!(supplied_type %in% c("taxa", "media")) &
+     !grepl("s$", supplied_type)){
+    filter_type <- paste0(supplied_type, "s")
   }else{
-    filter_type <- dots_parsed$variable
+    filter_type <- supplied_type
   }
   if(grepl("-unnest$", initial_type)){
     request$type <- paste0(filter_type, "-unnest")

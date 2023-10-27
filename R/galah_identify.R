@@ -11,9 +11,7 @@
 #' first to check that the taxa you provide to `galah_identify()` return the 
 #' correct results.
 #'
-#' @param ... one or more scientific names (if `search = TRUE`) or taxonomic 
-#'   identifiers (if `search = FALSE`); or an object of class `ala_id` (from
-#'   `search_taxa`).
+#' @param ... One or more scientific names
 #' @param search (logical); 
 #'   `r lifecycle::badge("deprecated")` 
 #'   `galah_identify()` now always does a search to verify search terms; ergo
@@ -54,7 +52,6 @@ galah_identify <- function(..., search) {
     if ("search" %in% names(dots_initial)) { 
       dots_initial <- remove_search_arg(dots_initial)
     }
-    # browser()
     if(inherits(dots_initial[[1]], "data_request")){
       do.call(identify.data_request, dots_initial)
     }else{
