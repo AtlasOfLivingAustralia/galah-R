@@ -1,12 +1,6 @@
 test_that("search_taxa checks inputs", {
-  expect_warning(search_taxa())
+  expect_error(search_taxa())
 })
-
-# test_that("search_taxa check atlas", { # FIXME: is this still true?
-#   galah_config(atlas = "Austria")
-#   expect_error(search_taxa("Vulpes vulpes"))
-#   galah_config(atlas = "Australia")
-# })
 
 test_that("search_taxa works for simple queries", {
   skip_if_offline()
@@ -60,6 +54,18 @@ test_that("search_identifiers searches using identifier", {
   expect_equal(nrow(taxa), 3)
 })
 
+test_that("search_identifiers works when one value is missing", {
+  skip_if_offline()
+  # check different types of id
+  identifier <- c("urn:lsid:biodiversity.org.au:afd.taxon:08b9a1f0-62ae-45ca-9208-e773b00021ed",
+                  "something")
+  galah_config(verbose = TRUE)
+  expect_message({taxa <- search_identifiers(identifier)})
+  expect_s3_class(taxa, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(taxa), 2)
+  galah_config(verbose = FALSE)
+})
+
 test_that("search_identifiers gives a message for invalid ids", {
   skip_if_offline()
   galah_config(verbose = TRUE)
@@ -91,5 +97,6 @@ test_that("`request_metadata()` works for `type = 'taxa'`", {
   expect_s3_class(y, "query_set")
   expect_equal(names(y[[1]]), c("type", "url", "headers"))
   z <- collect(y)
-  
+  expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(z), 1)
 })

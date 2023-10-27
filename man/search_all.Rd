@@ -13,7 +13,9 @@
 \alias{search_datasets}
 \alias{search_licences}
 \alias{search_apis}
+\alias{search_identifiers}
 \alias{search_lists}
+\alias{search_taxa}
 \title{Search for record information}
 \usage{
 search_all(type, query)
@@ -30,6 +32,8 @@ search_datasets(query)
 
 search_fields(query)
 
+search_identifiers(...)
+
 search_licences(query)
 
 search_lists(query)
@@ -41,12 +45,16 @@ search_providers(query)
 search_ranks(query)
 
 search_reasons(query)
+
+search_taxa(...)
 }
 \arguments{
 \item{type}{A string to specify what type of parameters should be searched.}
 
 \item{query}{A string specifying a search term. Searches are not
 case-sensitive.}
+
+\item{...}{A set of strings or a tibble to be queried}
 }
 \value{
 An object of class \code{tbl_df} and \code{data.frame} (aka a tibble)

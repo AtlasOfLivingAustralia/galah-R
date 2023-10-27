@@ -108,8 +108,13 @@ search_all <- function(type, query){
   check_if_missing(query)
   
   if(type == "taxa"){
+    check_if_in_pipe(query)
     request_metadata(type = "taxa") |>
-      identify(query) |>
+      identify(query[[1]]) |>
+      collect()
+  }else if(type == "identifiers"){
+    request_metadata() |>
+      filter(identifier == query) |>
       collect()
   }else{
     if(is_gbif() & 
@@ -135,7 +140,6 @@ search_text_cols <- function(df, query){
   query <- tolower(query)
   keep_cols <- unlist(lapply(df, is.character)) & 
     colnames(df) != "type"
-  # browser()
   check_list <- lapply(df[, keep_cols], 
                        function(a){grepl(query, tolower(a))})
   check_vector <- lapply(list_transpose(check_list), any) |> unlist()
@@ -167,6 +171,22 @@ check_if_missing <- function(query,
   }
 }
 
+#' Internal function to check if `search_taxa()` has been piped in a 
+#' `galah_call()` instead of `galah_identify()`
+#' @noRd
+#' @keywords Internal
+check_if_in_pipe <- function(..., error_call = caller_env()) {
+  dots <- list(...)
+  col_type_present <- grepl("type", names(unlist(dots)))
+  if (any(col_type_present)) {
+    bullets <- c(
+      "Can't pipe `search_taxa()` in a `galah_call()`.",
+      i = "Did you mean to use `galah_identify()`?"
+    )
+    abort(bullets, call = error_call)
+  }
+}
+
 #' @rdname search_all
 #' @export
 search_assertions <- function(query){search_all("assertions", query)}
@@ -192,6 +212,11 @@ search_datasets <- function(query){search_all("datasets", query)}
 search_fields <- function(query){search_all("fields", query)}
 
 #' @rdname search_all
+#' @param ... A set of strings or a tibble to be queried
+#' @export
+search_identifiers <- function(...){search_all("identifiers", unlist(list(...)))}
+
+#' @rdname search_all
 #' @export
 search_licences <- function(query){search_all("licences", query)}
 
@@ -214,3 +239,7 @@ search_ranks <- function(query){search_all("ranks", query)}
 #' @rdname search_all
 #' @export
 search_reasons <- function(query){search_all("reasons", query)}
+
+#' @rdname search_all
+#' @export
+search_taxa <- function(...){search_all("taxa", list(...))}

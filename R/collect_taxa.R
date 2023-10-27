@@ -114,10 +114,20 @@ clean_la_taxa <- function(result, search_terms){
 collect_identifiers <- function(q_obj){
   search_terms <- q_obj$url$search_term
   result <- query_API(q_obj) |>
-    bind_rows() 
+    flat_lists_only() |>
+    bind_rows()
+  if(any(colnames(result) == "taxonConceptID")){
+    result <- result |>
+      filter(!duplicated(result$taxonConceptID))
+  }
   result <- result |>
-    filter(!duplicated(result$taxonConceptID)) |>
     mutate("search_term" = search_terms, .before = "success")
+
+  # Check for invalid search terms
+  if (galah_config()$package$verbose) {
+    check_search_terms(result)
+  }
+  
   names(result) <- rename_columns(names(result), type = "taxa") # old code
   result |> select(any_of(wanted_columns("taxa")))
   attr(result, "call") <- "identifiers"
@@ -133,7 +143,6 @@ collect_identifiers <- function(q_obj){
 #' @noRd
 #' @keywords Internal
 check_search_terms <- function(result, atlas) {
-  # browser()
   if (!all(result$success)) {
     atlas <- pour("atlas", "region")
     

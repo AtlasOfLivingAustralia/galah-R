@@ -13,9 +13,7 @@ galah_identify(..., search)
 \method{identify}{metadata_request}(x, ...)
 }
 \arguments{
-\item{...}{one or more scientific names (if \code{search = TRUE}) or taxonomic
-identifiers (if \code{search = FALSE}); or an object of class \code{ala_id} (from
-\code{search_taxa}).}
+\item{...}{One or more scientific names}
 
 \item{search}{(logical);
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
