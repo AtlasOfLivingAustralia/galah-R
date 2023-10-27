@@ -9,32 +9,32 @@
 #' using `collapse()`, but fail at `compute()`.
 #' @name compute_galah
 #' @order 1
-#' @param .data An object of class `data_request`, `metadata_request` or 
+#' @param x An object of class `data_request`, `metadata_request` or 
 #' `files_request` (i.e. constructed using a pipe) or `query` or `query_set`
 #' (i.e. constructed by `collapse()`) 
 #' @return An object of class `query` containing a checked, valid query
 #' for the selected atlas. In the case of occurrence data, also contains
 #' information on the status of the request.
 #' @export
-compute.data_request <- function(.data){
-  # .data$type <- check_type(.data$type) # possibly still needed; unclear
-  collapse(.data) |> compute()
+compute.data_request <- function(x){
+  # x$type <- check_type(x$type) # possibly still needed; unclear
+  collapse(x) |> compute()
 }
 
 # if calling `compute()` after `request_metadata()` 
 #' @rdname compute_galah
 #' @order 2
 #' @export
-compute.metadata_request <- function(.data){
-  collapse(.data) |> compute()
+compute.metadata_request <- function(x){
+  collapse(x) |> compute()
 }
 
 # if calling `compute()` after `request_files()` 
 #' @rdname compute_galah
 #' @order 3
 #' @export
-compute.files_request <- function(.data){
-  result <- collapse(.data)
+compute.files_request <- function(x){
+  result <- collapse(x)
   result[[1]]
 }
 
@@ -42,27 +42,27 @@ compute.files_request <- function(.data){
 #' @rdname compute_galah
 #' @order 4
 #' @export
-compute.query_set <- function(.data){
-  build_checks(.data) |> compute()
+compute.query_set <- function(x){
+  build_checks(x) |> compute()
 }
 
 # if calling `compute()` on an object extracted from `collapse()` 
 #' @rdname compute_galah
 #' @order 5
 #' @export
-compute.query <- function(.data){
-  .data <- compute_checks(.data)
-  switch(.data$type, 
-         "data/occurrences" = compute_occurrences(.data),
-         "data/occurrences-count-groupby" = compute_occurrences_count(.data),
-         "data/occurrences-count" = compute_occurrences_count(.data),
-         "data/species" = compute_species(.data),
-         "data/species-count" = compute_species_count(.data),
+compute.query <- function(x){
+  x <- compute_checks(x)
+  switch(x$type, 
+         "data/occurrences" = compute_occurrences(x),
+         "data/occurrences-count-groupby" = compute_occurrences_count(x),
+         "data/occurrences-count" = compute_occurrences_count(x),
+         "data/species" = compute_species(x),
+         "data/species-count" = compute_species_count(x),
          # "-unnest" functions require some checks
-         "metadata/profiles-unnest" = compute_profile_values(.data),  # check this
+         "metadata/profiles-unnest" = compute_profile_values(x),  # check this
          # some "metadata/" functions require pagination under some circumstances
-         "metadata/lists" = compute_lists(.data), # always paginates
-         .data # remaining "metadata/" functions are passed as-is
+         "metadata/lists" = compute_lists(x), # always paginates
+         x # remaining "metadata/" functions are passed as-is
   )
 }
 

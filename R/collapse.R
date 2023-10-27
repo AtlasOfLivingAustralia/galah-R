@@ -9,7 +9,7 @@
 #' argument.
 #' @name collapse_galah
 #' @order 1
-#' @param .data An object of class `data_request`, `metadata_request` or 
+#' @param x An object of class `data_request`, `metadata_request` or 
 #' `files_request`
 #' @param mint_doi Logical: should a DOI be minted for this download? Only 
 #' applies to `type = "occurrences"` when atlas chosen is "ALA".
@@ -18,59 +18,59 @@
 #' queries required to correctly retrieve the requested data. Objects within a
 #' `query_set` are listed in the sequence in which they will be enacted.
 #' @export
-collapse.data_request <- function(.data, mint_doi = FALSE){
-  # .data$type <- check_type(.data$type) # needed?
+collapse.data_request <- function(x, mint_doi = FALSE){
+  # x$type <- check_type(x$type) # needed?
   # handle sending dois via `filter()`
   # important this happens first, as it affects `type` which affects later code
-  variables <- .data$filter$variable
+  variables <- x$filter$variable
   if(!is.null(variables)){
     if(length(variables) == 1 & variables[1] == "doi"){
-      .data$type <- "occurrences-doi"
+      x$type <- "occurrences-doi"
     }
   }
   # handle `run_checks`
   fields_absent <- lapply(
-    .data[c("arrange", "filter", "select", "group_by")],
+    x[c("arrange", "filter", "select", "group_by")],
     is.null
   ) |>
     unlist()
-  if (pour("package", "run_checks") & .data$type != "occurrences-doi") {
+  if (pour("package", "run_checks") & x$type != "occurrences-doi") {
     # add check here to see whether any filters are specified
     # it is possible to only call `identify()`, for example
-    if (any(!fields_absent) | .data$type == "species-count") {
+    if (any(!fields_absent) | x$type == "species-count") {
       result <- list(collapse_fields(), collapse_assertions())
     } else {
       # for living atlases, we need `collapse_fields()` to check the `lsid` field
       # this isn't required for GBIF which doesn't use `fq` for taxon queries
-      if(!is.null(.data$identify) &!is_gbif()){
+      if(!is.null(x$identify) &!is_gbif()){
         result <- list(collapse_fields())
       }else{
         result <- list()
       }
     }
-    if (.data$type %in% c("occurrences", "media", "species") &
+    if (x$type %in% c("occurrences", "media", "species") &
         atlas_supports_reasons_api()) {
       result[[(length(result) + 1)]] <- collapse_reasons()
     }
   } else { # if select is required, we need fields even if `run_checks == FALSE`
-    if(!fields_absent[["select"]] | .data$type == "occurrences"){
+    if(!fields_absent[["select"]] | x$type == "occurrences"){
       result <- list(collapse_fields(), collapse_assertions())
     }else{
       result <- list() 
     }
   }
   # handle `identify()`
-  if(!is.null(.data$identify) & .data$type != "occurrences-doi"){
-    result[[(length(result) + 1)]] <- collapse_taxa(list(identify = .data$identify))
+  if(!is.null(x$identify) & x$type != "occurrences-doi"){
+    result[[(length(result) + 1)]] <- collapse_taxa(list(identify = x$identify))
   }
   # handle query
   result[[(length(result) + 1)]] <- switch(
-    .data$type,
-    "occurrences" = collapse_occurrences(.data, mint_doi = mint_doi),
-    "occurrences-count" = collapse_occurrences_count(.data),
-    "occurrences-doi" = collapse_occurrences_doi(.data),
-    "species" = collapse_species(.data),
-    "species-count" = collapse_species_count(.data),
+    x$type,
+    "occurrences" = collapse_occurrences(x, mint_doi = mint_doi),
+    "occurrences-count" = collapse_occurrences_count(x),
+    "occurrences-doi" = collapse_occurrences_doi(x),
+    "species" = collapse_species(x),
+    "species-count" = collapse_species_count(x),
     abort("unrecognised 'type'"))
     class(result) <- "query_set"
   result
@@ -80,14 +80,14 @@ collapse.data_request <- function(.data, mint_doi = FALSE){
 #' @rdname collapse_galah
 #' @order 2
 #' @export
-collapse.metadata_request <- function(.data){
+collapse.metadata_request <- function(x){
   if(pour("package", "run_checks")){
-    result <- switch(.data$type, 
+    result <- switch(x$type, 
                      "fields-unnest" = list(collapse_fields()),
                      "profiles-unnest" = list(collapse_profiles()),
                      "taxa-unnest" = {
-                       if(!is.null(.data$identify)){
-                         list(collapse_taxa(.data))
+                       if(!is.null(x$identify)){
+                         list(collapse_taxa(x))
                        }else{
                          list() 
                        }
@@ -96,37 +96,37 @@ collapse.metadata_request <- function(.data){
   }else{
     result <- list()
   }
-  if(grepl("-unnest$", .data$type)){
-    if(.data$type == "taxa-unnest"){
-      if(is.null(.data$identify) & is.null(.data$filter)){
+  if(grepl("-unnest$", x$type)){
+    if(x$type == "taxa-unnest"){
+      if(is.null(x$identify) & is.null(x$filter)){
         abort("Requests of type `taxa-unnest` must also supply one of `filter()` or `identify()`.")
       }
-    }else if(is.null(.data$filter)){
-      current_type <- .data$type
+    }else if(is.null(x$filter)){
+      current_type <- x$type
       bullets <- glue("Requests of type `{current_type}` containing `unnest` must supply `filter()`.")
       abort(bullets)
     }
   }
-  result[[(length(result) + 1)]] <- switch(.data$type,
+  result[[(length(result) + 1)]] <- switch(x$type,
          "apis" = collapse_apis(),
          "assertions" = collapse_assertions(),
          "atlases" = collapse_atlases(),
-         "collections" = collapse_collections(.data),
-         "datasets" = collapse_datasets(.data),
+         "collections" = collapse_collections(x),
+         "datasets" = collapse_datasets(x),
          "fields" = collapse_fields(),
-         "fields-unnest" = collapse_fields_unnest(.data),
+         "fields-unnest" = collapse_fields_unnest(x),
          "licences" = collapse_licences(),
-         "lists" = collapse_lists(.data),
-         "lists-unnest" = collapse_lists_unnest(.data),
-         "media" = collapse_media(.data),
+         "lists" = collapse_lists(x),
+         "lists-unnest" = collapse_lists_unnest(x),
+         "media" = collapse_media(x),
          "profiles" = collapse_profiles(),
-         "profiles-unnest" = collapse_profiles_unnest(.data),
-         "providers" = collapse_providers(.data),
+         "profiles-unnest" = collapse_profiles_unnest(x),
+         "providers" = collapse_providers(x),
          "ranks" = collapse_ranks(),
          "reasons" = collapse_reasons(),
-         "taxa" = collapse_taxa(.data),
-         "taxa-unnest" = collapse_taxa_unnest(.data),
-         "identifiers" = collapse_identifiers(.data),
+         "taxa" = collapse_taxa(x),
+         "taxa-unnest" = collapse_taxa_unnest(x),
+         "identifiers" = collapse_identifiers(x),
          abort("unrecognised 'type'")
   )
   class(result) <- "query_set"
@@ -139,12 +139,12 @@ collapse.metadata_request <- function(.data){
 #' @param thumbnail Logical: should thumbnail-size images be returned? Defaults 
 #' to `FALSE`, indicating full-size images are required.
 #' @export
-collapse.files_request <- function(.data, 
+collapse.files_request <- function(x, 
                                    # prefix? could be useful for file names
                                    thumbnail = FALSE
                                    ){
-  result <- list(switch(.data$type,
-         "media" = collapse_media_files(.data, thumbnail = thumbnail)
+  result <- list(switch(x$type,
+         "media" = collapse_media_files(x, thumbnail = thumbnail)
   ))
   class(result) <- "query_set"
   result

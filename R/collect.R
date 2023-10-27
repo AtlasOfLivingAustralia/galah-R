@@ -4,7 +4,7 @@
 #' selected API. 
 #' @name collect_galah
 #' @order 1
-#' @param .data An object of class `data_request`, `metadata_request` or 
+#' @param x An object of class `data_request`, `metadata_request` or 
 #' `files_request` (from `galah_call()`); or an oject of class `query_set` or 
 #' `query` (from `collapse()` or `compute()`)
 #' @param wait logical; should `galah` wait for a response? Defaults to FALSE.
@@ -16,8 +16,8 @@
 #' `wait` is set to `FALSE`), this function returns an object of class `query`
 #' that can be used to recheck the download at a later time.
 #' @export
-collect.data_request <- function(.data, wait = TRUE, file = NULL){
-  collapse(.data) |>
+collect.data_request <- function(x, wait = TRUE, file = NULL){
+  collapse(x) |>
     compute() |>
     collect(wait = wait, file = file)
 }
@@ -25,8 +25,8 @@ collect.data_request <- function(.data, wait = TRUE, file = NULL){
 #' @rdname collect_galah
 #' @order 2
 #' @export
-collect.metadata_request <- function(.data){
-  collapse(.data) |>
+collect.metadata_request <- function(x){
+  collapse(x) |>
     compute() |>
     collect()
 }
@@ -34,8 +34,8 @@ collect.metadata_request <- function(.data){
 #' @rdname collect_galah
 #' @order 3
 #' @export
-collect.files_request <- function(.data){
-  collapse(.data) |> 
+collect.files_request <- function(x){
+  collapse(x) |> 
     compute() |>
     collect()
 }
@@ -43,8 +43,8 @@ collect.files_request <- function(.data){
 #' @rdname collect_galah
 #' @order 4
 #' @export
-collect.query_set <- function(.data, wait = TRUE, file = NULL){
-  compute(.data) |>
+collect.query_set <- function(x, wait = TRUE, file = NULL){
+  compute(x) |>
     collect(wait = wait, file = file)
 }
 
@@ -56,46 +56,46 @@ collect.query_set <- function(.data, wait = TRUE, file = NULL){
 #' @importFrom rlang inform
 #' @importFrom tibble tibble
 #' @export
-collect.query <- function(.data, 
+collect.query <- function(x, 
                           wait = TRUE, 
                           file = NULL # FIXME: is `file` used?
                           ){
   # sometimes no url is given, e.g. when a search returns no data
-  if(is.null(.data$url) & # most queries have a `url`
-     is.null(.data$data) & # some cached metadata queries have `data` instead
-     is.null(.data$status) # finally, after `compute()`, occurrences have `status`
+  if(is.null(x$url) & # most queries have a `url`
+     is.null(x$data) & # some cached metadata queries have `data` instead
+     is.null(x$status) # finally, after `compute()`, occurrences have `status`
      ){
     tibble()
   }else{
-    switch(.data$type,
-           "data/occurrences" = collect_occurrences(.data, wait = wait, file = file),
-           "data/occurrences-count" = collect_occurrences_count(.data),
-           "data/occurrences-count-groupby" = collect_occurrences_count(.data),
-           "data/occurrences-doi" = collect_occurrences_doi(.data),
-           "data/species"= collect_species(.data, file = file),
-           "data/species-count" = collect_species_count(.data),
-           "data/taxonomy" = collect_taxonomy(.data),
-           "files/media" = collect_media_files(.data),
-           "metadata/apis" = collect_apis(.data),
-           "metadata/assertions" = collect_assertions(.data),
-           "metadata/atlases" = collect_atlases(.data),
-           "metadata/collections" = collect_collections(.data),
-           "metadata/datasets" = collect_datasets(.data),
-           "metadata/fields" = collect_fields(.data),
-           "metadata/fields-unnest" = collect_fields_unnest(.data),
-           "metadata/licences" = collect_licences(.data),
-           "metadata/lists" = collect_lists(.data),
-           "metadata/lists-unnest" = collect_lists_unnest(.data),
-           "metadata/media" = collect_media_metadata(.data),
-           "metadata/profiles" = collect_profiles(.data),
-           "metadata/profiles-unnest" = collect_profiles_unnest(.data),
-           "metadata/providers" = collect_providers(.data),
-           "metadata/ranks" = collect_ranks(.data),
-           "metadata/reasons" = collect_reasons(.data),
-           "metadata/taxa-single" = collect_taxa(.data),
-           "metadata/taxa-multiple" = collect_taxa(.data),
-           "metadata/taxa-unnest" = collect_taxa_unnest(.data),
-           "metadata/identifiers" = collect_identifiers(.data),
+    switch(x$type,
+           "data/occurrences" = collect_occurrences(x, wait = wait, file = file),
+           "data/occurrences-count" = collect_occurrences_count(x),
+           "data/occurrences-count-groupby" = collect_occurrences_count(x),
+           "data/occurrences-doi" = collect_occurrences_doi(x),
+           "data/species"= collect_species(x, file = file),
+           "data/species-count" = collect_species_count(x),
+           "data/taxonomy" = collect_taxonomy(x),
+           "files/media" = collect_media_files(x),
+           "metadata/apis" = collect_apis(x),
+           "metadata/assertions" = collect_assertions(x),
+           "metadata/atlases" = collect_atlases(x),
+           "metadata/collections" = collect_collections(x),
+           "metadata/datasets" = collect_datasets(x),
+           "metadata/fields" = collect_fields(x),
+           "metadata/fields-unnest" = collect_fields_unnest(x),
+           "metadata/licences" = collect_licences(x),
+           "metadata/lists" = collect_lists(x),
+           "metadata/lists-unnest" = collect_lists_unnest(x),
+           "metadata/media" = collect_media_metadata(x),
+           "metadata/profiles" = collect_profiles(x),
+           "metadata/profiles-unnest" = collect_profiles_unnest(x),
+           "metadata/providers" = collect_providers(x),
+           "metadata/ranks" = collect_ranks(x),
+           "metadata/reasons" = collect_reasons(x),
+           "metadata/taxa-single" = collect_taxa(x),
+           "metadata/taxa-multiple" = collect_taxa(x),
+           "metadata/taxa-unnest" = collect_taxa_unnest(x),
+           "metadata/identifiers" = collect_identifiers(x),
            abort("unrecognised `type`"))
   }
 }

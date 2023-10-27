@@ -66,22 +66,22 @@ atlas_counts <- function(request = NULL,
 }
 
 #' @rdname atlas_counts
-#' @param .data An object of class `data_request`, created using [galah_call()]
+#' @param x An object of class `data_request`, created using [galah_call()]
 #' @param wt currently ignored
 #' @param ... currently ignored
 #' @param sort currently ignored
 #' @param name currently ignored
 #' @importFrom dplyr count
 #' @export
-count.data_request <- function(.data, 
+count.data_request <- function(x, 
                                ..., 
                                wt, 
                                sort, 
                                name){
-  .data$type <- switch(.data$type, 
+  x$type <- switch(x$type, 
          "occurrences" = "occurrences-count",
          "species" = "species-count",
          "media" = abort("type = 'media' is not supported by `count()`"),
          abort("`count()` only supports `type = 'occurrences' or` `'species'`"))
-  .data
+  x
 }

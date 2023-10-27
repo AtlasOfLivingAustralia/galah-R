@@ -63,10 +63,10 @@ galah_identify <- function(...) {
 }
 
 #' @rdname galah_identify
-#' @param .data An object of class `data_request`, created using [request_data()]
+#' @param x An object of class `data_request`, created using [request_data()]
 #' @importFrom tibble tibble
 #' @export
-identify.data_request <- function(.data, ...){
+identify.data_request <- function(x, ...){
   dots_initial <- list(...)
   if (length(dots_initial) < 1) {
     warn("No query passed to `identify()`.")
@@ -79,21 +79,21 @@ identify.data_request <- function(.data, ...){
       result <- tibble("search_term" = unlist(dots_initial))
     }
   }
-  update_data_request(.data, identify = result)
+  update_data_request(x, identify = result)
 }
 
 #' @rdname galah_identify
-#' @param .data An object of class `metadata_request`, created using [request_metadata()]
+#' @param x An object of class `metadata_request`, created using [request_metadata()]
 #' @export
-identify.metadata_request <- function(.data, ...){
-  .data <- identify.data_request(.data, ...)
-  class(.data) <- "metadata_request"
-  if(grepl("-unnest$", .data$type)){
-    .data$type <- "taxa-unnest"
+identify.metadata_request <- function(x, ...){
+  x <- identify.data_request(x, ...)
+  class(x) <- "metadata_request"
+  if(grepl("-unnest$", x$type)){
+    x$type <- "taxa-unnest"
   }else{
-    .data$type <- "taxa" 
+    x$type <- "taxa" 
   }
-  .data
+  x
 }
 
 
