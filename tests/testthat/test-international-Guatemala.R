@@ -86,6 +86,7 @@ test_that("atlas_counts works for Guatemala", {
   expect_gt(atlas_counts(type = "species")$count, 0)
 })
 
+## FIXME: Both queries work, but results are notably different (result2 is an order of magnitude more)
 test_that("atlas_counts works with galah_identify for Guatemala", {
   skip_if_offline()
   result <- galah_call() |>
