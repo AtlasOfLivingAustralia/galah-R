@@ -81,26 +81,49 @@ collect_taxa_la <- function(q_obj){
 #' @keywords Internal
 clean_la_taxa <- function(result, search_terms){
   lapply(result, function(a){
-    list_of_results <- a |>
-      pluck("searchResults", "results")
-    if(length(list_of_results) > 1){ # i.e. more than one match
-      taxon_names <- unlist(lapply(list_of_results, function(b){b$name}))
-      string_distances <- adist(
-        tolower(search_terms), 
-        tolower(taxon_names))[1, ]
-      min_distance <- which(string_distances == min(string_distances))
-      if(length(min_distance) > 1){ # i.e. 2+ identical entries
-        json_length <- lengths(list_of_results)
-        min_length <- which(string_distances == min(string_distances))[1] 
-        # NOTE: [1] added above to ensure uniqueness
-        # i.e. if multiple answers have the same amount of data, we pick the first
-        list_of_results[[min_length]]
-      }else{
-        list_of_results[[min_distance]]
-      }
-    }else{
-      list_of_results
+    
+    # capture results
+    if("_embedded" %in% names(a)) { # e.g. France
+      list_of_results <- a |>
+        pluck("_embedded", "taxa")
+    } else {
+      list_of_results <- a |>
+        pluck("searchResults", "results")
     }
+    
+    # find best string match to search term
+    if (length(list_of_results) > 1) { # i.e. more than one match
+
+      if ("name" %in% list_of_results[[1]]) {
+        taxon_names <- unlist(lapply(list_of_results, function(b){b$name}))
+      } else { # e.g. France
+        taxon_names <- unlist(lapply(list_of_results, function(b){b$scientificName}))
+      }
+      
+        string_distances <- adist(
+          tolower(search_terms), 
+          tolower(taxon_names))[1, ]
+        min_distance <- which(string_distances == min(string_distances))
+        
+        if (length(min_distance) > 1) { # i.e. 2+ identical entries
+          json_length <- lengths(list_of_results)
+          min_length <- which(string_distances == min(string_distances))[1] 
+          # NOTE: [1] added above to ensure uniqueness
+          # i.e. if multiple answers have the same amount of data, we pick the first
+          list_of_results <- list_of_results[[min_length]]
+        } else {
+          list_of_results <- list_of_results[[min_distance]]
+        }
+    } else {
+      list_of_results <- list_of_results
+    }
+    
+    # unlist if necessary
+    if (pour("atlas", "region") == "France") {
+      list_of_results <- list_of_results |> unlist()
+      names(list_of_results)[names(list_of_results) == "referenceId"] <- "guid"
+    }
+    list_of_results
   })
 }
 
