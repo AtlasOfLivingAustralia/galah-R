@@ -89,6 +89,17 @@ test_that("atlas_counts works with group_by for Estonia", {
   expect_equal(names(result), c("basis_of_record", "count"))
 })
 
+test_that("atlas_counts errors when too many fields passed to group_by for Estonia", {
+  skip_if_offline()
+  expect_error(
+    result <- galah_call() |>
+      galah_filter(year >= 2018) |>
+      galah_group_by(basis_of_record, year) |>
+      atlas_counts(),
+    "Too many fields"
+  )
+})
+
 test_that("atlas_occurrences returns error for Estonia", {
   expect_error(atlas_occurrences(
     filter = galah_filter(year == 2020)

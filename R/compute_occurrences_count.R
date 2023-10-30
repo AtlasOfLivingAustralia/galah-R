@@ -62,7 +62,7 @@ compute_occurrences_count_nogroupby <- function(q_obj){
 #' @importFrom httr2 url_parse
 #' @noRd
 #' @keywords Internal
-compute_occurrences_count_groupby <- function(q_obj){
+compute_occurrences_count_groupby <- function(q_obj, error_call = caller_env()){
   data_cached <- q_obj
   # get url
   url <- url_parse(q_obj$url)
@@ -71,6 +71,18 @@ compute_occurrences_count_groupby <- function(q_obj){
   facet_list <- url$query[names(url$query) == "facets"]
   facet_names <- unlist(facet_list)
   names(facet_names) <- NULL
+  
+  # Error when Atlas facet max is reached
+  if (pour("atlas", "region") == "Estonia" & 
+      length(facet_list) > 1) {
+    atlas <- pour("atlas", "region")
+    n_fields <- length(facet_list)
+    bullets <- c(
+      "Too many fields passed to `group_by()`.",
+      x = glue("Selected atlas ({atlas}) accepts a maximum of 1 field, not {n_fields}.")
+    )
+    abort(bullets, call = error_call)
+  }
 
   # save out facet limits to add back later
   saved_facet_queries <- list( 
@@ -175,9 +187,10 @@ compute_occurrences_count_groupby <- function(q_obj){
 #' It is called exclusively by `compute_counts()`
 #' @noRd 
 #' @keywords Internal
-check_facet_count <- function(q_obj, warn = TRUE){
+check_facet_count <- function(q_obj, warn = TRUE, error_call = caller_env()){
   url <- url_parse(q_obj$url)
   current_limit <- url$query$flimit
+  
   if(is.null(current_limit)){
     n_requested <- as.integer(30)
   }else{

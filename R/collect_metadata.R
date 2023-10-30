@@ -113,7 +113,7 @@ collect_datasets <- function(q_obj){
       bind_rows()
     result <- result |> 
       relocate("uid") |>
-      rename(id = result$uid)
+      rename("id" = "uid")
   }
   attr(result, "call") <- "datasets"
   attr(result, "region") <- pour("atlas", "region") 
@@ -239,7 +239,7 @@ collect_providers <- function(q_obj){
       bind_rows()
     result <- result |> 
       relocate("uid") |> 
-      rename(id = result$uid)
+      rename("id" = "uid")
   }
   attr(result, "call") <- "providers"
   attr(result, "region") <- pour("atlas", "region")

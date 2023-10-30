@@ -104,7 +104,7 @@ remove_search_arg <- function(dots_initial) {
   lifecycle::deprecate_warn(
     when = "2.0.0",
     what = "galah_identify(search = )",
-    details = glue("`galah_identify()` now always does a search to verify search terms. \\ 
+    details = glue("`galah_identify()` now always does a search to verify search terms. \\
                    Please remove `search` argument from `galah_identify()`.")
   )
   # remove `search` arg from query

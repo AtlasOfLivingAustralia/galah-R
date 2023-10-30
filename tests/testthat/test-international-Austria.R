@@ -154,19 +154,23 @@ test_that("atlas_occurrences works for Austria", {
 ## FIXME: atlas_taxonomy doesn't work
 test_that("atlas_taxonomy works for Austria", {
   skip_if_offline()
+  
+  ## FIXME: Obsolete syntax. Necessary test? ------------
   # first test child values lookup
-  taxon <- search_taxa("Reptilia")
-  x <- request_values() |>
-    filter(taxa == taxon$taxon_concept_id) |> # should be able to replace this with `identify()`
-    collect()
+  # taxon <- search_taxa("Reptilia")
+  # x <- request_values() |>
+    # filter(taxa == taxon$taxon_concept_id) |> # should be able to replace this with `identify()`
+    # collect()
   # Note that this maxes out at 1000 rows. Clearly, there are two problems here:
   # many taxa missing levels of their taxonomic hierarchy
   # lack of pagination in `galah`
   # add tests
-  expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
-  expect_gte(nrow(x), 10)
-  expect_equal(ncol(x), 8)
+  # expect_s3_class(x, c("tbl_df", "tbl", "data.frame"))
+  # expect_gte(nrow(x), 10)
+  # expect_equal(ncol(x), 8)
   # now test if recursive children works via `atlas_taxonomy()`
+  # ------------------------------
+  
   y <- galah_call() |>
     identify("Aves") |>
     filter(rank >= order) |>

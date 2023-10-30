@@ -99,6 +99,16 @@ clean_labels <- function(df){
     df |> 
       select(-"fq", -"i18nCode")
   }else{
+    # Some atlases (e.g. Estonia) only have "label" column
+    if("label" %in% colnames(df) & !"i18nCode" %in% colnames(df)) {
+      field_name <- stringr::str_extract(df$fq[1], "[^:]+") |> as.character()
+      col_lookup <- c("label")
+      names(col_lookup) <- field_name
+      df <- df |>
+        rename(all_of(col_lookup)) |>
+        select(-"fq")
+      df
+    }
     df
   }
 }
