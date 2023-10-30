@@ -64,9 +64,19 @@ collect_taxa_la <- function(q_obj){
       clean_la_taxa(search_terms = search_terms) |>
       bind_rows()
     if(ncol(result) > 1){
+      atlas <- pour("atlas", "region")
+      if(atlas == "France") {
+        name <- c("referenceID")
+      } else {
+        if (atlas == "Portugal") {
+          name <- c("usageKey")
+        } else {
+          name <- c("guid")
+        }
+      }
       result <- result |>
-        filter(!duplicated(result$guid)) |>
-        mutate("search_term" = search_terms, .before = "id")
+        filter(!duplicated({{name}})) |>
+        mutate("search_term" = search_terms, .before = 1)
     }
   }
   names(result) <- rename_columns(names(result), type = "taxa") # old code
@@ -81,25 +91,27 @@ collect_taxa_la <- function(q_obj){
 #' @keywords Internal
 clean_la_taxa <- function(result, search_terms){
   lapply(result, function(a){
-    
+
     # capture results
     if("_embedded" %in% names(a)) { # e.g. France
       list_of_results <- a |>
         pluck("_embedded", "taxa")
     } else {
+      if("searchResults" %in% names(a)) {
       list_of_results <- a |>
         pluck("searchResults", "results")
+      } else { # e.g. Portugal (single result)
+        list_of_results <- list(a)
+      }
     }
     
     # find best string match to search term
     if (length(list_of_results) > 1) { # i.e. more than one match
-
       if ("name" %in% list_of_results[[1]]) {
         taxon_names <- unlist(lapply(list_of_results, function(b){b$name}))
       } else { # e.g. France
         taxon_names <- unlist(lapply(list_of_results, function(b){b$scientificName}))
       }
-      
         string_distances <- adist(
           tolower(search_terms), 
           tolower(taxon_names))[1, ]
@@ -119,9 +131,9 @@ clean_la_taxa <- function(result, search_terms){
     }
     
     # unlist if necessary
-    if (pour("atlas", "region") == "France") {
+    atlas <- pour("atlas", "region")
+    if (any(atlas %in% c("France", "Portugal"))) {
       list_of_results <- list_of_results |> unlist()
-      names(list_of_results)[names(list_of_results) == "referenceId"] <- "guid"
     }
     list_of_results
   })
