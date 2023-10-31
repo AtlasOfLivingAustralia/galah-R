@@ -14,7 +14,7 @@ collect_lists_unnest <- function(q_obj){
 #' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
-collect_fields_unnest <- function(q_obj){
+collect_fields_unnest <- function(q_obj, error_call = caller_env()){
   if(is_gbif()){
     q_obj |>
       query_API()
@@ -23,6 +23,11 @@ collect_fields_unnest <- function(q_obj){
       pluck("url") |>
       url_parse() |>
       pluck("query", "facets")
+    
+    if (facet == "NA") {
+      abort("No `field` passed to `show_values()`/`search_values()`.")
+    }
+    
     q_obj |>
       query_API() |>
       pluck(!!!list(1, "fieldResult")) |>

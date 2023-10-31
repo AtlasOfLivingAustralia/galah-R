@@ -29,6 +29,7 @@
 #' [search_lists()].
 #' @return A `tibble` of values for a specified field, profile or list.
 #' @importFrom tibble tibble
+#' @importFrom cli col_yellow
 #' @examples \donttest{
 #' # Show values in field 'cl22'
 #' search_fields("cl22") |> 
@@ -68,7 +69,7 @@ show_values <- function(df){
       ))
   } else {
     if (is.na(match_name)) {
-      inform(glue("`search_all()` returned no matched `{type}`."))
+      inform(cli::col_yellow(glue("`search_all()` returned no matched `{type}`.")))
       tibble()
     } else {
     inform(
