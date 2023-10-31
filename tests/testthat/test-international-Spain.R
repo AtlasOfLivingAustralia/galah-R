@@ -103,7 +103,7 @@ test_that("search_all(identifiers) works for Spain", {
 
 test_that("show_values works for fields for Spain", {
   skip_if_offline()
-  x <- search_all(fields, "basis_of_record") |> 
+  x <- search_all(fields, "basisOfRecord") |> 
     show_values()
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -168,25 +168,34 @@ test_that("atlas_counts works with group_by for Spain", {
 test_that("galah_select works for Spain", {
   skip_if_offline()
   x <- galah_select()
-  expect_gt(nrow(x), 0)
-  expect_equal(ncol(x), 2)
-  expect_true(inherits(x, c("tbl_df", "tbl", "data.frame"))) 
+  y <- galah_select(basisOfRecord)
+  expect_equal(length(x), 2)
+  expect_equal(x$summary, "group = basic")
+  expect_equal(x$group, "basic")
+  expect_true(inherits(x, c("list"))) 
+  expect_equal(length(y), 3)
+  expect_equal(y$summary, "basisOfRecord")
+  expect_equal(y$group, character(0))
+  expect_true(inherits(y, c("list"))) 
+  expect_true(inherits(y[[1]], c("quosure", "formula"))) 
 })
 
-# test_that("atlas_occurrences works for Spain", {
-#   skip_on_cran()
-#   galah_config(
-#     atlas = "Spain",
-#     email = "test@ala.org.au",
-#     send_email = FALSE)
-#   occ <- galah_call() |>
-#     galah_identify("Mammalia") |>
-#     galah_filter(year <= 1800) |>
-#     galah_select(species, year) |>
-#     atlas_occurrences()
-#   expect_gt(nrow(occ), 0)
-#   expect_equal(ncol(occ), 2)
-#   expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
-# })
+# Occurrences working as of 2023/10/31
+test_that("atlas_occurrences works for Spain", {
+  skip_on_cran()
+  skip_if_offline()
+  galah_config(
+    atlas = "Spain",
+    email = "test@ala.org.au",
+    send_email = FALSE)
+  occ <- galah_call() |>
+    galah_identify("Mammalia") |>
+    galah_filter(year <= 1800) |>
+    galah_select(species, year) |>
+    atlas_occurrences()
+  expect_gt(nrow(occ), 0)
+  expect_equal(ncol(occ), 2)
+  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+})
 
 galah_config(atlas = "Australia")

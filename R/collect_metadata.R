@@ -163,7 +163,13 @@ collect_fields <- function(q_obj){
 #' @noRd
 #' @keywords Internal
 collect_licences <- function(q_obj){
-  result <- query_API(q_obj) |> 
+  result <- query_API(q_obj) 
+  
+  if (any(duplicated(names(result[[1]])))) { # remove duplicate columns (i.e. Spain atlas)
+    result <- lapply(result, function(x) x[unique(names(x))])
+  }
+  
+  result <- result |> 
     bind_rows() 
   result <- result |>
     select(all_of(c("id", "name", "acronym", "url"))) |> 

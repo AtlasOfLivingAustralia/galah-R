@@ -5,12 +5,12 @@ compute_profile_values <- function(q_obj){
   url <- q_obj |>
     pluck("url") |>
     url_parse()
-  profile_name <- url |>
-    pluck("path") |>
-    sub("/dqf-service/api/v1/data-profiles/", "", x = _)
+  profile_name <- extract_profile_name(url)
   short_name <- profile_short_name(profile_name)
-  url$path <- paste0("/dqf-service/api/v1/data-profiles/", 
-                     short_name)
+  if (!pour("atlas", "region") == "Spain") {
+    url$path <- paste0("/dqf-service/api/v1/data-profiles/", 
+                       short_name)
+  }
   result <- list(type = q_obj$type,
                  url = url_build(url))
   class(result) <- "query"
@@ -49,4 +49,21 @@ profile_short_name <- function(profile) {
   }else{
     short_name
   }
+}
+
+#' Internal function to extract profile name from url
+#' for data profiles. Only used by `compute_profile_values()`
+#' @noRd
+#' @keywords Internal
+extract_profile_name <- function(url) {
+  atlas <- pour("atlas", "region")
+  if (atlas == "Spain") {
+    profile_name <- url |>
+      pluck("query", "profileName")
+  } else {
+    profile_name <- url |>
+      pluck("path") |>
+      sub("/dqf-service/api/v1/data-profiles/", "", x = _)
+  }
+  return(profile_name)
 }

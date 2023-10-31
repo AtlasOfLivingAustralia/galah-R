@@ -42,6 +42,7 @@ collect_profiles_unnest <- function(q_obj){
   result <- result |>
     pull("qualityFilters") |>
     bind_rows()
+  result
 }
 
 #' Internal function to run `compute()` for `request_values(type = "taxa")`
