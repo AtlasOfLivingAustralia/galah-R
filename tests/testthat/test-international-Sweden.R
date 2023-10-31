@@ -93,7 +93,7 @@ test_that("`search_taxa()` works for Sweden", {
 
 test_that("show_values works for Sweden", {
   skip_if_offline()
-  x <- search_fields("basisOfRecord") |>
+  x <- search_fields("basis_of_record") |>
     show_values()
   expect_gt(nrow(x), 1)
 })
