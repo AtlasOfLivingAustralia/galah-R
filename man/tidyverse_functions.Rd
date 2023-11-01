@@ -8,12 +8,12 @@
 \usage{
 desc(...)
 
-unnest(q_obj)
+unnest(.query)
 }
 \arguments{
 \item{...}{column to order by}
 
-\item{q_obj}{An object of class \code{metadata_request}}
+\item{.query}{An object of class \code{metadata_request}}
 }
 \value{
 description

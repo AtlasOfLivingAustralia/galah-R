@@ -4,11 +4,11 @@
 #' @importFrom tibble tibble
 #' @noRd
 #' @keywords Internal
-collect_species_count <- function(q_obj){
-  result <- query_API(q_obj)
+collect_species_count <- function(.query){
+  result <- query_API(.query)
   counts <- lapply(result, extract_species_count) |> unlist()
-  if(nrow(q_obj$url) > 1){
-    select(q_obj$url, -url) |>
+  if(nrow(.query$url) > 1){
+    select(.query$url, -url) |>
       bind_cols(tibble(count = counts))
   }else{
     tibble(count = counts)

@@ -1,27 +1,27 @@
 #' Internal function to `collapse()` for `type = "species"`
 #' @noRd
 #' @keywords Internal
-collapse_species <- function(q_obj){
+collapse_species <- function(.query){
   if(is_gbif()){
-    result <- collapse_occurrences_gbif(q_obj, 
+    result <- collapse_occurrences_gbif(.query, 
                                         format = "SPECIES_LIST")
     result$type <- "data/species"
     result
   }else{
-    collapse_species_atlas(q_obj)
+    collapse_species_atlas(.query)
   }
 }
 
 #' calculate the query to be returned for a given living atlas
 #' @noRd
 #' @keywords Internal
-collapse_species_atlas <- function(q_obj){
+collapse_species_atlas <- function(.query){
   # build a query
   query <- c(
-    build_query(q_obj$identify, 
-                q_obj$filter, 
-                q_obj$geolocate, 
-                q_obj$data_profile),
+    build_query(.query$identify, 
+                .query$filter, 
+                .query$geolocate, 
+                .query$data_profile),
     emailNotify = email_notify(),
     sourceTypeId = 2004,
     reasonTypeId = pour("user", "download_reason_id"),

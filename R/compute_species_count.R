@@ -2,13 +2,13 @@
 #' @importFrom tibble as_tibble
 #' @noRd
 #' @keywords Internal
-compute_species_count <- function(q_obj){
-  if(q_obj$expand){
-    q_obj <- build_species_query_list(q_obj)
+compute_species_count <- function(.query){
+  if(.query$expand){
+    .query <- build_species_query_list(.query)
   }else{
-    q_obj$url <- as_tibble(data.frame(url = q_obj$url))
+    .query$url <- as_tibble(data.frame(url = .query$url))
   }
-  q_obj
+  .query
 }
 
 #' Internal function to generate correct set of species-count queries when 
@@ -20,10 +20,10 @@ compute_species_count <- function(q_obj){
 #' @importFrom tibble tibble
 #' @noRd
 #' @keywords Internal 
-build_species_query_list <- function(q_obj){
+build_species_query_list <- function(.query){
   
   # remove `species_facets()` from query
-  url <- url_parse(q_obj$url)
+  url <- url_parse(.query$url)
   query_temp <- url$query
   query_temp <- query_temp[-which(
     unlist(query_temp) == species_facets() & 
@@ -31,8 +31,8 @@ build_species_query_list <- function(q_obj){
   n_facet_terms <- length(which(names(query_temp) == "facets"))
   url$query <- c(query_temp, list(pageSize = 0))
   
-  # rebuild a q_obj object for this query
-  data_temp <- q_obj
+  # rebuild a .query object for this query
+  data_temp <- .query
   data_temp$type <- "data/occurrences-count"
   data_temp$url <- url_build(url)
   data_temp$expand <- ifelse(n_facet_terms > 1, TRUE, FALSE)
@@ -51,7 +51,7 @@ build_species_query_list <- function(q_obj){
     }) |> unlist()
   
   # modify url to only have `species_facets()` in facets slot
-  url <- url_parse(q_obj$url)
+  url <- url_parse(.query$url)
   query <- url$query
   query <- query[-which(
     unlist(query_temp) != species_facets() & 
@@ -66,9 +66,9 @@ build_species_query_list <- function(q_obj){
     url_build(x)
   }, x = url) |> unlist()
   
-  # convert to a tibble to pass back to q_obj
-  q_obj$url <- bind_cols(
+  # convert to a tibble to pass back to .query
+  .query$url <- bind_cols(
     select(df, -count),
     tibble(url = urls))
-  return(q_obj)
+  return(.query)
 }

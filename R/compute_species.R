@@ -1,13 +1,13 @@
 #' Internal function to `compute()` for `type = "species"`
 #' @noRd
 #' @keywords Internal
-compute_species <- function(q_obj){
+compute_species <- function(.query){
   if(is_gbif()){
-    result <- compute_occurrences(q_obj)
+    result <- compute_occurrences(.query)
     result$type <- "data/species"
     result
   }else{
-    class(q_obj) <- "query"
-    return(q_obj)
+    class(.query) <- "query"
+    return(.query)
   }
 }

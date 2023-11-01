@@ -1,8 +1,8 @@
 #' Internal function to run `compute()` for `request_values(type = "datasets")`
 #' @noRd
 #' @keywords Internal
-collect_lists_unnest <- function(q_obj){
-  query_API(q_obj) |> 
+collect_lists_unnest <- function(.query){
+  query_API(.query) |> 
     bind_rows()
 }
 
@@ -14,12 +14,12 @@ collect_lists_unnest <- function(q_obj){
 #' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
-collect_fields_unnest <- function(q_obj, error_call = caller_env()){
+collect_fields_unnest <- function(.query, error_call = caller_env()){
   if(is_gbif()){
-    q_obj |>
+    .query |>
       query_API()
   }else{
-    facet <- q_obj |>
+    facet <- .query |>
       pluck("url") |>
       url_parse() |>
       pluck("query", "facets")
@@ -28,7 +28,7 @@ collect_fields_unnest <- function(q_obj, error_call = caller_env()){
       abort("No `field` passed to `show_values()`/`search_values()`.")
     }
     
-    q_obj |>
+    .query |>
       query_API() |>
       pluck(!!!list(1, "fieldResult")) |>
       bind_rows() |>
@@ -40,8 +40,8 @@ collect_fields_unnest <- function(q_obj, error_call = caller_env()){
 #' Internal function to run `compute()` for `request_values(type = "profiles")`
 #' @noRd
 #' @keywords Internal
-collect_profiles_unnest <- function(q_obj){
-  result <- query_API(q_obj) |> 
+collect_profiles_unnest <- function(.query){
+  result <- query_API(.query) |> 
     pluck("categories") |>
     bind_rows()
   result <- result |>
@@ -53,7 +53,7 @@ collect_profiles_unnest <- function(q_obj){
 #' Internal function to run `compute()` for `request_values(type = "taxa")`
 #' @noRd
 #' @keywords Internal
-collect_taxa_unnest <- function(q_obj){
-  query_API(q_obj) |>
+collect_taxa_unnest <- function(.query){
+  query_API(.query) |>
     bind_rows()
 }

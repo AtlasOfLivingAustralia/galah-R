@@ -5,20 +5,20 @@
 #' @importFrom tibble as_tibble
 #' @noRd
 #' @keywords Internal
-collect_taxa <- function(q_obj){
-  if(grepl("namematching", q_obj$url$url[1])){
-    collect_taxa_namematching(q_obj) # Australia, Sweden
+collect_taxa <- function(.query){
+  if(grepl("namematching", .query$url$url[1])){
+    collect_taxa_namematching(.query) # Australia, Sweden
   }else{
-    collect_taxa_la(q_obj)  # tested for Austria, UK
+    collect_taxa_la(.query)  # tested for Austria, UK
   }
 }
 
 #' Internal function to `collect()` taxa for Atlas of Living Australia
 #' @noRd
 #' @keywords Internal
-collect_taxa_namematching <- function(q_obj){
-  search_terms <- q_obj$url$search_term
-  result <- lapply(query_API(q_obj), 
+collect_taxa_namematching <- function(.query){
+  search_terms <- .query$url$search_term
+  result <- lapply(query_API(.query), 
                    build_tibble_from_nested_list) |> 
     bind_rows()
   # break chain for use case where all search terms are dubious (i.e. no taxonConceptID)
@@ -53,14 +53,14 @@ collect_taxa_namematching <- function(q_obj){
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-collect_taxa_la <- function(q_obj){
-  search_terms <- q_obj$url$search_term
+collect_taxa_la <- function(.query){
+  search_terms <- .query$url$search_term
   if(is_gbif()){
-    result <- query_API(q_obj) |>
+    result <- query_API(.query) |>
       bind_rows() |>
       mutate("search_term" = search_terms, .before = "scientificName")
   }else{
-    result <- query_API(q_obj) |>
+    result <- query_API(.query) |>
       clean_la_taxa(search_terms = search_terms) |>
       bind_rows()
     if(ncol(result) > 1){
@@ -146,9 +146,9 @@ clean_la_taxa <- function(result, search_terms){
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-collect_identifiers <- function(q_obj){
-  search_terms <- q_obj$url$search_term
-  result <- query_API(q_obj) |>
+collect_identifiers <- function(.query){
+  search_terms <- .query$url$search_term
+  result <- query_API(.query) |>
     flat_lists_only() |>
     bind_rows()
   if(any(colnames(result) == "taxonConceptID")){

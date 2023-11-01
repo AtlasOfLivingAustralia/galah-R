@@ -71,19 +71,19 @@ compute.query <- function(x, ...){
 #' This has been parsed out to support improved testing of `compute()` stages
 #' @noRd
 #' @keywords Internal
-build_checks <- function(q_obj){
+build_checks <- function(.query){
   # get basic description of `query_set` object
-  n <- length(q_obj)
-  names_vec <- unlist(lapply(q_obj, function(a){a$type}))
+  n <- length(.query)
+  names_vec <- unlist(lapply(.query, function(a){a$type}))
   # look for any `data`
   data_lookup <- grepl("^data", names_vec)
   if(any(data_lookup)){
     data_names <- names_vec[data_lookup]
     # parse any `metadata`
-    metadata_results <- parse_metadata(names_vec, q_obj)
+    metadata_results <- parse_metadata(names_vec, .query)
     # parse `data`, including supplied metadata
     # this assumes only one `data` field is available per `query_set`
-    q_obj[[which(data_lookup)]] |>
+    .query[[which(data_lookup)]] |>
       add_metadata(metadata_results)     
   }else if(any(names_vec %in% c("metadata/fields-unnest", 
                                 "metadata/profiles-unnest",
@@ -91,28 +91,28 @@ build_checks <- function(q_obj){
     # this code accounts for `unnest` functions that require lookups
     # metadata/fields-unnest calls check_fields(), requiring fields and assertions
     # metadata/profiles-unnest calls profile_short_name(), which requires profiles
-    if(length(q_obj) > 1){
-      metadata_results <- parse_metadata(names_vec, q_obj)
-      q_obj[[2]] |>
+    if(length(.query) > 1){
+      metadata_results <- parse_metadata(names_vec, .query)
+      .query[[2]] |>
         add_metadata(metadata_results)
     }else{
-      q_obj[[1]]
+      .query[[1]]
     }
   }else{ 
-    # if no metadata are needed, return q_obj unaltered
-    q_obj[[1]]
+    # if no metadata are needed, return .query unaltered
+    .query[[1]]
   }
 }
 
 #' Internal function to parse metadata
 #' @noRd
 #' @keywords Internal
-parse_metadata <- function(names_vec, q_obj){
+parse_metadata <- function(names_vec, .query){
   metadata_lookup <- grepl("^metadata", names_vec) &
     !grepl("-unnest$", names_vec) # unnest functions only parse in collect()
   if(any(metadata_lookup)){
     metadata_names <- names_vec[metadata_lookup]
-    metadata_results <- lapply(q_obj[metadata_lookup], collect)
+    metadata_results <- lapply(.query[metadata_lookup], collect)
     names(metadata_results) <- metadata_names   
     metadata_results
   }else{
@@ -125,26 +125,26 @@ parse_metadata <- function(names_vec, q_obj){
 #' called by `compute.query_set()`
 #' @noRd
 #' @keywords Internal
-compute_checks <- function(q_obj){
+compute_checks <- function(.query){
   # "data/" functions require pre-processing of metadata,
   # as do `unnest()`/`show_values()` functions
-  if(grepl("^data/", q_obj$type) |
-     grepl("-unnest$", q_obj$type)
+  if(grepl("^data/", .query$type) |
+     grepl("-unnest$", .query$type)
   ){
     # some checks should happen regardless of `run_checks`
-    q_obj <- q_obj |>
+    .query <- .query |>
       check_identifiers() |> 
       check_select()
     if(pour("package", "run_checks")) {
-      q_obj <- q_obj |>
+      .query <- .query |>
         check_login() |>
         check_reason() |>
         check_fields() |>
         check_profiles()
     }
-    q_obj <- remove_metadata(q_obj)
+    .query <- remove_metadata(.query)
   }
-  q_obj
+  .query
 }
 
 #' Internal function to pass metadata to `compute()` functions
@@ -161,12 +161,12 @@ add_metadata <- function(query, meta){
 #' called by `compute.query()`
 #' @noRd
 #' @keywords Internal
-remove_metadata <- function(q_obj){
-  names_lookup <- grepl("^metadata/", names(q_obj))
+remove_metadata <- function(.query){
+  names_lookup <- grepl("^metadata/", names(.query))
   if(any(names_lookup)){
-    x <- q_obj[!names_lookup]
+    x <- .query[!names_lookup]
   }else{
-    x <- q_obj
+    x <- .query
   }
   class(x) <- "query"
   x

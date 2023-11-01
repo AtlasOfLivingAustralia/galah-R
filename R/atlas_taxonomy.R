@@ -55,16 +55,16 @@ atlas_taxonomy <- function(request = NULL,
   args <- as.list(environment())
 
   # convert to a valid `data_request` object
-  q_obj <- check_atlas_inputs(args)
-  q_obj$type <- "taxonomy" # default, but in case supplied otherwise
-  check_identify(q_obj)
-  check_down_to(q_obj)
+  .query <- check_atlas_inputs(args)
+  .query$type <- "taxonomy" # default, but in case supplied otherwise
+  check_identify(.query)
+  check_down_to(.query)
   constrain_ids <- check_constraints(args = args, 
                                      call = as.list(sys.call()))
 
   # extract required information from `identify` 
   taxa_info <- request_metadata(type = "taxa") |>
-    identify(q_obj$identify$search_term) |>
+    identify(.query$identify$search_term) |>
     collect()
   start_row <- taxa_info |>
     mutate(name = str_to_title(taxa_info$scientific_name),
@@ -73,7 +73,7 @@ atlas_taxonomy <- function(request = NULL,
 
   # build then flatten a tree
   taxonomy_tree <- drill_down_taxonomy(start_row, 
-                                       down_to = q_obj$filter$value,
+                                       down_to = .query$filter$value,
                                        constrain_ids = constrain_ids)
   for(i in seq_len(pluck_depth(taxonomy_tree))){
     taxonomy_tree <- list_flatten(taxonomy_tree)
@@ -82,7 +82,7 @@ atlas_taxonomy <- function(request = NULL,
   
   # remove rows with ranks that are to low
   index <- rank_index(result$rank)
-  down_to_index <- rank_index(q_obj$filter$value)
+  down_to_index <- rank_index(.query$filter$value)
   result |>
     filter({{index}} <= {{down_to_index}} | is.na({{index}})) |>
     select("name", "rank", "parent_taxon_concept_id", "taxon_concept_id")
@@ -149,16 +149,16 @@ drill_down_taxonomy <- function(df,
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-check_identify <- function(q_obj, error_call = caller_env()){
-  if(is.null(q_obj$identify)){
+check_identify <- function(.query, error_call = caller_env()){
+  if(is.null(.query$identify)){
     bullets <- c(
       "Argument `identify` is missing, with no default.",
       i = "Did you forget to specify a taxon?")
     abort(bullets, call = error_call)
   }
   
-  if(nrow(q_obj$identify) > 1){
-    number_of_taxa <- nrow(q_obj$identify)
+  if(nrow(.query$identify) > 1){
+    number_of_taxa <- nrow(.query$identify)
     bullets <- c(
       "Can't provide tree more than one taxon to start with.",
       i = "atlas_taxonomy` only accepts a single taxon at a time.",
@@ -172,8 +172,8 @@ check_identify <- function(q_obj, error_call = caller_env()){
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-check_down_to <- function(q_obj, error_call = caller_env()){
-  if (is.null(q_obj$filter$value)) {
+check_down_to <- function(.query, error_call = caller_env()){
+  if (is.null(.query$filter$value)) {
     bullets <- c(
       "Argument `rank` is missing, with no default.",
       i = "Use `show_all(ranks)` to display valid ranks",
@@ -182,7 +182,7 @@ check_down_to <- function(q_obj, error_call = caller_env()){
     abort(bullets, call = error_call)
   }
   
-  down_to <- tolower(q_obj$filter$value) 
+  down_to <- tolower(.query$filter$value) 
   if(!any(show_all_ranks()$name == down_to)){
     bullets <- c(
       "Invalid taxonomic rank provided.",

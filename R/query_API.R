@@ -10,28 +10,28 @@
 #' @importFrom purrr map
 #' @noRd
 #' @keywords Internal
-query_API <- function(q_obj, error_call = caller_env()) {
-  if(inherits(q_obj$url, "data.frame")){
-    verbose <- pour("package", "verbose", .pkg = "galah") & nrow(q_obj$url) > 1
+query_API <- function(.query, error_call = caller_env()) {
+  if(inherits(.query$url, "data.frame")){
+    verbose <- pour("package", "verbose", .pkg = "galah") & nrow(.query$url) > 1
     if(verbose){
       progress_bar <- list(name = "Querying API",
                            clear = TRUE)
     }else{
       progress_bar <- FALSE
     }
-    map(.x = seq_len(nrow(q_obj$url)), 
+    map(.x = seq_len(nrow(.query$url)), 
         .f = function(a){
-          data_tr <- q_obj
-          data_tr$url <- q_obj$url$url[[a]]
-          if(any(names(q_obj$url) == "path")){ # for those that require downloads
+          data_tr <- .query
+          data_tr$url <- .query$url$url[[a]]
+          if(any(names(.query$url) == "path")){ # for those that require downloads
             data_tr$download <- TRUE
-            data_tr$file <- q_obj$url$path[[a]]
+            data_tr$file <- .query$url$path[[a]]
           }
           query_API_internal(data_tr)
         },
         .progress = progress_bar)
   }else{
-    query_API_internal(q_obj)
+    query_API_internal(.query)
   }
 }
 
@@ -48,21 +48,21 @@ query_API <- function(q_obj, error_call = caller_env()) {
 #' @importFrom purrr pluck
 #' @importFrom rlang abort
 #' @importFrom rlang inform
-query_API_internal <- function(q_obj, error_call = caller_env()) {
-  query <- request(q_obj$url) |>
-    add_headers(q_obj$headers) |> 
-    add_options(q_obj$options) |> # used by GBIF
-    add_body(q_obj$body) |> # NOTE: adding `body` converts from GET to POST
+query_API_internal <- function(.query, error_call = caller_env()) {
+  query <- request(.query$url) |>
+    add_headers(.query$headers) |> 
+    add_options(.query$options) |> # used by GBIF
+    add_body(.query$body) |> # NOTE: adding `body` converts from GET to POST
     req_error(is_error = ~ FALSE) # untested; intended to catch errors. 
     # from brief testing it appears to fail; e.g. we still get errors when internet is off
-  if(!is.null(q_obj$download)){
-    check_directory(q_obj$file)
-    query |> req_perform(path = q_obj$file,
+  if(!is.null(.query$download)){
+    check_directory(.query$file)
+    query |> req_perform(path = .query$file,
                          verbosity = 0) # try(x, silent = TRUE) ?
   }else{
     res <- query |>
       req_perform(verbosity = 0)  # try(x, silent = TRUE) ?
-    if(grepl("^https://api.gbif.org/v1/occurrence/download/request", q_obj$url)){
+    if(grepl("^https://api.gbif.org/v1/occurrence/download/request", .query$url)){
       resp_body_string(res)
     }else{
       resp_body_json(res) # may not work for invalid URLs 

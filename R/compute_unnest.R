@@ -1,8 +1,8 @@
 #' Internal function to call `compute` for `request_metadata(type = "profiles-unnest")`
 #' @noRd
 #' @keywords Internal
-compute_profile_values <- function(q_obj){
-  url <- q_obj |>
+compute_profile_values <- function(.query){
+  url <- .query |>
     pluck("url") |>
     url_parse()
   profile_name <- extract_profile_name(url)
@@ -11,7 +11,7 @@ compute_profile_values <- function(q_obj){
     url$path <- paste0("/dqf-service/api/v1/data-profiles/", 
                        short_name)
   }
-  result <- list(type = q_obj$type,
+  result <- list(type = .query$type,
                  url = url_build(url))
   class(result) <- "query"
   return(result)

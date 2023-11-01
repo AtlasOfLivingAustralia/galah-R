@@ -6,22 +6,22 @@
 #' has `expand = TRUE`, because it requires an initial call to the atlas to 
 #' calculate the requisite URLs. It makes very little difference under other
 #' circumstances
-#' @param q_obj An object of class `data_query`
+#' @param .query An object of class `data_query`
 #' @keywords Internal
 #' @noRd
-compute_occurrences_count <- function(q_obj){
+compute_occurrences_count <- function(.query){
   if(is_gbif()){
-    if(q_obj$expand){    
+    if(.query$expand){    
       abort("Grouped counts haven't been (re)implemented for GBIF yet")
-      # compute_grouped_counts_GBIF(q_obj)
+      # compute_grouped_counts_GBIF(.query)
     }else{
-      q_obj
+      .query
     }
   }else{
-    if(q_obj$expand){
-      compute_occurrences_count_groupby(q_obj)
+    if(.query$expand){
+      compute_occurrences_count_groupby(.query)
     }else{
-      compute_occurrences_count_nogroupby(q_obj)
+      compute_occurrences_count_nogroupby(.query)
     }
   }
 }
@@ -31,22 +31,22 @@ compute_occurrences_count <- function(q_obj){
 #' Internal function to handle facet counting, adjustment etc.
 #' @noRd
 #' @keywords Internal
-compute_occurrences_count_nogroupby <- function(q_obj){
-  url <- url_parse(q_obj$url)
+compute_occurrences_count_nogroupby <- function(.query){
+  url <- url_parse(.query$url)
   if(!is.null(url$query$flimit)){
     if(as.integer(url$query$flimit) < 1){
-      n_facets <- check_facet_count(q_obj)
-      url$query$flimit <- q_obj$arrange$slice_n # Q: is this correct? 
-      if(q_obj$arrange$slice_n < n_facets){
-        url$query$foffset <- n_facets - q_obj$arrange$slice_n
+      n_facets <- check_facet_count(.query)
+      url$query$flimit <- .query$arrange$slice_n # Q: is this correct? 
+      if(.query$arrange$slice_n < n_facets){
+        url$query$foffset <- n_facets - .query$arrange$slice_n
       }
-      q_obj$url <- url_build(url) 
-      q_obj
+      .query$url <- url_build(url) 
+      .query
     }else{
-      q_obj
+      .query
     }
   }else{
-    q_obj
+    .query
   }
 }
 
@@ -62,10 +62,10 @@ compute_occurrences_count_nogroupby <- function(q_obj){
 #' @importFrom httr2 url_parse
 #' @noRd
 #' @keywords Internal
-compute_occurrences_count_groupby <- function(q_obj, error_call = caller_env()){
-  data_cached <- q_obj
+compute_occurrences_count_groupby <- function(.query, error_call = caller_env()){
+  data_cached <- .query
   # get url
-  url <- url_parse(q_obj$url)
+  url <- url_parse(.query$url)
 
   # remove last-provided facet
   facet_list <- url$query[names(url$query) == "facets"]
@@ -95,18 +95,18 @@ compute_occurrences_count_groupby <- function(q_obj, error_call = caller_env()){
   url$query <- c(
     url$query[names(url$query) != "facets"],
     facet_list[-length(facet_list)])
-  q_obj$url <- url_build(url)
+  .query$url <- url_build(url)
   
   # check number of facets
-  n_facets <- check_facet_count(q_obj, warn = FALSE)
+  n_facets <- check_facet_count(.query, warn = FALSE)
   
   # incorporate this into the query
-  url <- url_parse(q_obj$url)
+  url <- url_parse(.query$url)
   url$query$flimit <- max(n_facets)
-  q_obj$url <- url_build(url)
+  .query$url <- url_build(url)
     
   # run query to get list of count tibbles
-  result <- query_API(q_obj)
+  result <- query_API(.query)
   if(is.null(result)){system_down_message("count")}
   result <- lapply(result, 
                    function(a){a$fieldResult |> bind_rows()})
@@ -135,7 +135,7 @@ compute_occurrences_count_groupby <- function(q_obj, error_call = caller_env()){
   }
  
   # # extract existing fq statements
-  query <- url_parse(q_obj$url)$query
+  query <- url_parse(.query$url)$query
   if(is.null(query$fq)){
     fqs <- NULL
   }else{
@@ -159,7 +159,7 @@ compute_occurrences_count_groupby <- function(q_obj, error_call = caller_env()){
   }
   
   # recombine into urls
-  url_final <- url_parse(q_obj$url)
+  url_final <- url_parse(.query$url)
   query_without_fq <- c(
     url_final$query[!(names(url_final$query) %in% 
                       c("fq", "facets", "flimit", "foffset"))],
@@ -187,8 +187,8 @@ compute_occurrences_count_groupby <- function(q_obj, error_call = caller_env()){
 #' It is called exclusively by `compute_counts()`
 #' @noRd 
 #' @keywords Internal
-check_facet_count <- function(q_obj, warn = TRUE, error_call = caller_env()){
-  url <- url_parse(q_obj$url)
+check_facet_count <- function(.query, warn = TRUE, error_call = caller_env()){
+  url <- url_parse(.query$url)
   current_limit <- url$query$flimit
   
   if(is.null(current_limit)){
@@ -202,7 +202,7 @@ check_facet_count <- function(q_obj, warn = TRUE, error_call = caller_env()){
     }
   }
   url$query$flimit <- 0
-  temp_data <- q_obj
+  temp_data <- .query
   temp_data$url <- url_build(url)
   temp_data$slot_name <- NULL
   result <- query_API(temp_data)
@@ -216,8 +216,8 @@ check_facet_count <- function(q_obj, warn = TRUE, error_call = caller_env()){
   #     if(warn &
   #        pour("package", "verbose") & 
   #        n_requested < n_available &
-  #        !q_obj$arrange$slice_called &
-  #        q_obj$arrange$direction == "descending" # for ascending, n_requested is always zero (TRUE?)
+  #        !.query$arrange$slice_called &
+  #        .query$arrange$direction == "descending" # for ascending, n_requested is always zero (TRUE?)
   #     ){ 
   #       bullets <- c(
   #         glue("This query will return {n_requested} rows, but there are {n_available} rows in total."),

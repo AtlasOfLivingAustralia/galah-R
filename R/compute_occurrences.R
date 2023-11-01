@@ -1,26 +1,26 @@
 #' Internal function to `compute()` for `type = "occurrences"`
 #' @noRd
 #' @keywords Internal
-compute_occurrences <- function(q_obj){
+compute_occurrences <- function(.query){
   switch(pour("atlas", "region"),
-         "United Kingdom" = compute_occurrences_uk(q_obj),
-         "Global" = compute_occurrences_gbif(q_obj),
-         compute_occurrences_la(q_obj))
+         "United Kingdom" = compute_occurrences_uk(.query),
+         "Global" = compute_occurrences_gbif(.query),
+         compute_occurrences_la(.query))
 }
 
 #' Internal function to `compute()` for `type = "occurrences"` for UK
 #' @noRd
 #' @keywords Internal
-compute_occurrences_uk <- function(q_obj){
-  q_obj
+compute_occurrences_uk <- function(.query){
+  .query
 }
 
 #' Internal function to `compute()` for `type = "occurrences"` for GBIF
 #' Note: this has not been updated and is unlikely to work
 #' @noRd
 #' @keywords Internal
-compute_occurrences_gbif <- function(q_obj){
-  post_result <- query_API(q_obj) # returns an id
+compute_occurrences_gbif <- function(.query){
+  post_result <- query_API(.query) # returns an id
   status_code <- list(
     type = "data/occurrences",
     url = paste0("https://api.gbif.org/v1/occurrence/download/", 
@@ -37,8 +37,8 @@ compute_occurrences_gbif <- function(q_obj){
 #' Internal function to `compute()` for `type = "occurrences"` for ALA
 #' @noRd
 #' @keywords Internal
-compute_occurrences_la <- function(q_obj){
-  status_code <- query_API(q_obj) |>
+compute_occurrences_la <- function(.query){
+  status_code <- query_API(.query) |>
     as.list() |>
     check_occurrence_response()
   if(pour("package", "verbose")){

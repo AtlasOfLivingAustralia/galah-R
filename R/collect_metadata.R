@@ -1,8 +1,8 @@
 #' Internal function to `collect()` APIs
 #' @noRd
 #' @keywords Internal
-collect_apis <- function(q_obj){
-  result <- q_obj$data |>
+collect_apis <- function(.query){
+  result <- .query$data |>
     parse(text = _) |> 
     eval()
   attr(result, "call") <- "apis"
@@ -14,15 +14,15 @@ collect_apis <- function(q_obj){
 #' @importFrom dplyr bind_rows
 #' @noRd
 #' @keywords Internal
-collect_assertions <- function(q_obj){
-  if(!is.null(q_obj$data)){
-    result <- q_obj$data |>
+collect_assertions <- function(.query){
+  if(!is.null(.query$data)){
+    result <- .query$data |>
       parse(text = _) |> 
       eval()
     attr(result, "call") <- "assertions" # needed for `show_values()` to work
     attr(result, "region") <- pour("atlas", "region") # needed for caching to work
   }else{
-    result <- lapply(query_API(q_obj), 
+    result <- lapply(query_API(.query), 
                      function(a){a[names(a) != "termsRequiredToTest"]}) |>
       bind_rows()
     names(result) <- rename_columns(names(result), type = "assertions")
@@ -38,8 +38,8 @@ collect_assertions <- function(q_obj){
 #' Internal function to `collect()` atlases
 #' @noRd
 #' @keywords Internal
-collect_atlases <- function(q_obj){
-  result <- q_obj$data |>
+collect_atlases <- function(.query){
+  result <- .query$data |>
     parse(text = _) |> 
     eval()
   attr(result, "call") <- "atlases"
@@ -54,9 +54,9 @@ collect_atlases <- function(q_obj){
 #' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
-collect_collections <- function(q_obj){
+collect_collections <- function(.query){
   if(is_gbif()){
-    result <- query_API(q_obj)
+    result <- query_API(.query)
     if(any(names(result) == "results")){ # happens when `filter()` not specified
       # Note: This assumes only one API call; will need more potentially
       result <- pluck(result, "results")
@@ -64,7 +64,7 @@ collect_collections <- function(q_obj){
     result <- flat_lists_only(result) |>
       bind_rows()
   }else{
-    result <- query_API(q_obj) |> 
+    result <- query_API(.query) |> 
       bind_rows() 
     result_reordered <- relocate(result, "uid") 
     result <- result_reordered |> rename("id" = "uid") 
@@ -97,9 +97,9 @@ flat_lists_only <- function(x){
 #' @importFrom dplyr rename
 #' @noRd
 #' @keywords Internal
-collect_datasets <- function(q_obj){
+collect_datasets <- function(.query){
   if(is_gbif()){
-    result <- query_API(q_obj)
+    result <- query_API(.query)
     if(any(names(result) == "results")){ # happens when `filter()` not specified
       # Note: This assumes only one API call; will need more potentially
       result <- pluck(result, "results")
@@ -108,7 +108,7 @@ collect_datasets <- function(q_obj){
       flat_lists_only() |>
       bind_rows()
   }else{
-    result <- query_API(q_obj)
+    result <- query_API(.query)
     result <- result |> 
       bind_rows()
     result <- result |> 
@@ -127,17 +127,17 @@ collect_datasets <- function(q_obj){
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-collect_fields <- function(q_obj){
+collect_fields <- function(.query){
   if(is_gbif()){
-    result <- q_obj$data |>
+    result <- .query$data |>
       parse(text = _) |> 
       eval()
     attr(result, "call") <- "fields"
     attr(result, "region") <- pour("atlas", "region")
     result
   }else{
-    if(!is.null(q_obj$url)){ # i.e. there is no cached `tibble`
-      result <- query_API(q_obj) |>
+    if(!is.null(.query$url)){ # i.e. there is no cached `tibble`
+      result <- query_API(.query) |>
         bind_rows() 
       result <- result |>
         mutate(id = result$name) |>
@@ -162,8 +162,8 @@ collect_fields <- function(q_obj){
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-collect_licences <- function(q_obj){
-  result <- query_API(q_obj) 
+collect_licences <- function(.query){
+  result <- query_API(.query) 
   
   if (any(duplicated(names(result[[1]])))) { # remove duplicate columns (i.e. Spain atlas)
     result <- lapply(result, function(x) x[unique(names(x))])
@@ -184,13 +184,13 @@ collect_licences <- function(q_obj){
 #' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
-collect_lists <- function(q_obj){
-  if(inherits(q_obj$url, "data.frame")){
-    result <- lapply(query_API(q_obj), 
+collect_lists <- function(.query){
+  if(inherits(.query$url, "data.frame")){
+    result <- lapply(query_API(.query), 
                      function(a){a$lists}) |>
       bind_rows()    
   }else{
-    result <- query_API(q_obj) |>
+    result <- query_API(.query) |>
       pluck("lists") |>
       bind_rows()
   }
@@ -207,9 +207,9 @@ collect_lists <- function(q_obj){
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-collect_profiles <- function(q_obj){
-  if(!is.null(q_obj$url)){
-    result <- query_API(q_obj) |>
+collect_profiles <- function(.query){
+  if(!is.null(.query$url)){
+    result <- query_API(.query) |>
       bind_rows() 
     result <- result |>
       filter(!duplicated(result$id)) |>
@@ -229,9 +229,9 @@ collect_profiles <- function(q_obj){
 #' @importFrom dplyr rename
 #' @noRd
 #' @keywords Internal
-collect_providers <- function(q_obj){
+collect_providers <- function(.query){
   if(is_gbif()){
-    result <- query_API(q_obj)
+    result <- query_API(.query)
     if(any(names(result) == "results")){ # happens when `filter()` not specified
       # Note: This assumes only one API call; will need more potentially
       result <- pluck(result, "results")
@@ -240,7 +240,7 @@ collect_providers <- function(q_obj){
       flat_lists_only() |>
       bind_rows()
   }else{
-    result <- query_API(q_obj)
+    result <- query_API(.query)
     result <- result |> 
       bind_rows()
     result <- result |> 
@@ -256,8 +256,8 @@ collect_providers <- function(q_obj){
 #' Internal function to `collect()` APIs
 #' @noRd
 #' @keywords Internal
-collect_ranks <- function(q_obj){
-  result <- q_obj$data |>
+collect_ranks <- function(.query){
+  result <- .query$data |>
     parse(text = _) |> 
     eval()
   attr(result, "call") <- "ranks"
@@ -273,9 +273,9 @@ collect_ranks <- function(q_obj){
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-collect_reasons <- function(q_obj){
-  if(!is.null(q_obj$url)){
-    result <- query_API(q_obj) |> 
+collect_reasons <- function(.query){
+  if(!is.null(.query$url)){
+    result <- query_API(.query) |> 
       bind_rows() 
     result <- result |>
       filter(!result$deprecated) |>

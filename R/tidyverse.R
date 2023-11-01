@@ -33,21 +33,21 @@ desc <- function(...){
 } 
 
 #' @rdname tidyverse_functions
-#' @param q_obj An object of class `metadata_request`
+#' @param .query An object of class `metadata_request`
 #' @export
-unnest <- function(q_obj){
-  if(!inherits(q_obj, "metadata_request")){
+unnest <- function(.query){
+  if(!inherits(.query, "metadata_request")){
     abort("`galah::unnest` can only be used with objects of class `metadata_request`")
   }
-  if(!is.null(q_obj$filter)){
-    supplied_type <- q_obj$filter$variable[1]
+  if(!is.null(.query$filter)){
+    supplied_type <- .query$filter$variable[1]
     if(supplied_type != "taxa"){
       supplied_type <- paste0(supplied_type, "s")
     }
-  }else if(!is.null(q_obj$identify)){
+  }else if(!is.null(.query$identify)){
     supplied_type <- "taxa"
   }else{
-    supplied_type <- q_obj$type
+    supplied_type <- .query$type
   }
   valid_types <- c("fields", "lists", "profiles", "taxa")
   if(!(supplied_type %in% valid_types)){
@@ -56,6 +56,6 @@ unnest <- function(q_obj){
       i = "valid types are `fields`, `lists`, `profiles` or `taxa`")
     abort(bullets, call = caller_env())
   }
-  q_obj$type <- paste0(supplied_type, "-unnest")
-  q_obj
+  .query$type <- paste0(supplied_type, "-unnest")
+  .query
 }

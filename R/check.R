@@ -18,7 +18,7 @@ check_atlas_inputs <- function(args){
 check_data_request <- function(request, error_call = caller_env()){
   if(!inherits(request, "data_request")){
     bullets <- c(
-      "Argument `q_obj` requires an object of type `data_request`.",
+      "Argument `.query` requires an object of type `data_request`.",
       i = "You can create this object using `galah_call()`.",
       i = "Did you specify the incorrect argument?"
     )
@@ -66,18 +66,18 @@ check_download_filename <- function(file, ext = "zip"){
 #' @importFrom jsonlite fromJSON
 #' @noRd
 #' @keywords Internal
-check_email <- function(q_obj){
+check_email <- function(.query){
   if(is_gbif()){
-    email_text <- fromJSON(q_obj$body)$notificationAddresses
+    email_text <- fromJSON(.query$body)$notificationAddresses
   }else{
-    email_text <- url_parse(q_obj$url)$query$email
+    email_text <- url_parse(.query$url)$query$email
   }
   if(is.null(email_text)) {
     abort_email_missing()
   }else if(email_text == ""){
     abort_email_missing()
   }
-  q_obj
+  .query
 }
 
 #' Check files are filtered properly
@@ -122,17 +122,17 @@ check_filter_tibbles <- function(x){ # where x is a list of tibbles
 #' @importFrom tidyr drop_na
 #' @noRd
 #' @keywords Internal
-check_fields <- function(q_obj) {
+check_fields <- function(.query) {
   
   if(pour("package", "run_checks")){
     if(is_gbif()){
-      if(q_obj$type == "data/occurrences"){
-        check_result <- check_fields_gbif_predicates(q_obj)  
+      if(.query$type == "data/occurrences"){
+        check_result <- check_fields_gbif_predicates(.query)  
       }else{
-        check_result <- check_fields_gbif_counts(q_obj)
+        check_result <- check_fields_gbif_counts(.query)
       }
     }else{
-      check_result <- check_fields_la(q_obj)
+      check_result <- check_fields_la(.query)
     }
 
     # error message
@@ -155,7 +155,7 @@ check_fields <- function(q_obj) {
       abort(bullets)
     }
   }
-  q_obj
+  .query
 }
 
 #' sub-function to `check_fields()` for living atlases
@@ -163,12 +163,12 @@ check_fields <- function(q_obj) {
 #' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
-check_fields_gbif_counts <- function(q_obj){
+check_fields_gbif_counts <- function(.query){
   # set fields to check against
-  valid_fields <- q_obj[["metadata/fields"]]$id
-  valid_assertions <- q_obj[["metadata/assertions"]]$id
+  valid_fields <- .query[["metadata/fields"]]$id
+  valid_assertions <- .query[["metadata/assertions"]]$id
   valid_any <- c(valid_fields, valid_assertions)
-  url <- url_parse(q_obj$url[1])
+  url <- url_parse(.query$url[1])
 
   # get fields from url
   query_names <- names(url$query)
@@ -200,15 +200,15 @@ check_fields_gbif_counts <- function(q_obj){
 #' @importFrom purrr pluck
 #' @noRd
 #' @keywords Internal
-check_fields_gbif_predicates <- function(q_obj){
+check_fields_gbif_predicates <- function(.query){
   # set fields to check against
-  valid_fields <- q_obj[["metadata/fields"]]$id
-  valid_assertions <- q_obj[["metadata/assertions"]]$id
+  valid_fields <- .query[["metadata/fields"]]$id
+  valid_assertions <- .query[["metadata/assertions"]]$id
   valid_any <- c(valid_fields, valid_assertions) |>
     camel_to_snake_case() |>
     toupper()
   # extract fields
-  fields <- q_obj$body |> 
+  fields <- .query$body |> 
     fromJSON() |>
     pluck("predicate", "predicates", "key")
   # check invalid
@@ -225,14 +225,14 @@ check_fields_gbif_predicates <- function(q_obj){
 #' sub-function to `check_fields()` for living atlases
 #' @noRd
 #' @keywords Internal
-check_fields_la <- function(q_obj){
-  url <- url_parse(q_obj$url[1])
+check_fields_la <- function(.query){
+  url <- url_parse(.query$url[1])
   queries <- url$query
   
   # set fields to check against
   # NOTE: These are retrieved in collapse()
-  valid_fields <- q_obj[["metadata/fields"]]$id
-  valid_assertions <- q_obj[["metadata/assertions"]]$id
+  valid_fields <- .query[["metadata/fields"]]$id
+  valid_assertions <- .query[["metadata/assertions"]]$id
   valid_any <- c(valid_fields, valid_assertions)
   
   # extract fields from filter & identify
@@ -293,51 +293,51 @@ check_groups <- function(group, n){
 #' function to replace search terms with identifiers via `search_taxa()`  
 #' @noRd
 #' @keywords Internal
-check_identifiers <- function(q_obj){
+check_identifiers <- function(.query){
   if(is_gbif()){
-    if(q_obj$type %in% c("data/occurrences", "data/species")){
-      check_identifiers_gbif_predicates(q_obj)
+    if(.query$type %in% c("data/occurrences", "data/species")){
+      check_identifiers_gbif_predicates(.query)
     }else{
-      check_identifiers_gbif(q_obj) # mainly for `data/occurrences-count` 
+      check_identifiers_gbif(.query) # mainly for `data/occurrences-count` 
     }
   }else{
-    check_identifiers_la(q_obj)
+    check_identifiers_la(.query)
   }
 }
 
 #' `check_identifiers()` for gbif
 #' @noRd
 #' @keywords Internal
-check_identifiers_gbif <- function(q_obj){
-  url <- url_parse(q_obj$url[1]) # FIXME: test if every >1 urls here
+check_identifiers_gbif <- function(.query){
+  url <- url_parse(.query$url[1]) # FIXME: test if every >1 urls here
   if(!is.null(url$query)){
-    metadata_lookup <-grepl("metadata/taxa", names(q_obj))
+    metadata_lookup <-grepl("metadata/taxa", names(.query))
     if(any(metadata_lookup)){
-      identifiers <- q_obj[[which(metadata_lookup)[1]]]
+      identifiers <- .query[[which(metadata_lookup)[1]]]
       taxon_query <- as.list(identifiers$taxon_concept_id)
       names(taxon_query) <- rep("taxonKey", length(taxon_query))
       url$query <- c(taxon_query,  
                      url$query[names(url$query) != "taxonKey"])
-      q_obj$url[1] <- url_build(url)
+      .query$url[1] <- url_build(url)
     }
   }
-  q_obj
+  .query
 }
 
 #' `check_identifiers()` for gbif occurrences
 #' @noRd
 #' @keywords Internal
-check_identifiers_gbif_predicates <- function(q_obj){
-  if(!is.null(q_obj$body)){
-    metadata_lookup <-grepl("metadata/taxa", names(q_obj))
+check_identifiers_gbif_predicates <- function(.query){
+  if(!is.null(.query$body)){
+    metadata_lookup <-grepl("metadata/taxa", names(.query))
     if(any(metadata_lookup)){
-      identifiers <- q_obj[[which(metadata_lookup)[1]]]
-      q_obj$body <- sub("`TAXON_PLACEHOLDER`", 
+      identifiers <- .query[[which(metadata_lookup)[1]]]
+      .query$body <- sub("`TAXON_PLACEHOLDER`", 
                         identifiers$taxon_concept_id[1], 
-                        q_obj$body)
+                        .query$body)
     }
   }
-  q_obj
+  .query
 }
   
 #' `check_identifiers()` for living atlases 
@@ -347,20 +347,20 @@ check_identifiers_gbif_predicates <- function(q_obj){
 #' @importFrom stringr str_replace_all
 #' @noRd
 #' @keywords Internal
-check_identifiers_la <- function(q_obj){
-  url <- url_parse(q_obj$url[1]) # FIXME: test if every >1 urls here
+check_identifiers_la <- function(.query){
+  url <- url_parse(.query$url[1]) # FIXME: test if every >1 urls here
   queries <- url$query
   if(!is.null(queries$fq)){
     if(grepl("(`TAXON_PLACEHOLDER`)", queries$fq)){
-      metadata_lookup <- grepl("^metadata/taxa", names(q_obj))
+      metadata_lookup <- grepl("^metadata/taxa", names(.query))
       if(any(metadata_lookup)){
-        identifiers <- q_obj[[which(metadata_lookup)[1]]]
+        identifiers <- .query[[which(metadata_lookup)[1]]]
         taxa_ids <- build_taxa_query(identifiers$taxon_concept_id)
         queries$fq <- str_replace_all(queries$fq, 
                                       "\\(`TAXON_PLACEHOLDER`\\)", 
                                       taxa_ids)
         url$query <- queries
-        q_obj$url[1] <- url_build(url)
+        .query$url[1] <- url_build(url)
       }else{
         # this only happens if there is a bug earlier in the code
         abort("The query has a taxonomic placeholder, but no taxon search has been run.")
@@ -368,18 +368,18 @@ check_identifiers_la <- function(q_obj){
     }
   }else{
     # note: `metadata/taxa-unnest` parses here
-    if(grepl("%60TAXON_PLACEHOLDER%60", q_obj$url[1])){
-      metadata_lookup <- grepl("^metadata/taxa", names(q_obj))
+    if(grepl("%60TAXON_PLACEHOLDER%60", .query$url[1])){
+      metadata_lookup <- grepl("^metadata/taxa", names(.query))
       if(any(metadata_lookup)){ 
-        identifiers <- q_obj[[which(metadata_lookup)[1]]]
+        identifiers <- .query[[which(metadata_lookup)[1]]]
         taxa_id <- identifiers$taxon_concept_id[1]
-        q_obj$url[1] <- sub("%60TAXON_PLACEHOLDER%60", taxa_id, q_obj$url[1])
+        .query$url[1] <- sub("%60TAXON_PLACEHOLDER%60", taxa_id, .query$url[1])
       }else{
         abort("The query has a taxonomic placeholder, but no taxon search has been run.")
       }
     }
   }
-  q_obj
+  .query
 }
 
 #' Internal function to confirm requisite login information has been provided
@@ -387,49 +387,49 @@ check_identifiers_la <- function(q_obj){
 #' @noRd
 #' @keywords Internal
 #' @importFrom rlang caller_env
-check_login <- function(q_obj, error_call = caller_env()) {
+check_login <- function(.query, error_call = caller_env()) {
   # Check for valid email for occurrences or species queries for all providers
-  if(q_obj$type == "data/occurrences" | q_obj$type == "data/species"){
+  if(.query$type == "data/occurrences" | .query$type == "data/species"){
     switch(pour("atlas", "region"), 
            "United Kingdom" = {},
-           "Global" = {check_email(q_obj); check_password(q_obj)},
-           check_email(q_obj))
+           "Global" = {check_email(.query); check_password(.query)},
+           check_email(.query))
   }
-  q_obj
+  .query
   # ALA requires an API key
   # } else if (pour("atlas", "acronym") == "ALA") {
-  #   if (is.null(q_obj$headers$`x-api-key`) | q_obj$headers$`x-api-key` == "") {
+  #   if (is.null(.query$headers$`x-api-key`) | .query$headers$`x-api-key` == "") {
   #     abort_api_key_missing()
   #   }
   # }  
 }
 
 #' Internal function to convert multi-value media fields to list-columns
-#' @param q_obj A tibble() returned by atlas_occurrences
+#' @param .query A tibble() returned by atlas_occurrences
 #' @noRd
 #' @keywords Internal
-check_media_cols <- function(q_obj){
+check_media_cols <- function(.query){
   media_colnames <- c("images", "sounds", "videos")
   # if media columns are not present, return original data unchanged
-  if(!any(colnames(q_obj) %in% media_colnames)){
-    q_obj
+  if(!any(colnames(.query) %in% media_colnames)){
+    .query
   }
   # otherwise get media columns
-  present_cols <- media_colnames[media_colnames %in% colnames(q_obj)]
+  present_cols <- media_colnames[media_colnames %in% colnames(.query)]
   for(i in present_cols){
-    if(!all(is.na(q_obj[[i]]))){
-      q_obj[[i]] <- strsplit(q_obj[[i]], "\\s\\|\\s")
+    if(!all(is.na(.query[[i]]))){
+      .query[[i]] <- strsplit(.query[[i]], "\\s\\|\\s")
     }
   }
-  q_obj
+  .query
 }
 
 #' Internal function to check whether valid media fields have been supplied
-#' @param q_obj a `query` object
+#' @param .query a `query` object
 #' @noRd
 #' @keywords Internal
-check_media_cols_present <- function(q_obj, error_call = caller_env()){
-  fields <- q_obj |>
+check_media_cols_present <- function(.query, error_call = caller_env()){
+  fields <- .query |>
     pluck("url") |>
     url_parse() |> 
     pluck("query", "fields") |>
@@ -479,17 +479,17 @@ check_n_inputs <- function(dots, error_call = caller_env()) {
 #' It makes all calls consistent so we only need one queue checking function
 #' @noRd
 #' @keywords Internal
-check_occurrence_response <- function(q_obj){
+check_occurrence_response <- function(.query){
   
-  names(q_obj) <- camel_to_snake_case(names(q_obj))
+  names(.query) <- camel_to_snake_case(names(.query))
   
-  if (!is.null(q_obj$status_code)) {
+  if (!is.null(.query$status_code)) {
     
-    error_type <- sub("\\:.*", "", q_obj$message) |> stringr::str_trim()
+    error_type <- sub("\\:.*", "", .query$message) |> stringr::str_trim()
     
     bullets <- c(
       "There was a problem with your query.",
-      "*" = glue("message: {q_obj$message}"))
+      "*" = glue("message: {.query$message}"))
     
     switch(as.character(error_type),
            "500" = {abort(bullets,
@@ -507,37 +507,37 @@ check_occurrence_response <- function(q_obj){
            abort("Aborting for unknown reasons.", # FIXME
                  call = caller_env()))
   } else {
-    if (q_obj$status %in% c("finished", # ALA
+    if (.query$status %in% c("finished", # ALA
                             "SUCCEEDED") # GBIF
     ){
-      q_obj$status <- "complete"
+      .query$status <- "complete"
     } else {
-      q_obj$status <- "incomplete"
+      .query$status <- "incomplete"
     }
   }
   # harmonisation of GBIF objects
   # change name of `download_link` to `download_url`
-  check_download_link <- names(q_obj) == "download_link"
+  check_download_link <- names(.query) == "download_link"
   if(any(check_download_link)){
-    names(q_obj)[which(check_download_link)[1]] <- "download_url"
+    names(.query)[which(check_download_link)[1]] <- "download_url"
   }
   # convert `key` to `status_url`
-  if(is.null(q_obj$status_url) & !is.null(q_obj$key)){
-    q_obj$status_url <- paste0("https://api.gbif.org/v1/occurrence/download/",
-                               q_obj$key)
+  if(is.null(.query$status_url) & !is.null(.query$key)){
+    .query$status_url <- paste0("https://api.gbif.org/v1/occurrence/download/",
+                               .query$key)
   }
   # add `queue_size`
-  if(is.null(q_obj$queue_size)){
-    q_obj$queue_size <- 0
+  if(is.null(.query$queue_size)){
+    .query$queue_size <- 0
   }
-  q_obj
+  .query
 }
 
 #' Internal function to change API response to contain standard headers
 #' @noRd
 #' @keywords Internal
-check_occurrence_status <- function(q_obj){
-  list(url = q_obj$status_url) |>
+check_occurrence_status <- function(.query){
+  list(url = .query$status_url) |>
     query_API() |>
     as.list() |>
     check_occurrence_response()
@@ -555,9 +555,9 @@ check_occurrence_status <- function(q_obj){
 #' Subfunction to `check_login()`
 #' @noRd
 #' @keywords Internal
-check_password <- function(q_obj, 
+check_password <- function(.query, 
                            error_call = caller_env()){
-  if (q_obj$options$userpwd == ":") {
+  if (.query$options$userpwd == ":") {
     abort("GBIF requires a username and password to download occurrences or species.",
           call = error_call)
   }
@@ -567,32 +567,32 @@ check_password <- function(q_obj,
 # Note this is most commonly used when galah defaults are in place; i.e. 
 # downloads are sent to a temporary directory.
 # Called by `query_API()`
-# check_path <- function(q_obj){
-#   if(is.null(q_obj$path)){
-#     if(q_obj$type == "species"){
+# check_path <- function(.query){
+#   if(is.null(.query$path)){
+#     if(.query$type == "species"){
 #       ext <- "csv"
 #     }else{
 #       ext <- "zip"
 #     }
 #     cache_file <- pour("package", "directory")
-#     q_obj$path <- paste0(cache_dir, "/temp_file.", ext)    
+#     .query$path <- paste0(cache_dir, "/temp_file.", ext)    
 #   } else {
 #     dirname(x) |> check_directory() # errors if path doesn't exist
 #     # NOTE: it might make sense here to check that a supplied filename is valid
 #   }
-#   q_obj
+#   .query
 # }
 
 #' Internal function to check a supplied profile is valid
 #' @noRd
 #' @keywords Internal
-check_profiles <- function(q_obj, error_call = caller_env()){
-  if(!inherits(q_obj$url, "data.frame")){
-    url <- q_obj$url[1]
+check_profiles <- function(.query, error_call = caller_env()){
+  if(!inherits(.query$url, "data.frame")){
+    url <- .query$url[1]
     if(grepl("data-profiles", url)){
-      url_split <- strsplit(q_obj$url[1], "/")[[1]]
+      url_split <- strsplit(.query$url[1], "/")[[1]]
       profile <- url_split[length(url_split)]
-      if(!profile %in% q_obj[["metadata/profiles"]]$shortName){
+      if(!profile %in% .query[["metadata/profiles"]]$shortName){
         bullets <- c(
           "Unrecognised profile requested.",
           i = "See `?show_all(profiles)` for valid profiles.",
@@ -600,23 +600,23 @@ check_profiles <- function(q_obj, error_call = caller_env()){
         )
         abort(bullets, call = error_call)
       }else{
-        q_obj
+        .query
       }
     }else{
-      q_obj
+      .query
     }
   }else{
-    q_obj 
+    .query 
   }
 }
 
 #' Internal function to check that a reason code is valid
 #' @noRd
 #' @keywords Internal
-check_reason <- function(q_obj, error_call = caller_env()){
+check_reason <- function(.query, error_call = caller_env()){
   if(atlas_supports_reasons_api()) {
-    if(q_obj$type %in% c("data/occurrences", "data/species")){
-      query <- url_parse(q_obj$url)$query
+    if(.query$type %in% c("data/occurrences", "data/species")){
+      query <- url_parse(.query$url)$query
       if(is.null(query$reasonTypeId)){
         bullets <- c("Missing a valid download reason.",
                      i = "Use `show_all(reasons)` to see all valid reasons.",
@@ -624,7 +624,7 @@ check_reason <- function(q_obj, error_call = caller_env()){
         abort(bullets, call = error_call) 
       }else{
         user_reason <- query$reasonTypeId
-        valid_reasons <- unlist(q_obj[["metadata/reasons"]])
+        valid_reasons <- unlist(.query[["metadata/reasons"]])
         if(!(user_reason %in% valid_reasons)){
           bullets <- c(
             "Invalid download reason ID.",
@@ -635,7 +635,7 @@ check_reason <- function(q_obj, error_call = caller_env()){
       }
     }
   }
-  q_obj
+  .query
 }
 
 #' Check that `select()` quosures can be parsed correctly
@@ -648,22 +648,22 @@ check_reason <- function(q_obj, error_call = caller_env()){
 #' @importFrom tidyselect eval_select
 #' @noRd
 #' @keywords Internal
-check_select <- function(q_obj){
-  if(any(names(q_obj) == "select")){
+check_select <- function(.query){
+  if(any(names(.query) == "select")){
     if(is_gbif()){
       inform(c("skipping `select()`:",
                i = "This function is not supported by the GBIF API v1"))
     }else{
       # 1. build df to `select` from
-      valid_fields <- q_obj[["metadata/fields"]]$id
-      valid_assertions <- q_obj[["metadata/assertions"]]$id
+      valid_fields <- .query[["metadata/fields"]]$id
+      valid_assertions <- .query[["metadata/assertions"]]$id
       valid_any <- c(valid_fields, valid_assertions)
       df <- matrix(data = NA, nrow = 0, ncol = length(valid_any),
                    dimnames = list(NULL, valid_any)) |>
         as.data.frame()
 
       # 2. parse groups
-      group <- q_obj$select$group
+      group <- .query$select$group
       if(length(group) > 0){
         group_cols <- lapply(group, preset_groups) |> 
           unlist()
@@ -676,9 +676,9 @@ check_select <- function(q_obj){
       }
       
       # 3. parse quosures to get list of field names
-      check_quosures <- lapply(q_obj$select, is_quosure) |>
+      check_quosures <- lapply(.query$select, is_quosure) |>
         unlist()
-      dots <- q_obj$select[check_quosures]
+      dots <- .query$select[check_quosures]
       dot_names <- lapply(dots, function(a){
         eval_select(a, data = df) |>
           names()
@@ -720,21 +720,21 @@ check_select <- function(q_obj){
       }
       result <- tibble(name = values, type = "field")
       result$type[result$name %in% valid_assertions] <- "assertion" 
-      attr(result, "group") <- q_obj$select$group
+      attr(result, "group") <- .query$select$group
       
       # 6. replace `SELECT_PLACEHOLDER` with valid query via `build_columns()`
-      # located in q_obj$url in query/fields
-      url <- url_parse(q_obj$url) # note: this assumes a single url every time
+      # located in .query$url in query/fields
+      url <- url_parse(.query$url) # note: this assumes a single url every time
         # is this a valid assumption?
       url$query$fields <- result |>
         filter(result$type == "field") |>
         build_columns()
       url$query$qa <- build_assertion_columns(result)
-      q_obj$url <- url_build(url)
-      q_obj$select <- NULL
+      .query$url <- url_build(url)
+      .query$select <- NULL
     }
   }
-  q_obj
+  .query
 }
 
 #' Check for valid `type`
