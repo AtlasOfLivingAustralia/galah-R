@@ -40,18 +40,17 @@
 #' galah_call() |> 
 #'   galah_filter(lsid == id) |>
 #'   atlas_counts()
+#' @importFrom lifecycle deprecate_stop
+#' @importFrom lifecycle deprecate_warn
 #' @importFrom rlang warn
 #' @export
-galah_identify <- function(..., search) {
+galah_identify <- function(..., search = NULL) {
   dots_initial <- list(...)
   if (length(dots_initial) < 1) {
     warn("No query passed to `identify()`.")
     tibble("search_term" = character())
   }else{
-    # Check for deprecated `search` argument
-    if ("search" %in% names(dots_initial)) { 
-      dots_initial <- remove_search_arg(dots_initial)
-    }
+    dots_initial <- check_search_arg(dots_initial, search)
     if(inherits(dots_initial[[1]], "data_request")){
       do.call(identify.data_request, dots_initial)
     }else{
@@ -95,117 +94,39 @@ identify.metadata_request <- function(x, ...){
   x
 }
 
-
 #' Remove `search` argument from `galah_identify()`, give deprecated warning
 #' @importFrom lifecycle deprecate_warn
 #' @noRd
 #' @keywords Internal
-remove_search_arg <- function(dots_initial) {
-  lifecycle::deprecate_warn(
-    when = "2.0.0",
-    what = "galah_identify(search = )",
-    details = glue("`galah_identify()` now always does a search to verify search terms. \\
-                   Please remove `search` argument from `galah_identify()`.")
-  )
-  # remove `search` arg from query
-  dots_initial <- dots_initial[names(dots_initial) != "search"]
-  return(dots_initial)
-}
-
-
-
-
-## BELOW HERE IS OLD CODE
-# some useful-looking stuff here, but I don't think it's used anywhere rn
-
-#' parser formerly called by `check.R/check_identifiers()`
-#' FIXME: check if this is still called
-#' @noRd
-#' @keywords Internal
-parse_identify <- function(input_query, search, call = caller_env()) {
-  # get cached behaviour
-  atlas <- pour("atlas", "region")
-  run_checks <- pour("package", "run_checks")
-  verbose <- pour("package", "verbose")
-  if (search) {
-    lookup <- search_taxa(input_query)
-    query <- verify_taxa_ids(lookup, input_query, verbose)
-  } else { # i.e. user has passed search = FALSE
-    if (atlas == "Australia" && run_checks) {
-      lookup <- search_identifiers(input_query)
-      query <- verify_taxa_ids(lookup, input_query, verbose, run_checks)
-    } else {
-      query <- input_query # pass unchanged
+check_search_arg <- function(dots_initial, search = NULL) {
+  if("search" %in% names(dots_initial)) {
+    search <- dots_initial$name
+    dots_initial <- dots_initial[names(dots_initial) != "search"]
+  } 
+  if(!is.null(search)){
+    if(!is.logical(search)){
+      deprecate_stop(
+        when = "2.0.0",
+        what = "galah_identify(search = )",
+        details = glue("`galah_identify()` now always does a search to verify search terms. \\
+                   Passing anything other than TRUE or FALSE to `search` has never worked"))      
+    }else{
+      if(search){
+        # if search = TRUE, this function still behaves correctly
+        deprecate_warn(
+          when = "2.0.0",
+          what = "galah_identify(search = )",
+          details = glue("`galah_identify()` now always does a search to verify search terms. \\
+                   Please remove `search` argument from `galah_identify()`."))      
+        # if search = FALSE, abort warning to use filter(lsid == x) instead
+      }else{
+        deprecate_stop(
+          when = "2.0.0",
+          what = "galah_identify(search = )",
+          details = glue("`galah_identify()` now always does a search to verify search terms. \\
+                   To pass identifiers, please use `filter(lsid == 'identifier_here') instead."))
+      }     
     }
   }
-  # check_is_character(query) # Q: do we need this function? Is it called elsewhere?
-  result <- tibble(identifier = as.character(query))
-  return(result)
-}
-
-verify_taxa_ids <- function(lookup, input_query, verbose, run_checks, call = caller_env()) {
-  if (!any(names(lookup) == "taxon_concept_id")){
-    bullets <- c(
-      "`galah_identify` didn't return anything.",
-      i = "Have you checked whether your search returns the correct taxa?",
-      i = "Use `search_taxa` or `search_identifiers` to verify search terms."
-    )
-    abort(bullets, call = call)
-  } else {
-    verified_ids <- lookup$taxon_concept_id[!is.na(lookup$taxon_concept_id)]
-    if (verbose) {
-      # If query is within c(), place each element in separate list
-      if(length(input_query[[1]]) > 1) {
-        input_query <- as.list(input_query[[1]])
-      }
-      # calculate number of verified IDs
-      n_provided <- length(input_query)
-      n_returned <- length(verified_ids)
-      check_number_returned(n_provided, n_returned)
-    }
-    return(verified_ids)
-  }
-}
-
-#' checker function based on `galah_filter.R/check_filters`
-#' @importFrom rlang abort
-#' @importFrom rlang have_name
-#' @noRd
-#' @keywords Internal
-check_queries <- function(dots, error_call = caller_env()) {
-  if(any(have_name(dots))){
-    bullets <- c(
-      "We detected a named input.",
-      i = glue("This usually means that you've used `=` somewhere."),
-      i = glue("`galah_identify` doesn't require equations.")
-    )
-    abort(bullets, call = error_call)
-  }
-}
-
-#' Internal function to check number of matched taxa
-#' @importFrom rlang warn
-#' @importFrom glue glue
-#' @noRd
-#' @keywords Internal
-check_number_returned <- function(n_in, n_out, error_call = caller_env()) {
-  if(n_out < n_in){
-    bullets <- c(
-      "Unmatched taxa.",
-      "*" = glue("Results returned for {n_out} of {n_in} taxon IDs.")
-    )
-    warn(bullets)
-  }
-}
-
-#' it is possible that the above will lead to non-character 
-#' arguments being passed (if search = FALSE and run_checks = FALSE).
-#' Internal function to check this
-#' @importFrom rlang abort
-#' @noRd
-#' @keywords Internal
-check_is_character <- function(query, error_call = caller_env()){
-  if(!inherits(query, "character")){
-    abort("galah_identify() requires characters to work", call = error_call)
-  }
+  dots_initial
 }

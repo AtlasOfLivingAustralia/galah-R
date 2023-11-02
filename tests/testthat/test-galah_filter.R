@@ -171,6 +171,21 @@ test_that("galah_filter handles taxonomic exclusions", {
   expect_false(any(grepl("search_taxa", filters$query)))
 })
 
+test_that("galah_filter handles lsid as an input", {
+  skip_if_offline()
+  ids <- c("https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b",
+           "https://id.biodiversity.org.au/node/apni/2910467",
+           "https://id.biodiversity.org.au/node/apni/291047") # wrong id
+  q_set <- galah_call() |>
+    # galah_identify(ids, search = FALSE) |>
+    galah_filter(year == 2020,
+                 lsid == ids) |>
+    count() |>
+    collapse()
+  # number of taxa searches is 3, not 4
+  expect_equal(length(q_set), 3)
+})
+
 test_that("galah_filter handles different fields separated by OR", {
   filters <- galah_filter(phylum == "Chordata" | kingdom == "Plantae")
   expect_equal(filters$query, "((phylum:\"Chordata\") OR (kingdom:\"Plantae\"))")

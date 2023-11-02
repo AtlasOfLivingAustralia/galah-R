@@ -21,21 +21,6 @@ test_that("galah_identify runs a search on multiple strings wrapped by c()", {
   expect_equal(nrow(result), 4)
 })
 
-## obsolete: use `filter(lsid == )` instead
-# test_that("galah_identify works with search = FALSE", {
-#   galah_config(run_checks = FALSE)
-#   id <- "urn:lsid:biodiversity.org.au:afd.taxon:0490a9ba-0d08-473d-a709-6c42e354f118"
-#   result <- galah_identify(id, search = FALSE)
-#   expect_equal(result$identifier[1], id)
-# })
-# 
-# test_that("galah_identify can pass a string unchanged when run_checks = FALSE", {
-#   galah_config(run_checks = FALSE)
-#   result <- galah_identify("a_string", search = FALSE)
-#   expect_equal(nrow(result), 1)
-#   expect_equal(result$identifier[1], "a_string")
-# })
-
 test_that("galah_identify pipes correctly", {
   result <- galah_call() |>
     galah_identify("Litoria") |>
@@ -53,7 +38,6 @@ test_that("galah_identify pipes correctly when taxa are partially returned", {
   expect_false(is.null(result$filter))
   galah_config(verbose = TRUE)
 })
-
 
 test_that("galah_identify warns when taxa are partially returned", {
   expect_message(
@@ -99,7 +83,7 @@ test_that("galah_identify truncates unmatched list of taxa at 3 ", {
   )
 })
 
-test_that("galah_identify warns user of deprecated `search` argument", {
+test_that("galah_identify errors for deprecated `search = FALSE` argument", {
   skip_on_cran()
   galah_config(run_checks = TRUE)
   ids <- c("https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b",
@@ -107,29 +91,24 @@ test_that("galah_identify warns user of deprecated `search` argument", {
            "https://id.biodiversity.org.au/node/apni/291047", 
            "fred",
            "bort") # wrong id
-  expect_warning(
+  expect_error(
     galah_call() |>
       galah_identify(ids, search = FALSE) |>
       galah_filter(year == 2020) |>
       count() |>
-      compute(),
-    "The `search` argument of `galah_identify()` is deprecated"
-  )
+      collapse())
 })
 
-test_that("galah_identify removes deprecated `search` argument", {
+test_that("galah_identify warns for deprecated `search = TRUE` argument", {
+  skip_on_cran()
   galah_config(run_checks = TRUE)
-  ids <- c("https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b",
-           "https://id.biodiversity.org.au/node/apni/2910467",
-           "https://id.biodiversity.org.au/node/apni/291047") # wrong id
-  q_set <- galah_call() |>
-    galah_identify(ids, search = FALSE) |>
-    galah_filter(year == 2020) |>
-    count() |>
-    collapse()
-  
-  # number of taxa searches is 3, not 4
-  expect_equal(length(q_set[[3]]), 3)
+  ids <- c("Litoria", "Crinia")
+  expect_warning(
+    galah_call() |>
+      galah_identify(ids, search = TRUE) |>
+      galah_filter(year == 2020) |>
+      count() |>
+      collapse())
 })
 
 ## NOTE: Not certain if this is a necessary test
