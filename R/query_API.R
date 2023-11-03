@@ -52,9 +52,7 @@ query_API_internal <- function(.query, error_call = caller_env()) {
   query <- request(.query$url) |>
     add_headers(.query$headers) |> 
     add_options(.query$options) |> # used by GBIF
-    add_body(.query$body) |> # NOTE: adding `body` converts from GET to POST
-    req_error(is_error = ~ FALSE) # untested; intended to catch errors. 
-    # from brief testing it appears to fail; e.g. we still get errors when internet is off
+    add_body(.query$body)  # NOTE: adding `body` converts from GET to POST
   if(!is.null(.query$download)){
     check_directory(.query$file)
     query |> req_perform(path = .query$file,
