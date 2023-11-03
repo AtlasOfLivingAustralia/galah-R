@@ -138,6 +138,7 @@ test_that("atlas_occurrences works for Austria", {
   galah_config(
     atlas = "Austria",
     email = "ala4r@ala.org.au", 
+    download_reason_id = "testing",
     run_checks = TRUE, ## FIXME: Test only works when run_checks = TRUE
     send_email = FALSE)
   occ <- galah_call() |>
