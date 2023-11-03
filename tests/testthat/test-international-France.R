@@ -26,11 +26,10 @@ test_that("show_all(datasets) works for France", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-## FIXME: No data is returned
 test_that("show_all(providers) works for France", {
   skip_if_offline()
   x <- show_all(providers, limit = 10)
-  expect_lte(nrow(x), 10) # no data at present
+  expect_lte(nrow(x), 10) # no data stored by this atlas at present
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 

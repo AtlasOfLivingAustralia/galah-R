@@ -243,9 +243,11 @@ collect_providers <- function(.query){
     result <- query_API(.query)
     result <- result |> 
       bind_rows()
-    result <- result |> 
-      relocate("uid") |> 
-      rename("id" = "uid")
+    if(nrow(result) > 0){ # exception added because this API isn't always populated (e.g. France)
+      result <- result |> 
+        relocate("uid") |> 
+        rename("id" = "uid")      
+    }
   }
   attr(result, "call") <- "providers"
   attr(result, "region") <- pour("atlas", "region")
