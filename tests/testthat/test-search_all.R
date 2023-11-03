@@ -47,7 +47,7 @@ test_that("search_apis returns a filtered result", {
   skip_on_cran()
   all <- show_all_apis()
   search <- search_apis("image")
-  search_result_check <- all(grepl(pattern = "image", search$api_name,
+  search_result_check <- all(grepl(pattern = "image", search$url,
                                    ignore.case = TRUE))
   
   expect_lt(nrow(search), nrow(all))

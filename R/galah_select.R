@@ -116,10 +116,10 @@ select.data_request <- function(.data, ..., group){
 #' @keywords Internal
 add_summary <- function(dots){
   labels <- lapply(dots, as_label) |>
-    unlist() |>
-    paste(collapse = " | ")
+    unlist() 
+  labels <- labels[labels != "<dat_rqst>"]
   last_entry <- length(dots) + 1
-  dots[[last_entry]] <- labels
+  dots[[last_entry]] <- paste(labels, collapse = " | ")
   names(dots)[last_entry] <- "summary"
   dots
 }
