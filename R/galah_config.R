@@ -84,7 +84,7 @@ galah_config <- function(...) {
   if(length(dots) > 0){
     # check all values in dots to ensure they are named
     if(length(dots) != length(names(dots))){
-      bullets <- c("All arguments to `galah_config() must be named",
+      bullets <- c("All arguments to `galah_config() must be named.",
                    i = "Did you use `==` instead of `=`?")
       abort(bullets)
     }
@@ -96,6 +96,12 @@ galah_config <- function(...) {
     if(any(names(result) == "atlas")){
       brew(atlas = list(atlas = result$atlas))
       result <- result[names(result) != "atlas"]
+    }
+    
+    if(any(names(result) == "download_reason_id")){
+      # browser()
+      brew(user = list(download_reason_id = result$download_reason_id))
+      result <- result[names(result) != "download_reason_id"]
     }
     
     if(length(result) > 0){
@@ -150,11 +156,13 @@ restructure_config <- function(dots){
 #' @noRd
 #' @keywords Internal
 validate_config <- function(name, value, error_call = caller_env()) {
+  # browser()
   switch(name, 
          "atlas" = {
            value <- configure_atlas(value)
            # see whether atlases have changed, and if so, give a message
-           check_atlas(pour("atlas"), value)},
+           check_atlas(pour("atlas"), value)
+           },
          "caching"         = enforce_logical(value),
          "send_email"      = enforce_logical(value),
          "verbose"         = enforce_logical(value),
@@ -164,7 +172,9 @@ validate_config <- function(name, value, error_call = caller_env()) {
          "password"        = enforce_character(value),
          "username"        = enforce_character(value),
          "api_key"         = enforce_character(value),
-         "download_reason_id" = enforce_download_reason(value),
+         "download_reason_id" = {
+           value <- enforce_download_reason(value) |> convert_reason()
+           },
          enforce_invalid_name())
   
   return(value)
@@ -230,6 +240,7 @@ enforce_download_reason <- function(value, error_call = caller_env()){
       abort(bullets, call = error_call)
     }
   }
+  value
 }
 
 #' catch all failure for unknown names
@@ -298,27 +309,39 @@ check_atlas <- function(current_data, new_data){
 #' @importFrom glue glue
 #' @noRd
 #' @keywords Internal
-convert_reason <- function(reason, error_call = caller_env()) {
-  valid_reasons <- show_all_reasons()
-  bullets <- c(
-    "Invalid reason provided to `download_reason_id`.",
-    i = "Use `show_all(reasons)` to see list of valid reasons.",
-    x = glue("Couldn't match \"{reason}\" to a valid reason ID.")
-  )
-  ## unexported function to convert string reason to numeric id
-  if (is.character(reason)) {
-    tryCatch({
-      reason <- match.arg(tolower(reason), valid_reasons$name)
-      reason <- valid_reasons$id[valid_reasons$name == reason]
-      },
-      error = function(e) {abort(bullets, call = error_call)}
-    )
-  }else{
-    if(is.numeric(reason)){
-      if(reason > nrow(valid_reasons)){
-        abort(bullets, call = error_call)
-      }
-    }
+convert_reason <- function(value, error_call = caller_env()) {
+  # convert text reason to numeric reason id
+  if (is.character(value) & (value %in% show_all_reasons()$name)) {
+    valid_reasons <- show_all_reasons()
+    value_id <- valid_reasons |>
+      filter(valid_reasons$name == value) |>
+      select("id") |>
+      pull("id")
+    inform(c("v" = glue("Matched \"{value}\" to valid download reason ID {value_id}.")))
+    value <- value_id
+    return(value)
   }
-  reason
+  
+  # valid_reasons <- show_all_reasons()
+  # bullets <- c(
+  #   "Invalid reason provided to `download_reason_id`.",
+  #   i = "Use `show_all(reasons)` to see list of valid reasons.",
+  #   x = glue("Couldn't match \"{reason}\" to a valid reason ID.")
+  # )
+  # ## unexported function to convert string reason to numeric id
+  # if (is.character(reason)) {
+  #   tryCatch({
+  #     reason <- match.arg(tolower(reason), valid_reasons$name)
+  #     reason <- valid_reasons$id[valid_reasons$name == reason]
+  #     },
+  #     error = function(e) {abort(bullets, call = error_call)}
+  #   )
+  # }else{
+  #   if(is.numeric(reason)){
+  #     if(reason > nrow(valid_reasons)){
+  #       abort(bullets, call = error_call)
+  #     }
+  #   }
+  # }
+  # reason
 }

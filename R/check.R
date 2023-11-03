@@ -619,8 +619,8 @@ check_reason <- function(.query, error_call = caller_env()){
       query <- url_parse(.query$url)$query
       if(is.null(query$reasonTypeId)){
         bullets <- c("Missing a valid download reason.",
-                     i = "Use `show_all(reasons)` to see all valid reasons.",
-                     i = "Use `galah_config(download_reason_id = ...)` to set a reason.")
+                     i = "See `show_all(reasons)`.",
+                     i = "Use `galah_config(download_reason_id = ...)` to set a download reason.")
         abort(bullets, call = error_call) 
       }else{
         user_reason <- query$reasonTypeId
