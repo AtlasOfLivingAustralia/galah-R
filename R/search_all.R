@@ -10,7 +10,7 @@
 #' search term within the valid options for the information specified by the 
 #' suffix.
 #' 
-#' `r lifecycle::badge("experimental")`
+#' `r lifecycle::badge("stable")`
 #' `search_all()` is a helper function that can do searches within multiple 
 #' types of information from `search_` sub-functions. 
 #' See `Details` (below) for accepted values.

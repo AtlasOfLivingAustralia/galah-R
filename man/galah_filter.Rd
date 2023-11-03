@@ -18,11 +18,8 @@ galah_filter(..., profile = NULL)
 \arguments{
 \item{...}{filters, in the form \verb{field logical value}}
 
-\item{profile}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#soft-deprecated}{\figure{lifecycle-soft-deprecated.svg}{options: alt='[Soft-deprecated]'}}}{\strong{[Soft-deprecated]}} Use \code{galah_apply_profile} instead.
-
-If supplied, should be a \code{string} recording a data quality profile to
-apply to the query. See \code{\link[=show_all_profiles]{show_all_profiles()}} for valid profiles. By
-default no profile is applied.}
+\item{profile}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+Use \code{galah_apply_profile} instead.}
 
 \item{.data}{An object of class \code{files_request}, created using \code{\link[=request_files]{request_files()}}}
 }

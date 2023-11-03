@@ -16,11 +16,8 @@
 #'
 #' @param ... filters, in the form `field logical value`
 #' @param profile 
-#'    `r lifecycle::badge("soft-deprecated")` Use `galah_apply_profile` instead. 
-#'    
-#'    If supplied, should be a `string` recording a data quality profile to 
-#'    apply to the query. See [show_all_profiles()] for valid profiles. By 
-#'    default no profile is applied.
+#'    `r lifecycle::badge("deprecated")`  
+#'    Use `galah_apply_profile` instead. 
 #' @return A tibble containing filter values.
 #' @seealso [search_taxa()] and [galah_geolocate()] for other ways to restrict 
 #' the information returned by [atlas_occurrences()] and related functions. Use

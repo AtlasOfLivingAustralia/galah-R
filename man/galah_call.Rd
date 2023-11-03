@@ -69,6 +69,9 @@ functions are useful because they allow \code{galah} to separate different types
 of requests to perform better. For example,
 \code{filter.data_request} translates filters in R to \code{solr}, whereas
 \code{filter.metadata_request} searches using a search term.
+
+For more details see the object-oriented programming vignette:
+\code{vignette("object_oriented_programming", package = "galah")}
 }
 \details{
 Each atlas has several types of data that can be chosen. Currently supported
@@ -105,7 +108,7 @@ Unrecognised names are ignored by \code{collect()} and related functions.
 galah_call() |>
   galah_identify("Aves") |>
   galah_filter(year > 2000 & year < 2005) |>
-  galah_group_by() |>
+  galah_group_by(year) |>
   atlas_counts()
   
 # Get information for all species in *Cacatuidae* family
@@ -120,5 +123,30 @@ galah_call() |>
   galah_identify("Eolophus") |>
   galah_filter(year > 2000 & year < 2005) |>
   atlas_occurrences()
+
+
+# ----------
+# Since galah 2.0.0, a pipe can start with a `request_` function.
+# This allows users to use `collapse()`, `compute()` and `collect()`.
+
+# Get number of records of *Aves* from 2001 to 2004 by year
+request_data(type = "occurrences-count") |>
+  galah_identify("Aves") |>
+  galah_filter(year > 2000 & year < 2005) |>
+  galah_group_by(year) |>
+  collect()
+
+# Get information for all species in *Cacatuidae* family
+request_data(type = "species") |>
+  galah_identify("Cacatuidae") |>
+  collect()
+  
+# Get metadata information about supported atlases in galah
+request_metadata(type = "atlases") |>
+  collect()
+
 }
+}
+\seealso{
+\code{\link[=collapse.data_request]{collapse.data_request()}}, \code{\link[=compute.data_request]{compute.data_request()}}, \code{\link[=collect.data_request]{collect.data_request()}}
 }

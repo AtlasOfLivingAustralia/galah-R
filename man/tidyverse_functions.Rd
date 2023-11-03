@@ -16,24 +16,50 @@ unnest(.query)
 \item{.query}{An object of class \code{metadata_request}}
 }
 \value{
-description
+\itemize{
+\item \code{galah::desc()} returns a \code{tibble} used by \code{arrange.data_request()} to arrange rows of a query.
+\item \code{galah::unnest()} returns an object of class \code{metadata_request}.
+}
 }
 \description{
-Several useful functions from \code{{tidyverse}} packages are \code{generic}, meaning
+Several useful functions from tidyverse packages are \code{generic}, meaning
 that we can define class-specific versions of those functions and implement
 them in galah; examples include \code{filter()}, \code{select()} and \code{group_by()}.
 However, there are also functions that are only defined within tidyverse
 packages and are not generic. In a few cases we have re-implemented these
-functions in \code{galah}. This has the consequence of supporting consistent
+functions in galah. This has the consequence of supporting consistent
 syntax with tidyverse, at the cost of potentially introducing conflicts.
 This can be avoided by using the \code{::} operator where required (see examples).
 }
 \details{
 The following functions are included:
 \itemize{
-\item \code{desc()} (\code{dplyr}): use within \code{arrange()} to specify arrangement should be descending
-\item \code{unnest()} (\code{tidyr}): use to 'drill down' into nested information on \code{fields}, \code{lists}, \code{profiles}, or \code{taxa}
+\item \code{desc()} (\code{dplyr}): Use within \code{arrange()} to specify arrangement should be descending
+\item \code{unnest()} (\code{tidyr}): Use to 'drill down' into nested information on \code{fields}, \code{lists}, \code{profiles}, or \code{taxa}
 }
 
-These (\code{galah}) versions all use lazy evaluation.
+These galah versions all use lazy evaluation.
+}
+\examples{
+# Arrange grouped record counts by descending year
+galah_call() |>
+  identify("perameles") |>
+  filter(year > 2019) |>
+  count() |>
+  arrange(galah::desc(year)) |>
+  collect()
+
+# Return values of field `basisOfRecord`
+request_metadata() |> 
+  galah::unnest() |> 
+  filter(field == basisOfRecord) |> 
+  collect()
+  
+# Using `galah::unnest()` in this way is equivalent to:
+show_all(fields, "basisOfRecord") |> 
+  show_values()
+
+}
+\seealso{
+\code{\link[=arrange.data_request]{arrange.data_request()}}, \code{\link[=galah_call]{galah_call()}}
 }

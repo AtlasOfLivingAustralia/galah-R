@@ -3,7 +3,7 @@
 \name{arrange.data_request}
 \alias{arrange.data_request}
 \alias{arrange.metadata_request}
-\title{arrange rows}
+\title{Arrange rows of a query}
 \usage{
 \method{arrange}{data_request}(.data, ...)
 
@@ -15,5 +15,49 @@
 \item{...}{Either \code{count} or \code{index}}
 }
 \description{
-New function to arrange on server side. Experimental
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+\code{arrange.data_request()} arranges rows of a query on the server side, meaning
+that prior to sending a query, the query is constructed in such a way that
+information will be arranged when the query is processed. Any data that is
+then returned by the query will have rows already pre-arranged.
+
+The benefit of using \code{arrange()} within a \code{galah_call()} is that it is faster
+to process arranging rows on the server side than arranging rows locally on
+downloaded data,
+especially if the dataset is large or complex.
+
+\code{arrange()} can be used within a \code{galah_call()} pipe, but only
+for queries of  \code{type = "occurrences-count"}. The \code{galah_call()} pipe must
+include \code{count()} and finish with \code{collect()} (see examples).
+}
+\examples{
+
+# Arrange grouped counts by ascending year
+galah_call() |>
+  identify("Crinia") |>
+  filter(year >= 2020) |>
+  group_by(year) |>
+  arrange(year) |>
+  count() |>
+  collect()
+  
+# Arrange grouped counts by ascending record count
+galah_call() |>
+  identify("Crinia") |>
+  filter(year >= 2020) |>
+  group_by(year) |>
+  arrange(count) |>
+  count() |>
+  collect()
+
+# Arrange grouped counts by descending year
+galah_call() |>
+  identify("Crinia") |>
+  filter(year >= 2020) |>
+  group_by(year) |>
+  arrange(desc(year)) |>
+  count() |>
+  collect()
+  
 }

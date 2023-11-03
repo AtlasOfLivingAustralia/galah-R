@@ -54,7 +54,7 @@ collect_media_files <- function(.query){
 #' @param thumbnail `logical`: should the download return thumbnails (TRUE) or 
 #' full size images (FALSE, the default)
 #' @param path `string`:
-#'    `r lifecycle::badge("deprecated")` 
+#'    `r lifecycle::badge("deprecated")`  
 #'    
 #'    Supply path to directory where downloaded media will be stored in 
 #'    `galah_config(directory = "path-to-directory"` instead.

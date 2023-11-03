@@ -17,6 +17,9 @@
 #' `filter.data_request` translates filters in R to `solr`, whereas 
 #' `filter.metadata_request` searches using a search term.
 #' 
+#' For more details see the object-oriented programming vignette:  
+#' \code{vignette("object_oriented_programming", package = "galah")}
+#' 
 #' @param method string: what `request` function should be called. Should be one
 #' of `"data"` (default), `"metadata"` or `"files"`
 #' @param type string: what form of data should be returned? Acceptable values
@@ -52,6 +55,7 @@
 #' @return Each sub-function returns a different object class: `request_data()` 
 #' returns `data_request`. `request_metadata` returns `metadata_request`,
 #' `request_files()` returns `files_request`.
+#' @seealso [collapse.data_request()], [compute.data_request()], [collect.data_request()]
 #' @rdname galah_call
 #' @examples
 #' \dontrun{ 
@@ -61,7 +65,7 @@
 #' galah_call() |>
 #'   galah_identify("Aves") |>
 #'   galah_filter(year > 2000 & year < 2005) |>
-#'   galah_group_by() |>
+#'   galah_group_by(year) |>
 #'   atlas_counts()
 #'   
 #' # Get information for all species in *Cacatuidae* family
@@ -76,6 +80,28 @@
 #'   galah_identify("Eolophus") |>
 #'   galah_filter(year > 2000 & year < 2005) |>
 #'   atlas_occurrences()
+#' 
+#' 
+#' # ----------
+#' # Since galah 2.0.0, a pipe can start with a `request_` function.
+#' # This allows users to use `collapse()`, `compute()` and `collect()`.
+#' 
+#' # Get number of records of *Aves* from 2001 to 2004 by year
+#' request_data(type = "occurrences-count") |>
+#'   galah_identify("Aves") |>
+#'   galah_filter(year > 2000 & year < 2005) |>
+#'   galah_group_by(year) |>
+#'   collect()
+#' 
+#' # Get information for all species in *Cacatuidae* family
+#' request_data(type = "species") |>
+#'   galah_identify("Cacatuidae") |>
+#'   collect()
+#'   
+#' # Get metadata information about supported atlases in galah
+#' request_metadata(type = "atlases") |>
+#'   collect()
+#' 
 #' }
 #' @export galah_call
 galah_call <- function(method = c("data", "metadata", "files"),

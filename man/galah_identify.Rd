@@ -6,17 +6,16 @@
 \alias{identify.metadata_request}
 \title{Narrow a query by passing taxonomic identifiers}
 \usage{
-galah_identify(..., search)
+galah_identify(..., search = NULL)
 
 \method{identify}{data_request}(x, ...)
 
 \method{identify}{metadata_request}(x, ...)
 }
 \arguments{
-\item{...}{One or more scientific names}
+\item{...}{One or more scientific names.}
 
-\item{search}{(logical);
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\item{search}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 \code{galah_identify()} now always does a search to verify search terms; ergo
 this argument is ignored.}
 
@@ -50,8 +49,10 @@ galah_call() |>
   galah_identify("Eolophus") |>
   atlas_counts()
 
+# Use 
+
 # If you know a valid taxon identifier, use `galah_filter()` instead.
-# This was formerly supported by `galah_identify()` with `search = FALSE`
+# (This was formerly supported by `galah_identify()` with `search = FALSE`)
 id <- "https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c"
 galah_call() |> 
   galah_filter(lsid == id) |>

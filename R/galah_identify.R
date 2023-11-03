@@ -11,9 +11,9 @@
 #' first to check that the taxa you provide to `galah_identify()` return the 
 #' correct results.
 #'
-#' @param ... One or more scientific names
-#' @param search (logical); 
-#'   `r lifecycle::badge("deprecated")` 
+#' @param ... One or more scientific names.
+#' @param search 
+#'   `r lifecycle::badge("deprecated")`  
 #'   `galah_identify()` now always does a search to verify search terms; ergo
 #'    this argument is ignored.
 #' @return A tibble containing identified taxa.
@@ -34,8 +34,10 @@
 #'   galah_identify("Eolophus") |>
 #'   atlas_counts()
 #' 
+#' # Use 
+#' 
 #' # If you know a valid taxon identifier, use `galah_filter()` instead.
-#' # This was formerly supported by `galah_identify()` with `search = FALSE`
+#' # (This was formerly supported by `galah_identify()` with `search = FALSE`)
 #' id <- "https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c"
 #' galah_call() |> 
 #'   galah_filter(lsid == id) |>
