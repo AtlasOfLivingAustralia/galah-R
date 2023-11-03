@@ -118,7 +118,6 @@ test_that("search_all(fields) works for GBIF", {
 
 test_that("show_values works for GBIF fields", {
   skip_if_offline()
-  ## FIXME: not implemented yet
   search_fields("basisOfRecord") |>
     show_values() |>
     nrow() |>

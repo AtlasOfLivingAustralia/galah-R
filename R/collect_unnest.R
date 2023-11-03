@@ -16,9 +16,23 @@ collect_lists_unnest <- function(.query){
 #' @keywords Internal
 collect_fields_unnest <- function(.query, error_call = caller_env()){
   if(is_gbif()){
+    facet <- .query |>
+      pluck("url") |>
+      url_parse() |>
+      pluck("query", "facet")
+    
+    if (facet == "NA") {
+      abort("No `field` passed to `show_values()`/`search_values()`.")
+    }
+    
     .query |>
-      query_API()
-  }else{
+      query_API() |>
+      pluck(!!!list("facets", 1, "counts")) |>
+      bind_rows() |>
+      mutate({{facet}} := name) |>
+      select({{facet}})
+    
+  }else{ 
     facet <- .query |>
       pluck("url") |>
       url_parse() |>

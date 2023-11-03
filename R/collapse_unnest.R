@@ -4,19 +4,17 @@
 #' @noRd
 #' @keywords Internal
 collapse_fields_unnest <- function(.query){
+  url <- url_lookup("metadata/fields-unnest") |> 
+    url_parse()
   if(is_gbif()){
-    url <- url_lookup("values/fields") |> 
-      url_parse()
     url$query <- list(
-      facet = .query$filter$value[1], 
-      limit = 0, 
-      facetLimit = 10^4) # FIXME: integrate with `slice_head()`
+      limit = 0,
+      facet = .query$filter$value[1], # note: facet (singular), not facets (plural)
+      facetLimit = 10^4)    
   }else{
-    url <- url_lookup("metadata/fields-unnest") |> 
-      url_parse()
     url$query <- list(
-      facets = .query$filter$value[1], 
-      facetLimit = 10^4)
+      facets = .query$filter$value[1],
+      facetLimit = 10^4)   
   }
   result <- list(
     type = "metadata/fields-unnest",
