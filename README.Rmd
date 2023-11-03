@@ -38,9 +38,7 @@ specimens, eDNA records, etc.), taxonomic information, or associated media such
 as images or sounds, and to restrict their queries to particular taxa or
 locations. Users can specify which columns are returned by a query, or restrict
 their results to occurrences that meet particular data-quality criteria. All 
-functions return a `tibble` as their standard format, except
-`atlas_taxonomy` which returns tree consisting of `Node` objects using the 
-`data.tree` package.
+functions return a `tibble` as their standard format.
 
 The package is named for the bird of the same name
 (*Eolophus roseicapilla*), a widely-distributed endemic Australian species. The 
@@ -67,7 +65,7 @@ install.packages("galah")
 Install the development version from GitHub:
 ```{r eval=FALSE}
 install.packages("remotes")
-remotes::install_github("AtlasOfLivingAustralia/galah")
+remotes::install_github("AtlasOfLivingAustralia/galah-R")
 ```
 
 On Linux you will first need to ensure that `libcurl` and `v8` (version <= 3.15) are installed on your system --- e.g. on Ubuntu/Debian, open a terminal and do:
