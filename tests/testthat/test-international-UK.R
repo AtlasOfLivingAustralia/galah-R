@@ -147,8 +147,8 @@ test_that("atlas_occurrences works for United Kingdom", {
     directory = "temp",
     send_email = FALSE)
   base_query <- galah_call() |>
-    identify("Mammalia") |>
-    filter(year == 1600)
+    identify("Vulpes") |>
+    filter(year <= 1800)
   counts <- base_query |>
     count() |>
     collect() 
