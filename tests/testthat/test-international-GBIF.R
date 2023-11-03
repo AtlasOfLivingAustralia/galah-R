@@ -220,8 +220,8 @@ test_that("`count` works with `group_by` for GBIF", {
   # collect
   z <- collect(y)
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
-  expect_gt(nrow(result), 1)
-  expect_equal(names(result), c("year", "count"))
+  expect_gt(nrow(z), 1)
+  expect_equal(names(z), c("year", "count"))
 })
 
 # FIXME: GBIF grouped counts only work for n = 1 - expand this or add warning
@@ -244,23 +244,22 @@ test_that("atlas_species works for GBIF", {
     unlist(lapply(x, function(a){a$type})),
     c("metadata/fields", 
       "metadata/assertions",
+      # "metadata/reasons",
       "metadata/taxa-single",
       "data/species"))  
   skip_if_offline()
   y <- compute(x)
   expect_true(inherits(y, "query"))
   expect_true(y$type == "data/species")  
-  expect_true(any(names(y) == "status"))
-  ## below is running slow for some reason - not checked
-  # z <- collect(y)
-  # expect_gt(nrow(z), 0)
-  # expect_gt(ncol(z), 0)
-  # expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
-  # species <- galah_call() |>
-  #   galah_filter(year == 2010) |>
-  #   galah_identify("Litoria") |>
-  #   atlas_species()
-  # expect_equal(z, species)
+  z <- collect(y)
+  expect_gt(nrow(z), 0)
+  expect_gt(ncol(z), 0)
+  expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
+  species <- galah_call() |>
+    galah_filter(year == 2010) |>
+    galah_identify("Litoria") |>
+    atlas_species()
+  expect_equal(z, species)
 })
 
 test_that("atlas_media fails for GBIF", {
@@ -289,6 +288,7 @@ test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
     unlist(lapply(x, function(a){a$type})),
     c("metadata/fields", 
       "metadata/assertions",
+      # "metadata/reasons",
       "metadata/taxa-single",
       "data/occurrences"))
   # compute
@@ -298,9 +298,9 @@ test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   expect_true(any(names(y) == "status"))
   # collect
   z <- collect(y)
-  expect_gt(nrow(occ), 0)
-  expect_gt(ncol(occ), 0)
-  expect_true(inherits(occ, c("tbl_df", "tbl", "data.frame")))
+  expect_gt(nrow(z), 0)
+  expect_gt(ncol(z), 0)
+  expect_true(inherits(z, c("tbl_df", "tbl", "data.frame")))
   expect_equal(nrow(z), count$count)
 })
 
