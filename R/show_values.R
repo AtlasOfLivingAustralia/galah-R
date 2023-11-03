@@ -50,13 +50,15 @@ show_values <- function(df){
   check_values_input(df)
   
   type <- attr(df, "call")
-  match_name <- switch(type,
-                       "fields" = df$id[1],
-                       "lists" = df$dataResourceUid[1],
-                       "profiles" = df$shortName[1],
-                       "taxa" = df$taxon_concept_id[1],
-                       df$uid[1] # last option selected if above are exhausted
+  match_column <- switch(type,
+                         "fields" = "id",
+                         "lists" = "dataResourceUid",
+                         "profiles" = "shortName",
+                         "taxa" = "taxon_concept_id",
+                         "uid" # last option selected if above are exhausted
   )
+  match_name <- df[[match_column]][1]
+
   # specify the number matched fields
   # specify for which field the values are displayed
   if(nrow(df) > 1) {
@@ -80,13 +82,9 @@ show_values <- function(df){
     )
     }
   }
-  
-  # NOTE: the below assumes that each `show_all()` function
-  # returns the columns `type` and `id`; 
-  # this may need to be reverse engineered
-  id <- df$id
+
   request_metadata() |>
-    filter({{type}} == {{id}}) |>
+    filter({{type}} == {{match_name}}) |>
     unnest() |>
     collect()
 }
