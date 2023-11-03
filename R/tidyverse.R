@@ -41,7 +41,8 @@ unnest <- function(.query){
   }
   if(!is.null(.query$filter)){
     supplied_type <- .query$filter$variable[1]
-    if(supplied_type != "taxa"){
+    if(supplied_type != "taxa" &
+       !grepl("s$", supplied_type)){
       supplied_type <- paste0(supplied_type, "s")
     }
   }else if(!is.null(.query$identify)){

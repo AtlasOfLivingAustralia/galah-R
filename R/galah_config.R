@@ -150,7 +150,6 @@ restructure_config <- function(dots){
 #' @noRd
 #' @keywords Internal
 validate_config <- function(name, value, error_call = caller_env()) {
-  # browser()
   switch(name, 
          "atlas" = {
            value <- configure_atlas(value)
