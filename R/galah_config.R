@@ -98,12 +98,6 @@ galah_config <- function(...) {
       result <- result[names(result) != "atlas"]
     }
     
-    if(any(names(result) == "download_reason_id")){
-      # browser()
-      brew(user = list(download_reason_id = result$download_reason_id))
-      result <- result[names(result) != "download_reason_id"]
-    }
-    
     if(length(result) > 0){
       brew(result, method = "leaves")
     }
@@ -321,27 +315,4 @@ convert_reason <- function(value, error_call = caller_env()) {
     value <- value_id
     return(value)
   }
-  
-  # valid_reasons <- show_all_reasons()
-  # bullets <- c(
-  #   "Invalid reason provided to `download_reason_id`.",
-  #   i = "Use `show_all(reasons)` to see list of valid reasons.",
-  #   x = glue("Couldn't match \"{reason}\" to a valid reason ID.")
-  # )
-  # ## unexported function to convert string reason to numeric id
-  # if (is.character(reason)) {
-  #   tryCatch({
-  #     reason <- match.arg(tolower(reason), valid_reasons$name)
-  #     reason <- valid_reasons$id[valid_reasons$name == reason]
-  #     },
-  #     error = function(e) {abort(bullets, call = error_call)}
-  #   )
-  # }else{
-  #   if(is.numeric(reason)){
-  #     if(reason > nrow(valid_reasons)){
-  #       abort(bullets, call = error_call)
-  #     }
-  #   }
-  # }
-  # reason
 }

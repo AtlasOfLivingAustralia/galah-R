@@ -200,7 +200,7 @@ print.galah_config <- function(x, ...){
     "{galah_green('email')}    {galah_grey(x$user$email)}",
     "{galah_green('password')} {galah_grey(hide_secrets(x$user$password))}",
     "{galah_green('api_key')}  {galah_grey(hide_secrets(x$user$api_key))}",
-    "{galah_green('reason')}   {galah_grey(x$user$download_reason_id)}")
+    "{galah_green('download_reason_id')}   {galah_grey(x$user$download_reason_id)}")
   password_settings <- lapply(values, 
                               function(a, x){glue_data(x, a)}, x = x) |>
     unlist() |>

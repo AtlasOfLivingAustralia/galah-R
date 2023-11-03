@@ -4,7 +4,8 @@ test_that("galah_config checks download_id", {
   expect_error(galah_config(download_reason_id = 17))
   expect_error(galah_config(download_reason_id = "NOTHING"))
   expect_silent(galah_config(download_reason_id = 3))
-  expect_silent(galah_config(download_reason_id = "education"))
+  expect_message(galah_config(download_reason_id = "education"))
+  expect_equal(galah_config()$user$download_reason_id, 3)
   galah_config(verbose = FALSE)
 })
 
@@ -20,3 +21,8 @@ test_that("galah_config checks inputs", {
   expect_error(galah_config(run_checks = "value"))
   expect_silent(galah_config(run_checks = TRUE))
 })
+
+# reset defaults 
+galah_config(run_checks = TRUE,
+             verbose = FALSE,
+             download_reason_id = "testing")

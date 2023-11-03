@@ -624,7 +624,7 @@ check_reason <- function(.query, error_call = caller_env()){
         abort(bullets, call = error_call) 
       }else{
         user_reason <- query$reasonTypeId
-        valid_reasons <- unlist(.query[["metadata/reasons"]])
+        valid_reasons <- .query[["metadata/reasons"]]$id
         if(!(user_reason %in% valid_reasons)){
           bullets <- c(
             "Invalid download reason ID.",
