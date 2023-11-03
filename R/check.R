@@ -172,7 +172,8 @@ check_fields_gbif_counts <- function(.query){
 
   # get fields from url
   query_names <- names(url$query)
-  fields <- query_names[!(query_names %in% c("limit", "facet", "facetLimit"))] 
+  fields <- query_names[!(query_names %in% 
+                          c("limit", "facet", "facetLimit", "taxonKey"))] # note: taxonKey here as specified internally
   # check invalid fields
   filter_invalid <- NA
   if (length(fields) > 0) {
