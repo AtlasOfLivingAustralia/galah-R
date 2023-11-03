@@ -69,30 +69,45 @@
 #'   galah_select(basisOfRecord, group = "basic") |>
 #'   atlas_occurrences()
 #' }
-#' @importFrom tibble as_tibble
+#' @importFrom rlang inform
 #' @export
 galah_select <- function(..., group){
   dots <- enquos(..., .ignore_empty = "all") |>
     detect_request_object() |>
-    as.list() |>
-    add_summary() |>
-    add_group(group)
-  if(inherits(dots[[1]], "data_request")){
-    update_data_request(dots[[1]], select = dots[-1]) 
+    as.list()
+  if(is_gbif()){
+    inform("`select()` is not supported for GBIF: skipping")
+    if(inherits(dots[[1]], "data_request")){
+      dots[[1]]
+    }else{
+      NULL
+    }
   }else{
-    dots
-  } 
+    dots <- dots |>
+      add_summary() |>
+      add_group(group)
+    if(inherits(dots[[1]], "data_request")){
+      update_data_request(dots[[1]], select = dots[-1]) 
+    }else{
+      dots
+    } 
+  }
 }
 
 #' @rdname galah_select
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @export
 select.data_request <- function(.data, ..., group){
-  dots <- enquos(..., .ignore_empty = "all") |>
-    as.list() |>
-    add_summary() |>
-    add_group(group)
-  update_data_request(.data, select = dots) 
+  if(is_gbif()){
+    inform("`select()` is not supported for GBIF: skipping")
+    .data
+  }else{
+    dots <- enquos(..., .ignore_empty = "all") |>
+      as.list() |>
+      add_summary() |>
+      add_group(group)
+    update_data_request(.data, select = dots)  
+  }
 }
 
 #' internal function to summarise select function (to support `print()`)
