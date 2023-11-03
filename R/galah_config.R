@@ -74,7 +74,7 @@ galah_config <- function(...) {
   
   # make sure dots are captured properly
   dots <- list(...)
-  
+
   # set defaults, if this has not happened already
   if(length(pour()) == 0) {
     brew(default_config())
@@ -313,5 +313,7 @@ convert_reason <- function(value, error_call = caller_env()) {
     inform(c("v" = glue("Matched \"{value}\" to valid download reason ID {value_id}.")))
     value <- value_id
     return(value)
+  }else{
+    value
   }
 }

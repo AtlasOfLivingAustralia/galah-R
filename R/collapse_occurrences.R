@@ -30,8 +30,8 @@ collapse_occurrences_uk <- function(.query){
                              filter = .query$filter, 
                              location = .query$geolocate, 
                              data_profile = .query$data_profile$data_profile),
-                 fields = build_columns(.query$select[.query$select$type != "assertion", ]),
-                 qa = build_assertion_columns(.query$select),
+                 fields = "`SELECT_PLACEHOLDER`",
+                 qa = "`ASSERTIONS_PLACEHOLDER`", # build_assertion_columns(.query$select),
                  sourceTypeId = 2001,
                  fileType = "csv",
                  reasonTypeId = pour("user", "download_reason_id"),
@@ -40,7 +40,8 @@ collapse_occurrences_uk <- function(.query){
   result <- list(
     type = "data/occurrences",
     url = url_build(url),
-    headers = build_headers())
+    headers = build_headers(),
+    select = .query$select)
   class(result) <- "query"
   return(result)
 }
@@ -91,9 +92,8 @@ collapse_occurrences_la <- function(.query){
                          filter = .query$filter, 
                          location = .query$geolocate, 
                          data_profile = .query$data_profile$data_profile),
-             # fields = build_columns(.query$select[.query$select$type != "assertion", ]),
              fields = "`SELECT_PLACEHOLDER`",
-             qa = build_assertion_columns(.query$select),
+             qa = "`ASSERTIONS_PLACEHOLDER`", # build_assertion_columns(.query$select),
              facet = "false", # not tested
              emailNotify = email_notify(),
              sourceTypeId = 2004,
