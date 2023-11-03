@@ -5,7 +5,7 @@
 #' combine and visualise data on biodiversity. 'galah' enables the R community 
 #' to directly access data and resources hosted by the living atlases. The
 #' basic unit of observation is an **occurrence** record, based on the
-#' 'Darwin Core' data standard (<https://dwc.tdwg.org>); however `galah` also 
+#' 'Darwin Core' data standard (<https://dwc.tdwg.org>); however galah also 
 #' enables users to locate and download taxonomic information, 
 #' associated media such images or sounds, all while restricting their queries 
 #' to particular taxa or locations. Users can specify which columns are returned
@@ -31,8 +31,8 @@
 #'   * [galah_group_by()] or \code{\link[=group_by.data_request]{group_by()}} Fields to group counts by
 #'   * [galah_geolocate()] or \code{\link[=st_crop.data_request]{st_crop()}} Specify a location
 #'   * [galah_apply_profile()] Restrict to data that pass predefined checks (ALA only)
-#'   * [galah_down_to()] Specify a taxonomic rank
 #'   * \code{\link[=slice_head.data_request]{slice_head()}} Choose the first n rows of a download
+#'   * \code{\link[=arrange.data_request]{arrange()}} Arrange rows of a query on the server side
 #' 
 #' **Download data**
 #' 
@@ -118,8 +118,8 @@
 #' using [atlas_media()]. Users can also assess how many records
 #' meet their particular criteria using [atlas_counts()] and return a taxonomic 
 #' tree for a specific clade from one level down to another level (e.g., from 
-#' family to genus). All functions return a `data.frame` as their standard 
-#' format, except [atlas_taxonomy()] which returns a `data.tree`.
+#' family to genus). All functions return a `data.frame`/`tibble` as their standard 
+#' format.
 #'
 #' Functions in `galah` are designed according to a nested architecture. 
 #' Users that require data should begin by locating the relevant `atlas_` 

@@ -50,14 +50,13 @@ collect_media_files <- function(.query){
 #' information from `atlas_media` to a local directory. 
 #'
 #' @param df `tibble`: returned by `atlas_media()` or a pipe starting with 
-#' `request_data(type = "media")`
-#' @param thumbnail `logical`: should the download return thumbnails (TRUE) or 
-#' full size images (FALSE, the default)
-#' @param path `string`:
-#'    `r lifecycle::badge("deprecated")`  
-#'    
-#'    Supply path to directory where downloaded media will be stored in 
-#'    `galah_config(directory = "path-to-directory"` instead.
+#' `request_data(type = "media")`.
+#' @param thumbnail `logical`: If `TRUE` will download small thumbnail-sized 
+#' images, rather than full size images (default).
+#' @param path `string`: 
+#'    `r lifecycle::badge("deprecated")` 
+#'    Use `galah_config(directory = "path-to-directory)"` instead. Supply a path 
+#'    to a local folder/directory where downloaded media will be saved to.
 #'    
 #' @return Available image & media files downloaded to a user local directory.
 #' @examples
