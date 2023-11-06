@@ -7,7 +7,7 @@
 #' a piped query to download data, in the same way that you would wrangle data 
 #' with `dplyr` and the `tidyverse`.
 #'
-#' Since version 2.0, `galah_call()` is a wrapper to a group underlying 
+#' Since version 2.0, `galah_call()` is a wrapper to a group of underlying 
 #' `request_` functions. Each of these functions can begin a piped query and end 
 #' with `collapse()`, `compute()` or `collect()`. 
 #' 

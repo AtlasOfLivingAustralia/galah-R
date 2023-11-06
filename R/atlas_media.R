@@ -51,6 +51,28 @@
 #'   galah_filter(multimedia == c("Image", "Sound", "Video")) |>
 #'   galah_group_by(multimedia) |>
 #'   atlas_counts()
+#'   
+#'   
+#' # post version 2.0, it is possible to run all steps in sequence
+#' # first, get occurrences, making sure to include media fields:
+#' occurrences_df <- request_data() |>
+#'   identify("Regent Honeyeater") |>
+#'   filter(!is.na(images), year == 2011) |>
+#'   select(group = "media") |>
+#'   collect()
+#'  
+#' # second, get media metadata
+#' media_info <- request_metadata() |>
+#'   filter(media == occurrences_df) |>
+#'   collect()
+#'   
+#' # the two steps above + `right_join()` are synonmous with `atlas_media()`
+#' # third, get images
+#' request_files() |>
+#'   filter(media == media_df) |>
+#'   collect(thumbnail = TRUE)
+#'   
+#' # step three is synonymous with `collect_media()`
 #'}
 #' @importFrom dplyr all_of
 #' @importFrom dplyr bind_rows

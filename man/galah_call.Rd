@@ -40,7 +40,7 @@ well as how it should be filtered. Using \code{galah_call()} allows you to build
 a piped query to download data, in the same way that you would wrangle data
 with \code{dplyr} and the \code{tidyverse}.
 
-Since version 2.0, \code{galah_call()} is a wrapper to a group underlying
+Since version 2.0, \code{galah_call()} is a wrapper to a group of underlying
 \code{request_} functions. Each of these functions can begin a piped query and end
 with \code{collapse()}, \code{compute()} or \code{collect()}.
 

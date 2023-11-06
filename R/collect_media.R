@@ -59,7 +59,9 @@ collect_media_files <- function(.query){
 #'    Use `galah_config(directory = "path-to-directory)"` instead. Supply a path 
 #'    to a local folder/directory where downloaded media will be saved to.
 #'    
-#' @return Available image & media files downloaded to a user local directory.
+#' @return Invisibly returns a `tibble` listing the number of files downloaded,
+#' grouped by their HTML status codes. Primarily called for the side effect of
+#' downloading available image & media files to a user local directory.
 #' @examples
 #' \dontrun{
 #' # Use `atlas_media()` to return a `tibble` of records that contain media

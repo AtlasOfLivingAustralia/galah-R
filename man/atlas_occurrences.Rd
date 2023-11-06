@@ -80,7 +80,13 @@ galah_call() |>
   galah_identify("Litoria") |>
   galah_filter(year >= 2010 & year <= 2020) |>
   atlas_occurrences()
-
+  
+# Or identically with alternative syntax
+request_data() |>
+  identify("Litoria") |>
+  filter(year >= 2010 & year <= 2020) |>
+  collect()
+  
 # Download occurrences records in a WKT-specified area
 polygon <- "POLYGON((146.24960 -34.05930,
                      146.37045 -34.05930,
@@ -92,5 +98,6 @@ galah_call() |>
   galah_filter(year >= 2010, year <= 2020) |>
   galah_geolocate(polygon) |>
   atlas_occurrences()
+  
 }
 }

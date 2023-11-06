@@ -78,8 +78,16 @@ provides either a total count of records matching the criteria, or a
 argument.
 }
 \examples{
+\dontrun{
+# classic syntax:
 galah_call() |>
   galah_filter(year == 2015) |>
   atlas_counts()
-  
+
+# synonymous with:
+request_data() |>
+  filter(year == 2015) |>
+  count() |>
+  collect()
+}
 }

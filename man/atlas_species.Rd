@@ -51,6 +51,7 @@ required that include filter but without returning taxonomic detail, then
 \code{\link[=atlas_counts]{atlas_counts()}} is more efficient (see examples).
 }
 \examples{
+\dontrun{
 # First register a valid email address
 galah_config(email = "ala4r@ala.org.au")
 
@@ -64,9 +65,20 @@ galah_call() |>
 galah_call() |>
   galah_identify("peramelidae") |>
   atlas_species()
+  
+# Or alternatively
+request_data(type = "species") |>
+  identify("peramelidae") |>
+  collect()
 
 # It's good idea to find how many species there are before downloading
 galah_call() |>
   galah_identify("Heleioporus") |>
   atlas_counts(type = "species")
+# Or alternatively
+request_data(type = "species") |>
+  identify("Heleioporus") |>
+  count() |>
+  collect()
+}
 }

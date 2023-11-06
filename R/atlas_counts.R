@@ -37,11 +37,18 @@
 #'  * A single number, if `group_by` is not specified or,
 #'  * A summary of counts grouped by field(s), if `group_by` is specified
 #'
-#' @examples
+#' @examples \dontrun{
+#' # classic syntax:
 #' galah_call() |>
 #'   galah_filter(year == 2015) |>
 #'   atlas_counts()
-#'   
+#' 
+#' # synonymous with:
+#' request_data() |>
+#'   filter(year == 2015) |>
+#'   count() |>
+#'   collect()
+#' }
 #' @export
 atlas_counts <- function(request = NULL, 
                          identify = NULL, 

@@ -19,7 +19,9 @@ Use \verb{galah_config(directory = "path-to-directory)"} instead. Supply a path
 to a local folder/directory where downloaded media will be saved to.}
 }
 \value{
-Available image & media files downloaded to a user local directory.
+Invisibly returns a \code{tibble} listing the number of files downloaded,
+grouped by their HTML status codes. Primarily called for the side effect of
+downloading available image & media files to a user local directory.
 }
 \description{
 This function downloads full-sized or thumbnail images and media files using
