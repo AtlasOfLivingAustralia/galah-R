@@ -57,7 +57,7 @@
 #' show available options of information. These functions are used to pass valid 
 #' arguments to [galah_select()], [galah_filter()], and related functions.
 #' 
-#' @examples
+#' @examples \dontrun{
 #' # Search for fields that include the word "date"
 #' search_all(fields, "date")
 #' 
@@ -78,7 +78,13 @@
 #' 
 #' # Search for a valid taxonomic rank, "subphylum"
 #' search_all(ranks, "subphylum")
-
+#' 
+#' # An alternative is to download the data and then `filter` it. This is 
+#' # largely synonymous, and allows greater control over which fields are searched.
+#' request_metadata(type = "fields") |>
+#'  collect() |>
+#'  dplyr::filter(grepl("date", id))
+#' }
 #' @importFrom utils adist
 #' @importFrom rlang as_name
 #' @importFrom rlang .data
@@ -87,13 +93,20 @@ search_all <- function(type, query){
   
   # vector of valid types for this function
   valid_types <- c(
-    "ranks", 
-    "fields", "assertions",
-    "licences", 
-    "profiles", "lists",
-    "atlases", "apis", "reasons", 
-    "taxa", "identifiers",
-    "providers", "collections", "datasets")
+    "apis",
+    "assertions",
+    "atlases",
+    "collections",
+    "datasets",
+    "fields",
+    "licences",
+    "lists",
+    "identifiers",
+    "profiles",
+    "providers",
+    "reasons",
+    "taxa",
+    "ranks")
   
   # check 'type' is ok
   if(missing(type)){
@@ -115,7 +128,7 @@ search_all <- function(type, query){
       collect()
   }else if(type == "identifiers"){
     request_metadata() |>
-      filter(.data$identifier == query) |>
+      filter("identifier" == query) |>
       collect()
   }else{
     if(is_gbif() & 

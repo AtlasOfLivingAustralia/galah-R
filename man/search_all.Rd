@@ -96,6 +96,7 @@ The available types of information for \code{search_all()} are:\tabular{llll}{
 }
 }
 \examples{
+\dontrun{
 # Search for fields that include the word "date"
 search_all(fields, "date")
 
@@ -116,6 +117,13 @@ search_all(lists, "endangered") # equivalent
 
 # Search for a valid taxonomic rank, "subphylum"
 search_all(ranks, "subphylum")
+
+# An alternative is to download the data and then `filter` it. This is 
+# largely synonymous, and allows greater control over which fields are searched.
+request_metadata(type = "fields") |>
+ collect() |>
+ dplyr::filter(grepl("date", id))
+}
 }
 \references{
 \itemize{
