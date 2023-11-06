@@ -35,6 +35,7 @@ st_crop.data_request <- function(x, y, ...){
 }
 
 #' parser for polygons
+#' @importFrom stringr str_replace
 #' @noRd
 #' @keywords Internal
 parse_polygon <- function(query){

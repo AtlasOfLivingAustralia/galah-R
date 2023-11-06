@@ -24,6 +24,7 @@ collect_media_metadata <- function(.query){
 #' @param object of class `files_response`, from `compute()`
 #' @importFrom dplyr group_by
 #' @importFrom dplyr count
+#' @importFrom rlang .data
 #' @noRd
 #' @keywords Internal
 collect_media_files <- function(.query){
@@ -73,6 +74,7 @@ collect_media_files <- function(.query){
 #' }
 #' @importFrom cli col_magenta
 #' @importFrom cli cli_text
+#' @importFrom rlang .data
 #' @export
 collect_media <- function(df, 
                           thumbnail = FALSE, 
@@ -95,7 +97,7 @@ collect_media <- function(df,
   }
   
   request_files() |>
-    galah_filter(media == df) |>
+    galah_filter(.data$media == df) |>
     collapse(thumbnail = thumbnail) |>
     collect()
 }

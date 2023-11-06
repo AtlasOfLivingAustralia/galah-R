@@ -152,5 +152,5 @@ atlas_media <- function(request = NULL,
   occ_media <- right_join(occ, 
                           media, 
                           by = join_by("media_id" == "image_id"))
-  relocate(occ_media, media_id, 1)
+  relocate(occ_media, "media_id", 1)
 }

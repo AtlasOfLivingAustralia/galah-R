@@ -105,6 +105,7 @@ check_constraints <- function(args, call){
 #' Internal recursive function to get child taxa
 #' @importFrom dplyr mutate
 #' @importFrom dplyr select
+#' @importFrom rlang .data
 #' @noRd
 #' @keywords Internal
 drill_down_taxonomy <- function(df, 
@@ -116,7 +117,7 @@ drill_down_taxonomy <- function(df,
     }
   }
   children <- request_metadata() |>
-    galah_filter(taxa == df$taxon_concept_id) |>
+    galah_filter(.data$taxa == df$taxon_concept_id) |>
     unnest() |>
     collect()
   if(nrow(children) < 1){

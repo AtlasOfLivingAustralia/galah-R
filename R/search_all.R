@@ -81,6 +81,7 @@
 
 #' @importFrom utils adist
 #' @importFrom rlang as_name
+#' @importFrom rlang .data
 #' @export
 search_all <- function(type, query){
   
@@ -114,7 +115,7 @@ search_all <- function(type, query){
       collect()
   }else if(type == "identifiers"){
     request_metadata() |>
-      filter(identifier == query) |>
+      filter(.data$identifier == query) |>
       collect()
   }else{
     if(is_gbif() & 

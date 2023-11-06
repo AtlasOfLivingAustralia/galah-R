@@ -25,12 +25,12 @@ collect_fields_unnest <- function(.query, error_call = caller_env()){
       abort("No `field` passed to `show_values()`/`search_values()`.")
     }
     
-    .query |>
+    result <- .query |>
       query_API() |>
       pluck(!!!list("facets", 1, "counts")) |>
-      bind_rows() |>
-      mutate({{facet}} := name) |>
-      select({{facet}})
+      bind_rows()
+    colnames(result)[which(colnames(result) == "name")[1]] <- facet
+    select(result, {{facet}})
     
   }else{ 
     facet <- .query |>
@@ -41,13 +41,13 @@ collect_fields_unnest <- function(.query, error_call = caller_env()){
     if (facet == "NA") {
       abort("No `field` passed to `show_values()`/`search_values()`.")
     }
-    
-    .query |>
+
+    result <- .query |>
       query_API() |>
       pluck(!!!list(1, "fieldResult")) |>
-      bind_rows() |>
-      mutate({{facet}} := label) |>
-      select({{facet}})
+      bind_rows()
+    colnames(result)[which(colnames(result) == "label")[1]] <- facet
+    select(result, {{facet}})
   }
 }
 

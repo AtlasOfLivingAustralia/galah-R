@@ -150,6 +150,7 @@ parse_quosures_metadata <- function(request, dots){
 
 #' @rdname galah_filter
 #' @param .data An object of class `files_request`, created using [request_files()]
+#' @importFrom rlang .data
 #' @export
 filter.files_request <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")

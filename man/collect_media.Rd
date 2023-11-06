@@ -8,16 +8,15 @@ collect_media(df, thumbnail = FALSE, path)
 }
 \arguments{
 \item{df}{\code{tibble}: returned by \code{atlas_media()} or a pipe starting with
-\code{request_data(type = "media")}}
+\code{request_data(type = "media")}.}
 
-\item{thumbnail}{\code{logical}: should the download return thumbnails (TRUE) or
-full size images (FALSE, the default)}
+\item{thumbnail}{\code{logical}: If \code{TRUE} will download small thumbnail-sized
+images, rather than full size images (default).}
 
 \item{path}{\code{string}:
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-
-Supply path to directory where downloaded media will be stored in
-\verb{galah_config(directory = "path-to-directory"} instead.}
+Use \verb{galah_config(directory = "path-to-directory)"} instead. Supply a path
+to a local folder/directory where downloaded media will be saved to.}
 }
 \value{
 Available image & media files downloaded to a user local directory.
