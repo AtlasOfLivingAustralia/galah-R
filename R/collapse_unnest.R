@@ -1,4 +1,5 @@
-#' Internal function to run `collapse()` for `request_values(type = "fields")`
+#' Internal function to run `collapse()` for 
+#' `request_metadata(type = "fields") |> unnest()`
 #' @importFrom httr2 url_build
 #' @importFrom httr2 url_parse
 #' @noRd
@@ -23,7 +24,8 @@ collapse_fields_unnest <- function(.query){
   return(result)
 }
 
-#' Internal function to run `collapse()` for `request_values(type = "lists")`
+#' Internal function to run `collapse()` for 
+#' `request_metadata(type = "lists") |> unnest()`
 #' @noRd
 #' @keywords Internal
 collapse_lists_unnest <- function(.query){
@@ -35,7 +37,8 @@ collapse_lists_unnest <- function(.query){
   return(result)
 }
 
-#' Internal function to run `collapse()` for `request_values(type = "profiles")`
+#' Internal function to run `collapse()` for 
+#' `request_metadata(type = "profiles") |> unnest()`
 #' @noRd
 #' @keywords Internal
 collapse_profiles_unnest <- function(.query){
@@ -47,7 +50,8 @@ collapse_profiles_unnest <- function(.query){
   return(result)
 }
 
-#' Internal function to `collapse()` for `type = "taxonomy"`
+#' Internal function to `collapse()` for 
+#' `request_metadata(type = "taxa") |> unnest()`
 #' @importFrom rlang abort
 #' @importFrom utils URLencode
 #' @noRd

@@ -57,8 +57,7 @@
 #' `request_files()` returns `files_request`.
 #' @seealso [collapse.data_request()], [compute.data_request()], [collect.data_request()]
 #' @rdname galah_call
-#' @examples
-#' \dontrun{ 
+#' @examples \dontrun{ 
 #' # Begin your query with `galah_call()`, then pipe using `%>%` or `|>`
 #' 
 #' # Get number of records of *Aves* from 2001 to 2004 by year

@@ -1,12 +1,5 @@
-#' Internal function to run `compute()` for `request_values(type = "datasets")`
-#' @noRd
-#' @keywords Internal
-collect_lists_unnest <- function(.query){
-  query_API(.query) |> 
-    bind_rows()
-}
-
-#' Internal function to run `compute()` for `request_values(type = "fields")`
+#' Internal function to run `compute()` for 
+#' `request_metadata(type = "fields") |> unnest()`
 #' @importFrom httr2 url_parse
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr mutate
@@ -51,7 +44,17 @@ collect_fields_unnest <- function(.query, error_call = caller_env()){
   }
 }
 
-#' Internal function to run `compute()` for `request_values(type = "profiles")`
+#' Internal function to run `compute()` for 
+#' `request_metadata(type = "lists") |> unnest()`
+#' @noRd
+#' @keywords Internal
+collect_lists_unnest <- function(.query){
+  query_API(.query) |> 
+    bind_rows()
+}
+
+#' Internal function to run `compute()` for 
+#' `request_metadata(type = "profiles") |> unnest()`
 #' @noRd
 #' @keywords Internal
 collect_profiles_unnest <- function(.query){
@@ -64,7 +67,8 @@ collect_profiles_unnest <- function(.query){
   result
 }
 
-#' Internal function to run `compute()` for `request_values(type = "taxa")`
+#' Internal function to run `compute()` for 
+#' `request_metadata(type = "taxa") |> unnest()`
 #' @noRd
 #' @keywords Internal
 collect_taxa_unnest <- function(.query){

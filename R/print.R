@@ -1,5 +1,17 @@
-#' @rdname galah_call
-#' @param x an object of class `data_request`
+#' Print galah objects
+#' 
+#' As of version 2.0, `galah` supports several bespoke object types. Classes 
+#' `data_request`, `metadata_request` and `files_request` are for starting pipes
+#' to download different types of information. These objects are parsed using
+#' `collapse()` into a `query_set` object, which contains a set of `query` 
+#' objects, each describing one API call. These are then enacted using 
+#' `compute()` and/or `collect()`. Finally, `galah_config()` creates an object
+#' of class `galah_config` which (unsurprisingly) stores configuration 
+#' information.
+#' @name print_galah_objects
+#' @param x an object of the appropriate `class`
+#' @returns Print does not return an object; instead it prints a description
+#' of the object to the console
 #' @export
 print.data_request <- function(x, # NOTE: use of `x` arg here is for consistency with `print()`,
                                ...
@@ -8,28 +20,18 @@ print.data_request <- function(x, # NOTE: use of `x` arg here is for consistency
                       object_type = "data_request")
 }
 
-#' @rdname galah_call
-#' @param x an object of class `files_request`, created using `request_files()`
+#' @rdname print_galah_objects
 #' @export
 print.files_request <- function(x, ...){
   format_request_text(x, 
                       object_type = "files_request")
 }
 
-#' @rdname galah_call
-#' @param x an object of class `metadata_request`, created using `request_metadata()`
+#' @rdname print_galah_objects
 #' @export
 print.metadata_request <- function(x, ...){
   format_request_text(x, 
                       object_type = "metadata_request")
-}
-
-#' @rdname galah_call
-#' @param x an object of class `values_request`, created using `request_values()`
-#' @export
-print.values_request <- function(x, ...){
-  format_request_text(x, 
-                      object_type = "values_request")
 }
 
 #' Internal function to format text in `print()`
@@ -89,8 +91,7 @@ switch_slot_text <- function(x, a){
     "")
 }
 
-#' @rdname galah_call
-#' @param x an object of class `query`
+#' @rdname print_galah_objects
 #' @importFrom crayon silver
 #' @export
 print.query <- function(x, ...){
@@ -148,8 +149,7 @@ print.query <- function(x, ...){
     slice))
 }
 
-#' @rdname galah_call
-#' @param x an object of class `query_set`
+#' @rdname print_galah_objects
 #' @export
 print.query_set <- function(x, ...){
   n_queries <- length(x)
@@ -180,8 +180,7 @@ print.query_set <- function(x, ...){
     cat()
 }
 
-#' @rdname galah_config
-#' @param x an object of class `galah_config`
+#' @rdname print_galah_objects
 #' @importFrom rlang format_error_bullets
 #' @export
 print.galah_config <- function(x, ...){
