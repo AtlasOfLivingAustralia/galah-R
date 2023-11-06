@@ -41,6 +41,7 @@ The following functions are included:
 These galah versions all use lazy evaluation.
 }
 \examples{
+\dontrun{
 # Arrange grouped record counts by descending year
 galah_call() |>
   identify("perameles") |>
@@ -58,7 +59,7 @@ request_metadata() |>
 # Using `galah::unnest()` in this way is equivalent to:
 show_all(fields, "basisOfRecord") |> 
   show_values()
-
+}
 }
 \seealso{
 \code{\link[=arrange.data_request]{arrange.data_request()}}, \code{\link[=galah_call]{galah_call()}}

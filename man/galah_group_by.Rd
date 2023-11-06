@@ -24,7 +24,9 @@ data. Grouping can be used to return record counts grouped by multiple, valid
 fields (found by \code{search_all(fields)}).
 }
 \examples{
+\dontrun{
 galah_call() |> 
   galah_group_by(basisOfRecord) |>
   atlas_counts()
+}
 }

@@ -12,6 +12,29 @@
 #' @param x an object of the appropriate `class`
 #' @returns Print does not return an object; instead it prints a description
 #' of the object to the console
+#' @examples
+#' # The most common way to start a pipe is with `galah_call()`
+#' # later functions update the `data_request` object
+#' galah_call() |> # same as calling `request_data()`
+#'   filter(year >= 2020) |>
+#'   group_by(year) |>
+#'   count()
+#'
+#' # Metadata requests are formatted in a similar way
+#' request_metadata() |>
+#'   filter(field == basisOfRecord) |>
+#'   unnest()
+#'
+#' # Queries are converted into a `query_set` by `collapse()`
+#' x <- galah_call() |> # same as calling `request_data()`
+#'   filter(year >= 2020) |>
+#'   group_by(year) |>
+#'   count() |>
+#'   collapse()
+#' print(x)
+#'   
+#' # Each `query_set` contains one or more `query` objects
+#' x[[3]]
 #' @export
 print.data_request <- function(x, # NOTE: use of `x` arg here is for consistency with `print()`,
                                ...

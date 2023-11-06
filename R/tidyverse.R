@@ -18,7 +18,7 @@
 #'  - `galah::desc()` returns a `tibble` used by `arrange.data_request()` to arrange rows of a query. 
 #'  - `galah::unnest()` returns an object of class `metadata_request`.
 #' @seealso [arrange.data_request()], [galah_call()]
-#' @examples
+#' @examples \dontrun{
 #' # Arrange grouped record counts by descending year
 #' galah_call() |>
 #'   identify("perameles") |>
@@ -36,7 +36,7 @@
 #' # Using `galah::unnest()` in this way is equivalent to:
 #' show_all(fields, "basisOfRecord") |> 
 #'   show_values()
-#' 
+#' }
 #' @name tidyverse_functions
 NULL
 

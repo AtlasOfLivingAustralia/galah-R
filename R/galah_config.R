@@ -9,10 +9,11 @@
 #' @param \dots Options can be defined using the form `name = "value"`.
 #' Valid arguments are:
 #' 
+#'   *  `api-key` string: A registered API key (currently unused). 
 #'   *  `atlas` string: Living Atlas to point to, Australia by default. Can be 
 #'   an organisation name, acronym, or region (see [show_all_atlases()] for 
 #'   admissible values)
-#'   *  `cache_directory` string: the directory to use for the cache.
+#'   *  `directory` string: the directory to use for the cache.
 #'     By default this is a temporary directory, which means that results will
 #'     only be cached
 #'     within an R session and cleared automatically when the user exits R.
@@ -27,7 +28,6 @@
 #'   *  `email` string: An email address that has been registered with the chosen
 #'   atlas. For the ALA, you can register at
 #'   [this address](https://auth.ala.org.au/userdetails/registration/createAccount).
-#'   *  `api-key` string: A registered API key (ALA only).
 #'   *  `password` string: A registered password (GBIF only)
 #'   *  `run_checks` logical: should `galah` run checks for filters
 #'   and columns. If making lots of requests sequentially, checks can slow down
@@ -47,9 +47,7 @@
 #' 
 #' @examples \dontrun{
 #' # To download occurrence records, enter your email in `galah_config()`. 
-#' # This email should be registered with the ALA. 
-#' # You can register at:
-#' # https://auth.ala.org.au/userdetails/registration/createAccount
+#' # This email should be registered with the atlas in question. 
 #' galah_config(email = "your-email@email.com")
 #'  
 #' # Turn on caching in your session

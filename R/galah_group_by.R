@@ -7,10 +7,11 @@
 #' @param ... zero or more individual column names to include
 #' @return If any arguments are provided, returns a `data.frame` with
 #' columns `name` and `type`, as per [select.data_request()].
-#' @examples
+#' @examples \dontrun{
 #' galah_call() |> 
 #'   galah_group_by(basisOfRecord) |>
 #'   atlas_counts()
+#' }
 #' @importFrom stringr str_detect
 #' @export
 galah_group_by <- function(...){

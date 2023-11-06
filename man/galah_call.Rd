@@ -34,19 +34,18 @@ returns \code{data_request}. \code{request_metadata} returns \code{metadata_requ
 \code{request_files()} returns \code{files_request}.
 }
 \description{
-To download data from the ALA (or another atlas), one must construct a data
-query. This query tells the atlas API what data to download and return, as
-well as how it should be filtered. Using \code{galah_call()} allows you to build
-a piped query to download data, in the same way that you would wrangle data
-with \code{dplyr} and the \code{tidyverse}.
+To download data from the selected atlas, one must construct a query. This
+query tells the atlas API what data to download and return, as well as how it
+should be filtered. Using \code{galah_call()} allows you to build a piped query to
+download data, in the same way that you would wrangle data with \code{dplyr} and
+the \code{tidyverse}.
 
 Since version 2.0, \code{galah_call()} is a wrapper to a group of underlying
 \code{request_} functions. Each of these functions can begin a piped query and end
 with \code{collapse()}, \code{compute()} or \code{collect()}.
 
-The underlying \code{request_}
-functions are useful because they allow \code{galah} to separate different types
-of requests to perform better. For example,
+The underlying \code{request_} #' functions are useful because they allow \code{galah}
+to separate different types of requests to perform better. For example,
 \code{filter.data_request} translates filters in R to \code{solr}, whereas
 \code{filter.metadata_request} searches using a search term.
 

@@ -1,15 +1,17 @@
 #' Narrow a query to within a specified area
 #'
-#' Restrict results to those from a specified area. Areas can be specified as 
-#' either polygons or bounding boxes, depending on `type`.
-#' 
-#' By default, `type` is set to `"polygon"` which narrows queries to within an area 
-#' supplied as a `POLYGON`. Polygons must be specified as either an `sf` object, 
-#' a 'well-known text' (WKT) string, or a shapefile. Shapefiles must be simple 
-#' to be accepted by the ALA. 
-#' 
-#' Alternatively, set `type = "bbox"` to narrow queries to within a 
-#' bounding box. Bounding boxes can be extracted from a supplied `sf` object or 
+#' Restrict results to those from a specified area using `galah_geolocate()`. 
+#' Areas can be specified as either polygons or bounding boxes, depending on 
+#' `type`. Alternatively, users can call the underlying functions directly via
+#' `galah_bbox()` or `galah_polygon()`. Finally, it is possible to use `sf` 
+#' syntax by calling `st_crop()`, which is synonymous with `galah_polygon()`.
+#'  
+#' If calling `galah_geolocate()`, the default `type` is `"polygon"`, which 
+#' narrows queries to within an area supplied as a `POLYGON`. Polygons must be 
+#' specified as either an `sf` object, a 'well-known text' (WKT) string, or a 
+#' shapefile. Shapefiles must be simple to be accepted by the ALA. 
+#' Alternatively, set `type = "bbox"` to narrow queries to within a bounding 
+#' box. Bounding boxes can be extracted from a supplied `sf` object or 
 #' a shapefile. A bounding box can also be supplied as a `bbox` object 
 #' (via `sf::st_bbox()`) or a `tibble`/`data.frame`. 
 #'
@@ -49,6 +51,14 @@
 #'   galah_identify("reptilia") |>
 #'   galah_polygon(location) |>
 #'   atlas_counts()
+#'   
+#' # Alternatively, we can use `st_crop()` as a synonym for `galah_polygon()`. 
+#' # Hence the above example can be rewritten as:
+#' request_data() |>
+#'   identify("reptilia") |>
+#'   st_crop(location) |>
+#'   count() |>
+#'   collect()
 #'    
 #' # Search for records using a Well-known Text string (WKT)
 #' wkt <- "POLYGON((142.3 -29.0,142.7 -29.1,142.7 -29.4,142.3 -29.0))"

@@ -55,13 +55,20 @@
 #' `solr` supports range queries on text as well as numbers; so this is valid: 
 #' `galah_filter(cl22 >= "Tasmania")`
 #' 
-#' @examples
+#' @examples \dontrun{
 #' # Filter query results to return records of interest
 #' galah_call() |>
 #'   galah_filter(year >= 2019,
 #'                basisOfRecord == "HumanObservation") |>
 #'   atlas_counts()
 #' 
+#' # Alternatively, the same call using `dplyr` functions:
+#' request_data() |>
+#'   filter(year >= 2019,
+#'                basisOfRecord == "HumanObservation") |>
+#'   count() |>
+#'   collect()
+#' }
 #' @importFrom rlang caller_env         
 #' @importFrom rlang enquos
 #' @importFrom rlang eval_tidy

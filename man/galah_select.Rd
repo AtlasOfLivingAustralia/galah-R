@@ -24,16 +24,19 @@ specifying the name and type of each column to include in the
 call to \code{atlas_counts()} or \code{atlas_occurrences()}.
 }
 \description{
-The living atlases store content in hundreds of different fields, and users
-often require thousands or millions of records at a time. To reduce time taken
-to download data, and limit complexity of the resulting \code{data.frame}, it is
-sensible to restrict the fields returned by \code{\link[=atlas_occurrences]{atlas_occurrences()}}.
-This function allows easy selection of fields, or commonly-requested groups
-of columns, following syntax shared with \code{dplyr::select()}.
+GBIF and it's partner nodes store content in hundreds of
+different fields, and users often require thousands or millions of records at
+a time. To reduce time taken to download data, and limit complexity of the
+resulting \code{tibble}, it is sensible to restrict the fields returned by
+\code{\link[=atlas_occurrences]{atlas_occurrences()}}. This function allows easy selection of fields, or
+commonly-requested groups of columns, following syntax shared with
+\code{dplyr::select()}.
+
+The full list of available fields can be viewed with \code{show_all(fields)}. Note
+that \code{select()} and \code{galah_select()} are supported for all atlases that allow
+downloads, with the exception of GBIF, for which all columns are returned.
 }
 \details{
-The full list of available fields can be viewed with \code{show_all(fields)}.
-
 Calling the argument \code{group = "basic"} returns the following columns:
 \itemize{
 \item \code{decimalLatitude}
@@ -83,6 +86,13 @@ galah_call() |>
   galah_identify("perameles") |>
   galah_select(basisOfRecord, group = "basic") |>
   atlas_occurrences()
+  
+# When used in a pipe, `galah_select()` and `select()` are synonymous.
+# Hence the previous example can be rewritten as:
+request_data() |>
+  identify("perameles") |>
+  select(basisOfRecord, group = "basic") |>
+  collect()
 }
 }
 \seealso{

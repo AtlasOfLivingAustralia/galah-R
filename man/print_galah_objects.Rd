@@ -39,3 +39,27 @@ objects, each describing one API call. These are then enacted using
 of class \code{galah_config} which (unsurprisingly) stores configuration
 information.
 }
+\examples{
+# The most common way to start a pipe is with `galah_call()`
+# later functions update the `data_request` object
+galah_call() |> # same as calling `request_data()`
+  filter(year >= 2020) |>
+  group_by(year) |>
+  count()
+
+# Metadata requests are formatted in a similar way
+request_metadata() |>
+  filter(field == basisOfRecord) |>
+  unnest()
+
+# Queries are converted into a `query_set` by `collapse()`
+x <- galah_call() |> # same as calling `request_data()`
+  filter(year >= 2020) |>
+  group_by(year) |>
+  count() |>
+  collapse()
+print(x)
+  
+# Each `query_set` contains one or more `query` objects
+x[[3]]
+}

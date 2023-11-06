@@ -1,19 +1,18 @@
 #' Start building a query
 #' 
 #' @description
-#' To download data from the ALA (or another atlas), one must construct a data 
-#' query. This query tells the atlas API what data to download and return, as 
-#' well as how it should be filtered. Using `galah_call()` allows you to build 
-#' a piped query to download data, in the same way that you would wrangle data 
-#' with `dplyr` and the `tidyverse`.
+#' To download data from the selected atlas, one must construct a query. This 
+#' query tells the atlas API what data to download and return, as well as how it 
+#' should be filtered. Using `galah_call()` allows you to build a piped query to 
+#' download data, in the same way that you would wrangle data with `dplyr` and 
+#' the `tidyverse`.
 #'
 #' Since version 2.0, `galah_call()` is a wrapper to a group of underlying 
 #' `request_` functions. Each of these functions can begin a piped query and end 
 #' with `collapse()`, `compute()` or `collect()`. 
 #' 
-#' The underlying `request_` 
-#' functions are useful because they allow `galah` to separate different types 
-#' of requests to perform better. For example, 
+#' The underlying `request_` #' functions are useful because they allow `galah` 
+#' to separate different types of requests to perform better. For example, 
 #' `filter.data_request` translates filters in R to `solr`, whereas 
 #' `filter.metadata_request` searches using a search term.
 #' 
@@ -102,7 +101,7 @@
 #'   collect()
 #' 
 #' }
-#' @export galah_call
+#' @export
 galah_call <- function(method = c("data", "metadata", "files"),
                        type,
                        ...){

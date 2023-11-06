@@ -62,8 +62,7 @@ collect_media_files <- function(.query){
 #' @return Invisibly returns a `tibble` listing the number of files downloaded,
 #' grouped by their HTML status codes. Primarily called for the side effect of
 #' downloading available image & media files to a user local directory.
-#' @examples
-#' \dontrun{
+#' @examples \dontrun{
 #' # Use `atlas_media()` to return a `tibble` of records that contain media
 #' x <- galah_call() |> 
 #'   galah_identify("perameles") |>

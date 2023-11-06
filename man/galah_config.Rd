@@ -10,10 +10,11 @@ galah_config(...)
 \item{\dots}{Options can be defined using the form \code{name = "value"}.
 Valid arguments are:
 \itemize{
+\item \code{api-key} string: A registered API key (currently unused).
 \item \code{atlas} string: Living Atlas to point to, Australia by default. Can be
 an organisation name, acronym, or region (see \code{\link[=show_all_atlases]{show_all_atlases()}} for
 admissible values)
-\item \code{cache_directory} string: the directory to use for the cache.
+\item \code{directory} string: the directory to use for the cache.
 By default this is a temporary directory, which means that results will
 only be cached
 within an R session and cleared automatically when the user exits R.
@@ -28,7 +29,6 @@ associated R function.
 \item \code{email} string: An email address that has been registered with the chosen
 atlas. For the ALA, you can register at
 \href{https://auth.ala.org.au/userdetails/registration/createAccount}{this address}.
-\item \code{api-key} string: A registered API key (ALA only).
 \item \code{password} string: A registered password (GBIF only)
 \item \code{run_checks} logical: should \code{galah} run checks for filters
 and columns. If making lots of requests sequentially, checks can slow down
@@ -58,9 +58,7 @@ as possible.
 \examples{
 \dontrun{
 # To download occurrence records, enter your email in `galah_config()`. 
-# This email should be registered with the ALA. 
-# You can register at:
-# https://auth.ala.org.au/userdetails/registration/createAccount
+# This email should be registered with the atlas in question. 
 galah_config(email = "your-email@email.com")
  
 # Turn on caching in your session

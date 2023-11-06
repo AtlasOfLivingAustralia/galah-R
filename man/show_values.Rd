@@ -50,10 +50,17 @@ For example, the Endangered Plant species list contains values:
 }
 }
 \examples{
-\donttest{
+\dontrun{
 # Show values in field 'cl22'
 search_fields("cl22") |> 
   show_values()
+
+# This is synonymous with `request_metadata() |> unnest()`.
+# For example, the previous example can be run using:
+request_metadata() |>
+  filter(field == "cl22") |>
+  unnest() |>
+  collect() 
 
 # Search for any values in field 'cl22' that match 'tas'
 search_fields("cl22") |> 
@@ -63,5 +70,4 @@ search_fields("cl22") |>
 search_lists("dr19257") |> 
   show_values()
 }
-
 }

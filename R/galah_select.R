@@ -1,13 +1,16 @@
-#' Specify fields for occurrence download
+#' @title Specify fields for occurrence download
 #'
-#' The living atlases store content in hundreds of different fields, and users
-#' often require thousands or millions of records at a time. To reduce time taken
-#' to download data, and limit complexity of the resulting `data.frame`, it is
-#' sensible to restrict the fields returned by [atlas_occurrences()].
-#' This function allows easy selection of fields, or commonly-requested groups 
-#' of columns, following syntax shared with `dplyr::select()`.
+#' @description GBIF and it's partner nodes store content in hundreds of 
+#' different fields, and users often require thousands or millions of records at 
+#' a time. To reduce time taken to download data, and limit complexity of the 
+#' resulting `tibble`, it is sensible to restrict the fields returned by 
+#' [atlas_occurrences()]. This function allows easy selection of fields, or 
+#' commonly-requested groups of columns, following syntax shared with 
+#' `dplyr::select()`.
 #' 
-#' The full list of available fields can be viewed with `show_all(fields)`.
+#' The full list of available fields can be viewed with `show_all(fields)`. Note
+#' that `select()` and `galah_select()` are supported for all atlases that allow 
+#' downloads, with the exception of GBIF, for which all columns are returned.
 #'
 #' @param ... zero or more individual column names to include
 #' @param group `string`: (optional) name of one or more column groups to
@@ -68,6 +71,13 @@
 #'   galah_identify("perameles") |>
 #'   galah_select(basisOfRecord, group = "basic") |>
 #'   atlas_occurrences()
+#'   
+#' # When used in a pipe, `galah_select()` and `select()` are synonymous.
+#' # Hence the previous example can be rewritten as:
+#' request_data() |>
+#'   identify("perameles") |>
+#'   select(basisOfRecord, group = "basic") |>
+#'   collect()
 #' }
 #' @importFrom rlang inform
 #' @export

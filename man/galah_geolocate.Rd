@@ -34,20 +34,22 @@ length-1 string (class \code{character}) containing a multipolygon WKT
 string representing the area provided.
 }
 \description{
-Restrict results to those from a specified area. Areas can be specified as
-either polygons or bounding boxes, depending on \code{type}.
-}
-\details{
-By default, \code{type} is set to \code{"polygon"} which narrows queries to within an area
-supplied as a \code{POLYGON}. Polygons must be specified as either an \code{sf} object,
-a 'well-known text' (WKT) string, or a shapefile. Shapefiles must be simple
-to be accepted by the ALA.
+Restrict results to those from a specified area using \code{galah_geolocate()}.
+Areas can be specified as either polygons or bounding boxes, depending on
+\code{type}. Alternatively, users can call the underlying functions directly via
+\code{galah_bbox()} or \code{galah_polygon()}. Finally, it is possible to use \code{sf}
+syntax by calling \code{st_crop()}, which is synonymous with \code{galah_polygon()}.
 
-Alternatively, set \code{type = "bbox"} to narrow queries to within a
-bounding box. Bounding boxes can be extracted from a supplied \code{sf} object or
+If calling \code{galah_geolocate()}, the default \code{type} is \code{"polygon"}, which
+narrows queries to within an area supplied as a \code{POLYGON}. Polygons must be
+specified as either an \code{sf} object, a 'well-known text' (WKT) string, or a
+shapefile. Shapefiles must be simple to be accepted by the ALA.
+Alternatively, set \code{type = "bbox"} to narrow queries to within a bounding
+box. Bounding boxes can be extracted from a supplied \code{sf} object or
 a shapefile. A bounding box can also be supplied as a \code{bbox} object
 (via \code{sf::st_bbox()}) or a \code{tibble}/\code{data.frame}.
-
+}
+\details{
 If \code{type = "polygon"}, WKT strings longer than 10000 characters and
 \code{sf} objects with more than 500 vertices will not be
 accepted by the ALA. Some polygons  may need to be simplified. If
@@ -77,6 +79,14 @@ galah_call() |>
   galah_identify("reptilia") |>
   galah_polygon(location) |>
   atlas_counts()
+  
+# Alternatively, we can use `st_crop()` as a synonym for `galah_polygon()`. 
+# Hence the above example can be rewritten as:
+request_data() |>
+  identify("reptilia") |>
+  st_crop(location) |>
+  count() |>
+  collect()
    
 # Search for records using a Well-known Text string (WKT)
 wkt <- "POLYGON((142.3 -29.0,142.7 -29.1,142.7 -29.4,142.3 -29.0))"

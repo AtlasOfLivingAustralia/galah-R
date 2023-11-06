@@ -7,9 +7,8 @@
 #' @seealso [galah_select()], [galah_filter()] and
 #' [galah_geolocate()] for related methods.
 #' 
-#' @examples
+#' @examples \dontrun{
 #' # Return a taxonomic tree of *Chordata* down to the class level
-#' \dontrun{
 #' galah_call() |>
 #'     galah_identify("Vertebrata") |>
 #'     galah_down_to(class) |>

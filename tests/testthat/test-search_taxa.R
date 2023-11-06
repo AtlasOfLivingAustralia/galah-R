@@ -44,6 +44,18 @@ test_that("search_taxa searches using multiple ranks", {
   expect_equal(nrow(taxa), 1)
 })
 
+test_that("`search_identifiers()` works via `search_all()`", {
+  skip_if_offline()
+  id <- "urn:lsid:biodiversity.org.au:afd.taxon:08b9a1f0-62ae-45ca-9208-e773b00021ed"
+  search <- search_identifiers(id)
+  search2 <- search_all(identifiers, id)
+
+  expect_equal(attributes(search)$call, "identifiers")
+  expect_s3_class(search, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(nrow(search), 1)
+  expect_equal(search, search2)
+})
+
 test_that("search_identifiers searches using identifier", {
   skip_if_offline()
   # check different types of id

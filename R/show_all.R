@@ -12,7 +12,9 @@
 #' `r lifecycle::badge("stable")`
 #' `show_all()` is a helper function that can display multiple types of 
 #' information from `show_all_` sub-functions. 
-#' 
+#' @param ... String showing what type of information is to be requested. See 
+#' `Details` (below) for accepted values.
+#' @param limit Optional number of values to return. Defaults to NULL, i.e. all records
 #' @details There are five categories of information, each with their own 
 #' specific sub-functions to look-up each type of information. 
 #' The available types of information for `show_all_` are:
@@ -31,25 +33,14 @@
 #' |data providers|`providers`| Show which institutions have provided data | `show_all_providers()` |
 #' | |`collections`|Show the specific collections within those institutions| `show_all_collections()` |
 #' | |`datasets`|Shows all the data groupings within those collections| `show_all_datasets()` |   
-#' 
-#' 
-#' @aliases show_all
-#' @aliases show_all_assertions show_all_atlases 
-#' @aliases show_all_collections show_all_datasets show_all_providers 
-#' @aliases show_all_fields show_all_reasons show_all_ranks show_all_profiles 
-#' @aliases show_all_licences show_all_apis
-#' @param ... String showing what type of information is to be requested. See 
-#' `Details` (below) for accepted values.
-#' @param limit Optional number of values to return. Defaults to NULL, i.e. all records
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) 
 #' containing all data of interest.
 #' @references 
 #' *  Darwin Core terms <https://dwc.tdwg.org/terms/>
-#' 
 #' @seealso Use the [search_all()] function and `search_()` sub-functions to 
 #' search for information. These functions are used to pass valid arguments to
 #' [galah_select()], [galah_filter()], and related functions.
-#' @examples
+#' @examples \dontrun{
 #' # See all supported atlases
 #' show_all(atlases)
 #'
@@ -61,6 +52,11 @@
 #' 
 #' # Show a listing of all taxonomic ranks
 #' show_all(ranks)
+#' 
+#' # `show_all()` is synonymous with `request_metadata() |> collect()`
+#' request_metadata(type = "fields") |>
+#'   collect()
+#' }
 #' @importFrom rlang as_label
 #' @export
 show_all <- function(..., limit = NULL){

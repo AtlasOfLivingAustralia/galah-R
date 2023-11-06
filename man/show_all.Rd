@@ -2,18 +2,18 @@
 % Please edit documentation in R/show_all.R
 \name{show_all}
 \alias{show_all}
+\alias{show_all_apis}
 \alias{show_all_assertions}
 \alias{show_all_atlases}
 \alias{show_all_collections}
 \alias{show_all_datasets}
-\alias{show_all_providers}
 \alias{show_all_fields}
-\alias{show_all_reasons}
-\alias{show_all_ranks}
-\alias{show_all_profiles}
 \alias{show_all_licences}
-\alias{show_all_apis}
 \alias{show_all_lists}
+\alias{show_all_profiles}
+\alias{show_all_providers}
+\alias{show_all_ranks}
+\alias{show_all_reasons}
 \title{Show valid record information}
 \usage{
 show_all(..., limit = NULL)
@@ -84,6 +84,7 @@ The available types of information for \code{show_all_} are:\tabular{llll}{
 }
 }
 \examples{
+\dontrun{
 # See all supported atlases
 show_all(atlases)
 
@@ -95,6 +96,11 @@ show_all(reasons)
 
 # Show a listing of all taxonomic ranks
 show_all(ranks)
+
+# `show_all()` is synonymous with `request_metadata() |> collect()`
+request_metadata(type = "fields") |>
+  collect()
+}
 }
 \references{
 \itemize{

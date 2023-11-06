@@ -22,7 +22,7 @@
 #' are already known.
 #' @importFrom dplyr rename
 #' @importFrom dplyr select
-#' @examples
+#' @examples \dontrun{
 #' # Specify a taxon. A valid taxon will return an identifier.
 #' galah_identify("reptilia")
 #' 
@@ -34,7 +34,12 @@
 #'   galah_identify("Eolophus") |>
 #'   atlas_counts()
 #' 
-#' # Use 
+#' # Within a pipe, `identify()` and `galah_identify()` are synonymous.
+#' # hence the following is identical to the previous example:
+#' request_data() |>
+#'   identify("Eolophus") |>
+#'   count() |>
+#'   collect()
 #' 
 #' # If you know a valid taxon identifier, use `galah_filter()` instead.
 #' # (This was formerly supported by `galah_identify()` with `search = FALSE`)
@@ -42,6 +47,7 @@
 #' galah_call() |> 
 #'   galah_filter(lsid == id) |>
 #'   atlas_counts()
+#' }
 #' @importFrom lifecycle deprecate_stop
 #' @importFrom lifecycle deprecate_warn
 #' @importFrom rlang warn

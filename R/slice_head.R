@@ -3,9 +3,11 @@
 #' @description 
 #' `r lifecycle::badge("experimental")`  
 #' 
-#' This is a simple function to set the 'limit' argument in [atlas_counts()]
+#' This is a simple function to set the `limit` argument in [atlas_counts()]
 #' using `dplyr` syntax. As of galah 2.0.0, `slice_head()` is only supported in 
-#' queries of type `occurrences-count()`, or metadata requests.
+#' queries of type `occurrences-count()`, or metadata requests. Note also that 
+#' `slice_head()` is lazily evaluated; it only affects a query once it is run by
+#' `compute()` or (more likely) `collect()`.
 #' 
 #' @param .data An object of class `data_request`, created using [galah_call()]
 #' @param ... currently ignored
@@ -13,7 +15,7 @@
 #' (using [group_by]), this operation will be performed on each group.
 #' @param prop currently ignored, but could be added later
 #' @param by currently ignored
-#' @examples
+#' @examples \dontrun{
 #' # Limit number of rows returned to 3.
 #' # In this case, our query returns the top 3 years with most records.
 #' galah_call() |>
@@ -23,7 +25,7 @@
 #'   count() |>
 #'   slice_head(n = 3) |>
 #'   collect()
-#' 
+#' }
 #' @importFrom tibble tibble
 #' @rdname slice_head
 #' @export

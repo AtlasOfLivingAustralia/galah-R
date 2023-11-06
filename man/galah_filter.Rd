@@ -75,12 +75,20 @@ It is possible to use an object to specify required values, e.g.
 \code{galah_filter(cl22 >= "Tasmania")}
 }
 \examples{
+\dontrun{
 # Filter query results to return records of interest
 galah_call() |>
   galah_filter(year >= 2019,
                basisOfRecord == "HumanObservation") |>
   atlas_counts()
 
+# Alternatively, the same call using `dplyr` functions:
+request_data() |>
+  filter(year >= 2019,
+               basisOfRecord == "HumanObservation") |>
+  count() |>
+  collect()
+}
 }
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} and \code{\link[=galah_geolocate]{galah_geolocate()}} for other ways to restrict

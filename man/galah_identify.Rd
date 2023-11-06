@@ -38,6 +38,7 @@ first to check that the taxa you provide to \code{galah_identify()} return the
 correct results.
 }
 \examples{
+\dontrun{
 # Specify a taxon. A valid taxon will return an identifier.
 galah_identify("reptilia")
 
@@ -49,7 +50,12 @@ galah_call() |>
   galah_identify("Eolophus") |>
   atlas_counts()
 
-# Use 
+# Within a pipe, `identify()` and `galah_identify()` are synonymous.
+# hence the following is identical to the previous example:
+request_data() |>
+  identify("Eolophus") |>
+  count() |>
+  collect()
 
 # If you know a valid taxon identifier, use `galah_filter()` instead.
 # (This was formerly supported by `galah_identify()` with `search = FALSE`)
@@ -57,6 +63,7 @@ id <- "https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c
 galah_call() |> 
   galah_filter(lsid == id) |>
   atlas_counts()
+}
 }
 \seealso{
 \code{\link[=search_taxa]{search_taxa()}} to find identifiers from scientific names;

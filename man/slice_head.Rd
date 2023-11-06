@@ -24,11 +24,14 @@
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-This is a simple function to set the 'limit' argument in \code{\link[=atlas_counts]{atlas_counts()}}
+This is a simple function to set the \code{limit} argument in \code{\link[=atlas_counts]{atlas_counts()}}
 using \code{dplyr} syntax. As of galah 2.0.0, \code{slice_head()} is only supported in
-queries of type \code{occurrences-count()}, or metadata requests.
+queries of type \code{occurrences-count()}, or metadata requests. Note also that
+\code{slice_head()} is lazily evaluated; it only affects a query once it is run by
+\code{compute()} or (more likely) \code{collect()}.
 }
 \examples{
+\dontrun{
 # Limit number of rows returned to 3.
 # In this case, our query returns the top 3 years with most records.
 galah_call() |>
@@ -38,5 +41,5 @@ galah_call() |>
   count() |>
   slice_head(n = 3) |>
   collect()
-
+}
 }
