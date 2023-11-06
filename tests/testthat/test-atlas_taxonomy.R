@@ -34,5 +34,15 @@ test_that("atlas_taxonomy makes a tree when piped", {
   expect_gte(nrow(tree), 1)
 })
 
+test_that("atlas_taxonomy example runs", {
+  df <- galah_call() |> 
+    galah_identify("chordata") |>
+    galah_filter(rank == class) |>
+    atlas_taxonomy()
+  expect_s3_class(df, c("tbl_df", "tbl", "data.frame"))
+  expect_equal(ncol(df), 4)
+  expect_gte(nrow(df), 1)
+})
+
 # FIXME: add test for non-piped usage of `atlas_taxonomy()`
 # FIXME: add test for constrain_ids

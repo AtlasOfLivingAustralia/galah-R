@@ -27,7 +27,7 @@
 #' `show_all(ranks)` for valid ranks used to specify the `down_to`
 #' argument.
 #' 
-#' @examples \donttest{
+#' @examples \dontrun{
 #' # Get a taxonomic tree of *Chordata* down to the class level
 #' galah_call() |> 
 #'   galah_identify("chordata") |>
@@ -117,7 +117,7 @@ drill_down_taxonomy <- function(df,
     }
   }
   children <- request_metadata() |>
-    galah_filter(.data$taxa == df$taxon_concept_id) |>
+    filter("taxa" == df$taxon_concept_id) |>
     unnest() |>
     collect()
   if(nrow(children) < 1){
