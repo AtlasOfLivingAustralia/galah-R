@@ -48,8 +48,13 @@ navbar:
       text: News
       href: news/index.html
 reference:
-- title: Start a data query
-  contents: galah_call
+- title: Piping functions
+  contents: 
+  - galah_call
+  - collapse.data_request
+  - compute.data_request
+  - collect.data_request
+  - print_galah_objects
 - title: Look up information
   contents:
   - show_all
@@ -64,7 +69,7 @@ reference:
   - show_all_reasons
   - show_all_ranks
   - show_values
-- title: Narrow results
+- title: Lazy data manipulation
   contents:
   - galah_identify
   - galah_filter

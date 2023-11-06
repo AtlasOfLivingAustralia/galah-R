@@ -123,7 +123,7 @@ filter.metadata_request <- function(.data, ...){
 # 
 # An unusual distinction is that when `unnest()` is also called, `filter()` is 
 # used to set the thing that is unnested; this is a different kind of search
-# e.g. `request_values() |> filter(taxa == "Chordata")`
+# e.g. `request_metadata() |> filter(taxa == "Chordata") |> unnest()`
 
 #' simple parser for metadata
 #' @noRd
