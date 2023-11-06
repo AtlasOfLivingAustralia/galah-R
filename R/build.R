@@ -234,3 +234,27 @@ build_tibble_from_nested_list <- function(result){
   }
   return(source_tibble)
 }
+
+#' Build a valid wkt string from a spatial polygon
+#' Internal function to `galah_bbox` and `galah_polygon()`
+#' @importFrom sf st_as_text
+#' @importFrom sf st_cast
+#' @importFrom sf st_geometry
+#' @importFrom sf st_geometry_type
+#' @importFrom sf st_is_simple
+#' @noRd
+#' @keywords Internal
+build_wkt <- function(polygon, error_call = caller_env()) {
+  if (st_geometry_type(polygon) == "POLYGON") {
+    polygon <- st_cast(polygon, "MULTIPOLYGON")
+  }
+  if (!st_is_simple(polygon)) {
+    bullets <- c(
+      "The area provided to `galah_bbox` is too complex. ",
+      i = "See `?sf::st_simplify` for how to simplify geospatial objects."
+    )
+    abort(bullets, call = caller_env())
+  }
+  wkt <- st_as_text(st_geometry(polygon))
+  wkt
+}

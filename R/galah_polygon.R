@@ -1,8 +1,3 @@
-#' @importFrom sf st_cast st_as_text st_as_sfc st_is_empty st_is_simple
-#' @importFrom sf st_crs st_geometry st_geometry_type st_is_valid st_simplify st_read
-#' @importFrom rlang try_fetch
-#' @importFrom rlang is_string is_list
-#' @importFrom stringr str_detect
 #' @rdname galah_geolocate
 #' @export
 galah_polygon <- function(...){
@@ -35,6 +30,10 @@ st_crop.data_request <- function(x, y, ...){
 }
 
 #' parser for polygons
+#' @importFrom rlang try_fetch
+#' @importFrom sf st_as_sfc 
+#' @importFrom sf st_is_valid 
+#' @importFrom stringr str_detect
 #' @importFrom stringr str_replace
 #' @noRd
 #' @keywords Internal
@@ -55,14 +54,14 @@ parse_polygon <- function(query){
   }
   
   # handle shapefiles
-  if (inherits(query, "XY")) query <- sf::st_as_sfc(query) 
+  if (inherits(query, "XY")) query <- st_as_sfc(query) 
   
   # make sure spatial object or wkt is valid
   if (!inherits(query, c("sf", "sfc"))) {
     check_wkt_length(query)
     
     # handle errors from converting impossible WKTs
-    query <- rlang::try_fetch(
+    query <- try_fetch(
       query |> st_as_sfc(), 
       error = function(cnd) {
         bullets <- c(
@@ -142,11 +141,19 @@ parse_polygon <- function(query){
   out_query
 }
 
-
+#' Internal function to `galah_polygon`
+#' @importFrom sf st_geometry
+#' @noRd
+#' @keywords Internal
 n_points <- function(x) {
-  count_vertices(sf::st_geometry(x))
+  count_vertices(st_geometry(x))
 }
 
+#' Internal function to `galah_polygon`
+#' @importFrom rlang caller_env
+#' @importFrom sf st_is_empty
+#' @noRd
+#' @keywords Internal
 count_vertices <- function(wkt_string, error_call = caller_env()) {
   out <- if (is.list(wkt_string)) 
     sapply(sapply(wkt_string, count_vertices), sum) 
@@ -154,28 +161,20 @@ count_vertices <- function(wkt_string, error_call = caller_env()) {
     if (is.matrix(wkt_string))
         nrow(wkt_string)
     else {
-      if (!sf::st_is_empty(wkt_string)) 1 else
+      if (!st_is_empty(wkt_string)) 1 else
         0
       }
   }
   unname(out)
 }
 
-# build a valid wkt string from a spatial polygon
-build_wkt <- function(polygon, error_call = caller_env()) {
-  if (any(st_geometry_type(polygon) == "POLYGON")) {
-    polygon <- st_cast(polygon, "MULTIPOLYGON")
-  }
-  if (!st_is_simple(polygon)) {
-    bullets <- c(
-      "The area provided to `galah_polygon` is too complex. ",
-      i = "See `?sf::st_simplify` for how to simplify geospatial objects.")
-    abort(bullets, call = caller_env())
-  }
-  wkt <- st_as_text(st_geometry(polygon))
-  wkt
-}
-
+#' Internal function to `galah_polygon`
+#' @importFrom glue glue
+#' @importFrom rlang abort
+#' @importFrom rlang is_list
+#' @importFrom rlang is_string
+#' @noRd
+#' @keywords Internal
 check_wkt_length <- function(wkt, error_call = caller_env()) {
   if (is_string(wkt) == TRUE |
     is.matrix(wkt) == TRUE  | 

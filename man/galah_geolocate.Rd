@@ -30,8 +30,8 @@ be supplied as a \code{tibble}/\code{data.frame} or a \code{bbox}}
 \item{y}{A valid Well-Known Text string (wkt), a \code{POLYGON} or a \code{MULTIPOLYGON}}
 }
 \value{
-length-1 object of class \code{character} and \code{galah_geolocate},
-containing a multipolygon WKT string representing the area provided.
+length-1 string (class \code{character}) containing a multipolygon WKT
+string representing the area provided.
 }
 \description{
 Restrict results to those from a specified area. Areas can be specified as
@@ -108,5 +108,4 @@ galah_call() |>
   galah_geolocate(b_box, type = "bbox") |>
   atlas_counts()
 }
-
 }

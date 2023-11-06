@@ -1,7 +1,12 @@
-#' @importFrom sf st_cast st_as_text st_as_sfc st_is_empty st_is_simple
-#' @importFrom sf st_is_valid st_bbox st_geometry_type st_crs
-#' @importFrom rlang try_fetch
 #' @rdname galah_geolocate
+#' @importFrom glue glue
+#' @importFrom rlang abort
+#' @importFrom rlang caller_env
+#' @importFrom rlang try_fetch
+#' @importFrom sf st_as_sfc 
+#' @importFrom sf st_bbox 
+#' @importFrom sf st_crs
+#' @importFrom sf st_is_valid 
 #' @export
 galah_bbox <- function(...) {
 
@@ -46,7 +51,7 @@ galah_bbox <- function(...) {
   }
 
   # handle shapefiles
-  if (inherits(query, "XY")) query <- sf::st_as_sfc(query)
+  if (inherits(query, "XY")) query <- st_as_sfc(query)
 
   # validate spatial objects & coordinates
   if (!inherits(query, c("sf", "sfc"))) {
@@ -57,10 +62,10 @@ galah_bbox <- function(...) {
                          xmax = query$xmax,
                          ymin = query$ymin,
                          ymax = query$ymax),
-                       crs = sf::st_crs("WGS84"))
+                       crs = st_crs("WGS84"))
     }
     log <- NULL # see `log` to read any warnings that may have been silenced
-    valid <- rlang::try_fetch( # prevent warnings
+    valid <- try_fetch( # prevent warnings
       query |>
         st_as_sfc() |>
         st_is_valid(), warning = function(cnd) {
@@ -81,12 +86,12 @@ galah_bbox <- function(...) {
   } else {
     if (inherits(query, c("tbl", "data.frame", "bbox")) && !inherits(query, c("sf", "sfc"))) {
       bbox_coords <- round(query, 5)
-      query <- query |> st_as_sfc(crs = sf::st_crs("WGS84"))
+      query <- query |> st_as_sfc(crs = st_crs("WGS84"))
     } else {
       if (inherits(query, c("sf", "sfc"))) {
-        query <- query |> st_bbox(crs = sf::st_crs("WGS84"))
+        query <- query |> st_bbox(crs = st_crs("WGS84"))
         bbox_coords <- round(query, 5)
-        query <- query |> st_as_sfc(crs = sf::st_crs("WGS84")) # FIXME: should we define the projection?
+        query <- query |> st_as_sfc(crs = st_crs("WGS84")) # FIXME: should we define the projection?
       }
     }
   }
@@ -94,7 +99,7 @@ galah_bbox <- function(...) {
   # currently a bug where the ALA doesn't accept some polygons
   # to avoid any issues, any polygons are converted to multipolygons
   if (inherits(query, "sf") || inherits(query, "sfc")) {
-    inform(glue::glue("
+    inform(glue("
              Data returned for bounding box:
              xmin = {bbox_coords$xmin} xmax = {bbox_coords$xmax} \\
              ymin = {bbox_coords$ymin} ymax = {bbox_coords$ymax}"))
@@ -111,42 +116,38 @@ galah_bbox <- function(...) {
   }
 }
 
-
-# build a valid wkt string from a spatial polygon
-build_wkt <- function(polygon, error_call = caller_env()) {
-  if (st_geometry_type(polygon) == "POLYGON") {
-    polygon <- st_cast(polygon, "MULTIPOLYGON")
-  }
-  if (!st_is_simple(polygon)) {
-    bullets <- c(
-      "The area provided to `galah_bbox` is too complex. ",
-      i = "See `?sf::st_simplify` for how to simplify geospatial objects."
-    )
-    abort(bullets, call = caller_env())
-  }
-  wkt <- st_as_text(st_geometry(polygon))
-  wkt
-}
-
-
+#' Internal function to `galah_bbox`
+#' @importFrom glue glue
+#' @importFrom rlang warn
+#' @importFrom tibble tibble
+#' @noRd
+#' @keywords Internal
 check_n_rows <- function(tibble) {
   if (is.null(nrow(tibble))) {
     tibble <- tibble
-  } 
-  else {if (nrow(tibble) > 1) {
-    ignored_rows <- paste(2:(nrow(tibble)))
-    bullets <- c(
-      "More than 1 set of coordinates supplied to `galah_bbox`.",
-      "*" = glue("Using first row, ignoring row(s) {ignored_rows}.")
-    )
-    warn(bullets)
-    tibble <- tibble[1, ]
-  } else {
-    tibble <- tibble
-  }}
+  }else{
+    if (nrow(tibble) > 1) {
+      ignored_rows <- paste(2:(nrow(tibble)))
+      bullets <- c(
+        "More than 1 set of coordinates supplied to `galah_bbox`.",
+        "*" = glue("Using first row, ignoring row(s) {ignored_rows}.")
+      )
+      warn(bullets)
+      tibble <- tibble[1, ]
+    }else{
+      tibble <- tibble
+    }
+  }
+  
   return(tibble)
 }
 
+#' Internal function to `galah_bbox`
+#' @importFrom glue glue
+#' @importFrom rlang abort
+#' @importFrom tibble tibble
+#' @noRd
+#' @keywords Internal
 check_col_names <- function(tibble, error_call = caller_env()) {
   valid_col_names <- c("xmin", "xmax", "ymin", "ymax")
   if (!identical(sort(names(tibble)), sort(valid_col_names))) {

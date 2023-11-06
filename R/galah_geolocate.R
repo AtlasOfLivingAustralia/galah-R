@@ -24,10 +24,10 @@
 #' accepted by the ALA. Some polygons  may need to be simplified. If 
 #' `type = "bbox"`, sf objects and shapefiles will be converted to a bounding 
 #' box to query the ALA.
-#' @return length-1 object of class `character` and `galah_geolocate`,
-#' containing a multipolygon WKT string representing the area provided.
-#' @examples
-#' \dontrun{
+#' @return length-1 string (class `character`) containing a multipolygon WKT 
+#' string representing the area provided.
+#' @name galah_geolocate
+#' @examples \dontrun{
 #' # Search for records within a polygon using a shapefile
 #' location <- sf::st_read("path/to/shapefile.shp")
 #' galah_call() |>
@@ -80,7 +80,6 @@
 #'   galah_geolocate(b_box, type = "bbox") |>
 #'   atlas_counts()
 #' }
-#' 
 #' @export
 galah_geolocate <- function(..., type = c("polygon", "bbox")) {
   
