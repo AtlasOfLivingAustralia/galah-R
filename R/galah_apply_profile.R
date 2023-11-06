@@ -18,14 +18,15 @@
 #' @seealso [show_all()] and [search_all()] to look up available data profiles. 
 #' [galah_filter()] can be used for more bespoke editing of individual data 
 #' profile filters.
-#' 
-#' @examples
+#' @name galah_apply_profile
+#' @examples \dontrun{
 #' # Apply a data quality profile to a query
 #' galah_call() |> 
 #'   galah_identify("reptilia") |>
 #'   galah_filter(year == 2021) |>
 #'   galah_apply_profile(ALA) |>
 #'   atlas_counts()
+#' }
 #' @importFrom tibble tibble
 #' @export
 galah_apply_profile <- function(...){
@@ -41,6 +42,16 @@ galah_apply_profile <- function(...){
            parse_quosures_basic(dots) |>
              parse_profile()
          })
+}
+
+#' @rdname galah_apply_profile
+#' @export
+apply_profile <- function(.data, ...){
+  dots <- enquos(..., .ignore_empty = "all")
+  df <- parse_quosures_basic(dots) |>
+    pluck(!!!list(1)) |>
+    parse_profile()
+  update_data_request(.data, data_profile = df)
 }
 
 #' Check profile is valid

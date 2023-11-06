@@ -2,9 +2,12 @@
 % Please edit documentation in R/galah_apply_profile.R
 \name{galah_apply_profile}
 \alias{galah_apply_profile}
+\alias{apply_profile}
 \title{Apply a data quality profile}
 \usage{
 galah_apply_profile(...)
+
+apply_profile(.data, ...)
 }
 \arguments{
 \item{...}{a profile name. Should be a \code{string} - the name or abbreviation
@@ -28,12 +31,14 @@ given, the first valid profile is used.
 For more bespoke editing of filters within a profile, use \code{\link[=galah_filter]{galah_filter()}}
 }
 \examples{
+\dontrun{
 # Apply a data quality profile to a query
 galah_call() |> 
   galah_identify("reptilia") |>
   galah_filter(year == 2021) |>
   galah_apply_profile(ALA) |>
   atlas_counts()
+}
 }
 \seealso{
 \code{\link[=show_all]{show_all()}} and \code{\link[=search_all]{search_all()}} to look up available data profiles.
