@@ -111,12 +111,11 @@ counts <- map(atlases$region,
     atlas_counts()
 })
 
-tibble(
-  atlas = atlases$region, 
-  n = unlist(counts)) |> 
-  filter(n > 0) |>
-  arrange(desc(n)) |>
-  gt() |>
-  fmt_number(column = n)
+atlases |>
+    select(region, institution) |>
+    bind_cols(bind_rows(counts)) |>
+    arrange(desc(count)) |>
+    gt() |>
+    fmt_number(column = count)
 ```
 

@@ -1,7 +1,7 @@
 ---
 title: "Choosing an atlas"
 author: "Martin Westgate, Dax Kellie"
-date: '2023-10-13'
+date: '2023-11-07'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -51,7 +51,8 @@ galah_config(atlas = "Guatemala")
 ```
 
 ```
-## Atlas selected: Sistema Nacional de Información sobre Diversidad Biológica de Guatemala (SNIBgt) [Guatemala]
+## Atlas selected: Sistema Nacional de Información sobre Diversidad Biológica de Guatemala
+## (SNIBgt) [Guatemala]
 ```
 
 ```r
@@ -60,18 +61,18 @@ show_all(datasets)
 
 ```
 ## # A tibble: 1,283 × 3
-##    id     name                                                                                                                         uri  
-##    <chr>  <chr>                                                                                                                        <chr>
-##  1 dr1440 A catalogue of the Heteroptera (Hemiptera) or true bugs of Argentina                                                         http…
-##  2 dr1436 A cybercatalogue of American sand fly types (Diptera, Psychodidae, Phlebotominae) deposited at the Natural History Museum, … http…
-##  3 dr1226 A distinctive new species of biting midge in the subgenus Euprojoannisia Brèthes from Mexico with new records of Neotropica… http…
-##  4 dr321  A Distribution and Taxonomic Reference Dataset of Geranium (Geraniaceae) in the New World                                    http…
-##  5 dr1285 A geographic distribution database of the cassava whitefly complex (Hemiptera, Aleyrodidae) and their associated parasitoid… http…
-##  6 dr12   A global database for the distributions of crop wild relatives                                                               http…
-##  7 dr467  A matrix-based revision of the genus Hypogena Dejean, 1834 (Coleoptera Tenebrionidae)                                        http…
-##  8 dr1061 A Monographic Revision of the Genus Hoplopyga Thomson, 1880 (Coleoptera: Scarabaeidae: Cetoniinae: Gymnetini)                http…
-##  9 dr1570 A new Anomiopus Westwood (Coleoptera: Scarabaeidae: Scarabaeinae) from the Mayan Biosphere Reserve, Petén, Guatemala         http…
-## 10 dr1177 A new Central American genus of pleasing fungus beetles (Coleoptera: Erotylidae) from the Ischyrus-Megischyrus complex       http…
+##    id     name                                                                         uri  
+##    <chr>  <chr>                                                                        <chr>
+##  1 dr1440 A catalogue of the Heteroptera (Hemiptera) or true bugs of Argentina         http…
+##  2 dr1436 A cybercatalogue of American sand fly types (Diptera, Psychodidae, Phleboto… http…
+##  3 dr1226 A distinctive new species of biting midge in the subgenus Euprojoannisia Br… http…
+##  4 dr321  A Distribution and Taxonomic Reference Dataset of Geranium (Geraniaceae) in… http…
+##  5 dr1285 A geographic distribution database of the cassava whitefly complex (Hemipte… http…
+##  6 dr12   A global database for the distributions of crop wild relatives               http…
+##  7 dr467  A matrix-based revision of the genus Hypogena Dejean, 1834 (Coleoptera Tene… http…
+##  8 dr1061 A Monographic Revision of the Genus Hoplopyga Thomson, 1880 (Coleoptera: Sc… http…
+##  9 dr1570 A new Anomiopus Westwood (Coleoptera: Scarabaeidae: Scarabaeinae) from the … http…
+## 10 dr1177 A new Central American genus of pleasing fungus beetles (Coleoptera: Erotyl… http…
 ## # ℹ 1,273 more rows
 ```
 
@@ -139,10 +140,7 @@ search_taxa("vlps")   # Returns no data due to misspelling
 ```
 
 ```
-## Error in `filter()`:
-## ℹ In argument: `!duplicated(guid)`.
-## Caused by error:
-## ! object 'guid' not found
+## # A tibble: 0 × 0
 ```
 
 ```r
@@ -151,9 +149,11 @@ search_taxa("vulpes") # Returns data
 
 ```
 ## # A tibble: 1 × 12
-##   search_term scientific_name scientific_name_authorship taxon_concept_id rank  kingdom  phylum   class    order     family genus superclass
-##   <chr>       <chr>           <chr>                      <chr>            <chr> <chr>    <chr>    <chr>    <chr>     <chr>  <chr> <chr>     
-## 1 vulpes      Vulpes          Frisch, 1775               NBNSYS0000138878 genus Animalia Chordata Mammalia Carnivora Canid… Vulp… Tetrapoda
+##   search_term scientific_name scientific_name_author…¹ taxon_concept_id rank  kingdom phylum
+##   <chr>       <chr>           <chr>                    <chr>            <chr> <chr>   <chr> 
+## 1 vulpes      Vulpes          Frisch, 1775             NBNSYS0000138878 genus Animal… Chord…
+## # ℹ abbreviated name: ¹​scientific_name_authorship
+## # ℹ 5 more variables: class <chr>, order <chr>, family <chr>, genus <chr>, superclass <chr>
 ```
 
 ```r
@@ -167,7 +167,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##    count
 ##    <int>
-## 1 124909
+## 1 123736
 ```
 
 Download species occurrence records from other atlases with 
@@ -179,7 +179,8 @@ galah_config(atlas = "Guatemala")
 ```
 
 ```
-## Atlas selected: Sistema Nacional de Información sobre Diversidad Biológica de Guatemala (SNIBgt) [Guatemala]
+## Atlas selected: Sistema Nacional de Información sobre Diversidad Biológica de Guatemala
+## (SNIBgt) [Guatemala]
 ```
 
 ```r
@@ -191,13 +192,13 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 4 × 3
-##   recordID                             scientificName                   year
-##   <chr>                                <chr>                           <dbl>
-## 1 d4e64dc9-f30c-432a-b026-dd1d9325817c Aellopos titan Burmeister, 1856  1971
-## 2 219121ad-67b9-450c-9b30-c7dce84b30d6 Erinnyis ello subsp. ello        1973
-## 3 c6675471-e3e3-49bb-8526-a573b14d9dd7 Manduca rustica Fabricius, 1775  1930
-## 4 633e26ac-d144-408d-b829-4ac8aba14f7c Manduca rustica Fabricius, 1775  1930
+## # A tibble: 4 × 2
+##   scientificName                   year
+##   <chr>                           <dbl>
+## 1 Erinnyis ello subsp. ello        1973
+## 2 Aellopos titan Burmeister, 1856  1971
+## 3 Manduca rustica Fabricius, 1775  1930
+## 4 Manduca rustica Fabricius, 1775  1930
 ```
 
 
@@ -222,29 +223,472 @@ counts <- map(atlases$region,
     galah_config(atlas = x)
     atlas_counts()
 })
+
+atlases |>
+    select(region, institution) |>
+    bind_cols(bind_rows(counts)) |>
+    arrange(desc(count)) |>
+    gt() |>
+    fmt_number(column = count)
 ```
 
-```
-## Error in `map()`:
-## ℹ In index: 6.
-## Caused by error in `check_fields()`:
-## ! Can't use fields that don't exist.
-## ℹ Use `search_all(fields)` to find a valid field ID.
-## ✖ Can't find field(s) in
-##   • `galah_filter()`: taxonKey
-```
+<!--html_preserve--><div id="coglotvhvx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
 
-```r
-tibble(
-  atlas = atlases$region, 
-  n = unlist(counts)) |> 
-  filter(n > 0) |>
-  arrange(desc(n)) |>
-  gt() |>
-  fmt_number(column = n)
-```
+#coglotvhvx .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
 
-```
-## Error: object 'counts' not found
-```
+#coglotvhvx .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#coglotvhvx .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#coglotvhvx .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#coglotvhvx .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#coglotvhvx .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#coglotvhvx .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#coglotvhvx .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#coglotvhvx .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#coglotvhvx .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#coglotvhvx .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#coglotvhvx .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#coglotvhvx .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#coglotvhvx .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#coglotvhvx .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#coglotvhvx .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#coglotvhvx .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#coglotvhvx .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#coglotvhvx .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#coglotvhvx .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#coglotvhvx .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#coglotvhvx .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#coglotvhvx .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#coglotvhvx .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#coglotvhvx .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#coglotvhvx .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#coglotvhvx .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#coglotvhvx .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#coglotvhvx .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#coglotvhvx .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#coglotvhvx .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#coglotvhvx .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#coglotvhvx .gt_left {
+  text-align: left;
+}
+
+#coglotvhvx .gt_center {
+  text-align: center;
+}
+
+#coglotvhvx .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#coglotvhvx .gt_font_normal {
+  font-weight: normal;
+}
+
+#coglotvhvx .gt_font_bold {
+  font-weight: bold;
+}
+
+#coglotvhvx .gt_font_italic {
+  font-style: italic;
+}
+
+#coglotvhvx .gt_super {
+  font-size: 65%;
+}
+
+#coglotvhvx .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#coglotvhvx .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#coglotvhvx .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#coglotvhvx .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#coglotvhvx .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#coglotvhvx .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#coglotvhvx .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="region">region</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="institution">institution</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="count">count</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="region" class="gt_row gt_left">Global</td>
+<td headers="institution" class="gt_row gt_left">Global Biodiversity Information Facility</td>
+<td headers="count" class="gt_row gt_right">2,083,165,001.00</td></tr>
+    <tr><td headers="region" class="gt_row gt_left">United Kingdom</td>
+<td headers="institution" class="gt_row gt_left">National Biodiversity Network</td>
+<td headers="count" class="gt_row gt_right">254,155,214.00</td></tr>
+    <tr><td headers="region" class="gt_row gt_left">France</td>
+<td headers="institution" class="gt_row gt_left">Portail français d'accès aux données d'observation sur les espèces</td>
+<td headers="count" class="gt_row gt_right">143,668,494.00</td></tr>
+    <tr><td headers="region" class="gt_row gt_left">Australia</td>
+<td headers="institution" class="gt_row gt_left">Atlas of Living Australia</td>
+<td headers="count" class="gt_row gt_right">131,963,195.00</td></tr>
+    <tr><td headers="region" class="gt_row gt_left">Sweden</td>
+<td headers="institution" class="gt_row gt_left">Swedish Biodiversity Data Infrastructure</td>
+<td headers="count" class="gt_row gt_right">124,556,849.00</td></tr>
+    <tr><td headers="region" class="gt_row gt_left">Spain</td>
+<td headers="institution" class="gt_row gt_left">GBIF Spain</td>
+<td headers="count" class="gt_row gt_right">57,696,934.00</td></tr>
+    <tr><td headers="region" class="gt_row gt_left">Brazil</td>
+<td headers="institution" class="gt_row gt_left">Sistemas de Informações sobre a Biodiversidade Brasileira</td>
+<td headers="count" class="gt_row gt_right">24,369,137.00</td></tr>
+    <tr><td headers="region" class="gt_row gt_left">Portugal</td>
+<td headers="institution" class="gt_row gt_left">GBIF Portugal</td>
+<td headers="count" class="gt_row gt_right">16,043,865.00</td></tr>
+    <tr><td headers="region" class="gt_row gt_left">Austria</td>
+<td headers="institution" class="gt_row gt_left">Biodiversitäts-Atlas Österreich</td>
+<td headers="count" class="gt_row gt_right">8,976,175.00</td></tr>
+    <tr><td headers="region" class="gt_row gt_left">Estonia</td>
+<td headers="institution" class="gt_row gt_left">eElurikkus</td>
+<td headers="count" class="gt_row gt_right">7,475,447.00</td></tr>
+    <tr><td headers="region" class="gt_row gt_left">Guatemala</td>
+<td headers="institution" class="gt_row gt_left">Sistema Nacional de Información sobre Diversidad Biológica de Guatemala</td>
+<td headers="count" class="gt_row gt_right">3,617,694.00</td></tr>
+  </tbody>
+  
+  
+</table>
+</div><!--/html_preserve-->
 
