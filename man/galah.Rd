@@ -25,7 +25,7 @@ For those outside Australia, 'galah' is the common name of
 
 \strong{Piping functions}
 \itemize{
-\item \code{\link[=galah_call]{galah_call()}} or \code{\link[request_data()]{request_()}} et al.  Start to build a data query
+\item \code{\link[=galah_call]{galah_call()}} or \code{\link[=request_data]{request_()}} et al.  Start to build a data query
 \item \code{\link[=collapse_galah]{collapse()}} Generate a query
 \item \code{\link[=compute_galah]{compute()}} Compute a query
 \item \code{\link[=collect_galah]{collect()}} Retrieve a database query

@@ -20,7 +20,7 @@
 #' @section Functions:
 #' **Piping functions**
 #'
-#'   * [galah_call()] or \code{\link[request_data()]{request_()}} et al.  Start to build a data query
+#'   * [galah_call()] or \code{\link[=request_data]{request_()}} et al.  Start to build a data query
 #'   * \code{\link[=collapse_galah]{collapse()}} Generate a query
 #'   * \code{\link[=compute_galah]{compute()}} Compute a query
 #'   * \code{\link[=collect_galah]{collect()}} Retrieve a database query
