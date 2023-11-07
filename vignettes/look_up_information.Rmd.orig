@@ -162,20 +162,10 @@ galah_call() |>
   atlas_counts()
 ``` 
 
-This works for several other types of query, such as data profiles:
+This works for other types of query, such as data profiles:
 
 ```{r}
 search_all(profiles, "ALA") |> 
   show_values() |> 
   head()
 ```
-
-Or collections:
-
-```{r}
-search_all(collections, "herbarium") |> 
-  show_values() |> 
-  head()
-```
-
-

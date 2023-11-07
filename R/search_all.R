@@ -113,8 +113,8 @@ search_all <- function(type, query){
     type <- "fields"
   }else{
     type <- parse_quosures_basic(enquos(type))
-    if(!inherits(type, "character")){
-      abort("`type` must inherit from class 'character'")
+    if(!inherits(type, "character") | length(type) > 1){
+      abort("`type` must be a length-1 vector of class 'character'")
     }
     check_type_valid(type, valid_types)   
   }

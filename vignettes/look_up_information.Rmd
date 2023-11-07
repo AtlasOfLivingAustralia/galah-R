@@ -1,7 +1,7 @@
 ---
 title: "Look up information"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-10-13'
+date: '2023-11-07'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -28,19 +28,19 @@ show_all(atlases)
 
 ```
 ## # A tibble: 11 × 4
-##    region         institution                                                             acronym url                         
-##    <chr>          <chr>                                                                   <chr>   <chr>                       
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
-##  4 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
-##  5 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr/    
-##  6 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org            
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
-## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
+##    region         institution                                                  acronym url  
+##    <chr>          <chr>                                                        <chr>   <chr>
+##  1 Australia      Atlas of Living Australia                                    ALA     http…
+##  2 Austria        Biodiversitäts-Atlas Österreich                              BAO     http…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira    SiBBr   http…
+##  4 Estonia        eElurikkus                                                   <NA>    http…
+##  5 France         Portail français d'accès aux données d'observation sur les … OpenObs http…
+##  6 Global         Global Biodiversity Information Facility                     GBIF    http…
+##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica … SNIBgt  http…
+##  8 Portugal       GBIF Portugal                                                GBIF.pt http…
+##  9 Spain          GBIF Spain                                                   GBIF.es http…
+## 10 Sweden         Swedish Biodiversity Data Infrastructure                     SBDI    http…
+## 11 United Kingdom National Biodiversity Network                                NBN     http…
 ```
 
 To search for a specific available Living Atlas:
@@ -65,7 +65,7 @@ show_all(fields)
 ```
 
 ```
-## # A tibble: 644 × 3
+## # A tibble: 646 × 3
 ##    id                  description               type  
 ##    <chr>               <chr>                     <chr> 
 ##  1 _nest_parent_       <NA>                      fields
@@ -78,7 +78,7 @@ show_all(fields)
 ##  8 annotationsDoi      <NA>                      fields
 ##  9 annotationsUid      Referenced by publication fields
 ## 10 assertionUserId     Assertions by user        fields
-## # ℹ 634 more rows
+## # ℹ 636 more rows
 ```
 
 And to search for a specific field:
@@ -205,19 +205,19 @@ show_all_atlases()
 
 ```
 ## # A tibble: 11 × 4
-##    region         institution                                                             acronym url                         
-##    <chr>          <chr>                                                                   <chr>   <chr>                       
-##  1 Australia      Atlas of Living Australia                                               ALA     https://www.ala.org.au      
-##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
-##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
-##  4 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
-##  5 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr/    
-##  6 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org            
-##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
-##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
-##  9 Spain          GBIF Spain                                                              GBIF.es https://www.gbif.es         
-## 10 Sweden         Swedish Biodiversity Data Infrastructure                                SBDI    https://biodiversitydata.se 
-## 11 United Kingdom National Biodiversity Network                                           NBN     https://nbn.org.uk
+##    region         institution                                                  acronym url  
+##    <chr>          <chr>                                                        <chr>   <chr>
+##  1 Australia      Atlas of Living Australia                                    ALA     http…
+##  2 Austria        Biodiversitäts-Atlas Österreich                              BAO     http…
+##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira    SiBBr   http…
+##  4 Estonia        eElurikkus                                                   <NA>    http…
+##  5 France         Portail français d'accès aux données d'observation sur les … OpenObs http…
+##  6 Global         Global Biodiversity Information Facility                     GBIF    http…
+##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica … SNIBgt  http…
+##  8 Portugal       GBIF Portugal                                                GBIF.pt http…
+##  9 Spain          GBIF Spain                                                   GBIF.es http…
+## 10 Sweden         Swedish Biodiversity Data Infrastructure                     SBDI    http…
+## 11 United Kingdom National Biodiversity Network                                NBN     http…
 ```
 
 ```r
@@ -228,19 +228,19 @@ show_all_reasons()
 ## # A tibble: 13 × 2
 ##       id name                            
 ##    <int> <chr>                           
-##  1     0 conservation management/planning
-##  2     1 biosecurity management/planning 
-##  3     2 environmental assessment        
-##  4     3 education                       
-##  5     4 scientific research             
-##  6     5 collection management           
-##  7     6 other                           
-##  8     7 ecological research             
-##  9     8 systematic research/taxonomy    
-## 10    10 testing                         
-## 11    11 citizen science                 
-## 12    12 restoration/remediation         
-## 13    13 species modelling
+##  1     1 biosecurity management/planning 
+##  2    11 citizen science                 
+##  3     5 collection management           
+##  4     0 conservation management/planning
+##  5     7 ecological research             
+##  6     3 education                       
+##  7     2 environmental assessment        
+##  8    12 restoration/remediation         
+##  9     4 scientific research             
+## 10     8 systematic research/taxonomy    
+## 11    13 species modelling               
+## 12     6 other                           
+## 13    10 testing
 ```
 
 # `search_` subfunctions
@@ -262,9 +262,9 @@ search_taxa("reptilia")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                                  rank  match_type kingdom phylum class issues
-##   <chr>       <chr>           <chr>                                                             <chr> <chr>      <chr>   <chr>  <chr> <chr> 
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550… class exactMatch Animal… Chord… Rept… noIss…
+##   search_term scientific_name taxon_concept_id  rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>             <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiver… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
 ```r
@@ -272,13 +272,10 @@ search_taxa("reptilia", "aves", "mammalia", "pisces")
 ```
 
 ```
-## # A tibble: 4 × 10
-##   search_term scientific_name taxon_concept_id                                  rank  match_type kingdom phylum class vernacular_name issues
-##   <chr>       <chr>           <chr>                                             <chr> <chr>      <chr>   <chr>  <chr> <chr>           <chr> 
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b… class exactMatch Animal… Chord… Rept… <NA>            noIss…
-## 2 aves        AVES            https://biodiversity.org.au/afd/taxa/65625205-db… class exactMatch Animal… Chord… Aves  Birds           noIss…
-## 3 mammalia    MAMMALIA        https://biodiversity.org.au/afd/taxa/e9e7db31-04… class exactMatch Animal… Chord… Mamm… Mammals         noIss…
-## 4 pisces      PISCES          https://biodiversity.org.au/afd/taxa/e22efeb4-2c… <NA>  exactMatch Animal… Chord… <NA>  Fishes          noIss…
+## # A tibble: 1 × 9
+##   search_term scientific_name taxon_concept_id  rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>             <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiver… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
 Alternatively, `search_identifiers` is the partner function to `search_taxa`. 
@@ -291,10 +288,12 @@ search_identifiers("urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-83
 ```
 
 ```
-## # A tibble: 1 × 9
-##   search_term                                                  scientific_name taxon_concept_id rank  match_type kingdom phylum class issues
-##   <chr>                                                        <chr>           <chr>            <chr> <chr>      <chr>   <chr>  <chr> <chr> 
-## 1 urn:lsid:biodiversity.org.au:afd.taxon:682e1228-5b3c-45ff-8… REPTILIA        https://biodive… class taxonIdMa… Animal… Chord… Rept… noIss…
+## # A tibble: 1 × 15
+##   search_term  success scientific_name taxon_concept_id rank  rank_id   lft   rgt match_type
+##   <chr>        <lgl>   <chr>           <chr>            <chr>   <int> <int> <int> <chr>     
+## 1 urn:lsid:bi… TRUE    REPTILIA        https://biodive… class    3000 46718 49924 taxonIdMa…
+## # ℹ 6 more variables: kingdom <chr>, kingdom_id <chr>, phylum <chr>, phylum_id <chr>,
+## #   class <chr>, class_id <chr>
 ```
 
 Sifting through the output of `show_all_fields` to find a specific field can be 
@@ -316,7 +315,7 @@ search_fields("date") |> head()
 ## 3 datePrecision  Date precision  fields
 ## 4 eventDateEnd   <NA>            fields
 ## 5 dateIdentified Date Identified fields
-## 6 raw_eventDate  Date            fields
+## 6 raw_eventDate  <NA>            fields
 ```
 
 # `show_values()` & `search_values()`
@@ -341,11 +340,11 @@ search_all(fields, "basis") |> show_values()
 ## 1 Human observation  
 ## 2 Preserved specimen 
 ## 3 Observation        
-## 4 OCCURRENCE         
+## 4 Occurrence         
 ## 5 Machine observation
 ## 6 Material Sample    
 ## 7 Living specimen    
-## 8 MATERIAL_CITATION  
+## 8 Material Citation  
 ## 9 Fossil specimen
 ```
 
@@ -362,10 +361,10 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##    count
 ##    <int>
-## 1 126844
+## 1 126135
 ```
 
-This works for several other types of query, such as data profiles:
+This works for other types of query, such as data profiles:
 
 
 ```r
@@ -380,37 +379,12 @@ search_all(profiles, "ALA") |>
 
 ```
 ## # A tibble: 6 × 5
-##      id enabled description                                                                                              filter displayOrder
-##   <int> <lgl>   <chr>                                                                                                    <chr>         <int>
-## 1    94 TRUE    "Exclude all records where spatial validity is \"false\""                                                "-spa…            1
-## 2    96 TRUE    "Exclude all records with an assertion that the scientific name provided does not match any of the name… "-ass…            1
-## 3    97 TRUE    "Exclude all records with an assertion that the scientific name provided is not structured as a valid s… "-ass…            2
-## 4    98 TRUE    "Exclude all records with an assertion that the name and classification supplied can't be used to choos… "-ass…            3
-## 5    99 TRUE    "Exclude all records with an assertion that kingdom provided doesn't match a known kingdom e.g. Animali… "-ass…            4
-## 6   100 TRUE    "Exclude all records with an assertion that the scientific name provided in the record does not match t… "-ass…            5
+##      id enabled description                                              filter displayOrder
+##   <int> <lgl>   <chr>                                                    <chr>         <int>
+## 1    94 TRUE    "Exclude all records where spatial validity is \"false\… "-spa…            1
+## 2    96 TRUE    "Exclude all records with an assertion that the scienti… "-ass…            1
+## 3    97 TRUE    "Exclude all records with an assertion that the scienti… "-ass…            2
+## 4    98 TRUE    "Exclude all records with an assertion that the name an… "-ass…            3
+## 5    99 TRUE    "Exclude all records with an assertion that kingdom pro… "-ass…            4
+## 6   100 TRUE    "Exclude all records with an assertion that the scienti… "-ass…            5
 ```
-
-Or collections:
-
-
-```r
-search_all(collections, "herbarium") |> 
-  show_values() |> 
-  head()
-```
-
-```
-## Warning: Unknown or uninitialised column: `uid`.
-```
-
-```
-## ! Search returned 44 matched collections.
-```
-
-```
-## Error in `show_values()`:
-## ! Invalid `type` supplied to `unnest`
-## ℹ valid types are `fields`, `lists`, `profiles` or `taxa`
-```
-
-
