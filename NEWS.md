@@ -6,6 +6,7 @@
 ### `collapse()`, `compute()`, `collect()`
 * New underlying architecture behind every function that pings an API in galah separates query building into 3 stages: Convert an object to a `query_set` that lists all APIs that will be pinged (`collapse()`), send the queries to required APIs (`compute()`), and return data as a `tibble` (`collect()`) (#183).
 * New architecture solves timing-out issue when downloading large numbers of records (#180, #192)
+* `galah_filter()`, `galah_select()` and related functions now evaluated lazily; no API calls are made until `compute()` is called, meaning that earlier programming stages are faster and easier to debug.
 
 ### Major improvements to `galah_filter()`
 * `galah_filter()` has been upgraded to use a hierarchical parsing architecture suggested by [Advanced R](https://adv-r.hadley.nz/expressions.html). As a result, `galah_filter()` is faster and evaluates expressions more consistently (#196, #169)
