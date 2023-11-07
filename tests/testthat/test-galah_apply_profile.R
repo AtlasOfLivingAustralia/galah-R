@@ -8,6 +8,12 @@ test_that("galah_apply_profile filters counts", {
   expect_gt(with_profile[[1]], 0)
   expect_equal(class(without_profile), class(with_profile))
   expect_lt(with_profile[[1]], without_profile[[1]])
+  # add dplyr syntax
+  with_profile_2 <- request_data() |>
+    apply_profile(ALA) |>
+    count() |>
+    collect()
+  expect_equal(with_profile, with_profile_2)
 })
 
 test_that("galah_apply_profile filters occurrences", {
@@ -32,10 +38,21 @@ test_that("galah_apply_profile matches profile", {
   profile_2 <- galah_apply_profile(AVH)
   expect_equal(profile_1[[1]],  "ALA")
   expect_equal(profile_2[[1]],  "AVH")
-  expect_error(galah_apply_profile(whatever), "Invalid profile")
+})
+
+test_that("`galah_apply_profile()` errors at `compute()`", {
+  skip_if_offline()
+  galah_config(run_checks = TRUE)
+  x <- request_data() |>
+    apply_profile(whatever) |>
+    count() |>
+    collapse()
+  expect_error(compute(x), "Unrecognised profile requested.")
+  galah_config(run_checks = FALSE)
 })
 
 test_that("galah_apply_profile allows only one profile at a time", {
   skip_if_offline()
-  expect_error(galah_apply_profile(ALA, CSDM), "Too many data profiles supplied.")
+  expect_error(galah_apply_profile(ALA, CSDM), 
+               "Too many data profiles supplied.")
 })

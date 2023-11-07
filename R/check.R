@@ -585,20 +585,20 @@ check_password <- function(.query,
 # }
 
 #' Internal function to check a supplied profile is valid
+#' @importFrom glue glue
+#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
 check_profiles <- function(.query, error_call = caller_env()){
   if(!inherits(.query$url, "data.frame")){
-    url <- .query$url[1]
-    if(grepl("data-profiles", url)){
-      url_split <- strsplit(.query$url[1], "/")[[1]]
-      profile <- url_split[length(url_split)]
+    query <- url_parse(.query$url[1])$query
+    if(!is.null(query$qualityProfile)){
+      profile <- query$qualityProfile
       if(!profile %in% .query[["metadata/profiles"]]$shortName){
         bullets <- c(
           "Unrecognised profile requested.",
           i = "See `?show_all(profiles)` for valid profiles.",
-          x = "Can't find profile `{profile}` for specified atlas."
-        )
+          x = glue("Can't find profile `{profile}` for specified atlas."))
         abort(bullets, call = error_call)
       }else{
         .query
@@ -612,6 +612,8 @@ check_profiles <- function(.query, error_call = caller_env()){
 }
 
 #' Internal function to check that a reason code is valid
+#' @importFrom glue glue
+#' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
 check_reason <- function(.query, error_call = caller_env()){

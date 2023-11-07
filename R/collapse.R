@@ -64,6 +64,10 @@ collapse.data_request <- function(x, ..., mint_doi = FALSE){
   if(!is.null(x$identify) & x$type != "occurrences-doi"){
     result[[(length(result) + 1)]] <- collapse_taxa(list(identify = x$identify))
   }
+  # handle `apply_profile()`
+  if(!is.null(x$data_profile)){
+    result[[(length(result) + 1)]] <- collapse_profiles()
+  }
   # handle query
   result[[(length(result) + 1)]] <- switch(
     x$type,
