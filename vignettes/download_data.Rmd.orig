@@ -111,64 +111,42 @@ media_data |> head()
 
 To actually download the media files to your computer, use [collect_media()].
 
+
 # Taxonomic trees
 `atlas_taxonomy` provides a way to build taxonomic trees from one clade down to 
-another using ALA's internal taxonomy. Specify which taxonomic level your tree 
-will go down to with `galah_down_to`.
+another using each service's internal taxonomy. Specify which taxonomic level 
+your tree will go down to with `galah_filter()` using the `rank` argument.
 
 ```{r, warning = FALSE}
-classes <- galah_call() |>
+galah_call() |>
   galah_identify("chordata") |>
-  galah_down_to(class) |>
+  galah_filter(rank == class) |>
   atlas_taxonomy()
 ```
 
-This function is unique within `galah` as it is the only function that returns
-a `data.tree`, rather than a `tibble`. 
-
-```{r, echo = FALSE}
-classes
-```
-
-Although the tree format is useful, 
-converting to a `data.frame` is straightforward.
-
-```{r to-df}
-data.tree::ToDataFrameTypeCol(classes, type = "rank") |> head()
-
-```
-
-
 # Configuring `galah`
-Various aspects of the galah package can be customized. To preserve
-configuration for future sessions, set `profile_path` to a location of a
-`.Rprofile` file.
+Various aspects of the galah package can be customized. 
 
 ## Email
 To download occurrence records, you will need to provide an email address
-registered with the ALA. You can create an account [here](https://auth.ala.org.au/userdetails/registration/createAccount).
-Once an email is registered with the ALA, it should be stored in the config:
+registered with the service that you want to use (e.g. for the ALA you can 
+create an account 
+[here](https://auth.ala.org.au/userdetails/registration/createAccount)).
+Once an email is registered, it should be stored in the config:
 ```{r eval=FALSE}
 galah_config(email = "myemail@gmail.com")
 ```
 
-## Caching
-`galah` can cache most results to local files. This means that if the same code
-is run multiple times, the second and subsequent iterations will be faster.
-
-By default, this caching is session-based, meaning that the local files are
-stored in a temporary directory that is automatically deleted when the R
-session is ended. This behaviour can be altered so that caching is permanent,
-by setting the caching directory to a non-temporary location.
+## Setting your directory
+By default, `galah` stores downloads in a temporary folder, meaning that the 
+local files are automatically deleted when the R session is ended. This 
+behaviour can be altered so that downloaded files are preserved by setting the 
+directory to a non-temporary location.
 
 ```{r eval=FALSE}
-galah_config(cache_directory = "example/dir")
+galah_config(directory = "example/dir")
 ```
 
-By default, caching is turned off. To turn caching on, run
-```{r eval=FALSE}
-galah_config(caching = FALSE)
-```
 ## Setting the download reason
 ALA requires that you provide a reason when downloading occurrence data 
 (via the galah `atlas_occurrences()` function). The reason is set as 

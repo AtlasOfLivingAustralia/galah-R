@@ -1,7 +1,7 @@
 ---
 title: "Download data"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-10-13'
+date: '2023-11-07'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -39,7 +39,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 130679056
+## 1 131963195
 ```
 
 In addition to the filter arguments, it has an optional `group_by` argument, 
@@ -56,16 +56,16 @@ galah_call() |>
 ## # A tibble: 11 × 2
 ##    kingdom       count
 ##    <chr>         <int>
-##  1 Animalia  100322982
-##  2 Plantae    25677703
-##  3 Fungi       2277100
-##  4 Chromista   1019912
-##  5 Protista     351845
-##  6 Bacteria     113135
-##  7 Eukaryota      8818
-##  8 Protozoa       4707
+##  1 Animalia  101176164
+##  2 Plantae    26026027
+##  3 Fungi       2285235
+##  4 Chromista   1020325
+##  5 Protista     352282
+##  6 Bacteria     113165
+##  7 Eukaryota      8821
+##  8 Protozoa       4716
 ##  9 Archaea        4120
-## 10 Virus          2300
+## 10 Virus          2306
 ## 11 Viroid          103
 ```
 
@@ -89,14 +89,14 @@ species |> head()
 
 ```
 ## # A tibble: 6 × 10
-##   kingdom  phylum   class    order    family  genus        species                     author            species_guid        vernacular_name
-##   <chr>    <chr>    <chr>    <chr>    <chr>   <chr>        <chr>                       <chr>             <chr>               <chr>          
-## 1 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys delicatulus       (Gould, 1842)     https://biodiversi… Delicate Mouse 
-## 2 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. Gray, 1843) https://biodiversi… Black-footed T…
-## 3 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thomas, 1889)    https://biodiversi… Common Rock-rat
-## 4 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite, 1896)     https://biodiversi… Sandy Inland M…
-## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsay, 1887)    https://biodiversi… Grassland Melo…
-## 6 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas, 1922      https://biodiversi… Spinifex Hoppi…
+##   kingdom  phylum   class    order  family genus species author species_guid vernacular_name
+##   <chr>    <chr>    <chr>    <chr>  <chr>  <chr> <chr>   <chr>  <chr>        <chr>          
+## 1 Animalia Chordata Mammalia Roden… Murid… Pseu… Pseudo… (Goul… https://bio… Delicate Mouse 
+## 2 Animalia Chordata Mammalia Roden… Murid… Mese… Mesemb… (J.E.… https://bio… Black-footed T…
+## 3 Animalia Chordata Mammalia Roden… Murid… Zyzo… Zyzomy… (Thom… https://bio… Common Rock-rat
+## 4 Animalia Chordata Mammalia Roden… Murid… Pseu… Pseudo… (Wait… https://bio… Sandy Inland M…
+## 5 Animalia Chordata Mammalia Roden… Murid… Melo… Melomy… (Rams… https://bio… Grassland Melo…
+## 6 Animalia Chordata Mammalia Roden… Murid… Noto… Notomy… Thoma… https://bio… Spinifex Hoppi…
 ```
 
 
@@ -137,15 +137,16 @@ occ |> head()
 
 ```
 ## # A tibble: 6 × 9
-##   recordID              decimalLatitude decimalLongitude eventDate           scientificName taxonConceptID dataResourceName occurrenceStatus
-##   <chr>                           <dbl>            <dbl> <dttm>              <chr>          <chr>          <chr>            <chr>           
-## 1 0000a928-d756-42eb-8…           -35.6             149. 2017-04-19 09:11:00 Eolophus rose… https://biodi… eBird Australia  PRESENT         
-## 2 0001bc78-d2e9-48aa-8…           -35.2             149. 2019-08-13 15:13:00 Eolophus rose… https://biodi… eBird Australia  PRESENT         
-## 3 0002064f-08ea-425b-9…           -35.3             149. 2014-03-16 06:48:00 Eolophus rose… https://biodi… eBird Australia  PRESENT         
-## 4 00022dd2-9f85-4802-b…           -35.3             149. 2022-05-08 08:20:00 Eolophus rose… https://biodi… eBird Australia  PRESENT         
-## 5 0002cc35-8d5a-4d20-8…           -35.3             149. 2015-11-01 08:00:00 Eolophus rose… https://biodi… eBird Australia  PRESENT         
-## 6 00030a8c-082f-44f0-8…           -35.3             149. 2022-01-06 11:47:00 Eolophus rose… https://biodi… eBird Australia  PRESENT         
-## # ℹ 1 more variable: institutionID <lgl>
+##   recordID                    scientificName taxonConceptID decimalLatitude decimalLongitude
+##   <chr>                       <chr>          <chr>                    <dbl>            <dbl>
+## 1 0000a928-d756-42eb-8058-6f… Eolophus rose… https://biodi…           -35.6             149.
+## 2 0001bc78-d2e9-48aa-8b9d-d6… Eolophus rose… https://biodi…           -35.2             149.
+## 3 0002064f-08ea-425b-97c5-26… Eolophus rose… https://biodi…           -35.3             149.
+## 4 00022dd2-9f85-4802-b837-7f… Eolophus rose… https://biodi…           -35.3             149.
+## 5 0002cc35-8d5a-4d20-8012-12… Eolophus rose… https://biodi…           -35.3             149.
+## 6 00030a8c-082f-44f0-898a-ad… Eolophus rose… https://biodi…           -35.3             149.
+## # ℹ 4 more variables: eventDate <dttm>, occurrenceStatus <chr>, dataResourceName <chr>,
+## #   institutionID <lgl>
 ```
 
 
@@ -163,97 +164,97 @@ media_data <- galah_call() |>
     year == 2020,
     cl22 == "Australian Capital Territory") |>
   atlas_media()
-  
+```
+
+```
+## Retrying in 1 seconds.
+```
+
+```r
 media_data |> head()
 ```
 
 ```
 ## # A tibble: 6 × 19
-##   media_id     recordID decimalLatitude decimalLongitude eventDate           scientificName taxonConceptID dataResourceName occurrenceStatus
-##   <chr>        <chr>              <dbl>            <dbl> <dttm>              <chr>          <chr>          <chr>            <chr>           
-## 1 ff8322d0-f4… 003a192…           -35.3             149. 2020-09-12 06:11:00 Eolophus rose… https://biodi… iNaturalist Aus… PRESENT         
-## 2 c66fc819-70… 015ee7c…           -35.4             149. 2020-08-09 05:11:00 Eolophus rose… https://biodi… iNaturalist Aus… PRESENT         
-## 3 fe6d7b94-9e… 05e86b7…           -35.4             149. 2020-11-13 22:29:00 Eolophus rose… https://biodi… NatureMapr       PRESENT         
-## 4 2f4d32c0-a0… 063bb0f…           -35.6             149. 2020-08-04 01:50:00 Eolophus rose… https://biodi… iNaturalist Aus… PRESENT         
-## 5 73407414-07… 063bb0f…           -35.6             149. 2020-08-04 01:50:00 Eolophus rose… https://biodi… iNaturalist Aus… PRESENT         
-## 6 89171c49-5a… 063bb0f…           -35.6             149. 2020-08-04 01:50:00 Eolophus rose… https://biodi… iNaturalist Aus… PRESENT         
-## # ℹ 10 more variables: multimedia <chr>, images <chr>, videos <lgl>, sounds <lgl>, creator <chr>, license <chr>, mimetype <chr>,
-## #   width <int>, height <int>, image_url <chr>
+##   media_id           recordID scientificName taxonConceptID decimalLatitude decimalLongitude
+##   <chr>              <chr>    <chr>          <chr>                    <dbl>            <dbl>
+## 1 ff8322d0-f44c-47a… 003a192… Eolophus rose… https://biodi…           -35.3             149.
+## 2 c66fc819-7022-44f… 015ee7c… Eolophus rose… https://biodi…           -35.4             149.
+## 3 fe6d7b94-9e61-4ac… 05e86b7… Eolophus rose… https://biodi…           -35.4             149.
+## 4 2f4d32c0-a084-4bb… 063bb0f… Eolophus rose… https://biodi…           -35.6             149.
+## 5 73407414-0707-429… 063bb0f… Eolophus rose… https://biodi…           -35.6             149.
+## 6 89171c49-5a64-423… 063bb0f… Eolophus rose… https://biodi…           -35.6             149.
+## # ℹ 13 more variables: eventDate <dttm>, occurrenceStatus <chr>, dataResourceName <chr>,
+## #   multimedia <chr>, images <chr>, videos <lgl>, sounds <lgl>, creator <chr>,
+## #   license <chr>, mimetype <chr>, width <int>, height <int>, image_url <chr>
 ```
 
 To actually download the media files to your computer, use [collect_media()].
 
+
 # Taxonomic trees
 `atlas_taxonomy` provides a way to build taxonomic trees from one clade down to 
-another using ALA's internal taxonomy. Specify which taxonomic level your tree 
-will go down to with `galah_down_to`.
+another using each service's internal taxonomy. Specify which taxonomic level 
+your tree will go down to with `galah_filter()` using the `rank` argument.
 
 
 ```r
-classes <- galah_call() |>
+galah_call() |>
   galah_identify("chordata") |>
-  galah_down_to(class) |>
+  galah_filter(rank == class) |>
   atlas_taxonomy()
 ```
 
 ```
-## Error in request_values(): could not find function "request_values"
+## # A tibble: 19 × 4
+##    name            rank      parent_taxon_concept_id                        taxon_concept_id
+##    <chr>           <chr>     <chr>                                          <chr>           
+##  1 Chordata        phylum    <NA>                                           https://biodive…
+##  2 Cephalochordata subphylum https://biodiversity.org.au/afd/taxa/065f1da4… https://biodive…
+##  3 Tunicata        subphylum https://biodiversity.org.au/afd/taxa/065f1da4… https://biodive…
+##  4 Appendicularia  class     https://biodiversity.org.au/afd/taxa/1c20ed62… https://biodive…
+##  5 Ascidiacea      class     https://biodiversity.org.au/afd/taxa/1c20ed62… https://biodive…
+##  6 Thaliacea       class     https://biodiversity.org.au/afd/taxa/1c20ed62… https://biodive…
+##  7 Vertebrata      subphylum https://biodiversity.org.au/afd/taxa/065f1da4… https://biodive…
+##  8 Agnatha         informal  https://biodiversity.org.au/afd/taxa/5d6076b1… https://biodive…
+##  9 Myxini          informal  https://biodiversity.org.au/afd/taxa/66db22c8… https://biodive…
+## 10 Petromyzontida  informal  https://biodiversity.org.au/afd/taxa/66db22c8… https://biodive…
+## 11 Gnathostomata   informal  https://biodiversity.org.au/afd/taxa/5d6076b1… https://biodive…
+## 12 Amphibia        class     https://biodiversity.org.au/afd/taxa/ef5515fd… https://biodive…
+## 13 Aves            class     https://biodiversity.org.au/afd/taxa/ef5515fd… https://biodive…
+## 14 Mammalia        class     https://biodiversity.org.au/afd/taxa/ef5515fd… https://biodive…
+## 15 Pisces          informal  https://biodiversity.org.au/afd/taxa/ef5515fd… https://biodive…
+## 16 Actinopterygii  class     https://biodiversity.org.au/afd/taxa/e22efeb4… https://biodive…
+## 17 Chondrichthyes  class     https://biodiversity.org.au/afd/taxa/e22efeb4… https://biodive…
+## 18 Sarcopterygii   class     https://biodiversity.org.au/afd/taxa/e22efeb4… https://biodive…
+## 19 Reptilia        class     https://biodiversity.org.au/afd/taxa/ef5515fd… https://biodive…
 ```
-
-This function is unique within `galah` as it is the only function that returns
-a `data.tree`, rather than a `tibble`. 
-
-
-```
-## Error in eval(expr, envir, enclos): object 'classes' not found
-```
-
-Although the tree format is useful, 
-converting to a `data.frame` is straightforward.
-
-
-```r
-data.tree::ToDataFrameTypeCol(classes, type = "rank") |> head()
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'classes' not found
-```
-
 
 # Configuring `galah`
-Various aspects of the galah package can be customized. To preserve
-configuration for future sessions, set `profile_path` to a location of a
-`.Rprofile` file.
+Various aspects of the galah package can be customized. 
 
 ## Email
 To download occurrence records, you will need to provide an email address
-registered with the ALA. You can create an account [here](https://auth.ala.org.au/userdetails/registration/createAccount).
-Once an email is registered with the ALA, it should be stored in the config:
+registered with the service that you want to use (e.g. for the ALA you can 
+create an account 
+[here](https://auth.ala.org.au/userdetails/registration/createAccount)).
+Once an email is registered, it should be stored in the config:
 
 ```r
 galah_config(email = "myemail@gmail.com")
 ```
 
-## Caching
-`galah` can cache most results to local files. This means that if the same code
-is run multiple times, the second and subsequent iterations will be faster.
-
-By default, this caching is session-based, meaning that the local files are
-stored in a temporary directory that is automatically deleted when the R
-session is ended. This behaviour can be altered so that caching is permanent,
-by setting the caching directory to a non-temporary location.
+## Setting your directory
+By default, `galah` stores downloads in a temporary folder, meaning that the 
+local files are automatically deleted when the R session is ended. This 
+behaviour can be altered so that downloaded files are preserved by setting the 
+directory to a non-temporary location.
 
 
 ```r
-galah_config(cache_directory = "example/dir")
+galah_config(directory = "example/dir")
 ```
 
-By default, caching is turned off. To turn caching on, run
-
-```r
-galah_config(caching = FALSE)
-```
 ## Setting the download reason
 ALA requires that you provide a reason when downloading occurrence data 
 (via the galah `atlas_occurrences()` function). The reason is set as 
