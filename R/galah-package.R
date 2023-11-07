@@ -8,10 +8,10 @@
 #' as 'nodes'. The basic unit of observation stored by these infrastructures is 
 #' an **occurrence** record, based on the Darwin Core' data standard 
 #' (<https://dwc.tdwg.org>); however `galah` also enables users to locate and 
-#' download taxonomic information, associated media such images or sounds, all 
-#' while restricting their queries to particular taxa or locations. Users can 
-#' specify which columns are returned by a query, or restrict their results to 
-#' observations that meet particular quality-control criteria. 
+#' download taxonomic information, or associated media such images or sounds, 
+#' all while restricting their queries to particular taxa or locations. Users 
+#' can specify which columns are returned by a query, or restrict their results 
+#' to observations that meet particular quality-control criteria. 
 #'
 #' For those outside Australia, 'galah' is the common name of
 #' *Eolophus roseicapilla*, a widely-distributed Australian bird species.

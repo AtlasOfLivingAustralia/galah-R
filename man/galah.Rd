@@ -13,10 +13,10 @@ resources hosted by GBIF and several of it's subsidiary organisations, known
 as 'nodes'. The basic unit of observation stored by these infrastructures is
 an \strong{occurrence} record, based on the Darwin Core' data standard
 (\url{https://dwc.tdwg.org}); however \code{galah} also enables users to locate and
-download taxonomic information, associated media such images or sounds, all
-while restricting their queries to particular taxa or locations. Users can
-specify which columns are returned by a query, or restrict their results to
-observations that meet particular quality-control criteria.
+download taxonomic information, or associated media such images or sounds,
+all while restricting their queries to particular taxa or locations. Users
+can specify which columns are returned by a query, or restrict their results
+to observations that meet particular quality-control criteria.
 
 For those outside Australia, 'galah' is the common name of
 \emph{Eolophus roseicapilla}, a widely-distributed Australian bird species.
