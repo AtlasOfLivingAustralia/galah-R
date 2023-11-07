@@ -24,6 +24,8 @@
 }
 \arguments{
 \item{x}{an object of the appropriate \code{class}}
+
+\item{...}{Arguments to be passed to or from other methods}
 }
 \value{
 Print does not return an object; instead it prints a description

@@ -13,6 +13,8 @@ apply_profile(.data, ...)
 \item{...}{a profile name. Should be a \code{string} - the name or abbreviation
 of a data quality profile to apply to the query. Valid values can be seen
 using \code{show_all(profiles)}}
+
+\item{.data}{An object of class \code{data_request}}
 }
 \value{
 A tibble containing a valid data profile value.

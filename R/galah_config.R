@@ -149,25 +149,24 @@ restructure_config <- function(dots){
 #' @keywords Internal
 validate_config <- function(name, value, error_call = caller_env()) {
   switch(name, 
+         "api_key"         = enforce_character(value),
          "atlas" = {
            value <- configure_atlas(value)
            # see whether atlases have changed, and if so, give a message
            check_atlas(pour("atlas"), value)
-           },
+         },
          "caching"         = enforce_logical(value),
-         "send_email"      = enforce_logical(value),
-         "verbose"         = enforce_logical(value),
-         "run_checks"      = enforce_logical(value),
          "directory"       = check_directory(value),
+         "download_reason_id" = {
+           value <- enforce_download_reason(value) |> 
+             convert_reason()},
          "email"           = enforce_character(value),
          "password"        = enforce_character(value),
+         "run_checks"      = enforce_logical(value),
+         "send_email"      = enforce_logical(value),
          "username"        = enforce_character(value),
-         "api_key"         = enforce_character(value),
-         "download_reason_id" = {
-           value <- enforce_download_reason(value) |> convert_reason()
-           },
-         enforce_invalid_name())
-  
+         "verbose"         = enforce_logical(value),
+         enforce_invalid_name(value))
   return(value)
 }
 
@@ -238,7 +237,7 @@ enforce_download_reason <- function(value, error_call = caller_env()){
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-enforce_invalid_name <- function(value, error_call = caller_env()){
+enforce_invalid_name <- function(name, error_call = caller_env()){
   bullets <- c(
     "Invalid option name.",
     i = "See `?galah_config()` for valid options.",

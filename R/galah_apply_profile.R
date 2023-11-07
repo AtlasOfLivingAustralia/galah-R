@@ -45,6 +45,7 @@ galah_apply_profile <- function(...){
 }
 
 #' @rdname galah_apply_profile
+#' @param .data An object of class `data_request`
 #' @export
 apply_profile <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")

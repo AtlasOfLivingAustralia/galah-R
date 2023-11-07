@@ -10,6 +10,7 @@
 #' information.
 #' @name print_galah_objects
 #' @param x an object of the appropriate `class`
+#' @param ... Arguments to be passed to or from other methods
 #' @returns Print does not return an object; instead it prints a description
 #' of the object to the console
 #' @examples
