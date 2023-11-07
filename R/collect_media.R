@@ -98,7 +98,7 @@ collect_media <- function(df,
   }
   
   request_files() |>
-    galah_filter(.data$media == df) |>
+    filter("media" == df) |>
     collapse(thumbnail = thumbnail) |>
     collect()
 }

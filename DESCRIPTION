@@ -25,7 +25,7 @@ Description: The Global Biodiversity Information Facility
     web services using a codebase originally developed by the Atlas of Living 
     Australia (ALA, <https://www.ala.org.au>). 'galah' enables the R community 
     to directly access data and resources hosted by GBIF and its partner nodes.
-Depends: 
+Depends:
     R (>= 4.1.0)
 Imports:
     cli,

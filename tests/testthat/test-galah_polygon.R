@@ -53,8 +53,8 @@ test_that("galah_polygon counts vertices correctly", {
 
 test_that("galah_polygon checks for simple polygons only", {
   poly_path <- test_path("testdata", "act_state_polygon_shp", "ACT_STATE_POLYGON_shp.shp")
-  shapefile_complex <- st_read(poly_path, quiet = TRUE)
-  shapefile_simple <- st_simplify(shapefile_complex, dTolerance = 1000)
+  shapefile_complex <- sf::st_read(poly_path, quiet = TRUE)
+  shapefile_simple <- sf::st_simplify(shapefile_complex, dTolerance = 1000)
   expect_error(galah_polygon(shapefile_complex), "Polygon must have 500 or fewer vertices")
   expect_match(galah_polygon(shapefile_simple), "MULTIPOLYGON")
 })
@@ -62,7 +62,7 @@ test_that("galah_polygon checks for simple polygons only", {
 test_that("galah_polygon counts n vertices correctly", {
   sf_wkt <- "POLYGON((143.32 -18.78,145.30 -20.52,141.52 -21.50,143.32 -18.78))" |> st_as_sfc()
   poly_path <- test_path("testdata", "act_state_polygon_shp", "ACT_STATE_POLYGON_shp.shp")
-  shapefile_complex <- st_read(poly_path, quiet = TRUE)
+  shapefile_complex <- sf::st_read(poly_path, quiet = TRUE)
   expect_equal(n_points(shapefile_complex), 2787)
   expect_equal(n_points(sf_wkt), 4)
 })
