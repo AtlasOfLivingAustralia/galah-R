@@ -163,6 +163,16 @@ test_that("galah_select can use tidyselect::starts_with", {
   expect_true(all(grepl("^el", assertions)))
 })
 
+test_that("galah_select fails when unrepresented combinations are requested", {
+  skip_if_offline()
+  expect_error({galah_call() |>
+    identify("oxyopes dingo") |>
+    select(starts_with("elev") & ends_with("n")) |>
+    collapse() |>
+    build_checks() |>
+    compute_checks()})
+})
+
 test_that("galah_select can use tidyselect::last_col", {
   x <- galah_call() |>
     identify("oxyopes dingo") |>

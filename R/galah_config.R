@@ -166,7 +166,7 @@ validate_config <- function(name, value, error_call = caller_env()) {
          "send_email"      = enforce_logical(value),
          "username"        = enforce_character(value),
          "verbose"         = enforce_logical(value),
-         enforce_invalid_name(value))
+         enforce_invalid_name(name))
   return(value)
 }
 

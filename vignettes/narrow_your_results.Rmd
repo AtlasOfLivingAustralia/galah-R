@@ -1,7 +1,7 @@
 ---
 title: "Narrow your results"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-10-13'
+date: '2023-11-07'
 output: html_document
 editor_options: 
   chunk_output_type: inline
@@ -29,7 +29,6 @@ These functions include:
 -   `galah_select` or `select`
 -   `galah_group_by` or `group_by`
 -   `galah_geolocate` or `st_crop`
--   `galah_down_to`
 
 These names have been chosen to echo comparable functions from `dplyr`; namely
 `filter`, `select` and `group_by`. With the exception of `galah_geolocate`, they
@@ -55,24 +54,26 @@ search_taxa("Reptilia")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                                  rank  match_type kingdom phylum class issues
-##   <chr>       <chr>           <chr>                                                             <chr> <chr>      <chr>   <chr>  <chr> <chr> 
-## 1 Reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550… class exactMatch Animal… Chord… Rept… noIss…
+##   search_term scientific_name taxon_concept_id  rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>             <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 Reptilia    REPTILIA        https://biodiver… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
 If we want to be more specific by providing additional taxonomic information
-to `search_taxa`, you can provide a `data.frame` containing more levels of the
-taxonomic hierarchy:
+to `search_taxa`, you can provide a `tibble` (or `data.frame`) containing more 
+levels of the taxonomic hierarchy:
 
 ```r
-search_taxa(data.frame(genus = "Eolophus", kingdom = "Aves"))
+search_taxa(tibble(genus = "Eolophus", kingdom = "Aves"))
 ```
 
 ```
 ## # A tibble: 1 × 13
-##   search_term   scientific_name scientific_name_authorship taxon_concept_id  rank  match_type kingdom phylum class order family genus issues
-##   <chr>         <chr>           <chr>                      <chr>             <chr> <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr> 
-## 1 Eolophus_Aves Eolophus        Bonaparte, 1854            https://biodiver… genus exactMatch Animal… Chord… Aves  Psit… Cacat… Eolo… noIss…
+##   search_term   scientific_name scientific_name_authorship taxon_concept_id rank  match_type
+##   <chr>         <chr>           <chr>                      <chr>            <chr> <chr>     
+## 1 Eolophus_Aves Eolophus        Bonaparte, 1854            https://biodive… genus exactMatch
+## # ℹ 7 more variables: kingdom <chr>, phylum <chr>, class <chr>, order <chr>, family <chr>,
+## #   genus <chr>, issues <chr>
 ```
 
 Once we know that our search matches the correct taxon or taxa, we 
@@ -88,12 +89,12 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 1669413
+## 1 1673906
 ```
 
 
 ```r
-taxa <- search_taxa(data.frame(genus = "Eolophus", kingdom = "Aves"))
+taxa <- search_taxa(tibble(genus = "Eolophus", kingdom = "Aves"))
 
 galah_call() |>
  galah_identify(taxa) |>
@@ -104,7 +105,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 1092314
+## 1 1092638
 ```
 
 If you're using an international atlas, `search_taxa` will automatically 
@@ -128,10 +129,14 @@ galah_call() |>
 ```
 
 ```
-## Error in `filter()`:
-## ℹ In argument: `!duplicated(guid)`.
-## Caused by error:
-## ! object 'guid' not found
+## # A tibble: 5 × 2
+##   species           count
+##   <chr>             <int>
+## 1 Lepus granatensis  1378
+## 2 Lepus microtis       64
+## 3 Lepus europaeus      10
+## 4 Lepus saxatilis       2
+## 5 Lepus capensis        1
 ```
 
 Conversely, the UK's [National Biodiversity Network](https://nbn.org.uk) (NBN), 
@@ -148,7 +153,7 @@ galah_config(atlas = "United Kingdom")
 
 ```r
 galah_call() |> 
-  galah_identify("Bufo") |> 
+  galah_filter(genus == "Bufo") |> 
   galah_group_by(species) |> 
   atlas_counts()
 ```
@@ -157,20 +162,23 @@ galah_call() |>
 ## # A tibble: 3 × 2
 ##   species       count
 ##   <chr>         <int>
-## 1 Bufo bufo     93768
+## 1 Bufo bufo     94054
 ## 2 Bufo spinosus    87
 ## 3 Bufo marinus      1
-```
-
-
-```
-## Atlas selected: Atlas of Living Australia (ALA) [Australia]
 ```
 
 # galah_filter
 Perhaps the most important function in `galah` is `galah_filter`, which is used
 to filter the rows of queries:
 
+
+```r
+galah_config(atlas = "Australia")
+```
+
+```
+## Atlas selected: Atlas of Living Australia (ALA) [Australia]
+```
 
 ```r
 # Get total record count since 2000
@@ -183,7 +191,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 90045014
+## 1 90503179
 ```
 
 ```r
@@ -199,7 +207,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 5430326
+## 1 5600557
 ```
 
 To find available fields and corresponding valid values, use the field lookup 
@@ -225,16 +233,16 @@ galah_call() |>
 ## # A tibble: 30 × 2
 ##    class          count
 ##    <chr>          <int>
-##  1 Insecta      5762407
-##  2 Gastropoda    952331
-##  3 Maxillopoda   793073
-##  4 Arachnida     682715
-##  5 Malacostraca  649904
-##  6 Polychaeta    276096
-##  7 Bivalvia      233286
-##  8 Anthozoa      215233
-##  9 Demospongiae  118272
-## 10 Cephalopoda    61860
+##  1 Insecta      5806340
+##  2 Gastropoda    957271
+##  3 Maxillopoda   793194
+##  4 Arachnida     689708
+##  5 Malacostraca  651658
+##  6 Polychaeta    276272
+##  7 Bivalvia      234110
+##  8 Anthozoa      216343
+##  9 Cephalopoda   145929
+## 10 Demospongiae  118375
 ## # ℹ 20 more rows
 ```
 
@@ -254,7 +262,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 81271967
+## 1 81471797
 ```
 
 To see a full list of data quality profiles, use `show_all(profiles)`.
@@ -275,16 +283,16 @@ galah_call() |>
 ## # A tibble: 36 × 3
 ##    year  basisOfRecord         count
 ##    <chr> <chr>                 <int>
-##  1 2020  Human observation   6549182
-##  2 2020  OCCURRENCE           419989
-##  3 2020  Preserved specimen    81088
+##  1 2020  Human observation   6551035
+##  2 2020  Occurrence           419842
+##  3 2020  Preserved specimen    84136
 ##  4 2020  Machine observation   38906
 ##  5 2020  Observation           24887
 ##  6 2020  Material Sample        1677
 ##  7 2020  Living specimen          62
-##  8 2019  Human observation   5730269
-##  9 2019  OCCURRENCE           290814
-## 10 2019  Preserved specimen   161066
+##  8 2019  Human observation   5730445
+##  9 2019  Occurrence           290610
+## 10 2019  Preserved specimen   165391
 ## # ℹ 26 more rows
 ```
 
@@ -299,22 +307,28 @@ Use `galah_select` to choose which columns are returned when downloading records
 occurrences <- galah_call() |>
   galah_identify("reptilia") |>
   galah_filter(year == 1930) |>
-  galah_select(eventDate, kingdom) |>
+  galah_select(kingdom, species, eventDate) |>
   atlas_occurrences()
+```
 
+```
+## Retrying in 1 seconds.
+```
+
+```r
 occurrences |> head()
 ```
 
 ```
 ## # A tibble: 6 × 3
-##   recordID                             eventDate           kingdom 
-##   <chr>                                <dttm>              <chr>   
-## 1 050d4cec-ed80-41d2-bed6-2f91d4d34b84 1930-01-01 00:00:00 Animalia
-## 2 0aee0e05-11e1-4089-933c-45358d05db69 1930-11-30 00:00:00 Animalia
-## 3 0cbfa7cb-4262-43d7-b76d-ef34eb57c5b5 1930-04-23 00:00:00 Animalia
-## 4 0fb28f26-4495-4513-9aad-8cfdd23d0808 1930-01-01 00:00:00 Animalia
-## 5 15e65c09-fae2-4b22-9796-6d5a5caac9db 1930-01-01 00:00:00 Animalia
-## 6 170fbb84-dc0a-4e5f-9d3d-a77f4e129d49 1930-01-01 00:00:00 Animalia
+##   kingdom  species                  eventDate          
+##   <chr>    <chr>                    <dttm>             
+## 1 Animalia Drysdalia coronoides     1930-06-16 00:00:00
+## 2 Animalia Intellagama lesueurii    1930-01-01 00:00:00
+## 3 Animalia <NA>                     1930-04-23 00:00:00
+## 4 Animalia <NA>                     1930-01-01 00:00:00
+## 5 Animalia Oxyuranus scutellatus    1930-01-01 00:00:00
+## 6 Animalia Tympanocryptis centralis 1930-11-30 00:00:00
 ```
 
 You can also use other `dplyr` functions that work with `dplyr::select()` with 
@@ -325,14 +339,12 @@ You can also use other `dplyr` functions that work with `dplyr::select()` with
 occurrences <- galah_call() |>
   galah_identify("reptilia") |>
   galah_filter(year == 1930) |>
-  galah_select(starts_with("elev") & ends_with("n")) |>
+  galah_select(starts_with("accepted") | ends_with("record")) |>
   atlas_occurrences()
 ```
 
 ```
-## Error:
-## ! `starts_with()` must be used within a *selecting* function.
-## ℹ See <https://tidyselect.r-lib.org/reference/faq-selection-context.html> for details.
+## Retrying in 1 seconds.
 ```
 
 ```r
@@ -340,15 +352,17 @@ occurrences |> head()
 ```
 
 ```
-## # A tibble: 6 × 3
-##   recordID                             eventDate           kingdom 
-##   <chr>                                <dttm>              <chr>   
-## 1 050d4cec-ed80-41d2-bed6-2f91d4d34b84 1930-01-01 00:00:00 Animalia
-## 2 0aee0e05-11e1-4089-933c-45358d05db69 1930-11-30 00:00:00 Animalia
-## 3 0cbfa7cb-4262-43d7-b76d-ef34eb57c5b5 1930-04-23 00:00:00 Animalia
-## 4 0fb28f26-4495-4513-9aad-8cfdd23d0808 1930-01-01 00:00:00 Animalia
-## 5 15e65c09-fae2-4b22-9796-6d5a5caac9db 1930-01-01 00:00:00 Animalia
-## 6 170fbb84-dc0a-4e5f-9d3d-a77f4e129d49 1930-01-01 00:00:00 Animalia
+## # A tibble: 6 × 6
+##   acceptedNameUsage acceptedNameUsageID basisOfRecord      raw_basisOfRecord
+##   <chr>             <lgl>               <chr>              <chr>            
+## 1 <NA>              NA                  PRESERVED_SPECIMEN Museum specimen  
+## 2 <NA>              NA                  HUMAN_OBSERVATION  HumanObservation 
+## 3 <NA>              NA                  PRESERVED_SPECIMEN PreservedSpecimen
+## 4 <NA>              NA                  HUMAN_OBSERVATION  HumanObservation 
+## 5 <NA>              NA                  PRESERVED_SPECIMEN PreservedSpecimen
+## 6 <NA>              NA                  HUMAN_OBSERVATION  HumanObservation 
+## # ℹ 2 more variables: OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD <lgl>,
+## #   userDuplicateRecord <lgl>
 ```
 
 # galah_geolocate
@@ -368,28 +382,7 @@ galah_call() |>
 
 ```
 ## # A tibble: 1 × 10
-##   kingdom  phylum   class    order           family      genus     species            author        species_guid             vernacular_name
-##   <chr>    <chr>    <chr>    <chr>           <chr>       <chr>     <chr>              <chr>         <chr>                    <chr>          
-## 1 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles eremiana Spencer, 1897 https://biodiversity.or… Desert Bandico…
-```
-
-# galah_down_to
-Use `galah_down_to` to specify the lowest taxonomic level to contruct a taxonomic 
-tree:
-
-
-```r
-galah_call() |>
-  galah_identify("fungi") |>
-  galah_down_to(phylum) |>
-  atlas_taxonomy()
-```
-
-```
-## Warning: `galah_down_to()` is depreatated
-## ℹ Use `filter(rank == chosen_rank)` instead
-```
-
-```
-## Error in request_values(): could not find function "request_values"
+##   kingdom  phylum   class    order  family genus species author species_guid vernacular_name
+##   <chr>    <chr>    <chr>    <chr>  <chr>  <chr> <chr>   <chr>  <chr>        <chr>          
+## 1 Animalia Chordata Mammalia Peram… Peram… Pera… Perame… Spenc… https://bio… Desert Bandico…
 ```

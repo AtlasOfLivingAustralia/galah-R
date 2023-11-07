@@ -31,7 +31,6 @@ These functions include:
 -   `galah_select` or `select`
 -   `galah_group_by` or `group_by`
 -   `galah_geolocate` or `st_crop`
--   `galah_down_to`
 
 These names have been chosen to echo comparable functions from `dplyr`; namely
 `filter`, `select` and `group_by`. With the exception of `galah_geolocate`, they
@@ -55,10 +54,10 @@ search_taxa("Reptilia")
 ```
 
 If we want to be more specific by providing additional taxonomic information
-to `search_taxa`, you can provide a `data.frame` containing more levels of the
-taxonomic hierarchy:
+to `search_taxa`, you can provide a `tibble` (or `data.frame`) containing more 
+levels of the taxonomic hierarchy:
 ```{r}
-search_taxa(data.frame(genus = "Eolophus", kingdom = "Aves"))
+search_taxa(tibble(genus = "Eolophus", kingdom = "Aves"))
 ```
 
 Once we know that our search matches the correct taxon or taxa, we 
@@ -70,7 +69,7 @@ galah_call() |>
 ```
 
 ```{r}
-taxa <- search_taxa(data.frame(genus = "Eolophus", kingdom = "Aves"))
+taxa <- search_taxa(tibble(genus = "Eolophus", kingdom = "Aves"))
 
 galah_call() |>
  galah_identify(taxa) |>
@@ -97,13 +96,9 @@ has its' own taxonomic backbone, but is supported using the same function call.
 galah_config(atlas = "United Kingdom")
 
 galah_call() |> 
-  galah_identify("Bufo") |> 
+  galah_filter(genus == "Bufo") |> 
   galah_group_by(species) |> 
   atlas_counts()
-```
-
-```{r, echo = FALSE}
-galah_config(atlas = "Australia")
 ```
 
 # galah_filter
@@ -111,6 +106,8 @@ Perhaps the most important function in `galah` is `galah_filter`, which is used
 to filter the rows of queries:
 
 ```{r}
+galah_config(atlas = "Australia")
+
 # Get total record count since 2000
 galah_call() |>
   galah_filter(year > 2000) |>
@@ -175,6 +172,9 @@ galah_config(email = "ala4r@ala.org.au",
              atlas = "Australia", 
              caching = FALSE, 
              verbose = FALSE)
+galah_config(download_reason_id = "testing") 
+# fixme: bug preventing this section executing in a single call
+# `download_reason_id = testing` is only valid _after_ atlas has been reset
 ```
 
 ```{r}
@@ -182,7 +182,7 @@ galah_config(email = "ala4r@ala.org.au",
 occurrences <- galah_call() |>
   galah_identify("reptilia") |>
   galah_filter(year == 1930) |>
-  galah_select(eventDate, kingdom) |>
+  galah_select(kingdom, species, eventDate) |>
   atlas_occurrences()
 
 occurrences |> head()
@@ -195,7 +195,7 @@ You can also use other `dplyr` functions that work with `dplyr::select()` with
 occurrences <- galah_call() |>
   galah_identify("reptilia") |>
   galah_filter(year == 1930) |>
-  galah_select(starts_with("elev") & ends_with("n")) |>
+  galah_select(starts_with("accepted") | ends_with("record")) |>
   atlas_occurrences()
 
 occurrences |> head()
@@ -213,16 +213,4 @@ galah_call() |>
   galah_identify("perameles") |>
   galah_geolocate(wkt) |>
   atlas_species()
-```
-
-# galah_down_to
-Use `galah_down_to` to specify the lowest taxonomic level to contruct a taxonomic 
-tree:
-
-```{r}
-galah_call() |>
-  galah_identify("fungi") |>
-  galah_down_to(phylum) |>
-  atlas_taxonomy()
-  
 ```

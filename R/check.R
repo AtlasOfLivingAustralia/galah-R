@@ -718,6 +718,12 @@ check_select <- function(.query){
       # NOTE: placing `recordID` first is critical;
       # having e.g. media columns _before_ `recordID` causes the download to fail 
       values <- unique(c(group_names, individual_cols))
+      if(is.null(values)){
+        bullets <- c("No fields selected",
+                     i = "Please specify a valid set of fields in `select()`",
+                     i = "You can look up valid fields using `show_all(fields)`")
+        abort(bullets)
+      }
       if(any(values == "recordID")){
         values <- c("recordID", values[values != "recordID"]) # recordID needs to be first
       }

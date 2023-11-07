@@ -1,6 +1,7 @@
 # Precompile vignettes to avoid risk of CRAN failures
 
 # setup
+devtools::load_all()
 library(knitr)
 library(dplyr)
 galah_config(email = "martinjwestgate@gmail.com") # add your email
