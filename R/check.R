@@ -666,7 +666,9 @@ check_select <- function(.query){
         as.data.frame()
 
       # 2. parse groups
-      group <- .query$select$group
+      group_initial <- .query$select$group
+      # new step to avoid calling `show_all_assertions()` internally
+      group <- group_initial[group_initial != "assertions"]
       if(length(group) > 0){
         group_cols <- lapply(group, preset_groups) |> 
           unlist()
@@ -688,6 +690,13 @@ check_select <- function(.query){
       }) |>
         unlist()
 
+      # 3a: set 'identifier' column name
+      if(pour("atlas", "region") == "United Kingdom"){
+        id_col <- "id"
+      }else{
+        id_col <- "recordID"
+      }
+      
       # 4: set behaviour depending on what names are given
       # NOTE:
       ## because assertions aren't fields, leaving `fields` empty means default fields are returned
@@ -698,16 +707,16 @@ check_select <- function(.query){
       ## fully populated.
       if(length(dot_names) > 1){
         individual_cols <- dot_names
-      }else{ # i.e. no fields selected
-        if(length(dot_names) == 1){
+      }else{ 
+        if(length(dot_names) == 1){ # i.e. a single field selected
           if(length(group_names) == 0){
-            individual_cols <- unique(c("recordID", dot_names))
+            individual_cols <- unique(c(id_col, dot_names))
           }else{
             individual_cols <- dot_names
           }
-        }else{ # i.e. length(dot_names) == 0
-          if(length(group) == 1 & !any(group_names == "recordID")){
-            individual_cols <- "recordID"
+        }else{ # i.e. length(dot_names) == 0, meaning no fields selected
+          if(length(group_initial) <= 1 & !any(group_names == id_col)){
+            individual_cols <- id_col
           }else{
             individual_cols <- NULL
           }
@@ -717,28 +726,36 @@ check_select <- function(.query){
       # 5. merge to create output object
       # NOTE: placing `recordID` first is critical;
       # having e.g. media columns _before_ `recordID` causes the download to fail 
-      values <- unique(c(group_names, individual_cols))
-      if(is.null(values)){
+      field_values <- unique(c(group_names, individual_cols))
+      if(is.null(field_values)){
         bullets <- c("No fields selected",
                      i = "Please specify a valid set of fields in `select()`",
                      i = "You can look up valid fields using `show_all(fields)`")
         abort(bullets)
       }
-      if(any(values == "recordID")){
-        values <- c("recordID", values[values != "recordID"]) # recordID needs to be first
+      if(any(field_values == id_col)){
+        field_values <- c(id_col, field_values[field_values != id_col]) # recordID needs to be first
       }
-      result <- tibble(name = values, type = "field")
-      result$type[result$name %in% valid_assertions] <- "assertion" 
-      attr(result, "group") <- .query$select$group
       
-      # 6. replace `SELECT_PLACEHOLDER` with valid query via `build_columns()`
+      # 6. handle assertions
+      is_assertion <- field_values %in% valid_assertions
+      if(any(group_initial == "assertions")){
+        assertion_text <- "includeall"
+      }else{
+        if(any(is_assertion)){
+          assertion_text <- paste(field_values[is_assertion], collapse = ",")
+        }else{
+          assertion_text <- "none"
+        }
+      }
+      field_text <- paste(field_values[!is_assertion],
+                          collapse = ",")
+      
+      # 7. replace `SELECT_PLACEHOLDER` with valid query
       # located in .query$url in query/fields
       url <- url_parse(.query$url) # note: this assumes a single url every time
-        # is this a valid assumption?
-      url$query$fields <- result |>
-        filter(result$type == "field") |>
-        build_columns()
-      url$query$qa <- build_assertion_columns(result)
+      url$query$fields <- field_text
+      url$query$qa <- assertion_text
       .query$url <- url_build(url)
       .query$select <- NULL
     }

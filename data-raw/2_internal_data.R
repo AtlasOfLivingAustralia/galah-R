@@ -54,7 +54,7 @@ galah_internal_archived <- list(
              "form", "nothoform", "subform", "biovar", "serovar", 
              "cultivar", "pathovar", "infraspecific")),
   media_fields = tibble(
-    id = c("multimedia", "multimediaLicence", "images", "videos", "sounds"),
+    id = c("multimedia", "images", "videos", "sounds"),
     description = "Media filter field",
     type = "media"),
   other_fields = tibble(

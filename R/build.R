@@ -153,37 +153,6 @@ build_taxa_query <- function(ids) {
   }
 }
 
-#' Sub-function to build a column name string to support `select.data_request()`
-#' @noRd
-#' @keywords Internal
-build_columns <- function(col_df) {
-  if (nrow(col_df) == 0) {
-    return("")
-  }
-  paste0(col_df$name, collapse = ",")
-}
-
-#' Sub-function to build assertions in `collapse_occurrences()`
-#' @noRd
-#' @keywords Internal
-build_assertion_columns <- function(col_df) {
-  assertion_group <- any(attr(col_df, "group") == "assertions")
-  assertion_rows <- which(col_df$type == "assertion")
-  if(assertion_group){ # assertions have been selected as a group
-    if(length(assertion_rows) > 50){ # only if a certain number present
-      return("includeall")
-    }else{
-      return(paste0(col_df$name[assertion_rows], collapse = ","))
-    }
-  }else{ # assertions not selected as a group
-    if(length(assertion_rows) > 0) {
-      return(paste0(col_df$name[assertion_rows], collapse = ","))
-    }else{
-      return("none")
-    }
-  }
-}
-
 #' Sub-function to convert assertions to logicals in `collect_occurrences()`
 #' @noRd
 #' @keywords Internal

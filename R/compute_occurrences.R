@@ -12,7 +12,10 @@ compute_occurrences <- function(.query){
 #' @noRd
 #' @keywords Internal
 compute_occurrences_uk <- function(.query){
-  .query
+  result <- c(.query,
+              list(fields = extract_fields(.query)))
+  class(result) <- "query"
+  result  
 }
 
 #' Internal function to `compute()` for `type = "occurrences"` for GBIF
@@ -38,6 +41,7 @@ compute_occurrences_gbif <- function(.query){
 #' @noRd
 #' @keywords Internal
 compute_occurrences_la <- function(.query){
+  # ping the API
   status_code <- query_API(.query) |>
     as.list() |>
     check_occurrence_response()
@@ -45,9 +49,25 @@ compute_occurrences_la <- function(.query){
     n_records <- status_code$total_records
     inform(glue("Request for {n_records} occurrences placed in queue"))
   }
+  # return a useful object
   result <- c(
     list(type = "data/occurrences"),
-    status_code)
+    status_code, 
+    list(fields = extract_fields(.query)))
   class(result) <- "query"
   result
+}
+
+#' Internal function to get the `fields` vector from a url
+#' @importFrom httr2 url_parse
+#' @importFrom purrr pluck
+#' @noRd
+#' @keywords Internal
+extract_fields <- function(.query){
+  .query |>
+    pluck("url") |>
+    url_parse() |>
+    pluck("query", "fields") |>
+    strsplit(split = ",") |>
+    pluck(!!!list(1))
 }

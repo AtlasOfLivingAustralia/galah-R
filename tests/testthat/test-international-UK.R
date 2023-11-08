@@ -173,13 +173,14 @@ test_that("atlas_occurrences works for United Kingdom", {
   occ_compute <- compute(occ_collapse)
   expect_s3_class(occ_compute, "query")
   expect_equal(names(occ_compute), 
-               c("type", "url", "headers"))
+               c("type", "url", "headers", "fields"))
   expect_equal(occ_compute$type, "data/occurrences")
   # collect
   occ <- collect(occ_compute)
   expect_equal(nrow(occ), counts$count[1])
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(occ), length(default_columns()))
+  expect_equal(colnames(occ), default_columns())
   unlink("temp", recursive = TRUE)
 })
 

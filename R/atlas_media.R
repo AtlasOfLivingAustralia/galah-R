@@ -74,7 +74,7 @@
 #'   
 #' # step three is synonymous with `collect_media()`
 #'}
-#' @importFrom dplyr all_of
+#' @importFrom dplyr any_of
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr relocate
 #' @importFrom dplyr right_join
@@ -163,8 +163,8 @@ atlas_media <- function(request = NULL,
   
   # get occurrences
   occ <- .query |> 
-    collect(wait = TRUE) |>  
-    unnest_longer(col = all_of(present_fields))
+    collect(wait = TRUE) |>
+    unnest_longer(col = any_of(present_fields))
   occ$media_id <- build_media_id(occ) 
   # collect media metadata
   media <- request_metadata() |>

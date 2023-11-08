@@ -69,7 +69,8 @@ test_that("`compute(type = 'occurrences')` works", {
                  "queue_size",
                  "status_url",
                  "cancel_url",
-                 "search_url"))
+                 "search_url",
+                 "fields"))
 })
 
 # test all filters and type of columns in one call
@@ -96,8 +97,9 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
                  "queue_size",
                  "status_url",
                  "cancel_url",
-                 "search_url"
-                 ))
+                 "cancel_url",
+                 "search_url",
+                 "fields"))
   expect_s3_class(x, "query")
   # collect with wait = TRUE
   y <- collect(x, wait = TRUE)    

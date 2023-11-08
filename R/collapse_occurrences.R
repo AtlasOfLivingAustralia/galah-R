@@ -31,7 +31,7 @@ collapse_occurrences_uk <- function(.query){
                              location = .query$geolocate, 
                              data_profile = .query$data_profile$data_profile),
                  fields = "`SELECT_PLACEHOLDER`",
-                 qa = "`ASSERTIONS_PLACEHOLDER`", # build_assertion_columns(.query$select),
+                 qa = "`ASSERTIONS_PLACEHOLDER`",
                  sourceTypeId = 2001,
                  fileType = "csv",
                  reasonTypeId = pour("user", "download_reason_id"),
@@ -93,7 +93,7 @@ collapse_occurrences_la <- function(.query){
                          location = .query$geolocate, 
                          data_profile = .query$data_profile$data_profile),
              fields = "`SELECT_PLACEHOLDER`",
-             qa = "`ASSERTIONS_PLACEHOLDER`", # build_assertion_columns(.query$select),
+             qa = "`ASSERTIONS_PLACEHOLDER`",
              facet = "false", # not tested
              emailNotify = email_notify(),
              sourceTypeId = 2004,

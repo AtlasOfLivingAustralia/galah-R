@@ -170,13 +170,17 @@ add_group <- function(dots, group){
 preset_groups <- function(group_name) {
   cols <- switch(group_name,
                  "basic" = default_columns(),
-                 "event" = c("eventRemarks", "eventTime", "eventID",
-                             "eventDate", "samplingEffort",
+                 "event" = c("eventRemarks",
+                             "eventTime",
+                             "eventID",
+                             "eventDate",
+                             "samplingEffort",
                              "samplingProtocol"),
-                 "media" = c("multimedia", "multimediaLicence", 
-                             "images", "videos", "sounds"),
-                 "assertions" = show_all_assertions()$id
-  )
+                 "media" = c("multimedia",
+                             "images",
+                             "videos",
+                             "sounds"))
+  # note: assertions handled elsewhere
   return(cols)
 }
 

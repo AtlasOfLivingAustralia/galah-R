@@ -22,9 +22,14 @@ collect_occurrences_uk <- function(.query, file){
   .query$download <- TRUE
   .query$file <- check_download_filename(file)
   query_API(.query)
-  result <- load_zip(.query$file)  
-  names(result) <- rename_columns(names(result), type = "occurrence")
-  result
+  result <- load_zip(.query$file)
+  if(is.null(result)){
+    inform("Download failed")
+    return(tibble())
+  }else{
+    result |>
+      enforce_field_names_and_types(.query)
+  }
 }
 
 #' Internal function to `collect_occurrences()` for living atlases
@@ -36,7 +41,6 @@ collect_occurrences_default <- function(.query, wait, file){
   if(is.null(download_response)){
     abort("No response from selected atlas")
   }
-  
   # get data
   if(pour("package", "verbose", .pkg = "galah") &
      download_response$status == "complete") {
@@ -52,25 +56,45 @@ collect_occurrences_default <- function(.query, wait, file){
   }else{
     return(download_response) 
   }
-  
+  # handle result
   if(is.null(result)){
     inform("Download failed")
     return(tibble())
+  }else{
+    result |>
+      enforce_field_names_and_types(.query) |>
+      check_media_cols()  # check for, and then clean, media info    
   }
-  
-  # rename cols so they match requested cols
-  names(result) <- rename_columns(names(result), type = "occurrence")
-  
-  # replace 'true' and 'false' with boolean
-  valid_assertions <- show_all_assertions()$id # FIXME: this shouldn't be called here
-  assertions_check <- names(result) %in% valid_assertions
-  if(any(assertions_check)){
-    result <- fix_assertion_cols(result, names(result)[assertions_check])
+}
+
+#' Ensure that names given in `select` are returned
+#' Note that `fields` and `assertions` are always separated
+#' assertions are also handled here for efficiency reasons
+#' @importFrom rlang abort
+#' @importFrom rlang caller_env
+#' @noRd
+#' @keywords Internal
+enforce_field_names_and_types <- function(df, .query){
+  if(!is.null(.query$fields)){
+    # get basic info
+    n_fields <- length(.query$fields)
+    n_cols <- ncol(df)
+    # first handle field names (ensure they match those given by the user)
+    if(n_fields > n_cols){
+      bullets <- c("More fields were requested than are present in the download.",
+                   i = "Consider using `show_all(fields)` to ensure all fields are valid.",
+                   i = "Alternatively set `galah_config(run_checks = TRUE)`")
+      abort(bullets, call = caller_env())
+    }
+    fields_not_assertions <- seq_len(n_fields)
+    names(df)[fields_not_assertions] <- .query$fields
+    # then assertions (replace 'true' and 'false' with boolean)
+    if(n_fields < n_cols){
+      assertions_not_fields <- seq((n_fields + 1), n_cols, by = 1)
+      df <- fix_assertion_cols(df, names(df)[assertions_not_fields])
+    }
   }
-  
-  # check for, and then clean, media info
-  result <- check_media_cols(result)
-  return(result)
+  df
 }
 
 #' Internal function to load zip files, without unzipping them first
@@ -115,5 +139,5 @@ load_zip <- function(cache_file){
     #   attr(result, "doi") <- read.table(doi_file) |> as.character()
     # }
   }
-  return(result)
+  result
 }
