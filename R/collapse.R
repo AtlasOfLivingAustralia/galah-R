@@ -92,19 +92,16 @@ collapse.metadata_request <- function(x, ...){
     result <- switch(x$type, 
                      "fields-unnest" = list(collapse_fields()),
                      "profiles-unnest" = list(collapse_profiles()),
-                     "taxa-unnest" = {
-                       if(!is.null(x$identify)){
-                         list(collapse_taxa(x))
-                       }else{
-                         list() 
-                       }
-                    },
                      list())
   }else{
     result <- list()
   }
   if(grepl("-unnest$", x$type)){
     if(x$type == "taxa-unnest"){
+      # identify() calls must be parsed, irrespective of `run_checks` (which is parsed above)
+      if(!is.null(x$identify)){
+        result[[(length(result) + 1)]] <- collapse_taxa(x)
+      }
       if(is.null(x$identify) & is.null(x$filter)){
         abort("Requests of type `taxa-unnest` must also supply one of `filter()` or `identify()`.")
       }
