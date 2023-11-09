@@ -51,6 +51,11 @@ body { font-family: Roboto; }
     color: rgba(24,40,40,0.8);
 }
 
+.navbar-dark .navbar-nav .active>.nav-link {
+  background-color: #60a3a3;
+  color: white;
+}
+
 .nav-item:selection {
   background-color: #C0E6E8;
 }

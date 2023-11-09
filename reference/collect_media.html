@@ -12,7 +12,7 @@ information from atlas_media to a local directory."><meta property="og:image" co
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,11 +26,17 @@ information from atlas_media to a local directory."><meta property="og:image" co
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <h6 class="dropdown-header" data-toc-skip>Get started</h6>
     <a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a>
-    <a class="dropdown-item" href="../articles/piping.html">Piping in galah</a>
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Advanced</h6>
+    <a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a>
+    <a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a>
+    <a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a>
+    <a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a>
   </div>
 </li>
 <li class="active nav-item">
@@ -67,65 +73,50 @@ information from <code>atlas_media</code> to a local directory.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">collect_media</span><span class="op">(</span></span>
-<span>  <span class="va">df</span>,</span>
-<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"full"</span>, <span class="st">"thumbnail"</span><span class="op">)</span>,</span>
-<span>  <span class="va">path</span>,</span>
-<span>  <span class="va">download_dir</span>,</span>
-<span>  <span class="va">refresh_cache</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">collect_media</span><span class="op">(</span><span class="va">df</span>, thumbnail <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">path</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>df</dt>
-<dd><p>tibble returned by <code><a href="atlas_media.html">atlas_media()</a></code> or <code>show_all(media)</code></p></dd>
+<dd><p><code>tibble</code>: returned by <code><a href="atlas_media.html">atlas_media()</a></code> or a pipe starting with
+<code>request_data(type = "media")</code>.</p></dd>
 
 
-<dt>type</dt>
-<dd><p><code>string</code>: either <code>"full"</code> to download original images, or
-<code>"thumbnail"</code> to download thumbnails</p></dd>
+<dt>thumbnail</dt>
+<dd><p><code>logical</code>: If <code>TRUE</code> will download small thumbnail-sized
+images, rather than full size images (default).</p></dd>
 
 
 <dt>path</dt>
-<dd><p><code>string</code>: path to directory where downloaded media will
-be stored</p></dd>
-
-
-<dt>download_dir</dt>
-<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Use <code>path</code> instead.</p></dd>
-
-
-<dt>refresh_cache</dt>
-<dd><p><code>logical</code>: if set to <code>TRUE</code> and
-<code>galah_config(caching = TRUE)</code> then files cached from a previous query will
-be replaced by the current query. NOTE: Unclear that this works right now.</p></dd>
+<dd><p><code>string</code>:
+<a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>
+Use <code>galah_config(directory = "path-to-directory)"</code> instead. Supply a path
+to a local folder/directory where downloaded media will be saved to.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>Available image &amp; media files downloaded to a user local directory.</p>
+<p>Invisibly returns a <code>tibble</code> listing the number of files downloaded,
+grouped by their HTML status codes. Primarily called for the side effect of
+downloading available image &amp; media files to a user local directory.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Use `atlas_media()` to return a `tibble` of records that contain media</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"perameles"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2015</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="atlas_media.html">atlas_media</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># To download media files, add `collect_media()` to the end of a query </span></span></span>
-<span class="r-in"><span><span class="fu"><a href="galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
-<span class="r-in"><span>  <span class="fu"><a href="galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"perameles"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2015</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="atlas_media.html">atlas_media</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu">collect_media</span><span class="op">(</span>path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu">here</span><span class="op">(</span><span class="st">"folder"</span>, <span class="st">"subfolder"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="galah_config.html">galah_config</a></span><span class="op">(</span>directory <span class="op">=</span> <span class="st">"media_files"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">collect_media</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -133,7 +124,7 @@ be replaced by the current query. NOTE: Unclear that this works right now.</p></
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+  <p></p><p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown-footer-right">

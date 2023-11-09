@@ -28,7 +28,7 @@ argument."><meta property="og:image" content="https://galah.ala.org.au/logo.png"
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,11 +42,17 @@ argument."><meta property="og:image" content="https://galah.ala.org.au/logo.png"
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <h6 class="dropdown-header" data-toc-skip>Get started</h6>
     <a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a>
-    <a class="dropdown-item" href="../articles/piping.html">Piping in galah</a>
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Advanced</h6>
+    <a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a>
+    <a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a>
+    <a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a>
+    <a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a>
   </div>
 </li>
 <li class="active nav-item">
@@ -72,7 +78,7 @@ argument."><meta property="og:image" content="https://galah.ala.org.au/logo.png"
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Return a count of records</h1>
-      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/R/atlas_counts.R" class="external-link"><code>R/atlas_counts.R</code></a>, <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/R/count.R" class="external-link"><code>R/count.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/R/atlas_counts.R" class="external-link"><code>R/atlas_counts.R</code></a></small>
       <div class="d-none name"><code>atlas_counts.Rd</code></div>
     </div>
 
@@ -99,12 +105,11 @@ argument.</p>
 <span>  data_profile <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  group_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  limit <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"record"</span>, <span class="st">"species"</span><span class="op">)</span>,</span>
-<span>  refresh_cache <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"occurrences"</span>, <span class="st">"species"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for data_request</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">wt</span>, <span class="va">sort</span>, <span class="va">name</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"record"</span>, <span class="st">"species"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">wt</span>, <span class="va">sort</span>, <span class="va">name</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -147,16 +152,11 @@ take a while.</p></dd>
 
 
 <dt>type</dt>
-<dd><p><code>string</code>: one of <code>c("record", "species")</code>. Defaults to
-"record". If "species", the number of species matching the criteria will be
-returned, if "record", the number of records matching the criteria will be
-returned.</p></dd>
-
-
-<dt>refresh_cache</dt>
-<dd><p><code>logical</code>: if set to <code>TRUE</code> and
-<code>galah_config(caching = TRUE)</code> then files cached from a previous query will
-be replaced by the current query</p></dd>
+<dd><p><code>string</code>: one of <code>c("occurrences-count", "species-count")</code>.
+Defaults to <code>"occurrences-count"</code>, which returns the number of records
+that match the selected criteria; alternatively returns the number of
+species. Formerly accepted arguments (<code>"records"</code> or <code>"species"</code>) are
+deprecated but remain functional.</p></dd>
 
 
 <dt>x</dt>
@@ -190,15 +190,17 @@ be replaced by the current query</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co"># Count all records in the specified atlas</span></span></span>
-<span class="r-in"><span><span class="fu">atlas_counts</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Filtered counts</span></span></span>
+<span class="r-in"><span><span class="co"># classic syntax:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2015</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">atlas_counts</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># synonymous with:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="galah_call.html">request_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2015</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -206,7 +208,7 @@ be replaced by the current query</p></dd>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+  <p></p><p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown-footer-right">

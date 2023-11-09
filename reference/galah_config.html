@@ -18,7 +18,7 @@ as possible."><meta property="og:image" content="https://galah.ala.org.au/logo.p
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,11 +32,17 @@ as possible."><meta property="og:image" content="https://galah.ala.org.au/logo.p
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <h6 class="dropdown-header" data-toc-skip>Get started</h6>
     <a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a>
-    <a class="dropdown-item" href="../articles/piping.html">Piping in galah</a>
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Advanced</h6>
+    <a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a>
+    <a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a>
+    <a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a>
+    <a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a>
   </div>
 </li>
 <li class="active nav-item">
@@ -62,7 +68,7 @@ as possible."><meta property="og:image" content="https://galah.ala.org.au/logo.p
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Get or set configuration options that control galah behaviour</h1>
-      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/R/galah_config.R" class="external-link"><code>R/galah_config.R</code></a>, <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/R/print.R" class="external-link"><code>R/print.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/R/galah_config.R" class="external-link"><code>R/galah_config.R</code></a></small>
       <div class="d-none name"><code>galah_config.Rd</code></div>
     </div>
 
@@ -76,22 +82,18 @@ as possible.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">galah_config</span><span class="op">(</span><span class="va">...</span>, profile_path <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S3 method for galah_config</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">galah_config</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
 <dd><p>Options can be defined using the form <code>name = "value"</code>.
-Valid arguments are:</p><ul><li><p><code>atlas</code> string: Living Atlas to point to, Australia by default. Can be
+Valid arguments are:</p><ul><li><p><code>api-key</code> string: A registered API key (currently unused).</p></li>
+<li><p><code>atlas</code> string: Living Atlas to point to, Australia by default. Can be
 an organisation name, acronym, or region (see <code><a href="show_all.html">show_all_atlases()</a></code> for
 admissible values)</p></li>
-<li><p><code>caching</code> logical: if TRUE, results will be cached, and any cached
-results will be re-used). If FALSE, data will be downloaded.</p></li>
-<li><p><code>cache_directory</code> string: the directory to use for the cache.
+<li><p><code>directory</code> string: the directory to use for the cache.
 By default this is a temporary directory, which means that results will
 only be cached
 within an R session and cleared automatically when the user exits R.
@@ -106,7 +108,7 @@ associated R function.</p></li>
 <li><p><code>email</code> string: An email address that has been registered with the chosen
 atlas. For the ALA, you can register at
 <a href="https://auth.ala.org.au/userdetails/registration/createAccount" class="external-link">this address</a>.</p></li>
-<li><p><code>password</code> string: A registerd password (GBIF only)</p></li>
+<li><p><code>password</code> string: A registered password (GBIF only)</p></li>
 <li><p><code>run_checks</code> logical: should <code>galah</code> run checks for filters
 and columns. If making lots of requests sequentially, checks can slow down
 the process and lead to HTTP 500 errors, so should be turned off. Defaults
@@ -115,20 +117,10 @@ to TRUE.</p></li>
 <code><a href="atlas_occurrences.html">atlas_occurrences()</a></code>? Defaults to <code>FALSE</code>; but can be
 useful in some instances, for example for tracking DOIs assigned to
 specific downloads for later citation.</p></li>
-<li><p><code>username</code> string: A registerd username (GBIF only)</p></li>
+<li><p><code>username</code> string: A registered username (GBIF only)</p></li>
 <li><p><code>verbose</code> logical: should <code>galah</code> give verbose such as progress bars?
 Defaults to FALSE.</p></li>
 </ul></dd>
-
-
-<dt>profile_path</dt>
-<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a></p>
-<p>Keeping for compatibility with older package versions. It is preferable to
-not save <code>galah_config</code> options to a .Rprofile file.</p></dd>
-
-
-<dt>x</dt>
-<dd><p>an object of class <code>galah_config</code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -144,9 +136,7 @@ but the configuration is set.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># To download occurrence records, enter your email in `galah_config()`. </span></span></span>
-<span class="r-in"><span><span class="co"># This email should be registered with the ALA. </span></span></span>
-<span class="r-in"><span><span class="co"># You can register at:</span></span></span>
-<span class="r-in"><span><span class="co"># https://auth.ala.org.au/userdetails/registration/createAccount</span></span></span>
+<span class="r-in"><span><span class="co"># This email should be registered with the atlas in question. </span></span></span>
 <span class="r-in"><span><span class="fu">galah_config</span><span class="op">(</span>email <span class="op">=</span> <span class="st">"your-email@email.com"</span><span class="op">)</span></span></span>
 <span class="r-in"><span> </span></span>
 <span class="r-in"><span><span class="co"># Turn on caching in your session</span></span></span>
@@ -169,7 +159,7 @@ but the configuration is set.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+  <p></p><p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown-footer-right">

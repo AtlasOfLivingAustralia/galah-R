@@ -12,7 +12,7 @@ a known taxon or group of taxa to narrow down the records or results returned.">
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,11 +26,17 @@ a known taxon or group of taxa to narrow down the records or results returned.">
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <h6 class="dropdown-header" data-toc-skip>Get started</h6>
     <a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a>
-    <a class="dropdown-item" href="../articles/piping.html">Piping in galah</a>
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Advanced</h6>
+    <a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a>
+    <a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a>
+    <a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a>
+    <a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a>
   </div>
 </li>
 <li class="active nav-item">
@@ -67,20 +73,29 @@ a known taxon or group of taxa to narrow down the records or results returned.</
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">galah_identify</span><span class="op">(</span><span class="va">...</span>, search <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">galah_identify</span><span class="op">(</span><span class="va">...</span>, search <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for data_request</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for metadata_request</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
-<dd><p>one or more scientific names (if <code>search = TRUE</code>) or taxonomic
-identifiers (if <code>search = FALSE</code>); or an object of class <code>ala_id</code> (from
-<code>search_taxa</code>).</p></dd>
+<dd><p>One or more scientific names.</p></dd>
 
 
 <dt>search</dt>
-<dd><p>(logical); should the results in question be passed to
-<code>search_taxa</code>?</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>
+<code>galah_identify()</code> now always does a search to verify search terms; ergo
+this argument is ignored.</p></dd>
+
+
+<dt>x</dt>
+<dd><p>An object of class <code>metadata_request</code>, created using <code><a href="galah_call.html">request_metadata()</a></code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -94,14 +109,14 @@ identifiers (if <code>search = FALSE</code>); or an object of class <code>ala_id
     <p><code>galah_identify()</code> is used to identify taxa you want returned in a search or
 a data query. Users to pass scientific names or taxonomic identifiers
 with pipes to provide data only for the biological group of interest.</p>
-<p>It is good to use <code><a href="search_taxa.html">search_taxa()</a></code> and <code><a href="search_identifiers.html">search_identifiers()</a></code>
+<p>It is good to use <code><a href="search_all.html">search_taxa()</a></code> and <code><a href="search_all.html">search_identifiers()</a></code>
 first to check that the taxa you provide to <code>galah_identify()</code> return the
 correct results.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="search_taxa.html">search_taxa()</a></code> to find identifiers from scientific names;
-<code><a href="search_identifiers.html">search_identifiers()</a></code> for how to get names if taxonomic identifiers
+    <div class="dont-index"><p><code><a href="search_all.html">search_taxa()</a></code> to find identifiers from scientific names;
+<code><a href="search_all.html">search_identifiers()</a></code> for how to get names if taxonomic identifiers
 are already known.</p></div>
     </div>
 
@@ -119,13 +134,20 @@ are already known.</p></div>
 <span class="r-in"><span>  <span class="fu">galah_identify</span><span class="op">(</span><span class="st">"Eolophus"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># If you know a valid taxon identifier, add it and set `search = FALSE`.</span></span></span>
+<span class="r-in"><span><span class="co"># Within a pipe, `identify()` and `galah_identify()` are synonymous.</span></span></span>
+<span class="r-in"><span><span class="co"># hence the following is identical to the previous example:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="galah_call.html">request_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"Eolophus"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># If you know a valid taxon identifier, use `galah_filter()` instead.</span></span></span>
+<span class="r-in"><span><span class="co"># (This was formerly supported by `galah_identify()` with `search = FALSE`)</span></span></span>
+<span class="r-in"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="st">"https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c"</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span></span>
-<span class="r-in"><span>  <span class="fu">galah_identify</span><span class="op">(</span><span class="st">"https://biodiversity.org.au/afd/taxa/009169a9-a916-40ee-866c-669ae0a21c5c"</span>, </span></span>
-<span class="r-in"><span>                 search <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">lsid</span> <span class="op">==</span> <span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -133,7 +155,7 @@ are already known.</p></div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+  <p></p><p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -12,7 +12,7 @@
     web services using a codebase originally developed by the Atlas of Living 
     Australia (ALA, &lt;https://www.ala.org.au&gt;). galah enables the R community 
     to directly access data and resources hosted by GBIF and its partner nodes.">
-<title>Download Biodiversity Data from the GBIF Node Network • galah</title>
+<title>Biodiversity Data from the GBIF Node Network • galah</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -25,7 +25,7 @@
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
-<meta property="og:title" content="Download Biodiversity Data from the GBIF Node Network">
+<meta property="og:title" content="Biodiversity Data from the GBIF Node Network">
 <meta property="og:description" content="The Global Biodiversity Information Facility 
     (GBIF, &lt;https://www.gbif.org&gt;) sources data from an international network of 
     data providers, known as nodes. Several of these nodes - the living 
@@ -47,7 +47,7 @@
     
     <a class="navbar-brand me-2" href="index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,11 +62,17 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <h6 class="dropdown-header" data-toc-skip>Get started</h6>
     <a class="dropdown-item" href="articles/choosing_an_atlas.html">Choosing an atlas</a>
-    <a class="dropdown-item" href="articles/piping.html">Piping in galah</a>
     <a class="dropdown-item" href="articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="articles/narrow_your_results.html">Narrow your results</a>
     <a class="dropdown-item" href="articles/download_data.html">Download data</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Advanced</h6>
+    <a class="dropdown-item" href="articles/object_oriented_programming.html">Object-oriented programming</a>
+    <a class="dropdown-item" href="articles/taxonomic_filtering.html">Taxonomic filtering</a>
+    <a class="dropdown-item" href="articles/spatial_filtering.html">Spatial filtering</a>
+    <a class="dropdown-item" href="articles/temporal_filtering.html">Temporal filtering</a>
   </div>
 </li>
 <li class="nav-item">
@@ -94,19 +100,22 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><img src="reference/figures/logo.png" align="left" style="margin: 0px 10px 0px 0px;" alt="" width="120"><h2>
-galah
-</h2>
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="galah-">galah 
+<a class="anchor" aria-label="anchor" href="#galah-"></a>
+</h1>
+</div>
 <!-- badges: start -->
 
-<!-- badges: end -->
-<hr>
-<p><code>galah</code> is an R interface to biodiversity data hosted by the ‘living atlases’; a set of organisations that share a common codebase, and act as nodes of the Global Biodiversity Information Facility (<a href="https://www.gbif.org" class="external-link">GBIF</a>). These organisations collate and store observations of individual life forms, using the <a href="https://dwc.tdwg.org" class="external-link">‘Darwin Core’</a> data standard. <code>galah</code> was built and is maintained by the <a href="https://labs.ala.org.au" class="external-link">Science &amp; Decision Support Team</a> at the <a href="https://www.ala.org.au" class="external-link">Atlas of Living Australia</a> (ALA).</p>
-<p><code>galah</code> enables users to locate and download species occurrence records (observations, specimens, eDNA records, etc.), taxonomic information, or associated media such as images or sounds, and to restrict their queries to particular taxa or locations. Users can specify which columns are returned by a query, or restrict their results to occurrences that meet particular data-quality criteria. All functions return a <code>tibble</code> as their standard format, except <code>atlas_taxonomy</code> which returns tree consisting of <code>Node</code> objects using the <code>data.tree</code> package.</p>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p><code>galah</code> is an R interface to biodiversity data hosted by the <a href="https://www.gbif.org" class="external-link">Global Biodiversity Information Facility</a> (GBIF) and those members of the GBIF node network that maintain their own APIs (i.e. the <a href="https://living-atlases.gbif.org" class="external-link">‘living atlases’</a>). These organisations collate and store observations of individual life forms, using the <a href="https://dwc.tdwg.org" class="external-link">‘Darwin Core’</a> data standard. <code>galah</code> was built and is maintained by the <a href="https://labs.ala.org.au" class="external-link">Science &amp; Decision Support Team</a> at the <a href="https://www.ala.org.au" class="external-link">Atlas of Living Australia</a> (ALA).</p>
+<p><code>galah</code> enables users to locate and download species occurrence records (observations, specimens, eDNA records, etc.), taxonomic information, or associated media such as images or sounds, and to restrict their queries to particular taxa or locations. Users can specify which columns are returned by a query, or restrict their results to occurrences that meet particular data-quality criteria. All functions return a <code>tibble</code> as their standard format.</p>
 <p>The package is named for the bird of the same name (<em>Eolophus roseicapilla</em>), a widely-distributed endemic Australian species. The logo was designed by <a href="https://www.iangbrennan.org/" class="external-link">Ian Brennan</a>.</p>
 <p>If you have any comments, questions or suggestions, please <a href="mailto:support@ala.org.au">contact us</a>.</p>
-<p><br></p>
-<hr>
+</div>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
@@ -114,7 +123,6 @@ galah
 <li>The <a href="https://galah.ala.org.au/R/articles/quick_start_guide.html">quick start guide</a> provides an introduction to the package functions.</li>
 <li>For an outline of the package structure, and a list of all the available functions, run <code><a href="reference/galah.html">?galah</a></code> or view the <a href="https://galah.ala.org.au/R/index.html">reference page</a>.</li>
 </ul>
-<hr>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -125,26 +133,22 @@ galah
 <p>Install the development version from GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"AtlasOfLivingAustralia/galah"</span><span class="op">)</span></span></code></pre></div>
-<p>On Linux you will first need to ensure that <code>libcurl</code> and <code>v8</code> (version &lt;= 3.15) are installed on your system — e.g. on Ubuntu/Debian, open a terminal and do:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install libcurl4-openssl-dev libv8-3.14-dev</span></code></pre></div>
-<p><code>galah</code> depends on <code>sf</code> for location-based searches. To install <code>galah</code> you will need to make sure your system meets the <code>sf</code> system requirements, as specified <a href="https://cran.r-project.org/package=sf" class="external-link">here</a></p>
-<hr>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"AtlasOfLivingAustralia/galah-R"</span><span class="op">)</span></span></code></pre></div>
+<p><code>galah</code> depends on <code>sf</code> for location-based searches. To install <code>galah</code> you will need to make sure your system meets the <code>sf</code> system requirements, as specified <a href="https://cran.r-project.org/package=sf" class="external-link">here</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="cheat-sheet">Cheat sheet<a class="anchor" aria-label="anchor" href="#cheat-sheet"></a>
 </h2>
 <p><a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/cheatsheet/galah-r.pdf" class="external-link"><img src="reference/figures/galah_cheatsheet_thumbnail.png" width="600" height="236"></a></p>
-<hr>
 </div>
 <div class="section level2">
 <h2 id="citations">Citations<a class="anchor" aria-label="anchor" href="#citations"></a>
 </h2>
 <p>To generate a citation for the package version you are using, you can run</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"galah"</span><span class="op">)</span></span></code></pre></div>
-<p>If you’re using occurrence data downloaded through <code>galah</code> in a publication, please generate a DOI and cite it. To request a DOI for a download of occurrence record, set <code>mint_doi = TRUE</code> in a call to <code><a href="reference/atlas_occurrences.html">atlas_occurrences()</a></code>. To generate a citation for the downloaded occurrence records, pass the <code>data.frame</code> generated to <code><a href="reference/atlas_citation.html">atlas_citation()</a></code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>If you’re using occurrence data downloaded through <code>galah</code> in a publication, please generate a DOI and cite it. To request a DOI for a download of occurrence record, set <code>mint_doi = TRUE</code> in a call to <code><a href="reference/atlas_occurrences.html">atlas_occurrences()</a></code>. To generate a citation for the downloaded occurrence records, pass the <code>tibble</code> generated to <code><a href="reference/atlas_citation.html">atlas_citation()</a></code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Download occurrence records with a DOI </span></span>
 <span><span class="va">occ</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="va">...</span>, mint_doi <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -154,7 +158,7 @@ galah
 <span><span class="co"># Generate citation</span></span>
 <span><span class="fu"><a href="reference/atlas_citation.html">atlas_citation</a></span><span class="op">(</span><span class="va">occ</span><span class="op">)</span></span></code></pre></div>
 </div>
-
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
@@ -183,8 +187,8 @@ galah
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Martin Westgate <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Dax Kellie <br><small class="roles"> Author </small>  </li>
 <li>Matilda Stevenson <br><small class="roles"> Author </small>  </li>
+<li>Dax Kellie <br><small class="roles"> Author </small>  </li>
 <li>Peggy Newman <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
@@ -197,7 +201,7 @@ galah
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+<p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown-footer-right">

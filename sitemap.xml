@@ -19,10 +19,22 @@
     <loc>https://galah.ala.org.au/articles/narrow_your_results.html</loc>
   </url>
   <url>
+    <loc>https://galah.ala.org.au/articles/object_oriented_programming.html</loc>
+  </url>
+  <url>
     <loc>https://galah.ala.org.au/articles/piping.html</loc>
   </url>
   <url>
     <loc>https://galah.ala.org.au/articles/quick_start_guide.html</loc>
+  </url>
+  <url>
+    <loc>https://galah.ala.org.au/articles/spatial_filtering.html</loc>
+  </url>
+  <url>
+    <loc>https://galah.ala.org.au/articles/taxonomic_filtering.html</loc>
+  </url>
+  <url>
+    <loc>https://galah.ala.org.au/articles/temporal_filtering.html</loc>
   </url>
   <url>
     <loc>https://galah.ala.org.au/authors.html</loc>
@@ -32,6 +44,9 @@
   </url>
   <url>
     <loc>https://galah.ala.org.au/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://galah.ala.org.au/reference/arrange.html</loc>
   </url>
   <url>
     <loc>https://galah.ala.org.au/reference/atlas_citation.html</loc>
@@ -52,16 +67,19 @@
     <loc>https://galah.ala.org.au/reference/atlas_taxonomy.html</loc>
   </url>
   <url>
-    <loc>https://galah.ala.org.au/reference/clear_cached_files.html</loc>
+    <loc>https://galah.ala.org.au/reference/collapse_galah.html</loc>
+  </url>
+  <url>
+    <loc>https://galah.ala.org.au/reference/collect_galah.html</loc>
   </url>
   <url>
     <loc>https://galah.ala.org.au/reference/collect_media.html</loc>
   </url>
   <url>
-    <loc>https://galah.ala.org.au/reference/collect_occurrences.html</loc>
+    <loc>https://galah.ala.org.au/reference/compute_galah.html</loc>
   </url>
   <url>
-    <loc>https://galah.ala.org.au/reference/deprecated.html</loc>
+    <loc>https://galah.ala.org.au/reference/deprecated-functions.html</loc>
   </url>
   <url>
     <loc>https://galah.ala.org.au/reference/galah.html</loc>
@@ -70,16 +88,10 @@
     <loc>https://galah.ala.org.au/reference/galah_apply_profile.html</loc>
   </url>
   <url>
-    <loc>https://galah.ala.org.au/reference/galah_bbox.html</loc>
-  </url>
-  <url>
     <loc>https://galah.ala.org.au/reference/galah_call.html</loc>
   </url>
   <url>
     <loc>https://galah.ala.org.au/reference/galah_config.html</loc>
-  </url>
-  <url>
-    <loc>https://galah.ala.org.au/reference/galah_down_to.html</loc>
   </url>
   <url>
     <loc>https://galah.ala.org.au/reference/galah_filter.html</loc>
@@ -94,19 +106,13 @@
     <loc>https://galah.ala.org.au/reference/galah_identify.html</loc>
   </url>
   <url>
-    <loc>https://galah.ala.org.au/reference/galah_polygon.html</loc>
-  </url>
-  <url>
     <loc>https://galah.ala.org.au/reference/galah_select.html</loc>
   </url>
   <url>
-    <loc>https://galah.ala.org.au/reference/group_by.data_request.html</loc>
-  </url>
-  <url>
-    <loc>https://galah.ala.org.au/reference/identify.data_request.html</loc>
-  </url>
-  <url>
     <loc>https://galah.ala.org.au/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://galah.ala.org.au/reference/print_galah_objects.html</loc>
   </url>
   <url>
     <loc>https://galah.ala.org.au/reference/reexports.html</loc>
@@ -115,24 +121,15 @@
     <loc>https://galah.ala.org.au/reference/search_all.html</loc>
   </url>
   <url>
-    <loc>https://galah.ala.org.au/reference/search_identifiers.html</loc>
-  </url>
-  <url>
-    <loc>https://galah.ala.org.au/reference/search_media.html</loc>
-  </url>
-  <url>
-    <loc>https://galah.ala.org.au/reference/search_taxa.html</loc>
-  </url>
-  <url>
-    <loc>https://galah.ala.org.au/reference/select.data_request.html</loc>
-  </url>
-  <url>
     <loc>https://galah.ala.org.au/reference/show_all.html</loc>
   </url>
   <url>
     <loc>https://galah.ala.org.au/reference/show_values.html</loc>
   </url>
   <url>
-    <loc>https://galah.ala.org.au/reference/slice_head.data_request.html</loc>
+    <loc>https://galah.ala.org.au/reference/slice_head.html</loc>
+  </url>
+  <url>
+    <loc>https://galah.ala.org.au/reference/tidyverse_functions.html</loc>
   </url>
 </urlset>

@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,14 +47,20 @@
 <li class="nav-item">
   <a class="nav-link" href="../articles/quick_start_guide.html">Quick start guide</a>
 </li>
-<li class="active nav-item dropdown">
+<li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <h6 class="dropdown-header" data-toc-skip>Get started</h6>
     <a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a>
-    <a class="dropdown-item" href="../articles/piping.html">Piping in galah</a>
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Advanced</h6>
+    <a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a>
+    <a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a>
+    <a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a>
+    <a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a>
   </div>
 </li>
 <li class="nav-item">
@@ -91,7 +97,7 @@
                         <h4 data-toc-skip class="author">Martin Westgate
 &amp; Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2023-01-18</h4>
+            <h4 data-toc-skip class="date">2023-10-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/vignettes/piping.Rmd" class="external-link"><code>vignettes/piping.Rmd</code></a></small>
       <div class="d-none name"><code>piping.Rmd</code></div>
@@ -123,7 +129,7 @@ logical arguments to be added by using the <code>==</code> sign:</p>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##     count</span></span>
 <span><span class="co">##     &lt;int&gt;</span></span>
-<span><span class="co">## 1 7155750</span></span></code></pre>
+<span><span class="co">## 1 8204330</span></span></code></pre>
 <p>As another example, notice how <code><a href="../reference/galah_group_by.html">galah_group_by()</a></code> +
 <code><a href="../reference/atlas_counts.html">atlas_counts()</a></code> works very similarly to
 <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by()</a></code> + <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code>:</p>
@@ -144,8 +150,8 @@ logical arguments to be added by using the <code>==</code> sign:</p>
 <pre><code><span><span class="co">## # A tibble: 2 × 2</span></span>
 <span><span class="co">##   biome           count</span></span>
 <span><span class="co">##   &lt;chr&gt;           &lt;int&gt;</span></span>
-<span><span class="co">## 1 TERRESTRIAL 104619011</span></span>
-<span><span class="co">## 2 MARINE        3443680</span></span></code></pre>
+<span><span class="co">## 1 TERRESTRIAL 120083089</span></span>
+<span><span class="co">## 2 MARINE        5189286</span></span></code></pre>
 <p>We made this move towards tidy evaluation to make it possible to use
 piping for building queries to the Atlas of Living Australia. In
 practice, this means that data queries can be filtered just like how you
@@ -171,22 +177,24 @@ your query.</p>
 <span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_group_by.html">galah_group_by</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 13 × 3</span></span>
-<span><span class="co">##    year  species                count</span></span>
-<span><span class="co">##    &lt;chr&gt; &lt;chr&gt;                  &lt;int&gt;</span></span>
-<span><span class="co">##  1 2021  Perameles nasuta        2466</span></span>
-<span><span class="co">##  2 2021  Perameles bougainville    70</span></span>
-<span><span class="co">##  3 2021  Perameles gunnii          59</span></span>
-<span><span class="co">##  4 2021  Perameles pallescens      23</span></span>
-<span><span class="co">##  5 2020  Perameles nasuta        1388</span></span>
-<span><span class="co">##  6 2020  Perameles gunnii          39</span></span>
-<span><span class="co">##  7 2020  Perameles pallescens      11</span></span>
-<span><span class="co">##  8 2020  Perameles bougainville     1</span></span>
-<span><span class="co">##  9 2022  Perameles nasuta         377</span></span>
-<span><span class="co">## 10 2022  Perameles gunnii          57</span></span>
-<span><span class="co">## 11 2022  Perameles pallescens      28</span></span>
-<span><span class="co">## 12 2023  Perameles gunnii           4</span></span>
-<span><span class="co">## 13 2023  Perameles nasuta           3</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 15 × 3</span></span>
+<span><span class="co">##    species                year  count</span></span>
+<span><span class="co">##    &lt;chr&gt;                  &lt;chr&gt; &lt;int&gt;</span></span>
+<span><span class="co">##  1 Perameles nasuta       2021   3337</span></span>
+<span><span class="co">##  2 Perameles nasuta       2020   1573</span></span>
+<span><span class="co">##  3 Perameles nasuta       2022   1515</span></span>
+<span><span class="co">##  4 Perameles nasuta       2023    625</span></span>
+<span><span class="co">##  5 Perameles gunnii       2023     95</span></span>
+<span><span class="co">##  6 Perameles gunnii       2021     72</span></span>
+<span><span class="co">##  7 Perameles gunnii       2022     64</span></span>
+<span><span class="co">##  8 Perameles gunnii       2020     49</span></span>
+<span><span class="co">##  9 Perameles bougainville 2021     84</span></span>
+<span><span class="co">## 10 Perameles bougainville 2022     72</span></span>
+<span><span class="co">## 11 Perameles bougainville 2020      1</span></span>
+<span><span class="co">## 12 Perameles pallescens   2022     30</span></span>
+<span><span class="co">## 13 Perameles pallescens   2021     25</span></span>
+<span><span class="co">## 14 Perameles pallescens   2023     20</span></span>
+<span><span class="co">## 15 Perameles pallescens   2020     11</span></span></code></pre>
 <p>And a second example, to download occurrence records of bandicoots in
 2021, and also to include information on which records had zero
 coordinates:</p>
@@ -197,16 +205,16 @@ coordinates:</p>
 <span>  <span class="fu"><a href="../reference/galah_select.html">galah_select</a></span><span class="op">(</span>group <span class="op">=</span> <span class="st">"basic"</span>, <span class="va">ZERO_COORDINATE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 6 × 9</span></span>
-<span><span class="co">##   decimalLatitude decimalLongitude eventDate           scientificName   taxonConceptID                      recor…¹ dataR…² occur…³ ZERO_…⁴</span></span>
-<span><span class="co">##             &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;            &lt;chr&gt;                               &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;lgl&gt;  </span></span>
-<span><span class="co">## 1           -43.1             148. 2021-05-09 08:06:02 Perameles gunnii https://biodiversity.org.au/afd/ta… 6f258c… iNatur… PRESENT FALSE  </span></span>
-<span><span class="co">## 2           -43.0             147. 2021-03-31 21:00:16 Perameles gunnii https://biodiversity.org.au/afd/ta… 40d963… iNatur… PRESENT FALSE  </span></span>
-<span><span class="co">## 3           -43.0             148. 2021-06-24 12:55:00 Perameles gunnii https://biodiversity.org.au/afd/ta… 62724c… iNatur… PRESENT FALSE  </span></span>
-<span><span class="co">## 4           -43.0             147. 2021-02-06 14:09:00 Perameles gunnii https://biodiversity.org.au/afd/ta… ef4fe0… iNatur… PRESENT FALSE  </span></span>
-<span><span class="co">## 5           -43.0             147. 2021-09-14 04:39:45 Perameles gunnii https://biodiversity.org.au/afd/ta… 7900b1… iNatur… PRESENT FALSE  </span></span>
-<span><span class="co">## 6           -42.9             147. 2021-07-21 19:42:41 Perameles gunnii https://biodiversity.org.au/afd/ta… c3cc63… iNatur… PRESENT FALSE  </span></span>
-<span><span class="co">## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​ZERO_COORDINATE</span></span></code></pre>
+<pre><code><span><span class="co">## Retrying in 1 seconds.</span></span></code></pre>
+<pre><code><span><span class="co">## # A tibble: 6 × 8</span></span>
+<span><span class="co">##   recordID              decimalLatitude decimalLongitude eventDate           scientificName taxonConceptID dataResourceName occurrenceStatus</span></span>
+<span><span class="co">##   &lt;chr&gt;                           &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;           </span></span>
+<span><span class="co">## 1 00108221-afc6-4246-a…           -28.8             153. 2021-09-29 00:00:00 Perameles nas… https://biodi… NSW BioNet Atlas PRESENT         </span></span>
+<span><span class="co">## 2 001e914d-0281-41cb-b…           -33.8             151. 2021-04-19 00:00:00 Perameles nas… https://biodi… NSW BioNet Atlas PRESENT         </span></span>
+<span><span class="co">## 3 00233c1e-66df-4d9c-8…           -33.8             151. 2021-02-27 00:00:00 Perameles nas… https://biodi… NSW BioNet Atlas PRESENT         </span></span>
+<span><span class="co">## 4 003064b3-490a-49b5-a…           -27.5             152. 2021-11-05 12:06:00 Perameles nas… https://biodi… iNaturalist Aus… PRESENT         </span></span>
+<span><span class="co">## 5 004fd28b-a899-4a97-8…           -33.8             151. 2021-07-24 00:00:00 Perameles nas… https://biodi… NSW BioNet Atlas PRESENT         </span></span>
+<span><span class="co">## 6 0068547b-b091-4a86-8…           -33.8             151. 2021-01-28 00:00:00 Perameles nas… https://biodi… NSW BioNet Atlas PRESENT</span></span></code></pre>
 <p>Note that the order in which <code>galah_</code> functions are added
 doesn’t matter, as long as <code><a href="../reference/galah_call.html">galah_call()</a></code> goes first, and an
 <code>atlas_</code> function comes last.</p>
@@ -217,7 +225,7 @@ doesn’t matter, as long as <code><a href="../reference/galah_call.html">galah_
 <p>As of version 1.5.1, it is possible to call <code>dplyr</code>
 functions natively within <code>galah</code> to amend how queries are
 processed, i.e.:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># galah syntax</span></span>
 <span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -226,23 +234,20 @@ processed, i.e.:</p>
 <pre><code><span><span class="co">## # A tibble: 4 × 2</span></span>
 <span><span class="co">##   year    count</span></span>
 <span><span class="co">##   &lt;chr&gt;   &lt;int&gt;</span></span>
-<span><span class="co">## 1 2021  7155750</span></span>
-<span><span class="co">## 2 2020  6419193</span></span>
-<span><span class="co">## 3 2022  1547173</span></span>
-<span><span class="co">## 4 2023    27895</span></span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<span><span class="co">## 1 2022  8353115</span></span>
+<span><span class="co">## 2 2021  8204330</span></span>
+<span><span class="co">## 3 2020  7116059</span></span>
+<span><span class="co">## 4 2023  2997676</span></span></code></pre>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># dplyr syntax</span></span>
 <span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 4 × 2</span></span>
-<span><span class="co">##   year    count</span></span>
-<span><span class="co">##   &lt;chr&gt;   &lt;int&gt;</span></span>
-<span><span class="co">## 1 2021  7155750</span></span>
-<span><span class="co">## 2 2020  6419193</span></span>
-<span><span class="co">## 3 2022  1547173</span></span>
-<span><span class="co">## 4 2023    27895</span></span></code></pre>
+<pre><code><span><span class="co">## Object of type `data_request` containing:</span></span></code></pre>
+<pre><code><span><span class="co">## • type occurrences-count</span></span>
+<span><span class="co">## • filter year &gt;= 2020</span></span>
+<span><span class="co">## • group_by year</span></span></code></pre>
 <p>The full list of masked functions is:</p>
 <ul>
 <li>
@@ -263,7 +268,7 @@ the <code>limit</code> argument in <code><a href="../reference/atlas_counts.html
 </li>
 <li>
 <code><a href="https://r-spatial.github.io/sf/reference/st_crop.html" class="external-link">st_crop()</a></code> (<a href="https://r-spatial.github.io/sf/" class="external-link">sf</a>) as a synonym for
-<code><a href="../reference/galah_polygon.html">galah_polygon()</a></code>
+<code><a href="../reference/galah_geolocate.html">galah_polygon()</a></code>
 </li>
 <li>
 <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count()</a></code> (<a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a>) as a synonym for
@@ -279,7 +284,7 @@ the <code>limit</code> argument in <code><a href="../reference/atlas_counts.html
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+<p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown-footer-right">

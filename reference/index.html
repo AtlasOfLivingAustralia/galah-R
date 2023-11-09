@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,11 +24,17 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <h6 class="dropdown-header" data-toc-skip>Get started</h6>
     <a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a>
-    <a class="dropdown-item" href="../articles/piping.html">Piping in galah</a>
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Advanced</h6>
+    <a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a>
+    <a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a>
+    <a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a>
+    <a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a>
   </div>
 </li>
 <li class="active nav-item">
@@ -57,7 +63,7 @@
     </div>
 
     <div class="section level2">
-      <h2 id="start-a-data-query">Start a data query<a class="anchor" aria-label="anchor" href="#start-a-data-query"></a></h2>
+      <h2 id="piping-functions">Piping functions<a class="anchor" aria-label="anchor" href="#piping-functions"></a></h2>
       
       
 
@@ -69,9 +75,29 @@
 
       <dl><dt>
           
-          <code><a href="galah_call.html">galah_call()</a></code> <code><a href="galah_call.html">print(<i>&lt;data_request&gt;</i>)</a></code> 
+          <code><a href="galah_call.html">galah_call()</a></code> <code><a href="galah_call.html">request_data()</a></code> <code><a href="galah_call.html">request_metadata()</a></code> <code><a href="galah_call.html">request_files()</a></code> 
         </dt>
-        <dd>Start building a data query</dd>
+        <dd>Start building a query</dd>
+      </dl><dl><dt>
+          
+          <code><a href="collapse_galah.html">collapse(<i>&lt;data_request&gt;</i>)</a></code> <code><a href="collapse_galah.html">collapse(<i>&lt;metadata_request&gt;</i>)</a></code> <code><a href="collapse_galah.html">collapse(<i>&lt;files_request&gt;</i>)</a></code> 
+        </dt>
+        <dd>Generate a query</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_galah.html">compute(<i>&lt;data_request&gt;</i>)</a></code> <code><a href="compute_galah.html">compute(<i>&lt;metadata_request&gt;</i>)</a></code> <code><a href="compute_galah.html">compute(<i>&lt;files_request&gt;</i>)</a></code> <code><a href="compute_galah.html">compute(<i>&lt;query_set&gt;</i>)</a></code> <code><a href="compute_galah.html">compute(<i>&lt;query&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute a query</dd>
+      </dl><dl><dt>
+          
+          <code><a href="collect_galah.html">collect(<i>&lt;data_request&gt;</i>)</a></code> <code><a href="collect_galah.html">collect(<i>&lt;metadata_request&gt;</i>)</a></code> <code><a href="collect_galah.html">collect(<i>&lt;files_request&gt;</i>)</a></code> <code><a href="collect_galah.html">collect(<i>&lt;query_set&gt;</i>)</a></code> <code><a href="collect_galah.html">collect(<i>&lt;query&gt;</i>)</a></code> 
+        </dt>
+        <dd>Retrieve a database query</dd>
+      </dl><dl><dt>
+          
+          <code><a href="print_galah_objects.html">print(<i>&lt;data_request&gt;</i>)</a></code> <code><a href="print_galah_objects.html">print(<i>&lt;files_request&gt;</i>)</a></code> <code><a href="print_galah_objects.html">print(<i>&lt;metadata_request&gt;</i>)</a></code> <code><a href="print_galah_objects.html">print(<i>&lt;query&gt;</i>)</a></code> <code><a href="print_galah_objects.html">print(<i>&lt;query_set&gt;</i>)</a></code> <code><a href="print_galah_objects.html">print(<i>&lt;galah_config&gt;</i>)</a></code> 
+        </dt>
+        <dd>Print galah objects</dd>
       </dl></div><div class="section level2">
       <h2 id="look-up-information">Look up information<a class="anchor" aria-label="anchor" href="#look-up-information"></a></h2>
       
@@ -85,36 +111,21 @@
 
       <dl><dt>
           
-          <code><a href="show_all.html">show_all()</a></code> <code><a href="show_all.html">show_all_assertions()</a></code> <code><a href="show_all.html">show_all_atlases()</a></code> <code><a href="show_all.html">show_all_cached_files()</a></code> <code><a href="show_all.html">show_all_apis()</a></code> <code><a href="show_all.html">show_all_collections()</a></code> <code><a href="show_all.html">show_all_datasets()</a></code> <code><a href="show_all.html">show_all_providers()</a></code> <code><a href="show_all.html">show_all_fields()</a></code> <code><a href="show_all.html">show_all_licences()</a></code> <code><a href="show_all.html">show_all_reasons()</a></code> <code><a href="show_all.html">show_all_ranks()</a></code> <code><a href="show_all.html">show_all_profiles()</a></code> <code><a href="show_all.html">show_all_lists()</a></code> 
+          <code><a href="show_all.html">show_all()</a></code> <code><a href="show_all.html">show_all_apis()</a></code> <code><a href="show_all.html">show_all_assertions()</a></code> <code><a href="show_all.html">show_all_atlases()</a></code> <code><a href="show_all.html">show_all_collections()</a></code> <code><a href="show_all.html">show_all_datasets()</a></code> <code><a href="show_all.html">show_all_fields()</a></code> <code><a href="show_all.html">show_all_licences()</a></code> <code><a href="show_all.html">show_all_lists()</a></code> <code><a href="show_all.html">show_all_profiles()</a></code> <code><a href="show_all.html">show_all_providers()</a></code> <code><a href="show_all.html">show_all_ranks()</a></code> <code><a href="show_all.html">show_all_reasons()</a></code> 
         </dt>
         <dd>Show valid record information</dd>
       </dl><dl><dt>
           
-          <code><a href="search_all.html">search_all()</a></code> <code><a href="search_all.html">search_apis()</a></code> <code><a href="search_all.html">search_assertions()</a></code> <code><a href="search_all.html">search_atlases()</a></code> <code><a href="search_all.html">search_collections()</a></code> <code><a href="search_all.html">search_datasets()</a></code> <code><a href="search_all.html">search_providers()</a></code> <code><a href="search_all.html">search_fields()</a></code> <code><a href="search_all.html">search_licences()</a></code> <code><a href="search_all.html">search_reasons()</a></code> <code><a href="search_all.html">search_ranks()</a></code> <code><a href="search_all.html">search_profiles()</a></code> <code><a href="search_all.html">search_lists()</a></code> 
+          <code><a href="search_all.html">search_all()</a></code> <code><a href="search_all.html">search_assertions()</a></code> <code><a href="search_all.html">search_apis()</a></code> <code><a href="search_all.html">search_atlases()</a></code> <code><a href="search_all.html">search_collections()</a></code> <code><a href="search_all.html">search_datasets()</a></code> <code><a href="search_all.html">search_fields()</a></code> <code><a href="search_all.html">search_identifiers()</a></code> <code><a href="search_all.html">search_licences()</a></code> <code><a href="search_all.html">search_lists()</a></code> <code><a href="search_all.html">search_profiles()</a></code> <code><a href="search_all.html">search_providers()</a></code> <code><a href="search_all.html">search_ranks()</a></code> <code><a href="search_all.html">search_reasons()</a></code> <code><a href="search_all.html">search_taxa()</a></code> 
         </dt>
         <dd>Search for record information</dd>
-      </dl><dl><dt>
-          
-          <code><a href="search_taxa.html">search_taxa()</a></code> 
-        </dt>
-        <dd>Look up taxon information</dd>
-      </dl><dl><dt>
-          
-          <code><a href="search_identifiers.html">search_identifiers()</a></code> 
-        </dt>
-        <dd>Search for taxa with taxonomic identifiers</dd>
-      </dl><dl><dt>
-          
-          <code><a href="search_media.html">search_media()</a></code> 
-        </dt>
-        <dd>Search for associated media of occurrence records</dd>
       </dl><dl><dt>
           
           <code><a href="show_values.html">show_values()</a></code> <code><a href="show_values.html">search_values()</a></code> 
         </dt>
         <dd>Show or search for values within a specified field</dd>
       </dl></div><div class="section level2">
-      <h2 id="narrow-results">Narrow results<a class="anchor" aria-label="anchor" href="#narrow-results"></a></h2>
+      <h2 id="lazy-data-manipulation">Lazy data manipulation<a class="anchor" aria-label="anchor" href="#lazy-data-manipulation"></a></h2>
       
       
 
@@ -126,39 +137,59 @@
 
       <dl><dt>
           
-          <code><a href="galah_identify.html">galah_identify()</a></code> 
+          <code><a href="galah_identify.html">galah_identify()</a></code> <code><a href="galah_identify.html">identify(<i>&lt;data_request&gt;</i>)</a></code> <code><a href="galah_identify.html">identify(<i>&lt;metadata_request&gt;</i>)</a></code> 
         </dt>
         <dd>Narrow a query by passing taxonomic identifiers</dd>
       </dl><dl><dt>
           
-          <code><a href="galah_filter.html">filter(<i>&lt;data_request&gt;</i>)</a></code> <code><a href="galah_filter.html">galah_filter()</a></code> 
+          <code><a href="galah_filter.html">galah_filter()</a></code> <code><a href="galah_filter.html">filter(<i>&lt;data_request&gt;</i>)</a></code> <code><a href="galah_filter.html">filter(<i>&lt;metadata_request&gt;</i>)</a></code> <code><a href="galah_filter.html">filter(<i>&lt;files_request&gt;</i>)</a></code> 
         </dt>
         <dd>Narrow a query by specifying filters</dd>
       </dl><dl><dt>
           
-          <code><a href="galah_select.html">galah_select()</a></code> 
+          <code><a href="galah_select.html">galah_select()</a></code> <code><a href="galah_select.html">select(<i>&lt;data_request&gt;</i>)</a></code> 
         </dt>
         <dd>Specify fields for occurrence download</dd>
       </dl><dl><dt>
           
-          <code><a href="galah_group_by.html">galah_group_by()</a></code> 
+          <code><a href="galah_group_by.html">galah_group_by()</a></code> <code><a href="galah_group_by.html">group_by(<i>&lt;data_request&gt;</i>)</a></code> 
         </dt>
         <dd>Specify fields to group when downloading record counts</dd>
       </dl><dl><dt>
           
-          <code><a href="galah_geolocate.html">galah_geolocate()</a></code> 
+          <code><a href="galah_geolocate.html">galah_bbox()</a></code> <code><a href="galah_geolocate.html">galah_geolocate()</a></code> <code><a href="galah_geolocate.html">galah_polygon()</a></code> <code><a href="galah_geolocate.html">st_crop(<i>&lt;data_request&gt;</i>)</a></code> 
         </dt>
         <dd>Narrow a query to within a specified area</dd>
       </dl><dl><dt>
           
-          <code><a href="galah_apply_profile.html">galah_apply_profile()</a></code> 
+          <code><a href="galah_apply_profile.html">galah_apply_profile()</a></code> <code><a href="galah_apply_profile.html">apply_profile()</a></code> 
         </dt>
         <dd>Apply a data quality profile</dd>
       </dl><dl><dt>
           
-          <code><a href="galah_down_to.html">galah_down_to()</a></code> 
+          <code><a href="deprecated-functions.html">galah_down_to()</a></code> 
         </dt>
-        <dd>Specify the lowest taxonomic rank required in a downwards search</dd>
+        <dd>Deprecated functions</dd>
+      </dl><dl><dt>
+          
+          <code><a href="arrange.html">arrange(<i>&lt;data_request&gt;</i>)</a></code> <code><a href="arrange.html">arrange(<i>&lt;metadata_request&gt;</i>)</a></code> 
+        </dt>
+        <dd>Arrange rows of a query</dd>
+      </dl><dl><dt>
+          
+          <code><a href="tidyverse_functions.html">desc()</a></code> <code><a href="tidyverse_functions.html">unnest()</a></code> 
+        </dt>
+        <dd>Non-generic tidyverse functions</dd>
+      </dl><dl><dt>
+          
+          <code><a href="slice_head.html">slice_head(<i>&lt;data_request&gt;</i>)</a></code> <code><a href="slice_head.html">slice_head(<i>&lt;metadata_request&gt;</i>)</a></code> 
+        </dt>
+        <dd>Subset first rows of <code>data_request</code></dd>
+      </dl><dl><dt>
+          
+          <code><a href="reexports.html">reexports</a></code> <code><a href="reexports.html">arrange</a></code> <code><a href="reexports.html">collect</a></code> <code><a href="reexports.html">compute</a></code> <code><a href="reexports.html">collapse</a></code> <code><a href="reexports.html">identify</a></code> <code><a href="reexports.html">filter</a></code> <code><a href="reexports.html">select</a></code> <code><a href="reexports.html">group_by</a></code> <code><a href="reexports.html">slice_head</a></code> <code><a href="reexports.html">count</a></code> <code><a href="reexports.html">st_crop</a></code> 
+        </dt>
+        <dd>Objects exported from other packages</dd>
       </dl></div><div class="section level2">
       <h2 id="download-data">Download data<a class="anchor" aria-label="anchor" href="#download-data"></a></h2>
       
@@ -174,7 +205,7 @@
           
           <code><a href="atlas_occurrences.html">atlas_occurrences()</a></code> 
         </dt>
-        <dd>Return occurrence records</dd>
+        <dd>Collect a set of occurrences</dd>
       </dl><dl><dt>
           
           <code><a href="atlas_counts.html">atlas_counts()</a></code> <code><a href="atlas_counts.html">count(<i>&lt;data_request&gt;</i>)</a></code> 
@@ -184,7 +215,7 @@
           
           <code><a href="atlas_species.html">atlas_species()</a></code> 
         </dt>
-        <dd>Return species lists</dd>
+        <dd>Collect the set of species observed within the specified filters</dd>
       </dl><dl><dt>
           
           <code><a href="atlas_taxonomy.html">atlas_taxonomy()</a></code> 
@@ -202,76 +233,9 @@
         <dd>Collect media files</dd>
       </dl><dl><dt>
           
-          <code><a href="collect_occurrences.html">collect_occurrences()</a></code> 
+          <code><a href="collapse_galah.html">collapse(<i>&lt;data_request&gt;</i>)</a></code> <code><a href="collapse_galah.html">collapse(<i>&lt;metadata_request&gt;</i>)</a></code> <code><a href="collapse_galah.html">collapse(<i>&lt;files_request&gt;</i>)</a></code> 
         </dt>
-        <dd>Collect occurrence records from a pre-existing DOI or URL</dd>
-      </dl></div><div class="section level2">
-      <h2 id="masked-functions">Masked functions<a class="anchor" aria-label="anchor" href="#masked-functions"></a></h2>
-      
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="identify.data_request.html">identify(<i>&lt;data_request&gt;</i>)</a></code> 
-        </dt>
-        <dd>Narrow a query by passing taxonomic identifiers</dd>
-      </dl><dl><dt>
-          
-          <code><a href="galah_filter.html">filter(<i>&lt;data_request&gt;</i>)</a></code> <code><a href="galah_filter.html">galah_filter()</a></code> 
-        </dt>
-        <dd>Narrow a query by specifying filters</dd>
-      </dl><dl><dt>
-          
-          <code><a href="select.data_request.html">select(<i>&lt;data_request&gt;</i>)</a></code> 
-        </dt>
-        <dd>Specify fields for occurrence download</dd>
-      </dl><dl><dt>
-          
-          <code><a href="group_by.data_request.html">group_by(<i>&lt;data_request&gt;</i>)</a></code> 
-        </dt>
-        <dd>Specify fields to group when downloading record counts</dd>
-      </dl><dl><dt>
-          
-          <code><a href="galah_polygon.html">galah_polygon()</a></code> <code><a href="galah_polygon.html">st_crop(<i>&lt;data_request&gt;</i>)</a></code> 
-        </dt>
-        <dd>Narrow a query to within a specified polygon</dd>
-      </dl><dl><dt>
-          
-          <code><a href="slice_head.data_request.html">slice_head(<i>&lt;data_request&gt;</i>)</a></code> 
-        </dt>
-        <dd>Slice for object of class <code>data_request</code></dd>
-      </dl><dl><dt>
-          
-          <code><a href="atlas_counts.html">atlas_counts()</a></code> <code><a href="atlas_counts.html">count(<i>&lt;data_request&gt;</i>)</a></code> 
-        </dt>
-        <dd>Return a count of records</dd>
-      </dl><dl><dt>
-          
-          <code><a href="reexports.html">reexports</a></code> <code><a href="reexports.html">identify</a></code> <code><a href="reexports.html">filter</a></code> <code><a href="reexports.html">select</a></code> <code><a href="reexports.html">group_by</a></code> <code><a href="reexports.html">slice_head</a></code> <code><a href="reexports.html">count</a></code> <code><a href="reexports.html">st_crop</a></code> 
-        </dt>
-        <dd>Objects exported from other packages</dd>
-      </dl></div><div class="section level2">
-      <h2 id="manage-cache">Manage cache<a class="anchor" aria-label="anchor" href="#manage-cache"></a></h2>
-      
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="clear_cached_files.html">clear_cached_files()</a></code> 
-        </dt>
-        <dd>Clear previously cached files</dd>
+        <dd>Generate a query</dd>
       </dl></div><div class="section level2">
       <h2 id="configure-session">Configure session<a class="anchor" aria-label="anchor" href="#configure-session"></a></h2>
       
@@ -285,7 +249,7 @@
 
       <dl><dt>
           
-          <code><a href="galah_config.html">galah_config()</a></code> <code><a href="galah_config.html">print(<i>&lt;galah_config&gt;</i>)</a></code> 
+          <code><a href="galah_config.html">galah_config()</a></code> 
         </dt>
         <dd>Get or set configuration options that control galah behaviour</dd>
       </dl></div><div class="section level2">
@@ -310,7 +274,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+  <p></p><p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown-footer-right">

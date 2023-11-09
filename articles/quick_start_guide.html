@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,11 +50,17 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <h6 class="dropdown-header" data-toc-skip>Get started</h6>
     <a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a>
-    <a class="dropdown-item" href="../articles/piping.html">Piping in galah</a>
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Advanced</h6>
+    <a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a>
+    <a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a>
+    <a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a>
+    <a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a>
   </div>
 </li>
 <li class="nav-item">
@@ -91,7 +97,7 @@
                         <h4 data-toc-skip class="author">Martin Westgate
 &amp; Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2023-01-18</h4>
+            <h4 data-toc-skip class="date">2023-10-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/vignettes/quick_start_guide.Rmd" class="external-link"><code>vignettes/quick_start_guide.Rmd</code></a></small>
       <div class="d-none name"><code>quick_start_guide.Rmd</code></div>
@@ -112,8 +118,8 @@ observations, taxonomic information, record counts, or associated media
 such as images or sounds. Users can restrict their queries to particular
 taxa or locations by specifying which columns and rows are returned by a
 query, or by restricting their results to observations that meet
-particular quality-control criteria. With a few minor exceptions, all
-functions return a <code>tibble</code> as their standard format.</p>
+particular quality-control criteria. All functions return a
+<code>tibble</code> as their standard format.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -127,7 +133,7 @@ functions return a <code>tibble</code> as their standard format.</p>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"AtlasOfLivingAustralia/galah"</span><span class="op">)</span></span></code></pre></div>
 <p>Load the package</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://galah.ala.org.au">galah</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://galah.ala.org.au/R/">galah</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="choosing-an-atlas">Choosing an atlas<a class="anchor" aria-label="anchor" href="#choosing-an-atlas"></a>
@@ -169,7 +175,7 @@ atlas, use:</p>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##       count</span></span>
 <span><span class="co">##       &lt;int&gt;</span></span>
-<span><span class="co">## 1 113038010</span></span></code></pre>
+<span><span class="co">## 1 130679056</span></span></code></pre>
 <p>To pass more complex queries, start with the
 <code><a href="../reference/galah_call.html">galah_call()</a></code> function and pipe additional arguments to
 modify the query. modifying functions have a <code>galah_</code> prefix
@@ -181,7 +187,7 @@ and support non-standard evaluation (NSE).</p>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##      count</span></span>
 <span><span class="co">##      &lt;int&gt;</span></span>
-<span><span class="co">## 1 15150011</span></span></code></pre>
+<span><span class="co">## 1 26671180</span></span></code></pre>
 <p>Alternatively, you can use a subset of <code>dplyr</code> verbs to
 pipe your queries, assuming you start with
 <code><a href="../reference/galah_call.html">galah_call()</a></code>.</p>
@@ -189,26 +195,26 @@ pipe your queries, assuming you start with
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 4 × 2</span></span>
 <span><span class="co">##   year    count</span></span>
 <span><span class="co">##   &lt;chr&gt;   &lt;int&gt;</span></span>
-<span><span class="co">## 1 2021  7155750</span></span>
-<span><span class="co">## 2 2020  6419193</span></span>
-<span><span class="co">## 3 2022  1547173</span></span>
-<span><span class="co">## 4 2023    27895</span></span></code></pre>
+<span><span class="co">## 1 2022  8353115</span></span>
+<span><span class="co">## 2 2021  8204330</span></span>
+<span><span class="co">## 3 2020  7116059</span></span>
+<span><span class="co">## 4 2023  2997676</span></span></code></pre>
 <p>To narrow the search to a particular taxonomic group, use
 <code><a href="../reference/galah_identify.html">galah_identify()</a></code> or <code>identify</code>. Note that this
 function only accepts scientific names and is not case sensitive. It’s
-good practice to first use <code><a href="../reference/search_taxa.html">search_taxa()</a></code> to check that the
+good practice to first use <code><a href="../reference/search_all.html">search_taxa()</a></code> to check that the
 taxa you provide returns the correct taxonomic results.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_taxa.html">search_taxa</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="co"># Check whether taxonomic info is correct</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_taxa</a></span><span class="op">(</span><span class="st">"reptilia"</span><span class="op">)</span> <span class="co"># Check whether taxonomic info is correct</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 9</span></span>
-<span><span class="co">##   search_term scientific_name taxon_concept_id                                                    rank  match…¹ kingdom phylum class issues</span></span>
-<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                                               &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
-<span><span class="co">## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550ef… class exactM… Animal… Chord… Rept… noIss…</span></span>
-<span><span class="co">## # … with abbreviated variable name ¹​match_type</span></span></code></pre>
+<span><span class="co">##   search_term scientific_name taxon_concept_id                                                  rank  match_type kingdom phylum class issues</span></span>
+<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                                                             &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span></span>
+<span><span class="co">## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550… class exactMatch Animal… Chord… Rept… noIss…</span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -217,7 +223,7 @@ taxa you provide returns the correct taxonomic results.</p>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##    count</span></span>
 <span><span class="co">##    &lt;int&gt;</span></span>
-<span><span class="co">## 1 101979</span></span></code></pre>
+<span><span class="co">## 1 214842</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="downloading-records">Downloading records<a class="anchor" aria-label="anchor" href="#downloading-records"></a>
@@ -241,15 +247,15 @@ question:</p>
 <span></span>
 <span><span class="va">result</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 6 × 9</span></span>
-<span><span class="co">##   decimalLatitude decimalLongitude eventDate           scientificName    taxonConceptID                     recor…¹ dataR…² occur…³ basis…⁴</span></span>
-<span><span class="co">##             &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;             &lt;chr&gt;                              &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
-<span><span class="co">## 1           -43.4             147. 2020-09-04 14:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… e8045b… FrogID  PRESENT HUMAN_…</span></span>
-<span><span class="co">## 2           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… 44187a… FrogID  PRESENT HUMAN_…</span></span>
-<span><span class="co">## 3           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… bc34a7… FrogID  PRESENT HUMAN_…</span></span>
-<span><span class="co">## 4           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… ca4707… FrogID  PRESENT HUMAN_…</span></span>
-<span><span class="co">## 5           -43.4             146. 2020-01-01 13:00:00 Litoria burrowsae https://biodiversity.org.au/afd/t… 9c71f5… FrogID  PRESENT HUMAN_…</span></span>
-<span><span class="co">## 6           -43.4             146. 2020-01-01 13:00:00 Litoria ewingii   https://biodiversity.org.au/afd/t… 4bbaad… FrogID  PRESENT HUMAN_…</span></span>
-<span><span class="co">## # … with abbreviated variable names ¹​recordID, ²​dataResourceName, ³​occurrenceStatus, ⁴​basisOfRecord</span></span></code></pre>
+<span><span class="co">##   recordID              decimalLatitude decimalLongitude eventDate           scientificName taxonConceptID dataResourceName occurrenceStatus</span></span>
+<span><span class="co">##   &lt;chr&gt;                           &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;           </span></span>
+<span><span class="co">## 1 00250163-ec50-4eda-a…           -41.2             147. 2023-08-23 01:49:28 Litoria        https://biodi… iNaturalist Aus… PRESENT         </span></span>
+<span><span class="co">## 2 003e0f63-9f95-4af9-b…           -42.9             148. 2022-12-23 19:27:00 Litoria ewing… https://biodi… iNaturalist Aus… PRESENT         </span></span>
+<span><span class="co">## 3 00410554-5289-416f-9…           -41.7             147. 2021-05-06 00:00:00 Litoria ewing… https://biodi… FrogID           PRESENT         </span></span>
+<span><span class="co">## 4 0081e7ef-459b-42a9-8…           -43.2             147. 2020-08-02 00:00:00 Litoria ewing… https://biodi… FrogID           PRESENT         </span></span>
+<span><span class="co">## 5 0086def1-8415-4bb3-8…           -41.2             147. 2020-12-31 00:00:00 Litoria ewing… https://biodi… FrogID           PRESENT         </span></span>
+<span><span class="co">## 6 00b40ee7-074b-4dae-9…           -41.5             147. 2020-11-01 00:00:00 Litoria ewing… https://biodi… FrogID           PRESENT         </span></span>
+<span><span class="co">## # ℹ 1 more variable: basisOfRecord &lt;chr&gt;</span></span></code></pre>
 <p>Check out our other vignettes for more detail on how to use these
 functions.</p>
 </div>
@@ -261,7 +267,7 @@ functions.</p>
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+<p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown-footer-right">

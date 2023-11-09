@@ -30,7 +30,7 @@ See Details (below) for accepted values."><meta property="og:image" content="htt
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,11 +44,17 @@ See Details (below) for accepted values."><meta property="og:image" content="htt
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <h6 class="dropdown-header" data-toc-skip>Get started</h6>
     <a class="dropdown-item" href="../articles/choosing_an_atlas.html">Choosing an atlas</a>
-    <a class="dropdown-item" href="../articles/piping.html">Piping in galah</a>
     <a class="dropdown-item" href="../articles/look_up_information.html">Look up information</a>
     <a class="dropdown-item" href="../articles/narrow_your_results.html">Narrow your results</a>
     <a class="dropdown-item" href="../articles/download_data.html">Download data</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Advanced</h6>
+    <a class="dropdown-item" href="../articles/object_oriented_programming.html">Object-oriented programming</a>
+    <a class="dropdown-item" href="../articles/taxonomic_filtering.html">Taxonomic filtering</a>
+    <a class="dropdown-item" href="../articles/spatial_filtering.html">Spatial filtering</a>
+    <a class="dropdown-item" href="../articles/temporal_filtering.html">Temporal filtering</a>
   </div>
 </li>
 <li class="active nav-item">
@@ -86,7 +92,7 @@ or category for the type of information they are interested in.
 Functions prefixed with <code>search_</code> do this, displaying any matches to a
 search term within the valid options for the information specified by the
 suffix.</p>
-<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="figures/lifecycle-stable.svg" alt="[Stable]"></a>
 <code>search_all()</code> is a helper function that can do searches within multiple
 types of information from <code>search_</code> sub-functions.
 See <code>Details</code> (below) for accepted values.</p>
@@ -96,9 +102,9 @@ See <code>Details</code> (below) for accepted values.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">search_all</span><span class="op">(</span><span class="va">type</span>, <span class="va">query</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">search_apis</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu">search_assertions</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">search_apis</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">search_atlases</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
 <span></span>
@@ -106,19 +112,23 @@ See <code>Details</code> (below) for accepted values.</p>
 <span></span>
 <span><span class="fu">search_datasets</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">search_providers</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu">search_fields</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">search_identifiers</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">search_licences</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">search_reasons</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">search_ranks</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
+<span><span class="fu">search_lists</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">search_profiles</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">search_lists</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">search_providers</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">search_ranks</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">search_reasons</span><span class="op">(</span><span class="va">query</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">search_taxa</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -130,6 +140,10 @@ See <code>Details</code> (below) for accepted values.</p>
 <dt>query</dt>
 <dd><p>A string specifying a search term. Searches are not
 case-sensitive.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>A set of strings or a tibble to be queried</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -143,7 +157,7 @@ containing all data that match the search query.</p>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>There are five categories of information, each with their own
 specific sub-functions to look-up each type of information.
-The available types of information for <code>search_all()</code> are:</p><table class="table table"><tr><td><strong>Category</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td><td><strong>Sub-functions</strong></td></tr><tr><td>configuration</td><td><code>atlases</code></td><td>Search for what atlases are available</td><td><code>search_atlases()</code></td></tr><tr><td></td><td><code>apis</code></td><td>Search for what APIs &amp; functions are available for each atlas</td><td><code>search_apis()</code></td></tr><tr><td></td><td><code>reasons</code></td><td>Search for what values are acceptable as 'download reasons' for a specified atlas</td><td><code>search_reasons()</code></td></tr><tr><td>taxonomy</td><td><code>taxa</code></td><td>Search for one or more taxonomic names</td><td><code><a href="search_taxa.html">search_taxa()</a></code></td></tr><tr><td></td><td><code>identifiers</code></td><td>Take a universal identifier and return taxonomic information</td><td><code><a href="search_identifiers.html">search_identifiers()</a></code></td></tr><tr><td></td><td><code>ranks</code></td><td>Search for valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.)</td><td><code>search_ranks()</code></td></tr><tr><td>filters</td><td><code>fields</code></td><td>Search for fields that are stored in an atlas</td><td><code>search_fields()</code></td></tr><tr><td></td><td><code>assertions</code></td><td>Search for results of data quality checks run by each atlas</td><td><code>search_assertions()</code></td></tr><tr><td></td><td><code>licenses</code></td><td>Search for copyright licences applied to media</td><td><code>search_licenses()</code></td></tr><tr><td>group filters</td><td><code>profiles</code></td><td>Search for what data profiles are available</td><td><code>search_profiles()</code></td></tr><tr><td></td><td><code>lists</code></td><td>Search for what species lists are available</td><td><code>search_lists()</code></td></tr><tr><td>data providers</td><td><code>providers</code></td><td>Search for which institutions have provided data</td><td><code>search_providers()</code></td></tr><tr><td></td><td><code>collections</code></td><td>Search for the specific collections within those institutions</td><td><code>search_collections()</code></td></tr><tr><td></td><td><code>datasets</code></td><td>Search for the data groupings within those collections</td><td><code>search_datasets()</code></td></tr></table></div>
+The available types of information for <code>search_all()</code> are:</p><table class="table table"><tr><td><strong>Category</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td><td><strong>Sub-functions</strong></td></tr><tr><td>configuration</td><td><code>atlases</code></td><td>Search for what atlases are available</td><td><code>search_atlases()</code></td></tr><tr><td></td><td><code>apis</code></td><td>Search for what APIs &amp; functions are available for each atlas</td><td><code>search_apis()</code></td></tr><tr><td></td><td><code>reasons</code></td><td>Search for what values are acceptable as 'download reasons' for a specified atlas</td><td><code>search_reasons()</code></td></tr><tr><td>taxonomy</td><td><code>taxa</code></td><td>Search for one or more taxonomic names</td><td><code>search_taxa()</code></td></tr><tr><td></td><td><code>identifiers</code></td><td>Take a universal identifier and return taxonomic information</td><td><code>search_identifiers()</code></td></tr><tr><td></td><td><code>ranks</code></td><td>Search for valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.)</td><td><code>search_ranks()</code></td></tr><tr><td>filters</td><td><code>fields</code></td><td>Search for fields that are stored in an atlas</td><td><code>search_fields()</code></td></tr><tr><td></td><td><code>assertions</code></td><td>Search for results of data quality checks run by each atlas</td><td><code>search_assertions()</code></td></tr><tr><td></td><td><code>licenses</code></td><td>Search for copyright licences applied to media</td><td><code>search_licenses()</code></td></tr><tr><td>group filters</td><td><code>profiles</code></td><td>Search for what data profiles are available</td><td><code>search_profiles()</code></td></tr><tr><td></td><td><code>lists</code></td><td>Search for what species lists are available</td><td><code>search_lists()</code></td></tr><tr><td>data providers</td><td><code>providers</code></td><td>Search for which institutions have provided data</td><td><code>search_providers()</code></td></tr><tr><td></td><td><code>collections</code></td><td>Search for the specific collections within those institutions</td><td><code>search_collections()</code></td></tr><tr><td></td><td><code>datasets</code></td><td>Search for the data groupings within those collections</td><td><code>search_datasets()</code></td></tr></table></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     
@@ -151,7 +165,7 @@ The available types of information for <code>search_all()</code> are:</p><table 
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>See <code><a href="search_taxa.html">search_taxa()</a></code> and <code><a href="search_identifiers.html">search_identifiers()</a></code> for more information
+    <div class="dont-index"><p>See <code>search_taxa()</code> and <code>search_identifiers()</code> for more information
 on taxonomic searches.
 Use the <code><a href="show_all.html">show_all()</a></code> function and <code>show_all_()</code> sub-functions to
 show available options of information. These functions are used to pass valid
@@ -181,8 +195,13 @@ arguments to <code><a href="galah_select.html">galah_select()</a></code>, <code>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Search for a valid taxonomic rank, "subphylum"</span></span></span>
 <span class="r-in"><span><span class="fu">search_all</span><span class="op">(</span><span class="va">ranks</span>, <span class="st">"subphylum"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># An alternative is to download the data and then `filter` it. This is </span></span></span>
+<span class="r-in"><span><span class="co"># largely synonymous, and allows greater control over which fields are searched.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="galah_call.html">request_metadata</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"fields"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"date"</span>, <span class="va">id</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -190,7 +209,7 @@ arguments to <code><a href="galah_select.html">galah_select()</a></code>, <code>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Martin Westgate, Dax Kellie, Matilda Stevenson, Peggy Newman.</p>
+  <p></p><p>Developed by Martin Westgate, Matilda Stevenson, Dax Kellie, Peggy Newman.</p>
 </div>
 
 <div class="pkgdown-footer-right">
