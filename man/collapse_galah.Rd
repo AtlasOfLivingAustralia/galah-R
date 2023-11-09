@@ -7,7 +7,7 @@
 \alias{collapse.files_request}
 \title{Generate a query}
 \usage{
-\method{collapse}{data_request}(x, ..., mint_doi = FALSE)
+\method{collapse}{data_request}(x, ..., mint_doi)
 
 \method{collapse}{metadata_request}(x, ...)
 
