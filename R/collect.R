@@ -7,7 +7,7 @@
 #' @param x An object of class `data_request`, `metadata_request` or 
 #' `files_request` (from `galah_call()`); or an oject of class `query_set` or 
 #' `query` (from `collapse()` or `compute()`)
-#' @param ... Arguments passed on to methods
+#' @param ... Arguments passed on to other methods
 #' @param wait logical; should `galah` wait for a response? Defaults to FALSE.
 #' Only applies for `type = "occurrences"` or `"species"`.
 #' @param file (optional) file name. If not given will be `data` with date and 
@@ -18,7 +18,7 @@
 #' that can be used to recheck the download at a later time.
 #' @export
 collect.data_request <- function(x, ..., wait = TRUE, file = NULL){
-  collapse(x) |>
+  collapse(x, ...) |>
     compute() |>
     collect(wait = wait, file = file)
 }
@@ -27,7 +27,7 @@ collect.data_request <- function(x, ..., wait = TRUE, file = NULL){
 #' @order 2
 #' @export
 collect.metadata_request <- function(x, ...){
-  collapse(x) |>
+  collapse(x, ...) |>
     compute() |>
     collect()
 }
@@ -36,7 +36,7 @@ collect.metadata_request <- function(x, ...){
 #' @order 3
 #' @export
 collect.files_request <- function(x, ...){
-  collapse(x) |> 
+  collapse(x, ...) |> 
     compute() |>
     collect()
 }

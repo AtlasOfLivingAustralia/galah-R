@@ -88,15 +88,13 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
     st_crop(poly)
   # w <- collapse(base_query)
   # collect with wait = FALSE - ensure `type` is specified
-  x <- compute(base_query) #|> collect(wait = FALSE)
+  x <- compute(base_query)
   expect_equal(names(x),
                c("type",
                  "status",
                  "total_records",
-                 # "records",
                  "queue_size",
                  "status_url",
-                 "cancel_url",
                  "cancel_url",
                  "search_url",
                  "fields"))
@@ -148,4 +146,26 @@ test_that("atlas_occurrences downloads data from a DOI", {
   expect_equal(result1, result3)
 })
 
-# TODO: add invalid DOI tests
+test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
+  x <- galah_call() |>
+    identify("Vulpes vulpes") |>
+    filter(year <= 1900, 
+           basisOfRecord == "PRESERVED_SPECIMEN") |>
+    collect(mint_doi = TRUE)
+  y <- attr(x, "doi")
+  expect_false(is.null(y))
+  expect_true(grepl("^https://doi.org/", y))
+  citation <- atlas_citation(x)
+  expect_true(grepl("^Atlas of Living Australia", citation))
+  rm(x, y)
+  # ditto for atlas_occurrences
+  x <- galah_call() |>
+    identify("Vulpes vulpes") |>
+    filter(year <= 1900, 
+           basisOfRecord == "PRESERVED_SPECIMEN") |>
+    atlas_occurrences(mint_doi = TRUE)
+  
+  y <- attr(x, "doi")
+  expect_false(is.null(y))
+  expect_true(grepl("^https://doi.org/", y))
+})

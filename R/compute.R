@@ -12,14 +12,14 @@
 #' @param x An object of class `data_request`, `metadata_request` or 
 #' `files_request` (i.e. constructed using a pipe) or `query` or `query_set`
 #' (i.e. constructed by `collapse()`) 
-#' @param ... Arguments passed on to methods
+#' @param ... Arguments passed on to other methods
 #' @return An object of class `query` containing a checked, valid query
 #' for the selected atlas. In the case of occurrence data, also contains
 #' information on the status of the request.
 #' @export
 compute.data_request <- function(x, ...){
   # x$type <- check_type(x$type) # possibly still needed; unclear
-  collapse(x) |> compute()
+  collapse(x, ...) |> compute()
 }
 
 # if calling `compute()` after `request_metadata()` 
@@ -27,7 +27,7 @@ compute.data_request <- function(x, ...){
 #' @order 2
 #' @export
 compute.metadata_request <- function(x, ...){
-  collapse(x) |> compute()
+  collapse(x, ...) |> compute()
 }
 
 # if calling `compute()` after `request_files()` 
@@ -35,7 +35,7 @@ compute.metadata_request <- function(x, ...){
 #' @order 3
 #' @export
 compute.files_request <- function(x, ...){
-  result <- collapse(x)
+  result <- collapse(x, ...)
   result[[1]]
 }
 

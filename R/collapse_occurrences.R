@@ -2,15 +2,14 @@
 #' @importFrom rlang abort
 #' @noRd
 #' @keywords Internal
-collapse_occurrences <- function(.query, mint_doi = FALSE){
+collapse_occurrences <- function(.query){
   if(is.null(.query$filter) & is.null(.query$identify)){
     abort("No filters supplied to atlas_occurrences()")
   }
   switch(pour("atlas", "region"),
          "United Kingdom" = collapse_occurrences_uk(.query),
          "Global" = collapse_occurrences_gbif(.query),
-         {.query$mint_doi <- mint_doi
-          collapse_occurrences_la(.query)})
+         collapse_occurrences_la(.query))
 }
 
 #' calculate the query to be returned for the UK atlas
@@ -101,8 +100,9 @@ collapse_occurrences_la <- function(.query){
              email = pour("user", "email"),
              dwcHeaders = "true")
   # DOI conditional on this service being offered
-  if (.query$mint_doi & pour("atlas", "region") == "Australia") {
-    query$mintDoi <- "true"
+  if (!is.null(.query$mint_doi) & 
+      pour("atlas", "region") == "Australia") {
+    query$mintDoi <- .query$mint_doi
   }
   # build url
   url <- url_lookup("data/occurrences") |> 

@@ -5,11 +5,10 @@
 check_atlas_inputs <- function(args){
   if(!is.null(args$request)){
     check_data_request(args$request)
-    result <- update_data_request(args$request, args[-1])
+    update_data_request(args$request, args[-1])
   }else{
-    result <- do.call(galah_call, args)
+    do.call(galah_call, args)
   }
-  return(result)
 }
 
 #' Internal function to check for `data_request`s

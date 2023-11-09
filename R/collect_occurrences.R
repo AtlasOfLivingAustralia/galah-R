@@ -61,9 +61,34 @@ collect_occurrences_default <- function(.query, wait, file){
     inform("Download failed")
     return(tibble())
   }else{
-    result |>
+    result <- result |>
       enforce_field_names_and_types(.query) |>
-      check_media_cols()  # check for, and then clean, media info    
+      check_media_cols()  # check for, and then clean, media info
+    # exception for GBIF to ensure DOIs are preserved
+    if(!is.null(.query$doi)){
+      attr(result, "doi") <- paste0("https://doi.org/", .query$doi)
+    }
+    result
+  }
+}
+
+#' Subset of collect for a doi.
+#' @param .query An object of class `data_request`
+#' @noRd
+#' @keywords Internal
+#' @importFrom potions pour
+#' @importFrom rlang abort
+#' @importFrom rlang inform
+#' @importFrom tibble tibble
+collect_occurrences_doi <- function(.query, file = NULL, error_call = caller_env()) {
+  .query$file <- check_download_filename(file)
+  query_API(.query)
+  result <- load_zip(.query$file)
+  if(is.null(result)){
+    inform("Download failed.")
+    tibble()
+  }else{
+    result
   }
 }
 
@@ -116,6 +141,7 @@ load_zip <- function(cache_file){
                   filename = available_files) |> 
       read_tsv(col_types = cols()) |>
       suppressWarnings()
+    # Note: DOIs for GBIF are stored in `compute()` stage, not in the zip file
   }else{
     available_files <- all_files[grepl(".csv$", all_files) &
                                    grepl("^data|records", all_files)]
@@ -133,11 +159,14 @@ load_zip <- function(cache_file){
                      }, x = cache_file) |>
       bind_rows()
     # # add doi when mint_doi = TRUE
-    ## This needs to be re-enabled with new architecture
-    # if(any(all_files == "doi.txt")){
-    #   doi_file <- paste(cache_dir, "doi.txt", sep = "/")
-    #   attr(result, "doi") <- read.table(doi_file) |> as.character()
-    # }
+    if(any(all_files == "doi.txt")){
+      conn <- unz(description = cache_file, 
+                  filename = "doi.txt", 
+                  open = "rb")
+      attr(result, "doi") <- readr::read_file(conn) |>
+        sub("\\n$", "", x = _)
+      close(conn)
+    }
   }
   result
 }

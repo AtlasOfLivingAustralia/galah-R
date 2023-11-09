@@ -1,6 +1,6 @@
 Package: galah
 Type: Package
-Title: Download Biodiversity Data from the GBIF Node Network
+Title: Biodiversity Data from the GBIF Node Network
 Version: 2.0.0
 Authors@R: 
     c(person(given = "Martin",

@@ -1,9 +1,9 @@
-#' Collect the set of occurrences observed within the specified filters
+#' Collect a set of occurrences
 #'
 #' The most common form of data stored by living atlases are observations of
 #' individual life forms, known as 'occurrences'. This function allows the
 #' user to search for occurrence records that match their specific criteria,
-#' and return them as a `data.frame` for analysis. Optionally,
+#' and return them as a `tibble` for analysis. Optionally,
 #' the user can also request a DOI for a given download to facilitate citation
 #' and re-use of specific data resources.
 #'
@@ -26,19 +26,15 @@
 #' @details
 #' Note that unless care is taken, some queries can be particularly large.
 #' While most cases this will simply take a long time to process, if the number
-#' of requested records is >50 million the call will not return any data. Users
+#' of requested records is >50 million, the call will not return any data. Users
 #' can test whether this threshold will be reached by first calling
 #' [atlas_counts()] using the same arguments that they intend to pass to
-#' `atlas_occurrences`(). It may also be beneficial when requesting a large
+#' `atlas_occurrences()`. It may also be beneficial when requesting a large
 #' number of records to show a progress bar by setting `verbose = TRUE` in
-#' [galah_config()].
+#' [galah_config()], or to use `compute()` to run the call before collecting
+#' it later with `collect()`.
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) of 
 #' occurrences, containing columns as specified by [galah_select()]. 
-#' The `data.frame` object has the following attributes:
-#' 
-#' * a listing of the user-supplied arguments of the `data_request` 
-#' (i.e., identify, filter, geolocate, select)
-#' 
 #' @examples \dontrun{
 #' # Download occurrence records for a specific taxon
 #' galah_config(email = "your_email_here")
@@ -88,7 +84,6 @@ atlas_occurrences <- function(request = NULL,
   }else{
     args <- as.list(environment()) # capture supplied arguments
     check_atlas_inputs(args) |> # convert to `data_request` object
-      compute() |>
       collect(wait = TRUE)
   }
 }

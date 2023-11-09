@@ -19,7 +19,9 @@
 #' queries required to correctly retrieve the requested data. Objects within a
 #' `query_set` are listed in the sequence in which they will be enacted.
 #' @export
-collapse.data_request <- function(x, ..., mint_doi = FALSE){
+collapse.data_request <- function(x, ..., mint_doi){
+  if(!missing(mint_doi)){
+    x$mint_doi <- mint_doi}
   # x$type <- check_type(x$type) # needed?
   # handle sending dois via `filter()`
   # important this happens first, as it affects `type` which affects later code
@@ -71,7 +73,7 @@ collapse.data_request <- function(x, ..., mint_doi = FALSE){
   # handle query
   result[[(length(result) + 1)]] <- switch(
     x$type,
-    "occurrences" = collapse_occurrences(x, mint_doi = mint_doi),
+    "occurrences" = collapse_occurrences(x),
     "occurrences-count" = collapse_occurrences_count(x),
     "occurrences-doi" = collapse_occurrences_doi(x),
     "species" = collapse_species(x),

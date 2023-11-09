@@ -24,7 +24,7 @@
 \code{files_request} (i.e. constructed using a pipe) or \code{query} or \code{query_set}
 (i.e. constructed by \code{collapse()})}
 
-\item{...}{Arguments passed on to methods}
+\item{...}{Arguments passed on to other methods}
 }
 \value{
 An object of class \code{query} containing a checked, valid query

@@ -4,7 +4,7 @@
 update_data_request <- function(data_request, ...){
   dots <- list(...)
   if(length(dots)[[1]] == 1){
-    if(inherits(dots[[1]], "list") & is.null(names(dots[[1]]))){
+    if(inherits(dots[[1]], "list") & is.null(names(dots))){
       dots <- dots[[1]]
     }
   }
@@ -18,21 +18,20 @@ update_data_request <- function(data_request, ...){
           if(is.null(dots[[a]])){ # if nothing has been supplied, retain source
             data_request[[a]]
           }else{ # both supplied and source contain data
-            result <- switch(a,
-                             "identify" = {
-                               bind_unique_rows(data_request[[a]], dots[[a]], "search_term")
-                             },
-                             "filter" = {
-                               bind_unique_rows(data_request[[a]], dots[[a]], "query")
-                             },
-                             "select" = {
-                               update_select(data_request[[a]], dots[[a]])
-                             }, 
-                             # for below, we assume that in all other circumstances we 
-                             # simply pass the most recent result (i.e. overwrite)
-                             dots[[a]] # default
+            switch(a,
+                   "identify" = {
+                     bind_unique_rows(data_request[[a]], dots[[a]], "search_term")
+                   },
+                   "filter" = {
+                     bind_unique_rows(data_request[[a]], dots[[a]], "query")
+                   },
+                   "select" = {
+                     update_select(data_request[[a]], dots[[a]])
+                   }, 
+                   # for below, we assume that in all other circumstances we 
+                   # simply pass the most recent result (i.e. overwrite)
+                   dots[[a]] # default
             )
-            result
           }      
         }
       }else{ # if supplied object is not named in `data_request`

@@ -24,7 +24,7 @@
 \code{files_request} (from \code{galah_call()}); or an oject of class \code{query_set} or
 \code{query} (from \code{collapse()} or \code{compute()})}
 
-\item{...}{Arguments passed on to methods}
+\item{...}{Arguments passed on to other methods}
 
 \item{wait}{logical; should \code{galah} wait for a response? Defaults to FALSE.
 Only applies for \code{type = "occurrences"} or \code{"species"}.}

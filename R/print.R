@@ -113,6 +113,7 @@ switch_slot_text <- function(x, a){
     "select" = x[[a]]$summary,
     "group_by" =  glue_collapse(x[[a]]$name, sep = " | "),
     "data_profile" ={x[[a]]$data_profile[1]},
+    "mint_doi" = {x[[a]][1]},
     "")
 }
 

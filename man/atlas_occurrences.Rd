@@ -2,7 +2,7 @@
 % Please edit documentation in R/atlas_occurrences.R
 \name{atlas_occurrences}
 \alias{atlas_occurrences}
-\title{Collect the set of occurrences observed within the specified filters}
+\title{Collect a set of occurrences}
 \usage{
 atlas_occurrences(
   request = NULL,
@@ -43,29 +43,25 @@ all other arguments. Only available for the ALA.}
 \value{
 An object of class \code{tbl_df} and \code{data.frame} (aka a tibble) of
 occurrences, containing columns as specified by \code{\link[=galah_select]{galah_select()}}.
-The \code{data.frame} object has the following attributes:
-\itemize{
-\item a listing of the user-supplied arguments of the \code{data_request}
-(i.e., identify, filter, geolocate, select)
-}
 }
 \description{
 The most common form of data stored by living atlases are observations of
 individual life forms, known as 'occurrences'. This function allows the
 user to search for occurrence records that match their specific criteria,
-and return them as a \code{data.frame} for analysis. Optionally,
+and return them as a \code{tibble} for analysis. Optionally,
 the user can also request a DOI for a given download to facilitate citation
 and re-use of specific data resources.
 }
 \details{
 Note that unless care is taken, some queries can be particularly large.
 While most cases this will simply take a long time to process, if the number
-of requested records is >50 million the call will not return any data. Users
+of requested records is >50 million, the call will not return any data. Users
 can test whether this threshold will be reached by first calling
 \code{\link[=atlas_counts]{atlas_counts()}} using the same arguments that they intend to pass to
-\code{atlas_occurrences}(). It may also be beneficial when requesting a large
+\code{atlas_occurrences()}. It may also be beneficial when requesting a large
 number of records to show a progress bar by setting \code{verbose = TRUE} in
-\code{\link[=galah_config]{galah_config()}}.
+\code{\link[=galah_config]{galah_config()}}, or to use \code{compute()} to run the call before collecting
+it later with \code{collect()}.
 }
 \examples{
 \dontrun{
