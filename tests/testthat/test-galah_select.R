@@ -164,6 +164,7 @@ test_that("galah_select can use tidyselect::starts_with", {
 })
 
 test_that("galah_select can use tidyselect::last_col", {
+  skip_if_offline()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(tidyselect::last_col()) |>
@@ -176,6 +177,7 @@ test_that("galah_select can use tidyselect::last_col", {
 })
 
 test_that("galah_select can use tidyselect::last_col & user-defined queries", {
+  skip_if_offline()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(year, basisOfRecord, tidyselect::last_col()) |>
@@ -188,6 +190,7 @@ test_that("galah_select can use tidyselect::last_col & user-defined queries", {
 })
 
 test_that("galah_select can use tidyselect::last_col & group", {
+  skip_if_offline()
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(tidyselect::last_col(), group = "basic") |>

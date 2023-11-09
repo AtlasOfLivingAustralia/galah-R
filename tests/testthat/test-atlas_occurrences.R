@@ -147,6 +147,7 @@ test_that("atlas_occurrences downloads data from a DOI", {
 })
 
 test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
+  skip_if_offline()
   x <- galah_call() |>
     identify("Vulpes vulpes") |>
     filter(year <= 1900, 

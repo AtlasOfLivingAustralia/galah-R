@@ -35,6 +35,7 @@ test_that("atlas_taxonomy makes a tree when piped", {
 })
 
 test_that("atlas_taxonomy example runs", {
+  skip_if_offline()
   df <- galah_call() |> 
     galah_identify("chordata") |>
     galah_filter(rank == class) |>

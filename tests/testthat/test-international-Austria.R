@@ -73,6 +73,7 @@ test_that("show_all(lists) works for Austria", {
 })
 
 test_that("search_all(fields) works for Austria", {
+  skip_if_offline()
   x <- search_all(fields, "year")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))

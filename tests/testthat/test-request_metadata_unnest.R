@@ -87,6 +87,7 @@ test_that("request_metadata() |> unnest() works for type = 'taxa' using `identif
 })
 
 test_that("request_metadata() |> unnest() works for type = 'taxa' using `filter()`", {
+  skip_if_offline()
   lookup <- search_taxa("Crinia")$taxon_concept_id
   x <- request_metadata() |>
     filter(taxa == lookup) |>

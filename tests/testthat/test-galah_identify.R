@@ -40,6 +40,7 @@ test_that("galah_identify pipes correctly when taxa are partially returned", {
 })
 
 test_that("galah_identify warns when taxa are partially returned", {
+  skip_if_offline()
   expect_message(
     galah_call() |>
       galah_identify("Litoria", "blarghy") |>
@@ -51,6 +52,7 @@ test_that("galah_identify warns when taxa are partially returned", {
 })
 
 test_that("galah_identify warns when identifiers are partially returned", {
+  skip_if_offline()
   galah_config(run_checks = TRUE)
   ids <- c("https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b",
            "https://id.biodiversity.org.au/node/apni/2910467",
@@ -69,6 +71,7 @@ test_that("galah_identify warns when identifiers are partially returned", {
 })
 
 test_that("galah_identify truncates unmatched list of taxa at 3 ", {
+  skip_if_offline()
   expect_message(
     galah_call() |>
       galah_identify("Litoria", "blarghy", "blorp", "florp", "skorp") |>
@@ -84,7 +87,7 @@ test_that("galah_identify truncates unmatched list of taxa at 3 ", {
 })
 
 test_that("galah_identify errors for deprecated `search = FALSE` argument", {
-  skip_on_cran()
+  skip_if_offline()
   galah_config(run_checks = TRUE)
   ids <- c("https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b",
            "https://id.biodiversity.org.au/node/apni/2910467",
@@ -100,7 +103,7 @@ test_that("galah_identify errors for deprecated `search = FALSE` argument", {
 })
 
 test_that("galah_identify warns for deprecated `search = TRUE` argument", {
-  skip_on_cran()
+  skip_if_offline()
   galah_config(run_checks = TRUE)
   ids <- c("Litoria", "Crinia")
   expect_warning(

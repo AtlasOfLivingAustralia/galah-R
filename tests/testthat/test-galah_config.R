@@ -20,9 +20,8 @@ test_that("galah_config checks inputs", {
   expect_silent(galah_config(verbose = FALSE, atlas = "Australia"))
   expect_error(galah_config(run_checks = "value"))
   expect_silent(galah_config(run_checks = TRUE))
+  # reset defaults 
+  galah_config(run_checks = TRUE,
+               verbose = FALSE,
+               download_reason_id = "testing")
 })
-
-# reset defaults 
-galah_config(run_checks = TRUE,
-             verbose = FALSE,
-             download_reason_id = "testing")

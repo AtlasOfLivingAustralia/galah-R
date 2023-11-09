@@ -228,6 +228,7 @@ test_that("galah_filter handles %in% even with multiple filters", {
 })
 
 test_that("`galah_filter()` accepts {{}} on lhs of formula", {
+  skip_if_offline()
   field <- "species"
   result <- galah_call() |>
     galah_filter({{field}} == "Eolophus roseicapilla") |>
@@ -243,6 +244,7 @@ test_that("`galah_filter()` accepts {{}} on lhs of formula", {
 })
 
 test_that("`group_by()` works when > 1 `filter()`", {
+  skip_if_offline()
   chosen_species <- c("Eolophus roseicapilla", "Platycercus elegans")
   x <- request_data() |>
     filter(species == chosen_species) |>

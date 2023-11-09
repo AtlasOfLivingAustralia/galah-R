@@ -100,6 +100,7 @@ test_that("search_taxa errors nicely when piped in galah_call", {
 })
 
 test_that("`request_metadata()` works for `type = 'taxa'`", {
+  skip_if_offline()
   x <- request_metadata() |>
     identify("crinia") 
   expect_s3_class(x, "metadata_request")
