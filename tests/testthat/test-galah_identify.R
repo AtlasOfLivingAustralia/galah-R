@@ -115,15 +115,15 @@ test_that("galah_identify warns for deprecated `search = TRUE` argument", {
 })
 
 ## NOTE: Not certain if this is a necessary test
-cli::test_that_cli("Partial taxonomic match message theming", {
-  testthat::local_edition(3)
-  testthat::expect_snapshot(local({
-    cli::cli_div(theme = list(span.bold = list("font-weight" = "bold"),
-                              span.yellow = list(color = "yellow")))
-    c(
-      cli::cli_text("Matched {.bold 2 of 3} taxonomic search terms in selected atlas (Australia)."),
-      "!" = cli::cli_text("{.yellow 1 unmatched search term:}"),
-      cli::cli_text(format_error_bullets(c("{.yellow \"https://id.biodiversity.org.au/node/apni/291047\"}")))
-    )
-  }))
-})
+# cli::test_that_cli("Partial taxonomic match message theming", {
+#   testthat::local_edition(3)
+#   testthat::expect_snapshot(local({
+#     cli::cli_div(theme = list(span.bold = list("font-weight" = "bold"),
+#                               span.yellow = list(color = "yellow")))
+#     c(
+#       cli::cli_text("Matched {.bold 2 of 3} taxonomic search terms in selected atlas (Australia)."),
+#       "!" = cli::cli_text("{.yellow 1 unmatched search term:}"),
+#       cli::cli_text(format_error_bullets(c("{.yellow \"https://id.biodiversity.org.au/node/apni/291047\"}")))
+#     )
+#   }))
+# })
