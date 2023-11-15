@@ -38,7 +38,7 @@ check_directory <- function(x){
   }else{
     directory <- dirname(x)
     if(!dir.exists(directory)){
-      dir.create(directory)
+      dir.create(directory, recursive = TRUE)
     }else{
       x
     }

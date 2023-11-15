@@ -15,11 +15,11 @@
 #'     atlas_taxonomy()
 #' }
 #' @rdname deprecated-functions
-#' @importFrom rlang warn
+#' @importFrom lifecycle deprecate_warn
 #' @export
 galah_down_to <- function(...){
   
-  lifecycle::deprecate_warn(when = "2.0.0",
+  deprecate_warn(when = "2.0.0",
                             what = "galah_down_to()",
                             details = "Use `filter(rank == \"chosen_rank\")` instead."
                             )

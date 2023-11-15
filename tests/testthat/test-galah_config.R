@@ -1,3 +1,18 @@
+test_that("galah_config warns that `cache_directory` is deprecated", {
+  dir.create("temp")
+  expect_warning(galah_config(cache_directory = "temp"))
+  expect_true(galah_config()$package$directory == "temp")
+  galah_config(directory = tempfile())
+  unlink("temp", recursive = TRUE)
+})
+
+test_that("galah_config creates nested folders where requested", {
+  galah_config(directory = "non/existent/dir")
+  expect_true(any(grepl("./non", list.dirs())))
+  galah_config(directory = tempfile())
+  unlink("non", recursive = TRUE)
+})
+
 test_that("galah_config checks download_id", {
   skip_if_offline()
   galah_config(verbose = TRUE)
@@ -14,7 +29,6 @@ test_that("galah_config checks inputs", {
   expect_error(galah_config(caching = "value"))
   expect_error(galah_config(verbose = "value"))
   expect_error(galah_config(email = 4))
-  expect_error(galah_config(cache_directory = "non/existent/dir"))
   expect_error(galah_config(bad_option = "value"))
   expect_error(galah_config(atlas = "world"))
   expect_silent(galah_config(verbose = FALSE, atlas = "Australia"))

@@ -63,6 +63,8 @@
 #' # Make debugging in your session easier by setting `verbose = TRUE`
 #' galah_config(verbose = TRUE)
 #' }
+#' @importFrom lifecycle deprecate_warn
+#' @importFrom glue glue
 #' @importFrom rlang abort
 #' @importFrom potions brew
 #' @importFrom potions pour
@@ -80,6 +82,18 @@ galah_config <- function(...) {
   
   # add user-provided information
   if(length(dots) > 0){
+    
+    # check for deprecated `cache_directory`
+    if(any(names(dots) == "cache_directory")){
+      dots_location <- which(names(dots) == "cache_directory")
+      value <- dots$cache_directory
+      deprecate_warn(when = "2.0.0",
+                     what = "galah_config(cache_directory)",
+                     details = glue("Use `galah_config(directory = \"{value}\")` instead.")
+      )
+      names(dots)[dots_location] <- "directory"
+    }
+    
     # check all values in dots to ensure they are named
     if(length(dots) != length(names(dots))){
       bullets <- c("All arguments to `galah_config() must be named.",
