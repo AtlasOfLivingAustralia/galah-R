@@ -22,7 +22,10 @@
 #' @param mint_doi `logical`: by default no DOI will be generated. Set to
 #' `TRUE` if you intend to use the data in a publication or similar.
 #' @param doi `string`: (optional) DOI to download. If provided overrides
-#' all other arguments. Only available for the ALA. 
+#' all other arguments. Only available for the ALA.
+#' @param file `string`: (Optional) file name. If not given, will be set to 
+#' `data` with date and time added. The file path (directory) is always given by 
+#' `galah_config()$package$directory`. 
 #' @details
 #' Note that unless care is taken, some queries can be particularly large.
 #' While most cases this will simply take a long time to process, if the number
@@ -75,15 +78,17 @@ atlas_occurrences <- function(request = NULL,
                               data_profile = NULL,
                               select = NULL,
                               mint_doi = FALSE,
-                              doi = NULL
+                              doi = NULL,
+                              file = NULL
                               ) {
   if(!is.null(doi)){
     request_data() |>
       filter(doi == doi) |>
-      collect()
+      collect(file = file)
   }else{
     args <- as.list(environment()) # capture supplied arguments
     check_atlas_inputs(args) |> # convert to `data_request` object
-      collect(wait = TRUE)
+      collect(wait = TRUE,
+              file = file)
   }
 }

@@ -80,7 +80,9 @@ collect_occurrences_default <- function(.query, wait, file){
 #' @importFrom rlang abort
 #' @importFrom rlang inform
 #' @importFrom tibble tibble
-collect_occurrences_doi <- function(.query, file = NULL, error_call = caller_env()) {
+collect_occurrences_doi <- function(.query, 
+                                    file = NULL, 
+                                    error_call = caller_env()) {
   .query$file <- check_download_filename(file)
   query_API(.query)
   result <- load_zip(.query$file)

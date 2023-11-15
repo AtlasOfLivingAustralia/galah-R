@@ -29,8 +29,9 @@
 \item{wait}{logical; should \code{galah} wait for a response? Defaults to FALSE.
 Only applies for \code{type = "occurrences"} or \code{"species"}.}
 
-\item{file}{(optional) file name. If not given will be \code{data} with date and
-time added. File path is always given by \code{galah_config()$package$directory}.}
+\item{file}{(Optional) file name. If not given, will be set to \code{data} with
+date and time added. The file path (directory) is always given by
+\code{galah_config()$package$directory}.}
 }
 \value{
 In most cases, \code{collect()} returns a \code{tibble} containing requested

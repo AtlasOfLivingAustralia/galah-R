@@ -10,8 +10,9 @@
 #' @param ... Arguments passed on to other methods
 #' @param wait logical; should `galah` wait for a response? Defaults to FALSE.
 #' Only applies for `type = "occurrences"` or `"species"`.
-#' @param file (optional) file name. If not given will be `data` with date and 
-#' time added. File path is always given by `galah_config()$package$directory`.
+#' @param file (Optional) file name. If not given, will be set to `data` with 
+#' date and time added. The file path (directory) is always given by 
+#' `galah_config()$package$directory`.
 #' @return In most cases, `collect()` returns a `tibble` containing requested 
 #' data. Where the requested data are not yet ready (i.e. for occurrences when
 #' `wait` is set to `FALSE`), this function returns an object of class `query`
@@ -60,7 +61,7 @@ collect.query_set <- function(x, ..., wait = TRUE, file = NULL){
 collect.query <- function(x, 
                           ...,
                           wait = TRUE, 
-                          file = NULL # FIXME: is `file` used?
+                          file = NULL
                           ){
   # sometimes no url is given, e.g. when a search returns no data
   if(is.null(x$url) & # most queries have a `url`
@@ -73,7 +74,7 @@ collect.query <- function(x,
            "data/occurrences" = collect_occurrences(x, wait = wait, file = file),
            "data/occurrences-count" = collect_occurrences_count(x),
            "data/occurrences-count-groupby" = collect_occurrences_count(x),
-           "data/occurrences-doi" = collect_occurrences_doi(x),
+           "data/occurrences-doi" = collect_occurrences_doi(x, file = file),
            "data/species"= collect_species(x, file = file),
            "data/species-count" = collect_species_count(x),
            # "data/taxonomy" = collect_taxonomy(x),

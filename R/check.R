@@ -49,16 +49,25 @@ check_directory <- function(x){
 #' @noRd
 #' @keywords Internal
 check_download_filename <- function(file, ext = "zip"){
-  if(!is.null(file)){
-    file
+  if(!is.null(file)){ # is `file` present
+    expected_suffix <- paste0(".", ext, "$")
+    if(!grepl(expected_suffix, file)){ # expected suffix is missing
+      if(grepl("\\.[[:alpha:]]{2,4}$", file)){ # does it have a different suffix?
+        file <- gsub("\\.[[:alpha:]]{2,4}$", 
+                     sub("\\$$", "", expected_suffix), 
+                     file) # replace
+      }else{
+        file <- paste0(file, ".zip")  # append
+      }
+    } # no else{}, as all good here
   }else{
-    cache_directory <- pour("package", "directory", .pkg = "galah")
     current_time <- Sys.time() |> format("%Y-%m-%d_%H-%M-%S")
-    file <- glue("{cache_directory}/data_{current_time}.{ext}") |>
+    file <- paste0('data_', current_time, ".", ext)
+  }
+  cache_directory <- pour("package", "directory", .pkg = "galah")
+    glue("{cache_directory}/{file}") |>
       as.character()
     # check_path()? # currently commented out in check.R
-  }
-  return(file)
 }
 
 #' Subfunction to `check_login()`

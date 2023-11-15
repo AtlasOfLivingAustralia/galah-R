@@ -124,6 +124,48 @@ test_that("atlas_occurrences accepts all narrowing functions in pipe", {
   expect_equal(unique(occ$stateProvince), "New South Wales")
 })
 
+test_that("atlas_occurrences() and friends accept a file name", {
+  skip_if_offline()
+  # set up directory for testing purposes
+  directory <- "TEMP"
+  unlink(directory, recursive = TRUE)
+  dir.create(directory)
+  galah_config(directory = directory)
+  # set up query
+  base_query <- galah_call() |>
+    galah_filter(year <= 1970) |>
+    galah_select(group = "basic") |>
+    galah_identify("Crinia tinnula")
+  # base_query |> count() |> collect() # n = 49 on 2023-11-15
+  # test `atlas_occurrences`
+  occ1 <- base_query |> 
+    atlas_occurrences(file = "crinia_file")
+  expect_s3_class(occ1, c("tbl_df", "tbl", "data.frame"))
+  expect_true(any(list.files(directory) == "crinia_file.zip"))
+  # test `collect`
+  occ2 <- base_query |> collect(file = "crinia_collect")
+  expect_equal(occ1, occ2)
+  expect_true(any(list.files(directory) == "crinia_collect.zip"))
+  # test DOIs
+  doi <- "10.26197/ala.0c1e8744-a639-47f1-9a5f-5610017ba060"
+  occ3 <- atlas_occurrences(doi = doi, file = "test_doi")
+  expect_true(any(list.files(directory) == "test_doi.zip"))
+  # doi with collect
+  occ3 <- atlas_occurrences(doi = doi, file = "test_doi")
+  expect_true(any(list.files(directory) == "test_doi.zip"))
+  occ4 <- request_data() |>
+    filter(doi == doi) |>
+    collect(file = "test_doi2")
+  expect_equal(occ3, occ4)
+  expect_true(any(list.files(directory) == "test_doi2.zip"))
+  # clean up
+  unlink("TEMP", recursive = TRUE)
+  cache_dir <- tempfile()
+  dir.create(cache_dir)
+  galah_config(directory = cache_dir)
+  rm(cache_dir)
+})
+
 test_that("atlas_occurrences() errors with an invalid DOI", {
   expect_error(atlas_occurrences(doi = "random_doi"))
 })
@@ -144,6 +186,7 @@ test_that("atlas_occurrences downloads data from a DOI", {
   expect_equal(result2[[1]]$type, "data/occurrences-doi")
   result3 <- collect(result2)
   expect_equal(result1, result3)
+  # TODO add file name tests
 })
 
 test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {

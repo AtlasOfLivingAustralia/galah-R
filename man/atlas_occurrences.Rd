@@ -12,7 +12,8 @@ atlas_occurrences(
   data_profile = NULL,
   select = NULL,
   mint_doi = FALSE,
-  doi = NULL
+  doi = NULL,
+  file = NULL
 )
 }
 \arguments{
@@ -39,6 +40,10 @@ atlas_occurrences(
 
 \item{doi}{\code{string}: (optional) DOI to download. If provided overrides
 all other arguments. Only available for the ALA.}
+
+\item{file}{\code{string}: (Optional) file name. If not given, will be set to
+\code{data} with date and time added. The file path (directory) is always given by
+\code{galah_config()$package$directory}.}
 }
 \value{
 An object of class \code{tbl_df} and \code{data.frame} (aka a tibble) of
