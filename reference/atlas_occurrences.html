@@ -93,7 +93,8 @@ and re-use of specific data resources.</p>
 <span>  data_profile <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  select <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  mint_doi <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  doi <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  doi <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  file <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -137,6 +138,12 @@ and re-use of specific data resources.</p>
 <dt>doi</dt>
 <dd><p><code>string</code>: (optional) DOI to download. If provided overrides
 all other arguments. Only available for the ALA.</p></dd>
+
+
+<dt>file</dt>
+<dd><p><code>string</code>: (Optional) file name. If not given, will be set to
+<code>data</code> with date and time added. The file path (directory) is always given by
+<code>galah_config()$package$directory</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
