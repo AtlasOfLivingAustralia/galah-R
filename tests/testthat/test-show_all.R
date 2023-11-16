@@ -1,17 +1,21 @@
+# NOTE: Tests are skipped on GH Actions using `skip_on_ci()` to avoid throttling 
+#       API 
+#       (these are probably not built for many fast queries if output is large)
+
 test_that("show_all checks for valid type input", {
   expect_error(show_all("nothing"))
   expect_error(show_all(FiElDs))
 })
 
 test_that("show_all parses ... correctly", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   fields1 <- show_all(fields)
   fields2 <- show_all("fields")
   expect_equivalent(fields1, fields2)
 })
 
 test_that("all show_all() functions return correctly with all syntax", {
-  skip_if_offline()
+  skip_if_offline(); skip_on_ci()
   valid_types <- c("apis",
                    "assertions",
                    "atlases",
