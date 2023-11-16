@@ -34,13 +34,17 @@ check_directory <- function(x){
   if(is.null(x)){
     cache_dir <- tempfile()
     dir.create(cache_dir)
-    return(cache_dir)
+    cache_dir
   }else{
-    if(!dir.exists(x)){
-      dir.create(x, recursive = TRUE)
-    }else{
-      x
+    # if what is being tested is a file path, this will return false
+    # if it is a file name (presumably appended to a path) this will return true
+    directory <- ifelse(grepl("\\.[[:alpha:]]{2,4}$", x),
+                        dirname(x),
+                        x)
+    if(!dir.exists(directory)){
+      dir.create(directory, recursive = TRUE)
     }
+    directory
   }
 }
 

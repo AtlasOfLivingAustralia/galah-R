@@ -22,9 +22,10 @@ detect_request_object <- function(dots){
       "request_data\\(",
       "request_metadata\\(",
       "request_files\\(",
-      "^~.$") |>
+      "^~.$",
+      "^.$") |>
       paste(collapse = "|")
-    if (str_detect(call_string, types)) { # note: "~." indicates presence of the magrittr pipe (%>%)
+    if (str_detect(call_string, types)) { # note: "~." or "." indicate presence of the magrittr pipe (%>%)
       eval_request <- eval_tidy(dots[[1]])
       c(list(eval_request), dots[-1])
     }else{

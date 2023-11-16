@@ -68,6 +68,9 @@ collect_occurrences_default <- function(.query, wait, file){
     if(!is.null(.query$doi)){
       attr(result, "doi") <- paste0("https://doi.org/", .query$doi)
     }
+    if(!is.null(.query$search_url)){
+      attr(result, "search_url") <- .query$search_url
+    }
     result
   }
 }
