@@ -7,8 +7,9 @@ test_that("galah_config warns that `cache_directory` is deprecated", {
 })
 
 test_that("galah_config creates nested folders where requested", {
-  galah_config(directory = "non/existent/dir")
-  expect_true(any(grepl("./non", list.dirs())))
+  galah_config(directory = "non/existent")
+  directories <- list.dirs(recursive = TRUE)
+  expect_true(all(c("./non", "./non/existent") %in% directories))
   galah_config(directory = tempfile())
   unlink("non", recursive = TRUE)
 })
