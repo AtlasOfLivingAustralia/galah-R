@@ -67,7 +67,7 @@ test_that("search_all(taxa) works for Brazil", {
   skip_if_offline()
   x <- search_all(taxa, "Mammalia")
   # Just a side note: 
-  # Searching on the brazilian atlas is pretty unpredictable. 
+  # Searching on the Brazilian atlas is pretty unpredictable. 
   # e.g. "Animalia" & "Mammalia" do not return results in search
   #      "Fungi" returns a Candelaria species, rather than the kingdom
   expect_gte(nrow(x), 1)

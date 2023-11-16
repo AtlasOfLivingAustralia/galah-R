@@ -145,10 +145,11 @@ build_taxa_query <- function(ids) {
     list(taxonKey = ids)
   }else{
     wrapped_ids <- paste0("\"", ids, "\"")
+    id_tag <- "lsid"
     glue(
-      "(lsid:",
+      "({id_tag}:",
       glue_collapse(wrapped_ids,
-                    sep = glue(" OR lsid:")),
+                    sep = glue(" OR {id_tag}:")),
       ")")
   }
 }

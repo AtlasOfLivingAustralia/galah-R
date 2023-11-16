@@ -64,16 +64,10 @@ collect_taxa_la <- function(.query){
       clean_la_taxa(search_terms = search_terms) |>
       bind_rows()
     if(ncol(result) > 1){
-      atlas <- pour("atlas", "region")
-      if(atlas == "France") {
-        name <- c("referenceID")
-      } else {
-        if (atlas == "Portugal") {
-          name <- c("usageKey")
-        } else {
-          name <- c("guid")
-        }
-      }
+      name <- switch(pour("atlas", "region"),
+                     "France" = "referenceID",
+                     "Portugal" = "usageKey",
+                     "guid")
       result <- result |>
         filter(!duplicated({{name}})) |>
         mutate("search_term" = search_terms, .before = 1)
@@ -104,7 +98,7 @@ clean_la_taxa <- function(result, search_terms){
         list_of_results <- list(a)
       }
     }
-    
+
     # find best string match to search term
     if (length(list_of_results) > 1) { # i.e. more than one match
       if ("name" %in% list_of_results[[1]]) {

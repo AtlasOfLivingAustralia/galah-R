@@ -111,9 +111,6 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_polygon", {
   skip_if_offline()
   wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
     sf::st_as_sfc()
-  with_mock_dir("galah_identify", {
-    identify <- galah_identify("Perameles")
-  })  
   base_query <- galah_call() |>
     identify("Perameles") |>
     filter(year >= 2020) |>
@@ -132,9 +129,6 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
   skip_if_offline()
   wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
     sf::st_as_sfc()
-  with_mock_dir("galah_identify", {
-    identify <- galah_identify("Perameles")
-  })
   base_query <- galah_call() |>
     identify("Perameles") |>
     filter(year >= 2020) |>

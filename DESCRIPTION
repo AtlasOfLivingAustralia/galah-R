@@ -48,7 +48,6 @@ Imports:
 Suggests: 
     covr,
     gt,
-    httptest2,
     kableExtra,
     knitr,
     magrittr,

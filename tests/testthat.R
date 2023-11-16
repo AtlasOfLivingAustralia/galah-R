@@ -1,7 +1,5 @@
 library(testthat)
 library(galah)
-library(httptest2)
-
 galah_config(directory = tempdir(), 
              email = "ala4r@ala.org.au",
              caching = FALSE, 

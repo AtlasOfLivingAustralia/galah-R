@@ -1,13 +1,11 @@
-without_internet({
-  test_that("atlas_occurrences fails nicely if no email is provided", {
-    galah_config(email = "", run_checks = FALSE)
-    expect_error({
-      galah_call() |>
-        filter(year == 1900) |>
-        compute()
-    })
-    galah_config(email = "ala4r@ala.org.au", run_checks = TRUE)
+test_that("atlas_occurrences fails nicely if no email is provided", {
+  galah_config(email = "", run_checks = FALSE)
+  expect_error({
+    galah_call() |>
+      filter(year == 1900) |>
+      compute()
   })
+  galah_config(email = "ala4r@ala.org.au", run_checks = TRUE)
 })
 
 test_that("atlas_occurrences doesn't allow large downloads", {
@@ -25,20 +23,18 @@ test_that("atlas_occurrences gives a nice error for invalid emails", {
   galah_config(email = "ala4r@ala.org.au")
 })
 
-without_internet({
-  test_that("collapse(type = 'occurrences') creates an object, but doesn't ping an API", {
-    result <- galah_call() |> 
-      identify("Perameles") |>
-      collapse()
-    expect_equal(length(result), 4)
-    expect_true(inherits(result, "query_set"))
-    types <- unlist(lapply(result, function(a){a$type}))
-    expect_equal(types,
-                 c("metadata/fields",
-                   "metadata/reasons",
-                   "metadata/taxa-single",
-                   "data/occurrences"))
-  })
+test_that("collapse(type = 'occurrences') creates an object, but doesn't ping an API", {
+  result <- galah_call() |> 
+    identify("Perameles") |>
+    collapse()
+  expect_equal(length(result), 4)
+  expect_true(inherits(result, "query_set"))
+  types <- unlist(lapply(result, function(a){a$type}))
+  expect_equal(types,
+               c("metadata/fields",
+                 "metadata/reasons",
+                 "metadata/taxa-single",
+                 "data/occurrences"))
 })
 
 test_that("`compute(type = 'occurrences')` works", {
