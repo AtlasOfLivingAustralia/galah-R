@@ -19,7 +19,7 @@
 #' 
 #' @param .data An object of class `data_request`
 #' @param ... Either `count` or `index`
-#' @examples 
+#' @examples \dontrun{
 #' 
 #' # Arrange grouped counts by ascending year
 #' galah_call() |>
@@ -47,7 +47,7 @@
 #'   arrange(desc(year)) |>
 #'   count() |>
 #'   collect()
-#'   
+#' }
 #' @importFrom dplyr bind_cols
 #' @rdname arrange
 #' @export

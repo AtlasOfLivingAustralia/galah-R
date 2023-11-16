@@ -25,11 +25,10 @@
 #' request_metadata() |>
 #'   filter(field == basisOfRecord) |>
 #'   unnest()
-#'
+#' 
 #' # Queries are converted into a `query_set` by `collapse()`
 #' x <- galah_call() |> # same as calling `request_data()`
 #'   filter(year >= 2020) |>
-#'   group_by(year) |>
 #'   count() |>
 #'   collapse()
 #' print(x)

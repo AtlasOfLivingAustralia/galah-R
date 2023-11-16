@@ -32,6 +32,7 @@ for queries of  \code{type = "occurrences-count"}. The \code{galah_call()} pipe 
 include \code{count()} and finish with \code{collect()} (see examples).
 }
 \examples{
+\dontrun{
 
 # Arrange grouped counts by ascending year
 galah_call() |>
@@ -59,5 +60,5 @@ galah_call() |>
   arrange(desc(year)) |>
   count() |>
   collect()
-  
+}
 }
