@@ -1,4 +1,5 @@
 test_that("galah_config warns that `cache_directory` is deprecated", {
+  unlink("temp", recursive = TRUE)
   dir.create("temp")
   expect_warning(galah_config(cache_directory = "temp"))
   expect_true(galah_config()$package$directory == "temp")
