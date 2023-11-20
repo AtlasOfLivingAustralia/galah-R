@@ -62,14 +62,9 @@ test_that("search_all(fields) works for Brazil", {
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
-## FIXME: Brazilian taxonomic search seems to be a bit inconsistent
 test_that("search_all(taxa) works for Brazil", {
   skip_if_offline()
   x <- search_all(taxa, "Mammalia")
-  # Just a side note: 
-  # Searching on the Brazilian atlas is pretty unpredictable. 
-  # e.g. "Animalia" & "Mammalia" do not return results in search
-  #      "Fungi" returns a Candelaria species, rather than the kingdom
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -95,7 +90,6 @@ test_that("atlas_counts works for Brazil", {
   expect_gt(atlas_counts(type = "species")$count, 0)
 })
 
-## FIXME: Caused by taxonomic search issue
 test_that("atlas_counts works with galah_identify for Brazil", {
   skip_if_offline()
   result <- galah_call() |>
@@ -103,7 +97,7 @@ test_that("atlas_counts works with galah_identify for Brazil", {
     atlas_counts()
   expect_gt(result$count, 1)
   result2 <- galah_call() |>
-    galah_filter(class == "Mammalia") |> ## FIXME: This functionality doesn't work
+    galah_filter(class == "Mammalia") |>
     atlas_counts()
   expect_lt(
     sqrt((result2$count - result$count)^2) / result$count,
