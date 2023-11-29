@@ -25,7 +25,7 @@ test_that("collect_media suggests `galah_config(directory =)` when a temp folder
   galah_config(directory = media_dir)
   expect_message(
     collect_media(atlas_query), 
-    cli::cli_text("{cli::col_magenta('To change which file directory media files are saved, use `galah_config(directory = )`.')}")
+    cli::cli_text("{cli::col_magenta('To change which file directory media files are saved to, use `galah_config(directory = )`.')}")
   )
   unlink(media_dir, recursive = TRUE)
 })
@@ -127,6 +127,24 @@ test_that("collect_media handles different file formats", {
   expect_true(any(grepl(".jpg$", downloads))) # images
   file_count <- length(list.files(media_dir)) 
   # expect_equal(file_count, nrow(media_data)) # FIXME correct n
+  unlink(media_dir, recursive = TRUE)
+})
+
+test_that("collect_media handles thumbnails", {
+  skip_if_offline()
+  galah_config(email = "ala4r@ala.org.au")
+  media_dir <- "test_media"
+  unlink(media_dir, recursive = TRUE)
+  dir.create(media_dir)
+  z <- galah_call() |> 
+    galah_identify("Candovia aberrata") |>
+    galah_filter(year == 2023) |>
+    atlas_media()
+  # successfully downloads, messages number of failed downloads
+  expect_message(collect_media(z, thumbnail = TRUE),
+                 "Failed 3 downloads")
+  downloads <- list.files(path = media_dir)
+  expect_true(any(grepl(".jpg$", downloads))) # images
   unlink(media_dir, recursive = TRUE)
 })
 

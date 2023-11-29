@@ -33,14 +33,29 @@ collect_media_files <- function(.query){
     status_code = unlist(lapply(result, function(a){a$status_code}))) |>
     group_by(.data$status_code) |>
     count()
+  
+  # successful downloads
   success <- result_summary |> 
-    dplyr::filter(result_summary$status_code == 200) 
+    dplyr::filter(status_code == 200) 
   n_downloaded <- success[["n"]]
+  
+  # failed downloads
+  if(nrow(result_summary) > 1) {
+    if(any(result_summary$status_code %in% "403")) {
+      fail <- result_summary |>
+        dplyr::filter(status_code == 403)
+      n_failed <- fail[["n"]]
+    }
+  }
   user_directory <- pour("package", "directory")
   bullets <- c(
     "v" = glue("Downloaded {n_downloaded} files successfully (status 200)."),
     ">" = glue("Files saved in local directory: \"{user_directory}\".")
   )
+  if(!missing(fail)) {
+    bullets <- c(bullets,
+                 "x" = glue("Failed {n_failed} downloads due to missing images (status 403)"))
+  }
   inform(bullets)
   invisible(result_summary)
 }
@@ -93,7 +108,7 @@ collect_media <- function(df,
   user_directory <- pour("package", "directory")
   if (stringr::str_detect(user_directory, "Temp")) {
     inform(
-      cli::cli_text("{cli::col_magenta('To change which file directory media files are saved, use `galah_config(directory = )`.')}")
+      cli::cli_text("{cli::col_magenta('To change which file directory media files are saved to, use `galah_config(directory = )`.')}")
       )
   }
   

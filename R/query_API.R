@@ -55,8 +55,18 @@ query_API_internal <- function(.query, error_call = caller_env()) {
     add_body(.query$body)  # NOTE: adding `body` converts from GET to POST
   if(!is.null(.query$download)){
     check_directory(.query$file)
-    query |> req_perform(path = .query$file,
-                         verbosity = 0) # try(x, silent = TRUE) ?
+    
+    # handle thumbnails (which might fail if missing)
+    if (any(str_detect(.query$url, "thumbnail"))) {
+      query |> 
+        req_error(is_error = \(resp) FALSE) |>
+        req_perform(path = .query$file,
+                    verbosity = 0) # try(x, silent = TRUE) ?
+    } else {
+      query |> 
+        req_perform(path = .query$file,
+                    verbosity = 0) # try(x, silent = TRUE) ?
+    }
   }else{
     res <- query |>
       req_perform(verbosity = 0)  # try(x, silent = TRUE) ?
