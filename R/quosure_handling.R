@@ -464,6 +464,12 @@ parse_in <- function(x, excl){
   
   value <- switch_expr_type(as_quosure(quo_get_expr(x)[[3]], 
                                        env = quo_get_env(x)))
+  
+  # handle apostrophes (')
+  if(any(str_detect(value, "\\'"))) {
+    value <- gsub("'", "\\\\'", value)
+  }
+  
   in_as_or_statements <- rlang::parse_expr(
     glue::glue_collapse(
       glue("{variable} {logical} '{value}'"), 
