@@ -20,15 +20,13 @@ The ALA database possesses numerous date and time fields that relate to each obs
 
 -   filter within a bespoke date and/or time range
 
-All temporal filtering is conducted using `galah_filter()`. All temporal fields described below can be queried for exact matches (`==`), greater/less than (`>`, `<`) or greater/less than or equal to (`<=`, `>=`). Queries for multiple fields or multiple queries of the same field can be combined in the one `galah_filter()` call in order to obtain filters on time windows.
+All temporal filtering is conducted using `galah_filter()`. All temporal fields described below can be queried for exact matches (`==`), greater/less than (`>`, `<`) or greater/less than or equal to (`<=`, `>=`). Queries for multiple fields or multiple queries of the same field can be combined in a single `galah_filter()` call to filter on time windows.
 
-### Year, Month and Day
+### Year, Month, and Day
 
-The ALA contains in-built `year`, `month` and `day` fields for every record. These are queried as numeric fields (i.e. July = `7`) and can be used for quick data exploration and filtering. When the date limits of a desired query can be easily defined by year, month and/or day deliminations, these fields are most useful.
+The ALA contains in-built `year`, `month`, and `day` fields for every record. These are queried as numeric fields (i.e. July = `7`) and can be used for quick data exploration and filtering. These fields are most useful when the date limits of a query can be easily defined by year, month and/or day.
 
-We can, for instance, use the `year` and `month` fields to group the 2022 amphibian records in the ALA by month (noting that months are labelled by a number).
-
-
+For instance, we can get monthly counts of amphibians from 2021 using the `year` and `month` fields.
 
 ```r
 library(galah)
@@ -66,9 +64,9 @@ galah_call() |>
 ## 12 December   3813
 ```
 
-It is also important to observe that the outputted `month` column is of type `character` even though the values are numeric. This is the case for each of the `year`, `month` and `day` fields. However, they can be queried as either numeric or character values within `galah_filter()`.
+While the `year`, `month`, and `day` fields may be queried as either numeric or character types within `galah_filter()` (i.e. `galah_filter(month == "7")` is equivalent to `galah_filter(month == 7)`), it is important to note that the output returned by {galah} is of type `character`. 
 
-The other important fact about these fields when queried in `galah_filter()` is their independence; they cannot be used to query complex windows between two dates because the day and month filters are applied universally.
+One limitation of using these fields for queries with `galah_filter()` is their independence; they cannot be used to query within windows bounded by two dates because the day and month filters are applied universally.
 
 For instance, consider the native perennial Australian wildflower [*Chamaescilla corymbosa*](https://bie.ala.org.au/species/https://id.biodiversity.org.au/node/apni/2920316), whose known growth and flowering times are from August–October. We might be interested in the number of records for this species in the first week of spring (i.e. September) in each of the last 10 years. The following query does not provide all results between 1/9/2013 and 7/9/2023. Rather, it will only return results that fall within all 3 windows at once.
 
