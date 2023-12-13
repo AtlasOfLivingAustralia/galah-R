@@ -1,6 +1,6 @@
 ---
 title: "Taxonomic filtering"
-author: "Callum Waite, Shandiya Balasubramanium"
+author: "Callum Waite, Shandiya Balasubramaniam"
 date: '2023-10-13'
 output:
   rmarkdown::html_vignette
