@@ -1,7 +1,7 @@
 ---
 title: "Quick start guide"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-10-13'
+date: '2023-12-14'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -25,6 +25,7 @@ a `tibble` as their standard format.
 
 
 # Installation
+
 To install from CRAN:
 
 ```r
@@ -62,7 +63,7 @@ show_all(atlases)
 ##  2 Austria        Biodiversitäts-Atlas Österreich                                         BAO     https://biodiversityatlas.at
 ##  3 Brazil         Sistemas de Informações sobre a Biodiversidade Brasileira               SiBBr   https://sibbr.gov.br        
 ##  4 Estonia        eElurikkus                                                              <NA>    https://elurikkus.ee        
-##  5 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr/    
+##  5 France         Portail français d'accès aux données d'observation sur les espèces      OpenObs https://openobs.mnhn.fr     
 ##  6 Global         Global Biodiversity Information Facility                                GBIF    https://gbif.org            
 ##  7 Guatemala      Sistema Nacional de Información sobre Diversidad Biológica de Guatemala SNIBgt  https://snib.conap.gob.gt   
 ##  8 Portugal       GBIF Portugal                                                           GBIF.pt https://www.gbif.pt         
@@ -93,7 +94,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 130679056
+## 1 132342396
 ```
 
 To pass more complex queries, start with the `galah_call()` function and pipe
@@ -111,7 +112,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 26671180
+## 1 27234237
 ```
 
 Alternatively, you can use a subset of `dplyr` verbs to pipe your queries, 
@@ -130,10 +131,10 @@ galah_call() |>
 ## # A tibble: 4 × 2
 ##   year    count
 ##   <chr>   <int>
-## 1 2022  8353115
-## 2 2021  8204330
-## 3 2020  7116059
-## 4 2023  2997676
+## 1 2022  8409790
+## 2 2021  8254306
+## 3 2020  7124140
+## 4 2023  3446001
 ```
 
 To narrow the search to a particular taxonomic group, use `galah_identify()` or 
@@ -148,9 +149,9 @@ search_taxa("reptilia") # Check whether taxonomic info is correct
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id                                                  rank  match_type kingdom phylum class issues
-##   <chr>       <chr>           <chr>                                                             <chr> <chr>      <chr>   <chr>  <chr> <chr> 
-## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b-550… class exactMatch Animal… Chord… Rept… noIss…
+##   search_term scientific_name taxon_concept_id                                              rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                                         <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
 ```r
@@ -164,10 +165,11 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##    count
 ##    <int>
-## 1 214842
+## 1 226794
 ```
 
 # Downloading records
+
 The most common use case for `galah` is to download 'occurrence' records; 
 observations of plants or animals made by contributors to the atlas. To download,
 first register with the relevant atlas, then provide your registration email. 
@@ -180,7 +182,24 @@ galah_config(email = "email@email.com")
 ```
 
 
-Then you can customise records you require and query the atlas in question:
+
+Search for fields and field IDs to filter your query.
+
+
+```r
+search_all(fields, "australian states")
+```
+
+```
+## # A tibble: 2 × 3
+##   id     description                            type  
+##   <chr>  <chr>                                  <chr> 
+## 1 cl2013 ASGS Australian States and Territories fields
+## 2 cl22   Australian States and Territories      fields
+```
+
+Then you can customise records you require and query the atlas in question.
+
 
 ```r
 result <- galah_call() |>
@@ -188,20 +207,28 @@ result <- galah_call() |>
   galah_filter(year >= 2020, cl22 == "Tasmania") |>
   galah_select(basisOfRecord, group = "basic") |>
   atlas_occurrences()
+```
 
+```
+## Retrying in 1 seconds.
+## Retrying in 2 seconds.
+## Retrying in 4 seconds.
+```
+
+```r
 result |> head()
 ```
 
 ```
 ## # A tibble: 6 × 9
-##   recordID              decimalLatitude decimalLongitude eventDate           scientificName taxonConceptID dataResourceName occurrenceStatus
-##   <chr>                           <dbl>            <dbl> <dttm>              <chr>          <chr>          <chr>            <chr>           
-## 1 00250163-ec50-4eda-a…           -41.2             147. 2023-08-23 01:49:28 Litoria        https://biodi… iNaturalist Aus… PRESENT         
-## 2 003e0f63-9f95-4af9-b…           -42.9             148. 2022-12-23 19:27:00 Litoria ewing… https://biodi… iNaturalist Aus… PRESENT         
-## 3 00410554-5289-416f-9…           -41.7             147. 2021-05-06 00:00:00 Litoria ewing… https://biodi… FrogID           PRESENT         
-## 4 0081e7ef-459b-42a9-8…           -43.2             147. 2020-08-02 00:00:00 Litoria ewing… https://biodi… FrogID           PRESENT         
-## 5 0086def1-8415-4bb3-8…           -41.2             147. 2020-12-31 00:00:00 Litoria ewing… https://biodi… FrogID           PRESENT         
-## 6 00b40ee7-074b-4dae-9…           -41.5             147. 2020-11-01 00:00:00 Litoria ewing… https://biodi… FrogID           PRESENT         
+##   recordID          scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus dataResourceName
+##   <chr>             <chr>          <chr>                    <dbl>            <dbl> <dttm>              <chr>            <chr>           
+## 1 00250163-ec50-4e… Litoria        https://biodi…           -41.2             147. 2023-08-23 01:49:28 PRESENT          iNaturalist Aus…
+## 2 003e0f63-9f95-4a… Litoria ewing… https://biodi…           -42.9             148. 2022-12-23 19:27:00 PRESENT          iNaturalist Aus…
+## 3 00410554-5289-41… Litoria ewing… https://biodi…           -41.7             147. 2021-05-06 00:00:00 PRESENT          FrogID          
+## 4 0081e7ef-459b-42… Litoria ewing… https://biodi…           -43.2             147. 2020-08-02 00:00:00 PRESENT          FrogID          
+## 5 0086def1-8415-4b… Litoria ewing… https://biodi…           -41.2             147. 2020-12-31 00:00:00 PRESENT          FrogID          
+## 6 00b40ee7-074b-4d… Litoria ewing… https://biodi…           -41.5             147. 2020-11-01 00:00:00 PRESENT          FrogID          
 ## # ℹ 1 more variable: basisOfRecord <chr>
 ```
 

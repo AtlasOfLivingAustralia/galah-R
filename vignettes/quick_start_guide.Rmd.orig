@@ -25,6 +25,7 @@ a `tibble` as their standard format.
 
 
 # Installation
+
 To install from CRAN:
 ```{r eval=FALSE}
 install.packages("galah")
@@ -102,6 +103,7 @@ galah_call() |>
 ```
 
 # Downloading records
+
 The most common use case for `galah` is to download 'occurrence' records; 
 observations of plants or animals made by contributors to the atlas. To download,
 first register with the relevant atlas, then provide your registration email. 
@@ -115,7 +117,15 @@ galah_config(email = "email@email.com")
 ```{r, echo=FALSE}
 galah_config(verbose = FALSE)
 ```
-Then you can customise records you require and query the atlas in question:
+
+Search for fields and field IDs to filter your query.
+
+```{r}
+search_all(fields, "australian states")
+```
+
+Then you can customise records you require and query the atlas in question.
+
 ```{r}
 result <- galah_call() |>
   galah_identify("Litoria") |>
