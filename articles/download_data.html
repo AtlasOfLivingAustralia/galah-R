@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.7/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.8/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
@@ -97,7 +97,7 @@
                         <h4 data-toc-skip class="author">Martin Westgate
 &amp; Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2023-11-07</h4>
+            <h4 data-toc-skip class="date">2023-12-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/vignettes/download_data.Rmd" class="external-link"><code>vignettes/download_data.Rmd</code></a></small>
       <div class="d-none name"><code>download_data.Rmd</code></div>
@@ -131,7 +131,7 @@ specified atlas, without needing to download all the records.</p>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##       count</span></span>
 <span><span class="co">##       &lt;int&gt;</span></span>
-<span><span class="co">## 1 131963195</span></span></code></pre>
+<span><span class="co">## 1 132342396</span></span></code></pre>
 <p>In addition to the filter arguments, it has an optional
 <code>group_by</code> argument, which provides counts binned by the
 requested field.</p>
@@ -142,16 +142,16 @@ requested field.</p>
 <pre><code><span><span class="co">## # A tibble: 11 × 2</span></span>
 <span><span class="co">##    kingdom       count</span></span>
 <span><span class="co">##    &lt;chr&gt;         &lt;int&gt;</span></span>
-<span><span class="co">##  1 Animalia  101176164</span></span>
-<span><span class="co">##  2 Plantae    26026027</span></span>
-<span><span class="co">##  3 Fungi       2285235</span></span>
-<span><span class="co">##  4 Chromista   1020325</span></span>
-<span><span class="co">##  5 Protista     352282</span></span>
-<span><span class="co">##  6 Bacteria     113165</span></span>
-<span><span class="co">##  7 Eukaryota      8821</span></span>
-<span><span class="co">##  8 Protozoa       4716</span></span>
-<span><span class="co">##  9 Archaea        4120</span></span>
-<span><span class="co">## 10 Virus          2306</span></span>
+<span><span class="co">##  1 Animalia  101442503</span></span>
+<span><span class="co">##  2 Plantae    26136825</span></span>
+<span><span class="co">##  3 Fungi       2293753</span></span>
+<span><span class="co">##  4 Chromista   1021828</span></span>
+<span><span class="co">##  5 Protista     352983</span></span>
+<span><span class="co">##  6 Bacteria     113118</span></span>
+<span><span class="co">##  7 Eukaryota      8826</span></span>
+<span><span class="co">##  8 Protozoa       4765</span></span>
+<span><span class="co">##  9 Archaea        4119</span></span>
+<span><span class="co">## 10 Virus          2307</span></span>
 <span><span class="co">## 11 Viroid          103</span></span></code></pre>
 </div>
 <div class="section level2">
@@ -172,14 +172,14 @@ flexible by supporting filtering:</p>
 <span>  </span>
 <span><span class="va">species</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 6 × 10</span></span>
-<span><span class="co">##   kingdom  phylum   class    order  family genus species author species_guid vernacular_name</span></span>
-<span><span class="co">##   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;          </span></span>
-<span><span class="co">## 1 Animalia Chordata Mammalia Roden… Murid… Pseu… Pseudo… (Goul… https://bio… Delicate Mouse </span></span>
-<span><span class="co">## 2 Animalia Chordata Mammalia Roden… Murid… Mese… Mesemb… (J.E.… https://bio… Black-footed T…</span></span>
-<span><span class="co">## 3 Animalia Chordata Mammalia Roden… Murid… Zyzo… Zyzomy… (Thom… https://bio… Common Rock-rat</span></span>
-<span><span class="co">## 4 Animalia Chordata Mammalia Roden… Murid… Pseu… Pseudo… (Wait… https://bio… Sandy Inland M…</span></span>
-<span><span class="co">## 5 Animalia Chordata Mammalia Roden… Murid… Melo… Melomy… (Rams… https://bio… Grassland Melo…</span></span>
-<span><span class="co">## 6 Animalia Chordata Mammalia Roden… Murid… Noto… Notomy… Thoma… https://bio… Spinifex Hoppi…</span></span></code></pre>
+<span><span class="co">##   kingdom  phylum   class    order    family  genus        species                     author            species_guid    vernacular_name</span></span>
+<span><span class="co">##   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;        &lt;chr&gt;                       &lt;chr&gt;             &lt;chr&gt;           &lt;chr&gt;          </span></span>
+<span><span class="co">## 1 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys delicatulus       (Gould, 1842)     https://biodiv… Delicate Mouse </span></span>
+<span><span class="co">## 2 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. Gray, 1843) https://biodiv… Black-footed T…</span></span>
+<span><span class="co">## 3 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thomas, 1889)    https://biodiv… Common Rock-rat</span></span>
+<span><span class="co">## 4 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite, 1896)     https://biodiv… Sandy Inland M…</span></span>
+<span><span class="co">## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsay, 1887)    https://biodiv… Grassland Melo…</span></span>
+<span><span class="co">## 6 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas, 1922      https://biodiv… Spinifex Hoppi…</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="occurrence-data">Occurrence data<a class="anchor" aria-label="anchor" href="#occurrence-data"></a>
@@ -203,20 +203,20 @@ section</a></p>
 <span>  <span class="fu"><a href="../reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Retrying in 1 seconds.</span></span>
 <span><span class="co">## Retrying in 2 seconds.</span></span>
-<span><span class="co">## Retrying in 4 seconds.</span></span></code></pre>
+<span><span class="co">## Retrying in 4 seconds.</span></span>
+<span><span class="co">## Retrying in 8 seconds.</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">occ</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 6 × 9</span></span>
-<span><span class="co">##   recordID                    scientificName taxonConceptID decimalLatitude decimalLongitude</span></span>
-<span><span class="co">##   &lt;chr&gt;                       &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span><span class="co">## 1 0000a928-d756-42eb-8058-6f… Eolophus rose… https://biodi…           -35.6             149.</span></span>
-<span><span class="co">## 2 0001bc78-d2e9-48aa-8b9d-d6… Eolophus rose… https://biodi…           -35.2             149.</span></span>
-<span><span class="co">## 3 0002064f-08ea-425b-97c5-26… Eolophus rose… https://biodi…           -35.3             149.</span></span>
-<span><span class="co">## 4 00022dd2-9f85-4802-b837-7f… Eolophus rose… https://biodi…           -35.3             149.</span></span>
-<span><span class="co">## 5 0002cc35-8d5a-4d20-8012-12… Eolophus rose… https://biodi…           -35.3             149.</span></span>
-<span><span class="co">## 6 00030a8c-082f-44f0-898a-ad… Eolophus rose… https://biodi…           -35.3             149.</span></span>
-<span><span class="co">## # ℹ 4 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;,</span></span>
-<span><span class="co">## #   institutionID &lt;lgl&gt;</span></span></code></pre>
+<span><span class="co">##   recordID          scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus dataResourceName</span></span>
+<span><span class="co">##   &lt;chr&gt;             &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;            &lt;chr&gt;           </span></span>
+<span><span class="co">## 1 0000a928-d756-42… Eolophus rose… https://biodi…           -35.6             149. 2017-04-19 09:11:00 PRESENT          eBird Australia </span></span>
+<span><span class="co">## 2 0001bc78-d2e9-48… Eolophus rose… https://biodi…           -35.2             149. 2019-08-13 15:13:00 PRESENT          eBird Australia </span></span>
+<span><span class="co">## 3 0002064f-08ea-42… Eolophus rose… https://biodi…           -35.3             149. 2014-03-16 06:48:00 PRESENT          eBird Australia </span></span>
+<span><span class="co">## 4 00022dd2-9f85-48… Eolophus rose… https://biodi…           -35.3             149. 2022-05-08 08:20:00 PRESENT          eBird Australia </span></span>
+<span><span class="co">## 5 0002cc35-8d5a-4d… Eolophus rose… https://biodi…           -35.3             149. 2015-11-01 08:00:00 PRESENT          eBird Australia </span></span>
+<span><span class="co">## 6 00030a8c-082f-44… Eolophus rose… https://biodi…           -35.3             149. 2022-01-06 11:47:00 PRESENT          eBird Australia </span></span>
+<span><span class="co">## # ℹ 1 more variable: institutionID &lt;lgl&gt;</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="media-metadata">Media metadata<a class="anchor" aria-label="anchor" href="#media-metadata"></a>
@@ -233,21 +233,22 @@ other data download functions.</p>
 <span>    <span class="va">year</span> <span class="op">==</span> <span class="fl">2020</span>,</span>
 <span>    <span class="va">cl22</span> <span class="op">==</span> <span class="st">"Australian Capital Territory"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_media.html">atlas_media</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Retrying in 1 seconds.</span></span></code></pre>
+<pre><code><span><span class="co">## Retrying in 1 seconds.</span></span>
+<span><span class="co">## Retrying in 2 seconds.</span></span>
+<span><span class="co">## Retrying in 4 seconds.</span></span></code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">media_data</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 6 × 19</span></span>
-<span><span class="co">##   media_id           recordID scientificName taxonConceptID decimalLatitude decimalLongitude</span></span>
-<span><span class="co">##   &lt;chr&gt;              &lt;chr&gt;    &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span><span class="co">## 1 ff8322d0-f44c-47a… 003a192… Eolophus rose… https://biodi…           -35.3             149.</span></span>
-<span><span class="co">## 2 c66fc819-7022-44f… 015ee7c… Eolophus rose… https://biodi…           -35.4             149.</span></span>
-<span><span class="co">## 3 fe6d7b94-9e61-4ac… 05e86b7… Eolophus rose… https://biodi…           -35.4             149.</span></span>
-<span><span class="co">## 4 2f4d32c0-a084-4bb… 063bb0f… Eolophus rose… https://biodi…           -35.6             149.</span></span>
-<span><span class="co">## 5 73407414-0707-429… 063bb0f… Eolophus rose… https://biodi…           -35.6             149.</span></span>
-<span><span class="co">## 6 89171c49-5a64-423… 063bb0f… Eolophus rose… https://biodi…           -35.6             149.</span></span>
-<span><span class="co">## # ℹ 13 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;,</span></span>
-<span><span class="co">## #   multimedia &lt;chr&gt;, images &lt;chr&gt;, videos &lt;lgl&gt;, sounds &lt;lgl&gt;, creator &lt;chr&gt;,</span></span>
-<span><span class="co">## #   license &lt;chr&gt;, mimetype &lt;chr&gt;, width &lt;int&gt;, height &lt;int&gt;, image_url &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">##   media_id recordID scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus dataResourceName</span></span>
+<span><span class="co">##   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;            &lt;chr&gt;           </span></span>
+<span><span class="co">## 1 ff8322d… 003a192… Eolophus rose… https://biodi…           -35.3             149. 2020-09-12 06:11:00 PRESENT          iNaturalist Aus…</span></span>
+<span><span class="co">## 2 c66fc81… 015ee7c… Eolophus rose… https://biodi…           -35.4             149. 2020-08-09 05:11:00 PRESENT          iNaturalist Aus…</span></span>
+<span><span class="co">## 3 fe6d7b9… 05e86b7… Eolophus rose… https://biodi…           -35.4             149. 2020-11-13 22:29:00 PRESENT          NatureMapr      </span></span>
+<span><span class="co">## 4 2f4d32c… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus…</span></span>
+<span><span class="co">## 5 7340741… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus…</span></span>
+<span><span class="co">## 6 89171c4… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus…</span></span>
+<span><span class="co">## # ℹ 10 more variables: multimedia &lt;chr&gt;, images &lt;chr&gt;, videos &lt;lgl&gt;, sounds &lt;lgl&gt;, creator &lt;chr&gt;, license &lt;chr&gt;, mimetype &lt;chr&gt;,</span></span>
+<span><span class="co">## #   width &lt;int&gt;, height &lt;int&gt;, image_url &lt;chr&gt;</span></span></code></pre>
 <p>To actually download the media files to your computer, use
 [collect_media()].</p>
 </div>
@@ -264,27 +265,27 @@ Specify which taxonomic level your tree will go down to with
 <span>  <span class="fu"><a href="../reference/galah_filter.html">galah_filter</a></span><span class="op">(</span><span class="va">rank</span> <span class="op">==</span> <span class="va">class</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_taxonomy.html">atlas_taxonomy</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 19 × 4</span></span>
-<span><span class="co">##    name            rank      parent_taxon_concept_id                        taxon_concept_id</span></span>
-<span><span class="co">##    &lt;chr&gt;           &lt;chr&gt;     &lt;chr&gt;                                          &lt;chr&gt;           </span></span>
-<span><span class="co">##  1 Chordata        phylum    &lt;NA&gt;                                           https://biodive…</span></span>
-<span><span class="co">##  2 Cephalochordata subphylum https://biodiversity.org.au/afd/taxa/065f1da4… https://biodive…</span></span>
-<span><span class="co">##  3 Tunicata        subphylum https://biodiversity.org.au/afd/taxa/065f1da4… https://biodive…</span></span>
-<span><span class="co">##  4 Appendicularia  class     https://biodiversity.org.au/afd/taxa/1c20ed62… https://biodive…</span></span>
-<span><span class="co">##  5 Ascidiacea      class     https://biodiversity.org.au/afd/taxa/1c20ed62… https://biodive…</span></span>
-<span><span class="co">##  6 Thaliacea       class     https://biodiversity.org.au/afd/taxa/1c20ed62… https://biodive…</span></span>
-<span><span class="co">##  7 Vertebrata      subphylum https://biodiversity.org.au/afd/taxa/065f1da4… https://biodive…</span></span>
-<span><span class="co">##  8 Agnatha         informal  https://biodiversity.org.au/afd/taxa/5d6076b1… https://biodive…</span></span>
-<span><span class="co">##  9 Myxini          informal  https://biodiversity.org.au/afd/taxa/66db22c8… https://biodive…</span></span>
-<span><span class="co">## 10 Petromyzontida  informal  https://biodiversity.org.au/afd/taxa/66db22c8… https://biodive…</span></span>
-<span><span class="co">## 11 Gnathostomata   informal  https://biodiversity.org.au/afd/taxa/5d6076b1… https://biodive…</span></span>
-<span><span class="co">## 12 Amphibia        class     https://biodiversity.org.au/afd/taxa/ef5515fd… https://biodive…</span></span>
-<span><span class="co">## 13 Aves            class     https://biodiversity.org.au/afd/taxa/ef5515fd… https://biodive…</span></span>
-<span><span class="co">## 14 Mammalia        class     https://biodiversity.org.au/afd/taxa/ef5515fd… https://biodive…</span></span>
-<span><span class="co">## 15 Pisces          informal  https://biodiversity.org.au/afd/taxa/ef5515fd… https://biodive…</span></span>
-<span><span class="co">## 16 Actinopterygii  class     https://biodiversity.org.au/afd/taxa/e22efeb4… https://biodive…</span></span>
-<span><span class="co">## 17 Chondrichthyes  class     https://biodiversity.org.au/afd/taxa/e22efeb4… https://biodive…</span></span>
-<span><span class="co">## 18 Sarcopterygii   class     https://biodiversity.org.au/afd/taxa/e22efeb4… https://biodive…</span></span>
-<span><span class="co">## 19 Reptilia        class     https://biodiversity.org.au/afd/taxa/ef5515fd… https://biodive…</span></span></code></pre>
+<span><span class="co">##    name            rank      parent_taxon_concept_id                                                   taxon_concept_id                 </span></span>
+<span><span class="co">##    &lt;chr&gt;           &lt;chr&gt;     &lt;chr&gt;                                                                     &lt;chr&gt;                            </span></span>
+<span><span class="co">##  1 Chordata        phylum    &lt;NA&gt;                                                                      https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">##  2 Cephalochordata subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">##  3 Tunicata        subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">##  4 Appendicularia  class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">##  5 Ascidiacea      class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">##  6 Thaliacea       class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">##  7 Vertebrata      subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">##  8 Agnatha         informal  https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea0111cc7e https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">##  9 Myxini          informal  https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feaeaa3e0 https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">## 10 Petromyzontida  informal  https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feaeaa3e0 https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">## 11 Gnathostomata   informal  https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea0111cc7e https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">## 12 Amphibia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">## 13 Aves            class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">## 14 Mammalia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">## 15 Pisces          informal  https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">## 16 Actinopterygii  class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">## 17 Chondrichthyes  class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">## 18 Sarcopterygii   class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/…</span></span>
+<span><span class="co">## 19 Reptilia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="configuring-galah">Configuring <code>galah</code><a class="anchor" aria-label="anchor" href="#configuring-galah"></a>

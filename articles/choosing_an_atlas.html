@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.7/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Code_Pro-0.4.8/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
@@ -97,7 +97,7 @@
                         <h4 data-toc-skip class="author">Martin
 Westgate, Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2023-11-07</h4>
+            <h4 data-toc-skip class="date">2023-12-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/vignettes/choosing_an_atlas.Rmd" class="external-link"><code>vignettes/choosing_an_atlas.Rmd</code></a></small>
       <div class="d-none name"><code>choosing_an_atlas.Rmd</code></div>
@@ -111,7 +111,11 @@ with GBIF acting as an umbrella organisation to store data from all
 nodes. Several nodes have their own APIs, often built from the ‘living
 atlas’ codebase developed by the ALA. At present, <code>galah</code>
 supports the following functions and atlases:</p>
-<p><img src="../reference/figures/atlases_plot.png" alt="plot of chunk atlas-support" width="100%"></p>
+<div class="figure">
+<img src="../reference/figures/atlases_plot.png" alt="plot of chunk atlas-support" width="100%"><p class="caption">
+plot of chunk atlas-support
+</p>
+</div>
 <div class="section level3">
 <h3 id="set-organisation">Set Organisation<a class="anchor" aria-label="anchor" href="#set-organisation"></a>
 </h3>
@@ -135,27 +139,26 @@ about the Atlas you have set. Available information may vary for each
 Living Atlas.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"Guatemala"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Atlas selected: Sistema Nacional de Información sobre Diversidad Biológica de Guatemala</span></span>
-<span><span class="co">## (SNIBgt) [Guatemala]</span></span></code></pre>
+<pre><code><span><span class="co">## Atlas selected: Sistema Nacional de Información sobre Diversidad Biológica de Guatemala (SNIBgt) [Guatemala]</span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1,283 × 3</span></span>
-<span><span class="co">##    id     name                                                                         uri  </span></span>
-<span><span class="co">##    &lt;chr&gt;  &lt;chr&gt;                                                                        &lt;chr&gt;</span></span>
-<span><span class="co">##  1 dr1440 A catalogue of the Heteroptera (Hemiptera) or true bugs of Argentina         http…</span></span>
-<span><span class="co">##  2 dr1436 A cybercatalogue of American sand fly types (Diptera, Psychodidae, Phleboto… http…</span></span>
-<span><span class="co">##  3 dr1226 A distinctive new species of biting midge in the subgenus Euprojoannisia Br… http…</span></span>
-<span><span class="co">##  4 dr321  A Distribution and Taxonomic Reference Dataset of Geranium (Geraniaceae) in… http…</span></span>
-<span><span class="co">##  5 dr1285 A geographic distribution database of the cassava whitefly complex (Hemipte… http…</span></span>
-<span><span class="co">##  6 dr12   A global database for the distributions of crop wild relatives               http…</span></span>
-<span><span class="co">##  7 dr467  A matrix-based revision of the genus Hypogena Dejean, 1834 (Coleoptera Tene… http…</span></span>
-<span><span class="co">##  8 dr1061 A Monographic Revision of the Genus Hoplopyga Thomson, 1880 (Coleoptera: Sc… http…</span></span>
-<span><span class="co">##  9 dr1570 A new Anomiopus Westwood (Coleoptera: Scarabaeidae: Scarabaeinae) from the … http…</span></span>
-<span><span class="co">## 10 dr1177 A new Central American genus of pleasing fungus beetles (Coleoptera: Erotyl… http…</span></span>
+<span><span class="co">##    id     name                                                                                                                     uri  </span></span>
+<span><span class="co">##    &lt;chr&gt;  &lt;chr&gt;                                                                                                                    &lt;chr&gt;</span></span>
+<span><span class="co">##  1 dr1440 A catalogue of the Heteroptera (Hemiptera) or true bugs of Argentina                                                     http…</span></span>
+<span><span class="co">##  2 dr1436 A cybercatalogue of American sand fly types (Diptera, Psychodidae, Phlebotominae) deposited at the Natural History Muse… http…</span></span>
+<span><span class="co">##  3 dr1226 A distinctive new species of biting midge in the subgenus Euprojoannisia Brèthes from Mexico with new records of Neotro… http…</span></span>
+<span><span class="co">##  4 dr321  A Distribution and Taxonomic Reference Dataset of Geranium (Geraniaceae) in the New World                                http…</span></span>
+<span><span class="co">##  5 dr1285 A geographic distribution database of the cassava whitefly complex (Hemiptera, Aleyrodidae) and their associated parasi… http…</span></span>
+<span><span class="co">##  6 dr12   A global database for the distributions of crop wild relatives                                                           http…</span></span>
+<span><span class="co">##  7 dr467  A matrix-based revision of the genus Hypogena Dejean, 1834 (Coleoptera Tenebrionidae)                                    http…</span></span>
+<span><span class="co">##  8 dr1061 A Monographic Revision of the Genus Hoplopyga Thomson, 1880 (Coleoptera: Scarabaeidae: Cetoniinae: Gymnetini)            http…</span></span>
+<span><span class="co">##  9 dr1570 A new Anomiopus Westwood (Coleoptera: Scarabaeidae: Scarabaeinae) from the Mayan Biosphere Reserve, Petén, Guatemala     http…</span></span>
+<span><span class="co">## 10 dr1177 A new Central American genus of pleasing fungus beetles (Coleoptera: Erotylidae) from the Ischyrus-Megischyrus complex   http…</span></span>
 <span><span class="co">## # ℹ 1,273 more rows</span></span></code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_all.html">show_all</a></span><span class="op">(</span><span class="va">fields</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## # A tibble: 128 × 3</span></span>
+<pre><code><span><span class="co">## # A tibble: 127 × 3</span></span>
 <span><span class="co">##    id                   description        type  </span></span>
 <span><span class="co">##    &lt;chr&gt;                &lt;chr&gt;              &lt;chr&gt; </span></span>
 <span><span class="co">##  1 all_image_url        &lt;NA&gt;               fields</span></span>
@@ -168,7 +171,7 @@ Living Atlas.</p>
 <span><span class="co">##  8 catalogue_number     Catalogue Number   fields</span></span>
 <span><span class="co">##  9 cl10011              &lt;NA&gt;               fields</span></span>
 <span><span class="co">## 10 class                Class              fields</span></span>
-<span><span class="co">## # ℹ 118 more rows</span></span></code></pre>
+<span><span class="co">## # ℹ 117 more rows</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_all</a></span><span class="op">(</span><span class="va">fields</span>, <span class="st">"year"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 2 × 3</span></span>
@@ -198,11 +201,9 @@ searches are returning the correct taxonomic data.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_all.html">search_taxa</a></span><span class="op">(</span><span class="st">"vulpes"</span><span class="op">)</span> <span class="co"># Returns data</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 1 × 12</span></span>
-<span><span class="co">##   search_term scientific_name scientific_name_author…¹ taxon_concept_id rank  kingdom phylum</span></span>
-<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                    &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; </span></span>
-<span><span class="co">## 1 vulpes      Vulpes          Frisch, 1775             NBNSYS0000138878 genus Animal… Chord…</span></span>
-<span><span class="co">## # ℹ abbreviated name: ¹​scientific_name_authorship</span></span>
-<span><span class="co">## # ℹ 5 more variables: class &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, superclass &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">##   search_term scientific_name scientific_name_authorship taxon_concept_id rank  kingdom  phylum   class    order family genus superclass</span></span>
+<span><span class="co">##   &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                      &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;     </span></span>
+<span><span class="co">## 1 vulpes      Vulpes          Frisch, 1775               NBNSYS0000138878 genus Animalia Chordata Mammalia Carn… Canid… Vulp… Tetrapoda</span></span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"vulpes"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -211,13 +212,12 @@ searches are returning the correct taxonomic data.</p>
 <pre><code><span><span class="co">## # A tibble: 1 × 1</span></span>
 <span><span class="co">##    count</span></span>
 <span><span class="co">##    &lt;int&gt;</span></span>
-<span><span class="co">## 1 123736</span></span></code></pre>
+<span><span class="co">## 1 124167</span></span></code></pre>
 <p>Download species occurrence records from other atlases with
 <code><a href="../reference/atlas_occurrences.html">atlas_occurrences()</a></code></p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_config.html">galah_config</a></span><span class="op">(</span>atlas <span class="op">=</span> <span class="st">"Guatemala"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Atlas selected: Sistema Nacional de Información sobre Diversidad Biológica de Guatemala</span></span>
-<span><span class="co">## (SNIBgt) [Guatemala]</span></span></code></pre>
+<pre><code><span><span class="co">## Atlas selected: Sistema Nacional de Información sobre Diversidad Biológica de Guatemala (SNIBgt) [Guatemala]</span></span></code></pre>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">galah_call</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/galah_identify.html">galah_identify</a></span><span class="op">(</span><span class="st">"Lagomorpha"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -225,12 +225,12 @@ searches are returning the correct taxonomic data.</p>
 <span>  <span class="fu"><a href="../reference/galah_select.html">galah_select</a></span><span class="op">(</span><span class="va">taxon_name</span>, <span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/atlas_occurrences.html">atlas_occurrences</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 4 × 2</span></span>
-<span><span class="co">##   scientificName                   year</span></span>
+<span><span class="co">##   taxon_name                       year</span></span>
 <span><span class="co">##   &lt;chr&gt;                           &lt;dbl&gt;</span></span>
 <span><span class="co">## 1 Erinnyis ello subsp. ello        1973</span></span>
-<span><span class="co">## 2 Aellopos titan Burmeister, 1856  1971</span></span>
+<span><span class="co">## 2 Manduca rustica Fabricius, 1775  1930</span></span>
 <span><span class="co">## 3 Manduca rustica Fabricius, 1775  1930</span></span>
-<span><span class="co">## 4 Manduca rustica Fabricius, 1775  1930</span></span></code></pre>
+<span><span class="co">## 4 Aellopos titan Burmeister, 1856  1971</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="complex-queries-with-multiple-atlases">Complex queries with multiple Atlases<a class="anchor" aria-label="anchor" href="#complex-queries-with-multiple-atlases"></a>
@@ -260,14 +260,26 @@ Atlas in one table.</p>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="../reference/tidyverse_functions.html">desc</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>column <span class="op">=</span> <span class="va">count</span><span class="op">)</span></span></code></pre></div>
-<div id="coglotvhvx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div id="uvyxkmqbph" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uvyxkmqbph table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-#coglotvhvx .gt_table {
+#uvyxkmqbph thead, #uvyxkmqbph tbody, #uvyxkmqbph tfoot, #uvyxkmqbph tr, #uvyxkmqbph td, #uvyxkmqbph th {
+  border-style: none;
+}
+
+#uvyxkmqbph p {
+  margin: 0;
+  padding: 0;
+}
+
+#uvyxkmqbph .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -290,24 +302,12 @@ Atlas in one table.</p>
   border-left-color: #D3D3D3;
 }
 
-#coglotvhvx .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#coglotvhvx .gt_caption {
+#uvyxkmqbph .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#coglotvhvx .gt_title {
+#uvyxkmqbph .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -319,25 +319,37 @@ Atlas in one table.</p>
   border-bottom-width: 0;
 }
 
-#coglotvhvx .gt_subtitle {
+#uvyxkmqbph .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#coglotvhvx .gt_bottom_border {
+#uvyxkmqbph .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#uvyxkmqbph .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#coglotvhvx .gt_col_headings {
+#uvyxkmqbph .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -352,7 +364,7 @@ Atlas in one table.</p>
   border-right-color: #D3D3D3;
 }
 
-#coglotvhvx .gt_col_heading {
+#uvyxkmqbph .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -372,7 +384,7 @@ Atlas in one table.</p>
   overflow-x: hidden;
 }
 
-#coglotvhvx .gt_column_spanner_outer {
+#uvyxkmqbph .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -384,15 +396,15 @@ Atlas in one table.</p>
   padding-right: 4px;
 }
 
-#coglotvhvx .gt_column_spanner_outer:first-child {
+#uvyxkmqbph .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#coglotvhvx .gt_column_spanner_outer:last-child {
+#uvyxkmqbph .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#coglotvhvx .gt_column_spanner {
+#uvyxkmqbph .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -404,7 +416,11 @@ Atlas in one table.</p>
   width: 100%;
 }
 
-#coglotvhvx .gt_group_heading {
+#uvyxkmqbph .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#uvyxkmqbph .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -430,7 +446,7 @@ Atlas in one table.</p>
   text-align: left;
 }
 
-#coglotvhvx .gt_empty_group_heading {
+#uvyxkmqbph .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -445,15 +461,15 @@ Atlas in one table.</p>
   vertical-align: middle;
 }
 
-#coglotvhvx .gt_from_md > :first-child {
+#uvyxkmqbph .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#coglotvhvx .gt_from_md > :last-child {
+#uvyxkmqbph .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#coglotvhvx .gt_row {
+#uvyxkmqbph .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -472,7 +488,7 @@ Atlas in one table.</p>
   overflow-x: hidden;
 }
 
-#coglotvhvx .gt_stub {
+#uvyxkmqbph .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -485,7 +501,7 @@ Atlas in one table.</p>
   padding-right: 5px;
 }
 
-#coglotvhvx .gt_stub_row_group {
+#uvyxkmqbph .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -499,11 +515,15 @@ Atlas in one table.</p>
   vertical-align: top;
 }
 
-#coglotvhvx .gt_row_group_first td {
+#uvyxkmqbph .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#coglotvhvx .gt_summary_row {
+#uvyxkmqbph .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#uvyxkmqbph .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -513,16 +533,16 @@ Atlas in one table.</p>
   padding-right: 5px;
 }
 
-#coglotvhvx .gt_first_summary_row {
+#uvyxkmqbph .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#coglotvhvx .gt_first_summary_row.thick {
+#uvyxkmqbph .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#coglotvhvx .gt_last_summary_row {
+#uvyxkmqbph .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -532,7 +552,7 @@ Atlas in one table.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#coglotvhvx .gt_grand_summary_row {
+#uvyxkmqbph .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -542,7 +562,7 @@ Atlas in one table.</p>
   padding-right: 5px;
 }
 
-#coglotvhvx .gt_first_grand_summary_row {
+#uvyxkmqbph .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -552,11 +572,21 @@ Atlas in one table.</p>
   border-top-color: #D3D3D3;
 }
 
-#coglotvhvx .gt_striped {
+#uvyxkmqbph .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uvyxkmqbph .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#coglotvhvx .gt_table_body {
+#uvyxkmqbph .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -565,7 +595,7 @@ Atlas in one table.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#coglotvhvx .gt_footnotes {
+#uvyxkmqbph .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -579,30 +609,8 @@ Atlas in one table.</p>
   border-right-color: #D3D3D3;
 }
 
-#coglotvhvx .gt_footnote {
+#uvyxkmqbph .gt_footnote {
   margin: 0px;
-  font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#coglotvhvx .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#coglotvhvx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -610,69 +618,90 @@ Atlas in one table.</p>
   padding-right: 5px;
 }
 
-#coglotvhvx .gt_left {
+#uvyxkmqbph .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#uvyxkmqbph .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uvyxkmqbph .gt_left {
   text-align: left;
 }
 
-#coglotvhvx .gt_center {
+#uvyxkmqbph .gt_center {
   text-align: center;
 }
 
-#coglotvhvx .gt_right {
+#uvyxkmqbph .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#coglotvhvx .gt_font_normal {
+#uvyxkmqbph .gt_font_normal {
   font-weight: normal;
 }
 
-#coglotvhvx .gt_font_bold {
+#uvyxkmqbph .gt_font_bold {
   font-weight: bold;
 }
 
-#coglotvhvx .gt_font_italic {
+#uvyxkmqbph .gt_font_italic {
   font-style: italic;
 }
 
-#coglotvhvx .gt_super {
+#uvyxkmqbph .gt_super {
   font-size: 65%;
 }
 
-#coglotvhvx .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
+#uvyxkmqbph .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
+  position: initial;
 }
 
-#coglotvhvx .gt_asterisk {
+#uvyxkmqbph .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#coglotvhvx .gt_indent_1 {
+#uvyxkmqbph .gt_indent_1 {
   text-indent: 5px;
 }
 
-#coglotvhvx .gt_indent_2 {
+#uvyxkmqbph .gt_indent_2 {
   text-indent: 10px;
 }
 
-#coglotvhvx .gt_indent_3 {
+#uvyxkmqbph .gt_indent_3 {
   text-indent: 15px;
 }
 
-#coglotvhvx .gt_indent_4 {
+#uvyxkmqbph .gt_indent_4 {
   text-indent: 20px;
 }
 
-#coglotvhvx .gt_indent_5 {
+#uvyxkmqbph .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-<table class="table gt_table">
-<thead class="gt_col_headings"><tr>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="region">region</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="institution">institution</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="count">count</th>
@@ -681,12 +710,12 @@ Atlas in one table.</p>
 <tr>
 <td headers="region" class="gt_row gt_left">Global</td>
 <td headers="institution" class="gt_row gt_left">Global Biodiversity Information Facility</td>
-<td headers="count" class="gt_row gt_right">2,083,165,001.00</td>
+<td headers="count" class="gt_row gt_right">2,090,811,458.00</td>
 </tr>
 <tr>
 <td headers="region" class="gt_row gt_left">United Kingdom</td>
 <td headers="institution" class="gt_row gt_left">National Biodiversity Network</td>
-<td headers="count" class="gt_row gt_right">254,155,214.00</td>
+<td headers="count" class="gt_row gt_right">254,150,224.00</td>
 </tr>
 <tr>
 <td headers="region" class="gt_row gt_left">France</td>
@@ -696,7 +725,7 @@ Atlas in one table.</p>
 <tr>
 <td headers="region" class="gt_row gt_left">Australia</td>
 <td headers="institution" class="gt_row gt_left">Atlas of Living Australia</td>
-<td headers="count" class="gt_row gt_right">131,963,195.00</td>
+<td headers="count" class="gt_row gt_right">132,342,396.00</td>
 </tr>
 <tr>
 <td headers="region" class="gt_row gt_left">Sweden</td>
@@ -706,12 +735,12 @@ Atlas in one table.</p>
 <tr>
 <td headers="region" class="gt_row gt_left">Spain</td>
 <td headers="institution" class="gt_row gt_left">GBIF Spain</td>
-<td headers="count" class="gt_row gt_right">57,696,934.00</td>
+<td headers="count" class="gt_row gt_right">58,531,561.00</td>
 </tr>
 <tr>
 <td headers="region" class="gt_row gt_left">Brazil</td>
 <td headers="institution" class="gt_row gt_left">Sistemas de Informações sobre a Biodiversidade Brasileira</td>
-<td headers="count" class="gt_row gt_right">24,369,137.00</td>
+<td headers="count" class="gt_row gt_right">28,391,979.00</td>
 </tr>
 <tr>
 <td headers="region" class="gt_row gt_left">Portugal</td>
@@ -726,7 +755,7 @@ Atlas in one table.</p>
 <tr>
 <td headers="region" class="gt_row gt_left">Estonia</td>
 <td headers="institution" class="gt_row gt_left">eElurikkus</td>
-<td headers="count" class="gt_row gt_right">7,475,447.00</td>
+<td headers="count" class="gt_row gt_right">7,438,474.00</td>
 </tr>
 <tr>
 <td headers="region" class="gt_row gt_left">Guatemala</td>
