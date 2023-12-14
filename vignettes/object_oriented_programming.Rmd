@@ -1,7 +1,7 @@
 ---
 title: "Object-Oriented Programming in galah"
 author: "Martin Westgate, Dax Kellie"
-date: '2023-10-26'
+date: '2023-12-14'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -59,7 +59,7 @@ galah_call() |>
 ## # A tibble: 16 × 2
 ##    species                 count
 ##    <chr>                   <int>
-##  1 Crinia signifera        57878
+##  1 Crinia signifera        58204
 ##  2 Crinia parinsignifera   12478
 ##  3 Crinia glauerti          3090
 ##  4 Crinia georgiana         1490
@@ -68,7 +68,7 @@ galah_call() |>
 ##  7 Crinia insignifera        536
 ##  8 Crinia tinnula            417
 ##  9 Crinia deserticola        278
-## 10 Crinia pseudinsignifera   235
+## 10 Crinia pseudinsignifera   236
 ## 11 Crinia tasmaniensis       189
 ## 12 Crinia bilingua            75
 ## 13 Crinia subinsignifera      45
@@ -220,7 +220,7 @@ request_data() |>
 ```
 ## • metadata/fields data: galah:::check_internal_cache()$fields
 ## • metadata/assertions data: galah:::check_internal_cache()$assertions
-## • metadata/reasons url: https://api.ala.org.au/logger/service/logger/reasons
+## • metadata/reasons data: galah:::check_internal_cache()$reasons
 ## • metadata/taxa-single url: https://api.ala.org.au/namematching/api/search?q=pe...
 ## • data/occurrences url: https://biocache-ws.ala.org.au/ws/occurrences/offline/d...
 ```

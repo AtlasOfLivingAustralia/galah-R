@@ -3,12 +3,12 @@
 #       (these are probably not built for many fast queries if output is large)
 
 test_that("search_all checks inputs, returns helpful error", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   expect_error(search_all(attributes, ""), "Unrecognised metadata requested")
 })
 
 test_that("search_all returns correct output for type", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   fields <- search_all(fields, "year")
   reasons <- search_all(reasons, "genus")
   profiles <- search_all(profiles, "ala")
@@ -28,13 +28,13 @@ test_that("search_all returns correct output for type", {
 })
 
 test_that("search_all returns error when missing query", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   expect_error(search_all(profiles), "We didn't detect a search query")
   expect_error(search_all(fields, blah))
 })
 
 test_that("search_assertions returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   all <- show_all_assertions()
   search <- search_assertions("INVALID")
   search2 <- search_all(assertions, "INVALID")
@@ -50,7 +50,7 @@ test_that("search_assertions returns a filtered result", {
 })
 
 test_that("search_apis returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   all <- show_all_apis()
   search <- search_apis("image")
   search2 <- search_all(apis, "image")
@@ -65,7 +65,7 @@ test_that("search_apis returns a filtered result", {
 })
 
 test_that("search_atlases returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   all <- show_all_atlases()
   search <- search_atlases("guat")
   search2 <- search_all(atlases, "guat")
@@ -80,7 +80,7 @@ test_that("search_atlases returns a filtered result", {
 })
 
 test_that("search_collections returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   all <- show_all_collections()
   search <- search_collections("dna")
   search2 <- search_all(collections, "dna")
@@ -95,7 +95,7 @@ test_that("search_collections returns a filtered result", {
 })
 
 test_that("search_datasets returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   all <- show_all_datasets()
   search <- search_datasets("endangered")
   search2 <- search_all(datasets, "endangered")
@@ -110,7 +110,7 @@ test_that("search_datasets returns a filtered result", {
 })
 
 test_that("search_fields returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   all <- show_all_fields()
   search <- search_fields("precipitation")
   search2 <- search_all(fields, "precipitation")
@@ -125,12 +125,12 @@ test_that("search_fields returns a filtered result", {
 })
 
 test_that("search_fields helpful warning with blank argument", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   expect_error(search_fields(), "We didn't detect a search query.")
 })
 
 test_that("search_licenses returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   all <- show_all_licences()
   search <- search_licences("3.0")
   search2 <- search_all(licences, "3.0")
@@ -145,7 +145,7 @@ test_that("search_licenses returns a filtered result", {
 })
 
 test_that("search_lists returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   all <- show_all_lists()
   search <- search_lists("threatened")
   search2 <- search_all(lists, "threatened")
@@ -160,7 +160,7 @@ test_that("search_lists returns a filtered result", {
 })
 
 test_that("search_reasons returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   all <- show_all_reasons()
   search <- search_reasons("sci")
   search2 <- search_all(reasons, "sci")
@@ -175,7 +175,7 @@ test_that("search_reasons returns a filtered result", {
 })
 
 test_that("search_ranks returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   all <- show_all_ranks()
   search <- search_ranks("kingdom")
   search2 <- search_all(ranks, "kingdom")
@@ -190,7 +190,7 @@ test_that("search_ranks returns a filtered result", {
 })
 
 test_that("search_profiles returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_on_cran(); skip_if_offline(); skip_on_ci()
   all <- show_all_profiles()
   search <- search_profiles("base")
   search2 <- search_all(profiles, "base")
@@ -205,7 +205,7 @@ test_that("search_profiles returns a filtered result", {
 })
 
 test_that("search_providers returns a filtered result", {
-  skip_if_offline(); skip_on_ci()
+  skip_on_cran(); skip_if_offline(); skip_on_ci()
   all <- show_all_providers()
   search <- search_providers("inaturalist")
   search2 <- search_all(providers, "inaturalist")
