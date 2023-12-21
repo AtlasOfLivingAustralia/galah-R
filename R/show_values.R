@@ -88,7 +88,7 @@ show_values <- function(df){
     )
     }
   }
-
+  
   request_metadata() |>
     filter({{type}} == {{match_name}}) |>
     unnest() |>
