@@ -33,16 +33,35 @@ compute_occurrences_count <- function(.query){
 #' @keywords Internal
 compute_occurrences_count_nogroupby <- function(.query){
   url <- url_parse(.query$url)
+  
+  # check if a limit has been set
   if(!is.null(url$query$flimit)){
+    
+    # check number of total facets in the field
+    n_facets <- check_facet_count(.query)
+    
+    # handle slice_head
     if(as.integer(url$query$flimit) < 1){
-      n_facets <- check_facet_count(.query)
       url$query$flimit <- .query$arrange$slice_n # Q: is this correct? 
       if(.query$arrange$slice_n < n_facets){
         url$query$foffset <- n_facets - .query$arrange$slice_n
       }
       .query$url <- url_build(url) 
       .query
+    
+    # message when limit is hit
     }else{
+      if(as.integer(url$query$flimit) < n_facets){
+        limit <- url$query$flimit |> prettyNum(big.mark=",", preserve.width="none")
+        n_total_facets <- n_facets |> prettyNum(big.mark=",", preserve.width="none")
+        
+        bullets <- c(
+          cli::cli_text(cli::col_yellow(glue("Limiting to first {limit} of {n_total_facets} rows."))),
+          cli::cli_text(cli::col_magenta("Use `atlas_counts(limit = )` to return more rows."))
+        )
+        inform(bullets)
+      }
+      # .query$url <- url_build(url) 
       .query
     }
   }else{
@@ -91,7 +110,7 @@ compute_occurrences_count_groupby <- function(.query, error_call = caller_env())
   saved_facet_queries <- saved_facet_queries[
     unlist(lapply(saved_facet_queries, function(a){!is.null(a)}))]
   
-  # rebuild url
+  # rebuild url with only first facet argument
   url$query <- c(
     url$query[names(url$query) != "facets"],
     facet_list[-length(facet_list)])
