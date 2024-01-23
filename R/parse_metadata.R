@@ -5,7 +5,7 @@
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-compute_lists <- function(.query){
+parse_lists <- function(.query){
   url <- url_parse(.query$url)
   n <- get_max_n(.query)
   # make decisions about how much pagination is needed

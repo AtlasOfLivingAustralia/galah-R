@@ -7,9 +7,9 @@
 \alias{collapse.files_request}
 \title{Generate a query}
 \usage{
-\method{collapse}{data_request}(x, ..., mint_doi)
+\method{collapse}{data_request}(x, ..., mint_doi, .expand = FALSE)
 
-\method{collapse}{metadata_request}(x, ...)
+\method{collapse}{metadata_request}(x, ..., .expand = FALSE)
 
 \method{collapse}{files_request}(x, ..., thumbnail = FALSE)
 }
@@ -17,10 +17,13 @@
 \item{x}{An object of class \code{data_request}, \code{metadata_request} or
 \code{files_request}}
 
-\item{...}{Arguments passed on to methods}
+\item{...}{Arguments passed on to other methods}
 
 \item{mint_doi}{Logical: should a DOI be minted for this download? Only
 applies to \code{type = "occurrences"} when atlas chosen is "ALA".}
+
+\item{.expand}{Logical: should the \code{query_set} be returned? This object
+shows all the requisite data needed to process the supplied query.}
 
 \item{thumbnail}{Logical: should thumbnail-size images be returned? Defaults
 to \code{FALSE}, indicating full-size images are required.}
