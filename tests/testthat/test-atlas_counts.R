@@ -1,14 +1,13 @@
 galah_config(verbose = FALSE)
 
 test_that("`collapse()` doesn't ping an API for type = `'occurrences-count'`", {
+  skip_if_offline()
   result <- request_data() |>
     filter(year == 2010) |>
     count() |>
     collapse()
-  expect_true(inherits(result, "query_set"))
-  types <- unlist(lapply(result, function(a){a$type}))
-  expect_equal(types,
-               c("metadata/fields", "metadata/assertions", "data/occurrences-count"))
+  expect_true(inherits(result, "query"))
+  expect_equal(result$type, "data/occurrences-count")
 })
 
 test_that("atlas_counts works with no arguments", {
@@ -180,6 +179,45 @@ test_that("species counts work with group_by()", {
   expect_true(all(count_species$count < 100))
   expect_true(all(count_records$year == count_species$year))
   expect_true(all(count_records$count >= count_species$count))
+})
+
+test_that("order of `group_by()` doesn't affect result in `atlas_counts()", {
+  # This is a test for Issue #198 raised by @shandiya
+  # https://github.com/AtlasOfLivingAustralia/galah-R/issues/198
+  skip_if_offline()
+  reg <- c("Gibson Desert", 
+           "Little Sandy Desert", 
+           "Southern Volcanic Plain",
+           "Flinders Lofty Block")
+  # IBRA then year (with no limit)
+  ibra_year <- galah_call() |> 
+    filter(cl1048 == reg, 
+           year >= 1971,
+           year <= 2020) |> 
+    group_by(cl1048, year) |>
+    arrange(desc(count)) |>
+    count() |>
+    collect()
+  year_ibra <- galah_call() |> 
+    filter(cl1048 == reg, 
+           year >= 1971,
+           year <= 2020) |> 
+    group_by(year, cl1048) |> 
+    arrange(desc(count)) |>
+    count() |>
+    collect()
+  # we expect these two tibbles to have the same colnames,
+  # but in a different order (respecting user-supplied info)
+  expect_true(all(colnames(ibra_year) %in% c("year", "cl1048", "count")))
+  expect_true(all(colnames(year_ibra) %in% c("year", "cl1048", "count")))
+  expect_false(all(colnames(year_ibra) == colnames(ibra_year)))
+  # we also expect them to have the same number of rows, and the same total
+  expect_equal(nrow(ibra_year), nrow(year_ibra))
+  expect_equal(sum(ibra_year$count), sum(year_ibra$count))
+  ## FIXME:
+  # expect_equal(ibra_year, year_ibra) # this fails,
+  ## because `arrange` is not (re-)applied after download,
+  ## so rows are not in the same order
 })
 
 ## BELOW HERE TESTS WILL FAIL
