@@ -8,7 +8,7 @@
 #' `files_request` (i.e. constructed using a pipe) or `query` 
 #' (i.e. constructed by `collapse()`) 
 #' @param ... Arguments passed on to other methods
-#' @return An object of class `evaluated_query`, which is identical to class
+#' @return An object of class `computed_query`, which is identical to class
 #' `query` except for occurrence data, where it also contains information on the 
 #' status of the request.
 #' @export
@@ -42,17 +42,17 @@ compute.query <- function(x, ...){
            if(is_gbif()){
              compute_occurrences(x)
            }else{
-             as_evaluated_query(x)
+             as_computed_query(x)
            }
          },
-         as_evaluated_query(x)
+         as_computed_query(x)
   )
 }
 
-#' Internal function to convert class `query` to `evaluated_query`
+#' Internal function to convert class `query` to `computed_query`
 #' @noRd
 #' @keywords Internal
-as_evaluated_query <- function(x){
-  class(x) <- "evaluated_query"
+as_computed_query <- function(x){
+  class(x) <- "computed_query"
   x
 }

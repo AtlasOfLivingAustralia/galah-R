@@ -6,7 +6,7 @@
 \alias{print.files_request}
 \alias{print.metadata_request}
 \alias{print.query}
-\alias{print.evaluated_query}
+\alias{print.computed_query}
 \alias{print.query_set}
 \alias{print.galah_config}
 \title{Print galah objects}
@@ -19,7 +19,7 @@
 
 \method{print}{query}(x, ...)
 
-\method{print}{evaluated_query}(x, ...)
+\method{print}{computed_query}(x, ...)
 
 \method{print}{query_set}(x, ...)
 

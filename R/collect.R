@@ -58,7 +58,7 @@ collect.query <- function(x, ..., wait = TRUE, file = NULL){
 #' @importFrom rlang inform
 #' @importFrom tibble tibble
 #' @export
-collect.evaluated_query <- function(x, 
+collect.computed_query <- function(x, 
                           ...,
                           wait = TRUE, 
                           file = NULL

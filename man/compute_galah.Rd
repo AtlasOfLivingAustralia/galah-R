@@ -24,7 +24,7 @@
 \item{...}{Arguments passed on to other methods}
 }
 \value{
-An object of class \code{evaluated_query}, which is identical to class
+An object of class \code{computed_query}, which is identical to class
 \code{query} except for occurrence data, where it also contains information on the
 status of the request.
 }

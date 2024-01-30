@@ -176,7 +176,7 @@ print.query <- function(x, ...){
 
 #' @rdname print_galah_objects
 #' @export
-print.evaluated_query <- function(x, ...){
+print.computed_query <- function(x, ...){
   if(!is.null(x$arrange)){
     arrange <- galah_pale_green(glue("\n
                               arrange: {x$arrange$variable} ({x$arrange$direction})"))
@@ -223,7 +223,7 @@ print.evaluated_query <- function(x, ...){
   }
   cat(c(
     silver("Object of class"),
-    galah_pink("evaluated_query"),
+    galah_pink("computed_query"),
     silver("with type"),
     galah_green(x$type),
     subtext, # note: need code for url tibbles
