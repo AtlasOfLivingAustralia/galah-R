@@ -158,24 +158,17 @@ test_that("atlas_occurrences works for United Kingdom", {
     select(group = "basic") |>
     collapse()
   # with run checks, this gives n = 5. Without it's n = 2
-  expect_s3_class(occ_collapse, "query_set")
-  expect_equal(
-    unlist(lapply(occ_collapse, function(a){a$type})),
-    c("metadata/fields", 
-      "metadata/assertions",
-      "metadata/reasons",
-      "metadata/taxa-single",
-      "data/occurrences"))
+  expect_s3_class(occ_collapse, "query")
+  expect_equal(names(occ_collapse), 
+               c("type", "url", "headers", "fields"))
+  expect_equal(occ_collapse$type, "data/occurrences")
   # compute
   # notes: 
     # no 'true' compute stage for NBN; collect() sends the query and retrieves data - unlike the other living atlases. 
     # sourceTypeId not required, but if specified, should be 2001 (ALA4R) not 2004 (galah)
     # no email needed for NBN
   occ_compute <- compute(occ_collapse)
-  expect_s3_class(occ_compute, "query")
-  expect_equal(names(occ_compute), 
-               c("type", "url", "headers", "fields"))
-  expect_equal(occ_compute$type, "data/occurrences")
+  expect_s3_class(occ_compute, "computed_query")
   # collect
   occ <- collect(occ_compute)
   expect_equal(nrow(occ), counts$count[1])

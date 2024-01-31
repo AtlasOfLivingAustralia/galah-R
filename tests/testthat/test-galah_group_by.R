@@ -1,18 +1,12 @@
-test_that("`group_by` fields are checked during `compute()`, and not before", {
+test_that("`group_by` fields are checked during `collapse()`", {
   galah_config(run_checks = TRUE)
-  # `collapse()` should never ping a check
-  expect_silent({
+  # `collapse()`  should ping a check when `run_checks = TRUE`
+  expect_error({
     request_data(type = "occurrences-count") |> 
       group_by(random_invalid_name) |> 
       collapse()
   })
   skip_if_offline()
-  # `compute()` should ping a check when `run_checks = TRUE`
-  expect_error({
-    request_data(type = "occurrences-count") |> 
-      group_by(random_invalid_name) |> 
-      compute()
-  })
   # using `count() |> collect()` is synonymous with `request_data(type = "occurrences-count") |> collect()`
   expect_error({
     request_data() |> 

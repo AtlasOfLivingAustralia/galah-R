@@ -10,8 +10,8 @@ test_that("swapping to atlas = GBIF works", {
 
 test_that("show_all(fields) works for GBIF", {
   x <- request_metadata() |> collapse()
-  expect_true(inherits(x, "query_set"))
-  expect_true(x[[1]]$type == "metadata/fields")
+  expect_true(inherits(x, "query"))
+  expect_true(x$type == "metadata/fields")
   x <- collect(x)
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
@@ -142,22 +142,14 @@ test_that("`count()` works with `filter()` for GBIF", {
     filter(year == 2010) |>
     count() |>
     collapse()
-  expect_s3_class(x, "query_set")
-  expect_equal(length(x), 3)
-  expect_equal(
-    c(x[[1]]$type, x[[2]]$type, x[[3]]$type),
-    c("metadata/fields", 
-      "metadata/assertions", 
-      "data/occurrences-count"))
+  expect_s3_class(x, "query")
+  expect_equal(length(x), 5)
+  expect_equal(names(x), 
+               c("type", "url", "slot_name", "expand", "headers"))
+  expect_equal(x$type, "data/occurrences-count")
   # compute
   y <- compute(x)
-  expect_s3_class(y, "query")
-  expect_equal(length(y), 5)
-  expect_equal(names(y), c("type",
-                           "url",
-                           "slot_name",
-                           "expand",
-                           "headers"))
+  expect_s3_class(y, "computed_query")
   # collect
   z <- collect(y)
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
@@ -172,20 +164,14 @@ test_that("`count` works with `identify` for GBIF", {
     identify("Mammalia") |>
     count() |>
     collapse()
-  expect_s3_class(x, "query_set")
-  expect_equal(length(x), 2)
-  expect_equal(
-    c(x[[1]]$type, x[[2]]$type),
-    c("metadata/taxa-single", "data/occurrences-count"))
+  expect_s3_class(x, "query")
+  expect_equal(length(x), 5)
+  expect_equal(names(x), 
+               c("type", "url", "slot_name", "expand", "headers"))
+  expect_equal(x$type, "data/occurrences-count")
   # compute
   y <- compute(x)
-  expect_s3_class(y, "query")
-  expect_equal(length(y), 5)
-  expect_equal(names(y), c("type",
-                           "url",
-                           "slot_name",
-                           "expand",
-                           "headers"))
+  expect_s3_class(y, "computed_query")
   # collect
   z <- collect(y)
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
@@ -201,22 +187,16 @@ test_that("`count` works with `group_by` for GBIF", {
     group_by(year) |>
     count() |>
     collapse()
-  expect_s3_class(x, "query_set")
+  expect_s3_class(x, "query")
   expect_equal(length(x), 4)
-  expect_equal(
-    unlist(lapply(x, function(a){a$type})),
-    c("metadata/fields", 
-      "metadata/assertions",
-      "metadata/taxa-single",
-      "data/occurrences-count-groupby"))
-  # compute
-  y <- compute(x)
-  expect_s3_class(y, "query")
-  expect_equal(length(y), 4)
-  expect_equal(names(y), c("type",
+  expect_equal(names(x), c("type",
                            "url",
                            "expand",
                            "headers"))
+  expect_equal(x$type, "data/occurrences-count-groupby")
+  # compute
+  y <- compute(x)
+  expect_s3_class(y, "computed_query")
   # collect
   z <- collect(y)
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
@@ -234,23 +214,18 @@ test_that("`galah_select()` returns message for GBIF", {
 })
 
 test_that("atlas_species works for GBIF", {
+  skip_if_offline()
   x <- request_data(type = "species") |>
     filter(year == 2010) |>
     identify("Litoria") |>
     collapse()
-  expect_s3_class(x, "query_set")
-  expect_equal(length(x), 4)
-  expect_equal(
-    unlist(lapply(x, function(a){a$type})),
-    c("metadata/fields", 
-      "metadata/assertions",
-      # "metadata/reasons",
-      "metadata/taxa-single",
-      "data/species"))  
-  skip_if_offline()
+  expect_s3_class(x, "query")
+  expect_equal(length(x), 5)
+  expect_equal(names(x), 
+               c("type", "url", "headers", "options", "body"))
+  expect_equal(x$type, "data/species")
   y <- compute(x)
-  expect_true(inherits(y, "query"))
-  expect_true(y$type == "data/species")  
+  expect_s3_class(y, "computed_query")
   z <- collect(y)
   expect_gt(nrow(z), 0)
   expect_gt(ncol(z), 0)
@@ -282,18 +257,13 @@ test_that("`collapse()` et al. work for GBIF with `type = 'occurrences'`", {
   x <- base_query |>
     collapse()
   # NOTE: the above query should return 147 records (tested 2023-10-12)
-  expect_s3_class(x, "query_set")
-  expect_equal(length(x), 4)
-  expect_equal(
-    unlist(lapply(x, function(a){a$type})),
-    c("metadata/fields", 
-      "metadata/assertions",
-      # "metadata/reasons",
-      "metadata/taxa-single",
-      "data/occurrences"))
+  expect_s3_class(x, "query")
+  expect_equal(names(x), 
+               c("type", "url", "headers", "options", "body"))
+  expect_equal(x$type, "data/occurrences")
   # compute
   y <- compute(x)
-  expect_true(inherits(y, "query"))
+  expect_true(inherits(y, "computed_query"))
   expect_true(y$type == "data/occurrences")  
   expect_true(any(names(y) == "status"))
   # collect
