@@ -40,6 +40,7 @@ collect_media_files <- function(.query){
   n_downloaded <- success[["n"]]
   
   # failed downloads
+  fail <- NULL
   if(nrow(result_summary) > 1) {
     if(any(result_summary$status_code %in% "403")) {
       fail <- result_summary |>
@@ -52,7 +53,7 @@ collect_media_files <- function(.query){
     "v" = glue("Downloaded {n_downloaded} files successfully (status 200)."),
     ">" = glue("Files saved in local directory: \"{user_directory}\".")
   )
-  if(!missing(fail)) {
+  if(!is.null(fail)) {
     bullets <- c(bullets,
                  "x" = glue("Failed {n_failed} downloads due to missing images (status 403)"))
   }

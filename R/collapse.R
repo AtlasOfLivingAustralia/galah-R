@@ -22,8 +22,9 @@
 #' `query_set` are listed in the sequence in which they will be enacted.
 #' @export
 collapse.data_request <- function(x, ..., mint_doi, .expand = FALSE){
-  query_set <- build_query_set_data(x, ..., mint_doi)
-  # browser()
+  query_set <- build_query_set_data(x, 
+                                    mint_doi = mint_doi, 
+                                    ...)
   result <- query_set |>
     build_checks() |>
     parse_checks() |>
@@ -38,7 +39,7 @@ collapse.data_request <- function(x, ..., mint_doi, .expand = FALSE){
 #' @rdname collapse_galah
 #' @order 2
 #' @export
-collapse.metadata_request <- function(x, ..., .expand = FALSE){
+collapse.metadata_request <- function(x, .expand = FALSE, ...){
   query_set <- build_query_set_metadata(x, ...)
   result <- query_set |>
     build_checks() |>
@@ -58,11 +59,13 @@ collapse.metadata_request <- function(x, ..., .expand = FALSE){
 #' @importFrom purrr pluck
 #' @export
 collapse.files_request <- function(x,
-                                   ...,
                                    # prefix? could be useful for file names
-                                   thumbnail = FALSE
+                                   thumbnail = FALSE,
+                                   ...
                                    ){
-  build_query_set_files(x, ..., thumbnail) |>
+  build_query_set_files(x, 
+                        thumbnail = thumbnail, 
+                        ...) |>
     # note: files requests do not need to call build_checks()
     pluck(!!!list(1))
 }

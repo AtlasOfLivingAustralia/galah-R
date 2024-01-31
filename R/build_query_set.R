@@ -2,9 +2,10 @@
 #' for object of class `data_request`
 #' @noRd
 #' @keywords Internal
-build_query_set_data <- function(x, ..., mint_doi){
+build_query_set_data <- function(x, mint_doi, ...){
   if(!missing(mint_doi)){
-    x$mint_doi <- mint_doi}
+    x$mint_doi <- mint_doi
+  }
   # x$type <- check_type(x$type) # needed?
   # handle sending dois via `filter()`
   # important this happens first, as it affects `type` which affects later code

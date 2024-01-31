@@ -9,9 +9,9 @@
 \usage{
 \method{collapse}{data_request}(x, ..., mint_doi, .expand = FALSE)
 
-\method{collapse}{metadata_request}(x, ..., .expand = FALSE)
+\method{collapse}{metadata_request}(x, .expand = FALSE, ...)
 
-\method{collapse}{files_request}(x, ..., thumbnail = FALSE)
+\method{collapse}{files_request}(x, thumbnail = FALSE, ...)
 }
 \arguments{
 \item{x}{An object of class \code{data_request}, \code{metadata_request} or
