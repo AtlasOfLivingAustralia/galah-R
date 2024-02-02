@@ -193,7 +193,7 @@ collect_lists <- function(.query){
       bind_rows()
   }
   result <- result |>
-    rename(species_list_uid = dataResourceUid)
+    rename("species_list_uid" = "dataResourceUid")
   attr(result, "call") <- "lists"
   attr(result, "region") <- pour("atlas", "region") 
   result

@@ -23,6 +23,7 @@ collect_media_metadata <- function(.query){
 #' Internal version of `collect()` for `request_files(type = "media")`
 #' @param object of class `files_response`, from `compute()`
 #' @importFrom dplyr group_by
+#' @importFrom dplyr filter
 #' @importFrom dplyr count
 #' @importFrom rlang .data
 #' @noRd
@@ -36,7 +37,7 @@ collect_media_files <- function(.query){
   
   # successful downloads
   success <- result_summary |> 
-    dplyr::filter(status_code == 200) 
+    dplyr::filter(.data$status_code == 200) 
   n_downloaded <- success[["n"]]
   
   # failed downloads
@@ -44,7 +45,7 @@ collect_media_files <- function(.query){
   if(nrow(result_summary) > 1) {
     if(any(result_summary$status_code %in% "403")) {
       fail <- result_summary |>
-        dplyr::filter(status_code == 403)
+        dplyr::filter(.data$status_code == 403)
       n_failed <- fail[["n"]]
     }
   }

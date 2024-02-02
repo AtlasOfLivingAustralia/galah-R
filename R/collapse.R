@@ -13,13 +13,13 @@
 #' `files_request`
 #' @param ... Arguments passed on to other methods
 #' @param .expand Logical: should the `query_set` be returned? This object
-#' shows all the requisite data needed to process the supplied query.
+#' shows all the requisite data needed to process the supplied query. Defaults
+#' to `FALSE`; if `TRUE` will append the `query_set` to an extra slot in the
+#' `query` object.
 #' @param mint_doi Logical: should a DOI be minted for this download? Only 
 #' applies to `type = "occurrences"` when atlas chosen is "ALA".
-#' @return An object of class `query_set`, which is a list containing one or 
-#' more objects of class `query`. This is valuable because it shows the set of 
-#' queries required to correctly retrieve the requested data. Objects within a
-#' `query_set` are listed in the sequence in which they will be enacted.
+#' @return An object of class `query`, which is a list-like object containing at 
+#' least the slots `type` and `url`.
 #' @export
 collapse.data_request <- function(x, ..., mint_doi, .expand = FALSE){
   query_set <- build_query_set_data(x, 
