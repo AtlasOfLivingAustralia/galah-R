@@ -24,7 +24,7 @@ build_query_set_data <- function(x, mint_doi, ...){
   if (pour("package", "run_checks") & x$type != "occurrences-doi") {
     # add check here to see whether any filters are specified
     # it is possible to only call `identify()`, for example
-    if (any(!fields_absent) | x$type == "species-count") {
+    if (any(!fields_absent) | x$type %in% c("species-count", "species")) {
       result <- list(collapse_fields(), collapse_assertions())
     } else {
       # for living atlases, we need `collapse_fields()` to check the `lsid` field
@@ -40,7 +40,7 @@ build_query_set_data <- function(x, mint_doi, ...){
       result[[(length(result) + 1)]] <- collapse_reasons()
     }
   } else { # if select is required, we need fields even if `run_checks == FALSE`
-    if(!fields_absent[["select"]] | x$type == "occurrences"){
+    if(!fields_absent[["select"]] | x$type %in% c("occurrences", "species")){
       result <- list(collapse_fields(), collapse_assertions())
     }else{
       result <- list() 
