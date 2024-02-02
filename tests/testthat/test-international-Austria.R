@@ -164,7 +164,7 @@ test_that("atlas_counts works with group_by for Austria", {
   result <- galah_call() |>
     galah_filter(year >= 2020) |>
     galah_group_by(year) |>
-    atlas_counts()|>
+    atlas_counts() |>
     try(silent = TRUE)
   skip_if(inherits(result, "try-error"), message = "API not available")
   expect_gt(nrow(result), 1)
