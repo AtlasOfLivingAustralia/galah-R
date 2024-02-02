@@ -5,8 +5,8 @@
 \alias{collect.data_request}
 \alias{collect.metadata_request}
 \alias{collect.files_request}
-\alias{collect.query_set}
 \alias{collect.query}
+\alias{collect.computed_query}
 \title{Retrieve a database query}
 \usage{
 \method{collect}{data_request}(x, ..., wait = TRUE, file = NULL)
@@ -15,9 +15,9 @@
 
 \method{collect}{files_request}(x, ...)
 
-\method{collect}{query_set}(x, ..., wait = TRUE, file = NULL)
-
 \method{collect}{query}(x, ..., wait = TRUE, file = NULL)
+
+\method{collect}{computed_query}(x, ..., wait = TRUE, file = NULL)
 }
 \arguments{
 \item{x}{An object of class \code{data_request}, \code{metadata_request} or

@@ -6,6 +6,7 @@
 \alias{print.files_request}
 \alias{print.metadata_request}
 \alias{print.query}
+\alias{print.computed_query}
 \alias{print.query_set}
 \alias{print.galah_config}
 \title{Print galah objects}
@@ -17,6 +18,8 @@
 \method{print}{metadata_request}(x, ...)
 
 \method{print}{query}(x, ...)
+
+\method{print}{computed_query}(x, ...)
 
 \method{print}{query_set}(x, ...)
 
@@ -35,8 +38,8 @@ of the object to the console
 As of version 2.0, \code{galah} supports several bespoke object types. Classes
 \code{data_request}, \code{metadata_request} and \code{files_request} are for starting pipes
 to download different types of information. These objects are parsed using
-\code{collapse()} into a \code{query_set} object, which contains a set of \code{query}
-objects, each describing one API call. These are then enacted using
+\code{collapse()} into a \code{query} object, which contains one or more URLs necessary
+to return the requested information. This object is then passed to
 \code{compute()} and/or \code{collect()}. Finally, \code{galah_config()} creates an object
 of class \code{galah_config} which (unsurprisingly) stores configuration
 information.

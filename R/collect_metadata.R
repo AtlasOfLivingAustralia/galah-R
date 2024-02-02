@@ -164,11 +164,9 @@ collect_fields <- function(.query){
 #' @keywords Internal
 collect_licences <- function(.query){
   result <- query_API(.query) 
-  
   if (any(duplicated(names(result[[1]])))) { # remove duplicate columns (i.e. Spain atlas)
     result <- lapply(result, function(x) x[unique(names(x))])
   }
-  
   result <- result |> 
     bind_rows() 
   result <- result |>
@@ -195,7 +193,7 @@ collect_lists <- function(.query){
       bind_rows()
   }
   result <- result |>
-    rename(species_list_uid = dataResourceUid)
+    rename("species_list_uid" = "dataResourceUid")
   attr(result, "call") <- "lists"
   attr(result, "region") <- pour("atlas", "region") 
   result

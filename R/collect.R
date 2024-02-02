@@ -45,7 +45,7 @@ collect.files_request <- function(x, ...){
 #' @rdname collect_galah
 #' @order 4
 #' @export
-collect.query_set <- function(x, ..., wait = TRUE, file = NULL){
+collect.query <- function(x, ..., wait = TRUE, file = NULL){
   compute(x) |>
     collect(wait = wait, file = file)
 }
@@ -58,7 +58,7 @@ collect.query_set <- function(x, ..., wait = TRUE, file = NULL){
 #' @importFrom rlang inform
 #' @importFrom tibble tibble
 #' @export
-collect.query <- function(x, 
+collect.computed_query <- function(x, 
                           ...,
                           wait = TRUE, 
                           file = NULL

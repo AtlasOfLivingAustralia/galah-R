@@ -14,7 +14,7 @@ compute_occurrences <- function(.query){
 compute_occurrences_uk <- function(.query){
   result <- c(.query,
               list(fields = extract_fields(.query)))
-  class(result) <- "query"
+  class(result) <- "computed_query"
   result  
 }
 
@@ -33,7 +33,7 @@ compute_occurrences_gbif <- function(.query){
   result <- c(
     list(type = "data/occurrences"),
     status_code)
-  class(result) <- "query"
+  class(result) <- "computed_query"
   return(result)
 }
 
@@ -54,7 +54,7 @@ compute_occurrences_la <- function(.query){
     list(type = "data/occurrences"),
     status_code, 
     list(fields = extract_fields(.query)))
-  class(result) <- "query"
+  class(result) <- "computed_query"
   result
 }
 

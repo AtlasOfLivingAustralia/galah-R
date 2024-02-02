@@ -369,7 +369,7 @@ check_identifiers_la <- function(.query, error_call = caller_env()){
         identifiers <- .query[[which(metadata_lookup)[1]]]
         
         # End query early when no taxonomic search terms were matched
-        if (nrow(identifiers) > 0 && !"taxon_concept_id" %in% identifiers) {
+        if (nrow(identifiers) > 0 && !("taxon_concept_id" %in% colnames(identifiers))) {
           abort("No valid taxonomic identifiers detected.", call = error_call)
         }
         

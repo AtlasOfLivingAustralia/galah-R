@@ -7,29 +7,32 @@
 \alias{collapse.files_request}
 \title{Generate a query}
 \usage{
-\method{collapse}{data_request}(x, ..., mint_doi)
+\method{collapse}{data_request}(x, ..., mint_doi, .expand = FALSE)
 
-\method{collapse}{metadata_request}(x, ...)
+\method{collapse}{metadata_request}(x, .expand = FALSE, ...)
 
-\method{collapse}{files_request}(x, ..., thumbnail = FALSE)
+\method{collapse}{files_request}(x, thumbnail = FALSE, ...)
 }
 \arguments{
 \item{x}{An object of class \code{data_request}, \code{metadata_request} or
 \code{files_request}}
 
-\item{...}{Arguments passed on to methods}
+\item{...}{Arguments passed on to other methods}
 
 \item{mint_doi}{Logical: should a DOI be minted for this download? Only
 applies to \code{type = "occurrences"} when atlas chosen is "ALA".}
+
+\item{.expand}{Logical: should the \code{query_set} be returned? This object
+shows all the requisite data needed to process the supplied query. Defaults
+to \code{FALSE}; if \code{TRUE} will append the \code{query_set} to an extra slot in the
+\code{query} object.}
 
 \item{thumbnail}{Logical: should thumbnail-size images be returned? Defaults
 to \code{FALSE}, indicating full-size images are required.}
 }
 \value{
-An object of class \code{query_set}, which is a list containing one or
-more objects of class \code{query}. This is valuable because it shows the set of
-queries required to correctly retrieve the requested data. Objects within a
-\code{query_set} are listed in the sequence in which they will be enacted.
+An object of class \code{query}, which is a list-like object containing at
+least the slots \code{type} and \code{url}.
 }
 \description{
 \code{collapse()} constructs a valid query so it can be

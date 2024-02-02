@@ -7,7 +7,9 @@ test_that("swapping to atlas = United Kingdom works", {
 
 test_that("show_all(fields) works for UK", {
   skip_if_offline()
-  x <- show_all(fields)
+  x <- show_all(fields) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   # also that fields match those returned by default_columns()
@@ -17,35 +19,45 @@ test_that("show_all(fields) works for UK", {
 
 test_that("show_all(collections) works for UK", {
   skip_if_offline()
-  x <- show_all(collections, limit = 10)
+  x <- show_all(collections, limit = 10) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(datasets) works for UK", {
   skip_if_offline()
-  x <- show_all(datasets, limit = 10)
+  x <- show_all(datasets, limit = 10) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(providers) works for UK", {
   skip_if_offline()
-  x <- show_all(providers, limit = 10)
+  x <- show_all(providers, limit = 10) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_lte(nrow(x), 10) # no data at present
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(reasons) works for UK", {
   skip_if_offline()
-  x <- show_all(reasons)
+  x <- show_all(reasons) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 0) # no data at present
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(assertions) works for UK", {
   skip_if_offline()
-  x <- show_all(assertions)
+  x <- show_all(assertions) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -56,28 +68,36 @@ test_that("show_all(profiles) fails for UK", {
 
 test_that("show_all(lists) works for UK", {
   skip_if_offline()
-  x <- show_all(lists)
+  x <- show_all(lists) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 0)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("search_all(fields) works for UK", {
   skip_if_offline()
-  x <- search_all(fields, "year")
+  x <- search_all(fields, "year") |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("search_all(taxa) works for UK", {
   skip_if_offline()
-  x <- search_all(taxa, "Mammalia")
+  x <- search_all(taxa, "Mammalia") |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("search_taxa works for multiple queries", {
   skip_if_offline()
-  taxa <- search_taxa(c("Vulpes vulpes", "Meles meles"))
+  taxa <- search_taxa(c("Vulpes vulpes", "Meles meles")) |>
+    try(silent = TRUE)
+  skip_if(inherits(taxa, "try-error"), message = "API not available")
   expect_equal(nrow(taxa), 2)
 })
 
@@ -88,26 +108,38 @@ test_that("search_taxa doesn't break with typos", {
 
 test_that("show_values works for UK", {
   skip_if_offline()
-  x <- search_fields("basis_of_record")
-  y <- show_values(x)
-  expect_gt(nrow(y), 1)
+  x <- search_fields("basis_of_record") |>
+    show_values() |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(nrow(x), 1)
 })
 
 test_that("show_list_values works for United Kingdom", {
   skip_if_offline()
   x <- search_lists("dr556") |> 
-    show_values()
+    show_values() |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 1)
 })
 
-test_that("atlas_counts w records works for United Kingdom", {
+test_that("atlas_counts works with type = 'occurrences' for United Kingdom", {
   skip_if_offline()
-  expect_gt(atlas_counts()$count, 0)
+  x <- atlas_counts() |>
+    pull(count) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(x, 0)
 })
 
-test_that("atlas_counts w species works for United Kingdom", {
+test_that("atlas_counts works with type = 'species' for United Kingdom", {
   skip_if_offline()
-  expect_gt(atlas_counts(type = "species")$count, 0)
+  x <- atlas_counts(type = "species") |>
+    pull(count) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(x, 0)
 })
 
 test_that("atlas_counts works with galah_identify for United Kingdom", {
@@ -115,12 +147,16 @@ test_that("atlas_counts works with galah_identify for United Kingdom", {
   result <- galah_call() |>
     identify("Vulpes") |>
     count() |>
-    collect()
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(result, "try-error"), message = "API not available")
   expect_gt(result$count, 1)
   result2 <- galah_call() |>
     filter(genus == "Vulpes") |>
     count() |>
-    collect()
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(result2, "try-error"), message = "API not available")
   expect_lt(
     sqrt((result2$count - result$count)^2) / result$count, 
     0.1) # i.e. <1% margin of error
@@ -133,7 +169,9 @@ test_that("atlas_counts works with group_by for United Kingdom", {
   result <- galah_call() |>
     galah_filter(year >= 2020) |>
     galah_group_by(year) |>
-    atlas_counts()
+    atlas_counts() |>
+    try(silent = TRUE)
+  skip_if(inherits(result, "try-error"), message = "API not available")
   expect_gt(nrow(result), 1)
   expect_equal(names(result), c("year", "count"))
 })
@@ -152,32 +190,31 @@ test_that("atlas_occurrences works for United Kingdom", {
     filter(year <= 1800)
   counts <- base_query |>
     count() |>
-    collect() 
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(counts, "try-error"), message = "API not available")
   expect_gte(counts$count[1], 0) # i.e. non-zero count
   occ_collapse <- base_query |>
     select(group = "basic") |>
-    collapse()
+    collapse() |>
+    try(silent = TRUE)
+  skip_if(inherits(occ_collapse, "try-error"), message = "API not available")
   # with run checks, this gives n = 5. Without it's n = 2
-  expect_s3_class(occ_collapse, "query_set")
-  expect_equal(
-    unlist(lapply(occ_collapse, function(a){a$type})),
-    c("metadata/fields", 
-      "metadata/assertions",
-      "metadata/reasons",
-      "metadata/taxa-single",
-      "data/occurrences"))
+  expect_s3_class(occ_collapse, "query")
+  expect_equal(names(occ_collapse), 
+               c("type", "url", "headers"))
+  expect_equal(occ_collapse$type, "data/occurrences")
   # compute
   # notes: 
     # no 'true' compute stage for NBN; collect() sends the query and retrieves data - unlike the other living atlases. 
     # sourceTypeId not required, but if specified, should be 2001 (ALA4R) not 2004 (galah)
     # no email needed for NBN
   occ_compute <- compute(occ_collapse)
-  expect_s3_class(occ_compute, "query")
-  expect_equal(names(occ_compute), 
-               c("type", "url", "headers", "fields"))
-  expect_equal(occ_compute$type, "data/occurrences")
+  expect_s3_class(occ_compute, "computed_query")
   # collect
-  occ <- collect(occ_compute)
+  occ <- collect(occ_compute) |>
+    try(silent = TRUE)
+  skip_if(inherits(occ_compute, "try-error"), message = "API not available")
   expect_equal(nrow(occ), counts$count[1])
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
   expect_equal(ncol(occ), length(default_columns()))

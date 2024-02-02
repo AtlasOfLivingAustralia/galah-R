@@ -1,7 +1,7 @@
 ---
 title: "Object-Oriented Programming in galah"
 author: "Martin Westgate, Dax Kellie"
-date: '2023-10-26'
+date: '2024-02-02'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -59,8 +59,8 @@ galah_call() |>
 ## # A tibble: 16 × 2
 ##    species                 count
 ##    <chr>                   <int>
-##  1 Crinia signifera        57878
-##  2 Crinia parinsignifera   12478
+##  1 Crinia signifera        58579
+##  2 Crinia parinsignifera   12782
 ##  3 Crinia glauerti          3090
 ##  4 Crinia georgiana         1490
 ##  5 Crinia remota             784
@@ -68,7 +68,7 @@ galah_call() |>
 ##  7 Crinia insignifera        536
 ##  8 Crinia tinnula            417
 ##  9 Crinia deserticola        278
-## 10 Crinia pseudinsignifera   235
+## 10 Crinia pseudinsignifera   236
 ## 11 Crinia tasmaniensis       189
 ## 12 Crinia bilingua            75
 ## 13 Crinia subinsignifera      45
@@ -120,14 +120,20 @@ at the end using `atlas_occurrences()`. Specifying the data type at the start
 allows users to make use of advanced query building using three newly 
 implemented stages of query building: `collapse()`, `compute()` and `collect()`.
 These stages mirror existing [functions in dplyr for querying 
-databases](https://dplyr.tidyverse.org/reference/compute.html), and act in the following way
+databases](https://dplyr.tidyverse.org/reference/compute.html), and act in the 
+following way:
 
-- `collapse()` converts the object to a query. This allows users to inspect their  
-   API calls before they are sent
-- `compute()` sends queries to any required APIs. This includes sending a query 
-   for data, determining whether field names are valid, or finding how much
-   data has been requested (which is necessary for pagination)
-- `collect()` retrieves the requested data into your workspace
+- `collapse()` converts the object to a `query`. This allows users to inspect  
+   their API calls before they are sent. Depending on the request, this function
+   may also call 'supplementary' APIs to collect required information,
+   such as Taxon Concept Identifiers or field names.
+- `compute()` is intended to send the query in question to the requested API 
+   for processing. This is particularly important for occurrences, where
+   it can be useful to submit a query and retrieve it at a later time. If the 
+   `compute()` stage is not required, however, `compute()` simply converts
+   the `query` to a new class (`computed_query`).
+- `collect()` retrieves the requested data into your workspace, returning a 
+  `tibble`.
 
 We can use these in sequence, or just leap ahead to the stage we want:
 
@@ -143,13 +149,9 @@ collapse(x)
 ```
 
 ```
-## Object of class `query_set` containing 3 queries:
-```
-
-```
-## • metadata/fields data: galah:::check_internal_cache()$fields
-## • metadata/assertions data: galah:::check_internal_cache()$assertions
-## • data/occurrences-count-groupby url: https://biocache-ws.ala.org.au/ws/occurre...
+## Object of class query with type data/occurrences-count-groupby 
+## url: https://biocache-ws.ala.org.au/ws/occurrences/facets?fq=%28genus%3A%22... 
+## arrange: species (ascending)
 ```
 
 ```r
@@ -157,7 +159,7 @@ compute(x)
 ```
 
 ```
-## Object of class query with type data/occurrences-count-groupby 
+## Object of class computed_query with type data/occurrences-count-groupby 
 ## url: https://biocache-ws.ala.org.au/ws/occurrences/facets?fq=%28genus%3A%22... 
 ## arrange: species (ascending)
 ```
@@ -214,26 +216,21 @@ request_data() |>
 ```
 
 ```
-## Object of class `query_set` containing 5 queries:
+## Object of class query with type data/occurrences 
+## url: https://biocache-ws.ala.org.au/ws/occurrences/offline/download?fq=%28l...
 ```
 
-```
-## • metadata/fields data: galah:::check_internal_cache()$fields
-## • metadata/assertions data: galah:::check_internal_cache()$assertions
-## • metadata/reasons url: https://api.ala.org.au/logger/service/logger/reasons
-## • metadata/taxa-single url: https://api.ala.org.au/namematching/api/search?q=pe...
-## • data/occurrences url: https://biocache-ws.ala.org.au/ws/occurrences/offline/d...
-```
-
-The `collapse()` stage displays useful information about which APIs will be pinged 
-by a query in galah when it is sent using `compute()`.
+The `collapse()` stage includes an additional argument (`.expand`) that, 
+when set to `TRUE`, shows all the APIs called to construct the user-requested
+query. This is especially useful for debugging.
 
 ## New object classes
 
 Under the hood, the different query-building verbs amend our object to a new class:
 
-- `collapse()` returns class `query_set`, which is a list of one or more `query` objects
-- `compute()` returns a single object of class `query`
+- `collapse()` returns class `query`, which is a list containing a `type` slot
+   and one or more `url`s
+- `compute()` returns a single object of class `computed_query`
 - `collect()` doesn't add a new data class (returns class `tibble`)
 
 These can be called directly, or via the `method` and `type` arguments of 

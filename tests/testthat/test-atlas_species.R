@@ -74,8 +74,8 @@ test_that("collapse -> compute -> collect workflow is functional", {
   atlas_species <- query |> atlas_species()
   
   expect_s3_class(query, "data_request")
-  expect_s3_class(species_collapse, "query_set")
-  expect_s3_class(species_compute, "query")
+  expect_s3_class(species_collapse, "query")
+  expect_s3_class(species_compute, "computed_query")
   expect_s3_class(species_collect, c("tbl_df", "tbl", "data.frame"))
   expect_equal(species_collect, atlas_species)
   

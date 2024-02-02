@@ -94,14 +94,20 @@ at the end using `atlas_occurrences()`. Specifying the data type at the start
 allows users to make use of advanced query building using three newly 
 implemented stages of query building: `collapse()`, `compute()` and `collect()`.
 These stages mirror existing [functions in dplyr for querying 
-databases](https://dplyr.tidyverse.org/reference/compute.html), and act in the following way
+databases](https://dplyr.tidyverse.org/reference/compute.html), and act in the 
+following way:
 
-- `collapse()` converts the object to a query. This allows users to inspect their  
-   API calls before they are sent
-- `compute()` sends queries to any required APIs. This includes sending a query 
-   for data, determining whether field names are valid, or finding how much
-   data has been requested (which is necessary for pagination)
-- `collect()` retrieves the requested data into your workspace
+- `collapse()` converts the object to a `query`. This allows users to inspect  
+   their API calls before they are sent. Depending on the request, this function
+   may also call 'supplementary' APIs to collect required information,
+   such as Taxon Concept Identifiers or field names.
+- `compute()` is intended to send the query in question to the requested API 
+   for processing. This is particularly important for occurrences, where
+   it can be useful to submit a query and retrieve it at a later time. If the 
+   `compute()` stage is not required, however, `compute()` simply converts
+   the `query` to a new class (`computed_query`).
+- `collect()` retrieves the requested data into your workspace, returning a 
+  `tibble`.
 
 We can use these in sequence, or just leap ahead to the stage we want:
 
@@ -150,15 +156,17 @@ request_data() |>
   collapse()
 ```
 
-The `collapse()` stage displays useful information about which APIs will be pinged 
-by a query in galah when it is sent using `compute()`.
+The `collapse()` stage includes an additional argument (`.expand`) that, 
+when set to `TRUE`, shows all the APIs called to construct the user-requested
+query. This is especially useful for debugging.
 
 ## New object classes
 
 Under the hood, the different query-building verbs amend our object to a new class:
 
-- `collapse()` returns class `query_set`, which is a list of one or more `query` objects
-- `compute()` returns a single object of class `query`
+- `collapse()` returns class `query`, which is a list containing a `type` slot
+   and one or more `url`s
+- `compute()` returns a single object of class `computed_query`
 - `collect()` doesn't add a new data class (returns class `tibble`)
 
 These can be called directly, or via the `method` and `type` arguments of 

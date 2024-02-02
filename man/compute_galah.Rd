@@ -5,7 +5,6 @@
 \alias{compute.data_request}
 \alias{compute.metadata_request}
 \alias{compute.files_request}
-\alias{compute.query_set}
 \alias{compute.query}
 \title{Compute a query}
 \usage{
@@ -15,29 +14,22 @@
 
 \method{compute}{files_request}(x, ...)
 
-\method{compute}{query_set}(x, ...)
-
 \method{compute}{query}(x, ...)
 }
 \arguments{
 \item{x}{An object of class \code{data_request}, \code{metadata_request} or
-\code{files_request} (i.e. constructed using a pipe) or \code{query} or \code{query_set}
+\code{files_request} (i.e. constructed using a pipe) or \code{query}
 (i.e. constructed by \code{collapse()})}
 
 \item{...}{Arguments passed on to other methods}
 }
 \value{
-An object of class \code{query} containing a checked, valid query
-for the selected atlas. In the case of occurrence data, also contains
-information on the status of the request.
+An object of class \code{computed_query}, which is identical to class
+\code{query} except for occurrence data, where it also contains information on the
+status of the request.
 }
 \description{
 \code{compute()} is useful for several purposes. It's original
 purpose is to send a request for data, which can then be processed by the
-server and retrieved at a later time (via \code{collect()}). However, because
-query-altering functions (such as \code{filter()} and \code{select()}) are evaluated
-lazily from galah version 2.0 onwards, \code{compute()} is also the function where
-all objects within the \code{query_set} are evaluated, and any checks run using
-that information. Therefore it is possible for invalid queries to be built
-using \code{collapse()}, but fail at \code{compute()}.
+server and retrieved at a later time (via \code{collect()}).
 }

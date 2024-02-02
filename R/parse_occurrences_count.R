@@ -9,7 +9,7 @@
 #' @param .query An object of class `data_query`
 #' @keywords Internal
 #' @noRd
-compute_occurrences_count <- function(.query){
+parse_occurrences_count <- function(.query){
   if(is_gbif()){
     if(.query$expand){    
       abort("Grouped counts haven't been (re)implemented for GBIF yet")
@@ -19,9 +19,9 @@ compute_occurrences_count <- function(.query){
     }
   }else{
     if(.query$expand){
-      compute_occurrences_count_groupby(.query)
+      parse_occurrences_count_groupby(.query)
     }else{
-      compute_occurrences_count_nogroupby(.query)
+      parse_occurrences_count_nogroupby(.query)
     }
   }
 }
@@ -31,7 +31,7 @@ compute_occurrences_count <- function(.query){
 #' Internal function to handle facet counting, adjustment etc.
 #' @noRd
 #' @keywords Internal
-compute_occurrences_count_nogroupby <- function(.query){
+parse_occurrences_count_nogroupby <- function(.query){
   url <- url_parse(.query$url)
   
   # check if a limit has been set
@@ -81,7 +81,7 @@ compute_occurrences_count_nogroupby <- function(.query){
 #' @importFrom httr2 url_parse
 #' @noRd
 #' @keywords Internal
-compute_occurrences_count_groupby <- function(.query, error_call = caller_env()){
+parse_occurrences_count_groupby <- function(.query, error_call = caller_env()){
   data_cached <- .query
   # get url
   url <- url_parse(.query$url)

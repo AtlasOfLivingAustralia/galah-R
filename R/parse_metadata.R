@@ -5,14 +5,14 @@
 #' @importFrom dplyr select
 #' @noRd
 #' @keywords Internal
-compute_lists <- function(.query){
+parse_lists <- function(.query){
   url <- url_parse(.query$url)
-  n <- get_max_n(.query)
+  n_requested <- as.integer(url$query$max)
   # make decisions about how much pagination is needed
-  if(n$max_requested <= n$paginate){ # we haven't hit pagination limit
-    url$query$max <- n$max_requested
-    .query$url <- url_build(url)
+  if(n_requested <= 500){ # we haven't hit pagination limit
+    .query
   }else{ # more lists are requested
+    n <- get_max_n(.query)
     n_pages <- ceiling(n$max_requested / n$paginate)
     offsets <- (seq_len(n_pages) - 1) * n$paginate
     result <- tibble(

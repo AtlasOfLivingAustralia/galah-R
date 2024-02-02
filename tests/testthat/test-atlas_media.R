@@ -32,6 +32,16 @@ test_that("collect_media suggests `galah_config(directory =)` when a temp folder
 
 test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   skip_if_offline()
+  
+  get_image_sizes <- function(dir){
+    paste0(dir, 
+           "/", 
+           list.files(dir, pattern = ".jpg$|.jpeg$")) |>
+      file.info() |>
+      pull(size) |>
+      sum() 
+  }
+  
   ## PART 1: request occurrence data
   galah_config(email = "ala4r@ala.org.au")
   occ_collect <- request_data() |>
@@ -45,12 +55,13 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   media_collapse <- request_metadata() |>
     filter(media == occ_collect) |>
     collapse()
-  expect_true(inherits(media_collapse, "query_set"))
-  expect_equal(length(media_collapse), 1)
-  expect_true(media_collapse[[1]]$type == "metadata/media")
+  expect_true(inherits(media_collapse, "query"))
+  expect_equal(length(media_collapse), 4)
+  expect_equal(names(media_collapse), c("type", "url", "body", "headers"))
+  expect_true(media_collapse$type == "metadata/media")
   # compute
   media_compute <- compute(media_collapse)
-  expect_true(inherits(media_compute, "query"))
+  expect_true(inherits(media_compute, "computed_query"))
   expect_equal(length(media_compute), 4)
   expect_equal(names(media_compute), c("type", "url", "body", "headers"))
   # collect
@@ -70,12 +81,13 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   files_collapse <- request_files() |>
     filter(media == df) |>
     collapse(thumbnail = TRUE)
-  expect_true(inherits(files_collapse, "query_set"))
-  expect_equal(length(files_collapse), 1)
-  expect_equal(files_collapse[[1]]$type, "files/media")
+  expect_true(inherits(files_collapse, "query"))
+  expect_equal(length(files_collapse), 3)
+  expect_equal(names(files_collapse), c("type", "url", "headers"))
+  expect_equal(files_collapse$type, "files/media")
   # compute
   files_compute <- compute(files_collapse)
-  expect_true(inherits(files_compute, "query"))
+  expect_true(inherits(files_compute, "computed_query"))
   expect_equal(length(files_compute), 3)
   expect_equal(names(files_compute), c("type", "url", "headers"))
   # collect
@@ -84,16 +96,21 @@ test_that("`collapse()` and `collect()` work for `type = 'media'`", {
   expect_gte(nrow(files_collect), 1)
   expect_gte(ncol(files_collect), 2)
   expect_equal(length(list.files(media_dir)), 3)
+  thumbsize <- get_image_sizes(media_dir)
+  # check passing `thumbnail` via `collect()`, filesize
+  files_collapse <- request_files() |>
+    filter(media == df) |>
+    collect(thumbnail = FALSE)
+  fullsize <- get_image_sizes(media_dir) 
+  expect_lt(thumbsize, fullsize)
   
   # PART 4: check collect_media()
   expect_error(collect_media(df, path = NULL)) # check gives error when `path` is set
   expect_message(collect_media(df),
                  "Downloaded 3 files successfully")
-  jpg_files <- list.files(media_dir, pattern = ".jpg$|.jpeg$")
-  fullsize <- sum(file.info(paste0(media_dir, "/", jpg_files))$size)
+  fullsize <- get_image_sizes(media_dir)
   collect_media(df, thumbnail = TRUE)
-  jpg_files <- list.files(media_dir, pattern = ".jpg$|.jpeg$")
-  thumbsize <- sum(file.info(paste0(media_dir, "/", jpg_files))$size)
+  thumbsize <- get_image_sizes(media_dir)
   expect_lt(thumbsize, fullsize)
   unlink(media_dir, recursive = TRUE)
 })
