@@ -48,11 +48,15 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
     facets <- as.list(group_by$name)
     names(facets) <- rep("facets", length(facets))
     if(is.null(slice)){
-      slice <- tibble(slice_n = 30, slice_called = FALSE)
+      # limits to 10,000 rows
+      # TODO: This should ultimately be set by `slice` or `atlas_counts(limit = )`, not internally.
+      #       Will need updating to avoid hidden limit setting here & in `compute_occurrences_count()`
+      slice <- tibble(slice_n = 1e4, slice_called = FALSE) 
     }
     if(is.null(arrange)){
       arrange <- tibble(variable = "count", direction = "descending")
     }
+    
     slice_arrange <- bind_cols(slice, arrange) 
     arrange_list <- check_slice_arrange(slice_arrange)
     url$query <- c(query, facets, arrange_list)
@@ -60,6 +64,7 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
     result$expand <- ifelse(length(facets) > 1, TRUE, FALSE)
     result$arrange <- slice_arrange
   }
+  
   # aggregate and return
   result$headers <- build_headers()
   class(result) <- "query"

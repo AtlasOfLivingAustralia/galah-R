@@ -1,21 +1,19 @@
 test_that("request_metadata() |> unnest() works for type = 'fields'", {
+  skip_if_offline()
   # no filter provided causes an error
   expect_error({request_metadata() |> 
       unnest() |>
       collapse()}) 
-  # an incorrect filter argument errors at `collapse()` (NOT `compute()`)
+  # an incorrect filter argument errors at `collapse()`
   expect_error({request_metadata() |> 
       filter(something == 10) |> 
       unnest() |>
       collapse()})
-  # passing a correct `type` but not `value` passes `collapse()`...
-  x <- request_metadata() |> 
+  # passing a correct `type` but not `value` errors at `collapse()`...
+  expect_error(request_metadata() |> 
     unnest() |>
     filter(field == unknown) |> 
-    collapse()
-  skip_if_offline()
-  # ...but fails at `compute()`
-  expect_error({compute(x)})
+    collapse())
   # whole thing works when...
   x <- request_metadata() |> 
     unnest() |> 
@@ -29,16 +27,16 @@ test_that("request_metadata() |> unnest() works for type = 'fields'", {
 })
 
 test_that("request_metadata() |> unnest() works for type = 'lists'", {
-  # offline stage
+  skip_if_offline()
   x <- request_metadata() |> 
     filter(list == dr947) |> 
     unnest() |>
     collapse()
-  expect_s3_class(x, "query_set")
+  expect_s3_class(x, "query")
+  expect_equal(x$type, "metadata/lists-unnest")
+  expect_equal(names(x), c("type", "url"))
   y <- compute(x)
-  expect_equal(names(y), c("type", "url"))
-  expect_equal(y$type, "metadata/lists-unnest")
-  skip_if_offline()
+  expect_s3_class(y, "computed_query")
   z <- collect(y)
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_gte(nrow(z), 10)
@@ -46,40 +44,32 @@ test_that("request_metadata() |> unnest() works for type = 'lists'", {
 })
 
 test_that("request_metadata() |> unnest() works for type = 'profiles'", {
-  # passing a correct `type` but not `value` passes `collapse()`...
+  skip_if_offline()
   x <- request_metadata() |>
     unnest() |>
-    filter(profile == "something") |> 
-    collapse()
-  expect_s3_class(x, "query_set")
-  # ...but fails at `compute()`
-  skip_if_offline()
-  expect_error(compute(x))
-  # whole thing works when a valid profile is given
-  x <- request_metadata() |>
+    filter(profile == "something")
+  expect_error(collapse(x))
+  y <- request_metadata() |>
     filter(profile == "ALA") |>
     unnest() |>
-    compute()
-  y <- collect(x)
+    collect()
   expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
   expect_gte(ncol(y), 3)
   expect_gte(nrow(y), 10)
 })
 
 test_that("request_metadata() |> unnest() works for type = 'taxa' using `identify()`", {
+  skip_if_offline()
   x <- request_metadata() |>
     identify("crinia") |>
     unnest() |>
     collapse()
-  expect_s3_class(x, "query_set")
-  expect_equal(length(x), 2)
-  expect_equal(unlist(lapply(x, function(a){a$type})), 
-               c("metadata/taxa-single", "metadata/taxa-unnest"))
-  skip_if_offline()
+  expect_s3_class(x, "query")
+  expect_equal(length(x), 3)
+  expect_equal(names(x), c("type", "url", "headers"))
+  expect_equal(x$type, "metadata/taxa-unnest")
   y <- compute(x)
-  expect_s3_class(y, "query")
-  expect_equal(names(y),
-               c("type", "url", "headers"))
+  expect_s3_class(y, "computed_query")
   z <- collect(y)
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_gte(ncol(z), 3)
@@ -93,13 +83,12 @@ test_that("request_metadata() |> unnest() works for type = 'taxa' using `filter(
     filter(taxa == lookup) |>
     unnest() |>
     collapse()
-  expect_s3_class(x, "query_set")
-  expect_equal(length(x), 1)
-  expect_equal(x[[1]]$type, "metadata/taxa-unnest")
+  expect_s3_class(x, "query")
+  expect_equal(length(x), 3)
+  expect_equal(names(x), c("type", "url", "headers"))
+  expect_equal(x$type, "metadata/taxa-unnest")
   y <- compute(x)
-  expect_s3_class(y, "query")
-  expect_equal(names(y),
-               c("type", "url", "headers"))
+  expect_s3_class(y, "computed_query")
   z <- collect(y)
   expect_s3_class(z, c("tbl_df", "tbl", "data.frame"))
   expect_gte(ncol(z), 3)

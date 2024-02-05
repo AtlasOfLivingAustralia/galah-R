@@ -27,14 +27,9 @@ test_that("collapse(type = 'occurrences') creates an object, but doesn't ping an
   result <- galah_call() |> 
     identify("Perameles") |>
     collapse()
-  expect_equal(length(result), 4)
-  expect_true(inherits(result, "query_set"))
-  types <- unlist(lapply(result, function(a){a$type}))
-  expect_equal(types,
-               c("metadata/fields",
-                 "metadata/reasons",
-                 "metadata/taxa-single",
-                 "data/occurrences"))
+  # expect_equal(length(result), 4)
+  expect_true(inherits(result, "query"))
+  expect_equal(result$type, "data/occurrences")
 })
 
 test_that("`compute(type = 'occurrences')` works", {
@@ -45,18 +40,12 @@ test_that("`compute(type = 'occurrences')` works", {
            basisOfRecord == "PRESERVED_SPECIMEN")
   # collapse
   query_collapse <- collapse(base_query)
-  expect_true(inherits(query_collapse, "query_set"))
-  expect_equal(length(query_collapse), 5)
-  types <- unlist(lapply(query_collapse, function(a){a$type}))
-  expect_equal(types,
-               c("metadata/fields",
-                 "metadata/assertions",
-                 "metadata/reasons",
-                 "metadata/taxa-single",
-                 "data/occurrences"))
+  expect_true(inherits(query_collapse, "query"))
+  expect_equal(length(query_collapse), 3)
+  expect_equal(query_collapse$type, "data/occurrences")
   # compute
   response <- compute(base_query)
-  expect_true(inherits(response, "query"))
+  expect_true(inherits(response, "computed_query"))
   expect_true(response$type == "data/occurrences")
   expect_equal(names(response),
                c("type",
@@ -94,7 +83,7 @@ test_that("atlas_occurrences accepts all narrowing functions inline", {
                  "cancel_url",
                  "search_url",
                  "fields"))
-  expect_s3_class(x, "query")
+  expect_s3_class(x, "computed_query")
   # collect with wait = TRUE
   y <- collect(x, wait = TRUE)    
   expect_s3_class(y, c("tbl_df", "tbl", "data.frame"))
@@ -177,9 +166,9 @@ test_that("atlas_occurrences downloads data from a DOI", {
   result2 <- request_data() |>
     filter(doi == doi) |>
     collapse()
-  expect_equal(length(result2), 1)
-  expect_s3_class(result2, "query_set")
-  expect_equal(result2[[1]]$type, "data/occurrences-doi")
+  expect_equal(length(result2), 4)
+  expect_s3_class(result2, "query")
+  expect_equal(result2$type, "data/occurrences-doi")
   result3 <- collect(result2)
   expect_equal(result1, result3)
   # TODO add file name tests
@@ -187,6 +176,10 @@ test_that("atlas_occurrences downloads data from a DOI", {
 
 test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
   skip_if_offline()
+  directory <- "TEMP"
+  unlink(directory, recursive = TRUE)
+  dir.create(directory)
+  galah_config(directory = directory)
   x <- galah_call() |>
     identify("Vulpes vulpes") |>
     filter(year <= 1900, 
@@ -204,8 +197,12 @@ test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
     filter(year <= 1900, 
            basisOfRecord == "PRESERVED_SPECIMEN") |>
     atlas_occurrences(mint_doi = TRUE)
-  
   y <- attr(x, "doi")
   expect_false(is.null(y))
   expect_true(grepl("^https://doi.org/", y))
+  unlink(directory, recursive = TRUE)
+  cache_dir <- tempfile()
+  dir.create(cache_dir)
+  galah_config(directory = cache_dir)
+  rm(cache_dir)
 })

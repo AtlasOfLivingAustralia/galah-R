@@ -3,8 +3,8 @@
 #' As of version 2.0, `galah` supports several bespoke object types. Classes 
 #' `data_request`, `metadata_request` and `files_request` are for starting pipes
 #' to download different types of information. These objects are parsed using
-#' `collapse()` into a `query_set` object, which contains a set of `query` 
-#' objects, each describing one API call. These are then enacted using 
+#' `collapse()` into a `query` object, which contains one or more URLs necessary
+#' to return the requested information. This object is then passed to
 #' `compute()` and/or `collect()`. Finally, `galah_config()` creates an object
 #' of class `galah_config` which (unsurprisingly) stores configuration 
 #' information.
@@ -167,6 +167,63 @@ print.query <- function(x, ...){
   cat(c(
     silver("Object of class"),
     galah_pink("query"),
+    silver("with type"),
+    galah_green(x$type),
+    subtext, # note: need code for url tibbles
+    arrange,
+    slice))
+}
+
+#' @rdname print_galah_objects
+#' @export
+print.computed_query <- function(x, ...){
+  if(!is.null(x$arrange)){
+    arrange <- galah_pale_green(glue("\n
+                              arrange: {x$arrange$variable} ({x$arrange$direction})"))
+    if(x$arrange$slice_called == TRUE){
+      slice <- galah_pale_green(glue("\n
+                              slice: {x$arrange$slice_n}"))
+    }else{
+      slice <- ""
+    }
+  }else{
+    arrange <-""
+    slice <- ""
+  }
+  if(!is.null(x$url)){
+    if(inherits(x$url, "data.frame")){
+      url_temp <- x$url$url[1]
+      if(nchar(url_temp) > 70){
+        url_temp <- paste0(substr(url_temp, 1, 70), "...")
+      }
+      if(nrow(x$url) > 1){
+        url_text <- glue("\n
+           url: {url_temp} + {nrow(x$url) - 1} more") 
+      }else{
+        url_text <-glue("\n
+           url: {url_temp}")
+      }
+    }else{
+      url_temp <- x$url[1]
+      if(nchar(url_temp) > 70){
+        url_temp <- paste0(substr(url_temp, 1, 70), "...")
+      }
+      url_text <-glue("\n
+           url: {url_temp}")
+    }
+    subtext <- galah_grey(url_text)
+  }else if(!is.null(x$data)){
+    subtext <- galah_grey(glue("\n
+                               data: {x$data[1]}"))
+  }else if(!is.null(x$status)){
+    subtext <- galah_grey(glue("\n
+                               status: {x$status[1]}"))
+  }else{
+    subtext <- ""
+  }
+  cat(c(
+    silver("Object of class"),
+    galah_pink("computed_query"),
     silver("with type"),
     galah_green(x$type),
     subtext, # note: need code for url tibbles

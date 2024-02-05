@@ -2,7 +2,7 @@
 #' @importFrom tibble as_tibble
 #' @noRd
 #' @keywords Internal
-compute_species_count <- function(.query){
+parse_species_count <- function(.query){
   if(.query$expand){
     .query <- build_species_query_list(.query)
   }else{

@@ -40,14 +40,14 @@ test_that("galah_apply_profile matches profile", {
   expect_equal(profile_2[[1]],  "AVH")
 })
 
-test_that("`galah_apply_profile()` errors at `compute()`", {
+test_that("`galah_apply_profile()` errors at `collapse()`", {
   skip_if_offline()
   galah_config(run_checks = TRUE)
-  x <- request_data() |>
+  expect_error(request_data() |>
     apply_profile(whatever) |>
     count() |>
-    collapse()
-  expect_error(compute(x), "Unrecognised profile requested.")
+    collapse(),
+    "Unrecognised profile requested.")
   galah_config(run_checks = FALSE)
 })
 

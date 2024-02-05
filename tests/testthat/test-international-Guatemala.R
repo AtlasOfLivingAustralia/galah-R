@@ -7,7 +7,9 @@ test_that("swapping to atlas = Guatemala works", {
 
 test_that("show_all(fields) works for Guatemala", {
   skip_if_offline()
-  x <- show_all(fields)
+  x <- show_all(fields) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
   # also that fields match those returned by default_columns()
@@ -17,35 +19,45 @@ test_that("show_all(fields) works for Guatemala", {
 
 test_that("show_all(collections) works for Guatemala", {
   skip_if_offline()
-  x <- show_all(collections, limit = 10)
+  x <- show_all(collections, limit = 10) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(datasets) works for Guatemala", {
   skip_if_offline()
-  x <- show_all(datasets, limit = 10)
+  x <- show_all(datasets, limit = 10) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(providers) works for Guatemala", {
   skip_if_offline()
-  x <- show_all(providers, limit = 10)
+  x <- show_all(providers, limit = 10) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_lte(nrow(x), 10)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(reasons) works for Guatemala", {
   skip_if_offline()
-  x <- show_all(reasons)
+  x <- show_all(reasons) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("show_all(assertions) works for Guatemala", {
   skip_if_offline()
-  x <- show_all(assertions)
+  x <- show_all(assertions) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gt(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -60,14 +72,18 @@ test_that("show_all(lists) works for Guatemala", {
 
 test_that("search_all(fields) works for Guatemala", {
   skip_if_offline()
-  x <- search_all(fields, "year")
+  x <- search_all(fields, "year") |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("search_all(taxa) works for Guatemala", {
   skip_if_offline()
-  x <- search_all(taxa, "Mammalia")
+  x <- search_all(taxa, "Mammalia") |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
@@ -75,15 +91,29 @@ test_that("search_all(taxa) works for Guatemala", {
 test_that("show_values works for fields for Guatemala", {
   skip_if_offline()
   x <- search_all(fields, "basis_of_record") |> 
-    show_values()
+    show_values() |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
   expect_gte(nrow(x), 1)
   expect_true(inherits(x, c("tbl_df", "tbl", "data.frame")))
 })
 
 test_that("atlas_counts works for Guatemala", {
   skip_if_offline()
-  expect_gt(atlas_counts()$count, 0)
-  expect_gt(atlas_counts(type = "species")$count, 0)
+  x <- atlas_counts() |>
+    pull(count) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(x, 0)
+})
+
+test_that("atlas_counts works with type = 'species' for Guatemala", {
+  skip_if_offline()
+  x <- atlas_counts(type = "species") |>
+    pull(count) |>
+    try(silent = TRUE)
+  skip_if(inherits(x, "try-error"), message = "API not available")
+  expect_gt(x, 0)
 })
 
 ## FIXME: Both queries work, but results are notably different
@@ -109,7 +139,9 @@ test_that("atlas_counts works with group_by for Guatemala", {
     filter(year >= 2000) |>
     group_by(basis_of_record) |>
     count() |>
-    collect()
+    collect() |>
+    try(silent = TRUE)
+  skip_if(inherits(result, "try-error"), message = "API not available")
   expect_gt(nrow(result), 1)
   expect_equal(names(result), c("basis_of_record", "count"))
 })
@@ -124,7 +156,9 @@ test_that("atlas_occurrences works for Guatemala", {
     galah_identify("Mammalia") |>
     galah_filter(year <= 1900) |>
     galah_select(taxon_name, year) |>
-    atlas_occurrences()   
+    atlas_occurrences() |>
+    try(silent = TRUE)
+  skip_if(inherits(occ, "try-error"), message = "API not available")
   expect_gt(nrow(occ), 0)
   expect_equal(ncol(occ), 2)
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))

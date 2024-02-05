@@ -58,7 +58,7 @@ show_values <- function(df){
   type <- attr(df, "call")
   match_column <- switch(type,
                          "fields" = "id",
-                         "lists" = "dataResourceUid",
+                         "lists" = "species_list_uid",
                          "profiles" = "shortName",
                          "taxa" = "taxon_concept_id",
                          "uid" # last option selected if above are exhausted
@@ -88,7 +88,7 @@ show_values <- function(df){
     )
     }
   }
-
+  
   request_metadata() |>
     filter({{type}} == {{match_name}}) |>
     unnest() |>

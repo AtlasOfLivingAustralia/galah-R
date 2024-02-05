@@ -15,7 +15,7 @@ collapse_fields_unnest <- function(.query){
   }else{
     url$query <- list(
       facets = .query$filter$value[1],
-      facetLimit = 10^4)   
+      flimit = 10^4)   
   }
   result <- list(
     type = "metadata/fields-unnest",

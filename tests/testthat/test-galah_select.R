@@ -52,13 +52,7 @@ test_that("`galah_select()` builds expected columns when group = basic", {
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(group = "basic") |>
-    collapse() |>
-    # from here is internal functions from `compute()`
-    build_checks() |>
-    compute_checks()
-  # this approach runs all the internal code within compute(),
-  # except the stage where it sends the query to ALA
-  # i.e. this is internal code for checking and debugging
+    collapse()
   y <- url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], preset_groups("basic"))
   expect_equal(y$qa, "none")
@@ -69,9 +63,7 @@ test_that("`galah_select()` builds expected columns when group = event", {
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(group = "event") |>
-    collapse() |>
-    build_checks() |>
-    compute_checks()
+    collapse()
   y <- url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], 
                c("recordID", preset_groups("event")))
@@ -84,9 +76,7 @@ test_that("`galah_select()` accepts multiple groups", {
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(group = c("basic", "assertions")) |>
-    collapse() |>
-    build_checks() |>
-    compute_checks()
+    collapse()
   y <- url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], 
                preset_groups("basic"))
@@ -98,9 +88,7 @@ test_that("galah_select defaults to group = 'basic' when there are no args", {
   galah_config(run_checks = FALSE)
   x <- galah_call() |>
     identify("oxyopes dingo") |>
-    collapse() |>
-    build_checks() |>
-    compute_checks()
+    collapse()
   y <- url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], preset_groups("basic"))
   expect_equal(y$qa, "none")
@@ -112,9 +100,7 @@ test_that("galah_select returns assertions + recordID when group = assertions", 
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(group = "assertions") |>
-    collapse() |>
-    build_checks() |>
-    compute_checks()
+    collapse()
   y <- url_parse(x$url)$query
   expect_equal(y$fields, "recordID")
   expect_equal(y$qa, "includeall")
@@ -125,9 +111,7 @@ test_that("galah_select combines requested columns and group columns", {
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(year, basisOfRecord, group = "basic") |>
-    collapse() |>
-    build_checks() |>
-    compute_checks()
+    collapse()
   y <- url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], 
                c(preset_groups("basic"), "year", "basisOfRecord"))
@@ -138,9 +122,7 @@ test_that("galah_select can use tidyselect::contains", {
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(tidyselect::contains("el")) |>
-    collapse() |>
-    build_checks() |>
-    compute_checks()
+    collapse()
   y <- url_parse(x$url)$query
   fields <- strsplit(tolower(y$fields), ",")[[1]]
   assertions <- strsplit(tolower(y$qa), ",")[[1]]
@@ -153,9 +135,7 @@ test_that("galah_select can use tidyselect::starts_with", {
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(tidyselect::starts_with("el")) |>
-    collapse() |>
-    build_checks() |>
-    compute_checks()
+    collapse()
   y <- url_parse(x$url)$query
   fields <- strsplit(tolower(y$fields), ",")[[1]]
   assertions <- strsplit(tolower(y$qa), ",")[[1]]
@@ -168,9 +148,7 @@ test_that("galah_select can use tidyselect::last_col", {
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(tidyselect::last_col()) |>
-    collapse() |>
-    build_checks() |>
-    compute_checks()
+    collapse()
   y <- url_parse(x$url)$query
   expect_equal(y$fields, "recordID")
   expect_equal(y$qa, "ZERO_COORDINATE")
@@ -181,9 +159,7 @@ test_that("galah_select can use tidyselect::last_col & user-defined queries", {
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(year, basisOfRecord, tidyselect::last_col()) |>
-    collapse() |>
-    build_checks() |>
-    compute_checks()
+    collapse()
   y <- url_parse(x$url)$query
   expect_equal(y$fields, "year,basisOfRecord")
   expect_equal(y$qa, "ZERO_COORDINATE")
@@ -194,9 +170,7 @@ test_that("galah_select can use tidyselect::last_col & group", {
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     select(tidyselect::last_col(), group = "basic") |>
-    collapse() |>
-    build_checks() |>
-    compute_checks()
+    collapse()
   y <- url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], 
                preset_groups("basic"))

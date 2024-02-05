@@ -74,9 +74,20 @@ test_that("collapse -> compute -> collect workflow is functional", {
   atlas_species <- query |> atlas_species()
   
   expect_s3_class(query, "data_request")
-  expect_s3_class(species_collapse, "query_set")
-  expect_s3_class(species_compute, "query")
+  expect_s3_class(species_collapse, "query")
+  expect_s3_class(species_compute, "computed_query")
   expect_s3_class(species_collect, c("tbl_df", "tbl", "data.frame"))
   expect_equal(species_collect, atlas_species)
-  
+})
+
+test_that("collapse works when no `filter()` is supplied", {
+  # NOTE: this test was added to check for the error: "`speciesID` is not a valid field"
+  # this occurred when calling `atlas_species()` because `speciesID` is a facet,
+  # but `group_by` wasn't being called, so checks weren't constructed properly
+  skip_if_offline()
+  wkt <- "POLYGON((73.0 -53, 95.6 -11.5, 105.6 -10.1, 123 -12.1, 130.7 -9.5, 142.2 -9.8, 168.1 -29.05, 159.1 -54.9, 73.0 -53))"
+  expect_no_error({x <- galah_call(type = "species") |>
+    st_crop(wkt) |>
+    collapse()})
+  expect_s3_class(x, "query")
 })

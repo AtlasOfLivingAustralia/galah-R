@@ -43,6 +43,7 @@ query_API <- function(.query, error_call = caller_env()) {
 #' @importFrom httr2 req_error
 #' @importFrom httr2 req_headers
 #' @importFrom httr2 req_perform
+#' @importFrom httr2 req_timeout
 #' @importFrom httr2 resp_body_json
 #' @importFrom httr2 resp_body_string
 #' @importFrom purrr pluck
@@ -53,13 +54,27 @@ query_API_internal <- function(.query, error_call = caller_env()) {
     add_headers(.query$headers) |> 
     add_options(.query$options) |> # used by GBIF
     add_body(.query$body)  # NOTE: adding `body` converts from GET to POST
+  # handle downloads first
   if(!is.null(.query$download)){
     check_directory(.query$file)
-    query |> req_perform(path = .query$file,
-                         verbosity = 0) # try(x, silent = TRUE) ?
+    
+    # handle thumbnails (which might fail if missing)
+    if (any(str_detect(.query$url, "thumbnail"))) {
+      query |> 
+        req_error(is_error = \(resp) FALSE) |>
+        req_perform(path = .query$file,
+                    verbosity = 0)
+    } else {
+      query |> 
+        req_perform(path = .query$file,
+                    verbosity = 0)
+    }
+  # then other pings, which should resolve quickly 
+  # and can be allowed to fail otherwise
   }else{
     res <- query |>
-      req_perform(verbosity = 0)  # try(x, silent = TRUE) ?
+      req_timeout(seconds = 20) |>
+      req_perform(verbosity = 0)
     if(grepl("^https://api.gbif.org/v1/occurrence/download/request", .query$url)){
       resp_body_string(res)
     }else{

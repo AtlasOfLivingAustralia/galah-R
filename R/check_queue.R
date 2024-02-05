@@ -6,11 +6,11 @@ check_queue <- function(.query, wait = FALSE){
   if(.query$status == "incomplete"){
     download_response <- c(list(type = .query$type),
                            check_occurrence_status(.query))
-    class(download_response) <- "query"
+    class(download_response) <- "computed_query"
     if(wait){
       download_response <- c(list(type = .query$type),
                              check_queue_loop(.query))
-      class(download_response) <- "query"
+      class(download_response) <- "computed_query"
       download_response
     }else{
       download_response

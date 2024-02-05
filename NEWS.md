@@ -1,3 +1,16 @@
+# galah 2.0.1
+
+### Minor improvements
+`collapse()` now returns a `query` object, rather than a `query_set`, 
+and gains a `.expand` argument to optionally append a `query_set` for debugging
+purposes (#217).
+
+### Bug fixes
+* Avoid triggering multiple errors when galah_identify() returns no matched taxa (#219)
+* Improve clarity of quick start guide vignette (#221)
+* show_values() no longer truncates rows to 30 (#222)
+* Column ID name returned by search_all(lists) now matches the correct field ID for galah_filter() (#225)
+
 # galah 2.0.0
 
 ### Object-oriented programming

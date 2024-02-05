@@ -359,7 +359,7 @@ check_identifiers_gbif_predicates <- function(.query){
 #' @importFrom stringr str_replace_all
 #' @noRd
 #' @keywords Internal
-check_identifiers_la <- function(.query){
+check_identifiers_la <- function(.query, error_call = caller_env()){
   url <- url_parse(.query$url[1]) # FIXME: test if every >1 urls here
   queries <- url$query
   if(!is.null(queries$fq)){
@@ -367,6 +367,12 @@ check_identifiers_la <- function(.query){
       metadata_lookup <- grepl("^metadata/taxa", names(.query))
       if(any(metadata_lookup)){
         identifiers <- .query[[which(metadata_lookup)[1]]]
+        
+        # End query early when no taxonomic search terms were matched
+        if (nrow(identifiers) > 0 && !("taxon_concept_id" %in% colnames(identifiers))) {
+          abort("No valid taxonomic identifiers detected.", call = error_call)
+        }
+        
         taxa_ids <- build_taxa_query(identifiers$taxon_concept_id)
         queries$fq <- str_replace_all(queries$fq, 
                                       "\\(`TAXON_PLACEHOLDER`\\)", 

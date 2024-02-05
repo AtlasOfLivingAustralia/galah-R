@@ -114,10 +114,7 @@ atlas_media <- function(request = NULL,
     present_fields <- media_fields
   # if `select` is present, ensure that at least one 'media' field is requested
   }else{
-    # new check using compute_checks()
-    x <- collapse(.query) |>
-      build_checks() |>
-      compute_checks()
+    x <- collapse(.query)
     
     # now check whether valid fields are present
     selected_fields <- x$url |>

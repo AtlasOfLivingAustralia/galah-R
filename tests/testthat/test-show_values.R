@@ -11,7 +11,7 @@ test_that("show_values accepts search & show_all inputs from fields", {
   skip_if_offline()
   search <- search_all(lists, "EPBC act")
   filtered_show <- show_all(lists) |>
-    dplyr::filter(dataResourceUid == "dr656")
+    dplyr::filter(species_list_uid == "dr656")
   values_search <- search |> show_values()
   values_show <- filtered_show |> show_values()
   expect_s3_class(values_search, c("tbl_df", "tbl", "data.frame"))
