@@ -1,4 +1,5 @@
 test_that("request_metadata() |> unnest() works for type = 'fields'", {
+  skip_if_offline()
   # no filter provided causes an error
   expect_error({request_metadata() |> 
       unnest() |>
