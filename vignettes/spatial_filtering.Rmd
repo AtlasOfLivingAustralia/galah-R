@@ -1577,4 +1577,4 @@ lorikeet_brisbane |>
 ## 10 GRACEVILLE AVENUE PARK              6
 ```
 
-Some shapefiles cover large geographic areas with the caveat that even the bounding box doesn't restrict the number of records to a value that can be downloaded easily. In this case, we recommend more nuances and detailed methods that can be performed using looping techniques. One of our ALA Labs blog posts, [Hex maps for species occurrence data](https://labs.ala.org.au/posts/2021-04-14_hex-maps-for-species-occurrence-data/post.html), has been written detailing how to approach larger problems such as this.
+Some shapefiles cover large geographic areas with the caveat that even the bounding box doesn't restrict the number of records to a value that can be downloaded easily. In this case, we recommend more nuances and detailed methods that can be performed using looping techniques. One of our ALA Labs blog posts, [Hex maps for species occurrence data](https://labs.ala.org.au/posts/2021-04-14_hex-maps-for-species-occurrence-data/), has been written detailing how to approach larger problems such as this.

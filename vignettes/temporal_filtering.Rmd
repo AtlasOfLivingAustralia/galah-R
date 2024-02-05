@@ -106,7 +106,7 @@ The required format of dates in `eventDate` is the [ISO 8601 International Date 
 
 The upshot of this specific formatting is that, for instance, the time I am writing this paragraph, 4:26pm on the 2nd of August 2023, would be represented as `"2023-08-02T16:26:44Z"` in the ALA, even though officially my timezone is `"+0930"`.
 
-Because `eventDate` specifies the time to seconds, it is recommended that greater or less than queries are used rather than exact matches. When used with `galah_filter()`, we can easily identify how many records of the humpback whale (*Megaptera novaeangliae*) have occurred since the species was [removed from the Australian threatened species list](http://www.environment.gov.au/biodiversity/threatened/species/pubs/38-listing-advice-26022022.pdf) on 26/02/2022.
+Because `eventDate` specifies the time to seconds, it is recommended that greater or less than queries are used rather than exact matches. When used with `galah_filter()`, we can easily identify how many records of the humpback whale (*Megaptera novaeangliae*) have occurred since the species was removed from the Australian threatened species list on 26/02/2022.
 
 
 ```r
