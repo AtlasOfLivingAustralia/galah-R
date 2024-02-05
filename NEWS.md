@@ -1,4 +1,4 @@
-# galah 2.0-1
+# galah 2.0.1
 
 ### Minor improvements
 `collapse()` now returns a `query` object, rather than a `query_set`, 
