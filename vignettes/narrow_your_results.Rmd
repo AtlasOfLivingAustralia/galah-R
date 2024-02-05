@@ -1,7 +1,7 @@
 ---
 title: "Narrow your results"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-11-07'
+date: '2023-12-14'
 output: html_document
 editor_options: 
   chunk_output_type: inline
@@ -54,9 +54,9 @@ search_taxa("Reptilia")
 
 ```
 ## # A tibble: 1 × 9
-##   search_term scientific_name taxon_concept_id  rank  match_type kingdom phylum class issues
-##   <chr>       <chr>           <chr>             <chr> <chr>      <chr>   <chr>  <chr> <chr> 
-## 1 Reptilia    REPTILIA        https://biodiver… class exactMatch Animal… Chord… Rept… noIss…
+##   search_term scientific_name taxon_concept_id                                              rank  match_type kingdom phylum class issues
+##   <chr>       <chr>           <chr>                                                         <chr> <chr>      <chr>   <chr>  <chr> <chr> 
+## 1 Reptilia    REPTILIA        https://biodiversity.org.au/afd/taxa/682e1228-5b3c-45ff-833b… class exactMatch Animal… Chord… Rept… noIss…
 ```
 
 If we want to be more specific by providing additional taxonomic information
@@ -69,11 +69,10 @@ search_taxa(tibble(genus = "Eolophus", kingdom = "Aves"))
 
 ```
 ## # A tibble: 1 × 13
-##   search_term   scientific_name scientific_name_authorship taxon_concept_id rank  match_type
-##   <chr>         <chr>           <chr>                      <chr>            <chr> <chr>     
-## 1 Eolophus_Aves Eolophus        Bonaparte, 1854            https://biodive… genus exactMatch
-## # ℹ 7 more variables: kingdom <chr>, phylum <chr>, class <chr>, order <chr>, family <chr>,
-## #   genus <chr>, issues <chr>
+##   search_term   scientific_name scientific_name_autho…¹ taxon_concept_id rank  match_type kingdom phylum class order family genus issues
+##   <chr>         <chr>           <chr>                   <chr>            <chr> <chr>      <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr> 
+## 1 Eolophus_Aves Eolophus        Bonaparte, 1854         https://biodive… genus exactMatch Animal… Chord… Aves  Psit… Cacat… Eolo… noIss…
+## # ℹ abbreviated name: ¹​scientific_name_authorship
 ```
 
 Once we know that our search matches the correct taxon or taxa, we 
@@ -89,7 +88,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 1673906
+## 1 1682010
 ```
 
 
@@ -105,7 +104,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 1092638
+## 1 1093469
 ```
 
 If you're using an international atlas, `search_taxa` will automatically 
@@ -162,8 +161,8 @@ galah_call() |>
 ## # A tibble: 3 × 2
 ##   species       count
 ##   <chr>         <int>
-## 1 Bufo bufo     94054
-## 2 Bufo spinosus    87
+## 1 Bufo bufo     94517
+## 2 Bufo spinosus    88
 ## 3 Bufo marinus      1
 ```
 
@@ -191,7 +190,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 90503179
+## 1 90875204
 ```
 
 ```r
@@ -207,7 +206,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##     count
 ##     <int>
-## 1 5600557
+## 1 5850806
 ```
 
 To find available fields and corresponding valid values, use the field lookup 
@@ -233,16 +232,16 @@ galah_call() |>
 ## # A tibble: 30 × 2
 ##    class          count
 ##    <chr>          <int>
-##  1 Insecta      5806340
-##  2 Gastropoda    957271
-##  3 Maxillopoda   793194
-##  4 Arachnida     689708
-##  5 Malacostraca  651658
-##  6 Polychaeta    276272
-##  7 Bivalvia      234110
-##  8 Anthozoa      216343
-##  9 Cephalopoda   145929
-## 10 Demospongiae  118375
+##  1 Insecta      5887288
+##  2 Gastropoda    940371
+##  3 Maxillopoda   793499
+##  4 Arachnida     701320
+##  5 Malacostraca  657455
+##  6 Polychaeta    276460
+##  7 Bivalvia      225965
+##  8 Anthozoa      218244
+##  9 Cephalopoda   145902
+## 10 Demospongiae  118515
 ## # ℹ 20 more rows
 ```
 
@@ -262,7 +261,7 @@ galah_call() |>
 ## # A tibble: 1 × 1
 ##      count
 ##      <int>
-## 1 81471797
+## 1 80883916
 ```
 
 To see a full list of data quality profiles, use `show_all(profiles)`.
@@ -283,16 +282,16 @@ galah_call() |>
 ## # A tibble: 36 × 3
 ##    year  basisOfRecord         count
 ##    <chr> <chr>                 <int>
-##  1 2020  Human observation   6551035
+##  1 2020  Human observation   6553463
 ##  2 2020  Occurrence           419842
-##  3 2020  Preserved specimen    84136
-##  4 2020  Machine observation   38906
+##  3 2020  Preserved specimen    84298
+##  4 2020  Machine observation   39643
 ##  5 2020  Observation           24887
 ##  6 2020  Material Sample        1677
 ##  7 2020  Living specimen          62
-##  8 2019  Human observation   5730445
+##  8 2019  Human observation   5735637
 ##  9 2019  Occurrence           290610
-## 10 2019  Preserved specimen   165391
+## 10 2019  Preserved specimen   165505
 ## # ℹ 26 more rows
 ```
 
@@ -309,26 +308,20 @@ occurrences <- galah_call() |>
   galah_filter(year == 1930) |>
   galah_select(kingdom, species, eventDate) |>
   atlas_occurrences()
-```
 
-```
-## Retrying in 1 seconds.
-```
-
-```r
 occurrences |> head()
 ```
 
 ```
 ## # A tibble: 6 × 3
-##   kingdom  species                  eventDate          
-##   <chr>    <chr>                    <dttm>             
-## 1 Animalia Drysdalia coronoides     1930-06-16 00:00:00
-## 2 Animalia Intellagama lesueurii    1930-01-01 00:00:00
-## 3 Animalia <NA>                     1930-04-23 00:00:00
-## 4 Animalia <NA>                     1930-01-01 00:00:00
-## 5 Animalia Oxyuranus scutellatus    1930-01-01 00:00:00
-## 6 Animalia Tympanocryptis centralis 1930-11-30 00:00:00
+##   kingdom  species                 eventDate          
+##   <chr>    <chr>                   <dttm>             
+## 1 Animalia Gehyra variegata        1930-11-30 00:00:00
+## 2 Animalia Intellagama lesueurii   1930-01-01 00:00:00
+## 3 Animalia Lampropholis guichenoti 1930-10-02 00:00:00
+## 4 Animalia Acanthophis antarcticus 1930-01-01 00:00:00
+## 5 Animalia <NA>                    1930-04-23 00:00:00
+## 6 Animalia Pseudechis porphyriacus 1930-01-01 00:00:00
 ```
 
 You can also use other `dplyr` functions that work with `dplyr::select()` with 
@@ -341,28 +334,21 @@ occurrences <- galah_call() |>
   galah_filter(year == 1930) |>
   galah_select(starts_with("accepted") | ends_with("record")) |>
   atlas_occurrences()
-```
 
-```
-## Retrying in 1 seconds.
-```
-
-```r
 occurrences |> head()
 ```
 
 ```
 ## # A tibble: 6 × 6
-##   acceptedNameUsage acceptedNameUsageID basisOfRecord      raw_basisOfRecord
-##   <chr>             <lgl>               <chr>              <chr>            
-## 1 <NA>              NA                  PRESERVED_SPECIMEN Museum specimen  
-## 2 <NA>              NA                  HUMAN_OBSERVATION  HumanObservation 
-## 3 <NA>              NA                  PRESERVED_SPECIMEN PreservedSpecimen
-## 4 <NA>              NA                  HUMAN_OBSERVATION  HumanObservation 
-## 5 <NA>              NA                  PRESERVED_SPECIMEN PreservedSpecimen
-## 6 <NA>              NA                  HUMAN_OBSERVATION  HumanObservation 
-## # ℹ 2 more variables: OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD <lgl>,
-## #   userDuplicateRecord <lgl>
+##   acceptedNameUsage acceptedNameUsageID basisOfRecord      raw_basisOfRecord OCCURRENCE_STATUS_INFERRED_FROM_BASIS…¹ userDuplicateRecord
+##   <chr>             <lgl>               <chr>              <chr>             <lgl>                                   <lgl>              
+## 1 <NA>              NA                  HUMAN_OBSERVATION  HumanObservation  FALSE                                   FALSE              
+## 2 <NA>              NA                  HUMAN_OBSERVATION  HumanObservation  FALSE                                   FALSE              
+## 3 <NA>              NA                  PRESERVED_SPECIMEN Museum specimen   FALSE                                   FALSE              
+## 4 <NA>              NA                  HUMAN_OBSERVATION  HumanObservation  FALSE                                   FALSE              
+## 5 <NA>              NA                  PRESERVED_SPECIMEN PreservedSpecimen FALSE                                   FALSE              
+## 6 <NA>              NA                  HUMAN_OBSERVATION  HumanObservation  FALSE                                   FALSE              
+## # ℹ abbreviated name: ¹​OCCURRENCE_STATUS_INFERRED_FROM_BASIS_OF_RECORD
 ```
 
 # galah_geolocate
@@ -382,7 +368,7 @@ galah_call() |>
 
 ```
 ## # A tibble: 1 × 10
-##   kingdom  phylum   class    order  family genus species author species_guid vernacular_name
-##   <chr>    <chr>    <chr>    <chr>  <chr>  <chr> <chr>   <chr>  <chr>        <chr>          
-## 1 Animalia Chordata Mammalia Peram… Peram… Pera… Perame… Spenc… https://bio… Desert Bandico…
+##   kingdom  phylum   class    order           family      genus     species            author        species_guid         vernacular_name
+##   <chr>    <chr>    <chr>    <chr>           <chr>       <chr>     <chr>              <chr>         <chr>                <chr>          
+## 1 Animalia Chordata Mammalia Peramelemorphia Peramelidae Perameles Perameles eremiana Spencer, 1897 https://biodiversit… Desert Bandico…
 ```
