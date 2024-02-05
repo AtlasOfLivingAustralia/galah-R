@@ -24,7 +24,7 @@ argument."><meta property="og:image" content="https://galah.ala.org.au/R/logo.pn
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,13 +92,13 @@ argument.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for data_request</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">mint_doi</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">mint_doi</span>, .expand <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for metadata_request</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse</a></span><span class="op">(</span><span class="va">x</span>, .expand <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for files_request</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, thumbnail <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse</a></span><span class="op">(</span><span class="va">x</span>, thumbnail <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -109,12 +109,19 @@ argument.</p>
 
 
 <dt>...</dt>
-<dd><p>Arguments passed on to methods</p></dd>
+<dd><p>Arguments passed on to other methods</p></dd>
 
 
 <dt>mint_doi</dt>
 <dd><p>Logical: should a DOI be minted for this download? Only
 applies to <code>type = "occurrences"</code> when atlas chosen is "ALA".</p></dd>
+
+
+<dt>.expand</dt>
+<dd><p>Logical: should the <code>query_set</code> be returned? This object
+shows all the requisite data needed to process the supplied query. Defaults
+to <code>FALSE</code>; if <code>TRUE</code> will append the <code>query_set</code> to an extra slot in the
+<code>query</code> object.</p></dd>
 
 
 <dt>thumbnail</dt>
@@ -126,10 +133,8 @@ to <code>FALSE</code>, indicating full-size images are required.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>An object of class <code>query_set</code>, which is a list containing one or
-more objects of class <code>query</code>. This is valuable because it shows the set of
-queries required to correctly retrieve the requested data. Objects within a
-<code>query_set</code> are listed in the sequence in which they will be enacted.</p>
+<p>An object of class <code>query</code>, which is a list-like object containing at
+least the slots <code>type</code> and <code>url</code>.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

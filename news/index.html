@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,20 @@
       <small>Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.0.1" id="galah-201">galah 2.0.1<a class="anchor" aria-label="anchor" href="#galah-201"></a></h2>
+<div class="section level4">
+<h4 id="minor-improvements-2-0-1">Minor improvements<a class="anchor" aria-label="anchor" href="#minor-improvements-2-0-1"></a></h4>
+<p><code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code> now returns a <code>query</code> object, rather than a <code>query_set</code>, and gains a <code>.expand</code> argument to optionally append a <code>query_set</code> for debugging purposes (<a href="https://github.com/AtlasOfLivingAustralia/galah-R/issues/217" class="external-link">#217</a>).</p>
+</div>
+<div class="section level4">
+<h4 id="bug-fixes-2-0-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-0-1"></a></h4>
+<ul><li>Avoid triggering multiple errors when galah_identify() returns no matched taxa (<a href="https://github.com/AtlasOfLivingAustralia/galah-R/issues/219" class="external-link">#219</a>)</li>
+<li>Improve clarity of quick start guide vignette (<a href="https://github.com/AtlasOfLivingAustralia/galah-R/issues/221" class="external-link">#221</a>)</li>
+<li>show_values() no longer truncates rows to 30 (<a href="https://github.com/AtlasOfLivingAustralia/galah-R/issues/222" class="external-link">#222</a>)</li>
+<li>Column ID name returned by search_all(lists) now matches the correct field ID for galah_filter() (<a href="https://github.com/AtlasOfLivingAustralia/galah-R/issues/225" class="external-link">#225</a>)</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.0" id="galah-200">galah 2.0.0<a class="anchor" aria-label="anchor" href="#galah-200"></a></h2><p class="text-muted">CRAN release: 2023-11-20</p>
 <div class="section level4">

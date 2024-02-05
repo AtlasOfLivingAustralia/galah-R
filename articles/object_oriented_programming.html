@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">galah</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,7 +97,7 @@
                         <h4 data-toc-skip class="author">Martin
 Westgate, Dax Kellie</h4>
             
-            <h4 data-toc-skip class="date">2023-12-14</h4>
+            <h4 data-toc-skip class="date">2024-02-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AtlasOfLivingAustralia/galah-R/blob/HEAD/vignettes/object_oriented_programming.Rmd" class="external-link"><code>vignettes/object_oriented_programming.Rmd</code></a></small>
       <div class="d-none name"><code>object_oriented_programming.Rmd</code></div>
@@ -140,8 +140,8 @@ synonymous:</p>
 <pre><code><span><span class="co">## # A tibble: 16 × 2</span></span>
 <span><span class="co">##    species                 count</span></span>
 <span><span class="co">##    &lt;chr&gt;                   &lt;int&gt;</span></span>
-<span><span class="co">##  1 Crinia signifera        58204</span></span>
-<span><span class="co">##  2 Crinia parinsignifera   12478</span></span>
+<span><span class="co">##  1 Crinia signifera        58579</span></span>
+<span><span class="co">##  2 Crinia parinsignifera   12782</span></span>
 <span><span class="co">##  3 Crinia glauerti          3090</span></span>
 <span><span class="co">##  4 Crinia georgiana         1490</span></span>
 <span><span class="co">##  5 Crinia remota             784</span></span>
@@ -219,20 +219,24 @@ allows users to make use of advanced query building using three newly
 implemented stages of query building: <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code>,
 <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code>. These stages mirror
 existing <a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">functions in
-dplyr for querying databases</a>, and act in the following way</p>
+dplyr for querying databases</a>, and act in the following way:</p>
 <ul>
 <li>
-<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code> converts the object to a query. This allows
-users to inspect their<br>
-API calls before they are sent</li>
+<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code> converts the object to a <code>query</code>.
+This allows users to inspect<br>
+their API calls before they are sent. Depending on the request, this
+function may also call ‘supplementary’ APIs to collect required
+information, such as Taxon Concept Identifiers or field names.</li>
 <li>
-<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code> sends queries to any required APIs. This
-includes sending a query for data, determining whether field names are
-valid, or finding how much data has been requested (which is necessary
-for pagination)</li>
+<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code> is intended to send the query in question to
+the requested API for processing. This is particularly important for
+occurrences, where it can be useful to submit a query and retrieve it at
+a later time. If the <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code> stage is not required,
+however, <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code> simply converts the <code>query</code>
+to a new class (<code>computed_query</code>).</li>
 <li>
 <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code> retrieves the requested data into your
-workspace</li>
+workspace, returning a <code>tibble</code>.</li>
 </ul>
 <p>We can use these in sequence, or just leap ahead to the stage we
 want:</p>
@@ -244,16 +248,15 @@ want:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Object of class `query_set` containing 3 queries:</span></span></code></pre>
-<pre><code><span><span class="co">## • metadata/fields data: galah:::check_internal_cache()$fields</span></span>
-<span><span class="co">## • metadata/assertions data: galah:::check_internal_cache()$assertions</span></span>
-<span><span class="co">## • data/occurrences-count-groupby url: https://biocache-ws.ala.org.au/ws/occurre...</span></span></code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Object of class query with type data/occurrences-count-groupby </span></span>
 <span><span class="co">## url: https://biocache-ws.ala.org.au/ws/occurrences/facets?fq=%28genus%3A%22... </span></span>
 <span><span class="co">## arrange: species (ascending)</span></span></code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Object of class computed_query with type data/occurrences-count-groupby </span></span>
+<span><span class="co">## url: https://biocache-ws.ala.org.au/ws/occurrences/facets?fq=%28genus%3A%22... </span></span>
+<span><span class="co">## arrange: species (ascending)</span></span></code></pre>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # A tibble: 6 × 2</span></span>
 <span><span class="co">##   species              count</span></span>
@@ -270,7 +273,7 @@ particularly useful for large data requests in galah. Users can send
 their query using <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code>, and download data once the
 query has finished — downloading with <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code> later —
 rather than waiting for the request to finish within R.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create and send query to be calculated server-side</span></span>
 <span><span class="va">request</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/galah_call.html">request_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"perameles"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -288,20 +291,17 @@ much more transparent, and allows users to check their query
 construction prior to sending a request. For example, the query above is
 constructed with the following information, returned by
 <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code>.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">request_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="st">"perameles"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1900</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Object of class `query_set` containing 5 queries:</span></span></code></pre>
-<pre><code><span><span class="co">## • metadata/fields data: galah:::check_internal_cache()$fields</span></span>
-<span><span class="co">## • metadata/assertions data: galah:::check_internal_cache()$assertions</span></span>
-<span><span class="co">## • metadata/reasons data: galah:::check_internal_cache()$reasons</span></span>
-<span><span class="co">## • metadata/taxa-single url: https://api.ala.org.au/namematching/api/search?q=pe...</span></span>
-<span><span class="co">## • data/occurrences url: https://biocache-ws.ala.org.au/ws/occurrences/offline/d...</span></span></code></pre>
-<p>The <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code> stage displays useful information about
-which APIs will be pinged by a query in galah when it is sent using
-<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code>.</p>
+<pre><code><span><span class="co">## Object of class query with type data/occurrences </span></span>
+<span><span class="co">## url: https://biocache-ws.ala.org.au/ws/occurrences/offline/download?fq=%28l...</span></span></code></pre>
+<p>The <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code> stage includes an additional argument
+(<code>.expand</code>) that, when set to <code>TRUE</code>, shows all
+the APIs called to construct the user-requested query. This is
+especially useful for debugging.</p>
 </div>
 <div class="section level2">
 <h2 id="new-object-classes">New object classes<a class="anchor" aria-label="anchor" href="#new-object-classes"></a>
@@ -310,11 +310,12 @@ which APIs will be pinged by a query in galah when it is sent using
 to a new class:</p>
 <ul>
 <li>
-<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code> returns class <code>query_set</code>, which
-is a list of one or more <code>query</code> objects</li>
+<code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collapse()</a></code> returns class <code>query</code>, which is a
+list containing a <code>type</code> slot and one or more
+<code>url</code>s</li>
 <li>
 <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">compute()</a></code> returns a single object of class
-<code>query</code>
+<code>computed_query</code>
 </li>
 <li>
 <code><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect()</a></code> doesn’t add a new data class (returns class
@@ -326,7 +327,7 @@ which dedicated <code>request_</code> function and data type to return.
 To demonstrate what we mean, take the following calls, which despite
 using different syntax, all return the number of records available for
 the year 2020:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># new syntax</span></span>
 <span><span class="fu"><a href="../reference/galah_call.html">request_data</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2020</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -345,7 +346,7 @@ the year 2020:</p>
 <span>  <span class="fu"><a href="../reference/atlas_counts.html">atlas_counts</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Another example is to list available <code>fields</code> in the
 selected atlas:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">request_metadata</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"fields"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -355,7 +356,7 @@ selected atlas:</p>
 <span></span>
 <span><span class="fu"><a href="../reference/show_all.html">show_all</a></span><span class="op">(</span><span class="va">fields</span><span class="op">)</span></span></code></pre></div>
 <p>Or to show values for states and territories:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/galah_call.html">request_metadata</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">field</span> <span class="op">==</span> <span class="st">"cl22"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/tidyverse_functions.html">unnest</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
