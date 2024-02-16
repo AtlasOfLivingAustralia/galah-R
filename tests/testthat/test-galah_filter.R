@@ -229,6 +229,35 @@ test_that("galah_filter handles %in% even with multiple filters", {
   expect_equal("((year:\"2020\") OR (year:\"2021\") OR (year:\"2022\"))", filter_multiple$query[[1]])
 })
 
+test_that("galah_filter parses fields correctly with is.na()", {
+  skip_if_offline()
+  expect_no_error(galah_call() |> 
+                    galah_filter(is.na(decimalLongitude)) |> 
+                    atlas_counts()
+                  )
+  expect_no_error(galah_call() |>
+                    galah_filter(year == 2001, is.na(decimalLongitude)) |>
+                    atlas_counts()
+                  )
+  expect_no_error(galah_call() |>
+                    galah_filter(is.na(coordinateUncertaintyInMeters) | coordinateUncertaintyInMeters <= 1000) |>
+                    atlas_counts()
+                  )
+  # misspelled or wrong fields
+  expect_error(galah_call() |>
+                 galah_filter(is.na(decimalLongitde)) |>
+                 atlas_counts()
+               )
+  expect_error(galah_call() |>
+                 galah_filter(year == 2001, is.na(decimalLongitde)) |>
+                 atlas_counts()
+               )
+  expect_error(galah_call() |>
+                 galah_filter(is.na(bork) | coordinatencertaintyInMeters <= 1000) |>
+                 atlas_counts()
+               )
+})
+
 test_that("`galah_filter()` accepts {{}} on lhs of formula", {
   skip_if_offline()
   field <- "species"

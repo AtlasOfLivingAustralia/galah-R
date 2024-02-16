@@ -98,9 +98,18 @@ camel_to_snake_case <- function(x){
 #' @noRd
 #' @keywords Internal
 string_to_tibble <- function(string, split_by = c(":")){
-  # everything between ( and :
-  extracted_strings <- stringr::str_extract_all(string, "\\((.*?)\\:") |> 
-    unlist() |> 
+  # everything after ( and before : except *
+  # OR
+  # everything after "OR " and before : except *
+  # OR
+  # everything after "AND " and before : except *
+  extracted_strings <-
+    stringr::str_extract_all(
+      string, 
+      "(?<=\\()[^\\*]*?(?=\\:)|(?<=OR\\s)[^\\*]*?(?=\\:)|(?<=AND\\s)[^\\*]*?(?=\\:)"
+      ) |>
+    unlist() |>
+    stringr::str_remove("-") |>
     as_tibble() |>
     unique()
   return(extracted_strings)
