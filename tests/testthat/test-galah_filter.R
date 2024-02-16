@@ -258,6 +258,20 @@ test_that("galah_filter parses fields correctly with is.na()", {
                )
 })
 
+test_that("`galah_filter()` handles apostrophes (') correctly", {
+  skip_if_offline()
+  names <- c("Australia's Virtual Herbarium", 
+             "iNaturalist observations",
+             "iNaturalist research-grade observations")
+  filter <- galah_filter(datasetName %in% names)$query
+  query <- galah_call() |>
+    galah_filter(datasetName %in% names) |>
+    atlas_counts()
+  expect_equal(nrow(query), 1) # returns result
+  expect_gte(query$count[1], 1)
+  expect_match(filter, "\\(\\(datasetName:\\\"Australia's Virtual Herbarium\\\"\\)")
+})
+
 test_that("`galah_filter()` accepts {{}} on lhs of formula", {
   skip_if_offline()
   field <- "species"
