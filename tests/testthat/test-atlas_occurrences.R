@@ -206,3 +206,36 @@ test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
   galah_config(directory = cache_dir)
   rm(cache_dir)
 })
+
+test_that("atlas_occurrences() doesn't return secret information", {
+  skip_if_offline()
+  skip_if(!file.exists("testdata/SECRETS.txt"),
+          message = "Secret information not provided")
+  data_request <- galah_call() |>
+    identify("Acacia aneura") |>
+    apply_profile(ALA) |>
+    select(geodeticDatum, 
+           eventRemarks,
+           sensitive,
+           dataGeneralizations,
+           generalisationInMetres,
+           coordinateUncertaintyInMeters,
+           recordedBy,
+           datePrecision,
+           stateProvince,
+           group = "basic")
+  x_start <- collapse(data_request)
+  # option to add tests here to ensure url is correctly constructed
+  x <- collect(x_start)
+  # import email address from SECRETS and check again
+  # NOTE: SECRETS.txt has been added to .gitignore
+  # It should never be placed on GitHub
+  email <- readLines("testdata/SECRETS.txt", warn = FALSE)
+  galah_config(email = email)
+  y_start <- collapse(data_request)
+  y <- collect(y_start)
+  expect_equal(nrow(x), nrow(y))
+  expect_equal(ncol(x), ncol(y))
+  # reset
+  galah_config(email = "ala4r@ala.org.au")
+})

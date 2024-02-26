@@ -3,6 +3,9 @@
 # Hadley Wickham, section 8.3 'Internal data'
 # https://r-pkgs.org/data.html
 
+USE_TEST_SYSTEM <- FALSE # set to TRUE to run against ALA 'test' system
+# default is FALSE, which runs against the 'production' system.
+
 devtools::load_all()
 library(readr) # import csvs straight to tibble
 library(tibble) # generate tibbles
@@ -28,6 +31,15 @@ node_metadata$institution[
 node_config <- read_csv("./data-raw/node_config.csv") |> 
   filter(atlas %in% node_metadata$region) |>
   select(-functional)
+
+# if running on test server, reset requisite APIs
+if(USE_TEST_SYSTEM){
+  lookup <- grepl("^https://biocache-ws.ala.org.au/ws/", node_config$url)
+  node_config$url[lookup] <- sub(
+      "^https://biocache-ws.ala.org.au/ws/",
+      "https://biocache-ws-test.ala.org.au/ws/",
+      node_config$url[lookup])
+}
 
 # ALA defaults
 # add other data
