@@ -13,8 +13,18 @@ collect_media_metadata <- function(.query){
   result <- query_API(.query) |>
     pluck("results") |>
     bind_rows()
+  if(nrow(result) < 1){ # case where no data returned
+    if(pour("package", "verbose")){
+      warn("No data returned from `metadata/media` API")
+    }
+    ids <- .query$body |>
+      fromJSON() |>
+      unlist()
+    result <- tibble(image_id = ids)
+  }else{
+    colnames(result) <- rename_columns(names(result), type = "media")
+  }
   # Select only the rows and columns we want 
-  colnames(result) <- rename_columns(names(result), type = "media")
   result |> 
     filter(!is.na(result$image_id)) |>
     select(any_of(wanted_columns("media")))

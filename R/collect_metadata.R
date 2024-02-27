@@ -164,14 +164,21 @@ collect_fields <- function(.query){
 #' @keywords Internal
 collect_licences <- function(.query){
   result <- query_API(.query) 
-  if (any(duplicated(names(result[[1]])))) { # remove duplicate columns (i.e. Spain atlas)
-    result <- lapply(result, function(x) x[unique(names(x))])
+  if(length(result) > 0){
+    if (any(duplicated(names(result[[1]])))) { # remove duplicate columns (i.e. Spain atlas)
+      result <- lapply(result, function(x) x[unique(names(x))])
+    }
+    result <- result |> 
+      bind_rows() 
+    result <- result |>
+      select(all_of(c("id", "name", "acronym", "url"))) |> 
+      arrange(result$id)
+  }else{
+    result <- tibble(id = character(),
+                     name = character(),
+                     acronym = character(),
+                     url = character())
   }
-  result <- result |> 
-    bind_rows() 
-  result <- result |>
-    select(all_of(c("id", "name", "acronym", "url"))) |> 
-    arrange(result$id)
   attr(result, "call") <- "licences"
   attr(result, "region") <- pour("atlas", "region") 
   result
