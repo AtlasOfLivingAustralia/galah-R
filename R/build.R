@@ -154,16 +154,6 @@ build_taxa_query <- function(ids) {
   }
 }
 
-#' Sub-function to convert assertions to logicals in `collect_occurrences()`
-#' @noRd
-#' @keywords Internal
-fix_assertion_cols <- function(df, assertion_cols) {
-  for (col in assertion_cols) {
-    df[[col]] <- as.logical(df[[col]])
-  }
-  df
-}
-
 #' Internal function to handle APIs that return complex outputs
 #' Currently only used by `collect_collection_values()`
 #' It is pretty messy, as:

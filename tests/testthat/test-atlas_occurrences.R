@@ -97,11 +97,14 @@ test_that("atlas_occurrences accepts all narrowing functions in pipe", {
   expected_cols <- c("decimalLatitude", "decimalLongitude", "eventDate",
                      "scientificName", "taxonConceptID", "recordID",
                      "dataResourceName", "occurrenceStatus", "stateProvince", 
-                     "ZERO_COORDINATE")
+                     "ZERO_COORDINATE", "COORDINATE_INVALID")
   poly <- "POLYGON((146.7 -34.6,147.9 -34.6,147.9 -35.7,146.7 -35.7,146.7 -34.6))"
   occ <- galah_call() |>
     galah_filter(year >= 2018) |>
-    galah_select(group = "basic", stateProvince, ZERO_COORDINATE) |>
+    galah_select(group = "basic", 
+                 stateProvince, 
+                 ZERO_COORDINATE, 
+                 COORDINATE_INVALID) |>
     galah_identify("Polytelis swainsonii") |> 
     galah_geolocate(poly) |>
     atlas_occurrences()
@@ -209,7 +212,8 @@ test_that("`atlas_occurrences()` places DOI in `attr()` correctly", {
 
 test_that("atlas_occurrences() doesn't return secret information", {
   skip_if_offline()
-  skip_if(!file.exists("testdata/SECRETS.txt"),
+  RUN <- FALSE
+  skip_if((!file.exists("testdata/SECRETS.txt") | !RUN),
           message = "Secret information not provided")
   data_request <- galah_call() |>
     identify("Acacia aneura") |>
@@ -232,10 +236,11 @@ test_that("atlas_occurrences() doesn't return secret information", {
   # It should never be placed on GitHub
   email <- readLines("testdata/SECRETS.txt", warn = FALSE)
   galah_config(email = email)
-  y_start <- collapse(data_request)
-  y <- collect(y_start)
+  y <- collect(data_request)
   expect_equal(nrow(x), nrow(y))
   expect_equal(ncol(x), ncol(y))
+  expect_equal(colnames(x), colnames(y))
+  expect_equal(x, y)
   # reset
   galah_config(email = "ala4r@ala.org.au")
 })
