@@ -185,26 +185,18 @@ check_field_identities <- function(df, .query){
     missing_check <- !(.query$fields %in% field_names)
     if(any(missing_check)){
       missing_fields <- .query$fields[missing_check]
-      missing_text <- glue_collapse(glue("`{missing_fields}`"), sep = ", ", last = " & ") 
-      missing_warning <- glue("Missing fields: {missing_text}")
-    }else{
-      missing_warning <- NULL
+      names(missing_fields) <- rep("*", length(missing_fields))
+      bullets <- c("The following fields, requested in your query, were not downloaded:",
+                   missing_fields)
+      warn(bullets)
     }
     # check for additions
     added_check <- !(field_names %in% .query$fields)
     if(any(added_check)){
       added_fields <- field_names[added_check]
-      added_text <- glue_collapse(glue("`{added_fields}`"), sep = ", ", last = " & ") 
-      added_warning <- glue("Unexpected fields: {added_text}")
-    }else{
-      added_warning <- NULL
-    }
-    # if any tests fail, give a warning
-    if(!is.null(missing_warning) | !is.null(added_warning)){
-      bullets <- c("We detected a discrepancy between the fields you requested, and those present in the download.",
-                   i = missing_warning,
-                   i = added_warning,
-                   i = "Consider using `show_all(fields)` to ensure all fields are valid.")
+      names(added_fields) <- rep("*", length(added_fields))
+      bullets <- c("The following fields were downloaded, but weren't requested in your query:",
+                   added_fields)
       warn(bullets)
     }
   }
