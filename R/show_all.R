@@ -61,7 +61,11 @@
 #' @export
 show_all <- function(..., limit = NULL){
   dots <- enquos(..., .ignore_empty = "all")
-  type_text <- gsub("\"", "", as_label(dots[[1]])) # handle case where type is quoted
+  if(length(dots) < 1){
+    type_text <- "fields"
+  }else{
+    type_text <- gsub("\"", "", as_label(dots[[1]])) # handle case where type is quoted
+  }
   show_all_generic(type = type_text, limit = limit)
 }
 
