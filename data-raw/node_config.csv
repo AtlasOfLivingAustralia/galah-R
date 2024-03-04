@@ -9,6 +9,7 @@ Australia,files/media,https://api.ala.org.au/images/ws/image/{id}/original,TRUE
 Australia,metadata/assertions,https://biocache-ws.ala.org.au/ws/assertions/codes,TRUE
 Australia,metadata/collections,https://api.ala.org.au/metadata/ws/collection,TRUE
 Australia,metadata/datasets,https://api.ala.org.au/metadata/ws/dataResource,TRUE
+Australia,metadata/distributions,https://api.ala.org.au/spatial-service/distributions,TRUE
 Australia,metadata/fields,https://biocache-ws.ala.org.au/ws/index/fields,TRUE
 Australia,metadata/fields-unnest,https://biocache-ws.ala.org.au/ws/occurrences/facets,TRUE
 Australia,metadata/identifiers,https://api.ala.org.au/namematching/api/getByTaxonID,TRUE
@@ -153,6 +154,7 @@ Sweden,data/occurrences-count,https://records.biodiversitydata.se/ws/occurrences
 Sweden,data/occurrences-count-groupby,https://records.biodiversitydata.se/ws/occurrence/facets,TRUE
 Sweden,data/species,https://records.biodiversitydata.se/ws/occurrences/facets/download,TRUE
 Sweden,data/species-count,https://records.biodiversitydata.se/ws/occurrence/facets,TRUE
+Sweden,files/media,https://images.biodiversitydata.se/image/{id}/original,TRUE
 Sweden,metadata/assertions,https://records.biodiversitydata.se/ws/assertions/codes,TRUE
 Sweden,metadata/collections,https://collections.biodiversitydata.se/ws/collection,TRUE
 Sweden,metadata/datasets,https://collections.biodiversitydata.se/ws/dataResource,TRUE

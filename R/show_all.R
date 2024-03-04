@@ -21,18 +21,20 @@
 #' 
 #' | **Category** | **Type** | **Description** | **Sub-functions** |
 #' |---|---|---|---|
-#' | configuration  |`atlases`| Show what atlases are available | `show_all_atlases()` |
+#' | Configuration  |`atlases`| Show what atlases are available | `show_all_atlases()` |
 #' | |`apis`| Show what APIs & functions are available for each atlas | `show_all_apis()` |
 #' | |`reasons`| Show what values are acceptable as 'download reasons' for a specified atlas | `show_all_reasons()` |
-#' | taxonomy | `ranks`| Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) | `show_all_ranks()` |
-#' | filters |`fields`| Show fields that are stored in an atlas | `show_all_fields()` |
-#' | |`assertions`| Show results of data quality checks run by each atlas | `show_all_assertions()` |
-#' | |`licenses`| Show what copyright licenses are applied to media | `show_all_licenses()` |
-#' |group filters|`profiles`| Show what data profiles are available | `show_all_profiles()` |
+#' | Taxonomy |`distributions`|Show available distribution maps|`show_all_distributions()`|
 #' | |`lists`| Show what species lists are available| `show_all_lists()` |
-#' |data providers|`providers`| Show which institutions have provided data | `show_all_providers()` |
+#' | |`ranks`| Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) | `show_all_ranks()` |
+#' | Filters |`assertions`| Show results of data quality checks run by each atlas | `show_all_assertions()` |
+#' | |`fields`| Show fields that are stored in an atlas | `show_all_fields()` |
+#' | |`licenses`| Show what copyright licenses are applied to media | `show_all_licenses()` |
+#' | |`profiles`| Show what data profiles are available | `show_all_profiles()` |
+#' | Data providers|`providers`| Show which institutions have provided data | `show_all_providers()` |
 #' | |`collections`|Show the specific collections within those institutions| `show_all_collections()` |
-#' | |`datasets`|Shows all the data groupings within those collections| `show_all_datasets()` |   
+#' | |`datasets`|Shows all the data groupings within those collections| `show_all_datasets()` |  
+#' 
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) 
 #' containing all data of interest.
 #' @references 
@@ -119,6 +121,12 @@ show_all_collections <- function(limit = NULL){
 #' @export
 show_all_datasets <- function(limit = NULL){
   show_all_generic(type = "datasets", limit = limit)
+}
+
+#' @rdname show_all
+#' @export
+show_all_distributions <- function(limit = NULL){
+  show_all_generic(type = "distributions", limit = limit)
 }
 
 #' @rdname show_all

@@ -169,7 +169,7 @@ request_metadata <- function(type){
                    "atlases",
                    "collections",
                    "datasets",
-                   # distributions" # new
+                   "distributions", # new
                    "licences",
                    "lists",
                    "media",

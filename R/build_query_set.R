@@ -101,6 +101,7 @@ build_query_set_metadata <- function(x, ...){
                                            "atlases" = collapse_atlases(),
                                            "collections" = collapse_collections(x),
                                            "datasets" = collapse_datasets(x),
+                                           "distributions" = collapse_distributions(x),
                                            "fields" = collapse_fields(),
                                            "fields-unnest" = collapse_fields_unnest(x),
                                            "licences" = collapse_licences(),
