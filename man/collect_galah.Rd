@@ -21,7 +21,7 @@
 }
 \arguments{
 \item{x}{An object of class \code{data_request}, \code{metadata_request} or
-\code{files_request} (from \code{galah_call()}); or an oject of class \code{query_set} or
+\code{files_request} (from \code{galah_call()}); or an object of class \code{query_set} or
 \code{query} (from \code{collapse()} or \code{compute()})}
 
 \item{...}{Arguments passed on to other methods}

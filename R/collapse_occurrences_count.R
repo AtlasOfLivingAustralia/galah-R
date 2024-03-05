@@ -114,6 +114,9 @@ collapse_occurrences_count_gbif <- function(identify = NULL,
   result
 }
 
+#' Internal function to check `slice` and `arrange` for counts
+#' @keywords Internal
+#' @noRd
 check_slice_arrange <- function(df){
   if(df$variable == "count"){ # arranged in descending order by default
     if(df$direction == "ascending"){

@@ -75,16 +75,16 @@ The available types of information for \code{show_all_} are:\tabular{llll}{
    Configuration \tab \code{atlases} \tab Show what atlases are available \tab \code{show_all_atlases()} \cr
     \tab \code{apis} \tab Show what APIs & functions are available for each atlas \tab \code{show_all_apis()} \cr
     \tab \code{reasons} \tab Show what values are acceptable as 'download reasons' for a specified atlas \tab \code{show_all_reasons()} \cr
-   Taxonomy \tab \code{distributions} \tab Show available distribution maps \tab \code{show_all_distributions()} \cr
-    \tab \code{lists} \tab Show what species lists are available \tab \code{show_all_lists()} \cr
-    \tab \code{ranks} \tab Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) \tab \code{show_all_ranks()} \cr
+   Data providers \tab \code{providers} \tab Show which institutions have provided data \tab \code{show_all_providers()} \cr
+    \tab \code{collections} \tab Show the specific collections within those institutions \tab \code{show_all_collections()} \cr
+    \tab \code{datasets} \tab Shows all the data groupings within those collections \tab \code{show_all_datasets()} \cr
    Filters \tab \code{assertions} \tab Show results of data quality checks run by each atlas \tab \code{show_all_assertions()} \cr
     \tab \code{fields} \tab Show fields that are stored in an atlas \tab \code{show_all_fields()} \cr
     \tab \code{licenses} \tab Show what copyright licenses are applied to media \tab \code{show_all_licenses()} \cr
     \tab \code{profiles} \tab Show what data profiles are available \tab \code{show_all_profiles()} \cr
-   Data providers \tab \code{providers} \tab Show which institutions have provided data \tab \code{show_all_providers()} \cr
-    \tab \code{collections} \tab Show the specific collections within those institutions \tab \code{show_all_collections()} \cr
-    \tab \code{datasets} \tab Shows all the data groupings within those collections \tab \code{show_all_datasets()} \cr
+   Taxonomy \tab \code{distributions} \tab Show available distribution maps \tab \code{show_all_distributions()} \cr
+    \tab \code{lists} \tab Show what species lists are available \tab \code{show_all_lists()} \cr
+    \tab \code{ranks} \tab Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) \tab \code{show_all_ranks()} \cr
 }
 }
 \examples{

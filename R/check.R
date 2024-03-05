@@ -272,7 +272,11 @@ check_fields_gbif_predicates <- function(.query){
 #' @noRd
 #' @keywords Internal
 check_fields_la <- function(.query){
-  url <- url_parse(.query$url[1])
+  if(inherits(.query$url, "data.frame")){
+    url <- url_parse(.query$url$url[1])
+  }else{
+    url <- url_parse(.query$url[1])  
+  }
   queries <- url$query
   
   # set fields to check against
@@ -394,7 +398,12 @@ check_identifiers_gbif_predicates <- function(.query){
 #' @noRd
 #' @keywords Internal
 check_identifiers_la <- function(.query, error_call = caller_env()){
-  url <- url_parse(.query$url[1]) # FIXME: test if every >1 urls here
+  # FIXME: test if every >1 urls here
+  if(inherits(.query$url, "data.frame")){
+    url <- url_parse(.query$url$url[1])
+  }else{
+    url <- url_parse(.query$url[1]) 
+  }
   queries <- url$query
   if(!is.null(queries$fq)){
     if(grepl("(`TAXON_PLACEHOLDER`)", queries$fq)){
@@ -424,7 +433,8 @@ check_identifiers_la <- function(.query, error_call = caller_env()){
       metadata_lookup <- grepl("^metadata/taxa", names(.query))
       if(any(metadata_lookup)){ 
         identifiers <- .query[[which(metadata_lookup)[1]]]
-        taxa_id <- identifiers$taxon_concept_id[1]
+        taxa_id <- URLencode(identifiers$taxon_concept_id[1],
+                             reserved = TRUE)
         .query$url[1] <- sub("%60TAXON_PLACEHOLDER%60", taxa_id, .query$url[1])
       }else{
         abort("The query has a taxonomic placeholder, but no taxon search has been run.")

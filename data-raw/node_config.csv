@@ -1,4 +1,6 @@
 ﻿atlas,type,url,functional
+Australia,data/distributions-id,https://api.ala.org.au/spatial-service/distribution/{id},TRUE
+Australia,data/distributions-taxa,https://api.ala.org.au/spatial-service/distribution/lsids/{lsid}?nowkt=false,TRUE
 Australia,data/occurrences,https://biocache-ws.ala.org.au/ws/occurrences/offline/download,TRUE
 Australia,data/occurrences-count,https://biocache-ws.ala.org.au/ws/occurrences/search,TRUE
 Australia,data/occurrences-count-groupby,https://biocache-ws.ala.org.au/ws/occurrences/facets,TRUE

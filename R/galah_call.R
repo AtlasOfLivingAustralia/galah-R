@@ -123,6 +123,7 @@ galah_call <- function(method = c("data", "metadata", "files"),
 request_data <- function(type = c("occurrences", 
                                   "occurrences-count",
                                   "occurrences-doi",
+                                  "distributions",
                                   "species",
                                   "species-count"
                                   ),

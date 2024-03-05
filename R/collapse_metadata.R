@@ -85,7 +85,7 @@ collapse_datasets <- function(.query){
 #' Internal function to `collapse()` distributions
 #' @noRd
 #' @keywords Internal
-collapse_distributions <- function(.query){
+collapse_distributions_metadata <- function(.query){
   url <- url_lookup("metadata/distributions")
   result <- list(type = "metadata/distributions",
                  url = url,

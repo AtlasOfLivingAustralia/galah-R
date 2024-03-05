@@ -7,8 +7,7 @@ parse_checks <- function(.query){
   # "data/" functions require pre-processing of metadata,
   # as do `unnest()`/`show_values()` functions
   if(grepl("^data/", .query$type) |
-     grepl("-unnest$", .query$type)
-  ){
+     grepl("-unnest$", .query$type)){
     # some checks should happen regardless of `run_checks`
     .query <- .query |>
       check_identifiers() |> 
@@ -19,6 +18,10 @@ parse_checks <- function(.query){
         check_reason() |>
         check_fields() |>
         check_profiles()
+    }
+    if(.query$type == "data/distributions" & !is.null(.query[["metadata/distributions"]])){
+      .query$url <- tibble(url = glue(URLdecode(.query$url), 
+                                      id = .query[["metadata/distributions"]]$id))
     }
     .query <- remove_metadata(.query)
   }
