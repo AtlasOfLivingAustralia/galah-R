@@ -114,3 +114,12 @@ test_that("search_values specifies matched field", {
   expect_message(search2 |> show_values(), n_fields2)
   # expect_message(search3 |> show_values(), n_fields3)
 })
+
+test_that("show_values returns unformatted names", {
+  skip_if_offline()
+  expected <- tibble(basisOfRecord = c("HUMAN_OBSERVATION",
+                                       "PRESERVED_SPECIMEN"))
+  search <- search_all(fields, "basisOfRecord")
+  expect_equal(search |> show_values() |> head(2L), 
+               expected)
+})
