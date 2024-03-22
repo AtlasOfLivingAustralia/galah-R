@@ -22,6 +22,7 @@
 #' least the slots `type` and `url`.
 #' @export
 collapse.data_request <- function(x, ..., mint_doi, .expand = FALSE){
+  check_atlas_config()
   query_set <- build_query_set(x)
   result <- query_set |>
     build_checks() |>
@@ -38,6 +39,7 @@ collapse.data_request <- function(x, ..., mint_doi, .expand = FALSE){
 #' @order 2
 #' @export
 collapse.metadata_request <- function(x, .expand = FALSE, ...){
+  check_atlas_config()
   query_set <- build_query_set(x, ...)
   result <- query_set |>
     build_checks() |>
@@ -61,6 +63,7 @@ collapse.files_request <- function(x,
                                    thumbnail = FALSE,
                                    ...
                                    ){
+  check_atlas_config()
   build_query_set(x, 
                   thumbnail = thumbnail, 
                   ...) |>
