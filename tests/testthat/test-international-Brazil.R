@@ -156,6 +156,23 @@ test_that("atlas_counts works with group_by for Brazil", {
   expect_equal(names(result), c("year", "count"))
 })
 
+test_that("atlas_species works for Brazil", {
+  skip_if_offline()
+  galah_config(
+    atlas = "Brazil",
+    email = "ala4r@ala.org.au", 
+    run_checks = FALSE,
+    send_email = FALSE)
+  spp <- galah_call() |>
+    galah_identify("Carnivora") |>
+    atlas_species() |>
+    try(silent = TRUE)
+  skip_if(inherits(spp, "try-error"), message = "API not available")
+  expect_gt(nrow(spp), 20)
+  expect_equal(ncol(spp), 11)
+  expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
+})
+
 ## FIXME: Caused by taxonomic search issue
 test_that("atlas_occurrences works for Brazil", {
   skip_if_offline()

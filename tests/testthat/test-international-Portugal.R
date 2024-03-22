@@ -147,6 +147,15 @@ test_that("atlas_counts works with group_by for Portugal", {
   expect_equal(names(result), c("basis_of_record", "count"))
 })
 
+# NOTE: I've so far been unable to register for this atlas,
+# so we can't test downloads. This affects `atlas_occurrences()` and 
+# `atlas_species()`
+test_that("atlas_species returns error for Portugal", {
+  expect_error({galah_call(type = "species") |>
+                  identify("Carnivora") |>
+                  collect()
+    })
+})
 test_that("atlas_occurrences returns error for Portugal", {
   expect_error(atlas_occurrences(
     filter = galah_filter(year == 2020)

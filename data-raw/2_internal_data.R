@@ -7,6 +7,7 @@ USE_TEST_SYSTEM <- FALSE # set to TRUE to run against ALA 'test' system
 # default is FALSE, which runs against the 'production' system.
 
 devtools::load_all()
+galah_config(atlas = "Australia")
 library(readr) # import csvs straight to tibble
 library(tibble) # generate tibbles
 library(dplyr) # data manipulation
@@ -29,7 +30,8 @@ node_metadata$institution[
   # All other atlases use GBIF taxonomy
   # Order of priority is local-namematching > local-species > GBIF-namematching
 node_config <- read_csv("./data-raw/node_config.csv") |> 
-  filter(atlas %in% node_metadata$region) |>
+  filter(atlas %in% node_metadata$region,
+         functional == TRUE) |>
   select(-functional)
 
 # if running on test server, reset requisite APIs

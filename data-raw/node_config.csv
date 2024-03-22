@@ -63,7 +63,7 @@ Brazil,metadata/taxa-single,https://bie-webservice.sibbr.gov.br/bie-index/search
 Brazil,metadata/taxa-unnest,https://bie-webservice.sibbr.gov.br/bie-index/childConcepts/{id},TRUE
 Estonia,data/occurrences-count,https://elurikkus.ee/biocache-service/occurrences/search,TRUE
 Estonia,data/occurrences-count-groupby,https://elurikkus.ee/biocache-service/occurrence/facets,TRUE
-Estonia,data/species,https://elurikkus.ee/biocache-service/occurrences/facets/download,TRUE
+Estonia,data/species,https://elurikkus.ee/biocache-service/occurrences/facets/download,FALSE
 Estonia,data/species-count,https://elurikkus.ee/biocache-service/occurrence/facets,TRUE
 Estonia,metadata/assertions,https://elurikkus.ee/biocache-service/assertions/codes,TRUE
 Estonia,metadata/collections,https://elurikkus.ee/collectory/ws/collection,TRUE
@@ -115,7 +115,7 @@ Guatemala,metadata/taxa-single,https://snib.conap.gob.gt/especies-ws/search?q={n
 Guatemala,metadata/taxa-unnest,https://snib.conap.gob.gt/especies-ws/childConcepts/{id},TRUE
 Portugal,data/occurrences-count,https://registos-ws.gbif.pt/occurrences/search,TRUE
 Portugal,data/occurrences-count-groupby,https://registos-ws.gbif.pt/occurrence/facets,TRUE
-Portugal,data/species,https://registos-ws.gbif.pt/occurrences/facets/download,TRUE
+Portugal,data/species,https://registos-ws.gbif.pt/occurrences/facets/download,FALSE
 Portugal,data/species-count,https://registos-ws.gbif.pt/occurrence/facets,TRUE
 Portugal,metadata/assertions,https://registos-ws.gbif.pt/assertions/codes,TRUE
 Portugal,metadata/collections,https://metadados.gbif.pt/ws/collection,TRUE

@@ -45,42 +45,34 @@ wanted_columns <- function(type) {
            "reasons" = c("id", "name"))
 }
 
-# Rename specific columns, and convert to snake_case
+#' Internal function to rename specific columns, and convert to snake_case
+#' @noRd
+#' @keywords Internal
 rename_columns <- function(varnames, type) {
-    if (type == "media") {
-        varnames[varnames == "imageIdentifier"] <- "media_id"
-    }
-    else if (type == "taxa") {
-        varnames[varnames == "classs"] <- "class"
-        varnames[varnames %in% c("usage_key", "usageKey", "guid", "reference_id", "referenceId")] <- "taxon_concept_id"
-        varnames[varnames %in% c("genus_name", "genusName")] <- "genus"
-        varnames[varnames %in% c("family_name", "familyName")] <- "family"
-        varnames[varnames %in% c("order_name", "orderName")] <- "order"
-        varnames[varnames %in% c("class_name", "className")] <- "class"
-        varnames[varnames %in% c("phylum_name", "phylumName")] <- "phylum"
-        varnames[varnames %in% c("kingdom_name", "kingdomName")] <- "kingdom"
-        varnames[varnames %in% c("rank_name", "rankName")] <- "rank"
-        varnames[varnames %in% c("french_vernacular_name", "frenchVernacularName")] <- "vernacular_name"
-    } else if (type == "layer") {
-        varnames[varnames == "displayname"] <- "name"
-        varnames[varnames == "source_link"] <- "link"
-    } else if (type == "fields") {
+  switch(type,
+    "media" = {
+      varnames[varnames == "imageIdentifier"] <- "media_id"
+    },
+    "taxa" = {
+      varnames[varnames == "classs"] <- "class"
+      varnames[varnames %in% c("usage_key", "usageKey", "guid", "reference_id", "referenceId")] <- "taxon_concept_id"
+      varnames[varnames %in% c("genus_name", "genusName")] <- "genus"
+      varnames[varnames %in% c("family_name", "familyName")] <- "family"
+      varnames[varnames %in% c("order_name", "orderName")] <- "order"
+      varnames[varnames %in% c("class_name", "className")] <- "class"
+      varnames[varnames %in% c("phylum_name", "phylumName")] <- "phylum"
+      varnames[varnames %in% c("kingdom_name", "kingdomName")] <- "kingdom"
+      varnames[varnames %in% c("rank_name", "rankName")] <- "rank"
+      varnames[varnames %in% c("french_vernacular_name", "frenchVernacularName")] <- "vernacular_name"
+    },
+    "assertions" = {
       varnames[varnames == "name"] <- "id"
-      varnames[varnames == "info"] <- "description"
-    } else if (type == "assertions") {
-      varnames[varnames == "name"] <- "id"
-    } else if (type == "checklist") {
-      varnames[varnames == "Scientific Name Authorship"] <- "author"
-      varnames[varnames == "Species"] <- "species_guid"
-      varnames[varnames == "Species Name"] <- "species"
+    },
+    "checklist" = {
+      varnames[c(1, 2)] <- c("taxon_concept_id", "species")
     }
-    # change all to snake case?
-    if (type %in% c("taxa", "media")) {
-        varnames <- camel_to_snake_case(varnames)
-    } else if (type == "checklist") {
-      varnames <- tolower(gsub("\\.|\\s", "_", varnames))
-    }
-    varnames
+  )
+  camel_to_snake_case(varnames)
 }
 
 #' Internal function to make text to snake case
@@ -89,7 +81,8 @@ rename_columns <- function(varnames, type) {
 camel_to_snake_case <- function(x){
   x |>
     gsub("([a-z])([A-Z])", "\\1_\\L\\2", x = _, perl = TRUE) |>
-    gsub("\\.", "_", x = _) |>
+    trimws(which = "both") |> # end spaces
+    gsub("\\.+|\\s+", "_", x = _) |> # internal dots or spaces
     tolower()
 }
 
@@ -182,11 +175,9 @@ image_fields <- function() {
 
 species_facets <- function(){
   atlas <- pour("atlas", "region")
-  switch(atlas,
-         "Australia" = "speciesID",
-         # "Austria" = "species_guid",
-         # "Brazil" = "species_guid",
-         # "Canada" = "species_guid"
-         "species_guid"
-  )
+  if(atlas %in% c("Australia", "France", "Spain", "Sweden")) { # i.e. those using 'pipelines'
+    "speciesID"
+  }else{
+    "species_guid"
+  }
 }

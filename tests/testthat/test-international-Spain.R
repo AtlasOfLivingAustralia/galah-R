@@ -213,6 +213,22 @@ test_that("atlas_counts works with group_by for Spain", {
 #   expect_lt(with_profile[[1]], without_profile[[1]])
 # })
 
+test_that("atlas_species works for Spain", {
+  skip_if_offline()
+  galah_config(
+    atlas = "Spain",
+    email = "test@ala.org.au",
+    send_email = FALSE)
+  spp <- galah_call() |>
+    galah_identify("Carnivora") |>
+    atlas_species() |>
+    try(silent = TRUE)
+  skip_if(inherits(spp, "try-error"), message = "API not available")
+  expect_gt(nrow(spp), 20)
+  expect_equal(ncol(spp), 11)
+  expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
+})
+
 test_that("galah_select works for Spain", {
   skip_if_offline()
   x <- galah_select()

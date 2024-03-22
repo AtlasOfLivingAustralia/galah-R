@@ -130,6 +130,13 @@ test_that("atlas_counts errors when too many fields passed to group_by for Eston
   )
 })
 
+test_that("atlas_species returns error for Estonia", {
+  expect_error({galah_call(type = "species") |>
+      identify("Carnivora") |>
+      collect()
+  })
+})
+
 test_that("atlas_occurrences returns error for Estonia", {
   expect_error(atlas_occurrences(
     filter = galah_filter(year == 2020)

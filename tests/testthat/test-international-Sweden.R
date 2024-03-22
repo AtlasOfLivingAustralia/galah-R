@@ -200,6 +200,22 @@ test_that("atlas_counts works with group_by for Sweden", {
   expect_equal(names(result), c("year", "count"))
 })
 
+test_that("atlas_species works for Sweden", {
+  skip_if_offline()
+  galah_config(
+    atlas = "Sweden",
+    email = "martinjwestgate@gmail.com",
+    send_email = FALSE)
+  spp <- galah_call() |>
+    galah_identify("Carnivora") |>
+    atlas_species() |>
+    try(silent = TRUE)
+  skip_if(inherits(spp, "try-error"), message = "API not available")
+  expect_gt(nrow(spp), 20) # actual number 105 spp on 2024-03-22
+  expect_equal(ncol(spp), 10)
+  expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
+})
+
 test_that("atlas_occurrences works for Sweden", {
   skip_if_offline()
   galah_config(
@@ -209,12 +225,12 @@ test_that("atlas_occurrences works for Sweden", {
   occ <- galah_call() |>
     galah_identify("Mammalia") |>
     galah_filter(year < 1850) |>
-    galah_select(taxon_name, year) |>
+    galah_select(group = "basic") |> # use defaults
     atlas_occurrences() |>
     try(silent = TRUE)
   skip_if(inherits(occ, "try-error"), message = "API not available")
   expect_gt(nrow(occ), 0)
-  expect_equal(ncol(occ), 2)
+  expect_equal(ncol(occ), 8)
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
 })
 
@@ -225,9 +241,11 @@ test_that("atlas_media() works for Sweden", {
     email = "martinjwestgate@gmail.com",
     send_email = FALSE)
   x <- request_data() |>
-    identify("Vulpes vulpes") |>
-    filter(!is.na(images)) |>
-    select(group = "media") |>
+    identify("Aves") |>
+    filter(!is.na(images), year >= 1950) |>
+    # count() |>
+    # collect()
+    select(group = c("basic", "media")) |>
     collect(wait = TRUE) |>
     try(silent = TRUE)
   skip_if(inherits(x, "try-error"), message = "API not available")
@@ -238,8 +256,7 @@ test_that("atlas_media() works for Sweden", {
     try(silent = TRUE)
   skip_if(inherits(y, "try-error"), message = "API not available")
   expect_gt(nrow(y), 0)
-  # NOTE: In practice, IDs returned by occurrences are parsed as invalid by this API
-  # No idea why. Unable to debug in the browser either.
+  # collect_media(y)
 })
 
 galah_config(atlas = "Australia")
