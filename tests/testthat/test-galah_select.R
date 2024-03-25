@@ -176,3 +176,41 @@ test_that("galah_select can use tidyselect::last_col & group", {
                preset_groups("basic"))
   expect_equal(y$qa, "ZERO_COORDINATE")
 })
+
+test_that("galah_select warns for invalid field names when type = 'species'", {
+  skip_if_offline()
+  expect_warning({galah_call(type = "species") |>
+    identify("Crinia") |>
+    select(an_unrecognised_field_name) |>
+    collapse()})
+})
+
+test_that("galah_select works for type = 'species' with no arguments", {
+  skip_if_offline()
+  x <- galah_call(type = "species") |>
+    identify("Crinia") |>
+    select() |>
+    collect()
+  expect_equal(colnames(x), "taxon_concept_id")
+  expect_gt(nrow(x), 10)
+})
+
+test_that("galah_select works for type = 'species'", {
+  skip_if_offline()
+  x <- galah_call(type = "species") |>
+      identify("Crinia") |>
+      select(counts) |>
+      collect()
+  expect_equal(colnames(x), c("taxon_concept_id", "count"))
+  expect_gt(nrow(x), 10)
+})
+
+test_that("galah_select works for type = 'species' with group = 'taxonomy'", {
+  skip_if_offline()
+  x <- galah_call(type = "species") |>
+    identify("Crinia") |>
+    select(counts, lists, group = "taxonomy") |>
+    collect()
+  expect_true(all(c("taxon_concept_id", "count", "kingdom", "phylum") %in% colnames(x)))
+  expect_gt(nrow(x), 10)
+})

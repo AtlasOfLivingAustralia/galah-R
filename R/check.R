@@ -353,7 +353,11 @@ check_groups <- function(group, n){
     }
   }else{
     match.arg(group, 
-              choices = c("basic", "event", "media", "assertions"),
+              choices = c("basic", 
+                          "event",
+                          "taxonomy",
+                          "media",
+                          "assertions"),
               several.ok = TRUE)
   }
 }

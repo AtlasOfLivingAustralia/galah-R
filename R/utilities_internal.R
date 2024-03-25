@@ -26,9 +26,6 @@ wanted_columns <- function(type) {
                                "superorder", "infraorder", "infrafamily",
                                "superfamily", "subfamily", "subtribe",
                                "subgenus"),
-           "checklist" = c("kingdom", "phylum", "class", "order", "family",
-                           "genus", "species", "author", "species_guid",
-                           "vernacular_name"),
            "profile" = c("id", "shortName", "name", "description"),
            "media" = c("image_id",
                        "creator", "license",
@@ -49,6 +46,7 @@ wanted_columns <- function(type) {
 #' @noRd
 #' @keywords Internal
 rename_columns <- function(varnames, type) {
+  varnames <- camel_to_snake_case(varnames)
   switch(type,
     "media" = {
       varnames[varnames == "imageIdentifier"] <- "media_id"
@@ -69,10 +67,11 @@ rename_columns <- function(varnames, type) {
       varnames[varnames == "name"] <- "id"
     },
     "checklist" = {
-      varnames[c(1, 2)] <- c("taxon_concept_id", "species")
+      varnames[1] <- "taxon_concept_id"
+      varnames[varnames %in% c("counts", "number_of_records")] <- "count"
     }
   )
-  camel_to_snake_case(varnames)
+  varnames
 }
 
 #' Internal function to make text to snake case
