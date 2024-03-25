@@ -1,21 +1,3 @@
-#' Internal function to inform every session if user hasn't set an atlas
-#' called by `collapse()` functions
-#' @importFrom rlang inform
-#' @noRd
-#' @keywords Internal
-check_atlas_config <- function(){
-  if(!pour("package", "atlas_config_called_by_user")){
-    bullets <- c(
-      "By default, {galah} queries the Atlas of Living Australia (ALA).",
-      i = "A list of supported GBIF nodes can be found using `show_all(atlases)`.",
-      i = "To avoid seeing this message, or to change nodes, call e.g. `galah_config(atlas = 'GBIF')`."
-    )
-    inform(bullets, 
-           .frequency = "once",
-           .frequency_id = "atlas_not_set_inform")
-  }
-}
-
 #' Internal function to check whether first object is of class `data_request`
 #' Called exclusively by `atlas_` functions
 #' @noRd
