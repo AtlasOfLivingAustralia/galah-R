@@ -79,6 +79,21 @@ test_that("group_by works for three groups", {
                     c("basisOfRecord", "year", "stateProvince", "count")))
 })
 
+test_that("group_by returns correct information when ID fields are requested", {
+  # NOTE: previously these were parsed as the `label` for that field, not the 
+  # value itself, hence this test
+  skip_if_offline()
+  counts <- galah_call() |> 
+    identify("pardalotus quadragintus") |> 
+    filter(year == 2023) |>
+    group_by(species, dataResourceName, dataResourceUid) |> 
+    count() |>
+    collect()
+  expect_equal(colnames(counts),
+               c("species", "dataResourceName", "dataResourceUid", "count"))
+  expect_false(any(counts$dataResourceName == counts$dataResourceUid))
+})
+
 test_that("group_by fails for four groups", {
   skip_if_offline()
   galah_call() |>
