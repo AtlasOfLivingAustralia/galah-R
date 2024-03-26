@@ -2,6 +2,8 @@
 #' @noRd
 #' @keywords Internal
 #' @importFrom potions brew
+#' @importFrom cli cli_text
+#' @importFrom cli col_magenta
 .onLoad <- function(libname, pkgname) {
     if (pkgname == "galah") {
       brew(.pkg = "galah")
@@ -14,10 +16,10 @@
         try(galah_version <- utils::packageDescription("galah")[["Version"]],
             silent = TRUE)) ## get the galah version, if we can
       bullets <- c(
-        glue("galah: version {galah_version}"),
+        cli::cli_text("galah: version {galah_version}"),
         # i = "By default, {galah} queries the Atlas of Living Australia (ALA).",
-        i = "A list of supported GBIF nodes can be found using `show_all(atlases)`.",
-        i = "The default node is ALA (ala.org.au). To change nodes, call e.g. `galah_config(atlas = 'GBIF')`."
+        i = cli::cli_text("{cli::col_magenta('See a list of supported GBIF nodes using `show_all(atlases)`.')}"),
+        i = cli::cli_text("{cli::col_magenta('Default node set to ALA (ala.org.au). To change nodes, use e.g. `galah_config(atlas = \"GBIF\")`.')}")
       )
       inform(bullets)
     }
