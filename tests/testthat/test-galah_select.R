@@ -70,7 +70,6 @@ test_that("`galah_select()` builds expected columns when group = event", {
   expect_equal(y$qa, "none")
 })
 
-# test multiple groups work
 test_that("`galah_select()` accepts multiple groups", {
   skip_if_offline()
   x <- galah_call() |>
@@ -85,14 +84,32 @@ test_that("`galah_select()` accepts multiple groups", {
 
 test_that("galah_select defaults to group = 'basic' when there are no args", {
   skip_if_offline()
-  galah_config(run_checks = FALSE)
   x <- galah_call() |>
     identify("oxyopes dingo") |>
     collapse()
   y <- url_parse(x$url)$query
   expect_equal(strsplit(y$fields, ",")[[1]], preset_groups("basic"))
   expect_equal(y$qa, "none")
-  galah_config(run_checks = TRUE)
+})
+
+test_that("galah_select works with group = 'taxonomy'", {
+  skip_if_offline()
+  x <- galah_call() |>
+    identify("oxyopes dingo") |>
+    select(group = "taxonomy") |>
+    collapse()
+  y <- url_parse(x$url)$query
+  fields <- strsplit(tolower(y$fields), ",")[[1]]
+  expect_equal(fields,
+               c("recordid",
+                 "kingdom",
+                 "phylum", 
+                 "class",
+                 "order",
+                 "family",
+                 "genus",
+                 "species",
+                 "subspecies"))
 })
 
 test_that("galah_select returns assertions + recordID when group = assertions", {

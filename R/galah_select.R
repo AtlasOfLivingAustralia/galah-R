@@ -50,7 +50,7 @@
 #' 
 #' Using `group = "taxonomy"` returns higher taxonomic information for a given
 #' query. It is the only `group` that is accepted by `atlas_species()` as well 
-#' as `atlas_occurrences()`. 
+#' as `atlas_occurrences()`.
 #' 
 #' Using `group = "assertions"` returns all quality assertion-related
 #' columns. The list of assertions is shown by `show_all_assertions()`.
@@ -191,7 +191,15 @@ preset_groups <- function(group_name) {
                  "media" = c("multimedia",
                              "images",
                              "videos",
-                             "sounds"))
+                             "sounds"),
+                 "taxonomy" = c("kingdom",
+                                "phylum",
+                                "class", 
+                                "order", 
+                                "family",
+                                "genus",
+                                "species",
+                                "subspecies"))
   # note: assertions handled elsewhere
   return(cols)
 }
