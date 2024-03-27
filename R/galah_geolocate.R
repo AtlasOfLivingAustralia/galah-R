@@ -91,14 +91,15 @@
 #'   atlas_counts()
 #' }
 #' @export
-galah_geolocate <- function(..., type = c("polygon", "bbox")) {
+galah_geolocate <- function(..., type = c("polygon", "bbox", "radius")) {
   
   if (is.null(type)) type = "polygon"
   
   type <- match.arg(type)
   switch(type, 
          polygon = galah_polygon(...),
-         bbox = galah_bbox(...)
+         bbox = galah_bbox(...),
+         radius = galah_radius(...)
   )
 
 }

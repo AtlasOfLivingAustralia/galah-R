@@ -53,8 +53,17 @@ build_query <- function(identify = NULL,
   # merge
   query <- list(fq = c(taxa_query, filter_query)) 
   # geographic stuff
+  # browser()
   if (!is.null(location)) {
+    # if location is for a point radius vs polygon/bbox
+    if(all(!is.null(location$radius))) { # `galah_radius()` will always pass radius argument
+      query$q <- paste0("*:*")
+      query$lon <- location$lon
+      query$lat <- location$lat
+      query$radius <- location$radius
+    } else {
     query$wkt <- location
+    }
   }
   # add profiles information (ALA only)  
   if(pour("atlas", "region") == "Australia"){
