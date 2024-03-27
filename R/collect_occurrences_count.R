@@ -93,23 +93,29 @@ clean_group_by <- function(result, .query){
 clean_labels <- function(df){
   if(any(colnames(df) == "i18nCode")){
     values <- df$i18nCode |>
-      str_extract("\\.[:alnum:]+$") |>
+      str_extract("\\.[:graph:]+$") |>
       str_replace("^\\.", "")
     variable <- df$i18nCode[1] |>
-      str_extract("^[:alnum:]+\\.") |>
+      str_extract("^[:graph:]+\\.") |>
       str_replace("\\.$", "")
     df[[variable]] <- values
     df |>
       select(-any_of(c("label", "i18nCode", "fq"))) |>
       relocate("count", .after = last_col())
-  }else{ # Some atlases (e.g. Estonia) only have "label" column
-    field_name <- str_extract(df$fq[1], "[^:]+") |> 
-      as.character()
-    col_lookup <- c("label")
-    names(col_lookup) <- field_name
-    df |>
-      rename(all_of(col_lookup)) |>
-      select(-"fq")
+  }else{ 
+    # Some atlases (e.g. Estonia) only have "label" column
+    if(any(colnames(df) == "label")){
+      field_name <- str_extract(df$fq[1], "[^:]+") |> 
+        as.character()
+      col_lookup <- c("label")
+      names(col_lookup) <- field_name
+      df |>
+        rename(all_of(col_lookup)) |>
+        select(-"fq")      
+    }else{
+    # some are completely empty
+      df
+    }
   }
 }
 
