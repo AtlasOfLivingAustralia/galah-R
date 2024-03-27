@@ -24,24 +24,21 @@ galah_radius <- function(...){
 #' parser for radius
 #' @importFrom rlang try_fetch
 #' @importFrom sf st_as_sfc 
-#' @importFrom sf st_is_valid 
 #' @importFrom sf st_coordinates
 #' @importFrom stringr str_detect
-#' @importFrom stringr str_replace
 #' @noRd
 #' @keywords Internal
 parse_point_radius <- function(..., error_call = caller_env()){
   # browser()
-  query <- list(...)[[1]]
-  
-  if(is.null(query[[1]])) {
-    abort("Nothing passed.")
-  }
-  
-  query
-  
-  # make sure shapefiles are processed correctly
-  # if (!inherits(query, "sf")) {query <- query[[1]]} else {query <- query}
+  query <- try_fetch(
+    list(...)[[1]],
+    error = function(cnd) {
+      bullets <- c(
+        "No coordinates detected.",
+        i = "Did you forget to supply coordinates to `galah_radius()`?"
+      )
+      abort(bullets, call = error_call)
+  })
   
   # Coords are supplied as an `sfc` point or lat/lon arguments
   if (inherits(query, c("list")) && inherits(query[[1]], c("sf", "sfc"))) {
@@ -50,11 +47,15 @@ parse_point_radius <- function(..., error_call = caller_env()){
     coords <- query[[1]] 
     
     # make sure it's a point
-    if (!inherits(coords, c("sfc_POINT", "sfc"))) {
+    if (!inherits(coords, c("sfc_POINT"))) {
+      
+      # TODO: Recognise when more than one point is passed, default to first point
+      
+      unrecognised_class <- glue::glue_collapse(class(coords), sep = ", ")
       bullets <- c(
-        "You haven't supplied a point's coordinates.",
-        i = "Did you supply a polygon or multipolygon?",
-        i = "`galah_radius()` accepts sfc_POINT objects."
+        "Invalid spatial object supplied as point coordinates.",
+        i = "`galah_radius()` accepts sfc_POINT objects.",
+        x = glue("Cannot use class: {unrecognised_class}.")
       )
       abort(bullets, call = error_call)
     }
@@ -81,11 +82,11 @@ parse_point_radius <- function(..., error_call = caller_env()){
       }
     }
   
-  
+  # Check for radius value. If empty, set to 10 km
   if(is.null(query$radius)) {
     radius = 10
     bullets <- c(
-      "Missing `radius` value.",
+      "No radius value specified.",
       "*" = "Setting radius to 10 km."
     )
     warn(bullets)
@@ -93,8 +94,7 @@ parse_point_radius <- function(..., error_call = caller_env()){
     radius = query$radius
   }
 
-  
-  # check object is accepted class
+  # Check object is accepted class when supplied to lat/lon/radius arguments
   if (!any(inherits(c(lat, lon, radius), c("numeric", "double", "integer")))) {
 
     wrong_classes <- tibble(arg = names(query),
@@ -121,8 +121,17 @@ parse_point_radius <- function(..., error_call = caller_env()){
     abort(bullets, call = error_call)
   }
   
-  # check that radius is within a certain size?
+  # Should this be an error? A message?
+  if(radius > 1565) {
+    bullets <- c(
+      "Radius is larger than the area of Australia.",
+      i = "Try reducing the radius to narrow your query."
+    )
+    warn(bullets)
+  }
   
-  out_query <- list(lat = lat, lon = lon, radius = radius)
+  out_query <- list(lat = lat, 
+                    lon = lon, 
+                    radius = radius)
   out_query
 }
