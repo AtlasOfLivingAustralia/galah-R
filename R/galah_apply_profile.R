@@ -34,9 +34,9 @@ galah_apply_profile <- function(...){
     detect_request_object()
   switch(class(dots[[1]])[1],
          "data_request" = {
-           df <- parse_quosures_basic(dots[-1]) |>
+           result <- parse_quosures_basic(dots[-1]) |>
              parse_profile()
-           update_data_request(dots[[1]], data_profile = df)
+           update_data_request(dots[[1]], data_profile = result)
          },
          {
            parse_quosures_basic(dots) |>
@@ -49,10 +49,10 @@ galah_apply_profile <- function(...){
 #' @export
 apply_profile <- function(.data, ...){
   dots <- enquos(..., .ignore_empty = "all")
-  df <- parse_quosures_basic(dots) |>
+  result <- parse_quosures_basic(dots) |>
     pluck(!!!list(1)) |>
     parse_profile()
-  update_data_request(.data, data_profile = df)
+  update_data_request(.data, data_profile = result)
 }
 
 #' Internal parsing of `profile` args
@@ -70,10 +70,9 @@ parse_profile <- function(dot_names, error_call = caller_env()) {
       )
       abort(bullets, call = error_call)
     }else{
-      df <- tibble(data_profile = as.character(dot_names))
+      as.character(dot_names)
     }
   }else{
-    df <- NULL
+    NULL
   }
-  return(df)
 }

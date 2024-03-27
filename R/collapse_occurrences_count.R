@@ -31,7 +31,7 @@ collapse_occurrences_count_atlas <- function(identify = NULL,
   query <- build_query(identify, 
                        filter, 
                        geolocate, 
-                       data_profile = data_profile$data_profile) 
+                       data_profile = data_profile) 
   # set behaviour depending on `group_by()`
   if(is.null(group_by)){
     result <- list(type = "data/occurrences-count")
