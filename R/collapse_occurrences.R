@@ -28,7 +28,7 @@ collapse_occurrences_uk <- function(.query){
   url$query <- c(build_query(identify = .query$identify,
                              filter = .query$filter, 
                              location = .query$geolocate, 
-                             data_profile = .query$data_profile$data_profile),
+                             data_profile = .query$data_profile),
                  fields = "`SELECT_PLACEHOLDER`",
                  qa = "`ASSERTIONS_PLACEHOLDER`",
                  sourceTypeId = 2001,
@@ -90,7 +90,7 @@ collapse_occurrences_la <- function(.query){
   query <- c(build_query(identify = .query$identify,
                          filter = .query$filter, 
                          location = .query$geolocate, 
-                         data_profile = .query$data_profile$data_profile),
+                         data_profile = .query$data_profile),
              fields = "`SELECT_PLACEHOLDER`",
              qa = "`ASSERTIONS_PLACEHOLDER`",
              facet = "false", # not tested

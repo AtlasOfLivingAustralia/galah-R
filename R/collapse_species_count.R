@@ -33,7 +33,7 @@ collapse_species_count_atlas <- function(identify = NULL,
   query <- build_query(identify, 
                        filter, 
                        geolocate, 
-                       data_profile = data_profile$data_profile)
+                       data_profile = data_profile)
   result <- list(type = "data/species-count")
   # set behaviour depending on `group_by()`
   if(is.null(group_by)){
