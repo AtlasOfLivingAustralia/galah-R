@@ -8,17 +8,88 @@ test_that("galah_filter gives an error for single equals sign", {
   expect_error(galah_filter(year = 2010))
 })
 
-## FIXME: ensure assertions are handled correctly
-# Did this ever work correctly?
+test_that("galah_filter works with assertions", {
+  skip_if_offline()
+  count_all <- atlas_counts() |>
+    pull(count)
+  count_invalid_spp <- galah_call() |>
+    filter(assertions == "INVALID_SCIENTIFIC_NAME") |>
+    count() |>
+    collect() |>
+    pull(count)
+  count_valid_spp <- galah_call() |>
+    filter(assertions != "INVALID_SCIENTIFIC_NAME") |>
+    count() |>
+    collect() |>
+    pull(count)
+  expect_lt(count_invalid_spp, count_all)
+  expect_lt(count_valid_spp, count_all)
+  expect_lt(count_invalid_spp, count_valid_spp)
+  expect_equal(count_invalid_spp + count_valid_spp,
+               count_all)
+})
 
-# test_that("galah_filter handles assertion filters", {
-#   filters <- galah_filter(ZERO_COORDINATE == FALSE)
-#   expect_s3_class(filters, c("tbl_df", "tbl", "data.frame"))
-#   expect_true(grepl("assertions", filters$query))   # FIXME 
-# })
+test_that("galah_filter handles multiple assertions", {
+  skip_if_offline()
+  # OR statements
+  all_records <- atlas_counts() |>
+    pull(count)
+  either_valid <- galah_call() |>
+    filter(assertions != c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")) |>
+    count() |>
+    collect() |>
+    pull(count)
+  either_invalid <- galah_call() |>
+    filter(assertions == c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")) |>
+    count() |>
+    collect() |>
+    pull(count)
+  expect_lt(either_valid, all_records)
+  expect_lt(either_invalid, all_records)
+  expect_lt(either_invalid, either_valid)
+  expect_equal(either_valid + either_invalid, all_records)
+  
+  # AND statements
+  both_invalid <- galah_call() |>
+    filter(assertions == "INVALID_SCIENTIFIC_NAME",
+           assertions ==  "COORDINATE_INVALID") |>
+    count() |>
+    collect() |>
+    pull(count)
+  both_valid <- galah_call() |>
+    filter(assertions != "INVALID_SCIENTIFIC_NAME",
+           assertions !=  "COORDINATE_INVALID") |>
+    count() |>
+    collect() |>
+    pull(count)
+  expect_lt(both_valid, all_records)
+  expect_lt(both_invalid, all_records)
+  expect_lt(both_invalid, both_valid)
+  expect_lt(both_valid + both_invalid, all_records)
+  
+  # compare either vs both
+  expect_lt(both_valid, either_valid) 
+  ## The above test fails, which suggests the query is still not being
+  ## constructed carefully enough. More testing needed
+  expect_lt(both_invalid, either_invalid)
+})
 
-# negative assertions:
-# galah_filter(BASIS_OF_RECORD_INVALID == FALSE)
+test_that("galah_filter handles assertions and taxa", {
+  skip_if_offline()
+  problem_families <- galah_call() |>
+    filter(assertions == "INVALID_SCIENTIFIC_NAME") |>
+    group_by(family) |>
+    slice_head(n = 5) |>
+    count() |>
+    collect() 
+  top_family <- galah_call() |>
+    identify(problem_families$family[1]) |>
+    filter(assertions == "INVALID_SCIENTIFIC_NAME") |>
+    group_by(family) |>
+    count() |>
+    collect() 
+  expect_equal(problem_families$count[1], top_family$count)
+})
 
 test_that("galah_filter returns empty tibble when no arguments specified", {
   filters <- galah_filter()

@@ -29,7 +29,6 @@ galah_radius <- function(...){
 #' @noRd
 #' @keywords Internal
 parse_point_radius <- function(..., error_call = caller_env()){
-  # browser()
   query <- try_fetch(
     list(...)[[1]],
     error = function(cnd) {

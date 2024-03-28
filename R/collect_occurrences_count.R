@@ -93,7 +93,7 @@ clean_group_by <- function(result, .query){
 clean_labels <- function(df){
   if(any(colnames(df) == "i18nCode")){
     values <- df$i18nCode |>
-      str_extract("\\.[:graph:]+$") |>
+      str_extract("\\.([:graph:]|\\s)+$") |>
       str_replace("^\\.", "")
     variable <- df$i18nCode[1] |>
       str_extract("^[:graph:]+\\.") |>

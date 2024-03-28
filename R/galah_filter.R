@@ -55,6 +55,11 @@
 #' `solr` supports range queries on text as well as numbers; so this is valid: 
 #' `galah_filter(cl22 >= "Tasmania")`
 #' 
+#' It is possible to filter by 'assertions', which are statements about data 
+#' validity, e.g. to remove those lacking critical spatial or taxonomic data:
+#' `galah_filter(assertions != c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")`
+#' Valid assertions can be found using `show_all(assertions)`.
+#' 
 #' @examples \dontrun{
 #' # Filter query results to return records of interest
 #' galah_call() |>

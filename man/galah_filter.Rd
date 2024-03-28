@@ -73,6 +73,11 @@ It is possible to use an object to specify required values, e.g.
 
 \code{solr} supports range queries on text as well as numbers; so this is valid:
 \code{galah_filter(cl22 >= "Tasmania")}
+
+It is possible to filter by 'assertions', which are statements about data
+validity, e.g. to remove those lacking critical spatial or taxonomic data:
+\verb{galah_filter(assertions != c("INVALID_SCIENTIFIC_NAME", "COORDINATE_INVALID")}
+Valid assertions can be found using \code{show_all(assertions)}.
 }
 \examples{
 \dontrun{

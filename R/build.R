@@ -51,9 +51,8 @@ build_query <- function(identify = NULL,
     }
   }
   # merge
-  query <- list(fq = c(taxa_query, filter_query)) 
+  query <- list(fq = c(filter_query, taxa_query)) 
   # geographic stuff
-  # browser()
   if (!is.null(location)) {
     # if location is for a point radius vs polygon/bbox
     if(all(!is.null(location$radius))) { # `galah_radius()` will always pass radius argument
@@ -110,8 +109,9 @@ build_query_gbif <- function(identify = NULL,
 build_single_fq <- function(query){
   if(any(names(query) == "fq")){
     # ensure all arguments from galah_filter are enclosed in brackets
+    # EXCEPT for assertions
     fq <- query$fq
-    missing_brackets <- !grepl("^\\(", fq)
+    missing_brackets <- !grepl("^\\(", fq) & !grepl("assertions", fq)
     if(any(missing_brackets)){
       fq[missing_brackets] <- paste0("(", fq[missing_brackets], ")")
     }
