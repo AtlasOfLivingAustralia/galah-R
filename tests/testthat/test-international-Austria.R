@@ -183,6 +183,24 @@ test_that("atlas_counts works with group_by for Austria", {
   expect_equal(names(result), c("year", "count"))
 })
 
+# FAILS
+test_that("atlas_species works for Austria", {
+  skip_if_offline()
+  galah_config(
+    atlas = "Austria",
+    email = "ala4r@ala.org.au", 
+    download_reason_id = "testing",
+    send_email = FALSE)
+  spp <- galah_call() |>
+    galah_identify("Carnivora") |>
+    atlas_species() |>
+    try(silent = TRUE)
+  skip_if(inherits(spp, "try-error"), message = "API not available")
+  expect_gt(nrow(spp), 20) # actual number 105 spp on 2024-03-22
+  expect_gt(ncol(spp), 8) # actually 10
+  expect_s3_class(spp, c("tbl_df", "tbl", "data.frame"))
+})
+
 ## FIXME: Test only works when run_checks = TRUE
 test_that("atlas_occurrences works for Austria", {
   skip_if_offline()

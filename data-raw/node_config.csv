@@ -1,6 +1,6 @@
 ﻿atlas,type,url,functional
-Australia,data/distributions-id,https://api.ala.org.au/spatial-service/distribution/{id},TRUE
-Australia,data/distributions-taxa,https://api.ala.org.au/spatial-service/distribution/lsids/{lsid}?nowkt=false,TRUE
+Australia,data/distributions-id,https://api.ala.org.au/spatial-service/distribution/{id},FALSE
+Australia,data/distributions-taxa,https://api.ala.org.au/spatial-service/distribution/lsids/{lsid}?nowkt=false,FALSE
 Australia,data/occurrences,https://biocache-ws.ala.org.au/ws/occurrences/offline/download,TRUE
 Australia,data/occurrences-count,https://biocache-ws.ala.org.au/ws/occurrences/search,TRUE
 Australia,data/occurrences-count-groupby,https://biocache-ws.ala.org.au/ws/occurrences/facets,TRUE
@@ -11,7 +11,7 @@ Australia,files/media,https://api.ala.org.au/images/ws/image/{id}/original,TRUE
 Australia,metadata/assertions,https://biocache-ws.ala.org.au/ws/assertions/codes,TRUE
 Australia,metadata/collections,https://api.ala.org.au/metadata/ws/collection,TRUE
 Australia,metadata/datasets,https://api.ala.org.au/metadata/ws/dataResource,TRUE
-Australia,metadata/distributions,https://api.ala.org.au/spatial-service/distributions,TRUE
+Australia,metadata/distributions,https://api.ala.org.au/spatial-service/distributions,FALSE
 Australia,metadata/fields,https://biocache-ws.ala.org.au/ws/index/fields,TRUE
 Australia,metadata/fields-unnest,https://biocache-ws.ala.org.au/ws/occurrences/facets,TRUE
 Australia,metadata/identifiers,https://api.ala.org.au/namematching/api/getByTaxonID,TRUE
@@ -100,7 +100,7 @@ Global,,https://api.gbif.org/v1/dataset/search,TRUE
 Guatemala,data/occurrences,https://snib.conap.gob.gt/registros-ws/occurrences/offline/download,TRUE
 Guatemala,data/occurrences-count,https://snib.conap.gob.gt/registros-ws/occurrences/search,TRUE
 Guatemala,data/occurrences-count-groupby,https://snib.conap.gob.gt/registros-ws/occurrence/facets,TRUE
-Guatemala,data/species,https://snib.conap.gob.gt/registros-ws/occurrences/facets/download,TRUE
+Guatemala,data/species,https://snib.conap.gob.gt/registros-ws/occurrences/facets/download,FALSE
 Guatemala,data/species-count,https://snib.conap.gob.gt/registros-ws/occurrence/facets,TRUE
 Guatemala,metadata/assertions,https://snib.conap.gob.gt/registros-ws/assertions/codes,TRUE
 Guatemala,metadata/collections,https://snib.conap.gob.gt/colecciones/ws/collection,TRUE
@@ -175,7 +175,7 @@ Sweden,metadata/taxa-unnest,https://species.biodiversitydata.se/ws/childConcepts
 United Kingdom,data/occurrences,https://records-ws.nbnatlas.org/occurrences/index/download,TRUE
 United Kingdom,data/occurrences-count,https://records-ws.nbnatlas.org/occurrences/search,TRUE
 United Kingdom,data/occurrences-count-groupby,https://records-ws.nbnatlas.org/occurrence/facets,TRUE
-United Kingdom,data/species,https://records-ws.nbnatlas.org/occurrences/facets/download,TRUE
+United Kingdom,data/species,https://records-ws.nbnatlas.org/occurrences/facets/download,FALSE
 United Kingdom,data/species-count,https://records-ws.nbnatlas.org/occurrence/facets,TRUE
 United Kingdom,metadata/assertions,https://records-ws.nbnatlas.org/assertions/codes,TRUE
 United Kingdom,metadata/collections,https://registry.nbnatlas.org/ws/collection,TRUE

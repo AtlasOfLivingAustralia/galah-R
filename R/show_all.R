@@ -31,8 +31,7 @@
 #' | |`fields`| Show fields that are stored in an atlas | `show_all_fields()` |
 #' | |`licenses`| Show what copyright licenses are applied to media | `show_all_licenses()` |
 #' | |`profiles`| Show what data profiles are available | `show_all_profiles()` |
-#' | Taxonomy |`distributions`|Show available distribution maps|`show_all_distributions()`|
-#' | |`lists`| Show what species lists are available| `show_all_lists()` |
+#' | Taxonomy |`lists`| Show what species lists are available| `show_all_lists()` |
 #' | |`ranks`| Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) | `show_all_ranks()` |
 #' 
 #' @return An object of class `tbl_df` and `data.frame` (aka a tibble) 
@@ -124,7 +123,8 @@ show_all_datasets <- function(limit = NULL){
 }
 
 #' @rdname show_all
-#' @export
+#' @noRd
+#' @keywords Internal
 show_all_distributions <- function(limit = NULL){
   show_all_generic(type = "distributions", limit = limit)
 }

@@ -7,7 +7,6 @@
 \alias{show_all_atlases}
 \alias{show_all_collections}
 \alias{show_all_datasets}
-\alias{show_all_distributions}
 \alias{show_all_fields}
 \alias{show_all_licences}
 \alias{show_all_lists}
@@ -28,8 +27,6 @@ show_all_atlases(limit = NULL)
 show_all_collections(limit = NULL)
 
 show_all_datasets(limit = NULL)
-
-show_all_distributions(limit = NULL)
 
 show_all_fields(limit = NULL)
 
@@ -82,8 +79,7 @@ The available types of information for \code{show_all_} are:\tabular{llll}{
     \tab \code{fields} \tab Show fields that are stored in an atlas \tab \code{show_all_fields()} \cr
     \tab \code{licenses} \tab Show what copyright licenses are applied to media \tab \code{show_all_licenses()} \cr
     \tab \code{profiles} \tab Show what data profiles are available \tab \code{show_all_profiles()} \cr
-   Taxonomy \tab \code{distributions} \tab Show available distribution maps \tab \code{show_all_distributions()} \cr
-    \tab \code{lists} \tab Show what species lists are available \tab \code{show_all_lists()} \cr
+   Taxonomy \tab \code{lists} \tab Show what species lists are available \tab \code{show_all_lists()} \cr
     \tab \code{ranks} \tab Show valid taxonomic ranks (e.g. Kingdom, Class, Order, etc.) \tab \code{show_all_ranks()} \cr
 }
 }

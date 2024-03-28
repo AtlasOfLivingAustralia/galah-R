@@ -10,14 +10,14 @@
 galah_call(method = c("data", "metadata", "files"), type, ...)
 
 request_data(
-  type = c("occurrences", "occurrences-count", "occurrences-doi", "distributions",
-    "species", "species-count"),
+  type = c("occurrences", "occurrences-count", "occurrences-doi", "species",
+    "species-count"),
   ...
 )
 
 request_metadata(type)
 
-request_files(type = c("media"))
+request_files(type = "media")
 }
 \arguments{
 \item{method}{string: what \code{request} function should be called. Should be one

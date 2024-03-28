@@ -234,6 +234,7 @@ test_that("atlas_occurrences works for Sweden", {
   expect_s3_class(occ, c("tbl_df", "tbl", "data.frame"))
 })
 
+# FIXME
 test_that("atlas_media() works for Sweden", {
   skip_if_offline()
   galah_config(
@@ -242,9 +243,9 @@ test_that("atlas_media() works for Sweden", {
     send_email = FALSE)
   x <- request_data() |>
     identify("Aves") |>
-    filter(!is.na(images), year >= 1950) |>
-    # count() |>
-    # collect()
+    filter(!is.na(images)) |>
+    count() |>
+    collect()
     select(group = c("basic", "media")) |>
     collect(wait = TRUE) |>
     try(silent = TRUE)
