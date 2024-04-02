@@ -13,27 +13,9 @@ vignette: >
 galah_config(atlas = "Australia", verbose = FALSE)
 ```
 
-# `show_all()` & `search_all()`
-
-As of galah 1.5.0, there are two simplified functions to look up information: 
-`show_all()` and `search_all()`. 
-
-These are individual functions that are able to return all types of information 
-in one place, rather than using specific sub-functions to look up information.
-
-For example, to show all available Living Atlases supported:
-
-```{r}
-show_all(atlases)
-```
-
-To search for a specific available Living Atlas:
-
-```{r}
-search_all(atlases, "Spain")
-```
-
-To show all fields:
+`galah` supports two functions to look up information: `show_all()` and 
+`search_all()`. The first argument to both functions is a service that you 
+wish to look up; for example to see what information fields are available, use:
 
 ```{r}
 show_all(fields)

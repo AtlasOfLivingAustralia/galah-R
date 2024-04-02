@@ -1,6 +1,6 @@
 ---
 title: "Taxonomic filtering"
-author: "Callum Waite, Shandiya Balasubramaniam"
+author: "Callum Waite & Shandiya Balasubramaniam"
 date: '2023-10-13'
 output:
   rmarkdown::html_vignette
@@ -19,7 +19,7 @@ library(dplyr)
 
 ```{r, include = FALSE}
 # set up galah session
-galah_config(email = "callumwaite2000@gmail.com", verbose = FALSE)
+galah_config(email = "ala4r@ala.org.au", verbose = FALSE)
 ```
 
 ```{r, eval = FALSE}
@@ -51,55 +51,61 @@ search_taxa(tibble(kingdom = "Fungi", genus = "Morganella")) |> gt::gt()
 ```
 <br>
 
-### galah_identify()
+### identify()
 
-`galah_identify()` is similar to `search_taxa()`, except that it can be used within a piped workflow to retrieve counts, species, or records e.g.
+`identify()` is similar to `search_taxa()`, except that it can be used within a piped workflow to retrieve counts, species, or records e.g.
 
 ```{r}
 galah_call() |>
-  galah_identify("Petroica boodang") |>
-  atlas_counts() 
+  identify("Petroica boodang") |>
+  count() |>
+  collect()
 ```
 
 ```{r}
-galah_call() |>
-  galah_identify("Muscicapa chrysoptera", "Guniibuu") |>
-  atlas_species() |> 
+galah_call(type = "species") |>
+  identify("Muscicapa chrysoptera", "Guniibuu") |>
+  collect() |> 
   gt::gt()
 
 ```
 
 ```{r}
 galah_call() |>
-  galah_identify(tibble(kingdom = "Fungi", genus = "Morganella")) |>
-  atlas_occurrences() |>
+  identify(tibble(kingdom = "Fungi", genus = "Morganella")) |>
+  collect() |>
   head() |> 
   gt::gt()
 ```
 
-<br>
-We recommend using `search_taxa()` prior to calling `galah_identify()` in a workflow to confirm the validity of the provided search term. Setting `search = TRUE` passes the results of `search_taxa()` to `galah_identify()`, which also speeds up the query.
+
+### filter()
+
+`filter()` subsets records by searching for exact matches to an expression, and 
+may also be used for taxonomic filtering e.g.
+
+```{r}
+galah_call() |>
+  filter(species == "Petroica boodang") |>
+  count() |>
+  collect()
+```
+
+Alternatively, we could use `filter()` after first checking taxonomy with 
+`search_taxa()`, in place of `identify()`:
 
 ```{r}
 
 robins <- search_taxa("Muscicapa chrysoptera", "Guniibuu") 
 
 galah_call() |>
-  galah_identify(robins$taxon_concept_id, search = FALSE) |>
-  atlas_counts()
+  filter(taxonConceptID == robins$taxon_concept_id) |>
+  count() |>
+  collect()
 
 ```
-<br>
 
-### galah_filter()
-
-`galah_filter()` subsets records by searching for exact matches to an expression, and may also be used for taxonomic filtering e.g.
-
-```{r}
-galah_call() |>
-  galah_filter(species == "Petroica boodang") |>
-  atlas_counts()
-```
+It is also possible to specify several species at once using `filter()`:
 
 ```{r}
 aus_petroica <- c("Petroica boodang", "Petroica goodenovii", 
@@ -107,41 +113,60 @@ aus_petroica <- c("Petroica boodang", "Petroica goodenovii",
                   "Petroica rodinogaster", "Petroica multicolor")
 
 galah_call() |>
-  galah_filter(species == aus_petroica) |>
-  galah_group_by(species, vernacularName) |>
-  atlas_counts() |> 
+  filter(species %in% aus_petroica) |>
+  group_by(species, vernacularName) |>
+  count() |> 
+  collect() |>
   gt::gt()
 ```
 
-This can be useful in searching for paraphyletic or polyphyletic groups, which cannot be done using `galah_identify()`. For example, to get counts of non-chordates:
+This can be useful in searching for paraphyletic or polyphyletic groups, which 
+cannot be done using `identify()`. For example, to get counts of non-chordates:
 
 ```{r}
 galah_call() |>
-  galah_filter(kingdom == "Animalia", phylum != "Chordata") |>
-  galah_group_by(phylum) |>
-  atlas_counts() |>
+  filter(kingdom == "Animalia", phylum != "Chordata") |>
+  group_by(phylum) |>
+  count() |>
+  collect() |>
   head() |> 
   gt::gt()
 ```
 
-### galah_filter(), galah_identify(), and taxonomic ranks
+### filter(), identify(), and taxonomic ranks
 
-Deciding between using `galah_filter()` and `galah_identify()` in a query comes down to how a record has been classified, and whether or not you have the correct *unique* name and classification of the taxa of interest.
+Deciding between using `filter()` and `identify()` in a query comes down to how 
+a record has been classified, and whether or not you have the correct *unique* 
+name and classification of the taxa of interest.
 
-The ALA has fields for the primary taxonomic ranks (`kingdom`, `phylum`, `class`, `order`, `family`, `genus`, `species`) and some secondary ranks (e.g. `subfamily`, `subgenus`), all of which may be used with `galah_filter()` and `galah_identify()`. Additionally, there is a field named `scientificName`, which refers to the lowest taxonomic rank to which a record has been identified e.g.
+The ALA has fields for the primary taxonomic ranks (`kingdom`, `phylum`, `class`, 
+`order`, `family`, `genus`, `species`) and some secondary ranks (e.g. `subfamily`, 
+`subgenus`), all of which may be used with `galah_filter()` and `galah_identify()`. 
+Additionally, there is a field named `scientificName`, which refers to the lowest 
+taxonomic rank to which a record has been identified e.g.
 
 ```{r}
 galah_call() |>
-  galah_identify(tibble(genus = "Pitta")) |>
-  galah_group_by(scientificName, taxonRank) |>
-  atlas_counts() |>
+  identify(tibble(genus = "Pitta")) |>
+  group_by(scientificName, taxonRank) |>
+  count() |>
+  collect() |>
   filter(!is.na(scientificName)) |>
   gt::gt()
 ```
 
-If, for instance, you have the correct species or subspecies name, then searching for matches against the `species` and `subspecies` fields, respectively, will provide more precise results. This is because the field `scientificName` may include subgenera. If you've used `search_taxa()` to get the ALA-matched name of a taxon and only want records identified to a particular level of classification, searching for matches against `scientificName` is recommended.
+If, for instance, you have the correct species or subspecies name, then searching 
+for matches against the `species` and `subspecies` fields, respectively, will 
+provide more precise results. This is because the field `scientificName` may 
+include subgenera. If you've used `search_taxa()` to get the ALA-matched name of 
+a taxon and only want records identified to a particular level of classification, 
+searching for matches against `scientificName` is recommended.
 
-Paraphyletic or polyphyletic groups may contain taxa identified to different taxonomic levels. In this case, it is simpler to use `search_taxa()` and `galah_identify()` rather than `galah_filter()`. In the example below, `search_taxa()` matches terms to one genus, three species, and two subspecies. This can then be used in a piped workflow with `galah_identify()`.
+Paraphyletic or polyphyletic groups may contain taxa identified to different 
+taxonomic levels. In this case, it is simpler to use `search_taxa()` and 
+`identify()` rather than `filter()`. In the example below, `search_taxa()` 
+matches terms to one genus, three species, and two subspecies. This can then be 
+used in a piped workflow with `identify()`.
 
 ```{r}
 tas_endemic <- c("Sarcophilus", # Tasmanian Devil
@@ -154,9 +179,10 @@ tas_endemic <- c("Sarcophilus", # Tasmanian Devil
 search_taxa(tas_endemic) |> gt::gt()
 
 galah_call() |>
-  galah_identify(tas_endemic) |>
-  galah_group_by(scientificName) |>
-  atlas_counts() |>
+  identify(tas_endemic) |>
+  group_by(scientificName) |>
+  count() |>
+  collect() |>
   arrange(scientificName) |>
   gt::gt()
 ```

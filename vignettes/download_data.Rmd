@@ -1,7 +1,7 @@
 ---
 title: "Download data"
 author: "Martin Westgate & Dax Kellie"
-date: '2023-12-14'
+date: '2024-04-02'
 output:
   rmarkdown::html_vignette
 vignette: >
@@ -23,6 +23,12 @@ return any new data. Instead it provides a citation for an existing dataset (
 downloaded using `atlas_occurrences`) that has an associated DOI. The other 
 functions are described below.
 
+Note that it is equally permissable to use the `type` argument of `galah_call()`
+to specify the kind of data you want, and then retrive it using `collect()`. 
+Here we use the `atlas_` prefix for consistency with earlier versions of `galah`,
+and because the `atlas_` functions sometimes include shortcuts to make your life
+easier.
+
 
 # Record counts
 `atlas_counts()` provides summary counts on records in the specified atlas, 
@@ -39,7 +45,7 @@ atlas_counts()
 ## # A tibble: 1 × 1
 ##       count
 ##       <int>
-## 1 132342396
+## 1 133480524
 ```
 
 In addition to the filter arguments, it has an optional `group_by` argument, 
@@ -53,20 +59,21 @@ galah_call() |>
 ```
 
 ```
-## # A tibble: 11 × 2
-##    kingdom       count
-##    <chr>         <int>
-##  1 Animalia  101442503
-##  2 Plantae    26136825
-##  3 Fungi       2293753
-##  4 Chromista   1021828
-##  5 Protista     352983
-##  6 Bacteria     113118
-##  7 Eukaryota      8826
-##  8 Protozoa       4765
-##  9 Archaea        4119
-## 10 Virus          2307
-## 11 Viroid          103
+## # A tibble: 12 × 2
+##    kingdom           count
+##    <chr>             <int>
+##  1 Animalia      102041102
+##  2 Plantae        26438140
+##  3 Fungi           2341244
+##  4 Chromista       1049514
+##  5 Protista         311406
+##  6 Bacteria         113080
+##  7 Archaea            4119
+##  8 Virus              2297
+##  9 Bamfordvirae        204
+## 10 Orthornavirae       152
+## 11 Viroid              104
+## 12 Shotokuvirae         39
 ```
 
 
@@ -88,15 +95,18 @@ species |> head()
 ```
 
 ```
-## # A tibble: 6 × 10
-##   kingdom  phylum   class    order    family  genus        species                     author            species_guid    vernacular_name
-##   <chr>    <chr>    <chr>    <chr>    <chr>   <chr>        <chr>                       <chr>             <chr>           <chr>          
-## 1 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys delicatulus       (Gould, 1842)     https://biodiv… Delicate Mouse 
-## 2 Animalia Chordata Mammalia Rodentia Muridae Mesembriomys Mesembriomys gouldii        (J.E. Gray, 1843) https://biodiv… Black-footed T…
-## 3 Animalia Chordata Mammalia Rodentia Muridae Zyzomys      Zyzomys argurus             (Thomas, 1889)    https://biodiv… Common Rock-rat
-## 4 Animalia Chordata Mammalia Rodentia Muridae Pseudomys    Pseudomys hermannsburgensis (Waite, 1896)     https://biodiv… Sandy Inland M…
-## 5 Animalia Chordata Mammalia Rodentia Muridae Melomys      Melomys burtoni             (Ramsay, 1887)    https://biodiv… Grassland Melo…
-## 6 Animalia Chordata Mammalia Rodentia Muridae Notomys      Notomys alexis              Thomas, 1922      https://biodiv… Spinifex Hoppi…
+## # A tibble: 6 × 11
+##   taxon_concept_id       species_name scientific_name_auth…¹ taxon_rank kingdom
+##   <chr>                  <chr>        <chr>                  <chr>      <chr>  
+## 1 https://biodiversity.… Pseudomys d… (Gould, 1842)          species    Animal…
+## 2 https://biodiversity.… Mesembriomy… (J.E. Gray, 1843)      species    Animal…
+## 3 https://biodiversity.… Zyzomys arg… (Thomas, 1889)         species    Animal…
+## 4 https://biodiversity.… Pseudomys h… (Waite, 1896)          species    Animal…
+## 5 https://biodiversity.… Melomys bur… (Ramsay, 1887)         species    Animal…
+## 6 https://biodiversity.… Notomys ale… Thomas, 1922           species    Animal…
+## # ℹ abbreviated name: ¹​scientific_name_authorship
+## # ℹ 6 more variables: phylum <chr>, class <chr>, order <chr>, family <chr>,
+## #   genus <chr>, vernacular_name <chr>
 ```
 
 
@@ -129,7 +139,6 @@ occ <- galah_call() |>
 ## Retrying in 1 seconds.
 ## Retrying in 2 seconds.
 ## Retrying in 4 seconds.
-## Retrying in 8 seconds.
 ```
 
 ```r
@@ -138,15 +147,16 @@ occ |> head()
 
 ```
 ## # A tibble: 6 × 9
-##   recordID          scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus dataResourceName
-##   <chr>             <chr>          <chr>                    <dbl>            <dbl> <dttm>              <chr>            <chr>           
-## 1 0000a928-d756-42… Eolophus rose… https://biodi…           -35.6             149. 2017-04-19 09:11:00 PRESENT          eBird Australia 
-## 2 0001bc78-d2e9-48… Eolophus rose… https://biodi…           -35.2             149. 2019-08-13 15:13:00 PRESENT          eBird Australia 
-## 3 0002064f-08ea-42… Eolophus rose… https://biodi…           -35.3             149. 2014-03-16 06:48:00 PRESENT          eBird Australia 
-## 4 00022dd2-9f85-48… Eolophus rose… https://biodi…           -35.3             149. 2022-05-08 08:20:00 PRESENT          eBird Australia 
-## 5 0002cc35-8d5a-4d… Eolophus rose… https://biodi…           -35.3             149. 2015-11-01 08:00:00 PRESENT          eBird Australia 
-## 6 00030a8c-082f-44… Eolophus rose… https://biodi…           -35.3             149. 2022-01-06 11:47:00 PRESENT          eBird Australia 
-## # ℹ 1 more variable: institutionID <lgl>
+##   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+##   <chr>          <chr>          <chr>                    <dbl>            <dbl>
+## 1 0000a928-d756… Eolophus rose… https://biodi…           -35.6             149.
+## 2 0001bc78-d2e9… Eolophus rose… https://biodi…           -35.2             149.
+## 3 0002064f-08ea… Eolophus rose… https://biodi…           -35.3             149.
+## 4 00022dd2-9f85… Eolophus rose… https://biodi…           -35.3             149.
+## 5 0002cc35-8d5a… Eolophus rose… https://biodi…           -35.3             149.
+## 6 00030a8c-082f… Eolophus rose… https://biodi…           -35.3             149.
+## # ℹ 4 more variables: eventDate <dttm>, occurrenceStatus <chr>,
+## #   dataResourceName <chr>, institutionID <lgl>
 ```
 
 
@@ -164,30 +174,24 @@ media_data <- galah_call() |>
     year == 2020,
     cl22 == "Australian Capital Territory") |>
   atlas_media()
-```
-
-```
-## Retrying in 1 seconds.
-## Retrying in 2 seconds.
-## Retrying in 4 seconds.
-```
-
-```r
+  
 media_data |> head()
 ```
 
 ```
 ## # A tibble: 6 × 19
-##   media_id recordID scientificName taxonConceptID decimalLatitude decimalLongitude eventDate           occurrenceStatus dataResourceName
-##   <chr>    <chr>    <chr>          <chr>                    <dbl>            <dbl> <dttm>              <chr>            <chr>           
-## 1 ff8322d… 003a192… Eolophus rose… https://biodi…           -35.3             149. 2020-09-12 06:11:00 PRESENT          iNaturalist Aus…
-## 2 c66fc81… 015ee7c… Eolophus rose… https://biodi…           -35.4             149. 2020-08-09 05:11:00 PRESENT          iNaturalist Aus…
-## 3 fe6d7b9… 05e86b7… Eolophus rose… https://biodi…           -35.4             149. 2020-11-13 22:29:00 PRESENT          NatureMapr      
-## 4 2f4d32c… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus…
-## 5 7340741… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus…
-## 6 89171c4… 063bb0f… Eolophus rose… https://biodi…           -35.6             149. 2020-08-04 01:50:00 PRESENT          iNaturalist Aus…
-## # ℹ 10 more variables: multimedia <chr>, images <chr>, videos <lgl>, sounds <lgl>, creator <chr>, license <chr>, mimetype <chr>,
-## #   width <int>, height <int>, image_url <chr>
+##   media_id               recordID scientificName taxonConceptID decimalLatitude
+##   <chr>                  <chr>    <chr>          <chr>                    <dbl>
+## 1 ff8322d0-f44c-47a3-b2… 003a192… Eolophus rose… https://biodi…           -35.3
+## 2 c66fc819-7022-44ff-9a… 015ee7c… Eolophus rose… https://biodi…           -35.4
+## 3 fe6d7b94-9e61-4ac4-8b… 05e86b7… Eolophus rose… https://biodi…           -35.4
+## 4 2f4d32c0-a084-4bb3-a9… 063bb0f… Eolophus rose… https://biodi…           -35.6
+## 5 73407414-0707-4292-a2… 063bb0f… Eolophus rose… https://biodi…           -35.6
+## 6 89171c49-5a64-423c-a7… 063bb0f… Eolophus rose… https://biodi…           -35.6
+## # ℹ 14 more variables: decimalLongitude <dbl>, eventDate <dttm>,
+## #   occurrenceStatus <chr>, dataResourceName <chr>, multimedia <chr>,
+## #   images <chr>, videos <lgl>, sounds <lgl>, creator <chr>, license <chr>,
+## #   mimetype <chr>, width <int>, height <int>, image_url <chr>
 ```
 
 To actually download the media files to your computer, use [collect_media()].
@@ -208,27 +212,27 @@ galah_call() |>
 
 ```
 ## # A tibble: 19 × 4
-##    name            rank      parent_taxon_concept_id                                                   taxon_concept_id                 
-##    <chr>           <chr>     <chr>                                                                     <chr>                            
-##  1 Chordata        phylum    <NA>                                                                      https://biodiversity.org.au/afd/…
-##  2 Cephalochordata subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/…
-##  3 Tunicata        subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/…
-##  4 Appendicularia  class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/…
-##  5 Ascidiacea      class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/…
-##  6 Thaliacea       class     https://biodiversity.org.au/afd/taxa/1c20ed62-d918-4e42-b625-8b86d533cc51 https://biodiversity.org.au/afd/…
-##  7 Vertebrata      subphylum https://biodiversity.org.au/afd/taxa/065f1da4-53cd-40b8-a396-80fa5c74dedd https://biodiversity.org.au/afd/…
-##  8 Agnatha         informal  https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea0111cc7e https://biodiversity.org.au/afd/…
-##  9 Myxini          informal  https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feaeaa3e0 https://biodiversity.org.au/afd/…
-## 10 Petromyzontida  informal  https://biodiversity.org.au/afd/taxa/66db22c8-891d-4b16-a1a2-b66feaeaa3e0 https://biodiversity.org.au/afd/…
-## 11 Gnathostomata   informal  https://biodiversity.org.au/afd/taxa/5d6076b1-b7c7-487f-9d61-0fea0111cc7e https://biodiversity.org.au/afd/…
-## 12 Amphibia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…
-## 13 Aves            class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…
-## 14 Mammalia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…
-## 15 Pisces          informal  https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…
-## 16 Actinopterygii  class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/…
-## 17 Chondrichthyes  class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/…
-## 18 Sarcopterygii   class     https://biodiversity.org.au/afd/taxa/e22efeb4-2cb5-4250-8d71-61c48bdaa051 https://biodiversity.org.au/afd/…
-## 19 Reptilia        class     https://biodiversity.org.au/afd/taxa/ef5515fd-a0a2-4e16-b61a-0f19f8900f76 https://biodiversity.org.au/afd/…
+##    name            rank      parent_taxon_concept_id           taxon_concept_id
+##    <chr>           <chr>     <chr>                             <chr>           
+##  1 Chordata        phylum    <NA>                              https://biodive…
+##  2 Cephalochordata subphylum https://biodiversity.org.au/afd/… https://biodive…
+##  3 Tunicata        subphylum https://biodiversity.org.au/afd/… https://biodive…
+##  4 Appendicularia  class     https://biodiversity.org.au/afd/… https://biodive…
+##  5 Ascidiacea      class     https://biodiversity.org.au/afd/… https://biodive…
+##  6 Thaliacea       class     https://biodiversity.org.au/afd/… https://biodive…
+##  7 Vertebrata      subphylum https://biodiversity.org.au/afd/… https://biodive…
+##  8 Agnatha         informal  https://biodiversity.org.au/afd/… https://biodive…
+##  9 Myxini          informal  https://biodiversity.org.au/afd/… https://biodive…
+## 10 Petromyzontida  informal  https://biodiversity.org.au/afd/… https://biodive…
+## 11 Gnathostomata   informal  https://biodiversity.org.au/afd/… https://biodive…
+## 12 Amphibia        class     https://biodiversity.org.au/afd/… https://biodive…
+## 13 Aves            class     https://biodiversity.org.au/afd/… https://biodive…
+## 14 Mammalia        class     https://biodiversity.org.au/afd/… https://biodive…
+## 15 Pisces          informal  https://biodiversity.org.au/afd/… https://biodive…
+## 16 Actinopterygii  class     https://biodiversity.org.au/afd/… https://biodive…
+## 17 Chondrichthyes  class     https://biodiversity.org.au/afd/… https://biodive…
+## 18 Sarcopterygii   class     https://biodiversity.org.au/afd/… https://biodive…
+## 19 Reptilia        class     https://biodiversity.org.au/afd/… https://biodive…
 ```
 
 # Configuring `galah`

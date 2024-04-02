@@ -23,8 +23,8 @@ resulting `tibble` correspond to these fields.
 
 Data fields are important because they provide a means to manipulate queries
 to return only the information that you need, and no more. Consequently, much of 
-the architecture of `galah` has been designed to make narrowing as simple as possible. 
-These functions include:
+the architecture of `galah` has been designed to make narrowing as simple as 
+possible. These functions include:
 
 -   `galah_identify` or `identify`
 -   `galah_filter` or `filter`
@@ -34,11 +34,13 @@ These functions include:
 
 These names have been chosen to echo comparable functions from `dplyr`; namely
 `filter`, `select` and `group_by`. With the exception of `galah_geolocate`, they
-also use `dplyr` tidy evaluation and syntax. This means that how you use 
-`dplyr` functions is also how you use `galah_` functions.
+also use `dplyr` tidy evaluation and syntax. This means that you can alternate
+between `dplyr` and `galah` versions of these functions as you see fit. Below we 
+use the `galah_` prefix for consistency with earlier versions of this vignette.
 
-# galah_identify & search_taxa
-Perhaps unsurprisingly, `search_taxa` searches for taxonomic information. 
+
+# `galah_identify` & `search_taxa`
+Perhaps unsurprisingly, `search_taxa()` searches for taxonomic information. 
 It uses fuzzy matching to work a lot like the search bar on the 
 [Atlas of Living Australia website](https://bie-ws.ala.org.au/), 
 and you can use it to search for taxa by their scientific name. Finding your 

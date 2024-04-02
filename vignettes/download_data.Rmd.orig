@@ -23,6 +23,12 @@ return any new data. Instead it provides a citation for an existing dataset (
 downloaded using `atlas_occurrences`) that has an associated DOI. The other 
 functions are described below.
 
+Note that it is equally permissable to use the `type` argument of `galah_call()`
+to specify the kind of data you want, and then retrive it using `collect()`. 
+Here we use the `atlas_` prefix for consistency with earlier versions of `galah`,
+and because the `atlas_` functions sometimes include shortcuts to make your life
+easier.
+
 ```{r include = FALSE}
 galah_config(email = "ala4r@ala.org.au",
              atlas = "Australia", 
