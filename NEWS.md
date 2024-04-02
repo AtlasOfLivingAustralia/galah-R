@@ -1,3 +1,18 @@
+# galah 2.0.2
+
+### Minor improvements
+* New `galah_radius()` function added
+* Improved behaviour and robustness of `atlas_species()`, particularly for other atlases 
+* Improved behavior of `select()`, including supporting `atlas_species()` and adding new `group = "taxonomy"` option
+* `galah_filter()` no longer fails when assertions are specified
+* Add onLoad message so user is clear which organisation is being queried
+
+### Bug fixes
+* `atlas_occurrences()` no longer overwrites returned field names with user-supplied ones.
+* labels are now parsed correctly in both `show_values()` and `atlas_counts()`.
+* `apply_profile()` now works as expected.
+
+
 # galah 2.0.1
 
 ### Minor improvements
