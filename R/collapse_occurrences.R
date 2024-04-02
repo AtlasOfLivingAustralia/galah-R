@@ -3,8 +3,10 @@
 #' @noRd
 #' @keywords Internal
 collapse_occurrences <- function(.query){
-  if(is.null(.query$filter) & is.null(.query$identify)){
-    abort("No filters supplied to atlas_occurrences()")
+  if(is.null(.query$filter) & 
+     is.null(.query$identify) & 
+     is.null(.query$geolocate)){
+    abort("No filters supplied to `collapse()` with `type = \"occurrences\"`")
   }
   switch(pour("atlas", "region"),
          "United Kingdom" = collapse_occurrences_uk(.query),
