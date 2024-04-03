@@ -124,7 +124,7 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_polygon", {
   expect_lt(count_1, count_2)
 })
 
-test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
+test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox/galah_radius", {
   skip_if_offline()
   wkt <- "POLYGON ((146.5425 -42.63203, 146.8312 -43.13203, 147.4085 -43.13203, 147.6972 -42.63203, 147.4085 -42.13203, 146.8312 -42.13203, 146.5425 -42.63203))" |>
     sf::st_as_sfc()
@@ -136,10 +136,18 @@ test_that("atlas_counts filters correctly with galah_geolocate/galah_bbox", {
   counts_filtered <- base_query |>
     galah_geolocate(wkt, type = "bbox") |>
     collect()
+  counts_filtered_radius <- base_query |>
+    galah_geolocate(lon = 147,
+                    lat = -42.9,
+                    radius = 20, 
+                    type = "radius") |>
+    collect()
   expect_s3_class(counts_filtered, c("tbl_df", "tbl", "data.frame"))
+  expect_s3_class(counts_filtered_radius, c("tbl_df", "tbl", "data.frame"))
   count_1 <- counts_filtered$count[1]
   count_2 <- counts$count[1]
-  expect_lt(count_1, count_2)
+  count_3 <- counts_filtered_radius$count[1]
+  expect_lt(count_1, count_2, count_3)
 })
 
 test_that("atlas_counts returns species counts", {
