@@ -22,7 +22,9 @@
 #' least the slots `type` and `url`.
 #' @export
 collapse.data_request <- function(x, ..., mint_doi, .expand = FALSE){
-  query_set <- build_query_set(x)
+  query_set <- build_query_set(x, 
+                               mint_doi = mint_doi, 
+                               ...)
   result <- query_set |>
     build_checks() |>
     parse_checks() |>
