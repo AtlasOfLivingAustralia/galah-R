@@ -1,6 +1,7 @@
 #' @rdname galah_geolocate
 #' @export
 galah_radius <- function(...){
+  
   # check to see if any of the inputs are a data request
   query <- list(...)
   if(length(query) > 1 & inherits(query[[1]], "data_request")){
@@ -9,8 +10,7 @@ galah_radius <- function(...){
   }else{
     dr <- NULL
   }
-  # check that only 1 WKT is supplied at a time
-  # check_n_inputs(query)
+  
   # parse
   out_query <- parse_point_radius(query)
   # if a data request was supplied, return one
@@ -29,11 +29,12 @@ galah_radius <- function(...){
 #' @noRd
 #' @keywords Internal
 parse_point_radius <- function(..., error_call = caller_env()){
+  
   query <- try_fetch(
     list(...)[[1]],
     error = function(cnd) {
       bullets <- c(
-        "No coordinates detected.",
+        "No input detected.",
         i = "Did you forget to supply coordinates to `galah_radius()`?"
       )
       abort(bullets, call = error_call)
@@ -66,10 +67,17 @@ parse_point_radius <- function(..., error_call = caller_env()){
   } 
   # Coords are supplied as lon/lat arguments
   else { # 
+    
+    # TODO: Assign numeric values to lon/lat automatically?
+    # if(!is.null(query[[1]]) && inherits(query[[1]], c("numeric", "double", "integer")) |
+    #    !is.null(query[[2]]) && inherits(query[[2]], c("numeric", "double", "integer"))) {
+    #   lon = query[[1]]
+    #   lat = query[[2]]
+    # }
       if(inherits(query, "list") && is.null(query$lat) | is.null(query$lon)) {
         bullets <- c(
           "Missing `lat` or `lon` values.",
-          i = "Point coordinates can be specified using `lat` & `lon` arguments, or supplied as an `sfc_POINT`."
+          i = "Point coordinates should be specified using `lat` & `lon` arguments, or supplied as an `sfc_POINT`."
           )
         abort(bullets, call = error_call)
       } else {
@@ -81,18 +89,35 @@ parse_point_radius <- function(..., error_call = caller_env()){
       }
     }
   
+  # Only use first set of coordinates
+  if(length(lon) > 1 | length(lat) > 1 ) {
+    check_n_inputs(lon)
+    check_n_inputs(lat)
+    lat <- lat[[1]]
+    lon <- lon[[1]]
+  }
+  
   # Check for radius value. If empty, set to 10 km
   if(is.null(query$radius)) {
-    radius = 10
     bullets <- c(
       "No radius value specified.",
       "*" = "Setting radius to 10 km."
     )
     warn(bullets)
+    radius = 10
   } else {
-    radius = query$radius
+    # Only use one radius value
+    if(length(query$radius) > 1) {
+      n_radius <- length(query$radius)
+      warn(c("More than 1 radius provided.",
+             "*" = glue("Using first radius, ignoring additional {n_radius - 1} value(s)."))
+      )
+      radius <- query$radius[[1]]
+    } else {
+      radius = query$radius
+    }
   }
-
+  
   # Check object is accepted class when supplied to lat/lon/radius arguments
   if (!any(inherits(c(lat, lon, radius), c("numeric", "double", "integer")))) {
 
@@ -105,7 +130,7 @@ parse_point_radius <- function(..., error_call = caller_env()){
                                           sep = ", ")
     bullets <- c(
       "Invalid class detected.",
-      i = "Point coordinates can be specified using `lat` & `lon` arguments, or supplied as an `sfc_POINT`.",
+      i = "Point can be specified as numeric `lat` & `lon` coordinates, or supplied as an `sfc_POINT`.",
       x = glue("`galah_radius()` does not accept type '{unrecognised_class}'.")
     )
     abort(bullets, call = error_call)
@@ -115,7 +140,7 @@ parse_point_radius <- function(..., error_call = caller_env()){
   if(lon > 180 | lon < -180 | lat > 90 | lat < -90) {
     bullets <- c(
       "Point location outside of possible range.",
-      i = "Are your point coordinates valid?"
+      i = "Are the coordinates valid?"
     )
     abort(bullets, call = error_call)
   }
@@ -126,7 +151,7 @@ parse_point_radius <- function(..., error_call = caller_env()){
       "Radius is larger than the area of Australia.",
       i = "Try reducing the radius to narrow your query."
     )
-    warn(bullets)
+    inform(bullets)
   }
   
   out_query <- list(lat = lat, 

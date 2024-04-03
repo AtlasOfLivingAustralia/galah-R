@@ -537,7 +537,7 @@ check_n_inputs <- function(dots, error_call = caller_env()) {
       "More than 1 spatial area provided.",
       "*" = glue("Using first location, ignoring additional {n_geolocations - 1} location(s).")
     )
-    warn(bullets, call = caller_env())
+    warn(bullets, call = error_call)
   }
 }
 
