@@ -16,6 +16,7 @@
 * `show_values()` & `atlas_counts()` return correctly formatted values (#233)
 * `atlas_occurrences()` no longer overwrites returned field names with user-supplied ones
 * `galah_apply_profile()` now works as expected
+* List items are no longer truncated when using `show_values()` (#235)
 
 
 # galah 2.0.1
