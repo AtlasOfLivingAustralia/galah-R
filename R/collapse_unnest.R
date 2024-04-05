@@ -29,10 +29,19 @@ collapse_fields_unnest <- function(.query){
 #' @noRd
 #' @keywords Internal
 collapse_lists_unnest <- function(.query){
+  
+  url <- url_lookup("metadata/lists-unnest",
+                    list_id = .query$filter$value[1]) |>
+    url_parse()
+  
+  url$query <- list(
+    max = -1 # remove max limit
+  )
+  
   result <- list(
     type = "metadata/lists-unnest",
-    url = url_lookup("metadata/lists-unnest",
-                     list_id = .query$filter$value[1]))
+    url = url_build(url))
+  
   class(result) <- "query"
   return(result)
 }
